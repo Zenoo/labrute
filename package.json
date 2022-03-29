@@ -1,0 +1,14 @@
+{
+  "name": "labrute",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+  },
+  "scripts": {
+    "release": "standard-version -a",
+    "front": "cd ui && npm run start"
+  },
+  "devDependencies": {
+    "standard-version": "^9.3.2"
+  }
+}
