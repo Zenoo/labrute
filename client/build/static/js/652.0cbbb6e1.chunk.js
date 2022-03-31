@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunklabrute=self.webpackChunklabrute||[]).push([[652],{1652:function(t,e,n){n.r(e),n.d(e,{default:function(){return i}});var u=n(4554),a=(n(2791),n(6871)),r=n(9570),s=n(184),c=function(t){return(0,s.jsx)("img",{src:r,alt:"LaBrute"})},i=function(){return(0,s.jsxs)(u.Z,{sx:{height:1,m:"0 auto",maxWidth:930},children:[(0,s.jsx)(c,{}),(0,s.jsx)(u.Z,{sx:{},children:(0,s.jsx)(a.j3,{})})]})}},9570:function(t,e,n){t.exports=n.p+"static/media/head.7a69d3c2dda13ec7dad2.jpg"}}]);
+//# sourceMappingURL=652.0cbbb6e1.chunk.js.map
