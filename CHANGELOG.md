@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.4](https://github.com/Zenoo/labrute/compare/v0.1.3...v0.1.4) (2022-03-31)
+
+
+### Refactoring
+
+* Import database config from .env ([5a57abe](https://github.com/Zenoo/labrute/commit/5a57abeedb7f5270d460fc4363f85eeefcc0b0bf))
+
+
+### Feature
+
+* User.connexionToken ([373724a](https://github.com/Zenoo/labrute/commit/373724a31ee4d08cc4518495848a80ef96b8df91))
+
+
+### Bug fix
+
+* Typescript types enforced ([ce682fc](https://github.com/Zenoo/labrute/commit/ce682fc3ab8745a1ff1c1a9df9c4a5b25516d5b2))
+
 ### [0.1.3](https://github.com/Zenoo/labrute/compare/v0.1.2...v0.1.3) (2022-03-31)
 
 
