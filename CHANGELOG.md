@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.5](https://github.com/Zenoo/labrute/compare/v0.1.4...v0.1.5) (2022-03-31)
+
+
+### Documentation
+
+* Added migration instructions to README ([fb8bdf1](https://github.com/Zenoo/labrute/commit/fb8bdf16ec2d601b554a0ab10c931f9e63434d14))
+
+
+### Bug fix
+
+* Ignore client files when reloading the backend ([d775a12](https://github.com/Zenoo/labrute/commit/d775a120664c9bbcb22ef96bb86cca107b34efa9))
+
+
+### Feature
+
+* Original card style on Surface and Textfield elements ([ab59ade](https://github.com/Zenoo/labrute/commit/ab59ade4eae5d5d6f34fd90b0685f01c09d692f6))
+* Translation setup + header arts ([183b532](https://github.com/Zenoo/labrute/commit/183b532cb02ea63c207d963489be7417ea301fb9))
+
 ### [0.1.4](https://github.com/Zenoo/labrute/compare/v0.1.3...v0.1.4) (2022-03-31)
 
 
