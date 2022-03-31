@@ -7,7 +7,9 @@ interface ConfirmContextInterface {
 }
 
 const ConfirmContext = React.createContext<ConfirmContextInterface>({
-  open: () => { },
+  open: () => {
+    console.error('ConfirmContext.open() not implemented');
+  },
 });
 
 export const useConfirm = () => {
@@ -15,10 +17,9 @@ export const useConfirm = () => {
   return context;
 };
 
-
 interface ConfirmProviderProps {
   children: React.ReactNode;
-};
+}
 
 interface ConfirmParams {
   title: string;
@@ -49,7 +50,12 @@ export const ConfirmProvider = ({ children }: ConfirmProviderProps) => {
   }, [params]);
 
   // Open dialog
-  const handleOpen = useCallback((title: string, content: string, onAccept?: () => void, onCancel?: () => void) => {
+  const handleOpen = useCallback((
+    title: string,
+    content: string,
+    onAccept?: () => void,
+    onCancel?: () => void
+  ) => {
     setParams({
       title,
       content,

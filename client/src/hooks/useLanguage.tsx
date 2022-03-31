@@ -9,7 +9,9 @@ interface LanguageContextInterface {
 
 const LanguageContext = React.createContext<LanguageContextInterface>({
   language: 'fr',
-  setLanguage: () => { },
+  setLanguage: () => {
+    console.error('LanguageContext.setLanguage() not implemented');
+  },
 });
 
 export const useLanguage = () => {
@@ -17,17 +19,18 @@ export const useLanguage = () => {
   return context;
 };
 
-
 interface LanguageProviderProps {
   children: React.ReactNode;
-};
+}
 
 export const LanguageProvider = ({ children }: LanguageProviderProps) => {
   const [language, _setLanguage] = useState('fr');
   const { i18n } = useTranslation();
 
   const setLanguage = useCallback((lang: string) => {
-    i18n.changeLanguage(lang);
+    i18n.changeLanguage(lang).catch((error) => {
+      console.error(error);
+    });
     _setLanguage(lang);
     moment.locale(lang);
   }, [i18n]);

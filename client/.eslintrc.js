@@ -1,12 +1,15 @@
 module.exports = {
+  root: true,
   "env": {
     "browser": true,
     "es2021": true
   },
   "extends": [
     "plugin:react/recommended",
+    'plugin:@typescript-eslint/recommended',
     "airbnb",
     "airbnb/hooks",
+    'plugin:@typescript-eslint/recommended-requiring-type-checking',
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -19,6 +22,8 @@ module.exports = {
     "project": ["./tsconfig.json"]
   },
   "plugins": [
+    '@typescript-eslint',
+    "eslint-plugin-tsdoc",
     "react",
   ],
   "rules": {
@@ -29,14 +34,13 @@ module.exports = {
     "@typescript-eslint/no-unused-vars": ["error"],
     "import/extensions": [
       "error",
-      "ignorePackages",
       {
         "js": "never",
         "jsx": "never",
         "ts": "never",
         "tsx": "never"
       }
-    ]
+    ],
 
     "object-curly-newline": ["error", {
       "ImportDeclaration": "never"

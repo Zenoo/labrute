@@ -5,22 +5,24 @@ type HeadersType = {
   'Content-Type'?: string;
 };
 
-const Fetch = (url: string, data = {}, method: string = 'GET', additionalURLParams = {}): Promise<any> => {
+const Fetch = <ReturnType>(url: string, data = {}, method = 'GET', additionalURLParams = {}): Promise<ReturnType> => {
   let body: Blob | FormData | string | null = null;
   let finalUrl = url;
 
   if (method === 'GET') {
-    finalUrl += `?${new URLSearchParams({ ...data, ...additionalURLParams })}`;
+    finalUrl += `?${new URLSearchParams({ ...data, ...additionalURLParams }).toString()}`;
   } else {
-    finalUrl += `?${new URLSearchParams({ ...additionalURLParams })}`;
+    finalUrl += `?${new URLSearchParams({ ...additionalURLParams }).toString()}`;
     body = (data instanceof FormData || data instanceof Blob) ? data : JSON.stringify(data);
   }
 
   return new Promise((resolve, reject) => {
+    const user = localStorage.getItem('user') || '';
+    const token = localStorage.getItem('password')|| '';
     const headers: HeadersType = {
       Accept: 'application/json',
       'Csrf-Token': 'nocheck',
-      Authorization: localStorage.getItem('user') ? `Basic ${btoa(`${localStorage.getItem('user')}:${localStorage.getItem('token')}`)}` : ''
+      Authorization: localStorage.getItem('user') ? `Basic ${btoa(`${user}:${token}`)}` : ''
     };
 
     if (!(data instanceof FormData) && !(data instanceof Blob)) {
@@ -37,19 +39,22 @@ const Fetch = (url: string, data = {}, method: string = 'GET', additionalURLPara
           const json = response.json();
 
           if (response.status >= 200 && response.status < 300) {
-            return json.then((processedJson) => {
+            json.then((processedJson: ReturnType) => {
               resolve(processedJson);
-              return processedJson;
+            }).catch((error) => {
+              reject(error);
             });
           }
-          return json.then((processedJson) => {
+          json.then((processedJson: ReturnType) => {
             reject(processedJson);
-            return processedJson;
+          }).catch((error) => {
+            reject(error);
           });
         }
 
         reject(response.statusText);
-        return response.statusText;
+      }).catch((error: unknown) => {
+        reject(error);
       });
   });
 };

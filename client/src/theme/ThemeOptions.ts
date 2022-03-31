@@ -9,7 +9,7 @@ interface TypeScrollbar {
   hover: string;
 }
 
-declare module "@mui/material/styles/createPalette" {
+declare module '@mui/material/styles/createPalette' {
   interface TypeBackground {
     light: string;
   }
@@ -26,7 +26,7 @@ declare module "@mui/material/styles/createPalette" {
     white: string;
   }
 }
-declare module "@mui/material/styles/createTypography" {
+declare module '@mui/material/styles/createTypography' {
   interface Typography {
     largeTextBackground: FontStyle
     tinyTextBackground: FontStyle

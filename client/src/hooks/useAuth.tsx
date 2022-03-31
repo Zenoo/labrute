@@ -1,19 +1,22 @@
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 import Server, { User } from '../utils/Server';
 
-
 interface AuthContextInterface {
   user: User | null,
   signin: (login: string, password: string) => Promise<User|null>,
   signout: () => void,
-  updateData: (data: any) => void,
+  updateData: (data: User) => void,
 }
 
 const AuthContext = React.createContext<AuthContextInterface>({
   user: null,
   signin: () => Promise.resolve(null),
-  signout: () => { },
-  updateData: () => { },
+  signout: () => {
+    console.error('AuthContext.signout() not implemented');
+  },
+  updateData: () => {
+    console.error('AuthContext.updateData() not implemented');
+  },
 });
 
 export const useAuth = () => {
@@ -43,7 +46,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setUser(null);
   }, []);
 
-  const updateData = useCallback((data) => {
+  const updateData = useCallback((data: User) => {
     setUser(data);
   }, []);
 

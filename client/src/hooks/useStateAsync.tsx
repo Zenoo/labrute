@@ -1,7 +1,11 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 /* GETTER PARAMS MUST BE MEMOIZED */
-const useStateAsync = <T,>(initialState: T, getter: (params: any) => Promise<T>, getterParams?: any): [T, React.Dispatch<React.SetStateAction<T>>] => {
+const useStateAsync = <State, Params>(
+  initialState: State,
+  getter: (params?: Params) => Promise<State>,
+  getterParams?: Params
+): [State, React.Dispatch<React.SetStateAction<State>>] => {
   const [state, setState] = useState(initialState);
 
   useEffect(() => {
@@ -10,6 +14,8 @@ const useStateAsync = <T,>(initialState: T, getter: (params: any) => Promise<T>,
       if (isSubscribed) {
         setState(data);
       }
+    }).catch((error) => {
+      console.error(error);
     });
     return () => { isSubscribed = false; };
   }, [getter, getterParams]);

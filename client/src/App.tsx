@@ -11,8 +11,6 @@ import { useLanguage } from './hooks/useLanguage';
 import routes from './routes';
 import light from './theme/light';
 
-
-
 /**
  * App entry point
  * @returns {React.ReactElement}

@@ -26,6 +26,8 @@ i18n
       useSuspense: true
     },
     returnObjects: true,
+  }).catch((err) => {
+    console.error('Error loading language', err);
   });
 
 export default i18n;

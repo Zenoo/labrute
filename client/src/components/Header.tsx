@@ -1,9 +1,12 @@
+import { Box, BoxProps } from '@mui/material';
 import React from 'react';
 import head from '../assets/head.jpg';
 
-const Header = (props: any) => {
+const Header = (props: BoxProps) => {
   return (
-    <img src={head} alt="LaBrute" />
+    <Box {...props}>
+      <img src={head} alt="LaBrute" />
+    </Box>
   );
 };
 
