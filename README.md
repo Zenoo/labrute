@@ -12,6 +12,8 @@
 
 - Copy `.env.sample` to `.env` and adapt the variables
 
+- Run database migrations: `npx sequelize-cli db:migrate`
+
 - Start the server with `npm run start`
 
 ## Contributing
