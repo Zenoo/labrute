@@ -9,13 +9,13 @@ import Server from '../utils/Server';
  * @returns {React.ReactElement}
  */
 const HomeView = () => {
-  const { t } = useTranslation('home');
+  const { t } = useTranslation();
   const [users] = useStateAsync([], Server.User.list);
 
   console.log(users);
 
   return (
-    <Page title={t('title')}>
+    <Page title={t('MyBrute')}>
       {/* TODO */}
     </Page>
   );

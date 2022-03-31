@@ -41,19 +41,20 @@ const Fetch = <ReturnType>(url: string, data = {}, method = 'GET', additionalURL
           if (response.status >= 200 && response.status < 300) {
             json.then((processedJson: ReturnType) => {
               resolve(processedJson);
-            }).catch((error) => {
-              reject(error);
+            }).catch((err) => {
+              reject(err);
             });
           }
           json.then((processedJson: ReturnType) => {
             reject(processedJson);
-          }).catch((error) => {
-            reject(error);
+          }).catch((err) => {
+            reject(err);
           });
+        } else {
+          reject(response.statusText);
         }
-
-        reject(response.statusText);
-      }).catch((error: unknown) => {
+      }).catch((error) => {
+        console.log(error);
         reject(error);
       });
   });
