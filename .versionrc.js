@@ -1,6 +1,6 @@
 module.exports = {
   scripts: {
-    prerelease: 'cd ui && npm run build && cd .. && git add ui/build'
+    prerelease: 'cd client && npm run build && cd .. && git add client/build'
   },
   bumpFiles: [
     {
@@ -10,13 +10,13 @@ module.exports = {
       filename: 'package-lock.json',
     },
     {
-      filename: 'ui/package.json',
+      filename: 'client/package.json',
     },
     {
-      filename: 'ui/package-lock.json',
+      filename: 'client/package-lock.json',
     },
     {
-      filename: 'ui/src/utils/Version.ts',
+      filename: 'client/src/utils/Version.ts',
       updater: {
         readVersion: (contents) => contents.match(/!([^!]+)!/)[1],
         writeVersion: (contents, version) => contents.replace(/![^!]+!/, `!${version}!`)
