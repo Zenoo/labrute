@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.3](https://github.com/Zenoo/labrute/compare/v0.1.2...v0.1.3) (2022-03-31)
+
+
+### Bug fix
+
+* Production starting script ([7f4bf50](https://github.com/Zenoo/labrute/commit/7f4bf501497d232d2e36e8d62a0afb10af7e417c))
+* Serve client as static when running back only + configurable port. ([362da38](https://github.com/Zenoo/labrute/commit/362da385ad9c84dd7903c9d83b5565aa0eeb7e22))
+
 ### [0.1.2](https://github.com/Zenoo/labrute/compare/v0.1.1...v0.1.2) (2022-03-31)
 
 
