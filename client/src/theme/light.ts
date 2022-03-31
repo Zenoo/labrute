@@ -7,9 +7,9 @@ export default createTheme({
     ...ThemeOptions.palette,
     mode: 'light',
     text: {
-      primary: 'rgba(0, 0, 0, 0.7)',
-      secondary: 'rgba(0, 0, 0, 0.5)',
-      disabled: 'rgba(0, 0, 0, 0.3)',
+      primary: 'rgb(176 107 79)',
+      secondary: 'rgba(176, 107, 79, 0.7)',
+      disabled: 'rgba(176, 107, 79, 0.3)',
     }
   },
 });
