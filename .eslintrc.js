@@ -11,6 +11,7 @@ module.exports = {
   },
   plugins: [
     '@typescript-eslint',
+    "eslint-plugin-tsdoc"
   ],
   extends: [
     'eslint:recommended',
@@ -26,6 +27,7 @@ module.exports = {
       "error",
       { ignores: ["modules"] },
     ],
+    "tsdoc/syntax": "warn"
   },
   "settings": {
     "node": {

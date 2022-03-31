@@ -6,6 +6,7 @@ export class User extends Model {
   declare login: string;
   declare language: string;
   declare password: string;
+  declare connexionToken: string;
 }
 
 export class UserModel {
@@ -14,6 +15,7 @@ export class UserModel {
   declare login: string;
   declare language: string;
   declare password: string;
+  declare connexionToken: string;
   declare createdAt: Date;
   declare updatedAt: Date;
 }
@@ -23,7 +25,8 @@ User.init(
     email: STRING(50),
     login: STRING(50),
     language: STRING(2),
-    password: STRING(50)
+    password: STRING(50),
+    connexionToken: STRING(50),
   },
   { sequelize, modelName: 'User' }
 );

@@ -1,10 +1,15 @@
 import { Sequelize } from 'sequelize';
-import config from '../config/config.json';
 
 
-const dbConfig = process.env.NODE_ENV === 'development' ? config.development : process.env.NODE_ENV === 'production' ? config.production : config.test;
+const config = {
+  username: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT
+};
 
-const sequelize = new Sequelize(`postgres://${dbConfig.username}:${dbConfig.password}@${dbConfig.host}:${dbConfig.port}/${dbConfig.database}`);
+const sequelize = new Sequelize(`postgres://${config.username}:${config.password}@${config.host}:${config.port}/${config.database}`);
 
 sequelize.authenticate().then(() => {
   console.log('Connection has been established successfully.');

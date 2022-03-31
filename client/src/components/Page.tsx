@@ -1,5 +1,4 @@
-import { Box, GlobalStyles } from '@mui/material';
-import { useTheme } from '@mui/system';
+import { Box, GlobalStyles, useTheme } from '@mui/material';
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
@@ -27,7 +26,8 @@ const Page = ({
           height: '100%',
           background: `linear-gradient(180deg, ${theme.palette.background.light} 0%, ${theme.palette.background.default} 160px)`,
         }
-      }} />
+      }}
+      />
       <Helmet>
         <title>{title}</title>
       </Helmet>

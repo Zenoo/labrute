@@ -1,20 +1,17 @@
 import React, { useCallback, useContext, useMemo, useState } from 'react';
-import Server from '../utils/Server';
+import Server, { User } from '../utils/Server';
+
 
 interface AuthContextInterface {
-  user: AuthUser | null,
-  signin: (login: string, password: string) => Promise<AuthUser>,
+  user: User | null,
+  signin: (login: string, password: string) => Promise<User|null>,
   signout: () => void,
   updateData: (data: any) => void,
 }
 
 const AuthContext = React.createContext<AuthContextInterface>({
   user: null,
-  signin: () => Promise.resolve({
-    id: '',
-    login: '',
-    connexionToken: '',
-  }),
+  signin: () => Promise.resolve(null),
   signout: () => { },
   updateData: () => { },
 });
@@ -24,19 +21,12 @@ export const useAuth = () => {
   return context;
 };
 
-
 interface AuthProviderProps {
   children: React.ReactNode;
-};
-
-interface AuthUser {
-  id: string;
-  login: string;
-  connexionToken: string;
 }
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [user, setUser] = useState<AuthUser | null>(null);
+  const [user, setUser] = useState<User | null>(null);
 
   const signin = useCallback((login: string, password: string) => {
     return Server.User.authenticate(login, password).then((response) => {
