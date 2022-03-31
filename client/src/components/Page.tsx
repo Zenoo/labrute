@@ -1,19 +1,20 @@
-import { Box, GlobalStyles, useTheme } from '@mui/material';
+import { Box, BoxProps, GlobalStyles, useTheme } from '@mui/material';
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
-interface Props {
+interface Props extends BoxProps {
   title: string,
   children: React.ReactNode;
 }
 
 const Page = ({
   title,
-  children
+  children,
+  ...rest
 }: Props) => {
   const theme = useTheme();
   return (
-    <Box sx={{ }}>
+    <Box {...rest}>
       <GlobalStyles styles={{
         html: {
           height: '100%'

@@ -9,6 +9,13 @@ interface TypeScrollbar {
   hover: string;
 }
 
+interface TypeBorder {
+  shadow: string;
+  outer: string;
+  main: string;
+  inner: string;
+}
+
 declare module '@mui/material/styles/createPalette' {
   interface TypeBackground {
     light: string;
@@ -16,7 +23,8 @@ declare module '@mui/material/styles/createPalette' {
 
   interface Palette {
     transition?: TypeTransition,
-    scrollbar?: TypeScrollbar
+    scrollbar?: TypeScrollbar,
+    border: TypeBorder,
   }
   interface PaletteOptions {
     transition?: TypeTransition,
@@ -50,15 +58,24 @@ const defaultTheme = {
     },
     background: {
       default: 'rgb(235,173,112)',
+      paper: '#fbf2af',
       light: 'rgba(247,225,183,1)'
+    },
+    border: {
+      shadow: '#ce8b45',
+      outer: '#876259',
+      main: '#f6e978',
+      inner: '#dec37f',
     }
   },
   typography,
   components: {
-    MuiDrawer: {
+    MuiTextField: {
+    },
+    MuiButton: {
       styleOverrides: {
-        paper: {
-          backgroundImage: 'none',
+        root: {
+          fontSize: '1rem',
         },
       },
     },

@@ -1,6 +1,8 @@
 {
   "MyBrute": "MyBrute",
   "MyBruteIllustration": "MyBrute Illustration",
+  "background": "Background",
+  "alreadyRegistered": "Already registered ?",
   "cancel": "Cancel",
   "continue": "Continue"
 }

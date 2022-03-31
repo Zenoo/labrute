@@ -1,6 +1,8 @@
 {
   "MyBrute": "LaBrute",
   "MyBruteIllustration": "Illustration LaBrute",
+  "background": "Arrière-plan",
+  "alreadyRegistered": "Déjà inscrit ?",
   "cancel": "Annuler",
   "continue": "Continuer"
 }
