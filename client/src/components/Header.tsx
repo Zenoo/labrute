@@ -1,9 +1,9 @@
-import { Box } from '@mui/material';
 import React from 'react';
+import head from '../assets/head.jpg';
 
 const Header = (props: any) => {
   return (
-    <Box {...props}>TODO</Box>
+    <img src={head} alt="LaBrute" />
   );
 };
 

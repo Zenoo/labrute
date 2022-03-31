@@ -12,13 +12,11 @@ const HomeView = () => {
   const { t } = useTranslation('home');
   const [users] = useStateAsync([], Server.User.list);
 
+  console.log(users);
+
   return (
     <Page title={t('title')}>
-      {users.map((user) => (
-        <div key={user.id}>
-          {user.login}
-        </div>
-      ))}
+      {/* TODO */}
     </Page>
   );
 };

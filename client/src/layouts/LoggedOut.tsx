@@ -6,7 +6,11 @@ import Header from '../components/Header';
 
 const LoggedOut = () => {
   return (
-    <Box sx={{}}>
+    <Box sx={{
+      height: 1,
+      m: '0 auto',
+      maxWidth: 930
+    }}>
       <Header />
       <Box sx={{}}>
             <Outlet />

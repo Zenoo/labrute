@@ -11,7 +11,7 @@ interface TypeScrollbar {
 
 declare module "@mui/material/styles/createPalette" {
   interface TypeBackground {
-    main: string;
+    light: string;
   }
 
   interface Palette {
@@ -48,12 +48,9 @@ const defaultTheme = {
       main: 'rgba(0,0,0,.3)',
       hover: 'rgba(0,0,0,.5)',
     },
-    status: {
-      ongoing: '#3294d6',
-      sent: 'orange',
-      validated: '#66cf6f',
-      lost: '#f44336',
-      closed: 'green',
+    background: {
+      default: 'rgb(235,173,112)',
+      light: 'rgba(247,225,183,1)'
     }
   },
   typography,
