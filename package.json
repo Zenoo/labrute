@@ -13,7 +13,8 @@
   "scripts": {
     "release": "standard-version -a",
     "front": "cd client && npm run start",
-    "back": "nodemon server/server.ts"
+    "back": "nodemon server/server.ts",
+    "start": "ts-node server/server.ts"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
