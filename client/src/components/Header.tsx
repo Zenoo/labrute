@@ -1,13 +1,7 @@
 import { Box, BoxProps } from '@mui/material';
 import React, { useMemo } from 'react';
-import head from '../assets/head.jpg';
-import art10 from '../assets/art/10.png';
-import art104 from '../assets/art/104.png';
-import art106 from '../assets/art/106.png';
-import art107 from '../assets/art/107.png';
 import { useTranslation } from 'react-i18next';
-
-const art = [art10, art104, art106, art107];
+import pad from '../utils/pad';
 
 /**
  * Header component
@@ -18,11 +12,14 @@ const Header = (props: BoxProps) => {
   const { t } = useTranslation();
 
   // Randomized left art
-  const leftArt = useMemo(() => art[Math.floor(Math.random() * art.length)], []);
+  const leftArt = useMemo(() => Math.floor(Math.random() * (11 - 1 + 1) + 1), []);
   // Randomized right art (must be different from left art)
   const rightArt = useMemo(() => {
-    const noDups = art.filter((a) => a !== leftArt);
-    return noDups[Math.floor(Math.random() * noDups.length)];
+    let art = Math.floor(Math.random() * (11 - 1 + 1) + 1);
+    while (art === leftArt) {
+      art = Math.floor(Math.random() * (11 - 1 + 1) + 1);
+    }
+    return art;
   }, [leftArt]);
 
   return (
@@ -34,7 +31,7 @@ const Header = (props: BoxProps) => {
     >
       <Box
         component="img"
-        src={leftArt}
+        src={`/images/art/header/left/${pad(leftArt, 2)}.png`}
         alt={t('MyBruteIllustration')}
         sx={{
           position: 'absolute',
@@ -43,10 +40,10 @@ const Header = (props: BoxProps) => {
           zIndex: 1,
         }}
       />
-      <Box component="img" src={head} alt={t('MyBrute')} />
+      <Box component="img" src="/images/art/header/head.jpg" alt={t('MyBrute')} />
       <Box
         component="img"
-        src={rightArt}
+        src={`/images/art/header/right/1${pad(rightArt, 2)}.png`}
         alt={t('MyBruteIllustration')}
         sx={{
           position: 'absolute',

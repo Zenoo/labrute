@@ -32,14 +32,9 @@ const defaultTypography = {
   overline: {
     fontWeight: 500
   },
-  largeTextBackground: {
-    fontWeight: 'bold',
-    fontSize: 60,
+  handwritten: {
+    fontFamily: '"Architects Daughter", cursive',
   },
-  tinyTextBackground: {
-    fontWeight: 'bold',
-    fontSize: 50,
-  }
 };
 
 export default defaultTypography;

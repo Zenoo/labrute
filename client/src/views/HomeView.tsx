@@ -1,9 +1,8 @@
-import { Box } from '@mui/material';
+import { Box, TextField } from '@mui/material';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import mainBg from '../assets/main-bg.gif';
 import Page from '../components/Page';
-import TextField from '../components/TextField';
+import StyledButton from '../components/StyledButton';
 import useStateAsync from '../hooks/useStateAsync';
 import Server from '../utils/Server';
 
@@ -35,18 +34,24 @@ const HomeView = () => {
               left: 0,
             }}
             component="img"
-            src={mainBg}
+            src="/images/main-bg.gif"
             alt={t('background')}
           />
         </Box>
       </Box>
-      <Box sx={{ display: 'flex', justifyContent: 'end', mx: '14px' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'end', mx: '14px', mt: 2 }}>
         <TextField
           label={t('alreadyRegistered')}
-          variant="outlined"
           onChange={changeLogin}
           value={login}
+          variant="outlined"
         />
+        <StyledButton
+          variant="contained"
+          sx={{ ml: 2 }}
+        >
+          {t('enter!')}
+        </StyledButton>
       </Box>
     </Page>
   );
