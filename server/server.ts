@@ -1,7 +1,11 @@
 import express from 'express';
+import dotenv from "dotenv";
+dotenv.config();
+
 import bodyParser from 'body-parser';
 import { initRoutes } from './routes';
 import path from 'path';
+
 const app = express();
 const port = process.env.PORT || 9000;
 
