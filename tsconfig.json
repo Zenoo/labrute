@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2019",
+    "strict": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "outDir": "./dist",
+    "moduleResolution": "node",
+    "sourceMap": true
+  },
+  "exclude": [
+    "./client"
+  ],
+  "include": [
+    "./server",
+    "types.d.ts"
+  ]
+}

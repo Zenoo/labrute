@@ -2,6 +2,7 @@
   "name": "labrute",
   "version": "0.1.1",
   "private": true,
+  "proxy": "http://localhost:9000",
   "dependencies": {
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
@@ -46,8 +47,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "standard-version": "^9.3.2"
   }
 }
