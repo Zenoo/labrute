@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.7](https://github.com/Zenoo/labrute/compare/v0.1.6...v0.1.7) (2022-04-01)
+
+
+### Progress
+
+* Assets sorting ([d5c85da](https://github.com/Zenoo/labrute/commit/d5c85da6589215034b56c045c82925c6c696277e))
+
 ### [0.1.6](https://github.com/Zenoo/labrute/compare/v0.1.5...v0.1.6) (2022-03-31)
 
 
