@@ -37,6 +37,9 @@ const defaultTypography = {
   handwritten: {
     fontFamily: '"Architects Daughter", cursive',
   },
+  Verdana: {
+    fontFamily: 'Verdana',
+  },
 };
 
 export default defaultTypography;

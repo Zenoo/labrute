@@ -1,4 +1,4 @@
 @font-face {
-  font-family: 'Verdana';
-  src: local('Verdana'), url(./assets/fonts/Verdana_10pt_st.woff) format('woff');
+  font-family: Verdana;
+  src: url(./assets/fonts/Verdana_10pt_st.woff);
 }

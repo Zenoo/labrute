@@ -49,6 +49,7 @@ declare module '@mui/material/styles/createPalette' {
 declare module '@mui/material/styles/createTypography' {
   interface Typography {
     handwritten: FontStyle
+    Verdana: FontStyle
   }
 }
 
@@ -109,39 +110,23 @@ const defaultTheme = {
     MuiOutlinedInput: {
       styleOverrides: {
         root: sx({
-          bgcolor: 'background.paper',
-          '&:hover': {
-            bgcolor: 'background.paperLight',
-          }
-        }),
-        focused: sx({
-          color: 'text.primary',
-          notchedOutline: {
-            border: 'none'
-          }
+          color: 'secondary.main',
         }),
         notchedOutline: sx({
           border: 'none',
-          boxShadow: `0 0 0 1.5px ${border.inner},
-          0 0 0 4px ${border.main},
-          0 0 0 5.5px ${border.outer},
-          3px 3px 1px 5px ${border.shadow}`,
+        }),
+        input: sx({
+          typography: 'handwritten',
+          fontWeight: 'bold',
         })
       }
     },
     MuiInputLabel: {
       styleOverrides: {
         root: sx({
-          typography: 'handwritten'
+          typography: 'handwritten',
+          textTransform: 'uppercase',
         }),
-        shrink: sx({
-          boxShadow: `0 0 0 1.5px ${border.inner},
-          0 0 0 4px ${border.main},
-          0 0 0 5.5px ${border.outer}`,
-          bgcolor: 'background.paper',
-          borderRadius: '4px',
-          padding: '0 4px',
-        })
       }
     },
     MuiButtonBase: {
