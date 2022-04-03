@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.8](https://github.com/Zenoo/labrute/compare/v0.1.7...v0.1.8) (2022-04-03)
+
+
+### Bug fix
+
+* Import character creation assets + homepage progress ([9b6b4c0](https://github.com/Zenoo/labrute/commit/9b6b4c0aa440427140e6b2c570f58a6c9ecc0c6d))
+
+
+### Visual update
+
+* Homepage done ([7d58238](https://github.com/Zenoo/labrute/commit/7d58238e016b64743d6e8a9f966e7d9d8785106d))
+
 ### [0.1.7](https://github.com/Zenoo/labrute/compare/v0.1.6...v0.1.7) (2022-04-01)
 
 
