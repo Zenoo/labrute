@@ -63,6 +63,7 @@ const HomeView = () => {
           sx={{ width: 290, height: 454 }}
           imgSx={{ top: '0.2px', right: 0, left: null }}
         >
+          {/* CREATION HEADER */}
           <Grid container sx={{ pl: 7, pr: 4, pt: 4 }}>
             <Grid item xs={9} sx={{ pl: 4 }}>
               <Text sx={{ typography: 'Verdana', fontSize: 10 }} color="secondary">{t('chooseName')}</Text>
@@ -71,14 +72,17 @@ const HomeView = () => {
               <Box component="img" src="/images/creation/arrow.png" alt={t('arrow')} />
             </Grid>
           </Grid>
+          {/* NAME INPUT */}
           <Box sx={{ pl: 6.5, pr: 4 }}>
             <StyledInput
               onChange={changeName}
               value={name}
             />
+            {/* CHARACTER */}
             <Box sx={{ textAlign: 'center', mt: 1 }}>
               <Box component="img" src="/images/creation/noCharacter.svg" alt={t('character')} />
             </Box>
+            {/* CUSTOMIZATION BUTTONS */}
             <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
               <Tooltip title={t('changeAppearance')}>
                 <StyledButton
@@ -95,9 +99,24 @@ const HomeView = () => {
                 />
               </Tooltip>
             </Box>
-            <Box sx={{ textAlign: 'center', mt: 6 }}>
+            {/* VISUAL NOISE */}
+            <Box
+              component="img"
+              src="/images/creation/broken.png"
+              alt="Crack"
+              sx={{ mt: 2, ml: 16 }}
+            />
+            {/* VALIDATION */}
+            <Box sx={{ textAlign: 'center' }}>
               <StyledButton>{t('validate')}</StyledButton>
             </Box>
+            {/* VISUAL NOISE */}
+            <Box
+              component="img"
+              src="/images/creation/scratches.png"
+              alt="Scratch"
+              sx={{ ml: 6 }}
+            />
           </Box>
         </BoxWithBackground>
         {/* RIGHT SIDE */}
