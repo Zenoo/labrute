@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.9](https://github.com/Zenoo/labrute/compare/v0.1.8...v0.1.9) (2022-04-03)
+
+
+### Visual update
+
+* Added visual imperfections ([ff9020e](https://github.com/Zenoo/labrute/commit/ff9020e984f1f35cdea90ba70f91e319f1b6165c))
+
 ### [0.1.8](https://github.com/Zenoo/labrute/compare/v0.1.7...v0.1.8) (2022-04-03)
 
 
