@@ -5,5 +5,9 @@
   "alreadyRegistered": "Déjà inscrit ?",
   "enter!": "Entrer !",
   "cancel": "Annuler",
-  "continue": "Continuer"
+  "continue": "Continuer",
+  "toBeABrute": "ÊTRE UNE BRUTE...",
+  "createBrute": "Pour créer ta Brute unique, il suffit de taper un nom. Tu pourras ensuite combattre les autres brutes dans l'arène et recruter des élèves ! Gagne de l'expérience, et fait toi une place dans le classement pour devenir... LA Brute !",
+  "orNotToBe": "... OU NE PAS L'ÊTRE",
+  "otherGames": "Si toute cette violence sans pitié te tape sur le système, tu peux toujours essayer nos autres jeux rigolos ci-dessous : Jeux de reflexion, jeux de mots, aventure, gestion..."
 }

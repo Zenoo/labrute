@@ -72,7 +72,7 @@ const defaultTheme = {
       main: '#dbbf95',
     },
     secondary: {
-      main: '#604db7',
+      main: '#733d2c',
     },
     transition: { // Custom
       time: '0.5s',

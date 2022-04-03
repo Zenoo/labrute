@@ -22,6 +22,7 @@ const Page = ({
         body: {
           margin: 0,
           height: '100%',
+          fontFamily: 'arial,sans-serif'
         },
         '#root': {
           height: '100%',

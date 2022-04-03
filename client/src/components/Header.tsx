@@ -26,12 +26,13 @@ const Header = (props: BoxProps) => {
     <Box
       sx={{
         position: 'relative',
+        zIndex: 2,
       }}
       {...props}
     >
       <Box
         component="img"
-        src={`/images/art/header/left/${pad(leftArt, 2)}.png`}
+        src={`/images/header/left/${pad(leftArt, 2)}.png`}
         alt={t('MyBruteIllustration')}
         sx={{
           position: 'absolute',
@@ -40,10 +41,10 @@ const Header = (props: BoxProps) => {
           zIndex: 1,
         }}
       />
-      <Box component="img" src="/images/art/header/head.jpg" alt={t('MyBrute')} />
+      <Box component="img" src="/images/header/head.jpg" alt={t('MyBrute')} />
       <Box
         component="img"
-        src={`/images/art/header/right/1${pad(rightArt, 2)}.png`}
+        src={`/images/header/right/1${pad(rightArt, 2)}.png`}
         alt={t('MyBruteIllustration')}
         sx={{
           position: 'absolute',

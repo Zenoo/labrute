@@ -1,4 +1,6 @@
 const defaultTypography = {
+  fontFamily: 'arial,sans-serif',
+  fontSize: 11.5,
   h1: {
     fontWeight: 500,
     fontSize: 35,

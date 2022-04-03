@@ -42,6 +42,8 @@ module.exports = {
         "json": "always",
       }
     ],
+    "react/prop-types": "off",
+    "react/require-default-props": "off",
 
     "object-curly-newline": ["error", {
       "ImportDeclaration": "never"
