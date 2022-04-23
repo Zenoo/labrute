@@ -44,6 +44,10 @@ module.exports = {
     ],
     "react/prop-types": "off",
     "react/require-default-props": "off",
+    "@typescript-eslint/restrict-template-expressions": ["error",
+      {
+        allowNullish: true,
+      }],
 
     "object-curly-newline": ["error", {
       "ImportDeclaration": "never"

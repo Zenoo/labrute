@@ -1,13 +1,15 @@
 import { Box, Grid, Link, Tooltip } from '@mui/material';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import BoxWithBackground from '../components/BoxWithBackground';
+import Brute from '../components/Brute/Brute';
 import Page from '../components/Page';
 import StyledButton from '../components/StyledButton';
 import StyledInput from '../components/StyledInput';
 import Text from '../components/Text';
-import useStateAsync from '../hooks/useStateAsync';
-import Server from '../utils/Server';
+import eyes from '../utils/brute/eyes';
+import hairs from '../utils/brute/hairs';
+import { Asset, Gender } from '../utils/brute/types';
 
 const redirectImages = [
   'arkadeo.gif',
@@ -25,7 +27,7 @@ const redirectImages = [
  */
 const HomeView = () => {
   const { t } = useTranslation();
-  const [users] = useStateAsync([], Server.User.list);
+  // const [users] = useStateAsync([], Server.User.list);
   // Randomized left redirect
   const leftRedirect = useMemo(() => Math.floor(
     Math.random() * (redirectImages.length - 1) + 1
@@ -39,10 +41,14 @@ const HomeView = () => {
     return redirect;
   }, [leftRedirect]);
 
-  console.log(users);
+  const [login, setLogin] = useState('');
+  const [name, setName] = useState('');
 
-  const [login, setLogin] = React.useState('');
-  const [name, setName] = React.useState('');
+  /* CHARACTER CREATOR */
+  const [creationStarted, setCreationStarted] = useState(false);
+  const [gender, setGender] = useState<Gender>('female');
+  const [hair, setHair] = useState<Asset>(hairs.female[0]);
+  const [eye, setEye] = useState<Asset>(eyes.female[0]);
 
   // Login change handler
   const changeLogin = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,7 +57,18 @@ const HomeView = () => {
   // Name change handler
   const changeName = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
-  }, []);
+
+    // Change character
+    if (!creationStarted) setCreationStarted(true);
+    const newGender = gender === 'male' ? 'female' : 'male';
+    setGender(newGender);
+
+    const { [newGender]: availableHairs } = hairs;
+    setHair(availableHairs[Math.floor(Math.random() * availableHairs.length)]);
+
+    const { [newGender]: availableEyes } = eyes;
+    setEye(availableEyes[Math.floor(Math.random() * availableEyes.length)]);
+  }, [creationStarted, gender]);
 
   return (
     <Page title={t('MyBrute')}>
@@ -80,7 +97,12 @@ const HomeView = () => {
             />
             {/* CHARACTER */}
             <Box sx={{ textAlign: 'center', mt: 1 }}>
-              <Box component="img" src="/images/creation/noCharacter.svg" alt={t('character')} />
+              <Brute
+                empty={!creationStarted}
+                gender={gender}
+                eye={eye}
+                hair={hair}
+              />
             </Box>
             {/* CUSTOMIZATION BUTTONS */}
             <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
