@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.10](https://github.com/Zenoo/labrute/compare/v0.1.9...v0.1.10) (2022-07-02)
+
+
+### Progress
+
+* Character assets import ([d07ca24](https://github.com/Zenoo/labrute/commit/d07ca2494dc8bf21888f44a8db35634bb91905aa))
+
+
+### Feature
+
+* Brute random hair + eyes generation ([e53071b](https://github.com/Zenoo/labrute/commit/e53071bf8327c1c8f38576e71227755f7db50836))
+* Brute SVG creation ([e803f83](https://github.com/Zenoo/labrute/commit/e803f83031cf4b84f608c0529a3687ce866b419e))
+
+
+### Documentation
+
+* Added a guide to extract an asset ([f6f8bcd](https://github.com/Zenoo/labrute/commit/f6f8bcd2718e9789ac127c521b1e9e488bc1fd6f))
+
 ### [0.1.9](https://github.com/Zenoo/labrute/compare/v0.1.8...v0.1.9) (2022-04-03)
 
 
