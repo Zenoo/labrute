@@ -43,7 +43,7 @@ const availableBodyParts = {
     leftShoulder: 1,
   },
   female: {
-    longHair: 1,
+    longHair: 2,
     lowerRightArm: 1,
     rightHand: 1,
     UpperRightArm: 1,
