@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.11](https://github.com/Zenoo/labrute/compare/v0.1.10...v0.1.11) (2022-07-02)
+
+
+### Bug fix
+
+* Added space around the svg brute to display other potential parts ([dfb156f](https://github.com/Zenoo/labrute/commit/dfb156f94708177eb09aff80224fdade9bc831a6))
+
+
+### Visual update
+
+* Added 1 longHair style ([9dde7b8](https://github.com/Zenoo/labrute/commit/9dde7b8f39a51c6228e2bd89aafc119a7cbe6dc1))
+
+
+### Documentation
+
+* Added TLDR in the asset extraction guide ([1694e0c](https://github.com/Zenoo/labrute/commit/1694e0c84340746c8a4da6f9f6d41400e9dcfafc))
+
 ### [0.1.10](https://github.com/Zenoo/labrute/compare/v0.1.9...v0.1.10) (2022-07-02)
 
 
