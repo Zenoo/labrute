@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { SVGProps } from 'react';
 
-const EmptyBrute = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="65" height="140">
+const EmptyBrute = (props: SVGProps<SVGSVGElement>) => (
+  <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="65" height="140" {...props}>
     <g transform="matrix(1.0, 0.0, 0.0, 1.0, 32.0, 0.0)">
       <use width="65" height="140" transform="matrix(1.0, 0.0, 0.0, 1.0, -32.0, 0.0)" xlinkHref="#shape0" />
       <use id="5yv3" width="27.6" height="48.7" transform="matrix(1.0, 0.0, 0.0, 1.0, -16.0, 29.7)" xlinkHref="#longHair" />

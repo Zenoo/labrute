@@ -106,8 +106,6 @@ const HomeView = () => {
     });
   }, [creationStarted, gender]);
 
-  console.log(bodyParts);
-
   return (
     <Page title={t('MyBrute')}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
@@ -134,15 +132,15 @@ const HomeView = () => {
               value={name}
             />
             {/* CHARACTER */}
-            <Box sx={{ textAlign: 'center', mt: 1 }}>
+            <Box sx={{ textAlign: 'center', mt: creationStarted ? 0 : 1 }}>
               {creationStarted ? (
                 <Brute
                   gender={gender}
                   bodyParts={bodyParts}
                   inverted
-                  height="140"
+                  height="160"
                 />
-              ) : <EmptyBrute />}
+              ) : <EmptyBrute style={{ marginBottom: '12px' }} />}
             </Box>
             {/* CUSTOMIZATION BUTTONS */}
             <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -150,14 +148,14 @@ const HomeView = () => {
                 <StyledButton
                   image="/images/creation/bodyType.svg"
                   swapImage={false}
-                  sx={{ width: 89, height: 89, mt: -8 }}
+                  sx={{ width: 89, height: 89, mt: -9.5 }}
                 />
               </Tooltip>
               <Tooltip title={t('changeColors')}>
                 <StyledButton
                   image="/images/creation/color.svg"
                   swapImage={false}
-                  sx={{ width: 89, height: 89, mt: -8 }}
+                  sx={{ width: 89, height: 89, mt: -9.5 }}
                 />
               </Tooltip>
             </Box>

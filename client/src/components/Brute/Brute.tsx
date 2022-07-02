@@ -44,13 +44,13 @@ const Brute = ({
       }}
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
-      viewBox="0 0 97 201"
+      viewBox="0 0 167 221"
       {...rest}
     >
       {shadow && (
         <use xmlns="http://www.w3.org/2000/svg" height="80.0" id="_shadow" transform="matrix(1.2543, 0.0, 0.0, 0.5937, -14, 165)" width="80.0" xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="#shadowSprite" />
       )}
-      <g transform="matrix(1, 0, 0, 1, 0, -7)">
+      <g transform="matrix(1, 0, 0, 1, 40, 7)">
         <LongHair gender={gender} type={bodyParts.longHair} />
         <LowerRightArm gender={gender} type={bodyParts.lowerRightArm} />
         <RightHand gender={gender} type={bodyParts.rightHand} />
