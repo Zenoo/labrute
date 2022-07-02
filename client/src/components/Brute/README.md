@@ -8,6 +8,10 @@
 
 - [perso.swf](https://gitlab.com/eternaltwin/labrute/labrute/-/raw/master/original-game/swf-original/perso.swf?inline=false)
 
+## TLDR
+
+**Do the same thing as this [commit](https://gitlab.com/eternaltwin/labrute/labrute-react/-/commit/9dde7b8f39a51c6228e2bd89aafc119a7cbe6dc1)**.
+
 ## Workspace
 
 - Fork the repository, and work on this fork.
