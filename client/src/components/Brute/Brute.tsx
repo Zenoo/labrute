@@ -1,5 +1,6 @@
 import React, { SVGProps } from 'react';
 import { BodyParts } from '../../utils/brute/availableBodyParts';
+import { BodyColors } from '../../utils/brute/colors';
 import { Gender } from '../../utils/brute/types';
 import Head from './Head/Head';
 import LeftFoot from './LeftFoot';
@@ -24,6 +25,7 @@ import UpperRightLeg from './UpperRightLeg';
 interface BruteProps extends SVGProps<SVGSVGElement> {
   gender: Gender;
   bodyParts: BodyParts;
+  colors: BodyColors;
   inverted?: boolean;
   shadow?: boolean
 }
@@ -31,10 +33,16 @@ interface BruteProps extends SVGProps<SVGSVGElement> {
 const Brute = ({
   gender,
   bodyParts,
+  colors,
   inverted,
   shadow = true,
   ...rest
 }: BruteProps) => {
+  const props = {
+    gender,
+    colors,
+  };
+
   return (
     <svg
       style={{
@@ -51,25 +59,25 @@ const Brute = ({
         <use xmlns="http://www.w3.org/2000/svg" height="80.0" id="_shadow" transform="matrix(1.2543, 0.0, 0.0, 0.5937, -14, 165)" width="80.0" xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="#shadowSprite" />
       )}
       <g transform="matrix(1, 0, 0, 1, 40, 7)">
-        <LongHair gender={gender} type={bodyParts.longHair} />
-        <LowerRightArm gender={gender} type={bodyParts.lowerRightArm} />
-        <RightHand gender={gender} type={bodyParts.rightHand} />
-        <UpperRightArm gender={gender} type={bodyParts.UpperRightArm} />
-        <RightShoulder gender={gender} type={bodyParts.rightShoulder} />
-        <RightFoot gender={gender} type={bodyParts.rightFoot} />
-        <LowerRightLeg gender={gender} type={bodyParts.lowerRightLeg} />
-        <UpperRightLeg gender={gender} type={bodyParts.upperRightLeg} />
-        <LeftFoot gender={gender} type={bodyParts.leftFoot} />
-        <LowerLeftLeg gender={gender} type={bodyParts.lowerLeftLeg} />
-        <Pelvis gender={gender} type={bodyParts.pelvis} />
-        <UpperLeftLeg gender={gender} type={bodyParts.upperLeftLeg} />
-        <Tummy gender={gender} type={bodyParts.tummy} />
-        <Torso gender={gender} type={bodyParts.torso} />
-        <Head gender={gender} type={bodyParts.head} />
-        <LeftHand gender={gender} type={bodyParts.leftHand} />
-        <UpperLeftArm gender={gender} type={bodyParts.upperLeftArm} />
-        <LowerLeftArm gender={gender} type={bodyParts.lowerLeftArm} />
-        <LeftShoulder gender={gender} type={bodyParts.leftShoulder} />
+        <LongHair {...props} type={bodyParts.longHair} />
+        <LowerRightArm {...props} type={bodyParts.lowerRightArm} />
+        <RightHand {...props} type={bodyParts.rightHand} />
+        <UpperRightArm {...props} type={bodyParts.UpperRightArm} />
+        <RightShoulder {...props} type={bodyParts.rightShoulder} />
+        <RightFoot {...props} type={bodyParts.rightFoot} />
+        <LowerRightLeg {...props} type={bodyParts.lowerRightLeg} />
+        <UpperRightLeg {...props} type={bodyParts.upperRightLeg} />
+        <LeftFoot {...props} type={bodyParts.leftFoot} />
+        <LowerLeftLeg {...props} type={bodyParts.lowerLeftLeg} />
+        <Pelvis {...props} type={bodyParts.pelvis} />
+        <UpperLeftLeg {...props} type={bodyParts.upperLeftLeg} />
+        <Tummy {...props} type={bodyParts.tummy} />
+        <Torso {...props} type={bodyParts.torso} />
+        <Head {...props} type={bodyParts.head} />
+        <LeftHand {...props} type={bodyParts.leftHand} />
+        <UpperLeftArm {...props} type={bodyParts.upperLeftArm} />
+        <LowerLeftArm {...props} type={bodyParts.lowerLeftArm} />
+        <LeftShoulder {...props} type={bodyParts.leftShoulder} />
       </g>
       <defs>
         <g id="shadowSprite" transform="matrix(1.0, 0.0, 0.0, 1.0, 40.0, 40.0)">

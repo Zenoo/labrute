@@ -48,6 +48,8 @@ Female | 752
 
 - Copy the inner SVG code and add it as another switch case in the `switch` statement in the file for your body part in `client/src/components/Brute`
 
+- Replace the `fill` color with a color available in the already existing `colors` object
+
 - You will probably have to adjust some attributes in the copied SVG to make it fit and position it correctly. The easiest way is to use the `transform` attribute and change the `matrix` value. (See the [matrix doc](https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/matrix))
 
 - Update the `availableBodyParts` object in `client/src/utils/Brute/availableBodyParts.ts`.

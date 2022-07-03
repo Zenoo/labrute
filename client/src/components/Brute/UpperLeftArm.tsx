@@ -1,12 +1,15 @@
 import React from 'react';
+import { BodyColors } from '../../utils/brute/colors';
 import { Gender } from '../../utils/brute/types';
 
 interface UpperLeftArmProps {
   gender: Gender;
+  colors: BodyColors;
   type: number;
 }
 
-const UpperLeftArm = ({ gender, type }: UpperLeftArmProps) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const UpperLeftArm = ({ gender, colors, type }: UpperLeftArmProps) => {
   if (gender === 'male') {
     switch (type) {
       case 1:

@@ -8,7 +8,9 @@ import Page from '../components/Page';
 import StyledButton from '../components/StyledButton';
 import StyledInput from '../components/StyledInput';
 import Text from '../components/Text';
-import availableBodyParts from '../utils/brute/availableBodyParts';
+import adjustColor from '../utils/adjustColor';
+import availableBodyParts, { BodyParts } from '../utils/brute/availableBodyParts';
+import colors, { BodyColors } from '../utils/brute/colors';
 import { Gender } from '../utils/brute/types';
 import randomBetween from '../utils/randomBetween';
 
@@ -28,7 +30,6 @@ const redirectImages = [
  */
 const HomeView = () => {
   const { t } = useTranslation();
-  // const [users] = useStateAsync([], Server.User.list);
   // Randomized left redirect
   const leftRedirect = useMemo(() => Math.floor(
     Math.random() * (redirectImages.length - 1) + 1
@@ -48,7 +49,7 @@ const HomeView = () => {
   /* CHARACTER CREATOR */
   const [creationStarted, setCreationStarted] = useState(false);
   const [gender, setGender] = useState<Gender>('female');
-  const [bodyParts, setBodyParts] = useState({
+  const [bodyParts, setBodyParts] = useState<BodyParts>({
     longHair: 0,
     lowerRightArm: 0,
     rightHand: 0,
@@ -69,17 +70,73 @@ const HomeView = () => {
     lowerLeftArm: 0,
     leftShoulder: 0,
   });
+  const [bodyColors, setBodyColors] = useState<BodyColors>({
+    skin: {
+      color: colors[gender].skin[0],
+      shade: adjustColor(colors[gender].skin[0], -20),
+    },
+    hair: {
+      color: colors[gender].hair[0],
+      shade: adjustColor(colors[gender].hair[0], -20),
+    },
+    primary: {
+      color: colors[gender].clothing[0],
+      shade: adjustColor(colors[gender].clothing[0], -20),
+    },
+    secondary: {
+      color: colors[gender].clothing[1],
+      shade: adjustColor(colors[gender].clothing[1], -20),
+    },
+    accent: {
+      color: colors[gender].clothing[2],
+      shade: adjustColor(colors[gender].clothing[2], -20),
+    },
+  });
 
-  // Login change handler
-  const changeLogin = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    setLogin(event.target.value);
+  // Colors randomizer
+  const randomizeColors = useCallback((currentGender: Gender) => {
+    const {
+      [currentGender]: {
+        skin: {
+          [randomBetween(0, colors[currentGender].skin.length - 1)]: skin,
+        },
+        hair: {
+          [randomBetween(0, colors[currentGender].hair.length - 1)]: hair,
+        },
+        clothing: {
+          [randomBetween(0, colors[currentGender].clothing.length - 1)]: primary,
+          [randomBetween(0, colors[currentGender].clothing.length - 1)]: secondary,
+          [randomBetween(0, colors[currentGender].clothing.length - 1)]: accent,
+        }
+      }
+    } = colors;
+
+    setBodyColors({
+      skin: {
+        color: skin,
+        shade: adjustColor(skin, -20),
+      },
+      hair: {
+        color: hair,
+        shade: adjustColor(hair, -20),
+      },
+      primary: {
+        color: primary,
+        shade: adjustColor(primary, -20),
+      },
+      secondary: {
+        color: secondary,
+        shade: adjustColor(secondary, -20),
+      },
+      accent: {
+        color: accent,
+        shade: adjustColor(accent, -20),
+      },
+    });
   }, []);
-  // Name change handler
-  const changeName = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
 
-    // Change character
-    if (!creationStarted) setCreationStarted(true);
+  // Body parts randomizer
+  const randomizeAppearance = useCallback(() => {
     const newGender = gender === 'male' ? 'female' : 'male';
     setGender(newGender);
 
@@ -104,7 +161,36 @@ const HomeView = () => {
       lowerLeftArm: randomBetween(1, availableBodyParts[newGender].lowerLeftArm),
       leftShoulder: randomBetween(1, availableBodyParts[newGender].leftShoulder),
     });
-  }, [creationStarted, gender]);
+
+    randomizeColors(newGender);
+  }, [gender, randomizeColors]);
+
+  // Login change handler
+  const changeLogin = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    setLogin(event.target.value);
+  }, []);
+  // Name change handler
+  const changeName = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
+
+    // Change character
+    if (!creationStarted) setCreationStarted(true);
+    randomizeAppearance();
+  }, [creationStarted, randomizeAppearance]);
+
+  // Change appearance
+  const changeAppearance = useCallback(() => {
+    if (creationStarted) {
+      randomizeAppearance();
+    }
+  }, [creationStarted, randomizeAppearance]);
+
+  // Change colors
+  const changeColors = useCallback(() => {
+    if (creationStarted) {
+      randomizeColors(gender);
+    }
+  }, [creationStarted, gender, randomizeColors]);
 
   return (
     <Page title={t('MyBrute')}>
@@ -137,6 +223,7 @@ const HomeView = () => {
                 <Brute
                   gender={gender}
                   bodyParts={bodyParts}
+                  colors={bodyColors}
                   inverted
                   height="160"
                 />
@@ -146,6 +233,7 @@ const HomeView = () => {
             <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
               <Tooltip title={t('changeAppearance')}>
                 <StyledButton
+                  onClick={changeAppearance}
                   image="/images/creation/bodyType.svg"
                   swapImage={false}
                   sx={{ width: 89, height: 89, mt: -9.5 }}
@@ -153,6 +241,7 @@ const HomeView = () => {
               </Tooltip>
               <Tooltip title={t('changeColors')}>
                 <StyledButton
+                  onClick={changeColors}
                   image="/images/creation/color.svg"
                   swapImage={false}
                   sx={{ width: 89, height: 89, mt: -9.5 }}
