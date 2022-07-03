@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.12](https://github.com/Zenoo/labrute/compare/v0.1.11...v0.1.12) (2022-07-03)
+
+
+### Feature
+
+* Random color system ([2003721](https://github.com/Zenoo/labrute/commit/20037212a2d611915ae0b1d39b379abc3c9d91ba))
+
 ### [0.1.11](https://github.com/Zenoo/labrute/compare/v0.1.10...v0.1.11) (2022-07-02)
 
 
