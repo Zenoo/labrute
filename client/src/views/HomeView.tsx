@@ -9,21 +9,11 @@ import StyledButton from '../components/StyledButton';
 import StyledInput from '../components/StyledInput';
 import Text from '../components/Text';
 import adjustColor from '../utils/adjustColor';
+import advertisings from '../utils/advertisings';
 import availableBodyParts, { BodyParts } from '../utils/brute/availableBodyParts';
 import colors, { BodyColors } from '../utils/brute/colors';
 import { Gender } from '../utils/brute/types';
 import randomBetween from '../utils/randomBetween';
-
-const redirectImages = [
-  'arkadeo.gif',
-  'dinorpg_2.jpg',
-  'dinorpg_3.jpg',
-  'kingdom_1.png',
-  'mush_1.jpg',
-  'mush_2.jpg',
-  'snake.gif',
-  'teacher_fr.gif',
-];
 
 /**
  * HomeView component
@@ -32,13 +22,13 @@ const HomeView = () => {
   const { t } = useTranslation();
   // Randomized left redirect
   const leftRedirect = useMemo(() => Math.floor(
-    Math.random() * (redirectImages.length - 1) + 1
+    Math.random() * (advertisings.length - 1) + 1
   ), []);
   // Randomized right redirect (must be different from left redirect)
   const rightRedirect = useMemo(() => {
-    let redirect = Math.floor(Math.random() * (redirectImages.length - 1) + 1);
+    let redirect = Math.floor(Math.random() * (advertisings.length - 1) + 1);
     while (redirect === leftRedirect) {
-      redirect = Math.floor(Math.random() * (redirectImages.length - 1) + 1);
+      redirect = Math.floor(Math.random() * (advertisings.length - 1) + 1);
     }
     return redirect;
   }, [leftRedirect]);
@@ -292,7 +282,7 @@ const HomeView = () => {
                 <Link href="" sx={{ width: 200, mx: 4, display: 'inline-block' }}>
                   <Box
                     component="img"
-                    src={`/images/redirects/${redirectImages[redirect]}`}
+                    src={`/images/redirects/${advertisings[redirect]}`}
                     sx={{ width: 1, border: 2 }}
                   />
                 </Link>

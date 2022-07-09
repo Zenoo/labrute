@@ -30,6 +30,7 @@ declare module '@mui/material/styles/createPalette' {
   interface TypeBackground {
     light: string;
     paperLight: string;
+    paperAccent: string;
   }
 
   interface Palette {
@@ -55,8 +56,8 @@ declare module '@mui/material/styles/createTypography' {
 
 const border = {
   shadow: '#ce8b45',
-  outer: '#876259',
-  main: '#f6e978',
+  outer: '#815e56',
+  main: '#f6ee90',
   inner: '#dec37f'
 };
 
@@ -86,7 +87,8 @@ const defaultTheme = {
       default: 'rgb(235,173,112)',
       light: 'rgba(247,225,183,1)',
       paper: '#fbf2af',
-      paperLight: '#fbf7c0'
+      paperLight: '#fbf7c0',
+      paperAccent: '#fffcb0',
     },
     border,
     button

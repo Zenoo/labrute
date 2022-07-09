@@ -17,6 +17,8 @@ interface Props extends TypographyProps {
   button?: boolean;
   overline?: boolean;
   inherit?: boolean;
+  bold?: boolean;
+  component?: React.ElementType;
 }
 
 const Text = ({
@@ -35,6 +37,7 @@ const Text = ({
   button = false,
   overline = false,
   inherit = false,
+  bold = false,
   ...rest
 }: Props) => {
   return (
@@ -56,6 +59,8 @@ const Text = ({
                                 : inherit ? 'inherit'
                                   : 'body1'
       }
+      // eslint-disable-next-line no-undefined
+      fontWeight={bold ? '600' : undefined}
       {...rest}
     >
       {children}
