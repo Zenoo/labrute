@@ -2,7 +2,7 @@ export interface BodyParts {
   longHair: number,
   lowerRightArm: number,
   rightHand: number,
-  UpperRightArm: number,
+  upperRightArm: number,
   rightShoulder: number,
   rightFoot: number,
   lowerRightLeg: number,

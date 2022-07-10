@@ -10,7 +10,9 @@
     "allowSyntheticDefaultImports": true,
     "outDir": "./dist",
     "moduleResolution": "node",
-    "sourceMap": true
+    "sourceMap": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
   },
   "exclude": [
     "./client"

@@ -29,7 +29,7 @@ const Page = ({
           fontFamily: 'arial,sans-serif'
         },
         '#root': {
-          height: '100%',
+          minHeight: '100%',
           background: `linear-gradient(180deg, ${theme.palette.background.light} 0%, ${theme.palette.background.default} 160px)`,
         }
       }}

@@ -55,8 +55,8 @@ declare module '@mui/material/styles/createTypography' {
 }
 
 const border = {
-  shadow: '#ce8b45',
-  outer: '#815e56',
+  shadow: '#bc7b4a',
+  outer: '#725254',
   main: '#f6ee90',
   inner: '#dec37f'
 };
@@ -98,12 +98,12 @@ const defaultTheme = {
     MuiPaper: {
       styleOverrides: {
         root: sx({
-          boxShadow: `0 0 0 1.5px ${border.inner},
-          0 0 0 4px ${border.main},
-          0 0 0 5.5px ${border.outer},
-          3px 3px 1px 5px ${border.shadow}`,
+          boxShadow: `0 0 0 1px ${border.inner},
+          0 0 1px 4.5px ${border.main},
+          0 0 0 6px ${border.outer},
+          3px 3px 0 6px ${border.shadow}`,
           bgcolor: 'background.paper',
-          borderRadius: '7px',
+          borderRadius: '5px',
           p: 2,
           mx: '14px'
         })
@@ -118,7 +118,6 @@ const defaultTheme = {
           border: 'none',
         }),
         input: sx({
-          typography: 'handwritten',
           fontWeight: 'bold',
         })
       }
@@ -126,7 +125,6 @@ const defaultTheme = {
     MuiInputLabel: {
       styleOverrides: {
         root: sx({
-          typography: 'handwritten',
           textTransform: 'uppercase',
         }),
       }

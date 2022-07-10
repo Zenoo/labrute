@@ -1,10 +1,12 @@
 import { Box, BoxProps } from '@mui/material';
 import React, { useCallback } from 'react';
 
-interface Props extends BoxProps {
+interface Props extends Omit<BoxProps, 'translate'> {
   image?: string;
   imageHover?: string;
   swapImage?: boolean;
+  shadow?: boolean;
+  contrast?: boolean;
 }
 
 /**
@@ -15,6 +17,8 @@ const StyledButton = React.forwardRef<HTMLDivElement, Props>(({
   image = '/images/button.svg',
   imageHover = '/images/button-hover.svg',
   swapImage = true,
+  shadow = true,
+  contrast = true,
   sx,
   ...rest
 }: Props, ref) => {
@@ -50,7 +54,7 @@ const StyledButton = React.forwardRef<HTMLDivElement, Props>(({
           top: 0,
           left: 0,
           zIndex: 1,
-          filter: `drop-shadow(4px 4px 0px rgba(0, 0, 0, 0.2)) ${hover ? 'contrast(90%)' : ''}`,
+          filter: `${shadow ? 'drop-shadow(4px 4px 0px rgba(0, 0, 0, 0.2))' : ''} ${contrast && hover ? 'contrast(90%)' : ''}`,
         }}
       />
       <Box sx={{
@@ -58,8 +62,7 @@ const StyledButton = React.forwardRef<HTMLDivElement, Props>(({
         top: '50%',
         transform: hover ? 'translateY(calc(-50% - 2px))' : 'translateY(-50%)',
         zIndex: 2,
-        typography: 'handwritten',
-        textTransform: 'uppercase',
+        fontVariant: 'small-caps',
         fontWeight: 'bold',
         color: 'secondary.main'
       }}

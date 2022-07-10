@@ -18,5 +18,25 @@
   "validate": "Validate",
   "moreGames": "More games",
 
-  "shadow": "Shadow"
+  "shadow": "Shadow",
+  "log.win": "Your Brute has crushed {{value}}.",
+  "log.survive": "Your Brute has survived to {{value}}.",
+  "log.lose": "{{value}} has flattened your Brute.",
+  "log.child": "New pupil : {{value}} !",
+  "log.childup": "Your pupil {{value}} is now stronger than before.",
+  "log.up": "Your Brute is now stronger than before.",
+  "log.lvl_0": "Your Brute reached the rank Brutal Legend.",
+  "log.lvl_1": "Your Brute reached the rank The Dentist of Chaos.",
+  "log.lvl_2": "Your Brute reached the rank Satan's Biceps.",
+  "log.lvl_3": "Your Brute reached the rank Sword Swallower.",
+  "log.lvl_4": "Your Brute reached the rank Hemogoblin.",
+  "log.lvl_5": "Your Brute reached the rank Berserker Soul.",
+  "log.lvl_6": "Your Brute reached the rank Vengeful Flame.",
+  "log.lvl_7": "Your Brute reached the rank Iron Fist.",
+  "log.lvl_8": "Your Brute reached the rank Richter Thumper.",
+  "log.lvl_9": "Your Brute reached the rank Sticking Plaster Ripper.",
+  "log.lvl_10": "Your Brute reached the rank Desert Batterer.",
+  "log.xp": "{{xp}} experience point gained.",
+  "log.xps": "{{xp}} experience points gained.",
+  "seeFight": "Click here to see the fight"
 }

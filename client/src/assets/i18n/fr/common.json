@@ -18,5 +18,25 @@
   "validate": "Valider",
   "moreGames": "Plus de jeux",
 
-  "shadow": "Ombre"
+  "shadow": "Ombre",
+  "log.win": "Ta brute a écrasé {{value}}.",
+  "log.survive": "Ta brute a survécu à {{value}}.",
+  "log.lose": "{{value}} a battu ta brute.",
+  "log.child": "Nouvel élève : {{value}} !",
+  "log.childup": "Ton élève {{value}} est passé au niveau suivant.",
+  "log.up": "Ta brute a gagné un niveau !",
+  "log.lvl_0": "Ta brute a atteint le rang Légende Brutale.",
+  "log.lvl_1": "Ta brute a atteint le rang Dentiste du Chaos.",
+  "log.lvl_2": "Ta brute a atteint le rang Biceps de Satan.",
+  "log.lvl_3": "Ta brute a atteint le rang Avaleur de Sabres.",
+  "log.lvl_4": "Ta brute a atteint le rang Hemogrobil.",
+  "log.lvl_5": "Ta brute a atteint le rang Âme de Berserk.",
+  "log.lvl_6": "Ta brute a atteint le rang Flamme du Vengeur.",
+  "log.lvl_7": "Ta brute a atteint le rang Poing d'acier.",
+  "log.lvl_8": "Ta brute a atteint le rang Baffe de Richter.",
+  "log.lvl_9": "Ta brute a atteint le rang Arracheur de pansements.",
+  "log.lvl_10": "Ta brute a atteint le rang Pichenette du Désert.",
+  "log.xp": "{{xp}} point d'expérience gagné.",
+  "log.xps": "{{xp}} points d'expérience gagnés.",
+  "seeFight": "Cliquez ici pour revoir le combat"
 }

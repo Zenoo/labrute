@@ -4,6 +4,8 @@
   "private": true,
   "entry": "server/server.js",
   "dependencies": {
+    "@mikro-orm/core": "^5.2.3",
+    "@mikro-orm/postgresql": "^5.2.3",
     "@mui/lab": "^5.0.0-alpha.88",
     "@mui/material": "^5.8.6",
     "body-parser": "^1.19.2",

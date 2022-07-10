@@ -2,10 +2,31 @@ import { Box, Grid, Link, Paper, Tooltip } from '@mui/material';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
+import BoxWithBackground from '../components/BoxWithBackground';
 import Page from '../components/Page';
 import StyledButton from '../components/StyledButton';
 import Text from '../components/Text';
 import advertisings from '../utils/advertisings';
+
+interface Log {
+  id: number;
+  type: 'win' | 'lose' | 'child' | 'childup'
+  | 'up' | 'lvl_0' | 'lvl_1' | 'lvl_2' | 'lvl_3'
+  | 'lvl_4' | 'lvl_5' | 'lvl_6' | 'lvl_7'
+  | 'lvl_8' | 'lvl_9' | 'lvl_10' | 'survive';
+  value?: string;
+  xp?: number;
+}
+
+const logs: Log[] = [
+  { id: 1, type: 'win', value: 'test1', xp: 2 },
+  { id: 2, type: 'survive', value: 'test10', },
+  { id: 3, type: 'lose', value: 'test2', xp: 1 },
+  { id: 4, type: 'child', value: 'test3' },
+  { id: 5, type: 'childup', value: 'test4' },
+  { id: 6, type: 'up' },
+  { id: 7, type: 'lvl_10' },
+];
 
 /**
  * CellView component
@@ -110,21 +131,97 @@ const CellView = () => {
               </Paper>
             </Tooltip>
 
-            <StyledButton sx={{ fontVariant: 'small-caps', m: '0 auto', mt: 2 }}>
+            <StyledButton
+              image="/images/button.gif"
+              imageHover="/images/button-hover.gif"
+              shadow={false}
+              contrast={false}
+              sx={{
+                fontVariant: 'small-caps',
+                m: '0 auto',
+                mt: 2,
+                height: 56,
+                width: 246,
+              }}
+            >
               Clan TEST
             </StyledButton>
+            <BoxWithBackground
+              url="/images/cell-advert-bg.gif"
+              alt={t('background')}
+              sx={{
+                width: 300,
+                height: 205,
+                ml: 0.5,
+              }}
+            >
+              <Tooltip title="TODO" key={advertising}>
+                <Link href="" sx={{ width: 200, mx: 4, display: 'inline-block' }}>
+                  <Box
+                    component="img"
+                    src={`/images/redirects/${advertising}`}
+                    sx={{ ml: 1, mt: 3.5 }}
+                  />
+                </Link>
+              </Tooltip>
+            </BoxWithBackground>
+            <Box sx={{ ml: 2, mt: 1 }}>
+              {logs.map((log) => (
+                <BoxWithBackground
+                  key={log.id}
+                  url={`/images/log/log_${log.type === 'survive' ? 'win' : log.type}.gif`}
+                  alt={t('background')}
+                  sx={{
+                    width: 200,
+                    height: 53,
+                    pl: '50px',
+                    pt: 0.5,
+                  }}
+                >
+                  {log.type === 'survive' || log.type === 'win' || log.type === 'lose'
+                    ? (
+                      <Tooltip title={t('seeFight')}>
+                        <Link
+                          href=""
+                          sx={{
+                            textDecoration: 'none',
+                            '&:hover': {
+                              textDecoration: 'underline',
+                              textDecorationColor: (theme) => (log.type === 'lose'
+                                ? theme.palette.error.main
+                                : theme.palette.success.main
+                              ),
+                            },
+                          }}
+                        >
+                          <Text bold color={log.type === 'lose' ? 'error.main' : 'success.main'}>
+                            {t(`log.${log.type}`, { value: log.value })}
+                          </Text>
+                        </Link>
+                      </Tooltip>
+                    )
+                    : (
+                      <Text bold color="success.main">
+                        {t(`log.${log.type}`, { value: log.value })}
+                      </Text>
+                    )}
+                  {log.xp && (
+                    <Text
+                      color={log.type === 'lose' ? 'error.main' : 'success.main'}
+                      sx={{
+                        fontSize: 10,
+                        mt: '-5px',
+                      }}
+                    >
+                      {t(log.xp === 1 ? 'log.xp' : 'log.xps', { xp: log.xp })}
+                    </Text>
+                  )}
+                </BoxWithBackground>
+              ))}
+            </Box>
           </Box>
         </Box>
       </Paper>
-      <Tooltip title="TODO" key={advertising}>
-        <Link href="" sx={{ width: 200, mx: 4, display: 'inline-block' }}>
-          <Box
-            component="img"
-            src={`/images/redirects/${advertising}`}
-            sx={{ width: 1, border: 2 }}
-          />
-        </Link>
-      </Tooltip>
     </Page>
   );
 };
