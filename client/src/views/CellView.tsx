@@ -1,12 +1,14 @@
 import { Box, Grid, Link, Paper, Tooltip } from '@mui/material';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import BoxWithBackground from '../components/BoxWithBackground';
 import Page from '../components/Page';
 import StyledButton from '../components/StyledButton';
 import Text from '../components/Text';
+import adjustColor from '../utils/adjustColor';
 import advertisings from '../utils/advertisings';
+import colors from '../utils/brute/colors';
 
 interface Log {
   id: number;
@@ -36,6 +38,58 @@ const CellView = () => {
   const { bruteName } = useParams();
 
   // const { data: brute } = useStateAsync(null, Server.Brute.get, bruteName);
+  const [brute] = useState({
+    id: 1,
+    name: 'Brute',
+    gender: 'female',
+    body: {
+      longHair: 1,
+      lowerRightArm: 0,
+      rightHand: 0,
+      upperRightArm: 0,
+      rightShoulder: 0,
+      rightFoot: 0,
+      lowerRightLeg: 0,
+      upperRightLeg: 0,
+      leftFoot: 0,
+      lowerLeftLeg: 0,
+      pelvis: 0,
+      upperLeftLeg: 0,
+      tummy: 0,
+      torso: 0,
+      head: 0,
+      leftHand: 0,
+      upperLeftArm: 0,
+      lowerLeftArm: 0,
+      leftShoulder: 0,
+    },
+    colors: {
+      skin: {
+        color: colors.female.skin[0],
+        shade: adjustColor(colors.female.skin[0], -20),
+      },
+      hair: {
+        color: colors.female.hair[0],
+        shade: adjustColor(colors.female.hair[0], -20),
+      },
+      primary: {
+        color: colors.female.clothing[0],
+        shade: adjustColor(colors.female.clothing[0], -20),
+      },
+      secondary: {
+        color: colors.female.clothing[1],
+        shade: adjustColor(colors.female.clothing[1], -20),
+      },
+      accent: {
+        color: colors.female.clothing[2],
+        shade: adjustColor(colors.female.clothing[2], -20),
+      },
+    },
+    master: {
+      id: 999,
+      name: 'BigBoss'
+    }
+  });
 
   // Randomized advertising
   const advertising = useMemo(() => advertisings[Math.floor(
@@ -45,6 +99,7 @@ const CellView = () => {
   return (
     <Page title={`${bruteName || ''} ${t('MyBrute')}`}>
       <Box display="flex" zIndex={1} sx={{ mt: 2 }}>
+        {/* BRUTE NAME + SOCIALS */}
         <Paper sx={{
           borderTopLeftRadius: 0,
           borderBottomLeftRadius: 0,
@@ -63,21 +118,25 @@ const CellView = () => {
             </Grid>
             <Grid item xs={3}>
               <Box>
-                <Text bold color="secondary" component="span">Maitre: </Text>
-                <Text bold component="span">XXXXX</Text>
+                {brute.master ? (
+                  <>
+                    <Text bold color="secondary" component="span">{t('master')}: </Text>
+                    <Text bold component="span">XXXXX</Text>
+                  </>
+                ) : <Text>{' '}</Text>}
               </Box>
               <Box>
-                <Text bold color="secondary" component="span">Classement: </Text>
+                <Text bold color="secondary" component="span">{t('ranking')}: </Text>
                 <Text bold component="span">33333</Text>
               </Box>
             </Grid>
             <Grid item xs={3}>
               <Box>
-                <Text bold color="secondary" component="span">Victoires: </Text>
+                <Text bold color="secondary" component="span">{t('victories')}: </Text>
                 <Text bold component="span">1540</Text>
               </Box>
               <Box>
-                <Text bold color="secondary" component="span">Élèves: </Text>
+                <Text bold color="secondary" component="span">{t('pupils')}: </Text>
                 <Text bold component="span">300</Text>
               </Box>
             </Grid>

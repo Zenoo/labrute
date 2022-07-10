@@ -1,21 +1,33 @@
 import { Request, Response } from 'express';
-import { Brute } from '../db/models/Brute';
+import DB from '../db/connect';
 
-export const Users = {
-  list: (req: Request, res: Response) => {
-    Brute
-      .findAll({ include: [{ all: true }] }).then((brutes) => {
-        return res.status(200).send(brutes);
-      }).catch((error) => {
-        return res.status(500).send(error);
-      });
+export const Brutes = {
+  list: async (req: Request, res: Response) => {
+    try {
+      await DB.connect();
+      const result = await DB.query('select * from brutes');
+      const rows = result.rows;
+      await DB.close();
+      res.status(200).send(rows);
+    } catch (error) {
+      res.status(500).send(error);
+    }
   },
-  get: (req: Request, res: Response) => {
-    Brute
-      .findOne({ where: { name: req.params.name } }).then((brute) => {
-        return res.status(200).send(brute);
-      }).catch((error) => {
-        return res.status(500).send(error);
-      });
+  get: async (req: Request, res: Response) => {
+    try {
+      await DB.connect();
+      const result = await DB.query(
+        'select * from brutes where name like $1',
+        { params: [req.params.name] });
+      const rows = result.rows;
+      await DB.close();
+      if (!rows || rows.length === 0) {
+        res.status(404).send({ message: 'brute not found' });
+      } else {
+        res.status(200).send(rows[0]);
+      }
+    } catch (error) {
+      res.status(500).send(error);
+    }
   }
 };

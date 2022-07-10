@@ -12,7 +12,7 @@
 
 - Copy `.env.sample` to `.env` and adapt the variables
 
-- Run database migrations: `npx sequelize-cli db:migrate`
+- Run every migration script in `/server/db/migrations/` in order.
 
 - Start the server with `npm run start`
 
@@ -66,8 +66,6 @@ Should have a corresponding documentation.
 └── server 					# Back end
 	├── db	
 	│	├── migrations  	# DB migrations
-	│	├── models 			# DB models
-	│	├── seeders 		# DB seeds
 	│	├── endpoints 		# Controllers
 ```
 
@@ -152,28 +150,33 @@ const { language, setLanguage } = useLanguage();
 Use this hook to store API data in the state.  
 **Objects used as `getterParams` MUST be memoized, the app will constantly render otherwise.**
 ```ts
-(
-	initialState: T,
-	getter: (params: any) => Promise<T>,
-	getterParams: any
-) => [T, React.Dispatch<React.SetStateAction<T>>]
+<State, Params>(
+  initialState: State,
+  getter: (params: Params) => Promise<State>,
+  getterParams: Params | null | undefined,
+): {
+  data: State;
+  reload: () => void;
+  set: React.Dispatch<React.SetStateAction<State>>;
+}
 ```
 
 #### Example
 
 ```js
-const [users, setUsers] = useStateAsync(
+const { data: users } = useStateAsync(
   [],
   Server.User.list,
   auth.user.id
 );
 
 // OR (for complex getter params)
-const [users, setUsers] = useStateAsync(
+const usersGetterProps = useMemo(() => ({
+	visibleBy: auth.user.id,
+}), [auth.user.id])
+const { data: users } = useStateAsync(
   [],
   Server.User.list,
-  useMemo(() => ({
-		visibleBy: auth.user.id,
-  }), [auth.user.id])
+	usersGetterProps
 );
 ```

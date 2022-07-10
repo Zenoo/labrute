@@ -19,6 +19,7 @@
   "moreGames": "More games",
 
   "shadow": "Shadow",
+
   "log.win": "Your Brute has crushed {{value}}.",
   "log.survive": "Your Brute has survived to {{value}}.",
   "log.lose": "{{value}} has flattened your Brute.",
@@ -38,5 +39,10 @@
   "log.lvl_10": "Your Brute reached the rank Desert Batterer.",
   "log.xp": "{{xp}} experience point gained.",
   "log.xps": "{{xp}} experience points gained.",
-  "seeFight": "Click here to see the fight"
+  "seeFight": "Click here to see the fight",
+
+  "master": "Master",
+  "ranking": "Ranking",
+  "victories": "Victories",
+  "pupils": "Pupils"
 }

@@ -38,5 +38,10 @@
   "log.lvl_10": "Ta brute a atteint le rang Pichenette du Désert.",
   "log.xp": "{{xp}} point d'expérience gagné.",
   "log.xps": "{{xp}} points d'expérience gagnés.",
-  "seeFight": "Cliquez ici pour revoir le combat"
+  "seeFight": "Cliquez ici pour revoir le combat",
+
+  "master": "Maitre",
+  "ranking": "Classement",
+  "victories": "Victoires",
+  "pupils": "Élèves"
 }
