@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.13](https://github.com/Zenoo/labrute/compare/v0.1.12...v0.1.13) (2022-07-13)
+
+
+### Progress
+
+* Cell layout ([751c0d6](https://github.com/Zenoo/labrute/commit/751c0d6f357f90219138b83bc5eaf848637ce859))
+* Cell layout ([b9cd85e](https://github.com/Zenoo/labrute/commit/b9cd85eba02ee2ec41addc037996d9581c17ed3e))
+
+
+### Bug fix
+
+* Added first database migration script ([4a3cb1d](https://github.com/Zenoo/labrute/commit/4a3cb1d93a4861091912b5c1f220b31770d270d0))
+
+
+### Feature
+
+* Removed sequelize to use the simpler `postgresql-client` ([96e6b50](https://github.com/Zenoo/labrute/commit/96e6b50be4a68fea77720792ca4f4b54947f652c))
+* Static weapons board ([3a2fa4d](https://github.com/Zenoo/labrute/commit/3a2fa4ddde22322bae289e040d3df2eb54d0081a))
+
 ### [0.1.12](https://github.com/Zenoo/labrute/compare/v0.1.11...v0.1.12) (2022-07-03)
 
 
