@@ -12,7 +12,7 @@
 
 - Copy `.env.sample` to `.env` and adapt the variables
 
-- Run every migration script in `/server/db/migrations/` in order.
+- Run every `UP` migration script in `/server/db/migrations/` in order.
 
 - Start the server with `npm run start`
 
