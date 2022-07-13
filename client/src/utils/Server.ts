@@ -14,12 +14,20 @@ export interface User {
   updatedAt: Date;
 }
 
-export interface Brute {
+export interface Weapon {
   id: number;
   name: string;
-  gender: Gender;
-  body: BodyParts;
-  colors: BodyColors;
+}
+
+export interface Brute {
+  id: number;
+  data: {
+    name: string;
+    gender: Gender;
+    body: BodyParts;
+    colors: BodyColors;
+    weapons: Weapon[];
+  };
 }
 
 const Server = {

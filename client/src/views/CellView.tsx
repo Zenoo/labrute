@@ -3,6 +3,7 @@ import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import BoxWithBackground from '../components/BoxWithBackground';
+import CellWeapons from '../components/CellWeapons';
 import Page from '../components/Page';
 import StyledButton from '../components/StyledButton';
 import Text from '../components/Text';
@@ -169,9 +170,17 @@ const CellView = () => {
       }}
       >
         <Box display="flex">
-          <Box sx={{ flexGrow: 1 }}>
-            yo
+          {/* MAIN */}
+          <Box sx={{ display: 'flex', flexGrow: 1 }}>
+            <Box sx={{ width: 315 }}>
+              <Text bold sx={{ textAlign: 'center' }}>{t('weaponsBonuses')}</Text>
+              <CellWeapons weapons={[]} />
+            </Box>
+            <Box sx={{ flexGrow: 1 }}>
+              Yo
+            </Box>
           </Box>
+          {/* RIGHT SIDE */}
           <Box sx={{
             position: 'relative',
             width: 270,
