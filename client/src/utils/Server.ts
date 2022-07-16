@@ -21,6 +21,12 @@ export interface Skill {
   icon: string;
 }
 
+export interface Pets {
+  dog: 0 | 1 | 2 | 3;
+  panther: 0 | 1;
+  bear: 0 | 1;
+}
+
 export interface Brute {
   id: number;
   rank: number;
@@ -31,6 +37,7 @@ export interface Brute {
     colors: BodyColors;
     weapons: typeof weapons;
     skills: typeof skills[number]['name'][];
+    pets: Pets;
     master: {
       id: number;
       name: string;

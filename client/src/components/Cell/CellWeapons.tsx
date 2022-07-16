@@ -1,5 +1,5 @@
 import React, { SVGProps } from 'react';
-import { default as _weapons } from '../utils/brute/weapons';
+import { default as _weapons } from '../../utils/brute/weapons';
 
 const weaponSVGs = {
   fan: <use key="fan" height="43.15" id="_w10" transform="matrix(0.7269, 0.0, 0.0, 0.7269, 25.335, 19.3693)" width="48.65" xlinkHref="#sprite18" />,

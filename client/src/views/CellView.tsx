@@ -1,9 +1,10 @@
 import { Box, Divider, Grid, Link, Paper, Tooltip } from '@mui/material';
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import BoxWithBackground from '../components/BoxWithBackground';
-import CellWeapons from '../components/CellWeapons';
+import CellPets from '../components/Cell/CellPets';
+import CellWeapons from '../components/Cell/CellWeapons';
 import Page from '../components/Page';
 import StyledButton from '../components/StyledButton';
 import Text from '../components/Text';
@@ -32,6 +33,8 @@ const logs: Log[] = [
   { id: 7, type: 'lvl_10' },
 ];
 
+const panther = Math.random() < 0.5;
+
 /**
  * CellView component
  */
@@ -40,7 +43,7 @@ const CellView = () => {
   const { bruteName } = useParams();
 
   // const { data: brute } = useStateAsync(null, Server.Brute.get, bruteName);
-  const [brute] = useState<Brute>({
+  const [brute, setBrute] = useState<Brute>({
     id: 1,
     rank: 3333,
     data: {
@@ -91,6 +94,11 @@ const CellView = () => {
       },
       weapons: [...weapons].sort(() => 0.5 - Math.random()).slice(0, 12),
       skills: [...skills].sort(() => 0.5 - Math.random()).slice(0, 12).map((s) => s.name),
+      pets: {
+        dog: Math.floor(Math.random() * 4) as 0 | 1 | 2 | 3,
+        panther: panther ? 1 : 0,
+        bear: panther ? 0 : Math.floor(Math.random() * 2) as 0 | 1,
+      },
       master: {
         id: 999,
         name: 'BigBoss'
@@ -104,6 +112,22 @@ const CellView = () => {
   const advertising = useMemo(() => advertisings[Math.floor(
     Math.random() * (advertisings.length - 1) + 1
   )], []);
+
+  // TEMP METHOD
+  // Reload brute with random weapons, skills and pets
+  const reloadRandom = useCallback(() => {
+    const _panther = Math.random() < 0.5;
+    const newBrute = { ...brute };
+    newBrute.data.weapons = [...weapons].sort(() => 0.5 - Math.random()).slice(0, 12);
+    newBrute.data.skills = [...skills]
+      .sort(() => 0.5 - Math.random()).slice(0, 12).map((s) => s.name);
+    newBrute.data.pets = {
+      dog: Math.floor(Math.random() * 4) as 0 | 1 | 2 | 3,
+      panther: _panther ? 1 : 0,
+      bear: _panther ? 0 : Math.floor(Math.random() * 2) as 0 | 1,
+    };
+    setBrute(newBrute);
+  }, [brute]);
 
   return (
     <Page title={`${bruteName || ''} ${t('MyBrute')}`}>
@@ -232,6 +256,10 @@ const CellView = () => {
                   </Grid>
                 ))}
               </Grid>
+              {/* PETS */}
+              <Box sx={{ textAlign: 'center', mt: 2 }}>
+                <CellPets pets={brute.data.pets} />
+              </Box>
             </Box>
             <Box sx={{ flexGrow: 1 }}>
               Yo
@@ -261,6 +289,7 @@ const CellView = () => {
               imageHover="/images/button-hover.gif"
               shadow={false}
               contrast={false}
+              onClick={reloadRandom}
               sx={{
                 fontVariant: 'small-caps',
                 m: '0 auto',
