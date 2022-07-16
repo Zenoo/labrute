@@ -7,9 +7,9 @@ import CellWeapons from '../components/CellWeapons';
 import Page from '../components/Page';
 import StyledButton from '../components/StyledButton';
 import Text from '../components/Text';
-import adjustColor from '../utils/adjustColor';
 import advertisings from '../utils/advertisings';
-import colors from '../utils/brute/colors';
+import skills from '../utils/brute/skills';
+import { Brute } from '../utils/Server';
 
 interface Log {
   id: number;
@@ -39,56 +39,60 @@ const CellView = () => {
   const { bruteName } = useParams();
 
   // const { data: brute } = useStateAsync(null, Server.Brute.get, bruteName);
-  const [brute] = useState({
+  const [brute] = useState<Brute>({
     id: 1,
-    name: 'Brute',
-    gender: 'female',
-    body: {
-      longHair: 1,
-      lowerRightArm: 0,
-      rightHand: 0,
-      upperRightArm: 0,
-      rightShoulder: 0,
-      rightFoot: 0,
-      lowerRightLeg: 0,
-      upperRightLeg: 0,
-      leftFoot: 0,
-      lowerLeftLeg: 0,
-      pelvis: 0,
-      upperLeftLeg: 0,
-      tummy: 0,
-      torso: 0,
-      head: 0,
-      leftHand: 0,
-      upperLeftArm: 0,
-      lowerLeftArm: 0,
-      leftShoulder: 0,
-    },
-    colors: {
-      skin: {
-        color: colors.female.skin[0],
-        shade: adjustColor(colors.female.skin[0], -20),
+    data: {
+      name: 'blablabla',
+      gender: 'female',
+      body: {
+        longHair: 1,
+        lowerRightArm: 0,
+        rightHand: 0,
+        upperRightArm: 0,
+        rightShoulder: 0,
+        rightFoot: 0,
+        lowerRightLeg: 0,
+        upperRightLeg: 0,
+        leftFoot: 0,
+        lowerLeftLeg: 0,
+        pelvis: 0,
+        upperLeftLeg: 0,
+        tummy: 0,
+        torso: 0,
+        head: 0,
+        leftHand: 0,
+        upperLeftArm: 0,
+        lowerLeftArm: 0,
+        leftShoulder: 0,
       },
-      hair: {
-        color: colors.female.hair[0],
-        shade: adjustColor(colors.female.hair[0], -20),
+      colors: {
+        skin: {
+          color: '#fbe6c8',
+          shade: '#e7d2b4'
+        },
+        hair: {
+          color: '#8e63ad',
+          shade: '#7a4f99'
+        },
+        primary: {
+          color: '#559399',
+          shade: '#417f85'
+        },
+        secondary: {
+          color: '#b85f1d',
+          shade: '#a44b09'
+        },
+        accent: {
+          color: '#df7e37',
+          shade: '#cb6a23'
+        }
       },
-      primary: {
-        color: colors.female.clothing[0],
-        shade: adjustColor(colors.female.clothing[0], -20),
-      },
-      secondary: {
-        color: colors.female.clothing[1],
-        shade: adjustColor(colors.female.clothing[1], -20),
-      },
-      accent: {
-        color: colors.female.clothing[2],
-        shade: adjustColor(colors.female.clothing[2], -20),
-      },
-    },
-    master: {
-      id: 999,
-      name: 'BigBoss'
+      weapons: [],
+      skills: [...skills].sort(() => 0.5 - Math.random()).slice(0, 12).map((s) => s.name),
+      master: {
+        id: 999,
+        name: 'BigBoss'
+      }
     }
   });
 
@@ -119,7 +123,7 @@ const CellView = () => {
             </Grid>
             <Grid item xs={3}>
               <Box>
-                {brute.master ? (
+                {brute.data.master ? (
                   <>
                     <Text bold color="secondary" component="span">{t('master')}: </Text>
                     <Text bold component="span">XXXXX</Text>
@@ -175,6 +179,26 @@ const CellView = () => {
             <Box sx={{ width: 315 }}>
               <Text bold sx={{ textAlign: 'center' }}>{t('weaponsBonuses')}</Text>
               <CellWeapons weapons={[]} />
+              <Grid container spacing={1} sx={{ pt: 1 }}>
+                {skills.map((skill) => (
+                  <Grid
+                    item
+                    xs={12 / 7}
+                    key={skill.name}
+                    sx={{ opacity: brute.data.skills.includes(skill.name) ? 1 : 0.5 }}
+                  >
+                    <Tooltip title={skill.name}>
+                      <Box
+                        component="img"
+                        src={`/images/skills/${skill.icon}.svg`}
+                        sx={{
+                          boxShadow: 4,
+                        }}
+                      />
+                    </Tooltip>
+                  </Grid>
+                ))}
+              </Grid>
             </Box>
             <Box sx={{ flexGrow: 1 }}>
               Yo

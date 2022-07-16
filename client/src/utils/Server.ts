@@ -19,6 +19,11 @@ export interface Weapon {
   name: string;
 }
 
+export interface Skill {
+  name: string;
+  icon: string;
+}
+
 export interface Brute {
   id: number;
   data: {
@@ -27,6 +32,11 @@ export interface Brute {
     body: BodyParts;
     colors: BodyColors;
     weapons: Weapon[];
+    skills: string[];
+    master: {
+      id: number;
+      name: string;
+    }
   };
 }
 

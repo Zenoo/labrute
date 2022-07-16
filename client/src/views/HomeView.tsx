@@ -83,6 +83,8 @@ const HomeView = () => {
     },
   });
 
+  console.log(bodyColors);
+
   // Colors randomizer
   const randomizeColors = useCallback((currentGender: Gender) => {
     const {
@@ -135,7 +137,7 @@ const HomeView = () => {
       lowerRightArm: randomBetween(1, availableBodyParts[newGender].rightHand),
       rightHand: randomBetween(1, availableBodyParts[newGender].lowerRightArm),
       upperRightArm: randomBetween(1, availableBodyParts[newGender].rightShoulder),
-      rightShoulder: randomBetween(1, availableBodyParts[newGender].UpperRightArm),
+      rightShoulder: randomBetween(1, availableBodyParts[newGender].upperRightArm),
       rightFoot: randomBetween(1, availableBodyParts[newGender].rightFoot),
       lowerRightLeg: randomBetween(1, availableBodyParts[newGender].lowerRightLeg),
       upperRightLeg: randomBetween(1, availableBodyParts[newGender].upperRightLeg),

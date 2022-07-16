@@ -20,12 +20,12 @@ export interface BodyParts {
   leftShoulder: number,
 }
 
-const availableBodyParts = {
+const availableBodyParts: { male: BodyParts, female: BodyParts } = {
   male: {
     longHair: 0,
     lowerRightArm: 1,
     rightHand: 1,
-    UpperRightArm: 1,
+    upperRightArm: 1,
     rightShoulder: 1,
     rightFoot: 1,
     lowerRightLeg: 1,
@@ -46,7 +46,7 @@ const availableBodyParts = {
     longHair: 2,
     lowerRightArm: 1,
     rightHand: 1,
-    UpperRightArm: 1,
+    upperRightArm: 1,
     rightShoulder: 1,
     rightFoot: 1,
     lowerRightLeg: 1,
