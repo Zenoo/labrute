@@ -9,6 +9,7 @@ import StyledButton from '../components/StyledButton';
 import Text from '../components/Text';
 import advertisings from '../utils/advertisings';
 import skills from '../utils/brute/skills';
+import weapons from '../utils/brute/weapons';
 import { Brute } from '../utils/Server';
 
 interface Log {
@@ -88,7 +89,7 @@ const CellView = () => {
           shade: '#cb6a23'
         }
       },
-      weapons: [],
+      weapons: [...weapons].sort(() => 0.5 - Math.random()).slice(0, 12),
       skills: [...skills].sort(() => 0.5 - Math.random()).slice(0, 12).map((s) => s.name),
       master: {
         id: 999,
@@ -182,7 +183,7 @@ const CellView = () => {
             <Box sx={{ width: 315 }}>
               {/* WEAPONS */}
               <Text bold sx={{ textAlign: 'center' }}>{t('weaponsBonuses')}</Text>
-              <CellWeapons weapons={[]} />
+              <CellWeapons weapons={brute.data.weapons} />
               {/* SKILLS */}
               <Grid container spacing={1} sx={{ pt: 1 }}>
                 {skills.map((skill) => (

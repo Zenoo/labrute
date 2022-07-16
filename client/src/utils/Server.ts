@@ -1,6 +1,8 @@
 import { BodyParts } from './brute/availableBodyParts';
 import { BodyColors } from './brute/colors';
+import skills from './brute/skills';
 import { Gender } from './brute/types';
+import weapons from './brute/weapons';
 import Fetch from './Fetch';
 
 export interface User {
@@ -12,11 +14,6 @@ export interface User {
   connexionToken: string;
   createdAt: Date;
   updatedAt: Date;
-}
-
-export interface Weapon {
-  id: number;
-  name: string;
 }
 
 export interface Skill {
@@ -32,8 +29,8 @@ export interface Brute {
     gender: Gender;
     body: BodyParts;
     colors: BodyColors;
-    weapons: Weapon[];
-    skills: string[];
+    weapons: typeof weapons;
+    skills: typeof skills[number]['name'][];
     master: {
       id: number;
       name: string;
