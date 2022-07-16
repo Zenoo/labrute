@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.16](https://github.com/Zenoo/labrute/compare/v0.1.15...v0.1.16) (2022-07-16)
+
+
+### Feature
+
+* Weapons board now displays conditionally ([2d351c3](https://github.com/Zenoo/labrute/commit/2d351c34d3205ba9d580934566f7be88013a5ce0))
+
 ### [0.1.15](https://github.com/Zenoo/labrute/compare/v0.1.14...v0.1.15) (2022-07-16)
 
 
