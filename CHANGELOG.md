@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.17](https://github.com/Zenoo/labrute/compare/v0.1.16...v0.1.17) (2022-07-16)
+
+
+### Feature
+
+* Cell pets display ([58fb7c5](https://github.com/Zenoo/labrute/commit/58fb7c5d2b0dad924de62106aae9726417a782bb))
+
 ### [0.1.16](https://github.com/Zenoo/labrute/compare/v0.1.15...v0.1.16) (2022-07-16)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "labrute",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "private": true,
   "proxy": "http://localhost:9000",
   "dependencies": {
