@@ -1,4 +1,4 @@
-import { Box, Grid, Link, Paper, Tooltip } from '@mui/material';
+import { Box, Divider, Grid, Link, Paper, Tooltip } from '@mui/material';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
@@ -41,6 +41,7 @@ const CellView = () => {
   // const { data: brute } = useStateAsync(null, Server.Brute.get, bruteName);
   const [brute] = useState<Brute>({
     id: 1,
+    rank: 3333,
     data: {
       name: 'blablabla',
       gender: 'female',
@@ -92,7 +93,9 @@ const CellView = () => {
       master: {
         id: 999,
         name: 'BigBoss'
-      }
+      },
+      victories: 1540,
+      pupils: 360,
     }
   });
 
@@ -119,30 +122,30 @@ const CellView = () => {
         >
           <Grid container spacing={1}>
             <Grid item xs={6}>
-              <Text h2 sx={{ fontVariant: 'small-caps' }}>{bruteName}</Text>
+              <Text h2 sx={{ fontVariant: 'small-caps' }}>{brute.data.name}</Text>
             </Grid>
             <Grid item xs={3}>
               <Box>
                 {brute.data.master ? (
                   <>
                     <Text bold color="secondary" component="span">{t('master')}: </Text>
-                    <Text bold component="span">XXXXX</Text>
+                    <Text bold component="span">{brute.data.master.name}</Text>
                   </>
                 ) : <Text>{' '}</Text>}
               </Box>
               <Box>
                 <Text bold color="secondary" component="span">{t('ranking')}: </Text>
-                <Text bold component="span">33333</Text>
+                <Text bold component="span">{brute.rank}</Text>
               </Box>
             </Grid>
             <Grid item xs={3}>
               <Box>
                 <Text bold color="secondary" component="span">{t('victories')}: </Text>
-                <Text bold component="span">1540</Text>
+                <Text bold component="span">{brute.data.victories}</Text>
               </Box>
               <Box>
                 <Text bold color="secondary" component="span">{t('pupils')}: </Text>
-                <Text bold component="span">300</Text>
+                <Text bold component="span">{brute.data.pupils}</Text>
               </Box>
             </Grid>
           </Grid>
@@ -177,8 +180,10 @@ const CellView = () => {
           {/* MAIN */}
           <Box sx={{ display: 'flex', flexGrow: 1 }}>
             <Box sx={{ width: 315 }}>
+              {/* WEAPONS */}
               <Text bold sx={{ textAlign: 'center' }}>{t('weaponsBonuses')}</Text>
               <CellWeapons weapons={[]} />
+              {/* SKILLS */}
               <Grid container spacing={1} sx={{ pt: 1 }}>
                 {skills.map((skill) => (
                   <Grid
@@ -187,7 +192,34 @@ const CellView = () => {
                     key={skill.name}
                     sx={{ opacity: brute.data.skills.includes(skill.name) ? 1 : 0.5 }}
                   >
-                    <Tooltip title={skill.name}>
+                    {brute.data.skills.includes(skill.name) ? (
+                      <Tooltip
+                        title={(
+                          <>
+                            <Box
+                              component="img"
+                              src={`/images/skills/${skill.icon}.svg`}
+                              sx={{ width: 68, float: 'left', marginRight: 1 }}
+                            />
+                            <Text bold h5>{t(skill.name)}</Text>
+                            <Divider />
+                            <Text sx={{ mt: 1.5, fontSize: 12 }}>{t(`${skill.name}.desc`)}</Text>
+                          </>
+                        )}
+                        componentsProps={{
+                          tooltip: { sx: { minHeight: 68 } },
+                          popper: { sx: { width: 250 } },
+                        }}
+                      >
+                        <Box
+                          component="img"
+                          src={`/images/skills/${skill.icon}.svg`}
+                          sx={{
+                            boxShadow: 4,
+                          }}
+                        />
+                      </Tooltip>
+                    ) : (
                       <Box
                         component="img"
                         src={`/images/skills/${skill.icon}.svg`}
@@ -195,7 +227,7 @@ const CellView = () => {
                           boxShadow: 4,
                         }}
                       />
-                    </Tooltip>
+                    )}
                   </Grid>
                 ))}
               </Grid>

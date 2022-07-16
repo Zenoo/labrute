@@ -26,6 +26,7 @@ export interface Skill {
 
 export interface Brute {
   id: number;
+  rank: number;
   data: {
     name: string;
     gender: Gender;
@@ -37,6 +38,8 @@ export interface Brute {
       id: number;
       name: string;
     }
+    victories: number;
+    pupils: number;
   };
 }
 

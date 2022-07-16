@@ -160,6 +160,21 @@ const defaultTheme = {
         }),
       },
     },
+    MuiTooltip: {
+      defaultProps: {
+        followCursor: true,
+        placement: 'top' as const,
+      },
+      styleOverrides: {
+        tooltip: sx({
+          bgcolor: 'background.paper',
+          color: 'secondary.main',
+          borderColor: 'secondary.main',
+          borderWidth: '1.5px',
+          borderStyle: 'solid',
+        }),
+      },
+    }
   },
 };
 
