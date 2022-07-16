@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.14](https://github.com/Zenoo/labrute/compare/v0.1.13...v0.1.14) (2022-07-16)
+
+
+### Feature
+
+* Skills display ([bd72ff5](https://github.com/Zenoo/labrute/commit/bd72ff5dee62c25c9b615581a1a3cd527709254a))
+
 ### [0.1.13](https://github.com/Zenoo/labrute/compare/v0.1.12...v0.1.13) (2022-07-13)
 
 
