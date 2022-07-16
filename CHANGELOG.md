@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/Zenoo/labrute/compare/v0.1.17...v0.2.0) (2022-07-16)
+
+
+### Feature
+
+* Cell page mostly done ([6bb28a7](https://github.com/Zenoo/labrute/commit/6bb28a79d0971e1891ed608ad2a8a8fb65b74213))
+
 ### [0.1.17](https://github.com/Zenoo/labrute/compare/v0.1.16...v0.1.17) (2022-07-16)
 
 
