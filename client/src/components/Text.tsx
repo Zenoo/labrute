@@ -18,6 +18,7 @@ interface Props extends TypographyProps {
   overline?: boolean;
   inherit?: boolean;
   bold?: boolean;
+  smallCaps?: boolean;
   component?: React.ElementType;
 }
 
@@ -38,6 +39,8 @@ const Text = ({
   overline = false,
   inherit = false,
   bold = false,
+  smallCaps = false,
+  sx,
   ...rest
 }: Props) => {
   return (
@@ -61,6 +64,11 @@ const Text = ({
       }
       // eslint-disable-next-line no-undefined
       fontWeight={bold ? '600' : undefined}
+      sx={{
+        // eslint-disable-next-line no-undefined
+        fontVariant: smallCaps ? 'small-caps' : undefined,
+        ...sx,
+      }}
       {...rest}
     >
       {children}

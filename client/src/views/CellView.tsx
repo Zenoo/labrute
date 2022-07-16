@@ -1,14 +1,17 @@
-import { Box, Divider, Grid, Link, Paper, Tooltip } from '@mui/material';
+import { Box, Divider, Grid, Link, Paper, Stack, Tooltip } from '@mui/material';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import BoxWithBackground from '../components/BoxWithBackground';
+import { default as BruteComponent } from '../components/Brute/Brute';
 import CellPets from '../components/Cell/CellPets';
+import CellStats from '../components/Cell/CellStats';
 import CellWeapons from '../components/Cell/CellWeapons';
 import Page from '../components/Page';
 import StyledButton from '../components/StyledButton';
 import Text from '../components/Text';
 import advertisings from '../utils/advertisings';
+import getXPNeeded from '../utils/brute/getXPNeeded';
 import skills from '../utils/brute/skills';
 import weapons from '../utils/brute/weapons';
 import { Brute } from '../utils/Server';
@@ -16,9 +19,7 @@ import { Brute } from '../utils/Server';
 interface Log {
   id: number;
   type: 'win' | 'lose' | 'child' | 'childup'
-  | 'up' | 'lvl_0' | 'lvl_1' | 'lvl_2' | 'lvl_3'
-  | 'lvl_4' | 'lvl_5' | 'lvl_6' | 'lvl_7'
-  | 'lvl_8' | 'lvl_9' | 'lvl_10' | 'survive';
+  | 'up' | 'lvl' | 'survive';
   value?: string;
   xp?: number;
 }
@@ -30,7 +31,7 @@ const logs: Log[] = [
   { id: 4, type: 'child', value: 'test3' },
   { id: 5, type: 'childup', value: 'test4' },
   { id: 6, type: 'up' },
-  { id: 7, type: 'lvl_10' },
+  { id: 7, type: 'lvl', value: '10' },
 ];
 
 const panther = Math.random() < 0.5;
@@ -48,27 +49,36 @@ const CellView = () => {
     rank: 3333,
     data: {
       name: 'blablabla',
+      level: 55,
+      xp: 72,
+      stats: {
+        hp: Math.floor(Math.random() * (2000 - 200 + 1)) + 200,
+        strength: Math.floor(Math.random() * 60),
+        agility: Math.floor(Math.random() * 60),
+        speed: Math.floor(Math.random() * 60),
+      },
+      ranking: Math.floor(Math.random() * 10) + 1 as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10,
       gender: 'female',
       body: {
-        longHair: 1,
-        lowerRightArm: 0,
-        rightHand: 0,
-        upperRightArm: 0,
-        rightShoulder: 0,
-        rightFoot: 0,
-        lowerRightLeg: 0,
-        upperRightLeg: 0,
-        leftFoot: 0,
-        lowerLeftLeg: 0,
-        pelvis: 0,
-        upperLeftLeg: 0,
-        tummy: 0,
-        torso: 0,
-        head: 0,
-        leftHand: 0,
-        upperLeftArm: 0,
-        lowerLeftArm: 0,
-        leftShoulder: 0,
+        longHair: 2,
+        lowerRightArm: 1,
+        rightHand: 1,
+        upperRightArm: 1,
+        rightShoulder: 1,
+        rightFoot: 1,
+        lowerRightLeg: 1,
+        upperRightLeg: 1,
+        leftFoot: 1,
+        lowerLeftLeg: 1,
+        pelvis: 1,
+        upperLeftLeg: 1,
+        tummy: 1,
+        torso: 1,
+        head: 1,
+        leftHand: 1,
+        upperLeftArm: 1,
+        lowerLeftArm: 1,
+        leftShoulder: 1,
       },
       colors: {
         skin: {
@@ -114,7 +124,7 @@ const CellView = () => {
   )], []);
 
   // TEMP METHOD
-  // Reload brute with random weapons, skills and pets
+  // Reload brute with everything random rerolled
   const reloadRandom = useCallback(() => {
     const _panther = Math.random() < 0.5;
     const newBrute = { ...brute };
@@ -126,6 +136,15 @@ const CellView = () => {
       panther: _panther ? 1 : 0,
       bear: _panther ? 0 : Math.floor(Math.random() * 2) as 0 | 1,
     };
+    newBrute.data.ranking = Math.floor(Math.random() * 10)
+      + 1 as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+    newBrute.data.stats.hp = Math.floor(Math.random() * (2000 - 200 + 1)) + 200;
+    newBrute.data.stats.strength = Math.floor(Math.random() * 60);
+    newBrute.data.stats.agility = Math.floor(Math.random() * 60);
+    newBrute.data.stats.speed = Math.floor(Math.random() * 60);
+    newBrute.data.level = Math.floor(Math.random() * (1500 - 1 + 1)) + 1;
+    newBrute.data.xp = Math.floor(Math.random() * getXPNeeded(newBrute.data.level + 1));
+
     setBrute(newBrute);
   }, [brute]);
 
@@ -262,7 +281,58 @@ const CellView = () => {
               </Box>
             </Box>
             <Box sx={{ flexGrow: 1 }}>
-              Yo
+              <Box display="flex" justifyContent="space-between" alignItems="flex-start" sx={{ mb: 2 }}>
+                <Box width={100}>
+                  <Text bold h3 smallCaps color="secondary">{t('level')} {brute.data.level}</Text>
+                  {/* LEVEL BAR */}
+                  <Tooltip title={`${brute.data.xp} / ${getXPNeeded(brute.data.level + 1)}`}>
+                    <Box sx={{ bgcolor: 'secondary.main', p: '2px' }}>
+                      <Box sx={{
+                        bgcolor: 'level',
+                        height: 3,
+                        width: brute.data.xp / getXPNeeded(brute.data.level + 1)
+                      }}
+                      />
+                    </Box>
+                  </Tooltip>
+                </Box>
+                {/* RANKING */}
+                {brute.data.ranking < 10 && (
+                  <Box sx={{ width: 140, display: 'flex', flexDirection: 'row' }}>
+                    <Box component="img" src={`/images/rankings/lvl_${brute.data.ranking}.gif`} />
+                    <Text bold color="secondary" sx={{ pl: 0.5 }}>{t(`lvl_${brute.data.ranking}`)}</Text>
+                  </Box>
+                )}
+              </Box>
+              <Box display="flex" flexDirection="row">
+                {/* BRUTE */}
+                <BruteComponent
+                  gender={brute.data.gender}
+                  bodyParts={brute.data.body}
+                  colors={brute.data.colors}
+                  inverted
+                  height="160"
+                />
+                <Stack spacing={1} flexGrow="1">
+                  {/* HP */}
+                  <Box>
+                    <BoxWithBackground
+                      url="/images/hp.gif"
+                      alt="HP"
+                      sx={{ textAlign: 'center', pt: '5px', width: 39, display: 'inline-block' }}
+                    >
+                      <Text bold color="common.white">{brute.data.stats.hp}</Text>
+                    </BoxWithBackground>
+                    <Text bold sx={{ display: 'inline-block', ml: 1 }}>{t('healthPoints')}</Text>
+                  </Box>
+                  {/* STRENGTH */}
+                  <CellStats stats={brute.data.stats} stat="strength" />
+                  {/* AGILITY */}
+                  <CellStats stats={brute.data.stats} stat="agility" />
+                  {/* SPEED */}
+                  <CellStats stats={brute.data.stats} stat="speed" />
+                </Stack>
+              </Box>
             </Box>
           </Box>
           {/* RIGHT SIDE */}
@@ -323,7 +393,11 @@ const CellView = () => {
               {logs.map((log) => (
                 <BoxWithBackground
                   key={log.id}
-                  url={`/images/log/log_${log.type === 'survive' ? 'win' : log.type}.gif`}
+                  url={`/images/log/log_${log.type === 'survive'
+                    ? 'win'
+                    : log.type === 'lvl'
+                      ? `lvl_${log.value}`
+                      : log.type}.gif`}
                   alt={t('background')}
                   sx={{
                     width: 200,
@@ -356,7 +430,9 @@ const CellView = () => {
                     )
                     : (
                       <Text bold color="success.main">
-                        {t(`log.${log.type}`, { value: log.value })}
+                        {log.type === 'lvl'
+                          ? `${t('log.lvl')} ${t(`lvl_${log.value as '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10'}`)}.`
+                          : t(`log.${log.type}`, { value: log.value })}
                       </Text>
                     )}
                   {log.xp && (

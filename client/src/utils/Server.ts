@@ -32,6 +32,15 @@ export interface Brute {
   rank: number;
   data: {
     name: string;
+    level: number;
+    xp: number;
+    stats: {
+      hp: number;
+      strength: number;
+      agility: number;
+      speed: number;
+    }
+    ranking: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
     gender: Gender;
     body: BodyParts;
     colors: BodyColors;

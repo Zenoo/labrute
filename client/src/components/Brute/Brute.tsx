@@ -56,7 +56,7 @@ const Brute = ({
       {...rest}
     >
       {shadow && (
-        <use xmlns="http://www.w3.org/2000/svg" height="80.0" id="_shadow" transform="matrix(1.2543, 0.0, 0.0, 0.5937, -14, 165)" width="80.0" xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="#shadowSprite" />
+        <use xmlns="http://www.w3.org/2000/svg" height="80.0" transform="matrix(1.2543, 0.0, 0.0, 0.5937, 25, 165)" width="80.0" xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="#shadowSprite" />
       )}
       <g transform="matrix(1, 0, 0, 1, 40, 7)">
         <LongHair {...props} type={bodyParts.longHair} />

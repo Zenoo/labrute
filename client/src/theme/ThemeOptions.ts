@@ -37,11 +37,15 @@ declare module '@mui/material/styles/createPalette' {
     transition?: TypeTransition,
     scrollbar?: TypeScrollbar,
     border: TypeBorder,
-    button: TypeButton
+    button: TypeButton,
+    heat: (null | string)[]
+    level: string
   }
   interface PaletteOptions {
     transition?: TypeTransition,
-    scrollbar?: TypeScrollbar
+    scrollbar?: TypeScrollbar,
+    heat: (null | string)[]
+    level: string
   }
   interface TypeText {
     white: string;
@@ -90,6 +94,16 @@ const defaultTheme = {
       paperLight: '#fbf7c0',
       paperAccent: '#fffcb0',
     },
+    heat: [
+      null,
+      '#cccc00',
+      '#ffff00',
+      '#ff9900',
+      '#ff0000',
+      '#550000',
+      null,
+    ],
+    level: '#d0f832',
     border,
     button
   },
