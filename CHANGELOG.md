@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.15](https://github.com/Zenoo/labrute/compare/v0.1.14...v0.1.15) (2022-07-16)
+
+
+### Feature
+
+* Tooltip style + Skills tooltips ([7213b92](https://github.com/Zenoo/labrute/commit/7213b92eafcf7afc0c12dea67c9c00515f219cf4))
+
 ### [0.1.14](https://github.com/Zenoo/labrute/compare/v0.1.13...v0.1.14) (2022-07-16)
 
 
