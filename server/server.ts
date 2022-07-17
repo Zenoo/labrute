@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from "dotenv";
+import {fileURLToPath} from "url";
 dotenv.config();
 
 import bodyParser from 'body-parser';
@@ -15,7 +16,7 @@ app.use(
     extended: true,
   })
 );
-app.use(express.static(path.join(__dirname, '..', 'client', 'build')));
+app.use(express.static(path.join(fileURLToPath(import.meta.url), '..', '..', 'client', 'build')));
 
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);

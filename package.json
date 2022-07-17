@@ -19,7 +19,7 @@
     "release": "standard-version -a",
     "front": "cd client && npm run start",
     "back": "nodemon server/server.ts",
-    "start": "ts-node server/server.ts",
+    "start": "ts-node --esm server/server.ts",
     "etwin": "etwin"
   },
   "devDependencies": {
