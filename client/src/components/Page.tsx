@@ -1,7 +1,8 @@
-import { Box, BoxProps, GlobalStyles, Link, useTheme } from '@mui/material';
-import React from 'react';
+import { Box, BoxProps, Button, GlobalStyles, Link, Paper, useTheme } from '@mui/material';
+import React, { useCallback } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
+import etwin from '../utils/etwin';
 import Text from './Text';
 
 interface Props extends BoxProps {
@@ -16,6 +17,16 @@ const Page = ({
 }: Props) => {
   const theme = useTheme();
   const { t } = useTranslation();
+
+  const oauth = useCallback(() => {
+    etwin.fetch('/oauth/redirect', {
+      method: 'POST',
+    }).then((response) => {
+      console.log(response);
+    }).catch((error) => {
+      console.error(error);
+    });
+  }, []);
 
   return (
     <Box {...rest}>
@@ -38,6 +49,25 @@ const Page = ({
         <title>{title}</title>
       </Helmet>
       {children}
+      {/* AUTH */}
+      <Paper sx={{
+        position: 'fixed',
+        bottom: -20,
+        right: 0,
+        py: 0,
+        px: 1,
+        transition: 'all 0.3s ease-in-out',
+        zIndex: 1,
+        '&:hover': {
+          bottom: 0
+        }
+      }}
+      >
+        <Button onClick={oauth}>
+          <Text bold color="secondary">{t('connect')}</Text>
+        </Button>
+      </Paper>
+      {/* FOOTER */}
       <Box sx={{ textAlign: 'center', mt: 2 }}>
         <Text color="secondary" sx={{ fontWeight: 'bold' }}>
           {t('moreGames')} :{' '}

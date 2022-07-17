@@ -17,6 +17,7 @@
   "changeColors": "Changer les couleurs",
   "validate": "Valider",
   "moreGames": "Plus de jeux",
+  "connect": "Se connecter",
 
   "shadow": "Ombre",
   "log.win": "Ta brute a écrasé {{value}}.",

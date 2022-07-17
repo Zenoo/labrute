@@ -20,7 +20,7 @@ const CellStats = ({
   return (
     <Box>
       <Text bold>{t(stat)} :</Text>
-      <Tooltip title={`${t(stat)} : ${stats.speed}`}>
+      <Tooltip title={`${t(stat)} : ${stats[stat]}`}>
         <Box>
           {excesses.map((excess) => (
             <Box

@@ -1,0 +1,140 @@
+# General configuration
+[etwin]
+# API backend implementation to use
+# Type: "in-memory" | "postgres"
+# The following values are allowed:
+# - "in-memory": Store data in-memory. Allows to run the website with minimal configuration. The
+#   downside is that the data is lost when stopping the server. Recommended for development when
+#   working on the website interface or translations.
+# - "postgres": Store data in a Postgres database. This is the value used in production.
+api = "postgres"
+# Main secret key. This key is used to derive all the secrets used to protect the tokens generated
+# by the website and encrypted database columns.
+secret = "7Xn^zXKaz4X$wS"
+# Internal HTTP port to use for the server.
+http_port = 50320
+# Public address of the website. For development, it is recommend to use `localhost` with the right
+# port. In production, this value is used to enable Nginx to act as a reverse proxy.
+external_uri = "http://localhost:50320"
+
+# Postgres database configuration
+# This section is always required, even if it will be ignored when using the `in-memory` API.
+[db]
+# Database service host
+host = "localhost"
+# Database service port
+port = 5432
+# Database name
+name = "etwin.dev"
+# Database user (role) for schema management.
+admin_user = "postgres"
+# Password for the database admin user.
+admin_password = "admin"
+# Database user (role) for regular runtime.
+user = "postgres"
+# Password for the database user.
+password = "admin"
+
+# System Oauth clients configuration
+# You can define any number of OAuth clients using `[clients.<key>]` blocks (one block per client),
+# where `<key>` acts as a stable identifier for the client: the OAuth `client_id` is derived as `<key>@clients`.
+#
+# Fields:
+# ```
+# // Name of the client, as it should be displayed to users
+# display_name: OauthClientDisplayName (String)
+# // URI of the client homepage, as information for users
+# app_uri: Uri (String)
+# // Oauth callback URI, where Eternal-Twin will redirect users
+# callback_uri: Uri (String)
+# // Secret for the client, used when querying the API directly (e.g. to get the OAuth access code)
+# secret: Password (String)
+# ```
+[clients.labrute]
+display_name = "LaBrute"
+app_uri = "http://localhost:50313"
+callback_uri = "http://localhost:50313/oauth/callback"
+secret = "^&Ai$6T3^^#7rN"
+
+# Twinoid authentication configuration
+[auth.twinoid]
+# Client ID provided by Twinoid
+client_id = "380"
+# Client secret provided by Twinoid
+secret = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+
+# Forum configuration
+[forum]
+# Default number of posts per thread page.
+posts_per_page = 10
+# Default number of threads per section page.
+threads_per_page = 20
+
+# Default forum sections configuration
+# You can define any number of forum sections using `[forum.sections.<key>]` blocks (one block per
+# section), where `<key>` acts as a stable identifier for the section.
+[forum.sections.en_main]
+# Name of the section, as it should be displayed to users.
+display_name = "Main Forum (en-US)"
+# Locale for this section
+locale = "en-US"
+
+[forum.sections.fr_main]
+display_name = "Forum Général (fr-FR)"
+locale = "fr-FR"
+
+[forum.sections.es_main]
+display_name = "Foro principal (es-SP)"
+locale = "es-SP"
+
+[forum.sections.de_main]
+display_name = "Hauptforum (de-DE)"
+locale = "de-DE"
+
+[forum.sections.eo_main]
+display_name = "Ĉefa forumo (eo)"
+locale = "eo"
+
+[forum.sections.eternalfest_main]
+display_name = "[Eternalfest] Le Panthéon"
+locale = "fr-FR"
+
+[forum.sections.emush_main]
+display_name = "[Emush] Neron is watching you"
+locale = "fr-FR"
+
+[forum.sections.drpg_main]
+display_name = "[DinoRPG] Jurassic Park"
+locale = "fr-FR"
+
+[forum.sections.myhordes_main]
+display_name = "[Myhordes] Le Saloon"
+locale = "fr-FR"
+
+[forum.sections.kadokadeo_main]
+display_name = "[Kadokadeo] Café des palabres"
+locale = "fr-FR"
+
+[forum.sections.kingdom_main]
+display_name = "[Kingdom] La foire du trône"
+locale = "fr-FR"
+
+[forum.sections.mjrt_main]
+display_name = "[Mjrt] La bergerie"
+locale = "fr-FR"
+
+[forum.sections.na_main]
+display_name = "[Naturalchimie] Le laboratoire"
+locale = "fr-FR"
+
+[forum.sections.sq_main]
+display_name = "[Studioquiz] Le bar à questions"
+locale = "fr-FR"
+
+[forum.sections.ts_main]
+display_name = "[Teacher Story] La salle des profs"
+locale = "fr-FR"
+
+[forum.sections.popotamo_main]
+display_name = "[Popotamo] Le mot le plus long"
+locale = "fr-FR"

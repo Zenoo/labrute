@@ -19,8 +19,6 @@ const App = () => {
   const routing = useRoutes(routes);
   const Language = useLanguage();
 
-  console.log(light.palette.success);
-
   return (
     <HelmetProvider>
       <AuthProvider>
