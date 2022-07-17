@@ -1,3 +1,6 @@
 {
-  "ignore": ["client/*"]
+  "ignore": ["client/*"],
+  "execMap": {
+    "ts": "ts-node --esm"
+  }
 }
