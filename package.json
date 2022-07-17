@@ -13,8 +13,7 @@
     "dotenv": "^16.0.0",
     "express": "^5.0.0-beta.1",
     "pg": "^8.7.3",
-    "postgresql-client": "^2.1.4",
-    "ts-node": "^10.9.1"
+    "postgresql-client": "^2.1.4"
   },
   "scripts": {
     "release": "standard-version -a",
