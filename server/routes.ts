@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { Express, Request, Response } from 'express';
 import path from 'path';
-import { Brutes } from './endpoints/Brutes';
+import { Brutes } from './endpoints/Brutes.js';
 
 export function initRoutes(app: Express) {
   app.get('/api', (req: Request, res: Response) => res.status(200).send({

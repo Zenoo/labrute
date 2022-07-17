@@ -3,6 +3,7 @@
   "version": "0.2.0",
   "private": true,
   "entry": "server/server.js",
+  "type": "module",
   "dependencies": {
     "@eternal-twin/core": "^0.10.3",
     "@eternal-twin/etwin-client-http": "^0.10.3",
@@ -12,7 +13,8 @@
     "dotenv": "^16.0.0",
     "express": "^5.0.0-beta.1",
     "pg": "^8.7.3",
-    "postgresql-client": "^2.1.4"
+    "postgresql-client": "^2.1.4",
+    "ts-node": "^10.9.1"
   },
   "scripts": {
     "release": "standard-version -a",

@@ -52,7 +52,7 @@ const Page = ({
       {/* AUTH */}
       <Paper sx={{
         position: 'fixed',
-        bottom: -20,
+        bottom: -22,
         right: 0,
         py: 0,
         px: 1,

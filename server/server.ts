@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import bodyParser from 'body-parser';
-import { initRoutes } from './routes';
+import { initRoutes } from './routes.js';
 import path from 'path';
 
 const app = express();

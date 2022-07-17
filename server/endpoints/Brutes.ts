@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import DB from '../db/connect';
+import DB from '../db/connect.js';
 
 export const Brutes = {
   list: async (req: Request, res: Response) => {
