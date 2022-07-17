@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/Zenoo/labrute/compare/v0.2.0...v0.3.0) (2022-07-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* Node 16 backend
+
+### Progress
+
+* Authentication ([64e40cf](https://github.com/Zenoo/labrute/commit/64e40cf93409bba69da685a62f25098645f26146))
+
+
+### Feature
+
+* Node 16 backend ([42ff777](https://github.com/Zenoo/labrute/commit/42ff777c707323842c2c79a8c87f98bb61e92219))
+
+
+### Bug fix
+
+* Backend vulnerabilities ([a75041f](https://github.com/Zenoo/labrute/commit/a75041f68a6115fceeb4c58c98db22f3f6d3abca))
+* Client vulnerabilities ([2c5ea3b](https://github.com/Zenoo/labrute/commit/2c5ea3baba9aca58b25923e375c28f85ced7ad07))
+* Fix server support for ESM ([33cd6c9](https://github.com/Zenoo/labrute/commit/33cd6c922f7ff7b4b6d64584db6b95de4c6ef6ce))
+* Nodemon TS setup ([8ee1b28](https://github.com/Zenoo/labrute/commit/8ee1b281dc89d0b5ce67033457587629294a85ce))
+* Wrong ts-node installation ([1ff1e98](https://github.com/Zenoo/labrute/commit/1ff1e98d6227941bc76eab8bfa914083b53cab5b))
+
 ## [0.2.0](https://github.com/Zenoo/labrute/compare/v0.1.17...v0.2.0) (2022-07-16)
 
 
