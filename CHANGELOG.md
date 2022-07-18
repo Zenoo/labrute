@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.1](https://github.com/Zenoo/labrute/compare/v0.3.0...v0.3.1) (2022-07-18)
+
+
+### Visual update
+
+* Tablet/Mobile versions ([c0ddc7a](https://github.com/Zenoo/labrute/commit/c0ddc7aa9dfbf42a4cfeef702dddf0a6d7b59382))
+
 ## [0.3.0](https://github.com/Zenoo/labrute/compare/v0.2.0...v0.3.0) (2022-07-17)
 
 
