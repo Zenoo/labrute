@@ -8,7 +8,8 @@ const LoggedOut = () => {
     <Box sx={{
       height: 1,
       m: '0 auto',
-      maxWidth: 930
+      width: 930,
+      maxWidth: 1
     }}
     >
       <Header />

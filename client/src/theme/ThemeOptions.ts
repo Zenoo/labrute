@@ -119,7 +119,7 @@ const defaultTheme = {
           bgcolor: 'background.paper',
           borderRadius: '5px',
           p: 2,
-          mx: '14px'
+          m: 2,
         })
       }
     },

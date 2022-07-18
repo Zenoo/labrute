@@ -39,9 +39,15 @@ const Header = (props: BoxProps) => {
           top: 0,
           left: 0,
           zIndex: 1,
+          width: '23.118279569%',
         }}
       />
-      <Box component="img" src="/images/header/head.jpg" alt={t('MyBrute')} />
+      <Box
+        component="img"
+        src="/images/header/head.jpg"
+        alt={t('MyBrute')}
+        sx={{ width: 1 }}
+      />
       <Box
         component="img"
         src={`/images/header/right/1${pad(rightArt, 2)}.png`}
@@ -51,6 +57,7 @@ const Header = (props: BoxProps) => {
           top: 0,
           right: 0,
           zIndex: 1,
+          width: '23.118279569%',
         }}
       />
     </Box>

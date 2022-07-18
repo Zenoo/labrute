@@ -1,4 +1,4 @@
-import { Box, Grid, Link, Tooltip } from '@mui/material';
+import { Box, Grid, Link, Tooltip, useMediaQuery } from '@mui/material';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import BoxWithBackground from '../components/BoxWithBackground';
@@ -14,12 +14,15 @@ import availableBodyParts, { BodyParts } from '../utils/brute/availableBodyParts
 import colors, { BodyColors } from '../utils/brute/colors';
 import { Gender } from '../utils/brute/types';
 import randomBetween from '../utils/randomBetween';
+import HomeMobileView from './mobile/HomeMobileView';
 
 /**
  * HomeView component
  */
 const HomeView = () => {
   const { t } = useTranslation();
+  const smallScreen = useMediaQuery('(max-width: 935px)');
+
   // Randomized left redirect
   const leftRedirect = useMemo(() => Math.floor(
     Math.random() * (advertisings.length - 1) + 1
@@ -33,7 +36,6 @@ const HomeView = () => {
     return redirect;
   }, [leftRedirect]);
 
-  const [login, setLogin] = useState('');
   const [name, setName] = useState('');
 
   /* CHARACTER CREATOR */
@@ -82,8 +84,6 @@ const HomeView = () => {
       shade: adjustColor(colors[gender].clothing[2], -20),
     },
   });
-
-  console.log(bodyColors);
 
   // Colors randomizer
   const randomizeColors = useCallback((currentGender: Gender) => {
@@ -157,10 +157,6 @@ const HomeView = () => {
     randomizeColors(newGender);
   }, [gender, randomizeColors]);
 
-  // Login change handler
-  const changeLogin = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    setLogin(event.target.value);
-  }, []);
   // Name change handler
   const changeName = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -184,127 +180,132 @@ const HomeView = () => {
     }
   }, [creationStarted, gender, randomizeColors]);
 
-  return (
-    <Page title={t('MyBrute')}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-        {/* CHARACTER CREATION */}
-        <BoxWithBackground
-          url="/images/creation/bg.png"
-          alt={t('background')}
-          sx={{ width: 290, height: 454 }}
-          imgSx={{ top: '0.2px', right: 0, left: null }}
-        >
-          {/* CREATION HEADER */}
-          <Grid container sx={{ pl: 7, pr: 4, pt: 4 }}>
-            <Grid item xs={9} sx={{ pl: 4 }}>
-              <Text sx={{ typography: 'Verdana', fontSize: 10 }} color="secondary">{t('chooseName')}</Text>
+  return smallScreen
+    ? (
+      <HomeMobileView
+        changeName={changeName}
+        name={name}
+        creationStarted={creationStarted}
+        gender={gender}
+        bodyParts={bodyParts}
+        bodyColors={bodyColors}
+        changeAppearance={changeAppearance}
+        changeColors={changeColors}
+        leftRedirect={leftRedirect}
+        rightRedirect={rightRedirect}
+      />
+    )
+    : (
+      <Page title={t('MyBrute')}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
+          {/* CHARACTER CREATION */}
+          <BoxWithBackground
+            url="/images/creation/bg.png"
+            alt={t('background')}
+            sx={{ width: 290, height: 454 }}
+            imgSx={{ top: '0.2px', right: 0, left: null }}
+          >
+            {/* CREATION HEADER */}
+            <Grid container sx={{ pl: 7, pr: 4, pt: 4 }}>
+              <Grid item xs={9} sx={{ pl: 4 }}>
+                <Text sx={{ typography: 'Verdana', fontSize: 10 }} color="secondary">{t('chooseName')}</Text>
+              </Grid>
+              <Grid item xs={3}>
+                <Box component="img" src="/images/creation/arrow.png" alt={t('arrow')} />
+              </Grid>
             </Grid>
-            <Grid item xs={3}>
-              <Box component="img" src="/images/creation/arrow.png" alt={t('arrow')} />
-            </Grid>
-          </Grid>
-          {/* NAME INPUT */}
-          <Box sx={{ pl: 6.5, pr: 4 }}>
-            <StyledInput
-              onChange={changeName}
-              value={name}
-            />
-            {/* CHARACTER */}
-            <Box sx={{ textAlign: 'center', mt: creationStarted ? 0 : 1 }}>
-              {creationStarted ? (
-                <Brute
-                  gender={gender}
-                  bodyParts={bodyParts}
-                  colors={bodyColors}
-                  inverted
-                  height="160"
-                />
-              ) : <EmptyBrute style={{ marginBottom: '12px' }} />}
-            </Box>
-            {/* CUSTOMIZATION BUTTONS */}
-            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-              <Tooltip title={t('changeAppearance')}>
-                <StyledButton
-                  onClick={changeAppearance}
-                  image="/images/creation/bodyType.svg"
-                  swapImage={false}
-                  sx={{ width: 89, height: 89, mt: -9.5 }}
-                />
-              </Tooltip>
-              <Tooltip title={t('changeColors')}>
-                <StyledButton
-                  onClick={changeColors}
-                  image="/images/creation/color.svg"
-                  swapImage={false}
-                  sx={{ width: 89, height: 89, mt: -9.5 }}
-                />
-              </Tooltip>
-            </Box>
-            {/* VISUAL NOISE */}
-            <Box
-              component="img"
-              src="/images/creation/broken.png"
-              alt="Crack"
-              sx={{ mt: -1.5, ml: 16 }}
-            />
-            {/* VALIDATION */}
-            <Box sx={{ textAlign: 'center' }}>
-              <StyledButton>{t('validate')}</StyledButton>
-            </Box>
-            {/* VISUAL NOISE */}
-            <Box
-              component="img"
-              src="/images/creation/scratches.png"
-              alt="Scratch"
-              sx={{ ml: 6 }}
-            />
-          </Box>
-        </BoxWithBackground>
-        {/* RIGHT SIDE */}
-        <BoxWithBackground
-          url="/images/main-bg.gif"
-          alt={t('background')}
-          sx={{ width: 640, height: 454 }}
-          imgSx={{ top: '2px' }}
-        >
-          {/* FIRST TEXT */}
-          <Box sx={{ width: 300, mt: 2 }}>
-            <Text h4 sx={{ typography: 'handwritten', fontWeight: 'bold' }} color="secondary">{t('toBeABrute')}</Text>
-            <Text sx={{ fontWeight: 'bold' }} color="text.primary">{t('createBrute')}</Text>
-          </Box>
-          {/* SECOND TEXT */}
-          <Box sx={{ width: 300, mt: 4, ml: 2 }}>
-            <Text h4 sx={{ typography: 'handwritten', fontWeight: 'bold' }} color="secondary">{t('orNotToBe')}</Text>
-            <Text sx={{ fontWeight: 'bold' }} color="text.primary">{t('otherGames')}</Text>
-          </Box>
-          {/* OTHER GAMES */}
-          <Box sx={{ mt: 1, ml: 2 }}>
-            {[leftRedirect, rightRedirect].map((redirect) => (
-              <Tooltip title="TODO" key={redirect}>
-                <Link href="" sx={{ width: 200, mx: 4, display: 'inline-block' }}>
-                  <Box
-                    component="img"
-                    src={`/images/redirects/${advertisings[redirect]}`}
-                    sx={{ width: 1, border: 2 }}
+            {/* NAME INPUT */}
+            <Box sx={{ pl: 6.5, pr: 4 }}>
+              <StyledInput
+                onChange={changeName}
+                value={name}
+              />
+              {/* CHARACTER */}
+              <Box sx={{ textAlign: 'center', mt: creationStarted ? 0 : 1 }}>
+                {creationStarted ? (
+                  <Brute
+                    gender={gender}
+                    bodyParts={bodyParts}
+                    colors={bodyColors}
+                    inverted
+                    height="160"
                   />
-                </Link>
-              </Tooltip>
-            ))}
-          </Box>
-        </BoxWithBackground>
-      </Box>
-      <Box sx={{ display: 'flex', justifyContent: 'end', mx: '14px', mt: 2 }}>
-        <StyledInput
-          label={t('alreadyRegistered')}
-          onChange={changeLogin}
-          value={login}
-        />
-        <StyledButton sx={{ ml: 2 }}>
-          {t('enter!')}
-        </StyledButton>
-      </Box>
-    </Page>
-  );
+                ) : <EmptyBrute style={{ marginBottom: '12px' }} />}
+              </Box>
+              {/* CUSTOMIZATION BUTTONS */}
+              <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Tooltip title={t('changeAppearance')}>
+                  <StyledButton
+                    onClick={changeAppearance}
+                    image="/images/creation/bodyType.svg"
+                    swapImage={false}
+                    sx={{ width: 89, height: 89, mt: -9.5 }}
+                  />
+                </Tooltip>
+                <Tooltip title={t('changeColors')}>
+                  <StyledButton
+                    onClick={changeColors}
+                    image="/images/creation/color.svg"
+                    swapImage={false}
+                    sx={{ width: 89, height: 89, mt: -9.5 }}
+                  />
+                </Tooltip>
+              </Box>
+              {/* VISUAL NOISE */}
+              <Box
+                component="img"
+                src="/images/creation/broken.png"
+                alt="Crack"
+                sx={{ mt: -1.5, ml: 16 }}
+              />
+              {/* VALIDATION */}
+              <Box sx={{ textAlign: 'center' }}>
+                <StyledButton>{t('validate')}</StyledButton>
+              </Box>
+              {/* VISUAL NOISE */}
+              <Box
+                component="img"
+                src="/images/creation/scratches.png"
+                alt="Scratch"
+                sx={{ ml: 6 }}
+              />
+            </Box>
+          </BoxWithBackground>
+          {/* RIGHT SIDE */}
+          <BoxWithBackground
+            url="/images/main-bg.gif"
+            alt={t('background')}
+            sx={{ width: 640, height: 454 }}
+            imgSx={{ top: '2px' }}
+          >
+            {/* FIRST TEXT */}
+            <Box sx={{ width: 300, mt: 2 }}>
+              <Text h4 sx={{ typography: 'handwritten', fontWeight: 'bold' }} color="secondary">{t('toBeABrute')}</Text>
+              <Text sx={{ fontWeight: 'bold' }} color="text.primary">{t('createBrute')}</Text>
+            </Box>
+            {/* SECOND TEXT */}
+            <Box sx={{ width: 300, mt: 4, ml: 2 }}>
+              <Text h4 sx={{ typography: 'handwritten', fontWeight: 'bold' }} color="secondary">{t('orNotToBe')}</Text>
+              <Text sx={{ fontWeight: 'bold' }} color="text.primary">{t('otherGames')}</Text>
+            </Box>
+            {/* OTHER GAMES */}
+            <Box sx={{ mt: 1, ml: 2 }}>
+              {[leftRedirect, rightRedirect].map((redirect) => (
+                <Tooltip title="TODO" key={redirect}>
+                  <Link href="" sx={{ width: 200, mx: 4, display: 'inline-block' }}>
+                    <Box
+                      component="img"
+                      src={`/images/redirects/${advertisings[redirect]}`}
+                      sx={{ width: 1, border: 2 }}
+                    />
+                  </Link>
+                </Tooltip>
+              ))}
+            </Box>
+          </BoxWithBackground>
+        </Box>
+      </Page>
+    );
 };
 
 export default HomeView;
