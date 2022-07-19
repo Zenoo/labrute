@@ -1,7 +1,6 @@
-import { Request, Response } from 'express';
-import DB from '../db/connect.js';
 import { Url } from '@eternal-twin/core/core/url';
 import { RfcOauthClient } from '@eternal-twin/oauth-client-http/rfc-oauth-client';
+import { Request, Response } from 'express';
 import url from '../utils/url.js';
 
 export const OAuth = {
