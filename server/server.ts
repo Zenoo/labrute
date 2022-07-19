@@ -4,8 +4,8 @@ import {fileURLToPath} from "url";
 dotenv.config();
 
 import bodyParser from 'body-parser';
-import { initRoutes } from './routes.js';
 import path from 'path';
+import { initRoutes } from './routes.js';
 
 const app = express();
 const port = process.env.PORT || 9000;
