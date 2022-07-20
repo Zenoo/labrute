@@ -1,9 +1,10 @@
-import { AccountCircle, Login } from '@mui/icons-material';
-import { Box, BoxProps, GlobalStyles, Link, SpeedDial, SpeedDialAction, useTheme } from '@mui/material';
-import React, { useCallback } from 'react';
+import { AccountCircle, Login, Logout } from '@mui/icons-material';
+import { Box, BoxProps, CircularProgress, GlobalStyles, Link, SpeedDial, SpeedDialAction, useTheme } from '@mui/material';
+import React, { useCallback, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { useAlert } from '../hooks/useAlert';
+import { useAuth } from '../hooks/useAuth';
 import catchError from '../utils/catchError';
 import Fetch from '../utils/Fetch';
 import Text from './Text';
@@ -21,12 +22,24 @@ const Page = ({
   const theme = useTheme();
   const { t } = useTranslation();
   const Alert = useAlert();
+  const { authing, user, signout } = useAuth();
+
+  // Auth on page load
+  useEffect(() => {
+    if (!user) {
+      // TODO
+    }
+  }, [user]);
 
   const oauth = useCallback(() => {
     Fetch<string>('/api/oauth/redirect').then((response) => {
       window.location.href = response;
     }).catch(catchError(Alert, t));
   }, [Alert, t]);
+
+  const logout = useCallback(() => {
+    signout();
+  }, [signout]);
 
   return (
     <Box {...rest}>
@@ -53,13 +66,22 @@ const Page = ({
       <SpeedDial
         ariaLabel={t('account')}
         sx={{ position: 'absolute', bottom: 16, right: 16 }}
-        icon={<AccountCircle />}
+        icon={authing ? <CircularProgress color="success" sx={{ width: '20px !important', height: '20px !important' }} /> : <AccountCircle />}
       >
-        <SpeedDialAction
-          icon={<Login />}
-          tooltipTitle={t('login')}
-          onClick={oauth}
-        />
+        {!authing && !user && (
+          <SpeedDialAction
+            icon={<Login />}
+            tooltipTitle={t('login')}
+            onClick={oauth}
+          />
+        )}
+        {user && (
+          <SpeedDialAction
+            icon={<Logout />}
+            tooltipTitle={t('logout')}
+            onClick={logout}
+          />
+        )}
       </SpeedDial>
       {/* FOOTER */}
       <Box sx={{ textAlign: 'center', mt: 2 }}>

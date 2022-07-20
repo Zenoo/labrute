@@ -29,7 +29,6 @@
   ],
   "include": [
     "./server/**/*.ts",
-    "types.d.ts",
-    ".eslintrc.cjs",
+    "types.d.ts"
   ]
 }

@@ -33,15 +33,19 @@ const OAuth = {
         clientSecret: '^&Ai$6T3^^#7rN',
       });
 
+      if (!req.query.code || typeof req.query.code !== 'string') {
+        throw new Error('Invalid code');
+      }
+
       // ETwin Token
-      const token = await oauthClient.getAccessToken(req.params.code);
+      const token = await oauthClient.getAccessToken(req.query.code);
 
       // ETWin User
       const client = new HttpEtwinClient(new URL(URLHelper.etwin));
       const self = await client.getAuthSelf(token.accessToken);
 
-      if (self.type !== AuthType.User) {
-        throw new Error('Invalid user type');
+      if (self.type !== AuthType.AccessToken) {
+        throw new Error('Invalid auth type');
       }
       // Update or store user
       const { user } = self;
@@ -54,23 +58,30 @@ const OAuth = {
 
       // If user does not exist, create it
       if (existingUser.rows?.length === 0) {
-        const result = await DB.query(
+        await DB.query(
           'INSERT INTO users(id, token, name) VALUES($1, $2, $3) RETURNING *',
           { params: [user.id, token.accessToken, user.displayName.current.value] },
         );
-
-        res.status(200).send(result.rows?.[0]);
       } else {
         // If user exists, update it
-        const result = await DB.query(
-          'UPDATE users SET name = $1 WHERE id = $2 RETURNING *',
-          { params: [user.displayName.current.value, user.id] },
+        await DB.query(
+          'UPDATE users SET name = $1, token = $2 WHERE id = $3 RETURNING *',
+          { params: [user.displayName.current.value, token.accessToken, user.id] },
         );
-
-        res.status(200).send(result.rows?.[0]);
       }
+
+      await DB.close();
+      res.status(200).send({
+        id: user.id,
+        token: token.accessToken,
+        name: user.displayName.current.value,
+      });
     } catch (error) {
-      res.status(500).send(error);
+      if (error instanceof Error) {
+        res.status(500).send(error.message);
+      } else {
+        res.status(500).send(error);
+      }
     }
   },
 };

@@ -1,4 +1,7 @@
 import { Connection } from 'postgresql-client';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const DB = new Connection({
   user: process.env.DB_USER,

@@ -53,12 +53,11 @@ export interface Brute {
 
 const Server = {
   User: {
-    authenticate: (login: string, password: string): Promise<User> => Fetch<User>('/api/user/authenticate', {
+    authenticate: (login: string, token: string) => Fetch<User>('/api/user/authenticate', {
       login,
-      password
+      token
     }, 'POST'),
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    list: (): Promise<User[]> => Fetch('/api/user/list', {}, 'GET'),
+    list: () => Fetch<User[]>('/api/user/list', {}, 'GET'),
   },
   Brute: {
     get: (name: string): Promise<Brute> => Fetch<Brute>(`/api/brute/${name}`),

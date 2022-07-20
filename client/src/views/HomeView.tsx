@@ -1,7 +1,6 @@
 import { Box, Grid, Link, Tooltip, useMediaQuery } from '@mui/material';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router';
 import BoxWithBackground from '../components/BoxWithBackground';
 import Brute from '../components/Brute/Brute';
 import EmptyBrute from '../components/Brute/EmptyBrute';
@@ -10,6 +9,7 @@ import StyledButton from '../components/StyledButton';
 import StyledInput from '../components/StyledInput';
 import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
+import { useAuth } from '../hooks/useAuth';
 import adjustColor from '../utils/adjustColor';
 import advertisings from '../utils/advertisings';
 import availableBodyParts, { BodyParts } from '../utils/brute/availableBodyParts';
@@ -18,34 +18,42 @@ import { Gender } from '../utils/brute/types';
 import catchError from '../utils/catchError';
 import Fetch from '../utils/Fetch';
 import randomBetween from '../utils/randomBetween';
+import { User } from '../utils/Server';
 import HomeMobileView from './mobile/HomeMobileView';
 
 /**
  * HomeView component
  */
 const HomeView = () => {
-  const params = useParams();
   const { t } = useTranslation();
   const smallScreen = useMediaQuery('(max-width: 935px)');
   const Alert = useAlert();
-
-  console.log(params);
+  const { authing, setAuthing, updateData, user } = useAuth();
 
   // On login error
   useEffect(() => {
-    if (params.error) {
+    const url = new URL(window.location.href);
+    const error = url.searchParams.get('error');
+    if (error) {
       Alert.open('error', t('loginError'));
     }
-  }, [Alert, params.error, t]);
+  }, [Alert, t]);
 
   // On login success
   useEffect(() => {
-    if (params.code) {
-      Fetch('/api/oauth/token', { code: params.code }).then((response) => {
-        console.log(response);
-      }).catch(catchError(Alert, t));
+    const url = new URL(window.location.href);
+    const code = url.searchParams.get('code');
+    if (code && !authing && !user) {
+      setAuthing(true);
+      Fetch<User>('/api/oauth/token', { code }).then((response) => {
+        updateData(response);
+      }).catch(catchError(Alert, t)).finally(() => {
+        // Remove code from url
+        window.history.pushState('', '', window.location.pathname);
+        setAuthing(false);
+      });
     }
-  }, [Alert, params.code, t]);
+  }, [Alert, authing, setAuthing, t, updateData, user]);
 
   // Randomized left redirect
   const leftRedirect = useMemo(() => Math.floor(

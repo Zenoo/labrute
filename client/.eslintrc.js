@@ -116,6 +116,7 @@ module.exports = {
       "namedComponents": "arrow-function",
       "unnamedComponents": "arrow-function"
     }],
-    "react/jsx-one-expression-per-line": "off"
+    "react/jsx-one-expression-per-line": "off",
+    "prefer-promise-reject-errors": "off"
   }
 }

@@ -5,6 +5,11 @@ type HeadersType = {
   'Content-Type'?: string;
 };
 
+export type ErrorType = string | {
+  message: string;
+  statusText: string;
+};
+
 const Fetch = <ReturnType>(url: string, data = {}, method = 'GET', additionalURLParams = {}): Promise<ReturnType> => {
   let body: Blob | FormData | string | null = null;
   let finalUrl = url;
@@ -18,7 +23,7 @@ const Fetch = <ReturnType>(url: string, data = {}, method = 'GET', additionalURL
 
   return new Promise((resolve, reject) => {
     const user = localStorage.getItem('user') || '';
-    const token = localStorage.getItem('password')|| '';
+    const token = localStorage.getItem('token') || '';
     const headers: HeadersType = {
       Accept: 'application/json',
       'Csrf-Token': 'nocheck',
@@ -44,17 +49,24 @@ const Fetch = <ReturnType>(url: string, data = {}, method = 'GET', additionalURL
             }).catch((err) => {
               reject(err);
             });
+          } else {
+            json.then((processedJson: ReturnType) => {
+              reject(processedJson);
+            }).catch((err) => {
+              reject(err);
+            });
           }
-          json.then((processedJson: ReturnType) => {
-            reject(processedJson);
+        } else {
+          response.text().then((text) => {
+            reject({
+              message: text,
+              statusText: response.statusText,
+            });
           }).catch((err) => {
             reject(err);
           });
-        } else {
-          reject(response.statusText);
         }
       }).catch((error) => {
-        console.log(error);
         reject(error);
       });
   });

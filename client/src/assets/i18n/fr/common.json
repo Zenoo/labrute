@@ -114,5 +114,6 @@
 
   "account": "Compte",
   "login": "Connexion",
-  "loginError": "Erreur de connexion"
+  "loginError": "Erreur de connexion",
+  "logout": "Déconnexion"
 }

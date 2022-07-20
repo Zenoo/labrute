@@ -32,6 +32,10 @@ module.exports = {
     'tsdoc/syntax': 'warn',
     'linebreak-style': ['error', 'windows'],
     'eol-last': 'off',
+    // These 3 are due to the Node16 module resolution, not sure why
+    'import/no-unresolved': 'off',
+    'import/extensions': 'off',
+    'node/no-missing-import': 'off',
   },
   settings: {
     node: {
