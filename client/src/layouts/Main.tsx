@@ -3,7 +3,7 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from '../components/Header';
 
-const LoggedOut = () => {
+const Main = () => {
   return (
     <Box sx={{
       height: 1,
@@ -20,4 +20,4 @@ const LoggedOut = () => {
   );
 };
 
-export default LoggedOut;
+export default Main;

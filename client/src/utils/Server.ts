@@ -7,13 +7,8 @@ import Fetch from './Fetch';
 
 export interface User {
   id: number;
-  email: string;
-  login: string;
-  language: string;
-  password?: string;
-  connexionToken: string;
-  createdAt: Date;
-  updatedAt: Date;
+  name: string;
+  token: string;
 }
 
 export interface Skill {

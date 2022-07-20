@@ -3,14 +3,12 @@ import Server, { User } from '../utils/Server';
 
 interface AuthContextInterface {
   user: User | null,
-  signin: (login: string, password: string) => Promise<User|null>,
   signout: () => void,
   updateData: (data: User) => void,
 }
 
 const AuthContext = React.createContext<AuthContextInterface>({
   user: null,
-  signin: () => Promise.resolve(null),
   signout: () => {
     console.error('AuthContext.signout() not implemented');
   },
@@ -33,8 +31,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const signin = useCallback((login: string, password: string) => {
     return Server.User.authenticate(login, password).then((response) => {
-      localStorage.setItem('user', response.login);
-      localStorage.setItem('token', response.connexionToken);
+      localStorage.setItem('user', response.name);
+      localStorage.setItem('token', response.token);
       setUser(response);
       return response;
     });
