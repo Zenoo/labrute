@@ -11,6 +11,7 @@ const routes = [
     children: [
       { path: '', element: <HomeView /> },
       { path: 'cell/:bruteName', element: <CellView /> },
+      { path: 'oauth/callback', element: <HomeView /> },
     ]
   },
 ];

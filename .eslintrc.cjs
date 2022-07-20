@@ -1,9 +1,9 @@
 module.exports = {
   root: true,
   env: {
-    node: true
+    node: true,
   },
-  "ignorePatterns": ["**/*.js"],
+  ignorePatterns: ['**/*.js'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     tsconfigRootDir: __dirname,
@@ -11,27 +11,31 @@ module.exports = {
   },
   plugins: [
     '@typescript-eslint',
-    "eslint-plugin-tsdoc"
+    'eslint-plugin-tsdoc',
   ],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
+    'airbnb',
+    'airbnb/hooks',
     'plugin:node/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
   ],
   rules: {
-    '@typescript-eslint/no-var-requires': "off",
-    "semi": "off",
-    "@typescript-eslint/semi": ["error"],
-    "node/no-unsupported-features/es-syntax": [
-      "error",
-      { ignores: ["modules"] },
+    '@typescript-eslint/no-var-requires': 'off',
+    semi: 'off',
+    '@typescript-eslint/semi': ['error'],
+    'node/no-unsupported-features/es-syntax': [
+      'error',
+      { ignores: ['modules'] },
     ],
-    "tsdoc/syntax": "warn"
+    'tsdoc/syntax': 'warn',
+    'linebreak-style': ['error', 'windows'],
+    'eol-last': 'off',
   },
-  "settings": {
-    "node": {
-        "tryExtensions": [".js", ".json", ".node", ".ts", ".d.ts"]
+  settings: {
+    node: {
+      tryExtensions: ['.js', '.json', '.node', '.ts', '.d.ts'],
     },
-  }
+  },
 };

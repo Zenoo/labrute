@@ -110,5 +110,9 @@
   "healthPoints": "points de vie",
   "strength": "Force",
   "agility": "Agilité",
-  "speed": "Rapidité"
+  "speed": "Rapidité",
+
+  "account": "Compte",
+  "login": "Connexion",
+  "loginError": "Erreur de connexion"
 }

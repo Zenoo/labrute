@@ -1,8 +1,11 @@
-import { Box, BoxProps, Button, GlobalStyles, Link, Paper, useTheme } from '@mui/material';
+import { AccountCircle, Login } from '@mui/icons-material';
+import { Box, BoxProps, GlobalStyles, Link, SpeedDial, SpeedDialAction, useTheme } from '@mui/material';
 import React, { useCallback } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
-import etwin from '../utils/etwin';
+import { useAlert } from '../hooks/useAlert';
+import catchError from '../utils/catchError';
+import Fetch from '../utils/Fetch';
 import Text from './Text';
 
 interface Props extends BoxProps {
@@ -17,16 +20,13 @@ const Page = ({
 }: Props) => {
   const theme = useTheme();
   const { t } = useTranslation();
+  const Alert = useAlert();
 
   const oauth = useCallback(() => {
-    etwin.fetch('/oauth/redirect', {
-      method: 'POST',
-    }).then((response) => {
-      console.log(response);
-    }).catch((error) => {
-      console.error(error);
-    });
-  }, []);
+    Fetch<string>('/api/oauth/redirect').then((response) => {
+      window.location.href = response;
+    }).catch(catchError(Alert, t));
+  }, [Alert, t]);
 
   return (
     <Box {...rest}>
@@ -50,23 +50,17 @@ const Page = ({
       </Helmet>
       {children}
       {/* AUTH */}
-      <Paper sx={{
-        position: 'fixed',
-        bottom: -22,
-        right: 0,
-        py: 0,
-        px: 1,
-        transition: 'all 0.3s ease-in-out',
-        zIndex: 1,
-        '&:hover': {
-          bottom: 0
-        }
-      }}
+      <SpeedDial
+        ariaLabel={t('account')}
+        sx={{ position: 'absolute', bottom: 16, right: 16 }}
+        icon={<AccountCircle />}
       >
-        <Button onClick={oauth}>
-          <Text bold color="secondary">{t('connect')}</Text>
-        </Button>
-      </Paper>
+        <SpeedDialAction
+          icon={<Login />}
+          tooltipTitle={t('login')}
+          onClick={oauth}
+        />
+      </SpeedDial>
       {/* FOOTER */}
       <Box sx={{ textAlign: 'center', mt: 2 }}>
         <Text color="secondary" sx={{ fontWeight: 'bold' }}>

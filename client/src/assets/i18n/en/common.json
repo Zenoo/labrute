@@ -111,5 +111,9 @@
   "healthPoints": "health points",
   "strength": "Strength",
   "agility": "Agility",
-  "speed": "Speed"
+  "speed": "Speed",
+
+  "account": "Account",
+  "login": "Login",
+  "loginError": "Login error"
 }

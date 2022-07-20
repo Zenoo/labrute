@@ -1,6 +1,7 @@
 import { Box, Grid, Link, Tooltip, useMediaQuery } from '@mui/material';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router';
 import BoxWithBackground from '../components/BoxWithBackground';
 import Brute from '../components/Brute/Brute';
 import EmptyBrute from '../components/Brute/EmptyBrute';
@@ -8,11 +9,14 @@ import Page from '../components/Page';
 import StyledButton from '../components/StyledButton';
 import StyledInput from '../components/StyledInput';
 import Text from '../components/Text';
+import { useAlert } from '../hooks/useAlert';
 import adjustColor from '../utils/adjustColor';
 import advertisings from '../utils/advertisings';
 import availableBodyParts, { BodyParts } from '../utils/brute/availableBodyParts';
 import colors, { BodyColors } from '../utils/brute/colors';
 import { Gender } from '../utils/brute/types';
+import catchError from '../utils/catchError';
+import Fetch from '../utils/Fetch';
 import randomBetween from '../utils/randomBetween';
 import HomeMobileView from './mobile/HomeMobileView';
 
@@ -20,8 +24,28 @@ import HomeMobileView from './mobile/HomeMobileView';
  * HomeView component
  */
 const HomeView = () => {
+  const params = useParams();
   const { t } = useTranslation();
   const smallScreen = useMediaQuery('(max-width: 935px)');
+  const Alert = useAlert();
+
+  console.log(params);
+
+  // On login error
+  useEffect(() => {
+    if (params.error) {
+      Alert.open('error', t('loginError'));
+    }
+  }, [Alert, params.error, t]);
+
+  // On login success
+  useEffect(() => {
+    if (params.code) {
+      Fetch('/api/oauth/token', { code: params.code }).then((response) => {
+        console.log(response);
+      }).catch(catchError(Alert, t));
+    }
+  }, [Alert, params.code, t]);
 
   // Randomized left redirect
   const leftRedirect = useMemo(() => Math.floor(
