@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.2](https://github.com/Zenoo/labrute/compare/v0.3.1...v0.3.2) (2022-07-20)
+
+
+### Bug fix
+
+* Unused rule ([abfb5a0](https://github.com/Zenoo/labrute/commit/abfb5a0c56b940e5c63022325b4c34fe19165927))
+
+
+### Progress
+
+* OAuth + Account speed dial ([827eb95](https://github.com/Zenoo/labrute/commit/827eb952876967b4606a78510370c82a82923850))
+
 ### [0.3.1](https://github.com/Zenoo/labrute/compare/v0.3.0...v0.3.1) (2022-07-18)
 
 
