@@ -40,35 +40,34 @@ const OAuth = {
       const client = new HttpEtwinClient(new URL(URLHelper.etwin));
       const self = await client.getAuthSelf(token.accessToken);
 
-      if (self.type === AuthType.User) {
-        // Update or store user
-        const { user } = self;
-        await DB.connect();
+      if (self.type !== AuthType.User) {
+        throw new Error('Invalid user type');
+      }
+      // Update or store user
+      const { user } = self;
+      await DB.connect();
 
-        const existingUser = await DB.query(
-          'select * from users where id = $1',
-          { params: [user.id] },
+      const existingUser = await DB.query(
+        'select * from users where id = $1',
+        { params: [user.id] },
+      );
+
+      // If user does not exist, create it
+      if (existingUser.rows?.length === 0) {
+        const result = await DB.query(
+          'INSERT INTO users(id, token, name) VALUES($1, $2, $3) RETURNING *',
+          { params: [user.id, token.accessToken, user.displayName.current.value] },
         );
 
-        // If user does not exist, create it
-        if (existingUser.rows?.length === 0) {
-          const result = await DB.query(
-            'INSERT INTO users(id, token, name) VALUES($1, $2, $3) RETURNING *',
-            { params: [user.id, token.accessToken, user.displayName.current.value] },
-          );
-
-          res.status(200).send(result.rows?.[0]);
-        } else {
-          // If user exists, update it
-          const result = await DB.query(
-            'UPDATE users SET name = $1 WHERE id = $2 RETURNING *',
-            { params: [user.displayName.current.value, user.id] },
-          );
-
-          res.status(200).send(result.rows?.[0]);
-        }
+        res.status(200).send(result.rows?.[0]);
       } else {
-        res.status(400).send('User is not a user');
+        // If user exists, update it
+        const result = await DB.query(
+          'UPDATE users SET name = $1 WHERE id = $2 RETURNING *',
+          { params: [user.displayName.current.value, user.id] },
+        );
+
+        res.status(200).send(result.rows?.[0]);
       }
     } catch (error) {
       res.status(500).send(error);
