@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.3](https://github.com/Zenoo/labrute/compare/v0.3.2...v0.3.3) (2022-07-21)
+
+
+### Bug fix
+
+* Throw error instead of double returning ([af72f17](https://github.com/Zenoo/labrute/commit/af72f178f145ef6d977a709f79f5156cce2a93de))
+
+
+### Progress
+
+* Connection system ([637100d](https://github.com/Zenoo/labrute/commit/637100d8e4da63bf87e747f45aba6b162dc7e10a))
+* OAuth ([e1272aa](https://github.com/Zenoo/labrute/commit/e1272aa15bac7354ebeb2534e0926229405bd485))
+
+
+### Feature
+
+* Brute creation and DB storage ([80f05b7](https://github.com/Zenoo/labrute/commit/80f05b7b7768ebece48fb6b5ef1cc26d8337e838))
+* Connection system done (7 days max) ([bc5af0e](https://github.com/Zenoo/labrute/commit/bc5af0e20f531b3be808b67e693579d610355b69))
+
 ### [0.3.2](https://github.com/Zenoo/labrute/compare/v0.3.1...v0.3.2) (2022-07-20)
 
 
