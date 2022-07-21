@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import DB from '../db/connect.js';
+import { Client } from 'pg';
 
 export interface User {
   id: number;
@@ -7,8 +7,8 @@ export interface User {
   token: string;
 }
 
-const auth = async (request: Request) => {
-  const authorization = request.headers.Authorization;
+const auth = async (client: Client, request: Request) => {
+  const { headers: { authorization } } = request;
 
   if (!authorization) {
     throw new Error('No authorization header');
@@ -20,9 +20,9 @@ const auth = async (request: Request) => {
   const [username, token] = Buffer.from(authorization.split(' ')[1], 'base64')
     .toString().split(':');
 
-  const user = await DB.query(
-    'select * from users where id = $1 and token = $2',
-    { params: [username, token] },
+  const user = await client.query(
+    'select id, token, name from users where id = $1 and token = $2::text',
+    [username, token],
   );
 
   if (!user.rows || user.rows.length === 0) {

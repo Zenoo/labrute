@@ -1,5 +1,5 @@
 import { AccountCircle, Login, Logout } from '@mui/icons-material';
-import { Box, BoxProps, CircularProgress, GlobalStyles, Link, SpeedDial, SpeedDialAction, useTheme } from '@mui/material';
+import { Box, BoxProps, CircularProgress, GlobalStyles, Link, SpeedDial, SpeedDialAction, Tooltip, useTheme } from '@mui/material';
 import React, { useCallback, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
@@ -22,14 +22,14 @@ const Page = ({
   const theme = useTheme();
   const { t } = useTranslation();
   const Alert = useAlert();
-  const { authing, user, signout } = useAuth();
+  const { authing, user, signout, signin } = useAuth();
 
   // Auth on page load
   useEffect(() => {
-    if (!user) {
-      // TODO
+    if (!user && !authing) {
+      signin();
     }
-  }, [user]);
+  }, [authing, signin, user]);
 
   const oauth = useCallback(() => {
     Fetch<string>('/api/oauth/redirect').then((response) => {
@@ -39,7 +39,8 @@ const Page = ({
 
   const logout = useCallback(() => {
     signout();
-  }, [signout]);
+    Alert.open('success', t('logoutSuccess'));
+  }, [Alert, signout, t]);
 
   return (
     <Box {...rest}>
@@ -65,20 +66,26 @@ const Page = ({
       {/* AUTH */}
       <SpeedDial
         ariaLabel={t('account')}
-        sx={{ position: 'absolute', bottom: 16, right: 16 }}
-        icon={authing ? <CircularProgress color="success" sx={{ width: '20px !important', height: '20px !important' }} /> : <AccountCircle />}
+        sx={{ position: 'fixed', bottom: 16, right: 16 }}
+        icon={(
+          <Tooltip title={user ? user.name : t('account')}>
+            {authing ? <CircularProgress color="success" sx={{ width: '20px !important', height: '20px !important' }} /> : <AccountCircle />}
+          </Tooltip>
+        )}
       >
         {!authing && !user && (
           <SpeedDialAction
-            icon={<Login />}
+            icon={<Login color="success" />}
             tooltipTitle={t('login')}
+            tooltipOpen
             onClick={oauth}
           />
         )}
         {user && (
           <SpeedDialAction
-            icon={<Logout />}
+            icon={<Logout color="error" />}
             tooltipTitle={t('logout')}
+            tooltipOpen
             onClick={logout}
           />
         )}

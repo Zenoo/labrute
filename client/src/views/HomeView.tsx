@@ -1,4 +1,5 @@
 import { Box, Grid, Link, Tooltip, useMediaQuery } from '@mui/material';
+import moment from 'moment';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import BoxWithBackground from '../components/BoxWithBackground';
@@ -47,9 +48,13 @@ const HomeView = () => {
       setAuthing(true);
       Fetch<User>('/api/oauth/token', { code }).then((response) => {
         updateData(response);
+        localStorage.setItem('user', response.id);
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('expires', moment().add(7, 'days').toISOString());
+        Alert.open('success', t('loginSuccess'));
       }).catch(catchError(Alert, t)).finally(() => {
         // Remove code from url
-        window.history.pushState('', '', window.location.pathname);
+        window.history.pushState('', '', '/');
         setAuthing(false);
       });
     }

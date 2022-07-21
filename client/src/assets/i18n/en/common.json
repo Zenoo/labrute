@@ -116,5 +116,7 @@
   "account": "Account",
   "login": "Login",
   "loginError": "Login error",
-  "logout": "Logout"
+  "logout": "Logout",
+  "logoutSuccess": "Logout success",
+  "loginSuccess": "Login success"
 }

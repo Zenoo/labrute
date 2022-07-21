@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 import Server, { User } from '../utils/Server';
 
@@ -5,7 +6,7 @@ interface AuthContextInterface {
   user: User | null,
   authing: boolean,
   setAuthing: (authing: boolean) => void,
-  signin: () => Promise<User | null>,
+  signin: () => void,
   signout: () => void,
   updateData: (data: User) => void,
 }
@@ -18,7 +19,6 @@ const AuthContext = React.createContext<AuthContextInterface>({
   },
   signin: () => {
     console.error('AuthContext.signin() not implemented');
-    return Promise.resolve(null);
   },
   signout: () => {
     console.error('AuthContext.signout() not implemented');
@@ -43,21 +43,25 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [authing, setAuthing] = useState(false);
 
   const signin = useCallback(() => {
-    setAuthing(true);
-    const username = localStorage.getItem('user');
+    const userId = localStorage.getItem('user');
     const token = localStorage.getItem('token');
-    // TODO: Add expiry check here
-    if (username && token) {
-      return Server.User.authenticate(username, token).then((response) => {
-        localStorage.setItem('user', response.name);
-        localStorage.setItem('token', response.token);
-        setUser(response);
+    const expires = moment(localStorage.getItem('expires'));
+    if (userId && token && !authing) {
+      if (expires.isAfter(moment())) {
+        setAuthing(true);
+        Server.User.authenticate(userId, token).then((response) => {
+          setUser(response);
+          setAuthing(false);
+        }).catch(() => {
+          localStorage.clear();
+          setAuthing(false);
+        });
+      } else {
+        localStorage.clear();
         setAuthing(false);
-        return response;
-      });
+      }
     }
-    return Promise.resolve(null);
-  }, []);
+  }, [authing]);
 
   const signout = useCallback(() => {
     localStorage.removeItem('user');

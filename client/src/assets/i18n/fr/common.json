@@ -115,5 +115,7 @@
   "account": "Compte",
   "login": "Connexion",
   "loginError": "Erreur de connexion",
-  "logout": "Déconnexion"
+  "logout": "Déconnexion",
+  "logoutSuccess": "Déconnexion réussie",
+  "loginSuccess": "Connexion réussie"
 }

@@ -1,41 +1,42 @@
 import { Request, Response } from 'express';
-import DB from '../db/connect.js';
+import DB from '../db/client.js';
 import auth from '../utils/auth.js';
+import sendError from '../utils/sendError.js';
 
 const Brutes = {
   list: async (req: Request, res: Response) => {
     try {
-      await DB.connect();
-      await auth(req);
+      const client = await DB.connect();
+      await auth(client, req);
 
-      const result = await DB.query('select * from brutes');
+      const result = await client.query('select * from brutes');
       const { rows } = result;
 
-      await DB.close();
+      await client.end();
       res.status(200).send(rows);
     } catch (error) {
-      res.status(500).send(error);
+      sendError(res, error);
     }
   },
   get: async (req: Request, res: Response) => {
     try {
-      await DB.connect();
-      await auth(req);
+      const client = await DB.connect();
+      await auth(client, req);
 
-      const result = await DB.query(
+      const result = await client.query(
         'select * from brutes where name like $1',
-        { params: [req.params.name] },
+        [req.params.name],
       );
       const { rows } = result;
 
-      await DB.close();
+      await client.end();
       if (!rows || rows.length === 0) {
         res.status(404).send({ message: 'brute not found' });
       } else {
         res.status(200).send(rows[0]);
       }
     } catch (error) {
-      res.status(500).send(error);
+      sendError(res, error);
     }
   },
 };

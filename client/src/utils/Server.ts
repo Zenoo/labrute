@@ -6,7 +6,7 @@ import weapons from './brute/weapons';
 import Fetch from './Fetch';
 
 export interface User {
-  id: number;
+  id: string;
   name: string;
   token: string;
 }
