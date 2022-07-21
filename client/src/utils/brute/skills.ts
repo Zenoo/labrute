@@ -1,4 +1,9 @@
-const skills = [
+import { Skill } from '@backend/types';
+
+const skills: {
+  name: Skill,
+  icon: string,
+}[] = [
   { name: 'herculeanStrength', icon: '1' },
   { name: 'felinAgility', icon: '2' },
   { name: 'lightningBolt', icon: '3' },
@@ -27,6 +32,6 @@ const skills = [
   { name: 'cryOfTheDamned', icon: '34' },
   { name: 'hypnosis', icon: '35' },
   { name: 'flashFlood', icon: '36' },
-] as const;
+];
 
 export default skills;

@@ -1,11 +1,6 @@
 import { Request } from 'express';
 import { Client } from 'pg';
-
-export interface User {
-  id: number;
-  name: string;
-  token: string;
-}
+import { User } from '../types/types.js';
 
 const auth = async (client: Client, request: Request) => {
   const { headers: { authorization } } = request;
@@ -20,8 +15,8 @@ const auth = async (client: Client, request: Request) => {
   const [username, token] = Buffer.from(authorization.split(' ')[1], 'base64')
     .toString().split(':');
 
-  const user = await client.query(
-    'select id, token, name from users where id = $1 and token = $2::text',
+  const user = await client.query<User>(
+    'select * from users where id = $1 and token = $2::text',
     [username, token],
   );
 
@@ -29,7 +24,7 @@ const auth = async (client: Client, request: Request) => {
     throw new Error('Invalid user');
   }
 
-  return user.rows[0] as User;
+  return user.rows[0];
 };
 
 export default auth;

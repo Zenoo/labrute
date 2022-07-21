@@ -1,24 +1,4 @@
-export interface BodyParts {
-  longHair: number,
-  lowerRightArm: number,
-  rightHand: number,
-  upperRightArm: number,
-  rightShoulder: number,
-  rightFoot: number,
-  lowerRightLeg: number,
-  upperRightLeg: number,
-  leftFoot: number,
-  lowerLeftLeg: number,
-  pelvis: number,
-  upperLeftLeg: number,
-  tummy: number,
-  torso: number,
-  head: number,
-  leftHand: number,
-  upperLeftArm: number,
-  lowerLeftArm: number,
-  leftShoulder: number,
-}
+import { BodyParts } from '@backend/types';
 
 const availableBodyParts: { male: BodyParts, female: BodyParts } = {
   male: {

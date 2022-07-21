@@ -117,6 +117,12 @@ module.exports = {
       "unnamedComponents": "arrow-function"
     }],
     "react/jsx-one-expression-per-line": "off",
-    "prefer-promise-reject-errors": "off"
+    "prefer-promise-reject-errors": "off",
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      {
+        "checksVoidReturn": false
+      }
+    ]
   }
 }

@@ -1,35 +1,37 @@
-const weapons = [
+import { Weapon } from '@backend/types';
+
+const weapons: Weapon[] = [
   // FAST
-  'fan' as const,
-  'keyboard' as const,
-  'knife' as const, // SHARP too
-  'leek' as const,
-  'mug' as const,
-  'sai' as const,
-  'racquet' as const,
+  'fan',
+  'keyboard',
+  'knife', // SHARP too
+  'leek',
+  'mug',
+  'sai',
+  'racquet',
   // HEAVY
-  'axe' as const,
-  'bumps' as const,
-  'flail' as const,
-  'fryingPan' as const,
-  'hatchet' as const,
-  'mammothBone' as const,
-  'morningStar' as const,
-  'trombone' as const,
+  'axe',
+  'bumps',
+  'flail',
+  'fryingPan',
+  'hatchet',
+  'mammothBone',
+  'morningStar',
+  'trombone',
   // LONG
-  'baton' as const,
-  'halbard' as const, // SHARP too
-  'lance' as const,
-  'trident' as const,
-  'whip' as const,
+  'baton',
+  'halbard', // SHARP too
+  'lance',
+  'trident',
+  'whip',
   // THROWN
-  'noodleBowl' as const,
-  'piopio' as const,
-  'shuriken' as const,
+  'noodleBowl',
+  'piopio',
+  'shuriken',
   // SHARP
-  'broadsword' as const,
-  'scimitar' as const,
-  'sword' as const,
+  'broadsword',
+  'scimitar',
+  'sword',
 ];
 
 export default weapons;

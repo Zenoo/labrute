@@ -1,3 +1,4 @@
+import { Gender, BodyParts, BodyColors } from '@backend/types';
 import { Box, Grid, Link, Paper, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -8,9 +9,6 @@ import StyledButton from '../../components/StyledButton';
 import StyledInput from '../../components/StyledInput';
 import Text from '../../components/Text';
 import advertisings from '../../utils/advertisings';
-import { BodyParts } from '../../utils/brute/availableBodyParts';
-import { BodyColors } from '../../utils/brute/colors';
-import { Gender } from '../../utils/brute/types';
 
 export interface HomeMobileViewProps {
   changeName: (event: React.ChangeEvent<HTMLInputElement>) => void;

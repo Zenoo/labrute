@@ -118,5 +118,8 @@
   "loginError": "Login error",
   "logout": "Logout",
   "logoutSuccess": "Logout success",
-  "loginSuccess": "Login success"
+  "loginSuccess": "Login success",
+  "invalidName": "Invalid name. Accepted characters are a-z, A-Z, 0-9, '_' and '-'. Must be between 3 and 20 characters long.",
+  "nameUnvailable": "Name unavailable",
+  "pleaseLogin": "Please login before creating a Brute"
 }

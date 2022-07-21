@@ -1,7 +1,9 @@
+import { BodyColors, BodyParts, Gender, User } from '@backend/types';
 import { Box, Grid, Link, Tooltip, useMediaQuery } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
 import BoxWithBackground from '../components/BoxWithBackground';
 import Brute from '../components/Brute/Brute';
 import EmptyBrute from '../components/Brute/EmptyBrute';
@@ -13,13 +15,13 @@ import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import adjustColor from '../utils/adjustColor';
 import advertisings from '../utils/advertisings';
-import availableBodyParts, { BodyParts } from '../utils/brute/availableBodyParts';
-import colors, { BodyColors } from '../utils/brute/colors';
-import { Gender } from '../utils/brute/types';
+import availableBodyParts from '../utils/brute/availableBodyParts';
+import colors from '../utils/brute/colors';
 import catchError from '../utils/catchError';
+import createRandomBruteStats from '../utils/createRandomBruteStats';
 import Fetch from '../utils/Fetch';
 import randomBetween from '../utils/randomBetween';
-import { User } from '../utils/Server';
+import Server from '../utils/Server';
 import HomeMobileView from './mobile/HomeMobileView';
 
 /**
@@ -30,6 +32,7 @@ const HomeView = () => {
   const smallScreen = useMediaQuery('(max-width: 935px)');
   const Alert = useAlert();
   const { authing, setAuthing, updateData, user } = useAuth();
+  const navigate = useNavigate();
 
   // On login error
   useEffect(() => {
@@ -53,8 +56,12 @@ const HomeView = () => {
         localStorage.setItem('expires', moment().add(7, 'days').toISOString());
         Alert.open('success', t('loginSuccess'));
       }).catch(catchError(Alert, t)).finally(() => {
-        // Remove code from url
-        window.history.pushState('', '', '/');
+        // Remove code/state from url and set url to '/'
+        url.searchParams.delete('code');
+        url.searchParams.delete('state');
+        url.pathname = '/';
+        window.history.replaceState({}, '', url.toString());
+
         setAuthing(false);
       });
     }
@@ -217,6 +224,53 @@ const HomeView = () => {
     }
   }, [creationStarted, gender, randomizeColors]);
 
+  const createBrute = useCallback(async () => {
+    // Check if logged in
+    if (user) {
+      // Check name validity
+      if (name.match(/^[a-zA-Z0-9_-]*$/) && name.length >= 3 && name.length <= 20) {
+        // Check if the name is available
+        const isNameAvailable = await Server.Brute.isNameAvailable(name)
+          .catch(catchError(Alert, t));
+        if (typeof isNameAvailable === 'boolean') {
+          if (isNameAvailable) {
+            // Create brute
+
+            // Get referer
+            const url = new URL(window.location.href);
+            const ref = url.searchParams.get('ref');
+
+            const brute = await Server.Brute.create({
+              user: user.id,
+              name,
+              ...createRandomBruteStats(),
+              gender,
+              body: bodyParts,
+              colors: bodyColors,
+              master: {
+                id: 0,
+                name: ref || '',
+              },
+              victories: 0,
+              pupils: 0,
+            }).catch(catchError(Alert, t));
+
+            // Redirect to brute page
+            if (brute) {
+              navigate(`/cell/${name}`);
+            }
+          } else {
+            Alert.open('error', t('nameUnavailable'));
+          }
+        }
+      } else {
+        Alert.open('error', t('invalidName'));
+      }
+    } else {
+      Alert.open('error', t('pleaseLogin'));
+    }
+  }, [Alert, bodyColors, bodyParts, gender, name, navigate, t, user]);
+
   return smallScreen
     ? (
       <HomeMobileView
@@ -297,7 +351,7 @@ const HomeView = () => {
               />
               {/* VALIDATION */}
               <Box sx={{ textAlign: 'center' }}>
-                <StyledButton>{t('validate')}</StyledButton>
+                <StyledButton onClick={createBrute}>{t('validate')}</StyledButton>
               </Box>
               {/* VISUAL NOISE */}
               <Box

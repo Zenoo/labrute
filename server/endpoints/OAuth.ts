@@ -5,6 +5,7 @@ import { RfcOauthClient } from '@eternal-twin/oauth-client-http/rfc-oauth-client
 import { Request, Response } from 'express';
 import { URL } from 'url';
 import DB from '../db/client.js';
+import { User } from '../types/types.js';
 import sendError from '../utils/sendError.js';
 import URLHelper from '../utils/URLHelper.js';
 
@@ -52,7 +53,7 @@ const OAuth = {
       const { user } = self;
       const client = await DB.connect();
 
-      const existingUser = await client.query(
+      const existingUser = await client.query<User>(
         'select * from users where id = $1',
         [user.id],
       );
@@ -70,6 +71,8 @@ const OAuth = {
           [user.displayName.current.value, token.accessToken, user.id],
         );
       }
+
+      // TODO: Fetch brutes for user
 
       await client.end();
       res.status(200).send({

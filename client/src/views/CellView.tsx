@@ -1,5 +1,5 @@
 import { Box, Divider, Grid, Link, Paper, Stack, Tooltip } from '@mui/material';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import BoxWithBackground from '../components/BoxWithBackground';
@@ -10,11 +10,12 @@ import CellWeapons from '../components/Cell/CellWeapons';
 import Page from '../components/Page';
 import StyledButton from '../components/StyledButton';
 import Text from '../components/Text';
+import useStateAsync from '../hooks/useStateAsync';
 import advertisings from '../utils/advertisings';
 import getXPNeeded from '../utils/brute/getXPNeeded';
 import skills from '../utils/brute/skills';
 import weapons from '../utils/brute/weapons';
-import { Brute } from '../utils/Server';
+import Server from '../utils/Server';
 
 interface Log {
   id: number;
@@ -43,80 +44,88 @@ const CellView = () => {
   const { t } = useTranslation();
   const { bruteName } = useParams();
 
-  // const { data: brute } = useStateAsync(null, Server.Brute.get, bruteName);
-  const [brute, setBrute] = useState<Brute>({
-    id: 1,
-    rank: 3333,
-    data: {
-      name: 'blablabla',
-      level: 55,
-      xp: 72,
-      stats: {
-        hp: Math.floor(Math.random() * (2000 - 200 + 1)) + 200,
-        strength: Math.floor(Math.random() * 60),
-        agility: Math.floor(Math.random() * 60),
-        speed: Math.floor(Math.random() * 60),
-      },
-      ranking: Math.floor(Math.random() * 10) + 1 as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10,
-      gender: 'female',
-      body: {
-        longHair: 2,
-        lowerRightArm: 1,
-        rightHand: 1,
-        upperRightArm: 1,
-        rightShoulder: 1,
-        rightFoot: 1,
-        lowerRightLeg: 1,
-        upperRightLeg: 1,
-        leftFoot: 1,
-        lowerLeftLeg: 1,
-        pelvis: 1,
-        upperLeftLeg: 1,
-        tummy: 1,
-        torso: 1,
-        head: 1,
-        leftHand: 1,
-        upperLeftArm: 1,
-        lowerLeftArm: 1,
-        leftShoulder: 1,
-      },
-      colors: {
-        skin: {
-          color: '#fbe6c8',
-          shade: '#e7d2b4'
-        },
-        hair: {
-          color: '#8e63ad',
-          shade: '#7a4f99'
-        },
-        primary: {
-          color: '#559399',
-          shade: '#417f85'
-        },
-        secondary: {
-          color: '#b85f1d',
-          shade: '#a44b09'
-        },
-        accent: {
-          color: '#df7e37',
-          shade: '#cb6a23'
+  const { data: brute, set: setBrute } = useStateAsync(null, Server.Brute.get, bruteName);
+
+  // Test brute
+  useEffect(() => {
+    if (bruteName === '__test') {
+      setBrute({
+        id: 1,
+        rank: 3333,
+        data: {
+          user: '',
+          name: 'blablabla',
+          level: 55,
+          xp: 72,
+          stats: {
+            hp: Math.floor(Math.random() * (2000 - 200 + 1)) + 200,
+            endurance: Math.floor(Math.random() * 60),
+            strength: Math.floor(Math.random() * 60),
+            agility: Math.floor(Math.random() * 60),
+            speed: Math.floor(Math.random() * 60),
+          },
+          ranking: Math.floor(Math.random() * 10) + 1 as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10,
+          gender: 'female',
+          body: {
+            longHair: 2,
+            lowerRightArm: 1,
+            rightHand: 1,
+            upperRightArm: 1,
+            rightShoulder: 1,
+            rightFoot: 1,
+            lowerRightLeg: 1,
+            upperRightLeg: 1,
+            leftFoot: 1,
+            lowerLeftLeg: 1,
+            pelvis: 1,
+            upperLeftLeg: 1,
+            tummy: 1,
+            torso: 1,
+            head: 1,
+            leftHand: 1,
+            upperLeftArm: 1,
+            lowerLeftArm: 1,
+            leftShoulder: 1,
+          },
+          colors: {
+            skin: {
+              color: '#fbe6c8',
+              shade: '#e7d2b4'
+            },
+            hair: {
+              color: '#8e63ad',
+              shade: '#7a4f99'
+            },
+            primary: {
+              color: '#559399',
+              shade: '#417f85'
+            },
+            secondary: {
+              color: '#b85f1d',
+              shade: '#a44b09'
+            },
+            accent: {
+              color: '#df7e37',
+              shade: '#cb6a23'
+            }
+          },
+          weapons: [...weapons].sort(() => 0.5 - Math.random()).slice(0, 12),
+          skills: [...skills].sort(() => 0.5 - Math.random()).slice(0, 12).map((s) => s.name),
+          pets: {
+            dog: Math.floor(Math.random() * 4) as 0 | 1 | 2 | 3,
+            panther: panther ? 1 : 0,
+            bear: panther ? 0 : Math.floor(Math.random() * 2) as 0 | 1,
+          },
+          master: {
+            id: 999,
+            name: 'BigBoss'
+          },
+          victories: 1540,
+          pupils: 360,
         }
-      },
-      weapons: [...weapons].sort(() => 0.5 - Math.random()).slice(0, 12),
-      skills: [...skills].sort(() => 0.5 - Math.random()).slice(0, 12).map((s) => s.name),
-      pets: {
-        dog: Math.floor(Math.random() * 4) as 0 | 1 | 2 | 3,
-        panther: panther ? 1 : 0,
-        bear: panther ? 0 : Math.floor(Math.random() * 2) as 0 | 1,
-      },
-      master: {
-        id: 999,
-        name: 'BigBoss'
-      },
-      victories: 1540,
-      pupils: 360,
+      });
     }
-  });
+  }, [bruteName, setBrute]);
 
   // Randomized advertising
   const advertising = useMemo(() => advertisings[Math.floor(
@@ -126,6 +135,7 @@ const CellView = () => {
   // TEMP METHOD
   // Reload brute with everything random rerolled
   const reloadRandom = useCallback(() => {
+    if (!brute) return;
     const _panther = Math.random() < 0.5;
     const newBrute = { ...brute };
     newBrute.data.weapons = [...weapons].sort(() => 0.5 - Math.random()).slice(0, 12);
@@ -139,6 +149,7 @@ const CellView = () => {
     newBrute.data.ranking = Math.floor(Math.random() * 10)
       + 1 as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
     newBrute.data.stats.hp = Math.floor(Math.random() * (2000 - 200 + 1)) + 200;
+    newBrute.data.stats.endurance = Math.floor(Math.random() * 60);
     newBrute.data.stats.strength = Math.floor(Math.random() * 60);
     newBrute.data.stats.agility = Math.floor(Math.random() * 60);
     newBrute.data.stats.speed = Math.floor(Math.random() * 60);
@@ -146,9 +157,9 @@ const CellView = () => {
     newBrute.data.xp = Math.floor(Math.random() * getXPNeeded(newBrute.data.level + 1));
 
     setBrute(newBrute);
-  }, [brute]);
+  }, [brute, setBrute]);
 
-  return (
+  return brute && (
     <Page title={`${bruteName || ''} ${t('MyBrute')}`}>
       <Box display="flex" zIndex={1} sx={{ mt: 2 }}>
         {/* BRUTE NAME + SOCIALS */}
@@ -201,6 +212,7 @@ const CellView = () => {
           borderBottom: 'none',
           width: 270,
           bgcolor: 'background.paperLight',
+          mb: 0,
         }}
         />
       </Box>
@@ -209,6 +221,7 @@ const CellView = () => {
         bgcolor: 'background.paperLight',
         zIndex: 2,
         position: 'relative',
+        mt: 0,
         '&::before': {
           content: '""',
           position: 'absolute',
@@ -339,7 +352,7 @@ const CellView = () => {
           <Box sx={{
             position: 'relative',
             width: 270,
-            mt: -5,
+            mt: -7,
           }}
           >
             <Tooltip title="Donne cette adresse à tes amis ou met la sur ton blog, ça te permettra de recruter des élèves et de gagner de l'expérience !">

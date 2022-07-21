@@ -1,7 +1,5 @@
+import { Gender, BodyParts, BodyColors } from '@backend/types';
 import React, { SVGProps } from 'react';
-import { BodyParts } from '../../utils/brute/availableBodyParts';
-import { BodyColors } from '../../utils/brute/colors';
-import { Gender } from '../../utils/brute/types';
 import Head from './Head/Head';
 import LeftFoot from './LeftFoot';
 import LeftHand from './LeftHand';

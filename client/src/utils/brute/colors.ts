@@ -1,26 +1,3 @@
-export interface BodyColors {
-  skin: {
-    color: `#${string}`;
-    shade: `#${string}`;
-  };
-  hair: {
-    color: `#${string}`;
-    shade: `#${string}`;
-  };
-  primary: {
-    color: `#${string}`;
-    shade: `#${string}`;
-  };
-  secondary: {
-    color: `#${string}`;
-    shade: `#${string}`;
-  };
-  accent: {
-    color: `#${string}`;
-    shade: `#${string}`;
-  };
-}
-
 interface ColorsType {
   male: {
     skin: `#${string}`[];

@@ -20,6 +20,8 @@ const initRoutes = (app: Express) => {
   // Brute
   app.get('/api/brute/list', Brutes.list);
   app.get('/api/brute/:name', Brutes.get);
+  app.get('/api/brute/:name/available', Brutes.isNameAvailable);
+  app.post('/api/brute/create', Brutes.create);
 
   app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'client', 'build', 'index.html'));

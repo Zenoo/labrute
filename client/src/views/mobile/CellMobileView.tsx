@@ -1,3 +1,6 @@
+import skills from '../../utils/brute/skills';
+import { Brute } from '@backend/types';
+import weapons from '../../utils/brute/weapons';
 import { Box, Divider, Grid, Link, Paper, Stack, Tooltip } from '@mui/material';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -12,9 +15,6 @@ import StyledButton from '../../components/StyledButton';
 import Text from '../../components/Text';
 import advertisings from '../../utils/advertisings';
 import getXPNeeded from '../../utils/brute/getXPNeeded';
-import skills from '../../utils/brute/skills';
-import weapons from '../../utils/brute/weapons';
-import { Brute } from '../../utils/Server';
 
 interface Log {
   id: number;
@@ -45,11 +45,13 @@ const CellMobileView = () => {
     id: 1,
     rank: 3333,
     data: {
+      user: '',
       name: 'blablabla',
       level: 55,
       xp: 72,
       stats: {
         hp: Math.floor(Math.random() * (2000 - 200 + 1)) + 200,
+        endurance: Math.floor(Math.random() * 60),
         strength: Math.floor(Math.random() * 60),
         agility: Math.floor(Math.random() * 60),
         speed: Math.floor(Math.random() * 60),
@@ -136,6 +138,7 @@ const CellMobileView = () => {
     newBrute.data.ranking = Math.floor(Math.random() * 10)
       + 1 as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
     newBrute.data.stats.hp = Math.floor(Math.random() * (2000 - 200 + 1)) + 200;
+    newBrute.data.stats.endurance = Math.floor(Math.random() * 60);
     newBrute.data.stats.strength = Math.floor(Math.random() * 60);
     newBrute.data.stats.agility = Math.floor(Math.random() * 60);
     newBrute.data.stats.speed = Math.floor(Math.random() * 60);
@@ -206,15 +209,6 @@ const CellMobileView = () => {
         bgcolor: 'background.paperLight',
         zIndex: 2,
         position: 'relative',
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          top: -9,
-          right: 0,
-          width: 302,
-          height: '9px',
-          bgcolor: 'background.paperLight',
-        },
       }}
       >
         <Box display="flex">

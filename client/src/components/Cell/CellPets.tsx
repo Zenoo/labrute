@@ -1,5 +1,5 @@
+import { Pets } from '@backend/types';
 import React, { SVGProps } from 'react';
-import { Pets } from '../../utils/Server';
 
 interface CellPetsProps extends SVGProps<SVGSVGElement> {
   pets: Pets;

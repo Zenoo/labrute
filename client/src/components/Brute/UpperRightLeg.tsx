@@ -1,6 +1,5 @@
+import { Gender, BodyColors } from '@backend/types';
 import React from 'react';
-import { BodyColors } from '../../utils/brute/colors';
-import { Gender } from '../../utils/brute/types';
 
 interface UpperRightLegProps {
   gender: Gender;

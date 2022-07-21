@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import DB from '../db/client.js';
+import { User } from '../types/types.js';
 import auth from '../utils/auth.js';
 import sendError from '../utils/sendError.js';
 
@@ -9,7 +10,7 @@ const Users = {
       const client = await DB.connect();
       await auth(client, req);
 
-      const result = await client.query('select * from users');
+      const result = await client.query<User>('select * from users');
       const { rows } = result;
 
       await client.end();

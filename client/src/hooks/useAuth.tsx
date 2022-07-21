@@ -1,6 +1,7 @@
+import { User } from '@backend/types';
 import moment from 'moment';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
-import Server, { User } from '../utils/Server';
+import Server from '../utils/Server';
 
 interface AuthContextInterface {
   user: User | null,
