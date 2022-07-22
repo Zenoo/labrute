@@ -27,6 +27,7 @@ const Users = {
       await client.end();
       res.status(200).send(user);
     } catch (error) {
+      console.log(error);
       sendError(res, error);
     }
   },

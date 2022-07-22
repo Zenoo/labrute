@@ -1,8 +1,9 @@
-import { AccountCircle, Login, Logout } from '@mui/icons-material';
+import { AccountCircle, Login, Logout, Man, Woman } from '@mui/icons-material';
 import { Box, BoxProps, CircularProgress, GlobalStyles, Link, SpeedDial, SpeedDialAction, Tooltip, useTheme } from '@mui/material';
 import React, { useCallback, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import catchError from '../utils/catchError';
@@ -23,6 +24,7 @@ const Page = ({
   const { t } = useTranslation();
   const Alert = useAlert();
   const { authing, user, signout, signin } = useAuth();
+  const navigate = useNavigate();
 
   // Auth on page load
   useEffect(() => {
@@ -30,6 +32,10 @@ const Page = ({
       signin();
     }
   }, [authing, signin, user]);
+
+  const goToCell = useCallback((name: string) => () => {
+    navigate(`/cell/${name}`);
+  }, [navigate]);
 
   const oauth = useCallback(() => {
     Fetch<string>('/api/oauth/redirect').then((response) => {
@@ -89,6 +95,15 @@ const Page = ({
             onClick={logout}
           />
         )}
+        {user && user.brutes && user.brutes.map((brute) => (
+          <SpeedDialAction
+            key={brute.id}
+            icon={brute.data.gender === 'male' ? <Man /> : <Woman />}
+            tooltipTitle={brute.data.name}
+            tooltipOpen
+            onClick={goToCell(brute.data.name)}
+          />
+        ))}
       </SpeedDial>
       {/* FOOTER */}
       <Box sx={{ textAlign: 'center', mt: 2 }}>

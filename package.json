@@ -14,6 +14,9 @@
     "express": "^5.0.0-beta.1",
     "pg": "^8.7.3"
   },
+  "engines": {
+    "node": ">=8.3.0"
+  },
   "scripts": {
     "release": "standard-version -a",
     "front": "cd client && npm run start",

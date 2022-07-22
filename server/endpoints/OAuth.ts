@@ -5,7 +5,7 @@ import { RfcOauthClient } from '@eternal-twin/oauth-client-http/rfc-oauth-client
 import { Request, Response } from 'express';
 import { URL } from 'url';
 import DB from '../db/client.js';
-import { User } from '../types/types.js';
+import { Gender, User } from '../types/types.js';
 import sendError from '../utils/sendError.js';
 import URLHelper from '../utils/URLHelper.js';
 
@@ -50,36 +50,57 @@ const OAuth = {
         throw new Error('Invalid auth type');
       }
       // Update or store user
-      const { user } = self;
+      const { user: etwinUser } = self;
       const client = await DB.connect();
 
       const existingUser = await client.query<User>(
         'select * from users where id = $1',
-        [user.id],
+        [etwinUser.id],
       );
 
       // If user does not exist, create it
       if (existingUser.rows?.length === 0) {
         await client.query(
           'INSERT INTO users(id, token, name) VALUES($1, $2, $3) RETURNING *',
-          [user.id, token.accessToken, user.displayName.current.value],
+          [etwinUser.id, token.accessToken, etwinUser.displayName.current.value],
         );
       } else {
         // If user exists, update it
         await client.query(
           'UPDATE users SET name = $1, token = $2 WHERE id = $3 RETURNING *',
-          [user.displayName.current.value, token.accessToken, user.id],
+          [etwinUser.displayName.current.value, token.accessToken, etwinUser.id],
         );
       }
 
-      // TODO: Fetch brutes for user
+      // Fetch user data
+      const userQuery = await client.query<User>(
+        'select * from users where id = $1 and token = $2::text',
+        [etwinUser.id, token.accessToken],
+      );
+      const user = userQuery.rows[0];
+
+      // Fetch brutes for user
+      const brutes = await client.query<{ id: number, name: string, gender: Gender }>(
+        `SELECT
+          id,
+          data->>'name' as name,
+          data->>'gender' as gender
+        FROM brutes WHERE data ->> 'user' = $1`,
+        [user.id],
+      );
 
       await client.end();
+
       res.status(200).send({
-        id: user.id,
-        token: token.accessToken,
-        name: user.displayName.current.value,
-      });
+        ...user,
+        brutes: brutes.rows.map((brute) => ({
+          id: brute.id,
+          data: {
+            name: brute.name,
+            gender: brute.gender,
+          },
+        })),
+      } as User);
     } catch (error) {
       sendError(res, error);
     }

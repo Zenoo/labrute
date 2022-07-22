@@ -1,9 +1,3 @@
-export interface User {
-  id: string;
-  name: string;
-  token: string;
-}
-
 export type Gender = 'male' | 'female';
 
 export interface BodyParts {
@@ -106,4 +100,11 @@ export interface Brute {
     victories: number;
     pupils: number;
   };
+}
+
+export interface User {
+  id: string;
+  name: string;
+  token: string;
+  brutes?: Brute[];
 }

@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import { Client } from 'pg';
-import { User } from '../types/types.js';
+import { Gender, User } from '../types/types.js';
 
 const auth = async (client: Client, request: Request) => {
   const { headers: { authorization } } = request;
@@ -12,19 +12,40 @@ const auth = async (client: Client, request: Request) => {
     throw new Error('Invalid authorization header');
   }
 
-  const [username, token] = Buffer.from(authorization.split(' ')[1], 'base64')
+  const [id, token] = Buffer.from(authorization.split(' ')[1], 'base64')
     .toString().split(':');
 
-  const user = await client.query<User>(
+  const userQuery = await client.query<User>(
     'select * from users where id = $1 and token = $2::text',
-    [username, token],
+    [id, token],
   );
 
-  if (!user.rows || user.rows.length === 0) {
+  if (!userQuery.rows || userQuery.rows.length === 0) {
     throw new Error('Invalid user');
   }
 
-  return user.rows[0];
+  const user = userQuery.rows[0];
+
+  // Fetch brutes for user
+  const brutes = await client.query<{ id: number, name: string, gender: Gender }>(
+    `SELECT
+          id,
+          data->>'name' as name,
+          data->>'gender' as gender
+        FROM brutes WHERE data ->> 'user' = $1`,
+    [user.id],
+  );
+
+  return {
+    ...user,
+    brutes: brutes.rows.map((brute) => ({
+      id: brute.id,
+      data: {
+        name: brute.name,
+        gender: brute.gender,
+      },
+    })),
+  } as User;
 };
 
 export default auth;
