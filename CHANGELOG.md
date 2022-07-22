@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.4](https://github.com/Zenoo/labrute/compare/v0.3.3...v0.3.4) (2022-07-22)
+
+
+### Feature
+
+* Display brutes in account menu. Fixes [#16](https://github.com/Zenoo/labrute/issues/16). Fixes [#17](https://github.com/Zenoo/labrute/issues/17) ([e52cc05](https://github.com/Zenoo/labrute/commit/e52cc05bd7fe4eb01d458ef0e9f28a4db273a27d))
+
 ### [0.3.3](https://github.com/Zenoo/labrute/compare/v0.3.2...v0.3.3) (2022-07-21)
 
 
