@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.6](https://github.com/Zenoo/labrute/compare/v0.3.5...v0.3.6) (2022-07-23)
+
+
+### Bug fix
+
+* Last db migration script applied twice ([b902c68](https://github.com/Zenoo/labrute/commit/b902c689e03d997e5bd5e9ec04080b3fd7316f20))
+
+
+### Feature
+
+* Display actual brute's logs. Fixes [#14](https://github.com/Zenoo/labrute/issues/14) ([2cad8fc](https://github.com/Zenoo/labrute/commit/2cad8fc47d5de2aeda9f28e3a13d3314aa5645b2))
+
 ### [0.3.5](https://github.com/Zenoo/labrute/compare/v0.3.4...v0.3.5) (2022-07-23)
 
 
