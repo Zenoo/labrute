@@ -15,14 +15,15 @@
     "pg": "^8.7.3"
   },
   "engines": {
-    "node": ">=8.3.0"
+    "node": ">=10.0.0"
   },
   "scripts": {
     "release": "standard-version -a",
     "front": "cd client && npm run start",
     "back": "nodemon server/server.ts",
     "start": "ts-node --esm server/server.ts",
-    "etwin": "etwin"
+    "etwin": "etwin",
+    "db:sync": "ts-node --esm server/db/sync-database.ts"
   },
   "devDependencies": {
     "@eternal-twin/cli": "^0.10.3",

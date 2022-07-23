@@ -74,13 +74,13 @@ const Brutes = {
         // TODO
       }
 
-      const result = await client.query(
-        'insert into brutes (data) values ($1)',
+      const result = await client.query<Brute>(
+        'insert into brutes (data) values ($1) returning *',
         [req.body.data],
       );
 
       await client.end();
-      res.status(200).send(result);
+      res.status(200).send(result.rows[0]);
     } catch (error) {
       sendError(res, error);
     }

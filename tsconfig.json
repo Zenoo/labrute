@@ -31,6 +31,6 @@
   ],
   "include": [
     "./server/**/*.ts",
-    "types.d.ts",
+    "types.d.ts"
   ],
 }

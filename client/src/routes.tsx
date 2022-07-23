@@ -1,8 +1,7 @@
 import React from 'react';
-
-const Main = React.lazy(() => import('./layouts/Main'));
-const HomeView = React.lazy(() => import('./views/HomeView'));
-const CellView = React.lazy(() => import('./views/CellView'));
+import Main from './layouts/Main';
+import CellView from './views/CellView';
+import HomeView from './views/HomeView';
 
 const routes = [
   {

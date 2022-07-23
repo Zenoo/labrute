@@ -1,9 +1,11 @@
+import { Log } from '@backend/types';
 import { Box, Divider, Grid, Link, Paper, Stack, Tooltip } from '@mui/material';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import BoxWithBackground from '../components/BoxWithBackground';
 import { default as BruteComponent } from '../components/Brute/Brute';
+import CellLog from '../components/Cell/CellLog';
 import CellPets from '../components/Cell/CellPets';
 import CellStats from '../components/Cell/CellStats';
 import CellWeapons from '../components/Cell/CellWeapons';
@@ -17,22 +19,14 @@ import skills from '../utils/brute/skills';
 import weapons from '../utils/brute/weapons';
 import Server from '../utils/Server';
 
-interface Log {
-  id: number;
-  type: 'win' | 'lose' | 'child' | 'childup'
-  | 'up' | 'lvl' | 'survive';
-  value?: string;
-  xp?: number;
-}
-
 const logs: Log[] = [
-  { id: 1, type: 'win', value: 'test1', xp: 2 },
-  { id: 2, type: 'survive', value: 'test10', },
-  { id: 3, type: 'lose', value: 'test2', xp: 1 },
-  { id: 4, type: 'child', value: 'test3' },
-  { id: 5, type: 'childup', value: 'test4' },
+  { id: 1, type: 'win', brute: 'test1', xp: 2, fight: 1 },
+  { id: 2, type: 'survive', brute: 'test10', fight: 2 },
+  { id: 3, type: 'lose', brute: 'test2', xp: 1, fight: 3 },
+  { id: 4, type: 'child', brute: 'test3' },
+  { id: 5, type: 'childup', brute: 'test4' },
   { id: 6, type: 'up' },
-  { id: 7, type: 'lvl', value: '10' },
+  { id: 7, type: 'lvl', level: 10 },
 ];
 
 const panther = Math.random() < 0.5;
@@ -403,64 +397,7 @@ const CellView = () => {
               </Tooltip>
             </BoxWithBackground>
             <Box sx={{ ml: 2, mt: 1 }}>
-              {logs.map((log) => (
-                <BoxWithBackground
-                  key={log.id}
-                  url={`/images/log/log_${log.type === 'survive'
-                    ? 'win'
-                    : log.type === 'lvl'
-                      ? `lvl_${log.value}`
-                      : log.type}.gif`}
-                  alt={t('background')}
-                  sx={{
-                    width: 200,
-                    height: 53,
-                    pl: '50px',
-                    pt: 0.5,
-                  }}
-                >
-                  {log.type === 'survive' || log.type === 'win' || log.type === 'lose'
-                    ? (
-                      <Tooltip title={t('seeFight')}>
-                        <Link
-                          href=""
-                          sx={{
-                            textDecoration: 'none',
-                            '&:hover': {
-                              textDecoration: 'underline',
-                              textDecorationColor: (theme) => (log.type === 'lose'
-                                ? theme.palette.error.main
-                                : theme.palette.success.main
-                              ),
-                            },
-                          }}
-                        >
-                          <Text bold color={log.type === 'lose' ? 'error.main' : 'success.main'}>
-                            {t(`log.${log.type}`, { value: log.value })}
-                          </Text>
-                        </Link>
-                      </Tooltip>
-                    )
-                    : (
-                      <Text bold color="success.main">
-                        {log.type === 'lvl'
-                          ? `${t('log.lvl')} ${t(`lvl_${log.value as '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10'}`)}.`
-                          : t(`log.${log.type}`, { value: log.value })}
-                      </Text>
-                    )}
-                  {log.xp && (
-                    <Text
-                      color={log.type === 'lose' ? 'error.main' : 'success.main'}
-                      sx={{
-                        fontSize: 10,
-                        mt: '-5px',
-                      }}
-                    >
-                      {t(log.xp === 1 ? 'log.xp' : 'log.xps', { xp: log.xp })}
-                    </Text>
-                  )}
-                </BoxWithBackground>
-              ))}
+              {logs.map((log) => <CellLog key={log.id} log={log} />)}
             </Box>
           </Box>
         </Box>

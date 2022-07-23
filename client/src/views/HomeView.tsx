@@ -255,8 +255,14 @@ const HomeView = () => {
               pupils: 0,
             }).catch(catchError(Alert, t));
 
-            // Redirect to brute page
             if (brute) {
+              console.log(brute);
+              // Add brute to user brutes
+              updateData({
+                ...user,
+                brutes: user.brutes ? [...user.brutes, brute] : [brute],
+              });
+              // Redirect to brute page
               navigate(`/cell/${name}`);
             }
           } else {
@@ -269,7 +275,7 @@ const HomeView = () => {
     } else {
       Alert.open('error', t('pleaseLogin'));
     }
-  }, [Alert, bodyColors, bodyParts, gender, name, navigate, t, user]);
+  }, [Alert, bodyColors, bodyParts, gender, name, navigate, t, updateData, user]);
 
   return smallScreen
     ? (

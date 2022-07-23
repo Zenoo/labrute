@@ -1,5 +1,5 @@
 import { AccountCircle, Login, Logout, Man, Woman } from '@mui/icons-material';
-import { Box, BoxProps, CircularProgress, GlobalStyles, Link, SpeedDial, SpeedDialAction, Tooltip, useTheme } from '@mui/material';
+import { Box, BoxProps, CircularProgress, Link, SpeedDial, SpeedDialAction, Tooltip } from '@mui/material';
 import React, { useCallback, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
@@ -20,7 +20,6 @@ const Page = ({
   children,
   ...rest
 }: Props) => {
-  const theme = useTheme();
   const { t } = useTranslation();
   const Alert = useAlert();
   const { authing, user, signout, signin } = useAuth();
@@ -50,21 +49,6 @@ const Page = ({
 
   return (
     <Box {...rest}>
-      <GlobalStyles styles={{
-        html: {
-          height: '100%'
-        },
-        body: {
-          margin: 0,
-          height: '100%',
-          fontFamily: 'arial,sans-serif'
-        },
-        '#root': {
-          minHeight: '100%',
-          background: `linear-gradient(180deg, ${theme.palette.background.light} 0%, ${theme.palette.background.default} 160px)`,
-        }
-      }}
-      />
       <Helmet>
         <title>{title}</title>
       </Helmet>

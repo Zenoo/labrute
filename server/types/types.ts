@@ -108,3 +108,13 @@ export interface User {
   token: string;
   brutes?: Brute[];
 }
+
+export interface Log {
+  id: number;
+  type: 'win' | 'lose' | 'child' | 'childup'
+  | 'up' | 'lvl' | 'survive';
+  level?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+  brute?: string;
+  fight?: number;
+  xp?: number;
+}

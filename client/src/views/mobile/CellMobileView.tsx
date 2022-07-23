@@ -15,6 +15,7 @@ import StyledButton from '../../components/StyledButton';
 import Text from '../../components/Text';
 import advertisings from '../../utils/advertisings';
 import getXPNeeded from '../../utils/brute/getXPNeeded';
+import CellLog from '../../components/Cell/CellLog';
 
 interface Log {
   id: number;
@@ -381,64 +382,7 @@ const CellMobileView = () => {
               </Tooltip>
             </BoxWithBackground>
             <Box sx={{ ml: 2, mt: 1 }}>
-              {logs.map((log) => (
-                <BoxWithBackground
-                  key={log.id}
-                  url={`/images/log/log_${log.type === 'survive'
-                    ? 'win'
-                    : log.type === 'lvl'
-                      ? `lvl_${log.value}`
-                      : log.type}.gif`}
-                  alt={t('background')}
-                  sx={{
-                    width: 200,
-                    height: 53,
-                    pl: '50px',
-                    pt: 0.5,
-                  }}
-                >
-                  {log.type === 'survive' || log.type === 'win' || log.type === 'lose'
-                    ? (
-                      <Tooltip title={t('seeFight')}>
-                        <Link
-                          href=""
-                          sx={{
-                            textDecoration: 'none',
-                            '&:hover': {
-                              textDecoration: 'underline',
-                              textDecorationColor: (theme) => (log.type === 'lose'
-                                ? theme.palette.error.main
-                                : theme.palette.success.main
-                              ),
-                            },
-                          }}
-                        >
-                          <Text bold color={log.type === 'lose' ? 'error.main' : 'success.main'}>
-                            {t(`log.${log.type}`, { value: log.value })}
-                          </Text>
-                        </Link>
-                      </Tooltip>
-                    )
-                    : (
-                      <Text bold color="success.main">
-                        {log.type === 'lvl'
-                          ? `${t('log.lvl')} ${t(`lvl_${log.value as '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10'}`)}.`
-                          : t(`log.${log.type}`, { value: log.value })}
-                      </Text>
-                    )}
-                  {log.xp && (
-                    <Text
-                      color={log.type === 'lose' ? 'error.main' : 'success.main'}
-                      sx={{
-                        fontSize: 10,
-                        mt: '-5px',
-                      }}
-                    >
-                      {t(log.xp === 1 ? 'log.xp' : 'log.xps', { xp: log.xp })}
-                    </Text>
-                  )}
-                </BoxWithBackground>
-              ))}
+              {logs.map((log) => <CellLog key={log.id} log={log} />)}
             </Box>
           </Box>
         </Box>
