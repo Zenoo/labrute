@@ -111,6 +111,7 @@ export interface User {
 
 export interface Log {
   id: number;
+  currentBrute: number;
   type: 'win' | 'lose' | 'child' | 'childup'
   | 'up' | 'lvl' | 'survive';
   level?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;

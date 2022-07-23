@@ -1,153 +1,35 @@
-import skills from '../../utils/brute/skills';
-import { Brute } from '@backend/types';
-import weapons from '../../utils/brute/weapons';
+import { Brute, Log } from '@backend/types';
 import { Box, Divider, Grid, Link, Paper, Stack, Tooltip } from '@mui/material';
-import React, { useCallback, useMemo, useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router';
 import BoxWithBackground from '../../components/BoxWithBackground';
 import { default as BruteComponent } from '../../components/Brute/Brute';
+import CellLog from '../../components/Cell/CellLog';
 import CellPets from '../../components/Cell/CellPets';
 import CellStats from '../../components/Cell/CellStats';
 import CellWeapons from '../../components/Cell/CellWeapons';
 import Page from '../../components/Page';
 import StyledButton from '../../components/StyledButton';
 import Text from '../../components/Text';
-import advertisings from '../../utils/advertisings';
 import getXPNeeded from '../../utils/brute/getXPNeeded';
-import CellLog from '../../components/Cell/CellLog';
+import skills from '../../utils/brute/skills';
 
-interface Log {
-  id: number;
-  type: 'win' | 'lose' | 'child' | 'childup'
-  | 'up' | 'lvl' | 'survive';
-  value?: string;
-  xp?: number;
+export interface CellMobileViewProps {
+  bruteName?: string;
+  brute: Brute;
+  reloadRandom: () => void;
+  advertising: string;
+  logs: Log[];
 }
 
-const logs: Log[] = [
-  { id: 1, type: 'win', value: 'test1', xp: 2 },
-  { id: 2, type: 'survive', value: 'test10', },
-  { id: 3, type: 'lose', value: 'test2', xp: 1 },
-  { id: 4, type: 'child', value: 'test3' },
-  { id: 5, type: 'childup', value: 'test4' },
-  { id: 6, type: 'up' },
-  { id: 7, type: 'lvl', value: '10' },
-];
-
-const panther = Math.random() < 0.5;
-
-const CellMobileView = () => {
+const CellMobileView = ({
+  bruteName,
+  brute,
+  reloadRandom,
+  advertising,
+  logs,
+}: CellMobileViewProps) => {
   const { t } = useTranslation();
-  const { bruteName } = useParams();
-
-  // const { data: brute } = useStateAsync(null, Server.Brute.get, bruteName);
-  const [brute, setBrute] = useState<Brute>({
-    id: 1,
-    rank: 3333,
-    data: {
-      user: '',
-      name: 'blablabla',
-      level: 55,
-      xp: 72,
-      stats: {
-        hp: Math.floor(Math.random() * (2000 - 200 + 1)) + 200,
-        endurance: Math.floor(Math.random() * 60),
-        strength: Math.floor(Math.random() * 60),
-        agility: Math.floor(Math.random() * 60),
-        speed: Math.floor(Math.random() * 60),
-      },
-      ranking: Math.floor(Math.random() * 10) + 1 as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10,
-      gender: 'female',
-      body: {
-        longHair: 2,
-        lowerRightArm: 1,
-        rightHand: 1,
-        upperRightArm: 1,
-        rightShoulder: 1,
-        rightFoot: 1,
-        lowerRightLeg: 1,
-        upperRightLeg: 1,
-        leftFoot: 1,
-        lowerLeftLeg: 1,
-        pelvis: 1,
-        upperLeftLeg: 1,
-        tummy: 1,
-        torso: 1,
-        head: 1,
-        leftHand: 1,
-        upperLeftArm: 1,
-        lowerLeftArm: 1,
-        leftShoulder: 1,
-      },
-      colors: {
-        skin: {
-          color: '#fbe6c8',
-          shade: '#e7d2b4'
-        },
-        hair: {
-          color: '#8e63ad',
-          shade: '#7a4f99'
-        },
-        primary: {
-          color: '#559399',
-          shade: '#417f85'
-        },
-        secondary: {
-          color: '#b85f1d',
-          shade: '#a44b09'
-        },
-        accent: {
-          color: '#df7e37',
-          shade: '#cb6a23'
-        }
-      },
-      weapons: [...weapons].sort(() => 0.5 - Math.random()).slice(0, 12),
-      skills: [...skills].sort(() => 0.5 - Math.random()).slice(0, 12).map((s) => s.name),
-      pets: {
-        dog: Math.floor(Math.random() * 4) as 0 | 1 | 2 | 3,
-        panther: panther ? 1 : 0,
-        bear: panther ? 0 : Math.floor(Math.random() * 2) as 0 | 1,
-      },
-      master: {
-        id: 999,
-        name: 'BigBoss'
-      },
-      victories: 1540,
-      pupils: 360,
-    }
-  });
-
-  // Randomized advertising
-  const advertising = useMemo(() => advertisings[Math.floor(
-    Math.random() * (advertisings.length - 1) + 1
-  )], []);
-
-  // TEMP METHOD
-  // Reload brute with everything random rerolled
-  const reloadRandom = useCallback(() => {
-    const _panther = Math.random() < 0.5;
-    const newBrute = { ...brute };
-    newBrute.data.weapons = [...weapons].sort(() => 0.5 - Math.random()).slice(0, 12);
-    newBrute.data.skills = [...skills]
-      .sort(() => 0.5 - Math.random()).slice(0, 12).map((s) => s.name);
-    newBrute.data.pets = {
-      dog: Math.floor(Math.random() * 4) as 0 | 1 | 2 | 3,
-      panther: _panther ? 1 : 0,
-      bear: _panther ? 0 : Math.floor(Math.random() * 2) as 0 | 1,
-    };
-    newBrute.data.ranking = Math.floor(Math.random() * 10)
-      + 1 as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
-    newBrute.data.stats.hp = Math.floor(Math.random() * (2000 - 200 + 1)) + 200;
-    newBrute.data.stats.endurance = Math.floor(Math.random() * 60);
-    newBrute.data.stats.strength = Math.floor(Math.random() * 60);
-    newBrute.data.stats.agility = Math.floor(Math.random() * 60);
-    newBrute.data.stats.speed = Math.floor(Math.random() * 60);
-    newBrute.data.level = Math.floor(Math.random() * (1500 - 1 + 1)) + 1;
-    newBrute.data.xp = Math.floor(Math.random() * getXPNeeded(newBrute.data.level + 1));
-
-    setBrute(newBrute);
-  }, [brute]);
 
   return (
     <Page title={`${bruteName || ''} ${t('MyBrute')}`}>
@@ -371,7 +253,7 @@ const CellMobileView = () => {
                 ml: 0.5,
               }}
             >
-              <Tooltip title="TODO" key={advertising}>
+              <Tooltip title="TODO">
                 <Link href="" sx={{ width: 200, mx: 4, display: 'inline-block' }}>
                   <Box
                     component="img"

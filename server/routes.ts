@@ -2,6 +2,7 @@
 import { Express, Request, Response } from 'express';
 import path from 'path';
 import Brutes from './endpoints/Brutes.js';
+import Logs from './endpoints/Logs.js';
 import OAuth from './endpoints/OAuth.js';
 import Users from './endpoints/Users.js';
 
@@ -22,6 +23,9 @@ const initRoutes = (app: Express) => {
   app.get('/api/brute/:name', Brutes.get);
   app.get('/api/brute/:name/available', Brutes.isNameAvailable);
   app.post('/api/brute/create', Brutes.create);
+
+  // Log
+  app.get('/api/log/list/:id', Logs.list);
 
   app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'client', 'build', 'index.html'));
