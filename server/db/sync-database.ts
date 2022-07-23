@@ -58,7 +58,7 @@ if (currentVersion.rows.length) {
 
   console.log('Database is not up to date.');
   console.log('Migrating from version', currentVersion.rows[0].version, 'to', lastScript);
-  await applyScripts(client, files.filter((f) => f > currentVersion.rows[0].version));
+  await applyScripts(client, files.filter((f) => f > `${currentVersion.rows[0].version}.sql`));
 } else {
   // Apply all migrations
   console.log('No database version found. Applying all migrations...');
