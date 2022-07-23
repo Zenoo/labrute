@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.5](https://github.com/Zenoo/labrute/compare/v0.3.4...v0.3.5) (2022-07-23)
+
+
+### Refactoring
+
+* Moves logs logic to CellLog. [#14](https://github.com/Zenoo/labrute/issues/14) ([5ee221a](https://github.com/Zenoo/labrute/commit/5ee221a33dac64dfa3deb79dc7213af09b43a052))
+
+
+### Feature
+
+* Automated database migration ([ed54d20](https://github.com/Zenoo/labrute/commit/ed54d20537c35dab4a749d9b35c18c660976f762))
+
 ### [0.3.4](https://github.com/Zenoo/labrute/compare/v0.3.3...v0.3.4) (2022-07-22)
 
 
