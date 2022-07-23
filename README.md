@@ -12,7 +12,7 @@
 
 - Copy `.env.sample` to `.env` and adapt the variables
 
-- Run every `UP` migration script in `/server/db/migrations/` in order.
+- Run `npm run db:sync`.
 
 - Start the server with `npm run start`
 
@@ -31,6 +31,8 @@
 - Start the backend `npm run back`
 
 - Start the frontend `npm run front`
+
+- Start the etwin local server `npm run etwin`
 
 - Commit and push your changes
 
