@@ -45,7 +45,7 @@ const createRandomBruteStats = (): Omit<Brute['data'], 'name' | 'gender' | 'body
   const skills = hasSkill ? [weightedRandom(availableSkills).name] : [];
 
   // 48.0838% chance of having a weapon
-  const hasWeapon = !hasPet && !hasSkill && skillWeaponOrPet >= 0.480838 + 0.035792;
+  const hasWeapon = !hasPet && !hasSkill && skillWeaponOrPet >= 0.483369 + 0.035792;
   const weapons = hasWeapon ? [weightedRandom(availableWeapons).name] : [];
 
   return {
