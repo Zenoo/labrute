@@ -49,7 +49,7 @@
   "weaponsBonuses": "Armes et bonus disponibles en combat",
 
   "herculeanStrength": "Force herculéenne",
-  "felinAgility": "Agilité féline",
+  "felineAgility": "Agilité féline",
   "lightningBolt": "Frappe éclair",
   "vitality": "Vitalité",
   "immortality": "Immortel",
@@ -78,7 +78,7 @@
   "flashFlood": "Déluge",
 
   "herculeanStrength.desc": "Avec ta force, tu es capable de déplacer des montagnes ! Mais pour l'instant, t'as un adversaire à cogner.",
-  "felinAgility.desc": "Tu n'as pas de pelote de laine pour t'amuser, mais tu peux toujours embêter la brute en face.",
+  "felineAgility.desc": "Tu n'as pas de pelote de laine pour t'amuser, mais tu peux toujours embêter la brute en face.",
   "lightningBolt.desc": "Tu distribues des coups plus vite que ton ombre et plus vite que les dents de ton adversaire.",
   "vitality.desc": "Ton espérance de vie a augmenté ! Désormais tu tiendras debout plus longtemps dans l'arène.",
   "immortality.desc": "Ta santé a atteint un niveau inimaginable ! Il est devenu très difficile de te terrasser lors d'un combat.",

@@ -61,7 +61,7 @@ export type WeaponName = 'fan' | 'keyboard' | 'knife'
   | 'noodleBowl' | 'piopio' | 'shuriken'
   | 'broadsword' | 'scimitar' | 'sword';
 
-export type SkillName = 'herculeanStrength' | 'felinAgility' | 'lightningBolt'
+export type SkillName = 'herculeanStrength' | 'felineAgility' | 'lightningBolt'
   | 'vitality' | 'immortality' | 'weaponsMaster'
   | 'martialArts' | 'sixthSense' | 'hostility'
   | 'fistsOfFury' | 'shield' | 'armor'
@@ -73,6 +73,12 @@ export type SkillName = 'herculeanStrength' | 'felinAgility' | 'lightningBolt'
 
 export type PetName = 'dog' | 'panther' | 'bear';
 
+export interface Stat {
+  stat: number;
+  modifier: number;
+  value: number;
+}
+
 export interface Brute {
   id: number;
   rank: number;
@@ -83,10 +89,10 @@ export interface Brute {
     xp: number;
     stats: {
       hp: number;
-      endurance: number;
-      strength: number;
-      agility: number;
-      speed: number;
+      endurance: Stat;
+      strength: Stat;
+      agility: Stat;
+      speed: Stat;
     }
     ranking: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
     gender: Gender;

@@ -20,7 +20,7 @@ const CellStats = ({
   return (
     <Box>
       <Text bold>{t(stat)} :</Text>
-      <Tooltip title={`${t(stat)} : ${stats[stat]}`}>
+      <Tooltip title={`${t(stat)} : ${stats[stat].value}`}>
         <Box>
           {excesses.map((excess) => (
             <Box
@@ -33,13 +33,13 @@ const CellStats = ({
                 border: '2px solid',
                 borderColor: 'secondary.main',
                 bgcolor: (theme) => {
-                  const statDividedByTen = Math.floor(stats[stat] / 10);
+                  const statDividedByTen = Math.floor(stats[stat].value / 10);
                   const { palette: { heat: {
                     [statDividedByTen]: baseColor,
                     [statDividedByTen + 1]: excessColor
                   } } } = theme;
 
-                  return stats[stat] % 10 >= excess
+                  return stats[stat].value % 10 >= excess
                     ? excessColor
                     : baseColor;
                 },

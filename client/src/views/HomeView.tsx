@@ -18,7 +18,7 @@ import advertisings from '../utils/advertisings';
 import availableBodyParts from '../utils/brute/availableBodyParts';
 import colors from '../utils/brute/colors';
 import catchError from '../utils/catchError';
-import createRandomBruteStats from '../utils/createRandomBruteStats';
+import createRandomBruteStats from '../utils/brute/createRandomBruteStats';
 import Fetch from '../utils/Fetch';
 import randomBetween from '../utils/randomBetween';
 import Server from '../utils/Server';
@@ -256,7 +256,6 @@ const HomeView = () => {
             }).catch(catchError(Alert, t));
 
             if (brute) {
-              console.log(brute);
               // Add brute to user brutes
               updateData({
                 ...user,

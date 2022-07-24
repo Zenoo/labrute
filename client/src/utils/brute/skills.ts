@@ -7,7 +7,7 @@ export interface Skill {
 }
 const skills: Skill[] = [
   { name: 'herculeanStrength', icon: '1', odds: 67601 / 483369 },
-  { name: 'felinAgility', icon: '2', odds: 67298 / 483369 },
+  { name: 'felineAgility', icon: '2', odds: 67298 / 483369 },
   { name: 'lightningBolt', icon: '3', odds: 67599 / 483369 },
   { name: 'vitality', icon: '4', odds: 66979 / 483369 },
   { name: 'immortality', icon: '5', odds: 195 / 483369 },

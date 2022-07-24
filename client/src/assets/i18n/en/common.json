@@ -50,7 +50,7 @@
   "weaponsBonuses": "Weapons and bonuses available in combat",
 
   "herculeanStrength": "Herculean Strength",
-  "felinAgility": "Felin Agility",
+  "felineAgility": "Felin Agility",
   "lightningBolt": "Lightning Bolt",
   "vitality": "Vitality",
   "immortality": "Immortality",
@@ -79,7 +79,7 @@
   "flashFlood": "Flash Flood",
 
   "herculeanStrength.desc": "You're strong enough to move mountains, but first you must defeat your opponent.",
-  "felinAgility.desc": "You don't even have a ball of string to play with, but you can always thump an opponent.",
+  "felineAgility.desc": "You don't even have a ball of string to play with, but you can always thump an opponent.",
   "lightningBolt.desc": "You strike faster than your shadow and bite harder than your opponents",
   "vitality.desc": "Your life expectancy has increased! You'll now be able to fight for longer in the arena.",
   "immortality.desc": "Your health has increases dramatically! You make it really hard for your opponents to kill you!",

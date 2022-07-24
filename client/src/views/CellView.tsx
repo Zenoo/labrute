@@ -35,6 +35,10 @@ const CellView = () => {
   // Test brute
   useEffect(() => {
     if (bruteName === '__test') {
+      const endurance = Math.floor(Math.random() * 60) + 1;
+      const strength = Math.floor(Math.random() * 60) + 1;
+      const agility = Math.floor(Math.random() * 60) + 1;
+      const speed = Math.floor(Math.random() * 60) + 1;
       setBrute({
         id: 1,
         rank: 3333,
@@ -45,10 +49,26 @@ const CellView = () => {
           xp: 72,
           stats: {
             hp: Math.floor(Math.random() * (2000 - 200 + 1)) + 200,
-            endurance: Math.floor(Math.random() * 60),
-            strength: Math.floor(Math.random() * 60),
-            agility: Math.floor(Math.random() * 60),
-            speed: Math.floor(Math.random() * 60),
+            endurance: {
+              stat: endurance,
+              modifier: 1,
+              value: endurance,
+            },
+            strength: {
+              stat: strength,
+              modifier: 1,
+              value: strength,
+            },
+            agility: {
+              stat: agility,
+              modifier: 1,
+              value: agility,
+            },
+            speed: {
+              stat: speed,
+              modifier: 1,
+              value: speed,
+            },
           },
           ranking: Math.floor(Math.random() * 10) + 1 as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10,
           gender: 'female',
@@ -136,10 +156,30 @@ const CellView = () => {
     newBrute.data.ranking = Math.floor(Math.random() * 10)
       + 1 as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
     newBrute.data.stats.hp = Math.floor(Math.random() * (2000 - 200 + 1)) + 200;
-    newBrute.data.stats.endurance = Math.floor(Math.random() * 60);
-    newBrute.data.stats.strength = Math.floor(Math.random() * 60);
-    newBrute.data.stats.agility = Math.floor(Math.random() * 60);
-    newBrute.data.stats.speed = Math.floor(Math.random() * 60);
+    const endurance = Math.floor(Math.random() * 60) + 1;
+    const strength = Math.floor(Math.random() * 60) + 1;
+    const agility = Math.floor(Math.random() * 60) + 1;
+    const speed = Math.floor(Math.random() * 60) + 1;
+    newBrute.data.stats.endurance = {
+      stat: endurance,
+      modifier: 1,
+      value: endurance,
+    };
+    newBrute.data.stats.strength = {
+      stat: strength,
+      modifier: 1,
+      value: strength,
+    };
+    newBrute.data.stats.agility = {
+      stat: agility,
+      modifier: 1,
+      value: agility,
+    };
+    newBrute.data.stats.speed = {
+      stat: speed,
+      modifier: 1,
+      value: speed,
+    };
     newBrute.data.level = Math.floor(Math.random() * (1500 - 1 + 1)) + 1;
     newBrute.data.xp = Math.floor(Math.random() * getXPNeeded(newBrute.data.level + 1));
 
