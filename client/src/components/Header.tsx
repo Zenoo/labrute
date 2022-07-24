@@ -1,6 +1,7 @@
-import { Box, BoxProps } from '@mui/material';
+import { Box, BoxProps, Link } from '@mui/material';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link as RouterLink } from 'react-router-dom';
 import pad from '../utils/pad';
 
 /**
@@ -42,12 +43,14 @@ const Header = (props: BoxProps) => {
           width: '23.118279569%',
         }}
       />
-      <Box
-        component="img"
-        src="/images/header/head.jpg"
-        alt={t('MyBrute')}
-        sx={{ width: 1 }}
-      />
+      <Link component={RouterLink} to="/">
+        <Box
+          component="img"
+          src="/images/header/head.jpg"
+          alt={t('MyBrute')}
+          sx={{ width: 1 }}
+        />
+      </Link>
       <Box
         component="img"
         src={`/images/header/right/1${pad(rightArt, 2)}.png`}

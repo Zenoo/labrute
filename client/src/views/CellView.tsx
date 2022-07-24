@@ -95,7 +95,7 @@ const CellView = () => {
               shade: '#cb6a23'
             }
           },
-          weapons: [...weapons].sort(() => 0.5 - Math.random()).slice(0, 12),
+          weapons: [...weapons].sort(() => 0.5 - Math.random()).slice(0, 12).map((w) => w.name),
           skills: [...skills].sort(() => 0.5 - Math.random()).slice(0, 12).map((s) => s.name),
           pets: {
             dog: Math.floor(Math.random() * 4) as 0 | 1 | 2 | 3,
@@ -124,7 +124,8 @@ const CellView = () => {
     if (!brute) return;
     const _panther = Math.random() < 0.5;
     const newBrute = { ...brute };
-    newBrute.data.weapons = [...weapons].sort(() => 0.5 - Math.random()).slice(0, 12);
+    newBrute.data.weapons = [...weapons]
+      .sort(() => 0.5 - Math.random()).slice(0, 12).map((w) => w.name);
     newBrute.data.skills = [...skills]
       .sort(() => 0.5 - Math.random()).slice(0, 12).map((s) => s.name);
     newBrute.data.pets = {

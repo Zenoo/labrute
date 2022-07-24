@@ -51,7 +51,7 @@ export interface Pets {
   bear: 0 | 1;
 }
 
-export type Weapon = 'fan' | 'keyboard' | 'knife'
+export type WeaponName = 'fan' | 'keyboard' | 'knife'
   | 'leek' | 'mug' | 'sai'
   | 'racquet' | 'axe' | 'bumps'
   | 'flail' | 'fryingPan' | 'hatchet'
@@ -61,7 +61,7 @@ export type Weapon = 'fan' | 'keyboard' | 'knife'
   | 'noodleBowl' | 'piopio' | 'shuriken'
   | 'broadsword' | 'scimitar' | 'sword';
 
-export type Skill = 'herculeanStrength' | 'felinAgility' | 'lightningBolt'
+export type SkillName = 'herculeanStrength' | 'felinAgility' | 'lightningBolt'
   | 'vitality' | 'immortality' | 'weaponsMaster'
   | 'martialArts' | 'sixthSense' | 'hostility'
   | 'fistsOfFury' | 'shield' | 'armor'
@@ -70,6 +70,8 @@ export type Skill = 'herculeanStrength' | 'felinAgility' | 'lightningBolt'
   | 'survival' | 'thief' | 'fierceBrute'
   | 'tragicPotion' | 'net' | 'bomb'
   | 'hammer' | 'cryOfTheDamned' | 'hypnosis' | 'flashFlood';
+
+export type PetName = 'dog' | 'panther' | 'bear';
 
 export interface Brute {
   id: number;
@@ -90,8 +92,8 @@ export interface Brute {
     gender: Gender;
     body: BodyParts;
     colors: BodyColors;
-    weapons: Weapon[];
-    skills: Skill[];
+    weapons: WeaponName[];
+    skills: SkillName[];
     pets: Pets;
     master: {
       id: number;

@@ -1,4 +1,4 @@
-import { Weapon } from '@backend/types';
+import { WeaponName } from '@backend/types';
 import React, { SVGProps } from 'react';
 
 const weaponSVGs = {
@@ -31,7 +31,7 @@ const weaponSVGs = {
 };
 
 interface CellWeaponsProps extends SVGProps<SVGSVGElement> {
-  weapons: Weapon[];
+  weapons: WeaponName[];
 }
 
 const CellWeapons = ({
