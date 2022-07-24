@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.8](https://github.com/Zenoo/labrute/compare/v0.3.7...v0.3.8) (2022-07-24)
+
+
+### Bug fix
+
+* Wrong weapon chance ([a5eee4c](https://github.com/Zenoo/labrute/commit/a5eee4c49bed244f57cd00c39350be3b1bca4ce9))
+
+
+### Feature
+
+* Stat boosters logic ([7b33ef6](https://github.com/Zenoo/labrute/commit/7b33ef6f70d04b7e874f1e53752307601adb8998))
+
 ### [0.3.7](https://github.com/Zenoo/labrute/compare/v0.3.6...v0.3.7) (2022-07-24)
 
 
