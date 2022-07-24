@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.7](https://github.com/Zenoo/labrute/compare/v0.3.6...v0.3.7) (2022-07-24)
+
+
+### Feature
+
+* Weighted pet/skill/weapon chance at level 1 ([41ec25f](https://github.com/Zenoo/labrute/commit/41ec25fc31f0e975b03d6af5531b2cf0192b4023))
+
 ### [0.3.6](https://github.com/Zenoo/labrute/compare/v0.3.5...v0.3.6) (2022-07-23)
 
 
