@@ -30,6 +30,7 @@ declare module '@mui/material/styles/createPalette' {
   interface TypeBackground {
     light: string;
     paperLight: string;
+    paperDark: string;
     paperAccent: string;
   }
 
@@ -92,6 +93,7 @@ const defaultTheme = {
       light: 'rgba(247,225,183,1)',
       paper: '#fbf2af',
       paperLight: '#fbf7c0',
+      paperDark: '#F8ED8F',
       paperAccent: '#fffcb0',
     },
     heat: [

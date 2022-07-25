@@ -358,9 +358,21 @@ const CellView = () => {
                   </Stack>
                 )}
                 {/* TOURNAMENT */}
-                {/* <Paper>
+                <Paper sx={{ bgcolor: 'background.paperDark' }}>
                   test
-                </Paper> */}
+                  {ownsBrute && (
+                    <StyledButton
+                      sx={{
+                        height: 72,
+                        width: 216,
+                      }}
+                      image={`/images/${language}/cell/tournament.gif`}
+                      imageHover={`/images/${language}/cell/tournament-hover.gif`}
+                      shadow={false}
+                      contrast={false}
+                    />
+                  )}
+                </Paper>
               </Box>
             </Box>
             {/* RIGHT SIDE */}
