@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.10](https://github.com/Zenoo/labrute/compare/v0.3.9...v0.3.10) (2022-07-25)
+
+
+### Feature
+
+* EN Translation. Fix [#12](https://github.com/Zenoo/labrute/issues/12) ([d517408](https://github.com/Zenoo/labrute/commit/d5174081512d21eefb841342d611f7f42e0857c6))
+
 ### [0.3.9](https://github.com/Zenoo/labrute/compare/v0.3.8...v0.3.9) (2022-07-25)
 
 
