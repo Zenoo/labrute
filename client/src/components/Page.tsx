@@ -6,6 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
+import { useLanguage } from '../hooks/useLanguage';
+import { Language, languages } from '../i18n';
 import catchError from '../utils/catchError';
 import Fetch from '../utils/Fetch';
 import Text from './Text';
@@ -24,6 +26,7 @@ const Page = ({
   const Alert = useAlert();
   const { authing, user, signout, signin } = useAuth();
   const navigate = useNavigate();
+  const { language, setLanguage } = useLanguage();
 
   // Auth on page load
   useEffect(() => {
@@ -42,10 +45,16 @@ const Page = ({
     }).catch(catchError(Alert, t));
   }, [Alert, t]);
 
+  // Logout
   const logout = useCallback(() => {
     signout();
     Alert.open('success', t('logoutSuccess'));
   }, [Alert, signout, t]);
+
+  // Change language
+  const changeLanguage = useCallback((lang: Language) => () => {
+    setLanguage(lang);
+  }, [setLanguage]);
 
   return (
     <Box {...rest}>
@@ -117,6 +126,18 @@ const Page = ({
           </Link>
           {' '}| Remade with love at{' '}
           <Link href="https://eternal-twin.net/">Eternal Twin</Link>
+          {/* LANGUAGE */}
+          {languages.map((lang) => lang !== language && (
+            <Tooltip title={t(`${lang}-version`)} key={lang}>
+              <Box
+                component="img"
+                src={`/images/${lang}/flag.svg`}
+                alt={t(`${lang}-version`)}
+                onClick={changeLanguage(lang)}
+                sx={{ ml: 1, cursor: 'pointer', width: 15 }}
+              />
+            </Tooltip>
+          ))}
         </Text>
       </Box>
     </Box>

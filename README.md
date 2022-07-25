@@ -138,13 +138,13 @@ const { language, setLanguage } = useLanguage();
 #### `language`
 
 ```ts
-'en' | 'fr' | 'de' | 'sp'
+'en' | 'fr'
 ```
 
 #### `setLanguage`
 
 ```ts
-(language: 'en' | 'fr' | 'de' | 'sp') => void
+(language: 'en' | 'fr') => void
 ```
 
 ### `useStateAsync`

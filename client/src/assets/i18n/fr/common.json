@@ -47,6 +47,8 @@
   "victories": "Victoires",
   "pupils": "Élèves",
   "weaponsBonuses": "Armes et bonus disponibles en combat",
+  "refLink": "Donne cette adresse à tes amis ou met la sur ton blog, ça te permettra de recruter des élèves et de gagner de l'expérience !",
+  "clan": "Clan",
 
   "herculeanStrength": "Force herculéenne",
   "felineAgility": "Agilité féline",
@@ -124,5 +126,8 @@
 
   "callToFight": "Si tu as envie de te défouler sur quelqu'un, fait le ici ! Il y a plein d'autres Brutes dans l'arène qui ne demandent qu'à échanger quelques gnons.",
   "arena": "Arène",
-  "fightsLeft": "Il te reste {{value}} combats aujourd'hui."
+  "fightsLeft": "Il te reste {{value}} combats aujourd'hui.",
+
+  "en-version": "English version",
+  "fr-version": "Version française"
 }

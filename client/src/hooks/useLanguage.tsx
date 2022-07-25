@@ -1,10 +1,11 @@
 import moment from 'moment';
-import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Language } from '../i18n';
 
 interface LanguageContextInterface {
-  language: string;
-  setLanguage: (lang: string) => void;
+  language: Language;
+  setLanguage: (lang: Language) => void;
 }
 
 const LanguageContext = React.createContext<LanguageContextInterface>({
@@ -24,20 +25,17 @@ interface LanguageProviderProps {
 }
 
 export const LanguageProvider = ({ children }: LanguageProviderProps) => {
-  const [language, _setLanguage] = useState('fr');
+  const [language, setLanguage] = useState<Language>(localStorage.getItem('language') as Language || 'fr');
   const { i18n } = useTranslation();
 
-  const setLanguage = useCallback((lang: string) => {
-    i18n.changeLanguage(lang).catch((error) => {
+  useEffect(() => {
+    i18n.changeLanguage(language).catch((error) => {
       console.error(error);
     });
-    _setLanguage(lang);
-    moment.locale(lang);
-  }, [i18n]);
-
-  useEffect(() => {
     document.documentElement.lang = language;
-  }, [language]);
+    moment.locale(language);
+    localStorage.setItem('language', language);
+  }, [i18n, language]);
 
   const methods = useMemo(() => ({
     language,

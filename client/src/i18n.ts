@@ -3,6 +3,9 @@ import { initReactI18next } from 'react-i18next';
 import commonFr from './assets/i18n/fr/common.json';
 import commonEn from './assets/i18n/en/common.json';
 
+export const languages = ['fr', 'en'] as const;
+export type Language = typeof languages[number];
+
 export const defaultNS = 'common';
 export const resources = {
   en: {
@@ -14,7 +17,7 @@ export const resources = {
 } as const;
 
 i18n.use(initReactI18next).init({
-  lng: 'fr',
+  lng: languages[0],
   ns: ['common'],
   defaultNS,
   resources,

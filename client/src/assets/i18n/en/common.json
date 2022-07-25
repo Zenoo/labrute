@@ -48,6 +48,8 @@
   "victories": "Victories",
   "pupils": "Pupils",
   "weaponsBonuses": "Weapons and bonuses available in combat",
+  "refLink": "Give this web address to your friends or publish it in your blog. This will permit you to recruit pupils and gain experience!",
+  "clan": "Clan",
 
   "herculeanStrength": "Herculean Strength",
   "felineAgility": "Felin Agility",
@@ -125,5 +127,8 @@
 
   "callToFight": "If you want to discharge your energy on someone, do it here! There are a lot of Brutes in the Arena who can't wait to swap punches!",
   "arena": "Arena",
-  "fightsLeft": "You have {{value}} fights left today."
+  "fightsLeft": "You have {{value}} fights left today.",
+
+  "en-version": "English version",
+  "fr-version": "Version française"
 }

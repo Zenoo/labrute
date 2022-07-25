@@ -2,6 +2,7 @@ import { Box, BoxProps, Link } from '@mui/material';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
+import { useLanguage } from '../hooks/useLanguage';
 import pad from '../utils/pad';
 
 /**
@@ -11,6 +12,7 @@ import pad from '../utils/pad';
  */
 const Header = (props: BoxProps) => {
   const { t } = useTranslation();
+  const { language } = useLanguage();
 
   // Randomized left art
   const leftArt = useMemo(() => Math.floor(Math.random() * (11 - 1 + 1) + 1), []);
@@ -46,7 +48,7 @@ const Header = (props: BoxProps) => {
       <Link component={RouterLink} to="/">
         <Box
           component="img"
-          src="/images/header/head.jpg"
+          src={`/images/${language}/header/head.jpg`}
           alt={t('MyBrute')}
           sx={{ width: 1 }}
         />

@@ -370,7 +370,7 @@ const CellView = () => {
               mt: -7,
             }}
             >
-              <Tooltip title="Donne cette adresse à tes amis ou met la sur ton blog, ça te permettra de recruter des élèves et de gagner de l'expérience !">
+              <Tooltip title={t('refLink')}>
                 <Paper sx={{
                   mx: 0,
                   p: 1,
@@ -396,7 +396,7 @@ const CellView = () => {
                     width: 246,
                   }}
                 >
-                  Clan {brute.data.clan.name}
+                  {t('clan')} {brute.data.clan.name}
                 </StyledButton>
               )}
               <BoxWithBackground
