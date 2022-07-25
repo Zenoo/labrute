@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.9](https://github.com/Zenoo/labrute/compare/v0.3.8...v0.3.9) (2022-07-25)
+
+
+### Feature
+
+* Hide master an pupils fields when empty. Fix [#20](https://github.com/Zenoo/labrute/issues/20) ([eb08627](https://github.com/Zenoo/labrute/commit/eb086278af1a00187d4d73468d23e04d3c1d0a32))
+* Update pupils count on new ref creation. Fix [#19](https://github.com/Zenoo/labrute/issues/19) ([2070a28](https://github.com/Zenoo/labrute/commit/2070a28abcf71a6b4a69984b8f4c72a26392d8cc))
+
+
+### Progress
+
+* Cell owner buttons. [#15](https://github.com/Zenoo/labrute/issues/15) ([a173c4f](https://github.com/Zenoo/labrute/commit/a173c4f2847d4aa9550e8771b4cf36841bb785ff))
+
 ### [0.3.8](https://github.com/Zenoo/labrute/compare/v0.3.7...v0.3.8) (2022-07-24)
 
 
