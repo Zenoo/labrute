@@ -11,6 +11,8 @@ import CellWeapons from '../components/Cell/CellWeapons';
 import Page from '../components/Page';
 import StyledButton from '../components/StyledButton';
 import Text from '../components/Text';
+import { useAuth } from '../hooks/useAuth';
+import { useLanguage } from '../hooks/useLanguage';
 import useStateAsync from '../hooks/useStateAsync';
 import advertisings from '../utils/advertisings';
 import getXPNeeded from '../utils/brute/getXPNeeded';
@@ -27,10 +29,15 @@ const panther = Math.random() < 0.5;
 const CellView = () => {
   const { t } = useTranslation();
   const { bruteName } = useParams();
+  const { user } = useAuth();
   const smallScreen = useMediaQuery('(max-width: 935px)');
+  const { language } = useLanguage();
 
   const { data: brute, set: setBrute } = useStateAsync(null, Server.Brute.get, bruteName);
   const { data: logs } = useStateAsync([], Server.Log.list, brute?.id);
+
+  const ownsBrute = useMemo(() => user && brute && user.brutes
+    && user.brutes.find((b) => b.id === brute.id), [user, brute]);
 
   // Test brute
   useEffect(() => {
@@ -281,9 +288,9 @@ const CellView = () => {
                   <CellPets pets={brute.data.pets} />
                 </Box>
               </Box>
-              <Box sx={{ flexGrow: 1 }}>
+              <Box sx={{ flexGrow: 1, pl: 1 }}>
                 <Box display="flex" justifyContent="space-between" alignItems="flex-start" sx={{ mb: 2 }}>
-                  <Box width={100}>
+                  <Box width={120}>
                     <Text bold h3 smallCaps color="secondary">{t('level')} {brute.data.level}</Text>
                     {/* LEVEL BAR */}
                     <Tooltip title={`${brute.data.xp} / ${getXPNeeded(brute.data.level + 1)}`}>
@@ -305,7 +312,7 @@ const CellView = () => {
                     </Box>
                   )}
                 </Box>
-                <Box display="flex" flexDirection="row">
+                <Box display="flex" flexDirection="row" sx={{ mb: 1 }}>
                   {/* BRUTE */}
                   <BruteComponent
                     gender={brute.data.gender}
@@ -334,6 +341,26 @@ const CellView = () => {
                     <CellStats stats={brute.data.stats} stat="speed" />
                   </Stack>
                 </Box>
+                {ownsBrute && (
+                  <Stack spacing={1} sx={{ alignItems: 'center', mt: 1 }}>
+                    <Text bold>{t('callToFight')}</Text>
+                    <StyledButton
+                      sx={{
+                        height: 72,
+                        width: 218,
+                      }}
+                      image={`/images/${language}/cell/arena.gif`}
+                      imageHover={`/images/${language}/cell/arena-hover.gif`}
+                      shadow={false}
+                      contrast={false}
+                    />
+                    <Text bold color="error">{t('fightsLeft', { value: 6 })}</Text>
+                  </Stack>
+                )}
+                {/* TOURNAMENT */}
+                {/* <Paper>
+                  test
+                </Paper> */}
               </Box>
             </Box>
             {/* RIGHT SIDE */}
@@ -373,7 +400,7 @@ const CellView = () => {
                 </StyledButton>
               )}
               <BoxWithBackground
-                url="/images/cell-advert-bg.gif"
+                url={`/images/${language}/cell/a-bg.gif`}
                 alt={t('background')}
                 sx={{
                   width: 300,

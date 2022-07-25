@@ -121,5 +121,9 @@
   "loginSuccess": "Login success",
   "invalidName": "Invalid name. Accepted characters are a-z, A-Z, 0-9, '_' and '-'. Must be between 3 and 20 characters long.",
   "nameUnvailable": "Name unavailable",
-  "pleaseLogin": "Please login before creating a Brute"
+  "pleaseLogin": "Please login before creating a Brute",
+
+  "callToFight": "If you want to discharge your energy on someone, do it here! There are a lot of Brutes in the Arena who can't wait to swap punches!",
+  "arena": "Arena",
+  "fightsLeft": "You have {{value}} fights left today."
 }
