@@ -70,17 +70,40 @@ const Brutes = {
       await auth(client, req);
 
       // Get brute master
+      let master = null;
       if (req.body.data.master.name) {
-        // TODO
+        const masterQuery = await client.query<Brute>(
+          'select id, data from brutes where data ->> \'name\' = $1',
+          [req.body.data.master.name],
+        );
+        [master] = masterQuery.rows;
+
+        if (!master) {
+          throw new Error('master not found');
+        }
+
+        req.body.data.master.id = master.id;
       }
 
+      // Create brute
       const result = await client.query<Brute>(
         'insert into brutes (data) values ($1) returning *',
         [req.body.data],
       );
 
+      const brute = result.rows[0];
+
+      // Update master's pupils count
+      if (master) {
+        master.data.pupils += 1;
+        await client.query(
+          'update brutes set data = $1 where id = $2',
+          [master.data, master.id],
+        );
+      }
+
       await client.end();
-      res.status(200).send(result.rows[0]);
+      res.status(200).send(brute);
     } catch (error) {
       sendError(res, error);
     }
