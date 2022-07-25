@@ -1,5 +1,5 @@
 import { Box, Divider, Grid, Link, Paper, Stack, Tooltip, useMediaQuery } from '@mui/material';
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import BoxWithBackground from '../components/BoxWithBackground';
@@ -138,60 +138,11 @@ const CellView = () => {
     Math.random() * (advertisings.length - 1) + 1
   )], []);
 
-  // TEMP METHOD
-  // Reload brute with everything random rerolled
-  const reloadRandom = useCallback(() => {
-    if (!brute) return;
-    const _panther = Math.random() < 0.5;
-    const newBrute = { ...brute };
-    newBrute.data.weapons = [...weapons]
-      .sort(() => 0.5 - Math.random()).slice(0, 12).map((w) => w.name);
-    newBrute.data.skills = [...skills]
-      .sort(() => 0.5 - Math.random()).slice(0, 12).map((s) => s.name);
-    newBrute.data.pets = {
-      dog: Math.floor(Math.random() * 4) as 0 | 1 | 2 | 3,
-      panther: _panther ? 1 : 0,
-      bear: _panther ? 0 : Math.floor(Math.random() * 2) as 0 | 1,
-    };
-    newBrute.data.ranking = Math.floor(Math.random() * 10)
-      + 1 as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
-    newBrute.data.stats.hp = Math.floor(Math.random() * (2000 - 200 + 1)) + 200;
-    const endurance = Math.floor(Math.random() * 60) + 1;
-    const strength = Math.floor(Math.random() * 60) + 1;
-    const agility = Math.floor(Math.random() * 60) + 1;
-    const speed = Math.floor(Math.random() * 60) + 1;
-    newBrute.data.stats.endurance = {
-      stat: endurance,
-      modifier: 1,
-      value: endurance,
-    };
-    newBrute.data.stats.strength = {
-      stat: strength,
-      modifier: 1,
-      value: strength,
-    };
-    newBrute.data.stats.agility = {
-      stat: agility,
-      modifier: 1,
-      value: agility,
-    };
-    newBrute.data.stats.speed = {
-      stat: speed,
-      modifier: 1,
-      value: speed,
-    };
-    newBrute.data.level = Math.floor(Math.random() * (1500 - 1 + 1)) + 1;
-    newBrute.data.xp = Math.floor(Math.random() * getXPNeeded(newBrute.data.level + 1));
-
-    setBrute(newBrute);
-  }, [brute, setBrute]);
-
   return brute && (smallScreen
     ? (
       <CellMobileView
         bruteName={bruteName}
         brute={brute}
-        reloadRandom={reloadRandom}
         advertising={advertising}
         logs={logs}
       />
@@ -217,17 +168,15 @@ const CellView = () => {
                 <Text h2 sx={{ fontVariant: 'small-caps' }}>{brute.data.name}</Text>
               </Grid>
               <Grid item xs={3}>
-                <Box>
-                  {brute.data.master ? (
-                    <>
-                      <Text bold color="secondary" component="span">{t('master')}: </Text>
-                      <Text bold component="span">{brute.data.master.name}</Text>
-                    </>
-                  ) : <Text>{' '}</Text>}
-                </Box>
+                {!!brute.data.master.id && (
+                  <Box>
+                    <Text bold color="secondary" component="span">{t('master')}: </Text>
+                    <Text bold component="span"><Link href={`/cell/${brute.data.master.name}`}>{brute.data.master.name}</Link></Text>
+                  </Box>
+                )}
                 <Box>
                   <Text bold color="secondary" component="span">{t('ranking')}: </Text>
-                  <Text bold component="span">{brute.rank}</Text>
+                  <Text bold component="span">{brute.rank || 'N.A'}</Text>
                 </Box>
               </Grid>
               <Grid item xs={3}>
@@ -235,10 +184,12 @@ const CellView = () => {
                   <Text bold color="secondary" component="span">{t('victories')}: </Text>
                   <Text bold component="span">{brute.data.victories}</Text>
                 </Box>
-                <Box>
-                  <Text bold color="secondary" component="span">{t('pupils')}: </Text>
-                  <Text bold component="span">{brute.data.pupils}</Text>
-                </Box>
+                {!!brute.data.pupils && (
+                  <Box>
+                    <Text bold color="secondary" component="span">{t('pupils')}: </Text>
+                    <Text bold component="span">{brute.data.pupils}</Text>
+                  </Box>
+                )}
               </Grid>
             </Grid>
           </Paper>
@@ -404,22 +355,23 @@ const CellView = () => {
                 </Paper>
               </Tooltip>
 
-              <StyledButton
-                image="/images/button.gif"
-                imageHover="/images/button-hover.gif"
-                shadow={false}
-                contrast={false}
-                onClick={reloadRandom}
-                sx={{
-                  fontVariant: 'small-caps',
-                  m: '0 auto',
-                  mt: 2,
-                  height: 56,
-                  width: 246,
-                }}
-              >
-                Clan TEST
-              </StyledButton>
+              {brute.data.clan && (
+                <StyledButton
+                  image="/images/button.gif"
+                  imageHover="/images/button-hover.gif"
+                  shadow={false}
+                  contrast={false}
+                  sx={{
+                    fontVariant: 'small-caps',
+                    m: '0 auto',
+                    mt: 2,
+                    height: 56,
+                    width: 246,
+                  }}
+                >
+                  Clan {brute.data.clan.name}
+                </StyledButton>
+              )}
               <BoxWithBackground
                 url="/images/cell-advert-bg.gif"
                 alt={t('background')}

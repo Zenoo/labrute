@@ -107,6 +107,10 @@ export interface Brute {
     }
     victories: number;
     pupils: number;
+    clan?: {
+      id: number;
+      name: string;
+    }
   };
 }
 

@@ -93,17 +93,17 @@ const Page = ({
       <Box sx={{ textAlign: 'center', mt: 2 }}>
         <Text color="secondary" sx={{ fontWeight: 'bold' }}>
           {t('moreGames')} :{' '}
-          <Link href="" color="inherit" underline="hover">Arkadeo</Link>{' '}
-          <Link href="" color="inherit" underline="hover">DinoRPG</Link>{' '}
-          <Link href="" color="inherit" underline="hover">Alphabounce</Link>{' '}
-          <Link href="" color="inherit" underline="hover">Hordes</Link>{' '}
-          <Link href="" color="inherit" underline="hover">KadoKado</Link>{' '}
-          <Link href="" color="inherit" underline="hover">Kingdom</Link>{' '}
-          <Link href="" color="inherit" underline="hover">Fever!</Link>{' '}
-          <Link href="" color="inherit" underline="hover">Naturalchimie</Link>{' '}
-          <Link href="" color="inherit" underline="hover">Snake</Link>{' '}
-          <Link href="" color="inherit" underline="hover">Mush</Link>{' '}
-          <Link href="" color="inherit" underline="hover">Teacher Story</Link>{' '}
+          <Link href="">Arkadeo</Link>{' '}
+          <Link href="">DinoRPG</Link>{' '}
+          <Link href="">Alphabounce</Link>{' '}
+          <Link href="">Hordes</Link>{' '}
+          <Link href="">KadoKado</Link>{' '}
+          <Link href="">Kingdom</Link>{' '}
+          <Link href="">Fever!</Link>{' '}
+          <Link href="">Naturalchimie</Link>{' '}
+          <Link href="">Snake</Link>{' '}
+          <Link href="">Mush</Link>{' '}
+          <Link href="">Teacher Story</Link>{' '}
         </Text>
         <Text color="secondary" sx={{ fontWeight: 'bold' }}>
           &copy; 2008{' '}
@@ -116,7 +116,7 @@ const Page = ({
             />
           </Link>
           {' '}| Remade with love at{' '}
-          <Link href="https://eternal-twin.net/" color="inherit" underline="hover">Eternal Twin</Link>
+          <Link href="https://eternal-twin.net/">Eternal Twin</Link>
         </Text>
       </Box>
     </Box>

@@ -188,7 +188,13 @@ const defaultTheme = {
           borderStyle: 'solid',
         }),
       },
-    }
+    },
+    MuiLink: {
+      defaultProps: {
+        color: 'inherit',
+        underline: 'hover' as const,
+      },
+    },
   },
 };
 

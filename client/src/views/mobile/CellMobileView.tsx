@@ -17,7 +17,6 @@ import skills from '../../utils/brute/skills';
 export interface CellMobileViewProps {
   bruteName?: string;
   brute: Brute;
-  reloadRandom: () => void;
   advertising: string;
   logs: Log[];
 }
@@ -25,7 +24,6 @@ export interface CellMobileViewProps {
 const CellMobileView = ({
   bruteName,
   brute,
-  reloadRandom,
   advertising,
   logs,
 }: CellMobileViewProps) => {
@@ -228,22 +226,23 @@ const CellMobileView = ({
               </Paper>
             </Tooltip>
 
-            <StyledButton
-              image="/images/button.gif"
-              imageHover="/images/button-hover.gif"
-              shadow={false}
-              contrast={false}
-              onClick={reloadRandom}
-              sx={{
-                fontVariant: 'small-caps',
-                m: '0 auto',
-                mt: 2,
-                height: 56,
-                width: 246,
-              }}
-            >
-              Clan TEST
-            </StyledButton>
+            {brute.data.clan && (
+              <StyledButton
+                image="/images/button.gif"
+                imageHover="/images/button-hover.gif"
+                shadow={false}
+                contrast={false}
+                sx={{
+                  fontVariant: 'small-caps',
+                  m: '0 auto',
+                  mt: 2,
+                  height: 56,
+                  width: 246,
+                }}
+              >
+                Clan {brute.data.clan.name}
+              </StyledButton>
+            )}
             <BoxWithBackground
               url="/images/cell-advert-bg.gif"
               alt={t('background')}
