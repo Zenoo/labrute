@@ -110,7 +110,8 @@ export interface Brute {
     clan?: {
       id: number;
       name: string;
-    }
+    },
+    tournament?: string;
   };
 }
 

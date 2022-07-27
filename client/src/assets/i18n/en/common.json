@@ -128,6 +128,10 @@
   "callToFight": "If you want to discharge your energy on someone, do it here! There are a lot of Brutes in the Arena who can't wait to swap punches!",
   "arena": "Arena",
   "fightsLeft": "You have {{value}} fights left today.",
+  "tournamentOf": "Tournament of",
+  "bruteRegistered": "Brute successfully registered.",
+  "bruteNotRegistered": "Brute not registered.",
+  "youCanRegisterYourBrute": "You can register your Brute for the next tournament.",
 
   "en-version": "English version",
   "fr-version": "Version française"

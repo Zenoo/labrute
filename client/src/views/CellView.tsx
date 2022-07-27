@@ -1,5 +1,6 @@
 import { Box, Divider, Grid, Link, Paper, Stack, Tooltip, useMediaQuery } from '@mui/material';
-import React, { useEffect, useMemo } from 'react';
+import moment from 'moment';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import BoxWithBackground from '../components/BoxWithBackground';
@@ -17,11 +18,8 @@ import useStateAsync from '../hooks/useStateAsync';
 import advertisings from '../utils/advertisings';
 import getXPNeeded from '../utils/brute/getXPNeeded';
 import skills from '../utils/brute/skills';
-import weapons from '../utils/brute/weapons';
 import Server from '../utils/Server';
 import CellMobileView from './mobile/CellMobileView';
-
-const panther = Math.random() < 0.5;
 
 /**
  * CellView component
@@ -33,112 +31,13 @@ const CellView = () => {
   const smallScreen = useMediaQuery('(max-width: 935px)');
   const { language } = useLanguage();
 
-  const { data: brute, set: setBrute } = useStateAsync(null, Server.Brute.get, bruteName);
+  const nextTournament = moment().add(1, 'day');
+
+  const { data: brute } = useStateAsync(null, Server.Brute.get, bruteName);
   const { data: logs } = useStateAsync([], Server.Log.list, brute?.id);
 
   const ownsBrute = useMemo(() => user && brute && user.brutes
     && user.brutes.find((b) => b.id === brute.id), [user, brute]);
-
-  // Test brute
-  useEffect(() => {
-    if (bruteName === '__test') {
-      const endurance = Math.floor(Math.random() * 60) + 1;
-      const strength = Math.floor(Math.random() * 60) + 1;
-      const agility = Math.floor(Math.random() * 60) + 1;
-      const speed = Math.floor(Math.random() * 60) + 1;
-      setBrute({
-        id: 1,
-        rank: 3333,
-        data: {
-          user: '',
-          name: 'blablabla',
-          level: 55,
-          xp: 72,
-          stats: {
-            hp: Math.floor(Math.random() * (2000 - 200 + 1)) + 200,
-            endurance: {
-              stat: endurance,
-              modifier: 1,
-              value: endurance,
-            },
-            strength: {
-              stat: strength,
-              modifier: 1,
-              value: strength,
-            },
-            agility: {
-              stat: agility,
-              modifier: 1,
-              value: agility,
-            },
-            speed: {
-              stat: speed,
-              modifier: 1,
-              value: speed,
-            },
-          },
-          ranking: Math.floor(Math.random() * 10) + 1 as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10,
-          gender: 'female',
-          body: {
-            longHair: 2,
-            lowerRightArm: 1,
-            rightHand: 1,
-            upperRightArm: 1,
-            rightShoulder: 1,
-            rightFoot: 1,
-            lowerRightLeg: 1,
-            upperRightLeg: 1,
-            leftFoot: 1,
-            lowerLeftLeg: 1,
-            pelvis: 1,
-            upperLeftLeg: 1,
-            tummy: 1,
-            torso: 1,
-            head: 1,
-            leftHand: 1,
-            upperLeftArm: 1,
-            lowerLeftArm: 1,
-            leftShoulder: 1,
-          },
-          colors: {
-            skin: {
-              color: '#fbe6c8',
-              shade: '#e7d2b4'
-            },
-            hair: {
-              color: '#8e63ad',
-              shade: '#7a4f99'
-            },
-            primary: {
-              color: '#559399',
-              shade: '#417f85'
-            },
-            secondary: {
-              color: '#b85f1d',
-              shade: '#a44b09'
-            },
-            accent: {
-              color: '#df7e37',
-              shade: '#cb6a23'
-            }
-          },
-          weapons: [...weapons].sort(() => 0.5 - Math.random()).slice(0, 12).map((w) => w.name),
-          skills: [...skills].sort(() => 0.5 - Math.random()).slice(0, 12).map((s) => s.name),
-          pets: {
-            dog: Math.floor(Math.random() * 4) as 0 | 1 | 2 | 3,
-            panther: panther ? 1 : 0,
-            bear: panther ? 0 : Math.floor(Math.random() * 2) as 0 | 1,
-          },
-          master: {
-            id: 999,
-            name: 'BigBoss'
-          },
-          victories: 1540,
-          pupils: 360,
-        }
-      });
-    }
-  }, [bruteName, setBrute]);
 
   // Randomized advertising
   const advertising = useMemo(() => advertisings[Math.floor(
@@ -358,13 +257,24 @@ const CellView = () => {
                   </Stack>
                 )}
                 {/* TOURNAMENT */}
-                <Paper sx={{ bgcolor: 'background.paperDark' }}>
-                  test
+                <Paper sx={{
+                  bgcolor: 'background.paperDark',
+                  textAlign: 'center',
+                  p: 1,
+                }}
+                >
+                  <Text bold h6>{t('tournamentOf')} {nextTournament.format('DD MMMM YYYY')}</Text>
+                  {brute.data.tournament && moment(brute.data.tournament).isSame(nextTournament, 'day') ? (
+                    <Text>{t('bruteRegistered')}</Text>
+                  ) : (
+                    <Text>{t(ownsBrute ? 'youCanRegisterYourBrute' : 'bruteNotRegistered')}</Text>
+                  )}
                   {ownsBrute && (
                     <StyledButton
                       sx={{
                         height: 72,
                         width: 216,
+                        mx: 'auto',
                       }}
                       image={`/images/${language}/cell/tournament.gif`}
                       imageHover={`/images/${language}/cell/tournament-hover.gif`}

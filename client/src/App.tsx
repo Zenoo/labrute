@@ -18,7 +18,7 @@ import light from './theme/light';
  */
 const App = () => {
   const routing = useRoutes(routes);
-  const Language = useLanguage();
+  const { language } = useLanguage();
 
   return (
     <HelmetProvider>
@@ -26,7 +26,7 @@ const App = () => {
         <AuthProvider>
           <StyledEngineProvider injectFirst>
             <ThemeProvider theme={light}>
-              <LocalizationProvider dateAdapter={AdapterMoment} locale={Language.language}>
+              <LocalizationProvider dateAdapter={AdapterMoment} locale={language}>
                 <ConfirmProvider>
                   <Suspense fallback={<Loader />}>
                     {routing}

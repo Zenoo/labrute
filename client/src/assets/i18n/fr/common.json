@@ -127,6 +127,10 @@
   "callToFight": "Si tu as envie de te défouler sur quelqu'un, fait le ici ! Il y a plein d'autres Brutes dans l'arène qui ne demandent qu'à échanger quelques gnons.",
   "arena": "Arène",
   "fightsLeft": "Il te reste {{value}} combats aujourd'hui.",
+  "tournamentOf": "Tournoi du",
+  "bruteRegistered": "Brute inscrite",
+  "bruteNotRegistered": "Brute non inscrite",
+  "youCanRegisterYourBrute": "Tu peux inscrire ta brute pour le prochain tournoi.",
 
   "en-version": "English version",
   "fr-version": "Version française"
