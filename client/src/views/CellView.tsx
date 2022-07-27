@@ -288,9 +288,9 @@ const CellView = () => {
                   <CellPets pets={brute.data.pets} />
                 </Box>
               </Box>
-              <Box sx={{ flexGrow: 1, pl: 1 }}>
+              <Box sx={{ flexGrow: 1 }}>
                 <Box display="flex" justifyContent="space-between" alignItems="flex-start" sx={{ mb: 2 }}>
-                  <Box width={120}>
+                  <Box width={120} sx={{ pl: 1 }}>
                     <Text bold h3 smallCaps color="secondary">{t('level')} {brute.data.level}</Text>
                     {/* LEVEL BAR */}
                     <Tooltip title={`${brute.data.xp} / ${getXPNeeded(brute.data.level + 1)}`}>
@@ -343,7 +343,7 @@ const CellView = () => {
                 </Box>
                 {ownsBrute && (
                   <Stack spacing={1} sx={{ alignItems: 'center', mt: 1 }}>
-                    <Text bold>{t('callToFight')}</Text>
+                    <Text bold sx={{ pl: 1 }}>{t('callToFight')}</Text>
                     <StyledButton
                       sx={{
                         height: 72,
