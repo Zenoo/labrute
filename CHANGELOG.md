@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.11](https://github.com/Zenoo/labrute/compare/v0.3.10...v0.3.11) (2022-07-27)
+
+
+### Progress
+
+* Tournament message display. [#15](https://github.com/Zenoo/labrute/issues/15) ([1b45f4c](https://github.com/Zenoo/labrute/commit/1b45f4ce952465d54def0fd5d11d1d59ea859ccf))
+
+
+### Bug fix
+
+* Visual bug in cell view. Fixes [#27](https://github.com/Zenoo/labrute/issues/27) ([29a2248](https://github.com/Zenoo/labrute/commit/29a2248a395ec0f35b95a8eb1bec3580a6edd067))
+
+
+### Feature
+
+* Cell owner UI. Fixes [#15](https://github.com/Zenoo/labrute/issues/15) ([457c33f](https://github.com/Zenoo/labrute/commit/457c33fb0c9d69874c8d0320b00d190828cd0a8a))
+
+
+### Refactoring
+
+* Cell mobile view. Fixes [#26](https://github.com/Zenoo/labrute/issues/26) ([fd58288](https://github.com/Zenoo/labrute/commit/fd5828818d85651cc8130615eab3d7e810da27a5))
+
 ### [0.3.10](https://github.com/Zenoo/labrute/compare/v0.3.9...v0.3.10) (2022-07-25)
 
 
