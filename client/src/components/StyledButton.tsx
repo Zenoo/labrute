@@ -1,7 +1,7 @@
 import { Box, BoxProps } from '@mui/material';
 import React, { useCallback } from 'react';
 
-interface Props extends Omit<BoxProps, 'translate'> {
+export interface StyledButtonProps extends Omit<BoxProps, 'translate'> {
   image?: string;
   imageHover?: string;
   swapImage?: boolean;
@@ -12,7 +12,7 @@ interface Props extends Omit<BoxProps, 'translate'> {
 /**
  * StyledButton component
  */
-const StyledButton = React.forwardRef<HTMLDivElement, Props>(({
+const StyledButton = React.forwardRef<HTMLDivElement, StyledButtonProps>(({
   children,
   image = '/images/button.svg',
   imageHover = '/images/button-hover.svg',
@@ -21,7 +21,7 @@ const StyledButton = React.forwardRef<HTMLDivElement, Props>(({
   contrast = true,
   sx,
   ...rest
-}: Props, ref) => {
+}: StyledButtonProps, ref) => {
   // Controlled hover state
   const [hover, setHover] = React.useState(false);
 

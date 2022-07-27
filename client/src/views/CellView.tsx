@@ -1,23 +1,23 @@
-import { Box, Divider, Grid, Link, Paper, Stack, Tooltip, useMediaQuery } from '@mui/material';
+import { Box, Paper, Tooltip, useMediaQuery } from '@mui/material';
 import moment from 'moment';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import BoxWithBackground from '../components/BoxWithBackground';
-import { default as BruteComponent } from '../components/Brute/Brute';
+import CellClan from '../components/Cell/CellClan';
 import CellLog from '../components/Cell/CellLog';
+import CellMain from '../components/Cell/CellMain';
 import CellPets from '../components/Cell/CellPets';
-import CellStats from '../components/Cell/CellStats';
+import CellSkills from '../components/Cell/CellSkills';
+import CellSocials from '../components/Cell/CellSocials';
 import CellWeapons from '../components/Cell/CellWeapons';
+import Link from '../components/Link';
 import Page from '../components/Page';
-import StyledButton from '../components/StyledButton';
 import Text from '../components/Text';
 import { useAuth } from '../hooks/useAuth';
 import { useLanguage } from '../hooks/useLanguage';
 import useStateAsync from '../hooks/useStateAsync';
 import advertisings from '../utils/advertisings';
-import getXPNeeded from '../utils/brute/getXPNeeded';
-import skills from '../utils/brute/skills';
 import Server from '../utils/Server';
 import CellMobileView from './mobile/CellMobileView';
 
@@ -36,8 +36,9 @@ const CellView = () => {
   const { data: brute } = useStateAsync(null, Server.Brute.get, bruteName);
   const { data: logs } = useStateAsync([], Server.Log.list, brute?.id);
 
-  const ownsBrute = useMemo(() => user && brute && user.brutes
-    && user.brutes.find((b) => b.id === brute.id), [user, brute]);
+  // Owner?
+  const ownsBrute = useMemo(() => !!(user && brute && user.brutes
+    && user.brutes.find((b) => b.id === brute.id)), [user, brute]);
 
   // Randomized advertising
   const advertising = useMemo(() => advertisings[Math.floor(
@@ -51,54 +52,29 @@ const CellView = () => {
         brute={brute}
         advertising={advertising}
         logs={logs}
+        ownsBrute={ownsBrute}
+        language={language}
+        nextTournament={nextTournament}
       />
     )
     : (
       <Page title={`${bruteName || ''} ${t('MyBrute')}`}>
         <Box display="flex" zIndex={1} sx={{ mt: 2 }}>
           {/* BRUTE NAME + SOCIALS */}
-          <Paper sx={{
-            borderTopLeftRadius: 0,
-            borderBottomLeftRadius: 0,
-            borderBottomRightRadius: 0,
-            ml: 3,
-            mr: 1,
-            flexGrow: 1,
-            py: 0,
-            px: 1,
-            mb: '5px',
-          }}
-          >
-            <Grid container spacing={1}>
-              <Grid item xs={6}>
-                <Text h2 sx={{ fontVariant: 'small-caps' }}>{brute.data.name}</Text>
-              </Grid>
-              <Grid item xs={3}>
-                {!!brute.data.master.id && (
-                  <Box>
-                    <Text bold color="secondary" component="span">{t('master')}: </Text>
-                    <Text bold component="span"><Link href={`/cell/${brute.data.master.name}`}>{brute.data.master.name}</Link></Text>
-                  </Box>
-                )}
-                <Box>
-                  <Text bold color="secondary" component="span">{t('ranking')}: </Text>
-                  <Text bold component="span">{brute.rank || 'N.A'}</Text>
-                </Box>
-              </Grid>
-              <Grid item xs={3}>
-                <Box>
-                  <Text bold color="secondary" component="span">{t('victories')}: </Text>
-                  <Text bold component="span">{brute.data.victories}</Text>
-                </Box>
-                {!!brute.data.pupils && (
-                  <Box>
-                    <Text bold color="secondary" component="span">{t('pupils')}: </Text>
-                    <Text bold component="span">{brute.data.pupils}</Text>
-                  </Box>
-                )}
-              </Grid>
-            </Grid>
-          </Paper>
+          <CellSocials
+            brute={brute}
+            sx={{
+              borderTopLeftRadius: 0,
+              borderBottomLeftRadius: 0,
+              borderBottomRightRadius: 0,
+              ml: 3,
+              mr: 1,
+              flexGrow: 1,
+              py: 0,
+              px: 1,
+              mb: '5px',
+            }}
+          />
           <Paper sx={{
             borderTopLeftRadius: 0,
             borderBottomLeftRadius: 0,
@@ -128,162 +104,24 @@ const CellView = () => {
         }}
         >
           <Box display="flex">
-            {/* MAIN */}
             <Box sx={{ display: 'flex', flexGrow: 1 }}>
               <Box sx={{ width: 315 }}>
                 {/* WEAPONS */}
                 <Text bold sx={{ textAlign: 'center' }}>{t('weaponsBonuses')}</Text>
                 <CellWeapons weapons={brute.data.weapons} />
                 {/* SKILLS */}
-                <Grid container spacing={1} sx={{ pt: 1 }}>
-                  {skills.map((skill) => (
-                    <Grid
-                      item
-                      xs={12 / 7}
-                      key={skill.name}
-                      sx={{ opacity: brute.data.skills.includes(skill.name) ? 1 : 0.5 }}
-                    >
-                      {brute.data.skills.includes(skill.name) ? (
-                        <Tooltip
-                          title={(
-                            <>
-                              <Box
-                                component="img"
-                                src={`/images/skills/${skill.icon}.svg`}
-                                sx={{ width: 68, float: 'left', marginRight: 1 }}
-                              />
-                              <Text bold h5>{t(skill.name)}</Text>
-                              <Divider />
-                              <Text sx={{ mt: 1.5, fontSize: 12 }}>{t(`${skill.name}.desc`)}</Text>
-                            </>
-                          )}
-                          componentsProps={{
-                            tooltip: { sx: { minHeight: 68 } },
-                            popper: { sx: { width: 250 } },
-                          }}
-                        >
-                          <Box
-                            component="img"
-                            src={`/images/skills/${skill.icon}.svg`}
-                            sx={{
-                              boxShadow: 4,
-                            }}
-                          />
-                        </Tooltip>
-                      ) : (
-                        <Box
-                          component="img"
-                          src={`/images/skills/${skill.icon}.svg`}
-                          sx={{
-                            boxShadow: 4,
-                          }}
-                        />
-                      )}
-                    </Grid>
-                  ))}
-                </Grid>
+                <CellSkills brute={brute} />
                 {/* PETS */}
-                <Box sx={{ textAlign: 'center', mt: 2 }}>
-                  <CellPets pets={brute.data.pets} />
-                </Box>
+                <CellPets pets={brute.data.pets} sx={{ mt: 2 }} />
               </Box>
-              <Box sx={{ flexGrow: 1 }}>
-                <Box display="flex" justifyContent="space-between" alignItems="flex-start" sx={{ mb: 2 }}>
-                  <Box width={120} sx={{ pl: 1 }}>
-                    <Text bold h3 smallCaps color="secondary">{t('level')} {brute.data.level}</Text>
-                    {/* LEVEL BAR */}
-                    <Tooltip title={`${brute.data.xp} / ${getXPNeeded(brute.data.level + 1)}`}>
-                      <Box sx={{ bgcolor: 'secondary.main', p: '2px' }}>
-                        <Box sx={{
-                          bgcolor: 'level',
-                          height: 3,
-                          width: brute.data.xp / getXPNeeded(brute.data.level + 1)
-                        }}
-                        />
-                      </Box>
-                    </Tooltip>
-                  </Box>
-                  {/* RANKING */}
-                  {brute.data.ranking < 10 && (
-                    <Box sx={{ width: 140, display: 'flex', flexDirection: 'row' }}>
-                      <Box component="img" src={`/images/rankings/lvl_${brute.data.ranking}.gif`} />
-                      <Text bold color="secondary" sx={{ pl: 0.5 }}>{t(`lvl_${brute.data.ranking}`)}</Text>
-                    </Box>
-                  )}
-                </Box>
-                <Box display="flex" flexDirection="row" sx={{ mb: 1 }}>
-                  {/* BRUTE */}
-                  <BruteComponent
-                    gender={brute.data.gender}
-                    bodyParts={brute.data.body}
-                    colors={brute.data.colors}
-                    inverted
-                    height="160"
-                  />
-                  <Stack spacing={1} flexGrow="1">
-                    {/* HP */}
-                    <Box>
-                      <BoxWithBackground
-                        url="/images/hp.gif"
-                        alt="HP"
-                        sx={{ textAlign: 'center', pt: '5px', width: 39, display: 'inline-block' }}
-                      >
-                        <Text bold color="common.white">{brute.data.stats.hp}</Text>
-                      </BoxWithBackground>
-                      <Text bold sx={{ display: 'inline-block', ml: 1 }}>{t('healthPoints')}</Text>
-                    </Box>
-                    {/* STRENGTH */}
-                    <CellStats stats={brute.data.stats} stat="strength" />
-                    {/* AGILITY */}
-                    <CellStats stats={brute.data.stats} stat="agility" />
-                    {/* SPEED */}
-                    <CellStats stats={brute.data.stats} stat="speed" />
-                  </Stack>
-                </Box>
-                {ownsBrute && (
-                  <Stack spacing={1} sx={{ alignItems: 'center', mt: 1 }}>
-                    <Text bold sx={{ pl: 1 }}>{t('callToFight')}</Text>
-                    <StyledButton
-                      sx={{
-                        height: 72,
-                        width: 218,
-                      }}
-                      image={`/images/${language}/cell/arena.gif`}
-                      imageHover={`/images/${language}/cell/arena-hover.gif`}
-                      shadow={false}
-                      contrast={false}
-                    />
-                    <Text bold color="error">{t('fightsLeft', { value: 6 })}</Text>
-                  </Stack>
-                )}
-                {/* TOURNAMENT */}
-                <Paper sx={{
-                  bgcolor: 'background.paperDark',
-                  textAlign: 'center',
-                  p: 1,
-                }}
-                >
-                  <Text bold h6>{t('tournamentOf')} {nextTournament.format('DD MMMM YYYY')}</Text>
-                  {brute.data.tournament && moment(brute.data.tournament).isSame(nextTournament, 'day') ? (
-                    <Text>{t('bruteRegistered')}</Text>
-                  ) : (
-                    <Text>{t(ownsBrute ? 'youCanRegisterYourBrute' : 'bruteNotRegistered')}</Text>
-                  )}
-                  {ownsBrute && (
-                    <StyledButton
-                      sx={{
-                        height: 72,
-                        width: 216,
-                        mx: 'auto',
-                      }}
-                      image={`/images/${language}/cell/tournament.gif`}
-                      imageHover={`/images/${language}/cell/tournament-hover.gif`}
-                      shadow={false}
-                      contrast={false}
-                    />
-                  )}
-                </Paper>
-              </Box>
+              {/* MAIN */}
+              <CellMain
+                sx={{ flexGrow: 1 }}
+                brute={brute}
+                ownsBrute={ownsBrute}
+                language={language}
+                nextTournament={nextTournament}
+              />
             </Box>
             {/* RIGHT SIDE */}
             <Box sx={{
@@ -292,35 +130,22 @@ const CellView = () => {
               mt: -7,
             }}
             >
+              {/* REF LINK */}
               <Tooltip title={t('refLink')}>
                 <Paper sx={{
-                  mx: 0,
                   p: 1,
+                  mx: 0,
                   bgcolor: 'background.paperAccent',
-                  textAlign: 'center'
+                  textAlign: 'center',
                 }}
                 >
                   <Text bold>{`${window.location.origin}?ref=${bruteName}`}</Text>
                 </Paper>
               </Tooltip>
 
-              {brute.data.clan && (
-                <StyledButton
-                  image="/images/button.gif"
-                  imageHover="/images/button-hover.gif"
-                  shadow={false}
-                  contrast={false}
-                  sx={{
-                    fontVariant: 'small-caps',
-                    m: '0 auto',
-                    mt: 2,
-                    height: 56,
-                    width: 246,
-                  }}
-                >
-                  {t('clan')} {brute.data.clan.name}
-                </StyledButton>
-              )}
+              {/* CLAN */}
+              <CellClan brute={brute} />
+              {/* ADVERT */}
               <BoxWithBackground
                 url={`/images/${language}/cell/a-bg.gif`}
                 alt={t('background')}
@@ -331,7 +156,7 @@ const CellView = () => {
                 }}
               >
                 <Tooltip title="TODO">
-                  <Link href="" sx={{ width: 200, mx: 4, display: 'inline-block' }}>
+                  <Link to="" sx={{ width: 200, mx: 4, display: 'inline-block' }}>
                     <Box
                       component="img"
                       src={`/images/redirects/${advertising}`}
@@ -340,6 +165,7 @@ const CellView = () => {
                   </Link>
                 </Tooltip>
               </BoxWithBackground>
+              {/* LOGS */}
               <Box sx={{ ml: 2, mt: 1 }}>
                 {logs.map((log) => <CellLog key={log.id} log={log} />)}
               </Box>

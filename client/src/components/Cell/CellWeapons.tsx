@@ -1,5 +1,6 @@
 import { WeaponName } from '@backend/types';
-import React, { SVGProps } from 'react';
+import { Box, BoxProps } from '@mui/material';
+import React from 'react';
 
 const weaponSVGs = {
   fan: <use key="fan" height="43.15" id="_w10" transform="matrix(0.7269, 0.0, 0.0, 0.7269, 25.335, 19.3693)" width="48.65" xlinkHref="#sprite18" />,
@@ -30,14 +31,15 @@ const weaponSVGs = {
   sword: <use key="sword" height="41.3" id="_w2" transform="matrix(0.5771, -0.4402, 0.4402, 0.5771, 56.7885, 26.853)" width="81.15" xlinkHref="#sprite4" />,
 };
 
-interface CellWeaponsProps extends SVGProps<SVGSVGElement> {
+interface CellWeaponsProps extends BoxProps {
   weapons: WeaponName[];
 }
 
 const CellWeapons = ({
   weapons,
+  ...rest
 }: CellWeaponsProps) => (
-  <svg xmlnsXlink="http://www.w3.org/1999/xlink" height="209.9px" width="310.9px" xmlns="http://www.w3.org/2000/svg">
+  <Box component="svg" xmlnsXlink="http://www.w3.org/1999/xlink" height="209.9px" width="310.9px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 310.9 209.9" {...rest}>
     {/* ALERT: THIS SVG IS HEAVILY OPTIMIZABLE */}
     {/* BACK BOARD */}
     <g transform="matrix(1.0, 0.0, 0.0, 1.0, 155.45, 104.95)">
@@ -698,7 +700,7 @@ const CellWeapons = ({
         <path d="M0.4 -15.5 L0.4 -15.45 -2.25 -15.45 M-2.3 -15.45 L-5.0 -15.45 -5.05 -15.45 -7.7 -15.45 M-7.75 -15.45 L-9.95 -15.45 -9.35 -14.75 1.0 -14.75 0.45 -15.45 0.4 -15.5 0.4 -17.65 -9.95 -17.65 -9.95 -15.45 M1.0 -14.75 L1.0 -16.95 0.4 -17.65" fill="none" stroke="#000000" strokeLinecap="round" strokeLinejoin="round" strokeOpacity="0.2" strokeWidth="0.05" />
       </g>
     </defs>
-  </svg>
+  </Box>
 );
 
 export default CellWeapons;

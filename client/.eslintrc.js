@@ -65,7 +65,7 @@ module.exports = {
     }, {
         "enforceForRenamedProperties": true
       }],
-    "no-undefined": "error",
+    "no-undefined": "off",
     "no-empty-function": [
       "error",
       {

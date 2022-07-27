@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { Typography, TypographyProps } from '@mui/material';
 
 interface Props extends TypographyProps {
@@ -22,7 +22,7 @@ interface Props extends TypographyProps {
   component?: React.ElementType;
 }
 
-const Text = ({
+const Text = forwardRef<HTMLElement, Props>(({
   children,
   h1 = false,
   h2 = false,
@@ -42,7 +42,7 @@ const Text = ({
   smallCaps = false,
   sx,
   ...rest
-}: Props) => {
+}, ref) => {
   return (
     <Typography
       variant={
@@ -70,10 +70,13 @@ const Text = ({
         ...sx,
       }}
       {...rest}
+      ref={ref}
     >
       {children}
     </Typography>
   );
-};
+});
+
+Text.displayName = 'Text';
 
 export default Text;
