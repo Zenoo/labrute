@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import dotenv from 'dotenv';
 import pg from 'pg';
 import * as url from 'url';
+import * as semverSort from 'semver-sort';
 
 const dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
@@ -12,7 +13,7 @@ const applyScripts = async (client: pg.Client, scripts: string[]) => {
   // eslint-disable-next-line no-restricted-syntax
   for (const script of scripts) {
     console.log(`Applying script ${script}`);
-    const scriptPath = path.join(dirname, 'migrations', script);
+    const scriptPath = path.join(dirname, 'migrations', `${script}.sql`);
     const scriptContent = fs.readFileSync(scriptPath, 'utf8');
 
     // Get upgrade part of the script
@@ -48,7 +49,14 @@ console.log('Connected to Postgres.');
 // Get the current database version
 const currentVersion = await client.query<{ version: string }>('SELECT version FROM migration LIMIT 1');
 
-const lastScript = [...files].pop()?.replace('.sql', '');
+// Order scripts by version
+const orderedScripts = [...files]
+  .map((n) => n.replace('.sql', ''));
+semverSort.asc(orderedScripts);
+
+// Get last script
+const lastScript = [...orderedScripts].pop();
+
 if (currentVersion.rows.length) {
   if (currentVersion.rows[0].version === lastScript) {
     console.log('Database is up to date.');
@@ -58,11 +66,14 @@ if (currentVersion.rows.length) {
 
   console.log('Database is not up to date.');
   console.log('Migrating from version', currentVersion.rows[0].version, 'to', lastScript);
-  await applyScripts(client, files.filter((f) => f > `${currentVersion.rows[0].version}.sql`));
+  await applyScripts(
+    client,
+    orderedScripts.splice(orderedScripts.indexOf(currentVersion.rows[0].version) + 1),
+  );
 } else {
   // Apply all migrations
   console.log('No database version found. Applying all migrations...');
-  await applyScripts(client, files);
+  await applyScripts(client, orderedScripts);
 }
 
 // Delete the current database version
