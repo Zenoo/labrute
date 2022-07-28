@@ -71,7 +71,6 @@ const LevelUpView = () => {
 
   // Trigger level up
   const levelUp = useCallback((number: 0 | 1) => async () => {
-    console.log('Level up');
     if (!brute || !choices || !destiny) return;
 
     const { [number]: chosen } = choices;
