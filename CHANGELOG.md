@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.12](https://github.com/Zenoo/labrute/compare/v0.3.11...v0.3.12) (2022-07-28)
+
+
+### Bug fix
+
+* DB migrations not correctly ordered ([13f580d](https://github.com/Zenoo/labrute/commit/13f580df68ea16d3fb1b8ec9195ac0c75a956f83))
+
+
+### Feature
+
+* Level up system. Fixes [#23](https://github.com/Zenoo/labrute/issues/23) ([8183fc0](https://github.com/Zenoo/labrute/commit/8183fc0422c7b800b840ddde0021713d4641da93))
+
 ### [0.3.11](https://github.com/Zenoo/labrute/compare/v0.3.10...v0.3.11) (2022-07-27)
 
 
