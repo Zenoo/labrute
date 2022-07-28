@@ -1,8 +1,9 @@
 import { Brute } from '@backend/types';
 import { Box, BoxProps, Stack, Tooltip } from '@mui/material';
 import { Moment } from 'moment';
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
 import { Language } from '../../i18n';
 import getXPNeeded from '../../utils/brute/getXPNeeded';
 import BoxWithBackground from '../BoxWithBackground';
@@ -29,6 +30,13 @@ const CellMain = ({
   ...rest
 }: CellMainProps) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const xpNeededForNextLevel = useMemo(() => getXPNeeded(brute.data.level + 1), [brute.data.level]);
+
+  const startLevelUp = useCallback(() => {
+    navigate(`/${brute.data.name}/level-up`);
+  }, [brute.data.name, navigate]);
 
   return (
     <Box {...rest}>
@@ -36,12 +44,12 @@ const CellMain = ({
         <Box width={120} sx={{ pl: 1 }}>
           <Text bold h3 smallCaps color="secondary">{t('level')} {brute.data.level}</Text>
           {/* LEVEL BAR */}
-          <Tooltip title={`${brute.data.xp} / ${getXPNeeded(brute.data.level + 1)}`}>
+          <Tooltip title={`${brute.data.xp} / ${xpNeededForNextLevel}`}>
             <Box sx={{ bgcolor: 'secondary.main', p: '2px' }}>
               <Box sx={{
                 bgcolor: 'level',
                 height: 3,
-                width: brute.data.xp / getXPNeeded(brute.data.level + 1)
+                width: brute.data.xp / xpNeededForNextLevel
               }}
               />
             </Box>
@@ -62,7 +70,7 @@ const CellMain = ({
           bodyParts={brute.data.body}
           colors={brute.data.colors}
           inverted
-          height="160"
+          sx={{ height: 160 }}
         />
         <Stack spacing={1} flexGrow="1">
           {/* HP */}
@@ -84,7 +92,7 @@ const CellMain = ({
           <CellStats stats={brute.data.stats} stat="speed" />
         </Stack>
       </Box>
-      {ownsBrute && (
+      {ownsBrute && (brute.data.xp < xpNeededForNextLevel ? (
         <Stack spacing={1} sx={{ alignItems: 'center', mt: 1 }}>
           <Text bold sx={{ pl: 1 }}>{t('callToFight')}</Text>
           <StyledButton
@@ -99,7 +107,24 @@ const CellMain = ({
           />
           <Text bold color="error">{t('fightsLeft', { value: 6 })}</Text>
         </Stack>
-      )}
+      ) : (
+        <StyledButton
+          image="/images/button.gif"
+          imageHover="/images/button-hover.gif"
+          shadow={false}
+          contrast={false}
+          onClick={startLevelUp}
+          sx={{
+            fontVariant: 'small-caps',
+            m: '0 auto',
+            mt: 2,
+            height: 56,
+            width: 246,
+          }}
+        >
+          {t('levelUp')}
+        </StyledButton>
+      ))}
       {/* TOURNAMENT */}
       {!smallScreen && (
         <CellTournament

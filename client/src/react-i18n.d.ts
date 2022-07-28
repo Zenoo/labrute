@@ -1,7 +1,8 @@
 // import the original type declarations
 import 'react-i18next';
 // import all namespaces (for the default language, only)
-import fr from './assets/i18n/fr/common.json';
+import common from './assets/i18n/fr/common.json';
+import levelUp from './assets/i18n/fr/level-up.json';
 
 declare module 'react-i18next' {
   interface CustomTypeOptions {
@@ -9,7 +10,8 @@ declare module 'react-i18next' {
     defaultNS: 'common';
     // custom resources type
     resources: {
-      fr: typeof fr;
+      common: typeof common;
+      'level-up': typeof levelUp;
     }
   }
 }

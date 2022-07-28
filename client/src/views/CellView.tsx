@@ -1,8 +1,9 @@
+import { Brute } from '@backend/types';
 import { Box, Paper, Tooltip, useMediaQuery } from '@mui/material';
 import moment from 'moment';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import BoxWithBackground from '../components/BoxWithBackground';
 import CellClan from '../components/Cell/CellClan';
 import CellLog from '../components/Cell/CellLog';
@@ -30,11 +31,27 @@ const CellView = () => {
   const { user } = useAuth();
   const smallScreen = useMediaQuery('(max-width: 935px)');
   const { language } = useLanguage();
+  const navigate = useNavigate();
 
   const nextTournament = moment().add(1, 'day');
 
-  const { data: brute } = useStateAsync(null, Server.Brute.get, bruteName);
+  const [brute, setBrute] = useState<Brute | null>(null);
   const { data: logs } = useStateAsync([], Server.Log.list, brute?.id);
+
+  // Fetch brute
+  useEffect(() => {
+    let isSubscribed = true;
+    if (bruteName) {
+      Server.Brute.get(bruteName).then((data) => {
+        if (isSubscribed) {
+          setBrute(data);
+        }
+      }).catch(() => {
+        navigate('/');
+      });
+    }
+    return () => { isSubscribed = false; };
+  }, [bruteName, navigate]);
 
   // Owner?
   const ownsBrute = useMemo(() => !!(user && brute && user.brutes

@@ -197,6 +197,13 @@ const defaultTheme = {
         underline: 'hover' as const,
       },
     },
+    MuiAlert: {
+      styleOverrides: {
+        root: sx({
+          boxShadow: 1,
+        })
+      }
+    }
   },
 };
 

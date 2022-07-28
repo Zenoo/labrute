@@ -23,6 +23,9 @@ const initRoutes = (app: Express) => {
   app.get('/api/brute/:name', Brutes.get);
   app.get('/api/brute/:name/available', Brutes.isNameAvailable);
   app.post('/api/brute/create', Brutes.create);
+  app.get('/api/brute/:name/start-level-up', Brutes.startLevelUp);
+  app.post('/api/brute/:name/save-destiny-choices', Brutes.saveDestinyChoices);
+  app.post('/api/brute/:name/level-up', Brutes.levelUp);
 
   // Log
   app.get('/api/log/list/:id', Logs.list);

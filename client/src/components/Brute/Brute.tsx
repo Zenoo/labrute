@@ -1,5 +1,6 @@
-import { Gender, BodyParts, BodyColors } from '@backend/types';
-import React, { SVGProps } from 'react';
+import { BodyColors, BodyParts, Gender } from '@backend/types';
+import { Box, BoxProps } from '@mui/material';
+import React from 'react';
 import Head from './Head/Head';
 import LeftFoot from './LeftFoot';
 import LeftHand from './LeftHand';
@@ -20,7 +21,7 @@ import UpperLeftLeg from './UpperLeftLeg';
 import UpperRightArm from './UpperRightArm';
 import UpperRightLeg from './UpperRightLeg';
 
-interface BruteProps extends SVGProps<SVGSVGElement> {
+interface BruteProps extends BoxProps {
   gender: Gender;
   bodyParts: BodyParts;
   colors: BodyColors;
@@ -34,6 +35,7 @@ const Brute = ({
   colors,
   inverted,
   shadow = true,
+  sx,
   ...rest
 }: BruteProps) => {
   const props = {
@@ -42,15 +44,16 @@ const Brute = ({
   };
 
   return (
-    <svg
-      style={{
-        transform: inverted ? 'scale(-1, 1)' : 'scale(1, 1)',
-        WebkitFilter: 'drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.3))',
-        filter: 'drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.3))',
-      }}
+    <Box
+      component="svg"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       viewBox="0 0 167 221"
+      sx={{
+        transform: inverted ? 'scale(-1, 1)' : 'scale(1, 1)',
+        filter: 'drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.3))',
+        ...sx,
+      }}
       {...rest}
     >
       {shadow && (
@@ -89,7 +92,7 @@ const Brute = ({
           <stop offset="1.0" stopColor="#110000" stopOpacity="0.0" />
         </radialGradient>
       </defs>
-    </svg>
+    </Box>
   );
 };
 

@@ -132,3 +132,19 @@ export interface Log {
   fight?: number;
   xp?: number;
 }
+
+export type Stats = 'endurance' | 'strength' | 'agility' | 'speed';
+
+export interface LevelUpChoice {
+  type: 'skill' | 'weapon' | 'pet' | 'stats';
+  name: SkillName | WeaponName | PetName | Stats | [Stats, Stats];
+  stats?: 3 | [2, 1];
+  nextChoices?: [LevelUpChoice, LevelUpChoice];
+  chosen: boolean;
+}
+
+export interface Destiny {
+  id: number;
+  brute: number;
+  choices: [LevelUpChoice, LevelUpChoice];
+}

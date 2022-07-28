@@ -36,14 +36,14 @@ const Page = ({
   }, [authing, signin, user]);
 
   const goToCell = useCallback((name: string) => () => {
-    navigate(`/cell/${name}`);
+    navigate(`/${name}/cell`);
   }, [navigate]);
 
   const oauth = useCallback(() => {
     Fetch<string>('/api/oauth/redirect').then((response) => {
       window.location.href = response;
-    }).catch(catchError(Alert, t));
-  }, [Alert, t]);
+    }).catch(catchError(Alert));
+  }, [Alert]);
 
   // Logout
   const logout = useCallback(() => {

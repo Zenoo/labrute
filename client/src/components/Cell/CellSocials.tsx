@@ -27,7 +27,7 @@ const CellSocials = ({
           {!!brute.data.master.id && (
           <Box>
             <Text bold color="secondary" component="span">{t('master')}: </Text>
-            <Text bold component="span"><Link to={`/cell/${brute.data.master.name}`}>{brute.data.master.name}</Link></Text>
+            <Text bold component="span"><Link to={`/${brute.data.master.name}/cell`}>{brute.data.master.name}</Link></Text>
           </Box>
           )}
           <Box>

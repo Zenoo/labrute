@@ -5,13 +5,14 @@ import { default as availablePets } from './pets';
 import randomBetween from '../randomBetween';
 import weightedRandom from '../weightedRandom';
 import getStandardHP from './getStandardHP';
+import getXPNeeded from './getXPNeeded';
 
 interface Perk {
   name: 'pet' | 'skill' | 'weapon';
   odds: number;
 }
 
-const perkOdds: Perk[] = [
+export const perkOdds: Perk[] = [
   { name: 'pet', odds: 0.035792 },
   { name: 'skill', odds: 0.483369 },
   { name: 'weapon', odds: 0.480839, },
@@ -122,7 +123,7 @@ const createRandomBruteStats = (): Omit<Brute['data'], 'name' | 'gender' | 'body
 
   return {
     level: 1,
-    xp: 0,
+    xp: getXPNeeded(2), // TOD: Set to 0 when brutes can gain XP
     stats: {
       hp,
       endurance,

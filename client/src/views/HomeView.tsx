@@ -55,7 +55,7 @@ const HomeView = () => {
         localStorage.setItem('token', response.token);
         localStorage.setItem('expires', moment().add(7, 'days').toISOString());
         Alert.open('success', t('loginSuccess'));
-      }).catch(catchError(Alert, t)).finally(() => {
+      }).catch(catchError(Alert)).finally(() => {
         // Remove code/state from url and set url to '/'
         url.searchParams.delete('code');
         url.searchParams.delete('state');
@@ -231,7 +231,7 @@ const HomeView = () => {
       if (name.match(/^[a-zA-Z0-9_-]*$/) && name.length >= 3 && name.length <= 20) {
         // Check if the name is available
         const isNameAvailable = await Server.Brute.isNameAvailable(name)
-          .catch(catchError(Alert, t));
+          .catch(catchError(Alert));
         if (typeof isNameAvailable === 'boolean') {
           if (isNameAvailable) {
             // Create brute
@@ -253,7 +253,7 @@ const HomeView = () => {
               },
               victories: 0,
               pupils: 0,
-            }).catch(catchError(Alert, t));
+            }).catch(catchError(Alert));
 
             if (brute) {
               // Add brute to user brutes
@@ -262,7 +262,7 @@ const HomeView = () => {
                 brutes: user.brutes ? [...user.brutes, brute] : [brute],
               });
               // Redirect to brute page
-              navigate(`/cell/${name}`);
+              navigate(`/${name}/cell`);
             }
           } else {
             Alert.open('error', t('nameUnavailable'));
@@ -324,7 +324,7 @@ const HomeView = () => {
                     bodyParts={bodyParts}
                     colors={bodyColors}
                     inverted
-                    height="160"
+                    sx={{ height: 160 }}
                   />
                 ) : <EmptyBrute style={{ marginBottom: '12px' }} />}
               </Box>
