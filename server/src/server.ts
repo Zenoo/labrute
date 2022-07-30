@@ -10,6 +10,7 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 9000;
+const REPO_ROOT = path.join(fileURLToPath(import.meta.url), '..', '..', '..');
 
 app.use(bodyParser.json());
 app.use(
@@ -17,10 +18,10 @@ app.use(
     extended: true,
   }),
 );
-app.use(express.static(path.join(fileURLToPath(import.meta.url), '..', '..', 'client', 'build')));
+app.use(express.static(path.join(REPO_ROOT, 'client', 'build')));
 
 app.listen(port, () => {
-  console.log(`App running on port ${port}.`);
+  console.log(`App running: http://localhost:${port}/`);
 });
 
 initRoutes(app);

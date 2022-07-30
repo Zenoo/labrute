@@ -8,31 +8,29 @@
 
 ## Deployment
 
-- Install dependencies: `npm i`
+- Install dependencies: `yarn install`
 
 - Copy `.env.sample` to `.env` and adapt the variables
 
-- Run `npm run db:sync`.
+- Run `yarn run db:sync`.
 
-- Start the server with `npm run start`
+- Start the server with `yarn run start`
 
 ## Contributing
 
 - Create your own branch from `main`: `git checkout -b dev-xxxx main`
 
-- Make sure your NodeJS and npm versions are up to date
+- Make sure your NodeJS and yarn versions are up to date
 
-- Install backend dependencies: `npm i`
+- Install dependencies: `yarn install`
 
 - Copy `.env.sample` to `.env` and adapt the variables
 
-- Install front dependencies: `cd client && npm i`
+- Start the backend `yarn run back`
 
-- Start the backend `npm run back`
+- Start the frontend `yarn run front`
 
-- Start the frontend `npm run front`
-
-- Start the etwin local server `npm run etwin`
+- Start the etwin local server `yarn run etwin`
 
 - Commit and push your changes
 
@@ -52,23 +50,25 @@ Should have a corresponding documentation.
 ## File Structure
 
 ```
-└── client
-	├── build    			# Compiled frontend
-	├── public
-	│	├── i18n			# Folder containing all the translations
-	│	├── ...      		# Any other static file
-	├── src
-	│	├── assets  		# Precompiled assets
-	│	├── components 		# Reusable components
-	│	├── hooks     		# React hooks
-	│	├── layouts    		# Layouts
-	│	├── theme     		# Theme variables
-	│	├── utils       	# Utility functions
-	│	├── views       	# Views
+├── client
+│	├── build    			# Compiled frontend
+│	├── public
+│	│	├── i18n			# Folder containing all the translations
+│	│	└── ...      		# Any other static file
+│	└── src
+│		├── assets  		# Precompiled assets
+│		├── components 		# Reusable components
+│		├── hooks     		# React hooks
+│		├── layouts    		# Layouts
+│		├── theme     		# Theme variables
+│		├── utils       	# Utility functions
+│		└── views       	# Views
 └── server 					# Back end
-	├── db	
-	│	├── migrations  	# DB migrations
-	│	├── endpoints 		# Controllers
+	└── src
+	    ├── db	
+	    │	├── migrations  # DB migrations
+	    ├── endpoints 		# Controllers
+	    └── ...
 ```
 
 ## Hooks
@@ -82,15 +82,15 @@ const { user, signin, signout, updateDate } = useAuth();
 
 #### `user`
 
-| Property | Type | Description |
-| --- | --- | --- |
-| `id` | `Number` | User id |
-| `email` | `String` | User email |
-| `login` | `String` | User login |
-| `language` | `String` | User language |
+| Property         | Type     | Description          |
+|------------------|----------|----------------------|
+| `id`             | `Number` | User id              |
+| `email`          | `String` | User email           |
+| `login`          | `String` | User login           |
+| `language`       | `String` | User language        |
 | `connexionToken` | `String` | User connexion token |
-| `createdAt` | `Date` | Creation date |
-| `updatedAt` | `Date` | Last update date |
+| `createdAt`      | `Date`   | Creation date        |
+| `updatedAt`      | `Date`   | Last update date     |
 
 #### `signin`
 

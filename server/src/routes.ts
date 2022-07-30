@@ -1,10 +1,14 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { Express, Request, Response } from 'express';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import Brutes from './endpoints/Brutes.js';
 import Logs from './endpoints/Logs.js';
 import OAuth from './endpoints/OAuth.js';
 import Users from './endpoints/Users.js';
+
+const REPO_ROOT = path.join(fileURLToPath(import.meta.url), '..', '..', '..');
+const CLIENT_INDEX = path.join(REPO_ROOT, 'client', 'build', 'index.html');
 
 const initRoutes = (app: Express) => {
   app.get('/api', (req: Request, res: Response) => res.status(200).send({
@@ -32,7 +36,7 @@ const initRoutes = (app: Express) => {
   app.get('/api/log/list/:id', Logs.list);
 
   app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'client', 'build', 'index.html'));
+    res.sendFile(CLIENT_INDEX);
   });
 };
 

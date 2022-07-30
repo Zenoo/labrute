@@ -1,4 +1,4 @@
-/* eslint-disable no-process-exit */
+/* eslint-disable no-process-exit, no-console */
 import path from 'path';
 import * as fs from 'fs';
 import dotenv from 'dotenv';
