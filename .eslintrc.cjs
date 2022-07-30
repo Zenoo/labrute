@@ -30,7 +30,7 @@ module.exports = {
       { ignores: ['modules'] },
     ],
     'tsdoc/syntax': 'warn',
-    'linebreak-style': ['error', 'windows'],
+    'linebreak-style': 'off',
     'eol-last': 'off',
     // These 3 are due to the Node16 module resolution, not sure why
     'import/no-unresolved': 'off',

@@ -1,0 +1,2 @@
+# Enforce `lf` for text files
+* text=auto eol=lf
