@@ -166,5 +166,7 @@
   "youCanRegisterYourBrute": "You can register your Brute for the next tournament.",
 
   "en-version": "English version",
-  "fr-version": "Version française"
+  "fr-version": "Version française",
+
+  "youHaveXFightsLeft": "You have {{value}} fights left today !"
 }

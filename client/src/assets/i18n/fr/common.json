@@ -165,5 +165,7 @@
   "youCanRegisterYourBrute": "Tu peux inscrire ta brute pour le prochain tournoi.",
 
   "en-version": "English version",
-  "fr-version": "Version française"
+  "fr-version": "Version française",
+  
+  "youHaveXFightsLeft": "Il te reste {{value}} combats aujourd'hui !"
 }

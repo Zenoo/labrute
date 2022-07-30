@@ -3,6 +3,7 @@ import { Typography, TypographyProps } from '@mui/material';
 
 interface Props extends TypographyProps {
   children: React.ReactNode;
+  typo?: string;
   h1?: boolean;
   h2?: boolean;
   h3?: boolean;
@@ -19,11 +20,13 @@ interface Props extends TypographyProps {
   inherit?: boolean;
   bold?: boolean;
   smallCaps?: boolean;
+  upperCase?: boolean;
   component?: React.ElementType;
 }
 
 const Text = forwardRef<HTMLElement, Props>(({
   children,
+  typo,
   h1 = false,
   h2 = false,
   h3 = false,
@@ -40,6 +43,7 @@ const Text = forwardRef<HTMLElement, Props>(({
   inherit = false,
   bold = false,
   smallCaps = false,
+  upperCase = false,
   sx,
   ...rest
 }, ref) => {
@@ -62,11 +66,11 @@ const Text = forwardRef<HTMLElement, Props>(({
                                 : inherit ? 'inherit'
                                   : 'body1'
       }
-      // eslint-disable-next-line no-undefined
       fontWeight={bold ? '600' : undefined}
       sx={{
-        // eslint-disable-next-line no-undefined
         fontVariant: smallCaps ? 'small-caps' : undefined,
+        textTransform: upperCase ? 'uppercase' : undefined,
+        typography: typo,
         ...sx,
       }}
       {...rest}

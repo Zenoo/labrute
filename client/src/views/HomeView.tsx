@@ -377,13 +377,13 @@ const HomeView = () => {
           >
             {/* FIRST TEXT */}
             <Box sx={{ width: 300, mt: 2 }}>
-              <Text h4 sx={{ typography: 'handwritten', fontWeight: 'bold' }} color="secondary">{t('toBeABrute')}</Text>
-              <Text sx={{ fontWeight: 'bold' }} color="text.primary">{t('createBrute')}</Text>
+              <Text h4 bold typo="handwritten" color="secondary">{t('toBeABrute')}</Text>
+              <Text bold color="text.primary">{t('createBrute')}</Text>
             </Box>
             {/* SECOND TEXT */}
             <Box sx={{ width: 300, mt: 4, ml: 2 }}>
-              <Text h4 sx={{ typography: 'handwritten', fontWeight: 'bold' }} color="secondary">{t('orNotToBe')}</Text>
-              <Text sx={{ fontWeight: 'bold' }} color="text.primary">{t('otherGames')}</Text>
+              <Text h4 bold typo="handwritten" color="secondary">{t('orNotToBe')}</Text>
+              <Text bold color="text.primary">{t('otherGames')}</Text>
             </Box>
             {/* OTHER GAMES */}
             <Box sx={{ mt: 1, ml: 2 }}>
