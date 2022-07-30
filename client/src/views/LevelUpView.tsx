@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import BoxWithBackground from '../components/BoxWithBackground';
-import { default as BruteComponent } from '../components/Brute/Brute';
+import BruteComponent from '../components/Brute/BruteComponent';
 import Page from '../components/Page';
 import StyledButton from '../components/StyledButton';
 import Text from '../components/Text';
@@ -118,6 +118,7 @@ const LevelUpView = () => {
             }}
           >
             <BruteComponent
+              id={brute.id}
               gender={brute.data.gender}
               bodyParts={brute.data.body}
               colors={brute.data.colors}

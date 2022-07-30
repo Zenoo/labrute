@@ -1,4 +1,4 @@
-import { AccountCircle, Login, Logout, Man, Woman } from '@mui/icons-material';
+import { AccountCircle, Login, Logout } from '@mui/icons-material';
 import { Box, BoxProps, CircularProgress, Link, SpeedDial, SpeedDialAction, Tooltip } from '@mui/material';
 import React, { useCallback, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -10,6 +10,7 @@ import { useLanguage } from '../hooks/useLanguage';
 import { Language, languages } from '../i18n';
 import catchError from '../utils/catchError';
 import Fetch from '../utils/Fetch';
+import BrutePortrait from './Brute/BrutePortait';
 import Text from './Text';
 
 interface Props extends BoxProps {
@@ -91,7 +92,14 @@ const Page = ({
         {user && user.brutes && user.brutes.map((brute) => (
           <SpeedDialAction
             key={brute.id}
-            icon={brute.data.gender === 'male' ? <Man /> : <Woman />}
+            icon={(
+              <BrutePortrait
+                id={brute.id}
+                gender={brute.data.gender}
+                bodyParts={brute.data.body}
+                colors={brute.data.colors}
+              />
+            )}
             tooltipTitle={brute.data.name}
             tooltipOpen
             onClick={goToCell(brute.data.name)}

@@ -5,7 +5,7 @@ import Head from './Head/Head';
 import LeftFoot from './LeftFoot';
 import LeftHand from './LeftHand';
 import LeftShoulder from './LeftShoulder';
-import LongHair from './LongHair';
+import LongHair from './Head/LongHair';
 import LowerLeftArm from './LowerLeftArm';
 import LowerLeftLeg from './LowerLeftLeg';
 import LowerRightArm from './LowerRightArm';
@@ -21,7 +21,8 @@ import UpperLeftLeg from './UpperLeftLeg';
 import UpperRightArm from './UpperRightArm';
 import UpperRightLeg from './UpperRightLeg';
 
-interface BruteProps extends BoxProps {
+interface BruteComponentProps extends Omit<BoxProps, 'id'> {
+  id: number;
   gender: Gender;
   bodyParts: BodyParts;
   colors: BodyColors;
@@ -29,7 +30,8 @@ interface BruteProps extends BoxProps {
   shadow?: boolean
 }
 
-const Brute = ({
+const BruteComponent = ({
+  id,
   gender,
   bodyParts,
   colors,
@@ -37,8 +39,9 @@ const Brute = ({
   shadow = true,
   sx,
   ...rest
-}: BruteProps) => {
+}: BruteComponentProps) => {
   const props = {
+    id,
     gender,
     colors,
   };
@@ -57,7 +60,7 @@ const Brute = ({
       {...rest}
     >
       {shadow && (
-        <use xmlns="http://www.w3.org/2000/svg" height="80.0" transform="matrix(1.2543, 0.0, 0.0, 0.5937, 25, 165)" width="80.0" xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="#shadowSprite" />
+        <use xmlns="http://www.w3.org/2000/svg" height="80.0" transform="matrix(1.2543, 0.0, 0.0, 0.5937, 25, 165)" width="80.0" xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref={`#${id}-shadowSprite`} />
       )}
       <g transform="matrix(1, 0, 0, 1, 40, 7)">
         <LongHair {...props} type={bodyParts.longHair} />
@@ -81,13 +84,13 @@ const Brute = ({
         <LeftShoulder {...props} type={bodyParts.leftShoulder} />
       </g>
       <defs>
-        <g id="shadowSprite" transform="matrix(1.0, 0.0, 0.0, 1.0, 40.0, 40.0)">
-          <use height="80.0" transform="matrix(1.0, 0.0, 0.0, 1.0, -40.0, -40.0)" width="80.0" xlinkHref="#shadow" />
+        <g id={`${id}-shadowSprite`} transform="matrix(1.0, 0.0, 0.0, 1.0, 40.0, 40.0)">
+          <use height="80.0" transform="matrix(1.0, 0.0, 0.0, 1.0, -40.0, -40.0)" width="80.0" xlinkHref={`#${id}-shadow`} />
         </g>
-        <g id="shadow" transform="matrix(1.0, 0.0, 0.0, 1.0, 40.0, 40.0)">
+        <g id={`${id}-shadow`} transform="matrix(1.0, 0.0, 0.0, 1.0, 40.0, 40.0)">
           <path d="M28.25 -28.3 Q40.0 -16.55 40.0 0.0 40.0 16.55 28.25 28.25 16.55 40.0 0.0 40.0 -16.55 40.0 -28.3 28.25 -40.0 16.55 -40.0 0.0 -40.0 -16.55 -28.3 -28.3 -16.55 -40.0 0.0 -40.0 16.55 -40.0 28.25 -28.3" fill="url(#shadowGradient)" fillRule="evenodd" stroke="none" />
         </g>
-        <radialGradient cx="0" cy="0" gradientTransform="matrix(0.0475, 0.0, 0.0, 0.0475, 0.0, 0.0)" gradientUnits="userSpaceOnUse" id="shadowGradient" r="819.2" spreadMethod="pad">
+        <radialGradient cx="0" cy="0" gradientTransform="matrix(0.0475, 0.0, 0.0, 0.0475, 0.0, 0.0)" gradientUnits="userSpaceOnUse" id={`${id}-shadowGradient`} r="819.2" spreadMethod="pad">
           <stop offset="0.4117647058823529" stopColor="#2b0000" stopOpacity="0.047058824" />
           <stop offset="1.0" stopColor="#110000" stopOpacity="0.0" />
         </radialGradient>
@@ -96,4 +99,4 @@ const Brute = ({
   );
 };
 
-export default Brute;
+export default BruteComponent;

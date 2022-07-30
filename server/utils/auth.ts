@@ -1,6 +1,8 @@
 import { Request } from 'express';
 import { Client } from 'pg';
-import { Gender, User } from '../types/types.js';
+import {
+  BodyColors, BodyParts, Gender, User,
+} from '../types/types.js';
 
 const auth = async (client: Client, request: Request) => {
   const { headers: { authorization } } = request;
@@ -27,22 +29,32 @@ const auth = async (client: Client, request: Request) => {
   const user = userQuery.rows[0];
 
   // Fetch brutes for user
-  const brutes = await client.query<{ id: number, name: string, gender: Gender }>(
+  const { rows: brutes } = await client.query<{
+    id: number,
+    name: string,
+    gender: Gender,
+    body: BodyParts,
+    colors: BodyColors
+  }>(
     `SELECT
           id,
-          data->>'name' as name,
-          data->>'gender' as gender
+          data->'name' as name,
+          data->'gender' as gender,
+          data->'body' as body,
+          data->'colors' as colors
         FROM brutes WHERE data ->> 'user' = $1`,
     [user.id],
   );
 
   return {
     ...user,
-    brutes: brutes.rows.map((brute) => ({
+    brutes: brutes.map((brute) => ({
       id: brute.id,
       data: {
         name: brute.name,
         gender: brute.gender,
+        body: brute.body,
+        colors: brute.colors,
       },
     })),
   } as User;

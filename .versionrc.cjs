@@ -1,7 +1,4 @@
 module.exports = {
-  scripts: {
-    prerelease: 'cd client && npm run build && cd .. && git add client/build'
-  },
   bumpFiles: [
     {
       filename: 'package.json',

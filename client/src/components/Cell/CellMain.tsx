@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router';
 import { Language } from '../../i18n';
 import getXPNeeded from '../../utils/brute/getXPNeeded';
 import BoxWithBackground from '../BoxWithBackground';
-import { default as BruteComponent } from '../Brute/Brute';
+import BruteComponent from '../Brute/BruteComponent';
 import StyledButton from '../StyledButton';
 import Text from '../Text';
 import CellStats from './CellStats';
@@ -66,6 +66,7 @@ const CellMain = ({
       <Box display="flex" flexDirection="row" sx={{ mb: 1 }}>
         {/* BRUTE */}
         <BruteComponent
+          id={brute.id}
           gender={brute.data.gender}
           bodyParts={brute.data.body}
           colors={brute.data.colors}

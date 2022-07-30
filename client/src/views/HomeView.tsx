@@ -5,7 +5,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import BoxWithBackground from '../components/BoxWithBackground';
-import Brute from '../components/Brute/Brute';
+import BruteComponent from '../components/Brute/BruteComponent';
 import EmptyBrute from '../components/Brute/EmptyBrute';
 import Page from '../components/Page';
 import StyledButton from '../components/StyledButton';
@@ -319,7 +319,8 @@ const HomeView = () => {
               {/* CHARACTER */}
               <Box sx={{ textAlign: 'center', mt: creationStarted ? 0 : 1 }}>
                 {creationStarted ? (
-                  <Brute
+                  <BruteComponent
+                    id={0}
                     gender={gender}
                     bodyParts={bodyParts}
                     colors={bodyColors}

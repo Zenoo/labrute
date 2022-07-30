@@ -2,7 +2,7 @@ import { Gender, BodyParts, BodyColors } from '@backend/types';
 import { Box, Grid, Link, Paper, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import Brute from '../../components/Brute/Brute';
+import BruteComponent from '../../components/Brute/BruteComponent';
 import EmptyBrute from '../../components/Brute/EmptyBrute';
 import Page from '../../components/Page';
 import StyledButton from '../../components/StyledButton';
@@ -96,7 +96,8 @@ const HomeMobileView = ({
               {/* CHARACTER */}
               <Box sx={{ textAlign: 'center', mt: creationStarted ? 0 : 1 }}>
                 {creationStarted ? (
-                  <Brute
+                  <BruteComponent
+                    id={0}
                     gender={gender}
                     bodyParts={bodyParts}
                     colors={bodyColors}
