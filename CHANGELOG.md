@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.13](https://github.com/Zenoo/labrute/compare/v0.3.12...v0.3.13) (2022-07-30)
+
+
+### Documentation
+
+* Added issue templates ([5f92d9f](https://github.com/Zenoo/labrute/commit/5f92d9f3c27959b929125357a0ec827117382d67))
+
+
+### Bug fix
+
+* Cleanup logs ([08ab783](https://github.com/Zenoo/labrute/commit/08ab783881e2bb55744de325bd777cc412112385))
+* Convert to standard UNIX line-endings ([44cc35c](https://github.com/Zenoo/labrute/commit/44cc35c751e59b6cfa7eddb8ab7a5f9729f8c0ac))
+
+
+### Feature
+
+* Portrait preview in account menu ([a50f9cf](https://github.com/Zenoo/labrute/commit/a50f9cf4a3fbfe1904a912cf155b4c30270e53b7))
+
 ### [0.3.12](https://github.com/Zenoo/labrute/compare/v0.3.11...v0.3.12) (2022-07-28)
 
 
