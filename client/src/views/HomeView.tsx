@@ -34,8 +34,6 @@ const HomeView = () => {
   const { authing, setAuthing, updateData, user } = useAuth();
   const navigate = useNavigate();
 
-  console.log(user);
-
   // On login error
   useEffect(() => {
     const url = new URL(window.location.href);

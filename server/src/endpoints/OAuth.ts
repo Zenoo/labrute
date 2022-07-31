@@ -81,8 +81,6 @@ const OAuth = {
       );
       const user = userQuery.rows[0];
 
-      console.log('auth');
-
       // Fetch brutes for user
       const brutes = await client.query<{
         id: number,
@@ -110,6 +108,8 @@ const OAuth = {
           data: {
             name: brute.name,
             gender: brute.gender,
+            body: brute.body,
+            colors: brute.colors,
           },
         })),
       } as User);
