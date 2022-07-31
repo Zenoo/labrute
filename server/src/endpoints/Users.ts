@@ -21,6 +21,7 @@ const Users = {
   },
   authenticate: async (req: Request, res: Response) => {
     try {
+      console.log('auth');
       const client = await DB.connect();
       const user = await auth(client, req);
 

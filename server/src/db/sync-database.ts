@@ -46,8 +46,15 @@ const client = new pg.Client({
 await client.connect();
 console.log('Connected to Postgres.');
 
-// Get the current database version
-const currentVersion = await client.query<{ version: string }>('SELECT version FROM migration LIMIT 1');
+// Check if the migration table exists
+const { rows: { 0: migration } } = await client.query<{ count: number }>('SELECT count(*) FROM information_schema.tables WHERE table_schema = current_schema() AND table_name = \'migration\';');
+
+let current: { version: string } | null = null;
+if (migration.count) {
+  // Get the current database version
+  const { rows: { 0: currentQuery } } = await client.query<{ version: string }>('SELECT version FROM migration LIMIT 1');
+  current = currentQuery;
+}
 
 // Order scripts by version
 const orderedScripts = [...files]
@@ -57,18 +64,18 @@ semverSort.asc(orderedScripts);
 // Get last script
 const lastScript = [...orderedScripts].pop();
 
-if (currentVersion.rows.length) {
-  if (currentVersion.rows[0].version === lastScript) {
+if (current && migration.count) {
+  if (current.version === lastScript) {
     console.log('Database is up to date.');
     await client.end();
     process.exit(0);
   }
 
   console.log('Database is not up to date.');
-  console.log('Migrating from version', currentVersion.rows[0].version, 'to', lastScript);
+  console.log('Migrating from version', current.version, 'to', lastScript);
   await applyScripts(
     client,
-    orderedScripts.splice(orderedScripts.indexOf(currentVersion.rows[0].version) + 1),
+    orderedScripts.splice(orderedScripts.indexOf(current.version) + 1),
   );
 } else {
   // Apply all migrations

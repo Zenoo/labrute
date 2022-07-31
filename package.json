@@ -11,7 +11,7 @@
     "format": "eslint --fix \"@(client|server)/src/**/*.{ts,tsx}\"",
     "release": "standard-version -a",
     "front": "cd client && yarn run start",
-    "back": "cd server && nodemon server/server.ts",
+    "back": "cd server && yarn run back",
     "build:production": "yarn run build:production:client && yarn run build:production:server",
     "build:production:client": "cd client && yarn run build",
     "build:production:server": "cd server && yarn run build",

@@ -5,7 +5,9 @@ import { RfcOauthClient } from '@eternal-twin/oauth-client-http/rfc-oauth-client
 import { Request, Response } from 'express';
 import { URL } from 'url';
 import DB from '../db/client.js';
-import { Gender, User } from '../types/types.js';
+import {
+  BodyColors, BodyParts, Gender, User,
+} from '../types/types.js';
 import sendError from '../utils/sendError.js';
 import URLHelper from '../utils/URLHelper.js';
 
@@ -79,12 +81,22 @@ const OAuth = {
       );
       const user = userQuery.rows[0];
 
+      console.log('auth');
+
       // Fetch brutes for user
-      const brutes = await client.query<{ id: number, name: string, gender: Gender }>(
+      const brutes = await client.query<{
+        id: number,
+        name: string,
+        gender: Gender,
+        body: BodyParts,
+        colors: BodyColors
+      }>(
         `SELECT
           id,
           data->>'name' as name,
-          data->>'gender' as gender
+          data->>'gender' as gender,
+          data->'body' as body,
+          data->'colors' as colors
         FROM brutes WHERE data ->> 'user' = $1`,
         [user.id],
       );
