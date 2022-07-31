@@ -21,6 +21,7 @@ const Server = {
       choices: [LevelUpChoice, LevelUpChoice],
       destiny: number,
     ) => Fetch<never>(`/api/brute/${name}/level-up`, { data, choices, destiny }, 'POST'),
+    getOpponents: (name: string, level: number) => Fetch<Brute[]>(`/api/brute/${name}/get-opponents/${level}`),
   },
   Log: {
     list: (bruteId: number) => Fetch<Log[]>(`/api/log/list/${bruteId}`),

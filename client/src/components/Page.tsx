@@ -10,7 +10,7 @@ import { useLanguage } from '../hooks/useLanguage';
 import { Language, languages } from '../i18n';
 import catchError from '../utils/catchError';
 import Fetch from '../utils/Fetch';
-import BrutePortrait from './Brute/BrutePortait';
+import BrutePortrait from './Brute/Body/BrutePortait';
 import Text from './Text';
 
 interface Props extends BoxProps {

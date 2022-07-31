@@ -6,11 +6,9 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { Language } from '../../i18n';
 import getXPNeeded from '../../utils/brute/getXPNeeded';
-import BoxWithBackground from '../BoxWithBackground';
-import BruteComponent from '../Brute/BruteComponent';
+import BruteBodyAndStats from '../Brute/BruteBodyAndStats';
 import StyledButton from '../StyledButton';
 import Text from '../Text';
-import CellStats from './CellStats';
 import CellTournament from './CellTournament';
 
 export interface CellMainProps extends BoxProps {
@@ -63,36 +61,7 @@ const CellMain = ({
           </Box>
         )}
       </Box>
-      <Box display="flex" flexDirection="row" sx={{ mb: 1 }}>
-        {/* BRUTE */}
-        <BruteComponent
-          id={brute.id}
-          gender={brute.data.gender}
-          bodyParts={brute.data.body}
-          colors={brute.data.colors}
-          inverted
-          sx={{ height: 160 }}
-        />
-        <Stack spacing={1} flexGrow="1">
-          {/* HP */}
-          <Box>
-            <BoxWithBackground
-              url="/images/hp.gif"
-              alt="HP"
-              sx={{ textAlign: 'center', pt: '5px', width: 39, display: 'inline-block' }}
-            >
-              <Text bold color="common.white">{brute.data.stats.hp}</Text>
-            </BoxWithBackground>
-            <Text bold sx={{ display: 'inline-block', ml: 1 }}>{t('healthPoints')}</Text>
-          </Box>
-          {/* STRENGTH */}
-          <CellStats stats={brute.data.stats} stat="strength" />
-          {/* AGILITY */}
-          <CellStats stats={brute.data.stats} stat="agility" />
-          {/* SPEED */}
-          <CellStats stats={brute.data.stats} stat="speed" />
-        </Stack>
-      </Box>
+      <BruteBodyAndStats brute={brute} sx={{ mb: 1 }} />
       {ownsBrute && (brute.data.xp < xpNeededForNextLevel ? (
         <Stack spacing={1} sx={{ alignItems: 'center', mt: 1 }}>
           <Text bold sx={{ pl: 1 }}>{t('callToFight')}</Text>

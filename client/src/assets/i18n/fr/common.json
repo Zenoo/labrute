@@ -139,8 +139,11 @@
   "healthPoints": "points de vie",
   "endurance": "Endurance",
   "strength": "Force",
+  "Str": "F",
   "agility": "Agilité",
+  "Agi": "A",
   "speed": "Rapidité",
+  "Spe": "R",
   "dog": "Chien",
   "panther": "Panthère",
   "bear": "Ours",
@@ -167,5 +170,7 @@
   "en-version": "English version",
   "fr-version": "Version française",
   
-  "youHaveXFightsLeft": "Il te reste {{value}} combats aujourd'hui !"
+  "youHaveXFightsLeft": "Il te reste {{value}} combats aujourd'hui !",
+  "selectedOpponents": "Bienvenue dans l'arène ! J'ai sélectionné quelques adversaire à ta taille. Choisis-en un, et on commence le combat !",
+  "backToCell": "Retour en cellule"
 }

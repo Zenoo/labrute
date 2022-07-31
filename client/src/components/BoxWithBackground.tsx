@@ -1,7 +1,7 @@
 import { Box, BoxProps, SxProps } from '@mui/material';
 import React from 'react';
 
-interface Props extends BoxProps {
+export interface BoxWithBackgroundProps extends BoxProps {
   url: string;
   alt: string;
   imgSx?: SxProps;
@@ -14,7 +14,7 @@ const BoxWithBackground = ({
   sx,
   imgSx,
   ...rest
-}: Props) => {
+}: BoxWithBackgroundProps) => {
   return (
     <Box sx={{ position: 'relative', ...sx }} {...rest}>
       <Box

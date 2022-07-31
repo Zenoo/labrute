@@ -140,8 +140,11 @@
   "healthPoints": "health points",
   "endurance": "Endurance",
   "strength": "Strength",
+  "Str": "S",
   "agility": "Agility",
+  "Agi": "A",
   "speed": "Speed",
+  "Spe": "S",
   "dog": "Dog",
   "panther": "Panther",
   "bear": "Bear",
@@ -168,5 +171,7 @@
   "en-version": "English version",
   "fr-version": "Version française",
 
-  "youHaveXFightsLeft": "You have {{value}} fights left today !"
+  "youHaveXFightsLeft": "You have {{value}} fights left today !",
+  "selectedOpponents": "Welcome to the Arena! Here is a selection of opponents of your level. Choose one and let's start the fight!",
+  "backToCell": "Back to the cell"
 }

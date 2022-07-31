@@ -203,6 +203,24 @@ const Brutes = {
       sendError(res, error);
     }
   },
+  getOpponents: async (req: Request, res: Response) => {
+    try {
+      const client = await DB.connect();
+      await auth(client, req);
+
+      // Get opponents
+      // TODO: Get 6 randoms, not 6 same
+      const { rows: opponents } = await client.query<Brute>(
+        'select * from brutes where data ->> \'name\' != $1 and data ->> \'level\' = $2 limit 6',
+        [req.params.name, +req.params.level],
+      );
+
+      await client.end();
+      res.status(200).send(opponents);
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
 };
 
 export default Brutes;
