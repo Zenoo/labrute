@@ -7,8 +7,6 @@
   "dependencies": {
     "@eternal-twin/core": "^0.10.3",
     "@eternal-twin/etwin-client-http": "^0.10.3",
-    "@mui/lab": "=5.0.0-alpha.75",
-    "@mui/material": "^5.9.2",
     "body-parser": "^1.20.0",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
@@ -19,10 +17,6 @@
     "node": ">=10.0.0"
   },
   "scripts": {
-    "lint": "eslint \"./src/**/*.ts\"",
-    "format": "eslint --fix \"./src/**/*.ts\"",
-    "release": "standard-version -a",
-    "front": "cd client && npm run start",
     "back": "nodemon ./src/server.ts",
     "build": "yarn run build:assets && yarn run build:scripts",
     "build:assets": "cpy \"./src/db/migrations/*.sql\" \"./build/db/migrations/\"",
