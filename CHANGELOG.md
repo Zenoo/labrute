@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.14](https://github.com/Zenoo/labrute/compare/v0.3.13...v0.3.14) (2022-07-31)
+
+
+### Progress
+
+* Arena view structure. [#24](https://github.com/Zenoo/labrute/issues/24) ([c51738b](https://github.com/Zenoo/labrute/commit/c51738b832484b822e673a42d37547d8fe49ba6a))
+
+
+### Feature
+
+* Arena page. [#24](https://github.com/Zenoo/labrute/issues/24) ([dc63cb5](https://github.com/Zenoo/labrute/commit/dc63cb5295703861191d5646103b888d89bc8b56))
+
 ### [0.3.13](https://github.com/Zenoo/labrute/compare/v0.3.12...v0.3.13) (2022-07-30)
 
 
