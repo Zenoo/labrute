@@ -1,5 +1,5 @@
-import { Brute, Destiny, LevelUpChoice, Log, User } from '@backend/types';
-import Fetch from './Fetch';
+import { Brute, Destiny, LevelUpChoice, Log, User } from '@eternaltwin/labrute-core/types';
+import Fetch from './Fetch.js';
 
 const Server = {
   User: {

@@ -32,16 +32,7 @@ module.exports = {
     "linebreak-style": ["error", "windows"],
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": ["error"],
-    "import/extensions": [
-      "error",
-      {
-        "js": "never",
-        "jsx": "never",
-        "ts": "never",
-        "tsx": "never",
-        "json": "always",
-      }
-    ],
+    "import/extensions": "off",
     "react/prop-types": "off",
     "react/require-default-props": "off",
     "@typescript-eslint/restrict-template-expressions": ["error",

@@ -1,27 +1,27 @@
-import { Brute } from '@backend/types';
+import { Brute } from '@eternaltwin/labrute-core/types';
 import { Box, Grid, Paper } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
-import ArenaStat from '../components/Arena/ArenaStat';
-import BruteComponent from '../components/Brute/Body/BruteComponent';
-import BruteBodyAndStats from '../components/Brute/BruteBodyAndStats';
-import BruteHP from '../components/Brute/BruteHP';
-import Link from '../components/Link';
-import Page from '../components/Page';
-import StyledButton from '../components/StyledButton';
-import Text from '../components/Text';
-import { useAlert } from '../hooks/useAlert';
-import useStateAsync from '../hooks/useStateAsync';
-import catchError from '../utils/catchError';
-import Server from '../utils/Server';
+import ArenaStat from '../components/Arena/ArenaStat.js';
+import BruteComponent from '../components/Brute/Body/BruteComponent.js';
+import BruteBodyAndStats from '../components/Brute/BruteBodyAndStats.js';
+import BruteHP from '../components/Brute/BruteHP.js';
+import Link from '../components/Link.js';
+import Page from '../components/Page.js';
+import StyledButton from '../components/StyledButton.js';
+import Text from '../components/Text.js';
+import { useAlert } from '../hooks/useAlert.js';
+import useStateAsync from '../hooks/useStateAsync.js';
+import catchError from '../utils/catchError.js';
+import Server from '../utils/Server.js';
 
 const ArenaView = () => {
   const { t } = useTranslation();
   const { bruteName } = useParams();
   const Alert = useAlert();
 
-  const { data: brute } = useStateAsync(null, Server.Brute.get, bruteName);
+  const { data: brute } = useStateAsync<Brute | null, string>(null, Server.Brute.get, bruteName);
   const [opponents, setOpponents] = useState<Brute[]>([]);
 
   // Fetch random opponents
@@ -31,7 +31,7 @@ const ArenaView = () => {
     if (!brute) return cleanup;
 
     // TODO
-    Server.Brute.getOpponents(brute.data.name, brute.data.level).then((data) => {
+    Server.Brute.getOpponents(brute.data.name, brute.data.level).then((data: Brute[]) => {
       if (isSubscribed) {
         setOpponents(data);
       }

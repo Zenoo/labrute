@@ -1,4 +1,4 @@
-import { WeaponName } from '@backend/types';
+import { WeaponName } from '@eternaltwin/labrute-core/types';
 import { Box, BoxProps } from '@mui/material';
 import React from 'react';
 

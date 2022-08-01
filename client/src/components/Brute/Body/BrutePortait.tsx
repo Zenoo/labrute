@@ -1,8 +1,8 @@
-import { BodyColors, BodyParts, Gender } from '@backend/types';
+import { BodyColors, BodyParts, Gender } from '@eternaltwin/labrute-core/types';
 import { Box, BoxProps } from '@mui/material';
 import React from 'react';
-import Head from './Head/Head';
-import LongHair from './Head/LongHair';
+import Head from './Head/Head.js';
+import LongHair from './Head/LongHair.js';
 
 interface BrutePortraitProps extends Omit<BoxProps, 'id'> {
   id: number;

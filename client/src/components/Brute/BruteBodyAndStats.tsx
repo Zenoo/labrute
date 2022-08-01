@@ -1,11 +1,11 @@
-import { Brute } from '@backend/types';
+import { Brute } from '@eternaltwin/labrute-core/types';
 import { Box, BoxProps, Stack } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import CellStats from '../Cell/CellStats';
-import Text from '../Text';
-import BruteComponent from './Body/BruteComponent';
-import BruteHP from './BruteHP';
+import CellStats from '../Cell/CellStats.js';
+import Text from '../Text.js';
+import BruteComponent from './Body/BruteComponent.js';
+import BruteHP from './BruteHP.js';
 
 interface BruteBodyAndStatsProps extends BoxProps {
   brute: Brute;

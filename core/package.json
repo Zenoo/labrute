@@ -1,0 +1,21 @@
+{
+  "name": "@eternaltwin/labrute-core",
+  "version": "0.3.14",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc --build ./tsconfig.json"
+  },
+  "engines": {
+    "node": ">=14.13.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.7.4"
+  },
+  "exports": {
+    "./*": {
+      "types": "./src/*.ts",
+      "default": "./build/*.js"
+    }
+  }
+}

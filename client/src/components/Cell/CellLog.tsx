@@ -1,9 +1,9 @@
-import { Log } from '@backend/types';
+import { Log } from '@eternaltwin/labrute-core/types';
 import { BoxProps, Link, Tooltip } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import BoxWithBackground from '../BoxWithBackground';
-import Text from '../Text';
+import BoxWithBackground from '../BoxWithBackground.js';
+import Text from '../Text.js';
 
 export interface CellLogProps extends BoxProps {
   log: Log;

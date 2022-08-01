@@ -1,9 +1,9 @@
-import { Brute } from '@backend/types';
+import { Brute } from '@eternaltwin/labrute-core/types';
 import { Box, Divider, Grid, PaperProps, Tooltip } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import skills from '../../utils/brute/skills';
-import Text from '../Text';
+import skills, { Skill } from '../../utils/brute/skills.js';
+import Text from '../Text.js';
 
 export interface CellSkillsProps extends PaperProps {
   brute: Brute;
@@ -18,7 +18,7 @@ const CellSkills = ({
 
   return (
     <Grid container spacing={1} sx={{ pt: 1, ...sx }} {...rest}>
-      {skills.map((skill) => (
+      {skills.map((skill: Skill) => (
         <Grid
           item
           xs={12 / 7}

@@ -28,6 +28,7 @@
   "workspaces": {
     "packages": [
       "client",
+      "core",
       "server"
     ]
   },

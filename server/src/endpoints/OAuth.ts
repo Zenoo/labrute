@@ -7,7 +7,7 @@ import { URL } from 'url';
 import DB from '../db/client.js';
 import {
   BodyColors, BodyParts, Gender, User,
-} from '../types/types.js';
+} from '@eternaltwin/labrute-core/types';
 import sendError from '../utils/sendError.js';
 import URLHelper from '../utils/URLHelper.js';
 

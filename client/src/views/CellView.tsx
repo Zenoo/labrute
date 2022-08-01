@@ -1,26 +1,26 @@
-import { Brute } from '@backend/types';
+import { Brute, Log } from '@eternaltwin/labrute-core/types';
 import { Box, Paper, Tooltip, useMediaQuery } from '@mui/material';
 import moment from 'moment';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
-import BoxWithBackground from '../components/BoxWithBackground';
-import CellClan from '../components/Cell/CellClan';
-import CellLog from '../components/Cell/CellLog';
-import CellMain from '../components/Cell/CellMain';
-import CellPets from '../components/Cell/CellPets';
-import CellSkills from '../components/Cell/CellSkills';
-import CellSocials from '../components/Cell/CellSocials';
-import CellWeapons from '../components/Cell/CellWeapons';
-import Link from '../components/Link';
-import Page from '../components/Page';
-import Text from '../components/Text';
-import { useAuth } from '../hooks/useAuth';
-import { useLanguage } from '../hooks/useLanguage';
-import useStateAsync from '../hooks/useStateAsync';
-import advertisings from '../utils/advertisings';
-import Server from '../utils/Server';
-import CellMobileView from './mobile/CellMobileView';
+import BoxWithBackground from '../components/BoxWithBackground.js';
+import CellClan from '../components/Cell/CellClan.js';
+import CellLog from '../components/Cell/CellLog.js';
+import CellMain from '../components/Cell/CellMain.js';
+import CellPets from '../components/Cell/CellPets.js';
+import CellSkills from '../components/Cell/CellSkills.js';
+import CellSocials from '../components/Cell/CellSocials.js';
+import CellWeapons from '../components/Cell/CellWeapons.js';
+import Link from '../components/Link.js';
+import Page from '../components/Page.js';
+import Text from '../components/Text.js';
+import { useAuth } from '../hooks/useAuth.js';
+import { useLanguage } from '../hooks/useLanguage.js';
+import useStateAsync from '../hooks/useStateAsync.js';
+import advertisings from '../utils/advertisings.js';
+import Server from '../utils/Server.js';
+import CellMobileView from './mobile/CellMobileView.js';
 
 /**
  * CellView component
@@ -42,7 +42,7 @@ const CellView = () => {
   useEffect(() => {
     let isSubscribed = true;
     if (bruteName) {
-      Server.Brute.get(bruteName).then((data) => {
+      Server.Brute.get(bruteName).then((data: Brute) => {
         if (isSubscribed) {
           setBrute(data);
         }
@@ -55,7 +55,7 @@ const CellView = () => {
 
   // Owner?
   const ownsBrute = useMemo(() => !!(user && brute && user.brutes
-    && user.brutes.find((b) => b.id === brute.id)), [user, brute]);
+    && user.brutes.find((b: Brute) => b.id === brute.id)), [user, brute]);
 
   // Randomized advertising
   const advertising = useMemo(() => advertisings[Math.floor(
@@ -184,7 +184,7 @@ const CellView = () => {
               </BoxWithBackground>
               {/* LOGS */}
               <Box sx={{ ml: 2, mt: 1 }}>
-                {logs.map((log) => <CellLog key={log.id} log={log} />)}
+                {logs.map((log: Log) => <CellLog key={log.id} log={log} />)}
               </Box>
             </Box>
           </Box>

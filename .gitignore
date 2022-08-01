@@ -15,9 +15,9 @@ node_modules/
 # testing
 /coverage
 
-# production
-/client/build
-/server/build
+# Build artifacts
+build/
+*.tsbuildinfo
 
 # misc
 .DS_Store

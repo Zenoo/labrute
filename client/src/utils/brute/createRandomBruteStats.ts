@@ -1,11 +1,11 @@
-import { default as availableSkills } from './skills';
-import { Brute, Stat } from '@backend/types';
-import { default as availableWeapons } from './weapons';
-import { default as availablePets } from './pets';
-import randomBetween from '../randomBetween';
-import weightedRandom from '../weightedRandom';
-import getStandardHP from './getStandardHP';
-import getXPNeeded from './getXPNeeded';
+import { Brute, Stat } from '@eternaltwin/labrute-core/types';
+import { default as availableSkills } from './skills.js';
+import { default as availableWeapons } from './weapons.js';
+import { default as availablePets } from './pets.js';
+import randomBetween from '../randomBetween.js';
+import weightedRandom from '../weightedRandom.js';
+import getStandardHP from './getStandardHP.js';
+import getXPNeeded from './getXPNeeded.js';
 
 interface Perk {
   name: 'pet' | 'skill' | 'weapon';

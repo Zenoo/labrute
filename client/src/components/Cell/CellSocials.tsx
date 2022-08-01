@@ -1,9 +1,9 @@
-import { Brute } from '@backend/types';
+import { Brute } from '@eternaltwin/labrute-core/types';
 import { Paper, Grid, Box, PaperProps } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import Link from '../Link';
-import Text from '../Text';
+import Link from '../Link.js';
+import Text from '../Text.js';
 
 export interface CellSocialsProps extends PaperProps {
   brute: Brute;

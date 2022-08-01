@@ -1,4 +1,4 @@
-import { PetName } from '@backend/types';
+import { PetName } from '@eternaltwin/labrute-core/types';
 
 export interface Pet {
   name: PetName;

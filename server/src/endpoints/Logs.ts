@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import DB from '../db/client.js';
-import { Log } from '../types/types.js';
+import { Log } from '@eternaltwin/labrute-core/types';
 import auth from '../utils/auth.js';
 import sendError from '../utils/sendError.js';
 

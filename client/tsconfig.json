@@ -1,7 +1,7 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES2022",
     "lib": [
       "es6",
       "dom",
@@ -18,15 +18,21 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
+    "module": "node16",
+    "moduleResolution": "node16",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react",
-    "paths": { "@backend/*": ["../server/src/types/*"], },
+    "traceResolution": false,
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "src/assets/i18n/**/*.json"
+  ],
+  "references": [
+    {
+      "path": "../core"
+    }
   ]
 }

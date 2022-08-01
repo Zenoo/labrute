@@ -1,7 +1,7 @@
-import { User } from '@backend/types';
+import { User } from '@eternaltwin/labrute-core/types';
 import moment from 'moment';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
-import Server from '../utils/Server';
+import Server from '../utils/Server.js';
 
 interface AuthContextInterface {
   user: User | null,
@@ -29,11 +29,9 @@ const AuthContext = React.createContext<AuthContextInterface>({
   },
 });
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-
-  return context;
-};
+export function useAuth(): AuthContextInterface {
+  return useContext(AuthContext);
+}
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -50,7 +48,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     if (userId && token && !authing) {
       if (expires.isAfter(moment())) {
         setAuthing(true);
-        Server.User.authenticate(userId, token).then((response) => {
+        Server.User.authenticate(userId, token).then((response: User) => {
           setUser(response);
           setAuthing(false);
         }).catch(() => {

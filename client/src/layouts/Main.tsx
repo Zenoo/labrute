@@ -1,10 +1,11 @@
 import { Box, GlobalStyles, useTheme } from '@mui/material';
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import Header from '../components/Header';
+import Header from '../components/Header.js';
+import { LaBruteTheme } from '../theme/ThemeOptions.js';
 
 const Main = () => {
-  const theme = useTheme();
+  const theme = useTheme<LaBruteTheme>();
 
   return (
     <Box sx={{

@@ -1,17 +1,18 @@
+import { Brute } from '@eternaltwin/labrute-core/types';
 import { AccountCircle, Login, Logout } from '@mui/icons-material';
 import { Box, BoxProps, CircularProgress, Link, SpeedDial, SpeedDialAction, Tooltip } from '@mui/material';
 import React, { useCallback, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import { useAlert } from '../hooks/useAlert';
-import { useAuth } from '../hooks/useAuth';
-import { useLanguage } from '../hooks/useLanguage';
-import { Language, languages } from '../i18n';
-import catchError from '../utils/catchError';
-import Fetch from '../utils/Fetch';
-import BrutePortrait from './Brute/Body/BrutePortait';
-import Text from './Text';
+import { useAlert } from '../hooks/useAlert.js';
+import { useAuth } from '../hooks/useAuth.js';
+import { useLanguage } from '../hooks/useLanguage.js';
+import { Language, languages } from '../i18n.js';
+import catchError from '../utils/catchError.js';
+import Fetch from '../utils/Fetch.js';
+import BrutePortrait from './Brute/Body/BrutePortait.js';
+import Text from './Text.js';
 
 interface Props extends BoxProps {
   title: string,
@@ -41,7 +42,7 @@ const Page = ({
   }, [navigate]);
 
   const oauth = useCallback(() => {
-    Fetch<string>('/api/oauth/redirect').then((response) => {
+    Fetch<string>('/api/oauth/redirect').then((response: string) => {
       window.location.href = response;
     }).catch(catchError(Alert));
   }, [Alert]);
@@ -89,7 +90,7 @@ const Page = ({
             onClick={logout}
           />
         )}
-        {user && user.brutes && user.brutes.map((brute) => (
+        {user && user.brutes && user.brutes.map((brute: Brute) => (
           <SpeedDialAction
             key={brute.id}
             icon={(
@@ -135,7 +136,7 @@ const Page = ({
           {' '}| Remade with love at{' '}
           <Link href="https://eternal-twin.net/">Eternal Twin</Link>
           {/* LANGUAGE */}
-          {languages.map((lang) => lang !== language && (
+          {languages.map((lang: Language) => lang !== language && (
             <Tooltip title={t(`${lang}-version`)} key={lang}>
               <Box
                 component="img"

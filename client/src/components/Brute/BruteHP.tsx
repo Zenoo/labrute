@@ -1,6 +1,6 @@
 import React from 'react';
-import BoxWithBackground, { BoxWithBackgroundProps } from '../BoxWithBackground';
-import Text from '../Text';
+import BoxWithBackground, { BoxWithBackgroundProps } from '../BoxWithBackground.js';
+import Text from '../Text.js';
 
 interface BruteHPProps extends Omit<BoxWithBackgroundProps, 'url' | 'alt'> {
   hp: number;

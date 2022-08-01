@@ -2,7 +2,7 @@ import { Request } from 'express';
 import { Client } from 'pg';
 import {
   BodyColors, BodyParts, Gender, User,
-} from '../types/types.js';
+} from '@eternaltwin/labrute-core/types';
 
 const auth = async (client: Client, request: Request) => {
   const { headers: { authorization } } = request;

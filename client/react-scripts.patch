@@ -1,0 +1,22 @@
+diff --git a/config/webpack.config.js b/config/webpack.config.js
+index e465d8e7a00ec889e9c4c29ba7812019f8319a41..d577d07c7c6b7a0aa5a59d4e083adb23fb55c0e5 100644
+--- a/config/webpack.config.js
++++ b/config/webpack.config.js
+@@ -319,6 +319,9 @@ module.exports = function (webpackEnv) {
+       extensions: paths.moduleFileExtensions
+         .map(ext => `.${ext}`)
+         .filter(ext => useTypeScript || !ext.includes('ts')),
++      extensionAlias: {
++        ".js": [".ts", ".tsx", ".js"],
++      },
+       alias: {
+         // Support React Native Web
+         // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
+@@ -720,6 +723,7 @@ module.exports = function (webpackEnv) {
+         new ForkTsCheckerWebpackPlugin({
+           async: isEnvDevelopment,
+           typescript: {
++            build: true,
+             typescriptPath: resolve.sync('typescript', {
+               basedir: paths.appNodeModules,
+             }),

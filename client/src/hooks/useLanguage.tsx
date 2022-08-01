@@ -2,7 +2,7 @@ import 'moment/locale/fr';
 import moment from 'moment';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Language } from '../i18n';
+import { Language } from '../i18n.js';
 
 interface LanguageContextInterface {
   language: Language;

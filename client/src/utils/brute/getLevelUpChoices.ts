@@ -1,10 +1,10 @@
-import { Brute, LevelUpChoice, SkillName, Stats, WeaponName } from '@backend/types';
-import randomBetween from '../randomBetween';
-import weightedRandom from '../weightedRandom';
-import { perkOdds } from './createRandomBruteStats';
-import pets from './pets';
-import skills from './skills';
-import weapons from './weapons';
+import { Brute, LevelUpChoice, SkillName, Stats, WeaponName } from '@eternaltwin/labrute-core/types';
+import randomBetween from '../randomBetween.js';
+import weightedRandom from '../weightedRandom.js';
+import { perkOdds } from './createRandomBruteStats.js';
+import pets from './pets.js';
+import skills from './skills.js';
+import weapons from './weapons.js';
 
 export const availableStats: Stats[] = [
   'endurance',

@@ -1,7 +1,7 @@
-import { Brute, LevelUpChoice, SkillName, Stats, WeaponName } from '@backend/types';
-import getStandardHP from './getStandardHP';
-import getXPNeeded from './getXPNeeded';
-import pets from './pets';
+import { Brute, LevelUpChoice, SkillName, Stats, WeaponName } from '@eternaltwin/labrute-core/types';
+import getStandardHP from './getStandardHP.js';
+import getXPNeeded from './getXPNeeded.js';
+import pets, { Pet } from './pets.js';
 
 const updateBruteData = (brute: Brute, levelUpChoice: LevelUpChoice) => {
   const updatedBrute: Brute = {
@@ -54,7 +54,7 @@ const updateBruteData = (brute: Brute, levelUpChoice: LevelUpChoice) => {
     updatedBrute.data.weapons.push(levelUpChoice.name as WeaponName);
   } else if (levelUpChoice.type === 'pet') {
     // New pet
-    const pet = pets.find((p) => p.name === levelUpChoice.name);
+    const pet = pets.find((p: Pet) => p.name === levelUpChoice.name);
     if (!pet) {
       throw new Error('Pet not found');
     }

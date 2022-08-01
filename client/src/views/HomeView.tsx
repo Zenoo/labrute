@@ -1,28 +1,28 @@
-import { BodyColors, BodyParts, Gender, User } from '@backend/types';
+import { BodyColors, BodyParts, Gender, User } from '@eternaltwin/labrute-core/types';
 import { Box, Grid, Link, Tooltip, useMediaQuery } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import BoxWithBackground from '../components/BoxWithBackground';
-import BruteComponent from '../components/Brute/Body/BruteComponent';
-import EmptyBrute from '../components/Brute/Body/EmptyBrute';
-import Page from '../components/Page';
-import StyledButton from '../components/StyledButton';
-import StyledInput from '../components/StyledInput';
-import Text from '../components/Text';
-import { useAlert } from '../hooks/useAlert';
-import { useAuth } from '../hooks/useAuth';
-import adjustColor from '../utils/adjustColor';
-import advertisings from '../utils/advertisings';
-import availableBodyParts from '../utils/brute/availableBodyParts';
-import colors from '../utils/brute/colors';
-import catchError from '../utils/catchError';
-import createRandomBruteStats from '../utils/brute/createRandomBruteStats';
-import Fetch from '../utils/Fetch';
-import randomBetween from '../utils/randomBetween';
-import Server from '../utils/Server';
-import HomeMobileView from './mobile/HomeMobileView';
+import BoxWithBackground from '../components/BoxWithBackground.js';
+import BruteComponent from '../components/Brute/Body/BruteComponent.js';
+import EmptyBrute from '../components/Brute/Body/EmptyBrute.js';
+import Page from '../components/Page.js';
+import StyledButton from '../components/StyledButton.js';
+import StyledInput from '../components/StyledInput.js';
+import Text from '../components/Text.js';
+import { useAlert } from '../hooks/useAlert.js';
+import { useAuth } from '../hooks/useAuth.js';
+import adjustColor from '../utils/adjustColor.js';
+import advertisings from '../utils/advertisings.js';
+import availableBodyParts from '../utils/brute/availableBodyParts.js';
+import colors from '../utils/brute/colors.js';
+import catchError from '../utils/catchError.js';
+import createRandomBruteStats from '../utils/brute/createRandomBruteStats.js';
+import Fetch from '../utils/Fetch.js';
+import randomBetween from '../utils/randomBetween.js';
+import Server from '../utils/Server.js';
+import HomeMobileView from './mobile/HomeMobileView.js';
 
 /**
  * HomeView component
@@ -49,7 +49,7 @@ const HomeView = () => {
     const code = url.searchParams.get('code');
     if (code && !authing && !user) {
       setAuthing(true);
-      Fetch<User>('/api/oauth/token', { code }).then((response) => {
+      Fetch<User>('/api/oauth/token', { code }).then((response: User) => {
         updateData(response);
         localStorage.setItem('user', response.id);
         localStorage.setItem('token', response.token);

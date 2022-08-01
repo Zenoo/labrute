@@ -25,6 +25,7 @@ module.exports = {
     '@typescript-eslint/no-var-requires': 'off',
     semi: 'off',
     '@typescript-eslint/semi': ['error'],
+    'node/no-unpublished-import': 'off',
     'node/no-unsupported-features/es-syntax': [
       'error',
       { ignores: ['modules'] },

@@ -1,9 +1,9 @@
 import React from 'react';
-import Main from './layouts/Main';
-import ArenaView from './views/ArenaView';
-import CellView from './views/CellView';
-import HomeView from './views/HomeView';
-import LevelUpView from './views/LevelUpView';
+import Main from './layouts/Main.js';
+import ArenaView from './views/ArenaView.js';
+import CellView from './views/CellView.js';
+import HomeView from './views/HomeView.js';
+import LevelUpView from './views/LevelUpView.js';
 
 const routes = [
   {

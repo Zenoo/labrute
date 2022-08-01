@@ -1,21 +1,21 @@
-import { Brute, Destiny, LevelUpChoice, Stats } from '@backend/types';
+import { Brute, Destiny, LevelUpChoice, Stats } from '@eternaltwin/labrute-core/types';
 import { Alert as MuiAlert, Box, Paper } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
-import BoxWithBackground from '../components/BoxWithBackground';
-import BruteComponent from '../components/Brute/Body/BruteComponent';
-import Page from '../components/Page';
-import StyledButton from '../components/StyledButton';
-import Text from '../components/Text';
-import { useAlert } from '../hooks/useAlert';
-import { useAuth } from '../hooks/useAuth';
-import accessDestinyLevel from '../utils/brute/accessDestinyLevel';
-import getLevelUpChoices from '../utils/brute/getLevelUpChoices';
-import getXPNeeded from '../utils/brute/getXPNeeded';
-import updateBruteData from '../utils/brute/updateBruteData';
-import catchError from '../utils/catchError';
-import Server from '../utils/Server';
+import BoxWithBackground from '../components/BoxWithBackground.js';
+import BruteComponent from '../components/Brute/Body/BruteComponent.js';
+import Page from '../components/Page.js';
+import StyledButton from '../components/StyledButton.js';
+import Text from '../components/Text.js';
+import { useAlert } from '../hooks/useAlert.js';
+import { useAuth } from '../hooks/useAuth.js';
+import accessDestinyLevel from '../utils/brute/accessDestinyLevel.js';
+import getLevelUpChoices from '../utils/brute/getLevelUpChoices.js';
+import getXPNeeded from '../utils/brute/getXPNeeded.js';
+import updateBruteData from '../utils/brute/updateBruteData.js';
+import catchError from '../utils/catchError.js';
+import Server from '../utils/Server.js';
 
 const LevelUpView = () => {
   const { t } = useTranslation(['level-up', 'common']);
@@ -32,7 +32,7 @@ const LevelUpView = () => {
   useEffect(() => {
     let isSubscribed = true;
     if (bruteName) {
-      Server.Brute.startLevelUp(bruteName).then((data) => {
+      Server.Brute.startLevelUp(bruteName).then((data: { brute: Brute, destiny?: Destiny }) => {
         if (isSubscribed) {
           // Check if the brute has enough XP
           if (data.brute.data.xp < getXPNeeded(data.brute.data.level + 1)) {
@@ -54,7 +54,7 @@ const LevelUpView = () => {
               Server.Brute.saveDestinyChoices(
                 data.brute.data.name,
                 newChoices
-              ).then((newDestiny) => {
+              ).then((newDestiny: Destiny) => {
                 setChoices(newChoices);
                 setDestiny(newDestiny);
               }).catch(catchError(Alert));

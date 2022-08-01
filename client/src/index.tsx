@@ -1,12 +1,12 @@
 import './index.css';
-import './i18n';
-import * as serviceWorker from './serviceWorker';
+import './i18n.js';
+import * as serviceWorker from './serviceWorker.js';
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import { LanguageProvider } from './hooks/useLanguage';
+import App from './App.js';
+import { LanguageProvider } from './hooks/useLanguage.js';
 import { BrowserRouter } from 'react-router-dom';
-import Loader from './components/Loader';
+import Loader from './components/Loader.js';
 
 ReactDOM.render(
   <React.StrictMode>

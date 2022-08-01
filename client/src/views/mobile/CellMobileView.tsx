@@ -1,20 +1,20 @@
-import { Brute, Log } from '@backend/types';
+import { Brute, Log } from '@eternaltwin/labrute-core/types';
 import { Box, Grid, Paper, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import { Moment } from 'moment';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import CellClan from '../../components/Cell/CellClan';
-import CellLog from '../../components/Cell/CellLog';
-import CellMain from '../../components/Cell/CellMain';
-import CellPets from '../../components/Cell/CellPets';
-import CellSkills from '../../components/Cell/CellSkills';
-import CellSocials from '../../components/Cell/CellSocials';
-import CellTournament from '../../components/Cell/CellTournament';
-import CellWeapons from '../../components/Cell/CellWeapons';
-import Link from '../../components/Link';
-import Page from '../../components/Page';
-import Text from '../../components/Text';
-import { Language } from '../../i18n';
+import CellClan from '../../components/Cell/CellClan.js';
+import CellLog from '../../components/Cell/CellLog.js';
+import CellMain from '../../components/Cell/CellMain.js';
+import CellPets from '../../components/Cell/CellPets.js';
+import CellSkills from '../../components/Cell/CellSkills.js';
+import CellSocials from '../../components/Cell/CellSocials.js';
+import CellTournament from '../../components/Cell/CellTournament.js';
+import CellWeapons from '../../components/Cell/CellWeapons.js';
+import Link from '../../components/Link.js';
+import Page from '../../components/Page.js';
+import Text from '../../components/Text.js';
+import { Language } from '../../i18n.js';
 
 export interface CellMobileViewProps {
   bruteName?: string;
