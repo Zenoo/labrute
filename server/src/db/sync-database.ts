@@ -47,10 +47,11 @@ await client.connect();
 console.log('Connected to Postgres.');
 
 // Check if the migration table exists
-const { rows: { 0: migration } } = await client.query<{ count: number }>('SELECT count(*) FROM information_schema.tables WHERE table_schema = current_schema() AND table_name = \'migration\';');
+const { rows: { 0: migration } } = await client.query<{ count: string }>('SELECT count(*) FROM information_schema.tables WHERE table_schema = current_schema() AND table_name = \'migration\';');
 
 let current: { version: string } | null = null;
-if (migration.count) {
+
+if (+migration.count) {
   // Get the current database version
   const { rows: { 0: currentQuery } } = await client.query<{ version: string }>('SELECT version FROM migration LIMIT 1');
   current = currentQuery;
