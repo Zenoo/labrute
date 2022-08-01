@@ -22,6 +22,7 @@
     "alwaysStrict": true,
     "rootDir": "./src",
     "outDir": "./build",
+    "tsBuildInfoFile": "./build/.tsbuildinfo",
     "module": "Node16",
     "moduleResolution": "Node16",
     "sourceMap": true,
@@ -30,5 +31,5 @@
   },
   "include": [
     "./src/**/*.ts"
-  ],
+  ]
 }

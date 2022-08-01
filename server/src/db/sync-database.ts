@@ -6,14 +6,15 @@ import pg from 'pg';
 import * as url from 'url';
 import * as semverSort from 'semver-sort';
 
-const dirname = url.fileURLToPath(new URL('.', import.meta.url));
+const PACKAGE_ROOT = path.join(url.fileURLToPath(import.meta.url), '..', '..', '..');
+const MIGRATIONS_DIR = path.join(PACKAGE_ROOT, 'migrations');
 
 // Apply scripts
 const applyScripts = async (client: pg.Client, scripts: string[]) => {
   // eslint-disable-next-line no-restricted-syntax
   for (const script of scripts) {
     console.log(`Applying script ${script}`);
-    const scriptPath = path.join(dirname, 'migrations', `${script}.sql`);
+    const scriptPath = path.join(MIGRATIONS_DIR, `${script}.sql`);
     const scriptContent = fs.readFileSync(scriptPath, 'utf8');
 
     // Get upgrade part of the script
@@ -30,7 +31,7 @@ dotenv.config();
 
 // Get the list of files from /server/db/migrations
 console.log('Loading migrations...');
-const files = fs.readdirSync(path.join(dirname, 'migrations'));
+const files = fs.readdirSync(MIGRATIONS_DIR);
 console.log(`Found ${files.length} migrations.`);
 
 // Create a new Postgres client
