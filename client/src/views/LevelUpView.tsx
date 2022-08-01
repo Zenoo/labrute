@@ -32,7 +32,7 @@ const LevelUpView = () => {
   useEffect(() => {
     let isSubscribed = true;
     if (bruteName) {
-      Server.Brute.startLevelUp(bruteName).then((data: { brute: Brute, destiny?: Destiny }) => {
+      Server.Brute.startLevelUp(bruteName).then((data) => {
         if (isSubscribed) {
           // Check if the brute has enough XP
           if (data.brute.data.xp < getXPNeeded(data.brute.data.level + 1)) {
@@ -54,7 +54,7 @@ const LevelUpView = () => {
               Server.Brute.saveDestinyChoices(
                 data.brute.data.name,
                 newChoices
-              ).then((newDestiny: Destiny) => {
+              ).then((newDestiny) => {
                 setChoices(newChoices);
                 setDestiny(newDestiny);
               }).catch(catchError(Alert));
@@ -62,7 +62,6 @@ const LevelUpView = () => {
           }
         }
       }).catch(() => {
-        console.log('Error fetching brute');
         navigate(`/${bruteName}/cell`);
       });
     }

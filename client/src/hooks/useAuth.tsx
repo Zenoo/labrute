@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     if (userId && token && !authing) {
       if (expires.isAfter(moment())) {
         setAuthing(true);
-        Server.User.authenticate(userId, token).then((response: User) => {
+        Server.User.authenticate(userId, token).then((response) => {
           setUser(response);
           setAuthing(false);
         }).catch(() => {

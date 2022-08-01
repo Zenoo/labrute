@@ -1,9 +1,8 @@
 import { Brute } from '@eternaltwin/labrute-core/types';
-import { Box, BoxProps, Theme, Tooltip } from '@mui/material';
+import { Box, BoxProps, Tooltip } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Text from '../Text.js';
-import { LaBruteTheme } from '../../theme/ThemeOptions.js';
 
 const excesses = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -33,12 +32,12 @@ const CellStats = ({
                 display: 'inline-block',
                 border: '2px solid',
                 borderColor: 'secondary.main',
-                bgcolor: (theme: Theme) => {
+                bgcolor: (theme) => {
                   const statDividedByTen = Math.floor(stats[stat].value / 10);
                   const { palette: { heat: {
                     [statDividedByTen]: baseColor,
                     [statDividedByTen + 1]: excessColor
-                  } } } = theme as LaBruteTheme;
+                  } } } = theme;
 
                   return stats[stat].value % 10 >= excess
                     ? excessColor

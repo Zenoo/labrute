@@ -1,4 +1,3 @@
-import { Brute } from '@eternaltwin/labrute-core/types';
 import { AccountCircle, Login, Logout } from '@mui/icons-material';
 import { Box, BoxProps, CircularProgress, Link, SpeedDial, SpeedDialAction, Tooltip } from '@mui/material';
 import React, { useCallback, useEffect } from 'react';
@@ -42,7 +41,7 @@ const Page = ({
   }, [navigate]);
 
   const oauth = useCallback(() => {
-    Fetch<string>('/api/oauth/redirect').then((response: string) => {
+    Fetch<string>('/api/oauth/redirect').then((response) => {
       window.location.href = response;
     }).catch(catchError(Alert));
   }, [Alert]);
@@ -90,7 +89,7 @@ const Page = ({
             onClick={logout}
           />
         )}
-        {user && user.brutes && user.brutes.map((brute: Brute) => (
+        {user && user.brutes && user.brutes.map((brute) => (
           <SpeedDialAction
             key={brute.id}
             icon={(
@@ -136,7 +135,7 @@ const Page = ({
           {' '}| Remade with love at{' '}
           <Link href="https://eternal-twin.net/">Eternal Twin</Link>
           {/* LANGUAGE */}
-          {languages.map((lang: Language) => lang !== language && (
+          {languages.map((lang) => lang !== language && (
             <Tooltip title={t(`${lang}-version`)} key={lang}>
               <Box
                 component="img"

@@ -7,21 +7,21 @@ import { URL } from 'url';
 import {
   BodyColors, BodyParts, Gender, User,
 } from '@eternaltwin/labrute-core/types';
+import { env } from 'process';
 import DB from '../db/client.js';
 import sendError from '../utils/sendError.js';
-import URLHelper from '../utils/URLHelper.js';
+
+const oauthClient = new RfcOauthClient({
+  authorizationEndpoint: new Url(`${env.ETWIN_URL}/oauth/authorize`),
+  tokenEndpoint: new Url(`${env.ETWIN_URL}/oauth/token`),
+  callbackEndpoint: new Url(`${env.SELF_URL}/oauth/callback`),
+  clientId: 'labrute@clients',
+  clientSecret: env.ETWIN_CLIENT_SECRET,
+});
 
 const OAuth = {
   redirect: (req: Request, res: Response) => {
     try {
-      const oauthClient = new RfcOauthClient({
-        authorizationEndpoint: new Url(`${URLHelper.etwin}/oauth/authorize`),
-        tokenEndpoint: new Url(`${URLHelper.etwin}/oauth/token`),
-        callbackEndpoint: new Url(`${URLHelper.self}/oauth/callback`),
-        clientId: 'labrute@clients',
-        clientSecret: '^&Ai$6T3^^#7rN',
-      });
-
       res.status(200).send(oauthClient.getAuthorizationUri('base', ''));
     } catch (error) {
       sendError(res, error);
@@ -29,14 +29,6 @@ const OAuth = {
   },
   token: async (req: Request, res: Response) => {
     try {
-      const oauthClient = new RfcOauthClient({
-        authorizationEndpoint: new Url(`${URLHelper.etwin}/oauth/authorize`),
-        tokenEndpoint: new Url(`${URLHelper.etwin}/oauth/token`),
-        callbackEndpoint: new Url(`${URLHelper.self}/oauth/callback`),
-        clientId: 'labrute@clients',
-        clientSecret: '^&Ai$6T3^^#7rN',
-      });
-
       if (!req.query.code || typeof req.query.code !== 'string') {
         throw new Error('Invalid code');
       }
@@ -45,7 +37,7 @@ const OAuth = {
       const token = await oauthClient.getAccessToken(req.query.code);
 
       // ETWin User
-      const etwinClient = new HttpEtwinClient(new URL(URLHelper.etwin));
+      const etwinClient = new HttpEtwinClient(new URL(env.ETWIN_URL));
       const self = await etwinClient.getAuthSelf(token.accessToken);
 
       if (self.type !== AuthType.AccessToken) {

@@ -49,7 +49,7 @@ const HomeView = () => {
     const code = url.searchParams.get('code');
     if (code && !authing && !user) {
       setAuthing(true);
-      Fetch<User>('/api/oauth/token', { code }).then((response: User) => {
+      Fetch<User>('/api/oauth/token', { code }).then((response) => {
         updateData(response);
         localStorage.setItem('user', response.id);
         localStorage.setItem('token', response.token);

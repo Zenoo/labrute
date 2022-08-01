@@ -31,7 +31,7 @@ const ArenaView = () => {
     if (!brute) return cleanup;
 
     // TODO
-    Server.Brute.getOpponents(brute.data.name, brute.data.level).then((data: Brute[]) => {
+    Server.Brute.getOpponents(brute.data.name, brute.data.level).then((data) => {
       if (isSubscribed) {
         setOpponents(data);
       }

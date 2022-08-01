@@ -42,7 +42,7 @@ const CellView = () => {
   useEffect(() => {
     let isSubscribed = true;
     if (bruteName) {
-      Server.Brute.get(bruteName).then((data: Brute) => {
+      Server.Brute.get(bruteName).then((data) => {
         if (isSubscribed) {
           setBrute(data);
         }
@@ -55,7 +55,7 @@ const CellView = () => {
 
   // Owner?
   const ownsBrute = useMemo(() => !!(user && brute && user.brutes
-    && user.brutes.find((b: Brute) => b.id === brute.id)), [user, brute]);
+    && user.brutes.find((b) => b.id === brute.id)), [user, brute]);
 
   // Randomized advertising
   const advertising = useMemo(() => advertisings[Math.floor(

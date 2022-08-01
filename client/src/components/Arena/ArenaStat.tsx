@@ -1,7 +1,6 @@
 import { Box, BoxProps, useTheme } from '@mui/material';
 import React from 'react';
 import Text from '../Text.js';
-import { LaBruteTheme } from '../../theme/ThemeOptions.js';
 
 interface ArenaStatProps extends BoxProps {
   name: string;
@@ -12,7 +11,7 @@ const ArenaStat = ({
   name,
   value,
 }: ArenaStatProps) => {
-  const theme = useTheme<LaBruteTheme>();
+  const theme = useTheme();
 
   return (
     <Box sx={{

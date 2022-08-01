@@ -1,75 +1,62 @@
-import { Palette, Theme, TypeBackground } from '@mui/material';
-import typography from './typography.js';
 import { experimental_sx as sx } from '@mui/material/styles';
+import { FontStyle } from '@mui/material/styles/createTypography.js';
+import typography from './typography.js';
 
-export interface LaBruteTypeBackground extends TypeBackground {
+interface TypeTransition {
+  time: string;
+}
+
+interface TypeScrollbar {
+  main: string;
+  hover: string;
+}
+
+interface TypeBorder {
+  shadow: string;
+  outer: string;
+  main: string;
+  inner: string;
+}
+
+interface TypeHover {
+  main: string;
+  hover: string;
+}
+
+interface TypeButton {
+  shadow: TypeHover
+}
+
+declare module '@mui/material/styles' {
+  interface TypeBackground {
     light: string;
     paperLight: string;
     paperDark: string;
     paperAccent: string;
+  }
+
+  interface Palette {
+    transition?: TypeTransition,
+    scrollbar?: TypeScrollbar,
+    border: TypeBorder,
+    button: TypeButton,
+    heat: (null | string)[]
+    level: string
+  }
+  interface PaletteOptions {
+    transition?: TypeTransition,
+    scrollbar?: TypeScrollbar,
+    heat: (null | string)[]
+    level: string
+  }
+  interface TypeText {
+    white: string;
+  }
+  interface Typography {
+    handwritten: FontStyle
+    Verdana: FontStyle
+  }
 }
-
-export interface LaBrutePalette extends Palette {
-  background: LaBruteTypeBackground;
-  heat: (null | string)[];
-}
-
-export interface LaBruteTheme extends Theme {
-  palette: LaBrutePalette;
-}
-
-// interface TypeTransition {
-//   time: string;
-// }
-//
-// interface TypeScrollbar {
-//   main: string;
-//   hover: string;
-// }
-//
-// interface TypeBorder {
-//   shadow: string;
-//   outer: string;
-//   main: string;
-//   inner: string;
-// }
-//
-// interface TypeHover {
-//   main: string;
-//   hover: string;
-// }
-
-// interface TypeButton {
-//   shadow: TypeHover
-// }
-
-// declare module '@mui/material/styles/createPalette' {
-//
-//   interface Palette {
-//     transition?: TypeTransition,
-//     scrollbar?: TypeScrollbar,
-//     border: TypeBorder,
-//     button: TypeButton,
-//     heat: (null | string)[]
-//     level: string
-//   }
-//   interface PaletteOptions {
-//     transition?: TypeTransition,
-//     scrollbar?: TypeScrollbar,
-//     heat: (null | string)[]
-//     level: string
-//   }
-//   interface TypeText {
-//     white: string;
-//   }
-// }
-
-// declare module '@mui/material/styles/createTypography' {
-//   interface Typography {
-//     handwritten: TypographyStyle
-//     Verdana: TypographyStyle
-//   }
-// }
 
 const border = {
   shadow: '#bc7b4a',
