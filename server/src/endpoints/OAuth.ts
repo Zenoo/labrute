@@ -4,10 +4,10 @@ import { HttpEtwinClient } from '@eternal-twin/etwin-client-http';
 import { RfcOauthClient } from '@eternal-twin/oauth-client-http/rfc-oauth-client';
 import { Request, Response } from 'express';
 import { URL } from 'url';
-import DB from '../db/client.js';
 import {
   BodyColors, BodyParts, Gender, User,
 } from '@eternaltwin/labrute-core/types';
+import DB from '../db/client.js';
 import sendError from '../utils/sendError.js';
 import URLHelper from '../utils/URLHelper.js';
 

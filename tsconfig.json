@@ -4,7 +4,8 @@
     "target": "ES2019",
     "strict": true,
     "lib": [
-      "ES2022"
+      "ES2022",
+      "dom"
     ],
     "esModuleInterop": true,
     "resolveJsonModule": true,

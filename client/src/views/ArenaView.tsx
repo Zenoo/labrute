@@ -21,7 +21,7 @@ const ArenaView = () => {
   const { bruteName } = useParams();
   const Alert = useAlert();
 
-  const { data: brute } = useStateAsync<Brute | null, string>(null, Server.Brute.get, bruteName);
+  const { data: brute } = useStateAsync(null, Server.Brute.get, bruteName);
   const [opponents, setOpponents] = useState<Brute[]>([]);
 
   // Fetch random opponents

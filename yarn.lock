@@ -12763,7 +12763,7 @@ __metadata:
 
 "react-scripts@patch:react-scripts@=5.0.1#./react-scripts.patch::locator=%40eternaltwin%2Flabrute-client%40workspace%3Aclient":
   version: 5.0.1
-  resolution: "react-scripts@patch:react-scripts@npm%3A5.0.1#./react-scripts.patch::version=5.0.1&hash=c03128&locator=%40eternaltwin%2Flabrute-client%40workspace%3Aclient"
+  resolution: "react-scripts@patch:react-scripts@npm%3A5.0.1#./react-scripts.patch::version=5.0.1&hash=72acdf&locator=%40eternaltwin%2Flabrute-client%40workspace%3Aclient"
   dependencies:
     "@babel/core": ^7.16.0
     "@pmmmwh/react-refresh-webpack-plugin": ^0.5.3
@@ -12824,7 +12824,7 @@ __metadata:
       optional: true
   bin:
     react-scripts: bin/react-scripts.js
-  checksum: ee021dba0f84a8ad84fcfc1d3df9e57047305ac03cdf1fb434f1e7b42b05b2e31affd12a122af38d637942dd91fba0765f2e18dd366a9e3fa31bdc8b9018ef52
+  checksum: 9b22670a2da3c6a4d751e46648c6cda34d4597a18517f3a64958f0e8230d343d9770ba111d6b484b3195f7d1ca410e4448af72e1393f78e77dfba47bbda295f3
   languageName: node
   linkType: hard
 
