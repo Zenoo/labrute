@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.15](https://github.com/Zenoo/labrute/compare/v0.3.14...v0.3.15) (2022-08-01)
+
+
+### Bug fix
+
+* Clean types declarations in preparation for a core package ([8ad26cd](https://github.com/Zenoo/labrute/commit/8ad26cd3de804391727bc83852b9f5148bee6734))
+* Cleanup server scripts and deps ([2a09bb6](https://github.com/Zenoo/labrute/commit/2a09bb64e91545c741b975f1e54c193840ec98bf))
+* Data missing after OAuth ([6e2284d](https://github.com/Zenoo/labrute/commit/6e2284df52a55ed9aa72bd0bf5b72db7ad6964a8))
+* Database not syncing properly ([3fb5d1d](https://github.com/Zenoo/labrute/commit/3fb5d1dafe2e24aef3e575b39ef70d02b1f9caf0))
+* Database sync error on empty DB ([69566a7](https://github.com/Zenoo/labrute/commit/69566a76db40e09bad54766a5f4a324d605aef7f))
+* Eslint errors ([b95eb57](https://github.com/Zenoo/labrute/commit/b95eb572b0a6deecf7c1ed682ca4a81d5c8ab898))
+* Remove server build ([eca6f30](https://github.com/Zenoo/labrute/commit/eca6f30fe9bdc9bf63aaeaa9ded844f4d7b3069c))
+* Removed unnecessary typings ([110e701](https://github.com/Zenoo/labrute/commit/110e701fed6e99cadf1f862c2856b8a0a7efa825))
+
 ### [0.3.14](https://github.com/Zenoo/labrute/compare/v0.3.13...v0.3.14) (2022-07-31)
 
 
