@@ -1,4 +1,4 @@
-import { PetName } from '@eternaltwin/labrute-core/types';
+import { PetName } from '../types.js';
 
 export interface Pet {
   name: PetName;

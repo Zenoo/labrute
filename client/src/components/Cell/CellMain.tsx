@@ -1,11 +1,11 @@
 import { Brute } from '@eternaltwin/labrute-core/types';
+import getXPNeeded from '@eternaltwin/labrute-core/brute/getXPNeeded';
 import { Box, BoxProps, Stack, Tooltip } from '@mui/material';
 import { Moment } from 'moment';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { Language } from '../../i18n.js';
-import getXPNeeded from '../../utils/brute/getXPNeeded.js';
 import BruteBodyAndStats from '../Brute/BruteBodyAndStats.js';
 import StyledButton from '../StyledButton.js';
 import Text from '../Text.js';

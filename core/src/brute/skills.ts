@@ -1,4 +1,4 @@
-import { SkillName } from '@eternaltwin/labrute-core/types';
+import { SkillName } from '../types.js';
 
 export interface Skill {
   name: SkillName;

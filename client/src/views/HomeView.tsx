@@ -1,4 +1,6 @@
 import { BodyColors, BodyParts, Gender, User } from '@eternaltwin/labrute-core/types';
+import createRandomBruteStats from '@eternaltwin/labrute-core/brute/createRandomBruteStats';
+import randomBetween from '@eternaltwin/labrute-core/utils/randomBetween';
 import { Box, Grid, Link, Tooltip, useMediaQuery } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
@@ -18,9 +20,7 @@ import advertisings from '../utils/advertisings.js';
 import availableBodyParts from '../utils/brute/availableBodyParts.js';
 import colors from '../utils/brute/colors.js';
 import catchError from '../utils/catchError.js';
-import createRandomBruteStats from '../utils/brute/createRandomBruteStats.js';
 import Fetch from '../utils/Fetch.js';
-import randomBetween from '../utils/randomBetween.js';
 import Server from '../utils/Server.js';
 import HomeMobileView from './mobile/HomeMobileView.js';
 

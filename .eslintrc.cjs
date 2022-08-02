@@ -37,6 +37,8 @@ module.exports = {
     'import/no-unresolved': 'off',
     'import/extensions': 'off',
     'node/no-missing-import': 'off',
+    'no-plusplus': ["error", { "allowForLoopAfterthoughts": true }],
+    "import/no-named-default": "off",
   },
   settings: {
     node: {

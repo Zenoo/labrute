@@ -2,11 +2,11 @@ import { Brute, Stat } from '@eternaltwin/labrute-core/types';
 import { default as availableSkills } from './skills.js';
 import { default as availableWeapons } from './weapons.js';
 import { default as availablePets } from './pets.js';
-import randomBetween from '../randomBetween.js';
-import weightedRandom from '../weightedRandom.js';
+import randomBetween from '../utils/randomBetween.js';
+import weightedRandom from '../utils/weightedRandom.js';
 import getStandardHP from './getStandardHP.js';
 import getXPNeeded from './getXPNeeded.js';
-import { BRUTE_STARTING_POINTS } from '@eternaltwin/labrute-core/constants';
+import { BRUTE_STARTING_POINTS } from '../constants.js';
 
 interface Perk {
   name: 'pet' | 'skill' | 'weapon';
@@ -16,7 +16,7 @@ interface Perk {
 export const perkOdds: Perk[] = [
   { name: 'pet', odds: 0.035792 },
   { name: 'skill', odds: 0.483369 },
-  { name: 'weapon', odds: 0.480839, },
+  { name: 'weapon', odds: 0.480839 },
 ];
 
 const createRandomBruteStats = (): Omit<Brute['data'], 'name' | 'gender' | 'body' | 'colors' | 'master' | 'victories' | 'pupils' | 'user'> => {

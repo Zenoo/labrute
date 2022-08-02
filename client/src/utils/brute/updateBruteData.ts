@@ -1,7 +1,7 @@
 import { Brute, LevelUpChoice, SkillName, Stats, WeaponName } from '@eternaltwin/labrute-core/types';
-import getStandardHP from './getStandardHP.js';
-import getXPNeeded from './getXPNeeded.js';
-import pets, { Pet } from './pets.js';
+import pets, { Pet } from '@eternaltwin/labrute-core/brute/pets';
+import getXPNeeded from '@eternaltwin/labrute-core/brute/getXPNeeded';
+import getStandardHP from '@eternaltwin/labrute-core/brute/getStandardHP';
 
 const updateBruteData = (brute: Brute, levelUpChoice: LevelUpChoice) => {
   const updatedBrute: Brute = {

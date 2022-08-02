@@ -1,8 +1,8 @@
 import { Brute } from '@eternaltwin/labrute-core/types';
+import skills from '@eternaltwin/labrute-core/brute/skills';
 import { Box, Divider, Grid, PaperProps, Tooltip } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import skills from '../../utils/brute/skills.js';
 import Text from '../Text.js';
 
 export interface CellSkillsProps extends PaperProps {

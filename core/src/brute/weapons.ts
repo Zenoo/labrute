@@ -1,4 +1,4 @@
-import { WeaponName } from '@eternaltwin/labrute-core/types';
+import { WeaponName } from '../types.js';
 
 export interface Weapon {
   name: WeaponName;

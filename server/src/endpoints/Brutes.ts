@@ -1,6 +1,9 @@
 import { Request, Response } from 'express';
 import { Brute, Destiny, LevelUpChoice } from '@eternaltwin/labrute-core/types';
 import { ARENA_OPPONENTS_COUNT, ARENA_OPPONENTS_MAX_GAP } from '@eternaltwin/labrute-core/constants';
+import {
+  adjectives, animals, colors, languages, names, starWars, uniqueNamesGenerator,
+} from 'unique-names-generator';
 import DB from '../db/client.js';
 import auth from '../utils/auth.js';
 import sendError from '../utils/sendError.js';
@@ -249,6 +252,23 @@ const Brutes = {
       // TODO: Restrict the access to admin only
 
       // Generate 600 random names
+      const nicks: string[] = [];
+      for (let i = 0; i < 600; i++) {
+        const generatedName = uniqueNamesGenerator({
+          dictionaries: [colors, adjectives, animals, names, languages, starWars],
+          style: 'capital',
+          separator: '',
+        });
+
+        // Reroll if name already exists
+        if (nicks.includes(generatedName)) {
+          i -= 1;
+        } else {
+          nicks.push(generatedName);
+        }
+      }
+
+      // Generate 6 random brutes for each level from 1 to 100 at interval of 3
 
       await client.end();
       res.status(200).send({});
