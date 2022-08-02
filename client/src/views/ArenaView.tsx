@@ -114,6 +114,7 @@ const ArenaView = () => {
                       height: 160,
                       top: 0,
                       left: 92,
+                      zIndex: -1,
                     }}
                   />
                 </Box>

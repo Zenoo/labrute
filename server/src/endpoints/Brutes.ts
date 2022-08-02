@@ -215,7 +215,7 @@ const Brutes = {
       const { rows: opponents } = await client.query<Brute>(
         `select * from brutes where 
           data ->> 'name' != $1
-          and data ->> 'level' = $2
+          and data -> 'level' = $2
         order by random() limit $3`,
         [req.params.name, +req.params.level, ARENA_OPPONENTS_COUNT],
       );
@@ -225,8 +225,8 @@ const Brutes = {
         const { rows: opponents2 } = await client.query<Brute>(
           `select * from brutes where 
             data ->> 'name' != $1
-            and data ->> 'level' < $2
-            and data ->> 'level' >= $3
+            and data -> 'level' < $2
+            and data -> 'level' >= $3
           order by random() limit $4`,
           [
             req.params.name,

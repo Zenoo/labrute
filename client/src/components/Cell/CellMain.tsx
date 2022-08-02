@@ -1,12 +1,12 @@
-import { Brute } from '@eternaltwin/labrute-core/types';
 import getXPNeeded from '@eternaltwin/labrute-core/brute/getXPNeeded';
+import { Brute } from '@eternaltwin/labrute-core/types';
 import { Box, BoxProps, Stack, Tooltip } from '@mui/material';
 import { Moment } from 'moment';
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
 import { Language } from '../../i18n.js';
 import BruteBodyAndStats from '../Brute/BruteBodyAndStats.js';
+import Link from '../Link.js';
 import StyledButton from '../StyledButton.js';
 import Text from '../Text.js';
 import CellTournament from './CellTournament.js';
@@ -28,13 +28,8 @@ const CellMain = ({
   ...rest
 }: CellMainProps) => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
 
   const xpNeededForNextLevel = useMemo(() => getXPNeeded(brute.data.level + 1), [brute.data.level]);
-
-  const startLevelUp = useCallback(() => {
-    navigate(`/${brute.data.name}/level-up`);
-  }, [brute.data.name, navigate]);
 
   return (
     <Box {...rest}>
@@ -65,35 +60,38 @@ const CellMain = ({
       {ownsBrute && (brute.data.xp < xpNeededForNextLevel ? (
         <Stack spacing={1} sx={{ alignItems: 'center', mt: 1 }}>
           <Text bold sx={{ pl: 1 }}>{t('callToFight')}</Text>
-          <StyledButton
-            sx={{
-              height: 72,
-              width: 218,
-            }}
-            image={`/images/${language}/cell/arena.gif`}
-            imageHover={`/images/${language}/cell/arena-hover.gif`}
-            shadow={false}
-            contrast={false}
-          />
+          <Link to={`/${brute.data.name}/arena`}>
+            <StyledButton
+              sx={{
+                height: 72,
+                width: 218,
+              }}
+              image={`/images/${language}/cell/arena.gif`}
+              imageHover={`/images/${language}/cell/arena-hover.gif`}
+              shadow={false}
+              contrast={false}
+            />
+          </Link>
           <Text bold color="error">{t('fightsLeft', { value: 6 })}</Text>
         </Stack>
       ) : (
-        <StyledButton
-          image="/images/button.gif"
-          imageHover="/images/button-hover.gif"
-          shadow={false}
-          contrast={false}
-          onClick={startLevelUp}
-          sx={{
-            fontVariant: 'small-caps',
-            m: '0 auto',
-            mt: 2,
-            height: 56,
-            width: 246,
-          }}
-        >
-          {t('levelUp')}
-        </StyledButton>
+        <Link to={`/${brute.data.name}/level-up`}>
+          <StyledButton
+            image="/images/button.gif"
+            imageHover="/images/button-hover.gif"
+            shadow={false}
+            contrast={false}
+            sx={{
+              fontVariant: 'small-caps',
+              m: '0 auto',
+              mt: 2,
+              height: 56,
+              width: 246,
+            }}
+          >
+            {t('levelUp')}
+          </StyledButton>
+        </Link>
       ))}
       {/* TOURNAMENT */}
       {!smallScreen && (
