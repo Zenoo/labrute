@@ -1874,6 +1874,7 @@ __metadata:
   dependencies:
     "@eternal-twin/cli": ^0.10.3
     "@types/node": ^18.6.2
+    "@types/pg-format": ^1.0.2
     standard-version: ^9.5.0
     typescript: ^4.7.4
   languageName: unknown
@@ -2073,6 +2074,7 @@ __metadata:
     eslint-plugin-tsdoc: ^0.2.16
     express: ^4.18.1
     pg: ^8.7.3
+    pg-format: ^1.0.4
     semver-sort: ^1.0.0
     standard-version: ^9.5.0
     tsc-watch: ^5.0.3
@@ -3450,6 +3452,13 @@ __metadata:
   version: 4.0.0
   resolution: "@types/parse-json@npm:4.0.0"
   checksum: fd6bce2b674b6efc3db4c7c3d336bd70c90838e8439de639b909ce22f3720d21344f52427f1d9e57b265fcb7f6c018699b99e5e0c208a1a4823014269a6bf35b
+  languageName: node
+  linkType: hard
+
+"@types/pg-format@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@types/pg-format@npm:1.0.2"
+  checksum: 1638dc13fef4aa947a959188d5d539039dd772254f83b7299823839fc761e6fee089129c0f2b3c3a9bdd631eee4cc443663698c35bafd101de3658b0511a13d8
   languageName: node
   linkType: hard
 
@@ -11180,6 +11189,13 @@ __metadata:
   version: 2.5.0
   resolution: "pg-connection-string@npm:2.5.0"
   checksum: a6f3a068f7c9416a5b33a326811caf0dfaaee045c225b7c628b4c9b4e9a2b25bdd12a21e4c48940e1000ea223a4e608ca122d2ff3dd08c8b1db0fc9f5705133a
+  languageName: node
+  linkType: hard
+
+"pg-format@npm:^1.0.4":
+  version: 1.0.4
+  resolution: "pg-format@npm:1.0.4"
+  checksum: 159b43ad57d2f963f1072def86080dd2a6dd42c1a86046e388d47b491e00afe795139520eb01c8dffc43ac0243c77b3c4c5882d0ec5f488bb3281f17458b1b3d
   languageName: node
   linkType: hard
 

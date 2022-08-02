@@ -1,5 +1,7 @@
 import { Brute, Destiny, LevelUpChoice, Stats } from '@eternaltwin/labrute-core/types';
 import getXPNeeded from '@eternaltwin/labrute-core/brute/getXPNeeded';
+import getLevelUpChoices from '@eternaltwin/labrute-core/brute/getLevelUpChoices';
+import updateBruteData from '@eternaltwin/labrute-core/brute/updateBruteData';
 import { Alert as MuiAlert, Box, Paper } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -12,8 +14,6 @@ import Text from '../components/Text.js';
 import { useAlert } from '../hooks/useAlert.js';
 import { useAuth } from '../hooks/useAuth.js';
 import accessDestinyLevel from '../utils/brute/accessDestinyLevel.js';
-import getLevelUpChoices from '../utils/brute/getLevelUpChoices.js';
-import updateBruteData from '../utils/brute/updateBruteData.js';
 import catchError from '../utils/catchError.js';
 import Server from '../utils/Server.js';
 

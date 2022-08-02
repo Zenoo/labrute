@@ -17,11 +17,13 @@
     "build:production:server": "cd server && yarn run build",
     "start": "cd server && yarn run start",
     "etwin": "etwin",
-    "db:sync": "cd server && yarn run db:sync"
+    "db:sync": "cd server && yarn run db:sync",
+    "db:populate": "cd server && yarn run db:populate"
   },
   "devDependencies": {
     "@eternal-twin/cli": "^0.10.3",
     "@types/node": "^18.6.2",
+    "@types/pg-format": "^1.0.2",
     "standard-version": "^9.5.0",
     "typescript": "^4.7.4"
   },

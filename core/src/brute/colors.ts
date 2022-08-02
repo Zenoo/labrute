@@ -19,7 +19,7 @@ const colors: ColorsType = {
       '#cb841b',
       '#d79b75',
       '#fbe6c8',
-      '#f8d198'
+      '#f8d198',
     ],
     hair: [
       '#784129',
@@ -31,7 +31,7 @@ const colors: ColorsType = {
       '#ffaa1e',
       '#952f04',
       '#a2886f',
-      '#fff2df'
+      '#fff2df',
     ],
     clothing: [
       '#7bad30',
@@ -53,7 +53,7 @@ const colors: ColorsType = {
       '#ffaa1e',
       '#cbff97',
       '#ffcc79',
-      '#fff2df'
+      '#fff2df',
     ],
   },
   female: {
@@ -63,7 +63,7 @@ const colors: ColorsType = {
       '#cb841b',
       '#eaaca6',
       '#fbe6c8',
-      '#f8d198'
+      '#f8d198',
     ],
     hair: [
       '#fff9ae',
@@ -74,7 +74,7 @@ const colors: ColorsType = {
       '#ffaa1e',
       '#952f04',
       '#a2886f',
-      '#fff2df'
+      '#fff2df',
     ],
     clothing: [
       '#7bad30',
@@ -96,7 +96,7 @@ const colors: ColorsType = {
       '#ffaa1e',
       '#cbff97',
       '#ffcc79',
-      '#fff2df'
+      '#fff2df',
     ],
   },
 };

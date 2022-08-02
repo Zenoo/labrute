@@ -14,6 +14,8 @@
 
 - Run `yarn run db:sync`.
 
+- Run `yarn run db:populate`.
+
 - Start the server with `yarn run start`
 
 ## Contributing

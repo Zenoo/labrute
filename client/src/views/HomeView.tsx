@@ -1,6 +1,7 @@
-import { BodyColors, BodyParts, Gender, User } from '@eternaltwin/labrute-core/types';
 import createRandomBruteStats from '@eternaltwin/labrute-core/brute/createRandomBruteStats';
-import randomBetween from '@eternaltwin/labrute-core/utils/randomBetween';
+import getRandomBody from '@eternaltwin/labrute-core/brute/getRandomBody';
+import getRandomColors from '@eternaltwin/labrute-core/brute/getRandomColors';
+import { BodyColors, BodyParts, Gender, User } from '@eternaltwin/labrute-core/types';
 import { Box, Grid, Link, Tooltip, useMediaQuery } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
@@ -15,10 +16,7 @@ import StyledInput from '../components/StyledInput.js';
 import Text from '../components/Text.js';
 import { useAlert } from '../hooks/useAlert.js';
 import { useAuth } from '../hooks/useAuth.js';
-import adjustColor from '../utils/adjustColor.js';
 import advertisings from '../utils/advertisings.js';
-import availableBodyParts from '../utils/brute/availableBodyParts.js';
-import colors from '../utils/brute/colors.js';
 import catchError from '../utils/catchError.js';
 import Fetch from '../utils/Fetch.js';
 import Server from '../utils/Server.js';
@@ -85,90 +83,12 @@ const HomeView = () => {
   /* CHARACTER CREATOR */
   const [creationStarted, setCreationStarted] = useState(false);
   const [gender, setGender] = useState<Gender>('female');
-  const [bodyParts, setBodyParts] = useState<BodyParts>({
-    longHair: 0,
-    lowerRightArm: 0,
-    rightHand: 0,
-    upperRightArm: 0,
-    rightShoulder: 0,
-    rightFoot: 0,
-    lowerRightLeg: 0,
-    upperRightLeg: 0,
-    leftFoot: 0,
-    lowerLeftLeg: 0,
-    pelvis: 0,
-    upperLeftLeg: 0,
-    tummy: 0,
-    torso: 0,
-    head: 0,
-    leftHand: 0,
-    upperLeftArm: 0,
-    lowerLeftArm: 0,
-    leftShoulder: 0,
-  });
-  const [bodyColors, setBodyColors] = useState<BodyColors>({
-    skin: {
-      color: colors[gender].skin[0],
-      shade: adjustColor(colors[gender].skin[0], -20),
-    },
-    hair: {
-      color: colors[gender].hair[0],
-      shade: adjustColor(colors[gender].hair[0], -20),
-    },
-    primary: {
-      color: colors[gender].clothing[0],
-      shade: adjustColor(colors[gender].clothing[0], -20),
-    },
-    secondary: {
-      color: colors[gender].clothing[1],
-      shade: adjustColor(colors[gender].clothing[1], -20),
-    },
-    accent: {
-      color: colors[gender].clothing[2],
-      shade: adjustColor(colors[gender].clothing[2], -20),
-    },
-  });
+  const [bodyParts, setBodyParts] = useState<BodyParts>(getRandomBody(gender));
+  const [bodyColors, setBodyColors] = useState<BodyColors>(getRandomColors(gender));
 
   // Colors randomizer
   const randomizeColors = useCallback((currentGender: Gender) => {
-    const {
-      [currentGender]: {
-        skin: {
-          [randomBetween(0, colors[currentGender].skin.length - 1)]: skin,
-        },
-        hair: {
-          [randomBetween(0, colors[currentGender].hair.length - 1)]: hair,
-        },
-        clothing: {
-          [randomBetween(0, colors[currentGender].clothing.length - 1)]: primary,
-          [randomBetween(0, colors[currentGender].clothing.length - 1)]: secondary,
-          [randomBetween(0, colors[currentGender].clothing.length - 1)]: accent,
-        }
-      }
-    } = colors;
-
-    setBodyColors({
-      skin: {
-        color: skin,
-        shade: adjustColor(skin, -20),
-      },
-      hair: {
-        color: hair,
-        shade: adjustColor(hair, -20),
-      },
-      primary: {
-        color: primary,
-        shade: adjustColor(primary, -20),
-      },
-      secondary: {
-        color: secondary,
-        shade: adjustColor(secondary, -20),
-      },
-      accent: {
-        color: accent,
-        shade: adjustColor(accent, -20),
-      },
-    });
+    setBodyColors(getRandomColors(currentGender));
   }, []);
 
   // Body parts randomizer
@@ -176,27 +96,7 @@ const HomeView = () => {
     const newGender = gender === 'male' ? 'female' : 'male';
     setGender(newGender);
 
-    setBodyParts({
-      longHair: randomBetween(1, availableBodyParts[newGender].longHair),
-      lowerRightArm: randomBetween(1, availableBodyParts[newGender].rightHand),
-      rightHand: randomBetween(1, availableBodyParts[newGender].lowerRightArm),
-      upperRightArm: randomBetween(1, availableBodyParts[newGender].rightShoulder),
-      rightShoulder: randomBetween(1, availableBodyParts[newGender].upperRightArm),
-      rightFoot: randomBetween(1, availableBodyParts[newGender].rightFoot),
-      lowerRightLeg: randomBetween(1, availableBodyParts[newGender].lowerRightLeg),
-      upperRightLeg: randomBetween(1, availableBodyParts[newGender].upperRightLeg),
-      leftFoot: randomBetween(1, availableBodyParts[newGender].leftFoot),
-      lowerLeftLeg: randomBetween(1, availableBodyParts[newGender].lowerLeftLeg),
-      pelvis: randomBetween(1, availableBodyParts[newGender].pelvis),
-      upperLeftLeg: randomBetween(1, availableBodyParts[newGender].upperLeftLeg),
-      tummy: randomBetween(1, availableBodyParts[newGender].tummy),
-      torso: randomBetween(1, availableBodyParts[newGender].torso),
-      head: randomBetween(1, availableBodyParts[newGender].head),
-      leftHand: randomBetween(1, availableBodyParts[newGender].leftHand),
-      upperLeftArm: randomBetween(1, availableBodyParts[newGender].upperLeftArm),
-      lowerLeftArm: randomBetween(1, availableBodyParts[newGender].lowerLeftArm),
-      leftShoulder: randomBetween(1, availableBodyParts[newGender].leftShoulder),
-    });
+    setBodyParts(getRandomBody(newGender));
 
     randomizeColors(newGender);
   }, [gender, randomizeColors]);

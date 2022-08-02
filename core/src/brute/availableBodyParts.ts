@@ -1,4 +1,4 @@
-import { BodyParts } from '@eternaltwin/labrute-core/types';
+import { BodyParts } from '../types.js';
 
 const availableBodyParts: { male: BodyParts, female: BodyParts } = {
   male: {

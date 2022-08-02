@@ -39,6 +39,7 @@ module.exports = {
     'node/no-missing-import': 'off',
     'no-plusplus': ["error", { "allowForLoopAfterthoughts": true }],
     "import/no-named-default": "off",
+    "no-nested-ternary": "off",
   },
   settings: {
     node: {

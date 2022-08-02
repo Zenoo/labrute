@@ -1,7 +1,9 @@
-import { Brute, LevelUpChoice, SkillName, Stats, WeaponName } from '@eternaltwin/labrute-core/types';
-import pets, { Pet } from '@eternaltwin/labrute-core/brute/pets';
-import getXPNeeded from '@eternaltwin/labrute-core/brute/getXPNeeded';
-import getStandardHP from '@eternaltwin/labrute-core/brute/getStandardHP';
+import {
+  Brute, LevelUpChoice, SkillName, WeaponName, Stats,
+} from '../types.js';
+import getStandardHP from './getStandardHP.js';
+import getXPNeeded from './getXPNeeded.js';
+import pets, { Pet } from './pets.js';
 
 const updateBruteData = (brute: Brute, levelUpChoice: LevelUpChoice) => {
   const updatedBrute: Brute = {
@@ -75,10 +77,12 @@ const updateBruteData = (brute: Brute, levelUpChoice: LevelUpChoice) => {
     updatedBrute.data.stats[stat].stat += levelUpChoice.stats as number;
   } else {
     // +2/+1
-    const { name: {
-      0: stat1,
-      1: stat2,
-    } } = levelUpChoice;
+    const {
+      name: {
+        0: stat1,
+        1: stat2,
+      },
+    } = levelUpChoice;
 
     if (!levelUpChoice.stats) {
       throw new Error('No stats provided');
@@ -90,16 +94,16 @@ const updateBruteData = (brute: Brute, levelUpChoice: LevelUpChoice) => {
 
   // Final stat values
   updatedBrute.data.stats.endurance.value = Math.floor(
-    updatedBrute.data.stats.endurance.stat * updatedBrute.data.stats.endurance.modifier
+    updatedBrute.data.stats.endurance.stat * updatedBrute.data.stats.endurance.modifier,
   );
   updatedBrute.data.stats.strength.value = Math.floor(
-    updatedBrute.data.stats.strength.stat * updatedBrute.data.stats.strength.modifier
+    updatedBrute.data.stats.strength.stat * updatedBrute.data.stats.strength.modifier,
   );
   updatedBrute.data.stats.agility.value = Math.floor(
-    updatedBrute.data.stats.agility.stat * updatedBrute.data.stats.agility.modifier
+    updatedBrute.data.stats.agility.stat * updatedBrute.data.stats.agility.modifier,
   );
   updatedBrute.data.stats.speed.value = Math.floor(
-    updatedBrute.data.stats.speed.stat * updatedBrute.data.stats.speed.modifier
+    updatedBrute.data.stats.speed.stat * updatedBrute.data.stats.speed.modifier,
   );
 
   // Final HP
