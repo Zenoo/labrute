@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.16](https://github.com/Zenoo/labrute/compare/v0.3.15...v0.3.16) (2022-08-02)
+
+
+### Refactoring
+
+* Moved some utils to the core package ([97d8f3f](https://github.com/Zenoo/labrute/commit/97d8f3f1d83064a48fdb9edd288be44e61d5915d))
+* Return random brutes as opponents in the arena. [#24](https://github.com/Zenoo/labrute/issues/24) ([c175ae0](https://github.com/Zenoo/labrute/commit/c175ae057f547e9c4cb2ed72d807282f6225c51a))
+
+
+### Feature
+
+* Added Database population script. Fixes [#34](https://github.com/Zenoo/labrute/issues/34) ([c2ef82f](https://github.com/Zenoo/labrute/commit/c2ef82fd8f7df99b71e4d99f79907d8d65a41f38))
+
+
+### Bug fix
+
+* Simplify XP formula ([9694757](https://github.com/Zenoo/labrute/commit/9694757697de219a5e037d9ea6096625bdcd72c4))
+
 ### [0.3.15](https://github.com/Zenoo/labrute/compare/v0.3.14...v0.3.15) (2022-08-01)
 
 
