@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { Brute, Destiny, LevelUpChoice } from '@eternaltwin/labrute-core/types';
+import { ARENA_OPPONENTS_COUNT, ARENA_OPPONENTS_MAX_GAP } from '@eternaltwin/labrute-core/constants';
 import DB from '../db/client.js';
 import auth from '../utils/auth.js';
 import sendError from '../utils/sendError.js';
@@ -208,15 +209,49 @@ const Brutes = {
       const client = await DB.connect();
       await auth(client, req);
 
-      // Get opponents
-      // TODO: Get 6 randoms, not 6 same
+      // Get same level random opponents
       const { rows: opponents } = await client.query<Brute>(
-        'select * from brutes where data ->> \'name\' != $1 and data ->> \'level\' = $2 limit 6',
-        [req.params.name, +req.params.level],
+        `select * from brutes where 
+          data ->> 'name' != $1
+          and data ->> 'level' = $2
+        order by random() limit $3`,
+        [req.params.name, +req.params.level, ARENA_OPPONENTS_COUNT],
       );
+
+      // Complete with lower levels if not enough
+      if (opponents.length < ARENA_OPPONENTS_COUNT) {
+        const { rows: opponents2 } = await client.query<Brute>(
+          `select * from brutes where 
+            data ->> 'name' != $1
+            and data ->> 'level' < $2
+            and data ->> 'level' >= $3
+          order by random() limit $4`,
+          [
+            req.params.name,
+            +req.params.level,
+            +req.params.level - ARENA_OPPONENTS_MAX_GAP,
+            ARENA_OPPONENTS_COUNT - opponents.length,
+          ],
+        );
+        opponents.push(...opponents2);
+      }
 
       await client.end();
       res.status(200).send(opponents);
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  populate: async (req: Request, res: Response) => {
+    try {
+      const client = await DB.connect();
+      await auth(client, req);
+      // TODO: Restrict the access to admin only
+
+      // Generate 600 random names
+
+      await client.end();
+      res.status(200).send({});
     } catch (error) {
       sendError(res, error);
     }

@@ -6,6 +6,7 @@ import randomBetween from '../randomBetween.js';
 import weightedRandom from '../weightedRandom.js';
 import getStandardHP from './getStandardHP.js';
 import getXPNeeded from './getXPNeeded.js';
+import { BRUTE_STARTING_POINTS } from '@eternaltwin/labrute-core/constants';
 
 interface Perk {
   name: 'pet' | 'skill' | 'weapon';
@@ -20,7 +21,7 @@ export const perkOdds: Perk[] = [
 
 const createRandomBruteStats = (): Omit<Brute['data'], 'name' | 'gender' | 'body' | 'colors' | 'master' | 'victories' | 'pupils' | 'user'> => {
   // Starting budget
-  let availablePoints = 11;
+  let availablePoints = BRUTE_STARTING_POINTS;
 
   const perk = weightedRandom(perkOdds);
 

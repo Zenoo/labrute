@@ -2041,6 +2041,7 @@ __metadata:
     react-router-dom: ^6.2.2
     react-scripts: "patch:react-scripts@=5.0.1#./react-scripts.patch"
     typescript: ^4.7.4
+    unique-names-generator: ^4.7.1
   languageName: unknown
   linkType: soft
 
@@ -14667,6 +14668,13 @@ __metadata:
   dependencies:
     unique-slug: ^2.0.0
   checksum: cf4998c9228cc7647ba7814e255dec51be43673903897b1786eff2ac2d670f54d4d733357eb08dea969aa5e6875d0e1bd391d668fbdb5a179744e7c7551a6f80
+  languageName: node
+  linkType: hard
+
+"unique-names-generator@npm:^4.7.1":
+  version: 4.7.1
+  resolution: "unique-names-generator@npm:4.7.1"
+  checksum: 81b58efee72458fd0c84f54a89d731b2570305d331ce62c4156273e54ece77b6488fc6c607169f4b8f6644fa48b42aef8689dbe7e310ae2c4bafbd5c0a625354
   languageName: node
   linkType: hard
 
