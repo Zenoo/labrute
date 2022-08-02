@@ -1,12 +1,8 @@
 /* eslint-disable no-process-exit, no-console */
-import createRandomBruteStats from '@eternaltwin/labrute-core/brute/createRandomBruteStats';
-import getLevelUpChoices from '@eternaltwin/labrute-core/brute/getLevelUpChoices';
-import getRandomBody from '@eternaltwin/labrute-core/brute/getRandomBody';
-import getRandomColors from '@eternaltwin/labrute-core/brute/getRandomColors';
-import updateBruteData from '@eternaltwin/labrute-core/brute/updateBruteData';
+import generateBrute from '@eternaltwin/labrute-core/brute/generateBrute';
 import { ARENA_OPPONENTS_COUNT } from '@eternaltwin/labrute-core/constants';
 import {
-  Brute, Gender,
+  Brute,
 } from '@eternaltwin/labrute-core/types';
 import dotenv from 'dotenv';
 import pg from 'pg';
@@ -64,46 +60,7 @@ for (let i = 0; i < ARENA_OPPONENTS_COUNT * 100; i++) {
 
   nicks.push(generatedName);
 
-  // 50% change male
-  const gender: Gender = Math.random() > 0.5 ? 'male' : 'female';
-
-  // Level 1 stats
-  let data = {
-    user: '',
-    name: generatedName,
-    gender,
-    body: getRandomBody(gender),
-    colors: getRandomColors(gender),
-    master: {
-      id: 0,
-      name: '',
-    },
-    victories: 0,
-    pupils: 0,
-    ...createRandomBruteStats(),
-  };
-
-  // Level the brute to desired level
-  for (let j = 1; j < i / (ARENA_OPPONENTS_COUNT / 2); j++) {
-    // NOTE: Destiny is ignored for now
-
-    // Get level up choices
-    const levelUpChoices = getLevelUpChoices({ data } as Brute);
-
-    // Randomly choose one of the choices
-    const levelUpChoice = Math.random() > 0.5 ? levelUpChoices[0] : levelUpChoices[1];
-
-    // Update the brute data
-    data = {
-      ...data,
-      ...updateBruteData(
-        { data } as Brute,
-        levelUpChoice,
-      ),
-    };
-  }
-
-  bruteDatas.push([data]);
+  bruteDatas.push([generateBrute(i / (ARENA_OPPONENTS_COUNT / 2), generatedName)]);
 }
 
 console.log(`Generated ${bruteDatas.length} brutes.`);

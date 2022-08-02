@@ -18,7 +18,8 @@
     "start": "cd server && yarn run start",
     "etwin": "etwin",
     "db:sync": "cd server && yarn run db:sync",
-    "db:populate": "cd server && yarn run db:populate"
+    "db:populate": "cd server && yarn run db:populate",
+    "db:brute:generate": "cd server && yarn run db:brute:generate"
   },
   "devDependencies": {
     "@eternal-twin/cli": "^0.10.3",
