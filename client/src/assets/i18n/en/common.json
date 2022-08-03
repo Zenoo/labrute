@@ -171,6 +171,16 @@
   "en-version": "English version",
   "fr-version": "Version française",
 
+  "newLevelFor": "New level for",
+  "reached": "reached",
+  "levelLower": "level",
+  "chooseOneOfTheFollowingBonuses": "Choose one of the following bonuses",
+  "newWeapon": "New weapon",
+  "newSkill": "New skill",
+  "newPet": "New pet",
+  "in": "in",
+  "choiceBackground": "Choice background",
+
   "youHaveXFightsLeft": "You have {{value}} fights left today !",
   "selectedOpponents": "Welcome to the Arena! Here is a selection of opponents of your level. Choose one and let's start the fight!",
   "backToCell": "Back to the cell",

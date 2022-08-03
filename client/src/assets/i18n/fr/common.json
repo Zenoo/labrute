@@ -169,6 +169,16 @@
 
   "en-version": "English version",
   "fr-version": "Version française",
+
+  "newLevelFor": "Niveau supplémentaire pour",
+  "reached": "a atteint le",
+  "levelLower": "niveau",
+  "chooseOneOfTheFollowingBonuses": "Choisissez l'un des avantages suivants",
+  "newWeapon": "Nouvelle arme",
+  "newSkill": "Nouvelle compétence",
+  "newPet": "Nouveau familier",
+  "in": "en",
+  "choiceBackground": "Arrière-plan du choix",
   
   "youHaveXFightsLeft": "Il te reste {{value}} combats aujourd'hui !",
   "selectedOpponents": "Bienvenue dans l'arène ! J'ai sélectionné quelques adversaire à ta taille. Choisis-en un, et on commence le combat !",

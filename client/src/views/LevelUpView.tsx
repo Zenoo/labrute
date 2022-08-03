@@ -1,7 +1,7 @@
-import { Brute, Destiny, LevelUpChoice, Stats } from '@eternaltwin/labrute-core/types';
-import getXPNeeded from '@eternaltwin/labrute-core/brute/getXPNeeded';
 import getLevelUpChoices from '@eternaltwin/labrute-core/brute/getLevelUpChoices';
+import getXPNeeded from '@eternaltwin/labrute-core/brute/getXPNeeded';
 import updateBruteData from '@eternaltwin/labrute-core/brute/updateBruteData';
+import { Brute, Destiny, LevelUpChoice } from '@eternaltwin/labrute-core/types';
 import { Alert as MuiAlert, Box, Paper } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -18,7 +18,7 @@ import catchError from '../utils/catchError.js';
 import Server from '../utils/Server.js';
 
 const LevelUpView = () => {
-  const { t } = useTranslation(['level-up', 'common']);
+  const { t } = useTranslation();
   const { bruteName } = useParams();
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -93,22 +93,22 @@ const LevelUpView = () => {
   }, [Alert, brute, choices, destiny, navigate]);
 
   return brute && (
-    <Page title={`${t('common:MyBrute')}. ${t('level-up:newLevelFor')} ${bruteName || ''}`}>
+    <Page title={`${t('MyBrute')}. ${t('newLevelFor')} ${bruteName || ''}`}>
       <MuiAlert severity="success" variant="filled">
-        <Text h5>{t('level-up:newLevelFor')} {brute.name} !</Text>
+        <Text h5>{t('newLevelFor')} {brute.name} !</Text>
       </MuiAlert>
       <Paper sx={{ mt: 3, bgcolor: 'background.paperLight' }}>
         <Text>
           <Text component="span" bold>{brute.name} </Text>
-          {t('level-up:reached')}
-          <Text component="span" bold> {t('level-up:level')} {brute.data.level + 1} </Text>
-          ! {t('level-up:chooseOneOfTheFollowingBonuses')} :
+          {t('reached')}
+          <Text component="span" bold> {t('levelLower')} {brute.data.level + 1} </Text>
+          ! {t('chooseOneOfTheFollowingBonuses')} :
         </Text>
         <Box sx={{ textAlign: 'center' }}>
           {/* BRUTE */}
           <BoxWithBackground
             url="/images/level-up/brute-bg.gif"
-            alt={t('common:background')}
+            alt={t('background')}
             sx={{
               height: 182,
               width: 201,
@@ -143,7 +143,7 @@ const LevelUpView = () => {
               >
                 <BoxWithBackground
                   url="/images/level-up/box.png"
-                  alt={t('level-up:choiceBackground')}
+                  alt={t('choiceBackground')}
                   sx={{
                     pt: 5,
                   }}
@@ -151,25 +151,25 @@ const LevelUpView = () => {
                   {/* CHOICE HEADER */}
                   <Text caption>
                     {/* +3 Skill */}
-                    {choice.type === 'stats' && typeof choice.name === 'string' && `+${choice.stats as number} ${t('level-up:in')}`}
+                    {choice.type === 'stats' && typeof choice.name === 'string' && `+${choice.stats as number} ${t('in')}`}
                     {/* +2/+1 Skill */}
-                    {choice.type === 'stats' && typeof choice.name !== 'string' && `+${(choice.stats as [number, number])[0]}/+${(choice.stats as [number, number])[1]} ${t('level-up:in')}`}
+                    {choice.type === 'stats' && typeof choice.name !== 'string' && `+${(choice.stats as [number, number])[0]}/+${(choice.stats as [number, number])[1]} ${t('in')}`}
                     {/* New weapon */}
-                    {choice.type === 'weapon' && `${t('level-up:newWeapon')} :`}
+                    {choice.type === 'weapon' && `${t('newWeapon')} :`}
                     {/* New skill */}
-                    {choice.type === 'skill' && `${t('level-up:newSkill')} :`}
+                    {choice.type === 'skill' && `${t('newSkill')} :`}
                     {/* New pet */}
-                    {choice.type === 'pet' && `${t('level-up:newPet')} :`}
+                    {choice.type === 'pet' && `${t('newPet')} :`}
                   </Text>
 
                   {/* CHOICE CONTENT */}
                   {/* Single value */}
                   {typeof choice.name === 'string' && (
-                    <Text h6 bold smallCaps>{t(`common:${choice.name}`)}</Text>
+                    <Text h6 bold smallCaps>{t(choice.name)}</Text>
                   )}
                   {/* Multiple values */}
                   {typeof choice.name !== 'string' && (
-                    <Text h6 bold smallCaps>{t(`common:${(choice.name as [Stats, Stats])[0]}`)} / {t(`common:${(choice.name as [Stats, Stats])[1]}`)}</Text>
+                    <Text h6 bold smallCaps>{t(choice.name[0])} / {t(choice.name[1])}</Text>
                   )}
                 </BoxWithBackground>
                 {/* VALIDATE */}
@@ -187,7 +187,7 @@ const LevelUpView = () => {
                   contrast={false}
                   onClick={levelUp(i as 0 | 1)}
                 >
-                  <Text bold smallCaps color="success">{t('level-up:validate')}</Text>
+                  <Text bold smallCaps color="success">{t('validate')}</Text>
                 </StyledButton>
               </Box>
             ))}
