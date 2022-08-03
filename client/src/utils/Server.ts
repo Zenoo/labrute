@@ -12,7 +12,7 @@ const Server = {
   Brute: {
     get: (name: string) => Fetch<Brute>(`/api/brute/${name}`),
     isNameAvailable: (name: string) => Fetch<boolean>(`/api/brute/${name}/available`),
-    create: (data: Brute['data']) => Fetch<Brute>('/api/brute/create', { data }, 'POST'),
+    create: (brute: Brute) => Fetch<Brute>('/api/brute/create', brute, 'POST'),
     startLevelUp: (name: string) => Fetch<{ brute: Brute, destiny: Destiny | undefined }>(`/api/brute/${name}/start-level-up`),
     saveDestinyChoices: (name: string, choices: [LevelUpChoice, LevelUpChoice]) => Fetch<Destiny>(`/api/brute/${name}/save-destiny-choices`, { choices }, 'POST'),
     levelUp: (
@@ -24,7 +24,7 @@ const Server = {
     getOpponents: (name: string, level: number) => Fetch<Brute[]>(`/api/brute/${name}/get-opponents/${level}`),
   },
   Log: {
-    list: (bruteId: number) => Fetch<Log[]>(`/api/log/list/${bruteId}`),
+    list: (brute: string) => Fetch<Log[]>(`/api/log/list/${brute}`),
   },
 };
 

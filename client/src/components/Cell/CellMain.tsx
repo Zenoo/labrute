@@ -60,7 +60,7 @@ const CellMain = ({
       {ownsBrute && (brute.data.xp < xpNeededForNextLevel ? (
         <Stack spacing={1} sx={{ alignItems: 'center', mt: 1 }}>
           <Text bold sx={{ pl: 1 }}>{t('callToFight')}</Text>
-          <Link to={`/${brute.data.name}/arena`}>
+          <Link to={`/${brute.name}/arena`}>
             <StyledButton
               sx={{
                 height: 72,
@@ -75,7 +75,7 @@ const CellMain = ({
           <Text bold color="error">{t('fightsLeft', { value: 6 })}</Text>
         </Stack>
       ) : (
-        <Link to={`/${brute.data.name}/level-up`}>
+        <Link to={`/${brute.name}/level-up`}>
           <StyledButton
             image="/images/button.gif"
             imageHover="/images/button-hover.gif"

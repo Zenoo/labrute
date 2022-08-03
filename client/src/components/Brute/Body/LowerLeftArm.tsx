@@ -2,7 +2,7 @@ import { BodyColors, Gender } from '@eternaltwin/labrute-core/types';
 import React from 'react';
 
 interface LowerLeftArmProps {
-  id: number;
+  id: string;
   gender: Gender;
   colors: BodyColors;
   type: number;

@@ -52,7 +52,7 @@ const LevelUpView = () => {
               // Generate choices and save them
               const newChoices = getLevelUpChoices(data.brute);
               Server.Brute.saveDestinyChoices(
-                data.brute.data.name,
+                data.brute.name,
                 newChoices
               ).then((newDestiny) => {
                 setChoices(newChoices);
@@ -75,7 +75,7 @@ const LevelUpView = () => {
     const { [number]: chosen } = choices;
 
     await Server.Brute.levelUp(
-      brute.data.name,
+      brute.name,
       updateBruteData(brute, chosen),
       [
         number === 0 ? {
@@ -89,17 +89,17 @@ const LevelUpView = () => {
       ],
       destiny.id,
     ).catch(catchError(Alert));
-    navigate(`/${brute.data.name}/cell`);
+    navigate(`/${brute.name}/cell`);
   }, [Alert, brute, choices, destiny, navigate]);
 
   return brute && (
     <Page title={`${t('common:MyBrute')}. ${t('level-up:newLevelFor')} ${bruteName || ''}`}>
       <MuiAlert severity="success" variant="filled">
-        <Text h5>{t('level-up:newLevelFor')} {brute.data.name} !</Text>
+        <Text h5>{t('level-up:newLevelFor')} {brute.name} !</Text>
       </MuiAlert>
       <Paper sx={{ mt: 3, bgcolor: 'background.paperLight' }}>
         <Text>
-          <Text component="span" bold>{brute.data.name} </Text>
+          <Text component="span" bold>{brute.name} </Text>
           {t('level-up:reached')}
           <Text component="span" bold> {t('level-up:level')} {brute.data.level + 1} </Text>
           ! {t('level-up:chooseOneOfTheFollowingBonuses')} :
@@ -117,10 +117,7 @@ const LevelUpView = () => {
             }}
           >
             <BruteComponent
-              id={brute.id}
-              gender={brute.data.gender}
-              bodyParts={brute.data.body}
-              colors={brute.data.colors}
+              brute={brute}
               inverted
               sx={{ height: 160, mt: 1 }}
             />

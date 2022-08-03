@@ -91,18 +91,13 @@ const Page = ({
         )}
         {user && user.brutes && user.brutes.map((brute) => (
           <SpeedDialAction
-            key={brute.id}
+            key={brute.name}
             icon={(
-              <BrutePortrait
-                id={brute.id}
-                gender={brute.data.gender}
-                bodyParts={brute.data.body}
-                colors={brute.data.colors}
-              />
+              <BrutePortrait brute={brute} />
             )}
-            tooltipTitle={brute.data.name}
+            tooltipTitle={brute.name}
             tooltipOpen
-            onClick={goToCell(brute.data.name)}
+            onClick={goToCell(brute.name)}
           />
         ))}
       </SpeedDial>

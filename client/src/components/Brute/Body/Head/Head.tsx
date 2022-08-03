@@ -2,7 +2,7 @@ import { BodyColors, Gender } from '@eternaltwin/labrute-core/types';
 import React from 'react';
 
 interface HeadProps {
-  id: number;
+  id: string;
   gender: Gender;
   colors: BodyColors;
   type: number;

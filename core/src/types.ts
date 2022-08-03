@@ -80,11 +80,10 @@ export interface Stat {
 }
 
 export interface Brute {
-  id: number;
+  name: string;
   rank: number;
   data: {
     user: string;
-    name: string;
     level: number;
     xp: number;
     stats: {
@@ -101,10 +100,7 @@ export interface Brute {
     weapons: WeaponName[];
     skills: SkillName[];
     pets: Pets;
-    master: {
-      id: number;
-      name: string;
-    }
+    master: string;
     victories: number;
     pupils: number;
     clan?: {

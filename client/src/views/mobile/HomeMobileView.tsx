@@ -1,4 +1,4 @@
-import { Gender, BodyParts, BodyColors } from '@eternaltwin/labrute-core/types';
+import { Gender, BodyParts, BodyColors, Brute } from '@eternaltwin/labrute-core/types';
 import { Box, Grid, Link, Paper, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -97,12 +97,16 @@ const HomeMobileView = ({
               <Box sx={{ textAlign: 'center', mt: creationStarted ? 0 : 1 }}>
                 {creationStarted ? (
                   <BruteComponent
-                    id={0}
-                    gender={gender}
-                    bodyParts={bodyParts}
-                    colors={bodyColors}
+                    brute={{
+                      name,
+                      data: {
+                        gender,
+                        body: bodyParts,
+                        colors: bodyColors,
+                      }
+                    } as Brute}
                     inverted
-                    height="160"
+                    sx={{ height: 160 }}
                   />
                 ) : <EmptyBrute style={{ marginBottom: '12px' }} />}
               </Box>

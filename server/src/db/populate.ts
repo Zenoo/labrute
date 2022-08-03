@@ -4,27 +4,14 @@ import { ARENA_OPPONENTS_COUNT } from '@eternaltwin/labrute-core/constants';
 import {
   Brute,
 } from '@eternaltwin/labrute-core/types';
-import dotenv from 'dotenv';
-import pg from 'pg';
 import format from 'pg-format';
 import {
   adjectives, animals, colors, languages, names, starWars, uniqueNamesGenerator,
 } from 'unique-names-generator';
+import DB from './client.js';
 
-console.log('Loading environment variables...');
-dotenv.config();
-
-// Create a new Postgres client
 console.log('Connecting to Postgres...');
-const client = new pg.Client({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT ? +process.env.DB_PORT : 5432,
-});
-
-await client.connect();
+const client = await DB.connect();
 console.log('Connected to Postgres.');
 
 // Check if already populated
@@ -39,7 +26,7 @@ if (+brutes.count >= ARENA_OPPONENTS_COUNT * 100) {
 // Generate random names
 console.log('Generating random brutes...');
 const nicks: string[] = [];
-const bruteDatas: (Brute['data'])[][] = [];
+const bruteDatas: [string, Brute['data']][] = [];
 for (let i = 0; i < ARENA_OPPONENTS_COUNT * 100; i++) {
   let generatedName = uniqueNamesGenerator({
     dictionaries: [colors, adjectives, animals, names, languages, starWars],
@@ -55,13 +42,13 @@ for (let i = 0; i < ARENA_OPPONENTS_COUNT * 100; i++) {
       style: 'capital',
       separator: '',
       length: 3,
-    }).replace(/\s/g, '');
+    }).replace(/\s/g, '').substring(0, 16);
   }
 
   nicks.push(generatedName);
 
   bruteDatas.push([
-    generateBrute(Math.floor(i / (ARENA_OPPONENTS_COUNT / 2)) + 1, generatedName),
+    generatedName, generateBrute(Math.floor(i / (ARENA_OPPONENTS_COUNT / 2)) + 1),
   ]);
 }
 
@@ -69,7 +56,7 @@ console.log(`Generated ${bruteDatas.length} brutes.`);
 
 // Insert all brutes at once
 console.log('Inserting brutes...');
-await client.query(format('INSERT INTO brutes (data) VALUES %L', bruteDatas));
+await client.query(format('INSERT INTO brutes (name, data) VALUES %L', bruteDatas));
 
 console.log('Done!');
 await client.end();

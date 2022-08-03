@@ -33,7 +33,7 @@ const initRoutes = (app: Express) => {
   app.get('/api/brute/:name/get-opponents/:level', Brutes.getOpponents);
 
   // Log
-  app.get('/api/log/list/:id', Logs.list);
+  app.get('/api/log/list/:name', Logs.list);
 
   app.get('/', (req, res) => {
     res.sendFile(CLIENT_INDEX);

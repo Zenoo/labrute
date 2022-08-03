@@ -5,7 +5,7 @@ import getRandomBody from './getRandomBody.js';
 import getRandomColors from './getRandomColors.js';
 import updateBruteData from './updateBruteData.js';
 
-const generateBrute = (level: number, name: string) => {
+const generateBrute = (level: number) => {
   if (level < 1) {
     throw new Error('Level must be at least 1');
   }
@@ -16,14 +16,10 @@ const generateBrute = (level: number, name: string) => {
   // Level 1 stats
   let data: Brute['data'] = {
     user: '',
-    name,
     gender,
     body: getRandomBody(gender),
     colors: getRandomColors(gender),
-    master: {
-      id: 0,
-      name: '',
-    },
+    master: '',
     victories: 0,
     pupils: 0,
     ...createRandomBruteStats(),

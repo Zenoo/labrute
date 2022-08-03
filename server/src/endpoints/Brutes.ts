@@ -28,7 +28,7 @@ const Brutes = {
       await auth(client, req);
 
       const { rows: { 0: brute } } = await client.query<Brute>(
-        'select * from brutes where data ->> \'name\' like $1',
+        'select * from brutes where name = $1',
         [req.params.name],
       );
 
@@ -48,7 +48,7 @@ const Brutes = {
       await auth(client, req);
 
       const result = await client.query<{ count: number }>(
-        'select count(*)::int from brutes where data ->> \'name\' = $1',
+        'select count(*)::int from brutes where name = $1',
         [req.params.name],
       );
       const { rows } = result;
@@ -64,43 +64,30 @@ const Brutes = {
     }
   },
   create: async (
-    req: Request<never, unknown, { data: Brute['data'] }>,
+    req: Request<never, unknown, Brute>,
     res: Response,
   ) => {
     try {
       const client = await DB.connect();
       await auth(client, req);
 
-      // Get brute master
-      let master = null;
-      if (req.body.data.master.name) {
-        const masterQuery = await client.query<Brute>(
-          'select id, data from brutes where data ->> \'name\' = $1',
-          [req.body.data.master.name],
-        );
-        [master] = masterQuery.rows;
-
-        if (!master) {
-          throw new Error('master not found');
-        }
-
-        req.body.data.master.id = master.id;
-      }
+      const requestBrute = req.body;
 
       // Create brute
       const result = await client.query<Brute>(
-        'insert into brutes (data) values ($1) returning *',
-        [req.body.data],
+        'insert into brutes (name, data) values ($1, $2) returning *',
+        [requestBrute.name, requestBrute.data],
       );
 
       const brute = result.rows[0];
 
       // Update master's pupils count
-      if (master) {
-        master.data.pupils += 1;
+      if (requestBrute.data.master) {
         await client.query(
-          'update brutes set data = $1 where id = $2',
-          [master.data, master.id],
+          `update brutes set data = data
+          || ('{"pupils": ' || ((data->>'pupils')::int + 1) || '}')::jsonb
+          where name = $1`,
+          [requestBrute.data.master],
         );
       }
 
@@ -117,7 +104,7 @@ const Brutes = {
 
       // Get brute
       const { rows: { 0: brute } } = await client.query<Brute>(
-        'select * from brutes where data ->> \'name\' = $1 and data ->> \'user\' = $2',
+        'select * from brutes where name = $1 and data ->> \'user\' = $2',
         [req.params.name, user.id],
       );
       if (!brute) throw new Error('brute not found');
@@ -125,7 +112,7 @@ const Brutes = {
       // Get level up choices
       const { rows: { 0: destiny } } = await client.query<Destiny>(
         'select * from destinies where brute = $1',
-        [brute.id],
+        [brute.name],
       );
 
       await client.end();
@@ -147,7 +134,7 @@ const Brutes = {
 
       // Get brute
       const { rows: { 0: brute } } = await client.query<Brute>(
-        'select id from brutes where data ->> \'name\' = $1 and data ->> \'user\' = $2',
+        'select name from brutes where name = $1 and data ->> \'user\' = $2',
         [req.params.name, user.id],
       );
       if (!brute) throw new Error('brute not found');
@@ -155,14 +142,14 @@ const Brutes = {
       // Get destiny
       let { rows: { 0: destiny } } = await client.query<Destiny>(
         'select id from destinies where brute = $1',
-        [brute.id],
+        [brute.name],
       );
 
       if (!destiny) {
         // Create destiny
         const { rows: { 0: newDestiny } } = await client.query<Destiny>(
           'insert into destinies (brute, choices) values ($1, $2) returning *',
-          [brute.id, JSON.stringify(req.body.choices)],
+          [brute.name, JSON.stringify(req.body.choices)],
         );
         destiny = newDestiny;
       } else {
@@ -190,7 +177,7 @@ const Brutes = {
 
       // Update brute
       await client.query<Brute>(
-        'update brutes set data = $1 where data ->> \'name\' = $2 and data ->> \'user\' = $3',
+        'update brutes set data = $1 where name = $2 and data ->> \'user\' = $3',
         [req.body.data, req.params.name, user.id],
       );
 
@@ -214,7 +201,7 @@ const Brutes = {
       // Get same level random opponents
       const { rows: opponents } = await client.query<Brute>(
         `select * from brutes where 
-          data ->> 'name' != $1
+          name != $1
           and data -> 'level' = $2
         order by random() limit $3`,
         [req.params.name, +req.params.level, ARENA_OPPONENTS_COUNT],
@@ -224,7 +211,7 @@ const Brutes = {
       if (opponents.length < ARENA_OPPONENTS_COUNT) {
         const { rows: opponents2 } = await client.query<Brute>(
           `select * from brutes where 
-            data ->> 'name' != $1
+            name != $1
             and data -> 'level' < $2
             and data -> 'level' >= $3
           order by random() limit $4`,

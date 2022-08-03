@@ -23,8 +23,8 @@ const VersusView = () => {
     if (!brute || !opponent) {
       return;
     }
-    if (opponent.id === brute.id) {
-      navigate(`/${brute.data.name}/arena`);
+    if (opponent.name === brute.name) {
+      navigate(`/${brute.name}/arena`);
     }
   }, [brute, navigate, opponent]);
 
@@ -34,7 +34,7 @@ const VersusView = () => {
   }, []);
 
   return brute && opponent && (
-    <Page title={`${bruteName || ''} ${t('MyBrute')}`}>
+    <Page title={`${brute.name || ''} ${t('MyBrute')}`}>
       <BoxWithBackground
         url="/images/versus/background.gif"
         alt={t('background')}
@@ -48,30 +48,24 @@ const VersusView = () => {
         }}
         imgSx={{ width: 1 }}
       >
-        <Text h2 smallCaps bold color="text.primary">{t('dareChallenge')} {opponent.data.name} !</Text>
+        <Text h2 smallCaps bold color="text.primary">{t('dareChallenge')} {opponent.name} !</Text>
         <Grid container spacing={2} sx={{ mt: 4, mb: 5 }}>
           <Grid item xs={12} sm={4}>
             <BruteComponent
-              id={brute.id}
-              gender={brute.data.gender}
-              bodyParts={brute.data.body}
-              colors={brute.data.colors}
+              brute={brute}
               sx={{ maxWidth: 200 }}
               inverted
             />
-            <Text h3 smallCaps bold color="text.primary">{brute.data.name}</Text>
+            <Text h3 smallCaps bold color="text.primary">{brute.name}</Text>
             <Text h5 upperCase bold color="secondary">{t('level')} {brute.data.level}</Text>
           </Grid>
           <Grid item xs={4} sx={{ display: { xs: 'none', sm: 'block' } }} />
           <Grid item xs={12} sm={4}>
             <BruteComponent
-              id={opponent.id}
-              gender={opponent.data.gender}
-              bodyParts={opponent.data.body}
-              colors={opponent.data.colors}
+              brute={opponent}
               sx={{ maxWidth: 200 }}
             />
-            <Text h3 smallCaps bold color="text.primary">{opponent.data.name}</Text>
+            <Text h3 smallCaps bold color="text.primary">{opponent.name}</Text>
             <Text h5 upperCase bold color="secondary">{t('level')} {opponent.data.level}</Text>
           </Grid>
         </Grid>

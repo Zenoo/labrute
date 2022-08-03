@@ -2,7 +2,7 @@ import { Gender, BodyColors } from '@eternaltwin/labrute-core/types';
 import React from 'react';
 
 interface PelvisProps {
-  id: number;
+  id: string;
   gender: Gender;
   colors: BodyColors;
   type: number;

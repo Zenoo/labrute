@@ -30,15 +30,13 @@ const auth = async (client: Client, request: Request) => {
 
   // Fetch brutes for user
   const { rows: brutes } = await client.query<{
-    id: number,
     name: string,
     gender: Gender,
     body: BodyParts,
     colors: BodyColors
   }>(
     `SELECT
-          id,
-          data->'name' as name,
+          name,
           data->'gender' as gender,
           data->'body' as body,
           data->'colors' as colors
@@ -49,9 +47,8 @@ const auth = async (client: Client, request: Request) => {
   return {
     ...user,
     brutes: brutes.map((brute) => ({
-      id: brute.id,
+      name: brute.name,
       data: {
-        name: brute.name,
         gender: brute.gender,
         body: brute.body,
         colors: brute.colors,

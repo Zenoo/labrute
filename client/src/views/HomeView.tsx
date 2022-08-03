@@ -1,7 +1,7 @@
 import createRandomBruteStats from '@eternaltwin/labrute-core/brute/createRandomBruteStats';
 import getRandomBody from '@eternaltwin/labrute-core/brute/getRandomBody';
 import getRandomColors from '@eternaltwin/labrute-core/brute/getRandomColors';
-import { BodyColors, BodyParts, Gender, User } from '@eternaltwin/labrute-core/types';
+import { BodyColors, BodyParts, Brute, Gender, User } from '@eternaltwin/labrute-core/types';
 import { Box, Grid, Link, Tooltip, useMediaQuery } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
@@ -141,18 +141,18 @@ const HomeView = () => {
             const ref = url.searchParams.get('ref');
 
             const brute = await Server.Brute.create({
-              user: user.id,
               name,
-              ...createRandomBruteStats(),
-              gender,
-              body: bodyParts,
-              colors: bodyColors,
-              master: {
-                id: 0,
-                name: ref || '',
+              rank: 0,
+              data: {
+                user: user.id,
+                ...createRandomBruteStats(),
+                gender,
+                body: bodyParts,
+                colors: bodyColors,
+                master: ref || '',
+                victories: 0,
+                pupils: 0,
               },
-              victories: 0,
-              pupils: 0,
             }).catch(catchError(Alert));
 
             if (brute) {
@@ -220,10 +220,14 @@ const HomeView = () => {
               <Box sx={{ textAlign: 'center', mt: creationStarted ? 0 : 1 }}>
                 {creationStarted ? (
                   <BruteComponent
-                    id={0}
-                    gender={gender}
-                    bodyParts={bodyParts}
-                    colors={bodyColors}
+                    brute={{
+                      name,
+                      data: {
+                        gender,
+                        body: bodyParts,
+                        colors: bodyColors,
+                      }
+                    } as Brute}
                     inverted
                     sx={{ height: 160 }}
                   />

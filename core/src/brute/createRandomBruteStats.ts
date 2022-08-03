@@ -19,7 +19,7 @@ export const perkOdds: Perk[] = [
   { name: 'weapon', odds: 0.480839 },
 ];
 
-const createRandomBruteStats = (): Omit<Brute['data'], 'name' | 'gender' | 'body' | 'colors' | 'master' | 'victories' | 'pupils' | 'user'> => {
+const createRandomBruteStats = (): Omit<Brute['data'], 'gender' | 'body' | 'colors' | 'master' | 'victories' | 'pupils' | 'user'> => {
   // Starting budget
   let availablePoints = BRUTE_STARTING_POINTS;
 

@@ -32,7 +32,7 @@ const ArenaView = () => {
     if (!brute) return cleanup;
 
     // TODO
-    Server.Brute.getOpponents(brute.data.name, brute.data.level).then((data) => {
+    Server.Brute.getOpponents(brute.name, brute.data.level).then((data) => {
       if (isSubscribed) {
         setOpponents(data);
       }
@@ -42,11 +42,11 @@ const ArenaView = () => {
   }, [Alert, brute]);
 
   const goToVersus = useCallback((opponent: Brute) => () => {
-    navigate(`/${bruteName}/versus/${opponent.data.name}`);
+    navigate(`/${bruteName}/versus/${opponent.name}`);
   }, [bruteName, navigate]);
 
   return brute && (
-    <Page title={`${bruteName || ''} ${t('MyBrute')}`}>
+    <Page title={`${brute.name || ''} ${t('MyBrute')}`}>
       <Paper sx={{
         mx: 4,
         display: 'flex',
@@ -61,10 +61,10 @@ const ArenaView = () => {
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4}>
-            <Text h4 bold color="secondary" sx={{ ml: 2 }}>{brute.data.name}</Text>
+            <Text h4 bold color="secondary" sx={{ ml: 2 }}>{brute.name}</Text>
             <BruteBodyAndStats brute={brute} />
             <Box sx={{ textAlign: 'center', mt: 1 }}>
-              <Link to={`/${brute.data.name}/cell`}>
+              <Link to={`/${brute.name}/cell`}>
                 <Text bold>{t('backToCell')}</Text>
               </Link>
               <Box component="img" src="/images/arena/bear.gif" sx={{ maxWidth: 1 }} />
@@ -73,7 +73,7 @@ const ArenaView = () => {
           <Grid item xs={12} sm={5.6}>
             {opponents.map((opponent) => (
               <StyledButton
-                key={opponent.id}
+                key={opponent.name}
                 image="/images/arena/brute-bg.gif"
                 imageHover="/images/arena/brute-bg-hover.gif"
                 contrast={false}
@@ -97,7 +97,7 @@ const ArenaView = () => {
                   position: 'relative',
                 }}
                 >
-                  <Text bold color="secondary">{opponent.data.name}</Text>
+                  <Text bold color="secondary">{opponent.name}</Text>
                   <Text bold smallCaps color="text.primary">
                     {t('level')}
                     <Text component="span" bold color="secondary"> {opponent.data.level}</Text>
@@ -111,10 +111,7 @@ const ArenaView = () => {
                     </Box>
                   </Box>
                   <BruteComponent
-                    id={opponent.id}
-                    gender={opponent.data.gender}
-                    bodyParts={opponent.data.body}
-                    colors={opponent.data.colors}
+                    brute={opponent}
                     sx={{
                       position: 'absolute',
                       height: 160,

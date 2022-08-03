@@ -17,7 +17,6 @@ import Text from '../../components/Text.js';
 import { Language } from '../../i18n.js';
 
 export interface CellMobileViewProps {
-  bruteName?: string;
   brute: Brute;
   advertising: string;
   logs: Log[];
@@ -27,7 +26,6 @@ export interface CellMobileViewProps {
 }
 
 const CellMobileView = ({
-  bruteName,
   brute,
   advertising,
   logs,
@@ -40,7 +38,7 @@ const CellMobileView = ({
   const isXs = useMediaQuery(theme.breakpoints.only('xs'));
 
   return (
-    <Page title={`${bruteName || ''} ${t('MyBrute')}`}>
+    <Page title={`${brute.name || ''} ${t('MyBrute')}`}>
       <Grid container spacing={1} alignItems="center">
         {/* BRUTE NAME + SOCIALS */}
         <Grid item xs={12} sm={6} order={isXs ? 1 : 0}>
@@ -51,7 +49,7 @@ const CellMobileView = ({
           {!brute.data.clan && (
             <Paper sx={{ bgcolor: 'background.paperLight', px: 0, py: 1 }}>
               <Tooltip title={t('refLink')}>
-                <Text bold textAlign="center">{`${window.location.origin}?ref=${bruteName}`}</Text>
+                <Text bold textAlign="center">{`${window.location.origin}?ref=${brute.name}`}</Text>
               </Tooltip>
               <CellClan brute={brute} />
             </Paper>

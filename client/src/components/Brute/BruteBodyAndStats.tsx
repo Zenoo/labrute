@@ -21,10 +21,7 @@ const BruteBodyAndStats = ({
     <Box display="flex" flexDirection="row" {...rest}>
       {/* BRUTE */}
       <BruteComponent
-        id={brute.id}
-        gender={brute.data.gender}
-        bodyParts={brute.data.body}
-        colors={brute.data.colors}
+        brute={brute}
         inverted
         sx={{ height: 160 }}
       />

@@ -10,13 +10,13 @@ const Logs = {
       const client = await DB.connect();
       await auth(client, req);
 
-      if (!req.params.id) {
+      if (!req.params.name) {
         await client.end();
         res.status(200).send([]);
       } else {
         const result = await client.query<Log>(
           'select * from logs WHERE current_brute = $1 ORDER BY id DESC LIMIT 7',
-          [req.params.id],
+          [req.params.name],
         );
         const { rows } = result;
 

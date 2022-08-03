@@ -36,7 +36,7 @@ const CellView = () => {
   const nextTournament = moment().add(1, 'day');
 
   const [brute, setBrute] = useState<Brute | null>(null);
-  const { data: logs } = useStateAsync([], Server.Log.list, brute?.id);
+  const { data: logs } = useStateAsync([], Server.Log.list, bruteName);
 
   // Fetch brute
   useEffect(() => {
@@ -55,7 +55,7 @@ const CellView = () => {
 
   // Owner?
   const ownsBrute = useMemo(() => !!(user && brute && user.brutes
-    && user.brutes.find((b) => b.id === brute.id)), [user, brute]);
+    && user.brutes.find((b) => b.name === brute.name)), [user, brute]);
 
   // Randomized advertising
   const advertising = useMemo(() => advertisings[Math.floor(
@@ -65,7 +65,6 @@ const CellView = () => {
   return brute && (smallScreen
     ? (
       <CellMobileView
-        bruteName={bruteName}
         brute={brute}
         advertising={advertising}
         logs={logs}
