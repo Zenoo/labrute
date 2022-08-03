@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/Zenoo/labrute/compare/v0.3.17...v0.4.0) (2022-08-03)
+
+
+### Refactoring
+
+* Remove brute IDs. Fixes [#43](https://github.com/Zenoo/labrute/issues/43) ([d73308b](https://github.com/Zenoo/labrute/commit/d73308b7028b6c80c8e9dff00a8426098995b200))
+
 ### [0.3.17](https://github.com/Zenoo/labrute/compare/v0.3.16...v0.3.17) (2022-08-03)
 
 
