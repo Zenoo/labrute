@@ -38,10 +38,10 @@ const getLevelUpChoices = (brute: Brute): [LevelUpChoice, LevelUpChoice] => {
         hasPerk = brute.data.pets.dog === 3;
         break;
       case 'panther':
-        hasPerk = !!brute.data.pets.panther;
+        hasPerk = !!brute.data.pets.panther || !!brute.data.pets.bear;
         break;
       case 'bear':
-        hasPerk = !!brute.data.pets.bear;
+        hasPerk = !!brute.data.pets.bear || !!brute.data.pets.panther;
         break;
       default:
         break;
