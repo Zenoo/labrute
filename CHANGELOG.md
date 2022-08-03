@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.1](https://github.com/Zenoo/labrute/compare/v0.4.0...v0.4.1) (2022-08-03)
+
+
+### Feature
+
+* Adde logs on level up and creation. Fixes [#44](https://github.com/Zenoo/labrute/issues/44) ([f48bf48](https://github.com/Zenoo/labrute/commit/f48bf48cb18d465c7c844907ab6107fe2756005e))
+
+
+### Bug fix
+
+* Bear and panther pets are exclusive. Fix [#41](https://github.com/Zenoo/labrute/issues/41) ([4a46a01](https://github.com/Zenoo/labrute/commit/4a46a0175e15c0e0818e611ebc5f75fa6d34687b))
+
 ## [0.4.0](https://github.com/Zenoo/labrute/compare/v0.3.17...v0.4.0) (2022-08-03)
 
 
