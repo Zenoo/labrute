@@ -155,7 +155,7 @@
   "logout": "Logout",
   "logoutSuccess": "Logout success",
   "loginSuccess": "Login success",
-  "invalidName": "Invalid name. Accepted characters are a-z, A-Z, 0-9, '_' and '-'. Must be between 3 and 20 characters long.",
+  "invalidName": "Invalid name. Accepted characters are a-z, A-Z, 0-9, '_' and '-'. Must be between 3 and 16 characters long.",
   "nameUnvailable": "Name unavailable",
   "pleaseLogin": "Please login before creating a Brute",
 
@@ -173,5 +173,8 @@
 
   "youHaveXFightsLeft": "You have {{value}} fights left today !",
   "selectedOpponents": "Welcome to the Arena! Here is a selection of opponents of your level. Choose one and let's start the fight!",
-  "backToCell": "Back to the cell"
+  "backToCell": "Back to the cell",
+
+  "dareChallenge": "You dare to challenge",
+  "startFight": "Start fight"
 }

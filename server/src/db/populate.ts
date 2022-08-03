@@ -45,8 +45,8 @@ for (let i = 0; i < ARENA_OPPONENTS_COUNT * 100; i++) {
     dictionaries: [colors, adjectives, animals, names, languages, starWars],
     style: 'capital',
     separator: '',
-    length: 3,
-  }).replace(/\s/g, '');
+    length: 2,
+  }).replace(/\s/g, '').substring(0, 16);
 
   // Reroll if name already exists
   while (nicks.includes(generatedName)) {
@@ -60,7 +60,9 @@ for (let i = 0; i < ARENA_OPPONENTS_COUNT * 100; i++) {
 
   nicks.push(generatedName);
 
-  bruteDatas.push([generateBrute(i / (ARENA_OPPONENTS_COUNT / 2), generatedName)]);
+  bruteDatas.push([
+    generateBrute(Math.floor(i / (ARENA_OPPONENTS_COUNT / 2)) + 1, generatedName),
+  ]);
 }
 
 console.log(`Generated ${bruteDatas.length} brutes.`);

@@ -128,7 +128,7 @@ const HomeView = () => {
     // Check if logged in
     if (user) {
       // Check name validity
-      if (name.match(/^[a-zA-Z0-9_-]*$/) && name.length >= 3 && name.length <= 20) {
+      if (name.match(/^[a-zA-Z0-9_-]*$/) && name.length >= 3 && name.length <= 16) {
         // Check if the name is available
         const isNameAvailable = await Server.Brute.isNameAvailable(name)
           .catch(catchError(Alert));

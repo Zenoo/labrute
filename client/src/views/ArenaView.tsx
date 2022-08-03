@@ -1,8 +1,8 @@
 import { Brute } from '@eternaltwin/labrute-core/types';
 import { Box, Grid, Paper } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import ArenaStat from '../components/Arena/ArenaStat.js';
 import BruteComponent from '../components/Brute/Body/BruteComponent.js';
 import BruteBodyAndStats from '../components/Brute/BruteBodyAndStats.js';
@@ -20,6 +20,7 @@ const ArenaView = () => {
   const { t } = useTranslation();
   const { bruteName } = useParams();
   const Alert = useAlert();
+  const navigate = useNavigate();
 
   const { data: brute } = useStateAsync(null, Server.Brute.get, bruteName);
   const [opponents, setOpponents] = useState<Brute[]>([]);
@@ -39,6 +40,10 @@ const ArenaView = () => {
 
     return cleanup;
   }, [Alert, brute]);
+
+  const goToVersus = useCallback((opponent: Brute) => () => {
+    navigate(`/${bruteName}/versus/${opponent.data.name}`);
+  }, [bruteName, navigate]);
 
   return brute && (
     <Page title={`${bruteName || ''} ${t('MyBrute')}`}>
@@ -73,6 +78,7 @@ const ArenaView = () => {
                 imageHover="/images/arena/brute-bg-hover.gif"
                 contrast={false}
                 shadow={false}
+                onClick={goToVersus(opponent)}
                 sx={{
                   display: 'inline-block',
                   width: 190,

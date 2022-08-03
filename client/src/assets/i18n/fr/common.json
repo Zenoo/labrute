@@ -154,7 +154,7 @@
   "logout": "Déconnexion",
   "logoutSuccess": "Déconnexion réussie",
   "loginSuccess": "Connexion réussie",
-  "invalidName": "Nom invalide. Les caractères autorisés sont a-z, A-Z, 0-9, _ et -. Il doit faire entre 3 et 20 caractères.",
+  "invalidName": "Nom invalide. Les caractères autorisés sont a-z, A-Z, 0-9, _ et -. Il doit faire entre 3 et 16 caractères.",
   "nameUnavailable": "Nom indisponible",
   "pleaseLogin": "Veuillez vous connecter pour créer une brute",
 
@@ -172,5 +172,8 @@
   
   "youHaveXFightsLeft": "Il te reste {{value}} combats aujourd'hui !",
   "selectedOpponents": "Bienvenue dans l'arène ! J'ai sélectionné quelques adversaire à ta taille. Choisis-en un, et on commence le combat !",
-  "backToCell": "Retour en cellule"
+  "backToCell": "Retour en cellule",
+
+  "dareChallenge": "Vous avez osé défier",
+  "startFight": "Lancer le combat"
 }
