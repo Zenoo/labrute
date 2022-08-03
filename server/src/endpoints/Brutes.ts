@@ -89,6 +89,12 @@ const Brutes = {
           where name = $1`,
           [requestBrute.data.master],
         );
+
+        // Add log
+        await client.query(
+          'insert into logs (current_brute, type, brute) values ($1, $2, $3)',
+          [requestBrute.data.master, 'child', brute.name],
+        );
       }
 
       await client.end();
@@ -186,6 +192,20 @@ const Brutes = {
         'update destinies set choices = $1 where id = $2',
         [JSON.stringify(req.body.choices), req.body.destiny],
       );
+
+      // Add log
+      await client.query(
+        'insert into logs (current_brute, type) values ($1, $2)',
+        [req.params.name, 'up'],
+      );
+
+      // Add log to master
+      if (req.body.data.master) {
+        await client.query(
+          'insert into logs (current_brute, type, brute) values ($1, $2, $3)',
+          [req.body.data.master, 'childup', req.params.name],
+        );
+      }
 
       await client.end();
       res.status(200).send({});
