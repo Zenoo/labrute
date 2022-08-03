@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.17](https://github.com/Zenoo/labrute/compare/v0.3.16...v0.3.17) (2022-08-03)
+
+
+### Feature
+
+* New script to generate a random brute at the desired level ([0c97c0e](https://github.com/Zenoo/labrute/commit/0c97c0e7d2b3d114c68b7f5832257ce665ad5ebb))
+* Versus view. Fixes [#40](https://github.com/Zenoo/labrute/issues/40) ([c1c40a2](https://github.com/Zenoo/labrute/commit/c1c40a2eeb8445192e5b6df55407213aa680571a))
+
 ### [0.3.16](https://github.com/Zenoo/labrute/compare/v0.3.15...v0.3.16) (2022-08-02)
 
 
