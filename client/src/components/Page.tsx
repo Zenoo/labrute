@@ -10,6 +10,7 @@ import { useLanguage } from '../hooks/useLanguage.js';
 import { Language, languages } from '../i18n.js';
 import catchError from '../utils/catchError.js';
 import Fetch from '../utils/Fetch.js';
+import Version from '../utils/Version.js';
 import BrutePortrait from './Brute/Body/BrutePortait.js';
 import Text from './Text.js';
 
@@ -127,7 +128,7 @@ const Page = ({
               sx={{ verticalAlign: 'middle' }}
             />
           </Link>
-          {' '}| Remade with love at{' '}
+          {' '}| v{Version} Remade with love at{' '}
           <Link href="https://eternal-twin.net/">Eternal Twin</Link>
           {/* LANGUAGE */}
           {languages.map((lang) => lang !== language && (
