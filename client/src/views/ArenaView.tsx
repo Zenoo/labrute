@@ -1,5 +1,5 @@
 import { Brute } from '@eternaltwin/labrute-core/types';
-import { Box, Grid, Paper } from '@mui/material';
+import { Box, Button, Grid, Paper } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -10,6 +10,7 @@ import BruteHP from '../components/Brute/BruteHP.js';
 import Link from '../components/Link.js';
 import Page from '../components/Page.js';
 import StyledButton from '../components/StyledButton.js';
+import StyledInput from '../components/StyledInput.js';
 import Text from '../components/Text.js';
 import { useAlert } from '../hooks/useAlert.js';
 import useStateAsync from '../hooks/useStateAsync.js';
@@ -24,6 +25,7 @@ const ArenaView = () => {
 
   const { data: brute } = useStateAsync(null, Server.Brute.get, bruteName);
   const [opponents, setOpponents] = useState<Brute[]>([]);
+  const [search, setSearch] = useState('');
 
   // Fetch random opponents
   useEffect(() => {
@@ -41,9 +43,35 @@ const ArenaView = () => {
     return cleanup;
   }, [Alert, brute]);
 
+  // Go to versus page
   const goToVersus = useCallback((opponent: Brute) => () => {
     navigate(`/${bruteName}/versus/${opponent.name}`);
   }, [bruteName, navigate]);
+
+  const changeSearch = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(event.target.value);
+  }, []);
+
+  // Search for opponents
+  const searchOpponent = useCallback(() => {
+    if (!brute) return;
+    if (search.length < 3) {
+      Alert.open('error', t('arena.search.atLeastThreeCharacters'));
+      return;
+    }
+    if (search === brute.name) {
+      Alert.open('error', t('arena.search.noSelf'));
+      return;
+    }
+
+    Server.Brute.isNameAvailable(search).then((notFound) => {
+      if (notFound) {
+        Alert.open('error', t('arena.search.notFound'));
+      } else {
+        navigate(`/${bruteName}/versus/${search}`);
+      }
+    }).catch(catchError(Alert));
+  }, [Alert, brute, bruteName, navigate, search, t]);
 
   return brute && (
     <Page title={`${brute.name || ''} ${t('MyBrute')}`}>
@@ -123,6 +151,14 @@ const ArenaView = () => {
                 </Box>
               </StyledButton>
             ))}
+            <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
+              <StyledInput
+                onChange={changeSearch}
+                value={search}
+                sx={{ mr: 2 }}
+              />
+              <Button onClick={searchOpponent} variant="contained">GO !</Button>
+            </Box>
           </Grid>
           <Grid item xs={12} sm={2.4}>
             <Text bold>{t('selectedOpponents')}</Text>

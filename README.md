@@ -12,11 +12,11 @@
 
 - Copy `.env.sample` to `.env` and adapt the variables
 
-- Run `yarn run db:sync`.
+- Run `yarn db:sync`.
 
-- Run `yarn run db:populate`.
+- Run `yarn db:populate`.
 
-- Start the server with `yarn run start`
+- Start the server with `yarn start`
 
 ## Contributing
 
@@ -28,11 +28,11 @@
 
 - Copy `.env.sample` to `.env` and adapt the variables
 
-- Start the backend `yarn run back`
+- Start the backend `yarn back`
 
-- Start the frontend `yarn run front`
+- Start the frontend `yarn front`
 
-- Start the etwin local server `yarn run etwin`
+- Start the etwin local server `yarn etwin`
 
 - Commit and push your changes
 

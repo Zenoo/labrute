@@ -167,6 +167,9 @@
   "bruteRegistered": "Brute successfully registered.",
   "bruteNotRegistered": "Brute not registered.",
   "youCanRegisterYourBrute": "You can register your Brute for the next tournament.",
+  "arena.search.notFound": "No Brute found with this name.",
+  "arena.search.noSelf": "Stop hitting yourself.",
+  "arena.search.atLeastThreeCharacters": "Please enter at least 3 characters.",
 
   "en-version": "English version",
   "fr-version": "Version française",

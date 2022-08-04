@@ -166,6 +166,9 @@
   "bruteRegistered": "Brute inscrite",
   "bruteNotRegistered": "Brute non inscrite",
   "youCanRegisterYourBrute": "Tu peux inscrire ta brute pour le prochain tournoi.",
+  "arena.search.notFound": "Aucune brute ne correspond à ta recherche.",
+  "arena.search.noSelf": "Tu ne peux pas te défouler sur toi-même.",
+  "arena.search.atLeastThreeCharacters": "Tu dois saisir au moins 3 caractères.",
 
   "en-version": "English version",
   "fr-version": "Version française",
