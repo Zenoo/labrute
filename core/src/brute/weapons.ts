@@ -12,6 +12,7 @@ export interface Weapon {
   blockRate: number;
   accuracy: number;
   precision: number;
+  disarmRate: number;
 }
 
 const weapons: Weapon[] = [
@@ -26,6 +27,7 @@ const weapons: Weapon[] = [
     blockRate: -0.5,
     accuracy: 0.5,
     precision: -0.3,
+    disarmRate: 0.1,
   },
   {
     name: 'baton',
@@ -38,6 +40,7 @@ const weapons: Weapon[] = [
     blockRate: 0.25,
     accuracy: 0,
     precision: 0,
+    disarmRate: 0.25,
   },
   {
     name: 'broadsword',
@@ -50,6 +53,7 @@ const weapons: Weapon[] = [
     blockRate: 0.15,
     accuracy: 0,
     precision: 0,
+    disarmRate: 0.15,
   },
   {
     name: 'bumps',
@@ -62,6 +66,7 @@ const weapons: Weapon[] = [
     blockRate: -0.3,
     accuracy: 0.3,
     precision: -0.35,
+    disarmRate: 0.1,
   },
   {
     name: 'fan',
@@ -74,6 +79,7 @@ const weapons: Weapon[] = [
     blockRate: -0.5,
     accuracy: 0,
     precision: 0.5,
+    disarmRate: -0.5,
   },
   {
     name: 'flail',
@@ -86,6 +92,7 @@ const weapons: Weapon[] = [
     blockRate: -0.5,
     accuracy: 1.5,
     precision: -0.1,
+    disarmRate: -0.2,
   },
   {
     name: 'fryingPan',
@@ -98,6 +105,7 @@ const weapons: Weapon[] = [
     blockRate: 0.4,
     accuracy: 0,
     precision: 0,
+    disarmRate: 0,
   },
   {
     name: 'halbard',
@@ -110,6 +118,7 @@ const weapons: Weapon[] = [
     blockRate: 0,
     accuracy: 0,
     precision: -0.4,
+    disarmRate: 0.1,
   },
   {
     name: 'hatchet',
@@ -122,6 +131,7 @@ const weapons: Weapon[] = [
     blockRate: -0.1,
     accuracy: 0,
     precision: 0,
+    disarmRate: 0,
   },
   {
     name: 'keyboard',
@@ -134,6 +144,7 @@ const weapons: Weapon[] = [
     blockRate: 0,
     accuracy: 0,
     precision: 0.2,
+    disarmRate: 0,
   },
   {
     name: 'knife',
@@ -146,6 +157,7 @@ const weapons: Weapon[] = [
     blockRate: 0,
     accuracy: 0,
     precision: 0.5,
+    disarmRate: 0,
   },
   {
     name: 'lance',
@@ -158,6 +170,7 @@ const weapons: Weapon[] = [
     blockRate: 0,
     accuracy: 0,
     precision: 0,
+    disarmRate: 0.1,
   },
   {
     name: 'leek',
@@ -171,6 +184,7 @@ const weapons: Weapon[] = [
     blockRate: -0.5,
     accuracy: 2,
     precision: 1,
+    disarmRate: 0,
   },
   {
     name: 'mammothBone',
@@ -183,6 +197,7 @@ const weapons: Weapon[] = [
     blockRate: 0,
     accuracy: 0.5,
     precision: 0,
+    disarmRate: 0.1,
   },
   {
     name: 'morningStar',
@@ -195,6 +210,7 @@ const weapons: Weapon[] = [
     blockRate: 0,
     accuracy: 0.3,
     precision: -0.05,
+    disarmRate: 0.1,
   },
   {
     name: 'mug',
@@ -207,6 +223,7 @@ const weapons: Weapon[] = [
     blockRate: -0.1,
     accuracy: 0,
     precision: 0.3,
+    disarmRate: 0,
   },
   {
     name: 'noodleBowl',
@@ -219,6 +236,7 @@ const weapons: Weapon[] = [
     blockRate: -0.1,
     accuracy: 0,
     precision: 0,
+    disarmRate: 0,
   },
   {
     name: 'piopio',
@@ -231,6 +249,7 @@ const weapons: Weapon[] = [
     blockRate: -0.1,
     accuracy: 0,
     precision: 0,
+    disarmRate: 0,
   },
   {
     name: 'racquet',
@@ -243,6 +262,7 @@ const weapons: Weapon[] = [
     blockRate: 0.2,
     accuracy: 0,
     precision: 0,
+    disarmRate: 0,
   },
   {
     name: 'sai',
@@ -255,6 +275,7 @@ const weapons: Weapon[] = [
     blockRate: 0.3,
     accuracy: 0,
     precision: 0.25,
+    disarmRate: 1,
   },
   {
     name: 'scimitar',
@@ -267,6 +288,7 @@ const weapons: Weapon[] = [
     blockRate: 0.1,
     accuracy: 0,
     precision: 0.2,
+    disarmRate: 0,
   },
   {
     name: 'shuriken',
@@ -279,6 +301,7 @@ const weapons: Weapon[] = [
     blockRate: -0.1,
     accuracy: 0,
     precision: 0,
+    disarmRate: -0.5,
   },
   {
     name: 'sword',
@@ -291,6 +314,7 @@ const weapons: Weapon[] = [
     blockRate: 0,
     accuracy: -0.2,
     precision: -0.1,
+    disarmRate: 0.1,
   },
   {
     name: 'trident',
@@ -303,6 +327,7 @@ const weapons: Weapon[] = [
     blockRate: 0,
     accuracy: 0,
     precision: 0,
+    disarmRate: 0.2,
   },
   {
     name: 'trombone',
@@ -315,6 +340,7 @@ const weapons: Weapon[] = [
     blockRate: 0.2,
     accuracy: 0.2,
     precision: -0.1,
+    disarmRate: 0.5,
   },
   {
     name: 'whip',
@@ -327,6 +353,7 @@ const weapons: Weapon[] = [
     blockRate: -0.2,
     accuracy: -0.2,
     precision: 0.3,
+    disarmRate: 0.3,
   },
 ];
 

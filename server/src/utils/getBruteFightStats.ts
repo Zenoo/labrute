@@ -68,6 +68,14 @@ const getBruteIndependentStats = (brute: Brute) => {
     armor += 2;
   }
 
+  /* DISARM RATE */
+  let disarmRate = 0;
+
+  // +50% disarmRate for `shock`
+  if (brute.data.skills.includes('shock')) {
+    disarmRate += 0.5;
+  }
+
   return {
     // Main stats
     hp: brute.data.stats.hp,
@@ -83,6 +91,7 @@ const getBruteIndependentStats = (brute: Brute) => {
     blockRate,
     accuracy,
     armor,
+    disarmRate,
   };
 };
 
