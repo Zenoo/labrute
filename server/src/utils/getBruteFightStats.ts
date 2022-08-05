@@ -55,6 +55,19 @@ const getBruteIndependentStats = (brute: Brute) => {
   /* ACCURACY */
   const accuracy = 1; // Not sure what's the real base value for this
 
+  /* ARMOR */
+  let armor = 0;
+
+  // +5 armor for `armor`
+  if (brute.data.skills.includes('armor')) {
+    armor += 5;
+  }
+
+  // +2 armor for `toughenedSkin`
+  if (brute.data.skills.includes('toughenedSkin')) {
+    armor += 2;
+  }
+
   return {
     // Main stats
     hp: brute.data.stats.hp,
@@ -69,6 +82,7 @@ const getBruteIndependentStats = (brute: Brute) => {
     reversalRate,
     blockRate,
     accuracy,
+    armor,
   };
 };
 
