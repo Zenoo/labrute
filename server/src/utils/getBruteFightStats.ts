@@ -84,7 +84,7 @@ const getBruteIndependentStats = (brute: Brute) => {
     speed: brute.data.stats.speed.value,
     // Hidden stats
     initiative,
-    interval: 100, // 100 for hand combat ? Not sure
+    interval: 1, // 1 for hand combat ? Not sure
     counterRate,
     comboRate,
     reversalRate,
