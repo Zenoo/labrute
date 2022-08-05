@@ -52,6 +52,9 @@ const getBruteIndependentStats = (brute: Brute) => {
   //   blockRate += 0.1;
   // }
 
+  /* ACCURACY */
+  const accuracy = 1; // Not sure what's the real base value for this
+
   return {
     // Main stats
     hp: brute.data.stats.hp,
@@ -65,6 +68,7 @@ const getBruteIndependentStats = (brute: Brute) => {
     comboRate,
     reversalRate,
     blockRate,
+    accuracy,
   };
 };
 
