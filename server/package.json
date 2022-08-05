@@ -23,8 +23,8 @@
     "build": "tsc --build ./tsconfig.json",
     "start": "yarn run build && node ./build/server.js",
     "start:watch": "tsc-watch --build ./tsconfig.json --onSuccess \"node ./build/server.js\"",
-    "db:sync": "yarn run build && node ./build/db/sync-database.js",
     "db:populate": "yarn run build && node ./build/db/populate.js",
+    "db:sync": "yarn run build && node ./build/db/sync-database.js && yarn run db:populate",
     "db:brute:generate": "yarn run build && node ./build/db/generate-brute.js"
   },
   "devDependencies": {

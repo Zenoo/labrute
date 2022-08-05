@@ -17,8 +17,8 @@
     "build:production:server": "cd server && yarn run build",
     "start": "cd server && yarn run start",
     "etwin": "etwin",
-    "db:sync": "cd server && yarn run db:sync",
     "db:populate": "cd server && yarn run db:populate",
+    "db:sync": "cd server && yarn run db:sync && yarn run db:populate",
     "db:brute:generate": "cd server && yarn run db:brute:generate"
   },
   "devDependencies": {
