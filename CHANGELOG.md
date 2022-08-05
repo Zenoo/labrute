@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.2](https://github.com/Zenoo/labrute/compare/v0.4.1...v0.4.2) (2022-08-05)
+
+
+### Refactoring
+
+* Use a single translation file ([c4d0a15](https://github.com/Zenoo/labrute/commit/c4d0a15b4f4e998368eb7d61b7ed1d1c620ad659))
+
+
+### Bug fix
+
+* provide OAuth client id through the environment ([dece8ea](https://github.com/Zenoo/labrute/commit/dece8ea599f3cd5432b0f473b130385c4ab8f16a))
+
+
+### Feature
+
+* Display version in footer. Fixes [#31](https://github.com/Zenoo/labrute/issues/31) ([ba78afd](https://github.com/Zenoo/labrute/commit/ba78afd1aed01881c8a0bd851c36b3f1f60c3980))
+* Fight page [#24](https://github.com/Zenoo/labrute/issues/24) + destinies overwrite fix. Fixes [#46](https://github.com/Zenoo/labrute/issues/46). ([d9df652](https://github.com/Zenoo/labrute/commit/d9df6525a231ed7fa95109e2f0a0de49da6b1b2b))
+* Search in the arena. Fixes [#38](https://github.com/Zenoo/labrute/issues/38) ([a56c927](https://github.com/Zenoo/labrute/commit/a56c9271cd365fbfd994435afb77c971a40b6996))
+
 ### [0.4.1](https://github.com/Zenoo/labrute/compare/v0.4.0...v0.4.1) (2022-08-03)
 
 
