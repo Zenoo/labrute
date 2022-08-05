@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.6](https://github.com/Zenoo/labrute/compare/v0.4.5...v0.4.6) (2022-08-05)
+
+
+### Bug fix
+
+* Fix frontend production build flakiness ([2fe6f18](https://github.com/Zenoo/labrute/commit/2fe6f183f7f020caf72b68ce9ce785d07d51fc6b))
+* Run db:populate at the end of db:sync ([cdf1a8e](https://github.com/Zenoo/labrute/commit/cdf1a8ead8fd6669459805ea0118b4e21e62aee8))
+
 ### [0.4.5](https://github.com/Zenoo/labrute/compare/v0.4.4...v0.4.5) (2022-08-05)
 
 
