@@ -1,4 +1,26 @@
 import { Brute } from '@eternaltwin/labrute-core/types';
+import skills, { Skill } from '@eternaltwin/labrute-core/brute/skills';
+import weapons, { Weapon } from '@eternaltwin/labrute-core/brute/weapons';
+
+export interface FightStats {
+  hp: number,
+  strength: number,
+  agility: number,
+  speed: number,
+  initiative: number,
+  interval: number,
+  counterRate: number,
+  comboRate: number,
+  reversalRate: number,
+  blockRate: number,
+  accuracy: number,
+  armor: number,
+  disarmRate: number,
+  evasion: number,
+  precision: number,
+  skills: Skill[],
+  weapons: Weapon[],
+}
 
 const getBruteIndependentStats = (brute: Brute) => {
   /* INITIATIVE */
@@ -95,7 +117,9 @@ const getBruteIndependentStats = (brute: Brute) => {
   };
 };
 
-const getBrutesFightStats = (brute1: Brute, brute2: Brute) => {
+const getBrutesFightStats = (brute1: Brute, brute2: Brute): {
+  brute1: FightStats, brute2: FightStats
+} => {
   const brute1IndependentStats = getBruteIndependentStats(brute1);
   const brute2IndependentStats = getBruteIndependentStats(brute2);
 
@@ -128,11 +152,15 @@ const getBrutesFightStats = (brute1: Brute, brute2: Brute) => {
       ...brute1IndependentStats,
       evasion: brute1Evasion,
       precision: brute1Precision,
+      skills: skills.filter((skill) => brute1.data.skills.includes(skill.name)),
+      weapons: weapons.filter((weapon) => brute1.data.weapons.includes(weapon.name)),
     },
     brute2: {
       ...brute2IndependentStats,
       evasion: brute2Evasion,
       precision: brute2Precision,
+      skills: skills.filter((skill) => brute2.data.skills.includes(skill.name)),
+      weapons: weapons.filter((weapon) => brute2.data.weapons.includes(weapon.name)),
     },
   };
 };

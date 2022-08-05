@@ -13,6 +13,7 @@ export interface Weapon {
   accuracy: number;
   precision: number;
   disarmRate: number;
+  damage: number;
 }
 
 const weapons: Weapon[] = [
@@ -28,6 +29,7 @@ const weapons: Weapon[] = [
     accuracy: 0.5,
     precision: -0.3,
     disarmRate: 0.1,
+    damage: 55,
   },
   {
     name: 'baton',
@@ -41,6 +43,7 @@ const weapons: Weapon[] = [
     accuracy: 0,
     precision: 0,
     disarmRate: 0.25,
+    damage: 6,
   },
   {
     name: 'broadsword',
@@ -54,6 +57,7 @@ const weapons: Weapon[] = [
     accuracy: 0,
     precision: 0,
     disarmRate: 0.15,
+    damage: 10,
   },
   {
     name: 'bumps',
@@ -67,6 +71,7 @@ const weapons: Weapon[] = [
     accuracy: 0.3,
     precision: -0.35,
     disarmRate: 0.1,
+    damage: 30,
   },
   {
     name: 'fan',
@@ -80,6 +85,7 @@ const weapons: Weapon[] = [
     accuracy: 0,
     precision: 0.5,
     disarmRate: -0.5,
+    damage: 4,
   },
   {
     name: 'flail',
@@ -93,6 +99,7 @@ const weapons: Weapon[] = [
     accuracy: 1.5,
     precision: -0.1,
     disarmRate: -0.2,
+    damage: 36,
   },
   {
     name: 'fryingPan',
@@ -106,6 +113,7 @@ const weapons: Weapon[] = [
     accuracy: 0,
     precision: 0,
     disarmRate: 0,
+    damage: 17,
   },
   {
     name: 'halbard',
@@ -119,6 +127,7 @@ const weapons: Weapon[] = [
     accuracy: 0,
     precision: -0.4,
     disarmRate: 0.1,
+    damage: 24,
   },
   {
     name: 'hatchet',
@@ -132,6 +141,7 @@ const weapons: Weapon[] = [
     accuracy: 0,
     precision: 0,
     disarmRate: 0,
+    damage: 17,
   },
   {
     name: 'keyboard',
@@ -145,6 +155,7 @@ const weapons: Weapon[] = [
     accuracy: 0,
     precision: 0.2,
     disarmRate: 0,
+    damage: 7,
   },
   {
     name: 'knife',
@@ -158,6 +169,7 @@ const weapons: Weapon[] = [
     accuracy: 0,
     precision: 0.5,
     disarmRate: 0,
+    damage: 7,
   },
   {
     name: 'lance',
@@ -171,6 +183,7 @@ const weapons: Weapon[] = [
     accuracy: 0,
     precision: 0,
     disarmRate: 0.1,
+    damage: 12,
   },
   {
     name: 'leek',
@@ -185,6 +198,7 @@ const weapons: Weapon[] = [
     accuracy: 2,
     precision: 1,
     disarmRate: 0,
+    damage: 5,
   },
   {
     name: 'mammothBone',
@@ -198,6 +212,7 @@ const weapons: Weapon[] = [
     accuracy: 0.5,
     precision: 0,
     disarmRate: 0.1,
+    damage: 14,
   },
   {
     name: 'morningStar',
@@ -211,6 +226,7 @@ const weapons: Weapon[] = [
     accuracy: 0.3,
     precision: -0.05,
     disarmRate: 0.1,
+    damage: 20,
   },
   {
     name: 'mug',
@@ -224,6 +240,7 @@ const weapons: Weapon[] = [
     accuracy: 0,
     precision: 0.3,
     disarmRate: 0,
+    damage: 8,
   },
   {
     name: 'noodleBowl',
@@ -237,6 +254,7 @@ const weapons: Weapon[] = [
     accuracy: 0,
     precision: 0,
     disarmRate: 0,
+    damage: 10,
   },
   {
     name: 'piopio',
@@ -250,6 +268,7 @@ const weapons: Weapon[] = [
     accuracy: 0,
     precision: 0,
     disarmRate: 0,
+    damage: 5,
   },
   {
     name: 'racquet',
@@ -263,6 +282,7 @@ const weapons: Weapon[] = [
     accuracy: 0,
     precision: 0,
     disarmRate: 0,
+    damage: 6,
   },
   {
     name: 'sai',
@@ -276,6 +296,7 @@ const weapons: Weapon[] = [
     accuracy: 0,
     precision: 0.25,
     disarmRate: 1,
+    damage: 8,
   },
   {
     name: 'scimitar',
@@ -289,6 +310,7 @@ const weapons: Weapon[] = [
     accuracy: 0,
     precision: 0.2,
     disarmRate: 0,
+    damage: 10,
   },
   {
     name: 'shuriken',
@@ -302,6 +324,7 @@ const weapons: Weapon[] = [
     accuracy: 0,
     precision: 0,
     disarmRate: -0.5,
+    damage: 3,
   },
   {
     name: 'sword',
@@ -315,6 +338,7 @@ const weapons: Weapon[] = [
     accuracy: -0.2,
     precision: -0.1,
     disarmRate: 0.1,
+    damage: 28,
   },
   {
     name: 'trident',
@@ -328,6 +352,7 @@ const weapons: Weapon[] = [
     accuracy: 0,
     precision: 0,
     disarmRate: 0.2,
+    damage: 14,
   },
   {
     name: 'trombone',
@@ -341,6 +366,7 @@ const weapons: Weapon[] = [
     accuracy: 0.2,
     precision: -0.1,
     disarmRate: 0.5,
+    damage: 20,
   },
   {
     name: 'whip',
@@ -354,6 +380,7 @@ const weapons: Weapon[] = [
     accuracy: -0.2,
     precision: 0.3,
     disarmRate: 0.3,
+    damage: 10,
   },
 ];
 

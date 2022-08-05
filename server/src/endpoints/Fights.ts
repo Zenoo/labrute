@@ -2,7 +2,7 @@ import { Brute, Fight } from '@eternaltwin/labrute-core/types';
 import { Request, Response } from 'express';
 import DB from '../db/client.js';
 import auth from '../utils/auth.js';
-import getBruteFightStats from '../utils/getBruteFightStats.js';
+import getBruteFightStats from '../utils/fight/getBruteFightStats.js';
 import sendError from '../utils/sendError.js';
 
 const Fights = {
