@@ -77,8 +77,8 @@ const getBrutesFightStats = (brute1: Brute, brute2: Brute) => {
   const brute2IndependentStats = getBruteIndependentStats(brute2);
 
   /* EVASION */
-  let brute1Evasion = 0; // TODO: add formula (depends on diff between both burtes agility)
-  let brute2Evasion = 0; // TODO: add formula (depends on diff between both burtes agility)
+  let brute1Evasion = 0; // TODO: add formula (depends on diff between both brutes agility)
+  let brute2Evasion = 0; // TODO: add formula (depends on diff between both brutes agility)
 
   // +30% evasion for `untouchable`
   if (brute1.data.skills.includes('untouchable')) {
@@ -88,14 +88,28 @@ const getBrutesFightStats = (brute1: Brute, brute2: Brute) => {
     brute2Evasion += 0.3;
   }
 
+  /* PRECISION */
+  let brute1Precision = 0; // TODO: add formula (depends on diff between both brutes agility)
+  let brute2Precision = 0; // TODO: add formula (depends on diff between both brutes agility)
+
+  // +30% precision for `relentless`
+  if (brute1.data.skills.includes('relentless')) {
+    brute1Precision += 0.3;
+  }
+  if (brute2.data.skills.includes('relentless')) {
+    brute2Precision += 0.3;
+  }
+
   return {
     brute1: {
       ...brute1IndependentStats,
       evasion: brute1Evasion,
+      precision: brute1Precision,
     },
     brute2: {
       ...brute2IndependentStats,
       evasion: brute2Evasion,
+      precision: brute2Precision,
     },
   };
 };
