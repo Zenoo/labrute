@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.4](https://github.com/Zenoo/labrute/compare/v0.4.3...v0.4.4) (2022-08-05)
+
+
+### Progress
+
+* Accuracy. [#24](https://github.com/Zenoo/labrute/issues/24) ([81f9f61](https://github.com/Zenoo/labrute/commit/81f9f6169cedd73202f39cbfc48b2634e35e395d))
+* Armor. [#24](https://github.com/Zenoo/labrute/issues/24) ([26b22be](https://github.com/Zenoo/labrute/commit/26b22be8586e28b7113857dd5fb83f66f6861252))
+* BlockRate. [#24](https://github.com/Zenoo/labrute/issues/24) ([0d32862](https://github.com/Zenoo/labrute/commit/0d3286277d0689eda740cc49fedb68eae248ac26))
+* Damage. [#24](https://github.com/Zenoo/labrute/issues/24) ([818e67b](https://github.com/Zenoo/labrute/commit/818e67b956fbe4b0090e52299cbd7c97bb3a7405))
+* DisarmRate. [#24](https://github.com/Zenoo/labrute/issues/24) ([0559210](https://github.com/Zenoo/labrute/commit/0559210c2b91ac391b251bcc120c631470b784b6))
+* Evasion. [#24](https://github.com/Zenoo/labrute/issues/24) ([38def62](https://github.com/Zenoo/labrute/commit/38def62d81d442118feb87c598c208a901f09e56))
+* Initiative / Interval / Reach. [#24](https://github.com/Zenoo/labrute/issues/24) ([d21d11c](https://github.com/Zenoo/labrute/commit/d21d11c4574be5cfc632c8ac99d01a76c1909130))
+* Precision. [#24](https://github.com/Zenoo/labrute/issues/24) ([35d22b1](https://github.com/Zenoo/labrute/commit/35d22b1bd631dafeb1b2b362e1ca26a5789d32d1))
+* ReversalRate. [#24](https://github.com/Zenoo/labrute/issues/24) ([156cf93](https://github.com/Zenoo/labrute/commit/156cf93ce4d41678d4e16503149388f0b16f3539))
+
+
+### Bug fix
+
+* Added initiative to dog. [#24](https://github.com/Zenoo/labrute/issues/24) ([d7092fe](https://github.com/Zenoo/labrute/commit/d7092fe57b2c7dc50bd8fae1df93379daf5b3e00))
+* Change interval to base 1. [#24](https://github.com/Zenoo/labrute/issues/24) ([c119067](https://github.com/Zenoo/labrute/commit/c11906712333ffa88ebb3682fdfb8cd7b40f8cfd))
+* Remove client build from server ([1fd634c](https://github.com/Zenoo/labrute/commit/1fd634c27fbbb7fd298c964ddbf32472fc8197a3))
+
 ### [0.4.3](https://github.com/Zenoo/labrute/compare/v0.4.2...v0.4.3) (2022-08-05)
 
 
