@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.5](https://github.com/Zenoo/labrute/compare/v0.4.4...v0.4.5) (2022-08-05)
+
+
+### Bug fix
+
+* ETwin url ([2a75626](https://github.com/Zenoo/labrute/commit/2a75626210a395659e1cb0a84d7729b1bb684494))
+
 ### [0.4.4](https://github.com/Zenoo/labrute/compare/v0.4.3...v0.4.4) (2022-08-05)
 
 
