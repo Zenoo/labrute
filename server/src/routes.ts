@@ -1,15 +1,10 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { Express, Request, Response } from 'express';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import Brutes from './endpoints/Brutes.js';
 import Fights from './endpoints/Fights.js';
 import Logs from './endpoints/Logs.js';
 import OAuth from './endpoints/OAuth.js';
 import Users from './endpoints/Users.js';
-
-const REPO_ROOT = path.join(fileURLToPath(import.meta.url), '..', '..', '..');
-const CLIENT_INDEX = path.join(REPO_ROOT, 'client', 'build', 'index.html');
 
 const initRoutes = (app: Express) => {
   app.get('/api', (req: Request, res: Response) => res.status(200).send({
@@ -38,10 +33,6 @@ const initRoutes = (app: Express) => {
 
   // Fight
   app.get('/api/fight/:name/:id', Fights.get);
-
-  app.get('/', (req, res) => {
-    res.sendFile(CLIENT_INDEX);
-  });
 };
 
 export default initRoutes;
