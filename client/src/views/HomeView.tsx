@@ -7,7 +7,7 @@ import moment from 'moment';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import BoxWithBackground from '../components/BoxWithBackground.js';
+import BoxBg from '../components/BoxBg.js';
 import BruteComponent from '../components/Brute/Body/BruteComponent.js';
 import EmptyBrute from '../components/Brute/Body/EmptyBrute.js';
 import Page from '../components/Page.js';
@@ -195,11 +195,14 @@ const HomeView = () => {
       <Page title={t('MyBrute')}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
           {/* CHARACTER CREATION */}
-          <BoxWithBackground
-            url="/images/creation/bg.png"
-            alt={t('background')}
-            sx={{ width: 290, height: 454 }}
-            imgSx={{ top: '0.2px', right: 0, left: null }}
+          <BoxBg
+            src="/images/creation/bg.png"
+            sx={{
+              width: 290,
+              height: 454,
+              backgroundSize: '270px 364px',
+              backgroundPosition: '20px -2px',
+            }}
           >
             {/* CREATION HEADER */}
             <Grid container sx={{ pl: 7, pr: 4, pt: 4 }}>
@@ -271,13 +274,11 @@ const HomeView = () => {
                 sx={{ ml: 6 }}
               />
             </Box>
-          </BoxWithBackground>
+          </BoxBg>
           {/* RIGHT SIDE */}
-          <BoxWithBackground
-            url="/images/main-bg.gif"
-            alt={t('background')}
+          <BoxBg
+            src="/images/main-bg.gif"
             sx={{ width: 640, height: 454 }}
-            imgSx={{ top: '2px' }}
           >
             {/* FIRST TEXT */}
             <Box sx={{ width: 300, mt: 2 }}>
@@ -303,7 +304,7 @@ const HomeView = () => {
                 </Tooltip>
               ))}
             </Box>
-          </BoxWithBackground>
+          </BoxBg>
         </Box>
       </Page>
     );

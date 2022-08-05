@@ -1,20 +1,19 @@
 import React from 'react';
-import BoxWithBackground, { BoxWithBackgroundProps } from '../BoxWithBackground.js';
+import BoxBg, { BoxBgProps } from '../BoxBg.js';
 import Text from '../Text.js';
 
-interface BruteHPProps extends Omit<BoxWithBackgroundProps, 'url' | 'alt'> {
+interface BruteHPProps extends Omit<BoxBgProps, 'src'> {
   hp: number;
 }
 
 const BruteHP = ({ hp, sx, ...rest }: BruteHPProps) => (
-  <BoxWithBackground
-    sx={{ textAlign: 'center', pt: '5px', width: 39, display: 'inline-block', ...sx }}
+  <BoxBg
+    sx={{ textAlign: 'center', pt: '5px', width: 39, height: 29, display: 'inline-block', ...sx }}
     {...rest}
-    url="/images/hp.gif"
-    alt="HP"
+    src="/images/hp.gif"
   >
     <Text bold color="common.white">{hp}</Text>
-  </BoxWithBackground>
+  </BoxBg>
 );
 
 export default BruteHP;

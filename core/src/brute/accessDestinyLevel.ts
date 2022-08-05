@@ -1,4 +1,4 @@
-import { Destiny } from '@eternaltwin/labrute-core/types';
+import { Destiny } from '../types.js';
 
 const accessDestinyLevel = (destiny: Destiny, level: number) => {
   if (level < 1) {

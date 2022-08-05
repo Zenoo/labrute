@@ -3,6 +3,7 @@ import { Express, Request, Response } from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import Brutes from './endpoints/Brutes.js';
+import Fights from './endpoints/Fights.js';
 import Logs from './endpoints/Logs.js';
 import OAuth from './endpoints/OAuth.js';
 import Users from './endpoints/Users.js';
@@ -34,6 +35,9 @@ const initRoutes = (app: Express) => {
 
   // Log
   app.get('/api/log/list/:name', Logs.list);
+
+  // Fight
+  app.get('/api/fight/:name/:id', Fights.get);
 
   app.get('/', (req, res) => {
     res.sendFile(CLIENT_INDEX);

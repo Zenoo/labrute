@@ -2,6 +2,7 @@ import { ARENA_OPPONENTS_COUNT, ARENA_OPPONENTS_MAX_GAP } from '@eternaltwin/lab
 import {
   Brute, Destiny, LevelUpChoice,
 } from '@eternaltwin/labrute-core/types';
+import accessDestinyLevel from '@eternaltwin/labrute-core/brute/accessDestinyLevel';
 import { Request, Response } from 'express';
 import DB from '../db/client.js';
 import auth from '../utils/auth.js';
@@ -34,7 +35,7 @@ const Brutes = {
 
       await client.end();
       if (!brute) {
-        res.status(404).send({ message: 'brute not found' });
+        res.status(404).send({ message: 'Brute not found' });
       } else {
         res.status(200).send(brute);
       }
@@ -113,7 +114,10 @@ const Brutes = {
         'select * from brutes where name = $1 and data ->> \'user\' = $2',
         [req.params.name, user.id],
       );
-      if (!brute) throw new Error('brute not found');
+      if (!brute) {
+        await client.end();
+        throw new Error('brute not found');
+      }
 
       // Get level up choices
       const { rows: { 0: destiny } } = await client.query<Destiny>(
@@ -139,15 +143,18 @@ const Brutes = {
       const user = await auth(client, req);
 
       // Get brute
-      const { rows: { 0: brute } } = await client.query<Brute>(
-        'select name from brutes where name = $1 and data ->> \'user\' = $2',
+      const { rows: { 0: brute } } = await client.query<{ name: string, level: number }>(
+        'select name, data->\'level\' as level from brutes where name = $1 and data ->> \'user\' = $2',
         [req.params.name, user.id],
       );
-      if (!brute) throw new Error('brute not found');
+      if (!brute) {
+        await client.end();
+        throw new Error('brute not found');
+      }
 
       // Get destiny
       let { rows: { 0: destiny } } = await client.query<Destiny>(
-        'select id from destinies where brute = $1',
+        'select id, choices from destinies where brute = $1',
         [brute.name],
       );
 
@@ -160,11 +167,18 @@ const Brutes = {
         destiny = newDestiny;
       } else {
         // Update destiny
-        const { rows: { 0: updatedDestiny } } = await client.query<Destiny>(
-          'update destinies set choices = $1 where id = $2 returning *',
-          [JSON.stringify(req.body.choices), destiny.id],
+        const choices = accessDestinyLevel(destiny, brute.level);
+
+        const destinyBranch = choices?.find((choice) => choice.chosen);
+        if (!destinyBranch) {
+          throw new Error('destiny branch not found');
+        }
+        destinyBranch.nextChoices = req.body.choices;
+
+        await client.query<Destiny>(
+          'update destinies set choices = $1 where id = $2',
+          [JSON.stringify(destiny.choices), destiny.id],
         );
-        destiny = updatedDestiny;
       }
 
       await client.end();
@@ -174,12 +188,14 @@ const Brutes = {
     }
   },
   levelUp: async (
-    req: Request<{ name: string }, unknown, { data: Brute['data'], choices: [LevelUpChoice, LevelUpChoice], destiny: number }>,
+    req: Request<{ name: string }, unknown, { data: Brute['data'], choice: number, destiny: number }>,
     res: Response,
   ) => {
     try {
       const client = await DB.connect();
       const user = await auth(client, req);
+
+      const bruteData = req.body.data;
 
       // Update brute
       await client.query<Brute>(
@@ -187,10 +203,29 @@ const Brutes = {
         [req.body.data, req.params.name, user.id],
       );
 
+      // Get destiny
+      const { rows: { 0: destiny } } = await client.query<Destiny>(
+        'select id, choices from destinies where brute = $1',
+        [req.params.name],
+      );
+
+      if (!destiny) {
+        throw new Error('destiny not found');
+      }
+
+      // Update destiny tree
+      const choices = accessDestinyLevel(destiny, bruteData.level);
+
+      if (!choices) {
+        throw new Error('destiny branch not found');
+      }
+
+      choices[req.body.choice].chosen = true;
+
       // Update destiny
       await client.query<Destiny>(
         'update destinies set choices = $1 where id = $2',
-        [JSON.stringify(req.body.choices), req.body.destiny],
+        [JSON.stringify(destiny.choices), destiny.id],
       );
 
       // Add log

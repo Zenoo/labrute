@@ -1,19 +1,19 @@
 import getLevelUpChoices from '@eternaltwin/labrute-core/brute/getLevelUpChoices';
 import getXPNeeded from '@eternaltwin/labrute-core/brute/getXPNeeded';
 import updateBruteData from '@eternaltwin/labrute-core/brute/updateBruteData';
+import accessDestinyLevel from '@eternaltwin/labrute-core/brute/accessDestinyLevel';
 import { Brute, Destiny, LevelUpChoice } from '@eternaltwin/labrute-core/types';
 import { Alert as MuiAlert, Box, Paper } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
-import BoxWithBackground from '../components/BoxWithBackground.js';
+import BoxBg from '../components/BoxBg.js';
 import BruteComponent from '../components/Brute/Body/BruteComponent.js';
 import Page from '../components/Page.js';
 import StyledButton from '../components/StyledButton.js';
 import Text from '../components/Text.js';
 import { useAlert } from '../hooks/useAlert.js';
 import { useAuth } from '../hooks/useAuth.js';
-import accessDestinyLevel from '../utils/brute/accessDestinyLevel.js';
 import catchError from '../utils/catchError.js';
 import Server from '../utils/Server.js';
 
@@ -69,24 +69,15 @@ const LevelUpView = () => {
   }, [Alert, bruteName, navigate, user]);
 
   // Trigger level up
-  const levelUp = useCallback((number: 0 | 1) => async () => {
+  const levelUp = useCallback((choice: 0 | 1) => async () => {
     if (!brute || !choices || !destiny) return;
 
-    const { [number]: chosen } = choices;
+    const { [choice]: chosen } = choices;
 
     await Server.Brute.levelUp(
       brute.name,
       updateBruteData(brute, chosen),
-      [
-        number === 0 ? {
-          ...choices[0],
-          chosen: true,
-        } : choices[0],
-        number === 1 ? {
-          ...choices[1],
-          chosen: true,
-        } : choices[1],
-      ],
+      choice,
       destiny.id,
     ).catch(catchError(Alert));
     navigate(`/${brute.name}/cell`);
@@ -106,9 +97,8 @@ const LevelUpView = () => {
         </Text>
         <Box sx={{ textAlign: 'center' }}>
           {/* BRUTE */}
-          <BoxWithBackground
-            url="/images/level-up/brute-bg.gif"
-            alt={t('background')}
+          <BoxBg
+            src="/images/level-up/brute-bg.gif"
             sx={{
               height: 182,
               width: 201,
@@ -121,7 +111,7 @@ const LevelUpView = () => {
               inverted
               sx={{ height: 160, mt: 1 }}
             />
-          </BoxWithBackground>
+          </BoxBg>
           {/* ARROWS */}
           <Box
             component="img"
@@ -141,11 +131,11 @@ const LevelUpView = () => {
                   mx: 2
                 }}
               >
-                <BoxWithBackground
-                  url="/images/level-up/box.png"
-                  alt={t('choiceBackground')}
+                <BoxBg
+                  src="/images/level-up/box.png"
                   sx={{
                     pt: 5,
+                    height: 89,
                   }}
                 >
                   {/* CHOICE HEADER */}
@@ -171,7 +161,7 @@ const LevelUpView = () => {
                   {typeof choice.name !== 'string' && (
                     <Text h6 bold smallCaps>{t(choice.name[0])} / {t(choice.name[1])}</Text>
                   )}
-                </BoxWithBackground>
+                </BoxBg>
                 {/* VALIDATE */}
                 <StyledButton
                   sx={{

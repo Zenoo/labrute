@@ -144,3 +144,12 @@ export interface Destiny {
   brute: number;
   choices: [LevelUpChoice, LevelUpChoice];
 }
+
+export interface Fight {
+  id: number;
+  brute_1: string;
+  brute_2: string;
+  data: {
+    steps: Record<string, unknown>[];
+  }
+}

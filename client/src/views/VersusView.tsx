@@ -2,7 +2,7 @@ import { Grid } from '@mui/material';
 import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
-import BoxWithBackground from '../components/BoxWithBackground.js';
+import BoxBg from '../components/BoxBg.js';
 import BruteComponent from '../components/Brute/Body/BruteComponent.js';
 import Page from '../components/Page.js';
 import StyledButton from '../components/StyledButton.js';
@@ -30,14 +30,16 @@ const VersusView = () => {
 
   // Start fight
   const startFight = useCallback(() => {
-    // TODO
-  }, []);
+    if (!brute || !opponent) {
+      return;
+    }
+    navigate(`/${brute.name}/fight/${123}`);
+  }, [brute, navigate, opponent]);
 
   return brute && opponent && (
     <Page title={`${brute.name || ''} ${t('MyBrute')}`}>
-      <BoxWithBackground
-        url="/images/versus/background.gif"
-        alt={t('background')}
+      <BoxBg
+        src="/images/versus/background.gif"
         sx={{
           width: 881,
           maxWidth: 1,
@@ -46,7 +48,6 @@ const VersusView = () => {
           pt: 1.5,
           textAlign: 'center',
         }}
-        imgSx={{ width: 1 }}
       >
         <Text h2 smallCaps bold color="text.primary">{t('dareChallenge')} {opponent.name} !</Text>
         <Grid container spacing={2} sx={{ mt: 4, mb: 5 }}>
@@ -72,7 +73,7 @@ const VersusView = () => {
         <StyledButton onClick={startFight} sx={{ ml: '39.8%' }}>
           <Text h5 typo="handwritten" upperCase bold color="secondary">{t('startFight')}</Text>
         </StyledButton>
-      </BoxWithBackground>
+      </BoxBg>
     </Page>
   );
 };

@@ -1,4 +1,4 @@
-import { Brute, Destiny, LevelUpChoice, Log, User } from '@eternaltwin/labrute-core/types';
+import { Brute, Destiny, Fight, LevelUpChoice, Log, User } from '@eternaltwin/labrute-core/types';
 import Fetch from './Fetch.js';
 
 const Server = {
@@ -18,14 +18,17 @@ const Server = {
     levelUp: (
       name: string,
       data: Brute['data'],
-      choices: [LevelUpChoice, LevelUpChoice],
+      choice: number,
       destiny: number,
-    ) => Fetch<never>(`/api/brute/${name}/level-up`, { data, choices, destiny }, 'POST'),
+    ) => Fetch<never>(`/api/brute/${name}/level-up`, { data, choice, destiny }, 'POST'),
     getOpponents: (name: string, level: number) => Fetch<Brute[]>(`/api/brute/${name}/get-opponents/${level}`),
   },
   Log: {
     list: (brute: string) => Fetch<Log[]>(`/api/log/list/${brute}`),
   },
+  Fight: {
+    get: (name: string, id: number) => Fetch<Fight>(`/api/fight/${name}/${id}`),
+  }
 };
 
 export default Server;

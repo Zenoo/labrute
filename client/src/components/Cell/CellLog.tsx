@@ -2,7 +2,7 @@ import { Log } from '@eternaltwin/labrute-core/types';
 import { BoxProps, Link, Tooltip } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import BoxWithBackground from '../BoxWithBackground.js';
+import BoxBg from '../BoxBg.js';
 import Text from '../Text.js';
 
 export interface CellLogProps extends BoxProps {
@@ -13,13 +13,12 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
   const { t } = useTranslation();
 
   return (
-    <BoxWithBackground
-      url={`/images/log/log_${log.type === 'survive'
+    <BoxBg
+      src={`/images/log/log_${log.type === 'survive'
         ? 'win'
         : log.type === 'lvl'
           ? `lvl_${log.level}`
           : log.type}.gif`}
-      alt={t('background')}
       sx={{
         width: 200,
         height: 53,
@@ -69,7 +68,7 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
           {t(log.xp === 1 ? 'log.xp' : 'log.xps', { xp: log.xp })}
         </Text>
       )}
-    </BoxWithBackground>
+    </BoxBg>
   );
 };
 

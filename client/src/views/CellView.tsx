@@ -4,7 +4,7 @@ import moment from 'moment';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
-import BoxWithBackground from '../components/BoxWithBackground.js';
+import BoxBg from '../components/BoxBg.js';
 import CellClan from '../components/Cell/CellClan.js';
 import CellLog from '../components/Cell/CellLog.js';
 import CellMain from '../components/Cell/CellMain.js';
@@ -162,9 +162,8 @@ const CellView = () => {
               {/* CLAN */}
               <CellClan brute={brute} />
               {/* ADVERT */}
-              <BoxWithBackground
-                url={`/images/${language}/cell/a-bg.gif`}
-                alt={t('background')}
+              <BoxBg
+                src={`/images/${language}/cell/a-bg.gif`}
                 sx={{
                   width: 300,
                   height: 205,
@@ -180,7 +179,7 @@ const CellView = () => {
                     />
                   </Link>
                 </Tooltip>
-              </BoxWithBackground>
+              </BoxBg>
               {/* LOGS */}
               <Box sx={{ ml: 2, mt: 1 }}>
                 {logs.map((log: Log) => <CellLog key={log.id} log={log} />)}
