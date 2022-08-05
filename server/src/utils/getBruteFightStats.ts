@@ -2,23 +2,23 @@ import { Brute } from '@eternaltwin/labrute-core/types';
 
 const getBruteIndependentStats = (brute: Brute) => {
   /* INITIATIVE */
-  const initiative = 0;
+  const initiative = 0; // Not sure what's the real base value for this
 
-  // // +200 initiative for `firstStrike`
+  // // +2 initiative for `firstStrike`
   // if (brute.data.skills.includes('firstStrike')) {
-  //   initiative += 200;
+  //   initiative += 2;
   // }
-  // // -200 initiative for `reconnaissance`
+  // // -2 initiative for `reconnaissance`
   // if (brute.data.skills.includes('reconnaissance')) {
-  //   initiative -= 200;
+  //   initiative -= 2;
   // }
 
   /* COUNTER RATE */
   let counterRate = 0;
 
-  // +10 counterRate for `sixthSense`
+  // +10% counterRate for `sixthSense`
   if (brute.data.skills.includes('sixthSense')) {
-    counterRate += 10;
+    counterRate += 0.1;
   }
 
   /* COMBO RATE */
@@ -29,6 +29,14 @@ const getBruteIndependentStats = (brute: Brute) => {
   // +20% comboRate for `fistsOfFury`
   if (brute.data.skills.includes('fistsOfFury')) {
     comboRate += 0.2;
+  }
+
+  /* REVERSAL RATE */
+  let reversalRate = 0;
+
+  // +33% reversalRate for `hostility`
+  if (brute.data.skills.includes('hostility')) {
+    reversalRate += 0.33;
   }
 
   return {
@@ -42,6 +50,7 @@ const getBruteIndependentStats = (brute: Brute) => {
     interval: 100, // 100 for hand combat ? Not sure
     counterRate,
     comboRate,
+    reversalRate,
   };
 };
 
