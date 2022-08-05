@@ -10,6 +10,7 @@ declare global {
       PORT?: string;
       SELF_URL: string;
       ETWIN_URL: string;
+      ETWIN_CLIENT_ID: string;
       ETWIN_CLIENT_SECRET: string;
     }
   }
