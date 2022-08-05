@@ -26,9 +26,9 @@ const weaponSVGs = {
   noodleBowl: <use key="noodleBowl" height="27.0" id="_w26" transform="matrix(1.0, 0.0, 0.0, 1.0, 169.65, 145.15)" width="36.2" xlinkHref="#sprite47" />,
   piopio: <use key="piopio" height="24.85" id="_w22" transform="matrix(-0.4374, -0.7859, 0.7859, -0.4374, 91.6181, 90.0935)" width="23.55" xlinkHref="#sprite36" />,
   shuriken: <use key="shuriken" height="15.35" id="_w11" transform="matrix(1.7143, 0.0, 0.0, 1.7143, 152.0914, 49.0489)" width="17.1" xlinkHref="#sprite19" />,
-  broadsword: <use key="broadsword" height="22.5" id="_w9" transform="matrix(0.7269, 0.0, 0.0, 0.7269, 22.7385, 105.4265)" width="122.05" xlinkHref="#sprite16" />,
+  sword: <use key="sword" height="22.5" id="_w9" transform="matrix(0.7269, 0.0, 0.0, 0.7269, 22.7385, 105.4265)" width="122.05" xlinkHref="#sprite16" />,
   scimitar: <use key="scimitar" height="22.9" id="_w7" transform="matrix(0.514, -0.514, 0.514, 0.514, 61.7086, 72.2334)" width="101.15" xlinkHref="#sprite12" />,
-  sword: <use key="sword" height="41.3" id="_w2" transform="matrix(0.5771, -0.4402, 0.4402, 0.5771, 56.7885, 26.853)" width="81.15" xlinkHref="#sprite4" />,
+  broadsword: <use key="broadsword" height="41.3" id="_w2" transform="matrix(0.5771, -0.4402, 0.4402, 0.5771, 56.7885, 26.853)" width="81.15" xlinkHref="#sprite4" />,
 };
 
 interface CellWeaponsProps extends BoxProps {
