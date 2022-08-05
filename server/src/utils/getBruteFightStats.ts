@@ -4,11 +4,11 @@ const getBruteIndependentStats = (brute: Brute) => {
   /* INITIATIVE */
   const initiative = 0; // Not sure what's the real base value for this
 
-  // // +2 initiative for `firstStrike`
+  // // +2 initiative for `firstStrike` LB v2
   // if (brute.data.skills.includes('firstStrike')) {
   //   initiative += 2;
   // }
-  // // -2 initiative for `reconnaissance`
+  // // -2 initiative for `reconnaissance` LB v2
   // if (brute.data.skills.includes('reconnaissance')) {
   //   initiative -= 2;
   // }
@@ -39,6 +39,19 @@ const getBruteIndependentStats = (brute: Brute) => {
     reversalRate += 0.33;
   }
 
+  /* BLOCK RATE */
+  let blockRate = 0;
+
+  // +45% blockRate for `shield`
+  if (brute.data.skills.includes('shield')) {
+    blockRate += 0.45;
+  }
+
+  // // +10% blockRate for `counterAttack` LB v2
+  // if (brute.data.skills.includes('counterAttack')) {
+  //   blockRate += 0.1;
+  // }
+
   return {
     // Main stats
     hp: brute.data.stats.hp,
@@ -51,6 +64,7 @@ const getBruteIndependentStats = (brute: Brute) => {
     counterRate,
     comboRate,
     reversalRate,
+    blockRate,
   };
 };
 

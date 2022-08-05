@@ -9,6 +9,7 @@ export interface Weapon {
   evasion: number;
   evasionNullifier?: boolean;
   reversalRate: number;
+  blockRate: number;
 }
 
 const weapons: Weapon[] = [
@@ -20,6 +21,7 @@ const weapons: Weapon[] = [
     counterRate: 0.1,
     evasion: -0.4,
     reversalRate: -0.2,
+    blockRate: -0.5,
   },
   {
     name: 'baton',
@@ -29,6 +31,7 @@ const weapons: Weapon[] = [
     counterRate: 0.3,
     evasion: 0.05,
     reversalRate: 0.3,
+    blockRate: 0.25,
   },
   {
     name: 'broadsword',
@@ -38,6 +41,7 @@ const weapons: Weapon[] = [
     counterRate: 0.1,
     evasion: 0,
     reversalRate: 0.1,
+    blockRate: 0.15,
   },
   {
     name: 'bumps',
@@ -47,6 +51,7 @@ const weapons: Weapon[] = [
     counterRate: 0.1,
     evasion: -0.3,
     reversalRate: -0.3,
+    blockRate: -0.3,
   },
   {
     name: 'fan',
@@ -56,6 +61,7 @@ const weapons: Weapon[] = [
     counterRate: 0,
     evasion: 0.6,
     reversalRate: 0.5,
+    blockRate: -0.5,
   },
   {
     name: 'flail',
@@ -65,6 +71,7 @@ const weapons: Weapon[] = [
     counterRate: 0.1,
     evasion: -0.3,
     reversalRate: 0,
+    blockRate: -0.5,
   },
   {
     name: 'fryingPan',
@@ -74,6 +81,7 @@ const weapons: Weapon[] = [
     counterRate: 0.1,
     evasion: 0,
     reversalRate: 0,
+    blockRate: 0.4,
   },
   {
     name: 'halbard',
@@ -83,6 +91,7 @@ const weapons: Weapon[] = [
     counterRate: 0.4,
     evasion: 0,
     reversalRate: 0,
+    blockRate: 0,
   },
   {
     name: 'hatchet',
@@ -92,6 +101,7 @@ const weapons: Weapon[] = [
     counterRate: 0.1,
     evasion: 0,
     reversalRate: 0,
+    blockRate: -0.1,
   },
   {
     name: 'keyboard',
@@ -101,6 +111,7 @@ const weapons: Weapon[] = [
     counterRate: 0.1,
     evasion: 0.1,
     reversalRate: 0,
+    blockRate: 0,
   },
   {
     name: 'knife',
@@ -110,6 +121,7 @@ const weapons: Weapon[] = [
     counterRate: 0,
     evasion: 0.1,
     reversalRate: 0,
+    blockRate: 0,
   },
   {
     name: 'lance',
@@ -119,6 +131,7 @@ const weapons: Weapon[] = [
     counterRate: 0.3,
     evasion: 0,
     reversalRate: -0.1,
+    blockRate: 0,
   },
   {
     name: 'leek',
@@ -129,6 +142,7 @@ const weapons: Weapon[] = [
     evasion: 0,
     evasionNullifier: true,
     reversalRate: 1,
+    blockRate: -0.5,
   },
   {
     name: 'mammothBone',
@@ -138,6 +152,7 @@ const weapons: Weapon[] = [
     counterRate: 0.1,
     evasion: 0,
     reversalRate: 0,
+    blockRate: 0,
   },
   {
     name: 'morningStar',
@@ -147,6 +162,7 @@ const weapons: Weapon[] = [
     counterRate: 0.1,
     evasion: -0.1,
     reversalRate: 0,
+    blockRate: 0,
   },
   {
     name: 'mug',
@@ -156,6 +172,7 @@ const weapons: Weapon[] = [
     counterRate: 0.1,
     evasion: 0.15,
     reversalRate: 0,
+    blockRate: -0.1,
   },
   {
     name: 'noodleBowl',
@@ -165,6 +182,7 @@ const weapons: Weapon[] = [
     counterRate: 0,
     evasion: 0.1,
     reversalRate: 0,
+    blockRate: -0.1,
   },
   {
     name: 'piopio',
@@ -174,6 +192,7 @@ const weapons: Weapon[] = [
     counterRate: 0,
     evasion: 0,
     reversalRate: 0,
+    blockRate: -0.1,
   },
   {
     name: 'racquet',
@@ -183,6 +202,7 @@ const weapons: Weapon[] = [
     counterRate: 0.1,
     evasion: 0.1,
     reversalRate: 1,
+    blockRate: 0.2,
   },
   {
     name: 'sai',
@@ -192,6 +212,7 @@ const weapons: Weapon[] = [
     counterRate: 0,
     evasion: 0.1,
     reversalRate: 0,
+    blockRate: 0.3,
   },
   {
     name: 'scimitar',
@@ -201,6 +222,7 @@ const weapons: Weapon[] = [
     counterRate: 0.1,
     evasion: 0,
     reversalRate: 0,
+    blockRate: 0.1,
   },
   {
     name: 'shuriken',
@@ -210,6 +232,7 @@ const weapons: Weapon[] = [
     counterRate: 0,
     evasion: 0.15,
     reversalRate: 0,
+    blockRate: -0.1,
   },
   {
     name: 'sword',
@@ -219,6 +242,7 @@ const weapons: Weapon[] = [
     counterRate: 0.2,
     evasion: -0.2,
     reversalRate: 0,
+    blockRate: 0,
   },
   {
     name: 'trident',
@@ -228,6 +252,7 @@ const weapons: Weapon[] = [
     counterRate: 0.3,
     evasion: 0,
     reversalRate: 0.05,
+    blockRate: 0,
   },
   {
     name: 'trombone',
@@ -237,6 +262,7 @@ const weapons: Weapon[] = [
     counterRate: 0.2,
     evasion: 0,
     reversalRate: 0,
+    blockRate: 0.2,
   },
   {
     name: 'whip',
@@ -246,6 +272,7 @@ const weapons: Weapon[] = [
     counterRate: 0.5,
     evasion: 0.3,
     reversalRate: -0.1,
+    blockRate: -0.2,
   },
 ];
 
