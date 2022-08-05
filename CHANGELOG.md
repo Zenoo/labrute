@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.3](https://github.com/Zenoo/labrute/compare/v0.4.2...v0.4.3) (2022-08-05)
+
+
+### Bug fix
+
+* Index metadata ([e5490d2](https://github.com/Zenoo/labrute/commit/e5490d26ed6beaaa3b05ba80c3a37b7e3103d79a))
+
 ### [0.4.2](https://github.com/Zenoo/labrute/compare/v0.4.1...v0.4.2) (2022-08-05)
 
 
