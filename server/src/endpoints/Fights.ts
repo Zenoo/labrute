@@ -65,10 +65,7 @@ const Fights = {
 
       // Global fight data
       const fightData = {
-        stats: {
-          brute1: getBruteFightStats(brute1),
-          brute2: getBruteFightStats(brute2),
-        },
+        stats: getBruteFightStats(brute1, brute2),
         steps: [],
       };
 
