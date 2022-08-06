@@ -3,7 +3,7 @@ import { Weapon } from '@eternaltwin/labrute-core/brute/weapons';
 import randomBetween from '@eternaltwin/labrute-core/utils/randomBetween';
 import { FightStats } from './getBruteFightStats.js';
 
-const getDamage = (brute: FightStats, opponent: FightStats, weapon?: Weapon, skill?: Skill) => {
+const getDamage = (brute: FightStats, opponent: FightStats, skills: Skill[], weapon?: Weapon) => {
   const base = weapon?.damage || 0;
   const { strength } = brute;
   const weaponStrength = 1; // What is this ?
@@ -29,13 +29,26 @@ const getDamage = (brute: FightStats, opponent: FightStats, weapon?: Weapon, ski
   let hammerMultiplier = 1;
 
   // x4 damage for `hammer`
-  if (skill?.name === 'hammer') {
+  if (skills.find((sk) => sk.name === 'hammer')) {
     hammerMultiplier = 4;
   }
 
-  return Math.floor(
-    (base * strength * weaponStrength) * skillsMultiplier * random - armor,
+  // floor((B + N*K) * S * R - A) * H
+  const damage = Math.floor(
+    (base + weaponStrength * skillsMultiplier) * strength * random - armor,
   ) * hammerMultiplier;
+
+  // // Max damage to 20% of opponent's health if `resistant` LB v2
+  // if (opponent.skills.find((sk) => sk.name === 'resistant')) {
+  //   damage = Math.min(damage, Math.floor(opponent.hp * 0.2));
+  // }
+
+  // x2 damage for if skill `fierceBrute` is active and the weapon is not a thrown weapon
+  if (skills.find((sk) => sk.name === 'fierceBrute') && !weapon?.types.includes('thrown')) {
+    return damage * 2;
+  }
+
+  return damage;
 };
 
 export default getDamage;
