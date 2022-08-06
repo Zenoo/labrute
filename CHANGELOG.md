@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.7](https://github.com/Zenoo/labrute/compare/v0.4.6...v0.4.7) (2022-08-06)
+
+
+### Bug fix
+
+* Broadsword/sword french locale ([b0d88c9](https://github.com/Zenoo/labrute/commit/b0d88c955eaf54afaafa2b72bcc1e332a5be2bb7))
+
 ### [0.4.6](https://github.com/Zenoo/labrute/compare/v0.4.5...v0.4.6) (2022-08-05)
 
 
