@@ -1,5 +1,5 @@
 import { Brute } from '@eternaltwin/labrute-core/types';
-import { Box, Button, Grid, Paper } from '@mui/material';
+import { Box, Button, Grid, Paper, useMediaQuery, useTheme } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -22,6 +22,8 @@ const ArenaView = () => {
   const { bruteName } = useParams();
   const Alert = useAlert();
   const navigate = useNavigate();
+  const theme = useTheme();
+  const isMd = useMediaQuery(theme.breakpoints.down('md'));
 
   const { data: brute } = useStateAsync(null, Server.Brute.get, bruteName);
   const [opponents, setOpponents] = useState<Brute[]>([]);
@@ -73,7 +75,7 @@ const ArenaView = () => {
   }, [Alert, brute, bruteName, navigate, search, t]);
 
   return brute && (
-    <Page title={`${brute.name || ''} ${t('MyBrute')}`}>
+    <Page title={`${brute.name || ''} ${t('MyBrute')}`} headerUrl={`/${brute.name}/cell`}>
       <Paper sx={{
         mx: 4,
         display: 'flex',
@@ -87,70 +89,73 @@ const ArenaView = () => {
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         <Grid container spacing={1}>
-          <Grid item xs={12} sm={4}>
-            <Text h4 bold color="secondary" sx={{ ml: 2 }}>{brute.name}</Text>
-            <BruteBodyAndStats brute={brute} />
+          <Grid item xs={12} md={4}>
+            <Text h4 bold color="secondary" sx={{ ml: 2, textAlign: isMd ? 'center' : undefined }}>{brute.name}</Text>
+            <BruteBodyAndStats brute={brute} isMd={isMd} />
             <Box sx={{ textAlign: 'center', mt: 1 }}>
               <Link to={`/${brute.name}/cell`}>
                 <Text bold>{t('backToCell')}</Text>
               </Link>
-              <Box component="img" src="/images/arena/bear.gif" sx={{ maxWidth: 1 }} />
+              {!isMd && (
+                <Box component="img" src="/images/arena/bear.gif" sx={{ maxWidth: 1 }} />
+              )}
             </Box>
           </Grid>
-          <Grid item xs={12} sm={5.6}>
-            {opponents.map((opponent) => (
-              <StyledButton
-                key={opponent.name}
-                image="/images/arena/brute-bg.gif"
-                imageHover="/images/arena/brute-bg-hover.gif"
-                contrast={false}
-                shadow={false}
-                onClick={goToVersus(opponent)}
-                sx={{
-                  display: 'inline-block',
-                  width: 190,
-                  height: 102,
-                  mr: 1,
-                  mb: 1,
-                }}
-              >
-                <Box sx={{
-                  width: 177,
-                  height: 85,
-                  pl: 1,
-                  pt: 0.5,
-                  overflow: 'hidden',
-                  textAlign: 'left',
-                  position: 'relative',
-                }}
-                >
-                  <Text bold color="secondary">{opponent.name}</Text>
-                  <Text bold smallCaps color="text.primary">
-                    {t('level')}
-                    <Text component="span" bold color="secondary"> {opponent.data.level}</Text>
-                  </Text>
-                  <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
-                    <BruteHP hp={opponent.data.stats.hp} />
-                    <Box flexGrow={1} sx={{ ml: 0.5 }}>
-                      <ArenaStat name={t('Str')} value={opponent.data.stats.strength.value} />
-                      <ArenaStat name={t('Agi')} value={opponent.data.stats.agility.value} />
-                      <ArenaStat name={t('Spe')} value={opponent.data.stats.speed.value} />
-                    </Box>
-                  </Box>
-                  <BruteComponent
-                    brute={opponent}
+          <Grid item xs={12} md={5.6}>
+            <Grid container spacing={1}>
+              {opponents.map((opponent) => (
+                <Grid item key={opponent.name} xs={12} sm={6}>
+                  <StyledButton
+                    image="/images/arena/brute-bg.gif"
+                    imageHover="/images/arena/brute-bg-hover.gif"
+                    contrast={false}
+                    shadow={false}
+                    onClick={goToVersus(opponent)}
                     sx={{
-                      position: 'absolute',
-                      height: 160,
-                      top: 0,
-                      left: 92,
-                      zIndex: -1,
+                      width: 190,
+                      height: 102,
+                      mx: 'auto',
                     }}
-                  />
-                </Box>
-              </StyledButton>
-            ))}
-            <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
+                  >
+                    <Box sx={{
+                      width: 185,
+                      height: 89,
+                      pl: 1,
+                      pt: 0.5,
+                      display: 'inline-block',
+                      overflow: 'hidden',
+                      textAlign: 'left',
+                      position: 'relative',
+                    }}
+                    >
+                      <Text bold color="secondary">{opponent.name}</Text>
+                      <Text bold smallCaps color="text.primary">
+                        {t('level')}
+                        <Text component="span" bold color="secondary"> {opponent.data.level}</Text>
+                      </Text>
+                      <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
+                        <BruteHP hp={opponent.data.stats.hp} />
+                        <Box flexGrow={1} sx={{ ml: 0.5 }}>
+                          <ArenaStat name={t('Str')} value={opponent.data.stats.strength.value} />
+                          <ArenaStat name={t('Agi')} value={opponent.data.stats.agility.value} />
+                          <ArenaStat name={t('Spe')} value={opponent.data.stats.speed.value} />
+                        </Box>
+                      </Box>
+                      <BruteComponent
+                        brute={opponent}
+                        sx={{
+                          position: 'absolute',
+                          height: 160,
+                          top: 0,
+                          left: 92,
+                        }}
+                      />
+                    </Box>
+                  </StyledButton>
+                </Grid>
+              ))}
+            </Grid>
+            <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center', mt: 1 }}>
               <StyledInput
                 onChange={changeSearch}
                 value={search}
@@ -159,10 +164,12 @@ const ArenaView = () => {
               <Button onClick={searchOpponent} variant="contained">GO !</Button>
             </Box>
           </Grid>
-          <Grid item xs={12} sm={2.4}>
-            <Text bold>{t('selectedOpponents')}</Text>
-            <Box component="img" src="/images/arena/referee.gif" sx={{ maxWidth: 1 }} />
-          </Grid>
+          {!isMd && (
+            <Grid item xs={12} md={2.4}>
+              <Text bold>{t('selectedOpponents')}</Text>
+              <Box component="img" src="/images/arena/referee.gif" sx={{ maxWidth: 1 }} />
+            </Grid>
+          )}
         </Grid>
       </Paper>
     </Page>
