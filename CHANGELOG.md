@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.9](https://github.com/Zenoo/labrute/compare/v0.4.8...v0.4.9) (2022-08-07)
+
+
+### Bug fix
+
+* Brute creation button not working on mobile. Fixes [#50](https://github.com/Zenoo/labrute/issues/50) ([181698e](https://github.com/Zenoo/labrute/commit/181698e5372f7fe5b5cd7be2ce02543482b45944))
+* Damage furmula typo ([ccd6a83](https://github.com/Zenoo/labrute/commit/ccd6a836482b2f7f57af178cc009cfbe78d6e05b))
+
 ### [0.4.8](https://github.com/Zenoo/labrute/compare/v0.4.7...v0.4.8) (2022-08-07)
 
 
