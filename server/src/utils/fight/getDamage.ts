@@ -35,7 +35,7 @@ const getDamage = (brute: FightStats, opponent: FightStats, skills: Skill[], wea
 
   // floor((B + N*K) * S * R - A) * H
   const damage = Math.floor(
-    (base + weaponStrength * skillsMultiplier) * strength * random - armor,
+    (base + strength * weaponStrength) * skillsMultiplier * random - armor,
   ) * hammerMultiplier;
 
   // // Max damage to 20% of opponent's health if `resistant` LB v2
