@@ -1,7 +1,6 @@
 import { Box, GlobalStyles, useTheme } from '@mui/material';
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import Header from '../components/Header.js';
 
 const Main = () => {
   const theme = useTheme();
@@ -29,10 +28,7 @@ const Main = () => {
         }
       }}
       />
-      <Header />
-      <Box sx={{}}>
-        <Outlet />
-      </Box>
+      <Outlet />
     </Box>
   );
 };

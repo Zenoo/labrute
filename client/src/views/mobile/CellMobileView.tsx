@@ -38,22 +38,31 @@ const CellMobileView = ({
   const isXs = useMediaQuery(theme.breakpoints.only('xs'));
 
   return (
-    <Page title={`${brute.name || ''} ${t('MyBrute')}`}>
+    <Page title={`${brute.name || ''} ${t('MyBrute')}`} headerUrl={`/${brute.name}/cell`}>
       <Grid container spacing={1} alignItems="center">
         {/* BRUTE NAME + SOCIALS */}
         <Grid item xs={12} sm={6} order={isXs ? 1 : 0}>
           <CellSocials brute={brute} smallScreen />
         </Grid>
-        <Grid item xs={12} sm={6} order={isXs ? 6 : 0}>
+        <Grid item xs={12} sm={6} order={isXs ? 6 : 0} alignSelf="stretch">
           {/* REF LINK + CLAN */}
-          {!brute.data.clan && (
-            <Paper sx={{ bgcolor: 'background.paperLight', px: 0, py: 1 }}>
-              <Tooltip title={t('refLink')}>
-                <Text bold textAlign="center">{`${window.location.origin}?ref=${brute.name}`}</Text>
-              </Tooltip>
-              <CellClan brute={brute} />
-            </Paper>
-          )}
+          <Paper sx={{
+            bgcolor: 'background.paperLight',
+            px: 0,
+            py: 1,
+            height: 'calc(100% - 32px)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignContent: 'center',
+            flexDirection: 'column',
+            textAlign: 'center',
+          }}
+          >
+            <Tooltip title={t('refLink')}>
+              <Text bold textAlign="center">{`${window.location.origin}?ref=${brute.name}`}</Text>
+            </Tooltip>
+            <CellClan brute={brute} />
+          </Paper>
         </Grid>
         <Grid item xs={12} sm={6} order={isXs ? 3 : 0} sx={{ textAlign: 'center', px: 1, alignSelf: 'center' }}>
           <Box sx={{ mx: 1 }}>

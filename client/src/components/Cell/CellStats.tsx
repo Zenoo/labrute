@@ -26,8 +26,8 @@ const CellStats = ({
             <Box
               key={excess}
               sx={{
-                height: 16,
-                width: 8,
+                height: 20,
+                width: 12,
                 mr: 0.25,
                 display: 'inline-block',
                 border: '2px solid',

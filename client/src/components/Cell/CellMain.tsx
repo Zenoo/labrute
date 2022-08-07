@@ -81,6 +81,7 @@ const CellMain = ({
             imageHover="/images/button-hover.gif"
             shadow={false}
             contrast={false}
+            shift="8px"
             sx={{
               fontVariant: 'small-caps',
               m: '0 auto',

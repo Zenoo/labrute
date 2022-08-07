@@ -76,7 +76,7 @@ const HomeMobileView = ({
         </Grid>
         {/* CHARACTER CREATION */}
         <Grid item xs={12} sm={6}>
-          <Paper sx={{ bgcolor: 'background.paperLight', height: isSx ? null : `calc(100% - ${theme.spacing(8)})` }}>
+          <Paper sx={{ bgcolor: 'background.paperLight', height: isSx ? null : `calc(100% - ${theme.spacing(4)})` }}>
             {/* CREATION HEADER */}
             <Grid container>
               <Grid item xs={6}>

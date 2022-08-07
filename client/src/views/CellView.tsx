@@ -74,7 +74,7 @@ const CellView = () => {
       />
     )
     : (
-      <Page title={`${bruteName || ''} ${t('MyBrute')}`}>
+      <Page title={`${brute.name} ${t('MyBrute')}`} headerUrl={`/${brute.name}/cell`}>
         <Box display="flex" zIndex={1} sx={{ mt: 2 }}>
           {/* BRUTE NAME + SOCIALS */}
           <CellSocials
@@ -113,7 +113,7 @@ const CellView = () => {
             position: 'absolute',
             top: -9,
             right: 0,
-            width: 302,
+            width: 270,
             height: '9px',
             bgcolor: 'background.paperLight',
           },
@@ -150,7 +150,8 @@ const CellView = () => {
               <Tooltip title={t('refLink')}>
                 <Paper sx={{
                   p: 1,
-                  mx: 0,
+                  mr: 0,
+                  ml: 4,
                   bgcolor: 'background.paperAccent',
                   textAlign: 'center',
                 }}

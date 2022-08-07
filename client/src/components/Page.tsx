@@ -12,15 +12,18 @@ import catchError from '../utils/catchError.js';
 import Fetch from '../utils/Fetch.js';
 import Version from '../utils/Version.js';
 import BrutePortrait from './Brute/Body/BrutePortait.js';
+import Header from './Header.js';
 import Text from './Text.js';
 
 interface Props extends BoxProps {
   title: string,
+  headerUrl?: string,
   children: React.ReactNode;
 }
 
 const Page = ({
   title,
+  headerUrl,
   children,
   ...rest
 }: Props) => {
@@ -63,6 +66,8 @@ const Page = ({
       <Helmet>
         <title>{title}</title>
       </Helmet>
+      {/* HEADER */}
+      <Header url={headerUrl} />
       {children}
       {/* AUTH */}
       <SpeedDial

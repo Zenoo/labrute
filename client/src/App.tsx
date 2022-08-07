@@ -1,4 +1,4 @@
-import { StyledEngineProvider, ThemeProvider } from '@mui/material';
+import { CssBaseline, StyledEngineProvider, ThemeProvider } from '@mui/material';
 import React, { Suspense } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { useRoutes } from 'react-router-dom';
@@ -18,6 +18,7 @@ const App = () => {
 
   return (
     <HelmetProvider>
+      <CssBaseline />
       <AlertProvider>
         <AuthProvider>
           <StyledEngineProvider injectFirst>

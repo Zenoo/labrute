@@ -9,23 +9,25 @@ import BruteHP from './BruteHP.js';
 
 interface BruteBodyAndStatsProps extends BoxProps {
   brute: Brute;
+  isMd?: boolean;
 }
 
 const BruteBodyAndStats = ({
   brute,
+  isMd,
   ...rest
 }: BruteBodyAndStatsProps) => {
   const { t } = useTranslation();
 
   return (
-    <Box display="flex" flexDirection="row" {...rest}>
+    <Box display="flex" flexDirection="row" justifyContent={isMd ? 'center' : undefined} {...rest}>
       {/* BRUTE */}
       <BruteComponent
         brute={brute}
         inverted
         sx={{ height: 160 }}
       />
-      <Stack spacing={1} flexGrow="1">
+      <Stack spacing={1} flexGrow={isMd ? undefined : 1}>
         {/* HP */}
         <Box>
           <BruteHP hp={brute.data.stats.hp} />

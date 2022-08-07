@@ -5,12 +5,14 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useLanguage } from '../hooks/useLanguage.js';
 import pad from '../utils/pad.js';
 
-/**
- * Header component
- * @param props - Props passed to the component
- * @returns The component
- */
-const Header = (props: BoxProps) => {
+export interface HeaderProps extends BoxProps {
+  url?: string;
+}
+
+const Header = ({
+  url,
+  ...rest
+}: HeaderProps) => {
   const { t } = useTranslation();
   const { language } = useLanguage();
 
@@ -31,7 +33,7 @@ const Header = (props: BoxProps) => {
         position: 'relative',
         zIndex: 2,
       }}
-      {...props}
+      {...rest}
     >
       <Box
         component="img"
@@ -45,7 +47,7 @@ const Header = (props: BoxProps) => {
           width: '23.118279569%',
         }}
       />
-      <Link component={RouterLink} to="/">
+      <Link component={RouterLink} to={url || '/'}>
         <Box
           component="img"
           src={`/images/${language}/header/head.jpg`}

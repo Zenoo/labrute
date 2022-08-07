@@ -7,6 +7,7 @@ export interface StyledButtonProps extends Omit<BoxProps, 'translate'> {
   swapImage?: boolean;
   shadow?: boolean;
   contrast?: boolean;
+  shift?: string;
 }
 
 /**
@@ -19,6 +20,7 @@ const StyledButton = React.forwardRef<HTMLDivElement, StyledButtonProps>(({
   swapImage = true,
   shadow = true,
   contrast = true,
+  shift = '4px',
   sx,
   ...rest
 }: StyledButtonProps, ref) => {
@@ -37,38 +39,27 @@ const StyledButton = React.forwardRef<HTMLDivElement, StyledButtonProps>(({
       onMouseLeave={handleMouseLeave}
       ref={ref}
       sx={{
-        position: 'relative',
+        display: 'flex',
+        justifyContent: 'center',
+        alignContent: 'center',
+        flexDirection: 'column',
         textAlign: 'center',
         width: 207,
         height: 58,
+        pt: hover ? 0 : shift,
+        pb: shift,
         cursor: 'pointer',
+        backgroundImage: `url('${swapImage ? hover ? imageHover : image : image}')`,
+        backgroundRepeat: 'no-repeat',
+        filter: `${shadow ? 'drop-shadow(4px 4px 0px rgba(0, 0, 0, 0.2))' : ''} ${contrast && hover ? 'contrast(90%)' : ''}`,
+        fontVariant: 'small-caps',
+        fontWeight: 'bold',
+        color: 'secondary.main',
         ...sx
       }}
       {...rest}
     >
-      <Box
-        component="img"
-        src={swapImage ? hover ? imageHover : image : image}
-        sx={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          zIndex: 1,
-          filter: `${shadow ? 'drop-shadow(4px 4px 0px rgba(0, 0, 0, 0.2))' : ''} ${contrast && hover ? 'contrast(90%)' : ''}`,
-        }}
-      />
-      <Box sx={{
-        position: 'relative',
-        top: '50%',
-        transform: hover ? 'translateY(calc(-50% - 2px))' : 'translateY(-50%)',
-        zIndex: 2,
-        fontVariant: 'small-caps',
-        fontWeight: 'bold',
-        color: 'secondary.main'
-      }}
-      >
-        {children}
-      </Box>
+      {children}
     </Box>
   );
 });
