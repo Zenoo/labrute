@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.8](https://github.com/Zenoo/labrute/compare/v0.4.7...v0.4.8) (2022-08-07)
+
+
+### Progress
+
+* Damage modifier skills. [#24](https://github.com/Zenoo/labrute/issues/24) ([a4f703c](https://github.com/Zenoo/labrute/commit/a4f703cbd51a92eb7d7670a5790f99aebd56551e))
+
+
+### Refactoring
+
+* Arena view responsiveness. Fixes [#35](https://github.com/Zenoo/labrute/issues/35) ([d52fdd0](https://github.com/Zenoo/labrute/commit/d52fdd062fbae19a3c4a824f9f5bb9a8641e6619))
+* Level up view responsiveness. Fixes [#36](https://github.com/Zenoo/labrute/issues/36) ([d2780aa](https://github.com/Zenoo/labrute/commit/d2780aa4a1a5ff9e2efb8716e8f5ee1a3ebc0c69))
+
+
+### Bug fix
+
+* Display bug on Logs. Fixes [#47](https://github.com/Zenoo/labrute/issues/47) ([6fa0c14](https://github.com/Zenoo/labrute/commit/6fa0c14d4dc04a0fc3fa136fbda1b22baa55d0fe))
+* French locale ([7a3478e](https://github.com/Zenoo/labrute/commit/7a3478e6d519749d2e475285466f107efb2e8c70))
+* Interaction errors on mobile. [#50](https://github.com/Zenoo/labrute/issues/50) ([38856e7](https://github.com/Zenoo/labrute/commit/38856e7df97c78e1d72ebe7e5f50efd4803e1b9b))
+
 ### [0.4.7](https://github.com/Zenoo/labrute/compare/v0.4.6...v0.4.7) (2022-08-06)
 
 
