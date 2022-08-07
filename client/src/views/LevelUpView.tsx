@@ -84,7 +84,7 @@ const LevelUpView = () => {
   }, [Alert, brute, choices, destiny, navigate]);
 
   return brute && (
-    <Page title={`${t('MyBrute')}. ${t('newLevelFor')} ${bruteName || ''}`}>
+    <Page title={`${t('MyBrute')}. ${t('newLevelFor')} ${brute.name || ''}`} headerUrl={`/${brute.name}/cell`}>
       <MuiAlert severity="success" variant="filled">
         <Text h5>{t('newLevelFor')} {brute.name} !</Text>
       </MuiAlert>
@@ -128,14 +128,15 @@ const LevelUpView = () => {
                   height: 129,
                   width: 255,
                   display: 'inline-block',
-                  mx: 2
+                  mx: 2,
+                  mb: 2,
                 }}
               >
                 <BoxBg
                   src="/images/level-up/box.png"
                   sx={{
                     pt: 5,
-                    height: 89,
+                    height: 129,
                   }}
                 >
                   {/* CHOICE HEADER */}
