@@ -20,10 +20,12 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
           ? `lvl_${log.level}`
           : log.type}.gif`}
       sx={{
-        width: 200,
+        width: 250,
         height: 53,
         pl: '50px',
         pt: 0.5,
+        pr: 1,
+        pb: 1,
         ...sx,
       }}
       {...rest}
