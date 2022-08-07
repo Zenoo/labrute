@@ -189,6 +189,7 @@ const HomeView = () => {
         changeColors={changeColors}
         leftRedirect={leftRedirect}
         rightRedirect={rightRedirect}
+        createBrute={createBrute}
       />
     )
     : (

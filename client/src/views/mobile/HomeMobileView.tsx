@@ -21,6 +21,7 @@ export interface HomeMobileViewProps {
   changeColors: () => void;
   leftRedirect: number;
   rightRedirect: number;
+  createBrute: () => void;
 }
 
 const HomeMobileView = ({
@@ -34,6 +35,7 @@ const HomeMobileView = ({
   changeColors,
   leftRedirect,
   rightRedirect,
+  createBrute
 }: HomeMobileViewProps) => {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -137,6 +139,7 @@ const HomeMobileView = ({
                 imageHover="/images/button-hover.gif"
                 shadow={false}
                 contrast={false}
+                onClick={createBrute}
                 sx={{
                   fontVariant: 'small-caps',
                   m: '0 auto',
