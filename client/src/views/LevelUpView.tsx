@@ -1,14 +1,16 @@
+import accessDestinyLevel from '@eternaltwin/labrute-core/brute/accessDestinyLevel';
 import getLevelUpChoices from '@eternaltwin/labrute-core/brute/getLevelUpChoices';
 import getXPNeeded from '@eternaltwin/labrute-core/brute/getXPNeeded';
 import updateBruteData from '@eternaltwin/labrute-core/brute/updateBruteData';
-import accessDestinyLevel from '@eternaltwin/labrute-core/brute/accessDestinyLevel';
+import skills from '@eternaltwin/labrute-core/brute/skills';
 import { Brute, Destiny, LevelUpChoice } from '@eternaltwin/labrute-core/types';
-import { Alert as MuiAlert, Box, Paper } from '@mui/material';
+import { Alert as MuiAlert, Box, Paper, useMediaQuery } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import BoxBg from '../components/BoxBg.js';
 import BruteComponent from '../components/Brute/Body/BruteComponent.js';
+import SkillTooltip from '../components/Brute/SkillTooltip.js';
 import Page from '../components/Page.js';
 import StyledButton from '../components/StyledButton.js';
 import Text from '../components/Text.js';
@@ -23,6 +25,7 @@ const LevelUpView = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const Alert = useAlert();
+  const smallScreen = useMediaQuery('(max-width: 638px)');
 
   const [brute, setBrute] = useState<Brute | null>(null);
   const [destiny, setDestiny] = useState<Destiny | undefined>();
@@ -113,11 +116,13 @@ const LevelUpView = () => {
             />
           </BoxBg>
           {/* ARROWS */}
-          <Box
-            component="img"
-            src="/images/level-up/arrows.png"
-            sx={{ mt: -3, zIndex: 1, position: 'relative' }}
-          />
+          {!smallScreen && (
+            <Box
+              component="img"
+              src="/images/level-up/arrows.png"
+              sx={{ mt: -3, zIndex: 1, position: 'relative' }}
+            />
+          )}
           {/* CHOICES */}
           <Box sx={{ my: 1 }}>
             {choices && choices.map((choice, i) => (
@@ -156,7 +161,13 @@ const LevelUpView = () => {
                   {/* CHOICE CONTENT */}
                   {/* Single value */}
                   {typeof choice.name === 'string' && (
-                    <Text h6 bold smallCaps>{t(choice.name)}</Text>
+                    choice.type === 'skill' ? (
+                      <SkillTooltip skill={skills.find((s) => s.name === choice.name)}>
+                        <Text h6 bold smallCaps>{t(choice.name)}</Text>
+                      </SkillTooltip>
+                    ) : (
+                      <Text h6 bold smallCaps>{t(choice.name)}</Text>
+                    )
                   )}
                   {/* Multiple values */}
                   {typeof choice.name !== 'string' && (
