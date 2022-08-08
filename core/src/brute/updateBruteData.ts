@@ -19,13 +19,14 @@ const updateBruteData = (brute: Brute, levelUpChoice: LevelUpChoice) => {
   if (levelUpChoice.type === 'skill') {
     updatedBrute.data.skills.push(levelUpChoice.name as SkillName);
 
-    // STATS BOOSTERS
+    // STATS MODIFIERS
 
     // Vitality modifier
     if (levelUpChoice.name === 'vitality') {
       updatedBrute.data.stats.endurance.modifier *= 1.5;
       updatedBrute.data.stats.endurance.stat += 3;
     }
+
     // Immortality modifier
     if (levelUpChoice.name === 'immortality') {
       updatedBrute.data.stats.endurance.modifier *= 2.5;
@@ -50,6 +51,17 @@ const updateBruteData = (brute: Brute, levelUpChoice: LevelUpChoice) => {
     if (levelUpChoice.name === 'lightningBolt') {
       updatedBrute.data.stats.speed.modifier *= 1.5;
       updatedBrute.data.stats.speed.stat += 3;
+    }
+
+    // Reconnaissance modifier
+    if (levelUpChoice.name === 'reconnaissance') {
+      updatedBrute.data.stats.speed.modifier *= 1.5;
+      updatedBrute.data.stats.speed.stat += 5;
+    }
+
+    // Armor modifier
+    if (levelUpChoice.name === 'armor') {
+      updatedBrute.data.stats.speed.modifier *= 0.9;
     }
   } else if (levelUpChoice.type === 'weapon') {
     // New weapon
