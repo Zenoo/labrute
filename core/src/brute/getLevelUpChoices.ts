@@ -17,7 +17,7 @@ export const availableStats: Stats[] = [
 
 const getLevelUpChoices = (brute: Brute): [LevelUpChoice, LevelUpChoice] => {
   // First choice (Weapon/Skill/Pet)
-  // (+2/+1 Stats if picked something already learned)
+  // (+1/+1 Stats if picked something already learned)
   let firstChoice: LevelUpChoice | null = null;
 
   // Weapon/Skill/Pet ?
@@ -90,7 +90,7 @@ const getLevelUpChoices = (brute: Brute): [LevelUpChoice, LevelUpChoice] => {
     hasPerk = brute.data.weapons.includes(name as WeaponName);
   }
 
-  // Chose +2/+1 stat instead
+  // Chose +1/+1 stat instead
   if (hasPerk) {
     const { [randomBetween(0, availableStats.length - 1)]: firstStat } = availableStats;
     let { [randomBetween(0, availableStats.length - 1)]: secondStat } = availableStats;
@@ -103,7 +103,7 @@ const getLevelUpChoices = (brute: Brute): [LevelUpChoice, LevelUpChoice] => {
     firstChoice = {
       type: 'stats',
       name: [firstStat, secondStat],
-      stats: [2, 1],
+      stats: [1, 1],
       chosen: false,
     };
   } else {
@@ -118,7 +118,7 @@ const getLevelUpChoices = (brute: Brute): [LevelUpChoice, LevelUpChoice] => {
   const secondChoice: LevelUpChoice = {
     type: 'stats',
     name: availableStats[randomBetween(0, availableStats.length - 1)],
-    stats: 3,
+    stats: 2,
     chosen: false,
   };
 
