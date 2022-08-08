@@ -50,10 +50,13 @@ const getLevelUpChoices = (brute: Brute): [LevelUpChoice, LevelUpChoice] => {
     const selectedSkill = skills.find((skill) => skill.name === name);
     const hasSkill = brute.data.skills.includes(name as SkillName);
     if (hasSkill) {
-      hasPerk = true;
+      hasPerk = hasSkill;
     } else if (selectedSkill?.type === 'booster') {
       // Decrease booster chances
-      const gottenBoosters = brute.data.skills.filter((skill) => skills.find((s) => s.name === skill)?.type === 'booster');
+      const boosters = skills.filter((skill) => skill.type === 'booster');
+      const gottenBoosters = brute.data.skills.filter(
+        (skill) => boosters.find((booster) => booster.name === skill),
+      );
 
       switch (gottenBoosters.length) {
         case 0:
@@ -84,7 +87,7 @@ const getLevelUpChoices = (brute: Brute): [LevelUpChoice, LevelUpChoice] => {
           break;
       }
     } else {
-      hasPerk = brute.data.skills.includes(name as SkillName);
+      hasPerk = hasSkill;
     }
   } else {
     hasPerk = brute.data.weapons.includes(name as WeaponName);
