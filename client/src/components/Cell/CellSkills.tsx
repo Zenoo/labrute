@@ -37,6 +37,9 @@ const CellSkills = ({
                   <Text bold h5>{t(skill.name)}</Text>
                   <Divider />
                   <Text sx={{ mt: 1.5, fontSize: 12 }}>{t(`${skill.name}.desc`)}</Text>
+                  {t(`${skill.name}.effect`) && (
+                    <Text bold sx={{ fontSize: 12 }} color="error">{t(`${skill.name}.effect`)}</Text>
+                  )}
                 </>
               )}
               componentsProps={{
