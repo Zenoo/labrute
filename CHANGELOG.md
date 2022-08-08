@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.10](https://github.com/Zenoo/labrute/compare/v0.4.9...v0.4.10) (2022-08-08)
+
+
+### Bug fix
+
+* Instant tooltips on touch ([f8369ce](https://github.com/Zenoo/labrute/commit/f8369ce613a4fe70fe6c43fcb52627da9357b550))
+* Reduce stats gained ([4326e51](https://github.com/Zenoo/labrute/commit/4326e51f9a5b5e1b71fabcb156796bfacd7e6428))
+
+
+### Feature
+
+* Added mor data on skills tooltip + display them while leveling up. [#52](https://github.com/Zenoo/labrute/issues/52) ([e6f690b](https://github.com/Zenoo/labrute/commit/e6f690b08245919515bb6ce2d641c657ec2d3a56))
+* New skills ([9f3f1d1](https://github.com/Zenoo/labrute/commit/9f3f1d16f73ff0f68fbd907ab77d147db24de5df))
+* Stat booster skills now have reduced chances of being selected. Fix [#53](https://github.com/Zenoo/labrute/issues/53) ([8a7025c](https://github.com/Zenoo/labrute/commit/8a7025c3eeeccccc77ca9af91cf7015aeec1aa62))
+
+
+### Refactoring
+
+* Don't pass the destiny between back and front unnecesserally. ([7339671](https://github.com/Zenoo/labrute/commit/733967164ab5e13d44c6226c9f2f4decf44fccd2))
+
 ### [0.4.9](https://github.com/Zenoo/labrute/compare/v0.4.8...v0.4.9) (2022-08-07)
 
 
