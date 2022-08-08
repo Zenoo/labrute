@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.11](https://github.com/Zenoo/labrute/compare/v0.4.10...v0.4.11) (2022-08-08)
+
+
+### Bug fix
+
+* Missing french locale for Reconnaissance ([4c6c665](https://github.com/Zenoo/labrute/commit/4c6c6657cb01340d8009a47d8982616843931a27))
+* Missing stat changes from new skills ([c6874ee](https://github.com/Zenoo/labrute/commit/c6874ee4bbcaea157ea7d44af48195c8dad0f448))
+
 ### [0.4.10](https://github.com/Zenoo/labrute/compare/v0.4.9...v0.4.10) (2022-08-08)
 
 
