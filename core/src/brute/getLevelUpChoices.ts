@@ -4,9 +4,9 @@ import {
 import randomBetween from '../utils/randomBetween.js';
 import weightedRandom from '../utils/weightedRandom.js';
 import { perkOdds } from './createRandomBruteStats.js';
-import pets from './pets.js';
-import skills from './skills.js';
-import weapons from './weapons.js';
+import pets, { PETS_TOTAL_ODDS } from './pets.js';
+import skills, { SKILLS_TOTAL_ODDS } from './skills.js';
+import weapons, { WEAPONS_TOTAL_ODDS } from './weapons.js';
 
 export const availableStats: Stats[] = [
   'endurance',
@@ -21,14 +21,14 @@ const getLevelUpChoices = (brute: Brute): [LevelUpChoice, LevelUpChoice] => {
   let firstChoice: LevelUpChoice | null = null;
 
   // Weapon/Skill/Pet ?
-  const { name: type } = weightedRandom(perkOdds);
+  const { name: type } = weightedRandom(perkOdds, 100);
 
   // Perk name ?
   const name = type === 'pet'
-    ? weightedRandom(pets).name
+    ? weightedRandom(pets, PETS_TOTAL_ODDS).name
     : type === 'skill'
-      ? weightedRandom(skills).name
-      : weightedRandom(weapons).name;
+      ? weightedRandom(skills, SKILLS_TOTAL_ODDS).name
+      : weightedRandom(weapons, WEAPONS_TOTAL_ODDS).name;
 
   // Check if brute already has this perk
   let hasPerk = false;
@@ -46,10 +46,48 @@ const getLevelUpChoices = (brute: Brute): [LevelUpChoice, LevelUpChoice] => {
       default:
         break;
     }
+  } else if (type === 'skill') {
+    const selectedSkill = skills.find((skill) => skill.name === name);
+    const hasSkill = brute.data.skills.includes(name as SkillName);
+    if (hasSkill) {
+      hasPerk = true;
+    } else if (selectedSkill?.type === 'booster') {
+      // Decrease booster chances
+      const gottenBoosters = brute.data.skills.filter((skill) => skills.find((s) => s.name === skill)?.type === 'booster');
+
+      switch (gottenBoosters.length) {
+        case 0:
+          hasPerk = false;
+          break;
+        case 1:
+          // Reduce chance by 50%
+          hasPerk = randomBetween(0, 100) < 50;
+          break;
+        case 2:
+          // Reduce chance by 75%
+          hasPerk = randomBetween(0, 100) < 75;
+          break;
+        case 3:
+          // Reduce chance by 90%
+          hasPerk = randomBetween(0, 100) < 90;
+          break;
+        case 4:
+          // Reduce chance by 95%
+          hasPerk = randomBetween(0, 100) < 95;
+          break;
+        case 5:
+          // Reduce chance by 99%
+          hasPerk = randomBetween(0, 100) < 99;
+          break;
+        default:
+          hasPerk = false;
+          break;
+      }
+    } else {
+      hasPerk = brute.data.skills.includes(name as SkillName);
+    }
   } else {
-    hasPerk = type === 'skill'
-      ? brute.data.skills.includes(name as SkillName)
-      : brute.data.weapons.includes(name as WeaponName);
+    hasPerk = brute.data.weapons.includes(name as WeaponName);
   }
 
   // Chose +2/+1 stat instead
