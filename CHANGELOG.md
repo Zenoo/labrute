@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.12](https://github.com/Zenoo/labrute/compare/v0.4.11...v0.4.12) (2022-08-08)
+
+
+### Documentation
+
+* Added an explanation for the tragic potion poison removal ([c728349](https://github.com/Zenoo/labrute/commit/c728349defb8256770ef29c5671a21367f9a4916))
+
+
+### Bug fix
+
+* boosters logic ([019080d](https://github.com/Zenoo/labrute/commit/019080d57decc58a677755dbaec39b20c54121ee))
+
 ### [0.4.11](https://github.com/Zenoo/labrute/compare/v0.4.10...v0.4.11) (2022-08-08)
 
 
