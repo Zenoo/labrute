@@ -24,16 +24,16 @@ export interface FightStats {
 
 const getBruteIndependentStats = (brute: Brute) => {
   /* INITIATIVE */
-  const initiative = 0; // Not sure what's the real base value for this
+  let initiative = 0; // Not sure what's the real base value for this
 
-  // // +2 initiative for `firstStrike` LB v2
-  // if (brute.data.skills.includes('firstStrike')) {
-  //   initiative += 2;
-  // }
-  // // -2 initiative for `reconnaissance` LB v2
-  // if (brute.data.skills.includes('reconnaissance')) {
-  //   initiative -= 2;
-  // }
+  // +2 initiative for `firstStrike`
+  if (brute.data.skills.includes('firstStrike')) {
+    initiative += 2;
+  }
+  // -2 initiative for `reconnaissance`
+  if (brute.data.skills.includes('reconnaissance')) {
+    initiative -= 2;
+  }
 
   /* COUNTER RATE */
   let counterRate = 0;
@@ -69,10 +69,10 @@ const getBruteIndependentStats = (brute: Brute) => {
     blockRate += 0.45;
   }
 
-  // // +10% blockRate for `counterAttack` LB v2
-  // if (brute.data.skills.includes('counterAttack')) {
-  //   blockRate += 0.1;
-  // }
+  // +10% blockRate for `counterAttack`
+  if (brute.data.skills.includes('counterAttack')) {
+    blockRate += 0.1;
+  }
 
   /* ACCURACY */
   const accuracy = 1; // Not sure what's the real base value for this

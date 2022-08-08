@@ -1,7 +1,7 @@
 import { Brute, Stat } from '@eternaltwin/labrute-core/types';
-import { default as availableSkills } from './skills.js';
-import { default as availableWeapons } from './weapons.js';
-import { default as availablePets } from './pets.js';
+import { default as availableSkills, SKILLS_TOTAL_ODDS } from './skills.js';
+import { default as availableWeapons, WEAPONS_TOTAL_ODDS } from './weapons.js';
+import { default as availablePets, PETS_TOTAL_ODDS } from './pets.js';
 import randomBetween from '../utils/randomBetween.js';
 import weightedRandom from '../utils/weightedRandom.js';
 import getStandardHP from './getStandardHP.js';
@@ -14,23 +14,23 @@ interface Perk {
 }
 
 export const perkOdds: Perk[] = [
-  { name: 'pet', odds: 0.035792 },
-  { name: 'skill', odds: 0.483369 },
-  { name: 'weapon', odds: 0.480839 },
+  { name: 'pet', odds: 3.5 },
+  { name: 'skill', odds: 48.25 },
+  { name: 'weapon', odds: 48.25 },
 ];
 
 const createRandomBruteStats = (): Omit<Brute['data'], 'gender' | 'body' | 'colors' | 'master' | 'victories' | 'pupils' | 'user'> => {
   // Starting budget
   let availablePoints = BRUTE_STARTING_POINTS;
 
-  const perk = weightedRandom(perkOdds);
+  const perk = weightedRandom(perkOdds, 100);
 
   // Pet
-  const pet = perk.name === 'pet' ? weightedRandom(availablePets) : null;
+  const pet = perk.name === 'pet' ? weightedRandom(availablePets, PETS_TOTAL_ODDS) : null;
   // Skill
-  const skills = perk.name === 'skill' ? [weightedRandom(availableSkills).name] : [];
+  const skills = perk.name === 'skill' ? [weightedRandom(availableSkills, SKILLS_TOTAL_ODDS).name] : [];
   // Weapon
-  const weapons = perk.name === 'weapon' ? [weightedRandom(availableWeapons).name] : [];
+  const weapons = perk.name === 'weapon' ? [weightedRandom(availableWeapons, WEAPONS_TOTAL_ODDS).name] : [];
 
   // Stats
   const endurance: Stat = {

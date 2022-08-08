@@ -62,14 +62,18 @@ export type WeaponName = 'fan' | 'keyboard' | 'knife'
   | 'broadsword' | 'scimitar' | 'sword';
 
 export type SkillName = 'herculeanStrength' | 'felineAgility' | 'lightningBolt'
-  | 'vitality' | 'immortality' | 'weaponsMaster'
+  | 'vitality' | 'immortality' | 'reconnaissance' | 'weaponsMaster'
   | 'martialArts' | 'sixthSense' | 'hostility'
   | 'fistsOfFury' | 'shield' | 'armor'
   | 'toughenedSkin' | 'untouchable' | 'sabotage'
   | 'shock' | 'bodybuilder' | 'relentless'
-  | 'survival' | 'thief' | 'fierceBrute'
+  | 'survival' | 'leadSkeleton' | 'balletShoes' | 'determination'
+  | 'firstStrike' | 'resistant' | 'counterAttack' | 'ironHead'
+  | 'thief' | 'fierceBrute'
   | 'tragicPotion' | 'net' | 'bomb'
-  | 'hammer' | 'cryOfTheDamned' | 'hypnosis' | 'flashFlood';
+  | 'hammer' | 'cryOfTheDamned' | 'hypnosis' | 'flashFlood' | 'tamer'
+  | 'regeneration' | 'chef' | 'spy' | 'saboteur' | 'backup'
+  | 'hideaway' | 'monk';
 
 export type PetName = 'dog' | 'panther' | 'bear';
 
@@ -134,7 +138,7 @@ export type Stats = 'endurance' | 'strength' | 'agility' | 'speed';
 export interface LevelUpChoice {
   type: 'skill' | 'weapon' | 'pet' | 'stats';
   name: SkillName | WeaponName | PetName | Stats | [Stats, Stats];
-  stats?: 3 | [2, 1];
+  stats?: 2 | [1, 1];
   nextChoices?: [LevelUpChoice, LevelUpChoice];
   chosen: boolean;
 }

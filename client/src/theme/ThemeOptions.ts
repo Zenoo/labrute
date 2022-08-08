@@ -179,6 +179,7 @@ const defaultTheme = {
       defaultProps: {
         followCursor: true,
         placement: 'top' as const,
+        enterTouchDelay: 100,
       },
       styleOverrides: {
         tooltip: sx({

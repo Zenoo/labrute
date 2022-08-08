@@ -1,3 +1,6 @@
+/**
+ * INTEGERS ONLY
+ */
 const randomBetween = (min: number, max: number) => {
   if (min > max) return 0;
   if (min === max) return min;

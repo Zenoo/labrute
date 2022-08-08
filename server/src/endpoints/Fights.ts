@@ -69,6 +69,32 @@ const Fights = {
         steps: [],
       };
 
+      // Fight loop
+      while (fightData.stats.brute1.hp > 0 && fightData.stats.brute2.hp > 0) {
+        // Get first attacker from initiative (random if same)
+        let attacker = fightData.stats.brute1.initiative > fightData.stats.brute2.initiative
+          ? fightData.stats.brute1
+          : fightData.stats.brute1.initiative < fightData.stats.brute2.initiative
+            ? fightData.stats.brute2
+            : Math.random() > 0.5
+              ? fightData.stats.brute1
+              : fightData.stats.brute2;
+
+        // TODO
+
+        // Get next attacker
+        if (attacker === fightData.stats.brute1) {
+          attacker = fightData.stats.brute2;
+        } else {
+          attacker = fightData.stats.brute1;
+        }
+
+        // TODO
+
+        // Failsafe until the loop is complete
+        fightData.stats.brute1.hp = 0;
+      }
+
       // Save fight
       const { rows: { 0: { id: fightId } } } = await client.query<Fight>(
         'INSERT INTO fights(brute_1, brute_2, data) VALUES($1, $2, $3) RETURNING id',

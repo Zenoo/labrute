@@ -19,12 +19,12 @@ const getDamage = (brute: FightStats, opponent: FightStats, skills: Skill[], wea
     skillsMultiplier += 1;
   }
 
-  // // -30% damage if opponent has `leadSkeleton` LB v2
-  // if (opponent.data.skills.includes('leadSkeleton')) {
-  //   skillsMultiplier -= 0.3;
-  // }
+  // -30% damage if opponent has `leadSkeleton`
+  if (opponent.skills.find((sk) => sk.name === 'leadSkeleton')) {
+    skillsMultiplier -= 0.3;
+  }
 
-  const random = randomBetween(1, 1.5);
+  const random = randomBetween(100, 150) / 100;
   const { armor } = opponent;
   let hammerMultiplier = 1;
 
@@ -34,14 +34,14 @@ const getDamage = (brute: FightStats, opponent: FightStats, skills: Skill[], wea
   }
 
   // floor((B + N*K) * S * R - A) * H
-  const damage = Math.floor(
+  let damage = Math.floor(
     (base + strength * weaponStrength) * skillsMultiplier * random - armor,
   ) * hammerMultiplier;
 
-  // // Max damage to 20% of opponent's health if `resistant` LB v2
-  // if (opponent.skills.find((sk) => sk.name === 'resistant')) {
-  //   damage = Math.min(damage, Math.floor(opponent.hp * 0.2));
-  // }
+  // Max damage to 20% of opponent's health if `resistant`
+  if (opponent.skills.find((sk) => sk.name === 'resistant')) {
+    damage = Math.min(damage, Math.floor(opponent.hp * 0.2));
+  }
 
   // x2 damage for if skill `fierceBrute` is active and the weapon is not a thrown weapon
   if (skills.find((sk) => sk.name === 'fierceBrute') && !weapon?.types.includes('thrown')) {
