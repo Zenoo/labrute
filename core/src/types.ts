@@ -145,7 +145,7 @@ export interface LevelUpChoice {
 
 export interface Destiny {
   id: number;
-  brute: number;
+  brute: string;
   choices: [LevelUpChoice, LevelUpChoice];
 }
 

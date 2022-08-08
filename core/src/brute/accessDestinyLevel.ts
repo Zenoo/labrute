@@ -1,6 +1,5 @@
 import { Destiny } from '../types.js';
 
-// TODO: Change logic to avoid max call stack error
 const accessDestinyLevel = (destiny: Destiny, level: number) => {
   if (level < 1) {
     throw new Error('level must be greater than 0');

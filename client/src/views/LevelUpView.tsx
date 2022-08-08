@@ -1,9 +1,7 @@
-import accessDestinyLevel from '@eternaltwin/labrute-core/brute/accessDestinyLevel';
-import getLevelUpChoices from '@eternaltwin/labrute-core/brute/getLevelUpChoices';
 import getXPNeeded from '@eternaltwin/labrute-core/brute/getXPNeeded';
-import updateBruteData from '@eternaltwin/labrute-core/brute/updateBruteData';
 import skills from '@eternaltwin/labrute-core/brute/skills';
-import { Brute, Destiny, LevelUpChoice } from '@eternaltwin/labrute-core/types';
+import updateBruteData from '@eternaltwin/labrute-core/brute/updateBruteData';
+import { Brute, LevelUpChoice } from '@eternaltwin/labrute-core/types';
 import { Alert as MuiAlert, Box, Paper, useMediaQuery } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -28,40 +26,21 @@ const LevelUpView = () => {
   const smallScreen = useMediaQuery('(max-width: 638px)');
 
   const [brute, setBrute] = useState<Brute | null>(null);
-  const [destiny, setDestiny] = useState<Destiny | undefined>();
   const [choices, setChoices] = useState<[LevelUpChoice, LevelUpChoice] | null>(null);
 
   // Fetch brute
   useEffect(() => {
     let isSubscribed = true;
     if (bruteName) {
-      Server.Brute.startLevelUp(bruteName).then((data) => {
+      Server.Brute.getLevelUpChoices(bruteName).then((data) => {
+        console.log(data);
         if (isSubscribed) {
           // Check if the brute has enough XP
           if (data.brute.data.xp < getXPNeeded(data.brute.data.level + 1)) {
             navigate(`/${bruteName}/cell`);
           } else {
             setBrute(data.brute);
-            setDestiny(data.destiny);
-
-            // Get level up choices from destiny or generate and save them
-            const destinyChoices = data.destiny
-              ? accessDestinyLevel(data.destiny, data.brute.data.level + 1)
-              : null;
-
-            if (destinyChoices) {
-              setChoices(destinyChoices);
-            } else {
-              // Generate choices and save them
-              const newChoices = getLevelUpChoices(data.brute);
-              Server.Brute.saveDestinyChoices(
-                data.brute.name,
-                newChoices
-              ).then((newDestiny) => {
-                setChoices(newChoices);
-                setDestiny(newDestiny);
-              }).catch(catchError(Alert));
-            }
+            setChoices(data.choices);
           }
         }
       }).catch(() => {
@@ -73,7 +52,7 @@ const LevelUpView = () => {
 
   // Trigger level up
   const levelUp = useCallback((choice: 0 | 1) => async () => {
-    if (!brute || !choices || !destiny) return;
+    if (!brute || !choices) return;
 
     const { [choice]: chosen } = choices;
 
@@ -81,10 +60,9 @@ const LevelUpView = () => {
       brute.name,
       updateBruteData(brute, chosen),
       choice,
-      destiny.id,
     ).catch(catchError(Alert));
     navigate(`/${brute.name}/cell`);
-  }, [Alert, brute, choices, destiny, navigate]);
+  }, [Alert, brute, choices, navigate]);
 
   return brute && (
     <Page title={`${t('MyBrute')}. ${t('newLevelFor')} ${brute.name || ''}`} headerUrl={`/${brute.name}/cell`}>

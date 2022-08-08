@@ -1,8 +1,9 @@
+import accessDestinyLevel from '@eternaltwin/labrute-core/brute/accessDestinyLevel';
+import getLevelUpChoices from '@eternaltwin/labrute-core/brute/getLevelUpChoices';
 import { ARENA_OPPONENTS_COUNT, ARENA_OPPONENTS_MAX_GAP } from '@eternaltwin/labrute-core/constants';
 import {
-  Brute, Destiny, LevelUpChoice,
+  Brute, Destiny,
 } from '@eternaltwin/labrute-core/types';
-import accessDestinyLevel from '@eternaltwin/labrute-core/brute/accessDestinyLevel';
 import { Request, Response } from 'express';
 import DB from '../db/client.js';
 import auth from '../utils/auth.js';
@@ -104,7 +105,7 @@ const Brutes = {
       sendError(res, error);
     }
   },
-  startLevelUp: async (req: Request, res: Response) => {
+  getLevelUpChoices: async (req: Request, res: Response) => {
     try {
       const client = await DB.connect();
       const user = await auth(client, req);
@@ -119,76 +120,60 @@ const Brutes = {
         throw new Error('brute not found');
       }
 
-      // Get level up choices
-      const { rows: { 0: destiny } } = await client.query<Destiny>(
+      // Get destiny
+      let { rows: { 0: destiny } } = await client.query<Destiny>(
         'select * from destinies where brute = $1',
         [brute.name],
       );
 
-      await client.end();
-      res.status(200).send({
-        brute,
-        destiny,
-      });
-    } catch (error) {
-      sendError(res, error);
-    }
-  },
-  saveDestinyChoices: async (
-    req: Request<{ name: string }, unknown, { choices: [LevelUpChoice, LevelUpChoice] }>,
-    res: Response,
-  ) => {
-    try {
-      const client = await DB.connect();
-      const user = await auth(client, req);
-
-      // Get brute
-      const { rows: { 0: brute } } = await client.query<{ name: string, level: number }>(
-        'select name, data->\'level\' as level from brutes where name = $1 and data ->> \'user\' = $2',
-        [req.params.name, user.id],
-      );
-      if (!brute) {
-        await client.end();
-        throw new Error('brute not found');
-      }
-
-      // Get destiny
-      let { rows: { 0: destiny } } = await client.query<Destiny>(
-        'select id, choices from destinies where brute = $1',
-        [brute.name],
-      );
-
       if (!destiny) {
+        const newChoices = getLevelUpChoices(brute);
+
         // Create destiny
         const { rows: { 0: newDestiny } } = await client.query<Destiny>(
           'insert into destinies (brute, choices) values ($1, $2) returning *',
-          [brute.name, JSON.stringify(req.body.choices)],
+          [brute.name, JSON.stringify(newChoices)],
         );
         destiny = newDestiny;
-      } else {
-        // Update destiny
-        const choices = accessDestinyLevel(destiny, brute.level);
+      }
 
-        const destinyBranch = choices?.find((choice) => choice.chosen);
+      const choices = accessDestinyLevel(destiny, brute.data.level + 1);
+
+      if (choices) {
+        await client.end();
+        res.status(200).send({
+          brute,
+          choices,
+        });
+      } else {
+        const newChoices = getLevelUpChoices(brute);
+        // Update destiny
+        const destinyChoices = accessDestinyLevel(destiny, brute.data.level);
+
+        const destinyBranch = destinyChoices?.find((choice) => choice.chosen);
         if (!destinyBranch) {
           throw new Error('destiny branch not found');
         }
-        destinyBranch.nextChoices = req.body.choices;
+        destinyBranch.nextChoices = newChoices;
 
         await client.query<Destiny>(
           'update destinies set choices = $1 where id = $2',
           [JSON.stringify(destiny.choices), destiny.id],
         );
-      }
 
-      await client.end();
-      res.status(200).send(destiny);
+        await client.end();
+        res.status(200).send({
+          brute,
+          choices: newChoices,
+        });
+      }
     } catch (error) {
+      console.log(error);
       sendError(res, error);
     }
   },
   levelUp: async (
-    req: Request<{ name: string }, unknown, { data: Brute['data'], choice: number, destiny: number }>,
+    req: Request<{ name: string }, unknown, { data: Brute['data'], choice: number }>,
     res: Response,
   ) => {
     try {
