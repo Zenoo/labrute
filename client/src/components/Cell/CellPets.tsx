@@ -10,23 +10,23 @@ const CellPets = ({
   pets,
   sx,
   ...rest
-}: CellPetsProps) => ((pets.dog || pets.panther || pets.bear) ? (
+}: CellPetsProps) => ((pets.dog1 || pets.panther || pets.bear) ? (
   <Box sx={{ textAlign: 'center', ...sx }} {...rest}>
     <svg xmlnsXlink="http://www.w3.org/1999/xlink" height="201.15px" width="261.55px" xmlns="http://www.w3.org/2000/svg">
       <g transform="matrix(1.0, 0.0, 0.0, 1.0, -34.0, 208.15)">
-        {!!pets.dog && (
+        {pets.dog1 && (
           <use height="103.35" id="{K-" transform="matrix(0.6576, 0.0, 0.0, 0.6576, 33.9865, -122.7795)" width="72.5" xlinkHref="#pets-sprite0" />
         )}
-        {pets.dog === 2 && (
+        {pets.dog2 && !pets.dog3 && (
           <use height="41.8" id="1PC" transform="matrix(0.9778, 0.0, 0.0, 0.9778, 62.6111, -88.2389)" width="56.45" xlinkHref="#pets-sprite2" />
         )}
-        {pets.dog === 3 && (
+        {pets.dog3 && (
           <use height="39.85" transform="matrix(0.9778, 0.0, 0.0, 0.9778, 62.6111, -88.2389)" width="55.35" xlinkHref="#dog-x3" />
         )}
-        !!{pets.panther && (
+        {pets.panther && (
           <use height="201.15" id="3=*" transform="matrix(1.0, 0.0, 0.0, 1.0, 124.9, -208.15)" width="170.65" xlinkHref="#pets-sprite3" />
         )}
-        {!!pets.bear && (
+        {pets.bear && (
           <use height="179.55" id="0A0)" transform="matrix(-1.1204, 0, 0, 1, 300, -208.15)" width="152.35" xlinkHref="#bear-sprite0" />
         )}
       </g>

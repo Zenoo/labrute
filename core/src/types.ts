@@ -46,9 +46,11 @@ export interface BodyColors {
 }
 
 export interface Pets {
-  dog: 0 | 1 | 2 | 3;
-  panther: 0 | 1;
-  bear: 0 | 1;
+  dog1: boolean;
+  dog2: boolean;
+  dog3: boolean;
+  panther: boolean;
+  bear: boolean;
 }
 
 export type WeaponName = 'fan' | 'keyboard' | 'knife'
@@ -75,7 +77,7 @@ export type SkillName = 'herculeanStrength' | 'felineAgility' | 'lightningBolt'
   | 'regeneration' | 'chef' | 'spy' | 'saboteur' | 'backup'
   | 'hideaway' | 'monk';
 
-export type PetName = 'dog' | 'panther' | 'bear';
+export type PetName = 'dog1' | 'dog2' | 'dog3' | 'panther' | 'bear';
 
 export interface Stat {
   stat: number;

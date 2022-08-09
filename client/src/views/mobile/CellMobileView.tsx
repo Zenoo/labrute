@@ -87,7 +87,7 @@ const CellMobileView = ({
         </Grid>
         <Grid item xs={12} sm={6} sx={{ textAlign: 'center' }} order={isXs ? 4 : 0}>
           {/* PETS OR ADVERT */}
-          {(brute.data.pets.dog || brute.data.pets.panther || brute.data.pets.bear) ? (
+          {(brute.data.pets.dog1 || brute.data.pets.panther || brute.data.pets.bear) ? (
             <CellPets pets={brute.data.pets} />
           ) : (
             <Tooltip title="TODO">

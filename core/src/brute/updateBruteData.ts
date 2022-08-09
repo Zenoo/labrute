@@ -73,13 +73,7 @@ const updateBruteData = (brute: Brute, levelUpChoice: LevelUpChoice) => {
       throw new Error('Pet not found');
     }
 
-    if (levelUpChoice.name === 'dog') {
-      updatedBrute.data.pets.dog += 1;
-    } else if (levelUpChoice.name === 'panther') {
-      updatedBrute.data.pets.panther = 1;
-    } else {
-      updatedBrute.data.pets.bear = 1;
-    }
+    updatedBrute.data.pets[pet.name] = true;
 
     // Take into account the endurance malus from the pet
     updatedBrute.data.stats.endurance.stat -= pet.enduranceMalus;
