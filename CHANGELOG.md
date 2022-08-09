@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.15](https://github.com/Zenoo/labrute/compare/v0.4.14...v0.4.15) (2022-08-09)
+
+
+### Bug fix
+
+* added DB reset script ([7ef5afb](https://github.com/Zenoo/labrute/commit/7ef5afba5a631a060e2eca67cc1d541819cac934))
+* Typo ([7ae71f8](https://github.com/Zenoo/labrute/commit/7ae71f8f56fe79d80f272bee4212faaf597f619a))
+
+
+### Refactoring
+
+* Clarify perk prevention mechanism ([95bac30](https://github.com/Zenoo/labrute/commit/95bac30188c31da4a52a050a4f72afa30a5cdac8))
+
 ### [0.4.14](https://github.com/Zenoo/labrute/compare/v0.4.13...v0.4.14) (2022-08-09)
 
 
