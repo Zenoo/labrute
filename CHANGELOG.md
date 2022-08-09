@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.5.0](https://github.com/Zenoo/labrute/compare/v0.4.15...v0.5.0) (2022-08-09)
+
+
+### Bug fix
+
+* Remove unnecessary skill booster logic in level up choices ([c29350a](https://github.com/Zenoo/labrute/commit/c29350a5cd22057324e556ed835e00579ad82aed))
+* Update reconnaissance speed modifier ([0c0dd14](https://github.com/Zenoo/labrute/commit/0c0dd14c14b7f7c75a48c19da43771d35e741b8e))
+
+
+### Feature
+
+*  Allow for both panther and bear at a 1/1000 chance ([8a1027f](https://github.com/Zenoo/labrute/commit/8a1027f20190516a38883b970fcc98ae32a83d8b))
+* Added low odds for custom stance ([eaa578a](https://github.com/Zenoo/labrute/commit/eaa578a0f1daf1e1464917dc3d15f05c3fd1e987))
+* Implement a malus to boosters acquisition ([8f74c02](https://github.com/Zenoo/labrute/commit/8f74c022ade84f4a26e02789ced8bfe66d122628))
+* Limit some weapons ([374e06c](https://github.com/Zenoo/labrute/commit/374e06cb8d98d14512f083ed8a5ed1be405f9f97))
+* Reduce rare skills odds ([0eefdca](https://github.com/Zenoo/labrute/commit/0eefdca4c2dfcaf8495d4249bf04df627683bdbb))
+* Reduce rare weapon odds ([765b861](https://github.com/Zenoo/labrute/commit/765b861ea2d37c215788db54eb2d544214f63a18))
+* Reduce the odds of getting a perk on higher levels ([aa091fb](https://github.com/Zenoo/labrute/commit/aa091fbf23155047a6285e13c774e3f9c6e136ad))
+
+
+### Refactoring
+
+* Extracted + updated HP formula ([5fe83c4](https://github.com/Zenoo/labrute/commit/5fe83c46fa0c18bfa7e5c60fc17d517d007f84e2))
+* Extracted skill modifiers logic ([a95a7a5](https://github.com/Zenoo/labrute/commit/a95a7a5f28d0c96400a31aec6502a58d04f4e0e6))
+
 ### [0.4.15](https://github.com/Zenoo/labrute/compare/v0.4.14...v0.4.15) (2022-08-09)
 
 
