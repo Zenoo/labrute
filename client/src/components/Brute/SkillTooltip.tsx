@@ -1,7 +1,7 @@
 import { Box, Divider, Tooltip, TooltipProps } from '@mui/material';
 import { t } from 'i18next';
 import React from 'react';
-import { Skill } from '@eternaltwin/labrute-core/brute/skills';
+import { Skill } from '@eternaltwin/labrute-core/types';
 import Text from '../Text.js';
 
 export interface SkillTooltipProps extends Omit<TooltipProps, 'title'> {
