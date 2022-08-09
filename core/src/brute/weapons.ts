@@ -127,7 +127,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'fryingPan',
-    odds: 2,
+    odds: 0.4,
     types: ['heavy', 'blunt'],
     interval: 1.2,
     counter: 0,
@@ -178,7 +178,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'keyboard',
-    odds: 2,
+    odds: 0.4,
     types: ['fast', 'blunt'],
     interval: 1,
     counter: 0,
@@ -229,7 +229,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'leek',
-    odds: 2,
+    odds: 0.4,
     types: ['fast', 'blunt'],
     interval: 1.1,
     counter: 1,
@@ -280,7 +280,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'mug',
-    odds: 2,
+    odds: 0.4,
     types: ['fast'],
     interval: 0.9,
     counter: 0,
@@ -297,7 +297,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'noodleBowl',
-    odds: 2,
+    odds: 0.4,
     types: ['thrown'],
     interval: 0.45,
     counter: 0,
@@ -314,7 +314,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'piopio',
-    odds: 2,
+    odds: 0.4,
     types: ['thrown'],
     interval: 0.32,
     counter: 0,
@@ -331,7 +331,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'racquet',
-    odds: 2,
+    odds: 0.4,
     types: ['fast', 'blunt'],
     interval: 0.8,
     counter: 1,
@@ -433,7 +433,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'trombone',
-    odds: 2,
+    odds: 0.4,
     types: ['heavy', 'blunt'],
     interval: 2.5,
     counter: 0,
