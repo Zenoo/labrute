@@ -1,8 +1,9 @@
 import { Brute, Fight } from '@eternaltwin/labrute-core/types';
 import { Request, Response } from 'express';
+import randomBetween from '@eternaltwin/labrute-core/utils/randomBetween';
 import DB from '../db/client.js';
 import auth from '../utils/auth.js';
-import getBruteFightStats from '../utils/fight/getBruteFightStats.js';
+import getBruteFightStats from '../utils/fight/getFightersStats.js';
 import sendError from '../utils/sendError.js';
 
 const Fights = {
@@ -64,35 +65,58 @@ const Fights = {
       }
 
       // Global fight data
-      const fightData = {
-        stats: getBruteFightStats(brute1, brute2),
+      const fightData: Fight['data'] = {
+        fighters: getBruteFightStats([brute1, brute2]),
         steps: [],
       };
 
-      // Fight loop
-      while (fightData.stats.brute1.hp > 0 && fightData.stats.brute2.hp > 0) {
-        // Get first attacker from initiative (random if same)
-        let attacker = fightData.stats.brute1.initiative > fightData.stats.brute2.initiative
-          ? fightData.stats.brute1
-          : fightData.stats.brute1.initiative < fightData.stats.brute2.initiative
-            ? fightData.stats.brute2
-            : Math.random() > 0.5
-              ? fightData.stats.brute1
-              : fightData.stats.brute2;
+      // Sabotage weapons
+      fightData.fighters.filter((fighter) => fighter.type === 'brute' && !fighter.master).forEach((brute) => {
+        if (brute.sabotage) {
+          const opponent = fightData.fighters.find(
+            (fighter) => fighter.type === 'brute'
+              && !fighter.master
+              && fighter.name !== brute.name,
+          );
 
-        // TODO
+          if (opponent && opponent.weapons.length > 0) {
+            const sabotagedWeapon = opponent.weapons[randomBetween(0, opponent.weapons.length - 1)];
+            opponent.sabotagedWeapon = sabotagedWeapon;
 
-        // Get next attacker
-        if (attacker === fightData.stats.brute1) {
-          attacker = fightData.stats.brute2;
-        } else {
-          attacker = fightData.stats.brute1;
+            fightData.steps.push({
+              action: 'sabotage',
+              brute: brute.name,
+              target: opponent.name,
+              weapon: sabotagedWeapon.name,
+            });
+          }
         }
+      });
+
+      let turn = 0;
+
+      // Fight loop
+      while (fightData.fighters.find((fighter) => fighter.type === 'brute'
+        && !fighter.master
+        && fighter.hp > 0)) {
+        // Order fighters by initiative (random if equal)
+        const fighters = fightData.fighters.sort((a, b) => {
+          if (a.initiative === b.initiative) {
+            return Math.random() > 0.5 ? 1 : -1;
+          }
+          return a.initiative - b.initiative;
+        });
+
+        console.log(fighters);
 
         // TODO
 
-        // Failsafe until the loop is complete
-        fightData.stats.brute1.hp = 0;
+        turn += 1;
+
+        // Failsafe until the loop is completely coded
+        if (turn > 10) {
+          break;
+        }
       }
 
       // Save fight

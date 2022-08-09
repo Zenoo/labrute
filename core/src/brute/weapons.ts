@@ -1,26 +1,4 @@
-import { WeaponName } from '../types.js';
-
-export type WeaponType = 'fast' | 'sharp' | 'heavy' | 'long' | 'thrown' | 'blunt';
-
-export type WeaponAnimation = 'fist' | 'slash' | 'estoc' | 'whip';
-
-export interface Weapon {
-  name: WeaponName;
-  odds: number;
-  types: WeaponType[];
-  interval: number; // = tempo / 100
-  counter: number; // = rip
-  evasion: number; // = dod
-  block: number; // = par / 100
-  accuracy: number; // = per / 100
-  precision: number; // = rap
-  disarm: number; // = dis / 100
-  combo: number; // = combo / 100
-  damage: number; // = deg
-  toss: number; // = toss (still unclear)
-  reach: number; // = zone
-  animation: WeaponAnimation;
-}
+import { Weapon, WeaponName } from '../types.js';
 
 export const limitedWeapons: WeaponName[] = [
   'knife', 'broadsword', 'lance', 'baton', 'trident', 'hatchet',

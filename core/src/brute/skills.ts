@@ -1,15 +1,5 @@
-import { SkillName } from '../types.js';
+import { Skill } from '../types.js';
 
-export type SkillType = 'passive' | 'booster' | 'super' | 'talent';
-
-export interface Skill {
-  name: SkillName;
-  icon: string;
-  odds: number;
-  type: SkillType;
-  toss?: number;
-  uses?: number;
-}
 const skills: Skill[] = [
   {
     name: 'herculeanStrength',

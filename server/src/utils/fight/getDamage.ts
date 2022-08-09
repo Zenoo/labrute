@@ -1,9 +1,12 @@
-import { Skill } from '@eternaltwin/labrute-core/brute/skills';
-import { Weapon } from '@eternaltwin/labrute-core/brute/weapons';
+import { FighterStats, Skill, Weapon } from '@eternaltwin/labrute-core/types';
 import randomBetween from '@eternaltwin/labrute-core/utils/randomBetween';
-import { FightStats } from './getBruteFightStats.js';
 
-const getDamage = (brute: FightStats, opponent: FightStats, skills: Skill[], weapon?: Weapon) => {
+const getDamage = (
+  brute: FighterStats,
+  opponent: FighterStats,
+  skills: Skill[],
+  weapon?: Weapon,
+) => {
   const base = weapon?.damage || 0;
   const { strength } = brute;
   const weaponStrength = 1; // What is this ?

@@ -63,6 +63,28 @@ export type WeaponName = 'fan' | 'keyboard' | 'knife'
   | 'noodleBowl' | 'piopio' | 'shuriken'
   | 'broadsword' | 'scimitar' | 'sword';
 
+export type WeaponType = 'fast' | 'sharp' | 'heavy' | 'long' | 'thrown' | 'blunt';
+
+export type WeaponAnimation = 'fist' | 'slash' | 'estoc' | 'whip';
+
+export interface Weapon {
+  name: WeaponName;
+  odds: number;
+  types: WeaponType[];
+  interval: number;
+  counter: number;
+  evasion: number;
+  block: number;
+  accuracy: number;
+  precision: number;
+  disarm: number;
+  combo: number;
+  damage: number;
+  toss: number;
+  reach: number;
+  animation: WeaponAnimation;
+}
+
 export type SkillName = 'herculeanStrength' | 'felineAgility' | 'lightningBolt'
   | 'vitality' | 'immortality' | 'reconnaissance' | 'weaponsMaster'
   | 'martialArts' | 'sixthSense' | 'hostility'
@@ -76,6 +98,17 @@ export type SkillName = 'herculeanStrength' | 'felineAgility' | 'lightningBolt'
   | 'hammer' | 'cryOfTheDamned' | 'hypnosis' | 'flashFlood' | 'tamer'
   | 'regeneration' | 'chef' | 'spy' | 'saboteur' | 'backup'
   | 'hideaway' | 'monk';
+
+export type SkillType = 'passive' | 'booster' | 'super' | 'talent';
+
+export interface Skill {
+  name: SkillName;
+  icon: string;
+  odds: number;
+  type: SkillType;
+  toss?: number;
+  uses?: number;
+}
 
 export type PetName = 'dog1' | 'dog2' | 'dog3' | 'panther' | 'bear';
 
@@ -151,11 +184,69 @@ export interface DestinyChoice {
   choice: LevelUpChoice;
 }
 
+export interface FighterStats {
+  // Metadata
+  name: string;
+  type: 'brute' | 'pet';
+  master?: string;
+  // Raw stats
+  hp: number,
+  strength: number,
+  agility: number,
+  speed: number,
+  // Initiative
+  initiative: number, // Lower attacks next
+  // hit stats
+  counter: number,
+  autoCounterOnBlock: boolean,
+  reversal: number,
+  combo: number,
+  block: number,
+  accuracy: number,
+  armor: number,
+  disarm: number,
+  evasion: number,
+  // Passives
+  // Destroys one enemy's weapon per hit
+  sabotage: boolean,
+  // tempo -25% for heavy weapons
+  bodybuilder: boolean,
+  // Survive with 1 HP on first death
+  survival: boolean,
+  // First hit of the fight is evaded
+  balletShoes: boolean,
+  // 70% chance of re-attacking on misses (evasion or block)
+  determination: boolean,
+  // 30% chance of disarming when being hit
+  ironHead: boolean,
+  // Available skills
+  skills: Skill[],
+  // Available weapons
+  weapons: Weapon[],
+  // Shield state
+  shield: boolean,
+  // Active skills
+  activeSkills: Skill[],
+  // Active weapon
+  activeWeapon: Weapon | null,
+  sabotagedWeapon: Weapon | null,
+}
+
+export interface SabotageStep {
+  action: 'sabotage';
+  brute: string;
+  target: string;
+  weapon: WeaponName;
+}
+
+export type FightStep = SabotageStep;
+
 export interface Fight {
   id: number;
   brute_1: string;
   brute_2: string;
   data: {
-    steps: Record<string, unknown>[];
+    fighters: FighterStats[];
+    steps: FightStep[];
   }
 }
