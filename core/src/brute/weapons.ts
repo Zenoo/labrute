@@ -22,6 +22,14 @@ export interface Weapon {
   animation: WeaponAnimation;
 }
 
+export const limitedWeapons: WeaponName[] = [
+  'knife', 'broadsword', 'lance', 'baton', 'trident', 'hatchet',
+  'scimitar', 'axe', 'sword', 'fan', 'shuriken', 'bumps',
+  'morningStar', 'mammothBone', 'flail', 'whip',
+];
+
+export const MAX_LIMITED_WEAPONS = limitedWeapons.length - 3;
+
 const weapons: Weapon[] = [
   {
     name: 'axe',

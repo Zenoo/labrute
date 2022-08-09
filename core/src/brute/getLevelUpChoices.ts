@@ -6,7 +6,7 @@ import weightedRandom from '../utils/weightedRandom.js';
 import { perkOdds } from './createRandomBruteStats.js';
 import pets, { PETS_TOTAL_ODDS } from './pets.js';
 import skills, { SKILLS_TOTAL_ODDS } from './skills.js';
-import weapons, { WEAPONS_TOTAL_ODDS } from './weapons.js';
+import weapons, { limitedWeapons, MAX_LIMITED_WEAPONS, WEAPONS_TOTAL_ODDS } from './weapons.js';
 
 export const availableStats: Stats[] = [
   'endurance',
@@ -112,7 +112,16 @@ const getLevelUpChoices = (brute: Brute): [LevelUpChoice, LevelUpChoice] => {
         preventPerk = hasSkill;
       }
     } else {
-      preventPerk = brute.data.weapons.includes(perkName as WeaponName);
+      // Limit some weapons
+      const gottenLimitedWeapons = brute.data.weapons.filter(
+        (weapon) => limitedWeapons.includes(weapon),
+      );
+
+      if (gottenLimitedWeapons.length >= MAX_LIMITED_WEAPONS) {
+        preventPerk = true;
+      } else {
+        preventPerk = brute.data.weapons.includes(perkName as WeaponName);
+      }
     }
   }
 
