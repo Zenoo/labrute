@@ -4,13 +4,10 @@ module.exports = {
       filename: 'package.json',
     },
     {
-      filename: 'package-lock.json',
-    },
-    {
       filename: 'client/package.json',
     },
     {
-      filename: 'client/package-lock.json',
+      filename: 'server/package.json',
     },
     {
       filename: 'client/src/utils/Version.ts',

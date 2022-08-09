@@ -1,4 +1,4 @@
-import { Brute, Fight, LevelUpChoice, Log, User } from '@eternaltwin/labrute-core/types';
+import { Brute, DestinyChoice, Fight, Log, User } from '@eternaltwin/labrute-core/types';
 import Fetch from './Fetch.js';
 
 const Server = {
@@ -15,7 +15,7 @@ const Server = {
     create: (brute: Brute) => Fetch<Brute>('/api/brute/create', brute, 'POST'),
     getLevelUpChoices: (name: string) => Fetch<{
       brute: Brute,
-      choices: [LevelUpChoice, LevelUpChoice],
+      choices: [DestinyChoice, DestinyChoice],
     }>(`/api/brute/${name}/level-up-choices`),
     levelUp: (
       name: string,

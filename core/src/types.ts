@@ -86,6 +86,7 @@ export interface Stat {
 export interface Brute {
   name: string;
   rank: number;
+  destiny_path: (0 | 1)[];
   data: {
     user: string;
     level: number;
@@ -139,14 +140,12 @@ export interface LevelUpChoice {
   type: 'skill' | 'weapon' | 'pet' | 'stats';
   name: SkillName | WeaponName | PetName | Stats | [Stats, Stats];
   stats?: 2 | [1, 1];
-  nextChoices?: [LevelUpChoice, LevelUpChoice];
-  chosen: boolean;
 }
 
-export interface Destiny {
-  id: number;
+export interface DestinyChoice {
   brute: string;
-  choices: [LevelUpChoice, LevelUpChoice];
+  path: (0 | 1)[];
+  choice: LevelUpChoice;
 }
 
 export interface Fight {

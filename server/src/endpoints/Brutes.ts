@@ -1,8 +1,7 @@
-import accessDestinyLevel from '@eternaltwin/labrute-core/brute/accessDestinyLevel';
 import getLevelUpChoices from '@eternaltwin/labrute-core/brute/getLevelUpChoices';
 import { ARENA_OPPONENTS_COUNT, ARENA_OPPONENTS_MAX_GAP } from '@eternaltwin/labrute-core/constants';
 import {
-  Brute, Destiny,
+  Brute, DestinyChoice,
 } from '@eternaltwin/labrute-core/types';
 import { Request, Response } from 'express';
 import DB from '../db/client.js';
@@ -76,12 +75,10 @@ const Brutes = {
       const requestBrute = req.body;
 
       // Create brute
-      const result = await client.query<Brute>(
-        'insert into brutes (name, data) values ($1, $2) returning *',
-        [requestBrute.name, requestBrute.data],
+      const { rows: { 0: brute } } = await client.query<Brute>(
+        'insert into brutes (name, destiny_path, data) values ($1, $2, $3) returning *',
+        [requestBrute.name, requestBrute.destiny_path, requestBrute.data],
       );
-
-      const brute = result.rows[0];
 
       // Update master's pupils count
       if (requestBrute.data.master) {
@@ -120,55 +117,42 @@ const Brutes = {
         throw new Error('brute not found');
       }
 
-      // Get destiny
-      let { rows: { 0: destiny } } = await client.query<Destiny>(
-        'select * from destinies where brute = $1',
-        [brute.name],
+      const firstChoicePath = [...brute.destiny_path, 0];
+      const secondChoicePath = [...brute.destiny_path, 1];
+
+      // Get destiny choices
+      let { rows: { 0: firstDestinyChoice } } = await client.query<DestinyChoice>(
+        'select * from destiny_choices where brute = $1 and path = $2',
+        [brute.name, firstChoicePath],
+      );
+      let { rows: { 0: secondDestinyChoice } } = await client.query<DestinyChoice>(
+        'select * from destiny_choices where brute = $1 and path = $2',
+        [brute.name, secondChoicePath],
       );
 
-      if (!destiny) {
+      if (!firstDestinyChoice || !secondDestinyChoice) {
         const newChoices = getLevelUpChoices(brute);
 
-        // Create destiny
-        const { rows: { 0: newDestiny } } = await client.query<Destiny>(
-          'insert into destinies (brute, choices) values ($1, $2) returning *',
-          [brute.name, JSON.stringify(newChoices)],
+        // Create destiny choices
+        const { rows: { 0: newFirstDestinyChoice } } = await client.query<DestinyChoice>(
+          'insert into destiny_choices (brute, path, choice) values ($1, $2, $3) returning *',
+          [brute.name, firstChoicePath, newChoices[0]],
         );
-        destiny = newDestiny;
+        firstDestinyChoice = newFirstDestinyChoice;
+
+        const { rows: { 0: newSecondDestinyChoice } } = await client.query<DestinyChoice>(
+          'insert into destiny_choices (brute, path, choice) values ($1, $2, $3) returning *',
+          [brute.name, secondChoicePath, newChoices[1]],
+        );
+        secondDestinyChoice = newSecondDestinyChoice;
       }
 
-      const choices = accessDestinyLevel(destiny, brute.data.level + 1);
-
-      if (choices) {
-        await client.end();
-        res.status(200).send({
-          brute,
-          choices,
-        });
-      } else {
-        const newChoices = getLevelUpChoices(brute);
-        // Update destiny
-        const destinyChoices = accessDestinyLevel(destiny, brute.data.level);
-
-        const destinyBranch = destinyChoices?.find((choice) => choice.chosen);
-        if (!destinyBranch) {
-          throw new Error('destiny branch not found');
-        }
-        destinyBranch.nextChoices = newChoices;
-
-        await client.query<Destiny>(
-          'update destinies set choices = $1 where id = $2',
-          [JSON.stringify(destiny.choices), destiny.id],
-        );
-
-        await client.end();
-        res.status(200).send({
-          brute,
-          choices: newChoices,
-        });
-      }
+      await client.end();
+      res.status(200).send({
+        brute,
+        choices: [firstDestinyChoice, secondDestinyChoice],
+      });
     } catch (error) {
-      console.log(error);
       sendError(res, error);
     }
   },
@@ -180,37 +164,10 @@ const Brutes = {
       const client = await DB.connect();
       const user = await auth(client, req);
 
-      const bruteData = req.body.data;
-
       // Update brute
       await client.query<Brute>(
-        'update brutes set data = $1 where name = $2 and data ->> \'user\' = $3',
-        [req.body.data, req.params.name, user.id],
-      );
-
-      // Get destiny
-      const { rows: { 0: destiny } } = await client.query<Destiny>(
-        'select id, choices from destinies where brute = $1',
-        [req.params.name],
-      );
-
-      if (!destiny) {
-        throw new Error('destiny not found');
-      }
-
-      // Update destiny tree
-      const choices = accessDestinyLevel(destiny, bruteData.level);
-
-      if (!choices) {
-        throw new Error('destiny branch not found');
-      }
-
-      choices[req.body.choice].chosen = true;
-
-      // Update destiny
-      await client.query<Destiny>(
-        'update destinies set choices = $1 where id = $2',
-        [JSON.stringify(destiny.choices), destiny.id],
+        'update brutes set data = $1, destiny_path = array_append(destiny_path, $2) where name = $3 and data ->> \'user\' = $4',
+        [req.body.data, req.body.choice, req.params.name, user.id],
       );
 
       // Add log

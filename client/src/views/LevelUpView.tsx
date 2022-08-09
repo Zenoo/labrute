@@ -1,7 +1,7 @@
 import getXPNeeded from '@eternaltwin/labrute-core/brute/getXPNeeded';
 import skills from '@eternaltwin/labrute-core/brute/skills';
 import updateBruteData from '@eternaltwin/labrute-core/brute/updateBruteData';
-import { Brute, LevelUpChoice } from '@eternaltwin/labrute-core/types';
+import { Brute, DestinyChoice } from '@eternaltwin/labrute-core/types';
 import { Alert as MuiAlert, Box, Paper, useMediaQuery } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -26,7 +26,7 @@ const LevelUpView = () => {
   const smallScreen = useMediaQuery('(max-width: 638px)');
 
   const [brute, setBrute] = useState<Brute | null>(null);
-  const [choices, setChoices] = useState<[LevelUpChoice, LevelUpChoice] | null>(null);
+  const [choices, setChoices] = useState<[DestinyChoice, DestinyChoice] | null>(null);
 
   // Fetch brute
   useEffect(() => {
@@ -58,7 +58,7 @@ const LevelUpView = () => {
 
     await Server.Brute.levelUp(
       brute.name,
-      updateBruteData(brute, chosen),
+      updateBruteData(brute, chosen.choice),
       choice,
     ).catch(catchError(Alert));
     navigate(`/${brute.name}/cell`);
@@ -103,9 +103,9 @@ const LevelUpView = () => {
           )}
           {/* CHOICES */}
           <Box sx={{ my: 1 }}>
-            {choices && choices.map((choice, i) => (
+            {choices && choices.map((destinyChoice, i) => (
               <Box
-                key={`${choice.type}${typeof choice.name === 'string' ? choice.name : ''}`}
+                key={`${destinyChoice.choice.type}${typeof destinyChoice.choice.name === 'string' ? destinyChoice.choice.name : ''}`}
                 sx={{
                   position: 'relative',
                   height: 129,
@@ -125,31 +125,35 @@ const LevelUpView = () => {
                   {/* CHOICE HEADER */}
                   <Text caption>
                     {/* +3 Skill */}
-                    {choice.type === 'stats' && typeof choice.name === 'string' && `+${choice.stats as number} ${t('in')}`}
+                    {destinyChoice.choice.type === 'stats' && typeof destinyChoice.choice.name === 'string' && `+${destinyChoice.choice.stats as number} ${t('in')}`}
                     {/* +2/+1 Skill */}
-                    {choice.type === 'stats' && typeof choice.name !== 'string' && `+${(choice.stats as [number, number])[0]}/+${(choice.stats as [number, number])[1]} ${t('in')}`}
+                    {destinyChoice.choice.type === 'stats' && typeof destinyChoice.choice.name !== 'string' && `+${(destinyChoice.choice.stats as [number, number])[0]}/+${(destinyChoice.choice.stats as [number, number])[1]} ${t('in')}`}
                     {/* New weapon */}
-                    {choice.type === 'weapon' && `${t('newWeapon')} :`}
+                    {destinyChoice.choice.type === 'weapon' && `${t('newWeapon')} :`}
                     {/* New skill */}
-                    {choice.type === 'skill' && `${t('newSkill')} :`}
+                    {destinyChoice.choice.type === 'skill' && `${t('newSkill')} :`}
                     {/* New pet */}
-                    {choice.type === 'pet' && `${t('newPet')} :`}
+                    {destinyChoice.choice.type === 'pet' && `${t('newPet')} :`}
                   </Text>
 
                   {/* CHOICE CONTENT */}
                   {/* Single value */}
-                  {typeof choice.name === 'string' && (
-                    choice.type === 'skill' ? (
-                      <SkillTooltip skill={skills.find((s) => s.name === choice.name)}>
-                        <Text h6 bold smallCaps>{t(choice.name)}</Text>
+                  {typeof destinyChoice.choice.name === 'string' && (
+                    destinyChoice.choice.type === 'skill' ? (
+                      <SkillTooltip
+                        skill={skills.find((s) => s.name === destinyChoice.choice.name)}
+                      >
+                        <Text h6 bold smallCaps>{t(destinyChoice.choice.name)}</Text>
                       </SkillTooltip>
                     ) : (
-                      <Text h6 bold smallCaps>{t(choice.name)}</Text>
+                      <Text h6 bold smallCaps>{t(destinyChoice.choice.name)}</Text>
                     )
                   )}
                   {/* Multiple values */}
-                  {typeof choice.name !== 'string' && (
-                    <Text h6 bold smallCaps>{t(choice.name[0])} / {t(choice.name[1])}</Text>
+                  {typeof destinyChoice.choice.name !== 'string' && (
+                    <Text h6 bold smallCaps>
+                      {t(destinyChoice.choice.name[0])} / {t(destinyChoice.choice.name[1])}
+                    </Text>
                   )}
                 </BoxBg>
                 {/* VALIDATE */}

@@ -107,13 +107,11 @@ const getLevelUpChoices = (brute: Brute): [LevelUpChoice, LevelUpChoice] => {
       type: 'stats',
       name: [firstStat, secondStat],
       stats: [1, 1],
-      chosen: false,
     };
   } else {
     firstChoice = {
       type,
       name,
-      chosen: false,
     };
   }
 
@@ -122,7 +120,6 @@ const getLevelUpChoices = (brute: Brute): [LevelUpChoice, LevelUpChoice] => {
     type: 'stats',
     name: availableStats[randomBetween(0, availableStats.length - 1)],
     stats: 2,
-    chosen: false,
   };
 
   return [firstChoice, secondChoice];

@@ -143,6 +143,7 @@ const HomeView = () => {
             const brute = await Server.Brute.create({
               name,
               rank: 0,
+              destiny_path: [],
               data: {
                 user: user.id,
                 ...createRandomBruteStats(),

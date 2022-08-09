@@ -40,6 +40,7 @@ module.exports = {
     'no-plusplus': ["error", { "allowForLoopAfterthoughts": true }],
     "import/no-named-default": "off",
     "no-nested-ternary": "off",
+    "no-console": ["warn", { allow: ["warn", "error"] }]
   },
   settings: {
     node: {
