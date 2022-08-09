@@ -38,7 +38,7 @@ const skills: Skill[] = [
   {
     name: 'immortality',
     icon: '5',
-    odds: 1,
+    odds: 0.14,
     type: 'booster',
   },
   {
@@ -176,7 +176,7 @@ const skills: Skill[] = [
   {
     name: 'thief',
     icon: '28',
-    odds: 10,
+    odds: 2.5,
     type: 'super',
     toss: 8,
     uses: 2,
@@ -232,7 +232,7 @@ const skills: Skill[] = [
   {
     name: 'hypnosis',
     icon: '35',
-    odds: 2,
+    odds: 0.5,
     type: 'super',
     toss: 3,
     uses: 1,
@@ -240,7 +240,7 @@ const skills: Skill[] = [
   {
     name: 'flashFlood',
     icon: '36',
-    odds: 2,
+    odds: 0.5,
     type: 'super',
     toss: 2,
     uses: 1,
