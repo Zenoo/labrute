@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.13](https://github.com/Zenoo/labrute/compare/v0.4.12...v0.4.13) (2022-08-09)
+
+
+### Refactoring
+
+* Changed destiny DB storage. Fixes [#55](https://github.com/Zenoo/labrute/issues/55) ([d53f1d0](https://github.com/Zenoo/labrute/commit/d53f1d09bf35cfd854cbfd06f07efd81521a29a6))
+
+
+### Bug fix
+
+* Cleanup logs ([23e879b](https://github.com/Zenoo/labrute/commit/23e879be7793325ea95be78bb70f12c947c8ac75))
+
 ### [0.4.12](https://github.com/Zenoo/labrute/compare/v0.4.11...v0.4.12) (2022-08-08)
 
 
