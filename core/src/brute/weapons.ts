@@ -25,7 +25,7 @@ export interface Weapon {
 const weapons: Weapon[] = [
   {
     name: 'axe',
-    odds: 3213,
+    odds: 3,
     types: ['heavy', 'blunt'],
     interval: 2.3,
     counter: -0.2,
@@ -42,7 +42,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'baton',
-    odds: 73373,
+    odds: 70,
     types: ['long'],
     interval: 1,
     counter: 0.3,
@@ -59,7 +59,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'broadsword',
-    odds: 104757,
+    odds: 100,
     types: ['sharp'],
     interval: 1.2,
     counter: 0.1,
@@ -76,7 +76,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'bumps',
-    odds: 52353,
+    odds: 50,
     types: ['heavy', 'blunt'],
     interval: 2,
     counter: -0.3,
@@ -93,7 +93,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'fan',
-    odds: 2087,
+    odds: 2,
     types: ['fast'],
     interval: 0.28,
     counter: 0.5,
@@ -110,7 +110,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'flail',
-    odds: 4275,
+    odds: 4,
     types: ['heavy', 'blunt'],
     interval: 2.2,
     counter: 0.3,
@@ -127,7 +127,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'fryingPan',
-    odds: 604,
+    odds: 2,
     types: ['heavy', 'blunt'],
     interval: 1.2,
     counter: 0,
@@ -144,7 +144,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'halbard',
-    odds: 2200,
+    odds: 2,
     types: ['long', 'sharp'],
     interval: 1.8,
     counter: 0,
@@ -161,7 +161,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'hatchet',
-    odds: 41922,
+    odds: 40,
     types: ['heavy'],
     interval: 1.5,
     counter: 0,
@@ -178,7 +178,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'keyboard',
-    odds: 544,
+    odds: 2,
     types: ['fast', 'blunt'],
     interval: 1,
     counter: 0,
@@ -195,7 +195,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'knife',
-    odds: 84097,
+    odds: 80,
     types: ['fast', 'sharp'],
     interval: 0.6,
     counter: 0,
@@ -212,7 +212,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'lance',
-    odds: 41739,
+    odds: 40,
     types: ['long'],
     interval: 1.2,
     counter: 0.3,
@@ -229,7 +229,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'leek',
-    odds: 613,
+    odds: 2,
     types: ['fast', 'blunt'],
     interval: 1.1,
     counter: 1,
@@ -246,7 +246,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'mammothBone',
-    odds: 20831,
+    odds: 20,
     types: ['heavy', 'blunt'],
     interval: 1.6,
     counter: 0,
@@ -263,7 +263,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'morningStar',
-    odds: 6345,
+    odds: 6,
     types: ['heavy', 'blunt'],
     interval: 1.5,
     counter: 0,
@@ -280,7 +280,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'mug',
-    odds: 551,
+    odds: 2,
     types: ['fast'],
     interval: 0.9,
     counter: 0,
@@ -297,7 +297,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'noodleBowl',
-    odds: 601,
+    odds: 2,
     types: ['thrown'],
     interval: 0.45,
     counter: 0,
@@ -314,7 +314,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'piopio',
-    odds: 562,
+    odds: 2,
     types: ['thrown'],
     interval: 0.32,
     counter: 0,
@@ -331,7 +331,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'racquet',
-    odds: 572,
+    odds: 2,
     types: ['fast', 'blunt'],
     interval: 0.8,
     counter: 1,
@@ -348,7 +348,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'sai',
-    odds: 6645,
+    odds: 6,
     types: ['fast'],
     interval: 0.6,
     counter: 0,
@@ -365,7 +365,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'scimitar',
-    odds: 6277,
+    odds: 6,
     types: ['sharp'],
     interval: 0.8,
     counter: 0,
@@ -382,7 +382,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'shuriken',
-    odds: 8451,
+    odds: 8,
     types: ['thrown'],
     interval: 0.12,
     counter: 0,
@@ -399,7 +399,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'sword',
-    odds: 4125,
+    odds: 100,
     types: ['sharp'],
     interval: 1.8,
     counter: 0,
@@ -416,7 +416,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'trident',
-    odds: 10415,
+    odds: 10,
     types: ['long'],
     interval: 1.4,
     counter: 0.05,
@@ -433,7 +433,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'trombone',
-    odds: 557,
+    odds: 2,
     types: ['heavy', 'blunt'],
     interval: 2.5,
     counter: 0,
@@ -450,7 +450,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'whip',
-    odds: 3130,
+    odds: 3,
     types: ['long'],
     interval: 1.5,
     counter: -0.1,
