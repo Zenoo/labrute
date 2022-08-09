@@ -11,7 +11,7 @@ const applySkillModifiers = (brute: Brute, skill: SkillName) => {
 
   // Immortality modifier
   if (skill === 'immortality') {
-    updatedBrute.data.stats.endurance.modifier *= 2.5;
+    updatedBrute.data.stats.endurance.modifier *= 3.5;
     updatedBrute.data.stats.strength.modifier *= 0.75;
     updatedBrute.data.stats.agility.modifier *= 0.75;
     updatedBrute.data.stats.speed.modifier *= 0.75;
@@ -37,7 +37,7 @@ const applySkillModifiers = (brute: Brute, skill: SkillName) => {
 
   // Reconnaissance modifier
   if (skill === 'reconnaissance') {
-    updatedBrute.data.stats.speed.modifier *= 1.5;
+    updatedBrute.data.stats.speed.modifier *= 2.5;
     updatedBrute.data.stats.speed.stat += 5;
   }
 
