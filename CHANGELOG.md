@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.1](https://github.com/Zenoo/labrute/compare/v0.5.0...v0.5.1) (2022-08-09)
+
+
+### Bug fix
+
+* Various bugs ([2cbf7c7](https://github.com/Zenoo/labrute/commit/2cbf7c77abddd0ee04afcd5554f2a79302268ca9))
+
 ## [0.5.0](https://github.com/Zenoo/labrute/compare/v0.4.15...v0.5.0) (2022-08-09)
 
 

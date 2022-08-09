@@ -1,6 +1,6 @@
 {
   "name": "@eternaltwin/labrute-server",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "private": true,
   "entry": "server/server.js",
   "type": "module",
