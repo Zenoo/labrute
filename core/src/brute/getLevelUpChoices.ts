@@ -20,6 +20,13 @@ const getLevelUpChoices = (brute: Brute): [LevelUpChoice, LevelUpChoice] => {
   // (+1/+1 Stats if picked something already learned)
   let firstChoice: LevelUpChoice | null = null;
 
+  // Second choice (+2 Stat)
+  let secondChoice: LevelUpChoice = {
+    type: 'stats',
+    name: availableStats[randomBetween(0, availableStats.length - 1)],
+    stats: 2,
+  };
+
   // Weapon/Skill/Pet ?
   const { name: type } = weightedRandom(perkOdds, 100);
 
@@ -109,7 +116,9 @@ const getLevelUpChoices = (brute: Brute): [LevelUpChoice, LevelUpChoice] => {
       secondStat = availableStats[randomBetween(0, availableStats.length - 1)];
     }
 
-    firstChoice = {
+    // Swap +1/+1 with +2
+    firstChoice = secondChoice;
+    secondChoice = {
       type: 'stats',
       name: [firstStat, secondStat],
       stats: [1, 1],
@@ -120,13 +129,6 @@ const getLevelUpChoices = (brute: Brute): [LevelUpChoice, LevelUpChoice] => {
       name,
     };
   }
-
-  // Second choice (+3 Stat)
-  const secondChoice: LevelUpChoice = {
-    type: 'stats',
-    name: availableStats[randomBetween(0, availableStats.length - 1)],
-    stats: 2,
-  };
 
   return [firstChoice, secondChoice];
 };
