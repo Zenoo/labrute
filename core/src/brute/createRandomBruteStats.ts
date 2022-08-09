@@ -3,7 +3,7 @@ import { BRUTE_STARTING_POINTS } from '../constants.js';
 import randomBetween from '../utils/randomBetween.js';
 import weightedRandom from '../utils/weightedRandom.js';
 import applySkillModifiers from './applySkillModifiers.js';
-import getStandardHP from './getStandardHP.js';
+import getHP from './getHP.js';
 import getXPNeeded from './getXPNeeded.js';
 import { default as availablePets, PETS_TOTAL_ODDS } from './pets.js';
 import { default as availableSkills, SKILLS_TOTAL_ODDS } from './skills.js';
@@ -117,9 +117,7 @@ const createRandomBruteStats = (): RandomBruteStats => {
   );
 
   // Final HP
-  const standardHP = getStandardHP(1);
-  // If endurance is negative, use 0 instead to not go under 51 HP at Lv1
-  brute.stats.hp = standardHP + Math.max(brute.stats.endurance.value, 0) * 6;
+  brute.stats.hp = getHP(1, brute.stats.endurance.value);
 
   // Easter egg stances
   brute.stance = randomBetween(0, 1000) === 0 ? randomBetween(0, 2) : undefined;

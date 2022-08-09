@@ -2,7 +2,7 @@ import {
   Brute, LevelUpChoice, SkillName, WeaponName, Stats,
 } from '../types.js';
 import applySkillModifiers from './applySkillModifiers.js';
-import getStandardHP from './getStandardHP.js';
+import getHP from './getHP.js';
 import getXPNeeded from './getXPNeeded.js';
 import pets, { Pet } from './pets.js';
 
@@ -72,10 +72,7 @@ const updateBruteData = (brute: Brute, levelUpChoice: LevelUpChoice) => {
   );
 
   // Final HP
-  const standardHP = getStandardHP(brute.data.level);
-  // If endurance is negative, use 0 instead to not go under 51 HP
-  const hp = standardHP + Math.max(updatedBrute.data.stats.endurance.value, 0) * 6;
-  updatedBrute.data.stats.hp = hp;
+  updatedBrute.data.stats.hp = getHP(brute.data.level, brute.data.stats.endurance.value);
 
   return updatedBrute.data;
 };
