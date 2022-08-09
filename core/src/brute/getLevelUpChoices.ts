@@ -69,48 +69,7 @@ const getLevelUpChoices = (brute: Brute): [LevelUpChoice, LevelUpChoice] => {
           break;
       }
     } else if (perkType === 'skill') {
-      const selectedSkill = skills.find((skill) => skill.name === perkName);
-      const hasSkill = brute.data.skills.includes(perkName as SkillName);
-      if (hasSkill) {
-        preventPerk = hasSkill;
-      } else if (selectedSkill?.type === 'booster') {
-        // Decrease booster chances
-        const boosters = skills.filter((skill) => skill.type === 'booster');
-        const gottenBoosters = brute.data.skills.filter(
-          (skill) => boosters.find((booster) => booster.name === skill),
-        );
-
-        switch (gottenBoosters.length) {
-          case 0:
-            preventPerk = false;
-            break;
-          case 1:
-            // Reduce chance by 50%
-            preventPerk = randomBetween(0, 100) < 50;
-            break;
-          case 2:
-            // Reduce chance by 75%
-            preventPerk = randomBetween(0, 100) < 75;
-            break;
-          case 3:
-            // Reduce chance by 90%
-            preventPerk = randomBetween(0, 100) < 90;
-            break;
-          case 4:
-            // Reduce chance by 95%
-            preventPerk = randomBetween(0, 100) < 95;
-            break;
-          case 5:
-            // Reduce chance by 99%
-            preventPerk = randomBetween(0, 100) < 99;
-            break;
-          default:
-            preventPerk = false;
-            break;
-        }
-      } else {
-        preventPerk = hasSkill;
-      }
+      preventPerk = brute.data.skills.includes(perkName as SkillName);
     } else {
       // Limit some weapons
       const gottenLimitedWeapons = brute.data.weapons.filter(
