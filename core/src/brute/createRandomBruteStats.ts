@@ -134,7 +134,7 @@ const createRandomBruteStats = (): Omit<Brute['data'], 'gender' | 'body' | 'colo
     },
     skills,
     pets: {
-      dog1: !!pet && pet.name === 'dog',
+      dog1: !!pet && pet.name === 'dog1',
       dog2: false,
       dog3: false,
       panther: !!pet && pet.name === 'panther',
