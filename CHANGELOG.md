@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.14](https://github.com/Zenoo/labrute/compare/v0.4.13...v0.4.14) (2022-08-09)
+
+
+### Feature
+
+* Real pet odds ([8051f00](https://github.com/Zenoo/labrute/commit/8051f00591a860ef7b840bb78df2638d26d8cb26))
+* Real pet stats ([ea8f2bf](https://github.com/Zenoo/labrute/commit/ea8f2bf92f1502aad91afbb16c4c4920b93a43ae))
+* Real skill odds ([3355934](https://github.com/Zenoo/labrute/commit/33559347a9e9ea64301df3b4b2c6934bdca16aea))
+* Real weapon data import ([7f616e9](https://github.com/Zenoo/labrute/commit/7f616e93cafb9b89d1bfd50ea496c3c76edf86e2))
+* Real weapon odds ([13d2aed](https://github.com/Zenoo/labrute/commit/13d2aedf221e229d2313d8c8fc869a4584ef7183))
+
 ### [0.4.13](https://github.com/Zenoo/labrute/compare/v0.4.12...v0.4.13) (2022-08-09)
 
 

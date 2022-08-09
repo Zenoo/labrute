@@ -1,7 +1,7 @@
 {
   "name": "@eternal-twin/labrute-monorepo",
   "private": true,
-  "version": "0.4.13",
+  "version": "0.4.14",
   "entry": "server/server.js",
   "engines": {
     "node": ">=14.13.1"
