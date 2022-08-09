@@ -1,12 +1,13 @@
 import {
   Brute, LevelUpChoice, SkillName, WeaponName, Stats,
 } from '../types.js';
+import applySkillModifiers from './applySkillModifiers.js';
 import getStandardHP from './getStandardHP.js';
 import getXPNeeded from './getXPNeeded.js';
 import pets, { Pet } from './pets.js';
 
 const updateBruteData = (brute: Brute, levelUpChoice: LevelUpChoice) => {
-  const updatedBrute: Brute = {
+  let updatedBrute: Brute = {
     ...brute,
     data: {
       ...brute.data,
@@ -20,49 +21,7 @@ const updateBruteData = (brute: Brute, levelUpChoice: LevelUpChoice) => {
     updatedBrute.data.skills.push(levelUpChoice.name as SkillName);
 
     // STATS MODIFIERS
-
-    // Vitality modifier
-    if (levelUpChoice.name === 'vitality') {
-      updatedBrute.data.stats.endurance.modifier *= 1.5;
-      updatedBrute.data.stats.endurance.stat += 3;
-    }
-
-    // Immortality modifier
-    if (levelUpChoice.name === 'immortality') {
-      updatedBrute.data.stats.endurance.modifier *= 2.5;
-      updatedBrute.data.stats.strength.modifier *= 0.75;
-      updatedBrute.data.stats.agility.modifier *= 0.75;
-      updatedBrute.data.stats.speed.modifier *= 0.75;
-    }
-
-    // Herculean strength modifier
-    if (levelUpChoice.name === 'herculeanStrength') {
-      updatedBrute.data.stats.strength.modifier *= 1.5;
-      updatedBrute.data.stats.strength.stat += 3;
-    }
-
-    // Feline agility modifier
-    if (levelUpChoice.name === 'felineAgility') {
-      updatedBrute.data.stats.agility.modifier *= 1.5;
-      updatedBrute.data.stats.agility.stat += 3;
-    }
-
-    // Lightning bolt modifier
-    if (levelUpChoice.name === 'lightningBolt') {
-      updatedBrute.data.stats.speed.modifier *= 1.5;
-      updatedBrute.data.stats.speed.stat += 3;
-    }
-
-    // Reconnaissance modifier
-    if (levelUpChoice.name === 'reconnaissance') {
-      updatedBrute.data.stats.speed.modifier *= 1.5;
-      updatedBrute.data.stats.speed.stat += 5;
-    }
-
-    // Armor modifier
-    if (levelUpChoice.name === 'armor') {
-      updatedBrute.data.stats.speed.modifier *= 0.9;
-    }
+    updatedBrute = applySkillModifiers(updatedBrute, levelUpChoice.name as SkillName);
   } else if (levelUpChoice.type === 'weapon') {
     // New weapon
     updatedBrute.data.weapons.push(levelUpChoice.name as WeaponName);
