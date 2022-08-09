@@ -122,9 +122,13 @@ const createRandomBruteStats = (): Omit<Brute['data'], 'gender' | 'body' | 'colo
   // If endurance is negative, use 0 instead to not go under 51 HP at Lv1
   const hp = standardHP + Math.max(endurance.value, 0) * 6;
 
+  // Easter egg stances
+  const stance = randomBetween(0, 1000) === 0 ? randomBetween(0, 2) : undefined;
+
   return {
     level: 1,
     xp: getXPNeeded(2), // TOD: Set to 0 when brutes can gain XP
+    stance,
     stats: {
       hp,
       endurance,

@@ -93,6 +93,7 @@ export interface Brute {
     user: string;
     level: number;
     xp: number;
+    stance?: number;
     stats: {
       hp: number;
       endurance: Stat;

@@ -62,7 +62,7 @@ const getBruteIndependentStats = (brute: Brute) => {
   }
 
   /* BLOCK RATE */
-  let blockRate = 0;
+  let blockRate = 0.45;
 
   // +45% blockRate for `shield`
   if (brute.data.skills.includes('shield')) {
