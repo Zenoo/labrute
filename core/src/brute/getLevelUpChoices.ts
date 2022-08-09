@@ -60,10 +60,14 @@ const getLevelUpChoices = (brute: Brute): [LevelUpChoice, LevelUpChoice] => {
           preventPerk = !brute.data.pets.dog1 || !brute.data.pets.dog2 || brute.data.pets.dog3;
           break;
         case 'panther':
-          preventPerk = brute.data.pets.panther || brute.data.pets.bear;
+          // Allow for both panther and bear at a 1/1000 chance
+          preventPerk = brute.data.pets.panther
+            || (randomBetween(0, 1000) > 0 ? brute.data.pets.bear : false);
           break;
         case 'bear':
-          preventPerk = brute.data.pets.bear || brute.data.pets.panther;
+          // Allow for both panther and bear at a 1/1000 chance
+          preventPerk = brute.data.pets.bear
+            || (randomBetween(0, 1000) > 0 ? brute.data.pets.panther : false);
           break;
         default:
           break;
