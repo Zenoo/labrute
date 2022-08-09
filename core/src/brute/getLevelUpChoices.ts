@@ -1,5 +1,5 @@
 import {
-  Brute, LevelUpChoice, SkillName, Stats, WeaponName,
+  Brute, LevelUpChoice, PetName, SkillName, Stats, WeaponName,
 } from '../types.js';
 import randomBetween from '../utils/randomBetween.js';
 import weightedRandom from '../utils/weightedRandom.js';
@@ -16,6 +16,10 @@ export const availableStats: Stats[] = [
 ];
 
 const getLevelUpChoices = (brute: Brute): [LevelUpChoice, LevelUpChoice] => {
+  let preventPerk = false;
+  let perkType = null;
+  let perkName: null | PetName | SkillName | WeaponName = null;
+
   // First choice (Weapon/Skill/Pet)
   // (+1/+1 Stats if picked something already learned)
   let firstChoice: LevelUpChoice | null = null;
@@ -27,83 +31,89 @@ const getLevelUpChoices = (brute: Brute): [LevelUpChoice, LevelUpChoice] => {
     stats: 2,
   };
 
-  // Weapon/Skill/Pet ?
-  const { name: type } = weightedRandom(perkOdds, 100);
+  // Less likely to get a perk the more high level the brute is
+  if (brute.data.level >= 80 && randomBetween(0, brute.data.level) >= 80) {
+    preventPerk = true;
+  }
 
-  // Perk name ?
-  const name = type === 'pet'
-    ? weightedRandom(pets, PETS_TOTAL_ODDS).name
-    : type === 'skill'
-      ? weightedRandom(skills, SKILLS_TOTAL_ODDS).name
-      : weightedRandom(weapons, WEAPONS_TOTAL_ODDS).name;
+  if (!preventPerk) {
+    // Weapon/Skill/Pet ?
+    perkType = weightedRandom(perkOdds, 100).name;
 
-  // Check if the perk should be prevented
-  let preventPerk = false;
-  if (type === 'pet') {
-    switch (name) {
-      case 'dog1':
-        preventPerk = brute.data.pets.dog1;
-        break;
-      case 'dog2':
-        preventPerk = !brute.data.pets.dog1 || brute.data.pets.dog2;
-        break;
-      case 'dog3':
-        preventPerk = !brute.data.pets.dog1 || !brute.data.pets.dog2 || brute.data.pets.dog3;
-        break;
-      case 'panther':
-        preventPerk = brute.data.pets.panther || brute.data.pets.bear;
-        break;
-      case 'bear':
-        preventPerk = brute.data.pets.bear || brute.data.pets.panther;
-        break;
-      default:
-        break;
-    }
-  } else if (type === 'skill') {
-    const selectedSkill = skills.find((skill) => skill.name === name);
-    const hasSkill = brute.data.skills.includes(name as SkillName);
-    if (hasSkill) {
-      preventPerk = hasSkill;
-    } else if (selectedSkill?.type === 'booster') {
-      // Decrease booster chances
-      const boosters = skills.filter((skill) => skill.type === 'booster');
-      const gottenBoosters = brute.data.skills.filter(
-        (skill) => boosters.find((booster) => booster.name === skill),
-      );
+    // Perk name ?
+    perkName = perkType === 'pet'
+      ? weightedRandom(pets, PETS_TOTAL_ODDS).name
+      : perkType === 'skill'
+        ? weightedRandom(skills, SKILLS_TOTAL_ODDS).name
+        : weightedRandom(weapons, WEAPONS_TOTAL_ODDS).name;
 
-      switch (gottenBoosters.length) {
-        case 0:
-          preventPerk = false;
+    // Check if the perk should be prevented
+    if (perkType === 'pet') {
+      switch (perkName) {
+        case 'dog1':
+          preventPerk = brute.data.pets.dog1;
           break;
-        case 1:
-          // Reduce chance by 50%
-          preventPerk = randomBetween(0, 100) < 50;
+        case 'dog2':
+          preventPerk = !brute.data.pets.dog1 || brute.data.pets.dog2;
           break;
-        case 2:
-          // Reduce chance by 75%
-          preventPerk = randomBetween(0, 100) < 75;
+        case 'dog3':
+          preventPerk = !brute.data.pets.dog1 || !brute.data.pets.dog2 || brute.data.pets.dog3;
           break;
-        case 3:
-          // Reduce chance by 90%
-          preventPerk = randomBetween(0, 100) < 90;
+        case 'panther':
+          preventPerk = brute.data.pets.panther || brute.data.pets.bear;
           break;
-        case 4:
-          // Reduce chance by 95%
-          preventPerk = randomBetween(0, 100) < 95;
-          break;
-        case 5:
-          // Reduce chance by 99%
-          preventPerk = randomBetween(0, 100) < 99;
+        case 'bear':
+          preventPerk = brute.data.pets.bear || brute.data.pets.panther;
           break;
         default:
-          preventPerk = false;
           break;
       }
+    } else if (perkType === 'skill') {
+      const selectedSkill = skills.find((skill) => skill.name === perkName);
+      const hasSkill = brute.data.skills.includes(perkName as SkillName);
+      if (hasSkill) {
+        preventPerk = hasSkill;
+      } else if (selectedSkill?.type === 'booster') {
+        // Decrease booster chances
+        const boosters = skills.filter((skill) => skill.type === 'booster');
+        const gottenBoosters = brute.data.skills.filter(
+          (skill) => boosters.find((booster) => booster.name === skill),
+        );
+
+        switch (gottenBoosters.length) {
+          case 0:
+            preventPerk = false;
+            break;
+          case 1:
+            // Reduce chance by 50%
+            preventPerk = randomBetween(0, 100) < 50;
+            break;
+          case 2:
+            // Reduce chance by 75%
+            preventPerk = randomBetween(0, 100) < 75;
+            break;
+          case 3:
+            // Reduce chance by 90%
+            preventPerk = randomBetween(0, 100) < 90;
+            break;
+          case 4:
+            // Reduce chance by 95%
+            preventPerk = randomBetween(0, 100) < 95;
+            break;
+          case 5:
+            // Reduce chance by 99%
+            preventPerk = randomBetween(0, 100) < 99;
+            break;
+          default:
+            preventPerk = false;
+            break;
+        }
+      } else {
+        preventPerk = hasSkill;
+      }
     } else {
-      preventPerk = hasSkill;
+      preventPerk = brute.data.weapons.includes(perkName as WeaponName);
     }
-  } else {
-    preventPerk = brute.data.weapons.includes(name as WeaponName);
   }
 
   // Chose +1/+1 stat instead
@@ -124,9 +134,12 @@ const getLevelUpChoices = (brute: Brute): [LevelUpChoice, LevelUpChoice] => {
       stats: [1, 1],
     };
   } else {
+    if (!perkType || !perkName) {
+      throw new Error('No perk type or name');
+    }
     firstChoice = {
-      type,
-      name,
+      type: perkType,
+      name: perkName,
     };
   }
 
