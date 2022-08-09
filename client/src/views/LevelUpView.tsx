@@ -33,7 +33,6 @@ const LevelUpView = () => {
     let isSubscribed = true;
     if (bruteName) {
       Server.Brute.getLevelUpChoices(bruteName).then((data) => {
-        console.log(data);
         if (isSubscribed) {
           // Check if the brute has enough XP
           if (data.brute.data.xp < getXPNeeded(data.brute.data.level + 1)) {
