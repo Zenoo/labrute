@@ -1,3 +1,4 @@
+import { PERKS_TOTAL_ODDS } from '../constants.js';
 import {
   Brute, LevelUpChoice, PetName, SkillName, Stats, WeaponName,
 } from '../types.js';
@@ -38,7 +39,7 @@ const getLevelUpChoices = (brute: Brute): [LevelUpChoice, LevelUpChoice] => {
 
   if (!preventPerk) {
     // Weapon/Skill/Pet ?
-    perkType = weightedRandom(perkOdds, 100).name;
+    perkType = weightedRandom(perkOdds, PERKS_TOTAL_ODDS).name;
 
     // Perk name ?
     perkName = perkType === 'pet'

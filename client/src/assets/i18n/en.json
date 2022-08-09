@@ -235,6 +235,7 @@
   "invalidName": "Invalid name. Accepted characters are a-z, A-Z, 0-9, '_' and '-'. Must be between 3 and 16 characters long.",
   "nameUnvailable": "Name unavailable",
   "pleaseLogin": "Please login before creating a Brute",
+  "newBrute": "New Brute",
 
   "callToFight": "If you want to discharge your energy on someone, do it here! There are a lot of Brutes in the Arena who can't wait to swap punches!",
   "arena": "Arena",

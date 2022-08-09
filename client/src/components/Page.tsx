@@ -1,4 +1,4 @@
-import { AccountCircle, Login, Logout } from '@mui/icons-material';
+import { AccountCircle, Add, Login, Logout } from '@mui/icons-material';
 import { Box, BoxProps, CircularProgress, Link, SpeedDial, SpeedDialAction, Tooltip } from '@mui/material';
 import React, { useCallback, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -61,6 +61,11 @@ const Page = ({
     setLanguage(lang);
   }, [setLanguage]);
 
+  // Redirect to Home page
+  const goHome = useCallback(() => {
+    navigate('/');
+  }, [navigate]);
+
   return (
     <Box {...rest}>
       <Helmet>
@@ -106,6 +111,15 @@ const Page = ({
             onClick={goToCell(brute.name)}
           />
         ))}
+        {user && (
+          <SpeedDialAction
+            icon={<Add color="success" />}
+            tooltipTitle={t('newBrute')}
+            tooltipOpen
+            onClick={goHome}
+            sx={{ textAlign: 'right' }}
+          />
+        )}
       </SpeedDial>
       {/* FOOTER */}
       <Box sx={{ textAlign: 'center', mt: 2 }}>

@@ -235,6 +235,7 @@
   "invalidName": "Nom invalide. Les caractères autorisés sont a-z, A-Z, 0-9, _ et -. Il doit faire entre 3 et 16 caractères.",
   "nameUnavailable": "Nom indisponible",
   "pleaseLogin": "Veuillez vous connecter pour créer une brute",
+  "newBrute": "Nouvelle brute",
 
   "callToFight": "Si tu as envie de te défouler sur quelqu'un, fait le ici ! Il y a plein d'autres Brutes dans l'arène qui ne demandent qu'à échanger quelques gnons.",
   "arena": "Arène",

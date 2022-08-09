@@ -20,7 +20,7 @@ const CellSkills = ({
           item
           xs={12 / 7}
           key={skill.name}
-          sx={{ opacity: brute.data.skills.includes(skill.name) ? 1 : 0.5 }}
+          sx={{ opacity: brute.data.skills.includes(skill.name) ? 1 : 0.4 }}
         >
           {brute.data.skills.includes(skill.name) ? (
             <SkillTooltip skill={skill}>

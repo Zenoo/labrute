@@ -1,5 +1,5 @@
 import { Brute } from '@eternaltwin/labrute-core/types';
-import { BRUTE_STARTING_POINTS } from '../constants.js';
+import { BRUTE_STARTING_POINTS, PERKS_TOTAL_ODDS } from '../constants.js';
 import randomBetween from '../utils/randomBetween.js';
 import weightedRandom from '../utils/weightedRandom.js';
 import applySkillModifiers from './applySkillModifiers.js';
@@ -15,9 +15,9 @@ interface Perk {
 }
 
 export const perkOdds: Perk[] = [
-  { name: 'pet', odds: 3.5 },
-  { name: 'skill', odds: 48.25 },
-  { name: 'weapon', odds: 48.25 },
+  { name: 'pet', odds: PETS_TOTAL_ODDS },
+  { name: 'skill', odds: SKILLS_TOTAL_ODDS },
+  { name: 'weapon', odds: WEAPONS_TOTAL_ODDS },
 ];
 
 export type RandomBruteStats = Omit<Brute['data'], 'gender' | 'body' | 'colors' | 'master' | 'victories' | 'pupils' | 'user'>;
@@ -64,7 +64,7 @@ const createRandomBruteStats = (): RandomBruteStats => {
   // Starting budget
   let availablePoints = BRUTE_STARTING_POINTS;
 
-  const perk = weightedRandom(perkOdds, 100);
+  const perk = weightedRandom(perkOdds, PERKS_TOTAL_ODDS);
 
   // Pet
   const pet = perk.name === 'pet' ? weightedRandom(availablePets, PETS_TOTAL_ODDS) : null;
