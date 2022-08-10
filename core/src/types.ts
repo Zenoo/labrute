@@ -309,9 +309,15 @@ export interface HitStep {
   damage: number;
 }
 
+export interface HypnotiseStep {
+  action: 'hypnotise';
+  brute: string;
+  pet: string;
+}
+
 export type FightStep = SabotageStep | LeaveStep | ArriveStep
   | TrashStep | StealStep | TrapStep | HealStep | ResistStep
-  | SurviveStep | HitStep;
+  | SurviveStep | HitStep | HypnotiseStep;
 
 export interface Fight {
   id: number;

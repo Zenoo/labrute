@@ -326,6 +326,35 @@ const activateSuper = (fightData: Fight['data'], skill: Skill) => {
       break;
     }
     case 'hypnosis': {
+      // Get main opponent
+      const opponent = getMainOpponent(fightData, fighter);
+      // Get opponent's pets
+      const opponentPets = fightData.fighters.filter((f) => f.type === 'pet' && f.master === opponent.name);
+
+      // Keep track of hypnotised pets
+      const hypnotisedPets = [];
+
+      for (let i = 0; i < opponentPets.length; i++) {
+        const pet = opponentPets[i];
+
+        // Don't hypnotise trapped pets
+        if (!pet.trapped) {
+          // Add hypnotise step
+          fightData.steps.push({
+            action: 'hypnotise',
+            brute: fighter.name,
+            pet: pet.name,
+          });
+
+          hypnotisedPets.push(pet);
+
+          // Change pet owner
+          pet.master = fighter.name;
+        }
+      }
+
+      // Abort if no pet hypnotised
+      if (hypnotisedPets.length === 0) return;
       break;
     }
     case 'flashFlood': {
