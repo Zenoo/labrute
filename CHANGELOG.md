@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/Zenoo/labrute/compare/v0.5.1...v1.0.0) (2022-08-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* Fighting system done. Fixes #24
+
+### Bug fix
+
+* Typo ([2bc1a8e](https://github.com/Zenoo/labrute/commit/2bc1a8e270fad0eb418892074b920b5a6333bf75))
+* Typo ([ba59576](https://github.com/Zenoo/labrute/commit/ba595764ef88e04e850d4513e086dd0d3b294a8d))
+
+
+### Progress
+
+* Draw weapon, counter attack, melee attack. [#24](https://github.com/Zenoo/labrute/issues/24) ([afc8118](https://github.com/Zenoo/labrute/commit/afc8118ebe1141c5064b1f2d6851b1237482026f))
+* Fight initial stats + sabotage. [#24](https://github.com/Zenoo/labrute/issues/24) ([2771833](https://github.com/Zenoo/labrute/commit/27718332c3be616dbb1a88464ceb3732b99c0ccf))
+* Fight loop (supers) ([05facc0](https://github.com/Zenoo/labrute/commit/05facc0e9f270ac76a246ed3ecd5e4f5a6d11a2a))
+* flashFlood super. [#24](https://github.com/Zenoo/labrute/issues/24) ([f64c92f](https://github.com/Zenoo/labrute/commit/f64c92fc99b5782ecc877156e130ca12f07198f0))
+* hammer/cryOfTheDamned supers. [#24](https://github.com/Zenoo/labrute/issues/24) ([8fc086f](https://github.com/Zenoo/labrute/commit/8fc086fc0426cbcf9c9ab666363596d9ed1935f8))
+* hypnosis super. [#24](https://github.com/Zenoo/labrute/issues/24) ([d91ca64](https://github.com/Zenoo/labrute/commit/d91ca643b8ffb51ffa45779ebd3f3ed1e4272c9c))
+
+
+### Feature
+
+* All supers have been coded. [#24](https://github.com/Zenoo/labrute/issues/24) ([b26d477](https://github.com/Zenoo/labrute/commit/b26d477e43b8981070154f5e3fc708e9ff005d83))
+* Fight loop done. [#24](https://github.com/Zenoo/labrute/issues/24) ([7619436](https://github.com/Zenoo/labrute/commit/7619436328c70a1d7c47075b330baf2eee546e7c))
+* Fighting system done. Fixes [#24](https://github.com/Zenoo/labrute/issues/24) ([3269761](https://github.com/Zenoo/labrute/commit/326976185f71bc72702b66c44fe92ae346e2d799))
+
 ### [0.5.1](https://github.com/Zenoo/labrute/compare/v0.5.0...v0.5.1) (2022-08-09)
 
 
