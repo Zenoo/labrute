@@ -8,6 +8,7 @@ import Page from '../components/Page.js';
 import StyledButton from '../components/StyledButton.js';
 import Text from '../components/Text.js';
 import { useAlert } from '../hooks/useAlert.js';
+import { useAuth } from '../hooks/useAuth.js';
 import useStateAsync from '../hooks/useStateAsync.js';
 import catchError from '../utils/catchError.js';
 import Server from '../utils/Server.js';
@@ -17,19 +18,23 @@ const VersusView = () => {
   const { bruteName, opponentName } = useParams();
   const navigate = useNavigate();
   const Alert = useAlert();
+  const { user } = useAuth();
 
   const { data: brute } = useStateAsync(null, Server.Brute.get, bruteName);
   const { data: opponent } = useStateAsync(null, Server.Brute.get, opponentName);
 
   // Redirect if invalid params
   useEffect(() => {
-    if (!brute || !opponent) {
+    if (!brute || !opponent || !user) {
       return;
+    }
+    if (brute.data.user !== user.id) {
+      navigate(`/${brute.name}/cell`);
     }
     if (opponent.name === brute.name) {
       navigate(`/${brute.name}/arena`);
     }
-  }, [brute, navigate, opponent]);
+  }, [brute, navigate, opponent, user]);
 
   // Start fight
   const startFight = useCallback(async () => {
