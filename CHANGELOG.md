@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.3](https://github.com/Zenoo/labrute/compare/v1.0.2...v1.0.3) (2022-08-10)
+
+
+### Bug fix
+
+* Wrong fight from Fights.get ([4441f4b](https://github.com/Zenoo/labrute/commit/4441f4b699ab8cca29734860340615de3b75997a))
+
 ### [1.0.2](https://github.com/Zenoo/labrute/compare/v1.0.1...v1.0.2) (2022-08-10)
 
 
