@@ -241,6 +241,7 @@ export interface Fighter {
   activeSkills: Skill[],
   // Active weapon
   activeWeapon: Weapon | null,
+  keepWeaponChance: number,
   sabotagedWeapon: Weapon | null,
   // Status effects
   poisoned: boolean,
@@ -250,7 +251,6 @@ export interface Fighter {
 export interface SabotageStep {
   action: 'sabotage';
   brute: string;
-  target: string;
   weapon: WeaponName;
 }
 
@@ -336,10 +336,16 @@ export interface MoveBackStep {
   fighter: string;
 }
 
+export interface EquipStep {
+  action: 'equip';
+  brute: string;
+  name: WeaponName;
+}
+
 export type FightStep = SabotageStep | LeaveStep | ArriveStep
   | TrashStep | StealStep | TrapStep | HealStep | ResistStep
   | SurviveStep | HitStep | HypnotiseStep | MoveStep | EatStep
-  | MoveBackStep;
+  | MoveBackStep | EquipStep;
 
 export interface Fight {
   id: number;
