@@ -664,7 +664,8 @@ const attack = (fightData: DetailedFight['data'], fighter: DetailedFighter, oppo
   }
 
   // Check if opponent evaded
-  if (damage && evade(fighter, opponent)) {
+  const evaded = evade(fighter, opponent);
+  if (damage && evaded) {
     damage = 0;
 
     // Add evade step
@@ -675,9 +676,7 @@ const attack = (fightData: DetailedFight['data'], fighter: DetailedFighter, oppo
   }
 
   // Check if opponent's shield was broken
-  if (damage && breakShield(fighter, opponent)) {
-    damage = 0;
-
+  if (!evaded && breakShield(fighter, opponent)) {
     // Remove shield from opponent
     opponent.shield = false;
     opponent.block -= SHIELD_BLOCK_ODDS;
