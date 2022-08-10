@@ -4,7 +4,6 @@ import randomBetween from '../utils/randomBetween.js';
 import weightedRandom from '../utils/weightedRandom.js';
 import applySkillModifiers from './applySkillModifiers.js';
 import getHP from './getHP.js';
-import getXPNeeded from './getXPNeeded.js';
 import { default as availablePets, PETS_TOTAL_ODDS } from './pets.js';
 import { default as availableSkills, SKILLS_TOTAL_ODDS } from './skills.js';
 import { default as availableWeapons, WEAPONS_TOTAL_ODDS } from './weapons.js';
@@ -25,7 +24,7 @@ export type RandomBruteStats = Omit<Brute['data'], 'gender' | 'body' | 'colors' 
 const createRandomBruteStats = (): RandomBruteStats => {
   let brute: RandomBruteStats = {
     level: 1,
-    xp: getXPNeeded(2), // TOD: Set to 0 when brutes can gain XP
+    xp: 0,
     stats: {
       hp: 0,
       endurance: {

@@ -154,7 +154,7 @@ const Fights = {
       await client.query(
         `UPDATE brutes SET data =
           data || ('{"xp": ' || ((data->>'xp')::int + $1) || '}')::jsonb WHERE name = $2`,
-        [xpGained, winner.name],
+        [xpGained, brute1.name],
       );
 
       // Add fighter log
