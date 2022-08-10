@@ -1,5 +1,5 @@
 import { Grid } from '@mui/material';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import BoxBg from '../components/BoxBg.js';
@@ -12,6 +12,7 @@ import { useAuth } from '../hooks/useAuth.js';
 import useStateAsync from '../hooks/useStateAsync.js';
 import catchError from '../utils/catchError.js';
 import Server from '../utils/Server.js';
+import getXPNeeded from '@eternaltwin/labrute-core/brute/getXPNeeded';
 
 const VersusView = () => {
   const { t } = useTranslation();
@@ -22,6 +23,9 @@ const VersusView = () => {
 
   const { data: brute } = useStateAsync(null, Server.Brute.get, bruteName);
   const { data: opponent } = useStateAsync(null, Server.Brute.get, opponentName);
+
+  const xpNeededForNextLevel = useMemo(() => brute
+  && getXPNeeded(brute.data.level + 1), [brute]);
 
   // Redirect if invalid params
   useEffect(() => {
@@ -34,7 +38,11 @@ const VersusView = () => {
     if (opponent.name === brute.name) {
       navigate(`/${brute.name}/arena`);
     }
-  }, [brute, navigate, opponent, user]);
+    // Redirect to cell if XP is too much
+    if (xpNeededForNextLevel && brute.data.xp >= xpNeededForNextLevel) {
+      navigate(`/${brute.name}/cell`);
+    }
+  }, [brute, navigate, opponent, user, xpNeededForNextLevel]);
 
   // Start fight
   const startFight = useCallback(async () => {
