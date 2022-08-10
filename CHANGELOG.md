@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.2](https://github.com/Zenoo/labrute/compare/v1.0.1...v1.0.2) (2022-08-10)
+
+
+### Bug fix
+
+* Redirect to cell if too much xp for a fight ([f55bd50](https://github.com/Zenoo/labrute/commit/f55bd50d467f05c0d5eed19c25ec6f22bee3b06f))
+* Restrict versus view to brute owner. ([7435835](https://github.com/Zenoo/labrute/commit/743583555a1e3eef48e630eca84b48c525298b83))
+
 ### [1.0.1](https://github.com/Zenoo/labrute/compare/v1.0.0...v1.0.1) (2022-08-10)
 
 
