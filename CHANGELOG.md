@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.1](https://github.com/Zenoo/labrute/compare/v1.0.0...v1.0.1) (2022-08-10)
+
+
+### Bug fix
+
+* No XP on loss + Start at level 1 with 0 XP. Fixes [#61](https://github.com/Zenoo/labrute/issues/61) ([a294a42](https://github.com/Zenoo/labrute/commit/a294a423200d00cdba07dc3bcad7b60830dd22d3))
+
 ## [1.0.0](https://github.com/Zenoo/labrute/compare/v0.5.1...v1.0.0) (2022-08-10)
 
 
