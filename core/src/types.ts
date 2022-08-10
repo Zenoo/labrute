@@ -316,9 +316,30 @@ export interface HypnotiseStep {
   pet: string;
 }
 
+export interface MoveStep {
+  action: 'moveTo';
+  fighter: string;
+  fighterType: 'brute' | 'pet';
+  target: string;
+  targetType: 'brute' | 'pet';
+}
+
+export interface EatStep {
+  action: 'eat';
+  brute: string;
+  target: string;
+  heal: number;
+}
+
+export interface MoveBackStep {
+  action: 'moveBack';
+  fighter: string;
+}
+
 export type FightStep = SabotageStep | LeaveStep | ArriveStep
   | TrashStep | StealStep | TrapStep | HealStep | ResistStep
-  | SurviveStep | HitStep | HypnotiseStep;
+  | SurviveStep | HitStep | HypnotiseStep | MoveStep | EatStep
+  | MoveBackStep;
 
 export interface Fight {
   id: number;

@@ -44,9 +44,14 @@ export const isSomeoneDead = (fightData: Fight['data']) => fightData.fighters.so
 
 export const orderFighters = (fightData: Fight['data']) => {
   fightData.fighters = fightData.fighters.sort((a, b) => {
+    // Last if hp <= 0
+    if (a.hp <= 0) return 1;
+    if (b.hp <= 0) return -1;
+    // Random is initiatives are equal
     if (a.initiative === b.initiative) {
       return Math.random() > 0.5 ? 1 : -1;
     }
+    // Lower initiative first
     return a.initiative - b.initiative;
   });
 };
@@ -137,9 +142,9 @@ const registerHit = (
   });
 };
 
-const activateSuper = (fightData: Fight['data'], skill: Skill) => {
+const activateSuper = (fightData: Fight['data'], skill: Skill): boolean => {
   // No uses left (should never happen)
-  if (!skill.uses) return;
+  if (!skill.uses) return false;
 
   const fighter = fightData.fighters[0];
 
@@ -150,7 +155,7 @@ const activateSuper = (fightData: Fight['data'], skill: Skill) => {
       const opponent = getRandomOpponent(fightData, true);
 
       // Abort if no weapon
-      if (!opponent.activeWeapon) return;
+      if (!opponent.activeWeapon) return false;
 
       // 20% chance to steal
       if (randomBetween(0, 4) === 0) {
@@ -183,7 +188,7 @@ const activateSuper = (fightData: Fight['data'], skill: Skill) => {
         // Increase opponent initiative
         opponent.initiative += 0.3 + opponent.tempo;
       } else {
-        return;
+        return false;
       }
       break;
     }
@@ -195,7 +200,7 @@ const activateSuper = (fightData: Fight['data'], skill: Skill) => {
     case 'tragicPotion': {
       // Abort if not poisoned or lost less than 50 HP
       const lostHp = fighter.maxHp - fighter.hp;
-      if (!fighter.poisoned || lostHp < 50) return;
+      if (!fighter.poisoned || lostHp < 50) return false;
 
       const hpHealed = Math.floor(lostHp * (0.25 + Math.random() * 0.25));
       fighter.hp += hpHealed;
@@ -272,7 +277,7 @@ const activateSuper = (fightData: Fight['data'], skill: Skill) => {
 
           fighter.activeWeapon = null;
         } else {
-          return;
+          return false;
         }
       }
 
@@ -297,7 +302,7 @@ const activateSuper = (fightData: Fight['data'], skill: Skill) => {
       const opponentPets = fightData.fighters.filter((f) => f.type === 'pet' && f.master === opponent.name);
 
       // Abort if no pet
-      if (opponentPets.length === 0) return;
+      if (opponentPets.length === 0) return false;
 
       // Keep track of feared pets
       const fearedPets = [];
@@ -322,7 +327,7 @@ const activateSuper = (fightData: Fight['data'], skill: Skill) => {
       }
 
       // Abort if no pet feared
-      if (fearedPets.length === 0) return;
+      if (fearedPets.length === 0) return false;
       break;
     }
     case 'hypnosis': {
@@ -354,12 +359,12 @@ const activateSuper = (fightData: Fight['data'], skill: Skill) => {
       }
 
       // Abort if no pet hypnotised
-      if (hypnotisedPets.length === 0) return;
+      if (hypnotisedPets.length === 0) return false;
       break;
     }
     case 'flashFlood': {
       // Abort if less than 3 weapons are available
-      if (fighter.weapons.length < 3) return;
+      if (fighter.weapons.length < 3) return false;
 
       // Choose opponent
       const opponent = getRandomOpponent(fightData, true);
@@ -389,10 +394,72 @@ const activateSuper = (fightData: Fight['data'], skill: Skill) => {
       break;
     }
     case 'tamer': {
+      // Get dead pets
+      const deadPets = fightData.fighters.filter((f) => f.type === 'pet' && f.hp <= 0);
+
+      // Abort if less than 20 HP lost or if no pet is dead
+      if (fighter.hp > fighter.maxHp - 20 || !deadPets.length) return false;
+
+      // Get random dedd pet
+      const pet = deadPets[randomBetween(0, deadPets.length - 1)];
+
+      let healPercentage = 0;
+      switch (pet.name) {
+        case 'dog1':
+        case 'dog2':
+        case 'dog3':
+          // Heal 20% for a dog
+          healPercentage = 0.2;
+          break;
+        case 'panther':
+          // Heal 30% for a panther
+          healPercentage = 0.3;
+          break;
+        case 'bear':
+          // Heal 50% for a bear
+          healPercentage = 0.5;
+          break;
+        default:
+          return false;
+      }
+
+      // Don't overheal
+      const heal = Math.min(
+        fighter.maxHp - fighter.hp,
+        Math.floor(fighter.maxHp * healPercentage),
+      );
+
+      // Heal fighter
+      fighter.hp += heal;
+
+      // Increase own initiative
+      fighter.initiative += 0.15;
+
+      // Add moveTo step
+      fightData.steps.push({
+        action: 'moveTo',
+        fighter: fighter.name,
+        fighterType: fighter.type,
+        target: pet.name,
+        targetType: pet.type,
+      });
+      // Add eat step
+      fightData.steps.push({
+        action: 'eat',
+        brute: fighter.name,
+        target: pet.name,
+        heal,
+      });
+      // Add moveBack step
+      fightData.steps.push({
+        action: 'moveBack',
+        fighter: fighter.name,
+      });
+
       break;
     }
     default:
-      return;
+      return false;
   }
 
   // Spend one use
@@ -402,6 +469,8 @@ const activateSuper = (fightData: Fight['data'], skill: Skill) => {
   if (!skill.uses) {
     fighter.skills.splice(fighter.skills.findIndex((s) => s.name === skill.name), 1);
   }
+
+  return true;
 };
 
 export const playFighterTurn = (fightData: Fight['data'], turn: number) => {
@@ -436,8 +505,14 @@ export const playFighterTurn = (fightData: Fight['data'], turn: number) => {
   // Super activation
   const possibleSuper = randomlyGetSuper(fighter.skills);
   if (possibleSuper) {
-    activateSuper(fightData, possibleSuper);
+    // End turn if super activated
+    if (activateSuper(fightData, possibleSuper)) {
+      return;
+    }
   }
+
+  // Draw weapon
+  console.log(fightData);
 };
 
 export const endFight = (fightData: Fight['data']) => {
