@@ -99,6 +99,9 @@ export type SkillName = 'herculeanStrength' | 'felineAgility' | 'lightningBolt'
   | 'regeneration' | 'chef' | 'spy' | 'saboteur' | 'backup'
   | 'hideaway' | 'monk';
 
+export type SuperName = 'thief' | 'fierceBrute' | 'tragicPotion'
+  | 'net' | 'bomb' | 'hammer' | 'cryOfTheDamned' | 'hypnosis' | 'flashFlood' | 'tamer';
+
 export type SkillType = 'passive' | 'booster' | 'super' | 'talent';
 
 export interface Skill {
@@ -299,10 +302,10 @@ export interface SurviveStep {
 }
 
 export interface HitStep {
-  action: 'hit';
+  action: 'hit' | SuperName;
   brute: string;
   target: string;
-  weapon: WeaponName | null;
+  weapon: WeaponName | SuperName | null;
   damage: number;
 }
 

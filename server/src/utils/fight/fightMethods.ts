@@ -1,15 +1,26 @@
 /* eslint-disable no-param-reassign */
-import { Fight, Fighter, Skill } from '@eternaltwin/labrute-core/types';
+import {
+  Fight, Fighter, Skill, SuperName,
+} from '@eternaltwin/labrute-core/types';
 import randomBetween from '@eternaltwin/labrute-core/utils/randomBetween';
+import getDamage from './getDamage.js';
+
+const getMainOpponent = (fightData: Fight['data'], brute: Fighter) => {
+  const mainOpponent = fightData.fighters.find(
+    (fighter) => fighter.type === 'brute' && !fighter.master && fighter.name !== brute.name,
+  );
+
+  if (!mainOpponent) {
+    throw new Error('No main opponent found');
+  }
+
+  return mainOpponent;
+};
 
 export const sabotage = (fightData: Fight['data']) => {
   fightData.fighters.filter((fighter) => fighter.type === 'brute' && !fighter.master).forEach((brute) => {
     if (brute.sabotage) {
-      const opponent = fightData.fighters.find(
-        (fighter) => fighter.type === 'brute'
-          && !fighter.master
-          && fighter.name !== brute.name,
-      );
+      const opponent = getMainOpponent(fightData, brute);
 
       if (opponent && opponent.weapons.length > 0) {
         const sabotagedWeapon = opponent.weapons[randomBetween(0, opponent.weapons.length - 1)];
@@ -78,7 +89,12 @@ const getRandomOpponent = (fightData: Fight['data'], bruteOnly?: boolean) => {
   return opponents[randomBetween(0, opponents.length - 1)];
 };
 
-const registerHit = (fightData: Fight['data'], fighter: Fighter, damage: number) => {
+const registerHit = (
+  fightData: Fight['data'],
+  fighter: Fighter,
+  damage: number,
+  sourceName?: SuperName,
+) => {
   let actualDamage = damage;
 
   // Max damage to 20% of fighter's health if `resistant`
@@ -113,10 +129,10 @@ const registerHit = (fightData: Fight['data'], fighter: Fighter, damage: number)
 
   // Add hit step
   fightData.steps.push({
-    action: 'hit',
+    action: sourceName || 'hit',
     brute: fightData.fighters[0].name,
     target: fighter.name,
-    weapon: fightData.fighters[0].activeWeapon?.name || null,
+    weapon: sourceName || fightData.fighters[0].activeWeapon?.name || null,
     damage: actualDamage,
   });
 };
@@ -238,12 +254,75 @@ const activateSuper = (fightData: Fight['data'], skill: Skill) => {
       opponents.forEach((opponent) => {
         registerHit(fightData, opponent, damage);
       });
+
+      // Increase own initiative
+      fighter.initiative += 0.5 * fighter.tempo;
       break;
     }
     case 'hammer': {
+      // Only 20% to use the skill if fighter has a weapon
+      if (fighter.activeWeapon) {
+        if (randomBetween(0, 4) === 0) {
+          // Add trash step
+          fightData.steps.push({
+            action: 'trash',
+            brute: fighter.name,
+            name: fighter.activeWeapon.name,
+          });
+
+          fighter.activeWeapon = null;
+        } else {
+          return;
+        }
+      }
+
+      // Choose opponent
+      const opponent = getRandomOpponent(fightData, true);
+
+      // Add to active skills
+      fighter.activeSkills.push(skill);
+
+      // Get damage
+      const damage = getDamage(fighter, opponent);
+      registerHit(fightData, opponent, damage, 'hammer');
+
+      // Increase own initiative
+      fighter.initiative += 1 * fighter.tempo;
       break;
     }
     case 'cryOfTheDamned': {
+      // Get main opponent
+      const opponent = getMainOpponent(fightData, fighter);
+      // Get opponent's pets
+      const opponentPets = fightData.fighters.filter((f) => f.type === 'pet' && f.master === opponent.name);
+
+      // Abort if no pet
+      if (opponentPets.length === 0) return;
+
+      // Keep track of feared pets
+      const fearedPets = [];
+
+      for (let i = 0; i < opponentPets.length; i++) {
+        const pet = opponentPets[i];
+
+        // 33% chance to fear the pet
+        if (randomBetween(0, 2) === 0) {
+          // Add leave step
+          fightData.steps.push({
+            action: 'leave',
+            type: 'pet',
+            name: pet.name,
+          });
+
+          fearedPets.push(pet);
+
+          // Remove pet from fight
+          fightData.fighters = fightData.fighters.filter((f) => f.type === 'pet' && f.name !== pet.name);
+        }
+      }
+
+      // Abort if no pet feared
+      if (fearedPets.length === 0) return;
       break;
     }
     case 'hypnosis': {
