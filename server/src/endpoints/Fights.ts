@@ -3,8 +3,7 @@ import { Request, Response } from 'express';
 import DB from '../db/client.js';
 import auth from '../utils/auth.js';
 import {
-  endFight,
-  isSomeoneDead, orderFighters, playFighterTurn, sabotage,
+  checkDeaths, isSomeoneDead, orderFighters, playFighterTurn, saboteur,
 } from '../utils/fight/fightMethods.js';
 import getFighters from '../utils/fight/getFighters.js';
 import sendError from '../utils/sendError.js';
@@ -82,30 +81,50 @@ const Fights = {
         fighters: getFighters([brute1, brute2], [brute1Backups, brute2Backups]),
         steps: [],
         initiative: 0,
+        winner: '',
+        loser: '',
       };
 
-      // Sabotage weapons
-      sabotage(fightData);
+      // Pre-fight saboteur
+      saboteur(fightData);
 
-      let turn = 0;
       // Fight loop
       while (!isSomeoneDead(fightData)) {
         // Order fighters by initiative (random if equal)
         orderFighters(fightData);
+
+        // Set current initiative to first fighter
         fightData.initiative = fightData.fighters[0].initiative;
 
-        console.log(fightData.fighters);
-        playFighterTurn(fightData, turn);
+        // Play fighter turn
+        playFighterTurn(fightData);
 
-        turn += 1;
+        // Check deaths
+        const possibleDead = checkDeaths(fightData);
 
-        // Failsafe until the loop is completely coded
-        if (turn > 10) {
-          break;
+        // Combat ends if someone is dead
+        if (possibleDead) {
+          // Get winner
+          const winner = fightData.fighters.find((fighter) => fighter.name !== possibleDead.name
+            && fighter.type === 'brute'
+            && !fighter.master);
+
+          if (!winner) {
+            throw new Error('No winner found');
+          }
+
+          // Set fight winner and loser
+          fightData.winner = winner.name;
+          fightData.loser = possibleDead.name;
+
+          // Add end step
+          fightData.steps.push({
+            action: 'end',
+            winner: winner.name,
+            loser: possibleDead.name,
+          });
         }
       }
-
-      endFight(fightData);
 
       // Save fight
       const { rows: { 0: { id: fightId } } } = await client.query<Fight>(

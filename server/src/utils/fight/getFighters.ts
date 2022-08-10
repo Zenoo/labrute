@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { Brute, Fighter, PetName } from '@eternaltwin/labrute-core/types';
+import { SHIELD_BLOCK_ODDS } from '@eternaltwin/labrute-core/constants';
 import pets from '@eternaltwin/labrute-core/brute/pets';
 import skills from '@eternaltwin/labrute-core/brute/skills';
 import weapons from '@eternaltwin/labrute-core/brute/weapons';
@@ -26,7 +27,7 @@ const handleSkills = (brute: Brute, fighter: Fighter) => {
 
   // Automatic counter on block for `counterAttack`
   if (brute.data.skills.includes('counterAttack')) {
-    fighter.autoCounterOnBlock = true;
+    fighter.autoReversalOnBlock = true;
     fighter.block += 0.1;
   }
 
@@ -46,9 +47,9 @@ const handleSkills = (brute: Brute, fighter: Fighter) => {
 
   /* BLOCK */
 
-  // +45% block for `shield`
+  // +XX% block for `shield`
   if (brute.data.skills.includes('shield')) {
-    fighter.block += 0.45;
+    fighter.block += SHIELD_BLOCK_ODDS;
     fighter.shield = true;
   }
 
@@ -131,7 +132,8 @@ const getFighters = (brutes: Brute[], backups: Brute[][]): Fighter[] => {
       tempo: 0.25 + (20 / (10 + brute.data.stats.speed.value)) * 0.75,
       baseDamage: 5,
       counter: 0,
-      autoCounterOnBlock: false,
+      autoReversalOnBlock: false,
+      triggerReversal: false,
       combo: 0,
       reversal: 0,
       block: 0,
@@ -144,6 +146,7 @@ const getFighters = (brutes: Brute[], backups: Brute[][]): Fighter[] => {
       survival: false,
       balletShoes: false,
       determination: false,
+      retryAttack: false,
       ironHead: false,
       resistant: false,
       skills: skills.filter((skill) => skill.uses && brute.data.skills.includes(skill.name)),
@@ -152,6 +155,7 @@ const getFighters = (brutes: Brute[], backups: Brute[][]): Fighter[] => {
       activeSkills: [],
       activeWeapon: null,
       keepWeaponChance: 0,
+      saboteur: false,
       sabotagedWeapon: null,
       poisoned: false,
       trapped: false,
@@ -185,7 +189,8 @@ const getFighters = (brutes: Brute[], backups: Brute[][]): Fighter[] => {
           tempo: 0.25 + (20 / (10 + pet.speed)) * 0.75,
           baseDamage: pet.damage,
           counter: pet.counter,
-          autoCounterOnBlock: false,
+          autoReversalOnBlock: false,
+          triggerReversal: false,
           combo: pet.combo,
           reversal: pet.counter,
           block: pet.block,
@@ -198,6 +203,7 @@ const getFighters = (brutes: Brute[], backups: Brute[][]): Fighter[] => {
           survival: false,
           balletShoes: false,
           determination: false,
+          retryAttack: false,
           ironHead: false,
           resistant: false,
           skills: [],
@@ -206,6 +212,7 @@ const getFighters = (brutes: Brute[], backups: Brute[][]): Fighter[] => {
           activeSkills: [],
           activeWeapon: null,
           keepWeaponChance: 0,
+          saboteur: false,
           sabotagedWeapon: null,
           poisoned: false,
           trapped: false,
@@ -235,7 +242,8 @@ const getFighters = (brutes: Brute[], backups: Brute[][]): Fighter[] => {
         tempo: (0.25 + (20 / (10 + backup.data.stats.speed.value)) * 0.75) / 100,
         baseDamage: 5,
         counter: 0,
-        autoCounterOnBlock: false,
+        autoReversalOnBlock: false,
+        triggerReversal: false,
         combo: 0,
         reversal: 0,
         block: 0,
@@ -248,6 +256,7 @@ const getFighters = (brutes: Brute[], backups: Brute[][]): Fighter[] => {
         survival: false,
         balletShoes: false,
         determination: false,
+        retryAttack: false,
         ironHead: false,
         resistant: false,
         skills: skills.filter((skill) => skill.uses && backup.data.skills.includes(skill.name)),
@@ -256,6 +265,7 @@ const getFighters = (brutes: Brute[], backups: Brute[][]): Fighter[] => {
         activeSkills: [],
         activeWeapon: null,
         keepWeaponChance: 0,
+        saboteur: false,
         sabotagedWeapon: null,
         poisoned: false,
         trapped: false,

@@ -3,6 +3,7 @@ import {
   Fight, Fighter, Skill, SuperName, Weapon,
 } from '@eternaltwin/labrute-core/types';
 import randomBetween from '@eternaltwin/labrute-core/utils/randomBetween';
+import { BARE_HANDS_TEMPO, SHIELD_BLOCK_ODDS } from '@eternaltwin/labrute-core/constants';
 import getDamage from './getDamage.js';
 
 const getMainOpponent = (fightData: Fight['data'], brute: Fighter) => {
@@ -17,9 +18,9 @@ const getMainOpponent = (fightData: Fight['data'], brute: Fighter) => {
   return mainOpponent;
 };
 
-export const sabotage = (fightData: Fight['data']) => {
+export const saboteur = (fightData: Fight['data']) => {
   fightData.fighters.filter((fighter) => fighter.type === 'brute' && !fighter.master).forEach((brute) => {
-    if (brute.sabotage) {
+    if (brute.saboteur) {
       const opponent = getMainOpponent(fightData, brute);
 
       if (opponent && opponent.weapons.length > 0) {
@@ -111,7 +112,7 @@ const registerHit = (
   fighter: Fighter,
   opponent: Fighter,
   damage: number,
-  sourceName?: SuperName,
+  sourceName?: SuperName | 'poison',
 ) => {
   let actualDamage = damage;
 
@@ -543,14 +544,14 @@ const drawWeapon = (fightData: Fight['data']): boolean => {
 
   // Check if weapon was sabotaged
   if (fighter.sabotagedWeapon?.name === possibleWeapon.name) {
-    // Add sabotage step
+    // Add saboteur step
     fightData.steps.push({
-      action: 'sabotage',
+      action: 'saboteur',
       brute: fighter.name,
       weapon: possibleWeapon.name,
     });
 
-    // Remove sabotaged weapon from fighter
+    // Remove weapon from fighter
     fighter.activeWeapon = null;
     fighter.sabotagedWeapon = null;
 
@@ -563,9 +564,251 @@ const drawWeapon = (fightData: Fight['data']): boolean => {
   return false;
 };
 
-export const playFighterTurn = (fightData: Fight['data'], turn: number) => {
+const block = (fighter: Fighter, opponent: Fighter, ease = 1) => {
+  // No block if opponent is trapped
+  if (opponent.trapped) return false;
+
+  return Math.random() * ease
+    < (opponent.block
+      + (opponent.activeWeapon?.block || 0)
+      - (fighter.activeWeapon?.accuracy || 0));
+};
+
+const evade = (fighter: Fighter, opponent: Fighter, ease = 1) => {
+  // Not evasion if opponent is trapped
+  if (opponent.trapped) return false;
+
+  // Automatically evade if `balletShoes`
+  if (fighter.balletShoes) {
+    // Disable ballet shoes
+    fighter.balletShoes = false;
+    return true;
+  }
+
+  // Get agility difference (-40 > diff > 40)
+  const agilityDifference = Math.min(
+    Math.max(
+      -40,
+      (opponent.agility - fighter.agility),
+    ),
+    40,
+  );
+
+  return Math.random() * ease
+    < Math.min(
+      (opponent.evasion
+        + (opponent.activeWeapon?.evasion || 0)
+        + agilityDifference
+        - fighter.accuracy
+        - (fighter.activeWeapon?.accuracy || 0)),
+      0.9,
+    );
+};
+
+const breakShield = (fighter: Fighter, opponent: Fighter) => {
+  // Can't break someone's shield if they are not holding a shield >.>
+  if (!opponent.shield) return false;
+
+  return (fighter.disarm + (fighter.activeWeapon?.disarm || 0)) * 100 > randomBetween(0, 300);
+};
+
+const disarm = (fighter: Fighter, opponent: Fighter) => {
+  // Can't disarm someone if they are not holding a weapon >.>
+  if (!opponent.activeWeapon) return false;
+
+  return (fighter.disarm + (fighter.activeWeapon?.disarm || 0)) * 100 > randomBetween(0, 100);
+};
+
+const disarmAttacker = (fighter: Fighter, opponent: Fighter) => {
+  // Can't disarm someone if they are not holding a weapon >.>
+  if (!fighter.activeWeapon) return false;
+
+  // Only disarm if opponent has `ironHead`
+  if (!opponent.ironHead) return false;
+
+  // 30% chance to disarm the attacker
+  return Math.random() < 0.3;
+};
+
+const attack = (fightData: Fight['data'], fighter: Fighter, opponent: Fighter) => {
+  // Abort if fighter is dead
+  if (fighter.hp <= 0) return;
+
+  // Get damage
+  let damage = getDamage(fighter, opponent, fighter.activeWeapon || undefined);
+
+  // Check if opponent blocked
+  if (block(fighter, opponent)) {
+    damage = 0;
+
+    // Add block step
+    fightData.steps.push({
+      action: 'block',
+      fighter: fighter.name,
+    });
+  }
+
+  // Check if opponent evaded
+  if (damage && evade(fighter, opponent)) {
+    damage = 0;
+
+    // Add evade step
+    fightData.steps.push({
+      action: 'evade',
+      fighter: fighter.name,
+    });
+  }
+
+  // Check if opponent's shield was broken
+  if (damage && breakShield(fighter, opponent)) {
+    damage = 0;
+
+    // Remove shield from opponent
+    opponent.shield = false;
+    opponent.block -= SHIELD_BLOCK_ODDS;
+
+    // Add break step
+    fightData.steps.push({
+      action: 'break',
+      fighter: fighter.name,
+      opponent: opponent.name,
+      item: 'shield',
+    });
+  }
+
+  // Check if the fighter sabotages an opponent's weapon
+  if (damage && fighter.sabotage) {
+    if (opponent.weapons.length) {
+      // Remove a random weapon
+      const weapon = opponent.weapons.splice(randomBetween(0, opponent.weapons.length), 1)[0];
+
+      // Add sabotage step
+      fightData.steps.push({
+        action: 'sabotage',
+        fighter: fighter.name,
+        opponent: opponent.name,
+        weapon: weapon.name,
+      });
+    }
+  }
+
+  // Check if the fighter disarms the opponent
+  if (damage && disarm(fighter, opponent)) {
+    if (opponent.activeWeapon) {
+      // Add disarm step
+      fightData.steps.push({
+        action: 'disarm',
+        fighter: fighter.name,
+        opponent: opponent.name,
+        weapon: opponent.activeWeapon.name,
+      });
+
+      // Remove weapon from opponent
+      opponent.activeWeapon = null;
+    }
+  }
+
+  // Check if the fighter gets disarmed
+  if (damage && disarmAttacker(fighter, opponent)) {
+    if (fighter.activeWeapon) {
+      // Add disarm step
+      fightData.steps.push({
+        action: 'disarm',
+        fighter: opponent.name,
+        opponent: fighter.name,
+        weapon: fighter.activeWeapon.name,
+      });
+
+      // Remove weapon from fighter
+      fighter.activeWeapon = null;
+    }
+  }
+
+  // Register hit if damage was done
+  if (damage) {
+    registerHit(fightData, fighter, opponent, getDamage(fighter, opponent));
+  }
+
+  // Randomly trigger another attack if the fighter has `determination`
+  if (!damage && fighter.determination && Math.random() < 0.7) {
+    fighter.retryAttack = true;
+  }
+};
+
+export const checkDeaths = (fightData: Fight['data']) => {
+  for (let i = 0; i < fightData.fighters.length; i++) {
+    const fighter = fightData.fighters[i];
+
+    if (fighter.hp <= 0) {
+      // Add death step
+      fightData.steps.push({
+        action: 'death',
+        fighter: fighter.name,
+        type: fighter.type,
+      });
+
+      // Remove fighter from fight
+      fightData.fighters.splice(i, 1);
+      i -= 1;
+    }
+  }
+
+  // Returns the dead main fighter if there is one
+  return fightData.fighters.find((fighter) => fighter.type === 'brute' && !fighter.master);
+};
+
+const reversal = (fightData: Fight['data'], opponent: Fighter) => {
+  // Only reverse if the opponent has `reversal`
+  if (!opponent.reversal) return false;
+
+  // Auto reverse
+  if (opponent.autoReversalOnBlock && opponent.triggerReversal) {
+    // Reset reversal trigger
+    opponent.triggerReversal = false;
+    return true;
+  }
+
+  return Math.random() < opponent.reversal + (opponent.activeWeapon?.counter || 0);
+};
+
+const startAttack = (fightData: Fight['data'], fighter: Fighter, opponent: Fighter) => {
+  // Trigger fighter attack
+  attack(fightData, fighter, opponent);
+
+  // Get combo chances
+  let combo = fighter.combo + (fighter.activeWeapon?.combo || 0) + (fighter.agility * 0.01);
+
+  // Keep track of initial fighter HP
+  const initialFighterHp = fighter.hp;
+
+  // Repeat attack
+  while (Math.random() < combo || fighter.retryAttack) {
+    // Stop the combo if the fighter took a hit
+    if (fighter.hp < initialFighterHp) {
+      break;
+    }
+
+    // Decrease combo chances
+    combo *= 0.5;
+    // Reset retry attack flag
+    fighter.retryAttack = false;
+
+    // Trigger fighter attack
+    attack(fightData, fighter, opponent);
+  }
+
+  // Check if a fighter is dead
+  checkDeaths(fightData);
+
+  // Check if opponent is not trapped and can reverse
+  if (!opponent.trapped && reversal(fightData, opponent)) {
+    // Trigger opponent attack
+    attack(fightData, opponent, fighter);
+  }
+};
+
+export const playFighterTurn = (fightData: Fight['data']) => {
   const fighter = fightData.fighters[0];
-  console.log(`${fighter.name} turn ${turn}`);
 
   // Check if backup should leave
   if (fighter.leavesAtInitiative && fighter.leavesAtInitiative <= fightData.initiative) {
@@ -609,8 +852,13 @@ export const playFighterTurn = (fightData: Fight['data'], turn: number) => {
     return;
   }
 
-  // Get attack type
-  const attackType = fighter.activeWeapon?.types.includes('thrown') ? 'thrown' : 'melee';
+  // Get attack type (more chances to throw a weapon the less damage it does)
+  const attackType = fighter.activeWeapon?.types.includes('thrown')
+    ? 'thrown'
+    : fighter.activeWeapon
+      ? randomBetween(0, fighter.activeWeapon.damage) === 0
+        ? 'thrown' : 'melee'
+      : 'melee';
 
   // Get opponent
   const opponent = getRandomOpponent(fightData);
@@ -629,10 +877,10 @@ export const playFighterTurn = (fightData: Fight['data'], turn: number) => {
     // Check if opponent is trapped or countered
     if (!opponent.trapped && counterAttack(fighter, opponent)) {
       // Opponent attacks fighter
-      registerHit(fightData, opponent, fighter, getDamage(opponent, fighter));
+      startAttack(fightData, opponent, fighter);
     } else {
       // Fighter attacks opponent
-      registerHit(fightData, fighter, opponent, getDamage(fighter, opponent));
+      startAttack(fightData, fighter, opponent);
     }
 
     // Check if fighter is not dead
@@ -645,15 +893,82 @@ export const playFighterTurn = (fightData: Fight['data'], turn: number) => {
     }
   } else {
     // Throw attack
+    if (!fighter.activeWeapon) {
+      throw new Error('Trying to throww a weapon but no weapon is active');
+    }
 
     // Get damage
-    const damage = getDamage(fighter, opponent, fighter.activeWeapon || undefined);
+    let damage = getDamage(fighter, opponent, fighter.activeWeapon);
 
-    console.log(damage);
-    // TODO
+    // Add throw step
+    fightData.steps.push({
+      action: 'throw',
+      fighter: fighter.name,
+      opponent: opponent.name,
+      opponentType: opponent.type,
+      weapon: fighter.activeWeapon.name,
+    });
+
+    // Check if opponent blocked (easier than melee)
+    if (block(fighter, opponent, 10)) {
+      damage = 0;
+
+      // Add block step
+      fightData.steps.push({
+        action: 'block',
+        fighter: opponent.name,
+      });
+    }
+
+    // Check if opponent evaded (slightly easier than melee)
+    if (evade(fighter, opponent, 2)) {
+      damage = 0;
+
+      // Add evade step
+      fightData.steps.push({
+        action: 'evade',
+        fighter: opponent.name,
+      });
+    }
+
+    // Register hit if damage was done
+    if (damage) {
+      registerHit(fightData, fighter, opponent, damage);
+    }
+
+    // Remove fighter weapon if it is not a thrown weapon
+    if (!fighter.activeWeapon.types.includes('thrown')) {
+      fighter.activeWeapon = null;
+    }
+
+    // Check if a fighter is dead
+    checkDeaths(fightData);
   }
-};
 
-export const endFight = (fightData: Fight['data']) => {
-  console.log(fightData);
+  // Check if fighter is poisoned
+  if (fighter.hp > 0 && fighter.poisoned) {
+    // Get poison damage
+    const poisonDamage = Math.ceil(fighter.maxHp / 50);
+
+    // Register the hit
+    registerHit(fightData, fighter, fighter, poisonDamage, 'poison');
+  }
+
+  // Increase own initiative
+  let tempo = (fighter.activeWeapon?.tempo || BARE_HANDS_TEMPO)
+    * fighter.tempo
+  + (randomBetween(0, 10) / 100);
+
+  // Reduce tempo lost if fighter has `bodybuilder`
+  if (fighter.bodybuilder) {
+    tempo *= 0.75;
+  }
+
+  fighter.initiative += tempo;
+
+  // Remove the `fireceBrute` buff
+  const fierceBruteIndex = fighter.activeSkills.findIndex((skill) => skill.name === 'fierceBrute');
+  if (fierceBruteIndex !== -1) {
+    fighter.activeSkills.splice(fierceBruteIndex, 1);
+  }
 };

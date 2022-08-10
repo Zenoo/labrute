@@ -71,7 +71,7 @@ export interface Weapon {
   name: WeaponName;
   odds: number;
   types: WeaponType[];
-  interval: number;
+  tempo: number;
   counter: number;
   evasion: number;
   block: number;
@@ -208,7 +208,8 @@ export interface Fighter {
   // hit stats
   baseDamage: number,
   counter: number,
-  autoCounterOnBlock: boolean,
+  autoReversalOnBlock: boolean,
+  triggerReversal: boolean,
   reversal: number,
   combo: number,
   block: number,
@@ -227,6 +228,7 @@ export interface Fighter {
   balletShoes: boolean,
   // 70% chance of re-attacking on misses (evasion or block)
   determination: boolean,
+  retryAttack: boolean,
   // 30% chance of disarming when being hit
   ironHead: boolean,
   // Max 20% max HP per hit
@@ -242,14 +244,16 @@ export interface Fighter {
   // Active weapon
   activeWeapon: Weapon | null,
   keepWeaponChance: number,
+  // Pre fight sabotage
+  saboteur: boolean,
   sabotagedWeapon: Weapon | null,
   // Status effects
   poisoned: boolean,
   trapped: boolean,
 }
 
-export interface SabotageStep {
-  action: 'sabotage';
+export interface SaboteurStep {
+  action: 'saboteur';
   brute: string;
   weapon: WeaponName;
 }
@@ -302,10 +306,10 @@ export interface SurviveStep {
 }
 
 export interface HitStep {
-  action: 'hit' | SuperName;
+  action: 'hit' | SuperName | 'poison';
   brute: string;
   target: string;
-  weapon: WeaponName | SuperName | null;
+  weapon: WeaponName | SuperName | 'poison' | null;
   damage: number;
   thrown?: boolean;
 }
@@ -342,10 +346,62 @@ export interface EquipStep {
   name: WeaponName;
 }
 
-export type FightStep = SabotageStep | LeaveStep | ArriveStep
+export interface BlockStep {
+  action: 'block';
+  fighter: string;
+}
+
+export interface EvadeStep {
+  action: 'evade';
+  fighter: string;
+}
+
+export interface BreakStep {
+  action: 'break';
+  fighter: string;
+  opponent: string;
+  item: WeaponName | 'shield';
+}
+
+export interface SabotageStep {
+  action: 'sabotage';
+  fighter: string;
+  opponent: string;
+  weapon: WeaponName;
+}
+
+export interface DisarmStep {
+  action: 'disarm';
+  fighter: string;
+  opponent: string;
+  weapon: WeaponName;
+}
+
+export interface DeathStep {
+  action: 'death';
+  fighter: string;
+  type: 'brute' | 'pet';
+}
+
+export interface ThrowStep {
+  action: 'throw';
+  fighter: string;
+  opponent: string;
+  opponentType: 'brute' | 'pet';
+  weapon: WeaponName;
+}
+
+export interface EndStep {
+  action: 'end';
+  winner: string;
+  loser: string;
+}
+
+export type FightStep = SaboteurStep | LeaveStep | ArriveStep
   | TrashStep | StealStep | TrapStep | HealStep | ResistStep
   | SurviveStep | HitStep | HypnotiseStep | MoveStep | EatStep
-  | MoveBackStep | EquipStep;
+  | MoveBackStep | EquipStep | BlockStep | EvadeStep | BreakStep
+  | SabotageStep | DisarmStep | DeathStep | ThrowStep | EndStep;
 
 export interface Fight {
   id: number;
@@ -355,5 +411,7 @@ export interface Fight {
     fighters: Fighter[];
     steps: FightStep[];
     initiative: number;
+    winner: string;
+    loser: string;
   }
 }
