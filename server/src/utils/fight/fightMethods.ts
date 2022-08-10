@@ -1,12 +1,12 @@
 /* eslint-disable no-param-reassign */
+import { BARE_HANDS_TEMPO, SHIELD_BLOCK_ODDS } from '@eternaltwin/labrute-core/constants';
 import {
-  Fight, Fighter, Skill, SuperName, Weapon,
+  DetailedFight, DetailedFighter, PetName, Skill, Weapon,
 } from '@eternaltwin/labrute-core/types';
 import randomBetween from '@eternaltwin/labrute-core/utils/randomBetween';
-import { BARE_HANDS_TEMPO, SHIELD_BLOCK_ODDS } from '@eternaltwin/labrute-core/constants';
 import getDamage from './getDamage.js';
 
-const getMainOpponent = (fightData: Fight['data'], brute: Fighter) => {
+const getMainOpponent = (fightData: DetailedFight['data'], brute: DetailedFighter) => {
   const mainOpponent = fightData.fighters.find(
     (fighter) => fighter.type === 'brute' && !fighter.master && fighter.name !== brute.name,
   );
@@ -18,7 +18,7 @@ const getMainOpponent = (fightData: Fight['data'], brute: Fighter) => {
   return mainOpponent;
 };
 
-export const saboteur = (fightData: Fight['data']) => {
+export const saboteur = (fightData: DetailedFight['data']) => {
   fightData.fighters.filter((fighter) => fighter.type === 'brute' && !fighter.master).forEach((brute) => {
     if (brute.saboteur) {
       const opponent = getMainOpponent(fightData, brute);
@@ -31,11 +31,7 @@ export const saboteur = (fightData: Fight['data']) => {
   });
 };
 
-export const isSomeoneDead = (fightData: Fight['data']) => fightData.fighters.some(
-  (fighter) => fighter.type === 'brute' && !fighter.master && fighter.hp <= 0,
-);
-
-export const orderFighters = (fightData: Fight['data']) => {
+export const orderFighters = (fightData: DetailedFight['data']) => {
   fightData.fighters = fightData.fighters.sort((a, b) => {
     // Last if hp <= 0
     if (a.hp <= 0) return 1;
@@ -89,12 +85,22 @@ const randomlyDrawWeapon = (weapons: Weapon[]) => {
   return null;
 };
 
-const getOpponents = (fightData: Fight['data'], bruteOnly?: boolean) => {
+const getOpponents = (fightData: DetailedFight['data'], bruteOnly?: boolean) => {
   const fighter = fightData.fighters[0];
 
-  let opponents = fightData.fighters.filter(
-    (f) => f.name !== fighter.name && f.master !== fighter.name,
-  );
+  let opponents = [];
+
+  // Fighter is a pet/backup
+  if (fighter.master) {
+    opponents = fightData.fighters.filter((f) => (f.master
+      ? f.master !== fighter.master
+      : f.name !== fighter.master));
+  } else {
+    // Fighter is a real brute
+    opponents = fightData.fighters.filter((f) => f.name !== fighter.name
+      && f.master !== fighter.name);
+  }
+
   if (bruteOnly) {
     opponents = opponents.filter((f) => f.type === 'brute');
   }
@@ -102,17 +108,19 @@ const getOpponents = (fightData: Fight['data'], bruteOnly?: boolean) => {
   return opponents;
 };
 
-const getRandomOpponent = (fightData: Fight['data'], bruteOnly?: boolean) => {
+const getRandomOpponent = (fightData: DetailedFight['data'], bruteOnly?: boolean) => {
   const opponents = getOpponents(fightData, bruteOnly);
-  return opponents[randomBetween(0, opponents.length - 1)];
+  const random = randomBetween(0, opponents.length - 1);
+
+  return opponents[random];
 };
 
 const registerHit = (
-  fightData: Fight['data'],
-  fighter: Fighter,
-  opponent: Fighter,
+  fightData: DetailedFight['data'],
+  fighter: DetailedFighter,
+  opponent: DetailedFighter,
   damage: number,
-  sourceName?: SuperName | 'poison',
+  sourceName?: 'hammer' | 'flashFlood' | 'poison',
 ) => {
   let actualDamage = damage;
 
@@ -151,12 +159,12 @@ const registerHit = (
     action: sourceName || 'hit',
     brute: fighter.name,
     target: opponent.name,
-    weapon: sourceName || fighter.activeWeapon?.name || null,
+    weapon: sourceName ? null : fighter.activeWeapon?.name || null,
     damage: actualDamage,
   });
 };
 
-const activateSuper = (fightData: Fight['data'], skill: Skill): boolean => {
+const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean => {
   // No uses left (should never happen)
   if (!skill.uses) return false;
 
@@ -363,7 +371,7 @@ const activateSuper = (fightData: Fight['data'], skill: Skill): boolean => {
           fightData.steps.push({
             action: 'hypnotise',
             brute: fighter.name,
-            pet: pet.name,
+            pet: pet.name as PetName,
           });
 
           hypnotisedPets.push(pet);
@@ -488,7 +496,7 @@ const activateSuper = (fightData: Fight['data'], skill: Skill): boolean => {
   return true;
 };
 
-const counterAttack = (fighter: Fighter, opponent: Fighter) => Math.random()
+const counterAttack = (fighter: DetailedFighter, opponent: DetailedFighter) => Math.random()
   < (
     opponent.counter * 100
     + (
@@ -498,7 +506,7 @@ const counterAttack = (fighter: Fighter, opponent: Fighter) => Math.random()
   ) * 0.1;
 
 // Returns true if weapon was sabotaged
-const drawWeapon = (fightData: Fight['data']): boolean => {
+const drawWeapon = (fightData: DetailedFight['data']): boolean => {
   // Get current fighter
   const fighter = fightData.fighters[0];
 
@@ -564,7 +572,7 @@ const drawWeapon = (fightData: Fight['data']): boolean => {
   return false;
 };
 
-const block = (fighter: Fighter, opponent: Fighter, ease = 1) => {
+const block = (fighter: DetailedFighter, opponent: DetailedFighter, ease = 1) => {
   // No block if opponent is trapped
   if (opponent.trapped) return false;
 
@@ -574,7 +582,7 @@ const block = (fighter: Fighter, opponent: Fighter, ease = 1) => {
       - (fighter.activeWeapon?.accuracy || 0));
 };
 
-const evade = (fighter: Fighter, opponent: Fighter, ease = 1) => {
+const evade = (fighter: DetailedFighter, opponent: DetailedFighter, difficulty = 1) => {
   // Not evasion if opponent is trapped
   if (opponent.trapped) return false;
 
@@ -594,7 +602,7 @@ const evade = (fighter: Fighter, opponent: Fighter, ease = 1) => {
     40,
   );
 
-  return Math.random() * ease
+  return Math.random() * difficulty
     < Math.min(
       (opponent.evasion
         + (opponent.activeWeapon?.evasion || 0)
@@ -605,21 +613,21 @@ const evade = (fighter: Fighter, opponent: Fighter, ease = 1) => {
     );
 };
 
-const breakShield = (fighter: Fighter, opponent: Fighter) => {
+const breakShield = (fighter: DetailedFighter, opponent: DetailedFighter) => {
   // Can't break someone's shield if they are not holding a shield >.>
   if (!opponent.shield) return false;
 
   return (fighter.disarm + (fighter.activeWeapon?.disarm || 0)) * 100 > randomBetween(0, 300);
 };
 
-const disarm = (fighter: Fighter, opponent: Fighter) => {
+const disarm = (fighter: DetailedFighter, opponent: DetailedFighter) => {
   // Can't disarm someone if they are not holding a weapon >.>
   if (!opponent.activeWeapon) return false;
 
   return (fighter.disarm + (fighter.activeWeapon?.disarm || 0)) * 100 > randomBetween(0, 100);
 };
 
-const disarmAttacker = (fighter: Fighter, opponent: Fighter) => {
+const disarmAttacker = (fighter: DetailedFighter, opponent: DetailedFighter) => {
   // Can't disarm someone if they are not holding a weapon >.>
   if (!fighter.activeWeapon) return false;
 
@@ -630,12 +638,19 @@ const disarmAttacker = (fighter: Fighter, opponent: Fighter) => {
   return Math.random() < 0.3;
 };
 
-const attack = (fightData: Fight['data'], fighter: Fighter, opponent: Fighter) => {
+const attack = (fightData: DetailedFight['data'], fighter: DetailedFighter, opponent: DetailedFighter) => {
   // Abort if fighter is dead
   if (fighter.hp <= 0) return;
 
   // Get damage
   let damage = getDamage(fighter, opponent, fighter.activeWeapon || undefined);
+
+  // Add attempt step
+  fightData.steps.push({
+    action: 'attemptHit',
+    fighter: fighter.name,
+    target: opponent.name,
+  });
 
   // Check if opponent blocked
   if (block(fighter, opponent)) {
@@ -644,7 +659,7 @@ const attack = (fightData: Fight['data'], fighter: Fighter, opponent: Fighter) =
     // Add block step
     fightData.steps.push({
       action: 'block',
-      fighter: fighter.name,
+      fighter: opponent.name,
     });
   }
 
@@ -655,7 +670,7 @@ const attack = (fightData: Fight['data'], fighter: Fighter, opponent: Fighter) =
     // Add evade step
     fightData.steps.push({
       action: 'evade',
-      fighter: fighter.name,
+      fighter: opponent.name,
     });
   }
 
@@ -672,7 +687,6 @@ const attack = (fightData: Fight['data'], fighter: Fighter, opponent: Fighter) =
       action: 'break',
       fighter: fighter.name,
       opponent: opponent.name,
-      item: 'shield',
     });
   }
 
@@ -735,7 +749,7 @@ const attack = (fightData: Fight['data'], fighter: Fighter, opponent: Fighter) =
   }
 };
 
-export const checkDeaths = (fightData: Fight['data']) => {
+export const checkDeaths = (fightData: DetailedFight['data']) => {
   for (let i = 0; i < fightData.fighters.length; i++) {
     const fighter = fightData.fighters[i];
 
@@ -748,16 +762,18 @@ export const checkDeaths = (fightData: Fight['data']) => {
       });
 
       // Remove fighter from fight
-      fightData.fighters.splice(i, 1);
+      const [deadFighter] = fightData.fighters.splice(i, 1);
+
+      // Set loser if fighter is a main brute
+      if (deadFighter.type === 'brute' && !deadFighter.master) {
+        fightData.loser = deadFighter.name;
+      }
       i -= 1;
     }
   }
-
-  // Returns the dead main fighter if there is one
-  return fightData.fighters.find((fighter) => fighter.type === 'brute' && !fighter.master);
 };
 
-const reversal = (fightData: Fight['data'], opponent: Fighter) => {
+const reversal = (fightData: DetailedFight['data'], opponent: DetailedFighter) => {
   // Only reverse if the opponent has `reversal`
   if (!opponent.reversal) return false;
 
@@ -771,7 +787,7 @@ const reversal = (fightData: Fight['data'], opponent: Fighter) => {
   return Math.random() < opponent.reversal + (opponent.activeWeapon?.counter || 0);
 };
 
-const startAttack = (fightData: Fight['data'], fighter: Fighter, opponent: Fighter) => {
+const startAttack = (fightData: DetailedFight['data'], fighter: DetailedFighter, opponent: DetailedFighter) => {
   // Trigger fighter attack
   attack(fightData, fighter, opponent);
 
@@ -807,7 +823,7 @@ const startAttack = (fightData: Fight['data'], fighter: Fighter, opponent: Fight
   }
 };
 
-export const playFighterTurn = (fightData: Fight['data']) => {
+export const playFighterTurn = (fightData: DetailedFight['data']) => {
   const fighter = fightData.fighters[0];
 
   // Check if backup should leave
@@ -909,8 +925,8 @@ export const playFighterTurn = (fightData: Fight['data']) => {
       weapon: fighter.activeWeapon.name,
     });
 
-    // Check if opponent blocked (easier than melee)
-    if (block(fighter, opponent, 10)) {
+    // Check if opponent blocked (harder than melee)
+    if (block(fighter, opponent, 2)) {
       damage = 0;
 
       // Add block step
@@ -920,7 +936,7 @@ export const playFighterTurn = (fightData: Fight['data']) => {
       });
     }
 
-    // Check if opponent evaded (slightly easier than melee)
+    // Check if opponent evaded (harder than melee)
     if (evade(fighter, opponent, 2)) {
       damage = 0;
 
@@ -957,7 +973,7 @@ export const playFighterTurn = (fightData: Fight['data']) => {
   // Increase own initiative
   let tempo = (fighter.activeWeapon?.tempo || BARE_HANDS_TEMPO)
     * fighter.tempo
-  + (randomBetween(0, 10) / 100);
+    + (randomBetween(0, 10) / 100);
 
   // Reduce tempo lost if fighter has `bodybuilder`
   if (fighter.bodybuilder) {

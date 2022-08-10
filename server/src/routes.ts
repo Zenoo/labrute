@@ -32,6 +32,7 @@ const initRoutes = (app: Express) => {
 
   // Fight
   app.get('/api/fight/:name/:id', Fights.get);
+  app.post('/api/fight/create', Fights.create);
 };
 
 export default initRoutes;

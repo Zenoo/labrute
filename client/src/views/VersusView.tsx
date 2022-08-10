@@ -7,13 +7,16 @@ import BruteComponent from '../components/Brute/Body/BruteComponent.js';
 import Page from '../components/Page.js';
 import StyledButton from '../components/StyledButton.js';
 import Text from '../components/Text.js';
+import { useAlert } from '../hooks/useAlert.js';
 import useStateAsync from '../hooks/useStateAsync.js';
+import catchError from '../utils/catchError.js';
 import Server from '../utils/Server.js';
 
 const VersusView = () => {
   const { t } = useTranslation();
   const { bruteName, opponentName } = useParams();
   const navigate = useNavigate();
+  const Alert = useAlert();
 
   const { data: brute } = useStateAsync(null, Server.Brute.get, bruteName);
   const { data: opponent } = useStateAsync(null, Server.Brute.get, opponentName);
@@ -29,15 +32,22 @@ const VersusView = () => {
   }, [brute, navigate, opponent]);
 
   // Start fight
-  const startFight = useCallback(() => {
+  const startFight = useCallback(async () => {
     if (!brute || !opponent) {
       return;
     }
-    navigate(`/${brute.name}/fight/${123}`);
-  }, [brute, navigate, opponent]);
+
+    // Create the fight
+    const fight = await Server.Fight.create(brute.name, opponent.name)
+      .catch(catchError(Alert));
+
+    if (fight) {
+      navigate(`/${brute.name}/fight/${fight.id}`);
+    }
+  }, [Alert, brute, navigate, opponent]);
 
   return brute && opponent && (
-    <Page title={`${brute.name || ''} ${t('MyBrute')}`}>
+    <Page title={`${brute.name || ''} ${t('MyBrute')}`} headerUrl={`/${brute.name}/cell`}>
       <BoxBg
         src="/images/versus/background.gif"
         sx={{

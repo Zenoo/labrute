@@ -1,8 +1,9 @@
 import { Log } from '@eternaltwin/labrute-core/types';
-import { BoxProps, Link, Tooltip } from '@mui/material';
+import { BoxProps, Tooltip } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import BoxBg from '../BoxBg.js';
+import Link from '../Link.js';
 import Text from '../Text.js';
 
 export interface CellLogProps extends BoxProps {
@@ -34,7 +35,7 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
         ? (
           <Tooltip title={t('seeFight')}>
             <Link
-              href=""
+              to={`/${log.current_brute}/fight/${log.fight}`}
               sx={{
                 textDecoration: 'none',
                 '&:hover': {
@@ -46,7 +47,7 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
                 },
               }}
             >
-              <Text bold color={log.type === 'lose' ? 'error.main' : 'success.main'}>
+              <Text bold color={log.type === 'lose' ? 'error.main' : 'success.main'} sx={{ lineHeight: '13px' }}>
                 {t(`log.${log.type}`, { value: log.brute })}
               </Text>
             </Link>
@@ -64,7 +65,6 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
           color={log.type === 'lose' ? 'error.main' : 'success.main'}
           sx={{
             fontSize: 10,
-            mt: '-5px',
           }}
         >
           {t(log.xp === 1 ? 'log.xp' : 'log.xps', { xp: log.xp })}

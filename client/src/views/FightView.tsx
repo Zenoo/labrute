@@ -11,6 +11,7 @@ import { useAlert } from '../hooks/useAlert.js';
 import advertisings from '../utils/advertisings.js';
 import catchError from '../utils/catchError.js';
 import Server from '../utils/Server.js';
+import translateFightStep from '../utils/translateFightStep.js';
 
 const FightView = () => {
   const { t } = useTranslation();
@@ -22,7 +23,7 @@ const FightView = () => {
   const [brute1, setBrute1] = useState<Brute | null>(null);
   const [brute2, setBrute2] = useState<Brute | null>(null);
 
-  console.log(fight, brute1, brute2);
+  console.log(brute1, brute2);
 
   // Fetch fight and brutes
   useEffect(() => {
@@ -65,7 +66,7 @@ const FightView = () => {
   }, []);
 
   return (bruteName && fightId) ? (
-    <Page title={`${bruteName || ''} ${t('MyBrute')}`}>
+    <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl={`/${bruteName}/cell`}>
       <BoxBg
         src="/images/fight/background.gif"
         sx={{
@@ -101,7 +102,12 @@ const FightView = () => {
               ml: 5,
             }}
           >
-            .
+            <Box sx={{ height: 1, width: 1, bgcolor: 'rgba(255, 255, 255, 0.4)', overflowY: 'auto' }}>
+              {fight && fight.data.steps.filter((step) => !['moveTo', 'moveBack'].includes(step.action)).map((step, i) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <Text key={i}>{translateFightStep(step, t)}</Text>
+              ))}
+            </Box>
           </BoxBg>
         </Box>
       </BoxBg>

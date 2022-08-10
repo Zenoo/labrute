@@ -165,7 +165,7 @@ export interface User {
 
 export interface Log {
   id: number;
-  currentBrute: number;
+  current_brute: number;
   type: 'win' | 'lose' | 'child' | 'childup'
   | 'up' | 'lvl' | 'survive';
   level?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
@@ -188,7 +188,7 @@ export interface DestinyChoice {
   choice: LevelUpChoice;
 }
 
-export interface Fighter {
+export interface DetailedFighter {
   // Metadata
   name: string;
   type: 'brute' | 'pet';
@@ -252,6 +252,17 @@ export interface Fighter {
   trapped: boolean,
 }
 
+export interface Fighter {
+  name: string;
+  type: 'brute' | 'pet';
+  master?: string;
+  maxHp: number;
+  hp: number,
+  skills: Skill[];
+  weapons: Weapon[];
+  shield: boolean;
+}
+
 export interface SaboteurStep {
   action: 'saboteur';
   brute: string;
@@ -306,10 +317,10 @@ export interface SurviveStep {
 }
 
 export interface HitStep {
-  action: 'hit' | SuperName | 'poison';
+  action: 'hit' | 'flashFlood' | 'hammer' | 'poison';
   brute: string;
   target: string;
-  weapon: WeaponName | SuperName | 'poison' | null;
+  weapon: WeaponName | SuperName | null;
   damage: number;
   thrown?: boolean;
 }
@@ -317,7 +328,7 @@ export interface HitStep {
 export interface HypnotiseStep {
   action: 'hypnotise';
   brute: string;
-  pet: string;
+  pet: PetName;
 }
 
 export interface MoveStep {
@@ -346,6 +357,12 @@ export interface EquipStep {
   name: WeaponName;
 }
 
+export interface AttemptHitStep {
+  action: 'attemptHit';
+  fighter: string;
+  target: string;
+}
+
 export interface BlockStep {
   action: 'block';
   fighter: string;
@@ -360,7 +377,6 @@ export interface BreakStep {
   action: 'break';
   fighter: string;
   opponent: string;
-  item: WeaponName | 'shield';
 }
 
 export interface SabotageStep {
@@ -400,17 +416,27 @@ export interface EndStep {
 export type FightStep = SaboteurStep | LeaveStep | ArriveStep
   | TrashStep | StealStep | TrapStep | HealStep | ResistStep
   | SurviveStep | HitStep | HypnotiseStep | MoveStep | EatStep
-  | MoveBackStep | EquipStep | BlockStep | EvadeStep | BreakStep
-  | SabotageStep | DisarmStep | DeathStep | ThrowStep | EndStep;
+  | MoveBackStep | EquipStep | AttemptHitStep | BlockStep | EvadeStep
+  | BreakStep | SabotageStep | DisarmStep | DeathStep | ThrowStep | EndStep;
+
+export interface DetailedFight {
+  brute_1: string;
+  brute_2: string;
+  data: {
+    fighters: DetailedFighter[];
+    steps: FightStep[];
+    initiative: number;
+    winner: string;
+    loser: string;
+  }
+}
 
 export interface Fight {
-  id: number;
   brute_1: string;
   brute_2: string;
   data: {
     fighters: Fighter[];
     steps: FightStep[];
-    initiative: number;
     winner: string;
     loser: string;
   }

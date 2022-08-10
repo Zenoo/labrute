@@ -1,6 +1,6 @@
 import { Brute } from '@eternaltwin/labrute-core/types';
 import { Box, Button, Grid, Paper, useMediaQuery, useTheme } from '@mui/material';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import ArenaStat from '../components/Arena/ArenaStat.js';
@@ -16,6 +16,7 @@ import { useAlert } from '../hooks/useAlert.js';
 import useStateAsync from '../hooks/useStateAsync.js';
 import catchError from '../utils/catchError.js';
 import Server from '../utils/Server.js';
+import getXPNeeded from '@eternaltwin/labrute-core/brute/getXPNeeded';
 
 const ArenaView = () => {
   const { t } = useTranslation();
@@ -29,11 +30,20 @@ const ArenaView = () => {
   const [opponents, setOpponents] = useState<Brute[]>([]);
   const [search, setSearch] = useState('');
 
+  const xpNeededForNextLevel = useMemo(() => brute
+  && getXPNeeded(brute.data.level + 1), [brute]);
+
   // Fetch random opponents
   useEffect(() => {
     let isSubscribed = true;
     const cleanup = () => { isSubscribed = false; };
     if (!brute) return cleanup;
+
+    // Redirect to cell if XP is too much
+    if (xpNeededForNextLevel && brute.data.xp >= xpNeededForNextLevel) {
+      navigate(`/${brute.name}/cell`);
+      return cleanup;
+    }
 
     Server.Brute.getOpponents(brute.name, brute.data.level).then((data) => {
       if (isSubscribed) {
@@ -42,7 +52,7 @@ const ArenaView = () => {
     }).catch(catchError(Alert));
 
     return cleanup;
-  }, [Alert, brute]);
+  }, [Alert, brute, navigate, xpNeededForNextLevel]);
 
   // Go to versus page
   const goToVersus = useCallback((opponent: Brute) => () => {

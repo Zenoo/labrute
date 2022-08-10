@@ -1,9 +1,8 @@
 import {
-  Brute, LevelUpChoice, SkillName, WeaponName, Stats,
+  Brute, LevelUpChoice, SkillName, Stats, WeaponName,
 } from '../types.js';
 import applySkillModifiers from './applySkillModifiers.js';
 import getHP from './getHP.js';
-import getXPNeeded from './getXPNeeded.js';
 import pets, { Pet } from './pets.js';
 
 const updateBruteData = (brute: Brute, levelUpChoice: LevelUpChoice) => {
@@ -11,7 +10,7 @@ const updateBruteData = (brute: Brute, levelUpChoice: LevelUpChoice) => {
     ...brute,
     data: {
       ...brute.data,
-      xp: getXPNeeded(brute.data.level + 2), // TODO: Set to 0 when I implement XP gains
+      xp: 0,
       level: brute.data.level + 1,
     },
   };

@@ -1,12 +1,12 @@
 /* eslint-disable no-param-reassign */
-import { Brute, Fighter, PetName } from '@eternaltwin/labrute-core/types';
+import { Brute, DetailedFighter, PetName } from '@eternaltwin/labrute-core/types';
 import { SHIELD_BLOCK_ODDS } from '@eternaltwin/labrute-core/constants';
 import pets from '@eternaltwin/labrute-core/brute/pets';
 import skills from '@eternaltwin/labrute-core/brute/skills';
 import weapons from '@eternaltwin/labrute-core/brute/weapons';
 import randomBetween from '@eternaltwin/labrute-core/utils/randomBetween';
 
-const handleSkills = (brute: Brute, fighter: Fighter) => {
+const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
   /* INITIATIVE */
 
   // -2 initiative for `firstStrike`
@@ -116,11 +116,11 @@ const handleSkills = (brute: Brute, fighter: Fighter) => {
   }
 };
 
-const getFighters = (brutes: Brute[], backups: Brute[][]): Fighter[] => {
-  const fighters: Fighter[] = [];
+const getFighters = (brutes: Brute[], backups: Brute[][]): DetailedFighter[] => {
+  const fighters: DetailedFighter[] = [];
   brutes.forEach((brute, i) => {
     // Brute stats
-    const fighter: Fighter = {
+    const fighter: DetailedFighter = {
       name: brute.name,
       type: 'brute' as const,
       maxHp: brute.data.stats.hp,
@@ -227,7 +227,7 @@ const getFighters = (brutes: Brute[], backups: Brute[][]): Fighter[] => {
       // Arrives at a random time
       const arrivesAt = randomBetween(0, 500) / 100;
 
-      const backupFighter: Fighter = {
+      const backupFighter: DetailedFighter = {
         name: backup.name,
         type: 'brute' as const,
         master: brute.name,

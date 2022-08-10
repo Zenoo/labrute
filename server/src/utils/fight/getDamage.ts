@@ -1,8 +1,8 @@
-import { Fighter, Weapon } from '@eternaltwin/labrute-core/types';
+import { DetailedFighter, Weapon } from '@eternaltwin/labrute-core/types';
 
 const getDamage = (
-  fighter: Fighter,
-  opponent: Fighter,
+  fighter: DetailedFighter,
+  opponent: DetailedFighter,
   thrown?: Weapon,
 ) => {
   const base = fighter.activeWeapon?.damage || fighter.baseDamage;
