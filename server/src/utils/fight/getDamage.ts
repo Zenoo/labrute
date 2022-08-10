@@ -1,9 +1,9 @@
-import { Fighter } from '@eternaltwin/labrute-core/types';
+import { Fighter, Weapon } from '@eternaltwin/labrute-core/types';
 
 const getDamage = (
   fighter: Fighter,
   opponent: Fighter,
-  thrown?: boolean,
+  thrown?: Weapon,
 ) => {
   const base = fighter.activeWeapon?.damage || fighter.baseDamage;
   let skillsMultiplier = 1;

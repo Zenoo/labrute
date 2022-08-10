@@ -358,6 +358,34 @@ const activateSuper = (fightData: Fight['data'], skill: Skill) => {
       break;
     }
     case 'flashFlood': {
+      // Abort if less than 3 weapons are available
+      if (fighter.weapons.length < 3) return;
+
+      // Choose opponent
+      const opponent = getRandomOpponent(fightData, true);
+
+      // Shuffle weapons
+      const shuffledWeapons = [...fighter.weapons].sort(() => Math.random() - 0.5);
+      // Get half of the weapons
+      const halfWeapons = shuffledWeapons.slice(0, Math.floor(shuffledWeapons.length / 2));
+
+      // Remove those weapons from the fighter
+      fighter.weapons = fighter.weapons.filter(
+        (w) => !halfWeapons.find((hw) => hw.name === w.name),
+      );
+
+      // Get damages for each weapon
+      const damages = [];
+      halfWeapons.forEach((w) => {
+        const damage = getDamage(fighter, opponent, w);
+        damages.push(damage);
+
+        registerHit(fightData, opponent, damage, 'flashFlood');
+      });
+
+      // Increase own initiative
+      fighter.initiative += 2 * fighter.tempo;
+
       break;
     }
     case 'tamer': {

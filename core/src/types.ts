@@ -307,6 +307,7 @@ export interface HitStep {
   target: string;
   weapon: WeaponName | SuperName | null;
   damage: number;
+  thrown?: boolean;
 }
 
 export interface HypnotiseStep {
