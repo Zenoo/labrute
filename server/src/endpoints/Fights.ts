@@ -19,7 +19,7 @@ const Fights = {
         throw new Error('Invalid parameters');
       } else {
         const { rows: { 0: fight } } = await client.query<DetailedFight>(
-          'select * from fights WHERE id = $1 AND brute_1 = $2 OR brute_2 = $2',
+          'select * from fights WHERE id = $1 AND (brute_1 = $2 OR brute_2 = $2)',
           [req.params.id, req.params.name],
         );
 
