@@ -1,9 +1,12 @@
 import { Brute, Fight } from '@eternaltwin/labrute-core/types';
 import { Request, Response } from 'express';
-import randomBetween from '@eternaltwin/labrute-core/utils/randomBetween';
 import DB from '../db/client.js';
 import auth from '../utils/auth.js';
-import getBruteFightStats from '../utils/fight/getFightersStats.js';
+import {
+  endFight,
+  isSomeoneDead, orderFighters, playFighterTurn, sabotage,
+} from '../utils/fight/fightMethods.js';
+import getFighters from '../utils/fight/getFighters.js';
 import sendError from '../utils/sendError.js';
 
 const Fights = {
@@ -64,52 +67,35 @@ const Fights = {
         throw new Error('Brute 2 not found');
       }
 
+      // Get brute backups
+      const { rows: brute1Backups } = await client.query<Brute>(
+        'select * from brutes where name in ($1)',
+        [brute1.data.backups || []],
+      );
+      const { rows: brute2Backups } = await client.query<Brute>(
+        'select * from brutes where name in ($1)',
+        [brute2.data.backups || []],
+      );
+
       // Global fight data
       const fightData: Fight['data'] = {
-        fighters: getBruteFightStats([brute1, brute2]),
+        fighters: getFighters([brute1, brute2], [brute1Backups, brute2Backups]),
         steps: [],
+        initiative: 0,
       };
 
       // Sabotage weapons
-      fightData.fighters.filter((fighter) => fighter.type === 'brute' && !fighter.master).forEach((brute) => {
-        if (brute.sabotage) {
-          const opponent = fightData.fighters.find(
-            (fighter) => fighter.type === 'brute'
-              && !fighter.master
-              && fighter.name !== brute.name,
-          );
-
-          if (opponent && opponent.weapons.length > 0) {
-            const sabotagedWeapon = opponent.weapons[randomBetween(0, opponent.weapons.length - 1)];
-            opponent.sabotagedWeapon = sabotagedWeapon;
-
-            fightData.steps.push({
-              action: 'sabotage',
-              brute: brute.name,
-              target: opponent.name,
-              weapon: sabotagedWeapon.name,
-            });
-          }
-        }
-      });
+      sabotage(fightData);
 
       let turn = 0;
-
       // Fight loop
-      while (fightData.fighters.find((fighter) => fighter.type === 'brute'
-        && !fighter.master
-        && fighter.hp > 0)) {
+      while (!isSomeoneDead(fightData)) {
         // Order fighters by initiative (random if equal)
-        const fighters = fightData.fighters.sort((a, b) => {
-          if (a.initiative === b.initiative) {
-            return Math.random() > 0.5 ? 1 : -1;
-          }
-          return a.initiative - b.initiative;
-        });
+        orderFighters(fightData);
+        fightData.initiative = fightData.fighters[0].initiative;
 
-        console.log(fighters);
-
-        // TODO
+        console.log(fightData.fighters);
+        playFighterTurn(fightData, turn);
 
         turn += 1;
 
@@ -118,6 +104,8 @@ const Fights = {
           break;
         }
       }
+
+      endFight(fightData);
 
       // Save fight
       const { rows: { 0: { id: fightId } } } = await client.query<Fight>(

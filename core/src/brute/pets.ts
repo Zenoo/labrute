@@ -5,7 +5,7 @@ export interface Pet {
   odds: number;
   enduranceMalus: number;
   initiative: number;
-  force: number;
+  strength: number;
   agility: number;
   speed: number;
   hp: number;
@@ -13,7 +13,7 @@ export interface Pet {
   combo: number;
   block: number;
   evasion: number;
-  precision: number;
+  accuracy: number;
   disarm: number;
   damage: number;
 }
@@ -24,7 +24,7 @@ const pets: Pet[] = [
     odds: 1,
     enduranceMalus: 8,
     initiative: 3.6,
-    force: 40,
+    strength: 40,
     agility: 2,
     speed: 1,
     hp: 110,
@@ -32,7 +32,7 @@ const pets: Pet[] = [
     combo: -0.2,
     block: -0.25,
     evasion: 0.1,
-    precision: 0.2,
+    accuracy: 0.2,
     disarm: 0.05,
     damage: 5,
   },
@@ -41,7 +41,7 @@ const pets: Pet[] = [
     odds: 1,
     enduranceMalus: 6,
     initiative: 0.6,
-    force: 23,
+    strength: 23,
     agility: 16,
     speed: 24,
     hp: 26,
@@ -49,7 +49,7 @@ const pets: Pet[] = [
     combo: 0.7,
     block: 0,
     evasion: 0.2,
-    precision: 0,
+    accuracy: 0,
     disarm: 0,
     damage: 3,
   },
@@ -58,7 +58,7 @@ const pets: Pet[] = [
     odds: 2,
     enduranceMalus: 2,
     initiative: 0.1,
-    force: 6,
+    strength: 6,
     agility: 5,
     speed: 3,
     hp: 14,
@@ -66,7 +66,7 @@ const pets: Pet[] = [
     combo: 0.2,
     block: 0,
     evasion: 0,
-    precision: 0,
+    accuracy: 0,
     disarm: 0,
     damage: 3,
   },
@@ -75,7 +75,7 @@ const pets: Pet[] = [
     odds: 8,
     enduranceMalus: 2,
     initiative: 0.1,
-    force: 6,
+    strength: 6,
     agility: 5,
     speed: 3,
     hp: 14,
@@ -83,7 +83,7 @@ const pets: Pet[] = [
     combo: 0.2,
     block: 0,
     evasion: 0,
-    precision: 0,
+    accuracy: 0,
     disarm: 0,
     damage: 3,
   },
@@ -92,7 +92,7 @@ const pets: Pet[] = [
     odds: 20,
     enduranceMalus: 2,
     initiative: 0.1,
-    force: 6,
+    strength: 6,
     agility: 5,
     speed: 3,
     hp: 14,
@@ -100,7 +100,7 @@ const pets: Pet[] = [
     combo: 0.2,
     block: 0,
     evasion: 0,
-    precision: 0,
+    accuracy: 0,
     disarm: 0,
     damage: 3,
   },

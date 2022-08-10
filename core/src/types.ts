@@ -149,6 +149,7 @@ export interface Brute {
       name: string;
     },
     tournament?: string;
+    backups?: string[];
   };
 }
 
@@ -184,19 +185,25 @@ export interface DestinyChoice {
   choice: LevelUpChoice;
 }
 
-export interface FighterStats {
+export interface Fighter {
   // Metadata
   name: string;
   type: 'brute' | 'pet';
+  // Follower/Backup variables
   master?: string;
+  arrivesAtInitiative?: number;
+  leavesAtInitiative?: number;
   // Raw stats
+  maxHp: number;
   hp: number,
   strength: number,
   agility: number,
   speed: number,
   // Initiative
   initiative: number, // Lower attacks next
+  tempo: number, // Lower is better
   // hit stats
+  baseDamage: number,
   counter: number,
   autoCounterOnBlock: boolean,
   reversal: number,
@@ -219,6 +226,8 @@ export interface FighterStats {
   determination: boolean,
   // 30% chance of disarming when being hit
   ironHead: boolean,
+  // Max 20% max HP per hit
+  resistant: boolean,
   // Available skills
   skills: Skill[],
   // Available weapons
@@ -230,6 +239,9 @@ export interface FighterStats {
   // Active weapon
   activeWeapon: Weapon | null,
   sabotagedWeapon: Weapon | null,
+  // Status effects
+  poisoned: boolean,
+  trapped: boolean,
 }
 
 export interface SabotageStep {
@@ -239,14 +251,72 @@ export interface SabotageStep {
   weapon: WeaponName;
 }
 
-export type FightStep = SabotageStep;
+export interface LeaveStep {
+  action: 'leave';
+  type: 'brute' | 'pet';
+  name: string;
+}
+
+export interface ArriveStep {
+  action: 'arrive';
+  type: 'brute' | 'pet';
+  name: string;
+}
+
+export interface TrashStep {
+  action: 'trash';
+  brute: string;
+  name: WeaponName;
+}
+
+export interface StealStep {
+  action: 'steal';
+  brute: string;
+  name: WeaponName;
+  target: string;
+}
+
+export interface TrapStep {
+  action: 'trap';
+  brute: string;
+  target: string;
+}
+
+export interface HealStep {
+  action: 'heal';
+  brute: string;
+  amount: number;
+}
+
+export interface ResistStep {
+  action: 'resist';
+  brute: string;
+}
+
+export interface SurviveStep {
+  action: 'survive';
+  brute: string;
+}
+
+export interface HitStep {
+  action: 'hit';
+  brute: string;
+  target: string;
+  weapon: WeaponName | null;
+  damage: number;
+}
+
+export type FightStep = SabotageStep | LeaveStep | ArriveStep
+  | TrashStep | StealStep | TrapStep | HealStep | ResistStep
+  | SurviveStep | HitStep;
 
 export interface Fight {
   id: number;
   brute_1: string;
   brute_2: string;
   data: {
-    fighters: FighterStats[];
+    fighters: Fighter[];
     steps: FightStep[];
+    initiative: number;
   }
 }
