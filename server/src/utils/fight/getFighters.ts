@@ -273,6 +273,9 @@ const getFighters = (brutes: Brute[], backups: Brute[][]): DetailedFighter[] => 
 
       handleSkills(backup, backupFighter);
 
+      // Reset initiative to arrive ath desired time
+      backupFighter.initiative = arrivesAt;
+
       fighters.push(backupFighter);
     }
   });

@@ -68,12 +68,18 @@ const Fights = {
 
       // Get brute backups
       const { rows: brute1Backups } = await client.query<Brute>(
-        'select * from brutes where name in ($1)',
-        [brute1.data.backups || []],
+        `select * from brutes where
+          (data->'skills')::jsonb ? 'backup'
+          and data->'level' < $1
+          and data->>'user' = $2`,
+        [brute1.data.level, brute1.data.user],
       );
       const { rows: brute2Backups } = await client.query<Brute>(
-        'select * from brutes where name in ($1)',
-        [brute2.data.backups || []],
+        `select * from brutes where
+          (data->'skills')::jsonb ? 'backup'
+          and data->'level' < $1
+          and data->>'user' = $2`,
+        [brute2.data.level, brute2.data.user],
       );
 
       // Global fight data

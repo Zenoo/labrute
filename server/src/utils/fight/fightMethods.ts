@@ -694,7 +694,7 @@ const attack = (fightData: DetailedFight['data'], fighter: DetailedFighter, oppo
   if (damage && fighter.sabotage) {
     if (opponent.weapons.length) {
       // Remove a random weapon
-      const weapon = opponent.weapons.splice(randomBetween(0, opponent.weapons.length), 1)[0];
+      const weapon = opponent.weapons.splice(randomBetween(0, opponent.weapons.length - 1), 1)[0];
 
       // Add sabotage step
       fightData.steps.push({
@@ -840,7 +840,7 @@ export const playFighterTurn = (fightData: DetailedFight['data']) => {
   }
 
   // Check if backup should arrive
-  if (fighter.arrivesAtInitiative && fighter.arrivesAtInitiative <= fightData.initiative) {
+  if (fighter.arrivesAtInitiative) {
     fighter.arrivesAtInitiative = undefined;
 
     // Add backup arrive step

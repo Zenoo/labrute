@@ -152,7 +152,6 @@ export interface Brute {
       name: string;
     },
     tournament?: string;
-    backups?: string[];
   };
 }
 
