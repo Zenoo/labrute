@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.4](https://github.com/Zenoo/labrute/compare/v1.0.3...v1.0.4) (2022-08-10)
+
+
+### Bug fix
+
+* `backup` skill now works as intended. ([f538b3c](https://github.com/Zenoo/labrute/commit/f538b3c03eb861a602f4e1b8ba29d966087b8ed0))
+
 ### [1.0.3](https://github.com/Zenoo/labrute/compare/v1.0.2...v1.0.3) (2022-08-10)
 
 
