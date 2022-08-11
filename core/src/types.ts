@@ -412,11 +412,18 @@ export interface EndStep {
   loser: string;
 }
 
+export interface CounterStep {
+  action: 'counter';
+  fighter: string;
+  opponent: string;
+}
+
 export type FightStep = SaboteurStep | LeaveStep | ArriveStep
   | TrashStep | StealStep | TrapStep | HealStep | ResistStep
   | SurviveStep | HitStep | HypnotiseStep | MoveStep | EatStep
   | MoveBackStep | EquipStep | AttemptHitStep | BlockStep | EvadeStep
-  | BreakStep | SabotageStep | DisarmStep | DeathStep | ThrowStep | EndStep;
+  | BreakStep | SabotageStep | DisarmStep | DeathStep | ThrowStep | EndStep
+  | CounterStep;
 
 export interface DetailedFight {
   brute_1: string;

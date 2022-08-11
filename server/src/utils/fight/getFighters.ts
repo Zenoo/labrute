@@ -239,7 +239,7 @@ const getFighters = (brutes: Brute[], backups: Brute[][]): DetailedFighter[] => 
         agility: backup.data.stats.agility.value,
         speed: backup.data.stats.speed.value,
         initiative: arrivesAt,
-        tempo: (0.25 + (20 / (10 + backup.data.stats.speed.value)) * 0.75) / 100,
+        tempo: (0.25 + (20 / (10 + backup.data.stats.speed.value)) * 0.75),
         baseDamage: 5,
         counter: 0,
         autoReversalOnBlock: false,

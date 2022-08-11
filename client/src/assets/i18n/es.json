@@ -301,5 +301,6 @@
   "fight.step.disarm": "{{fighter}} dropped {{opponent}}'s {{weapon}}.",
   "fight.step.death": "{{fighter}} succumbed to his injuries!",
   "fight.step.throw": "{{fighter}} threw {{weapon}} on {{opponent}}.",
-  "fight.step.end": "{{winner}} won the fight against {{loser}}!"
+  "fight.step.end": "{{winner}} won the fight against {{loser}}!",
+  "fight.step.counter": "{{fighter}} countered {{opponent}}."
 }

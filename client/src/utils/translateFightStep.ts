@@ -113,6 +113,8 @@ const translateFightStep = (fightStep: FightStep, t: TFunction) => {
       });
     case 'end':
       return t(`fight.step.${fightStep.action}`, fightStep);
+    case 'counter':
+      return t(`fight.step.${fightStep.action}`, fightStep);
     default:
       return '';
   }

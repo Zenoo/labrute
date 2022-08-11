@@ -90,14 +90,17 @@ const getOpponents = (fightData: DetailedFight['data'], bruteOnly?: boolean) => 
 
   let opponents = [];
 
+  // Remove backups not arrived yet
+  opponents = fightData.fighters.filter((f) => !f.arrivesAtInitiative);
+
   // Fighter is a pet/backup
   if (fighter.master) {
-    opponents = fightData.fighters.filter((f) => (f.master
+    opponents = opponents.filter((f) => (f.master
       ? f.master !== fighter.master
       : f.name !== fighter.master));
   } else {
     // Fighter is a real brute
-    opponents = fightData.fighters.filter((f) => f.name !== fighter.name
+    opponents = opponents.filter((f) => f.name !== fighter.name
       && f.master !== fighter.name);
   }
 
@@ -802,8 +805,10 @@ const startAttack = (fightData: DetailedFight['data'], fighter: DetailedFighter,
   // Keep track of initial fighter HP
   const initialFighterHp = fighter.hp;
 
+  let random = Math.random();
+
   // Repeat attack
-  while (Math.random() < combo || fighter.retryAttack) {
+  while (random < combo || fighter.retryAttack) {
     // Stop the combo if the fighter took a hit
     if (fighter.hp < initialFighterHp) {
       break;
@@ -816,6 +821,8 @@ const startAttack = (fightData: DetailedFight['data'], fighter: DetailedFighter,
 
     // Trigger fighter attack
     attack(fightData, fighter, opponent);
+
+    random = Math.random();
   }
 
   // Check if a fighter is dead
@@ -897,6 +904,13 @@ export const playFighterTurn = (fightData: DetailedFight['data']) => {
 
     // Check if opponent is trapped or countered
     if (!opponent.trapped && counterAttack(fighter, opponent)) {
+      // Add counter step
+      fightData.steps.push({
+        action: 'counter',
+        fighter: opponent.name,
+        opponent: fighter.name,
+      });
+
       // Opponent attacks fighter
       startAttack(fightData, opponent, fighter);
     } else {
@@ -976,9 +990,10 @@ export const playFighterTurn = (fightData: DetailedFight['data']) => {
   }
 
   // Increase own initiative
+  const random = randomBetween(0, 10);
   let tempo = (fighter.activeWeapon?.tempo || BARE_HANDS_TEMPO)
     * fighter.tempo
-    + (randomBetween(0, 10) / 100);
+    + (random / 100);
 
   // Reduce tempo lost if fighter has `bodybuilder`
   if (fighter.bodybuilder) {
