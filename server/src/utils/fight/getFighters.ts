@@ -159,7 +159,7 @@ const getFighters = (brutes: Brute[], backups: Brute[][]): DetailedFighter[] => 
       ironHead: false,
       resistant: false,
       monk: false,
-      skills: skills.filter((skill) => skill.uses && brute.data.skills.includes(skill.name)),
+      skills: skills.filter((skill) => brute.data.skills.includes(skill.name)),
       weapons: weapons.filter((weapon) => brute.data.weapons.includes(weapon.name)),
       shield: false,
       activeSkills: [],
