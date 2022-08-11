@@ -30,6 +30,10 @@ const CellMain = ({
   const { t } = useTranslation();
 
   const xpNeededForNextLevel = useMemo(() => getXPNeeded(brute.data.level + 1), [brute.data.level]);
+  const limitedXP = useMemo(() => Math.min(
+    brute.data.xp,
+    xpNeededForNextLevel,
+  ), [brute.data.xp, xpNeededForNextLevel]);
 
   return (
     <Box {...rest}>
@@ -37,12 +41,12 @@ const CellMain = ({
         <Box width={120} sx={{ pl: 1 }}>
           <Text bold h3 smallCaps color="secondary">{t('level')} {brute.data.level}</Text>
           {/* LEVEL BAR */}
-          <Tooltip title={`${brute.data.xp} / ${xpNeededForNextLevel}`}>
+          <Tooltip title={`${limitedXP} / ${xpNeededForNextLevel}`}>
             <Box sx={{ bgcolor: 'secondary.main', p: '2px' }}>
               <Box sx={{
                 bgcolor: 'level',
                 height: 3,
-                width: brute.data.xp / xpNeededForNextLevel
+                width: limitedXP / xpNeededForNextLevel
               }}
               />
             </Box>
