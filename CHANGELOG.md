@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.7](https://github.com/Zenoo/labrute/compare/v1.0.6...v1.0.7) (2022-08-11)
+
+
+### Bug fix
+
+* Net logic ([e5d8fb0](https://github.com/Zenoo/labrute/commit/e5d8fb04774e1d4f1c0aec6a7eea868223e4b79b))
+
 ### [1.0.6](https://github.com/Zenoo/labrute/compare/v1.0.5...v1.0.6) (2022-08-11)
 
 
