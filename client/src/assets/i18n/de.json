@@ -181,8 +181,8 @@
   "hideaway.desc": "TBD",
   "hideaway.effect": "TBD",
   "monk": "Monk",
-  "monk.desc": "TBD",
-  "monk.effect": "TBD",
+  "monk.desc": "You can visualize the hits before your opponent can even think about them if you stay perfectly still.",
+  "monk.effect": "Counter +40%, Initiative -200, Interval +100%.",
   
   "fan": "Fan",
   "keyboard": "Keyboard",

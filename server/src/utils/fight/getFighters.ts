@@ -25,6 +25,12 @@ const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
     fighter.counter += 0.1;
   }
 
+  // +40% counter / -2 initiative for `monk`
+  if (brute.data.skills.includes('monk')) {
+    fighter.counter += 0.4;
+    fighter.initiative -= 2;
+  }
+
   // Automatic counter on block for `counterAttack`
   if (brute.data.skills.includes('counterAttack')) {
     fighter.autoReversalOnBlock = true;
@@ -114,6 +120,9 @@ const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
   if (brute.data.skills.includes('resistant')) {
     fighter.resistant = true;
   }
+  if (brute.data.skills.includes('monk')) {
+    fighter.monk = true;
+  }
 };
 
 const getFighters = (brutes: Brute[], backups: Brute[][]): DetailedFighter[] => {
@@ -149,6 +158,7 @@ const getFighters = (brutes: Brute[], backups: Brute[][]): DetailedFighter[] => 
       retryAttack: false,
       ironHead: false,
       resistant: false,
+      monk: false,
       skills: skills.filter((skill) => skill.uses && brute.data.skills.includes(skill.name)),
       weapons: weapons.filter((weapon) => brute.data.weapons.includes(weapon.name)),
       shield: false,
@@ -206,6 +216,7 @@ const getFighters = (brutes: Brute[], backups: Brute[][]): DetailedFighter[] => 
           retryAttack: false,
           ironHead: false,
           resistant: false,
+          monk: false,
           skills: [],
           weapons: [],
           shield: false,
@@ -259,6 +270,7 @@ const getFighters = (brutes: Brute[], backups: Brute[][]): DetailedFighter[] => 
         retryAttack: false,
         ironHead: false,
         resistant: false,
+        monk: false,
         skills: skills.filter((skill) => skill.uses && backup.data.skills.includes(skill.name)),
         weapons: weapons.filter((weapon) => backup.data.weapons.includes(weapon.name)),
         shield: false,

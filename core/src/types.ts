@@ -232,6 +232,8 @@ export interface DetailedFighter {
   ironHead: boolean,
   // Max 20% max HP per hit
   resistant: boolean,
+  // tempo +100%
+  monk: boolean,
   // Available skills
   skills: Skill[],
   // Available weapons

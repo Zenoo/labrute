@@ -180,8 +180,8 @@
   "hideaway.desc": "TBD",
   "hideaway.effect": "TBD",
   "monk": "Moine combattant",
-  "monk.desc": "TBD",
-  "monk.effect": "TBD",
+  "monk.desc": "Tu peux voir les coups venir avant que ton adversaire ait le temps d'y penser si tu reste parfaitement calme.",
+  "monk.effect": "Contre +40%, Initiative -200, Intervalle +100%.",
   
   
   "fan": "Éventail",

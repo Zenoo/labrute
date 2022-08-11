@@ -1024,6 +1024,11 @@ export const playFighterTurn = (fightData: DetailedFight['data']) => {
     tempo *= 0.75;
   }
 
+  // Increase tempo lost if fighter has `monk`
+  if (fighter.monk) {
+    tempo *= 2;
+  }
+
   fighter.initiative += tempo;
 
   // Remove active skills
