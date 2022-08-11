@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.1](https://github.com/Zenoo/labrute/compare/v1.2.0...v1.2.1) (2022-08-11)
+
+
+### Bug fix
+
+* Clarify counter/reversal ([f21341d](https://github.com/Zenoo/labrute/commit/f21341db1415c44064cd6cd58cc3b9e4ada3f1a8))
+
 ## [1.2.0](https://github.com/Zenoo/labrute/compare/v1.1.0...v1.2.0) (2022-08-11)
 
 
