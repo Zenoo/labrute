@@ -503,7 +503,7 @@ const counterAttack = (fighter: DetailedFighter, opponent: DetailedFighter) => {
   const random = Math.random();
 
   return random
-  > (
+  < (
     opponent.counter * 100
     + (
       (opponent.activeWeapon?.reach || 0)
