@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.2](https://github.com/Zenoo/labrute/compare/v1.2.1...v1.2.2) (2022-08-11)
+
+
+### Bug fix
+
+* Survival skill triggering too early ([070b7fb](https://github.com/Zenoo/labrute/commit/070b7fbaffcb2f0072a1f82411953fd93ef70f52))
+
 ### [1.2.1](https://github.com/Zenoo/labrute/compare/v1.2.0...v1.2.1) (2022-08-11)
 
 
