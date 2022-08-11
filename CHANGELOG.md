@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/Zenoo/labrute/compare/v1.1.0...v1.2.0) (2022-08-11)
+
+
+### Feature
+
+* Gain +2 XP for brutes > lvl - 2 ([88e28f3](https://github.com/Zenoo/labrute/commit/88e28f30f3305a5f3f126231dd7d2d01d4129b4d))
+
 ## [1.1.0](https://github.com/Zenoo/labrute/compare/v1.0.8...v1.1.0) (2022-08-11)
 
 
