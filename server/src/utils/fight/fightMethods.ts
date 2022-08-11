@@ -127,6 +127,12 @@ const registerHit = (
 ) => {
   let actualDamage = damage;
 
+  // Remove the net and reset initiative
+  if (opponent.trapped) {
+    opponent.trapped = false;
+    opponent.initiative = fightData.initiative + 0.5;
+  }
+
   // Max damage to 20% of opponent's health if `resistant`
   if (opponent.skills.find((sk) => sk.name === 'resistant')) {
     actualDamage = Math.min(damage, Math.floor(opponent.maxHp * 0.2));
@@ -251,17 +257,7 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
       opponent.trapped = true;
 
       // Increase opponent initiative
-      if (!fightData.fighters.find((f) => f.master === opponent.name)) {
-        // Less increase if opponent is solo
-        opponent.initiative += Math.floor(
-          Math.max(
-            2.6 - (opponent.strength ** 0.5) * 0.1,
-            0.5,
-          ),
-        );
-      } else {
-        opponent.initiative += 1000;
-      }
+      opponent.initiative += 1000;
 
       // Increase own initiative
       fighter.initiative += 0.2 * fighter.tempo;
@@ -503,13 +499,13 @@ const counterAttack = (fighter: DetailedFighter, opponent: DetailedFighter) => {
   const random = Math.random();
 
   return random
-  < (
-    opponent.counter * 10
-    + (
-      (opponent.activeWeapon?.reach || 0)
-      - (fighter.activeWeapon?.reach || 0)
-    )
-  ) * 0.1;
+    < (
+      opponent.counter * 10
+      + (
+        (opponent.activeWeapon?.reach || 0)
+        - (fighter.activeWeapon?.reach || 0)
+      )
+    ) * 0.1;
 };
 
 // Returns true if weapon was sabotaged
