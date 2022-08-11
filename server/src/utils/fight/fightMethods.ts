@@ -496,14 +496,18 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
   return true;
 };
 
-const counterAttack = (fighter: DetailedFighter, opponent: DetailedFighter) => Math.random()
-  < (
+const counterAttack = (fighter: DetailedFighter, opponent: DetailedFighter) => {
+  const random = Math.random();
+
+  return random
+  > (
     opponent.counter * 100
     + (
       (opponent.activeWeapon?.reach || 0)
       - (fighter.activeWeapon?.reach || 0)
     )
   ) * 0.1;
+};
 
 // Returns true if weapon was sabotaged
 const drawWeapon = (fightData: DetailedFight['data']): boolean => {
@@ -783,7 +787,9 @@ const reversal = (fightData: DetailedFight['data'], opponent: DetailedFighter) =
     return true;
   }
 
-  return Math.random() < opponent.reversal + (opponent.activeWeapon?.counter || 0);
+  const random = Math.random();
+
+  return random < opponent.reversal + (opponent.activeWeapon?.counter || 0);
 };
 
 const startAttack = (fightData: DetailedFight['data'], fighter: DetailedFighter, opponent: DetailedFighter) => {
