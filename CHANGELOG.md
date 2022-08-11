@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/Zenoo/labrute/compare/v1.0.8...v1.1.0) (2022-08-11)
+
+
+### Feature
+
+* `chef` skill implemented ([f9ad4d5](https://github.com/Zenoo/labrute/commit/f9ad4d5f93489852a1d561faad9df57f71e5327d))
+* `monk` skill implemented ([c8a9706](https://github.com/Zenoo/labrute/commit/c8a9706a2adf8d797c189849ed9dc560abcdd113))
+
 ### [1.0.8](https://github.com/Zenoo/labrute/compare/v1.0.7...v1.0.8) (2022-08-11)
 
 
