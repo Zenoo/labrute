@@ -278,7 +278,7 @@
   "fight.step.arrive": "{{name}} has arrived !",
   "fight.step.trash": "{{brute}} threw {{name}}.",
   "fight.step.steal": "{{brute}} stole {{name}} from {{target}}.",
-  "fight.step.trap": "{{brute}} trapped {{target}}.",
+  "fight.step.trap": "{{brute}} threw a net over {{target}}.",
   "fight.step.heal": "{{brute}} healed {{amount}} HP.",
   "fight.step.resist": "{{brute}} resisted and reduced the damage.",
   "fight.step.survive": "{{brute}} survived with 1HP, lucky!",
@@ -302,5 +302,7 @@
   "fight.step.death": "{{fighter}} succumbed to his injuries!",
   "fight.step.throw": "{{fighter}} threw {{weapon}} on {{opponent}}.",
   "fight.step.end": "{{winner}} won the fight against {{loser}}!",
-  "fight.step.counter": "{{fighter}} countered {{opponent}}."
+  "fight.step.counter": "{{fighter}} countered {{opponent}}.",
+  "fight.step.skillExpire": "{{brute}}'s {{skill}} expired.",
+  "fight.step.skillActivate": "{{brute}} used {{skill}}."
 }

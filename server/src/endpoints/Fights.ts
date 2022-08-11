@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import DB from '../db/client.js';
 import auth from '../utils/auth.js';
 import {
-  checkDeaths, orderFighters, playFighterTurn, saboteur,
+  checkDeaths, getOpponents, orderFighters, playFighterTurn, saboteur,
 } from '../utils/fight/fightMethods.js';
 import getFighters from '../utils/fight/getFighters.js';
 import sendError from '../utils/sendError.js';
@@ -93,6 +93,21 @@ const Fights = {
 
       // Pre-fight saboteur
       saboteur(fightData);
+
+      // Poison fighters
+      [brute1, brute2].forEach((brute) => {
+        if (brute.data.skills.includes('chef')) {
+          const fighter = fightData.fighters.find(({ type, name }) => type === 'brute' && name === brute.name);
+
+          if (!fighter) {
+            throw new Error('Fighter 1 not found');
+          }
+          getOpponents(fightData, fighter).forEach((opponent) => {
+            // eslint-disable-next-line no-param-reassign
+            opponent.poisoned = true;
+          });
+        }
+      });
 
       // Fight loop
       while (!fightData.loser) {

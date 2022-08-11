@@ -277,7 +277,7 @@
   "fight.step.arrive": "{{name}} est arrivé !",
   "fight.step.trash": "{{brute}} a jeté {{name}}.",
   "fight.step.steal": "{{brute}} a volé {{name}} de {{target}}.",
-  "fight.step.trap": "{{brute}} a restreint {{target}}.",
+  "fight.step.trap": "{{brute}} a jeté un filet sur {{target}}.",
   "fight.step.heal": "{{brute}} s'est soigné de {{amount}} PV.",
   "fight.step.resist": "{{brute}} a résisté et réduit les dégats.",
   "fight.step.survive": "{{brute}} a survécu à 1PV, la chance!",
@@ -301,5 +301,7 @@
   "fight.step.death": "{{fighter}} a succombé à ses blessures!",
   "fight.step.throw": "{{fighter}} a lancé {{weapon}} sur {{opponent}}.",
   "fight.step.end": "{{winner}} a gagné le combat contre {{loser}}!",
-  "fight.step.counter": "{{fighter}} a contré {{opponent}}."
+  "fight.step.counter": "{{fighter}} a contré {{opponent}}.",
+  "fight.step.skillExpire": "{{skill}} de {{brute}} a expiré.",
+  "fight.step.skillActivate": "{{brute}} a utilisé {{skill}}."
 }

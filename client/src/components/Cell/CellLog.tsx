@@ -35,7 +35,7 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
         ? (
           <Tooltip title={t('seeFight')}>
             <Link
-              to={`/${log.current_brute}/fight/${log.fight}`}
+              to={`/${log.current_brute}/fight/${log.fight || 0}`}
               sx={{
                 textDecoration: 'none',
                 '&:hover': {

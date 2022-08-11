@@ -115,6 +115,16 @@ const translateFightStep = (fightStep: FightStep, t: TFunction) => {
       return t(`fight.step.${fightStep.action}`, fightStep);
     case 'counter':
       return t(`fight.step.${fightStep.action}`, fightStep);
+    case 'skillExpire':
+      return t(`fight.step.${fightStep.action}`, {
+        brute: fightStep.brute,
+        skill: t(fightStep.skill),
+      });
+    case 'skillActivate':
+      return t(`fight.step.${fightStep.action}`, {
+        brute: fightStep.brute,
+        skill: t(fightStep.skill),
+      });
     default:
       return '';
   }

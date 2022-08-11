@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { BARE_HANDS_TEMPO, SHIELD_BLOCK_ODDS } from '@eternaltwin/labrute-core/constants';
 import {
-  DetailedFight, DetailedFighter, PetName, Skill, Weapon,
+  DetailedFight, DetailedFighter, LeaveStep, PetName, Skill, Weapon,
 } from '@eternaltwin/labrute-core/types';
 import randomBetween from '@eternaltwin/labrute-core/utils/randomBetween';
 import getDamage from './getDamage.js';
@@ -85,9 +85,7 @@ const randomlyDrawWeapon = (weapons: Weapon[]) => {
   return null;
 };
 
-const getOpponents = (fightData: DetailedFight['data'], bruteOnly?: boolean) => {
-  const fighter = fightData.fighters[0];
-
+export const getOpponents = (fightData: DetailedFight['data'], fighter: DetailedFighter, bruteOnly?: boolean) => {
   let opponents = [];
 
   // Remove backups not arrived yet
@@ -111,8 +109,8 @@ const getOpponents = (fightData: DetailedFight['data'], bruteOnly?: boolean) => 
   return opponents;
 };
 
-const getRandomOpponent = (fightData: DetailedFight['data'], bruteOnly?: boolean) => {
-  const opponents = getOpponents(fightData, bruteOnly);
+const getRandomOpponent = (fightData: DetailedFight['data'], fighter: DetailedFighter, bruteOnly?: boolean) => {
+  const opponents = getOpponents(fightData, fighter, bruteOnly);
   const random = randomBetween(0, opponents.length - 1);
 
   return opponents[random];
@@ -184,7 +182,7 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
     // Steal opponent's weapon if he has one
     case 'thief': {
       // Choose brute opponent
-      const opponent = getRandomOpponent(fightData, true);
+      const opponent = getRandomOpponent(fightData, fighter, true);
 
       // Abort if no weapon
       if (!opponent.activeWeapon) return false;
@@ -227,6 +225,13 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
     case 'fierceBrute': {
       // Add skill to active skills
       fighter.activeSkills.push(skill);
+
+      // Add skill activation step
+      fightData.steps.push({
+        action: 'skillActivate',
+        brute: fighter.name,
+        skill: skill.name,
+      });
       break;
     }
     case 'tragicPotion': {
@@ -251,7 +256,7 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
     }
     case 'net': {
       // Choose opponent
-      const opponent = getRandomOpponent(fightData);
+      const opponent = getRandomOpponent(fightData, fighter);
 
       // Set opponent's trapped status
       opponent.trapped = true;
@@ -272,7 +277,7 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
     }
     case 'bomb': {
       // Get opponents
-      const opponents = getOpponents(fightData);
+      const opponents = getOpponents(fightData, fighter);
 
       // Set random bomb damage
       const damage = 15 + randomBetween(0, 10);
@@ -304,7 +309,7 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
       }
 
       // Choose opponent
-      const opponent = getRandomOpponent(fightData, true);
+      const opponent = getRandomOpponent(fightData, fighter, true);
 
       // Add to active skills
       fighter.activeSkills.push(skill);
@@ -315,6 +320,13 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
 
       // Increase own initiative
       fighter.initiative += 1 * fighter.tempo;
+
+      // Add skill activation step
+      fightData.steps.push({
+        action: 'skillActivate',
+        brute: fighter.name,
+        skill: skill.name,
+      });
       break;
     }
     case 'cryOfTheDamned': {
@@ -326,22 +338,19 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
       // Abort if no pet
       if (opponentPets.length === 0) return false;
 
-      // Keep track of feared pets
-      const fearedPets = [];
+      // Keep track of fear steps
+      const fearSteps = [];
 
       for (let i = 0; i < opponentPets.length; i++) {
         const pet = opponentPets[i];
 
         // 33% chance to fear the pet
         if (randomBetween(0, 2) === 0) {
-          // Add leave step
-          fightData.steps.push({
+          fearSteps.push({
             action: 'leave',
             type: 'pet',
             name: pet.name,
-          });
-
-          fearedPets.push(pet);
+          } as LeaveStep);
 
           // Remove pet from fight
           fightData.fighters = fightData.fighters.filter((f) => f.type === 'pet' && f.name !== pet.name);
@@ -349,7 +358,17 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
       }
 
       // Abort if no pet feared
-      if (fearedPets.length === 0) return false;
+      if (fearSteps.length === 0) return false;
+
+      // Add skill activation step
+      fightData.steps.push({
+        action: 'skillActivate',
+        brute: fighter.name,
+        skill: skill.name,
+      });
+
+      // Add fear steps
+      fightData.steps = fightData.steps.concat(fearSteps);
       break;
     }
     case 'hypnosis': {
@@ -389,7 +408,7 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
       if (fighter.weapons.length < 3) return false;
 
       // Choose opponent
-      const opponent = getRandomOpponent(fightData, true);
+      const opponent = getRandomOpponent(fightData, fighter, true);
 
       // Shuffle weapons
       const shuffledWeapons = [...fighter.weapons].sort(() => Math.random() - 0.5);
@@ -400,6 +419,13 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
       fighter.weapons = fighter.weapons.filter(
         (w) => !halfWeapons.find((hw) => hw.name === w.name),
       );
+
+      // Add skill activation step
+      fightData.steps.push({
+        action: 'skillActivate',
+        brute: fighter.name,
+        skill: skill.name,
+      });
 
       // Get damages for each weapon
       const damages = [];
@@ -887,7 +913,7 @@ export const playFighterTurn = (fightData: DetailedFight['data']) => {
       : 'melee';
 
   // Get opponent
-  const opponent = getRandomOpponent(fightData);
+  const opponent = getRandomOpponent(fightData, fighter);
 
   // Melee attack
   if (attackType === 'melee') {
@@ -1000,9 +1026,14 @@ export const playFighterTurn = (fightData: DetailedFight['data']) => {
 
   fighter.initiative += tempo;
 
-  // Remove the `fireceBrute` buff
-  const fierceBruteIndex = fighter.activeSkills.findIndex((skill) => skill.name === 'fierceBrute');
-  if (fierceBruteIndex !== -1) {
-    fighter.activeSkills.splice(fierceBruteIndex, 1);
-  }
+  // Remove active skills
+  fighter.activeSkills.forEach((skill) => {
+    // Add skill expire step
+    fightData.steps.push({
+      action: 'skillExpire',
+      brute: fighter.name,
+      skill: skill.name,
+    });
+  });
+  fighter.activeSkills = [];
 };
