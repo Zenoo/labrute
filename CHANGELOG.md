@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.6](https://github.com/Zenoo/labrute/compare/v1.0.5...v1.0.6) (2022-08-11)
+
+
+### Bug fix
+
+* Backups were loosing way too few initiative every turn. ([8f6bcda](https://github.com/Zenoo/labrute/commit/8f6bcda11152cbc89d84ec8a2d867670ad542a79))
+* Counter rate too high ([3f9b346](https://github.com/Zenoo/labrute/commit/3f9b34603e7ce07e7701a85f63278de3bfb70ed6))
+* Counter rate too high ([3fe28b2](https://github.com/Zenoo/labrute/commit/3fe28b2d4966a4e1181e8417ac49e8c678e092fd))
+* Evade rate too high ([a1bec99](https://github.com/Zenoo/labrute/commit/a1bec996e1ecf60a91cf488c1fcf96b71d7cfa97))
+* Wrong counter check ([5156602](https://github.com/Zenoo/labrute/commit/5156602d899ac724bdfdacabbd43d4aa1a0557f7))
+
 ### [1.0.5](https://github.com/Zenoo/labrute/compare/v1.0.4...v1.0.5) (2022-08-10)
 
 
