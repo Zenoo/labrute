@@ -150,7 +150,7 @@ const registerHit = (
   }
 
   // Survive with 1 HP if `survival` skill
-  if (opponent.survival) {
+  if (opponent.survival && opponent.hp <= 1) {
     opponent.survival = false;
     opponent.hp = 1;
 
