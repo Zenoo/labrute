@@ -609,11 +609,13 @@ const evade = (fighter: DetailedFighter, opponent: DetailedFighter, difficulty =
     40,
   );
 
-  return Math.random() * difficulty
+  const random = Math.random();
+
+  return random * difficulty
     < Math.min(
       (opponent.evasion
         + (opponent.activeWeapon?.evasion || 0)
-        + agilityDifference
+        + agilityDifference * 0.01
         - fighter.accuracy
         - (fighter.activeWeapon?.accuracy || 0)),
       0.9,
