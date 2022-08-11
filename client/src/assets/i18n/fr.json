@@ -76,7 +76,7 @@
   "sixthSense.effect": "Chances de contre : +10%",
   "hostility": "Pugnace",
   "hostility.desc": "Dans l'arène tu n'es vraiment pas ingrat… Quand on te donne un coup, tu le rends aussitôt, et gratuitement !",
-  "hostility.effect": "+30% de chance de contre-attaquer",
+  "hostility.effect": "+30% de chance de riposte",
   "fistsOfFury": "Tornade de coups",
   "fistsOfFury.desc": "… et tu tapes tapes tapes, c'est ta façon d'aimer, ce rythme qui t'entraîne jusqu'au bout de la nuit, éveille en toi le tourbillon d'un vent de foliiiiiie !",
   "fistsOfFury.effect": "Chances de combo : +20%",
@@ -180,7 +180,7 @@
   "hideaway.desc": "TBD",
   "hideaway.effect": "TBD",
   "monk": "Moine combattant",
-  "monk.desc": "Tu peux voir les coups venir avant que ton adversaire ait le temps d'y penser si tu reste parfaitement calme.",
+  "monk.desc": "Tu peux voir les coups venir avant que ton adversaire ait le temps d'y penser si tu restes parfaitement calme.",
   "monk.effect": "Contre +40%, Initiative -200, Intervalle +100%.",
   
   
