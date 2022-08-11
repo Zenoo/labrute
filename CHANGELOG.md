@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.8](https://github.com/Zenoo/labrute/compare/v1.0.7...v1.0.8) (2022-08-11)
+
+
+### Bug fix
+
+* Limit displayed XP to max XP ([3115d7b](https://github.com/Zenoo/labrute/commit/3115d7bee45c2f5dc1fabfb6a1544291111d9826))
+
 ### [1.0.7](https://github.com/Zenoo/labrute/compare/v1.0.6...v1.0.7) (2022-08-11)
 
 

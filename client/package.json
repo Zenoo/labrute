@@ -1,6 +1,6 @@
 {
   "name": "@eternaltwin/labrute-client",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "private": true,
   "proxy": "http://localhost:9000",
   "type": "module",
