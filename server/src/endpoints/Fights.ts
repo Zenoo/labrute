@@ -164,10 +164,10 @@ const Fights = {
       );
 
       // Get XP gained
-      // (+2 for a win against a brute at least 1 level below you)
+      // (+2 for a win against a brute at least 2 level below you)
       // (+1 otherwise)
       const xpGained = winner.name === brute1.name
-        ? brute1.data.level - 1 > brute2.data.level
+        ? brute1.data.level - 2 > brute2.data.level
           ? 1 : 2
         : 1;
 
