@@ -40,10 +40,11 @@ const ArenaView = () => {
     if (!brute) return cleanup;
 
     // Redirect to cell if XP is too much
-    if (xpNeededForNextLevel && brute.data.xp >= xpNeededForNextLevel) {
-      navigate(`/${brute.name}/cell`);
-      return cleanup;
-    }
+    // TODO: Reactivate once alpha is over
+    // if (xpNeededForNextLevel && brute.data.xp >= xpNeededForNextLevel) {
+    //   navigate(`/${brute.name}/cell`);
+    //   return cleanup;
+    // }
 
     Server.Brute.getOpponents(brute.name, brute.data.level).then((data) => {
       if (isSubscribed) {

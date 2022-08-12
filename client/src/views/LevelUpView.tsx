@@ -1,4 +1,3 @@
-import getXPNeeded from '@eternaltwin/labrute-core/brute/getXPNeeded';
 import skills from '@eternaltwin/labrute-core/brute/skills';
 import updateBruteData from '@eternaltwin/labrute-core/brute/updateBruteData';
 import { Brute, DestinyChoice } from '@eternaltwin/labrute-core/types';
@@ -35,12 +34,13 @@ const LevelUpView = () => {
       Server.Brute.getLevelUpChoices(bruteName).then((data) => {
         if (isSubscribed) {
           // Check if the brute has enough XP
-          if (data.brute.data.xp < getXPNeeded(data.brute.data.level + 1)) {
-            navigate(`/${bruteName}/cell`);
-          } else {
-            setBrute(data.brute);
-            setChoices(data.choices);
-          }
+          // TODO: Reactivate once alpha is over
+          // if (data.brute.data.xp < getXPNeeded(data.brute.data.level + 1)) {
+          //   navigate(`/${bruteName}/cell`);
+          // } else {
+          setBrute(data.brute);
+          setChoices(data.choices);
+          // }
         }
       }).catch(() => {
         navigate(`/${bruteName}/cell`);

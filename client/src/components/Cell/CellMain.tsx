@@ -61,43 +61,46 @@ const CellMain = ({
         )}
       </Box>
       <BruteBodyAndStats brute={brute} sx={{ mb: 1 }} />
-      {ownsBrute && (brute.data.xp < xpNeededForNextLevel ? (
-        <Stack spacing={1} sx={{ alignItems: 'center', mt: 1 }}>
-          <Text bold sx={{ pl: 1 }}>{t('callToFight')}</Text>
-          <Link to={`/${brute.name}/arena`}>
+      {/* {ownsBrute && (brute.data.xp < xpNeededForNextLevel ? (
+        TODO: Reuse this condition once alpha is over */}
+      {ownsBrute && (
+        <>
+          <Stack spacing={1} sx={{ alignItems: 'center', mt: 1 }}>
+            <Text bold sx={{ pl: 1 }}>{t('callToFight')}</Text>
+            <Link to={`/${brute.name}/arena`}>
+              <StyledButton
+                sx={{
+                  height: 72,
+                  width: 218,
+                }}
+                image={`/images/${language}/cell/arena.gif`}
+                imageHover={`/images/${language}/cell/arena-hover.gif`}
+                shadow={false}
+                contrast={false}
+              />
+            </Link>
+            <Text bold color="error">{t('fightsLeft', { value: 6 })}</Text>
+          </Stack>
+          <Link to={`/${brute.name}/level-up`}>
             <StyledButton
-              sx={{
-                height: 72,
-                width: 218,
-              }}
-              image={`/images/${language}/cell/arena.gif`}
-              imageHover={`/images/${language}/cell/arena-hover.gif`}
+              image="/images/button.gif"
+              imageHover="/images/button-hover.gif"
               shadow={false}
               contrast={false}
-            />
+              shift="8px"
+              sx={{
+                fontVariant: 'small-caps',
+                m: '0 auto',
+                mt: 2,
+                height: 56,
+                width: 246,
+              }}
+            >
+              {t('levelUp')}
+            </StyledButton>
           </Link>
-          <Text bold color="error">{t('fightsLeft', { value: 6 })}</Text>
-        </Stack>
-      ) : (
-        <Link to={`/${brute.name}/level-up`}>
-          <StyledButton
-            image="/images/button.gif"
-            imageHover="/images/button-hover.gif"
-            shadow={false}
-            contrast={false}
-            shift="8px"
-            sx={{
-              fontVariant: 'small-caps',
-              m: '0 auto',
-              mt: 2,
-              height: 56,
-              width: 246,
-            }}
-          >
-            {t('levelUp')}
-          </StyledButton>
-        </Link>
-      ))}
+        </>
+      )}
       {/* TOURNAMENT */}
       {!smallScreen && (
         <CellTournament
