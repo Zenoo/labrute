@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.1](https://github.com/Zenoo/labrute/compare/v1.4.0...v1.4.1) (2022-08-12)
+
+
+### Bug fix
+
+* Wrong poison translations ([e5a45a4](https://github.com/Zenoo/labrute/commit/e5a45a495bef502aa32c4ccde52ea5bba6f69289))
+
 ## [1.4.0](https://github.com/Zenoo/labrute/compare/v1.3.0...v1.4.0) (2022-08-12)
 
 
