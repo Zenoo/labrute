@@ -87,7 +87,7 @@ const translateFightStep = (fightStep: FightStep, t: TFunction) => {
       return '';
     case 'poison':
       return t(`fight.step.${fightStep.action}`, {
-        fighter: getFighterName(fightStep.fighter, t),
+        brute: getFighterName(fightStep.fighter, t),
         damage: fightStep.damage,
         target: getFighterName(fightStep.target, t),
       });
