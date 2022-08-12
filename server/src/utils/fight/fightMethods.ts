@@ -46,19 +46,20 @@ export const orderFighters = (fightData: DetailedFight['data']) => {
 };
 
 const randomlyGetSuper = (skills: Skill[]) => {
-  if (!skills.length) return null;
+  const supers = skills.filter((skill) => skill.uses);
+  if (!supers.length) return null;
 
   const NO_SUPER_TOSS = 10;
   const randomSuper = randomBetween(
     0,
-    skills.reduce((acc, skill) => acc + (skill.toss || 0), 0) + NO_SUPER_TOSS,
+    supers.reduce((acc, skill) => acc + (skill.toss || 0), 0) + NO_SUPER_TOSS,
   );
 
   let toss = 0;
-  for (let i = 0; i < skills.length; i += 1) {
-    toss += skills[i].toss || 0;
+  for (let i = 0; i < supers.length; i += 1) {
+    toss += supers[i].toss || 0;
     if (randomSuper < toss) {
-      return skills[i];
+      return supers[i];
     }
   }
 
