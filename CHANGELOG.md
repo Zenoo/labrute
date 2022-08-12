@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/Zenoo/labrute/compare/v1.3.0...v1.4.0) (2022-08-12)
+
+
+### Feature
+
+* Position animated for 4 fight steps: `arrive`, `leave`, `moveTo` and `moveBack`. [#25](https://github.com/Zenoo/labrute/issues/25) ([d3ec810](https://github.com/Zenoo/labrute/commit/d3ec81076136636f711a453b4939e9b17af76d5b))
+* Upgrade to React 18 ([54fca39](https://github.com/Zenoo/labrute/commit/54fca39d66e251594b907937e117d058b4af8730))
+
 ## [1.3.0](https://github.com/Zenoo/labrute/compare/v1.2.2...v1.3.0) (2022-08-12)
 
 
