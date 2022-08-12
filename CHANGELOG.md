@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/Zenoo/labrute/compare/v1.2.2...v1.3.0) (2022-08-12)
+
+
+### Bug fix
+
+* Passive skills for damage computing ([bf134c8](https://github.com/Zenoo/labrute/commit/bf134c827e19cb1deacf33a54563fc7da86b5f9a))
+* Passive skills were not considered in fights. Fixes [#65](https://github.com/Zenoo/labrute/issues/65) ([b6dbc5b](https://github.com/Zenoo/labrute/commit/b6dbc5bceb838023d2cacf9133ef31b6ec47c8ce))
+
+
+### Feature
+
+* Brutes can low level up or fight at will ([5d1cb4e](https://github.com/Zenoo/labrute/commit/5d1cb4e87d7bd3c833262d1277abbf89dafbc8b5))
+
 ### [1.2.2](https://github.com/Zenoo/labrute/compare/v1.2.1...v1.2.2) (2022-08-11)
 
 
