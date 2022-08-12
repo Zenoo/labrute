@@ -281,9 +281,9 @@
   "fight.step.heal": "{{brute}} s'est soigné de {{amount}} PV.",
   "fight.step.resist": "{{brute}} a résisté et réduit les dégats.",
   "fight.step.survive": "{{brute}} a survécu à 1PV, la chance!",
-  "fight.step.hit": "{{brute}} a infligé {{damage}} dégats à {{target}}.",
-  "fight.step.hitWith": "{{brute}} a infligé {{damage}} dégats à {{target}} avec {{weapon}}.",
-  "fight.step.hitThrow": "{{brute}} a infligé {{damage}} dégats à {{target}} en lui jetant {{weapon}}.",
+  "fight.step.hit": "{{fighter}} a infligé {{damage}} dégats à {{target}}.",
+  "fight.step.hitWith": "{{fighter}} a infligé {{damage}} dégats à {{target}} avec {{weapon}}.",
+  "fight.step.hitThrow": "{{fighter}} a infligé {{damage}} dégats à {{target}} en lui jetant {{weapon}}.",
   "fight.step.hammer": "{{brute}} a infligé {{damage}} dégats à {{target}} avec une technique de catch.",
   "fight.step.flashFlood": "{{brute}} a infligé {{damage}} dégats à {{target}} en lui jetant violamment {{weapon}}.",
   "fight.step.poison": "{{brute}} a infligé {{damage}} dégats de poison à {{target}}.",
@@ -303,5 +303,6 @@
   "fight.step.end": "{{winner}} a gagné le combat contre {{loser}}!",
   "fight.step.counter": "{{fighter}} a contré {{opponent}}.",
   "fight.step.skillExpire": "{{skill}} de {{brute}} a expiré.",
-  "fight.step.skillActivate": "{{brute}} a utilisé {{skill}}."
+  "fight.step.skillActivate": "{{brute}} a utilisé {{skill}}.",
+  "fight.toggleLogs": "Afficher/masquer les logs"
 }

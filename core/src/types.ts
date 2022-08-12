@@ -259,68 +259,71 @@ export interface Fighter {
   master?: string;
   maxHp: number;
   hp: number,
-  skills: Skill[];
   weapons: Weapon[];
   shield: boolean;
 }
 
+export interface StepFighter {
+  name: string;
+  type: 'brute' | 'pet';
+  master?: string;
+}
+
 export interface SaboteurStep {
   action: 'saboteur';
-  brute: string;
+  brute: StepFighter;
   weapon: WeaponName;
 }
 
 export interface LeaveStep {
   action: 'leave';
-  type: 'brute' | 'pet';
-  name: string;
+  fighter: StepFighter;
 }
 
 export interface ArriveStep {
   action: 'arrive';
-  type: 'brute' | 'pet';
-  name: string;
+  fighter: StepFighter;
 }
 
 export interface TrashStep {
   action: 'trash';
-  brute: string;
+  brute: StepFighter;
   name: WeaponName;
 }
 
 export interface StealStep {
   action: 'steal';
-  brute: string;
+  brute: StepFighter;
   name: WeaponName;
-  target: string;
+  target: StepFighter;
 }
 
 export interface TrapStep {
   action: 'trap';
-  brute: string;
-  target: string;
+  brute: StepFighter;
+  target: StepFighter;
 }
 
 export interface HealStep {
   action: 'heal';
-  brute: string;
+  brute: StepFighter;
   amount: number;
 }
 
 export interface ResistStep {
   action: 'resist';
-  brute: string;
+  brute: StepFighter;
 }
 
 export interface SurviveStep {
   action: 'survive';
-  brute: string;
+  brute: StepFighter;
 }
 
 export interface HitStep {
   action: 'hit' | 'flashFlood' | 'hammer' | 'poison';
-  brute: string;
-  target: string;
+  fighter: StepFighter;
+  target: StepFighter;
   weapon: WeaponName | SuperName | null;
   damage: number;
   thrown?: boolean;
@@ -328,107 +331,103 @@ export interface HitStep {
 
 export interface HypnotiseStep {
   action: 'hypnotise';
-  brute: string;
-  pet: PetName;
+  brute: StepFighter;
+  pet: StepFighter;
 }
 
 export interface MoveStep {
   action: 'moveTo';
-  fighter: string;
-  fighterType: 'brute' | 'pet';
-  target: string;
-  targetType: 'brute' | 'pet';
+  fighter: StepFighter;
+  target: StepFighter;
 }
 
 export interface EatStep {
   action: 'eat';
-  brute: string;
-  target: string;
+  brute: StepFighter;
+  target: StepFighter;
   heal: number;
 }
 
 export interface MoveBackStep {
   action: 'moveBack';
-  fighter: string;
+  fighter: StepFighter;
 }
 
 export interface EquipStep {
   action: 'equip';
-  brute: string;
+  brute: StepFighter;
   name: WeaponName;
 }
 
 export interface AttemptHitStep {
   action: 'attemptHit';
-  fighter: string;
-  target: string;
+  fighter: StepFighter;
+  target: StepFighter;
 }
 
 export interface BlockStep {
   action: 'block';
-  fighter: string;
+  fighter: StepFighter;
 }
 
 export interface EvadeStep {
   action: 'evade';
-  fighter: string;
+  fighter: StepFighter;
 }
 
 export interface BreakStep {
   action: 'break';
-  fighter: string;
-  opponent: string;
+  fighter: StepFighter;
+  opponent: StepFighter;
 }
 
 export interface SabotageStep {
   action: 'sabotage';
-  fighter: string;
-  opponent: string;
+  fighter: StepFighter;
+  opponent: StepFighter;
   weapon: WeaponName;
 }
 
 export interface DisarmStep {
   action: 'disarm';
-  fighter: string;
-  opponent: string;
+  fighter: StepFighter;
+  opponent: StepFighter;
   weapon: WeaponName;
 }
 
 export interface DeathStep {
   action: 'death';
-  fighter: string;
-  type: 'brute' | 'pet';
+  fighter: StepFighter;
 }
 
 export interface ThrowStep {
   action: 'throw';
-  fighter: string;
-  opponent: string;
-  opponentType: 'brute' | 'pet';
+  fighter: StepFighter;
+  opponent: StepFighter;
   weapon: WeaponName;
 }
 
 export interface EndStep {
   action: 'end';
-  winner: string;
-  loser: string;
+  winner: StepFighter;
+  loser: StepFighter;
 }
 
 export interface CounterStep {
   action: 'counter';
-  fighter: string;
-  opponent: string;
+  fighter: StepFighter;
+  opponent: StepFighter;
 }
 
 export interface SkillActivateStep {
   action: 'skillActivate';
-  brute: string;
+  brute: StepFighter;
   skill: SkillName;
 }
 
 export interface SkillExpireStep {
   action: 'skillExpire';
-  brute: string;
+  brute: StepFighter;
   skill: SkillName;
 }
 
@@ -444,10 +443,11 @@ export interface DetailedFight {
   brute_2: string;
   data: {
     fighters: DetailedFighter[];
+    initialFighters: DetailedFighter[];
     steps: FightStep[];
     initiative: number;
-    winner: string;
-    loser: string;
+    winner: StepFighter | null;
+    loser: StepFighter | null;
   }
 }
 
@@ -457,7 +457,7 @@ export interface Fight {
   data: {
     fighters: Fighter[];
     steps: FightStep[];
-    winner: string;
-    loser: string;
+    winner: StepFighter;
+    loser: StepFighter;
   }
 }

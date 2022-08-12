@@ -28,7 +28,7 @@ const Server = {
     list: (brute: string) => Fetch<Log[]>(`/api/log/list/${brute}`),
   },
   Fight: {
-    get: (name: string, id: number) => Fetch<Fight>(`/api/fight/${name}/${id}`),
+    get: (name: string, id: number) => Fetch<{ fight: Fight, brutes: Brute[] }>(`/api/fight/${name}/${id}`),
     create: (brute1: string, brute2: string) => Fetch<{ id: number }>('/api/fight/create', { brute1, brute2 }, 'POST'),
   }
 };

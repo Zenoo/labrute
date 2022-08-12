@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { BARE_HANDS_TEMPO, SHIELD_BLOCK_ODDS } from '@eternaltwin/labrute-core/constants';
 import {
-  DetailedFight, DetailedFighter, LeaveStep, PetName, Skill, Weapon,
+  DetailedFight, DetailedFighter, LeaveStep, Skill, StepFighter, Weapon,
 } from '@eternaltwin/labrute-core/types';
 import randomBetween from '@eternaltwin/labrute-core/utils/randomBetween';
 import getDamage from './getDamage.js';
@@ -117,6 +117,12 @@ const getRandomOpponent = (fightData: DetailedFight['data'], fighter: DetailedFi
   return opponents[random];
 };
 
+export const stepFighter = (fighter: DetailedFighter): StepFighter => ({
+  name: fighter.name,
+  type: fighter.type,
+  master: fighter.master,
+});
+
 const registerHit = (
   fightData: DetailedFight['data'],
   fighter: DetailedFighter,
@@ -139,7 +145,7 @@ const registerHit = (
     // Add resist step
     fightData.steps.push({
       action: 'resist',
-      brute: opponent.name,
+      brute: stepFighter(opponent),
     });
   }
 
@@ -150,6 +156,15 @@ const registerHit = (
     opponent.hp -= actualDamage;
   }
 
+  // Add hit step
+  fightData.steps.push({
+    action: sourceName || 'hit',
+    fighter: stepFighter(fighter),
+    target: stepFighter(opponent),
+    weapon: sourceName ? null : fighter.activeWeapon?.name || null,
+    damage: actualDamage,
+  });
+
   // Survive with 1 HP if `survival` skill
   if (opponent.survival && opponent.hp <= 1) {
     opponent.survival = false;
@@ -158,18 +173,9 @@ const registerHit = (
     // Add survival step
     fightData.steps.push({
       action: 'survive',
-      brute: opponent.name,
+      brute: stepFighter(opponent),
     });
   }
-
-  // Add hit step
-  fightData.steps.push({
-    action: sourceName || 'hit',
-    brute: fighter.name,
-    target: opponent.name,
-    weapon: sourceName ? null : fighter.activeWeapon?.name || null,
-    damage: actualDamage,
-  });
 };
 
 const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean => {
@@ -195,7 +201,7 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
           // Add trash step
           fightData.steps.push({
             action: 'trash',
-            brute: fighter.name,
+            brute: stepFighter(fighter),
             name: fighter.activeWeapon.name,
           });
 
@@ -205,9 +211,9 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
         // Add steal step
         fightData.steps.push({
           action: 'steal',
-          brute: fighter.name,
+          brute: stepFighter(fighter),
           name: opponent.activeWeapon.name,
-          target: opponent.name,
+          target: stepFighter(opponent),
         });
 
         // Set own weapon
@@ -230,7 +236,7 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
       // Add skill activation step
       fightData.steps.push({
         action: 'skillActivate',
-        brute: fighter.name,
+        brute: stepFighter(fighter),
         skill: skill.name,
       });
       break;
@@ -250,7 +256,7 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
       // Add heal step
       fightData.steps.push({
         action: 'heal',
-        brute: fighter.name,
+        brute: stepFighter(fighter),
         amount: hpHealed,
       });
       break;
@@ -271,8 +277,8 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
       // Add trap step
       fightData.steps.push({
         action: 'trap',
-        brute: fighter.name,
-        target: opponent.name,
+        brute: stepFighter(fighter),
+        target: stepFighter(opponent),
       });
       break;
     }
@@ -299,7 +305,7 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
           // Add trash step
           fightData.steps.push({
             action: 'trash',
-            brute: fighter.name,
+            brute: stepFighter(fighter),
             name: fighter.activeWeapon.name,
           });
 
@@ -325,7 +331,7 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
       // Add skill activation step
       fightData.steps.push({
         action: 'skillActivate',
-        brute: fighter.name,
+        brute: stepFighter(fighter),
         skill: skill.name,
       });
       break;
@@ -349,8 +355,7 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
         if (randomBetween(0, 2) === 0) {
           fearSteps.push({
             action: 'leave',
-            type: 'pet',
-            name: pet.name,
+            fighter: stepFighter(pet),
           } as LeaveStep);
 
           // Remove pet from fight
@@ -364,7 +369,7 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
       // Add skill activation step
       fightData.steps.push({
         action: 'skillActivate',
-        brute: fighter.name,
+        brute: stepFighter(fighter),
         skill: skill.name,
       });
 
@@ -389,8 +394,8 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
           // Add hypnotise step
           fightData.steps.push({
             action: 'hypnotise',
-            brute: fighter.name,
-            pet: pet.name as PetName,
+            brute: stepFighter(fighter),
+            pet: stepFighter(pet),
           });
 
           hypnotisedPets.push(pet);
@@ -424,7 +429,7 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
       // Add skill activation step
       fightData.steps.push({
         action: 'skillActivate',
-        brute: fighter.name,
+        brute: stepFighter(fighter),
         skill: skill.name,
       });
 
@@ -487,22 +492,20 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
       // Add moveTo step
       fightData.steps.push({
         action: 'moveTo',
-        fighter: fighter.name,
-        fighterType: fighter.type,
-        target: pet.name,
-        targetType: pet.type,
+        fighter: stepFighter(fighter),
+        target: stepFighter(pet),
       });
       // Add eat step
       fightData.steps.push({
         action: 'eat',
-        brute: fighter.name,
-        target: pet.name,
+        brute: stepFighter(fighter),
+        target: stepFighter(pet),
         heal,
       });
       // Add moveBack step
       fightData.steps.push({
         action: 'moveBack',
-        fighter: fighter.name,
+        fighter: stepFighter(fighter),
       });
 
       break;
@@ -560,7 +563,7 @@ const drawWeapon = (fightData: DetailedFight['data']): boolean => {
     // Add trash step
     fightData.steps.push({
       action: 'trash',
-      brute: fighter.name,
+      brute: stepFighter(fighter),
       name: fighter.activeWeapon.name,
     });
 
@@ -576,7 +579,7 @@ const drawWeapon = (fightData: DetailedFight['data']): boolean => {
   // Add equip step
   fightData.steps.push({
     action: 'equip',
-    brute: fighter.name,
+    brute: stepFighter(fighter),
     name: possibleWeapon.name,
   });
 
@@ -585,7 +588,7 @@ const drawWeapon = (fightData: DetailedFight['data']): boolean => {
     // Add saboteur step
     fightData.steps.push({
       action: 'saboteur',
-      brute: fighter.name,
+      brute: stepFighter(fighter),
       weapon: possibleWeapon.name,
     });
 
@@ -680,8 +683,8 @@ const attack = (fightData: DetailedFight['data'], fighter: DetailedFighter, oppo
   // Add attempt step
   fightData.steps.push({
     action: 'attemptHit',
-    fighter: fighter.name,
-    target: opponent.name,
+    fighter: stepFighter(fighter),
+    target: stepFighter(opponent),
   });
 
   // Check if opponent blocked
@@ -691,7 +694,7 @@ const attack = (fightData: DetailedFight['data'], fighter: DetailedFighter, oppo
     // Add block step
     fightData.steps.push({
       action: 'block',
-      fighter: opponent.name,
+      fighter: stepFighter(opponent),
     });
   }
 
@@ -703,7 +706,7 @@ const attack = (fightData: DetailedFight['data'], fighter: DetailedFighter, oppo
     // Add evade step
     fightData.steps.push({
       action: 'evade',
-      fighter: opponent.name,
+      fighter: stepFighter(opponent),
     });
   }
 
@@ -716,8 +719,8 @@ const attack = (fightData: DetailedFight['data'], fighter: DetailedFighter, oppo
     // Add break step
     fightData.steps.push({
       action: 'break',
-      fighter: fighter.name,
-      opponent: opponent.name,
+      fighter: stepFighter(fighter),
+      opponent: stepFighter(opponent),
     });
   }
 
@@ -730,8 +733,8 @@ const attack = (fightData: DetailedFight['data'], fighter: DetailedFighter, oppo
       // Add sabotage step
       fightData.steps.push({
         action: 'sabotage',
-        fighter: fighter.name,
-        opponent: opponent.name,
+        fighter: stepFighter(fighter),
+        opponent: stepFighter(opponent),
         weapon: weapon.name,
       });
     }
@@ -743,8 +746,8 @@ const attack = (fightData: DetailedFight['data'], fighter: DetailedFighter, oppo
       // Add disarm step
       fightData.steps.push({
         action: 'disarm',
-        fighter: fighter.name,
-        opponent: opponent.name,
+        fighter: stepFighter(fighter),
+        opponent: stepFighter(opponent),
         weapon: opponent.activeWeapon.name,
       });
 
@@ -759,8 +762,8 @@ const attack = (fightData: DetailedFight['data'], fighter: DetailedFighter, oppo
       // Add disarm step
       fightData.steps.push({
         action: 'disarm',
-        fighter: opponent.name,
-        opponent: fighter.name,
+        fighter: stepFighter(opponent),
+        opponent: stepFighter(fighter),
         weapon: fighter.activeWeapon.name,
       });
 
@@ -788,8 +791,7 @@ export const checkDeaths = (fightData: DetailedFight['data']) => {
       // Add death step
       fightData.steps.push({
         action: 'death',
-        fighter: fighter.name,
-        type: fighter.type,
+        fighter: stepFighter(fighter),
       });
 
       // Remove fighter from fight
@@ -797,7 +799,7 @@ export const checkDeaths = (fightData: DetailedFight['data']) => {
 
       // Set loser if fighter is a main brute
       if (deadFighter.type === 'brute' && !deadFighter.master) {
-        fightData.loser = deadFighter.name;
+        fightData.loser = stepFighter(deadFighter);
       }
       i -= 1;
     }
@@ -868,8 +870,7 @@ export const playFighterTurn = (fightData: DetailedFight['data']) => {
     // Add backup leave step
     fightData.steps.push({
       action: 'leave',
-      type: 'brute',
-      name: fighter.name,
+      fighter: stepFighter(fighter),
     });
 
     fightData.fighters.shift();
@@ -883,8 +884,7 @@ export const playFighterTurn = (fightData: DetailedFight['data']) => {
     // Add backup arrive step
     fightData.steps.push({
       action: 'arrive',
-      type: 'brute',
-      name: fighter.name,
+      fighter: stepFighter(fighter),
     });
   }
 
@@ -921,10 +921,8 @@ export const playFighterTurn = (fightData: DetailedFight['data']) => {
     // Add moveTo step
     fightData.steps.push({
       action: 'moveTo',
-      fighter: fighter.name,
-      fighterType: fighter.type,
-      target: opponent.name,
-      targetType: opponent.type,
+      fighter: stepFighter(fighter),
+      target: stepFighter(opponent),
     });
 
     // Check if opponent is trapped or countered
@@ -932,8 +930,8 @@ export const playFighterTurn = (fightData: DetailedFight['data']) => {
       // Add counter step
       fightData.steps.push({
         action: 'counter',
-        fighter: opponent.name,
-        opponent: fighter.name,
+        fighter: stepFighter(opponent),
+        opponent: stepFighter(fighter),
       });
 
       // Opponent attacks fighter
@@ -948,7 +946,7 @@ export const playFighterTurn = (fightData: DetailedFight['data']) => {
       // Add moveBack step
       fightData.steps.push({
         action: 'moveBack',
-        fighter: fighter.name,
+        fighter: stepFighter(fighter),
       });
     }
   } else {
@@ -963,9 +961,8 @@ export const playFighterTurn = (fightData: DetailedFight['data']) => {
     // Add throw step
     fightData.steps.push({
       action: 'throw',
-      fighter: fighter.name,
-      opponent: opponent.name,
-      opponentType: opponent.type,
+      fighter: stepFighter(fighter),
+      opponent: stepFighter(opponent),
       weapon: fighter.activeWeapon.name,
     });
 
@@ -976,7 +973,7 @@ export const playFighterTurn = (fightData: DetailedFight['data']) => {
       // Add block step
       fightData.steps.push({
         action: 'block',
-        fighter: opponent.name,
+        fighter: stepFighter(opponent),
       });
     }
 
@@ -987,7 +984,7 @@ export const playFighterTurn = (fightData: DetailedFight['data']) => {
       // Add evade step
       fightData.steps.push({
         action: 'evade',
-        fighter: opponent.name,
+        fighter: stepFighter(opponent),
       });
     }
 
@@ -1037,7 +1034,7 @@ export const playFighterTurn = (fightData: DetailedFight['data']) => {
     // Add skill expire step
     fightData.steps.push({
       action: 'skillExpire',
-      brute: fighter.name,
+      brute: stepFighter(fighter),
       skill: skill.name,
     });
   });

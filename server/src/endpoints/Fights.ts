@@ -1,9 +1,9 @@
-import { Brute, DetailedFight } from '@eternaltwin/labrute-core/types';
+import { Brute, DetailedFight, Fight } from '@eternaltwin/labrute-core/types';
 import { Request, Response } from 'express';
 import DB from '../db/client.js';
 import auth from '../utils/auth.js';
 import {
-  checkDeaths, getOpponents, orderFighters, playFighterTurn, saboteur,
+  checkDeaths, getOpponents, orderFighters, playFighterTurn, saboteur, stepFighter,
 } from '../utils/fight/fightMethods.js';
 import getFighters from '../utils/fight/getFighters.js';
 import sendError from '../utils/sendError.js';
@@ -17,20 +17,28 @@ const Fights = {
       if (!req.params.name || !req.params.id) {
         await client.end();
         throw new Error('Invalid parameters');
-      } else {
-        const { rows: { 0: fight } } = await client.query<DetailedFight>(
-          'select * from fights WHERE id = $1 AND (brute_1 = $2 OR brute_2 = $2)',
-          [req.params.id, req.params.name],
-        );
-
-        await client.end();
-
-        if (!fight) {
-          throw new Error('Fight not found');
-        }
-
-        res.status(200).send(fight);
       }
+
+      const { rows: { 0: fight } } = await client.query<Fight>(
+        'select * from fights WHERE id = $1 AND (brute_1 = $2 OR brute_2 = $2)',
+        [req.params.id, req.params.name],
+      );
+
+      if (!fight) {
+        throw new Error('Fight not found');
+      }
+
+      // Get fight brutes names
+      const bruteNames = fight.data.fighters.filter((f) => f.type === 'brute').map((fighter) => fighter.name);
+
+      // Get brutes
+      const { rows: brutes } = await client.query<Brute>(
+        'select * from brutes where name = ANY ($1)',
+        [bruteNames],
+      );
+
+      await client.end();
+      res.status(200).send({ fight, brutes });
     } catch (error) {
       sendError(res, error);
     }
@@ -85,10 +93,11 @@ const Fights = {
       // Global fight data
       const fightData: DetailedFight['data'] = {
         fighters: getFighters([brute1, brute2], [brute1Backups, brute2Backups]),
+        initialFighters: getFighters([brute1, brute2], [brute1Backups, brute2Backups]),
         steps: [],
         initiative: 0,
-        winner: '',
-        loser: '',
+        winner: null,
+        loser: null,
       };
 
       // Pre-fight saboteur
@@ -109,6 +118,21 @@ const Fights = {
         }
       });
 
+      const mainFighters = fightData.fighters.filter(({ master }) => !master);
+      const petFighters = fightData.fighters.filter(({ type }) => type === 'pet');
+
+      if (mainFighters.length !== 2) {
+        throw new Error('Invalid number of fighters');
+      }
+
+      // Add arrive step for all fighters
+      [...mainFighters, ...petFighters].forEach((fighter) => {
+        fightData.steps.push({
+          action: 'arrive',
+          fighter: stepFighter(fighter),
+        });
+      });
+
       // Fight loop
       while (!fightData.loser) {
         // Order fighters by initiative (random if equal)
@@ -124,8 +148,14 @@ const Fights = {
         checkDeaths(fightData);
       }
 
+      if (!fightData.loser) {
+        throw new Error('Fight not finished');
+      }
+
+      const { loser } = fightData;
+
       // Get winner
-      const winner = fightData.fighters.find((fighter) => fighter.name !== fightData.loser
+      const winner = fightData.fighters.find((fighter) => fighter.name !== loser.name
         && fighter.type === 'brute'
         && !fighter.master);
 
@@ -134,12 +164,12 @@ const Fights = {
       }
 
       // Set fight winner and loser
-      fightData.winner = winner.name;
+      fightData.winner = stepFighter(winner);
 
       // Add end step
       fightData.steps.push({
         action: 'end',
-        winner: winner.name,
+        winner: fightData.winner,
         loser: fightData.loser,
       });
 
@@ -147,13 +177,12 @@ const Fights = {
       const { rows: { 0: { id: fightId } } } = await client.query<{ id: number }>(
         'INSERT INTO fights(brute_1, brute_2, data) VALUES($1, $2, $3) RETURNING id',
         [req.body.brute1, req.body.brute2, JSON.stringify({
-          fighters: fightData.fighters.map((fighter) => ({
+          fighters: fightData.initialFighters.map((fighter) => ({
             name: fighter.name,
             type: fighter.type,
             master: fighter.master,
             maxHp: fighter.maxHp,
             hp: fighter.hp,
-            skills: fighter.skills,
             weapons: fighter.weapons,
             shield: fighter.shield,
           })),

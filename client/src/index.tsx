@@ -1,24 +1,28 @@
-import './index.css';
-import './i18n.js';
-import * as serviceWorker from './serviceWorker.js';
 import React, { Suspense } from 'react';
-import ReactDOM from 'react-dom';
-import App from './App.js';
-import { LanguageProvider } from './hooks/useLanguage.js';
 import { BrowserRouter } from 'react-router-dom';
+import App from './App.js';
 import Loader from './components/Loader.js';
+import { LanguageProvider } from './hooks/useLanguage.js';
+import './i18n.js';
+import './index.css';
+import * as serviceWorker from './serviceWorker.js';
+import { createRoot } from 'react-dom/client';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Suspense fallback={<Loader />}>
-      <LanguageProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </LanguageProvider>
-    </Suspense>
-  </React.StrictMode>,
-  document.getElementById('root')
+const container = document.getElementById('root');
+
+if (!container) {
+  throw new Error('No root element found');
+}
+
+const root = createRoot(container);
+root.render(
+  <Suspense fallback={<Loader />}>
+    <LanguageProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </LanguageProvider>
+  </Suspense>
 );
 
 serviceWorker.unregister();
