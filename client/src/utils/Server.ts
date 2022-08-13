@@ -1,4 +1,4 @@
-import { Brute, DestinyChoice, Fight, Log, User } from '@eternaltwin/labrute-core/types';
+import { BodyColors, BodyParts, Brute, DestinyChoice, Fight, Gender, Log, User } from '@eternaltwin/labrute-core/types';
 import Fetch from './Fetch.js';
 
 const Server = {
@@ -12,7 +12,21 @@ const Server = {
   Brute: {
     get: (name: string) => Fetch<Brute>(`/api/brute/${name}`),
     isNameAvailable: (name: string) => Fetch<boolean>(`/api/brute/${name}/available`),
-    create: (brute: Brute) => Fetch<Brute>('/api/brute/create', brute, 'POST'),
+    create: (
+      name: string,
+      user: string,
+      gender: Gender,
+      body: BodyParts,
+      colors: BodyColors,
+      master: string | null,
+    ) => Fetch<Brute>('/api/brute/create', {
+      name,
+      user,
+      gender,
+      body,
+      colors,
+      master,
+    }, 'POST'),
     getLevelUpChoices: (name: string) => Fetch<{
       brute: Brute,
       choices: [DestinyChoice, DestinyChoice],

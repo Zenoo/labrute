@@ -1,7 +1,10 @@
+import createRandomBruteStats from '@eternaltwin/labrute-core/brute/createRandomBruteStats';
 import getLevelUpChoices from '@eternaltwin/labrute-core/brute/getLevelUpChoices';
 import { ARENA_OPPONENTS_COUNT, ARENA_OPPONENTS_MAX_GAP } from '@eternaltwin/labrute-core/constants';
 import {
-  Brute, DestinyChoice,
+  BodyColors,
+  BodyParts,
+  Brute, DestinyChoice, Gender,
 } from '@eternaltwin/labrute-core/types';
 import { Request, Response } from 'express';
 import DB from '../db/client.js';
@@ -65,34 +68,51 @@ const Brutes = {
     }
   },
   create: async (
-    req: Request<never, unknown, Brute>,
+    req: Request<never, unknown, {
+      name: string,
+      user: string,
+      gender: Gender,
+      body: BodyParts,
+      colors: BodyColors,
+      master: string | null,
+    }>,
     res: Response,
   ) => {
     try {
       const client = await DB.connect();
       await auth(client, req);
 
-      const requestBrute = req.body;
+      // Create brute data
+      const bruteData: Brute['data'] = {
+        ...createRandomBruteStats(),
+        user: req.body.user,
+        gender: req.body.gender,
+        body: req.body.body,
+        colors: req.body.colors,
+        master: req.body.master || '',
+        victories: 0,
+        pupils: 0,
+      };
 
       // Create brute
       const { rows: { 0: brute } } = await client.query<Brute>(
         'insert into brutes (name, destiny_path, data) values ($1, $2, $3) returning *',
-        [requestBrute.name, requestBrute.destiny_path, requestBrute.data],
+        [req.body.name, [], bruteData],
       );
 
       // Update master's pupils count
-      if (requestBrute.data.master) {
+      if (bruteData.master) {
         await client.query(
           `update brutes set data = data
           || ('{"pupils": ' || ((data->>'pupils')::int + 1) || '}')::jsonb
           where name = $1`,
-          [requestBrute.data.master],
+          [bruteData.master],
         );
 
         // Add log
         await client.query(
           'insert into logs (current_brute, type, brute) values ($1, $2, $3)',
-          [requestBrute.data.master, 'child', brute.name],
+          [bruteData.master, 'child', brute.name],
         );
       }
 

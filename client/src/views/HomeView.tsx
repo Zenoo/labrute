@@ -1,4 +1,3 @@
-import createRandomBruteStats from '@eternaltwin/labrute-core/brute/createRandomBruteStats';
 import getRandomBody from '@eternaltwin/labrute-core/brute/getRandomBody';
 import getRandomColors from '@eternaltwin/labrute-core/brute/getRandomColors';
 import { BodyColors, BodyParts, Brute, Gender, User } from '@eternaltwin/labrute-core/types';
@@ -140,21 +139,14 @@ const HomeView = () => {
             const url = new URL(window.location.href);
             const ref = url.searchParams.get('ref');
 
-            const brute = await Server.Brute.create({
+            const brute = await Server.Brute.create(
               name,
-              rank: 0,
-              destiny_path: [],
-              data: {
-                user: user.id,
-                ...createRandomBruteStats(),
-                gender,
-                body: bodyParts,
-                colors: bodyColors,
-                master: ref || '',
-                victories: 0,
-                pupils: 0,
-              },
-            }).catch(catchError(Alert));
+              user.id,
+              gender,
+              bodyParts,
+              bodyColors,
+              ref
+            ).catch(catchError(Alert));
 
             if (brute) {
               // Add brute to user brutes
