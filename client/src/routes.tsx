@@ -1,4 +1,5 @@
 import React from 'react';
+import IddleBear from './components/animations/bear/IddleBear.js';
 import Main from './layouts/Main.js';
 import ArenaView from './views/ArenaView.js';
 import CellView from './views/CellView.js';
@@ -24,8 +25,9 @@ const routes = [
           { path: 'fight/:fightId', element: <FightView /> },
         ],
       },
-    ]
+    ],
   },
+  { path: 'test', element: <IddleBear id="test" inverted /> },
 ];
 
 export default routes;
