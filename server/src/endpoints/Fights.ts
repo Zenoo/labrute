@@ -202,7 +202,9 @@ const Fights = {
       // (+1 for a win against a brute at least 10 level below you)
       // (+0 otherwise)
       const levelDifference = brute1.data.level - brute2.data.level;
-      const xpGained = levelDifference >= 10 ? 0 : levelDifference >= 2 ? 1 : 2;
+      const xpGained = winner.name === brute1.name
+        ? levelDifference >= 10 ? 0 : levelDifference >= 2 ? 1 : 2
+        : levelDifference >= 10 ? 0 : 1;
 
       // Update brute XP
       await client.query(
