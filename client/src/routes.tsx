@@ -1,5 +1,5 @@
 import React from 'react';
-import IddleBear from './components/animations/bear/IddleBear.js';
+import AnimatedBear from './components/animations/bear/AnimatedBear.js';
 import Main from './layouts/Main.js';
 import ArenaView from './views/ArenaView.js';
 import CellView from './views/CellView.js';
@@ -27,7 +27,8 @@ const routes = [
       },
     ],
   },
-  { path: 'test', element: <IddleBear id="test" /> },
+  { path: 'test', element: <AnimatedBear id="test" animation="iddle" /> },
+  { path: 'test2', element: <AnimatedBear id="test" animation="attack" /> },
 ];
 
 export default routes;

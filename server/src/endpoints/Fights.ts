@@ -135,6 +135,11 @@ const Fights = {
 
       // Fight loop
       while (!fightData.loser) {
+        if (!fightData.fighters.length) {
+          // No fighters left
+          return;
+        }
+
         // Order fighters by initiative (random if equal)
         orderFighters(fightData);
 

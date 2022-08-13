@@ -1,7 +1,7 @@
-import { Box, GlobalStyles } from '@mui/material';
+import { Box, BoxProps, GlobalStyles } from '@mui/material';
 import React from 'react';
 
-export interface IddleBearProps {
+export interface IddleBearProps extends BoxProps {
   id: string;
   inverted?: boolean;
 }

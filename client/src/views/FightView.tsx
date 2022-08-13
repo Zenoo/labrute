@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
-import IddleBear from '../components/animations/bear/IddleBear.js';
+import AnimatedBear from '../components/animations/bear/AnimatedBear.js';
 import BoxBg from '../components/BoxBg.js';
 import BruteComponent from '../components/Brute/Body/BruteComponent.js';
 import Page from '../components/Page.js';
@@ -24,10 +24,13 @@ interface AnimationFighter {
   team: 'left' | 'right';
   x: number;
   y: number;
+  animation: 'iddle' | 'run' | 'attack' | 'hit';
+  distanceBetweenFighters: number;
   brute?: Brute;
 }
 
-const ANIMATION_DELAY = 500;
+const MOVE_DURATION = 500;
+const ATTACK_DURATION = 470;
 
 const leftPositions = [
   { x: 40, y: 120 },
@@ -57,11 +60,24 @@ const findFighter = (
   && f.master === stepFighter.master) : undefined);
 
 const fightersEqual = (
-  a: AnimationFighter | undefined,
-  b: AnimationFighter | undefined,
+  a: AnimationFighter | StepFighter | undefined,
+  b: AnimationFighter | StepFighter | undefined,
 ) => !a || !b || (a.name === b.name
   && a.type === b.type
   && a.master === b.master);
+
+const getAvailablePositions = (fighters: AnimationFighter[], side: 'left' | 'right') => {
+  const positions = side === 'left' ? leftPositions : rightPositions;
+
+  return positions.filter((p) => fighters.every((f) => f.x !== p.x || f.y !== p.y));
+};
+
+const getRandomPosition = (fighters: AnimationFighter[], side: 'left' | 'right') => {
+  const availablePositions = getAvailablePositions(fighters, side);
+  const random = randomBetween(0, availablePositions.length - 1);
+
+  return availablePositions[random];
+};
 
 const FightView = () => {
   const { t } = useTranslation();
@@ -75,15 +91,6 @@ const FightView = () => {
   const [fighters, setFighters] = useState<AnimationFighter[]>([]);
 
   const [displayLogs, setDisplayLogs] = useState(false);
-
-  const availableLeftPositions = useMemo(
-    () => leftPositions.filter((p) => fighters.every((f) => f.x !== p.x || f.y !== p.y)),
-    [fighters],
-  );
-  const availableRightPositions = useMemo(
-    () => rightPositions.filter((p) => fighters.every((f) => f.x !== p.x || f.y !== p.y)),
-    [fighters],
-  );
 
   // Update fighters
   useEffect(() => {
@@ -103,6 +110,8 @@ const FightView = () => {
         team: isFromLeftTeam ? 'left' : 'right',
         x: isFromLeftTeam ? -100 : 500,
         y: 50,
+        animation: 'iddle',
+        distanceBetweenFighters: fighter.type === 'pet' && fighter.name === 'bear' ? 100 : 60,
         brute: fighter.type === 'brute' ? brutes.find((b) => b.name === fighter.name) : undefined,
       };
     }));
@@ -117,7 +126,7 @@ const FightView = () => {
       }
     };
 
-    if (fight && brutes.length && fighters) {
+    if (fight && brutes.length) {
       const { data: { steps } } = fight;
       const { [currentStep]: step } = steps;
 
@@ -127,109 +136,131 @@ const FightView = () => {
         return resetTimeout;
       }
 
-      const triggerAnimation = () => {
-        switch (step.action) {
-          case 'moveTo': {
-            const target = findFighter(fighters, step.target);
+      // Animate actions
+      switch (step.action) {
+        case 'moveTo': {
+          // Move fighter
+          setFighters((prevFighters) => prevFighters.map((fighter) => {
+            if (!fightersEqual(step.fighter, fighter)) {
+              return fighter;
+            }
+
+            const target = findFighter(prevFighters, step.target);
 
             if (!target) {
               console.error('Target not found');
-              return;
+              return fighter;
             }
 
-            // Move fighter
-            setFighters((prevFighters) => prevFighters.map((fighter) => {
-              if (!(fighter.name === step.fighter.name
-                && fighter.type === step.fighter.type
-                && fighter.master === step.fighter.master)) {
-                return fighter;
-              }
-
-              return {
-                ...fighter,
-                x: target.team === 'left' ? target.x + 60 : target.x - 60,
-                y: target.y,
-              };
-            }));
-            break;
-          }
-          case 'moveBack': {
-            // Move fighter
-            setFighters((prevFighters) => prevFighters.map((fighter) => {
-              if (!(fighter.name === step.fighter.name
-                && fighter.type === step.fighter.type
-                && fighter.master === step.fighter.master)) {
-                return fighter;
-              }
-
-              const backPosition = fighter.team === 'left'
-                ? availableLeftPositions[randomBetween(0, availableLeftPositions.length - 1)]
-                : availableRightPositions[randomBetween(0, availableRightPositions.length - 1)];
-
-              return {
-                ...fighter,
-                x: backPosition.x,
-                y: backPosition.y,
-              };
-            }));
-            break;
-          }
-          case 'arrive': {
-            const stepFighter = findFighter(fighters, step.fighter);
-            // Move fighter
-            setFighters((prevFighters) => prevFighters.map((fighter) => {
-              if (!fightersEqual(stepFighter, fighter)) {
-                return fighter;
-              }
-
-              const position = fighter.team === 'left'
-                ? availableLeftPositions[randomBetween(0, availableLeftPositions.length - 1)]
-                : availableRightPositions[randomBetween(0, availableRightPositions.length - 1)];
-
-              return {
-                ...fighter,
-                x: position.x,
-                y: position.y,
-              };
-            }));
-            break;
-          }
-          case 'leave': {
-            // Move fighter
-            setFighters((prevFighters) => prevFighters.map((fighter) => {
-              if (!(fighter.name === step.fighter.name
-                && fighter.type === step.fighter.type
-                && fighter.master === step.fighter.master)) {
-                return fighter;
-              }
-
-              return {
-                ...fighter,
-                x: fighter.team === 'left' ? -100 : 500,
-              };
-            }));
-            break;
-          }
-          default:
-            break;
+            return {
+              ...fighter,
+              animation: 'run',
+              x: target.team === 'left' ? target.x + fighter.distanceBetweenFighters : target.x - fighter.distanceBetweenFighters,
+              y: target.y,
+            };
+          }));
+          break;
         }
+        case 'moveBack': {
+          // Move fighter
+          setFighters((prevFighters) => prevFighters.map((fighter) => {
+            if (!fightersEqual(step.fighter, fighter)) {
+              return fighter;
+            }
 
-        setCurrentStep((prev) => prev + 1);
+            const backPosition = getRandomPosition(prevFighters, fighter.team);
+
+            return {
+              ...fighter,
+              animation: 'run',
+              x: backPosition.x,
+              y: backPosition.y,
+            };
+          }));
+          break;
+        }
+        case 'arrive': {
+          // Move fighter
+          setFighters((prevFighters) => prevFighters.map((fighter) => {
+            if (!fightersEqual(step.fighter, fighter)) {
+              return fighter;
+            }
+
+            const position = getRandomPosition(prevFighters, fighter.team);
+
+            return {
+              ...fighter,
+              animation: 'iddle',
+              x: position.x,
+              y: position.y,
+            };
+          }));
+          break;
+        }
+        case 'leave': {
+          // Move fighter
+          setFighters((prevFighters) => prevFighters.map((fighter) => {
+            if (!fightersEqual(step.fighter, fighter)) {
+              return fighter;
+            }
+
+            return {
+              ...fighter,
+              animation: 'run',
+              x: fighter.team === 'left' ? -100 : 500,
+            };
+          }));
+          break;
+        }
+        case 'attemptHit': {
+          // Set hitting animation for fighters
+          setFighters((prevFighters) => prevFighters.map((fighter) => {
+            if (fightersEqual(step.fighter, fighter)) {
+              return {
+                ...fighter,
+                animation: 'attack',
+              };
+            }
+            if (fightersEqual(step.target, fighter)) {
+              return {
+                ...fighter,
+                animation: 'hit',
+              };
+            }
+
+            return fighter;
+          }));
+          break;
+        }
+        default:
+          break;
+      }
+
+      const triggerNextAnimation = () => {
+        setCurrentStep((prevStep) => prevStep + 1);
       };
 
       // Timeout for animated actions only
-      const animatedActions = ['arrive', 'leave', 'moveTo', 'moveBack'];
-
-      if (animatedActions.includes(step.action)) {
-        timeout = window.setTimeout(triggerAnimation, ANIMATION_DELAY);
-      } else {
-        triggerAnimation();
+      switch (step.action) {
+        case 'arrive':
+        case 'leave':
+        case 'moveTo':
+        case 'moveBack':
+          timeout = window.setTimeout(triggerNextAnimation, MOVE_DURATION);
+          break;
+        case 'hit':
+        case 'block':
+        case 'evade':
+          timeout = window.setTimeout(triggerNextAnimation, ATTACK_DURATION);
+          break;
+        default:
+          triggerNextAnimation();
+          break;
       }
     }
 
     return resetTimeout;
-  }, [availableLeftPositions, availableRightPositions, brutes.length,
-    currentStep, fight, fighters]);
+  }, [brutes.length, currentStep, fight]);
 
   // Fetch fight and brutes
   useEffect(() => {
@@ -327,7 +358,7 @@ const FightView = () => {
                   key={`${fighter.master || ''}.${fighter.name}`}
                   initial={{ x: fighter.x, y: fighter.y }}
                   animate={{ x: fighter.x, y: fighter.y }}
-                  transition={{ duration: 0.5, type: 'spring' }}
+                  transition={{ duration: 0.5, type: 'linear' }}
                   style={{
                     display: 'inline-block',
                     position: 'absolute',
@@ -344,7 +375,7 @@ const FightView = () => {
                       sx={{ height: 80 }}
                     />
                   ) : fighter.name === 'bear' ? (
-                    <IddleBear id="bear" inverted={fighter.team === 'right'} />
+                    <AnimatedBear id="bear" animation={fighter.animation} inverted={fighter.team === 'right'} />
                   ) : t(fighter.name as PetName)}
                 </motion.div>
               ))}
