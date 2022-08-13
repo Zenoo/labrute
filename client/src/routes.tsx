@@ -27,7 +27,7 @@ const routes = [
       },
     ],
   },
-  { path: 'test', element: <IddleBear id="test" inverted /> },
+  { path: 'test', element: <IddleBear id="test" /> },
 ];
 
 export default routes;

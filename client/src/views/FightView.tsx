@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
+import IddleBear from '../components/animations/bear/IddleBear.js';
 import BoxBg from '../components/BoxBg.js';
 import BruteComponent from '../components/Brute/Body/BruteComponent.js';
 import Page from '../components/Page.js';
@@ -342,6 +343,8 @@ const FightView = () => {
                       inverted={fighter.team === 'left'}
                       sx={{ height: 80 }}
                     />
+                  ) : fighter.name === 'bear' ? (
+                    <IddleBear id="bear" inverted={fighter.team === 'right'} />
                   ) : t(fighter.name as PetName)}
                 </motion.div>
               ))}
