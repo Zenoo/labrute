@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.1](https://github.com/Zenoo/labrute/compare/v1.5.0...v1.5.1) (2022-08-13)
+
+
+### Bug fix
+
+* Added bear attack animation. [#70](https://github.com/Zenoo/labrute/issues/70) ([43f986b](https://github.com/Zenoo/labrute/commit/43f986bbebcd88593c76f3eb68932de8a7b3b3d7))
+
 ## [1.5.0](https://github.com/Zenoo/labrute/compare/v1.4.1...v1.5.0) (2022-08-13)
 
 
