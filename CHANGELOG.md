@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.2](https://github.com/Zenoo/labrute/compare/v1.5.1...v1.5.2) (2022-08-13)
+
+
+### Bug fix
+
+* Create brute stats server side to avoid client tempering. Fixes [#73](https://github.com/Zenoo/labrute/issues/73) ([7de0fb4](https://github.com/Zenoo/labrute/commit/7de0fb4193cb3d64421c540c61949b3b4312df03))
+* Prevent XP gain for brutes less than 10 level below you. Fixes [#74](https://github.com/Zenoo/labrute/issues/74) ([b0a2a11](https://github.com/Zenoo/labrute/commit/b0a2a1167ee9f4227385dbab1df34c1eedafa94a))
+
 ### [1.5.1](https://github.com/Zenoo/labrute/compare/v1.5.0...v1.5.1) (2022-08-13)
 
 

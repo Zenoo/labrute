@@ -1,3 +1,3 @@
-const Version = '!1.5.1!'.replace(/!/g, '');
+const Version = '!1.5.2!'.replace(/!/g, '');
 
 export default Version;
