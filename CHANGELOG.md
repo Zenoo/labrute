@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.4](https://github.com/Zenoo/labrute/compare/v1.5.3...v1.5.4) (2022-08-13)
+
+
+### Bug fix
+
+* Allow for +2 XP for a 2 level difference instead of 1. ([932fe0b](https://github.com/Zenoo/labrute/commit/932fe0b9ad00a41d0865f0c9cb04cad889d21f70))
+
 ### [1.5.3](https://github.com/Zenoo/labrute/compare/v1.5.2...v1.5.3) (2022-08-13)
 
 
