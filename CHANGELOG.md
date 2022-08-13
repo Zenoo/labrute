@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/Zenoo/labrute/compare/v1.4.1...v1.5.0) (2022-08-13)
+
+
+### Feature
+
+* First animation prototype ([ed937b1](https://github.com/Zenoo/labrute/commit/ed937b1fa76091f880fe6f8ffae70fdb1be0bf95))
+* Implement bear iddle animation in the fight. [#70](https://github.com/Zenoo/labrute/issues/70) ([5c5ec38](https://github.com/Zenoo/labrute/commit/5c5ec3807e8343986fc870e4613d0e421b6d7c50))
+
 ### [1.4.1](https://github.com/Zenoo/labrute/compare/v1.4.0...v1.4.1) (2022-08-12)
 
 
