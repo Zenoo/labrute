@@ -200,7 +200,7 @@ const FightView = () => {
     );
   }
 
-  return (bruteName && fightId) && (
+  return (bruteName && fightId) ? (
     <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl={`/${bruteName}/cell`}>
       <BoxBg
         src="/images/fight/background.gif"
@@ -237,7 +237,7 @@ const FightView = () => {
         </Box>
       </BoxBg>
     </Page>
-  );
+  ) : null;
 };
 
 export default FightView;
