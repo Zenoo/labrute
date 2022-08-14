@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.2](https://github.com/Zenoo/labrute/compare/v1.6.1...v1.6.2) (2022-08-14)
+
+
+### Bug fix
+
+* Disable auth on fight view ([164483a](https://github.com/Zenoo/labrute/commit/164483a4ccf8dc2f7671b6a2e89b50fd564a9f45))
+* Don't iddle if dead ([5a5b3a7](https://github.com/Zenoo/labrute/commit/5a5b3a717e4af7342acc93c4c3d16e07421f8184))
+
+
+### Refactoring
+
+* Added fight mobile view. Fixes [#60](https://github.com/Zenoo/labrute/issues/60) ([fb8fa8c](https://github.com/Zenoo/labrute/commit/fb8fa8cf01a9812af21491c0f40d30ebf94064cc))
+* Added responsive versus view. Fixes [#42](https://github.com/Zenoo/labrute/issues/42) ([7342919](https://github.com/Zenoo/labrute/commit/73429194f322f31711305a358e6b7df837df53b9))
+
 ### [1.6.1](https://github.com/Zenoo/labrute/compare/v1.6.0...v1.6.1) (2022-08-14)
 
 
