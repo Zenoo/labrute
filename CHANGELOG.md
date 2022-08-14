@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/Zenoo/labrute/compare/v1.5.4...v1.6.0) (2022-08-14)
+
+
+### Feature
+
+* Animation import script ([16b8f1b](https://github.com/Zenoo/labrute/commit/16b8f1be3b6a08c04e092eb6ec7a1ed9541e1e0c))
+
+
+### Bug fix
+
+* Bear arrive animation. [#70](https://github.com/Zenoo/labrute/issues/70) ([df1ec80](https://github.com/Zenoo/labrute/commit/df1ec809171274b95ea1135c09bb364560ef7c79))
+* Bear arrive/iddle/run/attack/hit animations complete. [#70](https://github.com/Zenoo/labrute/issues/70) ([84d2a5b](https://github.com/Zenoo/labrute/commit/84d2a5ba1ff32e4809a6ffbe7e871c42bec1ff43))
+* Pets can't block ([2102f5b](https://github.com/Zenoo/labrute/commit/2102f5b907f8a15fb356a85c81eacd9fcfcc92cd))
+* Updated bear iddle animation. [#70](https://github.com/Zenoo/labrute/issues/70) ([43749fc](https://github.com/Zenoo/labrute/commit/43749fcf7c7db13faeee7a8f36b710018138b574))
+
 ### [1.5.4](https://github.com/Zenoo/labrute/compare/v1.5.3...v1.5.4) (2022-08-13)
 
 
