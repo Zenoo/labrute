@@ -29,6 +29,7 @@ const routes = [
   },
   { path: 'test', element: <AnimatedBear id="test" animation="iddle" /> },
   { path: 'test2', element: <AnimatedBear id="test" animation="attack" /> },
+  { path: 'test3', element: <AnimatedBear id="test" animation="arrive" /> },
 ];
 
 export default routes;
