@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.1](https://github.com/Zenoo/labrute/compare/v1.6.0...v1.6.1) (2022-08-14)
+
+
+### Bug fix
+
+* Bear animations imported + animation testing tool. [#70](https://github.com/Zenoo/labrute/issues/70) ([a62abe4](https://github.com/Zenoo/labrute/commit/a62abe467e0ce1f5487a021e89808fb5d39f5688))
+* Bear death animation. [#70](https://github.com/Zenoo/labrute/issues/70) ([5bf438a](https://github.com/Zenoo/labrute/commit/5bf438ad4f02540d3e33a138ca09f072a1a7a85d))
+
 ## [1.6.0](https://github.com/Zenoo/labrute/compare/v1.5.4...v1.6.0) (2022-08-14)
 
 
