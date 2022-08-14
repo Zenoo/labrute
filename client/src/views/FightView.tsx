@@ -1,15 +1,12 @@
 import { ATTACK_DURATION, MOVE_DURATION } from '@eternaltwin/labrute-core/constants';
-import { Brute, Fight, PetName } from '@eternaltwin/labrute-core/types';
+import { Brute, Fight } from '@eternaltwin/labrute-core/types';
 import randomBetween from '@eternaltwin/labrute-core/utils/randomBetween';
-import { Rtt } from '@mui/icons-material';
-import { Box, IconButton, Link, Tooltip } from '@mui/material';
-import { motion } from 'framer-motion';
+import { Box, Link, Tooltip, useMediaQuery } from '@mui/material';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
-import AnimatedBear from '../components/animations/bear/AnimatedBear.js';
+import FightComponent from '../components/Arena/FightComponent.js';
 import BoxBg from '../components/BoxBg.js';
-import BruteComponent from '../components/Brute/Body/BruteComponent.js';
 import Page from '../components/Page.js';
 import Text from '../components/Text.js';
 import { useAlert } from '../hooks/useAlert.js';
@@ -25,13 +22,14 @@ import leave from '../utils/fight/leave.js';
 import moveBack from '../utils/fight/moveBack.js';
 import moveTo from '../utils/fight/moveTo.js';
 import Server from '../utils/Server.js';
-import translateFightStep from '../utils/translateFightStep.js';
+import FightMobileView from './mobile/FightMobileView.js';
 
 const FightView = () => {
   const { t } = useTranslation();
   const { bruteName, fightId } = useParams();
   const Alert = useAlert();
   const navigate = useNavigate();
+  const smallScreen = useMediaQuery('(max-width: 935px)');
 
   // Fight data
   const [fight, setFight] = useState<Fight | null>(null);
@@ -188,7 +186,21 @@ const FightView = () => {
     setDisplayLogs((prev) => !prev);
   }, []);
 
-  return (bruteName && fightId) ? (
+  if (smallScreen) {
+    return (
+      <FightMobileView
+        bruteName={bruteName}
+        fight={fight}
+        brutes={brutes}
+        fighters={fighters}
+        displayLogs={displayLogs}
+        toggleLogs={toggleLogs}
+        adverts={adverts}
+      />
+    );
+  }
+
+  return (bruteName && fightId) && (
     <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl={`/${bruteName}/cell`}>
       <BoxBg
         src="/images/fight/background.gif"
@@ -214,82 +226,18 @@ const FightView = () => {
             ))}
           </Box>
           {/* FIGHT */}
-          {fight && !!brutes.length && (
-            <BoxBg
-              src="/images/game/background/179.jpg"
-              sx={{
-                position: 'relative',
-                width: 500,
-                height: 300,
-                border: 1,
-                borderColor: 'secondary.main',
-                alignSelf: 'center',
-                ml: 5,
-                overflow: 'hidden',
-              }}
-            >
-              {/* FIGHTERS */}
-              {fighters.map((fighter) => (
-                <motion.div
-                  key={`${fighter.master || ''}.${fighter.name}`}
-                  initial={{ x: fighter.x, y: fighter.y }}
-                  animate={{ x: fighter.x, y: fighter.y }}
-                  transition={{ duration: 0.5, type: 'linear' }}
-                  style={{
-                    display: 'inline-block',
-                    position: 'absolute',
-                    bottom: 0,
-                    left: 0,
-                    transformOrigin: fighter.team === 'left' ? 'left bottom' : 'right bottom',
-                    // The further down the fighter is, the higher the z-index
-                    zIndex: 300 + fighter.y,
-                  }}
-                >
-                  {fighter.type === 'brute' ? (
-                    <BruteComponent
-                      brute={fighter.brute as Brute}
-                      inverted={fighter.inverted}
-                      sx={{ height: 80 }}
-                    />
-                  ) : fighter.name === 'bear' ? (
-                    <AnimatedBear
-                      id="bear"
-                      animation={fighter.animation}
-                      inverted={!fighter.inverted}
-                    />
-                  ) : t(fighter.name as PetName)}
-                </motion.div>
-              ))}
-              {/* LOGS */}
-              {displayLogs && (
-                <Box sx={{
-                  height: 1,
-                  width: 1,
-                  overflowY: 'auto',
-                  position: 'absolute',
-                  top: 0,
-                  bgcolor: 'rgba(255, 255, 255, 0.5)',
-                  zIndex: 500,
-                }}
-                >
-                  {fight.data.steps.filter((step) => !['moveTo', 'moveBack'].includes(step.action)).map((step, i) => (
-                    // eslint-disable-next-line react/no-array-index-key
-                    <Text key={i}>{translateFightStep(step, t)}</Text>
-                  ))}
-                </Box>
-              )}
-              {/* LOGS TOGGLE */}
-              <Tooltip title={t('fight.toggleLogs')}>
-                <IconButton onClick={toggleLogs} sx={{ position: 'absolute', bottom: 0, right: 0, zIndex: 501, }}>
-                  <Rtt />
-                </IconButton>
-              </Tooltip>
-            </BoxBg>
-          )}
+          <FightComponent
+            fight={fight}
+            brutes={brutes}
+            fighters={fighters}
+            displayLogs={displayLogs}
+            t={t}
+            toggleLogs={toggleLogs}
+          />
         </Box>
       </BoxBg>
     </Page>
-  ) : null;
+  );
 };
 
 export default FightView;

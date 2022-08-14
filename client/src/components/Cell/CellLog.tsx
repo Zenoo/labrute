@@ -60,7 +60,7 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
               : t(`log.${log.type}`, { value: log.brute })}
           </Text>
         )}
-      {log.xp && (
+      {!!log.xp && (
         <Text
           color={log.type === 'lose' ? 'error.main' : 'success.main'}
           sx={{
