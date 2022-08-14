@@ -19,7 +19,8 @@
     "etwin": "etwin",
     "db:populate": "cd server && yarn run db:populate",
     "db:sync": "cd server && yarn run db:sync",
-    "db:brute:generate": "cd server && yarn run db:brute:generate"
+    "db:brute:generate": "cd server && yarn run db:brute:generate",
+    "animation:import": "ts-node importAnimation.ts"
   },
   "devDependencies": {
     "@eternal-twin/cli": "^0.10.3",
