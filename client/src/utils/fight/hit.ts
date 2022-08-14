@@ -9,7 +9,7 @@ const hit = (
   setFighters: React.Dispatch<React.SetStateAction<AnimationFighter[]>>,
   step: HitStep,
 ) => {
-  // Set hitting animation for fighters
+  // Set hit animation for fighters
   setFighters((prevFighters) => prevFighters.map((fighter) => {
     if (fightersEqual(step.target, fighter)) {
       return {

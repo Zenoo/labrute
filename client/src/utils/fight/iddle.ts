@@ -13,6 +13,11 @@ const iddle = (
         return f;
       }
 
+      // Don't iddle if dead
+      if (f.animation === 'death') {
+        return f;
+      }
+
       return {
         ...f,
         animation: 'iddle',
