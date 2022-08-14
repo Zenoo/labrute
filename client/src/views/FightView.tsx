@@ -17,7 +17,10 @@ import advertisings from '../utils/advertisings.js';
 import catchError from '../utils/catchError.js';
 import arrive from '../utils/fight/arrive.js';
 import attemptHit from '../utils/fight/attemptHit.js';
+import death from '../utils/fight/death.js';
+import evade from '../utils/fight/evade.js';
 import { AnimationFighter } from '../utils/fight/findFighter.js';
+import hit from '../utils/fight/hit.js';
 import leave from '../utils/fight/leave.js';
 import moveBack from '../utils/fight/moveBack.js';
 import moveTo from '../utils/fight/moveTo.js';
@@ -58,7 +61,7 @@ const FightView = () => {
         type: fighter.type,
         team: isFromLeftTeam ? 'left' : 'right',
         inverted: isFromLeftTeam,
-        x: isFromLeftTeam ? -100 : 500,
+        x: isFromLeftTeam ? -150 : 550,
         y: -150,
         animation: 'iddle',
         distanceBetweenFighters: fighter.type === 'pet' && fighter.name === 'bear' ? 100 : 60,
@@ -108,6 +111,18 @@ const FightView = () => {
           attemptHit(setFighters, step);
           break;
         }
+        case 'hit': { // TODO: Rework animation component to add staggered animation
+          hit(setFighters, step);
+          break;
+        }
+        case 'death': {
+          death(setFighters, step);
+          break;
+        }
+        case 'evade': { // TODO: Rework animation component to add Y offset
+          evade(setFighters, step);
+          break;
+        }
         default:
           break;
       }
@@ -122,6 +137,7 @@ const FightView = () => {
         case 'leave':
         case 'moveTo':
         case 'moveBack':
+        case 'death':
           timeout = window.setTimeout(triggerNextAnimation, MOVE_DURATION);
           break;
         case 'hit':

@@ -1,4 +1,5 @@
 import { Brute, StepFighter } from '@eternaltwin/labrute-core/types';
+import { Animation } from '../../views/AnimationTestView.js';
 
 export interface AnimationFighter {
   name: string;
@@ -8,7 +9,7 @@ export interface AnimationFighter {
   inverted: boolean;
   x: number;
   y: number;
-  animation: 'arrive' | 'iddle' | 'run' | 'attack' | 'hit';
+  animation: Animation;
   distanceBetweenFighters: number;
   brute?: Brute;
 }

@@ -4,7 +4,7 @@ import ArriveBear from './ArriveBear.js';
 import AttackBear from './AttackBear.js';
 import HitBear from './HitBear.js';
 import IddleBear from './IddleBear.js';
-import DodgeBear from './DodgeBear.js';
+import EvadeBear from './EvadeBear.js';
 import RunBear from './RunBear.js';
 import DeathBear from './DeathBear.js';
 import TrappedBear from './TrappedBear.js';
@@ -27,8 +27,8 @@ const AnimatedBear = ({ animation, ...rest }: AnimatedBearProps) => {
       return <HitBear {...rest} />;
     case 'run':
       return <RunBear {...rest} />;
-    case 'dodge':
-      return <DodgeBear {...rest} />;
+    case 'evade':
+      return <EvadeBear {...rest} />;
     case 'death':
       return <DeathBear {...rest} />;
     case 'trapped':

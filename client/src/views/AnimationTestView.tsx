@@ -5,10 +5,10 @@ import AnimatedBear from '../components/animations/bear/AnimatedBear.js';
 import Text from '../components/Text.js';
 
 export type AnimationModel = 'bear';
-export type Animation = 'arrive' | 'attack' | 'death' | 'dodge' | 'hit' | 'iddle' | 'run' | 'trapped';
+export type Animation = 'arrive' | 'attack' | 'death' | 'evade' | 'hit' | 'iddle' | 'run' | 'trapped';
 
 const animations: Record<AnimationModel, Animation[]> = {
-  bear: ['arrive', 'attack', 'death', 'dodge', 'hit', 'iddle', 'run', 'trapped'],
+  bear: ['arrive', 'attack', 'death', 'evade', 'hit', 'iddle', 'run', 'trapped'],
 };
 
 const AnimationTestView = () => {

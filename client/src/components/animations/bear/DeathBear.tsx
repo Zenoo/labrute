@@ -45,7 +45,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
           ? -(WIDTH + MARGIN) * (FRAMES - 1) - (inverted ? MARGIN : 0)
           : 0,
         width: (WIDTH + MARGIN) * FRAMES,
-        animation: `DeathBear 1.22s steps(${FRAMES}, jump-none) infinite`,
+        animation: `DeathBear 1.22s steps(${FRAMES}, jump-none) forwards`,
         transform: inverted ? 'scale(-1, 1)' : null,
       }}
     >

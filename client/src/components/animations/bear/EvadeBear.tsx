@@ -1,7 +1,7 @@
 import { Box, BoxProps, GlobalStyles } from '@mui/material';
 import React from 'react';
 
-export interface DodgeBearProps extends BoxProps {
+export interface EvadeBearProps extends BoxProps {
   id: string;
   inverted?: boolean;
 }
@@ -13,7 +13,7 @@ const X_OFFSET = 90.8;
 const Y_OFFSET = 81.6;
 const MARGIN = 30;
 
-const DodgeBear = ({ id, inverted, sx, ...rest }: DodgeBearProps) => (
+const EvadeBear = ({ id, inverted, sx, ...rest }: EvadeBearProps) => (
   <Box
     sx={{
       position: 'relative',
@@ -155,4 +155,4 @@ const DodgeBear = ({ id, inverted, sx, ...rest }: DodgeBearProps) => (
   </Box>
 );
 
-export default DodgeBear;
+export default EvadeBear;
