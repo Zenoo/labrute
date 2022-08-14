@@ -12,7 +12,6 @@ const Fights = {
   get: async (req: Request, res: Response) => {
     try {
       const client = await DB.connect();
-      await auth(client, req);
 
       if (!req.params.name || !req.params.id) {
         await client.end();
