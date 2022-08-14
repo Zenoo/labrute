@@ -609,6 +609,9 @@ const block = (fighter: DetailedFighter, opponent: DetailedFighter, ease = 1) =>
   // No block if opponent is trapped
   if (opponent.trapped) return false;
 
+  // No block for pets
+  if (fighter.type === 'pet') return false;
+
   return Math.random() * ease
     < (opponent.block
       + (opponent.activeWeapon?.block || 0)
