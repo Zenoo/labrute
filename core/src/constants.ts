@@ -12,3 +12,6 @@ export const PERKS_TOTAL_ODDS = WEAPONS_TOTAL_ODDS + PETS_TOTAL_ODDS + SKILLS_TO
 
 export const SHIELD_BLOCK_ODDS = 0.45;
 export const BARE_HANDS_TEMPO = 1.2;
+
+export const MOVE_DURATION = 500;
+export const ATTACK_DURATION = 470;

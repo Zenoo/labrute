@@ -6,25 +6,36 @@ export interface ArriveBearProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 133.9;
-const HEIGHT = 129.9;
+const WIDTH = 150;
+const HEIGHT = 130;
 const FRAMES = 20;
-const X_OFFSET = 60.8;
-const Y_OFFSET = 54.6;
+const X_OFFSET = 69.8;
+const Y_OFFSET = 74.6;
 const MARGIN = 30;
 
-const ArriveBear = ({ id, inverted }: ArriveBearProps) => (
-  <Box sx={{
-    position: 'relative',
-    overflow: 'hidden',
-    width: WIDTH,
-    height: HEIGHT,
-  }}
+const ArriveBear = ({ id, inverted, sx, ...rest }: ArriveBearProps) => (
+  <Box
+    sx={{
+      position: 'relative',
+      overflow: 'hidden',
+      width: WIDTH,
+      height: HEIGHT,
+      ...sx,
+    }}
+    {...rest}
   >
     <GlobalStyles styles={{
       '@keyframes ArriveBear': {
+        // Hold first frame for 0.5s
+        '50%': {
+          left: inverted
+            ? -(WIDTH + MARGIN) * (FRAMES - 1) - (inverted ? MARGIN : 0)
+            : 0,
+        },
         '100%': {
-          left: -(WIDTH + MARGIN) * (FRAMES - 1),
+          left: inverted
+            ? -MARGIN
+            : -(WIDTH + MARGIN) * (FRAMES - 1) - (inverted ? MARGIN : 0),
         }
       }
     }}
@@ -36,9 +47,11 @@ const ArriveBear = ({ id, inverted }: ArriveBearProps) => (
       sx={{
         position: 'absolute',
         top: 0,
-        left: 0,
+        left: inverted
+          ? -(WIDTH + MARGIN) * (FRAMES - 1) - (inverted ? MARGIN : 0)
+          : 0,
         width: (WIDTH + MARGIN) * FRAMES,
-        animation: `ArriveBear 0.5s steps(${FRAMES}, jump-none) forwards`,
+        animation: `ArriveBear 1s steps(${FRAMES}, jump-none) forwards`,
         transform: inverted ? 'scale(-1, 1)' : null,
       }}
     >

@@ -1,6 +1,6 @@
 import React from 'react';
-import AnimatedBear from './components/animations/bear/AnimatedBear.js';
 import Main from './layouts/Main.js';
+import AnimationTestView from './views/AnimationTestView.js';
 import ArenaView from './views/ArenaView.js';
 import CellView from './views/CellView.js';
 import FightView from './views/FightView.js';
@@ -27,11 +27,7 @@ const routes = [
       },
     ],
   },
-  { path: 'test', element: <AnimatedBear id="test" animation="iddle" /> },
-  { path: 'test2', element: <AnimatedBear id="test" animation="attack" /> },
-  { path: 'test3', element: <AnimatedBear id="test" animation="arrive" /> },
-  { path: 'test4', element: <AnimatedBear id="test" animation="hit" /> },
-  { path: 'test5', element: <AnimatedBear id="test" animation="run" /> },
+  { path: 'animation-test', element: <AnimationTestView /> },
 ];
 
 export default routes;

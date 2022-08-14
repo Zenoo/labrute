@@ -1,7 +1,8 @@
-import { Brute, Fight, PetName, StepFighter } from '@eternaltwin/labrute-core/types';
+import { ATTACK_DURATION, MOVE_DURATION } from '@eternaltwin/labrute-core/constants';
+import { Brute, Fight, PetName } from '@eternaltwin/labrute-core/types';
 import randomBetween from '@eternaltwin/labrute-core/utils/randomBetween';
 import { Rtt } from '@mui/icons-material';
-import { Box, Button, IconButton, Link, Tooltip } from '@mui/material';
+import { Box, IconButton, Link, Tooltip } from '@mui/material';
 import { motion } from 'framer-motion';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -14,71 +15,14 @@ import Text from '../components/Text.js';
 import { useAlert } from '../hooks/useAlert.js';
 import advertisings from '../utils/advertisings.js';
 import catchError from '../utils/catchError.js';
+import arrive from '../utils/fight/arrive.js';
+import attemptHit from '../utils/fight/attemptHit.js';
+import { AnimationFighter } from '../utils/fight/findFighter.js';
+import leave from '../utils/fight/leave.js';
+import moveBack from '../utils/fight/moveBack.js';
+import moveTo from '../utils/fight/moveTo.js';
 import Server from '../utils/Server.js';
 import translateFightStep from '../utils/translateFightStep.js';
-
-interface AnimationFighter {
-  name: string;
-  master?: string;
-  type: 'brute' | 'pet';
-  team: 'left' | 'right';
-  x: number;
-  y: number;
-  animation: 'arrive' | 'iddle' | 'run' | 'attack' | 'hit';
-  distanceBetweenFighters: number;
-  brute?: Brute;
-}
-
-const MOVE_DURATION = 500;
-const ATTACK_DURATION = 470;
-const ARRIVE_DURATION = 500;
-
-const leftPositions = [
-  { x: 40, y: 120 },
-  { x: 20, y: 135 },
-  { x: 40, y: 150 },
-  { x: 20, y: 165 },
-  { x: 40, y: 180 },
-  { x: 20, y: 195 },
-  { x: 40, y: 210 },
-];
-
-const rightPositions = [
-  { x: 410, y: 120 },
-  { x: 430, y: 135 },
-  { x: 410, y: 150 },
-  { x: 430, y: 165 },
-  { x: 410, y: 180 },
-  { x: 430, y: 195 },
-  { x: 410, y: 210 },
-];
-
-const findFighter = (
-  fighters: AnimationFighter[],
-  stepFighter?: StepFighter,
-) => (stepFighter ? fighters.find((f) => f.name === stepFighter.name
-  && f.type === stepFighter.type
-  && f.master === stepFighter.master) : undefined);
-
-const fightersEqual = (
-  a: AnimationFighter | StepFighter | undefined,
-  b: AnimationFighter | StepFighter | undefined,
-) => !a || !b || (a.name === b.name
-  && a.type === b.type
-  && a.master === b.master);
-
-const getAvailablePositions = (fighters: AnimationFighter[], side: 'left' | 'right') => {
-  const positions = side === 'left' ? leftPositions : rightPositions;
-
-  return positions.filter((p) => fighters.every((f) => f.x !== p.x || f.y !== p.y));
-};
-
-const getRandomPosition = (fighters: AnimationFighter[], side: 'left' | 'right') => {
-  const availablePositions = getAvailablePositions(fighters, side);
-  const random = randomBetween(0, availablePositions.length - 1);
-
-  return availablePositions[random];
-};
 
 const FightView = () => {
   const { t } = useTranslation();
@@ -86,14 +30,18 @@ const FightView = () => {
   const Alert = useAlert();
   const navigate = useNavigate();
 
+  // Fight data
   const [fight, setFight] = useState<Fight | null>(null);
   const [brutes, setBrutes] = useState<Brute[]>([]);
+
+  // Fight state
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [fighters, setFighters] = useState<AnimationFighter[]>([]);
 
+  // Logs display
   const [displayLogs, setDisplayLogs] = useState(false);
 
-  // Update fighters
+  // Initialize fighters when everything is ready
   useEffect(() => {
     if (!fight || !brutes.length) {
       return;
@@ -109,8 +57,9 @@ const FightView = () => {
         master: fighter.master,
         type: fighter.type,
         team: isFromLeftTeam ? 'left' : 'right',
+        inverted: isFromLeftTeam,
         x: isFromLeftTeam ? -100 : 500,
-        y: 50,
+        y: -150,
         animation: 'iddle',
         distanceBetweenFighters: fighter.type === 'pet' && fighter.name === 'bear' ? 100 : 60,
         brute: fighter.type === 'brute' ? brutes.find((b) => b.name === fighter.name) : undefined,
@@ -118,7 +67,7 @@ const FightView = () => {
     }));
   }, [brutes, fight]);
 
-  // Startup animation
+  // Start animation when everything is ready
   useEffect(() => {
     let timeout: number | null = null;
     const resetTimeout = () => {
@@ -140,153 +89,23 @@ const FightView = () => {
       // Animate actions
       switch (step.action) {
         case 'moveTo': {
-          // Move fighter
-          setFighters((prevFighters) => prevFighters.map((fighter) => {
-            if (!fightersEqual(step.fighter, fighter)) {
-              return fighter;
-            }
-
-            const target = findFighter(prevFighters, step.target);
-
-            if (!target) {
-              console.error('Target not found');
-              return fighter;
-            }
-
-            return {
-              ...fighter,
-              animation: 'run',
-              x: target.team === 'left' ? target.x + fighter.distanceBetweenFighters : target.x - fighter.distanceBetweenFighters,
-              y: target.y,
-            };
-          }));
-
-          // Return to iddle after move
-          setTimeout(() => {
-            setFighters((prevFighters) => prevFighters.map((fighter) => {
-              if (!fightersEqual(step.fighter, fighter)) {
-                return fighter;
-              }
-
-              return {
-                ...fighter,
-                animation: 'iddle',
-              };
-            }));
-          }, MOVE_DURATION);
+          moveTo(setFighters, step);
           break;
         }
         case 'moveBack': {
-          // Move fighter
-          setFighters((prevFighters) => prevFighters.map((fighter) => {
-            if (!fightersEqual(step.fighter, fighter)) {
-              return fighter;
-            }
-
-            const backPosition = getRandomPosition(prevFighters, fighter.team);
-
-            return {
-              ...fighter,
-              animation: 'run',
-              x: backPosition.x,
-              y: backPosition.y,
-            };
-          }));
-
-          // Return to iddle after move
-          setTimeout(() => {
-            setFighters((prevFighters) => prevFighters.map((fighter) => {
-              if (!fightersEqual(step.fighter, fighter)) {
-                return fighter;
-              }
-
-              return {
-                ...fighter,
-                animation: 'iddle',
-              };
-            }));
-          }, MOVE_DURATION);
+          moveBack(setFighters, step);
           break;
         }
         case 'arrive': {
-          // Move fighter
-          setFighters((prevFighters) => prevFighters.map((fighter) => {
-            if (!fightersEqual(step.fighter, fighter)) {
-              return fighter;
-            }
-
-            const position = getRandomPosition(prevFighters, fighter.team);
-
-            return {
-              ...fighter,
-              animation: 'arrive',
-              x: position.x,
-              y: position.y,
-            };
-          }));
-
-          // Set iddle animation
-          setTimeout(() => {
-            setFighters((prevFighters) => prevFighters.map((fighter) => {
-              if (!fightersEqual(step.fighter, fighter)) {
-                return fighter;
-              }
-
-              return {
-                ...fighter,
-                animation: 'iddle',
-              };
-            }));
-          }, ARRIVE_DURATION);
+          arrive(setFighters, step);
           break;
         }
         case 'leave': {
-          // Move fighter
-          setFighters((prevFighters) => prevFighters.map((fighter) => {
-            if (!fightersEqual(step.fighter, fighter)) {
-              return fighter;
-            }
-
-            return {
-              ...fighter,
-              animation: 'run',
-              x: fighter.team === 'left' ? -100 : 500,
-            };
-          }));
+          leave(setFighters, step);
           break;
         }
         case 'attemptHit': {
-          // Set hitting animation for fighters
-          setFighters((prevFighters) => prevFighters.map((fighter) => {
-            if (fightersEqual(step.fighter, fighter)) {
-              return {
-                ...fighter,
-                animation: 'attack',
-              };
-            }
-            if (fightersEqual(step.target, fighter)) {
-              return {
-                ...fighter,
-                animation: 'hit',
-              };
-            }
-
-            return fighter;
-          }));
-
-          // Return hit fighter to iddle animation
-          setTimeout(() => {
-            setFighters((prevFighters) => prevFighters.map((fighter) => {
-              if (!fightersEqual(step.target, fighter)) {
-                return fighter;
-              }
-
-              return {
-                ...fighter,
-                animation: 'iddle',
-              };
-            }));
-          }, MOVE_DURATION);
+          attemptHit(setFighters, step);
           break;
         }
         default:
@@ -353,22 +172,6 @@ const FightView = () => {
     setDisplayLogs((prev) => !prev);
   }, []);
 
-  const setRandomPositions = useCallback(() => {
-    if (!fight || !brutes.length) {
-      return;
-    }
-
-    const usedPositions: { x: number, y: number }[] = [];
-    setFighters((prev) => prev.map((fighter) => {
-      const availablePositions = fighter.team === 'left'
-        ? leftPositions.filter((p) => !usedPositions.find((u) => u.x === p.x && u.y === p.y))
-        : rightPositions.filter((p) => !usedPositions.find((u) => u.x === p.x && u.y === p.y));
-      const { [randomBetween(0, availablePositions.length - 1)]: position } = availablePositions;
-      usedPositions.push(position);
-      return { ...fighter, x: position.x, y: position.y };
-    }));
-  }, [brutes.length, fight]);
-
   return (bruteName && fightId) ? (
     <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl={`/${bruteName}/cell`}>
       <BoxBg
@@ -419,20 +222,25 @@ const FightView = () => {
                   style={{
                     display: 'inline-block',
                     position: 'absolute',
-                    top: 0,
+                    bottom: 0,
                     left: 0,
+                    transformOrigin: fighter.team === 'left' ? 'left bottom' : 'right bottom',
                     // The further down the fighter is, the higher the z-index
-                    zIndex: fighter.y,
+                    zIndex: 300 + fighter.y,
                   }}
                 >
                   {fighter.type === 'brute' ? (
                     <BruteComponent
                       brute={fighter.brute as Brute}
-                      inverted={fighter.team === 'left'}
+                      inverted={fighter.inverted}
                       sx={{ height: 80 }}
                     />
                   ) : fighter.name === 'bear' ? (
-                    <AnimatedBear id="bear" animation={fighter.animation} inverted={fighter.team === 'right'} />
+                    <AnimatedBear
+                      id="bear"
+                      animation={fighter.animation}
+                      inverted={!fighter.inverted}
+                    />
                   ) : t(fighter.name as PetName)}
                 </motion.div>
               ))}
@@ -462,9 +270,6 @@ const FightView = () => {
               </Tooltip>
             </BoxBg>
           )}
-        </Box>
-        <Box sx={{ textAlign: 'center' }}>
-          <Button onClick={setRandomPositions}>TEST</Button>
         </Box>
       </BoxBg>
     </Page>

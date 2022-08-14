@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable no-process-exit */
 import * as fs from 'fs';
 
 // First param: folder
@@ -11,6 +13,11 @@ const [
   componentFolder,
   animationLength,
 ] = process.argv.slice(2);
+
+if (!folder || !componentName || !componentFolder || !animationLength) {
+  console.log('Usage: yarn animation:import <folder> <componentName> <componentFolder> <animationLength>');
+  process.exit(1);
+}
 
 // Get the list of all the animation files in the folder
 let animationFiles = fs.readdirSync(folder);
@@ -50,18 +57,23 @@ const X_OFFSET = ${offsetX || 0};
 const Y_OFFSET = ${offsetY || 0};
 const MARGIN = 30;
 
-const ${componentName} = ({ id, inverted }: ${componentName}Props) => (
-  <Box sx={{
-    position: 'relative',
-    overflow: 'hidden',
-    width: WIDTH,
-    height: HEIGHT,
-  }}
+const ${componentName} = ({ id, inverted, sx, ...rest }: ${componentName}Props) => (
+  <Box
+    sx={{
+      position: 'relative',
+      overflow: 'hidden',
+      width: WIDTH,
+      height: HEIGHT,
+      ...sx,
+    }}
+    {...rest}
   >
     <GlobalStyles styles={{
       '@keyframes ${componentName}': {
         '100%': {
-          left: -(WIDTH + MARGIN) * (FRAMES - 1),
+          left: inverted
+            ? -MARGIN
+            : -(WIDTH + MARGIN) * (FRAMES - 1) - (inverted ? MARGIN : 0),
         }
       }
     }}
@@ -73,7 +85,9 @@ const ${componentName} = ({ id, inverted }: ${componentName}Props) => (
       sx={{
         position: 'absolute',
         top: 0,
-        left: 0,
+        left: inverted
+          ? -(WIDTH + MARGIN) * (FRAMES - 1) - (inverted ? MARGIN : 0)
+          : 0,
         width: (WIDTH + MARGIN) * FRAMES,
         animation: \`${componentName} ${animationLength} steps(\${FRAMES}, jump-none) infinite\`,
         transform: inverted ? 'scale(-1, 1)' : null,

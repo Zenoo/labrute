@@ -6,25 +6,30 @@ export interface RunBearProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 109.25;
+const WIDTH = 119.25;
 const HEIGHT = 104.95;
 const FRAMES = 9;
-const X_OFFSET = 59.3;
+const X_OFFSET = 69.3;
 const Y_OFFSET = 60.3;
 const MARGIN = 30;
 
-const RunBear = ({ id, inverted }: RunBearProps) => (
-  <Box sx={{
-    position: 'relative',
-    overflow: 'hidden',
-    width: WIDTH,
-    height: HEIGHT,
-  }}
+const RunBear = ({ id, inverted, sx, ...rest }: RunBearProps) => (
+  <Box
+    sx={{
+      position: 'relative',
+      overflow: 'hidden',
+      width: WIDTH,
+      height: HEIGHT,
+      ...sx,
+    }}
+    {...rest}
   >
     <GlobalStyles styles={{
       '@keyframes RunBear': {
         '100%': {
-          left: -(WIDTH + MARGIN) * (FRAMES - 1),
+          left: inverted
+            ? -MARGIN
+            : -(WIDTH + MARGIN) * (FRAMES - 1) - (inverted ? MARGIN : 0),
         }
       }
     }}
@@ -36,7 +41,9 @@ const RunBear = ({ id, inverted }: RunBearProps) => (
       sx={{
         position: 'absolute',
         top: 0,
-        left: 0,
+        left: inverted
+          ? -(WIDTH + MARGIN) * (FRAMES - 1) - (inverted ? MARGIN : 0)
+          : 0,
         width: (WIDTH + MARGIN) * FRAMES,
         animation: `RunBear 0.22s steps(${FRAMES}, jump-none) infinite`,
         transform: inverted ? 'scale(-1, 1)' : null,
