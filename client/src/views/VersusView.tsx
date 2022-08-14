@@ -1,4 +1,5 @@
-import { Grid } from '@mui/material';
+import getXPNeeded from '@eternaltwin/labrute-core/brute/getXPNeeded';
+import { Grid, useMediaQuery } from '@mui/material';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -12,7 +13,7 @@ import { useAuth } from '../hooks/useAuth.js';
 import useStateAsync from '../hooks/useStateAsync.js';
 import catchError from '../utils/catchError.js';
 import Server from '../utils/Server.js';
-import getXPNeeded from '@eternaltwin/labrute-core/brute/getXPNeeded';
+import VersusMobileView from './mobile/VersusMobileView.js';
 
 const VersusView = () => {
   const { t } = useTranslation();
@@ -20,6 +21,7 @@ const VersusView = () => {
   const navigate = useNavigate();
   const Alert = useAlert();
   const { user } = useAuth();
+  const smallScreen = useMediaQuery('(max-width: 935px)');
 
   const { data: brute } = useStateAsync(null, Server.Brute.get, bruteName);
   const { data: opponent } = useStateAsync(null, Server.Brute.get, opponentName);
@@ -59,6 +61,10 @@ const VersusView = () => {
       navigate(`/${brute.name}/fight/${fight.id}`);
     }
   }, [Alert, brute, navigate, opponent]);
+
+  if (brute && opponent && smallScreen) {
+    return <VersusMobileView brute={brute} opponent={opponent} startFight={startFight} />;
+  }
 
   return brute && opponent && (
     <Page title={`${brute.name || ''} ${t('MyBrute')}`} headerUrl={`/${brute.name}/cell`}>
