@@ -24,13 +24,14 @@ interface AnimationFighter {
   team: 'left' | 'right';
   x: number;
   y: number;
-  animation: 'iddle' | 'run' | 'attack' | 'hit';
+  animation: 'arrive' | 'iddle' | 'run' | 'attack' | 'hit';
   distanceBetweenFighters: number;
   brute?: Brute;
 }
 
 const MOVE_DURATION = 500;
 const ATTACK_DURATION = 470;
+const ARRIVE_DURATION = 500;
 
 const leftPositions = [
   { x: 40, y: 120 },
@@ -159,6 +160,20 @@ const FightView = () => {
               y: target.y,
             };
           }));
+
+          // Return to iddle after move
+          setTimeout(() => {
+            setFighters((prevFighters) => prevFighters.map((fighter) => {
+              if (!fightersEqual(step.fighter, fighter)) {
+                return fighter;
+              }
+
+              return {
+                ...fighter,
+                animation: 'iddle',
+              };
+            }));
+          }, MOVE_DURATION);
           break;
         }
         case 'moveBack': {
@@ -177,6 +192,20 @@ const FightView = () => {
               y: backPosition.y,
             };
           }));
+
+          // Return to iddle after move
+          setTimeout(() => {
+            setFighters((prevFighters) => prevFighters.map((fighter) => {
+              if (!fightersEqual(step.fighter, fighter)) {
+                return fighter;
+              }
+
+              return {
+                ...fighter,
+                animation: 'iddle',
+              };
+            }));
+          }, MOVE_DURATION);
           break;
         }
         case 'arrive': {
@@ -190,11 +219,25 @@ const FightView = () => {
 
             return {
               ...fighter,
-              animation: 'iddle',
+              animation: 'arrive',
               x: position.x,
               y: position.y,
             };
           }));
+
+          // Set iddle animation
+          setTimeout(() => {
+            setFighters((prevFighters) => prevFighters.map((fighter) => {
+              if (!fightersEqual(step.fighter, fighter)) {
+                return fighter;
+              }
+
+              return {
+                ...fighter,
+                animation: 'iddle',
+              };
+            }));
+          }, ARRIVE_DURATION);
           break;
         }
         case 'leave': {
@@ -230,6 +273,20 @@ const FightView = () => {
 
             return fighter;
           }));
+
+          // Return hit fighter to iddle animation
+          setTimeout(() => {
+            setFighters((prevFighters) => prevFighters.map((fighter) => {
+              if (!fightersEqual(step.target, fighter)) {
+                return fighter;
+              }
+
+              return {
+                ...fighter,
+                animation: 'iddle',
+              };
+            }));
+          }, MOVE_DURATION);
           break;
         }
         default:

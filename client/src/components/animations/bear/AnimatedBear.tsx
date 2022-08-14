@@ -2,7 +2,9 @@ import { BoxProps } from '@mui/material';
 import React from 'react';
 import ArriveBear from './ArriveBear.js';
 import AttackBear from './AttackBear.js';
+import HitBear from './HitBear.js';
 import IddleBear from './IddleBear.js';
+import RunBear from './RunBear.js';
 
 export interface AnimatedBearProps extends BoxProps {
   id: string;
@@ -18,6 +20,10 @@ const AnimatedBear = ({ animation, ...rest }: AnimatedBearProps) => {
       return <IddleBear {...rest} />;
     case 'attack':
       return <AttackBear {...rest} />;
+    case 'hit':
+      return <HitBear {...rest} />;
+    case 'run':
+      return <RunBear {...rest} />;
     default:
       return <IddleBear {...rest} />;
   }
