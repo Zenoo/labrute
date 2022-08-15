@@ -77,7 +77,8 @@ const Page = ({
       {/* AUTH */}
       <SpeedDial
         ariaLabel={t('account')}
-        sx={{ position: 'fixed', bottom: 16, right: 16 }}
+        sx={{ position: 'fixed', bottom: 16, right: 16, zIndex: 101 }}
+        FabProps={{ sx: { bgcolor: 'success.light', '&:hover': { bgcolor: 'success.main' } } }}
         icon={(
           <Tooltip title={user ? user.name : t('account')}>
             {authing ? <CircularProgress color="success" sx={{ width: '20px !important', height: '20px !important' }} /> : <AccountCircle />}
