@@ -1,15 +1,22 @@
-import { Brute } from '@eternaltwin/labrute-core/types';
+import { Brute, User } from '@eternaltwin/labrute-core/types';
+import getSacriPoints from '@eternaltwin/labrute-core/brute/getSacriPoints';
 import { Box, BoxProps, Stack } from '@mui/material';
 import { Moment } from 'moment';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useAlert } from '../../hooks/useAlert.js';
+import { useConfirm } from '../../hooks/useConfirm.js';
 import { Language } from '../../i18n.js';
+import catchError from '../../utils/catchError.js';
+import Server from '../../utils/Server.js';
 import BruteBodyAndStats from '../Brute/BruteBodyAndStats.js';
 import BruteLevelAndXP from '../Brute/BruteLevelAndXP.js';
 import Link from '../Link.js';
 import StyledButton from '../StyledButton.js';
 import Text from '../Text.js';
 import CellTournament from './CellTournament.js';
+import { useAuth } from '../../hooks/useAuth.js';
+import { useNavigate } from 'react-router';
 
 export interface CellMainProps extends BoxProps {
   brute: Brute;
@@ -28,6 +35,26 @@ const CellMain = ({
   ...rest
 }: CellMainProps) => {
   const { t } = useTranslation();
+  const Confirm = useConfirm();
+  const Alert = useAlert();
+  const { updateData } = useAuth();
+  const navigate = useNavigate();
+
+  // Sacrifice brute
+  const confirmSacrifice = useCallback(() => {
+    Confirm.open(t('sacrifice'), t('sacrificeConfirm', { points: getSacriPoints(brute.data.level) }), () => {
+      Server.Brute.sacrifice(brute.name).then(({ points }) => {
+        Alert.open('success', t('sacrificeSuccess', { points }));
+        navigate('/');
+
+        updateData((data) => ({
+          ...data,
+          sacrifice_points: (data?.sacrifice_points || 0) + points,
+          brutes: data?.brutes?.filter((b) => b.name !== brute.name) || [],
+        }) as User);
+      }).catch(catchError(Alert));
+    });
+  }, [Alert, Confirm, brute.data.level, brute.name, navigate, t, updateData]);
 
   return (
     <Box {...rest}>
@@ -92,6 +119,24 @@ const CellMain = ({
           language={language}
         />
       )}
+      {/* BRUTE SACRIFICE */}
+      <StyledButton
+        image="/images/button.gif"
+        imageHover="/images/button-hover.gif"
+        onClick={confirmSacrifice}
+        shadow={false}
+        contrast={false}
+        shift="8px"
+        sx={{
+          fontVariant: 'small-caps',
+          m: '0 auto',
+          mt: 2,
+          height: 56,
+          width: 246,
+        }}
+      >
+        {t('sacrifice')}
+      </StyledButton>
     </Box>
   );
 };

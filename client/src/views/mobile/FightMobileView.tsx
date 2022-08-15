@@ -1,4 +1,4 @@
-import { Brute, Fight } from '@eternaltwin/labrute-core/types';
+import { Fight } from '@eternaltwin/labrute-core/types';
 import { Box, GlobalStyles, Grid, Link, Paper, Tooltip } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -9,7 +9,6 @@ import { AnimationFighter } from '../../utils/fight/findFighter.js';
 export interface FightMobileViewProps {
   bruteName: string | undefined;
   fight: Fight | null;
-  brutes: Brute[],
   fighters: AnimationFighter[];
   displayLogs: boolean;
   toggleLogs: () => void;
@@ -19,7 +18,6 @@ export interface FightMobileViewProps {
 const FightMobileView = ({
   bruteName,
   fight,
-  brutes,
   fighters,
   displayLogs,
   toggleLogs,
@@ -44,7 +42,6 @@ const FightMobileView = ({
         {/* FIGHT */}
         <FightComponent
           fight={fight}
-          brutes={brutes}
           fighters={fighters}
           displayLogs={displayLogs}
           t={t}

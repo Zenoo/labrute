@@ -27,17 +27,8 @@ const Fights = {
         throw new Error('Fight not found');
       }
 
-      // Get fight brutes names
-      const bruteNames = fight.data.fighters.filter((f) => f.type === 'brute').map((fighter) => fighter.name);
-
-      // Get brutes
-      const { rows: brutes } = await client.query<Brute>(
-        'select * from brutes where name = ANY ($1)',
-        [bruteNames],
-      );
-
       await client.end();
-      res.status(200).send({ fight, brutes });
+      res.status(200).send(fight);
     } catch (error) {
       sendError(res, error);
     }
@@ -183,6 +174,7 @@ const Fights = {
         [req.body.brute1, req.body.brute2, JSON.stringify({
           fighters: fightData.initialFighters.map((fighter) => ({
             name: fighter.name,
+            data: fighter.data,
             type: fighter.type,
             master: fighter.master,
             maxHp: fighter.maxHp,

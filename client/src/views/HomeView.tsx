@@ -139,7 +139,7 @@ const HomeView = () => {
             const url = new URL(window.location.href);
             const ref = url.searchParams.get('ref');
 
-            const brute = await Server.Brute.create(
+            const response = await Server.Brute.create(
               name,
               user.id,
               gender,
@@ -148,11 +148,13 @@ const HomeView = () => {
               ref
             ).catch(catchError(Alert));
 
-            if (brute) {
+            if (response?.brute) {
               // Add brute to user brutes
               updateData({
                 ...user,
-                brutes: user.brutes ? [...user.brutes, brute] : [brute],
+                brutes: user.brutes ? [...user.brutes, response.brute] : [response.brute],
+                // Update points
+                sacrifice_points: user.sacrifice_points - response.pointsLost,
               });
               // Redirect to brute page
               navigate(`/${name}/cell`);

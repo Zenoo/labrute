@@ -86,8 +86,21 @@ export const ConfirmProvider = ({ children }: ConfirmProviderProps) => {
           <DialogContentText>{params.content}</DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={cancel}>{t('cancel')}</Button>
-          <Button onClick={accept} autoFocus>{t('continue')}</Button>
+          <Button
+            onClick={cancel}
+            variant="contained"
+            sx={{ color: 'error.main' }}
+          >
+            {t('cancel')}
+          </Button>
+          <Button
+            onClick={accept}
+            autoFocus
+            variant="contained"
+            sx={{ color: 'success.main' }}
+          >
+            {t('continue')}
+          </Button>
         </DialogActions>
       </Dialog>
     </ConfirmContext.Provider>

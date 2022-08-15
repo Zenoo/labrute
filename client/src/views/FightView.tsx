@@ -1,5 +1,5 @@
 import { ATTACK_DURATION, MOVE_DURATION } from '@eternaltwin/labrute-core/constants';
-import { Brute, Fight } from '@eternaltwin/labrute-core/types';
+import { Fight } from '@eternaltwin/labrute-core/types';
 import randomBetween from '@eternaltwin/labrute-core/utils/randomBetween';
 import { Box, Link, Tooltip, useMediaQuery } from '@mui/material';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
@@ -33,7 +33,6 @@ const FightView = () => {
 
   // Fight data
   const [fight, setFight] = useState<Fight | null>(null);
-  const [brutes, setBrutes] = useState<Brute[]>([]);
 
   // Fight state
   const [currentStep, setCurrentStep] = useState<number>(0);
@@ -44,7 +43,7 @@ const FightView = () => {
 
   // Initialize fighters when everything is ready
   useEffect(() => {
-    if (!fight || !brutes.length) {
+    if (!fight) {
       return;
     }
 
@@ -55,6 +54,7 @@ const FightView = () => {
 
       return {
         name: fighter.name,
+        data: fighter.data,
         master: fighter.master,
         type: fighter.type,
         team: isFromLeftTeam ? 'left' : 'right',
@@ -63,10 +63,9 @@ const FightView = () => {
         y: -150,
         animation: 'iddle',
         distanceBetweenFighters: fighter.type === 'pet' && fighter.name === 'bear' ? 100 : 60,
-        brute: fighter.type === 'brute' ? brutes.find((b) => b.name === fighter.name) : undefined,
       };
     }));
-  }, [brutes, fight]);
+  }, [fight]);
 
   // Start animation when everything is ready
   useEffect(() => {
@@ -77,7 +76,7 @@ const FightView = () => {
       }
     };
 
-    if (fight && brutes.length) {
+    if (fight) {
       const { data: { steps } } = fight;
       const { [currentStep]: step } = steps;
 
@@ -150,7 +149,7 @@ const FightView = () => {
     }
 
     return resetTimeout;
-  }, [brutes.length, currentStep, fight]);
+  }, [currentStep, fight]);
 
   // Fetch fight and brutes
   useEffect(() => {
@@ -164,8 +163,7 @@ const FightView = () => {
 
     Server.Fight.get(bruteName, +fightId).then((result) => {
       if (isSubscribed) {
-        setFight(result.fight);
-        setBrutes(result.brutes);
+        setFight(result);
       }
     }).catch(catchError(Alert));
 
@@ -191,7 +189,6 @@ const FightView = () => {
       <FightMobileView
         bruteName={bruteName}
         fight={fight}
-        brutes={brutes}
         fighters={fighters}
         displayLogs={displayLogs}
         toggleLogs={toggleLogs}
@@ -228,7 +225,6 @@ const FightView = () => {
           {/* FIGHT */}
           <FightComponent
             fight={fight}
-            brutes={brutes}
             fighters={fighters}
             displayLogs={displayLogs}
             t={t}

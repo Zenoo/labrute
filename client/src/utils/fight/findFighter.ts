@@ -1,8 +1,13 @@
-import { Brute, StepFighter } from '@eternaltwin/labrute-core/types';
+import { BodyColors, BodyParts, Gender, StepFighter } from '@eternaltwin/labrute-core/types';
 import { Animation } from '../../views/AnimationTestView.js';
 
 export interface AnimationFighter {
   name: string;
+  data?: {
+    gender: Gender,
+    body: BodyParts,
+    colors: BodyColors,
+  };
   master?: string;
   type: 'brute' | 'pet';
   team: 'left' | 'right';
@@ -11,7 +16,6 @@ export interface AnimationFighter {
   y: number;
   animation: Animation;
   distanceBetweenFighters: number;
-  brute?: Brute;
 }
 
 const findFighter = (

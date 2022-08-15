@@ -9,7 +9,7 @@ interface AuthContextInterface {
   setAuthing: (authing: boolean) => void,
   signin: () => void,
   signout: () => void,
-  updateData: (data: User) => void,
+  updateData: (data: React.SetStateAction<User | null>) => void,
 }
 
 const AuthContext = React.createContext<AuthContextInterface>({
@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setUser(null);
   }, []);
 
-  const updateData = useCallback((data: User) => {
+  const updateData = useCallback((data: React.SetStateAction<User | null>) => {
     setUser(data);
   }, []);
 

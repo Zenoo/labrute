@@ -1,5 +1,6 @@
 import createRandomBruteStats from '@eternaltwin/labrute-core/brute/createRandomBruteStats';
 import getLevelUpChoices from '@eternaltwin/labrute-core/brute/getLevelUpChoices';
+import getSacriPoints from '@eternaltwin/labrute-core/brute/getSacriPoints';
 import { ARENA_OPPONENTS_COUNT, ARENA_OPPONENTS_MAX_GAP } from '@eternaltwin/labrute-core/constants';
 import {
   BodyColors,
@@ -80,7 +81,27 @@ const Brutes = {
   ) => {
     try {
       const client = await DB.connect();
-      await auth(client, req);
+      const user = await auth(client, req);
+
+      // Get brute amount for user
+      const { rows: { 0: { count: bruteCount } } } = await client.query<{ count: number }>(
+        'select count(*) from brutes where data->>\'user\' = $1',
+        [user.id],
+      );
+
+      let pointsLost = 0;
+      // Refuse if user has too many brutes and not enough points
+      if (bruteCount >= user.brute_limit) {
+        if (user.sacrifice_points < 500) {
+          throw new Error('You have reached your brute limit. You need 500 Sacripoints to unlock a new brute.');
+        } else {
+          // Remove 500 sacrifice points
+          await client.query('update users set sacrifice_points = sacrifice_points - 500 where id = $1', [user.id]);
+          pointsLost = 500;
+          // Update user brute limit
+          await client.query('update users set brute_limit = brute_limit + 1 where id = $1', [user.id]);
+        }
+      }
 
       // Create brute data
       const bruteData: Brute['data'] = {
@@ -117,7 +138,7 @@ const Brutes = {
       }
 
       await client.end();
-      res.status(200).send(brute);
+      res.status(200).send({ brute, pointsLost });
     } catch (error) {
       sendError(res, error);
     }
@@ -244,6 +265,38 @@ const Brutes = {
 
       await client.end();
       res.status(200).send(opponents);
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  sacrifice: async (req: Request, res: Response) => {
+    try {
+      const client = await DB.connect();
+      const user = await auth(client, req);
+
+      // Get brute
+      const { rows: { 0: brute } } = await client.query<Brute>(
+        'select * from brutes where name = $1 and data ->> \'user\' = $2',
+        [req.params.name, user.id],
+      );
+      if (!brute) {
+        await client.end();
+        throw new Error('Brute not found');
+      }
+
+      // Add SacriPoints to user
+      const { rows: { 0: { sacrifice_points: sacriPoints } } } = await client.query<
+        { sacrifice_points: number }
+      >(
+        'update users set sacrifice_points = sacrifice_points + $1 where id = $2 returning sacrifice_points',
+        [getSacriPoints(brute.data.level), user.id],
+      );
+
+      // Delete brute
+      await client.query('delete from brutes where name = $1', [req.params.name]);
+
+      await client.end();
+      res.status(200).send({ points: sacriPoints });
     } catch (error) {
       sendError(res, error);
     }

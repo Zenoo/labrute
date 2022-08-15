@@ -13,7 +13,6 @@ import { TFunction } from 'react-i18next';
 
 export interface FightComponentProps extends BoxProps {
   fight: Fight | null;
-  brutes: Brute[];
   fighters: AnimationFighter[];
   displayLogs: boolean;
   t: TFunction;
@@ -22,14 +21,13 @@ export interface FightComponentProps extends BoxProps {
 
 const FightComponent = ({
   fight,
-  brutes,
   fighters,
   displayLogs,
   t,
   toggleLogs,
   sx,
   ...props
-}: FightComponentProps) => ((fight && !!brutes.length) ? (
+}: FightComponentProps) => (fight ? (
   <BoxBg
     src="/images/game/background/179.jpg"
     sx={{
@@ -64,7 +62,7 @@ const FightComponent = ({
       >
         {fighter.type === 'brute' ? (
           <BruteComponent
-            brute={fighter.brute as Brute}
+            brute={{ name: fighter.name, data: fighter.data } as Brute}
             inverted={fighter.inverted}
             sx={{ height: 80 }}
           />

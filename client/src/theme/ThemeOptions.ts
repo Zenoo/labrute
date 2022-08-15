@@ -183,7 +183,8 @@ const defaultTheme = {
           borderRadius: '4px',
           boxShadow: `2px 2px 1px 1px ${border.shadow}`,
           transition: '.13s ease-in-out',
-          p: 0,
+          py: 0,
+          px: 1,
           typography: 'handwritten',
           '&:hover': {
             bgcolor: 'background.paper',

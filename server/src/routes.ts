@@ -26,6 +26,7 @@ const initRoutes = (app: Express) => {
   app.get('/api/brute/:name/level-up-choices', Brutes.getLevelUpChoices);
   app.post('/api/brute/:name/level-up', Brutes.levelUp);
   app.get('/api/brute/:name/get-opponents/:level', Brutes.getOpponents);
+  app.get('/api/brute/:name/sacrifice', Brutes.sacrifice);
 
   // Log
   app.get('/api/log/list/:name', Logs.list);

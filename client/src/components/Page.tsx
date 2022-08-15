@@ -101,6 +101,13 @@ const Page = ({
             onClick={logout}
           />
         )}
+        {user && (
+          <SpeedDialAction
+            icon={user.sacrifice_points}
+            tooltipTitle={t('sacrificePoints')}
+            tooltipOpen
+          />
+        )}
         {user && user.brutes && user.brutes.map((brute) => (
           <SpeedDialAction
             key={brute.name}
@@ -112,15 +119,17 @@ const Page = ({
             onClick={goToCell(brute.name)}
           />
         ))}
-        {user && (
-          <SpeedDialAction
-            icon={<Add color="success" />}
-            tooltipTitle={t('newBrute')}
-            tooltipOpen
-            onClick={goHome}
-            sx={{ textAlign: 'right' }}
-          />
-        )}
+        {user && user.brutes
+          && (user.brutes.length < user.brute_limit || user.sacrifice_points >= 500)
+          && (
+            <SpeedDialAction
+              icon={<Add color="success" />}
+              tooltipTitle={t('newBrute')}
+              tooltipOpen
+              onClick={goHome}
+              sx={{ textAlign: 'right' }}
+            />
+          )}
       </SpeedDial>
       {/* FOOTER */}
       <Box sx={{ textAlign: 'center', mt: 2 }}>

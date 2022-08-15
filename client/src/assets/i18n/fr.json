@@ -236,6 +236,10 @@
   "nameUnavailable": "Nom indisponible",
   "pleaseLogin": "Veuillez vous connecter pour créer une brute",
   "newBrute": "Nouvelle brute",
+  "sacrificePoints": "SacriPoints",
+  "sacrifice": "Sacrifier",
+  "sacrificeConfirm": "Voulez-vous vraiment sacrifier votre brute pour {{points}} SacriPoints ? Cette action est irréversible.",
+  "sacrificeSuccess": "Sacrifice réussi, vous avez gagné {{points}} SacriPoints",
 
   "callToFight": "Si tu as envie de te défouler sur quelqu'un, fait le ici ! Il y a plein d'autres Brutes dans l'arène qui ne demandent qu'à échanger quelques gnons.",
   "arena": "Arène",

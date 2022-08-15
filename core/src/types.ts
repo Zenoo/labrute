@@ -159,6 +159,8 @@ export interface User {
   id: string;
   name: string;
   token: string;
+  brute_limit: number;
+  sacrifice_points: number;
   brutes?: Brute[];
 }
 
@@ -190,6 +192,11 @@ export interface DestinyChoice {
 export interface DetailedFighter {
   // Metadata
   name: string;
+  data?: {
+    gender: Gender,
+    body: BodyParts,
+    colors: BodyColors,
+  }
   type: 'brute' | 'pet';
   // Follower/Backup variables
   master?: string;
@@ -255,6 +262,11 @@ export interface DetailedFighter {
 
 export interface Fighter {
   name: string;
+  data?: {
+    gender: Gender,
+    body: BodyParts,
+    colors: BodyColors,
+  };
   type: 'brute' | 'pet';
   master?: string;
   maxHp: number;

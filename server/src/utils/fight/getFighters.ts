@@ -131,6 +131,12 @@ const getFighters = (brutes: Brute[], backups: Brute[][]): DetailedFighter[] => 
     // Brute stats
     const fighter: DetailedFighter = {
       name: brute.name,
+      // Add minimal visual data to still be able to display the fight if the brute was deleted
+      data: {
+        gender: brute.data.gender,
+        colors: brute.data.colors,
+        body: brute.data.body,
+      },
       type: 'brute' as const,
       maxHp: brute.data.stats.hp,
       hp: brute.data.stats.hp,
@@ -240,6 +246,12 @@ const getFighters = (brutes: Brute[], backups: Brute[][]): DetailedFighter[] => 
 
       const backupFighter: DetailedFighter = {
         name: backup.name,
+        // Add minimal visual data to still be able to display the fight if the brute was deleted
+        data: {
+          gender: backup.data.gender,
+          colors: backup.data.colors,
+          body: backup.data.body,
+        },
         type: 'brute' as const,
         master: brute.name,
         arrivesAtInitiative: arrivesAt,

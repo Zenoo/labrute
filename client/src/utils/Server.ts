@@ -19,7 +19,7 @@ const Server = {
       body: BodyParts,
       colors: BodyColors,
       master: string | null,
-    ) => Fetch<Brute>('/api/brute/create', {
+    ) => Fetch<{brute: Brute, pointsLost: number }>('/api/brute/create', {
       name,
       user,
       gender,
@@ -37,12 +37,13 @@ const Server = {
       choice: number,
     ) => Fetch<never>(`/api/brute/${name}/level-up`, { data, choice }, 'POST'),
     getOpponents: (name: string, level: number) => Fetch<Brute[]>(`/api/brute/${name}/get-opponents/${level}`),
+    sacrifice: (name: string) => Fetch<{ points: number }>(`/api/brute/${name}/sacrifice`, {}, 'GET'),
   },
   Log: {
     list: (brute: string) => Fetch<Log[]>(`/api/log/list/${brute}`),
   },
   Fight: {
-    get: (name: string, id: number) => Fetch<{ fight: Fight, brutes: Brute[] }>(`/api/fight/${name}/${id}`),
+    get: (name: string, id: number) => Fetch<Fight>(`/api/fight/${name}/${id}`),
     create: (brute1: string, brute2: string) => Fetch<{ id: number }>('/api/fight/create', { brute1, brute2 }, 'POST'),
   }
 };
