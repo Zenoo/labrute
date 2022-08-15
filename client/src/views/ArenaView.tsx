@@ -17,6 +17,7 @@ import useStateAsync from '../hooks/useStateAsync.js';
 import catchError from '../utils/catchError.js';
 import Server from '../utils/Server.js';
 import getXPNeeded from '@eternaltwin/labrute-core/brute/getXPNeeded';
+import BruteLevelAndXP from '../components/Brute/BruteLevelAndXP.js';
 
 const ArenaView = () => {
   const { t } = useTranslation();
@@ -101,7 +102,12 @@ const ArenaView = () => {
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         <Grid container spacing={1}>
           <Grid item xs={12} md={4}>
-            <Text h4 bold color="secondary" sx={{ ml: 2, textAlign: isMd ? 'center' : undefined }}>{brute.name}</Text>
+            <Text h4 bold color="secondary" sx={{ textAlign: 'center' }}>{brute.name}</Text>
+            <BruteLevelAndXP
+              brute={brute}
+              textProps={{ h3: false, h5: true, color: 'primary.text', textAlign: 'center' }}
+              sx={{ mb: 1, width: 120, mx: 'auto' }}
+            />
             <BruteBodyAndStats brute={brute} isMd={isMd} />
             <Box sx={{ textAlign: 'center', mt: 1 }}>
               <Link to={`/${brute.name}/cell`}>

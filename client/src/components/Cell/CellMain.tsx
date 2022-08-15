@@ -1,11 +1,11 @@
-import getXPNeeded from '@eternaltwin/labrute-core/brute/getXPNeeded';
 import { Brute } from '@eternaltwin/labrute-core/types';
-import { Box, BoxProps, Stack, Tooltip } from '@mui/material';
+import { Box, BoxProps, Stack } from '@mui/material';
 import { Moment } from 'moment';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Language } from '../../i18n.js';
 import BruteBodyAndStats from '../Brute/BruteBodyAndStats.js';
+import BruteLevelAndXP from '../Brute/BruteLevelAndXP.js';
 import Link from '../Link.js';
 import StyledButton from '../StyledButton.js';
 import Text from '../Text.js';
@@ -29,29 +29,11 @@ const CellMain = ({
 }: CellMainProps) => {
   const { t } = useTranslation();
 
-  const xpNeededForNextLevel = useMemo(() => getXPNeeded(brute.data.level + 1), [brute.data.level]);
-  const limitedXP = useMemo(() => Math.min(
-    brute.data.xp,
-    xpNeededForNextLevel,
-  ), [brute.data.xp, xpNeededForNextLevel]);
-
   return (
     <Box {...rest}>
       <Box display="flex" justifyContent="space-between" alignItems="flex-start" sx={{ mb: 2 }}>
-        <Box width={120} sx={{ pl: 1 }}>
-          <Text bold h3 smallCaps color="secondary">{t('level')} {brute.data.level}</Text>
-          {/* LEVEL BAR */}
-          <Tooltip title={`${limitedXP} / ${xpNeededForNextLevel}`}>
-            <Box sx={{ bgcolor: 'secondary.main', p: '2px' }}>
-              <Box sx={{
-                bgcolor: 'level',
-                height: 3,
-                width: limitedXP / xpNeededForNextLevel
-              }}
-              />
-            </Box>
-          </Tooltip>
-        </Box>
+        {/* LEVEL + XP */}
+        <BruteLevelAndXP brute={brute} sx={{ pl: 1 }} />
         {/* RANKING */}
         {brute.data.ranking < 10 && (
           <Box sx={{ width: 140, display: 'flex', flexDirection: 'row' }}>

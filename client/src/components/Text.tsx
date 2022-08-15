@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import { Typography, TypographyProps } from '@mui/material';
 
-interface Props extends TypographyProps {
+export interface TextProps extends TypographyProps {
   children: React.ReactNode;
   typo?: string;
   h1?: boolean;
@@ -24,7 +24,7 @@ interface Props extends TypographyProps {
   component?: React.ElementType;
 }
 
-const Text = forwardRef<HTMLElement, Props>(({
+const Text = forwardRef<HTMLElement, TextProps>(({
   children,
   typo,
   h1 = false,
