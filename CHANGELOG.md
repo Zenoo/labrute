@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.7.0](https://github.com/Zenoo/labrute/compare/v1.6.3...v1.7.0) (2022-08-15)
+
+
+### Bug fix
+
+* Updated account menu color. Fixes [#48](https://github.com/Zenoo/labrute/issues/48) ([38d1c9f](https://github.com/Zenoo/labrute/commit/38d1c9f2bd209235f757964b3b7f0d4e166e42b6))
+
+
+### Feature
+
+* Added brute level and XP in the arena. Fixes [#62](https://github.com/Zenoo/labrute/issues/62) ([398417c](https://github.com/Zenoo/labrute/commit/398417cf80bc35ef56d65986e977d26d085b0c10))
+* Added new colors to the skills heatmap. Fixes [#56](https://github.com/Zenoo/labrute/issues/56) ([d75c79e](https://github.com/Zenoo/labrute/commit/d75c79eac38e57bc448c74a07e772efed05c3470))
+* Brute sacrificing system. [#59](https://github.com/Zenoo/labrute/issues/59) ([46e3fba](https://github.com/Zenoo/labrute/commit/46e3fba31b9e5b94fd2b7e18e35d276d1b9c1a5b))
+
 ### [1.6.3](https://github.com/Zenoo/labrute/compare/v1.6.2...v1.6.3) (2022-08-14)
 
 
