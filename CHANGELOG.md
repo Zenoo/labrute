@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.9.2](https://github.com/Zenoo/labrute/compare/v1.9.1...v1.9.2) (2022-08-16)
+
+
+### Bug fix
+
+* Missing weapon tempo format in tooltip ([971faa1](https://github.com/Zenoo/labrute/commit/971faa11d902b310a80b38e6b5f9b49639eb20c3))
+
 ### [1.9.1](https://github.com/Zenoo/labrute/compare/v1.9.0...v1.9.1) (2022-08-16)
 
 
