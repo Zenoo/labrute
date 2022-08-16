@@ -30,7 +30,6 @@ const Brutes = {
   get: async (req: Request, res: Response) => {
     try {
       const client = await DB.connect();
-      await auth(client, req);
 
       const { rows: { 0: brute } } = await client.query<Brute>(
         'select * from brutes where name = $1',

@@ -1,14 +1,12 @@
-import { Request, Response } from 'express';
 import { Log } from '@eternaltwin/labrute-core/types';
+import { Request, Response } from 'express';
 import DB from '../db/client.js';
-import auth from '../utils/auth.js';
 import sendError from '../utils/sendError.js';
 
 const Logs = {
   list: async (req: Request, res: Response) => {
     try {
       const client = await DB.connect();
-      await auth(client, req);
 
       if (!req.params.name) {
         await client.end();
