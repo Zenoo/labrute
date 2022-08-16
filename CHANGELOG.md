@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.9.3](https://github.com/Zenoo/labrute/compare/v1.9.2...v1.9.3) (2022-08-16)
+
+
+### Bug fix
+
+* Display weapon odds as % ([f711ef7](https://github.com/Zenoo/labrute/commit/f711ef766c747973e7a26fd3678fe788c8d7fa56))
+
 ### [1.9.2](https://github.com/Zenoo/labrute/compare/v1.9.1...v1.9.2) (2022-08-16)
 
 
