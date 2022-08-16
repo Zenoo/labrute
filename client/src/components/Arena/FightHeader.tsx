@@ -48,7 +48,7 @@ const FightHeader = ({
     {/* HP */}
     <Box sx={{
       height: 10,
-      width: (brute.hp / brute.maxHp) * 236,
+      width: `${((brute.hp / brute.maxHp) * 236).toFixed(2)}px`,
       bgcolor: 'hpBar.main',
       position: 'absolute',
       top: 10,
@@ -62,7 +62,7 @@ const FightHeader = ({
     {/* PHANTOM HP */}
     <Box sx={{
       height: 10,
-      width: (brute.hp / brute.maxHp) * 236,
+      width: `${((brute.hp / brute.maxHp) * 236).toFixed(2)}px`,
       bgcolor: 'error.main',
       position: 'absolute',
       top: 10,
