@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.9.0](https://github.com/Zenoo/labrute/compare/v1.8.0...v1.9.0) (2022-08-16)
+
+
+### Feature
+
+* Tooltip on weapons. Fixes [#51](https://github.com/Zenoo/labrute/issues/51) ([357ffe8](https://github.com/Zenoo/labrute/commit/357ffe88178e7b26d5e8e96904564fae7c88d624))
+* Weapon tooltip on level up. Fixes [#52](https://github.com/Zenoo/labrute/issues/52) ([d7a79bf](https://github.com/Zenoo/labrute/commit/d7a79bf78f275c5e0933aed21695604c859b4274))
+
+
+### Refactoring
+
+* Changed animation from translates to absolutes. ([d54b8ad](https://github.com/Zenoo/labrute/commit/d54b8ad2fbe9029ccc447f9e7f4374c6e35f0f27))
+
+
+### Bug fix
+
+* Allow cell access to visitors ([bda745a](https://github.com/Zenoo/labrute/commit/bda745a5e7232921faefe13dd57e9c1dde0a3913))
+* Disable combos on counters ([5f23c9b](https://github.com/Zenoo/labrute/commit/5f23c9bbe2f1839c0cc60170c5bc978b83b60e47))
+* Hide sacrifice button when not owner ([c171a7e](https://github.com/Zenoo/labrute/commit/c171a7e47f9ce2fbdd3e6b1c65c46ec3f9e4431c))
+
 ## [1.8.0](https://github.com/Zenoo/labrute/compare/v1.7.0...v1.8.0) (2022-08-16)
 
 
