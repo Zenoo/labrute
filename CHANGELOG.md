@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.10.1](https://github.com/Zenoo/labrute/compare/v1.10.0...v1.10.1) (2022-08-16)
+
+
+### Bug fix
+
+* Backup brutes not in sync back to front ([ebfbcf8](https://github.com/Zenoo/labrute/commit/ebfbcf8a016c728f82f5a95342eea6f35b83a8f0))
+* Implemented all actions that changed the HP bar ([6c8529f](https://github.com/Zenoo/labrute/commit/6c8529f3dfa629e78928dfb48260b2d6e792eca7))
+* Remove weapon icon in level up ([3b7928f](https://github.com/Zenoo/labrute/commit/3b7928f9e4bd32d93ed0e354266e4d35fbad8ee4))
+* Tragic potion never triggered ([efb80ac](https://github.com/Zenoo/labrute/commit/efb80acd203ba5b21ee728adc11adab6b93ded84))
+
 ## [1.10.0](https://github.com/Zenoo/labrute/compare/v1.9.3...v1.10.0) (2022-08-16)
 
 
