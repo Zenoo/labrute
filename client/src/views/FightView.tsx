@@ -16,14 +16,17 @@ import arrive from '../utils/fight/arrive.js';
 import attemptHit from '../utils/fight/attemptHit.js';
 import death from '../utils/fight/death.js';
 import disarm from '../utils/fight/disarm.js';
+import eat from '../utils/fight/eat.js';
 import evade from '../utils/fight/evade.js';
 import { AnimationFighter } from '../utils/fight/findFighter.js';
+import heal from '../utils/fight/heal.js';
 import hit from '../utils/fight/hit.js';
 import leave from '../utils/fight/leave.js';
 import moveBack from '../utils/fight/moveBack.js';
 import moveTo from '../utils/fight/moveTo.js';
 import saboteur from '../utils/fight/saboteur.js';
 import steal from '../utils/fight/steal.js';
+import survive from '../utils/fight/survive.js';
 import throwWeapon from '../utils/fight/throwWeapon.js';
 import trash from '../utils/fight/trash.js';
 import Server from '../utils/Server.js';
@@ -147,6 +150,18 @@ const FightView = () => {
         }
         case 'trash': {
           trash(setFighters, step);
+          break;
+        }
+        case 'eat': {
+          eat(setFighters, step);
+          break;
+        }
+        case 'heal': {
+          heal(setFighters, step);
+          break;
+        }
+        case 'survive': {
+          survive(setFighters, step);
           break;
         }
         default:
