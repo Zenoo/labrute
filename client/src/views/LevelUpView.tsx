@@ -150,14 +150,7 @@ const LevelUpView = () => {
                       <WeaponTooltip weapon={weapons
                         .find((w) => w.name === destinyChoice.choice.name)}
                       >
-                        <Box>
-                          <Box
-                            component="img"
-                            src={`/images/weapons/${destinyChoice.choice.name}.png`}
-                            sx={{ display: 'block', mx: 'auto' }}
-                          />
-                          <Text h6 bold smallCaps>{t(destinyChoice.choice.name)}</Text>
-                        </Box>
+                        <Text h6 bold smallCaps>{t(destinyChoice.choice.name)}</Text>
                       </WeaponTooltip>
                     ) : (
                       <Text h6 bold smallCaps>{t(destinyChoice.choice.name)}</Text>
