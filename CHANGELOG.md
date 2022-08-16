@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.8.0](https://github.com/Zenoo/labrute/compare/v1.7.0...v1.8.0) (2022-08-16)
+
+
+### Feature
+
+* Added fight headers. Fixes [#79](https://github.com/Zenoo/labrute/issues/79) ([688061f](https://github.com/Zenoo/labrute/commit/688061f9905b50500af5c6dcaf5889ecf20ad70d))
+
 ## [1.7.0](https://github.com/Zenoo/labrute/compare/v1.6.3...v1.7.0) (2022-08-15)
 
 
