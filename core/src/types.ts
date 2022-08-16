@@ -471,3 +471,6 @@ export interface Fight {
     loser: StepFighter;
   }
 }
+
+export type AnimationModel = 'bear';
+export type Animation = 'arrive' | 'attack' | 'death' | 'evade' | 'hit' | 'iddle' | 'run' | 'trapped';

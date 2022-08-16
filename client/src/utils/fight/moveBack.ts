@@ -16,7 +16,7 @@ const moveBack = (
       return fighter;
     }
 
-    const backPosition = getRandomPosition(prevFighters, fighter.team);
+    const backPosition = getRandomPosition(prevFighters);
 
     return {
       ...fighter,

@@ -1,5 +1,4 @@
-import { BodyColors, BodyParts, Gender, StepFighter } from '@eternaltwin/labrute-core/types';
-import { Animation } from '../../views/AnimationTestView.js';
+import { Animation, BodyColors, BodyParts, Gender, StepFighter } from '@eternaltwin/labrute-core/types';
 
 export interface AnimationFighter {
   name: string;
@@ -15,7 +14,7 @@ export interface AnimationFighter {
   x: number;
   y: number;
   animation: Animation;
-  distanceBetweenFighters: number;
+  width: number;
   hp: number;
   maxHp: number;
 }

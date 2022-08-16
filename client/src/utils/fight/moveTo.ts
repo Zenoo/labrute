@@ -25,7 +25,7 @@ const moveTo = (
     return {
       ...fighter,
       animation: 'run',
-      x: target.team === 'left' ? target.x + fighter.distanceBetweenFighters : target.x - fighter.distanceBetweenFighters,
+      x: (500 - target.x) - fighter.width - target.width,
       y: target.y,
     };
   }));

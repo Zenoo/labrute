@@ -57,17 +57,22 @@ const FightComponent = ({
       {fighters.map((fighter) => (
         <motion.div
           key={`${fighter.master || ''}.${fighter.name}`}
-          initial={{ x: fighter.x, y: fighter.y }}
-          animate={{ x: fighter.x, y: fighter.y }}
+          initial={{
+            left: fighter.team === 'left' ? fighter.x : 'unset',
+            right: fighter.team === 'right' ? fighter.x : 'unset',
+            bottom: fighter.y
+          }}
+          animate={{
+            left: fighter.team === 'left' ? fighter.x : 'unset',
+            right: fighter.team === 'right' ? fighter.x : 'unset',
+            bottom: fighter.y
+          }}
           transition={{ duration: 0.5, type: 'linear' }}
           style={{
             display: 'inline-block',
             position: 'absolute',
-            bottom: 0,
-            left: 0,
-            transformOrigin: fighter.team === 'left' ? 'left bottom' : 'right bottom',
             // The further down the fighter is, the higher the z-index
-            zIndex: 300 + fighter.y,
+            zIndex: 300 - fighter.y,
           }}
         >
           {fighter.type === 'brute' ? (
@@ -78,7 +83,7 @@ const FightComponent = ({
             />
           ) : fighter.name === 'bear' ? (
             <AnimatedBear
-              id="bear"
+              id={fighter.master || ''}
               animation={fighter.animation}
               inverted={!fighter.inverted}
             />

@@ -18,7 +18,7 @@ const leave = (
     return {
       ...fighter,
       animation: 'run',
-      x: fighter.team === 'left' ? -100 : 500,
+      x: -100,
     };
   }));
 

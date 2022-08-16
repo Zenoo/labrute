@@ -59,10 +59,10 @@ const FightView = () => {
         type: fighter.type,
         team: isFromLeftTeam ? 'left' : 'right',
         inverted: isFromLeftTeam,
-        x: isFromLeftTeam ? -150 : 550,
-        y: -150,
+        x: -150,
+        y: 150,
         animation: 'iddle',
-        distanceBetweenFighters: fighter.type === 'pet' && fighter.name === 'bear' ? 100 : 60,
+        width: fighter.type === 'pet' && fighter.name === 'bear' ? 100 : 60,
         hp: fighter.hp,
         maxHp: fighter.maxHp,
       };

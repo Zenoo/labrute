@@ -3,9 +3,7 @@ import { Box, Button, Divider, FormControlLabel, IconButton, MenuItem, Select, S
 import React, { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import AnimatedBear from '../components/animations/bear/AnimatedBear.js';
 import Text from '../components/Text.js';
-
-export type AnimationModel = 'bear';
-export type Animation = 'arrive' | 'attack' | 'death' | 'evade' | 'hit' | 'iddle' | 'run' | 'trapped';
+import { AnimationModel, Animation } from '@eternaltwin/labrute-core/types';
 
 const animations: Record<AnimationModel, Animation[]> = {
   bear: ['arrive', 'attack', 'death', 'evade', 'hit', 'iddle', 'run', 'trapped'],
