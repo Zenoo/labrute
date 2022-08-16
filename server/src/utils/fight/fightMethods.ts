@@ -825,7 +825,12 @@ const reversal = (fightData: DetailedFight['data'], opponent: DetailedFighter) =
   return random < opponent.reversal + (opponent.activeWeapon?.counter || 0);
 };
 
-const startAttack = (fightData: DetailedFight['data'], fighter: DetailedFighter, opponent: DetailedFighter) => {
+const startAttack = (
+  fightData: DetailedFight['data'],
+  fighter: DetailedFighter,
+  opponent: DetailedFighter,
+  isCounter?: boolean,
+) => {
   // Trigger fighter attack
   attack(fightData, fighter, opponent);
 
@@ -835,24 +840,25 @@ const startAttack = (fightData: DetailedFight['data'], fighter: DetailedFighter,
   // Keep track of initial fighter HP
   const initialFighterHp = fighter.hp;
 
-  let random = Math.random();
+  // Repeat attack only if not countering
+  if (!isCounter) {
+    let random = Math.random();
+    while (random < combo || fighter.retryAttack) {
+      // Stop the combo if the fighter took a hit
+      if (fighter.hp < initialFighterHp) {
+        break;
+      }
 
-  // Repeat attack
-  while (random < combo || fighter.retryAttack) {
-    // Stop the combo if the fighter took a hit
-    if (fighter.hp < initialFighterHp) {
-      break;
+      // Decrease combo chances
+      combo *= 0.5;
+      // Reset retry attack flag
+      fighter.retryAttack = false;
+
+      // Trigger fighter attack
+      attack(fightData, fighter, opponent);
+
+      random = Math.random();
     }
-
-    // Decrease combo chances
-    combo *= 0.5;
-    // Reset retry attack flag
-    fighter.retryAttack = false;
-
-    // Trigger fighter attack
-    attack(fightData, fighter, opponent);
-
-    random = Math.random();
   }
 
   // Check if a fighter is dead
@@ -938,7 +944,7 @@ export const playFighterTurn = (fightData: DetailedFight['data']) => {
       });
 
       // Opponent attacks fighter
-      startAttack(fightData, opponent, fighter);
+      startAttack(fightData, opponent, fighter, true);
     } else {
       // Fighter attacks opponent
       startAttack(fightData, fighter, opponent);
