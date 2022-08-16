@@ -51,7 +51,7 @@ const WeaponTooltip = ({
               </TableRow>
               <TableRow>
                 <TableCell component="th" scope="row">{t('interval')}</TableCell>
-                <TableCell align="right">{weapon.tempo * 100}</TableCell>
+                <TableCell align="right">{Math.round(weapon.tempo * 100)}</TableCell>
               </TableRow>
               {!!weapon.counter && (
                 <TableRow>
