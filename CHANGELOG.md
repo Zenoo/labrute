@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.11.1](https://github.com/Zenoo/labrute/compare/v1.11.0...v1.11.1) (2022-08-16)
+
+
+### Bug fix
+
+* HP bar going back up when value < 1 ([2e923ce](https://github.com/Zenoo/labrute/commit/2e923ce6210c02b8ce1dae95d72384d95965b4c4))
+
 ## [1.11.0](https://github.com/Zenoo/labrute/compare/v1.10.3...v1.11.0) (2022-08-16)
 
 
