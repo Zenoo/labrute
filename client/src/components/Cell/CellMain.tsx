@@ -120,23 +120,25 @@ const CellMain = ({
         />
       )}
       {/* BRUTE SACRIFICE */}
-      <StyledButton
-        image="/images/button.gif"
-        imageHover="/images/button-hover.gif"
-        onClick={confirmSacrifice}
-        shadow={false}
-        contrast={false}
-        shift="8px"
-        sx={{
-          fontVariant: 'small-caps',
-          m: '0 auto',
-          mt: 2,
-          height: 56,
-          width: 246,
-        }}
-      >
-        {t('sacrifice')}
-      </StyledButton>
+      {ownsBrute && (
+        <StyledButton
+          image="/images/button.gif"
+          imageHover="/images/button-hover.gif"
+          onClick={confirmSacrifice}
+          shadow={false}
+          contrast={false}
+          shift="8px"
+          sx={{
+            fontVariant: 'small-caps',
+            m: '0 auto',
+            mt: 2,
+            height: 56,
+            width: 246,
+          }}
+        >
+          {t('sacrifice')}
+        </StyledButton>
+      )}
     </Box>
   );
 };
