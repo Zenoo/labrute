@@ -6,6 +6,11 @@ import skills from '@eternaltwin/labrute-core/brute/skills';
 import weapons from '@eternaltwin/labrute-core/brute/weapons';
 import randomBetween from '@eternaltwin/labrute-core/utils/randomBetween';
 
+interface BruteAndBackup {
+  brute: Brute;
+  backup: Brute | null;
+}
+
 const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
   /* INITIATIVE */
 
@@ -125,9 +130,11 @@ const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
   }
 };
 
-const getFighters = (brutes: Brute[], backups: Brute[][]): DetailedFighter[] => {
+const getFighters = (team1: BruteAndBackup, team2: BruteAndBackup): DetailedFighter[] => {
   const fighters: DetailedFighter[] = [];
-  brutes.forEach((brute, i) => {
+  [team1, team2].forEach((team) => {
+    const { brute } = team;
+
     // Brute stats
     const fighter: DetailedFighter = {
       name: brute.name,
@@ -238,9 +245,9 @@ const getFighters = (brutes: Brute[], backups: Brute[][]): DetailedFighter[] => 
     });
 
     // Backup stats
-    if (backups[i].length) {
-      // Select a random backup
-      const backup = backups[i][randomBetween(0, backups[i].length - 1)];
+    if (team.backup) {
+      const { backup } = team;
+
       // Arrives at a random time
       const arrivesAt = randomBetween(0, 500) / 100;
 

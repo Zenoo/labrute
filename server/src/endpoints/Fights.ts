@@ -2,6 +2,7 @@ import {
   Brute, DetailedFight, Fight, Fighter,
 } from '@eternaltwin/labrute-core/types';
 import { Request, Response } from 'express';
+import randomBetween from '@eternaltwin/labrute-core/utils/randomBetween';
 import DB from '../db/client.js';
 import auth from '../utils/auth.js';
 import {
@@ -82,10 +83,23 @@ const Fights = {
         [brute2.data.level, brute2.data.user],
       );
 
+      const brute1Backup = brute1Backups.length
+        ? brute1Backups[randomBetween(0, brute1Backups.length - 1)]
+        : null;
+      const brute2Backup = brute2Backups.length
+        ? brute2Backups[randomBetween(0, brute2Backups.length - 1)]
+        : null;
+
       // Global fight data
       const fightData: DetailedFight['data'] = {
-        fighters: getFighters([brute1, brute2], [brute1Backups, brute2Backups]),
-        initialFighters: getFighters([brute1, brute2], [brute1Backups, brute2Backups]),
+        fighters: getFighters(
+          { brute: brute1, backup: brute1Backup },
+          { brute: brute2, backup: brute2Backup },
+        ),
+        initialFighters: getFighters(
+          { brute: brute1, backup: brute1Backup },
+          { brute: brute2, backup: brute2Backup },
+        ),
         steps: [],
         initiative: 0,
         winner: null,
