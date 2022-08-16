@@ -43,7 +43,7 @@ const WeaponTooltip = ({
             <TableBody>
               <TableRow>
                 <TableCell component="th" scope="row">{t('types')}</TableCell>
-                <TableCell align="right">{weapon.types.join(', ')}</TableCell>
+                <TableCell align="right">{weapon.types.map((type) => t(type)).join(', ')}</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell component="th" scope="row">{t('odds')}</TableCell>
@@ -53,30 +53,66 @@ const WeaponTooltip = ({
                 <TableCell component="th" scope="row">{t('interval')}</TableCell>
                 <TableCell align="right">{weapon.tempo * 100}</TableCell>
               </TableRow>
-              <TableRow>
-                <TableCell component="th" scope="row">{t('counter')}</TableCell>
-                <TableCell align="right">{weapon.counter * 100}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell component="th" scope="row">{t('evasion')}</TableCell>
-                <TableCell align="right">{weapon.evasion * 100}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell component="th" scope="row">{t('block')}</TableCell>
-                <TableCell align="right">{weapon.block * 100}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell component="th" scope="row">{t('accuracy')}</TableCell>
-                <TableCell align="right">{weapon.accuracy * 100}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell component="th" scope="row">{t('disarm')}</TableCell>
-                <TableCell align="right">{weapon.disarm * 100}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell component="th" scope="row">{t('combo')}</TableCell>
-                <TableCell align="right">{weapon.combo * 100}</TableCell>
-              </TableRow>
+              {!!weapon.counter && (
+                <TableRow>
+                  <TableCell component="th" scope="row">{t('counter')}</TableCell>
+                  <TableCell align="right">
+                    {weapon.counter > 0 && '+'}
+                    {Math.round(weapon.counter * 100)}
+                    %
+                  </TableCell>
+                </TableRow>
+              )}
+              {!!weapon.evasion && (
+                <TableRow>
+                  <TableCell component="th" scope="row">{t('evasion')}</TableCell>
+                  <TableCell align="right">
+                    {weapon.evasion > 0 && '+'}
+                    {Math.round(weapon.evasion * 100)}
+                    %
+                  </TableCell>
+                </TableRow>
+              )}
+              {!!weapon.block && (
+                <TableRow>
+                  <TableCell component="th" scope="row">{t('block')}</TableCell>
+                  <TableCell align="right">
+                    {weapon.block > 0 && '+'}
+                    {Math.round(weapon.block * 100)}
+                    %
+                  </TableCell>
+                </TableRow>
+              )}
+              {!!weapon.accuracy && (
+                <TableRow>
+                  <TableCell component="th" scope="row">{t('accuracy')}</TableCell>
+                  <TableCell align="right">
+                    {weapon.accuracy > 0 && '+'}
+                    {Math.round(weapon.accuracy * 100)}
+                    %
+                  </TableCell>
+                </TableRow>
+              )}
+              {!!weapon.disarm && (
+                <TableRow>
+                  <TableCell component="th" scope="row">{t('disarm')}</TableCell>
+                  <TableCell align="right">
+                    {weapon.disarm > 0 && '+'}
+                    {Math.round(weapon.disarm * 100)}
+                    %
+                  </TableCell>
+                </TableRow>
+              )}
+              {!!weapon.combo && (
+                <TableRow>
+                  <TableCell component="th" scope="row">{t('combo')}</TableCell>
+                  <TableCell align="right">
+                    {weapon.combo > 0 && '+'}
+                    {Math.round(weapon.combo * 100)}
+                    %
+                  </TableCell>
+                </TableRow>
+              )}
               <TableRow>
                 <TableCell component="th" scope="row">{t('damage')}</TableCell>
                 <TableCell align="right">{weapon.damage}</TableCell>
