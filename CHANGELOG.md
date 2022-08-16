@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.10.0](https://github.com/Zenoo/labrute/compare/v1.9.3...v1.10.0) (2022-08-16)
+
+
+### Feature
+
+* Add weapons to the fight header. Fixes [#81](https://github.com/Zenoo/labrute/issues/81) ([600e34e](https://github.com/Zenoo/labrute/commit/600e34e01b5aca81d902d348a1b2fd00cfb134a6))
+
 ### [1.9.3](https://github.com/Zenoo/labrute/compare/v1.9.2...v1.9.3) (2022-08-16)
 
 
