@@ -2,3 +2,9 @@
   font-family: Verdana;
   src: url(./assets/fonts/Verdana_10pt_st.woff);
 }
+
+@font-face {
+  font-family: Poplar;
+  src:  url(./assets/fonts/PoplarStd.ttf) format("ttf"),
+        url(./assets/fonts/PoplarStd.woff) format("woff");
+}

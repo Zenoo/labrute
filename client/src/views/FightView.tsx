@@ -63,6 +63,8 @@ const FightView = () => {
         y: -150,
         animation: 'iddle',
         distanceBetweenFighters: fighter.type === 'pet' && fighter.name === 'bear' ? 100 : 60,
+        hp: fighter.hp,
+        maxHp: fighter.maxHp,
       };
     }));
   }, [fight]);

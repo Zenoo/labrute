@@ -40,6 +40,9 @@ const defaultTypography = {
   Verdana: {
     fontFamily: 'Verdana',
   },
+  Poplar: {
+    fontFamily: 'Poplar',
+  },
 };
 
 export default defaultTypography;

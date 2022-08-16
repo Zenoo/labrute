@@ -16,6 +16,8 @@ export interface AnimationFighter {
   y: number;
   animation: Animation;
   distanceBetweenFighters: number;
+  hp: number;
+  maxHp: number;
 }
 
 const findFighter = (

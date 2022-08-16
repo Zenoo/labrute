@@ -15,6 +15,8 @@ const hit = (
       return {
         ...fighter,
         animation: 'hit',
+        // Remove hp
+        hp: step.damage >= fighter.hp ? 0 : fighter.hp - step.damage,
       };
     }
 

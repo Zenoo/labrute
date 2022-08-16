@@ -40,14 +40,22 @@ declare module '@mui/material/styles' {
     scrollbar?: TypeScrollbar,
     border: TypeBorder,
     button: TypeButton,
-    heat: (null | string)[]
-    level: string
+    heat: (null | string)[],
+    level: string,
+    hpBar: {
+      main: string;
+      dark: string;
+    },
   }
   interface PaletteOptions {
     transition?: TypeTransition,
     scrollbar?: TypeScrollbar,
-    heat: (null | string)[]
-    level: string
+    heat: (null | string)[],
+    level: string,
+    hpBar: {
+      main: string;
+      dark: string;
+    },
   }
   interface TypeText {
     white: string;
@@ -55,6 +63,7 @@ declare module '@mui/material/styles' {
   interface Typography {
     handwritten: FontStyle
     Verdana: FontStyle
+    Poplar: FontStyle
   }
 }
 
@@ -131,6 +140,10 @@ const defaultTheme = {
       null,
     ],
     level: '#d0f832',
+    hpBar: {
+      main: '#ffff00',
+      dark: '#ff7100',
+    },
     border,
     button
   },
