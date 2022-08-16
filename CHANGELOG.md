@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.11.0](https://github.com/Zenoo/labrute/compare/v1.10.3...v1.11.0) (2022-08-16)
+
+
+### Feature
+
+* Added dog animations. [#70](https://github.com/Zenoo/labrute/issues/70) ([a626425](https://github.com/Zenoo/labrute/commit/a6264252be18085da44f7602d9a115b72b7c4e9c))
+
 ### [1.10.3](https://github.com/Zenoo/labrute/compare/v1.10.2...v1.10.3) (2022-08-16)
 
 
