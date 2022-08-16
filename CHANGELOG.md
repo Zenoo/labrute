@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.10.3](https://github.com/Zenoo/labrute/compare/v1.10.2...v1.10.3) (2022-08-16)
+
+
+### Bug fix
+
+* Wrong weapon odds in weapon tooltip ([2b894d6](https://github.com/Zenoo/labrute/commit/2b894d6ebe89a8f9b33b4b4547e70bea3637e58a))
+
 ### [1.10.2](https://github.com/Zenoo/labrute/compare/v1.10.1...v1.10.2) (2022-08-16)
 
 
