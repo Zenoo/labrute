@@ -244,7 +244,7 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
     case 'tragicPotion': {
       // Abort if not poisoned or lost less than 50 HP
       const lostHp = fighter.maxHp - fighter.hp;
-      if (!fighter.poisoned || lostHp < 50) return false;
+      if (!fighter.poisoned && lostHp < 50) return false;
 
       const hpHealed = Math.floor(lostHp * (0.25 + Math.random() * 0.25));
       fighter.hp += hpHealed;
