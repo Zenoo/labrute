@@ -26,7 +26,7 @@ const CellSkills = ({
             <SkillTooltip skill={skill}>
               <Box
                 component="img"
-                src={`/images/skills/${skill.icon}.svg`}
+                src={`/images/skills/${skill.name}.svg`}
                 sx={{
                   boxShadow: 4,
                 }}
@@ -35,7 +35,7 @@ const CellSkills = ({
           ) : (
             <Box
               component="img"
-              src={`/images/skills/${skill.icon}.svg`}
+              src={`/images/skills/${skill.name}.svg`}
               sx={{
                 boxShadow: 4,
               }}

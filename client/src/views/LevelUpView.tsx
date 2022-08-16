@@ -1,4 +1,5 @@
 import skills from '@eternaltwin/labrute-core/brute/skills';
+import weapons from '@eternaltwin/labrute-core/brute/weapons';
 import updateBruteData from '@eternaltwin/labrute-core/brute/updateBruteData';
 import { Brute, DestinyChoice } from '@eternaltwin/labrute-core/types';
 import { Alert as MuiAlert, Box, Paper, useMediaQuery } from '@mui/material';
@@ -8,6 +9,7 @@ import { useNavigate, useParams } from 'react-router';
 import BoxBg from '../components/BoxBg.js';
 import BruteComponent from '../components/Brute/Body/BruteComponent.js';
 import SkillTooltip from '../components/Brute/SkillTooltip.js';
+import WeaponTooltip from '../components/Brute/WeaponTooltip.js';
 import Page from '../components/Page.js';
 import StyledButton from '../components/StyledButton.js';
 import Text from '../components/Text.js';
@@ -144,6 +146,19 @@ const LevelUpView = () => {
                       >
                         <Text h6 bold smallCaps>{t(destinyChoice.choice.name)}</Text>
                       </SkillTooltip>
+                    ) : destinyChoice.choice.type === 'weapon' ? (
+                      <WeaponTooltip weapon={weapons
+                        .find((w) => w.name === destinyChoice.choice.name)}
+                      >
+                        <Box>
+                          <Box
+                            component="img"
+                            src={`/images/weapons/${destinyChoice.choice.name}.png`}
+                            sx={{ display: 'block', mx: 'auto' }}
+                          />
+                          <Text h6 bold smallCaps>{t(destinyChoice.choice.name)}</Text>
+                        </Box>
+                      </WeaponTooltip>
                     ) : (
                       <Text h6 bold smallCaps>{t(destinyChoice.choice.name)}</Text>
                     )

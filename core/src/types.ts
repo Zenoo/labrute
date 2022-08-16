@@ -76,7 +76,6 @@ export interface Weapon {
   evasion: number;
   block: number;
   accuracy: number;
-  precision: number;
   disarm: number;
   combo: number;
   damage: number;
@@ -106,7 +105,6 @@ export type SkillType = 'passive' | 'booster' | 'super' | 'talent';
 
 export interface Skill {
   name: SkillName;
-  icon: string;
   odds: number;
   type: SkillType;
   toss?: number;

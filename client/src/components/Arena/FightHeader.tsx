@@ -78,13 +78,13 @@ const FightHeader = ({
     <Box sx={{
       position: 'relative',
       display: 'inline-block',
-      width: 43,
+      width: 44,
       height: 41,
       overflow: 'hidden',
       borderRadius: 1,
       mt: '5px',
-      ml: inverted ? null : '4px',
-      mr: inverted ? '4px' : null,
+      ml: inverted ? null : '3px',
+      mr: inverted ? '3px' : null,
     }}
     >
       <BrutePortrait

@@ -19,7 +19,7 @@ const SkillTooltip = ({
       <>
         <Box
           component="img"
-          src={`/images/skills/${skill.icon}.svg`}
+          src={`/images/skills/${skill.name}.svg`}
           sx={{ width: 68, float: 'left', marginRight: 1 }}
         />
         <Text bold h5>{t(skill.name)}</Text>
