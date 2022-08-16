@@ -1,4 +1,5 @@
 import { Weapon } from '@eternaltwin/labrute-core/types';
+import { PERKS_TOTAL_ODDS } from '@eternaltwin/labrute-core/constants';
 import { Box, Divider, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip, TooltipProps } from '@mui/material';
 import { t } from 'i18next';
 import React from 'react';
@@ -47,7 +48,7 @@ const WeaponTooltip = ({
               </TableRow>
               <TableRow>
                 <TableCell component="th" scope="row">{t('odds')}</TableCell>
-                <TableCell align="right">{weapon.odds}</TableCell>
+                <TableCell align="right">{(weapon.odds / PERKS_TOTAL_ODDS).toFixed(2)}%</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell component="th" scope="row">{t('interval')}</TableCell>
