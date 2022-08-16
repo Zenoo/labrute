@@ -48,7 +48,7 @@ const WeaponTooltip = ({
               </TableRow>
               <TableRow>
                 <TableCell component="th" scope="row">{t('odds')}</TableCell>
-                <TableCell align="right">{(weapon.odds / PERKS_TOTAL_ODDS).toFixed(2)}%</TableCell>
+                <TableCell align="right">{((weapon.odds / PERKS_TOTAL_ODDS) * 100).toFixed(2)}%</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell component="th" scope="row">{t('interval')}</TableCell>
