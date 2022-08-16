@@ -7,6 +7,7 @@ import { TFunction } from 'react-i18next';
 import { AnimationFighter } from '../../utils/fight/findFighter.js';
 import translateFightStep from '../../utils/translateFightStep.js';
 import AnimatedBear from '../animations/bear/AnimatedBear.js';
+import AnimatedDog from '../animations/dog/AnimatedDog.js';
 import BoxBg from '../BoxBg.js';
 import BruteComponent from '../Brute/Body/BruteComponent.js';
 import Text from '../Text.js';
@@ -84,6 +85,12 @@ const FightComponent = ({
           ) : fighter.name === 'bear' ? (
             <AnimatedBear
               id={fighter.master || ''}
+              animation={fighter.animation}
+              inverted={!fighter.inverted}
+            />
+          ) : fighter.name.startsWith('dog') ? (
+            <AnimatedDog
+              id={`${fighter.master || ''}.${fighter.name}`}
               animation={fighter.animation}
               inverted={!fighter.inverted}
             />

@@ -22,6 +22,10 @@ const getRandomPosition = (fighters: AnimationFighter[], team: 'left' | 'right')
   const availablePositions = getAvailablePositions(fighters, team);
   const random = randomBetween(0, availablePositions.length - 1);
 
+  if (!availablePositions[random]) {
+    throw new Error('No available positions');
+  }
+
   return availablePositions[random];
 };
 

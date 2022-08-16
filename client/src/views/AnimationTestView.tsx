@@ -4,9 +4,11 @@ import React, { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import AnimatedBear from '../components/animations/bear/AnimatedBear.js';
 import Text from '../components/Text.js';
 import { AnimationModel, Animation } from '@eternaltwin/labrute-core/types';
+import AnimatedDog from '../components/animations/dog/AnimatedDog.js';
 
 const animations: Record<AnimationModel, Animation[]> = {
   bear: ['arrive', 'attack', 'death', 'evade', 'hit', 'iddle', 'run', 'trapped'],
+  dog: ['arrive', 'attack', 'death', 'evade', 'hit', 'iddle', 'run', 'trapped'],
 };
 
 const AnimationTestView = () => {
@@ -40,6 +42,21 @@ const AnimationTestView = () => {
             }}
           />
         );
+      case 'dog':
+        return (
+          <AnimatedDog
+            id="test"
+            animation={animation}
+            inverted={inverted}
+            sx={{
+              position: 'absolute',
+              bottom: -adjustY,
+              left: inverted ? null : adjustX,
+              right: inverted ? adjustX : null,
+              border: 1,
+            }}
+          />
+        );
       default:
         return null;
     }
@@ -50,6 +67,22 @@ const AnimationTestView = () => {
       case 'bear':
         return (
           <AnimatedBear
+            id="test"
+            animation={transparentAnimation}
+            inverted={inverted}
+            sx={{
+              position: 'absolute',
+              bottom: 0,
+              left: inverted ? null : 0,
+              right: inverted ? 0 : null,
+              opacity: 0.5,
+              border: 1,
+            }}
+          />
+        );
+      case 'dog':
+        return (
+          <AnimatedDog
             id="test"
             animation={transparentAnimation}
             inverted={inverted}
