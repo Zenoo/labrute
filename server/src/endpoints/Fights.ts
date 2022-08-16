@@ -1,4 +1,6 @@
-import { Brute, DetailedFight, Fight } from '@eternaltwin/labrute-core/types';
+import {
+  Brute, DetailedFight, Fight, Fighter,
+} from '@eternaltwin/labrute-core/types';
 import { Request, Response } from 'express';
 import DB from '../db/client.js';
 import auth from '../utils/auth.js';
@@ -168,20 +170,26 @@ const Fights = {
         loser: fightData.loser,
       });
 
+      // Reduce the size of the fighters data
+      const fighters: Fighter[] = fightData.initialFighters.map((fighter) => ({
+        name: fighter.name,
+        data: fighter.data,
+        type: fighter.type,
+        master: fighter.master,
+        maxHp: fighter.maxHp,
+        hp: fighter.hp,
+        weapons: fighter.weapons.map((weapon) => ({
+          name: weapon.name,
+          animation: weapon.animation,
+        })),
+        shield: fighter.shield,
+      }));
+
       // Save important fight data
       const { rows: { 0: { id: fightId } } } = await client.query<{ id: number }>(
         'INSERT INTO fights(brute_1, brute_2, data) VALUES($1, $2, $3) RETURNING id',
         [req.body.brute1, req.body.brute2, JSON.stringify({
-          fighters: fightData.initialFighters.map((fighter) => ({
-            name: fighter.name,
-            data: fighter.data,
-            type: fighter.type,
-            master: fighter.master,
-            maxHp: fighter.maxHp,
-            hp: fighter.hp,
-            weapons: fighter.weapons,
-            shield: fighter.shield,
-          })),
+          fighters,
           steps: fightData.steps,
           winner: fightData.winner,
           loser: fightData.loser,

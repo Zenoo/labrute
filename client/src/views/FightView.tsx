@@ -15,12 +15,17 @@ import catchError from '../utils/catchError.js';
 import arrive from '../utils/fight/arrive.js';
 import attemptHit from '../utils/fight/attemptHit.js';
 import death from '../utils/fight/death.js';
+import disarm from '../utils/fight/disarm.js';
 import evade from '../utils/fight/evade.js';
 import { AnimationFighter } from '../utils/fight/findFighter.js';
 import hit from '../utils/fight/hit.js';
 import leave from '../utils/fight/leave.js';
 import moveBack from '../utils/fight/moveBack.js';
 import moveTo from '../utils/fight/moveTo.js';
+import saboteur from '../utils/fight/saboteur.js';
+import steal from '../utils/fight/steal.js';
+import throwWeapon from '../utils/fight/throwWeapon.js';
+import trash from '../utils/fight/trash.js';
 import Server from '../utils/Server.js';
 import FightMobileView from './mobile/FightMobileView.js';
 
@@ -65,6 +70,8 @@ const FightView = () => {
         width: fighter.type === 'pet' && fighter.name === 'bear' ? 100 : 60,
         hp: fighter.hp,
         maxHp: fighter.maxHp,
+        weapons: fighter.weapons,
+        activeWeapon: null,
       };
     }));
   }, [fight]);
@@ -120,6 +127,26 @@ const FightView = () => {
         }
         case 'evade': { // TODO: Rework animation component to add Y offset
           evade(setFighters, step);
+          break;
+        }
+        case 'saboteur': {
+          saboteur(setFighters, step);
+          break;
+        }
+        case 'disarm': {
+          disarm(setFighters, step);
+          break;
+        }
+        case 'steal': {
+          steal(setFighters, step);
+          break;
+        }
+        case 'throw': {
+          throwWeapon(setFighters, step);
+          break;
+        }
+        case 'trash': {
+          trash(setFighters, step);
           break;
         }
         default:

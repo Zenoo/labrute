@@ -74,32 +74,52 @@ const FightHeader = ({
       borderRadius: 1,
     }}
     />
-    {/* PORTRAIT */}
     <Box sx={{
-      position: 'relative',
-      display: 'inline-block',
-      width: 44,
-      height: 41,
-      overflow: 'hidden',
-      borderRadius: 1,
-      mt: '5px',
+      display: 'flex',
+      alignItems: 'start',
+      justifyContent: inverted ? 'end' : 'start',
       ml: inverted ? null : '3px',
       mr: inverted ? '3px' : null,
     }}
     >
-      <BrutePortrait
-        inverted={!inverted}
-        brute={{ name: brute.name, data: brute.data } as Brute}
-        sx={{
-          position: 'absolute',
-          top: -10,
-          left: inverted ? null : -24,
-          right: inverted ? -24 : null,
-          width: 90,
-        }}
-      />
+      {/* PORTRAIT */}
+      <Box sx={{
+        position: 'relative',
+        display: 'inline-block',
+        width: 44,
+        height: 41,
+        overflow: 'hidden',
+        borderRadius: 1,
+        mt: '5px',
+        order: inverted ? 2 : 1,
+        flexShrink: 0,
+      }}
+      >
+        <BrutePortrait
+          inverted={!inverted}
+          brute={{ name: brute.name, data: brute.data } as Brute}
+          sx={{
+            position: 'absolute',
+            top: -10,
+            left: inverted ? null : -24,
+            right: inverted ? -24 : null,
+            width: 90,
+          }}
+        />
+      </Box>
+      {/* WEAPONS */}
+      <Box sx={{
+        order: inverted ? 1 : 2,
+        mt: 1,
+        ml: inverted ? null : 1,
+        mr: inverted ? 1 : null,
+      }}
+      >
+        {brute.weapons.map((weapon) => (
+          <Box component="img" key={weapon.name} src={`/images/weapons/mini/${weapon.name}.png`} />
+        ))}
+      </Box>
     </Box>
-    {/* WEAPONS */}
   </BoxBg>
 ) : null);
 

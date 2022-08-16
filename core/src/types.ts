@@ -84,6 +84,11 @@ export interface Weapon {
   animation: WeaponAnimation;
 }
 
+export interface AnimatedWeapon {
+  name: WeaponName;
+  animation: WeaponAnimation;
+}
+
 export type SkillName = 'herculeanStrength' | 'felineAgility' | 'lightningBolt'
   | 'vitality' | 'immortality' | 'reconnaissance' | 'weaponsMaster'
   | 'martialArts' | 'sixthSense' | 'hostility'
@@ -269,7 +274,7 @@ export interface Fighter {
   master?: string;
   maxHp: number;
   hp: number,
-  weapons: Weapon[];
+  weapons: AnimatedWeapon[];
   shield: boolean;
 }
 

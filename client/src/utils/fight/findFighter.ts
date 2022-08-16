@@ -1,4 +1,4 @@
-import { Animation, BodyColors, BodyParts, Gender, StepFighter } from '@eternaltwin/labrute-core/types';
+import { AnimatedWeapon, Animation, BodyColors, BodyParts, Gender, StepFighter } from '@eternaltwin/labrute-core/types';
 
 export interface AnimationFighter {
   name: string;
@@ -17,6 +17,8 @@ export interface AnimationFighter {
   width: number;
   hp: number;
   maxHp: number;
+  weapons: AnimatedWeapon[];
+  activeWeapon: AnimatedWeapon | null;
 }
 
 const findFighter = (
