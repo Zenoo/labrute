@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.10.2](https://github.com/Zenoo/labrute/compare/v1.10.1...v1.10.2) (2022-08-16)
+
+
+### Bug fix
+
+* Fight positions check crash ([8cca4ff](https://github.com/Zenoo/labrute/commit/8cca4ffedf36e3744d95d35d64b0f48a41a4a411))
+
 ### [1.10.1](https://github.com/Zenoo/labrute/compare/v1.10.0...v1.10.1) (2022-08-16)
 
 
