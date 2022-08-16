@@ -16,7 +16,7 @@ const arrive = (
       return fighter;
     }
 
-    const position = getRandomPosition(prevFighters);
+    const position = getRandomPosition(prevFighters, fighter.team);
 
     return {
       ...fighter,

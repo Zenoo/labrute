@@ -11,11 +11,15 @@ const positions = [
   { x: 40, y: 10 },
 ];
 
-const getAvailablePositions = (fighters: AnimationFighter[]) => positions
-  .filter((p) => fighters.every((f) => f.x !== p.x || f.y !== p.y));
+const getAvailablePositions = (fighters: AnimationFighter[], team: 'left' | 'right') => {
+  const teamFighters = fighters.filter((fighter) => fighter.team === team);
 
-const getRandomPosition = (fighters: AnimationFighter[]) => {
-  const availablePositions = getAvailablePositions(fighters);
+  return positions
+    .filter((p) => teamFighters.every((f) => f.x !== p.x || f.y !== p.y));
+};
+
+const getRandomPosition = (fighters: AnimationFighter[], team: 'left' | 'right') => {
+  const availablePositions = getAvailablePositions(fighters, team);
   const random = randomBetween(0, availablePositions.length - 1);
 
   return availablePositions[random];
