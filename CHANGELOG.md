@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.9.1](https://github.com/Zenoo/labrute/compare/v1.9.0...v1.9.1) (2022-08-16)
+
+
+### Bug fix
+
+* Display weapon stats as % and hide useless ones ([5872df5](https://github.com/Zenoo/labrute/commit/5872df5a07a198fb1740717e0addc89b78548114))
+* Remove weapon tooltip flicker ([b007131](https://github.com/Zenoo/labrute/commit/b007131ddd5fa8a2ad401d0401a0ad598d94d290))
+* Translated weapon types in weapon tooltip ([7e8b1c0](https://github.com/Zenoo/labrute/commit/7e8b1c076c641e0e7be31a2f1c2226b701393b2c))
+
 ## [1.9.0](https://github.com/Zenoo/labrute/compare/v1.8.0...v1.9.0) (2022-08-16)
 
 
