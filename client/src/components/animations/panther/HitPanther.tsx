@@ -35,7 +35,7 @@ const HitPanther = ({ id, inverted, sx, ...rest }: HitPantherProps) => (
           ? -(WIDTH + MARGIN) * (FRAMES - 1) - (!inverted ? MARGIN : 0)
           : 0,
         width: (WIDTH + MARGIN) * FRAMES,
-        animation: `${!inverted ? 'inverted-' : ''}stagger 0.5s forwards`,
+        animation: `${!inverted ? 'inverted-' : ''}reverse-stagger 0.5s forwards`,
       }}
     >
       {/* FRAME 1 */}

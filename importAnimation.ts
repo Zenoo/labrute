@@ -41,6 +41,11 @@ const offsetX = firstFileLines[2].match(/matrix\(1.0, 0.0, 0.0, 1.0, ([\d.]+), [
 const offsetY = firstFileLines[2].match(/matrix\(1.0, 0.0, 0.0, 1.0, [\d.]+, ([\d.]+)\)/)?.[1];
 const frames = animationFiles.length;
 
+// Store the SVG definitions from the last file
+const lastFile = fs.readFileSync(`${folder}/${animationFiles[animationFiles.length - 1]}`, 'utf8');
+const lastFileLines = lastFile.split('\n');
+const definitions = lastFileLines.slice(lastFileLines.findIndex((line) => line.match(/<defs>/)), lastFileLines.findIndex((line) => line.match(/<\/defs>/)) + 1);
+
 // Create the component file
 const componentFile = `/* eslint-disable camelcase */
 import { Box, BoxProps } from '@mui/material';
@@ -90,7 +95,11 @@ ${animationFiles.map((file, index) => {
     const svgFile = fs.readFileSync(`${folder}/${file}`, 'utf8');
 
     // Remove first two lines and last line
-    const svgFileLines = svgFile.split('\n').slice(2, -2);
+    let svgFileLines = svgFile.split('\n').slice(2, -2);
+
+    // Remove SVG definitions
+    svgFileLines = svgFileLines.splice(0, svgFileLines.findIndex((line) => line.match(/<defs>/)));
+    svgFileLines = svgFileLines.splice(svgFileLines.findIndex((line) => line.match(/<\/defs>/)) + 1);
 
     // Replace the matrix in the first line
     const firstLine = svgFileLines[0].replace(/transform="matrix\(1.0, 0.0, 0.0, 1.0, [\d.]+, [\d.]+\)"/, `transform={\`matrix(1.0, 0.0, 0.0, 1.0, \${${componentName}_X_OFFSET + (${componentName}_WIDTH + ${componentName}_MARGIN) * ${index}}, \${${componentName}_Y_OFFSET})\`}`);
@@ -98,8 +107,8 @@ ${animationFiles.map((file, index) => {
 
     return `      {/* FRAME ${index + 1} */}
   ${svgFileLines.join('\n    ')
-    .replace(/xlink:href="#([^"]*)"/g, `xlinkHref={\`#${componentName}-${index + 1}-\${id}-$1\`}`)
-    .replace(/id="([^"]*)"/g, `id={\`${componentName}-${index + 1}-\${id}-$1\`}`)
+    .replace(/xlink:href="#([^"]*)"/g, `xlinkHref={\`#${componentName}-\${id}-$1\`}`)
+    .replace(/id="([^"]*)"/g, `id={\`${componentName}-\${id}-$1\`}`)
     .replace(/fill-rule="([^"]*)"/g, 'fillRule="$1"')
     .replace(/fill-opacity="([^"]*)"/g, 'fillOpacity="$1"')
     .replace(/stroke-linecap="([^"]*)"/g, 'strokeLinecap="$1"')
@@ -109,6 +118,17 @@ ${animationFiles.map((file, index) => {
     .replace(/"\/>/g, '" />')
     .replace(/}\/>/g, '} />')}`;
   }).join('\n')}
+    ${definitions.join('\n    ')
+    .replace(/xlink:href="#([^"]*)"/g, `xlinkHref={\`#${componentName}-\${id}-$1\`}`)
+    .replace(/id="([^"]*)"/g, `id={\`${componentName}-\${id}-$1\`}`)
+    .replace(/fill-rule="([^"]*)"/g, 'fillRule="$1"')
+    .replace(/fill-opacity="([^"]*)"/g, 'fillOpacity="$1"')
+    .replace(/stroke-linecap="([^"]*)"/g, 'strokeLinecap="$1"')
+    .replace(/stroke-linejoin="([^"]*)"/g, 'strokeLinejoin="$1"')
+    .replace(/stroke-opacity="([^"]*)"/g, 'strokeOpacity="$1"')
+    .replace(/stroke-width="([^"]*)"/g, 'strokeWidth="$1"')
+    .replace(/"\/>/g, '" />')
+    .replace(/}\/>/g, '} />')}
     </Box>
   </Box>
 );

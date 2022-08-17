@@ -7,8 +7,21 @@ import { DeathBear_WIDTH, DeathBear_MARGIN, DeathBear_FRAMES } from '../../compo
 import { IddleBear_WIDTH, IddleBear_MARGIN, IddleBear_FRAMES } from '../../components/animations/bear/IddleBear.js';
 import { RunBear_WIDTH, RunBear_MARGIN, RunBear_FRAMES } from '../../components/animations/bear/RunBear.js';
 import { TrappedBear_FRAMES, TrappedBear_MARGIN, TrappedBear_WIDTH } from '../../components/animations/bear/TrappedBear.js';
+import { ArriveMaleBrute_WIDTH, ArriveMaleBrute_MARGIN, ArriveMaleBrute_FRAMES } from '../../components/animations/brute/male/ArriveMaleBrute.js';
+import { BlockMaleBrute_WIDTH, BlockMaleBrute_MARGIN, BlockMaleBrute_FRAMES } from '../../components/animations/brute/male/BlockMaleBrute.js';
+import { EquipMaleBrute_WIDTH, EquipMaleBrute_MARGIN, EquipMaleBrute_FRAMES } from '../../components/animations/brute/male/EquipMaleBrute.js';
+import { EstocMaleBrute_WIDTH, EstocMaleBrute_MARGIN, EstocMaleBrute_FRAMES } from '../../components/animations/brute/male/EstocMaleBrute.js';
+import { FistMaleBrute_WIDTH, FistMaleBrute_MARGIN, FistMaleBrute_FRAMES } from '../../components/animations/brute/male/FistMaleBrute.js';
+import { HealMaleBrute_WIDTH, HealMaleBrute_MARGIN, HealMaleBrute_FRAMES } from '../../components/animations/brute/male/HealMaleBrute.js';
 import { IddleMaleBrute_WIDTH, IddleMaleBrute_MARGIN, IddleMaleBrute_FRAMES } from '../../components/animations/brute/male/IddleMaleBrute.js';
+import { LoseMaleBrute_WIDTH, LoseMaleBrute_MARGIN, LoseMaleBrute_FRAMES } from '../../components/animations/brute/male/LoseMaleBrute.js';
+import { RunMaleBrute_FRAMES, RunMaleBrute_MARGIN, RunMaleBrute_WIDTH } from '../../components/animations/brute/male/RunMaleBrute.js';
+import { SlashMaleBrute_WIDTH, SlashMaleBrute_MARGIN, SlashMaleBrute_FRAMES } from '../../components/animations/brute/male/SlashMaleBrute.js';
+import { StrengthenMaleBrute_WIDTH, StrengthenMaleBrute_MARGIN, StrengthenMaleBrute_FRAMES } from '../../components/animations/brute/male/StrengthenMaleBrute.js';
+import { ThrowMaleBrute_WIDTH, ThrowMaleBrute_MARGIN, ThrowMaleBrute_FRAMES } from '../../components/animations/brute/male/ThrowMaleBrute.js';
 import { TrappedMaleBrute_WIDTH, TrappedMaleBrute_MARGIN, TrappedMaleBrute_FRAMES } from '../../components/animations/brute/male/TrappedMaleBrute.js';
+import { WhipMaleBrute_WIDTH, WhipMaleBrute_MARGIN, WhipMaleBrute_FRAMES } from '../../components/animations/brute/male/WhipMaleBrute.js';
+import { WinMaleBrute_WIDTH, WinMaleBrute_MARGIN, WinMaleBrute_FRAMES } from '../../components/animations/brute/male/WinMaleBrute.js';
 import { ArriveDog_WIDTH, ArriveDog_MARGIN, ArriveDog_FRAMES } from '../../components/animations/dog/ArriveDog.js';
 import { AttackDog_MARGIN, AttackDog_WIDTH, AttackDog_FRAMES } from '../../components/animations/dog/AttackDog.js';
 import { DeathDog_MARGIN, DeathDog_WIDTH, DeathDog_FRAMES } from '../../components/animations/dog/DeathDog.js';
@@ -28,6 +41,60 @@ const fightAnimations = (
   <GlobalStyles styles={{
     // STAGGER
     '@keyframes stagger': {
+      '0%': {
+        transform: 'translateX(0)'
+      },
+      '10%': {
+        transform: 'translateX(-8px)'
+      },
+      '20%': {
+        transform: 'translateX(-4px)'
+      },
+      '30%': {
+        transform: 'translateX(-8px)'
+      },
+      '40%': {
+        transform: 'translateX(-4px)'
+      },
+      '60%': {
+        transform: 'translateX(-8px)'
+      },
+      '80%': {
+        transform: 'translateX(0)'
+      },
+      '100%': {
+        transform: 'translateX(0)'
+      }
+    },
+    // INVERTED STAGGER
+    '@keyframes inverted-stagger': {
+      '0%': {
+        transform: 'translateX(0) scale(-1, 1)'
+      },
+      '10%': {
+        transform: 'translateX(8px) scale(-1, 1)'
+      },
+      '20%': {
+        transform: 'translateX(4px) scale(-1, 1)'
+      },
+      '30%': {
+        transform: 'translateX(8px) scale(-1, 1)'
+      },
+      '40%': {
+        transform: 'translateX(4px) scale(-1, 1)'
+      },
+      '60%': {
+        transform: 'translateX(8px) scale(-1, 1)'
+      },
+      '80%': {
+        transform: 'translateX(0) scale(-1, 1)'
+      },
+      '100%': {
+        transform: 'translateX(0) scale(-1, 1)'
+      }
+    },
+    // REVERSE STAGGER
+    '@keyframes reverse-stagger': {
       '0%': {
         transform: 'translateX(0)'
       },
@@ -54,7 +121,7 @@ const fightAnimations = (
       }
     },
     // INVERTED STAGGER
-    '@keyframes inverted-stagger': {
+    '@keyframes inverted-reverse-stagger': {
       '0%': {
         transform: 'translateX(0) scale(-1, 1)'
       },
@@ -382,6 +449,183 @@ const fightAnimations = (
     '@keyframes TrappedMaleBruteInverted': {
       '100%': {
         left: -TrappedMaleBrute_MARGIN,
+      }
+    },
+    // MALE BRUTE FIST
+    '@keyframes FistMaleBrute': {
+      '100%': {
+        left: -(FistMaleBrute_WIDTH + FistMaleBrute_MARGIN)
+          * (FistMaleBrute_FRAMES - 1),
+      }
+    },
+    // MALE BRUTE IDDLE INVERTED
+    '@keyframes FistMaleBruteInverted': {
+      '100%': {
+        left: -FistMaleBrute_MARGIN,
+      }
+    },
+    // MALE BRUTE RUN
+    '@keyframes RunMaleBrute': {
+      '100%': {
+        left: -(RunMaleBrute_WIDTH + RunMaleBrute_MARGIN)
+          * (RunMaleBrute_FRAMES - 1),
+      }
+    },
+    // MALE BRUTE IDDLE INVERTED
+    '@keyframes RunMaleBruteInverted': {
+      '100%': {
+        left: -RunMaleBrute_MARGIN,
+      }
+    },
+    // MALE BRUTE ARRIVE
+    '@keyframes ArriveMaleBrute': {
+      // Hold first frame for 0.5s
+      '50%': {
+        left: 0,
+      },
+      '100%': {
+        left: -(ArriveMaleBrute_WIDTH + ArriveMaleBrute_MARGIN) * (ArriveMaleBrute_FRAMES - 1),
+      }
+    },
+    // MALE BRUTE ARRIVE INVERTED
+    '@keyframes ArriveMaleBruteInverted': {
+      // Hold first frame for 0.5s
+      '50%': {
+        left: -(ArriveMaleBrute_WIDTH + ArriveMaleBrute_MARGIN)
+        * (ArriveMaleBrute_FRAMES - 1) - ArriveMaleBrute_MARGIN,
+      },
+      '100%': {
+        left: -ArriveMaleBrute_MARGIN,
+      }
+    },
+    // MALE BRUTE EQUIP
+    '@keyframes EquipMaleBrute': {
+      '100%': {
+        left: -(EquipMaleBrute_WIDTH + EquipMaleBrute_MARGIN)
+          * (EquipMaleBrute_FRAMES - 1),
+      }
+    },
+    // MALE BRUTE EQUIP INVERTED
+    '@keyframes EquipMaleBruteInverted': {
+      '100%': {
+        left: -EquipMaleBrute_MARGIN,
+      }
+    },
+    // MALE BRUTE BLOCK
+    '@keyframes BlockMaleBrute': {
+      '100%': {
+        left: -(BlockMaleBrute_WIDTH + BlockMaleBrute_MARGIN)
+          * (BlockMaleBrute_FRAMES - 1),
+      }
+    },
+    // MALE BRUTE BLOCK INVERTED
+    '@keyframes BlockMaleBruteInverted': {
+      '100%': {
+        left: -BlockMaleBrute_MARGIN,
+      }
+    },
+    // MALE BRUTE LOSE
+    '@keyframes LoseMaleBrute': {
+      '100%': {
+        left: -(LoseMaleBrute_WIDTH + LoseMaleBrute_MARGIN)
+          * (LoseMaleBrute_FRAMES - 1),
+      }
+    },
+    // MALE BRUTE LOSE INVERTED
+    '@keyframes LoseMaleBruteInverted': {
+      '100%': {
+        left: -LoseMaleBrute_MARGIN,
+      }
+    },
+    // MALE BRUTE ESTOC
+    '@keyframes EstocMaleBrute': {
+      '100%': {
+        left: -(EstocMaleBrute_WIDTH + EstocMaleBrute_MARGIN)
+          * (EstocMaleBrute_FRAMES - 1),
+      }
+    },
+    // MALE BRUTE ESTOC INVERTED
+    '@keyframes EstocMaleBruteInverted': {
+      '100%': {
+        left: -EstocMaleBrute_MARGIN,
+      }
+    },
+    // MALE BRUTE SLASH
+    '@keyframes SlashMaleBrute': {
+      '100%': {
+        left: -(SlashMaleBrute_WIDTH + SlashMaleBrute_MARGIN)
+          * (SlashMaleBrute_FRAMES - 1),
+      }
+    },
+    // MALE BRUTE SLASH INVERTED
+    '@keyframes SlashMaleBruteInverted': {
+      '100%': {
+        left: -EstocMaleBrute_MARGIN,
+      }
+    },
+    // MALE BRUTE THROW
+    '@keyframes ThrowMaleBrute': {
+      '100%': {
+        left: -(ThrowMaleBrute_WIDTH + ThrowMaleBrute_MARGIN)
+          * (ThrowMaleBrute_FRAMES - 1),
+      }
+    },
+    // MALE BRUTE THROW INVERTED
+    '@keyframes ThrowMaleBruteInverted': {
+      '100%': {
+        left: -ThrowMaleBrute_MARGIN,
+      }
+    },
+    // MALE BRUTE HEAL
+    '@keyframes HealMaleBrute': {
+      '100%': {
+        left: -(HealMaleBrute_WIDTH + HealMaleBrute_MARGIN)
+          * (HealMaleBrute_FRAMES - 1),
+      }
+    },
+    // MALE BRUTE HEAL INVERTED
+    '@keyframes HealMaleBruteInverted': {
+      '100%': {
+        left: -HealMaleBrute_MARGIN,
+      }
+    },
+    // MALE BRUTE STRENGTHEN
+    '@keyframes StrengthenMaleBrute': {
+      '100%': {
+        left: -(StrengthenMaleBrute_WIDTH + StrengthenMaleBrute_MARGIN)
+          * (StrengthenMaleBrute_FRAMES - 1),
+      }
+    },
+    // MALE BRUTE STRENGTHEN INVERTED
+    '@keyframes StrengthenMaleBruteInverted': {
+      '100%': {
+        left: -StrengthenMaleBrute_MARGIN,
+      }
+    },
+    // MALE BRUTE WHIP
+    '@keyframes WhipMaleBrute': {
+      '100%': {
+        left: -(WhipMaleBrute_WIDTH + WhipMaleBrute_MARGIN)
+          * (WhipMaleBrute_FRAMES - 1),
+      }
+    },
+    // MALE BRUTE WHIP INVERTED
+    '@keyframes WhipMaleBruteInverted': {
+      '100%': {
+        left: -WhipMaleBrute_MARGIN,
+      }
+    },
+    // MALE BRUTE WIN
+    '@keyframes WinMaleBrute': {
+      '100%': {
+        left: -(WinMaleBrute_WIDTH + WinMaleBrute_MARGIN)
+          * (WinMaleBrute_FRAMES - 1),
+      }
+    },
+    // MALE BRUTE WIN INVERTED
+    '@keyframes WinMaleBruteInverted': {
+      '100%': {
+        left: -WinMaleBrute_MARGIN,
       }
     },
   }}

@@ -1,4 +1,4 @@
-import { Brute, Fight } from '@eternaltwin/labrute-core/types';
+import { Fight } from '@eternaltwin/labrute-core/types';
 import { Rtt } from '@mui/icons-material';
 import { Box, BoxProps, IconButton, Tooltip } from '@mui/material';
 import { motion } from 'framer-motion';
@@ -8,10 +8,10 @@ import fightAnimations from '../../utils/fight/fightAnimations.js';
 import { AnimationFighter } from '../../utils/fight/findFighter.js';
 import translateFightStep from '../../utils/translateFightStep.js';
 import AnimatedBear from '../animations/bear/AnimatedBear.js';
+import AnimatedBrute from '../animations/brute/AnimatedBrute.js';
 import AnimatedDog from '../animations/dog/AnimatedDog.js';
 import AnimatedPanther from '../animations/panther/AnimatedPanther.js';
 import BoxBg from '../BoxBg.js';
-import BruteComponent from '../Brute/Body/BruteComponent.js';
 import Text from '../Text.js';
 import FightHeader from './FightHeader.js';
 
@@ -80,10 +80,11 @@ const FightComponent = ({
           }}
         >
           {fighter.type === 'brute' ? (
-            <BruteComponent
-              brute={{ name: fighter.name, data: fighter.data } as Brute}
-              inverted={fighter.inverted}
-              sx={{ height: 80 }}
+            <AnimatedBrute
+              id={fighter.name}
+              gender={fighter.data?.gender || 'male'}
+              animation={fighter.animation}
+              inverted={!fighter.inverted}
             />
           ) : fighter.name === 'bear' ? (
             <AnimatedBear

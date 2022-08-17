@@ -7,10 +7,10 @@ export interface IddleMaleBruteProps extends BoxProps {
   inverted?: boolean;
 }
 
-export const IddleMaleBrute_WIDTH = 100;
+export const IddleMaleBrute_WIDTH = 200;
 export const IddleMaleBrute_HEIGHT = 85.45;
 export const IddleMaleBrute_FRAMES = 39;
-export const IddleMaleBrute_X_OFFSET = 37.25;
+export const IddleMaleBrute_X_OFFSET = 62;
 export const IddleMaleBrute_Y_OFFSET = 68.8;
 export const IddleMaleBrute_MARGIN = 30;
 

@@ -44,7 +44,7 @@ export const POSITION_OFFSET = {
     y: 10,
   },
   brute: {
-    x: 15,
+    x: 40,
     y: 10,
   },
 };

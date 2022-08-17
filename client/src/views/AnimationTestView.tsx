@@ -9,11 +9,13 @@ import AnimatedPanther from '../components/animations/panther/AnimatedPanther.js
 import AnimatedBrute from '../components/animations/brute/AnimatedBrute.js';
 import fightAnimations from '../utils/fight/fightAnimations.js';
 
-const animations: Record<AnimationModel, Animation[]> = {
+const animations = {
   bear: ['arrive', 'attack', 'death', 'evade', 'hit', 'iddle', 'run', 'trapped'],
   dog: ['arrive', 'attack', 'death', 'evade', 'hit', 'iddle', 'run', 'trapped'],
   panther: ['arrive', 'attack', 'death', 'evade', 'hit', 'iddle', 'run', 'trapped'],
-  'brute.male': ['arrive', 'attack', 'death', 'evade', 'hit', 'iddle', 'run', 'trapped'],
+  'brute.male': ['arrive', 'evade', 'hit', 'iddle', 'run', 'trapped',
+    'block', 'equip', 'estoc', 'fist', 'heal', 'lose', 'slash', 'strengthen',
+    'throw', 'whip', 'win'],
 };
 
 const AnimationTestView = () => {
@@ -172,7 +174,7 @@ const AnimationTestView = () => {
 
   const changeModel = useCallback((event: SelectChangeEvent) => {
     setModel(event.target.value as AnimationModel);
-    setAnimation(animations[event.target.value as AnimationModel][0]);
+    setAnimation(animations[event.target.value as AnimationModel][0] as Animation);
     setAdjustX(0);
     setAdjustY(0);
   }, []);
@@ -209,12 +211,11 @@ const AnimationTestView = () => {
 
   const changeInverted = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setInverted(event.target.checked);
-    reflow();
-  }, [reflow]);
+  }, []);
 
   const changeTransparentModel = useCallback((event: SelectChangeEvent) => {
     setTransparentModel(event.target.value as AnimationModel);
-    setTransparentAnimation(animations[event.target.value as AnimationModel][0]);
+    setTransparentAnimation(animations[event.target.value as AnimationModel][0] as Animation);
   }, []);
 
   const changeTransparentAnimation = useCallback((event: SelectChangeEvent) => {
