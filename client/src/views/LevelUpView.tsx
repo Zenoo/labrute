@@ -1,6 +1,5 @@
 import skills from '@eternaltwin/labrute-core/brute/skills';
 import weapons from '@eternaltwin/labrute-core/brute/weapons';
-import updateBruteData from '@eternaltwin/labrute-core/brute/updateBruteData';
 import { Brute, DestinyChoice } from '@eternaltwin/labrute-core/types';
 import { Alert as MuiAlert, Box, Paper, useMediaQuery } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -55,11 +54,8 @@ const LevelUpView = () => {
   const levelUp = useCallback((choice: 0 | 1) => async () => {
     if (!brute || !choices) return;
 
-    const { [choice]: chosen } = choices;
-
     await Server.Brute.levelUp(
       brute.name,
-      updateBruteData(brute, chosen.choice),
       choice,
     ).catch(catchError(Alert));
     navigate(`/${brute.name}/cell`);

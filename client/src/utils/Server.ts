@@ -33,9 +33,8 @@ const Server = {
     }>(`/api/brute/${name}/level-up-choices`),
     levelUp: (
       name: string,
-      data: Brute['data'],
       choice: number,
-    ) => Fetch<never>(`/api/brute/${name}/level-up`, { data, choice }, 'POST'),
+    ) => Fetch<never>(`/api/brute/${name}/level-up`, { choice }, 'POST'),
     getOpponents: (name: string, level: number) => Fetch<Brute[]>(`/api/brute/${name}/get-opponents/${level}`),
     sacrifice: (name: string) => Fetch<{ points: number }>(`/api/brute/${name}/sacrifice`, {}, 'GET'),
   },

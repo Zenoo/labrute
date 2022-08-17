@@ -1,5 +1,6 @@
 import createRandomBruteStats from '@eternaltwin/labrute-core/brute/createRandomBruteStats';
 import getLevelUpChoices from '@eternaltwin/labrute-core/brute/getLevelUpChoices';
+import updateBruteData from '@eternaltwin/labrute-core/brute/updateBruteData';
 import getSacriPoints from '@eternaltwin/labrute-core/brute/getSacriPoints';
 import { ARENA_OPPONENTS_COUNT, ARENA_OPPONENTS_MAX_GAP } from '@eternaltwin/labrute-core/constants';
 import {
@@ -197,17 +198,42 @@ const Brutes = {
     }
   },
   levelUp: async (
-    req: Request<{ name: string }, unknown, { data: Brute['data'], choice: number }>,
+    req: Request<{ name: string }, unknown, { choice: number }>,
     res: Response,
   ) => {
     try {
       const client = await DB.connect();
       const user = await auth(client, req);
 
+      // Get brute
+      const { rows: { 0: brute } } = await client.query<Brute>(
+        'select * from brutes where name = $1 and data ->> \'user\' = $2',
+        [req.params.name, user.id],
+      );
+
+      if (!brute) {
+        await client.end();
+        throw new Error('brute not found');
+      }
+
+      // Get destiny choice
+      const { rows: { 0: destinyChoice } } = await client.query<DestinyChoice>(
+        'select * from destiny_choices where brute = $1 and path = $2',
+        [brute.name, [...brute.destiny_path, req.body.choice]],
+      );
+
+      if (!destinyChoice) {
+        await client.end();
+        throw new Error('destiny choice not found');
+      }
+
+      // Update brute data
+      const updatedBruteData = updateBruteData(brute, destinyChoice.choice);
+
       // Update brute
       await client.query<Brute>(
         'update brutes set data = $1, destiny_path = array_append(destiny_path, $2) where name = $3 and data ->> \'user\' = $4',
-        [req.body.data, req.body.choice, req.params.name, user.id],
+        [updatedBruteData, req.body.choice, req.params.name, user.id],
       );
 
       // Add log
@@ -217,10 +243,10 @@ const Brutes = {
       );
 
       // Add log to master
-      if (req.body.data.master) {
+      if (brute.data.master) {
         await client.query(
           'insert into logs (current_brute, type, brute) values ($1, $2, $3)',
-          [req.body.data.master, 'childup', req.params.name],
+          [brute.data.master, 'childup', req.params.name],
         );
       }
 
