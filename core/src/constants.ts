@@ -15,3 +15,4 @@ export const BARE_HANDS_TEMPO = 1.2;
 
 export const MOVE_DURATION = 500;
 export const ATTACK_DURATION = 470;
+export const EVADE_DURATION = 1000;

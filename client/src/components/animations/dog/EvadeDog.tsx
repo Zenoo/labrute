@@ -7,10 +7,10 @@ export interface EvadeDogProps extends BoxProps {
 }
 
 const WIDTH = 58;
-const HEIGHT = 41;
+const HEIGHT = 61;
 const FRAMES = 2;
 const X_OFFSET = 36.8;
-const Y_OFFSET = 14.65;
+const Y_OFFSET = 34.65;
 const MARGIN = 30;
 
 const EvadeDog = ({ id, inverted, sx, ...rest }: EvadeDogProps) => (
@@ -31,6 +31,14 @@ const EvadeDog = ({ id, inverted, sx, ...rest }: EvadeDogProps) => (
             ? -MARGIN
             : -(WIDTH + MARGIN) * (FRAMES - 1) - (!inverted ? MARGIN : 0),
         }
+      },
+      '@keyframes EvadeDogJump': {
+        '50%': {
+          top: -20,
+        },
+        '100%': {
+          top: 0,
+        }
       }
     }}
     />
@@ -45,7 +53,7 @@ const EvadeDog = ({ id, inverted, sx, ...rest }: EvadeDogProps) => (
           ? -(WIDTH + MARGIN) * (FRAMES - 1) - (!inverted ? MARGIN : 0)
           : 0,
         width: (WIDTH + MARGIN) * FRAMES,
-        animation: `EvadeDog 0.10s steps(${FRAMES}, jump-none) infinite`,
+        animation: `EvadeDog 0.10s steps(${FRAMES}, jump-none) infinite, EvadeDogJump 1s forwards`,
         transform: !inverted ? 'scale(-1, 1)' : null,
       }}
     >
