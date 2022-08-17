@@ -7,10 +7,10 @@ export interface EvadeBearProps extends BoxProps {
 }
 
 const WIDTH = 131.75;
-const HEIGHT = 122.1;
+const HEIGHT = 142.1;
 const FRAMES = 1;
 const X_OFFSET = 90.8;
-const Y_OFFSET = 81.6;
+const Y_OFFSET = 101.6;
 const MARGIN = 30;
 
 const EvadeBear = ({ id, inverted, sx, ...rest }: EvadeBearProps) => (
@@ -25,11 +25,12 @@ const EvadeBear = ({ id, inverted, sx, ...rest }: EvadeBearProps) => (
     {...rest}
   >
     <GlobalStyles styles={{
-      '@keyframes DodgeBear': {
+      '@keyframes EvadeBearJump': {
+        '50%': {
+          top: -20,
+        },
         '100%': {
-          left: inverted
-            ? -MARGIN
-            : -(WIDTH + MARGIN) * (FRAMES - 1) - (inverted ? MARGIN : 0),
+          top: 0,
         }
       }
     }}
@@ -45,7 +46,7 @@ const EvadeBear = ({ id, inverted, sx, ...rest }: EvadeBearProps) => (
           ? -(WIDTH + MARGIN) * (FRAMES - 1) - (inverted ? MARGIN : 0)
           : 0,
         width: (WIDTH + MARGIN) * FRAMES,
-        animation: `DodgeBear 0.5s steps(${FRAMES}, jump-none) forwards`,
+        animation: 'EvadeBearJump 1s forwards',
         transform: inverted ? 'scale(-1, 1)' : null,
       }}
     >
