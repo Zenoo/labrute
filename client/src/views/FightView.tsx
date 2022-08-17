@@ -1,4 +1,5 @@
-import { Fight } from '@eternaltwin/labrute-core/types';
+import { Fight, PetName } from '@eternaltwin/labrute-core/types';
+import { FIGHTER_WIDTH } from '@eternaltwin/labrute-core/constants';
 import randomBetween from '@eternaltwin/labrute-core/utils/randomBetween';
 import { Box, Link, Tooltip, useMediaQuery } from '@mui/material';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
@@ -61,6 +62,8 @@ const FightView = () => {
         ? fighter.master === fight.brute_1
         : fighter.name === fight.brute_1;
 
+      const type = fighter.type === 'brute' ? 'brute' : fighter.name as PetName;
+
       return {
         name: fighter.name,
         data: fighter.data,
@@ -71,9 +74,7 @@ const FightView = () => {
         x: adjustPosition(-150, 'x', fighter),
         y: adjustPosition(150, 'y', fighter),
         animation: 'iddle',
-        width: (fighter.type === 'pet'
-          && (fighter.name === 'bear' || fighter.name === 'panther'))
-          ? 100 : 60,
+        width: FIGHTER_WIDTH[type],
         hp: fighter.hp,
         maxHp: fighter.maxHp,
         weapons: fighter.weapons,

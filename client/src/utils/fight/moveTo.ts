@@ -1,5 +1,4 @@
 import { MoveStep } from '@eternaltwin/labrute-core/types';
-
 import adjustPosition from './adjustPosition.js';
 import fightersEqual from './fightersEqual.js';
 import findFighter, { AnimationFighter } from './findFighter.js';
@@ -23,15 +22,18 @@ const moveTo = (
       return fighter;
     }
 
+    const unadjustedX = target.x - adjustPosition(0, 'x', target);
+    const unadjustedY = target.y - adjustPosition(0, 'y', target);
+
     return {
       ...fighter,
       animation: 'run',
       x: adjustPosition(
-        (500 - adjustPosition(target.x, 'x', target)) - fighter.width - target.width,
+        (500 - unadjustedX) - target.width - fighter.width,
         'x',
-        fighter,
+        fighter
       ),
-      y: adjustPosition(target.y, 'y', target),
+      y: adjustPosition(unadjustedY, 'y', fighter),
     };
   }));
 

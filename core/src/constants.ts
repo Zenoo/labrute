@@ -13,6 +13,15 @@ export const PERKS_TOTAL_ODDS = WEAPONS_TOTAL_ODDS + PETS_TOTAL_ODDS + SKILLS_TO
 export const SHIELD_BLOCK_ODDS = 0.45;
 export const BARE_HANDS_TEMPO = 1.2;
 
+export const FIGHTER_WIDTH = {
+  brute: 40,
+  bear: 70,
+  panther: 80,
+  dog1: 60,
+  dog2: 60,
+  dog3: 60,
+};
+
 export const POSITION_OFFSET = {
   bear: {
     x: 60,
@@ -35,7 +44,7 @@ export const POSITION_OFFSET = {
     y: 10,
   },
   brute: {
-    x: 20,
+    x: 15,
     y: 10,
   },
 };
