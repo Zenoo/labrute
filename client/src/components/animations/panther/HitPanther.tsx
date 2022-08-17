@@ -6,11 +6,11 @@ export interface HitPantherProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 70;
+const WIDTH = 140;
 const HEIGHT = 60;
 const FRAMES = 1;
-const X_OFFSET = 39;
-const Y_OFFSET = 27;
+const X_OFFSET = 50;
+const Y_OFFSET = 24;
 const MARGIN = 30;
 
 const HitPanther = ({ id, inverted, sx, ...rest }: HitPantherProps) => (
@@ -27,28 +27,28 @@ const HitPanther = ({ id, inverted, sx, ...rest }: HitPantherProps) => (
     <GlobalStyles styles={{
       '@keyframes StaggerPanther': {
         '0%': {
-          transform: `translateX(0) ${inverted ? ' scale(-1, 1)' : ''}`
+          transform: `translateX(0) ${!inverted ? ' scale(-1, 1)' : ''}`
         },
         '10%': {
-          transform: `translateX(-8px) ${inverted ? ' scale(-1, 1)' : ''}`
+          transform: `translateX(-8px) ${!inverted ? ' scale(-1, 1)' : ''}`
         },
         '20%': {
-          transform: `translateX(-4px) ${inverted ? ' scale(-1, 1)' : ''}`
+          transform: `translateX(-4px) ${!inverted ? ' scale(-1, 1)' : ''}`
         },
         '30%': {
-          transform: `translateX(-8px) ${inverted ? ' scale(-1, 1)' : ''}`
+          transform: `translateX(-8px) ${!inverted ? ' scale(-1, 1)' : ''}`
         },
         '40%': {
-          transform: `translateX(-4px) ${inverted ? ' scale(-1, 1)' : ''}`
+          transform: `translateX(-4px) ${!inverted ? ' scale(-1, 1)' : ''}`
         },
         '60%': {
-          transform: `translateX(-8px) ${inverted ? ' scale(-1, 1)' : ''}`
+          transform: `translateX(-8px) ${!inverted ? ' scale(-1, 1)' : ''}`
         },
         '80%': {
-          transform: `translateX(0) ${inverted ? ' scale(-1, 1)' : ''}`
+          transform: `translateX(0) ${!inverted ? ' scale(-1, 1)' : ''}`
         },
         '100%': {
-          transform: `translateX(0) ${inverted ? ' scale(-1, 1)' : ''}`
+          transform: `translateX(0) ${!inverted ? ' scale(-1, 1)' : ''}`
         }
       },
     }}
