@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.12.0](https://github.com/Zenoo/labrute/compare/v1.11.3...v1.12.0) (2022-08-17)
+
+
+### Refactoring
+
+* Adjusted pet positionsin fight to account for asset offsets. [#70](https://github.com/Zenoo/labrute/issues/70) ([66f1a9f](https://github.com/Zenoo/labrute/commit/66f1a9f4a69a85abae63ab2143487bdcae8db1d2))
+* Aligned bear animations together. [#70](https://github.com/Zenoo/labrute/issues/70) ([3c96ecf](https://github.com/Zenoo/labrute/commit/3c96ecf693cb46c48b54a191ac452b6d0db9734c))
+* Aligned dog animations together. [#70](https://github.com/Zenoo/labrute/issues/70) ([227c8bd](https://github.com/Zenoo/labrute/commit/227c8bd65a3e7dd6d931de9a59000df043453089))
+
+
+### Feature
+
+* Added stagger to fight header portraits on hit. Fixes [#82](https://github.com/Zenoo/labrute/issues/82) ([1d3ff33](https://github.com/Zenoo/labrute/commit/1d3ff33081a724cd9eac732e9a647e613a8ab923))
+* Imported panther animations. [#70](https://github.com/Zenoo/labrute/issues/70) ([4b38e4f](https://github.com/Zenoo/labrute/commit/4b38e4fb8ca9b5e36e3854a136441c2c883582a1))
+
+
+### Bug fix
+
+* Added jump to bear evade animation. [#70](https://github.com/Zenoo/labrute/issues/70) ([200470c](https://github.com/Zenoo/labrute/commit/200470c42176a7c3652b0733e930352afb6029e3))
+* Added jump to dog evade animation. [#70](https://github.com/Zenoo/labrute/issues/70) ([f68ff9c](https://github.com/Zenoo/labrute/commit/f68ff9c31cfd1508114e25e0009ead4db1df00de))
+* Added stagger animations. [#70](https://github.com/Zenoo/labrute/issues/70) ([d6b9a7d](https://github.com/Zenoo/labrute/commit/d6b9a7d0a6ac519d4f9f1fd79af4e88865f40eb2))
+* Adjusted fighters positions depending on their width. ([e30cd5d](https://github.com/Zenoo/labrute/commit/e30cd5daf4210f598ab3ab7f2ccc144e681547cd))
+* Missing noodle bowl illustration in tooltip ([7a8cd46](https://github.com/Zenoo/labrute/commit/7a8cd46dcc9e3d7d22acace1b59dba6834493dc0))
+* Move level up logic to the back to avoid client abuse ([63abbcb](https://github.com/Zenoo/labrute/commit/63abbcbbcfc1ad2d9fef6f597d9b07d5b4db94f3))
+
 ### [1.11.3](https://github.com/Zenoo/labrute/compare/v1.11.2...v1.11.3) (2022-08-17)
 
 
