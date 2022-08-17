@@ -341,7 +341,6 @@ export interface HitStep {
   target: StepFighter;
   weapon: WeaponName | SuperName | null;
   damage: number;
-  thrown?: boolean;
 }
 
 export interface HypnotiseStep {

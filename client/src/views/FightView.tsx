@@ -120,7 +120,10 @@ const FightView = () => {
           attemptHit(setFighters, step);
           break;
         }
-        case 'hit': { // TODO: Rework animation component to add staggered animation
+        case 'hit':
+        case 'hammer':
+        case 'flashFlood':
+        case 'poison': { // TODO: Rework animation component to add staggered animation
           hit(setFighters, step);
           break;
         }

@@ -308,7 +308,6 @@
   "fight.step.survive": "{{brute}} a survécu à 1PV, la chance!",
   "fight.step.hit": "{{fighter}} a infligé {{damage}} dégats à {{target}}.",
   "fight.step.hitWith": "{{fighter}} a infligé {{damage}} dégats à {{target}} avec {{weapon}}.",
-  "fight.step.hitThrow": "{{fighter}} a infligé {{damage}} dégats à {{target}} en lui jetant {{weapon}}.",
   "fight.step.hammer": "{{brute}} a infligé {{damage}} dégats à {{target}} avec une technique de catch.",
   "fight.step.flashFlood": "{{brute}} a infligé {{damage}} dégats à {{target}} en lui jetant violamment {{weapon}}.",
   "fight.step.poison": "{{brute}} a infligé {{damage}} dégats de poison à {{target}}.",

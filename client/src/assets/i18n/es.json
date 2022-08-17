@@ -309,7 +309,6 @@
   "fight.step.survive": "{{brute}} survived with 1HP, lucky!",
   "fight.step.hit": "{{fighter}} dealt {{damage}} damage to {{target}}.",
   "fight.step.hitWith": "{{fighter}} dealt {{damage}} damage to {{target}} with {{weapon}}.",
-  "fight.step.hitThrow": "{{fighter}} dealt {{damage}} damage to {{target}} by throwing {{weapon}}.",
   "fight.step.hammer": "{{brute}} dealt {{damage}} damage to {{target}} with a wrestling move.",
   "fight.step.flashFlood": "{{brute}} dealt {{damage}} damage to {{target}} by violently throwing {{weapon}}.",
   "fight.step.poison": "{{brute}} dealt {{damage}} poison damage to {{target}}.",
