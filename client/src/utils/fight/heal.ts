@@ -13,6 +13,7 @@ const heal = (
       return {
         ...fighter,
         hp: fighter.hp + step.amount,
+        animation: 'heal',
       };
     }
 

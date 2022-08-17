@@ -15,7 +15,7 @@ const death = (
 
     return {
       ...fighter,
-      animation: 'death',
+      animation: fighter.type === 'brute' ? 'lose' : 'death',
     };
   }));
 };

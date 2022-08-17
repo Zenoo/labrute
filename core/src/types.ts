@@ -377,6 +377,7 @@ export interface AttemptHitStep {
   action: 'attemptHit';
   fighter: StepFighter;
   target: StepFighter;
+  weapon: WeaponName | null;
 }
 
 export interface BlockStep {

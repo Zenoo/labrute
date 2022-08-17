@@ -33,6 +33,10 @@ import throwWeapon from '../utils/fight/throwWeapon.js';
 import trash from '../utils/fight/trash.js';
 import Server from '../utils/Server.js';
 import FightMobileView from './mobile/FightMobileView.js';
+import trap from '../utils/fight/trap.js';
+import block from '../utils/fight/block.js';
+import skillActivate from '../utils/fight/skillActivate.js';
+import end from '../utils/fight/end.js';
 
 const FightView = () => {
   const { t } = useTranslation();
@@ -127,7 +131,7 @@ const FightView = () => {
         case 'hit':
         case 'hammer':
         case 'flashFlood':
-        case 'poison': { // TODO: Rework animation component to add staggered animation
+        case 'poison': {
           hit(setFighters, step);
           break;
         }
@@ -135,7 +139,7 @@ const FightView = () => {
           death(setFighters, step);
           break;
         }
-        case 'evade': { // TODO: Rework animation component to add Y offset
+        case 'evade': {
           evade(setFighters, step);
           break;
         }
@@ -171,6 +175,22 @@ const FightView = () => {
           survive(setFighters, step);
           break;
         }
+        case 'trap': {
+          trap(setFighters, step);
+          break;
+        }
+        case 'block': {
+          block(setFighters, step);
+          break;
+        }
+        case 'skillActivate': {
+          skillActivate(setFighters, step);
+          break;
+        }
+        case 'end': {
+          end(setFighters, step);
+          break;
+        }
         default:
           break;
       }
@@ -193,9 +213,27 @@ const FightView = () => {
           timeout = window.setTimeout(triggerNextAnimation, getMoveDuration('death', step.fighter) + 1);
           break;
         case 'hit':
+        case 'hammer':
+        case 'flashFlood':
+        case 'poison':
         case 'block':
         case 'evade':
           timeout = window.setTimeout(triggerNextAnimation, getMoveDuration('hit', step.fighter) + 1);
+          break;
+        case 'throw':
+          timeout = window.setTimeout(triggerNextAnimation, getMoveDuration('throw', step.fighter) + 1);
+          break;
+        case 'heal':
+          timeout = window.setTimeout(triggerNextAnimation, getMoveDuration('heal', step.brute) + 1);
+          break;
+        case 'trap':
+          timeout = window.setTimeout(triggerNextAnimation, getMoveDuration('trapped', step.target) + 1);
+          break;
+        case 'skillActivate':
+          timeout = window.setTimeout(triggerNextAnimation, getMoveDuration('strengthen', step.brute) + 1);
+          break;
+        case 'end':
+          timeout = window.setTimeout(triggerNextAnimation, getMoveDuration('win', step.winner) + 1);
           break;
         default:
           triggerNextAnimation();

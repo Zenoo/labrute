@@ -1,19 +1,18 @@
-import { ThrowStep } from '@eternaltwin/labrute-core/types';
+import { EndStep } from '@eternaltwin/labrute-core/types';
 
 import fightersEqual from './fightersEqual.js';
 import { AnimationFighter } from './findFighter.js';
 
-const throwWeapon = (
+const end = (
   setFighters: React.Dispatch<React.SetStateAction<AnimationFighter[]>>,
-  step: ThrowStep,
+  step: EndStep,
 ) => {
-  // Remove weapon from brute
+  // Set winner animation
   setFighters((prevFighters) => prevFighters.map((fighter) => {
-    if (fightersEqual(step.fighter, fighter)) {
+    if (fightersEqual(step.winner, fighter)) {
       return {
         ...fighter,
-        weapons: fighter.weapons.filter((weapon) => weapon.name !== step.weapon),
-        animation: 'throw',
+        animation: 'win',
       };
     }
 
@@ -21,4 +20,4 @@ const throwWeapon = (
   }));
 };
 
-export default throwWeapon;
+export default end;

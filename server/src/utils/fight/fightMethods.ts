@@ -688,6 +688,7 @@ const attack = (fightData: DetailedFight['data'], fighter: DetailedFighter, oppo
     action: 'attemptHit',
     fighter: stepFighter(fighter),
     target: stepFighter(opponent),
+    weapon: fighter.activeWeapon?.name || null,
   });
 
   // Check if opponent blocked

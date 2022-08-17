@@ -1,19 +1,19 @@
-import { ThrowStep } from '@eternaltwin/labrute-core/types';
+import { TrapStep } from '@eternaltwin/labrute-core/types';
 
 import fightersEqual from './fightersEqual.js';
 import { AnimationFighter } from './findFighter.js';
 
-const throwWeapon = (
+const trap = (
   setFighters: React.Dispatch<React.SetStateAction<AnimationFighter[]>>,
-  step: ThrowStep,
+  step: TrapStep,
 ) => {
-  // Remove weapon from brute
+  // Set trapped animation on target
+  // TODO: Set trapping animation on brute
   setFighters((prevFighters) => prevFighters.map((fighter) => {
-    if (fightersEqual(step.fighter, fighter)) {
+    if (fightersEqual(step.target, fighter)) {
       return {
         ...fighter,
-        weapons: fighter.weapons.filter((weapon) => weapon.name !== step.weapon),
-        animation: 'throw',
+        animation: 'trapped',
       };
     }
 
@@ -21,4 +21,4 @@ const throwWeapon = (
   }));
 };
 
-export default throwWeapon;
+export default trap;
