@@ -623,9 +623,9 @@ const evade = (fighter: DetailedFighter, opponent: DetailedFighter, difficulty =
   if (opponent.trapped) return false;
 
   // Automatically evade if `balletShoes`
-  if (fighter.balletShoes) {
+  if (opponent.balletShoes) {
     // Disable ballet shoes
-    fighter.balletShoes = false;
+    opponent.balletShoes = false;
     return true;
   }
 
