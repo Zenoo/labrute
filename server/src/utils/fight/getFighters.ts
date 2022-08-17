@@ -30,10 +30,10 @@ const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
     fighter.counter += 0.1;
   }
 
-  // +40% counter / -2 initiative for `monk`
+  // +40% counter / +2 initiative for `monk`
   if (brute.data.skills.includes('monk')) {
     fighter.counter += 0.4;
-    fighter.initiative -= 2;
+    fighter.initiative += 2;
   }
 
   // Automatic counter on block for `counterAttack`
