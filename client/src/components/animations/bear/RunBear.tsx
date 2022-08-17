@@ -6,10 +6,10 @@ export interface RunBearProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 119.25;
+const WIDTH = 153;
 const HEIGHT = 104.95;
 const FRAMES = 9;
-const X_OFFSET = 69.3;
+const X_OFFSET = 102.3;
 const Y_OFFSET = 60.3;
 const MARGIN = 30;
 

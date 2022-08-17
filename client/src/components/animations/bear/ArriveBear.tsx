@@ -6,11 +6,11 @@ export interface ArriveBearProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 150;
-const HEIGHT = 130;
+const WIDTH = 160;
+const HEIGHT = 150;
 const FRAMES = 20;
-const X_OFFSET = 69.8;
-const Y_OFFSET = 74.6;
+const X_OFFSET = 106;
+const Y_OFFSET = 100;
 const MARGIN = 30;
 
 const ArriveBear = ({ id, inverted, sx, ...rest }: ArriveBearProps) => (

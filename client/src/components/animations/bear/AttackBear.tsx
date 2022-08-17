@@ -6,11 +6,11 @@ export interface AttackBearProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 166.25;
+const WIDTH = 190;
 const HEIGHT = 102.6;
 const FRAMES = 19;
-const X_OFFSET = 70.55;
-const Y_OFFSET = 54.4;
+const X_OFFSET = 105.55;
+const Y_OFFSET = 52.4;
 const MARGIN = 30;
 
 const AttackBear = ({ id, inverted, sx, ...rest }: AttackBearProps) => (

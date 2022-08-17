@@ -6,10 +6,10 @@ export interface EvadeBearProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 131.75;
+const WIDTH = 147;
 const HEIGHT = 142.1;
 const FRAMES = 1;
-const X_OFFSET = 90.8;
+const X_OFFSET = 106;
 const Y_OFFSET = 101.6;
 const MARGIN = 30;
 

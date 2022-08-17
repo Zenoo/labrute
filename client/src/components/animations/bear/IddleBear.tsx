@@ -9,8 +9,8 @@ export interface IddleBearProps extends BoxProps {
 const WIDTH = 150;
 const HEIGHT = 110;
 const FRAMES = 50;
-const X_OFFSET = 70;
-const Y_OFFSET = 55;
+const X_OFFSET = 106;
+const Y_OFFSET = 60;
 const MARGIN = 0;
 
 const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (

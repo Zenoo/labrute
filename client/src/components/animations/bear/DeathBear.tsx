@@ -6,11 +6,11 @@ export interface DeathBearProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 182.35;
+const WIDTH = 245;
 const HEIGHT = 107.0;
 const FRAMES = 49;
-const X_OFFSET = 51.1;
-const Y_OFFSET = 54.3;
+const X_OFFSET = 95;
+const Y_OFFSET = 57.3;
 const MARGIN = 30;
 
 const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
