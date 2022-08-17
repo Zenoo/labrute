@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.11.3](https://github.com/Zenoo/labrute/compare/v1.11.2...v1.11.3) (2022-08-17)
+
+
+### Bug fix
+
+* Ballet Shoes wasn't triggering. Fixes [#83](https://github.com/Zenoo/labrute/issues/83) ([190af68](https://github.com/Zenoo/labrute/commit/190af68e7eb1ac7f7bb1ba44bc423b1a4bdbd157))
+* Monk initiative was higher, not lower ([769fa38](https://github.com/Zenoo/labrute/commit/769fa3807e12a327e73b3716e35e844f98ae45c8))
+* Remove sacrifice points cap ([fc00cbe](https://github.com/Zenoo/labrute/commit/fc00cbe1393e826cfed54e125806fe9df602d8c9))
+
 ### [1.11.2](https://github.com/Zenoo/labrute/compare/v1.11.1...v1.11.2) (2022-08-17)
 
 
