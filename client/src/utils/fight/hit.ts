@@ -1,8 +1,8 @@
-import { MOVE_DURATION } from '@eternaltwin/labrute-core/constants';
 import { HitStep } from '@eternaltwin/labrute-core/types';
 
 import fightersEqual from './fightersEqual.js';
 import { AnimationFighter } from './findFighter.js';
+import getMoveDuration from './getMoveDuration.js';
 import iddle from './iddle.js';
 
 const hit = (
@@ -24,7 +24,7 @@ const hit = (
   }));
 
   // Return hit fighter to iddle animation
-  iddle(setFighters, step.target, MOVE_DURATION);
+  iddle(setFighters, step.target, getMoveDuration('hit', step.target));
 };
 
 export default hit;

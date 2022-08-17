@@ -26,6 +26,12 @@ const ArrivePanther = ({ id, inverted, sx, ...rest }: ArrivePantherProps) => (
   >
     <GlobalStyles styles={{
       '@keyframes ArrivePanther': {
+        // Hold first frame for 0.5s
+        '50%': {
+          left: !inverted
+            ? -(WIDTH + MARGIN) * (FRAMES - 1) - (!inverted ? MARGIN : 0)
+            : 0,
+        },
         '100%': {
           left: !inverted
             ? -MARGIN
@@ -51,7 +57,6 @@ const ArrivePanther = ({ id, inverted, sx, ...rest }: ArrivePantherProps) => (
     >
       {/* FRAME 1 */}
       <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 0}, ${Y_OFFSET})`}>
-        <use height="40.65" transform="matrix(0.0026, -0.6203, 0.8477, 0.0035, -18.5757, 19.4263)" width="21.95" xlinkHref={`#ArrivePanther-1-${id}-shape0`} />
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#ArrivePanther-1-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7642, 0.9536, -1.052, 1.5992, -8.6623, -0.5898)" width="1.75" xlinkHref={`#ArrivePanther-1-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -13.7163, -0.4642)" width="1.75" xlinkHref={`#ArrivePanther-1-${id}-sprite1`} />

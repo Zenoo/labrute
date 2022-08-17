@@ -1,9 +1,10 @@
-import { MOVE_DURATION } from '@eternaltwin/labrute-core/constants';
 import { MoveBackStep } from '@eternaltwin/labrute-core/types';
+import adjustPosition from './adjustPosition.js';
 
 import fightersEqual from './fightersEqual.js';
 import { getRandomPosition } from './fightPositions.js';
 import { AnimationFighter } from './findFighter.js';
+import getMoveDuration from './getMoveDuration.js';
 import iddle from './iddle.js';
 
 const moveBack = (
@@ -22,13 +23,13 @@ const moveBack = (
       ...fighter,
       animation: 'run',
       inverted: fighter.team === 'right',
-      x: backPosition.x,
-      y: backPosition.y,
+      x: adjustPosition(backPosition.x, 'x', fighter),
+      y: adjustPosition(backPosition.y, 'y', fighter),
     };
   }));
 
   // Return to iddle after move
-  iddle(setFighters, step.fighter, MOVE_DURATION);
+  iddle(setFighters, step.fighter, getMoveDuration('run', step.fighter));
 };
 
 export default moveBack;

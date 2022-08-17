@@ -1,4 +1,4 @@
-import { Brute, Fight, PetName } from '@eternaltwin/labrute-core/types';
+import { Brute, Fight } from '@eternaltwin/labrute-core/types';
 import { Rtt } from '@mui/icons-material';
 import { Box, BoxProps, IconButton, Tooltip } from '@mui/material';
 import { motion } from 'framer-motion';
@@ -8,6 +8,7 @@ import { AnimationFighter } from '../../utils/fight/findFighter.js';
 import translateFightStep from '../../utils/translateFightStep.js';
 import AnimatedBear from '../animations/bear/AnimatedBear.js';
 import AnimatedDog from '../animations/dog/AnimatedDog.js';
+import AnimatedPanther from '../animations/panther/AnimatedPanther.js';
 import BoxBg from '../BoxBg.js';
 import BruteComponent from '../Brute/Body/BruteComponent.js';
 import Text from '../Text.js';
@@ -94,7 +95,13 @@ const FightComponent = ({
               animation={fighter.animation}
               inverted={!fighter.inverted}
             />
-          ) : t(fighter.name as PetName)}
+          ) : (
+            <AnimatedPanther
+              id={fighter.master || ''}
+              animation={fighter.animation}
+              inverted={!fighter.inverted}
+            />
+          )}
         </motion.div>
       ))}
       {/* LOGS */}

@@ -476,5 +476,5 @@ export interface Fight {
   }
 }
 
-export type AnimationModel = 'bear' | 'dog';
+export type AnimationModel = 'bear' | 'dog' | 'panther';
 export type Animation = 'arrive' | 'attack' | 'death' | 'evade' | 'hit' | 'iddle' | 'run' | 'trapped';

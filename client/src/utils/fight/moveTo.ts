@@ -1,8 +1,9 @@
 import { MoveStep } from '@eternaltwin/labrute-core/types';
-import { MOVE_DURATION } from '@eternaltwin/labrute-core/constants';
 
+import adjustPosition from './adjustPosition.js';
 import fightersEqual from './fightersEqual.js';
 import findFighter, { AnimationFighter } from './findFighter.js';
+import getMoveDuration from './getMoveDuration.js';
 import iddle from './iddle.js';
 
 const moveTo = (
@@ -25,13 +26,17 @@ const moveTo = (
     return {
       ...fighter,
       animation: 'run',
-      x: (500 - target.x) - fighter.width - target.width,
-      y: target.y,
+      x: adjustPosition(
+        (500 - adjustPosition(target.x, 'x', target)) - fighter.width - target.width,
+        'x',
+        fighter,
+      ),
+      y: adjustPosition(target.y, 'y', target),
     };
   }));
 
   // Return to iddle after move
-  iddle(setFighters, step.fighter, MOVE_DURATION);
+  iddle(setFighters, step.fighter, getMoveDuration('run', step.fighter));
 };
 
 export default moveTo;

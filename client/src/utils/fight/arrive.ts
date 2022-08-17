@@ -1,9 +1,10 @@
-import { MOVE_DURATION } from '@eternaltwin/labrute-core/constants';
 import { ArriveStep } from '@eternaltwin/labrute-core/types';
+import adjustPosition from './adjustPosition.js';
 
 import fightersEqual from './fightersEqual.js';
 import { getRandomPosition } from './fightPositions.js';
 import { AnimationFighter } from './findFighter.js';
+import getMoveDuration from './getMoveDuration.js';
 import iddle from './iddle.js';
 
 const arrive = (
@@ -21,13 +22,13 @@ const arrive = (
     return {
       ...fighter,
       animation: 'arrive',
-      x: position.x,
-      y: position.y,
+      x: adjustPosition(position.x, 'x', fighter),
+      y: adjustPosition(position.y, 'y', fighter),
     };
   }));
 
   // Set iddle animation
-  iddle(setFighters, step.fighter, MOVE_DURATION * 2);
+  iddle(setFighters, step.fighter, getMoveDuration('arrive', step.fighter));
 };
 
 export default arrive;

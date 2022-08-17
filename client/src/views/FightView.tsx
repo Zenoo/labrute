@@ -1,4 +1,3 @@
-import { ATTACK_DURATION, MOVE_DURATION } from '@eternaltwin/labrute-core/constants';
 import { Fight } from '@eternaltwin/labrute-core/types';
 import randomBetween from '@eternaltwin/labrute-core/utils/randomBetween';
 import { Box, Link, Tooltip, useMediaQuery } from '@mui/material';
@@ -12,6 +11,7 @@ import Text from '../components/Text.js';
 import { useAlert } from '../hooks/useAlert.js';
 import advertisings from '../utils/advertisings.js';
 import catchError from '../utils/catchError.js';
+import adjustPosition from '../utils/fight/adjustPosition.js';
 import arrive from '../utils/fight/arrive.js';
 import attemptHit from '../utils/fight/attemptHit.js';
 import death from '../utils/fight/death.js';
@@ -19,6 +19,7 @@ import disarm from '../utils/fight/disarm.js';
 import eat from '../utils/fight/eat.js';
 import evade from '../utils/fight/evade.js';
 import { AnimationFighter } from '../utils/fight/findFighter.js';
+import getMoveDuration from '../utils/fight/getMoveDuration.js';
 import heal from '../utils/fight/heal.js';
 import hit from '../utils/fight/hit.js';
 import leave from '../utils/fight/leave.js';
@@ -67,10 +68,12 @@ const FightView = () => {
         type: fighter.type,
         team: isFromLeftTeam ? 'left' : 'right',
         inverted: isFromLeftTeam,
-        x: -150,
-        y: 150,
+        x: adjustPosition(-150, 'x', fighter),
+        y: adjustPosition(150, 'y', fighter),
         animation: 'iddle',
-        width: fighter.type === 'pet' && fighter.name === 'bear' ? 100 : 60,
+        width: (fighter.type === 'pet'
+          && (fighter.name === 'bear' || fighter.name === 'panther'))
+          ? 100 : 60,
         hp: fighter.hp,
         maxHp: fighter.maxHp,
         weapons: fighter.weapons,
@@ -178,16 +181,20 @@ const FightView = () => {
       // Timeout for animated actions only
       switch (step.action) {
         case 'arrive':
+          timeout = window.setTimeout(triggerNextAnimation, getMoveDuration('arrive', step.fighter) + 1);
+          break;
         case 'leave':
         case 'moveTo':
         case 'moveBack':
+          timeout = window.setTimeout(triggerNextAnimation, getMoveDuration('run', step.fighter) + 1);
+          break;
         case 'death':
-          timeout = window.setTimeout(triggerNextAnimation, MOVE_DURATION);
+          timeout = window.setTimeout(triggerNextAnimation, getMoveDuration('death', step.fighter) + 1);
           break;
         case 'hit':
         case 'block':
         case 'evade':
-          timeout = window.setTimeout(triggerNextAnimation, ATTACK_DURATION);
+          timeout = window.setTimeout(triggerNextAnimation, getMoveDuration('hit', step.fighter) + 1);
           break;
         default:
           triggerNextAnimation();

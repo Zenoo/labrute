@@ -1,7 +1,7 @@
-import { EVADE_DURATION } from '@eternaltwin/labrute-core/constants';
 import { EvadeStep } from '@eternaltwin/labrute-core/types';
 import fightersEqual from './fightersEqual.js';
 import { AnimationFighter } from './findFighter.js';
+import getMoveDuration from './getMoveDuration.js';
 import iddle from './iddle.js';
 
 const evade = (
@@ -21,7 +21,7 @@ const evade = (
   }));
 
   // Return to iddle after move
-  iddle(setFighters, step.fighter, EVADE_DURATION);
+  iddle(setFighters, step.fighter, getMoveDuration('evade', step.fighter));
 };
 
 export default evade;

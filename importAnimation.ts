@@ -108,6 +108,7 @@ ${animationFiles.map((file, index) => {
     .replace(/xlink:href="#([^"]*)"/g, `xlinkHref={\`#${componentName}-${index + 1}-\${id}-$1\`}`)
     .replace(/id="([^"]*)"/g, `id={\`${componentName}-${index + 1}-\${id}-$1\`}`)
     .replace(/fill-rule="([^"]*)"/g, 'fillRule="$1"')
+    .replace(/fill-opacity="([^"]*)"/g, 'fillOpacity="$1"')
     .replace(/stroke-linecap="([^"]*)"/g, 'strokeLinecap="$1"')
     .replace(/stroke-linejoin="([^"]*)"/g, 'strokeLinejoin="$1"')
     .replace(/stroke-opacity="([^"]*)"/g, 'strokeOpacity="$1"')
