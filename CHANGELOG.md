@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.13.0](https://github.com/Zenoo/labrute/compare/v1.12.0...v1.13.0) (2022-08-17)
+
+
+### Bug fix
+
+* Fight brute portraits stagger in the correct direction ([c111f31](https://github.com/Zenoo/labrute/commit/c111f31b64d40fae595ad979e5f3757b08a4ece6))
+
+
+### Refactoring
+
+* Exported the animation keyframes to a global constant. ([5a0c3fe](https://github.com/Zenoo/labrute/commit/5a0c3fee147cbffa517a62d8535b5c082a014143))
+
+
+### Feature
+
+* Added first male iddle animation ([f594452](https://github.com/Zenoo/labrute/commit/f594452b6afbefb3c134af4f09af415d579b7d23))
+* Imported and aligned male brute animations. [#70](https://github.com/Zenoo/labrute/issues/70) ([36dafea](https://github.com/Zenoo/labrute/commit/36dafea234f1da67db99b483e77aa723ef475827))
+* Male brute animations. [#70](https://github.com/Zenoo/labrute/issues/70) ([c7c4577](https://github.com/Zenoo/labrute/commit/c7c457776f9c9ed9a3e1239c9ba1f3bcc3393541))
+
 ## [1.12.0](https://github.com/Zenoo/labrute/compare/v1.11.3...v1.12.0) (2022-08-17)
 
 
