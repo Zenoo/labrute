@@ -1,4 +1,4 @@
-import { Box, BoxProps, GlobalStyles } from '@mui/material';
+import { Box, BoxProps } from '@mui/material';
 import React from 'react';
 
 export interface HitBearProps extends BoxProps {
@@ -24,35 +24,6 @@ const HitBear = ({ id, inverted, sx, ...rest }: HitBearProps) => (
     }}
     {...rest}
   >
-    <GlobalStyles styles={{
-      '@keyframes StaggerBear': {
-        '0%': {
-          transform: `translateX(0) ${inverted ? ' scale(-1, 1)' : ''}`
-        },
-        '10%': {
-          transform: `translateX(-8px) ${inverted ? ' scale(-1, 1)' : ''}`
-        },
-        '20%': {
-          transform: `translateX(-4px) ${inverted ? ' scale(-1, 1)' : ''}`
-        },
-        '30%': {
-          transform: `translateX(-8px) ${inverted ? ' scale(-1, 1)' : ''}`
-        },
-        '40%': {
-          transform: `translateX(-4px) ${inverted ? ' scale(-1, 1)' : ''}`
-        },
-        '60%': {
-          transform: `translateX(-8px) ${inverted ? ' scale(-1, 1)' : ''}`
-        },
-        '80%': {
-          transform: `translateX(0) ${inverted ? ' scale(-1, 1)' : ''}`
-        },
-        '100%': {
-          transform: `translateX(0) ${inverted ? ' scale(-1, 1)' : ''}`
-        }
-      },
-    }}
-    />
     <Box
       component="svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -64,8 +35,7 @@ const HitBear = ({ id, inverted, sx, ...rest }: HitBearProps) => (
           ? -(WIDTH + MARGIN) * (FRAMES - 1) - (inverted ? MARGIN : 0)
           : 0,
         width: (WIDTH + MARGIN) * FRAMES,
-        animation: 'StaggerBear 0.5s forwards',
-        transform: inverted ? 'scale(-1, 1)' : null,
+        animation: `${inverted ? 'inverted-' : ''}stagger 0.5s forwards`,
       }}
     >
       {/* FRAME 1 */}

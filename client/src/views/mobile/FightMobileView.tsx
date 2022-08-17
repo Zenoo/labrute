@@ -15,6 +15,16 @@ export interface FightMobileViewProps {
   adverts: string[];
 }
 
+const globalStyles = (
+  <GlobalStyles
+    styles={{
+      '#root': {
+        minWidth: 565,
+      }
+    }}
+  />
+);
+
 const FightMobileView = ({
   bruteName,
   fight,
@@ -31,13 +41,7 @@ const FightMobileView = ({
       headerUrl={`/${bruteName}/cell`}
       sx={{ minWidth: 565 }}
     >
-      <GlobalStyles
-        styles={{
-          '#root': {
-            minWidth: 565,
-          }
-        }}
-      />
+      {globalStyles}
       <Paper sx={{ textAlign: 'center' }}>
         {/* FIGHT */}
         <FightComponent

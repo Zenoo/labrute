@@ -1,4 +1,5 @@
-import { Box, BoxProps, GlobalStyles } from '@mui/material';
+/* eslint-disable camelcase */
+import { Box, BoxProps } from '@mui/material';
 import React from 'react';
 
 export interface ArriveDogProps extends BoxProps {
@@ -6,40 +7,24 @@ export interface ArriveDogProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 91;
-const HEIGHT = 40.25;
-const FRAMES = 5;
-const X_OFFSET = 32;
-const Y_OFFSET = 10.55;
-const MARGIN = 30;
+export const ArriveDog_WIDTH = 91;
+export const ArriveDog_HEIGHT = 40.25;
+export const ArriveDog_FRAMES = 5;
+export const ArriveDog_X_OFFSET = 32;
+export const ArriveDog_Y_OFFSET = 10.55;
+export const ArriveDog_MARGIN = 30;
 
 const ArriveDog = ({ id, inverted, sx, ...rest }: ArriveDogProps) => (
   <Box
     sx={{
       position: 'relative',
       overflow: 'hidden',
-      width: WIDTH,
-      height: HEIGHT,
+      width: ArriveDog_WIDTH,
+      height: ArriveDog_HEIGHT,
       ...sx,
     }}
     {...rest}
   >
-    <GlobalStyles styles={{
-      '@keyframes ArriveDog': {
-        // Hold first frame for 0.5s
-        '50%': {
-          left: !inverted
-            ? -(WIDTH + MARGIN) * (FRAMES - 1) - (!inverted ? MARGIN : 0)
-            : 0,
-        },
-        '100%': {
-          left: !inverted
-            ? -MARGIN
-            : -(WIDTH + MARGIN) * (FRAMES - 1) - (!inverted ? MARGIN : 0),
-        }
-      }
-    }}
-    />
     <Box
       component="svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -48,15 +33,16 @@ const ArriveDog = ({ id, inverted, sx, ...rest }: ArriveDogProps) => (
         position: 'absolute',
         top: 0,
         left: !inverted
-          ? -(WIDTH + MARGIN) * (FRAMES - 1) - (!inverted ? MARGIN : 0)
+          ? -(ArriveDog_WIDTH + ArriveDog_MARGIN) * (ArriveDog_FRAMES - 1)
+            - (!inverted ? ArriveDog_MARGIN : 0)
           : 0,
-        width: (WIDTH + MARGIN) * FRAMES,
-        animation: `ArriveDog 1s steps(${FRAMES}, jump-none) forwards`,
+        width: (ArriveDog_WIDTH + ArriveDog_MARGIN) * ArriveDog_FRAMES,
+        animation: `ArriveDog${inverted ? 'Inverted' : ''} 1s steps(${ArriveDog_FRAMES}, jump-none) forwards`,
         transform: !inverted ? 'scale(-1, 1)' : null,
       }}
     >
       {/* FRAME 1 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 0}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${ArriveDog_X_OFFSET + (ArriveDog_WIDTH + ArriveDog_MARGIN) * 0}, ${ArriveDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#ArriveDog-1-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7642, 0.9536, -1.052, 1.5992, -8.6623, -0.5898)" width="1.75" xlinkHref={`#ArriveDog-1-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -13.7163, -0.4642)" width="1.75" xlinkHref={`#ArriveDog-1-${id}-sprite1`} />
@@ -129,7 +115,7 @@ const ArriveDog = ({ id, inverted, sx, ...rest }: ArriveDogProps) => (
         </g>
       </defs>
       {/* FRAME 2 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 1}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${ArriveDog_X_OFFSET + (ArriveDog_WIDTH + ArriveDog_MARGIN) * 1}, ${ArriveDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#ArriveDog-2-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7642, 0.9536, -1.052, 1.5992, -8.6623, -0.5898)" width="1.75" xlinkHref={`#ArriveDog-2-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -13.7163, -0.4642)" width="1.75" xlinkHref={`#ArriveDog-2-${id}-sprite1`} />
@@ -202,7 +188,7 @@ const ArriveDog = ({ id, inverted, sx, ...rest }: ArriveDogProps) => (
         </g>
       </defs>
       {/* FRAME 3 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 2}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${ArriveDog_X_OFFSET + (ArriveDog_WIDTH + ArriveDog_MARGIN) * 2}, ${ArriveDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#ArriveDog-3-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7642, 0.9536, -1.052, 1.5992, -8.6623, -0.5898)" width="1.75" xlinkHref={`#ArriveDog-3-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -15.2163, -3.4642)" width="1.75" xlinkHref={`#ArriveDog-3-${id}-sprite1`} />
@@ -275,7 +261,7 @@ const ArriveDog = ({ id, inverted, sx, ...rest }: ArriveDogProps) => (
         </g>
       </defs>
       {/* FRAME 4 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 3}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${ArriveDog_X_OFFSET + (ArriveDog_WIDTH + ArriveDog_MARGIN) * 3}, ${ArriveDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#ArriveDog-4-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7642, 0.9536, -1.052, 1.5992, -8.6623, -0.5898)" width="1.75" xlinkHref={`#ArriveDog-4-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -15.2163, -3.4642)" width="1.75" xlinkHref={`#ArriveDog-4-${id}-sprite1`} />
@@ -348,7 +334,7 @@ const ArriveDog = ({ id, inverted, sx, ...rest }: ArriveDogProps) => (
         </g>
       </defs>
       {/* FRAME 5 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 4}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${ArriveDog_X_OFFSET + (ArriveDog_WIDTH + ArriveDog_MARGIN) * 4}, ${ArriveDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#ArriveDog-5-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7642, 0.9536, -1.052, 1.5992, -8.6623, -0.5898)" width="1.75" xlinkHref={`#ArriveDog-5-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -15.2163, -3.4642)" width="1.75" xlinkHref={`#ArriveDog-5-${id}-sprite1`} />

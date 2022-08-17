@@ -1,4 +1,5 @@
-import { Box, BoxProps, GlobalStyles } from '@mui/material';
+/* eslint-disable camelcase */
+import { Box, BoxProps } from '@mui/material';
 import React from 'react';
 
 export interface IddlePantherProps extends BoxProps {
@@ -6,34 +7,24 @@ export interface IddlePantherProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 200;
-const HEIGHT = 60;
-const FRAMES = 26;
-const X_OFFSET = 110;
-const Y_OFFSET = 22;
-const MARGIN = 0;
+export const IddlePanther_WIDTH = 200;
+export const IddlePanther_HEIGHT = 60;
+export const IddlePanther_FRAMES = 26;
+export const IddlePanther_X_OFFSET = 110;
+export const IddlePanther_Y_OFFSET = 22;
+export const IddlePanther_MARGIN = 0;
 
 const IddlePanther = ({ id, inverted, sx, ...rest }: IddlePantherProps) => (
   <Box
     sx={{
       position: 'relative',
       overflow: 'hidden',
-      width: WIDTH,
-      height: HEIGHT,
+      width: IddlePanther_WIDTH,
+      height: IddlePanther_HEIGHT,
       ...sx,
     }}
     {...rest}
   >
-    <GlobalStyles styles={{
-      '@keyframes IddlePanther': {
-        '100%': {
-          left: !inverted
-            ? -MARGIN
-            : -(WIDTH + MARGIN) * (FRAMES - 1) - (!inverted ? MARGIN : 0),
-        }
-      }
-    }}
-    />
     <Box
       component="svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -42,15 +33,17 @@ const IddlePanther = ({ id, inverted, sx, ...rest }: IddlePantherProps) => (
         position: 'absolute',
         top: 0,
         left: !inverted
-          ? -(WIDTH + MARGIN) * (FRAMES - 1) - (!inverted ? MARGIN : 0)
+          ? -(IddlePanther_WIDTH + IddlePanther_MARGIN)
+          * (IddlePanther_FRAMES - 1)
+          - (!inverted ? IddlePanther_MARGIN : 0)
           : 0,
-        width: (WIDTH + MARGIN) * FRAMES,
-        animation: `IddlePanther 0.65s steps(${FRAMES}, jump-none) infinite`,
+        width: (IddlePanther_WIDTH + IddlePanther_MARGIN) * IddlePanther_FRAMES,
+        animation: `IddlePanther${inverted ? 'Inverted' : ''} 0.65s steps(${IddlePanther_FRAMES}, jump-none) infinite`,
         transform: !inverted ? 'scale(-1, 1)' : null,
       }}
     >
       {/* FRAME 1 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 0}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${IddlePanther_X_OFFSET + (IddlePanther_WIDTH + IddlePanther_MARGIN) * 0}, ${IddlePanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddlePanther-1-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7642, 0.9536, -1.052, 1.5992, -8.6623, -0.5898)" width="1.75" xlinkHref={`#IddlePanther-1-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -15.2163, -3.4642)" width="1.75" xlinkHref={`#IddlePanther-1-${id}-sprite1`} />
@@ -123,7 +116,7 @@ const IddlePanther = ({ id, inverted, sx, ...rest }: IddlePantherProps) => (
         </g>
       </defs>
       {/* FRAME 2 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 1}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${IddlePanther_X_OFFSET + (IddlePanther_WIDTH + IddlePanther_MARGIN) * 1}, ${IddlePanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddlePanther-2-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7631, 0.9554, -1.0536, 1.598, -8.6566, -0.6387)" width="1.75" xlinkHref={`#IddlePanther-2-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -15.2163, -3.4642)" width="1.75" xlinkHref={`#IddlePanther-2-${id}-sprite1`} />
@@ -196,7 +189,7 @@ const IddlePanther = ({ id, inverted, sx, ...rest }: IddlePantherProps) => (
         </g>
       </defs>
       {/* FRAME 3 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 2}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${IddlePanther_X_OFFSET + (IddlePanther_WIDTH + IddlePanther_MARGIN) * 2}, ${IddlePanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddlePanther-3-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7599, 0.9613, -1.0589, 1.5944, -8.6378, -0.5862)" width="1.75" xlinkHref={`#IddlePanther-3-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -15.2163, -3.4642)" width="1.75" xlinkHref={`#IddlePanther-3-${id}-sprite1`} />
@@ -269,7 +262,7 @@ const IddlePanther = ({ id, inverted, sx, ...rest }: IddlePantherProps) => (
         </g>
       </defs>
       {/* FRAME 4 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 3}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${IddlePanther_X_OFFSET + (IddlePanther_WIDTH + IddlePanther_MARGIN) * 3}, ${IddlePanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddlePanther-4-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.754, 0.9718, -1.0685, 1.588, -8.5542, -0.5318)" width="1.75" xlinkHref={`#IddlePanther-4-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -15.2163, -3.4642)" width="1.75" xlinkHref={`#IddlePanther-4-${id}-sprite1`} />
@@ -342,7 +335,7 @@ const IddlePanther = ({ id, inverted, sx, ...rest }: IddlePantherProps) => (
         </g>
       </defs>
       {/* FRAME 5 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 4}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${IddlePanther_X_OFFSET + (IddlePanther_WIDTH + IddlePanther_MARGIN) * 4}, ${IddlePanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddlePanther-5-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7452, 0.9875, -1.0827, 1.5783, -8.4041, -0.4747)" width="1.75" xlinkHref={`#IddlePanther-5-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -15.2163, -3.4642)" width="1.75" xlinkHref={`#IddlePanther-5-${id}-sprite1`} />
@@ -415,7 +408,7 @@ const IddlePanther = ({ id, inverted, sx, ...rest }: IddlePantherProps) => (
         </g>
       </defs>
       {/* FRAME 6 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 5}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${IddlePanther_X_OFFSET + (IddlePanther_WIDTH + IddlePanther_MARGIN) * 5}, ${IddlePanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddlePanther-6-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7331, 1.0084, -1.1016, 1.565, -8.387, -0.3644)" width="1.75" xlinkHref={`#IddlePanther-6-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -15.2163, -3.4642)" width="1.75" xlinkHref={`#IddlePanther-6-${id}-sprite1`} />
@@ -488,7 +481,7 @@ const IddlePanther = ({ id, inverted, sx, ...rest }: IddlePantherProps) => (
         </g>
       </defs>
       {/* FRAME 7 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 6}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${IddlePanther_X_OFFSET + (IddlePanther_WIDTH + IddlePanther_MARGIN) * 6}, ${IddlePanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddlePanther-7-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7179, 1.034, -1.1246, 1.5485, -8.1545, -0.2508)" width="1.75" xlinkHref={`#IddlePanther-7-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -15.2163, -3.4642)" width="1.75" xlinkHref={`#IddlePanther-7-${id}-sprite1`} />
@@ -561,7 +554,7 @@ const IddlePanther = ({ id, inverted, sx, ...rest }: IddlePantherProps) => (
         </g>
       </defs>
       {/* FRAME 8 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 7}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${IddlePanther_X_OFFSET + (IddlePanther_WIDTH + IddlePanther_MARGIN) * 7}, ${IddlePanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddlePanther-8-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7003, 1.0624, -1.1502, 1.5294, -7.9622, -0.134)" width="1.75" xlinkHref={`#IddlePanther-8-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -15.2163, -3.4642)" width="1.75" xlinkHref={`#IddlePanther-8-${id}-sprite1`} />
@@ -634,7 +627,7 @@ const IddlePanther = ({ id, inverted, sx, ...rest }: IddlePantherProps) => (
         </g>
       </defs>
       {/* FRAME 9 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 8}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${IddlePanther_X_OFFSET + (IddlePanther_WIDTH + IddlePanther_MARGIN) * 8}, ${IddlePanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddlePanther-9-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6817, 1.0913, -1.1762, 1.5094, -7.8176, -0.1151)" width="1.75" xlinkHref={`#IddlePanther-9-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -15.2163, -3.4642)" width="1.75" xlinkHref={`#IddlePanther-9-${id}-sprite1`} />
@@ -707,7 +700,7 @@ const IddlePanther = ({ id, inverted, sx, ...rest }: IddlePantherProps) => (
         </g>
       </defs>
       {/* FRAME 10 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 9}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${IddlePanther_X_OFFSET + (IddlePanther_WIDTH + IddlePanther_MARGIN) * 9}, ${IddlePanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddlePanther-10-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6639, 1.1182, -1.2003, 1.4902, -7.629, 0.0543)" width="1.75" xlinkHref={`#IddlePanther-10-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -15.2163, -3.4642)" width="1.75" xlinkHref={`#IddlePanther-10-${id}-sprite1`} />
@@ -780,7 +773,7 @@ const IddlePanther = ({ id, inverted, sx, ...rest }: IddlePantherProps) => (
         </g>
       </defs>
       {/* FRAME 11 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 10}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${IddlePanther_X_OFFSET + (IddlePanther_WIDTH + IddlePanther_MARGIN) * 10}, ${IddlePanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddlePanther-11-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.648, 1.1414, -1.221, 1.4732, -7.5022, 0.072)" width="1.75" xlinkHref={`#IddlePanther-11-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -15.2163, -3.4642)" width="1.75" xlinkHref={`#IddlePanther-11-${id}-sprite1`} />
@@ -853,7 +846,7 @@ const IddlePanther = ({ id, inverted, sx, ...rest }: IddlePantherProps) => (
         </g>
       </defs>
       {/* FRAME 12 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 11}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${IddlePanther_X_OFFSET + (IddlePanther_WIDTH + IddlePanther_MARGIN) * 11}, ${IddlePanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddlePanther-12-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6347, 1.1602, -1.2378, 1.459, -7.3395, 0.2374)" width="1.75" xlinkHref={`#IddlePanther-12-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -15.2163, -3.4642)" width="1.75" xlinkHref={`#IddlePanther-12-${id}-sprite1`} />
@@ -926,7 +919,7 @@ const IddlePanther = ({ id, inverted, sx, ...rest }: IddlePantherProps) => (
         </g>
       </defs>
       {/* FRAME 13 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 12}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${IddlePanther_X_OFFSET + (IddlePanther_WIDTH + IddlePanther_MARGIN) * 12}, ${IddlePanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddlePanther-13-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6242, 1.1746, -1.2506, 1.4479, -7.291, 0.25)" width="1.75" xlinkHref={`#IddlePanther-13-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -15.2163, -3.4642)" width="1.75" xlinkHref={`#IddlePanther-13-${id}-sprite1`} />
@@ -999,7 +992,7 @@ const IddlePanther = ({ id, inverted, sx, ...rest }: IddlePantherProps) => (
         </g>
       </defs>
       {/* FRAME 14 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 13}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${IddlePanther_X_OFFSET + (IddlePanther_WIDTH + IddlePanther_MARGIN) * 13}, ${IddlePanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddlePanther-14-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6166, 1.185, -1.2599, 1.4398, -7.206, 0.3093)" width="1.75" xlinkHref={`#IddlePanther-14-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -15.2163, -3.4642)" width="1.75" xlinkHref={`#IddlePanther-14-${id}-sprite1`} />
@@ -1072,7 +1065,7 @@ const IddlePanther = ({ id, inverted, sx, ...rest }: IddlePantherProps) => (
         </g>
       </defs>
       {/* FRAME 15 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 14}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${IddlePanther_X_OFFSET + (IddlePanther_WIDTH + IddlePanther_MARGIN) * 14}, ${IddlePanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddlePanther-15-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6115, 1.1919, -1.2661, 1.4343, -7.1827, 0.3657)" width="1.75" xlinkHref={`#IddlePanther-15-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -15.2163, -3.4642)" width="1.75" xlinkHref={`#IddlePanther-15-${id}-sprite1`} />
@@ -1145,7 +1138,7 @@ const IddlePanther = ({ id, inverted, sx, ...rest }: IddlePantherProps) => (
         </g>
       </defs>
       {/* FRAME 16 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 15}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${IddlePanther_X_OFFSET + (IddlePanther_WIDTH + IddlePanther_MARGIN) * 15}, ${IddlePanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddlePanther-16-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6086, 1.1958, -1.2695, 1.4313, -7.1696, 0.3692)" width="1.75" xlinkHref={`#IddlePanther-16-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -15.2163, -3.4642)" width="1.75" xlinkHref={`#IddlePanther-16-${id}-sprite1`} />
@@ -1218,7 +1211,7 @@ const IddlePanther = ({ id, inverted, sx, ...rest }: IddlePantherProps) => (
         </g>
       </defs>
       {/* FRAME 17 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 16}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${IddlePanther_X_OFFSET + (IddlePanther_WIDTH + IddlePanther_MARGIN) * 16}, ${IddlePanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddlePanther-17-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6078, 1.1971, -1.2706, 1.4304, -7.1155, 0.32)" width="1.75" xlinkHref={`#IddlePanther-17-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -15.2163, -3.4642)" width="1.75" xlinkHref={`#IddlePanther-17-${id}-sprite1`} />
@@ -1291,7 +1284,7 @@ const IddlePanther = ({ id, inverted, sx, ...rest }: IddlePantherProps) => (
         </g>
       </defs>
       {/* FRAME 18 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 17}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${IddlePanther_X_OFFSET + (IddlePanther_WIDTH + IddlePanther_MARGIN) * 17}, ${IddlePanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddlePanther-18-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6103, 1.1935, -1.2674, 1.4331, -7.1275, 0.267)" width="1.75" xlinkHref={`#IddlePanther-18-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0448, -1.2737, 1.0217, 1.3477, -15.1658, -3.4641)" width="1.75" xlinkHref={`#IddlePanther-18-${id}-sprite1`} />
@@ -1364,7 +1357,7 @@ const IddlePanther = ({ id, inverted, sx, ...rest }: IddlePantherProps) => (
         </g>
       </defs>
       {/* FRAME 19 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 18}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${IddlePanther_X_OFFSET + (IddlePanther_WIDTH + IddlePanther_MARGIN) * 18}, ${IddlePanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddlePanther-19-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.619, 1.1814, -1.2565, 1.4426, -7.1685, 0.2061)" width="1.75" xlinkHref={`#IddlePanther-19-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0447, -1.2735, 1.0216, 1.3477, -15.1653, -3.5142)" width="1.75" xlinkHref={`#IddlePanther-19-${id}-sprite1`} />
@@ -1437,7 +1430,7 @@ const IddlePanther = ({ id, inverted, sx, ...rest }: IddlePantherProps) => (
         </g>
       </defs>
       {/* FRAME 20 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 19}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${IddlePanther_X_OFFSET + (IddlePanther_WIDTH + IddlePanther_MARGIN) * 19}, ${IddlePanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddlePanther-20-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6356, 1.1581, -1.2352, 1.4605, -7.3976, 0.086)" width="1.75" xlinkHref={`#IddlePanther-20-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0446, -1.273, 1.0213, 1.3476, -15.1645, -3.5145)" width="1.75" xlinkHref={`#IddlePanther-20-${id}-sprite1`} />
@@ -1510,7 +1503,7 @@ const IddlePanther = ({ id, inverted, sx, ...rest }: IddlePantherProps) => (
         </g>
       </defs>
       {/* FRAME 21 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 20}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${IddlePanther_X_OFFSET + (IddlePanther_WIDTH + IddlePanther_MARGIN) * 20}, ${IddlePanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddlePanther-21-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6606, 1.1212, -1.2017, 1.4878, -7.6711, -0.043)" width="1.75" xlinkHref={`#IddlePanther-21-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0444, -1.2723, 1.0209, 1.3474, -15.1128, -3.515)" width="1.75" xlinkHref={`#IddlePanther-21-${id}-sprite1`} />
@@ -1583,7 +1576,7 @@ const IddlePanther = ({ id, inverted, sx, ...rest }: IddlePantherProps) => (
         </g>
       </defs>
       {/* FRAME 22 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 21}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${IddlePanther_X_OFFSET + (IddlePanther_WIDTH + IddlePanther_MARGIN) * 21}, ${IddlePanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddlePanther-22-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6911, 1.0741, -1.1586, 1.5211, -7.9277, -0.1757)" width="1.75" xlinkHref={`#IddlePanther-22-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0441, -1.2714, 1.0202, 1.3472, -15.1108, -3.4655)" width="1.75" xlinkHref={`#IddlePanther-22-${id}-sprite1`} />
@@ -1656,7 +1649,7 @@ const IddlePanther = ({ id, inverted, sx, ...rest }: IddlePantherProps) => (
         </g>
       </defs>
       {/* FRAME 23 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 22}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${IddlePanther_X_OFFSET + (IddlePanther_WIDTH + IddlePanther_MARGIN) * 22}, ${IddlePanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddlePanther-23-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7194, 1.0276, -1.1159, 1.5522, -8.2804, -0.4031)" width="1.75" xlinkHref={`#IddlePanther-23-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0438, -1.2705, 1.0197, 1.347, -15.109, -3.466)" width="1.75" xlinkHref={`#IddlePanther-23-${id}-sprite1`} />
@@ -1729,7 +1722,7 @@ const IddlePanther = ({ id, inverted, sx, ...rest }: IddlePantherProps) => (
         </g>
       </defs>
       {/* FRAME 24 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 23}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${IddlePanther_X_OFFSET + (IddlePanther_WIDTH + IddlePanther_MARGIN) * 23}, ${IddlePanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddlePanther-24-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7399, 0.9917, -1.083, 1.575, -8.5467, -0.471)" width="1.75" xlinkHref={`#IddlePanther-24-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0437, -1.2699, 1.0193, 1.3468, -15.0576, -3.4164)" width="1.75" xlinkHref={`#IddlePanther-24-${id}-sprite1`} />
@@ -1802,7 +1795,7 @@ const IddlePanther = ({ id, inverted, sx, ...rest }: IddlePantherProps) => (
         </g>
       </defs>
       {/* FRAME 25 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 24}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${IddlePanther_X_OFFSET + (IddlePanther_WIDTH + IddlePanther_MARGIN) * 24}, ${IddlePanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddlePanther-25-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7526, 0.9689, -1.0619, 1.5891, -8.6206, -0.5311)" width="1.75" xlinkHref={`#IddlePanther-25-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0435, -1.2695, 1.019, 1.3467, -15.0567, -3.4166)" width="1.75" xlinkHref={`#IddlePanther-25-${id}-sprite1`} />
@@ -1875,7 +1868,7 @@ const IddlePanther = ({ id, inverted, sx, ...rest }: IddlePantherProps) => (
         </g>
       </defs>
       {/* FRAME 26 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 25}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${IddlePanther_X_OFFSET + (IddlePanther_WIDTH + IddlePanther_MARGIN) * 25}, ${IddlePanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddlePanther-26-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7592, 0.957, -1.0509, 1.5964, -8.709, -0.6363)" width="1.75" xlinkHref={`#IddlePanther-26-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#IddlePanther-26-${id}-sprite1`} />

@@ -1,4 +1,5 @@
-import { Box, BoxProps, GlobalStyles } from '@mui/material';
+/* eslint-disable camelcase */
+import { Box, BoxProps } from '@mui/material';
 import React from 'react';
 
 export interface ArriveBearProps extends BoxProps {
@@ -6,40 +7,24 @@ export interface ArriveBearProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 160;
-const HEIGHT = 150;
-const FRAMES = 20;
-const X_OFFSET = 106;
-const Y_OFFSET = 100;
-const MARGIN = 30;
+export const ArriveBear_WIDTH = 160;
+export const ArriveBear_HEIGHT = 150;
+export const ArriveBear_FRAMES = 20;
+export const ArriveBear_X_OFFSET = 106;
+export const ArriveBear_Y_OFFSET = 100;
+export const ArriveBear_MARGIN = 30;
 
 const ArriveBear = ({ id, inverted, sx, ...rest }: ArriveBearProps) => (
   <Box
     sx={{
       position: 'relative',
       overflow: 'hidden',
-      width: WIDTH,
-      height: HEIGHT,
+      width: ArriveBear_WIDTH,
+      height: ArriveBear_HEIGHT,
       ...sx,
     }}
     {...rest}
   >
-    <GlobalStyles styles={{
-      '@keyframes ArriveBear': {
-        // Hold first frame for 0.5s
-        '50%': {
-          left: inverted
-            ? -(WIDTH + MARGIN) * (FRAMES - 1) - (inverted ? MARGIN : 0)
-            : 0,
-        },
-        '100%': {
-          left: inverted
-            ? -MARGIN
-            : -(WIDTH + MARGIN) * (FRAMES - 1) - (inverted ? MARGIN : 0),
-        }
-      }
-    }}
-    />
     <Box
       component="svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -48,15 +33,16 @@ const ArriveBear = ({ id, inverted, sx, ...rest }: ArriveBearProps) => (
         position: 'absolute',
         top: 0,
         left: inverted
-          ? -(WIDTH + MARGIN) * (FRAMES - 1) - (inverted ? MARGIN : 0)
+          ? -(ArriveBear_WIDTH + ArriveBear_MARGIN) * (ArriveBear_FRAMES - 1)
+            - (inverted ? ArriveBear_MARGIN : 0)
           : 0,
-        width: (WIDTH + MARGIN) * FRAMES,
-        animation: `ArriveBear 1s steps(${FRAMES}, jump-none) forwards`,
+        width: (ArriveBear_WIDTH + ArriveBear_MARGIN) * ArriveBear_FRAMES,
+        animation: `ArriveBear${inverted ? 'Inverted' : ''} 1s steps(${ArriveBear_FRAMES}, jump-none) forwards`,
         transform: inverted ? 'scale(-1, 1)' : null,
       }}
     >
       {/* FRAME 1 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 0}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${ArriveBear_X_OFFSET + (ArriveBear_WIDTH + ArriveBear_MARGIN) * 0}, ${ArriveBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.6546, 0.8916, 0.8917, -0.6546, -22.359, -52.7123)" width="21.6" xlinkHref={`#ArriveBear-1-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9099, 0.182, -0.2216, 1.1075, 9.229, -1.9891)" width="34.85" xlinkHref={`#ArriveBear-1-${id}-sprite1`} />
         <use height="22.25" transform="matrix(0.0808, 1.2189, 1.2189, -0.0808, -1.5776, -26.4071)" width="15.4" xlinkHref={`#ArriveBear-1-${id}-sprite2`} />
@@ -158,7 +144,7 @@ const ArriveBear = ({ id, inverted, sx, ...rest }: ArriveBearProps) => (
         </g>
       </defs>
       {/* FRAME 2 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 1}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${ArriveBear_X_OFFSET + (ArriveBear_WIDTH + ArriveBear_MARGIN) * 1}, ${ArriveBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.5368, 0.9643, 0.9643, -0.5368, -18.5003, -50.2681)" width="21.6" xlinkHref={`#ArriveBear-2-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9183, 0.1336, -0.1626, 1.1177, 7.8096, 1.6111)" width="34.85" xlinkHref={`#ArriveBear-2-${id}-sprite1`} />
         <use height="22.25" transform="matrix(4.0E-4, 1.2216, 1.2217, -4.0E-4, -0.3677, -23.1053)" width="15.4" xlinkHref={`#ArriveBear-2-${id}-sprite2`} />
@@ -260,7 +246,7 @@ const ArriveBear = ({ id, inverted, sx, ...rest }: ArriveBearProps) => (
         </g>
       </defs>
       {/* FRAME 3 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 2}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${ArriveBear_X_OFFSET + (ArriveBear_WIDTH + ArriveBear_MARGIN) * 2}, ${ArriveBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.4145, 1.0221, 1.0222, -0.4145, -14.3526, -47.6686)" width="21.6" xlinkHref={`#ArriveBear-3-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9247, 0.0855, -0.1041, 1.1255, 6.3751, 5.1724)" width="34.85" xlinkHref={`#ArriveBear-3-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.0754, 1.2191, 1.2191, 0.0754, 0.7745, -19.7474)" width="15.4" xlinkHref={`#ArriveBear-3-${id}-sprite2`} />
@@ -362,7 +348,7 @@ const ArriveBear = ({ id, inverted, sx, ...rest }: ArriveBearProps) => (
         </g>
       </defs>
       {/* FRAME 4 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 3}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${ArriveBear_X_OFFSET + (ArriveBear_WIDTH + ArriveBear_MARGIN) * 3}, ${ArriveBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.2862, 1.0646, 1.0646, -0.2862, -9.8908, -45.0876)" width="21.6" xlinkHref={`#ArriveBear-4-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9286, 0.0372, -0.0453, 1.1302, 4.9281, 8.8078)" width="34.85" xlinkHref={`#ArriveBear-4-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.1548, 1.2114, 1.2114, 0.1549, 2.0129, -16.3618)" width="15.4" xlinkHref={`#ArriveBear-4-${id}-sprite2`} />
@@ -464,7 +450,7 @@ const ArriveBear = ({ id, inverted, sx, ...rest }: ArriveBearProps) => (
         </g>
       </defs>
       {/* FRAME 5 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 4}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${ArriveBear_X_OFFSET + (ArriveBear_WIDTH + ArriveBear_MARGIN) * 4}, ${ArriveBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.1538, 1.0911, 1.0911, -0.1538, -4.9706, -42.431)" width="21.6" xlinkHref={`#ArriveBear-5-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9299, -0.0083, 0.0101, 1.1318, 3.5946, 12.4681)" width="34.85" xlinkHref={`#ArriveBear-5-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.2336, 1.1985, 1.1985, 0.2337, 3.2641, -12.9345)" width="15.4" xlinkHref={`#ArriveBear-5-${id}-sprite2`} />
@@ -566,7 +552,7 @@ const ArriveBear = ({ id, inverted, sx, ...rest }: ArriveBearProps) => (
         </g>
       </defs>
       {/* FRAME 6 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 5}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${ArriveBear_X_OFFSET + (ArriveBear_WIDTH + ArriveBear_MARGIN) * 5}, ${ArriveBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.02, 1.1013, 1.1013, -0.02, 0.188, -39.6941)" width="21.6" xlinkHref={`#ArriveBear-6-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9288, -0.0569, 0.0693, 1.1304, 2.2751, 16.1979)" width="34.85" xlinkHref={`#ArriveBear-6-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3126, 1.1812, 1.1812, 0.3127, 4.5321, -9.4738)" width="15.4" xlinkHref={`#ArriveBear-6-${id}-sprite2`} />
@@ -668,7 +654,7 @@ const ArriveBear = ({ id, inverted, sx, ...rest }: ArriveBearProps) => (
         </g>
       </defs>
       {/* FRAME 7 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 6}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${ArriveBear_X_OFFSET + (ArriveBear_WIDTH + ArriveBear_MARGIN) * 6}, ${ArriveBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.0486, 1.1002, 1.1003, 0.0487, 0.6311, -41.9006)" width="21.6" xlinkHref={`#ArriveBear-7-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9285, -0.0568, 0.0692, 1.1301, 2.3298, 16.1983)" width="34.85" xlinkHref={`#ArriveBear-7-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3114, 1.1803, 1.1803, 0.3114, 4.3758, -9.4622)" width="15.4" xlinkHref={`#ArriveBear-7-${id}-sprite2`} />
@@ -770,7 +756,7 @@ const ArriveBear = ({ id, inverted, sx, ...rest }: ArriveBearProps) => (
         </g>
       </defs>
       {/* FRAME 8 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 7}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${ArriveBear_X_OFFSET + (ArriveBear_WIDTH + ArriveBear_MARGIN) * 7}, ${ArriveBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.1201, 1.0946, 1.0946, 0.1201, 1.1438, -44.1164)" width="21.6" xlinkHref={`#ArriveBear-8-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9285, -0.0568, 0.0692, 1.1301, 2.3304, 16.2483)" width="34.85" xlinkHref={`#ArriveBear-8-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3113, 1.1801, 1.1801, 0.3113, 4.2255, -9.4609)" width="15.4" xlinkHref={`#ArriveBear-8-${id}-sprite2`} />
@@ -872,7 +858,7 @@ const ArriveBear = ({ id, inverted, sx, ...rest }: ArriveBearProps) => (
         </g>
       </defs>
       {/* FRAME 9 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 8}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${ArriveBear_X_OFFSET + (ArriveBear_WIDTH + ArriveBear_MARGIN) * 8}, ${ArriveBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.1875, 1.0849, 1.0849, 0.1875, 1.8478, -46.263)" width="21.6" xlinkHref={`#ArriveBear-9-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9285, -0.0568, 0.0692, 1.1301, 2.3809, 16.2486)" width="34.85" xlinkHref={`#ArriveBear-9-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3112, 1.1799, 1.1799, 0.3112, 4.1256, -9.4594)" width="15.4" xlinkHref={`#ArriveBear-9-${id}-sprite2`} />
@@ -974,7 +960,7 @@ const ArriveBear = ({ id, inverted, sx, ...rest }: ArriveBearProps) => (
         </g>
       </defs>
       {/* FRAME 10 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 9}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${ArriveBear_X_OFFSET + (ArriveBear_WIDTH + ArriveBear_MARGIN) * 9}, ${ArriveBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.2577, 1.0702, 1.0702, 0.2577, 2.5281, -48.3662)" width="21.6" xlinkHref={`#ArriveBear-10-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9284, -0.0568, 0.0692, 1.13, 2.3818, 16.2491)" width="34.85" xlinkHref={`#ArriveBear-10-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3111, 1.1798, 1.1798, 0.3111, 3.9753, -9.4578)" width="15.4" xlinkHref={`#ArriveBear-10-${id}-sprite2`} />
@@ -1076,7 +1062,7 @@ const ArriveBear = ({ id, inverted, sx, ...rest }: ArriveBearProps) => (
         </g>
       </defs>
       {/* FRAME 11 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 10}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${ArriveBear_X_OFFSET + (ArriveBear_WIDTH + ArriveBear_MARGIN) * 10}, ${ArriveBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.3272, 1.052, 1.052, 0.3272, 3.372, -50.4209)" width="21.6" xlinkHref={`#ArriveBear-11-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9286, -0.0568, 0.0692, 1.1302, 2.3286, 16.1981)" width="34.85" xlinkHref={`#ArriveBear-11-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3116, 1.1805, 1.1805, 0.3116, 3.8267, -9.4651)" width="15.4" xlinkHref={`#ArriveBear-11-${id}-sprite2`} />
@@ -1178,7 +1164,7 @@ const ArriveBear = ({ id, inverted, sx, ...rest }: ArriveBearProps) => (
         </g>
       </defs>
       {/* FRAME 12 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 11}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${ArriveBear_X_OFFSET + (ArriveBear_WIDTH + ArriveBear_MARGIN) * 11}, ${ArriveBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.413, 1.0205, 1.0205, 0.413, 3.7388, -51.4203)" width="21.6" xlinkHref={`#ArriveBear-12-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9284, -0.0568, 0.0692, 1.13, 2.3311, 16.2488)" width="34.85" xlinkHref={`#ArriveBear-12-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3112, 1.1798, 1.1798, 0.3112, 3.2261, -9.4581)" width="15.4" xlinkHref={`#ArriveBear-12-${id}-sprite2`} />
@@ -1280,7 +1266,7 @@ const ArriveBear = ({ id, inverted, sx, ...rest }: ArriveBearProps) => (
         </g>
       </defs>
       {/* FRAME 13 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 12}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${ArriveBear_X_OFFSET + (ArriveBear_WIDTH + ArriveBear_MARGIN) * 12}, ${ArriveBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.4964, 0.983, 0.983, 0.4964, 4.1524, -52.313)" width="21.6" xlinkHref={`#ArriveBear-13-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9285, -0.0568, 0.0692, 1.1301, 2.3304, 16.249)" width="34.85" xlinkHref={`#ArriveBear-13-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3114, 1.18, 1.18, 0.3114, 2.6768, -9.4601)" width="15.4" xlinkHref={`#ArriveBear-13-${id}-sprite2`} />
@@ -1382,7 +1368,7 @@ const ArriveBear = ({ id, inverted, sx, ...rest }: ArriveBearProps) => (
         </g>
       </defs>
       {/* FRAME 14 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 13}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${ArriveBear_X_OFFSET + (ArriveBear_WIDTH + ArriveBear_MARGIN) * 13}, ${ArriveBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.5765, 0.9388, 0.9388, 0.5766, 4.7686, -53.0732)" width="21.6" xlinkHref={`#ArriveBear-14-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9285, -0.0569, 0.0692, 1.1301, 2.2796, 16.1989)" width="34.85" xlinkHref={`#ArriveBear-14-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3116, 1.1802, 1.1802, 0.3116, 2.0776, -9.4623)" width="15.4" xlinkHref={`#ArriveBear-14-${id}-sprite2`} />
@@ -1484,7 +1470,7 @@ const ArriveBear = ({ id, inverted, sx, ...rest }: ArriveBearProps) => (
         </g>
       </defs>
       {/* FRAME 15 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 14}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${ArriveBear_X_OFFSET + (ArriveBear_WIDTH + ArriveBear_MARGIN) * 14}, ${ArriveBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.6527, 0.888, 0.888, 0.6528, 5.4256, -53.6426)" width="21.6" xlinkHref={`#ArriveBear-15-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9286, -0.0568, 0.0692, 1.1302, 2.2789, 16.1982)" width="34.85" xlinkHref={`#ArriveBear-15-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3118, 1.1803, 1.1803, 0.3117, 1.4785, -9.4641)" width="15.4" xlinkHref={`#ArriveBear-15-${id}-sprite2`} />
@@ -1586,7 +1572,7 @@ const ArriveBear = ({ id, inverted, sx, ...rest }: ArriveBearProps) => (
         </g>
       </defs>
       {/* FRAME 16 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 15}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${ArriveBear_X_OFFSET + (ArriveBear_WIDTH + ArriveBear_MARGIN) * 15}, ${ArriveBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.7246, 0.831, 0.831, 0.7246, 6.1132, -54.1133)" width="21.6" xlinkHref={`#ArriveBear-16-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9286, -0.0569, 0.0692, 1.1302, 2.2783, 16.1982)" width="34.85" xlinkHref={`#ArriveBear-16-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3119, 1.1805, 1.1805, 0.312, 0.9293, -9.4658)" width="15.4" xlinkHref={`#ArriveBear-16-${id}-sprite2`} />
@@ -1688,7 +1674,7 @@ const ArriveBear = ({ id, inverted, sx, ...rest }: ArriveBearProps) => (
         </g>
       </defs>
       {/* FRAME 17 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 16}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${ArriveBear_X_OFFSET + (ArriveBear_WIDTH + ArriveBear_MARGIN) * 16}, ${ArriveBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.7914, 0.7684, 0.7683, 0.7915, 7.016, -54.4308)" width="21.6" xlinkHref={`#ArriveBear-17-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9286, -0.0569, 0.0692, 1.1303, 2.2773, 16.1982)" width="34.85" xlinkHref={`#ArriveBear-17-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3121, 1.1806, 1.1807, 0.3121, 0.3298, -9.4676)" width="15.4" xlinkHref={`#ArriveBear-17-${id}-sprite2`} />
@@ -1790,7 +1776,7 @@ const ArriveBear = ({ id, inverted, sx, ...rest }: ArriveBearProps) => (
         </g>
       </defs>
       {/* FRAME 18 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 17}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${ArriveBear_X_OFFSET + (ArriveBear_WIDTH + ArriveBear_MARGIN) * 17}, ${ArriveBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.853, 0.7003, 0.7003, 0.853, 7.8724, -54.5887)" width="21.6" xlinkHref={`#ArriveBear-18-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9287, -0.0569, 0.0693, 1.1303, 2.2265, 16.198)" width="34.85" xlinkHref={`#ArriveBear-18-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3123, 1.1808, 1.1808, 0.3123, -0.2694, -9.4698)" width="15.4" xlinkHref={`#ArriveBear-18-${id}-sprite2`} />
@@ -1892,7 +1878,7 @@ const ArriveBear = ({ id, inverted, sx, ...rest }: ArriveBearProps) => (
         </g>
       </defs>
       {/* FRAME 19 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 18}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${ArriveBear_X_OFFSET + (ArriveBear_WIDTH + ArriveBear_MARGIN) * 18}, ${ArriveBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9087, 0.6274, 0.6274, 0.9088, 8.7706, -54.5328)" width="21.6" xlinkHref={`#ArriveBear-19-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9287, -0.0569, 0.0693, 1.1304, 2.2258, 16.1981)" width="34.85" xlinkHref={`#ArriveBear-19-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3125, 1.181, 1.181, 0.3125, -0.8185, -9.4718)" width="15.4" xlinkHref={`#ArriveBear-19-${id}-sprite2`} />
@@ -1994,7 +1980,7 @@ const ArriveBear = ({ id, inverted, sx, ...rest }: ArriveBearProps) => (
         </g>
       </defs>
       {/* FRAME 20 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 19}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${ArriveBear_X_OFFSET + (ArriveBear_WIDTH + ArriveBear_MARGIN) * 19}, ${ArriveBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9583, 0.5533, 0.5533, 0.9583, 9.6313, -54.3923)" width="21.6" xlinkHref={`#ArriveBear-20-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.929, -0.0572, 0.0696, 1.1307, 2.2199, 16.2009)" width="34.85" xlinkHref={`#ArriveBear-20-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3165, 1.1812, 1.1812, 0.3165, -1.3883, -9.487)" width="15.4" xlinkHref={`#ArriveBear-20-${id}-sprite2`} />

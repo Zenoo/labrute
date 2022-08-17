@@ -1,4 +1,5 @@
-import { Box, BoxProps, GlobalStyles } from '@mui/material';
+/* eslint-disable camelcase */
+import { Box, BoxProps } from '@mui/material';
 import React from 'react';
 
 export interface EvadePantherProps extends BoxProps {
@@ -6,42 +7,24 @@ export interface EvadePantherProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 151;
-const HEIGHT = 80;
-const FRAMES = 2;
-const X_OFFSET = 68;
-const Y_OFFSET = 46;
-const MARGIN = 30;
+export const EvadePanther_WIDTH = 151;
+export const EvadePanther_HEIGHT = 80;
+export const EvadePanther_FRAMES = 2;
+export const EvadePanther_X_OFFSET = 68;
+export const EvadePanther_Y_OFFSET = 46;
+export const EvadePanther_MARGIN = 30;
 
 const EvadePanther = ({ id, inverted, sx, ...rest }: EvadePantherProps) => (
   <Box
     sx={{
       position: 'relative',
       overflow: 'hidden',
-      width: WIDTH,
-      height: HEIGHT,
+      width: EvadePanther_WIDTH,
+      height: EvadePanther_HEIGHT,
       ...sx,
     }}
     {...rest}
   >
-    <GlobalStyles styles={{
-      '@keyframes EvadePanther': {
-        '100%': {
-          left: !inverted
-            ? -MARGIN
-            : -(WIDTH + MARGIN) * (FRAMES - 1) - (!inverted ? MARGIN : 0),
-        }
-      },
-      '@keyframes EvadePantherJump': {
-        '50%': {
-          top: -20,
-        },
-        '100%': {
-          top: 0,
-        }
-      }
-    }}
-    />
     <Box
       component="svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -50,15 +33,17 @@ const EvadePanther = ({ id, inverted, sx, ...rest }: EvadePantherProps) => (
         position: 'absolute',
         top: 0,
         left: !inverted
-          ? -(WIDTH + MARGIN) * (FRAMES - 1) - (!inverted ? MARGIN : 0)
+          ? -(EvadePanther_WIDTH + EvadePanther_MARGIN)
+          * (EvadePanther_FRAMES - 1)
+          - (!inverted ? EvadePanther_MARGIN : 0)
           : 0,
-        width: (WIDTH + MARGIN) * FRAMES,
-        animation: `EvadePanther 0.10s steps(${FRAMES}, jump-none) infinite, EvadePantherJump 1s forwards`,
+        width: (EvadePanther_WIDTH + EvadePanther_MARGIN) * EvadePanther_FRAMES,
+        animation: `EvadePanther${inverted ? 'Inverted' : ''} 0.10s steps(${EvadePanther_FRAMES}, jump-none) infinite, jump 1s forwards`,
         transform: !inverted ? 'scale(-1, 1)' : null,
       }}
     >
       {/* FRAME 1 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 0}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${EvadePanther_X_OFFSET + (EvadePanther_WIDTH + EvadePanther_MARGIN) * 0}, ${EvadePanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(0.9583, -0.8287, 0.7512, 0.8686, -36.8165, 6.7376)" width="5.9" xlinkHref={`#EvadePanther-1-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.0604, 1.6956, -1.6997, 0.8689, -21.9515, -2.5089)" width="1.75" xlinkHref={`#EvadePanther-1-${id}-sprite1`} />
         <use height="5.75" transform="matrix(0.7387, 2.2913, -1.5544, 0.6635, -14.2988, -6.7888)" width="1.75" xlinkHref={`#EvadePanther-1-${id}-sprite1`} />
@@ -131,7 +116,7 @@ const EvadePanther = ({ id, inverted, sx, ...rest }: EvadePantherProps) => (
         </g>
       </defs>
       {/* FRAME 2 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 1}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${EvadePanther_X_OFFSET + (EvadePanther_WIDTH + EvadePanther_MARGIN) * 1}, ${EvadePanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(0.9583, -0.8287, 0.7512, 0.8686, -36.8165, 6.7376)" width="5.9" xlinkHref={`#EvadePanther-2-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.0604, 1.6956, -1.6997, 0.8689, -21.9515, -2.5089)" width="1.75" xlinkHref={`#EvadePanther-2-${id}-sprite1`} />
         <use height="5.75" transform="matrix(0.7387, 2.2913, -1.5544, 0.6635, -14.2988, -6.7888)" width="1.75" xlinkHref={`#EvadePanther-2-${id}-sprite1`} />

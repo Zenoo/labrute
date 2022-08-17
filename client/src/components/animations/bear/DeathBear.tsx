@@ -1,4 +1,5 @@
-import { Box, BoxProps, GlobalStyles } from '@mui/material';
+/* eslint-disable camelcase */
+import { Box, BoxProps } from '@mui/material';
 import React from 'react';
 
 export interface DeathBearProps extends BoxProps {
@@ -6,34 +7,24 @@ export interface DeathBearProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 245;
-const HEIGHT = 107.0;
-const FRAMES = 49;
-const X_OFFSET = 95;
-const Y_OFFSET = 57.3;
-const MARGIN = 30;
+export const DeathBear_WIDTH = 245;
+export const DeathBear_HEIGHT = 107.0;
+export const DeathBear_FRAMES = 49;
+export const DeathBear_X_OFFSET = 95;
+export const DeathBear_Y_OFFSET = 57.3;
+export const DeathBear_MARGIN = 30;
 
 const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
   <Box
     sx={{
       position: 'relative',
       overflow: 'hidden',
-      width: WIDTH,
-      height: HEIGHT,
+      width: DeathBear_WIDTH,
+      height: DeathBear_HEIGHT,
       ...sx,
     }}
     {...rest}
   >
-    <GlobalStyles styles={{
-      '@keyframes DeathBear': {
-        '100%': {
-          left: inverted
-            ? -MARGIN
-            : -(WIDTH + MARGIN) * (FRAMES - 1) - (inverted ? MARGIN : 0),
-        }
-      }
-    }}
-    />
     <Box
       component="svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -42,15 +33,17 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         position: 'absolute',
         top: 0,
         left: inverted
-          ? -(WIDTH + MARGIN) * (FRAMES - 1) - (inverted ? MARGIN : 0)
+          ? -(DeathBear_WIDTH + DeathBear_MARGIN)
+            * (DeathBear_FRAMES - 1)
+            - (inverted ? DeathBear_MARGIN : 0)
           : 0,
-        width: (WIDTH + MARGIN) * FRAMES,
-        animation: `DeathBear 1.22s steps(${FRAMES}, jump-none) forwards`,
+        width: (DeathBear_WIDTH + DeathBear_MARGIN) * DeathBear_FRAMES,
+        animation: `DeathBear${inverted ? 'Inverted' : ''} 1.22s steps(${DeathBear_FRAMES}, jump-none) forwards`,
         transform: inverted ? 'scale(-1, 1)' : null,
       }}
     >
       {/* FRAME 1 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 0}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 0}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-1.1025, 0.0752, 0.0752, 1.1026, 20.7076, -38.0782)" width="21.6" xlinkHref={`#DeathBear-1-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.929, -0.0572, 0.0696, 1.1307, 2.2199, 16.2009)" width="34.85" xlinkHref={`#DeathBear-1-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3165, 1.1812, 1.1812, 0.3165, -1.3883, -9.487)" width="15.4" xlinkHref={`#DeathBear-1-${id}-sprite2`} />
@@ -152,7 +145,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 2 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 1}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 1}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-1.1024, 0.0729, 0.0729, 1.1024, 23.6522, -38.1529)" width="21.6" xlinkHref={`#DeathBear-2-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9302, -0.0047, 0.0057, 1.1321, 1.7194, 15.2094)" width="34.85" xlinkHref={`#DeathBear-2-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.4481, 1.1357, 1.1357, 0.4482, 2.9825, -8.1911)" width="15.4" xlinkHref={`#DeathBear-2-${id}-sprite2`} />
@@ -254,7 +247,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 3 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 2}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 2}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-1.1024, 0.0728, 0.0728, 1.1024, 26.5541, -38.1514)" width="21.6" xlinkHref={`#DeathBear-3-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9286, 0.0414, -0.0503, 1.1302, 1.2113, 14.2412)" width="34.85" xlinkHref={`#DeathBear-3-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.5739, 1.0767, 1.0767, 0.5739, 7.4043, -6.9204)" width="15.4" xlinkHref={`#DeathBear-3-${id}-sprite2`} />
@@ -356,7 +349,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 4 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 3}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 3}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-1.1023, 0.0727, 0.0727, 1.1024, 29.4059, -38.1494)" width="21.6" xlinkHref={`#DeathBear-4-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9241, 0.0933, -0.1136, 1.1248, 0.8468, 13.203)" width="34.85" xlinkHref={`#DeathBear-4-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.6921, 1.0039, 1.0038, 0.6921, 11.816, -5.4176)" width="15.4" xlinkHref={`#DeathBear-4-${id}-sprite2`} />
@@ -458,7 +451,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 5 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 4}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 4}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-1.1023, 0.0726, 0.0726, 1.1023, 32.3085, -38.1472)" width="21.6" xlinkHref={`#DeathBear-5-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9173, 0.142, -0.1728, 1.1164, 0.3432, 12.1869)" width="34.85" xlinkHref={`#DeathBear-5-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.8013, 0.9182, 0.9181, 0.8013, 16.1024, -3.8344)" width="15.4" xlinkHref={`#DeathBear-5-${id}-sprite2`} />
@@ -560,7 +553,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 6 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 5}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 5}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-1.1024, 0.073, 0.073, 1.1025, 35.2004, -38.2051)" width="21.6" xlinkHref={`#DeathBear-6-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9077, 0.1937, -0.2357, 1.1048, 0.0573, 11.294)" width="34.85" xlinkHref={`#DeathBear-6-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.9018, 0.8218, 0.8218, 0.9018, 20.5085, -2.0892)" width="15.4" xlinkHref={`#DeathBear-6-${id}-sprite2`} />
@@ -662,7 +655,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 7 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 6}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 6}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-1.1023, 0.0726, 0.0726, 1.1023, 38.0585, -36.247)" width="21.6" xlinkHref={`#DeathBear-7-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.8952, 0.2409, -0.2933, 1.0896, -0.2684, 10.4942)" width="34.85" xlinkHref={`#DeathBear-7-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.9879, 0.7132, 0.7131, 0.9879, 24.7464, -0.1995)" width="15.4" xlinkHref={`#DeathBear-7-${id}-sprite2`} />
@@ -764,7 +757,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 8 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 7}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 7}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-1.1023, 0.0727, 0.0727, 1.1024, 40.9067, -34.2994)" width="21.6" xlinkHref={`#DeathBear-8-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.8799, 0.2909, -0.354, 1.0709, -0.4767, 9.6253)" width="34.85" xlinkHref={`#DeathBear-8-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-1.065, 0.5929, 0.5928, 1.065, 29.0051, 1.7607)" width="15.4" xlinkHref={`#DeathBear-8-${id}-sprite2`} />
@@ -866,7 +859,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 9 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 8}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 8}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-1.1023, 0.0728, 0.0728, 1.1024, 43.8048, -32.3008)" width="21.6" xlinkHref={`#DeathBear-9-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.8617, 0.3399, -0.4137, 1.0488, -0.6977, 8.6934)" width="34.85" xlinkHref={`#DeathBear-9-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-1.126, 0.4681, 0.4681, 1.126, 33.055, 3.811)" width="15.4" xlinkHref={`#DeathBear-9-${id}-sprite2`} />
@@ -968,7 +961,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 10 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 9}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 9}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-1.1024, 0.0729, 0.0729, 1.1024, 46.6532, -30.3532)" width="21.6" xlinkHref={`#DeathBear-10-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.8421, 0.385, -0.4686, 1.0249, -0.8771, 7.9845)" width="34.85" xlinkHref={`#DeathBear-10-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-1.1725, 0.3372, 0.3372, 1.1725, 37.2145, 6.0082)" width="15.4" xlinkHref={`#DeathBear-10-${id}-sprite2`} />
@@ -1070,7 +1063,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 11 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 10}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 10}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-1.1025, 0.0752, 0.0752, 1.1026, 49.5576, -28.3282)" width="21.6" xlinkHref={`#DeathBear-11-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.8197, 0.4324, -0.5263, 0.9978, -1.0459, 7.1615)" width="34.85" xlinkHref={`#DeathBear-11-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-1.2043, 0.2032, 0.2031, 1.2043, 41.1723, 8.2308)" width="15.4" xlinkHref={`#DeathBear-11-${id}-sprite2`} />
@@ -1172,7 +1165,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 12 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 11}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 11}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-1.1024, 0.073, 0.073, 1.1025, 49.6004, -26.6551)" width="21.6" xlinkHref={`#DeathBear-12-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.8186, 0.4318, -0.5255, 0.9964, -1.0335, 7.1798)" width="34.85" xlinkHref={`#DeathBear-12-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-1.2038, 0.202, 0.202, 1.2038, 41.2727, 8.2914)" width="15.4" xlinkHref={`#DeathBear-12-${id}-sprite2`} />
@@ -1274,7 +1267,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 13 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 12}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 12}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-1.1024, 0.073, 0.073, 1.1025, 49.6004, -24.9551)" width="21.6" xlinkHref={`#DeathBear-13-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.8186, 0.4318, -0.5255, 0.9964, -1.0335, 7.1798)" width="34.85" xlinkHref={`#DeathBear-13-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-1.2038, 0.202, 0.202, 1.2038, 41.2727, 8.2914)" width="15.4" xlinkHref={`#DeathBear-13-${id}-sprite2`} />
@@ -1376,7 +1369,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 14 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 13}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 13}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-1.1025, 0.0752, 0.0752, 1.1026, 49.5576, -23.3282)" width="21.6" xlinkHref={`#DeathBear-14-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.8197, 0.4324, -0.5263, 0.9978, -1.0459, 7.1615)" width="34.85" xlinkHref={`#DeathBear-14-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-1.2043, 0.2032, 0.2031, 1.2043, 41.1723, 8.2308)" width="15.4" xlinkHref={`#DeathBear-14-${id}-sprite2`} />
@@ -1478,7 +1471,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 15 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 14}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 14}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-1.1045, 0.0293, 0.0293, 1.1045, 51.1916, -23.7662)" width="21.6" xlinkHref={`#DeathBear-15-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.8186, 0.4318, -0.5255, 0.9964, -1.0335, 7.1798)" width="34.85" xlinkHref={`#DeathBear-15-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-1.2038, 0.202, 0.202, 1.2038, 41.2727, 8.2914)" width="15.4" xlinkHref={`#DeathBear-15-${id}-sprite2`} />
@@ -1580,7 +1573,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 16 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 15}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 15}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-1.1046, -0.0145, -0.0146, 1.1047, 52.7651, -24.1902)" width="21.6" xlinkHref={`#DeathBear-16-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.8186, 0.4318, -0.5255, 0.9964, -1.0335, 7.1798)" width="34.85" xlinkHref={`#DeathBear-16-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-1.2038, 0.202, 0.202, 1.2038, 41.2727, 8.2914)" width="15.4" xlinkHref={`#DeathBear-16-${id}-sprite2`} />
@@ -1682,7 +1675,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 17 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 16}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 16}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-1.103, -0.0599, -0.0599, 1.103, 54.352, -24.5132)" width="21.6" xlinkHref={`#DeathBear-17-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.8197, 0.4324, -0.5263, 0.9978, -1.0459, 7.1615)" width="34.85" xlinkHref={`#DeathBear-17-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-1.2043, 0.2032, 0.2031, 1.2043, 41.1723, 8.2308)" width="15.4" xlinkHref={`#DeathBear-17-${id}-sprite2`} />
@@ -1784,7 +1777,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 18 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 17}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 17}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-1.1039, -0.0348, -0.0348, 1.1039, 54.7596, -24.4769)" width="21.6" xlinkHref={`#DeathBear-18-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.8186, 0.4318, -0.5255, 0.9964, -1.0335, 7.1798)" width="34.85" xlinkHref={`#DeathBear-18-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-1.2038, 0.202, 0.202, 1.2038, 41.2727, 8.2914)" width="15.4" xlinkHref={`#DeathBear-18-${id}-sprite2`} />
@@ -1886,7 +1879,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 19 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 18}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 18}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-1.1043, -0.0148, -0.0148, 1.1044, 55.0665, -24.3818)" width="21.6" xlinkHref={`#DeathBear-19-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.8186, 0.4318, -0.5255, 0.9964, -1.0335, 7.1798)" width="34.85" xlinkHref={`#DeathBear-19-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-1.2038, 0.202, 0.202, 1.2038, 41.2727, 8.2914)" width="15.4" xlinkHref={`#DeathBear-19-${id}-sprite2`} />
@@ -1988,7 +1981,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 20 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 19}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 19}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-1.1044, 0.0052, 0.0052, 1.1044, 55.5196, -24.2786)" width="21.6" xlinkHref={`#DeathBear-20-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.8186, 0.4318, -0.5255, 0.9964, -1.0335, 7.1798)" width="34.85" xlinkHref={`#DeathBear-20-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-1.2038, 0.202, 0.202, 1.2038, 41.2727, 8.2914)" width="15.4" xlinkHref={`#DeathBear-20-${id}-sprite2`} />
@@ -2090,7 +2083,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 21 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 20}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 20}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-1.104, 0.0252, 0.0252, 1.104, 55.9178, -24.1663)" width="21.6" xlinkHref={`#DeathBear-21-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.8186, 0.4318, -0.5255, 0.9964, -1.0335, 7.1798)" width="34.85" xlinkHref={`#DeathBear-21-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-1.2038, 0.202, 0.202, 1.2038, 41.2727, 8.2914)" width="15.4" xlinkHref={`#DeathBear-21-${id}-sprite2`} />
@@ -2192,7 +2185,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 22 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 21}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 21}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-1.103, 0.0488, 0.0488, 1.103, 56.3394, -24.0283)" width="21.6" xlinkHref={`#DeathBear-22-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.8186, 0.4318, -0.5255, 0.9964, -1.0335, 7.1798)" width="34.85" xlinkHref={`#DeathBear-22-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-1.2038, 0.202, 0.202, 1.2038, 41.2727, 8.2914)" width="15.4" xlinkHref={`#DeathBear-22-${id}-sprite2`} />
@@ -2294,7 +2287,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 23 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 22}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 22}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-1.1015, 0.0723, 0.0723, 1.1016, 56.6562, -23.9302)" width="21.6" xlinkHref={`#DeathBear-23-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.8186, 0.4318, -0.5255, 0.9964, -1.0335, 7.1798)" width="34.85" xlinkHref={`#DeathBear-23-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-1.2038, 0.202, 0.202, 1.2038, 41.2727, 8.2914)" width="15.4" xlinkHref={`#DeathBear-23-${id}-sprite2`} />
@@ -2396,7 +2389,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 24 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 23}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 23}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-1.0999, 0.0922, 0.0922, 1.1, 57.0945, -23.7435)" width="21.6" xlinkHref={`#DeathBear-24-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.8186, 0.4318, -0.5255, 0.9964, -1.0335, 7.1798)" width="34.85" xlinkHref={`#DeathBear-24-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-1.2038, 0.202, 0.202, 1.2038, 41.2727, 8.2914)" width="15.4" xlinkHref={`#DeathBear-24-${id}-sprite2`} />
@@ -2498,7 +2491,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 25 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 24}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 24}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-1.0976, 0.1157, 0.1157, 1.0976, 57.4543, -23.6762)" width="21.6" xlinkHref={`#DeathBear-25-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.8186, 0.4318, -0.5255, 0.9964, -1.0335, 7.1798)" width="34.85" xlinkHref={`#DeathBear-25-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-1.2038, 0.202, 0.202, 1.2038, 41.2727, 8.2914)" width="15.4" xlinkHref={`#DeathBear-25-${id}-sprite2`} />
@@ -2600,7 +2593,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 26 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 25}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 25}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-1.0952, 0.1385, 0.1384, 1.0953, 57.8287, -23.5535)" width="21.6" xlinkHref={`#DeathBear-26-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.8197, 0.4324, -0.5263, 0.9978, -1.0459, 7.1615)" width="34.85" xlinkHref={`#DeathBear-26-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-1.2043, 0.2032, 0.2031, 1.2043, 41.1723, 8.2308)" width="15.4" xlinkHref={`#DeathBear-26-${id}-sprite2`} />
@@ -2702,7 +2695,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 27 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 26}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 26}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-1.0756, 0.2438, 0.2438, 1.0756, 60.59, -21.8939)" width="21.6" xlinkHref={`#DeathBear-27-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.6971, 0.6082, -0.7404, 0.8485, 1.3499, 5.9518)" width="34.85" xlinkHref={`#DeathBear-27-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-1.2209, -0.0172, -0.0172, 1.2209, 42.2603, 10.7203)" width="15.4" xlinkHref={`#DeathBear-27-${id}-sprite2`} />
@@ -2804,7 +2797,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 28 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 27}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 27}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-1.0465, 0.3461, 0.3461, 1.0465, 63.4182, -19.9676)" width="21.6" xlinkHref={`#DeathBear-28-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5384, 0.7523, -0.9157, 0.6554, 4.0634, 5.5336)" width="34.85" xlinkHref={`#DeathBear-28-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-1.1955, -0.2436, -0.2437, 1.1955, 43.0458, 13.3515)" width="15.4" xlinkHref={`#DeathBear-28-${id}-sprite2`} />
@@ -2906,7 +2899,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 29 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 28}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 28}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-1.0077, 0.4451, 0.4452, 1.0077, 66.2168, -17.9162)" width="21.6" xlinkHref={`#DeathBear-29-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.3511, 0.8562, -1.0422, 0.4273, 6.8611, 5.9299)" width="34.85" xlinkHref={`#DeathBear-29-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-1.13, -0.4577, -0.4578, 1.1301, 43.4806, 16.026)" width="15.4" xlinkHref={`#DeathBear-29-${id}-sprite2`} />
@@ -3008,7 +3001,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 30 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 29}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 29}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9578, 0.5432, 0.5432, 0.9579, 68.8771, -15.4845)" width="21.6" xlinkHref={`#DeathBear-30-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.1451, 0.9144, -1.113, 0.1766, 9.6405, 7.2495)" width="34.85" xlinkHref={`#DeathBear-30-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-1.0267, -0.6564, -0.6565, 1.0267, 43.6201, 18.8126)" width="15.4" xlinkHref={`#DeathBear-30-${id}-sprite2`} />
@@ -3110,7 +3103,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 31 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 30}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 30}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9005, 0.6328, 0.6328, 0.9006, 71.6321, -12.9227)" width="21.6" xlinkHref={`#DeathBear-31-${id}-sprite0`} />
         <use height="15.2" transform="matrix(-0.0656, 0.9237, -1.1243, -0.0799, 12.054, 9.3326)" width="34.85" xlinkHref={`#DeathBear-31-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.8888, -0.833, -0.833, 0.8888, 43.4178, 21.4975)" width="15.4" xlinkHref={`#DeathBear-31-${id}-sprite2`} />
@@ -3212,7 +3205,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 32 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 31}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 31}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.8349, 0.7165, 0.7165, 0.835, 74.4737, -10.1876)" width="21.6" xlinkHref={`#DeathBear-32-${id}-sprite0`} />
         <use height="15.2" transform="matrix(-0.2786, 0.8823, -1.0739, -0.3391, 14.2004, 12.2864)" width="34.85" xlinkHref={`#DeathBear-32-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.718, -0.9839, -0.9839, 0.718, 42.8229, 24.0989)" width="15.4" xlinkHref={`#DeathBear-32-${id}-sprite2`} />
@@ -3314,7 +3307,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 33 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 32}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 32}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.759, 0.796, 0.796, 0.7591, 77.1983, -7.0564)" width="21.6" xlinkHref={`#DeathBear-33-${id}-sprite0`} />
         <use height="15.2" transform="matrix(-0.4737, 0.7942, -0.9666, -0.5766, 15.6397, 15.7892)" width="34.85" xlinkHref={`#DeathBear-33-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.5258, -1.0988, -1.0988, 0.5258, 41.8896, 26.4464)" width="15.4" xlinkHref={`#DeathBear-33-${id}-sprite2`} />
@@ -3416,7 +3409,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 34 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 33}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 33}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.6798, 0.8665, 0.8665, 0.6799, 80.1677, -3.8711)" width="21.6" xlinkHref={`#DeathBear-34-${id}-sprite0`} />
         <use height="15.2" transform="matrix(-0.6444, 0.6649, -0.8093, -0.7843, 16.3645, 19.8482)" width="34.85" xlinkHref={`#DeathBear-34-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3176, -1.1773, -1.1774, 0.3176, 40.7574, 28.5699)" width="15.4" xlinkHref={`#DeathBear-34-${id}-sprite2`} />
@@ -3518,7 +3511,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 35 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 34}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 34}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.6785, 0.8653, 0.8653, 0.6785, 81.0794, -3.8326)" width="21.6" xlinkHref={`#DeathBear-35-${id}-sprite0`} />
         <use height="15.2" transform="matrix(-0.6435, 0.6637, -0.8078, -0.7832, 17.1906, 19.8112)" width="34.85" xlinkHref={`#DeathBear-35-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3161, -1.1767, -1.1767, 0.3161, 41.5938, 28.6202)" width="15.4" xlinkHref={`#DeathBear-35-${id}-sprite2`} />
@@ -3620,7 +3613,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 36 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 35}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 35}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.6785, 0.8653, 0.8653, 0.6785, 81.8794, -3.8326)" width="21.6" xlinkHref={`#DeathBear-36-${id}-sprite0`} />
         <use height="15.2" transform="matrix(-0.6435, 0.6637, -0.8078, -0.7832, 17.9906, 19.8112)" width="34.85" xlinkHref={`#DeathBear-36-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3161, -1.1767, -1.1767, 0.3161, 42.3938, 28.6202)" width="15.4" xlinkHref={`#DeathBear-36-${id}-sprite2`} />
@@ -3722,7 +3715,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 37 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 36}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 36}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.6798, 0.8665, 0.8665, 0.6799, 82.6677, -3.8711)" width="21.6" xlinkHref={`#DeathBear-37-${id}-sprite0`} />
         <use height="15.2" transform="matrix(-0.6444, 0.6649, -0.8093, -0.7843, 18.8645, 19.8482)" width="34.85" xlinkHref={`#DeathBear-37-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3176, -1.1773, -1.1774, 0.3176, 43.2574, 28.5699)" width="15.4" xlinkHref={`#DeathBear-37-${id}-sprite2`} />
@@ -3824,7 +3817,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 38 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 37}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 37}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.6785, 0.8653, 0.8653, 0.6785, 83.5294, -3.8826)" width="21.6" xlinkHref={`#DeathBear-38-${id}-sprite0`} />
         <use height="15.2" transform="matrix(-0.6435, 0.6637, -0.8078, -0.7832, 19.7406, 19.8112)" width="34.85" xlinkHref={`#DeathBear-38-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3161, -1.1767, -1.1767, 0.3161, 44.1438, 28.6202)" width="15.4" xlinkHref={`#DeathBear-38-${id}-sprite2`} />
@@ -3926,7 +3919,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 39 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 38}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 38}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.6785, 0.8653, 0.8653, 0.6785, 84.4294, -3.8826)" width="21.6" xlinkHref={`#DeathBear-39-${id}-sprite0`} />
         <use height="15.2" transform="matrix(-0.6435, 0.6637, -0.8078, -0.7832, 20.6406, 19.8112)" width="34.85" xlinkHref={`#DeathBear-39-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3161, -1.1767, -1.1767, 0.3161, 45.0438, 28.6202)" width="15.4" xlinkHref={`#DeathBear-39-${id}-sprite2`} />
@@ -4028,7 +4021,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 40 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 39}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 39}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.6785, 0.8653, 0.8653, 0.6785, 85.3294, -3.8826)" width="21.6" xlinkHref={`#DeathBear-40-${id}-sprite0`} />
         <use height="15.2" transform="matrix(-0.6435, 0.6637, -0.8078, -0.7832, 21.5406, 19.8112)" width="34.85" xlinkHref={`#DeathBear-40-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3161, -1.1767, -1.1767, 0.3161, 45.9438, 28.6202)" width="15.4" xlinkHref={`#DeathBear-40-${id}-sprite2`} />
@@ -4130,7 +4123,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 41 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 40}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 40}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.6798, 0.8665, 0.8665, 0.6799, 86.2677, -3.8711)" width="21.6" xlinkHref={`#DeathBear-41-${id}-sprite0`} />
         <use height="15.2" transform="matrix(-0.6444, 0.6649, -0.8093, -0.7843, 22.4645, 19.8482)" width="34.85" xlinkHref={`#DeathBear-41-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3176, -1.1773, -1.1774, 0.3176, 46.8574, 28.5699)" width="15.4" xlinkHref={`#DeathBear-41-${id}-sprite2`} />
@@ -4232,7 +4225,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 42 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 41}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 41}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.6785, 0.8653, 0.8653, 0.6785, 86.6794, -3.8326)" width="21.6" xlinkHref={`#DeathBear-42-${id}-sprite0`} />
         <use height="15.2" transform="matrix(-0.6435, 0.6637, -0.8078, -0.7832, 22.8906, 19.8112)" width="34.85" xlinkHref={`#DeathBear-42-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3161, -1.1767, -1.1767, 0.3161, 47.2938, 28.6202)" width="15.4" xlinkHref={`#DeathBear-42-${id}-sprite2`} />
@@ -4334,7 +4327,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 43 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 42}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 42}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.6785, 0.8653, 0.8653, 0.6785, 87.0794, -3.8326)" width="21.6" xlinkHref={`#DeathBear-43-${id}-sprite0`} />
         <use height="15.2" transform="matrix(-0.6435, 0.6637, -0.8078, -0.7832, 23.2906, 19.8112)" width="34.85" xlinkHref={`#DeathBear-43-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3161, -1.1767, -1.1767, 0.3161, 47.6938, 28.6202)" width="15.4" xlinkHref={`#DeathBear-43-${id}-sprite2`} />
@@ -4436,7 +4429,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 44 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 43}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 43}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.6785, 0.8653, 0.8653, 0.6785, 87.4794, -3.8326)" width="21.6" xlinkHref={`#DeathBear-44-${id}-sprite0`} />
         <use height="15.2" transform="matrix(-0.6435, 0.6637, -0.8078, -0.7832, 23.6906, 19.8112)" width="34.85" xlinkHref={`#DeathBear-44-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3161, -1.1767, -1.1767, 0.3161, 48.0938, 28.6202)" width="15.4" xlinkHref={`#DeathBear-44-${id}-sprite2`} />
@@ -4538,7 +4531,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 45 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 44}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 44}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.6785, 0.8653, 0.8653, 0.6785, 87.8794, -3.8326)" width="21.6" xlinkHref={`#DeathBear-45-${id}-sprite0`} />
         <use height="15.2" transform="matrix(-0.6435, 0.6637, -0.8078, -0.7832, 24.0906, 19.8112)" width="34.85" xlinkHref={`#DeathBear-45-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3161, -1.1767, -1.1767, 0.3161, 48.4938, 28.6202)" width="15.4" xlinkHref={`#DeathBear-45-${id}-sprite2`} />
@@ -4640,7 +4633,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 46 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 45}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 45}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.6785, 0.8653, 0.8653, 0.6785, 88.2794, -3.8326)" width="21.6" xlinkHref={`#DeathBear-46-${id}-sprite0`} />
         <use height="15.2" transform="matrix(-0.6435, 0.6637, -0.8078, -0.7832, 24.4906, 19.8112)" width="34.85" xlinkHref={`#DeathBear-46-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3161, -1.1767, -1.1767, 0.3161, 48.8938, 28.6202)" width="15.4" xlinkHref={`#DeathBear-46-${id}-sprite2`} />
@@ -4742,7 +4735,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 47 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 46}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 46}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.6798, 0.8665, 0.8665, 0.6799, 88.6677, -3.8711)" width="21.6" xlinkHref={`#DeathBear-47-${id}-sprite0`} />
         <use height="15.2" transform="matrix(-0.6444, 0.6649, -0.8093, -0.7843, 24.8645, 19.8482)" width="34.85" xlinkHref={`#DeathBear-47-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3176, -1.1773, -1.1774, 0.3176, 49.2574, 28.5699)" width="15.4" xlinkHref={`#DeathBear-47-${id}-sprite2`} />
@@ -4844,7 +4837,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 48 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 47}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 47}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.6798, 0.8665, 0.8665, 0.6799, 88.6677, -3.8711)" width="21.6" xlinkHref={`#DeathBear-48-${id}-sprite0`} />
         <use height="15.2" transform="matrix(-0.6444, 0.6649, -0.8093, -0.7843, 24.8645, 19.8482)" width="34.85" xlinkHref={`#DeathBear-48-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3176, -1.1773, -1.1774, 0.3176, 49.2574, 28.5699)" width="15.4" xlinkHref={`#DeathBear-48-${id}-sprite2`} />
@@ -4946,7 +4939,7 @@ const DeathBear = ({ id, inverted, sx, ...rest }: DeathBearProps) => (
         </g>
       </defs>
       {/* FRAME 49 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 48}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${DeathBear_X_OFFSET + (DeathBear_WIDTH + DeathBear_MARGIN) * 48}, ${DeathBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.6798, 0.8665, 0.8665, 0.6799, 88.6677, -3.8711)" width="21.6" xlinkHref={`#DeathBear-49-${id}-sprite0`} />
         <use height="15.2" transform="matrix(-0.6444, 0.6649, -0.8093, -0.7843, 24.8645, 19.8482)" width="34.85" xlinkHref={`#DeathBear-49-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3176, -1.1773, -1.1774, 0.3176, 49.2574, 28.5699)" width="15.4" xlinkHref={`#DeathBear-49-${id}-sprite2`} />

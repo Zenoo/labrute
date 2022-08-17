@@ -1,4 +1,5 @@
-import { Box, BoxProps, GlobalStyles } from '@mui/material';
+/* eslint-disable camelcase */
+import { Box, BoxProps } from '@mui/material';
 import React from 'react';
 
 export interface TrappedDogProps extends BoxProps {
@@ -6,34 +7,24 @@ export interface TrappedDogProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 149.8;
-const HEIGHT = 122.25;
-const FRAMES = 43;
-const X_OFFSET = 90.65;
-const Y_OFFSET = 92.15;
-const MARGIN = 30;
+export const TrappedDog_WIDTH = 149.8;
+export const TrappedDog_HEIGHT = 122.25;
+export const TrappedDog_FRAMES = 43;
+export const TrappedDog_X_OFFSET = 90.65;
+export const TrappedDog_Y_OFFSET = 92.15;
+export const TrappedDog_MARGIN = 30;
 
 const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
   <Box
     sx={{
       position: 'relative',
       overflow: 'hidden',
-      width: WIDTH,
-      height: HEIGHT,
+      width: TrappedDog_WIDTH,
+      height: TrappedDog_HEIGHT,
       ...sx,
     }}
     {...rest}
   >
-    <GlobalStyles styles={{
-      '@keyframes TrappedDog': {
-        '100%': {
-          left: !inverted
-            ? -MARGIN
-            : -(WIDTH + MARGIN) * (FRAMES - 1) - (!inverted ? MARGIN : 0),
-        }
-      }
-    }}
-    />
     <Box
       component="svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -42,15 +33,16 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         position: 'absolute',
         top: 0,
         left: !inverted
-          ? -(WIDTH + MARGIN) * (FRAMES - 1) - (!inverted ? MARGIN : 0)
+          ? -(TrappedDog_WIDTH + TrappedDog_MARGIN) * (TrappedDog_FRAMES - 1)
+            - (!inverted ? TrappedDog_MARGIN : 0)
           : 0,
-        width: (WIDTH + MARGIN) * FRAMES,
-        animation: `TrappedDog 1.07s steps(${FRAMES}, jump-none) forwards`,
+        width: (TrappedDog_WIDTH + TrappedDog_MARGIN) * TrappedDog_FRAMES,
+        animation: `TrappedDog${inverted ? 'Inverted' : ''} 1.07s steps(${TrappedDog_FRAMES}, jump-none) forwards`,
         transform: !inverted ? 'scale(-1, 1)' : null,
       }}
     >
       {/* FRAME 1 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 0}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 0}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-1-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7642, 0.9536, -1.052, 1.5992, -8.6623, -0.5898)" width="1.75" xlinkHref={`#TrappedDog-1-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -15.2163, -3.4642)" width="1.75" xlinkHref={`#TrappedDog-1-${id}-sprite1`} />
@@ -130,7 +122,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 2 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 1}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 1}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-2-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7626, 0.9507, -1.0506, 1.5966, -8.6642, -0.5792)" width="1.75" xlinkHref={`#TrappedDog-2-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#TrappedDog-2-${id}-sprite1`} />
@@ -210,7 +202,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 3 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 2}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 2}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-3-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7586, 0.958, -1.0571, 1.5923, -8.6413, -0.5762)" width="1.75" xlinkHref={`#TrappedDog-3-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#TrappedDog-3-${id}-sprite1`} />
@@ -290,7 +282,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 4 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 3}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 3}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-4-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.754, 0.9664, -1.0647, 1.5871, -8.5645, -0.5725)" width="1.75" xlinkHref={`#TrappedDog-4-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#TrappedDog-4-${id}-sprite1`} />
@@ -370,7 +362,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 5 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 4}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 4}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-5-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.742, 0.9875, -1.0786, 1.5776, -8.5114, -0.5228)" width="1.75" xlinkHref={`#TrappedDog-5-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#TrappedDog-5-${id}-sprite1`} />
@@ -450,7 +442,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 6 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 5}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 5}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-6-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7324, 1.0041, -1.0988, 1.5635, -8.3439, -0.4048)" width="1.75" xlinkHref={`#TrappedDog-6-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#TrappedDog-6-${id}-sprite1`} />
@@ -530,7 +522,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 7 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 6}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 6}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-7-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7151, 1.0331, -1.1198, 1.5484, -8.1144, -0.2994)" width="1.75" xlinkHref={`#TrappedDog-7-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#TrappedDog-7-${id}-sprite1`} />
@@ -610,7 +602,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 8 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 7}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 7}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-8-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7003, 1.0569, -1.1463, 1.5287, -7.923, -0.125)" width="1.75" xlinkHref={`#TrappedDog-8-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#TrappedDog-8-${id}-sprite1`} />
@@ -690,7 +682,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 9 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 8}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 8}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-9-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6815, 1.0863, -1.1727, 1.5083, -7.8269, -0.1558)" width="1.75" xlinkHref={`#TrappedDog-9-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#TrappedDog-9-${id}-sprite1`} />
@@ -770,7 +762,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 10 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 9}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 9}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-10-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6625, 1.1149, -1.1983, 1.4879, -7.6826, 0.0147)" width="1.75" xlinkHref={`#TrappedDog-10-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#TrappedDog-10-${id}-sprite1`} />
@@ -850,7 +842,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 11 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 10}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 10}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-11-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6473, 1.1369, -1.2181, 1.4716, -7.5593, 0.0818)" width="1.75" xlinkHref={`#TrappedDog-11-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#TrappedDog-11-${id}-sprite1`} />
@@ -930,7 +922,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 12 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 11}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 11}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-12-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6326, 1.1578, -1.2367, 1.4559, -7.29, 0.1989)" width="1.75" xlinkHref={`#TrappedDog-12-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#TrappedDog-12-${id}-sprite1`} />
@@ -1010,7 +1002,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 13 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 12}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 12}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-13-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6224, 1.1721, -1.2494, 1.445, -7.2421, 0.3111)" width="1.75" xlinkHref={`#TrappedDog-13-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#TrappedDog-13-${id}-sprite1`} />
@@ -1090,7 +1082,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 14 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 13}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 13}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-14-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6166, 1.1799, -1.2564, 1.4388, -7.1655, 0.2684)" width="1.75" xlinkHref={`#TrappedDog-14-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#TrappedDog-14-${id}-sprite1`} />
@@ -1170,7 +1162,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 15 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 14}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 14}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-15-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6114, 1.187, -1.2626, 1.4333, -7.1419, 0.3748)" width="1.75" xlinkHref={`#TrappedDog-15-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#TrappedDog-15-${id}-sprite1`} />
@@ -1250,7 +1242,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 16 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 15}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 15}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-16-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6067, 1.1931, -1.2682, 1.4284, -7.1207, 0.3305)" width="1.75" xlinkHref={`#TrappedDog-16-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#TrappedDog-16-${id}-sprite1`} />
@@ -1330,7 +1322,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 17 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 16}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 16}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-17-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6078, 1.1971, -1.2706, 1.4304, -7.1155, 0.32)" width="1.75" xlinkHref={`#TrappedDog-17-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -15.2163, -3.4642)" width="1.75" xlinkHref={`#TrappedDog-17-${id}-sprite1`} />
@@ -1410,7 +1402,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 18 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 17}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 17}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-18-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.607, 1.1927, -1.2678, 1.4287, -7.1222, 0.2802)" width="1.75" xlinkHref={`#TrappedDog-18-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0435, -1.2693, 1.0189, 1.3467, -15.1063, -3.4167)" width="1.75" xlinkHref={`#TrappedDog-18-${id}-sprite1`} />
@@ -1490,7 +1482,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 19 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 18}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 18}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-19-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6165, 1.1798, -1.2562, 1.4389, -7.216, 0.2684)" width="1.75" xlinkHref={`#TrappedDog-19-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0435, -1.2692, 1.0188, 1.3466, -15.106, -3.4167)" width="1.75" xlinkHref={`#TrappedDog-19-${id}-sprite1`} />
@@ -1570,7 +1562,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 20 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 19}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 19}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-20-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6273, 1.1645, -1.2425, 1.4505, -7.3173, 0.1555)" width="1.75" xlinkHref={`#TrappedDog-20-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0432, -1.269, 1.0186, 1.3465, -15.1053, -3.4165)" width="1.75" xlinkHref={`#TrappedDog-20-${id}-sprite1`} />
@@ -1650,7 +1642,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 21 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 20}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 20}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-21-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6474, 1.1357, -1.2118, 1.4759, -7.5267, 0.0216)" width="1.75" xlinkHref={`#TrappedDog-21-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0429, -1.2686, 1.0184, 1.3462, -15.1041, -3.4663)" width="1.75" xlinkHref={`#TrappedDog-21-${id}-sprite1`} />
@@ -1730,7 +1722,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 22 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 21}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 21}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-22-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6757, 1.093, -1.1783, 1.5025, -7.8043, -0.0981)" width="1.75" xlinkHref={`#TrappedDog-22-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0425, -1.2682, 1.0181, 1.3459, -15.1028, -3.466)" width="1.75" xlinkHref={`#TrappedDog-22-${id}-sprite1`} />
@@ -1810,7 +1802,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 23 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 22}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 22}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-23-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7, 1.0543, -1.1382, 1.5326, -8.0949, -0.3325)" width="1.75" xlinkHref={`#TrappedDog-23-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.042, -1.2678, 1.0177, 1.3456, -15.1012, -3.4155)" width="1.75" xlinkHref={`#TrappedDog-23-${id}-sprite1`} />
@@ -1890,7 +1882,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 24 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 23}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 23}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-24-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.726, 1.0107, -1.1037, 1.5573, -8.2723, -0.3958)" width="1.75" xlinkHref={`#TrappedDog-24-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0416, -1.2673, 1.0174, 1.3453, -15.0499, -3.4154)" width="1.75" xlinkHref={`#TrappedDog-24-${id}-sprite1`} />
@@ -1970,7 +1962,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 25 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 24}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 24}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-25-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7399, 0.9863, -1.0763, 1.5761, -8.515, -0.5171)" width="1.75" xlinkHref={`#TrappedDog-25-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0412, -1.267, 1.0172, 1.3451, -14.9988, -3.4151)" width="1.75" xlinkHref={`#TrappedDog-25-${id}-sprite1`} />
@@ -2050,7 +2042,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 26 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 25}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 25}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-26-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.752, 0.9642, -1.0563, 1.5894, -8.6351, -0.5762)" width="1.75" xlinkHref={`#TrappedDog-26-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.041, -1.2669, 1.017, 1.3449, -14.9981, -3.4149)" width="1.75" xlinkHref={`#TrappedDog-26-${id}-sprite1`} />
@@ -2130,7 +2122,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 27 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 26}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 26}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-27-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7592, 0.957, -1.0509, 1.5964, -8.709, -0.6363)" width="1.75" xlinkHref={`#TrappedDog-27-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#TrappedDog-27-${id}-sprite1`} />
@@ -2210,7 +2202,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 28 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 27}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 27}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -17.6513, 8.4675)" width="5.9" xlinkHref={`#TrappedDog-28-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7565, 0.9559, -1.0486, 1.5943, -8.2619, -0.4294)" width="1.75" xlinkHref={`#TrappedDog-28-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.041, -1.2668, 1.017, 1.3448, -15.1978, -3.4148)" width="1.75" xlinkHref={`#TrappedDog-28-${id}-sprite1`} />
@@ -2290,7 +2282,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 29 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 28}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 28}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -17.1013, 8.5675)" width="5.9" xlinkHref={`#TrappedDog-29-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7565, 0.9559, -1.0486, 1.5943, -8.0619, -0.3294)" width="1.75" xlinkHref={`#TrappedDog-29-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.041, -1.2668, 1.017, 1.3448, -15.1978, -3.4148)" width="1.75" xlinkHref={`#TrappedDog-29-${id}-sprite1`} />
@@ -2370,7 +2362,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 30 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 29}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 29}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -16.9513, 8.6175)" width="5.9" xlinkHref={`#TrappedDog-30-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7592, 0.957, -1.0509, 1.5964, -8.109, -0.2863)" width="1.75" xlinkHref={`#TrappedDog-30-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#TrappedDog-30-${id}-sprite1`} />
@@ -2450,7 +2442,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 31 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 30}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 30}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -17.7013, 8.4175)" width="5.9" xlinkHref={`#TrappedDog-31-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7565, 0.9559, -1.0486, 1.5943, -8.3119, -0.4794)" width="1.75" xlinkHref={`#TrappedDog-31-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.041, -1.2668, 1.017, 1.3448, -15.1978, -3.4148)" width="1.75" xlinkHref={`#TrappedDog-31-${id}-sprite1`} />
@@ -2530,7 +2522,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 32 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 31}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 31}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-32-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7592, 0.957, -1.0509, 1.5964, -8.709, -0.6363)" width="1.75" xlinkHref={`#TrappedDog-32-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#TrappedDog-32-${id}-sprite1`} />
@@ -2610,7 +2602,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 33 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 32}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 32}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-33-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7565, 0.9559, -1.0486, 1.5943, -8.6119, -0.6294)" width="1.75" xlinkHref={`#TrappedDog-33-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.041, -1.2668, 1.017, 1.3448, -15.1978, -3.4148)" width="1.75" xlinkHref={`#TrappedDog-33-${id}-sprite1`} />
@@ -2690,7 +2682,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 34 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 33}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 33}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-34-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7565, 0.9559, -1.0486, 1.5943, -8.6119, -0.6294)" width="1.75" xlinkHref={`#TrappedDog-34-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.041, -1.2668, 1.017, 1.3448, -15.1978, -3.4148)" width="1.75" xlinkHref={`#TrappedDog-34-${id}-sprite1`} />
@@ -2770,7 +2762,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 35 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 34}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 34}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-35-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7565, 0.9559, -1.0486, 1.5943, -8.6119, -0.6294)" width="1.75" xlinkHref={`#TrappedDog-35-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.041, -1.2668, 1.017, 1.3448, -15.1978, -3.4148)" width="1.75" xlinkHref={`#TrappedDog-35-${id}-sprite1`} />
@@ -2850,7 +2842,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 36 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 35}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 35}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-36-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7565, 0.9559, -1.0486, 1.5943, -8.6119, -0.6294)" width="1.75" xlinkHref={`#TrappedDog-36-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.041, -1.2668, 1.017, 1.3448, -15.1978, -3.4148)" width="1.75" xlinkHref={`#TrappedDog-36-${id}-sprite1`} />
@@ -2930,7 +2922,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 37 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 36}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 36}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-37-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7565, 0.9559, -1.0486, 1.5943, -8.6119, -0.6294)" width="1.75" xlinkHref={`#TrappedDog-37-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.041, -1.2668, 1.017, 1.3448, -15.1978, -3.4148)" width="1.75" xlinkHref={`#TrappedDog-37-${id}-sprite1`} />
@@ -3010,7 +3002,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 38 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 37}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 37}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-38-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7592, 0.957, -1.0509, 1.5964, -8.709, -0.6363)" width="1.75" xlinkHref={`#TrappedDog-38-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#TrappedDog-38-${id}-sprite1`} />
@@ -3090,7 +3082,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 39 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 38}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 38}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -17.6513, 8.4675)" width="5.9" xlinkHref={`#TrappedDog-39-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7565, 0.9559, -1.0486, 1.5943, -8.2619, -0.4294)" width="1.75" xlinkHref={`#TrappedDog-39-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.041, -1.2668, 1.017, 1.3448, -15.1978, -3.4148)" width="1.75" xlinkHref={`#TrappedDog-39-${id}-sprite1`} />
@@ -3170,7 +3162,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 40 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 39}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 39}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -17.1013, 8.5675)" width="5.9" xlinkHref={`#TrappedDog-40-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7565, 0.9559, -1.0486, 1.5943, -8.0619, -0.3294)" width="1.75" xlinkHref={`#TrappedDog-40-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.041, -1.2668, 1.017, 1.3448, -15.1978, -3.4148)" width="1.75" xlinkHref={`#TrappedDog-40-${id}-sprite1`} />
@@ -3250,7 +3242,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 41 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 40}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 40}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -16.9513, 8.6175)" width="5.9" xlinkHref={`#TrappedDog-41-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7592, 0.957, -1.0509, 1.5964, -8.109, -0.2863)" width="1.75" xlinkHref={`#TrappedDog-41-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#TrappedDog-41-${id}-sprite1`} />
@@ -3330,7 +3322,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 42 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 41}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 41}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -17.7013, 8.4175)" width="5.9" xlinkHref={`#TrappedDog-42-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7565, 0.9559, -1.0486, 1.5943, -8.3119, -0.4794)" width="1.75" xlinkHref={`#TrappedDog-42-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.041, -1.2668, 1.017, 1.3448, -15.1978, -3.4148)" width="1.75" xlinkHref={`#TrappedDog-42-${id}-sprite1`} />
@@ -3410,7 +3402,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
         </g>
       </defs>
       {/* FRAME 43 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 42}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedDog_X_OFFSET + (TrappedDog_WIDTH + TrappedDog_MARGIN) * 42}, ${TrappedDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#TrappedDog-43-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7592, 0.957, -1.0509, 1.5964, -8.709, -0.6363)" width="1.75" xlinkHref={`#TrappedDog-43-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#TrappedDog-43-${id}-sprite1`} />

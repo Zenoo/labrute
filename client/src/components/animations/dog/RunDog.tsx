@@ -1,4 +1,5 @@
-import { Box, BoxProps, GlobalStyles } from '@mui/material';
+/* eslint-disable camelcase */
+import { Box, BoxProps } from '@mui/material';
 import React from 'react';
 
 export interface RunDogProps extends BoxProps {
@@ -6,34 +7,24 @@ export interface RunDogProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 105;
-const HEIGHT = 51;
-const FRAMES = 7;
-const X_OFFSET = 49;
-const Y_OFFSET = 20.65;
-const MARGIN = 30;
+export const RunDog_WIDTH = 105;
+export const RunDog_HEIGHT = 51;
+export const RunDog_FRAMES = 7;
+export const RunDog_X_OFFSET = 49;
+export const RunDog_Y_OFFSET = 20.65;
+export const RunDog_MARGIN = 30;
 
 const RunDog = ({ id, inverted, sx, ...rest }: RunDogProps) => (
   <Box
     sx={{
       position: 'relative',
       overflow: 'hidden',
-      width: WIDTH,
-      height: HEIGHT,
+      width: RunDog_WIDTH,
+      height: RunDog_HEIGHT,
       ...sx,
     }}
     {...rest}
   >
-    <GlobalStyles styles={{
-      '@keyframes RunDog': {
-        '100%': {
-          left: !inverted
-            ? -MARGIN
-            : -(WIDTH + MARGIN) * (FRAMES - 1) - (!inverted ? MARGIN : 0),
-        }
-      }
-    }}
-    />
     <Box
       component="svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -42,15 +33,16 @@ const RunDog = ({ id, inverted, sx, ...rest }: RunDogProps) => (
         position: 'absolute',
         top: 0,
         left: !inverted
-          ? -(WIDTH + MARGIN) * (FRAMES - 1) - (!inverted ? MARGIN : 0)
+          ? -(RunDog_WIDTH + RunDog_MARGIN) * (RunDog_FRAMES - 1)
+            - (!inverted ? RunDog_MARGIN : 0)
           : 0,
-        width: (WIDTH + MARGIN) * FRAMES,
-        animation: `RunDog 0.17s steps(${FRAMES}, jump-none) infinite`,
+        width: (RunDog_WIDTH + RunDog_MARGIN) * RunDog_FRAMES,
+        animation: `RunDog${inverted ? 'Inverted' : ''} 0.17s steps(${RunDog_FRAMES}, jump-none) infinite`,
         transform: !inverted ? 'scale(-1, 1)' : null,
       }}
     >
       {/* FRAME 1 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 0}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${RunDog_X_OFFSET + (RunDog_WIDTH + RunDog_MARGIN) * 0}, ${RunDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(0.9583, -0.8287, 0.7512, 0.8686, -44.3165, 0.7376)" width="5.9" xlinkHref={`#RunDog-1-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.0604, 1.6956, -1.6997, 0.8689, -29.4515, -8.5089)" width="1.75" xlinkHref={`#RunDog-1-${id}-sprite1`} />
         <use height="5.75" transform="matrix(0.7387, 2.2913, -1.5544, 0.6635, -21.7988, -12.7888)" width="1.75" xlinkHref={`#RunDog-1-${id}-sprite1`} />
@@ -123,7 +115,7 @@ const RunDog = ({ id, inverted, sx, ...rest }: RunDogProps) => (
         </g>
       </defs>
       {/* FRAME 2 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 1}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${RunDog_X_OFFSET + (RunDog_WIDTH + RunDog_MARGIN) * 1}, ${RunDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(0.9583, -0.8287, 0.7512, 0.8686, -44.3165, 0.7376)" width="5.9" xlinkHref={`#RunDog-2-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.0604, 1.6956, -1.6997, 0.8689, -29.4515, -8.5089)" width="1.75" xlinkHref={`#RunDog-2-${id}-sprite1`} />
         <use height="5.75" transform="matrix(0.7387, 2.2913, -1.5544, 0.6635, -21.7988, -12.7888)" width="1.75" xlinkHref={`#RunDog-2-${id}-sprite1`} />
@@ -196,7 +188,7 @@ const RunDog = ({ id, inverted, sx, ...rest }: RunDogProps) => (
         </g>
       </defs>
       {/* FRAME 3 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 2}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${RunDog_X_OFFSET + (RunDog_WIDTH + RunDog_MARGIN) * 2}, ${RunDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2586, 0.1204, -0.1091, 1.1409, -25.9111, 14.1843)" width="5.9" xlinkHref={`#RunDog-3-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.8944, 0.6275, -0.7526, 1.7498, -17.4985, 4.7036)" width="1.75" xlinkHref={`#RunDog-3-${id}-sprite1`} />
         <use height="5.75" transform="matrix(1.2624, 2.0477, -1.3505, 1.014, -15.3641, -4.0481)" width="1.75" xlinkHref={`#RunDog-3-${id}-sprite1`} />
@@ -269,7 +261,7 @@ const RunDog = ({ id, inverted, sx, ...rest }: RunDogProps) => (
         </g>
       </defs>
       {/* FRAME 4 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 3}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${RunDog_X_OFFSET + (RunDog_WIDTH + RunDog_MARGIN) * 3}, ${RunDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2586, 0.1204, -0.1091, 1.1409, -25.9111, 14.1843)" width="5.9" xlinkHref={`#RunDog-4-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.8944, 0.6275, -0.7526, 1.7498, -17.4985, 4.7036)" width="1.75" xlinkHref={`#RunDog-4-${id}-sprite1`} />
         <use height="5.75" transform="matrix(1.2624, 2.0477, -1.3505, 1.014, -15.3641, -4.0481)" width="1.75" xlinkHref={`#RunDog-4-${id}-sprite1`} />
@@ -342,7 +334,7 @@ const RunDog = ({ id, inverted, sx, ...rest }: RunDogProps) => (
         </g>
       </defs>
       {/* FRAME 5 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 4}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${RunDog_X_OFFSET + (RunDog_WIDTH + RunDog_MARGIN) * 4}, ${RunDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(0.8177, -0.9706, 0.8799, 0.7413, -7.79, 16.642)" width="5.9" xlinkHref={`#RunDog-5-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7866, -0.8999, 0.7088, 1.7729, -9.8323, 5.1493)" width="1.75" xlinkHref={`#RunDog-5-${id}-sprite1`} />
         <use height="5.75" transform="matrix(0.7387, 2.2913, -1.5544, 0.6635, -5.2988, -1.7888)" width="1.75" xlinkHref={`#RunDog-5-${id}-sprite1`} />
@@ -415,7 +407,7 @@ const RunDog = ({ id, inverted, sx, ...rest }: RunDogProps) => (
         </g>
       </defs>
       {/* FRAME 6 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 5}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${RunDog_X_OFFSET + (RunDog_WIDTH + RunDog_MARGIN) * 5}, ${RunDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(0.8177, -0.9706, 0.8799, 0.7413, -7.79, 16.642)" width="5.9" xlinkHref={`#RunDog-6-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7866, -0.8999, 0.7088, 1.7729, -9.8323, 5.1493)" width="1.75" xlinkHref={`#RunDog-6-${id}-sprite1`} />
         <use height="5.75" transform="matrix(0.7387, 2.2913, -1.5544, 0.6635, -5.2988, -1.7888)" width="1.75" xlinkHref={`#RunDog-6-${id}-sprite1`} />
@@ -488,7 +480,7 @@ const RunDog = ({ id, inverted, sx, ...rest }: RunDogProps) => (
         </g>
       </defs>
       {/* FRAME 7 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 6}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${RunDog_X_OFFSET + (RunDog_WIDTH + RunDog_MARGIN) * 6}, ${RunDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(0.6877, 1.0661, -0.9664, 0.6234, -38.8407, -9.8983)" width="5.9" xlinkHref={`#RunDog-7-${id}-sprite0`} />
         <use height="5.75" transform="matrix(0.058, 1.9996, -1.9063, -0.1094, -25.9802, -6.0986)" width="1.75" xlinkHref={`#RunDog-7-${id}-sprite1`} />
         <use height="5.75" transform="matrix(0.233, 2.3945, -1.659, 0.3167, -17.6292, -7.8639)" width="1.75" xlinkHref={`#RunDog-7-${id}-sprite1`} />

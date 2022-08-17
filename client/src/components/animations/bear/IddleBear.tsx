@@ -1,4 +1,5 @@
-import { Box, BoxProps, GlobalStyles } from '@mui/material';
+/* eslint-disable camelcase */
+import { Box, BoxProps } from '@mui/material';
 import React from 'react';
 
 export interface IddleBearProps extends BoxProps {
@@ -6,34 +7,24 @@ export interface IddleBearProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 150;
-const HEIGHT = 110;
-const FRAMES = 50;
-const X_OFFSET = 106;
-const Y_OFFSET = 60;
-const MARGIN = 0;
+export const IddleBear_WIDTH = 150;
+export const IddleBear_HEIGHT = 110;
+export const IddleBear_FRAMES = 50;
+export const IddleBear_X_OFFSET = 106;
+export const IddleBear_Y_OFFSET = 60;
+export const IddleBear_MARGIN = 0;
 
 const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
   <Box
     sx={{
       position: 'relative',
       overflow: 'hidden',
-      width: WIDTH,
-      height: HEIGHT,
+      width: IddleBear_WIDTH,
+      height: IddleBear_HEIGHT,
       ...sx,
     }}
     {...rest}
   >
-    <GlobalStyles styles={{
-      '@keyframes IddleBear': {
-        '100%': {
-          left: inverted
-            ? -MARGIN
-            : -(WIDTH + MARGIN) * (FRAMES - 1) - (inverted ? MARGIN : 0),
-        }
-      }
-    }}
-    />
     <Box
       component="svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -42,15 +33,17 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         position: 'absolute',
         top: 0,
         left: inverted
-          ? -(WIDTH + MARGIN) * (FRAMES - 1) - (inverted ? MARGIN : 0)
+          ? -(IddleBear_WIDTH + IddleBear_MARGIN)
+            * (IddleBear_FRAMES - 1)
+            - IddleBear_MARGIN
           : 0,
-        width: (WIDTH + MARGIN) * FRAMES,
-        animation: `IddleBear 1.25s steps(${FRAMES}, jump-none) infinite`,
+        width: (IddleBear_WIDTH + IddleBear_MARGIN) * IddleBear_FRAMES,
+        animation: `IddleBear${inverted ? 'Inverted' : ''} 1.25s steps(${IddleBear_FRAMES}, jump-none) infinite`,
         transform: inverted ? 'scale(-1, 1)' : null,
       }}
     >
       {/* FRAME 1 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 0}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 0}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9583, 0.5533, 0.5533, 0.9583, 9.6313, -54.3923)" width="21.6" xlinkHref={`#IddleBear-1-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.929, -0.0572, 0.0696, 1.1307, 2.2199, 16.2009)" width="34.85" xlinkHref={`#IddleBear-1-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3165, 1.1812, 1.1812, 0.3165, -1.3883, -9.487)" width="15.4" xlinkHref={`#IddleBear-1-${id}-sprite2`} />
@@ -152,7 +145,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 2 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 1}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 1}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9582, 0.55, 0.55, 0.9582, 9.7943, -54.4091)" width="21.6" xlinkHref={`#IddleBear-2-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9288, -0.0569, 0.0693, 1.1304, 2.2755, 16.1977)" width="34.85" xlinkHref={`#IddleBear-2-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3175, 1.1798, 1.1798, 0.3175, -1.4257, -9.5298)" width="15.4" xlinkHref={`#IddleBear-2-${id}-sprite2`} />
@@ -254,7 +247,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 3 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 2}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 2}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9581, 0.55, 0.55, 0.9582, 9.8955, -54.457)" width="21.6" xlinkHref={`#IddleBear-3-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9287, -0.0569, 0.0693, 1.1304, 2.2757, 16.1978)" width="34.85" xlinkHref={`#IddleBear-3-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3224, 1.1784, 1.1784, 0.3224, -1.3832, -9.5856)" width="15.4" xlinkHref={`#IddleBear-3-${id}-sprite2`} />
@@ -356,7 +349,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 4 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 3}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 3}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9581, 0.5499, 0.5499, 0.9581, 9.9964, -54.505)" width="21.6" xlinkHref={`#IddleBear-4-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9287, -0.0569, 0.0693, 1.1304, 2.2757, 16.1979)" width="34.85" xlinkHref={`#IddleBear-4-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3272, 1.1769, 1.1769, 0.3272, -1.3409, -9.6413)" width="15.4" xlinkHref={`#IddleBear-4-${id}-sprite2`} />
@@ -458,7 +451,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 5 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 4}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 4}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.958, 0.5498, 0.5498, 0.958, 10.0474, -54.5526)" width="21.6" xlinkHref={`#IddleBear-5-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9287, -0.0569, 0.0693, 1.1304, 2.2759, 16.1979)" width="34.85" xlinkHref={`#IddleBear-5-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.332, 1.1755, 1.1755, 0.3321, -1.2988, -9.7469)" width="15.4" xlinkHref={`#IddleBear-5-${id}-sprite2`} />
@@ -560,7 +553,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 6 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 5}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 5}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.958, 0.5497, 0.5497, 0.958, 10.1486, -54.6017)" width="21.6" xlinkHref={`#IddleBear-6-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9287, -0.0569, 0.0692, 1.1304, 2.2764, 16.1478)" width="34.85" xlinkHref={`#IddleBear-6-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3331, 1.1751, 1.1751, 0.3331, -1.2895, -9.7972)" width="15.4" xlinkHref={`#IddleBear-6-${id}-sprite2`} />
@@ -662,7 +655,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 7 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 6}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 6}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9579, 0.5497, 0.5497, 0.9579, 10.2495, -54.6497)" width="21.6" xlinkHref={`#IddleBear-7-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9287, -0.0569, 0.0692, 1.1303, 2.2766, 16.148)" width="34.85" xlinkHref={`#IddleBear-7-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3379, 1.1736, 1.1736, 0.3379, -1.2473, -9.8526)" width="15.4" xlinkHref={`#IddleBear-7-${id}-sprite2`} />
@@ -764,7 +757,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 8 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 7}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 7}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9579, 0.5496, 0.5496, 0.9579, 10.3006, -54.6976)" width="21.6" xlinkHref={`#IddleBear-8-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9287, -0.0569, 0.0692, 1.1303, 2.2766, 16.1481)" width="34.85" xlinkHref={`#IddleBear-8-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3427, 1.1721, 1.1721, 0.3427, -1.2049, -9.9577)" width="15.4" xlinkHref={`#IddleBear-8-${id}-sprite2`} />
@@ -866,7 +859,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 9 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 8}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 8}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9578, 0.5495, 0.5495, 0.9578, 10.4012, -54.746)" width="21.6" xlinkHref={`#IddleBear-9-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9287, -0.0569, 0.0692, 1.1303, 2.2769, 16.1482)" width="34.85" xlinkHref={`#IddleBear-9-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3475, 1.1706, 1.1706, 0.3475, -1.1628, -9.9628)" width="15.4" xlinkHref={`#IddleBear-9-${id}-sprite2`} />
@@ -968,7 +961,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 10 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 9}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 9}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9578, 0.5494, 0.5495, 0.9578, 10.502, -54.7941)" width="21.6" xlinkHref={`#IddleBear-10-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9287, -0.0569, 0.0692, 1.1303, 2.3271, 16.1481)" width="34.85" xlinkHref={`#IddleBear-10-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3523, 1.1691, 1.1691, 0.3524, -1.1203, -10.0176)" width="15.4" xlinkHref={`#IddleBear-10-${id}-sprite2`} />
@@ -1070,7 +1063,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 11 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 10}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 10}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9577, 0.5494, 0.5494, 0.9577, 10.5523, -54.8923)" width="21.6" xlinkHref={`#IddleBear-11-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9287, -0.0569, 0.0692, 1.1303, 2.3273, 16.1482)" width="34.85" xlinkHref={`#IddleBear-11-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3533, 1.1687, 1.1687, 0.3533, -1.1615, -10.1177)" width="15.4" xlinkHref={`#IddleBear-11-${id}-sprite2`} />
@@ -1172,7 +1165,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 12 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 11}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 11}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9576, 0.5493, 0.5493, 0.9577, 10.6035, -54.9404)" width="21.6" xlinkHref={`#IddleBear-12-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9286, -0.0569, 0.0692, 1.1303, 2.3275, 16.1483)" width="34.85" xlinkHref={`#IddleBear-12-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3581, 1.1671, 1.1671, 0.3581, -1.119, -10.1724)" width="15.4" xlinkHref={`#IddleBear-12-${id}-sprite2`} />
@@ -1274,7 +1267,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 13 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 12}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 12}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9576, 0.5492, 0.5492, 0.9576, 10.6544, -54.9884)" width="21.6" xlinkHref={`#IddleBear-13-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9286, -0.0569, 0.0692, 1.1303, 2.3275, 16.1484)" width="34.85" xlinkHref={`#IddleBear-13-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3629, 1.1655, 1.1655, 0.3629, -1.0766, -10.2266)" width="15.4" xlinkHref={`#IddleBear-13-${id}-sprite2`} />
@@ -1376,7 +1369,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 14 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 13}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 13}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9575, 0.5491, 0.5491, 0.9575, 10.7559, -55.0363)" width="21.6" xlinkHref={`#IddleBear-14-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9286, -0.0569, 0.0692, 1.1303, 2.3279, 16.1484)" width="34.85" xlinkHref={`#IddleBear-14-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3677, 1.1639, 1.1639, 0.3677, -1.0343, -10.2809)" width="15.4" xlinkHref={`#IddleBear-14-${id}-sprite2`} />
@@ -1478,7 +1471,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 15 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 14}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 14}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9575, 0.5491, 0.5491, 0.9575, 10.8567, -55.0346)" width="21.6" xlinkHref={`#IddleBear-15-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9286, -0.0569, 0.0692, 1.1302, 2.3281, 16.1485)" width="34.85" xlinkHref={`#IddleBear-15-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3725, 1.1623, 1.1623, 0.3725, -0.9916, -10.3348)" width="15.4" xlinkHref={`#IddleBear-15-${id}-sprite2`} />
@@ -1580,7 +1573,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 16 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 15}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 15}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9574, 0.549, 0.549, 0.9574, 10.9075, -55.0822)" width="21.6" xlinkHref={`#IddleBear-16-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9286, -0.0569, 0.0692, 1.1302, 2.3286, 16.1485)" width="34.85" xlinkHref={`#IddleBear-16-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3735, 1.1619, 1.1619, 0.3735, -0.9829, -10.3851)" width="15.4" xlinkHref={`#IddleBear-16-${id}-sprite2`} />
@@ -1682,7 +1675,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 17 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 16}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 16}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9574, 0.5489, 0.5489, 0.9574, 11.0088, -55.1807)" width="21.6" xlinkHref={`#IddleBear-17-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9286, -0.0569, 0.0692, 1.1302, 2.3286, 16.1483)" width="34.85" xlinkHref={`#IddleBear-17-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3783, 1.1602, 1.1602, 0.3783, -0.9403, -10.4889)" width="15.4" xlinkHref={`#IddleBear-17-${id}-sprite2`} />
@@ -1784,7 +1777,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 18 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 17}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 17}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9573, 0.5488, 0.5488, 0.9573, 11.0601, -55.2294)" width="21.6" xlinkHref={`#IddleBear-18-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9286, -0.0569, 0.0692, 1.1302, 2.3289, 16.1484)" width="34.85" xlinkHref={`#IddleBear-18-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.383, 1.1586, 1.1586, 0.3831, -0.898, -10.5425)" width="15.4" xlinkHref={`#IddleBear-18-${id}-sprite2`} />
@@ -1886,7 +1879,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 19 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 18}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 18}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9583, 0.5501, 0.5501, 0.9583, 11.1432, -55.3109)" width="21.6" xlinkHref={`#IddleBear-19-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9288, -0.0569, 0.0693, 1.1304, 2.2751, 16.1979)" width="34.85" xlinkHref={`#IddleBear-19-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3885, 1.1579, 1.1579, 0.3885, -0.8038, -10.6064)" width="15.4" xlinkHref={`#IddleBear-19-${id}-sprite2`} />
@@ -1988,7 +1981,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 20 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 19}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 19}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9573, 0.5489, 0.5489, 0.9574, 11.2084, -55.2812)" width="21.6" xlinkHref={`#IddleBear-20-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9286, -0.0568, 0.0692, 1.1302, 2.3286, 16.1981)" width="34.85" xlinkHref={`#IddleBear-20-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3881, 1.1569, 1.1569, 0.3881, -0.7529, -10.5974)" width="15.4" xlinkHref={`#IddleBear-20-${id}-sprite2`} />
@@ -2090,7 +2083,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 21 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 20}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 20}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9575, 0.549, 0.5491, 0.9575, 11.2063, -55.3346)" width="21.6" xlinkHref={`#IddleBear-21-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9286, -0.0569, 0.0692, 1.1302, 2.3284, 16.198)" width="34.85" xlinkHref={`#IddleBear-21-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3884, 1.1569, 1.157, 0.3884, -0.7506, -10.6485)" width="15.4" xlinkHref={`#IddleBear-21-${id}-sprite2`} />
@@ -2192,7 +2185,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 22 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 21}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 21}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9576, 0.5492, 0.5492, 0.9576, 11.2541, -55.3384)" width="21.6" xlinkHref={`#IddleBear-22-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9286, -0.0569, 0.0692, 1.1303, 2.3274, 16.1979)" width="34.85" xlinkHref={`#IddleBear-22-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3888, 1.157, 1.157, 0.3888, -0.7481, -10.65)" width="15.4" xlinkHref={`#IddleBear-22-${id}-sprite2`} />
@@ -2294,7 +2287,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 23 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 22}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 22}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9577, 0.5493, 0.5494, 0.9577, 11.3026, -55.3919)" width="21.6" xlinkHref={`#IddleBear-23-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9287, -0.0569, 0.0692, 1.1303, 2.3272, 16.1982)" width="34.85" xlinkHref={`#IddleBear-23-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3929, 1.1557, 1.1557, 0.3929, -0.712, -10.6545)" width="15.4" xlinkHref={`#IddleBear-23-${id}-sprite2`} />
@@ -2396,7 +2389,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 24 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 23}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 23}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9578, 0.5495, 0.5495, 0.9578, 11.351, -55.446)" width="21.6" xlinkHref={`#IddleBear-24-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9287, -0.0569, 0.0693, 1.1303, 2.2768, 16.1981)" width="34.85" xlinkHref={`#IddleBear-24-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3932, 1.1557, 1.1557, 0.3932, -0.6597, -10.7057)" width="15.4" xlinkHref={`#IddleBear-24-${id}-sprite2`} />
@@ -2498,7 +2491,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 25 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 24}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 24}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9579, 0.5497, 0.5497, 0.9579, 11.299, -55.4497)" width="21.6" xlinkHref={`#IddleBear-25-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9287, -0.0569, 0.0693, 1.1303, 2.2765, 16.1979)" width="34.85" xlinkHref={`#IddleBear-25-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3935, 1.1557, 1.1558, 0.3935, -0.6572, -10.7069)" width="15.4" xlinkHref={`#IddleBear-25-${id}-sprite2`} />
@@ -2600,7 +2593,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 26 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 25}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 25}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.958, 0.5498, 0.5498, 0.9581, 11.3474, -55.4532)" width="21.6" xlinkHref={`#IddleBear-26-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9287, -0.0569, 0.0693, 1.1304, 2.2759, 16.1978)" width="34.85" xlinkHref={`#IddleBear-26-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3938, 1.1558, 1.1558, 0.3939, -0.6549, -10.7084)" width="15.4" xlinkHref={`#IddleBear-26-${id}-sprite2`} />
@@ -2702,7 +2695,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 27 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 26}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 26}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9581, 0.55, 0.55, 0.9582, 11.3449, -55.507)" width="21.6" xlinkHref={`#IddleBear-27-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9287, -0.0569, 0.0693, 1.1304, 2.2757, 16.1977)" width="34.85" xlinkHref={`#IddleBear-27-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3942, 1.1558, 1.1545, 0.398, -0.648, -10.7728)" width="15.4" xlinkHref={`#IddleBear-27-${id}-sprite2`} />
@@ -2804,7 +2797,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 28 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 27}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 27}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9583, 0.5533, 0.5533, 0.9583, 11.3313, -55.4923)" width="21.6" xlinkHref={`#IddleBear-28-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.929, -0.0572, 0.0696, 1.1307, 2.2199, 16.2009)" width="34.85" xlinkHref={`#IddleBear-28-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3991, 1.1555, 1.1555, 0.3992, -0.6633, -10.7749)" width="15.4" xlinkHref={`#IddleBear-28-${id}-sprite2`} />
@@ -2906,7 +2899,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 29 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 28}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 28}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9582, 0.55, 0.55, 0.9582, 11.3449, -55.4083)" width="21.6" xlinkHref={`#IddleBear-29-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9288, -0.0569, 0.0693, 1.1304, 2.2755, 16.1977)" width="34.85" xlinkHref={`#IddleBear-29-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3891, 1.1576, 1.1576, 0.3891, -0.7476, -10.6561)" width="15.4" xlinkHref={`#IddleBear-29-${id}-sprite2`} />
@@ -3008,7 +3001,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 30 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 29}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 29}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9581, 0.5499, 0.5499, 0.9581, 11.1964, -55.355)" width="21.6" xlinkHref={`#IddleBear-30-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9287, -0.0569, 0.0693, 1.1304, 2.2757, 16.1979)" width="34.85" xlinkHref={`#IddleBear-30-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3837, 1.1594, 1.1594, 0.3837, -0.7453, -10.5511)" width="15.4" xlinkHref={`#IddleBear-30-${id}-sprite2`} />
@@ -3110,7 +3103,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 31 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 30}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 30}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.958, 0.5498, 0.5498, 0.958, 11.0978, -55.2024)" width="21.6" xlinkHref={`#IddleBear-31-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9287, -0.0569, 0.0692, 1.1304, 2.2761, 16.1979)" width="34.85" xlinkHref={`#IddleBear-31-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3783, 1.1611, 1.1611, 0.3783, -0.7929, -10.4456)" width="15.4" xlinkHref={`#IddleBear-31-${id}-sprite2`} />
@@ -3212,7 +3205,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 32 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 31}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 31}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9579, 0.5497, 0.5497, 0.9579, 10.8995, -55.1497)" width="21.6" xlinkHref={`#IddleBear-32-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9287, -0.0569, 0.0692, 1.1303, 2.2766, 16.148)" width="34.85" xlinkHref={`#IddleBear-32-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3729, 1.1628, 1.1628, 0.3729, -0.8406, -10.34)" width="15.4" xlinkHref={`#IddleBear-32-${id}-sprite2`} />
@@ -3314,7 +3307,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 33 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 32}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 32}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9578, 0.5495, 0.5495, 0.9579, 10.7506, -55.0467)" width="21.6" xlinkHref={`#IddleBear-33-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9287, -0.0569, 0.0692, 1.1303, 2.2769, 16.1481)" width="34.85" xlinkHref={`#IddleBear-33-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3637, 1.1657, 1.1657, 0.3636, -0.9213, -10.2303)" width="15.4" xlinkHref={`#IddleBear-33-${id}-sprite2`} />
@@ -3416,7 +3409,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 34 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 33}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 33}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9578, 0.5494, 0.5495, 0.9578, 10.602, -54.9441)" width="21.6" xlinkHref={`#IddleBear-34-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9287, -0.0569, 0.0692, 1.1303, 2.3271, 16.1481)" width="34.85" xlinkHref={`#IddleBear-34-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3582, 1.1673, 1.1673, 0.3582, -0.9691, -10.0742)" width="15.4" xlinkHref={`#IddleBear-34-${id}-sprite2`} />
@@ -3518,7 +3511,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 35 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 34}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 34}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9577, 0.5493, 0.5493, 0.9577, 10.5032, -54.8914)" width="21.6" xlinkHref={`#IddleBear-35-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9287, -0.0569, 0.0692, 1.1303, 2.3273, 16.1483)" width="34.85" xlinkHref={`#IddleBear-35-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3528, 1.1689, 1.1689, 0.3528, -1.0165, -10.0176)" width="15.4" xlinkHref={`#IddleBear-35-${id}-sprite2`} />
@@ -3620,7 +3613,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 36 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 35}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 35}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9576, 0.5492, 0.5492, 0.9576, 10.3544, -54.7884)" width="21.6" xlinkHref={`#IddleBear-36-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9286, -0.0569, 0.0692, 1.1303, 2.3275, 16.1484)" width="34.85" xlinkHref={`#IddleBear-36-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3473, 1.1705, 1.1705, 0.3473, -1.0641, -9.9111)" width="15.4" xlinkHref={`#IddleBear-36-${id}-sprite2`} />
@@ -3722,7 +3715,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 37 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 36}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 36}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9575, 0.5491, 0.5491, 0.9575, 10.2564, -54.6858)" width="21.6" xlinkHref={`#IddleBear-37-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9286, -0.0569, 0.0692, 1.1302, 2.3279, 16.1485)" width="34.85" xlinkHref={`#IddleBear-37-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.338, 1.1732, 1.1732, 0.338, -1.195, -9.7995)" width="15.4" xlinkHref={`#IddleBear-37-${id}-sprite2`} />
@@ -3824,7 +3817,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 38 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 37}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 37}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9574, 0.549, 0.549, 0.9574, 10.1075, -54.5822)" width="21.6" xlinkHref={`#IddleBear-38-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9286, -0.0569, 0.0692, 1.1302, 2.3286, 16.1485)" width="34.85" xlinkHref={`#IddleBear-38-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3325, 1.1747, 1.1747, 0.3325, -1.2425, -9.6922)" width="15.4" xlinkHref={`#IddleBear-38-${id}-sprite2`} />
@@ -3926,7 +3919,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 39 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 38}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 38}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9573, 0.5488, 0.5489, 0.9574, 10.0089, -54.53)" width="21.6" xlinkHref={`#IddleBear-39-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9286, -0.0569, 0.0692, 1.1302, 2.3289, 16.1484)" width="34.85" xlinkHref={`#IddleBear-39-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.327, 1.1762, 1.1762, 0.327, -1.2899, -9.5848)" width="15.4" xlinkHref={`#IddleBear-39-${id}-sprite2`} />
@@ -4028,7 +4021,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 40 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 39}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 39}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9583, 0.5501, 0.5501, 0.9583, 9.8932, -54.5109)" width="21.6" xlinkHref={`#IddleBear-40-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9288, -0.0569, 0.0693, 1.1304, 2.2751, 16.1979)" width="34.85" xlinkHref={`#IddleBear-40-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.322, 1.1786, 1.1786, 0.322, -1.3367, -9.5362)" width="15.4" xlinkHref={`#IddleBear-40-${id}-sprite2`} />
@@ -4130,7 +4123,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 41 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 40}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 40}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9573, 0.5489, 0.5489, 0.9574, 9.9587, -54.4806)" width="21.6" xlinkHref={`#IddleBear-41-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9286, -0.0568, 0.0692, 1.1302, 2.329, 16.1978)" width="34.85" xlinkHref={`#IddleBear-41-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3214, 1.1778, 1.1778, 0.3214, -1.3884, -9.5279)" width="15.4" xlinkHref={`#IddleBear-41-${id}-sprite2`} />
@@ -4232,7 +4225,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 42 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 41}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 41}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9574, 0.549, 0.549, 0.9575, 9.9072, -54.4339)" width="21.6" xlinkHref={`#IddleBear-42-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9286, -0.0569, 0.0692, 1.1302, 2.3284, 16.1981)" width="34.85" xlinkHref={`#IddleBear-42-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3174, 1.179, 1.179, 0.3174, -1.4232, -9.5234)" width="15.4" xlinkHref={`#IddleBear-42-${id}-sprite2`} />
@@ -4334,7 +4327,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 43 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 42}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 42}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9575, 0.5491, 0.5492, 0.9576, 9.8552, -54.3874)" width="21.6" xlinkHref={`#IddleBear-43-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9286, -0.0569, 0.0692, 1.1303, 2.3281, 16.1979)" width="34.85" xlinkHref={`#IddleBear-43-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3173, 1.1791, 1.1791, 0.3173, -1.4246, -9.5242)" width="15.4" xlinkHref={`#IddleBear-43-${id}-sprite2`} />
@@ -4436,7 +4429,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 44 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 43}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 43}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9576, 0.5493, 0.5493, 0.9577, 9.8033, -54.3908)" width="21.6" xlinkHref={`#IddleBear-44-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9287, -0.0569, 0.0692, 1.1303, 2.3272, 16.1983)" width="34.85" xlinkHref={`#IddleBear-44-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3172, 1.1793, 1.1793, 0.3172, -1.426, -9.5249)" width="15.4" xlinkHref={`#IddleBear-44-${id}-sprite2`} />
@@ -4538,7 +4531,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 45 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 44}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 44}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9577, 0.5494, 0.5495, 0.9578, 9.8017, -54.3943)" width="21.6" xlinkHref={`#IddleBear-45-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9287, -0.0569, 0.0692, 1.1303, 2.3271, 16.1979)" width="34.85" xlinkHref={`#IddleBear-45-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3171, 1.1794, 1.1794, 0.3171, -1.4275, -9.4754)" width="15.4" xlinkHref={`#IddleBear-45-${id}-sprite2`} />
@@ -4640,7 +4633,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 46 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 45}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 45}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9578, 0.5496, 0.5496, 0.9579, 9.8, -54.3978)" width="21.6" xlinkHref={`#IddleBear-46-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9287, -0.0569, 0.0693, 1.1303, 2.2768, 16.198)" width="34.85" xlinkHref={`#IddleBear-46-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.317, 1.1796, 1.1796, 0.317, -1.4286, -9.4762)" width="15.4" xlinkHref={`#IddleBear-46-${id}-sprite2`} />
@@ -4742,7 +4735,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 47 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 46}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 46}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9579, 0.5497, 0.5497, 0.958, 9.7484, -54.4009)" width="21.6" xlinkHref={`#IddleBear-47-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9287, -0.0569, 0.0693, 1.1304, 2.2763, 16.1977)" width="34.85" xlinkHref={`#IddleBear-47-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3168, 1.1797, 1.1797, 0.3168, -1.4304, -9.4768)" width="15.4" xlinkHref={`#IddleBear-47-${id}-sprite2`} />
@@ -4844,7 +4837,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 48 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 47}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 47}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.958, 0.5498, 0.5499, 0.9581, 9.7468, -54.4041)" width="21.6" xlinkHref={`#IddleBear-48-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9287, -0.0569, 0.0693, 1.1304, 2.2759, 16.1978)" width="34.85" xlinkHref={`#IddleBear-48-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3167, 1.1798, 1.1798, 0.3167, -1.4315, -9.4775)" width="15.4" xlinkHref={`#IddleBear-48-${id}-sprite2`} />
@@ -4946,7 +4939,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 49 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 48}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 48}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9581, 0.55, 0.55, 0.9582, 9.6951, -54.358)" width="21.6" xlinkHref={`#IddleBear-49-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9288, -0.0569, 0.0693, 1.1304, 2.2755, 16.1977)" width="34.85" xlinkHref={`#IddleBear-49-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3166, 1.18, 1.18, 0.3166, -1.4333, -9.4781)" width="15.4" xlinkHref={`#IddleBear-49-${id}-sprite2`} />
@@ -5048,7 +5041,7 @@ const IddleBear = ({ id, inverted, sx, ...rest }: IddleBearProps) => (
         </g>
       </defs>
       {/* FRAME 50 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 49}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleBear_X_OFFSET + (IddleBear_WIDTH + IddleBear_MARGIN) * 49}, ${IddleBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9583, 0.5533, 0.5533, 0.9583, 9.6313, -54.3923)" width="21.6" xlinkHref={`#IddleBear-50-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.929, -0.0572, 0.0696, 1.1307, 2.2199, 16.2009)" width="34.85" xlinkHref={`#IddleBear-50-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3165, 1.1812, 1.1812, 0.3165, -1.3883, -9.487)" width="15.4" xlinkHref={`#IddleBear-50-${id}-sprite2`} />

@@ -1,4 +1,5 @@
-import { Box, BoxProps, GlobalStyles } from '@mui/material';
+/* eslint-disable camelcase */
+import { Box, BoxProps } from '@mui/material';
 import React from 'react';
 
 export interface TrappedBearProps extends BoxProps {
@@ -6,34 +7,24 @@ export interface TrappedBearProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 180.1;
-const HEIGHT = 160.75;
-const FRAMES = 44;
-const X_OFFSET = 103.0;
-const Y_OFFSET = 105.45;
-const MARGIN = 30;
+export const TrappedBear_WIDTH = 180.1;
+export const TrappedBear_HEIGHT = 160.75;
+export const TrappedBear_FRAMES = 44;
+export const TrappedBear_X_OFFSET = 103.0;
+export const TrappedBear_Y_OFFSET = 105.45;
+export const TrappedBear_MARGIN = 30;
 
 const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
   <Box
     sx={{
       position: 'relative',
       overflow: 'hidden',
-      width: WIDTH,
-      height: HEIGHT,
+      width: TrappedBear_WIDTH,
+      height: TrappedBear_HEIGHT,
       ...sx,
     }}
     {...rest}
   >
-    <GlobalStyles styles={{
-      '@keyframes TrappedBear': {
-        '100%': {
-          left: inverted
-            ? -MARGIN
-            : -(WIDTH + MARGIN) * (FRAMES - 1) - (inverted ? MARGIN : 0),
-        }
-      }
-    }}
-    />
     <Box
       component="svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -42,16 +33,18 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         position: 'absolute',
         top: 0,
         left: inverted
-          ? -(WIDTH + MARGIN) * (FRAMES - 1) - (inverted ? MARGIN : 0)
+          ? -(TrappedBear_WIDTH + TrappedBear_MARGIN)
+            * (TrappedBear_FRAMES - 1)
+            - (inverted ? TrappedBear_MARGIN : 0)
           : 0,
-        width: (WIDTH + MARGIN) * FRAMES,
+        width: (TrappedBear_WIDTH + TrappedBear_MARGIN) * TrappedBear_FRAMES,
         height: 160,
-        animation: `TrappedBear 1.10s steps(${FRAMES}, jump-none) forwards`,
+        animation: `TrappedBear 1.10s steps(${TrappedBear_FRAMES}, jump-none) forwards`,
         transform: inverted ? 'scale(-1, 1)' : null,
       }}
     >
       {/* FRAME 1 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 0}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 0}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9583, 0.5533, 0.5533, 0.9583, 9.6313, -54.3923)" width="21.6" xlinkHref={`#TrappedBear-1-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.929, -0.0572, 0.0696, 1.1307, 2.2199, 16.2009)" width="34.85" xlinkHref={`#TrappedBear-1-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3165, 1.1812, 1.1812, 0.3165, -1.3883, -9.487)" width="15.4" xlinkHref={`#TrappedBear-1-${id}-sprite2`} />
@@ -160,7 +153,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 2 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 1}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 1}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.8323, 0.7281, 0.7281, 0.8323, 2.9667, -50.5486)" width="21.6" xlinkHref={`#TrappedBear-2-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9125, -0.1816, 0.221, 1.1106, 2.4899, 17.7033)" width="34.85" xlinkHref={`#TrappedBear-2-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3201, 1.1799, 1.1799, 0.3201, -2.3064, -9.0898)" width="15.4" xlinkHref={`#TrappedBear-2-${id}-sprite2`} />
@@ -269,7 +262,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 3 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 2}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 2}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.6749, 0.8752, 0.8752, 0.675, -3.4016, -45.7583)" width="21.6" xlinkHref={`#TrappedBear-3-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.8795, -0.3025, 0.3682, 1.0704, 3.0983, 19.2837)" width="34.85" xlinkHref={`#TrappedBear-3-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3236, 1.1787, 1.1787, 0.3236, -3.2747, -8.7424)" width="15.4" xlinkHref={`#TrappedBear-3-${id}-sprite2`} />
@@ -378,7 +371,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 4 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 3}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 3}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.4921, 0.9889, 0.9889, 0.4922, -9.3057, -40.1352)" width="21.6" xlinkHref={`#TrappedBear-4-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.8306, -0.418, 0.5087, 1.0109, 4.0038, 20.9034)" width="34.85" xlinkHref={`#TrappedBear-4-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3272, 1.1774, 1.1774, 0.3272, -4.2427, -8.395)" width="15.4" xlinkHref={`#TrappedBear-4-${id}-sprite2`} />
@@ -487,7 +480,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 5 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 4}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 4}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.2909, 1.0649, 1.0649, 0.2909, -14.6916, -33.7255)" width="21.6" xlinkHref={`#TrappedBear-5-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.7665, -0.5257, 0.6398, 0.933, 5.1597, 22.4217)" width="34.85" xlinkHref={`#TrappedBear-5-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3307, 1.1761, 1.1761, 0.3308, -5.261, -8.0974)" width="15.4" xlinkHref={`#TrappedBear-5-${id}-sprite2`} />
@@ -596,7 +589,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 6 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 5}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 5}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.0788, 1.1005, 1.1005, 0.0789, -19.4278, -26.8043)" width="21.6" xlinkHref={`#TrappedBear-6-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.6886, -0.6238, 0.7593, 0.8381, 6.6118, 23.9978)" width="34.85" xlinkHref={`#TrappedBear-6-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3343, 1.1749, 1.1749, 0.3343, -6.229, -7.7499)" width="15.4" xlinkHref={`#TrappedBear-6-${id}-sprite2`} />
@@ -705,7 +698,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 7 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 6}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 6}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.136, 1.0943, 1.0943, -0.1359, -23.2098, -19.3192)" width="21.6" xlinkHref={`#TrappedBear-7-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5983, -0.7106, 0.8648, 0.7282, 8.3018, 25.5424)" width="34.85" xlinkHref={`#TrappedBear-7-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3379, 1.1736, 1.1736, 0.3379, -7.2473, -7.4526)" width="15.4" xlinkHref={`#TrappedBear-7-${id}-sprite2`} />
@@ -814,7 +807,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 8 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 7}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 7}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.136, 1.0943, 1.0943, -0.1359, -23.2098, -19.3192)" width="21.6" xlinkHref={`#TrappedBear-8-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5983, -0.7106, 0.8648, 0.7282, 8.3018, 25.5424)" width="34.85" xlinkHref={`#TrappedBear-8-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3379, 1.1736, 1.1736, 0.3379, -7.2473, -7.4526)" width="15.4" xlinkHref={`#TrappedBear-8-${id}-sprite2`} />
@@ -923,7 +916,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 9 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 8}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 8}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.136, 1.0943, 1.0943, -0.1359, -23.2098, -19.3192)" width="21.6" xlinkHref={`#TrappedBear-9-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5983, -0.7106, 0.8648, 0.7282, 8.3018, 25.5424)" width="34.85" xlinkHref={`#TrappedBear-9-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3379, 1.1736, 1.1736, 0.3379, -7.2473, -7.4526)" width="15.4" xlinkHref={`#TrappedBear-9-${id}-sprite2`} />
@@ -1032,7 +1025,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 10 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 9}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 9}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.136, 1.0943, 1.0943, -0.1359, -23.2098, -19.3192)" width="21.6" xlinkHref={`#TrappedBear-10-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5983, -0.7106, 0.8648, 0.7282, 8.3018, 25.5424)" width="34.85" xlinkHref={`#TrappedBear-10-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3379, 1.1736, 1.1736, 0.3379, -7.2473, -7.4526)" width="15.4" xlinkHref={`#TrappedBear-10-${id}-sprite2`} />
@@ -1141,7 +1134,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 11 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 10}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 10}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.136, 1.0943, 1.0943, -0.1359, -23.2098, -19.3192)" width="21.6" xlinkHref={`#TrappedBear-11-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5983, -0.7106, 0.8648, 0.7282, 8.3018, 25.5424)" width="34.85" xlinkHref={`#TrappedBear-11-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3379, 1.1736, 1.1736, 0.3379, -7.2473, -7.4526)" width="15.4" xlinkHref={`#TrappedBear-11-${id}-sprite2`} />
@@ -1250,7 +1243,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 12 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 11}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 11}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.136, 1.0943, 1.0943, -0.1359, -23.2098, -19.3192)" width="21.6" xlinkHref={`#TrappedBear-12-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5983, -0.7106, 0.8648, 0.7282, 8.3018, 25.5424)" width="34.85" xlinkHref={`#TrappedBear-12-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3379, 1.1736, 1.1736, 0.3379, -7.2473, -7.4526)" width="15.4" xlinkHref={`#TrappedBear-12-${id}-sprite2`} />
@@ -1359,7 +1352,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 13 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 12}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 12}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.136, 1.0943, 1.0943, -0.1359, -23.2098, -19.3192)" width="21.6" xlinkHref={`#TrappedBear-13-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5983, -0.7106, 0.8648, 0.7282, 8.3018, 25.5424)" width="34.85" xlinkHref={`#TrappedBear-13-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3379, 1.1736, 1.1736, 0.3379, -7.2473, -7.4526)" width="15.4" xlinkHref={`#TrappedBear-13-${id}-sprite2`} />
@@ -1468,7 +1461,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 14 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 13}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 13}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.136, 1.0943, 1.0943, -0.1359, -23.2098, -19.3192)" width="21.6" xlinkHref={`#TrappedBear-14-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5983, -0.7106, 0.8648, 0.7282, 8.3018, 25.5424)" width="34.85" xlinkHref={`#TrappedBear-14-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3379, 1.1736, 1.1736, 0.3379, -7.2473, -7.4526)" width="15.4" xlinkHref={`#TrappedBear-14-${id}-sprite2`} />
@@ -1577,7 +1570,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 15 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 14}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 14}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.136, 1.0943, 1.0943, -0.1359, -23.2098, -19.3192)" width="21.6" xlinkHref={`#TrappedBear-15-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5983, -0.7106, 0.8648, 0.7282, 8.3018, 25.5424)" width="34.85" xlinkHref={`#TrappedBear-15-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3379, 1.1736, 1.1736, 0.3379, -7.2473, -7.4526)" width="15.4" xlinkHref={`#TrappedBear-15-${id}-sprite2`} />
@@ -1686,7 +1679,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 16 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 15}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 15}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.136, 1.0943, 1.0943, -0.1359, -23.2098, -19.3192)" width="21.6" xlinkHref={`#TrappedBear-16-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5983, -0.7106, 0.8648, 0.7282, 8.3018, 25.5424)" width="34.85" xlinkHref={`#TrappedBear-16-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3379, 1.1736, 1.1736, 0.3379, -7.2473, -7.4526)" width="15.4" xlinkHref={`#TrappedBear-16-${id}-sprite2`} />
@@ -1795,7 +1788,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 17 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 16}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 16}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.136, 1.0943, 1.0943, -0.1359, -23.2098, -19.3192)" width="21.6" xlinkHref={`#TrappedBear-17-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5983, -0.7106, 0.8648, 0.7282, 8.3018, 25.5424)" width="34.85" xlinkHref={`#TrappedBear-17-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3379, 1.1736, 1.1736, 0.3379, -7.2473, -7.4526)" width="15.4" xlinkHref={`#TrappedBear-17-${id}-sprite2`} />
@@ -1904,7 +1897,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 18 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 17}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 17}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.136, 1.0943, 1.0943, -0.1359, -23.2098, -19.3192)" width="21.6" xlinkHref={`#TrappedBear-18-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5983, -0.7106, 0.8648, 0.7282, 8.3018, 25.5424)" width="34.85" xlinkHref={`#TrappedBear-18-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3379, 1.1736, 1.1736, 0.3379, -7.2473, -7.4526)" width="15.4" xlinkHref={`#TrappedBear-18-${id}-sprite2`} />
@@ -2013,7 +2006,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 19 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 18}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 18}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.136, 1.0943, 1.0943, -0.1359, -23.2098, -19.3192)" width="21.6" xlinkHref={`#TrappedBear-19-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5983, -0.7106, 0.8648, 0.7282, 8.3018, 25.5424)" width="34.85" xlinkHref={`#TrappedBear-19-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3379, 1.1736, 1.1736, 0.3379, -7.2473, -7.4526)" width="15.4" xlinkHref={`#TrappedBear-19-${id}-sprite2`} />
@@ -2122,7 +2115,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 20 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 19}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 19}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.136, 1.0943, 1.0943, -0.1359, -23.2098, -19.3192)" width="21.6" xlinkHref={`#TrappedBear-20-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5983, -0.7106, 0.8648, 0.7282, 8.3018, 25.5424)" width="34.85" xlinkHref={`#TrappedBear-20-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3379, 1.1736, 1.1736, 0.3379, -7.2473, -7.4526)" width="15.4" xlinkHref={`#TrappedBear-20-${id}-sprite2`} />
@@ -2231,7 +2224,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 21 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 20}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 20}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.136, 1.0943, 1.0943, -0.1359, -23.2098, -19.3192)" width="21.6" xlinkHref={`#TrappedBear-21-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5983, -0.7106, 0.8648, 0.7282, 8.3018, 25.5424)" width="34.85" xlinkHref={`#TrappedBear-21-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3379, 1.1736, 1.1736, 0.3379, -7.2473, -7.4526)" width="15.4" xlinkHref={`#TrappedBear-21-${id}-sprite2`} />
@@ -2340,7 +2333,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 22 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 21}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 21}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.136, 1.0943, 1.0943, -0.1359, -23.2098, -19.3192)" width="21.6" xlinkHref={`#TrappedBear-22-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5983, -0.7106, 0.8648, 0.7282, 8.3018, 25.5424)" width="34.85" xlinkHref={`#TrappedBear-22-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3379, 1.1736, 1.1736, 0.3379, -7.2473, -7.4526)" width="15.4" xlinkHref={`#TrappedBear-22-${id}-sprite2`} />
@@ -2449,7 +2442,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 23 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 22}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 22}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.136, 1.0943, 1.0943, -0.1359, -23.2098, -19.3192)" width="21.6" xlinkHref={`#TrappedBear-23-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5983, -0.7106, 0.8648, 0.7282, 8.3018, 25.5424)" width="34.85" xlinkHref={`#TrappedBear-23-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3379, 1.1736, 1.1736, 0.3379, -7.2473, -7.4526)" width="15.4" xlinkHref={`#TrappedBear-23-${id}-sprite2`} />
@@ -2558,7 +2551,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 24 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 23}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 23}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.136, 1.0943, 1.0943, -0.1359, -23.2098, -19.3192)" width="21.6" xlinkHref={`#TrappedBear-24-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5983, -0.7106, 0.8648, 0.7282, 8.3018, 25.5424)" width="34.85" xlinkHref={`#TrappedBear-24-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3379, 1.1736, 1.1736, 0.3379, -7.2473, -7.4526)" width="15.4" xlinkHref={`#TrappedBear-24-${id}-sprite2`} />
@@ -2667,7 +2660,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 25 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 24}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 24}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.136, 1.0943, 1.0943, -0.1359, -23.2098, -19.3192)" width="21.6" xlinkHref={`#TrappedBear-25-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5983, -0.7106, 0.8648, 0.7282, 8.3018, 25.5424)" width="34.85" xlinkHref={`#TrappedBear-25-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3379, 1.1736, 1.1736, 0.3379, -7.2473, -7.4526)" width="15.4" xlinkHref={`#TrappedBear-25-${id}-sprite2`} />
@@ -2776,7 +2769,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 26 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 25}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 25}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.136, 1.0943, 1.0943, -0.1359, -23.2098, -19.3192)" width="21.6" xlinkHref={`#TrappedBear-26-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5983, -0.7106, 0.8648, 0.7282, 8.3018, 25.5424)" width="34.85" xlinkHref={`#TrappedBear-26-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3379, 1.1736, 1.1736, 0.3379, -7.2473, -7.4526)" width="15.4" xlinkHref={`#TrappedBear-26-${id}-sprite2`} />
@@ -2885,7 +2878,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 27 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 26}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 26}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.136, 1.0943, 1.0943, -0.1359, -23.2098, -19.3192)" width="21.6" xlinkHref={`#TrappedBear-27-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5983, -0.7106, 0.8648, 0.7282, 8.3018, 25.5424)" width="34.85" xlinkHref={`#TrappedBear-27-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3379, 1.1736, 1.1736, 0.3379, -7.2473, -7.4526)" width="15.4" xlinkHref={`#TrappedBear-27-${id}-sprite2`} />
@@ -2994,7 +2987,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 28 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 27}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 27}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.136, 1.0943, 1.0943, -0.1359, -23.2098, -19.3192)" width="21.6" xlinkHref={`#TrappedBear-28-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5983, -0.7106, 0.8648, 0.7282, 8.3018, 25.5424)" width="34.85" xlinkHref={`#TrappedBear-28-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3379, 1.1736, 1.1736, 0.3379, -7.2473, -7.4526)" width="15.4" xlinkHref={`#TrappedBear-28-${id}-sprite2`} />
@@ -3103,7 +3096,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 29 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 28}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 28}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.3083, 1.058, 1.058, -0.3083, -23.1757, -19.6328)" width="21.6" xlinkHref={`#TrappedBear-29-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5978, -0.7099, 0.8641, 0.7276, 8.6146, 25.5368)" width="34.85" xlinkHref={`#TrappedBear-29-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3917, 1.1559, 1.1559, 0.3917, -6.0216, -8.4021)" width="15.4" xlinkHref={`#TrappedBear-29-${id}-sprite2`} />
@@ -3212,7 +3205,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 30 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 29}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 29}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.4726, 0.9947, 0.9947, -0.4726, -22.5265, -19.7429)" width="21.6" xlinkHref={`#TrappedBear-30-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5974, -0.7094, 0.8634, 0.7271, 8.9267, 25.5313)" width="34.85" xlinkHref={`#TrappedBear-30-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.4447, 1.1359, 1.1359, 0.4447, -4.7445, -9.4804)" width="15.4" xlinkHref={`#TrappedBear-30-${id}-sprite2`} />
@@ -3321,7 +3314,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 31 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 30}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 30}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.6247, 0.9061, 0.9062, -0.6247, -21.2544, -19.8492)" width="21.6" xlinkHref={`#TrappedBear-31-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5969, -0.7088, 0.8627, 0.7265, 9.0879, 25.526)" width="34.85" xlinkHref={`#TrappedBear-31-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.4967, 1.1134, 1.1134, 0.4967, -3.4668, -10.4366)" width="15.4" xlinkHref={`#TrappedBear-31-${id}-sprite2`} />
@@ -3430,7 +3423,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 32 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 31}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 31}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.3909, 1.0293, 1.0293, -0.3909, -22.8141, -19.7581)" width="21.6" xlinkHref={`#TrappedBear-32-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5964, -0.7081, 0.8619, 0.7258, 8.8018, 25.5198)" width="34.85" xlinkHref={`#TrappedBear-32-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.4175, 1.1451, 1.1451, 0.4175, -5.4358, -8.9574)" width="15.4" xlinkHref={`#TrappedBear-32-${id}-sprite2`} />
@@ -3539,7 +3532,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 33 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 32}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 32}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.1344, 1.0934, 1.0934, -0.1344, -23.1248, -19.49)" width="21.6" xlinkHref={`#TrappedBear-33-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5959, -0.7076, 0.8611, 0.7253, 8.4645, 25.5142)" width="34.85" xlinkHref={`#TrappedBear-33-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3363, 1.1712, 1.1712, 0.3363, -7.3509, -7.4286)" width="15.4" xlinkHref={`#TrappedBear-33-${id}-sprite2`} />
@@ -3648,7 +3641,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 34 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 33}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 33}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.1344, 1.0934, 1.0934, -0.1344, -23.1259, -19.5902)" width="21.6" xlinkHref={`#TrappedBear-34-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.596, -0.7077, 0.8613, 0.7254, 8.5125, 25.5652)" width="34.85" xlinkHref={`#TrappedBear-34-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3364, 1.1713, 1.1713, 0.3364, -7.4009, -7.3797)" width="15.4" xlinkHref={`#TrappedBear-34-${id}-sprite2`} />
@@ -3757,7 +3750,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 35 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 34}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 34}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.1344, 1.0934, 1.0934, -0.1344, -23.1268, -19.5906)" width="21.6" xlinkHref={`#TrappedBear-35-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5961, -0.7078, 0.8615, 0.7255, 8.509, 25.5665)" width="34.85" xlinkHref={`#TrappedBear-35-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3364, 1.1714, 1.1714, 0.3364, -7.4013, -7.3805)" width="15.4" xlinkHref={`#TrappedBear-35-${id}-sprite2`} />
@@ -3866,7 +3859,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 36 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 35}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 35}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.1345, 1.0935, 1.0935, -0.1345, -23.1282, -19.5404)" width="21.6" xlinkHref={`#TrappedBear-36-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5962, -0.7079, 0.8617, 0.7257, 8.5057, 25.5178)" width="34.85" xlinkHref={`#TrappedBear-36-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3364, 1.1716, 1.1716, 0.3364, -7.4013, -7.3816)" width="15.4" xlinkHref={`#TrappedBear-36-${id}-sprite2`} />
@@ -3975,7 +3968,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 37 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 36}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 36}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.1345, 1.0935, 1.0935, -0.1345, -23.1791, -19.5407)" width="21.6" xlinkHref={`#TrappedBear-37-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5964, -0.7081, 0.8618, 0.7258, 8.5026, 25.5197)" width="34.85" xlinkHref={`#TrappedBear-37-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3365, 1.1717, 1.1717, 0.3365, -7.4014, -7.3827)" width="15.4" xlinkHref={`#TrappedBear-37-${id}-sprite2`} />
@@ -4084,7 +4077,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 38 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 37}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 37}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.1345, 1.0936, 1.0936, -0.1345, -23.1804, -19.5403)" width="21.6" xlinkHref={`#TrappedBear-38-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5965, -0.7083, 0.862, 0.726, 8.4993, 25.5209)" width="34.85" xlinkHref={`#TrappedBear-38-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3365, 1.1718, 1.1718, 0.3365, -7.4015, -7.3838)" width="15.4" xlinkHref={`#TrappedBear-38-${id}-sprite2`} />
@@ -4193,7 +4186,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 39 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 38}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 38}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.1345, 1.0937, 1.0937, -0.1345, -23.1829, -19.441)" width="21.6" xlinkHref={`#TrappedBear-39-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5967, -0.7085, 0.8623, 0.7262, 8.4951, 25.5228)" width="34.85" xlinkHref={`#TrappedBear-39-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3366, 1.172, 1.172, 0.3366, -7.3515, -7.4353)" width="15.4" xlinkHref={`#TrappedBear-39-${id}-sprite2`} />
@@ -4302,7 +4295,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 40 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 39}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 39}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.0609, 1.0998, 1.0998, 0.0609, -23.0886, -24.3906)" width="21.6" xlinkHref={`#TrappedBear-40-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5969, -0.7087, 0.8626, 0.7264, 8.4896, 25.5253)" width="34.85" xlinkHref={`#TrappedBear-40-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3367, 1.1722, 1.1722, 0.3367, -7.4015, -7.3874)" width="15.4" xlinkHref={`#TrappedBear-40-${id}-sprite2`} />
@@ -4411,7 +4404,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 41 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 40}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 40}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.2544, 1.0713, 1.0713, 0.2544, -22.4753, -28.9609)" width="21.6" xlinkHref={`#TrappedBear-41-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5971, -0.709, 0.8629, 0.7267, 8.4832, 25.5283)" width="34.85" xlinkHref={`#TrappedBear-41-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3368, 1.1724, 1.1724, 0.3368, -7.3515, -7.3897)" width="15.4" xlinkHref={`#TrappedBear-41-${id}-sprite2`} />
@@ -4520,7 +4513,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 42 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 41}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 41}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.4397, 1.009, 1.0091, 0.4397, -21.3213, -32.939)" width="21.6" xlinkHref={`#TrappedBear-42-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5974, -0.7094, 0.8634, 0.7271, 8.376, 25.5312)" width="34.85" xlinkHref={`#TrappedBear-42-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3369, 1.1728, 1.1728, 0.3369, -7.3015, -7.4427)" width="15.4" xlinkHref={`#TrappedBear-42-${id}-sprite2`} />
@@ -4629,7 +4622,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 43 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 42}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 42}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.1578, 1.0903, 1.0903, 0.1577, -23.0016, -26.6242)" width="21.6" xlinkHref={`#TrappedBear-43-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5979, -0.7099, 0.864, 0.7276, 8.4145, 25.5865)" width="34.85" xlinkHref={`#TrappedBear-43-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3374, 1.1732, 1.1732, 0.3374, -7.2997, -7.3974)" width="15.4" xlinkHref={`#TrappedBear-43-${id}-sprite2`} />
@@ -4738,7 +4731,7 @@ const TrappedBear = ({ id, inverted, sx, ...rest }: TrappedBearProps) => (
         </g>
       </defs>
       {/* FRAME 44 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 43}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${TrappedBear_X_OFFSET + (TrappedBear_WIDTH + TrappedBear_MARGIN) * 43}, ${TrappedBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.136, 1.0943, 1.0943, -0.1359, -23.2098, -19.3192)" width="21.6" xlinkHref={`#TrappedBear-44-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.5983, -0.7106, 0.8648, 0.7282, 8.3018, 25.5424)" width="34.85" xlinkHref={`#TrappedBear-44-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3379, 1.1736, 1.1736, 0.3379, -7.2473, -7.4526)" width="15.4" xlinkHref={`#TrappedBear-44-${id}-sprite2`} />

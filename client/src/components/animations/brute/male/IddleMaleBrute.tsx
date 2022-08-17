@@ -1,4 +1,5 @@
-import { Box, BoxProps, GlobalStyles } from '@mui/material';
+/* eslint-disable camelcase */
+import { Box, BoxProps } from '@mui/material';
 import React from 'react';
 
 export interface IddleMaleBruteProps extends BoxProps {
@@ -6,34 +7,24 @@ export interface IddleMaleBruteProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 151.5;
-const HEIGHT = 85.45;
-const FRAMES = 39;
-const X_OFFSET = 37.25;
-const Y_OFFSET = 68.8;
-const MARGIN = 30;
+export const IddleMaleBrute_WIDTH = 100;
+export const IddleMaleBrute_HEIGHT = 85.45;
+export const IddleMaleBrute_FRAMES = 39;
+export const IddleMaleBrute_X_OFFSET = 37.25;
+export const IddleMaleBrute_Y_OFFSET = 68.8;
+export const IddleMaleBrute_MARGIN = 30;
 
 const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
   <Box
     sx={{
       position: 'relative',
       overflow: 'hidden',
-      width: WIDTH,
-      height: HEIGHT,
+      width: IddleMaleBrute_WIDTH,
+      height: IddleMaleBrute_HEIGHT,
       ...sx,
     }}
     {...rest}
   >
-    <GlobalStyles styles={{
-      '@keyframes IddleMaleBrute': {
-        '100%': {
-          left: inverted
-            ? -MARGIN
-            : -(WIDTH + MARGIN) * (FRAMES - 1) - (inverted ? MARGIN : 0),
-        }
-      }
-    }}
-    />
     <Box
       component="svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -42,15 +33,17 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         position: 'absolute',
         top: 0,
         left: inverted
-          ? -(WIDTH + MARGIN) * (FRAMES - 1) - (inverted ? MARGIN : 0)
+          ? -(IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN)
+          * (IddleMaleBrute_FRAMES - 1)
+          - IddleMaleBrute_MARGIN
           : 0,
-        width: (WIDTH + MARGIN) * FRAMES,
-        animation: `IddleMaleBrute 0.97s steps(${FRAMES}, jump-none) infinite`,
+        width: (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * IddleMaleBrute_FRAMES,
+        animation: `IddleMaleBrute${inverted ? 'Inverted' : ''} 0.97s steps(${IddleMaleBrute_FRAMES}, jump-none) infinite`,
         transform: inverted ? 'scale(-1, 1)' : null,
       }}
     >
       {/* FRAME 1 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 0}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 0}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3562, 0.1778, 0.1778, 0.3562, 22.8553, -48.4865)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3877, -0.0931, 0.0931, 0.3877, 4.1538, -32.5698)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0796, 0.3901, 0.3901, -0.0796, 4.0924, -42.2151)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -71,7 +64,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1994, -0.3453, -0.3453, 0.1994, 7.6526, -26.2114)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 2 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 1}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 1}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3557, 0.1777, 0.1777, 0.3557, 22.8922, -48.5208)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3874, -0.0931, 0.0931, 0.3874, 4.1643, -32.5658)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0794, 0.3898, 0.3898, -0.0794, 4.149, -42.2128)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -92,7 +85,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1982, -0.3453, -0.3453, 0.1982, 7.6026, -26.222)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 3 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 2}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 2}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3557, 0.1777, 0.1777, 0.3557, 22.8918, -48.5204)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3874, -0.0931, 0.0931, 0.3874, 4.1645, -32.5663)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0794, 0.3898, 0.3898, -0.0794, 4.1493, -42.213)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -113,7 +106,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1981, -0.3453, -0.3453, 0.1982, 7.5999, -26.2192)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 4 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 3}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 3}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3556, 0.1777, 0.1777, 0.3556, 22.8915, -48.5188)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3874, -0.0931, 0.0931, 0.3874, 4.1652, -32.5666)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0794, 0.3898, 0.3898, -0.0794, 4.1496, -42.2127)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -134,7 +127,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.198, -0.3453, -0.3453, 0.198, 7.5964, -26.2156)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 5 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 4}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 4}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3556, 0.1776, 0.1776, 0.3556, 22.8403, -48.5672)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3874, -0.0931, 0.0931, 0.3874, 4.1156, -32.5159)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0794, 0.3898, 0.3898, -0.0794, 4.1501, -42.1627)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -155,7 +148,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1979, -0.3453, -0.3454, 0.1979, 7.5409, -26.1103)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 6 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 5}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 5}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3555, 0.1776, 0.1776, 0.3555, 22.7897, -48.5661)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3873, -0.0931, 0.0931, 0.3873, 4.1168, -32.566)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0794, 0.3898, 0.3898, -0.0794, 4.1506, -42.212)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -176,7 +169,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1966, -0.346, -0.346, 0.1966, 7.5572, -26.0361)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 7 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 6}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 6}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3555, 0.1776, 0.1776, 0.3555, 22.7379, -48.5634)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3873, -0.0931, 0.0931, 0.3873, 4.0684, -32.5654)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0794, 0.3897, 0.3897, -0.0794, 4.1514, -42.2117)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -197,7 +190,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1963, -0.346, -0.346, 0.1964, 7.597, -25.9277)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 8 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 7}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 7}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3554, 0.1776, 0.1776, 0.3554, 22.7367, -48.611)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3873, -0.093, 0.093, 0.3873, 4.0196, -32.5655)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0794, 0.3897, 0.3897, -0.0794, 4.1018, -42.261)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -218,7 +211,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1949, -0.3467, -0.3467, 0.1949, 7.6098, -25.851)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 9 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 8}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 8}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3553, 0.1775, 0.1775, 0.3553, 22.6853, -48.5579)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3872, -0.093, 0.093, 0.3872, 4.0219, -32.6153)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0794, 0.3897, 0.3897, -0.0794, 4.1028, -42.3104)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -239,7 +232,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1946, -0.3467, -0.3468, 0.1946, 7.5482, -25.8393)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 10 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 9}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 9}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3552, 0.1775, 0.1775, 0.3552, 22.6334, -48.6043)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3871, -0.093, 0.093, 0.3871, 3.9735, -32.6646)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0794, 0.3896, 0.3896, -0.0794, 4.1036, -42.3094)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -260,7 +253,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1932, -0.3474, -0.3474, 0.1932, 7.5571, -25.7093)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 11 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 10}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 10}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3551, 0.1774, 0.1774, 0.3551, 22.5811, -48.6013)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3871, -0.093, 0.093, 0.3871, 3.9258, -32.6644)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0794, 0.3896, 0.3896, -0.0794, 4.1048, -42.3084)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -281,7 +274,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1916, -0.3481, -0.3481, 0.1916, 7.4645, -25.5284)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 12 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 11}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 11}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.355, 0.1774, 0.1774, 0.355, 22.5287, -48.6474)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.387, -0.093, 0.093, 0.387, 3.8781, -32.7141)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0793, 0.3895, 0.3895, -0.0793, 4.1061, -42.358)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -302,7 +295,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1901, -0.3488, -0.3488, 0.1901, 7.4196, -25.447)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 13 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 12}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 12}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3549, 0.1773, 0.1773, 0.3549, 22.4762, -48.6927)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3869, -0.093, 0.093, 0.3869, 3.8307, -32.7131)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0793, 0.3895, 0.3895, -0.0793, 4.1574, -42.357)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -323,7 +316,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1885, -0.3494, -0.3494, 0.1885, 7.4239, -25.314)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 14 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 13}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 13}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3548, 0.1773, 0.1773, 0.3548, 22.4243, -48.6392)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3869, -0.093, 0.093, 0.3869, 3.733, -32.7628)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0793, 0.3894, 0.3894, -0.0793, 4.1583, -42.4057)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -344,7 +337,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1869, -0.3501, -0.3501, 0.1869, 7.4276, -25.0824)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 15 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 14}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 14}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3547, 0.1772, 0.1772, 0.3547, 22.3713, -48.6842)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3868, -0.093, 0.093, 0.3868, 3.686, -32.7628)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0793, 0.3893, 0.3893, -0.0793, 4.1596, -42.4047)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -365,7 +358,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1853, -0.3507, -0.3507, 0.1853, 7.2802, -25.0002)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 16 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 15}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 15}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3546, 0.1772, 0.1772, 0.3546, 22.3692, -48.8298)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3867, -0.0929, 0.0929, 0.3867, 3.6383, -32.8126)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0793, 0.3893, 0.3893, -0.0793, 4.1608, -42.4537)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -386,7 +379,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1837, -0.3513, -0.3514, 0.1837, 7.3833, -24.9181)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 17 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 16}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 16}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3545, 0.1771, 0.1771, 0.3545, 22.3167, -48.8251)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3867, -0.0929, 0.0929, 0.3867, 3.5906, -32.8123)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0793, 0.3892, 0.3892, -0.0793, 4.1119, -42.4531)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -407,7 +400,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1833, -0.3514, -0.3514, 0.1833, 7.3153, -24.7516)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 18 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 17}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 17}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3549, 0.1773, 0.1773, 0.3549, 22.2249, -48.8404)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3869, -0.093, 0.093, 0.3869, 3.532, -32.8632)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0793, 0.3894, 0.3894, -0.0793, 4.1581, -42.5061)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -428,7 +421,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.182, -0.3525, -0.3525, 0.182, 7.2978, -24.6612)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 19 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 18}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 18}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3547, 0.1772, 0.1772, 0.3547, 22.1711, -48.8834)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3868, -0.093, 0.093, 0.3868, 3.486, -32.8628)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0793, 0.3893, 0.3893, -0.0793, 4.1596, -42.5047)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -449,7 +442,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1805, -0.353, -0.353, 0.1805, 7.2985, -24.5386)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 20 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 19}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 19}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3549, 0.1774, 0.1774, 0.3549, 22.1268, -48.8439)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.387, -0.093, 0.093, 0.387, 3.4804, -32.9138)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0793, 0.3895, 0.3895, -0.0793, 4.1571, -42.5567)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -470,7 +463,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1804, -0.3533, -0.3533, 0.1804, 7.3069, -24.4216)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 21 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 20}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 20}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3552, 0.1774, 0.1774, 0.3552, 22.0821, -48.852)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3871, -0.093, 0.093, 0.3871, 3.4251, -32.914)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0793, 0.3896, 0.3896, -0.0793, 4.1046, -42.5593)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -491,7 +484,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1792, -0.3542, -0.3542, 0.1792, 7.2848, -24.2912)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 22 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 21}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 21}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3554, 0.1776, 0.1776, 0.3554, 22.036, -48.8599)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3872, -0.093, 0.093, 0.3872, 3.4207, -32.9651)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0794, 0.3897, 0.3897, -0.0794, 4.1021, -42.6607)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -512,7 +505,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1791, -0.3545, -0.3545, 0.1791, 7.3405, -24.228)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 23 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 22}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 22}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3555, 0.1776, 0.1776, 0.3555, 22.0897, -48.8161)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3873, -0.0931, 0.0931, 0.3873, 3.3673, -33.0158)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0794, 0.3898, 0.3898, -0.0794, 4.1003, -42.6624)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -533,7 +526,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1791, -0.3547, -0.3547, 0.1791, 7.2952, -24.2183)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 24 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 23}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 23}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3562, 0.1778, 0.1778, 0.3562, 22.0553, -48.8865)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3877, -0.0931, 0.0931, 0.3877, 3.3538, -32.9698)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0796, 0.3901, 0.3901, -0.0796, 4.0924, -42.6151)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -554,7 +547,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1789, -0.3555, -0.3555, 0.1789, 7.314, -24.1255)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 25 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 24}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 24}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3557, 0.1777, 0.1777, 0.3557, 22.0918, -48.8704)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3874, -0.0931, 0.0931, 0.3874, 3.3645, -33.0163)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0794, 0.3898, 0.3898, -0.0794, 4.099, -42.6128)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -575,7 +568,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1779, -0.3554, -0.3548, 0.1791, 7.2499, -24.1385)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 26 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 25}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 25}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3556, 0.1777, 0.1777, 0.3556, 22.141, -48.8684)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3874, -0.0931, 0.0931, 0.3874, 3.4156, -32.9659)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0794, 0.3898, 0.3898, -0.0794, 4.0996, -42.5627)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -596,7 +589,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1793, -0.3547, -0.3547, 0.1793, 7.2537, -24.2241)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 27 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 26}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 26}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3556, 0.1776, 0.1776, 0.3556, 22.1902, -48.8164)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3873, -0.0931, 0.0931, 0.3873, 3.4661, -32.9157)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0794, 0.3898, 0.3898, -0.0794, 4.1003, -42.5124)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -617,7 +610,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1807, -0.3539, -0.3539, 0.1807, 7.3397, -24.3545)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 28 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 27}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 27}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3555, 0.1776, 0.1776, 0.3555, 22.1879, -48.7634)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3873, -0.0931, 0.0931, 0.3873, 3.5182, -32.9149)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0794, 0.3897, 0.3897, -0.0794, 4.1014, -42.5117)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -638,7 +631,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1822, -0.3531, -0.3531, 0.1822, 7.3268, -24.4921)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 29 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 28}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 28}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3554, 0.1776, 0.1776, 0.3554, 22.186, -48.8099)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3872, -0.0931, 0.0931, 0.3872, 3.5705, -32.8646)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0794, 0.3897, 0.3897, -0.0794, 4.1021, -42.5107)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -659,7 +652,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1838, -0.3522, -0.3522, 0.1838, 7.3647, -24.6337)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 30 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 29}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 29}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3553, 0.1775, 0.1775, 0.3553, 22.2837, -48.706)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3872, -0.093, 0.093, 0.3872, 3.673, -32.8149)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0794, 0.3896, 0.3896, -0.0794, 4.1036, -42.46)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -680,7 +673,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1854, -0.3513, -0.3513, 0.1854, 7.4041, -24.9288)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 31 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 30}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 30}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3551, 0.1774, 0.1774, 0.3551, 22.3306, -48.651)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3871, -0.093, 0.093, 0.3871, 3.6758, -32.7644)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0793, 0.3896, 0.3896, -0.0793, 4.1049, -42.409)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -701,7 +694,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1882, -0.3497, -0.3497, 0.1882, 7.4227, -25.1933)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 32 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 31}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 31}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.355, 0.1774, 0.1774, 0.355, 22.4786, -48.5966)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.387, -0.093, 0.093, 0.387, 3.7786, -32.8139)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0793, 0.3895, 0.3895, -0.0793, 4.1564, -42.4077)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -722,7 +715,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1899, -0.3487, -0.3487, 0.1899, 7.4114, -25.3921)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 33 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 32}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 32}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3549, 0.1773, 0.1773, 0.3549, 22.5256, -48.5416)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3869, -0.093, 0.093, 0.3869, 3.8309, -32.7636)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0793, 0.3894, 0.3894, -0.0793, 4.1576, -42.3567)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -743,7 +736,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1916, -0.3478, -0.3478, 0.1916, 7.4505, -25.6407)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 34 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 33}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 33}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3553, 0.1775, 0.1775, 0.3553, 22.6332, -48.5057)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3872, -0.093, 0.093, 0.3872, 3.9728, -32.6643)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0794, 0.3896, 0.3896, -0.0794, 4.1036, -42.26)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -764,7 +757,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1945, -0.3467, -0.3467, 0.1945, 7.5415, -25.8376)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 35 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 34}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 34}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.355, 0.1774, 0.1774, 0.355, 22.6776, -48.4959)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.387, -0.093, 0.093, 0.387, 4.0784, -32.6634)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0793, 0.3895, 0.3895, -0.0793, 4.1564, -42.3077)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -785,7 +778,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1947, -0.3463, -0.3463, 0.1947, 7.5367, -25.9115)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 36 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 35}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 35}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3552, 0.1775, 0.1775, 0.3552, 22.7319, -48.5033)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3871, -0.093, 0.093, 0.3871, 4.0742, -32.615)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0794, 0.3896, 0.3896, -0.0794, 4.1541, -42.3094)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -806,7 +799,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1962, -0.3457, -0.3457, 0.1963, 7.5827, -26.0371)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 37 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 36}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 36}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3554, 0.1776, 0.1776, 0.3554, 22.7865, -48.4602)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3872, -0.093, 0.093, 0.3872, 4.1202, -32.6153)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0794, 0.3897, 0.3897, -0.0794, 4.1521, -42.2607)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -827,7 +820,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.1977, -0.3452, -0.3452, 0.1977, 7.5779, -26.0613)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 38 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 37}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 37}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3555, 0.1776, 0.1776, 0.3555, 22.7897, -48.5161)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3873, -0.0931, 0.0931, 0.3873, 4.1173, -32.5658)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0794, 0.3898, 0.3898, -0.0794, 4.1006, -42.212)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />
@@ -848,7 +841,7 @@ const IddleMaleBrute = ({ id, inverted, sx, ...rest }: IddleMaleBruteProps) => (
         <use height="80.8" transform="matrix(-0.198, -0.3452, -0.3452, 0.198, 7.6425, -26.2173)" width="85.25" xlinkHref={`#IddleMaleBrute-${id}-sprite95`} />
       </g>
       {/* FRAME 39 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 38}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleMaleBrute_X_OFFSET + (IddleMaleBrute_WIDTH + IddleMaleBrute_MARGIN) * 38}, ${IddleMaleBrute_Y_OFFSET})`}>
         <use height="42.3" transform="matrix(-0.3562, 0.1778, 0.1778, 0.3562, 22.8553, -48.4865)" width="51.5" xlinkHref={`#IddleMaleBrute-${id}-sprite0`} />
         <use height="126.95" transform="matrix(0.3877, -0.0931, 0.0931, 0.3877, 4.1538, -32.5698)" width="253.5" xlinkHref={`#IddleMaleBrute-${id}-sprite5`} />
         <use height="30.75" transform="matrix(0.0796, 0.3901, 0.3901, -0.0796, 4.0924, -42.2151)" width="40.3" xlinkHref={`#IddleMaleBrute-${id}-sprite9`} />

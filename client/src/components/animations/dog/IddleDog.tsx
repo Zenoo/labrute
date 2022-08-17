@@ -1,4 +1,5 @@
-import { Box, BoxProps, GlobalStyles } from '@mui/material';
+/* eslint-disable camelcase */
+import { Box, BoxProps } from '@mui/material';
 import React from 'react';
 
 export interface IddleDogProps extends BoxProps {
@@ -6,34 +7,24 @@ export interface IddleDogProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 100;
-const HEIGHT = 42;
-const FRAMES = 26;
-const X_OFFSET = 40.7;
-const Y_OFFSET = 12.2;
-const MARGIN = 30;
+export const IddleDog_WIDTH = 100;
+export const IddleDog_HEIGHT = 42;
+export const IddleDog_FRAMES = 26;
+export const IddleDog_X_OFFSET = 40.7;
+export const IddleDog_Y_OFFSET = 12.2;
+export const IddleDog_MARGIN = 30;
 
 const IddleDog = ({ id, inverted, sx, ...rest }: IddleDogProps) => (
   <Box
     sx={{
       position: 'relative',
       overflow: 'hidden',
-      width: WIDTH,
-      height: HEIGHT,
+      width: IddleDog_WIDTH,
+      height: IddleDog_HEIGHT,
       ...sx,
     }}
     {...rest}
   >
-    <GlobalStyles styles={{
-      '@keyframes IddleDog': {
-        '100%': {
-          left: !inverted
-            ? -MARGIN
-            : -(WIDTH + MARGIN) * (FRAMES - 1) - (!inverted ? MARGIN : 0),
-        }
-      }
-    }}
-    />
     <Box
       component="svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -42,15 +33,16 @@ const IddleDog = ({ id, inverted, sx, ...rest }: IddleDogProps) => (
         position: 'absolute',
         top: 0,
         left: !inverted
-          ? -(WIDTH + MARGIN) * (FRAMES - 1) - (!inverted ? MARGIN : 0)
+          ? -(IddleDog_WIDTH + IddleDog_MARGIN) * (IddleDog_FRAMES - 1)
+            - (!inverted ? IddleDog_MARGIN : 0)
           : 0,
-        width: (WIDTH + MARGIN) * FRAMES,
-        animation: `IddleDog 0.65s steps(${FRAMES}, jump-none) infinite`,
+        width: (IddleDog_WIDTH + IddleDog_MARGIN) * IddleDog_FRAMES,
+        animation: `IddleDog${inverted ? 'Inverted' : ''} 0.65s steps(${IddleDog_FRAMES}, jump-none) infinite`,
         transform: !inverted ? 'scale(-1, 1)' : null,
       }}
     >
       {/* FRAME 1 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 0}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleDog_X_OFFSET + (IddleDog_WIDTH + IddleDog_MARGIN) * 0}, ${IddleDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddleDog-1-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7642, 0.9536, -1.052, 1.5992, -8.6623, -0.5898)" width="1.75" xlinkHref={`#IddleDog-1-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -15.2163, -3.4642)" width="1.75" xlinkHref={`#IddleDog-1-${id}-sprite1`} />
@@ -123,7 +115,7 @@ const IddleDog = ({ id, inverted, sx, ...rest }: IddleDogProps) => (
         </g>
       </defs>
       {/* FRAME 2 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 1}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleDog_X_OFFSET + (IddleDog_WIDTH + IddleDog_MARGIN) * 1}, ${IddleDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddleDog-2-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7626, 0.9507, -1.0506, 1.5966, -8.6642, -0.5792)" width="1.75" xlinkHref={`#IddleDog-2-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#IddleDog-2-${id}-sprite1`} />
@@ -196,7 +188,7 @@ const IddleDog = ({ id, inverted, sx, ...rest }: IddleDogProps) => (
         </g>
       </defs>
       {/* FRAME 3 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 2}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleDog_X_OFFSET + (IddleDog_WIDTH + IddleDog_MARGIN) * 2}, ${IddleDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddleDog-3-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7586, 0.958, -1.0571, 1.5923, -8.6413, -0.5762)" width="1.75" xlinkHref={`#IddleDog-3-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#IddleDog-3-${id}-sprite1`} />
@@ -269,7 +261,7 @@ const IddleDog = ({ id, inverted, sx, ...rest }: IddleDogProps) => (
         </g>
       </defs>
       {/* FRAME 4 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 3}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleDog_X_OFFSET + (IddleDog_WIDTH + IddleDog_MARGIN) * 3}, ${IddleDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddleDog-4-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.754, 0.9664, -1.0647, 1.5871, -8.5645, -0.5725)" width="1.75" xlinkHref={`#IddleDog-4-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#IddleDog-4-${id}-sprite1`} />
@@ -342,7 +334,7 @@ const IddleDog = ({ id, inverted, sx, ...rest }: IddleDogProps) => (
         </g>
       </defs>
       {/* FRAME 5 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 4}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleDog_X_OFFSET + (IddleDog_WIDTH + IddleDog_MARGIN) * 4}, ${IddleDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddleDog-5-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.742, 0.9875, -1.0786, 1.5776, -8.5114, -0.5228)" width="1.75" xlinkHref={`#IddleDog-5-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#IddleDog-5-${id}-sprite1`} />
@@ -415,7 +407,7 @@ const IddleDog = ({ id, inverted, sx, ...rest }: IddleDogProps) => (
         </g>
       </defs>
       {/* FRAME 6 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 5}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleDog_X_OFFSET + (IddleDog_WIDTH + IddleDog_MARGIN) * 5}, ${IddleDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddleDog-6-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7324, 1.0041, -1.0988, 1.5635, -8.3439, -0.4048)" width="1.75" xlinkHref={`#IddleDog-6-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#IddleDog-6-${id}-sprite1`} />
@@ -488,7 +480,7 @@ const IddleDog = ({ id, inverted, sx, ...rest }: IddleDogProps) => (
         </g>
       </defs>
       {/* FRAME 7 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 6}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleDog_X_OFFSET + (IddleDog_WIDTH + IddleDog_MARGIN) * 6}, ${IddleDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddleDog-7-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7151, 1.0331, -1.1198, 1.5484, -8.1144, -0.2994)" width="1.75" xlinkHref={`#IddleDog-7-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#IddleDog-7-${id}-sprite1`} />
@@ -561,7 +553,7 @@ const IddleDog = ({ id, inverted, sx, ...rest }: IddleDogProps) => (
         </g>
       </defs>
       {/* FRAME 8 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 7}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleDog_X_OFFSET + (IddleDog_WIDTH + IddleDog_MARGIN) * 7}, ${IddleDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddleDog-8-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7003, 1.0569, -1.1463, 1.5287, -7.923, -0.125)" width="1.75" xlinkHref={`#IddleDog-8-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#IddleDog-8-${id}-sprite1`} />
@@ -634,7 +626,7 @@ const IddleDog = ({ id, inverted, sx, ...rest }: IddleDogProps) => (
         </g>
       </defs>
       {/* FRAME 9 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 8}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleDog_X_OFFSET + (IddleDog_WIDTH + IddleDog_MARGIN) * 8}, ${IddleDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddleDog-9-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6815, 1.0863, -1.1727, 1.5083, -7.8269, -0.1558)" width="1.75" xlinkHref={`#IddleDog-9-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#IddleDog-9-${id}-sprite1`} />
@@ -707,7 +699,7 @@ const IddleDog = ({ id, inverted, sx, ...rest }: IddleDogProps) => (
         </g>
       </defs>
       {/* FRAME 10 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 9}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleDog_X_OFFSET + (IddleDog_WIDTH + IddleDog_MARGIN) * 9}, ${IddleDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddleDog-10-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6625, 1.1149, -1.1983, 1.4879, -7.6826, 0.0147)" width="1.75" xlinkHref={`#IddleDog-10-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#IddleDog-10-${id}-sprite1`} />
@@ -780,7 +772,7 @@ const IddleDog = ({ id, inverted, sx, ...rest }: IddleDogProps) => (
         </g>
       </defs>
       {/* FRAME 11 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 10}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleDog_X_OFFSET + (IddleDog_WIDTH + IddleDog_MARGIN) * 10}, ${IddleDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddleDog-11-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6473, 1.1369, -1.2181, 1.4716, -7.5593, 0.0818)" width="1.75" xlinkHref={`#IddleDog-11-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#IddleDog-11-${id}-sprite1`} />
@@ -853,7 +845,7 @@ const IddleDog = ({ id, inverted, sx, ...rest }: IddleDogProps) => (
         </g>
       </defs>
       {/* FRAME 12 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 11}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleDog_X_OFFSET + (IddleDog_WIDTH + IddleDog_MARGIN) * 11}, ${IddleDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddleDog-12-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6326, 1.1578, -1.2367, 1.4559, -7.29, 0.1989)" width="1.75" xlinkHref={`#IddleDog-12-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#IddleDog-12-${id}-sprite1`} />
@@ -926,7 +918,7 @@ const IddleDog = ({ id, inverted, sx, ...rest }: IddleDogProps) => (
         </g>
       </defs>
       {/* FRAME 13 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 12}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleDog_X_OFFSET + (IddleDog_WIDTH + IddleDog_MARGIN) * 12}, ${IddleDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddleDog-13-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6224, 1.1721, -1.2494, 1.445, -7.2421, 0.3111)" width="1.75" xlinkHref={`#IddleDog-13-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#IddleDog-13-${id}-sprite1`} />
@@ -999,7 +991,7 @@ const IddleDog = ({ id, inverted, sx, ...rest }: IddleDogProps) => (
         </g>
       </defs>
       {/* FRAME 14 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 13}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleDog_X_OFFSET + (IddleDog_WIDTH + IddleDog_MARGIN) * 13}, ${IddleDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddleDog-14-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6166, 1.1799, -1.2564, 1.4388, -7.1655, 0.2684)" width="1.75" xlinkHref={`#IddleDog-14-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#IddleDog-14-${id}-sprite1`} />
@@ -1072,7 +1064,7 @@ const IddleDog = ({ id, inverted, sx, ...rest }: IddleDogProps) => (
         </g>
       </defs>
       {/* FRAME 15 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 14}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleDog_X_OFFSET + (IddleDog_WIDTH + IddleDog_MARGIN) * 14}, ${IddleDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddleDog-15-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6114, 1.187, -1.2626, 1.4333, -7.1419, 0.3748)" width="1.75" xlinkHref={`#IddleDog-15-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#IddleDog-15-${id}-sprite1`} />
@@ -1145,7 +1137,7 @@ const IddleDog = ({ id, inverted, sx, ...rest }: IddleDogProps) => (
         </g>
       </defs>
       {/* FRAME 16 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 15}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleDog_X_OFFSET + (IddleDog_WIDTH + IddleDog_MARGIN) * 15}, ${IddleDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddleDog-16-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6067, 1.1931, -1.2682, 1.4284, -7.1207, 0.3305)" width="1.75" xlinkHref={`#IddleDog-16-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#IddleDog-16-${id}-sprite1`} />
@@ -1218,7 +1210,7 @@ const IddleDog = ({ id, inverted, sx, ...rest }: IddleDogProps) => (
         </g>
       </defs>
       {/* FRAME 17 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 16}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleDog_X_OFFSET + (IddleDog_WIDTH + IddleDog_MARGIN) * 16}, ${IddleDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddleDog-17-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6078, 1.1971, -1.2706, 1.4304, -7.1155, 0.32)" width="1.75" xlinkHref={`#IddleDog-17-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -15.2163, -3.4642)" width="1.75" xlinkHref={`#IddleDog-17-${id}-sprite1`} />
@@ -1291,7 +1283,7 @@ const IddleDog = ({ id, inverted, sx, ...rest }: IddleDogProps) => (
         </g>
       </defs>
       {/* FRAME 18 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 17}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleDog_X_OFFSET + (IddleDog_WIDTH + IddleDog_MARGIN) * 17}, ${IddleDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddleDog-18-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6071, 1.1926, -1.263, 1.433, -7.1857, 0.2185)" width="1.75" xlinkHref={`#IddleDog-18-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0435, -1.2693, 1.0189, 1.3467, -15.1063, -3.4167)" width="1.75" xlinkHref={`#IddleDog-18-${id}-sprite1`} />
@@ -1364,7 +1356,7 @@ const IddleDog = ({ id, inverted, sx, ...rest }: IddleDogProps) => (
         </g>
       </defs>
       {/* FRAME 19 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 18}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleDog_X_OFFSET + (IddleDog_WIDTH + IddleDog_MARGIN) * 18}, ${IddleDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddleDog-19-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.617, 1.179, -1.2555, 1.4394, -7.2187, 0.2679)" width="1.75" xlinkHref={`#IddleDog-19-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0434, -1.2691, 1.0188, 1.3466, -15.1059, -3.4167)" width="1.75" xlinkHref={`#IddleDog-19-${id}-sprite1`} />
@@ -1437,7 +1429,7 @@ const IddleDog = ({ id, inverted, sx, ...rest }: IddleDogProps) => (
         </g>
       </defs>
       {/* FRAME 20 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 19}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleDog_X_OFFSET + (IddleDog_WIDTH + IddleDog_MARGIN) * 19}, ${IddleDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddleDog-20-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6326, 1.157, -1.231, 1.4601, -7.3553, 0.0884)" width="1.75" xlinkHref={`#IddleDog-20-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0432, -1.2689, 1.0186, 1.3464, -15.105, -3.4165)" width="1.75" xlinkHref={`#IddleDog-20-${id}-sprite1`} />
@@ -1510,7 +1502,7 @@ const IddleDog = ({ id, inverted, sx, ...rest }: IddleDogProps) => (
         </g>
       </defs>
       {/* FRAME 21 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 20}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleDog_X_OFFSET + (IddleDog_WIDTH + IddleDog_MARGIN) * 20}, ${IddleDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddleDog-21-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6574, 1.1207, -1.1983, 1.4867, -7.6266, -0.0394)" width="1.75" xlinkHref={`#IddleDog-21-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0428, -1.2685, 1.0183, 1.3461, -15.1037, -3.4662)" width="1.75" xlinkHref={`#IddleDog-21-${id}-sprite1`} />
@@ -1583,7 +1575,7 @@ const IddleDog = ({ id, inverted, sx, ...rest }: IddleDogProps) => (
         </g>
       </defs>
       {/* FRAME 22 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 21}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleDog_X_OFFSET + (IddleDog_WIDTH + IddleDog_MARGIN) * 21}, ${IddleDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddleDog-22-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.6901, 1.0703, -1.1577, 1.5181, -7.8788, -0.2127)" width="1.75" xlinkHref={`#IddleDog-22-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0422, -1.2679, 1.0179, 1.3457, -15.1019, -3.4158)" width="1.75" xlinkHref={`#IddleDog-22-${id}-sprite1`} />
@@ -1656,7 +1648,7 @@ const IddleDog = ({ id, inverted, sx, ...rest }: IddleDogProps) => (
         </g>
       </defs>
       {/* FRAME 23 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 22}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleDog_X_OFFSET + (IddleDog_WIDTH + IddleDog_MARGIN) * 22}, ${IddleDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddleDog-23-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7176, 1.025, -1.1116, 1.5518, -8.1901, -0.3986)" width="1.75" xlinkHref={`#IddleDog-23-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0417, -1.2675, 1.0175, 1.3454, -15.1002, -3.4154)" width="1.75" xlinkHref={`#IddleDog-23-${id}-sprite1`} />
@@ -1729,7 +1721,7 @@ const IddleDog = ({ id, inverted, sx, ...rest }: IddleDogProps) => (
         </g>
       </defs>
       {/* FRAME 24 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 23}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleDog_X_OFFSET + (IddleDog_WIDTH + IddleDog_MARGIN) * 23}, ${IddleDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddleDog-24-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7392, 0.9876, -1.0828, 1.5717, -8.4463, -0.5067)" width="1.75" xlinkHref={`#IddleDog-24-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0413, -1.2671, 1.0172, 1.3451, -14.9989, -3.4151)" width="1.75" xlinkHref={`#IddleDog-24-${id}-sprite1`} />
@@ -1802,7 +1794,7 @@ const IddleDog = ({ id, inverted, sx, ...rest }: IddleDogProps) => (
         </g>
       </defs>
       {/* FRAME 25 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 24}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleDog_X_OFFSET + (IddleDog_WIDTH + IddleDog_MARGIN) * 24}, ${IddleDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddleDog-25-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7518, 0.9647, -1.0619, 1.5856, -8.6197, -0.5664)" width="1.75" xlinkHref={`#IddleDog-25-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0411, -1.2669, 1.017, 1.3449, -14.9982, -3.4148)" width="1.75" xlinkHref={`#IddleDog-25-${id}-sprite1`} />
@@ -1875,7 +1867,7 @@ const IddleDog = ({ id, inverted, sx, ...rest }: IddleDogProps) => (
         </g>
       </defs>
       {/* FRAME 26 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 25}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${IddleDog_X_OFFSET + (IddleDog_WIDTH + IddleDog_MARGIN) * 25}, ${IddleDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#IddleDog-26-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7592, 0.957, -1.0509, 1.5964, -8.709, -0.6363)" width="1.75" xlinkHref={`#IddleDog-26-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.0436, -1.2693, 1.0189, 1.3467, -15.1064, -3.4168)" width="1.75" xlinkHref={`#IddleDog-26-${id}-sprite1`} />

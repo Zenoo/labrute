@@ -1,4 +1,5 @@
-import { Box, BoxProps, GlobalStyles } from '@mui/material';
+/* eslint-disable camelcase */
+import { Box, BoxProps } from '@mui/material';
 import React from 'react';
 
 export interface DeathPantherProps extends BoxProps {
@@ -6,34 +7,24 @@ export interface DeathPantherProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 135;
-const HEIGHT = 90;
-const FRAMES = 27;
-const X_OFFSET = 60;
-const Y_OFFSET = 57;
-const MARGIN = 30;
+export const DeathPanther_WIDTH = 135;
+export const DeathPanther_HEIGHT = 90;
+export const DeathPanther_FRAMES = 27;
+export const DeathPanther_X_OFFSET = 60;
+export const DeathPanther_Y_OFFSET = 57;
+export const DeathPanther_MARGIN = 30;
 
 const DeathPanther = ({ id, inverted, sx, ...rest }: DeathPantherProps) => (
   <Box
     sx={{
       position: 'relative',
       overflow: 'hidden',
-      width: WIDTH,
-      height: HEIGHT,
+      width: DeathPanther_WIDTH,
+      height: DeathPanther_HEIGHT,
       ...sx,
     }}
     {...rest}
   >
-    <GlobalStyles styles={{
-      '@keyframes DeathPanther': {
-        '100%': {
-          left: !inverted
-            ? -MARGIN
-            : -(WIDTH + MARGIN) * (FRAMES - 1) - (!inverted ? MARGIN : 0),
-        }
-      }
-    }}
-    />
     <Box
       component="svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -42,15 +33,17 @@ const DeathPanther = ({ id, inverted, sx, ...rest }: DeathPantherProps) => (
         position: 'absolute',
         top: 0,
         left: !inverted
-          ? -(WIDTH + MARGIN) * (FRAMES - 1) - (!inverted ? MARGIN : 0)
+          ? -(DeathPanther_WIDTH + DeathPanther_MARGIN)
+          * (DeathPanther_FRAMES - 1)
+          - (!inverted ? DeathPanther_MARGIN : 0)
           : 0,
-        width: (WIDTH + MARGIN) * FRAMES,
-        animation: `DeathPanther 0.67s steps(${FRAMES}, jump-none) forwards`,
+        width: (DeathPanther_WIDTH + DeathPanther_MARGIN) * DeathPanther_FRAMES,
+        animation: `DeathPanther${inverted ? 'Inverted' : ''} 0.67s steps(${DeathPanther_FRAMES}, jump-none) forwards`,
         transform: !inverted ? 'scale(-1, 1)' : null,
       }}
     >
       {/* FRAME 1 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 0}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${DeathPanther_X_OFFSET + (DeathPanther_WIDTH + DeathPanther_MARGIN) * 0}, ${DeathPanther_Y_OFFSET})`}>
         <use height="20.0" transform="matrix(1.3172, 0.0, 0.0, 1.0311, -22.4943, 1.339)" width="40.0" xlinkHref={`#DeathPanther-1-${id}-sprite0`} />
         <use height="3.75" transform="matrix(0.7664, 1.0031, -0.9093, 0.6947, -25.6286, -13.4942)" width="5.9" xlinkHref={`#DeathPanther-1-${id}-sprite1`} />
         <use height="5.75" transform="matrix(0.8268, 1.8128, -1.7918, 0.637, -13.0059, -13.7678)" width="1.75" xlinkHref={`#DeathPanther-1-${id}-sprite2`} />
@@ -134,7 +127,7 @@ const DeathPanther = ({ id, inverted, sx, ...rest }: DeathPantherProps) => (
         </g>
       </defs>
       {/* FRAME 2 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 1}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${DeathPanther_X_OFFSET + (DeathPanther_WIDTH + DeathPanther_MARGIN) * 1}, ${DeathPanther_Y_OFFSET})`}>
         <use height="20.0" transform="matrix(1.2019, 0.0, 0.0, 0.9408, -21.2387, 2.2416)" width="40.0" xlinkHref={`#DeathPanther-2-${id}-sprite0`} />
         <use height="3.75" transform="matrix(0.7664, 1.0031, -0.9093, 0.6947, -25.6286, -13.4942)" width="5.9" xlinkHref={`#DeathPanther-2-${id}-sprite1`} />
         <use height="5.75" transform="matrix(0.8268, 1.8128, -1.7918, 0.637, -13.0059, -13.7678)" width="1.75" xlinkHref={`#DeathPanther-2-${id}-sprite2`} />
@@ -218,7 +211,7 @@ const DeathPanther = ({ id, inverted, sx, ...rest }: DeathPantherProps) => (
         </g>
       </defs>
       {/* FRAME 3 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 2}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${DeathPanther_X_OFFSET + (DeathPanther_WIDTH + DeathPanther_MARGIN) * 2}, ${DeathPanther_Y_OFFSET})`}>
         <use height="20.0" transform="matrix(1.0867, 0.0, 0.0, 0.8506, -20.084, 3.1435)" width="40.0" xlinkHref={`#DeathPanther-3-${id}-sprite0`} />
         <use height="3.75" transform="matrix(-0.1656, 1.2554, -1.1379, -0.1502, 6.5439, -23.8255)" width="5.9" xlinkHref={`#DeathPanther-3-${id}-sprite1`} />
         <use height="5.75" transform="matrix(-1.018, 1.7166, -1.5486, -1.1093, 14.4813, -15.2452)" width="1.75" xlinkHref={`#DeathPanther-3-${id}-sprite2`} />
@@ -302,7 +295,7 @@ const DeathPanther = ({ id, inverted, sx, ...rest }: DeathPantherProps) => (
         </g>
       </defs>
       {/* FRAME 4 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 3}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${DeathPanther_X_OFFSET + (DeathPanther_WIDTH + DeathPanther_MARGIN) * 3}, ${DeathPanther_Y_OFFSET})`}>
         <use height="20.0" transform="matrix(1.2351, 0.0, 0.0, 0.9197, -19.1528, 2.8026)" width="40.0" xlinkHref={`#DeathPanther-4-${id}-sprite0`} />
         <use height="3.75" transform="matrix(-0.1656, 1.2554, -1.1379, -0.1502, 6.5439, -23.8255)" width="5.9" xlinkHref={`#DeathPanther-4-${id}-sprite1`} />
         <use height="5.75" transform="matrix(-1.018, 1.7166, -1.5486, -1.1093, 14.4813, -15.2452)" width="1.75" xlinkHref={`#DeathPanther-4-${id}-sprite2`} />
@@ -386,7 +379,7 @@ const DeathPanther = ({ id, inverted, sx, ...rest }: DeathPantherProps) => (
         </g>
       </defs>
       {/* FRAME 5 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 4}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${DeathPanther_X_OFFSET + (DeathPanther_WIDTH + DeathPanther_MARGIN) * 4}, ${DeathPanther_Y_OFFSET})`}>
         <use height="20.0" transform="matrix(1.3836, 0.0, 0.0, 0.9889, -18.2221, 2.5612)" width="40.0" xlinkHref={`#DeathPanther-5-${id}-sprite0`} />
         <use height="3.75" transform="matrix(0.7396, 1.0318, -0.9353, 0.6704, 5.8484, -7.584)" width="5.9" xlinkHref={`#DeathPanther-5-${id}-sprite1`} />
         <use height="5.75" transform="matrix(0.2524, 1.9861, -1.9094, 0.0766, 18.7854, -4.7931)" width="1.75" xlinkHref={`#DeathPanther-5-${id}-sprite2`} />
@@ -485,7 +478,7 @@ const DeathPanther = ({ id, inverted, sx, ...rest }: DeathPantherProps) => (
         </g>
       </defs>
       {/* FRAME 6 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 5}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${DeathPanther_X_OFFSET + (DeathPanther_WIDTH + DeathPanther_MARGIN) * 5}, ${DeathPanther_Y_OFFSET})`}>
         <use height="20.0" transform="matrix(1.4073, 0.0, 0.0, 0.9889, -18.5967, 1.0114)" width="40.0" xlinkHref={`#DeathPanther-6-${id}-sprite0`} />
         <use height="3.75" transform="matrix(0.7396, 1.0318, -0.9353, 0.6704, 5.8484, -7.584)" width="5.9" xlinkHref={`#DeathPanther-6-${id}-sprite1`} />
         <use height="5.75" transform="matrix(0.2524, 1.9861, -1.9094, 0.0766, 18.7854, -4.7931)" width="1.75" xlinkHref={`#DeathPanther-6-${id}-sprite2`} />
@@ -584,7 +577,7 @@ const DeathPanther = ({ id, inverted, sx, ...rest }: DeathPantherProps) => (
         </g>
       </defs>
       {/* FRAME 7 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 6}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${DeathPanther_X_OFFSET + (DeathPanther_WIDTH + DeathPanther_MARGIN) * 6}, ${DeathPanther_Y_OFFSET})`}>
         <use height="20.0" transform="matrix(1.4311, 0.0, 0.0, 0.9889, -18.9718, -0.4388)" width="40.0" xlinkHref={`#DeathPanther-7-${id}-sprite0`} />
         <use height="3.75" transform="matrix(0.7396, 1.0318, -0.9353, 0.6704, 5.8484, -10.584)" width="5.9" xlinkHref={`#DeathPanther-7-${id}-sprite1`} />
         <use height="5.75" transform="matrix(0.2524, 1.9861, -1.9094, 0.0766, 18.7854, -7.7931)" width="1.75" xlinkHref={`#DeathPanther-7-${id}-sprite2`} />
@@ -683,7 +676,7 @@ const DeathPanther = ({ id, inverted, sx, ...rest }: DeathPantherProps) => (
         </g>
       </defs>
       {/* FRAME 8 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 7}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${DeathPanther_X_OFFSET + (DeathPanther_WIDTH + DeathPanther_MARGIN) * 7}, ${DeathPanther_Y_OFFSET})`}>
         <use height="20.0" transform="matrix(1.4311, 0.0, 0.0, 0.9889, -18.9718, -0.4388)" width="40.0" xlinkHref={`#DeathPanther-8-${id}-sprite0`} />
         <use height="3.75" transform="matrix(0.7396, 1.0318, -0.9353, 0.6704, 5.8484, -10.584)" width="5.9" xlinkHref={`#DeathPanther-8-${id}-sprite1`} />
         <use height="5.75" transform="matrix(0.2524, 1.9861, -1.9094, 0.0766, 18.7854, -7.7931)" width="1.75" xlinkHref={`#DeathPanther-8-${id}-sprite2`} />
@@ -783,7 +776,7 @@ const DeathPanther = ({ id, inverted, sx, ...rest }: DeathPantherProps) => (
         </g>
       </defs>
       {/* FRAME 9 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 8}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${DeathPanther_X_OFFSET + (DeathPanther_WIDTH + DeathPanther_MARGIN) * 8}, ${DeathPanther_Y_OFFSET})`}>
         <use height="20.0" transform="matrix(1.4311, 0.0, 0.0, 0.9889, -18.9718, -0.4388)" width="40.0" xlinkHref={`#DeathPanther-9-${id}-sprite0`} />
         <use height="3.75" transform="matrix(0.7396, 1.0318, -0.9353, 0.6704, 5.8484, -10.584)" width="5.9" xlinkHref={`#DeathPanther-9-${id}-sprite1`} />
         <use height="5.75" transform="matrix(0.2524, 1.9861, -1.9094, 0.0766, 18.7854, -7.7931)" width="1.75" xlinkHref={`#DeathPanther-9-${id}-sprite2`} />
@@ -883,7 +876,7 @@ const DeathPanther = ({ id, inverted, sx, ...rest }: DeathPantherProps) => (
         </g>
       </defs>
       {/* FRAME 10 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 9}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${DeathPanther_X_OFFSET + (DeathPanther_WIDTH + DeathPanther_MARGIN) * 9}, ${DeathPanther_Y_OFFSET})`}>
         <use height="20.0" transform="matrix(1.4311, 0.0, 0.0, 0.9889, -18.9718, -0.4388)" width="40.0" xlinkHref={`#DeathPanther-10-${id}-sprite0`} />
         <use height="3.75" transform="matrix(0.7396, 1.0318, -0.9353, 0.6704, 5.8484, -10.584)" width="5.9" xlinkHref={`#DeathPanther-10-${id}-sprite1`} />
         <use height="5.75" transform="matrix(0.2524, 1.9861, -1.9094, 0.0766, 18.7854, -7.7931)" width="1.75" xlinkHref={`#DeathPanther-10-${id}-sprite2`} />
@@ -983,7 +976,7 @@ const DeathPanther = ({ id, inverted, sx, ...rest }: DeathPantherProps) => (
         </g>
       </defs>
       {/* FRAME 11 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 10}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${DeathPanther_X_OFFSET + (DeathPanther_WIDTH + DeathPanther_MARGIN) * 10}, ${DeathPanther_Y_OFFSET})`}>
         <use height="20.0" transform="matrix(1.4311, 0.0, 0.0, 0.9889, -18.9718, -0.4388)" width="40.0" xlinkHref={`#DeathPanther-11-${id}-sprite0`} />
         <use height="3.75" transform="matrix(0.7396, 1.0318, -0.9353, 0.6704, 5.8484, -10.584)" width="5.9" xlinkHref={`#DeathPanther-11-${id}-sprite1`} />
         <use height="5.75" transform="matrix(0.2524, 1.9861, -1.9094, 0.0766, 18.7854, -7.7931)" width="1.75" xlinkHref={`#DeathPanther-11-${id}-sprite2`} />
@@ -1083,7 +1076,7 @@ const DeathPanther = ({ id, inverted, sx, ...rest }: DeathPantherProps) => (
         </g>
       </defs>
       {/* FRAME 12 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 11}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${DeathPanther_X_OFFSET + (DeathPanther_WIDTH + DeathPanther_MARGIN) * 11}, ${DeathPanther_Y_OFFSET})`}>
         <use height="20.0" transform="matrix(1.4311, 0.0, 0.0, 0.9889, -18.9718, -0.4388)" width="40.0" xlinkHref={`#DeathPanther-12-${id}-sprite0`} />
         <use height="3.75" transform="matrix(0.7396, 1.0318, -0.9353, 0.6704, 5.8484, -10.584)" width="5.9" xlinkHref={`#DeathPanther-12-${id}-sprite1`} />
         <use height="5.75" transform="matrix(0.2524, 1.9861, -1.9094, 0.0766, 18.7854, -7.7931)" width="1.75" xlinkHref={`#DeathPanther-12-${id}-sprite2`} />
@@ -1183,7 +1176,7 @@ const DeathPanther = ({ id, inverted, sx, ...rest }: DeathPantherProps) => (
         </g>
       </defs>
       {/* FRAME 13 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 12}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${DeathPanther_X_OFFSET + (DeathPanther_WIDTH + DeathPanther_MARGIN) * 12}, ${DeathPanther_Y_OFFSET})`}>
         <use height="20.0" transform="matrix(1.4311, 0.0, 0.0, 0.9889, -18.9718, -0.4388)" width="40.0" xlinkHref={`#DeathPanther-13-${id}-sprite0`} />
         <use height="3.75" transform="matrix(0.7396, 1.0318, -0.9353, 0.6704, 5.8484, -10.584)" width="5.9" xlinkHref={`#DeathPanther-13-${id}-sprite1`} />
         <use height="5.75" transform="matrix(0.2524, 1.9861, -1.9094, 0.0766, 18.7854, -7.7931)" width="1.75" xlinkHref={`#DeathPanther-13-${id}-sprite2`} />
@@ -1283,7 +1276,7 @@ const DeathPanther = ({ id, inverted, sx, ...rest }: DeathPantherProps) => (
         </g>
       </defs>
       {/* FRAME 14 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 13}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${DeathPanther_X_OFFSET + (DeathPanther_WIDTH + DeathPanther_MARGIN) * 13}, ${DeathPanther_Y_OFFSET})`}>
         <use height="20.0" transform="matrix(1.4311, 0.0, 0.0, 0.9889, -18.9718, -0.4388)" width="40.0" xlinkHref={`#DeathPanther-14-${id}-sprite0`} />
         <use height="3.75" transform="matrix(0.7396, 1.0318, -0.9353, 0.6704, 5.8484, -10.584)" width="5.9" xlinkHref={`#DeathPanther-14-${id}-sprite1`} />
         <use height="5.75" transform="matrix(0.2524, 1.9861, -1.9094, 0.0766, 18.7854, -7.7931)" width="1.75" xlinkHref={`#DeathPanther-14-${id}-sprite2`} />
@@ -1383,7 +1376,7 @@ const DeathPanther = ({ id, inverted, sx, ...rest }: DeathPantherProps) => (
         </g>
       </defs>
       {/* FRAME 15 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 14}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${DeathPanther_X_OFFSET + (DeathPanther_WIDTH + DeathPanther_MARGIN) * 14}, ${DeathPanther_Y_OFFSET})`}>
         <use height="20.0" transform="matrix(1.4311, 0.0, 0.0, 0.9889, -18.9718, -0.4388)" width="40.0" xlinkHref={`#DeathPanther-15-${id}-sprite0`} />
         <use height="3.75" transform="matrix(0.7396, 1.0318, -0.9353, 0.6704, 5.8484, -10.584)" width="5.9" xlinkHref={`#DeathPanther-15-${id}-sprite1`} />
         <use height="5.75" transform="matrix(0.2524, 1.9861, -1.9094, 0.0766, 18.7854, -7.7931)" width="1.75" xlinkHref={`#DeathPanther-15-${id}-sprite2`} />
@@ -1483,7 +1476,7 @@ const DeathPanther = ({ id, inverted, sx, ...rest }: DeathPantherProps) => (
         </g>
       </defs>
       {/* FRAME 16 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 15}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${DeathPanther_X_OFFSET + (DeathPanther_WIDTH + DeathPanther_MARGIN) * 15}, ${DeathPanther_Y_OFFSET})`}>
         <use height="20.0" transform="matrix(1.4311, 0.0, 0.0, 0.9889, -18.9718, -0.4388)" width="40.0" xlinkHref={`#DeathPanther-16-${id}-sprite0`} />
         <use height="3.75" transform="matrix(0.7396, 1.0318, -0.9353, 0.6704, 5.8484, -10.584)" width="5.9" xlinkHref={`#DeathPanther-16-${id}-sprite1`} />
         <use height="5.75" transform="matrix(0.2524, 1.9861, -1.9094, 0.0766, 18.7854, -7.7931)" width="1.75" xlinkHref={`#DeathPanther-16-${id}-sprite2`} />
@@ -1583,7 +1576,7 @@ const DeathPanther = ({ id, inverted, sx, ...rest }: DeathPantherProps) => (
         </g>
       </defs>
       {/* FRAME 17 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 16}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${DeathPanther_X_OFFSET + (DeathPanther_WIDTH + DeathPanther_MARGIN) * 16}, ${DeathPanther_Y_OFFSET})`}>
         <use height="20.0" transform="matrix(1.4311, 0.0, 0.0, 0.9889, -18.9718, -0.4388)" width="40.0" xlinkHref={`#DeathPanther-17-${id}-sprite0`} />
         <use height="3.75" transform="matrix(0.7396, 1.0318, -0.9353, 0.6704, 5.8484, -10.584)" width="5.9" xlinkHref={`#DeathPanther-17-${id}-sprite1`} />
         <use height="5.75" transform="matrix(0.2524, 1.9861, -1.9094, 0.0766, 18.7854, -7.7931)" width="1.75" xlinkHref={`#DeathPanther-17-${id}-sprite2`} />
@@ -1683,7 +1676,7 @@ const DeathPanther = ({ id, inverted, sx, ...rest }: DeathPantherProps) => (
         </g>
       </defs>
       {/* FRAME 18 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 17}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${DeathPanther_X_OFFSET + (DeathPanther_WIDTH + DeathPanther_MARGIN) * 17}, ${DeathPanther_Y_OFFSET})`}>
         <use height="20.0" transform="matrix(1.4311, 0.0, 0.0, 0.9889, -18.9718, -0.4388)" width="40.0" xlinkHref={`#DeathPanther-18-${id}-sprite0`} />
         <use height="3.75" transform="matrix(0.7396, 1.0318, -0.9353, 0.6704, 5.8484, -10.584)" width="5.9" xlinkHref={`#DeathPanther-18-${id}-sprite1`} />
         <use height="5.75" transform="matrix(0.2524, 1.9861, -1.9094, 0.0766, 18.7854, -7.7931)" width="1.75" xlinkHref={`#DeathPanther-18-${id}-sprite2`} />
@@ -1783,7 +1776,7 @@ const DeathPanther = ({ id, inverted, sx, ...rest }: DeathPantherProps) => (
         </g>
       </defs>
       {/* FRAME 19 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 18}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${DeathPanther_X_OFFSET + (DeathPanther_WIDTH + DeathPanther_MARGIN) * 18}, ${DeathPanther_Y_OFFSET})`}>
         <use height="20.0" transform="matrix(1.4311, 0.0, 0.0, 0.9889, -18.9718, -0.4388)" width="40.0" xlinkHref={`#DeathPanther-19-${id}-sprite0`} />
         <use height="3.75" transform="matrix(0.7396, 1.0318, -0.9353, 0.6704, 5.8484, -10.584)" width="5.9" xlinkHref={`#DeathPanther-19-${id}-sprite1`} />
         <use height="5.75" transform="matrix(0.2524, 1.9861, -1.9094, 0.0766, 18.7854, -7.7931)" width="1.75" xlinkHref={`#DeathPanther-19-${id}-sprite2`} />
@@ -1883,7 +1876,7 @@ const DeathPanther = ({ id, inverted, sx, ...rest }: DeathPantherProps) => (
         </g>
       </defs>
       {/* FRAME 20 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 19}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${DeathPanther_X_OFFSET + (DeathPanther_WIDTH + DeathPanther_MARGIN) * 19}, ${DeathPanther_Y_OFFSET})`}>
         <use height="20.0" transform="matrix(1.4311, 0.0, 0.0, 0.9889, -18.9718, -0.4388)" width="40.0" xlinkHref={`#DeathPanther-20-${id}-sprite0`} />
         <use height="3.75" transform="matrix(0.7396, 1.0318, -0.9353, 0.6704, 5.8484, -10.584)" width="5.9" xlinkHref={`#DeathPanther-20-${id}-sprite1`} />
         <use height="5.75" transform="matrix(0.2524, 1.9861, -1.9094, 0.0766, 18.7854, -7.7931)" width="1.75" xlinkHref={`#DeathPanther-20-${id}-sprite2`} />
@@ -1983,7 +1976,7 @@ const DeathPanther = ({ id, inverted, sx, ...rest }: DeathPantherProps) => (
         </g>
       </defs>
       {/* FRAME 21 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 20}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${DeathPanther_X_OFFSET + (DeathPanther_WIDTH + DeathPanther_MARGIN) * 20}, ${DeathPanther_Y_OFFSET})`}>
         <use height="20.0" transform="matrix(1.4311, 0.0, 0.0, 0.9889, -18.9718, -0.4388)" width="40.0" xlinkHref={`#DeathPanther-21-${id}-sprite0`} />
         <use height="3.75" transform="matrix(0.7396, 1.0318, -0.9353, 0.6704, 5.8484, -10.584)" width="5.9" xlinkHref={`#DeathPanther-21-${id}-sprite1`} />
         <use height="5.75" transform="matrix(0.2524, 1.9861, -1.9094, 0.0766, 18.7854, -7.7931)" width="1.75" xlinkHref={`#DeathPanther-21-${id}-sprite2`} />
@@ -2083,7 +2076,7 @@ const DeathPanther = ({ id, inverted, sx, ...rest }: DeathPantherProps) => (
         </g>
       </defs>
       {/* FRAME 22 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 21}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${DeathPanther_X_OFFSET + (DeathPanther_WIDTH + DeathPanther_MARGIN) * 21}, ${DeathPanther_Y_OFFSET})`}>
         <use height="20.0" transform="matrix(1.4311, 0.0, 0.0, 0.9889, -18.9718, -0.4388)" width="40.0" xlinkHref={`#DeathPanther-22-${id}-sprite0`} />
         <use height="3.75" transform="matrix(0.7396, 1.0318, -0.9353, 0.6704, 5.8484, -10.584)" width="5.9" xlinkHref={`#DeathPanther-22-${id}-sprite1`} />
         <use height="5.75" transform="matrix(0.2524, 1.9861, -1.9094, 0.0766, 18.7854, -7.7931)" width="1.75" xlinkHref={`#DeathPanther-22-${id}-sprite2`} />
@@ -2183,7 +2176,7 @@ const DeathPanther = ({ id, inverted, sx, ...rest }: DeathPantherProps) => (
         </g>
       </defs>
       {/* FRAME 23 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 22}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${DeathPanther_X_OFFSET + (DeathPanther_WIDTH + DeathPanther_MARGIN) * 22}, ${DeathPanther_Y_OFFSET})`}>
         <use height="20.0" transform="matrix(1.4311, 0.0, 0.0, 0.9889, -18.9718, -0.4388)" width="40.0" xlinkHref={`#DeathPanther-23-${id}-sprite0`} />
         <use height="3.75" transform="matrix(0.7396, 1.0318, -0.9353, 0.6704, 5.8484, -10.584)" width="5.9" xlinkHref={`#DeathPanther-23-${id}-sprite1`} />
         <use height="5.75" transform="matrix(0.2524, 1.9861, -1.9094, 0.0766, 18.7854, -7.7931)" width="1.75" xlinkHref={`#DeathPanther-23-${id}-sprite2`} />
@@ -2283,7 +2276,7 @@ const DeathPanther = ({ id, inverted, sx, ...rest }: DeathPantherProps) => (
         </g>
       </defs>
       {/* FRAME 24 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 23}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${DeathPanther_X_OFFSET + (DeathPanther_WIDTH + DeathPanther_MARGIN) * 23}, ${DeathPanther_Y_OFFSET})`}>
         <use height="20.0" transform="matrix(1.4311, 0.0, 0.0, 0.9889, -18.9718, -0.4388)" width="40.0" xlinkHref={`#DeathPanther-24-${id}-sprite0`} />
         <use height="3.75" transform="matrix(0.7396, 1.0318, -0.9353, 0.6704, 5.8484, -10.584)" width="5.9" xlinkHref={`#DeathPanther-24-${id}-sprite1`} />
         <use height="5.75" transform="matrix(0.2524, 1.9861, -1.9094, 0.0766, 18.7854, -7.7931)" width="1.75" xlinkHref={`#DeathPanther-24-${id}-sprite2`} />
@@ -2383,7 +2376,7 @@ const DeathPanther = ({ id, inverted, sx, ...rest }: DeathPantherProps) => (
         </g>
       </defs>
       {/* FRAME 25 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 24}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${DeathPanther_X_OFFSET + (DeathPanther_WIDTH + DeathPanther_MARGIN) * 24}, ${DeathPanther_Y_OFFSET})`}>
         <use height="20.0" transform="matrix(1.4311, 0.0, 0.0, 0.9889, -18.9718, -0.4388)" width="40.0" xlinkHref={`#DeathPanther-25-${id}-sprite0`} />
         <use height="3.75" transform="matrix(0.7396, 1.0318, -0.9353, 0.6704, 5.8484, -10.584)" width="5.9" xlinkHref={`#DeathPanther-25-${id}-sprite1`} />
         <use height="5.75" transform="matrix(0.2524, 1.9861, -1.9094, 0.0766, 18.7854, -7.7931)" width="1.75" xlinkHref={`#DeathPanther-25-${id}-sprite2`} />
@@ -2483,7 +2476,7 @@ const DeathPanther = ({ id, inverted, sx, ...rest }: DeathPantherProps) => (
         </g>
       </defs>
       {/* FRAME 26 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 25}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${DeathPanther_X_OFFSET + (DeathPanther_WIDTH + DeathPanther_MARGIN) * 25}, ${DeathPanther_Y_OFFSET})`}>
         <use height="20.0" transform="matrix(1.4311, 0.0, 0.0, 0.9889, -18.9718, -0.4388)" width="40.0" xlinkHref={`#DeathPanther-26-${id}-sprite0`} />
         <use height="3.75" transform="matrix(0.7396, 1.0318, -0.9353, 0.6704, 5.8484, -10.584)" width="5.9" xlinkHref={`#DeathPanther-26-${id}-sprite1`} />
         <use height="5.75" transform="matrix(0.2524, 1.9861, -1.9094, 0.0766, 18.7854, -7.7931)" width="1.75" xlinkHref={`#DeathPanther-26-${id}-sprite2`} />
@@ -2583,7 +2576,7 @@ const DeathPanther = ({ id, inverted, sx, ...rest }: DeathPantherProps) => (
         </g>
       </defs>
       {/* FRAME 27 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 26}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${DeathPanther_X_OFFSET + (DeathPanther_WIDTH + DeathPanther_MARGIN) * 26}, ${DeathPanther_Y_OFFSET})`}>
         <use height="20.0" transform="matrix(1.4311, 0.0, 0.0, 0.9889, -18.9718, -0.4388)" width="40.0" xlinkHref={`#DeathPanther-27-${id}-sprite0`} />
         <use height="3.75" transform="matrix(0.7396, 1.0318, -0.9353, 0.6704, 5.8484, -10.584)" width="5.9" xlinkHref={`#DeathPanther-27-${id}-sprite1`} />
         <use height="5.75" transform="matrix(0.2524, 1.9861, -1.9094, 0.0766, 18.7854, -7.7931)" width="1.75" xlinkHref={`#DeathPanther-27-${id}-sprite2`} />

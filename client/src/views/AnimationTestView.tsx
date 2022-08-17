@@ -7,6 +7,7 @@ import { AnimationModel, Animation } from '@eternaltwin/labrute-core/types';
 import AnimatedDog from '../components/animations/dog/AnimatedDog.js';
 import AnimatedPanther from '../components/animations/panther/AnimatedPanther.js';
 import AnimatedBrute from '../components/animations/brute/AnimatedBrute.js';
+import fightAnimations from '../utils/fight/fightAnimations.js';
 
 const animations: Record<AnimationModel, Animation[]> = {
   bear: ['arrive', 'attack', 'death', 'evade', 'hit', 'iddle', 'run', 'trapped'],
@@ -198,9 +199,18 @@ const AnimationTestView = () => {
     setAdjustY((prev) => prev - 1);
   }, []);
 
+  // Reflow animations
+  const reflow = useCallback(() => {
+    document.getAnimations().forEach((anim) => {
+      anim.cancel();
+      anim.play();
+    });
+  }, []);
+
   const changeInverted = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setInverted(event.target.checked);
-  }, []);
+    reflow();
+  }, [reflow]);
 
   const changeTransparentModel = useCallback((event: SelectChangeEvent) => {
     setTransparentModel(event.target.value as AnimationModel);
@@ -211,17 +221,10 @@ const AnimationTestView = () => {
     setTransparentAnimation(event.target.value as Animation);
   }, []);
 
-  // Reflow animations
-  const reflow = useCallback(() => {
-    document.getAnimations().forEach((anim) => {
-      anim.cancel();
-      anim.play();
-    });
-  }, []);
-
   return (
     <>
       <Box sx={{ height: 300, width: 300, border: 2, position: 'relative', overflow: 'hidden' }}>
+        {fightAnimations}
         {transparentComponent}
         {component}
       </Box>

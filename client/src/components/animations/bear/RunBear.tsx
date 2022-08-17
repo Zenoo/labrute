@@ -1,4 +1,5 @@
-import { Box, BoxProps, GlobalStyles } from '@mui/material';
+/* eslint-disable camelcase */
+import { Box, BoxProps } from '@mui/material';
 import React from 'react';
 
 export interface RunBearProps extends BoxProps {
@@ -6,34 +7,24 @@ export interface RunBearProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 153;
-const HEIGHT = 104.95;
-const FRAMES = 9;
-const X_OFFSET = 102.3;
-const Y_OFFSET = 60.3;
-const MARGIN = 30;
+export const RunBear_WIDTH = 153;
+export const RunBear_HEIGHT = 104.95;
+export const RunBear_FRAMES = 9;
+export const RunBear_X_OFFSET = 102.3;
+export const RunBear_Y_OFFSET = 60.3;
+export const RunBear_MARGIN = 30;
 
 const RunBear = ({ id, inverted, sx, ...rest }: RunBearProps) => (
   <Box
     sx={{
       position: 'relative',
       overflow: 'hidden',
-      width: WIDTH,
-      height: HEIGHT,
+      width: RunBear_WIDTH,
+      height: RunBear_HEIGHT,
       ...sx,
     }}
     {...rest}
   >
-    <GlobalStyles styles={{
-      '@keyframes RunBear': {
-        '100%': {
-          left: inverted
-            ? -MARGIN
-            : -(WIDTH + MARGIN) * (FRAMES - 1) - (inverted ? MARGIN : 0),
-        }
-      }
-    }}
-    />
     <Box
       component="svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -42,15 +33,17 @@ const RunBear = ({ id, inverted, sx, ...rest }: RunBearProps) => (
         position: 'absolute',
         top: 0,
         left: inverted
-          ? -(WIDTH + MARGIN) * (FRAMES - 1) - (inverted ? MARGIN : 0)
+          ? -(RunBear_WIDTH + RunBear_MARGIN)
+            * (RunBear_FRAMES - 1)
+            - (inverted ? RunBear_MARGIN : 0)
           : 0,
-        width: (WIDTH + MARGIN) * FRAMES,
-        animation: `RunBear 0.22s steps(${FRAMES}, jump-none) infinite`,
+        width: (RunBear_WIDTH + RunBear_MARGIN) * RunBear_FRAMES,
+        animation: `RunBear${inverted ? 'Inverted' : ''} 0.22s steps(${RunBear_FRAMES}, jump-none) infinite`,
         transform: inverted ? 'scale(-1, 1)' : null,
       }}
     >
       {/* FRAME 1 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 0}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${RunBear_X_OFFSET + (RunBear_WIDTH + RunBear_MARGIN) * 0}, ${RunBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.6825, 0.8685, -0.8685, 0.6826, -11.9045, -65.2943)" width="21.6" xlinkHref={`#RunBear-1-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.8439, -0.3901, 0.4747, 1.0271, 13.3146, 11.6548)" width="34.85" xlinkHref={`#RunBear-1-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3165, 1.1812, 1.1812, 0.3165, 4.6117, -16.987)" width="15.4" xlinkHref={`#RunBear-1-${id}-sprite2`} />
@@ -152,7 +145,7 @@ const RunBear = ({ id, inverted, sx, ...rest }: RunBearProps) => (
         </g>
       </defs>
       {/* FRAME 2 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 1}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${RunBear_X_OFFSET + (RunBear_WIDTH + RunBear_MARGIN) * 1}, ${RunBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(1.0875, 0.1777, -0.1777, 1.0875, -19.2704, -57.384)" width="21.6" xlinkHref={`#RunBear-2-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9182, 0.1333, -0.1622, 1.1176, -1.0417, 4.6176)" width="34.85" xlinkHref={`#RunBear-2-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.9053, 0.8176, 0.8176, 0.9053, 6.4499, -10.8684)" width="15.4" xlinkHref={`#RunBear-2-${id}-sprite2`} />
@@ -254,7 +247,7 @@ const RunBear = ({ id, inverted, sx, ...rest }: RunBearProps) => (
         </g>
       </defs>
       {/* FRAME 3 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 2}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${RunBear_X_OFFSET + (RunBear_WIDTH + RunBear_MARGIN) * 2}, ${RunBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.9216, -0.6011, 0.6012, 0.9217, -22.7955, -37.3999)" width="21.6" xlinkHref={`#RunBear-3-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.696, 0.6121, -0.745, 0.8471, -11.1013, 0.6495)" width="34.85" xlinkHref={`#RunBear-3-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-1.2057, 0.1912, 0.1912, 1.2057, 6.8241, -1.5818)" width="15.4" xlinkHref={`#RunBear-3-${id}-sprite2`} />
@@ -356,7 +349,7 @@ const RunBear = ({ id, inverted, sx, ...rest }: RunBearProps) => (
         </g>
       </defs>
       {/* FRAME 4 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 3}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${RunBear_X_OFFSET + (RunBear_WIDTH + RunBear_MARGIN) * 3}, ${RunBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.2709, -1.0651, 1.0651, 0.2709, -15.3511, -20.5531)" width="21.6" xlinkHref={`#RunBear-4-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.2484, 0.8922, -1.0859, 0.3023, -19.1244, -8.1216)" width="34.85" xlinkHref={`#RunBear-4-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-1.1149, -0.4925, -0.4925, 1.1149, 4.4836, -0.3543)" width="15.4" xlinkHref={`#RunBear-4-${id}-sprite2`} />
@@ -458,7 +451,7 @@ const RunBear = ({ id, inverted, sx, ...rest }: RunBearProps) => (
         </g>
       </defs>
       {/* FRAME 5 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 4}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${RunBear_X_OFFSET + (RunBear_WIDTH + RunBear_MARGIN) * 4}, ${RunBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.5215, -0.9678, 0.9679, -0.5215, 4.4997, -6.4375)" width="21.6" xlinkHref={`#RunBear-5-${id}-sprite0`} />
         <use height="15.2" transform="matrix(-0.2759, 0.885, -1.0772, -0.3358, -28.3216, -11.678)" width="34.85" xlinkHref={`#RunBear-5-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.6655, -1.0223, -1.0223, 0.6655, -1.1984, 0.9258)" width="15.4" xlinkHref={`#RunBear-5-${id}-sprite2`} />
@@ -560,7 +553,7 @@ const RunBear = ({ id, inverted, sx, ...rest }: RunBearProps) => (
         </g>
       </defs>
       {/* FRAME 6 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 5}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${RunBear_X_OFFSET + (RunBear_WIDTH + RunBear_MARGIN) * 5}, ${RunBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.1062, -1.094, 1.0941, 0.1062, -12.3626, -17.1412)" width="21.6" xlinkHref={`#RunBear-6-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.1455, 0.9149, -1.1135, 0.1771, -20.9128, -9.1604)" width="34.85" xlinkHref={`#RunBear-6-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-1.0515, -0.6159, -0.6159, 1.0515, 3.5213, 0.0146)" width="15.4" xlinkHref={`#RunBear-6-${id}-sprite2`} />
@@ -662,7 +655,7 @@ const RunBear = ({ id, inverted, sx, ...rest }: RunBearProps) => (
         </g>
       </defs>
       {/* FRAME 7 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 6}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${RunBear_X_OFFSET + (RunBear_WIDTH + RunBear_MARGIN) * 6}, ${RunBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.7015, -0.8469, 0.8469, 0.7015, -21.5286, -30.8614)" width="21.6" xlinkHref={`#RunBear-7-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.539, 0.7537, -0.9174, 0.6561, -14.485, -3.5437)" width="34.85" xlinkHref={`#RunBear-7-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-1.2177, -0.0861, -0.086, 1.2177, 6.2735, -1.2385)" width="15.4" xlinkHref={`#RunBear-7-${id}-sprite2`} />
@@ -764,7 +757,7 @@ const RunBear = ({ id, inverted, sx, ...rest }: RunBearProps) => (
         </g>
       </defs>
       {/* FRAME 8 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 7}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${RunBear_X_OFFSET + (RunBear_WIDTH + RunBear_MARGIN) * 7}, ${RunBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(1.102, 0.0107, -0.0108, 1.1021, -20.7854, -54.7364)" width="21.6" xlinkHref={`#RunBear-8-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.8967, 0.2365, -0.2879, 1.0914, -3.4275, 3.1518)" width="34.85" xlinkHref={`#RunBear-8-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.9948, 0.7061, 0.7061, 0.9948, 6.6735, -9.6693)" width="15.4" xlinkHref={`#RunBear-8-${id}-sprite2`} />
@@ -866,7 +859,7 @@ const RunBear = ({ id, inverted, sx, ...rest }: RunBearProps) => (
         </g>
       </defs>
       {/* FRAME 9 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 8}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${RunBear_X_OFFSET + (RunBear_WIDTH + RunBear_MARGIN) * 8}, ${RunBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.6825, 0.8685, -0.8685, 0.6826, -11.9045, -62.2943)" width="21.6" xlinkHref={`#RunBear-9-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.8439, -0.3901, 0.4747, 1.0271, 13.3146, 14.6548)" width="34.85" xlinkHref={`#RunBear-9-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3165, 1.1812, 1.1812, 0.3165, 4.6117, -13.987)" width="15.4" xlinkHref={`#RunBear-9-${id}-sprite2`} />

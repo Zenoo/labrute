@@ -42,7 +42,8 @@ const offsetY = firstFileLines[2].match(/matrix\(1.0, 0.0, 0.0, 1.0, [\d.]+, ([\
 const frames = animationFiles.length;
 
 // Create the component file
-const componentFile = `import { Box, BoxProps, GlobalStyles } from '@mui/material';
+const componentFile = `/* eslint-disable camelcase */
+import { Box, BoxProps } from '@mui/material';
 import React from 'react';
 
 export interface ${componentName}Props extends BoxProps {
@@ -50,34 +51,24 @@ export interface ${componentName}Props extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = ${width || 0};
-const HEIGHT = ${height || 0};
-const FRAMES = ${frames};
-const X_OFFSET = ${offsetX || 0};
-const Y_OFFSET = ${offsetY || 0};
-const MARGIN = 30;
+export const ${componentName}_WIDTH = ${width || 0};
+export const ${componentName}_HEIGHT = ${height || 0};
+export const ${componentName}_FRAMES = ${frames};
+export const ${componentName}_X_OFFSET = ${offsetX || 0};
+export const ${componentName}_Y_OFFSET = ${offsetY || 0};
+export const ${componentName}_MARGIN = 30;
 
 const ${componentName} = ({ id, inverted, sx, ...rest }: ${componentName}Props) => (
   <Box
     sx={{
       position: 'relative',
       overflow: 'hidden',
-      width: WIDTH,
-      height: HEIGHT,
+      width: ${componentName}_WIDTH,
+      height: ${componentName}_HEIGHT,
       ...sx,
     }}
     {...rest}
   >
-    <GlobalStyles styles={{
-      '@keyframes ${componentName}': {
-        '100%': {
-          left: inverted
-            ? -MARGIN
-            : -(WIDTH + MARGIN) * (FRAMES - 1) - (inverted ? MARGIN : 0),
-        }
-      }
-    }}
-    />
     <Box
       component="svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -86,10 +77,12 @@ const ${componentName} = ({ id, inverted, sx, ...rest }: ${componentName}Props) 
         position: 'absolute',
         top: 0,
         left: inverted
-          ? -(WIDTH + MARGIN) * (FRAMES - 1) - (inverted ? MARGIN : 0)
+          ? -(${componentName}_WIDTH + ${componentName}_MARGIN)
+            * (${componentName}_FRAMES - 1)
+            - ${componentName}_MARGIN
           : 0,
-        width: (WIDTH + MARGIN) * FRAMES,
-        animation: \`${componentName} ${animationLength} steps(\${FRAMES}, jump-none) infinite\`,
+        width: (${componentName}_WIDTH + ${componentName}_MARGIN) * ${componentName}_FRAMES,
+        animation: \`${componentName}\${inverted ? 'Inverted' : ''} ${animationLength} steps(\${${componentName}_FRAMES}, jump-none) infinite\`,
         transform: inverted ? 'scale(-1, 1)' : null,
       }}
     >
@@ -100,7 +93,7 @@ ${animationFiles.map((file, index) => {
     const svgFileLines = svgFile.split('\n').slice(2, -2);
 
     // Replace the matrix in the first line
-    const firstLine = svgFileLines[0].replace(/transform="matrix\(1.0, 0.0, 0.0, 1.0, [\d.]+, [\d.]+\)"/, `transform={\`matrix(1.0, 0.0, 0.0, 1.0, \${X_OFFSET + (WIDTH + MARGIN) * ${index}}, \${Y_OFFSET})\`}`);
+    const firstLine = svgFileLines[0].replace(/transform="matrix\(1.0, 0.0, 0.0, 1.0, [\d.]+, [\d.]+\)"/, `transform={\`matrix(1.0, 0.0, 0.0, 1.0, \${${componentName}_X_OFFSET + (${componentName}_WIDTH + ${componentName}_MARGIN) * ${index}}, \${${componentName}_Y_OFFSET})\`}`);
     svgFileLines[0] = `  ${firstLine}`;
 
     return `      {/* FRAME ${index + 1} */}

@@ -1,4 +1,5 @@
-import { Box, BoxProps, GlobalStyles } from '@mui/material';
+/* eslint-disable camelcase */
+import { Box, BoxProps } from '@mui/material';
 import React from 'react';
 
 export interface ArrivePantherProps extends BoxProps {
@@ -6,40 +7,24 @@ export interface ArrivePantherProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 140;
-const HEIGHT = 77.6;
-const FRAMES = 5;
-const X_OFFSET = 50;
-const Y_OFFSET = 40;
-const MARGIN = 30;
+export const ArrivePanther_WIDTH = 140;
+export const ArrivePanther_HEIGHT = 77.6;
+export const ArrivePanther_FRAMES = 5;
+export const ArrivePanther_X_OFFSET = 50;
+export const ArrivePanther_Y_OFFSET = 40;
+export const ArrivePanther_MARGIN = 30;
 
 const ArrivePanther = ({ id, inverted, sx, ...rest }: ArrivePantherProps) => (
   <Box
     sx={{
       position: 'relative',
       overflow: 'hidden',
-      width: WIDTH,
-      height: HEIGHT,
+      width: ArrivePanther_WIDTH,
+      height: ArrivePanther_HEIGHT,
       ...sx,
     }}
     {...rest}
   >
-    <GlobalStyles styles={{
-      '@keyframes ArrivePanther': {
-        // Hold first frame for 0.5s
-        '50%': {
-          left: !inverted
-            ? -(WIDTH + MARGIN) * (FRAMES - 1) - (!inverted ? MARGIN : 0)
-            : 0,
-        },
-        '100%': {
-          left: !inverted
-            ? -MARGIN
-            : -(WIDTH + MARGIN) * (FRAMES - 1) - (!inverted ? MARGIN : 0),
-        }
-      }
-    }}
-    />
     <Box
       component="svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -48,15 +33,17 @@ const ArrivePanther = ({ id, inverted, sx, ...rest }: ArrivePantherProps) => (
         position: 'absolute',
         top: 0,
         left: !inverted
-          ? -(WIDTH + MARGIN) * (FRAMES - 1) - (!inverted ? MARGIN : 0)
+          ? -(ArrivePanther_WIDTH + ArrivePanther_MARGIN)
+            * (ArrivePanther_FRAMES - 1)
+            - (!inverted ? ArrivePanther_MARGIN : 0)
           : 0,
-        width: (WIDTH + MARGIN) * FRAMES,
-        animation: `ArrivePanther 1s steps(${FRAMES}, jump-none) forwards`,
+        width: (ArrivePanther_WIDTH + ArrivePanther_MARGIN) * ArrivePanther_FRAMES,
+        animation: `ArrivePanther${inverted ? 'Inverted' : ''} 1s steps(${ArrivePanther_FRAMES}, jump-none) forwards`,
         transform: !inverted ? 'scale(-1, 1)' : null,
       }}
     >
       {/* FRAME 1 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 0}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${ArrivePanther_X_OFFSET + (ArrivePanther_WIDTH + ArrivePanther_MARGIN) * 0}, ${ArrivePanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#ArrivePanther-1-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7642, 0.9536, -1.052, 1.5992, -8.6623, -0.5898)" width="1.75" xlinkHref={`#ArrivePanther-1-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -13.7163, -0.4642)" width="1.75" xlinkHref={`#ArrivePanther-1-${id}-sprite1`} />
@@ -132,7 +119,7 @@ const ArrivePanther = ({ id, inverted, sx, ...rest }: ArrivePantherProps) => (
         </g>
       </defs>
       {/* FRAME 2 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 1}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${ArrivePanther_X_OFFSET + (ArrivePanther_WIDTH + ArrivePanther_MARGIN) * 1}, ${ArrivePanther_Y_OFFSET})`}>
         <use height="52.05" transform="matrix(0.0026, -0.6203, 0.8477, 0.0035, -23.4187, 22.0736)" width="28.15" xlinkHref={`#ArrivePanther-2-${id}-shape0`} />
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#ArrivePanther-2-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7642, 0.9536, -1.052, 1.5992, -8.6623, -0.5898)" width="1.75" xlinkHref={`#ArrivePanther-2-${id}-sprite1`} />
@@ -209,7 +196,7 @@ const ArrivePanther = ({ id, inverted, sx, ...rest }: ArrivePantherProps) => (
         </g>
       </defs>
       {/* FRAME 3 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 2}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${ArrivePanther_X_OFFSET + (ArrivePanther_WIDTH + ArrivePanther_MARGIN) * 2}, ${ArrivePanther_Y_OFFSET})`}>
         <use height="65.5" transform="matrix(0.0026, -0.6203, 0.8477, 0.0035, -29.1077, 24.3142)" width="35.4" xlinkHref={`#ArrivePanther-3-${id}-shape0`} />
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#ArrivePanther-3-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7642, 0.9536, -1.052, 1.5992, -8.6623, -0.5898)" width="1.75" xlinkHref={`#ArrivePanther-3-${id}-sprite1`} />
@@ -286,7 +273,7 @@ const ArrivePanther = ({ id, inverted, sx, ...rest }: ArrivePantherProps) => (
         </g>
       </defs>
       {/* FRAME 4 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 3}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${ArrivePanther_X_OFFSET + (ArrivePanther_WIDTH + ArrivePanther_MARGIN) * 3}, ${ArrivePanther_Y_OFFSET})`}>
         <use height="73.2" transform="matrix(0.0026, -0.6203, 0.8477, 0.0035, -32.3768, 25.6343)" width="37.85" xlinkHref={`#ArrivePanther-4-${id}-shape0`} />
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#ArrivePanther-4-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7642, 0.9536, -1.052, 1.5992, -8.6623, -0.5898)" width="1.75" xlinkHref={`#ArrivePanther-4-${id}-sprite1`} />
@@ -363,7 +350,7 @@ const ArrivePanther = ({ id, inverted, sx, ...rest }: ArrivePantherProps) => (
         </g>
       </defs>
       {/* FRAME 5 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 4}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${ArrivePanther_X_OFFSET + (ArrivePanther_WIDTH + ArrivePanther_MARGIN) * 4}, ${ArrivePanther_Y_OFFSET})`}>
         <use height="77.6" transform="matrix(0.0026, -0.6203, 0.8477, 0.0035, -34.2447, 26.3399)" width="40.15" xlinkHref={`#ArrivePanther-5-${id}-shape0`} />
         <use height="3.75" transform="matrix(1.2716, 0.0, 0.0, 1.1527, -18.5513, 8.3175)" width="5.9" xlinkHref={`#ArrivePanther-5-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.7642, 0.9536, -1.052, 1.5992, -8.6623, -0.5898)" width="1.75" xlinkHref={`#ArrivePanther-5-${id}-sprite1`} />

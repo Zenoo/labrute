@@ -1,4 +1,5 @@
-import { Box, BoxProps, GlobalStyles } from '@mui/material';
+/* eslint-disable camelcase */
+import { Box, BoxProps } from '@mui/material';
 import React from 'react';
 
 export interface AttackBearProps extends BoxProps {
@@ -6,34 +7,24 @@ export interface AttackBearProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 190;
-const HEIGHT = 102.6;
-const FRAMES = 19;
-const X_OFFSET = 105.55;
-const Y_OFFSET = 52.4;
-const MARGIN = 30;
+export const AttackBear_WIDTH = 190;
+export const AttackBear_HEIGHT = 102.6;
+export const AttackBear_FRAMES = 19;
+export const AttackBear_X_OFFSET = 105.55;
+export const AttackBear_Y_OFFSET = 52.4;
+export const AttackBear_MARGIN = 30;
 
 const AttackBear = ({ id, inverted, sx, ...rest }: AttackBearProps) => (
   <Box
     sx={{
       position: 'relative',
       overflow: 'hidden',
-      width: WIDTH,
-      height: HEIGHT,
+      width: AttackBear_WIDTH,
+      height: AttackBear_HEIGHT,
       ...sx,
     }}
     {...rest}
   >
-    <GlobalStyles styles={{
-      '@keyframes AttackBear': {
-        '100%': {
-          left: inverted
-            ? -MARGIN
-            : -(WIDTH + MARGIN) * (FRAMES - 1) - (inverted ? MARGIN : 0),
-        }
-      }
-    }}
-    />
     <Box
       component="svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -42,15 +33,16 @@ const AttackBear = ({ id, inverted, sx, ...rest }: AttackBearProps) => (
         position: 'absolute',
         top: 0,
         left: inverted
-          ? -(WIDTH + MARGIN) * (FRAMES - 1) - (inverted ? MARGIN : 0)
+          ? -(AttackBear_WIDTH + AttackBear_MARGIN) * (AttackBear_FRAMES - 1)
+            - (inverted ? AttackBear_MARGIN : 0)
           : 0,
-        width: (WIDTH + MARGIN) * FRAMES,
-        animation: `AttackBear 0.47s steps(${FRAMES}, jump-none) forwards`,
+        width: (AttackBear_WIDTH + AttackBear_MARGIN) * AttackBear_FRAMES,
+        animation: `AttackBear${inverted ? 'Inverted' : ''} 0.47s steps(${AttackBear_FRAMES}, jump-none) forwards`,
         transform: inverted ? 'scale(-1, 1)' : null,
       }}
     >
       {/* FRAME 1 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 0}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${AttackBear_X_OFFSET + (AttackBear_WIDTH + AttackBear_MARGIN) * 0}, ${AttackBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.8898, 0.6542, 0.6542, 0.8898, 7.4017, -51.7681)" width="21.6" xlinkHref={`#AttackBear-1-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9288, -0.0569, 0.0693, 1.1304, 2.2751, 16.1979)" width="34.85" xlinkHref={`#AttackBear-1-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3126, 1.1812, 1.1812, 0.3127, -2.4179, -9.4738)" width="15.4" xlinkHref={`#AttackBear-1-${id}-sprite2`} />
@@ -152,7 +144,7 @@ const AttackBear = ({ id, inverted, sx, ...rest }: AttackBearProps) => (
         </g>
       </defs>
       {/* FRAME 2 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 1}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${AttackBear_X_OFFSET + (AttackBear_WIDTH + AttackBear_MARGIN) * 1}, ${AttackBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.8145, 0.7478, 0.7478, 0.8145, -3.7998, -48.9882)" width="21.6" xlinkHref={`#AttackBear-2-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.929, -0.0572, 0.0696, 1.1307, 2.2199, 16.2009)" width="34.85" xlinkHref={`#AttackBear-2-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3165, 1.1812, 1.1812, 0.3165, -9.2883, -9.487)" width="15.4" xlinkHref={`#AttackBear-2-${id}-sprite2`} />
@@ -254,7 +246,7 @@ const AttackBear = ({ id, inverted, sx, ...rest }: AttackBearProps) => (
         </g>
       </defs>
       {/* FRAME 3 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 2}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${AttackBear_X_OFFSET + (AttackBear_WIDTH + AttackBear_MARGIN) * 2}, ${AttackBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.0879, 1.1013, 1.1014, 0.0879, -19.3058, -36.9422)" width="21.6" xlinkHref={`#AttackBear-3-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9288, -0.0569, 0.0693, 1.1304, 2.2751, 16.1979)" width="34.85" xlinkHref={`#AttackBear-3-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3126, 1.1812, 1.1812, 0.3127, -2.4679, -8.4238)" width="15.4" xlinkHref={`#AttackBear-3-${id}-sprite2`} />
@@ -356,7 +348,7 @@ const AttackBear = ({ id, inverted, sx, ...rest }: AttackBearProps) => (
         </g>
       </defs>
       {/* FRAME 4 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 3}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${AttackBear_X_OFFSET + (AttackBear_WIDTH + AttackBear_MARGIN) * 3}, ${AttackBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.677, 0.8706, 0.8706, -0.677, -23.6101, -18.2085)" width="21.6" xlinkHref={`#AttackBear-4-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9288, -0.0569, 0.0693, 1.1304, 2.2751, 16.1979)" width="34.85" xlinkHref={`#AttackBear-4-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3126, 1.1812, 1.1812, 0.3127, 4.3321, -7.3238)" width="15.4" xlinkHref={`#AttackBear-4-${id}-sprite2`} />
@@ -458,7 +450,7 @@ const AttackBear = ({ id, inverted, sx, ...rest }: AttackBearProps) => (
         </g>
       </defs>
       {/* FRAME 5 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 4}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${AttackBear_X_OFFSET + (AttackBear_WIDTH + AttackBear_MARGIN) * 4}, ${AttackBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(1.0893, 0.1794, 0.1794, -1.0894, -15.1951, -2.1795)" width="21.6" xlinkHref={`#AttackBear-5-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.929, -0.0572, 0.0696, 1.1307, 2.2199, 16.2009)" width="34.85" xlinkHref={`#AttackBear-5-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3165, 1.1812, 1.1812, 0.3165, 11.2117, -6.287)" width="15.4" xlinkHref={`#AttackBear-5-${id}-sprite2`} />
@@ -560,7 +552,7 @@ const AttackBear = ({ id, inverted, sx, ...rest }: AttackBearProps) => (
         </g>
       </defs>
       {/* FRAME 6 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 5}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${AttackBear_X_OFFSET + (AttackBear_WIDTH + AttackBear_MARGIN) * 5}, ${AttackBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(1.0881, 0.1829, 0.1829, -1.0882, -14.8536, -2.3877)" width="21.6" xlinkHref={`#AttackBear-6-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9288, -0.0569, 0.0693, 1.1304, 2.2751, 16.1979)" width="34.85" xlinkHref={`#AttackBear-6-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3219, 1.1787, 1.1787, 0.3219, 11.3619, -6.4862)" width="15.4" xlinkHref={`#AttackBear-6-${id}-sprite2`} />
@@ -662,7 +654,7 @@ const AttackBear = ({ id, inverted, sx, ...rest }: AttackBearProps) => (
         </g>
       </defs>
       {/* FRAME 7 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 6}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${AttackBear_X_OFFSET + (AttackBear_WIDTH + AttackBear_MARGIN) * 6}, ${AttackBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(1.0872, 0.1878, 0.1879, -1.0873, -14.593, -2.6535)" width="21.6" xlinkHref={`#AttackBear-7-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9288, -0.0569, 0.0693, 1.1304, 2.2751, 16.1979)" width="34.85" xlinkHref={`#AttackBear-7-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3272, 1.1771, 1.1771, 0.3272, 11.3584, -6.5427)" width="15.4" xlinkHref={`#AttackBear-7-${id}-sprite2`} />
@@ -764,7 +756,7 @@ const AttackBear = ({ id, inverted, sx, ...rest }: AttackBearProps) => (
         </g>
       </defs>
       {/* FRAME 8 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 7}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${AttackBear_X_OFFSET + (AttackBear_WIDTH + AttackBear_MARGIN) * 7}, ${AttackBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(1.0863, 0.1928, 0.1928, -1.0864, -14.2825, -2.8203)" width="21.6" xlinkHref={`#AttackBear-8-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9288, -0.0569, 0.0693, 1.1304, 2.2751, 16.1979)" width="34.85" xlinkHref={`#AttackBear-8-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3326, 1.1756, 1.1756, 0.3326, 11.4549, -6.5994)" width="15.4" xlinkHref={`#AttackBear-8-${id}-sprite2`} />
@@ -866,7 +858,7 @@ const AttackBear = ({ id, inverted, sx, ...rest }: AttackBearProps) => (
         </g>
       </defs>
       {/* FRAME 9 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 8}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${AttackBear_X_OFFSET + (AttackBear_WIDTH + AttackBear_MARGIN) * 8}, ${AttackBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(1.0847, 0.2013, 0.2013, -1.0848, -14.0855, -3.0855)" width="21.6" xlinkHref={`#AttackBear-9-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9288, -0.0569, 0.0693, 1.1304, 2.2751, 16.1979)" width="34.85" xlinkHref={`#AttackBear-9-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3379, 1.174, 1.174, 0.3379, 11.5514, -6.6559)" width="15.4" xlinkHref={`#AttackBear-9-${id}-sprite2`} />
@@ -968,7 +960,7 @@ const AttackBear = ({ id, inverted, sx, ...rest }: AttackBearProps) => (
         </g>
       </defs>
       {/* FRAME 10 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 9}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${AttackBear_X_OFFSET + (AttackBear_WIDTH + AttackBear_MARGIN) * 9}, ${AttackBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(1.0838, 0.2062, 0.2062, -1.0838, -13.7742, -3.3027)" width="21.6" xlinkHref={`#AttackBear-10-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9288, -0.0569, 0.0693, 1.1304, 2.2751, 16.1979)" width="34.85" xlinkHref={`#AttackBear-10-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3432, 1.1725, 1.1725, 0.3432, 11.5978, -6.8123)" width="15.4" xlinkHref={`#AttackBear-10-${id}-sprite2`} />
@@ -1070,7 +1062,7 @@ const AttackBear = ({ id, inverted, sx, ...rest }: AttackBearProps) => (
         </g>
       </defs>
       {/* FRAME 11 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 10}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${AttackBear_X_OFFSET + (AttackBear_WIDTH + AttackBear_MARGIN) * 10}, ${AttackBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(1.0828, 0.2111, 0.2111, -1.0828, -13.5124, -3.5206)" width="21.6" xlinkHref={`#AttackBear-11-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9288, -0.0569, 0.0693, 1.1304, 2.2751, 16.1979)" width="34.85" xlinkHref={`#AttackBear-11-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3486, 1.1708, 1.1697, 0.3524, 11.6487, -6.8812)" width="15.4" xlinkHref={`#AttackBear-11-${id}-sprite2`} />
@@ -1172,7 +1164,7 @@ const AttackBear = ({ id, inverted, sx, ...rest }: AttackBearProps) => (
         </g>
       </defs>
       {/* FRAME 12 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 11}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${AttackBear_X_OFFSET + (AttackBear_WIDTH + AttackBear_MARGIN) * 11}, ${AttackBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(1.0821, 0.218, 0.2181, -1.0821, -13.2444, -3.7523)" width="21.6" xlinkHref={`#AttackBear-12-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.929, -0.0572, 0.0696, 1.1307, 2.2199, 16.2009)" width="34.85" xlinkHref={`#AttackBear-12-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3583, 1.169, 1.169, 0.3584, 11.776, -6.8877)" width="15.4" xlinkHref={`#AttackBear-12-${id}-sprite2`} />
@@ -1274,7 +1266,7 @@ const AttackBear = ({ id, inverted, sx, ...rest }: AttackBearProps) => (
         </g>
       </defs>
       {/* FRAME 13 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 12}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${AttackBear_X_OFFSET + (AttackBear_WIDTH + AttackBear_MARGIN) * 12}, ${AttackBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.9441, 0.5695, 0.5695, -0.9442, -17.4866, -10.9414)" width="21.6" xlinkHref={`#AttackBear-13-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9288, -0.0569, 0.0693, 1.1304, 2.2751, 16.1979)" width="34.85" xlinkHref={`#AttackBear-13-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3486, 1.1708, 1.1697, 0.3524, 9.8987, -7.2812)" width="15.4" xlinkHref={`#AttackBear-13-${id}-sprite2`} />
@@ -1376,7 +1368,7 @@ const AttackBear = ({ id, inverted, sx, ...rest }: AttackBearProps) => (
         </g>
       </defs>
       {/* FRAME 14 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 13}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${AttackBear_X_OFFSET + (AttackBear_WIDTH + AttackBear_MARGIN) * 13}, ${AttackBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.6951, 0.8561, 0.8562, -0.6952, -19.4005, -19.6059)" width="21.6" xlinkHref={`#AttackBear-14-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9288, -0.0569, 0.0693, 1.1304, 2.2751, 16.1979)" width="34.85" xlinkHref={`#AttackBear-14-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3432, 1.1725, 1.1725, 0.3432, 7.998, -7.6122)" width="15.4" xlinkHref={`#AttackBear-14-${id}-sprite2`} />
@@ -1478,7 +1470,7 @@ const AttackBear = ({ id, inverted, sx, ...rest }: AttackBearProps) => (
         </g>
       </defs>
       {/* FRAME 15 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 14}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${AttackBear_X_OFFSET + (AttackBear_WIDTH + AttackBear_MARGIN) * 14}, ${AttackBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.3607, 1.0433, 1.0433, -0.3607, -18.4963, -29.0969)" width="21.6" xlinkHref={`#AttackBear-15-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9288, -0.0569, 0.0693, 1.1304, 2.2751, 16.1979)" width="34.85" xlinkHref={`#AttackBear-15-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3379, 1.174, 1.174, 0.3379, 6.1015, -7.9558)" width="15.4" xlinkHref={`#AttackBear-15-${id}-sprite2`} />
@@ -1580,7 +1572,7 @@ const AttackBear = ({ id, inverted, sx, ...rest }: AttackBearProps) => (
         </g>
       </defs>
       {/* FRAME 16 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 15}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${AttackBear_X_OFFSET + (AttackBear_WIDTH + AttackBear_MARGIN) * 15}, ${AttackBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.0101, 1.1053, 1.1053, 0.0101, -14.7968, -37.9831)" width="21.6" xlinkHref={`#AttackBear-16-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9288, -0.0569, 0.0693, 1.1304, 2.2751, 16.1979)" width="34.85" xlinkHref={`#AttackBear-16-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3326, 1.1756, 1.1756, 0.3326, 4.2051, -8.3496)" width="15.4" xlinkHref={`#AttackBear-16-${id}-sprite2`} />
@@ -1682,7 +1674,7 @@ const AttackBear = ({ id, inverted, sx, ...rest }: AttackBearProps) => (
         </g>
       </defs>
       {/* FRAME 17 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 16}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${AttackBear_X_OFFSET + (AttackBear_WIDTH + AttackBear_MARGIN) * 16}, ${AttackBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.3834, 1.0359, 1.0359, 0.3834, -8.3077, -45.6817)" width="21.6" xlinkHref={`#AttackBear-17-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9288, -0.0569, 0.0693, 1.1304, 2.2751, 16.1979)" width="34.85" xlinkHref={`#AttackBear-17-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3272, 1.1771, 1.1771, 0.3272, 2.4084, -8.6928)" width="15.4" xlinkHref={`#AttackBear-17-${id}-sprite2`} />
@@ -1784,7 +1776,7 @@ const AttackBear = ({ id, inverted, sx, ...rest }: AttackBearProps) => (
         </g>
       </defs>
       {/* FRAME 18 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 17}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${AttackBear_X_OFFSET + (AttackBear_WIDTH + AttackBear_MARGIN) * 17}, ${AttackBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.7117, 0.8444, 0.8444, 0.7118, 0.0717, -51.3391)" width="21.6" xlinkHref={`#AttackBear-18-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9288, -0.0569, 0.0693, 1.1304, 2.2751, 16.1979)" width="34.85" xlinkHref={`#AttackBear-18-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3219, 1.1787, 1.1787, 0.3219, 0.5621, -9.0361)" width="15.4" xlinkHref={`#AttackBear-18-${id}-sprite2`} />
@@ -1886,7 +1878,7 @@ const AttackBear = ({ id, inverted, sx, ...rest }: AttackBearProps) => (
         </g>
       </defs>
       {/* FRAME 19 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 18}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${AttackBear_X_OFFSET + (AttackBear_WIDTH + AttackBear_MARGIN) * 18}, ${AttackBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(-0.9583, 0.5533, 0.5533, 0.9583, 9.6313, -54.3923)" width="21.6" xlinkHref={`#AttackBear-19-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.929, -0.0572, 0.0696, 1.1307, 2.2199, 16.2009)" width="34.85" xlinkHref={`#AttackBear-19-${id}-sprite1`} />
         <use height="22.25" transform="matrix(-0.3165, 1.1812, 1.1812, 0.3165, -1.3883, -9.487)" width="15.4" xlinkHref={`#AttackBear-19-${id}-sprite2`} />

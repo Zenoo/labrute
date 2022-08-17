@@ -1,4 +1,5 @@
-import { Box, BoxProps, GlobalStyles } from '@mui/material';
+/* eslint-disable camelcase */
+import { Box, BoxProps } from '@mui/material';
 import React from 'react';
 
 export interface AttackPantherProps extends BoxProps {
@@ -6,34 +7,24 @@ export interface AttackPantherProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 213;
-const HEIGHT = 70;
-const FRAMES = 7;
-const X_OFFSET = 120;
-const Y_OFFSET = 39;
-const MARGIN = 30;
+export const AttackPanther_WIDTH = 213;
+export const AttackPanther_HEIGHT = 70;
+export const AttackPanther_FRAMES = 7;
+export const AttackPanther_X_OFFSET = 120;
+export const AttackPanther_Y_OFFSET = 39;
+export const AttackPanther_MARGIN = 30;
 
 const AttackPanther = ({ id, inverted, sx, ...rest }: AttackPantherProps) => (
   <Box
     sx={{
       position: 'relative',
       overflow: 'hidden',
-      width: WIDTH,
-      height: HEIGHT,
+      width: AttackPanther_WIDTH,
+      height: AttackPanther_HEIGHT,
       ...sx,
     }}
     {...rest}
   >
-    <GlobalStyles styles={{
-      '@keyframes AttackPanther': {
-        '100%': {
-          left: !inverted
-            ? -MARGIN
-            : -(WIDTH + MARGIN) * (FRAMES - 1) - (!inverted ? MARGIN : 0),
-        }
-      }
-    }}
-    />
     <Box
       component="svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -42,15 +33,17 @@ const AttackPanther = ({ id, inverted, sx, ...rest }: AttackPantherProps) => (
         position: 'absolute',
         top: 0,
         left: !inverted
-          ? -(WIDTH + MARGIN) * (FRAMES - 1) - (!inverted ? MARGIN : 0)
+          ? -(AttackPanther_WIDTH + AttackPanther_MARGIN)
+          * (AttackPanther_FRAMES - 1)
+          - (!inverted ? AttackPanther_MARGIN : 0)
           : 0,
-        width: (WIDTH + MARGIN) * FRAMES,
-        animation: `AttackPanther 0.17s steps(${FRAMES}, jump-none) forwards`,
+        width: (AttackPanther_WIDTH + AttackPanther_MARGIN) * AttackPanther_FRAMES,
+        animation: `AttackPanther${inverted ? 'Inverted' : ''} 0.17s steps(${AttackPanther_FRAMES}, jump-none) forwards`,
         transform: !inverted ? 'scale(-1, 1)' : null,
       }}
     >
       {/* FRAME 1 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 0}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${AttackPanther_X_OFFSET + (AttackPanther_WIDTH + AttackPanther_MARGIN) * 0}, ${AttackPanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2006, -0.4152, 0.3764, 1.0883, -7.888, 11.5116)" width="5.9" xlinkHref={`#AttackPanther-1-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.977, 0.3243, -0.471, 1.8533, -0.4759, 0.848)" width="1.75" xlinkHref={`#AttackPanther-1-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -6.7163, -2.2642)" width="1.75" xlinkHref={`#AttackPanther-1-${id}-sprite1`} />
@@ -122,7 +115,7 @@ const AttackPanther = ({ id, inverted, sx, ...rest }: AttackPantherProps) => (
         </g>
       </defs>
       {/* FRAME 2 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 1}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${AttackPanther_X_OFFSET + (AttackPanther_WIDTH + AttackPanther_MARGIN) * 1}, ${AttackPanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2006, -0.4152, 0.3764, 1.0883, -7.888, 11.5116)" width="5.9" xlinkHref={`#AttackPanther-2-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.977, 0.3243, -0.471, 1.8533, -0.4759, 0.848)" width="1.75" xlinkHref={`#AttackPanther-2-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -6.7163, -2.2642)" width="1.75" xlinkHref={`#AttackPanther-2-${id}-sprite1`} />
@@ -201,7 +194,7 @@ const AttackPanther = ({ id, inverted, sx, ...rest }: AttackPantherProps) => (
         </g>
       </defs>
       {/* FRAME 3 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 2}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${AttackPanther_X_OFFSET + (AttackPanther_WIDTH + AttackPanther_MARGIN) * 2}, ${AttackPanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(0.9371, -0.8555, 0.7755, 0.8494, -23.449, 10.3521)" width="5.9" xlinkHref={`#AttackPanther-3-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.9416, -0.4841, 0.3006, 1.8862, -22.2035, -2.8818)" width="1.75" xlinkHref={`#AttackPanther-3-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -26.2163, -6.2642)" width="1.75" xlinkHref={`#AttackPanther-3-${id}-sprite1`} />
@@ -281,7 +274,7 @@ const AttackPanther = ({ id, inverted, sx, ...rest }: AttackPantherProps) => (
         </g>
       </defs>
       {/* FRAME 4 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 3}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${AttackPanther_X_OFFSET + (AttackPanther_WIDTH + AttackPanther_MARGIN) * 3}, ${AttackPanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(0.9371, -0.8555, 0.7755, 0.8494, -23.449, 10.3521)" width="5.9" xlinkHref={`#AttackPanther-4-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.9416, -0.4841, 0.3006, 1.8862, -22.2035, -2.8818)" width="1.75" xlinkHref={`#AttackPanther-4-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -26.2163, -6.2642)" width="1.75" xlinkHref={`#AttackPanther-4-${id}-sprite1`} />
@@ -361,7 +354,7 @@ const AttackPanther = ({ id, inverted, sx, ...rest }: AttackPantherProps) => (
         </g>
       </defs>
       {/* FRAME 5 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 4}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${AttackPanther_X_OFFSET + (AttackPanther_WIDTH + AttackPanther_MARGIN) * 4}, ${AttackPanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(0.9371, -0.8555, 0.7755, 0.8494, -18.749, 10.3521)" width="5.9" xlinkHref={`#AttackPanther-5-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.9416, -0.4841, 0.3006, 1.8862, -17.5035, -2.8818)" width="1.75" xlinkHref={`#AttackPanther-5-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -21.5163, -6.2642)" width="1.75" xlinkHref={`#AttackPanther-5-${id}-sprite1`} />
@@ -441,7 +434,7 @@ const AttackPanther = ({ id, inverted, sx, ...rest }: AttackPantherProps) => (
         </g>
       </defs>
       {/* FRAME 6 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 5}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${AttackPanther_X_OFFSET + (AttackPanther_WIDTH + AttackPanther_MARGIN) * 5}, ${AttackPanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(0.9371, -0.8555, 0.7755, 0.8494, -18.749, 10.3521)" width="5.9" xlinkHref={`#AttackPanther-6-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.9416, -0.4841, 0.3006, 1.8862, -17.5035, -2.8818)" width="1.75" xlinkHref={`#AttackPanther-6-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -21.5163, -6.2642)" width="1.75" xlinkHref={`#AttackPanther-6-${id}-sprite1`} />
@@ -514,7 +507,7 @@ const AttackPanther = ({ id, inverted, sx, ...rest }: AttackPantherProps) => (
         </g>
       </defs>
       {/* FRAME 7 */}
-      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${X_OFFSET + (WIDTH + MARGIN) * 6}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.5, 0.0, 0.0, 1.5, ${AttackPanther_X_OFFSET + (AttackPanther_WIDTH + AttackPanther_MARGIN) * 6}, ${AttackPanther_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(0.9371, -0.8555, 0.7755, 0.8494, -18.749, 10.3521)" width="5.9" xlinkHref={`#AttackPanther-7-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.9416, -0.4841, 0.3006, 1.8862, -17.5035, -2.8818)" width="1.75" xlinkHref={`#AttackPanther-7-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -21.5163, -6.2642)" width="1.75" xlinkHref={`#AttackPanther-7-${id}-sprite1`} />

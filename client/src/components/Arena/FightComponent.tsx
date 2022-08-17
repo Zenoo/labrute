@@ -1,9 +1,10 @@
 import { Brute, Fight } from '@eternaltwin/labrute-core/types';
 import { Rtt } from '@mui/icons-material';
-import { Box, BoxProps, GlobalStyles, IconButton, Tooltip } from '@mui/material';
+import { Box, BoxProps, IconButton, Tooltip } from '@mui/material';
 import { motion } from 'framer-motion';
 import React, { useMemo } from 'react';
 import { TFunction } from 'react-i18next';
+import fightAnimations from '../../utils/fight/fightAnimations.js';
 import { AnimationFighter } from '../../utils/fight/findFighter.js';
 import translateFightStep from '../../utils/translateFightStep.js';
 import AnimatedBear from '../animations/bear/AnimatedBear.js';
@@ -36,64 +37,6 @@ const FightComponent = ({
   const brute2 = useMemo(() => !!fighters.length && fighters
     .filter((fighter) => !fighter.master)[1], [fighters]);
 
-  const globalStyles = (
-    <GlobalStyles styles={{
-      '@keyframes inverted-stagger': {
-        '0%': {
-          transform: 'translateX(0) scale(-1, 1)'
-        },
-        '10%': {
-          transform: 'translateX(-8px) scale(-1, 1)'
-        },
-        '20%': {
-          transform: 'translateX(-4px) scale(-1, 1)'
-        },
-        '30%': {
-          transform: 'translateX(-8px) scale(-1, 1)'
-        },
-        '40%': {
-          transform: 'translateX(-4px) scale(-1, 1)'
-        },
-        '60%': {
-          transform: 'translateX(-8px) scale(-1, 1)'
-        },
-        '80%': {
-          transform: 'translateX(0) scale(-1, 1)'
-        },
-        '100%': {
-          transform: 'translateX(0) scale(-1, 1)'
-        }
-      },
-      '@keyframes stagger': {
-        '0%': {
-          transform: 'translateX(0)'
-        },
-        '10%': {
-          transform: 'translateX(8px)'
-        },
-        '20%': {
-          transform: 'translateX(4px)'
-        },
-        '30%': {
-          transform: 'translateX(8px)'
-        },
-        '40%': {
-          transform: 'translateX(4px)'
-        },
-        '60%': {
-          transform: 'translateX(8px)'
-        },
-        '80%': {
-          transform: 'translateX(0)'
-        },
-        '100%': {
-          transform: 'translateX(0)'
-        }
-      },
-    }}
-    />
-  );
-
   return (fight && brute1 && brute2 ? (
     <BoxBg
       src="/images/game/background/179.jpg"
@@ -110,7 +53,7 @@ const FightComponent = ({
       }}
       {...props}
     >
-      {globalStyles}
+      {fightAnimations}
       {/* HEADERS */}
       <FightHeader brute={brute1} />
       <FightHeader brute={brute2} inverted />

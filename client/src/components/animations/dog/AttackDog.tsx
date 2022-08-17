@@ -1,4 +1,5 @@
-import { Box, BoxProps, GlobalStyles } from '@mui/material';
+/* eslint-disable camelcase */
+import { Box, BoxProps } from '@mui/material';
 import React from 'react';
 
 export interface AttackDogProps extends BoxProps {
@@ -6,34 +7,24 @@ export interface AttackDogProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 138.3;
-const HEIGHT = 49.25;
-const FRAMES = 7;
-const X_OFFSET = 77.85;
-const Y_OFFSET = 23.15;
-const MARGIN = 30;
+export const AttackDog_WIDTH = 138.3;
+export const AttackDog_HEIGHT = 49.25;
+export const AttackDog_FRAMES = 7;
+export const AttackDog_X_OFFSET = 77.85;
+export const AttackDog_Y_OFFSET = 23.15;
+export const AttackDog_MARGIN = 30;
 
 const AttackDog = ({ id, inverted, sx, ...rest }: AttackDogProps) => (
   <Box
     sx={{
       position: 'relative',
       overflow: 'hidden',
-      width: WIDTH,
-      height: HEIGHT,
+      width: AttackDog_WIDTH,
+      height: AttackDog_HEIGHT,
       ...sx,
     }}
     {...rest}
   >
-    <GlobalStyles styles={{
-      '@keyframes AttackDog': {
-        '100%': {
-          left: !inverted
-            ? -MARGIN
-            : -(WIDTH + MARGIN) * (FRAMES - 1) - (!inverted ? MARGIN : 0),
-        }
-      }
-    }}
-    />
     <Box
       component="svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -42,15 +33,17 @@ const AttackDog = ({ id, inverted, sx, ...rest }: AttackDogProps) => (
         position: 'absolute',
         top: 0,
         left: !inverted
-          ? -(WIDTH + MARGIN) * (FRAMES - 1) - (!inverted ? MARGIN : 0)
+          ? -(AttackDog_WIDTH + AttackDog_MARGIN)
+            * (AttackDog_FRAMES - 1)
+            - (!inverted ? AttackDog_MARGIN : 0)
           : 0,
-        width: (WIDTH + MARGIN) * FRAMES,
-        animation: `AttackDog 0.17s steps(${FRAMES}, jump-none) forwards`,
+        width: (AttackDog_WIDTH + AttackDog_MARGIN) * AttackDog_FRAMES,
+        animation: `AttackDog${inverted ? 'Inverted' : ''} 0.17s steps(${AttackDog_FRAMES}, jump-none) forwards`,
         transform: !inverted ? 'scale(-1, 1)' : null,
       }}
     >
       {/* FRAME 1 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 0}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${AttackDog_X_OFFSET + (AttackDog_WIDTH + AttackDog_MARGIN) * 0}, ${AttackDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2006, -0.4152, 0.3764, 1.0883, -7.888, 11.5116)" width="5.9" xlinkHref={`#AttackDog-1-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.977, 0.3243, -0.471, 1.8533, -0.4759, 0.848)" width="1.75" xlinkHref={`#AttackDog-1-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -6.7163, -2.2642)" width="1.75" xlinkHref={`#AttackDog-1-${id}-sprite1`} />
@@ -122,7 +115,7 @@ const AttackDog = ({ id, inverted, sx, ...rest }: AttackDogProps) => (
         </g>
       </defs>
       {/* FRAME 2 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 1}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${AttackDog_X_OFFSET + (AttackDog_WIDTH + AttackDog_MARGIN) * 1}, ${AttackDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(1.2006, -0.4152, 0.3764, 1.0883, -7.888, 11.5116)" width="5.9" xlinkHref={`#AttackDog-2-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.977, 0.3243, -0.471, 1.8533, -0.4759, 0.848)" width="1.75" xlinkHref={`#AttackDog-2-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -6.7163, -2.2642)" width="1.75" xlinkHref={`#AttackDog-2-${id}-sprite1`} />
@@ -201,7 +194,7 @@ const AttackDog = ({ id, inverted, sx, ...rest }: AttackDogProps) => (
         </g>
       </defs>
       {/* FRAME 3 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 2}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${AttackDog_X_OFFSET + (AttackDog_WIDTH + AttackDog_MARGIN) * 2}, ${AttackDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(0.9371, -0.8555, 0.7755, 0.8494, -23.449, 10.3521)" width="5.9" xlinkHref={`#AttackDog-3-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.9416, -0.4841, 0.3006, 1.8862, -22.2035, -2.8818)" width="1.75" xlinkHref={`#AttackDog-3-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -26.2163, -6.2642)" width="1.75" xlinkHref={`#AttackDog-3-${id}-sprite1`} />
@@ -281,7 +274,7 @@ const AttackDog = ({ id, inverted, sx, ...rest }: AttackDogProps) => (
         </g>
       </defs>
       {/* FRAME 4 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 3}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${AttackDog_X_OFFSET + (AttackDog_WIDTH + AttackDog_MARGIN) * 3}, ${AttackDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(0.9371, -0.8555, 0.7755, 0.8494, -23.449, 10.3521)" width="5.9" xlinkHref={`#AttackDog-4-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.9416, -0.4841, 0.3006, 1.8862, -22.2035, -2.8818)" width="1.75" xlinkHref={`#AttackDog-4-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -26.2163, -6.2642)" width="1.75" xlinkHref={`#AttackDog-4-${id}-sprite1`} />
@@ -361,7 +354,7 @@ const AttackDog = ({ id, inverted, sx, ...rest }: AttackDogProps) => (
         </g>
       </defs>
       {/* FRAME 5 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 4}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${AttackDog_X_OFFSET + (AttackDog_WIDTH + AttackDog_MARGIN) * 4}, ${AttackDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(0.9371, -0.8555, 0.7755, 0.8494, -18.749, 10.3521)" width="5.9" xlinkHref={`#AttackDog-5-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.9416, -0.4841, 0.3006, 1.8862, -17.5035, -2.8818)" width="1.75" xlinkHref={`#AttackDog-5-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -21.5163, -6.2642)" width="1.75" xlinkHref={`#AttackDog-5-${id}-sprite1`} />
@@ -441,7 +434,7 @@ const AttackDog = ({ id, inverted, sx, ...rest }: AttackDogProps) => (
         </g>
       </defs>
       {/* FRAME 6 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 5}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${AttackDog_X_OFFSET + (AttackDog_WIDTH + AttackDog_MARGIN) * 5}, ${AttackDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(0.9371, -0.8555, 0.7755, 0.8494, -18.749, 10.3521)" width="5.9" xlinkHref={`#AttackDog-6-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.9416, -0.4841, 0.3006, 1.8862, -17.5035, -2.8818)" width="1.75" xlinkHref={`#AttackDog-6-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -21.5163, -6.2642)" width="1.75" xlinkHref={`#AttackDog-6-${id}-sprite1`} />
@@ -514,7 +507,7 @@ const AttackDog = ({ id, inverted, sx, ...rest }: AttackDogProps) => (
         </g>
       </defs>
       {/* FRAME 7 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 6}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${AttackDog_X_OFFSET + (AttackDog_WIDTH + AttackDog_MARGIN) * 6}, ${AttackDog_Y_OFFSET})`}>
         <use height="3.75" transform="matrix(0.9371, -0.8555, 0.7755, 0.8494, -18.749, 10.3521)" width="5.9" xlinkHref={`#AttackDog-7-${id}-sprite0`} />
         <use height="5.75" transform="matrix(1.9416, -0.4841, 0.3006, 1.8862, -17.5035, -2.8818)" width="1.75" xlinkHref={`#AttackDog-7-${id}-sprite1`} />
         <use height="5.75" transform="matrix(2.045, -1.2738, 1.0218, 1.3478, -21.5163, -6.2642)" width="1.75" xlinkHref={`#AttackDog-7-${id}-sprite1`} />

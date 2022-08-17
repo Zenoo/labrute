@@ -1,4 +1,5 @@
-import { Box, BoxProps, GlobalStyles } from '@mui/material';
+/* eslint-disable camelcase */
+import { Box, BoxProps } from '@mui/material';
 import React from 'react';
 
 export interface EvadeBearProps extends BoxProps {
@@ -6,35 +7,24 @@ export interface EvadeBearProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 147;
-const HEIGHT = 142.1;
-const FRAMES = 1;
-const X_OFFSET = 106;
-const Y_OFFSET = 101.6;
-const MARGIN = 30;
+export const EvadeBear_WIDTH = 147;
+export const EvadeBear_HEIGHT = 142.1;
+export const EvadeBear_FRAMES = 1;
+export const EvadeBear_X_OFFSET = 106;
+export const EvadeBear_Y_OFFSET = 101.6;
+export const EvadeBear_MARGIN = 30;
 
 const EvadeBear = ({ id, inverted, sx, ...rest }: EvadeBearProps) => (
   <Box
     sx={{
       position: 'relative',
       overflow: 'hidden',
-      width: WIDTH,
-      height: HEIGHT,
+      width: EvadeBear_WIDTH,
+      height: EvadeBear_HEIGHT,
       ...sx,
     }}
     {...rest}
   >
-    <GlobalStyles styles={{
-      '@keyframes EvadeBearJump': {
-        '50%': {
-          top: -20,
-        },
-        '100%': {
-          top: 0,
-        }
-      }
-    }}
-    />
     <Box
       component="svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -43,15 +33,17 @@ const EvadeBear = ({ id, inverted, sx, ...rest }: EvadeBearProps) => (
         position: 'absolute',
         top: 0,
         left: inverted
-          ? -(WIDTH + MARGIN) * (FRAMES - 1) - (inverted ? MARGIN : 0)
+          ? -(EvadeBear_WIDTH + EvadeBear_MARGIN)
+            * (EvadeBear_FRAMES - 1)
+            - (inverted ? EvadeBear_MARGIN : 0)
           : 0,
-        width: (WIDTH + MARGIN) * FRAMES,
-        animation: 'EvadeBearJump 1s forwards',
+        width: (EvadeBear_WIDTH + EvadeBear_MARGIN) * EvadeBear_FRAMES,
+        animation: 'jump 1s forwards',
         transform: inverted ? 'scale(-1, 1)' : null,
       }}
     >
       {/* FRAME 1 */}
-      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${X_OFFSET + (WIDTH + MARGIN) * 0}, ${Y_OFFSET})`}>
+      <g transform={`matrix(1.0, 0.0, 0.0, 1.0, ${EvadeBear_X_OFFSET + (EvadeBear_WIDTH + EvadeBear_MARGIN) * 0}, ${EvadeBear_Y_OFFSET})`}>
         <use height="39.8" transform="matrix(0.6546, 0.8916, 0.8917, -0.6546, -22.359, -52.7123)" width="21.6" xlinkHref={`#JumpBear-1-${id}-sprite0`} />
         <use height="15.2" transform="matrix(0.9099, 0.182, -0.2216, 1.1075, 9.229, -1.9891)" width="34.85" xlinkHref={`#JumpBear-1-${id}-sprite1`} />
         <use height="22.25" transform="matrix(0.0808, 1.2189, 1.2189, -0.0808, -1.5776, -26.4071)" width="15.4" xlinkHref={`#JumpBear-1-${id}-sprite2`} />
