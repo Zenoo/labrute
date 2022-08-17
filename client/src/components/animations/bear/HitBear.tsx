@@ -6,11 +6,11 @@ export interface HitBearProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 130.45;
-const HEIGHT = 104.55;
+const WIDTH = 150;
+const HEIGHT = 114.55;
 const FRAMES = 1;
-const X_OFFSET = 91.4;
-const Y_OFFSET = 56.4;
+const X_OFFSET = 106.4;
+const Y_OFFSET = 64.4;
 const MARGIN = 30;
 
 const HitBear = ({ id, inverted, sx, ...rest }: HitBearProps) => (
@@ -25,13 +25,32 @@ const HitBear = ({ id, inverted, sx, ...rest }: HitBearProps) => (
     {...rest}
   >
     <GlobalStyles styles={{
-      '@keyframes HitBear': {
+      '@keyframes StaggerBear': {
+        '0%': {
+          transform: `translateX(0) ${inverted ? ' scale(-1, 1)' : ''}`
+        },
+        '10%': {
+          transform: `translateX(-8px) ${inverted ? ' scale(-1, 1)' : ''}`
+        },
+        '20%': {
+          transform: `translateX(-4px) ${inverted ? ' scale(-1, 1)' : ''}`
+        },
+        '30%': {
+          transform: `translateX(-8px) ${inverted ? ' scale(-1, 1)' : ''}`
+        },
+        '40%': {
+          transform: `translateX(-4px) ${inverted ? ' scale(-1, 1)' : ''}`
+        },
+        '60%': {
+          transform: `translateX(-8px) ${inverted ? ' scale(-1, 1)' : ''}`
+        },
+        '80%': {
+          transform: `translateX(0) ${inverted ? ' scale(-1, 1)' : ''}`
+        },
         '100%': {
-          left: inverted
-            ? -MARGIN
-            : -(WIDTH + MARGIN) * (FRAMES - 1) - (inverted ? MARGIN : 0),
+          transform: `translateX(0) ${inverted ? ' scale(-1, 1)' : ''}`
         }
-      }
+      },
     }}
     />
     <Box
@@ -45,7 +64,7 @@ const HitBear = ({ id, inverted, sx, ...rest }: HitBearProps) => (
           ? -(WIDTH + MARGIN) * (FRAMES - 1) - (inverted ? MARGIN : 0)
           : 0,
         width: (WIDTH + MARGIN) * FRAMES,
-        animation: `HitBear 1s steps(${FRAMES}, jump-none) forwards`,
+        animation: 'StaggerBear 0.5s forwards',
         transform: inverted ? 'scale(-1, 1)' : null,
       }}
     >
