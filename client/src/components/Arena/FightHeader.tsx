@@ -104,33 +104,7 @@ const FightHeader = ({
             left: inverted ? null : -24,
             right: inverted ? -24 : null,
             width: 90,
-            animation: brute.animation === 'hit' ? 'StaggerPortrait 0.5s linear' : null,
-            '@keyframes StaggerPortrait': {
-              '0%': {
-                transform: `${!inverted ? 'scale(-1, 1) ' : 'scale(1, 1) '}translateX(0)`
-              },
-              '10%': {
-                transform: `${!inverted ? 'scale(-1, 1) ' : 'scale(1, 1) '}translateX(8px)`
-              },
-              '20%': {
-                transform: `${!inverted ? 'scale(-1, 1) ' : 'scale(1, 1) '}translateX(4px)`
-              },
-              '30%': {
-                transform: `${!inverted ? 'scale(-1, 1) ' : 'scale(1, 1) '}translateX(8px)`
-              },
-              '40%': {
-                transform: `${!inverted ? 'scale(-1, 1) ' : 'scale(1, 1) '}translateX(4px)`
-              },
-              '60%': {
-                transform: `${!inverted ? 'scale(-1, 1) ' : 'scale(1, 1) '}translateX(8px)`
-              },
-              '80%': {
-                transform: `${!inverted ? 'scale(-1, 1) ' : 'scale(1, 1) '}translateX(0)`
-              },
-              '100%': {
-                transform: `${!inverted ? 'scale(-1, 1) ' : 'scale(1, 1) '}translateX(0)`
-              }
-            },
+            animation: brute.animation === 'hit' ? `${!inverted ? 'inverted-' : ''}stagger 0.5s linear` : 'none',
           }}
         />
       </Box>
