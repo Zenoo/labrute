@@ -6,8 +6,8 @@ export interface HitDogProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 50;
-const HEIGHT = 39;
+const WIDTH = 86;
+const HEIGHT = 42;
 const FRAMES = 1;
 const X_OFFSET = 26.2;
 const Y_OFFSET = 13.5;
@@ -27,28 +27,28 @@ const HitDog = ({ id, inverted, sx, ...rest }: HitDogProps) => (
     <GlobalStyles styles={{
       '@keyframes StaggerDog': {
         '0%': {
-          transform: `translateX(0) ${inverted ? ' scale(-1, 1)' : ''}`
+          transform: `translateX(0) ${!inverted ? ' scale(-1, 1)' : ''}`
         },
         '10%': {
-          transform: `translateX(-8px) ${inverted ? ' scale(-1, 1)' : ''}`
+          transform: `translateX(-8px) ${!inverted ? ' scale(-1, 1)' : ''}`
         },
         '20%': {
-          transform: `translateX(-4px) ${inverted ? ' scale(-1, 1)' : ''}`
+          transform: `translateX(-4px) ${!inverted ? ' scale(-1, 1)' : ''}`
         },
         '30%': {
-          transform: `translateX(-8px) ${inverted ? ' scale(-1, 1)' : ''}`
+          transform: `translateX(-8px) ${!inverted ? ' scale(-1, 1)' : ''}`
         },
         '40%': {
-          transform: `translateX(-4px) ${inverted ? ' scale(-1, 1)' : ''}`
+          transform: `translateX(-4px) ${!inverted ? ' scale(-1, 1)' : ''}`
         },
         '60%': {
-          transform: `translateX(-8px) ${inverted ? ' scale(-1, 1)' : ''}`
+          transform: `translateX(-8px) ${!inverted ? ' scale(-1, 1)' : ''}`
         },
         '80%': {
-          transform: `translateX(0) ${inverted ? ' scale(-1, 1)' : ''}`
+          transform: `translateX(0) ${!inverted ? ' scale(-1, 1)' : ''}`
         },
         '100%': {
-          transform: `translateX(0) ${inverted ? ' scale(-1, 1)' : ''}`
+          transform: `translateX(0) ${!inverted ? ' scale(-1, 1)' : ''}`
         }
       },
     }}

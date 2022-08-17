@@ -45,7 +45,7 @@ const TrappedDog = ({ id, inverted, sx, ...rest }: TrappedDogProps) => (
           ? -(WIDTH + MARGIN) * (FRAMES - 1) - (!inverted ? MARGIN : 0)
           : 0,
         width: (WIDTH + MARGIN) * FRAMES,
-        animation: `TrappedDog 1.07s steps(${FRAMES}, jump-none) infinite`,
+        animation: `TrappedDog 1.07s steps(${FRAMES}, jump-none) forwards`,
         transform: !inverted ? 'scale(-1, 1)' : null,
       }}
     >

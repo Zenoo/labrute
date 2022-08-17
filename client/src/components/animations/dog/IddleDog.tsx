@@ -6,10 +6,10 @@ export interface IddleDogProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 52;
-const HEIGHT = 40;
+const WIDTH = 100;
+const HEIGHT = 42;
 const FRAMES = 26;
-const X_OFFSET = 28.7;
+const X_OFFSET = 40.7;
 const Y_OFFSET = 12.2;
 const MARGIN = 30;
 

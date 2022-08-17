@@ -6,11 +6,11 @@ export interface ArriveDogProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 55;
+const WIDTH = 91;
 const HEIGHT = 40.25;
 const FRAMES = 5;
 const X_OFFSET = 32;
-const Y_OFFSET = 13.55;
+const Y_OFFSET = 10.55;
 const MARGIN = 30;
 
 const ArriveDog = ({ id, inverted, sx, ...rest }: ArriveDogProps) => (

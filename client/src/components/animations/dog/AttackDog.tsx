@@ -6,11 +6,11 @@ export interface AttackDogProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 106.3;
+const WIDTH = 138.3;
 const HEIGHT = 49.25;
 const FRAMES = 7;
 const X_OFFSET = 77.85;
-const Y_OFFSET = 24.15;
+const Y_OFFSET = 23.15;
 const MARGIN = 30;
 
 const AttackDog = ({ id, inverted, sx, ...rest }: AttackDogProps) => (

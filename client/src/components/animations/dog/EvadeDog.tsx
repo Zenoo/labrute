@@ -6,11 +6,11 @@ export interface EvadeDogProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 58;
+const WIDTH = 100;
 const HEIGHT = 61;
 const FRAMES = 2;
-const X_OFFSET = 36.8;
-const Y_OFFSET = 34.65;
+const X_OFFSET = 46;
+const Y_OFFSET = 31.65;
 const MARGIN = 30;
 
 const EvadeDog = ({ id, inverted, sx, ...rest }: EvadeDogProps) => (

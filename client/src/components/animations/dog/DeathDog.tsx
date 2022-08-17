@@ -6,10 +6,10 @@ export interface DeathDogProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 64.55;
-const HEIGHT = 51.7;
+const WIDTH = 108;
+const HEIGHT = 56.7;
 const FRAMES = 27;
-const X_OFFSET = 29.05;
+const X_OFFSET = 58;
 const Y_OFFSET = 30.85;
 const MARGIN = 30;
 

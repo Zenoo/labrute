@@ -6,8 +6,8 @@ export interface RunDogProps extends BoxProps {
   inverted?: boolean;
 }
 
-const WIDTH = 77;
-const HEIGHT = 49;
+const WIDTH = 105;
+const HEIGHT = 51;
 const FRAMES = 7;
 const X_OFFSET = 49;
 const Y_OFFSET = 20.65;
