@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.11.2](https://github.com/Zenoo/labrute/compare/v1.11.1...v1.11.2) (2022-08-17)
+
+
+### Bug fix
+
+* Other hit actions weren't registered on the HP bar ([dfd6460](https://github.com/Zenoo/labrute/commit/dfd646068fc93be8dc41eb17164b5e25dc74c578))
+
 ### [1.11.1](https://github.com/Zenoo/labrute/compare/v1.11.0...v1.11.1) (2022-08-16)
 
 
