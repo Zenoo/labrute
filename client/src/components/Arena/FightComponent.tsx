@@ -7,10 +7,6 @@ import { TFunction } from 'react-i18next';
 import fightAnimations from '../../utils/fight/fightAnimations.js';
 import { AnimationFighter } from '../../utils/fight/findFighter.js';
 import translateFightStep from '../../utils/translateFightStep.js';
-import AnimatedBear from '../animations/bear/AnimatedBear.js';
-import AnimatedBrute from '../animations/brute/AnimatedBrute.js';
-import AnimatedDog from '../animations/dog/AnimatedDog.js';
-import AnimatedPanther from '../animations/panther/AnimatedPanther.js';
 import BoxBg from '../BoxBg.js';
 import Text from '../Text.js';
 import FightHeader from './FightHeader.js';
@@ -78,34 +74,7 @@ const FightComponent = ({
             // The further down the fighter is, the higher the z-index
             zIndex: 300 - fighter.y,
           }}
-        >
-          {fighter.type === 'brute' ? (
-            <AnimatedBrute
-              id={fighter.name}
-              gender={fighter.data?.gender || 'male'}
-              animation={fighter.animation}
-              inverted={!fighter.inverted}
-            />
-          ) : fighter.name === 'bear' ? (
-            <AnimatedBear
-              id={fighter.master || ''}
-              animation={fighter.animation}
-              inverted={!fighter.inverted}
-            />
-          ) : fighter.name.startsWith('dog') ? (
-            <AnimatedDog
-              id={`${fighter.master || ''}.${fighter.name}`}
-              animation={fighter.animation}
-              inverted={!fighter.inverted}
-            />
-          ) : (
-            <AnimatedPanther
-              id={fighter.master || ''}
-              animation={fighter.animation}
-              inverted={!fighter.inverted}
-            />
-          )}
-        </motion.div>
+        />
       ))}
       {/* LOGS */}
       {displayLogs && (

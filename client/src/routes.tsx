@@ -1,9 +1,8 @@
 import React from 'react';
 import Main from './layouts/Main.js';
-import AnimationTestView from './views/AnimationTestView.js';
 import ArenaView from './views/ArenaView.js';
 import CellView from './views/CellView.js';
-import FightView from './views/FightView.js';
+import FightView2 from './views/FightView2.js';
 import HomeView from './views/HomeView.js';
 import LevelUpView from './views/LevelUpView.js';
 import VersusView from './views/VersusView.js';
@@ -22,12 +21,11 @@ const routes = [
           { path: 'level-up', element: <LevelUpView /> },
           { path: 'arena', element: <ArenaView /> },
           { path: 'versus/:opponentName', element: <VersusView /> },
-          { path: 'fight/:fightId', element: <FightView /> },
+          { path: 'fight/:fightId', element: <FightView2 /> },
         ],
       },
     ],
   },
-  { path: 'animation-test', element: <AnimationTestView /> },
 ];
 
 export default routes;

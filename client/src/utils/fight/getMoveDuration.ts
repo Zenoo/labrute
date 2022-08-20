@@ -1,6 +1,6 @@
 import { Animation, StepFighter } from '@eternaltwin/labrute-core/types';
 
-const DURATIONS = {
+export const DURATIONS = {
   bear: {
     arrive: 1000,
     attack: 470,
