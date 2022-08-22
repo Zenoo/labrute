@@ -8,18 +8,27 @@ import { Tweener } from 'pixi-tweener';
 import * as PIXI from 'pixi.js';
 import arrive from './arrive.js';
 import attemptHit from './attemptHit.js';
+import block from './block.js';
 import death from './death.js';
+import disarm from './disarm.js';
+import eat from './eat.js';
 import end from './end.js';
 import equip from './equip.js';
 import evade from './evade.js';
 import { AnimationFighter } from './findFighter.js';
+import heal from './heal.js';
 import hit from './hit.js';
 import hypnotise from './hypnotise.js';
+import leave from './leave.js';
 import moveBack from './moveBack.js';
 import moveTo from './moveTo.js';
 import sabotage from './sabotage.js';
+import saboteur from './saboteur.js';
 import setupSprite from './setupSprite.js';
 import skillActivate from './skillActivate.js';
+import steal from './steal.js';
+import survive from './survive.js';
+import throwWeapon from './throwWeapon.js';
 import trap from './trap.js';
 import trash from './trash.js';
 import updateWeapons from './updateWeapons.js';
@@ -233,10 +242,10 @@ const setupFight: (
         await arrive(app, fighters, step);
         break;
       }
-      // case 'leave': {
-      //   leave(setFighters, step);
-      //   break;
-      // }
+      case 'leave': {
+        await leave(app, fighters, step);
+        break;
+      }
       case 'attemptHit': {
         attemptHit(app, fighters, step);
         break;
@@ -256,46 +265,46 @@ const setupFight: (
         await evade(app, fighters, step);
         break;
       }
-      // case 'saboteur': {
-      //   saboteur(setFighters, step);
-      //   break;
-      // }
-      // case 'disarm': {
-      //   disarm(setFighters, step);
-      //   break;
-      // }
-      // case 'steal': {
-      //   steal(setFighters, step);
-      //   break;
-      // }
-      // case 'throw': {
-      //   throwWeapon(setFighters, step);
-      //   break;
-      // }
+      case 'saboteur': {
+        await saboteur(app, fighters, step);
+        break;
+      }
+      case 'disarm': {
+        disarm(app, fighters, step);
+        break;
+      }
+      case 'steal': {
+        await steal(app, fighters, step);
+        break;
+      }
+      case 'throw': {
+        await throwWeapon(app, fighters, step);
+        break;
+      }
       case 'trash': {
         await trash(app, fighters, step);
         break;
       }
-      // case 'eat': {
-      //   eat(setFighters, step);
-      //   break;
-      // }
-      // case 'heal': {
-      //   heal(setFighters, step);
-      //   break;
-      // }
-      // case 'survive': {
-      //   survive(setFighters, step);
-      //   break;
-      // }
+      case 'eat': {
+        await eat(app, fighters, step);
+        break;
+      }
+      case 'heal': {
+        await heal(app, fighters, step);
+        break;
+      }
+      case 'survive': {
+        survive(app, fighters, step);
+        break;
+      }
       case 'trap': {
         await trap(app, fighters, step);
         break;
       }
-      // case 'block': {
-      //   block(setFighters, step);
-      //   break;
-      // }
+      case 'block': {
+        await block(app, fighters, step);
+        break;
+      }
       case 'skillActivate': {
         await skillActivate(app, fighters, step);
         break;
@@ -316,7 +325,9 @@ const setupFight: (
         sabotage(app, fighters, step);
         break;
       }
-      case 'counter': {
+      case 'counter':
+      case 'skillExpire':
+      case 'break': {
         // Do nothing for now
         break;
       }

@@ -1,23 +1,21 @@
 import { DisarmStep } from '@eternaltwin/labrute-core/types';
+import { Application } from 'pixi.js';
 
-import fightersEqual from './fightersEqual.js';
-import { AnimationFighter } from './findFighter.js';
+import findFighter, { AnimationFighter } from './findFighter.js';
+import updateWeapons from './updateWeapons.js';
 
 const disarm = (
-  setFighters: React.Dispatch<React.SetStateAction<AnimationFighter[]>>,
+  app: Application,
+  fighters: AnimationFighter[],
   step: DisarmStep,
 ) => {
-  // Remove weapon from target
-  setFighters((prevFighters) => prevFighters.map((fighter) => {
-    if (fightersEqual(step.opponent, fighter)) {
-      return {
-        ...fighter,
-        weapons: fighter.weapons.filter((weapon) => weapon.name !== step.weapon),
-      };
-    }
+  const opponent = findFighter(fighters, step.opponent);
+  if (!opponent) {
+    throw new Error('Opponent not found');
+  }
 
-    return fighter;
-  }));
+  // Remove weapon from opponent
+  updateWeapons(app, opponent, step.weapon, 'remove');
 };
 
 export default disarm;

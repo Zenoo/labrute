@@ -1,30 +1,36 @@
 import { LeaveStep } from '@eternaltwin/labrute-core/types';
-import adjustPosition from './adjustPosition.js';
+import { Easing, Tweener } from 'pixi-tweener';
+import { Application } from 'pixi.js';
+import changeAnimation from './changeAnimation.js';
 
-import fightersEqual from './fightersEqual.js';
-import { AnimationFighter } from './findFighter.js';
-import getMoveDuration from './getMoveDuration.js';
-import iddle from './iddle.js';
+import findFighter, { AnimationFighter } from './findFighter.js';
 
-const leave = (
-  setFighters: React.Dispatch<React.SetStateAction<AnimationFighter[]>>,
+const leave = async (
+  app: Application,
+  fighters: AnimationFighter[],
   step: LeaveStep,
 ) => {
-  // Move fighter
-  setFighters((prevFighters) => prevFighters.map((fighter) => {
-    if (!fightersEqual(step.fighter, fighter)) {
-      return fighter;
-    }
+  const fighter = findFighter(fighters, step.fighter);
+  if (!fighter) {
+    throw new Error('Fighter not found');
+  }
 
-    return {
-      ...fighter,
-      animation: 'run',
-      x: adjustPosition(-100, 'x', fighter),
-    };
-  }));
+  // Set animation to `run`
+  changeAnimation(app, fighter, 'run');
 
-  // Set iddle animation
-  iddle(setFighters, step.fighter, getMoveDuration('run', step.fighter));
+  // Invert fighter
+  fighter.currentAnimation.scale.x *= -1;
+
+  // Move fighter to the position
+  await Tweener.add({
+    target: fighter.currentAnimation,
+    duration: 0.5,
+    ease: Easing.linear
+  }, { x: fighter.team === 'left' ? -100 : 600 });
+
+  // Remove fighter
+  fighter.currentAnimation.destroy();
+  fighters.splice(fighters.indexOf(fighter), 1);
 };
 
 export default leave;

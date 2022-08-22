@@ -2,7 +2,7 @@
 import { Tweener } from 'pixi-tweener';
 import { AnimationFighter } from './findFighter.js';
 
-const updateHp = (brute: AnimationFighter, hp: number) => {
+const updateHp = (brute: AnimationFighter, hp: number, fix?: boolean) => {
   if (!brute.hpBar || !brute.hpBarPhantom) {
     throw new Error(`Brute HP not found: ${brute.name}`);
   }
@@ -12,7 +12,13 @@ const updateHp = (brute: AnimationFighter, hp: number) => {
   let newWidth = 0;
 
   if (brute.team === 'left') {
-    newWidth = brute.hpBar.width + percent;
+    if (fix) {
+      newWidth = percent;
+    } else {
+      newWidth = brute.hpBar.width + percent;
+    }
+  } else if (fix) {
+    newWidth = -percent;
   } else {
     newWidth = brute.hpBar.width - percent;
   }

@@ -1,23 +1,21 @@
 import { SurviveStep } from '@eternaltwin/labrute-core/types';
+import { Application } from 'pixi.js';
 
-import fightersEqual from './fightersEqual.js';
-import { AnimationFighter } from './findFighter.js';
+import findFighter, { AnimationFighter } from './findFighter.js';
+import updateHp from './updateHp.js';
 
 const survive = (
-  setFighters: React.Dispatch<React.SetStateAction<AnimationFighter[]>>,
+  app: Application,
+  fighters: AnimationFighter[],
   step: SurviveStep,
 ) => {
-  // Set brute HP to 1
-  setFighters((prevFighters) => prevFighters.map((fighter) => {
-    if (fightersEqual(step.brute, fighter)) {
-      return {
-        ...fighter,
-        hp: 1,
-      };
-    }
+  const brute = findFighter(fighters, step.brute);
+  if (!brute) {
+    throw new Error('Brute not found');
+  }
 
-    return fighter;
-  }));
+  // Set brute HP to 1
+  updateHp(brute, 1, true);
 };
 
 export default survive;

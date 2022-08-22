@@ -1,23 +1,31 @@
 import { BlockStep } from '@eternaltwin/labrute-core/types';
+import { AnimatedSprite, Application } from 'pixi.js';
+import changeAnimation from './changeAnimation.js';
 
-import fightersEqual from './fightersEqual.js';
-import { AnimationFighter } from './findFighter.js';
+import findFighter, { AnimationFighter } from './findFighter.js';
 
-const block = (
-  setFighters: React.Dispatch<React.SetStateAction<AnimationFighter[]>>,
+const block = async (
+  app: Application,
+  fighters: AnimationFighter[],
   step: BlockStep,
 ) => {
-  // Set block animation on target
-  setFighters((prevFighters) => prevFighters.map((fighter) => {
-    if (fightersEqual(step.fighter, fighter)) {
-      return {
-        ...fighter,
-        animation: 'block',
-      };
-    }
+  const fighter = findFighter(fighters, step.fighter);
+  if (!fighter) {
+    throw new Error('Fighter not found');
+  }
 
-    return fighter;
-  }));
+  // Set animation to `block`
+  changeAnimation(app, fighter, 'block');
+
+  // Wait for animation to complete
+  await new Promise((resolve) => {
+    (fighter.currentAnimation as AnimatedSprite).onComplete = () => {
+      resolve(null);
+    };
+  });
+
+  // Set animation to `iddle`
+  changeAnimation(app, fighter, 'iddle');
 };
 
 export default block;

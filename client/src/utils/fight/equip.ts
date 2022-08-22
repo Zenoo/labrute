@@ -3,7 +3,6 @@ import { EquipStep } from '@eternaltwin/labrute-core/types';
 import { AnimatedSprite, Application } from 'pixi.js';
 import changeAnimation from './changeAnimation.js';
 import findFighter, { AnimationFighter } from './findFighter.js';
-import updateWeapons from './updateWeapons.js';
 
 const equip = async (
   app: Application,
@@ -24,9 +23,6 @@ const equip = async (
     (brute.currentAnimation as AnimatedSprite).onComplete = () => {
       // Set animation to `iddle`
       changeAnimation(app, brute, 'iddle');
-
-      // Update weapon list
-      updateWeapons(app, brute, step.name, 'remove');
 
       resolve(null);
     };

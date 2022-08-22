@@ -1,23 +1,29 @@
 import { SaboteurStep } from '@eternaltwin/labrute-core/types';
+import { AnimatedSprite, Application } from 'pixi.js';
+import changeAnimation from './changeAnimation.js';
 
-import fightersEqual from './fightersEqual.js';
-import { AnimationFighter } from './findFighter.js';
+import findFighter, { AnimationFighter } from './findFighter.js';
+import stagger from './stagger.js';
+import updateWeapons from './updateWeapons.js';
 
-const saboteur = (
-  setFighters: React.Dispatch<React.SetStateAction<AnimationFighter[]>>,
+const saboteur = async (
+  app: Application,
+  fighters: AnimationFighter[],
   step: SaboteurStep,
 ) => {
-  // Remove weapon from brute
-  setFighters((prevFighters) => prevFighters.map((fighter) => {
-    if (fightersEqual(step.brute, fighter)) {
-      return {
-        ...fighter,
-        weapons: fighter.weapons.filter((weapon) => weapon.name !== step.weapon),
-      };
-    }
+  const brute = findFighter(fighters, step.brute);
+  if (!brute) {
+    throw new Error('Brute not found');
+  }
 
-    return fighter;
-  }));
+  // Set animation to `hit`
+  changeAnimation(app, brute, 'hit');
+
+  // Stagger animation
+  await stagger(brute.currentAnimation as AnimatedSprite, brute.team);
+
+  // Update weapon list
+  updateWeapons(app, brute, step.weapon, 'remove');
 };
 
 export default saboteur;
