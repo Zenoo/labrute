@@ -18,6 +18,7 @@ import hypnotise from './hypnotise.js';
 import moveBack from './moveBack.js';
 import moveTo from './moveTo.js';
 import setupSprite from './setupSprite.js';
+import skillActivate from './skillActivate.js';
 import trap from './trap.js';
 import trash from './trash.js';
 import updateWeapons from './updateWeapons.js';
@@ -294,10 +295,10 @@ const setupFight: (
       //   block(setFighters, step);
       //   break;
       // }
-      // case 'skillActivate': {
-      //   skillActivate(setFighters, step);
-      //   break;
-      // }
+      case 'skillActivate': {
+        await skillActivate(app, fighters, step);
+        break;
+      }
       case 'end': {
         end(app, fighters, step);
         break;
