@@ -1,6 +1,8 @@
 import { Animation, HitStep } from '@eternaltwin/labrute-core/types';
 import randomBetween from '@eternaltwin/labrute-core/utils/randomBetween';
-import { AnimatedSprite, Application } from 'pixi.js';
+import { OutlineFilter } from '@pixi/filter-outline';
+import { Tweener } from 'pixi-tweener';
+import { AnimatedSprite, Application, Text } from 'pixi.js';
 import changeAnimation from './changeAnimation.js';
 
 import findFighter, { AnimationFighter } from './findFighter.js';
@@ -24,6 +26,28 @@ const hit = async (
 
   // Set animation to the correct hit animation
   changeAnimation(app, target, animation as Animation);
+
+  // Display floating and fading damage text
+  const damageText = new Text(`-${step.damage}`, {
+    fontFamily: 'Poplar', fontSize: 20, fill: 0xffffff
+  });
+  damageText.anchor.set(0.5);
+  damageText.x = target.currentAnimation.x;
+  damageText.y = target.currentAnimation.y - target.currentAnimation.height;
+  damageText.zIndex = 1000;
+  damageText.filters = [new OutlineFilter()];
+  app.stage.addChild(damageText);
+
+  Tweener.add({
+    target: damageText,
+    duration: 2,
+  }, {
+    y: damageText.y - 100,
+    alpha: 0,
+  }).then(() => {
+    // Remove text
+    damageText.destroy();
+  }).catch(console.error);
 
   // Update HP bar
   if (target.hpBar) {
