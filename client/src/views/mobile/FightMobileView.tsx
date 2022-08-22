@@ -1,11 +1,14 @@
 import { Box, GlobalStyles, Grid, Link, Paper, Tooltip } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import FightComponent from '../../components/Arena/FightComponent.js';
 import Page from '../../components/Page.js';
+import { Fight } from '@eternaltwin/labrute-core/types';
 
-export interface Fight2MobileViewProps {
+export interface FightMobileViewProps {
   bruteName: string | undefined;
   adverts: string[];
+  fight: Fight | null;
 }
 
 const globalStyles = (
@@ -21,7 +24,8 @@ const globalStyles = (
 const FightMobileView = ({
   bruteName,
   adverts,
-}: Fight2MobileViewProps) => {
+  fight,
+}: FightMobileViewProps) => {
   const { t } = useTranslation();
 
   return (
@@ -33,7 +37,7 @@ const FightMobileView = ({
       {globalStyles}
       <Paper sx={{ textAlign: 'center' }}>
         {/* FIGHT */}
-        <canvas id="game" width="500" height="300" />
+        <FightComponent fight={fight} />
 
         {/* ADVERTS */}
         <Grid container spacing={2} sx={{ mt: 2 }}>
@@ -44,7 +48,7 @@ const FightMobileView = ({
                   <Box
                     component="img"
                     src={`/images/redirects/${advert}`}
-                    sx={{ width: 1, border: 2, borderColor: 'common.white', ml: 3 }}
+                    sx={{ width: 1, border: 2, borderColor: 'common.white' }}
                   />
                 </Link>
               </Tooltip>

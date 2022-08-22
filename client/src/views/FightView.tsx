@@ -58,6 +58,7 @@ const FightView = () => {
       <FightMobileView
         bruteName={bruteName}
         adverts={adverts}
+        fight={fight}
       />
     );
   }
