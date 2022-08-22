@@ -1,23 +1,21 @@
 import { DeathStep } from '@eternaltwin/labrute-core/types';
+import { Application } from 'pixi.js';
 
-import fightersEqual from './fightersEqual.js';
-import { AnimationFighter } from './findFighter.js';
+import findFighter, { AnimationFighter } from './findFighter.js';
+import { changeAnimation } from './setupFight.js';
 
 const death = (
-  setFighters: React.Dispatch<React.SetStateAction<AnimationFighter[]>>,
+  app: Application,
+  fighters: AnimationFighter[],
   step: DeathStep,
 ) => {
-  // Set death animation
-  setFighters((prevFighters) => prevFighters.map((fighter) => {
-    if (!fightersEqual(step.fighter, fighter)) {
-      return fighter;
-    }
+  const fighter = findFighter(fighters, step.fighter);
+  if (!fighter) {
+    throw new Error('Fighter not found');
+  }
 
-    return {
-      ...fighter,
-      animation: fighter.type === 'brute' ? 'lose' : 'death',
-    };
-  }));
+  // Set animation to `death`
+  changeAnimation(app, fighter, 'death');
 };
 
 export default death;

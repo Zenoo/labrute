@@ -1,23 +1,10 @@
-import { AnimatedWeapon, Animation, BodyColors, BodyParts, Gender, StepFighter } from '@eternaltwin/labrute-core/types';
+import { AnimatedWeapon, Fighter, StepFighter } from '@eternaltwin/labrute-core/types';
+import * as PIXI from 'pixi.js';
 
-export interface AnimationFighter {
-  name: string;
-  data?: {
-    gender: Gender,
-    body: BodyParts,
-    colors: BodyColors,
-  };
-  master?: string;
+export interface AnimationFighter extends Fighter {
   type: 'brute' | 'pet';
   team: 'left' | 'right';
-  inverted: boolean;
-  x: number;
-  y: number;
-  animation: Animation;
-  width: number;
-  hp: number;
-  maxHp: number;
-  weapons: AnimatedWeapon[];
+  currentAnimation: PIXI.AnimatedSprite | PIXI.Sprite;
   activeWeapon: AnimatedWeapon | null;
 }
 

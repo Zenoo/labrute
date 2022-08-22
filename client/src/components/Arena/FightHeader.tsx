@@ -104,7 +104,7 @@ const FightHeader = ({
             left: inverted ? null : -24,
             right: inverted ? -24 : null,
             width: 90,
-            animation: brute.animation === 'hit' ? `${!inverted ? 'inverted-' : ''}stagger 0.5s linear` : 'none',
+            animation: `${!inverted ? 'inverted-' : ''}stagger 0.5s linear`,
           }}
         />
       </Box>

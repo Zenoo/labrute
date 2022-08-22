@@ -179,7 +179,7 @@
             <key type="filename">public/images/game/resources/dog/arrive-end/00005.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
-                <point_f>0.479167,0.757576</point_f>
+                <point_f>0.583333,0.818182</point_f>
                 <key>spriteScale</key>
                 <double>1</double>
                 <key>scale9Enabled</key>
@@ -194,7 +194,7 @@
             <key type="filename">public/images/game/resources/dog/arrive-start/00001.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
-                <point_f>0.479167,0.818182</point_f>
+                <point_f>0.583333,0.848485</point_f>
                 <key>spriteScale</key>
                 <double>1</double>
                 <key>scale9Enabled</key>
@@ -215,7 +215,7 @@
             <key type="filename">public/images/game/resources/dog/attack/00007.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
-                <point_f>0.716814,0.716667</point_f>
+                <point_f>0.265487,0.7</point_f>
                 <key>spriteScale</key>
                 <double>1</double>
                 <key>scale9Enabled</key>
@@ -256,7 +256,7 @@
             <key type="filename">public/images/game/resources/dog/death/00027.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
-                <point_f>0.31746,0.6875</point_f>
+                <point_f>0.650794,0.6875</point_f>
                 <key>spriteScale</key>
                 <double>1</double>
                 <key>scale9Enabled</key>
@@ -272,7 +272,7 @@
             <key type="filename">public/images/game/resources/dog/evade/00002.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
-                <point_f>0.551724,0.821429</point_f>
+                <point_f>0.482759,0.821429</point_f>
                 <key>spriteScale</key>
                 <double>1</double>
                 <key>scale9Enabled</key>
@@ -294,7 +294,7 @@
             <key type="filename">public/images/game/resources/dog/grabbed/00008.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
-                <point_f>0.54902,0.886792</point_f>
+                <point_f>0.490196,0.90566</point_f>
                 <key>spriteScale</key>
                 <double>1</double>
                 <key>scale9Enabled</key>
@@ -306,10 +306,10 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">public/images/game/resources/dog/hit/0.png</key>
+            <key type="filename">public/images/game/resources/dog/hit/00001.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
-                <point_f>0.384615,0.818182</point_f>
+                <point_f>0.666667,0.787879</point_f>
                 <key>spriteScale</key>
                 <double>1</double>
                 <key>scale9Enabled</key>
@@ -349,7 +349,7 @@
             <key type="filename">public/images/game/resources/dog/iddle/00026.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
-                <point_f>0.468085,0.787879</point_f>
+                <point_f>0.553191,0.818182</point_f>
                 <key>spriteScale</key>
                 <double>1</double>
                 <key>scale9Enabled</key>
@@ -370,7 +370,7 @@
             <key type="filename">public/images/game/resources/dog/run/00007.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
-                <point_f>0.458333,0.767442</point_f>
+                <point_f>0.513889,0.767442</point_f>
                 <key>spriteScale</key>
                 <double>1</double>
                 <key>scale9Enabled</key>
@@ -414,20 +414,6 @@
             <key type="filename">public/images/game/resources/dog/trapped-loop/00041.png</key>
             <key type="filename">public/images/game/resources/dog/trapped-loop/00042.png</key>
             <key type="filename">public/images/game/resources/dog/trapped-loop/00043.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.496,0.903226</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>31,23,63,47</rect>
-                <key>scale9Paddings</key>
-                <rect>31,23,63,47</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
             <key type="filename">public/images/game/resources/dog/trapped-start/00001.png</key>
             <key type="filename">public/images/game/resources/dog/trapped-start/00002.png</key>
             <key type="filename">public/images/game/resources/dog/trapped-start/00003.png</key>
@@ -441,7 +427,7 @@
             <key type="filename">public/images/game/resources/dog/trapped-start/00011.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
-                <point_f>0.496,0.913978</point_f>
+                <point_f>0.52,0.913978</point_f>
                 <key>spriteScale</key>
                 <double>1</double>
                 <key>scale9Enabled</key>

@@ -179,7 +179,7 @@
             <key type="filename">public/images/game/resources/panther/arrive-end/00005.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
-                <point_f>0.430108,0.719298</point_f>
+                <point_f>0.612903,0.736842</point_f>
                 <key>spriteScale</key>
                 <double>1</double>
                 <key>scale9Enabled</key>
@@ -194,7 +194,7 @@
             <key type="filename">public/images/game/resources/panther/arrive-start/00001.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
-                <point_f>0.44086,0.684211</point_f>
+                <point_f>0.591398,0.719298</point_f>
                 <key>spriteScale</key>
                 <double>1</double>
                 <key>scale9Enabled</key>
@@ -215,7 +215,7 @@
             <key type="filename">public/images/game/resources/panther/attack/00007.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
-                <point_f>0.733728,0.711111</point_f>
+                <point_f>0.278107,0.722222</point_f>
                 <key>spriteScale</key>
                 <double>1</double>
                 <key>scale9Enabled</key>
@@ -256,7 +256,7 @@
             <key type="filename">public/images/game/resources/panther/death/00027.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
-                <point_f>0.257143,0.543478</point_f>
+                <point_f>0.619048,0.597826</point_f>
                 <key>spriteScale</key>
                 <double>1</double>
                 <key>scale9Enabled</key>
@@ -272,7 +272,7 @@
             <key type="filename">public/images/game/resources/panther/evade/00002.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
-                <point_f>0.523256,0.833333</point_f>
+                <point_f>0.488372,0.833333</point_f>
                 <key>spriteScale</key>
                 <double>1</double>
                 <key>scale9Enabled</key>
@@ -284,10 +284,10 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">public/images/game/resources/panther/hit/0.png</key>
+            <key type="filename">public/images/game/resources/panther/hit/00001.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
-                <point_f>0.362069,0.816327</point_f>
+                <point_f>0.655172,0.836735</point_f>
                 <key>spriteScale</key>
                 <double>1</double>
                 <key>scale9Enabled</key>
@@ -327,7 +327,7 @@
             <key type="filename">public/images/game/resources/panther/iddle/00026.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
-                <point_f>0.5,0.84</point_f>
+                <point_f>0.571429,0.88</point_f>
                 <key>spriteScale</key>
                 <double>1</double>
                 <key>scale9Enabled</key>
@@ -348,7 +348,7 @@
             <key type="filename">public/images/game/resources/panther/run/00007.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
-                <point_f>0.425926,0.75</point_f>
+                <point_f>0.564815,0.796875</point_f>
                 <key>spriteScale</key>
                 <double>1</double>
                 <key>scale9Enabled</key>
@@ -482,7 +482,7 @@
             <key type="filename">public/images/game/resources/panther/trapped-start/00011.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
-                <point_f>0.494624,0.913669</point_f>
+                <point_f>0.526882,0.928058</point_f>
                 <key>spriteScale</key>
                 <double>1</double>
                 <key>scale9Enabled</key>
@@ -508,7 +508,7 @@
             <key type="filename">public/images/game/resources/panther/walk/00012.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
-                <point_f>0.506849,0.8125</point_f>
+                <point_f>0.534247,0.875</point_f>
                 <key>spriteScale</key>
                 <double>1</double>
                 <key>scale9Enabled</key>

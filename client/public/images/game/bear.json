@@ -900,14 +900,14 @@
 	"sourceSize": {"w":91,"h":108},
 	"anchor": {"x":0.571429,"y":0.87037}
 },
-"hit/0.png":
+"hit/00001.png":
 {
 	"frame": {"x":809,"y":226,"w":116,"h":97},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":116,"h":97},
 	"sourceSize": {"w":116,"h":97},
-	"anchor": {"x":0.62931,"y":0.824742}
+	"anchor": {"x":0,"y":0}
 },
 "iddle/00001.png":
 {
@@ -1854,6 +1854,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1006,"h":1955},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:0570d0cb0676b2e5a0c19c75183441f8:e9ff581aaa16e62eb8d3b00cfa27f13e:6295e075e3238db0ec40ff984cf0523c$"
+	"smartupdate": "$TexturePacker:SmartUpdate:f23de6d0e132590dc38eca5ba1af87c7:e9ff581aaa16e62eb8d3b00cfa27f13e:6295e075e3238db0ec40ff984cf0523c$"
 }
 }

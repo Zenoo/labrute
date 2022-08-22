@@ -1,107 +1,52 @@
 import { Fight } from '@eternaltwin/labrute-core/types';
-import { Rtt } from '@mui/icons-material';
-import { Box, BoxProps, IconButton, Tooltip } from '@mui/material';
-import { motion } from 'framer-motion';
-import React, { useMemo } from 'react';
-import { TFunction } from 'react-i18next';
-import fightAnimations from '../../utils/fight/fightAnimations.js';
-import { AnimationFighter } from '../../utils/fight/findFighter.js';
-import translateFightStep from '../../utils/translateFightStep.js';
-import BoxBg from '../BoxBg.js';
-import Text from '../Text.js';
-import FightHeader from './FightHeader.js';
+import { Box, useTheme } from '@mui/material';
+import { Tweener } from 'pixi-tweener';
+import * as PIXI from 'pixi.js';
+import React, { useEffect, useRef } from 'react';
+import setupFight from '../../utils/fight/setupFight.js';
 
-export interface FightComponentProps extends BoxProps {
+export interface FightComponentProps {
   fight: Fight | null;
-  fighters: AnimationFighter[];
-  displayLogs: boolean;
-  t: TFunction;
-  toggleLogs: () => void;
 }
 
 const FightComponent = ({
   fight,
-  fighters,
-  displayLogs,
-  t,
-  toggleLogs,
-  sx,
-  ...props
 }: FightComponentProps) => {
-  const brute1 = useMemo(() => !!fighters.length && fighters
-    .filter((fighter) => !fighter.master)[0], [fighters]);
-  const brute2 = useMemo(() => !!fighters.length && fighters
-    .filter((fighter) => !fighter.master)[1], [fighters]);
+  const ref = useRef<HTMLDivElement>(null);
+  const theme = useTheme();
 
-  return (fight && brute1 && brute2 ? (
-    <BoxBg
-      src="/images/game/background/179.jpg"
-      sx={{
-        position: 'relative',
-        width: 500,
-        height: 300,
-        border: 1,
-        borderColor: 'secondary.main',
-        alignSelf: 'center',
-        ml: 5,
-        overflow: 'hidden',
-        ...sx,
-      }}
-      {...props}
-    >
-      {fightAnimations}
-      {/* HEADERS */}
-      <FightHeader brute={brute1} />
-      <FightHeader brute={brute2} inverted />
-      {/* FIGHTERS */}
-      {fighters.map((fighter) => (
-        <motion.div
-          key={`${fighter.master || ''}.${fighter.name}`}
-          initial={{
-            left: fighter.team === 'left' ? fighter.x : 'unset',
-            right: fighter.team === 'right' ? fighter.x : 'unset',
-            bottom: fighter.y
-          }}
-          animate={{
-            left: fighter.team === 'left' ? fighter.x : 'unset',
-            right: fighter.team === 'right' ? fighter.x : 'unset',
-            bottom: fighter.y
-          }}
-          transition={{ duration: 0.5, type: 'linear' }}
-          style={{
-            display: 'inline-block',
-            position: 'absolute',
-            // The further down the fighter is, the higher the z-index
-            zIndex: 300 - fighter.y,
-          }}
-        />
-      ))}
-      {/* LOGS */}
-      {displayLogs && (
-        <Box sx={{
-          height: 1,
-          width: 1,
-          overflowY: 'auto',
-          position: 'absolute',
-          top: 0,
-          bgcolor: 'rgba(255, 255, 255, 0.5)',
-          zIndex: 500,
-        }}
-        >
-          {fight.data.steps.filter((step) => !['moveTo', 'moveBack'].includes(step.action)).map((step, i) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <Text key={i}>{translateFightStep(step, t)}</Text>
-          ))}
-        </Box>
-      )}
-      {/* LOGS TOGGLE */}
-      <Tooltip title={t('fight.toggleLogs')}>
-        <IconButton onClick={toggleLogs} sx={{ position: 'absolute', bottom: 0, right: 0, zIndex: 501, }}>
-          <Rtt />
-        </IconButton>
-      </Tooltip>
-    </BoxBg>
-  ) : null);
+  // Renderer setup
+  useEffect(() => {
+    if (!ref.current || !fight) {
+      return undefined;
+    }
+    const app = new PIXI.Application({
+      backgroundColor: 0x56789a,
+      width: 500,
+      height: 300,
+    });
+    ref.current.appendChild(app.view);
+
+    app.ticker.speed = 0.5;
+
+    app.loader
+      .add('/images/game/misc.json')
+      .add('/images/game/bear.json')
+      .add('/images/game/dog.json')
+      .add('/images/game/panther.json')
+      .add('/images/game/male-brute.json')
+      .add('/images/game/female-brute.json')
+      .load(setupFight(theme, fight, app));
+
+    return () => {
+      Tweener.dispose();
+      app.destroy(true);
+    };
+  }, [fight, theme]);
+
+  return (fight) ? (
+    <Box ref={ref} sx={{ ml: 5, alignSelf: 'center' }} />
+  ) : null;
 };
 
 export default FightComponent;

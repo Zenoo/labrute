@@ -1,35 +1,42 @@
 import { MoveBackStep } from '@eternaltwin/labrute-core/types';
-import adjustPosition from './adjustPosition.js';
+import { Easing, Tweener } from 'pixi-tweener';
+import { Application } from 'pixi.js';
 
-import fightersEqual from './fightersEqual.js';
 import { getRandomPosition } from './fightPositions.js';
-import { AnimationFighter } from './findFighter.js';
-import getMoveDuration from './getMoveDuration.js';
-import iddle from './iddle.js';
+import findFighter, { AnimationFighter } from './findFighter.js';
+import { changeAnimation } from './setupFight.js';
 
-const moveBack = (
-  setFighters: React.Dispatch<React.SetStateAction<AnimationFighter[]>>,
+const moveBack = async (
+  app: Application,
+  fighters: AnimationFighter[],
   step: MoveBackStep,
 ) => {
-  // Move fighter
-  setFighters((prevFighters) => prevFighters.map((fighter) => {
-    if (!fightersEqual(step.fighter, fighter)) {
-      return fighter;
-    }
+  const fighter = findFighter(fighters, step.fighter);
+  if (!fighter) {
+    throw new Error('Fighter not found');
+  }
 
-    const backPosition = getRandomPosition(prevFighters, fighter.team);
+  // Set animation to `run`
+  changeAnimation(app, fighter, 'run');
 
-    return {
-      ...fighter,
-      animation: 'run',
-      inverted: fighter.team === 'right',
-      x: adjustPosition(backPosition.x, 'x', fighter),
-      y: adjustPosition(backPosition.y, 'y', fighter),
-    };
-  }));
+  // Invert fighter
+  fighter.currentAnimation.scale.x *= -1;
 
-  // Return to iddle after move
-  iddle(setFighters, step.fighter, getMoveDuration('run', step.fighter));
+  // Get positions
+  const { x, y } = getRandomPosition(fighters, fighter.team);
+
+  // Move fighter to the position
+  await Tweener.add({
+    target: fighter.currentAnimation,
+    duration: 0.5,
+    ease: Easing.linear
+  }, { x, y });
+
+  // Invert fighter
+  fighter.currentAnimation.scale.x *= -1;
+
+  // Set animation to `iddle`
+  changeAnimation(app, fighter, 'iddle');
 };
 
 export default moveBack;

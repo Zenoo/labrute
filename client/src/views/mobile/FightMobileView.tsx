@@ -1,17 +1,10 @@
-import { Fight } from '@eternaltwin/labrute-core/types';
 import { Box, GlobalStyles, Grid, Link, Paper, Tooltip } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import FightComponent from '../../components/Arena/FightComponent.js';
 import Page from '../../components/Page.js';
-import { AnimationFighter } from '../../utils/fight/findFighter.js';
 
-export interface FightMobileViewProps {
+export interface Fight2MobileViewProps {
   bruteName: string | undefined;
-  fight: Fight | null;
-  fighters: AnimationFighter[];
-  displayLogs: boolean;
-  toggleLogs: () => void;
   adverts: string[];
 }
 
@@ -27,12 +20,8 @@ const globalStyles = (
 
 const FightMobileView = ({
   bruteName,
-  fight,
-  fighters,
-  displayLogs,
-  toggleLogs,
   adverts,
-}: FightMobileViewProps) => {
+}: Fight2MobileViewProps) => {
   const { t } = useTranslation();
 
   return (
@@ -44,14 +33,7 @@ const FightMobileView = ({
       {globalStyles}
       <Paper sx={{ textAlign: 'center' }}>
         {/* FIGHT */}
-        <FightComponent
-          fight={fight}
-          fighters={fighters}
-          displayLogs={displayLogs}
-          t={t}
-          toggleLogs={toggleLogs}
-          sx={{ display: 'inline-block', ml: 0 }}
-        />
+        <canvas id="game" width="500" height="300" />
 
         {/* ADVERTS */}
         <Grid container spacing={2} sx={{ mt: 2 }}>

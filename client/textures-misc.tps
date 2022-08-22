@@ -173,9 +173,9 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">public/images/game/resources/background/1.jpg</key>
-            <key type="filename">public/images/game/resources/background/2.jpg</key>
-            <key type="filename">public/images/game/resources/background/3.png</key>
+            <key type="filename">public/images/game/resources/misc/background/1.jpg</key>
+            <key type="filename">public/images/game/resources/misc/background/2.jpg</key>
+            <key type="filename">public/images/game/resources/misc/background/3.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0,0</point_f>
@@ -190,55 +190,55 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">public/images/game/resources/dust/00001.png</key>
-            <key type="filename">public/images/game/resources/dust/00002.png</key>
-            <key type="filename">public/images/game/resources/dust/00003.png</key>
-            <key type="filename">public/images/game/resources/dust/00004.png</key>
-            <key type="filename">public/images/game/resources/dust/00005.png</key>
-            <key type="filename">public/images/game/resources/dust/00006.png</key>
-            <key type="filename">public/images/game/resources/dust/00007.png</key>
-            <key type="filename">public/images/game/resources/dust/00008.png</key>
-            <key type="filename">public/images/game/resources/dust/00009.png</key>
-            <key type="filename">public/images/game/resources/dust/00010.png</key>
-            <key type="filename">public/images/game/resources/dust/00011.png</key>
-            <key type="filename">public/images/game/resources/dust/00012.png</key>
-            <key type="filename">public/images/game/resources/dust/00013.png</key>
-            <key type="filename">public/images/game/resources/dust/00014.png</key>
-            <key type="filename">public/images/game/resources/dust/00015.png</key>
-            <key type="filename">public/images/game/resources/dust/00016.png</key>
-            <key type="filename">public/images/game/resources/dust/00017.png</key>
-            <key type="filename">public/images/game/resources/dust/00018.png</key>
-            <key type="filename">public/images/game/resources/dust/00019.png</key>
-            <key type="filename">public/images/game/resources/dust/00020.png</key>
-            <key type="filename">public/images/game/resources/dust/00021.png</key>
-            <key type="filename">public/images/game/resources/dust/00022.png</key>
-            <key type="filename">public/images/game/resources/dust/00023.png</key>
-            <key type="filename">public/images/game/resources/dust/00024.png</key>
-            <key type="filename">public/images/game/resources/dust/00025.png</key>
-            <key type="filename">public/images/game/resources/dust/00026.png</key>
-            <key type="filename">public/images/game/resources/dust/00027.png</key>
-            <key type="filename">public/images/game/resources/dust/00028.png</key>
-            <key type="filename">public/images/game/resources/dust/00029.png</key>
-            <key type="filename">public/images/game/resources/dust/00030.png</key>
-            <key type="filename">public/images/game/resources/dust/00031.png</key>
-            <key type="filename">public/images/game/resources/dust/00032.png</key>
-            <key type="filename">public/images/game/resources/dust/00033.png</key>
-            <key type="filename">public/images/game/resources/dust/00034.png</key>
-            <key type="filename">public/images/game/resources/dust/00035.png</key>
-            <key type="filename">public/images/game/resources/dust/00036.png</key>
-            <key type="filename">public/images/game/resources/dust/00037.png</key>
-            <key type="filename">public/images/game/resources/dust/00038.png</key>
-            <key type="filename">public/images/game/resources/dust/00039.png</key>
-            <key type="filename">public/images/game/resources/dust/00040.png</key>
-            <key type="filename">public/images/game/resources/dust/00041.png</key>
-            <key type="filename">public/images/game/resources/dust/00042.png</key>
-            <key type="filename">public/images/game/resources/dust/00043.png</key>
-            <key type="filename">public/images/game/resources/dust/00044.png</key>
-            <key type="filename">public/images/game/resources/dust/00045.png</key>
-            <key type="filename">public/images/game/resources/dust/00046.png</key>
-            <key type="filename">public/images/game/resources/dust/00047.png</key>
-            <key type="filename">public/images/game/resources/dust/00048.png</key>
-            <key type="filename">public/images/game/resources/dust/00049.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00001.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00002.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00003.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00004.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00005.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00006.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00007.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00008.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00009.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00010.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00011.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00012.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00013.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00014.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00015.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00016.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00017.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00018.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00019.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00020.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00021.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00022.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00023.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00024.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00025.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00026.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00027.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00028.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00029.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00030.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00031.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00032.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00033.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00034.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00035.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00036.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00037.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00038.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00039.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00040.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00041.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00042.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00043.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00044.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00045.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00046.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00047.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00048.png</key>
+            <key type="filename">public/images/game/resources/misc/dust/00049.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -256,8 +256,7 @@
         </map>
         <key>fileList</key>
         <array>
-            <filename>public/images/game/resources/background</filename>
-            <filename>public/images/game/resources/dust</filename>
+            <filename>public/images/game/resources/misc</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

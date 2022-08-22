@@ -1,30 +1,31 @@
-import { HitStep } from '@eternaltwin/labrute-core/types';
+import { Animation, HitStep } from '@eternaltwin/labrute-core/types';
+import randomBetween from '@eternaltwin/labrute-core/utils/randomBetween';
+import { AnimatedSprite, Application } from 'pixi.js';
 
-import fightersEqual from './fightersEqual.js';
-import { AnimationFighter } from './findFighter.js';
-import getMoveDuration from './getMoveDuration.js';
-import iddle from './iddle.js';
+import findFighter, { AnimationFighter } from './findFighter.js';
+import { changeAnimation } from './setupFight.js';
+import stagger from './stagger.js';
 
-const hit = (
-  setFighters: React.Dispatch<React.SetStateAction<AnimationFighter[]>>,
+const hit = async (
+  app: Application,
+  fighters: AnimationFighter[],
   step: HitStep,
 ) => {
-  // Set hit animation for fighters
-  setFighters((prevFighters) => prevFighters.map((fighter) => {
-    if (fightersEqual(step.target, fighter)) {
-      return {
-        ...fighter,
-        animation: 'hit',
-        // Remove hp
-        hp: step.damage >= fighter.hp ? 0 : fighter.hp - step.damage,
-      };
-    }
+  const target = findFighter(fighters, step.target);
+  if (!target) {
+    throw new Error('Target not found');
+  }
 
-    return fighter;
-  }));
+  // Get hit animation (random for male brute)
+  const animation = target.type === 'brute' && target.data?.gender === 'male'
+    ? `hit-${randomBetween(0, 3)}`
+    : 'hit';
 
-  // Return hit fighter to iddle animation
-  iddle(setFighters, step.target, getMoveDuration('hit', step.target));
+  // Set animation to the correct hit animation
+  changeAnimation(app, target, animation as Animation);
+
+  // Stagger
+  await stagger(target.currentAnimation as AnimatedSprite, target.team);
 };
 
 export default hit;

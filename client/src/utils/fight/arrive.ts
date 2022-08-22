@@ -1,34 +1,50 @@
 import { ArriveStep } from '@eternaltwin/labrute-core/types';
-import adjustPosition from './adjustPosition.js';
+import { Easing, Tweener } from 'pixi-tweener';
+import { AnimatedSprite, Application } from 'pixi.js';
 
-import fightersEqual from './fightersEqual.js';
 import { getRandomPosition } from './fightPositions.js';
-import { AnimationFighter } from './findFighter.js';
-import getMoveDuration from './getMoveDuration.js';
-import iddle from './iddle.js';
+import findFighter, { AnimationFighter } from './findFighter.js';
+import { changeAnimation } from './setupFight.js';
 
-const arrive = (
-  setFighters: React.Dispatch<React.SetStateAction<AnimationFighter[]>>,
+const arrive = async (
+  app: Application,
+  fighters: AnimationFighter[],
   step: ArriveStep,
 ) => {
-  // Move fighter
-  setFighters((prevFighters) => prevFighters.map((fighter) => {
-    if (!fightersEqual(step.fighter, fighter)) {
-      return fighter;
-    }
+  const fighter = findFighter(fighters, step.fighter);
 
-    const position = getRandomPosition(prevFighters, fighter.team);
+  if (!fighter) {
+    throw new Error('Fighter not found');
+  }
 
-    return {
-      ...fighter,
-      animation: 'arrive',
-      x: adjustPosition(position.x, 'x', fighter),
-      y: adjustPosition(position.y, 'y', fighter),
+  // Get random position
+  const { x, y } = getRandomPosition(fighters, fighter.team);
+
+  // Current animation
+
+  // Set current animation to visible
+  fighter.currentAnimation.visible = true;
+
+  // Move fighter to the position
+  await Tweener.add({
+    target: fighter.currentAnimation,
+    duration: 0.5,
+    ease: Easing.linear
+  }, { x, y });
+
+  // Set animation to `arrive-end`
+  changeAnimation(app, fighter, 'arrive-end');
+  (fighter.currentAnimation as AnimatedSprite).animationSpeed = 0.5;
+
+  // Wait for animation to end before going further
+  await new Promise((resolve) => {
+    (fighter.currentAnimation as AnimatedSprite).onComplete = () => {
+      // Set animation to `iddle`
+      changeAnimation(app, fighter, 'iddle');
+
+      resolve(null);
     };
-  }));
-
-  // Set iddle animation
-  iddle(setFighters, step.fighter, getMoveDuration('arrive', step.fighter));
+  });
 };
 
 export default arrive;

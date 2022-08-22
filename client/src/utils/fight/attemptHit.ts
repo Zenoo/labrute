@@ -1,34 +1,27 @@
-import { AttemptHitStep } from '@eternaltwin/labrute-core/types';
 import weapons from '@eternaltwin/labrute-core/brute/weapons';
+import { AttemptHitStep } from '@eternaltwin/labrute-core/types';
 
-import fightersEqual from './fightersEqual.js';
-import { AnimationFighter } from './findFighter.js';
-import getMoveDuration from './getMoveDuration.js';
-import iddle from './iddle.js';
+import { Application } from 'pixi.js';
+import findFighter, { AnimationFighter } from './findFighter.js';
+import { changeAnimation } from './setupFight.js';
 
 const attemptHit = (
-  setFighters: React.Dispatch<React.SetStateAction<AnimationFighter[]>>,
+  app: Application,
+  fighters: AnimationFighter[],
   step: AttemptHitStep,
 ) => {
+  const fighter = findFighter(fighters, step.fighter);
+  if (!fighter) {
+    throw new Error('Fighter not found');
+  }
+
   // Custom animation for brutes
   const animation = step.fighter.type === 'brute'
     ? weapons.find((w) => w.name === step.weapon)?.animation || 'fist'
     : 'attack';
 
-  // Set hitting animation for fighter
-  setFighters((prevFighters) => prevFighters.map((fighter) => {
-    if (fightersEqual(step.fighter, fighter)) {
-      return {
-        ...fighter,
-        animation,
-      };
-    }
-
-    return fighter;
-  }));
-
-  // Return fighter to iddle animation
-  iddle(setFighters, step.fighter, getMoveDuration(animation, step.fighter));
+  // Set animation to the correct hitting animation
+  changeAnimation(app, fighter, animation);
 };
 
 export default attemptHit;

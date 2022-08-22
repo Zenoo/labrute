@@ -1,23 +1,21 @@
 import { EndStep } from '@eternaltwin/labrute-core/types';
+import { Application } from 'pixi.js';
 
-import fightersEqual from './fightersEqual.js';
-import { AnimationFighter } from './findFighter.js';
+import findFighter, { AnimationFighter } from './findFighter.js';
+import { changeAnimation } from './setupFight.js';
 
 const end = (
-  setFighters: React.Dispatch<React.SetStateAction<AnimationFighter[]>>,
+  app: Application,
+  fighters: AnimationFighter[],
   step: EndStep,
 ) => {
-  // Set winner animation
-  setFighters((prevFighters) => prevFighters.map((fighter) => {
-    if (fightersEqual(step.winner, fighter)) {
-      return {
-        ...fighter,
-        animation: 'win',
-      };
-    }
+  const winner = findFighter(fighters, step.winner);
+  if (!winner) {
+    throw new Error('Fighter not found');
+  }
 
-    return fighter;
-  }));
+  // Set animation to `win`
+  changeAnimation(app, winner, 'win');
 };
 
 export default end;
