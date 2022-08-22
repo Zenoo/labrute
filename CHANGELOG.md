@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.14.0](https://github.com/Zenoo/labrute/compare/v1.13.0...v1.14.0) (2022-08-22)
+
+
+### Bug fix
+
+* Animations structure. [#70](https://github.com/Zenoo/labrute/issues/70) ([8e6f408](https://github.com/Zenoo/labrute/commit/8e6f408d8c9807ecfa3bd623c4e87af119161c7c))
+
+
+### Feature
+
+* Added damage animation. [#70](https://github.com/Zenoo/labrute/issues/70) ([418b4e4](https://github.com/Zenoo/labrute/commit/418b4e4b17daa42414fe0a818b348ecb407cc350))
+* All previous steps implemented. [#78](https://github.com/Zenoo/labrute/issues/78) ([3ccecff](https://github.com/Zenoo/labrute/commit/3ccecffee287ca0286b08fd0d3d4f17e5514c7ce))
+* Equip animation. [#78](https://github.com/Zenoo/labrute/issues/78) ([26c3b9e](https://github.com/Zenoo/labrute/commit/26c3b9e749e4f0fc7c44b445d4dcecd3b374424d))
+* Evade animation [#78](https://github.com/Zenoo/labrute/issues/78) ([b4a4334](https://github.com/Zenoo/labrute/commit/b4a43345d3debcdff478119fc7cdd660c20dcf0f))
+* Fight names and HP bars. [#78](https://github.com/Zenoo/labrute/issues/78) ([dc3a4b3](https://github.com/Zenoo/labrute/commit/dc3a4b3df2b3bda9816e301b84c9a32e6158c26e))
+* Fight weapon list [#78](https://github.com/Zenoo/labrute/issues/78) ([9aabe18](https://github.com/Zenoo/labrute/commit/9aabe18c7d83876d94cb5da7b294bc162a9f1d11))
+* First working fight. [#70](https://github.com/Zenoo/labrute/issues/70) [#78](https://github.com/Zenoo/labrute/issues/78) ([544bb8a](https://github.com/Zenoo/labrute/commit/544bb8a0098c775ea8590210500731c8350566fc))
+* Imported all animations. [#70](https://github.com/Zenoo/labrute/issues/70) [#78](https://github.com/Zenoo/labrute/issues/78) ([ba608c3](https://github.com/Zenoo/labrute/commit/ba608c3ac53d03af5ed793bc27c124504d45d835))
+* Sabotage step. [#78](https://github.com/Zenoo/labrute/issues/78) ([e27fbd7](https://github.com/Zenoo/labrute/commit/e27fbd770a162c2fc201a76a0f156e181a8fbecd))
+* Skill activation animation. [#78](https://github.com/Zenoo/labrute/issues/78) ([28f72bc](https://github.com/Zenoo/labrute/commit/28f72bc6ceb6cca55942694b47ef69198697e946))
+* Trap animation [#78](https://github.com/Zenoo/labrute/issues/78) ([76233e4](https://github.com/Zenoo/labrute/commit/76233e435024b2701f748897149f24ecb91344f0))
+
 ## [1.13.0](https://github.com/Zenoo/labrute/compare/v1.12.0...v1.13.0) (2022-08-17)
 
 
