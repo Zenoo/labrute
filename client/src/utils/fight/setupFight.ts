@@ -2,6 +2,8 @@
 /* eslint-disable no-await-in-loop */
 import { Animation, Fight } from '@eternaltwin/labrute-core/types';
 import { Theme } from '@mui/material';
+import { GlowFilter } from '@pixi/filter-glow';
+import { OutlineFilter } from '@pixi/filter-outline';
 import { Tweener } from 'pixi-tweener';
 import * as PIXI from 'pixi.js';
 import { AnimatedSprite, Application, Sprite } from 'pixi.js';
@@ -15,12 +17,31 @@ import hypnotise from './hypnotise.js';
 import moveBack from './moveBack.js';
 import moveTo from './moveTo.js';
 
-// Wait for animation completion
-export const animationComplete = (animation: AnimatedSprite) => new Promise((resolve) => {
-  animation.onComplete = () => {
-    resolve(null);
-  };
-});
+export const removeHp = (brute: AnimationFighter, hp: number) => {
+  if (!brute.hpBar || !brute.hpBarPhantom) {
+    throw new Error(`Brute HP not found: ${brute.name}`);
+  }
+
+  let newWidth = brute.hpBar.width - (hp / brute.maxHp) * 236 * (brute.team === 'left' ? 1 : -1);
+
+  if (brute.team === 'left' && newWidth < 0) {
+    newWidth = 0;
+  } else if (brute.team === 'right' && newWidth > 0) {
+    newWidth = 0;
+  }
+
+  brute.hpBar.width = newWidth;
+
+  Tweener.add({
+    target: brute.hpBarPhantom,
+    duration: 0.25,
+    delay: 0.25,
+  }, {
+    width: newWidth,
+  }).catch((error) => {
+    console.error(error);
+  });
+};
 
 const setupSprite = (
   app: PIXI.Application,
@@ -166,7 +187,102 @@ const setupFight: (
   const border = new PIXI.Graphics();
   border.lineStyle(2, PIXI.utils.string2hex(theme.palette.secondary.main));
   border.drawRect(0, 0, app.screen.width, app.screen.height);
+  border.zIndex = 102;
   app.stage.addChild(border);
+
+  // Add headers
+
+  // First brute header
+  const brute1Header = new PIXI.Sprite(miscSheet.textures['header.png']);
+  brute1Header.filters = [new OutlineFilter()];
+  brute1Header.x = 4;
+  brute1Header.y = 10;
+  brute1Header.zIndex = 101;
+  app.stage.addChild(brute1Header);
+
+  // First brute name
+  const brute1Name = new PIXI.Text(fight.brute_1.toLocaleUpperCase(), {
+    fontFamily: 'Poplar', fontSize: 20, fill: 0xffffff
+  });
+  brute1Name.filters = [new OutlineFilter()];
+  brute1Name.x = 4;
+  brute1Name.y = 0;
+  brute1Name.zIndex = 102;
+  app.stage.addChild(brute1Name);
+
+  // First brute HP bar
+  const brute1HpBar = new PIXI.Graphics();
+  brute1HpBar.beginFill(PIXI.utils.string2hex(theme.palette.hpBar.main));
+  brute1HpBar.drawRoundedRect(0, 0, 236, 9, 4);
+  brute1HpBar.filters = [new GlowFilter({
+    distance: 6,
+    innerStrength: 2,
+    outerStrength: 0,
+    color: PIXI.utils.string2hex(theme.palette.hpBar.dark),
+  })];
+  brute1HpBar.x = 7;
+  brute1HpBar.y = 21;
+  brute1HpBar.zIndex = 103;
+  brute1HpBar.name = `${fight.brute_1}.hp`;
+  app.stage.addChild(brute1HpBar);
+
+  // First brute phantom HP bar
+  const brute1PhantomHpBar = new PIXI.Graphics();
+  brute1PhantomHpBar.beginFill(PIXI.utils.string2hex(theme.palette.error.main));
+  brute1PhantomHpBar.drawRoundedRect(0, 0, 236, 9, 4);
+  brute1PhantomHpBar.x = 7;
+  brute1PhantomHpBar.y = 21;
+  brute1PhantomHpBar.zIndex = 102;
+  brute1HpBar.name = `${fight.brute_1}.hp-phantom`;
+  app.stage.addChild(brute1PhantomHpBar);
+
+  // Second brute header
+  const brute2Header = new PIXI.Sprite(miscSheet.textures['header.png']);
+  brute2Header.filters = [new OutlineFilter()];
+  brute2Header.scale.x = -1;
+  brute2Header.x = app.screen.width - 4;
+  brute2Header.y = 10;
+  brute2Header.zIndex = 101;
+  app.stage.addChild(brute2Header);
+
+  // Second brute name
+  const brute2Name = new PIXI.Text(fight.brute_2.toLocaleUpperCase(), {
+    fontFamily: 'Poplar', fontSize: 20, fill: 0xffffff, align: 'right'
+  });
+  brute2Name.anchor.x = 1;
+  brute2Name.filters = [new OutlineFilter()];
+  brute2Name.x = app.screen.width - 4;
+  brute2Name.y = 0;
+  brute2Name.zIndex = 102;
+  app.stage.addChild(brute2Name);
+
+  // Second brute HP bar
+  const brute2HpBar = new PIXI.Graphics();
+  brute2HpBar.beginFill(PIXI.utils.string2hex(theme.palette.hpBar.main));
+  brute2HpBar.drawRoundedRect(0, 0, 236, 9, 4);
+  brute2HpBar.filters = [new GlowFilter({
+    distance: 6,
+    innerStrength: 2,
+    outerStrength: 0,
+    color: PIXI.utils.string2hex(theme.palette.hpBar.dark),
+  })];
+  brute2HpBar.scale.x = -1;
+  brute2HpBar.x = app.screen.width - 7;
+  brute2HpBar.y = 21;
+  brute2HpBar.zIndex = 103;
+  brute1HpBar.name = `${fight.brute_2}.hp`;
+  app.stage.addChild(brute2HpBar);
+
+  // Second brute phantom HP bar
+  const brute2PhantomHpBar = new PIXI.Graphics();
+  brute2PhantomHpBar.beginFill(PIXI.utils.string2hex(theme.palette.error.main));
+  brute2PhantomHpBar.drawRoundedRect(0, 0, 236, 9, 4);
+  brute2PhantomHpBar.scale.x = -1;
+  brute2PhantomHpBar.x = app.screen.width - 7;
+  brute2PhantomHpBar.y = 21;
+  brute2PhantomHpBar.zIndex = 102;
+  brute1HpBar.name = `${fight.brute_2}.hp-phantom`;
+  app.stage.addChild(brute2PhantomHpBar);
 
   // Set stage as sortable
   app.stage.sortableChildren = true;
@@ -199,6 +315,12 @@ const setupFight: (
       team,
       currentAnimation: arriveStartAnimation,
       activeWeapon: null,
+      hpBar: fighter.master
+        ? undefined
+        : fighter.name === fight.brute_1 ? brute1HpBar : brute2HpBar,
+      hpBarPhantom: fighter.master
+        ? undefined
+        : fighter.name === fight.brute_1 ? brute1PhantomHpBar : brute2PhantomHpBar,
     };
   });
 

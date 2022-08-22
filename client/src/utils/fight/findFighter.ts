@@ -6,6 +6,8 @@ export interface AnimationFighter extends Fighter {
   team: 'left' | 'right';
   currentAnimation: PIXI.AnimatedSprite | PIXI.Sprite;
   activeWeapon: AnimatedWeapon | null;
+  hpBar?: PIXI.Graphics;
+  hpBarPhantom?: PIXI.Graphics;
 }
 
 const findFighter = (

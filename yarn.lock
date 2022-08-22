@@ -2036,6 +2036,9 @@ __metadata:
     "@eternaltwin/labrute-core": "workspace:*"
     "@mui/icons-material": ^5.8.4
     "@mui/material": ^5.10.0
+    "@pixi/filter-glow": ^4.2.0
+    "@pixi/filter-outline": ^4.2.0
+    "@types/fontfaceobserver": ^2.1.0
     "@types/jest": ^27.4.1
     "@types/node": ^18.6.3
     "@types/react": ^18.0.17
@@ -2048,6 +2051,7 @@ __metadata:
     eslint-plugin-jsx-a11y: ^6.6.1
     eslint-plugin-react: ^7.30.1
     eslint-plugin-react-hooks: ^4.6.0
+    fontfaceobserver: ^2.3.0
     framer-motion: ^7.1.0
     i18next: ^21.9.0
     moment: ^2.29.4
@@ -2931,12 +2935,33 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@pixi/filter-glow@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "@pixi/filter-glow@npm:4.2.0"
+  peerDependencies:
+    "@pixi/core": ^6.0.0
+    "@pixi/utils": ^6.0.0
+  checksum: de9d2e76c397386af91dcc0e079e1817b64fbe2b1bb12b51bedbd2e05e7a63fa0ad58eb57515e3541b94bc77b81067af5e1ff15739e2aadbd15a145c0d3bfb9e
+  languageName: node
+  linkType: hard
+
 "@pixi/filter-noise@npm:6.5.1":
   version: 6.5.1
   resolution: "@pixi/filter-noise@npm:6.5.1"
   peerDependencies:
     "@pixi/core": 6.5.1
   checksum: b80472cee685291c74cd39ce08d745fec4371bb12ef2bfcb6ddc4ecad7673bcebe35bf89fcc68e589c44a81c2672eb1e054f139aa58845016bb636ef4090b894
+  languageName: node
+  linkType: hard
+
+"@pixi/filter-outline@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "@pixi/filter-outline@npm:4.2.0"
+  peerDependencies:
+    "@pixi/constants": ^6.0.0
+    "@pixi/core": ^6.0.0
+    "@pixi/utils": ^6.0.0
+  checksum: d00871c1b8c2a4175ecfbbf65d66b1ade6dd137356a077e1f9874a32a30f387dbedf315e4ec5753049dc7d32b8d2912a1517eee64884bc02d4356fcaf144a1e9
   languageName: node
   linkType: hard
 
@@ -3700,6 +3725,13 @@ __metadata:
     "@types/qs": "*"
     "@types/serve-static": "*"
   checksum: 12a2a0e6c4b993fc0854bec665906788aea0d8ee4392389d7a98a5de1eefdd33c9e1e40a91f3afd274011119c506f7b4126acb97fae62ae20b654974d44cba12
+  languageName: node
+  linkType: hard
+
+"@types/fontfaceobserver@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "@types/fontfaceobserver@npm:2.1.0"
+  checksum: 19bf653d82f91e86f32cd3f2df2988495b96d8ad5be5a625b7dad06a1a01a9add76607f8b8f821c50aad1f45f4d40433bec48463d60c7e9fa05a02e9e8469b66
   languageName: node
   linkType: hard
 
@@ -7910,6 +7942,13 @@ __metadata:
     debug:
       optional: true
   checksum: 6aa4e3e3cdfa3b9314801a1cd192ba756a53479d9d8cca65bf4db3a3e8834e62139245cd2f9566147c8dfe2efff1700d3e6aefd103de4004a7b99985e71dd533
+  languageName: node
+  linkType: hard
+
+"fontfaceobserver@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "fontfaceobserver@npm:2.3.0"
+  checksum: 5f14715974203b9d68f299f93a7623afd9d5701572d683e861cdbb7514573ac556f56e9b5d07d2d534e01aed19a3b0bbe568e735e0e5494cbea913fc3f12b856
   languageName: node
   linkType: hard
 

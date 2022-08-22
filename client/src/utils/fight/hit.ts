@@ -3,7 +3,7 @@ import randomBetween from '@eternaltwin/labrute-core/utils/randomBetween';
 import { AnimatedSprite, Application } from 'pixi.js';
 
 import findFighter, { AnimationFighter } from './findFighter.js';
-import { changeAnimation } from './setupFight.js';
+import { changeAnimation, removeHp } from './setupFight.js';
 import stagger from './stagger.js';
 
 const hit = async (
@@ -23,6 +23,11 @@ const hit = async (
 
   // Set animation to the correct hit animation
   changeAnimation(app, target, animation as Animation);
+
+  // Update HP bar
+  if (target.hpBar) {
+    removeHp(target, step.damage);
+  }
 
   // Stagger
   await stagger(target.currentAnimation as AnimatedSprite, target.team);

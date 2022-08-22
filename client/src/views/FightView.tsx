@@ -74,7 +74,7 @@ const FightView = () => {
         <Box display="flex">
           {/* ADVERTS */}
           <Box sx={{ width: 236, mt: 5 }}>
-            <Text bold color="text.primary" textAlign="center">{t('fight.discoverGames')}</Text>
+            <Text color="text.primary" textAlign="center" typo="Poplar" upperCase>{t('fight.discoverGames')}</Text>
             {adverts.map((advert) => (
               <Tooltip title="TODO" key={advert}>
                 <Link href="" sx={{ width: 200, display: 'inline-block' }}>
