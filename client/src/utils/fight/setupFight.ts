@@ -17,6 +17,7 @@ import hit from './hit.js';
 import hypnotise from './hypnotise.js';
 import moveBack from './moveBack.js';
 import moveTo from './moveTo.js';
+import sabotage from './sabotage.js';
 import setupSprite from './setupSprite.js';
 import skillActivate from './skillActivate.js';
 import trap from './trap.js';
@@ -309,6 +310,10 @@ const setupFight: (
       }
       case 'equip': {
         await equip(app, fighters, step);
+        break;
+      }
+      case 'sabotage': {
+        sabotage(app, fighters, step);
         break;
       }
       case 'counter': {
