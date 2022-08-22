@@ -1,10 +1,10 @@
 import { ArriveStep } from '@eternaltwin/labrute-core/types';
 import { Easing, Tweener } from 'pixi-tweener';
 import { AnimatedSprite, Application } from 'pixi.js';
+import changeAnimation from './changeAnimation.js';
 
 import { getRandomPosition } from './fightPositions.js';
 import findFighter, { AnimationFighter } from './findFighter.js';
-import { changeAnimation } from './setupFight.js';
 
 const arrive = async (
   app: Application,

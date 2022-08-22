@@ -460,10 +460,10 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">public/images/game/resources/female-brute/evade/0.png</key>
+            <key type="filename">public/images/game/resources/female-brute/evade/00001.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
-                <point_f>0.519231,0.905405</point_f>
+                <point_f>0.5,0.878378</point_f>
                 <key>spriteScale</key>
                 <double>1</double>
                 <key>scale9Enabled</key>

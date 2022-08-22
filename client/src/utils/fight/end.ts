@@ -1,8 +1,8 @@
 import { EndStep } from '@eternaltwin/labrute-core/types';
 import { Application } from 'pixi.js';
+import changeAnimation from './changeAnimation.js';
 
 import findFighter, { AnimationFighter } from './findFighter.js';
-import { changeAnimation } from './setupFight.js';
 
 const end = (
   app: Application,

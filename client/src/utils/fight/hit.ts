@@ -1,9 +1,9 @@
 import { Animation, HitStep } from '@eternaltwin/labrute-core/types';
 import randomBetween from '@eternaltwin/labrute-core/utils/randomBetween';
 import { AnimatedSprite, Application } from 'pixi.js';
+import changeAnimation from './changeAnimation.js';
 
 import findFighter, { AnimationFighter } from './findFighter.js';
-import { changeAnimation } from './setupFight.js';
 import stagger from './stagger.js';
 import updateHp from './updateHp.js';
 

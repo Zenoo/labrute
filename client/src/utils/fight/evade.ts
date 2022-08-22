@@ -1,27 +1,37 @@
 import { EvadeStep } from '@eternaltwin/labrute-core/types';
-import fightersEqual from './fightersEqual.js';
-import { AnimationFighter } from './findFighter.js';
-import getMoveDuration from './getMoveDuration.js';
-import iddle from './iddle.js';
+import { Easing, Tweener } from 'pixi-tweener';
+import { Application } from 'pixi.js';
+import changeAnimation from './changeAnimation.js';
+import findFighter, { AnimationFighter } from './findFighter.js';
 
-const evade = (
-  setFighters: React.Dispatch<React.SetStateAction<AnimationFighter[]>>,
+const evade = async (
+  app: Application,
+  fighters: AnimationFighter[],
   step: EvadeStep,
 ) => {
-  // Set dodge animation
-  setFighters((prevFighters) => prevFighters.map((fighter) => {
-    if (!fightersEqual(step.fighter, fighter)) {
-      return fighter;
-    }
+  const fighter = findFighter(fighters, step.fighter);
+  if (!fighter) {
+    throw new Error('Fighter not found');
+  }
 
-    return {
-      ...fighter,
-      animation: 'evade',
-    };
-  }));
+  // Set animation to `evade`
+  changeAnimation(app, fighter, 'evade');
 
-  // Return to iddle after move
-  iddle(setFighters, step.fighter, getMoveDuration('evade', step.fighter));
+  // Add vertical tween
+  await Tweener.add({
+    target: fighter.currentAnimation,
+    duration: 0.25,
+    ease: Easing.easeTo,
+  }, { y: fighter.currentAnimation.y - fighter.currentAnimation.height / 2 });
+
+  await Tweener.add({
+    target: fighter.currentAnimation,
+    duration: 0.25,
+    ease: Easing.easeFrom,
+  }, { y: fighter.currentAnimation.y + fighter.currentAnimation.height / 2 });
+
+  // Set animation to `iddle`
+  changeAnimation(app, fighter, 'iddle');
 };
 
 export default evade;

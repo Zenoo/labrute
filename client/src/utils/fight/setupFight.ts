@@ -1,140 +1,26 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-await-in-loop */
-import { Animation, Fight } from '@eternaltwin/labrute-core/types';
+import { Fight } from '@eternaltwin/labrute-core/types';
 import { Theme } from '@mui/material';
 import { GlowFilter } from '@pixi/filter-glow';
 import { OutlineFilter } from '@pixi/filter-outline';
 import { Tweener } from 'pixi-tweener';
 import * as PIXI from 'pixi.js';
-import { AnimatedSprite, Application, Sprite } from 'pixi.js';
 import arrive from './arrive.js';
 import attemptHit from './attemptHit.js';
 import death from './death.js';
 import end from './end.js';
 import equip from './equip.js';
+import evade from './evade.js';
 import { AnimationFighter } from './findFighter.js';
 import hit from './hit.js';
 import hypnotise from './hypnotise.js';
 import moveBack from './moveBack.js';
 import moveTo from './moveTo.js';
+import setupSprite from './setupSprite.js';
 import trap from './trap.js';
+import trash from './trash.js';
 import updateWeapons from './updateWeapons.js';
-
-const setupSprite = (
-  app: PIXI.Application,
-  type: string,
-  animation: string,
-  team: 'left' | 'right',
-  singleFrame?: boolean,
-): Sprite | AnimatedSprite | null => {
-  const { loader: { resources: { [`/images/game/${type}.json`]: { spritesheet } } } } = app;
-
-  if (!spritesheet) {
-    throw new Error(`Sprite not found: ${type}`);
-  }
-
-  // Handle single frame
-  let sprite: AnimatedSprite | Sprite | null = null;
-  if (singleFrame) {
-    sprite = new Sprite(spritesheet.textures[`${animation}/00001.png`]);
-  } else {
-    // Animation frames
-    const { animations: { [animation]: animationFrames } } = spritesheet;
-
-    if (!animationFrames) {
-      return null;
-    }
-
-    // Animated sprite
-    sprite = new AnimatedSprite(animationFrames);
-
-    // Loop some animations
-    if (['evade', 'iddle', 'monk-loop', 'run', 'train', 'trapped-loop'].includes(animation)) {
-      (sprite as AnimatedSprite).loop = true;
-    } else {
-      (sprite as AnimatedSprite).loop = false;
-    }
-
-    // Set animation length
-    // TODO (adapt with DURATIONS if needed)
-    (sprite as AnimatedSprite).animationSpeed = 1;
-  }
-
-  // Set to invisible
-  sprite.visible = false;
-
-  // Set position
-  sprite.x = team === 'left' ? -100 : 600;
-  sprite.y = 150;
-
-  // Set inverted
-  sprite.scale.x = team === 'left' ? 1 : -1;
-
-  // Add to stage
-  app.stage.addChild(sprite);
-
-  return sprite;
-};
-
-// Animation swapper
-export const changeAnimation = (
-  app: Application,
-  fighter: AnimationFighter,
-  animation: Animation,
-) => {
-  // Get fighter type
-  const type = fighter.type === 'pet'
-    ? fighter.name.startsWith('dog')
-      ? 'dog'
-      : fighter.name === 'bear'
-        ? 'bear'
-        : 'panther'
-    : fighter.data?.gender === 'male'
-      ? 'male-brute'
-      : 'female-brute';
-
-  const singleFrames: Record<string, Animation[]> = {
-    dog: ['hit'],
-    panther: ['hit'],
-    bear: ['hit'],
-    'male-brute': [],
-    'female-brute': [],
-  };
-
-  // Get sprite
-  const newAnimation = setupSprite(
-    app,
-    type,
-    animation,
-    fighter.team,
-    singleFrames[type].includes(animation),
-  );
-
-  if (!newAnimation) {
-    throw new Error(`New animation not found: ${animation}`);
-  }
-
-  // Set new animation position to the current position
-  newAnimation.x = fighter.currentAnimation.x;
-  newAnimation.y = fighter.currentAnimation.y;
-
-  // Set old animation to invisible
-  fighter.currentAnimation.visible = false;
-
-  // Update current animation
-  fighter.currentAnimation = newAnimation;
-
-  // Set new animation to visible
-  newAnimation.visible = true;
-
-  // Set inverted
-  newAnimation.scale.x = fighter.team === 'left' ? 1 : -1;
-
-  // Play new animation
-  if ((newAnimation as PIXI.AnimatedSprite).play) {
-    (newAnimation as PIXI.AnimatedSprite).play();
-  }
-};
 
 const setupFight: (
   theme: Theme,
@@ -290,7 +176,7 @@ const setupFight: (
 
     const team = (fighter.master || fighter.name) === fight.brute_1 ? 'left' : 'right';
 
-    const arriveStartAnimation = setupSprite(app, type, 'arrive-start', team, true);
+    const arriveStartAnimation = setupSprite(app, type, 'arrive-start', team);
 
     if (!arriveStartAnimation) {
       throw new Error(`Arrive start animation not found: ${type}`);
@@ -364,10 +250,10 @@ const setupFight: (
         death(app, fighters, step);
         break;
       }
-      // case 'evade': {
-      //   evade(setFighters, step);
-      //   break;
-      // }
+      case 'evade': {
+        await evade(app, fighters, step);
+        break;
+      }
       // case 'saboteur': {
       //   saboteur(setFighters, step);
       //   break;
@@ -384,10 +270,10 @@ const setupFight: (
       //   throwWeapon(setFighters, step);
       //   break;
       // }
-      // case 'trash': {
-      //   trash(setFighters, step);
-      //   break;
-      // }
+      case 'trash': {
+        await trash(app, fighters, step);
+        break;
+      }
       // case 'eat': {
       //   eat(setFighters, step);
       //   break;

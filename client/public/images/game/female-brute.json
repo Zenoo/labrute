@@ -1575,14 +1575,14 @@
 	"sourceSize": {"w":68,"h":68},
 	"anchor": {"x":0.426471,"y":0.897059}
 },
-"evade/0.png":
+"evade/00001.png":
 {
 	"frame": {"x":141,"y":295,"w":52,"h":74},
 	"rotated": true,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":52,"h":74},
 	"sourceSize": {"w":52,"h":74},
-	"anchor": {"x":0.519231,"y":0.905405}
+	"anchor": {"x":0.5,"y":0.878378}
 },
 "fist/00001.png":
 {
@@ -5023,6 +5023,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1996,"h":1099},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:ffab591c74938620138504147ab241ba:1015e97750e1febd4576199f3fee5be6:abadc9a14de6cd3f21040f1d0820906e$"
+	"smartupdate": "$TexturePacker:SmartUpdate:2a1e33d7745d82c33e91dbf525820055:1015e97750e1febd4576199f3fee5be6:abadc9a14de6cd3f21040f1d0820906e$"
 }
 }

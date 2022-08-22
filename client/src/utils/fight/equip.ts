@@ -1,8 +1,8 @@
 import { EquipStep } from '@eternaltwin/labrute-core/types';
 
 import { AnimatedSprite, Application } from 'pixi.js';
+import changeAnimation from './changeAnimation.js';
 import findFighter, { AnimationFighter } from './findFighter.js';
-import { changeAnimation } from './setupFight.js';
 import updateWeapons from './updateWeapons.js';
 
 const equip = async (

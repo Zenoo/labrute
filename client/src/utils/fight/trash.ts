@@ -1,23 +1,32 @@
 import { TrashStep } from '@eternaltwin/labrute-core/types';
+import { AnimatedSprite, Application } from 'pixi.js';
+import changeAnimation from './changeAnimation.js';
 
-import fightersEqual from './fightersEqual.js';
-import { AnimationFighter } from './findFighter.js';
+import findFighter, { AnimationFighter } from './findFighter.js';
 
-const trash = (
-  setFighters: React.Dispatch<React.SetStateAction<AnimationFighter[]>>,
+const trash = async (
+  app: Application,
+  fighters: AnimationFighter[],
   step: TrashStep,
 ) => {
-  // Remove weapon from brute
-  setFighters((prevFighters) => prevFighters.map((fighter) => {
-    if (fightersEqual(step.brute, fighter)) {
-      return {
-        ...fighter,
-        weapons: fighter.weapons.filter((weapon) => weapon.name !== step.name),
-      };
-    }
+  const brute = findFighter(fighters, step.brute);
+  if (!brute) {
+    throw new Error('Brute not found');
+  }
 
-    return fighter;
-  }));
+  // Set animation to `trash`
+  changeAnimation(app, brute, 'trash');
+  (brute.currentAnimation as AnimatedSprite).animationSpeed = 0.5;
+
+  // Wait for animation to complete
+  await new Promise((resolve) => {
+    (brute.currentAnimation as AnimatedSprite).onComplete = () => {
+      // Set animation to `iddle`
+      changeAnimation(app, brute, 'iddle');
+
+      resolve(null);
+    };
+  });
 };
 
 export default trash;
