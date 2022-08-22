@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.14.1](https://github.com/Zenoo/labrute/compare/v1.14.0...v1.14.1) (2022-08-22)
+
+
+### Bug fix
+
+* Fight mobile display ([bbb4b35](https://github.com/Zenoo/labrute/commit/bbb4b35227bb86f70254ae3f1197aa36efba4136))
+
 ## [1.14.0](https://github.com/Zenoo/labrute/compare/v1.13.0...v1.14.0) (2022-08-22)
 
 
