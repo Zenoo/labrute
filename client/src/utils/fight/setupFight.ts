@@ -17,6 +17,7 @@ import hit from './hit.js';
 import hypnotise from './hypnotise.js';
 import moveBack from './moveBack.js';
 import moveTo from './moveTo.js';
+import trap from './trap.js';
 import updateWeapons from './updateWeapons.js';
 
 const setupSprite = (
@@ -399,10 +400,10 @@ const setupFight: (
       //   survive(setFighters, step);
       //   break;
       // }
-      // case 'trap': {
-      //   trap(setFighters, step);
-      //   break;
-      // }
+      case 'trap': {
+        await trap(app, fighters, step);
+        break;
+      }
       // case 'block': {
       //   block(setFighters, step);
       //   break;
