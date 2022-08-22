@@ -16,32 +16,7 @@ import hit from './hit.js';
 import hypnotise from './hypnotise.js';
 import moveBack from './moveBack.js';
 import moveTo from './moveTo.js';
-
-export const removeHp = (brute: AnimationFighter, hp: number) => {
-  if (!brute.hpBar || !brute.hpBarPhantom) {
-    throw new Error(`Brute HP not found: ${brute.name}`);
-  }
-
-  let newWidth = brute.hpBar.width - (hp / brute.maxHp) * 236 * (brute.team === 'left' ? 1 : -1);
-
-  if (brute.team === 'left' && newWidth < 0) {
-    newWidth = 0;
-  } else if (brute.team === 'right' && newWidth > 0) {
-    newWidth = 0;
-  }
-
-  brute.hpBar.width = newWidth;
-
-  Tweener.add({
-    target: brute.hpBarPhantom,
-    duration: 0.25,
-    delay: 0.25,
-  }, {
-    width: newWidth,
-  }).catch((error) => {
-    console.error(error);
-  });
-};
+import updateWeapons from './updateWeapons.js';
 
 const setupSprite = (
   app: PIXI.Application,
@@ -178,6 +153,15 @@ const setupFight: (
     throw new Error('Misc scpritesheet not found');
   }
 
+  const brute1 = fight.data.fighters.find((fighter) => !fighter.master
+    && fighter.name === fight.brute_1);
+  const brute2 = fight.data.fighters.find((fighter) => !fighter.master
+    && fighter.name === fight.brute_2);
+
+  if (!brute1 || !brute2) {
+    throw new Error('Brute not found');
+  }
+
   // Add background
   const background = new PIXI.Sprite(miscSheet.textures['background/1.jpg']);
   background.zIndex = -1;
@@ -310,7 +294,7 @@ const setupFight: (
       throw new Error(`Arrive start animation not found: ${type}`);
     }
 
-    return {
+    const animationFighter: AnimationFighter = {
       ...fighter,
       team,
       currentAnimation: arriveStartAnimation,
@@ -321,7 +305,15 @@ const setupFight: (
       hpBarPhantom: fighter.master
         ? undefined
         : fighter.name === fight.brute_1 ? brute1PhantomHpBar : brute2PhantomHpBar,
+      weaponsIllustrations: [],
     };
+
+    // Update brute weapons
+    if (!fighter.master) {
+      updateWeapons(app, animationFighter);
+    }
+
+    return animationFighter;
   });
 
   // Initialize tweener

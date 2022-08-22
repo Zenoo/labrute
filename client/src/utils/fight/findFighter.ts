@@ -8,6 +8,7 @@ export interface AnimationFighter extends Fighter {
   activeWeapon: AnimatedWeapon | null;
   hpBar?: PIXI.Graphics;
   hpBarPhantom?: PIXI.Graphics;
+  weaponsIllustrations: PIXI.Sprite[];
 }
 
 const findFighter = (

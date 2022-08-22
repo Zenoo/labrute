@@ -3,8 +3,9 @@ import randomBetween from '@eternaltwin/labrute-core/utils/randomBetween';
 import { AnimatedSprite, Application } from 'pixi.js';
 
 import findFighter, { AnimationFighter } from './findFighter.js';
-import { changeAnimation, removeHp } from './setupFight.js';
+import { changeAnimation } from './setupFight.js';
 import stagger from './stagger.js';
+import updateHp from './updateHp.js';
 
 const hit = async (
   app: Application,
@@ -26,7 +27,7 @@ const hit = async (
 
   // Update HP bar
   if (target.hpBar) {
-    removeHp(target, step.damage);
+    updateHp(target, -step.damage);
   }
 
   // Stagger
