@@ -25,8 +25,8 @@ const getAvailablePositions = (fighters: AnimationFighter[], team: 'left' | 'rig
   const teamFighters = fighters.filter((fighter) => fighter.team === team);
 
   return (team === 'left' ? leftPositions : rightPositions)
-    .filter((p) => teamFighters.every((f) => f.currentAnimation.x !== p.x
-    && f.currentAnimation.y !== p.y));
+    .filter((p) => !teamFighters.find((f) => f.currentAnimation.x === p.x
+    && f.currentAnimation.y === p.y));
 };
 
 const getRandomPosition = (fighters: AnimationFighter[], team: 'left' | 'right') => {

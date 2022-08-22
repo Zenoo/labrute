@@ -34,7 +34,11 @@ const arrive = async (
 
   // Set animation to `arrive-end`
   changeAnimation(app, fighter, 'arrive-end');
-  (fighter.currentAnimation as AnimatedSprite).animationSpeed = 0.5;
+
+  // Slow every animation but the bear
+  if (!(fighter.name === 'bear' && fighter.master)) {
+    (fighter.currentAnimation as AnimatedSprite).animationSpeed = 0.5;
+  }
 
   // Wait for animation to end before going further
   await new Promise((resolve) => {

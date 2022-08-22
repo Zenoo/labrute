@@ -11,6 +11,7 @@ import arrive from './arrive.js';
 import attemptHit from './attemptHit.js';
 import death from './death.js';
 import end from './end.js';
+import equip from './equip.js';
 import { AnimationFighter } from './findFighter.js';
 import hit from './hit.js';
 import hypnotise from './hypnotise.js';
@@ -416,6 +417,10 @@ const setupFight: (
       }
       case 'hypnotise': {
         await hypnotise(app, fighters, step);
+        break;
+      }
+      case 'equip': {
+        await equip(app, fighters, step);
         break;
       }
       case 'counter': {

@@ -2,8 +2,15 @@
 import { OutlineFilter } from '@pixi/filter-outline';
 import { Application, Sprite } from 'pixi.js';
 import { AnimationFighter } from './findFighter.js';
+import { WeaponName } from '@eternaltwin/labrute-core/types';
+import weapons from '@eternaltwin/labrute-core/brute/weapons';
 
-const updateWeapons = (app: Application, brute: AnimationFighter) => {
+const updateWeapons = (
+  app: Application,
+  brute: AnimationFighter,
+  weapon?: string,
+  action?: 'add' | 'remove',
+) => {
   const { loader: { resources: { '/images/game/misc.json': { spritesheet } } } } = app;
 
   if (!spritesheet) {
@@ -16,9 +23,25 @@ const updateWeapons = (app: Application, brute: AnimationFighter) => {
   });
   brute.weaponsIllustrations = [];
 
+  // Add new weapon
+  if (action === 'add') {
+    if (!weapon) {
+      throw new Error('Weapon not found');
+    }
+    brute.weapons.push({
+      name: weapon as WeaponName,
+      animation: weapons.find((w) => w.name === weapon)?.animation || 'fist',
+    });
+  } else if (action === 'remove') {
+    if (!weapon) {
+      throw new Error('Weapon not found');
+    }
+    brute.weapons = brute.weapons.filter((w) => w.name !== weapon);
+  }
+
   // Generate new list
-  brute.weapons.forEach((weapon, index) => {
-    const sprite = new Sprite(spritesheet.textures[`weapons/${weapon.name}.png`]);
+  brute.weapons.forEach((w, index) => {
+    const sprite = new Sprite(spritesheet.textures[`weapons/${w.name}.png`]);
     if (brute.team === 'left') {
       sprite.x = (index % 9) * 20 + 60;
     } else {
