@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.14.2](https://github.com/Zenoo/labrute/compare/v1.14.1...v1.14.2) (2022-08-23)
+
+
+### Bug fix
+
+* Added fight logs back ([3cdcfb0](https://github.com/Zenoo/labrute/commit/3cdcfb091b2782a8466ed9fb0c5780a7419e85fc))
+
 ### [1.14.1](https://github.com/Zenoo/labrute/compare/v1.14.0...v1.14.1) (2022-08-22)
 
 
