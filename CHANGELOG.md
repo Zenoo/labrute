@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.14.4](https://github.com/Zenoo/labrute/compare/v1.14.3...v1.14.4) (2022-08-23)
+
+
+### Bug fix
+
+* Load custom font on mobile + fix broken mobile fight layout. Fixes [#86](https://github.com/Zenoo/labrute/issues/86) ([8d68fd8](https://github.com/Zenoo/labrute/commit/8d68fd8bda29995fff81ea7508233689495a7fcd))
+
 ### [1.14.3](https://github.com/Zenoo/labrute/compare/v1.14.2...v1.14.3) (2022-08-23)
 
 
