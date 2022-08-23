@@ -1,9 +1,13 @@
 import { Fight } from '@eternaltwin/labrute-core/types';
-import { Box, useMediaQuery, useTheme } from '@mui/material';
+import { Rtt } from '@mui/icons-material';
+import { Box, IconButton, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import { Tweener } from 'pixi-tweener';
 import * as PIXI from 'pixi.js';
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import setupFight from '../../utils/fight/setupFight.js';
+import translateFightStep from '../../utils/translateFightStep.js';
+import Text from '../Text.js';
 
 export interface FightComponentProps {
   fight: Fight | null;
@@ -15,6 +19,10 @@ const FightComponent = ({
   const ref = useRef<HTMLDivElement>(null);
   const theme = useTheme();
   const smallScreen = useMediaQuery('(max-width: 935px)');
+  const { t } = useTranslation();
+
+  // Logs display
+  const [displayLogs, setDisplayLogs] = useState(false);
 
   // Renderer setup
   useEffect(() => {
@@ -45,8 +53,46 @@ const FightComponent = ({
     };
   }, [fight, theme]);
 
+  const toggleLogs = useCallback(() => {
+    setDisplayLogs((prev) => !prev);
+  }, []);
+
   return (fight) ? (
-    <Box ref={ref} sx={{ ml: smallScreen ? 0 : 5, alignSelf: 'center' }} />
+    <Box
+      ref={ref}
+      sx={{
+        height: 300,
+        ml: smallScreen ? 0 : 5,
+        alignSelf: 'center',
+        position: 'relative',
+      }}
+    >
+      {/* LOGS */}
+      {displayLogs && (
+        <Box sx={{
+          height: 1,
+          width: 1,
+          overflowY: 'auto',
+          position: 'absolute',
+          top: 0,
+          bgcolor: 'rgba(255, 255, 255, 0.5)',
+          zIndex: 500,
+          pl: 1,
+        }}
+        >
+          {fight.data.steps.filter((step) => !['moveTo', 'moveBack'].includes(step.action)).map((step, i) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <Text key={i}>{translateFightStep(step, t)}</Text>
+          ))}
+        </Box>
+      )}
+      {/* LOGS TOGGLE */}
+      <Tooltip title={t('fight.toggleLogs')}>
+        <IconButton onClick={toggleLogs} sx={{ position: 'absolute', bottom: 0, right: 0, zIndex: 501, }}>
+          <Rtt />
+        </IconButton>
+      </Tooltip>
+    </Box>
   ) : null;
 };
 
