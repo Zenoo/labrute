@@ -61,10 +61,15 @@ const FightComponent = ({
     <Box
       ref={ref}
       sx={{
-        height: 300,
         ml: smallScreen ? 0 : 5,
         alignSelf: 'center',
         position: 'relative',
+        fontSize: 0,
+        maxWidth: 500,
+        mx: smallScreen ? 'auto' : undefined,
+        '& canvas': {
+          maxWidth: '100%',
+        }
       }}
     >
       {/* LOGS */}
@@ -78,6 +83,7 @@ const FightComponent = ({
           bgcolor: 'rgba(255, 255, 255, 0.5)',
           zIndex: 500,
           pl: 1,
+          textAlign: 'left',
         }}
         >
           {fight.data.steps.filter((step) => !['moveTo', 'moveBack'].includes(step.action)).map((step, i) => (
