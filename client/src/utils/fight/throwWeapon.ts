@@ -1,7 +1,7 @@
 import { ThrowStep } from '@eternaltwin/labrute-core/types';
 import { AnimatedSprite, Application } from 'pixi.js';
 import changeAnimation from './changeAnimation.js';
-
+import weapons from '@eternaltwin/labrute-core/brute/weapons';
 import findFighter, { AnimationFighter } from './findFighter.js';
 import updateWeapons from './updateWeapons.js';
 
@@ -25,8 +25,10 @@ const throwWeapon = async (
     };
   });
 
-  // Remove weapon from brute
-  updateWeapons(app, fighter, step.weapon, 'remove');
+  // Remove weapon from brute if it is not a thrown weapon
+  if (!weapons.find((w) => w.name === step.weapon)?.types.includes('thrown')) {
+    updateWeapons(app, fighter, step.weapon, 'remove');
+  }
 
   // Set animation to `throw`
   changeAnimation(app, fighter, 'throw');
