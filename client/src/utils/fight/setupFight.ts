@@ -22,6 +22,7 @@ import hypnotise from './hypnotise.js';
 import leave from './leave.js';
 import moveBack from './moveBack.js';
 import moveTo from './moveTo.js';
+import resist from './resist.js';
 import sabotage from './sabotage.js';
 import saboteur from './saboteur.js';
 import setupSprite from './setupSprite.js';
@@ -325,6 +326,10 @@ const setupFight: (
         sabotage(app, fighters, step);
         break;
       }
+      case 'resist': {
+        resist(app, fighters, step);
+        break;
+      }
       case 'counter':
       case 'skillExpire':
       case 'break': {
@@ -332,7 +337,7 @@ const setupFight: (
         break;
       }
       default:
-        console.log('Unknown action', step.action);
+        console.log('Unknown step', step);
         break;
     }
   }

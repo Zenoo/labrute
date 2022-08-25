@@ -317,10 +317,10 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">public/images/game/resources/bear/evade/0.png</key>
+            <key type="filename">public/images/game/resources/bear/evade/00001.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
-                <point_f>0.542373,0.894737</point_f>
+                <point_f>0.525424,0.903509</point_f>
                 <key>spriteScale</key>
                 <double>1</double>
                 <key>scale9Enabled</key>

@@ -17,11 +17,14 @@ const updateWeapons = (
     throw new Error('Spritesheet not found');
   }
 
-  // Empty list
-  brute.weaponsIllustrations.forEach((illustration) => {
-    illustration.destroy();
-  });
-  brute.weaponsIllustrations = [];
+  // Only affect the UI for main brutes
+  if (!brute.master) {
+    // Empty list
+    brute.weaponsIllustrations.forEach((illustration) => {
+      illustration.destroy();
+    });
+    brute.weaponsIllustrations = [];
+  }
 
   // Add new weapon
   if (action === 'add') {
@@ -39,19 +42,22 @@ const updateWeapons = (
     brute.weapons = brute.weapons.filter((w) => w.name !== weapon);
   }
 
-  // Generate new list
-  brute.weapons.forEach((w, index) => {
-    const sprite = new Sprite(spritesheet.textures[`weapons/${w.name}.png`]);
-    if (brute.team === 'left') {
-      sprite.x = (index % 9) * 20 + 60;
-    } else {
-      sprite.x = 480 - ((index % 9) * 20 + 60);
-    }
-    sprite.y = Math.floor(index / 9) * 20 + 40;
-    sprite.filters = [new OutlineFilter()];
-    app.stage.addChild(sprite);
-    brute.weaponsIllustrations.push(sprite);
-  });
+  // Only affect the UI for main brutes
+  if (!brute.master) {
+    // Generate new list
+    brute.weapons.forEach((w, index) => {
+      const sprite = new Sprite(spritesheet.textures[`weapons/${w.name}.png`]);
+      if (brute.team === 'left') {
+        sprite.x = (index % 9) * 20 + 60;
+      } else {
+        sprite.x = 480 - ((index % 9) * 20 + 60);
+      }
+      sprite.y = Math.floor(index / 9) * 20 + 40;
+      sprite.filters = [new OutlineFilter()];
+      app.stage.addChild(sprite);
+      brute.weaponsIllustrations.push(sprite);
+    });
+  }
 };
 
 export default updateWeapons;
