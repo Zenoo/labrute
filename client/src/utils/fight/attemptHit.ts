@@ -1,7 +1,7 @@
 import weapons from '@eternaltwin/labrute-core/brute/weapons';
 import { AttemptHitStep } from '@eternaltwin/labrute-core/types';
 
-import { Application } from 'pixi.js';
+import { AnimatedSprite, Application } from 'pixi.js';
 import changeAnimation from './changeAnimation.js';
 import findFighter, { AnimationFighter } from './findFighter.js';
 
@@ -22,6 +22,12 @@ const attemptHit = (
 
   // Set animation to the correct hitting animation
   changeAnimation(app, fighter, animation);
+
+  // Wait for animation to finish
+  (fighter.currentAnimation as AnimatedSprite).onComplete = () => {
+    // Set animation to `iddle`
+    changeAnimation(app, fighter, 'iddle');
+  };
 };
 
 export default attemptHit;
