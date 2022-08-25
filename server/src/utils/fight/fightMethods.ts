@@ -142,11 +142,13 @@ const registerHit = (
   if (opponent.skills.find((sk) => sk.name === 'resistant')) {
     actualDamage = Math.min(damage, Math.floor(opponent.maxHp * 0.2));
 
-    // Add resist step
-    fightData.steps.push({
-      action: 'resist',
-      brute: stepFighter(opponent),
-    });
+    if (actualDamage < damage) {
+      // Add resist step
+      fightData.steps.push({
+        action: 'resist',
+        brute: stepFighter(opponent),
+      });
+    }
   }
 
   // Reduce backup leave time instead of reducing hp
