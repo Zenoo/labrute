@@ -9,6 +9,7 @@ import * as PIXI from 'pixi.js';
 import arrive from './arrive.js';
 import attemptHit from './attemptHit.js';
 import block from './block.js';
+import bomb from './bomb.js';
 import death from './death.js';
 import disarm from './disarm.js';
 import eat from './eat.js';
@@ -328,6 +329,10 @@ const setupFight: (
       }
       case 'resist': {
         resist(app, fighters, step);
+        break;
+      }
+      case 'bomb': {
+        await bomb(app, fighters, step);
         break;
       }
       case 'counter':

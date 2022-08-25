@@ -126,58 +126,75 @@ export const stepFighter = (fighter: DetailedFighter): StepFighter => ({
 const registerHit = (
   fightData: DetailedFight['data'],
   fighter: DetailedFighter,
-  opponent: DetailedFighter,
+  opponents: DetailedFighter[],
   damage: number,
-  sourceName?: 'hammer' | 'flashFlood' | 'poison',
+  sourceName?: 'hammer' | 'flashFlood' | 'poison' | 'bomb',
 ) => {
   let actualDamage = damage;
 
-  // Remove the net and reset initiative
-  if (opponent.trapped) {
-    opponent.trapped = false;
-    opponent.initiative = fightData.initiative + 0.5;
+  opponents.forEach((opponent) => {
+    // Remove the net and reset initiative
+    if (opponent.trapped) {
+      opponent.trapped = false;
+      opponent.initiative = fightData.initiative + 0.5;
+    }
+
+    // Max damage to 20% of opponent's health if `resistant`
+    if (opponent.skills.find((sk) => sk.name === 'resistant')) {
+      actualDamage = Math.min(damage, Math.floor(opponent.maxHp * 0.2));
+
+      if (actualDamage < damage) {
+        // Add resist step
+        fightData.steps.push({
+          action: 'resist',
+          brute: stepFighter(opponent),
+        });
+      }
+    }
+
+    // Reduce backup leave time instead of reducing hp
+    if (opponent.leavesAtInitiative) {
+      opponent.leavesAtInitiative -= actualDamage * 0.05;
+    } else {
+      opponent.hp -= actualDamage;
+    }
+  });
+
+  if (sourceName === 'bomb') {
+    console.log(`${fighter.name} used bomb`);
+    // Add bomb step
+    fightData.steps.push({
+      action: 'bomb',
+      fighter: stepFighter(fighter),
+      targets: opponents.map((opponent) => stepFighter(opponent)),
+      damage: actualDamage,
+    });
+  } else {
+    opponents.forEach((opponent) => {
+      // Add hit step
+      fightData.steps.push({
+        action: sourceName || 'hit',
+        fighter: stepFighter(fighter),
+        target: stepFighter(opponent),
+        weapon: sourceName ? null : fighter.activeWeapon?.name || null,
+        damage: actualDamage,
+      });
+    });
   }
 
-  // Max damage to 20% of opponent's health if `resistant`
-  if (opponent.skills.find((sk) => sk.name === 'resistant')) {
-    actualDamage = Math.min(damage, Math.floor(opponent.maxHp * 0.2));
+  opponents.forEach((opponent) => {
+    // Survive with 1 HP if `survival` skill
+    if (opponent.survival && opponent.hp <= 1) {
+      opponent.survival = false;
+      opponent.hp = 1;
 
-    if (actualDamage < damage) {
-      // Add resist step
+      // Add survival step
       fightData.steps.push({
-        action: 'resist',
+        action: 'survive',
         brute: stepFighter(opponent),
       });
     }
-  }
-
-  // Reduce backup leave time instead of reducing hp
-  if (opponent.leavesAtInitiative) {
-    opponent.leavesAtInitiative -= actualDamage * 0.05;
-  } else {
-    opponent.hp -= actualDamage;
-  }
-
-  // Add hit step
-  fightData.steps.push({
-    action: sourceName || 'hit',
-    fighter: stepFighter(fighter),
-    target: stepFighter(opponent),
-    weapon: sourceName ? null : fighter.activeWeapon?.name || null,
-    damage: actualDamage,
   });
-
-  // Survive with 1 HP if `survival` skill
-  if (opponent.survival && opponent.hp <= 1) {
-    opponent.survival = false;
-    opponent.hp = 1;
-
-    // Add survival step
-    fightData.steps.push({
-      action: 'survive',
-      brute: stepFighter(opponent),
-    });
-  }
 };
 
 const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean => {
@@ -292,9 +309,7 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
       const damage = 15 + randomBetween(0, 10);
 
       // Hit every opponent
-      opponents.forEach((opponent) => {
-        registerHit(fightData, fighter, opponent, damage);
-      });
+      registerHit(fightData, fighter, opponents, damage, 'bomb');
 
       // Increase own initiative
       fighter.initiative += 0.5 * fighter.tempo;
@@ -325,7 +340,7 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
 
       // Get damage
       const damage = getDamage(fighter, opponent);
-      registerHit(fightData, fighter, opponent, damage, 'hammer');
+      registerHit(fightData, fighter, [opponent], damage, 'hammer');
 
       // Increase own initiative
       fighter.initiative += 1 * fighter.tempo;
@@ -441,7 +456,7 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
         const damage = getDamage(fighter, opponent, w);
         damages.push(damage);
 
-        registerHit(fightData, fighter, opponent, damage, 'flashFlood');
+        registerHit(fightData, fighter, [opponent], damage, 'flashFlood');
       });
 
       // Increase own initiative
@@ -780,7 +795,7 @@ const attack = (fightData: DetailedFight['data'], fighter: DetailedFighter, oppo
 
   // Register hit if damage was done
   if (damage) {
-    registerHit(fightData, fighter, opponent, getDamage(fighter, opponent));
+    registerHit(fightData, fighter, [opponent], getDamage(fighter, opponent));
   }
 
   // Randomly trigger another attack if the fighter has `determination`
@@ -1002,7 +1017,7 @@ export const playFighterTurn = (fightData: DetailedFight['data']) => {
 
     // Register hit if damage was done
     if (damage) {
-      registerHit(fightData, fighter, opponent, damage);
+      registerHit(fightData, fighter, [opponent], damage);
     }
 
     // Remove fighter weapon if it is not a thrown weapon
@@ -1020,7 +1035,7 @@ export const playFighterTurn = (fightData: DetailedFight['data']) => {
     const poisonDamage = Math.ceil(fighter.maxHp / 50);
 
     // Register the hit
-    registerHit(fightData, fighter, fighter, poisonDamage, 'poison');
+    registerHit(fightData, fighter, [fighter], poisonDamage, 'poison');
   }
 
   // Increase own initiative

@@ -275,6 +275,7 @@ export interface Fighter {
   maxHp: number;
   hp: number,
   weapons: AnimatedWeapon[];
+  skills: SkillName[];
   shield: boolean;
 }
 
@@ -340,6 +341,13 @@ export interface HitStep {
   fighter: StepFighter;
   target: StepFighter;
   weapon: WeaponName | SuperName | null;
+  damage: number;
+}
+
+export interface BombStep {
+  action: 'bomb';
+  fighter: StepFighter;
+  targets: StepFighter[];
   damage: number;
 }
 
@@ -448,7 +456,7 @@ export interface SkillExpireStep {
 
 export type FightStep = SaboteurStep | LeaveStep | ArriveStep
   | TrashStep | StealStep | TrapStep | HealStep | ResistStep
-  | SurviveStep | HitStep | HypnotiseStep | MoveStep | EatStep
+  | SurviveStep | HitStep | BombStep | HypnotiseStep | MoveStep | EatStep
   | MoveBackStep | EquipStep | AttemptHitStep | BlockStep | EvadeStep
   | BreakStep | SabotageStep | DisarmStep | DeathStep | ThrowStep | EndStep
   | CounterStep | SkillActivateStep | SkillExpireStep;
