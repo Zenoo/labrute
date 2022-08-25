@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.15.1](https://github.com/Zenoo/labrute/compare/v1.15.0...v1.15.1) (2022-08-25)
+
+
+### Bug fix
+
+* Don't throw away a weapon if its type is thrown ([08532b1](https://github.com/Zenoo/labrute/commit/08532b1298f91aad3ebf9b6ad8d40c24f2ccaddc))
+* Hide weapon reach info if 0 ([722ffa5](https://github.com/Zenoo/labrute/commit/722ffa58390dc952f1bc862a8804058e05c2bef1))
+
 ## [1.15.0](https://github.com/Zenoo/labrute/compare/v1.14.4...v1.15.0) (2022-08-25)
 
 
