@@ -1,5 +1,6 @@
 import { Animation, HitStep } from '@eternaltwin/labrute-core/types';
 import randomBetween from '@eternaltwin/labrute-core/utils/randomBetween';
+import { GlowFilter } from '@pixi/filter-glow';
 import { OutlineFilter } from '@pixi/filter-outline';
 import { Tweener } from 'pixi-tweener';
 import { AnimatedSprite, Application, Text } from 'pixi.js';
@@ -26,6 +27,16 @@ const hit = async (
 
   // Set animation to the correct hit animation
   changeAnimation(app, target, animation as Animation);
+
+  // Add poison filter if damage is poison
+  if (step.action === 'poison') {
+    target.currentAnimation.filters = [new GlowFilter({
+      distance: 25,
+      innerStrength: 1,
+      outerStrength: 0,
+      color: 0x006400,
+    })];
+  }
 
   // Display floating and fading damage text
   const damageText = new Text(`-${step.damage}`, {
