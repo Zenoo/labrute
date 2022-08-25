@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.15.0](https://github.com/Zenoo/labrute/compare/v1.14.4...v1.15.0) (2022-08-25)
+
+
+### Bug fix
+
+* Display heal text earlier ([6a61c8f](https://github.com/Zenoo/labrute/commit/6a61c8f3c45aebfe3c8081c6cfd0bb4d106cc2c6))
+* Fighters stuck after an attack animation ([8c46c7a](https://github.com/Zenoo/labrute/commit/8c46c7a0e4950c8c5e04042fc7c44a108cf65f8a))
+* Fighters stuck in the hit animation ([1537844](https://github.com/Zenoo/labrute/commit/1537844deaaeaba0de8afa86a5e203d4fa672b0e))
+* Missing bear evade sprite ([4c5a0f9](https://github.com/Zenoo/labrute/commit/4c5a0f9566faf436b7c0eadacc9a9e4dbbc82a1e))
+* Missing morning star tooltip illustration ([0ffcfe9](https://github.com/Zenoo/labrute/commit/0ffcfe9e97959690f22b0f1035b23cefdd233fef))
+* Only add a resist step if the damage was reduced ([448012c](https://github.com/Zenoo/labrute/commit/448012ca7b9b360b3e5140c2c629e363e3da32b8))
+* Weapons were not being removed from the UI after a trash ([164360b](https://github.com/Zenoo/labrute/commit/164360b0776274f27d9e9283c70621f2dbcac81e))
+
+
+### Feature
+
+* Added bomb step ([83fbcb6](https://github.com/Zenoo/labrute/commit/83fbcb66addfcfe4e9e5ddbc634b34a9e9284739))
+* Added heal amount fading text ([caab3d4](https://github.com/Zenoo/labrute/commit/caab3d472d15e6a41896e9703f7b95f57c8d8b39))
+* Added monk iddle animation ([8e9ca51](https://github.com/Zenoo/labrute/commit/8e9ca51aa05a332ea7b019b0dbbe7f5b713b9655))
+* Added outline on resist. ([228f249](https://github.com/Zenoo/labrute/commit/228f2490fcfa1c05abe1d8698e5e563a1cb4f801))
+* Added poison GFX ([7d13116](https://github.com/Zenoo/labrute/commit/7d13116bebee36cfcf3cc81f4ad474eb19bdde60))
+* Import ingame weapons ([88e3fef](https://github.com/Zenoo/labrute/commit/88e3fefeac7800c6142172a22e9d25957e8b6d29))
+
 ### [1.14.4](https://github.com/Zenoo/labrute/compare/v1.14.3...v1.14.4) (2022-08-23)
 
 
