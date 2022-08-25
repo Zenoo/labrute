@@ -196,6 +196,7 @@ const Fights = {
           name: weapon.name,
           animation: weapon.animation,
         })),
+        skills: fighter.skills.map((skill) => skill.name),
         shield: fighter.shield,
       }));
 

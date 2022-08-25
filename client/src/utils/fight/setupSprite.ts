@@ -28,6 +28,8 @@ const setupSprite = (
     throw new Error(`Sprite not found: ${animation}`);
   }
 
+  sprite.name = animation;
+
   // Loop some animations
   if (['evade', 'iddle', 'monk-loop', 'run', 'train', 'trapped-loop'].includes(animation)) {
     (sprite as AnimatedSprite).loop = true;

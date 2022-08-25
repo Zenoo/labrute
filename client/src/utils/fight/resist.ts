@@ -14,8 +14,6 @@ const resist = (
     throw new Error('Brute not found');
   }
 
-  console.log('resist', step);
-
   // Add a yellow outline filter to the brute on the next animation
   setTimeout(() => {
     const outline = new OutlineFilter(2, 0xffff00);
