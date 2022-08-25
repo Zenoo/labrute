@@ -979,7 +979,7 @@ export const playFighterTurn = (fightData: DetailedFight['data']) => {
   } else {
     // Throw attack
     if (!fighter.activeWeapon) {
-      throw new Error('Trying to throww a weapon but no weapon is active');
+      throw new Error('Trying to throw a weapon but no weapon is active');
     }
 
     // Get damage

@@ -122,10 +122,12 @@ const WeaponTooltip = ({
                 <TableCell component="th" scope="row">{t('drawChance')}</TableCell>
                 <TableCell align="right">{weapon.toss}</TableCell>
               </TableRow>
+              {!!weapon.reach && (
               <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                 <TableCell component="th" scope="row">{t('reach')}</TableCell>
                 <TableCell align="right">{weapon.reach}</TableCell>
               </TableRow>
+              )}
             </TableBody>
           </Table>
         </TableContainer>
