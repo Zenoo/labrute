@@ -792,14 +792,14 @@
 	"sourceSize": {"w":170,"h":101},
 	"anchor": {"x":0.247059,"y":0.851485}
 },
-"evade/0.png":
+"evade/00001.png":
 {
 	"frame": {"x":115,"y":605,"w":118,"h":114},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":118,"h":114},
 	"sourceSize": {"w":118,"h":114},
-	"anchor": {"x":0.542373,"y":0.894737}
+	"anchor": {"x":0.525424,"y":0.903509}
 },
 "grab/00001.png":
 {
@@ -1854,6 +1854,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1006,"h":1955},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:ba0c74413aadc74b1b8d3c8bbf740767:e9ff581aaa16e62eb8d3b00cfa27f13e:6295e075e3238db0ec40ff984cf0523c$"
+	"smartupdate": "$TexturePacker:SmartUpdate:56485cb71269c0f48b26b2af5e52c962:e9ff581aaa16e62eb8d3b00cfa27f13e:6295e075e3238db0ec40ff984cf0523c$"
 }
 }
