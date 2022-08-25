@@ -20,13 +20,6 @@ const heal = async (
   // Set animation to `drink`
   changeAnimation(app, brute, 'drink');
 
-  // Wait for animation to complete
-  await new Promise((resolve) => {
-    (brute.currentAnimation as AnimatedSprite).onComplete = () => {
-      resolve(null);
-    };
-  });
-
   // Display floating and fading green heal text
   const healText = new Text(`-${step.amount}`, {
     fontFamily: 'Poplar', fontSize: 20, fill: 0x00ff00,
@@ -48,6 +41,13 @@ const heal = async (
     // Remove text
     healText.destroy();
   }).catch(console.error);
+
+  // Wait for animation to complete
+  await new Promise((resolve) => {
+    (brute.currentAnimation as AnimatedSprite).onComplete = () => {
+      resolve(null);
+    };
+  });
 
   // Heal brute
   updateHp(brute, step.amount);
