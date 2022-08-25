@@ -3,6 +3,7 @@ import { AnimatedSprite, Application } from 'pixi.js';
 import changeAnimation from './changeAnimation.js';
 
 import findFighter, { AnimationFighter } from './findFighter.js';
+import updateWeapons from './updateWeapons.js';
 
 const trash = async (
   app: Application,
@@ -17,6 +18,9 @@ const trash = async (
   // Set animation to `trash`
   changeAnimation(app, brute, 'trash');
   (brute.currentAnimation as AnimatedSprite).animationSpeed = 0.5;
+
+  // Remove weapon from brute
+  updateWeapons(app, brute, step.name, 'remove');
 
   // Wait for animation to complete
   await new Promise((resolve) => {
