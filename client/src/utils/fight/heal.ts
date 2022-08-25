@@ -21,7 +21,7 @@ const heal = async (
   changeAnimation(app, brute, 'drink');
 
   // Display floating and fading green heal text
-  const healText = new Text(`-${step.amount}`, {
+  const healText = new Text(`+${step.amount}`, {
     fontFamily: 'Poplar', fontSize: 20, fill: 0x00ff00,
   });
   healText.anchor.set(0.5);
