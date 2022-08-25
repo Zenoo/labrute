@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.15.2](https://github.com/Zenoo/labrute/compare/v1.15.1...v1.15.2) (2022-08-25)
+
+
+### Bug fix
+
+* Heal texts are now positive ([5d311ce](https://github.com/Zenoo/labrute/commit/5d311ce2b7c188faf2d33fe2bae0468f1f2b4022))
+
 ### [1.15.1](https://github.com/Zenoo/labrute/compare/v1.15.0...v1.15.1) (2022-08-25)
 
 
