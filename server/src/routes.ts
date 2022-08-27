@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { Express, Request, Response } from 'express';
+import Animations from './endpoints/Animations.js';
 import Brutes from './endpoints/Brutes.js';
 import Fights from './endpoints/Fights.js';
 import Logs from './endpoints/Logs.js';
@@ -34,6 +35,10 @@ const initRoutes = (app: Express) => {
   // Fight
   app.get('/api/fight/:name/:id', Fights.get);
   app.post('/api/fight/create', Fights.create);
+
+  // Animations
+  app.get('/api/animations/:model/:animation/frames', Animations.getFrames);
+  app.get('/api/animations/:brute/:model/:animation/:frame', Animations.get);
 };
 
 export default initRoutes;

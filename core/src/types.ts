@@ -485,10 +485,15 @@ export interface Fight {
   }
 }
 
-export type AnimationModel = 'bear' | 'dog' | 'panther' | 'brute.male';
+export type AnimationModel = 'bear' | 'dog' | 'panther' | 'male-brute' | 'female-brute';
 export type Animation = 'arrive-end' | 'arrive-start' | 'attack' | 'block'
   | 'death' | 'drink' | 'eat' | 'equip' | 'evade' | 'grab' | 'grabbed'
   | 'hit' | 'hit-0' | 'hit-1' | 'hit-2' | 'hit-3' | 'iddle' | 'launch'
   | 'monk-loop' | 'monk-start' | 'prepare-throw' | 'run' | 'slash'
   | 'stolen' | 'steal' | 'strengthen' | 'throw' | 'train' | 'trapped-loop'
   | 'trapped-start' | 'trash' | 'win' | WeaponAnimation;
+
+export interface FrameProps {
+  colors: BodyColors,
+  body: BodyParts
+}
