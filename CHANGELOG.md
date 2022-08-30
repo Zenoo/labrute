@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.15.3](https://github.com/Zenoo/labrute/compare/v1.15.2...v1.15.3) (2022-08-30)
+
+
+### Progress
+
+* SVGs processed server side first PoC. [#85](https://github.com/Zenoo/labrute/issues/85) ([c92176d](https://github.com/Zenoo/labrute/commit/c92176d366c24b50e4da6eaa07d63d416b895bd4))
+
+
+### Bug fix
+
+* Reversal not triggering on combos ([53655c2](https://github.com/Zenoo/labrute/commit/53655c25d4275e826e34a90adbd34bfdbe8c23b0))
+
 ### [1.15.2](https://github.com/Zenoo/labrute/compare/v1.15.1...v1.15.2) (2022-08-25)
 
 
