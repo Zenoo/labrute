@@ -161,7 +161,6 @@ const registerHit = (
   });
 
   if (sourceName === 'bomb') {
-    console.log(`${fighter.name} used bomb`);
     // Add bomb step
     fightData.steps.push({
       action: 'bomb',
@@ -827,7 +826,7 @@ export const checkDeaths = (fightData: DetailedFight['data']) => {
   }
 };
 
-const reversal = (fightData: DetailedFight['data'], opponent: DetailedFighter) => {
+const reversal = (opponent: DetailedFighter) => {
   // Only reverse if the opponent has `reversal`
   if (!opponent.reversal) return false;
 
@@ -876,17 +875,17 @@ const startAttack = (
       attack(fightData, fighter, opponent);
 
       random = Math.random();
+
+      // Check if opponent is not trapped and can reverse
+      if (!opponent.trapped && reversal(opponent)) {
+        // Trigger opponent attack
+        attack(fightData, opponent, fighter);
+      }
     }
   }
 
   // Check if a fighter is dead
   checkDeaths(fightData);
-
-  // Check if opponent is not trapped and can reverse
-  if (!opponent.trapped && reversal(fightData, opponent)) {
-    // Trigger opponent attack
-    attack(fightData, opponent, fighter);
-  }
 };
 
 export const playFighterTurn = (fightData: DetailedFight['data']) => {
