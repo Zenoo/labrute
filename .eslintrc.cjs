@@ -3,7 +3,7 @@ module.exports = {
   env: {
     node: true,
   },
-  ignorePatterns: ['**/*.js'],
+  ignorePatterns: ['**/*.js', '**/*.d.ts'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     tsconfigRootDir: __dirname,
@@ -44,7 +44,7 @@ module.exports = {
   },
   settings: {
     node: {
-      tryExtensions: ['.js', '.json', '.node', '.ts', '.d.ts'],
+      tryExtensions: ['.js', '.json', '.node', '.ts'],
     },
   },
 };

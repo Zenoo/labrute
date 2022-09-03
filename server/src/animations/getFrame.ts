@@ -2,8 +2,15 @@ import {
   Animation, FrameProps,
 } from '@eternaltwin/labrute-core/types';
 import maleBruteIddle1 from './male-brute/iddle/1.js';
+import maleBruteRun1 from './male-brute/run/1.js';
+import maleBruteRun2 from './male-brute/run/2.js';
+import maleBruteRun3 from './male-brute/run/3.js';
+import maleBruteRun4 from './male-brute/run/4.js';
+import maleBruteRun5 from './male-brute/run/5.js';
+import maleBruteRun6 from './male-brute/run/6.js';
+import maleBruteRun7 from './male-brute/run/7.js';
 
-const FRAME: Record<
+export const FRAMES: Record<
   'male' | 'female',
   Record<
     Animation,
@@ -33,7 +40,11 @@ const FRAME: Record<
     'monk-loop': [],
     'monk-start': [],
     'prepare-throw': [],
-    run: [],
+    run: [
+      maleBruteRun1, maleBruteRun2, maleBruteRun3,
+      maleBruteRun4, maleBruteRun5, maleBruteRun6,
+      maleBruteRun7,
+    ],
     slash: [],
     stolen: [],
     steal: [],
@@ -90,7 +101,7 @@ const FRAME: Record<
 const getFrame = (
   animation: Animation,
   model: 'male' | 'female',
-  frame: string,
-) => FRAME[model][animation][(+frame) - 1];
+  frame: number,
+) => FRAMES[model][animation][frame];
 
 export default getFrame;

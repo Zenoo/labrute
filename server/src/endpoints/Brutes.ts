@@ -12,6 +12,8 @@ import { Request, Response } from 'express';
 import DB from '../db/client.js';
 import auth from '../utils/auth.js';
 import sendError from '../utils/sendError.js';
+import createSpritesheet from '../utils/createSpritesheet.js';
+import formatSpritesheet from '../utils/formatSpritesheet.js';
 
 const Brutes = {
   list: async (req: Request, res: Response) => {
@@ -19,7 +21,7 @@ const Brutes = {
       const client = await DB.connect();
       await auth(client, req);
 
-      const result = await client.query<Brute>('select * from brutes');
+      const result = await client.query<Brute>('select data, name from brutes');
       const { rows } = result;
 
       await client.end();
@@ -33,7 +35,7 @@ const Brutes = {
       const client = await DB.connect();
 
       const { rows: { 0: brute } } = await client.query<Brute>(
-        'select * from brutes where name = $1',
+        'select data, name from brutes where name = $1',
         [req.params.name],
       );
 
@@ -137,8 +139,24 @@ const Brutes = {
         );
       }
 
-      await client.end();
       res.status(200).send({ brute, pointsLost });
+
+      // Create animations spritesheet after response to avoid blocking the request
+      const spritesheet = await createSpritesheet(brute);
+
+      // Store spritesheet image in database as blob
+      await client.query(
+        'update brutes set spritesheet = $1 where name = $2',
+        [spritesheet.image, brute.name],
+      );
+
+      // Store spritesheet data in database as json
+      await client.query(
+        'update brutes set spritesheet_json = $1 where name = $2',
+        [formatSpritesheet(spritesheet, brute), brute.name],
+      );
+
+      await client.end();
     } catch (error) {
       sendError(res, error);
     }
@@ -150,7 +168,7 @@ const Brutes = {
 
       // Get brute
       const { rows: { 0: brute } } = await client.query<Brute>(
-        'select * from brutes where name = $1 and data ->> \'user\' = $2',
+        'select data, name from brutes where name = $1 and data ->> \'user\' = $2',
         [req.params.name, user.id],
       );
       if (!brute) {
@@ -207,7 +225,7 @@ const Brutes = {
 
       // Get brute
       const { rows: { 0: brute } } = await client.query<Brute>(
-        'select * from brutes where name = $1 and data ->> \'user\' = $2',
+        'select data, name from brutes where name = $1 and data ->> \'user\' = $2',
         [req.params.name, user.id],
       );
 
@@ -263,7 +281,7 @@ const Brutes = {
 
       // Get same level random opponents
       const { rows: opponents } = await client.query<Brute>(
-        `select * from brutes where 
+        `select data, name from brutes where 
           name != $1
           and data -> 'level' = $2
         order by random() limit $3`,
@@ -273,7 +291,7 @@ const Brutes = {
       // Complete with lower levels if not enough
       if (opponents.length < ARENA_OPPONENTS_COUNT) {
         const { rows: opponents2 } = await client.query<Brute>(
-          `select * from brutes where 
+          `select data, name from brutes where 
             name != $1
             and data -> 'level' < $2
             and data -> 'level' >= $3
@@ -301,7 +319,7 @@ const Brutes = {
 
       // Get brute
       const { rows: { 0: brute } } = await client.query<Brute>(
-        'select * from brutes where name = $1 and data ->> \'user\' = $2',
+        'select data, name from brutes where name = $1 and data ->> \'user\' = $2',
         [req.params.name, user.id],
       );
       if (!brute) {

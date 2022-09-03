@@ -51,7 +51,7 @@ const Fights = {
 
       // Get brutes
       const { rows: { 0: brute1 } } = await client.query<Brute>(
-        'select * from brutes where name = $1',
+        'select data, name from brutes where name = $1',
         [req.body.brute1],
       );
       if (!brute1) {
@@ -59,7 +59,7 @@ const Fights = {
         throw new Error('Brute 1 not found');
       }
       const { rows: { 0: brute2 } } = await client.query<Brute>(
-        'select * from brutes where name = $1',
+        'select data, name from brutes where name = $1',
         [req.body.brute2],
       );
       if (!brute2) {
@@ -69,14 +69,14 @@ const Fights = {
 
       // Get brute backups
       const { rows: brute1Backups } = await client.query<Brute>(
-        `select * from brutes where
+        `select data, name from brutes where
           (data->'skills')::jsonb ? 'backup'
           and data->'level' < $1
           and data->>'user' = $2`,
         [brute1.data.level, brute1.data.user],
       );
       const { rows: brute2Backups } = await client.query<Brute>(
-        `select * from brutes where
+        `select data, name from brutes where
           (data->'skills')::jsonb ? 'backup'
           and data->'level' < $1
           and data->>'user' = $2`,
