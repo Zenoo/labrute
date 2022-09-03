@@ -51,7 +51,7 @@ const Fights = {
 
       // Get brutes
       const { rows: { 0: brute1 } } = await client.query<Brute>(
-        'select data, name from brutes where name = $1',
+        'select id, data, name from brutes where name = $1 and deleted = false',
         [req.body.brute1],
       );
       if (!brute1) {
@@ -59,7 +59,7 @@ const Fights = {
         throw new Error('Brute 1 not found');
       }
       const { rows: { 0: brute2 } } = await client.query<Brute>(
-        'select data, name from brutes where name = $1',
+        'select id, data, name from brutes where name = $1 and deleted = false',
         [req.body.brute2],
       );
       if (!brute2) {
@@ -72,14 +72,16 @@ const Fights = {
         `select data, name from brutes where
           (data->'skills')::jsonb ? 'backup'
           and data->'level' < $1
-          and data->>'user' = $2`,
+          and data->>'user' = $2
+          and deleted = false`,
         [brute1.data.level, brute1.data.user],
       );
       const { rows: brute2Backups } = await client.query<Brute>(
         `select data, name from brutes where
           (data->'skills')::jsonb ? 'backup'
           and data->'level' < $1
-          and data->>'user' = $2`,
+          and data->>'user' = $2
+          and deleted = false`,
         [brute2.data.level, brute2.data.user],
       );
 
@@ -223,7 +225,7 @@ const Fights = {
       // Update brute XP
       await client.query(
         `UPDATE brutes SET data =
-          data || ('{"xp": ' || ((data->>'xp')::int + $1) || '}')::jsonb WHERE name = $2`,
+          data || ('{"xp": ' || ((data->>'xp')::int + $1) || '}')::jsonb WHERE name = $2 AND deleted = false`,
         [xpGained, brute1.name],
       );
 
@@ -231,7 +233,7 @@ const Fights = {
       await client.query(
         'INSERT INTO logs(current_brute, type, brute, fight, xp) VALUES($1, $2, $3, $4, $5)',
         [
-          brute1.name,
+          brute1.id,
           winner.name === brute1.name ? 'win' : 'lose',
           brute2.name,
           fightId,
@@ -243,7 +245,7 @@ const Fights = {
       await client.query(
         'INSERT INTO logs(current_brute, type, brute, fight) VALUES($1, $2, $3, $4)',
         [
-          brute2.name,
+          brute2.id,
           winner.name === brute2.name ? 'survive' : 'lose',
           brute1.name,
           fightId,

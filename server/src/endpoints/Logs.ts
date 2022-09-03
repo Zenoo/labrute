@@ -12,9 +12,19 @@ const Logs = {
         await client.end();
         res.status(200).send([]);
       } else {
+        // Get brute id
+        const { rows: { 0: brute } } = await client.query<{ id: number }>(
+          'select id from brutes where name = $1 and deleted = false',
+          [req.params.name],
+        );
+
+        if (!brute) {
+          throw new Error('Brute not found');
+        }
+
         const result = await client.query<Log>(
           'select * from logs WHERE current_brute = $1 ORDER BY id DESC LIMIT 7',
-          [req.params.name],
+          [brute.id],
         );
         const { rows } = result;
 

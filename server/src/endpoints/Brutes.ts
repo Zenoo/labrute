@@ -21,7 +21,7 @@ const Brutes = {
       const client = await DB.connect();
       await auth(client, req);
 
-      const result = await client.query<Brute>('select data, name from brutes');
+      const result = await client.query<Brute>('select data, name from brutes where deleted = false');
       const { rows } = result;
 
       await client.end();
@@ -35,7 +35,7 @@ const Brutes = {
       const client = await DB.connect();
 
       const { rows: { 0: brute } } = await client.query<Brute>(
-        'select data, name from brutes where name = $1',
+        'select data, name from brutes where name = $1 and deleted = false',
         [req.params.name],
       );
 
@@ -55,7 +55,7 @@ const Brutes = {
       await auth(client, req);
 
       const result = await client.query<{ count: number }>(
-        'select count(*)::int from brutes where name = $1',
+        'select count(*)::int from brutes where name = $1 and deleted = false',
         [req.params.name],
       );
       const { rows } = result;
@@ -87,7 +87,7 @@ const Brutes = {
 
       // Get brute amount for user
       const { rows: { 0: { count: bruteCount } } } = await client.query<{ count: number }>(
-        'select count(*) from brutes where data->>\'user\' = $1',
+        'select count(*) from brutes where data->>\'user\' = $1 and deleted = false',
         [user.id],
       );
 
@@ -119,7 +119,7 @@ const Brutes = {
 
       // Create brute
       const { rows: { 0: brute } } = await client.query<Brute>(
-        'insert into brutes (name, destiny_path, data) values ($1, $2, $3) returning *',
+        'insert into brutes (name, destiny_path, data) values ($1, $2, $3) returning id, name, data',
         [req.body.name, [], bruteData],
       );
 
@@ -128,14 +128,14 @@ const Brutes = {
         await client.query(
           `update brutes set data = data
           || ('{"pupils": ' || ((data->>'pupils')::int + 1) || '}')::jsonb
-          where name = $1`,
+          where name = $1 and deleted = false`,
           [bruteData.master],
         );
 
         // Add log
         await client.query(
           'insert into logs (current_brute, type, brute) values ($1, $2, $3)',
-          [bruteData.master, 'child', brute.name],
+          [brute.id, 'child', brute.name],
         );
       }
 
@@ -146,13 +146,13 @@ const Brutes = {
 
       // Store spritesheet image in database as blob
       await client.query(
-        'update brutes set spritesheet = $1 where name = $2',
+        'update brutes set spritesheet = $1 where name = $2 and deleted = false',
         [spritesheet.image, brute.name],
       );
 
       // Store spritesheet data in database as json
       await client.query(
-        'update brutes set spritesheet_json = $1 where name = $2',
+        'update brutes set spritesheet_json = $1 where name = $2 and deleted = false',
         [formatSpritesheet(spritesheet, brute), brute.name],
       );
 
@@ -168,7 +168,7 @@ const Brutes = {
 
       // Get brute
       const { rows: { 0: brute } } = await client.query<Brute>(
-        'select data, name from brutes where name = $1 and data ->> \'user\' = $2',
+        'select id, data, name from brutes where name = $1 and data ->> \'user\' = $2 and deleted = false',
         [req.params.name, user.id],
       );
       if (!brute) {
@@ -182,11 +182,11 @@ const Brutes = {
       // Get destiny choices
       let { rows: { 0: firstDestinyChoice } } = await client.query<DestinyChoice>(
         'select * from destiny_choices where brute = $1 and path = $2',
-        [brute.name, firstChoicePath],
+        [brute.id, firstChoicePath],
       );
       let { rows: { 0: secondDestinyChoice } } = await client.query<DestinyChoice>(
         'select * from destiny_choices where brute = $1 and path = $2',
-        [brute.name, secondChoicePath],
+        [brute.id, secondChoicePath],
       );
 
       if (!firstDestinyChoice || !secondDestinyChoice) {
@@ -195,13 +195,13 @@ const Brutes = {
         // Create destiny choices
         const { rows: { 0: newFirstDestinyChoice } } = await client.query<DestinyChoice>(
           'insert into destiny_choices (brute, path, choice) values ($1, $2, $3) returning *',
-          [brute.name, firstChoicePath, newChoices[0]],
+          [brute.id, firstChoicePath, newChoices[0]],
         );
         firstDestinyChoice = newFirstDestinyChoice;
 
         const { rows: { 0: newSecondDestinyChoice } } = await client.query<DestinyChoice>(
           'insert into destiny_choices (brute, path, choice) values ($1, $2, $3) returning *',
-          [brute.name, secondChoicePath, newChoices[1]],
+          [brute.id, secondChoicePath, newChoices[1]],
         );
         secondDestinyChoice = newSecondDestinyChoice;
       }
@@ -225,7 +225,7 @@ const Brutes = {
 
       // Get brute
       const { rows: { 0: brute } } = await client.query<Brute>(
-        'select data, name from brutes where name = $1 and data ->> \'user\' = $2',
+        'select id, data, name, destiny_path from brutes where name = $1 and data ->> \'user\' = $2 and deleted = false',
         [req.params.name, user.id],
       );
 
@@ -237,7 +237,7 @@ const Brutes = {
       // Get destiny choice
       const { rows: { 0: destinyChoice } } = await client.query<DestinyChoice>(
         'select * from destiny_choices where brute = $1 and path = $2',
-        [brute.name, [...brute.destiny_path, req.body.choice]],
+        [brute.id, [...brute.destiny_path, req.body.choice]],
       );
 
       if (!destinyChoice) {
@@ -250,22 +250,30 @@ const Brutes = {
 
       // Update brute
       await client.query<Brute>(
-        'update brutes set data = $1, destiny_path = array_append(destiny_path, $2) where name = $3 and data ->> \'user\' = $4',
+        'update brutes set data = $1, destiny_path = array_append(destiny_path, $2) where name = $3 and data ->> \'user\' = $4 and deleted = false',
         [updatedBruteData, req.body.choice, req.params.name, user.id],
       );
 
       // Add log
       await client.query(
         'insert into logs (current_brute, type) values ($1, $2)',
-        [req.params.name, 'up'],
+        [brute.id, 'up'],
       );
 
-      // Add log to master
       if (brute.data.master) {
-        await client.query(
-          'insert into logs (current_brute, type, brute) values ($1, $2, $3)',
-          [brute.data.master, 'childup', req.params.name],
+        // Get master id
+        const { rows: { 0: master } } = await client.query<Brute>(
+          'select id from brutes where name = $1 and deleted = false',
+          [brute.data.master],
         );
+
+        if (master) {
+          // Add log to master
+          await client.query(
+            'insert into logs (current_brute, type, brute) values ($1, $2, $3)',
+            [master.id, 'childup', req.params.name],
+          );
+        }
       }
 
       await client.end();
@@ -284,6 +292,7 @@ const Brutes = {
         `select data, name from brutes where 
           name != $1
           and data -> 'level' = $2
+          and deleted = false
         order by random() limit $3`,
         [req.params.name, +req.params.level, ARENA_OPPONENTS_COUNT],
       );
@@ -295,6 +304,7 @@ const Brutes = {
             name != $1
             and data -> 'level' < $2
             and data -> 'level' >= $3
+            and deleted = false
           order by random() limit $4`,
           [
             req.params.name,
@@ -319,7 +329,7 @@ const Brutes = {
 
       // Get brute
       const { rows: { 0: brute } } = await client.query<Brute>(
-        'select data, name from brutes where name = $1 and data ->> \'user\' = $2',
+        'select data, name from brutes where name = $1 and data ->> \'user\' = $2 and deleted = false',
         [req.params.name, user.id],
       );
       if (!brute) {
@@ -335,8 +345,8 @@ const Brutes = {
         [getSacriPoints(brute.data.level), user.id],
       );
 
-      // Delete brute
-      await client.query('delete from brutes where name = $1', [req.params.name]);
+      // Set brute as deleted
+      await client.query('update brutes set deleted = true where id = $1', [brute.id]);
 
       await client.end();
       res.status(200).send({ points: sacriPoints });

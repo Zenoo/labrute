@@ -125,6 +125,7 @@ export interface Stat {
 }
 
 export interface Brute {
+  id?: number;
   name: string;
   rank: number;
   destiny_path: (0 | 1)[];
@@ -187,7 +188,7 @@ export interface LevelUpChoice {
 }
 
 export interface DestinyChoice {
-  brute: string;
+  brute: number;
   path: (0 | 1)[];
   choice: LevelUpChoice;
 }

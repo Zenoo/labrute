@@ -85,7 +85,7 @@ const OAuth = {
           data->>'gender' as gender,
           data->'body' as body,
           data->'colors' as colors
-        FROM brutes WHERE data ->> 'user' = $1`,
+        FROM brutes WHERE data ->> 'user' = $1 AND deleted = false`,
         [user.id],
       );
 

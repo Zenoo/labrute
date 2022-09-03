@@ -22,7 +22,7 @@ const Spritesheets = {
       const { rows: { 0: brute } } = await client.query<{
         spritesheet: Buffer,
       }>(
-        'select spritesheet from brutes where name = $1',
+        'select spritesheet from brutes where name = $1 and deleted = false',
         [req.params.brute],
       );
 
@@ -46,7 +46,7 @@ const Spritesheets = {
       const { rows: { 0: brute } } = await client.query<{
         spritesheet_json: SpritesheetJson,
       }>(
-        'select spritesheet_json from brutes where name = $1',
+        'select spritesheet_json from brutes where name = $1 and deleted = false',
         [req.params.brute],
       );
 
@@ -73,7 +73,7 @@ const Spritesheets = {
         colors: BodyColors,
         body: BodyParts,
       }>(
-        'select data->\'body\' as body, data->\'colors\' as colors from brutes where name = $1',
+        'select data->\'body\' as body, data->\'colors\' as colors from brutes where name = $1 and deleted = false',
         [req.params.brute],
       );
 
@@ -142,7 +142,7 @@ const Spritesheets = {
       colors: BodyColors,
       body: BodyParts,
     }>(
-      'select data->\'body\' as body, data->\'colors\' as colors from brutes where name = $1',
+      'select data->\'body\' as body, data->\'colors\' as colors from brutes where name = $1 and deleted = false',
       [req.params.brute],
     );
 
