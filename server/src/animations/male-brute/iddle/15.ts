@@ -2,27 +2,27 @@ import {
   FrameProps,
 } from '@eternaltwin/labrute-core/types';
 
-const maleBruteIddle1 = ({ colors, body }: FrameProps) => (/* html */`<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+const maleBruteIddle15 = ({ colors, body }: FrameProps) => (/* html */`<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 ${body ? '' : ''}<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="66px" width="56px" xmlns="http://www.w3.org/2000/svg">
   <g transform="matrix(1.0, 0.0, 0.0, 1.0, 25, 58.8)">
-    <use height="42.3" transform="matrix(-0.3562, 0.1778, 0.1778, 0.3562, 22.8553, -48.4865)" width="51.5" xlink:href="#sprite0"/>
-    <use height="126.95" transform="matrix(0.3877, -0.0931, 0.0931, 0.3877, 4.1538, -32.5698)" width="253.5" xlink:href="#sprite5"/>
-    <use height="30.75" transform="matrix(0.0796, 0.3901, 0.3901, -0.0796, 4.0924, -42.2151)" width="40.3" xlink:href="#sprite9"/>
-    <use height="44.75" transform="matrix(-0.3562, 0.1778, 0.1778, 0.3562, 16.6287, -47.4917)" width="45.25" xlink:href="#sprite14"/>
+    <use height="42.3" transform="matrix(-0.3547, 0.1772, 0.1772, 0.3547, 22.3713, -48.6842)" width="51.5" xlink:href="#sprite0"/>
+    <use height="126.95" transform="matrix(0.3868, -0.093, 0.093, 0.3868, 3.686, -32.7628)" width="253.5" xlink:href="#sprite5"/>
+    <use height="30.75" transform="matrix(0.0793, 0.3893, 0.3893, -0.0793, 4.1596, -42.4047)" width="40.3" xlink:href="#sprite9"/>
+    <use height="44.75" transform="matrix(-0.3547, 0.1772, 0.1772, 0.3547, 16.6461, -47.5937)" width="45.25" xlink:href="#sprite14"/>
     <use height="38.95" transform="matrix(0.3983, 0.0, 0.0, 0.3983, 8.7424, -13.108)" width="40.2" xlink:href="#sprite20"/>
-    <use height="52.5" transform="matrix(-0.3944, 0.0379, 0.0237, 0.2468, 24.9012, -18.7573)" width="53.85" xlink:href="#sprite26"/>
-    <use height="43.1" transform="matrix(-0.1261, 0.3752, 0.3752, 0.1261, 3.0336, -27.2069)" width="31.35" xlink:href="#sprite31"/>
-    <use height="40.55" transform="matrix(-0.3975, -0.0278, -0.0278, 0.3975, -6.3086, -8.3302)" width="30.7" xlink:href="#sprite37"/>
-    <use height="51.8" transform="matrix(-0.3392, -0.2065, -0.2065, 0.3392, 0.7982, -12.9318)" width="41.8" xlink:href="#sprite43"/>
-    <use height="34.25" transform="matrix(-0.3987, 0.0, 0.0, 0.3987, 10.8109, -28.167)" width="46.3" xlink:href="#sprite47"/>
-    <use height="45.0" transform="matrix(-0.288, -0.2735, -0.175, 0.1843, 1.3559, -17.0016)" width="29.7" xlink:href="#sprite52"/>
-    <use height="44.05" transform="matrix(-0.3453, -0.1994, -0.2137, 0.337, 16.0614, -21.3347)" width="67.05" xlink:href="#sprite57"/>
-    <use height="44.2" transform="matrix(-0.3453, -0.1994, -0.1994, 0.3453, 21.4743, -28.5932)" width="79.15" xlink:href="#sprite63"/>
-    <use height="115.65" transform="matrix(-0.3326, -0.0539, -0.0539, 0.3326, 33.3807, -61.3805)" width="108.25" xlink:href="#sprite70"/>
-    <use height="26.45" transform="matrix(-0.3719, -0.1423, -0.1423, 0.3719, -10.6896, -30.5472)" width="23.2" xlink:href="#sprite83"/>
-    <use height="30.75" transform="matrix(0.0, -0.3987, -0.3987, 0.0, 1.0996, -26.6163)" width="40.3" xlink:href="#sprite87"/>
-    <use height="48.0" transform="matrix(-0.0908, -0.3876, -0.3876, 0.0908, 10.2782, -27.4914)" width="56.75" xlink:href="#sprite91"/>
-    <use height="61.05" transform="matrix(-0.1994, -0.3453, -0.3453, 0.1994, 3.4163, -33.5492)" width="64.0" xlink:href="#sprite95"/>
+    <use height="52.5" transform="matrix(-0.3932, 0.0451, 0.0282, 0.246, 24.7446, -19.0649)" width="53.85" xlink:href="#sprite26"/>
+    <use height="43.1" transform="matrix(-0.1415, 0.3682, 0.3682, 0.1415, 3.3393, -27.3589)" width="31.35" xlink:href="#sprite31"/>
+    <use height="40.55" transform="matrix(-0.3973, -0.0262, -0.0262, 0.3973, -6.3398, -8.4092)" width="30.7" xlink:href="#sprite37"/>
+    <use height="51.8" transform="matrix(-0.3421, -0.1983, -0.1983, 0.3421, 0.7676, -13.1079)" width="41.8" xlink:href="#sprite43"/>
+    <use height="34.25" transform="matrix(-0.3987, 0.0, 0.0, 0.3987, 10.8109, -28.367)" width="46.3" xlink:href="#sprite47"/>
+    <use height="45.0" transform="matrix(-0.2908, -0.2676, -0.1779, 0.1933, 1.6502, -17.4523)" width="29.7" xlink:href="#sprite52"/>
+    <use height="44.05" transform="matrix(-0.3445, -0.1975, -0.2124, 0.3357, 16.2713, -21.6276)" width="67.05" xlink:href="#sprite57"/>
+    <use height="44.2" transform="matrix(-0.353, -0.2024, -0.2024, 0.353, 22.0242, -28.8338)" width="79.15" xlink:href="#sprite63"/>
+    <use height="115.65" transform="matrix(-0.3322, -0.0527, -0.0527, 0.3322, 32.7943, -62.4238)" width="108.25" xlink:href="#sprite70"/>
+    <use height="26.45" transform="matrix(-0.366, -0.1522, -0.1522, 0.366, -10.7848, -30.1744)" width="23.2" xlink:href="#sprite83"/>
+    <use height="30.75" transform="matrix(-0.0316, -0.3969, -0.3969, 0.0316, 1.4229, -27.0604)" width="40.3" xlink:href="#sprite87"/>
+    <use height="48.0" transform="matrix(-0.1163, -0.3789, -0.3789, 0.1163, 10.4272, -28.6013)" width="56.75" xlink:href="#sprite91"/>
+    <use height="61.05" transform="matrix(-0.1853, -0.3507, -0.3507, 0.1853, 3.3425, -32.4528)" width="64.0" xlink:href="#sprite95"/>
   </g>
   <defs>
     <g id="sprite0" transform="matrix(1.0, 0.0, 0.0, 1.0, 32.0, 22.45)">
@@ -446,4 +446,4 @@ ${body ? '' : ''}<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="66px" w
 
 `);
 
-export default maleBruteIddle1;
+export default maleBruteIddle15;
