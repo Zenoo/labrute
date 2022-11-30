@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.16.0](https://github.com/Zenoo/labrute/compare/v1.15.3...v1.16.0) (2022-11-30)
+
+
+### Refactoring
+
+* Added id and deleted columns to brutes. Fixes [#91](https://github.com/Zenoo/labrute/issues/91). Fixes [#90](https://github.com/Zenoo/labrute/issues/90) ([da0f52d](https://github.com/Zenoo/labrute/commit/da0f52dc4a9036ca055f23e579917df873285808))
+
+
+### Bug fix
+
+* Male brute iddle animation with skin color. [#70](https://github.com/Zenoo/labrute/issues/70) ([46bdd0e](https://github.com/Zenoo/labrute/commit/46bdd0e5f1bf1ec06e8fb691b254ac44aadf0d5b))
+
+
+### Feature
+
+* Added a daily fight limit. Fixes [#94](https://github.com/Zenoo/labrute/issues/94) ([51bc8a4](https://github.com/Zenoo/labrute/commit/51bc8a4c508c7949f6ad0ff95467e6bd6683e425))
+* Generate spritesheet on brute creation. [#85](https://github.com/Zenoo/labrute/issues/85) ([18a03aa](https://github.com/Zenoo/labrute/commit/18a03aa580b83d904babd9edb4cca4b72222f124))
+
 ### [1.15.3](https://github.com/Zenoo/labrute/compare/v1.15.2...v1.15.3) (2022-08-30)
 
 
