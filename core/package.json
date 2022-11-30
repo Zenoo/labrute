@@ -17,5 +17,8 @@
       "types": "./src/*.ts",
       "default": "./build/*.js"
     }
+  },
+  "dependencies": {
+    "moment": "^2.29.4"
   }
 }

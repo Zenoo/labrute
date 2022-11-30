@@ -1,3 +1,5 @@
+import moment from 'moment';
+import { FIGHTS_PER_DAY } from '../constants.js';
 import { Gender, Brute } from '../types.js';
 import createRandomBruteStats from './createRandomBruteStats.js';
 import getLevelUpChoices from './getLevelUpChoices.js';
@@ -22,6 +24,8 @@ const generateBrute = (level: number) => {
     master: '',
     victories: 0,
     pupils: 0,
+    lastFight: moment().format('DD/MM/YYYY'),
+    fightsLeft: FIGHTS_PER_DAY,
     ...createRandomBruteStats(),
   };
 

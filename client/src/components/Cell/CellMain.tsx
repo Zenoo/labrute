@@ -1,8 +1,11 @@
+import getXPNeeded from '@eternaltwin/labrute-core/brute/getXPNeeded';
+import getFightsLeft from '@eternaltwin/labrute-core/brute/getFightsLeft';
+import { FIGHTS_PER_DAY } from '@eternaltwin/labrute-core/constants';
 import { Brute, User } from '@eternaltwin/labrute-core/types';
 import getSacriPoints from '@eternaltwin/labrute-core/brute/getSacriPoints';
 import { Box, BoxProps, Stack } from '@mui/material';
 import { Moment } from 'moment';
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAlert } from '../../hooks/useAlert.js';
 import { useConfirm } from '../../hooks/useConfirm.js';
@@ -40,6 +43,8 @@ const CellMain = ({
   const { updateData } = useAuth();
   const navigate = useNavigate();
 
+  const xpNeededForNextLevel = useMemo(() => getXPNeeded(brute.data.level + 1), [brute]);
+
   // Sacrifice brute
   const confirmSacrifice = useCallback(() => {
     Confirm.open(t('sacrifice'), t('sacrificeConfirm', { points: getSacriPoints(brute.data.level) }), () => {
@@ -70,46 +75,48 @@ const CellMain = ({
         )}
       </Box>
       <BruteBodyAndStats brute={brute} sx={{ mb: 1 }} />
-      {/* {ownsBrute && (brute.data.xp < xpNeededForNextLevel ? (
-        TODO: Reuse this condition once alpha is over */}
-      {ownsBrute && (
-        <>
-          <Stack spacing={1} sx={{ alignItems: 'center', mt: 1 }}>
-            <Text bold sx={{ pl: 1 }}>{t('callToFight')}</Text>
-            <Link to={`/${brute.name}/arena`}>
-              <StyledButton
-                sx={{
-                  height: 72,
-                  width: 218,
-                }}
-                image={`/images/${language}/cell/arena.gif`}
-                imageHover={`/images/${language}/cell/arena-hover.gif`}
-                shadow={false}
-                contrast={false}
-              />
-            </Link>
-            <Text bold color="error">{t('fightsLeft', { value: 6 })}</Text>
-          </Stack>
-          <Link to={`/${brute.name}/level-up`}>
+      {ownsBrute && (brute.data.xp < xpNeededForNextLevel ? getFightsLeft(brute) > 0 ? (
+        <Stack spacing={1} sx={{ alignItems: 'center', mt: 1 }}>
+          <Text bold sx={{ pl: 1 }}>{t('callToFight')}</Text>
+          <Link to={`/${brute.name}/arena`}>
             <StyledButton
-              image="/images/button.gif"
-              imageHover="/images/button-hover.gif"
+              sx={{
+                height: 72,
+                width: 218,
+              }}
+              image={`/images/${language}/cell/arena.gif`}
+              imageHover={`/images/${language}/cell/arena-hover.gif`}
               shadow={false}
               contrast={false}
-              shift="8px"
-              sx={{
-                fontVariant: 'small-caps',
-                m: '0 auto',
-                mt: 2,
-                height: 56,
-                width: 246,
-              }}
-            >
-              {t('levelUp')}
-            </StyledButton>
+            />
           </Link>
-        </>
-      )}
+          <Text bold color="error">{t('fightsLeft', { value: getFightsLeft(brute) })}</Text>
+        </Stack>
+      ) : (
+        <Box sx={{ textAlign: 'center' }}>
+          <Text bold color="error">{t('bruteIsResting', { brute: brute.name })}</Text>
+          <Text color="error">{t('newFightsTomorrow', { amount: FIGHTS_PER_DAY })}</Text>
+        </Box>
+      ) : (
+        <Link to={`/${brute.name}/level-up`}>
+          <StyledButton
+            image="/images/button.gif"
+            imageHover="/images/button-hover.gif"
+            shadow={false}
+            contrast={false}
+            shift="8px"
+            sx={{
+              fontVariant: 'small-caps',
+              m: '0 auto',
+              mt: 2,
+              height: 56,
+              width: 246,
+            }}
+          >
+            {t('levelUp')}
+          </StyledButton>
+        </Link>
+      ))}
       {/* TOURNAMENT */}
       {!smallScreen && (
         <CellTournament

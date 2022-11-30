@@ -10,6 +10,11 @@ const getSprite = (
   fighter: AnimationFighter,
   animation: Animation,
 ) => {
+  // Do nothing if the game was stopped
+  if (!app.loader) {
+    return;
+  }
+
   // Get sprite
   const newAnimation = setupSprite(
     app,

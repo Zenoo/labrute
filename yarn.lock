@@ -2072,6 +2072,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@eternaltwin/labrute-core@workspace:core"
   dependencies:
+    moment: ^2.29.4
     typescript: ^4.7.4
   languageName: unknown
   linkType: soft
@@ -2098,6 +2099,7 @@ __metadata:
     eslint-plugin-node: ^11.1.0
     eslint-plugin-tsdoc: ^0.2.16
     express: ^4.18.1
+    moment: ^2.29.4
     pg: ^8.7.3
     pg-format: ^1.0.4
     semver-sort: ^1.0.0

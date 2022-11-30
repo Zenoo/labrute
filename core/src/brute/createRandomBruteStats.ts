@@ -19,7 +19,7 @@ export const perkOdds: Perk[] = [
   { name: 'weapon', odds: WEAPONS_TOTAL_ODDS },
 ];
 
-export type RandomBruteStats = Omit<Brute['data'], 'gender' | 'body' | 'colors' | 'master' | 'victories' | 'pupils' | 'user'>;
+export type RandomBruteStats = Omit<Brute['data'], 'gender' | 'body' | 'colors' | 'master' | 'victories' | 'pupils' | 'user' | 'lastFight' | 'fightsLeft'>;
 
 const createRandomBruteStats = (): RandomBruteStats => {
   let brute: RandomBruteStats = {

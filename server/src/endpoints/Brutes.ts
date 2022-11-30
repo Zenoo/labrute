@@ -2,13 +2,14 @@ import createRandomBruteStats from '@eternaltwin/labrute-core/brute/createRandom
 import getLevelUpChoices from '@eternaltwin/labrute-core/brute/getLevelUpChoices';
 import updateBruteData from '@eternaltwin/labrute-core/brute/updateBruteData';
 import getSacriPoints from '@eternaltwin/labrute-core/brute/getSacriPoints';
-import { ARENA_OPPONENTS_COUNT, ARENA_OPPONENTS_MAX_GAP } from '@eternaltwin/labrute-core/constants';
+import { ARENA_OPPONENTS_COUNT, ARENA_OPPONENTS_MAX_GAP, FIGHTS_PER_DAY } from '@eternaltwin/labrute-core/constants';
 import {
   BodyColors,
   BodyParts,
   Brute, DestinyChoice, Gender,
 } from '@eternaltwin/labrute-core/types';
 import { Request, Response } from 'express';
+import moment from 'moment';
 import DB from '../db/client.js';
 import auth from '../utils/auth.js';
 import sendError from '../utils/sendError.js';
@@ -115,6 +116,8 @@ const Brutes = {
         master: req.body.master || '',
         victories: 0,
         pupils: 0,
+        lastFight: moment().format('DD/MM/YYYY'),
+        fightsLeft: FIGHTS_PER_DAY,
       };
 
       // Create brute
@@ -168,7 +171,7 @@ const Brutes = {
 
       // Get brute
       const { rows: { 0: brute } } = await client.query<Brute>(
-        'select id, data, name from brutes where name = $1 and data ->> \'user\' = $2 and deleted = false',
+        'select id, data, destiny_path, name from brutes where name = $1 and data ->> \'user\' = $2 and deleted = false',
         [req.params.name, user.id],
       );
       if (!brute) {

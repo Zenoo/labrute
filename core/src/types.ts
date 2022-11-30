@@ -156,6 +156,8 @@ export interface Brute {
       name: string;
     },
     tournament?: string;
+    lastFight: string;
+    fightsLeft: number;
   };
 }
 

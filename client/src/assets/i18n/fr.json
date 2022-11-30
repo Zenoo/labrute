@@ -289,6 +289,8 @@
   "in": "en",
   "choiceBackground": "Arrière-plan du choix",
   
+  "bruteIsResting": "{{brute}} se repose.",
+  "newFightsTomorrow": "{{amount}} nouveaux combats dès demain !",
   "youHaveXFightsLeft": "Il te reste {{value}} combats aujourd'hui !",
   "selectedOpponents": "Bienvenue dans l'arène ! J'ai sélectionné quelques adversaire à ta taille. Choisis-en un, et on commence le combat !",
   "backToCell": "Retour en cellule",

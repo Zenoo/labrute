@@ -47,6 +47,10 @@ const setupFight: (
   loader,
   resources,
 ) => {
+  if (!loader) {
+    return;
+  }
+
   // Spritesheet
   const { '/images/game/misc.json': { spritesheet: miscSheet } } = resources;
 

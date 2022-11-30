@@ -82,7 +82,17 @@ DELETE FROM destiny_choices WHERE brute IS NULL;
 -- Add primary key to destiny_choices table
 ALTER TABLE destiny_choices ADD CONSTRAINT destiny_choices_pkey PRIMARY KEY (brute, path);
 
+-----------------
+-- ADD lastFight and fightsLeft to data field
+-----------------
+UPDATE brutes SET data = data || jsonb_build_object('lastFight', '01/12/2022', 'fightsLeft', 6);
+
 -- DOWN --
+
+-----------------
+-- REMOVE lastFight and fightsLeft from data field
+-----------------
+UPDATE brutes SET data = data - 'lastFight' - 'fightsLeft';
 
 -----------------
 -- BRUTE ID IN DESTINY_CHOICES

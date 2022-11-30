@@ -3,6 +3,8 @@ import {
 } from '@eternaltwin/labrute-core/types';
 import { Request, Response } from 'express';
 import randomBetween from '@eternaltwin/labrute-core/utils/randomBetween';
+import getFightsLeft from '@eternaltwin/labrute-core/brute/getFightsLeft';
+import moment from 'moment';
 import DB from '../db/client.js';
 import auth from '../utils/auth.js';
 import {
@@ -65,6 +67,12 @@ const Fights = {
       if (!brute2) {
         await client.end();
         throw new Error('Brute 2 not found');
+      }
+
+      // Cancel if brute1 has no fights left
+      if (getFightsLeft(brute1) <= 0) {
+        await client.end();
+        throw new Error('No fights left');
       }
 
       // Get brute backups
@@ -222,11 +230,19 @@ const Fights = {
         ? levelDifference > 10 ? 0 : levelDifference > 2 ? 1 : 2
         : levelDifference > 10 ? 0 : 1;
 
-      // Update brute XP
+      // Update brute XP, last fight and fights left
       await client.query(
-        `UPDATE brutes SET data =
-          data || ('{"xp": ' || ((data->>'xp')::int + $1) || '}')::jsonb WHERE name = $2 AND deleted = false`,
-        [xpGained, brute1.name],
+        `UPDATE brutes
+          SET data = data || ('{"xp": ' || ((data->>'xp')::int + $1) || ',
+            "lastFight": "' || $2 || '",
+            "fightsLeft": ' || $3 || '}')::jsonb
+          WHERE name = $4 AND deleted = false`,
+        [
+          xpGained,
+          moment().format('DD/MM/YYYY'),
+          getFightsLeft(brute1) - 1,
+          brute1.name,
+        ],
       );
 
       // Add fighter log

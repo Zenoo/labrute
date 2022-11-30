@@ -1,4 +1,5 @@
 import { Brute } from '@eternaltwin/labrute-core/types';
+import getFightsLeft from '@eternaltwin/labrute-core/brute/getFightsLeft';
 import { Box, Button, Grid, Paper, useMediaQuery, useTheme } from '@mui/material';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -32,7 +33,7 @@ const ArenaView = () => {
   const [search, setSearch] = useState('');
 
   const xpNeededForNextLevel = useMemo(() => brute
-  && getXPNeeded(brute.data.level + 1), [brute]);
+    && getXPNeeded(brute.data.level + 1), [brute]);
 
   // Fetch random opponents
   useEffect(() => {
@@ -41,11 +42,15 @@ const ArenaView = () => {
     if (!brute) return cleanup;
 
     // Redirect to cell if XP is too much
-    // TODO: Reactivate once alpha is over
-    // if (xpNeededForNextLevel && brute.data.xp >= xpNeededForNextLevel) {
-    //   navigate(`/${brute.name}/cell`);
-    //   return cleanup;
-    // }
+    if (xpNeededForNextLevel && brute.data.xp >= xpNeededForNextLevel) {
+      navigate(`/${brute.name}/cell`);
+      return cleanup;
+    }
+
+    // Redirect to cell if brute doesn't have enough fights left
+    if (getFightsLeft(brute) <= 0) {
+      navigate(`/${brute.name}/cell`);
+    }
 
     Server.Brute.getOpponents(brute.name, brute.data.level).then((data) => {
       if (isSubscribed) {
