@@ -22,7 +22,7 @@ const Brutes = {
       const client = await DB.connect();
       await auth(client, req);
 
-      const result = await client.query<Brute>('select data, name from brutes where deleted = false');
+      const result = await client.query<Brute>('select id, data, name from brutes where deleted = false');
       const { rows } = result;
 
       await client.end();

@@ -23,8 +23,8 @@ const VersusView = () => {
   const { user } = useAuth();
   const smallScreen = useMediaQuery('(max-width: 935px)');
 
-  const { data: brute } = useStateAsync(null, Server.Brute.get, bruteName);
-  const { data: opponent } = useStateAsync(null, Server.Brute.get, opponentName);
+  const { data: brute } = useStateAsync(null, Server.Brute.get, bruteName || '');
+  const { data: opponent } = useStateAsync(null, Server.Brute.get, opponentName || '');
 
   const xpNeededForNextLevel = useMemo(() => brute
   && getXPNeeded(brute.data.level + 1), [brute]);

@@ -1,5 +1,6 @@
 import React from 'react';
 import Main from './layouts/Main.js';
+import AnchorTestView from './views/AnchorTestView.js';
 import ArenaView from './views/ArenaView.js';
 import CellView from './views/CellView.js';
 import FightView from './views/FightView.js';
@@ -8,6 +9,7 @@ import LevelUpView from './views/LevelUpView.js';
 import VersusView from './views/VersusView.js';
 
 const routes = [
+  { path: 'anchor-test', element: <AnchorTestView /> },
   {
     path: '/',
     element: <Main />,

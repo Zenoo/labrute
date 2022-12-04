@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 const useStateAsync = <State, Params>(
   initialState: State,
   getter: (params: Params) => Promise<State>,
-  getterParams: Params | null | undefined,
+  getterParams: Params,
 ): {
   data: State;
   reload: () => void;
@@ -14,29 +14,25 @@ const useStateAsync = <State, Params>(
 
   useEffect(() => {
     let isSubscribed = true;
-    if (getterParams !== null && typeof getterParams !== 'undefined') {
-      getter(getterParams).then((data) => {
-        if (isSubscribed) {
-          setState(data);
-        }
-      }).catch((error) => {
-        console.error(error);
-      });
-    }
+    getter(getterParams).then((data) => {
+      if (isSubscribed) {
+        setState(data);
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
     return () => { isSubscribed = false; };
   }, [getter, getterParams]);
 
   const reload = useCallback(() => {
     let isSubscribed = true;
-    if (getterParams !== null && typeof getterParams !== 'undefined') {
-      getter(getterParams).then((data) => {
-        if (isSubscribed) {
-          setState(data);
-        }
-      }).catch((error) => {
-        console.error(error);
-      });
-    }
+    getter(getterParams).then((data) => {
+      if (isSubscribed) {
+        setState(data);
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
     return () => { isSubscribed = false; };
   }, [getter, getterParams]);
 

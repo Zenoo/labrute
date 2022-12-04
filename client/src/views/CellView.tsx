@@ -36,7 +36,7 @@ const CellView = () => {
   const nextTournament = moment().add(1, 'day');
 
   const [brute, setBrute] = useState<Brute | null>(null);
-  const { data: logs } = useStateAsync([], Server.Log.list, bruteName);
+  const { data: logs } = useStateAsync([], Server.Log.list, bruteName || '');
 
   // Fetch brute
   useEffect(() => {

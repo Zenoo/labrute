@@ -65,7 +65,8 @@ export type WeaponName = 'fan' | 'keyboard' | 'knife'
 
 export type WeaponType = 'fast' | 'sharp' | 'heavy' | 'long' | 'thrown' | 'blunt';
 
-export type WeaponAnimation = 'fist' | 'slash' | 'estoc' | 'whip';
+export const weaponAnimationList = ['fist', 'slash', 'estoc', 'whip'] as const;
+export type WeaponAnimation = typeof weaponAnimationList[number];
 
 export interface Weapon {
   name: WeaponName;
@@ -489,12 +490,14 @@ export interface Fight {
 }
 
 export type AnimationModel = 'bear' | 'dog' | 'panther' | 'male-brute' | 'female-brute';
-export type Animation = 'arrive-end' | 'arrive-start' | 'attack' | 'block'
-  | 'death' | 'drink' | 'eat' | 'equip' | 'evade' | 'grab' | 'grabbed'
-  | 'hit' | 'hit-0' | 'hit-1' | 'hit-2' | 'hit-3' | 'iddle' | 'launch'
-  | 'monk-loop' | 'monk-start' | 'prepare-throw' | 'run' | 'slash'
-  | 'stolen' | 'steal' | 'strengthen' | 'throw' | 'train' | 'trapped-loop'
-  | 'trapped-start' | 'trash' | 'win' | WeaponAnimation;
+export const animationList = [
+  'arrive-end', 'arrive-start', 'attack', 'block', 'death', 'drink', 'eat',
+  'equip', 'evade', 'grab', 'grabbed', 'hit', 'hit-0', 'hit-1', 'hit-2', 'hit-3',
+  'iddle', 'launch', 'monk-loop', 'monk-start', 'prepare-throw', 'run', 'slash',
+  'stolen', 'steal', 'strengthen', 'throw', 'train', 'trapped-loop', 'trapped-start',
+  'trash', 'win', ...weaponAnimationList,
+] as const;
+export type Animation = typeof animationList[number];
 
 export interface FrameProps {
   colors: BodyColors,

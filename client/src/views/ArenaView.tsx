@@ -28,7 +28,7 @@ const ArenaView = () => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
 
-  const { data: brute } = useStateAsync(null, Server.Brute.get, bruteName);
+  const { data: brute } = useStateAsync(null, Server.Brute.get, bruteName || '');
   const [opponents, setOpponents] = useState<Brute[]>([]);
   const [search, setSearch] = useState('');
 
