@@ -1,8 +1,8 @@
 import SpriteSmith from 'spritesmith';
 import {
-  Animation, Brute, Gender,
+  Animation, animationList, Brute, Gender,
 } from '@eternaltwin/labrute-core/types';
-import { ANIMATIONS } from '@eternaltwin/labrute-core/constants';
+import { ANIMATION_ANCHORS } from '@eternaltwin/labrute-core/constants';
 import { FRAMES } from '../animations/getFrame.js';
 
 interface Frame {
@@ -20,7 +20,7 @@ interface Frame {
   },
 }
 
-type FrameFileName = `${Animation}-${Gender}-${number}.png`;
+type FrameFileName = `${Animation}_${Gender}_${number}.png`;
 
 export interface SpritesheetJson {
   [frame: FrameFileName]: Frame,
@@ -41,10 +41,10 @@ export interface SpritesheetJson {
 
 const generateAnimationArray = (animation: Animation, gender: Gender) => Array.from(
   { length: FRAMES[gender][animation].length },
-  (v, k) => `${animation}-${gender}-${k + 1}.png`,
+  (v, k) => `${animation}_${gender}_${k + 1}.png`,
 );
 
-const generateAnimations = (gender: Gender) => ANIMATIONS
+const generateAnimations = (gender: Gender) => animationList
   .reduce<Record<Animation, string[]>>((acc, animation) => {
     acc[animation] = generateAnimationArray(animation, gender);
 
@@ -57,6 +57,7 @@ const formatSpritesheet = (
 ): SpritesheetJson => ({
   ...Object.entries(spritesheet.coordinates)
     .reduce<Record<FrameFileName, Frame>>((acc, [frame, data]) => {
+      const animationName = frame.split('_')[0] as Animation;
       acc[frame as FrameFileName] = {
         frame: {
           x: data.x,
@@ -67,8 +68,8 @@ const formatSpritesheet = (
         rotated: false,
         trimmed: false,
         anchor: {
-          x: 0.523077,
-          y: 0.897059,
+          x: ANIMATION_ANCHORS[animationName][0],
+          y: ANIMATION_ANCHORS[animationName][1],
         },
       };
 

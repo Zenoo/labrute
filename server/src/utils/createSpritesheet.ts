@@ -35,7 +35,7 @@ const createSpritesheet = async (brute: Brute) => {
       // Create vinyl
       const frame = new Vynil({
         contents: png,
-        path: `${animation}-${model}-${j + 1}.png`,
+        path: `${animation}_${model}_${j + 1}.png`,
       });
 
       frames.push(frame);

@@ -57,7 +57,7 @@ const AnchorTestView = () => {
       </FormControl>
       <TextField
         label="Frame"
-        inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+        type="number"
         value={frame}
         onChange={changeFrame}
       />
