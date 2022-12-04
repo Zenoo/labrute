@@ -29,6 +29,7 @@ const Fights = {
       );
 
       if (!fight) {
+        await client.end();
         throw new Error('Fight not found');
       }
 
@@ -138,6 +139,7 @@ const Fights = {
       const petFighters = fightData.fighters.filter(({ type }) => type === 'pet');
 
       if (mainFighters.length !== 2) {
+        await client.end();
         throw new Error('Invalid number of fighters');
       }
 
@@ -170,6 +172,7 @@ const Fights = {
       }
 
       if (!fightData.loser) {
+        await client.end();
         throw new Error('Fight not finished');
       }
 
@@ -181,6 +184,7 @@ const Fights = {
         && !fighter.master);
 
       if (!winner) {
+        await client.end();
         throw new Error('No winner found');
       }
 

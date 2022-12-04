@@ -27,6 +27,7 @@ const Spritesheets = {
       );
 
       if (!brute) {
+        await client.end();
         throw new Error('Brute not found');
       }
 
@@ -51,6 +52,7 @@ const Spritesheets = {
       );
 
       if (!brute) {
+        await client.end();
         throw new Error('Brute not found');
       }
 
@@ -78,6 +80,7 @@ const Spritesheets = {
       );
 
       if (!brute) {
+        await client.end();
         throw new Error('Brute not found');
       }
 
@@ -147,6 +150,7 @@ const Spritesheets = {
     );
 
     if (!brute) {
+      await client.end();
       throw new Error('Brute not found');
     }
 
@@ -164,6 +168,7 @@ const Spritesheets = {
     const frameGetter = getFrame(animation, model, +frame - 1);
 
     if (!frameGetter) {
+      await client.end();
       throw new Error(`No frame for ${animation} ${model} ${frame}`);
     }
 

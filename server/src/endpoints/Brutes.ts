@@ -96,6 +96,7 @@ const Brutes = {
       // Refuse if user has too many brutes and not enough points
       if (bruteCount >= user.brute_limit) {
         if (user.sacrifice_points < 500) {
+          await client.end();
           throw new Error('You have reached your brute limit. You need 500 Sacripoints to unlock a new brute.');
         } else {
           // Remove 500 sacrifice points
