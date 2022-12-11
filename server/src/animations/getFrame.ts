@@ -126,6 +126,14 @@ import maleBruteAttack6 from './male-brute/attack/6.js';
 import maleBruteAttack7 from './male-brute/attack/7.js';
 import maleBruteAttack8 from './male-brute/attack/8.js';
 import maleBruteAttack9 from './male-brute/attack/9.js';
+import maleBruteArriveEnd1 from './male-brute/arrive-end/1.js';
+import maleBruteArriveStart1 from './male-brute/arrive-start/1.js';
+import maleBruteArriveEnd2 from './male-brute/arrive-end/2.js';
+import maleBruteArriveEnd3 from './male-brute/arrive-end/3.js';
+import maleBruteArriveEnd4 from './male-brute/arrive-end/4.js';
+import maleBruteArriveEnd5 from './male-brute/arrive-end/5.js';
+import maleBruteArriveEnd6 from './male-brute/arrive-end/6.js';
+import maleBruteArriveEnd7 from './male-brute/arrive-end/7.js';
 
 export const FRAMES: Record<
   'male' | 'female',
@@ -136,8 +144,12 @@ export const FRAMES: Record<
   >
 > = {
   male: {
-    'arrive-end': [],
-    'arrive-start': [],
+    'arrive-end': [
+      maleBruteArriveEnd1, maleBruteArriveEnd2, maleBruteArriveEnd3,
+      maleBruteArriveEnd4, maleBruteArriveEnd5, maleBruteArriveEnd6,
+      maleBruteArriveEnd7,
+    ],
+    'arrive-start': [maleBruteArriveStart1],
     attack: [
       maleBruteAttack1, maleBruteAttack2, maleBruteAttack3,
       maleBruteAttack4, maleBruteAttack5, maleBruteAttack6,
