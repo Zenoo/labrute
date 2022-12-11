@@ -17,7 +17,7 @@ export const BARE_HANDS_TEMPO = 1.2;
 export const ANIMATION_ANCHORS: Record<Animation, [number, number]> = {
   'arrive-end': [0.5, 0.5],
   'arrive-start': [0.5, 0.5],
-  attack: [0.5, 0.5],
+  attack: [0.348, 0.7338],
   block: [0.5, 0.5],
   death: [0.5, 0.5],
   drink: [0.5, 0.5],

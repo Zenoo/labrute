@@ -110,6 +110,22 @@ import maleBruteMonkLoop6 from './male-brute/monk-loop/6.js';
 import maleBruteMonkLoop7 from './male-brute/monk-loop/7.js';
 import maleBruteMonkLoop8 from './male-brute/monk-loop/8.js';
 import maleBruteMonkLoop9 from './male-brute/monk-loop/9.js';
+import maleBruteAttack1 from './male-brute/attack/1.js';
+import maleBruteAttack10 from './male-brute/attack/10.js';
+import maleBruteAttack11 from './male-brute/attack/11.js';
+import maleBruteAttack12 from './male-brute/attack/12.js';
+import maleBruteAttack13 from './male-brute/attack/13.js';
+import maleBruteAttack14 from './male-brute/attack/14.js';
+import maleBruteAttack15 from './male-brute/attack/15.js';
+import maleBruteAttack16 from './male-brute/attack/16.js';
+import maleBruteAttack2 from './male-brute/attack/2.js';
+import maleBruteAttack3 from './male-brute/attack/3.js';
+import maleBruteAttack4 from './male-brute/attack/4.js';
+import maleBruteAttack5 from './male-brute/attack/5.js';
+import maleBruteAttack6 from './male-brute/attack/6.js';
+import maleBruteAttack7 from './male-brute/attack/7.js';
+import maleBruteAttack8 from './male-brute/attack/8.js';
+import maleBruteAttack9 from './male-brute/attack/9.js';
 
 export const FRAMES: Record<
   'male' | 'female',
@@ -122,7 +138,14 @@ export const FRAMES: Record<
   male: {
     'arrive-end': [],
     'arrive-start': [],
-    attack: [],
+    attack: [
+      maleBruteAttack1, maleBruteAttack2, maleBruteAttack3,
+      maleBruteAttack4, maleBruteAttack5, maleBruteAttack6,
+      maleBruteAttack7, maleBruteAttack8, maleBruteAttack9,
+      maleBruteAttack10, maleBruteAttack11, maleBruteAttack12,
+      maleBruteAttack13, maleBruteAttack14, maleBruteAttack15,
+      maleBruteAttack16,
+    ],
     block: [],
     death: [],
     drink: [],
