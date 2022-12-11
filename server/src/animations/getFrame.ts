@@ -47,6 +47,69 @@ import maleBruteRun4 from './male-brute/run/4.js';
 import maleBruteRun5 from './male-brute/run/5.js';
 import maleBruteRun6 from './male-brute/run/6.js';
 import maleBruteRun7 from './male-brute/run/7.js';
+import maleBruteMonkStart1 from './male-brute/monk-start/1.js';
+import maleBruteMonkStart2 from './male-brute/monk-start/2.js';
+import maleBruteMonkStart3 from './male-brute/monk-start/3.js';
+import maleBruteMonkStart4 from './male-brute/monk-start/4.js';
+import maleBruteMonkStart5 from './male-brute/monk-start/5.js';
+import maleBruteMonkStart6 from './male-brute/monk-start/6.js';
+import maleBruteMonkLoop1 from './male-brute/monk-loop/1.js';
+import maleBruteMonkLoop2 from './male-brute/monk-loop/2.js';
+import maleBruteMonkLoop10 from './male-brute/monk-loop/10.js';
+import maleBruteMonkLoop11 from './male-brute/monk-loop/11.js';
+import maleBruteMonkLoop12 from './male-brute/monk-loop/12.js';
+import maleBruteMonkLoop13 from './male-brute/monk-loop/13.js';
+import maleBruteMonkLoop14 from './male-brute/monk-loop/14.js';
+import maleBruteMonkLoop15 from './male-brute/monk-loop/15.js';
+import maleBruteMonkLoop16 from './male-brute/monk-loop/16.js';
+import maleBruteMonkLoop17 from './male-brute/monk-loop/17.js';
+import maleBruteMonkLoop18 from './male-brute/monk-loop/18.js';
+import maleBruteMonkLoop19 from './male-brute/monk-loop/19.js';
+import maleBruteMonkLoop20 from './male-brute/monk-loop/20.js';
+import maleBruteMonkLoop21 from './male-brute/monk-loop/21.js';
+import maleBruteMonkLoop22 from './male-brute/monk-loop/22.js';
+import maleBruteMonkLoop23 from './male-brute/monk-loop/23.js';
+import maleBruteMonkLoop24 from './male-brute/monk-loop/24.js';
+import maleBruteMonkLoop25 from './male-brute/monk-loop/25.js';
+import maleBruteMonkLoop26 from './male-brute/monk-loop/26.js';
+import maleBruteMonkLoop27 from './male-brute/monk-loop/27.js';
+import maleBruteMonkLoop28 from './male-brute/monk-loop/28.js';
+import maleBruteMonkLoop29 from './male-brute/monk-loop/29.js';
+import maleBruteMonkLoop3 from './male-brute/monk-loop/3.js';
+import maleBruteMonkLoop30 from './male-brute/monk-loop/30.js';
+import maleBruteMonkLoop31 from './male-brute/monk-loop/31.js';
+import maleBruteMonkLoop32 from './male-brute/monk-loop/32.js';
+import maleBruteMonkLoop33 from './male-brute/monk-loop/33.js';
+import maleBruteMonkLoop34 from './male-brute/monk-loop/34.js';
+import maleBruteMonkLoop35 from './male-brute/monk-loop/35.js';
+import maleBruteMonkLoop36 from './male-brute/monk-loop/36.js';
+import maleBruteMonkLoop37 from './male-brute/monk-loop/37.js';
+import maleBruteMonkLoop38 from './male-brute/monk-loop/38.js';
+import maleBruteMonkLoop39 from './male-brute/monk-loop/39.js';
+import maleBruteMonkLoop4 from './male-brute/monk-loop/4.js';
+import maleBruteMonkLoop40 from './male-brute/monk-loop/40.js';
+import maleBruteMonkLoop41 from './male-brute/monk-loop/41.js';
+import maleBruteMonkLoop42 from './male-brute/monk-loop/42.js';
+import maleBruteMonkLoop43 from './male-brute/monk-loop/43.js';
+import maleBruteMonkLoop44 from './male-brute/monk-loop/44.js';
+import maleBruteMonkLoop45 from './male-brute/monk-loop/45.js';
+import maleBruteMonkLoop46 from './male-brute/monk-loop/46.js';
+import maleBruteMonkLoop47 from './male-brute/monk-loop/47.js';
+import maleBruteMonkLoop48 from './male-brute/monk-loop/48.js';
+import maleBruteMonkLoop49 from './male-brute/monk-loop/49.js';
+import maleBruteMonkLoop5 from './male-brute/monk-loop/5.js';
+import maleBruteMonkLoop50 from './male-brute/monk-loop/50.js';
+import maleBruteMonkLoop51 from './male-brute/monk-loop/51.js';
+import maleBruteMonkLoop52 from './male-brute/monk-loop/52.js';
+import maleBruteMonkLoop53 from './male-brute/monk-loop/53.js';
+import maleBruteMonkLoop54 from './male-brute/monk-loop/54.js';
+import maleBruteMonkLoop55 from './male-brute/monk-loop/55.js';
+import maleBruteMonkLoop56 from './male-brute/monk-loop/56.js';
+import maleBruteMonkLoop57 from './male-brute/monk-loop/57.js';
+import maleBruteMonkLoop6 from './male-brute/monk-loop/6.js';
+import maleBruteMonkLoop7 from './male-brute/monk-loop/7.js';
+import maleBruteMonkLoop8 from './male-brute/monk-loop/8.js';
+import maleBruteMonkLoop9 from './male-brute/monk-loop/9.js';
 
 export const FRAMES: Record<
   'male' | 'female',
@@ -89,8 +152,31 @@ export const FRAMES: Record<
       maleBruteIddle37, maleBruteIddle38, maleBruteIddle39,
     ],
     launch: [],
-    'monk-loop': [],
-    'monk-start': [],
+    'monk-loop': [
+      maleBruteMonkLoop1, maleBruteMonkLoop2, maleBruteMonkLoop3,
+      maleBruteMonkLoop4, maleBruteMonkLoop5, maleBruteMonkLoop6,
+      maleBruteMonkLoop7, maleBruteMonkLoop8, maleBruteMonkLoop9,
+      maleBruteMonkLoop10, maleBruteMonkLoop11, maleBruteMonkLoop12,
+      maleBruteMonkLoop13, maleBruteMonkLoop14, maleBruteMonkLoop15,
+      maleBruteMonkLoop16, maleBruteMonkLoop17, maleBruteMonkLoop18,
+      maleBruteMonkLoop19, maleBruteMonkLoop20, maleBruteMonkLoop21,
+      maleBruteMonkLoop22, maleBruteMonkLoop23, maleBruteMonkLoop24,
+      maleBruteMonkLoop25, maleBruteMonkLoop26, maleBruteMonkLoop27,
+      maleBruteMonkLoop28, maleBruteMonkLoop29, maleBruteMonkLoop30,
+      maleBruteMonkLoop31, maleBruteMonkLoop32, maleBruteMonkLoop33,
+      maleBruteMonkLoop34, maleBruteMonkLoop35, maleBruteMonkLoop36,
+      maleBruteMonkLoop37, maleBruteMonkLoop38, maleBruteMonkLoop39,
+      maleBruteMonkLoop40, maleBruteMonkLoop41, maleBruteMonkLoop42,
+      maleBruteMonkLoop43, maleBruteMonkLoop44, maleBruteMonkLoop45,
+      maleBruteMonkLoop46, maleBruteMonkLoop47, maleBruteMonkLoop48,
+      maleBruteMonkLoop49, maleBruteMonkLoop50, maleBruteMonkLoop51,
+      maleBruteMonkLoop52, maleBruteMonkLoop53, maleBruteMonkLoop54,
+      maleBruteMonkLoop55, maleBruteMonkLoop56, maleBruteMonkLoop57,
+    ],
+    'monk-start': [
+      maleBruteMonkStart1, maleBruteMonkStart2, maleBruteMonkStart3,
+      maleBruteMonkStart4, maleBruteMonkStart5, maleBruteMonkStart6,
+    ],
     'prepare-throw': [],
     run: [
       maleBruteRun1, maleBruteRun2, maleBruteRun3,
