@@ -20,14 +20,15 @@ const oauthClient = new RfcOauthClient({
 });
 
 const OAuth = {
-  redirect: (req: Request, res: Response) => {
+  redirect: async (req: Request, res: Response) => {
     try {
       res.status(200).send(oauthClient.getAuthorizationUri('base', ''));
     } catch (error) {
-      sendError(res, error);
+      await sendError(res, error);
     }
   },
   token: async (req: Request, res: Response) => {
+    let client;
     try {
       if (!req.query.code || typeof req.query.code !== 'string') {
         throw new Error('Invalid code');
@@ -45,7 +46,7 @@ const OAuth = {
       }
       // Update or store user
       const { user: etwinUser } = self;
-      const client = await DB.connect();
+      client = await DB.connect();
 
       const existingUser = await client.query<User>(
         'select * from users where id = $1',
@@ -103,7 +104,7 @@ const OAuth = {
         })),
       } as User);
     } catch (error) {
-      sendError(res, error);
+      await sendError(res, error, client);
     }
   },
 };

@@ -18,8 +18,9 @@ import formatSpritesheet from '../utils/formatSpritesheet.js';
 
 const Brutes = {
   list: async (req: Request, res: Response) => {
+    let client;
     try {
-      const client = await DB.connect();
+      client = await DB.connect();
       await auth(client, req);
 
       const result = await client.query<Brute>('select id, data, name from brutes where deleted = false');
@@ -28,12 +29,13 @@ const Brutes = {
       await client.end();
       res.status(200).send(rows);
     } catch (error) {
-      sendError(res, error);
+      await sendError(res, error, client);
     }
   },
   get: async (req: Request, res: Response) => {
+    let client;
     try {
-      const client = await DB.connect();
+      client = await DB.connect();
 
       const { rows: { 0: brute } } = await client.query<Brute>(
         'select data, name from brutes where name = $1 and deleted = false',
@@ -47,12 +49,13 @@ const Brutes = {
         res.status(200).send(brute);
       }
     } catch (error) {
-      sendError(res, error);
+      await sendError(res, error, client);
     }
   },
   isNameAvailable: async (req: Request, res: Response) => {
+    let client;
     try {
-      const client = await DB.connect();
+      client = await DB.connect();
       await auth(client, req);
 
       const result = await client.query<{ count: number }>(
@@ -68,7 +71,7 @@ const Brutes = {
         res.status(200).send(false);
       }
     } catch (error) {
-      sendError(res, error);
+      await sendError(res, error, client);
     }
   },
   create: async (
@@ -82,8 +85,9 @@ const Brutes = {
     }>,
     res: Response,
   ) => {
+    let client;
     try {
-      const client = await DB.connect();
+      client = await DB.connect();
       const user = await auth(client, req);
 
       // Get brute amount for user
@@ -162,12 +166,13 @@ const Brutes = {
 
       await client.end();
     } catch (error) {
-      sendError(res, error);
+      await sendError(res, error, client);
     }
   },
   getLevelUpChoices: async (req: Request, res: Response) => {
+    let client;
     try {
-      const client = await DB.connect();
+      client = await DB.connect();
       const user = await auth(client, req);
 
       // Get brute
@@ -216,15 +221,16 @@ const Brutes = {
         choices: [firstDestinyChoice, secondDestinyChoice],
       });
     } catch (error) {
-      sendError(res, error);
+      await sendError(res, error, client);
     }
   },
   levelUp: async (
     req: Request<{ name: string }, unknown, { choice: number }>,
     res: Response,
   ) => {
+    let client;
     try {
-      const client = await DB.connect();
+      client = await DB.connect();
       const user = await auth(client, req);
 
       // Get brute
@@ -283,12 +289,13 @@ const Brutes = {
       await client.end();
       res.status(200).send({});
     } catch (error) {
-      sendError(res, error);
+      await sendError(res, error, client);
     }
   },
   getOpponents: async (req: Request, res: Response) => {
+    let client;
     try {
-      const client = await DB.connect();
+      client = await DB.connect();
       await auth(client, req);
 
       // Get same level random opponents
@@ -323,12 +330,13 @@ const Brutes = {
       await client.end();
       res.status(200).send(opponents);
     } catch (error) {
-      sendError(res, error);
+      await sendError(res, error, client);
     }
   },
   sacrifice: async (req: Request, res: Response) => {
+    let client;
     try {
-      const client = await DB.connect();
+      client = await DB.connect();
       const user = await auth(client, req);
 
       // Get brute
@@ -355,7 +363,7 @@ const Brutes = {
       await client.end();
       res.status(200).send({ points: sacriPoints });
     } catch (error) {
-      sendError(res, error);
+      await sendError(res, error, client);
     }
   },
 };

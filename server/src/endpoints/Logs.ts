@@ -5,8 +5,9 @@ import sendError from '../utils/sendError.js';
 
 const Logs = {
   list: async (req: Request, res: Response) => {
+    let client;
     try {
-      const client = await DB.connect();
+      client = await DB.connect();
 
       if (!req.params.name) {
         await client.end();
@@ -33,7 +34,7 @@ const Logs = {
         res.status(200).send(rows);
       }
     } catch (error) {
-      sendError(res, error);
+      await sendError(res, error, client);
     }
   },
 };

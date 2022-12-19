@@ -15,8 +15,9 @@ const Spritesheets = {
   getImage: async (req: Request<{
     brute: string,
   }>, res: Response) => {
+    let client;
     try {
-      const client = await DB.connect();
+      client = await DB.connect();
 
       // Get brute spritesheet
       const { rows: { 0: brute } } = await client.query<{
@@ -34,14 +35,15 @@ const Spritesheets = {
       await client.end();
       res.status(200).header('Content-Type', 'image/png').send(brute.spritesheet);
     } catch (error) {
-      sendError(res, error);
+      await sendError(res, error, client);
     }
   },
   getJson: async (req: Request<{
     brute: string,
   }>, res: Response) => {
+    let client;
     try {
-      const client = await DB.connect();
+      client = await DB.connect();
 
       // Get brute spritesheet_json
       const { rows: { 0: brute } } = await client.query<{
@@ -59,7 +61,7 @@ const Spritesheets = {
       await client.end();
       res.status(200).header('Content-Type', 'application/json').send(brute.spritesheet_json);
     } catch (error) {
-      sendError(res, error);
+      await sendError(res, error, client);
     }
   },
   getAnimation: async (req: Request<{
@@ -67,8 +69,9 @@ const Spritesheets = {
     model: 'male' | 'female',
     brute: string,
   }>, res: Response) => {
+    let client;
     try {
-      const client = await DB.connect();
+      client = await DB.connect();
 
       // Get brute colors and body
       const { rows: { 0: brute } } = await client.query<{
@@ -127,7 +130,7 @@ const Spritesheets = {
         res.status(200).header('Content-Type', 'image/png').send(result.image);
       });
     } catch (error) {
-      sendError(res, error);
+      await sendError(res, error, client);
     }
   },
   getFrame: async (req: Request<{
@@ -136,46 +139,51 @@ const Spritesheets = {
     brute: string,
     frame: string,
   }>, res: Response) => {
-    const client = await DB.connect();
-    // Auth to limit access to this endpoint
-    // await auth(client, req);
+    let client;
+    try {
+      client = await DB.connect();
+      // Auth to limit access to this endpoint
+      // await auth(client, req);
 
-    // Get brute colors and body
-    const { rows: { 0: brute } } = await client.query<{
-      colors: BodyColors,
-      body: BodyParts,
-    }>(
-      'select data->\'body\' as body, data->\'colors\' as colors from brutes where name = $1 and deleted = false',
-      [req.params.brute],
-    );
+      // Get brute colors and body
+      const { rows: { 0: brute } } = await client.query<{
+        colors: BodyColors,
+        body: BodyParts,
+      }>(
+        'select data->\'body\' as body, data->\'colors\' as colors from brutes where name = $1 and deleted = false',
+        [req.params.brute],
+      );
 
-    if (!brute) {
+      if (!brute) {
+        await client.end();
+        throw new Error('Brute not found');
+      }
+
       await client.end();
-      throw new Error('Brute not found');
+
+      const {
+        params: {
+          animation,
+          model,
+          frame,
+        },
+      } = req;
+
+      // Get frame getter
+      const frameGetter = getFrame(animation, model, +frame - 1);
+
+      if (!frameGetter) {
+        await client.end();
+        throw new Error(`No frame for ${animation} ${model} ${frame}`);
+      }
+
+      res.status(200).header('Content-Type', 'image/svg+xml').send(frameGetter({
+        body: brute.body,
+        colors: brute.colors,
+      }));
+    } catch (error) {
+      await sendError(res, error, client);
     }
-
-    await client.end();
-
-    const {
-      params: {
-        animation,
-        model,
-        frame,
-      },
-    } = req;
-
-    // Get frame getter
-    const frameGetter = getFrame(animation, model, +frame - 1);
-
-    if (!frameGetter) {
-      await client.end();
-      throw new Error(`No frame for ${animation} ${model} ${frame}`);
-    }
-
-    res.status(200).header('Content-Type', 'image/svg+xml').send(frameGetter({
-      body: brute.body,
-      colors: brute.colors,
-    }));
   },
 };
 

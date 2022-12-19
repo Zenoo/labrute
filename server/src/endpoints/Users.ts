@@ -6,8 +6,9 @@ import sendError from '../utils/sendError.js';
 
 const Users = {
   list: async (req: Request, res: Response) => {
+    let client;
     try {
-      const client = await DB.connect();
+      client = await DB.connect();
       await auth(client, req);
 
       const result = await client.query<User>('select * from users');
@@ -16,18 +17,19 @@ const Users = {
       await client.end();
       res.status(200).send(rows);
     } catch (error) {
-      sendError(res, error);
+      await sendError(res, error, client);
     }
   },
   authenticate: async (req: Request, res: Response) => {
+    let client;
     try {
-      const client = await DB.connect();
+      client = await DB.connect();
       const user = await auth(client, req);
 
       await client.end();
       res.status(200).send(user);
     } catch (error) {
-      sendError(res, error);
+      await sendError(res, error, client);
     }
   },
 };

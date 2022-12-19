@@ -15,8 +15,9 @@ import sendError from '../utils/sendError.js';
 
 const Fights = {
   get: async (req: Request, res: Response) => {
+    let client;
     try {
-      const client = await DB.connect();
+      client = await DB.connect();
 
       if (!req.params.name || !req.params.id) {
         await client.end();
@@ -36,15 +37,16 @@ const Fights = {
       await client.end();
       res.status(200).send(fight);
     } catch (error) {
-      sendError(res, error);
+      await sendError(res, error, client);
     }
   },
   create: async (
     req: Request<never, unknown, { brute1: string, brute2: string }>,
     res: Response,
   ) => {
+    let client;
     try {
-      const client = await DB.connect();
+      client = await DB.connect();
       await auth(client, req);
 
       if (!req.body.brute1 || !req.body.brute2) {
@@ -276,7 +278,7 @@ const Fights = {
       // Send fight id to client
       res.status(200).send({ id: fightId });
     } catch (error) {
-      sendError(res, error);
+      await sendError(res, error, client);
     }
   },
 };

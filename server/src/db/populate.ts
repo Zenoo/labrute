@@ -10,53 +10,62 @@ import {
 } from 'unique-names-generator';
 import DB from './client.js';
 
-console.log('Connecting to Postgres...');
-const client = await DB.connect();
-console.log('Connected to Postgres.');
+let client;
+try {
+  console.log('Connecting to Postgres...');
+  client = await DB.connect();
+  console.log('Connected to Postgres.');
 
-// Check if already populated
-const { rows: { 0: brutes } } = await client.query<{ count: string }>('SELECT count(*) FROM brutes;');
+  // Check if already populated
+  const { rows: { 0: brutes } } = await client.query<{ count: string }>('SELECT count(*) FROM brutes;');
 
-if (+brutes.count >= ARENA_OPPONENTS_COUNT * 100) {
-  console.log('Database is already populated.');
-  await client.end();
-  process.exit(0);
-}
+  if (+brutes.count >= ARENA_OPPONENTS_COUNT * 100) {
+    console.log('Database is already populated.');
+    await client.end();
+    process.exit(0);
+  }
 
-// Generate random names
-console.log('Generating random brutes...');
-const nicks: string[] = [];
-const bruteDatas: [string, Brute['data']][] = [];
-for (let i = 0; i < ARENA_OPPONENTS_COUNT * 100; i++) {
-  let generatedName = uniqueNamesGenerator({
-    dictionaries: [colors, adjectives, animals, names, languages, starWars],
-    style: 'capital',
-    separator: '',
-    length: 2,
-  }).replace(/\s/g, '').substring(0, 16);
-
-  // Reroll if name already exists
-  while (nicks.includes(generatedName)) {
-    generatedName = uniqueNamesGenerator({
+  // Generate random names
+  console.log('Generating random brutes...');
+  const nicks: string[] = [];
+  const bruteDatas: [string, Brute['data']][] = [];
+  for (let i = 0; i < ARENA_OPPONENTS_COUNT * 100; i++) {
+    let generatedName = uniqueNamesGenerator({
       dictionaries: [colors, adjectives, animals, names, languages, starWars],
       style: 'capital',
       separator: '',
-      length: 3,
+      length: 2,
     }).replace(/\s/g, '').substring(0, 16);
+
+    // Reroll if name already exists
+    while (nicks.includes(generatedName)) {
+      generatedName = uniqueNamesGenerator({
+        dictionaries: [colors, adjectives, animals, names, languages, starWars],
+        style: 'capital',
+        separator: '',
+        length: 3,
+      }).replace(/\s/g, '').substring(0, 16);
+    }
+
+    nicks.push(generatedName);
+
+    bruteDatas.push([
+      generatedName, generateBrute(Math.floor(i / (ARENA_OPPONENTS_COUNT / 2)) + 1),
+    ]);
   }
 
-  nicks.push(generatedName);
+  console.log(`Generated ${bruteDatas.length} brutes.`);
 
-  bruteDatas.push([
-    generatedName, generateBrute(Math.floor(i / (ARENA_OPPONENTS_COUNT / 2)) + 1),
-  ]);
+  // Insert all brutes at once
+  console.log('Inserting brutes...');
+  await client.query(format('INSERT INTO brutes (name, data) VALUES %L', bruteDatas));
+
+  console.log('Done!');
+  await client.end();
+} catch (error) {
+  console.error(error);
+  if (client) {
+    await client.end();
+  }
+  process.exit(1);
 }
-
-console.log(`Generated ${bruteDatas.length} brutes.`);
-
-// Insert all brutes at once
-console.log('Inserting brutes...');
-await client.query(format('INSERT INTO brutes (name, data) VALUES %L', bruteDatas));
-
-console.log('Done!');
-await client.end();
