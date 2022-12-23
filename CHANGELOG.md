@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.17.1](https://github.com/Zenoo/labrute/compare/v1.17.0...v1.17.1) (2022-12-23)
+
+
+### Bug fix
+
+* Infinite hang when calling .end() on DB client multiple times. ([2e4b4e4](https://github.com/Zenoo/labrute/commit/2e4b4e4f2b9fb4bbd903b7f6d59798744a6ff58b))
+
 ## [1.17.0](https://github.com/Zenoo/labrute/compare/v1.16.0...v1.17.0) (2022-12-23)
 
 
