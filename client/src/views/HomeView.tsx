@@ -139,19 +139,15 @@ const HomeView = () => {
     const isNameAvailable = await Server.Brute.isNameAvailable(name)
       .catch(catchError(Alert));
 
-    console.log(isNameAvailable);
     if (typeof isNameAvailable !== 'boolean') {
       Alert.open('error', 'wut?');
       return;
     }
 
-    console.log('bool');
-
     if (!isNameAvailable) {
       Alert.open('error', t('nameUnavailable'));
       return;
     }
-    console.log('available');
 
     // Create brute
 
@@ -167,8 +163,6 @@ const HomeView = () => {
       bodyColors,
       ref
     ).catch(catchError(Alert));
-
-    console.log(response);
 
     if (response?.brute) {
       // Add brute to user brutes
