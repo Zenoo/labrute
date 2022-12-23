@@ -20,7 +20,6 @@ const Fights = {
       client = await DB.connect();
 
       if (!req.params.name || !req.params.id) {
-        await client.end();
         throw new Error('Invalid parameters');
       }
 
@@ -30,7 +29,6 @@ const Fights = {
       );
 
       if (!fight) {
-        await client.end();
         throw new Error('Fight not found');
       }
 
@@ -50,7 +48,6 @@ const Fights = {
       await auth(client, req);
 
       if (!req.body.brute1 || !req.body.brute2) {
-        await client.end();
         throw new Error('Invalid parameters');
       }
 
@@ -60,7 +57,6 @@ const Fights = {
         [req.body.brute1],
       );
       if (!brute1) {
-        await client.end();
         throw new Error('Brute 1 not found');
       }
       const { rows: { 0: brute2 } } = await client.query<Brute>(
@@ -68,13 +64,11 @@ const Fights = {
         [req.body.brute2],
       );
       if (!brute2) {
-        await client.end();
         throw new Error('Brute 2 not found');
       }
 
       // Cancel if brute1 has no fights left
       if (getFightsLeft(brute1) <= 0) {
-        await client.end();
         throw new Error('No fights left');
       }
 
@@ -141,7 +135,6 @@ const Fights = {
       const petFighters = fightData.fighters.filter(({ type }) => type === 'pet');
 
       if (mainFighters.length !== 2) {
-        await client.end();
         throw new Error('Invalid number of fighters');
       }
 
@@ -174,7 +167,6 @@ const Fights = {
       }
 
       if (!fightData.loser) {
-        await client.end();
         throw new Error('Fight not finished');
       }
 
@@ -186,7 +178,6 @@ const Fights = {
         && !fighter.master);
 
       if (!winner) {
-        await client.end();
         throw new Error('No winner found');
       }
 

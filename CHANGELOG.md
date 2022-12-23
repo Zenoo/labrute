@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.17.0](https://github.com/Zenoo/labrute/compare/v1.16.0...v1.17.0) (2022-12-23)
+
+
+### Feature
+
+* Anchor testing page [#70](https://github.com/Zenoo/labrute/issues/70) ([b659b72](https://github.com/Zenoo/labrute/commit/b659b723cce3a301b25e24db58074b39ce6eaf89))
+
+
+### Refactoring
+
+* Shorten male frame names ([986d526](https://github.com/Zenoo/labrute/commit/986d52637dbedccc415a1551188ac22bf08e57a3))
+
+
+### Bug fix
+
+* Always end DB on error ([8e52811](https://github.com/Zenoo/labrute/commit/8e52811d563758ea159f0c99359a1811eaf3770c))
+* Male brute arrive start and end animations with skin color. [#70](https://github.com/Zenoo/labrute/issues/70) ([80a1605](https://github.com/Zenoo/labrute/commit/80a160510290e7b908ef8c6bbfda21f29797ec39))
+* Male brute attack animation with skin color. [#70](https://github.com/Zenoo/labrute/issues/70) ([3580949](https://github.com/Zenoo/labrute/commit/3580949994b697ec042dbda98b5c6228d3717653))
+* Male brute monk start and loop animations with skin color. [#70](https://github.com/Zenoo/labrute/issues/70) ([dbe6431](https://github.com/Zenoo/labrute/commit/dbe6431bbabdf0759fbe645a507c9c9610e67218))
+* Male equip animation with body colors. [#70](https://github.com/Zenoo/labrute/issues/70) ([5e244bf](https://github.com/Zenoo/labrute/commit/5e244bf270cfec9aab21fb47819701990a42ba9b))
+* Male hit0 animation with body colors. [#70](https://github.com/Zenoo/labrute/issues/70) ([f427f6f](https://github.com/Zenoo/labrute/commit/f427f6f66b98ed4c057fab04603aec042a92e76a))
+* Male hit1 animation with body colors. [#70](https://github.com/Zenoo/labrute/issues/70) ([c81ca96](https://github.com/Zenoo/labrute/commit/c81ca96da91eb5e0d4301afc0fd80b354b46a2ee))
+* Male hit2 animation with body colors. [#70](https://github.com/Zenoo/labrute/issues/70) ([193faae](https://github.com/Zenoo/labrute/commit/193faae5a8558f1e4f80884d096204726204c98b))
+* Server crash on animation anchor test ([dc98185](https://github.com/Zenoo/labrute/commit/dc98185950d6bb513b1c57a943d581562bc4f87e))
+* Use anchors defined in constants to format the spritesheet. [#70](https://github.com/Zenoo/labrute/issues/70) ([99ea7c3](https://github.com/Zenoo/labrute/commit/99ea7c3210bcf683cb52b876d6b3b648a255e8d6))
+
 ## [1.16.0](https://github.com/Zenoo/labrute/compare/v1.15.3...v1.16.0) (2022-11-30)
 
 

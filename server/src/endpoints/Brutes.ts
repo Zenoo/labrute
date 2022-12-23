@@ -100,7 +100,6 @@ const Brutes = {
       // Refuse if user has too many brutes and not enough points
       if (bruteCount >= user.brute_limit) {
         if (user.sacrifice_points < 500) {
-          await client.end();
           throw new Error('You have reached your brute limit. You need 500 Sacripoints to unlock a new brute.');
         } else {
           // Remove 500 sacrifice points
@@ -181,8 +180,7 @@ const Brutes = {
         [req.params.name, user.id],
       );
       if (!brute) {
-        await client.end();
-        throw new Error('brute not found');
+        throw new Error('Brute not found');
       }
 
       const firstChoicePath = [...brute.destiny_path, 0];
@@ -240,8 +238,7 @@ const Brutes = {
       );
 
       if (!brute) {
-        await client.end();
-        throw new Error('brute not found');
+        throw new Error('Brute not found');
       }
 
       // Get destiny choice
@@ -251,8 +248,7 @@ const Brutes = {
       );
 
       if (!destinyChoice) {
-        await client.end();
-        throw new Error('destiny choice not found');
+        throw new Error('Destiny choice not found');
       }
 
       // Update brute data
@@ -345,7 +341,6 @@ const Brutes = {
         [req.params.name, user.id],
       );
       if (!brute) {
-        await client.end();
         throw new Error('Brute not found');
       }
 

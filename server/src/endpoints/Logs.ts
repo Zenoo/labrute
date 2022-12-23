@@ -20,7 +20,6 @@ const Logs = {
         );
 
         if (!brute) {
-          await client.end();
           throw new Error('Brute not found');
         }
 

@@ -125,49 +125,61 @@ const HomeView = () => {
 
   const createBrute = useCallback(async () => {
     // Check if logged in
-    if (user) {
-      // Check name validity
-      if (name.match(/^[a-zA-Z0-9_-]*$/) && name.length >= 3 && name.length <= 16) {
-        // Check if the name is available
-        const isNameAvailable = await Server.Brute.isNameAvailable(name)
-          .catch(catchError(Alert));
-        if (typeof isNameAvailable === 'boolean') {
-          if (isNameAvailable) {
-            // Create brute
-
-            // Get referer
-            const url = new URL(window.location.href);
-            const ref = url.searchParams.get('ref');
-
-            const response = await Server.Brute.create(
-              name,
-              user.id,
-              gender,
-              bodyParts,
-              bodyColors,
-              ref
-            ).catch(catchError(Alert));
-
-            if (response?.brute) {
-              // Add brute to user brutes
-              updateData({
-                ...user,
-                brutes: user.brutes ? [...user.brutes, response.brute] : [response.brute],
-                // Update points
-                sacrifice_points: user.sacrifice_points - response.pointsLost,
-              });
-              // Redirect to brute page
-              navigate(`/${name}/cell`);
-            }
-          } else {
-            Alert.open('error', t('nameUnavailable'));
-          }
-        }
-      } else {
-        Alert.open('error', t('invalidName'));
-      }
-    } else {
+    if (!user) {
       Alert.open('error', t('pleaseLogin'));
+      return;
+    }
+    // Check name validity
+    if (!name.match(/^[a-zA-Z0-9_-]*$/) || name.length < 3 || name.length > 16) {
+      Alert.open('error', t('invalidName'));
+      return;
+    }
+
+    // Check if the name is available
+    const isNameAvailable = await Server.Brute.isNameAvailable(name)
+      .catch(catchError(Alert));
+
+    console.log(isNameAvailable);
+    if (typeof isNameAvailable !== 'boolean') {
+      Alert.open('error', 'wut?');
+      return;
+    }
+
+    console.log('bool');
+
+    if (!isNameAvailable) {
+      Alert.open('error', t('nameUnavailable'));
+      return;
+    }
+    console.log('available');
+
+    // Create brute
+
+    // Get referer
+    const url = new URL(window.location.href);
+    const ref = url.searchParams.get('ref');
+
+    const response = await Server.Brute.create(
+      name,
+      user.id,
+      gender,
+      bodyParts,
+      bodyColors,
+      ref
+    ).catch(catchError(Alert));
+
+    console.log(response);
+
+    if (response?.brute) {
+      // Add brute to user brutes
+      updateData({
+        ...user,
+        brutes: user.brutes ? [...user.brutes, response.brute] : [response.brute],
+        // Update points
+        sacrifice_points: user.sacrifice_points - response.pointsLost,
+      });
+      // Redirect to brute page
+      navigate(`/${name}/cell`);
     }
   }, [Alert, bodyColors, bodyParts, gender, name, navigate, t, updateData, user]);
 
