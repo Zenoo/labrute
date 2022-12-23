@@ -159,6 +159,21 @@ import maleHit1f6 from './male-brute/hit-1/6.js';
 import maleHit1f7 from './male-brute/hit-1/7.js';
 import maleHit1f8 from './male-brute/hit-1/8.js';
 import maleHit1f9 from './male-brute/hit-1/9.js';
+import maleHit2f1 from './male-brute/hit-2/1.js';
+import maleHit2f10 from './male-brute/hit-2/10.js';
+import maleHit2f11 from './male-brute/hit-2/11.js';
+import maleHit2f12 from './male-brute/hit-2/12.js';
+import maleHit2f13 from './male-brute/hit-2/13.js';
+import maleHit2f14 from './male-brute/hit-2/14.js';
+import maleHit2f15 from './male-brute/hit-2/15.js';
+import maleHit2f2 from './male-brute/hit-2/2.js';
+import maleHit2f3 from './male-brute/hit-2/3.js';
+import maleHit2f4 from './male-brute/hit-2/4.js';
+import maleHit2f5 from './male-brute/hit-2/5.js';
+import maleHit2f6 from './male-brute/hit-2/6.js';
+import maleHit2f7 from './male-brute/hit-2/7.js';
+import maleHit2f8 from './male-brute/hit-2/8.js';
+import maleHit2f9 from './male-brute/hit-2/9.js';
 
 export const FRAMES: Record<
   'male' | 'female',
@@ -205,7 +220,13 @@ export const FRAMES: Record<
       maleHit1f7, maleHit1f8, maleHit1f9,
       maleHit1f10,
     ],
-    'hit-2': [],
+    'hit-2': [
+      maleHit2f1, maleHit2f2, maleHit2f3,
+      maleHit2f4, maleHit2f5, maleHit2f6,
+      maleHit2f7, maleHit2f8, maleHit2f9,
+      maleHit2f10, maleHit2f11, maleHit2f12,
+      maleHit2f13, maleHit2f14, maleHit2f15,
+    ],
     'hit-3': [],
     iddle: [
       maleIddle1, maleIddle2, maleIddle3,
