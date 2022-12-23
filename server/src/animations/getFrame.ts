@@ -174,6 +174,21 @@ import maleHit2f6 from './male-brute/hit-2/6.js';
 import maleHit2f7 from './male-brute/hit-2/7.js';
 import maleHit2f8 from './male-brute/hit-2/8.js';
 import maleHit2f9 from './male-brute/hit-2/9.js';
+import maleEquip1 from './male-brute/equip/1.js';
+import maleEquip10 from './male-brute/equip/10.js';
+import maleEquip11 from './male-brute/equip/11.js';
+import maleEquip12 from './male-brute/equip/12.js';
+import maleEquip13 from './male-brute/equip/13.js';
+import maleEquip14 from './male-brute/equip/14.js';
+import maleEquip15 from './male-brute/equip/15.js';
+import maleEquip2 from './male-brute/equip/2.js';
+import maleEquip3 from './male-brute/equip/3.js';
+import maleEquip4 from './male-brute/equip/4.js';
+import maleEquip5 from './male-brute/equip/5.js';
+import maleEquip6 from './male-brute/equip/6.js';
+import maleEquip7 from './male-brute/equip/7.js';
+import maleEquip8 from './male-brute/equip/8.js';
+import maleEquip9 from './male-brute/equip/9.js';
 
 export const FRAMES: Record<
   'male' | 'female',
@@ -202,7 +217,13 @@ export const FRAMES: Record<
     death: [],
     drink: [],
     eat: [],
-    equip: [],
+    equip: [
+      maleEquip1, maleEquip2, maleEquip3,
+      maleEquip4, maleEquip5, maleEquip6,
+      maleEquip7, maleEquip8, maleEquip9,
+      maleEquip10, maleEquip11, maleEquip12,
+      maleEquip13, maleEquip14, maleEquip15,
+    ],
     evade: [],
     grab: [],
     grabbed: [],
