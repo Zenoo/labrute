@@ -2,7 +2,7 @@ import {
   FrameProps,
 } from '@eternaltwin/labrute-core/types';
 
-const maleBruteIddle17 = ({ colors, body }: FrameProps) => (/* html */`<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+const maleIddle17 = ({ colors, body }: FrameProps) => (/* html */`<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 ${body ? '' : ''}<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="66px" width="56px" xmlns="http://www.w3.org/2000/svg">
   <g transform="matrix(1.0, 0.0, 0.0, 1.0, 25, 58.8)">
     <use height="42.3" transform="matrix(-0.3545, 0.1771, 0.1771, 0.3545, 22.3167, -48.8251)" width="51.5" xlink:href="#sprite0"/>
@@ -446,4 +446,4 @@ ${body ? '' : ''}<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="66px" w
 
 `);
 
-export default maleBruteIddle17;
+export default maleIddle17;

@@ -2,7 +2,7 @@ import {
   FrameProps,
 } from '@eternaltwin/labrute-core/types';
 
-const maleBruteAttack1 = ({ colors, body }: FrameProps) => (/* html */`<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+const maleAttack1 = ({ colors, body }: FrameProps) => (/* html */`<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 ${body ? '' : ''}<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="85px" width="100px" xmlns="http://www.w3.org/2000/svg">
   <g transform="matrix(1.0, 0.0, 0.0, 1.0, 33.5, 69.95)">
     <use height="42.3" transform="matrix(-0.3944, 0.0524, 0.0524, 0.3944, 24.8948, -46.1291)" width="51.5" xlink:href="#sprite0"/>
@@ -446,4 +446,4 @@ ${body ? '' : ''}<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="85px" w
 
 `);
 
-export default maleBruteAttack1;
+export default maleAttack1;

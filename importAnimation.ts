@@ -2,7 +2,7 @@
 /* eslint-disable no-process-exit */
 import * as fs from 'fs';
 
-// First param: folder
+// First param: source folder
 // Second param: Animation name
 // Third param: Animation folder
 // Fourth param: Frame width

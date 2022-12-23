@@ -2,7 +2,7 @@ import {
   FrameProps,
 } from '@eternaltwin/labrute-core/types';
 
-const maleBruteRun6 = ({ colors, body }: FrameProps) => (/* html */`<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+const maleRun6 = ({ colors, body }: FrameProps) => (/* html */`<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 ${body ? '' : ''}<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="65px" width="68px" xmlns="http://www.w3.org/2000/svg">
   <g transform="matrix(1.0, 0.0, 0.0, 1.0, 35.65, 63.55)">
     <use height="42.3" transform="matrix(-0.3505, -0.185, -0.185, 0.3505, 19.2197, -32.0977)" width="51.5" xlink:href="#sprite0"/>
@@ -425,4 +425,4 @@ ${body ? '' : ''}<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="65px" w
 
 `);
 
-export default maleBruteRun6;
+export default maleRun6;
