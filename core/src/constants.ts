@@ -28,7 +28,7 @@ export const ANIMATION_ANCHORS: Record<Animation, [number, number]> = {
   grabbed: [0.5, 0.5],
   hit: [0.5, 0.5],
   'hit-0': [0.516, 0.8253],
-  'hit-1': [0.5, 0.5],
+  'hit-1': [0.4859, 0.7536],
   'hit-2': [0.5, 0.5],
   'hit-3': [0.5, 0.5],
   iddle: [0.4946, 0.7951],
