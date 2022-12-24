@@ -19,7 +19,7 @@ export const ANIMATION_ANCHORS: Record<Animation, [number, number]> = {
   'arrive-start': [0.4354, 0.7682],
   attack: [0.348, 0.7338],
   block: [0.5183, 0.7248],
-  death: [0.5, 0.5],
+  death: [0.4749, 0.7416],
   drink: [0.5, 0.5],
   eat: [0.5, 0.5],
   equip: [0.4593, 0.7407],
