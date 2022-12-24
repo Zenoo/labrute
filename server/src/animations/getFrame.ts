@@ -506,6 +506,20 @@ import maleTrash6 from './male-brute/trash/6.js';
 import maleTrash7 from './male-brute/trash/7.js';
 import maleTrash8 from './male-brute/trash/8.js';
 import maleTrash9 from './male-brute/trash/9.js';
+import maleWhip1 from './male-brute/whip/1.js';
+import maleWhip10 from './male-brute/whip/10.js';
+import maleWhip11 from './male-brute/whip/11.js';
+import maleWhip12 from './male-brute/whip/12.js';
+import maleWhip13 from './male-brute/whip/13.js';
+import maleWhip14 from './male-brute/whip/14.js';
+import maleWhip2 from './male-brute/whip/2.js';
+import maleWhip3 from './male-brute/whip/3.js';
+import maleWhip4 from './male-brute/whip/4.js';
+import maleWhip5 from './male-brute/whip/5.js';
+import maleWhip6 from './male-brute/whip/6.js';
+import maleWhip7 from './male-brute/whip/7.js';
+import maleWhip8 from './male-brute/whip/8.js';
+import maleWhip9 from './male-brute/whip/9.js';
 
 export const FRAMES: Record<
   'male' | 'female',
@@ -751,7 +765,13 @@ export const FRAMES: Record<
       maleEstoc7, maleEstoc8, maleEstoc9,
       maleEstoc10,
     ],
-    whip: [],
+    whip: [
+      maleWhip1, maleWhip2, maleWhip3,
+      maleWhip4, maleWhip5, maleWhip6,
+      maleWhip7, maleWhip8, maleWhip9,
+      maleWhip10, maleWhip11, maleWhip12,
+      maleWhip13, maleWhip14,
+    ],
   },
   female: {
     'arrive-end': [],
