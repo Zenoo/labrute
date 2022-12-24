@@ -85,7 +85,7 @@ const AnchorTestView = () => {
         </Select>
       </FormControl>
       {brute && (frame > 0) && (
-        <Box sx={{ position: 'relative', width: 'fit-content' }}>
+        <Box sx={{ position: 'relative', width: 'fit-content', fontSize: 0 }}>
           <Box component="img" src={`/api/spritesheet/${brute}/${gender}/${animation}/${frame}`} />
           <Box sx={{ position: 'absolute', height: '1px', width: 1, top: `${anchorY * 100}%`, left: 0, bgcolor: 'red' }} />
           <Box sx={{ position: 'absolute', width: '1px', height: 1, top: 0, left: `${anchorX * 100}%`, bgcolor: 'red' }} />
