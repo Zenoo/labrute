@@ -269,6 +269,19 @@ import maleMonkStart3 from './male-brute/monk-start/3.js';
 import maleMonkStart4 from './male-brute/monk-start/4.js';
 import maleMonkStart5 from './male-brute/monk-start/5.js';
 import maleMonkStart6 from './male-brute/monk-start/6.js';
+import malePrepareThrow1 from './male-brute/prepare-throw/1.js';
+import malePrepareThrow10 from './male-brute/prepare-throw/10.js';
+import malePrepareThrow11 from './male-brute/prepare-throw/11.js';
+import malePrepareThrow12 from './male-brute/prepare-throw/12.js';
+import malePrepareThrow13 from './male-brute/prepare-throw/13.js';
+import malePrepareThrow2 from './male-brute/prepare-throw/2.js';
+import malePrepareThrow3 from './male-brute/prepare-throw/3.js';
+import malePrepareThrow4 from './male-brute/prepare-throw/4.js';
+import malePrepareThrow5 from './male-brute/prepare-throw/5.js';
+import malePrepareThrow6 from './male-brute/prepare-throw/6.js';
+import malePrepareThrow7 from './male-brute/prepare-throw/7.js';
+import malePrepareThrow8 from './male-brute/prepare-throw/8.js';
+import malePrepareThrow9 from './male-brute/prepare-throw/9.js';
 import maleRun1 from './male-brute/run/1.js';
 import maleRun2 from './male-brute/run/2.js';
 import maleRun3 from './male-brute/run/3.js';
@@ -440,7 +453,13 @@ export const FRAMES: Record<
       maleMonkStart1, maleMonkStart2, maleMonkStart3,
       maleMonkStart4, maleMonkStart5, maleMonkStart6,
     ],
-    'prepare-throw': [],
+    'prepare-throw': [
+      malePrepareThrow1, malePrepareThrow2, malePrepareThrow3,
+      malePrepareThrow4, malePrepareThrow5, malePrepareThrow6,
+      malePrepareThrow7, malePrepareThrow8, malePrepareThrow9,
+      malePrepareThrow10, malePrepareThrow11, malePrepareThrow12,
+      malePrepareThrow13,
+    ],
     run: [
       maleRun1, maleRun2, maleRun3,
       maleRun4, maleRun5, maleRun6,
