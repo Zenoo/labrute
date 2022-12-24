@@ -127,6 +127,14 @@ import maleEstoc6 from './male-brute/estoc/6.js';
 import maleEstoc7 from './male-brute/estoc/7.js';
 import maleEstoc8 from './male-brute/estoc/8.js';
 import maleEstoc9 from './male-brute/estoc/9.js';
+import maleGrab1 from './male-brute/grab/1.js';
+import maleGrab2 from './male-brute/grab/2.js';
+import maleGrab3 from './male-brute/grab/3.js';
+import maleGrab4 from './male-brute/grab/4.js';
+import maleGrab5 from './male-brute/grab/5.js';
+import maleGrab6 from './male-brute/grab/6.js';
+import maleGrab7 from './male-brute/grab/7.js';
+import maleGrab8 from './male-brute/grab/8.js';
 import maleHit0f1 from './male-brute/hit-0/1.js';
 import maleHit0f10 from './male-brute/hit-0/10.js';
 import maleHit0f11 from './male-brute/hit-0/11.js';
@@ -388,7 +396,11 @@ export const FRAMES: Record<
       maleEquip13, maleEquip14, maleEquip15,
     ],
     evade: [],
-    grab: [],
+    grab: [
+      maleGrab1, maleGrab2, maleGrab3,
+      maleGrab4, maleGrab5, maleGrab6,
+      maleGrab7, maleGrab8,
+    ],
     grabbed: [],
     hit: [],
     'hit-0': [
