@@ -189,6 +189,29 @@ import maleEquip6 from './male-brute/equip/6.js';
 import maleEquip7 from './male-brute/equip/7.js';
 import maleEquip8 from './male-brute/equip/8.js';
 import maleEquip9 from './male-brute/equip/9.js';
+import maleBlock1 from './male-brute/block/1.js';
+import maleBlock10 from './male-brute/block/10.js';
+import maleBlock11 from './male-brute/block/11.js';
+import maleBlock12 from './male-brute/block/12.js';
+import maleBlock13 from './male-brute/block/13.js';
+import maleBlock14 from './male-brute/block/14.js';
+import maleBlock15 from './male-brute/block/15.js';
+import maleBlock16 from './male-brute/block/16.js';
+import maleBlock17 from './male-brute/block/17.js';
+import maleBlock18 from './male-brute/block/18.js';
+import maleBlock19 from './male-brute/block/19.js';
+import maleBlock2 from './male-brute/block/2.js';
+import maleBlock20 from './male-brute/block/20.js';
+import maleBlock21 from './male-brute/block/21.js';
+import maleBlock22 from './male-brute/block/22.js';
+import maleBlock23 from './male-brute/block/23.js';
+import maleBlock3 from './male-brute/block/3.js';
+import maleBlock4 from './male-brute/block/4.js';
+import maleBlock5 from './male-brute/block/5.js';
+import maleBlock6 from './male-brute/block/6.js';
+import maleBlock7 from './male-brute/block/7.js';
+import maleBlock8 from './male-brute/block/8.js';
+import maleBlock9 from './male-brute/block/9.js';
 
 export const FRAMES: Record<
   'male' | 'female',
@@ -213,7 +236,16 @@ export const FRAMES: Record<
       maleAttack13, maleAttack14, maleAttack15,
       maleAttack16,
     ],
-    block: [],
+    block: [
+      maleBlock1, maleBlock2, maleBlock3,
+      maleBlock4, maleBlock5, maleBlock6,
+      maleBlock7, maleBlock8, maleBlock9,
+      maleBlock10, maleBlock11, maleBlock12,
+      maleBlock13, maleBlock14, maleBlock15,
+      maleBlock16, maleBlock17, maleBlock18,
+      maleBlock19, maleBlock20, maleBlock21,
+      maleBlock22, maleBlock23,
+    ],
     death: [],
     drink: [],
     eat: [],
