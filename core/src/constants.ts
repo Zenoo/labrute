@@ -30,7 +30,6 @@ export const ANIMATION_ANCHORS: Record<Animation, [number, number]> = {
   'hit-0': [0.516, 0.8253],
   'hit-1': [0.4859, 0.7536],
   'hit-2': [0.4851, 0.669],
-  'hit-3': [0.5, 0.5],
   iddle: [0.4946, 0.7951],
   launch: [0.4206, 0.7859],
   'monk-loop': [0.5349, 0.7462],

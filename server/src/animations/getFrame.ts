@@ -736,7 +736,6 @@ export const FRAMES: Record<
       maleHit2f10, maleHit2f11, maleHit2f12,
       maleHit2f13, maleHit2f14, maleHit2f15,
     ],
-    'hit-3': [],
     iddle: [
       maleIddle1, maleIddle2, maleIddle3,
       maleIddle4, maleIddle5, maleIddle6,
@@ -924,7 +923,6 @@ export const FRAMES: Record<
     'hit-0': [],
     'hit-1': [],
     'hit-2': [],
-    'hit-3': [],
     iddle: [],
     launch: [],
     'monk-loop': [],

@@ -492,7 +492,7 @@ export interface Fight {
 export type AnimationModel = 'bear' | 'dog' | 'panther' | 'male-brute' | 'female-brute';
 export const animationList = [
   'arrive-end', 'arrive-start', 'attack', 'block', 'death', 'drink', 'eat',
-  'equip', 'evade', 'grab', 'grabbed', 'hit', 'hit-0', 'hit-1', 'hit-2', 'hit-3',
+  'equip', 'evade', 'grab', 'grabbed', 'hit', 'hit-0', 'hit-1', 'hit-2',
   'iddle', 'launch', 'monk-loop', 'monk-start', 'prepare-throw', 'run',
   'stolen', 'steal', 'strengthen', 'throw', 'train', 'trapped-loop', 'trapped-start',
   'trash', 'win', ...weaponAnimationList,
