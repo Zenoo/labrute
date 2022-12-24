@@ -276,6 +276,18 @@ import maleRun4 from './male-brute/run/4.js';
 import maleRun5 from './male-brute/run/5.js';
 import maleRun6 from './male-brute/run/6.js';
 import maleRun7 from './male-brute/run/7.js';
+import maleSlash1 from './male-brute/slash/1.js';
+import maleSlash10 from './male-brute/slash/10.js';
+import maleSlash11 from './male-brute/slash/11.js';
+import maleSlash12 from './male-brute/slash/12.js';
+import maleSlash2 from './male-brute/slash/2.js';
+import maleSlash3 from './male-brute/slash/3.js';
+import maleSlash4 from './male-brute/slash/4.js';
+import maleSlash5 from './male-brute/slash/5.js';
+import maleSlash6 from './male-brute/slash/6.js';
+import maleSlash7 from './male-brute/slash/7.js';
+import maleSlash8 from './male-brute/slash/8.js';
+import maleSlash9 from './male-brute/slash/9.js';
 import maleTrash1 from './male-brute/trash/1.js';
 import maleTrash2 from './male-brute/trash/2.js';
 import maleTrash3 from './male-brute/trash/3.js';
@@ -420,7 +432,12 @@ export const FRAMES: Record<
       maleRun4, maleRun5, maleRun6,
       maleRun7,
     ],
-    slash: [],
+    slash: [
+      maleSlash1, maleSlash2, maleSlash3,
+      maleSlash4, maleSlash5, maleSlash6,
+      maleSlash7, maleSlash8, maleSlash9,
+      maleSlash10, maleSlash11, maleSlash12,
+    ],
     stolen: [],
     steal: [],
     strengthen: [],

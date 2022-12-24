@@ -37,7 +37,7 @@ export const ANIMATION_ANCHORS: Record<Animation, [number, number]> = {
   'monk-start': [0.5349, 0.7462],
   'prepare-throw': [0.5349, 0.7462],
   run: [0.5292, 0.8688],
-  slash: [0.5, 0.5],
+  slash: [0.3249, 0.8274],
   stolen: [0.5, 0.5],
   steal: [0.5, 0.5],
   strengthen: [0.5, 0.5],
