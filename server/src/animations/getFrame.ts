@@ -470,6 +470,15 @@ import maleThrow6 from './male-brute/throw/6.js';
 import maleThrow7 from './male-brute/throw/7.js';
 import maleThrow8 from './male-brute/throw/8.js';
 import maleThrow9 from './male-brute/throw/9.js';
+import maleTrain1 from './male-brute/train/1.js';
+import maleTrain2 from './male-brute/train/2.js';
+import maleTrain3 from './male-brute/train/3.js';
+import maleTrain4 from './male-brute/train/4.js';
+import maleTrain5 from './male-brute/train/5.js';
+import maleTrain6 from './male-brute/train/6.js';
+import maleTrain7 from './male-brute/train/7.js';
+import maleTrain8 from './male-brute/train/8.js';
+import maleTrain9 from './male-brute/train/9.js';
 import maleTrappedLoop1 from './male-brute/trapped-loop/1.js';
 import maleTrappedLoop10 from './male-brute/trapped-loop/10.js';
 import maleTrappedLoop11 from './male-brute/trapped-loop/11.js';
@@ -810,7 +819,11 @@ export const FRAMES: Record<
       maleThrow10, maleThrow11, maleThrow12,
       maleThrow13, maleThrow14,
     ],
-    train: [],
+    train: [
+      maleTrain1, maleTrain2, maleTrain3,
+      maleTrain4, maleTrain5, maleTrain6,
+      maleTrain7, maleTrain8, maleTrain9,
+    ],
     'trapped-loop': [
       maleTrappedLoop1, maleTrappedLoop2, maleTrappedLoop3,
       maleTrappedLoop4, maleTrappedLoop5, maleTrappedLoop6,
