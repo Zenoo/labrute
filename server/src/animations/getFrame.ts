@@ -150,6 +150,22 @@ import maleDrink6 from './male-brute/drink/6.js';
 import maleDrink7 from './male-brute/drink/7.js';
 import maleDrink8 from './male-brute/drink/8.js';
 import maleDrink9 from './male-brute/drink/9.js';
+import maleEat1 from './male-brute/eat/1.js';
+import maleEat10 from './male-brute/eat/10.js';
+import maleEat11 from './male-brute/eat/11.js';
+import maleEat12 from './male-brute/eat/12.js';
+import maleEat13 from './male-brute/eat/13.js';
+import maleEat14 from './male-brute/eat/14.js';
+import maleEat15 from './male-brute/eat/15.js';
+import maleEat16 from './male-brute/eat/16.js';
+import maleEat2 from './male-brute/eat/2.js';
+import maleEat3 from './male-brute/eat/3.js';
+import maleEat4 from './male-brute/eat/4.js';
+import maleEat5 from './male-brute/eat/5.js';
+import maleEat6 from './male-brute/eat/6.js';
+import maleEat7 from './male-brute/eat/7.js';
+import maleEat8 from './male-brute/eat/8.js';
+import maleEat9 from './male-brute/eat/9.js';
 import maleEquip1 from './male-brute/equip/1.js';
 import maleEquip10 from './male-brute/equip/10.js';
 import maleEquip11 from './male-brute/equip/11.js';
@@ -672,7 +688,14 @@ export const FRAMES: Record<
       maleDrink43, maleDrink44, maleDrink45,
       maleDrink46, maleDrink47, maleDrink48,
     ],
-    eat: [],
+    eat: [
+      maleEat1, maleEat2, maleEat3,
+      maleEat4, maleEat5, maleEat6,
+      maleEat7, maleEat8, maleEat9,
+      maleEat10, maleEat11, maleEat12,
+      maleEat13, maleEat14, maleEat15,
+      maleEat16,
+    ],
     equip: [
       maleEquip1, maleEquip2, maleEquip3,
       maleEquip4, maleEquip5, maleEquip6,

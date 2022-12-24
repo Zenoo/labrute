@@ -21,7 +21,7 @@ export const ANIMATION_ANCHORS: Record<Animation, [number, number]> = {
   block: [0.5183, 0.7248],
   death: [0.4749, 0.7416],
   drink: [0.4486, 0.7849],
-  eat: [0.5, 0.5],
+  eat: [0.521, 0.8705],
   equip: [0.4593, 0.7407],
   evade: [0.5, 0.5],
   grab: [0.4134, 0.7902],
