@@ -415,6 +415,31 @@ import maleStolen6 from './male-brute/stolen/6.js';
 import maleStolen7 from './male-brute/stolen/7.js';
 import maleStolen8 from './male-brute/stolen/8.js';
 import maleStolen9 from './male-brute/stolen/9.js';
+import maleStrengthen1 from './male-brute/strengthen/1.js';
+import maleStrengthen10 from './male-brute/strengthen/10.js';
+import maleStrengthen11 from './male-brute/strengthen/11.js';
+import maleStrengthen12 from './male-brute/strengthen/12.js';
+import maleStrengthen13 from './male-brute/strengthen/13.js';
+import maleStrengthen14 from './male-brute/strengthen/14.js';
+import maleStrengthen15 from './male-brute/strengthen/15.js';
+import maleStrengthen16 from './male-brute/strengthen/16.js';
+import maleStrengthen17 from './male-brute/strengthen/17.js';
+import maleStrengthen18 from './male-brute/strengthen/18.js';
+import maleStrengthen19 from './male-brute/strengthen/19.js';
+import maleStrengthen2 from './male-brute/strengthen/2.js';
+import maleStrengthen20 from './male-brute/strengthen/20.js';
+import maleStrengthen21 from './male-brute/strengthen/21.js';
+import maleStrengthen22 from './male-brute/strengthen/22.js';
+import maleStrengthen23 from './male-brute/strengthen/23.js';
+import maleStrengthen24 from './male-brute/strengthen/24.js';
+import maleStrengthen25 from './male-brute/strengthen/25.js';
+import maleStrengthen3 from './male-brute/strengthen/3.js';
+import maleStrengthen4 from './male-brute/strengthen/4.js';
+import maleStrengthen5 from './male-brute/strengthen/5.js';
+import maleStrengthen6 from './male-brute/strengthen/6.js';
+import maleStrengthen7 from './male-brute/strengthen/7.js';
+import maleStrengthen8 from './male-brute/strengthen/8.js';
+import maleStrengthen9 from './male-brute/strengthen/9.js';
 import maleThrow1 from './male-brute/throw/1.js';
 import maleThrow10 from './male-brute/throw/10.js';
 import maleThrow11 from './male-brute/throw/11.js';
@@ -675,7 +700,17 @@ export const FRAMES: Record<
       maleSteal22, maleSteal23, maleSteal24,
       maleSteal25,
     ],
-    strengthen: [],
+    strengthen: [
+      maleStrengthen1, maleStrengthen2, maleStrengthen3,
+      maleStrengthen4, maleStrengthen5, maleStrengthen6,
+      maleStrengthen7, maleStrengthen8, maleStrengthen9,
+      maleStrengthen10, maleStrengthen11, maleStrengthen12,
+      maleStrengthen13, maleStrengthen14, maleStrengthen15,
+      maleStrengthen16, maleStrengthen17, maleStrengthen18,
+      maleStrengthen19, maleStrengthen20, maleStrengthen21,
+      maleStrengthen22, maleStrengthen23, maleStrengthen24,
+      maleStrengthen25,
+    ],
     throw: [
       maleThrow1, maleThrow2, maleThrow3,
       maleThrow4, maleThrow5, maleThrow6,
