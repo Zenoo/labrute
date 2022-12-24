@@ -48,6 +48,6 @@ export const ANIMATION_ANCHORS: Record<Animation, [number, number]> = {
   trash: [0.5189, 0.7276],
   win: [0.5, 0.5],
   fist: [0.5, 0.5],
-  estoc: [0.5, 0.5],
+  estoc: [0.5178, 0.7592],
   whip: [0.5, 0.5],
 };

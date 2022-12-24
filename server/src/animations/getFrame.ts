@@ -117,6 +117,16 @@ import maleEquip6 from './male-brute/equip/6.js';
 import maleEquip7 from './male-brute/equip/7.js';
 import maleEquip8 from './male-brute/equip/8.js';
 import maleEquip9 from './male-brute/equip/9.js';
+import maleEstoc1 from './male-brute/estoc/1.js';
+import maleEstoc10 from './male-brute/estoc/10.js';
+import maleEstoc2 from './male-brute/estoc/2.js';
+import maleEstoc3 from './male-brute/estoc/3.js';
+import maleEstoc4 from './male-brute/estoc/4.js';
+import maleEstoc5 from './male-brute/estoc/5.js';
+import maleEstoc6 from './male-brute/estoc/6.js';
+import maleEstoc7 from './male-brute/estoc/7.js';
+import maleEstoc8 from './male-brute/estoc/8.js';
+import maleEstoc9 from './male-brute/estoc/9.js';
 import maleHit0f1 from './male-brute/hit-0/1.js';
 import maleHit0f10 from './male-brute/hit-0/10.js';
 import maleHit0f11 from './male-brute/hit-0/11.js';
@@ -425,7 +435,12 @@ export const FRAMES: Record<
     ],
     win: [],
     fist: [],
-    estoc: [],
+    estoc: [
+      maleEstoc1, maleEstoc2, maleEstoc3,
+      maleEstoc4, maleEstoc5, maleEstoc6,
+      maleEstoc7, maleEstoc8, maleEstoc9,
+      maleEstoc10,
+    ],
     whip: [],
   },
   female: {
