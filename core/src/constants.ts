@@ -23,7 +23,7 @@ export const ANIMATION_ANCHORS: Record<Animation, [number, number]> = {
   drink: [0.4486, 0.7849],
   eat: [0.521, 0.8705],
   equip: [0.4593, 0.7407],
-  evade: [0.5, 0.5],
+  evade: [0.5648, 0.9075],
   grab: [0.4134, 0.7902],
   grabbed: [0.5127, 0.7192],
   hit: [0.5, 0.5],
