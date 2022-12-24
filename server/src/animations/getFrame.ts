@@ -192,6 +192,22 @@ import maleEstoc7 from './male-brute/estoc/7.js';
 import maleEstoc8 from './male-brute/estoc/8.js';
 import maleEstoc9 from './male-brute/estoc/9.js';
 import maleEvade1 from './male-brute/evade/1.js';
+import maleFist1 from './male-brute/fist/1.js';
+import maleFist10 from './male-brute/fist/10.js';
+import maleFist11 from './male-brute/fist/11.js';
+import maleFist12 from './male-brute/fist/12.js';
+import maleFist13 from './male-brute/fist/13.js';
+import maleFist14 from './male-brute/fist/14.js';
+import maleFist15 from './male-brute/fist/15.js';
+import maleFist16 from './male-brute/fist/16.js';
+import maleFist2 from './male-brute/fist/2.js';
+import maleFist3 from './male-brute/fist/3.js';
+import maleFist4 from './male-brute/fist/4.js';
+import maleFist5 from './male-brute/fist/5.js';
+import maleFist6 from './male-brute/fist/6.js';
+import maleFist7 from './male-brute/fist/7.js';
+import maleFist8 from './male-brute/fist/8.js';
+import maleFist9 from './male-brute/fist/9.js';
 import maleGrab1 from './male-brute/grab/1.js';
 import maleGrab2 from './male-brute/grab/2.js';
 import maleGrab3 from './male-brute/grab/3.js';
@@ -892,7 +908,14 @@ export const FRAMES: Record<
       maleWin52, maleWin53, maleWin54,
       maleWin55,
     ],
-    fist: [],
+    fist: [
+      maleFist1, maleFist2, maleFist3,
+      maleFist4, maleFist5, maleFist6,
+      maleFist7, maleFist8, maleFist9,
+      maleFist10, maleFist11, maleFist12,
+      maleFist13, maleFist14, maleFist15,
+      maleFist16,
+    ],
     estoc: [
       maleEstoc1, maleEstoc2, maleEstoc3,
       maleEstoc4, maleEstoc5, maleEstoc6,
