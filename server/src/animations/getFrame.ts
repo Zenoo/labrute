@@ -102,6 +102,54 @@ import maleDeath6 from './male-brute/death/6.js';
 import maleDeath7 from './male-brute/death/7.js';
 import maleDeath8 from './male-brute/death/8.js';
 import maleDeath9 from './male-brute/death/9.js';
+import maleDrink1 from './male-brute/drink/1.js';
+import maleDrink10 from './male-brute/drink/10.js';
+import maleDrink11 from './male-brute/drink/11.js';
+import maleDrink12 from './male-brute/drink/12.js';
+import maleDrink13 from './male-brute/drink/13.js';
+import maleDrink14 from './male-brute/drink/14.js';
+import maleDrink15 from './male-brute/drink/15.js';
+import maleDrink16 from './male-brute/drink/16.js';
+import maleDrink17 from './male-brute/drink/17.js';
+import maleDrink18 from './male-brute/drink/18.js';
+import maleDrink19 from './male-brute/drink/19.js';
+import maleDrink2 from './male-brute/drink/2.js';
+import maleDrink20 from './male-brute/drink/20.js';
+import maleDrink21 from './male-brute/drink/21.js';
+import maleDrink22 from './male-brute/drink/22.js';
+import maleDrink23 from './male-brute/drink/23.js';
+import maleDrink24 from './male-brute/drink/24.js';
+import maleDrink25 from './male-brute/drink/25.js';
+import maleDrink26 from './male-brute/drink/26.js';
+import maleDrink27 from './male-brute/drink/27.js';
+import maleDrink28 from './male-brute/drink/28.js';
+import maleDrink29 from './male-brute/drink/29.js';
+import maleDrink3 from './male-brute/drink/3.js';
+import maleDrink30 from './male-brute/drink/30.js';
+import maleDrink31 from './male-brute/drink/31.js';
+import maleDrink32 from './male-brute/drink/32.js';
+import maleDrink33 from './male-brute/drink/33.js';
+import maleDrink34 from './male-brute/drink/34.js';
+import maleDrink35 from './male-brute/drink/35.js';
+import maleDrink36 from './male-brute/drink/36.js';
+import maleDrink37 from './male-brute/drink/37.js';
+import maleDrink38 from './male-brute/drink/38.js';
+import maleDrink39 from './male-brute/drink/39.js';
+import maleDrink4 from './male-brute/drink/4.js';
+import maleDrink40 from './male-brute/drink/40.js';
+import maleDrink41 from './male-brute/drink/41.js';
+import maleDrink42 from './male-brute/drink/42.js';
+import maleDrink43 from './male-brute/drink/43.js';
+import maleDrink44 from './male-brute/drink/44.js';
+import maleDrink45 from './male-brute/drink/45.js';
+import maleDrink46 from './male-brute/drink/46.js';
+import maleDrink47 from './male-brute/drink/47.js';
+import maleDrink48 from './male-brute/drink/48.js';
+import maleDrink5 from './male-brute/drink/5.js';
+import maleDrink6 from './male-brute/drink/6.js';
+import maleDrink7 from './male-brute/drink/7.js';
+import maleDrink8 from './male-brute/drink/8.js';
+import maleDrink9 from './male-brute/drink/9.js';
 import maleEquip1 from './male-brute/equip/1.js';
 import maleEquip10 from './male-brute/equip/10.js';
 import maleEquip11 from './male-brute/equip/11.js';
@@ -487,7 +535,24 @@ export const FRAMES: Record<
       maleDeath49, maleDeath50, maleDeath51,
       maleDeath52, maleDeath53, maleDeath54,
     ],
-    drink: [],
+    drink: [
+      maleDrink1, maleDrink2, maleDrink3,
+      maleDrink4, maleDrink5, maleDrink6,
+      maleDrink7, maleDrink8, maleDrink9,
+      maleDrink10, maleDrink11, maleDrink12,
+      maleDrink13, maleDrink14, maleDrink15,
+      maleDrink16, maleDrink17, maleDrink18,
+      maleDrink19, maleDrink20, maleDrink21,
+      maleDrink22, maleDrink23, maleDrink24,
+      maleDrink25, maleDrink26, maleDrink27,
+      maleDrink28, maleDrink29, maleDrink30,
+      maleDrink31, maleDrink32, maleDrink33,
+      maleDrink34, maleDrink35, maleDrink36,
+      maleDrink37, maleDrink38, maleDrink39,
+      maleDrink40, maleDrink41, maleDrink42,
+      maleDrink43, maleDrink44, maleDrink45,
+      maleDrink46, maleDrink47, maleDrink48,
+    ],
     eat: [],
     equip: [
       maleEquip1, maleEquip2, maleEquip3,
