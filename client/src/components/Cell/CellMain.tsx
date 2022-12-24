@@ -20,6 +20,7 @@ import Text from '../Text.js';
 import CellTournament from './CellTournament.js';
 import { useAuth } from '../../hooks/useAuth.js';
 import { useNavigate } from 'react-router';
+import useStateAsync from '../../hooks/useStateAsync.js';
 
 export interface CellMainProps extends BoxProps {
   brute: Brute;
@@ -44,6 +45,10 @@ const CellMain = ({
   const navigate = useNavigate();
 
   const xpNeededForNextLevel = useMemo(() => getXPNeeded(brute.data.level + 1), [brute]);
+
+  const { data: ready } = useStateAsync(false, Server.Brute.isReadyToFight, brute.name);
+
+  console.log('ready', ready);
 
   // Sacrifice brute
   const confirmSacrifice = useCallback(() => {
@@ -75,7 +80,7 @@ const CellMain = ({
         )}
       </Box>
       <BruteBodyAndStats brute={brute} sx={{ mb: 1 }} />
-      {ownsBrute && (brute.data.xp < xpNeededForNextLevel ? getFightsLeft(brute) > 0 ? (
+      {ownsBrute && (brute.data.xp < xpNeededForNextLevel ? getFightsLeft(brute) > 0 ? ready ? (
         <Stack spacing={1} sx={{ alignItems: 'center', mt: 1 }}>
           <Text bold sx={{ pl: 1 }}>{t('callToFight')}</Text>
           <Link to={`/${brute.name}/arena`}>
@@ -92,6 +97,11 @@ const CellMain = ({
           </Link>
           <Text bold color="error">{t('fightsLeft', { value: getFightsLeft(brute) })}</Text>
         </Stack>
+      ) : (
+        <Box sx={{ textAlign: 'center' }}>
+          <Text bold color="error">{t('bruteIsPreparing', { brute: brute.name })}</Text>
+          <Text color="error">{t('comeBackInAFew')}</Text>
+        </Box>
       ) : (
         <Box sx={{ textAlign: 'center' }}>
           <Text bold color="error">{t('bruteIsResting', { brute: brute.name })}</Text>

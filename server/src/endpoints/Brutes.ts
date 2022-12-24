@@ -361,6 +361,28 @@ const Brutes = {
       await sendError(res, error, client);
     }
   },
+  isReadyToFight: async (req: Request, res: Response) => {
+    let client;
+    try {
+      client = await DB.connect();
+      await auth(client, req);
+
+      // Check if brute.spritesheet_json is null
+      const { rows } = await client.query<{ count: number }>(
+        'select count(*) from brutes where name = $1 and spritesheet_json is null and deleted = false',
+        [req.params.name],
+      );
+
+      await client.end();
+      if (+rows[0].count === 0) {
+        res.status(200).send(true);
+      } else {
+        res.status(200).send(false);
+      }
+    } catch (error) {
+      await sendError(res, error, client);
+    }
+  },
 };
 
 export default Brutes;

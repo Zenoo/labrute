@@ -13,6 +13,7 @@ const Server = {
     list: () => Fetch<Brute[]>('/api/brute/list/'),
     get: (name: string) => Fetch<Brute>(`/api/brute/${name}`),
     isNameAvailable: (name: string) => Fetch<boolean>(`/api/brute/${name}/available`),
+    isReadyToFight: (name: string) => Fetch<boolean>(`/api/brute/${name}/ready`),
     create: (
       name: string,
       user: string,
