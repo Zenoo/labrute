@@ -536,6 +536,61 @@ import maleWhip6 from './male-brute/whip/6.js';
 import maleWhip7 from './male-brute/whip/7.js';
 import maleWhip8 from './male-brute/whip/8.js';
 import maleWhip9 from './male-brute/whip/9.js';
+import maleWin1 from './male-brute/win/1.js';
+import maleWin10 from './male-brute/win/10.js';
+import maleWin11 from './male-brute/win/11.js';
+import maleWin12 from './male-brute/win/12.js';
+import maleWin13 from './male-brute/win/13.js';
+import maleWin14 from './male-brute/win/14.js';
+import maleWin15 from './male-brute/win/15.js';
+import maleWin16 from './male-brute/win/16.js';
+import maleWin17 from './male-brute/win/17.js';
+import maleWin18 from './male-brute/win/18.js';
+import maleWin19 from './male-brute/win/19.js';
+import maleWin2 from './male-brute/win/2.js';
+import maleWin20 from './male-brute/win/20.js';
+import maleWin21 from './male-brute/win/21.js';
+import maleWin22 from './male-brute/win/22.js';
+import maleWin23 from './male-brute/win/23.js';
+import maleWin24 from './male-brute/win/24.js';
+import maleWin25 from './male-brute/win/25.js';
+import maleWin26 from './male-brute/win/26.js';
+import maleWin27 from './male-brute/win/27.js';
+import maleWin28 from './male-brute/win/28.js';
+import maleWin29 from './male-brute/win/29.js';
+import maleWin3 from './male-brute/win/3.js';
+import maleWin30 from './male-brute/win/30.js';
+import maleWin31 from './male-brute/win/31.js';
+import maleWin32 from './male-brute/win/32.js';
+import maleWin33 from './male-brute/win/33.js';
+import maleWin34 from './male-brute/win/34.js';
+import maleWin35 from './male-brute/win/35.js';
+import maleWin36 from './male-brute/win/36.js';
+import maleWin37 from './male-brute/win/37.js';
+import maleWin38 from './male-brute/win/38.js';
+import maleWin39 from './male-brute/win/39.js';
+import maleWin4 from './male-brute/win/4.js';
+import maleWin40 from './male-brute/win/40.js';
+import maleWin41 from './male-brute/win/41.js';
+import maleWin42 from './male-brute/win/42.js';
+import maleWin43 from './male-brute/win/43.js';
+import maleWin44 from './male-brute/win/44.js';
+import maleWin45 from './male-brute/win/45.js';
+import maleWin46 from './male-brute/win/46.js';
+import maleWin47 from './male-brute/win/47.js';
+import maleWin48 from './male-brute/win/48.js';
+import maleWin49 from './male-brute/win/49.js';
+import maleWin5 from './male-brute/win/5.js';
+import maleWin50 from './male-brute/win/50.js';
+import maleWin51 from './male-brute/win/51.js';
+import maleWin52 from './male-brute/win/52.js';
+import maleWin53 from './male-brute/win/53.js';
+import maleWin54 from './male-brute/win/54.js';
+import maleWin55 from './male-brute/win/55.js';
+import maleWin6 from './male-brute/win/6.js';
+import maleWin7 from './male-brute/win/7.js';
+import maleWin8 from './male-brute/win/8.js';
+import maleWin9 from './male-brute/win/9.js';
 
 export const FRAMES: Record<
   'male' | 'female',
@@ -780,7 +835,27 @@ export const FRAMES: Record<
       maleTrash4, maleTrash5, maleTrash6,
       maleTrash7, maleTrash8, maleTrash9,
     ],
-    win: [],
+    win: [
+      maleWin1, maleWin2, maleWin3,
+      maleWin4, maleWin5, maleWin6,
+      maleWin7, maleWin8, maleWin9,
+      maleWin10, maleWin11, maleWin12,
+      maleWin13, maleWin14, maleWin15,
+      maleWin16, maleWin17, maleWin18,
+      maleWin19, maleWin20, maleWin21,
+      maleWin22, maleWin23, maleWin24,
+      maleWin25, maleWin26, maleWin27,
+      maleWin28, maleWin29, maleWin30,
+      maleWin31, maleWin32, maleWin33,
+      maleWin34, maleWin35, maleWin36,
+      maleWin37, maleWin38, maleWin39,
+      maleWin40, maleWin41, maleWin42,
+      maleWin43, maleWin44, maleWin45,
+      maleWin46, maleWin47, maleWin48,
+      maleWin49, maleWin50, maleWin51,
+      maleWin52, maleWin53, maleWin54,
+      maleWin55,
+    ],
     fist: [],
     estoc: [
       maleEstoc1, maleEstoc2, maleEstoc3,
