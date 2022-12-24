@@ -212,6 +212,15 @@ import maleBlock6 from './male-brute/block/6.js';
 import maleBlock7 from './male-brute/block/7.js';
 import maleBlock8 from './male-brute/block/8.js';
 import maleBlock9 from './male-brute/block/9.js';
+import maleTrash1 from './male-brute/trash/1.js';
+import maleTrash2 from './male-brute/trash/2.js';
+import maleTrash3 from './male-brute/trash/3.js';
+import maleTrash4 from './male-brute/trash/4.js';
+import maleTrash5 from './male-brute/trash/5.js';
+import maleTrash6 from './male-brute/trash/6.js';
+import maleTrash7 from './male-brute/trash/7.js';
+import maleTrash8 from './male-brute/trash/8.js';
+import maleTrash9 from './male-brute/trash/9.js';
 
 export const FRAMES: Record<
   'male' | 'female',
@@ -336,7 +345,11 @@ export const FRAMES: Record<
     train: [],
     'trapped-loop': [],
     'trapped-start': [],
-    trash: [],
+    trash: [
+      maleTrash1, maleTrash2, maleTrash3,
+      maleTrash4, maleTrash5, maleTrash6,
+      maleTrash7, maleTrash8, maleTrash9,
+    ],
     win: [],
     fist: [],
     estoc: [],
