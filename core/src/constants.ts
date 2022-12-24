@@ -39,7 +39,7 @@ export const ANIMATION_ANCHORS: Record<Animation, [number, number]> = {
   run: [0.5292, 0.8688],
   slash: [0.3249, 0.8274],
   stolen: [0.5, 0.5],
-  steal: [0.5, 0.5],
+  steal: [0.4558, 0.7632],
   strengthen: [0.5, 0.5],
   throw: [0.3148, 0.6127],
   train: [0.5, 0.5],
