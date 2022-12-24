@@ -32,7 +32,7 @@ export const ANIMATION_ANCHORS: Record<Animation, [number, number]> = {
   'hit-2': [0.4851, 0.669],
   'hit-3': [0.5, 0.5],
   iddle: [0.4946, 0.7951],
-  launch: [0.5, 0.5],
+  launch: [0.4206, 0.7859],
   'monk-loop': [0.5349, 0.7462],
   'monk-start': [0.5349, 0.7462],
   'prepare-throw': [0.6319, 0.7293],

@@ -270,6 +270,22 @@ import maleIddle6 from './male-brute/iddle/6.js';
 import maleIddle7 from './male-brute/iddle/7.js';
 import maleIddle8 from './male-brute/iddle/8.js';
 import maleIddle9 from './male-brute/iddle/9.js';
+import maleLaunch1 from './male-brute/launch/1.js';
+import maleLaunch10 from './male-brute/launch/10.js';
+import maleLaunch11 from './male-brute/launch/11.js';
+import maleLaunch12 from './male-brute/launch/12.js';
+import maleLaunch13 from './male-brute/launch/13.js';
+import maleLaunch14 from './male-brute/launch/14.js';
+import maleLaunch15 from './male-brute/launch/15.js';
+import maleLaunch16 from './male-brute/launch/16.js';
+import maleLaunch2 from './male-brute/launch/2.js';
+import maleLaunch3 from './male-brute/launch/3.js';
+import maleLaunch4 from './male-brute/launch/4.js';
+import maleLaunch5 from './male-brute/launch/5.js';
+import maleLaunch6 from './male-brute/launch/6.js';
+import maleLaunch7 from './male-brute/launch/7.js';
+import maleLaunch8 from './male-brute/launch/8.js';
+import maleLaunch9 from './male-brute/launch/9.js';
 import maleMonkLoop1 from './male-brute/monk-loop/1.js';
 import maleMonkLoop10 from './male-brute/monk-loop/10.js';
 import maleMonkLoop11 from './male-brute/monk-loop/11.js';
@@ -648,7 +664,14 @@ export const FRAMES: Record<
       maleIddle34, maleIddle35, maleIddle36,
       maleIddle37, maleIddle38, maleIddle39,
     ],
-    launch: [],
+    launch: [
+      maleLaunch1, maleLaunch2, maleLaunch3,
+      maleLaunch4, maleLaunch5, maleLaunch6,
+      maleLaunch7, maleLaunch8, maleLaunch9,
+      maleLaunch10, maleLaunch11, maleLaunch12,
+      maleLaunch13, maleLaunch14, maleLaunch15,
+      maleLaunch16,
+    ],
     'monk-loop': [
       maleMonkLoop1, maleMonkLoop2, maleMonkLoop3,
       maleMonkLoop4, maleMonkLoop5, maleMonkLoop6,
