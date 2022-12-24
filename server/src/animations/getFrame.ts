@@ -288,6 +288,20 @@ import maleSlash6 from './male-brute/slash/6.js';
 import maleSlash7 from './male-brute/slash/7.js';
 import maleSlash8 from './male-brute/slash/8.js';
 import maleSlash9 from './male-brute/slash/9.js';
+import maleThrow1 from './male-brute/throw/1.js';
+import maleThrow10 from './male-brute/throw/10.js';
+import maleThrow11 from './male-brute/throw/11.js';
+import maleThrow12 from './male-brute/throw/12.js';
+import maleThrow13 from './male-brute/throw/13.js';
+import maleThrow14 from './male-brute/throw/14.js';
+import maleThrow2 from './male-brute/throw/2.js';
+import maleThrow3 from './male-brute/throw/3.js';
+import maleThrow4 from './male-brute/throw/4.js';
+import maleThrow5 from './male-brute/throw/5.js';
+import maleThrow6 from './male-brute/throw/6.js';
+import maleThrow7 from './male-brute/throw/7.js';
+import maleThrow8 from './male-brute/throw/8.js';
+import maleThrow9 from './male-brute/throw/9.js';
 import maleTrash1 from './male-brute/trash/1.js';
 import maleTrash2 from './male-brute/trash/2.js';
 import maleTrash3 from './male-brute/trash/3.js';
@@ -441,7 +455,13 @@ export const FRAMES: Record<
     stolen: [],
     steal: [],
     strengthen: [],
-    throw: [],
+    throw: [
+      maleThrow1, maleThrow2, maleThrow3,
+      maleThrow4, maleThrow5, maleThrow6,
+      maleThrow7, maleThrow8, maleThrow9,
+      maleThrow10, maleThrow11, maleThrow12,
+      maleThrow13, maleThrow14,
+    ],
     train: [],
     'trapped-loop': [],
     'trapped-start': [],
