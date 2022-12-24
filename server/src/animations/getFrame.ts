@@ -381,6 +381,38 @@ import maleThrow6 from './male-brute/throw/6.js';
 import maleThrow7 from './male-brute/throw/7.js';
 import maleThrow8 from './male-brute/throw/8.js';
 import maleThrow9 from './male-brute/throw/9.js';
+import maleTrappedLoop1 from './male-brute/trapped-loop/1.js';
+import maleTrappedLoop10 from './male-brute/trapped-loop/10.js';
+import maleTrappedLoop11 from './male-brute/trapped-loop/11.js';
+import maleTrappedLoop12 from './male-brute/trapped-loop/12.js';
+import maleTrappedLoop13 from './male-brute/trapped-loop/13.js';
+import maleTrappedLoop14 from './male-brute/trapped-loop/14.js';
+import maleTrappedLoop15 from './male-brute/trapped-loop/15.js';
+import maleTrappedLoop16 from './male-brute/trapped-loop/16.js';
+import maleTrappedLoop17 from './male-brute/trapped-loop/17.js';
+import maleTrappedLoop18 from './male-brute/trapped-loop/18.js';
+import maleTrappedLoop19 from './male-brute/trapped-loop/19.js';
+import maleTrappedLoop2 from './male-brute/trapped-loop/2.js';
+import maleTrappedLoop20 from './male-brute/trapped-loop/20.js';
+import maleTrappedLoop21 from './male-brute/trapped-loop/21.js';
+import maleTrappedLoop22 from './male-brute/trapped-loop/22.js';
+import maleTrappedLoop23 from './male-brute/trapped-loop/23.js';
+import maleTrappedLoop24 from './male-brute/trapped-loop/24.js';
+import maleTrappedLoop25 from './male-brute/trapped-loop/25.js';
+import maleTrappedLoop26 from './male-brute/trapped-loop/26.js';
+import maleTrappedLoop27 from './male-brute/trapped-loop/27.js';
+import maleTrappedLoop28 from './male-brute/trapped-loop/28.js';
+import maleTrappedLoop29 from './male-brute/trapped-loop/29.js';
+import maleTrappedLoop3 from './male-brute/trapped-loop/3.js';
+import maleTrappedLoop30 from './male-brute/trapped-loop/30.js';
+import maleTrappedLoop31 from './male-brute/trapped-loop/31.js';
+import maleTrappedLoop32 from './male-brute/trapped-loop/32.js';
+import maleTrappedLoop4 from './male-brute/trapped-loop/4.js';
+import maleTrappedLoop5 from './male-brute/trapped-loop/5.js';
+import maleTrappedLoop6 from './male-brute/trapped-loop/6.js';
+import maleTrappedLoop7 from './male-brute/trapped-loop/7.js';
+import maleTrappedLoop8 from './male-brute/trapped-loop/8.js';
+import maleTrappedLoop9 from './male-brute/trapped-loop/9.js';
 import maleTrappedStart1 from './male-brute/trapped-start/1.js';
 import maleTrappedStart10 from './male-brute/trapped-start/10.js';
 import maleTrappedStart11 from './male-brute/trapped-start/11.js';
@@ -587,7 +619,19 @@ export const FRAMES: Record<
       maleThrow13, maleThrow14,
     ],
     train: [],
-    'trapped-loop': [],
+    'trapped-loop': [
+      maleTrappedLoop1, maleTrappedLoop2, maleTrappedLoop3,
+      maleTrappedLoop4, maleTrappedLoop5, maleTrappedLoop6,
+      maleTrappedLoop7, maleTrappedLoop8, maleTrappedLoop9,
+      maleTrappedLoop10, maleTrappedLoop11, maleTrappedLoop12,
+      maleTrappedLoop13, maleTrappedLoop14, maleTrappedLoop15,
+      maleTrappedLoop16, maleTrappedLoop17, maleTrappedLoop18,
+      maleTrappedLoop19, maleTrappedLoop20, maleTrappedLoop21,
+      maleTrappedLoop22, maleTrappedLoop23, maleTrappedLoop24,
+      maleTrappedLoop25, maleTrappedLoop26, maleTrappedLoop27,
+      maleTrappedLoop28, maleTrappedLoop29, maleTrappedLoop30,
+      maleTrappedLoop31, maleTrappedLoop32,
+    ],
     'trapped-start': [
       maleTrappedStart1, maleTrappedStart2, maleTrappedStart3,
       maleTrappedStart4, maleTrappedStart5, maleTrappedStart6,
