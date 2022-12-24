@@ -342,6 +342,31 @@ import maleSteal6 from './male-brute/steal/6.js';
 import maleSteal7 from './male-brute/steal/7.js';
 import maleSteal8 from './male-brute/steal/8.js';
 import maleSteal9 from './male-brute/steal/9.js';
+import maleStolen1 from './male-brute/stolen/1.js';
+import maleStolen10 from './male-brute/stolen/10.js';
+import maleStolen11 from './male-brute/stolen/11.js';
+import maleStolen12 from './male-brute/stolen/12.js';
+import maleStolen13 from './male-brute/stolen/13.js';
+import maleStolen14 from './male-brute/stolen/14.js';
+import maleStolen15 from './male-brute/stolen/15.js';
+import maleStolen16 from './male-brute/stolen/16.js';
+import maleStolen17 from './male-brute/stolen/17.js';
+import maleStolen18 from './male-brute/stolen/18.js';
+import maleStolen19 from './male-brute/stolen/19.js';
+import maleStolen2 from './male-brute/stolen/2.js';
+import maleStolen20 from './male-brute/stolen/20.js';
+import maleStolen21 from './male-brute/stolen/21.js';
+import maleStolen22 from './male-brute/stolen/22.js';
+import maleStolen23 from './male-brute/stolen/23.js';
+import maleStolen24 from './male-brute/stolen/24.js';
+import maleStolen25 from './male-brute/stolen/25.js';
+import maleStolen3 from './male-brute/stolen/3.js';
+import maleStolen4 from './male-brute/stolen/4.js';
+import maleStolen5 from './male-brute/stolen/5.js';
+import maleStolen6 from './male-brute/stolen/6.js';
+import maleStolen7 from './male-brute/stolen/7.js';
+import maleStolen8 from './male-brute/stolen/8.js';
+import maleStolen9 from './male-brute/stolen/9.js';
 import maleThrow1 from './male-brute/throw/1.js';
 import maleThrow10 from './male-brute/throw/10.js';
 import maleThrow11 from './male-brute/throw/11.js';
@@ -520,7 +545,17 @@ export const FRAMES: Record<
       maleSlash7, maleSlash8, maleSlash9,
       maleSlash10, maleSlash11, maleSlash12,
     ],
-    stolen: [],
+    stolen: [
+      maleStolen1, maleStolen2, maleStolen3,
+      maleStolen4, maleStolen5, maleStolen6,
+      maleStolen7, maleStolen8, maleStolen9,
+      maleStolen10, maleStolen11, maleStolen12,
+      maleStolen13, maleStolen14, maleStolen15,
+      maleStolen16, maleStolen17, maleStolen18,
+      maleStolen19, maleStolen20, maleStolen21,
+      maleStolen22, maleStolen23, maleStolen24,
+      maleStolen25,
+    ],
     steal: [
       maleSteal1, maleSteal2, maleSteal3,
       maleSteal4, maleSteal5, maleSteal6,

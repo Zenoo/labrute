@@ -38,7 +38,7 @@ export const ANIMATION_ANCHORS: Record<Animation, [number, number]> = {
   'prepare-throw': [0.6319, 0.7293],
   run: [0.5292, 0.8688],
   slash: [0.3249, 0.8274],
-  stolen: [0.5, 0.5],
+  stolen: [0.5138, 0.7995],
   steal: [0.4558, 0.7632],
   strengthen: [0.5, 0.5],
   throw: [0.3148, 0.6127],
