@@ -68,8 +68,8 @@ const formatSpritesheet = (
         rotated: false,
         trimmed: false,
         anchor: {
-          x: ANIMATION_ANCHORS[animationName][0],
-          y: ANIMATION_ANCHORS[animationName][1],
+          x: ANIMATION_ANCHORS[brute.data.gender][animationName][0],
+          y: ANIMATION_ANCHORS[brute.data.gender][animationName][1],
         },
       };
 

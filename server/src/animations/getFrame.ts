@@ -1,6 +1,37 @@
 import {
   Animation, FrameProps,
 } from '@eternaltwin/labrute-core/types';
+import femaleIddle1 from './female-brute/iddle/1.js';
+import femaleIddle10 from './female-brute/iddle/10.js';
+import femaleIddle11 from './female-brute/iddle/11.js';
+import femaleIddle12 from './female-brute/iddle/12.js';
+import femaleIddle13 from './female-brute/iddle/13.js';
+import femaleIddle14 from './female-brute/iddle/14.js';
+import femaleIddle15 from './female-brute/iddle/15.js';
+import femaleIddle16 from './female-brute/iddle/16.js';
+import femaleIddle17 from './female-brute/iddle/17.js';
+import femaleIddle18 from './female-brute/iddle/18.js';
+import femaleIddle19 from './female-brute/iddle/19.js';
+import femaleIddle2 from './female-brute/iddle/2.js';
+import femaleIddle20 from './female-brute/iddle/20.js';
+import femaleIddle21 from './female-brute/iddle/21.js';
+import femaleIddle22 from './female-brute/iddle/22.js';
+import femaleIddle23 from './female-brute/iddle/23.js';
+import femaleIddle24 from './female-brute/iddle/24.js';
+import femaleIddle25 from './female-brute/iddle/25.js';
+import femaleIddle26 from './female-brute/iddle/26.js';
+import femaleIddle27 from './female-brute/iddle/27.js';
+import femaleIddle28 from './female-brute/iddle/28.js';
+import femaleIddle29 from './female-brute/iddle/29.js';
+import femaleIddle3 from './female-brute/iddle/3.js';
+import femaleIddle30 from './female-brute/iddle/30.js';
+import femaleIddle31 from './female-brute/iddle/31.js';
+import femaleIddle4 from './female-brute/iddle/4.js';
+import femaleIddle5 from './female-brute/iddle/5.js';
+import femaleIddle6 from './female-brute/iddle/6.js';
+import femaleIddle7 from './female-brute/iddle/7.js';
+import femaleIddle8 from './female-brute/iddle/8.js';
+import femaleIddle9 from './female-brute/iddle/9.js';
 import maleArriveEnd1 from './male-brute/arrive-end/1.js';
 import maleArriveEnd2 from './male-brute/arrive-end/2.js';
 import maleArriveEnd3 from './male-brute/arrive-end/3.js';
@@ -946,7 +977,19 @@ export const FRAMES: Record<
     'hit-0': [],
     'hit-1': [],
     'hit-2': [],
-    iddle: [],
+    iddle: [
+      femaleIddle1, femaleIddle2, femaleIddle3,
+      femaleIddle4, femaleIddle5, femaleIddle6,
+      femaleIddle7, femaleIddle8, femaleIddle9,
+      femaleIddle10, femaleIddle11, femaleIddle12,
+      femaleIddle13, femaleIddle14, femaleIddle15,
+      femaleIddle16, femaleIddle17, femaleIddle18,
+      femaleIddle19, femaleIddle20, femaleIddle21,
+      femaleIddle22, femaleIddle23, femaleIddle24,
+      femaleIddle25, femaleIddle26, femaleIddle27,
+      femaleIddle28, femaleIddle29, femaleIddle30,
+      femaleIddle31,
+    ],
     launch: [],
     'monk-loop': [],
     'monk-start': [],

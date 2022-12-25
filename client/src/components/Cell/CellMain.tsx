@@ -48,8 +48,6 @@ const CellMain = ({
 
   const { data: ready } = useStateAsync(false, Server.Brute.isReadyToFight, brute.name);
 
-  console.log('ready', ready);
-
   // Sacrifice brute
   const confirmSacrifice = useCallback(() => {
     Confirm.open(t('sacrifice'), t('sacrificeConfirm', { points: getSacriPoints(brute.data.level) }), () => {
