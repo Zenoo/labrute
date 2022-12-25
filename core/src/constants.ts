@@ -70,7 +70,7 @@ export const ANIMATION_ANCHORS: Record<Gender, Record<Animation, [number, number
     idle: [0.5042, 0.8539],
     launch: [0.5, 0.5],
     'monk-loop': [0.5, 0.5],
-    'monk-start': [0.5, 0.5],
+    'monk-start': [0.4473, 0.7648],
     'prepare-throw': [0.5, 0.5],
     run: [0.5, 0.5],
     slash: [0.5, 0.5],

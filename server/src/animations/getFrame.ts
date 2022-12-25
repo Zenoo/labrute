@@ -32,6 +32,18 @@ import femaleIdle6 from './female-brute/idle/6.js';
 import femaleIdle7 from './female-brute/idle/7.js';
 import femaleIdle8 from './female-brute/idle/8.js';
 import femaleIdle9 from './female-brute/idle/9.js';
+import femaleMonkStart1 from './female-brute/monk-start/1.js';
+import femaleMonkStart10 from './female-brute/monk-start/10.js';
+import femaleMonkStart11 from './female-brute/monk-start/11.js';
+import femaleMonkStart12 from './female-brute/monk-start/12.js';
+import femaleMonkStart2 from './female-brute/monk-start/2.js';
+import femaleMonkStart3 from './female-brute/monk-start/3.js';
+import femaleMonkStart4 from './female-brute/monk-start/4.js';
+import femaleMonkStart5 from './female-brute/monk-start/5.js';
+import femaleMonkStart6 from './female-brute/monk-start/6.js';
+import femaleMonkStart7 from './female-brute/monk-start/7.js';
+import femaleMonkStart8 from './female-brute/monk-start/8.js';
+import femaleMonkStart9 from './female-brute/monk-start/9.js';
 import maleArriveEnd1 from './male-brute/arrive-end/1.js';
 import maleArriveEnd2 from './male-brute/arrive-end/2.js';
 import maleArriveEnd3 from './male-brute/arrive-end/3.js';
@@ -992,7 +1004,12 @@ export const FRAMES: Record<
     ],
     launch: [],
     'monk-loop': [],
-    'monk-start': [],
+    'monk-start': [
+      femaleMonkStart1, femaleMonkStart2, femaleMonkStart3,
+      femaleMonkStart4, femaleMonkStart5, femaleMonkStart6,
+      femaleMonkStart7, femaleMonkStart8, femaleMonkStart9,
+      femaleMonkStart10, femaleMonkStart11, femaleMonkStart12,
+    ],
     'prepare-throw': [],
     run: [],
     slash: [],
