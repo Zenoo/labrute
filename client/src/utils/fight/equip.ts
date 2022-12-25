@@ -21,8 +21,8 @@ const equip = async (
   // Wait for animation to complete
   await new Promise((resolve) => {
     (brute.currentAnimation as AnimatedSprite).onComplete = () => {
-      // Set animation to `iddle`
-      changeAnimation(app, brute, 'iddle');
+      // Set animation to `idle`
+      changeAnimation(app, brute, 'idle');
 
       resolve(null);
     };

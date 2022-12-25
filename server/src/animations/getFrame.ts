@@ -1,37 +1,37 @@
 import {
   Animation, FrameProps,
 } from '@eternaltwin/labrute-core/types';
-import femaleIddle1 from './female-brute/iddle/1.js';
-import femaleIddle10 from './female-brute/iddle/10.js';
-import femaleIddle11 from './female-brute/iddle/11.js';
-import femaleIddle12 from './female-brute/iddle/12.js';
-import femaleIddle13 from './female-brute/iddle/13.js';
-import femaleIddle14 from './female-brute/iddle/14.js';
-import femaleIddle15 from './female-brute/iddle/15.js';
-import femaleIddle16 from './female-brute/iddle/16.js';
-import femaleIddle17 from './female-brute/iddle/17.js';
-import femaleIddle18 from './female-brute/iddle/18.js';
-import femaleIddle19 from './female-brute/iddle/19.js';
-import femaleIddle2 from './female-brute/iddle/2.js';
-import femaleIddle20 from './female-brute/iddle/20.js';
-import femaleIddle21 from './female-brute/iddle/21.js';
-import femaleIddle22 from './female-brute/iddle/22.js';
-import femaleIddle23 from './female-brute/iddle/23.js';
-import femaleIddle24 from './female-brute/iddle/24.js';
-import femaleIddle25 from './female-brute/iddle/25.js';
-import femaleIddle26 from './female-brute/iddle/26.js';
-import femaleIddle27 from './female-brute/iddle/27.js';
-import femaleIddle28 from './female-brute/iddle/28.js';
-import femaleIddle29 from './female-brute/iddle/29.js';
-import femaleIddle3 from './female-brute/iddle/3.js';
-import femaleIddle30 from './female-brute/iddle/30.js';
-import femaleIddle31 from './female-brute/iddle/31.js';
-import femaleIddle4 from './female-brute/iddle/4.js';
-import femaleIddle5 from './female-brute/iddle/5.js';
-import femaleIddle6 from './female-brute/iddle/6.js';
-import femaleIddle7 from './female-brute/iddle/7.js';
-import femaleIddle8 from './female-brute/iddle/8.js';
-import femaleIddle9 from './female-brute/iddle/9.js';
+import femaleIdle1 from './female-brute/idle/1.js';
+import femaleIdle10 from './female-brute/idle/10.js';
+import femaleIdle11 from './female-brute/idle/11.js';
+import femaleIdle12 from './female-brute/idle/12.js';
+import femaleIdle13 from './female-brute/idle/13.js';
+import femaleIdle14 from './female-brute/idle/14.js';
+import femaleIdle15 from './female-brute/idle/15.js';
+import femaleIdle16 from './female-brute/idle/16.js';
+import femaleIdle17 from './female-brute/idle/17.js';
+import femaleIdle18 from './female-brute/idle/18.js';
+import femaleIdle19 from './female-brute/idle/19.js';
+import femaleIdle2 from './female-brute/idle/2.js';
+import femaleIdle20 from './female-brute/idle/20.js';
+import femaleIdle21 from './female-brute/idle/21.js';
+import femaleIdle22 from './female-brute/idle/22.js';
+import femaleIdle23 from './female-brute/idle/23.js';
+import femaleIdle24 from './female-brute/idle/24.js';
+import femaleIdle25 from './female-brute/idle/25.js';
+import femaleIdle26 from './female-brute/idle/26.js';
+import femaleIdle27 from './female-brute/idle/27.js';
+import femaleIdle28 from './female-brute/idle/28.js';
+import femaleIdle29 from './female-brute/idle/29.js';
+import femaleIdle3 from './female-brute/idle/3.js';
+import femaleIdle30 from './female-brute/idle/30.js';
+import femaleIdle31 from './female-brute/idle/31.js';
+import femaleIdle4 from './female-brute/idle/4.js';
+import femaleIdle5 from './female-brute/idle/5.js';
+import femaleIdle6 from './female-brute/idle/6.js';
+import femaleIdle7 from './female-brute/idle/7.js';
+import femaleIdle8 from './female-brute/idle/8.js';
+import femaleIdle9 from './female-brute/idle/9.js';
 import maleArriveEnd1 from './male-brute/arrive-end/1.js';
 import maleArriveEnd2 from './male-brute/arrive-end/2.js';
 import maleArriveEnd3 from './male-brute/arrive-end/3.js';
@@ -295,45 +295,45 @@ import maleHit2f6 from './male-brute/hit-2/6.js';
 import maleHit2f7 from './male-brute/hit-2/7.js';
 import maleHit2f8 from './male-brute/hit-2/8.js';
 import maleHit2f9 from './male-brute/hit-2/9.js';
-import maleIddle1 from './male-brute/iddle/1.js';
-import maleIddle10 from './male-brute/iddle/10.js';
-import maleIddle11 from './male-brute/iddle/11.js';
-import maleIddle12 from './male-brute/iddle/12.js';
-import maleIddle13 from './male-brute/iddle/13.js';
-import maleIddle14 from './male-brute/iddle/14.js';
-import maleIddle15 from './male-brute/iddle/15.js';
-import maleIddle16 from './male-brute/iddle/16.js';
-import maleIddle17 from './male-brute/iddle/17.js';
-import maleIddle18 from './male-brute/iddle/18.js';
-import maleIddle19 from './male-brute/iddle/19.js';
-import maleIddle2 from './male-brute/iddle/2.js';
-import maleIddle20 from './male-brute/iddle/20.js';
-import maleIddle21 from './male-brute/iddle/21.js';
-import maleIddle22 from './male-brute/iddle/22.js';
-import maleIddle23 from './male-brute/iddle/23.js';
-import maleIddle24 from './male-brute/iddle/24.js';
-import maleIddle25 from './male-brute/iddle/25.js';
-import maleIddle26 from './male-brute/iddle/26.js';
-import maleIddle27 from './male-brute/iddle/27.js';
-import maleIddle28 from './male-brute/iddle/28.js';
-import maleIddle29 from './male-brute/iddle/29.js';
-import maleIddle3 from './male-brute/iddle/3.js';
-import maleIddle30 from './male-brute/iddle/30.js';
-import maleIddle31 from './male-brute/iddle/31.js';
-import maleIddle32 from './male-brute/iddle/32.js';
-import maleIddle33 from './male-brute/iddle/33.js';
-import maleIddle34 from './male-brute/iddle/34.js';
-import maleIddle35 from './male-brute/iddle/35.js';
-import maleIddle36 from './male-brute/iddle/36.js';
-import maleIddle37 from './male-brute/iddle/37.js';
-import maleIddle38 from './male-brute/iddle/38.js';
-import maleIddle39 from './male-brute/iddle/39.js';
-import maleIddle4 from './male-brute/iddle/4.js';
-import maleIddle5 from './male-brute/iddle/5.js';
-import maleIddle6 from './male-brute/iddle/6.js';
-import maleIddle7 from './male-brute/iddle/7.js';
-import maleIddle8 from './male-brute/iddle/8.js';
-import maleIddle9 from './male-brute/iddle/9.js';
+import maleIdle1 from './male-brute/idle/1.js';
+import maleIdle10 from './male-brute/idle/10.js';
+import maleIdle11 from './male-brute/idle/11.js';
+import maleIdle12 from './male-brute/idle/12.js';
+import maleIdle13 from './male-brute/idle/13.js';
+import maleIdle14 from './male-brute/idle/14.js';
+import maleIdle15 from './male-brute/idle/15.js';
+import maleIdle16 from './male-brute/idle/16.js';
+import maleIdle17 from './male-brute/idle/17.js';
+import maleIdle18 from './male-brute/idle/18.js';
+import maleIdle19 from './male-brute/idle/19.js';
+import maleIdle2 from './male-brute/idle/2.js';
+import maleIdle20 from './male-brute/idle/20.js';
+import maleIdle21 from './male-brute/idle/21.js';
+import maleIdle22 from './male-brute/idle/22.js';
+import maleIdle23 from './male-brute/idle/23.js';
+import maleIdle24 from './male-brute/idle/24.js';
+import maleIdle25 from './male-brute/idle/25.js';
+import maleIdle26 from './male-brute/idle/26.js';
+import maleIdle27 from './male-brute/idle/27.js';
+import maleIdle28 from './male-brute/idle/28.js';
+import maleIdle29 from './male-brute/idle/29.js';
+import maleIdle3 from './male-brute/idle/3.js';
+import maleIdle30 from './male-brute/idle/30.js';
+import maleIdle31 from './male-brute/idle/31.js';
+import maleIdle32 from './male-brute/idle/32.js';
+import maleIdle33 from './male-brute/idle/33.js';
+import maleIdle34 from './male-brute/idle/34.js';
+import maleIdle35 from './male-brute/idle/35.js';
+import maleIdle36 from './male-brute/idle/36.js';
+import maleIdle37 from './male-brute/idle/37.js';
+import maleIdle38 from './male-brute/idle/38.js';
+import maleIdle39 from './male-brute/idle/39.js';
+import maleIdle4 from './male-brute/idle/4.js';
+import maleIdle5 from './male-brute/idle/5.js';
+import maleIdle6 from './male-brute/idle/6.js';
+import maleIdle7 from './male-brute/idle/7.js';
+import maleIdle8 from './male-brute/idle/8.js';
+import maleIdle9 from './male-brute/idle/9.js';
 import maleLaunch1 from './male-brute/launch/1.js';
 import maleLaunch10 from './male-brute/launch/10.js';
 import maleLaunch11 from './male-brute/launch/11.js';
@@ -783,20 +783,20 @@ export const FRAMES: Record<
       maleHit2f10, maleHit2f11, maleHit2f12,
       maleHit2f13, maleHit2f14, maleHit2f15,
     ],
-    iddle: [
-      maleIddle1, maleIddle2, maleIddle3,
-      maleIddle4, maleIddle5, maleIddle6,
-      maleIddle7, maleIddle8, maleIddle9,
-      maleIddle10, maleIddle11, maleIddle12,
-      maleIddle13, maleIddle14, maleIddle15,
-      maleIddle16, maleIddle17, maleIddle18,
-      maleIddle19, maleIddle20, maleIddle21,
-      maleIddle22, maleIddle23, maleIddle24,
-      maleIddle25, maleIddle26, maleIddle27,
-      maleIddle28, maleIddle29, maleIddle30,
-      maleIddle31, maleIddle32, maleIddle33,
-      maleIddle34, maleIddle35, maleIddle36,
-      maleIddle37, maleIddle38, maleIddle39,
+    idle: [
+      maleIdle1, maleIdle2, maleIdle3,
+      maleIdle4, maleIdle5, maleIdle6,
+      maleIdle7, maleIdle8, maleIdle9,
+      maleIdle10, maleIdle11, maleIdle12,
+      maleIdle13, maleIdle14, maleIdle15,
+      maleIdle16, maleIdle17, maleIdle18,
+      maleIdle19, maleIdle20, maleIdle21,
+      maleIdle22, maleIdle23, maleIdle24,
+      maleIdle25, maleIdle26, maleIdle27,
+      maleIdle28, maleIdle29, maleIdle30,
+      maleIdle31, maleIdle32, maleIdle33,
+      maleIdle34, maleIdle35, maleIdle36,
+      maleIdle37, maleIdle38, maleIdle39,
     ],
     launch: [
       maleLaunch1, maleLaunch2, maleLaunch3,
@@ -977,18 +977,18 @@ export const FRAMES: Record<
     'hit-0': [],
     'hit-1': [],
     'hit-2': [],
-    iddle: [
-      femaleIddle1, femaleIddle2, femaleIddle3,
-      femaleIddle4, femaleIddle5, femaleIddle6,
-      femaleIddle7, femaleIddle8, femaleIddle9,
-      femaleIddle10, femaleIddle11, femaleIddle12,
-      femaleIddle13, femaleIddle14, femaleIddle15,
-      femaleIddle16, femaleIddle17, femaleIddle18,
-      femaleIddle19, femaleIddle20, femaleIddle21,
-      femaleIddle22, femaleIddle23, femaleIddle24,
-      femaleIddle25, femaleIddle26, femaleIddle27,
-      femaleIddle28, femaleIddle29, femaleIddle30,
-      femaleIddle31,
+    idle: [
+      femaleIdle1, femaleIdle2, femaleIdle3,
+      femaleIdle4, femaleIdle5, femaleIdle6,
+      femaleIdle7, femaleIdle8, femaleIdle9,
+      femaleIdle10, femaleIdle11, femaleIdle12,
+      femaleIdle13, femaleIdle14, femaleIdle15,
+      femaleIdle16, femaleIdle17, femaleIdle18,
+      femaleIdle19, femaleIdle20, femaleIdle21,
+      femaleIdle22, femaleIdle23, femaleIdle24,
+      femaleIdle25, femaleIdle26, femaleIdle27,
+      femaleIdle28, femaleIdle29, femaleIdle30,
+      femaleIdle31,
     ],
     launch: [],
     'monk-loop': [],

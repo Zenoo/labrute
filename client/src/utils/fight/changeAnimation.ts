@@ -70,8 +70,8 @@ const changeAnimation = (
       ? 'male-brute'
       : 'female-brute';
 
-  // Handle iddle differently for monks
-  if (animation === 'iddle' && fighter.skills && fighter.skills.includes('monk')) {
+  // Handle idle differently for monks
+  if (animation === 'idle' && fighter.skills && fighter.skills.includes('monk')) {
     // Load the animation start
     getSprite(app, type, fighter, 'monk-start');
 

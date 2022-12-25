@@ -29,8 +29,8 @@ const bomb = async (
     }, 500);
   });
 
-  // Set animation to `iddle`
-  changeAnimation(app, fighter, 'iddle');
+  // Set animation to `idle`
+  changeAnimation(app, fighter, 'idle');
 
   // Get targets
   const targets = step.targets.map((t) => {
@@ -85,8 +85,8 @@ const bomb = async (
     // eslint-disable-next-line no-await-in-loop
     stagger(target.currentAnimation as AnimatedSprite, target.team)
       .then(() => {
-        // Set animation to `iddle`
-        changeAnimation(app, target, 'iddle');
+        // Set animation to `idle`
+        changeAnimation(app, target, 'idle');
       })
       .catch(console.error);
   }

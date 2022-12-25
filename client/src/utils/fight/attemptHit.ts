@@ -25,8 +25,8 @@ const attemptHit = (
 
   // Wait for animation to finish
   (fighter.currentAnimation as AnimatedSprite).onComplete = () => {
-    // Set animation to `iddle`
-    changeAnimation(app, fighter, 'iddle');
+    // Set animation to `idle`
+    changeAnimation(app, fighter, 'idle');
   };
 };
 

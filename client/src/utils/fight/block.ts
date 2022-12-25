@@ -24,8 +24,8 @@ const block = async (
     };
   });
 
-  // Set animation to `iddle`
-  changeAnimation(app, fighter, 'iddle');
+  // Set animation to `idle`
+  changeAnimation(app, fighter, 'idle');
 };
 
 export default block;

@@ -2,7 +2,7 @@ import fightersEqual from './fightersEqual.js';
 import { AnimationFighter } from './findFighter.js';
 import { StepFighter } from '@eternaltwin/labrute-core/types';
 
-const iddle = (
+const idle = (
   setFighters: React.Dispatch<React.SetStateAction<AnimationFighter[]>>,
   fighter: StepFighter,
   timeout: number,
@@ -15,11 +15,11 @@ const iddle = (
 
       return {
         ...f,
-        animation: 'iddle',
+        animation: 'idle',
         inverted: f.team === 'left',
       };
     }));
   }, timeout);
 };
 
-export default iddle;
+export default idle;

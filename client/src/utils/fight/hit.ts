@@ -68,8 +68,8 @@ const hit = async (
   // Stagger
   await stagger(target.currentAnimation as AnimatedSprite, target.team);
 
-  // Set animation to `iddle`
-  changeAnimation(app, target, 'iddle');
+  // Set animation to `idle`
+  changeAnimation(app, target, 'idle');
 };
 
 export default hit;

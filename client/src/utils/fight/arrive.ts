@@ -43,8 +43,8 @@ const arrive = async (
   // Wait for animation to end before going further
   await new Promise((resolve) => {
     (fighter.currentAnimation as AnimatedSprite).onComplete = () => {
-      // Set animation to `iddle`
-      changeAnimation(app, fighter, 'iddle');
+      // Set animation to `idle`
+      changeAnimation(app, fighter, 'idle');
 
       resolve(null);
     };

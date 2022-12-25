@@ -40,8 +40,8 @@ const throwWeapon = async (
     }, 250);
   });
 
-  // Set animation to `iddle`
-  changeAnimation(app, fighter, 'iddle');
+  // Set animation to `idle`
+  changeAnimation(app, fighter, 'idle');
 };
 
 export default throwWeapon;

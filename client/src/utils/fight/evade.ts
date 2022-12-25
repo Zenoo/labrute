@@ -30,8 +30,8 @@ const evade = async (
     ease: Easing.easeFrom,
   }, { y: fighter.currentAnimation.y + fighter.currentAnimation.height / 2 });
 
-  // Set animation to `iddle`
-  changeAnimation(app, fighter, 'iddle');
+  // Set animation to `idle`
+  changeAnimation(app, fighter, 'idle');
 };
 
 export default evade;

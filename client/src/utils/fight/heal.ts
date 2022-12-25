@@ -52,8 +52,8 @@ const heal = async (
   // Heal brute
   updateHp(brute, step.amount);
 
-  // Set animation to `iddle`
-  changeAnimation(app, brute, 'iddle');
+  // Set animation to `idle`
+  changeAnimation(app, brute, 'idle');
 };
 
 export default heal;

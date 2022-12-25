@@ -35,8 +35,8 @@ const hypnotise = async (
   pet.team = brute.team;
   pet.master = brute.name;
 
-  // Set pet animation to `iddle`
-  changeAnimation(app, pet, 'iddle');
+  // Set pet animation to `idle`
+  changeAnimation(app, pet, 'idle');
 };
 
 export default hypnotise;

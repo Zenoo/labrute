@@ -35,8 +35,8 @@ const moveBack = async (
   // Invert fighter
   fighter.currentAnimation.scale.x *= -1;
 
-  // Set animation to `iddle`
-  changeAnimation(app, fighter, 'iddle');
+  // Set animation to `idle`
+  changeAnimation(app, fighter, 'idle');
 };
 
 export default moveBack;

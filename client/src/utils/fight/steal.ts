@@ -53,8 +53,8 @@ const steal = async (
   // Update brute weapon list
   updateWeapons(app, target, step.name, 'add');
 
-  // Set target animation to `iddle`
-  changeAnimation(app, target, 'iddle');
+  // Set target animation to `idle`
+  changeAnimation(app, target, 'idle');
 
   const { x, y } = getRandomPosition(fighters, brute.team);
 
@@ -68,8 +68,8 @@ const steal = async (
     y,
   });
 
-  // Set brute animation to `iddle`
-  changeAnimation(app, brute, 'iddle');
+  // Set brute animation to `idle`
+  changeAnimation(app, brute, 'idle');
 };
 
 export default steal;

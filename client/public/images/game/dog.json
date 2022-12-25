@@ -450,7 +450,7 @@
 	"sourceSize": {"w":39,"h":33},
 	"anchor": {"x":0.666667,"y":0.787879}
 },
-"iddle/00001.png":
+"idle/00001.png":
 {
 	"frame": {"x":575,"y":184,"w":47,"h":33},
 	"rotated": false,
@@ -459,7 +459,7 @@
 	"sourceSize": {"w":47,"h":33},
 	"anchor": {"x":0.553191,"y":0.818182}
 },
-"iddle/00002.png":
+"idle/00002.png":
 {
 	"frame": {"x":575,"y":184,"w":47,"h":33},
 	"rotated": false,
@@ -468,7 +468,7 @@
 	"sourceSize": {"w":47,"h":33},
 	"anchor": {"x":0.553191,"y":0.818182}
 },
-"iddle/00003.png":
+"idle/00003.png":
 {
 	"frame": {"x":624,"y":184,"w":47,"h":33},
 	"rotated": false,
@@ -477,7 +477,7 @@
 	"sourceSize": {"w":47,"h":33},
 	"anchor": {"x":0.553191,"y":0.818182}
 },
-"iddle/00004.png":
+"idle/00004.png":
 {
 	"frame": {"x":673,"y":184,"w":47,"h":33},
 	"rotated": false,
@@ -486,7 +486,7 @@
 	"sourceSize": {"w":47,"h":33},
 	"anchor": {"x":0.553191,"y":0.818182}
 },
-"iddle/00005.png":
+"idle/00005.png":
 {
 	"frame": {"x":421,"y":219,"w":47,"h":33},
 	"rotated": false,
@@ -495,7 +495,7 @@
 	"sourceSize": {"w":47,"h":33},
 	"anchor": {"x":0.553191,"y":0.818182}
 },
-"iddle/00006.png":
+"idle/00006.png":
 {
 	"frame": {"x":521,"y":219,"w":47,"h":33},
 	"rotated": false,
@@ -504,7 +504,7 @@
 	"sourceSize": {"w":47,"h":33},
 	"anchor": {"x":0.553191,"y":0.818182}
 },
-"iddle/00007.png":
+"idle/00007.png":
 {
 	"frame": {"x":570,"y":219,"w":47,"h":33},
 	"rotated": false,
@@ -513,7 +513,7 @@
 	"sourceSize": {"w":47,"h":33},
 	"anchor": {"x":0.553191,"y":0.818182}
 },
-"iddle/00008.png":
+"idle/00008.png":
 {
 	"frame": {"x":619,"y":219,"w":47,"h":33},
 	"rotated": false,
@@ -522,7 +522,7 @@
 	"sourceSize": {"w":47,"h":33},
 	"anchor": {"x":0.553191,"y":0.818182}
 },
-"iddle/00009.png":
+"idle/00009.png":
 {
 	"frame": {"x":668,"y":219,"w":47,"h":33},
 	"rotated": false,
@@ -531,7 +531,7 @@
 	"sourceSize": {"w":47,"h":33},
 	"anchor": {"x":0.553191,"y":0.818182}
 },
-"iddle/00010.png":
+"idle/00010.png":
 {
 	"frame": {"x":717,"y":219,"w":47,"h":33},
 	"rotated": false,
@@ -540,7 +540,7 @@
 	"sourceSize": {"w":47,"h":33},
 	"anchor": {"x":0.553191,"y":0.818182}
 },
-"iddle/00011.png":
+"idle/00011.png":
 {
 	"frame": {"x":763,"y":180,"w":47,"h":33},
 	"rotated": false,
@@ -549,7 +549,7 @@
 	"sourceSize": {"w":47,"h":33},
 	"anchor": {"x":0.553191,"y":0.818182}
 },
-"iddle/00012.png":
+"idle/00012.png":
 {
 	"frame": {"x":766,"y":215,"w":47,"h":33},
 	"rotated": false,
@@ -558,7 +558,7 @@
 	"sourceSize": {"w":47,"h":33},
 	"anchor": {"x":0.553191,"y":0.818182}
 },
-"iddle/00013.png":
+"idle/00013.png":
 {
 	"frame": {"x":812,"y":180,"w":47,"h":33},
 	"rotated": false,
@@ -567,7 +567,7 @@
 	"sourceSize": {"w":47,"h":33},
 	"anchor": {"x":0.553191,"y":0.818182}
 },
-"iddle/00014.png":
+"idle/00014.png":
 {
 	"frame": {"x":861,"y":179,"w":47,"h":33},
 	"rotated": false,
@@ -576,7 +576,7 @@
 	"sourceSize": {"w":47,"h":33},
 	"anchor": {"x":0.553191,"y":0.818182}
 },
-"iddle/00015.png":
+"idle/00015.png":
 {
 	"frame": {"x":815,"y":215,"w":47,"h":33},
 	"rotated": false,
@@ -585,7 +585,7 @@
 	"sourceSize": {"w":47,"h":33},
 	"anchor": {"x":0.553191,"y":0.818182}
 },
-"iddle/00016.png":
+"idle/00016.png":
 {
 	"frame": {"x":864,"y":214,"w":47,"h":33},
 	"rotated": false,
@@ -594,7 +594,7 @@
 	"sourceSize": {"w":47,"h":33},
 	"anchor": {"x":0.553191,"y":0.818182}
 },
-"iddle/00017.png":
+"idle/00017.png":
 {
 	"frame": {"x":1140,"y":188,"w":47,"h":33},
 	"rotated": false,
@@ -603,7 +603,7 @@
 	"sourceSize": {"w":47,"h":33},
 	"anchor": {"x":0.553191,"y":0.818182}
 },
-"iddle/00018.png":
+"idle/00018.png":
 {
 	"frame": {"x":1263,"y":176,"w":47,"h":33},
 	"rotated": false,
@@ -612,7 +612,7 @@
 	"sourceSize": {"w":47,"h":33},
 	"anchor": {"x":0.553191,"y":0.818182}
 },
-"iddle/00019.png":
+"idle/00019.png":
 {
 	"frame": {"x":1312,"y":176,"w":47,"h":33},
 	"rotated": false,
@@ -621,7 +621,7 @@
 	"sourceSize": {"w":47,"h":33},
 	"anchor": {"x":0.553191,"y":0.818182}
 },
-"iddle/00020.png":
+"idle/00020.png":
 {
 	"frame": {"x":1361,"y":176,"w":47,"h":33},
 	"rotated": true,
@@ -630,7 +630,7 @@
 	"sourceSize": {"w":47,"h":33},
 	"anchor": {"x":0.553191,"y":0.818182}
 },
-"iddle/00021.png":
+"idle/00021.png":
 {
 	"frame": {"x":913,"y":215,"w":47,"h":33},
 	"rotated": false,
@@ -639,7 +639,7 @@
 	"sourceSize": {"w":47,"h":33},
 	"anchor": {"x":0.553191,"y":0.818182}
 },
-"iddle/00022.png":
+"idle/00022.png":
 {
 	"frame": {"x":962,"y":215,"w":47,"h":33},
 	"rotated": false,
@@ -648,7 +648,7 @@
 	"sourceSize": {"w":47,"h":33},
 	"anchor": {"x":0.553191,"y":0.818182}
 },
-"iddle/00023.png":
+"idle/00023.png":
 {
 	"frame": {"x":1011,"y":217,"w":47,"h":33},
 	"rotated": false,
@@ -657,7 +657,7 @@
 	"sourceSize": {"w":47,"h":33},
 	"anchor": {"x":0.553191,"y":0.818182}
 },
-"iddle/00024.png":
+"idle/00024.png":
 {
 	"frame": {"x":1189,"y":192,"w":47,"h":33},
 	"rotated": false,
@@ -666,7 +666,7 @@
 	"sourceSize": {"w":47,"h":33},
 	"anchor": {"x":0.553191,"y":0.818182}
 },
-"iddle/00025.png":
+"idle/00025.png":
 {
 	"frame": {"x":1238,"y":211,"w":47,"h":33},
 	"rotated": false,
@@ -675,7 +675,7 @@
 	"sourceSize": {"w":47,"h":33},
 	"anchor": {"x":0.553191,"y":0.818182}
 },
-"iddle/00026.png":
+"idle/00026.png":
 {
 	"frame": {"x":1287,"y":211,"w":47,"h":33},
 	"rotated": false,
@@ -1140,7 +1140,7 @@
 	"death": ["death/00001.png","death/00002.png","death/00003.png","death/00004.png","death/00005.png","death/00006.png","death/00007.png","death/00008.png","death/00009.png","death/00010.png","death/00011.png","death/00012.png","death/00013.png","death/00014.png","death/00015.png","death/00016.png","death/00017.png","death/00018.png","death/00019.png","death/00020.png","death/00021.png","death/00022.png","death/00023.png","death/00024.png","death/00025.png","death/00026.png","death/00027.png"],
 	"evade": ["evade/00001.png","evade/00002.png"],
 	"grabbed": ["grabbed/00001.png","grabbed/00002.png","grabbed/00003.png","grabbed/00004.png","grabbed/00005.png","grabbed/00006.png","grabbed/00007.png","grabbed/00008.png"],
-	"iddle": ["iddle/00001.png","iddle/00002.png","iddle/00003.png","iddle/00004.png","iddle/00005.png","iddle/00006.png","iddle/00007.png","iddle/00008.png","iddle/00009.png","iddle/00010.png","iddle/00011.png","iddle/00012.png","iddle/00013.png","iddle/00014.png","iddle/00015.png","iddle/00016.png","iddle/00017.png","iddle/00018.png","iddle/00019.png","iddle/00020.png","iddle/00021.png","iddle/00022.png","iddle/00023.png","iddle/00024.png","iddle/00025.png","iddle/00026.png"],
+	"idle": ["idle/00001.png","idle/00002.png","idle/00003.png","idle/00004.png","idle/00005.png","idle/00006.png","idle/00007.png","idle/00008.png","idle/00009.png","idle/00010.png","idle/00011.png","idle/00012.png","idle/00013.png","idle/00014.png","idle/00015.png","idle/00016.png","idle/00017.png","idle/00018.png","idle/00019.png","idle/00020.png","idle/00021.png","idle/00022.png","idle/00023.png","idle/00024.png","idle/00025.png","idle/00026.png"],
 	"run": ["run/00001.png","run/00002.png","run/00003.png","run/00004.png","run/00005.png","run/00006.png","run/00007.png"],
 	"trapped-loop": ["trapped-loop/00012.png","trapped-loop/00013.png","trapped-loop/00014.png","trapped-loop/00015.png","trapped-loop/00016.png","trapped-loop/00017.png","trapped-loop/00018.png","trapped-loop/00019.png","trapped-loop/00020.png","trapped-loop/00021.png","trapped-loop/00022.png","trapped-loop/00023.png","trapped-loop/00024.png","trapped-loop/00025.png","trapped-loop/00026.png","trapped-loop/00027.png","trapped-loop/00028.png","trapped-loop/00029.png","trapped-loop/00030.png","trapped-loop/00031.png","trapped-loop/00032.png","trapped-loop/00033.png","trapped-loop/00034.png","trapped-loop/00035.png","trapped-loop/00036.png","trapped-loop/00037.png","trapped-loop/00038.png","trapped-loop/00039.png","trapped-loop/00040.png","trapped-loop/00041.png","trapped-loop/00042.png","trapped-loop/00043.png"],
 	"trapped-start": ["trapped-start/00001.png","trapped-start/00002.png","trapped-start/00003.png","trapped-start/00004.png","trapped-start/00005.png","trapped-start/00006.png","trapped-start/00007.png","trapped-start/00008.png","trapped-start/00009.png","trapped-start/00010.png","trapped-start/00011.png"]

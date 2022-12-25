@@ -24,8 +24,8 @@ const trap = async (
   // Wait 500ms
   await new Promise((resolve) => {
     setTimeout(() => {
-      // Set fighter animation to `iddle`
-      changeAnimation(app, brute, 'iddle');
+      // Set fighter animation to `idle`
+      changeAnimation(app, brute, 'idle');
 
       // Set target animation to `trap`
       changeAnimation(app, target, 'trapped-start');

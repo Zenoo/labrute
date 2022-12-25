@@ -299,32 +299,32 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">public/images/game/resources/panther/iddle/00001.png</key>
-            <key type="filename">public/images/game/resources/panther/iddle/00002.png</key>
-            <key type="filename">public/images/game/resources/panther/iddle/00003.png</key>
-            <key type="filename">public/images/game/resources/panther/iddle/00004.png</key>
-            <key type="filename">public/images/game/resources/panther/iddle/00005.png</key>
-            <key type="filename">public/images/game/resources/panther/iddle/00006.png</key>
-            <key type="filename">public/images/game/resources/panther/iddle/00007.png</key>
-            <key type="filename">public/images/game/resources/panther/iddle/00008.png</key>
-            <key type="filename">public/images/game/resources/panther/iddle/00009.png</key>
-            <key type="filename">public/images/game/resources/panther/iddle/00010.png</key>
-            <key type="filename">public/images/game/resources/panther/iddle/00011.png</key>
-            <key type="filename">public/images/game/resources/panther/iddle/00012.png</key>
-            <key type="filename">public/images/game/resources/panther/iddle/00013.png</key>
-            <key type="filename">public/images/game/resources/panther/iddle/00014.png</key>
-            <key type="filename">public/images/game/resources/panther/iddle/00015.png</key>
-            <key type="filename">public/images/game/resources/panther/iddle/00016.png</key>
-            <key type="filename">public/images/game/resources/panther/iddle/00017.png</key>
-            <key type="filename">public/images/game/resources/panther/iddle/00018.png</key>
-            <key type="filename">public/images/game/resources/panther/iddle/00019.png</key>
-            <key type="filename">public/images/game/resources/panther/iddle/00020.png</key>
-            <key type="filename">public/images/game/resources/panther/iddle/00021.png</key>
-            <key type="filename">public/images/game/resources/panther/iddle/00022.png</key>
-            <key type="filename">public/images/game/resources/panther/iddle/00023.png</key>
-            <key type="filename">public/images/game/resources/panther/iddle/00024.png</key>
-            <key type="filename">public/images/game/resources/panther/iddle/00025.png</key>
-            <key type="filename">public/images/game/resources/panther/iddle/00026.png</key>
+            <key type="filename">public/images/game/resources/panther/idle/00001.png</key>
+            <key type="filename">public/images/game/resources/panther/idle/00002.png</key>
+            <key type="filename">public/images/game/resources/panther/idle/00003.png</key>
+            <key type="filename">public/images/game/resources/panther/idle/00004.png</key>
+            <key type="filename">public/images/game/resources/panther/idle/00005.png</key>
+            <key type="filename">public/images/game/resources/panther/idle/00006.png</key>
+            <key type="filename">public/images/game/resources/panther/idle/00007.png</key>
+            <key type="filename">public/images/game/resources/panther/idle/00008.png</key>
+            <key type="filename">public/images/game/resources/panther/idle/00009.png</key>
+            <key type="filename">public/images/game/resources/panther/idle/00010.png</key>
+            <key type="filename">public/images/game/resources/panther/idle/00011.png</key>
+            <key type="filename">public/images/game/resources/panther/idle/00012.png</key>
+            <key type="filename">public/images/game/resources/panther/idle/00013.png</key>
+            <key type="filename">public/images/game/resources/panther/idle/00014.png</key>
+            <key type="filename">public/images/game/resources/panther/idle/00015.png</key>
+            <key type="filename">public/images/game/resources/panther/idle/00016.png</key>
+            <key type="filename">public/images/game/resources/panther/idle/00017.png</key>
+            <key type="filename">public/images/game/resources/panther/idle/00018.png</key>
+            <key type="filename">public/images/game/resources/panther/idle/00019.png</key>
+            <key type="filename">public/images/game/resources/panther/idle/00020.png</key>
+            <key type="filename">public/images/game/resources/panther/idle/00021.png</key>
+            <key type="filename">public/images/game/resources/panther/idle/00022.png</key>
+            <key type="filename">public/images/game/resources/panther/idle/00023.png</key>
+            <key type="filename">public/images/game/resources/panther/idle/00024.png</key>
+            <key type="filename">public/images/game/resources/panther/idle/00025.png</key>
+            <key type="filename">public/images/game/resources/panther/idle/00026.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.571429,0.88</point_f>

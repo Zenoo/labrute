@@ -31,7 +31,7 @@ const setupSprite = (
   sprite.name = animation;
 
   // Loop some animations
-  if (['evade', 'iddle', 'monk-loop', 'run', 'train', 'trapped-loop'].includes(animation)) {
+  if (['evade', 'idle', 'monk-loop', 'run', 'train', 'trapped-loop'].includes(animation)) {
     (sprite as AnimatedSprite).loop = true;
   } else {
     (sprite as AnimatedSprite).loop = false;
