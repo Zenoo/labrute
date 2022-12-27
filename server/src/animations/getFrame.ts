@@ -32,6 +32,40 @@ import femaleIdle6 from './female-brute/idle/6.js';
 import femaleIdle7 from './female-brute/idle/7.js';
 import femaleIdle8 from './female-brute/idle/8.js';
 import femaleIdle9 from './female-brute/idle/9.js';
+import femaleMonkLoop1 from './female-brute/monk-loop/1.js';
+import femaleMonkLoop10 from './female-brute/monk-loop/10.js';
+import femaleMonkLoop11 from './female-brute/monk-loop/11.js';
+import femaleMonkLoop12 from './female-brute/monk-loop/12.js';
+import femaleMonkLoop13 from './female-brute/monk-loop/13.js';
+import femaleMonkLoop14 from './female-brute/monk-loop/14.js';
+import femaleMonkLoop15 from './female-brute/monk-loop/15.js';
+import femaleMonkLoop16 from './female-brute/monk-loop/16.js';
+import femaleMonkLoop17 from './female-brute/monk-loop/17.js';
+import femaleMonkLoop18 from './female-brute/monk-loop/18.js';
+import femaleMonkLoop19 from './female-brute/monk-loop/19.js';
+import femaleMonkLoop2 from './female-brute/monk-loop/2.js';
+import femaleMonkLoop20 from './female-brute/monk-loop/20.js';
+import femaleMonkLoop21 from './female-brute/monk-loop/21.js';
+import femaleMonkLoop22 from './female-brute/monk-loop/22.js';
+import femaleMonkLoop23 from './female-brute/monk-loop/23.js';
+import femaleMonkLoop24 from './female-brute/monk-loop/24.js';
+import femaleMonkLoop25 from './female-brute/monk-loop/25.js';
+import femaleMonkLoop26 from './female-brute/monk-loop/26.js';
+import femaleMonkLoop27 from './female-brute/monk-loop/27.js';
+import femaleMonkLoop28 from './female-brute/monk-loop/28.js';
+import femaleMonkLoop29 from './female-brute/monk-loop/29.js';
+import femaleMonkLoop3 from './female-brute/monk-loop/3.js';
+import femaleMonkLoop30 from './female-brute/monk-loop/30.js';
+import femaleMonkLoop31 from './female-brute/monk-loop/31.js';
+import femaleMonkLoop32 from './female-brute/monk-loop/32.js';
+import femaleMonkLoop33 from './female-brute/monk-loop/33.js';
+import femaleMonkLoop34 from './female-brute/monk-loop/34.js';
+import femaleMonkLoop4 from './female-brute/monk-loop/4.js';
+import femaleMonkLoop5 from './female-brute/monk-loop/5.js';
+import femaleMonkLoop6 from './female-brute/monk-loop/6.js';
+import femaleMonkLoop7 from './female-brute/monk-loop/7.js';
+import femaleMonkLoop8 from './female-brute/monk-loop/8.js';
+import femaleMonkLoop9 from './female-brute/monk-loop/9.js';
 import femaleMonkStart1 from './female-brute/monk-start/1.js';
 import femaleMonkStart10 from './female-brute/monk-start/10.js';
 import femaleMonkStart11 from './female-brute/monk-start/11.js';
@@ -1003,7 +1037,20 @@ export const FRAMES: Record<
       femaleIdle31,
     ],
     launch: [],
-    'monk-loop': [],
+    'monk-loop': [
+      femaleMonkLoop1, femaleMonkLoop2, femaleMonkLoop3,
+      femaleMonkLoop4, femaleMonkLoop5, femaleMonkLoop6,
+      femaleMonkLoop7, femaleMonkLoop8, femaleMonkLoop9,
+      femaleMonkLoop10, femaleMonkLoop11, femaleMonkLoop12,
+      femaleMonkLoop13, femaleMonkLoop14, femaleMonkLoop15,
+      femaleMonkLoop16, femaleMonkLoop17, femaleMonkLoop18,
+      femaleMonkLoop19, femaleMonkLoop20, femaleMonkLoop21,
+      femaleMonkLoop22, femaleMonkLoop23, femaleMonkLoop24,
+      femaleMonkLoop25, femaleMonkLoop26, femaleMonkLoop27,
+      femaleMonkLoop28, femaleMonkLoop29, femaleMonkLoop30,
+      femaleMonkLoop31, femaleMonkLoop32, femaleMonkLoop33,
+      femaleMonkLoop34,
+    ],
     'monk-start': [
       femaleMonkStart1, femaleMonkStart2, femaleMonkStart3,
       femaleMonkStart4, femaleMonkStart5, femaleMonkStart6,
