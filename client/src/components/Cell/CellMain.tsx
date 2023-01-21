@@ -1,4 +1,4 @@
-import { Brute, FIGHTS_PER_DAY, getFightsLeft, getSacriPoints, getXPNeeded, User } from '@labrute/core';
+import { BruteRanking, BruteWithBodyColors, FIGHTS_PER_DAY, getFightsLeft, getSacriPoints, getXPNeeded, UserWithBrutesBodyColor } from '@labrute/core';
 import { Box, BoxProps, Stack } from '@mui/material';
 import { Moment } from 'moment';
 import React, { useCallback, useMemo } from 'react';
@@ -19,7 +19,7 @@ import { useNavigate } from 'react-router';
 import useStateAsync from '../../hooks/useStateAsync';
 
 export interface CellMainProps extends BoxProps {
-  brute: Brute;
+  brute: BruteWithBodyColors;
   ownsBrute: boolean;
   language: Language;
   nextTournament: Moment;
@@ -40,25 +40,25 @@ const CellMain = ({
   const { updateData } = useAuth();
   const navigate = useNavigate();
 
-  const xpNeededForNextLevel = useMemo(() => getXPNeeded(brute.data.level + 1), [brute]);
+  const xpNeededForNextLevel = useMemo(() => getXPNeeded(brute.level + 1), [brute]);
 
   const { data: ready } = useStateAsync(false, Server.Brute.isReadyToFight, brute.name);
 
   // Sacrifice brute
   const confirmSacrifice = useCallback(() => {
-    Confirm.open(t('sacrifice'), t('sacrificeConfirm', { points: getSacriPoints(brute.data.level) }), () => {
+    Confirm.open(t('sacrifice'), t('sacrificeConfirm', { points: getSacriPoints(brute.level) }), () => {
       Server.Brute.sacrifice(brute.name).then(({ points }) => {
         Alert.open('success', t('sacrificeSuccess', { points }));
         navigate('/');
 
         updateData((data) => ({
           ...data,
-          sacrifice_points: (data?.sacrifice_points || 0) + points,
+          sacrificePoints: (data?.sacrificePoints || 0) + points,
           brutes: data?.brutes?.filter((b) => b.name !== brute.name) || [],
-        }) as User);
+        }) as UserWithBrutesBodyColor);
       }).catch(catchError(Alert));
     });
-  }, [Alert, Confirm, brute.data.level, brute.name, navigate, t, updateData]);
+  }, [Alert, Confirm, brute.level, brute.name, navigate, t, updateData]);
 
   return (
     <Box {...rest}>
@@ -66,15 +66,15 @@ const CellMain = ({
         {/* LEVEL + XP */}
         <BruteLevelAndXP brute={brute} sx={{ pl: 1 }} />
         {/* RANKING */}
-        {brute.data.ranking < 10 && (
+        {brute.ranking < 10 && (
           <Box sx={{ width: 140, display: 'flex', flexDirection: 'row' }}>
-            <Box component="img" src={`/images/rankings/lvl_${brute.data.ranking}.gif`} />
-            <Text bold color="secondary" sx={{ pl: 0.5 }}>{t(`lvl_${brute.data.ranking}`)}</Text>
+            <Box component="img" src={`/images/rankings/lvl_${brute.ranking}.gif`} />
+            <Text bold color="secondary" sx={{ pl: 0.5 }}>{t(`lvl_${brute.ranking as BruteRanking}`)}</Text>
           </Box>
         )}
       </Box>
       <BruteBodyAndStats brute={brute} sx={{ mb: 1 }} />
-      {ownsBrute && (brute.data.xp < xpNeededForNextLevel ? getFightsLeft(brute) > 0 ? ready ? (
+      {ownsBrute && (brute.xp < xpNeededForNextLevel ? getFightsLeft(brute) > 0 ? ready ? (
         <Stack spacing={1} sx={{ alignItems: 'center', mt: 1 }}>
           <Text bold sx={{ pl: 1 }}>{t('callToFight')}</Text>
           <Link to={`/${brute.name}/arena`}>

@@ -1,10 +1,10 @@
-import { Brute } from '@labrute/core';
+import { BruteWithClan } from '@labrute/core';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import StyledButton, { StyledButtonProps } from '../StyledButton';
 
 export interface CellClanProps extends Omit<StyledButtonProps, 'ref'> {
-  brute: Brute;
+  brute: BruteWithClan;
 }
 
 const CellClan = ({
@@ -14,7 +14,7 @@ const CellClan = ({
 }: CellClanProps) => {
   const { t } = useTranslation();
 
-  return brute.data.clan ? (
+  return brute.clan ? (
     <StyledButton
       image="/images/button.gif"
       imageHover="/images/button-hover.gif"
@@ -30,7 +30,7 @@ const CellClan = ({
       }}
       {...rest}
     >
-      {t('clan')} {brute.data.clan.name}
+      {t('clan')} {brute.clan.name}
     </StyledButton>
   ) : null;
 };

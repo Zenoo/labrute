@@ -1,4 +1,4 @@
-import { PetName } from '../types';
+import { PetName } from '@labrute/prisma';
 
 export interface Pet {
   name: PetName;

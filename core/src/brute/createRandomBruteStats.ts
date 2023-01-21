@@ -1,4 +1,4 @@
-import { Brute } from '../types';
+import { PetName, SkillName, WeaponName } from '@labrute/prisma';
 import { BRUTE_STARTING_POINTS, PERKS_TOTAL_ODDS } from '../constants';
 import randomBetween from '../utils/randomBetween';
 import weightedRandom from '../utils/weightedRandom';
@@ -19,45 +19,27 @@ export const perkOdds: Perk[] = [
   { name: 'weapon', odds: WEAPONS_TOTAL_ODDS },
 ];
 
-export type RandomBruteStats = Omit<Brute['data'], 'gender' | 'body' | 'colors' | 'master' | 'victories' | 'pupils' | 'user' | 'lastFight' | 'fightsLeft'>;
-
-const createRandomBruteStats = (): RandomBruteStats => {
-  let brute: RandomBruteStats = {
+const createRandomBruteStats = () => {
+  let brute = {
     level: 1,
     xp: 0,
-    stats: {
-      hp: 0,
-      endurance: {
-        stat: 0,
-        modifier: 1,
-        value: 0,
-      },
-      strength: {
-        stat: 0,
-        modifier: 1,
-        value: 0,
-      },
-      agility: {
-        stat: 0,
-        modifier: 1,
-        value: 0,
-      },
-      speed: {
-        stat: 0,
-        modifier: 1,
-        value: 0,
-      },
-    },
-    skills: [],
-    pets: {
-      dog1: false,
-      dog2: false,
-      dog3: false,
-      panther: false,
-      bear: false,
-    },
+    hp: 0,
+    enduranceStat: 0,
+    enduranceModifier: 1,
+    enduranceValue: 0,
+    strengthStat: 0,
+    strengthModifier: 1,
+    strengthValue: 0,
+    agilityStat: 0,
+    agilityModifier: 1,
+    agilityValue: 0,
+    speedStat: 0,
+    speedModifier: 1,
+    speedValue: 0,
+    skills: [] as SkillName[],
+    pets: [] as PetName[],
     ranking: 10,
-    weapons: [],
+    weapons: [] as WeaponName[],
   };
 
   // Starting budget
@@ -74,52 +56,49 @@ const createRandomBruteStats = (): RandomBruteStats => {
 
   // Stats boosters
   if (perk.name === 'skill') {
-    brute = applySkillModifiers({ data: brute } as Brute, brute.skills[0]).data;
+    brute = applySkillModifiers(brute, brute.skills[0]);
   }
 
   // Enrudance (2 to 5)
   const endurancePoints = randomBetween(2, 5);
-  brute.stats.endurance.stat += endurancePoints;
+  brute.enduranceStat += endurancePoints;
   availablePoints -= endurancePoints;
 
   // Take into account the endurance malus from the pet
   if (pet) {
     // Can go into negatives
-    brute.stats.endurance.stat -= pet.enduranceMalus;
+    brute.enduranceStat -= pet.enduranceMalus;
   }
 
   // Strength (2 to 5)
   const strengthPoints = Math.min(randomBetween(2, 5), availablePoints - 2 * 2);
-  brute.stats.strength.stat += strengthPoints;
+  brute.strengthStat += strengthPoints;
   availablePoints -= strengthPoints;
 
   // Agility (2 to 5)
   const agilityPoints = Math.min(randomBetween(2, 5), availablePoints - 2 * 1);
-  brute.stats.agility.stat += agilityPoints;
+  brute.agilityStat += agilityPoints;
   availablePoints -= agilityPoints;
 
   // Speed (2 to 5)
-  brute.stats.speed.stat += availablePoints;
+  brute.speedStat += availablePoints;
 
   // Final stat values
-  brute.stats.endurance.value = Math.floor(
-    brute.stats.endurance.stat * brute.stats.endurance.modifier,
+  brute.enduranceValue = Math.floor(
+    brute.enduranceStat * brute.enduranceModifier,
   );
-  brute.stats.strength.value = Math.floor(
-    brute.stats.strength.stat * brute.stats.strength.modifier,
+  brute.strengthValue = Math.floor(
+    brute.strengthStat * brute.strengthModifier,
   );
-  brute.stats.agility.value = Math.floor(
-    brute.stats.agility.stat * brute.stats.agility.modifier,
+  brute.agilityValue = Math.floor(
+    brute.agilityStat * brute.agilityModifier,
   );
-  brute.stats.speed.value = Math.floor(
-    brute.stats.speed.stat * brute.stats.speed.modifier,
+  brute.speedValue = Math.floor(
+    brute.speedStat * brute.speedModifier,
   );
 
   // Final HP
-  brute.stats.hp = getHP(1, brute.stats.endurance.value);
-
-  // Easter egg stances
-  brute.stance = randomBetween(0, 1000) === 0 ? randomBetween(0, 2) : undefined;
+  brute.hp = getHP(1, brute.enduranceValue);
 
   return brute;
 };

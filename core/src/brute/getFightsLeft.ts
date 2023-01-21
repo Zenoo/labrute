@@ -1,9 +1,9 @@
+import { Brute } from '@labrute/prisma';
 import moment from 'moment';
 import { FIGHTS_PER_DAY } from '../constants';
-import { Brute } from '../types';
 
-const getFightsLeft = (brute: Brute) => (moment(brute.data.lastFight, 'DD/MM/YYYY').isSame(moment(), 'day')
-  ? brute.data.fightsLeft
+const getFightsLeft = (brute: Brute) => (moment(brute.lastFight, 'DD/MM/YYYY').isSame(moment(), 'day')
+  ? brute.fightsLeft
   : FIGHTS_PER_DAY);
 
 export default getFightsLeft;

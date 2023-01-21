@@ -40,7 +40,7 @@ animationFiles.forEach((file, i) => {
   // Create the frame file
   let frameFile = `import {
   FrameProps,
-} from '@eternaltwin/labrute-core/types';
+} from '@labrute/core';
 
 const ${animationName}${i + 1} = ({ colors, body }: FrameProps) => (/* html */\`${svgFile}
 \`);
@@ -55,9 +55,9 @@ export default ${animationName}${i + 1};`;
 
   // Replace skin colors
   // eslint-disable-next-line no-template-curly-in-string
-  frameFile = frameFile.replace(/"#efcdaf"/g, '"${colors.skin.color}"');
+  frameFile = frameFile.replace(/"#efcdaf"/g, '"${colors.skinColor}"');
   // eslint-disable-next-line no-template-curly-in-string
-  frameFile = frameFile.replace(/"#c6886a"/g, '"${colors.skin.shade}"');
+  frameFile = frameFile.replace(/"#c6886a"/g, '"${colors.skinShade}"');
 
   // Create the animation folder if it doesn't exist
   if (!fs.existsSync(animationFolder)) {

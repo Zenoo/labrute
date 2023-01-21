@@ -1,10 +1,10 @@
-import { Gender, BodyColors } from '@labrute/core';
+import { BruteColors, Gender } from '@labrute/prisma';
 import React from 'react';
 
 interface UpperLeftArmProps {
   id: string;
   gender: Gender;
-  colors: BodyColors;
+  colors: BruteColors;
   type: number;
 }
 

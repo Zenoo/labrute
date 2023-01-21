@@ -1,4 +1,5 @@
-import { BodyColors, BodyParts, Brute, Gender, User, getRandomColors, getRandomBody } from '@labrute/core';
+import { BruteWithBodyColors, getRandomBody, getRandomColors, UserWithBrutesBodyColor } from '@labrute/core';
+import { Gender, Prisma } from '@labrute/prisma';
 import { Box, Grid, Link, Tooltip, useMediaQuery } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
@@ -44,10 +45,10 @@ const HomeView = () => {
     const code = url.searchParams.get('code');
     if (code && !authing && !user) {
       setAuthing(true);
-      Fetch<User>('/api/oauth/token', { code }).then((response) => {
+      Fetch<UserWithBrutesBodyColor>('/api/oauth/token', { code }).then((response) => {
         updateData(response);
         localStorage.setItem('user', response.id);
-        localStorage.setItem('token', response.token);
+        localStorage.setItem('token', response.connexionToken);
         localStorage.setItem('expires', moment().add(7, 'days').toISOString());
         Alert.open('success', t('loginSuccess'));
       }).catch(catchError(Alert)).finally(() => {
@@ -79,9 +80,13 @@ const HomeView = () => {
 
   /* CHARACTER CREATOR */
   const [creationStarted, setCreationStarted] = useState(false);
-  const [gender, setGender] = useState<Gender>('female');
-  const [bodyParts, setBodyParts] = useState<BodyParts>(getRandomBody(gender));
-  const [bodyColors, setBodyColors] = useState<BodyColors>(getRandomColors(gender));
+  const [gender, setGender] = useState<Gender>(Gender.female);
+  const [bodyParts, setBodyParts] = useState<Prisma.BruteBodyCreateWithoutBruteInput>(
+    getRandomBody(gender),
+  );
+  const [bodyColors, setBodyColors] = useState<Prisma.BruteColorsCreateWithoutBruteInput>(
+    getRandomColors(gender),
+  );
 
   // Colors randomizer
   const randomizeColors = useCallback((currentGender: Gender) => {
@@ -168,7 +173,7 @@ const HomeView = () => {
         ...user,
         brutes: user.brutes ? [...user.brutes, response.brute] : [response.brute],
         // Update points
-        sacrifice_points: user.sacrifice_points - response.pointsLost,
+        sacrificePoints: user.sacrificePoints - response.pointsLost,
       });
       // Redirect to brute page
       navigate(`/${name}/cell`);
@@ -225,12 +230,10 @@ const HomeView = () => {
                   <BruteComponent
                     brute={{
                       name,
-                      data: {
-                        gender,
-                        body: bodyParts,
-                        colors: bodyColors,
-                      }
-                    } as Brute}
+                      gender,
+                      body: bodyParts,
+                      colors: bodyColors,
+                    } as BruteWithBodyColors}
                     inverted
                     sx={{ height: 160 }}
                   />

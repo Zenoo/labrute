@@ -1,4 +1,4 @@
-import { getXPNeeded } from '@labrute/core';
+import { BruteWithBodyColors, getXPNeeded } from '@labrute/core';
 import { Grid, useMediaQuery } from '@mui/material';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -23,18 +23,23 @@ const VersusView = () => {
   const { user } = useAuth();
   const smallScreen = useMediaQuery('(max-width: 935px)');
 
-  const { data: brute } = useStateAsync(null, Server.Brute.get, bruteName || '');
-  const { data: opponent } = useStateAsync(null, Server.Brute.get, opponentName || '');
+  const bruteProps = useMemo(() => ({ name: bruteName || '', include: { body: true, colors: true } }), [bruteName]);
+  const { data: _brute } = useStateAsync(null, Server.Brute.get, bruteProps);
+  const opponentProps = useMemo(() => ({ name: opponentName || '', include: { body: true, colors: true } }), [opponentName]);
+  const { data: _opponent } = useStateAsync(null, Server.Brute.get, opponentProps);
+
+  const brute = _brute as BruteWithBodyColors;
+  const opponent = _opponent as BruteWithBodyColors;
 
   const xpNeededForNextLevel = useMemo(() => brute
-  && getXPNeeded(brute.data.level + 1), [brute]);
+  && getXPNeeded(brute.level + 1), [brute]);
 
   // Redirect if invalid params
   useEffect(() => {
     if (!brute || !opponent || !user) {
       return;
     }
-    if (brute.data.user !== user.id) {
+    if (brute.userId !== user.id) {
       navigate(`/${brute.name}/cell`);
     }
     if (opponent.name === brute.name) {
@@ -88,7 +93,7 @@ const VersusView = () => {
               inverted
             />
             <Text h3 smallCaps bold color="text.primary">{brute.name}</Text>
-            <Text h5 upperCase bold color="secondary">{t('level')} {brute.data.level}</Text>
+            <Text h5 upperCase bold color="secondary">{t('level')} {brute.level}</Text>
           </Grid>
           <Grid item xs={4} sx={{ display: { xs: 'none', sm: 'block' } }} />
           <Grid item xs={12} sm={4}>
@@ -97,7 +102,7 @@ const VersusView = () => {
               sx={{ maxWidth: 200 }}
             />
             <Text h3 smallCaps bold color="text.primary">{opponent.name}</Text>
-            <Text h5 upperCase bold color="secondary">{t('level')} {opponent.data.level}</Text>
+            <Text h5 upperCase bold color="secondary">{t('level')} {opponent.level}</Text>
           </Grid>
         </Grid>
         <StyledButton onClick={startFight} sx={{ ml: '39.8%' }}>

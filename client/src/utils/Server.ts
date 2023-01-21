@@ -1,9 +1,10 @@
-import { BodyColors, BodyParts, Brute, DestinyChoice, Fight, Gender, Log, User } from '@labrute/core';
+import { BruteWithBodyColors, UserWithBrutesBodyColor } from '@labrute/core';
+import { Brute, DestinyChoice, DestinyChoiceSide, Fight, Gender, Log, Prisma, User } from '@labrute/prisma';
 import Fetch from './Fetch';
 
 const Server = {
   User: {
-    authenticate: (login: string, token: string) => Fetch<User>('/api/user/authenticate', {
+    authenticate: (login: string, token: string) => Fetch<UserWithBrutesBodyColor>('/api/user/authenticate', {
       login,
       token
     }, 'POST'),
@@ -11,17 +12,20 @@ const Server = {
   },
   Brute: {
     list: () => Fetch<Brute[]>('/api/brute/list/'),
-    get: (name: string) => Fetch<Brute>(`/api/brute/${name}`),
+    get: ({
+      name,
+      include,
+    }: { name: string, include?: Prisma.BruteInclude }) => Fetch<Brute>(`/api/brute/${name}`, { include }, 'POST'),
     isNameAvailable: (name: string) => Fetch<boolean>(`/api/brute/${name}/available`),
     isReadyToFight: (name: string) => Fetch<boolean>(`/api/brute/${name}/ready`),
     create: (
       name: string,
       user: string,
       gender: Gender,
-      body: BodyParts,
-      colors: BodyColors,
+      body: Prisma.BruteBodyCreateWithoutBruteInput,
+      colors: Prisma.BruteColorsCreateWithoutBruteInput,
       master: string | null,
-    ) => Fetch<{brute: Brute, pointsLost: number }>('/api/brute/create', {
+    ) => Fetch<{brute: BruteWithBodyColors, pointsLost: number }>('/api/brute/create', {
       name,
       user,
       gender,
@@ -30,14 +34,14 @@ const Server = {
       master,
     }, 'POST'),
     getLevelUpChoices: (name: string) => Fetch<{
-      brute: Brute,
+      brute: BruteWithBodyColors,
       choices: [DestinyChoice, DestinyChoice],
     }>(`/api/brute/${name}/level-up-choices`),
     levelUp: (
       name: string,
-      choice: number,
+      choice: DestinyChoiceSide,
     ) => Fetch<never>(`/api/brute/${name}/level-up`, { choice }, 'POST'),
-    getOpponents: (name: string, level: number) => Fetch<Brute[]>(`/api/brute/${name}/get-opponents/${level}`),
+    getOpponents: (name: string, level: number) => Fetch<BruteWithBodyColors[]>(`/api/brute/${name}/get-opponents/${level}`),
     sacrifice: (name: string) => Fetch<{ points: number }>(`/api/brute/${name}/sacrifice`, {}, 'GET'),
   },
   Log: {

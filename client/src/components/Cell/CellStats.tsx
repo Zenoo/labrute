@@ -1,4 +1,3 @@
-import { Brute } from '@labrute/core';
 import { Box, BoxProps, Tooltip } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -7,12 +6,12 @@ import Text from '../Text';
 const excesses = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 interface CellStatsProps extends BoxProps {
-  stats: Brute['data']['stats'];
+  value: number;
   stat: 'strength' | 'agility' | 'speed';
 }
 
 const CellStats = ({
-  stats,
+  value,
   stat,
 }: CellStatsProps) => {
   const { t } = useTranslation();
@@ -20,7 +19,7 @@ const CellStats = ({
   return (
     <Box>
       <Text bold>{t(stat)} :</Text>
-      <Tooltip title={`${t(stat)} : ${stats[stat].value}`}>
+      <Tooltip title={`${t(stat)} : ${value}`}>
         <Box>
           {excesses.map((excess) => (
             <Box
@@ -33,13 +32,13 @@ const CellStats = ({
                 border: '2px solid',
                 borderColor: 'secondary.main',
                 bgcolor: (theme) => {
-                  const statDividedByTen = Math.floor(stats[stat].value / 10);
+                  const statDividedByTen = Math.floor(value / 10);
                   const { palette: { heat: {
                     [statDividedByTen]: baseColor,
                     [statDividedByTen + 1]: excessColor
                   } } } = theme;
 
-                  return stats[stat].value % 10 >= excess
+                  return value % 10 >= excess
                     ? excessColor
                     : baseColor;
                 },

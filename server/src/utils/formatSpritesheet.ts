@@ -1,9 +1,9 @@
 import SpriteSmith from 'spritesmith';
 import {
-  Animation, animationList, Brute, Gender,
-} from '@eternaltwin/labrute-core/types';
-import { ANIMATION_ANCHORS } from '@eternaltwin/labrute-core/constants';
-import { FRAMES } from '../animations/getFrame.js';
+  Animation, animationList, ANIMATION_ANCHORS,
+} from '@labrute/core';
+import { Brute, Gender } from '@labrute/prisma';
+import { FRAMES } from '../animations/getFrame';
 
 interface Frame {
   frame: {
@@ -68,14 +68,14 @@ const formatSpritesheet = (
         rotated: false,
         trimmed: false,
         anchor: {
-          x: ANIMATION_ANCHORS[brute.data.gender][animationName][0],
-          y: ANIMATION_ANCHORS[brute.data.gender][animationName][1],
+          x: ANIMATION_ANCHORS[brute.gender][animationName][0],
+          y: ANIMATION_ANCHORS[brute.gender][animationName][1],
         },
       };
 
       return acc;
     }, {} as Record<FrameFileName, Frame>),
-  animations: generateAnimations(brute.data.gender),
+  animations: generateAnimations(brute.gender),
   meta: {
     app: 'https://www.codeandweb.com/texturepacker',
     version: '1.0',

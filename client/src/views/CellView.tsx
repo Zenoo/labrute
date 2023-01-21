@@ -1,4 +1,5 @@
-import { Brute, Log } from '@labrute/core';
+import { BruteWithMasterBodyColorsClan } from '@labrute/core';
+import { Log } from '@labrute/prisma';
 import { Box, Paper, Tooltip, useMediaQuery } from '@mui/material';
 import moment from 'moment';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -35,16 +36,19 @@ const CellView = () => {
 
   const nextTournament = moment().add(1, 'day');
 
-  const [brute, setBrute] = useState<Brute | null>(null);
+  const [brute, setBrute] = useState<BruteWithMasterBodyColorsClan | null>(null);
   const { data: logs } = useStateAsync([], Server.Log.list, bruteName || '');
 
   // Fetch brute
   useEffect(() => {
     let isSubscribed = true;
     if (bruteName) {
-      Server.Brute.get(bruteName).then((data) => {
+      Server.Brute.get({
+        name: bruteName,
+        include: { master: true, body: true, colors: true, clan: true }
+      }).then((data) => {
         if (isSubscribed) {
-          setBrute(data);
+          setBrute(data as BruteWithMasterBodyColorsClan);
         }
       }).catch(() => {
         navigate('/');
@@ -54,7 +58,7 @@ const CellView = () => {
   }, [bruteName, navigate]);
 
   // Owner?
-  const ownsBrute = useMemo(() => !!(user && brute && user.brutes
+  const ownsBrute = useMemo(() => !!(user && brute
     && user.brutes.find((b) => b.name === brute.name)), [user, brute]);
 
   // Randomized advertising
@@ -124,11 +128,11 @@ const CellView = () => {
               <Box sx={{ width: 315 }}>
                 {/* WEAPONS */}
                 <Text bold sx={{ textAlign: 'center' }}>{t('weaponsBonuses')}</Text>
-                <CellWeapons weapons={brute.data.weapons} />
+                <CellWeapons weapons={brute.weapons} />
                 {/* SKILLS */}
                 <CellSkills brute={brute} />
                 {/* PETS */}
-                <CellPets pets={brute.data.pets} sx={{ mt: 2 }} />
+                <CellPets pets={brute.pets} sx={{ mt: 2 }} />
               </Box>
               {/* MAIN */}
               <CellMain

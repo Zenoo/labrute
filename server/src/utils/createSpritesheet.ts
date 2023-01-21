@@ -1,15 +1,14 @@
 import {
-  Animation,
-  Brute,
-} from '@eternaltwin/labrute-core/types';
-import Vynil from 'vinyl';
+  Animation, BruteWithBodyColors,
+} from '@labrute/core';
 import convertSvgToPng from 'convert-svg-to-png';
 import SpriteSmith from 'spritesmith';
-import getFrame, { FRAMES } from '../animations/getFrame.js';
+import Vynil from 'vinyl';
+import getFrame, { FRAMES } from '../animations/getFrame';
 
-const createSpritesheet = async (brute: Brute) => {
+const createSpritesheet = async (brute: BruteWithBodyColors) => {
   const frames: Vynil.BufferFile[] = [];
-  const model = brute.data.gender;
+  const model = brute.gender;
 
   // Get every model animation
   const animations = Object.keys(FRAMES[model]) as Animation[];
@@ -25,11 +24,15 @@ const createSpritesheet = async (brute: Brute) => {
         throw new Error(`No frame for ${animation} ${model} ${j}`);
       }
 
+      if (!brute.body || !brute.colors) {
+        throw new Error('Brute body or colors not found');
+      }
+
       // Convert SVG to PNG
       // eslint-disable-next-line no-await-in-loop
       const png = await convertSvgToPng.convert(frameGetter({
-        body: brute.data.body,
-        colors: brute.data.colors,
+        body: brute.body,
+        colors: brute.colors,
       }));
 
       // Create vinyl

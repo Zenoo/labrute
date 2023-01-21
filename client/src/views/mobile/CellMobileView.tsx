@@ -1,4 +1,5 @@
-import { Brute, Log } from '@labrute/core';
+import { BruteWithMasterBodyColorsClan } from '@labrute/core';
+import { Log } from '@labrute/prisma';
 import { Box, Grid, Paper, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import { Moment } from 'moment';
 import React from 'react';
@@ -17,7 +18,7 @@ import Text from '../../components/Text';
 import { Language } from '../../i18n';
 
 export interface CellMobileViewProps {
-  brute: Brute;
+  brute: BruteWithMasterBodyColorsClan;
   advertising: string;
   logs: Log[];
   ownsBrute: boolean;
@@ -68,7 +69,7 @@ const CellMobileView = ({
           <Box sx={{ mx: 1 }}>
             {/* WEAPONS */}
             <Text bold>{t('weaponsBonuses')}</Text>
-            <CellWeapons weapons={brute.data.weapons} sx={{ width: 1 }} />
+            <CellWeapons weapons={brute.weapons} sx={{ width: 1 }} />
             {/* SKILLS */}
             <CellSkills brute={brute} />
           </Box>
@@ -87,8 +88,8 @@ const CellMobileView = ({
         </Grid>
         <Grid item xs={12} sm={6} sx={{ textAlign: 'center' }} order={isXs ? 4 : 0}>
           {/* PETS OR ADVERT */}
-          {(brute.data.pets.dog1 || brute.data.pets.panther || brute.data.pets.bear) ? (
-            <CellPets pets={brute.data.pets} />
+          {brute.pets.length > 0 ? (
+            <CellPets pets={brute.pets} />
           ) : (
             <Tooltip title="TODO">
               <Link to="" sx={{ width: 200, mx: 'auto' }}>

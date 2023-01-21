@@ -103,7 +103,7 @@ const Page = ({
         )}
         {user && (
           <SpeedDialAction
-            icon={user.sacrifice_points}
+            icon={user.sacrificePoints}
             tooltipTitle={t('sacrificePoints')}
             tooltipOpen
           />
@@ -120,7 +120,7 @@ const Page = ({
           />
         ))}
         {user && user.brutes
-          && (user.brutes.length < user.brute_limit || user.sacrifice_points >= 500)
+          && (user.brutes.length < user.bruteLimit || user.sacrificePoints >= 500)
           && (
             <SpeedDialAction
               icon={<Add color="success" />}

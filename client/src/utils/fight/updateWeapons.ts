@@ -2,7 +2,8 @@
 import { OutlineFilter } from '@pixi/filter-outline';
 import { Application, Sprite } from 'pixi.js';
 import { AnimationFighter } from './findFighter';
-import { WeaponName, weapons } from '@labrute/core';
+import { weapons } from '@labrute/core';
+import { WeaponName } from '@labrute/prisma';
 
 const updateWeapons = (
   app: Application,

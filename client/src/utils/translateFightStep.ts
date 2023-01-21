@@ -1,5 +1,6 @@
 import { TFunction } from 'react-i18next';
-import { FightStep, PetName, StepFighter } from '@labrute/core';
+import { FightStep, StepFighter } from '@labrute/core';
+import { PetName } from '@labrute/prisma';
 
 const getFighterName = (fighter: StepFighter, t: TFunction) => (fighter.type === 'brute'
   ? fighter.name

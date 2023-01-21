@@ -1,8 +1,9 @@
 import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Slider, Stack, TextField, Typography } from '@mui/material';
 import React, { ChangeEvent, useCallback } from 'react';
-import { Animation, animationList, Gender, } from '@labrute/core';
+import { Animation, animationList } from '@labrute/core';
 import useStateAsync from '../hooks/useStateAsync';
 import Server from '../utils/Server';
+import { Gender } from '@labrute/prisma';
 
 /**
  * AnchorTestView component
@@ -10,7 +11,7 @@ import Server from '../utils/Server';
 const AnchorTestView = () => {
   const [frame, setFrame] = React.useState(1);
   const [animation, setAnimation] = React.useState<Animation>('run');
-  const [gender, setGender] = React.useState<Gender>('male');
+  const [gender, setGender] = React.useState<Gender>(Gender.male);
   const [brute, setBrute] = React.useState('');
   const [anchorX, setAnchorX] = React.useState(0.5);
   const [anchorY, setAnchorY] = React.useState(0.5);

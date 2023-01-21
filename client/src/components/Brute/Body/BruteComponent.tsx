@@ -1,4 +1,5 @@
-import { Brute } from '@labrute/core';
+import { BruteWithBodyColors } from '@labrute/core';
+import { BruteColors } from '@labrute/prisma';
 import { Box, BoxProps } from '@mui/material';
 import React from 'react';
 import Head from './Head/Head';
@@ -22,7 +23,7 @@ import UpperRightArm from './UpperRightArm';
 import UpperRightLeg from './UpperRightLeg';
 
 interface BruteComponentProps extends BoxProps {
-  brute: Brute;
+  brute: BruteWithBodyColors;
   inverted?: boolean;
   shadow?: boolean
 }
@@ -36,11 +37,11 @@ const BruteComponent = ({
 }: BruteComponentProps) => {
   const props = {
     id: brute.name,
-    gender: brute.data.gender,
-    colors: brute.data.colors,
+    gender: brute.gender,
+    colors: brute.colors as BruteColors,
   };
 
-  return (
+  return brute.body && brute.colors && (
     <Box
       component="svg"
       xmlns="http://www.w3.org/2000/svg"
@@ -57,25 +58,25 @@ const BruteComponent = ({
         <use xmlns="http://www.w3.org/2000/svg" height="80.0" transform="matrix(1.2543, 0.0, 0.0, 0.5937, 25, 165)" width="80.0" xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref={`#${brute.name}-shadowSprite`} />
       )}
       <g transform="matrix(1, 0, 0, 1, 40, 7)">
-        <LongHair {...props} type={brute.data.body.longHair} />
-        <LowerRightArm {...props} type={brute.data.body.lowerRightArm} />
-        <RightHand {...props} type={brute.data.body.rightHand} />
-        <UpperRightArm {...props} type={brute.data.body.upperRightArm} />
-        <RightShoulder {...props} type={brute.data.body.rightShoulder} />
-        <RightFoot {...props} type={brute.data.body.rightFoot} />
-        <LowerRightLeg {...props} type={brute.data.body.lowerRightLeg} />
-        <UpperRightLeg {...props} type={brute.data.body.upperRightLeg} />
-        <LeftFoot {...props} type={brute.data.body.leftFoot} />
-        <LowerLeftLeg {...props} type={brute.data.body.lowerLeftLeg} />
-        <Pelvis {...props} type={brute.data.body.pelvis} />
-        <UpperLeftLeg {...props} type={brute.data.body.upperLeftLeg} />
-        <Tummy {...props} type={brute.data.body.tummy} />
-        <Torso {...props} type={brute.data.body.torso} />
-        <Head {...props} type={brute.data.body.head} />
-        <LeftHand {...props} type={brute.data.body.leftHand} />
-        <UpperLeftArm {...props} type={brute.data.body.upperLeftArm} />
-        <LowerLeftArm {...props} type={brute.data.body.lowerLeftArm} />
-        <LeftShoulder {...props} type={brute.data.body.leftShoulder} />
+        <LongHair {...props} type={brute.body.longHair} />
+        <LowerRightArm {...props} type={brute.body.lowerRightArm} />
+        <RightHand {...props} type={brute.body.rightHand} />
+        <UpperRightArm {...props} type={brute.body.upperRightArm} />
+        <RightShoulder {...props} type={brute.body.rightShoulder} />
+        <RightFoot {...props} type={brute.body.rightFoot} />
+        <LowerRightLeg {...props} type={brute.body.lowerRightLeg} />
+        <UpperRightLeg {...props} type={brute.body.upperRightLeg} />
+        <LeftFoot {...props} type={brute.body.leftFoot} />
+        <LowerLeftLeg {...props} type={brute.body.lowerLeftLeg} />
+        <Pelvis {...props} type={brute.body.pelvis} />
+        <UpperLeftLeg {...props} type={brute.body.upperLeftLeg} />
+        <Tummy {...props} type={brute.body.tummy} />
+        <Torso {...props} type={brute.body.torso} />
+        <Head {...props} type={brute.body.head} />
+        <LeftHand {...props} type={brute.body.leftHand} />
+        <UpperLeftArm {...props} type={brute.body.upperLeftArm} />
+        <LowerLeftArm {...props} type={brute.body.lowerLeftArm} />
+        <LeftShoulder {...props} type={brute.body.leftShoulder} />
       </g>
       <defs>
         <g id={`${brute.name}-shadowSprite`} transform="matrix(1.0, 0.0, 0.0, 1.0, 40.0, 40.0)">

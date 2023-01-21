@@ -1,11 +1,12 @@
-import { Brute } from '@labrute/core';
+import { BruteWithBodyColors } from '@labrute/core';
+import { BruteColors } from '@labrute/prisma';
 import { Box, BoxProps } from '@mui/material';
 import React from 'react';
 import Head from './Head/Head';
 import LongHair from './Head/LongHair';
 
 interface BrutePortraitProps extends BoxProps {
-  brute: Brute;
+  brute: BruteWithBodyColors;
   inverted?: boolean;
   shadow?: boolean
 }
@@ -19,11 +20,11 @@ const BrutePortrait = ({
 }: BrutePortraitProps) => {
   const props = {
     id: brute.name,
-    gender: brute.data.gender,
-    colors: brute.data.colors,
+    gender: brute.gender,
+    colors: brute.colors as BruteColors,
   };
 
-  return (
+  return brute.body && (
     <Box
       component="svg"
       xmlns="http://www.w3.org/2000/svg"
@@ -40,8 +41,8 @@ const BrutePortrait = ({
         <use xmlns="http://www.w3.org/2000/svg" height="80.0" transform="matrix(1.2543, 0.0, 0.0, 0.5937, 25, 165)" width="80.0" xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref={`#${brute.name}-shadowSprite`} />
       )}
       <g transform="matrix(1, 0, 0, 1, 40, 7)">
-        <LongHair {...props} type={brute.data.body.longHair} />
-        <Head {...props} type={brute.data.body.head} />
+        <LongHair {...props} type={brute.body.longHair} />
+        <Head {...props} type={brute.body.head} />
       </g>
     </Box>
   );

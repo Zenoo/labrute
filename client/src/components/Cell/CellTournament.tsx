@@ -1,4 +1,4 @@
-import { Brute } from '@labrute/core';
+import { Brute } from '@labrute/prisma';
 import { Paper, PaperProps } from '@mui/material';
 import moment, { Moment } from 'moment';
 import React from 'react';
@@ -35,7 +35,7 @@ const CellTournament = ({
       {...rest}
     >
       <Text bold h6>{t('tournamentOf')} {nextTournament.format('DD MMMM YYYY')}</Text>
-      {brute.data.tournament && moment(brute.data.tournament).isSame(nextTournament, 'day') ? (
+      {brute.tournament && moment(brute.tournament).isSame(nextTournament, 'day') ? (
         <Text>{t('bruteRegistered')}</Text>
       ) : (
         <Text>{t(ownsBrute ? 'youCanRegisterYourBrute' : 'bruteNotRegistered')}</Text>

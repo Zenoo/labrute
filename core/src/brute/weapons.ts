@@ -1,4 +1,5 @@
-import { Weapon, WeaponName } from '../types';
+import { WeaponName } from '@labrute/prisma';
+import { Weapon } from '../types';
 
 export const limitedWeapons: WeaponName[] = [
   'knife', 'broadsword', 'lance', 'baton', 'trident', 'hatchet',
@@ -8,7 +9,7 @@ export const limitedWeapons: WeaponName[] = [
 
 export const MAX_LIMITED_WEAPONS = limitedWeapons.length - 3;
 
-export const weapons: Weapon[] = [
+const weapons: Weapon[] = [
   {
     name: 'axe',
     odds: 3,

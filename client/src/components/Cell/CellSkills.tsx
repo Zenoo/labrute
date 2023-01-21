@@ -1,4 +1,5 @@
-import { Brute, skills } from '@labrute/core';
+import { skills } from '@labrute/core';
+import { Brute } from '@labrute/prisma';
 import { Box, Grid, PaperProps } from '@mui/material';
 import React from 'react';
 import SkillTooltip from '../Brute/SkillTooltip';
@@ -18,9 +19,9 @@ const CellSkills = ({
         item
         xs={12 / 7}
         key={skill.name}
-        sx={{ opacity: brute.data.skills.includes(skill.name) ? 1 : 0.4 }}
+        sx={{ opacity: brute.skills.includes(skill.name) ? 1 : 0.4 }}
       >
-        {brute.data.skills.includes(skill.name) ? (
+        {brute.skills.includes(skill.name) ? (
           <SkillTooltip skill={skill}>
             <Box
               component="img"

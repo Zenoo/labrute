@@ -1,31 +1,15 @@
 {
   "compilerOptions": {
-    "composite": true,
-    "target": "ES2019",
-    "strict": true,
-    "lib": [
-      "ES2022",
-      "dom"
-    ],
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "allowSyntheticDefaultImports": true,
-    "noEmit": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictNullChecks": true,
-    "importHelpers": true,
-    "alwaysStrict": true,
-    "rootDir": ".",
-    "module": "Node16",
-    "moduleResolution": "Node16",
+    "incremental": true,
+    "target": "es2019",
+    "module": "commonjs",
+    "declaration": true,
     "sourceMap": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-  },
+    "composite": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  }
 }

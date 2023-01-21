@@ -1,0 +1,8 @@
+{
+  "files": [],
+  "references": [
+    { "path": "prisma" },
+    { "path": "core" },
+    { "path": "server" }
+  ]
+}

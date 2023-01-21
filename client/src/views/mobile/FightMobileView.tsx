@@ -1,4 +1,4 @@
-import { Fight } from '@labrute/core';
+import { Fight } from '@labrute/prisma';
 import { Box, Grid, Link, Paper, Tooltip } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

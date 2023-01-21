@@ -1,4 +1,4 @@
-import { Log } from '@labrute/core';
+import { Log } from '@labrute/prisma';
 import { BoxProps, Tooltip } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -35,7 +35,7 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
         ? (
           <Tooltip title={t('seeFight')}>
             <Link
-              to={`/${log.current_brute}/fight/${log.fight || 0}`}
+              to={`/${log.currentBruteId}/fight/${log.fightId || 0}`}
               sx={{
                 textDecoration: 'none',
                 '&:hover': {
@@ -56,7 +56,7 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
         : (
           <Text bold color="success.main">
             {log.type === 'lvl'
-              ? `${t('log.lvl')} ${t(`lvl_${log.level || 10}`)}.`
+              ? `${t('log.lvl')} ${t(`lvl_${log.level as 0|1|2|3|4|5|6|7|8|9|10}`)}.`
               : t(`log.${log.type}`, { value: log.brute })}
           </Text>
         )}

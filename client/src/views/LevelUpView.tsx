@@ -1,4 +1,5 @@
-import { Brute, DestinyChoice, getXPNeeded, skills, weapons } from '@labrute/core';
+import { BruteWithBodyColors, getXPNeeded, skills, weapons } from '@labrute/core';
+import { DestinyChoice, DestinyChoiceSide, PetName, SkillName, WeaponName } from '@labrute/prisma';
 import { Alert as MuiAlert, Box, Paper, useMediaQuery } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -23,7 +24,7 @@ const LevelUpView = () => {
   const Alert = useAlert();
   const smallScreen = useMediaQuery('(max-width: 638px)');
 
-  const [brute, setBrute] = useState<Brute | null>(null);
+  const [brute, setBrute] = useState<BruteWithBodyColors | null>(null);
   const [choices, setChoices] = useState<[DestinyChoice, DestinyChoice] | null>(null);
 
   // Fetch brute
@@ -33,7 +34,7 @@ const LevelUpView = () => {
       Server.Brute.getLevelUpChoices(bruteName).then((data) => {
         if (isSubscribed) {
           // Check if the brute has enough XP
-          if (data.brute.data.xp < getXPNeeded(data.brute.data.level + 1)) {
+          if (data.brute.xp < getXPNeeded(data.brute.level + 1)) {
             navigate(`/${bruteName}/cell`);
           } else {
             setBrute(data.brute);
@@ -48,7 +49,7 @@ const LevelUpView = () => {
   }, [Alert, bruteName, navigate, user]);
 
   // Trigger level up
-  const levelUp = useCallback((choice: 0 | 1) => async () => {
+  const levelUp = useCallback((choice: DestinyChoiceSide) => async () => {
     if (!brute || !choices) return;
 
     await Server.Brute.levelUp(
@@ -67,7 +68,7 @@ const LevelUpView = () => {
         <Text>
           <Text component="span" bold>{brute.name} </Text>
           {t('reached')}
-          <Text component="span" bold> {t('levelLower')} {brute.data.level + 1} </Text>
+          <Text component="span" bold> {t('levelLower')} {brute.level + 1} </Text>
           ! {t('chooseOneOfTheFollowingBonuses')} :
         </Text>
         <Box sx={{ textAlign: 'center' }}>
@@ -99,7 +100,7 @@ const LevelUpView = () => {
           <Box sx={{ my: 1 }}>
             {choices && choices.map((destinyChoice, i) => (
               <Box
-                key={`${destinyChoice.choice.type}${typeof destinyChoice.choice.name === 'string' ? destinyChoice.choice.name : ''}`}
+                key={destinyChoice.id}
                 sx={{
                   position: 'relative',
                   height: 129,
@@ -119,40 +120,39 @@ const LevelUpView = () => {
                   {/* CHOICE HEADER */}
                   <Text caption>
                     {/* +3 Skill */}
-                    {destinyChoice.choice.type === 'stats' && typeof destinyChoice.choice.name === 'string' && `+${destinyChoice.choice.stats as number} ${t('in')}`}
+                    {destinyChoice.type === 'stats' && !destinyChoice.stat2 && `+${destinyChoice.stat1Value || ''} ${t('in')}`}
                     {/* +2/+1 Skill */}
-                    {destinyChoice.choice.type === 'stats' && typeof destinyChoice.choice.name !== 'string' && `+${(destinyChoice.choice.stats as [number, number])[0]}/+${(destinyChoice.choice.stats as [number, number])[1]} ${t('in')}`}
+                    {destinyChoice.type === 'stats' && destinyChoice.stat2 && `+${destinyChoice.stat1Value || ''}/+${destinyChoice.stat2Value || ''} ${t('in')}`}
                     {/* New weapon */}
-                    {destinyChoice.choice.type === 'weapon' && `${t('newWeapon')} :`}
+                    {destinyChoice.type === 'weapon' && `${t('newWeapon')} :`}
                     {/* New skill */}
-                    {destinyChoice.choice.type === 'skill' && `${t('newSkill')} :`}
+                    {destinyChoice.type === 'skill' && `${t('newSkill')} :`}
                     {/* New pet */}
-                    {destinyChoice.choice.type === 'pet' && `${t('newPet')} :`}
+                    {destinyChoice.type === 'pet' && `${t('newPet')} :`}
                   </Text>
 
                   {/* CHOICE CONTENT */}
                   {/* Single value */}
-                  {typeof destinyChoice.choice.name === 'string' && (
-                    destinyChoice.choice.type === 'skill' ? (
-                      <SkillTooltip
-                        skill={skills.find((s) => s.name === destinyChoice.choice.name)}
-                      >
-                        <Text h6 bold smallCaps>{t(destinyChoice.choice.name)}</Text>
-                      </SkillTooltip>
-                    ) : destinyChoice.choice.type === 'weapon' ? (
-                      <WeaponTooltip weapon={weapons
-                        .find((w) => w.name === destinyChoice.choice.name)}
-                      >
-                        <Text h6 bold smallCaps>{t(destinyChoice.choice.name)}</Text>
-                      </WeaponTooltip>
-                    ) : (
-                      <Text h6 bold smallCaps>{t(destinyChoice.choice.name)}</Text>
-                    )
+                  {(destinyChoice.type === 'skill' ? (
+                    <SkillTooltip
+                      skill={skills.find((s) => s.name === destinyChoice.skill)}
+                    >
+                      <Text h6 bold smallCaps>{t(destinyChoice.skill as SkillName)}</Text>
+                    </SkillTooltip>
+                  ) : destinyChoice.type === 'weapon' ? (
+                    <WeaponTooltip weapon={weapons
+                      .find((w) => w.name === destinyChoice.weapon)}
+                    >
+                      <Text h6 bold smallCaps>{t(destinyChoice.weapon as WeaponName)}</Text>
+                    </WeaponTooltip>
+                  ) : (
+                    <Text h6 bold smallCaps>{t(destinyChoice.pet as PetName)}</Text>
+                  )
                   )}
                   {/* Multiple values */}
-                  {typeof destinyChoice.choice.name !== 'string' && (
+                  {destinyChoice.stat1 && destinyChoice.stat2 && (
                     <Text h6 bold smallCaps>
-                      {t(destinyChoice.choice.name[0])} / {t(destinyChoice.choice.name[1])}
+                      {t(destinyChoice.stat1)} / {t(destinyChoice.stat2)}
                     </Text>
                   )}
                 </BoxBg>
@@ -169,7 +169,7 @@ const LevelUpView = () => {
                   imageHover="/images/level-up/button-hover.png"
                   shadow={false}
                   contrast={false}
-                  onClick={levelUp(i as 0 | 1)}
+                  onClick={levelUp(i === 0 ? DestinyChoiceSide.LEFT : DestinyChoiceSide.RIGHT)}
                 >
                   <Text bold smallCaps color="success">{t('validate')}</Text>
                 </StyledButton>

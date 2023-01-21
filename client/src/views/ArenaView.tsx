@@ -1,4 +1,4 @@
-import { Brute, getFightsLeft, getXPNeeded } from '@labrute/core';
+import { BruteWithBodyColors, getFightsLeft, getXPNeeded } from '@labrute/core';
 import { Box, Button, Grid, Paper, useMediaQuery, useTheme } from '@mui/material';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -17,6 +17,7 @@ import useStateAsync from '../hooks/useStateAsync';
 import catchError from '../utils/catchError';
 import Server from '../utils/Server';
 import BruteLevelAndXP from '../components/Brute/BruteLevelAndXP';
+import { Brute } from '@labrute/prisma';
 
 const ArenaView = () => {
   const { t } = useTranslation();
@@ -26,12 +27,15 @@ const ArenaView = () => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
 
-  const { data: brute } = useStateAsync(null, Server.Brute.get, bruteName || '');
-  const [opponents, setOpponents] = useState<Brute[]>([]);
+  const bruteProps = useMemo(() => ({ name: bruteName || '', include: { body: true, colors: true } }), [bruteName]);
+  const { data: _brute } = useStateAsync(null, Server.Brute.get, bruteProps);
+  const [opponents, setOpponents] = useState<BruteWithBodyColors[]>([]);
   const [search, setSearch] = useState('');
 
+  const brute = _brute as BruteWithBodyColors;
+
   const xpNeededForNextLevel = useMemo(() => brute
-    && getXPNeeded(brute.data.level + 1), [brute]);
+    && getXPNeeded(brute.level + 1), [brute]);
 
   // Fetch random opponents
   useEffect(() => {
@@ -40,7 +44,7 @@ const ArenaView = () => {
     if (!brute) return cleanup;
 
     // Redirect to cell if XP is too much
-    if (xpNeededForNextLevel && brute.data.xp >= xpNeededForNextLevel) {
+    if (xpNeededForNextLevel && brute.xp >= xpNeededForNextLevel) {
       navigate(`/${brute.name}/cell`);
       return cleanup;
     }
@@ -50,7 +54,7 @@ const ArenaView = () => {
       navigate(`/${brute.name}/cell`);
     }
 
-    Server.Brute.getOpponents(brute.name, brute.data.level).then((data) => {
+    Server.Brute.getOpponents(brute.name, brute.level).then((data) => {
       if (isSubscribed) {
         setOpponents(data);
       }
@@ -151,14 +155,14 @@ const ArenaView = () => {
                       <Text bold color="secondary">{opponent.name}</Text>
                       <Text bold smallCaps color="text.primary">
                         {t('level')}
-                        <Text component="span" bold color="secondary"> {opponent.data.level}</Text>
+                        <Text component="span" bold color="secondary"> {opponent.level}</Text>
                       </Text>
                       <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
-                        <BruteHP hp={opponent.data.stats.hp} />
+                        <BruteHP hp={opponent.hp} />
                         <Box flexGrow={1} sx={{ ml: 0.5 }}>
-                          <ArenaStat name={t('Str')} value={opponent.data.stats.strength.value} />
-                          <ArenaStat name={t('Agi')} value={opponent.data.stats.agility.value} />
-                          <ArenaStat name={t('Spe')} value={opponent.data.stats.speed.value} />
+                          <ArenaStat name={t('Str')} value={opponent.strengthValue} />
+                          <ArenaStat name={t('Agi')} value={opponent.agilityValue} />
+                          <ArenaStat name={t('Spe')} value={opponent.speedValue} />
                         </Box>
                       </Box>
                       <BruteComponent

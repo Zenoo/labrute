@@ -1,4 +1,4 @@
-import { Brute } from '@labrute/core';
+import { BruteWithBodyColors } from '@labrute/core';
 import { Box, Grid, Paper } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -8,8 +8,8 @@ import StyledButton from '../../components/StyledButton';
 import Text from '../../components/Text';
 
 export interface VersusMobileViewProps {
-  brute: Brute;
-  opponent: Brute;
+  brute: BruteWithBodyColors;
+  opponent: BruteWithBodyColors;
   startFight: () => void;
 }
 
@@ -38,7 +38,7 @@ const VersusMobileView = ({
               inverted
             />
             <Text h3 smallCaps bold color="text.primary">{brute.name}</Text>
-            <Text h5 upperCase bold color="secondary">{t('level')} {brute.data.level}</Text>
+            <Text h5 upperCase bold color="secondary">{t('level')} {brute.level}</Text>
           </Grid>
           <Grid item xs={12} sm={2} alignSelf="center">
             <Box component="img" src="/images/versus/vs.png" sx={{ width: 100, maxWidth: 1 }} />
@@ -49,7 +49,7 @@ const VersusMobileView = ({
               sx={{ maxWidth: 200 }}
             />
             <Text h3 smallCaps bold color="text.primary">{opponent.name}</Text>
-            <Text h5 upperCase bold color="secondary">{t('level')} {opponent.data.level}</Text>
+            <Text h5 upperCase bold color="secondary">{t('level')} {opponent.level}</Text>
           </Grid>
         </Grid>
         <StyledButton

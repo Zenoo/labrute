@@ -1,4 +1,4 @@
-import { Gender } from '../types';
+import { Gender } from '@labrute/prisma';
 import adjustColor from '../utils/adjustColor';
 import randomBetween from '../utils/randomBetween';
 import colors from './colors';
@@ -21,26 +21,16 @@ const getRandomColors = (gender: Gender) => {
   } = colors;
 
   return {
-    skin: {
-      color: skin,
-      shade: adjustColor(skin, -20),
-    },
-    hair: {
-      color: hair,
-      shade: adjustColor(hair, -20),
-    },
-    primary: {
-      color: primary,
-      shade: adjustColor(primary, -20),
-    },
-    secondary: {
-      color: secondary,
-      shade: adjustColor(secondary, -20),
-    },
-    accent: {
-      color: accent,
-      shade: adjustColor(accent, -20),
-    },
+    skinColor: skin,
+    skinShade: adjustColor(skin, -20),
+    hairColor: hair,
+    hairShade: adjustColor(hair, -20),
+    primaryColor: primary,
+    primaryShade: adjustColor(primary, -20),
+    secondaryColor: secondary,
+    secondaryShade: adjustColor(secondary, -20),
+    accentColor: accent,
+    accentShade: adjustColor(accent, -20),
   };
 };
 

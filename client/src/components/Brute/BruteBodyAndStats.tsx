@@ -1,4 +1,4 @@
-import { Brute } from '@labrute/core';
+import { BruteWithBodyColors } from '@labrute/core';
 import { Box, BoxProps, Stack } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -8,7 +8,7 @@ import BruteComponent from './Body/BruteComponent';
 import BruteHP from './BruteHP';
 
 interface BruteBodyAndStatsProps extends BoxProps {
-  brute: Brute;
+  brute: BruteWithBodyColors;
   isMd?: boolean;
 }
 
@@ -30,15 +30,15 @@ const BruteBodyAndStats = ({
       <Stack spacing={1} flexGrow={isMd ? undefined : 1}>
         {/* HP */}
         <Box>
-          <BruteHP hp={brute.data.stats.hp} />
+          <BruteHP hp={brute.hp} />
           <Text bold sx={{ display: 'inline-block', ml: 1 }}>{t('healthPoints')}</Text>
         </Box>
         {/* STRENGTH */}
-        <CellStats stats={brute.data.stats} stat="strength" />
+        <CellStats value={brute.strengthValue} stat="strength" />
         {/* AGILITY */}
-        <CellStats stats={brute.data.stats} stat="agility" />
+        <CellStats value={brute.agilityValue} stat="agility" />
         {/* SPEED */}
-        <CellStats stats={brute.data.stats} stat="speed" />
+        <CellStats value={brute.speedValue} stat="speed" />
       </Stack>
     </Box>
   );

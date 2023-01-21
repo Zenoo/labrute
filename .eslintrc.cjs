@@ -22,6 +22,8 @@ module.exports = {
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
   ],
   rules: {
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error",
     '@typescript-eslint/no-var-requires': 'off',
     semi: 'off',
     '@typescript-eslint/semi': ['error'],
@@ -30,17 +32,15 @@ module.exports = {
       'error',
       { ignores: ['modules'] },
     ],
-    'tsdoc/syntax': 'warn',
     'linebreak-style': 'off',
     'eol-last': 'off',
-    // These 3 are due to the Node16 module resolution, not sure why
-    'import/no-unresolved': 'off',
-    'import/extensions': 'off',
-    'node/no-missing-import': 'off',
     'no-plusplus': ["error", { "allowForLoopAfterthoughts": true }],
     "import/no-named-default": "off",
     "no-nested-ternary": "off",
-    "no-console": ["warn", { allow: ["warn", "error"] }]
+    "no-console": ["warn", { allow: ["warn", "error"] }],
+    'import/prefer-default-export': 'off',
+    'camelcase': 'off',
+    'no-plusplus': 'off',
   },
   settings: {
     node: {

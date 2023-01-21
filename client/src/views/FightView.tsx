@@ -1,4 +1,5 @@
-import { Fight, randomBetween } from '@labrute/core';
+import { randomBetween } from '@labrute/core';
+import { Fight } from '@labrute/prisma';
 import { Box, Link, Tooltip, useMediaQuery } from '@mui/material';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';

@@ -1,4 +1,5 @@
-import { Gender, BodyParts, BodyColors, Brute } from '@labrute/core';
+import { BruteWithBodyColors } from '@labrute/core';
+import { Gender, Prisma } from '@labrute/prisma';
 import { Box, Grid, Link, Paper, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -15,8 +16,8 @@ export interface HomeMobileViewProps {
   name: string;
   creationStarted: boolean;
   gender: Gender;
-  bodyParts: BodyParts;
-  bodyColors: BodyColors;
+  bodyParts: Prisma.BruteBodyCreateWithoutBruteInput;
+  bodyColors: Prisma.BruteColorsCreateWithoutBruteInput;
   changeAppearance: () => void;
   changeColors: () => void;
   leftRedirect: number;
@@ -101,12 +102,10 @@ const HomeMobileView = ({
                   <BruteComponent
                     brute={{
                       name,
-                      data: {
-                        gender,
-                        body: bodyParts,
-                        colors: bodyColors,
-                      }
-                    } as Brute}
+                      gender,
+                      body: bodyParts,
+                      colors: bodyColors,
+                    } as BruteWithBodyColors}
                     inverted
                     sx={{ height: 160 }}
                   />

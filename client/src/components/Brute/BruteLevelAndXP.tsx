@@ -1,4 +1,5 @@
-import { Brute, getXPNeeded } from '@labrute/core';
+import { getXPNeeded } from '@labrute/core';
+import { Brute } from '@labrute/prisma';
 import { Box, BoxProps, Tooltip } from '@mui/material';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -16,15 +17,15 @@ const BruteLevelAndXP = ({
 }: BruteLevelAndXPProps) => {
   const { t } = useTranslation();
 
-  const xpNeededForNextLevel = useMemo(() => getXPNeeded(brute.data.level + 1), [brute.data.level]);
+  const xpNeededForNextLevel = useMemo(() => getXPNeeded(brute.level + 1), [brute.level]);
   const limitedXP = useMemo(() => Math.min(
-    brute.data.xp,
+    brute.xp,
     xpNeededForNextLevel,
-  ), [brute.data.xp, xpNeededForNextLevel]);
+  ), [brute.xp, xpNeededForNextLevel]);
 
   return (
     <Box {...rest}>
-      <Text bold h3 smallCaps color="secondary" {...textProps}>{t('level')} {brute.data.level}</Text>
+      <Text bold h3 smallCaps color="secondary" {...textProps}>{t('level')} {brute.level}</Text>
       {/* LEVEL BAR */}
       <Tooltip title={`${limitedXP} / ${xpNeededForNextLevel}`}>
         <Box sx={{ bgcolor: 'secondary.main', p: '2px', width: 120 }}>

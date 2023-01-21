@@ -1,10 +1,9 @@
 /* eslint-disable no-param-reassign */
-import { BARE_HANDS_TEMPO, SHIELD_BLOCK_ODDS } from '@eternaltwin/labrute-core/constants';
 import {
-  DetailedFight, DetailedFighter, LeaveStep, Skill, StepFighter, Weapon,
-} from '@eternaltwin/labrute-core/types';
-import randomBetween from '@eternaltwin/labrute-core/utils/randomBetween';
-import getDamage from './getDamage.js';
+  BARE_HANDS_TEMPO, DetailedFight, DetailedFighter, LeaveStep,
+  randomBetween, SHIELD_BLOCK_ODDS, Skill, StepFighter, Weapon,
+} from '@labrute/core';
+import getDamage from './getDamage';
 
 const getMainOpponent = (fightData: DetailedFight['data'], brute: DetailedFighter) => {
   const mainOpponent = fightData.fighters.find(
@@ -96,11 +95,11 @@ export const getOpponents = (fightData: DetailedFight['data'], fighter: Detailed
   if (fighter.master) {
     opponents = opponents.filter((f) => (f.master
       ? f.master !== fighter.master
-      : f.name !== fighter.master));
+      : f.id !== fighter.master));
   } else {
     // Fighter is a real brute
     opponents = opponents.filter((f) => f.name !== fighter.name
-      && f.master !== fighter.name);
+      && f.master !== fighter.id);
   }
 
   if (bruteOnly) {
@@ -356,7 +355,7 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
       // Get main opponent
       const opponent = getMainOpponent(fightData, fighter);
       // Get opponent's pets
-      const opponentPets = fightData.fighters.filter((f) => f.type === 'pet' && f.master === opponent.name);
+      const opponentPets = fightData.fighters.filter((f) => f.type === 'pet' && f.master === opponent.id);
 
       // Abort if no pet
       if (opponentPets.length === 0) return false;
@@ -397,7 +396,7 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
       // Get main opponent
       const opponent = getMainOpponent(fightData, fighter);
       // Get opponent's pets
-      const opponentPets = fightData.fighters.filter((f) => f.type === 'pet' && f.master === opponent.name);
+      const opponentPets = fightData.fighters.filter((f) => f.type === 'pet' && f.master === opponent.id);
 
       // Keep track of hypnotised pets
       const hypnotisedPets = [];
@@ -417,7 +416,7 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
           hypnotisedPets.push(pet);
 
           // Change pet owner
-          pet.master = fighter.name;
+          pet.master = fighter.id;
         }
       }
 

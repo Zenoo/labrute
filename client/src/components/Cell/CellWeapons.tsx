@@ -1,4 +1,5 @@
-import { weapons as detailedWeapons, WeaponName } from '@labrute/core';
+import { weapons as detailedWeapons } from '@labrute/core';
+import { WeaponName } from '@labrute/prisma';
 import { Box, BoxProps } from '@mui/material';
 import React, { useCallback, useMemo, useState } from 'react';
 import WeaponTooltip from '../Brute/WeaponTooltip';

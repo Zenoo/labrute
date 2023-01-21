@@ -1,4 +1,4 @@
-import { DetailedFighter, Weapon } from '@eternaltwin/labrute-core/types';
+import { DetailedFighter, Weapon } from '@labrute/core';
 
 const getDamage = (
   fighter: DetailedFighter,

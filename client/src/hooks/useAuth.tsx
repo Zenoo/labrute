@@ -1,15 +1,15 @@
-import { User } from '@labrute/core';
+import { UserWithBrutesBodyColor } from '@labrute/core';
 import moment from 'moment';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 import Server from '../utils/Server';
 
 interface AuthContextInterface {
-  user: User | null,
+  user: UserWithBrutesBodyColor | null,
   authing: boolean,
   setAuthing: (authing: boolean) => void,
   signin: () => void,
   signout: () => void,
-  updateData: (data: React.SetStateAction<User | null>) => void,
+  updateData: (data: React.SetStateAction<UserWithBrutesBodyColor | null>) => void,
 }
 
 const AuthContext = React.createContext<AuthContextInterface>({
@@ -38,7 +38,7 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserWithBrutesBodyColor | null>(null);
   const [authing, setAuthing] = useState(false);
 
   const signin = useCallback(() => {
@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setUser(null);
   }, []);
 
-  const updateData = useCallback((data: React.SetStateAction<User | null>) => {
+  const updateData = useCallback((data: React.SetStateAction<UserWithBrutesBodyColor | null>) => {
     setUser(data);
   }, []);
 

@@ -1,49 +1,51 @@
-import { Brute, SkillName } from '../types';
+import { Brute, SkillName } from '@labrute/prisma';
 
-const applySkillModifiers = (brute: Brute, skill: SkillName) => {
+type BruteStats = Pick<Brute, 'enduranceStat' | 'enduranceModifier' | 'enduranceValue' | 'strengthStat' | 'strengthModifier' | 'strengthValue' | 'agilityStat' | 'agilityModifier' | 'agilityValue' | 'speedStat' | 'speedModifier' | 'speedValue'>;
+
+const applySkillModifiers = <T extends BruteStats>(brute: T, skill: SkillName) => {
   const updatedBrute = { ...brute };
 
   // Vitality modifier
   if (skill === 'vitality') {
-    updatedBrute.data.stats.endurance.modifier *= 1.5;
-    updatedBrute.data.stats.endurance.stat += 3;
+    updatedBrute.enduranceModifier *= 1.5;
+    updatedBrute.enduranceStat += 3;
   }
 
   // Immortality modifier
   if (skill === 'immortality') {
-    updatedBrute.data.stats.endurance.modifier *= 3.5;
-    updatedBrute.data.stats.strength.modifier *= 0.75;
-    updatedBrute.data.stats.agility.modifier *= 0.75;
-    updatedBrute.data.stats.speed.modifier *= 0.75;
+    updatedBrute.enduranceModifier *= 3.5;
+    updatedBrute.strengthModifier *= 0.75;
+    updatedBrute.agilityModifier *= 0.75;
+    updatedBrute.speedModifier *= 0.75;
   }
 
   // Herculean strength modifier
   if (skill === 'herculeanStrength') {
-    updatedBrute.data.stats.strength.modifier *= 1.5;
-    updatedBrute.data.stats.strength.stat += 3;
+    updatedBrute.strengthModifier *= 1.5;
+    updatedBrute.strengthStat += 3;
   }
 
   // Feline agility modifier
   if (skill === 'felineAgility') {
-    updatedBrute.data.stats.agility.modifier *= 1.5;
-    updatedBrute.data.stats.agility.stat += 3;
+    updatedBrute.agilityModifier *= 1.5;
+    updatedBrute.agilityStat += 3;
   }
 
   // Lightning bolt modifier
   if (skill === 'lightningBolt') {
-    updatedBrute.data.stats.speed.modifier *= 1.5;
-    updatedBrute.data.stats.speed.stat += 3;
+    updatedBrute.speedModifier *= 1.5;
+    updatedBrute.speedStat += 3;
   }
 
   // Reconnaissance modifier
   if (skill === 'reconnaissance') {
-    updatedBrute.data.stats.speed.modifier *= 2.5;
-    updatedBrute.data.stats.speed.stat += 5;
+    updatedBrute.speedModifier *= 2.5;
+    updatedBrute.speedStat += 5;
   }
 
   // Armor modifier
   if (skill === 'armor') {
-    updatedBrute.data.stats.speed.modifier *= 0.9;
+    updatedBrute.speedModifier *= 0.9;
   }
 
   return updatedBrute;

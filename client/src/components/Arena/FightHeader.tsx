@@ -1,4 +1,4 @@
-import { Brute } from '@labrute/core';
+import { BruteWithBodyColors } from '@labrute/core';
 import { Box, BoxProps } from '@mui/material';
 import React from 'react';
 import { AnimationFighter } from '../../utils/fight/findFighter';
@@ -97,7 +97,7 @@ const FightHeader = ({
       >
         <BrutePortrait
           inverted={!inverted}
-          brute={{ name: brute.name, data: brute.data } as Brute}
+          brute={{ name: brute.name, ...brute.data } as BruteWithBodyColors}
           sx={{
             position: 'absolute',
             top: -10,

@@ -1,67 +1,4 @@
-export type Gender = 'male' | 'female';
-
-export interface BodyParts {
-  longHair: number,
-  lowerRightArm: number,
-  rightHand: number,
-  upperRightArm: number,
-  rightShoulder: number,
-  rightFoot: number,
-  lowerRightLeg: number,
-  upperRightLeg: number,
-  leftFoot: number,
-  lowerLeftLeg: number,
-  pelvis: number,
-  upperLeftLeg: number,
-  tummy: number,
-  torso: number,
-  head: number,
-  leftHand: number,
-  upperLeftArm: number,
-  lowerLeftArm: number,
-  leftShoulder: number,
-}
-
-export interface BodyColors {
-  skin: {
-    color: `#${string}`;
-    shade: `#${string}`;
-  };
-  hair: {
-    color: `#${string}`;
-    shade: `#${string}`;
-  };
-  primary: {
-    color: `#${string}`;
-    shade: `#${string}`;
-  };
-  secondary: {
-    color: `#${string}`;
-    shade: `#${string}`;
-  };
-  accent: {
-    color: `#${string}`;
-    shade: `#${string}`;
-  };
-}
-
-export interface Pets {
-  dog1: boolean;
-  dog2: boolean;
-  dog3: boolean;
-  panther: boolean;
-  bear: boolean;
-}
-
-export type WeaponName = 'fan' | 'keyboard' | 'knife'
-  | 'leek' | 'mug' | 'sai'
-  | 'racquet' | 'axe' | 'bumps'
-  | 'flail' | 'fryingPan' | 'hatchet'
-  | 'mammothBone' | 'morningStar'
-  | 'trombone' | 'baton' | 'halbard'
-  | 'lance' | 'trident' | 'whip'
-  | 'noodleBowl' | 'piopio' | 'shuriken'
-  | 'broadsword' | 'scimitar' | 'sword';
+import { BruteBody, BruteColors, Gender, SkillName, WeaponName } from '@labrute/prisma';
 
 export type WeaponType = 'fast' | 'sharp' | 'heavy' | 'long' | 'thrown' | 'blunt';
 
@@ -90,20 +27,6 @@ export interface AnimatedWeapon {
   animation: WeaponAnimation;
 }
 
-export type SkillName = 'herculeanStrength' | 'felineAgility' | 'lightningBolt'
-  | 'vitality' | 'immortality' | 'reconnaissance' | 'weaponsMaster'
-  | 'martialArts' | 'sixthSense' | 'hostility'
-  | 'fistsOfFury' | 'shield' | 'armor'
-  | 'toughenedSkin' | 'untouchable' | 'sabotage'
-  | 'shock' | 'bodybuilder' | 'relentless'
-  | 'survival' | 'leadSkeleton' | 'balletShoes' | 'determination'
-  | 'firstStrike' | 'resistant' | 'counterAttack' | 'ironHead'
-  | 'thief' | 'fierceBrute'
-  | 'tragicPotion' | 'net' | 'bomb'
-  | 'hammer' | 'cryOfTheDamned' | 'hypnosis' | 'flashFlood' | 'tamer'
-  | 'regeneration' | 'chef' | 'spy' | 'saboteur' | 'backup'
-  | 'hideaway' | 'monk';
-
 export type SuperName = 'thief' | 'fierceBrute' | 'tragicPotion'
   | 'net' | 'bomb' | 'hammer' | 'cryOfTheDamned' | 'hypnosis' | 'flashFlood' | 'tamer';
 
@@ -117,96 +40,26 @@ export interface Skill {
   uses?: number;
 }
 
-export type PetName = 'dog1' | 'dog2' | 'dog3' | 'panther' | 'bear';
-
 export interface Stat {
   stat: number;
   modifier: number;
   value: number;
 }
 
-export interface Brute {
-  id?: number;
-  name: string;
-  rank: number;
-  destiny_path: (0 | 1)[];
-  data: {
-    user: string;
-    level: number;
-    xp: number;
-    stance?: number;
-    stats: {
-      hp: number;
-      endurance: Stat;
-      strength: Stat;
-      agility: Stat;
-      speed: Stat;
-    }
-    ranking: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
-    gender: Gender;
-    body: BodyParts;
-    colors: BodyColors;
-    weapons: WeaponName[];
-    skills: SkillName[];
-    pets: Pets;
-    master: string;
-    victories: number;
-    pupils: number;
-    clan?: {
-      id: number;
-      name: string;
-    },
-    tournament?: string;
-    lastFight: string;
-    fightsLeft: number;
-  };
-}
-
-export interface User {
-  id: string;
-  name: string;
-  token: string;
-  brute_limit: number;
-  sacrifice_points: number;
-  brutes?: Brute[];
-}
-
-export interface Log {
-  id: number;
-  current_brute: number;
-  type: 'win' | 'lose' | 'child' | 'childup'
-  | 'up' | 'lvl' | 'survive';
-  level?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
-  brute?: string;
-  fight?: number;
-  xp?: number;
-}
-
-export type Stats = 'endurance' | 'strength' | 'agility' | 'speed';
-
-export interface LevelUpChoice {
-  type: 'skill' | 'weapon' | 'pet' | 'stats';
-  name: SkillName | WeaponName | PetName | Stats | [Stats, Stats];
-  stats?: 2 | [1, 1];
-}
-
-export interface DestinyChoice {
-  brute: number;
-  path: (0 | 1)[];
-  choice: LevelUpChoice;
-}
+export type BruteRanking = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
 export interface DetailedFighter {
   // Metadata
+  id: number;
   name: string;
   data?: {
     gender: Gender,
-    body: BodyParts,
-    colors: BodyColors,
+    body: BruteBody,
+    colors: BruteColors,
   }
   type: 'brute' | 'pet';
   // Follower/Backup variables
-  master?: string;
+  master?: number;
   arrivesAtInitiative?: number;
   leavesAtInitiative?: number;
   // Raw stats
@@ -268,14 +121,15 @@ export interface DetailedFighter {
 }
 
 export interface Fighter {
+  id: number;
   name: string;
   data?: {
     gender: Gender,
-    body: BodyParts,
-    colors: BodyColors,
+    body: BruteBody,
+    colors: BruteColors,
   };
   type: 'brute' | 'pet';
-  master?: string;
+  master?: number;
   maxHp: number;
   hp: number,
   weapons: AnimatedWeapon[];
@@ -286,7 +140,7 @@ export interface Fighter {
 export interface StepFighter {
   name: string;
   type: 'brute' | 'pet';
-  master?: string;
+  master?: number;
 }
 
 export interface SaboteurStep {
@@ -478,17 +332,6 @@ export interface DetailedFight {
   }
 }
 
-export interface Fight {
-  brute_1: string;
-  brute_2: string;
-  data: {
-    fighters: Fighter[];
-    steps: FightStep[];
-    winner: StepFighter;
-    loser: StepFighter;
-  }
-}
-
 export type AnimationModel = 'bear' | 'dog' | 'panther' | 'male-brute' | 'female-brute';
 export const animationList = [
   'arrive-end', 'arrive-start', 'attack', 'block', 'death', 'drink', 'eat',
@@ -500,6 +343,6 @@ export const animationList = [
 export type Animation = typeof animationList[number];
 
 export interface FrameProps {
-  colors: BodyColors,
-  body: BodyParts
+  colors: BruteColors,
+  body: BruteBody
 }

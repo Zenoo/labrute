@@ -1,7 +1,8 @@
+import { Gender } from '@labrute/prisma';
 import { PETS_TOTAL_ODDS } from './brute/pets';
 import { SKILLS_TOTAL_ODDS } from './brute/skills';
 import { WEAPONS_TOTAL_ODDS } from './brute/weapons';
-import { Animation, Gender } from './types';
+import { Animation } from './types';
 
 export const FIGHTS_PER_DAY = 6;
 

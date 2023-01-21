@@ -1,40 +1,12 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "target": "ES2019",
-    "strict": true,
-    "lib": [
-      "ES2022"
-    ],
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "allowSyntheticDefaultImports": true,
-    "noEmit": false,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictNullChecks": true,
-    "importHelpers": true,
-    "alwaysStrict": true,
-    "rootDir": "./src",
-    "outDir": "./build",
-    "tsBuildInfoFile": "./build/.tsbuildinfo",
-    "module": "Node16",
-    "moduleResolution": "Node16",
-    "sourceMap": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
+    "rootDir": "src",
+    "outDir": "lib",
   },
-  "include": [
-    "./src/**/*.ts"
-  ],
+  "exclude": ["prisma/seed.ts", "lib/**/*"],
   "references": [
-    {
-      "path": "../core"
-    }
+    { "path": "../core" },
+    { "path": "../prisma" }
   ]
 }

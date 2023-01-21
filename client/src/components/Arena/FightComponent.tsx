@@ -1,4 +1,5 @@
-import { Fight } from '@labrute/core';
+import { FightStep } from '@labrute/core';
+import { Fight } from '@labrute/prisma';
 import { Rtt } from '@mui/icons-material';
 import { Box, IconButton, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import { Tweener } from 'pixi-tweener';
@@ -20,6 +21,8 @@ const FightComponent = ({
   const theme = useTheme();
   const smallScreen = useMediaQuery('(max-width: 935px)');
   const { t } = useTranslation();
+
+  const fightSteps = fight?.steps as FightStep[] | undefined;
 
   // Logs display
   const [displayLogs, setDisplayLogs] = useState(false);
@@ -86,7 +89,7 @@ const FightComponent = ({
           textAlign: 'left',
         }}
         >
-          {fight.data.steps.filter((step) => !['moveTo', 'moveBack'].includes(step.action)).map((step, i) => (
+          {fightSteps?.filter((step) => !['moveTo', 'moveBack'].includes(step.action)).map((step, i) => (
             // eslint-disable-next-line react/no-array-index-key
             <Text key={i}>{translateFightStep(step, t)}</Text>
           ))}

@@ -1,4 +1,4 @@
-import { Gender } from '../types';
+import { Gender } from '@labrute/prisma';
 import randomBetween from '../utils/randomBetween';
 import availableBodyParts from './availableBodyParts';
 

@@ -1,6 +1,6 @@
-import { BodyParts } from '../types';
+import { BruteBody } from '@labrute/prisma';
 
-const availableBodyParts: { male: BodyParts, female: BodyParts } = {
+const availableBodyParts: { male: Omit<BruteBody, 'id' | 'bruteId'>, female: Omit<BruteBody, 'id' | 'bruteId'> } = {
   male: {
     longHair: 0,
     lowerRightArm: 1,

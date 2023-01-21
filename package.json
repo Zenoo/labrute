@@ -1,43 +1,36 @@
 {
-  "name": "@eternal-twin/labrute-monorepo",
-  "private": true,
+  "name": "labrute",
   "version": "1.17.1",
-  "entry": "server/server.js",
+  "private": true,
   "engines": {
-    "node": ">=14.13.1"
+    "npm": "8.1.2",
+    "node": "16.13.1"
   },
   "scripts": {
-    "lint": "eslint \"@(client|server)/src/**/*.{ts,tsx}\"",
-    "format": "eslint --fix \"@(client|server)/src/**/*.{ts,tsx}\"",
-    "release": "standard-version -a",
-    "front": "cd client && yarn run start",
-    "back": "cd server && yarn run start:watch",
-    "build:production": "yarn run build:production:client && yarn run build:production:server",
-    "build:production:client": "cd client && yarn run build",
-    "build:production:server": "cd server && yarn run build",
-    "start": "cd server && yarn run start",
+    "clean": "rimraf \"client/build\" \"core/lib\" \"server/lib\" \"**/node_modules\" \"**/tsconfig.tsbuildinfo\"",
+    "compile": "tsc -b tsconfig.build.json",
+    "front": "npm run start --workspace=client",
+    "back": "npm run start:watch --workspace=server",
     "etwin": "etwin",
-    "db:populate": "cd server && yarn run db:populate",
-    "db:sync": "cd server && yarn run db:sync",
-    "db:brute:generate": "cd server && yarn run db:brute:generate",
-    "animation:import": "ts-node importAnimation.ts"
+    "start": "npm run start --workspace=server",
+    "dev": "concurrently --prefix \"[{name}]\" --names \"SERVER,CLIENT,ETWIN\" -c \"bgBlue.bold,bgGreen.bold,bgYellow.bold\" \"npm run back\" \"npm run front\" \"npm run etwin\"",
+    "db:sync:dev": "npm run db:sync:dev --workspace=server",
+    "db:sync:prod": "npm run db:sync:prod --workspace=server",
+    "db:seed": "npm run db:seed --workspace=server",
+    "postinstall": "bash ./postInstall.sh"
   },
   "devDependencies": {
-    "@eternal-twin/cli": "^0.10.3",
-    "@types/node": "^18.6.2",
-    "@types/pg-format": "^1.0.2",
-    "standard-version": "^9.5.0",
-    "typescript": "^4.7.4"
+    "concurrently": "^7.6.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.9.4"
   },
-  "workspaces": {
-    "packages": [
-      "client",
-      "core",
-      "server"
-    ]
-  },
-  "resolutions": {
-    "@types/react": "^17.0.48"
-  },
-  "packageManager": "yarn@3.2.2"
+  "workspaces": [
+    "client",
+    "core",
+    "prisma",
+    "server"
+  ],
+  "dependencies": {
+    "@eternal-twin/cli": "^0.10.3"
+  }
 }

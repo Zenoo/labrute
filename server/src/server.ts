@@ -1,11 +1,12 @@
-import dotenv from 'dotenv';
 import express from 'express';
 
 import bodyParser from 'body-parser';
-import initRoutes from './routes.js';
+import { PrismaClient } from '@labrute/prisma';
+import path from 'path';
+import initRoutes from './routes';
+import './i18n';
 
-dotenv.config();
-
+const prisma = new PrismaClient();
 const app = express();
 const port = process.env.PORT || 9000;
 
@@ -16,8 +17,12 @@ app.use(
   }),
 );
 
+// Get client build
+const CLIENT_BUILD = path.join(__dirname, '..', '..', 'client', 'build');
+app.use(express.static(CLIENT_BUILD));
+
 app.listen(port, () => {
-  console.log(`App running: http://localhost:${port}/`);
+  console.warn(`App running: http://localhost:${port}/`);
 });
 
-initRoutes(app);
+initRoutes(app, prisma);

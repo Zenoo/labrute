@@ -1,77 +1,113 @@
-import { Brute, LevelUpChoice, SkillName, Stats, WeaponName, } from '../types';
+import { Brute, BruteStat, DestinyChoice, PetName, SkillName, WeaponName } from '@labrute/prisma';
 import applySkillModifiers from './applySkillModifiers';
 import getHP from './getHP';
+import { LevelUpChoice } from './getLevelUpChoices';
 import pets, { Pet } from './pets';
 
-const updateBruteData = (brute: Brute, levelUpChoice: LevelUpChoice) => {
-  let updatedBrute: Brute = {
+type BruteData = Pick<Brute, 'level' | 'skills' | 'enduranceStat' | 'strengthStat'
+| 'agilityStat' | 'speedStat' | 'enduranceModifier' | 'strengthModifier'
+| 'agilityModifier' | 'speedModifier' | 'strengthValue' | 'agilityValue'
+| 'enduranceValue' | 'speedValue' | 'xp' | 'pets' | 'weapons' | 'hp'>;
+
+const updateStat = (brute: BruteData, stat: BruteStat, value: number) => {
+  switch (stat) {
+    case 'endurance':
+      return {
+        ...brute,
+        enduranceStat: brute.enduranceStat + value,
+      };
+    case 'strength':
+      return {
+        ...brute,
+        strengthStat: brute.strengthStat + value,
+      };
+    case 'agility':
+      return {
+        ...brute,
+        agilityStat: brute.agilityStat + value,
+      };
+    case 'speed':
+      return {
+        ...brute,
+        speedStat: brute.speedStat + value,
+      };
+    default:
+      throw new Error('Invalid stat');
+  }
+};
+
+const updateBruteData = (
+  brute: BruteData,
+  destinyChoice: DestinyChoice | LevelUpChoice
+) => {
+  let updatedBrute = {
     ...brute,
-    data: {
-      ...brute.data,
-      xp: 0,
-      level: brute.data.level + 1,
-    },
+    xp: 0,
+    level: brute.level + 1,
   };
 
   // New skill
-  if (levelUpChoice.type === 'skill') {
-    updatedBrute.data.skills.push(levelUpChoice.name as SkillName);
+  if (destinyChoice.type === 'skill') {
+    updatedBrute.skills.push(destinyChoice.skill as SkillName);
 
     // STATS MODIFIERS
-    updatedBrute = applySkillModifiers(updatedBrute, levelUpChoice.name as SkillName);
-  } else if (levelUpChoice.type === 'weapon') {
+    updatedBrute = applySkillModifiers(updatedBrute, destinyChoice.skill as SkillName);
+  } else if (destinyChoice.type === 'weapon') {
     // New weapon
-    updatedBrute.data.weapons.push(levelUpChoice.name as WeaponName);
-  } else if (levelUpChoice.type === 'pet') {
+    updatedBrute.weapons.push(destinyChoice.weapon as WeaponName);
+  } else if (destinyChoice.type === 'pet') {
     // New pet
-    const pet = pets.find((p: Pet) => p.name === levelUpChoice.name);
+    const pet = pets.find((p: Pet) => p.name === destinyChoice.pet);
     if (!pet) {
       throw new Error('Pet not found');
     }
 
-    updatedBrute.data.pets[pet.name] = true;
+    updatedBrute.pets.push(destinyChoice.pet as PetName);
 
     // Take into account the endurance malus from the pet
-    updatedBrute.data.stats.endurance.stat -= pet.enduranceMalus;
-  } else if (typeof levelUpChoice.name === 'string') {
+    updatedBrute.enduranceStat -= pet.enduranceMalus;
+  } else if (destinyChoice.stat1 && !destinyChoice.stat2) {
     // +3 stat
-    const stat = levelUpChoice.name as Stats;
-    updatedBrute.data.stats[stat].stat += levelUpChoice.stats as number;
+    const stat = destinyChoice.stat1;
+    updatedBrute = updateStat(updatedBrute, stat, 3);
   } else {
     // +2/+1
-    const {
-      name: {
-        0: stat1,
-        1: stat2,
-      },
-    } = levelUpChoice;
 
-    if (!levelUpChoice.stats) {
+    if (!destinyChoice.stat1 || !destinyChoice.stat2
+      || !destinyChoice.stat1Value || !destinyChoice.stat2Value) {
       throw new Error('No stats provided');
     }
 
-    updatedBrute.data.stats[stat1].stat += (levelUpChoice.stats as [number, number])[0];
-    updatedBrute.data.stats[stat2].stat += (levelUpChoice.stats as [number, number])[1];
+    updatedBrute = updateStat(
+      updatedBrute,
+      destinyChoice.stat1,
+      destinyChoice.stat1Value,
+    );
+    updatedBrute = updateStat(
+      updatedBrute,
+      destinyChoice.stat2,
+      destinyChoice.stat2Value,
+    );
   }
 
   // Final stat values
-  updatedBrute.data.stats.endurance.value = Math.floor(
-    updatedBrute.data.stats.endurance.stat * updatedBrute.data.stats.endurance.modifier,
+  updatedBrute.enduranceValue = Math.floor(
+    brute.enduranceStat * brute.enduranceModifier,
   );
-  updatedBrute.data.stats.strength.value = Math.floor(
-    updatedBrute.data.stats.strength.stat * updatedBrute.data.stats.strength.modifier,
+  updatedBrute.strengthValue = Math.floor(
+    brute.strengthStat * brute.strengthModifier,
   );
-  updatedBrute.data.stats.agility.value = Math.floor(
-    updatedBrute.data.stats.agility.stat * updatedBrute.data.stats.agility.modifier,
+  updatedBrute.agilityValue = Math.floor(
+    brute.agilityStat * brute.agilityModifier,
   );
-  updatedBrute.data.stats.speed.value = Math.floor(
-    updatedBrute.data.stats.speed.stat * updatedBrute.data.stats.speed.modifier,
+  updatedBrute.speedValue = Math.floor(
+    brute.speedStat * brute.speedModifier,
   );
 
   // Final HP
-  updatedBrute.data.stats.hp = getHP(brute.data.level, brute.data.stats.endurance.value);
+  updatedBrute.hp = getHP(updatedBrute.level, updatedBrute.enduranceValue);
 
-  return updatedBrute.data;
+  return updatedBrute;
 };
 
 export default updateBruteData;

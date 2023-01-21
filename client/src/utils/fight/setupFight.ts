@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-await-in-loop */
-import { Fight } from '@labrute/core';
+import { Fighter, FightStep } from '@labrute/core';
+import { Fight } from '@labrute/prisma';
 import { Theme } from '@mui/material';
 import { GlowFilter } from '@pixi/filter-glow';
 import { OutlineFilter } from '@pixi/filter-outline';
@@ -58,10 +59,12 @@ const setupFight: (
     throw new Error('Misc scpritesheet not found');
   }
 
-  const brute1 = fight.data.fighters.find((fighter) => !fighter.master
-    && fighter.name === fight.brute_1);
-  const brute2 = fight.data.fighters.find((fighter) => !fighter.master
-    && fighter.name === fight.brute_2);
+  const fightFighters = fight.fighters as unknown as Fighter[];
+
+  const brute1 = fightFighters.find((fighter) => !fighter.master
+    && fighter.id === fight.brute1Id);
+  const brute2 = fightFighters.find((fighter) => !fighter.master
+    && fighter.id === fight.brute2Id);
 
   if (!brute1 || !brute2) {
     throw new Error('Brute not found');
@@ -90,7 +93,7 @@ const setupFight: (
   app.stage.addChild(brute1Header);
 
   // First brute name
-  const brute1Name = new PIXI.Text(fight.brute_1.toLocaleUpperCase(), {
+  const brute1Name = new PIXI.Text(brute1.name.toLocaleUpperCase(), {
     fontFamily: 'Poplar', fontSize: 20, fill: 0xffffff
   });
   brute1Name.filters = [new OutlineFilter()];
@@ -112,7 +115,7 @@ const setupFight: (
   brute1HpBar.x = 7;
   brute1HpBar.y = 21;
   brute1HpBar.zIndex = 103;
-  brute1HpBar.name = `${fight.brute_1}.hp`;
+  brute1HpBar.name = `${brute1.name}.hp`;
   app.stage.addChild(brute1HpBar);
 
   // First brute phantom HP bar
@@ -122,7 +125,7 @@ const setupFight: (
   brute1PhantomHpBar.x = 7;
   brute1PhantomHpBar.y = 21;
   brute1PhantomHpBar.zIndex = 102;
-  brute1HpBar.name = `${fight.brute_1}.hp-phantom`;
+  brute1HpBar.name = `${brute1.name}.hp-phantom`;
   app.stage.addChild(brute1PhantomHpBar);
 
   // Second brute header
@@ -135,7 +138,7 @@ const setupFight: (
   app.stage.addChild(brute2Header);
 
   // Second brute name
-  const brute2Name = new PIXI.Text(fight.brute_2.toLocaleUpperCase(), {
+  const brute2Name = new PIXI.Text(brute2.name.toLocaleUpperCase(), {
     fontFamily: 'Poplar', fontSize: 20, fill: 0xffffff, align: 'right'
   });
   brute2Name.anchor.x = 1;
@@ -159,7 +162,7 @@ const setupFight: (
   brute2HpBar.x = app.screen.width - 7;
   brute2HpBar.y = 21;
   brute2HpBar.zIndex = 103;
-  brute1HpBar.name = `${fight.brute_2}.hp`;
+  brute1HpBar.name = `${brute2.name}.hp`;
   app.stage.addChild(brute2HpBar);
 
   // Second brute phantom HP bar
@@ -170,7 +173,7 @@ const setupFight: (
   brute2PhantomHpBar.x = app.screen.width - 7;
   brute2PhantomHpBar.y = 21;
   brute2PhantomHpBar.zIndex = 102;
-  brute1HpBar.name = `${fight.brute_2}.hp-phantom`;
+  brute1HpBar.name = `${brute2.name}.hp-phantom`;
   app.stage.addChild(brute2PhantomHpBar);
 
   // Set stage as sortable
@@ -180,7 +183,7 @@ const setupFight: (
   app.ticker.speed = 0.5;
 
   // Get fighters animations
-  const fighters: AnimationFighter[] = fight.data.fighters.map((fighter) => {
+  const fighters: AnimationFighter[] = fightFighters.map((fighter) => {
     const type = fighter.type === 'pet'
       ? fighter.name.startsWith('dog')
         ? 'dog'
@@ -191,7 +194,7 @@ const setupFight: (
         ? 'male-brute'
         : 'female-brute';
 
-    const team = (fighter.master || fighter.name) === fight.brute_1 ? 'left' : 'right';
+    const team = (fighter.master || fighter.id) === brute1.id ? 'left' : 'right';
 
     const arriveStartAnimation = setupSprite(app, type, 'arrive-start', team);
 
@@ -206,10 +209,10 @@ const setupFight: (
       activeWeapon: null,
       hpBar: fighter.master
         ? undefined
-        : fighter.name === fight.brute_1 ? brute1HpBar : brute2HpBar,
+        : fighter.id === brute1.id ? brute1HpBar : brute2HpBar,
       hpBarPhantom: fighter.master
         ? undefined
-        : fighter.name === fight.brute_1 ? brute1PhantomHpBar : brute2PhantomHpBar,
+        : fighter.id === brute1.id ? brute1PhantomHpBar : brute2PhantomHpBar,
       weaponsIllustrations: [],
     };
 
@@ -232,8 +235,9 @@ const setupFight: (
   });
 
   // Loop on steps
-  for (let i = 0; i < fight.data.steps.length; i++) {
-    const { data: { steps: { [i]: step } } } = fight;
+  const steps = fight.steps as unknown as FightStep[];
+  for (let i = 0; i < steps.length; i++) {
+    const { [i]: step } = steps;
 
     switch (step.action) {
       case 'moveTo': {
