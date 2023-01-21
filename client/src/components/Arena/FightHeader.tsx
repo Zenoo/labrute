@@ -1,10 +1,10 @@
-import { Brute } from '@eternaltwin/labrute-core/types';
+import { Brute } from '@labrute/core';
 import { Box, BoxProps } from '@mui/material';
 import React from 'react';
-import { AnimationFighter } from '../../utils/fight/findFighter.js';
-import BoxBg from '../BoxBg.js';
-import BrutePortrait from '../Brute/Body/BrutePortait.js';
-import Text from '../Text.js';
+import { AnimationFighter } from '../../utils/fight/findFighter';
+import BoxBg from '../BoxBg';
+import BrutePortrait from '../Brute/Body/BrutePortait';
+import Text from '../Text';
 
 export interface FightHeaderProps extends BoxProps {
   brute: AnimationFighter;

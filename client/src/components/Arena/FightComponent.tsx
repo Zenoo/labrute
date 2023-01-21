@@ -1,13 +1,13 @@
-import { Fight } from '@eternaltwin/labrute-core/types';
+import { Fight } from '@labrute/core';
 import { Rtt } from '@mui/icons-material';
 import { Box, IconButton, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import { Tweener } from 'pixi-tweener';
 import * as PIXI from 'pixi.js';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import setupFight from '../../utils/fight/setupFight.js';
-import translateFightStep from '../../utils/translateFightStep.js';
-import Text from '../Text.js';
+import setupFight from '../../utils/fight/setupFight';
+import translateFightStep from '../../utils/translateFightStep';
+import Text from '../Text';
 
 export interface FightComponentProps {
   fight: Fight | null;

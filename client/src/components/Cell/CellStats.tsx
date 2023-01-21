@@ -1,8 +1,8 @@
-import { Brute } from '@eternaltwin/labrute-core/types';
+import { Brute } from '@labrute/core';
 import { Box, BoxProps, Tooltip } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import Text from '../Text.js';
+import Text from '../Text';
 
 const excesses = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 

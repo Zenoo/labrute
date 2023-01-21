@@ -1,9 +1,8 @@
-import weapons from '@eternaltwin/labrute-core/brute/weapons';
-import { AttemptHitStep } from '@eternaltwin/labrute-core/types';
+import { AttemptHitStep, weapons } from '@labrute/core';
 
 import { AnimatedSprite, Application } from 'pixi.js';
-import changeAnimation from './changeAnimation.js';
-import findFighter, { AnimationFighter } from './findFighter.js';
+import changeAnimation from './changeAnimation';
+import findFighter, { AnimationFighter } from './findFighter';
 
 const attemptHit = (
   app: Application,

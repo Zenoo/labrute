@@ -1,5 +1,5 @@
-import { AnimationFighter } from './findFighter.js';
-import randomBetween from '@eternaltwin/labrute-core/utils/randomBetween';
+import { AnimationFighter } from './findFighter';
+import { randomBetween } from '@labrute/core';
 
 const leftPositions = [
   { x: 60, y: 200 },

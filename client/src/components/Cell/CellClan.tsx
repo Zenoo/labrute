@@ -1,7 +1,7 @@
-import { Brute } from '@eternaltwin/labrute-core/types';
+import { Brute } from '@labrute/core';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import StyledButton, { StyledButtonProps } from '../StyledButton.js';
+import StyledButton, { StyledButtonProps } from '../StyledButton';
 
 export interface CellClanProps extends Omit<StyledButtonProps, 'ref'> {
   brute: Brute;

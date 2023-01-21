@@ -1,12 +1,12 @@
-import { Brute } from '@eternaltwin/labrute-core/types';
-import { BRUTE_STARTING_POINTS, PERKS_TOTAL_ODDS } from '../constants.js';
-import randomBetween from '../utils/randomBetween.js';
-import weightedRandom from '../utils/weightedRandom.js';
-import applySkillModifiers from './applySkillModifiers.js';
-import getHP from './getHP.js';
-import { default as availablePets, PETS_TOTAL_ODDS } from './pets.js';
-import { default as availableSkills, SKILLS_TOTAL_ODDS } from './skills.js';
-import { default as availableWeapons, WEAPONS_TOTAL_ODDS } from './weapons.js';
+import { Brute } from '../types';
+import { BRUTE_STARTING_POINTS, PERKS_TOTAL_ODDS } from '../constants';
+import randomBetween from '../utils/randomBetween';
+import weightedRandom from '../utils/weightedRandom';
+import applySkillModifiers from './applySkillModifiers';
+import getHP from './getHP';
+import { default as availablePets, PETS_TOTAL_ODDS } from './pets';
+import { default as availableSkills, SKILLS_TOTAL_ODDS } from './skills';
+import { default as availableWeapons, WEAPONS_TOTAL_ODDS } from './weapons';
 
 interface Perk {
   name: 'pet' | 'skill' | 'weapon';

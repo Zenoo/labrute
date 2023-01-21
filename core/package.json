@@ -1,22 +1,13 @@
 {
-  "name": "@eternaltwin/labrute-core",
-  "version": "0.3.14",
-  "private": true,
-  "type": "module",
+  "name": "@labrute/core",
+  "version": "1.17.1",
+  "main": "lib/index.js",
   "scripts": {
-    "build": "tsc --build ./tsconfig.json"
+    "compile": "tsc"
   },
-  "engines": {
-    "node": ">=14.13.1"
-  },
+  "types": "lib/index.d.ts",
   "devDependencies": {
-    "typescript": "^4.7.4"
-  },
-  "exports": {
-    "./*": {
-      "types": "./src/*.ts",
-      "default": "./build/*.js"
-    }
+    "typescript": "^4.9.4"
   },
   "dependencies": {
     "moment": "^2.29.4"

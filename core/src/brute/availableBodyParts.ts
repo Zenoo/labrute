@@ -1,4 +1,4 @@
-import { BodyParts } from '../types.js';
+import { BodyParts } from '../types';
 
 const availableBodyParts: { male: BodyParts, female: BodyParts } = {
   male: {

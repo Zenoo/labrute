@@ -1,24 +1,22 @@
-import { Brute } from '@eternaltwin/labrute-core/types';
-import getFightsLeft from '@eternaltwin/labrute-core/brute/getFightsLeft';
+import { Brute, getFightsLeft, getXPNeeded } from '@labrute/core';
 import { Box, Button, Grid, Paper, useMediaQuery, useTheme } from '@mui/material';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
-import ArenaStat from '../components/Arena/ArenaStat.js';
-import BruteComponent from '../components/Brute/Body/BruteComponent.js';
-import BruteBodyAndStats from '../components/Brute/BruteBodyAndStats.js';
-import BruteHP from '../components/Brute/BruteHP.js';
-import Link from '../components/Link.js';
-import Page from '../components/Page.js';
-import StyledButton from '../components/StyledButton.js';
-import StyledInput from '../components/StyledInput.js';
-import Text from '../components/Text.js';
-import { useAlert } from '../hooks/useAlert.js';
-import useStateAsync from '../hooks/useStateAsync.js';
-import catchError from '../utils/catchError.js';
-import Server from '../utils/Server.js';
-import getXPNeeded from '@eternaltwin/labrute-core/brute/getXPNeeded';
-import BruteLevelAndXP from '../components/Brute/BruteLevelAndXP.js';
+import ArenaStat from '../components/Arena/ArenaStat';
+import BruteComponent from '../components/Brute/Body/BruteComponent';
+import BruteBodyAndStats from '../components/Brute/BruteBodyAndStats';
+import BruteHP from '../components/Brute/BruteHP';
+import Link from '../components/Link';
+import Page from '../components/Page';
+import StyledButton from '../components/StyledButton';
+import StyledInput from '../components/StyledInput';
+import Text from '../components/Text';
+import { useAlert } from '../hooks/useAlert';
+import useStateAsync from '../hooks/useStateAsync';
+import catchError from '../utils/catchError';
+import Server from '../utils/Server';
+import BruteLevelAndXP from '../components/Brute/BruteLevelAndXP';
 
 const ArenaView = () => {
   const { t } = useTranslation();
@@ -63,7 +61,7 @@ const ArenaView = () => {
 
   // Go to versus page
   const goToVersus = useCallback((opponent: Brute) => () => {
-    navigate(`/${bruteName}/versus/${opponent.name}`);
+    navigate(`/${bruteName || ''}/versus/${opponent.name}`);
   }, [bruteName, navigate]);
 
   const changeSearch = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,7 +84,7 @@ const ArenaView = () => {
       if (notFound) {
         Alert.open('error', t('arena.search.notFound'));
       } else {
-        navigate(`/${bruteName}/versus/${search}`);
+        navigate(`/${bruteName || ''}/versus/${search}`);
       }
     }).catch(catchError(Alert));
   }, [Alert, brute, bruteName, navigate, search, t]);

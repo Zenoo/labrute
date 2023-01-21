@@ -1,8 +1,8 @@
-import { SabotageStep } from '@eternaltwin/labrute-core/types';
+import { SabotageStep } from '@labrute/core';
 import { Application } from 'pixi.js';
 
-import findFighter, { AnimationFighter } from './findFighter.js';
-import updateWeapons from './updateWeapons.js';
+import findFighter, { AnimationFighter } from './findFighter';
+import updateWeapons from './updateWeapons';
 
 const sabotage = (
   app: Application,

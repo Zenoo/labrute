@@ -1,11 +1,11 @@
 import moment from 'moment';
-import { FIGHTS_PER_DAY } from '../constants.js';
-import { Gender, Brute } from '../types.js';
-import createRandomBruteStats from './createRandomBruteStats.js';
-import getLevelUpChoices from './getLevelUpChoices.js';
-import getRandomBody from './getRandomBody.js';
-import getRandomColors from './getRandomColors.js';
-import updateBruteData from './updateBruteData.js';
+import { FIGHTS_PER_DAY } from '../constants';
+import { Gender, Brute } from '../types';
+import createRandomBruteStats from './createRandomBruteStats';
+import getLevelUpChoices from './getLevelUpChoices';
+import getRandomBody from './getRandomBody';
+import getRandomColors from './getRandomColors';
+import updateBruteData from './updateBruteData';
 
 const generateBrute = (level: number) => {
   if (level < 1) {

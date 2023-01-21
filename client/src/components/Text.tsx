@@ -46,10 +46,9 @@ const Text = forwardRef<HTMLElement, TextProps>(({
   upperCase = false,
   sx,
   ...rest
-}, ref) => {
-  return (
-    <Typography
-      variant={
+}, ref) => (
+  <Typography
+    variant={
       h1 ? 'h1'
         : h2 ? 'h2'
           : h3 ? 'h3'
@@ -65,21 +64,20 @@ const Text = forwardRef<HTMLElement, TextProps>(({
                               : overline ? 'overline'
                                 : inherit ? 'inherit'
                                   : 'body1'
-      }
-      fontWeight={bold ? '600' : undefined}
-      sx={{
-        fontVariant: smallCaps ? 'small-caps' : undefined,
-        textTransform: upperCase ? 'uppercase' : undefined,
-        typography: typo,
-        ...sx,
-      }}
-      {...rest}
-      ref={ref}
-    >
-      {children}
-    </Typography>
-  );
-});
+    }
+    fontWeight={bold ? '600' : undefined}
+    sx={{
+      fontVariant: smallCaps ? 'small-caps' : undefined,
+      textTransform: upperCase ? 'uppercase' : undefined,
+      typography: typo,
+      ...sx,
+    }}
+    {...rest}
+    ref={ref}
+  >
+    {children}
+  </Typography>
+));
 
 Text.displayName = 'Text';
 

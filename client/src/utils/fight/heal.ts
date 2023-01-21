@@ -1,11 +1,11 @@
-import { HealStep } from '@eternaltwin/labrute-core/types';
+import { HealStep } from '@labrute/core';
 import { OutlineFilter } from '@pixi/filter-outline';
 import { Tweener } from 'pixi-tweener';
 import { AnimatedSprite, Application, Text } from 'pixi.js';
-import changeAnimation from './changeAnimation.js';
+import changeAnimation from './changeAnimation';
 
-import findFighter, { AnimationFighter } from './findFighter.js';
-import updateHp from './updateHp.js';
+import findFighter, { AnimationFighter } from './findFighter';
+import updateHp from './updateHp';
 
 const heal = async (
   app: Application,

@@ -1,7 +1,7 @@
-import { User } from '@eternaltwin/labrute-core/types';
+import { User } from '@labrute/core';
 import moment from 'moment';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
-import Server from '../utils/Server.js';
+import Server from '../utils/Server';
 
 interface AuthContextInterface {
   user: User | null,

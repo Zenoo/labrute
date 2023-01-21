@@ -1,9 +1,9 @@
-import { LeaveStep } from '@eternaltwin/labrute-core/types';
+import { LeaveStep } from '@labrute/core';
 import { Easing, Tweener } from 'pixi-tweener';
 import { Application } from 'pixi.js';
-import changeAnimation from './changeAnimation.js';
+import changeAnimation from './changeAnimation';
 
-import findFighter, { AnimationFighter } from './findFighter.js';
+import findFighter, { AnimationFighter } from './findFighter';
 
 const leave = async (
   app: Application,

@@ -1,8 +1,8 @@
-import { SurviveStep } from '@eternaltwin/labrute-core/types';
+import { SurviveStep } from '@labrute/core';
 import { Application } from 'pixi.js';
 
-import findFighter, { AnimationFighter } from './findFighter.js';
-import updateHp from './updateHp.js';
+import findFighter, { AnimationFighter } from './findFighter';
+import updateHp from './updateHp';
 
 const survive = (
   app: Application,

@@ -1,19 +1,19 @@
-import getXPNeeded from '@eternaltwin/labrute-core/brute/getXPNeeded';
+import { getXPNeeded } from '@labrute/core';
 import { Grid, useMediaQuery } from '@mui/material';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
-import BoxBg from '../components/BoxBg.js';
-import BruteComponent from '../components/Brute/Body/BruteComponent.js';
-import Page from '../components/Page.js';
-import StyledButton from '../components/StyledButton.js';
-import Text from '../components/Text.js';
-import { useAlert } from '../hooks/useAlert.js';
-import { useAuth } from '../hooks/useAuth.js';
-import useStateAsync from '../hooks/useStateAsync.js';
-import catchError from '../utils/catchError.js';
-import Server from '../utils/Server.js';
-import VersusMobileView from './mobile/VersusMobileView.js';
+import BoxBg from '../components/BoxBg';
+import BruteComponent from '../components/Brute/Body/BruteComponent';
+import Page from '../components/Page';
+import StyledButton from '../components/StyledButton';
+import Text from '../components/Text';
+import { useAlert } from '../hooks/useAlert';
+import { useAuth } from '../hooks/useAuth';
+import useStateAsync from '../hooks/useStateAsync';
+import catchError from '../utils/catchError';
+import Server from '../utils/Server';
+import VersusMobileView from './mobile/VersusMobileView';
 
 const VersusView = () => {
   const { t } = useTranslation();

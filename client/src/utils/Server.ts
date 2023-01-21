@@ -1,5 +1,5 @@
-import { BodyColors, BodyParts, Brute, DestinyChoice, Fight, Gender, Log, User } from '@eternaltwin/labrute-core/types';
-import Fetch from './Fetch.js';
+import { BodyColors, BodyParts, Brute, DestinyChoice, Fight, Gender, Log, User } from '@labrute/core';
+import Fetch from './Fetch';
 
 const Server = {
   User: {

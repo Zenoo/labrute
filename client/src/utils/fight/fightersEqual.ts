@@ -1,5 +1,5 @@
-import { AnimationFighter } from './findFighter.js';
-import { StepFighter } from '@eternaltwin/labrute-core/types';
+import { AnimationFighter } from './findFighter';
+import { StepFighter } from '@labrute/core';
 
 const fightersEqual = (
   a: AnimationFighter | StepFighter | undefined,

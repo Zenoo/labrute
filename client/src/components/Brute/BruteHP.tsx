@@ -1,6 +1,6 @@
 import React from 'react';
-import BoxBg, { BoxBgProps } from '../BoxBg.js';
-import Text from '../Text.js';
+import BoxBg, { BoxBgProps } from '../BoxBg';
+import Text from '../Text';
 
 interface BruteHPProps extends Omit<BoxBgProps, 'src'> {
   hp: number;

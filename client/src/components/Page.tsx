@@ -4,16 +4,16 @@ import React, { useCallback, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import { useAlert } from '../hooks/useAlert.js';
-import { useAuth } from '../hooks/useAuth.js';
-import { useLanguage } from '../hooks/useLanguage.js';
-import { Language, languages } from '../i18n.js';
-import catchError from '../utils/catchError.js';
-import Fetch from '../utils/Fetch.js';
-import Version from '../utils/Version.js';
-import BrutePortrait from './Brute/Body/BrutePortait.js';
-import Header from './Header.js';
-import Text from './Text.js';
+import { useAlert } from '../hooks/useAlert';
+import { useAuth } from '../hooks/useAuth';
+import { useLanguage } from '../hooks/useLanguage';
+import { Language, languages } from '../i18n';
+import catchError from '../utils/catchError';
+import Fetch from '../utils/Fetch';
+import Version from '../utils/Version';
+import BrutePortrait from './Brute/Body/BrutePortait';
+import Header from './Header';
+import Text from './Text';
 
 interface Props extends BoxProps {
   title: string,

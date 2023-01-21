@@ -1,14 +1,14 @@
-import { Gender, BodyParts, BodyColors, Brute } from '@eternaltwin/labrute-core/types';
+import { Gender, BodyParts, BodyColors, Brute } from '@labrute/core';
 import { Box, Grid, Link, Paper, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import BruteComponent from '../../components/Brute/Body/BruteComponent.js';
-import EmptyBrute from '../../components/Brute/Body/EmptyBrute.js';
-import Page from '../../components/Page.js';
-import StyledButton from '../../components/StyledButton.js';
-import StyledInput from '../../components/StyledInput.js';
-import Text from '../../components/Text.js';
-import advertisings from '../../utils/advertisings.js';
+import BruteComponent from '../../components/Brute/Body/BruteComponent';
+import EmptyBrute from '../../components/Brute/Body/EmptyBrute';
+import Page from '../../components/Page';
+import StyledButton from '../../components/StyledButton';
+import StyledInput from '../../components/StyledInput';
+import Text from '../../components/Text';
+import advertisings from '../../utils/advertisings';
 
 export interface HomeMobileViewProps {
   changeName: (event: React.ChangeEvent<HTMLInputElement>) => void;

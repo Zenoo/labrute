@@ -1,18 +1,17 @@
-import { Fight } from '@eternaltwin/labrute-core/types';
-import randomBetween from '@eternaltwin/labrute-core/utils/randomBetween';
+import { Fight, randomBetween } from '@labrute/core';
 import { Box, Link, Tooltip, useMediaQuery } from '@mui/material';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
-import FightComponent from '../components/Arena/FightComponent.js';
-import BoxBg from '../components/BoxBg.js';
-import Page from '../components/Page.js';
-import Text from '../components/Text.js';
-import { useAlert } from '../hooks/useAlert.js';
-import advertisings from '../utils/advertisings.js';
-import catchError from '../utils/catchError.js';
-import Server from '../utils/Server.js';
-import FightMobileView from './mobile/FightMobileView.js';
+import FightComponent from '../components/Arena/FightComponent';
+import BoxBg from '../components/BoxBg';
+import Page from '../components/Page';
+import Text from '../components/Text';
+import { useAlert } from '../hooks/useAlert';
+import advertisings from '../utils/advertisings';
+import catchError from '../utils/catchError';
+import Server from '../utils/Server';
+import FightMobileView from './mobile/FightMobileView';
 
 const FightView = () => {
   const { t } = useTranslation();

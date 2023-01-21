@@ -1,6 +1,6 @@
 import { Box, BoxProps, Tooltip, useTheme } from '@mui/material';
 import React from 'react';
-import Text from '../Text.js';
+import Text from '../Text';
 
 interface ArenaStatProps extends BoxProps {
   name: string;

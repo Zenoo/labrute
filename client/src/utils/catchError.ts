@@ -1,5 +1,5 @@
-import { AlertContextInterface } from '../hooks/useAlert.js';
-import { ErrorType } from './Fetch.js';
+import { AlertContextInterface } from '../hooks/useAlert';
+import { ErrorType } from './Fetch';
 
 const catchError = (Alert: AlertContextInterface) => (error: ErrorType | string) => {
   const errorMessage = typeof error === 'string'

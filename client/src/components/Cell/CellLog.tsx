@@ -1,10 +1,10 @@
-import { Log } from '@eternaltwin/labrute-core/types';
+import { Log } from '@labrute/core';
 import { BoxProps, Tooltip } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import BoxBg from '../BoxBg.js';
-import Link from '../Link.js';
-import Text from '../Text.js';
+import BoxBg from '../BoxBg';
+import Link from '../Link';
+import Text from '../Text';
 
 export interface CellLogProps extends BoxProps {
   log: Log;
@@ -18,7 +18,7 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
       src={`/images/log/log_${log.type === 'survive'
         ? 'win'
         : log.type === 'lvl'
-          ? `lvl_${log.level}`
+          ? `lvl_${log.level || 10}`
           : log.type}.gif`}
       sx={{
         width: 250,

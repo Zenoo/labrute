@@ -1,10 +1,10 @@
-import { SaboteurStep } from '@eternaltwin/labrute-core/types';
+import { SaboteurStep } from '@labrute/core';
 import { AnimatedSprite, Application } from 'pixi.js';
-import changeAnimation from './changeAnimation.js';
+import changeAnimation from './changeAnimation';
 
-import findFighter, { AnimationFighter } from './findFighter.js';
-import stagger from './stagger.js';
-import updateWeapons from './updateWeapons.js';
+import findFighter, { AnimationFighter } from './findFighter';
+import stagger from './stagger';
+import updateWeapons from './updateWeapons';
 
 const saboteur = async (
   app: Application,

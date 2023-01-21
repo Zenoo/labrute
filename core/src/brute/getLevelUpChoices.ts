@@ -1,13 +1,11 @@
-import { PERKS_TOTAL_ODDS } from '../constants.js';
-import {
-  Brute, LevelUpChoice, PetName, SkillName, Stats, WeaponName,
-} from '../types.js';
-import randomBetween from '../utils/randomBetween.js';
-import weightedRandom from '../utils/weightedRandom.js';
-import { perkOdds } from './createRandomBruteStats.js';
-import pets, { PETS_TOTAL_ODDS } from './pets.js';
-import skills, { SKILLS_TOTAL_ODDS } from './skills.js';
-import weapons, { limitedWeapons, MAX_LIMITED_WEAPONS, WEAPONS_TOTAL_ODDS } from './weapons.js';
+import { PERKS_TOTAL_ODDS } from '../constants';
+import { Brute, LevelUpChoice, PetName, SkillName, Stats, WeaponName, } from '../types';
+import randomBetween from '../utils/randomBetween';
+import weightedRandom from '../utils/weightedRandom';
+import { perkOdds } from './createRandomBruteStats';
+import pets, { PETS_TOTAL_ODDS } from './pets';
+import skills, { SKILLS_TOTAL_ODDS } from './skills';
+import weapons, { limitedWeapons, MAX_LIMITED_WEAPONS, WEAPONS_TOTAL_ODDS } from './weapons';
 
 export const availableStats: Stats[] = [
   'endurance',

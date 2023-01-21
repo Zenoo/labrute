@@ -1,4 +1,4 @@
-import { Animation, StepFighter } from '@eternaltwin/labrute-core/types';
+import { Animation, StepFighter } from '@labrute/core';
 
 export const DURATIONS: Record<
   'dog' | 'bear' | 'panther' | 'brute',

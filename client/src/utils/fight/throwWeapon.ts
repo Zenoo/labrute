@@ -1,9 +1,8 @@
-import { ThrowStep } from '@eternaltwin/labrute-core/types';
+import { ThrowStep, weapons } from '@labrute/core';
 import { AnimatedSprite, Application } from 'pixi.js';
-import changeAnimation from './changeAnimation.js';
-import weapons from '@eternaltwin/labrute-core/brute/weapons';
-import findFighter, { AnimationFighter } from './findFighter.js';
-import updateWeapons from './updateWeapons.js';
+import changeAnimation from './changeAnimation';
+import findFighter, { AnimationFighter } from './findFighter';
+import updateWeapons from './updateWeapons';
 
 const throwWeapon = async (
   app: Application,

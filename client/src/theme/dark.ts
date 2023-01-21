@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material';
-import ThemeOptions from './ThemeOptions.js';
+import ThemeOptions from './ThemeOptions';
 
 export default createTheme({
   ...ThemeOptions,

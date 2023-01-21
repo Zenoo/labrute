@@ -1,4 +1,4 @@
-import { Weapon, WeaponName } from '../types.js';
+import { Weapon, WeaponName } from '../types';
 
 export const limitedWeapons: WeaponName[] = [
   'knife', 'broadsword', 'lance', 'baton', 'trident', 'hatchet',
@@ -8,7 +8,7 @@ export const limitedWeapons: WeaponName[] = [
 
 export const MAX_LIMITED_WEAPONS = limitedWeapons.length - 3;
 
-const weapons: Weapon[] = [
+export const weapons: Weapon[] = [
   {
     name: 'axe',
     odds: 3,

@@ -1,25 +1,23 @@
-import getRandomBody from '@eternaltwin/labrute-core/brute/getRandomBody';
-import getRandomColors from '@eternaltwin/labrute-core/brute/getRandomColors';
-import { BodyColors, BodyParts, Brute, Gender, User } from '@eternaltwin/labrute-core/types';
+import { BodyColors, BodyParts, Brute, Gender, User, getRandomColors, getRandomBody } from '@labrute/core';
 import { Box, Grid, Link, Tooltip, useMediaQuery } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import BoxBg from '../components/BoxBg.js';
-import BruteComponent from '../components/Brute/Body/BruteComponent.js';
-import EmptyBrute from '../components/Brute/Body/EmptyBrute.js';
-import Page from '../components/Page.js';
-import StyledButton from '../components/StyledButton.js';
-import StyledInput from '../components/StyledInput.js';
-import Text from '../components/Text.js';
-import { useAlert } from '../hooks/useAlert.js';
-import { useAuth } from '../hooks/useAuth.js';
-import advertisings from '../utils/advertisings.js';
-import catchError from '../utils/catchError.js';
-import Fetch from '../utils/Fetch.js';
-import Server from '../utils/Server.js';
-import HomeMobileView from './mobile/HomeMobileView.js';
+import BoxBg from '../components/BoxBg';
+import BruteComponent from '../components/Brute/Body/BruteComponent';
+import EmptyBrute from '../components/Brute/Body/EmptyBrute';
+import Page from '../components/Page';
+import StyledButton from '../components/StyledButton';
+import StyledInput from '../components/StyledInput';
+import Text from '../components/Text';
+import { useAlert } from '../hooks/useAlert';
+import { useAuth } from '../hooks/useAuth';
+import advertisings from '../utils/advertisings';
+import catchError from '../utils/catchError';
+import Fetch from '../utils/Fetch';
+import Server from '../utils/Server';
+import HomeMobileView from './mobile/HomeMobileView';
 
 /**
  * HomeView component

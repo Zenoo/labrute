@@ -1,8 +1,8 @@
-import { DeathStep } from '@eternaltwin/labrute-core/types';
+import { DeathStep } from '@labrute/core';
 import { Application } from 'pixi.js';
-import changeAnimation from './changeAnimation.js';
+import changeAnimation from './changeAnimation';
 
-import findFighter, { AnimationFighter } from './findFighter.js';
+import findFighter, { AnimationFighter } from './findFighter';
 
 const death = (
   app: Application,

@@ -10,18 +10,16 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(({
   to,
   children,
   ...rest
-}, ref) => {
-  return (
-    <MUILink
-      component={LinkComponent}
-      ref={ref}
-      to={to}
-      {...rest}
-    >
-      {children}
-    </MUILink>
-  );
-});
+}, ref) => (
+  <MUILink
+    component={LinkComponent}
+    ref={ref}
+    to={to}
+    {...rest}
+  >
+    {children}
+  </MUILink>
+));
 
 Link.displayName = 'Link';
 

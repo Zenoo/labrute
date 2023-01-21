@@ -1,4 +1,4 @@
-import { Brute, SkillName } from '../types.js';
+import { Brute, SkillName } from '../types';
 
 const applySkillModifiers = (brute: Brute, skill: SkillName) => {
   const updatedBrute = { ...brute };

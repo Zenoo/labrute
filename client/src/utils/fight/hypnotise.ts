@@ -1,9 +1,9 @@
-import { HypnotiseStep } from '@eternaltwin/labrute-core/types';
+import { HypnotiseStep } from '@labrute/core';
 import { Easing, Tweener } from 'pixi-tweener';
 import { Application } from 'pixi.js';
-import changeAnimation from './changeAnimation.js';
-import { getRandomPosition } from './fightPositions.js';
-import findFighter, { AnimationFighter } from './findFighter.js';
+import changeAnimation from './changeAnimation';
+import { getRandomPosition } from './fightPositions';
+import findFighter, { AnimationFighter } from './findFighter';
 
 const hypnotise = async (
   app: Application,

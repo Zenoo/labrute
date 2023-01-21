@@ -1,12 +1,12 @@
 import React from 'react';
-import Main from './layouts/Main.js';
-import AnchorTestView from './views/AnchorTestView.js';
-import ArenaView from './views/ArenaView.js';
-import CellView from './views/CellView.js';
-import FightView from './views/FightView.js';
-import HomeView from './views/HomeView.js';
-import LevelUpView from './views/LevelUpView.js';
-import VersusView from './views/VersusView.js';
+import Main from './layouts/Main';
+import AnchorTestView from './views/AnchorTestView';
+import ArenaView from './views/ArenaView';
+import CellView from './views/CellView';
+import FightView from './views/FightView';
+import HomeView from './views/HomeView';
+import LevelUpView from './views/LevelUpView';
+import VersusView from './views/VersusView';
 
 const routes = [
   { path: 'anchor-test', element: <AnchorTestView /> },

@@ -1,8 +1,8 @@
 import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Slider, Stack, TextField, Typography } from '@mui/material';
 import React, { ChangeEvent, useCallback } from 'react';
-import { Animation, animationList, Gender, } from '@eternaltwin/labrute-core/types';
-import useStateAsync from '../hooks/useStateAsync.js';
-import Server from '../utils/Server.js';
+import { Animation, animationList, Gender, } from '@labrute/core';
+import useStateAsync from '../hooks/useStateAsync';
+import Server from '../utils/Server';
 
 /**
  * AnchorTestView component

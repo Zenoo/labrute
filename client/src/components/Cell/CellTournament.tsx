@@ -1,11 +1,11 @@
-import { Brute } from '@eternaltwin/labrute-core/types';
+import { Brute } from '@labrute/core';
 import { Paper, PaperProps } from '@mui/material';
 import moment, { Moment } from 'moment';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Language } from '../../i18n.js';
-import StyledButton from '../StyledButton.js';
-import Text from '../Text.js';
+import { Language } from '../../i18n';
+import StyledButton from '../StyledButton';
+import Text from '../Text';
 
 export interface CellTournamentProps extends PaperProps {
   brute: Brute;

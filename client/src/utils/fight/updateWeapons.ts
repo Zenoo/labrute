@@ -1,9 +1,8 @@
 /* eslint-disable no-param-reassign */
 import { OutlineFilter } from '@pixi/filter-outline';
 import { Application, Sprite } from 'pixi.js';
-import { AnimationFighter } from './findFighter.js';
-import { WeaponName } from '@eternaltwin/labrute-core/types';
-import weapons from '@eternaltwin/labrute-core/brute/weapons';
+import { AnimationFighter } from './findFighter';
+import { WeaponName, weapons } from '@labrute/core';
 
 const updateWeapons = (
   app: Application,

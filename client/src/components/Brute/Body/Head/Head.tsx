@@ -1,4 +1,4 @@
-import { BodyColors, Gender } from '@eternaltwin/labrute-core/types';
+import { BodyColors, Gender } from '@labrute/core';
 import React from 'react';
 
 interface HeadProps {

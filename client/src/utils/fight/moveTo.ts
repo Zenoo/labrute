@@ -1,8 +1,8 @@
-import { MoveStep } from '@eternaltwin/labrute-core/types';
+import { MoveStep } from '@labrute/core';
 import { Easing, Tweener } from 'pixi-tweener';
 import { Application } from 'pixi.js';
-import changeAnimation from './changeAnimation.js';
-import findFighter, { AnimationFighter } from './findFighter.js';
+import changeAnimation from './changeAnimation';
+import findFighter, { AnimationFighter } from './findFighter';
 
 const moveTo = async (
   app: Application,

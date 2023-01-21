@@ -1,9 +1,8 @@
-import getXPNeeded from '@eternaltwin/labrute-core/brute/getXPNeeded';
-import { Brute } from '@eternaltwin/labrute-core/types';
+import { Brute, getXPNeeded } from '@labrute/core';
 import { Box, BoxProps, Tooltip } from '@mui/material';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import Text, { TextProps } from '../Text.js';
+import Text, { TextProps } from '../Text';
 
 interface BruteLevelAndXPProps extends BoxProps {
   brute: Brute;

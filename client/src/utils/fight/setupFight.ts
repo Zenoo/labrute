@@ -1,39 +1,39 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-await-in-loop */
-import { Fight } from '@eternaltwin/labrute-core/types';
+import { Fight } from '@labrute/core';
 import { Theme } from '@mui/material';
 import { GlowFilter } from '@pixi/filter-glow';
 import { OutlineFilter } from '@pixi/filter-outline';
 import { Tweener } from 'pixi-tweener';
 import * as PIXI from 'pixi.js';
-import arrive from './arrive.js';
-import attemptHit from './attemptHit.js';
-import block from './block.js';
-import bomb from './bomb.js';
-import death from './death.js';
-import disarm from './disarm.js';
-import eat from './eat.js';
-import end from './end.js';
-import equip from './equip.js';
-import evade from './evade.js';
-import { AnimationFighter } from './findFighter.js';
-import heal from './heal.js';
-import hit from './hit.js';
-import hypnotise from './hypnotise.js';
-import leave from './leave.js';
-import moveBack from './moveBack.js';
-import moveTo from './moveTo.js';
-import resist from './resist.js';
-import sabotage from './sabotage.js';
-import saboteur from './saboteur.js';
-import setupSprite from './setupSprite.js';
-import skillActivate from './skillActivate.js';
-import steal from './steal.js';
-import survive from './survive.js';
-import throwWeapon from './throwWeapon.js';
-import trap from './trap.js';
-import trash from './trash.js';
-import updateWeapons from './updateWeapons.js';
+import arrive from './arrive';
+import attemptHit from './attemptHit';
+import block from './block';
+import bomb from './bomb';
+import death from './death';
+import disarm from './disarm';
+import eat from './eat';
+import end from './end';
+import equip from './equip';
+import evade from './evade';
+import { AnimationFighter } from './findFighter';
+import heal from './heal';
+import hit from './hit';
+import hypnotise from './hypnotise';
+import leave from './leave';
+import moveBack from './moveBack';
+import moveTo from './moveTo';
+import resist from './resist';
+import sabotage from './sabotage';
+import saboteur from './saboteur';
+import setupSprite from './setupSprite';
+import skillActivate from './skillActivate';
+import steal from './steal';
+import survive from './survive';
+import throwWeapon from './throwWeapon';
+import trap from './trap';
+import trash from './trash';
+import updateWeapons from './updateWeapons';
 
 const setupFight: (
   theme: Theme,

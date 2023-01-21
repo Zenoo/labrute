@@ -1,8 +1,8 @@
-import { ResistStep } from '@eternaltwin/labrute-core/types';
+import { ResistStep } from '@labrute/core';
 import { OutlineFilter } from '@pixi/filter-outline';
 import { Application } from 'pixi.js';
 
-import findFighter, { AnimationFighter } from './findFighter.js';
+import findFighter, { AnimationFighter } from './findFighter';
 
 const resist = (
   app: Application,

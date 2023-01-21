@@ -1,8 +1,8 @@
-import { Brute } from '@eternaltwin/labrute-core/types';
+import { Brute } from '@labrute/core';
 import { Box, BoxProps } from '@mui/material';
 import React from 'react';
-import Head from './Head/Head.js';
-import LongHair from './Head/LongHair.js';
+import Head from './Head/Head';
+import LongHair from './Head/LongHair';
 
 interface BrutePortraitProps extends BoxProps {
   brute: Brute;

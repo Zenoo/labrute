@@ -1,4 +1,4 @@
-import { AnimatedWeapon, Fighter, StepFighter } from '@eternaltwin/labrute-core/types';
+import { AnimatedWeapon, Fighter, StepFighter } from '@labrute/core';
 import * as PIXI from 'pixi.js';
 
 export interface AnimationFighter extends Fighter {

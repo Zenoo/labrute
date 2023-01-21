@@ -1,8 +1,8 @@
-import { DisarmStep } from '@eternaltwin/labrute-core/types';
+import { DisarmStep } from '@labrute/core';
 import { Application } from 'pixi.js';
 
-import findFighter, { AnimationFighter } from './findFighter.js';
-import updateWeapons from './updateWeapons.js';
+import findFighter, { AnimationFighter } from './findFighter';
+import updateWeapons from './updateWeapons';
 
 const disarm = (
   app: Application,

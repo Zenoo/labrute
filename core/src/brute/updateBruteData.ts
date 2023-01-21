@@ -1,9 +1,7 @@
-import {
-  Brute, LevelUpChoice, SkillName, Stats, WeaponName,
-} from '../types.js';
-import applySkillModifiers from './applySkillModifiers.js';
-import getHP from './getHP.js';
-import pets, { Pet } from './pets.js';
+import { Brute, LevelUpChoice, SkillName, Stats, WeaponName, } from '../types';
+import applySkillModifiers from './applySkillModifiers';
+import getHP from './getHP';
+import pets, { Pet } from './pets';
 
 const updateBruteData = (brute: Brute, levelUpChoice: LevelUpChoice) => {
   let updatedBrute: Brute = {

@@ -1,6 +1,6 @@
-import { experimental_sx as sx } from '@mui/material/styles';
-import { FontStyle } from '@mui/material/styles/createTypography.js';
-import typography from './typography.js';
+import { ThemeOptions } from '@mui/material/styles';
+import { FontStyle } from '@mui/material/styles/createTypography';
+import typography from './typography';
 
 interface TypeTransition {
   time: string;
@@ -50,9 +50,11 @@ declare module '@mui/material/styles' {
   interface PaletteOptions {
     transition?: TypeTransition,
     scrollbar?: TypeScrollbar,
-    heat: (null | string)[],
-    level: string,
-    hpBar: {
+    border?: TypeBorder,
+    button?: TypeButton,
+    heat?: (null | string)[],
+    level?: string,
+    hpBar?: {
       main: string;
       dark: string;
     },
@@ -81,7 +83,7 @@ const button = {
   }
 };
 
-const defaultTheme = {
+const defaultTheme: ThemeOptions = {
   palette: {
     primary: {
       main: '#dbbf95',
@@ -151,7 +153,7 @@ const defaultTheme = {
   components: {
     MuiPaper: {
       styleOverrides: {
-        root: sx({
+        root: ({ theme }) => theme.unstable_sx({
           boxShadow: `0 0 0 1px ${border.inner},
           0 0 1px 4.5px ${border.main},
           0 0 0 6px ${border.outer},
@@ -165,20 +167,20 @@ const defaultTheme = {
     },
     MuiOutlinedInput: {
       styleOverrides: {
-        root: sx({
+        root: ({ theme }) => theme.unstable_sx({
           color: 'secondary.main',
         }),
-        notchedOutline: sx({
+        notchedOutline: ({ theme }) => theme.unstable_sx({
           border: 'none',
         }),
-        input: sx({
+        input: ({ theme }) => theme.unstable_sx({
           fontWeight: 'bold',
         })
       }
     },
     MuiInputLabel: {
       styleOverrides: {
-        root: sx({
+        root: ({ theme }) => theme.unstable_sx({
           textTransform: 'uppercase',
         }),
       }
@@ -190,7 +192,7 @@ const defaultTheme = {
     },
     MuiButton: {
       styleOverrides: {
-        contained: sx({
+        contained: ({ theme }) => theme.unstable_sx({
           border: `2px solid ${border.outer}`,
           bgcolor: 'background.paperLight',
           borderRadius: '4px',
@@ -222,7 +224,7 @@ const defaultTheme = {
         enterTouchDelay: 100,
       },
       styleOverrides: {
-        tooltip: sx({
+        tooltip: ({ theme }) => theme.unstable_sx({
           bgcolor: 'background.paper',
           color: 'secondary.main',
           borderColor: 'secondary.main',
@@ -239,7 +241,7 @@ const defaultTheme = {
     },
     MuiAlert: {
       styleOverrides: {
-        root: sx({
+        root: ({ theme }) => theme.unstable_sx({
           boxShadow: 1,
         })
       }

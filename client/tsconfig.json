@@ -23,16 +23,14 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react",
-    "traceResolution": false,
+    "jsx": "react"
   },
   "include": [
-    "src/**/*",
+    "src",
     "src/assets/i18n/**/*.json"
   ],
   "references": [
-    {
-      "path": "../core"
-    }
+    { "path": "../core" },
+    { "path": "../prisma" }
   ]
 }

@@ -1,22 +1,19 @@
-import getXPNeeded from '@eternaltwin/labrute-core/brute/getXPNeeded';
-import skills from '@eternaltwin/labrute-core/brute/skills';
-import weapons from '@eternaltwin/labrute-core/brute/weapons';
-import { Brute, DestinyChoice } from '@eternaltwin/labrute-core/types';
+import { Brute, DestinyChoice, getXPNeeded, skills, weapons } from '@labrute/core';
 import { Alert as MuiAlert, Box, Paper, useMediaQuery } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
-import BoxBg from '../components/BoxBg.js';
-import BruteComponent from '../components/Brute/Body/BruteComponent.js';
-import SkillTooltip from '../components/Brute/SkillTooltip.js';
-import WeaponTooltip from '../components/Brute/WeaponTooltip.js';
-import Page from '../components/Page.js';
-import StyledButton from '../components/StyledButton.js';
-import Text from '../components/Text.js';
-import { useAlert } from '../hooks/useAlert.js';
-import { useAuth } from '../hooks/useAuth.js';
-import catchError from '../utils/catchError.js';
-import Server from '../utils/Server.js';
+import BoxBg from '../components/BoxBg';
+import BruteComponent from '../components/Brute/Body/BruteComponent';
+import SkillTooltip from '../components/Brute/SkillTooltip';
+import WeaponTooltip from '../components/Brute/WeaponTooltip';
+import Page from '../components/Page';
+import StyledButton from '../components/StyledButton';
+import Text from '../components/Text';
+import { useAlert } from '../hooks/useAlert';
+import { useAuth } from '../hooks/useAuth';
+import catchError from '../utils/catchError';
+import Server from '../utils/Server';
 
 const LevelUpView = () => {
   const { t } = useTranslation();

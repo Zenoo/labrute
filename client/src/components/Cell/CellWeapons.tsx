@@ -1,8 +1,7 @@
-import { WeaponName } from '@eternaltwin/labrute-core/types';
-import { default as detailedWeapons } from '@eternaltwin/labrute-core/brute/weapons';
+import { weapons as detailedWeapons, WeaponName } from '@labrute/core';
 import { Box, BoxProps } from '@mui/material';
 import React, { useCallback, useMemo, useState } from 'react';
-import WeaponTooltip from '../Brute/WeaponTooltip.js';
+import WeaponTooltip from '../Brute/WeaponTooltip';
 
 interface CellWeaponsProps extends BoxProps {
   weapons: WeaponName[];

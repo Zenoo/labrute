@@ -1,4 +1,4 @@
-import { Pets } from '@eternaltwin/labrute-core/types';
+import { Pets } from '@labrute/core';
 import { Box, BoxProps } from '@mui/material';
 import React from 'react';
 

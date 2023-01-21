@@ -1,11 +1,11 @@
-import { StealStep } from '@eternaltwin/labrute-core/types';
+import { StealStep } from '@labrute/core';
 
 import { Easing, Tweener } from 'pixi-tweener';
 import { AnimatedSprite, Application } from 'pixi.js';
-import changeAnimation from './changeAnimation.js';
-import { getRandomPosition } from './fightPositions.js';
-import findFighter, { AnimationFighter } from './findFighter.js';
-import updateWeapons from './updateWeapons.js';
+import changeAnimation from './changeAnimation';
+import { getRandomPosition } from './fightPositions';
+import findFighter, { AnimationFighter } from './findFighter';
+import updateWeapons from './updateWeapons';
 
 const steal = async (
   app: Application,

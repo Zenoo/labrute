@@ -1,8 +1,8 @@
-import { BlockStep } from '@eternaltwin/labrute-core/types';
+import { BlockStep } from '@labrute/core';
 import { AnimatedSprite, Application } from 'pixi.js';
-import changeAnimation from './changeAnimation.js';
+import changeAnimation from './changeAnimation';
 
-import findFighter, { AnimationFighter } from './findFighter.js';
+import findFighter, { AnimationFighter } from './findFighter';
 
 const block = async (
   app: Application,

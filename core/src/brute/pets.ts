@@ -1,4 +1,4 @@
-import { PetName } from '../types.js';
+import { PetName } from '../types';
 
 export interface Pet {
   name: PetName;

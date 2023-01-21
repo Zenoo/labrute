@@ -1,8 +1,8 @@
 /* eslint-disable no-param-reassign */
 import { AnimatedSprite, Application } from 'pixi.js';
-import { AnimationFighter } from './findFighter.js';
-import { Animation } from '@eternaltwin/labrute-core/types';
-import setupSprite from './setupSprite.js';
+import { AnimationFighter } from './findFighter';
+import { Animation } from '@labrute/core';
+import setupSprite from './setupSprite';
 
 const getSprite = (
   app: Application,

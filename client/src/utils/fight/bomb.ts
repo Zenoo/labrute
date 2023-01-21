@@ -1,13 +1,12 @@
-import { Animation, BombStep } from '@eternaltwin/labrute-core/types';
-import randomBetween from '@eternaltwin/labrute-core/utils/randomBetween';
+import { Animation, BombStep, randomBetween } from '@labrute/core';
 import { OutlineFilter } from '@pixi/filter-outline';
 import { Tweener } from 'pixi-tweener';
 import { AnimatedSprite, Application, Text } from 'pixi.js';
-import changeAnimation from './changeAnimation.js';
+import changeAnimation from './changeAnimation';
 
-import findFighter, { AnimationFighter } from './findFighter.js';
-import stagger from './stagger.js';
-import updateHp from './updateHp.js';
+import findFighter, { AnimationFighter } from './findFighter';
+import stagger from './stagger';
+import updateHp from './updateHp';
 
 const bomb = async (
   app: Application,

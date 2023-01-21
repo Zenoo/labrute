@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { Tweener } from 'pixi-tweener';
-import { AnimationFighter } from './findFighter.js';
+import { AnimationFighter } from './findFighter';
 
 const updateHp = (brute: AnimationFighter, hp: number, fix?: boolean) => {
   if (!brute.hpBar || !brute.hpBarPhantom) {

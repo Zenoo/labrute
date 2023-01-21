@@ -1,7 +1,7 @@
-import { Gender } from '../types.js';
-import adjustColor from '../utils/adjustColor.js';
-import randomBetween from '../utils/randomBetween.js';
-import colors from './colors.js';
+import { Gender } from '../types';
+import adjustColor from '../utils/adjustColor';
+import randomBetween from '../utils/randomBetween';
+import colors from './colors';
 
 const getRandomColors = (gender: Gender) => {
   const {

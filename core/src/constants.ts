@@ -1,7 +1,7 @@
-import { PETS_TOTAL_ODDS } from './brute/pets.js';
-import { SKILLS_TOTAL_ODDS } from './brute/skills.js';
-import { WEAPONS_TOTAL_ODDS } from './brute/weapons.js';
-import { Animation, Gender } from './types.js';
+import { PETS_TOTAL_ODDS } from './brute/pets';
+import { SKILLS_TOTAL_ODDS } from './brute/skills';
+import { WEAPONS_TOTAL_ODDS } from './brute/weapons';
+import { Animation, Gender } from './types';
 
 export const FIGHTS_PER_DAY = 6;
 

@@ -2,8 +2,8 @@ import { Box, BoxProps, Link } from '@mui/material';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
-import { useLanguage } from '../hooks/useLanguage.js';
-import pad from '../utils/pad.js';
+import { useLanguage } from '../hooks/useLanguage';
+import pad from '../utils/pad';
 
 export interface HeaderProps extends BoxProps {
   url?: string;

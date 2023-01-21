@@ -1,6 +1,6 @@
-import { Gender } from '../types.js';
-import randomBetween from '../utils/randomBetween.js';
-import availableBodyParts from './availableBodyParts.js';
+import { Gender } from '../types';
+import randomBetween from '../utils/randomBetween';
+import availableBodyParts from './availableBodyParts';
 
 const getRandomBody = (gender: Gender) => ({
   longHair: randomBetween(1, availableBodyParts[gender].longHair),

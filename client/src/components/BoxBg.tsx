@@ -10,19 +10,17 @@ const BoxBg = ({
   children,
   sx,
   ...rest
-}: BoxBgProps) => {
-  return (
-    <Box
-      sx={{
-        backgroundImage: `url("${src}")`,
-        backgroundRepeat: 'no-repeat',
-        ...sx
-      }}
-      {...rest}
-    >
-      {children}
-    </Box>
-  );
-};
+}: BoxBgProps) => (
+  <Box
+    sx={{
+      backgroundImage: `url("${src}")`,
+      backgroundRepeat: 'no-repeat',
+      ...sx
+    }}
+    {...rest}
+  >
+    {children}
+  </Box>
+);
 
 export default BoxBg;

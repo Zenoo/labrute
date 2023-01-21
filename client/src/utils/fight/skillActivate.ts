@@ -1,8 +1,8 @@
-import { SkillActivateStep } from '@eternaltwin/labrute-core/types';
+import { SkillActivateStep } from '@labrute/core';
 import { AnimatedSprite, Application } from 'pixi.js';
-import changeAnimation from './changeAnimation.js';
+import changeAnimation from './changeAnimation';
 
-import findFighter, { AnimationFighter } from './findFighter.js';
+import findFighter, { AnimationFighter } from './findFighter';
 
 const skillActivate = async (
   app: Application,

@@ -1,10 +1,10 @@
-import { Fight } from '@eternaltwin/labrute-core/types';
+import { Fight } from '@labrute/core';
 import { Box, Grid, Link, Paper, Tooltip } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import FightComponent from '../../components/Arena/FightComponent.js';
-import Page from '../../components/Page.js';
-import Text from '../../components/Text.js';
+import FightComponent from '../../components/Arena/FightComponent';
+import Page from '../../components/Page';
+import Text from '../../components/Text';
 
 export interface FightMobileViewProps {
   bruteName: string | undefined;
@@ -22,7 +22,7 @@ const FightMobileView = ({
   return (
     <Page
       title={`${bruteName || ''} ${t('MyBrute')}`}
-      headerUrl={`/${bruteName}/cell`}
+      headerUrl={`/${bruteName || ''}/cell`}
     >
       <Paper sx={{ textAlign: 'center' }}>
         {/* FIGHT */}

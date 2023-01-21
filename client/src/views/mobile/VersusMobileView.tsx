@@ -1,11 +1,11 @@
-import { Brute } from '@eternaltwin/labrute-core/types';
+import { Brute } from '@labrute/core';
 import { Box, Grid, Paper } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import BruteComponent from '../../components/Brute/Body/BruteComponent.js';
-import Page from '../../components/Page.js';
-import StyledButton from '../../components/StyledButton.js';
-import Text from '../../components/Text.js';
+import BruteComponent from '../../components/Brute/Body/BruteComponent';
+import Page from '../../components/Page';
+import StyledButton from '../../components/StyledButton';
+import Text from '../../components/Text';
 
 export interface VersusMobileViewProps {
   brute: Brute;

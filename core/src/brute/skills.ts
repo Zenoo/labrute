@@ -1,4 +1,4 @@
-import { Skill } from '../types.js';
+import { Skill } from '../types';
 
 const skills: Skill[] = [
   {

@@ -1,4 +1,4 @@
-import { Gender, BodyColors } from '@eternaltwin/labrute-core/types';
+import { Gender, BodyColors } from '@labrute/core';
 import React from 'react';
 
 interface UpperRightArmProps {
