@@ -1,4 +1,4 @@
-const promiseBatch = async <A, B>(task: (a: A) => Promise<B>, items: A[], batchSize: number) => {
+const promiseBatch = async <A, B>(task: (a: A) => B, items: A[], batchSize: number) => {
   let position = 0;
   let results: B[] = [];
   while (position < items.length) {

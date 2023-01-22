@@ -2,7 +2,7 @@ import {
   Animation,
 } from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
-import convertSvgToPng from 'convert-svg-to-png';
+import { Resvg } from '@resvg/resvg-js';
 import { Request, Response } from 'express';
 import SpriteSmith from 'spritesmith';
 import Vynil from 'vinyl';
@@ -98,11 +98,12 @@ const Spritesheets = {
         }
 
         // Convert SVG to PNG
-        // eslint-disable-next-line no-await-in-loop
-        const png = await convertSvgToPng.convert(frameGetter({
+        const resvg = new Resvg(frameGetter({
           body: brute.body,
           colors: brute.colors,
         }));
+        const pngData = resvg.render();
+        const png = pngData.asPng();
 
         // Create vinyl
         const frame = new Vynil({

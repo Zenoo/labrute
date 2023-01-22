@@ -2,7 +2,7 @@ import {
   Animation, BruteWithBodyColors, promiseBatch,
 } from '@labrute/core';
 import { Gender } from '@labrute/prisma';
-import convertSvgToPng from 'convert-svg-to-png';
+import { Resvg } from '@resvg/resvg-js';
 import SpriteSmith from 'spritesmith';
 import Vynil from 'vinyl';
 import getFrame, { FRAMES } from '../animations/getFrame';
@@ -14,10 +14,12 @@ interface ConvertProps {
   frame: string;
 }
 
-const convertToPng = async ({
+const convertToPng = ({
   animation, model, index, frame,
 }: ConvertProps) => {
-  const png = await convertSvgToPng.convert(frame);
+  const resvg = new Resvg(frame);
+  const pngData = resvg.render();
+  const png = pngData.asPng();
 
   // Create vinyl
   const vynil = new Vynil({
