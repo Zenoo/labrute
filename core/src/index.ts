@@ -17,6 +17,7 @@ import adjustColor from './utils/adjustColor';
 import randomBetween from './utils/randomBetween';
 import weightedRandom from './utils/weightedRandom';
 import weapons from './brute/weapons';
+import promiseBatch from './utils/promiseBatch';
 
 export {
   applySkillModifiers,
@@ -37,6 +38,7 @@ export {
   randomBetween,
   weapons,
   weightedRandom,
+  promiseBatch,
 };
 export * from './types';
 export * from './constants';

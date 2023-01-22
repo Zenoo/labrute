@@ -1,14 +1,37 @@
 import {
-  Animation, BruteWithBodyColors,
+  Animation, BruteWithBodyColors, promiseBatch,
 } from '@labrute/core';
+import { Gender } from '@labrute/prisma';
 import convertSvgToPng from 'convert-svg-to-png';
 import SpriteSmith from 'spritesmith';
 import Vynil from 'vinyl';
 import getFrame, { FRAMES } from '../animations/getFrame';
 
+interface ConvertProps {
+  animation: Animation;
+  model: Gender;
+  index: number;
+  frame: string;
+}
+
+const convertToPng = async ({
+  animation, model, index, frame,
+}: ConvertProps) => {
+  const png = await convertSvgToPng.convert(frame);
+
+  // Create vinyl
+  const vynil = new Vynil({
+    contents: png,
+    path: `${animation}_${model}_${index + 1}.png`,
+  });
+
+  return vynil;
+};
+
 const createSpritesheet = async (brute: BruteWithBodyColors) => {
-  const frames: Vynil.BufferFile[] = [];
   const model = brute.gender;
+
+  const convertProps: ConvertProps[] = [];
 
   // Get every model animation
   const animations = Object.keys(FRAMES[model]) as Animation[];
@@ -28,22 +51,21 @@ const createSpritesheet = async (brute: BruteWithBodyColors) => {
         throw new Error('Brute body or colors not found');
       }
 
-      // Convert SVG to PNG
-      // eslint-disable-next-line no-await-in-loop
-      const png = await convertSvgToPng.convert(frameGetter({
-        body: brute.body,
-        colors: brute.colors,
-      }));
-
-      // Create vinyl
-      const frame = new Vynil({
-        contents: png,
-        path: `${animation}_${model}_${j + 1}.png`,
+      // Prepare frame for conversion
+      convertProps.push({
+        animation,
+        model,
+        index: j,
+        frame: frameGetter({
+          body: brute.body,
+          colors: brute.colors,
+        }),
       });
-
-      frames.push(frame);
     }
   }
+
+  // Convert all frames to png, 8 at a time
+  const frames = await promiseBatch(convertToPng, convertProps, 8);
 
   const spritesheet = await new Promise<SpriteSmith.SpriteResult>((resolve, reject) => {
     // Create spritesheet

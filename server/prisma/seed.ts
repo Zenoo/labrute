@@ -78,6 +78,7 @@ async function main() {
   console.log('Generating random brutes...');
   const nicks: string[] = [];
   for (let i = 0; i < ARENA_OPPONENTS_COUNT * 100; i++) {
+    console.time(`Brute ${i + 1}/${ARENA_OPPONENTS_COUNT * 100}`);
     let generatedName;
 
     // Reroll if name already exists
@@ -109,7 +110,7 @@ async function main() {
       },
     });
 
-    process.stdout.write(`\r${i + 1}/${ARENA_OPPONENTS_COUNT * 100}`);
+    console.timeEnd(`Brute ${i + 1}/${ARENA_OPPONENTS_COUNT * 100}`);
   }
 }
 main()
