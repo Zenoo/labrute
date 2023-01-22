@@ -9,9 +9,9 @@ import { PrismaClient } from '@labrute/prisma';
 import sendError from '../utils/sendError.js';
 
 const oauthClient = new RfcOauthClient({
-  authorizationEndpoint: new Url(`${env.ETWIN_URL}oauth/authorize`),
-  tokenEndpoint: new Url(`${env.ETWIN_URL}oauth/token`),
-  callbackEndpoint: new Url(`${env.SELF_URL}/oauth/callback`),
+  authorizationEndpoint: new Url(`${env.ETWIN_URL || ''}oauth/authorize`),
+  tokenEndpoint: new Url(`${env.ETWIN_URL || ''}oauth/token`),
+  callbackEndpoint: new Url(`${env.SELF_URL || ''}/oauth/callback`),
   clientId: env.ETWIN_CLIENT_ID || '',
   clientSecret: env.ETWIN_CLIENT_SECRET || '',
 });
