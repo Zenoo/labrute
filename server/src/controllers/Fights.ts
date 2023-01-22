@@ -4,12 +4,12 @@ import {
 import { Prisma, PrismaClient } from '@labrute/prisma';
 import { Request, Response } from 'express';
 import moment from 'moment';
-import auth from '../utils/auth';
+import auth from '../utils/auth.js';
 import {
   checkDeaths, getOpponents, orderFighters, playFighterTurn, saboteur, stepFighter,
-} from '../utils/fight/fightMethods';
-import getFighters from '../utils/fight/getFighters';
-import sendError from '../utils/sendError';
+} from '../utils/fight/fightMethods.js';
+import getFighters from '../utils/fight/getFighters.js';
+import sendError from '../utils/sendError.js';
 
 const Fights = {
   get: (prisma: PrismaClient) => async (req: Request, res: Response) => {

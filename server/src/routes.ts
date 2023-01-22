@@ -2,15 +2,17 @@
 import { PrismaClient } from '@labrute/prisma';
 import { Express, Request, Response } from 'express';
 import path from 'path';
-import Brutes from './controllers/Brutes';
-import Fights from './controllers/Fights';
-import Logs from './controllers/Logs';
-import OAuth from './controllers/OAuth';
-import Spritesheets from './controllers/Spritesheets';
-import Users from './controllers/Users';
+import { fileURLToPath } from 'url';
+import Brutes from './controllers/Brutes.js';
+import Fights from './controllers/Fights.js';
+import Logs from './controllers/Logs.js';
+import OAuth from './controllers/OAuth.js';
+import Spritesheets from './controllers/Spritesheets.js';
+import Users from './controllers/Users.js';
 
 // Get client index.html
-const CLIENT_INDEX = path.join(__dirname, '..', '..', 'client', 'build', 'index.html');
+const REPO_ROOT = path.join(fileURLToPath(import.meta.url), '..', '..', '..');
+const CLIENT_INDEX = path.join(REPO_ROOT, 'client', 'build', 'index.html');
 
 const initRoutes = (app: Express, prisma: PrismaClient) => {
   app.get('/api', (req: Request, res: Response) => res.status(200).send({

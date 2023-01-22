@@ -1,6 +1,6 @@
 import { PrismaClient } from '@labrute/prisma';
 import { Request, Response } from 'express';
-import sendError from '../utils/sendError';
+import sendError from '../utils/sendError.js';
 
 const Logs = {
   list: (prisma: PrismaClient) => async (req: Request, res: Response) => {

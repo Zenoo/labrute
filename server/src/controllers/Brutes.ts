@@ -6,10 +6,10 @@ import {
   DestinyChoiceSide, Gender, Prisma, PrismaClient,
 } from '@labrute/prisma';
 import { Request, Response } from 'express';
-import auth from '../utils/auth';
-import createSpritesheet from '../utils/createSpritesheet';
-import formatSpritesheet from '../utils/formatSpritesheet';
-import sendError from '../utils/sendError';
+import auth from '../utils/auth.js';
+import createSpritesheet from '../utils/createSpritesheet.js';
+import formatSpritesheet from '../utils/formatSpritesheet.js';
+import sendError from '../utils/sendError.js';
 
 const Brutes = {
   list: (prisma: PrismaClient) => async (req: Request, res: Response) => {

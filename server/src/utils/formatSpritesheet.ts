@@ -3,7 +3,7 @@ import {
   Animation, animationList, ANIMATION_ANCHORS,
 } from '@labrute/core';
 import { Brute, Gender } from '@labrute/prisma';
-import { FRAMES } from '../animations/getFrame';
+import { FRAMES } from '../animations/getFrame.js';
 
 interface Frame {
   frame: {

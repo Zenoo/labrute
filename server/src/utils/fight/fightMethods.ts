@@ -3,7 +3,7 @@ import {
   BARE_HANDS_TEMPO, DetailedFight, DetailedFighter, LeaveStep,
   randomBetween, SHIELD_BLOCK_ODDS, Skill, StepFighter, Weapon,
 } from '@labrute/core';
-import getDamage from './getDamage';
+import getDamage from './getDamage.js';
 
 const getMainOpponent = (fightData: DetailedFight['data'], brute: DetailedFighter) => {
   const mainOpponent = fightData.fighters.find(

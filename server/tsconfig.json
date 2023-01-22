@@ -3,10 +3,24 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "lib",
+    "module": "Node16",
+    "moduleResolution": "Node16",
   },
-  "exclude": ["prisma/seed.ts", "lib/**/*"],
+  "exclude": [
+    "prisma/seed.ts",
+    "lib/**/*"
+  ],
   "references": [
-    { "path": "../core" },
-    { "path": "../prisma" }
-  ]
+    {
+      "path": "../core"
+    },
+    {
+      "path": "../prisma"
+    }
+  ],
+  "ts-node": {
+    "transpileOnly": true,
+    "files": true,
+    "experimentalResolver": true
+  }
 }

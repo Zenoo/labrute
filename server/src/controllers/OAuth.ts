@@ -1,103 +1,26 @@
+import { AuthType } from '@eternal-twin/core/auth/auth-type';
+import { Url } from '@eternal-twin/core/core/url';
+import { HttpEtwinClient } from '@eternal-twin/etwin-client-http';
+import { RfcOauthClient } from '@eternal-twin/oauth-client-http/rfc-oauth-client';
 import { Request, Response } from 'express';
 import { URL } from 'url';
 import { env } from 'process';
 import { PrismaClient } from '@labrute/prisma';
-import fetch from 'node-fetch';
-import sendError from '../utils/sendError';
+import sendError from '../utils/sendError.js';
 
-interface OauthAccessToken {
-  accessToken: string;
-  refreshToken?: string;
-  expiresIn: number;
-  tokenType: 0;
-}
-
-interface SelfAuthContext {
-  type: 'User',
-  scope: 'Default',
-  user: {
-    type: 'User',
-    id: string,
-    displayName: {
-      current: {
-        value: string,
-      }
-    },
-  },
-  isAdministrator: boolean,
-}
-
-const MOCK_HttpEtwinClient = {
-  api: env.ETWIN_URL || '',
-  getAuthSelf: async (accessToken: string) => fetch(`${MOCK_HttpEtwinClient.api}api/v1/auth/self`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  }).then((res) => {
-    if (res.status === 404) {
-      throw new Error(`Not found: GET ${MOCK_HttpEtwinClient.api}api/v1/auth/self`);
-    } else if (res.status === 500) {
-      throw new Error(`ServerError: GET ${MOCK_HttpEtwinClient.api}api/v1/auth/self`);
-    }
-
-    return res.json() as Promise<SelfAuthContext>;
-  }),
-};
-
-const authorizationEndpoint = `${env.ETWIN_URL || ''}oauth/authorize`;
-const callbackEndpoint = `${env.SELF_URL || ''}/oauth/callback`;
-const clientId = env.ETWIN_CLIENT_ID || '';
-const clientSecret = env.ETWIN_CLIENT_SECRET || '';
-const tokenEndpoint = `${env.ETWIN_URL || ''}oauth/token`;
-
-const getAuthorizationHeader = () => {
-  const credentials = `${clientId}:${clientSecret}`;
-  const token = Buffer.from(credentials).toString('base64');
-
-  return `Basic ${token}`;
-};
-
-const getAccessToken = async (code: string) => {
-  const requestBody = {
-    clientId,
-    clientSecret,
-    redirectUri: callbackEndpoint,
-    code,
-    grantType: 'AuthorizationCode',
-  };
-
-  return fetch(tokenEndpoint, {
-    method: 'POST',
-    headers: {
-      Authorization: getAuthorizationHeader(),
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: new URLSearchParams(requestBody),
-  }).then((res) => {
-    if (res.status === 404) {
-      throw new Error(`Resource not found: ${tokenEndpoint}`);
-    } else if (res.status === 500) {
-      throw new Error('Authorization server error');
-    }
-
-    return res.json() as Promise<OauthAccessToken>;
-  });
-};
+const oauthClient = new RfcOauthClient({
+  authorizationEndpoint: new Url(`${env.ETWIN_URL}oauth/authorize`),
+  tokenEndpoint: new Url(`${env.ETWIN_URL}oauth/token`),
+  callbackEndpoint: new Url(`${env.SELF_URL}/oauth/callback`),
+  clientId: env.ETWIN_CLIENT_ID || '',
+  clientSecret: env.ETWIN_CLIENT_SECRET || '',
+});
 
 const OAuth = {
   redirect: (req: Request, res: Response) => {
     try {
-      const url = new URL(authorizationEndpoint);
-      url.searchParams.append('access_type', 'offline');
-      url.searchParams.append('response_type', 'code');
-      url.searchParams.append('redirect_uri', callbackEndpoint);
-      url.searchParams.append('client_id', clientId);
-      url.searchParams.append('scope', 'base');
-      url.searchParams.append('state', '');
-
       res.send({
-        url: url.toString(),
+        url: oauthClient.getAuthorizationUri('base', ''),
       });
     } catch (error) {
       sendError(res, error);
@@ -110,16 +33,16 @@ const OAuth = {
       }
 
       // ETwin Token
-      const token = await getAccessToken(req.query.code);
+      const token = await oauthClient.getAccessToken(req.query.code);
 
       // ETWin User
-      const self = await MOCK_HttpEtwinClient.getAuthSelf(token.accessToken);
+      const etwinClient = new HttpEtwinClient(new URL(env.ETWIN_URL || ''));
+      const self = await etwinClient.getAuthSelf(token.accessToken);
 
-      console.log(self);
-
-      if (self.type !== 'User') {
+      if (self.type !== AuthType.AccessToken) {
         throw new Error('Invalid auth type');
       }
+
       // Update or store user
       const { user: etwinUser } = self;
 

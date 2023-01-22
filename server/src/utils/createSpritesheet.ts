@@ -4,7 +4,7 @@ import {
 import { Resvg } from '@resvg/resvg-js';
 import SpriteSmith from 'spritesmith';
 import Vynil from 'vinyl';
-import getFrame, { FRAMES } from '../animations/getFrame';
+import getFrame, { FRAMES } from '../animations/getFrame.js';
 
 const createSpritesheet = async (brute: BruteWithBodyColors) => {
   const model = brute.gender;

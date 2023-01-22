@@ -1,7 +1,7 @@
 import { PrismaClient } from '@labrute/prisma';
 import { Request, Response } from 'express';
-import auth from '../utils/auth';
-import sendError from '../utils/sendError';
+import auth from '../utils/auth.js';
+import sendError from '../utils/sendError.js';
 
 const Users = {
   list: (prisma: PrismaClient) => async (req: Request, res: Response) => {

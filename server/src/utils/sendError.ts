@@ -1,7 +1,7 @@
 import {
   PrismaClientInitializationError,
   PrismaClientKnownRequestError, PrismaClientUnknownRequestError, PrismaClientValidationError,
-} from '@labrute/prisma/runtime';
+} from '@labrute/prisma/runtime/index.js';
 import { Response } from 'express';
 
 const sendError = (res: Response, error: unknown) => {

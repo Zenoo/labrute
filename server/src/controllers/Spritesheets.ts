@@ -6,8 +6,8 @@ import { Resvg } from '@resvg/resvg-js';
 import { Request, Response } from 'express';
 import SpriteSmith from 'spritesmith';
 import Vynil from 'vinyl';
-import getFrame, { FRAMES } from '../animations/getFrame';
-import sendError from '../utils/sendError';
+import getFrame, { FRAMES } from '../animations/getFrame.js';
+import sendError from '../utils/sendError.js';
 
 const Spritesheets = {
   getImage: (prisma: PrismaClient) => async (req: Request<{
