@@ -1,41 +1,16 @@
 import {
-  Animation, BruteWithBodyColors, promiseBatch,
+  Animation, BruteWithBodyColors,
 } from '@labrute/core';
-import { Gender } from '@labrute/prisma';
 import { Resvg } from '@resvg/resvg-js';
 import SpriteSmith from 'spritesmith';
 import Vynil from 'vinyl';
 import getFrame, { FRAMES } from '../animations/getFrame';
 
-interface ConvertProps {
-  animation: Animation;
-  model: Gender;
-  index: number;
-  frame: string;
-}
-
-const convertToPng = ({
-  animation, model, index, frame,
-}: ConvertProps) => {
-  const resvg = new Resvg(frame);
-  const pngData = resvg.render();
-  const png = pngData.asPng();
-
-  // Create vinyl
-  const vynil = new Vynil({
-    contents: png,
-    path: `${animation}_${model}_${index + 1}.png`,
-  });
-
-  return vynil;
-};
-
 const createSpritesheet = async (brute: BruteWithBodyColors) => {
   const model = brute.gender;
 
-  const convertProps: ConvertProps[] = [];
-
   // Get every model animation
+  const frames: Vynil.BufferFile[] = [];
   const animations = Object.keys(FRAMES[model]) as Animation[];
   for (let i = 0; i < animations.length; i += 1) {
     const animation = animations[i];
@@ -53,21 +28,23 @@ const createSpritesheet = async (brute: BruteWithBodyColors) => {
         throw new Error('Brute body or colors not found');
       }
 
-      // Prepare frame for conversion
-      convertProps.push({
-        animation,
-        model,
-        index: j,
-        frame: frameGetter({
-          body: brute.body,
-          colors: brute.colors,
-        }),
+      // Convert SVG to PNG
+      const resvg = new Resvg(frameGetter({
+        body: brute.body,
+        colors: brute.colors,
+      }));
+      const pngData = resvg.render();
+      const png = pngData.asPng();
+
+      // Create vinyl
+      const vynil = new Vynil({
+        contents: png,
+        path: `${animation}_${model}_${j + 1}.png`,
       });
+
+      frames.push(vynil);
     }
   }
-
-  // Convert all frames to png, 8 at a time
-  const frames = await promiseBatch(convertToPng, convertProps, 8);
 
   const spritesheet = await new Promise<SpriteSmith.SpriteResult>((resolve, reject) => {
     // Create spritesheet

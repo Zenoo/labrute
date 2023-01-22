@@ -12,8 +12,9 @@ import moment from 'moment';
 import createSpritesheet from '../lib/utils/createSpritesheet';
 import formatSpritesheet from '../lib/utils/formatSpritesheet';
 
+const prisma = new PrismaClient();
+
 const generateBrute = (
-  prisma: PrismaClient,
   level: number,
   name: string,
 ): Prisma.BruteCreateInput => {
@@ -64,7 +65,6 @@ const generateBrute = (
   return data;
 };
 
-const prisma = new PrismaClient();
 async function main() {
   // Check if DB is already seeded
   const count = await prisma.brute.count();
@@ -94,7 +94,7 @@ async function main() {
     nicks.push(generatedName);
 
     const brute = await prisma.brute.create({
-      data: generateBrute(prisma, Math.floor(i / (ARENA_OPPONENTS_COUNT / 2)) + 1, generatedName),
+      data: generateBrute(Math.floor(i / (ARENA_OPPONENTS_COUNT / 2)) + 1, generatedName),
       include: { body: true, colors: true },
     });
 

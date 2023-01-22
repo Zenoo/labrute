@@ -17,6 +17,7 @@
     "db:sync:dev": "npm run db:sync:dev --workspace=server",
     "db:sync:prod": "npm run db:sync:prod --workspace=server",
     "db:seed": "npm run db:seed --workspace=server",
+    "db:reset": "npm run db:reset --workspace=server",
     "postinstall": "bash ./postInstall.sh",
     "animation:import": "ts-node importAnimation.ts"
   },
