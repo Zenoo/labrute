@@ -45,8 +45,8 @@ const Page = ({
   }, [navigate]);
 
   const oauth = useCallback(() => {
-    Fetch<string>('/api/oauth/redirect').then((response) => {
-      window.location.href = response;
+    Fetch<{ url: string }>('/api/oauth/redirect').then(({ url }) => {
+      window.location.href = url;
     }).catch(catchError(Alert));
   }, [Alert]);
 

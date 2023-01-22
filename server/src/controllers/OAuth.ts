@@ -13,10 +13,10 @@ interface OauthAccessToken {
 }
 
 interface SelfAuthContext {
-  type: 1,
-  scope: 0,
+  type: 'User',
+  scope: 'Default',
   user: {
-    type: 12,
+    type: 'User',
     id: string,
     displayName: {
       current: {
@@ -29,8 +29,20 @@ interface SelfAuthContext {
 
 const MOCK_HttpEtwinClient = {
   api: env.ETWIN_URL || '',
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  getAuthSelf: (accessToken: string) => Promise.resolve({} as SelfAuthContext),
+  getAuthSelf: async (accessToken: string) => fetch(`${MOCK_HttpEtwinClient.api}api/v1/auth/self`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  }).then((res) => {
+    if (res.status === 404) {
+      throw new Error(`Not found: GET ${MOCK_HttpEtwinClient.api}api/v1/auth/self`);
+    } else if (res.status === 500) {
+      throw new Error(`ServerError: GET ${MOCK_HttpEtwinClient.api}api/v1/auth/self`);
+    }
+
+    return res.json() as Promise<SelfAuthContext>;
+  }),
 };
 
 const authorizationEndpoint = `${env.ETWIN_URL || ''}oauth/authorize`;
@@ -52,7 +64,7 @@ const getAccessToken = async (code: string) => {
     clientSecret,
     redirectUri: callbackEndpoint,
     code,
-    grantType: '0',
+    grantType: 'AuthorizationCode',
   };
 
   return fetch(tokenEndpoint, {
@@ -84,7 +96,9 @@ const OAuth = {
       url.searchParams.append('scope', 'base');
       url.searchParams.append('state', '');
 
-      res.status(200).send(url.toString());
+      res.send({
+        url: url.toString(),
+      });
     } catch (error) {
       sendError(res, error);
     }
@@ -101,7 +115,9 @@ const OAuth = {
       // ETWin User
       const self = await MOCK_HttpEtwinClient.getAuthSelf(token.accessToken);
 
-      if (self.type !== 1) {
+      console.log(self);
+
+      if (self.type !== 'User') {
         throw new Error('Invalid auth type');
       }
       // Update or store user
