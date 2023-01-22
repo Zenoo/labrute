@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 /* eslint-disable no-console */
 import { Gender, Prisma, PrismaClient } from '@labrute/prisma';
 import {
@@ -8,6 +9,8 @@ import {
   adjectives, animals, colors, languages, names, starWars, uniqueNamesGenerator,
 } from 'unique-names-generator';
 import moment from 'moment';
+import createSpritesheet from '../lib/utils/createSpritesheet';
+import formatSpritesheet from '../lib/utils/formatSpritesheet';
 
 const generateBrute = (
   prisma: PrismaClient,
@@ -89,10 +92,24 @@ async function main() {
 
     nicks.push(generatedName);
 
-    // eslint-disable-next-line no-await-in-loop
-    await prisma.brute.create({
+    const brute = await prisma.brute.create({
       data: generateBrute(prisma, Math.floor(i / (ARENA_OPPONENTS_COUNT / 2)) + 1, generatedName),
+      include: { body: true, colors: true },
     });
+
+    // Generate animation spritesheet
+    const spritesheet = await createSpritesheet(brute);
+
+    // Store spritesheet image in database as blob and data as json
+    await prisma.brute.update({
+      where: { id: brute.id },
+      data: {
+        spritesheet: spritesheet.image,
+        spritesheetJson: formatSpritesheet(spritesheet, brute) as unknown as Prisma.JsonObject,
+      },
+    });
+
+    process.stdout.write(`\r${i + 1}/${ARENA_OPPONENTS_COUNT * 100}`);
   }
 }
 main()

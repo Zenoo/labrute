@@ -12,5 +12,5 @@ jobs:
           release-type: node
           package-name: labrute
           bump-minor-pre-major: true
-          default-branch: test
+          default-branch: main
           command: manifest
