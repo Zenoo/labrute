@@ -456,6 +456,21 @@ import femaleTrash6 from './female-brute/trash/6.js';
 import femaleTrash7 from './female-brute/trash/7.js';
 import femaleTrash8 from './female-brute/trash/8.js';
 import femaleTrash9 from './female-brute/trash/9.js';
+import femaleWhip1 from './female-brute/whip/1.js';
+import femaleWhip10 from './female-brute/whip/10.js';
+import femaleWhip11 from './female-brute/whip/11.js';
+import femaleWhip12 from './female-brute/whip/12.js';
+import femaleWhip13 from './female-brute/whip/13.js';
+import femaleWhip14 from './female-brute/whip/14.js';
+import femaleWhip15 from './female-brute/whip/15.js';
+import femaleWhip2 from './female-brute/whip/2.js';
+import femaleWhip3 from './female-brute/whip/3.js';
+import femaleWhip4 from './female-brute/whip/4.js';
+import femaleWhip5 from './female-brute/whip/5.js';
+import femaleWhip6 from './female-brute/whip/6.js';
+import femaleWhip7 from './female-brute/whip/7.js';
+import femaleWhip8 from './female-brute/whip/8.js';
+import femaleWhip9 from './female-brute/whip/9.js';
 import maleArriveEnd1 from './male-brute/arrive-end/1.js';
 import maleArriveEnd2 from './male-brute/arrive-end/2.js';
 import maleArriveEnd3 from './male-brute/arrive-end/3.js';
@@ -1578,7 +1593,13 @@ export const FRAMES: Record<
       femaleEstoc7, femaleEstoc8, femaleEstoc9,
       femaleEstoc10,
     ],
-    whip: [],
+    whip: [
+      femaleWhip1, femaleWhip2, femaleWhip3,
+      femaleWhip4, femaleWhip5, femaleWhip6,
+      femaleWhip7, femaleWhip8, femaleWhip9,
+      femaleWhip10, femaleWhip11, femaleWhip12,
+      femaleWhip13, femaleWhip14, femaleWhip15,
+    ],
   },
 };
 
