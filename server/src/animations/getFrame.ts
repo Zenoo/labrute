@@ -365,6 +365,31 @@ import femaleStolen6 from './female-brute/stolen/6.js';
 import femaleStolen7 from './female-brute/stolen/7.js';
 import femaleStolen8 from './female-brute/stolen/8.js';
 import femaleStolen9 from './female-brute/stolen/9.js';
+import femaleStrengthen1 from './female-brute/strengthen/1.js';
+import femaleStrengthen10 from './female-brute/strengthen/10.js';
+import femaleStrengthen11 from './female-brute/strengthen/11.js';
+import femaleStrengthen12 from './female-brute/strengthen/12.js';
+import femaleStrengthen13 from './female-brute/strengthen/13.js';
+import femaleStrengthen14 from './female-brute/strengthen/14.js';
+import femaleStrengthen15 from './female-brute/strengthen/15.js';
+import femaleStrengthen16 from './female-brute/strengthen/16.js';
+import femaleStrengthen17 from './female-brute/strengthen/17.js';
+import femaleStrengthen18 from './female-brute/strengthen/18.js';
+import femaleStrengthen19 from './female-brute/strengthen/19.js';
+import femaleStrengthen2 from './female-brute/strengthen/2.js';
+import femaleStrengthen20 from './female-brute/strengthen/20.js';
+import femaleStrengthen21 from './female-brute/strengthen/21.js';
+import femaleStrengthen22 from './female-brute/strengthen/22.js';
+import femaleStrengthen23 from './female-brute/strengthen/23.js';
+import femaleStrengthen24 from './female-brute/strengthen/24.js';
+import femaleStrengthen25 from './female-brute/strengthen/25.js';
+import femaleStrengthen3 from './female-brute/strengthen/3.js';
+import femaleStrengthen4 from './female-brute/strengthen/4.js';
+import femaleStrengthen5 from './female-brute/strengthen/5.js';
+import femaleStrengthen6 from './female-brute/strengthen/6.js';
+import femaleStrengthen7 from './female-brute/strengthen/7.js';
+import femaleStrengthen8 from './female-brute/strengthen/8.js';
+import femaleStrengthen9 from './female-brute/strengthen/9.js';
 import femaleThrow1 from './female-brute/throw/1.js';
 import femaleThrow10 from './female-brute/throw/10.js';
 import femaleThrow11 from './female-brute/throw/11.js';
@@ -1495,7 +1520,17 @@ export const FRAMES: Record<
       femaleSteal22, femaleSteal23, femaleSteal24,
       femaleSteal25,
     ],
-    strengthen: [],
+    strengthen: [
+      femaleStrengthen1, femaleStrengthen2, femaleStrengthen3,
+      femaleStrengthen4, femaleStrengthen5, femaleStrengthen6,
+      femaleStrengthen7, femaleStrengthen8, femaleStrengthen9,
+      femaleStrengthen10, femaleStrengthen11, femaleStrengthen12,
+      femaleStrengthen13, femaleStrengthen14, femaleStrengthen15,
+      femaleStrengthen16, femaleStrengthen17, femaleStrengthen18,
+      femaleStrengthen19, femaleStrengthen20, femaleStrengthen21,
+      femaleStrengthen22, femaleStrengthen23, femaleStrengthen24,
+      femaleStrengthen25,
+    ],
     throw: [
       femaleThrow1, femaleThrow2, femaleThrow3,
       femaleThrow4, femaleThrow5, femaleThrow6,
