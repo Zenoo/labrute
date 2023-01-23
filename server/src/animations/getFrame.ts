@@ -220,6 +220,19 @@ import femaleMonkStart6 from './female-brute/monk-start/6.js';
 import femaleMonkStart7 from './female-brute/monk-start/7.js';
 import femaleMonkStart8 from './female-brute/monk-start/8.js';
 import femaleMonkStart9 from './female-brute/monk-start/9.js';
+import femalePrepareThrow1 from './female-brute/prepare-throw/1.js';
+import femalePrepareThrow10 from './female-brute/prepare-throw/10.js';
+import femalePrepareThrow11 from './female-brute/prepare-throw/11.js';
+import femalePrepareThrow12 from './female-brute/prepare-throw/12.js';
+import femalePrepareThrow13 from './female-brute/prepare-throw/13.js';
+import femalePrepareThrow2 from './female-brute/prepare-throw/2.js';
+import femalePrepareThrow3 from './female-brute/prepare-throw/3.js';
+import femalePrepareThrow4 from './female-brute/prepare-throw/4.js';
+import femalePrepareThrow5 from './female-brute/prepare-throw/5.js';
+import femalePrepareThrow6 from './female-brute/prepare-throw/6.js';
+import femalePrepareThrow7 from './female-brute/prepare-throw/7.js';
+import femalePrepareThrow8 from './female-brute/prepare-throw/8.js';
+import femalePrepareThrow9 from './female-brute/prepare-throw/9.js';
 import femaleRun1 from './female-brute/run/1.js';
 import femaleRun2 from './female-brute/run/2.js';
 import femaleRun3 from './female-brute/run/3.js';
@@ -1262,7 +1275,13 @@ export const FRAMES: Record<
       femaleMonkStart7, femaleMonkStart8, femaleMonkStart9,
       femaleMonkStart10, femaleMonkStart11, femaleMonkStart12,
     ],
-    'prepare-throw': [],
+    'prepare-throw': [
+      femalePrepareThrow1, femalePrepareThrow2, femalePrepareThrow3,
+      femalePrepareThrow4, femalePrepareThrow5, femalePrepareThrow6,
+      femalePrepareThrow7, femalePrepareThrow8, femalePrepareThrow9,
+      femalePrepareThrow10, femalePrepareThrow11, femalePrepareThrow12,
+      femalePrepareThrow13,
+    ],
     run: [
       femaleRun1, femaleRun2, femaleRun3,
       femaleRun4, femaleRun5, femaleRun6,
