@@ -85,7 +85,7 @@ export const ANIMATION_ANCHORS: Record<Gender, Record<Animation, [number, number
     trash: [0.5265, 0.8742],
     win: [0.5, 0.5],
     fist: [0.4602, 0.7459],
-    estoc: [0.5, 0.5],
+    estoc: [0.4878, 0.8508],
     whip: [0.5, 0.5],
   },
 };

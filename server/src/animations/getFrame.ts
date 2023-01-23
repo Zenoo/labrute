@@ -101,6 +101,16 @@ import femaleEquip6 from './female-brute/equip/6.js';
 import femaleEquip7 from './female-brute/equip/7.js';
 import femaleEquip8 from './female-brute/equip/8.js';
 import femaleEquip9 from './female-brute/equip/9.js';
+import femaleEstoc1 from './female-brute/estoc/1.js';
+import femaleEstoc10 from './female-brute/estoc/10.js';
+import femaleEstoc2 from './female-brute/estoc/2.js';
+import femaleEstoc3 from './female-brute/estoc/3.js';
+import femaleEstoc4 from './female-brute/estoc/4.js';
+import femaleEstoc5 from './female-brute/estoc/5.js';
+import femaleEstoc6 from './female-brute/estoc/6.js';
+import femaleEstoc7 from './female-brute/estoc/7.js';
+import femaleEstoc8 from './female-brute/estoc/8.js';
+import femaleEstoc9 from './female-brute/estoc/9.js';
 import femaleEvade1 from './female-brute/evade/1.js';
 import femaleFist1 from './female-brute/fist/1.js';
 import femaleFist10 from './female-brute/fist/10.js';
@@ -1254,7 +1264,12 @@ export const FRAMES: Record<
       femaleFist13, femaleFist14, femaleFist15,
       femaleFist16,
     ],
-    estoc: [],
+    estoc: [
+      femaleEstoc1, femaleEstoc2, femaleEstoc3,
+      femaleEstoc4, femaleEstoc5, femaleEstoc6,
+      femaleEstoc7, femaleEstoc8, femaleEstoc9,
+      femaleEstoc10,
+    ],
     whip: [],
   },
 };
