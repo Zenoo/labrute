@@ -15,7 +15,7 @@ const Server = {
     get: ({
       name,
       include,
-    }: { name: string, include?: Prisma.BruteInclude }) => Fetch<Brute>(`/api/brute/${name}`, { include }, 'POST'),
+    }: { name: string, include?: Prisma.BruteInclude }) => Fetch<Brute>(`/api/brute/${name}/get`, { include }, 'POST'),
     isNameAvailable: (name: string) => Fetch<boolean>(`/api/brute/${name}/available`),
     isReadyToFight: (name: string) => Fetch<boolean>(`/api/brute/${name}/ready`),
     create: (

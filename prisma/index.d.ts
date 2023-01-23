@@ -81,8 +81,6 @@ export type Brute = {
   id: number
   name: string
   deleted: boolean
-  spritesheet: Buffer | null
-  spritesheetJson: Prisma.JsonValue | null
   destinyPath: DestinyChoiceSide[]
   level: number
   xp: number
@@ -112,6 +110,17 @@ export type Brute = {
   lastFight: Date | null
   fightsLeft: number
   victories: number
+}
+
+/**
+ * Model BruteSpritesheet
+ * 
+ */
+export type BruteSpritesheet = {
+  id: number
+  bruteId: number
+  image: Buffer | null
+  json: Prisma.JsonValue | null
 }
 
 /**
@@ -487,6 +496,16 @@ export class PrismaClient<
     * ```
     */
   get brute(): Prisma.BruteDelegate<GlobalReject>;
+
+  /**
+   * `prisma.bruteSpritesheet`: Exposes CRUD operations for the **BruteSpritesheet** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BruteSpritesheets
+    * const bruteSpritesheets = await prisma.bruteSpritesheet.findMany()
+    * ```
+    */
+  get bruteSpritesheet(): Prisma.BruteSpritesheetDelegate<GlobalReject>;
 
   /**
    * `prisma.clan`: Exposes CRUD operations for the **Clan** model.
@@ -1007,6 +1026,7 @@ export namespace Prisma {
     BruteBody: 'BruteBody',
     BruteColors: 'BruteColors',
     Brute: 'Brute',
+    BruteSpritesheet: 'BruteSpritesheet',
     Clan: 'Clan',
     Fight: 'Fight',
     Log: 'Log',
@@ -4640,7 +4660,6 @@ export namespace Prisma {
     id: number | null
     name: string | null
     deleted: boolean | null
-    spritesheet: Buffer | null
     level: number | null
     xp: number | null
     hp: number | null
@@ -4672,7 +4691,6 @@ export namespace Prisma {
     id: number | null
     name: string | null
     deleted: boolean | null
-    spritesheet: Buffer | null
     level: number | null
     xp: number | null
     hp: number | null
@@ -4704,8 +4722,6 @@ export namespace Prisma {
     id: number
     name: number
     deleted: number
-    spritesheet: number
-    spritesheetJson: number
     destinyPath: number
     level: number
     xp: number
@@ -4793,7 +4809,6 @@ export namespace Prisma {
     id?: true
     name?: true
     deleted?: true
-    spritesheet?: true
     level?: true
     xp?: true
     hp?: true
@@ -4825,7 +4840,6 @@ export namespace Prisma {
     id?: true
     name?: true
     deleted?: true
-    spritesheet?: true
     level?: true
     xp?: true
     hp?: true
@@ -4857,8 +4871,6 @@ export namespace Prisma {
     id?: true
     name?: true
     deleted?: true
-    spritesheet?: true
-    spritesheetJson?: true
     destinyPath?: true
     level?: true
     xp?: true
@@ -4982,8 +4994,6 @@ export namespace Prisma {
     id: number
     name: string
     deleted: boolean
-    spritesheet: Buffer | null
-    spritesheetJson: JsonValue | null
     destinyPath: DestinyChoiceSide[]
     level: number
     xp: number
@@ -5038,8 +5048,6 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     deleted?: boolean
-    spritesheet?: boolean
-    spritesheetJson?: boolean
     destinyPath?: boolean
     level?: boolean
     xp?: boolean
@@ -5079,6 +5087,7 @@ export namespace Prisma {
     fightsAsAdversary?: boolean | Brute$fightsAsAdversaryArgs
     logs?: boolean | Brute$logsArgs
     destinyChoices?: boolean | Brute$destinyChoicesArgs
+    spritesheet?: boolean | BruteSpritesheetArgs
     _count?: boolean | BruteCountOutputTypeArgs
   }
 
@@ -5094,6 +5103,7 @@ export namespace Prisma {
     fightsAsAdversary?: boolean | Brute$fightsAsAdversaryArgs
     logs?: boolean | Brute$logsArgs
     destinyChoices?: boolean | Brute$destinyChoicesArgs
+    spritesheet?: boolean | BruteSpritesheetArgs
     _count?: boolean | BruteCountOutputTypeArgs
   }
 
@@ -5114,6 +5124,7 @@ export namespace Prisma {
         P extends 'fightsAsAdversary' ? Array < FightGetPayload<S['include'][P]>>  :
         P extends 'logs' ? Array < LogGetPayload<S['include'][P]>>  :
         P extends 'destinyChoices' ? Array < DestinyChoiceGetPayload<S['include'][P]>>  :
+        P extends 'spritesheet' ? BruteSpritesheetGetPayload<S['include'][P]> | null :
         P extends '_count' ? BruteCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : S extends { select: any } & (BruteArgs | BruteFindManyArgs)
@@ -5129,6 +5140,7 @@ export namespace Prisma {
         P extends 'fightsAsAdversary' ? Array < FightGetPayload<S['select'][P]>>  :
         P extends 'logs' ? Array < LogGetPayload<S['select'][P]>>  :
         P extends 'destinyChoices' ? Array < DestinyChoiceGetPayload<S['select'][P]>>  :
+        P extends 'spritesheet' ? BruteSpritesheetGetPayload<S['select'][P]> | null :
         P extends '_count' ? BruteCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Brute ? Brute[P] : never
   } 
       : Brute
@@ -5522,6 +5534,8 @@ export namespace Prisma {
     logs<T extends Brute$logsArgs= {}>(args?: Subset<T, Brute$logsArgs>): PrismaPromise<Array<LogGetPayload<T>>| Null>;
 
     destinyChoices<T extends Brute$destinyChoicesArgs= {}>(args?: Subset<T, Brute$destinyChoicesArgs>): PrismaPromise<Array<DestinyChoiceGetPayload<T>>| Null>;
+
+    spritesheet<T extends BruteSpritesheetArgs= {}>(args?: Subset<T, BruteSpritesheetArgs>): Prisma__BruteSpritesheetClient<BruteSpritesheetGetPayload<T> | Null>;
 
     private get _document();
     /**
@@ -5995,6 +6009,965 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well.
      */
     include?: BruteInclude | null
+  }
+
+
+
+  /**
+   * Model BruteSpritesheet
+   */
+
+
+  export type AggregateBruteSpritesheet = {
+    _count: BruteSpritesheetCountAggregateOutputType | null
+    _avg: BruteSpritesheetAvgAggregateOutputType | null
+    _sum: BruteSpritesheetSumAggregateOutputType | null
+    _min: BruteSpritesheetMinAggregateOutputType | null
+    _max: BruteSpritesheetMaxAggregateOutputType | null
+  }
+
+  export type BruteSpritesheetAvgAggregateOutputType = {
+    id: number | null
+    bruteId: number | null
+  }
+
+  export type BruteSpritesheetSumAggregateOutputType = {
+    id: number | null
+    bruteId: number | null
+  }
+
+  export type BruteSpritesheetMinAggregateOutputType = {
+    id: number | null
+    bruteId: number | null
+    image: Buffer | null
+  }
+
+  export type BruteSpritesheetMaxAggregateOutputType = {
+    id: number | null
+    bruteId: number | null
+    image: Buffer | null
+  }
+
+  export type BruteSpritesheetCountAggregateOutputType = {
+    id: number
+    bruteId: number
+    image: number
+    json: number
+    _all: number
+  }
+
+
+  export type BruteSpritesheetAvgAggregateInputType = {
+    id?: true
+    bruteId?: true
+  }
+
+  export type BruteSpritesheetSumAggregateInputType = {
+    id?: true
+    bruteId?: true
+  }
+
+  export type BruteSpritesheetMinAggregateInputType = {
+    id?: true
+    bruteId?: true
+    image?: true
+  }
+
+  export type BruteSpritesheetMaxAggregateInputType = {
+    id?: true
+    bruteId?: true
+    image?: true
+  }
+
+  export type BruteSpritesheetCountAggregateInputType = {
+    id?: true
+    bruteId?: true
+    image?: true
+    json?: true
+    _all?: true
+  }
+
+  export type BruteSpritesheetAggregateArgs = {
+    /**
+     * Filter which BruteSpritesheet to aggregate.
+     */
+    where?: BruteSpritesheetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BruteSpritesheets to fetch.
+     */
+    orderBy?: Enumerable<BruteSpritesheetOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BruteSpritesheetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BruteSpritesheets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BruteSpritesheets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BruteSpritesheets
+    **/
+    _count?: true | BruteSpritesheetCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BruteSpritesheetAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BruteSpritesheetSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BruteSpritesheetMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BruteSpritesheetMaxAggregateInputType
+  }
+
+  export type GetBruteSpritesheetAggregateType<T extends BruteSpritesheetAggregateArgs> = {
+        [P in keyof T & keyof AggregateBruteSpritesheet]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBruteSpritesheet[P]>
+      : GetScalarType<T[P], AggregateBruteSpritesheet[P]>
+  }
+
+
+
+
+  export type BruteSpritesheetGroupByArgs = {
+    where?: BruteSpritesheetWhereInput
+    orderBy?: Enumerable<BruteSpritesheetOrderByWithAggregationInput>
+    by: BruteSpritesheetScalarFieldEnum[]
+    having?: BruteSpritesheetScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BruteSpritesheetCountAggregateInputType | true
+    _avg?: BruteSpritesheetAvgAggregateInputType
+    _sum?: BruteSpritesheetSumAggregateInputType
+    _min?: BruteSpritesheetMinAggregateInputType
+    _max?: BruteSpritesheetMaxAggregateInputType
+  }
+
+
+  export type BruteSpritesheetGroupByOutputType = {
+    id: number
+    bruteId: number
+    image: Buffer | null
+    json: JsonValue | null
+    _count: BruteSpritesheetCountAggregateOutputType | null
+    _avg: BruteSpritesheetAvgAggregateOutputType | null
+    _sum: BruteSpritesheetSumAggregateOutputType | null
+    _min: BruteSpritesheetMinAggregateOutputType | null
+    _max: BruteSpritesheetMaxAggregateOutputType | null
+  }
+
+  type GetBruteSpritesheetGroupByPayload<T extends BruteSpritesheetGroupByArgs> = PrismaPromise<
+    Array<
+      PickArray<BruteSpritesheetGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BruteSpritesheetGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BruteSpritesheetGroupByOutputType[P]>
+            : GetScalarType<T[P], BruteSpritesheetGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BruteSpritesheetSelect = {
+    id?: boolean
+    brute?: boolean | BruteArgs
+    bruteId?: boolean
+    image?: boolean
+    json?: boolean
+  }
+
+
+  export type BruteSpritesheetInclude = {
+    brute?: boolean | BruteArgs
+  }
+
+  export type BruteSpritesheetGetPayload<S extends boolean | null | undefined | BruteSpritesheetArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? BruteSpritesheet :
+    S extends undefined ? never :
+    S extends { include: any } & (BruteSpritesheetArgs | BruteSpritesheetFindManyArgs)
+    ? BruteSpritesheet  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'brute' ? BruteGetPayload<S['include'][P]> :  never
+  } 
+    : S extends { select: any } & (BruteSpritesheetArgs | BruteSpritesheetFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+        P extends 'brute' ? BruteGetPayload<S['select'][P]> :  P extends keyof BruteSpritesheet ? BruteSpritesheet[P] : never
+  } 
+      : BruteSpritesheet
+
+
+  type BruteSpritesheetCountArgs = 
+    Omit<BruteSpritesheetFindManyArgs, 'select' | 'include'> & {
+      select?: BruteSpritesheetCountAggregateInputType | true
+    }
+
+  export interface BruteSpritesheetDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one BruteSpritesheet that matches the filter.
+     * @param {BruteSpritesheetFindUniqueArgs} args - Arguments to find a BruteSpritesheet
+     * @example
+     * // Get one BruteSpritesheet
+     * const bruteSpritesheet = await prisma.bruteSpritesheet.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends BruteSpritesheetFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, BruteSpritesheetFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'BruteSpritesheet'> extends True ? Prisma__BruteSpritesheetClient<BruteSpritesheetGetPayload<T>> : Prisma__BruteSpritesheetClient<BruteSpritesheetGetPayload<T> | null, null>
+
+    /**
+     * Find one BruteSpritesheet that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {BruteSpritesheetFindUniqueOrThrowArgs} args - Arguments to find a BruteSpritesheet
+     * @example
+     * // Get one BruteSpritesheet
+     * const bruteSpritesheet = await prisma.bruteSpritesheet.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends BruteSpritesheetFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, BruteSpritesheetFindUniqueOrThrowArgs>
+    ): Prisma__BruteSpritesheetClient<BruteSpritesheetGetPayload<T>>
+
+    /**
+     * Find the first BruteSpritesheet that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteSpritesheetFindFirstArgs} args - Arguments to find a BruteSpritesheet
+     * @example
+     * // Get one BruteSpritesheet
+     * const bruteSpritesheet = await prisma.bruteSpritesheet.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends BruteSpritesheetFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, BruteSpritesheetFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'BruteSpritesheet'> extends True ? Prisma__BruteSpritesheetClient<BruteSpritesheetGetPayload<T>> : Prisma__BruteSpritesheetClient<BruteSpritesheetGetPayload<T> | null, null>
+
+    /**
+     * Find the first BruteSpritesheet that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteSpritesheetFindFirstOrThrowArgs} args - Arguments to find a BruteSpritesheet
+     * @example
+     * // Get one BruteSpritesheet
+     * const bruteSpritesheet = await prisma.bruteSpritesheet.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends BruteSpritesheetFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, BruteSpritesheetFindFirstOrThrowArgs>
+    ): Prisma__BruteSpritesheetClient<BruteSpritesheetGetPayload<T>>
+
+    /**
+     * Find zero or more BruteSpritesheets that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteSpritesheetFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BruteSpritesheets
+     * const bruteSpritesheets = await prisma.bruteSpritesheet.findMany()
+     * 
+     * // Get first 10 BruteSpritesheets
+     * const bruteSpritesheets = await prisma.bruteSpritesheet.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const bruteSpritesheetWithIdOnly = await prisma.bruteSpritesheet.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends BruteSpritesheetFindManyArgs>(
+      args?: SelectSubset<T, BruteSpritesheetFindManyArgs>
+    ): PrismaPromise<Array<BruteSpritesheetGetPayload<T>>>
+
+    /**
+     * Create a BruteSpritesheet.
+     * @param {BruteSpritesheetCreateArgs} args - Arguments to create a BruteSpritesheet.
+     * @example
+     * // Create one BruteSpritesheet
+     * const BruteSpritesheet = await prisma.bruteSpritesheet.create({
+     *   data: {
+     *     // ... data to create a BruteSpritesheet
+     *   }
+     * })
+     * 
+    **/
+    create<T extends BruteSpritesheetCreateArgs>(
+      args: SelectSubset<T, BruteSpritesheetCreateArgs>
+    ): Prisma__BruteSpritesheetClient<BruteSpritesheetGetPayload<T>>
+
+    /**
+     * Create many BruteSpritesheets.
+     *     @param {BruteSpritesheetCreateManyArgs} args - Arguments to create many BruteSpritesheets.
+     *     @example
+     *     // Create many BruteSpritesheets
+     *     const bruteSpritesheet = await prisma.bruteSpritesheet.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends BruteSpritesheetCreateManyArgs>(
+      args?: SelectSubset<T, BruteSpritesheetCreateManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a BruteSpritesheet.
+     * @param {BruteSpritesheetDeleteArgs} args - Arguments to delete one BruteSpritesheet.
+     * @example
+     * // Delete one BruteSpritesheet
+     * const BruteSpritesheet = await prisma.bruteSpritesheet.delete({
+     *   where: {
+     *     // ... filter to delete one BruteSpritesheet
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends BruteSpritesheetDeleteArgs>(
+      args: SelectSubset<T, BruteSpritesheetDeleteArgs>
+    ): Prisma__BruteSpritesheetClient<BruteSpritesheetGetPayload<T>>
+
+    /**
+     * Update one BruteSpritesheet.
+     * @param {BruteSpritesheetUpdateArgs} args - Arguments to update one BruteSpritesheet.
+     * @example
+     * // Update one BruteSpritesheet
+     * const bruteSpritesheet = await prisma.bruteSpritesheet.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends BruteSpritesheetUpdateArgs>(
+      args: SelectSubset<T, BruteSpritesheetUpdateArgs>
+    ): Prisma__BruteSpritesheetClient<BruteSpritesheetGetPayload<T>>
+
+    /**
+     * Delete zero or more BruteSpritesheets.
+     * @param {BruteSpritesheetDeleteManyArgs} args - Arguments to filter BruteSpritesheets to delete.
+     * @example
+     * // Delete a few BruteSpritesheets
+     * const { count } = await prisma.bruteSpritesheet.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends BruteSpritesheetDeleteManyArgs>(
+      args?: SelectSubset<T, BruteSpritesheetDeleteManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BruteSpritesheets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteSpritesheetUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BruteSpritesheets
+     * const bruteSpritesheet = await prisma.bruteSpritesheet.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends BruteSpritesheetUpdateManyArgs>(
+      args: SelectSubset<T, BruteSpritesheetUpdateManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one BruteSpritesheet.
+     * @param {BruteSpritesheetUpsertArgs} args - Arguments to update or create a BruteSpritesheet.
+     * @example
+     * // Update or create a BruteSpritesheet
+     * const bruteSpritesheet = await prisma.bruteSpritesheet.upsert({
+     *   create: {
+     *     // ... data to create a BruteSpritesheet
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BruteSpritesheet we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends BruteSpritesheetUpsertArgs>(
+      args: SelectSubset<T, BruteSpritesheetUpsertArgs>
+    ): Prisma__BruteSpritesheetClient<BruteSpritesheetGetPayload<T>>
+
+    /**
+     * Count the number of BruteSpritesheets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteSpritesheetCountArgs} args - Arguments to filter BruteSpritesheets to count.
+     * @example
+     * // Count the number of BruteSpritesheets
+     * const count = await prisma.bruteSpritesheet.count({
+     *   where: {
+     *     // ... the filter for the BruteSpritesheets we want to count
+     *   }
+     * })
+    **/
+    count<T extends BruteSpritesheetCountArgs>(
+      args?: Subset<T, BruteSpritesheetCountArgs>,
+    ): PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BruteSpritesheetCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BruteSpritesheet.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteSpritesheetAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BruteSpritesheetAggregateArgs>(args: Subset<T, BruteSpritesheetAggregateArgs>): PrismaPromise<GetBruteSpritesheetAggregateType<T>>
+
+    /**
+     * Group by BruteSpritesheet.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteSpritesheetGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BruteSpritesheetGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BruteSpritesheetGroupByArgs['orderBy'] }
+        : { orderBy?: BruteSpritesheetGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BruteSpritesheetGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBruteSpritesheetGroupByPayload<T> : PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BruteSpritesheet.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__BruteSpritesheetClient<T, Null = never> implements PrismaPromise<T> {
+    [prisma]: true;
+    private readonly _dmmf;
+    private readonly _fetcher;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    constructor(_dmmf: runtime.DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+    readonly [Symbol.toStringTag]: 'PrismaClientPromise';
+
+    brute<T extends BruteArgs= {}>(args?: Subset<T, BruteArgs>): Prisma__BruteClient<BruteGetPayload<T> | Null>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * BruteSpritesheet base type for findUnique actions
+   */
+  export type BruteSpritesheetFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the BruteSpritesheet
+     */
+    select?: BruteSpritesheetSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BruteSpritesheetInclude | null
+    /**
+     * Filter, which BruteSpritesheet to fetch.
+     */
+    where: BruteSpritesheetWhereUniqueInput
+  }
+
+  /**
+   * BruteSpritesheet findUnique
+   */
+  export interface BruteSpritesheetFindUniqueArgs extends BruteSpritesheetFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * BruteSpritesheet findUniqueOrThrow
+   */
+  export type BruteSpritesheetFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the BruteSpritesheet
+     */
+    select?: BruteSpritesheetSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BruteSpritesheetInclude | null
+    /**
+     * Filter, which BruteSpritesheet to fetch.
+     */
+    where: BruteSpritesheetWhereUniqueInput
+  }
+
+
+  /**
+   * BruteSpritesheet base type for findFirst actions
+   */
+  export type BruteSpritesheetFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the BruteSpritesheet
+     */
+    select?: BruteSpritesheetSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BruteSpritesheetInclude | null
+    /**
+     * Filter, which BruteSpritesheet to fetch.
+     */
+    where?: BruteSpritesheetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BruteSpritesheets to fetch.
+     */
+    orderBy?: Enumerable<BruteSpritesheetOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BruteSpritesheets.
+     */
+    cursor?: BruteSpritesheetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BruteSpritesheets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BruteSpritesheets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BruteSpritesheets.
+     */
+    distinct?: Enumerable<BruteSpritesheetScalarFieldEnum>
+  }
+
+  /**
+   * BruteSpritesheet findFirst
+   */
+  export interface BruteSpritesheetFindFirstArgs extends BruteSpritesheetFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * BruteSpritesheet findFirstOrThrow
+   */
+  export type BruteSpritesheetFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the BruteSpritesheet
+     */
+    select?: BruteSpritesheetSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BruteSpritesheetInclude | null
+    /**
+     * Filter, which BruteSpritesheet to fetch.
+     */
+    where?: BruteSpritesheetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BruteSpritesheets to fetch.
+     */
+    orderBy?: Enumerable<BruteSpritesheetOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BruteSpritesheets.
+     */
+    cursor?: BruteSpritesheetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BruteSpritesheets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BruteSpritesheets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BruteSpritesheets.
+     */
+    distinct?: Enumerable<BruteSpritesheetScalarFieldEnum>
+  }
+
+
+  /**
+   * BruteSpritesheet findMany
+   */
+  export type BruteSpritesheetFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the BruteSpritesheet
+     */
+    select?: BruteSpritesheetSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BruteSpritesheetInclude | null
+    /**
+     * Filter, which BruteSpritesheets to fetch.
+     */
+    where?: BruteSpritesheetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BruteSpritesheets to fetch.
+     */
+    orderBy?: Enumerable<BruteSpritesheetOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BruteSpritesheets.
+     */
+    cursor?: BruteSpritesheetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BruteSpritesheets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BruteSpritesheets.
+     */
+    skip?: number
+    distinct?: Enumerable<BruteSpritesheetScalarFieldEnum>
+  }
+
+
+  /**
+   * BruteSpritesheet create
+   */
+  export type BruteSpritesheetCreateArgs = {
+    /**
+     * Select specific fields to fetch from the BruteSpritesheet
+     */
+    select?: BruteSpritesheetSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BruteSpritesheetInclude | null
+    /**
+     * The data needed to create a BruteSpritesheet.
+     */
+    data: XOR<BruteSpritesheetCreateInput, BruteSpritesheetUncheckedCreateInput>
+  }
+
+
+  /**
+   * BruteSpritesheet createMany
+   */
+  export type BruteSpritesheetCreateManyArgs = {
+    /**
+     * The data used to create many BruteSpritesheets.
+     */
+    data: Enumerable<BruteSpritesheetCreateManyInput>
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * BruteSpritesheet update
+   */
+  export type BruteSpritesheetUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the BruteSpritesheet
+     */
+    select?: BruteSpritesheetSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BruteSpritesheetInclude | null
+    /**
+     * The data needed to update a BruteSpritesheet.
+     */
+    data: XOR<BruteSpritesheetUpdateInput, BruteSpritesheetUncheckedUpdateInput>
+    /**
+     * Choose, which BruteSpritesheet to update.
+     */
+    where: BruteSpritesheetWhereUniqueInput
+  }
+
+
+  /**
+   * BruteSpritesheet updateMany
+   */
+  export type BruteSpritesheetUpdateManyArgs = {
+    /**
+     * The data used to update BruteSpritesheets.
+     */
+    data: XOR<BruteSpritesheetUpdateManyMutationInput, BruteSpritesheetUncheckedUpdateManyInput>
+    /**
+     * Filter which BruteSpritesheets to update
+     */
+    where?: BruteSpritesheetWhereInput
+  }
+
+
+  /**
+   * BruteSpritesheet upsert
+   */
+  export type BruteSpritesheetUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the BruteSpritesheet
+     */
+    select?: BruteSpritesheetSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BruteSpritesheetInclude | null
+    /**
+     * The filter to search for the BruteSpritesheet to update in case it exists.
+     */
+    where: BruteSpritesheetWhereUniqueInput
+    /**
+     * In case the BruteSpritesheet found by the `where` argument doesn't exist, create a new BruteSpritesheet with this data.
+     */
+    create: XOR<BruteSpritesheetCreateInput, BruteSpritesheetUncheckedCreateInput>
+    /**
+     * In case the BruteSpritesheet was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BruteSpritesheetUpdateInput, BruteSpritesheetUncheckedUpdateInput>
+  }
+
+
+  /**
+   * BruteSpritesheet delete
+   */
+  export type BruteSpritesheetDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the BruteSpritesheet
+     */
+    select?: BruteSpritesheetSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BruteSpritesheetInclude | null
+    /**
+     * Filter which BruteSpritesheet to delete.
+     */
+    where: BruteSpritesheetWhereUniqueInput
+  }
+
+
+  /**
+   * BruteSpritesheet deleteMany
+   */
+  export type BruteSpritesheetDeleteManyArgs = {
+    /**
+     * Filter which BruteSpritesheets to delete
+     */
+    where?: BruteSpritesheetWhereInput
+  }
+
+
+  /**
+   * BruteSpritesheet without action
+   */
+  export type BruteSpritesheetArgs = {
+    /**
+     * Select specific fields to fetch from the BruteSpritesheet
+     */
+    select?: BruteSpritesheetSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BruteSpritesheetInclude | null
   }
 
 
@@ -10087,8 +11060,6 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     deleted: 'deleted',
-    spritesheet: 'spritesheet',
-    spritesheetJson: 'spritesheetJson',
     destinyPath: 'destinyPath',
     level: 'level',
     xp: 'xp',
@@ -10121,6 +11092,16 @@ export namespace Prisma {
   };
 
   export type BruteScalarFieldEnum = (typeof BruteScalarFieldEnum)[keyof typeof BruteScalarFieldEnum]
+
+
+  export const BruteSpritesheetScalarFieldEnum: {
+    id: 'id',
+    bruteId: 'bruteId',
+    image: 'image',
+    json: 'json'
+  };
+
+  export type BruteSpritesheetScalarFieldEnum = (typeof BruteSpritesheetScalarFieldEnum)[keyof typeof BruteSpritesheetScalarFieldEnum]
 
 
   export const ClanScalarFieldEnum: {
@@ -10501,8 +11482,6 @@ export namespace Prisma {
     id?: IntFilter | number
     name?: StringFilter | string
     deleted?: BoolFilter | boolean
-    spritesheet?: BytesNullableFilter | Buffer | null
-    spritesheetJson?: JsonNullableFilter
     destinyPath?: EnumDestinyChoiceSideNullableListFilter
     level?: IntFilter | number
     xp?: IntFilter | number
@@ -10542,14 +11521,13 @@ export namespace Prisma {
     fightsAsAdversary?: FightListRelationFilter
     logs?: LogListRelationFilter
     destinyChoices?: DestinyChoiceListRelationFilter
+    spritesheet?: XOR<BruteSpritesheetRelationFilter, BruteSpritesheetWhereInput> | null
   }
 
   export type BruteOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
     deleted?: SortOrder
-    spritesheet?: SortOrder
-    spritesheetJson?: SortOrder
     destinyPath?: SortOrder
     level?: SortOrder
     xp?: SortOrder
@@ -10589,6 +11567,7 @@ export namespace Prisma {
     fightsAsAdversary?: FightOrderByRelationAggregateInput
     logs?: LogOrderByRelationAggregateInput
     destinyChoices?: DestinyChoiceOrderByRelationAggregateInput
+    spritesheet?: BruteSpritesheetOrderByWithRelationInput
   }
 
   export type BruteWhereUniqueInput = {
@@ -10599,8 +11578,6 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     deleted?: SortOrder
-    spritesheet?: SortOrder
-    spritesheetJson?: SortOrder
     destinyPath?: SortOrder
     level?: SortOrder
     xp?: SortOrder
@@ -10644,8 +11621,6 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter | number
     name?: StringWithAggregatesFilter | string
     deleted?: BoolWithAggregatesFilter | boolean
-    spritesheet?: BytesNullableWithAggregatesFilter | Buffer | null
-    spritesheetJson?: JsonNullableWithAggregatesFilter
     destinyPath?: EnumDestinyChoiceSideNullableListFilter
     level?: IntWithAggregatesFilter | number
     xp?: IntWithAggregatesFilter | number
@@ -10675,6 +11650,52 @@ export namespace Prisma {
     lastFight?: DateTimeNullableWithAggregatesFilter | Date | string | null
     fightsLeft?: IntWithAggregatesFilter | number
     victories?: IntWithAggregatesFilter | number
+  }
+
+  export type BruteSpritesheetWhereInput = {
+    AND?: Enumerable<BruteSpritesheetWhereInput>
+    OR?: Enumerable<BruteSpritesheetWhereInput>
+    NOT?: Enumerable<BruteSpritesheetWhereInput>
+    id?: IntFilter | number
+    brute?: XOR<BruteRelationFilter, BruteWhereInput>
+    bruteId?: IntFilter | number
+    image?: BytesNullableFilter | Buffer | null
+    json?: JsonNullableFilter
+  }
+
+  export type BruteSpritesheetOrderByWithRelationInput = {
+    id?: SortOrder
+    brute?: BruteOrderByWithRelationInput
+    bruteId?: SortOrder
+    image?: SortOrder
+    json?: SortOrder
+  }
+
+  export type BruteSpritesheetWhereUniqueInput = {
+    id?: number
+    bruteId?: number
+  }
+
+  export type BruteSpritesheetOrderByWithAggregationInput = {
+    id?: SortOrder
+    bruteId?: SortOrder
+    image?: SortOrder
+    json?: SortOrder
+    _count?: BruteSpritesheetCountOrderByAggregateInput
+    _avg?: BruteSpritesheetAvgOrderByAggregateInput
+    _max?: BruteSpritesheetMaxOrderByAggregateInput
+    _min?: BruteSpritesheetMinOrderByAggregateInput
+    _sum?: BruteSpritesheetSumOrderByAggregateInput
+  }
+
+  export type BruteSpritesheetScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<BruteSpritesheetScalarWhereWithAggregatesInput>
+    OR?: Enumerable<BruteSpritesheetScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<BruteSpritesheetScalarWhereWithAggregatesInput>
+    id?: IntWithAggregatesFilter | number
+    bruteId?: IntWithAggregatesFilter | number
+    image?: BytesNullableWithAggregatesFilter | Buffer | null
+    json?: JsonNullableWithAggregatesFilter
   }
 
   export type ClanWhereInput = {
@@ -11258,8 +12279,6 @@ export namespace Prisma {
   export type BruteCreateInput = {
     name: string
     deleted?: boolean
-    spritesheet?: Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -11296,14 +12315,13 @@ export namespace Prisma {
     fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
     logs?: LogCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
+    spritesheet?: BruteSpritesheetCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateInput = {
     id?: number
     name: string
     deleted?: boolean
-    spritesheet?: Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -11340,13 +12358,12 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
     logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
+    spritesheet?: BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     deleted?: BoolFieldUpdateOperationsInput | boolean
-    spritesheet?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -11383,14 +12400,13 @@ export namespace Prisma {
     fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
     logs?: LogUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
+    spritesheet?: BruteSpritesheetUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     deleted?: BoolFieldUpdateOperationsInput | boolean
-    spritesheet?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -11427,14 +12443,13 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
     logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
+    spritesheet?: BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteCreateManyInput = {
     id?: number
     name: string
     deleted?: boolean
-    spritesheet?: Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -11469,8 +12484,6 @@ export namespace Prisma {
   export type BruteUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
     deleted?: BoolFieldUpdateOperationsInput | boolean
-    spritesheet?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -11503,8 +12516,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     deleted?: BoolFieldUpdateOperationsInput | boolean
-    spritesheet?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -11534,6 +12545,51 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type BruteSpritesheetCreateInput = {
+    brute: BruteCreateNestedOneWithoutSpritesheetInput
+    image?: Buffer | null
+    json?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type BruteSpritesheetUncheckedCreateInput = {
+    id?: number
+    bruteId: number
+    image?: Buffer | null
+    json?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type BruteSpritesheetUpdateInput = {
+    brute?: BruteUpdateOneRequiredWithoutSpritesheetNestedInput
+    image?: NullableBytesFieldUpdateOperationsInput | Buffer | null
+    json?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type BruteSpritesheetUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    bruteId?: IntFieldUpdateOperationsInput | number
+    image?: NullableBytesFieldUpdateOperationsInput | Buffer | null
+    json?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type BruteSpritesheetCreateManyInput = {
+    id?: number
+    bruteId: number
+    image?: Buffer | null
+    json?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type BruteSpritesheetUpdateManyMutationInput = {
+    image?: NullableBytesFieldUpdateOperationsInput | Buffer | null
+    json?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type BruteSpritesheetUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    bruteId?: IntFieldUpdateOperationsInput | number
+    image?: NullableBytesFieldUpdateOperationsInput | Buffer | null
+    json?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ClanCreateInput = {
@@ -12161,35 +13217,6 @@ export namespace Prisma {
     bruteId?: SortOrder
   }
 
-  export type BytesNullableFilter = {
-    equals?: Buffer | null
-    in?: Enumerable<Buffer> | null
-    notIn?: Enumerable<Buffer> | null
-    not?: NestedBytesNullableFilter | Buffer | null
-  }
-  export type JsonNullableFilter = 
-    | PatchUndefined<
-        Either<Required<JsonNullableFilterBase>, Exclude<keyof Required<JsonNullableFilterBase>, 'path'>>,
-        Required<JsonNullableFilterBase>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableFilterBase>, 'path'>>
-
-  export type JsonNullableFilterBase = {
-    equals?: InputJsonValue | JsonNullValueFilter
-    path?: string[]
-    string_contains?: string
-    string_starts_with?: string
-    string_ends_with?: string
-    array_contains?: InputJsonValue | null
-    array_starts_with?: InputJsonValue | null
-    array_ends_with?: InputJsonValue | null
-    lt?: InputJsonValue
-    lte?: InputJsonValue
-    gt?: InputJsonValue
-    gte?: InputJsonValue
-    not?: InputJsonValue | JsonNullValueFilter
-  }
-
   export type EnumDestinyChoiceSideNullableListFilter = {
     equals?: Enumerable<DestinyChoiceSide> | null
     has?: DestinyChoiceSide | null
@@ -12312,6 +13339,11 @@ export namespace Prisma {
     none?: DestinyChoiceWhereInput
   }
 
+  export type BruteSpritesheetRelationFilter = {
+    is?: BruteSpritesheetWhereInput | null
+    isNot?: BruteSpritesheetWhereInput | null
+  }
+
   export type FightOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -12328,8 +13360,6 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     deleted?: SortOrder
-    spritesheet?: SortOrder
-    spritesheetJson?: SortOrder
     destinyPath?: SortOrder
     level?: SortOrder
     xp?: SortOrder
@@ -12390,7 +13420,6 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     deleted?: SortOrder
-    spritesheet?: SortOrder
     level?: SortOrder
     xp?: SortOrder
     hp?: SortOrder
@@ -12422,7 +13451,6 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     deleted?: SortOrder
-    spritesheet?: SortOrder
     level?: SortOrder
     xp?: SortOrder
     hp?: SortOrder
@@ -12473,41 +13501,6 @@ export namespace Prisma {
     clanId?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
-  }
-
-  export type BytesNullableWithAggregatesFilter = {
-    equals?: Buffer | null
-    in?: Enumerable<Buffer> | null
-    notIn?: Enumerable<Buffer> | null
-    not?: NestedBytesNullableWithAggregatesFilter | Buffer | null
-    _count?: NestedIntNullableFilter
-    _min?: NestedBytesNullableFilter
-    _max?: NestedBytesNullableFilter
-  }
-  export type JsonNullableWithAggregatesFilter = 
-    | PatchUndefined<
-        Either<Required<JsonNullableWithAggregatesFilterBase>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase>, 'path'>>,
-        Required<JsonNullableWithAggregatesFilterBase>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase>, 'path'>>
-
-  export type JsonNullableWithAggregatesFilterBase = {
-    equals?: InputJsonValue | JsonNullValueFilter
-    path?: string[]
-    string_contains?: string
-    string_starts_with?: string
-    string_ends_with?: string
-    array_contains?: InputJsonValue | null
-    array_starts_with?: InputJsonValue | null
-    array_ends_with?: InputJsonValue | null
-    lt?: InputJsonValue
-    lte?: InputJsonValue
-    gt?: InputJsonValue
-    gte?: InputJsonValue
-    not?: InputJsonValue | JsonNullValueFilter
-    _count?: NestedIntNullableFilter
-    _min?: NestedJsonNullableFilter
-    _max?: NestedJsonNullableFilter
   }
 
   export type FloatWithAggregatesFilter = {
@@ -12579,6 +13572,99 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter
     _min?: NestedDateTimeNullableFilter
     _max?: NestedDateTimeNullableFilter
+  }
+
+  export type BytesNullableFilter = {
+    equals?: Buffer | null
+    in?: Enumerable<Buffer> | null
+    notIn?: Enumerable<Buffer> | null
+    not?: NestedBytesNullableFilter | Buffer | null
+  }
+  export type JsonNullableFilter = 
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase>, Exclude<keyof Required<JsonNullableFilterBase>, 'path'>>,
+        Required<JsonNullableFilterBase>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase>, 'path'>>
+
+  export type JsonNullableFilterBase = {
+    equals?: InputJsonValue | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string
+    string_starts_with?: string
+    string_ends_with?: string
+    array_contains?: InputJsonValue | null
+    array_starts_with?: InputJsonValue | null
+    array_ends_with?: InputJsonValue | null
+    lt?: InputJsonValue
+    lte?: InputJsonValue
+    gt?: InputJsonValue
+    gte?: InputJsonValue
+    not?: InputJsonValue | JsonNullValueFilter
+  }
+
+  export type BruteSpritesheetCountOrderByAggregateInput = {
+    id?: SortOrder
+    bruteId?: SortOrder
+    image?: SortOrder
+    json?: SortOrder
+  }
+
+  export type BruteSpritesheetAvgOrderByAggregateInput = {
+    id?: SortOrder
+    bruteId?: SortOrder
+  }
+
+  export type BruteSpritesheetMaxOrderByAggregateInput = {
+    id?: SortOrder
+    bruteId?: SortOrder
+    image?: SortOrder
+  }
+
+  export type BruteSpritesheetMinOrderByAggregateInput = {
+    id?: SortOrder
+    bruteId?: SortOrder
+    image?: SortOrder
+  }
+
+  export type BruteSpritesheetSumOrderByAggregateInput = {
+    id?: SortOrder
+    bruteId?: SortOrder
+  }
+
+  export type BytesNullableWithAggregatesFilter = {
+    equals?: Buffer | null
+    in?: Enumerable<Buffer> | null
+    notIn?: Enumerable<Buffer> | null
+    not?: NestedBytesNullableWithAggregatesFilter | Buffer | null
+    _count?: NestedIntNullableFilter
+    _min?: NestedBytesNullableFilter
+    _max?: NestedBytesNullableFilter
+  }
+  export type JsonNullableWithAggregatesFilter = 
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase = {
+    equals?: InputJsonValue | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string
+    string_starts_with?: string
+    string_ends_with?: string
+    array_contains?: InputJsonValue | null
+    array_starts_with?: InputJsonValue | null
+    array_ends_with?: InputJsonValue | null
+    lt?: InputJsonValue
+    lte?: InputJsonValue
+    gt?: InputJsonValue
+    gte?: InputJsonValue
+    not?: InputJsonValue | JsonNullValueFilter
+    _count?: NestedIntNullableFilter
+    _min?: NestedJsonNullableFilter
+    _max?: NestedJsonNullableFilter
   }
 
   export type ClanCountOrderByAggregateInput = {
@@ -13131,6 +14217,12 @@ export namespace Prisma {
     connect?: Enumerable<DestinyChoiceWhereUniqueInput>
   }
 
+  export type BruteSpritesheetCreateNestedOneWithoutBruteInput = {
+    create?: XOR<BruteSpritesheetCreateWithoutBruteInput, BruteSpritesheetUncheckedCreateWithoutBruteInput>
+    connectOrCreate?: BruteSpritesheetCreateOrConnectWithoutBruteInput
+    connect?: BruteSpritesheetWhereUniqueInput
+  }
+
   export type BruteBodyUncheckedCreateNestedOneWithoutBruteInput = {
     create?: XOR<BruteBodyCreateWithoutBruteInput, BruteBodyUncheckedCreateWithoutBruteInput>
     connectOrCreate?: BruteBodyCreateOrConnectWithoutBruteInput
@@ -13178,8 +14270,10 @@ export namespace Prisma {
     connect?: Enumerable<DestinyChoiceWhereUniqueInput>
   }
 
-  export type NullableBytesFieldUpdateOperationsInput = {
-    set?: Buffer | null
+  export type BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput = {
+    create?: XOR<BruteSpritesheetCreateWithoutBruteInput, BruteSpritesheetUncheckedCreateWithoutBruteInput>
+    connectOrCreate?: BruteSpritesheetCreateOrConnectWithoutBruteInput
+    connect?: BruteSpritesheetWhereUniqueInput
   }
 
   export type BruteUpdatedestinyPathInput = {
@@ -13338,6 +14432,16 @@ export namespace Prisma {
     deleteMany?: Enumerable<DestinyChoiceScalarWhereInput>
   }
 
+  export type BruteSpritesheetUpdateOneWithoutBruteNestedInput = {
+    create?: XOR<BruteSpritesheetCreateWithoutBruteInput, BruteSpritesheetUncheckedCreateWithoutBruteInput>
+    connectOrCreate?: BruteSpritesheetCreateOrConnectWithoutBruteInput
+    upsert?: BruteSpritesheetUpsertWithoutBruteInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: BruteSpritesheetWhereUniqueInput
+    update?: XOR<BruteSpritesheetUpdateWithoutBruteInput, BruteSpritesheetUncheckedUpdateWithoutBruteInput>
+  }
+
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
   }
@@ -13438,6 +14542,34 @@ export namespace Prisma {
     update?: Enumerable<DestinyChoiceUpdateWithWhereUniqueWithoutBruteInput>
     updateMany?: Enumerable<DestinyChoiceUpdateManyWithWhereWithoutBruteInput>
     deleteMany?: Enumerable<DestinyChoiceScalarWhereInput>
+  }
+
+  export type BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput = {
+    create?: XOR<BruteSpritesheetCreateWithoutBruteInput, BruteSpritesheetUncheckedCreateWithoutBruteInput>
+    connectOrCreate?: BruteSpritesheetCreateOrConnectWithoutBruteInput
+    upsert?: BruteSpritesheetUpsertWithoutBruteInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: BruteSpritesheetWhereUniqueInput
+    update?: XOR<BruteSpritesheetUpdateWithoutBruteInput, BruteSpritesheetUncheckedUpdateWithoutBruteInput>
+  }
+
+  export type BruteCreateNestedOneWithoutSpritesheetInput = {
+    create?: XOR<BruteCreateWithoutSpritesheetInput, BruteUncheckedCreateWithoutSpritesheetInput>
+    connectOrCreate?: BruteCreateOrConnectWithoutSpritesheetInput
+    connect?: BruteWhereUniqueInput
+  }
+
+  export type BruteUpdateOneRequiredWithoutSpritesheetNestedInput = {
+    create?: XOR<BruteCreateWithoutSpritesheetInput, BruteUncheckedCreateWithoutSpritesheetInput>
+    connectOrCreate?: BruteCreateOrConnectWithoutSpritesheetInput
+    upsert?: BruteUpsertWithoutSpritesheetInput
+    connect?: BruteWhereUniqueInput
+    update?: XOR<BruteUpdateWithoutSpritesheetInput, BruteUncheckedUpdateWithoutSpritesheetInput>
+  }
+
+  export type NullableBytesFieldUpdateOperationsInput = {
+    set?: Buffer | null
   }
 
   export type BruteCreateNestedManyWithoutClanInput = {
@@ -13757,13 +14889,6 @@ export namespace Prisma {
     not?: NestedFloatFilter | number
   }
 
-  export type NestedBytesNullableFilter = {
-    equals?: Buffer | null
-    in?: Enumerable<Buffer> | null
-    notIn?: Enumerable<Buffer> | null
-    not?: NestedBytesNullableFilter | Buffer | null
-  }
-
   export type NestedEnumGenderFilter = {
     equals?: Gender
     in?: Enumerable<Gender>
@@ -13802,38 +14927,6 @@ export namespace Prisma {
     gt?: Date | string
     gte?: Date | string
     not?: NestedDateTimeNullableFilter | Date | string | null
-  }
-
-  export type NestedBytesNullableWithAggregatesFilter = {
-    equals?: Buffer | null
-    in?: Enumerable<Buffer> | null
-    notIn?: Enumerable<Buffer> | null
-    not?: NestedBytesNullableWithAggregatesFilter | Buffer | null
-    _count?: NestedIntNullableFilter
-    _min?: NestedBytesNullableFilter
-    _max?: NestedBytesNullableFilter
-  }
-  export type NestedJsonNullableFilter = 
-    | PatchUndefined<
-        Either<Required<NestedJsonNullableFilterBase>, Exclude<keyof Required<NestedJsonNullableFilterBase>, 'path'>>,
-        Required<NestedJsonNullableFilterBase>
-      >
-    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase>, 'path'>>
-
-  export type NestedJsonNullableFilterBase = {
-    equals?: InputJsonValue | JsonNullValueFilter
-    path?: string[]
-    string_contains?: string
-    string_starts_with?: string
-    string_ends_with?: string
-    array_contains?: InputJsonValue | null
-    array_starts_with?: InputJsonValue | null
-    array_ends_with?: InputJsonValue | null
-    lt?: InputJsonValue
-    lte?: InputJsonValue
-    gt?: InputJsonValue
-    gte?: InputJsonValue
-    not?: InputJsonValue | JsonNullValueFilter
   }
 
   export type NestedFloatWithAggregatesFilter = {
@@ -13929,6 +15022,45 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter
     _min?: NestedDateTimeNullableFilter
     _max?: NestedDateTimeNullableFilter
+  }
+
+  export type NestedBytesNullableFilter = {
+    equals?: Buffer | null
+    in?: Enumerable<Buffer> | null
+    notIn?: Enumerable<Buffer> | null
+    not?: NestedBytesNullableFilter | Buffer | null
+  }
+
+  export type NestedBytesNullableWithAggregatesFilter = {
+    equals?: Buffer | null
+    in?: Enumerable<Buffer> | null
+    notIn?: Enumerable<Buffer> | null
+    not?: NestedBytesNullableWithAggregatesFilter | Buffer | null
+    _count?: NestedIntNullableFilter
+    _min?: NestedBytesNullableFilter
+    _max?: NestedBytesNullableFilter
+  }
+  export type NestedJsonNullableFilter = 
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase>, Exclude<keyof Required<NestedJsonNullableFilterBase>, 'path'>>,
+        Required<NestedJsonNullableFilterBase>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase>, 'path'>>
+
+  export type NestedJsonNullableFilterBase = {
+    equals?: InputJsonValue | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string
+    string_starts_with?: string
+    string_ends_with?: string
+    array_contains?: InputJsonValue | null
+    array_starts_with?: InputJsonValue | null
+    array_ends_with?: InputJsonValue | null
+    lt?: InputJsonValue
+    lte?: InputJsonValue
+    gt?: InputJsonValue
+    gte?: InputJsonValue
+    not?: InputJsonValue | JsonNullValueFilter
   }
 
   export type NestedDateTimeFilter = {
@@ -14100,8 +15232,6 @@ export namespace Prisma {
   export type BruteCreateWithoutUserInput = {
     name: string
     deleted?: boolean
-    spritesheet?: Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -14137,14 +15267,13 @@ export namespace Prisma {
     fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
     logs?: LogCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
+    spritesheet?: BruteSpritesheetCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutUserInput = {
     id?: number
     name: string
     deleted?: boolean
-    spritesheet?: Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -14180,6 +15309,7 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
     logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
+    spritesheet?: BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutUserInput = {
@@ -14215,8 +15345,6 @@ export namespace Prisma {
     id?: IntFilter | number
     name?: StringFilter | string
     deleted?: BoolFilter | boolean
-    spritesheet?: BytesNullableFilter | Buffer | null
-    spritesheetJson?: JsonNullableFilter
     destinyPath?: EnumDestinyChoiceSideNullableListFilter
     level?: IntFilter | number
     xp?: IntFilter | number
@@ -14251,8 +15379,6 @@ export namespace Prisma {
   export type BruteCreateWithoutBodyInput = {
     name: string
     deleted?: boolean
-    spritesheet?: Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -14288,14 +15414,13 @@ export namespace Prisma {
     fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
     logs?: LogCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
+    spritesheet?: BruteSpritesheetCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutBodyInput = {
     id?: number
     name: string
     deleted?: boolean
-    spritesheet?: Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -14331,6 +15456,7 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
     logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
+    spritesheet?: BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutBodyInput = {
@@ -14346,8 +15472,6 @@ export namespace Prisma {
   export type BruteUpdateWithoutBodyInput = {
     name?: StringFieldUpdateOperationsInput | string
     deleted?: BoolFieldUpdateOperationsInput | boolean
-    spritesheet?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -14383,14 +15507,13 @@ export namespace Prisma {
     fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
     logs?: LogUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
+    spritesheet?: BruteSpritesheetUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutBodyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     deleted?: BoolFieldUpdateOperationsInput | boolean
-    spritesheet?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -14426,13 +15549,12 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
     logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
+    spritesheet?: BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteCreateWithoutColorsInput = {
     name: string
     deleted?: boolean
-    spritesheet?: Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -14468,14 +15590,13 @@ export namespace Prisma {
     fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
     logs?: LogCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
+    spritesheet?: BruteSpritesheetCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutColorsInput = {
     id?: number
     name: string
     deleted?: boolean
-    spritesheet?: Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -14511,6 +15632,7 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
     logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
+    spritesheet?: BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutColorsInput = {
@@ -14526,8 +15648,6 @@ export namespace Prisma {
   export type BruteUpdateWithoutColorsInput = {
     name?: StringFieldUpdateOperationsInput | string
     deleted?: BoolFieldUpdateOperationsInput | boolean
-    spritesheet?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -14563,14 +15683,13 @@ export namespace Prisma {
     fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
     logs?: LogUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
+    spritesheet?: BruteSpritesheetUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutColorsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     deleted?: BoolFieldUpdateOperationsInput | boolean
-    spritesheet?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -14606,6 +15725,7 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
     logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
+    spritesheet?: BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type UserCreateWithoutBrutesInput = {
@@ -14718,8 +15838,6 @@ export namespace Prisma {
   export type BruteCreateWithoutPupilsInput = {
     name: string
     deleted?: boolean
-    spritesheet?: Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -14755,14 +15873,13 @@ export namespace Prisma {
     fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
     logs?: LogCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
+    spritesheet?: BruteSpritesheetCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutPupilsInput = {
     id?: number
     name: string
     deleted?: boolean
-    spritesheet?: Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -14798,6 +15915,7 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
     logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
+    spritesheet?: BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutPupilsInput = {
@@ -14808,8 +15926,6 @@ export namespace Prisma {
   export type BruteCreateWithoutMasterInput = {
     name: string
     deleted?: boolean
-    spritesheet?: Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -14845,14 +15961,13 @@ export namespace Prisma {
     fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
     logs?: LogCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
+    spritesheet?: BruteSpritesheetCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutMasterInput = {
     id?: number
     name: string
     deleted?: boolean
-    spritesheet?: Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -14888,6 +16003,7 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
     logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
+    spritesheet?: BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutMasterInput = {
@@ -15040,6 +16156,22 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type BruteSpritesheetCreateWithoutBruteInput = {
+    image?: Buffer | null
+    json?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type BruteSpritesheetUncheckedCreateWithoutBruteInput = {
+    id?: number
+    image?: Buffer | null
+    json?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type BruteSpritesheetCreateOrConnectWithoutBruteInput = {
+    where: BruteSpritesheetWhereUniqueInput
+    create: XOR<BruteSpritesheetCreateWithoutBruteInput, BruteSpritesheetUncheckedCreateWithoutBruteInput>
+  }
+
   export type UserUpsertWithoutBrutesInput = {
     update: XOR<UserUpdateWithoutBrutesInput, UserUncheckedUpdateWithoutBrutesInput>
     create: XOR<UserCreateWithoutBrutesInput, UserUncheckedCreateWithoutBrutesInput>
@@ -15155,8 +16287,6 @@ export namespace Prisma {
   export type BruteUpdateWithoutPupilsInput = {
     name?: StringFieldUpdateOperationsInput | string
     deleted?: BoolFieldUpdateOperationsInput | boolean
-    spritesheet?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -15192,14 +16322,13 @@ export namespace Prisma {
     fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
     logs?: LogUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
+    spritesheet?: BruteSpritesheetUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutPupilsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     deleted?: BoolFieldUpdateOperationsInput | boolean
-    spritesheet?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -15235,6 +16364,7 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
     logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
+    spritesheet?: BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUpsertWithWhereUniqueWithoutMasterInput = {
@@ -15376,11 +16506,201 @@ export namespace Prisma {
     stat2Value?: IntNullableFilter | number | null
   }
 
+  export type BruteSpritesheetUpsertWithoutBruteInput = {
+    update: XOR<BruteSpritesheetUpdateWithoutBruteInput, BruteSpritesheetUncheckedUpdateWithoutBruteInput>
+    create: XOR<BruteSpritesheetCreateWithoutBruteInput, BruteSpritesheetUncheckedCreateWithoutBruteInput>
+  }
+
+  export type BruteSpritesheetUpdateWithoutBruteInput = {
+    image?: NullableBytesFieldUpdateOperationsInput | Buffer | null
+    json?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type BruteSpritesheetUncheckedUpdateWithoutBruteInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    image?: NullableBytesFieldUpdateOperationsInput | Buffer | null
+    json?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type BruteCreateWithoutSpritesheetInput = {
+    name: string
+    deleted?: boolean
+    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    level?: number
+    xp?: number
+    hp?: number
+    enduranceStat?: number
+    enduranceModifier?: number
+    enduranceValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    gender: Gender
+    user?: UserCreateNestedOneWithoutBrutesInput
+    body?: BruteBodyCreateNestedOneWithoutBruteInput
+    colors?: BruteColorsCreateNestedOneWithoutBruteInput
+    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
+    skills?: BruteCreateskillsInput | Enumerable<SkillName>
+    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    master?: BruteCreateNestedOneWithoutPupilsInput
+    pupils?: BruteCreateNestedManyWithoutMasterInput
+    pupilsCount?: number
+    clan?: ClanCreateNestedOneWithoutBrutesInput
+    tournament?: Date | string | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    fights?: FightCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
+    logs?: LogCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
+  }
+
+  export type BruteUncheckedCreateWithoutSpritesheetInput = {
+    id?: number
+    name: string
+    deleted?: boolean
+    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    level?: number
+    xp?: number
+    hp?: number
+    enduranceStat?: number
+    enduranceModifier?: number
+    enduranceValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    gender: Gender
+    userId?: string | null
+    body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
+    colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
+    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
+    skills?: BruteCreateskillsInput | Enumerable<SkillName>
+    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    masterId?: number | null
+    pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
+    pupilsCount?: number
+    clanId?: number | null
+    tournament?: Date | string | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
+    logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
+  }
+
+  export type BruteCreateOrConnectWithoutSpritesheetInput = {
+    where: BruteWhereUniqueInput
+    create: XOR<BruteCreateWithoutSpritesheetInput, BruteUncheckedCreateWithoutSpritesheetInput>
+  }
+
+  export type BruteUpsertWithoutSpritesheetInput = {
+    update: XOR<BruteUpdateWithoutSpritesheetInput, BruteUncheckedUpdateWithoutSpritesheetInput>
+    create: XOR<BruteCreateWithoutSpritesheetInput, BruteUncheckedCreateWithoutSpritesheetInput>
+  }
+
+  export type BruteUpdateWithoutSpritesheetInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    deleted?: BoolFieldUpdateOperationsInput | boolean
+    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    gender?: EnumGenderFieldUpdateOperationsInput | Gender
+    user?: UserUpdateOneWithoutBrutesNestedInput
+    body?: BruteBodyUpdateOneWithoutBruteNestedInput
+    colors?: BruteColorsUpdateOneWithoutBruteNestedInput
+    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
+    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
+    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    master?: BruteUpdateOneWithoutPupilsNestedInput
+    pupils?: BruteUpdateManyWithoutMasterNestedInput
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    clan?: ClanUpdateOneWithoutBrutesNestedInput
+    tournament?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    fights?: FightUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
+    logs?: LogUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
+  }
+
+  export type BruteUncheckedUpdateWithoutSpritesheetInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    deleted?: BoolFieldUpdateOperationsInput | boolean
+    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    gender?: EnumGenderFieldUpdateOperationsInput | Gender
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
+    colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
+    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
+    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
+    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    tournament?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
+    logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
+  }
+
   export type BruteCreateWithoutClanInput = {
     name: string
     deleted?: boolean
-    spritesheet?: Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -15416,14 +16736,13 @@ export namespace Prisma {
     fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
     logs?: LogCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
+    spritesheet?: BruteSpritesheetCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutClanInput = {
     id?: number
     name: string
     deleted?: boolean
-    spritesheet?: Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -15459,6 +16778,7 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
     logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
+    spritesheet?: BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutClanInput = {
@@ -15490,8 +16810,6 @@ export namespace Prisma {
   export type BruteCreateWithoutFightsInput = {
     name: string
     deleted?: boolean
-    spritesheet?: Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -15527,14 +16845,13 @@ export namespace Prisma {
     fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
     logs?: LogCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
+    spritesheet?: BruteSpritesheetCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutFightsInput = {
     id?: number
     name: string
     deleted?: boolean
-    spritesheet?: Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -15570,6 +16887,7 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
     logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
+    spritesheet?: BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutFightsInput = {
@@ -15580,8 +16898,6 @@ export namespace Prisma {
   export type BruteCreateWithoutFightsAsAdversaryInput = {
     name: string
     deleted?: boolean
-    spritesheet?: Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -15617,14 +16933,13 @@ export namespace Prisma {
     fights?: FightCreateNestedManyWithoutBrute1Input
     logs?: LogCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
+    spritesheet?: BruteSpritesheetCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutFightsAsAdversaryInput = {
     id?: number
     name: string
     deleted?: boolean
-    spritesheet?: Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -15660,6 +16975,7 @@ export namespace Prisma {
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
     logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
+    spritesheet?: BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutFightsAsAdversaryInput = {
@@ -15704,8 +17020,6 @@ export namespace Prisma {
   export type BruteUpdateWithoutFightsInput = {
     name?: StringFieldUpdateOperationsInput | string
     deleted?: BoolFieldUpdateOperationsInput | boolean
-    spritesheet?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -15741,14 +17055,13 @@ export namespace Prisma {
     fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
     logs?: LogUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
+    spritesheet?: BruteSpritesheetUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutFightsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     deleted?: BoolFieldUpdateOperationsInput | boolean
-    spritesheet?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -15784,6 +17097,7 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
     logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
+    spritesheet?: BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUpsertWithoutFightsAsAdversaryInput = {
@@ -15794,8 +17108,6 @@ export namespace Prisma {
   export type BruteUpdateWithoutFightsAsAdversaryInput = {
     name?: StringFieldUpdateOperationsInput | string
     deleted?: BoolFieldUpdateOperationsInput | boolean
-    spritesheet?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -15831,14 +17143,13 @@ export namespace Prisma {
     fights?: FightUpdateManyWithoutBrute1NestedInput
     logs?: LogUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
+    spritesheet?: BruteSpritesheetUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutFightsAsAdversaryInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     deleted?: BoolFieldUpdateOperationsInput | boolean
-    spritesheet?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -15874,6 +17185,7 @@ export namespace Prisma {
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
     logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
+    spritesheet?: BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type LogUpsertWithWhereUniqueWithoutFightInput = {
@@ -15895,8 +17207,6 @@ export namespace Prisma {
   export type BruteCreateWithoutLogsInput = {
     name: string
     deleted?: boolean
-    spritesheet?: Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -15932,14 +17242,13 @@ export namespace Prisma {
     fights?: FightCreateNestedManyWithoutBrute1Input
     fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
     destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
+    spritesheet?: BruteSpritesheetCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutLogsInput = {
     id?: number
     name: string
     deleted?: boolean
-    spritesheet?: Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -15975,6 +17284,7 @@ export namespace Prisma {
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
     destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
+    spritesheet?: BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutLogsInput = {
@@ -16016,8 +17326,6 @@ export namespace Prisma {
   export type BruteUpdateWithoutLogsInput = {
     name?: StringFieldUpdateOperationsInput | string
     deleted?: BoolFieldUpdateOperationsInput | boolean
-    spritesheet?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -16053,14 +17361,13 @@ export namespace Prisma {
     fights?: FightUpdateManyWithoutBrute1NestedInput
     fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
     destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
+    spritesheet?: BruteSpritesheetUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutLogsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     deleted?: BoolFieldUpdateOperationsInput | boolean
-    spritesheet?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -16096,6 +17403,7 @@ export namespace Prisma {
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
     destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
+    spritesheet?: BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type FightUpsertWithoutLogsInput = {
@@ -16127,8 +17435,6 @@ export namespace Prisma {
   export type BruteCreateWithoutDestinyChoicesInput = {
     name: string
     deleted?: boolean
-    spritesheet?: Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -16164,14 +17470,13 @@ export namespace Prisma {
     fights?: FightCreateNestedManyWithoutBrute1Input
     fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
     logs?: LogCreateNestedManyWithoutCurrentBruteInput
+    spritesheet?: BruteSpritesheetCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutDestinyChoicesInput = {
     id?: number
     name: string
     deleted?: boolean
-    spritesheet?: Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -16207,6 +17512,7 @@ export namespace Prisma {
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
     logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
+    spritesheet?: BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutDestinyChoicesInput = {
@@ -16222,8 +17528,6 @@ export namespace Prisma {
   export type BruteUpdateWithoutDestinyChoicesInput = {
     name?: StringFieldUpdateOperationsInput | string
     deleted?: BoolFieldUpdateOperationsInput | boolean
-    spritesheet?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -16259,14 +17563,13 @@ export namespace Prisma {
     fights?: FightUpdateManyWithoutBrute1NestedInput
     fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
     logs?: LogUpdateManyWithoutCurrentBruteNestedInput
+    spritesheet?: BruteSpritesheetUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutDestinyChoicesInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     deleted?: BoolFieldUpdateOperationsInput | boolean
-    spritesheet?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -16302,14 +17605,13 @@ export namespace Prisma {
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
     logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
+    spritesheet?: BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteCreateManyUserInput = {
     id?: number
     name: string
     deleted?: boolean
-    spritesheet?: Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -16343,8 +17645,6 @@ export namespace Prisma {
   export type BruteUpdateWithoutUserInput = {
     name?: StringFieldUpdateOperationsInput | string
     deleted?: BoolFieldUpdateOperationsInput | boolean
-    spritesheet?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -16380,14 +17680,13 @@ export namespace Prisma {
     fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
     logs?: LogUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
+    spritesheet?: BruteSpritesheetUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     deleted?: BoolFieldUpdateOperationsInput | boolean
-    spritesheet?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -16423,14 +17722,13 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
     logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
+    spritesheet?: BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutBrutesInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     deleted?: BoolFieldUpdateOperationsInput | boolean
-    spritesheet?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -16465,8 +17763,6 @@ export namespace Prisma {
     id?: number
     name: string
     deleted?: boolean
-    spritesheet?: Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -16543,8 +17839,6 @@ export namespace Prisma {
   export type BruteUpdateWithoutMasterInput = {
     name?: StringFieldUpdateOperationsInput | string
     deleted?: BoolFieldUpdateOperationsInput | boolean
-    spritesheet?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -16580,14 +17874,13 @@ export namespace Prisma {
     fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
     logs?: LogUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
+    spritesheet?: BruteSpritesheetUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutMasterInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     deleted?: BoolFieldUpdateOperationsInput | boolean
-    spritesheet?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -16623,14 +17916,13 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
     logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
+    spritesheet?: BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutPupilsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     deleted?: BoolFieldUpdateOperationsInput | boolean
-    spritesheet?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -16794,8 +18086,6 @@ export namespace Prisma {
     id?: number
     name: string
     deleted?: boolean
-    spritesheet?: Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -16829,8 +18119,6 @@ export namespace Prisma {
   export type BruteUpdateWithoutClanInput = {
     name?: StringFieldUpdateOperationsInput | string
     deleted?: BoolFieldUpdateOperationsInput | boolean
-    spritesheet?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -16866,14 +18154,13 @@ export namespace Prisma {
     fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
     logs?: LogUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
+    spritesheet?: BruteSpritesheetUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutClanInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     deleted?: BoolFieldUpdateOperationsInput | boolean
-    spritesheet?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    spritesheetJson?: NullableJsonNullValueInput | InputJsonValue
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -16909,6 +18196,7 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
     logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
+    spritesheet?: BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type LogCreateManyFightInput = {

@@ -17,7 +17,7 @@
     "db:reset": "npx prisma migrate reset --skip-generate"
   },
   "prisma": {
-    "seed": "node --loader ts-node/esm prisma/seed.ts"
+    "seed": "node --loader ts-node/esm src/seed.ts"
   },
   "dependencies": {
     "@eternal-twin/core": "^0.10.3",

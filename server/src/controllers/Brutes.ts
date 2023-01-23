@@ -6,9 +6,8 @@ import {
   DestinyChoiceSide, Gender, Prisma, PrismaClient,
 } from '@labrute/prisma';
 import { Request, Response } from 'express';
+import { Worker } from 'worker_threads';
 import auth from '../utils/auth.js';
-import createSpritesheet from '../utils/createSpritesheet.js';
-import formatSpritesheet from '../utils/formatSpritesheet.js';
 import sendError from '../utils/sendError.js';
 
 const Brutes = {
@@ -136,19 +135,13 @@ const Brutes = {
         });
       }
 
-      res.send({ brute, pointsLost });
-
-      // Create animations spritesheet after response to avoid blocking the request
-      const spritesheet = await createSpritesheet(brute);
-
-      // Store spritesheet image in database as blob and data as json
-      await prisma.brute.update({
-        where: { id: brute.id },
-        data: {
-          spritesheet: spritesheet.image,
-          spritesheetJson: formatSpritesheet(spritesheet, brute) as unknown as Prisma.JsonObject,
-        },
+      // Generate spritesheet
+      // eslint-disable-next-line no-new
+      new Worker('./lib/workers/generateSpritesheet.js', {
+        workerData: brute,
       });
+
+      res.send({ brute, pointsLost });
     } catch (error) {
       sendError(res, error);
     }
@@ -386,12 +379,8 @@ const Brutes = {
       await auth(prisma, req);
 
       // Check if brute has a spritesheet
-      const count = await prisma.brute.count({
-        where: {
-          name: req.params.name,
-          spritesheetJson: { not: Prisma.DbNull },
-          deleted: false,
-        },
+      const count = await prisma.bruteSpritesheet.count({
+        where: { brute: { name: req.params.name, deleted: false } },
       });
 
       res.send(count === 1);

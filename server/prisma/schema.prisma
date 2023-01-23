@@ -169,8 +169,6 @@ model Brute {
   id                Int                 @id @default(autoincrement())
   name              String              @db.VarChar(255)
   deleted           Boolean             @default(false)
-  spritesheet       Bytes?              @db.ByteA
-  spritesheetJson   Json?               @db.Json
   destinyPath       DestinyChoiceSide[] @default([])
   level             Int                 @default(1)
   xp                Int                 @default(0)
@@ -210,6 +208,15 @@ model Brute {
   fightsAsAdversary Fight[]             @relation("Adversary")
   logs              Log[]
   destinyChoices    DestinyChoice[]
+  spritesheet       BruteSpritesheet?
+}
+
+model BruteSpritesheet {
+  id      Int    @id @default(autoincrement())
+  brute   Brute  @relation(fields: [bruteId], references: [id])
+  bruteId Int    @unique
+  image   Bytes? @db.ByteA
+  json    Json?  @db.Json
 }
 
 model Clan {

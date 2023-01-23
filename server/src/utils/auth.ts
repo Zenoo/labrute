@@ -21,6 +21,7 @@ const auth = async (prisma: PrismaClient, request: Request) => {
     },
     include: {
       brutes: {
+        where: { deleted: false },
         include: {
           body: true,
           colors: true,

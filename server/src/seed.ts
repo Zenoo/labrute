@@ -9,8 +9,8 @@ import {
   adjectives, animals, colors, languages, names, starWars, uniqueNamesGenerator,
 } from 'unique-names-generator';
 import moment from 'moment';
-import createSpritesheet from '../lib/utils/createSpritesheet';
-import formatSpritesheet from '../lib/utils/formatSpritesheet';
+import formatSpritesheet from './utils/formatSpritesheet.js';
+import createSpritesheet from './utils/createSpritesheet.js';
 
 const prisma = new PrismaClient();
 
@@ -102,11 +102,11 @@ async function main() {
     const spritesheet = await createSpritesheet(brute);
 
     // Store spritesheet image in database as blob and data as json
-    await prisma.brute.update({
-      where: { id: brute.id },
+    await prisma.bruteSpritesheet.create({
       data: {
-        spritesheet: spritesheet.image,
-        spritesheetJson: formatSpritesheet(spritesheet, brute) as unknown as Prisma.JsonObject,
+        image: spritesheet.image,
+        json: formatSpritesheet(spritesheet, brute) as unknown as Prisma.JsonObject,
+        brute: { connect: { id: brute.id } },
       },
     });
 

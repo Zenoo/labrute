@@ -15,19 +15,16 @@ const Spritesheets = {
   }>, res: Response) => {
     try {
       // Get brute spritesheet
-      const brute = await prisma.brute.findFirst({
-        where: {
-          name: req.params.brute,
-          deleted: false,
-        },
-        select: { spritesheet: true },
+      const spritesheet = await prisma.bruteSpritesheet.findFirst({
+        where: { brute: { name: req.params.brute, deleted: false } },
+        select: { image: true },
       });
 
-      if (!brute) {
-        throw new Error('Brute not found');
+      if (!spritesheet) {
+        throw new Error('Spritesheet not found');
       }
 
-      res.header('Content-Type', 'image/png').send(brute.spritesheet);
+      res.header('Content-Type', 'image/png').send(spritesheet.image);
     } catch (error) {
       sendError(res, error);
     }
@@ -37,19 +34,16 @@ const Spritesheets = {
   }>, res: Response) => {
     try {
       // Get brute spritesheet_json
-      const brute = await prisma.brute.findFirst({
-        where: {
-          name: req.params.brute,
-          deleted: false,
-        },
-        select: { spritesheetJson: true },
+      const spritesheet = await prisma.bruteSpritesheet.findFirst({
+        where: { brute: { name: req.params.brute, deleted: false } },
+        select: { json: true },
       });
 
-      if (!brute) {
-        throw new Error('Brute not found');
+      if (!spritesheet) {
+        throw new Error('Spritesheet not found');
       }
 
-      res.header('Content-Type', 'application/json').send(brute.spritesheetJson);
+      res.header('Content-Type', 'application/json').send(spritesheet.json);
     } catch (error) {
       sendError(res, error);
     }

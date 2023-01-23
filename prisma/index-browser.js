@@ -132,8 +132,6 @@ exports.Prisma.BruteScalarFieldEnum = makeEnum({
   id: 'id',
   name: 'name',
   deleted: 'deleted',
-  spritesheet: 'spritesheet',
-  spritesheetJson: 'spritesheetJson',
   destinyPath: 'destinyPath',
   level: 'level',
   xp: 'xp',
@@ -163,6 +161,13 @@ exports.Prisma.BruteScalarFieldEnum = makeEnum({
   lastFight: 'lastFight',
   fightsLeft: 'fightsLeft',
   victories: 'victories'
+});
+
+exports.Prisma.BruteSpritesheetScalarFieldEnum = makeEnum({
+  id: 'id',
+  bruteId: 'bruteId',
+  image: 'image',
+  json: 'json'
 });
 
 exports.Prisma.ClanScalarFieldEnum = makeEnum({
@@ -377,6 +382,7 @@ exports.Prisma.ModelName = makeEnum({
   BruteBody: 'BruteBody',
   BruteColors: 'BruteColors',
   Brute: 'Brute',
+  BruteSpritesheet: 'BruteSpritesheet',
   Clan: 'Clan',
   Fight: 'Fight',
   Log: 'Log',

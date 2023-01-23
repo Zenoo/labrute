@@ -28,7 +28,7 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
 
   // Brute
   app.get('/api/brute/list', Brutes.list(prisma));
-  app.post('/api/brute/:name', Brutes.get(prisma));
+  app.post('/api/brute/:name/get', Brutes.get(prisma));
   app.get('/api/brute/:name/available', Brutes.isNameAvailable(prisma));
   app.get('/api/brute/:name/ready', Brutes.isReadyToFight(prisma));
   app.post('/api/brute/create', Brutes.create(prisma));

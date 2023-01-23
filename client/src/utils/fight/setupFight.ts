@@ -350,7 +350,7 @@ const setupFight: (
         break;
       }
       default:
-        console.log('Unknown step', step);
+        console.error('Unknown step', step);
         break;
     }
   }
