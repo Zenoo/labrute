@@ -238,6 +238,22 @@ import femaleIdle6 from './female-brute/idle/6.js';
 import femaleIdle7 from './female-brute/idle/7.js';
 import femaleIdle8 from './female-brute/idle/8.js';
 import femaleIdle9 from './female-brute/idle/9.js';
+import femaleLaunch1 from './female-brute/launch/1.js';
+import femaleLaunch10 from './female-brute/launch/10.js';
+import femaleLaunch11 from './female-brute/launch/11.js';
+import femaleLaunch12 from './female-brute/launch/12.js';
+import femaleLaunch13 from './female-brute/launch/13.js';
+import femaleLaunch14 from './female-brute/launch/14.js';
+import femaleLaunch15 from './female-brute/launch/15.js';
+import femaleLaunch16 from './female-brute/launch/16.js';
+import femaleLaunch2 from './female-brute/launch/2.js';
+import femaleLaunch3 from './female-brute/launch/3.js';
+import femaleLaunch4 from './female-brute/launch/4.js';
+import femaleLaunch5 from './female-brute/launch/5.js';
+import femaleLaunch6 from './female-brute/launch/6.js';
+import femaleLaunch7 from './female-brute/launch/7.js';
+import femaleLaunch8 from './female-brute/launch/8.js';
+import femaleLaunch9 from './female-brute/launch/9.js';
 import femaleMonkLoop1 from './female-brute/monk-loop/1.js';
 import femaleMonkLoop10 from './female-brute/monk-loop/10.js';
 import femaleMonkLoop11 from './female-brute/monk-loop/11.js';
@@ -1475,7 +1491,14 @@ export const FRAMES: Record<
       femaleIdle28, femaleIdle29, femaleIdle30,
       femaleIdle31,
     ],
-    launch: [],
+    launch: [
+      femaleLaunch1, femaleLaunch2, femaleLaunch3,
+      femaleLaunch4, femaleLaunch5, femaleLaunch6,
+      femaleLaunch7, femaleLaunch8, femaleLaunch9,
+      femaleLaunch10, femaleLaunch11, femaleLaunch12,
+      femaleLaunch13, femaleLaunch14, femaleLaunch15,
+      femaleLaunch16,
+    ],
     'monk-loop': [
       femaleMonkLoop1, femaleMonkLoop2, femaleMonkLoop3,
       femaleMonkLoop4, femaleMonkLoop5, femaleMonkLoop6,
