@@ -117,6 +117,13 @@ import femaleMonkStart6 from './female-brute/monk-start/6.js';
 import femaleMonkStart7 from './female-brute/monk-start/7.js';
 import femaleMonkStart8 from './female-brute/monk-start/8.js';
 import femaleMonkStart9 from './female-brute/monk-start/9.js';
+import femaleRun1 from './female-brute/run/1.js';
+import femaleRun2 from './female-brute/run/2.js';
+import femaleRun3 from './female-brute/run/3.js';
+import femaleRun4 from './female-brute/run/4.js';
+import femaleRun5 from './female-brute/run/5.js';
+import femaleRun6 from './female-brute/run/6.js';
+import femaleRun7 from './female-brute/run/7.js';
 import maleArriveEnd1 from './male-brute/arrive-end/1.js';
 import maleArriveEnd2 from './male-brute/arrive-end/2.js';
 import maleArriveEnd3 from './male-brute/arrive-end/3.js';
@@ -1084,7 +1091,11 @@ export const FRAMES: Record<
       femaleMonkStart10, femaleMonkStart11, femaleMonkStart12,
     ],
     'prepare-throw': [],
-    run: [],
+    run: [
+      femaleRun1, femaleRun2, femaleRun3,
+      femaleRun4, femaleRun5, femaleRun6,
+      femaleRun7,
+    ],
     slash: [],
     stolen: [],
     steal: [],
