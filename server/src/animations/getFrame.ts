@@ -128,6 +128,14 @@ import femaleFist6 from './female-brute/fist/6.js';
 import femaleFist7 from './female-brute/fist/7.js';
 import femaleFist8 from './female-brute/fist/8.js';
 import femaleFist9 from './female-brute/fist/9.js';
+import femaleGrab1 from './female-brute/grab/1.js';
+import femaleGrab2 from './female-brute/grab/2.js';
+import femaleGrab3 from './female-brute/grab/3.js';
+import femaleGrab4 from './female-brute/grab/4.js';
+import femaleGrab5 from './female-brute/grab/5.js';
+import femaleGrab6 from './female-brute/grab/6.js';
+import femaleGrab7 from './female-brute/grab/7.js';
+import femaleGrab8 from './female-brute/grab/8.js';
 import femaleHit1 from './female-brute/hit/1.js';
 import femaleHit10 from './female-brute/hit/10.js';
 import femaleHit11 from './female-brute/hit/11.js';
@@ -1229,7 +1237,11 @@ export const FRAMES: Record<
       femaleEquip13, femaleEquip14, femaleEquip15,
     ],
     evade: [femaleEvade1],
-    grab: [],
+    grab: [
+      femaleGrab1, femaleGrab2, femaleGrab3,
+      femaleGrab4, femaleGrab5, femaleGrab6,
+      femaleGrab7, femaleGrab8,
+    ],
     grabbed: [],
     hit: [
       femaleHit1, femaleHit2, femaleHit3,
