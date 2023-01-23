@@ -134,6 +134,23 @@ import femaleDrink6 from './female-brute/drink/6.js';
 import femaleDrink7 from './female-brute/drink/7.js';
 import femaleDrink8 from './female-brute/drink/8.js';
 import femaleDrink9 from './female-brute/drink/9.js';
+import femaleEat1 from './female-brute/eat/1.js';
+import femaleEat10 from './female-brute/eat/10.js';
+import femaleEat11 from './female-brute/eat/11.js';
+import femaleEat12 from './female-brute/eat/12.js';
+import femaleEat13 from './female-brute/eat/13.js';
+import femaleEat14 from './female-brute/eat/14.js';
+import femaleEat15 from './female-brute/eat/15.js';
+import femaleEat16 from './female-brute/eat/16.js';
+import femaleEat17 from './female-brute/eat/17.js';
+import femaleEat2 from './female-brute/eat/2.js';
+import femaleEat3 from './female-brute/eat/3.js';
+import femaleEat4 from './female-brute/eat/4.js';
+import femaleEat5 from './female-brute/eat/5.js';
+import femaleEat6 from './female-brute/eat/6.js';
+import femaleEat7 from './female-brute/eat/7.js';
+import femaleEat8 from './female-brute/eat/8.js';
+import femaleEat9 from './female-brute/eat/9.js';
 import femaleEquip1 from './female-brute/equip/1.js';
 import femaleEquip10 from './female-brute/equip/10.js';
 import femaleEquip11 from './female-brute/equip/11.js';
@@ -1499,7 +1516,14 @@ export const FRAMES: Record<
       femaleDrink43, femaleDrink44, femaleDrink45,
       femaleDrink46, femaleDrink47, femaleDrink48,
     ],
-    eat: [],
+    eat: [
+      femaleEat1, femaleEat2, femaleEat3,
+      femaleEat4, femaleEat5, femaleEat6,
+      femaleEat7, femaleEat8, femaleEat9,
+      femaleEat10, femaleEat11, femaleEat12,
+      femaleEat13, femaleEat14, femaleEat15,
+      femaleEat16, femaleEat17,
+    ],
     equip: [
       femaleEquip1, femaleEquip2, femaleEquip3,
       femaleEquip4, femaleEquip5, femaleEquip6,

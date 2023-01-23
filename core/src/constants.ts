@@ -59,7 +59,7 @@ export const ANIMATION_ANCHORS: Record<Gender, Record<Animation, [number, number
     block: [0.5069, 0.848],
     death: [0.4785, 0.7884],
     drink: [0.4921, 0.8572],
-    eat: [0.5, 0.5],
+    eat: [0.5247, 0.8536],
     equip: [0.5062, 0.8565],
     evade: [0.468, 0.8756],
     grab: [0.4595, 0.848],
