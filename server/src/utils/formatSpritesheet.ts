@@ -23,7 +23,9 @@ interface Frame {
 type FrameFileName = `${Animation}_${Gender}_${number}.png`;
 
 export interface SpritesheetJson {
-  [frame: FrameFileName]: Frame,
+  frames: {
+    [frame: FrameFileName]: Frame,
+  },
   animations: Record<Animation, string[]>,
   meta: {
     app: string;
@@ -55,26 +57,28 @@ const formatSpritesheet = (
   spritesheet: SpriteSmith.SpriteResult,
   brute: Brute,
 ): SpritesheetJson => ({
-  ...Object.entries(spritesheet.coordinates)
-    .reduce<Record<FrameFileName, Frame>>((acc, [frame, data]) => {
-      const animationName = frame.split('_')[0] as Animation;
-      acc[frame as FrameFileName] = {
-        frame: {
-          x: data.x,
-          y: data.y,
-          w: data.width,
-          h: data.height,
-        },
-        rotated: false,
-        trimmed: false,
-        anchor: {
-          x: ANIMATION_ANCHORS[brute.gender][animationName][0],
-          y: ANIMATION_ANCHORS[brute.gender][animationName][1],
-        },
-      };
+  frames: {
+    ...Object.entries(spritesheet.coordinates)
+      .reduce<Record<FrameFileName, Frame>>((acc, [frame, data]) => {
+        const animationName = frame.split('_')[0] as Animation;
+        acc[frame as FrameFileName] = {
+          frame: {
+            x: data.x,
+            y: data.y,
+            w: data.width,
+            h: data.height,
+          },
+          rotated: false,
+          trimmed: false,
+          anchor: {
+            x: ANIMATION_ANCHORS[brute.gender][animationName][0],
+            y: ANIMATION_ANCHORS[brute.gender][animationName][1],
+          },
+        };
 
-      return acc;
-    }, {} as Record<FrameFileName, Frame>),
+        return acc;
+      }, {} as Record<FrameFileName, Frame>),
+  },
   animations: generateAnimations(brute.gender),
   meta: {
     app: 'https://www.codeandweb.com/texturepacker',

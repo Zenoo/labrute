@@ -1,4 +1,4 @@
-import { FightStep } from '@labrute/core';
+import { Fighter, FightStep } from '@labrute/core';
 import { Fight } from '@labrute/prisma';
 import { Rtt } from '@mui/icons-material';
 import { Box, IconButton, Tooltip, useMediaQuery, useTheme } from '@mui/material';
@@ -33,7 +33,7 @@ const FightComponent = ({
       return undefined;
     }
     const app = new PIXI.Application({
-      backgroundColor: 0x56789a,
+      backgroundColor: 0xfbf7c0,
       width: 500,
       height: 300,
     });
@@ -45,10 +45,14 @@ const FightComponent = ({
       .add('/images/game/misc.json')
       .add('/images/game/bear.json')
       .add('/images/game/dog.json')
-      .add('/images/game/panther.json')
-      .add('/images/game/male-brute.json')
-      .add('/images/game/female-brute.json')
-      .load(setupFight(theme, fight, app));
+      .add('/images/game/panther.json');
+    (fight.fighters as unknown as Fighter[]).forEach((fighter) => {
+      if (fighter.type === 'brute') {
+        app.loader.add(`/api/spritesheet/${fighter.name}.json`);
+      }
+    });
+
+    app.loader.load(setupFight(theme, fight, app));
 
     return () => {
       Tweener.dispose();

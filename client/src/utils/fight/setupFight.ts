@@ -190,13 +190,11 @@ const setupFight: (
         : fighter.name === 'bear'
           ? 'bear'
           : 'panther'
-      : fighter.data?.gender === 'male'
-        ? 'male-brute'
-        : 'female-brute';
+      : fighter.name;
 
     const team = (fighter.master || fighter.id) === brute1.id ? 'left' : 'right';
 
-    const arriveStartAnimation = setupSprite(app, type, 'arrive-start', team);
+    const arriveStartAnimation = setupSprite(app, type, 'arrive-start', team, fighter.type === 'brute');
 
     if (!arriveStartAnimation) {
       throw new Error(`Arrive start animation not found: ${type}`);

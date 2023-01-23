@@ -21,6 +21,7 @@ const getSprite = (
     type,
     animation,
     fighter.team,
+    fighter.type === 'brute',
   );
 
   if (!newAnimation) {
@@ -66,9 +67,7 @@ const changeAnimation = (
       : fighter.name === 'bear'
         ? 'bear'
         : 'panther'
-    : fighter.data?.gender === 'male'
-      ? 'male-brute'
-      : 'female-brute';
+    : fighter.name;
 
   // Handle idle differently for monks
   if (animation === 'idle' && fighter.skills && fighter.skills.includes('monk')) {

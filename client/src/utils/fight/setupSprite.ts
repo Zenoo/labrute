@@ -1,12 +1,15 @@
-import { Application, Sprite, AnimatedSprite } from 'pixi.js';
+import { AnimatedSprite, Application, Sprite } from 'pixi.js';
 
 const setupSprite = (
   app: Application,
   type: string,
   animation: string,
   team: 'left' | 'right',
+  isBrute: boolean,
 ): Sprite | AnimatedSprite | null => {
-  const { loader: { resources: { [`/images/game/${type}.json`]: { spritesheet } } } } = app;
+  const { loader: { resources: {
+    [isBrute ? `/api/spritesheet/${type}.json` : `/images/game/${type}.json`]: { spritesheet }
+  } } } = app;
 
   if (!spritesheet) {
     throw new Error(`Sprite not found: ${type}`);

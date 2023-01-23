@@ -4,12 +4,35 @@ import {
 import { PrismaClient } from '@labrute/prisma';
 import { Resvg } from '@resvg/resvg-js';
 import { Request, Response } from 'express';
+import fetch from 'node-fetch';
 import SpriteSmith from 'spritesmith';
 import Vynil from 'vinyl';
 import getFrame, { FRAMES } from '../animations/getFrame.js';
 import sendError from '../utils/sendError.js';
 
 const Spritesheets = {
+  getDefaultMaleImage: async (req: Request, res: Response) => {
+    try {
+      // Load default spritesheet
+      const defaultSpritesheet = await fetch(`${process.env.SELF_URL || ''}/images/game/male-brute.png`);
+
+      // Send default spritesheet
+      res.header('Content-Type', 'image/png').send(await defaultSpritesheet.buffer());
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  getDefaultFemaleImage: async (req: Request, res: Response) => {
+    try {
+      // Load default spritesheet
+      const defaultSpritesheet = await fetch(`${process.env.SELF_URL || ''}/images/game/female-brute.png`);
+
+      // Send default spritesheet
+      res.header('Content-Type', 'image/png').send(await defaultSpritesheet.buffer());
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
   getImage: (prisma: PrismaClient) => async (req: Request<{
     brute: string,
   }>, res: Response) => {
@@ -20,11 +43,43 @@ const Spritesheets = {
         select: { image: true },
       });
 
-      if (!spritesheet) {
-        throw new Error('Spritesheet not found');
-      }
+      if (spritesheet) {
+        res.header('Content-Type', 'image/png').send(spritesheet.image);
+      } else {
+        // Get brute gender
+        const { gender } = await prisma.brute.findFirstOrThrow({
+          where: { name: req.params.brute, deleted: false },
+          select: { gender: true },
+        });
 
-      res.header('Content-Type', 'image/png').send(spritesheet.image);
+        // Load default spritesheet
+        const defaultSpritesheet = await fetch(`${process.env.SELF_URL || ''}/images/game/${gender}-brute.png`);
+
+        // Send default spritesheet
+        res.header('Content-Type', 'image/png').send(await defaultSpritesheet.buffer());
+      }
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  getDefaultMaleJson: async (req: Request, res: Response) => {
+    try {
+      // Load default spritesheet json
+      const defaultSpritesheet = await fetch(`${process.env.SELF_URL || ''}/images/game/male-brute.json`);
+
+      // Send default spritesheet
+      res.header('Content-Type', 'application/json').send(await defaultSpritesheet.buffer());
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  getDefaultFemaleJson: async (req: Request, res: Response) => {
+    try {
+      // Load default spritesheet json
+      const defaultSpritesheet = await fetch(`${process.env.SELF_URL || ''}/images/game/female-brute.json`);
+
+      // Send default spritesheet
+      res.header('Content-Type', 'application/json').send(await defaultSpritesheet.buffer());
     } catch (error) {
       sendError(res, error);
     }
@@ -33,17 +88,27 @@ const Spritesheets = {
     brute: string,
   }>, res: Response) => {
     try {
-      // Get brute spritesheet_json
+      // Get brute spritesheet json
       const spritesheet = await prisma.bruteSpritesheet.findFirst({
         where: { brute: { name: req.params.brute, deleted: false } },
         select: { json: true },
       });
 
-      if (!spritesheet) {
-        throw new Error('Spritesheet not found');
-      }
+      if (spritesheet) {
+        res.header('Content-Type', 'application/json').send(spritesheet.json);
+      } else {
+        // Get brute gender
+        const { gender } = await prisma.brute.findFirstOrThrow({
+          where: { name: req.params.brute, deleted: false },
+          select: { gender: true },
+        });
 
-      res.header('Content-Type', 'application/json').send(spritesheet.json);
+        // Load default spritesheet json
+        const defaultSpritesheet = await fetch(`${process.env.SELF_URL || ''}/images/game/${gender}-brute.json`);
+
+        // Send default spritesheet
+        res.header('Content-Type', 'application/json').send(await defaultSpritesheet.buffer());
+      }
     } catch (error) {
       sendError(res, error);
     }
