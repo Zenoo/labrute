@@ -1,6 +1,14 @@
 import {
   Animation, FrameProps,
 } from '@labrute/core';
+import femaleArriveEnd1 from './female-brute/arrive-end/1.js';
+import femaleArriveEnd2 from './female-brute/arrive-end/2.js';
+import femaleArriveEnd3 from './female-brute/arrive-end/3.js';
+import femaleArriveEnd4 from './female-brute/arrive-end/4.js';
+import femaleArriveEnd5 from './female-brute/arrive-end/5.js';
+import femaleArriveEnd6 from './female-brute/arrive-end/6.js';
+import femaleArriveEnd7 from './female-brute/arrive-end/7.js';
+import femaleArriveStart1 from './female-brute/arrive-start/1.js';
 import femaleFist1 from './female-brute/fist/1.js';
 import femaleFist10 from './female-brute/fist/10.js';
 import femaleFist11 from './female-brute/fist/11.js';
@@ -17,6 +25,21 @@ import femaleFist6 from './female-brute/fist/6.js';
 import femaleFist7 from './female-brute/fist/7.js';
 import femaleFist8 from './female-brute/fist/8.js';
 import femaleFist9 from './female-brute/fist/9.js';
+import femaleHit1 from './female-brute/hit/1.js';
+import femaleHit10 from './female-brute/hit/10.js';
+import femaleHit11 from './female-brute/hit/11.js';
+import femaleHit12 from './female-brute/hit/12.js';
+import femaleHit13 from './female-brute/hit/13.js';
+import femaleHit14 from './female-brute/hit/14.js';
+import femaleHit15 from './female-brute/hit/15.js';
+import femaleHit2 from './female-brute/hit/2.js';
+import femaleHit3 from './female-brute/hit/3.js';
+import femaleHit4 from './female-brute/hit/4.js';
+import femaleHit5 from './female-brute/hit/5.js';
+import femaleHit6 from './female-brute/hit/6.js';
+import femaleHit7 from './female-brute/hit/7.js';
+import femaleHit8 from './female-brute/hit/8.js';
+import femaleHit9 from './female-brute/hit/9.js';
 import femaleIdle1 from './female-brute/idle/1.js';
 import femaleIdle10 from './female-brute/idle/10.js';
 import femaleIdle11 from './female-brute/idle/11.js';
@@ -1001,8 +1024,12 @@ export const FRAMES: Record<
     ],
   },
   female: {
-    'arrive-end': [],
-    'arrive-start': [],
+    'arrive-end': [
+      femaleArriveEnd1, femaleArriveEnd2, femaleArriveEnd3,
+      femaleArriveEnd4, femaleArriveEnd5, femaleArriveEnd6,
+      femaleArriveEnd7,
+    ],
+    'arrive-start': [femaleArriveStart1],
     attack: [],
     block: [],
     death: [],
@@ -1013,6 +1040,11 @@ export const FRAMES: Record<
     grab: [],
     grabbed: [],
     hit: [
+      femaleHit1, femaleHit2, femaleHit3,
+      femaleHit4, femaleHit5, femaleHit6,
+      femaleHit7, femaleHit8, femaleHit9,
+      femaleHit10, femaleHit11, femaleHit12,
+      femaleHit13, femaleHit14, femaleHit15,
     ],
     'hit-0': [],
     'hit-1': [],
