@@ -20,7 +20,7 @@ import { Language } from '../../i18n';
 export interface CellMobileViewProps {
   brute: BruteWithMasterBodyColorsClan;
   advertising: string;
-  logs: Log[];
+  logs: (Log & { currentBrute: { name: string } })[];
   ownsBrute: boolean;
   language: Language;
   nextTournament: Moment;

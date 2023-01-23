@@ -1,5 +1,5 @@
 import { BruteWithBodyColors, getXPNeeded, skills, weapons } from '@labrute/core';
-import { DestinyChoice, DestinyChoiceSide, PetName, SkillName, WeaponName } from '@labrute/prisma';
+import { BruteStat, DestinyChoice, DestinyChoiceSide, PetName, SkillName, WeaponName } from '@labrute/prisma';
 import { Alert as MuiAlert, Box, Paper, useMediaQuery } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -145,16 +145,15 @@ const LevelUpView = () => {
                     >
                       <Text h6 bold smallCaps>{t(destinyChoice.weapon as WeaponName)}</Text>
                     </WeaponTooltip>
-                  ) : (
+                  ) : destinyChoice.type === 'pet' ? (
                     <Text h6 bold smallCaps>{t(destinyChoice.pet as PetName)}</Text>
-                  )
-                  )}
-                  {/* Multiple values */}
-                  {destinyChoice.stat1 && destinyChoice.stat2 && (
+                  ) : !destinyChoice.stat2 ? (
+                    <Text h6 bold smallCaps>{t(destinyChoice.stat1 as BruteStat)}</Text>
+                  ) : (
                     <Text h6 bold smallCaps>
-                      {t(destinyChoice.stat1)} / {t(destinyChoice.stat2)}
+                      {t(destinyChoice.stat1 as BruteStat)} / {t(destinyChoice.stat2)}
                     </Text>
-                  )}
+                  ))}
                 </BoxBg>
                 {/* VALIDATE */}
                 <StyledButton

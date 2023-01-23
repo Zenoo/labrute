@@ -1,5 +1,4 @@
 import { BruteWithMasterBodyColorsClan } from '@labrute/core';
-import { Log } from '@labrute/prisma';
 import { Box, Paper, Tooltip, useMediaQuery } from '@mui/material';
 import moment from 'moment';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -187,7 +186,7 @@ const CellView = () => {
               </BoxBg>
               {/* LOGS */}
               <Box sx={{ ml: 2, mt: 1 }}>
-                {logs.map((log: Log) => <CellLog key={log.id} log={log} />)}
+                {logs.map((log) => <CellLog key={log.id} log={log} />)}
               </Box>
             </Box>
           </Box>

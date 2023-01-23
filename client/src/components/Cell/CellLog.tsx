@@ -7,7 +7,9 @@ import Link from '../Link';
 import Text from '../Text';
 
 export interface CellLogProps extends BoxProps {
-  log: Log;
+  log: Log & {
+    currentBrute: { name: string };
+  }
 }
 
 const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
@@ -35,7 +37,7 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
         ? (
           <Tooltip title={t('seeFight')}>
             <Link
-              to={`/${log.currentBruteId}/fight/${log.fightId || 0}`}
+              to={`/${log.currentBrute.name}/fight/${log.fightId || 0}`}
               sx={{
                 textDecoration: 'none',
                 '&:hover': {

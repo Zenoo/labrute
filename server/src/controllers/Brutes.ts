@@ -34,6 +34,7 @@ const Brutes = {
       const brute = await prisma.brute.findFirstOrThrow({
         where: {
           name: req.params.name,
+          deleted: false,
         },
         include: req.body.include,
       });
@@ -187,6 +188,7 @@ const Brutes = {
         const newFirstDestinyChoice = await prisma.destinyChoice.create({
           data: {
             ...newChoices[0],
+            path: firstChoicePath,
             brute: { connect: { id: brute.id } },
           },
         });
@@ -195,6 +197,7 @@ const Brutes = {
         const newSecondDestinyChoice = await prisma.destinyChoice.create({
           data: {
             ...newChoices[1],
+            path: secondChoicePath,
             brute: { connect: { id: brute.id } },
           },
         });
@@ -289,16 +292,25 @@ const Brutes = {
 
       const opponents: BruteWithBodyColors[] = [];
       for (let i = 0; i < ARENA_OPPONENTS_COUNT; i++) {
-        const skip = Math.floor(Math.random() * bruteCount);
+        const skip = bruteCount <= ARENA_OPPONENTS_COUNT
+          ? 0
+          : Math.floor(Math.random() * bruteCount);
 
         // eslint-disable-next-line no-await-in-loop
-        const opponent = await prisma.brute.findFirstOrThrow({
-          where: bruteSearch,
+        const opponent = await prisma.brute.findFirst({
+          where: {
+            ...bruteSearch,
+            id: {
+              notIn: opponents.map((o) => o.id),
+            },
+          },
           skip,
           include: { body: true, colors: true },
         });
 
-        opponents.push(opponent);
+        if (opponent) {
+          opponents.push(opponent);
+        }
       }
 
       // Complete with lower levels if not enough
@@ -320,13 +332,20 @@ const Brutes = {
           const skip = Math.floor(Math.random() * additionalBruteCount);
 
           // eslint-disable-next-line no-await-in-loop
-          const opponent = await prisma.brute.findFirstOrThrow({
-            where: additionalBruteSearch,
+          const opponent = await prisma.brute.findFirst({
+            where: {
+              ...additionalBruteSearch,
+              id: {
+                notIn: additionalOpponents.map((o) => o.id),
+              },
+            },
             skip,
             include: { body: true, colors: true },
           });
 
-          additionalOpponents.push(opponent);
+          if (opponent) {
+            additionalOpponents.push(opponent);
+          }
         }
         opponents.push(...additionalOpponents);
       }

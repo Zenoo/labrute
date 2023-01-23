@@ -45,7 +45,7 @@ const Server = {
     sacrifice: (name: string) => Fetch<{ points: number }>(`/api/brute/${name}/sacrifice`, {}, 'GET'),
   },
   Log: {
-    list: (brute: string) => Fetch<Log[]>(`/api/log/list/${brute}`),
+    list: (brute: string) => Fetch<(Log & { currentBrute: { name: string } })[]>(`/api/log/list/${brute}`),
   },
   Fight: {
     get: (name: string, id: number) => Fetch<Fight>(`/api/fight/${name}/${id}`),

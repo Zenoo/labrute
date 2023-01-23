@@ -3,7 +3,6 @@ import {
 } from '@labrute/core';
 import { Prisma, PrismaClient } from '@labrute/prisma';
 import { Request, Response } from 'express';
-import moment from 'moment';
 import auth from '../utils/auth.js';
 import {
   checkDeaths, getOpponents, orderFighters, playFighterTurn, saboteur, stepFighter,
@@ -244,7 +243,7 @@ const Fights = {
       // (+1 for a win against a brute at least 10 level below you)
       // (+0 otherwise)
       const levelDifference = brute1.level - brute2.level;
-      const xpGained = winner.name === brute1.name
+      const xpGained = winner.id === brute1.id
         ? levelDifference > 10 ? 0 : levelDifference > 2 ? 1 : 2
         : levelDifference > 10 ? 0 : 1;
 
@@ -253,7 +252,7 @@ const Fights = {
         where: { id: brute1.id },
         data: {
           xp: { increment: xpGained },
-          lastFight: moment().format('DD/MM/YYYY'),
+          lastFight: new Date(),
           fightsLeft: getFightsLeft(brute1) - 1,
         },
       });

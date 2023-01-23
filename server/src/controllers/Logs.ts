@@ -12,7 +12,7 @@ const Logs = {
 
       // Get brute id
       const { id: bruteId } = await prisma.brute.findFirstOrThrow({
-        where: { name: req.params.name },
+        where: { name: req.params.name, deleted: false },
       });
 
       // Get logs
@@ -20,6 +20,11 @@ const Logs = {
         where: { currentBrute: { id: bruteId } },
         orderBy: { id: 'desc' },
         take: 7,
+        include: {
+          currentBrute: {
+            select: { name: true },
+          },
+        },
       });
 
       res.status(200).send(logs);
