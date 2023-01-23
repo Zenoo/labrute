@@ -420,6 +420,15 @@ import femaleThrow6 from './female-brute/throw/6.js';
 import femaleThrow7 from './female-brute/throw/7.js';
 import femaleThrow8 from './female-brute/throw/8.js';
 import femaleThrow9 from './female-brute/throw/9.js';
+import femaleTrain1 from './female-brute/train/1.js';
+import femaleTrain2 from './female-brute/train/2.js';
+import femaleTrain3 from './female-brute/train/3.js';
+import femaleTrain4 from './female-brute/train/4.js';
+import femaleTrain5 from './female-brute/train/5.js';
+import femaleTrain6 from './female-brute/train/6.js';
+import femaleTrain7 from './female-brute/train/7.js';
+import femaleTrain8 from './female-brute/train/8.js';
+import femaleTrain9 from './female-brute/train/9.js';
 import femaleTrappedLoop1 from './female-brute/trapped-loop/1.js';
 import femaleTrappedLoop10 from './female-brute/trapped-loop/10.js';
 import femaleTrappedLoop11 from './female-brute/trapped-loop/11.js';
@@ -1617,7 +1626,11 @@ export const FRAMES: Record<
       femaleThrow10, femaleThrow11, femaleThrow12,
       femaleThrow13, femaleThrow14,
     ],
-    train: [],
+    train: [
+      femaleTrain1, femaleTrain2, femaleTrain3,
+      femaleTrain4, femaleTrain5, femaleTrain6,
+      femaleTrain7, femaleTrain8, femaleTrain9,
+    ],
     'trapped-loop': [
       femaleTrappedLoop1, femaleTrappedLoop2, femaleTrappedLoop3,
       femaleTrappedLoop4, femaleTrappedLoop5, femaleTrappedLoop6,
