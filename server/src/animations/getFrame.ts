@@ -32,6 +32,60 @@ import femaleBlock6 from './female-brute/block/6.js';
 import femaleBlock7 from './female-brute/block/7.js';
 import femaleBlock8 from './female-brute/block/8.js';
 import femaleBlock9 from './female-brute/block/9.js';
+import femaleDeath1 from './female-brute/death/1.js';
+import femaleDeath10 from './female-brute/death/10.js';
+import femaleDeath11 from './female-brute/death/11.js';
+import femaleDeath12 from './female-brute/death/12.js';
+import femaleDeath13 from './female-brute/death/13.js';
+import femaleDeath14 from './female-brute/death/14.js';
+import femaleDeath15 from './female-brute/death/15.js';
+import femaleDeath16 from './female-brute/death/16.js';
+import femaleDeath17 from './female-brute/death/17.js';
+import femaleDeath18 from './female-brute/death/18.js';
+import femaleDeath19 from './female-brute/death/19.js';
+import femaleDeath2 from './female-brute/death/2.js';
+import femaleDeath20 from './female-brute/death/20.js';
+import femaleDeath21 from './female-brute/death/21.js';
+import femaleDeath22 from './female-brute/death/22.js';
+import femaleDeath23 from './female-brute/death/23.js';
+import femaleDeath24 from './female-brute/death/24.js';
+import femaleDeath25 from './female-brute/death/25.js';
+import femaleDeath26 from './female-brute/death/26.js';
+import femaleDeath27 from './female-brute/death/27.js';
+import femaleDeath28 from './female-brute/death/28.js';
+import femaleDeath29 from './female-brute/death/29.js';
+import femaleDeath3 from './female-brute/death/3.js';
+import femaleDeath30 from './female-brute/death/30.js';
+import femaleDeath31 from './female-brute/death/31.js';
+import femaleDeath32 from './female-brute/death/32.js';
+import femaleDeath33 from './female-brute/death/33.js';
+import femaleDeath34 from './female-brute/death/34.js';
+import femaleDeath35 from './female-brute/death/35.js';
+import femaleDeath36 from './female-brute/death/36.js';
+import femaleDeath37 from './female-brute/death/37.js';
+import femaleDeath38 from './female-brute/death/38.js';
+import femaleDeath39 from './female-brute/death/39.js';
+import femaleDeath4 from './female-brute/death/4.js';
+import femaleDeath40 from './female-brute/death/40.js';
+import femaleDeath41 from './female-brute/death/41.js';
+import femaleDeath42 from './female-brute/death/42.js';
+import femaleDeath43 from './female-brute/death/43.js';
+import femaleDeath44 from './female-brute/death/44.js';
+import femaleDeath45 from './female-brute/death/45.js';
+import femaleDeath46 from './female-brute/death/46.js';
+import femaleDeath47 from './female-brute/death/47.js';
+import femaleDeath48 from './female-brute/death/48.js';
+import femaleDeath49 from './female-brute/death/49.js';
+import femaleDeath5 from './female-brute/death/5.js';
+import femaleDeath50 from './female-brute/death/50.js';
+import femaleDeath51 from './female-brute/death/51.js';
+import femaleDeath52 from './female-brute/death/52.js';
+import femaleDeath53 from './female-brute/death/53.js';
+import femaleDeath54 from './female-brute/death/54.js';
+import femaleDeath6 from './female-brute/death/6.js';
+import femaleDeath7 from './female-brute/death/7.js';
+import femaleDeath8 from './female-brute/death/8.js';
+import femaleDeath9 from './female-brute/death/9.js';
 import femaleEquip1 from './female-brute/equip/1.js';
 import femaleEquip10 from './female-brute/equip/10.js';
 import femaleEquip11 from './female-brute/equip/11.js';
@@ -1096,7 +1150,26 @@ export const FRAMES: Record<
       femaleBlock19, femaleBlock20, femaleBlock21,
       femaleBlock22, femaleBlock23,
     ],
-    death: [],
+    death: [
+      femaleDeath1, femaleDeath2, femaleDeath3,
+      femaleDeath4, femaleDeath5, femaleDeath6,
+      femaleDeath7, femaleDeath8, femaleDeath9,
+      femaleDeath10, femaleDeath11, femaleDeath12,
+      femaleDeath13, femaleDeath14, femaleDeath15,
+      femaleDeath16, femaleDeath17, femaleDeath18,
+      femaleDeath19, femaleDeath20, femaleDeath21,
+      femaleDeath22, femaleDeath23, femaleDeath24,
+      femaleDeath25, femaleDeath26, femaleDeath27,
+      femaleDeath28, femaleDeath29, femaleDeath30,
+      femaleDeath31, femaleDeath32, femaleDeath33,
+      femaleDeath34, femaleDeath35, femaleDeath36,
+      femaleDeath37, femaleDeath38, femaleDeath39,
+      femaleDeath40, femaleDeath41, femaleDeath42,
+      femaleDeath43, femaleDeath44, femaleDeath45,
+      femaleDeath46, femaleDeath47, femaleDeath48,
+      femaleDeath49, femaleDeath50, femaleDeath51,
+      femaleDeath52, femaleDeath53, femaleDeath54,
+    ],
     drink: [],
     eat: [],
     equip: [
