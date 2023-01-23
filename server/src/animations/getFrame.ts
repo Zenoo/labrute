@@ -331,6 +331,49 @@ import femaleThrow6 from './female-brute/throw/6.js';
 import femaleThrow7 from './female-brute/throw/7.js';
 import femaleThrow8 from './female-brute/throw/8.js';
 import femaleThrow9 from './female-brute/throw/9.js';
+import femaleTrappedLoop1 from './female-brute/trapped-loop/1.js';
+import femaleTrappedLoop10 from './female-brute/trapped-loop/10.js';
+import femaleTrappedLoop11 from './female-brute/trapped-loop/11.js';
+import femaleTrappedLoop12 from './female-brute/trapped-loop/12.js';
+import femaleTrappedLoop13 from './female-brute/trapped-loop/13.js';
+import femaleTrappedLoop14 from './female-brute/trapped-loop/14.js';
+import femaleTrappedLoop15 from './female-brute/trapped-loop/15.js';
+import femaleTrappedLoop16 from './female-brute/trapped-loop/16.js';
+import femaleTrappedLoop17 from './female-brute/trapped-loop/17.js';
+import femaleTrappedLoop18 from './female-brute/trapped-loop/18.js';
+import femaleTrappedLoop19 from './female-brute/trapped-loop/19.js';
+import femaleTrappedLoop2 from './female-brute/trapped-loop/2.js';
+import femaleTrappedLoop20 from './female-brute/trapped-loop/20.js';
+import femaleTrappedLoop21 from './female-brute/trapped-loop/21.js';
+import femaleTrappedLoop22 from './female-brute/trapped-loop/22.js';
+import femaleTrappedLoop23 from './female-brute/trapped-loop/23.js';
+import femaleTrappedLoop24 from './female-brute/trapped-loop/24.js';
+import femaleTrappedLoop25 from './female-brute/trapped-loop/25.js';
+import femaleTrappedLoop26 from './female-brute/trapped-loop/26.js';
+import femaleTrappedLoop27 from './female-brute/trapped-loop/27.js';
+import femaleTrappedLoop28 from './female-brute/trapped-loop/28.js';
+import femaleTrappedLoop29 from './female-brute/trapped-loop/29.js';
+import femaleTrappedLoop3 from './female-brute/trapped-loop/3.js';
+import femaleTrappedLoop30 from './female-brute/trapped-loop/30.js';
+import femaleTrappedLoop31 from './female-brute/trapped-loop/31.js';
+import femaleTrappedLoop32 from './female-brute/trapped-loop/32.js';
+import femaleTrappedLoop4 from './female-brute/trapped-loop/4.js';
+import femaleTrappedLoop5 from './female-brute/trapped-loop/5.js';
+import femaleTrappedLoop6 from './female-brute/trapped-loop/6.js';
+import femaleTrappedLoop7 from './female-brute/trapped-loop/7.js';
+import femaleTrappedLoop8 from './female-brute/trapped-loop/8.js';
+import femaleTrappedLoop9 from './female-brute/trapped-loop/9.js';
+import femaleTrappedStart1 from './female-brute/trapped-start/1.js';
+import femaleTrappedStart10 from './female-brute/trapped-start/10.js';
+import femaleTrappedStart11 from './female-brute/trapped-start/11.js';
+import femaleTrappedStart2 from './female-brute/trapped-start/2.js';
+import femaleTrappedStart3 from './female-brute/trapped-start/3.js';
+import femaleTrappedStart4 from './female-brute/trapped-start/4.js';
+import femaleTrappedStart5 from './female-brute/trapped-start/5.js';
+import femaleTrappedStart6 from './female-brute/trapped-start/6.js';
+import femaleTrappedStart7 from './female-brute/trapped-start/7.js';
+import femaleTrappedStart8 from './female-brute/trapped-start/8.js';
+import femaleTrappedStart9 from './female-brute/trapped-start/9.js';
 import femaleTrash1 from './female-brute/trash/1.js';
 import femaleTrash2 from './female-brute/trash/2.js';
 import femaleTrash3 from './female-brute/trash/3.js';
@@ -1396,8 +1439,25 @@ export const FRAMES: Record<
       femaleThrow13, femaleThrow14,
     ],
     train: [],
-    'trapped-loop': [],
-    'trapped-start': [],
+    'trapped-loop': [
+      femaleTrappedLoop1, femaleTrappedLoop2, femaleTrappedLoop3,
+      femaleTrappedLoop4, femaleTrappedLoop5, femaleTrappedLoop6,
+      femaleTrappedLoop7, femaleTrappedLoop8, femaleTrappedLoop9,
+      femaleTrappedLoop10, femaleTrappedLoop11, femaleTrappedLoop12,
+      femaleTrappedLoop13, femaleTrappedLoop14, femaleTrappedLoop15,
+      femaleTrappedLoop16, femaleTrappedLoop17, femaleTrappedLoop18,
+      femaleTrappedLoop19, femaleTrappedLoop20, femaleTrappedLoop21,
+      femaleTrappedLoop22, femaleTrappedLoop23, femaleTrappedLoop24,
+      femaleTrappedLoop25, femaleTrappedLoop26, femaleTrappedLoop27,
+      femaleTrappedLoop28, femaleTrappedLoop29, femaleTrappedLoop30,
+      femaleTrappedLoop31, femaleTrappedLoop32,
+    ],
+    'trapped-start': [
+      femaleTrappedStart1, femaleTrappedStart2, femaleTrappedStart3,
+      femaleTrappedStart4, femaleTrappedStart5, femaleTrappedStart6,
+      femaleTrappedStart7, femaleTrappedStart8, femaleTrappedStart9,
+      femaleTrappedStart10, femaleTrappedStart11,
+    ],
     trash: [
       femaleTrash1, femaleTrash2, femaleTrash3,
       femaleTrash4, femaleTrash5, femaleTrash6,
