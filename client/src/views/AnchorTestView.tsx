@@ -43,7 +43,7 @@ const AnchorTestView = () => {
   }, []);
 
   return (
-    <Stack spacing={2} sx={{ p: 2 }}>
+    <Stack spacing={2} sx={{ p: 2, minHeight: '100vh', bgcolor: '#363636' }}>
       <FormControl>
         <InputLabel>Brute</InputLabel>
         <Select

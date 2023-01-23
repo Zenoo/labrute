@@ -163,6 +163,15 @@ import femaleRun4 from './female-brute/run/4.js';
 import femaleRun5 from './female-brute/run/5.js';
 import femaleRun6 from './female-brute/run/6.js';
 import femaleRun7 from './female-brute/run/7.js';
+import femaleTrash1 from './female-brute/trash/1.js';
+import femaleTrash2 from './female-brute/trash/2.js';
+import femaleTrash3 from './female-brute/trash/3.js';
+import femaleTrash4 from './female-brute/trash/4.js';
+import femaleTrash5 from './female-brute/trash/5.js';
+import femaleTrash6 from './female-brute/trash/6.js';
+import femaleTrash7 from './female-brute/trash/7.js';
+import femaleTrash8 from './female-brute/trash/8.js';
+import femaleTrash9 from './female-brute/trash/9.js';
 import maleArriveEnd1 from './male-brute/arrive-end/1.js';
 import maleArriveEnd2 from './male-brute/arrive-end/2.js';
 import maleArriveEnd3 from './male-brute/arrive-end/3.js';
@@ -1158,7 +1167,11 @@ export const FRAMES: Record<
     train: [],
     'trapped-loop': [],
     'trapped-start': [],
-    trash: [],
+    trash: [
+      femaleTrash1, femaleTrash2, femaleTrash3,
+      femaleTrash4, femaleTrash5, femaleTrash6,
+      femaleTrash7, femaleTrash8, femaleTrash9,
+    ],
     win: [],
     fist: [
       femaleFist1, femaleFist2, femaleFist3,
