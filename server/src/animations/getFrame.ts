@@ -260,6 +260,31 @@ import femaleSlash6 from './female-brute/slash/6.js';
 import femaleSlash7 from './female-brute/slash/7.js';
 import femaleSlash8 from './female-brute/slash/8.js';
 import femaleSlash9 from './female-brute/slash/9.js';
+import femaleSteal1 from './female-brute/steal/1.js';
+import femaleSteal10 from './female-brute/steal/10.js';
+import femaleSteal11 from './female-brute/steal/11.js';
+import femaleSteal12 from './female-brute/steal/12.js';
+import femaleSteal13 from './female-brute/steal/13.js';
+import femaleSteal14 from './female-brute/steal/14.js';
+import femaleSteal15 from './female-brute/steal/15.js';
+import femaleSteal16 from './female-brute/steal/16.js';
+import femaleSteal17 from './female-brute/steal/17.js';
+import femaleSteal18 from './female-brute/steal/18.js';
+import femaleSteal19 from './female-brute/steal/19.js';
+import femaleSteal2 from './female-brute/steal/2.js';
+import femaleSteal20 from './female-brute/steal/20.js';
+import femaleSteal21 from './female-brute/steal/21.js';
+import femaleSteal22 from './female-brute/steal/22.js';
+import femaleSteal23 from './female-brute/steal/23.js';
+import femaleSteal24 from './female-brute/steal/24.js';
+import femaleSteal25 from './female-brute/steal/25.js';
+import femaleSteal3 from './female-brute/steal/3.js';
+import femaleSteal4 from './female-brute/steal/4.js';
+import femaleSteal5 from './female-brute/steal/5.js';
+import femaleSteal6 from './female-brute/steal/6.js';
+import femaleSteal7 from './female-brute/steal/7.js';
+import femaleSteal8 from './female-brute/steal/8.js';
+import femaleSteal9 from './female-brute/steal/9.js';
 import femaleThrow1 from './female-brute/throw/1.js';
 import femaleThrow10 from './female-brute/throw/10.js';
 import femaleThrow11 from './female-brute/throw/11.js';
@@ -1306,7 +1331,17 @@ export const FRAMES: Record<
       femaleSlash10, femaleSlash11, femaleSlash12,
     ],
     stolen: [],
-    steal: [],
+    steal: [
+      femaleSteal1, femaleSteal2, femaleSteal3,
+      femaleSteal4, femaleSteal5, femaleSteal6,
+      femaleSteal7, femaleSteal8, femaleSteal9,
+      femaleSteal10, femaleSteal11, femaleSteal12,
+      femaleSteal13, femaleSteal14, femaleSteal15,
+      femaleSteal16, femaleSteal17, femaleSteal18,
+      femaleSteal19, femaleSteal20, femaleSteal21,
+      femaleSteal22, femaleSteal23, femaleSteal24,
+      femaleSteal25,
+    ],
     strengthen: [],
     throw: [
       femaleThrow1, femaleThrow2, femaleThrow3,
