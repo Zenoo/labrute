@@ -1,6 +1,22 @@
 import {
   Animation, FrameProps,
 } from '@labrute/core';
+import femaleFist1 from './female-brute/fist/1.js';
+import femaleFist10 from './female-brute/fist/10.js';
+import femaleFist11 from './female-brute/fist/11.js';
+import femaleFist12 from './female-brute/fist/12.js';
+import femaleFist13 from './female-brute/fist/13.js';
+import femaleFist14 from './female-brute/fist/14.js';
+import femaleFist15 from './female-brute/fist/15.js';
+import femaleFist16 from './female-brute/fist/16.js';
+import femaleFist2 from './female-brute/fist/2.js';
+import femaleFist3 from './female-brute/fist/3.js';
+import femaleFist4 from './female-brute/fist/4.js';
+import femaleFist5 from './female-brute/fist/5.js';
+import femaleFist6 from './female-brute/fist/6.js';
+import femaleFist7 from './female-brute/fist/7.js';
+import femaleFist8 from './female-brute/fist/8.js';
+import femaleFist9 from './female-brute/fist/9.js';
 import femaleIdle1 from './female-brute/idle/1.js';
 import femaleIdle10 from './female-brute/idle/10.js';
 import femaleIdle11 from './female-brute/idle/11.js';
@@ -86,22 +102,6 @@ import maleArriveEnd5 from './male-brute/arrive-end/5.js';
 import maleArriveEnd6 from './male-brute/arrive-end/6.js';
 import maleArriveEnd7 from './male-brute/arrive-end/7.js';
 import maleArriveStart1 from './male-brute/arrive-start/1.js';
-import maleAttack1 from './male-brute/attack/1.js';
-import maleAttack10 from './male-brute/attack/10.js';
-import maleAttack11 from './male-brute/attack/11.js';
-import maleAttack12 from './male-brute/attack/12.js';
-import maleAttack13 from './male-brute/attack/13.js';
-import maleAttack14 from './male-brute/attack/14.js';
-import maleAttack15 from './male-brute/attack/15.js';
-import maleAttack16 from './male-brute/attack/16.js';
-import maleAttack2 from './male-brute/attack/2.js';
-import maleAttack3 from './male-brute/attack/3.js';
-import maleAttack4 from './male-brute/attack/4.js';
-import maleAttack5 from './male-brute/attack/5.js';
-import maleAttack6 from './male-brute/attack/6.js';
-import maleAttack7 from './male-brute/attack/7.js';
-import maleAttack8 from './male-brute/attack/8.js';
-import maleAttack9 from './male-brute/attack/9.js';
 import maleBlock1 from './male-brute/block/1.js';
 import maleBlock10 from './male-brute/block/10.js';
 import maleBlock11 from './male-brute/block/11.js';
@@ -726,14 +726,7 @@ export const FRAMES: Record<
       maleArriveEnd7,
     ],
     'arrive-start': [maleArriveStart1],
-    attack: [
-      maleAttack1, maleAttack2, maleAttack3,
-      maleAttack4, maleAttack5, maleAttack6,
-      maleAttack7, maleAttack8, maleAttack9,
-      maleAttack10, maleAttack11, maleAttack12,
-      maleAttack13, maleAttack14, maleAttack15,
-      maleAttack16,
-    ],
+    attack: [],
     block: [
       maleBlock1, maleBlock2, maleBlock3,
       maleBlock4, maleBlock5, maleBlock6,
@@ -1019,7 +1012,8 @@ export const FRAMES: Record<
     evade: [],
     grab: [],
     grabbed: [],
-    hit: [],
+    hit: [
+    ],
     'hit-0': [],
     'hit-1': [],
     'hit-2': [],
@@ -1069,7 +1063,14 @@ export const FRAMES: Record<
     'trapped-start': [],
     trash: [],
     win: [],
-    fist: [],
+    fist: [
+      femaleFist1, femaleFist2, femaleFist3,
+      femaleFist4, femaleFist5, femaleFist6,
+      femaleFist7, femaleFist8, femaleFist9,
+      femaleFist10, femaleFist11, femaleFist12,
+      femaleFist13, femaleFist14, femaleFist15,
+      femaleFist16,
+    ],
     estoc: [],
     whip: [],
   },
