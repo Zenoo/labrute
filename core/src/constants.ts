@@ -56,7 +56,7 @@ export const ANIMATION_ANCHORS: Record<Gender, Record<Animation, [number, number
     'arrive-end': [0.4833, 0.7799],
     'arrive-start': [0.4833, 0.7799],
     attack: [0, 0],
-    block: [0.5, 0.5],
+    block: [0.5069, 0.848],
     death: [0.5, 0.5],
     drink: [0.5, 0.5],
     eat: [0.5, 0.5],

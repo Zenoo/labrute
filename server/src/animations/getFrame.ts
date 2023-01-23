@@ -9,6 +9,29 @@ import femaleArriveEnd5 from './female-brute/arrive-end/5.js';
 import femaleArriveEnd6 from './female-brute/arrive-end/6.js';
 import femaleArriveEnd7 from './female-brute/arrive-end/7.js';
 import femaleArriveStart1 from './female-brute/arrive-start/1.js';
+import femaleBlock1 from './female-brute/block/1.js';
+import femaleBlock10 from './female-brute/block/10.js';
+import femaleBlock11 from './female-brute/block/11.js';
+import femaleBlock12 from './female-brute/block/12.js';
+import femaleBlock13 from './female-brute/block/13.js';
+import femaleBlock14 from './female-brute/block/14.js';
+import femaleBlock15 from './female-brute/block/15.js';
+import femaleBlock16 from './female-brute/block/16.js';
+import femaleBlock17 from './female-brute/block/17.js';
+import femaleBlock18 from './female-brute/block/18.js';
+import femaleBlock19 from './female-brute/block/19.js';
+import femaleBlock2 from './female-brute/block/2.js';
+import femaleBlock20 from './female-brute/block/20.js';
+import femaleBlock21 from './female-brute/block/21.js';
+import femaleBlock22 from './female-brute/block/22.js';
+import femaleBlock23 from './female-brute/block/23.js';
+import femaleBlock3 from './female-brute/block/3.js';
+import femaleBlock4 from './female-brute/block/4.js';
+import femaleBlock5 from './female-brute/block/5.js';
+import femaleBlock6 from './female-brute/block/6.js';
+import femaleBlock7 from './female-brute/block/7.js';
+import femaleBlock8 from './female-brute/block/8.js';
+import femaleBlock9 from './female-brute/block/9.js';
 import femaleEquip1 from './female-brute/equip/1.js';
 import femaleEquip10 from './female-brute/equip/10.js';
 import femaleEquip11 from './female-brute/equip/11.js';
@@ -1054,7 +1077,16 @@ export const FRAMES: Record<
     ],
     'arrive-start': [femaleArriveStart1],
     attack: [],
-    block: [],
+    block: [
+      femaleBlock1, femaleBlock2, femaleBlock3,
+      femaleBlock4, femaleBlock5, femaleBlock6,
+      femaleBlock7, femaleBlock8, femaleBlock9,
+      femaleBlock10, femaleBlock11, femaleBlock12,
+      femaleBlock13, femaleBlock14, femaleBlock15,
+      femaleBlock16, femaleBlock17, femaleBlock18,
+      femaleBlock19, femaleBlock20, femaleBlock21,
+      femaleBlock22, femaleBlock23,
+    ],
     death: [],
     drink: [],
     eat: [],
