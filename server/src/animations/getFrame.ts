@@ -24,6 +24,7 @@ import femaleEquip6 from './female-brute/equip/6.js';
 import femaleEquip7 from './female-brute/equip/7.js';
 import femaleEquip8 from './female-brute/equip/8.js';
 import femaleEquip9 from './female-brute/equip/9.js';
+import femaleEvade1 from './female-brute/evade/1.js';
 import femaleFist1 from './female-brute/fist/1.js';
 import femaleFist10 from './female-brute/fist/10.js';
 import femaleFist11 from './female-brute/fist/11.js';
@@ -1064,7 +1065,7 @@ export const FRAMES: Record<
       femaleEquip10, femaleEquip11, femaleEquip12,
       femaleEquip13, femaleEquip14, femaleEquip15,
     ],
-    evade: [],
+    evade: [femaleEvade1],
     grab: [],
     grabbed: [],
     hit: [
