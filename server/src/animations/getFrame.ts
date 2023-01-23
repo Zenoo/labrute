@@ -86,6 +86,54 @@ import femaleDeath6 from './female-brute/death/6.js';
 import femaleDeath7 from './female-brute/death/7.js';
 import femaleDeath8 from './female-brute/death/8.js';
 import femaleDeath9 from './female-brute/death/9.js';
+import femaleDrink1 from './female-brute/drink/1.js';
+import femaleDrink10 from './female-brute/drink/10.js';
+import femaleDrink11 from './female-brute/drink/11.js';
+import femaleDrink12 from './female-brute/drink/12.js';
+import femaleDrink13 from './female-brute/drink/13.js';
+import femaleDrink14 from './female-brute/drink/14.js';
+import femaleDrink15 from './female-brute/drink/15.js';
+import femaleDrink16 from './female-brute/drink/16.js';
+import femaleDrink17 from './female-brute/drink/17.js';
+import femaleDrink18 from './female-brute/drink/18.js';
+import femaleDrink19 from './female-brute/drink/19.js';
+import femaleDrink2 from './female-brute/drink/2.js';
+import femaleDrink20 from './female-brute/drink/20.js';
+import femaleDrink21 from './female-brute/drink/21.js';
+import femaleDrink22 from './female-brute/drink/22.js';
+import femaleDrink23 from './female-brute/drink/23.js';
+import femaleDrink24 from './female-brute/drink/24.js';
+import femaleDrink25 from './female-brute/drink/25.js';
+import femaleDrink26 from './female-brute/drink/26.js';
+import femaleDrink27 from './female-brute/drink/27.js';
+import femaleDrink28 from './female-brute/drink/28.js';
+import femaleDrink29 from './female-brute/drink/29.js';
+import femaleDrink3 from './female-brute/drink/3.js';
+import femaleDrink30 from './female-brute/drink/30.js';
+import femaleDrink31 from './female-brute/drink/31.js';
+import femaleDrink32 from './female-brute/drink/32.js';
+import femaleDrink33 from './female-brute/drink/33.js';
+import femaleDrink34 from './female-brute/drink/34.js';
+import femaleDrink35 from './female-brute/drink/35.js';
+import femaleDrink36 from './female-brute/drink/36.js';
+import femaleDrink37 from './female-brute/drink/37.js';
+import femaleDrink38 from './female-brute/drink/38.js';
+import femaleDrink39 from './female-brute/drink/39.js';
+import femaleDrink4 from './female-brute/drink/4.js';
+import femaleDrink40 from './female-brute/drink/40.js';
+import femaleDrink41 from './female-brute/drink/41.js';
+import femaleDrink42 from './female-brute/drink/42.js';
+import femaleDrink43 from './female-brute/drink/43.js';
+import femaleDrink44 from './female-brute/drink/44.js';
+import femaleDrink45 from './female-brute/drink/45.js';
+import femaleDrink46 from './female-brute/drink/46.js';
+import femaleDrink47 from './female-brute/drink/47.js';
+import femaleDrink48 from './female-brute/drink/48.js';
+import femaleDrink5 from './female-brute/drink/5.js';
+import femaleDrink6 from './female-brute/drink/6.js';
+import femaleDrink7 from './female-brute/drink/7.js';
+import femaleDrink8 from './female-brute/drink/8.js';
+import femaleDrink9 from './female-brute/drink/9.js';
 import femaleEquip1 from './female-brute/equip/1.js';
 import femaleEquip10 from './female-brute/equip/10.js';
 import femaleEquip11 from './female-brute/equip/11.js';
@@ -1327,7 +1375,24 @@ export const FRAMES: Record<
       femaleDeath49, femaleDeath50, femaleDeath51,
       femaleDeath52, femaleDeath53, femaleDeath54,
     ],
-    drink: [],
+    drink: [
+      femaleDrink1, femaleDrink2, femaleDrink3,
+      femaleDrink4, femaleDrink5, femaleDrink6,
+      femaleDrink7, femaleDrink8, femaleDrink9,
+      femaleDrink10, femaleDrink11, femaleDrink12,
+      femaleDrink13, femaleDrink14, femaleDrink15,
+      femaleDrink16, femaleDrink17, femaleDrink18,
+      femaleDrink19, femaleDrink20, femaleDrink21,
+      femaleDrink22, femaleDrink23, femaleDrink24,
+      femaleDrink25, femaleDrink26, femaleDrink27,
+      femaleDrink28, femaleDrink29, femaleDrink30,
+      femaleDrink31, femaleDrink32, femaleDrink33,
+      femaleDrink34, femaleDrink35, femaleDrink36,
+      femaleDrink37, femaleDrink38, femaleDrink39,
+      femaleDrink40, femaleDrink41, femaleDrink42,
+      femaleDrink43, femaleDrink44, femaleDrink45,
+      femaleDrink46, femaleDrink47, femaleDrink48,
+    ],
     eat: [],
     equip: [
       femaleEquip1, femaleEquip2, femaleEquip3,
