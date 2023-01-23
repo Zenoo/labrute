@@ -9,6 +9,21 @@ import femaleArriveEnd5 from './female-brute/arrive-end/5.js';
 import femaleArriveEnd6 from './female-brute/arrive-end/6.js';
 import femaleArriveEnd7 from './female-brute/arrive-end/7.js';
 import femaleArriveStart1 from './female-brute/arrive-start/1.js';
+import femaleEquip1 from './female-brute/equip/1.js';
+import femaleEquip10 from './female-brute/equip/10.js';
+import femaleEquip11 from './female-brute/equip/11.js';
+import femaleEquip12 from './female-brute/equip/12.js';
+import femaleEquip13 from './female-brute/equip/13.js';
+import femaleEquip14 from './female-brute/equip/14.js';
+import femaleEquip15 from './female-brute/equip/15.js';
+import femaleEquip2 from './female-brute/equip/2.js';
+import femaleEquip3 from './female-brute/equip/3.js';
+import femaleEquip4 from './female-brute/equip/4.js';
+import femaleEquip5 from './female-brute/equip/5.js';
+import femaleEquip6 from './female-brute/equip/6.js';
+import femaleEquip7 from './female-brute/equip/7.js';
+import femaleEquip8 from './female-brute/equip/8.js';
+import femaleEquip9 from './female-brute/equip/9.js';
 import femaleFist1 from './female-brute/fist/1.js';
 import femaleFist10 from './female-brute/fist/10.js';
 import femaleFist11 from './female-brute/fist/11.js';
@@ -1042,7 +1057,13 @@ export const FRAMES: Record<
     death: [],
     drink: [],
     eat: [],
-    equip: [],
+    equip: [
+      femaleEquip1, femaleEquip2, femaleEquip3,
+      femaleEquip4, femaleEquip5, femaleEquip6,
+      femaleEquip7, femaleEquip8, femaleEquip9,
+      femaleEquip10, femaleEquip11, femaleEquip12,
+      femaleEquip13, femaleEquip14, femaleEquip15,
+    ],
     evade: [],
     grab: [],
     grabbed: [],
