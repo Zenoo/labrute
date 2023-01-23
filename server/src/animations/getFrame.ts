@@ -487,6 +487,47 @@ import femaleWhip6 from './female-brute/whip/6.js';
 import femaleWhip7 from './female-brute/whip/7.js';
 import femaleWhip8 from './female-brute/whip/8.js';
 import femaleWhip9 from './female-brute/whip/9.js';
+import femaleWin1 from './female-brute/win/1.js';
+import femaleWin10 from './female-brute/win/10.js';
+import femaleWin11 from './female-brute/win/11.js';
+import femaleWin12 from './female-brute/win/12.js';
+import femaleWin13 from './female-brute/win/13.js';
+import femaleWin14 from './female-brute/win/14.js';
+import femaleWin15 from './female-brute/win/15.js';
+import femaleWin16 from './female-brute/win/16.js';
+import femaleWin17 from './female-brute/win/17.js';
+import femaleWin18 from './female-brute/win/18.js';
+import femaleWin19 from './female-brute/win/19.js';
+import femaleWin2 from './female-brute/win/2.js';
+import femaleWin20 from './female-brute/win/20.js';
+import femaleWin21 from './female-brute/win/21.js';
+import femaleWin22 from './female-brute/win/22.js';
+import femaleWin23 from './female-brute/win/23.js';
+import femaleWin24 from './female-brute/win/24.js';
+import femaleWin25 from './female-brute/win/25.js';
+import femaleWin26 from './female-brute/win/26.js';
+import femaleWin27 from './female-brute/win/27.js';
+import femaleWin28 from './female-brute/win/28.js';
+import femaleWin29 from './female-brute/win/29.js';
+import femaleWin3 from './female-brute/win/3.js';
+import femaleWin30 from './female-brute/win/30.js';
+import femaleWin31 from './female-brute/win/31.js';
+import femaleWin32 from './female-brute/win/32.js';
+import femaleWin33 from './female-brute/win/33.js';
+import femaleWin34 from './female-brute/win/34.js';
+import femaleWin35 from './female-brute/win/35.js';
+import femaleWin36 from './female-brute/win/36.js';
+import femaleWin37 from './female-brute/win/37.js';
+import femaleWin38 from './female-brute/win/38.js';
+import femaleWin39 from './female-brute/win/39.js';
+import femaleWin4 from './female-brute/win/4.js';
+import femaleWin40 from './female-brute/win/40.js';
+import femaleWin41 from './female-brute/win/41.js';
+import femaleWin5 from './female-brute/win/5.js';
+import femaleWin6 from './female-brute/win/6.js';
+import femaleWin7 from './female-brute/win/7.js';
+import femaleWin8 from './female-brute/win/8.js';
+import femaleWin9 from './female-brute/win/9.js';
 import maleArriveEnd1 from './male-brute/arrive-end/1.js';
 import maleArriveEnd2 from './male-brute/arrive-end/2.js';
 import maleArriveEnd3 from './male-brute/arrive-end/3.js';
@@ -1601,7 +1642,22 @@ export const FRAMES: Record<
       femaleTrash4, femaleTrash5, femaleTrash6,
       femaleTrash7, femaleTrash8, femaleTrash9,
     ],
-    win: [],
+    win: [
+      femaleWin1, femaleWin2, femaleWin3,
+      femaleWin4, femaleWin5, femaleWin6,
+      femaleWin7, femaleWin8, femaleWin9,
+      femaleWin10, femaleWin11, femaleWin12,
+      femaleWin13, femaleWin14, femaleWin15,
+      femaleWin16, femaleWin17, femaleWin18,
+      femaleWin19, femaleWin20, femaleWin21,
+      femaleWin22, femaleWin23, femaleWin24,
+      femaleWin25, femaleWin26, femaleWin27,
+      femaleWin28, femaleWin29, femaleWin30,
+      femaleWin31, femaleWin32, femaleWin33,
+      femaleWin34, femaleWin35, femaleWin36,
+      femaleWin37, femaleWin38, femaleWin39,
+      femaleWin40, femaleWin41,
+    ],
     fist: [
       femaleFist1, femaleFist2, femaleFist3,
       femaleFist4, femaleFist5, femaleFist6,
