@@ -227,6 +227,18 @@ import femaleRun4 from './female-brute/run/4.js';
 import femaleRun5 from './female-brute/run/5.js';
 import femaleRun6 from './female-brute/run/6.js';
 import femaleRun7 from './female-brute/run/7.js';
+import femaleSlash1 from './female-brute/slash/1.js';
+import femaleSlash10 from './female-brute/slash/10.js';
+import femaleSlash11 from './female-brute/slash/11.js';
+import femaleSlash12 from './female-brute/slash/12.js';
+import femaleSlash2 from './female-brute/slash/2.js';
+import femaleSlash3 from './female-brute/slash/3.js';
+import femaleSlash4 from './female-brute/slash/4.js';
+import femaleSlash5 from './female-brute/slash/5.js';
+import femaleSlash6 from './female-brute/slash/6.js';
+import femaleSlash7 from './female-brute/slash/7.js';
+import femaleSlash8 from './female-brute/slash/8.js';
+import femaleSlash9 from './female-brute/slash/9.js';
 import femaleTrash1 from './female-brute/trash/1.js';
 import femaleTrash2 from './female-brute/trash/2.js';
 import femaleTrash3 from './female-brute/trash/3.js';
@@ -1242,7 +1254,12 @@ export const FRAMES: Record<
       femaleRun4, femaleRun5, femaleRun6,
       femaleRun7,
     ],
-    slash: [],
+    slash: [
+      femaleSlash1, femaleSlash2, femaleSlash3,
+      femaleSlash4, femaleSlash5, femaleSlash6,
+      femaleSlash7, femaleSlash8, femaleSlash9,
+      femaleSlash10, femaleSlash11, femaleSlash12,
+    ],
     stolen: [],
     steal: [],
     strengthen: [],
