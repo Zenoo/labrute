@@ -239,6 +239,20 @@ import femaleSlash6 from './female-brute/slash/6.js';
 import femaleSlash7 from './female-brute/slash/7.js';
 import femaleSlash8 from './female-brute/slash/8.js';
 import femaleSlash9 from './female-brute/slash/9.js';
+import femaleThrow1 from './female-brute/throw/1.js';
+import femaleThrow10 from './female-brute/throw/10.js';
+import femaleThrow11 from './female-brute/throw/11.js';
+import femaleThrow12 from './female-brute/throw/12.js';
+import femaleThrow13 from './female-brute/throw/13.js';
+import femaleThrow14 from './female-brute/throw/14.js';
+import femaleThrow2 from './female-brute/throw/2.js';
+import femaleThrow3 from './female-brute/throw/3.js';
+import femaleThrow4 from './female-brute/throw/4.js';
+import femaleThrow5 from './female-brute/throw/5.js';
+import femaleThrow6 from './female-brute/throw/6.js';
+import femaleThrow7 from './female-brute/throw/7.js';
+import femaleThrow8 from './female-brute/throw/8.js';
+import femaleThrow9 from './female-brute/throw/9.js';
 import femaleTrash1 from './female-brute/trash/1.js';
 import femaleTrash2 from './female-brute/trash/2.js';
 import femaleTrash3 from './female-brute/trash/3.js';
@@ -1263,7 +1277,13 @@ export const FRAMES: Record<
     stolen: [],
     steal: [],
     strengthen: [],
-    throw: [],
+    throw: [
+      femaleThrow1, femaleThrow2, femaleThrow3,
+      femaleThrow4, femaleThrow5, femaleThrow6,
+      femaleThrow7, femaleThrow8, femaleThrow9,
+      femaleThrow10, femaleThrow11, femaleThrow12,
+      femaleThrow13, femaleThrow14,
+    ],
     train: [],
     'trapped-loop': [],
     'trapped-start': [],

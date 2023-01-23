@@ -78,7 +78,7 @@ export const ANIMATION_ANCHORS: Record<Gender, Record<Animation, [number, number
     stolen: [0.5, 0.5],
     steal: [0.5, 0.5],
     strengthen: [0.5, 0.5],
-    throw: [0.5, 0.5],
+    throw: [0.4346, 0.8368],
     train: [0.5, 0.5],
     'trapped-loop': [0.5, 0.5],
     'trapped-start': [0.5, 0.5],
