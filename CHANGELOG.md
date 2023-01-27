@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/Zenoo/labrute/compare/labrute-v2.0.0...labrute-v2.1.0) (2023-01-27)
+
+
+### Features
+
+* Brutes now have their skin color in the fight ([66255dc](https://github.com/Zenoo/labrute/commit/66255dc7ad51148b6ed365e4e36f359f433330b5))
+
+
+### Bug Fixes
+
+* Female block animation with body colors. [#70](https://github.com/Zenoo/labrute/issues/70) ([eb6ba23](https://github.com/Zenoo/labrute/commit/eb6ba239414d65607d3d3e4f0175ccf4737bc7ee))
+* Female death animation with body colors. [#70](https://github.com/Zenoo/labrute/issues/70) ([e51418c](https://github.com/Zenoo/labrute/commit/e51418c2a16a46fe7270312960cf48f27d962c1c))
+* Female drink animation with body colors. [#70](https://github.com/Zenoo/labrute/issues/70) ([cf38a3d](https://github.com/Zenoo/labrute/commit/cf38a3d405d8496c63adb735627f14cc9834eab9))
+* Female eat animation with body colors. [#70](https://github.com/Zenoo/labrute/issues/70) ([64644db](https://github.com/Zenoo/labrute/commit/64644dba88e184352379d018c27c7c1e9f713357))
+* Female equip animation with body colors. [#70](https://github.com/Zenoo/labrute/issues/70) ([504590a](https://github.com/Zenoo/labrute/commit/504590af3ef474962f04290ac90259e3b83d88dc))
+* Female estoc animation with body colors. [#70](https://github.com/Zenoo/labrute/issues/70) ([d7a73f3](https://github.com/Zenoo/labrute/commit/d7a73f329d8b8adbf0f6811f41118c22390d3811))
+* Female evade animation with body colors. [#70](https://github.com/Zenoo/labrute/issues/70) ([b2b15eb](https://github.com/Zenoo/labrute/commit/b2b15eb54e5386de339f759d936cd9916d92939a))
+* Female fist animation with body colors. [#70](https://github.com/Zenoo/labrute/issues/70) ([237566f](https://github.com/Zenoo/labrute/commit/237566f71d656ba0b2db029c9ad856b257a7b932))
+* Female grab animation with body colors. [#70](https://github.com/Zenoo/labrute/issues/70) ([6b76060](https://github.com/Zenoo/labrute/commit/6b760600883be2b5fbbc646f62faa01d4e832f6b))
+* Female grabbed animation with body colors. [#70](https://github.com/Zenoo/labrute/issues/70) ([5c44d1a](https://github.com/Zenoo/labrute/commit/5c44d1ac69e0699512ef3f90ed56eb5b5f7181ae))
+* Female hit and arrive animations with body colors. [#70](https://github.com/Zenoo/labrute/issues/70) ([fc71f45](https://github.com/Zenoo/labrute/commit/fc71f45d4116a60721d33dafbcb53ab58efc7c53))
+* Female launch animation with body colors. [#70](https://github.com/Zenoo/labrute/issues/70) ([5dc3d82](https://github.com/Zenoo/labrute/commit/5dc3d82a83649ec565394d6b91f3ca4e2361ce4e))
+* Female prepare-throw animation with body colors. [#70](https://github.com/Zenoo/labrute/issues/70) ([9b6c172](https://github.com/Zenoo/labrute/commit/9b6c17208cf93f93ab94edbd68cc0f58340cfe27))
+* Female run animation with body colors. [#70](https://github.com/Zenoo/labrute/issues/70) ([3166da9](https://github.com/Zenoo/labrute/commit/3166da9776234d5f88293e2664707f5c207e1acc))
+* Female slash animation with body colors. [#70](https://github.com/Zenoo/labrute/issues/70) ([8d699df](https://github.com/Zenoo/labrute/commit/8d699dfc8cc6ea1bfc536c7c8effe2a21f68aae3))
+* Female steal animation with body colors. [#70](https://github.com/Zenoo/labrute/issues/70) ([d71963e](https://github.com/Zenoo/labrute/commit/d71963e2c21a8f604f7ba598a0eda293d43538e2))
+* Female stolen animation with body colors. [#70](https://github.com/Zenoo/labrute/issues/70) ([a85e2fa](https://github.com/Zenoo/labrute/commit/a85e2fa4fdfc203484a05ed12bf87b3a5142d02a))
+* Female strengthen animation with body colors. [#70](https://github.com/Zenoo/labrute/issues/70) ([49a035c](https://github.com/Zenoo/labrute/commit/49a035c082d90750a128a1bad0b643ed42f7d0bc))
+* Female throw animation with body colors. [#70](https://github.com/Zenoo/labrute/issues/70) ([3038155](https://github.com/Zenoo/labrute/commit/3038155f95bb440a5b5ef5e4f6036a088a97a2f4))
+* Female train animation with body colors. [#70](https://github.com/Zenoo/labrute/issues/70) ([34596dd](https://github.com/Zenoo/labrute/commit/34596dd1df1ba40c4e07c09ab557fed71c1c7034))
+* Female trapped animation with body colors. [#70](https://github.com/Zenoo/labrute/issues/70) ([320020a](https://github.com/Zenoo/labrute/commit/320020a7c1553b9b5a7fffea99a7c0c253e51e37))
+* Female trash animation with body colors. [#70](https://github.com/Zenoo/labrute/issues/70) ([94384bf](https://github.com/Zenoo/labrute/commit/94384bfc863109b29354b9124ab3498873ef14de))
+* Female whip animation with body colors. [#70](https://github.com/Zenoo/labrute/issues/70) ([422d818](https://github.com/Zenoo/labrute/commit/422d818b32a1785e384dedc77305157a5a6c0e90))
+* Female win animation with body colors. [#70](https://github.com/Zenoo/labrute/issues/70) ([549cfb5](https://github.com/Zenoo/labrute/commit/549cfb56f981b2c26383164db06299dcd61162b6))
+* Spritesmith types declarations ([32def7a](https://github.com/Zenoo/labrute/commit/32def7ab7eb5cb612a66ad3e55a6a764002af6a3))
+
 ## [2.0.0](https://github.com/Zenoo/labrute/compare/labrute-v1.17.1...labrute-v2.0.0) (2023-01-23)
 
 
