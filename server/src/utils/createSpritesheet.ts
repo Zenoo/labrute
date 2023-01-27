@@ -2,15 +2,15 @@ import {
   Animation, BruteWithBodyColors,
 } from '@labrute/core';
 import { Resvg } from '@resvg/resvg-js';
-import SpriteSmith from 'spritesmith';
-import Vynil from 'vinyl';
+import Spritesmith, { SpritesmithResult } from 'spritesmith';
+import Vinyl from 'vinyl';
 import getFrame, { FRAMES } from '../animations/getFrame.js';
 
 const createSpritesheet = async (brute: BruteWithBodyColors) => {
   const model = brute.gender;
 
   // Get every model animation
-  const frames: Vynil.BufferFile[] = [];
+  const frames: Vinyl.BufferFile[] = [];
   const animations = Object.keys(FRAMES[model]) as Animation[];
   for (let i = 0; i < animations.length; i += 1) {
     const animation = animations[i];
@@ -37,7 +37,7 @@ const createSpritesheet = async (brute: BruteWithBodyColors) => {
       const png = pngData.asPng();
 
       // Create vinyl
-      const vynil = new Vynil({
+      const vynil = new Vinyl({
         contents: png,
         path: `${animation}_${model}_${j + 1}.png`,
       });
@@ -46,9 +46,9 @@ const createSpritesheet = async (brute: BruteWithBodyColors) => {
     }
   }
 
-  const spritesheet = await new Promise<SpriteSmith.SpriteResult>((resolve, reject) => {
+  const spritesheet = await new Promise<SpritesmithResult>((resolve, reject) => {
     // Create spritesheet
-    SpriteSmith.run({ src: frames }, (err, result) => {
+    Spritesmith.run({ src: frames }, (err, result) => {
       if (err) {
         reject(err);
         throw err;

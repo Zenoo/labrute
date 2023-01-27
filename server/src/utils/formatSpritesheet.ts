@@ -1,8 +1,8 @@
-import SpriteSmith from 'spritesmith';
 import {
   Animation, animationList, ANIMATION_ANCHORS,
 } from '@labrute/core';
 import { Brute, Gender } from '@labrute/prisma';
+import { SpritesmithResult } from 'spritesmith';
 import { FRAMES } from '../animations/getFrame.js';
 
 interface Frame {
@@ -54,7 +54,7 @@ const generateAnimations = (gender: Gender) => animationList
   }, {} as Record<Animation, string[]>);
 
 const formatSpritesheet = (
-  spritesheet: SpriteSmith.SpriteResult,
+  spritesheet: SpritesmithResult,
   brute: Brute,
 ): SpritesheetJson => ({
   frames: {

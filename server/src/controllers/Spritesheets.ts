@@ -5,7 +5,7 @@ import { PrismaClient } from '@labrute/prisma';
 import { Resvg } from '@resvg/resvg-js';
 import { Request, Response } from 'express';
 import fetch from 'node-fetch';
-import SpriteSmith from 'spritesmith';
+import Spritesmith from 'spritesmith';
 import Vynil from 'vinyl';
 import getFrame, { FRAMES } from '../animations/getFrame.js';
 import sendError from '../utils/sendError.js';
@@ -174,7 +174,7 @@ const Spritesheets = {
       }
 
       // Create spritesheet
-      SpriteSmith.run({ src: frames }, (err, result) => {
+      Spritesmith.run({ src: frames }, (err, result) => {
         if (err) {
           throw err;
         }

@@ -3,8 +3,8 @@
   "version": "2.0.0",
   "private": true,
   "engines": {
-    "npm": "8.1.2",
-    "node": "16.13.1"
+    "npm": ">=8.1.2",
+    "node": ">=16.13.1"
   },
   "scripts": {
     "clean": "rimraf \"client/build\" \"core/lib\" \"server/lib\" \"**/node_modules\" \"**/tsconfig.tsbuildinfo\"",
