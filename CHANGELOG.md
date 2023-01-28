@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.1](https://github.com/Zenoo/labrute/compare/labrute-v2.1.0...labrute-v2.1.1) (2023-01-28)
+
+
+### Bug Fixes
+
+* Increase victories on fight win. Fixes [#29](https://github.com/Zenoo/labrute/issues/29) ([b4816db](https://github.com/Zenoo/labrute/commit/b4816db788705e9d312a845fe2de6fc5bed13658))
+
 ## [2.1.0](https://github.com/Zenoo/labrute/compare/labrute-v2.0.0...labrute-v2.1.0) (2023-01-27)
 
 
