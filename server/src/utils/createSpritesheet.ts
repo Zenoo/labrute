@@ -46,7 +46,9 @@ const createSpritesheet = async (brute: BruteWithBodyColors) => {
     }
   }
 
-  const spritesheet = await new Promise<SpritesmithResult>((resolve, reject) => {
+  const spritesheet = await new Promise<SpritesmithResult & {
+    image: Buffer;
+  }>((resolve, reject) => {
     // Create spritesheet
     Spritesmith.run({ src: frames }, (err, result) => {
       if (err) {

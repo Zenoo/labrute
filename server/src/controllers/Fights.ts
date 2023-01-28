@@ -247,13 +247,14 @@ const Fights = {
         ? levelDifference > 10 ? 0 : levelDifference > 2 ? 1 : 2
         : levelDifference > 10 ? 0 : 1;
 
-      // Update brute XP, last fight and fights left
+      // Update brute XP, last fight, fights left and victories
       await prisma.brute.update({
         where: { id: brute1.id },
         data: {
           xp: { increment: xpGained },
           lastFight: new Date(),
           fightsLeft: getFightsLeft(brute1) - 1,
+          victories: { increment: winner.id === brute1.id ? 1 : 0 },
         },
       });
 
