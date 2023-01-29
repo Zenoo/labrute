@@ -38,7 +38,16 @@ build/Release
 
 # Dependency directories
 node_modules/
-jspm_packages/
+
+# Yarn without Zero-Installs
+# https://yarnpkg.com/advanced/qa#which-files-should-be-gitignored
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
 
 # Typescript v1 declaration files
 typings/
@@ -69,6 +78,7 @@ lib/
 *.tsbuildinfo
 
 etwin.toml
+
 
 # Prisma runtime
 prisma/runtime

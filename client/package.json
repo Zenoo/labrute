@@ -13,8 +13,8 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-    "@labrute/core": "*",
-    "@labrute/prisma": "*",
+    "@labrute/core": "workspace:*",
+    "@labrute/prisma": "workspace:*",
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.5",
     "@pixi/filter-glow": "^4.2.0",

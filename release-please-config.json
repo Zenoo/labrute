@@ -15,6 +15,16 @@
         },
         {
           "type": "json",
+          "path": "prisma/package.json",
+          "jsonpath": "$.version"
+        },
+        {
+          "type": "json",
+          "path": "prisma/package.reference.json",
+          "jsonpath": "$.version"
+        },
+        {
+          "type": "json",
           "path": "server/package.json",
           "jsonpath": "$.version"
         },

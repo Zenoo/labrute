@@ -9,31 +9,36 @@
   "scripts": {
     "clean": "rimraf \"client/build\" \"core/lib\" \"server/lib\" \"**/node_modules\" \"**/tsconfig.tsbuildinfo\"",
     "compile": "tsc -b tsconfig.build.json",
-    "front": "npm run start --workspace=client",
-    "back": "npm run start:watch --workspace=server",
+    "front": "cd ./client && yarn run start",
+    "back": "cd ./server && yarn run start:watch",
     "etwin": "etwin",
-    "start": "npm run start --workspace=server",
-    "dev": "concurrently --prefix \"[{name}]\" --names \"DB,SERVER,CLIENT,ETWIN\" -c \"bgMagenta.bold,bgBlue.bold,bgGreen.bold,bgYellow.bold\" \"npm run studio\" \"npm run back\" \"npm run front\" \"npm run etwin\"",
-    "db:sync:dev": "npm run db:sync:dev --workspace=server",
-    "db:sync:prod": "npm run db:sync:prod --workspace=server",
-    "db:seed": "npm run db:seed --workspace=server",
-    "db:reset": "npm run db:reset --workspace=server",
+    "start": "cd ./server && yarn run start",
+    "dev": "concurrently --prefix \"[{name}]\" --names \"DB,SERVER,CLIENT,ETWIN\" -c \"bgMagenta.bold,bgBlue.bold,bgGreen.bold,bgYellow.bold\" \"yarn run studio\" \"yarn run back\" \"yarn run front\" \"yarn run etwin\"",
+    "build": "yarn run compile && yarn run build:client",
+    "build:client": "cd ./client && yarn run build",
+    "db:sync:dev": "cd ./server && yarn run db:sync:dev",
+    "db:sync:prod": "cd ./server && yarn run db:sync:prod",
+    "db:seed": "cd ./server && yarn run db:seed",
+    "db:reset": "cd ./server && yarn run db:reset",
     "postinstall": "bash ./postInstall.sh",
     "animation:import": "ts-node importAnimation.ts",
-    "studio": "npm run studio --workspace=server"
+    "studio": "cd ./server && yarn run studio"
   },
   "devDependencies": {
     "concurrently": "^7.6.0",
     "rimraf": "^3.0.2",
     "typescript": "^4.9.4"
   },
-  "workspaces": [
-    "client",
-    "core",
-    "prisma",
-    "server"
-  ],
+  "workspaces": {
+    "packages": [
+      "./client",
+      "./core",
+      "./prisma",
+      "./server"
+    ]
+  },
   "dependencies": {
     "@eternal-twin/cli": "^0.10.3"
-  }
+  },
+  "packageManager": "yarn@3.3.1"
 }

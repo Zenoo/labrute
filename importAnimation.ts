@@ -17,7 +17,7 @@ const [
 ] = process.argv.slice(2);
 
 if (!folder || !animationName || !animationFolder || !width || !height) {
-  console.log('Usage: npm run animation:import <folder> <animationName> <animationFolder> <frameWidth> <frameHeight>');
+  console.log('Usage: yarn run animation:import <folder> <animationName> <animationFolder> <frameWidth> <frameHeight>');
   process.exit(1);
 }
 

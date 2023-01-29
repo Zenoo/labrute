@@ -14,8 +14,8 @@
     "db:sync:dev": "prisma migrate dev && cp ../prisma/package.reference.json ../prisma/package.json",
     "db:sync:prod": "prisma migrate deploy",
     "db:seed": "prisma db seed",
-    "db:reset": "npx prisma migrate reset --skip-generate",
-    "studio": "npx prisma studio"
+    "db:reset": "prisma migrate reset --skip-generate",
+    "studio": "prisma studio"
   },
   "prisma": {
     "seed": "node --loader ts-node/esm src/seed.ts"
@@ -23,8 +23,8 @@
   "dependencies": {
     "@eternal-twin/core": "^0.10.3",
     "@eternal-twin/etwin-client-http": "^0.10.3",
-    "@labrute/core": "*",
-    "@labrute/prisma": "*",
+    "@labrute/core": "workspace:*",
+    "@labrute/prisma": "workspace:*",
     "@prisma/client": "^4.9.0",
     "@resvg/resvg-js": "^2.2.0",
     "bcrypt": "^5.1.0",

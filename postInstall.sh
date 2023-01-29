@@ -1,22 +1,26 @@
-if [ "$NODE_ENV" = "production" ]; then
+#!/usr/bin/env bash
+
+set -eux
+
+if [ "${NODE_ENV:-dev}" = "production" ]; then
   # Sync DB
-  npm run db:sync:prod
+  yarn run db:sync:prod
 
   # Compile Typescript
-  npm run compile
+  yarn run compile
 
   # Seed DB
-  npm run db:seed
+  yarn run db:seed
 
   # Build client
-  npm run build --workspace=client
+  yarn run build:client
 else
   # Generate schema types + Sync DB
-  npm run db:sync:dev
+  yarn run db:sync:dev
 
   # Compile Typescript
-  npm run compile
+  yarn run compile
 
   # Seed DB
-  npm run db:seed
+  yarn run db:seed
 fi
