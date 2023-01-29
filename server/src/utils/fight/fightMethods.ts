@@ -374,7 +374,7 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
           } as LeaveStep);
 
           // Remove pet from fight
-          fightData.fighters = fightData.fighters.filter((f) => f.type === 'pet' && f.name !== pet.name);
+          fightData.fighters = fightData.fighters.filter((f) => f.type === 'brute' || (f.type === 'pet' && f.name !== pet.name));
         }
       }
 

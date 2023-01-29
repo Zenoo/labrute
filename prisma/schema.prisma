@@ -209,6 +209,7 @@ model Brute {
   logs              Log[]
   destinyChoices    DestinyChoice[]
   spritesheet       BruteSpritesheet?
+  tournaments       Tournament[]
 }
 
 model BruteSpritesheet {
@@ -241,17 +242,18 @@ enum FighterType {
 }
 
 model Fight {
-  id       Int      @id @default(autoincrement())
-  date     DateTime @default(now()) @db.Date
-  brute1   Brute    @relation(fields: [brute1Id], references: [id])
-  brute1Id Int
-  brute2   Brute    @relation("Adversary", fields: [brute2Id], references: [id])
-  brute2Id Int
-  winner   String   @db.VarChar(255)
-  loser    String   @db.VarChar(255)
-  steps    Json     @db.Json
-  fighters Json     @db.Json
-  logs     Log[]
+  id             Int              @id @default(autoincrement())
+  date           DateTime         @default(now()) @db.Date
+  brute1         Brute            @relation(fields: [brute1Id], references: [id])
+  brute1Id       Int
+  brute2         Brute            @relation("Adversary", fields: [brute2Id], references: [id])
+  brute2Id       Int
+  winner         String           @db.VarChar(255)
+  loser          String           @db.VarChar(255)
+  steps          Json             @db.Json
+  fighters       Json             @db.Json
+  logs           Log[]
+  TournamentStep TournamentStep[]
 }
 
 model Log {
@@ -294,4 +296,26 @@ model DestinyChoice {
   stat1Value Int?
   stat2      BruteStat?
   stat2Value Int?
+}
+
+enum TournamentType {
+  DAILY
+  CUSTOM
+}
+
+model Tournament {
+  id           Int              @id @default(autoincrement())
+  date         DateTime         @db.Date
+  type         TournamentType   @default(DAILY)
+  participants Brute[]
+  steps        TournamentStep[]
+}
+
+model TournamentStep {
+  id           Int        @id @default(autoincrement())
+  tournament   Tournament @relation(fields: [tournamentId], references: [id])
+  tournamentId Int
+  step         Int
+  fight        Fight      @relation(fields: [fightId], references: [id])
+  fightId      Int
 }

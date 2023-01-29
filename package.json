@@ -13,13 +13,14 @@
     "back": "npm run start:watch --workspace=server",
     "etwin": "etwin",
     "start": "npm run start --workspace=server",
-    "dev": "concurrently --prefix \"[{name}]\" --names \"SERVER,CLIENT,ETWIN\" -c \"bgBlue.bold,bgGreen.bold,bgYellow.bold\" \"npm run back\" \"npm run front\" \"npm run etwin\"",
+    "dev": "concurrently --prefix \"[{name}]\" --names \"DB,SERVER,CLIENT,ETWIN\" -c \"bgMagenta.bold,bgBlue.bold,bgGreen.bold,bgYellow.bold\" \"npm run studio\" \"npm run back\" \"npm run front\" \"npm run etwin\"",
     "db:sync:dev": "npm run db:sync:dev --workspace=server",
     "db:sync:prod": "npm run db:sync:prod --workspace=server",
     "db:seed": "npm run db:seed --workspace=server",
     "db:reset": "npm run db:reset --workspace=server",
     "postinstall": "bash ./postInstall.sh",
-    "animation:import": "ts-node importAnimation.ts"
+    "animation:import": "ts-node importAnimation.ts",
+    "studio": "npm run studio --workspace=server"
   },
   "devDependencies": {
     "concurrently": "^7.6.0",

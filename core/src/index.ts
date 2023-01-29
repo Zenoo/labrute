@@ -1,4 +1,4 @@
-import { Brute, BruteBody, BruteColors, Clan, User } from '@labrute/prisma';
+import { Brute, BruteBody, BruteColors, Clan, Fight, Tournament, TournamentStep, User } from '@labrute/prisma';
 import applySkillModifiers from './brute/applySkillModifiers';
 import availableBodyParts from './brute/availableBodyParts';
 import colors from './brute/colors';
@@ -18,6 +18,7 @@ import randomBetween from './utils/randomBetween';
 import weightedRandom from './utils/weightedRandom';
 import weapons from './brute/weapons';
 import promiseBatch from './utils/promiseBatch';
+import pad from './utils/pad';
 
 export {
   applySkillModifiers,
@@ -39,6 +40,7 @@ export {
   weapons,
   weightedRandom,
   promiseBatch,
+  pad,
 };
 export * from './types';
 export * from './constants';
@@ -70,3 +72,13 @@ export type BruteWithClan = Brute & {
   clan: Clan | null;
 };
 export type BruteWithMasterBodyColorsClan = BruteWithMasterBodyColors & BruteWithClan;
+
+// Tournament
+export type FullTournament = Tournament & {
+  steps: (TournamentStep & {
+    fight: Fight & {
+      brute1: BruteWithBodyColors;
+      brute2: BruteWithBodyColors;
+    };
+  })[];
+};

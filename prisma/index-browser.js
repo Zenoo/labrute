@@ -236,6 +236,19 @@ exports.Prisma.SortOrder = makeEnum({
   desc: 'desc'
 });
 
+exports.Prisma.TournamentScalarFieldEnum = makeEnum({
+  id: 'id',
+  date: 'date',
+  type: 'type'
+});
+
+exports.Prisma.TournamentStepScalarFieldEnum = makeEnum({
+  id: 'id',
+  tournamentId: 'tournamentId',
+  step: 'step',
+  fightId: 'fightId'
+});
+
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   ReadUncommitted: 'ReadUncommitted',
   ReadCommitted: 'ReadCommitted',
@@ -348,6 +361,11 @@ exports.SkillName = makeEnum({
   monk: 'monk'
 });
 
+exports.TournamentType = makeEnum({
+  DAILY: 'DAILY',
+  CUSTOM: 'CUSTOM'
+});
+
 exports.WeaponName = makeEnum({
   fan: 'fan',
   keyboard: 'keyboard',
@@ -386,7 +404,9 @@ exports.Prisma.ModelName = makeEnum({
   Clan: 'Clan',
   Fight: 'Fight',
   Log: 'Log',
-  DestinyChoice: 'DestinyChoice'
+  DestinyChoice: 'DestinyChoice',
+  Tournament: 'Tournament',
+  TournamentStep: 'TournamentStep'
 });
 
 /**

@@ -6,6 +6,7 @@ import CellView from './views/CellView';
 import FightView from './views/FightView';
 import HomeView from './views/HomeView';
 import LevelUpView from './views/LevelUpView';
+import TournamentView from './views/TournamentView';
 import VersusView from './views/VersusView';
 
 const routes = [
@@ -24,6 +25,7 @@ const routes = [
           { path: 'arena', element: <ArenaView /> },
           { path: 'versus/:opponentName', element: <VersusView /> },
           { path: 'fight/:fightId', element: <FightView /> },
+          { path: 'tournament/:date', element: <TournamentView /> },
         ],
       },
     ],

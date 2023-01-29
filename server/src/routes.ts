@@ -8,6 +8,7 @@ import Fights from './controllers/Fights.js';
 import Logs from './controllers/Logs.js';
 import OAuth from './controllers/OAuth.js';
 import Spritesheets from './controllers/Spritesheets.js';
+import Tournaments from './controllers/Tournaments.js';
 import Users from './controllers/Users.js';
 
 // Get client index.html
@@ -53,6 +54,9 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
   app.get('/api/spritesheet/:brute.json', Spritesheets.getJson(prisma));
   app.get('/api/spritesheet/:brute/:model/:animation/:frame', Spritesheets.getFrame(prisma));
   app.get('/api/spritesheet/:brute/:model/:animation', Spritesheets.getAnimation(prisma));
+
+  // Tournament
+  app.get('/api/tournament/:name/:date', Tournaments.getDaily(prisma));
 
   // Client index
   app.get('*', (req, res) => {

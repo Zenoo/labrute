@@ -31,8 +31,9 @@ const CellSocials = ({
           </Box>
           )}
           <Box>
-            <Text bold color="secondary" component="span">{t('ranking')}: </Text>
-            <Text bold component="span">{brute.ranking || 'N.A'}</Text>
+            <Text bold color="secondary" component="span">
+              <Link to="">{t('ranking')}</Link>
+            </Text>
           </Box>
         </Grid>
         <Grid item xs={smallScreen ? 6 : 3}>

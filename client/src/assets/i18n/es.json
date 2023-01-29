@@ -266,6 +266,7 @@
   "arena": "Arena",
   "fightsLeft": "You have {{value}} fights left today.",
   "levelUp": "Level up!",
+  "tournament": "Tournament",
   "tournamentOf": "Tournament of",
   "bruteRegistered": "Brute successfully registered.",
   "bruteNotRegistered": "Brute not registered.",

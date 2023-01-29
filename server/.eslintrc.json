@@ -3,6 +3,7 @@
   "rules": {
     "import/extensions": "off",
     "import/no-unresolved": "off",
-    "node/no-missing-import": "off"
+    "node/no-missing-import": "off",
+    "no-restricted-syntax": "off"
   }
 }
