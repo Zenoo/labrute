@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.3](https://github.com/Zenoo/labrute/compare/labrute-v2.2.2...labrute-v2.2.3) (2023-01-29)
+
+
+### Bug Fixes
+
+* Prisma arch linux engine + deletedAt/createdAt metadata ([92f14fe](https://github.com/Zenoo/labrute/commit/92f14fe813a20121b0225738f43bb31997a5a100))
+* Remove Prisma build ([f404b94](https://github.com/Zenoo/labrute/commit/f404b944d2c4da54ecf85fa43eb8a6a129a6ade0))
+
 ## [2.2.2](https://github.com/Zenoo/labrute/compare/labrute-v2.2.1...labrute-v2.2.2) (2023-01-29)
 
 
