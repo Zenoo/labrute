@@ -1,3 +1,4 @@
+import { Language, LANGUAGES } from '@labrute/core';
 import { AccountCircle, Add, Login, Logout } from '@mui/icons-material';
 import { Box, BoxProps, CircularProgress, Link, SpeedDial, SpeedDialAction, Tooltip } from '@mui/material';
 import React, { useCallback, useEffect } from 'react';
@@ -7,7 +8,6 @@ import { useNavigate } from 'react-router';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import { useLanguage } from '../hooks/useLanguage';
-import { Language, languages } from '../i18n';
 import catchError from '../utils/catchError';
 import Fetch from '../utils/Fetch';
 import Version from '../utils/Version';
@@ -160,7 +160,7 @@ const Page = ({
           {' '}| v{Version} Remade with love at{' '}
           <Link href="https://eternal-twin.net/">Eternal Twin</Link>
           {/* LANGUAGE */}
-          {languages.map((lang) => lang !== language && (
+          {LANGUAGES.map((lang) => lang !== language && (
             <Tooltip title={t(`${lang}-version`)} key={lang}>
               <Box
                 component="img"

@@ -4,9 +4,7 @@ import fr from './assets/i18n/fr.json';
 import en from './assets/i18n/en.json';
 import es from './assets/i18n/es.json';
 import de from './assets/i18n/de.json';
-
-export const languages = ['fr', 'en', 'es', 'de'] as const;
-export type Language = typeof languages[number];
+import { DEFAULT_LANGUAGE } from '@labrute/core';
 
 export const defaultNS = 'common';
 export const resources = {
@@ -25,7 +23,7 @@ export const resources = {
 } as const;
 
 i18n.use(initReactI18next).init({
-  lng: languages[0],
+  lng: DEFAULT_LANGUAGE,
   resources,
   interpolation: {
     escapeValue: false

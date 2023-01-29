@@ -1,10 +1,9 @@
-import { BruteWithMasterBodyColorsClanTournament } from '@labrute/core';
+import { BruteWithMasterBodyColorsClanTournament, Language } from '@labrute/core';
 import { Paper, PaperProps } from '@mui/material';
 import moment, { Moment } from 'moment';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAlert } from '../../hooks/useAlert';
-import { Language } from '../../i18n';
 import catchError from '../../utils/catchError';
 import Server from '../../utils/Server';
 import Link from '../Link';

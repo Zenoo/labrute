@@ -1,4 +1,4 @@
-import { BruteRanking, BruteWithMasterBodyColorsClanTournament, FIGHTS_PER_DAY, getFightsLeft, getSacriPoints, getXPNeeded, UserWithBrutesBodyColor } from '@labrute/core';
+import { BruteRanking, BruteWithMasterBodyColorsClanTournament, FIGHTS_PER_DAY, getFightsLeft, getSacriPoints, getXPNeeded, Language, UserWithBrutesBodyColor } from '@labrute/core';
 import { Box, BoxProps, Stack } from '@mui/material';
 import { Moment } from 'moment';
 import React, { useCallback, useMemo } from 'react';
@@ -8,7 +8,6 @@ import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import { useConfirm } from '../../hooks/useConfirm';
 import useStateAsync from '../../hooks/useStateAsync';
-import { Language } from '../../i18n';
 import catchError from '../../utils/catchError';
 import Server from '../../utils/Server';
 import BruteBodyAndStats from '../Brute/BruteBodyAndStats';

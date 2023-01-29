@@ -46,7 +46,7 @@ export * from './types';
 export * from './constants';
 export * from './brute/weapons';
 
-export const LANGUAGES = ['en', 'fr'] as const;
+export const LANGUAGES = ['fr', 'en', 'es', 'de'] as const;
 export const DEFAULT_LANGUAGE = LANGUAGES[0];
 export type Language = typeof LANGUAGES[number];
 
