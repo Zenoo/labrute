@@ -78,14 +78,3 @@ lib/
 *.tsbuildinfo
 
 etwin.toml
-
-
-# Prisma runtime
-prisma/runtime
-prisma/index-browser.js
-prisma/index.d.ts
-prisma/index.js
-prisma/libquery_engine-debian-openssl-1.1.x.so.node
-prisma/libquery_engine-debian-openssl-3.0.x.so.node
-prisma/query_engine-windows.dll.node
-prisma/schema.prisma
