@@ -17,7 +17,8 @@
           "type": "json",
           "path": "server/package.json",
           "jsonpath": "$.version"
-        }
+        },
+        "client/src/utils/Version.ts"
       ]
     }
   }
