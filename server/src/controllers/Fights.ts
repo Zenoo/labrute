@@ -47,7 +47,7 @@ const Fights = {
       const brute1 = await prisma.brute.findFirst({
         where: {
           name: req.body.brute1,
-          deleted: false,
+          deletedAt: null,
         },
         include: {
           body: true,
@@ -60,7 +60,7 @@ const Fights = {
       const brute2 = await prisma.brute.findFirst({
         where: {
           name: req.body.brute2,
-          deleted: false,
+          deletedAt: null,
         },
         include: {
           body: true,

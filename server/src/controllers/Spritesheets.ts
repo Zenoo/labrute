@@ -39,7 +39,7 @@ const Spritesheets = {
     try {
       // Get brute spritesheet
       const spritesheet = await prisma.bruteSpritesheet.findFirst({
-        where: { brute: { name: req.params.brute, deleted: false } },
+        where: { brute: { name: req.params.brute, deletedAt: null } },
         select: { image: true },
       });
 
@@ -48,7 +48,7 @@ const Spritesheets = {
       } else {
         // Get brute gender
         const { gender } = await prisma.brute.findFirstOrThrow({
-          where: { name: req.params.brute, deleted: false },
+          where: { name: req.params.brute, deletedAt: null },
           select: { gender: true },
         });
 
@@ -90,7 +90,7 @@ const Spritesheets = {
     try {
       // Get brute spritesheet json
       const spritesheet = await prisma.bruteSpritesheet.findFirst({
-        where: { brute: { name: req.params.brute, deleted: false } },
+        where: { brute: { name: req.params.brute, deletedAt: null } },
         select: { json: true },
       });
 
@@ -99,7 +99,7 @@ const Spritesheets = {
       } else {
         // Get brute gender
         const { gender } = await prisma.brute.findFirstOrThrow({
-          where: { name: req.params.brute, deleted: false },
+          where: { name: req.params.brute, deletedAt: null },
           select: { gender: true },
         });
 
@@ -123,7 +123,7 @@ const Spritesheets = {
       const brute = await prisma.brute.findFirst({
         where: {
           name: req.params.brute,
-          deleted: false,
+          deletedAt: null,
         },
         include: {
           body: true,
@@ -198,7 +198,7 @@ const Spritesheets = {
       const brute = await prisma.brute.findFirst({
         where: {
           name: req.params.brute,
-          deleted: false,
+          deletedAt: null,
         },
         include: {
           body: true,

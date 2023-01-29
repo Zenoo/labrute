@@ -80,7 +80,8 @@ export type BruteColors = {
 export type Brute = {
   id: number
   name: string
-  deleted: boolean
+  deletedAt: Date | null
+  createdAt: Date
   destinyPath: DestinyChoiceSide[]
   level: number
   xp: number
@@ -4759,7 +4760,8 @@ export namespace Prisma {
   export type BruteMinAggregateOutputType = {
     id: number | null
     name: string | null
-    deleted: boolean | null
+    deletedAt: Date | null
+    createdAt: Date | null
     level: number | null
     xp: number | null
     hp: number | null
@@ -4790,7 +4792,8 @@ export namespace Prisma {
   export type BruteMaxAggregateOutputType = {
     id: number | null
     name: string | null
-    deleted: boolean | null
+    deletedAt: Date | null
+    createdAt: Date | null
     level: number | null
     xp: number | null
     hp: number | null
@@ -4821,7 +4824,8 @@ export namespace Prisma {
   export type BruteCountAggregateOutputType = {
     id: number
     name: number
-    deleted: number
+    deletedAt: number
+    createdAt: number
     destinyPath: number
     level: number
     xp: number
@@ -4908,7 +4912,8 @@ export namespace Prisma {
   export type BruteMinAggregateInputType = {
     id?: true
     name?: true
-    deleted?: true
+    deletedAt?: true
+    createdAt?: true
     level?: true
     xp?: true
     hp?: true
@@ -4939,7 +4944,8 @@ export namespace Prisma {
   export type BruteMaxAggregateInputType = {
     id?: true
     name?: true
-    deleted?: true
+    deletedAt?: true
+    createdAt?: true
     level?: true
     xp?: true
     hp?: true
@@ -4970,7 +4976,8 @@ export namespace Prisma {
   export type BruteCountAggregateInputType = {
     id?: true
     name?: true
-    deleted?: true
+    deletedAt?: true
+    createdAt?: true
     destinyPath?: true
     level?: true
     xp?: true
@@ -5093,7 +5100,8 @@ export namespace Prisma {
   export type BruteGroupByOutputType = {
     id: number
     name: string
-    deleted: boolean
+    deletedAt: Date | null
+    createdAt: Date
     destinyPath: DestinyChoiceSide[]
     level: number
     xp: number
@@ -5147,7 +5155,8 @@ export namespace Prisma {
   export type BruteSelect = {
     id?: boolean
     name?: boolean
-    deleted?: boolean
+    deletedAt?: boolean
+    createdAt?: boolean
     destinyPath?: boolean
     level?: boolean
     xp?: boolean
@@ -13193,7 +13202,8 @@ export namespace Prisma {
   export const BruteScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    deleted: 'deleted',
+    deletedAt: 'deletedAt',
+    createdAt: 'createdAt',
     destinyPath: 'destinyPath',
     level: 'level',
     xp: 'xp',
@@ -13634,7 +13644,8 @@ export namespace Prisma {
     NOT?: Enumerable<BruteWhereInput>
     id?: IntFilter | number
     name?: StringFilter | string
-    deleted?: BoolFilter | boolean
+    deletedAt?: DateTimeNullableFilter | Date | string | null
+    createdAt?: DateTimeFilter | Date | string
     destinyPath?: EnumDestinyChoiceSideNullableListFilter
     level?: IntFilter | number
     xp?: IntFilter | number
@@ -13681,7 +13692,8 @@ export namespace Prisma {
   export type BruteOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    deleted?: SortOrder
+    deletedAt?: SortOrder
+    createdAt?: SortOrder
     destinyPath?: SortOrder
     level?: SortOrder
     xp?: SortOrder
@@ -13732,7 +13744,8 @@ export namespace Prisma {
   export type BruteOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    deleted?: SortOrder
+    deletedAt?: SortOrder
+    createdAt?: SortOrder
     destinyPath?: SortOrder
     level?: SortOrder
     xp?: SortOrder
@@ -13775,7 +13788,8 @@ export namespace Prisma {
     NOT?: Enumerable<BruteScalarWhereWithAggregatesInput>
     id?: IntWithAggregatesFilter | number
     name?: StringWithAggregatesFilter | string
-    deleted?: BoolWithAggregatesFilter | boolean
+    deletedAt?: DateTimeNullableWithAggregatesFilter | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter | Date | string
     destinyPath?: EnumDestinyChoiceSideNullableListFilter
     level?: IntWithAggregatesFilter | number
     xp?: IntWithAggregatesFilter | number
@@ -14525,7 +14539,8 @@ export namespace Prisma {
 
   export type BruteCreateInput = {
     name: string
-    deleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -14569,7 +14584,8 @@ export namespace Prisma {
   export type BruteUncheckedCreateInput = {
     id?: number
     name: string
-    deleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -14612,7 +14628,8 @@ export namespace Prisma {
 
   export type BruteUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
-    deleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -14656,7 +14673,8 @@ export namespace Prisma {
   export type BruteUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    deleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -14700,7 +14718,8 @@ export namespace Prisma {
   export type BruteCreateManyInput = {
     id?: number
     name: string
-    deleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -14734,7 +14753,8 @@ export namespace Prisma {
 
   export type BruteUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
-    deleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -14766,7 +14786,8 @@ export namespace Prisma {
   export type BruteUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    deleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -15563,6 +15584,28 @@ export namespace Prisma {
     bruteId?: SortOrder
   }
 
+  export type DateTimeNullableFilter = {
+    equals?: Date | string | null
+    in?: Enumerable<Date> | Enumerable<string> | null
+    notIn?: Enumerable<Date> | Enumerable<string> | null
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeNullableFilter | Date | string | null
+  }
+
+  export type DateTimeFilter = {
+    equals?: Date | string
+    in?: Enumerable<Date> | Enumerable<string>
+    notIn?: Enumerable<Date> | Enumerable<string>
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeFilter | Date | string
+  }
+
   export type EnumDestinyChoiceSideNullableListFilter = {
     equals?: Enumerable<DestinyChoiceSide> | null
     has?: DestinyChoiceSide | null
@@ -15656,17 +15699,6 @@ export namespace Prisma {
     isNot?: ClanWhereInput | null
   }
 
-  export type DateTimeNullableFilter = {
-    equals?: Date | string | null
-    in?: Enumerable<Date> | Enumerable<string> | null
-    notIn?: Enumerable<Date> | Enumerable<string> | null
-    lt?: Date | string
-    lte?: Date | string
-    gt?: Date | string
-    gte?: Date | string
-    not?: NestedDateTimeNullableFilter | Date | string | null
-  }
-
   export type FightListRelationFilter = {
     every?: FightWhereInput
     some?: FightWhereInput
@@ -15715,7 +15747,8 @@ export namespace Prisma {
   export type BruteCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    deleted?: SortOrder
+    deletedAt?: SortOrder
+    createdAt?: SortOrder
     destinyPath?: SortOrder
     level?: SortOrder
     xp?: SortOrder
@@ -15775,7 +15808,8 @@ export namespace Prisma {
   export type BruteMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    deleted?: SortOrder
+    deletedAt?: SortOrder
+    createdAt?: SortOrder
     level?: SortOrder
     xp?: SortOrder
     hp?: SortOrder
@@ -15806,7 +15840,8 @@ export namespace Prisma {
   export type BruteMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    deleted?: SortOrder
+    deletedAt?: SortOrder
+    createdAt?: SortOrder
     level?: SortOrder
     xp?: SortOrder
     hp?: SortOrder
@@ -15857,6 +15892,34 @@ export namespace Prisma {
     clanId?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
+  }
+
+  export type DateTimeNullableWithAggregatesFilter = {
+    equals?: Date | string | null
+    in?: Enumerable<Date> | Enumerable<string> | null
+    notIn?: Enumerable<Date> | Enumerable<string> | null
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeNullableWithAggregatesFilter | Date | string | null
+    _count?: NestedIntNullableFilter
+    _min?: NestedDateTimeNullableFilter
+    _max?: NestedDateTimeNullableFilter
+  }
+
+  export type DateTimeWithAggregatesFilter = {
+    equals?: Date | string
+    in?: Enumerable<Date> | Enumerable<string>
+    notIn?: Enumerable<Date> | Enumerable<string>
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeWithAggregatesFilter | Date | string
+    _count?: NestedIntFilter
+    _min?: NestedDateTimeFilter
+    _max?: NestedDateTimeFilter
   }
 
   export type FloatWithAggregatesFilter = {
@@ -15914,20 +15977,6 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter
     _min?: NestedIntNullableFilter
     _max?: NestedIntNullableFilter
-  }
-
-  export type DateTimeNullableWithAggregatesFilter = {
-    equals?: Date | string | null
-    in?: Enumerable<Date> | Enumerable<string> | null
-    notIn?: Enumerable<Date> | Enumerable<string> | null
-    lt?: Date | string
-    lte?: Date | string
-    gt?: Date | string
-    gte?: Date | string
-    not?: NestedDateTimeNullableWithAggregatesFilter | Date | string | null
-    _count?: NestedIntNullableFilter
-    _min?: NestedDateTimeNullableFilter
-    _max?: NestedDateTimeNullableFilter
   }
 
   export type BytesNullableFilter = {
@@ -16045,17 +16094,6 @@ export namespace Prisma {
   export type ClanSumOrderByAggregateInput = {
     id?: SortOrder
   }
-
-  export type DateTimeFilter = {
-    equals?: Date | string
-    in?: Enumerable<Date> | Enumerable<string>
-    notIn?: Enumerable<Date> | Enumerable<string>
-    lt?: Date | string
-    lte?: Date | string
-    gt?: Date | string
-    gte?: Date | string
-    not?: NestedDateTimeFilter | Date | string
-  }
   export type JsonFilter = 
     | PatchUndefined<
         Either<Required<JsonFilterBase>, Exclude<keyof Required<JsonFilterBase>, 'path'>>,
@@ -16128,20 +16166,6 @@ export namespace Prisma {
     id?: SortOrder
     brute1Id?: SortOrder
     brute2Id?: SortOrder
-  }
-
-  export type DateTimeWithAggregatesFilter = {
-    equals?: Date | string
-    in?: Enumerable<Date> | Enumerable<string>
-    notIn?: Enumerable<Date> | Enumerable<string>
-    lt?: Date | string
-    lte?: Date | string
-    gt?: Date | string
-    gte?: Date | string
-    not?: NestedDateTimeWithAggregatesFilter | Date | string
-    _count?: NestedIntFilter
-    _min?: NestedDateTimeFilter
-    _max?: NestedDateTimeFilter
   }
   export type JsonWithAggregatesFilter = 
     | PatchUndefined<
@@ -16737,6 +16761,14 @@ export namespace Prisma {
     connect?: Enumerable<TournamentWhereUniqueInput>
   }
 
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
   export type BruteUpdatedestinyPathInput = {
     set?: Enumerable<DestinyChoiceSide>
     push?: Enumerable<DestinyChoiceSide>
@@ -16831,10 +16863,6 @@ export namespace Prisma {
     delete?: boolean
     connect?: ClanWhereUniqueInput
     update?: XOR<ClanUpdateWithoutBrutesInput, ClanUncheckedUpdateWithoutBrutesInput>
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
   }
 
   export type FightUpdateManyWithoutBrute1NestedInput = {
@@ -17139,10 +17167,6 @@ export namespace Prisma {
     connectOrCreate?: Enumerable<TournamentStepCreateOrConnectWithoutFightInput>
     createMany?: TournamentStepCreateManyFightInputEnvelope
     connect?: Enumerable<TournamentStepWhereUniqueInput>
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
   }
 
   export type BruteUpdateOneRequiredWithoutFightsNestedInput = {
@@ -17530,6 +17554,28 @@ export namespace Prisma {
     not?: NestedFloatFilter | number
   }
 
+  export type NestedDateTimeNullableFilter = {
+    equals?: Date | string | null
+    in?: Enumerable<Date> | Enumerable<string> | null
+    notIn?: Enumerable<Date> | Enumerable<string> | null
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeNullableFilter | Date | string | null
+  }
+
+  export type NestedDateTimeFilter = {
+    equals?: Date | string
+    in?: Enumerable<Date> | Enumerable<string>
+    notIn?: Enumerable<Date> | Enumerable<string>
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeFilter | Date | string
+  }
+
   export type NestedEnumGenderFilter = {
     equals?: Gender
     in?: Enumerable<Gender>
@@ -17559,7 +17605,7 @@ export namespace Prisma {
     not?: NestedIntNullableFilter | number | null
   }
 
-  export type NestedDateTimeNullableFilter = {
+  export type NestedDateTimeNullableWithAggregatesFilter = {
     equals?: Date | string | null
     in?: Enumerable<Date> | Enumerable<string> | null
     notIn?: Enumerable<Date> | Enumerable<string> | null
@@ -17567,7 +17613,24 @@ export namespace Prisma {
     lte?: Date | string
     gt?: Date | string
     gte?: Date | string
-    not?: NestedDateTimeNullableFilter | Date | string | null
+    not?: NestedDateTimeNullableWithAggregatesFilter | Date | string | null
+    _count?: NestedIntNullableFilter
+    _min?: NestedDateTimeNullableFilter
+    _max?: NestedDateTimeNullableFilter
+  }
+
+  export type NestedDateTimeWithAggregatesFilter = {
+    equals?: Date | string
+    in?: Enumerable<Date> | Enumerable<string>
+    notIn?: Enumerable<Date> | Enumerable<string>
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeWithAggregatesFilter | Date | string
+    _count?: NestedIntFilter
+    _min?: NestedDateTimeFilter
+    _max?: NestedDateTimeFilter
   }
 
   export type NestedFloatWithAggregatesFilter = {
@@ -17651,20 +17714,6 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter | number | null
   }
 
-  export type NestedDateTimeNullableWithAggregatesFilter = {
-    equals?: Date | string | null
-    in?: Enumerable<Date> | Enumerable<string> | null
-    notIn?: Enumerable<Date> | Enumerable<string> | null
-    lt?: Date | string
-    lte?: Date | string
-    gt?: Date | string
-    gte?: Date | string
-    not?: NestedDateTimeNullableWithAggregatesFilter | Date | string | null
-    _count?: NestedIntNullableFilter
-    _min?: NestedDateTimeNullableFilter
-    _max?: NestedDateTimeNullableFilter
-  }
-
   export type NestedBytesNullableFilter = {
     equals?: Buffer | null
     in?: Enumerable<Buffer> | null
@@ -17702,31 +17751,6 @@ export namespace Prisma {
     gt?: InputJsonValue
     gte?: InputJsonValue
     not?: InputJsonValue | JsonNullValueFilter
-  }
-
-  export type NestedDateTimeFilter = {
-    equals?: Date | string
-    in?: Enumerable<Date> | Enumerable<string>
-    notIn?: Enumerable<Date> | Enumerable<string>
-    lt?: Date | string
-    lte?: Date | string
-    gt?: Date | string
-    gte?: Date | string
-    not?: NestedDateTimeFilter | Date | string
-  }
-
-  export type NestedDateTimeWithAggregatesFilter = {
-    equals?: Date | string
-    in?: Enumerable<Date> | Enumerable<string>
-    notIn?: Enumerable<Date> | Enumerable<string>
-    lt?: Date | string
-    lte?: Date | string
-    gt?: Date | string
-    gte?: Date | string
-    not?: NestedDateTimeWithAggregatesFilter | Date | string
-    _count?: NestedIntFilter
-    _min?: NestedDateTimeFilter
-    _max?: NestedDateTimeFilter
   }
   export type NestedJsonFilter = 
     | PatchUndefined<
@@ -17889,7 +17913,8 @@ export namespace Prisma {
 
   export type BruteCreateWithoutUserInput = {
     name: string
-    deleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -17932,7 +17957,8 @@ export namespace Prisma {
   export type BruteUncheckedCreateWithoutUserInput = {
     id?: number
     name: string
-    deleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -18004,7 +18030,8 @@ export namespace Prisma {
     NOT?: Enumerable<BruteScalarWhereInput>
     id?: IntFilter | number
     name?: StringFilter | string
-    deleted?: BoolFilter | boolean
+    deletedAt?: DateTimeNullableFilter | Date | string | null
+    createdAt?: DateTimeFilter | Date | string
     destinyPath?: EnumDestinyChoiceSideNullableListFilter
     level?: IntFilter | number
     xp?: IntFilter | number
@@ -18038,7 +18065,8 @@ export namespace Prisma {
 
   export type BruteCreateWithoutBodyInput = {
     name: string
-    deleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -18081,7 +18109,8 @@ export namespace Prisma {
   export type BruteUncheckedCreateWithoutBodyInput = {
     id?: number
     name: string
-    deleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -18133,7 +18162,8 @@ export namespace Prisma {
 
   export type BruteUpdateWithoutBodyInput = {
     name?: StringFieldUpdateOperationsInput | string
-    deleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -18176,7 +18206,8 @@ export namespace Prisma {
   export type BruteUncheckedUpdateWithoutBodyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    deleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -18218,7 +18249,8 @@ export namespace Prisma {
 
   export type BruteCreateWithoutColorsInput = {
     name: string
-    deleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -18261,7 +18293,8 @@ export namespace Prisma {
   export type BruteUncheckedCreateWithoutColorsInput = {
     id?: number
     name: string
-    deleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -18313,7 +18346,8 @@ export namespace Prisma {
 
   export type BruteUpdateWithoutColorsInput = {
     name?: StringFieldUpdateOperationsInput | string
-    deleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -18356,7 +18390,8 @@ export namespace Prisma {
   export type BruteUncheckedUpdateWithoutColorsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    deleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -18505,7 +18540,8 @@ export namespace Prisma {
 
   export type BruteCreateWithoutPupilsInput = {
     name: string
-    deleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -18548,7 +18584,8 @@ export namespace Prisma {
   export type BruteUncheckedCreateWithoutPupilsInput = {
     id?: number
     name: string
-    deleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -18595,7 +18632,8 @@ export namespace Prisma {
 
   export type BruteCreateWithoutMasterInput = {
     name: string
-    deleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -18638,7 +18676,8 @@ export namespace Prisma {
   export type BruteUncheckedCreateWithoutMasterInput = {
     id?: number
     name: string
-    deleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -18980,7 +19019,8 @@ export namespace Prisma {
 
   export type BruteUpdateWithoutPupilsInput = {
     name?: StringFieldUpdateOperationsInput | string
-    deleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -19023,7 +19063,8 @@ export namespace Prisma {
   export type BruteUncheckedUpdateWithoutPupilsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    deleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -19245,7 +19286,8 @@ export namespace Prisma {
 
   export type BruteCreateWithoutSpritesheetInput = {
     name: string
-    deleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -19288,7 +19330,8 @@ export namespace Prisma {
   export type BruteUncheckedCreateWithoutSpritesheetInput = {
     id?: number
     name: string
-    deleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -19340,7 +19383,8 @@ export namespace Prisma {
 
   export type BruteUpdateWithoutSpritesheetInput = {
     name?: StringFieldUpdateOperationsInput | string
-    deleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -19383,7 +19427,8 @@ export namespace Prisma {
   export type BruteUncheckedUpdateWithoutSpritesheetInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    deleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -19425,7 +19470,8 @@ export namespace Prisma {
 
   export type BruteCreateWithoutClanInput = {
     name: string
-    deleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -19468,7 +19514,8 @@ export namespace Prisma {
   export type BruteUncheckedCreateWithoutClanInput = {
     id?: number
     name: string
-    deleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -19536,7 +19583,8 @@ export namespace Prisma {
 
   export type BruteCreateWithoutFightsInput = {
     name: string
-    deleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -19579,7 +19627,8 @@ export namespace Prisma {
   export type BruteUncheckedCreateWithoutFightsInput = {
     id?: number
     name: string
-    deleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -19626,7 +19675,8 @@ export namespace Prisma {
 
   export type BruteCreateWithoutFightsAsAdversaryInput = {
     name: string
-    deleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -19669,7 +19719,8 @@ export namespace Prisma {
   export type BruteUncheckedCreateWithoutFightsAsAdversaryInput = {
     id?: number
     name: string
-    deleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -19771,7 +19822,8 @@ export namespace Prisma {
 
   export type BruteUpdateWithoutFightsInput = {
     name?: StringFieldUpdateOperationsInput | string
-    deleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -19814,7 +19866,8 @@ export namespace Prisma {
   export type BruteUncheckedUpdateWithoutFightsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    deleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -19861,7 +19914,8 @@ export namespace Prisma {
 
   export type BruteUpdateWithoutFightsAsAdversaryInput = {
     name?: StringFieldUpdateOperationsInput | string
-    deleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -19904,7 +19958,8 @@ export namespace Prisma {
   export type BruteUncheckedUpdateWithoutFightsAsAdversaryInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    deleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -19988,7 +20043,8 @@ export namespace Prisma {
 
   export type BruteCreateWithoutLogsInput = {
     name: string
-    deleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -20031,7 +20087,8 @@ export namespace Prisma {
   export type BruteUncheckedCreateWithoutLogsInput = {
     id?: number
     name: string
-    deleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -20111,7 +20168,8 @@ export namespace Prisma {
 
   export type BruteUpdateWithoutLogsInput = {
     name?: StringFieldUpdateOperationsInput | string
-    deleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -20154,7 +20212,8 @@ export namespace Prisma {
   export type BruteUncheckedUpdateWithoutLogsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    deleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -20224,7 +20283,8 @@ export namespace Prisma {
 
   export type BruteCreateWithoutDestinyChoicesInput = {
     name: string
-    deleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -20267,7 +20327,8 @@ export namespace Prisma {
   export type BruteUncheckedCreateWithoutDestinyChoicesInput = {
     id?: number
     name: string
-    deleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -20319,7 +20380,8 @@ export namespace Prisma {
 
   export type BruteUpdateWithoutDestinyChoicesInput = {
     name?: StringFieldUpdateOperationsInput | string
-    deleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -20362,7 +20424,8 @@ export namespace Prisma {
   export type BruteUncheckedUpdateWithoutDestinyChoicesInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    deleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -20404,7 +20467,8 @@ export namespace Prisma {
 
   export type BruteCreateWithoutTournamentsInput = {
     name: string
-    deleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -20447,7 +20511,8 @@ export namespace Prisma {
   export type BruteUncheckedCreateWithoutTournamentsInput = {
     id?: number
     name: string
-    deleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -20640,7 +20705,8 @@ export namespace Prisma {
   export type BruteCreateManyUserInput = {
     id?: number
     name: string
-    deleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -20673,7 +20739,8 @@ export namespace Prisma {
 
   export type BruteUpdateWithoutUserInput = {
     name?: StringFieldUpdateOperationsInput | string
-    deleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -20716,7 +20783,8 @@ export namespace Prisma {
   export type BruteUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    deleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -20759,7 +20827,8 @@ export namespace Prisma {
   export type BruteUncheckedUpdateManyWithoutBrutesInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    deleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -20793,7 +20862,8 @@ export namespace Prisma {
   export type BruteCreateManyMasterInput = {
     id?: number
     name: string
-    deleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -20869,7 +20939,8 @@ export namespace Prisma {
 
   export type BruteUpdateWithoutMasterInput = {
     name?: StringFieldUpdateOperationsInput | string
-    deleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -20912,7 +20983,8 @@ export namespace Prisma {
   export type BruteUncheckedUpdateWithoutMasterInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    deleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -20955,7 +21027,8 @@ export namespace Prisma {
   export type BruteUncheckedUpdateManyWithoutPupilsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    deleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -21141,7 +21214,8 @@ export namespace Prisma {
   export type BruteCreateManyClanInput = {
     id?: number
     name: string
-    deleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
     destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: number
     xp?: number
@@ -21174,7 +21248,8 @@ export namespace Prisma {
 
   export type BruteUpdateWithoutClanInput = {
     name?: StringFieldUpdateOperationsInput | string
-    deleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -21217,7 +21292,8 @@ export namespace Prisma {
   export type BruteUncheckedUpdateWithoutClanInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    deleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -21317,7 +21393,8 @@ export namespace Prisma {
 
   export type BruteUpdateWithoutTournamentsInput = {
     name?: StringFieldUpdateOperationsInput | string
-    deleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -21360,7 +21437,8 @@ export namespace Prisma {
   export type BruteUncheckedUpdateWithoutTournamentsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    deleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
@@ -21403,7 +21481,8 @@ export namespace Prisma {
   export type BruteUncheckedUpdateManyWithoutParticipantsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    deleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number

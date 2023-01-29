@@ -4,7 +4,7 @@
 generator client {
   provider      = "prisma-client-js"
   output        = "../../prisma"
-  binaryTargets = ["native", "debian-openssl-3.0.x"]
+  binaryTargets = ["native", "debian-openssl-3.0.x", "debian-openssl-1.1.x"]
 }
 
 datasource db {
@@ -168,7 +168,8 @@ enum PetName {
 model Brute {
   id                Int                 @id @default(autoincrement())
   name              String              @db.VarChar(255)
-  deleted           Boolean             @default(false)
+  deletedAt         DateTime?
+  createdAt         DateTime            @default(now())
   destinyPath       DestinyChoiceSide[] @default([])
   level             Int                 @default(1)
   xp                Int                 @default(0)

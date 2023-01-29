@@ -67,7 +67,7 @@ const Tournaments = {
       const brute = await prisma.brute.findFirst({
         where: {
           name: req.params.name,
-          deleted: false,
+          deletedAt: null,
           user: {
             id: user.id,
           },

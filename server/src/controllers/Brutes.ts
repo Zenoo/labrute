@@ -17,7 +17,7 @@ const Brutes = {
 
       const brutes = await prisma.brute.findMany({
         where: {
-          deleted: false,
+          deletedAt: null,
         },
       });
 
@@ -40,7 +40,7 @@ const Brutes = {
         where: {
           ...req.body.where,
           name: req.params.name,
-          deleted: false,
+          deletedAt: null,
         },
         include: req.body.include,
       });
@@ -57,7 +57,7 @@ const Brutes = {
       const count = await prisma.brute.count({
         where: {
           name: req.params.name,
-          deleted: false,
+          deletedAt: null,
         },
       });
 
@@ -84,7 +84,7 @@ const Brutes = {
       const bruteCount = await prisma.brute.count({
         where: {
           userId: user.id,
-          deleted: false,
+          deletedAt: null,
         },
       });
 
@@ -107,7 +107,7 @@ const Brutes = {
       }
 
       const master = req.body.master ? await prisma.brute.findFirst({
-        where: { name: req.body.master, deleted: false },
+        where: { name: req.body.master, deletedAt: null },
         select: { id: true },
       }) : undefined;
 
@@ -162,7 +162,7 @@ const Brutes = {
         where: {
           name: req.params.name,
           userId: user.id,
-          deleted: false,
+          deletedAt: null,
         },
         include: { body: true, colors: true },
       });
@@ -230,7 +230,7 @@ const Brutes = {
         where: {
           name: req.params.name,
           userId: user.id,
-          deleted: false,
+          deletedAt: null,
         },
       });
 
@@ -290,7 +290,7 @@ const Brutes = {
       const bruteSearch = {
         name: { not: req.params.name },
         level: +req.params.level,
-        deleted: false,
+        deletedAt: null,
       };
       const bruteCount = await prisma.brute.count({
         where: bruteSearch,
@@ -327,7 +327,7 @@ const Brutes = {
             lt: +req.params.level,
             gte: +req.params.level - ARENA_OPPONENTS_MAX_GAP,
           },
-          deleted: false,
+          deletedAt: null,
         };
         const additionalBruteCount = await prisma.brute.count({
           where: additionalBruteSearch,
@@ -370,7 +370,7 @@ const Brutes = {
         where: {
           name: req.params.name,
           userId: user.id,
-          deleted: false,
+          deletedAt: null,
         },
       });
       if (!brute) {
@@ -390,7 +390,7 @@ const Brutes = {
       await prisma.brute.update({
         where: { id: brute.id },
         data: {
-          deleted: true,
+          deletedAt: new Date(),
         },
       });
 
@@ -405,7 +405,7 @@ const Brutes = {
 
       // Check if brute has a spritesheet
       const count = await prisma.bruteSpritesheet.count({
-        where: { brute: { name: req.params.name, deleted: false } },
+        where: { brute: { name: req.params.name, deletedAt: null } },
       });
 
       res.send(count === 1);

@@ -131,7 +131,8 @@ exports.Prisma.BruteColorsScalarFieldEnum = makeEnum({
 exports.Prisma.BruteScalarFieldEnum = makeEnum({
   id: 'id',
   name: 'name',
-  deleted: 'deleted',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
   destinyPath: 'destinyPath',
   level: 'level',
   xp: 'xp',

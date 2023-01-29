@@ -21,7 +21,7 @@ const generateFight = async (
       skills: { has: 'backup' },
       level: { lt: brute1.level },
       userId: brute1.userId,
-      deleted: false,
+      deletedAt: null,
     },
     include: {
       body: true,
@@ -33,7 +33,7 @@ const generateFight = async (
       skills: { has: 'backup' },
       level: { lt: brute2.level },
       userId: brute2.userId,
-      deleted: false,
+      deletedAt: null,
     },
     include: {
       body: true,

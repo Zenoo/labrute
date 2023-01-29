@@ -75,7 +75,7 @@ const OAuth = {
         where: { id: etwinUser.id, connexionToken: token.accessToken },
         include: {
           brutes: {
-            where: { deleted: false },
+            where: { deletedAt: null },
             include: { body: true, colors: true },
           },
         },
