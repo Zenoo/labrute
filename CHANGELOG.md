@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/Zenoo/labrute/compare/labrute-v2.1.1...labrute-v2.2.0) (2023-01-29)
+
+
+### Features
+
+* Tournament logic and basic display. [#9](https://github.com/Zenoo/labrute/issues/9) ([3653406](https://github.com/Zenoo/labrute/commit/3653406051b52c1003d04859afb410c4687af41b))
+
+
+### Bug Fixes
+
+* NPM Vulnerabilities ([48024e8](https://github.com/Zenoo/labrute/commit/48024e8f4713b3d75a0448eeef9a7f203d89f956))
+* Version update in UI ([361986f](https://github.com/Zenoo/labrute/commit/361986f7dbdef98f19c081fe4d843468dbf1cde5))
+
 ## [2.1.1](https://github.com/Zenoo/labrute/compare/labrute-v2.1.0...labrute-v2.1.1) (2023-01-28)
 
 
