@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.1](https://github.com/Zenoo/labrute/compare/labrute-v2.2.0...labrute-v2.2.1) (2023-01-29)
+
+
+### Bug Fixes
+
+* Remove brutes from unfilled tournaments ([ef6187d](https://github.com/Zenoo/labrute/commit/ef6187d76f10cbdea3acf88959566a418f181c93))
+* Tournament registration button. [#9](https://github.com/Zenoo/labrute/issues/9) ([7bd851b](https://github.com/Zenoo/labrute/commit/7bd851bcdb5d36281a1b8d4ab9da6fb29b26f125))
+
 ## [2.2.0](https://github.com/Zenoo/labrute/compare/labrute-v2.1.1...labrute-v2.2.0) (2023-01-29)
 
 
