@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.2](https://github.com/Zenoo/labrute/compare/labrute-v2.2.1...labrute-v2.2.2) (2023-01-29)
+
+
+### Bug Fixes
+
+* Import .env variables in production ([a16c9cf](https://github.com/Zenoo/labrute/commit/a16c9cfeaeaddaf8d9c53ed2e39b319b995aa26e))
+
 ## [2.2.1](https://github.com/Zenoo/labrute/compare/labrute-v2.2.0...labrute-v2.2.1) (2023-01-29)
 
 
