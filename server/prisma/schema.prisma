@@ -168,8 +168,8 @@ enum PetName {
 model Brute {
   id                Int                 @id @default(autoincrement())
   name              String              @db.VarChar(255)
-  deletedAt         DateTime?
-  createdAt         DateTime            @default(now())
+  deletedAt         DateTime?           @db.Timestamptz()
+  createdAt         DateTime            @default(now()) @db.Timestamptz()
   destinyPath       DestinyChoiceSide[] @default([])
   level             Int                 @default(1)
   xp                Int                 @default(0)
