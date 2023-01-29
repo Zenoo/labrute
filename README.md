@@ -16,7 +16,7 @@
 
 - Install dependencies: `npm i` (This should also setup your database from the `schema.prisma` file and the migrations)
 
-- Start the server, client and etwin local server with `yarn run dev`
+- Start the server, client and etwin local server with `yarn dev`
 
 - Commit and push your changes
 
@@ -24,13 +24,13 @@
 
 ### How to sync your database with your new Prisma schema
 
-- Run `yarn run db:sync:dev`
+- Run `yarn db:sync:dev`
 
 ### How to seed your database
 
 - Edit `server/src/seed.ts`
 
-- Run `yarn run db:seed`
+- Run `yarn db:seed`
 
 ## Deployment
 
@@ -38,9 +38,11 @@
 
 - Set the environment variables
 
-- Install dependencies: `npm ci` (This should also setup your database from the `schema.prisma` file and the migrations)
+- Install dependencies: `npm ci` (This should also compile and built everything needed)
 
-- Start the server with `yarn run start`
+- Sync your database with `yarn db:sync:prod`
+
+- Start the server with `yarn start`
 
 ## Documentation
 
