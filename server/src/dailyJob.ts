@@ -80,6 +80,18 @@ const dailyJob = (prisma: PrismaClient) => async () => {
     }
 
     if (lastTournament.length !== 64) {
+      // Remove tournament registration for those brutes
+      await prisma.brute.updateMany({
+        where: {
+          id: {
+            in: lastTournament.map((brute) => brute.id),
+          },
+        },
+        data: {
+          tournament: null,
+        },
+      });
+
       throw new Error('Not enough generated brutes to fill the tournament');
     }
   }
