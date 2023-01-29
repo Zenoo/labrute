@@ -56,6 +56,7 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
   app.get('/api/spritesheet/:brute/:model/:animation', Spritesheets.getAnimation(prisma));
 
   // Tournament
+  app.get('/api/tournament/:name/register', Tournaments.registerDaily(prisma));
   app.get('/api/tournament/:name/:date', Tournaments.getDaily(prisma));
 
   // Client index

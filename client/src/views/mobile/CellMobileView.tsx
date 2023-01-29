@@ -1,4 +1,4 @@
-import { BruteWithMasterBodyColorsClan } from '@labrute/core';
+import { BruteWithMasterBodyColorsClanTournament } from '@labrute/core';
 import { Log } from '@labrute/prisma';
 import { Box, Grid, Paper, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import { Moment } from 'moment';
@@ -18,7 +18,7 @@ import Text from '../../components/Text';
 import { Language } from '../../i18n';
 
 export interface CellMobileViewProps {
-  brute: BruteWithMasterBodyColorsClan;
+  brute: BruteWithMasterBodyColorsClanTournament;
   advertising: string;
   logs: (Log & { currentBrute: { name: string } })[];
   ownsBrute: boolean;

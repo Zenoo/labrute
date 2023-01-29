@@ -15,7 +15,8 @@ const Server = {
     get: ({
       name,
       include,
-    }: { name: string, include?: Prisma.BruteInclude }) => Fetch<Brute>(`/api/brute/${name}/get`, { include }, 'POST'),
+      where,
+    }: { name: string, include?: Prisma.BruteInclude, where?: Prisma.BruteWhereInput }) => Fetch<Brute>(`/api/brute/${name}/get`, { include, where }, 'POST'),
     isNameAvailable: (name: string) => Fetch<boolean>(`/api/brute/${name}/available`),
     isReadyToFight: (name: string) => Fetch<boolean>(`/api/brute/${name}/ready`),
     create: (
@@ -56,6 +57,7 @@ const Server = {
       name,
       date,
     }: { name: string, date: string }) => Fetch<FullTournament>(`/api/tournament/${name}/${date}`),
+    registerDaily: (name: string) => Fetch<never>(`/api/tournament/${name}/register`),
   },
 };
 

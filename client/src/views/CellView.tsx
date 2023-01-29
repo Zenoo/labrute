@@ -1,4 +1,5 @@
-import { BruteWithMasterBodyColorsClan } from '@labrute/core';
+import { BruteWithMasterBodyColorsClanTournament } from '@labrute/core';
+import { TournamentType } from '@labrute/prisma';
 import { Box, Paper, Tooltip, useMediaQuery } from '@mui/material';
 import moment from 'moment';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -33,9 +34,9 @@ const CellView = () => {
   const { language } = useLanguage();
   const navigate = useNavigate();
 
-  const nextTournament = moment().add(1, 'day');
+  const nextTournament = moment.utc().add(1, 'day');
 
-  const [brute, setBrute] = useState<BruteWithMasterBodyColorsClan | null>(null);
+  const [brute, setBrute] = useState<BruteWithMasterBodyColorsClanTournament | null>(null);
   const { data: logs } = useStateAsync([], Server.Log.list, bruteName || '');
 
   // Fetch brute
@@ -44,10 +45,21 @@ const CellView = () => {
     if (bruteName) {
       Server.Brute.get({
         name: bruteName,
-        include: { master: true, body: true, colors: true, clan: true }
+        include: {
+          master: true,
+          body: true,
+          colors: true,
+          clan: true,
+          tournaments: {
+            where: {
+              type: TournamentType.DAILY,
+              date: moment.utc().startOf('day').toDate(),
+            }
+          }
+        },
       }).then((data) => {
         if (isSubscribed) {
-          setBrute(data as BruteWithMasterBodyColorsClan);
+          setBrute(data as BruteWithMasterBodyColorsClanTournament);
         }
       }).catch(() => {
         navigate('/');

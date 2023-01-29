@@ -27,12 +27,18 @@ const Brutes = {
     }
   },
   get: (prisma: PrismaClient) => async (
-    req: Request<{ name: string }, unknown, { include: Prisma.BruteInclude }>,
+    req: Request<{
+      name: string
+    }, unknown, {
+      include: Prisma.BruteInclude,
+      where: Prisma.BruteWhereInput
+    }>,
     res: Response,
   ) => {
     try {
       const brute = await prisma.brute.findFirstOrThrow({
         where: {
+          ...req.body.where,
           name: req.params.name,
           deleted: false,
         },

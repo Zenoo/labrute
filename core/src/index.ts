@@ -72,6 +72,9 @@ export type BruteWithClan = Brute & {
   clan: Clan | null;
 };
 export type BruteWithMasterBodyColorsClan = BruteWithMasterBodyColors & BruteWithClan;
+export type BruteWithMasterBodyColorsClanTournament = BruteWithMasterBodyColorsClan & {
+  tournaments: Tournament[];
+};
 
 // Tournament
 export type FullTournament = Tournament & {

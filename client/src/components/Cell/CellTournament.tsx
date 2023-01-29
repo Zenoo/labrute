@@ -1,15 +1,18 @@
-import { Brute } from '@labrute/prisma';
+import { BruteWithMasterBodyColorsClanTournament } from '@labrute/core';
 import { Paper, PaperProps } from '@mui/material';
 import moment, { Moment } from 'moment';
-import React from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useAlert } from '../../hooks/useAlert';
 import { Language } from '../../i18n';
+import catchError from '../../utils/catchError';
+import Server from '../../utils/Server';
 import Link from '../Link';
 import StyledButton from '../StyledButton';
 import Text from '../Text';
 
 export interface CellTournamentProps extends PaperProps {
-  brute: Brute;
+  brute: BruteWithMasterBodyColorsClanTournament;
   nextTournament: Moment;
   ownsBrute: boolean;
   language: Language;
@@ -24,12 +27,28 @@ const CellTournament = ({
   ...rest
 }: CellTournamentProps) => {
   const { t } = useTranslation();
+  const Alert = useAlert();
+
+  const [registered, setRegistered] = useState(false);
+
+  const now = useMemo(() => moment(), []);
+  const tournamentDate = useMemo(() => (brute.tournament
+    ? moment(brute.tournament)
+    : null), [brute.tournament]);
+
+  const registerBrute = useCallback(() => {
+    Server.Tournament.registerDaily(brute.name).then(() => {
+      Alert.open('success', t('bruteRegistered'));
+
+      setRegistered(true);
+    }).catch(catchError(Alert));
+  }, [Alert, brute.name, t]);
 
   return (
     <>
       {/* CURRENT TOURNAMENT */}
-      {moment(brute.tournament).isSame(moment(), 'day') && (
-        <Link to={`/${brute.name}/tournament/${moment().format('YYYY-MM-DD')}`}>
+      {brute.tournaments.length && (
+        <Link to={`/${brute.name}/tournament/${now.format('YYYY-MM-DD')}`}>
           <StyledButton
             image="/images/button.gif"
             imageHover="/images/button-hover.gif"
@@ -59,12 +78,12 @@ const CellTournament = ({
         {...rest}
       >
         <Text bold h6>{t('tournamentOf')} {nextTournament.format('DD MMMM YYYY')}</Text>
-        {brute.tournament && moment(brute.tournament).isSame(nextTournament, 'day') ? (
+        {(tournamentDate?.isSame(nextTournament, 'day') || registered) ? (
           <Text>{t('bruteRegistered')}</Text>
         ) : (
           <Text>{t(ownsBrute ? 'youCanRegisterYourBrute' : 'bruteNotRegistered')}</Text>
         )}
-        {ownsBrute && (
+        {ownsBrute && !registered && !tournamentDate?.isSame(nextTournament, 'day') && (
           <StyledButton
             sx={{
               height: 72,
@@ -75,6 +94,7 @@ const CellTournament = ({
             imageHover={`/images/${language}/cell/tournament-hover.gif`}
             shadow={false}
             contrast={false}
+            onClick={registerBrute}
           />
         )}
       </Paper>

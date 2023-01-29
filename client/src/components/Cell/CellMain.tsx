@@ -1,10 +1,13 @@
-import { BruteRanking, BruteWithBodyColors, FIGHTS_PER_DAY, getFightsLeft, getSacriPoints, getXPNeeded, UserWithBrutesBodyColor } from '@labrute/core';
+import { BruteRanking, BruteWithMasterBodyColorsClanTournament, FIGHTS_PER_DAY, getFightsLeft, getSacriPoints, getXPNeeded, UserWithBrutesBodyColor } from '@labrute/core';
 import { Box, BoxProps, Stack } from '@mui/material';
 import { Moment } from 'moment';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
 import { useAlert } from '../../hooks/useAlert';
+import { useAuth } from '../../hooks/useAuth';
 import { useConfirm } from '../../hooks/useConfirm';
+import useStateAsync from '../../hooks/useStateAsync';
 import { Language } from '../../i18n';
 import catchError from '../../utils/catchError';
 import Server from '../../utils/Server';
@@ -14,12 +17,9 @@ import Link from '../Link';
 import StyledButton from '../StyledButton';
 import Text from '../Text';
 import CellTournament from './CellTournament';
-import { useAuth } from '../../hooks/useAuth';
-import { useNavigate } from 'react-router';
-import useStateAsync from '../../hooks/useStateAsync';
 
 export interface CellMainProps extends BoxProps {
-  brute: BruteWithBodyColors;
+  brute: BruteWithMasterBodyColorsClanTournament;
   ownsBrute: boolean;
   language: Language;
   nextTournament: Moment;
