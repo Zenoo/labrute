@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.5](https://github.com/Zenoo/labrute/compare/labrute-v2.2.4...labrute-v2.2.5) (2023-01-29)
+
+
+### Bug Fixes
+
+* Add Prisma build for prod ([43d8637](https://github.com/Zenoo/labrute/commit/43d863774a285949f68edf9c34bfb617d4af3dff))
+* Brute metadata DB type ([d16d2bf](https://github.com/Zenoo/labrute/commit/d16d2bf6a2087ed92221d7459cf30577fc51ae04))
+* Prod deploy script ([fd0a8b1](https://github.com/Zenoo/labrute/commit/fd0a8b17fa81ffdb5cb0d853948c262aefe64acc))
+
 ## [2.2.4](https://github.com/Zenoo/labrute/compare/labrute-v2.2.3...labrute-v2.2.4) (2023-01-29)
 
 
