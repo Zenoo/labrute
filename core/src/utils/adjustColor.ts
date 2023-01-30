@@ -1,7 +1,7 @@
 const adjustColor = (
-  color: `#${string}`,
+  color: string,
   amount: number,
-): `#${string}` => `#${color
+) => `#${color
   .replace(/^#/, '')
   .replace(
     /../g,

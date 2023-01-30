@@ -1,13 +1,13 @@
 interface ColorsType {
   male: {
-    skin: `#${string}`[];
-    hair: `#${string}`[];
-    clothing: `#${string}`[];
+    skin: string[];
+    hair: string[];
+    clothing: string[];
   },
   female: {
-    skin: `#${string}`[];
-    hair: `#${string}`[];
-    clothing: `#${string}`[];
+    skin: string[];
+    hair: string[];
+    clothing: string[];
   },
 }
 

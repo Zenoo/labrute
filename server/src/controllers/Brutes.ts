@@ -8,6 +8,7 @@ import {
 import { Request, Response } from 'express';
 import { Worker } from 'worker_threads';
 import auth from '../utils/auth.js';
+import checkColors from '../utils/brute/checkColors.js';
 import sendError from '../utils/sendError.js';
 
 const Brutes = {
@@ -79,6 +80,9 @@ const Brutes = {
   ) => {
     try {
       const user = await auth(prisma, req);
+
+      // Check colors validity
+      checkColors(req.body.gender, req.body.colors);
 
       // Get brute amount for user
       const bruteCount = await prisma.brute.count({
