@@ -6,7 +6,10 @@ import { Request, Response } from 'express';
 import { URL } from 'url';
 import { env } from 'process';
 import { PrismaClient } from '@labrute/prisma';
+import * as dotenv from 'dotenv';
 import sendError from '../utils/sendError.js';
+
+dotenv.config();
 
 const oauthClient = new RfcOauthClient({
   authorizationEndpoint: new Url(`${env.ETWIN_URL || ''}oauth/authorize`),

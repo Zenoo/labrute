@@ -1,4 +1,3 @@
-import * as dotenv from 'dotenv';
 import express from 'express';
 
 import { fileURLToPath } from 'url';
@@ -9,8 +8,6 @@ import schedule from 'node-schedule';
 import initRoutes from './routes.js';
 import './i18n.js';
 import dailyJob from './dailyJob.js';
-
-dotenv.config();
 
 const DEBUG_QUERIES = false;
 
