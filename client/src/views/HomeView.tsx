@@ -49,7 +49,7 @@ const HomeView = () => {
         updateData(response);
         localStorage.setItem('user', response.id);
         localStorage.setItem('token', response.connexionToken);
-        localStorage.setItem('expires', moment().add(7, 'days').toISOString());
+        localStorage.setItem('expires', moment.utc().add(7, 'days').toISOString());
         Alert.open('success', t('loginSuccess'));
       }).catch(catchError(Alert)).finally(() => {
         // Remove code/state from url and set url to '/'

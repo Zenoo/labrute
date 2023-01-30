@@ -37,7 +37,7 @@ const generateBrute = (
     },
     victories: 0,
     pupilsCount: 0,
-    lastFight: moment().toDate(),
+    lastFight: moment.utc().toDate(),
     fightsLeft: FIGHTS_PER_DAY,
     ...createRandomBruteStats(),
   };

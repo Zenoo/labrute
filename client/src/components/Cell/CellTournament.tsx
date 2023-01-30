@@ -1,6 +1,6 @@
 import { BruteWithMasterBodyColorsClanTournament, Language } from '@labrute/core';
 import { Paper, PaperProps } from '@mui/material';
-import moment, { Moment } from 'moment';
+import moment from 'moment';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAlert } from '../../hooks/useAlert';
@@ -12,14 +12,12 @@ import Text from '../Text';
 
 export interface CellTournamentProps extends PaperProps {
   brute: BruteWithMasterBodyColorsClanTournament;
-  nextTournament: Moment;
   ownsBrute: boolean;
   language: Language;
 }
 
 const CellTournament = ({
   brute,
-  nextTournament,
   ownsBrute,
   language,
   sx,
@@ -30,10 +28,8 @@ const CellTournament = ({
 
   const [registered, setRegistered] = useState(false);
 
-  const now = useMemo(() => moment(), []);
-  const tournamentDate = useMemo(() => (brute.tournament
-    ? moment(brute.tournament)
-    : null), [brute.tournament]);
+  const now = useMemo(() => moment.utc(), []);
+  const tomorrow = useMemo(() => moment.utc().add(1, 'day'), []);
 
   const registerBrute = useCallback(() => {
     Server.Tournament.registerDaily(brute.name).then(() => {
@@ -76,13 +72,13 @@ const CellTournament = ({
         }}
         {...rest}
       >
-        <Text bold h6>{t('tournamentOf')} {nextTournament.format('DD MMMM YYYY')}</Text>
-        {(tournamentDate?.isSame(nextTournament, 'day') || registered) ? (
+        <Text bold h6>{t('tournamentOf')} {tomorrow.format('DD MMMM YYYY')}</Text>
+        {(brute.registeredForTournament || registered) ? (
           <Text>{t('bruteRegistered')}</Text>
         ) : (
           <Text>{t(ownsBrute ? 'youCanRegisterYourBrute' : 'bruteNotRegistered')}</Text>
         )}
-        {ownsBrute && !registered && !tournamentDate?.isSame(nextTournament, 'day') && (
+        {ownsBrute && !registered && !brute.registeredForTournament && (
           <StyledButton
             sx={{
               height: 72,

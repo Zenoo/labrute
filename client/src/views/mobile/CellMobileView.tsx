@@ -1,7 +1,6 @@
 import { BruteWithMasterBodyColorsClanTournament, Language } from '@labrute/core';
 import { Log } from '@labrute/prisma';
 import { Box, Grid, Paper, Tooltip, useMediaQuery, useTheme } from '@mui/material';
-import { Moment } from 'moment';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import CellClan from '../../components/Cell/CellClan';
@@ -22,7 +21,6 @@ export interface CellMobileViewProps {
   logs: (Log & { currentBrute: { name: string } })[];
   ownsBrute: boolean;
   language: Language;
-  nextTournament: Moment;
 }
 
 const CellMobileView = ({
@@ -31,7 +29,6 @@ const CellMobileView = ({
   logs,
   ownsBrute,
   language,
-  nextTournament,
 }: CellMobileViewProps) => {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -80,7 +77,6 @@ const CellMobileView = ({
               brute={brute}
               ownsBrute={ownsBrute}
               language={language}
-              nextTournament={nextTournament}
               smallScreen
             />
           </Paper>
@@ -105,7 +101,6 @@ const CellMobileView = ({
           {/* TOURNAMENT */}
           <CellTournament
             brute={brute}
-            nextTournament={nextTournament}
             ownsBrute={ownsBrute}
             language={language}
           />

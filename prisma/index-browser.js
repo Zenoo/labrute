@@ -158,7 +158,8 @@ exports.Prisma.BruteScalarFieldEnum = makeEnum({
   masterId: 'masterId',
   pupilsCount: 'pupilsCount',
   clanId: 'clanId',
-  tournament: 'tournament',
+  registeredForTournament: 'registeredForTournament',
+  nextTournamentDate: 'nextTournamentDate',
   lastFight: 'lastFight',
   fightsLeft: 'fightsLeft',
   victories: 'victories'

@@ -34,8 +34,6 @@ const CellView = () => {
   const { language } = useLanguage();
   const navigate = useNavigate();
 
-  const nextTournament = moment.utc().add(1, 'day');
-
   const [brute, setBrute] = useState<BruteWithMasterBodyColorsClanTournament | null>(null);
   const { data: logs } = useStateAsync([], Server.Log.list, bruteName || '');
 
@@ -85,7 +83,6 @@ const CellView = () => {
         logs={logs}
         ownsBrute={ownsBrute}
         language={language}
-        nextTournament={nextTournament}
       />
     )
     : (
@@ -151,7 +148,6 @@ const CellView = () => {
                 brute={brute}
                 ownsBrute={ownsBrute}
                 language={language}
-                nextTournament={nextTournament}
               />
             </Box>
             {/* RIGHT SIDE */}

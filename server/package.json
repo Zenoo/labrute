@@ -11,6 +11,7 @@
     "compile": "tsc",
     "start": "node ./lib/server.js",
     "start:watch": "tsc-watch --build ./tsconfig.json --onSuccess \"node ./lib/server.js\"",
+    "db:migrate:manual": "prisma migrate dev --create-only",
     "db:sync:dev": "prisma migrate dev && cp ../prisma/package.reference.json ../prisma/package.json",
     "db:sync:prod": "prisma migrate deploy && yarn db:seed",
     "db:seed": "prisma db seed",

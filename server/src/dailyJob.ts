@@ -1,13 +1,13 @@
 /* eslint-disable no-console */
 import { BruteWithBodyColors, pad } from '@labrute/core';
 import { PrismaClient, TournamentType } from '@labrute/prisma';
+import moment from 'moment';
 import generateFight from './utils/fight/generateFight.js';
 import shuffle from './utils/shuffle.js';
 
 const dailyJob = (prisma: PrismaClient) => async () => {
-  const today = new Date();
-  const tomorrow = new Date(today);
-  tomorrow.setDate(tomorrow.getDate() + 1);
+  const today = moment.utc().startOf('day');
+  const tomorrow = moment.utc(today).add(1, 'day');
 
   console.log('-------------------------------');
   console.log('- Starting tournament handler -');
@@ -15,17 +15,17 @@ const dailyJob = (prisma: PrismaClient) => async () => {
   const registeredBrutes = await prisma.brute.findMany({
     where: {
       deletedAt: null,
-      tournament: {
-        // TODO: Doesn't work
-        gte: today,
-        lt: tomorrow,
+      registeredForTournament: true,
+      nextTournamentDate: {
+        gte: today.toDate(),
+        lt: tomorrow.toDate(),
       },
       tournaments: {
         none: {
           type: TournamentType.DAILY,
           date: {
-            gte: today,
-            lt: tomorrow,
+            gte: today.toDate(),
+            lt: tomorrow.toDate(),
           },
         },
       },
@@ -90,7 +90,8 @@ const dailyJob = (prisma: PrismaClient) => async () => {
           },
         },
         data: {
-          tournament: null,
+          registeredForTournament: false,
+          nextTournamentDate: null,
         },
       });
 
@@ -156,6 +157,19 @@ const dailyJob = (prisma: PrismaClient) => async () => {
 
     console.log('-              OK             -');
   }
+
+  // Remove tournament registration for all processed brutes
+  await prisma.brute.updateMany({
+    where: {
+      id: {
+        in: registeredBrutes.map((brute) => brute.id),
+      },
+    },
+    data: {
+      registeredForTournament: false,
+      nextTournamentDate: null,
+    },
+  });
 
   console.log('-     Tournaments handled     -');
   console.log('-------------------------------');

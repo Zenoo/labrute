@@ -44,9 +44,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const signin = useCallback(() => {
     const userId = localStorage.getItem('user');
     const token = localStorage.getItem('token');
-    const expires = moment(localStorage.getItem('expires'));
+    const expires = moment.utc(localStorage.getItem('expires'));
     if (userId && token && !authing) {
-      if (expires.isAfter(moment())) {
+      if (expires.isAfter(moment.utc())) {
         setAuthing(true);
         Server.User.authenticate(userId, token).then((response) => {
           setUser(response);

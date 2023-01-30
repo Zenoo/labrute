@@ -78,15 +78,14 @@ const Tournaments = {
         throw new Error('Brute not found');
       }
 
-      const tomorrow = moment.utc().add(1, 'day').startOf('day').toDate();
-
       // Update brute tournament date
       await prisma.brute.update({
         where: {
           id: brute.id,
         },
         data: {
-          tournament: tomorrow,
+          registeredForTournament: true,
+          nextTournamentDate: moment.utc().startOf('day').add(1, 'day').toDate(),
         },
       });
 

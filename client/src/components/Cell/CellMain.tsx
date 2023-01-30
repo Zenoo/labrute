@@ -1,6 +1,5 @@
 import { BruteRanking, BruteWithMasterBodyColorsClanTournament, FIGHTS_PER_DAY, getFightsLeft, getSacriPoints, getXPNeeded, Language, UserWithBrutesBodyColor } from '@labrute/core';
 import { Box, BoxProps, Stack } from '@mui/material';
-import { Moment } from 'moment';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -21,7 +20,6 @@ export interface CellMainProps extends BoxProps {
   brute: BruteWithMasterBodyColorsClanTournament;
   ownsBrute: boolean;
   language: Language;
-  nextTournament: Moment;
   smallScreen?: boolean;
 }
 
@@ -29,7 +27,6 @@ const CellMain = ({
   brute,
   ownsBrute,
   language,
-  nextTournament,
   smallScreen,
   ...rest
 }: CellMainProps) => {
@@ -124,7 +121,6 @@ const CellMain = ({
       {!smallScreen && (
         <CellTournament
           brute={brute}
-          nextTournament={nextTournament}
           ownsBrute={ownsBrute}
           language={language}
         />
