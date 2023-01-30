@@ -46,7 +46,7 @@ const CellTournament = ({
   return (
     <>
       {/* CURRENT TOURNAMENT */}
-      {brute.tournaments.length && (
+      {!!brute.tournaments.length && (
         <Link to={`/${brute.name}/tournament/${now.format('YYYY-MM-DD')}`}>
           <StyledButton
             image="/images/button.gif"
