@@ -135,7 +135,7 @@ const Brutes = {
         // Add log
         await prisma.log.create({
           data: {
-            currentBrute: { connect: { id: brute.id } },
+            currentBrute: { connect: { id: master.id } },
             type: 'child',
             brute: brute.name,
           },
