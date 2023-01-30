@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.6](https://github.com/Zenoo/labrute/compare/labrute-v2.2.5...labrute-v2.2.6) (2023-01-30)
+
+
+### Bug Fixes
+
+* .env loading time ([0a52407](https://github.com/Zenoo/labrute/commit/0a5240767d41634209afd8d2f25810ee1b5d9d62))
+* Display bug in tournament component ([3c29a35](https://github.com/Zenoo/labrute/commit/3c29a35de10b5095892f31ad0d465c0203d95b30))
+
 ## [2.2.5](https://github.com/Zenoo/labrute/compare/labrute-v2.2.4...labrute-v2.2.5) (2023-01-29)
 
 
