@@ -111,7 +111,13 @@ const Brutes = {
       }
 
       const master = req.body.master ? await prisma.brute.findFirst({
-        where: { name: req.body.master, deletedAt: null },
+        where: {
+          name: req.body.master,
+          deletedAt: null,
+          userId: {
+            not: user.id,
+          },
+        },
         select: { id: true },
       }) : undefined;
 
