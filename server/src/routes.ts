@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { PrismaClient } from '@labrute/prisma';
 import { Express, Request, Response } from 'express';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import Brutes from './controllers/Brutes.js';
 import Fights from './controllers/Fights.js';
 import Logs from './controllers/Logs.js';
@@ -10,10 +8,6 @@ import OAuth from './controllers/OAuth.js';
 import Spritesheets from './controllers/Spritesheets.js';
 import Tournaments from './controllers/Tournaments.js';
 import Users from './controllers/Users.js';
-
-// Get client index.html
-const REPO_ROOT = path.join(fileURLToPath(import.meta.url), '..', '..', '..');
-const CLIENT_INDEX = path.join(REPO_ROOT, 'client', 'build', 'index.html');
 
 const initRoutes = (app: Express, prisma: PrismaClient) => {
   app.get('/api', (req: Request, res: Response) => res.status(200).send({
@@ -58,11 +52,6 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
   // Tournament
   app.get('/api/tournament/:name/register', Tournaments.registerDaily(prisma));
   app.get('/api/tournament/:name/:date', Tournaments.getDaily(prisma));
-
-  // Client index
-  app.get('*', (req, res) => {
-    res.sendFile(CLIENT_INDEX);
-  });
 };
 
 export default initRoutes;

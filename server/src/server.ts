@@ -1,13 +1,11 @@
 import express from 'express';
 
-import { fileURLToPath } from 'url';
-import bodyParser from 'body-parser';
 import { PrismaClient } from '@labrute/prisma';
-import path from 'path';
+import bodyParser from 'body-parser';
 import schedule from 'node-schedule';
-import initRoutes from './routes.js';
-import './i18n.js';
 import dailyJob from './dailyJob.js';
+import './i18n.js';
+import initRoutes from './routes.js';
 
 const DEBUG_QUERIES = false;
 
@@ -42,7 +40,6 @@ if (DEBUG_QUERIES) {
 
 const app = express();
 const port = process.env.PORT || 9000;
-const REPO_ROOT = path.join(fileURLToPath(import.meta.url), '..', '..');
 
 app.use(bodyParser.json());
 app.use(
@@ -50,9 +47,6 @@ app.use(
     extended: true,
   }),
 );
-
-// Get client build
-app.use(express.static(path.join(REPO_ROOT, 'client', 'build')));
 
 app.listen(port, () => {
   console.warn(`App running: http://localhost:${port}/`);
