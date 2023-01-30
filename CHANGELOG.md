@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.8](https://github.com/Zenoo/labrute/compare/labrute-v2.2.7...labrute-v2.2.8) (2023-01-30)
+
+
+### Bug Fixes
+
+* UTC format for moment. ([36c07b5](https://github.com/Zenoo/labrute/commit/36c07b509899692eee6db16e991311f747119e12))
+
 ## [2.2.7](https://github.com/Zenoo/labrute/compare/labrute-v2.2.6...labrute-v2.2.7) (2023-01-30)
 
 
