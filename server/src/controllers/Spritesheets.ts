@@ -17,7 +17,7 @@ const Spritesheets = {
       const defaultSpritesheet = await fetch(`${process.env.SELF_URL || ''}/images/game/male-brute.png`);
 
       // Send default spritesheet
-      res.header('Content-Type', 'image/png').send(await defaultSpritesheet.buffer());
+      res.header('Content-Type', 'image/png').send(Buffer.from(await defaultSpritesheet.arrayBuffer()));
     } catch (error) {
       sendError(res, error);
     }
@@ -28,7 +28,7 @@ const Spritesheets = {
       const defaultSpritesheet = await fetch(`${process.env.SELF_URL || ''}/images/game/female-brute.png`);
 
       // Send default spritesheet
-      res.header('Content-Type', 'image/png').send(await defaultSpritesheet.buffer());
+      res.header('Content-Type', 'image/png').send(Buffer.from(await defaultSpritesheet.arrayBuffer()));
     } catch (error) {
       sendError(res, error);
     }
@@ -56,7 +56,7 @@ const Spritesheets = {
         const defaultSpritesheet = await fetch(`${process.env.SELF_URL || ''}/images/game/${gender}-brute.png`);
 
         // Send default spritesheet
-        res.header('Content-Type', 'image/png').send(await defaultSpritesheet.buffer());
+        res.header('Content-Type', 'image/png').send(Buffer.from(await defaultSpritesheet.arrayBuffer()));
       }
     } catch (error) {
       sendError(res, error);
@@ -68,7 +68,7 @@ const Spritesheets = {
       const defaultSpritesheet = await fetch(`${process.env.SELF_URL || ''}/images/game/male-brute.json`);
 
       // Send default spritesheet
-      res.header('Content-Type', 'application/json').send(await defaultSpritesheet.buffer());
+      res.header('Content-Type', 'application/json').send(Buffer.from(await defaultSpritesheet.arrayBuffer()));
     } catch (error) {
       sendError(res, error);
     }
@@ -79,7 +79,7 @@ const Spritesheets = {
       const defaultSpritesheet = await fetch(`${process.env.SELF_URL || ''}/images/game/female-brute.json`);
 
       // Send default spritesheet
-      res.header('Content-Type', 'application/json').send(await defaultSpritesheet.buffer());
+      res.header('Content-Type', 'application/json').send(Buffer.from(await defaultSpritesheet.arrayBuffer()));
     } catch (error) {
       sendError(res, error);
     }
@@ -107,7 +107,7 @@ const Spritesheets = {
         const defaultSpritesheet = await fetch(`${process.env.SELF_URL || ''}/images/game/${gender}-brute.json`);
 
         // Send default spritesheet
-        res.header('Content-Type', 'application/json').send(await defaultSpritesheet.buffer());
+        res.header('Content-Type', 'application/json').send(Buffer.from(await defaultSpritesheet.arrayBuffer()));
       }
     } catch (error) {
       sendError(res, error);
