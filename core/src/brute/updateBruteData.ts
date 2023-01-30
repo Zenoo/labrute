@@ -67,11 +67,11 @@ const updateBruteData = (
     // Take into account the endurance malus from the pet
     updatedBrute.enduranceStat -= pet.enduranceMalus;
   } else if (destinyChoice.stat1 && !destinyChoice.stat2) {
-    // +3 stat
+    // +X stat
     const stat = destinyChoice.stat1;
-    updatedBrute = updateStat(updatedBrute, stat, 3);
+    updatedBrute = updateStat(updatedBrute, stat, destinyChoice.stat1Value as number);
   } else {
-    // +2/+1
+    // +X/+X
 
     if (!destinyChoice.stat1 || !destinyChoice.stat2
       || !destinyChoice.stat1Value || !destinyChoice.stat2Value) {
@@ -92,16 +92,16 @@ const updateBruteData = (
 
   // Final stat values
   updatedBrute.enduranceValue = Math.floor(
-    brute.enduranceStat * brute.enduranceModifier,
+    updatedBrute.enduranceStat * updatedBrute.enduranceModifier,
   );
   updatedBrute.strengthValue = Math.floor(
-    brute.strengthStat * brute.strengthModifier,
+    updatedBrute.strengthStat * updatedBrute.strengthModifier,
   );
   updatedBrute.agilityValue = Math.floor(
-    brute.agilityStat * brute.agilityModifier,
+    updatedBrute.agilityStat * updatedBrute.agilityModifier,
   );
   updatedBrute.speedValue = Math.floor(
-    brute.speedStat * brute.speedModifier,
+    updatedBrute.speedStat * updatedBrute.speedModifier,
   );
 
   // Final HP

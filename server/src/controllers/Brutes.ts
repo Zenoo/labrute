@@ -255,7 +255,10 @@ const Brutes = {
       // Update brute
       await prisma.brute.update({
         where: { id: brute.id },
-        data: updatedBruteData,
+        data: {
+          ...updatedBruteData,
+          destinyPath: { push: req.body.choice },
+        },
       });
 
       // Add log
