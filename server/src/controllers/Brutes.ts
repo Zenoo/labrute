@@ -299,19 +299,24 @@ const Brutes = {
         where: bruteSearch,
       });
 
+      // Get ARENA_OPPONENTS_COUNT random indexes between 0 and bruteCount
+      const opponentIndexes: number[] = [];
+      while (opponentIndexes.length < bruteCount
+        && opponentIndexes.length < ARENA_OPPONENTS_COUNT) {
+        const randomIndex = Math.floor(Math.random() * bruteCount);
+        if (!opponentIndexes.includes(randomIndex)) {
+          opponentIndexes.push(randomIndex);
+        }
+      }
+
       const opponents: BruteWithBodyColors[] = [];
-      for (let i = 0; i < ARENA_OPPONENTS_COUNT; i++) {
-        const skip = bruteCount <= ARENA_OPPONENTS_COUNT
-          ? 0
-          : Math.floor(Math.random() * bruteCount);
+      for (let i = 0; i < opponentIndexes.length; i++) {
+        const skip = opponentIndexes[i];
 
         // eslint-disable-next-line no-await-in-loop
         const opponent = await prisma.brute.findFirst({
           where: {
             ...bruteSearch,
-            id: {
-              notIn: opponents.map((o) => o.id),
-            },
           },
           skip,
           include: { body: true, colors: true },
@@ -336,17 +341,24 @@ const Brutes = {
           where: additionalBruteSearch,
         });
 
+        // Get remaining random indexes between 0 and additionalBruteCount
+        const additionalOpponentIndexes: number[] = [];
+        while (additionalOpponentIndexes.length < additionalBruteCount
+          && additionalOpponentIndexes.length < ARENA_OPPONENTS_COUNT - opponents.length) {
+          const randomIndex = Math.floor(Math.random() * additionalBruteCount);
+          if (!additionalOpponentIndexes.includes(randomIndex)) {
+            additionalOpponentIndexes.push(randomIndex);
+          }
+        }
+
         const additionalOpponents: BruteWithBodyColors[] = [];
-        for (let i = 0; i < ARENA_OPPONENTS_COUNT - opponents.length; i++) {
-          const skip = Math.floor(Math.random() * additionalBruteCount);
+        for (let i = 0; i < additionalOpponentIndexes.length; i++) {
+          const skip = additionalOpponentIndexes[i];
 
           // eslint-disable-next-line no-await-in-loop
           const opponent = await prisma.brute.findFirst({
             where: {
               ...additionalBruteSearch,
-              id: {
-                notIn: additionalOpponents.map((o) => o.id),
-              },
             },
             skip,
             include: { body: true, colors: true },

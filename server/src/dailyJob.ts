@@ -14,6 +14,7 @@ const dailyJob = (prisma: PrismaClient) => async () => {
   // Get brutes who registered today and are not in a tournament
   const registeredBrutes = await prisma.brute.findMany({
     where: {
+      deletedAt: null,
       tournament: {
         // TODO: Doesn't work
         gte: today,
@@ -61,6 +62,7 @@ const dailyJob = (prisma: PrismaClient) => async () => {
     // Get generated brutes at level lower or equal to highest level brute
     let generatedBrutes = await prisma.brute.findMany({
       where: {
+        deletedAt: null,
         user: null,
         level: {
           lte: highestLevelBrute,
