@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.7](https://github.com/Zenoo/labrute/compare/labrute-v2.2.6...labrute-v2.2.7) (2023-01-30)
+
+
+### Bug Fixes
+
+* Fights left counter. Fixes [#38](https://github.com/Zenoo/labrute/issues/38) ([be53f61](https://github.com/Zenoo/labrute/commit/be53f61b16dc8573437138d81106c1a33b2b68dd))
+* Node response buffer deprecation ([2cd45e0](https://github.com/Zenoo/labrute/commit/2cd45e0d1118dacc6fdfa3f30af8f295f61c20c1))
+* Opponents not always full when possible. Fixes [#39](https://github.com/Zenoo/labrute/issues/39) ([06fec42](https://github.com/Zenoo/labrute/commit/06fec425ffd8072035af0ac74f145473bfaaad64))
+* Stats not correctly applied on level up. ([f616caa](https://github.com/Zenoo/labrute/commit/f616caab78fcb2fb246dbd30c0a1c62bd1c10163))
+
 ## [2.2.6](https://github.com/Zenoo/labrute/compare/labrute-v2.2.5...labrute-v2.2.6) (2023-01-30)
 
 
