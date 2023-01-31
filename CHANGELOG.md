@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.3.0](https://github.com/Zenoo/labrute/compare/labrute-v2.2.10...labrute-v2.3.0) (2023-01-31)
+
+
+### Features
+
+* Play/pause and x2 controls in fight ([803a1b0](https://github.com/Zenoo/labrute/commit/803a1b0f10ac1afe79c1dc65fe6a3ee57cdae448))
+
 ## [2.2.10](https://github.com/Zenoo/labrute/compare/labrute-v2.2.9...labrute-v2.2.10) (2023-01-31)
 
 
