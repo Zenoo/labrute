@@ -11,6 +11,7 @@ const heal = async (
   app: Application,
   fighters: AnimationFighter[],
   step: HealStep,
+  speed: React.MutableRefObject<number>,
 ) => {
   const brute = findFighter(fighters, step.brute);
   if (!brute) {
@@ -18,7 +19,7 @@ const heal = async (
   }
 
   // Set animation to `drink`
-  changeAnimation(app, brute, 'drink');
+  changeAnimation(app, brute, 'drink', speed);
 
   // Display floating and fading green heal text
   const healText = new Text(`+${step.amount}`, {
@@ -33,7 +34,7 @@ const heal = async (
 
   Tweener.add({
     target: healText,
-    duration: 2,
+    duration: 2 / speed.current,
   }, {
     y: healText.y - 100,
     alpha: 0,
@@ -50,10 +51,10 @@ const heal = async (
   });
 
   // Heal brute
-  updateHp(brute, step.amount);
+  updateHp(brute, step.amount, speed);
 
   // Set animation to `idle`
-  changeAnimation(app, brute, 'idle');
+  changeAnimation(app, brute, 'idle', speed);
 };
 
 export default heal;

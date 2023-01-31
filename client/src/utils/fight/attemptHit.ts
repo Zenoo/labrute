@@ -8,6 +8,7 @@ const attemptHit = (
   app: Application,
   fighters: AnimationFighter[],
   step: AttemptHitStep,
+  speed: React.MutableRefObject<number>,
 ) => {
   const fighter = findFighter(fighters, step.fighter);
   if (!fighter) {
@@ -20,12 +21,12 @@ const attemptHit = (
     : 'attack';
 
   // Set animation to the correct hitting animation
-  changeAnimation(app, fighter, animation);
+  changeAnimation(app, fighter, animation, speed);
 
   // Wait for animation to finish
   (fighter.currentAnimation as AnimatedSprite).onComplete = () => {
     // Set animation to `idle`
-    changeAnimation(app, fighter, 'idle');
+    changeAnimation(app, fighter, 'idle', speed);
   };
 };
 

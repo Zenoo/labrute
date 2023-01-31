@@ -8,6 +8,7 @@ const death = (
   app: Application,
   fighters: AnimationFighter[],
   step: DeathStep,
+  speed: React.MutableRefObject<number>,
 ) => {
   const fighter = findFighter(fighters, step.fighter);
   if (!fighter) {
@@ -15,7 +16,7 @@ const death = (
   }
 
   // Set animation to `death`
-  changeAnimation(app, fighter, 'death');
+  changeAnimation(app, fighter, 'death', speed);
 };
 
 export default death;

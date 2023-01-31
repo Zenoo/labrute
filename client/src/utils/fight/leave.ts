@@ -9,6 +9,7 @@ const leave = async (
   app: Application,
   fighters: AnimationFighter[],
   step: LeaveStep,
+  speed: React.MutableRefObject<number>,
 ) => {
   const fighter = findFighter(fighters, step.fighter);
   if (!fighter) {
@@ -16,7 +17,7 @@ const leave = async (
   }
 
   // Set animation to `run`
-  changeAnimation(app, fighter, 'run');
+  changeAnimation(app, fighter, 'run', speed);
 
   // Invert fighter
   fighter.currentAnimation.scale.x *= -1;
@@ -24,7 +25,7 @@ const leave = async (
   // Move fighter to the position
   await Tweener.add({
     target: fighter.currentAnimation,
-    duration: 0.5,
+    duration: 0.5 / speed.current,
     ease: Easing.linear
   }, { x: fighter.team === 'left' ? -100 : 600 });
 

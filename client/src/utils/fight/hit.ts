@@ -13,6 +13,7 @@ const hit = async (
   app: Application,
   fighters: AnimationFighter[],
   step: HitStep,
+  speed: React.MutableRefObject<number>,
 ) => {
   const target = findFighter(fighters, step.target);
   if (!target) {
@@ -25,7 +26,7 @@ const hit = async (
     : 'hit';
 
   // Set animation to the correct hit animation
-  changeAnimation(app, target, animation as Animation);
+  changeAnimation(app, target, animation as Animation, speed);
 
   // Add poison filter if damage is poison
   if (step.action === 'poison') {
@@ -50,7 +51,7 @@ const hit = async (
 
   Tweener.add({
     target: damageText,
-    duration: 2,
+    duration: 2 / speed.current,
   }, {
     y: damageText.y - 100,
     alpha: 0,
@@ -61,14 +62,14 @@ const hit = async (
 
   // Update HP bar
   if (target.hpBar) {
-    updateHp(target, -step.damage);
+    updateHp(target, -step.damage, speed);
   }
 
   // Stagger
-  await stagger(target.currentAnimation as AnimatedSprite, target.team);
+  await stagger(target.currentAnimation as AnimatedSprite, target.team, speed);
 
   // Set animation to `idle`
-  changeAnimation(app, target, 'idle');
+  changeAnimation(app, target, 'idle', speed);
 };
 
 export default hit;

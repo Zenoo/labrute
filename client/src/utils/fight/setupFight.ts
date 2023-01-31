@@ -7,6 +7,7 @@ import { GlowFilter } from '@pixi/filter-glow';
 import { OutlineFilter } from '@pixi/filter-outline';
 import { Tweener } from 'pixi-tweener';
 import * as PIXI from 'pixi.js';
+import { AnimatedSprite } from 'pixi.js';
 import arrive from './arrive';
 import attemptHit from './attemptHit';
 import block from './block';
@@ -39,11 +40,13 @@ import updateWeapons from './updateWeapons';
 const setupFight: (
   theme: Theme,
   fight: Fight,
-  app: PIXI.Application
+  app: PIXI.Application,
+  speed: React.MutableRefObject<number>,
 ) => PIXI.Loader.OnCompleteSignal = (
   theme,
   fight,
   app,
+  speed,
 ) => async (
   loader,
   resources,
@@ -194,7 +197,7 @@ const setupFight: (
 
     const team = (fighter.master || fighter.id) === brute1.id ? 'left' : 'right';
 
-    const arriveStartAnimation = setupSprite(app, type, 'arrive-start', team, fighter.type === 'brute');
+    const arriveStartAnimation = setupSprite(app, type, 'arrive-start', team, fighter.type === 'brute', speed);
 
     if (!arriveStartAnimation) {
       throw new Error(`Arrive start animation not found: ${type}`);
@@ -225,11 +228,22 @@ const setupFight: (
   // Initialize tweener
   Tweener.init(app.ticker);
 
+  let currentSpeed = speed.current;
   app.ticker.add(() => {
     // Update zIndex on all fighters
     fighters.forEach((fighter) => {
       fighter.currentAnimation.zIndex = fighter.currentAnimation.y;
     });
+
+    // Update speed if needed
+    if (currentSpeed !== speed.current) {
+      fighters.forEach((fighter) => {
+        if ((fighter.currentAnimation as AnimatedSprite).play) {
+          (fighter.currentAnimation as AnimatedSprite).animationSpeed = speed.current;
+        }
+      });
+      currentSpeed = speed.current;
+    }
   });
 
   // Loop on steps
@@ -239,42 +253,42 @@ const setupFight: (
 
     switch (step.action) {
       case 'moveTo': {
-        await moveTo(app, fighters, step);
+        await moveTo(app, fighters, step, speed);
         break;
       }
       case 'moveBack': {
-        await moveBack(app, fighters, step);
+        await moveBack(app, fighters, step, speed);
         break;
       }
       case 'arrive': {
-        await arrive(app, fighters, step);
+        await arrive(app, fighters, step, speed);
         break;
       }
       case 'leave': {
-        await leave(app, fighters, step);
+        await leave(app, fighters, step, speed);
         break;
       }
       case 'attemptHit': {
-        attemptHit(app, fighters, step);
+        attemptHit(app, fighters, step, speed);
         break;
       }
       case 'hit':
       case 'hammer':
       case 'flashFlood':
       case 'poison': {
-        await hit(app, fighters, step);
+        await hit(app, fighters, step, speed);
         break;
       }
       case 'death': {
-        death(app, fighters, step);
+        death(app, fighters, step, speed);
         break;
       }
       case 'evade': {
-        await evade(app, fighters, step);
+        await evade(app, fighters, step, speed);
         break;
       }
       case 'saboteur': {
-        await saboteur(app, fighters, step);
+        await saboteur(app, fighters, step, speed);
         break;
       }
       case 'disarm': {
@@ -282,51 +296,51 @@ const setupFight: (
         break;
       }
       case 'steal': {
-        await steal(app, fighters, step);
+        await steal(app, fighters, step, speed);
         break;
       }
       case 'throw': {
-        await throwWeapon(app, fighters, step);
+        await throwWeapon(app, fighters, step, speed);
         break;
       }
       case 'trash': {
-        await trash(app, fighters, step);
+        await trash(app, fighters, step, speed);
         break;
       }
       case 'eat': {
-        await eat(app, fighters, step);
+        await eat(app, fighters, step, speed);
         break;
       }
       case 'heal': {
-        await heal(app, fighters, step);
+        await heal(app, fighters, step, speed);
         break;
       }
       case 'survive': {
-        survive(app, fighters, step);
+        survive(app, fighters, step, speed);
         break;
       }
       case 'trap': {
-        await trap(app, fighters, step);
+        await trap(app, fighters, step, speed);
         break;
       }
       case 'block': {
-        await block(app, fighters, step);
+        await block(app, fighters, step, speed);
         break;
       }
       case 'skillActivate': {
-        await skillActivate(app, fighters, step);
+        await skillActivate(app, fighters, step, speed);
         break;
       }
       case 'end': {
-        end(app, fighters, step);
+        end(app, fighters, step, speed);
         break;
       }
       case 'hypnotise': {
-        await hypnotise(app, fighters, step);
+        await hypnotise(app, fighters, step, speed);
         break;
       }
       case 'equip': {
-        await equip(app, fighters, step);
+        await equip(app, fighters, step, speed);
         break;
       }
       case 'sabotage': {
@@ -338,7 +352,7 @@ const setupFight: (
         break;
       }
       case 'bomb': {
-        await bomb(app, fighters, step);
+        await bomb(app, fighters, step, speed);
         break;
       }
       case 'counter':

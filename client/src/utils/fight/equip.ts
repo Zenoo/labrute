@@ -8,6 +8,7 @@ const equip = async (
   app: Application,
   fighters: AnimationFighter[],
   step: EquipStep,
+  speed: React.MutableRefObject<number>,
 ) => {
   const brute = findFighter(fighters, step.brute);
   if (!brute) {
@@ -15,14 +16,14 @@ const equip = async (
   }
 
   // Set animation to `equip`
-  changeAnimation(app, brute, 'equip');
+  changeAnimation(app, brute, 'equip', speed);
   (brute.currentAnimation as AnimatedSprite).animationSpeed = 0.5;
 
   // Wait for animation to complete
   await new Promise((resolve) => {
     (brute.currentAnimation as AnimatedSprite).onComplete = () => {
       // Set animation to `idle`
-      changeAnimation(app, brute, 'idle');
+      changeAnimation(app, brute, 'idle', speed);
 
       resolve(null);
     };

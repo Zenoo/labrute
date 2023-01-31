@@ -9,6 +9,7 @@ const trash = async (
   app: Application,
   fighters: AnimationFighter[],
   step: TrashStep,
+  speed: React.MutableRefObject<number>,
 ) => {
   const brute = findFighter(fighters, step.brute);
   if (!brute) {
@@ -16,7 +17,7 @@ const trash = async (
   }
 
   // Set animation to `trash`
-  changeAnimation(app, brute, 'trash');
+  changeAnimation(app, brute, 'trash', speed);
   (brute.currentAnimation as AnimatedSprite).animationSpeed = 0.5;
 
   // Remove weapon from brute
@@ -26,7 +27,7 @@ const trash = async (
   await new Promise((resolve) => {
     (brute.currentAnimation as AnimatedSprite).onComplete = () => {
       // Set animation to `idle`
-      changeAnimation(app, brute, 'idle');
+      changeAnimation(app, brute, 'idle', speed);
 
       resolve(null);
     };

@@ -334,5 +334,7 @@
   "fight.step.counter": "{{fighter}} a contré {{opponent}}.",
   "fight.step.skillExpire": "{{skill}} de {{brute}} a expiré.",
   "fight.step.skillActivate": "{{brute}} a utilisé {{skill}}.",
+  "fight.play": "Jouer",
+  "fight.pause": "Pause",
   "fight.toggleLogs": "Afficher/masquer les logs"
 }

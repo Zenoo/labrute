@@ -1,7 +1,7 @@
 import { Fighter, FightStep } from '@labrute/core';
 import { Fight } from '@labrute/prisma';
-import { Rtt } from '@mui/icons-material';
-import { Box, IconButton, Tooltip, useMediaQuery, useTheme } from '@mui/material';
+import { FastForward, FastRewind, Pause, PlayArrow, Rtt } from '@mui/icons-material';
+import { Box, IconButton, Stack, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import { Tweener } from 'pixi-tweener';
 import * as PIXI from 'pixi.js';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
@@ -24,6 +24,13 @@ const FightComponent = ({
 
   const fightSteps = fight?.steps as FightStep[] | undefined;
 
+  // Fight status
+  const appRef = useRef<PIXI.Application | null>(null);
+  const [playing, setPlaying] = useState(true);
+
+  // Fight speed
+  const speed = useRef(1);
+
   // Logs display
   const [displayLogs, setDisplayLogs] = useState(false);
 
@@ -37,6 +44,7 @@ const FightComponent = ({
       width: 500,
       height: 300,
     });
+    appRef.current = app;
     ref.current.appendChild(app.view);
 
     app.ticker.speed = 0.5;
@@ -52,13 +60,28 @@ const FightComponent = ({
       }
     });
 
-    app.loader.load(setupFight(theme, fight, app));
+    app.loader.load(setupFight(theme, fight, app, speed));
 
     return () => {
       Tweener.dispose();
       app.destroy(true);
     };
   }, [fight, theme]);
+
+  const toggleAnimation = useCallback(() => {
+    setPlaying((prev) => {
+      if (prev) {
+        appRef.current?.ticker.stop();
+      } else {
+        appRef.current?.ticker.start();
+      }
+      return !prev;
+    });
+  }, []);
+
+  const toggleSpeed = useCallback(() => {
+    speed.current = speed.current === 1 ? 2 : 1;
+  }, [speed]);
 
   const toggleLogs = useCallback(() => {
     setDisplayLogs((prev) => !prev);
@@ -99,6 +122,23 @@ const FightComponent = ({
           ))}
         </Box>
       )}
+      <Stack
+        direction="row"
+        sx={{ position: 'absolute', bottom: 0, left: 0, zIndex: 501 }}
+      >
+        {/* Play/Pause */}
+        <Tooltip title={playing ? t('fight.pause') : t('fight.play')}>
+          <IconButton onClick={toggleAnimation}>
+            {playing ? <Pause /> : <PlayArrow />}
+          </IconButton>
+        </Tooltip>
+        {/* x2 */}
+        <Tooltip title={speed.current === 1 ? 'x2' : 'x1'}>
+          <IconButton onClick={toggleSpeed}>
+            {speed.current === 1 ? <FastForward /> : <FastRewind />}
+          </IconButton>
+        </Tooltip>
+      </Stack>
       {/* LOGS TOGGLE */}
       <Tooltip title={t('fight.toggleLogs')}>
         <IconButton onClick={toggleLogs} sx={{ position: 'absolute', bottom: 0, right: 0, zIndex: 501, }}>

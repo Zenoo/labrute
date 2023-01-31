@@ -6,6 +6,7 @@ const setupSprite = (
   animation: string,
   team: 'left' | 'right',
   isBrute: boolean,
+  speed: React.MutableRefObject<number>,
 ): Sprite | AnimatedSprite | null => {
   const { loader: { resources: {
     [isBrute ? `/api/spritesheet/${type}.json` : `/images/game/${type}.json`]: { spritesheet }
@@ -25,6 +26,7 @@ const setupSprite = (
   } else {
     // Animated sprite
     sprite = new AnimatedSprite(animationFrames);
+    (sprite as AnimatedSprite).animationSpeed = speed.current;
   }
 
   if (!sprite) {

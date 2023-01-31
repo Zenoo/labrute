@@ -9,6 +9,7 @@ const getSprite = (
   type: string,
   fighter: AnimationFighter,
   animation: Animation,
+  speed: React.MutableRefObject<number>,
 ) => {
   // Do nothing if the game was stopped
   if (!app.loader) {
@@ -22,6 +23,7 @@ const getSprite = (
     animation,
     fighter.team,
     fighter.type === 'brute',
+    speed,
   );
 
   if (!newAnimation) {
@@ -54,6 +56,7 @@ const changeAnimation = (
   app: Application,
   fighter: AnimationFighter,
   animation: Animation,
+  speed: React.MutableRefObject<number>,
 ) => {
   // Cancel previous animation changes
   if ((fighter.currentAnimation as AnimatedSprite).play) {
@@ -72,17 +75,17 @@ const changeAnimation = (
   // Handle idle differently for monks
   if (animation === 'idle' && fighter.skills && fighter.skills.includes('monk')) {
     // Load the animation start
-    getSprite(app, type, fighter, 'monk-start');
+    getSprite(app, type, fighter, 'monk-start', speed);
 
     // Wait for animation to end
     (fighter.currentAnimation as AnimatedSprite).onComplete = () => {
       if (fighter.currentAnimation.name === 'monk-start') {
         // Load the animation loop
-        getSprite(app, type, fighter, 'monk-loop');
+        getSprite(app, type, fighter, 'monk-loop', speed);
       }
     };
   } else {
-    getSprite(app, type, fighter, animation);
+    getSprite(app, type, fighter, animation, speed);
   }
 };
 

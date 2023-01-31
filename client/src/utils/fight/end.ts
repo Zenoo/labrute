@@ -8,6 +8,7 @@ const end = (
   app: Application,
   fighters: AnimationFighter[],
   step: EndStep,
+  speed: React.MutableRefObject<number>,
 ) => {
   const winner = findFighter(fighters, step.winner);
   if (!winner) {
@@ -15,7 +16,7 @@ const end = (
   }
 
   // Set animation to `win`
-  changeAnimation(app, winner, 'win');
+  changeAnimation(app, winner, 'win', speed);
 };
 
 export default end;

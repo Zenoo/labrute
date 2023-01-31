@@ -153,13 +153,14 @@ export const DURATIONS: Record<
 const getMoveDuration = (
   animation: Animation,
   fighter: StepFighter,
+  speed: React.MutableRefObject<number>,
 ) => {
   const type = fighter.type === 'pet'
     ? fighter.name.startsWith('dog')
       ? 'dog' : fighter.name as 'bear' | 'panther'
     : 'brute';
 
-  return DURATIONS[type][animation];
+  return DURATIONS[type][animation] / speed.current;
 };
 
 export default getMoveDuration;

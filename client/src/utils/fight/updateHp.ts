@@ -2,7 +2,12 @@
 import { Tweener } from 'pixi-tweener';
 import { AnimationFighter } from './findFighter';
 
-const updateHp = (brute: AnimationFighter, hp: number, fix?: boolean) => {
+const updateHp = (
+  brute: AnimationFighter,
+  hp: number,
+  speed: React.MutableRefObject<number>,
+  fix?: boolean
+) => {
   if (!brute.hpBar || !brute.hpBarPhantom) {
     throw new Error(`Brute HP not found: ${brute.name}`);
   }
@@ -33,8 +38,8 @@ const updateHp = (brute: AnimationFighter, hp: number, fix?: boolean) => {
 
   Tweener.add({
     target: brute.hpBarPhantom,
-    duration: 0.25,
-    delay: 0.25,
+    duration: 0.25 / speed.current,
+    delay: 0.25 / speed.current,
   }, {
     width: newWidth,
   }).catch((error) => {

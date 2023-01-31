@@ -8,6 +8,7 @@ const evade = async (
   app: Application,
   fighters: AnimationFighter[],
   step: EvadeStep,
+  speed: React.MutableRefObject<number>,
 ) => {
   const fighter = findFighter(fighters, step.fighter);
   if (!fighter) {
@@ -15,23 +16,23 @@ const evade = async (
   }
 
   // Set animation to `evade`
-  changeAnimation(app, fighter, 'evade');
+  changeAnimation(app, fighter, 'evade', speed);
 
   // Add vertical tween
   await Tweener.add({
     target: fighter.currentAnimation,
-    duration: 0.25,
+    duration: 0.25 / speed.current,
     ease: Easing.easeTo,
   }, { y: fighter.currentAnimation.y - fighter.currentAnimation.height / 2 });
 
   await Tweener.add({
     target: fighter.currentAnimation,
-    duration: 0.25,
+    duration: 0.25 / speed.current,
     ease: Easing.easeFrom,
   }, { y: fighter.currentAnimation.y + fighter.currentAnimation.height / 2 });
 
   // Set animation to `idle`
-  changeAnimation(app, fighter, 'idle');
+  changeAnimation(app, fighter, 'idle', speed);
 };
 
 export default evade;

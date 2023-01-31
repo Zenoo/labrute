@@ -8,6 +8,7 @@ const skillActivate = async (
   app: Application,
   fighters: AnimationFighter[],
   step: SkillActivateStep,
+  speed: React.MutableRefObject<number>,
 ) => {
   const brute = findFighter(fighters, step.brute);
   if (!brute) {
@@ -15,13 +16,13 @@ const skillActivate = async (
   }
 
   // Set animation to `strenghten`
-  changeAnimation(app, brute, 'strengthen');
+  changeAnimation(app, brute, 'strengthen', speed);
 
   // Wait for animation to complete
   await new Promise((resolve) => {
     (brute.currentAnimation as AnimatedSprite).onComplete = () => {
       // Set animation to `idle`
-      changeAnimation(app, brute, 'idle');
+      changeAnimation(app, brute, 'idle', speed);
 
       resolve(null);
     };

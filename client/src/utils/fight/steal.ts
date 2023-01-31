@@ -11,6 +11,7 @@ const steal = async (
   app: Application,
   fighters: AnimationFighter[],
   step: StealStep,
+  speed: React.MutableRefObject<number>,
 ) => {
   const brute = findFighter(fighters, step.brute);
   if (!brute) {
@@ -24,7 +25,7 @@ const steal = async (
   // Move brute to target position
   await Tweener.add({
     target: brute.currentAnimation,
-    duration: 0.25,
+    duration: 0.25 / speed.current,
     ease: Easing.linear,
   }, {
     x: target.currentAnimation.x,
@@ -32,12 +33,12 @@ const steal = async (
   });
 
   // Set brute animation to `steal`
-  changeAnimation(app, brute, 'steal');
+  changeAnimation(app, brute, 'steal', speed);
   (brute.currentAnimation as AnimatedSprite).animationSpeed = 0.5;
   brute.currentAnimation.rotation = Math.PI / 2;
 
   // Set target animation to `stolen`
-  changeAnimation(app, target, 'stolen');
+  changeAnimation(app, target, 'stolen', speed);
   (target.currentAnimation as AnimatedSprite).animationSpeed = 0.5;
 
   // Wait for animation to finish
@@ -54,14 +55,14 @@ const steal = async (
   updateWeapons(app, target, step.name, 'add');
 
   // Set target animation to `idle`
-  changeAnimation(app, target, 'idle');
+  changeAnimation(app, target, 'idle', speed);
 
   const { x, y } = getRandomPosition(fighters, brute.team);
 
   // Move brute to position
   await Tweener.add({
     target: brute.currentAnimation,
-    duration: 0.25,
+    duration: 0.25 / speed.current,
     ease: Easing.linear,
   }, {
     x,
@@ -69,7 +70,7 @@ const steal = async (
   });
 
   // Set brute animation to `idle`
-  changeAnimation(app, brute, 'idle');
+  changeAnimation(app, brute, 'idle', speed);
 };
 
 export default steal;

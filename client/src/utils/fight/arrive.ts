@@ -10,6 +10,7 @@ const arrive = async (
   app: Application,
   fighters: AnimationFighter[],
   step: ArriveStep,
+  speed: React.MutableRefObject<number>,
 ) => {
   const fighter = findFighter(fighters, step.fighter);
 
@@ -28,12 +29,12 @@ const arrive = async (
   // Move fighter to the position
   await Tweener.add({
     target: fighter.currentAnimation,
-    duration: 0.5,
+    duration: 0.5 / speed.current,
     ease: Easing.linear
   }, { x, y });
 
   // Set animation to `arrive-end`
-  changeAnimation(app, fighter, 'arrive-end');
+  changeAnimation(app, fighter, 'arrive-end', speed);
 
   // Slow every animation but the bear
   if (!(fighter.name === 'bear' && fighter.master)) {
@@ -44,7 +45,7 @@ const arrive = async (
   await new Promise((resolve) => {
     (fighter.currentAnimation as AnimatedSprite).onComplete = () => {
       // Set animation to `idle`
-      changeAnimation(app, fighter, 'idle');
+      changeAnimation(app, fighter, 'idle', speed);
 
       resolve(null);
     };

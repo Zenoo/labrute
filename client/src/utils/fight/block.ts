@@ -8,6 +8,7 @@ const block = async (
   app: Application,
   fighters: AnimationFighter[],
   step: BlockStep,
+  speed: React.MutableRefObject<number>,
 ) => {
   const fighter = findFighter(fighters, step.fighter);
   if (!fighter) {
@@ -15,7 +16,7 @@ const block = async (
   }
 
   // Set animation to `block`
-  changeAnimation(app, fighter, 'block');
+  changeAnimation(app, fighter, 'block', speed);
 
   // Wait for animation to complete
   await new Promise((resolve) => {
@@ -25,7 +26,7 @@ const block = async (
   });
 
   // Set animation to `idle`
-  changeAnimation(app, fighter, 'idle');
+  changeAnimation(app, fighter, 'idle', speed);
 };
 
 export default block;

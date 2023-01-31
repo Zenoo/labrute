@@ -8,6 +8,7 @@ const throwWeapon = async (
   app: Application,
   fighters: AnimationFighter[],
   step: ThrowStep,
+  speed: React.MutableRefObject<number>,
 ) => {
   const fighter = findFighter(fighters, step.fighter);
   if (!fighter) {
@@ -15,7 +16,7 @@ const throwWeapon = async (
   }
 
   // Set animation to `prepare-throw`
-  changeAnimation(app, fighter, 'prepare-throw');
+  changeAnimation(app, fighter, 'prepare-throw', speed);
 
   // Wait for animation to finish
   await new Promise((resolve) => {
@@ -30,7 +31,7 @@ const throwWeapon = async (
   }
 
   // Set animation to `throw`
-  changeAnimation(app, fighter, 'throw');
+  changeAnimation(app, fighter, 'throw', speed);
 
   // Wait 250ms
   await new Promise((resolve) => {
@@ -40,7 +41,7 @@ const throwWeapon = async (
   });
 
   // Set animation to `idle`
-  changeAnimation(app, fighter, 'idle');
+  changeAnimation(app, fighter, 'idle', speed);
 };
 
 export default throwWeapon;

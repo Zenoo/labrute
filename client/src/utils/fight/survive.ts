@@ -8,6 +8,7 @@ const survive = (
   app: Application,
   fighters: AnimationFighter[],
   step: SurviveStep,
+  speed: React.MutableRefObject<number>,
 ) => {
   const brute = findFighter(fighters, step.brute);
   if (!brute) {
@@ -15,7 +16,7 @@ const survive = (
   }
 
   // Set brute HP to 1
-  updateHp(brute, 1, true);
+  updateHp(brute, 1, speed, true);
 };
 
 export default survive;

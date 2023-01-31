@@ -9,6 +9,7 @@ const hypnotise = async (
   app: Application,
   fighters: AnimationFighter[],
   step: HypnotiseStep,
+  speed: React.MutableRefObject<number>,
 ) => {
   const brute = findFighter(fighters, step.brute);
   if (!brute) {
@@ -22,12 +23,12 @@ const hypnotise = async (
   const { x, y } = getRandomPosition(fighters, brute.team);
 
   // Set pet animation to `run`
-  changeAnimation(app, pet, 'run');
+  changeAnimation(app, pet, 'run', speed);
 
   // Move pet to other team
   await Tweener.add({
     target: pet.currentAnimation,
-    duration: 0.5,
+    duration: 0.5 / speed.current,
     ease: Easing.linear,
   }, { x, y });
 
@@ -36,7 +37,7 @@ const hypnotise = async (
   pet.master = brute.id;
 
   // Set pet animation to `idle`
-  changeAnimation(app, pet, 'idle');
+  changeAnimation(app, pet, 'idle', speed);
 };
 
 export default hypnotise;

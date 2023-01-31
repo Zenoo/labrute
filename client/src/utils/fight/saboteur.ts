@@ -10,6 +10,7 @@ const saboteur = async (
   app: Application,
   fighters: AnimationFighter[],
   step: SaboteurStep,
+  speed: React.MutableRefObject<number>,
 ) => {
   const brute = findFighter(fighters, step.brute);
   if (!brute) {
@@ -17,10 +18,10 @@ const saboteur = async (
   }
 
   // Set animation to `hit`
-  changeAnimation(app, brute, 'hit');
+  changeAnimation(app, brute, 'hit', speed);
 
   // Stagger animation
-  await stagger(brute.currentAnimation as AnimatedSprite, brute.team);
+  await stagger(brute.currentAnimation as AnimatedSprite, brute.team, speed);
 
   // Update weapon list
   updateWeapons(app, brute, step.weapon, 'remove');

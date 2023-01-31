@@ -12,6 +12,7 @@ const bomb = async (
   app: Application,
   fighters: AnimationFighter[],
   step: BombStep,
+  speed: React.MutableRefObject<number>,
 ) => {
   const fighter = findFighter(fighters, step.fighter);
   if (!fighter) {
@@ -19,7 +20,7 @@ const bomb = async (
   }
 
   // Set animation to `launch`
-  changeAnimation(app, fighter, 'launch');
+  changeAnimation(app, fighter, 'launch', speed);
 
   // Wait 500ms
   await new Promise((resolve) => {
@@ -29,7 +30,7 @@ const bomb = async (
   });
 
   // Set animation to `idle`
-  changeAnimation(app, fighter, 'idle');
+  changeAnimation(app, fighter, 'idle', speed);
 
   // Get targets
   const targets = step.targets.map((t) => {
@@ -51,7 +52,7 @@ const bomb = async (
       : 'hit';
 
     // Set animation to the correct hit animation
-    changeAnimation(app, target, animation as Animation);
+    changeAnimation(app, target, animation as Animation, speed);
 
     // Display floating and fading damage text
     const damageText = new Text(`-${step.damage}`, {
@@ -66,7 +67,7 @@ const bomb = async (
 
     Tweener.add({
       target: damageText,
-      duration: 2,
+      duration: 2 / speed.current,
     }, {
       y: damageText.y - 100,
       alpha: 0,
@@ -77,15 +78,15 @@ const bomb = async (
 
     // Update HP bar
     if (target.hpBar) {
-      updateHp(target, -step.damage);
+      updateHp(target, -step.damage, speed);
     }
 
     // Stagger
     // eslint-disable-next-line no-await-in-loop
-    stagger(target.currentAnimation as AnimatedSprite, target.team)
+    stagger(target.currentAnimation as AnimatedSprite, target.team, speed)
       .then(() => {
         // Set animation to `idle`
-        changeAnimation(app, target, 'idle');
+        changeAnimation(app, target, 'idle', speed);
       })
       .catch(console.error);
   }
