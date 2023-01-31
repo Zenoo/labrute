@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.9](https://github.com/Zenoo/labrute/compare/labrute-v2.2.8...labrute-v2.2.9) (2023-01-30)
+
+
+### Bug Fixes
+
+* Check colors before creating brute ([22a77a9](https://github.com/Zenoo/labrute/commit/22a77a98298f5fa1db80398ed421514a4cb4274d))
+* Send new pupil log to master instead of pupil ([794c5b5](https://github.com/Zenoo/labrute/commit/794c5b52d566c2a48ade902d1bf0e19241c91fdc))
+* Stop serving the client from the server (handled by nginx) ([737a290](https://github.com/Zenoo/labrute/commit/737a29055d8d3ff5e9fdc5b6099bff88177fff99))
+
 ## [2.2.8](https://github.com/Zenoo/labrute/compare/labrute-v2.2.7...labrute-v2.2.8) (2023-01-30)
 
 
