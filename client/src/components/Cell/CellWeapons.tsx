@@ -2,16 +2,11 @@ import { weapons as detailedWeapons } from '@labrute/core';
 import { WeaponName } from '@labrute/prisma';
 import { Box, BoxProps } from '@mui/material';
 import React, { useCallback, useMemo, useState } from 'react';
+import { useBrute } from '../../hooks/useBrute';
 import WeaponTooltip from '../Brute/WeaponTooltip';
 
-interface CellWeaponsProps extends BoxProps {
-  weapons: WeaponName[];
-}
-
-const CellWeapons = ({
-  weapons,
-  ...rest
-}: CellWeaponsProps) => {
+const CellWeapons = (props: BoxProps) => {
+  const { brute } = useBrute();
   const [hoveredWeapon, setHoveredWeapon] = useState<WeaponName | null>(null);
 
   const hoverWeapon = useCallback((weapon: WeaponName) => () => {
@@ -51,13 +46,13 @@ const CellWeapons = ({
     broadsword: <use onMouseEnter={hoverWeapon('broadsword')} onMouseLeave={leaveWeapon} key="broadsword" height="41.3" id="_w2" transform="matrix(0.5771, -0.4402, 0.4402, 0.5771, 56.7885, 26.853)" width="81.15" xlinkHref="#sprite4" />,
   }), [hoverWeapon, leaveWeapon]);
 
-  return (
+  return brute && (
     <WeaponTooltip
       weapon={detailedWeapons.find((w) => w.name === hoveredWeapon)}
       open={hoveredWeapon !== null}
       placement="bottom"
     >
-      <Box component="svg" xmlnsXlink="http://www.w3.org/1999/xlink" height="209.9px" width="310.9px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 310.9 209.9" {...rest}>
+      <Box component="svg" xmlnsXlink="http://www.w3.org/1999/xlink" height="209.9px" width="310.9px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 310.9 209.9" {...props}>
         {/* ALERT: THIS SVG IS HEAVILY OPTIMIZABLE */}
         {/* BACK BOARD */}
         <g transform="matrix(1.0, 0.0, 0.0, 1.0, 155.45, 104.95)">
@@ -90,7 +85,7 @@ const CellWeapons = ({
           }}
         >
           <use height="198.65" transform="matrix(1.0, 0.0, 0.0, 1.0, -3.8, 3.4)" width="303.95" xlinkHref="#shape2" />
-          {weapons.map((weapon) => weaponSVGs[weapon])}
+          {brute.weapons.map((weapon) => weaponSVGs[weapon])}
         </g>
         <defs>
           <g id="sprite0" transform="matrix(1.0, 0.0, 0.0, 1.0, 155.45, 104.95)">

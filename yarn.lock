@@ -2509,6 +2509,7 @@ __metadata:
     "@types/node-fetch": ^2.6.2
     "@types/node-schedule": ^2.1.0
     "@types/nodemailer": ^6.4.7
+    "@types/spritesmith": ^3.4.0
     "@types/vinyl": ^2.0.7
     "@typescript-eslint/eslint-plugin": ^5.31.0
     "@typescript-eslint/parser": ^5.31.0
@@ -4369,6 +4370,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/spritesmith@npm:^3.4.0":
+  version: 3.4.0
+  resolution: "@types/spritesmith@npm:3.4.0"
+  dependencies:
+    "@types/vinyl": "*"
+  checksum: 09b7f5ebe8c526d276bb1935a762018c90912b02a8e3486b414b47114adf8525146f4c4101acc1ffef63ae5dbbe0c9c9311f918dc7a7327663ee6b026ec8da45
+  languageName: node
+  linkType: hard
+
 "@types/stack-utils@npm:^2.0.0":
   version: 2.0.1
   resolution: "@types/stack-utils@npm:2.0.1"
@@ -4400,7 +4410,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/vinyl@npm:^2.0.7":
+"@types/vinyl@npm:*, @types/vinyl@npm:^2.0.7":
   version: 2.0.7
   resolution: "@types/vinyl@npm:2.0.7"
   dependencies:

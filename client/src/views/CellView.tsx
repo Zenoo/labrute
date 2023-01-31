@@ -2,7 +2,7 @@ import { BruteWithMasterBodyColorsClanTournament } from '@labrute/core';
 import { TournamentType } from '@labrute/prisma';
 import { Box, Paper, Tooltip, useMediaQuery } from '@mui/material';
 import moment from 'moment';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import BoxBg from '../components/BoxBg';
@@ -16,7 +16,7 @@ import CellWeapons from '../components/Cell/CellWeapons';
 import Link from '../components/Link';
 import Page from '../components/Page';
 import Text from '../components/Text';
-import { useAuth } from '../hooks/useAuth';
+import { useBrute } from '../hooks/useBrute';
 import { useLanguage } from '../hooks/useLanguage';
 import useStateAsync from '../hooks/useStateAsync';
 import advertisings from '../utils/advertisings';
@@ -29,12 +29,11 @@ import CellMobileView from './mobile/CellMobileView';
 const CellView = () => {
   const { t } = useTranslation();
   const { bruteName } = useParams();
-  const { user } = useAuth();
   const smallScreen = useMediaQuery('(max-width: 935px)');
   const { language } = useLanguage();
   const navigate = useNavigate();
+  const { brute, updateBrute } = useBrute();
 
-  const [brute, setBrute] = useState<BruteWithMasterBodyColorsClanTournament | null>(null);
   const { data: logs } = useStateAsync([], Server.Log.list, bruteName || '');
 
   // Fetch brute
@@ -57,18 +56,14 @@ const CellView = () => {
         },
       }).then((data) => {
         if (isSubscribed) {
-          setBrute(data as BruteWithMasterBodyColorsClanTournament);
+          updateBrute(data as BruteWithMasterBodyColorsClanTournament);
         }
       }).catch(() => {
         navigate('/');
       });
     }
     return () => { isSubscribed = false; };
-  }, [bruteName, navigate]);
-
-  // Owner?
-  const ownsBrute = useMemo(() => !!(user && brute
-    && user.brutes.find((b) => b.name === brute.name)), [user, brute]);
+  }, [bruteName, navigate, updateBrute]);
 
   // Randomized advertising
   const advertising = useMemo(() => advertisings[Math.floor(
@@ -78,10 +73,8 @@ const CellView = () => {
   return brute && (smallScreen
     ? (
       <CellMobileView
-        brute={brute}
         advertising={advertising}
         logs={logs}
-        ownsBrute={ownsBrute}
         language={language}
       />
     )
@@ -90,7 +83,6 @@ const CellView = () => {
         <Box display="flex" zIndex={1} sx={{ mt: 2 }}>
           {/* BRUTE NAME + SOCIALS */}
           <CellSocials
-            brute={brute}
             sx={{
               borderTopLeftRadius: 0,
               borderBottomLeftRadius: 0,
@@ -136,17 +128,15 @@ const CellView = () => {
               <Box sx={{ width: 315 }}>
                 {/* WEAPONS */}
                 <Text bold sx={{ textAlign: 'center' }}>{t('weaponsBonuses')}</Text>
-                <CellWeapons weapons={brute.weapons} />
+                <CellWeapons />
                 {/* SKILLS */}
-                <CellSkills brute={brute} />
+                <CellSkills />
                 {/* PETS */}
-                <CellPets pets={brute.pets} sx={{ mt: 2 }} />
+                <CellPets sx={{ mt: 2 }} />
               </Box>
               {/* MAIN */}
               <CellMain
                 sx={{ flexGrow: 1 }}
-                brute={brute}
-                ownsBrute={ownsBrute}
                 language={language}
               />
             </Box>

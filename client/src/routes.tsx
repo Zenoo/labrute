@@ -1,4 +1,5 @@
 import React from 'react';
+import ProvideBrute from './components/Brute/ProvideBrute';
 import Main from './layouts/Main';
 import AnchorTestView from './views/AnchorTestView';
 import ArenaView from './views/ArenaView';
@@ -20,7 +21,13 @@ const routes = [
       {
         path: ':bruteName',
         children: [
-          { path: 'cell', element: <CellView /> },
+          {
+            path: 'cell',
+            element: <ProvideBrute />,
+            children: [
+              { path: '', element: <CellView /> },
+            ],
+          },
           { path: 'level-up', element: <LevelUpView /> },
           { path: 'arena', element: <ArenaView /> },
           { path: 'versus/:opponentName', element: <VersusView /> },

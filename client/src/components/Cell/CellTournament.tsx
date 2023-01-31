@@ -1,9 +1,10 @@
-import { BruteWithMasterBodyColorsClanTournament, Language } from '@labrute/core';
+import { Language } from '@labrute/core';
 import { Paper, PaperProps } from '@mui/material';
 import moment from 'moment';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAlert } from '../../hooks/useAlert';
+import { useBrute } from '../../hooks/useBrute';
 import catchError from '../../utils/catchError';
 import Server from '../../utils/Server';
 import Link from '../Link';
@@ -11,35 +12,34 @@ import StyledButton from '../StyledButton';
 import Text from '../Text';
 
 export interface CellTournamentProps extends PaperProps {
-  brute: BruteWithMasterBodyColorsClanTournament;
-  ownsBrute: boolean;
   language: Language;
 }
 
 const CellTournament = ({
-  brute,
-  ownsBrute,
   language,
   sx,
   ...rest
 }: CellTournamentProps) => {
   const { t } = useTranslation();
   const Alert = useAlert();
-
-  const [registered, setRegistered] = useState(false);
+  const { brute, owner, updateBrute } = useBrute();
 
   const now = useMemo(() => moment.utc(), []);
   const tomorrow = useMemo(() => moment.utc().add(1, 'day'), []);
 
   const registerBrute = useCallback(() => {
-    Server.Tournament.registerDaily(brute.name).then(() => {
+    if (!brute) return;
+    Server.Tournament.registerDaily(brute?.name || '').then(() => {
       Alert.open('success', t('bruteRegistered'));
 
-      setRegistered(true);
+      updateBrute({
+        ...brute,
+        registeredForTournament: true,
+      });
     }).catch(catchError(Alert));
-  }, [Alert, brute.name, t]);
+  }, [Alert, brute, t, updateBrute]);
 
-  return (
+  return brute && (
     <>
       {/* CURRENT TOURNAMENT */}
       {!!brute.tournaments.length && (
@@ -73,12 +73,12 @@ const CellTournament = ({
         {...rest}
       >
         <Text bold h6>{t('tournamentOf')} {tomorrow.format('DD MMMM YYYY')}</Text>
-        {(brute.registeredForTournament || registered) ? (
+        {(brute.registeredForTournament) ? (
           <Text>{t('bruteRegistered')}</Text>
         ) : (
-          <Text>{t(ownsBrute ? 'youCanRegisterYourBrute' : 'bruteNotRegistered')}</Text>
+          <Text>{t(owner ? 'youCanRegisterYourBrute' : 'bruteNotRegistered')}</Text>
         )}
-        {ownsBrute && !registered && !brute.registeredForTournament && (
+        {owner && !brute.registeredForTournament && (
           <StyledButton
             sx={{
               height: 72,

@@ -1,23 +1,22 @@
-import { BruteWithMaster } from '@labrute/core';
 import { Box, Grid, Paper, PaperProps } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useBrute } from '../../hooks/useBrute';
 import Link from '../Link';
 import Text from '../Text';
 
 export interface CellSocialsProps extends PaperProps {
-  brute: BruteWithMaster;
   smallScreen?: boolean;
 }
 
 const CellSocials = ({
-  brute,
   smallScreen,
   ...rest
 }: CellSocialsProps) => {
+  const { brute } = useBrute();
   const { t } = useTranslation();
 
-  return (
+  return brute && (
     <Paper {...rest}>
       <Grid container spacing={1}>
         <Grid item xs={smallScreen ? 12 : 6}>

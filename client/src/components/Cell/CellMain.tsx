@@ -1,10 +1,11 @@
-import { BruteRanking, BruteWithMasterBodyColorsClanTournament, FIGHTS_PER_DAY, getFightsLeft, getSacriPoints, getXPNeeded, Language, UserWithBrutesBodyColor } from '@labrute/core';
+import { BruteRanking, FIGHTS_PER_DAY, getFightsLeft, getSacriPoints, getXPNeeded, Language, UserWithBrutesBodyColor } from '@labrute/core';
 import { Box, BoxProps, Stack } from '@mui/material';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
+import { useBrute } from '../../hooks/useBrute';
 import { useConfirm } from '../../hooks/useConfirm';
 import useStateAsync from '../../hooks/useStateAsync';
 import catchError from '../../utils/catchError';
@@ -17,15 +18,11 @@ import Text from '../Text';
 import CellTournament from './CellTournament';
 
 export interface CellMainProps extends BoxProps {
-  brute: BruteWithMasterBodyColorsClanTournament;
-  ownsBrute: boolean;
   language: Language;
   smallScreen?: boolean;
 }
 
 const CellMain = ({
-  brute,
-  ownsBrute,
   language,
   smallScreen,
   ...rest
@@ -35,13 +32,19 @@ const CellMain = ({
   const Alert = useAlert();
   const { updateData } = useAuth();
   const navigate = useNavigate();
+  const { brute, owner } = useBrute();
 
-  const xpNeededForNextLevel = useMemo(() => getXPNeeded(brute.level + 1), [brute]);
+  const xpNeededForNextLevel = useMemo(
+    () => (brute ? getXPNeeded(brute.level + 1) : 0),
+    [brute],
+  );
 
-  const { data: ready } = useStateAsync(false, Server.Brute.isReadyToFight, brute.name);
+  const { data: ready } = useStateAsync(false, Server.Brute.isReadyToFight, brute?.name || '');
 
   // Sacrifice brute
   const confirmSacrifice = useCallback(() => {
+    if (!brute) return;
+
     Confirm.open(t('sacrifice'), t('sacrificeConfirm', { points: getSacriPoints(brute.level) }), () => {
       Server.Brute.sacrifice(brute.name).then(({ points }) => {
         Alert.open('success', t('sacrificeSuccess', { points }));
@@ -54,9 +57,9 @@ const CellMain = ({
         }) as UserWithBrutesBodyColor);
       }).catch(catchError(Alert));
     });
-  }, [Alert, Confirm, brute.level, brute.name, navigate, t, updateData]);
+  }, [Alert, Confirm, brute, navigate, t, updateData]);
 
-  return (
+  return brute && (
     <Box {...rest}>
       <Box display="flex" justifyContent="space-between" alignItems="flex-start" sx={{ mb: 2 }}>
         {/* LEVEL + XP */}
@@ -70,7 +73,7 @@ const CellMain = ({
         )}
       </Box>
       <BruteBodyAndStats brute={brute} sx={{ mb: 1 }} />
-      {ownsBrute && (brute.xp < xpNeededForNextLevel ? getFightsLeft(brute) > 0 ? ready ? (
+      {owner && (brute.xp < xpNeededForNextLevel ? getFightsLeft(brute) > 0 ? ready ? (
         <Stack spacing={1} sx={{ alignItems: 'center', mt: 1 }}>
           <Text bold sx={{ pl: 1 }}>{t('callToFight')}</Text>
           <Link to={`/${brute.name}/arena`}>
@@ -120,13 +123,11 @@ const CellMain = ({
       {/* TOURNAMENT */}
       {!smallScreen && (
         <CellTournament
-          brute={brute}
-          ownsBrute={ownsBrute}
           language={language}
         />
       )}
       {/* BRUTE SACRIFICE */}
-      {ownsBrute && (
+      {owner && (
         <StyledButton
           image="/images/button.gif"
           imageHover="/images/button-hover.gif"
