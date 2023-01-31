@@ -29,7 +29,8 @@ const FightComponent = ({
   const [playing, setPlaying] = useState(true);
 
   // Fight speed
-  const speed = useRef(1);
+  const speedRef = useRef(1);
+  const [speed, setSpeed] = useState<1|2>(1);
 
   // Logs display
   const [displayLogs, setDisplayLogs] = useState(false);
@@ -60,7 +61,7 @@ const FightComponent = ({
       }
     });
 
-    app.loader.load(setupFight(theme, fight, app, speed));
+    app.loader.load(setupFight(theme, fight, app, speedRef));
 
     return () => {
       Tweener.dispose();
@@ -80,8 +81,10 @@ const FightComponent = ({
   }, []);
 
   const toggleSpeed = useCallback(() => {
-    speed.current = speed.current === 1 ? 2 : 1;
-  }, [speed]);
+    const newSpeed = speedRef.current === 1 ? 2 : 1;
+    speedRef.current = newSpeed;
+    setSpeed(newSpeed);
+  }, [speedRef]);
 
   const toggleLogs = useCallback(() => {
     setDisplayLogs((prev) => !prev);
@@ -133,9 +136,9 @@ const FightComponent = ({
           </IconButton>
         </Tooltip>
         {/* x2 */}
-        <Tooltip title={speed.current === 1 ? 'x2' : 'x1'}>
+        <Tooltip title={speed === 1 ? 'x2' : 'x1'}>
           <IconButton onClick={toggleSpeed}>
-            {speed.current === 1 ? <FastForward /> : <FastRewind />}
+            {speed === 1 ? <FastForward /> : <FastRewind />}
           </IconButton>
         </Tooltip>
       </Stack>
