@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.3.1](https://github.com/Zenoo/labrute/compare/labrute-v2.3.0...labrute-v2.3.1) (2023-01-31)
+
+
+### Bug Fixes
+
+* Fights with deleted brutes were not playing. Fixes [#46](https://github.com/Zenoo/labrute/issues/46) ([9076523](https://github.com/Zenoo/labrute/commit/907652390e977948a82fffacbe9d83e4d9d92b6f))
+
 ## [2.3.0](https://github.com/Zenoo/labrute/compare/labrute-v2.2.10...labrute-v2.3.0) (2023-01-31)
 
 
