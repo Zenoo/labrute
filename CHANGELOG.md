@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.10](https://github.com/Zenoo/labrute/compare/labrute-v2.2.9...labrute-v2.2.10) (2023-01-31)
+
+
+### Bug Fixes
+
+* Disable same user pupil creation ([3c9bee1](https://github.com/Zenoo/labrute/commit/3c9bee11cd285544394d62449633cab9aba3026f))
+* Tournament register button state not shared with all brutes ([09df3c3](https://github.com/Zenoo/labrute/commit/09df3c35b7d385d0739ddab74f289896df3e27b0))
+
 ## [2.2.9](https://github.com/Zenoo/labrute/compare/labrute-v2.2.8...labrute-v2.2.9) (2023-01-30)
 
 
