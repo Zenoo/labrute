@@ -59,7 +59,7 @@ const setupFight: (
   const { '/images/game/misc.json': { spritesheet: miscSheet } } = resources;
 
   if (!miscSheet) {
-    throw new Error('Misc scpritesheet not found');
+    throw new Error('Misc spritesheet not found');
   }
 
   const fightFighters = fight.fighters as unknown as Fighter[];
@@ -197,7 +197,7 @@ const setupFight: (
 
     const team = (fighter.master || fighter.id) === brute1.id ? 'left' : 'right';
 
-    const arriveStartAnimation = setupSprite(app, type, 'arrive-start', team, fighter.type === 'brute', speed);
+    const arriveStartAnimation = setupSprite(app, fighter, 'arrive-start', team, speed);
 
     if (!arriveStartAnimation) {
       throw new Error(`Arrive start animation not found: ${type}`);

@@ -1,19 +1,22 @@
+import { Fighter } from '@labrute/core';
 import { AnimatedSprite, Application, Sprite } from 'pixi.js';
+import { AnimationFighter } from './findFighter';
+import getFighterType from './getFighterType';
 
 const setupSprite = (
   app: Application,
-  type: string,
+  fighter: AnimationFighter | Fighter,
   animation: string,
   team: 'left' | 'right',
-  isBrute: boolean,
   speed: React.MutableRefObject<number>,
 ): Sprite | AnimatedSprite | null => {
+  const type = getFighterType(fighter);
   const { loader: { resources: {
-    [isBrute ? `/api/spritesheet/${type}.json` : `/images/game/${type}.json`]: { spritesheet }
+    [type === 'brute' ? `/api/spritesheet/${fighter.id}.json` : `/images/game/${type}.json`]: { spritesheet }
   } } } = app;
 
   if (!spritesheet) {
-    throw new Error(`Sprite not found: ${type}`);
+    throw new Error(`Sprite not found: ${type === 'brute' ? fighter.id : type}`);
   }
 
   // Animation frames

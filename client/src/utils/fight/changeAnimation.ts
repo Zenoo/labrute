@@ -1,12 +1,11 @@
 /* eslint-disable no-param-reassign */
+import { Animation } from '@labrute/core';
 import { AnimatedSprite, Application } from 'pixi.js';
 import { AnimationFighter } from './findFighter';
-import { Animation } from '@labrute/core';
 import setupSprite from './setupSprite';
 
 const getSprite = (
   app: Application,
-  type: string,
   fighter: AnimationFighter,
   animation: Animation,
   speed: React.MutableRefObject<number>,
@@ -19,10 +18,9 @@ const getSprite = (
   // Get sprite
   const newAnimation = setupSprite(
     app,
-    type,
+    fighter,
     animation,
     fighter.team,
-    fighter.type === 'brute',
     speed,
   );
 
@@ -63,29 +61,20 @@ const changeAnimation = (
     (fighter.currentAnimation as AnimatedSprite).off('complete');
   }
 
-  // Get fighter type
-  const type = fighter.type === 'pet'
-    ? fighter.name.startsWith('dog')
-      ? 'dog'
-      : fighter.name === 'bear'
-        ? 'bear'
-        : 'panther'
-    : fighter.name;
-
   // Handle idle differently for monks
   if (animation === 'idle' && fighter.skills && fighter.skills.includes('monk')) {
     // Load the animation start
-    getSprite(app, type, fighter, 'monk-start', speed);
+    getSprite(app, fighter, 'monk-start', speed);
 
     // Wait for animation to end
     (fighter.currentAnimation as AnimatedSprite).onComplete = () => {
       if (fighter.currentAnimation.name === 'monk-start') {
         // Load the animation loop
-        getSprite(app, type, fighter, 'monk-loop', speed);
+        getSprite(app, fighter, 'monk-loop', speed);
       }
     };
   } else {
-    getSprite(app, type, fighter, animation, speed);
+    getSprite(app, fighter, animation, speed);
   }
 };
 

@@ -11,35 +11,43 @@ import getFrame, { FRAMES } from '../animations/getFrame.js';
 import sendError from '../utils/sendError.js';
 
 const Spritesheets = {
-  getDefaultMaleImage: async (req: Request, res: Response) => {
-    try {
-      // Load default spritesheet
-      const defaultSpritesheet = await fetch(`${process.env.SELF_URL || ''}/images/game/male-brute.png`);
-
-      // Send default spritesheet
-      res.header('Content-Type', 'image/png').send(Buffer.from(await defaultSpritesheet.arrayBuffer()));
-    } catch (error) {
-      sendError(res, error);
-    }
-  },
-  getDefaultFemaleImage: async (req: Request, res: Response) => {
-    try {
-      // Load default spritesheet
-      const defaultSpritesheet = await fetch(`${process.env.SELF_URL || ''}/images/game/female-brute.png`);
-
-      // Send default spritesheet
-      res.header('Content-Type', 'image/png').send(Buffer.from(await defaultSpritesheet.arrayBuffer()));
-    } catch (error) {
-      sendError(res, error);
-    }
-  },
   getImage: (prisma: PrismaClient) => async (req: Request<{
     brute: string,
   }>, res: Response) => {
     try {
+      if (!req.params.brute) {
+        throw new Error('Invalid parameters');
+      }
+
+      let bruteId = +req.params.brute;
+
+      // Handle old getter with name instead of id
+      if (Number.isNaN(bruteId)) {
+        const brute = await prisma.brute.findFirst({
+          where: { name: req.params.brute, deletedAt: null },
+          select: { id: true },
+        });
+
+        if (!brute) {
+          // Brute was probably deleted
+          const deletedBrute = await prisma.brute.findFirst({
+            where: { name: req.params.brute },
+            select: { id: true },
+          });
+
+          if (!deletedBrute) {
+            throw new Error('Brute not found');
+          }
+
+          bruteId = deletedBrute.id;
+        } else {
+          bruteId = brute.id;
+        }
+      }
+
       // Get brute spritesheet
       const spritesheet = await prisma.bruteSpritesheet.findFirst({
-        where: { brute: { name: req.params.brute, deletedAt: null } },
+        where: { bruteId },
         select: { image: true },
       });
 
@@ -48,7 +56,7 @@ const Spritesheets = {
       } else {
         // Get brute gender
         const { gender } = await prisma.brute.findFirstOrThrow({
-          where: { name: req.params.brute, deletedAt: null },
+          where: { id: bruteId },
           select: { gender: true },
         });
 
@@ -62,35 +70,17 @@ const Spritesheets = {
       sendError(res, error);
     }
   },
-  getDefaultMaleJson: async (req: Request, res: Response) => {
-    try {
-      // Load default spritesheet json
-      const defaultSpritesheet = await fetch(`${process.env.SELF_URL || ''}/images/game/male-brute.json`);
-
-      // Send default spritesheet
-      res.header('Content-Type', 'application/json').send(Buffer.from(await defaultSpritesheet.arrayBuffer()));
-    } catch (error) {
-      sendError(res, error);
-    }
-  },
-  getDefaultFemaleJson: async (req: Request, res: Response) => {
-    try {
-      // Load default spritesheet json
-      const defaultSpritesheet = await fetch(`${process.env.SELF_URL || ''}/images/game/female-brute.json`);
-
-      // Send default spritesheet
-      res.header('Content-Type', 'application/json').send(Buffer.from(await defaultSpritesheet.arrayBuffer()));
-    } catch (error) {
-      sendError(res, error);
-    }
-  },
   getJson: (prisma: PrismaClient) => async (req: Request<{
     brute: string,
   }>, res: Response) => {
     try {
+      if (!req.params.brute) {
+        throw new Error('Invalid parameters');
+      }
+
       // Get brute spritesheet json
       const spritesheet = await prisma.bruteSpritesheet.findFirst({
-        where: { brute: { name: req.params.brute, deletedAt: null } },
+        where: { bruteId: +req.params.brute },
         select: { json: true },
       });
 
@@ -99,7 +89,7 @@ const Spritesheets = {
       } else {
         // Get brute gender
         const { gender } = await prisma.brute.findFirstOrThrow({
-          where: { name: req.params.brute, deletedAt: null },
+          where: { id: +req.params.brute },
           select: { gender: true },
         });
 

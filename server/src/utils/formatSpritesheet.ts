@@ -83,7 +83,7 @@ const formatSpritesheet = (
   meta: {
     app: 'https://www.codeandweb.com/texturepacker',
     version: '1.0',
-    image: `${brute.name}.png`,
+    image: `${brute.id}.png`,
     format: 'RGBA8888',
     size: { w: spritesheet.properties.width, h: spritesheet.properties.height },
     scale: '1',

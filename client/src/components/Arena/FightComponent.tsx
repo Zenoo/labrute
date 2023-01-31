@@ -56,7 +56,7 @@ const FightComponent = ({
       .add('/images/game/panther.json');
     (fight.fighters as unknown as Fighter[]).forEach((fighter) => {
       if (fighter.type === 'brute') {
-        app.loader.add(`/api/spritesheet/${fighter.name}.json`);
+        app.loader.add(`/api/spritesheet/${fighter.id}.json`);
       }
     });
 
