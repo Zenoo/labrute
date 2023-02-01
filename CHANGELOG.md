@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.3.3](https://github.com/Zenoo/labrute/compare/labrute-v2.3.2...labrute-v2.3.3) (2023-02-01)
+
+
+### Bug Fixes
+
+* Remove Pixi cache warning ([5c9affb](https://github.com/Zenoo/labrute/commit/5c9affb0b7f0200b294f3591dd4bd9ca4b210332))
+
 ## [2.3.2](https://github.com/Zenoo/labrute/compare/labrute-v2.3.1...labrute-v2.3.2) (2023-01-31)
 
 
