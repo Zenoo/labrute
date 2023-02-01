@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.4.0](https://github.com/Zenoo/labrute/compare/labrute-v2.3.3...labrute-v2.4.0) (2023-02-01)
+
+
+### Features
+
+* Tournament cancelation log + Discord notification on creation ([1cc20f1](https://github.com/Zenoo/labrute/commit/1cc20f14877308a9ad24c56ed60f82749790b50c))
+
+
+### Bug Fixes
+
+* Account menu now hangs after hovering on it. It closes after a click. ([6d0906a](https://github.com/Zenoo/labrute/commit/6d0906a733569d6074141267a1270a48dd26079d))
+* Don't send discord message if not configured ([0047a98](https://github.com/Zenoo/labrute/commit/0047a987a2ccf09fd5c648ebf0e4b325469e7fbb))
+
 ## [2.3.3](https://github.com/Zenoo/labrute/compare/labrute-v2.3.2...labrute-v2.3.3) (2023-02-01)
 
 
