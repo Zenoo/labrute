@@ -236,6 +236,7 @@ enum LogType {
   up
   lvl
   survive
+  tournament
 }
 
 enum FighterType {

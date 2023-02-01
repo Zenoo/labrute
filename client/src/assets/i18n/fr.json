@@ -27,6 +27,7 @@
   "log.childup": "Ton élève {{value}} est passé au niveau suivant.",
   "log.up": "Ta brute a gagné un niveau !",
   "log.lvl": "Ta brute a atteint le rang",
+  "log.tournament": "Le tournoi du {{date}} a été annulé, retente ta chance !",
   "lvl_0": "Légende Brutale",
   "lvl_1": "Dentiste du Chaos",
   "lvl_2": "Biceps de Satan",

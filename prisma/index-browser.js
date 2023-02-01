@@ -305,7 +305,8 @@ exports.LogType = makeEnum({
   childup: 'childup',
   up: 'up',
   lvl: 'lvl',
-  survive: 'survive'
+  survive: 'survive',
+  tournament: 'tournament'
 });
 
 exports.PetName = makeEnum({

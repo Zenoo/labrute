@@ -264,7 +264,8 @@ export const LogType: {
   childup: 'childup',
   up: 'up',
   lvl: 'lvl',
-  survive: 'survive'
+  survive: 'survive',
+  tournament: 'tournament'
 };
 
 export type LogType = (typeof LogType)[keyof typeof LogType]

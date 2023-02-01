@@ -2,6 +2,7 @@
 import { BruteWithBodyColors, pad } from '@labrute/core';
 import { PrismaClient, TournamentType } from '@labrute/prisma';
 import moment from 'moment';
+import DiscordUtils from './utils/DiscordUtils.js';
 import generateFight from './utils/fight/generateFight.js';
 import shuffle from './utils/shuffle.js';
 
@@ -95,6 +96,14 @@ const dailyJob = (prisma: PrismaClient) => async () => {
         },
       });
 
+      // Add log to notify brutes
+      await prisma.log.createMany({
+        data: lastTournament.map((brute) => ({
+          currentBruteId: brute.id,
+          type: 'tournament',
+        })),
+      });
+
       throw new Error('Not enough generated brutes to fill the tournament');
     }
   }
@@ -114,6 +123,10 @@ const dailyJob = (prisma: PrismaClient) => async () => {
         },
       },
     });
+
+    // Send Discord notification
+    // eslint-disable-next-line no-await-in-loop
+    await DiscordUtils.sentTournamentNotification(tournament, brutes);
 
     // Create tournament steps (1 to 32 for first round, 33 to 48 for 2nd, etc etc)
     let step = 1;

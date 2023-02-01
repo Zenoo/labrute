@@ -1,5 +1,6 @@
-import { Log } from '@labrute/prisma';
+import { Log, LogType } from '@labrute/prisma';
 import { BoxProps, Tooltip } from '@mui/material';
+import moment from 'moment';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import BoxBg from '../BoxBg';
@@ -17,11 +18,13 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
 
   return (
     <BoxBg
-      src={`/images/log/log_${log.type === 'survive'
+      src={`/images/log/log_${log.type === LogType.survive
         ? 'win'
-        : log.type === 'lvl'
+        : log.type === LogType.lvl
           ? `lvl_${log.level || 10}`
-          : log.type}.gif`}
+          : log.type === LogType.tournament
+            ? 'lose'
+            : log.type}.gif`}
       sx={{
         width: 250,
         height: 53,
@@ -33,7 +36,7 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
       }}
       {...rest}
     >
-      {log.type === 'survive' || log.type === 'win' || log.type === 'lose'
+      {log.type === LogType.survive || log.type === LogType.win || log.type === LogType.lose
         ? (
           <Tooltip title={t('seeFight')}>
             <Link
@@ -42,24 +45,26 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
                 textDecoration: 'none',
                 '&:hover': {
                   textDecoration: 'underline',
-                  textDecorationColor: (theme) => (log.type === 'lose'
+                  textDecorationColor: (theme) => (log.type === LogType.lose
                     ? theme.palette.error.main
                     : theme.palette.success.main
                   ),
                 },
               }}
             >
-              <Text bold color={log.type === 'lose' ? 'error.main' : 'success.main'} sx={{ lineHeight: '13px' }}>
+              <Text bold color={log.type === LogType.lose ? 'error.main' : 'success.main'} sx={{ lineHeight: '13px' }}>
                 {t(`log.${log.type}`, { value: log.brute })}
               </Text>
             </Link>
           </Tooltip>
         )
         : (
-          <Text bold color="success.main">
-            {log.type === 'lvl'
+          <Text bold color={log.type === LogType.tournament ? 'error.main' : 'success.main'}>
+            {log.type === LogType.lvl
               ? `${t('log.lvl')} ${t(`lvl_${log.level as 0|1|2|3|4|5|6|7|8|9|10}`)}.`
-              : t(`log.${log.type}`, { value: log.brute })}
+              : log.type === LogType.tournament
+                ? t('log.tournament', { date: moment.utc(log.date).format('DD/MM/YY') })
+                : t(`log.${log.type}`, { value: log.brute })}
           </Text>
         )}
       {!!log.xp && (
