@@ -10,7 +10,7 @@ const WebhookConfig = {
 
 const send = async (props: WebhookCreateMessageOptions) => {
   try {
-    if (process.env.NODE_ENV !== 'production') {
+    if (!WebhookConfig.id || process.env.NODE_ENV !== 'production') {
       return;
     }
 
