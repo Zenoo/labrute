@@ -61,6 +61,10 @@ const FightComponent = ({
       }
     });
 
+    app.loader.onLoad.add(() => {
+      PIXI.utils.clearTextureCache();
+    });
+
     app.loader.load(setupFight(theme, fight, app, speedRef));
 
     return () => {
