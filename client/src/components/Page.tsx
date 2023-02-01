@@ -1,7 +1,7 @@
 import { Language, LANGUAGES } from '@labrute/core';
 import { AccountCircle, Add, Login, Logout } from '@mui/icons-material';
 import { Box, BoxProps, CircularProgress, Link, SpeedDial, SpeedDialAction, Tooltip } from '@mui/material';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -33,6 +33,9 @@ const Page = ({
   const navigate = useNavigate();
   const { language, setLanguage } = useLanguage();
 
+  // Speed dial state
+  const [open, setOpen] = useState(false);
+
   // Auth on page load
   useEffect(() => {
     if (!user && !authing) {
@@ -40,7 +43,18 @@ const Page = ({
     }
   }, [authing, signin, user]);
 
+  // Open speed dial
+  const openSpeedDial = useCallback(() => {
+    setOpen(true);
+  }, []);
+
+  // Close speed dial
+  const toggleSpeedDial = useCallback(() => {
+    setOpen((prev) => !prev);
+  }, []);
+
   const goToCell = useCallback((name: string) => () => {
+    setOpen(false);
     navigate(`/${name}/cell`);
   }, [navigate]);
 
@@ -52,6 +66,7 @@ const Page = ({
 
   // Logout
   const logout = useCallback(() => {
+    setOpen(false);
     signout();
     Alert.open('success', t('logoutSuccess'));
   }, [Alert, signout, t]);
@@ -63,6 +78,7 @@ const Page = ({
 
   // Redirect to Home page
   const goHome = useCallback(() => {
+    setOpen(false);
     navigate('/');
   }, [navigate]);
 
@@ -77,11 +93,16 @@ const Page = ({
       {/* AUTH */}
       <SpeedDial
         ariaLabel={t('account')}
+        open={open}
+        onMouseEnter={openSpeedDial}
+        onClick={toggleSpeedDial}
         sx={{ position: 'fixed', bottom: 16, right: 16, zIndex: 101 }}
         FabProps={{ sx: { bgcolor: 'success.light', '&:hover': { bgcolor: 'success.main' } } }}
         icon={(
           <Tooltip title={user ? user.name : t('account')}>
-            {authing ? <CircularProgress color="success" sx={{ width: '20px !important', height: '20px !important' }} /> : <AccountCircle />}
+            {authing
+              ? <CircularProgress color="success" sx={{ width: '20px !important', height: '20px !important' }} />
+              : <AccountCircle />}
           </Tooltip>
         )}
       >
