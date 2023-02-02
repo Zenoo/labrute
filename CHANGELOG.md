@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.4.1](https://github.com/Zenoo/labrute/compare/labrute-v2.4.0...labrute-v2.4.1) (2023-02-02)
+
+
+### Bug Fixes
+
+* Fights left on arena view ([7661763](https://github.com/Zenoo/labrute/commit/76617638f16756318c0a0603262ebcb3536bcf76))
+
 ## [2.4.0](https://github.com/Zenoo/labrute/compare/labrute-v2.3.3...labrute-v2.4.0) (2023-02-01)
 
 
