@@ -104,7 +104,7 @@ const ArenaView = () => {
       }}
       >
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('arena')}</Text>
-        <Text bold color="secondary">{t('youHaveXFightsLeft', { value: 6 })}</Text>
+        <Text bold color="secondary">{t('youHaveXFightsLeft', { value: getFightsLeft(brute) })}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         <Grid container spacing={1}>
