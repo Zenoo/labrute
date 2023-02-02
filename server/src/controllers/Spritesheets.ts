@@ -8,6 +8,7 @@ import fetch from 'node-fetch';
 import Spritesmith from 'spritesmith';
 import Vynil from 'vinyl';
 import getFrame, { FRAMES } from '../animations/getFrame.js';
+import Env from '../utils/Env.js';
 import sendError from '../utils/sendError.js';
 
 const Spritesheets = {
@@ -61,7 +62,7 @@ const Spritesheets = {
         });
 
         // Load default spritesheet
-        const defaultSpritesheet = await fetch(`${process.env.SELF_URL || ''}/images/game/${gender}-brute.png`);
+        const defaultSpritesheet = await fetch(`${Env.SELF_URL}/images/game/${gender}-brute.png`);
 
         // Send default spritesheet
         res.header('Content-Type', 'image/png').send(Buffer.from(await defaultSpritesheet.arrayBuffer()));
@@ -94,7 +95,7 @@ const Spritesheets = {
         });
 
         // Load default spritesheet json
-        const defaultSpritesheet = await fetch(`${process.env.SELF_URL || ''}/images/game/${gender}-brute.json`);
+        const defaultSpritesheet = await fetch(`${Env.SELF_URL}/images/game/${gender}-brute.json`);
 
         // Send default spritesheet
         res.header('Content-Type', 'application/json').send(Buffer.from(await defaultSpritesheet.arrayBuffer()));

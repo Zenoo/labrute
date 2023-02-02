@@ -1,6 +1,7 @@
 import { t } from 'i18next';
 import { createTransport } from 'nodemailer';
 import Mail from 'nodemailer/lib/mailer';
+import Env from './Env.js';
 
 export const MAIL_SENDER = 'noreply@yourdomain.com';
 
@@ -163,12 +164,12 @@ ${t('passwordResetMessage')} :
 const sendMail = async (mailOptions: Mail.Options) => {
   // Create mail transporter
   const transporter = createTransport({
-    host: process.env.MAIL_HOST,
-    port: +(process.env.MAIL_PORT || 465),
-    secure: process.env.MAIL_SECURE === 'true',
+    host: Env.MAIL_HOST,
+    port: +Env.MAIL_PORT,
+    secure: Env.MAIL_SECURE === 'true',
     auth: {
-      user: process.env.MAIL_USER,
-      pass: process.env.MAIL_PASSWORD,
+      user: Env.MAIL_USER,
+      pass: Env.MAIL_PASSWORD,
     },
   });
 

@@ -6,6 +6,7 @@ import schedule from 'node-schedule';
 import dailyJob from './dailyJob.js';
 import './i18n.js';
 import initRoutes from './routes.js';
+import Env from './utils/Env.js';
 
 const DEBUG_QUERIES = false;
 
@@ -39,7 +40,7 @@ if (DEBUG_QUERIES) {
 }
 
 const app = express();
-const port = process.env.PORT || 9000;
+const port = Env.PORT;
 
 app.use(bodyParser.json());
 app.use(

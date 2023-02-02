@@ -2,19 +2,18 @@ import { pad } from '@labrute/core';
 import { Brute, Tournament } from '@labrute/prisma';
 import { EmbedBuilder, WebhookClient, WebhookCreateMessageOptions } from 'discord.js';
 import moment from 'moment';
-
-const WebhookConfig = {
-  id: process.env.DISCORD_WEBHOOK_ID || '',
-  token: process.env.DISCORD_WEBHOOK_TOKEN || '',
-};
+import Env from './Env.js';
 
 const send = async (props: WebhookCreateMessageOptions) => {
   try {
-    if (!WebhookConfig.id || process.env.NODE_ENV !== 'production') {
+    if (!Env.DISCORD_WEBHOOK_ID) {
       return;
     }
 
-    const webhookClient = new WebhookClient(WebhookConfig);
+    const webhookClient = new WebhookClient({
+      id: Env.DISCORD_WEBHOOK_ID,
+      token: Env.DISCORD_WEBHOOK_TOKEN,
+    });
 
     await webhookClient.send(props);
   } catch (error) {
@@ -23,7 +22,7 @@ const send = async (props: WebhookCreateMessageOptions) => {
 };
 
 const sentTournamentNotification = async (tournament: Tournament, brutes: Brute[]) => {
-  // const server = process.env.SELF_URL || ''; // Local debug
+  // const server = Env.SELF_URL; // Local debug
   const server = 'https://brute.eternaltwin.org';
 
   const embed = new EmbedBuilder()
