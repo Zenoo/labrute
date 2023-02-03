@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.4.2](https://github.com/Zenoo/labrute/compare/labrute-v2.4.1...labrute-v2.4.2) (2023-02-02)
+
+
+### Bug Fixes
+
+* Group env variables + use official spritesmith types ([6023100](https://github.com/Zenoo/labrute/commit/60231000269814757a55c0f41b9b9f80f8da5625))
+
 ## [2.4.1](https://github.com/Zenoo/labrute/compare/labrute-v2.4.0...labrute-v2.4.1) (2023-02-02)
 
 
