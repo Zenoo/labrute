@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.4.3](https://github.com/Zenoo/labrute/compare/labrute-v2.4.2...labrute-v2.4.3) (2023-02-03)
+
+
+### Bug Fixes
+
+* Don't stop tournament creation if last one is not filled ([c7f1ffe](https://github.com/Zenoo/labrute/commit/c7f1ffe485fecdd62830f087bd46a4c9656758fe))
+
 ## [2.4.2](https://github.com/Zenoo/labrute/compare/labrute-v2.4.1...labrute-v2.4.2) (2023-02-02)
 
 
