@@ -56,6 +56,7 @@ const dailyJob = (prisma: PrismaClient) => async () => {
   // Fill last group with generated brutes
   if (tournaments.length && tournaments[tournaments.length - 1].length) {
     const lastTournament = tournaments[tournaments.length - 1];
+    const brutesInLastTournament = lastTournament.length;
 
     const highestLevelBrute = lastTournament
       .sort((a, b) => a.level - b.level)[lastTournament.length - 1].level;
@@ -104,7 +105,10 @@ const dailyJob = (prisma: PrismaClient) => async () => {
         })),
       });
 
-      throw new Error('Not enough generated brutes to fill the tournament');
+      // Remove last tournament
+      tournaments.pop();
+
+      console.log(`-     Brutes canceled: ${pad(brutesInLastTournament, 3, ' ')}    -`);
     }
   }
 
