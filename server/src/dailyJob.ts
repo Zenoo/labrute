@@ -44,14 +44,17 @@ const dailyJob = (prisma: PrismaClient) => async () => {
     return;
   }
 
-  const tournamentsToCreate = Math.ceil(registeredBrutes.length / 64);
+  // Shuffle brutes
+  const shuffledBrutes = shuffle(registeredBrutes);
+
+  const tournamentsToCreate = Math.ceil(shuffledBrutes.length / 64);
 
   console.log(`-  Tournaments to create: ${pad(tournamentsToCreate, 3, ' ')} -`);
 
   // Create groups of 64 brutes
   let tournaments: BruteWithBodyColors[][] = Array(tournamentsToCreate)
     .fill([])
-    .map((_, index) => registeredBrutes.slice(index * 64, index * 64 + 64));
+    .map((_, index) => shuffledBrutes.slice(index * 64, index * 64 + 64));
 
   // Fill last group with generated brutes
   if (tournaments.length && tournaments[tournaments.length - 1].length) {
