@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.4.5](https://github.com/Zenoo/labrute/compare/labrute-v2.4.4...labrute-v2.4.5) (2023-02-08)
+
+
+### Bug Fixes
+
+* Auto poison fighters after 100th turn. Fixes [#13](https://github.com/Zenoo/labrute/issues/13) ([69c0cb1](https://github.com/Zenoo/labrute/commit/69c0cb1bf9bbe256118984f9d95e14526a5d325e))
+* Fixed the regeneration skill to add 2 more fights each day ([68d2117](https://github.com/Zenoo/labrute/commit/68d21171a81630ee793eb45296483a4b9ebe0f3f))
+* Reversal fixed. Auto reversal on block too. ([550e07d](https://github.com/Zenoo/labrute/commit/550e07d1dfbafbcd99beec0e7b58014c82b9ad74))
+
 ## [2.4.4](https://github.com/Zenoo/labrute/compare/labrute-v2.4.3...labrute-v2.4.4) (2023-02-07)
 
 
