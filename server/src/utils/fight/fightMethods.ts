@@ -543,14 +543,15 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
 const counterAttack = (fighter: DetailedFighter, opponent: DetailedFighter) => {
   const random = Math.random();
 
-  return random
-    < (
-      opponent.counter * 10
-      + (
-        (opponent.activeWeapon?.reach || 0)
-        - (fighter.activeWeapon?.reach || 0)
-      )
-    ) * 0.1;
+  const valueToBeat = (
+    opponent.counter * 10
+    + (
+      (opponent.activeWeapon?.reach || 0)
+      - (fighter.activeWeapon?.reach || 0)
+    )
+  ) * 0.1;
+
+  return random < valueToBeat;
 };
 
 // Returns true if weapon was sabotaged
@@ -715,6 +716,12 @@ const attack = (fightData: DetailedFight['data'], fighter: DetailedFighter, oppo
       action: 'block',
       fighter: stepFighter(opponent),
     });
+
+    // Auto reversal
+    if (opponent.autoReversalOnBlock) {
+      // Trigger fighter attack
+      attack(fightData, opponent, fighter);
+    }
   }
 
   // Check if opponent evaded
@@ -830,9 +837,7 @@ const reversal = (opponent: DetailedFighter) => {
   if (!opponent.reversal) return false;
 
   // Auto reverse
-  if (opponent.autoReversalOnBlock && opponent.triggerReversal) {
-    // Reset reversal trigger
-    opponent.triggerReversal = false;
+  if (opponent.autoReversalOnBlock) {
     return true;
   }
 
@@ -855,6 +860,12 @@ const startAttack = (
 
   // Keep track of initial fighter HP
   const initialFighterHp = fighter.hp;
+
+  // Check if opponent is not trapped and can reverse
+  if (!opponent.trapped && reversal(opponent)) {
+    // Trigger opponent attack
+    attack(fightData, opponent, fighter);
+  }
 
   // Repeat attack only if not countering
   if (!isCounter) {
@@ -950,7 +961,7 @@ export const playFighterTurn = (fightData: DetailedFight['data']) => {
       target: stepFighter(opponent),
     });
 
-    // Check if opponent is trapped or countered
+    // Check if opponent is not trapped and countered
     if (!opponent.trapped && counterAttack(fighter, opponent)) {
       // Add counter step
       fightData.steps.push({

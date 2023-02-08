@@ -75,7 +75,6 @@ export interface DetailedFighter {
   baseDamage: number,
   counter: number,
   autoReversalOnBlock: boolean,
-  triggerReversal: boolean,
   reversal: number,
   combo: number,
   block: number,
