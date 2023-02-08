@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.4.4](https://github.com/Zenoo/labrute/compare/labrute-v2.4.3...labrute-v2.4.4) (2023-02-07)
+
+
+### Bug Fixes
+
+* Shuffle registered brutes and order brutes displayed in Discord notif ([b1d6daa](https://github.com/Zenoo/labrute/commit/b1d6daaf565cdc1fa39a230aef7a337067eabed8))
+
 ## [2.4.3](https://github.com/Zenoo/labrute/compare/labrute-v2.4.2...labrute-v2.4.3) (2023-02-03)
 
 
