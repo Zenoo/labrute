@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.5.0](https://github.com/Zenoo/labrute/compare/labrute-v2.4.5...labrute-v2.5.0) (2023-02-08)
+
+
+### Features
+
+* Fierce brute visual glow ([36f45e3](https://github.com/Zenoo/labrute/commit/36f45e3d7b36d924132545bc2dadb41c8606f577))
+
+
+### Bug Fixes
+
+* Added Bevel filter on brutes for background / foreground distinction ([959cb5f](https://github.com/Zenoo/labrute/commit/959cb5fb7a820ecb9f4418c7263aa7a23924c1fe))
+
 ## [2.4.5](https://github.com/Zenoo/labrute/compare/labrute-v2.4.4...labrute-v2.4.5) (2023-02-08)
 
 
