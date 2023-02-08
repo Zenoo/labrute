@@ -164,7 +164,7 @@
   "tamer.effect": "Action (x4) Ta brute récupère entre 20 et 50% de son energie selon la qualité de la viande.",
   "regeneration": "Régénération",
   "regeneration.desc": "Grâce à ta capacité de cicatrisation hors-normes, tu ne rates jamais un combat !",
-  "regeneration.effect": "Tu peux subir une blessure de plus par jour.",
+  "regeneration.effect": "Tu peux faire deux combats de plus par jour.",
   "chef": "Cuisinier",
   "chef.desc": "Toutes les brutes le savent, le gros du combat se joue avant l'arène. Le plus souvent du côté de la cantine…",
   "chef.effect": "Tes adversaires subissent 2% de dégats à la fin de chacune de leurs actions.",

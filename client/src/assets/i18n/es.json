@@ -165,7 +165,7 @@
   "tamer.effect": "Action (x4). Your brute regains between 20 and 50% of his health depending on the quality of the meat.",
   "regeneration": "Regeneration",
   "regeneration.desc": "Due to your extraordinary ability to heal yourself, you never lose a fight!",
-  "regeneration.effect": "You can withstand one extra death each day.",
+  "regeneration.effect": "You can fight twice more each day.",
   "chef": "Chef",
   "chef.desc": "All brutes know that the biggest fight is in the canteen, not the arena!",
   "chef.effect": "Your opponents will suffer 2% damage at the end of each of their actions.",
