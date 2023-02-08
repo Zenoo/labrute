@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.5.1](https://github.com/Zenoo/labrute/compare/labrute-v2.5.0...labrute-v2.5.1) (2023-02-08)
+
+
+### Bug Fixes
+
+* Improved blurry brutes ([7922985](https://github.com/Zenoo/labrute/commit/7922985419f6332a3a8aed7b5150eee8c3e844d1))
+
 ## [2.5.0](https://github.com/Zenoo/labrute/compare/labrute-v2.4.5...labrute-v2.5.0) (2023-02-08)
 
 
