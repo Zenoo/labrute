@@ -15,18 +15,20 @@ const skillActivate = async (
     throw new Error('Brute not found');
   }
 
-  // Set animation to `strenghten`
-  changeAnimation(app, brute, 'strengthen', speed);
+  if (step.skill === 'fierceBrute') {
+    // Set animation to `strenghten`
+    changeAnimation(app, brute, 'strengthen', speed);
 
-  // Wait for animation to complete
-  await new Promise((resolve) => {
-    (brute.currentAnimation as AnimatedSprite).onComplete = () => {
-      // Set animation to `idle`
-      changeAnimation(app, brute, 'idle', speed);
+    // Wait for animation to complete
+    await new Promise((resolve) => {
+      (brute.currentAnimation as AnimatedSprite).onComplete = () => {
+        // Set animation to `idle`
+        changeAnimation(app, brute, 'idle', speed);
 
-      resolve(null);
-    };
-  });
+        resolve(null);
+      };
+    });
+  }
 
   // TODO: different visual for every skill activation
 };

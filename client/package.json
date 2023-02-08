@@ -17,6 +17,7 @@
     "@labrute/prisma": "workspace:*",
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.5",
+    "@pixi/filter-bevel": "^4.2.0",
     "@pixi/filter-glow": "^4.2.0",
     "@pixi/filter-outline": "^4.2.0",
     "i18next": "^21.9.0",

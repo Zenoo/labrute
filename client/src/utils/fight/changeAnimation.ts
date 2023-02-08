@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { Animation } from '@labrute/core';
+import { BevelFilter } from '@pixi/filter-bevel';
 import { AnimatedSprite, Application } from 'pixi.js';
 import { AnimationFighter } from './findFighter';
 import setupSprite from './setupSprite';
@@ -37,6 +38,9 @@ const getSprite = (
 
   // Update current animation
   fighter.currentAnimation = newAnimation;
+
+  // Add Bevel filter
+  fighter.currentAnimation.filters = [new BevelFilter()];
 
   // Set new animation to visible
   newAnimation.visible = true;

@@ -2491,6 +2491,7 @@ __metadata:
     "@labrute/prisma": "workspace:*"
     "@mui/icons-material": ^5.11.0
     "@mui/material": ^5.11.5
+    "@pixi/filter-bevel": ^4.2.0
     "@pixi/filter-glow": ^4.2.0
     "@pixi/filter-outline": ^4.2.0
     "@types/node": ^18.6.3
@@ -2952,6 +2953,17 @@ __metadata:
   peerDependencies:
     "@pixi/core": 6.5.9
   checksum: bef838f54161094e5a32564d5343cf465619c36bff350712d5a6a0128e6a3b5bd95dc103f015d776925beee5a6cfdab886720b715d916ebb16904166b0b32921
+  languageName: node
+  linkType: hard
+
+"@pixi/filter-bevel@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "@pixi/filter-bevel@npm:4.2.0"
+  peerDependencies:
+    "@pixi/core": ^6.0.0
+    "@pixi/math": ^6.0.0
+    "@pixi/utils": ^6.0.0
+  checksum: a06b8a480766f8ddfc478444406202a16b96ffd32715c5363a3a20226d47f9136a5d8c92e61c7771bb3a01f4373aad13cef17f65432d457a06b0cbdca3eaf7ce
   languageName: node
   linkType: hard
 
