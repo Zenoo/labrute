@@ -97,6 +97,8 @@ const generateFight = async (
     });
   });
 
+  let turn = 0;
+
   // Fight loop
   while (!fightData.loser) {
     if (!fightData.fighters.length) {
@@ -111,11 +113,21 @@ const generateFight = async (
     // Set current initiative to first fighter
     fightData.initiative = fightData.fighters[0].initiative;
 
+    // Poison fighters if turn > 100
+    if (turn > 1000) {
+      fightData.fighters.forEach((fighter) => {
+        // eslint-disable-next-line no-param-reassign
+        fighter.poisoned = true;
+      });
+    }
+
     // Play fighter turn
     playFighterTurn(fightData);
 
     // Check deaths
     checkDeaths(fightData);
+
+    turn += 1;
   }
 
   if (!fightData.loser) {
