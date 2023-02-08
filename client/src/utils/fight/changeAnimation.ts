@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { Animation } from '@labrute/core';
 import { BevelFilter } from '@pixi/filter-bevel';
+import { GlowFilter } from '@pixi/filter-glow';
 import { AnimatedSprite, Application } from 'pixi.js';
 import { AnimationFighter } from './findFighter';
 import setupSprite from './setupSprite';
@@ -54,6 +55,21 @@ const getSprite = (
   }
 };
 
+export const handleEffects = (
+  fighter: AnimationFighter,
+) => {
+  if (!fighter.currentAnimation.filters) {
+    fighter.currentAnimation.filters = [];
+  }
+
+  if (fighter.activeEffects.includes('fierceBrute')) {
+    fighter.currentAnimation.filters.push(new GlowFilter({
+      color: 0xff0000,
+      outerStrength: 1,
+    }));
+  }
+};
+
 const changeAnimation = (
   app: Application,
   fighter: AnimationFighter,
@@ -80,6 +96,8 @@ const changeAnimation = (
   } else {
     getSprite(app, fighter, animation, speed);
   }
+
+  handleEffects(fighter);
 };
 
 export default changeAnimation;

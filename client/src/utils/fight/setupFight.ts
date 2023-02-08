@@ -30,6 +30,7 @@ import sabotage from './sabotage';
 import saboteur from './saboteur';
 import setupSprite from './setupSprite';
 import skillActivate from './skillActivate';
+import skillExpire from './skillExpire';
 import steal from './steal';
 import survive from './survive';
 import throwWeapon from './throwWeapon';
@@ -215,6 +216,7 @@ const setupFight: (
         ? undefined
         : fighter.id === brute1.id ? brute1PhantomHpBar : brute2PhantomHpBar,
       weaponsIllustrations: [],
+      activeEffects: [],
     };
 
     // Update brute weapons
@@ -331,6 +333,10 @@ const setupFight: (
         await skillActivate(app, fighters, step, speed);
         break;
       }
+      case 'skillExpire': {
+        skillExpire(app, fighters, step);
+        break;
+      }
       case 'end': {
         end(app, fighters, step, speed);
         break;
@@ -356,7 +362,6 @@ const setupFight: (
         break;
       }
       case 'counter':
-      case 'skillExpire':
       case 'break': {
         // Do nothing for now
         break;

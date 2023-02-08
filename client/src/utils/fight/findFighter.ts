@@ -1,4 +1,5 @@
 import { AnimatedWeapon, Fighter, StepFighter } from '@labrute/core';
+import { SkillName } from '@labrute/prisma';
 import * as PIXI from 'pixi.js';
 
 export interface AnimationFighter extends Fighter {
@@ -9,6 +10,7 @@ export interface AnimationFighter extends Fighter {
   hpBar?: PIXI.Graphics;
   hpBarPhantom?: PIXI.Graphics;
   weaponsIllustrations: PIXI.Sprite[];
+  activeEffects: SkillName[];
 }
 
 const findFighter = (

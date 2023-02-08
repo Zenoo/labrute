@@ -1,6 +1,6 @@
 import { SkillActivateStep } from '@labrute/core';
 import { AnimatedSprite, Application } from 'pixi.js';
-import changeAnimation from './changeAnimation';
+import changeAnimation, { handleEffects } from './changeAnimation';
 
 import findFighter, { AnimationFighter } from './findFighter';
 
@@ -18,6 +18,12 @@ const skillActivate = async (
   if (step.skill === 'fierceBrute') {
     // Set animation to `strenghten`
     changeAnimation(app, brute, 'strengthen', speed);
+
+    // Add to active effects
+    brute.activeEffects.push(step.skill);
+
+    // Add filter
+    handleEffects(brute);
 
     // Wait for animation to complete
     await new Promise((resolve) => {
