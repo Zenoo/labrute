@@ -37,7 +37,7 @@ const sentTournamentNotification = async (tournament: Tournament, brutes: Brute[
     .setDescription('A new tournament has been created, come check it out! Here are some of the participants:')
     .setThumbnail(`${server}/images/header/right/1${pad(Math.floor(Math.random() * (11 - 1 + 1) + 1), 2)}.png`)
     .addFields(
-      ...brutes.sort((a, b) => b.level - a.level).slice(0, 24).map((brute) => ({
+      ...[...brutes].sort((a, b) => b.level - a.level).slice(0, 24).map((brute) => ({
         name: brute.name,
         value: `Level ${brute.level}`,
         inline: true,
