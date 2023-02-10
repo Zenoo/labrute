@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.6.0](https://github.com/Zenoo/labrute/compare/labrute-v2.5.1...labrute-v2.6.0) (2023-02-10)
+
+
+### Features
+
+* Tournament brackets display. [#9](https://github.com/Zenoo/labrute/issues/9) ([4910cb5](https://github.com/Zenoo/labrute/commit/4910cb544aa7c864f43232c5dfa0be9b84cd35dc))
+
+
+### Bug Fixes
+
+* Tournament positions should be random ([2252a68](https://github.com/Zenoo/labrute/commit/2252a68b3831e230c8bf1363e2bffd4d323e963e))
+
 ## [2.5.1](https://github.com/Zenoo/labrute/compare/labrute-v2.5.0...labrute-v2.5.1) (2023-02-08)
 
 
