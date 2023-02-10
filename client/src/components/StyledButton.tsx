@@ -8,7 +8,11 @@ export interface StyledButtonProps extends Omit<BoxProps, 'translate'> {
   shadow?: boolean;
   contrast?: boolean;
   shift?: string;
+  shadowColor?: string;
 }
+
+export const StyledButtonWidth = 207;
+export const StyledButtonHeight = 58;
 
 /**
  * StyledButton component
@@ -21,6 +25,7 @@ const StyledButton = React.forwardRef<HTMLDivElement, StyledButtonProps>(({
   shadow = true,
   contrast = true,
   shift = '4px',
+  shadowColor = 'rgba(0, 0, 0, 0.2)',
   sx,
   ...rest
 }: StyledButtonProps, ref) => {
@@ -44,14 +49,14 @@ const StyledButton = React.forwardRef<HTMLDivElement, StyledButtonProps>(({
         alignContent: 'center',
         flexDirection: 'column',
         textAlign: 'center',
-        width: 207,
-        height: 58,
+        width: StyledButtonWidth,
+        height: StyledButtonHeight,
         pt: hover ? 0 : shift,
         pb: shift,
         cursor: 'pointer',
         backgroundImage: `url('${swapImage ? hover ? imageHover : image : image}')`,
         backgroundRepeat: 'no-repeat',
-        filter: `${shadow ? 'drop-shadow(4px 4px 0px rgba(0, 0, 0, 0.2))' : ''} ${contrast && hover ? 'contrast(90%)' : ''}`,
+        filter: `${shadow ? `drop-shadow(4px 4px 0px ${shadowColor})` : ''} ${contrast && hover ? 'contrast(90%)' : ''}`,
         fontVariant: 'small-caps',
         fontWeight: 'bold',
         color: 'secondary.main',

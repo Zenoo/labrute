@@ -85,3 +85,9 @@ export type FullTournament = Tournament & {
     };
   })[];
 };
+
+// Fight
+export type FightWithBrutes = Fight & {
+  brute1: Brute;
+  brute2: Brute;
+};

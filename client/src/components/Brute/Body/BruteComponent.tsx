@@ -28,13 +28,13 @@ interface BruteComponentProps extends BoxProps {
   shadow?: boolean
 }
 
-const BruteComponent = ({
+const BruteComponent = React.forwardRef(({
   brute,
   inverted,
   shadow = true,
   sx,
   ...rest
-}: BruteComponentProps) => {
+}: BruteComponentProps, ref) => {
   const props = {
     id: brute.name,
     gender: brute.gender,
@@ -52,6 +52,7 @@ const BruteComponent = ({
         filter: 'drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.3))',
         ...sx,
       }}
+      ref={ref}
       {...rest}
     >
       {shadow && (
@@ -92,6 +93,6 @@ const BruteComponent = ({
       </defs>
     </Box>
   );
-};
+});
 
 export default BruteComponent;

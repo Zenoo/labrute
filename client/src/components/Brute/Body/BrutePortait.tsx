@@ -11,13 +11,13 @@ interface BrutePortraitProps extends BoxProps {
   shadow?: boolean
 }
 
-const BrutePortrait = ({
+const BrutePortrait = React.forwardRef(({
   brute,
   inverted,
   shadow = true,
   sx,
   ...rest
-}: BrutePortraitProps) => {
+}: BrutePortraitProps, ref) => {
   const props = {
     id: brute.name,
     gender: brute.gender,
@@ -35,6 +35,7 @@ const BrutePortrait = ({
         filter: 'drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.3))',
         ...sx,
       }}
+      ref={ref}
       {...rest}
     >
       {shadow && (
@@ -46,6 +47,6 @@ const BrutePortrait = ({
       </g>
     </Box>
   );
-};
+});
 
 export default BrutePortrait;

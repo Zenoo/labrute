@@ -57,9 +57,15 @@ const FightComponent = ({
       .add('/images/game/bear.json')
       .add('/images/game/dog.json')
       .add('/images/game/panther.json');
+
+    const addedSpritesheets: string[] = [];
     (fight.fighters as unknown as Fighter[]).forEach((fighter) => {
       if (fighter.type === 'brute') {
-        app.loader.add(`/api/spritesheet/${fighter.id}.json`);
+        const spritesheet = `/api/spritesheet/${fighter.id}.json`;
+        if (!addedSpritesheets.includes(spritesheet)) {
+          app.loader.add(spritesheet);
+          addedSpritesheets.push(spritesheet);
+        }
       }
     });
 
