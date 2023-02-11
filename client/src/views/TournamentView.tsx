@@ -1,5 +1,6 @@
 import { FightWithBrutes } from '@labrute/core';
-import { Box, Paper, Tooltip } from '@mui/material';
+import { Close } from '@mui/icons-material';
+import { Box, Paper, Tooltip, useMediaQuery } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -11,6 +12,7 @@ import StyledButton, { StyledButtonHeight, StyledButtonWidth } from '../componen
 import Text from '../components/Text';
 import useStateAsync from '../hooks/useStateAsync';
 import Server from '../utils/Server';
+import TournamentMobileView from './mobile/TournamentMobileView';
 
 // const roundHours = [0, 10, 12, 14, 16, 18, 20];
 
@@ -30,6 +32,7 @@ const TournamentView = () => {
   const { t } = useTranslation();
   const { bruteName, date } = useParams();
   const navigate = useNavigate();
+  const smallScreen = useMediaQuery('(max-width: 935px)');
 
   const tournamentProps = useMemo(() => ({ name: bruteName || '', date: date || '' }), [bruteName, date]);
   const { data: tournament } = useStateAsync(null, Server.Tournament.getDaily, tournamentProps);
@@ -73,105 +76,146 @@ const TournamentView = () => {
     navigate(`/${fight.brute1.name}/fight/${fight.id}`);
   }, [navigate]);
 
-  return tournament && (
-    <Page title={`${t('tournament')} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/cell`}>
-      <Paper sx={{
-        mx: 4,
-        textAlign: 'center',
-      }}
-      >
-        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('tournamentOf')} {moment.utc(tournament.date).format('DD MMMM YYYY')}</Text>
-      </Paper>
-      <Paper sx={{ position: 'relative', bgcolor: 'background.paperLight', mt: -2 }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          {rounds.map((round, index) => (
-            <Box
-              // eslint-disable-next-line react/no-array-index-key
-              key={index}
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: index === 5 ? 'start' : 'space-around',
-                ml: index === 2
-                  ? '-60px'
-                  : index === 3
-                    ? '-80px'
-                    : index === 4
-                      ? '-130px'
-                      : index === 5
-                        ? '-110px'
-                        : index === 6
+  return tournament && (smallScreen
+    ? (
+      <TournamentMobileView
+        bruteName={bruteName}
+        tournament={tournament}
+        winnerStep={winnerStep}
+      />
+    ) : (
+      <Page title={`${t('tournament')} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/cell`}>
+        <Paper sx={{
+          mx: 4,
+          textAlign: 'center',
+        }}
+        >
+          <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('tournamentOf')} {moment.utc(tournament.date).format('DD MMMM YYYY')}</Text>
+        </Paper>
+        <Paper sx={{ position: 'relative', bgcolor: 'background.paperLight', mt: -2 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            {rounds.map((round, index) => (
+              <Box
+                // eslint-disable-next-line react/no-array-index-key
+                key={index}
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: index === 5 ? 'start' : 'space-around',
+                  ml: index === 2
+                    ? '-60px'
+                    : index === 3
+                      ? '-80px'
+                      : index === 4
+                        ? '-130px'
+                        : index === 5
                           ? '-110px'
-                          : index === 7
-                            ? '-130px'
-                            : index === 8
-                              ? '-80px'
-                              : index === 9
-                                ? '-60px'
-                                : '0px',
-              }}
-            >
-              {round.map((step) => (
-                <StyledButton
-                  key={step.id}
-                  onClick={goToFight(step.fight)}
-                  shadowColor={(bruteName === step.fight.brute1.name
-                    || bruteName === step.fight.brute2.name)
-                    ? 'rgba(255, 0, 0, 0.4)'
-                    : undefined}
-                  sx={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    backgroundSize: 'contain',
-                    width: scale(StyledButtonWidth, index),
-                    height: scale(StyledButtonHeight, index),
-                    m: `${scale(8, index)}px`,
-                  }}
-                >
-                  <Tooltip title={step.fight.brute1.name}>
-                    <BrutePortrait
-                      inverted
-                      brute={step.fight.brute1}
+                          : index === 6
+                            ? '-110px'
+                            : index === 7
+                              ? '-130px'
+                              : index === 8
+                                ? '-80px'
+                                : index === 9
+                                  ? '-60px'
+                                  : '0px',
+                }}
+              >
+                {round.map((step) => (
+                  <StyledButton
+                    key={step.id}
+                    onClick={goToFight(step.fight)}
+                    shadowColor={(bruteName === step.fight.brute1.name
+                      || bruteName === step.fight.brute2.name)
+                      ? 'rgba(255, 0, 0, 0.4)'
+                      : undefined}
+                    sx={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      backgroundSize: 'contain',
+                      width: scale(StyledButtonWidth, index),
+                      height: scale(StyledButtonHeight, index),
+                      m: `${scale(8, index)}px`,
+                    }}
+                  >
+                    <Tooltip title={step.fight.brute1.name}>
+                      <Box sx={{ position: 'relative', mt: 1 }}>
+                        <BrutePortrait
+                          inverted
+                          brute={step.fight.brute1}
+                          sx={{
+                            width: scale(100, index),
+                          }}
+                        />
+                        {step.fight.winner === step.fight.brute2.name && (
+                          <Close
+                            color="error"
+                            sx={{
+                              position: 'absolute',
+                              top: 0,
+                              left: 0,
+                              width: 1,
+                              height: 1,
+                            }}
+                          />
+                        )}
+                      </Box>
+                    </Tooltip>
+                    <Box
+                      component="img"
+                      src="/images/versus/vs.png"
                       sx={{
-                        height: scale(100, index),
+                        width: scale(45, index),
                       }}
                     />
-                  </Tooltip>
-                  <Text bold>VS</Text>
-                  <Tooltip title={step.fight.brute2.name}>
-                    <BrutePortrait
-                      brute={step.fight.brute2}
-                      sx={{
-                        height: scale(100, index),
-                      }}
-                    />
-                  </Tooltip>
-                </StyledButton>
-              ))}
-            </Box>
-          ))}
-        </Box>
-        {winnerStep && (
-          <Tooltip title={winnerStep.fight.winner}>
-            <BruteComponent
-              brute={winnerStep.fight.winner === winnerStep.fight.brute1.name
-                ? winnerStep.fight.brute1
-                : winnerStep?.fight.brute2}
-              sx={{
-                position: 'absolute',
-                bottom: 0,
-                left: 0,
-                right: 0,
-                margin: 'auto',
-                width: 140,
-              }}
-            />
-          </Tooltip>
-        )}
+                    <Tooltip title={step.fight.brute2.name}>
+                      <Box sx={{ position: 'relative', mt: 1 }}>
+                        <BrutePortrait
+                          brute={step.fight.brute2}
+                          sx={{
+                            width: scale(100, index),
+                          }}
+                        />
+                        {step.fight.winner === step.fight.brute1.name && (
+                          <Close
+                            color="error"
+                            sx={{
+                              position: 'absolute',
+                              top: 0,
+                              left: 0,
+                              width: 1,
+                              height: 1,
+                            }}
+                          />
+                        )}
+                      </Box>
+                    </Tooltip>
+                  </StyledButton>
+                ))}
+              </Box>
+            ))}
+          </Box>
+          {winnerStep && (
+            <Tooltip title={winnerStep.fight.winner}>
+              <BruteComponent
+                brute={winnerStep.fight.winner === winnerStep.fight.brute1.name
+                  ? winnerStep.fight.brute1
+                  : winnerStep?.fight.brute2}
+                sx={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  margin: 'auto',
+                  width: 140,
+                }}
+              />
+            </Tooltip>
+          )}
 
-      </Paper>
-    </Page>
-  );
+        </Paper>
+      </Page>
+    ));
 };
 
 export default TournamentView;
