@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.6.1](https://github.com/Zenoo/labrute/compare/labrute-v2.6.0...labrute-v2.6.1) (2023-02-11)
+
+
+### Bug Fixes
+
+* Tournament mobile view + death marker. [#9](https://github.com/Zenoo/labrute/issues/9) ([a9d8ecf](https://github.com/Zenoo/labrute/commit/a9d8ecf7d84fc78d7edd4776d743b18046c62537))
+
 ## [2.6.0](https://github.com/Zenoo/labrute/compare/labrute-v2.5.1...labrute-v2.6.0) (2023-02-10)
 
 
