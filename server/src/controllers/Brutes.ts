@@ -469,6 +469,7 @@ const Brutes = {
         where: {
           ranking: rank,
           deletedAt: null,
+          userId: { not: null },
         },
         orderBy: [
           { level: 'desc' },
@@ -495,7 +496,8 @@ const Brutes = {
           include: { body: true, colors: true },
         });
 
-        if (brute) {
+        // Don't rank bot brutes
+        if (brute && brute.userId) {
           // Find the brute position in the list
           const position = await prisma.brute.count({
             where: {
@@ -575,8 +577,18 @@ const Brutes = {
       // Get the brute ranking
       const brute = await prisma.brute.findFirstOrThrow({
         where: { name: req.params.name, deletedAt: null },
-        select: { ranking: true, level: true, xp: true },
+        select: {
+          ranking: true, level: true, xp: true, userId: true,
+        },
       });
+
+      // Don't rank bot brutes
+      if (!brute.userId) {
+        res.send({
+          ranking: 0,
+        });
+        return;
+      }
 
       const rank = brute.ranking;
 
@@ -585,6 +597,7 @@ const Brutes = {
         where: {
           ranking: rank,
           deletedAt: null,
+          userId: { not: null },
           OR: [
             { level: { gt: brute.level } },
             { level: brute.level, xp: { gt: brute.xp } },
