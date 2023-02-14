@@ -341,5 +341,8 @@
   "fight.step.skillActivate": "{{brute}} a utilisé {{skill}}.",
   "fight.play": "Jouer",
   "fight.pause": "Pause",
-  "fight.toggleLogs": "Afficher/masquer les logs"
+  "fight.toggleLogs": "Afficher/masquer les logs",
+
+  "experience": "Expérience",
+  "brute": "Brute"
 }

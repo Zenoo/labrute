@@ -47,6 +47,7 @@ const StyledButton = React.forwardRef<HTMLDivElement, StyledButtonProps>(({
         display: 'flex',
         justifyContent: 'center',
         alignContent: 'center',
+        alignItems: 'center',
         flexDirection: 'column',
         textAlign: 'center',
         width: StyledButtonWidth,

@@ -91,3 +91,13 @@ export type FightWithBrutes = Fight & {
   brute1: Brute;
   brute2: Brute;
 };
+
+// Server return types
+export type BrutesGetForRankResponse = {
+  topBrutes: BruteWithBodyColors[],
+  nearbyBrutes: BruteWithBodyColors[],
+  position: number,
+};
+export type BrutesGetRankingResponse = {
+  ranking: number,
+};

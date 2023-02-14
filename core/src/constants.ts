@@ -89,3 +89,6 @@ export const ANIMATION_ANCHORS: Record<Gender, Record<Animation, [number, number
     whip: [0.2064, 0.848],
   },
 };
+
+export const BruteRankings = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0] as const;
+export type BruteRanking = typeof BruteRankings[number];

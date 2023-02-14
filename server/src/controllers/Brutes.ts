@@ -1,5 +1,7 @@
 import {
-  ARENA_OPPONENTS_COUNT, ARENA_OPPONENTS_MAX_GAP, BruteWithBodyColors, createRandomBruteStats,
+  ARENA_OPPONENTS_COUNT, ARENA_OPPONENTS_MAX_GAP, BrutesGetForRankResponse,
+  BrutesGetRankingResponse,
+  BruteWithBodyColors, createRandomBruteStats,
   getLevelUpChoices, getSacriPoints, updateBruteData,
 } from '@labrute/core';
 import {
@@ -434,6 +436,165 @@ const Brutes = {
       });
 
       res.send(count === 1);
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  getForRank: (prisma: PrismaClient) => async (
+    req: Request<{
+      name?: string
+      rank?: string
+    }, unknown, never>,
+    res: Response,
+  ) => {
+    try {
+      if (!req.params.name) {
+        throw new Error('Missing name');
+      }
+
+      let rank: number;
+
+      // Get brute rank if not provided
+      if (!req.params.rank) {
+        rank = (await prisma.brute.findFirstOrThrow({
+          where: { name: req.params.name, deletedAt: null },
+          select: { ranking: true },
+        })).ranking;
+      } else {
+        rank = +req.params.rank;
+      }
+
+      // Get first 15 brutes of the same rank with the highest level and XP
+      const topBrutes = await prisma.brute.findMany({
+        where: {
+          ranking: rank,
+          deletedAt: null,
+        },
+        orderBy: [
+          { level: 'desc' },
+          { xp: 'desc' },
+        ],
+        take: 15,
+        include: { body: true, colors: true },
+      });
+
+      const result: BrutesGetForRankResponse = {
+        topBrutes,
+        nearbyBrutes: [],
+        position: 0,
+      };
+
+      // If current brute is not in the list, get it
+      if (!topBrutes.find((b) => b.name === req.params.name)) {
+        const brute = await prisma.brute.findFirst({
+          where: {
+            name: req.params.name,
+            ranking: rank,
+            deletedAt: null,
+          },
+          include: { body: true, colors: true },
+        });
+
+        if (brute) {
+          // Find the brute position in the list
+          const position = await prisma.brute.count({
+            where: {
+              ranking: rank,
+              deletedAt: null,
+              OR: [
+                { level: { gt: brute.level } },
+                { level: brute.level, xp: { gt: brute.xp } },
+              ],
+            },
+          });
+
+          // Find the brutes around the current brute
+          const nearbyHigherBrutes = await prisma.brute.findMany({
+            where: {
+              ranking: rank,
+              deletedAt: null,
+              name: { not: brute.name },
+              OR: [
+                { level: { gt: brute.level } },
+                { level: brute.level, xp: { gt: brute.xp } },
+              ],
+            },
+            orderBy: [
+              { level: 'asc' },
+              { xp: 'asc' },
+            ],
+            take: 2,
+            include: { body: true, colors: true },
+          });
+
+          const nearbyLowerBrutes = await prisma.brute.findMany({
+            where: {
+              ranking: rank,
+              deletedAt: null,
+              name: { not: brute.name },
+              OR: [
+                { level: { lt: brute.level } },
+                { level: brute.level, xp: { lte: brute.xp } },
+              ],
+            },
+            orderBy: [
+              { level: 'desc' },
+              { xp: 'desc' },
+            ],
+            take: 2,
+            include: { body: true, colors: true },
+          });
+
+          result.nearbyBrutes = [
+            ...nearbyHigherBrutes
+              .filter((b) => !topBrutes.find((t) => t.name === b.name))
+              .reverse(),
+            brute,
+            ...nearbyLowerBrutes,
+          ];
+          result.position = position + 1;
+        }
+      }
+
+      res.send(result);
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  getRanking: (prisma: PrismaClient) => async (
+    req: Request<{
+      name?: string
+    }, unknown, never>,
+    res: Response<BrutesGetRankingResponse>,
+  ) => {
+    try {
+      if (!req.params.name) {
+        throw new Error('Missing name');
+      }
+
+      // Get the brute ranking
+      const brute = await prisma.brute.findFirstOrThrow({
+        where: { name: req.params.name, deletedAt: null },
+        select: { ranking: true, level: true, xp: true },
+      });
+
+      const rank = brute.ranking;
+
+      // Find the brute position
+      const position = await prisma.brute.count({
+        where: {
+          ranking: rank,
+          deletedAt: null,
+          OR: [
+            { level: { gt: brute.level } },
+            { level: brute.level, xp: { gt: brute.xp } },
+          ],
+        },
+      });
+
+      res.send({
+        ranking: position + 1,
+      });
     } catch (error) {
       sendError(res, error);
     }

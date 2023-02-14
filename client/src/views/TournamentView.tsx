@@ -163,7 +163,7 @@ const TournamentView = () => {
                     </Tooltip>
                     <Box
                       component="img"
-                      src="/images/versus/vs.png"
+                      src="/images/tournament/vs.svg"
                       sx={{
                         width: scale(45, index),
                       }}

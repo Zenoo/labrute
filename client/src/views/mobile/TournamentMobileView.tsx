@@ -108,7 +108,13 @@ const TournamentMobileView = ({
                         )}
                       </Box>
                     </Tooltip>
-                    <Text bold>VS</Text>
+                    <Box
+                      component="img"
+                      src="/images/tournament/vs.svg"
+                      sx={{
+                        width: 40,
+                      }}
+                    />
                     <Tooltip title={step.fight.brute2.name}>
                       <Box sx={{ position: 'relative', mt: 1 }}>
                         <BrutePortrait
