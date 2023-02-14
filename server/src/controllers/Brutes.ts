@@ -86,6 +86,18 @@ const Brutes = {
       // Check colors validity
       checkColors(req.body.gender, req.body.colors);
 
+      // Check if name is available
+      const count = await prisma.brute.count({
+        where: {
+          name: req.body.name,
+          deletedAt: null,
+        },
+      });
+
+      if (count > 0) {
+        throw new Error('This name is already taken');
+      }
+
       // Get brute amount for user
       const bruteCount = await prisma.brute.count({
         where: {
