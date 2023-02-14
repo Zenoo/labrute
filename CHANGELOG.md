@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.7.2](https://github.com/Zenoo/labrute/compare/labrute-v2.7.1...labrute-v2.7.2) (2023-02-14)
+
+
+### Bug Fixes
+
+* Brute rank not displaying the same value as in the cell. [#10](https://github.com/Zenoo/labrute/issues/10) ([963767b](https://github.com/Zenoo/labrute/commit/963767bd45e608e3475066828f88d71a964717ef))
+* Ranking page display issues. [#10](https://github.com/Zenoo/labrute/issues/10) ([caa5de6](https://github.com/Zenoo/labrute/commit/caa5de6fee2f7b2b46104ec518f7b7660cd836b3))
+
 ## [2.7.1](https://github.com/Zenoo/labrute/compare/labrute-v2.7.0...labrute-v2.7.1) (2023-02-14)
 
 
