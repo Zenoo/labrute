@@ -503,6 +503,7 @@ const Brutes = {
             where: {
               ranking: rank,
               deletedAt: null,
+              name: { not: brute.name },
               userId: { not: null },
               OR: [
                 { level: { gt: brute.level } },
@@ -573,13 +574,15 @@ const Brutes = {
     res: Response<BrutesGetRankingResponse>,
   ) => {
     try {
-      if (!req.params.name) {
+      const { params: { name } } = req;
+
+      if (!name) {
         throw new Error('Missing name');
       }
 
       // Get the brute ranking
       const brute = await prisma.brute.findFirstOrThrow({
-        where: { name: req.params.name, deletedAt: null },
+        where: { name, deletedAt: null },
         select: {
           ranking: true, level: true, xp: true, userId: true,
         },
@@ -600,6 +603,7 @@ const Brutes = {
         where: {
           ranking: rank,
           deletedAt: null,
+          name: { not: name },
           userId: { not: null },
           OR: [
             { level: { gt: brute.level } },

@@ -127,7 +127,7 @@ const RankingView = () => {
                       </TableRow>
                     )}
                     {rankings.nearbyBrutes.map(
-                      (brute, index) => bruteRow(brute, rankings.position + index),
+                      (brute, index) => bruteRow(brute, rankings.position - 3 + index),
                     )}
                   </>
                 )}
