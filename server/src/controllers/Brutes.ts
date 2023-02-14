@@ -455,13 +455,13 @@ const Brutes = {
       let rank: number;
 
       // Get brute rank if not provided
-      if (Number.isNaN(req.params.rank)) {
+      if (typeof req.params.rank === 'undefined') {
         rank = (await prisma.brute.findFirstOrThrow({
           where: { name: req.params.name, deletedAt: null },
           select: { ranking: true },
         })).ranking;
       } else {
-        rank = +(req.params.rank || 0);
+        rank = +req.params.rank;
       }
 
       // Get first 15 brutes of the same rank with the highest level and XP
@@ -503,6 +503,7 @@ const Brutes = {
             where: {
               ranking: rank,
               deletedAt: null,
+              userId: { not: null },
               OR: [
                 { level: { gt: brute.level } },
                 { level: brute.level, xp: { gt: brute.xp } },
@@ -516,6 +517,7 @@ const Brutes = {
               ranking: rank,
               deletedAt: null,
               name: { not: brute.name },
+              userId: { not: null },
               OR: [
                 { level: { gt: brute.level } },
                 { level: brute.level, xp: { gt: brute.xp } },
@@ -534,6 +536,7 @@ const Brutes = {
               ranking: rank,
               deletedAt: null,
               name: { not: brute.name },
+              userId: { not: null },
               OR: [
                 { level: { lt: brute.level } },
                 { level: brute.level, xp: { lte: brute.xp } },

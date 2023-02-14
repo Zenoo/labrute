@@ -17,7 +17,7 @@ const RankingView = () => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
 
-  const ranking = useMemo(() => (Number.isNaN(rank) ? undefined : +(rank || 0)), [rank]);
+  const ranking = useMemo(() => (typeof rank === 'undefined' ? undefined : +rank), [rank]);
 
   const rankingProps = useMemo(() => ({
     name: bruteName || '',
@@ -25,7 +25,7 @@ const RankingView = () => {
   }), [bruteName, ranking]);
   const { data: rankings } = useStateAsync(null, Server.Brute.getForRank, rankingProps);
 
-  const rankingSelected = useMemo(() => (!Number.isNaN(ranking)
+  const rankingSelected = useMemo(() => (typeof ranking !== 'undefined'
     ? ranking
     : (rankings && rankings.topBrutes.length
       ? rankings.topBrutes[0].ranking
