@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.7.1](https://github.com/Zenoo/labrute/compare/labrute-v2.7.0...labrute-v2.7.1) (2023-02-14)
+
+
+### Bug Fixes
+
+* Don't rank bot brutes. [#10](https://github.com/Zenoo/labrute/issues/10) ([f2a5ac6](https://github.com/Zenoo/labrute/commit/f2a5ac689b18f5def1a9235d7db828c6dad21e9c))
+* Last rank was showing the current brute rank. [#10](https://github.com/Zenoo/labrute/issues/10) ([2148476](https://github.com/Zenoo/labrute/commit/2148476f343b9287b57270cb26c220c8325cc65e))
+
 ## [2.7.0](https://github.com/Zenoo/labrute/compare/labrute-v2.6.1...labrute-v2.7.0) (2023-02-14)
 
 
