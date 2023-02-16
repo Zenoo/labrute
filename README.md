@@ -10,11 +10,13 @@
 
 - Fork this project
 
-- Make sure your NodeJS and npm versions are up to date
+- Make sure your NodeJS and yarn versions are up to date
+
+- Setup your local Postgres database
 
 - Copy `.env.sample` to `.env` and adapt the variables
 
-- Install dependencies: `npm i` (This should also setup your database from the `schema.prisma` file and the migrations)
+- Install dependencies: `yarn install` (This should also setup your database from the `schema.prisma` file and the migrations)
 
 - Start the server, client and etwin local server with `yarn dev`
 
