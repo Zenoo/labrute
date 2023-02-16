@@ -10,6 +10,7 @@ import {
 import { Request, Response } from 'express';
 import { Worker } from 'worker_threads';
 import auth from '../utils/auth.js';
+import checkBody from '../utils/brute/checkBody.js';
 import checkColors from '../utils/brute/checkColors.js';
 import sendError from '../utils/sendError.js';
 
@@ -85,6 +86,9 @@ const Brutes = {
 
       // Check colors validity
       checkColors(req.body.gender, req.body.colors);
+
+      // Check body validity
+      checkBody(req.body.gender, req.body.body);
 
       // Check if name is available
       const count = await prisma.brute.count({
