@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.7.4](https://github.com/Zenoo/labrute/compare/labrute-v2.7.3...labrute-v2.7.4) (2023-02-16)
+
+
+### Bug Fixes
+
+* Add an explicit step to install the database in the README ([8dae448](https://github.com/Zenoo/labrute/commit/8dae448aebbc2cff6384c378d4d0321a8aa35f98))
+* Check brute body before creating ([d75da92](https://github.com/Zenoo/labrute/commit/d75da92705bd16d25ab533494d84548d3d547bad))
+* Prevent multiple brutes with the same name ([928c023](https://github.com/Zenoo/labrute/commit/928c023ae7ff70b8ce273392df9d668a4bcc92aa))
+
 ## [2.7.3](https://github.com/Zenoo/labrute/compare/labrute-v2.7.2...labrute-v2.7.3) (2023-02-14)
 
 
