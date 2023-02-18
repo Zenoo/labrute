@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.7.5](https://github.com/Zenoo/labrute/compare/labrute-v2.7.4...labrute-v2.7.5) (2023-02-16)
+
+
+### Bug Fixes
+
+* Delete misformatted tournaments daily and on server reset ([665862f](https://github.com/Zenoo/labrute/commit/665862f48f6b97c30eb83189024bd220656f7ea7))
+
 ## [2.7.4](https://github.com/Zenoo/labrute/compare/labrute-v2.7.3...labrute-v2.7.4) (2023-02-16)
 
 
