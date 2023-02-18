@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.7.6](https://github.com/Zenoo/labrute/compare/labrute-v2.7.5...labrute-v2.7.6) (2023-02-18)
+
+
+### Bug Fixes
+
+* Simultaneous block and evade bug on thrown attacks ([f7d1016](https://github.com/Zenoo/labrute/commit/f7d101630c65ac64336a2f76110255fccb2ed88c))
+
 ## [2.7.5](https://github.com/Zenoo/labrute/compare/labrute-v2.7.4...labrute-v2.7.5) (2023-02-16)
 
 
