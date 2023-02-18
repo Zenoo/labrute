@@ -1014,7 +1014,7 @@ export const playFighterTurn = (fightData: DetailedFight['data']) => {
     }
 
     // Check if opponent evaded (harder than melee)
-    if (evade(fighter, opponent, 2)) {
+    if (damage && evade(fighter, opponent, 2)) {
       damage = 0;
 
       // Add evade step
