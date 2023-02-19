@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.7.8](https://github.com/Zenoo/labrute/compare/labrute-v2.7.7...labrute-v2.7.8) (2023-02-19)
+
+
+### Bug Fixes
+
+* Remove deleted masters ([8531320](https://github.com/Zenoo/labrute/commit/8531320fec67d9372c75cd4263e3985a6e310aa1))
+
 ## [2.7.7](https://github.com/Zenoo/labrute/compare/labrute-v2.7.6...labrute-v2.7.7) (2023-02-19)
 
 
