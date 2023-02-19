@@ -429,6 +429,24 @@ const Brutes = {
         },
       });
 
+      // Decrease master's pupils count
+      if (brute.masterId) {
+        await prisma.brute.update({
+          where: { id: brute.masterId },
+          data: {
+            pupilsCount: { decrement: 1 },
+          },
+        });
+      }
+
+      // Remove pupils master
+      await prisma.brute.updateMany({
+        where: { masterId: brute.id },
+        data: {
+          masterId: null,
+        },
+      });
+
       // Set brute as deleted
       await prisma.brute.update({
         where: { id: brute.id },
