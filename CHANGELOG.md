@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.8.1](https://github.com/Zenoo/labrute/compare/labrute-v2.8.0...labrute-v2.8.1) (2023-02-24)
+
+
+### Bug Fixes
+
+* Display final loser in tournaments ([25ef3d6](https://github.com/Zenoo/labrute/commit/25ef3d60dc50c839ae04e08c6da27b1e374f5b80))
+
 ## [2.8.0](https://github.com/Zenoo/labrute/compare/labrute-v2.7.8...labrute-v2.8.0) (2023-02-24)
 
 
