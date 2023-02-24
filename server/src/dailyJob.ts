@@ -232,6 +232,9 @@ const dailyJob = (prisma: PrismaClient) => async () => {
       data: {
         registeredForTournament: false,
         nextTournamentDate: null,
+        // Add current tournament data too
+        currentTournamentDate: today.toDate(),
+        currentTournamentStepWatched: 0,
       },
     });
 

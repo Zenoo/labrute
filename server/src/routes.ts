@@ -50,6 +50,7 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
 
   // Tournament
   app.get('/api/tournament/:name/register', Tournaments.registerDaily(prisma));
+  app.get('/api/tournament/:name/update-step-watched', Tournaments.updateStepWatched(prisma));
   app.get('/api/tournament/:name/:date', Tournaments.getDaily(prisma));
 };
 

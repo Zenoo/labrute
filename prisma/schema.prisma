@@ -166,52 +166,54 @@ enum PetName {
 }
 
 model Brute {
-  id                      Int                 @id @default(autoincrement())
-  name                    String              @db.VarChar(255)
-  deletedAt               DateTime?           @db.Timestamptz()
-  createdAt               DateTime            @default(now()) @db.Timestamptz()
-  destinyPath             DestinyChoiceSide[] @default([])
-  level                   Int                 @default(1)
-  xp                      Int                 @default(0)
-  hp                      Int                 @default(0)
-  enduranceStat           Int                 @default(0)
-  enduranceModifier       Float               @default(1)
-  enduranceValue          Int                 @default(0)
-  strengthStat            Int                 @default(0)
-  strengthModifier        Float               @default(1)
-  strengthValue           Int                 @default(0)
-  agilityStat             Int                 @default(0)
-  agilityModifier         Float               @default(1)
-  agilityValue            Int                 @default(0)
-  speedStat               Int                 @default(0)
-  speedModifier           Float               @default(1)
-  speedValue              Int                 @default(0)
-  ranking                 Int                 @default(10)
-  gender                  Gender
-  user                    User?               @relation(fields: [userId], references: [id])
-  userId                  String?             @db.Uuid
-  body                    BruteBody?
-  colors                  BruteColors?
-  weapons                 WeaponName[]        @default([])
-  skills                  SkillName[]         @default([])
-  pets                    PetName[]           @default([])
-  master                  Brute?              @relation("Master", fields: [masterId], references: [id])
-  masterId                Int?
-  pupils                  Brute[]             @relation("Master")
-  pupilsCount             Int                 @default(0)
-  clan                    Clan?               @relation(fields: [clanId], references: [id])
-  clanId                  Int?
-  registeredForTournament Boolean             @default(false)
-  nextTournamentDate      DateTime?           @db.Date
-  lastFight               DateTime?           @db.Date
-  fightsLeft              Int                 @default(6)
-  victories               Int                 @default(0)
-  fights                  Fight[]
-  fightsAsAdversary       Fight[]             @relation("Adversary")
-  logs                    Log[]
-  destinyChoices          DestinyChoice[]
-  spritesheet             BruteSpritesheet?
-  tournaments             Tournament[]
+  id                           Int                 @id @default(autoincrement())
+  name                         String              @db.VarChar(255)
+  deletedAt                    DateTime?           @db.Timestamptz()
+  createdAt                    DateTime            @default(now()) @db.Timestamptz()
+  destinyPath                  DestinyChoiceSide[] @default([])
+  level                        Int                 @default(1)
+  xp                           Int                 @default(0)
+  hp                           Int                 @default(0)
+  enduranceStat                Int                 @default(0)
+  enduranceModifier            Float               @default(1)
+  enduranceValue               Int                 @default(0)
+  strengthStat                 Int                 @default(0)
+  strengthModifier             Float               @default(1)
+  strengthValue                Int                 @default(0)
+  agilityStat                  Int                 @default(0)
+  agilityModifier              Float               @default(1)
+  agilityValue                 Int                 @default(0)
+  speedStat                    Int                 @default(0)
+  speedModifier                Float               @default(1)
+  speedValue                   Int                 @default(0)
+  ranking                      Int                 @default(10)
+  gender                       Gender
+  user                         User?               @relation(fields: [userId], references: [id])
+  userId                       String?             @db.Uuid
+  body                         BruteBody?
+  colors                       BruteColors?
+  weapons                      WeaponName[]        @default([])
+  skills                       SkillName[]         @default([])
+  pets                         PetName[]           @default([])
+  master                       Brute?              @relation("Master", fields: [masterId], references: [id])
+  masterId                     Int?
+  pupils                       Brute[]             @relation("Master")
+  pupilsCount                  Int                 @default(0)
+  clan                         Clan?               @relation(fields: [clanId], references: [id])
+  clanId                       Int?
+  registeredForTournament      Boolean             @default(false)
+  nextTournamentDate           DateTime?           @db.Date
+  currentTournamentDate        DateTime?           @db.Date
+  currentTournamentStepWatched Int?                @default(0)
+  lastFight                    DateTime?           @db.Date
+  fightsLeft                   Int                 @default(6)
+  victories                    Int                 @default(0)
+  fights                       Fight[]
+  fightsAsAdversary            Fight[]             @relation("Adversary")
+  logs                         Log[]
+  destinyChoices               DestinyChoice[]
+  spritesheet                  BruteSpritesheet?
+  tournaments                  Tournament[]
 }
 
 model BruteSpritesheet {

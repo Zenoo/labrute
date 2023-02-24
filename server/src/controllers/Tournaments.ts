@@ -94,6 +94,80 @@ const Tournaments = {
       sendError(res, error);
     }
   },
+  updateStepWatched: (prisma: PrismaClient) => async (
+    req: Request,
+    res: Response,
+  ) => {
+    try {
+      const user = await auth(prisma, req);
+
+      if (!req.params.name) {
+        throw new Error('Invalid parameters');
+      }
+
+      // Get brute
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name: req.params.name,
+          deletedAt: null,
+          user: {
+            id: user.id,
+          },
+        },
+      });
+
+      if (!brute) {
+        throw new Error('Brute not found');
+      }
+
+      const tournament = await prisma.tournament.findFirst({
+        where: {
+          type: TournamentType.DAILY,
+          date: moment.utc().startOf('day').toDate(),
+          participants: {
+            some: {
+              name: req.params.name,
+            },
+          },
+        },
+        include: { steps: { include: { fight: true } } },
+      });
+
+      if (!tournament) {
+        throw new Error('Tournament not found');
+      }
+
+      const steps = [0, 32, 48, 56, 60, 62, 63, 64];
+
+      // If brute was eliminated, set tournament as fully watched
+      if (!tournament.steps
+        .find((step) => step.step >= steps[(brute.currentTournamentStepWatched || 0) + 1]
+          && (step.fight.brute1Id === brute.id || step.fight.brute2Id === brute.id))) {
+        await prisma.brute.update({
+          where: {
+            id: brute.id,
+          },
+          data: {
+            currentTournamentStepWatched: 5,
+          },
+        });
+      } else {
+        // Update brute watched tournament step
+        await prisma.brute.update({
+          where: {
+            id: brute.id,
+          },
+          data: {
+            currentTournamentStepWatched: { increment: 1 },
+          },
+        });
+      }
+
+      res.send({ success: true });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
 };
 
 export default Tournaments;

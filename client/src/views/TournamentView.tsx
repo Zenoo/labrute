@@ -10,11 +10,10 @@ import BrutePortrait from '../components/Brute/Body/BrutePortait';
 import Page from '../components/Page';
 import StyledButton, { StyledButtonHeight, StyledButtonWidth } from '../components/StyledButton';
 import Text from '../components/Text';
+import { useAuth } from '../hooks/useAuth';
 import useStateAsync from '../hooks/useStateAsync';
 import Server from '../utils/Server';
 import TournamentMobileView from './mobile/TournamentMobileView';
-
-// const roundHours = [0, 10, 12, 14, 16, 18, 20];
 
 const scale = (base: number, round: number) => ((round === 0 || round === 10)
   ? base * 0.5
@@ -31,16 +30,34 @@ const scale = (base: number, round: number) => ((round === 0 || round === 10)
 const TournamentView = () => {
   const { t } = useTranslation();
   const { bruteName, date } = useParams();
+  const { user, authing } = useAuth();
   const navigate = useNavigate();
   const smallScreen = useMediaQuery('(max-width: 935px)');
 
   const tournamentProps = useMemo(() => ({ name: bruteName || '', date: date || '' }), [bruteName, date]);
   const { data: tournament } = useStateAsync(null, Server.Tournament.getDaily, tournamentProps);
 
+  const bruteProps = useMemo(() => ({ name: bruteName || '' }), [bruteName]);
+  const { data: brute } = useStateAsync(null, Server.Brute.get, bruteProps);
+
+  const stepWatched = useMemo(() => (moment.utc(tournament?.date).isSame(moment.utc(), 'day')
+    ? brute?.currentTournamentStepWatched || 0
+    : 5), [brute?.currentTournamentStepWatched, tournament?.date]);
+  const ownsBrute = useMemo(() => (authing
+    || !!(brute && user && brute.userId === user.id)), [authing, brute, user]);
+
   const winnerStep = useMemo(
     () => tournament?.steps.find((step) => step.step === 63),
     [tournament],
   );
+
+  const [display, setDisplay] = React.useState(false);
+
+  // Wait 1s before displaying the tournament
+  React.useEffect(() => {
+    const timeout = setTimeout(() => setDisplay(true), 1000);
+    return () => clearTimeout(timeout);
+  }, []);
 
   const rounds = useMemo(() => {
     if (!tournament) return [];
@@ -72,9 +89,17 @@ const TournamentView = () => {
     return result;
   }, [tournament]);
 
-  const goToFight = useCallback((fight: FightWithBrutes) => () => {
+  const goToFight = useCallback((fight: FightWithBrutes, newStep: number) => () => {
+    if (!brute) return;
+
     navigate(`/${fight.brute1.name}/fight/${fight.id}`);
-  }, [navigate]);
+
+    // Update watched step if own brute
+    if (ownsBrute && (fight.brute1Id === brute.id || fight.brute2Id === brute.id)
+      && newStep > (brute.currentTournamentStepWatched || 0)) {
+      Server.Tournament.updateStepWatched(bruteName || '').catch(console.error);
+    }
+  }, [brute, bruteName, navigate, ownsBrute]);
 
   return tournament && (smallScreen
     ? (
@@ -82,6 +107,11 @@ const TournamentView = () => {
         bruteName={bruteName}
         tournament={tournament}
         winnerStep={winnerStep}
+        ownsBrute={ownsBrute}
+        stepWatched={stepWatched}
+        brute={brute}
+        display={display}
+        goToFight={goToFight}
       />
     ) : (
       <Page title={`${t('tournament')} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/cell`}>
@@ -94,125 +124,167 @@ const TournamentView = () => {
         </Paper>
         <Paper sx={{ position: 'relative', bgcolor: 'background.paperLight', mt: -2 }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            {rounds.map((round, index) => (
-              <Box
-                // eslint-disable-next-line react/no-array-index-key
-                key={index}
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: index === 5 ? 'start' : 'space-around',
-                  ml: index === 2
-                    ? '-60px'
-                    : index === 3
-                      ? '-80px'
-                      : index === 4
-                        ? '-130px'
-                        : index === 5
-                          ? '-110px'
-                          : index === 6
-                            ? '-110px'
-                            : index === 7
-                              ? '-130px'
-                              : index === 8
-                                ? '-80px'
-                                : index === 9
-                                  ? '-60px'
-                                  : '0px',
-                }}
-              >
-                {round.map((step) => (
-                  <StyledButton
-                    key={step.id}
-                    onClick={goToFight(step.fight)}
-                    shadowColor={(bruteName === step.fight.brute1.name
-                      || bruteName === step.fight.brute2.name)
-                      ? 'rgba(255, 0, 0, 0.4)'
-                      : undefined}
-                    sx={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      backgroundSize: 'contain',
-                      width: scale(StyledButtonWidth, index),
-                      height: scale(StyledButtonHeight, index),
-                      m: `${scale(8, index)}px`,
-                    }}
-                  >
-                    <Tooltip title={step.fight.brute1.name}>
-                      <Box sx={{ position: 'relative', mt: 1 }}>
-                        <BrutePortrait
-                          inverted
-                          brute={step.fight.brute1}
-                          sx={{
-                            width: scale(100, index),
-                          }}
-                        />
-                        {step.fight.winner === step.fight.brute2.name && (
-                          <Close
-                            color="error"
-                            sx={{
-                              position: 'absolute',
-                              top: 0,
-                              left: 0,
-                              width: 1,
-                              height: 1,
-                            }}
-                          />
-                        )}
-                      </Box>
-                    </Tooltip>
-                    <Box
-                      component="img"
-                      src="/images/tournament/vs.svg"
-                      sx={{
-                        width: scale(45, index),
-                      }}
-                    />
-                    <Tooltip title={step.fight.brute2.name}>
-                      <Box sx={{ position: 'relative', mt: 1 }}>
-                        <BrutePortrait
-                          brute={step.fight.brute2}
-                          sx={{
-                            width: scale(100, index),
-                          }}
-                        />
-                        {step.fight.winner === step.fight.brute1.name && (
-                          <Close
-                            color="error"
-                            sx={{
-                              position: 'absolute',
-                              top: 0,
-                              left: 0,
-                              width: 1,
-                              height: 1,
-                            }}
-                          />
-                        )}
-                      </Box>
-                    </Tooltip>
-                  </StyledButton>
-                ))}
-              </Box>
-            ))}
-          </Box>
-          {winnerStep && (
-            <Tooltip title={winnerStep.fight.winner}>
-              <BruteComponent
-                brute={winnerStep.fight.winner === winnerStep.fight.brute1.name
-                  ? winnerStep.fight.brute1
-                  : winnerStep?.fight.brute2}
-                sx={{
-                  position: 'absolute',
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  margin: 'auto',
-                  width: 140,
-                }}
-              />
-            </Tooltip>
-          )}
+            {display && (!authing && brute) && rounds.map((round, index) => {
+              const roundNumber = index < 6 ? index : 10 - index;
+              const shouldDisplay = ownsBrute
+                ? stepWatched >= roundNumber
+                : true;
+              const shouldResultDisplay = ownsBrute
+                ? stepWatched - 1 >= roundNumber
+                : true;
 
+              if (!shouldDisplay) {
+                return (
+                  <Box
+                    // eslint-disable-next-line react/no-array-index-key
+                    key={index}
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: index === 5 ? 'start' : 'space-around',
+                      width: scale(StyledButtonWidth, index),
+                      ml: index === 2
+                        ? '-60px'
+                        : index === 3
+                          ? '-80px'
+                          : index === 4
+                            ? '-130px'
+                            : index === 5
+                              ? '-110px'
+                              : index === 6
+                                ? '-110px'
+                                : index === 7
+                                  ? '-130px'
+                                  : index === 8
+                                    ? '-80px'
+                                    : index === 9
+                                      ? '-60px'
+                                      : '0px',
+                    }}
+                  />
+                );
+              }
+
+              return shouldDisplay && (
+                <Box
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={index}
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: index === 5 ? 'start' : 'space-around',
+                    ml: index === 2
+                      ? '-60px'
+                      : index === 3
+                        ? '-80px'
+                        : index === 4
+                          ? '-130px'
+                          : index === 5
+                            ? '-110px'
+                            : index === 6
+                              ? '-110px'
+                              : index === 7
+                                ? '-130px'
+                                : index === 8
+                                  ? '-80px'
+                                  : index === 9
+                                    ? '-60px'
+                                    : '0px',
+                  }}
+                >
+                  {round.map((step) => (
+                    <StyledButton
+                      key={step.id}
+                      onClick={goToFight(step.fight, index < 6 ? index + 1 : 10 - index + 1)}
+                      shadowColor={(bruteName === step.fight.brute1.name
+                        || bruteName === step.fight.brute2.name)
+                        ? 'rgba(255, 0, 0, 0.6)'
+                        : undefined}
+                      sx={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        backgroundSize: 'contain',
+                        width: scale(StyledButtonWidth, index),
+                        height: scale(StyledButtonHeight, index),
+                        m: `${scale(8, index)}px`,
+                      }}
+                    >
+                      <Tooltip title={step.fight.brute1.name}>
+                        <Box sx={{ position: 'relative', mt: 1 }}>
+                          <BrutePortrait
+                            inverted
+                            brute={step.fight.brute1}
+                            sx={{
+                              width: scale(100, index),
+                            }}
+                          />
+                          {shouldResultDisplay && step.fight.winner === step.fight.brute2.name && (
+                            <Close
+                              color="error"
+                              sx={{
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                width: 1,
+                                height: 1,
+                              }}
+                            />
+                          )}
+                        </Box>
+                      </Tooltip>
+                      <Box
+                        component="img"
+                        src="/images/tournament/vs.svg"
+                        sx={{
+                          width: scale(45, index),
+                        }}
+                      />
+                      <Tooltip title={step.fight.brute2.name}>
+                        <Box sx={{ position: 'relative', mt: 1 }}>
+                          <BrutePortrait
+                            brute={step.fight.brute2}
+                            sx={{
+                              width: scale(100, index),
+                            }}
+                          />
+                          {shouldResultDisplay && step.fight.winner === step.fight.brute1.name && (
+                            <Close
+                              color="error"
+                              sx={{
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                width: 1,
+                                height: 1,
+                              }}
+                            />
+                          )}
+                        </Box>
+                      </Tooltip>
+                    </StyledButton>
+                  ))}
+                </Box>
+              );
+            })}
+          </Box>
+          {display && winnerStep && (!authing && brute)
+            && (!ownsBrute || (ownsBrute && stepWatched >= 5)) && (
+              <Tooltip title={winnerStep.fight.winner}>
+                <BruteComponent
+                  brute={winnerStep.fight.winner === winnerStep.fight.brute1.name
+                    ? winnerStep.fight.brute1
+                    : winnerStep?.fight.brute2}
+                  sx={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    margin: 'auto',
+                    width: 140,
+                  }}
+                />
+              </Tooltip>
+          )}
         </Paper>
       </Page>
     ));

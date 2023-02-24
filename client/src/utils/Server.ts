@@ -60,6 +60,7 @@ const Server = {
       date,
     }: { name: string, date: string }) => Fetch<FullTournament>(`/api/tournament/${name}/${date}`),
     registerDaily: (name: string) => Fetch<never>(`/api/tournament/${name}/register`),
+    updateStepWatched: (name: string) => Fetch<never>(`/api/tournament/${name}/update-step-watched`),
   },
 };
 

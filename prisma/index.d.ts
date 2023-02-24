@@ -107,6 +107,8 @@ export type Brute = {
   clanId: number | null
   registeredForTournament: boolean
   nextTournamentDate: Date | null
+  currentTournamentDate: Date | null
+  currentTournamentStepWatched: number | null
   lastFight: Date | null
   fightsLeft: number
   victories: number
@@ -4711,6 +4713,7 @@ export namespace Prisma {
     masterId: number | null
     pupilsCount: number | null
     clanId: number | null
+    currentTournamentStepWatched: number | null
     fightsLeft: number | null
     victories: number | null
   }
@@ -4736,6 +4739,7 @@ export namespace Prisma {
     masterId: number | null
     pupilsCount: number | null
     clanId: number | null
+    currentTournamentStepWatched: number | null
     fightsLeft: number | null
     victories: number | null
   }
@@ -4768,6 +4772,8 @@ export namespace Prisma {
     clanId: number | null
     registeredForTournament: boolean | null
     nextTournamentDate: Date | null
+    currentTournamentDate: Date | null
+    currentTournamentStepWatched: number | null
     lastFight: Date | null
     fightsLeft: number | null
     victories: number | null
@@ -4801,6 +4807,8 @@ export namespace Prisma {
     clanId: number | null
     registeredForTournament: boolean | null
     nextTournamentDate: Date | null
+    currentTournamentDate: Date | null
+    currentTournamentStepWatched: number | null
     lastFight: Date | null
     fightsLeft: number | null
     victories: number | null
@@ -4838,6 +4846,8 @@ export namespace Prisma {
     clanId: number
     registeredForTournament: number
     nextTournamentDate: number
+    currentTournamentDate: number
+    currentTournamentStepWatched: number
     lastFight: number
     fightsLeft: number
     victories: number
@@ -4866,6 +4876,7 @@ export namespace Prisma {
     masterId?: true
     pupilsCount?: true
     clanId?: true
+    currentTournamentStepWatched?: true
     fightsLeft?: true
     victories?: true
   }
@@ -4891,6 +4902,7 @@ export namespace Prisma {
     masterId?: true
     pupilsCount?: true
     clanId?: true
+    currentTournamentStepWatched?: true
     fightsLeft?: true
     victories?: true
   }
@@ -4923,6 +4935,8 @@ export namespace Prisma {
     clanId?: true
     registeredForTournament?: true
     nextTournamentDate?: true
+    currentTournamentDate?: true
+    currentTournamentStepWatched?: true
     lastFight?: true
     fightsLeft?: true
     victories?: true
@@ -4956,6 +4970,8 @@ export namespace Prisma {
     clanId?: true
     registeredForTournament?: true
     nextTournamentDate?: true
+    currentTournamentDate?: true
+    currentTournamentStepWatched?: true
     lastFight?: true
     fightsLeft?: true
     victories?: true
@@ -4993,6 +5009,8 @@ export namespace Prisma {
     clanId?: true
     registeredForTournament?: true
     nextTournamentDate?: true
+    currentTournamentDate?: true
+    currentTournamentStepWatched?: true
     lastFight?: true
     fightsLeft?: true
     victories?: true
@@ -5118,6 +5136,8 @@ export namespace Prisma {
     clanId: number | null
     registeredForTournament: boolean
     nextTournamentDate: Date | null
+    currentTournamentDate: Date | null
+    currentTournamentStepWatched: number | null
     lastFight: Date | null
     fightsLeft: number
     victories: number
@@ -5180,6 +5200,8 @@ export namespace Prisma {
     clanId?: boolean
     registeredForTournament?: boolean
     nextTournamentDate?: boolean
+    currentTournamentDate?: boolean
+    currentTournamentStepWatched?: boolean
     lastFight?: boolean
     fightsLeft?: boolean
     victories?: boolean
@@ -13206,6 +13228,8 @@ export namespace Prisma {
     clanId: 'clanId',
     registeredForTournament: 'registeredForTournament',
     nextTournamentDate: 'nextTournamentDate',
+    currentTournamentDate: 'currentTournamentDate',
+    currentTournamentStepWatched: 'currentTournamentStepWatched',
     lastFight: 'lastFight',
     fightsLeft: 'fightsLeft',
     victories: 'victories'
@@ -13655,6 +13679,8 @@ export namespace Prisma {
     clanId?: IntNullableFilter | number | null
     registeredForTournament?: BoolFilter | boolean
     nextTournamentDate?: DateTimeNullableFilter | Date | string | null
+    currentTournamentDate?: DateTimeNullableFilter | Date | string | null
+    currentTournamentStepWatched?: IntNullableFilter | number | null
     lastFight?: DateTimeNullableFilter | Date | string | null
     fightsLeft?: IntFilter | number
     victories?: IntFilter | number
@@ -13704,6 +13730,8 @@ export namespace Prisma {
     clanId?: SortOrder
     registeredForTournament?: SortOrder
     nextTournamentDate?: SortOrder
+    currentTournamentDate?: SortOrder
+    currentTournamentStepWatched?: SortOrder
     lastFight?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
@@ -13751,6 +13779,8 @@ export namespace Prisma {
     clanId?: SortOrder
     registeredForTournament?: SortOrder
     nextTournamentDate?: SortOrder
+    currentTournamentDate?: SortOrder
+    currentTournamentStepWatched?: SortOrder
     lastFight?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
@@ -13796,6 +13826,8 @@ export namespace Prisma {
     clanId?: IntNullableWithAggregatesFilter | number | null
     registeredForTournament?: BoolWithAggregatesFilter | boolean
     nextTournamentDate?: DateTimeNullableWithAggregatesFilter | Date | string | null
+    currentTournamentDate?: DateTimeNullableWithAggregatesFilter | Date | string | null
+    currentTournamentStepWatched?: IntNullableWithAggregatesFilter | number | null
     lastFight?: DateTimeNullableWithAggregatesFilter | Date | string | null
     fightsLeft?: IntWithAggregatesFilter | number
     victories?: IntWithAggregatesFilter | number
@@ -14551,6 +14583,8 @@ export namespace Prisma {
     clan?: ClanCreateNestedOneWithoutBrutesInput
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -14597,6 +14631,8 @@ export namespace Prisma {
     clanId?: number | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -14642,6 +14678,8 @@ export namespace Prisma {
     clan?: ClanUpdateOneWithoutBrutesNestedInput
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -14688,6 +14726,8 @@ export namespace Prisma {
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -14731,6 +14771,8 @@ export namespace Prisma {
     clanId?: number | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -14764,6 +14806,8 @@ export namespace Prisma {
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -14801,6 +14845,8 @@ export namespace Prisma {
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -15763,6 +15809,8 @@ export namespace Prisma {
     clanId?: SortOrder
     registeredForTournament?: SortOrder
     nextTournamentDate?: SortOrder
+    currentTournamentDate?: SortOrder
+    currentTournamentStepWatched?: SortOrder
     lastFight?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
@@ -15789,6 +15837,7 @@ export namespace Prisma {
     masterId?: SortOrder
     pupilsCount?: SortOrder
     clanId?: SortOrder
+    currentTournamentStepWatched?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
   }
@@ -15821,6 +15870,8 @@ export namespace Prisma {
     clanId?: SortOrder
     registeredForTournament?: SortOrder
     nextTournamentDate?: SortOrder
+    currentTournamentDate?: SortOrder
+    currentTournamentStepWatched?: SortOrder
     lastFight?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
@@ -15854,6 +15905,8 @@ export namespace Prisma {
     clanId?: SortOrder
     registeredForTournament?: SortOrder
     nextTournamentDate?: SortOrder
+    currentTournamentDate?: SortOrder
+    currentTournamentStepWatched?: SortOrder
     lastFight?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
@@ -15880,6 +15933,7 @@ export namespace Prisma {
     masterId?: SortOrder
     pupilsCount?: SortOrder
     clanId?: SortOrder
+    currentTournamentStepWatched?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
   }
@@ -16855,6 +16909,14 @@ export namespace Prisma {
     update?: XOR<ClanUpdateWithoutBrutesInput, ClanUncheckedUpdateWithoutBrutesInput>
   }
 
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type FightUpdateManyWithoutBrute1NestedInput = {
     create?: XOR<Enumerable<FightCreateWithoutBrute1Input>, Enumerable<FightUncheckedCreateWithoutBrute1Input>>
     connectOrCreate?: Enumerable<FightCreateOrConnectWithoutBrute1Input>
@@ -16956,14 +17018,6 @@ export namespace Prisma {
     delete?: boolean
     connect?: BruteColorsWhereUniqueInput
     update?: XOR<BruteColorsUpdateWithoutBruteInput, BruteColorsUncheckedUpdateWithoutBruteInput>
-  }
-
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type BruteUncheckedUpdateManyWithoutMasterNestedInput = {
@@ -17934,6 +17988,8 @@ export namespace Prisma {
     clan?: ClanCreateNestedOneWithoutBrutesInput
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -17979,6 +18035,8 @@ export namespace Prisma {
     clanId?: number | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -18051,6 +18109,8 @@ export namespace Prisma {
     clanId?: IntNullableFilter | number | null
     registeredForTournament?: BoolFilter | boolean
     nextTournamentDate?: DateTimeNullableFilter | Date | string | null
+    currentTournamentDate?: DateTimeNullableFilter | Date | string | null
+    currentTournamentStepWatched?: IntNullableFilter | number | null
     lastFight?: DateTimeNullableFilter | Date | string | null
     fightsLeft?: IntFilter | number
     victories?: IntFilter | number
@@ -18089,6 +18149,8 @@ export namespace Prisma {
     clan?: ClanCreateNestedOneWithoutBrutesInput
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -18134,6 +18196,8 @@ export namespace Prisma {
     clanId?: number | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -18188,6 +18252,8 @@ export namespace Prisma {
     clan?: ClanUpdateOneWithoutBrutesNestedInput
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -18233,6 +18299,8 @@ export namespace Prisma {
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -18277,6 +18345,8 @@ export namespace Prisma {
     clan?: ClanCreateNestedOneWithoutBrutesInput
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -18322,6 +18392,8 @@ export namespace Prisma {
     clanId?: number | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -18376,6 +18448,8 @@ export namespace Prisma {
     clan?: ClanUpdateOneWithoutBrutesNestedInput
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -18421,6 +18495,8 @@ export namespace Prisma {
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -18572,6 +18648,8 @@ export namespace Prisma {
     clan?: ClanCreateNestedOneWithoutBrutesInput
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -18617,6 +18695,8 @@ export namespace Prisma {
     clanId?: number | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -18666,6 +18746,8 @@ export namespace Prisma {
     clan?: ClanCreateNestedOneWithoutBrutesInput
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -18711,6 +18793,8 @@ export namespace Prisma {
     clanId?: number | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -19055,6 +19139,8 @@ export namespace Prisma {
     clan?: ClanUpdateOneWithoutBrutesNestedInput
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -19100,6 +19186,8 @@ export namespace Prisma {
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -19325,6 +19413,8 @@ export namespace Prisma {
     clan?: ClanCreateNestedOneWithoutBrutesInput
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -19370,6 +19460,8 @@ export namespace Prisma {
     clanId?: number | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -19424,6 +19516,8 @@ export namespace Prisma {
     clan?: ClanUpdateOneWithoutBrutesNestedInput
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -19469,6 +19563,8 @@ export namespace Prisma {
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -19512,6 +19608,8 @@ export namespace Prisma {
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -19557,6 +19655,8 @@ export namespace Prisma {
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -19628,6 +19728,8 @@ export namespace Prisma {
     clan?: ClanCreateNestedOneWithoutBrutesInput
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -19673,6 +19775,8 @@ export namespace Prisma {
     clanId?: number | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -19722,6 +19826,8 @@ export namespace Prisma {
     clan?: ClanCreateNestedOneWithoutBrutesInput
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -19767,6 +19873,8 @@ export namespace Prisma {
     clanId?: number | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -19871,6 +19979,8 @@ export namespace Prisma {
     clan?: ClanUpdateOneWithoutBrutesNestedInput
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -19916,6 +20026,8 @@ export namespace Prisma {
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -19965,6 +20077,8 @@ export namespace Prisma {
     clan?: ClanUpdateOneWithoutBrutesNestedInput
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -20010,6 +20124,8 @@ export namespace Prisma {
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -20096,6 +20212,8 @@ export namespace Prisma {
     clan?: ClanCreateNestedOneWithoutBrutesInput
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -20141,6 +20259,8 @@ export namespace Prisma {
     clanId?: number | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -20223,6 +20343,8 @@ export namespace Prisma {
     clan?: ClanUpdateOneWithoutBrutesNestedInput
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -20268,6 +20390,8 @@ export namespace Prisma {
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -20340,6 +20464,8 @@ export namespace Prisma {
     clan?: ClanCreateNestedOneWithoutBrutesInput
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -20385,6 +20511,8 @@ export namespace Prisma {
     clanId?: number | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -20439,6 +20567,8 @@ export namespace Prisma {
     clan?: ClanUpdateOneWithoutBrutesNestedInput
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -20484,6 +20614,8 @@ export namespace Prisma {
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -20528,6 +20660,8 @@ export namespace Prisma {
     clan?: ClanCreateNestedOneWithoutBrutesInput
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -20573,6 +20707,8 @@ export namespace Prisma {
     clanId?: number | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -20764,6 +20900,8 @@ export namespace Prisma {
     clanId?: number | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -20802,6 +20940,8 @@ export namespace Prisma {
     clan?: ClanUpdateOneWithoutBrutesNestedInput
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -20847,6 +20987,8 @@ export namespace Prisma {
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -20889,6 +21031,8 @@ export namespace Prisma {
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -20925,6 +21069,8 @@ export namespace Prisma {
     clanId?: number | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -21006,6 +21152,8 @@ export namespace Prisma {
     clan?: ClanUpdateOneWithoutBrutesNestedInput
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -21051,6 +21199,8 @@ export namespace Prisma {
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -21093,6 +21243,8 @@ export namespace Prisma {
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -21281,6 +21433,8 @@ export namespace Prisma {
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -21319,6 +21473,8 @@ export namespace Prisma {
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -21364,6 +21520,8 @@ export namespace Prisma {
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -21467,6 +21625,8 @@ export namespace Prisma {
     clan?: ClanUpdateOneWithoutBrutesNestedInput
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -21512,6 +21672,8 @@ export namespace Prisma {
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -21554,6 +21716,8 @@ export namespace Prisma {
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number

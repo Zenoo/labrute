@@ -42,12 +42,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [authing, setAuthing] = useState(false);
 
   const signin = useCallback(() => {
+    if (authing) return;
+    setAuthing(true);
+
     const userId = localStorage.getItem('user');
     const token = localStorage.getItem('token');
     const expires = moment.utc(localStorage.getItem('expires'));
-    if (userId && token && !authing) {
+    if (userId && token) {
       if (expires.isAfter(moment.utc())) {
-        setAuthing(true);
         Server.User.authenticate(userId, token).then((response) => {
           setUser(response);
           setAuthing(false);
@@ -59,6 +61,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         localStorage.clear();
         setAuthing(false);
       }
+    } else {
+      setAuthing(false);
     }
   }, [authing]);
 
