@@ -42,7 +42,7 @@ const TournamentView = () => {
 
   const stepWatched = useMemo(() => (moment.utc(tournament?.date).isSame(moment.utc(), 'day')
     ? brute?.currentTournamentStepWatched || 0
-    : 5), [brute?.currentTournamentStepWatched, tournament?.date]);
+    : 6), [brute?.currentTournamentStepWatched, tournament?.date]);
   const ownsBrute = useMemo(() => (authing
     || !!(brute && user && brute.userId === user.id)), [authing, brute, user]);
 

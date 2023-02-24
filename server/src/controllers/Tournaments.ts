@@ -148,7 +148,7 @@ const Tournaments = {
             id: brute.id,
           },
           data: {
-            currentTournamentStepWatched: 5,
+            currentTournamentStepWatched: 6,
           },
         });
       } else {
