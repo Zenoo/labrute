@@ -323,30 +323,36 @@ const Brutes = {
         level: +req.params.level,
         deletedAt: null,
       };
-      const bruteCount = await prisma.brute.count({
+      const bruteIds = await prisma.brute.findMany({
         where: bruteSearch,
-      });
+        select: { id: true },
+      }).then((brutes) => brutes.map((brute) => brute.id));
 
-      // Get ARENA_OPPONENTS_COUNT random indexes between 0 and bruteCount
-      const opponentIndexes: number[] = [];
-      while (opponentIndexes.length < bruteCount
-        && opponentIndexes.length < ARENA_OPPONENTS_COUNT) {
-        const randomIndex = Math.floor(Math.random() * bruteCount);
-        if (!opponentIndexes.includes(randomIndex)) {
-          opponentIndexes.push(randomIndex);
+      const randomlySelectedBruteIds: number[] = [];
+
+      // Select all if less or equal to ARENA_OPPONENTS_COUNT
+      if (bruteIds.length <= ARENA_OPPONENTS_COUNT) {
+        randomlySelectedBruteIds.push(...bruteIds);
+      } else {
+        // Select ARENA_OPPONENTS_COUNT random ids
+        while (randomlySelectedBruteIds.length < ARENA_OPPONENTS_COUNT) {
+          const randomIndex = Math.floor(Math.random() * bruteIds.length);
+          if (!randomlySelectedBruteIds.includes(bruteIds[randomIndex])) {
+            randomlySelectedBruteIds.push(bruteIds[randomIndex]);
+          }
         }
       }
 
       const opponents: BruteWithBodyColors[] = [];
-      for (let i = 0; i < opponentIndexes.length; i++) {
-        const skip = opponentIndexes[i];
+      for (let i = 0; i < randomlySelectedBruteIds.length; i++) {
+        const id = randomlySelectedBruteIds[i];
 
         // eslint-disable-next-line no-await-in-loop
         const opponent = await prisma.brute.findFirst({
           where: {
             ...bruteSearch,
+            id,
           },
-          skip,
           include: { body: true, colors: true },
         });
 
@@ -365,30 +371,37 @@ const Brutes = {
           },
           deletedAt: null,
         };
-        const additionalBruteCount = await prisma.brute.count({
+        const additionalBruteIds = await prisma.brute.findMany({
           where: additionalBruteSearch,
-        });
+          select: { id: true },
+        }).then((brutes) => brutes.map((brute) => brute.id));
 
-        // Get remaining random indexes between 0 and additionalBruteCount
-        const additionalOpponentIndexes: number[] = [];
-        while (additionalOpponentIndexes.length < additionalBruteCount
-          && additionalOpponentIndexes.length < ARENA_OPPONENTS_COUNT - opponents.length) {
-          const randomIndex = Math.floor(Math.random() * additionalBruteCount);
-          if (!additionalOpponentIndexes.includes(randomIndex)) {
-            additionalOpponentIndexes.push(randomIndex);
+        const additionalRandomlySelectedBruteIds: number[] = [];
+
+        // Select all if less or equal to ARENA_OPPONENTS_COUNT
+        if (additionalBruteIds.length <= ARENA_OPPONENTS_COUNT - opponents.length) {
+          additionalRandomlySelectedBruteIds.push(...additionalBruteIds);
+        } else {
+          // Select ARENA_OPPONENTS_COUNT random ids
+          while (additionalRandomlySelectedBruteIds
+            .length < ARENA_OPPONENTS_COUNT - opponents.length) {
+            const randomIndex = Math.floor(Math.random() * additionalBruteIds.length);
+            if (!additionalRandomlySelectedBruteIds.includes(additionalBruteIds[randomIndex])) {
+              additionalRandomlySelectedBruteIds.push(additionalBruteIds[randomIndex]);
+            }
           }
         }
 
         const additionalOpponents: BruteWithBodyColors[] = [];
-        for (let i = 0; i < additionalOpponentIndexes.length; i++) {
-          const skip = additionalOpponentIndexes[i];
+        for (let i = 0; i < additionalRandomlySelectedBruteIds.length; i++) {
+          const id = additionalRandomlySelectedBruteIds[i];
 
           // eslint-disable-next-line no-await-in-loop
           const opponent = await prisma.brute.findFirst({
             where: {
               ...additionalBruteSearch,
+              id,
             },
-            skip,
             include: { body: true, colors: true },
           });
 
