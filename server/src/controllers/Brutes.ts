@@ -460,13 +460,43 @@ const Brutes = {
         },
       });
 
-      // Set brute as deleted
-      await prisma.brute.update({
-        where: { id: brute.id },
-        data: {
-          deletedAt: new Date(),
+      // Completely delete if fresh brute
+      const fightsFought = await prisma.fight.count({
+        where: {
+          OR: [
+            { brute1Id: brute.id },
+            { brute2Id: brute.id },
+          ],
         },
       });
+      if (fightsFought === 0) {
+        await prisma.bruteBody.delete({
+          where: { bruteId: brute.id },
+        });
+        await prisma.bruteColors.delete({
+          where: { bruteId: brute.id },
+        });
+        await prisma.bruteSpritesheet.delete({
+          where: { bruteId: brute.id },
+        });
+        await prisma.log.deleteMany({
+          where: { currentBruteId: brute.id },
+        });
+        await prisma.destinyChoice.deleteMany({
+          where: { bruteId: brute.id },
+        });
+        await prisma.brute.delete({
+          where: { id: brute.id },
+        });
+      } else {
+        // Set brute as deleted
+        await prisma.brute.update({
+          where: { id: brute.id },
+          data: {
+            deletedAt: new Date(),
+          },
+        });
+      }
 
       res.send({ points: sacriPoints });
     } catch (error) {
