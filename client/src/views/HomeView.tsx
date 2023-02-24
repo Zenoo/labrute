@@ -51,6 +51,11 @@ const HomeView = () => {
         localStorage.setItem('token', response.connexionToken);
         localStorage.setItem('expires', moment.utc().add(7, 'days').toISOString());
         Alert.open('success', t('loginSuccess'));
+
+        // Redirect to first brute if exists
+        if (response.brutes.length) {
+          navigate(`/${response.brutes[0].name}/cell`);
+        }
       }).catch(catchError(Alert)).finally(() => {
         // Remove code/state from url and set url to '/'
         url.searchParams.delete('code');
@@ -61,7 +66,7 @@ const HomeView = () => {
         setAuthing(false);
       });
     }
-  }, [Alert, authing, setAuthing, t, updateData, user]);
+  }, [Alert, authing, navigate, setAuthing, t, updateData, user]);
 
   // Randomized left redirect
   const leftRedirect = useMemo(() => Math.floor(
