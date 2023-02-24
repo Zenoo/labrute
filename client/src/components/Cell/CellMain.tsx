@@ -12,6 +12,7 @@ import catchError from '../../utils/catchError';
 import Server from '../../utils/Server';
 import BruteBodyAndStats from '../Brute/BruteBodyAndStats';
 import BruteLevelAndXP from '../Brute/BruteLevelAndXP';
+import FantasyButton from '../FantasyButton';
 import Link from '../Link';
 import StyledButton from '../StyledButton';
 import Text from '../Text';
@@ -128,23 +129,15 @@ const CellMain = ({
       )}
       {/* BRUTE SACRIFICE */}
       {owner && (
-        <StyledButton
-          image="/images/button.gif"
-          imageHover="/images/button-hover.gif"
+        <FantasyButton
+          color="error"
           onClick={confirmSacrifice}
-          shadow={false}
-          contrast={false}
-          shift="8px"
           sx={{
-            fontVariant: 'small-caps',
-            m: '0 auto',
-            mt: 2,
-            height: 56,
-            width: 246,
+            mt: 1,
           }}
         >
           {t('sacrifice')}
-        </StyledButton>
+        </FantasyButton>
       )}
     </Box>
   );

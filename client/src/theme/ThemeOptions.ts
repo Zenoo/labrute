@@ -62,10 +62,33 @@ declare module '@mui/material/styles' {
   interface TypeText {
     white: string;
   }
+
   interface Typography {
     handwritten: FontStyle
     Verdana: FontStyle
     Poplar: FontStyle
+  }
+
+  interface TypographyVariants {
+    handwritten: React.CSSProperties
+    Verdana: React.CSSProperties
+    Poplar: React.CSSProperties
+  }
+
+  // allow configuration using `createTheme`
+  interface TypographyVariantsOptions {
+    handwritten?: React.CSSProperties
+    Verdana?: React.CSSProperties
+    Poplar?: React.CSSProperties
+  }
+}
+
+// Update the Typography's variant prop options
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    handwritten: true
+    Verdana: true
+    Poplar: true
   }
 }
 

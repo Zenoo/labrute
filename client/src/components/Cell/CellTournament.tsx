@@ -7,6 +7,7 @@ import { useAlert } from '../../hooks/useAlert';
 import { useBrute } from '../../hooks/useBrute';
 import catchError from '../../utils/catchError';
 import Server from '../../utils/Server';
+import FantasyButton from '../FantasyButton';
 import Link from '../Link';
 import StyledButton from '../StyledButton';
 import Text from '../Text';
@@ -44,22 +45,12 @@ const CellTournament = ({
       {/* CURRENT TOURNAMENT */}
       {!!brute.tournaments.length && (
         <Link to={`/${brute.name}/tournament/${now.format('YYYY-MM-DD')}`}>
-          <StyledButton
-            image="/images/button.gif"
-            imageHover="/images/button-hover.gif"
-            shadow={false}
-            contrast={false}
-            shift="8px"
-            sx={{
-              fontVariant: 'small-caps',
-              m: '0 auto',
-              mt: 2,
-              height: 56,
-              width: 246,
-            }}
+          <FantasyButton
+            color="warning"
+            sx={{ my: 1 }}
           >
             {t('tournament')}
-          </StyledButton>
+          </FantasyButton>
         </Link>
       )}
       {/* NEXT TOURNAMENT */}
