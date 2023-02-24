@@ -266,6 +266,7 @@
   "callToFight": "Si tu as envie de te défouler sur quelqu'un, fait le ici ! Il y a plein d'autres Brutes dans l'arène qui ne demandent qu'à échanger quelques gnons.",
   "arena": "Arène",
   "fightsLeft": "Il te reste {{value}} combats aujourd'hui.",
+  "fightLeft": "Il te reste un combat aujourd'hui.",
   "levelUp": "Nouveau niveau!",
   "tournament": "Tournoi",
   "tournamentOf": "Tournoi du",
@@ -300,6 +301,7 @@
   "bruteIsPreparing": "{{brute}} se prépare.",
   "comeBackInAFew": "Revenez dans quelques minutes !",
   "youHaveXFightsLeft": "Il te reste {{value}} combats aujourd'hui !",
+  "youHaveOneFightLeft": "Il te reste un combat aujourd'hui !",
   "selectedOpponents": "Bienvenue dans l'arène ! J'ai sélectionné quelques adversaire à ta taille. Choisis-en un, et on commence le combat !",
   "backToCell": "Retour en cellule",
 

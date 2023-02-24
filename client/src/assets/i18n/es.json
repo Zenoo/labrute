@@ -266,6 +266,7 @@
   "callToFight": "If you want to discharge your energy on someone, do it here! There are a lot of Brutes in the Arena who can't wait to swap punches!",
   "arena": "Arena",
   "fightsLeft": "You have {{value}} fights left today.",
+  "fightLeft": "You have one fight left today.",
   "levelUp": "Level up!",
   "tournament": "Tournament",
   "tournamentOf": "Tournament of",
@@ -300,6 +301,7 @@
   "bruteIsPreparing": "{{brute}} is preparing.",
   "comeBackInAFew": "Come back in a few minutes!",
   "youHaveXFightsLeft": "You have {{value}} fights left today !",
+  "youHaveOneFightLeft": "You have one fight left today !",
   "selectedOpponents": "Welcome to the Arena! Here is a selection of opponents of your level. Choose one and let's start the fight!",
   "backToCell": "Back to the cell",
 

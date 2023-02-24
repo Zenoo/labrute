@@ -37,6 +37,8 @@ const ArenaView = () => {
   const xpNeededForNextLevel = useMemo(() => brute
     && getXPNeeded(brute.level + 1), [brute]);
 
+  const fightsLeft = useMemo(() => brute && getFightsLeft(brute), [brute]);
+
   // Fetch random opponents
   useEffect(() => {
     let isSubscribed = true;
@@ -50,7 +52,7 @@ const ArenaView = () => {
     }
 
     // Redirect to cell if brute doesn't have enough fights left
-    if (getFightsLeft(brute) <= 0) {
+    if (fightsLeft <= 0) {
       navigate(`/${brute.name}/cell`);
     }
 
@@ -61,7 +63,7 @@ const ArenaView = () => {
     }).catch(catchError(Alert));
 
     return cleanup;
-  }, [Alert, brute, navigate, xpNeededForNextLevel]);
+  }, [Alert, brute, fightsLeft, navigate, xpNeededForNextLevel]);
 
   // Go to versus page
   const goToVersus = useCallback((opponent: Brute) => () => {
@@ -104,7 +106,7 @@ const ArenaView = () => {
       }}
       >
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('arena')}</Text>
-        <Text bold color="secondary">{t('youHaveXFightsLeft', { value: getFightsLeft(brute) })}</Text>
+        <Text bold color="secondary">{fightsLeft > 1 ? t('youHaveXFightsLeft', { value: getFightsLeft(brute) }) : t('youHaveOneFightLeft')}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         <Grid container spacing={1}>

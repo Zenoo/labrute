@@ -40,6 +40,11 @@ const CellMain = ({
     [brute],
   );
 
+  const fightsLeft = useMemo(
+    () => (brute ? getFightsLeft(brute) : 0),
+    [brute],
+  );
+
   const { data: ready } = useStateAsync(false, Server.Brute.isReadyToFight, brute?.name || '');
 
   // Sacrifice brute
@@ -74,7 +79,7 @@ const CellMain = ({
         )}
       </Box>
       <BruteBodyAndStats brute={brute} sx={{ mb: 1 }} />
-      {owner && (brute.xp < xpNeededForNextLevel ? getFightsLeft(brute) > 0 ? ready ? (
+      {owner && (brute.xp < xpNeededForNextLevel ? fightsLeft > 0 ? ready ? (
         <Stack spacing={1} sx={{ alignItems: 'center', mt: 1 }}>
           <Text bold sx={{ pl: 1 }}>{t('callToFight')}</Text>
           <Link to={`/${brute.name}/arena`}>
@@ -89,7 +94,7 @@ const CellMain = ({
               contrast={false}
             />
           </Link>
-          <Text bold color="error">{t('fightsLeft', { value: getFightsLeft(brute) })}</Text>
+          <Text bold color="error">{fightsLeft > 1 ? t('fightsLeft', { value: fightsLeft }) : t('fightLeft')}</Text>
         </Stack>
       ) : (
         <Box sx={{ textAlign: 'center' }}>
