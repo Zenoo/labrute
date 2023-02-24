@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.8.0](https://github.com/Zenoo/labrute/compare/labrute-v2.7.8...labrute-v2.8.0) (2023-02-24)
+
+
+### Features
+
+* Wait for user to watch own fights before displaying the tournament results. Fixes [#66](https://github.com/Zenoo/labrute/issues/66) ([2713e7d](https://github.com/Zenoo/labrute/commit/2713e7d3562cd78cc0930e2558d54ba96bfd224e))
+
+
+### Bug Fixes
+
+* Adapt fights left counter plural. Fixes [#80](https://github.com/Zenoo/labrute/issues/80) ([6c7996b](https://github.com/Zenoo/labrute/commit/6c7996b1be9cb3e300f1e53caf32d57e067efa3c))
+* Duplicate brutes in opponents. Fixes [#81](https://github.com/Zenoo/labrute/issues/81) ([c20cc0e](https://github.com/Zenoo/labrute/commit/c20cc0eb7fea0a98b5ea16bd77fc6918396a6bff))
+* New button style. Fixes [#69](https://github.com/Zenoo/labrute/issues/69) ([a96fb50](https://github.com/Zenoo/labrute/commit/a96fb5006152d8839f2d393553b93ffb681db537))
+* Redirect to first brute after connexion. Fixes [#73](https://github.com/Zenoo/labrute/issues/73) ([716869f](https://github.com/Zenoo/labrute/commit/716869fc6ce506f7e47bddab800fc675a91b5131))
+* Reduce database size. Fix [#82](https://github.com/Zenoo/labrute/issues/82) ([e2ea6e9](https://github.com/Zenoo/labrute/commit/e2ea6e92ed15a2b8640c36b9f51fc2a7505507d2))
+
 ## [2.7.8](https://github.com/Zenoo/labrute/compare/labrute-v2.7.7...labrute-v2.7.8) (2023-02-19)
 
 
