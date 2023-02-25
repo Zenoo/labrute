@@ -16,6 +16,8 @@ const Env = {
   MAIL_SECURE: process.env.MAIL_SECURE || '',
   MAIL_USER: process.env.MAIL_USER || '',
   MAIL_PASSWORD: process.env.MAIL_PASSWORD || '',
+  DISCORD_LOGS_WEBHOOK_ID: process.env.DISCORD_LOGS_WEBHOOK_ID || '',
+  DISCORD_LOGS_WEBHOOK_TOKEN: process.env.DISCORD_LOGS_WEBHOOK_TOKEN || '',
 };
 
 export default Env;

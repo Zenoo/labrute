@@ -1,8 +1,13 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { pad } from '@labrute/core';
 import { Brute, Tournament } from '@labrute/prisma';
 import { EmbedBuilder, WebhookClient, WebhookCreateMessageOptions } from 'discord.js';
+import { Response } from 'express';
 import moment from 'moment';
 import Env from './Env.js';
+
+// const server = Env.SELF_URL; // Local debug
+const server = 'https://brute.eternaltwin.org';
 
 const send = async (props: WebhookCreateMessageOptions) => {
   try {
@@ -21,10 +26,60 @@ const send = async (props: WebhookCreateMessageOptions) => {
   }
 };
 
-const sentTournamentNotification = async (tournament: Tournament, brutes: Brute[]) => {
-  // const server = Env.SELF_URL; // Local debug
-  const server = 'https://brute.eternaltwin.org';
+const sendLog = async (res: Response, error: unknown) => {
+  try {
+    if (!Env.DISCORD_LOGS_WEBHOOK_ID) {
+      return;
+    }
 
+    const webhookClient = new WebhookClient({
+      id: Env.DISCORD_LOGS_WEBHOOK_ID,
+      token: Env.DISCORD_LOGS_WEBHOOK_TOKEN,
+    });
+
+    const embed = new EmbedBuilder()
+      .setColor(0xff0000)
+      .setTitle(res.req.url)
+      .setAuthor({
+        name: 'LaBrute',
+        iconURL: `${server}/favicon.png`,
+      })
+      .setDescription(`\`\`\`
+${error}
+\`\`\``)
+      .addFields(
+        // Request method
+        { name: 'Method', value: res.req.method, inline: true },
+        // Response status code
+        { name: 'Status code', value: res.statusCode.toString(), inline: true },
+        // Response status message
+        { name: 'Status', value: res.statusMessage, inline: true },
+      )
+      .setTimestamp();
+
+    // Request params
+    if (Object.keys(res.req.params as object).length) {
+      embed.addFields({
+        name: 'Params',
+        value: `\`\`\`${JSON.stringify(res.req.params)}\`\`\``,
+      });
+    }
+
+    // Request body
+    if (Object.keys(res.req.body as object).length) {
+      embed.addFields({
+        name: 'Body',
+        value: `\`\`\`${JSON.stringify(res.req.body)}\`\`\``,
+      });
+    }
+
+    await webhookClient.send({ embeds: [embed] });
+  } catch (err) {
+    console.error('Error trying to send a message: ', err);
+  }
+};
+
+const sentTournamentNotification = async (tournament: Tournament, brutes: Brute[]) => {
   const embed = new EmbedBuilder()
     .setColor(0xebad70)
     .setTitle('New tournament created!')
@@ -55,5 +110,6 @@ const sentTournamentNotification = async (tournament: Tournament, brutes: Brute[
 
 export default {
   send,
+  sendLog,
   sentTournamentNotification,
 };

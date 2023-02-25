@@ -3,6 +3,7 @@ import {
   PrismaClientKnownRequestError, PrismaClientUnknownRequestError, PrismaClientValidationError,
 } from '@labrute/prisma/runtime/index.js';
 import { Response } from 'express';
+import DiscordUtils from './DiscordUtils.js';
 
 const sendError = (res: Response, error: unknown) => {
   res.status(500);
@@ -30,6 +31,8 @@ const sendError = (res: Response, error: unknown) => {
   } else {
     res.send(error);
   }
+
+  DiscordUtils.sendLog(res, error).catch(console.error);
 };
 
 export default sendError;
