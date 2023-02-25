@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.8.3](https://github.com/Zenoo/labrute/compare/labrute-v2.8.2...labrute-v2.8.3) (2023-02-25)
+
+
+### Bug Fixes
+
+* Missing tournament fight watch data ([ef37619](https://github.com/Zenoo/labrute/commit/ef376196fb91df580ba941617a4e6c7ace0fd296))
+* Tournament fight watch counter reset ([7ecd40f](https://github.com/Zenoo/labrute/commit/7ecd40ffcec07e2bb1eeaad87d2da72f2d4ff3a2))
+
 ## [2.8.2](https://github.com/Zenoo/labrute/compare/labrute-v2.8.1...labrute-v2.8.2) (2023-02-25)
 
 
