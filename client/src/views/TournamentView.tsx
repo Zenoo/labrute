@@ -1,4 +1,5 @@
 import { FightWithBrutes } from '@labrute/core';
+import { Brute } from '@labrute/prisma';
 import { Close } from '@mui/icons-material';
 import { Box, Paper, Tooltip, useMediaQuery } from '@mui/material';
 import moment from 'moment';
@@ -7,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import BruteComponent from '../components/Brute/Body/BruteComponent';
 import BrutePortrait from '../components/Brute/Body/BrutePortait';
+import FantasyButton from '../components/FantasyButton';
 import Page from '../components/Page';
 import StyledButton, { StyledButtonHeight, StyledButtonWidth } from '../components/StyledButton';
 import Text from '../components/Text';
@@ -38,7 +40,7 @@ const TournamentView = () => {
   const { data: tournament } = useStateAsync(null, Server.Tournament.getDaily, tournamentProps);
 
   const bruteProps = useMemo(() => ({ name: bruteName || '' }), [bruteName]);
-  const { data: brute } = useStateAsync(null, Server.Brute.get, bruteProps);
+  const { data: brute, set: setBrute } = useStateAsync(null, Server.Brute.get, bruteProps);
 
   const stepWatched = useMemo(() => {
     if (!tournament?.date) return 0;
@@ -109,6 +111,18 @@ const TournamentView = () => {
     Server.Tournament.updateStepWatched(bruteName || '').catch(console.error);
   }, [brute, bruteName, navigate, ownsBrute]);
 
+  const setWatched = useCallback(async () => {
+    if (!brute) return;
+
+    await Server.Tournament.setDailyWatched(brute.name);
+
+    setBrute((b) => ({
+      ...b as Brute,
+      currentTournamentDate: moment.utc().startOf('day').toDate(),
+      currentTournamentStepWatched: 6,
+    }));
+  }, [brute, setBrute]);
+
   return tournament && (smallScreen
     ? (
       <TournamentMobileView
@@ -120,6 +134,7 @@ const TournamentView = () => {
         brute={brute}
         display={display}
         goToFight={goToFight}
+        setWatched={setWatched}
       />
     ) : (
       <Page title={`${t('tournament')} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/cell`}>
@@ -131,6 +146,11 @@ const TournamentView = () => {
           <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('tournamentOf')} {moment.utc(tournament.date).format('DD MMMM YYYY')}</Text>
         </Paper>
         <Paper sx={{ position: 'relative', bgcolor: 'background.paperLight', mt: -2 }}>
+          {ownsBrute && stepWatched < 6 && (
+            <FantasyButton onClick={setWatched} color="success">
+              {t('setAsWatched')}
+            </FantasyButton>
+          )}
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
             {display && (!authing && brute) && rounds.map((round, index) => {
               const roundNumber = index < 6 ? index : 10 - index;

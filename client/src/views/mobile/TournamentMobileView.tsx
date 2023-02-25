@@ -7,6 +7,7 @@ import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 import BruteComponent from '../../components/Brute/Body/BruteComponent';
 import BrutePortrait from '../../components/Brute/Body/BrutePortait';
+import FantasyButton from '../../components/FantasyButton';
 import Page from '../../components/Page';
 import StyledButton, { StyledButtonHeight, StyledButtonWidth } from '../../components/StyledButton';
 import Text from '../../components/Text';
@@ -31,6 +32,7 @@ interface Props {
   brute: Brute | null,
   display: boolean,
   goToFight: (fight: FightWithBrutes, newStep: number) => () => void,
+  setWatched: () => void,
 }
 
 const TournamentMobileView = ({
@@ -42,6 +44,7 @@ const TournamentMobileView = ({
   brute,
   display,
   goToFight,
+  setWatched,
 }: Props) => {
   const { t } = useTranslation();
   const { authing } = useAuth();
@@ -56,6 +59,11 @@ const TournamentMobileView = ({
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('tournamentOf')} {moment.utc(tournament.date).format('DD MMMM YYYY')}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2, }}>
+        {ownsBrute && stepWatched < 6 && (
+          <FantasyButton onClick={setWatched} color="success">
+            {t('setAsWatched')}
+          </FantasyButton>
+        )}
         {display && (!authing && brute) && rounds.map(([start, end], index) => {
           const shouldDisplay = ownsBrute
             ? stepWatched >= index

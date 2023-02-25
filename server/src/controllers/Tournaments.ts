@@ -184,6 +184,45 @@ const Tournaments = {
       sendError(res, error);
     }
   },
+  setDailyWatched: (prisma: PrismaClient) => async (req: Request, res: Response) => {
+    try {
+      const user = await auth(prisma, req);
+
+      if (!req.params.name) {
+        throw new Error('Invalid parameters');
+      }
+
+      // Get brute
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name: req.params.name,
+          deletedAt: null,
+          user: {
+            id: user.id,
+          },
+        },
+      });
+
+      if (!brute) {
+        throw new Error('Brute not found');
+      }
+
+      // Update brute tournament date
+      await prisma.brute.update({
+        where: {
+          id: brute.id,
+        },
+        data: {
+          currentTournamentDate: moment.utc().toDate(),
+          currentTournamentStepWatched: 6,
+        },
+      });
+
+      res.send({ success: true });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
 };
 
 export default Tournaments;
