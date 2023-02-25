@@ -61,7 +61,9 @@ ${error}
     if (Object.keys(res.req.params as object).length) {
       embed.addFields({
         name: 'Params',
-        value: `\`\`\`${JSON.stringify(res.req.params)}\`\`\``,
+        value: `\`\`\`json
+${JSON.stringify(res.req.params)}
+\`\`\``,
       });
     }
 
@@ -69,7 +71,9 @@ ${error}
     if (Object.keys(res.req.body as object).length) {
       embed.addFields({
         name: 'Body',
-        value: `\`\`\`${JSON.stringify(res.req.body)}\`\`\``,
+        value: `\`\`\`json
+${JSON.stringify(res.req.body)}
+\`\`\``,
       });
     }
 
