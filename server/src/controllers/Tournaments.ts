@@ -151,6 +151,17 @@ const Tournaments = {
             currentTournamentStepWatched: 6,
           },
         });
+        // First watch of the day
+      } else if (!brute.currentTournamentDate || moment.utc(brute.currentTournamentDate).isBefore(moment.utc().startOf('day'))) {
+        await prisma.brute.update({
+          where: {
+            id: brute.id,
+          },
+          data: {
+            currentTournamentDate: moment.utc().toDate(),
+            currentTournamentStepWatched: 1,
+          },
+        });
       } else {
         // Update brute watched tournament step
         await prisma.brute.update({

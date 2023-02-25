@@ -40,9 +40,14 @@ const TournamentView = () => {
   const bruteProps = useMemo(() => ({ name: bruteName || '' }), [bruteName]);
   const { data: brute } = useStateAsync(null, Server.Brute.get, bruteProps);
 
-  const stepWatched = useMemo(() => (moment.utc(tournament?.date).isSame(moment.utc(), 'day')
-    ? brute?.currentTournamentStepWatched || 0
-    : 6), [brute?.currentTournamentStepWatched, tournament?.date]);
+  const stepWatched = useMemo(() => {
+    if (!tournament?.date) return 0;
+    if (!brute?.currentTournamentDate) return 0;
+    if (!moment.utc(tournament.date).isSame(moment.utc(), 'day')) return 6;
+
+    return brute?.currentTournamentStepWatched || 0;
+  }, [brute, tournament]);
+
   const ownsBrute = useMemo(() => (authing
     || !!(brute && user && brute.userId === user.id)), [authing, brute, user]);
 
