@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.9.2](https://github.com/Zenoo/labrute/compare/labrute-v2.9.1...labrute-v2.9.2) (2023-02-25)
+
+
+### Bug Fixes
+
+* Skip button for tournaments. Fixes [#87](https://github.com/Zenoo/labrute/issues/87) ([4f02e02](https://github.com/Zenoo/labrute/commit/4f02e0275d26b7ef13ea5a318d9e67565707e941))
+* Tournament watched marker logic ([5289108](https://github.com/Zenoo/labrute/commit/5289108073a9c7d4c29931ee2d353c206e7b6943))
+
 ## [2.9.1](https://github.com/Zenoo/labrute/compare/labrute-v2.9.0...labrute-v2.9.1) (2023-02-25)
 
 
