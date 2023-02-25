@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.8.2](https://github.com/Zenoo/labrute/compare/labrute-v2.8.1...labrute-v2.8.2) (2023-02-25)
+
+
+### Bug Fixes
+
+* Generate missing data daily. ([d30b1a9](https://github.com/Zenoo/labrute/commit/d30b1a924a1acc96685192d4078532d911c68370))
+* Rerun daily tournaments ([bffc156](https://github.com/Zenoo/labrute/commit/bffc156485e47c2467ea1f2eb1665ccb1784e0ad))
+
 ## [2.8.1](https://github.com/Zenoo/labrute/compare/labrute-v2.8.0...labrute-v2.8.1) (2023-02-24)
 
 
