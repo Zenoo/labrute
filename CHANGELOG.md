@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.9.0](https://github.com/Zenoo/labrute/compare/labrute-v2.8.3...labrute-v2.9.0) (2023-02-25)
+
+
+### Features
+
+* Send error logs to Discord. ([a6f13f6](https://github.com/Zenoo/labrute/commit/a6f13f625e7835cc5500693bdee2f88a008c6893))
+
+
+### Bug Fixes
+
+* Cell tablet view ([418eae6](https://github.com/Zenoo/labrute/commit/418eae611265442bbf6deaaae9c93ed4f3c652a0))
+* Format error as json ([a65c3b1](https://github.com/Zenoo/labrute/commit/a65c3b1b0c365952b13b28df6f80d30708b41295))
+* Next day fights amount for brutes with `regeneration` ([4081c12](https://github.com/Zenoo/labrute/commit/4081c127657dcd50940d0647d9bec102160c9b0b))
+
 ## [2.8.3](https://github.com/Zenoo/labrute/compare/labrute-v2.8.2...labrute-v2.8.3) (2023-02-25)
 
 
