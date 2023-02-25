@@ -99,11 +99,14 @@ const TournamentView = () => {
 
     navigate(`/${fight.brute1.name}/fight/${fight.id}`);
 
-    // Update watched step if own brute
-    if (ownsBrute && (fight.brute1Id === brute.id || fight.brute2Id === brute.id)
-      && newStep > (brute.currentTournamentStepWatched || 0)) {
-      Server.Tournament.updateStepWatched(bruteName || '').catch(console.error);
+    if (!ownsBrute) return;
+    if (fight.brute1Id !== brute.id && fight.brute2Id !== brute.id) return;
+    if (brute.currentTournamentDate && moment.utc(brute.currentTournamentDate).isSame(moment.utc(), 'day')) {
+      if (newStep <= (brute.currentTournamentStepWatched || 0)) return;
     }
+
+    // Update watched step
+    Server.Tournament.updateStepWatched(bruteName || '').catch(console.error);
   }, [brute, bruteName, navigate, ownsBrute]);
 
   return tournament && (smallScreen
@@ -273,7 +276,7 @@ const TournamentView = () => {
             })}
           </Box>
           {display && winnerStep && (!authing && brute)
-            && (!ownsBrute || (ownsBrute && stepWatched >= 5)) && (
+            && (!ownsBrute || (ownsBrute && stepWatched > 5)) && (
               <Tooltip title={winnerStep.fight.winner}>
                 <BruteComponent
                   brute={winnerStep.fight.winner === winnerStep.fight.brute1.name

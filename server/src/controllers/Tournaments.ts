@@ -137,11 +137,15 @@ const Tournaments = {
         throw new Error('Tournament not found');
       }
 
-      const steps = [0, 32, 48, 56, 60, 62, 63, 64];
+      const steps = [0, 32, 48, 56, 60, 63];
+
+      const stepWatched = !brute.currentTournamentDate || moment.utc(brute.currentTournamentDate).isBefore(moment.utc().startOf('day'))
+        ? 0
+        : brute.currentTournamentStepWatched || 0;
 
       // If brute was eliminated, set tournament as fully watched
       if (!tournament.steps
-        .find((step) => step.step >= steps[(brute.currentTournamentStepWatched || 0) + 1]
+        .find((step) => step.step >= steps[stepWatched + 1]
           && (step.fight.brute1Id === brute.id || step.fight.brute2Id === brute.id))) {
         await prisma.brute.update({
           where: {
