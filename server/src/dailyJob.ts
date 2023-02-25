@@ -240,6 +240,8 @@ const dailyJob = (prisma: PrismaClient) => async () => {
 
     console.log('-     Tournaments handled     -');
     console.log('-------------------------------');
+
+    // TODO: Handle big tourney
   } catch (error) {
     // Delete misformatted tournaments
     await deleteMisformattedTournaments(prisma);
