@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.9.1](https://github.com/Zenoo/labrute/compare/labrute-v2.9.0...labrute-v2.9.1) (2023-02-25)
+
+
+### Bug Fixes
+
+* Error when deleting a brute without a spritesheet ([ec322ce](https://github.com/Zenoo/labrute/commit/ec322ce80da943c6926a9a5599936360e25140a0))
+* Send daily tournament logs to Discord too ([b4b7a69](https://github.com/Zenoo/labrute/commit/b4b7a69837adc1c1e7949e8fcc7e973be5b5a4d1))
+
 ## [2.9.0](https://github.com/Zenoo/labrute/compare/labrute-v2.8.3...labrute-v2.9.0) (2023-02-25)
 
 
