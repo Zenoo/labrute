@@ -1,4 +1,4 @@
-import { BruteRanking, FIGHTS_PER_DAY, getFightsLeft, getSacriPoints, getXPNeeded, Language, UserWithBrutesBodyColor } from '@labrute/core';
+import { BruteRanking, getFightsLeft, getMaxFightsPerDay, getSacriPoints, getXPNeeded, Language, UserWithBrutesBodyColor } from '@labrute/core';
 import { Box, BoxProps, Stack } from '@mui/material';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -104,7 +104,7 @@ const CellMain = ({
       ) : (
         <Box sx={{ textAlign: 'center' }}>
           <Text bold color="error">{t('bruteIsResting', { brute: brute.name })}</Text>
-          <Text color="error">{t('newFightsTomorrow', { amount: FIGHTS_PER_DAY })}</Text>
+          <Text color="error">{t('newFightsTomorrow', { amount: getMaxFightsPerDay(brute) })}</Text>
         </Box>
       ) : (
         <Link to={`/${brute.name}/level-up`}>

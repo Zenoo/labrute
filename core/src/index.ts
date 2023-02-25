@@ -6,6 +6,7 @@ import createRandomBruteStats from './brute/createRandomBruteStats';
 import getFightsLeft from './brute/getFightsLeft';
 import getHP from './brute/getHP';
 import getLevelUpChoices from './brute/getLevelUpChoices';
+import getMaxFightsPerDay from './brute/getMaxFightsPerDay';
 import getRandomBody from './brute/getRandomBody';
 import getRandomColors from './brute/getRandomColors';
 import getSacriPoints from './brute/getSacriPoints';
@@ -28,6 +29,7 @@ export {
   getFightsLeft,
   getHP,
   getLevelUpChoices,
+  getMaxFightsPerDay,
   getRandomBody,
   getRandomColors,
   getSacriPoints,
