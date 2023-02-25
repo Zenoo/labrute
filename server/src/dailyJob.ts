@@ -1,7 +1,10 @@
 /* eslint-disable no-console */
-import { BruteWithBodyColors, pad } from '@labrute/core';
+import {
+  BruteWithBodyColors, getRandomBody, getRandomColors, pad,
+} from '@labrute/core';
 import { PrismaClient, TournamentType } from '@labrute/prisma';
 import moment from 'moment';
+import { Worker } from 'worker_threads';
 import DiscordUtils from './utils/DiscordUtils.js';
 import generateFight from './utils/fight/generateFight.js';
 import shuffle from './utils/shuffle.js';
@@ -46,8 +49,66 @@ const deleteMisformattedTournaments = async (prisma: PrismaClient) => {
   }
 };
 
+const generateMissingBodyColors = async (prisma: PrismaClient) => {
+  const brutesWithoutBodyColors = await prisma.brute.findMany({
+    where: {
+      deletedAt: null,
+      OR: [
+        { body: null },
+        { colors: null },
+      ],
+    },
+  });
+
+  for (const brute of brutesWithoutBodyColors) {
+    // eslint-disable-next-line no-await-in-loop
+    await prisma.brute.update({
+      where: {
+        id: brute.id,
+      },
+      data: {
+        body: { create: getRandomBody(brute.gender) },
+        colors: { create: getRandomColors(brute.gender) },
+      },
+    });
+  }
+};
+
+const generateMissingSpritesheets = async (prisma: PrismaClient) => {
+  const brutesWithoutSpritesheet = await prisma.brute.findMany({
+    where: {
+      deletedAt: null,
+      spritesheet: null,
+      body: {
+        isNot: null,
+      },
+      colors: {
+        isNot: null,
+      },
+    },
+    include: {
+      body: true,
+      colors: true,
+    },
+  });
+
+  for (const brute of brutesWithoutSpritesheet) {
+    // Generate spritesheet
+    // eslint-disable-next-line no-new
+    new Worker('./lib/workers/generateSpritesheet.js', {
+      workerData: brute,
+    });
+  }
+};
+
 const dailyJob = (prisma: PrismaClient) => async () => {
   try {
+    // Generate missing body and colors
+    await generateMissingBodyColors(prisma);
+
+    // Generate missing spritesheets
+    await generateMissingSpritesheets(prisma);
+
     const today = moment.utc().startOf('day');
     const tomorrow = moment.utc(today).add(1, 'day');
 
@@ -175,10 +236,6 @@ const dailyJob = (prisma: PrismaClient) => async () => {
         },
       });
 
-      // Send Discord notification
-      // eslint-disable-next-line no-await-in-loop
-      await DiscordUtils.sentTournamentNotification(tournament, brutes);
-
       // Create tournament steps (1 to 32 for first round, 33 to 48 for 2nd, etc etc)
       let step = 1;
       let roundBrutes = [...brutes];
@@ -219,6 +276,10 @@ const dailyJob = (prisma: PrismaClient) => async () => {
         winners = [];
       }
 
+      // Send Discord notification
+      // eslint-disable-next-line no-await-in-loop
+      await DiscordUtils.sentTournamentNotification(tournament, brutes);
+
       console.log('-              OK             -');
     }
 
@@ -243,6 +304,7 @@ const dailyJob = (prisma: PrismaClient) => async () => {
 
     // TODO: Handle big tourney
   } catch (error) {
+    console.error(error);
     // Delete misformatted tournaments
     await deleteMisformattedTournaments(prisma);
   }
