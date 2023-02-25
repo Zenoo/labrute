@@ -470,21 +470,36 @@ const Brutes = {
         },
       });
       if (fightsFought === 0) {
-        await prisma.bruteBody.delete({
-          where: { bruteId: brute.id },
-        });
-        await prisma.bruteColors.delete({
-          where: { bruteId: brute.id },
-        });
-        await prisma.bruteSpritesheet.delete({
-          where: { bruteId: brute.id },
-        });
-        await prisma.log.deleteMany({
-          where: { currentBruteId: brute.id },
-        });
-        await prisma.destinyChoice.deleteMany({
-          where: { bruteId: brute.id },
-        });
+        // Delete body
+        if (await prisma.bruteBody.count({ where: { bruteId: brute.id } })) {
+          await prisma.bruteBody.delete({
+            where: { bruteId: brute.id },
+          });
+        }
+        // Delete colors
+        if (await prisma.bruteColors.count({ where: { bruteId: brute.id } })) {
+          await prisma.bruteColors.delete({
+            where: { bruteId: brute.id },
+          });
+        }
+        // Delete spritesheet
+        if (await prisma.bruteSpritesheet.count({ where: { bruteId: brute.id } })) {
+          await prisma.bruteSpritesheet.delete({
+            where: { bruteId: brute.id },
+          });
+        }
+        // Delete logs
+        if (await prisma.log.count({ where: { currentBruteId: brute.id } })) {
+          await prisma.log.deleteMany({
+            where: { currentBruteId: brute.id },
+          });
+        }
+        // Delete destiny choices
+        if (await prisma.destinyChoice.count({ where: { bruteId: brute.id } })) {
+          await prisma.destinyChoice.deleteMany({
+            where: { bruteId: brute.id },
+          });
+        }
         await prisma.brute.delete({
           where: { id: brute.id },
         });
