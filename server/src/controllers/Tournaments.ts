@@ -148,6 +148,7 @@ const Tournaments = {
             id: brute.id,
           },
           data: {
+            currentTournamentDate: moment.utc().toDate(),
             currentTournamentStepWatched: 6,
           },
         });
