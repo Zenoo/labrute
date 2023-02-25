@@ -304,7 +304,7 @@ const dailyJob = (prisma: PrismaClient) => async () => {
 
     // TODO: Handle big tourney
   } catch (error) {
-    console.error(error);
+    DiscordUtils.sendLog(error).catch(console.error);
     // Delete misformatted tournaments
     await deleteMisformattedTournaments(prisma);
   }

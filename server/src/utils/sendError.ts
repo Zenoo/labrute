@@ -32,7 +32,7 @@ const sendError = (res: Response, error: unknown) => {
     res.send(error);
   }
 
-  DiscordUtils.sendLog(res, error).catch(console.error);
+  DiscordUtils.sendLog(error, res).catch(console.error);
 };
 
 export default sendError;

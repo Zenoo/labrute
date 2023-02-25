@@ -26,7 +26,7 @@ const send = async (props: WebhookCreateMessageOptions) => {
   }
 };
 
-const sendLog = async (res: Response, error: unknown) => {
+const sendLog = async (error: unknown, res?: Response) => {
   try {
     if (!Env.DISCORD_LOGS_WEBHOOK_ID) {
       return;
@@ -39,7 +39,7 @@ const sendLog = async (res: Response, error: unknown) => {
 
     const embed = new EmbedBuilder()
       .setColor(0xff0000)
-      .setTitle(res.req.url)
+      .setTitle(res ? res.req.url : '')
       .setAuthor({
         name: 'LaBrute',
         iconURL: `${server}/favicon.png`,
@@ -47,34 +47,37 @@ const sendLog = async (res: Response, error: unknown) => {
       .setDescription(`\`\`\`
 ${error}
 \`\`\``)
-      .addFields(
+      .setTimestamp();
+
+    if (res) {
+      embed.addFields(
         // Request method
         { name: 'Method', value: res.req.method, inline: true },
         // Response status code
         { name: 'Status code', value: res.statusCode.toString(), inline: true },
         // Response status message
         { name: 'Status', value: res.statusMessage, inline: true },
-      )
-      .setTimestamp();
+      );
 
-    // Request params
-    if (Object.keys(res.req.params as object).length) {
-      embed.addFields({
-        name: 'Params',
-        value: `\`\`\`json
-${JSON.stringify(res.req.params)}
-\`\`\``,
-      });
-    }
+      // Request params
+      if (Object.keys(res.req.params as object).length) {
+        embed.addFields({
+          name: 'Params',
+          value: `\`\`\`json
+  ${JSON.stringify(res.req.params)}
+  \`\`\``,
+        });
+      }
 
-    // Request body
-    if (Object.keys(res.req.body as object).length) {
-      embed.addFields({
-        name: 'Body',
-        value: `\`\`\`json
-${JSON.stringify(res.req.body)}
-\`\`\``,
-      });
+      // Request body
+      if (Object.keys(res.req.body as object).length) {
+        embed.addFields({
+          name: 'Body',
+          value: `\`\`\`json
+  ${JSON.stringify(res.req.body)}
+  \`\`\``,
+        });
+      }
     }
 
     await webhookClient.send({ embeds: [embed] });
