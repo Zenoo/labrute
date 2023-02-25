@@ -27,7 +27,7 @@ const BruteBodyAndStats = ({
         inverted
         sx={{ height: 160 }}
       />
-      <Stack spacing={1} flexGrow={isMd ? undefined : 1}>
+      <Stack spacing={1} flexGrow={isMd ? undefined : 1} sx={{ minWidth: 153 }}>
         {/* HP */}
         <Box>
           <BruteHP hp={brute.hp} />
