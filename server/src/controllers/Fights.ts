@@ -76,6 +76,15 @@ const Fights = {
         throw new Error('No fights left');
       }
 
+      // Update brute last fight and fights left
+      await prisma.brute.update({
+        where: { id: brute1.id },
+        data: {
+          lastFight: new Date(),
+          fightsLeft: getFightsLeft(brute1) - 1,
+        },
+      });
+
       const generatedFight = await generateFight(prisma, brute1, brute2);
 
       // Save important fight data
@@ -93,13 +102,11 @@ const Fights = {
         ? levelDifference > 10 ? 0 : levelDifference > 2 ? 1 : 2
         : levelDifference > 10 ? 0 : 1;
 
-      // Update brute XP, last fight, fights left and victories
+      // Update brute XP and victories
       await prisma.brute.update({
         where: { id: brute1.id },
         data: {
           xp: { increment: xpGained },
-          lastFight: new Date(),
-          fightsLeft: getFightsLeft(brute1) - 1,
           victories: { increment: generatedFight.winner === brute1.name ? 1 : 0 },
         },
       });

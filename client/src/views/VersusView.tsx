@@ -23,6 +23,9 @@ const VersusView = () => {
   const { user } = useAuth();
   const smallScreen = useMediaQuery('(max-width: 935px)');
 
+  // Prevent multi click
+  const [fighting, setFighting] = React.useState(false);
+
   const bruteProps = useMemo(() => ({ name: bruteName || '', include: { body: true, colors: true } }), [bruteName]);
   const { data: _brute } = useStateAsync(null, Server.Brute.get, bruteProps);
   const opponentProps = useMemo(() => ({ name: opponentName || '', include: { body: true, colors: true } }), [opponentName]);
@@ -54,9 +57,11 @@ const VersusView = () => {
 
   // Start fight
   const startFight = useCallback(async () => {
-    if (!brute || !opponent) {
+    if (!brute || !opponent || fighting) {
       return;
     }
+
+    setFighting(true);
 
     // Create the fight
     const fight = await Server.Fight.create(brute.name, opponent.name)
@@ -65,7 +70,9 @@ const VersusView = () => {
     if (fight) {
       navigate(`/${brute.name}/fight/${fight.id}`);
     }
-  }, [Alert, brute, navigate, opponent]);
+
+    setFighting(false);
+  }, [Alert, brute, fighting, navigate, opponent]);
 
   if (brute && opponent && smallScreen) {
     return <VersusMobileView brute={brute} opponent={opponent} startFight={startFight} />;
