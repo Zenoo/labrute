@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.9.3](https://github.com/Zenoo/labrute/compare/labrute-v2.9.2...labrute-v2.9.3) (2023-02-26)
+
+
+### Bug Fixes
+
+* Disable fight spam ([61066b2](https://github.com/Zenoo/labrute/commit/61066b2e537424da861dec285e15a715dfdee268))
+
 ## [2.9.2](https://github.com/Zenoo/labrute/compare/labrute-v2.9.1...labrute-v2.9.2) (2023-02-25)
 
 
