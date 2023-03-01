@@ -11,6 +11,7 @@ import {
 import moment from 'moment';
 import formatSpritesheet from './utils/formatSpritesheet.js';
 import createSpritesheet from './utils/createSpritesheet.js';
+import DiscordUtils from './utils/DiscordUtils.js';
 
 const prisma = new PrismaClient();
 
@@ -67,18 +68,25 @@ const generateBrute = (
 
 async function main() {
   // Check if DB is already seeded
-  const count = await prisma.brute.count();
+  const count = await prisma.brute.count({
+    where: { userId: null },
+  });
 
-  if (count > 0) {
-    console.warn('DB is not empty, skipping seeding');
+  if (count >= ARENA_OPPONENTS_COUNT * 100) {
     return;
   }
 
+  // Setting old generated brutes as deleted
+  await prisma.brute.updateMany({
+    where: { userId: null },
+    data: { deletedAt: moment.utc().toDate() },
+  });
+
   // Generate random names
-  console.log('Generating random brutes...');
+  await DiscordUtils.sendSimpleMessage(`DB only contains ${count} generated brutes, regenerating ${ARENA_OPPONENTS_COUNT * 100}...`);
   const nicks: string[] = [];
   for (let i = 0; i < ARENA_OPPONENTS_COUNT * 100; i++) {
-    console.time(`Brute ${i + 1}/${ARENA_OPPONENTS_COUNT * 100}`);
+    const start = Date.now();
     let generatedName;
 
     // Reroll if name already exists
@@ -110,7 +118,8 @@ async function main() {
       },
     });
 
-    console.timeEnd(`Brute ${i + 1}/${ARENA_OPPONENTS_COUNT * 100}`);
+    const end = Date.now();
+    await DiscordUtils.sendSimpleMessage(`Generated brute ${i + 1}/${ARENA_OPPONENTS_COUNT * 100} in ${((end - start) / 1000).toFixed(2)}s`);
   }
 }
 main()

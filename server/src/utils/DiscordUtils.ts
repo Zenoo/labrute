@@ -86,6 +86,23 @@ ${error}
   }
 };
 
+const sendSimpleMessage = async (message: string) => {
+  try {
+    if (!Env.DISCORD_LOGS_WEBHOOK_ID) {
+      return;
+    }
+
+    const webhookClient = new WebhookClient({
+      id: Env.DISCORD_LOGS_WEBHOOK_ID,
+      token: Env.DISCORD_LOGS_WEBHOOK_TOKEN,
+    });
+
+    await webhookClient.send(message);
+  } catch (error) {
+    console.error('Error trying to send a message: ', error);
+  }
+};
+
 const sentTournamentNotification = async (tournament: Tournament, brutes: Brute[]) => {
   const embed = new EmbedBuilder()
     .setColor(0xebad70)
@@ -118,5 +135,6 @@ const sentTournamentNotification = async (tournament: Tournament, brutes: Brute[
 export default {
   send,
   sendLog,
+  sendSimpleMessage,
   sentTournamentNotification,
 };
