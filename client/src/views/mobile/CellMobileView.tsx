@@ -15,15 +15,16 @@ import Link from '../../components/Link';
 import Page from '../../components/Page';
 import Text from '../../components/Text';
 import { useBrute } from '../../hooks/useBrute';
+import { AdResult } from '../../utils/ads';
 
 export interface CellMobileViewProps {
-  advertising: string;
+  ad: AdResult;
   logs: (Log & { currentBrute: { name: string } })[];
   language: Language;
 }
 
 const CellMobileView = ({
-  advertising,
+  ad,
   logs,
   language,
 }: CellMobileViewProps) => {
@@ -82,11 +83,11 @@ const CellMobileView = ({
           {brute.pets.length > 0 ? (
             <CellPets />
           ) : (
-            <Tooltip title="TODO">
+            <Tooltip title={t(`${ad.name}.desc`)}>
               <Link to="" sx={{ width: 200, mx: 'auto' }}>
                 <Box
                   component="img"
-                  src={`/images/redirects/${advertising}`}
+                  src={`/images/redirects/${ad.illustration}`}
                   sx={{ border: 2 }}
                 />
               </Link>

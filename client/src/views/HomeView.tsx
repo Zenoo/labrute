@@ -14,7 +14,8 @@ import StyledInput from '../components/StyledInput';
 import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
-import advertisings from '../utils/advertisings';
+import { useLanguage } from '../hooks/useLanguage';
+import { getRandomAd } from '../utils/ads';
 import catchError from '../utils/catchError';
 import Fetch from '../utils/Fetch';
 import Server from '../utils/Server';
@@ -29,6 +30,7 @@ const HomeView = () => {
   const Alert = useAlert();
   const { authing, setAuthing, updateData, user } = useAuth();
   const navigate = useNavigate();
+  const { language } = useLanguage();
 
   // On login error
   useEffect(() => {
@@ -68,18 +70,10 @@ const HomeView = () => {
     }
   }, [Alert, authing, navigate, setAuthing, t, updateData, user]);
 
-  // Randomized left redirect
-  const leftRedirect = useMemo(() => Math.floor(
-    Math.random() * (advertisings.length - 1) + 1
-  ), []);
-  // Randomized right redirect (must be different from left redirect)
-  const rightRedirect = useMemo(() => {
-    let redirect = Math.floor(Math.random() * (advertisings.length - 1) + 1);
-    while (redirect === leftRedirect) {
-      redirect = Math.floor(Math.random() * (advertisings.length - 1) + 1);
-    }
-    return redirect;
-  }, [leftRedirect]);
+  // Randomized left ad
+  const leftAd = useMemo(() => getRandomAd(language), [language]);
+  // Randomized right ad (must be different from left ad)
+  const rightAd = useMemo(() => getRandomAd(language, leftAd.name), [language, leftAd.name]);
 
   const [name, setName] = useState('');
 
@@ -196,8 +190,8 @@ const HomeView = () => {
         bodyColors={bodyColors}
         changeAppearance={changeAppearance}
         changeColors={changeColors}
-        leftRedirect={leftRedirect}
-        rightRedirect={rightRedirect}
+        leftAd={leftAd}
+        rightAd={rightAd}
         createBrute={createBrute}
       />
     )
@@ -300,12 +294,12 @@ const HomeView = () => {
             </Box>
             {/* OTHER GAMES */}
             <Box sx={{ mt: 1, ml: 2 }}>
-              {[leftRedirect, rightRedirect].map((redirect) => (
-                <Tooltip title="TODO" key={redirect}>
-                  <Link href="" sx={{ width: 200, mx: 4, display: 'inline-block' }}>
+              {[leftAd, rightAd].map((ad) => (
+                <Tooltip title={t(`${ad.name}.desc`)} key={ad.name}>
+                  <Link href={ad.url} target="_blank" sx={{ width: 200, mx: 4, display: 'inline-block' }}>
                     <Box
                       component="img"
-                      src={`/images/redirects/${advertisings[redirect]}`}
+                      src={`/images/redirects/${ad.illustration}`}
                       sx={{ width: 1, border: 2 }}
                     />
                   </Link>

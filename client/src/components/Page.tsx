@@ -1,13 +1,14 @@
 import { Language, LANGUAGES } from '@labrute/core';
 import { AccountCircle, Add, Login, Logout } from '@mui/icons-material';
 import { Box, BoxProps, CircularProgress, Link, SpeedDial, SpeedDialAction, Tooltip } from '@mui/material';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import { useLanguage } from '../hooks/useLanguage';
+import ads, { AdName } from '../utils/ads';
 import catchError from '../utils/catchError';
 import Fetch from '../utils/Fetch';
 import Version from '../utils/Version';
@@ -156,17 +157,14 @@ const Page = ({
       <Box sx={{ textAlign: 'center', mt: 2 }}>
         <Text color="secondary" sx={{ fontWeight: 'bold' }}>
           {t('moreGames')} :{' '}
-          <Link href="">Arkadeo</Link>{' '}
-          <Link href="">DinoRPG</Link>{' '}
-          <Link href="">Alphabounce</Link>{' '}
-          <Link href="">Hordes</Link>{' '}
-          <Link href="">KadoKado</Link>{' '}
-          <Link href="">Kingdom</Link>{' '}
-          <Link href="">Fever!</Link>{' '}
-          <Link href="">Naturalchimie</Link>{' '}
-          <Link href="">Snake</Link>{' '}
-          <Link href="">Mush</Link>{' '}
-          <Link href="">Teacher Story</Link>{' '}
+          {Object.entries(ads).map(([name, ad]) => (
+            <Fragment key={name}>
+              <Tooltip title={t(`${name as AdName}.desc`)}>
+                <Link href={ad.url} target="_blank">{t(name as AdName)}</Link>
+              </Tooltip>
+              {' '}
+            </Fragment>
+          ))}
         </Text>
         <Text color="secondary" sx={{ fontWeight: 'bold' }}>
           &copy; 2008{' '}

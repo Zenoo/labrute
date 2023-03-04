@@ -9,7 +9,7 @@ import Page from '../../components/Page';
 import StyledButton from '../../components/StyledButton';
 import StyledInput from '../../components/StyledInput';
 import Text from '../../components/Text';
-import advertisings from '../../utils/advertisings';
+import { AdResult } from '../../utils/ads';
 
 export interface HomeMobileViewProps {
   changeName: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -20,8 +20,8 @@ export interface HomeMobileViewProps {
   bodyColors: Prisma.BruteColorsCreateWithoutBruteInput;
   changeAppearance: () => void;
   changeColors: () => void;
-  leftRedirect: number;
-  rightRedirect: number;
+  leftAd: AdResult;
+  rightAd: AdResult;
   createBrute: () => void;
 }
 
@@ -34,8 +34,8 @@ const HomeMobileView = ({
   bodyColors,
   changeAppearance,
   changeColors,
-  leftRedirect,
-  rightRedirect,
+  leftAd,
+  rightAd,
   createBrute
 }: HomeMobileViewProps) => {
   const { t } = useTranslation();
@@ -49,13 +49,13 @@ const HomeMobileView = ({
       <Text bold color="text.primary">{t('otherGames')}</Text>
       {/* OTHER GAMES */}
       <Grid container spacing={1}>
-        {[leftRedirect, isSx ? rightRedirect : null].map((redirect) => redirect && (
-          <Grid item xs={12} key={redirect} sx={{ textAlign: 'center', mt: 1 }}>
-            <Tooltip title="TODO">
-              <Link href="" sx={{ width: 200, display: 'inline-block' }}>
+        {[leftAd, isSx ? rightAd : null].map((ad) => ad && (
+          <Grid item xs={12} key={ad.name} sx={{ textAlign: 'center', mt: 1 }}>
+            <Tooltip title={t(`${ad.name}.desc`)}>
+              <Link href={ad.url} target="_blank" sx={{ width: 200, display: 'inline-block' }}>
                 <Box
                   component="img"
-                  src={`/images/redirects/${advertisings[redirect]}`}
+                  src={`/images/redirects/${ad.illustration}`}
                   sx={{ width: 1, border: 2 }}
                 />
               </Link>

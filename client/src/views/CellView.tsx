@@ -19,7 +19,7 @@ import Text from '../components/Text';
 import { useBrute } from '../hooks/useBrute';
 import { useLanguage } from '../hooks/useLanguage';
 import useStateAsync from '../hooks/useStateAsync';
-import advertisings from '../utils/advertisings';
+import { getRandomAd } from '../utils/ads';
 import Server from '../utils/Server';
 import CellMobileView from './mobile/CellMobileView';
 
@@ -66,14 +66,12 @@ const CellView = () => {
   }, [bruteName, navigate, updateBrute]);
 
   // Randomized advertising
-  const advertising = useMemo(() => advertisings[Math.floor(
-    Math.random() * (advertisings.length - 1) + 1
-  )], []);
+  const ad = useMemo(() => getRandomAd(language), [language]);
 
   return brute && (smallScreen
     ? (
       <CellMobileView
-        advertising={advertising}
+        ad={ad}
         logs={logs}
         language={language}
       />
@@ -172,11 +170,11 @@ const CellView = () => {
                   ml: 0.5,
                 }}
               >
-                <Tooltip title="TODO">
+                <Tooltip title={t(`${ad.name}.desc`)}>
                   <Link to="" sx={{ width: 200, mx: 4, display: 'inline-block' }}>
                     <Box
                       component="img"
-                      src={`/images/redirects/${advertising}`}
+                      src={`/images/redirects/${ad.illustration}`}
                       sx={{ ml: 1, mt: 3.5 }}
                     />
                   </Link>

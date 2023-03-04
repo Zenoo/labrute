@@ -1,4 +1,3 @@
-import { randomBetween } from '@labrute/core';
 import { Fight } from '@labrute/prisma';
 import { Box, Link, Tooltip, useMediaQuery } from '@mui/material';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -9,7 +8,8 @@ import BoxBg from '../components/BoxBg';
 import Page from '../components/Page';
 import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
-import advertisings from '../utils/advertisings';
+import { useLanguage } from '../hooks/useLanguage';
+import { getRandomAd } from '../utils/ads';
 import catchError from '../utils/catchError';
 import Server from '../utils/Server';
 import FightMobileView from './mobile/FightMobileView';
@@ -20,6 +20,7 @@ const FightView = () => {
   const Alert = useAlert();
   const navigate = useNavigate();
   const smallScreen = useMediaQuery('(max-width: 935px)');
+  const { language } = useLanguage();
 
   // Fight data
   const [fight, setFight] = useState<Fight | null>(null);
@@ -44,20 +45,17 @@ const FightView = () => {
   }, [Alert, bruteName, fightId, navigate]);
 
   // Randomized adverts (must be different)
-  const adverts = useMemo(() => {
-    const { [randomBetween(0, advertisings.length - 1)]: firstAdvert } = advertisings;
-    let { [randomBetween(0, advertisings.length - 1)]: secondAdvert } = advertisings;
-    while (firstAdvert === secondAdvert) {
-      secondAdvert = advertisings[randomBetween(0, advertisings.length - 1)];
-    }
-    return [firstAdvert, secondAdvert];
-  }, []);
+  const ads = useMemo(() => {
+    const firstAd = getRandomAd(language);
+    const secondAd = getRandomAd(language, firstAd.name);
+    return [firstAd, secondAd];
+  }, [language]);
 
   if (smallScreen) {
     return (
       <FightMobileView
         bruteName={bruteName}
-        adverts={adverts}
+        ads={ads}
         fight={fight}
       />
     );
@@ -76,12 +74,12 @@ const FightView = () => {
           {/* ADVERTS */}
           <Box sx={{ width: 236, mt: 5 }}>
             <Text color="text.primary" textAlign="center" typo="Poplar" upperCase>{t('fight.discoverGames')}</Text>
-            {adverts.map((advert) => (
-              <Tooltip title="TODO" key={advert}>
-                <Link href="" sx={{ width: 200, display: 'inline-block' }}>
+            {ads.map((ad) => (
+              <Tooltip title={t(`${ad.name}.desc`)} key={ad.name}>
+                <Link href={ad.url} target="_blank" sx={{ width: 200, display: 'inline-block' }}>
                   <Box
                     component="img"
-                    src={`/images/redirects/${advert}`}
+                    src={`/images/redirects/${ad.illustration}`}
                     sx={{ width: 1, border: 2, borderColor: 'common.white', ml: 3 }}
                   />
                 </Link>

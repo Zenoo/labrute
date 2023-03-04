@@ -48,11 +48,10 @@ const VersusView = () => {
     if (opponent.name === brute.name) {
       navigate(`/${brute.name}/arena`);
     }
-    // Redirect to cell if XP is too much
-    // TODO: Reactivate once alpha is over
-    // if (xpNeededForNextLevel && brute.data.xp >= xpNeededForNextLevel) {
-    //   navigate(`/${brute.name}/cell`);
-    // }
+
+    if (xpNeededForNextLevel && brute.xp >= xpNeededForNextLevel) {
+      navigate(`/${brute.name}/cell`);
+    }
   }, [brute, navigate, opponent, user, xpNeededForNextLevel]);
 
   // Start fight
