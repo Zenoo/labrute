@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.9.5](https://github.com/Zenoo/labrute/compare/labrute-v2.9.4...labrute-v2.9.5) (2023-03-04)
+
+
+### Bug Fixes
+
+* Ads rework. Fixes [#84](https://github.com/Zenoo/labrute/issues/84) ([ba28414](https://github.com/Zenoo/labrute/commit/ba284141eea4590e4681138d98944334c1b8faad))
+* Disable backup in tournaments. Fixes [#85](https://github.com/Zenoo/labrute/issues/85) ([8f7ab38](https://github.com/Zenoo/labrute/commit/8f7ab383b9f370d4e74276ae94c6e487d0cc5a67))
+
 ## [2.9.4](https://github.com/Zenoo/labrute/compare/labrute-v2.9.3...labrute-v2.9.4) (2023-03-01)
 
 
