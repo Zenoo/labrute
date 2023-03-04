@@ -11,12 +11,13 @@ const generateFight = async (
   prisma: PrismaClient,
   brute1: BruteWithBodyColors,
   brute2: BruteWithBodyColors,
+  allowBackup = true,
 ) => {
   if (brute1.id === brute2.id) {
     throw new Error('Attempted to created a fight between the same brutes');
   }
   // Get brute backups
-  const brute1Backups = await prisma.brute.findMany({
+  const brute1Backups = allowBackup ? await prisma.brute.findMany({
     where: {
       skills: { has: 'backup' },
       level: { lt: brute1.level },
@@ -27,8 +28,8 @@ const generateFight = async (
       body: true,
       colors: true,
     },
-  });
-  const brute2Backups = await prisma.brute.findMany({
+  }) : [];
+  const brute2Backups = allowBackup ? await prisma.brute.findMany({
     where: {
       skills: { has: 'backup' },
       level: { lt: brute2.level },
@@ -39,7 +40,7 @@ const generateFight = async (
       body: true,
       colors: true,
     },
-  });
+  }) : [];
 
   const brute1Backup = brute1Backups.length
     ? brute1Backups[randomBetween(0, brute1Backups.length - 1)]

@@ -246,7 +246,7 @@ const dailyJob = (prisma: PrismaClient) => async () => {
           const brute2 = roundBrutes[i + 1];
 
           // eslint-disable-next-line no-await-in-loop
-          const generatedFight = await generateFight(prisma, brute1, brute2);
+          const generatedFight = await generateFight(prisma, brute1, brute2, false);
 
           // Create fight
           // eslint-disable-next-line no-await-in-loop
