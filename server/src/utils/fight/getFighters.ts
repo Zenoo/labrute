@@ -36,7 +36,6 @@ const handleSkills = (brute: BruteWithBodyColors, fighter: DetailedFighter) => {
   // Automatic counter on block for `counterAttack`
   if (brute.skills.includes('counterAttack')) {
     fighter.autoReversalOnBlock = true;
-    fighter.block += 0.1;
   }
 
   /* COMBO */

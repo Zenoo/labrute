@@ -23,7 +23,8 @@
     "db:reset": "cd ./server && yarn db:reset",
     "postinstall": "bash ./postInstall.sh",
     "animation:import": "ts-node importAnimation.ts",
-    "studio": "cd ./server && yarn studio"
+    "studio": "cd ./server && yarn studio",
+    "audit": "yarn npm audit --recursive --all"
   },
   "devDependencies": {
     "concurrently": "^7.6.0",
