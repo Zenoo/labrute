@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.9.7](https://github.com/Zenoo/labrute/compare/labrute-v2.9.6...labrute-v2.9.7) (2023-03-07)
+
+
+### Bug Fixes
+
+* The `bodybuilder` skill was triggered for every weapon type. ([948d112](https://github.com/Zenoo/labrute/commit/948d11203c2df4478bdd518a2b3b168385740f0a))
+
 ## [2.9.6](https://github.com/Zenoo/labrute/compare/labrute-v2.9.5...labrute-v2.9.6) (2023-03-05)
 
 
