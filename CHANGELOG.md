@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.9.6](https://github.com/Zenoo/labrute/compare/labrute-v2.9.5...labrute-v2.9.6) (2023-03-05)
+
+
+### Bug Fixes
+
+* Block bonus from counterAttack was doubled. ([1c6f5ec](https://github.com/Zenoo/labrute/commit/1c6f5ecab69fce344d0595e03a96ad6ff774f03c))
+* Update dependencies ([774d33c](https://github.com/Zenoo/labrute/commit/774d33c10e7957becb61c27ad63a00e95dc06a6c))
+
 ## [2.9.5](https://github.com/Zenoo/labrute/compare/labrute-v2.9.4...labrute-v2.9.5) (2023-03-04)
 
 
