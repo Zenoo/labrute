@@ -1053,8 +1053,8 @@ export const playFighterTurn = (fightData: DetailedFight['data']) => {
     * fighter.tempo
     + (random / 100);
 
-  // Reduce tempo lost if fighter has `bodybuilder`
-  if (fighter.bodybuilder) {
+  // Reduce tempo lost if fighter has `bodybuilder` and is using a heavy weapon
+  if (fighter.activeWeapon && fighter.bodybuilder && fighter.activeWeapon.types.includes('heavy')) {
     tempo *= 0.75;
   }
 
