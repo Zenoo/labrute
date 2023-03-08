@@ -37,7 +37,7 @@ const Fights = {
     res: Response,
   ) => {
     try {
-      await auth(prisma, req);
+      const user = await auth(prisma, req);
 
       if (!req.body.brute1 || !req.body.brute2) {
         throw new Error('Invalid parameters');
@@ -48,6 +48,7 @@ const Fights = {
         where: {
           name: req.body.brute1,
           deletedAt: null,
+          userId: user.id,
         },
         include: {
           body: true,
