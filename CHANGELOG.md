@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.9.8](https://github.com/Zenoo/labrute/compare/labrute-v2.9.7...labrute-v2.9.8) (2023-03-08)
+
+
+### Bug Fixes
+
+* Check brute XP before leveling ([69bffcc](https://github.com/Zenoo/labrute/commit/69bffcc2b2e9eddf47e8589de02c2080f0c46fd7))
+* Limit fights creation to own brute ([7b40513](https://github.com/Zenoo/labrute/commit/7b4051361cc6de25b750f5823e0f789cd41a73bd))
+* Missing ad link in cell ([f58b244](https://github.com/Zenoo/labrute/commit/f58b2445937c8ae79a191e2dee23992e67bb755e))
+
 ## [2.9.7](https://github.com/Zenoo/labrute/compare/labrute-v2.9.6...labrute-v2.9.7) (2023-03-07)
 
 
