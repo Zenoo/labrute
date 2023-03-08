@@ -305,6 +305,7 @@ model DestinyChoice {
 
 enum TournamentType {
   DAILY
+  GLOBAL
   CUSTOM
 }
 

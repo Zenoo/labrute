@@ -1,3 +1,4 @@
+import { TournamentsGetGlobalResponse } from '@labrute/core';
 import { PrismaClient, TournamentType } from '@labrute/prisma';
 import { Request, Response } from 'express';
 import moment from 'moment';
@@ -219,6 +220,144 @@ const Tournaments = {
       });
 
       res.send({ success: true });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  getGlobal: (prisma: PrismaClient) => async (
+    req: Request,
+    res: Response<TournamentsGetGlobalResponse>,
+  ) => {
+    try {
+      if (!req.params.name || !req.params.date) {
+        throw new Error('Invalid parameters');
+      }
+
+      // Get brute
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name: req.params.name,
+          deletedAt: null,
+        },
+        select: {
+          id: true,
+          name: true,
+        },
+      });
+
+      if (!brute) {
+        throw new Error('Brute not found');
+      }
+
+      // Get tournament
+      const tournament = await prisma.tournament.findFirst({
+        where: {
+          date: { equals: moment.utc(req.params.date, 'YYYY-MM-DD').toDate() },
+          type: TournamentType.GLOBAL,
+          participants: {
+            some: {
+              name: req.params.name,
+            },
+          },
+        },
+      });
+
+      if (!tournament) {
+        throw new Error('Tournament not found');
+      }
+
+      const now = moment.utc();
+      const hour = now.hour();
+
+      // Get brute steps (round 1 at 11h, round 2 at 12h, etc...)
+      const steps = await prisma.tournamentStep.findMany({
+        where: {
+          tournamentId: tournament.id,
+          step: { lte: hour - 10 },
+          fight: {
+            OR: [
+              { brute1Id: brute.id },
+              { brute2Id: brute.id },
+            ],
+          },
+        },
+        orderBy: {
+          step: 'asc',
+        },
+        include: {
+          fight: {
+            include: {
+              brute1: {
+                include: {
+                  body: true,
+                  colors: true,
+                },
+              },
+              brute2: {
+                include: {
+                  body: true,
+                  colors: true,
+                },
+              },
+            },
+          },
+        },
+      });
+
+      // Get max step
+      const maxStep = (await prisma.tournamentStep.findFirstOrThrow({
+        where: {
+          tournamentId: tournament.id,
+        },
+        orderBy: {
+          step: 'desc',
+        },
+      })).step;
+
+      // Get last rounds
+      const lastRounds = await prisma.tournamentStep.findMany({
+        where: {
+          tournamentId: tournament.id,
+          step: {
+            gte: maxStep - 2,
+            lte: hour - 10,
+          },
+        },
+        orderBy: {
+          step: 'asc',
+        },
+        include: {
+          fight: {
+            include: {
+              brute1: {
+                include: {
+                  body: true,
+                  colors: true,
+                },
+              },
+              brute2: {
+                include: {
+                  body: true,
+                  colors: true,
+                },
+              },
+            },
+          },
+        },
+      });
+
+      // Check if current time has reached the end of the tournament
+      const tournamentEnded = hour >= 10 + maxStep;
+
+      res.send({
+        tournament: {
+          ...tournament,
+          steps,
+        },
+        lastRounds,
+        done: tournamentEnded,
+        rounds: maxStep,
+      });
     } catch (error) {
       sendError(res, error);
     }

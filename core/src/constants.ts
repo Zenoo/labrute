@@ -92,3 +92,5 @@ export const ANIMATION_ANCHORS: Record<Gender, Record<Animation, [number, number
 
 export const BruteRankings = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0] as const;
 export type BruteRanking = typeof BruteRankings[number];
+
+export const GLOBAL_TOURNAMENT_START_HOUR = 11;

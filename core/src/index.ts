@@ -11,6 +11,7 @@ import getRandomBody from './brute/getRandomBody';
 import getRandomColors from './brute/getRandomColors';
 import getSacriPoints from './brute/getSacriPoints';
 import getXPNeeded from './brute/getXPNeeded';
+import hexToRgba from './utils/hexToRgba';
 import pets from './brute/pets';
 import skills from './brute/skills';
 import updateBruteData from './brute/updateBruteData';
@@ -34,6 +35,7 @@ export {
   getRandomColors,
   getSacriPoints,
   getXPNeeded,
+  hexToRgba,
   pets,
   skills,
   updateBruteData,
@@ -79,13 +81,14 @@ export type BruteWithMasterBodyColorsClanTournament = BruteWithMasterBodyColorsC
 };
 
 // Tournament
+export type FullTournamentStep = TournamentStep & {
+  fight: Fight & {
+    brute1: BruteWithBodyColors;
+    brute2: BruteWithBodyColors;
+  };
+};
 export type FullTournament = Tournament & {
-  steps: (TournamentStep & {
-    fight: Fight & {
-      brute1: BruteWithBodyColors;
-      brute2: BruteWithBodyColors;
-    };
-  })[];
+  steps: FullTournamentStep[];
 };
 
 // Fight
@@ -102,4 +105,10 @@ export type BrutesGetForRankResponse = {
 };
 export type BrutesGetRankingResponse = {
   ranking: number,
+};
+export type TournamentsGetGlobalResponse = {
+  tournament: FullTournament,
+  lastRounds: FullTournamentStep[],
+  done: boolean,
+  rounds: number,
 };

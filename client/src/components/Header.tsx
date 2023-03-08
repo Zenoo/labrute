@@ -1,9 +1,11 @@
 import { pad } from '@labrute/core';
 import { Box, BoxProps, Link } from '@mui/material';
-import React, { useMemo } from 'react';
+import moment from 'moment';
+import React, { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 import { useLanguage } from '../hooks/useLanguage';
+import Text from './Text';
 
 export interface HeaderProps extends BoxProps {
   url?: string;
@@ -15,6 +17,7 @@ const Header = ({
 }: HeaderProps) => {
   const { t } = useTranslation();
   const { language } = useLanguage();
+  const [time, setTime] = React.useState(moment.utc());
 
   // Randomized left art
   const leftArt = useMemo(() => Math.floor(Math.random() * (11 - 1 + 1) + 1), []);
@@ -26,6 +29,14 @@ const Header = ({
     }
     return art;
   }, [leftArt]);
+
+  // Update time every minute
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(moment.utc());
+    }, 60000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <Box
@@ -67,6 +78,9 @@ const Header = ({
           width: '23.118279569%',
         }}
       />
+      <Text sx={{ textAlign: 'center', mb: -2 }} bold color="secondary">
+        {t('serverTime')}: {time.format('HH:mm')}
+      </Text>
     </Box>
   );
 };

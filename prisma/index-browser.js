@@ -368,6 +368,7 @@ exports.SkillName = makeEnum({
 
 exports.TournamentType = makeEnum({
   DAILY: 'DAILY',
+  GLOBAL: 'GLOBAL',
   CUSTOM: 'CUSTOM'
 });
 

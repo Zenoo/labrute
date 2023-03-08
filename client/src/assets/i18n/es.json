@@ -34,6 +34,7 @@
   "ePopotamo": "ePopotamo",
   "ePopotamo.desc": "ePopotamo: The relaxing word game playable in any situation!",
   "connect": "Connect",
+  "serverTime": "Server time",
 
   "shadow": "Shadow",
 
@@ -286,6 +287,10 @@
   "levelUp": "Level up!",
   "tournament": "Tournament",
   "tournamentOf": "Tournament of",
+  "globalTournament": "Global tournament",
+  "automaticallyQualified": "Qualified ex-officio",
+  "eleminatedBy": "Your brute was eliminated by {{value}}. How humiliating!",
+  "comeBackInOneHour": "Come back in one hour for the next fight.",
   "setAsWatched": "Set as watched",
   "finals": "Finals",
   "semiFinals": "Semi-finals",

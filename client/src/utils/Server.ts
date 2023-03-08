@@ -1,4 +1,4 @@
-import { BrutesGetForRankResponse, BrutesGetRankingResponse, BruteWithBodyColors, FullTournament, UserWithBrutesBodyColor } from '@labrute/core';
+import { BrutesGetForRankResponse, BrutesGetRankingResponse, BruteWithBodyColors, FullTournament, TournamentsGetGlobalResponse, UserWithBrutesBodyColor } from '@labrute/core';
 import { Brute, DestinyChoice, DestinyChoiceSide, Fight, Gender, Log, Prisma, User } from '@labrute/prisma';
 import Fetch from './Fetch';
 
@@ -26,7 +26,7 @@ const Server = {
       body: Prisma.BruteBodyCreateWithoutBruteInput,
       colors: Prisma.BruteColorsCreateWithoutBruteInput,
       master: string | null,
-    ) => Fetch<{brute: BruteWithBodyColors, pointsLost: number }>('/api/brute/create', {
+    ) => Fetch<{ brute: BruteWithBodyColors, pointsLost: number }>('/api/brute/create', {
       name,
       user,
       gender,
@@ -44,7 +44,7 @@ const Server = {
     ) => Fetch<never>(`/api/brute/${name}/level-up`, { choice }, 'POST'),
     getOpponents: (name: string, level: number) => Fetch<BruteWithBodyColors[]>(`/api/brute/${name}/get-opponents/${level}`),
     sacrifice: (name: string) => Fetch<{ points: number }>(`/api/brute/${name}/sacrifice`, {}, 'GET'),
-    getForRank: ({ name, rank } : { name: string, rank?: number }) => Fetch<BrutesGetForRankResponse>(`/api/brute/${name}/ranking-data${typeof rank === 'undefined' ? '' : `/${rank}`}`),
+    getForRank: ({ name, rank }: { name: string, rank?: number }) => Fetch<BrutesGetForRankResponse>(`/api/brute/${name}/ranking-data${typeof rank === 'undefined' ? '' : `/${rank}`}`),
     getRanking: (name: string) => Fetch<BrutesGetRankingResponse>(`/api/brute/${name}/ranking`),
   },
   Log: {
@@ -62,6 +62,10 @@ const Server = {
     registerDaily: (name: string) => Fetch<never>(`/api/tournament/${name}/register`),
     updateStepWatched: (name: string) => Fetch<never>(`/api/tournament/${name}/update-step-watched`),
     setDailyWatched: (name: string) => Fetch<never>(`/api/tournament/${name}/set-daily-watched`),
+    getGlobal: ({
+      name,
+      date,
+    }: { name: string, date: string }) => Fetch<TournamentsGetGlobalResponse>(`/api/tournament/global/${name}/${date}`),
   },
 };
 

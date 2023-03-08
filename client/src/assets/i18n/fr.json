@@ -34,6 +34,7 @@
   "ePopotamo": "ePopotamo",
   "ePopotamo.desc": "ePopotamo: Le jeu de mots relax jouable en toute situation !",
   "connect": "Se connecter",
+  "serverTime": "Heure du serveur",
 
   "shadow": "Ombre",
   "log.win": "Ta brute a écrasé {{value}}.",
@@ -286,6 +287,10 @@
   "levelUp": "Nouveau niveau!",
   "tournament": "Tournoi",
   "tournamentOf": "Tournoi du",
+  "globalTournament": "Tournoi global",
+  "automaticallyQualified": "Qualifié d'office",
+  "eleminatedBy": "Ta brute a été éliminée par {{value}}. Quelle humiliation !",
+  "comeBackInOneHour": "Reviens dans une heure pour le prochain tour.",
   "setAsWatched": "Marquer comme vu",
   "finals": "Finale",
   "semiFinals": "Demi-finale",

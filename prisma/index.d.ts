@@ -334,6 +334,7 @@ export type SkillName = (typeof SkillName)[keyof typeof SkillName]
 
 export const TournamentType: {
   DAILY: 'DAILY',
+  GLOBAL: 'GLOBAL',
   CUSTOM: 'CUSTOM'
 };
 

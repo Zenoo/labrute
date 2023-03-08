@@ -16,6 +16,7 @@ import FantasyButton from '../FantasyButton';
 import Link from '../Link';
 import StyledButton from '../StyledButton';
 import Text from '../Text';
+import CellGlobalTournament from './CellGlobalTournament';
 import CellTournament from './CellTournament';
 
 export interface CellMainProps extends BoxProps {
@@ -131,6 +132,10 @@ const CellMain = ({
         <CellTournament
           language={language}
         />
+      )}
+      {/* GLOBAL TOURNAMENT */}
+      {!smallScreen && (
+        <CellGlobalTournament sx={{ mt: 3 }} />
       )}
       {/* BRUTE SACRIFICE */}
       {owner && (

@@ -89,6 +89,8 @@ ${error}
 const sendSimpleMessage = async (message: string) => {
   try {
     if (!Env.DISCORD_LOGS_WEBHOOK_ID) {
+      // eslint-disable-next-line no-console
+      console.log(message);
       return;
     }
 
@@ -103,7 +105,7 @@ const sendSimpleMessage = async (message: string) => {
   }
 };
 
-const sentTournamentNotification = async (tournament: Tournament, brutes: Brute[]) => {
+const sendTournamentNotification = async (tournament: Tournament, brutes: Brute[]) => {
   const embed = new EmbedBuilder()
     .setColor(0xebad70)
     .setTitle('New tournament created!')
@@ -136,5 +138,5 @@ export default {
   send,
   sendLog,
   sendSimpleMessage,
-  sentTournamentNotification,
+  sendTournamentNotification,
 };
