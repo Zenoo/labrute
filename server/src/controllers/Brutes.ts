@@ -2,7 +2,7 @@ import {
   ARENA_OPPONENTS_COUNT, ARENA_OPPONENTS_MAX_GAP, BrutesGetForRankResponse,
   BrutesGetRankingResponse,
   BruteWithBodyColors, createRandomBruteStats,
-  getLevelUpChoices, getSacriPoints, updateBruteData,
+  getLevelUpChoices, getSacriPoints, getXPNeeded, updateBruteData,
 } from '@labrute/core';
 import {
   DestinyChoiceSide, Gender, Prisma, PrismaClient,
@@ -265,6 +265,12 @@ const Brutes = {
       if (!brute) {
         throw new Error('Brute not found');
       }
+
+      // Check if brute has enough XP
+      if (brute.xp < getXPNeeded(brute.level + 1)) {
+        throw new Error('Not enough XP');
+      }
+
       // Get destiny choice
       const destinyChoice = await prisma.destinyChoice.findFirst({
         where: {
