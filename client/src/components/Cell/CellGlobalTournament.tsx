@@ -267,14 +267,14 @@ const CellGlobalTournament = ({
                 }
               }}
               >
-                <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[4].step + 10}h {t('semiFinals')}</Text>
+                <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[0].step + 10 + 1}h {t('semiFinals')}</Text>
                 {data.lastRounds
-                  .filter((step) => step.step === data.lastRounds[4].step)
+                  .filter((step) => step.step === data.lastRounds[0].step + 1)
                   .map((step) => renderFight(step))}
               </Box>
             )}
             {/* final */}
-            {data.lastRounds.length > 6 && (
+            {data.lastRounds.find((step) => step.step === data.lastRounds[0].step + 2) && (
               <Box sx={{
                 display: 'flex',
                 flexWrap: 'wrap',
@@ -288,8 +288,8 @@ const CellGlobalTournament = ({
                 }
               }}
               >
-                <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[6].step + 10}h {t('finals')}</Text>
-                {renderFight(data.lastRounds[6], true)}
+                <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[data.lastRounds.length - 1].step + 10}h {t('finals')}</Text>
+                {renderFight(data.lastRounds[data.lastRounds.length - 1], true)}
               </Box>
             )}
           </>

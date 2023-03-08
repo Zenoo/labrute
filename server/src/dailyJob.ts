@@ -391,8 +391,8 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
     }
 
     // Continue with next round
+    await DiscordUtils.sendSimpleMessage(`Round ${round} done (${roundBrutes.length} brutes))`);
     roundBrutes = [...nextBrutes];
-    await DiscordUtils.sendSimpleMessage(`Round ${round} done`);
     round++;
   }
 
