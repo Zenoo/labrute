@@ -4,6 +4,7 @@ import { Box, Grid, Paper, Tooltip, useMediaQuery, useTheme } from '@mui/materia
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import CellClan from '../../components/Cell/CellClan';
+import CellGlobalTournament from '../../components/Cell/CellGlobalTournament';
 import CellLog from '../../components/Cell/CellLog';
 import CellMain from '../../components/Cell/CellMain';
 import CellPets from '../../components/Cell/CellPets';
@@ -99,6 +100,10 @@ const CellMobileView = ({
           <CellTournament
             language={language}
           />
+        </Grid>
+        <Grid item xs={12} sm={6} sx={{ textAlign: 'center' }} order={isXs ? 6 : 0}>
+          {/* GLOBAL TOURNAMENT */}
+          <CellGlobalTournament />
         </Grid>
       </Grid>
       {/* LOGS */}
