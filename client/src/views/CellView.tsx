@@ -78,7 +78,7 @@ const CellView = () => {
     )
     : (
       <Page title={`${brute.name} ${t('MyBrute')}`} headerUrl={`/${brute.name}/cell`}>
-        <Box display="flex" zIndex={1} sx={{ mt: 2 }}>
+        <Box display="flex" zIndex={1}>
           {/* BRUTE NAME + SOCIALS */}
           <CellSocials
             sx={{
