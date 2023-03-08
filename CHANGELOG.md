@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.10.0](https://github.com/Zenoo/labrute/compare/labrute-v2.9.8...labrute-v2.10.0) (2023-03-08)
+
+
+### Features
+
+* Global tournament. [#64](https://github.com/Zenoo/labrute/issues/64) ([e01eda3](https://github.com/Zenoo/labrute/commit/e01eda3a560ce5c66309498dbc3c94e71ad2a60f))
+
 ## [2.9.8](https://github.com/Zenoo/labrute/compare/labrute-v2.9.7...labrute-v2.9.8) (2023-03-08)
 
 
