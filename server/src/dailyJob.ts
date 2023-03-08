@@ -343,6 +343,20 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
   while (roundBrutes.length > 1) {
     const nextBrutes: BruteWithBodyColors[] = [];
 
+    // Shuffle brutes
+    roundBrutes = shuffle(roundBrutes);
+
+    // If there is an odd number of brutes, add a bye
+    if (roundBrutes.length % 2 === 1) {
+      const byeBrute = roundBrutes.pop();
+
+      if (byeBrute) {
+        byes.push(byeBrute);
+
+        await DiscordUtils.sendSimpleMessage(`Bye: ${byeBrute.name}`);
+      }
+    }
+
     for (let i = 0; i < roundBrutes.length - 1; i += 2) {
       const brute1 = roundBrutes[i];
       const brute2 = roundBrutes[i + 1];
@@ -381,17 +395,8 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
     nextBrutes.push(...byes);
     byes.length = 0;
 
-    // If there is an odd number of brutes, add a bye
-    if (roundBrutes.length % 2 === 1) {
-      const byeBrute = nextBrutes.pop();
-
-      if (byeBrute) {
-        byes.push(byeBrute);
-      }
-    }
-
     // Continue with next round
-    await DiscordUtils.sendSimpleMessage(`Round ${round} done (${roundBrutes.length} brutes))`);
+    await DiscordUtils.sendSimpleMessage(`Round ${round} done (${roundBrutes.length} brutes)`);
     roundBrutes = [...nextBrutes];
     round++;
   }
