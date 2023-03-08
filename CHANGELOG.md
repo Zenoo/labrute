@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.10.1](https://github.com/Zenoo/labrute/compare/labrute-v2.10.0...labrute-v2.10.1) (2023-03-08)
+
+
+### Bug Fixes
+
+* Global tournament display bug. [#64](https://github.com/Zenoo/labrute/issues/64) ([2628217](https://github.com/Zenoo/labrute/commit/26282174d0681ab42058539a52dc34d1d7f98bf8))
+* Global tournament malformed. [#64](https://github.com/Zenoo/labrute/issues/64) ([0b1e886](https://github.com/Zenoo/labrute/commit/0b1e886821280a044b0ec502a6f6b3c0818777ff))
+* Global tournament opponent name. [#64](https://github.com/Zenoo/labrute/issues/64) ([c701589](https://github.com/Zenoo/labrute/commit/c701589ae1540d8a637dfed44ae1b583150e2b22))
+* Server time placement. ([94d1188](https://github.com/Zenoo/labrute/commit/94d1188cdd797b7fdc903255a258b6f993d3eca7))
+
 ## [2.10.0](https://github.com/Zenoo/labrute/compare/labrute-v2.9.8...labrute-v2.10.0) (2023-03-08)
 
 
