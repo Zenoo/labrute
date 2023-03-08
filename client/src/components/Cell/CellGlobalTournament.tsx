@@ -165,7 +165,7 @@ const CellGlobalTournament = ({
           }
 
           const won = step.fight.winner === brute.name;
-          const opponent = step.fight.winner === step.fight.brute1.name
+          const opponent = brute.name === step.fight.brute1.name
             ? step.fight.brute2.name
             : step.fight.brute1.name;
 
