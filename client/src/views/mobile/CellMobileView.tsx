@@ -84,7 +84,7 @@ const CellMobileView = ({
             <CellPets />
           ) : (
             <Tooltip title={t(`${ad.name}.desc`)}>
-              <Link to="" sx={{ width: 200, mx: 'auto' }}>
+              <Link to={ad.url} target="_blank" sx={{ width: 200, mx: 'auto' }}>
                 <Box
                   component="img"
                   src={`/images/redirects/${ad.illustration}`}

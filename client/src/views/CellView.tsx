@@ -171,7 +171,7 @@ const CellView = () => {
                 }}
               >
                 <Tooltip title={t(`${ad.name}.desc`)}>
-                  <Link to="" sx={{ width: 200, mx: 4, display: 'inline-block' }}>
+                  <Link to={ad.url} target="_blank" sx={{ width: 200, mx: 4, display: 'inline-block' }}>
                     <Box
                       component="img"
                       src={`/images/redirects/${ad.illustration}`}
