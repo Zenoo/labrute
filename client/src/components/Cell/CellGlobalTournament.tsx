@@ -221,7 +221,7 @@ const CellGlobalTournament = ({
           >
             <Text bold color="text.disabled">
               {t('eleminatedBy', {
-                value: lastOwnRound.fight.winner === lastOwnRound.fight.brute1.name
+                value: brute.name === lastOwnRound.fight.brute1.name
                   ? lastOwnRound.fight.brute2.name
                   : lastOwnRound.fight.brute1.name
               })}
