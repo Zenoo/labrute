@@ -320,6 +320,8 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
     },
   });
 
+  await DiscordUtils.sendSimpleMessage(`Total brutes: ${brutes.length}`);
+
   // Shuffle brutes
   const shuffledBrutes = shuffle(brutes);
 
@@ -339,23 +341,23 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
   let roundBrutes = [...shuffledBrutes];
   const byes: BruteWithBodyColors[] = [];
 
+  // Handle byes for first round (power of 2)
+  if (roundBrutes.length !== 2 ** Math.floor(Math.log2(roundBrutes.length))) {
+    // Get number of byes
+    const byesCount = 2 ** (Math.floor(Math.log2(roundBrutes.length)) + 1) - roundBrutes.length;
+
+    // Add byes
+    byes.push(...roundBrutes.splice(roundBrutes.length - byesCount, byesCount));
+
+    await DiscordUtils.sendSimpleMessage(`Byes: ${byes.length}`);
+  }
+
   // Create tournament steps
   while (roundBrutes.length > 1) {
     const nextBrutes: BruteWithBodyColors[] = [];
 
     // Shuffle brutes
     roundBrutes = shuffle(roundBrutes);
-
-    // If there is an odd number of brutes, add a bye
-    if (roundBrutes.length % 2 === 1) {
-      const byeBrute = roundBrutes.pop();
-
-      if (byeBrute) {
-        byes.push(byeBrute);
-
-        await DiscordUtils.sendSimpleMessage(`Bye: ${byeBrute.name}`);
-      }
-    }
 
     for (let i = 0; i < roundBrutes.length - 1; i += 2) {
       const brute1 = roundBrutes[i];
@@ -392,8 +394,10 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
     }
 
     // Add byes to next round
-    nextBrutes.push(...byes);
-    byes.length = 0;
+    if (byes.length) {
+      nextBrutes.push(...byes);
+      byes.length = 0;
+    }
 
     // Continue with next round
     await DiscordUtils.sendSimpleMessage(`Round ${round} done (${roundBrutes.length} brutes)`);
