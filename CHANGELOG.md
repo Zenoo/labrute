@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.10.2](https://github.com/Zenoo/labrute/compare/labrute-v2.10.1...labrute-v2.10.2) (2023-03-09)
+
+
+### Bug Fixes
+
+* Cell server time display ([1e151eb](https://github.com/Zenoo/labrute/commit/1e151eb4cfcf1b0b962fc3947f5dc4285e151648))
+* Display global tournament on mobile. [#64](https://github.com/Zenoo/labrute/issues/64) ([f6c7fa1](https://github.com/Zenoo/labrute/commit/f6c7fa1590fb321dbb12a42fdbd753578f7f8964))
+* Global tournament opponent name in trash talk. [#64](https://github.com/Zenoo/labrute/issues/64) ([9a5cb6a](https://github.com/Zenoo/labrute/commit/9a5cb6a2f233158e6de4cc0d543565ab52bf357f))
+* Global tournament rounds. [#64](https://github.com/Zenoo/labrute/issues/64) ([9e16a1f](https://github.com/Zenoo/labrute/commit/9e16a1fad14a9a678008e5632ca9f9eb949c2a17))
+
 ## [2.10.1](https://github.com/Zenoo/labrute/compare/labrute-v2.10.0...labrute-v2.10.1) (2023-03-08)
 
 
