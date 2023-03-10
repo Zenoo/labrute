@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.11.0](https://github.com/Zenoo/labrute/compare/labrute-v2.10.2...labrute-v2.11.0) (2023-03-10)
+
+
+### Features
+
+* Fixed opponents in the arena. Fixes [#103](https://github.com/Zenoo/labrute/issues/103) ([6a80828](https://github.com/Zenoo/labrute/commit/6a80828a716d6c135f6cde71f6cae1bc963b57ac))
+
+
+### Bug Fixes
+
+* Case insensitive brute search. Fixes [#27](https://github.com/Zenoo/labrute/issues/27) ([3239a49](https://github.com/Zenoo/labrute/commit/3239a49bf50de66c9efa937cef2b386345d3089c))
+* False positive for deleted brutes in global tournament. [#64](https://github.com/Zenoo/labrute/issues/64) ([58ac398](https://github.com/Zenoo/labrute/commit/58ac3986c0591f3ce7d7191c8c3903707a4bd693))
+* Global tournament display consistency. Fixes [#107](https://github.com/Zenoo/labrute/issues/107) ([bb249b7](https://github.com/Zenoo/labrute/commit/bb249b709d50f827c4b27bb2441293199d43e4cd))
+* No block/evade/counter for dead opponents. Fixes [#108](https://github.com/Zenoo/labrute/issues/108) ([3a4ae8a](https://github.com/Zenoo/labrute/commit/3a4ae8a30c8c940bac03c51edba6b90148031ebd))
+
 ## [2.10.2](https://github.com/Zenoo/labrute/compare/labrute-v2.10.1...labrute-v2.10.2) (2023-03-09)
 
 
