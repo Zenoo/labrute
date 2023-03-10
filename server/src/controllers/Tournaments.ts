@@ -323,7 +323,7 @@ const Tournaments = {
           tournamentId: tournament.id,
           step: {
             gte: maxStep - 2,
-            lte: hour - GLOBAL_TOURNAMENT_START_HOUR - 1,
+            lte: hour - GLOBAL_TOURNAMENT_START_HOUR + 1,
           },
         },
         orderBy: {
