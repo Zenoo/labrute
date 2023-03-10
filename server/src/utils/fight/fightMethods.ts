@@ -541,6 +541,9 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
 };
 
 const counterAttack = (fighter: DetailedFighter, opponent: DetailedFighter) => {
+  // No counter attack if opponent is dead
+  if (opponent.hp <= 0) return false;
+
   const random = Math.random();
 
   const valueToBeat = (
@@ -622,6 +625,9 @@ const drawWeapon = (fightData: DetailedFight['data']): boolean => {
 };
 
 const block = (fighter: DetailedFighter, opponent: DetailedFighter, ease = 1) => {
+  // No block if opponent is dead
+  if (opponent.hp <= 0) return false;
+
   // No block if opponent is trapped
   if (opponent.trapped) return false;
 
@@ -635,7 +641,10 @@ const block = (fighter: DetailedFighter, opponent: DetailedFighter, ease = 1) =>
 };
 
 const evade = (fighter: DetailedFighter, opponent: DetailedFighter, difficulty = 1) => {
-  // Not evasion if opponent is trapped
+  // No evasion if opponent is dead
+  if (opponent.hp <= 0) return false;
+
+  // No evasion if opponent is trapped
   if (opponent.trapped) return false;
 
   // Automatically evade if `balletShoes`
