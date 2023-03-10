@@ -267,14 +267,27 @@ const Tournaments = {
         throw new Error('Tournament not found');
       }
 
-      const now = moment.utc();
-      const hour = now.hour();
+      // const now = moment.utc();
+      // const hour = now.hour();
+
+      // Get max step
+      const maxStep = (await prisma.tournamentStep.findFirstOrThrow({
+        where: {
+          tournamentId: tournament.id,
+        },
+        orderBy: {
+          step: 'desc',
+        },
+      })).step;
 
       // Get brute steps (round 1 at 11h, round 2 at 12h, etc...)
       const steps = await prisma.tournamentStep.findMany({
         where: {
           tournamentId: tournament.id,
-          step: { lte: hour - 10 },
+          step: {
+            lte: Math.min(44, maxStep - 3),
+            // lte: Math.min(hour - GLOBAL_TOURNAMENT_START_HOUR - 1, maxStep - 2),
+          },
           fight: {
             OR: [
               { brute1Id: brute.id },
@@ -305,23 +318,13 @@ const Tournaments = {
         },
       });
 
-      // Get max step
-      const maxStep = (await prisma.tournamentStep.findFirstOrThrow({
-        where: {
-          tournamentId: tournament.id,
-        },
-        orderBy: {
-          step: 'desc',
-        },
-      })).step;
-
       // Get last rounds
       const lastRounds = await prisma.tournamentStep.findMany({
         where: {
           tournamentId: tournament.id,
           step: {
             gte: maxStep - 2,
-            lte: hour - 10,
+            // lte: hour - GLOBAL_TOURNAMENT_START_HOUR - 1,
           },
         },
         orderBy: {
@@ -348,7 +351,8 @@ const Tournaments = {
       });
 
       // Check if current time has reached the end of the tournament
-      const tournamentEnded = hour >= 10 + maxStep;
+      const tournamentEnded = true;
+      // const tournamentEnded = hour >= GLOBAL_TOURNAMENT_START_HOUR - 1 + maxStep;
 
       res.send({
         tournament: {

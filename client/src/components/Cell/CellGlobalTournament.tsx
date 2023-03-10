@@ -24,84 +24,122 @@ const CellGlobalTournament = ({
   const props = useMemo(() => ({ name: brute?.name || '', date: now.format('YYYY-MM-DD') }), [brute, now]);
   const { data } = useStateAsync(null, Server.Tournament.getGlobal, props);
 
-  const lastOwnRound = useMemo(
-    () => (data?.tournament.steps
-      ? data.tournament.steps[data.tournament.steps.length - 1]
+  const lostRound = useMemo(
+    () => (brute && data
+      ? data.tournament.steps.find((step) => step.fight.winner !== brute.name)
+      || data.lastRounds.find((step) => (step.fight.brute1.name === brute.name
+        || step.fight.brute2.name === brute.name)
+        && step.fight.winner !== brute.name)
       : null),
-    [data],
+    [brute, data],
   );
 
   // Last fights renderer
-  const renderFight = (step: FullTournamentStep, finals = false) => (
-    <Link
-      to={`/${step.fight.brute1.name}/fight/${step.fightId}`}
-      key={step.id}
-      sx={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        bgcolor: 'background.paperDark',
-        border: '1px solid',
-        borderColor: theme.palette.border.shadow,
-        borderRadius: 1,
-        m: 1,
-      }}
-    >
-      <Tooltip title={step.fight.brute1.name}>
-        <Box sx={{ position: 'relative', display: 'inline-block', ml: -0.5 }}>
-          <BrutePortrait
-            inverted
-            brute={step.fight.brute1}
-            sx={{
-              width: finals ? 60 : 40,
-              verticalAlign: 'middle',
-            }}
-          />
-          {step.fight.winner === step.fight.brute2.name && (
-            <Close
-              color="error"
-              sx={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: 1,
-                height: 1,
-              }}
-            />
-          )}
-        </Box>
-      </Tooltip>
-      <Box
-        component="img"
-        src="/images/tournament/vs.svg"
+  const renderFight = (step: FullTournamentStep, finals = false) => {
+    if (!brute) return null;
+
+    const bruteInFight = step.fight.brute1.name === brute.name
+      || step.fight.brute2.name === brute.name;
+    const won = bruteInFight && step.fight.winner === brute.name;
+
+    return (
+      <Link
+        to={`/${step.fight.brute1.name}/fight/${step.fightId}`}
+        key={step.id}
         sx={{
-          width: finals ? 30 : 20,
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          bgcolor: bruteInFight
+            ? won
+              ? hexToRgba(theme.palette.success.light, 0.2)
+              : hexToRgba(theme.palette.error.light, 0.2)
+            : 'background.paperDark',
+          border: '1px solid',
+          borderColor: theme.palette.border.shadow,
+          borderRadius: 1,
+          m: 1,
         }}
-      />
-      <Tooltip title={step.fight.brute2.name}>
-        <Box sx={{ position: 'relative', display: 'inline-block', mr: -0.5 }}>
-          <BrutePortrait
-            brute={step.fight.brute2}
-            sx={{
-              width: finals ? 60 : 40,
-              verticalAlign: 'middle',
-            }}
-          />
-          {step.fight.winner === step.fight.brute1.name && (
-            <Close
-              color="error"
+      >
+        <Tooltip title={step.fight.brute1.name}>
+          <Box sx={{ position: 'relative', display: 'inline-block', ml: -0.5 }}>
+            <BrutePortrait
+              inverted
+              brute={step.fight.brute1}
               sx={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: 1,
-                height: 1,
+                width: finals ? 60 : 40,
+                verticalAlign: 'middle',
               }}
             />
-          )}
-        </Box>
-      </Tooltip>
-    </Link>
+            {step.fight.winner === step.fight.brute2.name && (
+              <Close
+                color="error"
+                sx={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: 1,
+                  height: 1,
+                }}
+              />
+            )}
+          </Box>
+        </Tooltip>
+        <Box
+          component="img"
+          src="/images/tournament/vs.svg"
+          sx={{
+            width: finals ? 30 : 20,
+          }}
+        />
+        <Tooltip title={step.fight.brute2.name}>
+          <Box sx={{ position: 'relative', display: 'inline-block', mr: -0.5 }}>
+            <BrutePortrait
+              brute={step.fight.brute2}
+              sx={{
+                width: finals ? 60 : 40,
+                verticalAlign: 'middle',
+              }}
+            />
+            {step.fight.winner === step.fight.brute1.name && (
+              <Close
+                color="error"
+                sx={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: 1,
+                  height: 1,
+                }}
+              />
+            )}
+          </Box>
+        </Tooltip>
+      </Link>
+    );
+  };
+
+  // Lost trash talk
+  const renderLostMarker = () => brute && lostRound && (
+    <Box sx={{
+      display: 'flex',
+      px: 0.5,
+      py: 0.25,
+      borderBottom: '1px solid',
+      borderBottomColor: theme.palette.border.shadow,
+      '&:last-child': {
+        borderBottom: 'none',
+      }
+    }}
+    >
+      <Text bold color="text.disabled">
+        {t('eleminatedBy', {
+          value: brute.name === lostRound.fight.brute1.name
+            ? lostRound.fight.brute2.name
+            : lostRound.fight.brute1.name
+        })}
+      </Text>
+    </Box>
   );
 
   return brute && data && (
@@ -210,90 +248,82 @@ const CellGlobalTournament = ({
           );
         })}
         {/* Lost marker */}
-        {lastOwnRound && lastOwnRound.fight.winner !== brute.name && (
-          <Box sx={{
-            display: 'flex',
-            px: 0.5,
-            py: 0.25,
-            borderBottom: '1px solid',
-            borderBottomColor: theme.palette.border.shadow,
-            '&:last-child': {
-              borderBottom: 'none',
-            }
-          }}
-          >
-            <Text bold color="text.disabled">
-              {t('eleminatedBy', {
-                value: brute.name === lastOwnRound.fight.brute1.name
-                  ? lastOwnRound.fight.brute2.name
-                  : lastOwnRound.fight.brute1.name
-              })}
-            </Text>
-          </Box>
-        )}
+        {lostRound && lostRound.step <= data.rounds - 3 && renderLostMarker()}
         {/* Last rounds if not won */}
-        {lastOwnRound && lastOwnRound.fight.winner !== brute.name && (
+        {lostRound && lostRound.fight.winner !== brute.name && (
           <>
             {/* Quarter-final */}
             {data.lastRounds.length > 0 && (
-              <Box sx={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                justifyContent: 'center',
-                px: 0.5,
-                py: 0.25,
-                borderBottom: '1px solid',
-                borderBottomColor: theme.palette.border.shadow,
-                '&:last-child': {
-                  borderBottom: 'none',
-                }
-              }}
-              >
-                <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[0].step + 10}h {t('quarterFinals')}</Text>
-                {data.lastRounds
-                  .filter((step) => step.step === data.lastRounds[0].step)
-                  .map((step) => renderFight(step))}
-              </Box>
+              <>
+                <Box sx={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  justifyContent: 'center',
+                  px: 0.5,
+                  py: 0.25,
+                  borderBottom: '1px solid',
+                  borderBottomColor: theme.palette.border.shadow,
+                  '&:last-child': {
+                    borderBottom: 'none',
+                  }
+                }}
+                >
+                  <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[0].step + 10}h {t('quarterFinals')}</Text>
+                  {data.lastRounds
+                    .filter((step) => step.step === data.lastRounds[0].step)
+                    .map((step) => renderFight(step))}
+                </Box>
+                {/* Lost marker */}
+                {lostRound && lostRound.step === data.lastRounds[0].step && renderLostMarker()}
+              </>
             )}
             {/* Semi-final */}
             {data.lastRounds.length > 4 && (
-              <Box sx={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                justifyContent: 'center',
-                px: 0.5,
-                py: 0.25,
-                borderBottom: '1px solid',
-                borderBottomColor: theme.palette.border.shadow,
-                '&:last-child': {
-                  borderBottom: 'none',
-                }
-              }}
-              >
-                <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[0].step + 10 + 1}h {t('semiFinals')}</Text>
-                {data.lastRounds
-                  .filter((step) => step.step === data.lastRounds[0].step + 1)
-                  .map((step) => renderFight(step))}
-              </Box>
+              <>
+                <Box sx={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  justifyContent: 'center',
+                  px: 0.5,
+                  py: 0.25,
+                  borderBottom: '1px solid',
+                  borderBottomColor: theme.palette.border.shadow,
+                  '&:last-child': {
+                    borderBottom: 'none',
+                  }
+                }}
+                >
+                  <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[0].step + 10 + 1}h {t('semiFinals')}</Text>
+                  {data.lastRounds
+                    .filter((step) => step.step === data.lastRounds[0].step + 1)
+                    .map((step) => renderFight(step))}
+                </Box>
+                {/* Lost marker */}
+                {lostRound && lostRound.step === data.lastRounds[0].step + 1 && renderLostMarker()}
+              </>
             )}
             {/* final */}
             {data.lastRounds.find((step) => step.step === data.lastRounds[0].step + 2) && (
-              <Box sx={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                justifyContent: 'center',
-                px: 0.5,
-                py: 0.25,
-                borderBottom: '1px solid',
-                borderBottomColor: theme.palette.border.shadow,
-                '&:last-child': {
-                  borderBottom: 'none',
-                }
-              }}
-              >
-                <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[data.lastRounds.length - 1].step + 10}h {t('finals')}</Text>
-                {renderFight(data.lastRounds[data.lastRounds.length - 1], true)}
-              </Box>
+              <>
+                <Box sx={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  justifyContent: 'center',
+                  px: 0.5,
+                  py: 0.25,
+                  borderBottom: '1px solid',
+                  borderBottomColor: theme.palette.border.shadow,
+                  '&:last-child': {
+                    borderBottom: 'none',
+                  }
+                }}
+                >
+                  <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[data.lastRounds.length - 1].step + 10}h {t('finals')}</Text>
+                  {renderFight(data.lastRounds[data.lastRounds.length - 1], true)}
+                </Box>
+                {/* Lost marker */}
+                {lostRound && lostRound.step === data.lastRounds[0].step + 2 && renderLostMarker()}
+              </>
             )}
           </>
         )}
