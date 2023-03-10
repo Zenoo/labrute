@@ -164,7 +164,8 @@ exports.Prisma.BruteScalarFieldEnum = makeEnum({
   currentTournamentStepWatched: 'currentTournamentStepWatched',
   lastFight: 'lastFight',
   fightsLeft: 'fightsLeft',
-  victories: 'victories'
+  victories: 'victories',
+  opponentsGeneratedAt: 'opponentsGeneratedAt'
 });
 
 exports.Prisma.BruteSpritesheetScalarFieldEnum = makeEnum({

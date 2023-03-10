@@ -214,6 +214,9 @@ model Brute {
   destinyChoices               DestinyChoice[]
   spritesheet                  BruteSpritesheet?
   tournaments                  Tournament[]
+  opponents                    Brute[]             @relation("Opponents")
+  opponentOf                   Brute[]             @relation("Opponents")
+  opponentsGeneratedAt         DateTime?           @db.Date
 }
 
 model BruteSpritesheet {

@@ -1,5 +1,5 @@
 import {
-  ARENA_OPPONENTS_COUNT, ARENA_OPPONENTS_MAX_GAP, BrutesGetForRankResponse,
+  ARENA_OPPONENTS_COUNT, BrutesGetForRankResponse,
   BrutesGetRankingResponse,
   BruteWithBodyColors, createRandomBruteStats,
   getLevelUpChoices, getSacriPoints, getXPNeeded, updateBruteData,
@@ -8,10 +8,12 @@ import {
   DestinyChoiceSide, Gender, Prisma, PrismaClient,
 } from '@labrute/prisma';
 import { Request, Response } from 'express';
+import moment from 'moment';
 import { Worker } from 'worker_threads';
 import auth from '../utils/auth.js';
 import checkBody from '../utils/brute/checkBody.js';
 import checkColors from '../utils/brute/checkColors.js';
+import getOpponents from '../utils/brute/getOpponents.js';
 import sendError from '../utils/sendError.js';
 
 const Brutes = {
@@ -254,7 +256,7 @@ const Brutes = {
       const user = await auth(prisma, req);
 
       // Get brute
-      const brute = await prisma.brute.findFirst({
+      let brute = await prisma.brute.findFirst({
         where: {
           name: req.params.name,
           userId: user.id,
@@ -287,11 +289,30 @@ const Brutes = {
       const updatedBruteData = updateBruteData(brute, destinyChoice);
 
       // Update brute
-      await prisma.brute.update({
+      brute = await prisma.brute.update({
         where: { id: brute.id },
         data: {
           ...updatedBruteData,
           destinyPath: { push: req.body.choice },
+        },
+      });
+
+      // Get new opponents
+      const opponents = await getOpponents(prisma, brute);
+
+      // Save opponents
+      await prisma.brute.update({
+        where: {
+          id: brute.id,
+        },
+        data: {
+          opponents: {
+            set: opponents.map((o) => ({
+              id: o.id,
+            })),
+          },
+          // Update opponentsGeneratedAt
+          opponentsGeneratedAt: new Date(),
         },
       });
 
@@ -319,103 +340,50 @@ const Brutes = {
       sendError(res, error);
     }
   },
-  getOpponents: (prisma: PrismaClient) => async (req: Request, res: Response) => {
+  getOpponents: (prisma: PrismaClient) => async (
+    req: Request,
+    res: Response<BruteWithBodyColors[]>,
+  ) => {
     try {
-      await auth(prisma, req);
+      const user = await auth(prisma, req);
 
-      // Get same level random opponents
-      const bruteSearch = {
-        name: { not: req.params.name },
-        level: +req.params.level,
-        deletedAt: null,
-      };
-      const bruteIds = await prisma.brute.findMany({
-        where: bruteSearch,
-        select: { id: true },
-      }).then((brutes) => brutes.map((brute) => brute.id));
-
-      const randomlySelectedBruteIds: number[] = [];
-
-      // Select all if less or equal to ARENA_OPPONENTS_COUNT
-      if (bruteIds.length <= ARENA_OPPONENTS_COUNT) {
-        randomlySelectedBruteIds.push(...bruteIds);
-      } else {
-        // Select ARENA_OPPONENTS_COUNT random ids
-        while (randomlySelectedBruteIds.length < ARENA_OPPONENTS_COUNT) {
-          const randomIndex = Math.floor(Math.random() * bruteIds.length);
-          if (!randomlySelectedBruteIds.includes(bruteIds[randomIndex])) {
-            randomlySelectedBruteIds.push(bruteIds[randomIndex]);
-          }
-        }
-      }
-
-      const opponents: BruteWithBodyColors[] = [];
-      for (let i = 0; i < randomlySelectedBruteIds.length; i++) {
-        const id = randomlySelectedBruteIds[i];
-
-        // eslint-disable-next-line no-await-in-loop
-        const opponent = await prisma.brute.findFirst({
-          where: {
-            ...bruteSearch,
-            id,
-          },
-          include: { body: true, colors: true },
-        });
-
-        if (opponent) {
-          opponents.push(opponent);
-        }
-      }
-
-      // Complete with lower levels if not enough
-      if (opponents.length < ARENA_OPPONENTS_COUNT) {
-        const additionalBruteSearch = {
-          name: { not: req.params.name },
-          level: {
-            lt: +req.params.level,
-            gte: +req.params.level - ARENA_OPPONENTS_MAX_GAP,
-          },
+      // Get brute
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name: req.params.name,
           deletedAt: null,
-        };
-        const additionalBruteIds = await prisma.brute.findMany({
-          where: additionalBruteSearch,
-          select: { id: true },
-        }).then((brutes) => brutes.map((brute) => brute.id));
+          userId: user.id,
+        },
+        include: { opponents: { include: { body: true, colors: true } } },
+      });
 
-        const additionalRandomlySelectedBruteIds: number[] = [];
+      if (!brute) {
+        throw new Error('Brute not found');
+      }
 
-        // Select all if less or equal to ARENA_OPPONENTS_COUNT
-        if (additionalBruteIds.length <= ARENA_OPPONENTS_COUNT - opponents.length) {
-          additionalRandomlySelectedBruteIds.push(...additionalBruteIds);
-        } else {
-          // Select ARENA_OPPONENTS_COUNT random ids
-          while (additionalRandomlySelectedBruteIds
-            .length < ARENA_OPPONENTS_COUNT - opponents.length) {
-            const randomIndex = Math.floor(Math.random() * additionalBruteIds.length);
-            if (!additionalRandomlySelectedBruteIds.includes(additionalBruteIds[randomIndex])) {
-              additionalRandomlySelectedBruteIds.push(additionalBruteIds[randomIndex]);
-            }
-          }
-        }
+      // Handle deleted opponents
+      let opponents = brute.opponents.filter((o) => o.deletedAt === null);
 
-        const additionalOpponents: BruteWithBodyColors[] = [];
-        for (let i = 0; i < additionalRandomlySelectedBruteIds.length; i++) {
-          const id = additionalRandomlySelectedBruteIds[i];
+      // If never generated today or not enough opponents, reset opponents
+      if (!brute.opponentsGeneratedAt || moment.utc(brute.opponentsGeneratedAt).isBefore(moment.utc().startOf('day')) || opponents.length < ARENA_OPPONENTS_COUNT) {
+        // Get opponents
+        opponents = await getOpponents(prisma, brute);
 
-          // eslint-disable-next-line no-await-in-loop
-          const opponent = await prisma.brute.findFirst({
-            where: {
-              ...additionalBruteSearch,
-              id,
+        // Save opponents
+        await prisma.brute.update({
+          where: {
+            id: brute.id,
+          },
+          data: {
+            opponents: {
+              set: opponents.map((o) => ({
+                id: o.id,
+              })),
             },
-            include: { body: true, colors: true },
-          });
-
-          if (opponent) {
-            additionalOpponents.push(opponent);
-          }
-        }
-        opponents.push(...additionalOpponents);
+            // Update opponentsGeneratedAt
+            opponentsGeneratedAt: new Date(),
+          },
+        });
       }
 
       res.send(opponents);

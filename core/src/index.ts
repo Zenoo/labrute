@@ -106,6 +106,7 @@ export type BrutesGetForRankResponse = {
 export type BrutesGetRankingResponse = {
   ranking: number,
 };
+export type BrutesGetOpponentsResponse = BruteWithBodyColors[];
 export type TournamentsGetGlobalResponse = {
   tournament: FullTournament,
   lastRounds: FullTournamentStep[],

@@ -147,16 +147,19 @@ const CellGlobalTournament = ({
             }
 
             return (
-              <Box sx={{
-                display: 'flex',
-                px: 0.5,
-                py: 0.25,
-                borderBottom: '1px solid',
-                borderBottomColor: theme.palette.border.shadow,
-                '&:last-child': {
-                  borderBottom: 'none',
-                }
-              }}
+              <Box
+                // eslint-disable-next-line react/no-array-index-key
+                key={i}
+                sx={{
+                  display: 'flex',
+                  px: 0.5,
+                  py: 0.25,
+                  borderBottom: '1px solid',
+                  borderBottomColor: theme.palette.border.shadow,
+                  '&:last-child': {
+                    borderBottom: 'none',
+                  }
+                }}
               >
                 <Text bold color="text.disabled" sx={{ width: 30 }}>{i + 1 + 10}h</Text>
                 <Text bold color="text.disabled">{t('automaticallyQualified')}</Text>

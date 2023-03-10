@@ -1,4 +1,4 @@
-import { BrutesGetForRankResponse, BrutesGetRankingResponse, BruteWithBodyColors, FullTournament, TournamentsGetGlobalResponse, UserWithBrutesBodyColor } from '@labrute/core';
+import { BrutesGetForRankResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, BruteWithBodyColors, FullTournament, TournamentsGetGlobalResponse, UserWithBrutesBodyColor } from '@labrute/core';
 import { Brute, DestinyChoice, DestinyChoiceSide, Fight, Gender, Log, Prisma, User } from '@labrute/prisma';
 import Fetch from './Fetch';
 
@@ -42,7 +42,7 @@ const Server = {
       name: string,
       choice: DestinyChoiceSide,
     ) => Fetch<never>(`/api/brute/${name}/level-up`, { choice }, 'POST'),
-    getOpponents: (name: string, level: number) => Fetch<BruteWithBodyColors[]>(`/api/brute/${name}/get-opponents/${level}`),
+    getOpponents: (name: string, level: number) => Fetch<BrutesGetOpponentsResponse>(`/api/brute/${name}/get-opponents/${level}`),
     sacrifice: (name: string) => Fetch<{ points: number }>(`/api/brute/${name}/sacrifice`, {}, 'GET'),
     getForRank: ({ name, rank }: { name: string, rank?: number }) => Fetch<BrutesGetForRankResponse>(`/api/brute/${name}/ranking-data${typeof rank === 'undefined' ? '' : `/${rank}`}`),
     getRanking: (name: string) => Fetch<BrutesGetRankingResponse>(`/api/brute/${name}/ranking`),
