@@ -285,7 +285,7 @@ const Tournaments = {
         where: {
           tournamentId: tournament.id,
           step: {
-            lte: Math.min(hour - GLOBAL_TOURNAMENT_START_HOUR - 1, maxStep - 3),
+            lte: Math.min(hour - GLOBAL_TOURNAMENT_START_HOUR + 1, maxStep - 3),
           },
           fight: {
             OR: [
