@@ -257,6 +257,7 @@ const Tournaments = {
           participants: {
             some: {
               name: req.params.name,
+              deletedAt: null,
             },
           },
         },
