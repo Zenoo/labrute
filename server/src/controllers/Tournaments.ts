@@ -1,4 +1,4 @@
-import { TournamentsGetGlobalResponse } from '@labrute/core';
+import { GLOBAL_TOURNAMENT_START_HOUR, TournamentsGetGlobalResponse } from '@labrute/core';
 import { PrismaClient, TournamentType } from '@labrute/prisma';
 import { Request, Response } from 'express';
 import moment from 'moment';
@@ -267,8 +267,8 @@ const Tournaments = {
         throw new Error('Tournament not found');
       }
 
-      // const now = moment.utc();
-      // const hour = now.hour();
+      const now = moment.utc();
+      const hour = now.hour();
 
       // Get max step
       const maxStep = (await prisma.tournamentStep.findFirstOrThrow({
@@ -285,8 +285,7 @@ const Tournaments = {
         where: {
           tournamentId: tournament.id,
           step: {
-            lte: Math.min(44, maxStep - 3),
-            // lte: Math.min(hour - GLOBAL_TOURNAMENT_START_HOUR - 1, maxStep - 2),
+            lte: Math.min(hour - GLOBAL_TOURNAMENT_START_HOUR - 1, maxStep - 3),
           },
           fight: {
             OR: [
@@ -324,7 +323,7 @@ const Tournaments = {
           tournamentId: tournament.id,
           step: {
             gte: maxStep - 2,
-            // lte: hour - GLOBAL_TOURNAMENT_START_HOUR - 1,
+            lte: hour - GLOBAL_TOURNAMENT_START_HOUR - 1,
           },
         },
         orderBy: {
@@ -351,8 +350,7 @@ const Tournaments = {
       });
 
       // Check if current time has reached the end of the tournament
-      const tournamentEnded = true;
-      // const tournamentEnded = hour >= GLOBAL_TOURNAMENT_START_HOUR - 1 + maxStep;
+      const tournamentEnded = hour >= GLOBAL_TOURNAMENT_START_HOUR - 1 + maxStep;
 
       res.send({
         tournament: {
