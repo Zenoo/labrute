@@ -167,7 +167,7 @@ const TournamentMobileView = ({
           );
         })}
         {display && winnerStep && (!authing && brute)
-          && (!ownsBrute || (ownsBrute && stepWatched >= 5)) && (
+          && (!ownsBrute || (ownsBrute && stepWatched > 5)) && (
             <Tooltip title={winnerStep.fight.winner}>
               <BruteComponent
                 brute={winnerStep.fight.winner === winnerStep.fight.brute1.name
