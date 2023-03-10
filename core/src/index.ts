@@ -107,6 +107,12 @@ export type BrutesGetRankingResponse = {
   ranking: number,
 };
 export type BrutesGetOpponentsResponse = BruteWithBodyColors[];
+export type BrutesExistsResponse = {
+  exists: false
+} | {
+  exists: true,
+  name: string,
+};
 export type TournamentsGetGlobalResponse = {
   tournament: FullTournament,
   lastRounds: FullTournamentStep[],

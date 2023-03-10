@@ -1,5 +1,5 @@
 import {
-  ARENA_OPPONENTS_COUNT, BrutesGetForRankResponse,
+  ARENA_OPPONENTS_COUNT, BrutesExistsResponse, BrutesGetForRankResponse,
   BrutesGetRankingResponse,
   BruteWithBodyColors, createRandomBruteStats,
   getLevelUpChoices, getSacriPoints, getXPNeeded, updateBruteData,
@@ -680,6 +680,45 @@ const Brutes = {
 
       res.send({
         ranking: position + 1,
+      });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  exists: (prisma: PrismaClient) => async (
+    req: Request,
+    res: Response<BrutesExistsResponse>,
+  ) => {
+    try {
+      const { params: { name } } = req;
+
+      if (!name) {
+        throw new Error('Missing name');
+      }
+
+      let brute = await prisma.brute.findFirst({
+        where: { name, deletedAt: null },
+        select: { name: true },
+      });
+
+      if (!brute) {
+        // Try case insensitive
+        brute = await prisma.brute.findFirst({
+          where: { name: { equals: name, mode: 'insensitive' }, deletedAt: null },
+          select: { name: true },
+        });
+
+        if (!brute) {
+          res.send({
+            exists: false,
+          });
+          return;
+        }
+      }
+
+      res.send({
+        exists: true,
+        name: brute.name,
       });
     } catch (error) {
       sendError(res, error);

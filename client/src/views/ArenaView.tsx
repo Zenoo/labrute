@@ -86,11 +86,11 @@ const ArenaView = () => {
       return;
     }
 
-    Server.Brute.isNameAvailable(search).then((notFound) => {
-      if (notFound) {
+    Server.Brute.exists(search).then((response) => {
+      if (!response.exists) {
         Alert.open('error', t('arena.search.notFound'));
       } else {
-        navigate(`/${bruteName || ''}/versus/${search}`);
+        navigate(`/${bruteName || ''}/versus/${response.name}`);
       }
     }).catch(catchError(Alert));
   }, [Alert, brute, bruteName, navigate, search, t]);
