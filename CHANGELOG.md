@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.11.1](https://github.com/Zenoo/labrute/compare/labrute-v2.11.0...labrute-v2.11.1) (2023-03-10)
+
+
+### Bug Fixes
+
+* Global tournament displayed by hour. [#64](https://github.com/Zenoo/labrute/issues/64) ([0da8e7b](https://github.com/Zenoo/labrute/commit/0da8e7b065ec8e25d57fe454fd3aa2f042175022))
+* Global tournament hours typo ([18ef1fe](https://github.com/Zenoo/labrute/commit/18ef1feb27943160cf77b1a49245f05cb93049ff))
+* Tournament winner displayed too soon on mobile ([ddff9c7](https://github.com/Zenoo/labrute/commit/ddff9c7f32fd555cc7f96df92964d04e463229f1))
+
 ## [2.11.0](https://github.com/Zenoo/labrute/compare/labrute-v2.10.2...labrute-v2.11.0) (2023-03-10)
 
 
