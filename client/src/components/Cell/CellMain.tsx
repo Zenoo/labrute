@@ -72,12 +72,10 @@ const CellMain = ({
         {/* LEVEL + XP */}
         <BruteLevelAndXP brute={brute} sx={{ pl: 1 }} />
         {/* RANKING */}
-        {brute.ranking < 10 && (
-          <Box sx={{ width: 140, display: 'flex', flexDirection: 'row' }}>
-            <Box component="img" src={`/images/rankings/lvl_${brute.ranking}.gif`} />
-            <Text bold color="secondary" sx={{ pl: 0.5 }}>{t(`lvl_${brute.ranking as BruteRanking}`)}</Text>
-          </Box>
-        )}
+        <Box sx={{ width: 140, display: 'flex', flexDirection: 'row' }}>
+          <Box component="img" src={`/images/rankings/lvl_${brute.ranking}.png`} />
+          <Text bold color="secondary" sx={{ pl: 0.5 }}>{t(`lvl_${brute.ranking as BruteRanking}`)}</Text>
+        </Box>
       </Box>
       <BruteBodyAndStats brute={brute} sx={{ mb: 1 }} />
       {owner && (brute.xp < xpNeededForNextLevel ? fightsLeft > 0 ? ready ? (

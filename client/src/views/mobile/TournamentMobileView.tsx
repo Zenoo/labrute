@@ -92,6 +92,7 @@ const TournamentMobileView = ({
               >
                 {tournament.steps.filter((step) => step.step > start && step.step <= end)
                   .map((step) => (
+                    // Fight button
                     <StyledButton
                       key={step.id}
                       onClick={goToFight(step.fight, index + 1)}
@@ -108,6 +109,7 @@ const TournamentMobileView = ({
                         m: 1,
                       }}
                     >
+                      {/* Left fighter */}
                       <Tooltip title={step.fight.brute1.name}>
                         <Box sx={{ position: 'relative', mt: 1 }}>
                           <BrutePortrait
@@ -117,6 +119,7 @@ const TournamentMobileView = ({
                               height: 45,
                             }}
                           />
+                          {/* Lost indicator */}
                           {shouldResultDisplay && step.fight.winner === step.fight.brute2.name && (
                             <Close
                               color="error"
@@ -126,11 +129,25 @@ const TournamentMobileView = ({
                                 left: 0,
                                 width: 1,
                                 height: 1,
+                                zIndex: 3,
                               }}
                             />
                           )}
+                          {/* Rank */}
+                          <Box
+                            component="img"
+                            src={`/images/rankings/lvl_${step.fight.brute1.ranking}.png`}
+                            sx={{
+                              position: 'absolute',
+                              bottom: 4,
+                              right: 4,
+                              width: 20,
+                              zIndex: 2,
+                            }}
+                          />
                         </Box>
                       </Tooltip>
+                      {/* VS */}
                       <Box
                         component="img"
                         src="/images/tournament/vs.svg"
@@ -138,6 +155,7 @@ const TournamentMobileView = ({
                           width: 40,
                         }}
                       />
+                      {/* Right fighter */}
                       <Tooltip title={step.fight.brute2.name}>
                         <Box sx={{ position: 'relative', mt: 1 }}>
                           <BrutePortrait
@@ -146,6 +164,7 @@ const TournamentMobileView = ({
                               height: 45,
                             }}
                           />
+                          {/* Lost indicator */}
                           {shouldResultDisplay && step.fight.winner === step.fight.brute1.name && (
                             <Close
                               color="error"
@@ -155,9 +174,23 @@ const TournamentMobileView = ({
                                 left: 0,
                                 width: 1,
                                 height: 1,
+                                zIndex: 3,
                               }}
                             />
                           )}
+                          {/* Rank */}
+                          <Box
+                            component="img"
+                            src={`/images/rankings/lvl_${step.fight.brute1.ranking}.png`}
+                            sx={{
+                              position: 'absolute',
+                              bottom: 4,
+                              left: 4,
+                              width: 20,
+                              transform: 'scaleX(-1)',
+                              zIndex: 2,
+                            }}
+                          />
                         </Box>
                       </Tooltip>
                     </StyledButton>

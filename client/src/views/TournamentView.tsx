@@ -221,6 +221,7 @@ const TournamentView = () => {
                   }}
                 >
                   {round.map((step) => (
+                    // Fight button
                     <StyledButton
                       key={step.id}
                       onClick={goToFight(step.fight, index < 6 ? index + 1 : 10 - index + 1)}
@@ -237,6 +238,7 @@ const TournamentView = () => {
                         m: `${scale(8, index)}px`,
                       }}
                     >
+                      {/* Left fighter */}
                       <Tooltip title={step.fight.brute1.name}>
                         <Box sx={{ position: 'relative', mt: 1 }}>
                           <BrutePortrait
@@ -246,6 +248,7 @@ const TournamentView = () => {
                               width: scale(100, index),
                             }}
                           />
+                          {/* Lost indicator */}
                           {shouldResultDisplay && step.fight.winner === step.fight.brute2.name && (
                             <Close
                               color="error"
@@ -255,11 +258,25 @@ const TournamentView = () => {
                                 left: 0,
                                 width: 1,
                                 height: 1,
+                                zIndex: 3,
                               }}
                             />
                           )}
+                          {/* Rank */}
+                          <Box
+                            component="img"
+                            src={`/images/rankings/lvl_${step.fight.brute1.ranking}.png`}
+                            sx={{
+                              position: 'absolute',
+                              bottom: scale(6, index),
+                              right: scale(6, index),
+                              width: scale(30, index),
+                              zIndex: 2,
+                            }}
+                          />
                         </Box>
                       </Tooltip>
+                      {/* VS */}
                       <Box
                         component="img"
                         src="/images/tournament/vs.svg"
@@ -267,6 +284,7 @@ const TournamentView = () => {
                           width: scale(45, index),
                         }}
                       />
+                      {/* RIGHT FIGHTER */}
                       <Tooltip title={step.fight.brute2.name}>
                         <Box sx={{ position: 'relative', mt: 1 }}>
                           <BrutePortrait
@@ -275,6 +293,7 @@ const TournamentView = () => {
                               width: scale(100, index),
                             }}
                           />
+                          {/* Lost indicator */}
                           {shouldResultDisplay && step.fight.winner === step.fight.brute1.name && (
                             <Close
                               color="error"
@@ -287,6 +306,19 @@ const TournamentView = () => {
                               }}
                             />
                           )}
+                          {/* Rank */}
+                          <Box
+                            component="img"
+                            src={`/images/rankings/lvl_${step.fight.brute2.ranking}.png`}
+                            sx={{
+                              position: 'absolute',
+                              bottom: scale(6, index),
+                              left: scale(6, index),
+                              width: scale(30, index),
+                              transform: 'scaleX(-1)',
+                              zIndex: 2,
+                            }}
+                          />
                         </Box>
                       </Tooltip>
                     </StyledButton>
@@ -295,8 +327,12 @@ const TournamentView = () => {
               );
             })}
           </Box>
-          {display && winnerStep && (!authing && brute)
-            && (!ownsBrute || (ownsBrute && stepWatched > 5)) && (
+          {/* Tournament winner */}
+          {display
+            && winnerStep
+            && (!authing && brute)
+            && (!ownsBrute || (ownsBrute && stepWatched > 5))
+            && (
               <Tooltip title={winnerStep.fight.winner}>
                 <BruteComponent
                   brute={winnerStep.fight.winner === winnerStep.fight.brute1.name
@@ -312,7 +348,7 @@ const TournamentView = () => {
                   }}
                 />
               </Tooltip>
-          )}
+            )}
         </Paper>
       </Page>
     ));

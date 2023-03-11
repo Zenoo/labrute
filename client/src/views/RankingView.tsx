@@ -77,7 +77,7 @@ const RankingView = () => {
                 >
                   <Box
                     component="img"
-                    src={`/images/rankings/lvl_${bruteRanking}.gif`}
+                    src={`/images/rankings/lvl_${bruteRanking}.png`}
                     sx={{ height: 38, width: 38 }}
                   />
                 </StyledButton>
