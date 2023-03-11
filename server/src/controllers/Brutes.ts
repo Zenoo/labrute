@@ -731,6 +731,8 @@ const Brutes = {
     try {
       const { params: { name } } = req;
 
+      const user = await auth(prisma, req);
+
       if (!name) {
         throw new Error('Missing name');
       }
@@ -739,6 +741,7 @@ const Brutes = {
         where: {
           name,
           deletedAt: null,
+          userId: user.id,
         },
       });
 
