@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.12.0](https://github.com/Zenoo/labrute/compare/labrute-v2.11.2...labrute-v2.12.0) (2023-03-11)
+
+
+### Features
+
+* New `Padawan` rank. [#111](https://github.com/Zenoo/labrute/issues/111) ([782eac5](https://github.com/Zenoo/labrute/commit/782eac5e5e61504228cf589e9f8378732b148958))
+* Rankup on tournament win. Fixes [#111](https://github.com/Zenoo/labrute/issues/111) ([0dd69a5](https://github.com/Zenoo/labrute/commit/0dd69a51ff87c3b6bbf9137c416fdf21b84c3589))
+
+
+### Bug Fixes
+
+* Display brute rank in daily tournament. [#111](https://github.com/Zenoo/labrute/issues/111) ([174c529](https://github.com/Zenoo/labrute/commit/174c52929e0f0b336b83c0ef4db34b1ef769905a))
+
 ## [2.11.2](https://github.com/Zenoo/labrute/compare/labrute-v2.11.1...labrute-v2.11.2) (2023-03-10)
 
 
