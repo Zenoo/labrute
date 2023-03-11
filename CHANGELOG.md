@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.12.1](https://github.com/Zenoo/labrute/compare/labrute-v2.12.0...labrute-v2.12.1) (2023-03-11)
+
+
+### Bug Fixes
+
+* Hide rank up button for brutes at the highest rank ([cdbd0d1](https://github.com/Zenoo/labrute/commit/cdbd0d137c60652285eaf42001e7fc8386a023b6))
+* Only owners can rank up brutes ([5c5c859](https://github.com/Zenoo/labrute/commit/5c5c85905f5ed7b03d5562b0cf229edbbdbfcb69))
+
 ## [2.12.0](https://github.com/Zenoo/labrute/compare/labrute-v2.11.2...labrute-v2.12.0) (2023-03-11)
 
 
