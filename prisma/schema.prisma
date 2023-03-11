@@ -186,7 +186,7 @@ model Brute {
   speedStat                    Int                 @default(0)
   speedModifier                Float               @default(1)
   speedValue                   Int                 @default(0)
-  ranking                      Int                 @default(10)
+  ranking                      Int                 @default(11)
   gender                       Gender
   user                         User?               @relation(fields: [userId], references: [id])
   userId                       String?             @db.Uuid
@@ -217,6 +217,7 @@ model Brute {
   opponents                    Brute[]             @relation("Opponents")
   opponentOf                   Brute[]             @relation("Opponents")
   opponentsGeneratedAt         DateTime?           @db.Date
+  canRankUp                    Boolean             @default(false)
 }
 
 model BruteSpritesheet {
