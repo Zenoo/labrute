@@ -1,3 +1,4 @@
+import { BruteRankings } from '@labrute/core';
 import { Log, LogType } from '@labrute/prisma';
 import { BoxProps, Tooltip } from '@mui/material';
 import moment from 'moment';
@@ -21,7 +22,7 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
       src={`/images/log/log_${log.type === LogType.survive
         ? 'win'
         : log.type === LogType.lvl
-          ? `lvl_${log.level || 10}`
+          ? `lvl_${log.level || BruteRankings[0]}`
           : log.type === LogType.tournament
             ? 'lose'
             : log.type}.gif`}
@@ -61,7 +62,7 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
         : (
           <Text bold color={log.type === LogType.tournament ? 'error.main' : 'success.main'}>
             {log.type === LogType.lvl
-              ? `${t('log.lvl')} ${t(`lvl_${log.level as 0|1|2|3|4|5|6|7|8|9|10}`)}.`
+              ? `${t('log.lvl')} ${t(`lvl_${log.level as 0|1|2|3|4|5|6|7|8|9|10|11}`)}.`
               : log.type === LogType.tournament
                 ? t('log.tournament', { date: moment.utc(log.date).format('DD/MM/YY') })
                 : t(`log.${log.type}`, { value: log.brute })}

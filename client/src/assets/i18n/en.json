@@ -293,6 +293,8 @@
   "eleminatedBy": "Your brute was eliminated by {{value}}. How humiliating!",
   "comeBackInOneHour": "Come back in one hour for the next fight.",
   "setAsWatched": "Set as watched",
+  "rankUp": "Rank up",
+  "rankUpConfirm": "Do you really want to rank up? Your brute will return to level 1 with the same destiny but with a first random bonus.",
   "finals": "Finals",
   "semiFinals": "Semi-finals",
   "quarterFinals": "Quarter-finals",

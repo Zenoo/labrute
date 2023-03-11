@@ -13,7 +13,6 @@ import StyledButton, { StyledButtonHeight, StyledButtonWidth } from '../../compo
 import Text from '../../components/Text';
 import { useAuth } from '../../hooks/useAuth';
 
-// const roundHours = [0, 10, 12, 14, 16, 18, 20];
 const rounds = [
   [-1, 32],
   [32, 48],

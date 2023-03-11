@@ -15,10 +15,10 @@ import DiscordUtils from './utils/DiscordUtils.js';
 
 const prisma = new PrismaClient();
 
-const generateBrute = (
+const generateBrute = async (
   level: number,
   name: string,
-): Prisma.BruteCreateInput => {
+): Promise<Prisma.BruteCreateInput> => {
   if (level < 1) {
     throw new Error('Level must be at least 1');
   }
@@ -40,7 +40,7 @@ const generateBrute = (
     pupilsCount: 0,
     lastFight: moment.utc().toDate(),
     fightsLeft: FIGHTS_PER_DAY,
-    ...createRandomBruteStats(),
+    ...await createRandomBruteStats(),
   };
 
   // Level the brute to desired level
@@ -102,7 +102,7 @@ async function main() {
     nicks.push(generatedName);
 
     const brute = await prisma.brute.create({
-      data: generateBrute(Math.floor(i / (ARENA_OPPONENTS_COUNT / 2)) + 1, generatedName),
+      data: await generateBrute(Math.floor(i / (ARENA_OPPONENTS_COUNT / 2)) + 1, generatedName),
       include: { body: true, colors: true },
     });
 

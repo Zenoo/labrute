@@ -3,7 +3,7 @@
 import {
   BruteWithBodyColors, getRandomBody, getRandomColors,
 } from '@labrute/core';
-import { PrismaClient, TournamentType } from '@labrute/prisma';
+import { Prisma, PrismaClient, TournamentType } from '@labrute/prisma';
 import moment from 'moment';
 import { Worker } from 'worker_threads';
 import DiscordUtils from './utils/DiscordUtils.js';
@@ -230,21 +230,22 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
     let step = 1;
     let roundBrutes = [...brutes];
     let winners: BruteWithBodyColors[] = [];
+    let lastFight: Prisma.FightCreateInput | null = null;
     while (roundBrutes.length > 1) {
       for (let i = 0; i < roundBrutes.length - 1; i += 2) {
         const brute1 = roundBrutes[i];
         const brute2 = roundBrutes[i + 1];
 
-        const generatedFight = await generateFight(prisma, brute1, brute2, false);
+        lastFight = await generateFight(prisma, brute1, brute2, false);
 
         // Create fight
         const fight = await prisma.fight.create({
-          data: generatedFight,
+          data: lastFight,
           select: { id: true },
         });
 
         // Add winner to next round
-        winners.push(brute1.name === generatedFight.winner ? brute1 : brute2);
+        winners.push(brute1.name === lastFight.winner ? brute1 : brute2);
 
         // Create tournament step
         await prisma.tournamentStep.create({
@@ -261,6 +262,30 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
       // Continue with winners
       roundBrutes = [...winners];
       winners = [];
+    }
+
+    if (!lastFight) {
+      throw new Error('No last fight');
+    }
+
+    const fight = lastFight;
+
+    // Allow rank up for winner if opponent wasn't lower rank
+    const winner = brutes.find((brute) => brute.name === fight.winner);
+    if (!winner) {
+      throw new Error('No winner');
+    }
+
+    const loser = brutes.find((brute) => brute.name === fight.loser);
+    if (!loser) {
+      throw new Error('No loser');
+    }
+
+    if (!winner.canRankUp && winner.ranking >= loser.ranking) {
+      await prisma.brute.update({
+        where: { id: winner.id },
+        data: { canRankUp: true },
+      });
     }
 
     // Send Discord notification

@@ -145,7 +145,7 @@ const Brutes = {
       const brute = await prisma.brute.create({
         data: {
           name: req.body.name,
-          ...createRandomBruteStats(),
+          ...await createRandomBruteStats(),
           gender: req.body.gender,
           user: { connect: { id: user.id } },
           body: { create: req.body.body },
@@ -719,6 +719,55 @@ const Brutes = {
       res.send({
         exists: true,
         name: brute.name,
+      });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  rankUp: (prisma: PrismaClient) => async (
+    req: Request,
+    res: Response,
+  ) => {
+    try {
+      const { params: { name } } = req;
+
+      if (!name) {
+        throw new Error('Missing name');
+      }
+
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name,
+          deletedAt: null,
+        },
+      });
+
+      if (!brute) {
+        throw new Error('Brute not found');
+      }
+
+      if (!brute.canRankUp) {
+        throw new Error('Brute cannot rank up');
+      }
+
+      if (brute.ranking === 0) {
+        throw new Error('Brute is already at the highest rank');
+      }
+
+      // Update the brute
+      await prisma.brute.update({
+        where: { id: brute.id },
+        data: {
+          // Random stats
+          ...await createRandomBruteStats(prisma, brute),
+          // Rank up
+          ranking: brute.ranking - 1,
+          canRankUp: false,
+        },
+      });
+
+      res.send({
+        success: true,
       });
     } catch (error) {
       sendError(res, error);

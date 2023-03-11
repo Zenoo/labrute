@@ -1,8 +1,7 @@
 import { Brute, BruteStat, PetName, Prisma, SkillName, WeaponName } from '@labrute/prisma';
-import { PERKS_TOTAL_ODDS } from '../constants';
+import { PERKS_TOTAL_ODDS, PERK_ODDS } from '../constants';
 import randomBetween from '../utils/randomBetween';
 import weightedRandom from '../utils/weightedRandom';
-import { perkOdds } from './createRandomBruteStats';
 import pets, { PETS_TOTAL_ODDS } from './pets';
 import skills, { SKILLS_TOTAL_ODDS } from './skills';
 import weapons, { limitedWeapons, MAX_LIMITED_WEAPONS, WEAPONS_TOTAL_ODDS } from './weapons';
@@ -36,7 +35,7 @@ const getLevelUpChoices = (
 
   if (!preventPerk) {
     // Weapon/Skill/Pet ?
-    perkType = weightedRandom(perkOdds, PERKS_TOTAL_ODDS).name;
+    perkType = weightedRandom(PERK_ODDS, PERKS_TOTAL_ODDS).name;
 
     // Perk name ?
     perkName = perkType === 'pet'

@@ -94,3 +94,14 @@ export const BruteRankings = [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0] as const;
 export type BruteRanking = typeof BruteRankings[number];
 
 export const GLOBAL_TOURNAMENT_START_HOUR = 11;
+
+export interface Perk {
+  name: 'pet' | 'skill' | 'weapon';
+  odds: number;
+}
+
+export const PERK_ODDS: Perk[] = [
+  { name: 'pet', odds: PETS_TOTAL_ODDS },
+  { name: 'skill', odds: SKILLS_TOTAL_ODDS },
+  { name: 'weapon', odds: WEAPONS_TOTAL_ODDS },
+];

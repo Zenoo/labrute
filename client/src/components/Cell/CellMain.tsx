@@ -66,6 +66,18 @@ const CellMain = ({
     });
   }, [Alert, Confirm, brute, navigate, t, updateData]);
 
+  // Rank up
+  const rankUp = useCallback(() => {
+    if (!brute) return;
+
+    Confirm.open(t('rankUp'), t('rankUpConfirm'), () => {
+      Server.Brute.rankUp(brute.name).then(() => {
+        // Reload page
+        window.location.reload();
+      }).catch(catchError(Alert));
+    });
+  }, [Alert, Confirm, brute, t]);
+
   return brute && (
     <Box {...rest}>
       <Box display="flex" justifyContent="space-between" alignItems="flex-start" sx={{ mb: 2 }}>
@@ -78,6 +90,13 @@ const CellMain = ({
         </Box>
       </Box>
       <BruteBodyAndStats brute={brute} sx={{ mb: 1 }} />
+
+      {/* Rank up */}
+      {brute.canRankUp && (
+        <FantasyButton color="success" onClick={rankUp} sx={{ mb: 1 }}>
+          {t('rankUp')}
+        </FantasyButton>
+      )}
       {owner && (brute.xp < xpNeededForNextLevel ? fightsLeft > 0 ? ready ? (
         <Stack spacing={1} sx={{ alignItems: 'center', mt: 1 }}>
           <Text bold sx={{ pl: 1 }}>{t('callToFight')}</Text>

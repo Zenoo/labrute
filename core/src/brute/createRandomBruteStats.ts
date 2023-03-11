@@ -1,25 +1,15 @@
-import { PetName, SkillName, WeaponName } from '@labrute/prisma';
-import { BRUTE_STARTING_POINTS, PERKS_TOTAL_ODDS } from '../constants';
+import { Brute, BruteStat, DestinyChoiceType, PetName, PrismaClient, SkillName, WeaponName } from '@labrute/prisma';
+import { BruteRankings, BRUTE_STARTING_POINTS, PERKS_TOTAL_ODDS, PERK_ODDS } from '../constants';
 import randomBetween from '../utils/randomBetween';
 import weightedRandom from '../utils/weightedRandom';
 import applySkillModifiers from './applySkillModifiers';
 import getHP from './getHP';
 import { default as availablePets, PETS_TOTAL_ODDS } from './pets';
 import { default as availableSkills, SKILLS_TOTAL_ODDS } from './skills';
+import updateBruteData from './updateBruteData';
 import { default as availableWeapons, WEAPONS_TOTAL_ODDS } from './weapons';
 
-interface Perk {
-  name: 'pet' | 'skill' | 'weapon';
-  odds: number;
-}
-
-export const perkOdds: Perk[] = [
-  { name: 'pet', odds: PETS_TOTAL_ODDS },
-  { name: 'skill', odds: SKILLS_TOTAL_ODDS },
-  { name: 'weapon', odds: WEAPONS_TOTAL_ODDS },
-];
-
-const createRandomBruteStats = () => {
+const createRandomBruteStats = async (prisma?: PrismaClient, initialBrute?: Brute) => {
   let brute = {
     level: 1,
     xp: 0,
@@ -38,14 +28,14 @@ const createRandomBruteStats = () => {
     speedValue: 0,
     skills: [] as SkillName[],
     pets: [] as PetName[],
-    ranking: 10,
+    ranking: BruteRankings[0],
     weapons: [] as WeaponName[],
   };
 
   // Starting budget
   let availablePoints = BRUTE_STARTING_POINTS;
 
-  const perk = weightedRandom(perkOdds, PERKS_TOTAL_ODDS);
+  const perk = weightedRandom(PERK_ODDS, PERKS_TOTAL_ODDS);
 
   // Pet
   const pet = perk.name === 'pet' ? weightedRandom(availablePets, PETS_TOTAL_ODDS) : null;
@@ -53,6 +43,32 @@ const createRandomBruteStats = () => {
   brute.skills = perk.name === 'skill' ? [weightedRandom(availableSkills, SKILLS_TOTAL_ODDS).name] : [];
   // Weapon
   brute.weapons = perk.name === 'weapon' ? [weightedRandom(availableWeapons, WEAPONS_TOTAL_ODDS).name] : [];
+
+  // If creating from a brute, disallow perks already in its destiny
+  if (initialBrute && prisma) {
+    const alreadyChosen = await prisma.destinyChoice.count({
+      where: {
+        bruteId: initialBrute.id,
+        skill: perk.name === 'skill' ? brute.skills[0] : null,
+        pet: perk.name === 'pet' ? brute.pets[0] : null,
+        weapon: perk.name === 'weapon' ? brute.weapons[0] : null,
+      },
+    });
+
+    // Get a +2 stat boost instead
+    if (alreadyChosen) {
+      const stat = Object.values(BruteStat)[randomBetween(0, Object.values(BruteStat).length - 1)];
+      brute = {
+        ...updateBruteData(brute, {
+          type: DestinyChoiceType.stats,
+          stat1: stat,
+          stat1Value: 2,
+        }),
+        ranking: brute.ranking,
+        level: 1,
+      };
+    }
+  }
 
   // Stats boosters
   if (perk.name === 'skill') {

@@ -199,7 +199,7 @@ const CellGlobalTournament = ({
                   }
                 }}
               >
-                <Text bold color="text.disabled" sx={{ width: 30 }}>{i + 1 + 10}h</Text>
+                <Text bold color="text.disabled" sx={{ width: 30 }}>{i + GLOBAL_TOURNAMENT_START_HOUR}h</Text>
                 <Text bold color="text.disabled">{t('automaticallyQualified')}</Text>
               </Box>
             );
@@ -234,7 +234,7 @@ const CellGlobalTournament = ({
                 color={won ? 'success.main' : 'error'}
                 sx={{ width: 30 }}
               >
-                {step.step + 10}h
+                {step.step + GLOBAL_TOURNAMENT_START_HOUR - 1}h
               </Text>
               <Text
                 bold
@@ -268,7 +268,7 @@ const CellGlobalTournament = ({
                   }
                 }}
                 >
-                  <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[0].step + 10}h {t('quarterFinals')}</Text>
+                  <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[0].step + GLOBAL_TOURNAMENT_START_HOUR - 1}h {t('quarterFinals')}</Text>
                   {data.lastRounds
                     .filter((step) => step.step === data.lastRounds[0].step)
                     .map((step) => renderFight(step))}
@@ -293,7 +293,7 @@ const CellGlobalTournament = ({
                   }
                 }}
                 >
-                  <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[0].step + 10 + 1}h {t('semiFinals')}</Text>
+                  <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[0].step + GLOBAL_TOURNAMENT_START_HOUR}h {t('semiFinals')}</Text>
                   {data.lastRounds
                     .filter((step) => step.step === data.lastRounds[0].step + 1)
                     .map((step) => renderFight(step))}
@@ -318,7 +318,7 @@ const CellGlobalTournament = ({
                   }
                 }}
                 >
-                  <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[data.lastRounds.length - 1].step + 10}h {t('finals')}</Text>
+                  <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[data.lastRounds.length - 1].step + GLOBAL_TOURNAMENT_START_HOUR - 1}h {t('finals')}</Text>
                   {renderFight(data.lastRounds[data.lastRounds.length - 1], true)}
                 </Box>
                 {/* Lost marker */}

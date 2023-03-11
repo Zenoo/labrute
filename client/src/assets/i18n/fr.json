@@ -293,6 +293,8 @@
   "eleminatedBy": "Ta brute a été éliminée par {{value}}. Quelle humiliation !",
   "comeBackInOneHour": "Reviens dans une heure pour le prochain tour.",
   "setAsWatched": "Marquer comme vu",
+  "rankUp": "Monter de rang",
+  "rankUpConfirm": "Voulez-vous vraiment monter de rang ? Votre brute repassera au niveau 1 avec la même destinée mais avec un premier bonus aléatoire.",
   "finals": "Finale",
   "semiFinals": "Demi-finale",
   "quarterFinals": "Quart de finale",
