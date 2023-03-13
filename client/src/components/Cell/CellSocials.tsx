@@ -1,4 +1,5 @@
-import { Box, Grid, Paper, PaperProps } from '@mui/material';
+import { AccountTree } from '@mui/icons-material';
+import { Box, Grid, Paper, PaperProps, Tooltip } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useBrute } from '../../hooks/useBrute';
@@ -24,7 +25,15 @@ const CellSocials = ({
     <Paper {...rest}>
       <Grid container spacing={1}>
         <Grid item xs={smallScreen ? 12 : 6}>
-          <Text h2 sx={{ fontVariant: 'small-caps' }}>{brute.name}</Text>
+          <Tooltip title={`${t('destinyOf')} ${brute.name}`}>
+            <Link
+              to={`/${brute.name}/destiny`}
+              sx={{ mr: 1 }}
+            >
+              <AccountTree />
+            </Link>
+          </Tooltip>
+          <Text h2 sx={{ fontVariant: 'small-caps', display: 'inline-block' }}>{brute.name}</Text>
         </Grid>
         <Grid item xs={smallScreen ? 6 : 3}>
           {!!brute.master && (
