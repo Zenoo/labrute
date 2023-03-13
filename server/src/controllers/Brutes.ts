@@ -787,14 +787,12 @@ const Brutes = {
     try {
       const { params: { name } } = req;
 
-      const user = await auth(prisma, req);
-
       if (!name) {
         throw new Error('Missing name');
       }
 
       const brute = await prisma.brute.findFirst({
-        where: { name, deletedAt: null, userId: user.id },
+        where: { name, deletedAt: null },
       });
 
       if (!brute) {
