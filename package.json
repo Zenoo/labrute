@@ -24,7 +24,9 @@
     "postinstall": "bash ./postInstall.sh",
     "animation:import": "ts-node importAnimation.ts",
     "studio": "cd ./server && yarn studio",
-    "audit": "yarn npm audit --recursive --all"
+    "audit": "yarn npm audit --recursive --all",
+    "add:client": "yarn workspace @labrute/client add",
+    "add:server": "yarn workspace @labrute/server add"
   },
   "devDependencies": {
     "concurrently": "^7.6.0",

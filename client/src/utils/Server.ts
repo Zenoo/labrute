@@ -1,4 +1,4 @@
-import { BrutesExistsResponse, BrutesGetForRankResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, BruteWithBodyColors, FullTournament, TournamentsGetGlobalResponse, UserWithBrutesBodyColor } from '@labrute/core';
+import { BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetForRankResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, BruteWithBodyColors, FullTournament, TournamentsGetGlobalResponse, UserWithBrutesBodyColor } from '@labrute/core';
 import { Brute, DestinyChoice, DestinyChoiceSide, Fight, Gender, Log, Prisma, User } from '@labrute/prisma';
 import Fetch from './Fetch';
 
@@ -48,6 +48,7 @@ const Server = {
     getRanking: (name: string) => Fetch<BrutesGetRankingResponse>(`/api/brute/${name}/ranking`),
     exists: (name: string) => Fetch<BrutesExistsResponse>(`/api/brute/${name}/exists`),
     rankUp: (name: string) => Fetch<never>(`/api/brute/${name}/rank-up`),
+    getDestiny: (name: string) => Fetch<BrutesGetDestinyResponse>(`/api/brute/${name}/destiny`),
   },
   Log: {
     list: (brute: string) => Fetch<(Log & { currentBrute: { name: string } })[]>(`/api/log/list/${brute}`),

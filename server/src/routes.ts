@@ -36,6 +36,7 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
   app.get('/api/brute/:name/ranking', Brutes.getRanking(prisma));
   app.get('/api/brute/:name/exists', Brutes.exists(prisma));
   app.get('/api/brute/:name/rank-up', Brutes.rankUp(prisma));
+  app.get('/api/brute/:name/destiny', Brutes.getDestiny(prisma));
 
   // Log
   app.get('/api/log/list/:name', Logs.list(prisma));

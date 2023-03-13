@@ -1,4 +1,4 @@
-import { BruteBody, BruteColors, Gender, SkillName, WeaponName } from '@labrute/prisma';
+import { BruteBody, BruteColors, DestinyChoice, DestinyChoiceSide, Gender, SkillName, WeaponName } from '@labrute/prisma';
 
 export type WeaponType = 'fast' | 'sharp' | 'heavy' | 'long' | 'thrown' | 'blunt';
 
@@ -342,4 +342,14 @@ export type Animation = typeof animationList[number];
 export interface FrameProps {
   colors: BruteColors,
   body: BruteBody
+}
+
+export interface DestinyBranch extends DestinyChoice {
+  [DestinyChoiceSide.LEFT]: DestinyBranch | null;
+  [DestinyChoiceSide.RIGHT]: DestinyBranch | null;
+}
+
+export interface DestinyTree {
+  [DestinyChoiceSide.LEFT]: DestinyBranch;
+  [DestinyChoiceSide.RIGHT]: DestinyBranch;
 }

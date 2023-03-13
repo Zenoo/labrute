@@ -2524,6 +2524,7 @@ __metadata:
     react-router: ^6.3.0
     react-router-dom: ^6.3.0
     react-scripts: ^5.0.1
+    react-zoom-pan-pinch: ^3.0.2
     typescript: ^4.9.4
   languageName: unknown
   linkType: soft
@@ -14084,6 +14085,16 @@ __metadata:
     react: ">=16.6.0"
     react-dom: ">=16.6.0"
   checksum: 75602840106aa9c6545149d6d7ae1502fb7b7abadcce70a6954c4b64a438ff1cd16fc77a0a1e5197cdd72da398f39eb929ea06f9005c45b132ed34e056ebdeb1
+  languageName: node
+  linkType: hard
+
+"react-zoom-pan-pinch@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "react-zoom-pan-pinch@npm:3.0.2"
+  peerDependencies:
+    react: "*"
+    react-dom: "*"
+  checksum: daef7863c9bf599ae09bd0b4ff930b17717442d0ee8b04227bb5598d555b97b601ab5ac39fe9ac86df82f6ca2be2bb6b6eae72f318e3391dc79bd4cf20366e51
   languageName: node
   linkType: hard
 

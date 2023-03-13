@@ -4,6 +4,7 @@ import Main from './layouts/Main';
 import AnchorTestView from './views/AnchorTestView';
 import ArenaView from './views/ArenaView';
 import CellView from './views/CellView';
+import DestinyView from './views/DestinyView';
 import FightView from './views/FightView';
 import HomeView from './views/HomeView';
 import LevelUpView from './views/LevelUpView';
@@ -36,6 +37,7 @@ const routes = [
           { path: 'tournament/:date', element: <TournamentView /> },
           { path: 'ranking', element: <RankingView /> },
           { path: 'ranking/:rank', element: <RankingView /> },
+          { path: 'destiny', element: <DestinyView /> },
         ],
       },
     ],

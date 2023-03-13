@@ -11,17 +11,21 @@ import getRandomBody from './brute/getRandomBody';
 import getRandomColors from './brute/getRandomColors';
 import getSacriPoints from './brute/getSacriPoints';
 import getXPNeeded from './brute/getXPNeeded';
-import hexToRgba from './utils/hexToRgba';
 import pets from './brute/pets';
 import skills from './brute/skills';
 import updateBruteData from './brute/updateBruteData';
+import weapons from './brute/weapons';
+import { DestinyTree } from './types';
 import adjustColor from './utils/adjustColor';
+import hexToRgba from './utils/hexToRgba';
+import pad from './utils/pad';
+import promiseBatch from './utils/promiseBatch';
 import randomBetween from './utils/randomBetween';
 import weightedRandom from './utils/weightedRandom';
-import weapons from './brute/weapons';
-import promiseBatch from './utils/promiseBatch';
-import pad from './utils/pad';
 
+export * from './brute/weapons';
+export * from './constants';
+export * from './types';
 export {
   applySkillModifiers,
   availableBodyParts,
@@ -46,9 +50,6 @@ export {
   promiseBatch,
   pad,
 };
-export * from './types';
-export * from './constants';
-export * from './brute/weapons';
 
 export const LANGUAGES = ['fr', 'en', 'es', 'de'] as const;
 export const DEFAULT_LANGUAGE = LANGUAGES[0];
@@ -119,3 +120,4 @@ export type TournamentsGetGlobalResponse = {
   done: boolean,
   rounds: number,
 };
+export type BrutesGetDestinyResponse = DestinyTree;
