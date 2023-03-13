@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.13.0](https://github.com/Zenoo/labrute/compare/labrute-v2.12.2...labrute-v2.13.0) (2023-03-13)
+
+
+### Features
+
+* Add spanish translations ([4359093](https://github.com/Zenoo/labrute/commit/4359093703934550617033b8f7e2971c4fc30a5a))
+* Destiny view. Fixes [#26](https://github.com/Zenoo/labrute/issues/26) ([e86977a](https://github.com/Zenoo/labrute/commit/e86977ae85741c06e0455adde2963d3b36fd3956))
+
+
+### Bug Fixes
+
+* Destiny link in cell. [#26](https://github.com/Zenoo/labrute/issues/26) ([da28a06](https://github.com/Zenoo/labrute/commit/da28a069befbd402df6f08f65e41e14ee0c242ac))
+
 ## [2.12.2](https://github.com/Zenoo/labrute/compare/labrute-v2.12.1...labrute-v2.12.2) (2023-03-13)
 
 
