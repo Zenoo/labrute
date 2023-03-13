@@ -4,7 +4,7 @@ import randomBetween from '../utils/randomBetween';
 import weightedRandom from '../utils/weightedRandom';
 import applySkillModifiers from './applySkillModifiers';
 import getHP from './getHP';
-import { default as availablePets, PETS_TOTAL_ODDS } from './pets';
+import { default as availablePets, Pet, PETS_TOTAL_ODDS } from './pets';
 import { default as availableSkills, SKILLS_TOTAL_ODDS } from './skills';
 import updateBruteData from './updateBruteData';
 import { default as availableWeapons, WEAPONS_TOTAL_ODDS } from './weapons';
@@ -38,7 +38,11 @@ const createRandomBruteStats = async (prisma?: PrismaClient, initialBrute?: Brut
   const perk = weightedRandom(PERK_ODDS, PERKS_TOTAL_ODDS);
 
   // Pet
-  const pet = perk.name === 'pet' ? weightedRandom(availablePets, PETS_TOTAL_ODDS) : null;
+  let pet: Pet | null = null;
+  if (perk.name === 'pet') {
+    pet = weightedRandom(availablePets, PETS_TOTAL_ODDS);
+    brute.pets = [pet.name];
+  }
   // Skill
   brute.skills = perk.name === 'skill' ? [weightedRandom(availableSkills, SKILLS_TOTAL_ODDS).name] : [];
   // Weapon
@@ -66,6 +70,9 @@ const createRandomBruteStats = async (prisma?: PrismaClient, initialBrute?: Brut
         }),
         ranking: brute.ranking,
         level: 1,
+        skills: [],
+        pets: [],
+        weapons: [],
       };
     }
   }
