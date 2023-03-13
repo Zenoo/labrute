@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.13.1](https://github.com/Zenoo/labrute/compare/labrute-v2.13.0...labrute-v2.13.1) (2023-03-13)
+
+
+### Bug Fixes
+
+* Allow destiny access to non owners. ([26d4a00](https://github.com/Zenoo/labrute/commit/26d4a0031215b2bd74a8890cc444fe711f1cf40e))
+
 ## [2.13.0](https://github.com/Zenoo/labrute/compare/labrute-v2.12.2...labrute-v2.13.0) (2023-03-13)
 
 
