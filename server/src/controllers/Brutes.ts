@@ -1,7 +1,9 @@
 import {
-  ARENA_OPPONENTS_COUNT, BrutesExistsResponse, BrutesGetForRankResponse,
+  ARENA_OPPONENTS_COUNT, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetForRankResponse,
   BrutesGetRankingResponse,
   BruteWithBodyColors, createRandomBruteStats,
+  DestinyBranch,
+  DestinyTree,
   getLevelUpChoices, getSacriPoints, getXPNeeded, updateBruteData,
 } from '@labrute/core';
 import {
@@ -766,12 +768,75 @@ const Brutes = {
           // Rank up
           ranking: brute.ranking - 1,
           canRankUp: false,
+          // Reset destiny
+          destinyPath: [],
         },
       });
 
       res.send({
         success: true,
       });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  getDestiny: (prisma: PrismaClient) => async (
+    req: Request,
+    res: Response<BrutesGetDestinyResponse>,
+  ) => {
+    try {
+      const { params: { name } } = req;
+
+      const user = await auth(prisma, req);
+
+      if (!name) {
+        throw new Error('Missing name');
+      }
+
+      const brute = await prisma.brute.findFirst({
+        where: { name, deletedAt: null, userId: user.id },
+      });
+
+      if (!brute) {
+        throw new Error('Brute not found');
+      }
+
+      const destinyChoices = await prisma.destinyChoice.findMany({
+        where: { bruteId: brute.id },
+      });
+
+      // Get Destiny tree
+      const getBranchRecursive = (path: DestinyChoiceSide[]) => {
+        const destinyChoice = destinyChoices.find((c) => c.path.join(',') === path.join(','));
+
+        if (!destinyChoice) {
+          return null;
+        }
+
+        const branch: DestinyBranch = {
+          ...destinyChoice,
+          [DestinyChoiceSide.LEFT]: getBranchRecursive(
+            [...path, DestinyChoiceSide.LEFT],
+          ),
+          [DestinyChoiceSide.RIGHT]: getBranchRecursive(
+            [...path, DestinyChoiceSide.RIGHT],
+          ),
+        };
+
+        return branch;
+      };
+
+      // Create Destiny tree
+      const destinyTree: DestinyTree = {
+        [DestinyChoiceSide.LEFT]: getBranchRecursive(
+          [DestinyChoiceSide.LEFT],
+        ) as DestinyBranch,
+        [DestinyChoiceSide.RIGHT]: getBranchRecursive(
+          [DestinyChoiceSide.RIGHT],
+        ) as DestinyBranch,
+      };
+
+      res.send(destinyTree);
     } catch (error) {
       sendError(res, error);
     }
