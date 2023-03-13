@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.12.2](https://github.com/Zenoo/labrute/compare/labrute-v2.12.1...labrute-v2.12.2) (2023-03-13)
+
+
+### Bug Fixes
+
+* Duplicate skills on rank up ([9ee32cd](https://github.com/Zenoo/labrute/commit/9ee32cdf30020d02dd677d1203ed04098a4a5f9f))
+* Only display the rank up button on your own brute. ([d4a4af6](https://github.com/Zenoo/labrute/commit/d4a4af60142298f33de1611a37d359e1793a3f1e))
+* Progress for the Destiny view. [#26](https://github.com/Zenoo/labrute/issues/26) ([b3338f2](https://github.com/Zenoo/labrute/commit/b3338f2d51c7385c94c59a8c9904fe24052127cc))
+* Wrong destiny for brutes after ranking up ([6374618](https://github.com/Zenoo/labrute/commit/637461810c84d75c0c6b96b5d38a77b9daf14fe1))
+
 ## [2.12.1](https://github.com/Zenoo/labrute/compare/labrute-v2.12.0...labrute-v2.12.1) (2023-03-11)
 
 
