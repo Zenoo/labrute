@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 import BoxBg from '../components/BoxBg';
-import BruteComponent from '../components/Brute/Body/BruteComponent';
 import SkillTooltip from '../components/Brute/SkillTooltip';
 import WeaponTooltip from '../components/Brute/WeaponTooltip';
 import Page from '../components/Page';
@@ -186,30 +185,7 @@ const DestinyView = () => {
                   width: 'max-content',
                 }}
               >
-                <Box component="li" sx={styles.li}>
-                  <Box component="aside" sx={styles.aside}>
-                    {/* BRUTE */}
-                    <BoxBg
-                      src="/images/level-up/brute-bg.gif"
-                      sx={{
-                        height: 182,
-                        width: 201,
-                        mx: 'auto',
-                        mt: 1,
-                      }}
-                    >
-                      <BruteComponent
-                        brute={brute}
-                        inverted
-                        sx={{ height: 160, mt: 1 }}
-                      />
-                    </BoxBg>
-                  </Box>
-                  {/* CHOICES */}
-                  <Box component="ul" sx={styles.ul}>
-                    {tree && ([tree.LEFT, tree.RIGHT]).map((branch) => renderBranch(branch))}
-                  </Box>
-                </Box>
+                {tree && renderBranch(tree)}
               </Box>
             </TransformComponent>
           </TransformWrapper>

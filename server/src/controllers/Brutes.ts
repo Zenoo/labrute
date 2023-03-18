@@ -2,9 +2,7 @@ import {
   ARENA_OPPONENTS_COUNT, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetForRankResponse,
   BrutesGetRankingResponse,
   BruteWithBodyColors, createRandomBruteStats,
-  DestinyBranch,
-  DestinyTree,
-  getLevelUpChoices, getSacriPoints, getXPNeeded, updateBruteData,
+  DestinyBranch, getLevelUpChoices, getSacriPoints, getXPNeeded, updateBruteData,
 } from '@labrute/core';
 import {
   DestinyChoiceSide, DestinyChoiceType, Gender, Prisma, PrismaClient,
@@ -844,7 +842,14 @@ const Brutes = {
       };
 
       // Create Destiny tree
-      const destinyTree: DestinyTree = {
+      const firstBonus = destinyChoices.find((c) => c.path.length === 0);
+
+      if (!firstBonus) {
+        throw new Error('Brute has no first bonus');
+      }
+
+      const destinyTree: DestinyBranch = {
+        ...firstBonus,
         [DestinyChoiceSide.LEFT]: getBranchRecursive(
           [DestinyChoiceSide.LEFT],
         ) as DestinyBranch,

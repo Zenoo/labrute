@@ -16,7 +16,7 @@ import pets from './brute/pets';
 import skills from './brute/skills';
 import updateBruteData from './brute/updateBruteData';
 import weapons from './brute/weapons';
-import { DestinyTree } from './types';
+import { DestinyBranch } from './types';
 import adjustColor from './utils/adjustColor';
 import hexToRgba from './utils/hexToRgba';
 import pad from './utils/pad';
@@ -24,9 +24,9 @@ import promiseBatch from './utils/promiseBatch';
 import randomBetween from './utils/randomBetween';
 import weightedRandom from './utils/weightedRandom';
 
-export * from './brute/weapons';
-export * from './brute/skills';
 export * from './brute/pets';
+export * from './brute/skills';
+export * from './brute/weapons';
 export * from './constants';
 export * from './types';
 export {
@@ -124,4 +124,4 @@ export type TournamentsGetGlobalResponse = {
   done: boolean,
   rounds: number,
 };
-export type BrutesGetDestinyResponse = DestinyTree;
+export type BrutesGetDestinyResponse = DestinyBranch;

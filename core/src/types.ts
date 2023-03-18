@@ -312,8 +312,3 @@ export interface DestinyBranch extends DestinyChoice {
   [DestinyChoiceSide.LEFT]: DestinyBranch | null;
   [DestinyChoiceSide.RIGHT]: DestinyBranch | null;
 }
-
-export interface DestinyTree {
-  [DestinyChoiceSide.LEFT]: DestinyBranch;
-  [DestinyChoiceSide.RIGHT]: DestinyBranch;
-}
