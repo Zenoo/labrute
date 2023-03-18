@@ -1,5 +1,6 @@
 import { BruteRanking, getFightsLeft, getMaxFightsPerDay, getSacriPoints, getXPNeeded, Language, UserWithBrutesBodyColor } from '@labrute/core';
 import { Box, BoxProps, Stack } from '@mui/material';
+import moment from 'moment';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -155,7 +156,7 @@ const CellMain = ({
         <CellGlobalTournament sx={{ mt: 3 }} />
       )}
       {/* BRUTE SACRIFICE */}
-      {owner && (
+      {owner && moment.utc().isAfter(moment.utc(brute.createdAt), 'day') && (
         <FantasyButton
           color="error"
           onClick={confirmSacrifice}

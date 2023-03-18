@@ -403,8 +403,14 @@ const Brutes = {
           deletedAt: null,
         },
       });
+
       if (!brute) {
         throw new Error('Brute not found');
+      }
+
+      // Prevent sacrificing the day of creation
+      if (moment.utc().isSame(moment.utc(brute.createdAt), 'day')) {
+        throw new Error('You cannot sacrifice your brute the day of creation');
       }
 
       // Add SacriPoints to user
