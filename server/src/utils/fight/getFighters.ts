@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import {
+  BruteRanking,
   BruteWithBodyColors, DetailedFighter, pets, randomBetween, SHIELD_BLOCK_ODDS, skills, weapons,
 } from '@labrute/core';
 
@@ -139,6 +140,7 @@ const getFighters = (team1: BruteAndBackup, team2: BruteAndBackup): DetailedFigh
     const fighter: DetailedFighter = {
       id: brute.id,
       name: brute.name,
+      rank: brute.ranking as BruteRanking,
       // Add minimal visual data to still be able to display the fight if the brute was deleted
       data: {
         gender: brute.gender,
@@ -198,6 +200,7 @@ const getFighters = (team1: BruteAndBackup, team2: BruteAndBackup): DetailedFigh
       fighters.push({
         id: 0,
         name: petName,
+        rank: 0,
         type: 'pet' as const,
         master: brute.id,
         maxHp: pet.hp,
@@ -253,6 +256,7 @@ const getFighters = (team1: BruteAndBackup, team2: BruteAndBackup): DetailedFigh
       const backupFighter: DetailedFighter = {
         id: backup.id,
         name: backup.name,
+        rank: backup.ranking as BruteRanking,
         // Add minimal visual data to still be able to display the fight if the brute was deleted
         data: {
           gender: backup.gender,

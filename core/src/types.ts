@@ -1,26 +1,7 @@
 import { BruteBody, BruteColors, DestinyChoice, DestinyChoiceSide, Gender, SkillName, WeaponName } from '@labrute/prisma';
-
-export type WeaponType = 'fast' | 'sharp' | 'heavy' | 'long' | 'thrown' | 'blunt';
-
-export const weaponAnimationList = ['fist', 'slash', 'estoc', 'whip'] as const;
-export type WeaponAnimation = typeof weaponAnimationList[number];
-
-export interface Weapon {
-  name: WeaponName;
-  odds: number;
-  types: WeaponType[];
-  tempo: number;
-  counter: number;
-  evasion: number;
-  block: number;
-  accuracy: number;
-  disarm: number;
-  combo: number;
-  damage: number;
-  toss: number;
-  reach: number;
-  animation: WeaponAnimation;
-}
+import { Skill } from './brute/skills';
+import { Weapon, WeaponAnimation } from './brute/weapons';
+import { BruteRanking } from './constants';
 
 export interface AnimatedWeapon {
   name: WeaponName;
@@ -29,16 +10,6 @@ export interface AnimatedWeapon {
 
 export type SuperName = 'thief' | 'fierceBrute' | 'tragicPotion'
   | 'net' | 'bomb' | 'hammer' | 'cryOfTheDamned' | 'hypnosis' | 'flashFlood' | 'tamer';
-
-export type SkillType = 'passive' | 'booster' | 'super' | 'talent';
-
-export interface Skill {
-  name: SkillName;
-  odds: number;
-  type: SkillType;
-  toss?: number;
-  uses?: number;
-}
 
 export interface Stat {
   stat: number;
@@ -50,6 +21,7 @@ export interface DetailedFighter {
   // Metadata
   id: number;
   name: string;
+  rank: BruteRanking;
   data?: {
     gender: Gender,
     body: BruteBody,
@@ -330,14 +302,6 @@ export interface DetailedFight {
 }
 
 export type AnimationModel = 'bear' | 'dog' | 'panther' | 'male-brute' | 'female-brute';
-export const animationList = [
-  'arrive-end', 'arrive-start', 'attack', 'block', 'death', 'drink', 'eat',
-  'equip', 'evade', 'grab', 'grabbed', 'hit', 'hit-0', 'hit-1', 'hit-2',
-  'idle', 'launch', 'monk-loop', 'monk-start', 'prepare-throw', 'run',
-  'stolen', 'steal', 'strengthen', 'throw', 'train', 'trapped-loop', 'trapped-start',
-  'trash', 'win', ...weaponAnimationList,
-] as const;
-export type Animation = typeof animationList[number];
 
 export interface FrameProps {
   colors: BruteColors,

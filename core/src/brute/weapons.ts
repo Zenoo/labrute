@@ -1,5 +1,27 @@
 import { WeaponName } from '@labrute/prisma';
-import { Weapon } from '../types';
+
+export const WeaponTypes = ['fast', 'sharp', 'heavy', 'long', 'thrown', 'blunt'] as const;
+export type WeaponType = typeof WeaponTypes[number];
+
+export const WeaponAnimations = ['fist', 'slash', 'estoc', 'whip'] as const;
+export type WeaponAnimation = typeof WeaponAnimations[number];
+
+export interface Weapon {
+  name: WeaponName;
+  odds: number;
+  types: WeaponType[];
+  tempo: number;
+  counter: number;
+  evasion: number;
+  block: number;
+  accuracy: number;
+  disarm: number;
+  combo: number;
+  damage: number;
+  toss: number;
+  reach: number;
+  animation: WeaponAnimation;
+}
 
 export const limitedWeapons: WeaponName[] = [
   'knife', 'broadsword', 'lance', 'baton', 'trident', 'hatchet',

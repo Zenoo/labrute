@@ -1,8 +1,7 @@
 import { Gender } from '@labrute/prisma';
 import { PETS_TOTAL_ODDS } from './brute/pets';
 import { SKILLS_TOTAL_ODDS } from './brute/skills';
-import { WEAPONS_TOTAL_ODDS } from './brute/weapons';
-import { Animation } from './types';
+import { WeaponAnimations, WEAPONS_TOTAL_ODDS } from './brute/weapons';
 
 export const FIGHTS_PER_DAY = 6;
 
@@ -14,6 +13,15 @@ export const PERKS_TOTAL_ODDS = WEAPONS_TOTAL_ODDS + PETS_TOTAL_ODDS + SKILLS_TO
 
 export const SHIELD_BLOCK_ODDS = 0.45;
 export const BARE_HANDS_TEMPO = 1.2;
+
+export const Animations = [
+  'arrive-end', 'arrive-start', 'attack', 'block', 'death', 'drink', 'eat',
+  'equip', 'evade', 'grab', 'grabbed', 'hit', 'hit-0', 'hit-1', 'hit-2',
+  'idle', 'launch', 'monk-loop', 'monk-start', 'prepare-throw', 'run',
+  'stolen', 'steal', 'strengthen', 'throw', 'train', 'trapped-loop', 'trapped-start',
+  'trash', 'win', ...WeaponAnimations,
+] as const;
+export type Animation = typeof Animations[number];
 
 export const ANIMATION_ANCHORS: Record<Gender, Record<Animation, [number, number]>> = {
   male: {

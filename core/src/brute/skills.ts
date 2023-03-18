@@ -1,4 +1,13 @@
-import { Skill } from '../types';
+import { SkillName } from '@labrute/prisma';
+
+export interface Skill {
+  name: SkillName;
+  odds: number;
+  type: SkillType;
+  toss?: number;
+  uses?: number;
+}
+export type SkillType = 'passive' | 'booster' | 'super' | 'talent';
 
 const skills: Skill[] = [
   {
