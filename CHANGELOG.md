@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.14.0](https://github.com/Zenoo/labrute/compare/labrute-v2.13.1...labrute-v2.14.0) (2023-03-18)
+
+
+### Features
+
+* First bonus saved. [#123](https://github.com/Zenoo/labrute/issues/123) ([da9bc75](https://github.com/Zenoo/labrute/commit/da9bc755e24a7718b9e7b13351ed9fcdd54f22bc))
+* No sacrifice the same day as the creation. Fixes [#124](https://github.com/Zenoo/labrute/issues/124) ([170feb9](https://github.com/Zenoo/labrute/commit/170feb97f48b19420d95abf2e7b3410e764101e2))
+
+
+### Bug Fixes
+
+* Destiny view with first bonus. Fixes [#123](https://github.com/Zenoo/labrute/issues/123) ([c66baf6](https://github.com/Zenoo/labrute/commit/c66baf65bc6a499b1c747d1f117987581e59514f))
+* Prevent daily tournaments for brutes who can rank up. Fixes [#125](https://github.com/Zenoo/labrute/issues/125) ([8d176e1](https://github.com/Zenoo/labrute/commit/8d176e1794acdd8f5aa8cee109c0b6e5840b6ee3))
+* Rank displayed in tournament view. Fixes [#126](https://github.com/Zenoo/labrute/issues/126) ([efa1176](https://github.com/Zenoo/labrute/commit/efa1176176b13ba4d12d937c074f1d89ae26a053))
+* Script run command ([32723d5](https://github.com/Zenoo/labrute/commit/32723d57d850f8f87c9d2b083d0a2d9b16c94c7d))
+* Script run command ([1f906ff](https://github.com/Zenoo/labrute/commit/1f906ff8c868a1f17278e5c2f68d7e9f65ee9349))
+* Store brute rank in fight details. [#126](https://github.com/Zenoo/labrute/issues/126) ([69c8e01](https://github.com/Zenoo/labrute/commit/69c8e01ec1e0a7f3ecc013791bcd62e31fd9002c))
+
 ## [2.13.1](https://github.com/Zenoo/labrute/compare/labrute-v2.13.0...labrute-v2.13.1) (2023-03-13)
 
 
