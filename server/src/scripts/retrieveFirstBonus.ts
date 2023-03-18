@@ -5,6 +5,8 @@ import { getRandomBonus } from '@labrute/core';
 import {
   DestinyChoiceType, PetName, PrismaClient, SkillName, WeaponName,
 } from '@labrute/prisma';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import Env from '../utils/Env.js';
 
 const prisma = new PrismaClient();
 
