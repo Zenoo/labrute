@@ -79,6 +79,11 @@ const Tournaments = {
         throw new Error('Brute not found');
       }
 
+      // Prevent if brute can rank up
+      if (brute.canRankUp) {
+        throw new Error('Rank up before participating in a tournament');
+      }
+
       // Update brute tournament date
       await prisma.brute.update({
         where: {

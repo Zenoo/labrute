@@ -54,36 +54,38 @@ const CellTournament = ({
         </Link>
       )}
       {/* NEXT TOURNAMENT */}
-      <Paper
-        sx={{
-          bgcolor: 'background.paperDark',
-          textAlign: 'center',
-          p: 1,
-          ...sx
-        }}
-        {...rest}
-      >
-        <Text bold h6>{t('tournamentOf')} {tomorrow.format('DD MMMM YYYY')}</Text>
-        {(brute.registeredForTournament) ? (
-          <Text>{t('bruteRegistered')}</Text>
-        ) : (
-          <Text>{t(owner ? 'youCanRegisterYourBrute' : 'bruteNotRegistered')}</Text>
-        )}
-        {owner && !brute.registeredForTournament && (
-          <StyledButton
-            sx={{
-              height: 72,
-              width: 216,
-              mx: 'auto',
-            }}
-            image={`/images/${language}/cell/tournament.gif`}
-            imageHover={`/images/${language}/cell/tournament-hover.gif`}
-            shadow={false}
-            contrast={false}
-            onClick={registerBrute}
-          />
-        )}
-      </Paper>
+      {!brute.canRankUp && (
+        <Paper
+          sx={{
+            bgcolor: 'background.paperDark',
+            textAlign: 'center',
+            p: 1,
+            ...sx
+          }}
+          {...rest}
+        >
+          <Text bold h6>{t('tournamentOf')} {tomorrow.format('DD MMMM YYYY')}</Text>
+          {(brute.registeredForTournament) ? (
+            <Text>{t('bruteRegistered')}</Text>
+          ) : (
+            <Text>{t(owner ? 'youCanRegisterYourBrute' : 'bruteNotRegistered')}</Text>
+          )}
+          {owner && !brute.registeredForTournament && (
+            <StyledButton
+              sx={{
+                height: 72,
+                width: 216,
+                mx: 'auto',
+              }}
+              image={`/images/${language}/cell/tournament.gif`}
+              imageHover={`/images/${language}/cell/tournament-hover.gif`}
+              shadow={false}
+              contrast={false}
+              onClick={registerBrute}
+            />
+          )}
+        </Paper>
+      )}
     </>
   );
 };
