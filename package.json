@@ -26,7 +26,8 @@
     "studio": "cd ./server && yarn studio",
     "audit": "yarn npm audit --recursive --all",
     "add:client": "yarn workspace @labrute/client add",
-    "add:server": "yarn workspace @labrute/server add"
+    "add:server": "yarn workspace @labrute/server add",
+    "run:retrieveFirstBonus": "tsc --build ./server/src/scripts/tsconfig.scripts.json && node ./server/src/scripts/retrieveFirstBonus.js"
   },
   "devDependencies": {
     "concurrently": "^7.6.0",
