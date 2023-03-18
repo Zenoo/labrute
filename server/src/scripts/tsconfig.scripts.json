@@ -2,6 +2,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "composite": true,
+    "esModuleInterop": true,
     "noEmit": false,
     "rootDir": ".",
     "outDir": "."
