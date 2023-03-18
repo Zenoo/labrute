@@ -92,6 +92,7 @@ export interface DetailedFighter {
 export interface Fighter {
   id: number;
   name: string;
+  rank: BruteRanking;
   data?: {
     gender: Gender,
     body: BruteBody,
