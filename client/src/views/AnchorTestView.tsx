@@ -1,6 +1,6 @@
 import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Slider, Stack, TextField, Typography } from '@mui/material';
 import React, { ChangeEvent, useCallback } from 'react';
-import { Animation, animationList } from '@labrute/core';
+import { Animation, Animations } from '@labrute/core';
 import useStateAsync from '../hooks/useStateAsync';
 import Server from '../utils/Server';
 import { Gender } from '@labrute/prisma';
@@ -80,7 +80,7 @@ const AnchorTestView = () => {
           label="Animation"
           onChange={changeAnimation}
         >
-          {animationList.map((anim) => (
+          {Animations.map((anim) => (
             <MenuItem key={anim} value={anim}>{anim}</MenuItem>
           ))}
         </Select>

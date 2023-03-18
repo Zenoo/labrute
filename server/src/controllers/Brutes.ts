@@ -7,7 +7,7 @@ import {
   getLevelUpChoices, getSacriPoints, getXPNeeded, updateBruteData,
 } from '@labrute/core';
 import {
-  DestinyChoiceSide, Gender, Prisma, PrismaClient,
+  DestinyChoiceSide, DestinyChoiceType, Gender, Prisma, PrismaClient,
 } from '@labrute/prisma';
 import { Request, Response } from 'express';
 import moment from 'moment';
@@ -147,7 +147,7 @@ const Brutes = {
       const brute = await prisma.brute.create({
         data: {
           name: req.body.name,
-          ...await createRandomBruteStats(),
+          ...createRandomBruteStats(),
           gender: req.body.gender,
           user: { connect: { id: user.id } },
           body: { create: req.body.body },
@@ -759,12 +759,31 @@ const Brutes = {
         throw new Error('Brute is already at the highest rank');
       }
 
+      // Get first bonus
+      const bonus = await prisma.destinyChoice.findFirst({
+        where: {
+          bruteId: brute.id,
+          path: { equals: [] },
+        },
+      });
+
+      if (!bonus) {
+        throw new Error('Brute has no first bonus');
+      }
+
       // Update the brute
       await prisma.brute.update({
         where: { id: brute.id },
         data: {
           // Random stats
-          ...await createRandomBruteStats(prisma, brute),
+          ...createRandomBruteStats(
+            bonus.type,
+            bonus.type === DestinyChoiceType.pet
+              ? bonus.pet
+              : bonus.type === DestinyChoiceType.weapon
+                ? bonus.weapon
+                : bonus.skill,
+          ),
           // Rank up
           ranking: brute.ranking - 1,
           canRankUp: false,

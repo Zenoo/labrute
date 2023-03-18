@@ -8,6 +8,7 @@ import getHP from './brute/getHP';
 import getLevelUpChoices from './brute/getLevelUpChoices';
 import getMaxFightsPerDay from './brute/getMaxFightsPerDay';
 import getRandomBody from './brute/getRandomBody';
+import getRandomBonus from './brute/getRandomBonus';
 import getRandomColors from './brute/getRandomColors';
 import getSacriPoints from './brute/getSacriPoints';
 import getXPNeeded from './brute/getXPNeeded';
@@ -24,6 +25,8 @@ import randomBetween from './utils/randomBetween';
 import weightedRandom from './utils/weightedRandom';
 
 export * from './brute/weapons';
+export * from './brute/skills';
+export * from './brute/pets';
 export * from './constants';
 export * from './types';
 export {
@@ -36,6 +39,7 @@ export {
   getLevelUpChoices,
   getMaxFightsPerDay,
   getRandomBody,
+  getRandomBonus,
   getRandomColors,
   getSacriPoints,
   getXPNeeded,

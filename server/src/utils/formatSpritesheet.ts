@@ -1,5 +1,5 @@
 import {
-  Animation, animationList, ANIMATION_ANCHORS,
+  Animation, Animations, ANIMATION_ANCHORS,
 } from '@labrute/core';
 import { Brute, Gender } from '@labrute/prisma';
 import { SpritesmithResult } from 'spritesmith';
@@ -46,7 +46,7 @@ const generateAnimationArray = (animation: Animation, gender: Gender) => Array.f
   (v, k) => `${animation}_${gender}_${k + 1}.png`,
 );
 
-const generateAnimations = (gender: Gender) => animationList
+const generateAnimations = (gender: Gender) => Animations
   .reduce<Record<Animation, string[]>>((acc, animation) => {
     acc[animation] = generateAnimationArray(animation, gender);
 
