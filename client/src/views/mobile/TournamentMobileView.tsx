@@ -1,4 +1,4 @@
-import { FightWithBrutes, FullTournament } from '@labrute/core';
+import { Fighter, FightWithBrutes, FullTournament } from '@labrute/core';
 import { Brute } from '@labrute/prisma';
 import { Close } from '@mui/icons-material';
 import { Box, Paper, Tooltip } from '@mui/material';
@@ -135,7 +135,7 @@ const TournamentMobileView = ({
                           {/* Rank */}
                           <Box
                             component="img"
-                            src={`/images/rankings/lvl_${step.fight.brute1.ranking}.png`}
+                            src={`/images/rankings/lvl_${(step.fight.fighters as unknown as Fighter[]).find((f) => f.id === step.fight.brute1Id)?.rank || step.fight.brute1.ranking}.png`}
                             sx={{
                               position: 'absolute',
                               bottom: 4,
@@ -180,7 +180,7 @@ const TournamentMobileView = ({
                           {/* Rank */}
                           <Box
                             component="img"
-                            src={`/images/rankings/lvl_${step.fight.brute1.ranking}.png`}
+                            src={`/images/rankings/lvl_${(step.fight.fighters as unknown as Fighter[]).find((f) => f.id === step.fight.brute2Id)?.rank || step.fight.brute2.ranking}.png`}
                             sx={{
                               position: 'absolute',
                               bottom: 4,
