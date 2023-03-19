@@ -56,13 +56,17 @@ const Spritesheets = {
         res.header('Content-Type', 'image/png').send(spritesheet.image);
       } else {
         // Get brute gender
-        const { gender } = await prisma.brute.findFirstOrThrow({
+        const brute = await prisma.brute.findFirst({
           where: { id: bruteId },
           select: { gender: true },
         });
 
+        if (!brute) {
+          throw new Error('Brute not found');
+        }
+
         // Load default spritesheet
-        const defaultSpritesheet = await fetch(`${Env.SELF_URL}/images/game/${gender}-brute.png`);
+        const defaultSpritesheet = await fetch(`${Env.SELF_URL}/images/game/${brute.gender}-brute.png`);
 
         // Send default spritesheet
         res.header('Content-Type', 'image/png').send(Buffer.from(await defaultSpritesheet.arrayBuffer()));
@@ -89,13 +93,17 @@ const Spritesheets = {
         res.header('Content-Type', 'application/json').send(spritesheet.json);
       } else {
         // Get brute gender
-        const { gender } = await prisma.brute.findFirstOrThrow({
+        const brute = await prisma.brute.findFirst({
           where: { id: +req.params.brute },
           select: { gender: true },
         });
 
+        if (!brute) {
+          throw new Error('Brute not found');
+        }
+
         // Load default spritesheet json
-        const defaultSpritesheet = await fetch(`${Env.SELF_URL}/images/game/${gender}-brute.json`);
+        const defaultSpritesheet = await fetch(`${Env.SELF_URL}/images/game/${brute.gender}-brute.json`);
 
         // Send default spritesheet
         res.header('Content-Type', 'application/json').send(Buffer.from(await defaultSpritesheet.arrayBuffer()));

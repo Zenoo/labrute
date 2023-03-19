@@ -1,3 +1,4 @@
+import { ExpectedError } from '@labrute/core';
 import {
   PrismaClientInitializationError,
   PrismaClientKnownRequestError, PrismaClientUnknownRequestError, PrismaClientValidationError,
@@ -32,7 +33,9 @@ const sendError = (res: Response, error: unknown) => {
     res.send(error);
   }
 
-  DiscordUtils.sendLog(error, res).catch(console.error);
+  if (!(error instanceof ExpectedError)) {
+    DiscordUtils.sendLog(error, res).catch(console.error);
+  }
 };
 
 export default sendError;

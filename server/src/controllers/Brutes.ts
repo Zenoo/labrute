@@ -2,7 +2,7 @@ import {
   ARENA_OPPONENTS_COUNT, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetForRankResponse,
   BrutesGetRankingResponse,
   BruteWithBodyColors, createRandomBruteStats,
-  DestinyBranch, getLevelUpChoices, getSacriPoints, getXPNeeded, updateBruteData,
+  DestinyBranch, ExpectedError, getLevelUpChoices, getSacriPoints, getXPNeeded, updateBruteData,
 } from '@labrute/core';
 import {
   DestinyChoiceSide, DestinyChoiceType, Gender, Prisma, PrismaClient,
@@ -42,7 +42,7 @@ const Brutes = {
     res: Response,
   ) => {
     try {
-      const brute = await prisma.brute.findFirstOrThrow({
+      const brute = await prisma.brute.findFirst({
         where: {
           ...req.body.where,
           name: req.params.name,
@@ -50,6 +50,10 @@ const Brutes = {
         },
         include: req.body.include,
       });
+
+      if (!brute) {
+        throw new ExpectedError('Brute not found');
+      }
 
       res.send(brute);
     } catch (error) {
@@ -101,7 +105,7 @@ const Brutes = {
       });
 
       if (count > 0) {
-        throw new Error('This name is already taken');
+        throw new ExpectedError('This name is already taken');
       }
 
       // Get brute amount for user
@@ -116,7 +120,7 @@ const Brutes = {
       // Refuse if user has too many brutes and not enough points
       if (bruteCount >= user.bruteLimit) {
         if (user.sacrificePoints < 500) {
-          throw new Error('You have reached your brute limit. You need 500 Sacripoints to unlock a new brute.');
+          throw new ExpectedError('You have reached your brute limit. You need 500 Sacripoints to unlock a new brute.');
         } else {
           // Remove 500 sacrifice points and update brute limit
           await prisma.user.update({
@@ -292,7 +296,7 @@ const Brutes = {
 
       // Check if brute has enough XP
       if (brute.xp < getXPNeeded(brute.level + 1)) {
-        throw new Error('Not enough XP');
+        throw new ExpectedError('Not enough XP');
       }
 
       // Get destiny choice
@@ -432,7 +436,7 @@ const Brutes = {
 
       // Prevent sacrificing the day of creation
       if (moment.utc().isSame(moment.utc(brute.createdAt), 'day')) {
-        throw new Error('You cannot sacrifice your brute the day of creation');
+        throw new ExpectedError('You cannot sacrifice your brute the day of creation');
       }
 
       // Add SacriPoints to user
@@ -550,10 +554,15 @@ const Brutes = {
 
       // Get brute rank if not provided
       if (typeof req.params.rank === 'undefined') {
-        rank = (await prisma.brute.findFirstOrThrow({
+        const brute = await prisma.brute.findFirst({
           where: { name: req.params.name, deletedAt: null },
           select: { ranking: true },
-        })).ranking;
+        });
+
+        if (!brute) {
+          throw new ExpectedError('Brute not found');
+        }
+        rank = brute.ranking;
       } else {
         rank = +req.params.rank;
       }
@@ -675,12 +684,16 @@ const Brutes = {
       }
 
       // Get the brute ranking
-      const brute = await prisma.brute.findFirstOrThrow({
+      const brute = await prisma.brute.findFirst({
         where: { name, deletedAt: null },
         select: {
           ranking: true, level: true, xp: true, userId: true,
         },
       });
+
+      if (!brute) {
+        throw new ExpectedError('Brute not found');
+      }
 
       // Don't rank bot brutes
       if (!brute.userId) {
@@ -778,11 +791,11 @@ const Brutes = {
       }
 
       if (!brute.canRankUp) {
-        throw new Error('Brute cannot rank up');
+        throw new ExpectedError('Brute cannot rank up');
       }
 
       if (brute.ranking === 0) {
-        throw new Error('Brute is already at the highest rank');
+        throw new ExpectedError('Brute is already at the highest rank');
       }
 
       // Get first bonus

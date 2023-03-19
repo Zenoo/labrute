@@ -1,4 +1,4 @@
-import { getFightsLeft } from '@labrute/core';
+import { ExpectedError, getFightsLeft } from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
 import { Request, Response } from 'express';
 import auth from '../utils/auth.js';
@@ -82,7 +82,7 @@ const Fights = {
 
       // Cancel if brute1 has no fights left
       if (arenaFight && getFightsLeft(brute1) <= 0) {
-        throw new Error('No fights left');
+        throw new ExpectedError('No fights left');
       }
 
       // Update brute last fight and fights left if arena fight

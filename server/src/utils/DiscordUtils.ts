@@ -29,6 +29,7 @@ const send = async (props: WebhookCreateMessageOptions) => {
 const sendLog = async (error: unknown, res?: Response) => {
   try {
     if (!Env.DISCORD_LOGS_WEBHOOK_ID) {
+      console.error(error);
       return;
     }
 

@@ -1,4 +1,4 @@
-import { GLOBAL_TOURNAMENT_START_HOUR, TournamentsGetGlobalResponse } from '@labrute/core';
+import { ExpectedError, GLOBAL_TOURNAMENT_START_HOUR, TournamentsGetGlobalResponse } from '@labrute/core';
 import { PrismaClient, TournamentType } from '@labrute/prisma';
 import { Request, Response } from 'express';
 import moment from 'moment';
@@ -48,7 +48,7 @@ const Tournaments = {
       });
 
       if (!tournament) {
-        throw new Error('Tournament not found');
+        throw new ExpectedError('Tournament not found');
       }
 
       res.send(tournament);
@@ -81,7 +81,7 @@ const Tournaments = {
 
       // Prevent if brute can rank up
       if (brute.canRankUp) {
-        throw new Error('Rank up before participating in a tournament');
+        throw new ExpectedError('Rank up before participating in a tournament');
       }
 
       // Update brute tournament date
@@ -269,7 +269,7 @@ const Tournaments = {
       });
 
       if (!tournament) {
-        throw new Error('Tournament not found');
+        throw new ExpectedError('Tournament not found');
       }
 
       const now = moment.utc();

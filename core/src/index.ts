@@ -18,6 +18,7 @@ import updateBruteData from './brute/updateBruteData';
 import weapons from './brute/weapons';
 import { DestinyBranch } from './types';
 import adjustColor from './utils/adjustColor';
+import ExpectedError from './utils/ExpectedError';
 import hexToRgba from './utils/hexToRgba';
 import pad from './utils/pad';
 import promiseBatch from './utils/promiseBatch';
@@ -43,6 +44,7 @@ export {
   getRandomColors,
   getSacriPoints,
   getXPNeeded,
+  ExpectedError,
   hexToRgba,
   pets,
   skills,

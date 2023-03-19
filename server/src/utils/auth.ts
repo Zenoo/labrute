@@ -1,3 +1,4 @@
+import { ExpectedError } from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
 import { Request } from 'express';
 
@@ -14,7 +15,7 @@ const auth = async (prisma: PrismaClient, request: Request) => {
   const [id, token] = Buffer.from(authorization.split(' ')[1], 'base64')
     .toString().split(':');
 
-  const user = await prisma.user.findFirstOrThrow({
+  const user = await prisma.user.findFirst({
     where: {
       id,
       connexionToken: token,
@@ -29,6 +30,10 @@ const auth = async (prisma: PrismaClient, request: Request) => {
       },
     },
   });
+
+  if (!user) {
+    throw new ExpectedError('User not found');
+  }
 
   return user;
 };

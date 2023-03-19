@@ -1,3 +1,4 @@
+import { ExpectedError } from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
 import { Request, Response } from 'express';
 import sendError from '../utils/sendError.js';
@@ -11,13 +12,18 @@ const Logs = {
       }
 
       // Get brute id
-      const { id: bruteId } = await prisma.brute.findFirstOrThrow({
+      const brute = await prisma.brute.findFirst({
         where: { name: req.params.name, deletedAt: null },
+        select: { id: true },
       });
+
+      if (!brute) {
+        throw new ExpectedError('Brute not found');
+      }
 
       // Get logs
       const logs = await prisma.log.findMany({
-        where: { currentBrute: { id: bruteId } },
+        where: { currentBrute: { id: brute.id } },
         orderBy: { id: 'desc' },
         take: 7,
         include: {
