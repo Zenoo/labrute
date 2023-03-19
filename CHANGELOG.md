@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.14.1](https://github.com/Zenoo/labrute/compare/labrute-v2.14.0...labrute-v2.14.1) (2023-03-19)
+
+
+### Bug Fixes
+
+* Load env variables in scripts ([76ce2d6](https://github.com/Zenoo/labrute/commit/76ce2d6f7c4da6fb2d3309b1036ae5bca0621bba))
+* Store first bonuses on new brutes + fix illegal bonuses. ([dca8676](https://github.com/Zenoo/labrute/commit/dca86769dcfa62fd4b05e15ceb93575b309e3a5b))
+
 ## [2.14.0](https://github.com/Zenoo/labrute/compare/labrute-v2.13.1...labrute-v2.14.0) (2023-03-18)
 
 
