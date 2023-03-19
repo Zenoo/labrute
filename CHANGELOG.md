@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.14.2](https://github.com/Zenoo/labrute/compare/labrute-v2.14.1...labrute-v2.14.2) (2023-03-19)
+
+
+### Bug Fixes
+
+* Tournament rank bug on mobile ([d4e35c0](https://github.com/Zenoo/labrute/commit/d4e35c09ed1cc5ac660b77cdc176d4cfc4ef1a22))
+
 ## [2.14.1](https://github.com/Zenoo/labrute/compare/labrute-v2.14.0...labrute-v2.14.1) (2023-03-19)
 
 
