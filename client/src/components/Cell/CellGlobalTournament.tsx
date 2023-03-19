@@ -164,7 +164,7 @@ const CellGlobalTournament = ({
       }}
       >
         {/* Rounds */}
-        {Array.from({ length: data.rounds }).map((_, i) => {
+        {Array.from({ length: data.rounds - 3 }).map((_, i) => {
           const step = data.tournament.steps.find((s) => s.step === i + 1);
 
           // Free bye
@@ -249,82 +249,78 @@ const CellGlobalTournament = ({
         })}
         {/* Lost marker */}
         {lostRound && lostRound.step <= data.rounds - 3 && renderLostMarker()}
-        {/* Last rounds if not won */}
-        {lostRound && lostRound.fight.winner !== brute.name && (
+        {/* Last rounds */}
+        {/* Quarter-final */}
+        {data.lastRounds.length > 0 && (
           <>
-            {/* Quarter-final */}
-            {data.lastRounds.length > 0 && (
-              <>
-                <Box sx={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  justifyContent: 'center',
-                  px: 0.5,
-                  py: 0.25,
-                  borderBottom: '1px solid',
-                  borderBottomColor: theme.palette.border.shadow,
-                  '&:last-child': {
-                    borderBottom: 'none',
-                  }
-                }}
-                >
-                  <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[0].step + GLOBAL_TOURNAMENT_START_HOUR - 1}h {t('quarterFinals')}</Text>
-                  {data.lastRounds
-                    .filter((step) => step.step === data.lastRounds[0].step)
-                    .map((step) => renderFight(step))}
-                </Box>
-                {/* Lost marker */}
-                {lostRound && lostRound.step === data.lastRounds[0].step && renderLostMarker()}
-              </>
-            )}
-            {/* Semi-final */}
-            {data.lastRounds.length > 4 && (
-              <>
-                <Box sx={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  justifyContent: 'center',
-                  px: 0.5,
-                  py: 0.25,
-                  borderBottom: '1px solid',
-                  borderBottomColor: theme.palette.border.shadow,
-                  '&:last-child': {
-                    borderBottom: 'none',
-                  }
-                }}
-                >
-                  <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[0].step + GLOBAL_TOURNAMENT_START_HOUR}h {t('semiFinals')}</Text>
-                  {data.lastRounds
-                    .filter((step) => step.step === data.lastRounds[0].step + 1)
-                    .map((step) => renderFight(step))}
-                </Box>
-                {/* Lost marker */}
-                {lostRound && lostRound.step === data.lastRounds[0].step + 1 && renderLostMarker()}
-              </>
-            )}
-            {/* final */}
-            {data.lastRounds.find((step) => step.step === data.lastRounds[0].step + 2) && (
-              <>
-                <Box sx={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  justifyContent: 'center',
-                  px: 0.5,
-                  py: 0.25,
-                  borderBottom: '1px solid',
-                  borderBottomColor: theme.palette.border.shadow,
-                  '&:last-child': {
-                    borderBottom: 'none',
-                  }
-                }}
-                >
-                  <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[data.lastRounds.length - 1].step + GLOBAL_TOURNAMENT_START_HOUR - 1}h {t('finals')}</Text>
-                  {renderFight(data.lastRounds[data.lastRounds.length - 1], true)}
-                </Box>
-                {/* Lost marker */}
-                {lostRound && lostRound.step === data.lastRounds[0].step + 2 && renderLostMarker()}
-              </>
-            )}
+            <Box sx={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              px: 0.5,
+              py: 0.25,
+              borderBottom: '1px solid',
+              borderBottomColor: theme.palette.border.shadow,
+              '&:last-child': {
+                borderBottom: 'none',
+              }
+            }}
+            >
+              <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[0].step + GLOBAL_TOURNAMENT_START_HOUR - 1}h {t('quarterFinals')}</Text>
+              {data.lastRounds
+                .filter((step) => step.step === data.lastRounds[0].step)
+                .map((step) => renderFight(step))}
+            </Box>
+            {/* Lost marker */}
+            {lostRound && lostRound.step === data.lastRounds[0].step && renderLostMarker()}
+          </>
+        )}
+        {/* Semi-final */}
+        {data.lastRounds.length > 4 && (
+          <>
+            <Box sx={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              px: 0.5,
+              py: 0.25,
+              borderBottom: '1px solid',
+              borderBottomColor: theme.palette.border.shadow,
+              '&:last-child': {
+                borderBottom: 'none',
+              }
+            }}
+            >
+              <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[0].step + GLOBAL_TOURNAMENT_START_HOUR}h {t('semiFinals')}</Text>
+              {data.lastRounds
+                .filter((step) => step.step === data.lastRounds[0].step + 1)
+                .map((step) => renderFight(step))}
+            </Box>
+            {/* Lost marker */}
+            {lostRound && lostRound.step === data.lastRounds[0].step + 1 && renderLostMarker()}
+          </>
+        )}
+        {/* Final */}
+        {data.lastRounds.find((step) => step.step === data.lastRounds[0].step + 2) && (
+          <>
+            <Box sx={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              px: 0.5,
+              py: 0.25,
+              borderBottom: '1px solid',
+              borderBottomColor: theme.palette.border.shadow,
+              '&:last-child': {
+                borderBottom: 'none',
+              }
+            }}
+            >
+              <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[data.lastRounds.length - 1].step + GLOBAL_TOURNAMENT_START_HOUR - 1}h {t('finals')}</Text>
+              {renderFight(data.lastRounds[data.lastRounds.length - 1], true)}
+            </Box>
+            {/* Lost marker */}
+            {lostRound && lostRound.step === data.lastRounds[0].step + 2 && renderLostMarker()}
           </>
         )}
         {/* Tournament done ? */}
