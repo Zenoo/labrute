@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.14.4](https://github.com/Zenoo/labrute/compare/labrute-v2.14.3...labrute-v2.14.4) (2023-03-19)
+
+
+### Bug Fixes
+
+* Stop logging missing auth ([40c2b3a](https://github.com/Zenoo/labrute/commit/40c2b3ab59f339457022b2ff341dec694232e652))
+
 ## [2.14.3](https://github.com/Zenoo/labrute/compare/labrute-v2.14.2...labrute-v2.14.3) (2023-03-19)
 
 
