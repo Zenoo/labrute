@@ -4,8 +4,7 @@
 import {
   PrismaClient,
 } from '@labrute/prisma';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import Env from '../utils/Env.js';
+import '../utils/Env.js';
 
 const prisma = new PrismaClient();
 
