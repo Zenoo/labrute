@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.14.5](https://github.com/Zenoo/labrute/compare/labrute-v2.14.4...labrute-v2.14.5) (2023-03-19)
+
+
+### Bug Fixes
+
+* Global tournament display bug. Fixes [#137](https://github.com/Zenoo/labrute/issues/137) ([279b9d6](https://github.com/Zenoo/labrute/commit/279b9d6df81c47c03bd1ffed996b758ab3b8ca67))
+
 ## [2.14.4](https://github.com/Zenoo/labrute/compare/labrute-v2.14.3...labrute-v2.14.4) (2023-03-19)
 
 
