@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.14.3](https://github.com/Zenoo/labrute/compare/labrute-v2.14.2...labrute-v2.14.3) (2023-03-19)
+
+
+### Bug Fixes
+
+* Env variables in scripts ([6e18526](https://github.com/Zenoo/labrute/commit/6e185265f0094cf04574f6f7e6f3f3771ec87444))
+* Error logging rework. Fixes [#133](https://github.com/Zenoo/labrute/issues/133) ([2c52510](https://github.com/Zenoo/labrute/commit/2c52510b9743bf78601d92143216c1362be55c84))
+
 ## [2.14.2](https://github.com/Zenoo/labrute/compare/labrute-v2.14.1...labrute-v2.14.2) (2023-03-19)
 
 
