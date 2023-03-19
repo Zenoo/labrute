@@ -14,7 +14,7 @@
     "etwin": "etwin",
     "start": "cd ./server && yarn start",
     "dev": "concurrently --prefix \"[{name}]\" --names \"DB,SERVER,CLIENT,ETWIN\" -c \"bgMagenta.bold,bgBlue.bold,bgGreen.bold,bgYellow.bold\" \"yarn run studio\" \"yarn run back\" \"yarn run front\" \"yarn run etwin\"",
-    "build": "yarn compile && yarn build:client",
+    "build": "yarn compile && yarn build:client && yarn run:fixErroredBonuses && yarn run:retrieveFirstBonus",
     "build:client": "cd ./client && yarn build",
     "db:migrate:manual": "cd ./server && yarn db:migrate:manual",
     "db:sync:dev": "cd ./server && yarn db:sync:dev",
@@ -27,7 +27,8 @@
     "audit": "yarn npm audit --recursive --all",
     "add:client": "yarn workspace @labrute/client add",
     "add:server": "yarn workspace @labrute/server add",
-    "run:retrieveFirstBonus": "ts-node-esm server/src/scripts/retrieveFirstBonus.ts"
+    "run:retrieveFirstBonus": "ts-node-esm server/src/scripts/retrieveFirstBonus.ts",
+    "run:fixErroredBonuses": "ts-node-esm server/src/scripts/fixErroredBonuses.ts"
   },
   "devDependencies": {
     "concurrently": "^7.6.0",

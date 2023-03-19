@@ -1,12 +1,10 @@
 import { DestinyChoiceType, PetName, SkillName, WeaponName } from '@labrute/prisma';
-import { BruteRankings, BRUTE_STARTING_POINTS, PERKS_TOTAL_ODDS, PERK_ODDS } from '../constants';
+import { BruteRankings, BRUTE_STARTING_POINTS } from '../constants';
 import randomBetween from '../utils/randomBetween';
-import weightedRandom from '../utils/weightedRandom';
 import applySkillModifiers from './applySkillModifiers';
 import getHP from './getHP';
-import { default as availablePets, Pet, PETS_TOTAL_ODDS } from './pets';
-import { default as availableSkills, SKILLS_TOTAL_ODDS } from './skills';
-import { default as availableWeapons, WEAPONS_TOTAL_ODDS } from './weapons';
+import getRandomBonus from './getRandomBonus';
+import pets from './pets';
 
 const createRandomBruteStats = (perkType?: DestinyChoiceType, perkName?: string | null) => {
   let brute = {
@@ -34,38 +32,37 @@ const createRandomBruteStats = (perkType?: DestinyChoiceType, perkName?: string 
   // Starting budget
   let availablePoints = BRUTE_STARTING_POINTS;
 
-  let pet: Pet | null = null;
-  let perk;
+  let perk: { type: DestinyChoiceType, name: PetName | SkillName | WeaponName } | null = null;
 
   // Predefined perk
   if (perkType && perkName) {
-    perk = { name: perkName, odds: 1 };
+    perk = { type: perkType, name: perkName as PetName | SkillName | WeaponName };
 
     if (perkType === DestinyChoiceType.pet) {
       brute.pets = [perkName as PetName];
-      pet = availablePets.find((p) => p.name === perkName) || null;
     } else if (perkType === DestinyChoiceType.skill) {
       brute.skills = [perkName as SkillName];
     } else {
       brute.weapons = [perkName as WeaponName];
     }
   } else {
-    // Random perk type
-    perk = weightedRandom(PERK_ODDS, PERKS_TOTAL_ODDS);
+    // Random perk
+    perk = getRandomBonus(brute, true);
+
+    if (!perk) {
+      throw new Error('No bonus found');
+    }
 
     // Pet
-    if (perk.name === 'pet') {
-      pet = weightedRandom(availablePets, PETS_TOTAL_ODDS);
-      brute.pets = [pet.name];
-    }
+    brute.pets = perk.type === DestinyChoiceType.pet ? [perk.name as PetName] : [];
     // Skill
-    brute.skills = perk.name === 'skill' ? [weightedRandom(availableSkills, SKILLS_TOTAL_ODDS).name] : [];
+    brute.skills = perk.type === DestinyChoiceType.skill ? [perk.name as SkillName] : [];
     // Weapon
-    brute.weapons = perk.name === 'weapon' ? [weightedRandom(availableWeapons, WEAPONS_TOTAL_ODDS).name] : [];
+    brute.weapons = perk.type === DestinyChoiceType.weapon ? [perk.name as WeaponName] : [];
   }
 
   // Stats boosters
-  if (perk.name === 'skill') {
+  if (perk.type === 'skill') {
     brute = applySkillModifiers(brute, brute.skills[0]);
   }
 
@@ -75,7 +72,13 @@ const createRandomBruteStats = (perkType?: DestinyChoiceType, perkName?: string 
   availablePoints -= endurancePoints;
 
   // Take into account the endurance malus from the pet
-  if (pet) {
+  if (perk.type === DestinyChoiceType.pet) {
+    const pet = pets.find((p) => p.name === perk?.name);
+
+    if (!pet) {
+      throw new Error('Pet not found');
+    }
+
     // Can go into negatives
     brute.enduranceStat -= pet.enduranceMalus;
   }

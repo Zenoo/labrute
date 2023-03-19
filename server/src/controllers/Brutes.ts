@@ -155,6 +155,28 @@ const Brutes = {
         include: { body: true, colors: true },
       });
 
+      // Get first bonus type
+      const firstBonusType = brute.skills.length
+        ? DestinyChoiceType.skill
+        : brute.weapons.length
+          ? DestinyChoiceType.weapon
+          : DestinyChoiceType.pet;
+
+      // Store first bonus
+      await prisma.destinyChoice.create({
+        data: {
+          type: firstBonusType,
+          pet: firstBonusType === DestinyChoiceType.pet
+            ? brute.pets[0] : undefined,
+          skill: firstBonusType === DestinyChoiceType.skill
+            ? brute.skills[0] : undefined,
+          weapon: firstBonusType === DestinyChoiceType.weapon
+            ? brute.weapons[0] : undefined,
+          bruteId: brute.id,
+          path: [],
+        },
+      });
+
       // Update master's pupils count
       if (master) {
         await prisma.brute.update({
