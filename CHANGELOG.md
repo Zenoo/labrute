@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.15.1](https://github.com/Zenoo/labrute/compare/labrute-v2.15.0...labrute-v2.15.1) (2023-03-21)
+
+
+### Bug Fixes
+
+* Discord error log format ([fae15fe](https://github.com/Zenoo/labrute/commit/fae15fe8c93680e877a8d2a8ed5348b9ec203918))
+
 ## [2.15.0](https://github.com/Zenoo/labrute/compare/labrute-v2.14.5...labrute-v2.15.0) (2023-03-21)
 
 
