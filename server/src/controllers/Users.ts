@@ -1,6 +1,8 @@
 import { PrismaClient } from '@labrute/prisma';
 import { Request, Response } from 'express';
+import dailyJob from '../dailyJob.js';
 import auth from '../utils/auth.js';
+import DiscordUtils from '../utils/DiscordUtils.js';
 import sendError from '../utils/sendError.js';
 
 const Users = {
@@ -20,6 +22,25 @@ const Users = {
       const user = await auth(prisma, req);
 
       res.send(user);
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  runDailyJob: (prisma: PrismaClient) => async (req: Request, res: Response) => {
+    try {
+      const user = await auth(prisma, req);
+
+      if (!user.admin) {
+        throw new Error('Unauthorized');
+      }
+
+      await dailyJob(prisma)().catch((error) => {
+        DiscordUtils.sendLog(error).catch((e) => {
+          console.error(e);
+        });
+      });
+
+      res.send({ message: 'Job run' });
     } catch (error) {
       sendError(res, error);
     }

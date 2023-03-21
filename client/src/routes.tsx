@@ -1,6 +1,7 @@
 import React from 'react';
 import ProvideBrute from './components/Brute/ProvideBrute';
 import Main from './layouts/Main';
+import AdminView from './views/AdminView';
 import AnchorTestView from './views/AnchorTestView';
 import ArenaView from './views/ArenaView';
 import CellView from './views/CellView';
@@ -20,6 +21,7 @@ const routes = [
     children: [
       { path: '', element: <HomeView /> },
       { path: 'oauth/callback', element: <HomeView /> },
+      { path: 'admin-panel', element: <AdminView /> },
       {
         path: ':bruteName',
         children: [

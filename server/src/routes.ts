@@ -20,6 +20,7 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
 
   // User
   app.post('/api/user/authenticate', Users.authenticate(prisma));
+  app.get('/api/run-daily-job', Users.runDailyJob(prisma));
 
   // Brute
   app.get('/api/brute/list', Brutes.list(prisma));
@@ -57,6 +58,8 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
   app.get('/api/tournament/:name/set-daily-watched', Tournaments.setDailyWatched(prisma));
   app.get('/api/tournament/global/:name/:date', Tournaments.getGlobal(prisma));
   app.get('/api/tournament/:name/:date', Tournaments.getDaily(prisma));
+  app.delete('/api/tournament/daily', Tournaments.deleteDaily(prisma));
+  app.delete('/api/tournament/global', Tournaments.deleteGlobal(prisma));
 };
 
 export default initRoutes;

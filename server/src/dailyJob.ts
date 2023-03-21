@@ -236,7 +236,19 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
         const brute1 = roundBrutes[i];
         const brute2 = roundBrutes[i + 1];
 
-        lastFight = await generateFight(prisma, brute1, brute2, false);
+        // Generate fight (retry if failed)
+        let generatedFight: Prisma.FightCreateInput | null = null;
+
+        while (!generatedFight) {
+          try {
+            generatedFight = await generateFight(prisma, brute1, brute2, false);
+          } catch (error) {
+            await DiscordUtils.sendSimpleMessage(`Error while generating a tournament fight between ${brute1.name} and ${brute2.name}, retrying...`);
+            await DiscordUtils.sendLog(error);
+          }
+        }
+
+        lastFight = generatedFight;
 
         // Create fight
         const fight = await prisma.fight.create({
@@ -396,8 +408,17 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
         continue;
       }
 
-      // Generate fight
-      const generatedFight = await generateFight(prisma, brute1, brute2, false);
+      // Generate fight (retry if failed)
+      let generatedFight: Prisma.FightCreateInput | null = null;
+
+      while (!generatedFight) {
+        try {
+          generatedFight = await generateFight(prisma, brute1, brute2, false);
+        } catch (error) {
+          await DiscordUtils.sendSimpleMessage(`Error while generating a tournament fight between ${brute1.name} and ${brute2.name}, retrying...`);
+          await DiscordUtils.sendLog(error);
+        }
+      }
 
       // Create fight
       const fight = await prisma.fight.create({

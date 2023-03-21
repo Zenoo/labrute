@@ -7,6 +7,7 @@ import dailyJob from './dailyJob.js';
 import './i18n.js';
 import initRoutes from './routes.js';
 import Env from './utils/Env.js';
+import DiscordUtils from './utils/DiscordUtils.js';
 
 const DEBUG_QUERIES = false;
 
@@ -54,7 +55,9 @@ app.listen(port, () => {
 
   // Trigger daily job
   dailyJob(prisma)().catch((error) => {
-    console.error(error);
+    DiscordUtils.sendLog(error).catch((e) => {
+      console.error(e);
+    });
   });
 
   // Initialize daily scheduler

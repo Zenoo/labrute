@@ -1,5 +1,5 @@
 import { Language, LANGUAGES } from '@labrute/core';
-import { AccountCircle, Add, Login, Logout } from '@mui/icons-material';
+import { AccountCircle, Add, AdminPanelSettings, Login, Logout } from '@mui/icons-material';
 import { Box, BoxProps, CircularProgress, Link, SpeedDial, SpeedDialAction, Tooltip } from '@mui/material';
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -190,6 +190,14 @@ const Page = ({
               />
             </Tooltip>
           ))}
+          {/* ADMIN PANEL */}
+          {user && user.admin && (
+            <Tooltip title={t('adminPanel')}>
+              <Link href="/admin-panel" sx={{ ml: 1 }}>
+                <AdminPanelSettings sx={{ fontSize: 14 }} />
+              </Link>
+            </Tooltip>
+          )}
         </Text>
       </Box>
     </Box>

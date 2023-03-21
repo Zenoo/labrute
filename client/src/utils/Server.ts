@@ -9,6 +9,7 @@ const Server = {
       token
     }, 'POST'),
     list: () => Fetch<User[]>('/api/user/list', {}, 'GET'),
+    runDailyJob: () => Fetch<never>('/api/run-daily-job'),
   },
   Brute: {
     list: () => Fetch<Brute[]>('/api/brute/list/'),
@@ -69,6 +70,8 @@ const Server = {
       name,
       date,
     }: { name: string, date: string }) => Fetch<TournamentsGetGlobalResponse>(`/api/tournament/global/${name}/${date}`),
+    deleteDaily: () => Fetch<never>('/api/tournament/daily', {}, 'DELETE'),
+    deleteGlobal: () => Fetch<never>('/api/tournament/global', {}, 'DELETE'),
   },
 };
 

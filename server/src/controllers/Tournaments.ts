@@ -370,6 +370,118 @@ const Tournaments = {
       sendError(res, error);
     }
   },
+  deleteDaily: (prisma: PrismaClient) => async (req: Request, res: Response) => {
+    try {
+      const user = await auth(prisma, req);
+
+      if (!user.admin) {
+        throw new ExpectedError('Unauthorized');
+      }
+
+      // Get tournament step ids
+      const tournamentSteps = await prisma.tournamentStep.findMany({
+        where: {
+          tournament: {
+            type: TournamentType.DAILY,
+            date: {
+              gte: moment.utc().startOf('day').toDate(),
+              lte: moment.utc().endOf('day').toDate(),
+            },
+          },
+        },
+        select: {
+          id: true,
+        },
+      });
+
+      // Delete all daily tournaments steps
+      await prisma.tournamentStep.deleteMany({
+        where: {
+          id: { in: tournamentSteps.map((ts) => ts.id) },
+        },
+      });
+
+      // Delete all fights from daily tournaments steps
+      await prisma.fight.deleteMany({
+        where: {
+          TournamentStep: {
+            some: { id: { in: tournamentSteps.map((ts) => ts.id) } },
+          },
+        },
+      });
+
+      // Delete all daily tournaments
+      await prisma.tournament.deleteMany({
+        where: {
+          type: TournamentType.DAILY,
+          date: {
+            gte: moment.utc().startOf('day').toDate(),
+            lte: moment.utc().endOf('day').toDate(),
+          },
+        },
+      });
+
+      res.send({ success: true });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  deleteGlobal: (prisma: PrismaClient) => async (req: Request, res: Response) => {
+    try {
+      const user = await auth(prisma, req);
+
+      if (!user.admin) {
+        throw new ExpectedError('Unauthorized');
+      }
+
+      // Get tournament step ids
+      const tournamentSteps = await prisma.tournamentStep.findMany({
+        where: {
+          tournament: {
+            type: TournamentType.GLOBAL,
+            date: {
+              gte: moment.utc().startOf('day').toDate(),
+              lte: moment.utc().endOf('day').toDate(),
+            },
+          },
+        },
+        select: {
+          id: true,
+        },
+      });
+
+      // Delete all global tournaments steps
+      await prisma.tournamentStep.deleteMany({
+        where: {
+          id: { in: tournamentSteps.map((ts) => ts.id) },
+        },
+      });
+
+      // Delete all fights from global tournaments steps
+      await prisma.fight.deleteMany({
+        where: {
+          TournamentStep: {
+            some: { id: { in: tournamentSteps.map((ts) => ts.id) } },
+          },
+        },
+      });
+
+      // Delete global tournament
+      await prisma.tournament.deleteMany({
+        where: {
+          type: TournamentType.GLOBAL,
+          date: {
+            gte: moment.utc().startOf('day').toDate(),
+            lte: moment.utc().endOf('day').toDate(),
+          },
+        },
+      });
+
+      res.send({ success: true });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
 };
 
 export default Tournaments;

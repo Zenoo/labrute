@@ -1,8 +1,9 @@
 import { ExpectedError, getFightsLeft } from '@labrute/core';
-import { PrismaClient } from '@labrute/prisma';
+import { Prisma, PrismaClient } from '@labrute/prisma';
 import { Request, Response } from 'express';
 import auth from '../utils/auth.js';
 import getOpponents from '../utils/brute/getOpponents.js';
+import DiscordUtils from '../utils/DiscordUtils.js';
 import generateFight from '../utils/fight/generateFight.js';
 import sendError from '../utils/sendError.js';
 
@@ -96,7 +97,20 @@ const Fights = {
         });
       }
 
-      const generatedFight = await generateFight(prisma, brute1, brute2);
+      // Generate fight (retry if failed)
+      let generatedFight: Prisma.FightCreateInput | null = null;
+
+      while (!generatedFight) {
+        try {
+          // eslint-disable-next-line no-await-in-loop
+          generatedFight = await generateFight(prisma, brute1, brute2);
+        } catch (error) {
+          // eslint-disable-next-line no-await-in-loop
+          await DiscordUtils.sendSimpleMessage(`Error while generating fight between ${brute1.name} and ${brute2.name}, retrying...`);
+          // eslint-disable-next-line no-await-in-loop
+          await DiscordUtils.sendLog(error);
+        }
+      }
 
       // Save important fight data
       const { id: fightId } = await prisma.fight.create({
