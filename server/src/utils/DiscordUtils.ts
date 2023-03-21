@@ -40,13 +40,13 @@ const sendLog = async (error: unknown, res?: Response) => {
 
     const embed = new EmbedBuilder()
       .setColor(0xff0000)
-      .setTitle(res ? res.req.url : '')
+      .setTitle(res ? res.req.url : error instanceof Error ? error.message : 'Unknown error')
       .setAuthor({
         name: 'LaBrute',
         iconURL: `${server}/favicon.png`,
       })
       .setDescription(`\`\`\`
-${error}
+${error instanceof Error ? error.stack : error}
 \`\`\``)
       .setTimestamp();
 
