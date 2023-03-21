@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.15.0](https://github.com/Zenoo/labrute/compare/labrute-v2.14.5...labrute-v2.15.0) (2023-03-21)
+
+
+### Features
+
+* Admin panel + Retry generating a fight if no winner found. Fixes [#135](https://github.com/Zenoo/labrute/issues/135). Fixes [#144](https://github.com/Zenoo/labrute/issues/144) ([3ea5d4e](https://github.com/Zenoo/labrute/commit/3ea5d4ed647e7d570f4369a90fc926e13ada1d40))
+
 ## [2.14.5](https://github.com/Zenoo/labrute/compare/labrute-v2.14.4...labrute-v2.14.5) (2023-03-19)
 
 
