@@ -32,7 +32,7 @@
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",
-    "react-zoom-pan-pinch": "^3.0.2"
+    "react-zoom-pan-pinch": "^3.0.4"
   },
   "browserslist": {
     "production": [
