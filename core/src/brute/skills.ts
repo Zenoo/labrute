@@ -163,14 +163,14 @@ const skills: Skill[] = [
     name: 'tragicPotion',
     odds: 8,
     type: 'super',
-    toss: 5,
+    toss: 10,
     uses: 1,
   },
   {
     name: 'net',
     odds: 16,
     type: 'super',
-    toss: 5,
+    toss: 10,
     uses: 1,
   },
   {
