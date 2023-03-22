@@ -44,9 +44,66 @@ export const orderFighters = (fightData: DetailedFight['data']) => {
   });
 };
 
-const randomlyGetSuper = (skills: Skill[]) => {
-  const supers = skills.filter((skill) => skill.uses);
+export const getOpponents = (fightData: DetailedFight['data'], fighter: DetailedFighter, bruteOnly?: boolean) => {
+  let opponents = [];
+
+  // Remove backups not arrived yet
+  opponents = fightData.fighters.filter((f) => !f.arrivesAtInitiative);
+
+  // Fighter is a pet/backup
+  if (fighter.master) {
+    opponents = opponents.filter((f) => (f.master
+      ? f.master !== fighter.master
+      : f.id !== fighter.master));
+  } else {
+    // Fighter is a real brute
+    opponents = opponents.filter((f) => f.name !== fighter.name
+      && f.master !== fighter.id);
+  }
+
+  if (bruteOnly) {
+    opponents = opponents.filter((f) => f.type === 'brute');
+  }
+
+  return opponents;
+};
+
+const getRandomOpponent = (fightData: DetailedFight['data'], fighter: DetailedFighter, bruteOnly?: boolean) => {
+  const opponents = getOpponents(fightData, fighter, bruteOnly);
+  const random = randomBetween(0, opponents.length - 1);
+
+  return opponents[random];
+};
+
+const randomlyGetSuper = (fightData: DetailedFight['data'], brute: DetailedFighter) => {
+  let supers = brute.skills.filter((skill) => skill.uses);
   if (!supers.length) return null;
+
+  // Filter out tamer if no dead pets
+  if (fightData.fighters.filter((fighter) => fighter.type === 'pet' && fighter.hp <= 0).length === 0) {
+    supers = supers.filter((skill) => skill.name !== 'tamer');
+  }
+
+  // Filter out thief if opponents have no weapons
+  if (getOpponents(fightData, brute, true)
+    .filter((fighter) => fighter.weapons.length > 0).length === 0) {
+    supers = supers.filter((skill) => skill.name !== 'thief');
+  }
+
+  // Filter out tragicPotion if not poisoned or lost less than 50 HP
+  if (brute.hp > brute.maxHp / 2 && !brute.poisoned) {
+    supers = supers.filter((skill) => skill.name !== 'tragicPotion');
+  }
+
+  // Filter out cryOfTheDamned and hypnosis if opponent has no pets
+  if (fightData.fighters.filter((f) => f.type === 'pet' && f.master === getMainOpponent(fightData, brute).id).length === 0) {
+    supers = supers.filter((skill) => skill.name !== 'cryOfTheDamned' && skill.name !== 'hypnosis');
+  }
+
+  // Filter out flashFlood if less than 3 weapons
+  if (brute.weapons.length < 3) {
+    supers = supers.filter((skill) => skill.name !== 'flashFlood');
+  }
 
   const NO_SUPER_TOSS = 10;
   const randomSuper = randomBetween(
@@ -83,37 +140,6 @@ const randomlyDrawWeapon = (weapons: Weapon[]) => {
   }
 
   return null;
-};
-
-export const getOpponents = (fightData: DetailedFight['data'], fighter: DetailedFighter, bruteOnly?: boolean) => {
-  let opponents = [];
-
-  // Remove backups not arrived yet
-  opponents = fightData.fighters.filter((f) => !f.arrivesAtInitiative);
-
-  // Fighter is a pet/backup
-  if (fighter.master) {
-    opponents = opponents.filter((f) => (f.master
-      ? f.master !== fighter.master
-      : f.id !== fighter.master));
-  } else {
-    // Fighter is a real brute
-    opponents = opponents.filter((f) => f.name !== fighter.name
-      && f.master !== fighter.id);
-  }
-
-  if (bruteOnly) {
-    opponents = opponents.filter((f) => f.type === 'brute');
-  }
-
-  return opponents;
-};
-
-const getRandomOpponent = (fightData: DetailedFight['data'], fighter: DetailedFighter, bruteOnly?: boolean) => {
-  const opponents = getOpponents(fightData, fighter, bruteOnly);
-  const random = randomBetween(0, opponents.length - 1);
-
-  return opponents[random];
 };
 
 export const stepFighter = (fighter: DetailedFighter): StepFighter => ({
@@ -259,10 +285,7 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
       break;
     }
     case 'tragicPotion': {
-      // Abort if not poisoned or lost less than 50 HP
       const lostHp = fighter.maxHp - fighter.hp;
-      if (!fighter.poisoned && lostHp < 50) return false;
-
       const hpHealed = Math.floor(lostHp * (0.25 + Math.random() * 0.25));
       fighter.hp += hpHealed;
       fighter.poisoned = false;
@@ -425,9 +448,6 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
       break;
     }
     case 'flashFlood': {
-      // Abort if less than 3 weapons are available
-      if (fighter.weapons.length < 3) return false;
-
       // Choose opponent
       const opponent = getRandomOpponent(fightData, fighter, true);
 
@@ -469,7 +489,7 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
       // Abort if less than 20 HP lost or if no pet is dead
       if (fighter.hp > fighter.maxHp - 20 || !deadPets.length) return false;
 
-      // Get random dedd pet
+      // Get random dead pet
       const pet = deadPets[randomBetween(0, deadPets.length - 1)];
 
       let healPercentage = 0;
@@ -934,7 +954,7 @@ export const playFighterTurn = (fightData: DetailedFight['data']) => {
   }
 
   // Super activation
-  const possibleSuper = randomlyGetSuper(fighter.skills);
+  const possibleSuper = randomlyGetSuper(fightData, fighter);
   if (possibleSuper) {
     // End turn if super activated
     if (activateSuper(fightData, possibleSuper)) {
