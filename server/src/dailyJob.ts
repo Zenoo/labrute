@@ -288,7 +288,6 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
 
     const fight = lastFight;
 
-    // Allow rank up for winner if opponent wasn't lower rank
     const winner = brutes.find((brute) => brute.name === fight.winner);
     if (!winner) {
       throw new Error('No winner');
@@ -299,11 +298,21 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
       throw new Error('No loser');
     }
 
-    if (!winner.canRankUp && winner.ranking >= loser.ranking) {
-      await prisma.brute.update({
-        where: { id: winner.id },
-        data: { canRankUp: true },
+    // Only for real brutes
+    if (winner.userId) {
+      // Add 100 Sacripoints to winner user
+      await prisma.user.update({
+        where: { id: winner.userId },
+        data: { sacrificePoints: { increment: 100 } },
       });
+
+      // Allow rank up for winner if opponent wasn't lower rank
+      if (!winner.canRankUp && winner.ranking >= loser.ranking) {
+        await prisma.brute.update({
+          where: { id: winner.id },
+          data: { canRankUp: true },
+        });
+      }
     }
 
     // Send Discord notification
@@ -462,6 +471,20 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
     roundBrutes = [...nextBrutes];
     round++;
   }
+
+  if (roundBrutes.length !== 1) {
+    throw new Error('Invalid tournament');
+  }
+
+  if (!roundBrutes[0].userId) {
+    throw new Error('Tournament winner has no user');
+  }
+
+  // Add 150 SacriPoints to the winner user
+  await prisma.user.update({
+    where: { id: roundBrutes[0].userId },
+    data: { sacrificePoints: { increment: 150 } },
+  });
 
   await DiscordUtils.sendSimpleMessage('Global tournament handled');
 };
