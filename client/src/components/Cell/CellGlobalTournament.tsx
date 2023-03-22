@@ -1,11 +1,10 @@
-import { FullTournamentStep, GLOBAL_TOURNAMENT_START_HOUR, hexToRgba } from '@labrute/core';
+import { FullTournamentStep, GLOBAL_TOURNAMENT_START_HOUR, hexToRgba, TournamentsGetGlobalResponse } from '@labrute/core';
 import { Close } from '@mui/icons-material';
 import { Box, Paper, PaperProps, useTheme } from '@mui/material';
 import moment from 'moment';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useBrute } from '../../hooks/useBrute';
-import useStateAsync from '../../hooks/useStateAsync';
 import Server from '../../utils/Server';
 import BrutePortrait from '../Brute/Body/BrutePortait';
 import BruteTooltip from '../Brute/BruteTooltip';
@@ -22,8 +21,14 @@ const CellGlobalTournament = ({
 
   const now = useMemo(() => moment.utc(), []);
 
-  const props = useMemo(() => ({ name: brute?.name || '', date: now.format('YYYY-MM-DD') }), [brute, now]);
-  const { data } = useStateAsync(null, Server.Tournament.getGlobal, props);
+  const [data, setData] = useState<TournamentsGetGlobalResponse | null>(null);
+
+  // Get data
+  useEffect(() => {
+    Server.Tournament.getGlobal({ name: brute?.name || '', date: now.format('YYYY-MM-DD') }).then(setData).catch(() => {
+      setData(null);
+    });
+  }, [brute, now]);
 
   const lostRound = useMemo(
     () => (brute && data
