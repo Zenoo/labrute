@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.15.2](https://github.com/Zenoo/labrute/compare/labrute-v2.15.1...labrute-v2.15.2) (2023-03-22)
+
+
+### Bug Fixes
+
+* +1 XP on tournament fight win. Fixes [#140](https://github.com/Zenoo/labrute/issues/140) ([2ff6d32](https://github.com/Zenoo/labrute/commit/2ff6d32196f595632aeff31ea950bb798944503c))
+* Added brute tooltips in tournaments. Fixes [#106](https://github.com/Zenoo/labrute/issues/106) ([dd7320b](https://github.com/Zenoo/labrute/commit/dd7320bcf1c169857a32f67237ef227a0ab5e9a7))
+* Gain points after winning a tournament. Fixes [#146](https://github.com/Zenoo/labrute/issues/146) ([17383ac](https://github.com/Zenoo/labrute/commit/17383ac06e2db8e28b61ed2a2c00c59584a2f0b2))
+* Increase tragic potion and net use chances. [#130](https://github.com/Zenoo/labrute/issues/130) ([9a56355](https://github.com/Zenoo/labrute/commit/9a56355e5714ba0c7fd68ae3f4072706bbed47a0))
+* New button to start an arena fight higher in the page on mobile. FIxes [#139](https://github.com/Zenoo/labrute/issues/139) ([9fc886d](https://github.com/Zenoo/labrute/commit/9fc886da6664dc2daab1b0b2c6e57be203a33d1c))
+* Remove unusable skills from skill pool before tossing. Fixes [#130](https://github.com/Zenoo/labrute/issues/130) ([2139c5e](https://github.com/Zenoo/labrute/commit/2139c5e63c46aa1a4947e0823355a96f67b6d6af))
+* Sacrificing a brute now takes rank into account (500 per rank). Fixes [#131](https://github.com/Zenoo/labrute/issues/131) ([ee683ff](https://github.com/Zenoo/labrute/commit/ee683ff1b7e99b355050aa466fde3b9e6f5cb989))
+* Simplify typographies. Fixes [#19](https://github.com/Zenoo/labrute/issues/19) ([52673a7](https://github.com/Zenoo/labrute/commit/52673a73ef593159e13516d494704f373ea4def3))
+* Wrong global tournament data displayed after switching cells. Fixes [#116](https://github.com/Zenoo/labrute/issues/116) ([d658c50](https://github.com/Zenoo/labrute/commit/d658c5047a5f12edfc4a5c599bfba4e2f16bac55))
+
 ## [2.15.1](https://github.com/Zenoo/labrute/compare/labrute-v2.15.0...labrute-v2.15.1) (2023-03-21)
 
 
