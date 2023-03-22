@@ -30,6 +30,23 @@ const VersusMobileView = ({
         <Text h3 smallCaps bold color="text.primary">{t('dareChallenge')} {opponent.name} !</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight' }}>
+        <StyledButton
+          image="/images/button.gif"
+          imageHover="/images/button-hover.gif"
+          onClick={startFight}
+          shadow={false}
+          contrast={false}
+          shift="8px"
+          sx={{
+            fontVariant: 'small-caps',
+            m: '0 auto',
+            mb: 1,
+            height: 56,
+            width: 246,
+          }}
+        >
+          {t('startFight')}
+        </StyledButton>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={5}>
             <BruteComponent
