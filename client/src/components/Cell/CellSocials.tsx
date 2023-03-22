@@ -33,7 +33,7 @@ const CellSocials = ({
               <AccountTree />
             </Link>
           </Tooltip>
-          <Text h2 sx={{ fontVariant: 'small-caps', display: 'inline-block' }}>{brute.name}</Text>
+          <Text h2 smallCaps sx={{ display: 'inline-block' }}>{brute.name}</Text>
         </Grid>
         <Grid item xs={smallScreen ? 6 : 3}>
           {!!brute.master && (

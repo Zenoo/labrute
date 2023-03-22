@@ -81,7 +81,7 @@ const AdminView = () => {
           />
           {brute && (
             <>
-              <Text h2 sx={{ fontVariant: 'small-caps' }}>{brute.name}</Text>
+              <Text h2 smallCaps>{brute.name}</Text>
               <BruteComponent brute={brute} sx={{ width: 100 }} />
             </>
           )}

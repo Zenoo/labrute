@@ -1,6 +1,6 @@
 import { FullTournamentStep, GLOBAL_TOURNAMENT_START_HOUR, hexToRgba } from '@labrute/core';
 import { Close } from '@mui/icons-material';
-import { Box, Paper, PaperProps, Tooltip, useTheme } from '@mui/material';
+import { Box, Paper, PaperProps, useTheme } from '@mui/material';
 import moment from 'moment';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +8,7 @@ import { useBrute } from '../../hooks/useBrute';
 import useStateAsync from '../../hooks/useStateAsync';
 import Server from '../../utils/Server';
 import BrutePortrait from '../Brute/Body/BrutePortait';
+import BruteTooltip from '../Brute/BruteTooltip';
 import Link from '../Link';
 import Text from '../Text';
 
@@ -61,7 +62,7 @@ const CellGlobalTournament = ({
           m: 1,
         }}
       >
-        <Tooltip title={step.fight.brute1.name}>
+        <BruteTooltip brute={step.fight.brute1}>
           <Box sx={{ position: 'relative', display: 'inline-block', ml: -0.5 }}>
             <BrutePortrait
               inverted
@@ -84,7 +85,7 @@ const CellGlobalTournament = ({
               />
             )}
           </Box>
-        </Tooltip>
+        </BruteTooltip>
         <Box
           component="img"
           src="/images/tournament/vs.svg"
@@ -92,7 +93,7 @@ const CellGlobalTournament = ({
             width: finals ? 30 : 20,
           }}
         />
-        <Tooltip title={step.fight.brute2.name}>
+        <BruteTooltip brute={step.fight.brute2}>
           <Box sx={{ position: 'relative', display: 'inline-block', mr: -0.5 }}>
             <BrutePortrait
               brute={step.fight.brute2}
@@ -114,7 +115,7 @@ const CellGlobalTournament = ({
               />
             )}
           </Box>
-        </Tooltip>
+        </BruteTooltip>
       </Link>
     );
   };
@@ -212,39 +213,46 @@ const CellGlobalTournament = ({
 
           // Normal fight
           return (
-            <Link
-              to={`/${brute.name}/fight/${step.fightId}`}
-              sx={{
-                display: 'flex',
-                px: 0.5,
-                py: 0.25,
-                bgcolor: won
-                  ? hexToRgba(theme.palette.success.light, 0.2)
-                  : hexToRgba(theme.palette.error.light, 0.2),
-                borderBottom: '1px solid',
-                borderBottomColor: theme.palette.border.shadow,
-                '&:last-child': {
-                  borderBottom: 'none',
-                }
-              }}
+            <BruteTooltip
+              brute={brute.name === step.fight.brute1.name
+                ? step.fight.brute2
+                : step.fight.brute1}
               key={step.id}
             >
-              <Text
-                bold
-                color={won ? 'success.main' : 'error'}
-                sx={{ width: 30 }}
+              <Link
+                to={`/${brute.name}/fight/${step.fightId}`}
+                sx={{
+                  display: 'flex',
+                  px: 0.5,
+                  py: 0.25,
+                  bgcolor: won
+                    ? hexToRgba(theme.palette.success.light, 0.2)
+                    : hexToRgba(theme.palette.error.light, 0.2),
+                  borderBottom: '1px solid',
+                  borderBottomColor: theme.palette.border.shadow,
+                  '&:last-child': {
+                    borderBottom: 'none',
+                  }
+                }}
               >
-                {step.step + GLOBAL_TOURNAMENT_START_HOUR - 1}h
-              </Text>
-              <Text
-                bold
-                color={won ? 'success.main' : 'error'}
-              >
-                {won
-                  ? t('log.win', { value: opponent })
-                  : t('log.lose', { value: opponent })}
-              </Text>
-            </Link>
+                <Text
+                  bold
+                  color={won ? 'success.main' : 'error'}
+                  sx={{ width: 30 }}
+                >
+                  {step.step + GLOBAL_TOURNAMENT_START_HOUR - 1}h
+                </Text>
+
+                <Text
+                  bold
+                  color={won ? 'success.main' : 'error'}
+                >
+                  {won
+                    ? t('log.win', { value: opponent })
+                    : t('log.lose', { value: opponent })}
+                </Text>
+              </Link>
+            </BruteTooltip>
           );
         })}
         {/* Lost marker */}

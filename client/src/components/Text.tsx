@@ -21,6 +21,7 @@ export interface TextProps extends TypographyProps {
   bold?: boolean;
   smallCaps?: boolean;
   upperCase?: boolean;
+  center?: boolean;
   component?: React.ElementType;
 }
 
@@ -44,6 +45,7 @@ const Text = forwardRef<HTMLElement, TextProps>(({
   bold = false,
   smallCaps = false,
   upperCase = false,
+  center = false,
   sx,
   ...rest
 }, ref) => (
@@ -70,6 +72,7 @@ const Text = forwardRef<HTMLElement, TextProps>(({
       fontVariant: smallCaps ? 'small-caps' : undefined,
       textTransform: upperCase ? 'uppercase' : undefined,
       typography: typo,
+      textAlign: center ? 'center' : undefined,
       ...sx,
     }}
     {...rest}

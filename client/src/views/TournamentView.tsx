@@ -1,13 +1,14 @@
 import { Fighter, FightWithBrutes } from '@labrute/core';
 import { Brute } from '@labrute/prisma';
 import { Close } from '@mui/icons-material';
-import { Box, Paper, Tooltip, useMediaQuery } from '@mui/material';
+import { Box, Paper, useMediaQuery } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import BruteComponent from '../components/Brute/Body/BruteComponent';
 import BrutePortrait from '../components/Brute/Body/BrutePortait';
+import BruteTooltip from '../components/Brute/BruteTooltip';
 import FantasyButton from '../components/FantasyButton';
 import Page from '../components/Page';
 import StyledButton, { StyledButtonHeight, StyledButtonWidth } from '../components/StyledButton';
@@ -239,7 +240,7 @@ const TournamentView = () => {
                       }}
                     >
                       {/* Left fighter */}
-                      <Tooltip title={step.fight.brute1.name}>
+                      <BruteTooltip brute={step.fight.brute1}>
                         <Box sx={{ position: 'relative', mt: 1 }}>
                           <BrutePortrait
                             inverted
@@ -275,7 +276,7 @@ const TournamentView = () => {
                             }}
                           />
                         </Box>
-                      </Tooltip>
+                      </BruteTooltip>
                       {/* VS */}
                       <Box
                         component="img"
@@ -285,7 +286,7 @@ const TournamentView = () => {
                         }}
                       />
                       {/* RIGHT FIGHTER */}
-                      <Tooltip title={step.fight.brute2.name}>
+                      <BruteTooltip brute={step.fight.brute2}>
                         <Box sx={{ position: 'relative', mt: 1 }}>
                           <BrutePortrait
                             brute={step.fight.brute2}
@@ -320,7 +321,7 @@ const TournamentView = () => {
                             }}
                           />
                         </Box>
-                      </Tooltip>
+                      </BruteTooltip>
                     </StyledButton>
                   ))}
                 </Box>
@@ -333,7 +334,10 @@ const TournamentView = () => {
             && (!authing && brute)
             && (!ownsBrute || (ownsBrute && stepWatched > 5))
             && (
-              <Tooltip title={winnerStep.fight.winner}>
+              <BruteTooltip brute={winnerStep.fight.winner === winnerStep.fight.brute1.name
+                ? winnerStep.fight.brute1
+                : winnerStep.fight.brute2}
+              >
                 <BruteComponent
                   brute={winnerStep.fight.winner === winnerStep.fight.brute1.name
                     ? winnerStep.fight.brute1
@@ -347,7 +351,7 @@ const TournamentView = () => {
                     width: 140,
                   }}
                 />
-              </Tooltip>
+              </BruteTooltip>
             )}
         </Paper>
       </Page>
