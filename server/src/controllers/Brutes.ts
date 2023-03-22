@@ -440,7 +440,7 @@ const Brutes = {
       }
 
       // Add SacriPoints to user
-      const sacriPoints = getSacriPoints(brute.level);
+      const sacriPoints = getSacriPoints(brute);
       await prisma.user.update({
         where: { id: user.id },
         data: {

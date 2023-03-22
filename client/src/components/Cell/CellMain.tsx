@@ -53,7 +53,7 @@ const CellMain = ({
   const confirmSacrifice = useCallback(() => {
     if (!brute) return;
 
-    Confirm.open(t('sacrifice'), t('sacrificeConfirm', { points: getSacriPoints(brute.level) }), () => {
+    Confirm.open(t('sacrifice'), t('sacrificeConfirm', { points: getSacriPoints(brute) }), () => {
       Server.Brute.sacrifice(brute.name).then(({ points }) => {
         Alert.open('success', t('sacrificeSuccess', { points }));
         navigate('/');
