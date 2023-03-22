@@ -78,7 +78,7 @@ const Header = ({
           width: '23.118279569%',
         }}
       />
-      <Text sx={{ textAlign: 'center' }} bold color="secondary">
+      <Text center bold color="secondary">
         {t('serverTime')}: {time.format('HH:mm')}
       </Text>
     </Box>

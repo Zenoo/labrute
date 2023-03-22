@@ -125,7 +125,7 @@ const CellView = () => {
             <Box sx={{ display: 'flex', flexGrow: 1 }}>
               <Box sx={{ width: 315 }}>
                 {/* WEAPONS */}
-                <Text bold sx={{ textAlign: 'center' }}>{t('weaponsBonuses')}</Text>
+                <Text bold center>{t('weaponsBonuses')}</Text>
                 <CellWeapons />
                 {/* SKILLS */}
                 <CellSkills />

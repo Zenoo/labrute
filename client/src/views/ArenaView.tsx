@@ -111,10 +111,10 @@ const ArenaView = () => {
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         <Grid container spacing={1}>
           <Grid item xs={12} md={4}>
-            <Text h4 bold color="secondary" sx={{ textAlign: 'center' }}>{brute.name}</Text>
+            <Text h4 bold color="secondary" center>{brute.name}</Text>
             <BruteLevelAndXP
               brute={brute}
-              textProps={{ h3: false, h5: true, color: 'primary.text', textAlign: 'center' }}
+              textProps={{ h3: false, h5: true, color: 'primary.text', center: true }}
               sx={{ mb: 1, width: 120, mx: 'auto' }}
             />
             <BruteBodyAndStats brute={brute} isMd={isMd} />
