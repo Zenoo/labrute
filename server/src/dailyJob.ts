@@ -256,6 +256,12 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
           select: { id: true },
         });
 
+        // +1 XP to the winner
+        await prisma.brute.update({
+          where: { id: brute1.name === lastFight.winner ? brute1.id : brute2.id },
+          data: { xp: { increment: 1 } },
+        });
+
         // Add winner to next round
         winners.push(brute1.name === lastFight.winner ? brute1 : brute2);
 
@@ -424,6 +430,12 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
       const fight = await prisma.fight.create({
         data: generatedFight,
         select: { id: true },
+      });
+
+      // +1 XP to the winner
+      await prisma.brute.update({
+        where: { id: brute1.name === generatedFight.winner ? brute1.id : brute2.id },
+        data: { xp: { increment: 1 } },
       });
 
       // Add winner to next round
