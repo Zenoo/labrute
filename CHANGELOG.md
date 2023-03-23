@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.15.4](https://github.com/Zenoo/labrute/compare/labrute-v2.15.3...labrute-v2.15.4) (2023-03-23)
+
+
+### Bug Fixes
+
+* Store brute basic data to display in tournament tooltips ([f61865a](https://github.com/Zenoo/labrute/commit/f61865a07b344c93b4047b7377f29c7029c67899))
+* Wrong chances of preventing successive boosters ([67276b0](https://github.com/Zenoo/labrute/commit/67276b099260c36365d601fb0dc96aec3f0b48fe))
+
 ## [2.15.3](https://github.com/Zenoo/labrute/compare/labrute-v2.15.2...labrute-v2.15.3) (2023-03-23)
 
 
