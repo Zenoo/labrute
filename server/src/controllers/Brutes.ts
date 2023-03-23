@@ -778,7 +778,7 @@ const Brutes = {
         throw new Error('Missing name');
       }
 
-      const brute = await prisma.brute.findFirst({
+      let brute = await prisma.brute.findFirst({
         where: {
           name,
           deletedAt: null,
@@ -811,7 +811,7 @@ const Brutes = {
       }
 
       // Update the brute
-      await prisma.brute.update({
+      brute = await prisma.brute.update({
         where: { id: brute.id },
         data: {
           // Random stats
@@ -828,6 +828,25 @@ const Brutes = {
           canRankUp: false,
           // Reset destiny
           destinyPath: [],
+        },
+      });
+
+      // Get new opponents
+      const opponents = await getOpponents(prisma, brute);
+
+      // Save opponents
+      await prisma.brute.update({
+        where: {
+          id: brute.id,
+        },
+        data: {
+          opponents: {
+            set: opponents.map((o) => ({
+              id: o.id,
+            })),
+          },
+          // Update opponentsGeneratedAt
+          opponentsGeneratedAt: new Date(),
         },
       });
 
