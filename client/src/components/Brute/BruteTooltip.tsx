@@ -1,3 +1,4 @@
+import { Fighter } from '@labrute/core';
 import { Brute } from '@labrute/prisma';
 import { Box, Tooltip, TooltipProps } from '@mui/material';
 import React from 'react';
@@ -7,13 +8,16 @@ import Text from '../Text';
 import BruteHP from './BruteHP';
 
 interface BruteTooltipProps extends Omit<TooltipProps, 'title'> {
-  brute: Brute;
+  brute?: Brute;
+  fighter?: Fighter;
 }
 
-const BruteTooltip = ({ brute, children, ...rest }: BruteTooltipProps) => {
+const BruteTooltip = ({ brute, fighter, children, ...rest }: BruteTooltipProps) => {
   const { t } = useTranslation();
 
-  return (
+  const target = fighter?.level ? fighter : brute;
+
+  return target ? (
     <Tooltip
       {...rest}
       componentsProps={{
@@ -25,17 +29,17 @@ const BruteTooltip = ({ brute, children, ...rest }: BruteTooltipProps) => {
       }}
       title={(
         <>
-          <Text bold color="secondary">{brute.name}</Text>
+          <Text bold color="secondary">{target.name}</Text>
           <Text bold smallCaps color="text.primary">
             {t('level')}
-            <Text component="span" bold color="secondary"> {brute.level}</Text>
+            <Text component="span" bold color="secondary"> {target.level}</Text>
           </Text>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <BruteHP hp={brute.hp} />
+            <BruteHP hp={target.hp} />
             <Box flexGrow={1} sx={{ ml: 0.5 }}>
-              <ArenaStat name={t('Str')} value={brute.strengthValue} />
-              <ArenaStat name={t('Agi')} value={brute.agilityValue} />
-              <ArenaStat name={t('Spe')} value={brute.speedValue} />
+              <ArenaStat name={t('Str')} value={fighter?.strength || brute?.strengthValue || 0} />
+              <ArenaStat name={t('Agi')} value={fighter?.agility || brute?.agilityValue || 0} />
+              <ArenaStat name={t('Spe')} value={fighter?.speed || brute?.speedValue || 0} />
             </Box>
           </Box>
         </>
@@ -43,7 +47,7 @@ const BruteTooltip = ({ brute, children, ...rest }: BruteTooltipProps) => {
     >
       {children}
     </Tooltip>
-  );
+  ) : null;
 };
 
 export default BruteTooltip;

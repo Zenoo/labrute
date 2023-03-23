@@ -110,7 +110,11 @@ const TournamentMobileView = ({
                       }}
                     >
                       {/* Left fighter */}
-                      <BruteTooltip brute={step.fight.brute1}>
+                      <BruteTooltip
+                        fighter={(step.fight.fighters as unknown as Fighter[])
+                          .find((fighter) => fighter.type === 'brute' && fighter.name === step.fight.brute1.name)}
+                        brute={step.fight.brute1}
+                      >
                         <Box sx={{ position: 'relative', mt: 1 }}>
                           <BrutePortrait
                             inverted
@@ -156,7 +160,11 @@ const TournamentMobileView = ({
                         }}
                       />
                       {/* Right fighter */}
-                      <BruteTooltip brute={step.fight.brute2}>
+                      <BruteTooltip
+                        fighter={(step.fight.fighters as unknown as Fighter[])
+                          .find((fighter) => fighter.type === 'brute' && fighter.name === step.fight.brute2.name)}
+                        brute={step.fight.brute2}
+                      >
                         <Box sx={{ position: 'relative', mt: 1 }}>
                           <BrutePortrait
                             brute={step.fight.brute2}
@@ -199,11 +207,20 @@ const TournamentMobileView = ({
             </Fragment>
           );
         })}
-        {display && winnerStep && (!authing && brute)
-          && (!ownsBrute || (ownsBrute && stepWatched > 5)) && (
-            <BruteTooltip brute={winnerStep.fight.winner === winnerStep.fight.brute1.name
-              ? winnerStep.fight.brute1
-              : winnerStep.fight.brute2}
+        {display
+          && winnerStep
+          && (!authing && brute)
+          && (!ownsBrute || (ownsBrute && stepWatched > 5))
+          && (
+            <BruteTooltip
+              fighter={winnerStep.fight.winner === winnerStep.fight.brute1.name
+                ? (winnerStep.fight.fighters as unknown as Fighter[])
+                  .find((fighter) => fighter.type === 'brute' && fighter.name === winnerStep.fight.brute1.name)
+                : (winnerStep.fight.fighters as unknown as Fighter[])
+                  .find((fighter) => fighter.type === 'brute' && fighter.name === winnerStep.fight.brute2.name)}
+              brute={winnerStep.fight.winner === winnerStep.fight.brute1.name
+                ? winnerStep.fight.brute1
+                : winnerStep.fight.brute2}
             >
               <BruteComponent
                 brute={winnerStep.fight.winner === winnerStep.fight.brute1.name
@@ -216,7 +233,7 @@ const TournamentMobileView = ({
                 }}
               />
             </BruteTooltip>
-        )}
+          )}
 
       </Paper>
     </Page>

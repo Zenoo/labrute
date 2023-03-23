@@ -1,4 +1,4 @@
-import { FullTournamentStep, GLOBAL_TOURNAMENT_START_HOUR, hexToRgba, TournamentsGetGlobalResponse } from '@labrute/core';
+import { Fighter, FullTournamentStep, GLOBAL_TOURNAMENT_START_HOUR, hexToRgba, TournamentsGetGlobalResponse } from '@labrute/core';
 import { Close } from '@mui/icons-material';
 import { Box, Paper, PaperProps, useTheme } from '@mui/material';
 import moment from 'moment';
@@ -48,6 +48,12 @@ const CellGlobalTournament = ({
       || step.fight.brute2.name === brute.name;
     const won = bruteInFight && step.fight.winner === brute.name;
 
+    const fighter1 = (step.fight.fighters as unknown as Fighter[])
+      .find((fighter) => fighter.type === 'brute' && fighter.name === step.fight.brute1.name);
+    const fighter2 = (step.fight.fighters as unknown as Fighter[])
+      .find((fighter) => fighter.type === 'brute' && fighter.name === step.fight.brute2.name);
+
+    console.log(step.fight.fighters);
     return (
       <Link
         to={`/${step.fight.brute1.name}/fight/${step.fightId}`}
@@ -67,7 +73,7 @@ const CellGlobalTournament = ({
           m: 1,
         }}
       >
-        <BruteTooltip brute={step.fight.brute1}>
+        <BruteTooltip fighter={fighter1} brute={step.fight.brute1}>
           <Box sx={{ position: 'relative', display: 'inline-block', ml: -0.5 }}>
             <BrutePortrait
               inverted
@@ -98,7 +104,7 @@ const CellGlobalTournament = ({
             width: finals ? 30 : 20,
           }}
         />
-        <BruteTooltip brute={step.fight.brute2}>
+        <BruteTooltip fighter={fighter2} brute={step.fight.brute2}>
           <Box sx={{ position: 'relative', display: 'inline-block', mr: -0.5 }}>
             <BrutePortrait
               brute={step.fight.brute2}
@@ -216,9 +222,15 @@ const CellGlobalTournament = ({
             ? step.fight.brute2.name
             : step.fight.brute1.name;
 
+          const fighter1 = (step.fight.fighters as unknown as Fighter[])
+            .find((fighter) => fighter.type === 'brute' && fighter.name === step.fight.brute1.name);
+          const fighter2 = (step.fight.fighters as unknown as Fighter[])
+            .find((fighter) => fighter.type === 'brute' && fighter.name === step.fight.brute2.name);
+
           // Normal fight
           return (
             <BruteTooltip
+              fighter={brute.name === step.fight.brute1.name ? fighter2 : fighter1}
               brute={brute.name === step.fight.brute1.name
                 ? step.fight.brute2
                 : step.fight.brute1}
