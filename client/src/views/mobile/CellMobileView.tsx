@@ -56,7 +56,7 @@ const CellMobileView = ({
           }}
           >
             <Tooltip title={t('refLink')}>
-              <Text bold textAlign="center">{`${window.location.origin}?ref=${brute.name}`}</Text>
+              <Text bold center>{`${window.location.origin}?ref=${brute.name}`}</Text>
             </Tooltip>
             <CellClan brute={brute} />
           </Paper>
