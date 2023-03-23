@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.15.3](https://github.com/Zenoo/labrute/compare/labrute-v2.15.2...labrute-v2.15.3) (2023-03-23)
+
+
+### Bug Fixes
+
+* Shuffle opponents after a rank up ([69c9319](https://github.com/Zenoo/labrute/commit/69c93193bc2acbe42fc051603b2a41d25350f3a9))
+* Some text centering ([8791cd8](https://github.com/Zenoo/labrute/commit/8791cd8dda584ffdcd40c56390e80e6a34e8beb7))
+* Update rank up message ([0de2caf](https://github.com/Zenoo/labrute/commit/0de2cafa631d2a9fef45822976ea3fa1e7157723))
+
 ## [2.15.2](https://github.com/Zenoo/labrute/compare/labrute-v2.15.1...labrute-v2.15.2) (2023-03-22)
 
 
