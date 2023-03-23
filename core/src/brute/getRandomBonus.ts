@@ -63,15 +63,15 @@ const preventSomeBonuses = (
           break;
         case 3:
           // 0.1% chance of getting a fourth booster
-          preventPerk = randomBetween(0, 1000) < 10;
+          preventPerk = randomBetween(0, 1000) < 999;
           break;
         case 4:
           // 0.1% chance of getting a fifth booster
-          preventPerk = randomBetween(0, 1000) < 10;
+          preventPerk = randomBetween(0, 1000) < 999;
           break;
         case 5:
           // 0.1% chance of getting a sixth booster
-          preventPerk = randomBetween(0, 1000) < 10;
+          preventPerk = randomBetween(0, 1000) < 999;
           break;
         default:
           preventPerk = false;
