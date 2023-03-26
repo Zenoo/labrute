@@ -53,7 +53,6 @@ const CellGlobalTournament = ({
     const fighter2 = (step.fight.fighters as unknown as Fighter[])
       .find((fighter) => fighter.type === 'brute' && fighter.name === step.fight.brute2.name);
 
-    console.log(step.fight.fighters);
     return (
       <Link
         to={`/${step.fight.brute1.name}/fight/${step.fightId}`}
@@ -145,11 +144,34 @@ const CellGlobalTournament = ({
     }}
     >
       <Text bold color="text.disabled">
-        {t('eleminatedBy', {
+        {t('eliminatedBy', {
           value: brute.name === lostRound.fight.brute1.name
             ? lostRound.fight.brute2.name
             : lostRound.fight.brute1.name
         })}
+      </Text>
+    </Box>
+  );
+
+  // Next opponent
+  const renderNextOpponent = () => brute && data?.nextOpponent && (
+    <Box sx={{
+      display: 'flex',
+      px: 0.5,
+      py: 0.25,
+      borderBottom: '1px solid',
+      borderBottomColor: theme.palette.border.shadow,
+      '&:last-child': {
+        borderBottom: 'none',
+      }
+    }}
+    >
+      <Text bold color="text.disabled">
+        {t('nextOpponent')}
+        {' '}
+        <Link to={`/${data.nextOpponent}/cell`} sx={{ color: 'text.secondary' }}>
+          {data.nextOpponent}
+        </Link>
       </Text>
     </Box>
   );
@@ -274,6 +296,8 @@ const CellGlobalTournament = ({
         })}
         {/* Lost marker */}
         {lostRound && lostRound.step <= data.rounds - 3 && renderLostMarker()}
+        {/* Next opponent */}
+        {data.nextOpponent && data.lastRounds.length === 0 && renderNextOpponent()}
         {/* Last rounds */}
         {/* Quarter-final */}
         {data.lastRounds.length > 0 && (
@@ -298,6 +322,8 @@ const CellGlobalTournament = ({
             </Box>
             {/* Lost marker */}
             {lostRound && lostRound.step === data.lastRounds[0].step && renderLostMarker()}
+            {/* Next opponent */}
+            {data.nextOpponent && data.lastRounds.length === 4 && renderNextOpponent()}
           </>
         )}
         {/* Semi-final */}
@@ -323,6 +349,8 @@ const CellGlobalTournament = ({
             </Box>
             {/* Lost marker */}
             {lostRound && lostRound.step === data.lastRounds[0].step + 1 && renderLostMarker()}
+            {/* Next opponent */}
+            {data.nextOpponent && data.lastRounds.length > 4 && renderNextOpponent()}
           </>
         )}
         {/* Final */}

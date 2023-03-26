@@ -357,6 +357,32 @@ const Tournaments = {
       // Check if current time has reached the end of the tournament
       const tournamentEnded = hour >= GLOBAL_TOURNAMENT_START_HOUR - 1 + maxStep;
 
+      // Get next opponent if exists
+      const nextFight = await prisma.tournamentStep.findFirst({
+        where: {
+          tournamentId: tournament.id,
+          step: hour - GLOBAL_TOURNAMENT_START_HOUR + 2,
+          fight: {
+            OR: [
+              { brute1Id: brute.id },
+              { brute2Id: brute.id },
+            ],
+          },
+        },
+        include: {
+          fight: {
+            include: {
+              brute1: {
+                select: { name: true },
+              },
+              brute2: {
+                select: { name: true },
+              },
+            },
+          },
+        },
+      });
+
       res.send({
         tournament: {
           ...tournament,
@@ -365,6 +391,11 @@ const Tournaments = {
         lastRounds,
         done: tournamentEnded,
         rounds: maxStep,
+        nextOpponent: nextFight
+          ? nextFight.fight.brute1.name === brute.name
+            ? nextFight.fight.brute2.name
+            : nextFight?.fight.brute1.name
+          : null,
       });
     } catch (error) {
       sendError(res, error);

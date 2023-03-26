@@ -125,5 +125,6 @@ export type TournamentsGetGlobalResponse = {
   lastRounds: FullTournamentStep[],
   done: boolean,
   rounds: number,
+  nextOpponent: string | null,
 };
 export type BrutesGetDestinyResponse = DestinyBranch;
