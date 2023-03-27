@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.15.6](https://github.com/Zenoo/labrute/compare/labrute-v2.15.5...labrute-v2.15.6) (2023-03-27)
+
+
+### Bug Fixes
+
+* Remove useless logs ([ddae725](https://github.com/Zenoo/labrute/commit/ddae72544743085ad51b049c02709e4aa5d9ecc6))
+* Skills with 0 uses. Fixes [#154](https://github.com/Zenoo/labrute/issues/154) ([722204b](https://github.com/Zenoo/labrute/commit/722204b9285739d5e458bc111b1f4030b48b62ab))
+
 ## [2.15.5](https://github.com/Zenoo/labrute/compare/labrute-v2.15.4...labrute-v2.15.5) (2023-03-26)
 
 
