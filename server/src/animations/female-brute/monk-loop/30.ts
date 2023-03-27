@@ -4,7 +4,7 @@ import {
 
 const femaleMonkLoop30 = ({ colors, body }: FrameProps) => (/* html */`<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 ${body ? '' : ''}<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="100px" width="100px" xmlns="http://www.w3.org/2000/svg">
-  <g transform="matrix(1.0, 0.0, 0.0, 1.0, 31.1, 71.4)">
+  <g transform="matrix(1.0, 0.0, 0.0, 1.0, 45.4, 81.4)">
     <use height="163.4" transform="matrix(-0.3611, 0.0035, 0.0035, 0.3611, -1.0981, -69.4962)" width="66.2" xlink:href="#sprite0"/>
     <use height="34.4" transform="matrix(-0.0065, 0.3601, 0.4501, 0.0081, 1.112, -39.8197)" width="31.55" xlink:href="#sprite4"/>
     <use height="126.95" transform="matrix(0.35, -0.078, 0.078, 0.35, 2.9969, -37.6404)" width="253.5" xlink:href="#sprite8"/>
