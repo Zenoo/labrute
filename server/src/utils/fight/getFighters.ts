@@ -175,8 +175,11 @@ const getFighters = (team1: BruteAndBackup, team2: BruteAndBackup): DetailedFigh
       ironHead: false,
       resistant: false,
       monk: false,
-      skills: skills.filter((skill) => brute.skills.includes(skill.name)),
-      weapons: weapons.filter((weapon) => brute.weapons.includes(weapon.name)),
+      skills: skills
+        .filter((skill) => brute.skills.includes(skill.name))
+        .map((skill) => ({ ...skill })),
+      weapons: weapons
+        .filter((weapon) => brute.weapons.includes(weapon.name)),
       shield: false,
       activeSkills: [],
       activeWeapon: null,
@@ -296,7 +299,9 @@ const getFighters = (team1: BruteAndBackup, team2: BruteAndBackup): DetailedFigh
         ironHead: false,
         resistant: false,
         monk: false,
-        skills: skills.filter((skill) => backup.skills.includes(skill.name)),
+        skills: skills
+          .filter((skill) => backup.skills.includes(skill.name))
+          .map((skill) => ({ ...skill })),
         weapons: weapons.filter((weapon) => backup.weapons.includes(weapon.name)),
         shield: false,
         activeSkills: [],

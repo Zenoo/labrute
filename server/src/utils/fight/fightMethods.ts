@@ -77,6 +77,7 @@ const getRandomOpponent = (fightData: DetailedFight['data'], fighter: DetailedFi
 
 const randomlyGetSuper = (fightData: DetailedFight['data'], brute: DetailedFighter) => {
   let supers = brute.skills.filter((skill) => skill.uses);
+
   if (!supers.length) return null;
 
   // Filter out tamer if no dead pets
