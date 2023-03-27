@@ -812,6 +812,11 @@ const attack = (fightData: DetailedFight['data'], fighter: DetailedFighter, oppo
     }
   }
 
+  // Register hit if damage was done
+  if (damage) {
+    registerHit(fightData, fighter, [opponent], getDamage(fighter, opponent));
+  }
+
   // Check if the fighter gets disarmed
   if (damage && disarmAttacker(fighter, opponent)) {
     if (fighter.activeWeapon) {
@@ -826,11 +831,6 @@ const attack = (fightData: DetailedFight['data'], fighter: DetailedFighter, oppo
       // Remove weapon from fighter
       fighter.activeWeapon = null;
     }
-  }
-
-  // Register hit if damage was done
-  if (damage) {
-    registerHit(fightData, fighter, [opponent], getDamage(fighter, opponent));
   }
 
   // Randomly trigger another attack if the fighter has `determination`
