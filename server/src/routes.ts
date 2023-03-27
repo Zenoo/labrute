@@ -47,6 +47,7 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
   app.post('/api/fight/create', Fights.create(prisma));
 
   // Spritesheet
+  app.get('/api/spritesheet/regenerate', Spritesheets.regenerate(prisma));
   app.get('/api/spritesheet/:brute.png', Spritesheets.getImage(prisma));
   app.get('/api/spritesheet/:brute.json', Spritesheets.getJson(prisma));
   app.get('/api/spritesheet/:brute/:model/:animation/:frame', Spritesheets.getFrame(prisma));

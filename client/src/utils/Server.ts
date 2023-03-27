@@ -73,6 +73,9 @@ const Server = {
     deleteDaily: () => Fetch<never>('/api/tournament/daily', {}, 'DELETE'),
     deleteGlobal: () => Fetch<never>('/api/tournament/global', {}, 'DELETE'),
   },
+  Spritesheet: {
+    regenerate: () => Fetch<never>('/api/spritesheet/regenerate'),
+  },
 };
 
 export default Server;

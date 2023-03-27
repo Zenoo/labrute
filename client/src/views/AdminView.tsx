@@ -44,6 +44,13 @@ const AdminView = () => {
     }).catch(catchError(Alert));
   }, [Alert]);
 
+  // Regenerate spritesheets
+  const regenerateSpritesheets = useCallback(() => {
+    Server.Spritesheet.regenerate().then(() => {
+      Alert.open('success', 'Spritesheets regenerating');
+    }).catch(catchError(Alert));
+  }, [Alert]);
+
   // Fetch brute when bruteName changes (debounced for 1s)
   useEffect(() => {
     if (!bruteName) return undefined;
@@ -67,10 +74,11 @@ const AdminView = () => {
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         <Stack spacing={2}>
-          <Stack direction="row" spacing={2}>
+          <Stack direction="row" spacing={0} sx={{ flexWrap: 'wrap', gap: 1 }}>
             <FantasyButton color="error" onClick={deleteDailyTournaments}>DELETE DAILY TOURNAMENTS</FantasyButton>
             <FantasyButton color="error" onClick={deleteGlobalTournament}>DELETE GLOBAL TOURNAMENT</FantasyButton>
             <FantasyButton color="warning" onClick={runDailyJob}>RUN DAILY JOB</FantasyButton>
+            <FantasyButton color="success" onClick={regenerateSpritesheets}>REGENERATE SPRITESHEETS</FantasyButton>
           </Stack>
           <Divider />
           <Text bold h3 smallCaps color="secondary">{t('brute')}</Text>

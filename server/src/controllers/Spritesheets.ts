@@ -7,7 +7,9 @@ import { Request, Response } from 'express';
 import fetch from 'node-fetch';
 import Spritesmith from 'spritesmith';
 import Vynil from 'vinyl';
+import { Worker } from 'worker_threads';
 import getFrame, { FRAMES } from '../animations/getFrame.js';
+import auth from '../utils/auth.js';
 import Env from '../utils/Env.js';
 import sendError from '../utils/sendError.js';
 
@@ -231,6 +233,38 @@ const Spritesheets = {
         body: brute.body,
         colors: brute.colors,
       }));
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  regenerate: (prisma: PrismaClient) => async (req: Request, res: Response) => {
+    try {
+      const user = await auth(prisma, req);
+
+      if (!user.admin) {
+        throw new Error('Unauthorized');
+      }
+
+      // Get all brutes
+      const brutes = await prisma.brute.findMany({
+        where: {
+          deletedAt: null,
+        },
+        include: {
+          body: true,
+          colors: true,
+        },
+      });
+
+      // Regenerate spritesheets
+      // eslint-disable-next-line no-new
+      new Worker('./lib/workers/regenerateSpritesheets.js', {
+        workerData: brutes,
+      });
+
+      res.send({
+        message: 'Regeneration started',
+      });
     } catch (error) {
       sendError(res, error);
     }
