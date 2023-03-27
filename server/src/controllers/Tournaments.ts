@@ -76,7 +76,7 @@ const Tournaments = {
       });
 
       if (!brute) {
-        throw new Error('Brute not found');
+        throw new ExpectedError('Brute not found');
       }
 
       // Prevent if brute can rank up
@@ -123,7 +123,7 @@ const Tournaments = {
       });
 
       if (!brute) {
-        throw new Error('Brute not found');
+        throw new ExpectedError('Brute not found');
       }
 
       const tournament = await prisma.tournament.findFirst({
@@ -210,7 +210,7 @@ const Tournaments = {
       });
 
       if (!brute) {
-        throw new Error('Brute not found');
+        throw new ExpectedError('Brute not found');
       }
 
       // Update brute tournament date
@@ -251,7 +251,7 @@ const Tournaments = {
       });
 
       if (!brute) {
-        throw new Error('Brute not found');
+        throw new ExpectedError('Brute not found');
       }
 
       // Get tournament

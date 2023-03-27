@@ -384,7 +384,7 @@ const Brutes = {
       });
 
       if (!brute) {
-        throw new Error('Brute not found');
+        throw new ExpectedError('Brute not found');
       }
 
       // Handle deleted opponents
@@ -431,7 +431,7 @@ const Brutes = {
       });
 
       if (!brute) {
-        throw new Error('Brute not found');
+        throw new ExpectedError('Brute not found');
       }
 
       // Prevent sacrificing the day of creation

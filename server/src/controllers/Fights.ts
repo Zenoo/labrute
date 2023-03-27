@@ -26,7 +26,7 @@ const Fights = {
       });
 
       if (!fight) {
-        throw new Error('Fight not found');
+        throw new ExpectedError('Fight not found');
       }
 
       res.send(fight);
