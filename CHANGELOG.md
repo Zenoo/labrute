@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.15.8](https://github.com/Zenoo/labrute/compare/labrute-v2.15.7...labrute-v2.15.8) (2023-03-27)
+
+
+### Bug Fixes
+
+* Button to regenerate sprites in the admin panel ([863f714](https://github.com/Zenoo/labrute/commit/863f714f550954e455f8a911240311138d3b7899))
+
 ## [2.15.7](https://github.com/Zenoo/labrute/compare/labrute-v2.15.6...labrute-v2.15.7) (2023-03-27)
 
 
