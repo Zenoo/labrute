@@ -890,6 +890,7 @@ const Brutes = {
 
         const branch: DestinyBranch = {
           ...destinyChoice,
+          current: brute.destinyPath.join(',').startsWith(path.join(',')),
           [DestinyChoiceSide.LEFT]: getBranchRecursive(
             [...path, DestinyChoiceSide.LEFT],
           ),
@@ -910,6 +911,7 @@ const Brutes = {
 
       const destinyTree: DestinyBranch = {
         ...firstBonus,
+        current: true,
         [DestinyChoiceSide.LEFT]: getBranchRecursive(
           [DestinyChoiceSide.LEFT],
         ) as DestinyBranch,

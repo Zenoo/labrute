@@ -315,6 +315,7 @@ export interface FrameProps {
 }
 
 export interface DestinyBranch extends DestinyChoice {
+  current: boolean;
   [DestinyChoiceSide.LEFT]: DestinyBranch | null;
   [DestinyChoiceSide.RIGHT]: DestinyBranch | null;
 }

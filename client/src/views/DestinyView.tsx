@@ -103,7 +103,7 @@ const DestinyView = () => {
     >
       <Box component="aside" sx={styles.aside}>
         <BoxBg
-          src="/images/level-up/box.png"
+          src={`/images/level-up/box${branch?.current ? '-current' : ''}.png`}
           sx={{
             pt: 5,
             height: 129,
