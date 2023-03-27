@@ -101,6 +101,9 @@ const handleSkills = (brute: BruteWithBodyColors, fighter: DetailedFighter) => {
 
   /* PASSIVES */
 
+  if (brute.skills.includes('saboteur')) {
+    fighter.saboteur = true;
+  }
   if (brute.skills.includes('sabotage')) {
     fighter.sabotage = true;
   }

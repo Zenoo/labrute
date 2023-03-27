@@ -1,4 +1,4 @@
-import { SaboteurStep } from '@labrute/core';
+import { Animation, randomBetween, SaboteurStep } from '@labrute/core';
 import { AnimatedSprite, Application } from 'pixi.js';
 import changeAnimation from './changeAnimation';
 
@@ -18,7 +18,14 @@ const saboteur = async (
   }
 
   // Set animation to `hit`
-  changeAnimation(app, brute, 'hit', speed);
+  changeAnimation(
+    app,
+    brute,
+    brute.data?.gender === 'male'
+      ? `hit-${randomBetween(0, 2)}` as Animation
+      : 'hit',
+    speed,
+  );
 
   // Stagger animation
   await stagger(brute.currentAnimation as AnimatedSprite, brute.team, speed);
