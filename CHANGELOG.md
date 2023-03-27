@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.15.7](https://github.com/Zenoo/labrute/compare/labrute-v2.15.6...labrute-v2.15.7) (2023-03-27)
+
+
+### Bug Fixes
+
+* Female animations anchors. Fixes [#156](https://github.com/Zenoo/labrute/issues/156) ([6fd90f1](https://github.com/Zenoo/labrute/commit/6fd90f13e72a5da511a8deb47eb20eaf8a9a023d))
+
 ## [2.15.6](https://github.com/Zenoo/labrute/compare/labrute-v2.15.5...labrute-v2.15.6) (2023-03-27)
 
 
