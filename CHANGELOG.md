@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.15.9](https://github.com/Zenoo/labrute/compare/labrute-v2.15.8...labrute-v2.15.9) (2023-03-27)
+
+
+### Bug Fixes
+
+* Highlight current destiny in view. Fixes [#152](https://github.com/Zenoo/labrute/issues/152) ([cc267f8](https://github.com/Zenoo/labrute/commit/cc267f8a28aac84e5b8b9f15c2ce23872a4c3e79))
+* Iron head disarms the opponent after the hit, not before ([544ebb6](https://github.com/Zenoo/labrute/commit/544ebb6e6e572f9a7b25be02666d2926fb9884d9))
+* Saboteur skill never triggered ([acebc57](https://github.com/Zenoo/labrute/commit/acebc574c957f1ac20956c14a87d8340a6e1d030))
+
 ## [2.15.8](https://github.com/Zenoo/labrute/compare/labrute-v2.15.7...labrute-v2.15.8) (2023-03-27)
 
 
