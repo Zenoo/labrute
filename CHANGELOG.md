@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.15.10](https://github.com/Zenoo/labrute/compare/labrute-v2.15.9...labrute-v2.15.10) (2023-03-28)
+
+
+### Bug Fixes
+
+* `Hostility` triggered all the time ([2a293bf](https://github.com/Zenoo/labrute/commit/2a293bfb27332083557ac606a03a6c57c0fe77ce))
+* Solve warnings due to `react-zoom-pan-pinch` ([9fcb099](https://github.com/Zenoo/labrute/commit/9fcb0994e28bc0343ad7904ccdaadac9d1ce3760))
+
 ## [2.15.9](https://github.com/Zenoo/labrute/compare/labrute-v2.15.8...labrute-v2.15.9) (2023-03-27)
 
 
