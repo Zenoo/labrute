@@ -866,11 +866,6 @@ const reversal = (opponent: DetailedFighter) => {
   // Only reverse if the opponent has `reversal`
   if (!opponent.reversal) return false;
 
-  // Auto reverse
-  if (opponent.autoReversalOnBlock) {
-    return true;
-  }
-
   const random = Math.random();
 
   return random < opponent.reversal + (opponent.activeWeapon?.counter || 0);
