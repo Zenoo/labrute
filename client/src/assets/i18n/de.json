@@ -372,6 +372,7 @@
   "fight.play": "Play",
   "fight.pause": "Pause",
   "fight.toggleLogs": "Toggle logs",
+  "bruteCell": "{{name}}'s cell",
 
   "experience": "Experience",
   "brute": "Brute",

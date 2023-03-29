@@ -43,11 +43,13 @@ const setupFight: (
   fight: Fight,
   app: PIXI.Application,
   speed: React.MutableRefObject<number>,
+  setCompleted: React.Dispatch<React.SetStateAction<boolean>>,
 ) => PIXI.Loader.OnCompleteSignal = (
   theme,
   fight,
   app,
   speed,
+  setCompleted,
 ) => async (
   loader,
   resources,
@@ -371,6 +373,8 @@ const setupFight: (
         break;
     }
   }
+
+  setCompleted(true);
 };
 
 export default setupFight;
