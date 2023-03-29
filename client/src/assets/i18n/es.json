@@ -46,6 +46,7 @@
   "log.up": "Tu Bruto ha subido de nivel!",
   "log.lvl": "Tu bruto ha alcanzado el rango",
   "log.tournament": "El torneo del {{date}} fue cancelado, ¡inténtalo de nuevo!",
+  "log.tournamentXp": "Torneos de ayer",
   "lvl_0": "Leyenda Brutal",
   "lvl_1": "Dentista del Caos",
   "lvl_2": "Bíceps de Satán",

@@ -25,7 +25,7 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
           ? `lvl_${log.level || BruteRankings[0]}`
           : log.type === LogType.tournament
             ? 'lose'
-            : log.type}.gif`}
+            : log.type === LogType.tournamentXp ? 'childup' : log.type}.gif`}
       sx={{
         width: 250,
         height: 53,

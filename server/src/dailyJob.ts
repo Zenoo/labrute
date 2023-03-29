@@ -3,7 +3,9 @@
 import {
   BruteWithBodyColors, getRandomBody, getRandomColors,
 } from '@labrute/core';
-import { Prisma, PrismaClient, TournamentType } from '@labrute/prisma';
+import {
+  LogType, Prisma, PrismaClient, TournamentType,
+} from '@labrute/prisma';
 import moment from 'moment';
 import { Worker } from 'worker_threads';
 import DiscordUtils from './utils/DiscordUtils.js';
@@ -256,12 +258,6 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
           select: { id: true },
         });
 
-        // +1 XP to the winner
-        await prisma.brute.update({
-          where: { id: brute1.name === lastFight.winner ? brute1.id : brute2.id },
-          data: { xp: { increment: 1 } },
-        });
-
         // Add winner to next round
         winners.push(brute1.name === lastFight.winner ? brute1 : brute2);
 
@@ -441,12 +437,6 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
         select: { id: true },
       });
 
-      // +1 XP to the winner
-      await prisma.brute.update({
-        where: { id: brute1.name === generatedFight.winner ? brute1.id : brute2.id },
-        data: { xp: { increment: 1 } },
-      });
-
       // Add winner to next round
       nextBrutes.push(brute1.name === generatedFight.winner ? brute1 : brute2);
 
@@ -489,6 +479,73 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
   await DiscordUtils.sendSimpleMessage('Global tournament handled');
 };
 
+const handleXpGains = async (prisma: PrismaClient) => {
+  // Get tournaments from yesterday
+  const tournaments = await prisma.tournament.findMany({
+    where: {
+      date: {
+        gte: moment.utc().subtract(1, 'day').startOf('day').toDate(),
+        lt: moment.utc().startOf('day').toDate(),
+      },
+    },
+    include: {
+      steps: {
+        include: {
+          fight: true,
+        },
+      },
+    },
+  });
+
+  // Get all steps that have not been handled yet
+  const steps = tournaments.flatMap((tournament) => tournament.steps)
+    .filter((step) => !step.xpDistributed);
+
+  // Keep track of xp gains per brute
+  const xpGains: Record<string, { bruteId: number, xp: number }> = {};
+
+  for (const step of steps) {
+    // Get winner
+    const winner = await prisma.brute.findFirst({
+      where: { name: step.fight.winner, deletedAt: null },
+      select: { id: true },
+    });
+
+    if (!winner) {
+      throw new Error(`Brute ${step.fight.winner} not found`);
+    }
+
+    // +1 XP to the winner
+    await prisma.brute.update({
+      where: { id: winner.id },
+      data: { xp: { increment: 1 } },
+    });
+
+    xpGains[step.fight.winner] = {
+      bruteId: winner.id,
+      xp: (xpGains[step.fight.winner]?.xp || 0) + 1,
+    };
+
+    // Update step
+    await prisma.tournamentStep.update({
+      where: { id: step.id },
+      data: { xpDistributed: true },
+    });
+  }
+
+  // Add logs for each brute
+  for (const brute of Object.values(xpGains)) {
+    await prisma.log.create({
+      data: {
+        date: moment.utc().toDate(),
+        currentBrute: { connect: { id: brute.bruteId } },
+        type: LogType.tournamentXp,
+        xp: brute.xp,
+      },
+    });
+  }
+};
+
 const dailyJob = (prisma: PrismaClient) => async () => {
   try {
     // Generate missing body and colors
@@ -496,6 +553,9 @@ const dailyJob = (prisma: PrismaClient) => async () => {
 
     // Generate missing spritesheets
     await generateMissingSpritesheets(prisma);
+
+    // Handle XP won the previous day
+    await handleXpGains(prisma);
 
     // Handle daily tournaments
     await handleDailyTournaments(prisma);

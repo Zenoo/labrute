@@ -268,7 +268,8 @@ export const LogType: {
   up: 'up',
   lvl: 'lvl',
   survive: 'survive',
-  tournament: 'tournament'
+  tournament: 'tournament',
+  tournamentXp: 'tournamentXp'
 };
 
 export type LogType = (typeof LogType)[keyof typeof LogType]
