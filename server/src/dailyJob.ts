@@ -512,7 +512,9 @@ const handleXpGains = async (prisma: PrismaClient) => {
     });
 
     if (!winner) {
-      throw new Error(`Brute ${step.fight.winner} not found`);
+      // Skip to next step
+      // eslint-disable-next-line no-continue
+      continue;
     }
 
     // +1 XP to the winner
