@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.16.2](https://github.com/Zenoo/labrute/compare/labrute-v2.16.1...labrute-v2.16.2) (2023-03-29)
+
+
+### Bug Fixes
+
+* Don't throw if winner not found for xp gains ([bb7ca2d](https://github.com/Zenoo/labrute/commit/bb7ca2d5abc68ef6b2c354b6ff6d3f202c7b9a10))
+
 ## [2.16.1](https://github.com/Zenoo/labrute/compare/labrute-v2.16.0...labrute-v2.16.1) (2023-03-29)
 
 
