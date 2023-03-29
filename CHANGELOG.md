@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.16.0](https://github.com/Zenoo/labrute/compare/labrute-v2.15.10...labrute-v2.16.0) (2023-03-29)
+
+
+### Features
+
+* Added links to brute cells after a fight. [#8](https://github.com/Zenoo/labrute/issues/8) ([e5c9a88](https://github.com/Zenoo/labrute/commit/e5c9a8868931051f1f5c77c2be81969a961e6619))
+* XPs won in tournaments are delayed one day. Fixes [#163](https://github.com/Zenoo/labrute/issues/163) ([376b4cf](https://github.com/Zenoo/labrute/commit/376b4cfd5ee32021e983ce285ac627ed283f6fc5))
+
+
+### Bug Fixes
+
+* Add log on bruterank up ([ee2ee35](https://github.com/Zenoo/labrute/commit/ee2ee357792093ab0a2bc1e9ae3be4227c75b766))
+* Display stats as numbers too. Fixes [#151](https://github.com/Zenoo/labrute/issues/151) ([df4db90](https://github.com/Zenoo/labrute/commit/df4db9025b6ac76ff67ac79c58b11858f199d5cf))
+* Hide rank up button until the tournament was watched. Fixes [#164](https://github.com/Zenoo/labrute/issues/164) ([02cd33d](https://github.com/Zenoo/labrute/commit/02cd33d5d89d1449b712ac6c8de77505b09e2692))
+
 ## [2.15.10](https://github.com/Zenoo/labrute/compare/labrute-v2.15.9...labrute-v2.15.10) (2023-03-28)
 
 
