@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.16.1](https://github.com/Zenoo/labrute/compare/labrute-v2.16.0...labrute-v2.16.1) (2023-03-29)
+
+
+### Bug Fixes
+
+* Change scripts run order ([d9712f3](https://github.com/Zenoo/labrute/commit/d9712f3b13bd37b8e321fb4352b1f42d4cb2aca7))
+
 ## [2.16.0](https://github.com/Zenoo/labrute/compare/labrute-v2.15.10...labrute-v2.16.0) (2023-03-29)
 
 
