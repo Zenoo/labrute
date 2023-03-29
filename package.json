@@ -1,6 +1,6 @@
 {
   "name": "labrute",
-  "version": "2.15.10",
+  "version": "2.16.0",
   "private": true,
   "engines": {
     "npm": ">=8.1.2",
