@@ -113,7 +113,7 @@ export type Brute = {
   fightsLeft: number
   victories: number
   opponentsGeneratedAt: Date | null
-  canRankUp: boolean
+  canRankUpSince: Date | null
 }
 
 /**
@@ -203,6 +203,7 @@ export type TournamentStep = {
   tournamentId: number
   step: number
   fightId: number
+  xpDistributed: boolean
 }
 
 
@@ -4785,7 +4786,7 @@ export namespace Prisma {
     fightsLeft: number | null
     victories: number | null
     opponentsGeneratedAt: Date | null
-    canRankUp: boolean | null
+    canRankUpSince: Date | null
   }
 
   export type BruteMaxAggregateOutputType = {
@@ -4822,7 +4823,7 @@ export namespace Prisma {
     fightsLeft: number | null
     victories: number | null
     opponentsGeneratedAt: Date | null
-    canRankUp: boolean | null
+    canRankUpSince: Date | null
   }
 
   export type BruteCountAggregateOutputType = {
@@ -4863,7 +4864,7 @@ export namespace Prisma {
     fightsLeft: number
     victories: number
     opponentsGeneratedAt: number
-    canRankUp: number
+    canRankUpSince: number
     _all: number
   }
 
@@ -4954,7 +4955,7 @@ export namespace Prisma {
     fightsLeft?: true
     victories?: true
     opponentsGeneratedAt?: true
-    canRankUp?: true
+    canRankUpSince?: true
   }
 
   export type BruteMaxAggregateInputType = {
@@ -4991,7 +4992,7 @@ export namespace Prisma {
     fightsLeft?: true
     victories?: true
     opponentsGeneratedAt?: true
-    canRankUp?: true
+    canRankUpSince?: true
   }
 
   export type BruteCountAggregateInputType = {
@@ -5032,7 +5033,7 @@ export namespace Prisma {
     fightsLeft?: true
     victories?: true
     opponentsGeneratedAt?: true
-    canRankUp?: true
+    canRankUpSince?: true
     _all?: true
   }
 
@@ -5161,7 +5162,7 @@ export namespace Prisma {
     fightsLeft: number
     victories: number
     opponentsGeneratedAt: Date | null
-    canRankUp: boolean
+    canRankUpSince: Date | null
     _count: BruteCountAggregateOutputType | null
     _avg: BruteAvgAggregateOutputType | null
     _sum: BruteSumAggregateOutputType | null
@@ -5221,7 +5222,7 @@ export namespace Prisma {
     fightsLeft?: boolean
     victories?: boolean
     opponentsGeneratedAt?: boolean
-    canRankUp?: boolean
+    canRankUpSince?: boolean
     user?: boolean | UserArgs
     body?: boolean | BruteBodyArgs
     colors?: boolean | BruteColorsArgs
@@ -12278,6 +12279,7 @@ export namespace Prisma {
     tournamentId: number | null
     step: number | null
     fightId: number | null
+    xpDistributed: boolean | null
   }
 
   export type TournamentStepMaxAggregateOutputType = {
@@ -12285,6 +12287,7 @@ export namespace Prisma {
     tournamentId: number | null
     step: number | null
     fightId: number | null
+    xpDistributed: boolean | null
   }
 
   export type TournamentStepCountAggregateOutputType = {
@@ -12292,6 +12295,7 @@ export namespace Prisma {
     tournamentId: number
     step: number
     fightId: number
+    xpDistributed: number
     _all: number
   }
 
@@ -12315,6 +12319,7 @@ export namespace Prisma {
     tournamentId?: true
     step?: true
     fightId?: true
+    xpDistributed?: true
   }
 
   export type TournamentStepMaxAggregateInputType = {
@@ -12322,6 +12327,7 @@ export namespace Prisma {
     tournamentId?: true
     step?: true
     fightId?: true
+    xpDistributed?: true
   }
 
   export type TournamentStepCountAggregateInputType = {
@@ -12329,6 +12335,7 @@ export namespace Prisma {
     tournamentId?: true
     step?: true
     fightId?: true
+    xpDistributed?: true
     _all?: true
   }
 
@@ -12424,6 +12431,7 @@ export namespace Prisma {
     tournamentId: number
     step: number
     fightId: number
+    xpDistributed: boolean
     _count: TournamentStepCountAggregateOutputType | null
     _avg: TournamentStepAvgAggregateOutputType | null
     _sum: TournamentStepSumAggregateOutputType | null
@@ -12450,6 +12458,7 @@ export namespace Prisma {
     tournamentId?: boolean
     step?: boolean
     fightId?: boolean
+    xpDistributed?: boolean
     tournament?: boolean | TournamentArgs
     fight?: boolean | FightArgs
   }
@@ -13311,7 +13320,7 @@ export namespace Prisma {
     fightsLeft: 'fightsLeft',
     victories: 'victories',
     opponentsGeneratedAt: 'opponentsGeneratedAt',
-    canRankUp: 'canRankUp'
+    canRankUpSince: 'canRankUpSince'
   };
 
   export type BruteScalarFieldEnum = (typeof BruteScalarFieldEnum)[keyof typeof BruteScalarFieldEnum]
@@ -13433,7 +13442,8 @@ export namespace Prisma {
     id: 'id',
     tournamentId: 'tournamentId',
     step: 'step',
-    fightId: 'fightId'
+    fightId: 'fightId',
+    xpDistributed: 'xpDistributed'
   };
 
   export type TournamentStepScalarFieldEnum = (typeof TournamentStepScalarFieldEnum)[keyof typeof TournamentStepScalarFieldEnum]
@@ -13758,7 +13768,7 @@ export namespace Prisma {
     fightsLeft?: IntFilter | number
     victories?: IntFilter | number
     opponentsGeneratedAt?: DateTimeNullableFilter | Date | string | null
-    canRankUp?: BoolFilter | boolean
+    canRankUpSince?: DateTimeNullableFilter | Date | string | null
     user?: XOR<UserRelationFilter, UserWhereInput> | null
     body?: XOR<BruteBodyRelationFilter, BruteBodyWhereInput> | null
     colors?: XOR<BruteColorsRelationFilter, BruteColorsWhereInput> | null
@@ -13813,7 +13823,7 @@ export namespace Prisma {
     fightsLeft?: SortOrder
     victories?: SortOrder
     opponentsGeneratedAt?: SortOrder
-    canRankUp?: SortOrder
+    canRankUpSince?: SortOrder
     user?: UserOrderByWithRelationInput
     body?: BruteBodyOrderByWithRelationInput
     colors?: BruteColorsOrderByWithRelationInput
@@ -13872,7 +13882,7 @@ export namespace Prisma {
     fightsLeft?: SortOrder
     victories?: SortOrder
     opponentsGeneratedAt?: SortOrder
-    canRankUp?: SortOrder
+    canRankUpSince?: SortOrder
     _count?: BruteCountOrderByAggregateInput
     _avg?: BruteAvgOrderByAggregateInput
     _max?: BruteMaxOrderByAggregateInput
@@ -13921,7 +13931,7 @@ export namespace Prisma {
     fightsLeft?: IntWithAggregatesFilter | number
     victories?: IntWithAggregatesFilter | number
     opponentsGeneratedAt?: DateTimeNullableWithAggregatesFilter | Date | string | null
-    canRankUp?: BoolWithAggregatesFilter | boolean
+    canRankUpSince?: DateTimeNullableWithAggregatesFilter | Date | string | null
   }
 
   export type BruteSpritesheetWhereInput = {
@@ -14262,6 +14272,7 @@ export namespace Prisma {
     tournamentId?: IntFilter | number
     step?: IntFilter | number
     fightId?: IntFilter | number
+    xpDistributed?: BoolFilter | boolean
     tournament?: XOR<TournamentRelationFilter, TournamentWhereInput>
     fight?: XOR<FightRelationFilter, FightWhereInput>
   }
@@ -14271,6 +14282,7 @@ export namespace Prisma {
     tournamentId?: SortOrder
     step?: SortOrder
     fightId?: SortOrder
+    xpDistributed?: SortOrder
     tournament?: TournamentOrderByWithRelationInput
     fight?: FightOrderByWithRelationInput
   }
@@ -14284,6 +14296,7 @@ export namespace Prisma {
     tournamentId?: SortOrder
     step?: SortOrder
     fightId?: SortOrder
+    xpDistributed?: SortOrder
     _count?: TournamentStepCountOrderByAggregateInput
     _avg?: TournamentStepAvgOrderByAggregateInput
     _max?: TournamentStepMaxOrderByAggregateInput
@@ -14299,6 +14312,7 @@ export namespace Prisma {
     tournamentId?: IntWithAggregatesFilter | number
     step?: IntWithAggregatesFilter | number
     fightId?: IntWithAggregatesFilter | number
+    xpDistributed?: BoolWithAggregatesFilter | boolean
   }
 
   export type UserCreateInput = {
@@ -14674,7 +14688,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
     user?: UserCreateNestedOneWithoutBrutesInput
     body?: BruteBodyCreateNestedOneWithoutBruteInput
     colors?: BruteColorsCreateNestedOneWithoutBruteInput
@@ -14729,7 +14743,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
@@ -14777,7 +14791,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneWithoutBrutesNestedInput
     body?: BruteBodyUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUpdateOneWithoutBruteNestedInput
@@ -14832,7 +14846,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
@@ -14884,7 +14898,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
   }
 
   export type BruteUpdateManyMutationInput = {
@@ -14921,7 +14935,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type BruteUncheckedUpdateManyInput = {
@@ -14962,7 +14976,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type BruteSpritesheetCreateInput = {
@@ -15341,6 +15355,7 @@ export namespace Prisma {
 
   export type TournamentStepCreateInput = {
     step: number
+    xpDistributed?: boolean
     tournament: TournamentCreateNestedOneWithoutStepsInput
     fight: FightCreateNestedOneWithoutTournamentStepInput
   }
@@ -15350,10 +15365,12 @@ export namespace Prisma {
     tournamentId: number
     step: number
     fightId: number
+    xpDistributed?: boolean
   }
 
   export type TournamentStepUpdateInput = {
     step?: IntFieldUpdateOperationsInput | number
+    xpDistributed?: BoolFieldUpdateOperationsInput | boolean
     tournament?: TournamentUpdateOneRequiredWithoutStepsNestedInput
     fight?: FightUpdateOneRequiredWithoutTournamentStepNestedInput
   }
@@ -15363,6 +15380,7 @@ export namespace Prisma {
     tournamentId?: IntFieldUpdateOperationsInput | number
     step?: IntFieldUpdateOperationsInput | number
     fightId?: IntFieldUpdateOperationsInput | number
+    xpDistributed?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type TournamentStepCreateManyInput = {
@@ -15370,10 +15388,12 @@ export namespace Prisma {
     tournamentId: number
     step: number
     fightId: number
+    xpDistributed?: boolean
   }
 
   export type TournamentStepUpdateManyMutationInput = {
     step?: IntFieldUpdateOperationsInput | number
+    xpDistributed?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type TournamentStepUncheckedUpdateManyInput = {
@@ -15381,6 +15401,7 @@ export namespace Prisma {
     tournamentId?: IntFieldUpdateOperationsInput | number
     step?: IntFieldUpdateOperationsInput | number
     fightId?: IntFieldUpdateOperationsInput | number
+    xpDistributed?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UuidFilter = {
@@ -15928,7 +15949,7 @@ export namespace Prisma {
     fightsLeft?: SortOrder
     victories?: SortOrder
     opponentsGeneratedAt?: SortOrder
-    canRankUp?: SortOrder
+    canRankUpSince?: SortOrder
   }
 
   export type BruteAvgOrderByAggregateInput = {
@@ -15991,7 +16012,7 @@ export namespace Prisma {
     fightsLeft?: SortOrder
     victories?: SortOrder
     opponentsGeneratedAt?: SortOrder
-    canRankUp?: SortOrder
+    canRankUpSince?: SortOrder
   }
 
   export type BruteMinOrderByAggregateInput = {
@@ -16028,7 +16049,7 @@ export namespace Prisma {
     fightsLeft?: SortOrder
     victories?: SortOrder
     opponentsGeneratedAt?: SortOrder
-    canRankUp?: SortOrder
+    canRankUpSince?: SortOrder
   }
 
   export type BruteSumOrderByAggregateInput = {
@@ -16652,6 +16673,7 @@ export namespace Prisma {
     tournamentId?: SortOrder
     step?: SortOrder
     fightId?: SortOrder
+    xpDistributed?: SortOrder
   }
 
   export type TournamentStepAvgOrderByAggregateInput = {
@@ -16666,6 +16688,7 @@ export namespace Prisma {
     tournamentId?: SortOrder
     step?: SortOrder
     fightId?: SortOrder
+    xpDistributed?: SortOrder
   }
 
   export type TournamentStepMinOrderByAggregateInput = {
@@ -16673,6 +16696,7 @@ export namespace Prisma {
     tournamentId?: SortOrder
     step?: SortOrder
     fightId?: SortOrder
+    xpDistributed?: SortOrder
   }
 
   export type TournamentStepSumOrderByAggregateInput = {
@@ -18184,7 +18208,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
     body?: BruteBodyCreateNestedOneWithoutBruteInput
     colors?: BruteColorsCreateNestedOneWithoutBruteInput
     master?: BruteCreateNestedOneWithoutPupilsInput
@@ -18237,7 +18261,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
@@ -18318,7 +18342,7 @@ export namespace Prisma {
     fightsLeft?: IntFilter | number
     victories?: IntFilter | number
     opponentsGeneratedAt?: DateTimeNullableFilter | Date | string | null
-    canRankUp?: BoolFilter | boolean
+    canRankUpSince?: DateTimeNullableFilter | Date | string | null
   }
 
   export type BruteCreateWithoutBodyInput = {
@@ -18355,7 +18379,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
     user?: UserCreateNestedOneWithoutBrutesInput
     colors?: BruteColorsCreateNestedOneWithoutBruteInput
     master?: BruteCreateNestedOneWithoutPupilsInput
@@ -18409,7 +18433,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
@@ -18466,7 +18490,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneWithoutBrutesNestedInput
     colors?: BruteColorsUpdateOneWithoutBruteNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
@@ -18520,7 +18544,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
@@ -18567,7 +18591,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
     user?: UserCreateNestedOneWithoutBrutesInput
     body?: BruteBodyCreateNestedOneWithoutBruteInput
     master?: BruteCreateNestedOneWithoutPupilsInput
@@ -18621,7 +18645,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
@@ -18678,7 +18702,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneWithoutBrutesNestedInput
     body?: BruteBodyUpdateOneWithoutBruteNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
@@ -18732,7 +18756,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
@@ -18886,7 +18910,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
     user?: UserCreateNestedOneWithoutBrutesInput
     body?: BruteBodyCreateNestedOneWithoutBruteInput
     colors?: BruteColorsCreateNestedOneWithoutBruteInput
@@ -18940,7 +18964,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
@@ -18992,7 +19016,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
     user?: UserCreateNestedOneWithoutBrutesInput
     body?: BruteBodyCreateNestedOneWithoutBruteInput
     colors?: BruteColorsCreateNestedOneWithoutBruteInput
@@ -19045,7 +19069,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
@@ -19281,7 +19305,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
     user?: UserCreateNestedOneWithoutBrutesInput
     body?: BruteBodyCreateNestedOneWithoutBruteInput
     colors?: BruteColorsCreateNestedOneWithoutBruteInput
@@ -19335,7 +19359,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
@@ -19387,7 +19411,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
     user?: UserCreateNestedOneWithoutBrutesInput
     body?: BruteBodyCreateNestedOneWithoutBruteInput
     colors?: BruteColorsCreateNestedOneWithoutBruteInput
@@ -19441,7 +19465,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
@@ -19605,7 +19629,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneWithoutBrutesNestedInput
     body?: BruteBodyUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUpdateOneWithoutBruteNestedInput
@@ -19659,7 +19683,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
@@ -19918,7 +19942,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
     user?: UserCreateNestedOneWithoutBrutesInput
     body?: BruteBodyCreateNestedOneWithoutBruteInput
     colors?: BruteColorsCreateNestedOneWithoutBruteInput
@@ -19972,7 +19996,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
@@ -20029,7 +20053,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneWithoutBrutesNestedInput
     body?: BruteBodyUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUpdateOneWithoutBruteNestedInput
@@ -20083,7 +20107,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
@@ -20130,7 +20154,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
     user?: UserCreateNestedOneWithoutBrutesInput
     body?: BruteBodyCreateNestedOneWithoutBruteInput
     colors?: BruteColorsCreateNestedOneWithoutBruteInput
@@ -20183,7 +20207,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
@@ -20257,7 +20281,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
     user?: UserCreateNestedOneWithoutBrutesInput
     body?: BruteBodyCreateNestedOneWithoutBruteInput
     colors?: BruteColorsCreateNestedOneWithoutBruteInput
@@ -20311,7 +20335,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
@@ -20363,7 +20387,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
     user?: UserCreateNestedOneWithoutBrutesInput
     body?: BruteBodyCreateNestedOneWithoutBruteInput
     colors?: BruteColorsCreateNestedOneWithoutBruteInput
@@ -20417,7 +20441,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
@@ -20466,6 +20490,7 @@ export namespace Prisma {
 
   export type TournamentStepCreateWithoutFightInput = {
     step: number
+    xpDistributed?: boolean
     tournament: TournamentCreateNestedOneWithoutStepsInput
   }
 
@@ -20473,6 +20498,7 @@ export namespace Prisma {
     id?: number
     tournamentId: number
     step: number
+    xpDistributed?: boolean
   }
 
   export type TournamentStepCreateOrConnectWithoutFightInput = {
@@ -20524,7 +20550,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneWithoutBrutesNestedInput
     body?: BruteBodyUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUpdateOneWithoutBruteNestedInput
@@ -20578,7 +20604,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
@@ -20630,7 +20656,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneWithoutBrutesNestedInput
     body?: BruteBodyUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUpdateOneWithoutBruteNestedInput
@@ -20684,7 +20710,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
@@ -20737,6 +20763,7 @@ export namespace Prisma {
     tournamentId?: IntFilter | number
     step?: IntFilter | number
     fightId?: IntFilter | number
+    xpDistributed?: BoolFilter | boolean
   }
 
   export type BruteCreateWithoutLogsInput = {
@@ -20773,7 +20800,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
     user?: UserCreateNestedOneWithoutBrutesInput
     body?: BruteBodyCreateNestedOneWithoutBruteInput
     colors?: BruteColorsCreateNestedOneWithoutBruteInput
@@ -20827,7 +20854,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
@@ -20912,7 +20939,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneWithoutBrutesNestedInput
     body?: BruteBodyUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUpdateOneWithoutBruteNestedInput
@@ -20966,7 +20993,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
@@ -21041,7 +21068,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
     user?: UserCreateNestedOneWithoutBrutesInput
     body?: BruteBodyCreateNestedOneWithoutBruteInput
     colors?: BruteColorsCreateNestedOneWithoutBruteInput
@@ -21095,7 +21122,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
@@ -21152,7 +21179,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneWithoutBrutesNestedInput
     body?: BruteBodyUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUpdateOneWithoutBruteNestedInput
@@ -21206,7 +21233,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
@@ -21253,7 +21280,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
     user?: UserCreateNestedOneWithoutBrutesInput
     body?: BruteBodyCreateNestedOneWithoutBruteInput
     colors?: BruteColorsCreateNestedOneWithoutBruteInput
@@ -21307,7 +21334,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
@@ -21327,6 +21354,7 @@ export namespace Prisma {
 
   export type TournamentStepCreateWithoutTournamentInput = {
     step: number
+    xpDistributed?: boolean
     fight: FightCreateNestedOneWithoutTournamentStepInput
   }
 
@@ -21334,6 +21362,7 @@ export namespace Prisma {
     id?: number
     step: number
     fightId: number
+    xpDistributed?: boolean
   }
 
   export type TournamentStepCreateOrConnectWithoutTournamentInput = {
@@ -21507,7 +21536,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
   }
 
   export type BruteUpdateWithoutUserInput = {
@@ -21544,7 +21573,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     body?: BruteBodyUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUpdateOneWithoutBruteNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
@@ -21597,7 +21626,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
@@ -21648,7 +21677,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type BruteCreateManyMasterInput = {
@@ -21688,7 +21717,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
   }
 
   export type FightCreateManyBrute1Input = {
@@ -21768,7 +21797,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneWithoutBrutesNestedInput
     body?: BruteBodyUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUpdateOneWithoutBruteNestedInput
@@ -21821,7 +21850,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
@@ -21872,7 +21901,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type FightUpdateWithoutBrute1Input = {
@@ -22061,7 +22090,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneWithoutBrutesNestedInput
     body?: BruteBodyUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUpdateOneWithoutBruteNestedInput
@@ -22115,7 +22144,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
@@ -22166,7 +22195,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type BruteUpdateWithoutOpponentsInput = {
@@ -22203,7 +22232,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneWithoutBrutesNestedInput
     body?: BruteBodyUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUpdateOneWithoutBruteNestedInput
@@ -22257,7 +22286,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
@@ -22308,7 +22337,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type BruteCreateManyClanInput = {
@@ -22348,7 +22377,7 @@ export namespace Prisma {
     fightsLeft?: number
     victories?: number
     opponentsGeneratedAt?: Date | string | null
-    canRankUp?: boolean
+    canRankUpSince?: Date | string | null
   }
 
   export type BruteUpdateWithoutClanInput = {
@@ -22385,7 +22414,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneWithoutBrutesNestedInput
     body?: BruteBodyUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUpdateOneWithoutBruteNestedInput
@@ -22438,7 +22467,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
@@ -22466,6 +22495,7 @@ export namespace Prisma {
     id?: number
     tournamentId: number
     step: number
+    xpDistributed?: boolean
   }
 
   export type LogUpdateWithoutFightInput = {
@@ -22489,6 +22519,7 @@ export namespace Prisma {
 
   export type TournamentStepUpdateWithoutFightInput = {
     step?: IntFieldUpdateOperationsInput | number
+    xpDistributed?: BoolFieldUpdateOperationsInput | boolean
     tournament?: TournamentUpdateOneRequiredWithoutStepsNestedInput
   }
 
@@ -22496,18 +22527,21 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     tournamentId?: IntFieldUpdateOperationsInput | number
     step?: IntFieldUpdateOperationsInput | number
+    xpDistributed?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type TournamentStepUncheckedUpdateManyWithoutTournamentStepInput = {
     id?: IntFieldUpdateOperationsInput | number
     tournamentId?: IntFieldUpdateOperationsInput | number
     step?: IntFieldUpdateOperationsInput | number
+    xpDistributed?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type TournamentStepCreateManyTournamentInput = {
     id?: number
     step: number
     fightId: number
+    xpDistributed?: boolean
   }
 
   export type BruteUpdateWithoutTournamentsInput = {
@@ -22544,7 +22578,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneWithoutBrutesNestedInput
     body?: BruteBodyUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUpdateOneWithoutBruteNestedInput
@@ -22598,7 +22632,7 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
@@ -22649,11 +22683,12 @@ export namespace Prisma {
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUp?: BoolFieldUpdateOperationsInput | boolean
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type TournamentStepUpdateWithoutTournamentInput = {
     step?: IntFieldUpdateOperationsInput | number
+    xpDistributed?: BoolFieldUpdateOperationsInput | boolean
     fight?: FightUpdateOneRequiredWithoutTournamentStepNestedInput
   }
 
@@ -22661,12 +22696,14 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     step?: IntFieldUpdateOperationsInput | number
     fightId?: IntFieldUpdateOperationsInput | number
+    xpDistributed?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type TournamentStepUncheckedUpdateManyWithoutStepsInput = {
     id?: IntFieldUpdateOperationsInput | number
     step?: IntFieldUpdateOperationsInput | number
     fightId?: IntFieldUpdateOperationsInput | number
+    xpDistributed?: BoolFieldUpdateOperationsInput | boolean
   }
 
 

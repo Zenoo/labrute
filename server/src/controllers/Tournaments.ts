@@ -80,7 +80,7 @@ const Tournaments = {
       }
 
       // Prevent if brute can rank up
-      if (brute.canRankUp) {
+      if (brute.canRankUpSince) {
         throw new ExpectedError('Rank up before participating in a tournament');
       }
 

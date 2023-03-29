@@ -54,7 +54,7 @@ const CellTournament = ({
         </Link>
       )}
       {/* NEXT TOURNAMENT */}
-      {!brute.canRankUp && (
+      {!brute.canRankUpSince && (
         <Paper
           sx={{
             bgcolor: 'background.paperDark',

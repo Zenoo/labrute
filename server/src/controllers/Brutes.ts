@@ -790,7 +790,7 @@ const Brutes = {
         throw new Error('Brute not found');
       }
 
-      if (!brute.canRankUp) {
+      if (!brute.canRankUpSince) {
         throw new ExpectedError('Brute cannot rank up');
       }
 
@@ -825,7 +825,7 @@ const Brutes = {
           ),
           // Rank up
           ranking: brute.ranking - 1,
-          canRankUp: false,
+          canRankUpSince: null,
           // Reset destiny
           destinyPath: [],
         },

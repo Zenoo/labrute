@@ -217,7 +217,7 @@ model Brute {
   opponents                    Brute[]             @relation("Opponents")
   opponentOf                   Brute[]             @relation("Opponents")
   opponentsGeneratedAt         DateTime?           @db.Date
-  canRankUp                    Boolean             @default(false)
+  canRankUpSince               DateTime?           @db.Date
 }
 
 model BruteSpritesheet {
@@ -322,10 +322,11 @@ model Tournament {
 }
 
 model TournamentStep {
-  id           Int        @id @default(autoincrement())
-  tournament   Tournament @relation(fields: [tournamentId], references: [id])
-  tournamentId Int
-  step         Int
-  fight        Fight      @relation(fields: [fightId], references: [id])
-  fightId      Int
+  id            Int        @id @default(autoincrement())
+  tournament    Tournament @relation(fields: [tournamentId], references: [id])
+  tournamentId  Int
+  step          Int
+  fight         Fight      @relation(fields: [fightId], references: [id])
+  fightId       Int
+  xpDistributed Boolean    @default(false)
 }

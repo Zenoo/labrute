@@ -166,7 +166,7 @@ exports.Prisma.BruteScalarFieldEnum = makeEnum({
   fightsLeft: 'fightsLeft',
   victories: 'victories',
   opponentsGeneratedAt: 'opponentsGeneratedAt',
-  canRankUp: 'canRankUp'
+  canRankUpSince: 'canRankUpSince'
 });
 
 exports.Prisma.BruteSpritesheetScalarFieldEnum = makeEnum({
@@ -252,7 +252,8 @@ exports.Prisma.TournamentStepScalarFieldEnum = makeEnum({
   id: 'id',
   tournamentId: 'tournamentId',
   step: 'step',
-  fightId: 'fightId'
+  fightId: 'fightId',
+  xpDistributed: 'xpDistributed'
 });
 
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({

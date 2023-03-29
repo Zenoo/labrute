@@ -307,10 +307,10 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
       });
 
       // Allow rank up for winner if opponent wasn't lower rank
-      if (!winner.canRankUp && winner.ranking >= loser.ranking) {
+      if (!winner.canRankUpSince && winner.ranking >= loser.ranking) {
         await prisma.brute.update({
           where: { id: winner.id },
-          data: { canRankUp: true },
+          data: { canRankUpSince: new Date() },
         });
       }
     }
