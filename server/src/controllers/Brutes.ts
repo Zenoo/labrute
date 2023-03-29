@@ -5,7 +5,7 @@ import {
   DestinyBranch, ExpectedError, getLevelUpChoices, getSacriPoints, getXPNeeded, updateBruteData,
 } from '@labrute/core';
 import {
-  DestinyChoiceSide, DestinyChoiceType, Gender, Prisma, PrismaClient,
+  DestinyChoiceSide, DestinyChoiceType, Gender, LogType, Prisma, PrismaClient,
 } from '@labrute/prisma';
 import { Request, Response } from 'express';
 import moment from 'moment';
@@ -828,6 +828,16 @@ const Brutes = {
           canRankUpSince: null,
           // Reset destiny
           destinyPath: [],
+        },
+      });
+
+      // Add rank up log
+      await prisma.log.create({
+        data: {
+          date: new Date(),
+          currentBruteId: brute.id,
+          type: LogType.lvl,
+          level: brute.ranking,
         },
       });
 
