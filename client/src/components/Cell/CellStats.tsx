@@ -18,7 +18,7 @@ const CellStats = ({
 
   return (
     <Box>
-      <Text bold>{t(stat)} :</Text>
+      <Text bold>{t(stat)} : {value}</Text>
       <Tooltip title={`${t(stat)} : ${value}`}>
         <Box>
           {excesses.map((excess) => (
