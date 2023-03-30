@@ -1064,7 +1064,7 @@ export const playFighterTurn = (fightData: DetailedFight['data']) => {
   }
 
   // Check if fighter is poisoned
-  if (fighter.hp > 0 && fighter.poisoned) {
+  if (!fightData.loser && fighter.hp > 0 && fighter.poisoned) {
     // Get poison damage
     const poisonDamage = Math.ceil(fighter.maxHp / 50);
 
