@@ -25,14 +25,17 @@ const CellSocials = ({
     <Paper {...rest}>
       <Grid container spacing={1}>
         <Grid item xs={smallScreen ? 12 : 6}>
-          <Tooltip title={`${t('destinyOf')} ${brute.name}`}>
-            <Link
-              to={`/${brute.name}/destiny`}
-              sx={{ mr: 1 }}
-            >
-              <AccountTree />
-            </Link>
-          </Tooltip>
+          {/* No destiny for bots */}
+          {brute.userId && (
+            <Tooltip title={`${t('destinyOf')} ${brute.name}`}>
+              <Link
+                to={`/${brute.name}/destiny`}
+                sx={{ mr: 1 }}
+              >
+                <AccountTree />
+              </Link>
+            </Tooltip>
+          )}
           <Text h2 smallCaps sx={{ display: 'inline-block' }}>{brute.name}</Text>
         </Grid>
         <Grid item xs={smallScreen ? 6 : 3}>
