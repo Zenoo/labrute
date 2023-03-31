@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.17.1](https://github.com/Zenoo/labrute/compare/labrute-v2.17.0...labrute-v2.17.1) (2023-03-31)
+
+
+### Bug Fixes
+
+* German locale. Fixes [#24](https://github.com/Zenoo/labrute/issues/24) ([b09086e](https://github.com/Zenoo/labrute/commit/b09086eb4789f5a9e41cb08f812253d7cd1d56e5))
+
 ## [2.17.0](https://github.com/Zenoo/labrute/compare/labrute-v2.16.2...labrute-v2.17.0) (2023-03-31)
 
 
