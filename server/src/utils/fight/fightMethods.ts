@@ -85,9 +85,9 @@ const randomlyGetSuper = (fightData: DetailedFight['data'], brute: DetailedFight
     supers = supers.filter((skill) => skill.name !== 'tamer');
   }
 
-  // Filter out thief if opponents have no weapons
+  // Filter out thief if opponents have no weapons in hand
   if (getOpponents(fightData, brute, true)
-    .filter((fighter) => fighter.weapons.length > 0).length === 0) {
+    .filter((fighter) => fighter.activeWeapon).length === 0) {
     supers = supers.filter((skill) => skill.name !== 'thief');
   }
 
@@ -105,6 +105,8 @@ const randomlyGetSuper = (fightData: DetailedFight['data'], brute: DetailedFight
   if (brute.weapons.length < 3) {
     supers = supers.filter((skill) => skill.name !== 'flashFlood');
   }
+
+  if (!supers.length) return null;
 
   const NO_SUPER_TOSS = 10;
   const randomSuper = randomBetween(
