@@ -404,9 +404,6 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
   while (roundBrutes.length > 1) {
     const nextBrutes: BruteWithBodyColors[] = [];
 
-    // Shuffle brutes
-    roundBrutes = shuffle(roundBrutes);
-
     for (let i = 0; i < roundBrutes.length - 1; i += 2) {
       const brute1 = roundBrutes[i];
       const brute2 = roundBrutes[i + 1];
