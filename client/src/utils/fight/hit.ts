@@ -1,13 +1,16 @@
-import { Animation, HitStep, randomBetween } from '@labrute/core';
+/* eslint-disable no-void */
+import { Animation, HitStep, WEAPONS_SFX, randomBetween } from '@labrute/core';
 import { GlowFilter } from '@pixi/filter-glow';
 import { OutlineFilter } from '@pixi/filter-outline';
 import { Tweener } from 'pixi-tweener';
 import { AnimatedSprite, Application, Text } from 'pixi.js';
 import changeAnimation from './changeAnimation';
+import { sound } from '@pixi/sound';
 
 import findFighter, { AnimationFighter } from './findFighter';
 import stagger from './stagger';
 import updateHp from './updateHp';
+import { WeaponName } from '@labrute/prisma';
 
 const hit = async (
   app: Application,
@@ -27,6 +30,26 @@ const hit = async (
 
   // Set animation to the correct hit animation
   changeAnimation(app, target, animation as Animation, speed);
+
+  // Play hitting SFX
+  if (step.weapon) {
+    // Skill SFX
+    if (['thief', 'fierceBrute', 'tragicPotion', 'net', 'bomb', 'hammer', 'cryOfTheDamned', 'hypnosis', 'flashFlood', 'tamer'].includes(step.weapon)) {
+      void sound.play(`skills/${step.weapon}`);
+    } else {
+      // Weapon SFX
+      void sound.play(`hitting/${WEAPONS_SFX[step.weapon as WeaponName][randomBetween(0, WEAPONS_SFX[step.weapon as WeaponName].length - 1)]}`);
+    }
+  } else {
+    // Fist SFX
+    void sound.play(`hitting/fist${randomBetween(1, 3)}`);
+  }
+
+  // Play hit SFX
+  if (step.target.type === 'pet') {
+    // Remove numbers from pet name
+    void sound.play(`hit/${step.target.name.replace(/\d/g, '')}`);
+  }
 
   // Add poison filter if damage is poison
   if (step.action === 'poison') {

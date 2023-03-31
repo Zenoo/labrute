@@ -72,7 +72,56 @@ const FightComponent = ({
       .add('/images/game/dog.json')
       .add('/images/game/panther.json');
 
-    sound.add('background', '/sfx/background.mp3');
+    const sounds = [
+      'background.mp3',
+      'hit/bear.wav',
+      'hit/dog.wav',
+      'hit/panther.wav',
+      'hitting/blunt1.wav',
+      'hitting/blunt2.wav',
+      'hitting/blunt3.wav',
+      'hitting/blunt4.wav',
+      'hitting/blunt5.wav',
+      'hitting/blunt6.wav',
+      'hitting/blunt7.wav',
+      'hitting/blunt8.wav',
+      'hitting/fist1.wav',
+      'hitting/fist2.wav',
+      'hitting/fist3.wav',
+      'hitting/fryingPan.wav',
+      'hitting/lance1.wav',
+      'hitting/lance2.wav',
+      'hitting/piopio.wav',
+      'hitting/sharp1.wav',
+      'hitting/sharp2.wav',
+      'hitting/sharp3.wav',
+      'hitting/sharp4.wav',
+      'hitting/sharp5.wav',
+      'hitting/sharp6.wav',
+      'hitting/sharp7.wav',
+      'hitting/sharp8.wav',
+      'hitting/sharp9.wav',
+      'hitting/sword.wav',
+      'hitting/trombone1.wav',
+      'hitting/trombone2.wav',
+      'hitting/whip.wav',
+      'move/bear.wav',
+      'move/dog.wav',
+      'move/panther.wav',
+      'skills/bomb.wav',
+      'skills/cryOfTheDamned.wav',
+      'skills/fierceBerute.wav',
+      'skills/flashFlood.wav',
+      'skills/hammer.wav',
+      'skills/hypnosis.wav',
+      'skills/net.wav',
+      'skills/thief.wav',
+      'skills/tragicPotion.wav',
+    ];
+
+    sounds.forEach((soundName) => {
+      sound.add(soundName.split('.')[0], `/sfx/${soundName}`);
+    });
 
     // Mute all sounds
     sound.volumeAll = 0;
@@ -92,11 +141,14 @@ const FightComponent = ({
       PIXI.utils.clearTextureCache();
     });
 
-    app.loader.load(setupFight(theme, fight, app, speedRef, setCompleted, sound));
+    app.loader.load(setupFight(theme, fight, app, speedRef, setCompleted));
 
     return () => {
       Tweener.dispose();
       app.destroy(true);
+
+      // Stop all sounds
+      sound.stopAll();
     };
   }, [fight, theme]);
 

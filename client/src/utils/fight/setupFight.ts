@@ -37,7 +37,7 @@ import throwWeapon from './throwWeapon';
 import trap from './trap';
 import trash from './trash';
 import updateWeapons from './updateWeapons';
-import { SoundLibrary } from '@pixi/sound';
+import { sound } from '@pixi/sound';
 
 const setupFight: (
   theme: Theme,
@@ -45,14 +45,12 @@ const setupFight: (
   app: PIXI.Application,
   speed: React.MutableRefObject<number>,
   setCompleted: React.Dispatch<React.SetStateAction<boolean>>,
-  sound: SoundLibrary,
 ) => PIXI.Loader.OnCompleteSignal = (
   theme,
   fight,
   app,
   speed,
   setCompleted,
-  sound,
 ) => async (
   loader,
   resources,

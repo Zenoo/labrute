@@ -483,10 +483,10 @@ export const WEAPONS_SFX: Record<WeaponName, string[]> = {
     }
 
     // SFX depending on weapon type
-    if (weapon.types.includes('blunt')) {
+    if (weapon.types.includes('sharp')) {
+      acc[weapon.name].push('sharp1', 'sharp2', 'sharp3', 'sharp4', 'sharp5', 'sharp6', 'sharp7', 'sharp8');
+    } else {
       acc[weapon.name].push('blunt1', 'blunt2', 'blunt3', 'blunt4', 'blunt5', 'blunt6', 'blunt7', 'blunt8');
-    } else if (weapon.types.includes('sharp')) {
-      acc[weapon.name].push('sharp1', 'sharp2', 'sharp3', 'sharp4', 'sharp5', 'sharp6', 'sharp7', 'sharp8', 'sharp9');
     }
     return acc;
   }, {} as Record<WeaponName, string[]>),
