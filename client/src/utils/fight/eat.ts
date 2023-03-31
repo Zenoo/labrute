@@ -1,3 +1,4 @@
+/* eslint-disable no-void */
 import { EatStep } from '@labrute/core';
 import { OutlineFilter } from '@pixi/filter-outline';
 import { Tweener } from 'pixi-tweener';
@@ -6,6 +7,7 @@ import changeAnimation from './changeAnimation';
 
 import findFighter, { AnimationFighter } from './findFighter';
 import updateHp from './updateHp';
+import { sound } from '@pixi/sound';
 
 const eat = async (
   app: Application,
@@ -20,6 +22,11 @@ const eat = async (
 
   // Set animation to `eat`
   changeAnimation(app, brute, 'eat', speed);
+
+  // Play eat SFX
+  void sound.play('skills/tamer', {
+    speed: speed.current,
+  });
 
   // Display floating and fading green heal text
   const healText = new Text(`+${step.heal}`, {

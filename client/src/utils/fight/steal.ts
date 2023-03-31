@@ -1,3 +1,4 @@
+/* eslint-disable no-void */
 import { StealStep } from '@labrute/core';
 
 import { Easing, Tweener } from 'pixi-tweener';
@@ -6,6 +7,7 @@ import changeAnimation from './changeAnimation';
 import { getRandomPosition } from './fightPositions';
 import findFighter, { AnimationFighter } from './findFighter';
 import updateWeapons from './updateWeapons';
+import { sound } from '@pixi/sound';
 
 const steal = async (
   app: Application,
@@ -36,6 +38,9 @@ const steal = async (
   changeAnimation(app, brute, 'steal', speed);
   (brute.currentAnimation as AnimatedSprite).animationSpeed = 0.5;
   brute.currentAnimation.rotation = Math.PI / 2;
+
+  // Play steal SFX
+  void sound.play('skills/thief', { speed: speed.current });
 
   // Set target animation to `stolen`
   changeAnimation(app, target, 'stolen', speed);

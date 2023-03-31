@@ -1,8 +1,10 @@
+/* eslint-disable no-void */
 import { MoveStep } from '@labrute/core';
 import { Easing, Tweener } from 'pixi-tweener';
 import { Application } from 'pixi.js';
 import changeAnimation from './changeAnimation';
 import findFighter, { AnimationFighter } from './findFighter';
+import { sound } from '@pixi/sound';
 
 const moveTo = async (
   app: Application,
@@ -21,6 +23,14 @@ const moveTo = async (
 
   // Set animation to `run`
   changeAnimation(app, fighter, 'run', speed);
+
+  // Play running SFX
+  if (fighter.type === 'pet') {
+    // Remove numbers from pet name
+    void sound.play(`move/${fighter.name.replace(/\d/g, '')}`, {
+      speed: speed.current,
+    });
+  }
 
   // Move fighter to the position
   await Tweener.add({

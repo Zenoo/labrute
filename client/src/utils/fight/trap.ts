@@ -1,8 +1,10 @@
+/* eslint-disable no-void */
 import { TrapStep } from '@labrute/core';
 import { AnimatedSprite, Application } from 'pixi.js';
 import changeAnimation from './changeAnimation';
 
 import findFighter, { AnimationFighter } from './findFighter';
+import { sound } from '@pixi/sound';
 
 const trap = async (
   app: Application,
@@ -21,6 +23,11 @@ const trap = async (
 
   // Set fighter animation to `launch`
   changeAnimation(app, brute, 'launch', speed);
+
+  // Play trap SFX
+  void sound.play('skills/net', {
+    speed: speed.current,
+  });
 
   // Wait 500ms
   await new Promise((resolve) => {

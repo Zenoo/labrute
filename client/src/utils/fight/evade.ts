@@ -1,8 +1,10 @@
+/* eslint-disable no-void */
 import { EvadeStep } from '@labrute/core';
 import { Easing, Tweener } from 'pixi-tweener';
 import { Application } from 'pixi.js';
 import changeAnimation from './changeAnimation';
 import findFighter, { AnimationFighter } from './findFighter';
+import { sound } from '@pixi/sound';
 
 const evade = async (
   app: Application,
@@ -17,6 +19,11 @@ const evade = async (
 
   // Set animation to `evade`
   changeAnimation(app, fighter, 'evade', speed);
+
+  // Play evade SFX
+  void sound.play('hit/evade', {
+    speed: speed.current,
+  });
 
   // Add vertical tween
   await Tweener.add({

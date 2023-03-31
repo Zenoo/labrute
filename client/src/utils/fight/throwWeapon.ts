@@ -1,8 +1,10 @@
+/* eslint-disable no-void */
 import { ThrowStep, weapons } from '@labrute/core';
 import { AnimatedSprite, Application } from 'pixi.js';
 import changeAnimation from './changeAnimation';
 import findFighter, { AnimationFighter } from './findFighter';
 import updateWeapons from './updateWeapons';
+import { sound } from '@pixi/sound';
 
 const throwWeapon = async (
   app: Application,
@@ -32,6 +34,11 @@ const throwWeapon = async (
 
   // Set animation to `throw`
   changeAnimation(app, fighter, 'throw', speed);
+
+  // Play throw SFX
+  void sound.play('skills/net', {
+    speed: speed.current,
+  });
 
   // Wait 250ms
   await new Promise((resolve) => {

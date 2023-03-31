@@ -1,3 +1,4 @@
+/* eslint-disable no-void */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-await-in-loop */
 import { Fighter, FightStep } from '@labrute/core';
@@ -379,6 +380,7 @@ const setupFight: (
   }
 
   setCompleted(true);
+  void sound.play('win');
 };
 
 export default setupFight;

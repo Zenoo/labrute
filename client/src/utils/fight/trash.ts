@@ -1,9 +1,11 @@
+/* eslint-disable no-void */
 import { TrashStep } from '@labrute/core';
 import { AnimatedSprite, Application } from 'pixi.js';
 import changeAnimation from './changeAnimation';
 
 import findFighter, { AnimationFighter } from './findFighter';
 import updateWeapons from './updateWeapons';
+import { sound } from '@pixi/sound';
 
 const trash = async (
   app: Application,
@@ -19,6 +21,11 @@ const trash = async (
   // Set animation to `trash`
   changeAnimation(app, brute, 'trash', speed);
   (brute.currentAnimation as AnimatedSprite).animationSpeed = 0.5;
+
+  // Play trash SFX
+  void sound.play('skills/net', {
+    speed: speed.current,
+  });
 
   // Remove weapon from brute
   updateWeapons(app, brute, step.name, 'remove');

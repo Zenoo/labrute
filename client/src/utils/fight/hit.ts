@@ -35,20 +35,33 @@ const hit = async (
   if (step.weapon) {
     // Skill SFX
     if (['thief', 'fierceBrute', 'tragicPotion', 'net', 'bomb', 'hammer', 'cryOfTheDamned', 'hypnosis', 'flashFlood', 'tamer'].includes(step.weapon)) {
-      void sound.play(`skills/${step.weapon}`);
+      void sound.play(`skills/${step.weapon}`, {
+        speed: speed.current,
+      });
     } else {
       // Weapon SFX
-      void sound.play(`hitting/${WEAPONS_SFX[step.weapon as WeaponName][randomBetween(0, WEAPONS_SFX[step.weapon as WeaponName].length - 1)]}`);
+      void sound.play(`hitting/${WEAPONS_SFX[step.weapon as WeaponName][randomBetween(0, WEAPONS_SFX[step.weapon as WeaponName].length - 1)]}`, {
+        speed: speed.current,
+      });
     }
+  } else if (step.fighter.type === 'pet') {
+    // Sword SFX for pets
+    void sound.play('hitting/sword', {
+      speed: speed.current,
+    });
   } else {
     // Fist SFX
-    void sound.play(`hitting/fist${randomBetween(1, 3)}`);
+    void sound.play(`hitting/fist${randomBetween(1, 3)}`, {
+      speed: speed.current,
+    });
   }
 
   // Play hit SFX
   if (step.target.type === 'pet') {
     // Remove numbers from pet name
-    void sound.play(`hit/${step.target.name.replace(/\d/g, '')}`);
+    void sound.play(`hit/${step.target.name.replace(/\d/g, '')}`, {
+      speed: speed.current,
+    });
   }
 
   // Add poison filter if damage is poison

@@ -1,3 +1,4 @@
+/* eslint-disable no-void */
 import { Animation, randomBetween, SaboteurStep } from '@labrute/core';
 import { AnimatedSprite, Application } from 'pixi.js';
 import changeAnimation from './changeAnimation';
@@ -5,6 +6,7 @@ import changeAnimation from './changeAnimation';
 import findFighter, { AnimationFighter } from './findFighter';
 import stagger from './stagger';
 import updateWeapons from './updateWeapons';
+import { sound } from '@pixi/sound';
 
 const saboteur = async (
   app: Application,
@@ -26,6 +28,11 @@ const saboteur = async (
       : 'hit',
     speed,
   );
+
+  // Play saboteur SFX
+  void sound.play('skills/saboteur', {
+    speed: speed.current,
+  });
 
   // Stagger animation
   await stagger(brute.currentAnimation as AnimatedSprite, brute.team, speed);

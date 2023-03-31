@@ -1,9 +1,11 @@
+/* eslint-disable no-void */
 import { HypnotiseStep } from '@labrute/core';
 import { Easing, Tweener } from 'pixi-tweener';
-import { Application } from 'pixi.js';
+import { AnimatedSprite, Application } from 'pixi.js';
 import changeAnimation from './changeAnimation';
 import { getRandomPosition } from './fightPositions';
 import findFighter, { AnimationFighter } from './findFighter';
+import { sound } from '@pixi/sound';
 
 const hypnotise = async (
   app: Application,
@@ -21,6 +23,22 @@ const hypnotise = async (
   }
   // Get random position
   const { x, y } = getRandomPosition(fighters, brute.team);
+
+  // Set brute animation to `strengthen`
+  changeAnimation(app, brute, 'strengthen', speed);
+
+  // Play hypnosis SFX
+  void sound.play('skills/hypnosis', { speed: speed.current * 4 });
+
+  // Wait for animation to complete
+  await new Promise((resolve) => {
+    (brute.currentAnimation as AnimatedSprite).onComplete = () => {
+      // Set animation to `idle`
+      changeAnimation(app, brute, 'idle', speed);
+
+      resolve(null);
+    };
+  });
 
   // Set pet animation to `run`
   changeAnimation(app, pet, 'run', speed);

@@ -1,8 +1,10 @@
+/* eslint-disable no-void */
 import { SkillActivateStep } from '@labrute/core';
 import { AnimatedSprite, Application } from 'pixi.js';
 import changeAnimation, { handleEffects } from './changeAnimation';
 
 import findFighter, { AnimationFighter } from './findFighter';
+import { sound } from '@pixi/sound';
 
 const skillActivate = async (
   app: Application,
@@ -15,7 +17,14 @@ const skillActivate = async (
     throw new Error('Brute not found');
   }
 
-  if (step.skill === 'fierceBrute') {
+  // Play skill SFX
+  if (['cryOfTheDamned', 'fierceBrute', 'flashFlood', 'hammer'].includes(step.skill)) {
+    void sound.play(`skills/${step.skill}`, {
+      speed: speed.current,
+    });
+  }
+
+  if (['fierceBrute', 'cryOfTheDamned'].includes(step.skill)) {
     // Set animation to `strenghten`
     changeAnimation(app, brute, 'strengthen', speed);
 

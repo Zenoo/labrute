@@ -1,3 +1,4 @@
+/* eslint-disable no-void */
 import { Animation, BombStep, randomBetween } from '@labrute/core';
 import { OutlineFilter } from '@pixi/filter-outline';
 import { Tweener } from 'pixi-tweener';
@@ -7,6 +8,7 @@ import changeAnimation from './changeAnimation';
 import findFighter, { AnimationFighter } from './findFighter';
 import stagger from './stagger';
 import updateHp from './updateHp';
+import { sound } from '@pixi/sound';
 
 const bomb = async (
   app: Application,
@@ -22,6 +24,11 @@ const bomb = async (
   // Set animation to `launch`
   changeAnimation(app, fighter, 'launch', speed);
 
+  // Play launch SFX
+  void sound.play('skills/net', {
+    speed: speed.current,
+  });
+
   // Wait 500ms
   await new Promise((resolve) => {
     setTimeout(() => {
@@ -31,6 +38,11 @@ const bomb = async (
 
   // Set animation to `idle`
   changeAnimation(app, fighter, 'idle', speed);
+
+  // Play bomb SFX
+  void sound.play('skills/bomb', {
+    speed: speed.current,
+  });
 
   // Get targets
   const targets = step.targets.map((t) => {
@@ -85,8 +97,10 @@ const bomb = async (
     // eslint-disable-next-line no-await-in-loop
     stagger(target.currentAnimation as AnimatedSprite, target.team, speed)
       .then(() => {
-        // Set animation to `idle`
-        changeAnimation(app, target, 'idle', speed);
+        if (target.currentAnimation.name.startsWith('hit')) {
+          // Set animation to `idle`
+          changeAnimation(app, target, 'idle', speed);
+        }
       })
       .catch(console.error);
   }

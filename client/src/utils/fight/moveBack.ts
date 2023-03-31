@@ -1,3 +1,4 @@
+/* eslint-disable no-void */
 import { MoveBackStep } from '@labrute/core';
 import { Easing, Tweener } from 'pixi-tweener';
 import { Application } from 'pixi.js';

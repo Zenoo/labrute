@@ -1,8 +1,10 @@
+/* eslint-disable no-void */
 import { EquipStep } from '@labrute/core';
 
 import { AnimatedSprite, Application } from 'pixi.js';
 import changeAnimation from './changeAnimation';
 import findFighter, { AnimationFighter } from './findFighter';
+import { sound } from '@pixi/sound';
 
 const equip = async (
   app: Application,
@@ -18,6 +20,11 @@ const equip = async (
   // Set animation to `equip`
   changeAnimation(app, brute, 'equip', speed);
   (brute.currentAnimation as AnimatedSprite).animationSpeed = 0.5;
+
+  // Play equip SFX
+  void sound.play('equip', {
+    speed: speed.current,
+  });
 
   // Wait for animation to complete
   await new Promise((resolve) => {
