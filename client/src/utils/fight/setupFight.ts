@@ -37,6 +37,7 @@ import throwWeapon from './throwWeapon';
 import trap from './trap';
 import trash from './trash';
 import updateWeapons from './updateWeapons';
+import { SoundLibrary } from '@pixi/sound';
 
 const setupFight: (
   theme: Theme,
@@ -44,12 +45,14 @@ const setupFight: (
   app: PIXI.Application,
   speed: React.MutableRefObject<number>,
   setCompleted: React.Dispatch<React.SetStateAction<boolean>>,
+  sound: SoundLibrary,
 ) => PIXI.Loader.OnCompleteSignal = (
   theme,
   fight,
   app,
   speed,
   setCompleted,
+  sound,
 ) => async (
   loader,
   resources,
@@ -187,6 +190,9 @@ const setupFight: (
 
   // Set amnimation to 30 FPS
   app.ticker.speed = 0.5;
+
+  // Set background music
+  await sound.play('background', { loop: true });
 
   // Get fighters animations
   const fighters: AnimationFighter[] = fightFighters.map((fighter) => {

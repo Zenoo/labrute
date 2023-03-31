@@ -376,5 +376,7 @@
   "experience": "Expérience",
   "brute": "Brute",
   "destinyOf": "Destinée de",
-  "adminPanel": "Panneau d'administration"
+  "adminPanel": "Panneau d'administration",
+  "disableSound": "Désactiver le son",
+  "enableSound": "Activer le son"
 }

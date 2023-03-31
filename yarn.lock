@@ -2500,6 +2500,7 @@ __metadata:
     "@pixi/filter-bevel": ^4.2.0
     "@pixi/filter-glow": ^4.2.0
     "@pixi/filter-outline": ^4.2.0
+    "@pixi/sound": ^4.3.3
     "@types/node": ^18.6.3
     "@types/react": ^18.0.17
     "@types/react-dom": ^18.0.6
@@ -3201,6 +3202,18 @@ __metadata:
   peerDependencies:
     "@pixi/constants": 6.5.9
   checksum: ddf0512619395f7fb0910525262f8ba9cc0cdd48b98285da618b36fac7e08aa253ba6e2c72936b16c37ad289f21b17f41240fb05535718c787c580705be396e0
+  languageName: node
+  linkType: hard
+
+"@pixi/sound@npm:^4.3.3":
+  version: 4.3.3
+  resolution: "@pixi/sound@npm:4.3.3"
+  peerDependencies:
+    "@pixi/core": ">=5 <7"
+    "@pixi/loaders": ">=5 <7"
+    "@pixi/ticker": ">=5 <7"
+    "@pixi/utils": ">=5 <7"
+  checksum: ced293b781309abe5a0273c941d7737fee365d8f00077cb71a61943390d9811bdfeaa3ce707319e89ce410daa8e015a31377194130beaa6bb5a4f7cc7a230fdd
   languageName: node
   linkType: hard
 

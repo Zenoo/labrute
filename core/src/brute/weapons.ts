@@ -452,4 +452,44 @@ const weapons: Weapon[] = [
 
 export const WEAPONS_TOTAL_ODDS = weapons.reduce((acc, weapon) => acc + weapon.odds, 0);
 
+export const WEAPONS_SFX: Record<WeaponName, string[]> = {
+  ...weapons.reduce((acc, weapon) => {
+    acc[weapon.name] = [];
+
+    // Special SFX for some weapons
+    if (weapon.name === 'fryingPan') {
+      acc[weapon.name] = ['fryingPan'];
+      return acc;
+    }
+    if (weapon.name === 'lance') {
+      acc[weapon.name] = ['lance1', 'lance2'];
+      return acc;
+    }
+    if (weapon.name === 'piopio') {
+      acc[weapon.name] = ['piopio'];
+      return acc;
+    }
+    if (weapon.name === 'sword') {
+      acc[weapon.name] = ['sword'];
+      return acc;
+    }
+    if (weapon.name === 'trombone') {
+      acc[weapon.name] = ['trombone1', 'trombone2'];
+      return acc;
+    }
+    if (weapon.name === 'whip') {
+      acc[weapon.name] = ['whip'];
+      return acc;
+    }
+
+    // SFX depending on weapon type
+    if (weapon.types.includes('blunt')) {
+      acc[weapon.name].push('blunt1', 'blunt2', 'blunt3', 'blunt4', 'blunt5', 'blunt6', 'blunt7', 'blunt8');
+    } else if (weapon.types.includes('sharp')) {
+      acc[weapon.name].push('sharp1', 'sharp2', 'sharp3', 'sharp4', 'sharp5', 'sharp6', 'sharp7', 'sharp8', 'sharp9');
+    }
+    return acc;
+  }, {} as Record<WeaponName, string[]>),
+};
+
 export default weapons;

@@ -1,6 +1,6 @@
 import { Fighter, FightStep } from '@labrute/core';
 import { Fight } from '@labrute/prisma';
-import { FastForward, FastRewind, Pause, PlayArrow, Rtt } from '@mui/icons-material';
+import { FastForward, FastRewind, Pause, PlayArrow, Rtt, VolumeOff, VolumeUp } from '@mui/icons-material';
 import { Box, IconButton, Stack, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import { Tweener } from 'pixi-tweener';
 import * as PIXI from 'pixi.js';
@@ -10,6 +10,7 @@ import setupFight from '../../utils/fight/setupFight';
 import translateFightStep from '../../utils/translateFightStep';
 import Link from '../Link';
 import Text from '../Text';
+import { sound } from '@pixi/sound';
 
 export interface FightComponentProps {
   fight: Fight | null;
@@ -33,6 +34,10 @@ const FightComponent = ({
   // Fight speed
   const speedRef = useRef(1);
   const [speed, setSpeed] = useState<1 | 2>(1);
+
+  // Fight sound
+  const soundRef = useRef(false);
+  const [soundOn, setSoundOn] = useState(false);
 
   // Logs display
   const [displayLogs, setDisplayLogs] = useState(false);
@@ -67,6 +72,11 @@ const FightComponent = ({
       .add('/images/game/dog.json')
       .add('/images/game/panther.json');
 
+    sound.add('background', '/sfx/background.mp3');
+
+    // Mute all sounds
+    sound.volumeAll = 0;
+
     const addedSpritesheets: string[] = [];
     (fight.fighters as unknown as Fighter[]).forEach((fighter) => {
       if (fighter.type === 'brute') {
@@ -82,7 +92,7 @@ const FightComponent = ({
       PIXI.utils.clearTextureCache();
     });
 
-    app.loader.load(setupFight(theme, fight, app, speedRef, setCompleted));
+    app.loader.load(setupFight(theme, fight, app, speedRef, setCompleted, sound));
 
     return () => {
       Tweener.dispose();
@@ -106,6 +116,13 @@ const FightComponent = ({
     speedRef.current = newSpeed;
     setSpeed(newSpeed);
   }, [speedRef]);
+
+  const toggleSound = useCallback(() => {
+    const newSound = !soundRef.current;
+    soundRef.current = newSound;
+    setSoundOn(newSound);
+    sound.volumeAll = newSound ? 1 : 0;
+  }, []);
 
   const toggleLogs = useCallback(() => {
     setDisplayLogs((prev) => !prev);
@@ -161,6 +178,12 @@ const FightComponent = ({
           <Tooltip title={speed === 1 ? 'x2' : 'x1'}>
             <IconButton onClick={toggleSpeed}>
               {speed === 1 ? <FastForward /> : <FastRewind />}
+            </IconButton>
+          </Tooltip>
+          {/* SOUND */}
+          <Tooltip title={soundOn ? t('disableSound') : t('enableSound')}>
+            <IconButton onClick={toggleSound}>
+              {soundOn ? <VolumeOff /> : <VolumeUp />}
             </IconButton>
           </Tooltip>
         </Stack>

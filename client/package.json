@@ -20,6 +20,7 @@
     "@pixi/filter-bevel": "^4.2.0",
     "@pixi/filter-glow": "^4.2.0",
     "@pixi/filter-outline": "^4.2.0",
+    "@pixi/sound": "^4.3.3",
     "i18next": "^21.9.0",
     "moment": "^2.29.4",
     "pixi-tweener": "^0.12.2",
