@@ -7,7 +7,10 @@ import getDamage from './getDamage.js';
 
 const getMainOpponent = (fightData: DetailedFight['data'], brute: DetailedFighter) => {
   const mainOpponent = fightData.fighters.find(
-    (fighter) => fighter.type === 'brute' && !fighter.master && fighter.name !== brute.name,
+    (fighter) => fighter.type === 'brute'
+      && !fighter.master
+      && fighter.name !== brute.name
+      && fighter.hp > 0,
   );
 
   if (!mainOpponent) {
@@ -47,8 +50,8 @@ export const orderFighters = (fightData: DetailedFight['data']) => {
 export const getOpponents = (fightData: DetailedFight['data'], fighter: DetailedFighter, bruteOnly?: boolean) => {
   let opponents = [];
 
-  // Remove backups not arrived yet
-  opponents = fightData.fighters.filter((f) => !f.arrivesAtInitiative);
+  // Remove backups not arrived yet and dead fighters
+  opponents = fightData.fighters.filter((f) => !f.arrivesAtInitiative && f.hp > 0);
 
   // Fighter is a pet/backup
   if (fighter.master) {
@@ -97,7 +100,7 @@ const randomlyGetSuper = (fightData: DetailedFight['data'], brute: DetailedFight
   }
 
   // Filter out cryOfTheDamned and hypnosis if opponent has no pets
-  if (fightData.fighters.filter((f) => f.type === 'pet' && f.master === getMainOpponent(fightData, brute).id).length === 0) {
+  if (getOpponents(fightData, brute, true).filter((f) => f.type === 'pet').length === 0) {
     supers = supers.filter((skill) => skill.name !== 'cryOfTheDamned' && skill.name !== 'hypnosis');
   }
 
@@ -381,7 +384,9 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
       // Get main opponent
       const opponent = getMainOpponent(fightData, fighter);
       // Get opponent's pets
-      const opponentPets = fightData.fighters.filter((f) => f.type === 'pet' && f.master === opponent.id);
+      const opponentPets = fightData.fighters.filter((f) => f.type === 'pet'
+        && f.master === opponent.id
+        && f.hp > 0);
 
       // Abort if no pet
       if (opponentPets.length === 0) return false;
@@ -392,8 +397,8 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
       for (let i = 0; i < opponentPets.length; i++) {
         const pet = opponentPets[i];
 
-        // 33% chance to fear the pet
-        if (randomBetween(0, 2) === 0) {
+        // 50% chance to fear the pet
+        if (randomBetween(0, 1) === 0) {
           fearSteps.push({
             action: 'leave',
             fighter: stepFighter(pet),
@@ -422,7 +427,9 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
       // Get main opponent
       const opponent = getMainOpponent(fightData, fighter);
       // Get opponent's pets
-      const opponentPets = fightData.fighters.filter((f) => f.type === 'pet' && f.master === opponent.id);
+      const opponentPets = fightData.fighters.filter((f) => f.type === 'pet'
+        && f.master === opponent.id
+        && f.hp > 0);
 
       // Keep track of hypnotised pets
       const hypnotisedPets = [];
@@ -845,21 +852,21 @@ export const checkDeaths = (fightData: DetailedFight['data']) => {
   for (let i = 0; i < fightData.fighters.length; i++) {
     const fighter = fightData.fighters[i];
 
-    if (fighter.hp <= 0) {
+    // Only add death step if fighter is dead and hasn't died yet
+    if (fighter.hp <= 0 && fightData.steps.filter((step) => step.action === 'death'
+      && step.fighter.master === fighter.master
+      && step.fighter.type === fighter.type
+      && step.fighter.name === fighter.name).length === 0) {
       // Add death step
       fightData.steps.push({
         action: 'death',
         fighter: stepFighter(fighter),
       });
 
-      // Remove fighter from fight
-      const [deadFighter] = fightData.fighters.splice(i, 1);
-
       // Set loser if fighter is a main brute
-      if (deadFighter.type === 'brute' && !deadFighter.master) {
-        fightData.loser = stepFighter(deadFighter);
+      if (fighter.type === 'brute' && !fighter.master) {
+        fightData.loser = stepFighter(fighter);
       }
-      i -= 1;
     }
   }
 };
