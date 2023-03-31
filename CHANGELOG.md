@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.17.2](https://github.com/Zenoo/labrute/compare/labrute-v2.17.1...labrute-v2.17.2) (2023-03-31)
+
+
+### Bug Fixes
+
+* Disable the destiny view for bot brutes. ([da4159c](https://github.com/Zenoo/labrute/commit/da4159c89ae11b80fb5a91f66bc3b7b7b077afd1))
+* Stop shuffling the brutes in the global tournament ([1b0a2e2](https://github.com/Zenoo/labrute/commit/1b0a2e2c429b12946f6cf1a939547d878de1dd4f))
+
 ## [2.17.1](https://github.com/Zenoo/labrute/compare/labrute-v2.17.0...labrute-v2.17.1) (2023-03-31)
 
 
