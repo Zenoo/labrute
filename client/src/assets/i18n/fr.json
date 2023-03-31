@@ -332,7 +332,7 @@
   "selectedOpponents": "Bienvenue dans l'arène ! J'ai sélectionné quelques adversaire à ta taille. Choisis-en un, et on commence le combat !",
   "backToCell": "Retour en cellule",
 
-  "dareChallenge": "Vous avez osé défier",
+  "dareChallenge": "Vous avez osé défier {{value}} !",
   "startFight": "Lancer le combat",
 
   "fight.discoverGames": "Découvrez nos autres jeux",

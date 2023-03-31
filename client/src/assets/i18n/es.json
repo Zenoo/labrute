@@ -332,7 +332,7 @@
   "selectedOpponents": "¡Bienvenido a la Arena! Aquí tienes una selección de adversarios de tu nivel. Elige uno y, ¡que empiece el combate!",
   "backToCell": "Volver a la celda",
 
-  "dareChallenge": "Has osado desafiar a",
+  "dareChallenge": "¡Has osado desafiar a {{value}}!",
   "startFight": "Comenzar el combate",
 
   "fight.discoverGames": "Descubre nuestros juegos",

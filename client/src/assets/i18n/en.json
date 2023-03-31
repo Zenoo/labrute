@@ -332,7 +332,7 @@
   "selectedOpponents": "Welcome to the Arena! Here is a selection of opponents of your level. Choose one and let's start the fight!",
   "backToCell": "Back to the cell",
 
-  "dareChallenge": "You dare to challenge",
+  "dareChallenge": "You dare to challenge {{value}}!",
   "startFight": "Start fight",
 
   "fight.discoverGames": "Discover our other games",
