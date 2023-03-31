@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.17.0](https://github.com/Zenoo/labrute/compare/labrute-v2.16.2...labrute-v2.17.0) (2023-03-31)
+
+
+### Features
+
+* Fight background music. [#14](https://github.com/Zenoo/labrute/issues/14) ([066f81c](https://github.com/Zenoo/labrute/commit/066f81ce001c5bfbbded56f45a083e0d9c8873d0))
+* Fight sound effects. Fixes [#14](https://github.com/Zenoo/labrute/issues/14) ([f2ce559](https://github.com/Zenoo/labrute/commit/f2ce5597c3b03aa4e1199b52f20577c99a6b5bd5))
+* Hit SFX. [#14](https://github.com/Zenoo/labrute/issues/14) ([0dbbe63](https://github.com/Zenoo/labrute/commit/0dbbe63c0d6f4c65da2f28d1f01373be072f1148))
+
+
+### Bug Fixes
+
+* Don't poison if brute is dead. Fixes [#168](https://github.com/Zenoo/labrute/issues/168) ([0ab9e7e](https://github.com/Zenoo/labrute/commit/0ab9e7e65e21b29e14ebdc2677919fa408c0ecfb))
+* New ressources ([8c4f40d](https://github.com/Zenoo/labrute/commit/8c4f40d6ace948fcd0e0849852914a90b3eb69e3))
+* Tamer never triggered ([c8b994a](https://github.com/Zenoo/labrute/commit/c8b994ae772520a21777fc8cabc6bed07e0eed9c))
+* Thief never triggered ([4934bfd](https://github.com/Zenoo/labrute/commit/4934bfd7b66d906dcd40f2f03ac9802b6de50f76))
+
 ## [2.16.2](https://github.com/Zenoo/labrute/compare/labrute-v2.16.1...labrute-v2.16.2) (2023-03-29)
 
 
