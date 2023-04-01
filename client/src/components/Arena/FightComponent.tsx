@@ -85,6 +85,7 @@ const FightComponent = ({
       'hit/panther.wav',
       'hit/block.wav',
       'hit/evade.mp3',
+      'hit/poison.mp3',
       'hitting/blunt1.wav',
       'hitting/blunt2.wav',
       'hitting/blunt3.wav',

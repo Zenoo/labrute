@@ -32,7 +32,12 @@ const hit = async (
   changeAnimation(app, target, animation as Animation, speed);
 
   // Play hitting SFX
-  if (step.weapon) {
+  if (step.action === 'poison') {
+    // Poison SFX
+    void sound.play('hit/poison', {
+      speed: speed.current,
+    });
+  } else if (step.weapon) {
     // Skill SFX
     if (['thief', 'fierceBrute', 'tragicPotion', 'net', 'bomb', 'hammer', 'cryOfTheDamned', 'hypnosis', 'flashFlood', 'tamer'].includes(step.weapon)) {
       void sound.play(`skills/${step.weapon}`, {
