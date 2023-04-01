@@ -1,6 +1,6 @@
 import { Fighter, FightStep } from '@labrute/core';
 import { Fight } from '@labrute/prisma';
-import { FastForward, FastRewind, Pause, PlayArrow, Rtt, VolumeOff, VolumeUp } from '@mui/icons-material';
+import { FastForward, FastRewind, MusicNote, MusicOff, Pause, PlayArrow, Rtt, VolumeOff, VolumeUp } from '@mui/icons-material';
 import { Box, IconButton, Stack, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import { Tweener } from 'pixi-tweener';
 import * as PIXI from 'pixi.js';
@@ -32,12 +32,14 @@ const FightComponent = ({
   const [completed, setCompleted] = useState(false);
 
   // Fight speed
-  const speedRef = useRef(1);
-  const [speed, setSpeed] = useState<1 | 2>(1);
+  const speedRef = useRef(localStorage.getItem('fightSpeed') === '2' ? 2 : 1);
+  const [speed, setSpeed] = useState<1 | 2>(localStorage.getItem('fightSpeed') === '2' ? 2 : 1);
 
   // Fight sound
   const soundRef = useRef(false);
   const [soundOn, setSoundOn] = useState(false);
+  const backgroundMusicRef = useRef(localStorage.getItem('fightBackgroundMusic') !== 'false');
+  const [backgroundMusicOn, setBackgroundMusicOn] = useState(backgroundMusicRef.current);
 
   // Logs display
   const [displayLogs, setDisplayLogs] = useState(false);
@@ -133,6 +135,8 @@ const FightComponent = ({
 
     // Mute all sounds
     sound.volumeAll = 0;
+    // Background music
+    sound.volume('background', backgroundMusicRef.current ? 1 : 0);
 
     const addedSpritesheets: string[] = [];
     (fight.fighters as unknown as Fighter[]).forEach((fighter) => {
@@ -175,6 +179,7 @@ const FightComponent = ({
     const newSpeed = speedRef.current === 1 ? 2 : 1;
     speedRef.current = newSpeed;
     setSpeed(newSpeed);
+    localStorage.setItem('fightSpeed', newSpeed.toString());
   }, [speedRef]);
 
   const toggleSound = useCallback(() => {
@@ -182,6 +187,14 @@ const FightComponent = ({
     soundRef.current = newSound;
     setSoundOn(newSound);
     sound.volumeAll = newSound ? 1 : 0;
+  }, []);
+
+  const toggleBackgroundMusic = useCallback(() => {
+    const newBackgroundMusic = !backgroundMusicRef.current;
+    backgroundMusicRef.current = newBackgroundMusic;
+    setBackgroundMusicOn(newBackgroundMusic);
+    sound.volume('background', newBackgroundMusic ? 1 : 0);
+    localStorage.setItem('fightBackgroundMusic', newBackgroundMusic.toString());
   }, []);
 
   const toggleLogs = useCallback(() => {
@@ -244,6 +257,12 @@ const FightComponent = ({
           <Tooltip title={soundOn ? t('disableSound') : t('enableSound')}>
             <IconButton onClick={toggleSound}>
               {soundOn ? <VolumeOff /> : <VolumeUp />}
+            </IconButton>
+          </Tooltip>
+          {/* BACKGROUND MUSIC */}
+          <Tooltip title={backgroundMusicOn ? t('disableBackgroundMusic') : t('enableBackgroundMusic')}>
+            <IconButton onClick={toggleBackgroundMusic}>
+              {backgroundMusicOn ? <MusicOff /> : <MusicNote />}
             </IconButton>
           </Tooltip>
         </Stack>

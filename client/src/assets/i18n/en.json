@@ -379,5 +379,7 @@
   "destinyOf": "Destiny of",
   "adminPanel": "Admin panel",
   "disableSound": "Disable sound",
-  "enableSound": "Enable sound"
+  "enableSound": "Enable sound",
+  "disableBackgroundMusic": "Disable background music",
+  "enableBackgroundMusic": "Enable background music"
 }

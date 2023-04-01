@@ -379,5 +379,7 @@
   "destinyOf": "Destino de",
   "adminPanel": "Panel de administración",
   "disableSound": "Desactivar sonido",
-  "enableSound": "Activar sonido"
+  "enableSound": "Activar sonido",
+  "disableBackgroundMusic": "Desactivar música de fondo",
+  "enableBackgroundMusic": "Activar música de fondo"
 }
