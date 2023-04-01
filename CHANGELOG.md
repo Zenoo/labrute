@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.17.3](https://github.com/Zenoo/labrute/compare/labrute-v2.17.2...labrute-v2.17.3) (2023-04-01)
+
+
+### Bug Fixes
+
+* Added poison SFX. Fixes [#177](https://github.com/Zenoo/labrute/issues/177) ([814496c](https://github.com/Zenoo/labrute/commit/814496c500d97bbd532a4f23cf1e0b54eae339da))
+* Keep excess XP when leveling up. Fixes [#176](https://github.com/Zenoo/labrute/issues/176) ([5f3ac1d](https://github.com/Zenoo/labrute/commit/5f3ac1d35634dd4ee55751d12b076fa79ea96ba7))
+* New background music toggle + fight speed and music stored in local storage. Fixes [#175](https://github.com/Zenoo/labrute/issues/175) ([1f8bee5](https://github.com/Zenoo/labrute/commit/1f8bee5bdabdfcbb68662b640abb85058187ab8d))
+* Remove padding inside destiny view ([ae1de0c](https://github.com/Zenoo/labrute/commit/ae1de0cd4c31f8daee9d747ba5ad22b0e352e555))
+* Wrong date format in other languages. Fixes [#172](https://github.com/Zenoo/labrute/issues/172) ([4099714](https://github.com/Zenoo/labrute/commit/4099714088c00f2241cb66105dde0f9b6bf218b3))
+* Wrong translation in the mobile versus view ([735a8dd](https://github.com/Zenoo/labrute/commit/735a8dd06c636fbd1a0fa70973f6e0f6f22b04a7))
+
 ## [2.17.2](https://github.com/Zenoo/labrute/compare/labrute-v2.17.1...labrute-v2.17.2) (2023-03-31)
 
 
