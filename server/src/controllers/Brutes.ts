@@ -320,6 +320,7 @@ const Brutes = {
         data: {
           ...updatedBruteData,
           destinyPath: { push: req.body.choice },
+          xp: { decrement: getXPNeeded(brute.level + 1) },
         },
       });
 
