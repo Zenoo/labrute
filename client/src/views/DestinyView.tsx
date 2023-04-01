@@ -168,6 +168,7 @@ const DestinyView = () => {
     <Page title={`${t('MyBrute')}. ${t('destinyOf')} ${brute.name || ''}`} headerUrl={`/${brute.name}/cell`}>
       <Paper sx={{
         mt: 3,
+        p: 0,
         bgcolor: 'background.paperLight',
         '& .react-transform-wrapper': {
           maxWidth: 1,
