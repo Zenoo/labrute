@@ -27,7 +27,7 @@ const VersusMobileView = ({
       sx={{ textAlign: 'center' }}
     >
       <Paper sx={{ mb: 3 }}>
-        <Text h3 smallCaps bold color="text.primary">{t('dareChallenge')} {opponent.name} !</Text>
+        <Text h3 smallCaps bold color="text.primary">{t('dareChallenge', { value: opponent.name })}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight' }}>
         <StyledButton
