@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.18.0](https://github.com/Zenoo/labrute/compare/labrute-v2.17.3...labrute-v2.18.0) (2023-04-06)
+
+
+### Features
+
+* Display fights left in the user menu. FIxes [#185](https://github.com/Zenoo/labrute/issues/185) ([70ad1f0](https://github.com/Zenoo/labrute/commit/70ad1f014e9677566144765a60ecdbe2133ce7ea))
+* Tournament history view. Fixes [#122](https://github.com/Zenoo/labrute/issues/122) ([cf370cc](https://github.com/Zenoo/labrute/commit/cf370cc6cc49651475f9e1ed38c28a410b8fb69e))
+
+
+### Bug Fixes
+
+* Add icons to global tournament. Fixes [#105](https://github.com/Zenoo/labrute/issues/105) ([995d8cc](https://github.com/Zenoo/labrute/commit/995d8cc53be77cf34d107868442af05a81fd05cf))
+* Dynamics height on logs. Fixes [#171](https://github.com/Zenoo/labrute/issues/171) ([1590bbd](https://github.com/Zenoo/labrute/commit/1590bbdebe4eab667dc2633b758dea047f49f528))
+* Hide eaten pets in fights and disable eating twice the same pet. Fixes [#179](https://github.com/Zenoo/labrute/issues/179) ([f556bc6](https://github.com/Zenoo/labrute/commit/f556bc624f2294b0c430041396bf04c2520ba44f))
+* Hide tournament registration until the daily tournament was watched. Fixes [#180](https://github.com/Zenoo/labrute/issues/180) ([4eccf11](https://github.com/Zenoo/labrute/commit/4eccf1171b9f095b84d0ef27f4c27349ab4d959e))
+* Reset fights left on rank up. Fixes [#184](https://github.com/Zenoo/labrute/issues/184) ([24f4911](https://github.com/Zenoo/labrute/commit/24f4911b55c2f214efd67b3de9a33c56fadbe178))
+* Target pets first with the net. Fixes [#17](https://github.com/Zenoo/labrute/issues/17) ([cfbb1a8](https://github.com/Zenoo/labrute/commit/cfbb1a84315ed8c77f63619390cc484f48215301))
+* Trapped pet are not targetable anymore. Fixes [#16](https://github.com/Zenoo/labrute/issues/16) ([7e13081](https://github.com/Zenoo/labrute/commit/7e130814e948d40e7665b956580407682695cbba))
+
 ## [2.17.3](https://github.com/Zenoo/labrute/compare/labrute-v2.17.2...labrute-v2.17.3) (2023-04-01)
 
 
