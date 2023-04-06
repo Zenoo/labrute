@@ -1,7 +1,7 @@
 /* eslint-disable no-void */
 import { EatStep } from '@labrute/core';
 import { OutlineFilter } from '@pixi/filter-outline';
-import { Tweener } from 'pixi-tweener';
+import { Easing, Tweener } from 'pixi-tweener';
 import { AnimatedSprite, Application, Text } from 'pixi.js';
 import changeAnimation from './changeAnimation';
 
@@ -20,8 +20,23 @@ const eat = async (
     throw new Error('Brute not found');
   }
 
-  // Set animation to `eat`
+  const pet = findFighter(fighters, step.target);
+  if (!pet) {
+    throw new Error('Pet not found');
+  }
+
+  // Set brute animation to `eat`
   changeAnimation(app, brute, 'eat', speed);
+
+  // Resize pet to 0 in 0.5s
+  Tweener.add({
+    target: pet.currentAnimation,
+    duration: 0.5 / speed.current,
+    ease: Easing.linear
+  }, {
+    height: 0,
+    width: 0,
+  }).catch(console.error);
 
   // Play eat SFX
   void sound.play('skills/tamer', {

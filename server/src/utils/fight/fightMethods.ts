@@ -493,8 +493,8 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
       break;
     }
     case 'tamer': {
-      // Get dead pets
-      const deadPets = fightData.fighters.filter((f) => f.type === 'pet' && f.hp <= 0);
+      // Get non eaten dead pets
+      const deadPets = fightData.fighters.filter((f) => f.type === 'pet' && f.hp <= 0 && !f.eaten);
 
       // Abort if less than 20 HP lost or if no pet is dead
       if (fighter.hp > fighter.maxHp - 20 || !deadPets.length) return false;
@@ -533,6 +533,9 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
 
       // Increase own initiative
       fighter.initiative += 0.15;
+
+      // Set pet as eaten
+      pet.eaten = true;
 
       // Add moveTo step
       fightData.steps.push({

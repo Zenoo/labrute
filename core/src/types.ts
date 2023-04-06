@@ -33,6 +33,8 @@ export interface DetailedFighter {
   master?: number;
   arrivesAtInitiative?: number;
   leavesAtInitiative?: number;
+  // Pet variables
+  eaten?: boolean;
   // Raw stats
   maxHp: number;
   hp: number,
