@@ -1,4 +1,4 @@
-import { Fighter, FullTournamentStep, GLOBAL_TOURNAMENT_START_HOUR, hexToRgba, TournamentsGetGlobalResponse } from '@labrute/core';
+import { Fighter, FullTournamentStep, GLOBAL_TOURNAMENT_START_HOUR, TournamentsGetGlobalResponse } from '@labrute/core';
 import { Close } from '@mui/icons-material';
 import { Box, Paper, PaperProps, useTheme } from '@mui/material';
 import moment from 'moment';
@@ -71,8 +71,8 @@ const CellGlobalTournament = ({
           justifyContent: 'center',
           bgcolor: bruteInFight
             ? won
-              ? hexToRgba(theme.palette.success.light, 0.2)
-              : hexToRgba(theme.palette.error.light, 0.2)
+              ? 'logs.success.light'
+              : 'logs.error.light'
             : 'background.paperDark',
           border: '1px solid',
           borderColor: theme.palette.border.shadow,
@@ -273,8 +273,8 @@ const CellGlobalTournament = ({
                   px: 0.5,
                   py: 0.25,
                   bgcolor: won
-                    ? hexToRgba(theme.palette.success.light, 0.2)
-                    : hexToRgba(theme.palette.error.light, 0.2),
+                    ? 'logs.success.light'
+                    : 'logs.error.light',
                   borderBottom: '1px solid',
                   borderBottomColor: theme.palette.border.shadow,
                   '&:last-child': {
@@ -289,7 +289,11 @@ const CellGlobalTournament = ({
                 >
                   {step.step + GLOBAL_TOURNAMENT_START_HOUR - 1}h
                 </Text>
-
+                <Box
+                  component="img"
+                  src={`/images/log/${won ? 'win' : 'lose'}.png`}
+                  sx={{ width: 20, height: 20, mr: 0.5 }}
+                />
                 <Text
                   bold
                   color={won ? 'success.main' : 'error'}
