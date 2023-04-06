@@ -4,6 +4,7 @@ import {
   BrutesGetRankingResponse,
   BruteWithBodyColors, createRandomBruteStats,
   DestinyBranch, ExpectedError, getFightsLeft, getLevelUpChoices,
+  getMaxFightsPerDay,
   getSacriPoints, getXPNeeded, updateBruteData,
 } from '@labrute/core';
 import {
@@ -831,6 +832,8 @@ const Brutes = {
           canRankUpSince: null,
           // Reset destiny
           destinyPath: [],
+          // Reset fights left
+          fightsLeft: getMaxFightsPerDay(brute),
         },
       });
 
