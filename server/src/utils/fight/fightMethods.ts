@@ -72,7 +72,11 @@ export const getOpponents = (fightData: DetailedFight['data'], fighter: Detailed
 };
 
 const getRandomOpponent = (fightData: DetailedFight['data'], fighter: DetailedFighter, bruteOnly?: boolean) => {
-  const opponents = getOpponents(fightData, fighter, bruteOnly);
+  let opponents = getOpponents(fightData, fighter, bruteOnly);
+
+  // Filter out trapped pets
+  opponents = opponents.filter((f) => f.type !== 'pet' || !f.trapped);
+
   const random = randomBetween(0, opponents.length - 1);
 
   return opponents[random];
