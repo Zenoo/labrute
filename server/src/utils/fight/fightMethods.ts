@@ -47,7 +47,12 @@ export const orderFighters = (fightData: DetailedFight['data']) => {
   });
 };
 
-export const getOpponents = (fightData: DetailedFight['data'], fighter: DetailedFighter, bruteOnly?: boolean) => {
+export const getOpponents = (
+  fightData: DetailedFight['data'],
+  fighter: DetailedFighter,
+  bruteOnly?: boolean,
+  petOnly?: boolean,
+) => {
   let opponents = [];
 
   // Remove backups not arrived yet and dead fighters
@@ -68,11 +73,15 @@ export const getOpponents = (fightData: DetailedFight['data'], fighter: Detailed
     opponents = opponents.filter((f) => f.type === 'brute');
   }
 
+  if (petOnly) {
+    opponents = opponents.filter((f) => f.type === 'pet');
+  }
+
   return opponents;
 };
 
-const getRandomOpponent = (fightData: DetailedFight['data'], fighter: DetailedFighter, bruteOnly?: boolean) => {
-  let opponents = getOpponents(fightData, fighter, bruteOnly);
+const getRandomOpponent = (fightData: DetailedFight['data'], fighter: DetailedFighter, bruteOnly?: boolean, petOnly?: boolean) => {
+  let opponents = getOpponents(fightData, fighter, bruteOnly, petOnly);
 
   // Filter out trapped pets
   opponents = opponents.filter((f) => f.type !== 'pet' || !f.trapped);
@@ -312,8 +321,13 @@ const activateSuper = (fightData: DetailedFight['data'], skill: Skill): boolean 
       break;
     }
     case 'net': {
-      // Choose opponent
-      const opponent = getRandomOpponent(fightData, fighter);
+      // Target pet first
+      let opponent = getRandomOpponent(fightData, fighter, false, true);
+
+      if (!opponent) {
+        // Choose brute opponent if no pet
+        opponent = getRandomOpponent(fightData, fighter, true);
+      }
 
       // Set opponent's trapped status
       opponent.trapped = true;
