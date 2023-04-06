@@ -27,6 +27,16 @@ interface TypeButton {
   shadow: TypeHover
 }
 
+interface TypeLog {
+  main: string;
+  light: string;
+}
+
+interface TypeLogs {
+  success: TypeLog
+  error: TypeLog
+}
+
 declare module '@mui/material/styles' {
   interface TypeBackground {
     light: string;
@@ -40,6 +50,7 @@ declare module '@mui/material/styles' {
     scrollbar?: TypeScrollbar,
     border: TypeBorder,
     button: TypeButton,
+    logs: TypeLogs,
     heat: (null | string)[],
     level: string,
     hpBar: {
@@ -52,6 +63,7 @@ declare module '@mui/material/styles' {
     scrollbar?: TypeScrollbar,
     border?: TypeBorder,
     button?: TypeButton,
+    logs?: TypeLogs,
     heat?: (null | string)[],
     level?: string,
     hpBar?: {
@@ -104,6 +116,17 @@ const button = {
     main: '#ce8b45',
     hover: '#be803f'
   }
+};
+
+const logs = {
+  success: {
+    main: '#a9d346',
+    light: '#c9e57f',
+  },
+  error: {
+    main: '#ff8889',
+    light: '#fea3a3',
+  },
 };
 
 const defaultTheme: ThemeOptions = {
@@ -170,7 +193,8 @@ const defaultTheme: ThemeOptions = {
       dark: '#ff7100',
     },
     border,
-    button
+    button,
+    logs,
   },
   typography,
   components: {
