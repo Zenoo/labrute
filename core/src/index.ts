@@ -128,3 +128,6 @@ export type TournamentsGetGlobalResponse = {
   nextOpponent: string | null,
 };
 export type BrutesGetDestinyResponse = DestinyBranch;
+export type BrutesGetFightsLeftResponse = {
+  fightsLeft: number,
+};

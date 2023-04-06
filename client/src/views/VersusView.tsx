@@ -11,8 +11,8 @@ import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import useStateAsync from '../hooks/useStateAsync';
-import catchError from '../utils/catchError';
 import Server from '../utils/Server';
+import catchError from '../utils/catchError';
 import VersusMobileView from './mobile/VersusMobileView';
 
 const VersusView = () => {
@@ -20,7 +20,7 @@ const VersusView = () => {
   const { bruteName, opponentName } = useParams();
   const navigate = useNavigate();
   const Alert = useAlert();
-  const { user } = useAuth();
+  const { user, updateData } = useAuth();
   const smallScreen = useMediaQuery('(max-width: 935px)');
 
   // Prevent multi click
@@ -68,10 +68,18 @@ const VersusView = () => {
 
     if (fight) {
       navigate(`/${brute.name}/fight/${fight.id}`);
+
+      // Update fights left
+      const { fightsLeft } = await Server.Brute.getFightsLeft(brute.name);
+
+      updateData((data) => (data ? ({
+        ...data,
+        brutes: data.brutes.map((b) => (b.name === brute.name ? { ...b, fightsLeft } : b)),
+      }) : null));
     }
 
     setFighting(false);
-  }, [Alert, brute, fighting, navigate, opponent]);
+  }, [Alert, brute, fighting, navigate, opponent, updateData]);
 
   if (brute && opponent && smallScreen) {
     return <VersusMobileView brute={brute} opponent={opponent} startFight={startFight} />;

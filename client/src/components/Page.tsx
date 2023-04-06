@@ -1,6 +1,6 @@
-import { Language, LANGUAGES } from '@labrute/core';
+import { getFightsLeft, Language, LANGUAGES } from '@labrute/core';
 import { AccountCircle, Add, AdminPanelSettings, Login, Logout } from '@mui/icons-material';
-import { Box, BoxProps, CircularProgress, Link, SpeedDial, SpeedDialAction, Tooltip } from '@mui/material';
+import { Badge, Box, BoxProps, CircularProgress, Link, SpeedDial, SpeedDialAction, Tooltip } from '@mui/material';
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
@@ -134,7 +134,9 @@ const Page = ({
           <SpeedDialAction
             key={brute.name}
             icon={(
-              <BrutePortrait brute={brute} />
+              <Badge badgeContent={getFightsLeft(brute)} color="secondary">
+                <BrutePortrait brute={brute} sx={{ width: 40 }} />
+              </Badge>
             )}
             tooltipTitle={brute.name}
             tooltipOpen

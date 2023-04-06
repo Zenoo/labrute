@@ -1,8 +1,10 @@
 import {
-  ARENA_OPPONENTS_COUNT, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetForRankResponse,
+  ARENA_OPPONENTS_COUNT, BrutesExistsResponse, BrutesGetDestinyResponse,
+  BrutesGetFightsLeftResponse, BrutesGetForRankResponse,
   BrutesGetRankingResponse,
   BruteWithBodyColors, createRandomBruteStats,
-  DestinyBranch, ExpectedError, getLevelUpChoices, getSacriPoints, getXPNeeded, updateBruteData,
+  DestinyBranch, ExpectedError, getFightsLeft, getLevelUpChoices,
+  getSacriPoints, getXPNeeded, updateBruteData,
 } from '@labrute/core';
 import {
   DestinyChoiceSide, DestinyChoiceType, Gender, LogType, Prisma, PrismaClient,
@@ -932,6 +934,34 @@ const Brutes = {
       };
 
       res.send(destinyTree);
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  getFightsLeft: (prisma: PrismaClient) => async (
+    req: Request,
+    res: Response<BrutesGetFightsLeftResponse>,
+  ) => {
+    try {
+      const { params: { name } } = req;
+
+      if (!name) {
+        throw new ExpectedError('Missing name');
+      }
+
+      const brute = await prisma.brute.findFirst({
+        where: { name, deletedAt: null },
+      });
+
+      if (!brute) {
+        throw new ExpectedError('Brute not found');
+      }
+
+      const fightsLeft = getFightsLeft(brute);
+
+      res.send({
+        fightsLeft,
+      });
     } catch (error) {
       sendError(res, error);
     }
