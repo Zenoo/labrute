@@ -53,8 +53,8 @@ const CellTournament = ({
           </FantasyButton>
         </Link>
       )}
-      {/* NEXT TOURNAMENT */}
-      {!brute.canRankUpSince && (
+      {/* NEXT TOURNAMENT (Only displayed if you can't rank up and if you have watched your daily tournament) */}
+      {!brute.canRankUpSince && (!moment.utc(brute.canRankUpSince).isSame(moment.utc(), 'day') || brute.currentTournamentStepWatched === 6) && (
         <Paper
           sx={{
             bgcolor: 'background.paperDark',
