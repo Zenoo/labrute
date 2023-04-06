@@ -290,6 +290,7 @@
   "tournament": "Wettkampf",
   "tournamentOf": "Wettkampf von",
   "globalTournament": "Globaler Wettkampf",
+  "globalTournamentOf": "Globaler Wettkampf von",
   "automaticallyQualified": "Automatisch qualifiziert",
   "eliminatedBy": "Dein Brutalo wurde von {{value}} eliminiert. Was für eine Schande!",
   "nextOpponent": "Dein nächster Gegner ist",
@@ -381,5 +382,9 @@
   "disableSound": "Sound deaktivieren",
   "enableSound": "Sound aktivieren",
   "disableBackgroundMusic": "Hintergrundmusik deaktivieren",
-  "enableBackgroundMusic": "Hintergrundmusik aktivieren"
+  "enableBackgroundMusic": "Hintergrundmusik aktivieren",
+  "tournaments": "Turniere",
+  "tournamentHistory": "Turnierhistorie",
+  "date": "Datum",
+  "dailyTournament": "Tägliches Turnier"
 }

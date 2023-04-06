@@ -1,5 +1,5 @@
 import { BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetForRankResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, BruteWithBodyColors, FullTournament, TournamentsGetGlobalResponse, UserWithBrutesBodyColor } from '@labrute/core';
-import { Brute, DestinyChoice, DestinyChoiceSide, Fight, Gender, Log, Prisma, User } from '@labrute/prisma';
+import { Brute, DestinyChoice, DestinyChoiceSide, Fight, Gender, Log, Prisma, Tournament, User } from '@labrute/prisma';
 import Fetch from './Fetch';
 
 const Server = {
@@ -72,6 +72,7 @@ const Server = {
     }: { name: string, date: string }) => Fetch<TournamentsGetGlobalResponse>(`/api/tournament/global/${name}/${date}`),
     deleteDaily: () => Fetch<never>('/api/tournament/daily', {}, 'DELETE'),
     deleteGlobal: () => Fetch<never>('/api/tournament/global', {}, 'DELETE'),
+    getHistory: (name: string) => Fetch<Tournament[]>(`/api/tournament/${name}/history`),
   },
   Spritesheet: {
     regenerate: () => Fetch<never>('/api/spritesheet/regenerate'),

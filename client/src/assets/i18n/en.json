@@ -290,6 +290,7 @@
   "tournament": "Tournament",
   "tournamentOf": "Tournament of",
   "globalTournament": "Global tournament",
+  "globalTournamentOf": "Global tournament of",
   "automaticallyQualified": "Qualified ex-officio",
   "eliminatedBy": "Your brute was eliminated by {{value}}. How humiliating!",
   "nextOpponent": "Your next opponent is",
@@ -381,5 +382,9 @@
   "disableSound": "Disable sound",
   "enableSound": "Enable sound",
   "disableBackgroundMusic": "Disable background music",
-  "enableBackgroundMusic": "Enable background music"
+  "enableBackgroundMusic": "Enable background music",
+  "tournaments": "Tournaments",
+  "tournamentHistory": "Tournament history",
+  "date": "Date",
+  "dailyTournament": "Daily tournament"
 }

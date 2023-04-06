@@ -12,6 +12,8 @@ import LevelUpView from './views/LevelUpView';
 import RankingView from './views/RankingView';
 import TournamentView from './views/TournamentView';
 import VersusView from './views/VersusView';
+import TournamentHistoryView from './views/TournamentHistoryView';
+import GlobalTournamentView from './views/GlobalTournamentView';
 
 const routes = [
   { path: 'anchor-test', element: <AnchorTestView /> },
@@ -36,10 +38,12 @@ const routes = [
           { path: 'arena', element: <ArenaView /> },
           { path: 'versus/:opponentName', element: <VersusView /> },
           { path: 'fight/:fightId', element: <FightView /> },
+          { path: 'tournament/global/:date', element: <GlobalTournamentView /> },
           { path: 'tournament/:date', element: <TournamentView /> },
           { path: 'ranking', element: <RankingView /> },
           { path: 'ranking/:rank', element: <RankingView /> },
           { path: 'destiny', element: <DestinyView /> },
+          { path: 'tournaments', element: <TournamentHistoryView /> },
         ],
       },
     ],

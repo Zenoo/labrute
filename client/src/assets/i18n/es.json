@@ -290,6 +290,7 @@
   "tournament": "Torneo",
   "tournamentOf": "Torneo de",
   "globalTournament": "Torneo global",
+  "globalTournamentOf": "Torneo global de",
   "automaticallyQualified": "Clasificado automáticamente",
   "eliminatedBy": "Tu Bruto ha sido eliminado por {{value}}. ¡Qué humillación!",
   "nextOpponent": "Tu próximo oponente es",
@@ -381,5 +382,9 @@
   "disableSound": "Desactivar sonido",
   "enableSound": "Activar sonido",
   "disableBackgroundMusic": "Desactivar música de fondo",
-  "enableBackgroundMusic": "Activar música de fondo"
+  "enableBackgroundMusic": "Activar música de fondo",
+  "tournaments": "Torneos",
+  "tournamentHistory": "Historial de torneos",
+  "date": "Fecha",
+  "dailyTournament": "Torneo diario"
 }

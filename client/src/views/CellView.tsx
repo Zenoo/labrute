@@ -22,6 +22,8 @@ import useStateAsync from '../hooks/useStateAsync';
 import { getRandomAd } from '../utils/ads';
 import Server from '../utils/Server';
 import CellMobileView from './mobile/CellMobileView';
+import FantasyButton from '../components/FantasyButton';
+import { History } from '@mui/icons-material';
 
 /**
  * CellView component
@@ -183,6 +185,14 @@ const CellView = () => {
               {/* LOGS */}
               <Box sx={{ ml: 2, mt: 1 }}>
                 {logs.map((log) => <CellLog key={log.id} log={log} />)}
+              </Box>
+              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <Link to={`/${brute.name}/tournaments`}>
+                  <FantasyButton color="secondary" sx={{ m: 1 }}>
+                    <History sx={{ verticalAlign: 'middle', mr: 1 }} />
+                    {t('tournaments')}
+                  </FantasyButton>
+                </Link>
               </Box>
             </Box>
           </Box>

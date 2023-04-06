@@ -290,6 +290,7 @@
   "tournament": "Tournoi",
   "tournamentOf": "Tournoi du",
   "globalTournament": "Tournoi global",
+  "globalTournamentOf": "Tournoi global du",
   "automaticallyQualified": "Qualifié d'office",
   "eliminatedBy": "Ta brute a été éliminée par {{value}}. Quelle humiliation !",
   "nextOpponent": "Ton prochain adversaire est",
@@ -380,5 +381,9 @@
   "disableSound": "Désactiver le son",
   "enableSound": "Activer le son",
   "disableBackgroundMusic": "Désactiver la musique de fond",
-  "enableBackgroundMusic": "Activer la musique de fond"
+  "enableBackgroundMusic": "Activer la musique de fond",
+  "tournaments": "Tournois",
+  "tournamentHistory": "Historique des tournois",
+  "date": "Date",
+  "dailyTournament": "Tournoi quotidien"
 }

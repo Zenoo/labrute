@@ -238,6 +238,8 @@ const Tournaments = {
         throw new Error('Invalid parameters');
       }
 
+      const date = moment.utc(req.params.date, 'YYYY-MM-DD');
+
       // Get brute
       const brute = await prisma.brute.findFirst({
         where: {
@@ -257,7 +259,7 @@ const Tournaments = {
       // Get tournament
       const tournament = await prisma.tournament.findFirst({
         where: {
-          date: { equals: moment.utc(req.params.date, 'YYYY-MM-DD').toDate() },
+          date: { equals: date.toDate() },
           type: TournamentType.GLOBAL,
           participants: {
             some: {
@@ -290,7 +292,8 @@ const Tournaments = {
         where: {
           tournamentId: tournament.id,
           step: {
-            lte: Math.min(hour - GLOBAL_TOURNAMENT_START_HOUR + 1, maxStep - 3),
+            // Only limit if same day
+            lte: now.isSame(date, 'day') ? hour - GLOBAL_TOURNAMENT_START_HOUR + 1 : undefined,
           },
           fight: {
             OR: [
@@ -328,7 +331,8 @@ const Tournaments = {
           tournamentId: tournament.id,
           step: {
             gte: maxStep - 2,
-            lte: hour - GLOBAL_TOURNAMENT_START_HOUR + 1,
+            // Only limit if same day
+            lte: now.isSame(date, 'day') ? hour - GLOBAL_TOURNAMENT_START_HOUR + 1 : undefined,
           },
         },
         orderBy: {
@@ -355,33 +359,37 @@ const Tournaments = {
       });
 
       // Check if current time has reached the end of the tournament
-      const tournamentEnded = hour >= GLOBAL_TOURNAMENT_START_HOUR - 1 + maxStep;
+      const tournamentEnded = !now.isSame(date, 'day')
+        || hour >= GLOBAL_TOURNAMENT_START_HOUR - 1 + maxStep;
 
       // Get next opponent if exists
-      const nextFight = await prisma.tournamentStep.findFirst({
-        where: {
-          tournamentId: tournament.id,
-          step: hour - GLOBAL_TOURNAMENT_START_HOUR + 2,
-          fight: {
-            OR: [
-              { brute1Id: brute.id },
-              { brute2Id: brute.id },
-            ],
+      let nextFight;
+      if (!tournamentEnded) {
+        nextFight = await prisma.tournamentStep.findFirst({
+          where: {
+            tournamentId: tournament.id,
+            step: hour - GLOBAL_TOURNAMENT_START_HOUR + 2,
+            fight: {
+              OR: [
+                { brute1Id: brute.id },
+                { brute2Id: brute.id },
+              ],
+            },
           },
-        },
-        include: {
-          fight: {
-            include: {
-              brute1: {
-                select: { name: true },
-              },
-              brute2: {
-                select: { name: true },
+          include: {
+            fight: {
+              include: {
+                brute1: {
+                  select: { name: true },
+                },
+                brute2: {
+                  select: { name: true },
+                },
               },
             },
           },
-        },
-      });
+        });
+      }
 
       res.send({
         tournament: {
@@ -509,6 +517,46 @@ const Tournaments = {
       });
 
       res.send({ success: true });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  getHistory: (prisma: PrismaClient) => async (req: Request, res: Response) => {
+    try {
+      const user = await auth(prisma, req);
+
+      if (!req.params.name) {
+        throw new ExpectedError('Invalid parameters');
+      }
+
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name: req.params.name,
+          deletedAt: null,
+          userId: user.id,
+        },
+        select: { id: true },
+      });
+
+      if (!brute) {
+        throw new ExpectedError('Brute not found');
+      }
+
+      const tournaments = await prisma.tournament.findMany({
+        where: {
+          participants: {
+            some: {
+              id: brute.id,
+            },
+          },
+        },
+        orderBy: {
+          date: 'desc',
+        },
+        take: 100,
+      });
+
+      res.send(tournaments);
     } catch (error) {
       sendError(res, error);
     }

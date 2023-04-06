@@ -11,42 +11,50 @@ import BruteTooltip from '../Brute/BruteTooltip';
 import Link from '../Link';
 import Text from '../Text';
 
+interface CellGlobalTournamentProps extends PaperProps {
+  date?: moment.Moment;
+  name?: string;
+}
+
 const CellGlobalTournament = ({
   sx,
+  date,
+  name,
   ...rest
-}: PaperProps) => {
+}: CellGlobalTournamentProps) => {
   const { t } = useTranslation();
   const { brute } = useBrute();
   const theme = useTheme();
 
   const now = useMemo(() => moment.utc(), []);
+  const bruteName = useMemo(() => name || brute?.name || '', [brute, name]);
 
   const [data, setData] = useState<TournamentsGetGlobalResponse | null>(null);
 
   // Get data
   useEffect(() => {
-    Server.Tournament.getGlobal({ name: brute?.name || '', date: now.format('YYYY-MM-DD') }).then(setData).catch(() => {
+    Server.Tournament.getGlobal({ name: bruteName, date: (date || now).format('YYYY-MM-DD') }).then(setData).catch(() => {
       setData(null);
     });
-  }, [brute, now]);
+  }, [bruteName, date, now]);
 
   const lostRound = useMemo(
-    () => (brute && data
-      ? data.tournament.steps.find((step) => step.fight.winner !== brute.name)
-      || data.lastRounds.find((step) => (step.fight.brute1.name === brute.name
-        || step.fight.brute2.name === brute.name)
-        && step.fight.winner !== brute.name)
+    () => (bruteName && data
+      ? data.tournament.steps.find((step) => step.fight.winner !== bruteName)
+      || data.lastRounds.find((step) => (step.fight.brute1.name === bruteName
+        || step.fight.brute2.name === bruteName)
+        && step.fight.winner !== bruteName)
       : null),
-    [brute, data],
+    [bruteName, data],
   );
 
   // Last fights renderer
   const renderFight = (step: FullTournamentStep, finals = false) => {
-    if (!brute) return null;
+    if (!bruteName) return null;
 
-    const bruteInFight = step.fight.brute1.name === brute.name
-      || step.fight.brute2.name === brute.name;
-    const won = bruteInFight && step.fight.winner === brute.name;
+    const bruteInFight = step.fight.brute1.name === bruteName
+      || step.fight.brute2.name === bruteName;
+    const won = bruteInFight && step.fight.winner === bruteName;
 
     const fighter1 = (step.fight.fighters as unknown as Fighter[])
       .find((fighter) => fighter.type === 'brute' && fighter.name === step.fight.brute1.name);
@@ -131,7 +139,7 @@ const CellGlobalTournament = ({
   };
 
   // Lost trash talk
-  const renderLostMarker = () => brute && lostRound && (
+  const renderLostMarker = () => bruteName && lostRound && (
     <Box sx={{
       display: 'flex',
       px: 0.5,
@@ -145,7 +153,7 @@ const CellGlobalTournament = ({
     >
       <Text bold color="text.disabled">
         {t('eliminatedBy', {
-          value: brute.name === lostRound.fight.brute1.name
+          value: bruteName === lostRound.fight.brute1.name
             ? lostRound.fight.brute2.name
             : lostRound.fight.brute1.name
         })}
@@ -154,7 +162,7 @@ const CellGlobalTournament = ({
   );
 
   // Next opponent
-  const renderNextOpponent = () => brute && data?.nextOpponent && (
+  const renderNextOpponent = () => bruteName && data?.nextOpponent && (
     <Box sx={{
       display: 'flex',
       px: 0.5,
@@ -176,7 +184,7 @@ const CellGlobalTournament = ({
     </Box>
   );
 
-  return brute && data && (
+  return bruteName ? data && (
     <Paper
       sx={{
         bgcolor: 'background.paperDark',
@@ -188,7 +196,7 @@ const CellGlobalTournament = ({
       {...rest}
     >
       <Text bold h6>{t('globalTournament')}</Text>
-      <Text>{now.format('DD MMMM YYYY')}</Text>
+      <Text>{(date || now).format('DD MMMM YYYY')}</Text>
       <Box sx={{
         mt: 1,
         bgcolor: 'background.paperLight',
@@ -205,7 +213,7 @@ const CellGlobalTournament = ({
           if (!step) {
             // Check if brute lost a fight before
             const lost = data.tournament.steps
-              .some((s) => s.step < i + 1 && s.fight.winner !== brute.name);
+              .some((s) => s.step < i + 1 && s.fight.winner !== bruteName);
 
             if (lost) {
               return null;
@@ -214,7 +222,7 @@ const CellGlobalTournament = ({
             // Check if round hour is passed
             const roundHour = GLOBAL_TOURNAMENT_START_HOUR + i;
 
-            if (now.hour() < roundHour) {
+            if (date?.isSame(now, 'day') && now.hour() < roundHour) {
               return null;
             }
 
@@ -239,8 +247,8 @@ const CellGlobalTournament = ({
             );
           }
 
-          const won = step.fight.winner === brute.name;
-          const opponent = brute.name === step.fight.brute1.name
+          const won = step.fight.winner === bruteName;
+          const opponent = bruteName === step.fight.brute1.name
             ? step.fight.brute2.name
             : step.fight.brute1.name;
 
@@ -252,14 +260,14 @@ const CellGlobalTournament = ({
           // Normal fight
           return (
             <BruteTooltip
-              fighter={brute.name === step.fight.brute1.name ? fighter2 : fighter1}
-              brute={brute.name === step.fight.brute1.name
+              fighter={bruteName === step.fight.brute1.name ? fighter2 : fighter1}
+              brute={bruteName === step.fight.brute1.name
                 ? step.fight.brute2
                 : step.fight.brute1}
               key={step.id}
             >
               <Link
-                to={`/${brute.name}/fight/${step.fightId}`}
+                to={`/${bruteName}/fight/${step.fightId}`}
                 sx={{
                   display: 'flex',
                   px: 0.5,
@@ -393,7 +401,7 @@ const CellGlobalTournament = ({
         )}
       </Box>
     </Paper>
-  );
+  ) : null;
 };
 
 export default CellGlobalTournament;
