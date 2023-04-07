@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.18.4](https://github.com/Zenoo/labrute/compare/labrute-v2.18.3...labrute-v2.18.4) (2023-04-07)
+
+
+### Bug Fixes
+
+* Tournament registration was not hidden properly ([dd2c473](https://github.com/Zenoo/labrute/commit/dd2c473541461748c2cea21fecaeffcffb65b396))
+* Wrong color for some logs ([0602b48](https://github.com/Zenoo/labrute/commit/0602b48578d6d1b4727b1719ec840615cef464c9))
+
 ## [2.18.3](https://github.com/Zenoo/labrute/compare/labrute-v2.18.2...labrute-v2.18.3) (2023-04-07)
 
 
