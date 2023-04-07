@@ -54,38 +54,40 @@ const CellTournament = ({
         </Link>
       )}
       {/* NEXT TOURNAMENT (Only displayed if you can't rank up and if you have watched your daily tournament) */}
-      {!brute.canRankUpSince && (!moment.utc(brute.canRankUpSince).isSame(moment.utc(), 'day') || brute.currentTournamentStepWatched === 6) && (
-        <Paper
-          sx={{
-            bgcolor: 'background.paperDark',
-            textAlign: 'center',
-            p: 1,
-            ...sx
-          }}
-          {...rest}
-        >
-          <Text bold h6>{t('tournamentOf')} {tomorrow.format('DD MMMM YYYY')}</Text>
-          {(brute.registeredForTournament) ? (
-            <Text>{t('bruteRegistered')}</Text>
-          ) : (
-            <Text>{t(owner ? 'youCanRegisterYourBrute' : 'bruteNotRegistered')}</Text>
-          )}
-          {owner && !brute.registeredForTournament && (
-            <StyledButton
-              sx={{
-                height: 72,
-                width: 216,
-                mx: 'auto',
-              }}
-              image={`/images/${language}/cell/tournament.gif`}
-              imageHover={`/images/${language}/cell/tournament-hover.gif`}
-              shadow={false}
-              contrast={false}
-              onClick={registerBrute}
-            />
-          )}
-        </Paper>
-      )}
+      {!brute.canRankUpSince
+        && (!moment.utc(brute.currentTournamentDate).isSame(moment.utc(), 'day') || brute.currentTournamentStepWatched === 6)
+        && (
+          <Paper
+            sx={{
+              bgcolor: 'background.paperDark',
+              textAlign: 'center',
+              p: 1,
+              ...sx
+            }}
+            {...rest}
+          >
+            <Text bold h6>{t('tournamentOf')} {tomorrow.format('DD MMMM YYYY')}</Text>
+            {(brute.registeredForTournament) ? (
+              <Text>{t('bruteRegistered')}</Text>
+            ) : (
+              <Text>{t(owner ? 'youCanRegisterYourBrute' : 'bruteNotRegistered')}</Text>
+            )}
+            {owner && !brute.registeredForTournament && (
+              <StyledButton
+                sx={{
+                  height: 72,
+                  width: 216,
+                  mx: 'auto',
+                }}
+                image={`/images/${language}/cell/tournament.gif`}
+                imageHover={`/images/${language}/cell/tournament-hover.gif`}
+                shadow={false}
+                contrast={false}
+                onClick={registerBrute}
+              />
+            )}
+          </Paper>
+        )}
     </>
   );
 };
