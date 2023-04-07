@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.18.2](https://github.com/Zenoo/labrute/compare/labrute-v2.18.1...labrute-v2.18.2) (2023-04-07)
+
+
+### Bug Fixes
+
+* New login button on the homepage. Fixes [#187](https://github.com/Zenoo/labrute/issues/187) ([a29399d](https://github.com/Zenoo/labrute/commit/a29399dc123b93dbc9446e8504b00a3f87396855))
+* New weapon tooltip. Fixes [#188](https://github.com/Zenoo/labrute/issues/188) ([aa7de4c](https://github.com/Zenoo/labrute/commit/aa7de4c448e766d15278479f610457304b390857))
+
 ## [2.18.1](https://github.com/Zenoo/labrute/compare/labrute-v2.18.0...labrute-v2.18.1) (2023-04-07)
 
 
