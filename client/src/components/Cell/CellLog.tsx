@@ -13,6 +13,8 @@ export interface CellLogProps extends PaperProps {
   }
 }
 
+const negativeLogs: LogType[] = [LogType.lose, LogType.tournament];
+
 const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
   const { t } = useTranslation();
 
@@ -42,7 +44,7 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          bgcolor: log.type === LogType.lose ? 'logs.error.light' : 'logs.success.light',
+          bgcolor: negativeLogs.includes(log.type) ? 'logs.error.light' : 'logs.success.light',
         }}
       >
         <Box
@@ -59,7 +61,7 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
       <Box
         sx={{
           p: 0.5,
-          bgcolor: log.type === LogType.lose ? 'logs.error.main' : 'logs.success.main',
+          bgcolor: negativeLogs.includes(log.type) ? 'logs.error.main' : 'logs.success.main',
           flexGrow: 1,
         }}
       >
@@ -79,14 +81,14 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
                   },
                 }}
               >
-                <Text bold color={log.type === LogType.lose ? 'error.main' : 'success.main'} sx={{ lineHeight: '13px' }}>
+                <Text bold color={negativeLogs.includes(log.type) ? 'error.main' : 'success.main'} sx={{ lineHeight: '13px' }}>
                   {t(`log.${log.type}`, { value: log.brute })}
                 </Text>
               </Link>
             </Tooltip>
           )
           : (
-            <Text bold color={log.type === LogType.tournament ? 'error.main' : 'success.main'} sx={{ lineHeight: '13px' }}>
+            <Text bold color={negativeLogs.includes(log.type) ? 'error.main' : 'success.main'} sx={{ lineHeight: '13px' }}>
               {log.type === LogType.lvl
                 ? `${t('log.lvl')} ${t(`lvl_${log.level as 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11}`)}.`
                 : log.type === LogType.tournament
@@ -96,7 +98,7 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
           )}
         {!!log.xp && (
           <Text
-            color={log.type === 'lose' ? 'error.main' : 'success.main'}
+            color={negativeLogs.includes(log.type) ? 'error.main' : 'success.main'}
             sx={{
               fontSize: 10,
             }}
