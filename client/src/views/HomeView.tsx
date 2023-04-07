@@ -20,6 +20,7 @@ import catchError from '../utils/catchError';
 import Fetch from '../utils/Fetch';
 import Server from '../utils/Server';
 import HomeMobileView from './mobile/HomeMobileView';
+import FantasyButton from '../components/FantasyButton';
 
 /**
  * HomeView component
@@ -179,6 +180,13 @@ const HomeView = () => {
     }
   }, [Alert, bodyColors, bodyParts, gender, name, navigate, t, updateData, user]);
 
+  // Login
+  const login = useCallback(() => {
+    Fetch<{ url: string }>('/api/oauth/redirect').then(({ url }) => {
+      window.location.href = url;
+    }).catch(catchError(Alert));
+  }, [Alert]);
+
   return smallScreen
     ? (
       <HomeMobileView
@@ -268,13 +276,23 @@ const HomeView = () => {
               <Box sx={{ textAlign: 'center' }}>
                 <StyledButton onClick={createBrute}>{t('validate')}</StyledButton>
               </Box>
-              {/* VISUAL NOISE */}
-              <Box
-                component="img"
-                src="/images/creation/scratches.png"
-                alt="Scratch"
-                sx={{ ml: 6 }}
-              />
+              {(user || authing) ? (
+                // Visual noise
+                <Box
+                  component="img"
+                  src="/images/creation/scratches.png"
+                  alt="Scratch"
+                  sx={{ ml: 6 }}
+                />
+              ) : (
+                <FantasyButton
+                  color="success"
+                  onClick={login}
+                  sx={{ mt: 2 }}
+                >
+                  {t('connect')}
+                </FantasyButton>
+              )}
             </Box>
           </BoxBg>
           {/* RIGHT SIDE */}
