@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.18.5](https://github.com/Zenoo/labrute/compare/labrute-v2.18.4...labrute-v2.18.5) (2023-04-07)
+
+
+### Bug Fixes
+
+* Allow access to the tournament history to everyone ([664a531](https://github.com/Zenoo/labrute/commit/664a5313892578732d8c7f68e032145585b70e33))
+
 ## [2.18.4](https://github.com/Zenoo/labrute/compare/labrute-v2.18.3...labrute-v2.18.4) (2023-04-07)
 
 
