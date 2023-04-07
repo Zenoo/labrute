@@ -35,7 +35,7 @@ const VersusView = () => {
   const opponent = _opponent as BruteWithBodyColors;
 
   const xpNeededForNextLevel = useMemo(() => brute
-  && getXPNeeded(brute.level + 1), [brute]);
+    && getXPNeeded(brute.level + 1), [brute]);
 
   // Redirect if invalid params
   useEffect(() => {
@@ -74,7 +74,11 @@ const VersusView = () => {
 
       updateData((data) => (data ? ({
         ...data,
-        brutes: data.brutes.map((b) => (b.name === brute.name ? { ...b, fightsLeft } : b)),
+        brutes: data.brutes.map((b) => (b.name === brute.name ? {
+          ...b,
+          fightsLeft,
+          lastFight: new Date(),
+        } : b)),
       }) : null));
     }
 
