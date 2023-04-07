@@ -523,8 +523,6 @@ const Tournaments = {
   },
   getHistory: (prisma: PrismaClient) => async (req: Request, res: Response) => {
     try {
-      const user = await auth(prisma, req);
-
       if (!req.params.name) {
         throw new ExpectedError('Invalid parameters');
       }
@@ -533,7 +531,6 @@ const Tournaments = {
         where: {
           name: req.params.name,
           deletedAt: null,
-          userId: user.id,
         },
         select: { id: true },
       });
