@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.18.3](https://github.com/Zenoo/labrute/compare/labrute-v2.18.2...labrute-v2.18.3) (2023-04-07)
+
+
+### Bug Fixes
+
+* Counter of fights left not counting down ([185e4d1](https://github.com/Zenoo/labrute/commit/185e4d1fc5bb685ee53980a7e5aef41041a2db12))
+
 ## [2.18.2](https://github.com/Zenoo/labrute/compare/labrute-v2.18.1...labrute-v2.18.2) (2023-04-07)
 
 
