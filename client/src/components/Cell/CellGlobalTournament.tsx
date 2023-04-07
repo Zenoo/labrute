@@ -222,7 +222,7 @@ const CellGlobalTournament = ({
             // Check if round hour is passed
             const roundHour = GLOBAL_TOURNAMENT_START_HOUR + i;
 
-            if (date?.isSame(now, 'day') && now.hour() < roundHour) {
+            if ((!date || date.isSame(now, 'day')) && now.hour() < roundHour) {
               return null;
             }
 
