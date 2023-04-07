@@ -5,6 +5,18 @@
 
 @font-face {
   font-family: Poplar;
-  src:  url(./assets/fonts/PoplarStd.ttf) format("ttf"),
-        url(./assets/fonts/PoplarStd.woff) format("woff");
+  src: url(./assets/fonts/PoplarStd.ttf) format("ttf"),
+    url(./assets/fonts/PoplarStd.woff) format("woff");
+}
+
+@font-face {
+  font-family: Poplar;
+  src: url(./assets/fonts/PoplarStd.ttf) format("ttf"),
+    url(./assets/fonts/PoplarStd.woff) format("woff");
+}
+
+@font-face {
+  font-family: "Blocky";
+  src: url(./assets/fonts/Blocky.ttf) format("ttf"),
+    url(./assets/fonts/Blocky.woff) format("woff");
 }

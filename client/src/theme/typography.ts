@@ -43,6 +43,10 @@ const defaultTypography = {
   Poplar: {
     fontFamily: 'Poplar',
   },
+  Blocky: {
+    fontFamily: 'Blocky',
+    fontSize: 11,
+  },
 };
 
 export default defaultTypography;

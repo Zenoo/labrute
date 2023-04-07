@@ -113,3 +113,13 @@ export const PERK_ODDS: Perk[] = [
   { name: 'skill', odds: SKILLS_TOTAL_ODDS },
   { name: 'weapon', odds: WEAPONS_TOTAL_ODDS },
 ];
+
+export const StatColor = {
+  counter: 'cyan',
+  evasion: 'green',
+  block: 'blue',
+  accuracy: 'yellow',
+  disarm: 'fuchsia',
+  combo: 'orange',
+  damage: 'red',
+} as const;
