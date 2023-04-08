@@ -226,7 +226,7 @@ const Brutes = {
         include: { body: true, colors: true },
       });
       if (!brute) {
-        throw new Error('Brute not found');
+        throw new ExpectedError('Brute not found');
       }
 
       const firstChoicePath = [...brute.destinyPath, DestinyChoiceSide.LEFT];
