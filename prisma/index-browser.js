@@ -284,7 +284,7 @@ exports.Prisma.UserScalarFieldEnum = makeEnum({
 exports.AchievementName = makeEnum({
   fightsWon: 'fightsWon',
   fightsLost: 'fightsLost',
-  saboteur: 'saboteur'
+  saboteurUsed: 'saboteurUsed'
 });
 
 exports.AchievementRarity = makeEnum({

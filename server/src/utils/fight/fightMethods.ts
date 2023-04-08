@@ -30,7 +30,7 @@ export const saboteur = (fightData: DetailedFight['data'], stats: AchievementsSt
         const sabotagedWeapon = opponent.weapons[randomBetween(0, opponent.weapons.length - 1)];
         opponent.sabotagedWeapon = sabotagedWeapon;
 
-        uppdateAchievement(stats, 'saboteur', 1, brute.id);
+        uppdateAchievement(stats, 'saboteurUsed', 1, brute.id);
       }
     }
   });

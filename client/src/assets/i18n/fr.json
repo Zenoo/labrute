@@ -386,5 +386,12 @@
   "tournamentHistory": "Historique des tournois",
   "date": "Date",
   "dailyTournament": "Tournoi quotidien",
-  "achievements": "Succès"
+  "achievements": "Succès",
+
+  "fightsWon": "Combats gagnés",
+  "fightsWon.description": "Nombre de combats gagnés.",
+  "fightsLost": "Combats perdus",
+  "fightsLost.description": "Nombre de combats perdus.",
+  "saboteurUsed": "Armes sabotées",
+  "saboteurUsed.description": "Nombre d'armes sabotées."
 }

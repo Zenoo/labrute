@@ -232,7 +232,7 @@ export type Achievement = {
 export const AchievementName: {
   fightsWon: 'fightsWon',
   fightsLost: 'fightsLost',
-  saboteur: 'saboteur'
+  saboteurUsed: 'saboteurUsed'
 };
 
 export type AchievementName = (typeof AchievementName)[keyof typeof AchievementName]

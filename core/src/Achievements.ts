@@ -12,13 +12,13 @@ export const RarityOrder = [
 export const AchievementRarities: Record<AchievementName, AchievementRarity> = {
   fightsWon: AchievementRarity.common,
   fightsLost: AchievementRarity.common,
-  saboteur: AchievementRarity.common,
+  saboteurUsed: AchievementRarity.common,
 };
 
 export const AchievementIllustrations: Record<AchievementName, string> = {
   fightsWon: '',
   fightsLost: '',
-  saboteur: '',
+  saboteurUsed: '',
 };
 
 export type AchievementsStore = {

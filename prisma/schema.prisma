@@ -345,7 +345,7 @@ enum AchievementRarity {
 enum AchievementName {
   fightsWon
   fightsLost
-  saboteur
+  saboteurUsed
 }
 
 model Achievement {
