@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.19.0](https://github.com/Zenoo/labrute/compare/labrute-v2.18.5...labrute-v2.19.0) (2023-04-08)
+
+
+### Features
+
+* Achievement system. [#21](https://github.com/Zenoo/labrute/issues/21) ([effa335](https://github.com/Zenoo/labrute/commit/effa33585ef5ab0aa8641d976b55649a07884f00))
+* Achievement system. Fixes [#21](https://github.com/Zenoo/labrute/issues/21) ([ed003e7](https://github.com/Zenoo/labrute/commit/ed003e75dfa534ed98059778aa9e539dd5df820a))
+
+
+### Bug Fixes
+
+* Achievement tooltip. [#21](https://github.com/Zenoo/labrute/issues/21) ([6f49b6d](https://github.com/Zenoo/labrute/commit/6f49b6dd4625800fb524a99bef81ba6382b8cbf1))
+* Suppress useless errors ([c425235](https://github.com/Zenoo/labrute/commit/c425235905005d5858577e33f926117d41f73f31))
+* Wrong fighter in poison step ([0cd7073](https://github.com/Zenoo/labrute/commit/0cd7073ad3809b2e3824c083f60c135c3fb5a181))
+
 ## [2.18.5](https://github.com/Zenoo/labrute/compare/labrute-v2.18.4...labrute-v2.18.5) (2023-04-07)
 
 
