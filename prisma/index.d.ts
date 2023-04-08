@@ -9,6 +9,8 @@ type UnwrapTuple<Tuple extends readonly unknown[]> = {
   [K in keyof Tuple]: K extends `${number}` ? Tuple[K] extends Prisma.PrismaPromise<infer X> ? X : UnwrapPromise<Tuple[K]> : UnwrapPromise<Tuple[K]>
 };
 
+export type PrismaPromise<T> = runtime.Types.Public.PrismaPromise<T>
+
 
 /**
  * Model User
@@ -206,6 +208,19 @@ export type TournamentStep = {
   xpDistributed: boolean
 }
 
+/**
+ * Model Achievement
+ * 
+ */
+export type Achievement = {
+  id: number
+  name: AchievementName
+  rarity: AchievementRarity
+  count: number
+  bruteId: number | null
+  userId: string | null
+}
+
 
 /**
  * Enums
@@ -213,6 +228,26 @@ export type TournamentStep = {
 
 // Based on
 // https://github.com/microsoft/TypeScript/issues/3192#issuecomment-261720275
+
+export const AchievementName: {
+  fightsWon: 'fightsWon',
+  fightsLost: 'fightsLost',
+  saboteur: 'saboteur'
+};
+
+export type AchievementName = (typeof AchievementName)[keyof typeof AchievementName]
+
+
+export const AchievementRarity: {
+  common: 'common',
+  uncommon: 'uncommon',
+  rare: 'rare',
+  epic: 'epic',
+  legendary: 'legendary'
+};
+
+export type AchievementRarity = (typeof AchievementRarity)[keyof typeof AchievementRarity]
+
 
 export const BruteStat: {
   endurance: 'endurance',
@@ -603,6 +638,16 @@ export class PrismaClient<
     * ```
     */
   get tournamentStep(): Prisma.TournamentStepDelegate<GlobalReject>;
+
+  /**
+   * `prisma.achievement`: Exposes CRUD operations for the **Achievement** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Achievements
+    * const achievements = await prisma.achievement.findMany()
+    * ```
+    */
+  get achievement(): Prisma.AchievementDelegate<GlobalReject>;
 }
 
 export namespace Prisma {
@@ -646,8 +691,8 @@ export namespace Prisma {
 
 
   /**
-   * Prisma Client JS version: 4.11.0
-   * Query Engine version: 8fde8fef4033376662cad983758335009d522acb
+   * Prisma Client JS version: 4.12.0
+   * Query Engine version: 659ef412370fa3b41cd7bf6e94587c1dfb7f67e7
    */
   export type PrismaVersion = {
     client: string
@@ -1082,7 +1127,8 @@ export namespace Prisma {
     Log: 'Log',
     DestinyChoice: 'DestinyChoice',
     Tournament: 'Tournament',
-    TournamentStep: 'TournamentStep'
+    TournamentStep: 'TournamentStep',
+    Achievement: 'Achievement'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1250,10 +1296,12 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     brutes: number
+    achievements: number
   }
 
   export type UserCountOutputTypeSelect = {
     brutes?: boolean
+    achievements?: boolean
   }
 
   export type UserCountOutputTypeGetPayload<S extends boolean | null | undefined | UserCountOutputTypeArgs> =
@@ -1300,6 +1348,7 @@ export namespace Prisma {
     tournaments: number
     opponents: number
     opponentOf: number
+    achievements: number
   }
 
   export type BruteCountOutputTypeSelect = {
@@ -1311,6 +1360,7 @@ export namespace Prisma {
     tournaments?: boolean
     opponents?: boolean
     opponentOf?: boolean
+    achievements?: boolean
   }
 
   export type BruteCountOutputTypeGetPayload<S extends boolean | null | undefined | BruteCountOutputTypeArgs> =
@@ -1701,12 +1751,14 @@ export namespace Prisma {
     bruteLimit?: boolean
     sacrificePoints?: boolean
     brutes?: boolean | User$brutesArgs
+    achievements?: boolean | User$achievementsArgs
     _count?: boolean | UserCountOutputTypeArgs
   }
 
 
   export type UserInclude = {
     brutes?: boolean | User$brutesArgs
+    achievements?: boolean | User$achievementsArgs
     _count?: boolean | UserCountOutputTypeArgs
   }
 
@@ -1718,12 +1770,14 @@ export namespace Prisma {
     ? User  & {
     [P in TruthyKeys<S['include']>]:
         P extends 'brutes' ? Array < BruteGetPayload<S['include'][P]>>  :
+        P extends 'achievements' ? Array < AchievementGetPayload<S['include'][P]>>  :
         P extends '_count' ? UserCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : S extends { select: any } & (UserArgs | UserFindManyArgs)
       ? {
     [P in TruthyKeys<S['select']>]:
         P extends 'brutes' ? Array < BruteGetPayload<S['select'][P]>>  :
+        P extends 'achievements' ? Array < AchievementGetPayload<S['select'][P]>>  :
         P extends '_count' ? UserCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof User ? User[P] : never
   } 
       : User
@@ -2098,6 +2152,8 @@ export namespace Prisma {
 
     brutes<T extends User$brutesArgs= {}>(args?: Subset<T, User$brutesArgs>): Prisma.PrismaPromise<Array<BruteGetPayload<T>>| Null>;
 
+    achievements<T extends User$achievementsArgs= {}>(args?: Subset<T, User$achievementsArgs>): Prisma.PrismaPromise<Array<AchievementGetPayload<T>>| Null>;
+
     private get _document();
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2471,6 +2527,27 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Enumerable<BruteScalarFieldEnum>
+  }
+
+
+  /**
+   * User.achievements
+   */
+  export type User$achievementsArgs = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AchievementInclude | null
+    where?: AchievementWhereInput
+    orderBy?: Enumerable<AchievementOrderByWithRelationInput>
+    cursor?: AchievementWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<AchievementScalarFieldEnum>
   }
 
 
@@ -5238,6 +5315,7 @@ export namespace Prisma {
     tournaments?: boolean | Brute$tournamentsArgs
     opponents?: boolean | Brute$opponentsArgs
     opponentOf?: boolean | Brute$opponentOfArgs
+    achievements?: boolean | Brute$achievementsArgs
     _count?: boolean | BruteCountOutputTypeArgs
   }
 
@@ -5257,6 +5335,7 @@ export namespace Prisma {
     tournaments?: boolean | Brute$tournamentsArgs
     opponents?: boolean | Brute$opponentsArgs
     opponentOf?: boolean | Brute$opponentOfArgs
+    achievements?: boolean | Brute$achievementsArgs
     _count?: boolean | BruteCountOutputTypeArgs
   }
 
@@ -5281,6 +5360,7 @@ export namespace Prisma {
         P extends 'tournaments' ? Array < TournamentGetPayload<S['include'][P]>>  :
         P extends 'opponents' ? Array < BruteGetPayload<S['include'][P]>>  :
         P extends 'opponentOf' ? Array < BruteGetPayload<S['include'][P]>>  :
+        P extends 'achievements' ? Array < AchievementGetPayload<S['include'][P]>>  :
         P extends '_count' ? BruteCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : S extends { select: any } & (BruteArgs | BruteFindManyArgs)
@@ -5300,6 +5380,7 @@ export namespace Prisma {
         P extends 'tournaments' ? Array < TournamentGetPayload<S['select'][P]>>  :
         P extends 'opponents' ? Array < BruteGetPayload<S['select'][P]>>  :
         P extends 'opponentOf' ? Array < BruteGetPayload<S['select'][P]>>  :
+        P extends 'achievements' ? Array < AchievementGetPayload<S['select'][P]>>  :
         P extends '_count' ? BruteCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Brute ? Brute[P] : never
   } 
       : Brute
@@ -5699,6 +5780,8 @@ export namespace Prisma {
     opponents<T extends Brute$opponentsArgs= {}>(args?: Subset<T, Brute$opponentsArgs>): Prisma.PrismaPromise<Array<BruteGetPayload<T>>| Null>;
 
     opponentOf<T extends Brute$opponentOfArgs= {}>(args?: Subset<T, Brute$opponentOfArgs>): Prisma.PrismaPromise<Array<BruteGetPayload<T>>| Null>;
+
+    achievements<T extends Brute$achievementsArgs= {}>(args?: Subset<T, Brute$achievementsArgs>): Prisma.PrismaPromise<Array<AchievementGetPayload<T>>| Null>;
 
     private get _document();
     /**
@@ -6220,6 +6303,27 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Enumerable<BruteScalarFieldEnum>
+  }
+
+
+  /**
+   * Brute.achievements
+   */
+  export type Brute$achievementsArgs = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AchievementInclude | null
+    where?: AchievementWhereInput
+    orderBy?: Enumerable<AchievementOrderByWithRelationInput>
+    cursor?: AchievementWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<AchievementScalarFieldEnum>
   }
 
 
@@ -13232,11 +13336,1010 @@ export namespace Prisma {
 
 
   /**
+   * Model Achievement
+   */
+
+
+  export type AggregateAchievement = {
+    _count: AchievementCountAggregateOutputType | null
+    _avg: AchievementAvgAggregateOutputType | null
+    _sum: AchievementSumAggregateOutputType | null
+    _min: AchievementMinAggregateOutputType | null
+    _max: AchievementMaxAggregateOutputType | null
+  }
+
+  export type AchievementAvgAggregateOutputType = {
+    id: number | null
+    count: number | null
+    bruteId: number | null
+  }
+
+  export type AchievementSumAggregateOutputType = {
+    id: number | null
+    count: number | null
+    bruteId: number | null
+  }
+
+  export type AchievementMinAggregateOutputType = {
+    id: number | null
+    name: AchievementName | null
+    rarity: AchievementRarity | null
+    count: number | null
+    bruteId: number | null
+    userId: string | null
+  }
+
+  export type AchievementMaxAggregateOutputType = {
+    id: number | null
+    name: AchievementName | null
+    rarity: AchievementRarity | null
+    count: number | null
+    bruteId: number | null
+    userId: string | null
+  }
+
+  export type AchievementCountAggregateOutputType = {
+    id: number
+    name: number
+    rarity: number
+    count: number
+    bruteId: number
+    userId: number
+    _all: number
+  }
+
+
+  export type AchievementAvgAggregateInputType = {
+    id?: true
+    count?: true
+    bruteId?: true
+  }
+
+  export type AchievementSumAggregateInputType = {
+    id?: true
+    count?: true
+    bruteId?: true
+  }
+
+  export type AchievementMinAggregateInputType = {
+    id?: true
+    name?: true
+    rarity?: true
+    count?: true
+    bruteId?: true
+    userId?: true
+  }
+
+  export type AchievementMaxAggregateInputType = {
+    id?: true
+    name?: true
+    rarity?: true
+    count?: true
+    bruteId?: true
+    userId?: true
+  }
+
+  export type AchievementCountAggregateInputType = {
+    id?: true
+    name?: true
+    rarity?: true
+    count?: true
+    bruteId?: true
+    userId?: true
+    _all?: true
+  }
+
+  export type AchievementAggregateArgs = {
+    /**
+     * Filter which Achievement to aggregate.
+     */
+    where?: AchievementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Achievements to fetch.
+     */
+    orderBy?: Enumerable<AchievementOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AchievementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Achievements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Achievements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Achievements
+    **/
+    _count?: true | AchievementCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AchievementAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AchievementSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AchievementMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AchievementMaxAggregateInputType
+  }
+
+  export type GetAchievementAggregateType<T extends AchievementAggregateArgs> = {
+        [P in keyof T & keyof AggregateAchievement]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAchievement[P]>
+      : GetScalarType<T[P], AggregateAchievement[P]>
+  }
+
+
+
+
+  export type AchievementGroupByArgs = {
+    where?: AchievementWhereInput
+    orderBy?: Enumerable<AchievementOrderByWithAggregationInput>
+    by: AchievementScalarFieldEnum[]
+    having?: AchievementScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AchievementCountAggregateInputType | true
+    _avg?: AchievementAvgAggregateInputType
+    _sum?: AchievementSumAggregateInputType
+    _min?: AchievementMinAggregateInputType
+    _max?: AchievementMaxAggregateInputType
+  }
+
+
+  export type AchievementGroupByOutputType = {
+    id: number
+    name: AchievementName
+    rarity: AchievementRarity
+    count: number
+    bruteId: number | null
+    userId: string | null
+    _count: AchievementCountAggregateOutputType | null
+    _avg: AchievementAvgAggregateOutputType | null
+    _sum: AchievementSumAggregateOutputType | null
+    _min: AchievementMinAggregateOutputType | null
+    _max: AchievementMaxAggregateOutputType | null
+  }
+
+  type GetAchievementGroupByPayload<T extends AchievementGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<AchievementGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AchievementGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AchievementGroupByOutputType[P]>
+            : GetScalarType<T[P], AchievementGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AchievementSelect = {
+    id?: boolean
+    name?: boolean
+    rarity?: boolean
+    count?: boolean
+    bruteId?: boolean
+    userId?: boolean
+    brute?: boolean | BruteArgs
+    user?: boolean | UserArgs
+  }
+
+
+  export type AchievementInclude = {
+    brute?: boolean | BruteArgs
+    user?: boolean | UserArgs
+  }
+
+  export type AchievementGetPayload<S extends boolean | null | undefined | AchievementArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? Achievement :
+    S extends undefined ? never :
+    S extends { include: any } & (AchievementArgs | AchievementFindManyArgs)
+    ? Achievement  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'brute' ? BruteGetPayload<S['include'][P]> | null :
+        P extends 'user' ? UserGetPayload<S['include'][P]> | null :  never
+  } 
+    : S extends { select: any } & (AchievementArgs | AchievementFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+        P extends 'brute' ? BruteGetPayload<S['select'][P]> | null :
+        P extends 'user' ? UserGetPayload<S['select'][P]> | null :  P extends keyof Achievement ? Achievement[P] : never
+  } 
+      : Achievement
+
+
+  type AchievementCountArgs = 
+    Omit<AchievementFindManyArgs, 'select' | 'include'> & {
+      select?: AchievementCountAggregateInputType | true
+    }
+
+  export interface AchievementDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one Achievement that matches the filter.
+     * @param {AchievementFindUniqueArgs} args - Arguments to find a Achievement
+     * @example
+     * // Get one Achievement
+     * const achievement = await prisma.achievement.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends AchievementFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, AchievementFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Achievement'> extends True ? Prisma__AchievementClient<AchievementGetPayload<T>> : Prisma__AchievementClient<AchievementGetPayload<T> | null, null>
+
+    /**
+     * Find one Achievement that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {AchievementFindUniqueOrThrowArgs} args - Arguments to find a Achievement
+     * @example
+     * // Get one Achievement
+     * const achievement = await prisma.achievement.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends AchievementFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, AchievementFindUniqueOrThrowArgs>
+    ): Prisma__AchievementClient<AchievementGetPayload<T>>
+
+    /**
+     * Find the first Achievement that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AchievementFindFirstArgs} args - Arguments to find a Achievement
+     * @example
+     * // Get one Achievement
+     * const achievement = await prisma.achievement.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends AchievementFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, AchievementFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Achievement'> extends True ? Prisma__AchievementClient<AchievementGetPayload<T>> : Prisma__AchievementClient<AchievementGetPayload<T> | null, null>
+
+    /**
+     * Find the first Achievement that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AchievementFindFirstOrThrowArgs} args - Arguments to find a Achievement
+     * @example
+     * // Get one Achievement
+     * const achievement = await prisma.achievement.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends AchievementFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, AchievementFindFirstOrThrowArgs>
+    ): Prisma__AchievementClient<AchievementGetPayload<T>>
+
+    /**
+     * Find zero or more Achievements that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AchievementFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Achievements
+     * const achievements = await prisma.achievement.findMany()
+     * 
+     * // Get first 10 Achievements
+     * const achievements = await prisma.achievement.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const achievementWithIdOnly = await prisma.achievement.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends AchievementFindManyArgs>(
+      args?: SelectSubset<T, AchievementFindManyArgs>
+    ): Prisma.PrismaPromise<Array<AchievementGetPayload<T>>>
+
+    /**
+     * Create a Achievement.
+     * @param {AchievementCreateArgs} args - Arguments to create a Achievement.
+     * @example
+     * // Create one Achievement
+     * const Achievement = await prisma.achievement.create({
+     *   data: {
+     *     // ... data to create a Achievement
+     *   }
+     * })
+     * 
+    **/
+    create<T extends AchievementCreateArgs>(
+      args: SelectSubset<T, AchievementCreateArgs>
+    ): Prisma__AchievementClient<AchievementGetPayload<T>>
+
+    /**
+     * Create many Achievements.
+     *     @param {AchievementCreateManyArgs} args - Arguments to create many Achievements.
+     *     @example
+     *     // Create many Achievements
+     *     const achievement = await prisma.achievement.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends AchievementCreateManyArgs>(
+      args?: SelectSubset<T, AchievementCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Achievement.
+     * @param {AchievementDeleteArgs} args - Arguments to delete one Achievement.
+     * @example
+     * // Delete one Achievement
+     * const Achievement = await prisma.achievement.delete({
+     *   where: {
+     *     // ... filter to delete one Achievement
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends AchievementDeleteArgs>(
+      args: SelectSubset<T, AchievementDeleteArgs>
+    ): Prisma__AchievementClient<AchievementGetPayload<T>>
+
+    /**
+     * Update one Achievement.
+     * @param {AchievementUpdateArgs} args - Arguments to update one Achievement.
+     * @example
+     * // Update one Achievement
+     * const achievement = await prisma.achievement.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends AchievementUpdateArgs>(
+      args: SelectSubset<T, AchievementUpdateArgs>
+    ): Prisma__AchievementClient<AchievementGetPayload<T>>
+
+    /**
+     * Delete zero or more Achievements.
+     * @param {AchievementDeleteManyArgs} args - Arguments to filter Achievements to delete.
+     * @example
+     * // Delete a few Achievements
+     * const { count } = await prisma.achievement.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends AchievementDeleteManyArgs>(
+      args?: SelectSubset<T, AchievementDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Achievements.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AchievementUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Achievements
+     * const achievement = await prisma.achievement.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends AchievementUpdateManyArgs>(
+      args: SelectSubset<T, AchievementUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Achievement.
+     * @param {AchievementUpsertArgs} args - Arguments to update or create a Achievement.
+     * @example
+     * // Update or create a Achievement
+     * const achievement = await prisma.achievement.upsert({
+     *   create: {
+     *     // ... data to create a Achievement
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Achievement we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends AchievementUpsertArgs>(
+      args: SelectSubset<T, AchievementUpsertArgs>
+    ): Prisma__AchievementClient<AchievementGetPayload<T>>
+
+    /**
+     * Count the number of Achievements.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AchievementCountArgs} args - Arguments to filter Achievements to count.
+     * @example
+     * // Count the number of Achievements
+     * const count = await prisma.achievement.count({
+     *   where: {
+     *     // ... the filter for the Achievements we want to count
+     *   }
+     * })
+    **/
+    count<T extends AchievementCountArgs>(
+      args?: Subset<T, AchievementCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AchievementCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Achievement.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AchievementAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AchievementAggregateArgs>(args: Subset<T, AchievementAggregateArgs>): Prisma.PrismaPromise<GetAchievementAggregateType<T>>
+
+    /**
+     * Group by Achievement.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AchievementGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AchievementGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AchievementGroupByArgs['orderBy'] }
+        : { orderBy?: AchievementGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AchievementGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAchievementGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Achievement.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__AchievementClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    brute<T extends BruteArgs= {}>(args?: Subset<T, BruteArgs>): Prisma__BruteClient<BruteGetPayload<T> | Null>;
+
+    user<T extends UserArgs= {}>(args?: Subset<T, UserArgs>): Prisma__UserClient<UserGetPayload<T> | Null>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * Achievement base type for findUnique actions
+   */
+  export type AchievementFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AchievementInclude | null
+    /**
+     * Filter, which Achievement to fetch.
+     */
+    where: AchievementWhereUniqueInput
+  }
+
+  /**
+   * Achievement findUnique
+   */
+  export interface AchievementFindUniqueArgs extends AchievementFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * Achievement findUniqueOrThrow
+   */
+  export type AchievementFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AchievementInclude | null
+    /**
+     * Filter, which Achievement to fetch.
+     */
+    where: AchievementWhereUniqueInput
+  }
+
+
+  /**
+   * Achievement base type for findFirst actions
+   */
+  export type AchievementFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AchievementInclude | null
+    /**
+     * Filter, which Achievement to fetch.
+     */
+    where?: AchievementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Achievements to fetch.
+     */
+    orderBy?: Enumerable<AchievementOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Achievements.
+     */
+    cursor?: AchievementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Achievements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Achievements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Achievements.
+     */
+    distinct?: Enumerable<AchievementScalarFieldEnum>
+  }
+
+  /**
+   * Achievement findFirst
+   */
+  export interface AchievementFindFirstArgs extends AchievementFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * Achievement findFirstOrThrow
+   */
+  export type AchievementFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AchievementInclude | null
+    /**
+     * Filter, which Achievement to fetch.
+     */
+    where?: AchievementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Achievements to fetch.
+     */
+    orderBy?: Enumerable<AchievementOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Achievements.
+     */
+    cursor?: AchievementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Achievements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Achievements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Achievements.
+     */
+    distinct?: Enumerable<AchievementScalarFieldEnum>
+  }
+
+
+  /**
+   * Achievement findMany
+   */
+  export type AchievementFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AchievementInclude | null
+    /**
+     * Filter, which Achievements to fetch.
+     */
+    where?: AchievementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Achievements to fetch.
+     */
+    orderBy?: Enumerable<AchievementOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Achievements.
+     */
+    cursor?: AchievementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Achievements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Achievements.
+     */
+    skip?: number
+    distinct?: Enumerable<AchievementScalarFieldEnum>
+  }
+
+
+  /**
+   * Achievement create
+   */
+  export type AchievementCreateArgs = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AchievementInclude | null
+    /**
+     * The data needed to create a Achievement.
+     */
+    data: XOR<AchievementCreateInput, AchievementUncheckedCreateInput>
+  }
+
+
+  /**
+   * Achievement createMany
+   */
+  export type AchievementCreateManyArgs = {
+    /**
+     * The data used to create many Achievements.
+     */
+    data: Enumerable<AchievementCreateManyInput>
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * Achievement update
+   */
+  export type AchievementUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AchievementInclude | null
+    /**
+     * The data needed to update a Achievement.
+     */
+    data: XOR<AchievementUpdateInput, AchievementUncheckedUpdateInput>
+    /**
+     * Choose, which Achievement to update.
+     */
+    where: AchievementWhereUniqueInput
+  }
+
+
+  /**
+   * Achievement updateMany
+   */
+  export type AchievementUpdateManyArgs = {
+    /**
+     * The data used to update Achievements.
+     */
+    data: XOR<AchievementUpdateManyMutationInput, AchievementUncheckedUpdateManyInput>
+    /**
+     * Filter which Achievements to update
+     */
+    where?: AchievementWhereInput
+  }
+
+
+  /**
+   * Achievement upsert
+   */
+  export type AchievementUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AchievementInclude | null
+    /**
+     * The filter to search for the Achievement to update in case it exists.
+     */
+    where: AchievementWhereUniqueInput
+    /**
+     * In case the Achievement found by the `where` argument doesn't exist, create a new Achievement with this data.
+     */
+    create: XOR<AchievementCreateInput, AchievementUncheckedCreateInput>
+    /**
+     * In case the Achievement was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AchievementUpdateInput, AchievementUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Achievement delete
+   */
+  export type AchievementDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AchievementInclude | null
+    /**
+     * Filter which Achievement to delete.
+     */
+    where: AchievementWhereUniqueInput
+  }
+
+
+  /**
+   * Achievement deleteMany
+   */
+  export type AchievementDeleteManyArgs = {
+    /**
+     * Filter which Achievements to delete
+     */
+    where?: AchievementWhereInput
+  }
+
+
+  /**
+   * Achievement without action
+   */
+  export type AchievementArgs = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AchievementInclude | null
+  }
+
+
+
+  /**
    * Enums
    */
 
   // Based on
   // https://github.com/microsoft/TypeScript/issues/3192#issuecomment-261720275
+
+  export const AchievementScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    rarity: 'rarity',
+    count: 'count',
+    bruteId: 'bruteId',
+    userId: 'userId'
+  };
+
+  export type AchievementScalarFieldEnum = (typeof AchievementScalarFieldEnum)[keyof typeof AchievementScalarFieldEnum]
+
 
   export const BruteBodyScalarFieldEnum: {
     id: 'id',
@@ -13490,6 +14593,7 @@ export namespace Prisma {
     bruteLimit?: IntFilter | number
     sacrificePoints?: IntFilter | number
     brutes?: BruteListRelationFilter
+    achievements?: AchievementListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -13501,6 +14605,7 @@ export namespace Prisma {
     bruteLimit?: SortOrder
     sacrificePoints?: SortOrder
     brutes?: BruteOrderByRelationAggregateInput
+    achievements?: AchievementOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = {
@@ -13784,6 +14889,7 @@ export namespace Prisma {
     tournaments?: TournamentListRelationFilter
     opponents?: BruteListRelationFilter
     opponentOf?: BruteListRelationFilter
+    achievements?: AchievementListRelationFilter
   }
 
   export type BruteOrderByWithRelationInput = {
@@ -13839,6 +14945,7 @@ export namespace Prisma {
     tournaments?: TournamentOrderByRelationAggregateInput
     opponents?: BruteOrderByRelationAggregateInput
     opponentOf?: BruteOrderByRelationAggregateInput
+    achievements?: AchievementOrderByRelationAggregateInput
   }
 
   export type BruteWhereUniqueInput = {
@@ -14316,6 +15423,61 @@ export namespace Prisma {
     xpDistributed?: BoolWithAggregatesFilter | boolean
   }
 
+  export type AchievementWhereInput = {
+    AND?: Enumerable<AchievementWhereInput>
+    OR?: Enumerable<AchievementWhereInput>
+    NOT?: Enumerable<AchievementWhereInput>
+    id?: IntFilter | number
+    name?: EnumAchievementNameFilter | AchievementName
+    rarity?: EnumAchievementRarityFilter | AchievementRarity
+    count?: IntFilter | number
+    bruteId?: IntNullableFilter | number | null
+    userId?: UuidNullableFilter | string | null
+    brute?: XOR<BruteRelationFilter, BruteWhereInput> | null
+    user?: XOR<UserRelationFilter, UserWhereInput> | null
+  }
+
+  export type AchievementOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    rarity?: SortOrder
+    count?: SortOrder
+    bruteId?: SortOrder
+    userId?: SortOrder
+    brute?: BruteOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type AchievementWhereUniqueInput = {
+    id?: number
+  }
+
+  export type AchievementOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    rarity?: SortOrder
+    count?: SortOrder
+    bruteId?: SortOrder
+    userId?: SortOrder
+    _count?: AchievementCountOrderByAggregateInput
+    _avg?: AchievementAvgOrderByAggregateInput
+    _max?: AchievementMaxOrderByAggregateInput
+    _min?: AchievementMinOrderByAggregateInput
+    _sum?: AchievementSumOrderByAggregateInput
+  }
+
+  export type AchievementScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<AchievementScalarWhereWithAggregatesInput>
+    OR?: Enumerable<AchievementScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<AchievementScalarWhereWithAggregatesInput>
+    id?: IntWithAggregatesFilter | number
+    name?: EnumAchievementNameWithAggregatesFilter | AchievementName
+    rarity?: EnumAchievementRarityWithAggregatesFilter | AchievementRarity
+    count?: IntWithAggregatesFilter | number
+    bruteId?: IntNullableWithAggregatesFilter | number | null
+    userId?: UuidNullableWithAggregatesFilter | string | null
+  }
+
   export type UserCreateInput = {
     id: string
     lang?: Lang
@@ -14325,6 +15487,7 @@ export namespace Prisma {
     bruteLimit?: number
     sacrificePoints?: number
     brutes?: BruteCreateNestedManyWithoutUserInput
+    achievements?: AchievementCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -14336,6 +15499,7 @@ export namespace Prisma {
     bruteLimit?: number
     sacrificePoints?: number
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -14347,6 +15511,7 @@ export namespace Prisma {
     bruteLimit?: IntFieldUpdateOperationsInput | number
     sacrificePoints?: IntFieldUpdateOperationsInput | number
     brutes?: BruteUpdateManyWithoutUserNestedInput
+    achievements?: AchievementUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -14358,6 +15523,7 @@ export namespace Prisma {
     bruteLimit?: IntFieldUpdateOperationsInput | number
     sacrificePoints?: IntFieldUpdateOperationsInput | number
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -14704,6 +15870,7 @@ export namespace Prisma {
     tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateInput = {
@@ -14756,6 +15923,7 @@ export namespace Prisma {
     tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUpdateInput = {
@@ -14807,6 +15975,7 @@ export namespace Prisma {
     tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateInput = {
@@ -14859,6 +16028,7 @@ export namespace Prisma {
     tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteCreateManyInput = {
@@ -15405,6 +16575,64 @@ export namespace Prisma {
     xpDistributed?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type AchievementCreateInput = {
+    name: AchievementName
+    rarity: AchievementRarity
+    count?: number
+    brute?: BruteCreateNestedOneWithoutAchievementsInput
+    user?: UserCreateNestedOneWithoutAchievementsInput
+  }
+
+  export type AchievementUncheckedCreateInput = {
+    id?: number
+    name: AchievementName
+    rarity: AchievementRarity
+    count?: number
+    bruteId?: number | null
+    userId?: string | null
+  }
+
+  export type AchievementUpdateInput = {
+    name?: EnumAchievementNameFieldUpdateOperationsInput | AchievementName
+    rarity?: EnumAchievementRarityFieldUpdateOperationsInput | AchievementRarity
+    count?: IntFieldUpdateOperationsInput | number
+    brute?: BruteUpdateOneWithoutAchievementsNestedInput
+    user?: UserUpdateOneWithoutAchievementsNestedInput
+  }
+
+  export type AchievementUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: EnumAchievementNameFieldUpdateOperationsInput | AchievementName
+    rarity?: EnumAchievementRarityFieldUpdateOperationsInput | AchievementRarity
+    count?: IntFieldUpdateOperationsInput | number
+    bruteId?: NullableIntFieldUpdateOperationsInput | number | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AchievementCreateManyInput = {
+    id?: number
+    name: AchievementName
+    rarity: AchievementRarity
+    count?: number
+    bruteId?: number | null
+    userId?: string | null
+  }
+
+  export type AchievementUpdateManyMutationInput = {
+    name?: EnumAchievementNameFieldUpdateOperationsInput | AchievementName
+    rarity?: EnumAchievementRarityFieldUpdateOperationsInput | AchievementRarity
+    count?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type AchievementUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: EnumAchievementNameFieldUpdateOperationsInput | AchievementName
+    rarity?: EnumAchievementRarityFieldUpdateOperationsInput | AchievementRarity
+    count?: IntFieldUpdateOperationsInput | number
+    bruteId?: NullableIntFieldUpdateOperationsInput | number | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type UuidFilter = {
     equals?: string
     in?: Enumerable<string>
@@ -15461,7 +16689,17 @@ export namespace Prisma {
     none?: BruteWhereInput
   }
 
+  export type AchievementListRelationFilter = {
+    every?: AchievementWhereInput
+    some?: AchievementWhereInput
+    none?: AchievementWhereInput
+  }
+
   export type BruteOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AchievementOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -15573,8 +16811,8 @@ export namespace Prisma {
   }
 
   export type BruteRelationFilter = {
-    is?: BruteWhereInput
-    isNot?: BruteWhereInput
+    is?: BruteWhereInput | null
+    isNot?: BruteWhereInput | null
   }
 
   export type BruteBodyCountOrderByAggregateInput = {
@@ -16707,6 +17945,79 @@ export namespace Prisma {
     fightId?: SortOrder
   }
 
+  export type EnumAchievementNameFilter = {
+    equals?: AchievementName
+    in?: Enumerable<AchievementName>
+    notIn?: Enumerable<AchievementName>
+    not?: NestedEnumAchievementNameFilter | AchievementName
+  }
+
+  export type EnumAchievementRarityFilter = {
+    equals?: AchievementRarity
+    in?: Enumerable<AchievementRarity>
+    notIn?: Enumerable<AchievementRarity>
+    not?: NestedEnumAchievementRarityFilter | AchievementRarity
+  }
+
+  export type AchievementCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    rarity?: SortOrder
+    count?: SortOrder
+    bruteId?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type AchievementAvgOrderByAggregateInput = {
+    id?: SortOrder
+    count?: SortOrder
+    bruteId?: SortOrder
+  }
+
+  export type AchievementMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    rarity?: SortOrder
+    count?: SortOrder
+    bruteId?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type AchievementMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    rarity?: SortOrder
+    count?: SortOrder
+    bruteId?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type AchievementSumOrderByAggregateInput = {
+    id?: SortOrder
+    count?: SortOrder
+    bruteId?: SortOrder
+  }
+
+  export type EnumAchievementNameWithAggregatesFilter = {
+    equals?: AchievementName
+    in?: Enumerable<AchievementName>
+    notIn?: Enumerable<AchievementName>
+    not?: NestedEnumAchievementNameWithAggregatesFilter | AchievementName
+    _count?: NestedIntFilter
+    _min?: NestedEnumAchievementNameFilter
+    _max?: NestedEnumAchievementNameFilter
+  }
+
+  export type EnumAchievementRarityWithAggregatesFilter = {
+    equals?: AchievementRarity
+    in?: Enumerable<AchievementRarity>
+    notIn?: Enumerable<AchievementRarity>
+    not?: NestedEnumAchievementRarityWithAggregatesFilter | AchievementRarity
+    _count?: NestedIntFilter
+    _min?: NestedEnumAchievementRarityFilter
+    _max?: NestedEnumAchievementRarityFilter
+  }
+
   export type BruteCreateNestedManyWithoutUserInput = {
     create?: XOR<Enumerable<BruteCreateWithoutUserInput>, Enumerable<BruteUncheckedCreateWithoutUserInput>>
     connectOrCreate?: Enumerable<BruteCreateOrConnectWithoutUserInput>
@@ -16714,11 +18025,25 @@ export namespace Prisma {
     connect?: Enumerable<BruteWhereUniqueInput>
   }
 
+  export type AchievementCreateNestedManyWithoutUserInput = {
+    create?: XOR<Enumerable<AchievementCreateWithoutUserInput>, Enumerable<AchievementUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<AchievementCreateOrConnectWithoutUserInput>
+    createMany?: AchievementCreateManyUserInputEnvelope
+    connect?: Enumerable<AchievementWhereUniqueInput>
+  }
+
   export type BruteUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<Enumerable<BruteCreateWithoutUserInput>, Enumerable<BruteUncheckedCreateWithoutUserInput>>
     connectOrCreate?: Enumerable<BruteCreateOrConnectWithoutUserInput>
     createMany?: BruteCreateManyUserInputEnvelope
     connect?: Enumerable<BruteWhereUniqueInput>
+  }
+
+  export type AchievementUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<Enumerable<AchievementCreateWithoutUserInput>, Enumerable<AchievementUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<AchievementCreateOrConnectWithoutUserInput>
+    createMany?: AchievementCreateManyUserInputEnvelope
+    connect?: Enumerable<AchievementWhereUniqueInput>
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -16755,6 +18080,20 @@ export namespace Prisma {
     deleteMany?: Enumerable<BruteScalarWhereInput>
   }
 
+  export type AchievementUpdateManyWithoutUserNestedInput = {
+    create?: XOR<Enumerable<AchievementCreateWithoutUserInput>, Enumerable<AchievementUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<AchievementCreateOrConnectWithoutUserInput>
+    upsert?: Enumerable<AchievementUpsertWithWhereUniqueWithoutUserInput>
+    createMany?: AchievementCreateManyUserInputEnvelope
+    set?: Enumerable<AchievementWhereUniqueInput>
+    disconnect?: Enumerable<AchievementWhereUniqueInput>
+    delete?: Enumerable<AchievementWhereUniqueInput>
+    connect?: Enumerable<AchievementWhereUniqueInput>
+    update?: Enumerable<AchievementUpdateWithWhereUniqueWithoutUserInput>
+    updateMany?: Enumerable<AchievementUpdateManyWithWhereWithoutUserInput>
+    deleteMany?: Enumerable<AchievementScalarWhereInput>
+  }
+
   export type BruteUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<Enumerable<BruteCreateWithoutUserInput>, Enumerable<BruteUncheckedCreateWithoutUserInput>>
     connectOrCreate?: Enumerable<BruteCreateOrConnectWithoutUserInput>
@@ -16767,6 +18106,20 @@ export namespace Prisma {
     update?: Enumerable<BruteUpdateWithWhereUniqueWithoutUserInput>
     updateMany?: Enumerable<BruteUpdateManyWithWhereWithoutUserInput>
     deleteMany?: Enumerable<BruteScalarWhereInput>
+  }
+
+  export type AchievementUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<Enumerable<AchievementCreateWithoutUserInput>, Enumerable<AchievementUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<AchievementCreateOrConnectWithoutUserInput>
+    upsert?: Enumerable<AchievementUpsertWithWhereUniqueWithoutUserInput>
+    createMany?: AchievementCreateManyUserInputEnvelope
+    set?: Enumerable<AchievementWhereUniqueInput>
+    disconnect?: Enumerable<AchievementWhereUniqueInput>
+    delete?: Enumerable<AchievementWhereUniqueInput>
+    connect?: Enumerable<AchievementWhereUniqueInput>
+    update?: Enumerable<AchievementUpdateWithWhereUniqueWithoutUserInput>
+    updateMany?: Enumerable<AchievementUpdateManyWithWhereWithoutUserInput>
+    deleteMany?: Enumerable<AchievementScalarWhereInput>
   }
 
   export type BruteCreateNestedOneWithoutBodyInput = {
@@ -16902,6 +18255,13 @@ export namespace Prisma {
     connect?: Enumerable<BruteWhereUniqueInput>
   }
 
+  export type AchievementCreateNestedManyWithoutBruteInput = {
+    create?: XOR<Enumerable<AchievementCreateWithoutBruteInput>, Enumerable<AchievementUncheckedCreateWithoutBruteInput>>
+    connectOrCreate?: Enumerable<AchievementCreateOrConnectWithoutBruteInput>
+    createMany?: AchievementCreateManyBruteInputEnvelope
+    connect?: Enumerable<AchievementWhereUniqueInput>
+  }
+
   export type BruteBodyUncheckedCreateNestedOneWithoutBruteInput = {
     create?: XOR<BruteBodyCreateWithoutBruteInput, BruteBodyUncheckedCreateWithoutBruteInput>
     connectOrCreate?: BruteBodyCreateOrConnectWithoutBruteInput
@@ -16971,6 +18331,13 @@ export namespace Prisma {
     create?: XOR<Enumerable<BruteCreateWithoutOpponentsInput>, Enumerable<BruteUncheckedCreateWithoutOpponentsInput>>
     connectOrCreate?: Enumerable<BruteCreateOrConnectWithoutOpponentsInput>
     connect?: Enumerable<BruteWhereUniqueInput>
+  }
+
+  export type AchievementUncheckedCreateNestedManyWithoutBruteInput = {
+    create?: XOR<Enumerable<AchievementCreateWithoutBruteInput>, Enumerable<AchievementUncheckedCreateWithoutBruteInput>>
+    connectOrCreate?: Enumerable<AchievementCreateOrConnectWithoutBruteInput>
+    createMany?: AchievementCreateManyBruteInputEnvelope
+    connect?: Enumerable<AchievementWhereUniqueInput>
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -17190,6 +18557,20 @@ export namespace Prisma {
     deleteMany?: Enumerable<BruteScalarWhereInput>
   }
 
+  export type AchievementUpdateManyWithoutBruteNestedInput = {
+    create?: XOR<Enumerable<AchievementCreateWithoutBruteInput>, Enumerable<AchievementUncheckedCreateWithoutBruteInput>>
+    connectOrCreate?: Enumerable<AchievementCreateOrConnectWithoutBruteInput>
+    upsert?: Enumerable<AchievementUpsertWithWhereUniqueWithoutBruteInput>
+    createMany?: AchievementCreateManyBruteInputEnvelope
+    set?: Enumerable<AchievementWhereUniqueInput>
+    disconnect?: Enumerable<AchievementWhereUniqueInput>
+    delete?: Enumerable<AchievementWhereUniqueInput>
+    connect?: Enumerable<AchievementWhereUniqueInput>
+    update?: Enumerable<AchievementUpdateWithWhereUniqueWithoutBruteInput>
+    updateMany?: Enumerable<AchievementUpdateManyWithWhereWithoutBruteInput>
+    deleteMany?: Enumerable<AchievementScalarWhereInput>
+  }
+
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
   }
@@ -17331,6 +18712,20 @@ export namespace Prisma {
     update?: Enumerable<BruteUpdateWithWhereUniqueWithoutOpponentsInput>
     updateMany?: Enumerable<BruteUpdateManyWithWhereWithoutOpponentsInput>
     deleteMany?: Enumerable<BruteScalarWhereInput>
+  }
+
+  export type AchievementUncheckedUpdateManyWithoutBruteNestedInput = {
+    create?: XOR<Enumerable<AchievementCreateWithoutBruteInput>, Enumerable<AchievementUncheckedCreateWithoutBruteInput>>
+    connectOrCreate?: Enumerable<AchievementCreateOrConnectWithoutBruteInput>
+    upsert?: Enumerable<AchievementUpsertWithWhereUniqueWithoutBruteInput>
+    createMany?: AchievementCreateManyBruteInputEnvelope
+    set?: Enumerable<AchievementWhereUniqueInput>
+    disconnect?: Enumerable<AchievementWhereUniqueInput>
+    delete?: Enumerable<AchievementWhereUniqueInput>
+    connect?: Enumerable<AchievementWhereUniqueInput>
+    update?: Enumerable<AchievementUpdateWithWhereUniqueWithoutBruteInput>
+    updateMany?: Enumerable<AchievementUpdateManyWithWhereWithoutBruteInput>
+    deleteMany?: Enumerable<AchievementScalarWhereInput>
   }
 
   export type BruteCreateNestedOneWithoutSpritesheetInput = {
@@ -17692,6 +19087,46 @@ export namespace Prisma {
     upsert?: FightUpsertWithoutTournamentStepInput
     connect?: FightWhereUniqueInput
     update?: XOR<FightUpdateWithoutTournamentStepInput, FightUncheckedUpdateWithoutTournamentStepInput>
+  }
+
+  export type BruteCreateNestedOneWithoutAchievementsInput = {
+    create?: XOR<BruteCreateWithoutAchievementsInput, BruteUncheckedCreateWithoutAchievementsInput>
+    connectOrCreate?: BruteCreateOrConnectWithoutAchievementsInput
+    connect?: BruteWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutAchievementsInput = {
+    create?: XOR<UserCreateWithoutAchievementsInput, UserUncheckedCreateWithoutAchievementsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAchievementsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumAchievementNameFieldUpdateOperationsInput = {
+    set?: AchievementName
+  }
+
+  export type EnumAchievementRarityFieldUpdateOperationsInput = {
+    set?: AchievementRarity
+  }
+
+  export type BruteUpdateOneWithoutAchievementsNestedInput = {
+    create?: XOR<BruteCreateWithoutAchievementsInput, BruteUncheckedCreateWithoutAchievementsInput>
+    connectOrCreate?: BruteCreateOrConnectWithoutAchievementsInput
+    upsert?: BruteUpsertWithoutAchievementsInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: BruteWhereUniqueInput
+    update?: XOR<BruteUpdateWithoutAchievementsInput, BruteUncheckedUpdateWithoutAchievementsInput>
+  }
+
+  export type UserUpdateOneWithoutAchievementsNestedInput = {
+    create?: XOR<UserCreateWithoutAchievementsInput, UserUncheckedCreateWithoutAchievementsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAchievementsInput
+    upsert?: UserUpsertWithoutAchievementsInput
+    disconnect?: boolean
+    delete?: boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<UserUpdateWithoutAchievementsInput, UserUncheckedUpdateWithoutAchievementsInput>
   }
 
   export type NestedUuidFilter = {
@@ -18175,6 +19610,40 @@ export namespace Prisma {
     _max?: NestedEnumTournamentTypeFilter
   }
 
+  export type NestedEnumAchievementNameFilter = {
+    equals?: AchievementName
+    in?: Enumerable<AchievementName>
+    notIn?: Enumerable<AchievementName>
+    not?: NestedEnumAchievementNameFilter | AchievementName
+  }
+
+  export type NestedEnumAchievementRarityFilter = {
+    equals?: AchievementRarity
+    in?: Enumerable<AchievementRarity>
+    notIn?: Enumerable<AchievementRarity>
+    not?: NestedEnumAchievementRarityFilter | AchievementRarity
+  }
+
+  export type NestedEnumAchievementNameWithAggregatesFilter = {
+    equals?: AchievementName
+    in?: Enumerable<AchievementName>
+    notIn?: Enumerable<AchievementName>
+    not?: NestedEnumAchievementNameWithAggregatesFilter | AchievementName
+    _count?: NestedIntFilter
+    _min?: NestedEnumAchievementNameFilter
+    _max?: NestedEnumAchievementNameFilter
+  }
+
+  export type NestedEnumAchievementRarityWithAggregatesFilter = {
+    equals?: AchievementRarity
+    in?: Enumerable<AchievementRarity>
+    notIn?: Enumerable<AchievementRarity>
+    not?: NestedEnumAchievementRarityWithAggregatesFilter | AchievementRarity
+    _count?: NestedIntFilter
+    _min?: NestedEnumAchievementRarityFilter
+    _max?: NestedEnumAchievementRarityFilter
+  }
+
   export type BruteCreateWithoutUserInput = {
     name: string
     deletedAt?: Date | string | null
@@ -18223,6 +19692,7 @@ export namespace Prisma {
     tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutUserInput = {
@@ -18274,6 +19744,7 @@ export namespace Prisma {
     tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutUserInput = {
@@ -18283,6 +19754,31 @@ export namespace Prisma {
 
   export type BruteCreateManyUserInputEnvelope = {
     data: Enumerable<BruteCreateManyUserInput>
+    skipDuplicates?: boolean
+  }
+
+  export type AchievementCreateWithoutUserInput = {
+    name: AchievementName
+    rarity: AchievementRarity
+    count?: number
+    brute?: BruteCreateNestedOneWithoutAchievementsInput
+  }
+
+  export type AchievementUncheckedCreateWithoutUserInput = {
+    id?: number
+    name: AchievementName
+    rarity: AchievementRarity
+    count?: number
+    bruteId?: number | null
+  }
+
+  export type AchievementCreateOrConnectWithoutUserInput = {
+    where: AchievementWhereUniqueInput
+    create: XOR<AchievementCreateWithoutUserInput, AchievementUncheckedCreateWithoutUserInput>
+  }
+
+  export type AchievementCreateManyUserInputEnvelope = {
+    data: Enumerable<AchievementCreateManyUserInput>
     skipDuplicates?: boolean
   }
 
@@ -18346,6 +19842,34 @@ export namespace Prisma {
     canRankUpSince?: DateTimeNullableFilter | Date | string | null
   }
 
+  export type AchievementUpsertWithWhereUniqueWithoutUserInput = {
+    where: AchievementWhereUniqueInput
+    update: XOR<AchievementUpdateWithoutUserInput, AchievementUncheckedUpdateWithoutUserInput>
+    create: XOR<AchievementCreateWithoutUserInput, AchievementUncheckedCreateWithoutUserInput>
+  }
+
+  export type AchievementUpdateWithWhereUniqueWithoutUserInput = {
+    where: AchievementWhereUniqueInput
+    data: XOR<AchievementUpdateWithoutUserInput, AchievementUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AchievementUpdateManyWithWhereWithoutUserInput = {
+    where: AchievementScalarWhereInput
+    data: XOR<AchievementUpdateManyMutationInput, AchievementUncheckedUpdateManyWithoutAchievementsInput>
+  }
+
+  export type AchievementScalarWhereInput = {
+    AND?: Enumerable<AchievementScalarWhereInput>
+    OR?: Enumerable<AchievementScalarWhereInput>
+    NOT?: Enumerable<AchievementScalarWhereInput>
+    id?: IntFilter | number
+    name?: EnumAchievementNameFilter | AchievementName
+    rarity?: EnumAchievementRarityFilter | AchievementRarity
+    count?: IntFilter | number
+    bruteId?: IntNullableFilter | number | null
+    userId?: UuidNullableFilter | string | null
+  }
+
   export type BruteCreateWithoutBodyInput = {
     name: string
     deletedAt?: Date | string | null
@@ -18394,6 +19918,7 @@ export namespace Prisma {
     tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutBodyInput = {
@@ -18445,6 +19970,7 @@ export namespace Prisma {
     tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutBodyInput = {
@@ -18505,6 +20031,7 @@ export namespace Prisma {
     tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutBodyInput = {
@@ -18556,6 +20083,7 @@ export namespace Prisma {
     tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteCreateWithoutColorsInput = {
@@ -18606,6 +20134,7 @@ export namespace Prisma {
     tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutColorsInput = {
@@ -18657,6 +20186,7 @@ export namespace Prisma {
     tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutColorsInput = {
@@ -18717,6 +20247,7 @@ export namespace Prisma {
     tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutColorsInput = {
@@ -18768,6 +20299,7 @@ export namespace Prisma {
     tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type UserCreateWithoutBrutesInput = {
@@ -18778,6 +20310,7 @@ export namespace Prisma {
     connexionToken: string
     bruteLimit?: number
     sacrificePoints?: number
+    achievements?: AchievementCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBrutesInput = {
@@ -18788,6 +20321,7 @@ export namespace Prisma {
     connexionToken: string
     bruteLimit?: number
     sacrificePoints?: number
+    achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBrutesInput = {
@@ -18925,6 +20459,7 @@ export namespace Prisma {
     tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutPupilsInput = {
@@ -18976,6 +20511,7 @@ export namespace Prisma {
     tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutPupilsInput = {
@@ -19031,6 +20567,7 @@ export namespace Prisma {
     tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutMasterInput = {
@@ -19082,6 +20619,7 @@ export namespace Prisma {
     tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutMasterInput = {
@@ -19320,6 +20858,7 @@ export namespace Prisma {
     spritesheet?: BruteSpritesheetCreateNestedOneWithoutBruteInput
     tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
+    achievements?: AchievementCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutOpponentOfInput = {
@@ -19371,6 +20910,7 @@ export namespace Prisma {
     spritesheet?: BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput
     tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutOpponentOfInput = {
@@ -19426,6 +20966,7 @@ export namespace Prisma {
     spritesheet?: BruteSpritesheetCreateNestedOneWithoutBruteInput
     tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutOpponentsInput = {
@@ -19477,11 +21018,37 @@ export namespace Prisma {
     spritesheet?: BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput
     tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutOpponentsInput = {
     where: BruteWhereUniqueInput
     create: XOR<BruteCreateWithoutOpponentsInput, BruteUncheckedCreateWithoutOpponentsInput>
+  }
+
+  export type AchievementCreateWithoutBruteInput = {
+    name: AchievementName
+    rarity: AchievementRarity
+    count?: number
+    user?: UserCreateNestedOneWithoutAchievementsInput
+  }
+
+  export type AchievementUncheckedCreateWithoutBruteInput = {
+    id?: number
+    name: AchievementName
+    rarity: AchievementRarity
+    count?: number
+    userId?: string | null
+  }
+
+  export type AchievementCreateOrConnectWithoutBruteInput = {
+    where: AchievementWhereUniqueInput
+    create: XOR<AchievementCreateWithoutBruteInput, AchievementUncheckedCreateWithoutBruteInput>
+  }
+
+  export type AchievementCreateManyBruteInputEnvelope = {
+    data: Enumerable<AchievementCreateManyBruteInput>
+    skipDuplicates?: boolean
   }
 
   export type UserUpsertWithoutBrutesInput = {
@@ -19497,6 +21064,7 @@ export namespace Prisma {
     connexionToken?: StringFieldUpdateOperationsInput | string
     bruteLimit?: IntFieldUpdateOperationsInput | number
     sacrificePoints?: IntFieldUpdateOperationsInput | number
+    achievements?: AchievementUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBrutesInput = {
@@ -19507,6 +21075,7 @@ export namespace Prisma {
     connexionToken?: StringFieldUpdateOperationsInput | string
     bruteLimit?: IntFieldUpdateOperationsInput | number
     sacrificePoints?: IntFieldUpdateOperationsInput | number
+    achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type BruteBodyUpsertWithoutBruteInput = {
@@ -19644,6 +21213,7 @@ export namespace Prisma {
     tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutPupilsInput = {
@@ -19695,6 +21265,7 @@ export namespace Prisma {
     tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUpsertWithWhereUniqueWithoutMasterInput = {
@@ -19909,6 +21480,22 @@ export namespace Prisma {
     data: XOR<BruteUpdateManyMutationInput, BruteUncheckedUpdateManyWithoutOpponentOfInput>
   }
 
+  export type AchievementUpsertWithWhereUniqueWithoutBruteInput = {
+    where: AchievementWhereUniqueInput
+    update: XOR<AchievementUpdateWithoutBruteInput, AchievementUncheckedUpdateWithoutBruteInput>
+    create: XOR<AchievementCreateWithoutBruteInput, AchievementUncheckedCreateWithoutBruteInput>
+  }
+
+  export type AchievementUpdateWithWhereUniqueWithoutBruteInput = {
+    where: AchievementWhereUniqueInput
+    data: XOR<AchievementUpdateWithoutBruteInput, AchievementUncheckedUpdateWithoutBruteInput>
+  }
+
+  export type AchievementUpdateManyWithWhereWithoutBruteInput = {
+    where: AchievementScalarWhereInput
+    data: XOR<AchievementUpdateManyMutationInput, AchievementUncheckedUpdateManyWithoutAchievementsInput>
+  }
+
   export type BruteCreateWithoutSpritesheetInput = {
     name: string
     deletedAt?: Date | string | null
@@ -19957,6 +21544,7 @@ export namespace Prisma {
     tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutSpritesheetInput = {
@@ -20008,6 +21596,7 @@ export namespace Prisma {
     tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutSpritesheetInput = {
@@ -20068,6 +21657,7 @@ export namespace Prisma {
     tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutSpritesheetInput = {
@@ -20119,6 +21709,7 @@ export namespace Prisma {
     tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteCreateWithoutClanInput = {
@@ -20169,6 +21760,7 @@ export namespace Prisma {
     tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutClanInput = {
@@ -20220,6 +21812,7 @@ export namespace Prisma {
     tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutClanInput = {
@@ -20296,6 +21889,7 @@ export namespace Prisma {
     tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutFightsInput = {
@@ -20347,6 +21941,7 @@ export namespace Prisma {
     tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutFightsInput = {
@@ -20402,6 +21997,7 @@ export namespace Prisma {
     tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutFightsAsAdversaryInput = {
@@ -20453,6 +22049,7 @@ export namespace Prisma {
     tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutFightsAsAdversaryInput = {
@@ -20565,6 +22162,7 @@ export namespace Prisma {
     tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutFightsInput = {
@@ -20616,6 +22214,7 @@ export namespace Prisma {
     tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUpsertWithoutFightsAsAdversaryInput = {
@@ -20671,6 +22270,7 @@ export namespace Prisma {
     tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutFightsAsAdversaryInput = {
@@ -20722,6 +22322,7 @@ export namespace Prisma {
     tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type LogUpsertWithWhereUniqueWithoutFightInput = {
@@ -20815,6 +22416,7 @@ export namespace Prisma {
     tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutLogsInput = {
@@ -20866,6 +22468,7 @@ export namespace Prisma {
     tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutLogsInput = {
@@ -20954,6 +22557,7 @@ export namespace Prisma {
     tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutLogsInput = {
@@ -21005,6 +22609,7 @@ export namespace Prisma {
     tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type FightUpsertWithoutLogsInput = {
@@ -21083,6 +22688,7 @@ export namespace Prisma {
     tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutDestinyChoicesInput = {
@@ -21134,6 +22740,7 @@ export namespace Prisma {
     tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutDestinyChoicesInput = {
@@ -21194,6 +22801,7 @@ export namespace Prisma {
     tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutDestinyChoicesInput = {
@@ -21245,6 +22853,7 @@ export namespace Prisma {
     tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteCreateWithoutTournamentsInput = {
@@ -21295,6 +22904,7 @@ export namespace Prisma {
     spritesheet?: BruteSpritesheetCreateNestedOneWithoutBruteInput
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutTournamentsInput = {
@@ -21346,6 +22956,7 @@ export namespace Prisma {
     spritesheet?: BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutTournamentsInput = {
@@ -21500,6 +23111,276 @@ export namespace Prisma {
     logs?: LogUncheckedUpdateManyWithoutFightNestedInput
   }
 
+  export type BruteCreateWithoutAchievementsInput = {
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    level?: number
+    xp?: number
+    hp?: number
+    enduranceStat?: number
+    enduranceModifier?: number
+    enduranceValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    gender: Gender
+    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
+    skills?: BruteCreateskillsInput | Enumerable<SkillName>
+    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    pupilsCount?: number
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    user?: UserCreateNestedOneWithoutBrutesInput
+    body?: BruteBodyCreateNestedOneWithoutBruteInput
+    colors?: BruteColorsCreateNestedOneWithoutBruteInput
+    master?: BruteCreateNestedOneWithoutPupilsInput
+    pupils?: BruteCreateNestedManyWithoutMasterInput
+    clan?: ClanCreateNestedOneWithoutBrutesInput
+    fights?: FightCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
+    logs?: LogCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
+    spritesheet?: BruteSpritesheetCreateNestedOneWithoutBruteInput
+    tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
+  }
+
+  export type BruteUncheckedCreateWithoutAchievementsInput = {
+    id?: number
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    level?: number
+    xp?: number
+    hp?: number
+    enduranceStat?: number
+    enduranceModifier?: number
+    enduranceValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    gender: Gender
+    userId?: string | null
+    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
+    skills?: BruteCreateskillsInput | Enumerable<SkillName>
+    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    masterId?: number | null
+    pupilsCount?: number
+    clanId?: number | null
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
+    colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
+    pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
+    fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
+    logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
+    spritesheet?: BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput
+    tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
+  }
+
+  export type BruteCreateOrConnectWithoutAchievementsInput = {
+    where: BruteWhereUniqueInput
+    create: XOR<BruteCreateWithoutAchievementsInput, BruteUncheckedCreateWithoutAchievementsInput>
+  }
+
+  export type UserCreateWithoutAchievementsInput = {
+    id: string
+    lang?: Lang
+    name: string
+    admin?: boolean
+    connexionToken: string
+    bruteLimit?: number
+    sacrificePoints?: number
+    brutes?: BruteCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutAchievementsInput = {
+    id: string
+    lang?: Lang
+    name: string
+    admin?: boolean
+    connexionToken: string
+    bruteLimit?: number
+    sacrificePoints?: number
+    brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutAchievementsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAchievementsInput, UserUncheckedCreateWithoutAchievementsInput>
+  }
+
+  export type BruteUpsertWithoutAchievementsInput = {
+    update: XOR<BruteUpdateWithoutAchievementsInput, BruteUncheckedUpdateWithoutAchievementsInput>
+    create: XOR<BruteCreateWithoutAchievementsInput, BruteUncheckedCreateWithoutAchievementsInput>
+  }
+
+  export type BruteUpdateWithoutAchievementsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    gender?: EnumGenderFieldUpdateOperationsInput | Gender
+    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
+    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
+    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user?: UserUpdateOneWithoutBrutesNestedInput
+    body?: BruteBodyUpdateOneWithoutBruteNestedInput
+    colors?: BruteColorsUpdateOneWithoutBruteNestedInput
+    master?: BruteUpdateOneWithoutPupilsNestedInput
+    pupils?: BruteUpdateManyWithoutMasterNestedInput
+    clan?: ClanUpdateOneWithoutBrutesNestedInput
+    fights?: FightUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
+    logs?: LogUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
+    spritesheet?: BruteSpritesheetUpdateOneWithoutBruteNestedInput
+    tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
+  }
+
+  export type BruteUncheckedUpdateWithoutAchievementsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    gender?: EnumGenderFieldUpdateOperationsInput | Gender
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
+    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
+    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
+    colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
+    pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
+    fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
+    logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
+    spritesheet?: BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput
+    tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
+  }
+
+  export type UserUpsertWithoutAchievementsInput = {
+    update: XOR<UserUpdateWithoutAchievementsInput, UserUncheckedUpdateWithoutAchievementsInput>
+    create: XOR<UserCreateWithoutAchievementsInput, UserUncheckedCreateWithoutAchievementsInput>
+  }
+
+  export type UserUpdateWithoutAchievementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lang?: EnumLangFieldUpdateOperationsInput | Lang
+    name?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    connexionToken?: StringFieldUpdateOperationsInput | string
+    bruteLimit?: IntFieldUpdateOperationsInput | number
+    sacrificePoints?: IntFieldUpdateOperationsInput | number
+    brutes?: BruteUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAchievementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lang?: EnumLangFieldUpdateOperationsInput | Lang
+    name?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    connexionToken?: StringFieldUpdateOperationsInput | string
+    bruteLimit?: IntFieldUpdateOperationsInput | number
+    sacrificePoints?: IntFieldUpdateOperationsInput | number
+    brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type BruteCreateManyUserInput = {
     id?: number
     name: string
@@ -21538,6 +23419,14 @@ export namespace Prisma {
     victories?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
+  }
+
+  export type AchievementCreateManyUserInput = {
+    id?: number
+    name: AchievementName
+    rarity: AchievementRarity
+    count?: number
+    bruteId?: number | null
   }
 
   export type BruteUpdateWithoutUserInput = {
@@ -21588,6 +23477,7 @@ export namespace Prisma {
     tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutUserInput = {
@@ -21639,6 +23529,7 @@ export namespace Prisma {
     tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutBrutesInput = {
@@ -21679,6 +23570,29 @@ export namespace Prisma {
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type AchievementUpdateWithoutUserInput = {
+    name?: EnumAchievementNameFieldUpdateOperationsInput | AchievementName
+    rarity?: EnumAchievementRarityFieldUpdateOperationsInput | AchievementRarity
+    count?: IntFieldUpdateOperationsInput | number
+    brute?: BruteUpdateOneWithoutAchievementsNestedInput
+  }
+
+  export type AchievementUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: EnumAchievementNameFieldUpdateOperationsInput | AchievementName
+    rarity?: EnumAchievementRarityFieldUpdateOperationsInput | AchievementRarity
+    count?: IntFieldUpdateOperationsInput | number
+    bruteId?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type AchievementUncheckedUpdateManyWithoutAchievementsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: EnumAchievementNameFieldUpdateOperationsInput | AchievementName
+    rarity?: EnumAchievementRarityFieldUpdateOperationsInput | AchievementRarity
+    count?: IntFieldUpdateOperationsInput | number
+    bruteId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type BruteCreateManyMasterInput = {
@@ -21764,6 +23678,14 @@ export namespace Prisma {
     stat2Value?: number | null
   }
 
+  export type AchievementCreateManyBruteInput = {
+    id?: number
+    name: AchievementName
+    rarity: AchievementRarity
+    count?: number
+    userId?: string | null
+  }
+
   export type BruteUpdateWithoutMasterInput = {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21812,6 +23734,7 @@ export namespace Prisma {
     tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutMasterInput = {
@@ -21863,6 +23786,7 @@ export namespace Prisma {
     tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutPupilsInput = {
@@ -22105,6 +24029,7 @@ export namespace Prisma {
     spritesheet?: BruteSpritesheetUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
+    achievements?: AchievementUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutOpponentOfInput = {
@@ -22156,6 +24081,7 @@ export namespace Prisma {
     spritesheet?: BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutOpponentsInput = {
@@ -22247,6 +24173,7 @@ export namespace Prisma {
     spritesheet?: BruteSpritesheetUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutOpponentsInput = {
@@ -22298,6 +24225,7 @@ export namespace Prisma {
     spritesheet?: BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutOpponentOfInput = {
@@ -22339,6 +24267,21 @@ export namespace Prisma {
     victories?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type AchievementUpdateWithoutBruteInput = {
+    name?: EnumAchievementNameFieldUpdateOperationsInput | AchievementName
+    rarity?: EnumAchievementRarityFieldUpdateOperationsInput | AchievementRarity
+    count?: IntFieldUpdateOperationsInput | number
+    user?: UserUpdateOneWithoutAchievementsNestedInput
+  }
+
+  export type AchievementUncheckedUpdateWithoutBruteInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: EnumAchievementNameFieldUpdateOperationsInput | AchievementName
+    rarity?: EnumAchievementRarityFieldUpdateOperationsInput | AchievementRarity
+    count?: IntFieldUpdateOperationsInput | number
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BruteCreateManyClanInput = {
@@ -22429,6 +24372,7 @@ export namespace Prisma {
     tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutClanInput = {
@@ -22480,6 +24424,7 @@ export namespace Prisma {
     tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type LogCreateManyFightInput = {
@@ -22593,6 +24538,7 @@ export namespace Prisma {
     spritesheet?: BruteSpritesheetUpdateOneWithoutBruteNestedInput
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutTournamentsInput = {
@@ -22644,6 +24590,7 @@ export namespace Prisma {
     spritesheet?: BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutParticipantsInput = {

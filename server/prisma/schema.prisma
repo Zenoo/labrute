@@ -20,14 +20,15 @@ enum Lang {
 }
 
 model User {
-  id              String  @unique @db.Uuid
-  lang            Lang    @default(fr)
-  name            String  @unique @db.VarChar(255)
-  admin           Boolean @default(false)
-  connexionToken  String  @db.Uuid
-  bruteLimit      Int     @default(3)
-  sacrificePoints Int     @default(0)
+  id              String        @unique @db.Uuid
+  lang            Lang          @default(fr)
+  name            String        @unique @db.VarChar(255)
+  admin           Boolean       @default(false)
+  connexionToken  String        @db.Uuid
+  bruteLimit      Int           @default(3)
+  sacrificePoints Int           @default(0)
   brutes          Brute[]
+  achievements    Achievement[]
 }
 
 enum DestinyChoiceSide {
@@ -218,6 +219,7 @@ model Brute {
   opponentOf                   Brute[]             @relation("Opponents")
   opponentsGeneratedAt         DateTime?           @db.Date
   canRankUpSince               DateTime?           @db.Date
+  achievements                 Achievement[]
 }
 
 model BruteSpritesheet {
@@ -330,4 +332,29 @@ model TournamentStep {
   fight         Fight      @relation(fields: [fightId], references: [id])
   fightId       Int
   xpDistributed Boolean    @default(false)
+}
+
+enum AchievementRarity {
+  common
+  uncommon
+  rare
+  epic
+  legendary
+}
+
+enum AchievementName {
+  fightsWon
+  fightsLost
+  saboteur
+}
+
+model Achievement {
+  id      Int               @id @default(autoincrement())
+  name    AchievementName
+  rarity  AchievementRarity
+  count   Int               @default(0)
+  brute   Brute?            @relation(fields: [bruteId], references: [id])
+  bruteId Int?
+  user    User?             @relation(fields: [userId], references: [id])
+  userId  String?           @db.Uuid
 }

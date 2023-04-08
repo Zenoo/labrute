@@ -13,12 +13,12 @@ const Prisma = {}
 exports.Prisma = Prisma
 
 /**
- * Prisma Client JS version: 4.11.0
- * Query Engine version: 8fde8fef4033376662cad983758335009d522acb
+ * Prisma Client JS version: 4.12.0
+ * Query Engine version: 659ef412370fa3b41cd7bf6e94587c1dfb7f67e7
  */
 Prisma.prismaVersion = {
-  client: "4.11.0",
-  engine: "8fde8fef4033376662cad983758335009d522acb"
+  client: "4.12.0",
+  engine: "659ef412370fa3b41cd7bf6e94587c1dfb7f67e7"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -88,6 +88,15 @@ Prisma.NullTypes = {
 // Based on
 // https://github.com/microsoft/TypeScript/issues/3192#issuecomment-261720275
 function makeEnum(x) { return x; }
+
+exports.Prisma.AchievementScalarFieldEnum = makeEnum({
+  id: 'id',
+  name: 'name',
+  rarity: 'rarity',
+  count: 'count',
+  bruteId: 'bruteId',
+  userId: 'userId'
+});
 
 exports.Prisma.BruteBodyScalarFieldEnum = makeEnum({
   id: 'id',
@@ -272,6 +281,20 @@ exports.Prisma.UserScalarFieldEnum = makeEnum({
   bruteLimit: 'bruteLimit',
   sacrificePoints: 'sacrificePoints'
 });
+exports.AchievementName = makeEnum({
+  fightsWon: 'fightsWon',
+  fightsLost: 'fightsLost',
+  saboteur: 'saboteur'
+});
+
+exports.AchievementRarity = makeEnum({
+  common: 'common',
+  uncommon: 'uncommon',
+  rare: 'rare',
+  epic: 'epic',
+  legendary: 'legendary'
+});
+
 exports.BruteStat = makeEnum({
   endurance: 'endurance',
   strength: 'strength',
@@ -416,7 +439,8 @@ exports.Prisma.ModelName = makeEnum({
   Log: 'Log',
   DestinyChoice: 'DestinyChoice',
   Tournament: 'Tournament',
-  TournamentStep: 'TournamentStep'
+  TournamentStep: 'TournamentStep',
+  Achievement: 'Achievement'
 });
 
 /**

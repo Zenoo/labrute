@@ -1,7 +1,8 @@
 /* eslint-disable no-param-reassign */
 import {
+  AchievementsStore,
   BARE_HANDS_TEMPO, DetailedFight, DetailedFighter, LeaveStep,
-  randomBetween, SHIELD_BLOCK_ODDS, Skill, StepFighter, Weapon,
+  randomBetween, SHIELD_BLOCK_ODDS, Skill, StepFighter, uppdateAchievement, Weapon,
 } from '@labrute/core';
 import getDamage from './getDamage.js';
 
@@ -20,7 +21,7 @@ const getMainOpponent = (fightData: DetailedFight['data'], brute: DetailedFighte
   return mainOpponent;
 };
 
-export const saboteur = (fightData: DetailedFight['data']) => {
+export const saboteur = (fightData: DetailedFight['data'], stats: AchievementsStore) => {
   fightData.fighters.filter((fighter) => fighter.type === 'brute' && !fighter.master).forEach((brute) => {
     if (brute.saboteur) {
       const opponent = getMainOpponent(fightData, brute);
@@ -28,6 +29,8 @@ export const saboteur = (fightData: DetailedFight['data']) => {
       if (opponent && opponent.weapons.length > 0) {
         const sabotagedWeapon = opponent.weapons[randomBetween(0, opponent.weapons.length - 1)];
         opponent.sabotagedWeapon = sabotagedWeapon;
+
+        uppdateAchievement(stats, 'saboteur', 1, brute.id);
       }
     }
   });

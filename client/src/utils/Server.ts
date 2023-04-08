@@ -1,5 +1,5 @@
 import { BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, BruteWithBodyColors, FullTournament, TournamentsGetGlobalResponse, UserWithBrutesBodyColor } from '@labrute/core';
-import { Brute, DestinyChoice, DestinyChoiceSide, Fight, Gender, Log, Prisma, Tournament, User } from '@labrute/prisma';
+import { Achievement, Brute, DestinyChoice, DestinyChoiceSide, Fight, Gender, Log, Prisma, Tournament, User } from '@labrute/prisma';
 import Fetch from './Fetch';
 
 const Server = {
@@ -77,6 +77,10 @@ const Server = {
   },
   Spritesheet: {
     regenerate: () => Fetch<never>('/api/spritesheet/regenerate'),
+  },
+  Achievement: {
+    getAll: () => Fetch<Achievement[]>('/api/achievements'),
+    getForBrute: (name: string) => Fetch<Achievement[]>(`/api/achievements/${name}`),
   },
 };
 

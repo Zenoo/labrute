@@ -30,6 +30,7 @@ export * from './brute/skills';
 export * from './brute/weapons';
 export * from './constants';
 export * from './types';
+export * from './Achievements';
 export {
   applySkillModifiers,
   availableBodyParts,

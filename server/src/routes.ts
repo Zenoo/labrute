@@ -8,6 +8,7 @@ import OAuth from './controllers/OAuth.js';
 import Spritesheets from './controllers/Spritesheets.js';
 import Tournaments from './controllers/Tournaments.js';
 import Users from './controllers/Users.js';
+import Achievements from './controllers/Achievements.js';
 
 const initRoutes = (app: Express, prisma: PrismaClient) => {
   app.get('/api', (req: Request, res: Response) => res.status(200).send({
@@ -63,6 +64,10 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
   app.get('/api/tournament/:name/:date', Tournaments.getDaily(prisma));
   app.delete('/api/tournament/daily', Tournaments.deleteDaily(prisma));
   app.delete('/api/tournament/global', Tournaments.deleteGlobal(prisma));
+
+  // Achievement
+  app.get('/api/achievements', Achievements.getAll(prisma));
+  app.get('/api/achievements/:name', Achievements.getForBrute(prisma));
 };
 
 export default initRoutes;

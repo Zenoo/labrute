@@ -14,6 +14,7 @@ import TournamentView from './views/TournamentView';
 import VersusView from './views/VersusView';
 import TournamentHistoryView from './views/TournamentHistoryView';
 import GlobalTournamentView from './views/GlobalTournamentView';
+import AchievementsView from './views/AchievementsView';
 
 const routes = [
   { path: 'anchor-test', element: <AnchorTestView /> },
@@ -24,6 +25,7 @@ const routes = [
       { path: '', element: <HomeView /> },
       { path: 'oauth/callback', element: <HomeView /> },
       { path: 'admin-panel', element: <AdminView /> },
+      { path: 'achievements', element: <AchievementsView /> },
       {
         path: ':bruteName',
         children: [
@@ -44,6 +46,7 @@ const routes = [
           { path: 'ranking/:rank', element: <RankingView /> },
           { path: 'destiny', element: <DestinyView /> },
           { path: 'tournaments', element: <TournamentHistoryView /> },
+          { path: 'achievements', element: <AchievementsView /> },
         ],
       },
     ],
