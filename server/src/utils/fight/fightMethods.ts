@@ -1102,7 +1102,7 @@ export const playFighterTurn = (fightData: DetailedFight['data']) => {
     const poisonDamage = Math.ceil(fighter.maxHp / 50);
 
     // Register the hit
-    registerHit(fightData, fighter, [fighter], poisonDamage, 'poison');
+    registerHit(fightData, getMainOpponent(fightData, fighter), [fighter], poisonDamage, 'poison');
   }
 
   // Increase own initiative
