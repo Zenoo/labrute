@@ -215,7 +215,6 @@ export type TournamentStep = {
 export type Achievement = {
   id: number
   name: AchievementName
-  rarity: AchievementRarity
   count: number
   bruteId: number | null
   userId: string | null
@@ -230,23 +229,103 @@ export type Achievement = {
 // https://github.com/microsoft/TypeScript/issues/3192#issuecomment-261720275
 
 export const AchievementName: {
-  fightsWon: 'fightsWon',
-  fightsLost: 'fightsLost',
-  saboteurUsed: 'saboteurUsed'
+  wins: 'wins',
+  defeats: 'defeats',
+  flawless: 'flawless',
+  winWith1HP: 'winWith1HP',
+  steal2Weapons: 'steal2Weapons',
+  singleHitWin: 'singleHitWin',
+  combo3: 'combo3',
+  combo4: 'combo4',
+  combo5: 'combo5',
+  counter4b2b: 'counter4b2b',
+  reversal4b2b: 'reversal4b2b',
+  block4b2b: 'block4b2b',
+  evade4b2b: 'evade4b2b',
+  disarm4: 'disarm4',
+  damage100once: 'damage100once',
+  hit20times: 'hit20times',
+  use10skills: 'use10skills',
+  saboteur: 'saboteur',
+  dog: 'dog',
+  panther: 'panther',
+  bear: 'bear',
+  panther_bear: 'panther_bear',
+  felAg_fistsOfF: 'felAg_fistsOfF',
+  felAg_fistsOfF_untouch_relentless: 'felAg_fistsOfF_untouch_relentless',
+  vita_armor_toughened: 'vita_armor_toughened',
+  herculStr_hammer_fierceBrute: 'herculStr_hammer_fierceBrute',
+  shock: 'shock',
+  balletShoes_survival: 'balletShoes_survival',
+  cryOfTheDamned_hypnosis: 'cryOfTheDamned_hypnosis',
+  shield_counterAttack: 'shield_counterAttack',
+  reconnaissance_monk: 'reconnaissance_monk',
+  immortality: 'immortality',
+  doubleBoost: 'doubleBoost',
+  tripleBoost: 'tripleBoost',
+  quadrupleBoost: 'quadrupleBoost',
+  regeneration_potion: 'regeneration_potion',
+  bear_tamer: 'bear_tamer',
+  tripleDogs: 'tripleDogs',
+  fiveWeapons: 'fiveWeapons',
+  tenWeapons: 'tenWeapons',
+  fifteenWeapons: 'fifteenWeapons',
+  twentyWeapons: 'twentyWeapons',
+  twentyThreeWeapons: 'twentyThreeWeapons',
+  monk_sixthSense_whip: 'monk_sixthSense_whip',
+  weaponsMaster_sharp_bodybuilder_heavy: 'weaponsMaster_sharp_bodybuilder_heavy',
+  hostility_counterWeapon: 'hostility_counterWeapon',
+  flashFlood_twelveWeapons: 'flashFlood_twelveWeapons',
+  lightningBolt_firstStrike: 'lightningBolt_firstStrike',
+  herculeanStrength: 'herculeanStrength',
+  felineAgility: 'felineAgility',
+  lightningBolt: 'lightningBolt',
+  vitality: 'vitality',
+  potion_chef: 'potion_chef',
+  tamer_net: 'tamer_net',
+  untouchable_balletShoes: 'untouchable_balletShoes',
+  survival_resistant: 'survival_resistant',
+  hideaway_spy: 'hideaway_spy',
+  weaponsFast3: 'weaponsFast3',
+  weaponsSharp3: 'weaponsSharp3',
+  weaponsHeavy3: 'weaponsHeavy3',
+  weaponsLong3: 'weaponsLong3',
+  weaponsThrown3: 'weaponsThrown3',
+  weaponsBlunt3: 'weaponsBlunt3',
+  agility50: 'agility50',
+  agility100: 'agility100',
+  speed50: 'speed50',
+  speed100: 'speed100',
+  strength50: 'strength50',
+  strength100: 'strength100',
+  hp300: 'hp300',
+  hp600: 'hp600',
+  winTournamentAs20: 'winTournamentAs20',
+  winTournamentAs15: 'winTournamentAs15',
+  looseAgainst2: 'looseAgainst2',
+  looseAgainst3: 'looseAgainst3',
+  looseAgainst4: 'looseAgainst4',
+  winAgainst2: 'winAgainst2',
+  winAgainst3: 'winAgainst3',
+  winAgainst4: 'winAgainst4',
+  winAsLower: 'winAsLower',
+  win: 'win',
+  rankUp10: 'rankUp10',
+  rankUp9: 'rankUp9',
+  rankUp8: 'rankUp8',
+  rankUp7: 'rankUp7',
+  rankUp6: 'rankUp6',
+  rankUp5: 'rankUp5',
+  rankUp4: 'rankUp4',
+  rankUp3: 'rankUp3',
+  rankUp2: 'rankUp2',
+  rankUp1: 'rankUp1',
+  rankUp0: 'rankUp0',
+  sacrifice: 'sacrifice',
+  beta: 'beta'
 };
 
 export type AchievementName = (typeof AchievementName)[keyof typeof AchievementName]
-
-
-export const AchievementRarity: {
-  common: 'common',
-  uncommon: 'uncommon',
-  rare: 'rare',
-  epic: 'epic',
-  legendary: 'legendary'
-};
-
-export type AchievementRarity = (typeof AchievementRarity)[keyof typeof AchievementRarity]
 
 
 export const BruteStat: {
@@ -13363,7 +13442,6 @@ export namespace Prisma {
   export type AchievementMinAggregateOutputType = {
     id: number | null
     name: AchievementName | null
-    rarity: AchievementRarity | null
     count: number | null
     bruteId: number | null
     userId: string | null
@@ -13372,7 +13450,6 @@ export namespace Prisma {
   export type AchievementMaxAggregateOutputType = {
     id: number | null
     name: AchievementName | null
-    rarity: AchievementRarity | null
     count: number | null
     bruteId: number | null
     userId: string | null
@@ -13381,7 +13458,6 @@ export namespace Prisma {
   export type AchievementCountAggregateOutputType = {
     id: number
     name: number
-    rarity: number
     count: number
     bruteId: number
     userId: number
@@ -13404,7 +13480,6 @@ export namespace Prisma {
   export type AchievementMinAggregateInputType = {
     id?: true
     name?: true
-    rarity?: true
     count?: true
     bruteId?: true
     userId?: true
@@ -13413,7 +13488,6 @@ export namespace Prisma {
   export type AchievementMaxAggregateInputType = {
     id?: true
     name?: true
-    rarity?: true
     count?: true
     bruteId?: true
     userId?: true
@@ -13422,7 +13496,6 @@ export namespace Prisma {
   export type AchievementCountAggregateInputType = {
     id?: true
     name?: true
-    rarity?: true
     count?: true
     bruteId?: true
     userId?: true
@@ -13519,7 +13592,6 @@ export namespace Prisma {
   export type AchievementGroupByOutputType = {
     id: number
     name: AchievementName
-    rarity: AchievementRarity
     count: number
     bruteId: number | null
     userId: string | null
@@ -13547,7 +13619,6 @@ export namespace Prisma {
   export type AchievementSelect = {
     id?: boolean
     name?: boolean
-    rarity?: boolean
     count?: boolean
     bruteId?: boolean
     userId?: boolean
@@ -14332,7 +14403,6 @@ export namespace Prisma {
   export const AchievementScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    rarity: 'rarity',
     count: 'count',
     bruteId: 'bruteId',
     userId: 'userId'
@@ -15429,7 +15499,6 @@ export namespace Prisma {
     NOT?: Enumerable<AchievementWhereInput>
     id?: IntFilter | number
     name?: EnumAchievementNameFilter | AchievementName
-    rarity?: EnumAchievementRarityFilter | AchievementRarity
     count?: IntFilter | number
     bruteId?: IntNullableFilter | number | null
     userId?: UuidNullableFilter | string | null
@@ -15440,7 +15509,6 @@ export namespace Prisma {
   export type AchievementOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    rarity?: SortOrder
     count?: SortOrder
     bruteId?: SortOrder
     userId?: SortOrder
@@ -15455,7 +15523,6 @@ export namespace Prisma {
   export type AchievementOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    rarity?: SortOrder
     count?: SortOrder
     bruteId?: SortOrder
     userId?: SortOrder
@@ -15472,7 +15539,6 @@ export namespace Prisma {
     NOT?: Enumerable<AchievementScalarWhereWithAggregatesInput>
     id?: IntWithAggregatesFilter | number
     name?: EnumAchievementNameWithAggregatesFilter | AchievementName
-    rarity?: EnumAchievementRarityWithAggregatesFilter | AchievementRarity
     count?: IntWithAggregatesFilter | number
     bruteId?: IntNullableWithAggregatesFilter | number | null
     userId?: UuidNullableWithAggregatesFilter | string | null
@@ -16577,7 +16643,6 @@ export namespace Prisma {
 
   export type AchievementCreateInput = {
     name: AchievementName
-    rarity: AchievementRarity
     count?: number
     brute?: BruteCreateNestedOneWithoutAchievementsInput
     user?: UserCreateNestedOneWithoutAchievementsInput
@@ -16586,7 +16651,6 @@ export namespace Prisma {
   export type AchievementUncheckedCreateInput = {
     id?: number
     name: AchievementName
-    rarity: AchievementRarity
     count?: number
     bruteId?: number | null
     userId?: string | null
@@ -16594,7 +16658,6 @@ export namespace Prisma {
 
   export type AchievementUpdateInput = {
     name?: EnumAchievementNameFieldUpdateOperationsInput | AchievementName
-    rarity?: EnumAchievementRarityFieldUpdateOperationsInput | AchievementRarity
     count?: IntFieldUpdateOperationsInput | number
     brute?: BruteUpdateOneWithoutAchievementsNestedInput
     user?: UserUpdateOneWithoutAchievementsNestedInput
@@ -16603,7 +16666,6 @@ export namespace Prisma {
   export type AchievementUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: EnumAchievementNameFieldUpdateOperationsInput | AchievementName
-    rarity?: EnumAchievementRarityFieldUpdateOperationsInput | AchievementRarity
     count?: IntFieldUpdateOperationsInput | number
     bruteId?: NullableIntFieldUpdateOperationsInput | number | null
     userId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16612,7 +16674,6 @@ export namespace Prisma {
   export type AchievementCreateManyInput = {
     id?: number
     name: AchievementName
-    rarity: AchievementRarity
     count?: number
     bruteId?: number | null
     userId?: string | null
@@ -16620,14 +16681,12 @@ export namespace Prisma {
 
   export type AchievementUpdateManyMutationInput = {
     name?: EnumAchievementNameFieldUpdateOperationsInput | AchievementName
-    rarity?: EnumAchievementRarityFieldUpdateOperationsInput | AchievementRarity
     count?: IntFieldUpdateOperationsInput | number
   }
 
   export type AchievementUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: EnumAchievementNameFieldUpdateOperationsInput | AchievementName
-    rarity?: EnumAchievementRarityFieldUpdateOperationsInput | AchievementRarity
     count?: IntFieldUpdateOperationsInput | number
     bruteId?: NullableIntFieldUpdateOperationsInput | number | null
     userId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17952,17 +18011,9 @@ export namespace Prisma {
     not?: NestedEnumAchievementNameFilter | AchievementName
   }
 
-  export type EnumAchievementRarityFilter = {
-    equals?: AchievementRarity
-    in?: Enumerable<AchievementRarity>
-    notIn?: Enumerable<AchievementRarity>
-    not?: NestedEnumAchievementRarityFilter | AchievementRarity
-  }
-
   export type AchievementCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    rarity?: SortOrder
     count?: SortOrder
     bruteId?: SortOrder
     userId?: SortOrder
@@ -17977,7 +18028,6 @@ export namespace Prisma {
   export type AchievementMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    rarity?: SortOrder
     count?: SortOrder
     bruteId?: SortOrder
     userId?: SortOrder
@@ -17986,7 +18036,6 @@ export namespace Prisma {
   export type AchievementMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    rarity?: SortOrder
     count?: SortOrder
     bruteId?: SortOrder
     userId?: SortOrder
@@ -18006,16 +18055,6 @@ export namespace Prisma {
     _count?: NestedIntFilter
     _min?: NestedEnumAchievementNameFilter
     _max?: NestedEnumAchievementNameFilter
-  }
-
-  export type EnumAchievementRarityWithAggregatesFilter = {
-    equals?: AchievementRarity
-    in?: Enumerable<AchievementRarity>
-    notIn?: Enumerable<AchievementRarity>
-    not?: NestedEnumAchievementRarityWithAggregatesFilter | AchievementRarity
-    _count?: NestedIntFilter
-    _min?: NestedEnumAchievementRarityFilter
-    _max?: NestedEnumAchievementRarityFilter
   }
 
   export type BruteCreateNestedManyWithoutUserInput = {
@@ -19105,10 +19144,6 @@ export namespace Prisma {
     set?: AchievementName
   }
 
-  export type EnumAchievementRarityFieldUpdateOperationsInput = {
-    set?: AchievementRarity
-  }
-
   export type BruteUpdateOneWithoutAchievementsNestedInput = {
     create?: XOR<BruteCreateWithoutAchievementsInput, BruteUncheckedCreateWithoutAchievementsInput>
     connectOrCreate?: BruteCreateOrConnectWithoutAchievementsInput
@@ -19617,13 +19652,6 @@ export namespace Prisma {
     not?: NestedEnumAchievementNameFilter | AchievementName
   }
 
-  export type NestedEnumAchievementRarityFilter = {
-    equals?: AchievementRarity
-    in?: Enumerable<AchievementRarity>
-    notIn?: Enumerable<AchievementRarity>
-    not?: NestedEnumAchievementRarityFilter | AchievementRarity
-  }
-
   export type NestedEnumAchievementNameWithAggregatesFilter = {
     equals?: AchievementName
     in?: Enumerable<AchievementName>
@@ -19632,16 +19660,6 @@ export namespace Prisma {
     _count?: NestedIntFilter
     _min?: NestedEnumAchievementNameFilter
     _max?: NestedEnumAchievementNameFilter
-  }
-
-  export type NestedEnumAchievementRarityWithAggregatesFilter = {
-    equals?: AchievementRarity
-    in?: Enumerable<AchievementRarity>
-    notIn?: Enumerable<AchievementRarity>
-    not?: NestedEnumAchievementRarityWithAggregatesFilter | AchievementRarity
-    _count?: NestedIntFilter
-    _min?: NestedEnumAchievementRarityFilter
-    _max?: NestedEnumAchievementRarityFilter
   }
 
   export type BruteCreateWithoutUserInput = {
@@ -19759,7 +19777,6 @@ export namespace Prisma {
 
   export type AchievementCreateWithoutUserInput = {
     name: AchievementName
-    rarity: AchievementRarity
     count?: number
     brute?: BruteCreateNestedOneWithoutAchievementsInput
   }
@@ -19767,7 +19784,6 @@ export namespace Prisma {
   export type AchievementUncheckedCreateWithoutUserInput = {
     id?: number
     name: AchievementName
-    rarity: AchievementRarity
     count?: number
     bruteId?: number | null
   }
@@ -19864,7 +19880,6 @@ export namespace Prisma {
     NOT?: Enumerable<AchievementScalarWhereInput>
     id?: IntFilter | number
     name?: EnumAchievementNameFilter | AchievementName
-    rarity?: EnumAchievementRarityFilter | AchievementRarity
     count?: IntFilter | number
     bruteId?: IntNullableFilter | number | null
     userId?: UuidNullableFilter | string | null
@@ -21028,7 +21043,6 @@ export namespace Prisma {
 
   export type AchievementCreateWithoutBruteInput = {
     name: AchievementName
-    rarity: AchievementRarity
     count?: number
     user?: UserCreateNestedOneWithoutAchievementsInput
   }
@@ -21036,7 +21050,6 @@ export namespace Prisma {
   export type AchievementUncheckedCreateWithoutBruteInput = {
     id?: number
     name: AchievementName
-    rarity: AchievementRarity
     count?: number
     userId?: string | null
   }
@@ -23424,7 +23437,6 @@ export namespace Prisma {
   export type AchievementCreateManyUserInput = {
     id?: number
     name: AchievementName
-    rarity: AchievementRarity
     count?: number
     bruteId?: number | null
   }
@@ -23574,7 +23586,6 @@ export namespace Prisma {
 
   export type AchievementUpdateWithoutUserInput = {
     name?: EnumAchievementNameFieldUpdateOperationsInput | AchievementName
-    rarity?: EnumAchievementRarityFieldUpdateOperationsInput | AchievementRarity
     count?: IntFieldUpdateOperationsInput | number
     brute?: BruteUpdateOneWithoutAchievementsNestedInput
   }
@@ -23582,7 +23593,6 @@ export namespace Prisma {
   export type AchievementUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: EnumAchievementNameFieldUpdateOperationsInput | AchievementName
-    rarity?: EnumAchievementRarityFieldUpdateOperationsInput | AchievementRarity
     count?: IntFieldUpdateOperationsInput | number
     bruteId?: NullableIntFieldUpdateOperationsInput | number | null
   }
@@ -23590,7 +23600,6 @@ export namespace Prisma {
   export type AchievementUncheckedUpdateManyWithoutAchievementsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: EnumAchievementNameFieldUpdateOperationsInput | AchievementName
-    rarity?: EnumAchievementRarityFieldUpdateOperationsInput | AchievementRarity
     count?: IntFieldUpdateOperationsInput | number
     bruteId?: NullableIntFieldUpdateOperationsInput | number | null
   }
@@ -23681,7 +23690,6 @@ export namespace Prisma {
   export type AchievementCreateManyBruteInput = {
     id?: number
     name: AchievementName
-    rarity: AchievementRarity
     count?: number
     userId?: string | null
   }
@@ -24271,7 +24279,6 @@ export namespace Prisma {
 
   export type AchievementUpdateWithoutBruteInput = {
     name?: EnumAchievementNameFieldUpdateOperationsInput | AchievementName
-    rarity?: EnumAchievementRarityFieldUpdateOperationsInput | AchievementRarity
     count?: IntFieldUpdateOperationsInput | number
     user?: UserUpdateOneWithoutAchievementsNestedInput
   }
@@ -24279,7 +24286,6 @@ export namespace Prisma {
   export type AchievementUncheckedUpdateWithoutBruteInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: EnumAchievementNameFieldUpdateOperationsInput | AchievementName
-    rarity?: EnumAchievementRarityFieldUpdateOperationsInput | AchievementRarity
     count?: IntFieldUpdateOperationsInput | number
     userId?: NullableStringFieldUpdateOperationsInput | string | null
   }

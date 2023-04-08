@@ -1,5 +1,5 @@
 import { getFightsLeft, Language, LANGUAGES } from '@labrute/core';
-import { AccountCircle, Add, AdminPanelSettings, Login, Logout } from '@mui/icons-material';
+import { AccountCircle, Add, AdminPanelSettings, Login, Logout, MilitaryTech } from '@mui/icons-material';
 import { Badge, Box, BoxProps, CircularProgress, Link, SpeedDial, SpeedDialAction, Tooltip } from '@mui/material';
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -83,6 +83,12 @@ const Page = ({
     navigate('/');
   }, [navigate]);
 
+  // Redirect to Achievements page
+  const goToAchievements = useCallback(() => {
+    setOpen(false);
+    navigate('/achievements');
+  }, [navigate]);
+
   return (
     <Box {...rest}>
       <Helmet>
@@ -128,6 +134,14 @@ const Page = ({
             icon={user.sacrificePoints}
             tooltipTitle={t('sacrificePoints')}
             tooltipOpen
+          />
+        )}
+        {user && (
+          <SpeedDialAction
+            icon={<MilitaryTech color="warning" />}
+            tooltipTitle={t('achievements')}
+            tooltipOpen
+            onClick={goToAchievements}
           />
         )}
         {user && user.brutes && user.brutes.map((brute) => (

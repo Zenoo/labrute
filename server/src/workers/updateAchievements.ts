@@ -1,5 +1,5 @@
 /* eslint-disable no-await-in-loop */
-import { AchievementRarities, AchievementsStore } from '@labrute/core';
+import { AchievementsStore } from '@labrute/core';
 import { AchievementName, PrismaClient } from '@labrute/prisma';
 import { workerData } from 'worker_threads';
 
@@ -41,17 +41,12 @@ for (const store of stores) {
         select: { id: true },
       });
 
-      if (!user) {
-        throw new Error(`User not found for brute ${store.bruteId || ''}`);
-      }
-
       await prisma.achievement.create({
         data: {
           name,
           count,
-          userId: user.id,
+          userId: user?.id,
           bruteId: store.bruteId,
-          rarity: AchievementRarities[name],
         },
       });
     }

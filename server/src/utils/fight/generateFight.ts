@@ -5,25 +5,31 @@ import {
 import { Prisma, PrismaClient } from '@labrute/prisma';
 import { Worker } from 'worker_threads';
 import {
+  Stats,
   checkDeaths, getOpponents, orderFighters, playFighterTurn, saboteur, stepFighter,
 } from './fightMethods.js';
 import getFighters from './getFighters.js';
+import handleStats from './handleStats.js';
 
 const generateFight = async (
   prisma: PrismaClient,
   brute1: BruteWithBodyColors,
   brute2: BruteWithBodyColors,
-  allowBackup = true,
+  allowBackup: boolean,
+  achievementsActive: boolean,
 ) => {
   if (brute1.id === brute2.id) {
     throw new Error('Attempted to created a fight between the same brutes');
   }
 
   // Achievements
-  const stats: AchievementsStore = [
+  const achievements: AchievementsStore = [
     { bruteId: brute1.id, achievements: {} },
     { bruteId: brute2.id, achievements: {} },
   ];
+
+  // Stats
+  const stats: Stats[] = [];
 
   // Get brute backups
   const brute1Backups = allowBackup ? await prisma.brute.findMany({
@@ -75,7 +81,7 @@ const generateFight = async (
   };
 
   // Pre-fight saboteur
-  saboteur(fightData, stats);
+  saboteur(fightData, achievements);
 
   // Poison fighters
   [brute1, brute2].forEach((brute) => {
@@ -132,7 +138,7 @@ const generateFight = async (
     }
 
     // Play fighter turn
-    playFighterTurn(fightData);
+    playFighterTurn(fightData, stats, achievements);
 
     // Check deaths
     checkDeaths(fightData);
@@ -196,11 +202,16 @@ const generateFight = async (
     fighters: fighters as unknown as Prisma.JsonArray,
   };
 
+  // Add achievements from stats
+  handleStats(fightData, stats, achievements, !allowBackup);
+
   // Update achievements
-  // eslint-disable-next-line no-new
-  new Worker('./lib/workers/updateAchievements.js', {
-    workerData: stats,
-  });
+  if (achievementsActive) {
+    // eslint-disable-next-line no-new
+    new Worker('./lib/workers/updateAchievements.js', {
+      workerData: achievements,
+    });
+  }
 
   return data;
 };

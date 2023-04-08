@@ -1,4 +1,4 @@
-import { AccountTree } from '@mui/icons-material';
+import { AccountTree, MilitaryTech } from '@mui/icons-material';
 import { Box, Grid, Paper, PaperProps, Tooltip } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -25,6 +25,17 @@ const CellSocials = ({
     <Paper {...rest}>
       <Grid container spacing={1}>
         <Grid item xs={smallScreen ? 12 : 6}>
+          {/* No achievements for bots */}
+          {brute.userId && (
+            <Tooltip title={t('achievements')}>
+              <Link
+                to={`/${brute.name}/achievements`}
+                sx={{ mr: 1 }}
+              >
+                <MilitaryTech color="warning" />
+              </Link>
+            </Tooltip>
+          )}
           {/* No destiny for bots */}
           {brute.userId && (
             <Tooltip title={`${t('destinyOf')} ${brute.name}`}>
@@ -32,7 +43,7 @@ const CellSocials = ({
                 to={`/${brute.name}/destiny`}
                 sx={{ mr: 1 }}
               >
-                <AccountTree />
+                <AccountTree color="success" />
               </Link>
             </Tooltip>
           )}

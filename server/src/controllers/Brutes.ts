@@ -1,11 +1,12 @@
 import {
-  ARENA_OPPONENTS_COUNT, BrutesExistsResponse, BrutesGetDestinyResponse,
+  ARENA_OPPONENTS_COUNT,
+  BrutesExistsResponse, BrutesGetDestinyResponse,
   BrutesGetFightsLeftResponse, BrutesGetForRankResponse,
   BrutesGetRankingResponse,
   BruteWithBodyColors, createRandomBruteStats,
   DestinyBranch, ExpectedError, getFightsLeft, getLevelUpChoices,
   getMaxFightsPerDay,
-  getSacriPoints, getXPNeeded, updateBruteData,
+  getSacriPoints, getXPNeeded, increaseAchievement, updateBruteData,
 } from '@labrute/core';
 import {
   DestinyChoiceSide, DestinyChoiceType, Gender, LogType, Prisma, PrismaClient,
@@ -16,6 +17,7 @@ import { Worker } from 'worker_threads';
 import auth from '../utils/auth.js';
 import checkBody from '../utils/brute/checkBody.js';
 import checkColors from '../utils/brute/checkColors.js';
+import checkLevelUpAchievements from '../utils/brute/checkLevelUpAchievements.js';
 import getOpponents from '../utils/brute/getOpponents.js';
 import sendError from '../utils/sendError.js';
 
@@ -317,6 +319,8 @@ const Brutes = {
       // Update brute data
       const updatedBruteData = updateBruteData(brute, destinyChoice);
 
+      const oldBrute = { ...brute };
+
       // Update brute
       brute = await prisma.brute.update({
         where: { id: brute.id },
@@ -326,6 +330,9 @@ const Brutes = {
           xp: { decrement: getXPNeeded(brute.level + 1) },
         },
       });
+
+      // Check level up achievements
+      await checkLevelUpAchievements(prisma, brute, destinyChoice, oldBrute);
 
       // Get new opponents
       const opponents = await getOpponents(prisma, brute);
@@ -522,6 +529,9 @@ const Brutes = {
           },
         });
       }
+
+      // Achievement
+      await increaseAchievement(prisma, user.id, null, 'sacrifice');
 
       res.send({ points: sacriPoints });
     } catch (error) {
@@ -836,6 +846,9 @@ const Brutes = {
           fightsLeft: getMaxFightsPerDay(brute),
         },
       });
+
+      // Achievement
+      await increaseAchievement(prisma, user.id, brute.id, `rankUp${(brute.ranking - 1) as 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0}`);
 
       // Add rank up log
       await prisma.log.create({

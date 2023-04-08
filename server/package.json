@@ -13,7 +13,7 @@
     "start:watch": "tsc-watch --build ./tsconfig.json --onSuccess \"node ./lib/server.js\"",
     "db:migrate:manual": "prisma migrate dev --create-only",
     "db:sync:dev": "prisma migrate dev && cp ../prisma/package.reference.json ../prisma/package.json",
-    "db:sync:prod": "prisma migrate deploy && yarn db:seed && yarn run:fixErroredBonuses && yarn run:retrieveFirstBonus",
+    "db:sync:prod": "prisma migrate deploy && yarn db:seed && yarn run:fixErroredBonuses && yarn run:retrieveFirstBonus && yarn run:grantBetaAchievement",
     "db:seed": "prisma db seed",
     "db:reset": "prisma migrate reset --skip-generate",
     "studio": "prisma studio"

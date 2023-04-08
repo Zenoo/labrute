@@ -66,7 +66,7 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
   app.delete('/api/tournament/global', Tournaments.deleteGlobal(prisma));
 
   // Achievement
-  app.get('/api/achievements', Achievements.getAll(prisma));
+  app.post('/api/achievements', Achievements.getForUser(prisma));
   app.get('/api/achievements/:name', Achievements.getForBrute(prisma));
 };
 

@@ -1,41 +1,55 @@
+import { AchievementData, ExpectedError, RaretyOrder } from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
 import { Request, Response } from 'express';
-import { RarityOrder } from '@labrute/core';
-import auth from '../utils/auth.js';
 import sendError from '../utils/sendError.js';
 
 const Achievements = {
-  getAll: (prisma: PrismaClient) => async (req: Request, res: Response) => {
+  getForUser: (prisma: PrismaClient) => async (
+    req: Request<never, unknown, { userId: string }>,
+    res: Response,
+  ) => {
     try {
-      const user = await auth(prisma, req);
+      if (!req.body.userId) throw new ExpectedError('Missing user id');
 
       // Get achievements
       const achievements = await prisma.achievement.findMany({
-        where: { userId: user.id },
+        where: { userId: req.body.userId },
       });
 
-      // Order by rarity then count
-      achievements.sort((a, b) => {
-        if (RarityOrder.indexOf(a.rarity) < RarityOrder.indexOf(b.rarity)) return -1;
-        if (RarityOrder.indexOf(a.rarity) > RarityOrder.indexOf(b.rarity)) return 1;
+      // Merge achievements with same name
+      const mergedAchievements = achievements.reduce((acc, achievement) => {
+        const existingAchievement = acc.find((a) => a.name === achievement.name);
+        if (existingAchievement) {
+          existingAchievement.count += achievement.count;
+        } else {
+          acc.push(achievement);
+        }
+        return acc;
+      }, [] as typeof achievements);
+
+      // Order by rarety then count
+      mergedAchievements.sort((a, b) => {
+        const aRarety = RaretyOrder.indexOf(AchievementData[a.name].rarety);
+        const bRarety = RaretyOrder.indexOf(AchievementData[b.name].rarety);
+        if (aRarety < bRarety) return 1;
+        if (aRarety > bRarety) return -1;
         if (a.count > b.count) return -1;
         if (a.count < b.count) return 1;
         return 0;
       });
 
-      res.status(200).send(achievements);
+      res.status(200).send(mergedAchievements);
     } catch (error) {
       sendError(res, error);
     }
   },
   getForBrute: (prisma: PrismaClient) => async (req: Request, res: Response) => {
     try {
-      const user = await auth(prisma, req);
+      if (!req.params.name) throw new ExpectedError('Missing brute name');
 
       // Get achievements
       const achievements = await prisma.achievement.findMany({
         where: {
-          userId: user.id,
           brute: {
             deletedAt: null,
             name: req.params.name,
@@ -43,10 +57,12 @@ const Achievements = {
         },
       });
 
-      // Order by rarity then count
+      // Order by rarety then count
       achievements.sort((a, b) => {
-        if (RarityOrder.indexOf(a.rarity) < RarityOrder.indexOf(b.rarity)) return -1;
-        if (RarityOrder.indexOf(a.rarity) > RarityOrder.indexOf(b.rarity)) return 1;
+        const aRarety = RaretyOrder.indexOf(AchievementData[a.name].rarety);
+        const bRarety = RaretyOrder.indexOf(AchievementData[b.name].rarety);
+        if (aRarety < bRarety) return 1;
+        if (aRarety > bRarety) return -1;
         if (a.count > b.count) return -1;
         if (a.count < b.count) return 1;
         return 0;

@@ -1,25 +1,52 @@
-import { AchievementIllustrations } from '@labrute/core';
-import { AchievementRarity } from '@labrute/prisma';
+import { AchievementData, AchievementRarety } from '@labrute/core';
+import { Achievement } from '@labrute/prisma';
 import { QuestionMark } from '@mui/icons-material';
 import { Box, Grid, Paper, Tooltip, useMediaQuery, useTheme } from '@mui/material';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router';
 import Page from '../components/Page';
 import Text from '../components/Text';
+import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
-import useStateAsync from '../hooks/useStateAsync';
 import Server from '../utils/Server';
+import catchError from '../utils/catchError';
+
+const RARITY_COLORS = {
+  [AchievementRarety.common]: 'primary',
+  [AchievementRarety.uncommon]: 'secondary',
+  [AchievementRarety.rare]: 'error',
+  [AchievementRarety.epic]: 'warning',
+  [AchievementRarety.legendary]: 'success',
+};
 
 const AchievementsView = () => {
   const { t } = useTranslation();
   const theme = useTheme();
+  const { bruteName } = useParams();
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
   const { user } = useAuth();
+  const Alert = useAlert();
 
-  const { data: achievements } = useStateAsync([], Server.Achievement.getAll, undefined);
+  const [achievements, setAchievements] = useState<Achievement[]>([]);
+
+  // Fetch achievements
+  useEffect(() => {
+    if (!user && !bruteName) return;
+
+    if (bruteName) {
+      Server.Achievement.getForBrute(bruteName).then((data) => {
+        setAchievements(data);
+      }).catch(catchError(Alert));
+    } else if (user) {
+      Server.Achievement.getForUser(user.id).then((data) => {
+        setAchievements(data);
+      }).catch(catchError(Alert));
+    }
+  }, [Alert, bruteName, user]);
 
   return (
-    <Page title={t('MyBrute')} headerUrl="/">
+    <Page title={t('MyBrute')} headerUrl={bruteName ? `/${bruteName}/cell` : '/'}>
       {user && (
         <>
           <Paper sx={{ mx: 4 }}>
@@ -37,7 +64,7 @@ const AchievementsView = () => {
                     borderRadius: 0,
                   }}
                 >
-                  <Text bold h6>{user.name}</Text>
+                  <Text bold h6>{bruteName || user.name}</Text>
                   <Box sx={{
                     mt: 1,
                     bgcolor: 'background.paperLight',
@@ -46,7 +73,7 @@ const AchievementsView = () => {
                     textAlign: 'left',
                     display: 'flex',
                     flexWrap: 'wrap',
-                    p: 1,
+                    px: 0.25,
                   }}
                   >
                     {achievements.map((achievement) => (
@@ -54,8 +81,8 @@ const AchievementsView = () => {
                         key={achievement.id}
                         title={(
                           <>
-                            <Text bold h6>{t(achievement.name)} ({achievement.count})</Text>
-                            <Text sx={{ fontStyle: 'italic', color: 'text.secondary' }}>{t(`${achievement.name}.description`)}</Text>
+                            <Text bold h6>{t(`achievements.${achievement.name}`)} ({achievement.count})</Text>
+                            <Text sx={{ fontStyle: 'italic', color: 'text.secondary' }}>{t(`achievements.${achievement.name}.description`)}</Text>
                           </>
                         )}
                         componentsProps={{
@@ -74,22 +101,18 @@ const AchievementsView = () => {
                           sx={{
                             width: 40,
                             pt: 0.5,
+                            mx: 0.25,
+                            my: 0.5,
                             textAlign: 'center',
                             borderRadius: 1,
                             border: 1,
-                            borderColor: achievement.rarity === AchievementRarity.common
-                              ? 'primary.main'
-                              : achievement.rarity === AchievementRarity.uncommon
-                                ? 'secondary.main'
-                                : achievement.rarity === AchievementRarity.rare
-                                  ? 'error.main'
-                                  : achievement.rarity === AchievementRarity.epic
-                                    ? 'warning.main'
-                                    : 'success.main',
+                            borderColor: `${RARITY_COLORS[AchievementData[achievement.name].rarety]}.main`,
+                            bgcolor: `${RARITY_COLORS[AchievementData[achievement.name].rarety]}.light`,
+                            color: `${RARITY_COLORS[AchievementData[achievement.name].rarety]}.contrastText`,
                           }}
                         >
-                          {AchievementIllustrations[achievement.name] ? (
-                            <Box component="img" src={`/images/achievements/${AchievementIllustrations[achievement.name]}.png`} sx={{ maxWidth: 1 }} />
+                          {AchievementData[achievement.name].illustration ? (
+                            <Box component="img" src={`/images/achievements/${AchievementData[achievement.name].illustration || ''}`} sx={{ maxWidth: 1 }} />
                           ) : (
                             <QuestionMark />
                           )}
