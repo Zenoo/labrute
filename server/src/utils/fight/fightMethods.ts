@@ -40,7 +40,8 @@ const checkAchievements = (stats: Stats[], achievements: AchievementsStore) => {
     const achievement = achievements.find((a) => a.bruteId === stat.bruteId);
 
     if (!achievement) {
-      throw new Error(`Achievement not found for brute ${stat.bruteId || ''}`);
+      // eslint-disable-next-line no-continue
+      continue;
     }
 
     // Consecutive counters
