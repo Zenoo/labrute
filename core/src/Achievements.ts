@@ -338,7 +338,7 @@ export const AchievementData: Record<
   },
   win: {
     rarety: AchievementRarety.common,
-    illustration: 'r_wintop1.gif',
+    illustration: 'r_wintop.gif',
   },
   rankUp10: {
     rarety: AchievementRarety.uncommon,
@@ -383,33 +383,26 @@ export const AchievementData: Record<
   },
 };
 
-export type AchievementsStore = {
-  bruteId?: number;
+export type AchievementsStore = Record<number, {
+  userId: string | null;
   achievements: Partial<Record<AchievementName, number>>;
-}[];
+}>;
 
 export const updateAchievement = (
   store: AchievementsStore,
   name: AchievementName,
   count: number,
-  bruteId?: number,
+  bruteId: number,
 ) => {
-  const current = store.find(
-    (s) => s.bruteId === bruteId,
-  );
+  if (bruteId === 0) return;
 
-  if (current) {
-    const previousCount = current.achievements[name] || 0;
+  const current = store[bruteId];
 
-    current.achievements[name] = previousCount + count;
-  } else {
-    store.push({
-      bruteId,
-      achievements: {
-        [name]: count,
-      }
-    });
-  }
+  if (!current) return;
+
+  const previousCount = current.achievements[name] || 0;
+
+  current.achievements[name] = previousCount + count;
 };
 
 export const increaseAchievement = async (

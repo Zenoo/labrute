@@ -6,8 +6,8 @@ import {
 } from '@labrute/core';
 import getDamage from './getDamage.js';
 
-export interface Stats {
-  bruteId: number;
+export type Stats = Record<number, {
+  userId: string | null;
   skillsUsed?: number;
   weaponsStolen?: number;
   hits?: number;
@@ -16,28 +16,24 @@ export interface Stats {
   consecutiveBlocks?: number;
   consecutiveEvades?: number;
   disarms?: number;
-}
+}>;
 
-const updateStats = (stats: Stats[], bruteId: number, stat: keyof Stats, value: number) => {
-  const current = stats.find((s) => s.bruteId === bruteId);
+const updateStats = (stats: Stats, bruteId: number, stat: keyof Omit<Stats[number], 'userId'>, value: number) => {
+  const current = stats[bruteId];
 
-  if (current) {
-    if (value === 0) {
-      current[stat] = 0;
-    } else {
-      current[stat] = (current[stat] || 0) + value;
-    }
+  if (!current) return;
+
+  if (value === 0) {
+    current[stat] = 0;
   } else {
-    stats.push({
-      bruteId,
-      [stat]: value,
-    });
+    current[stat] = (current[stat] || 0) + value;
   }
 };
 
-const checkAchievements = (stats: Stats[], achievements: AchievementsStore) => {
-  for (const stat of stats) {
-    const achievement = achievements.find((a) => a.bruteId === stat.bruteId);
+const checkAchievements = (stats: Stats, achievements: AchievementsStore) => {
+  for (const [_bruteId, stat] of Object.entries(stats)) {
+    const bruteId = +_bruteId;
+    const achievement = achievements[bruteId];
 
     if (!achievement) {
       // eslint-disable-next-line no-continue
@@ -46,25 +42,25 @@ const checkAchievements = (stats: Stats[], achievements: AchievementsStore) => {
 
     // Consecutive counters
     if (stat.consecutiveCounters && stat.consecutiveCounters >= 4) {
-      updateAchievement(achievements, 'counter4b2b', 1, stat.bruteId);
+      updateAchievement(achievements, 'counter4b2b', 1, bruteId);
       stat.consecutiveCounters = 0;
     }
 
     // Consecutive reversals
     if (stat.consecutiveReversals && stat.consecutiveReversals >= 4) {
-      updateAchievement(achievements, 'reversal4b2b', 1, stat.bruteId);
+      updateAchievement(achievements, 'reversal4b2b', 1, bruteId);
       stat.consecutiveReversals = 0;
     }
 
     // Consecutive blocks
     if (stat.consecutiveBlocks && stat.consecutiveBlocks >= 4) {
-      updateAchievement(achievements, 'block4b2b', 1, stat.bruteId);
+      updateAchievement(achievements, 'block4b2b', 1, bruteId);
       stat.consecutiveBlocks = 0;
     }
 
     // Consecutive evades
     if (stat.consecutiveEvades && stat.consecutiveEvades >= 4) {
-      updateAchievement(achievements, 'evade4b2b', 1, stat.bruteId);
+      updateAchievement(achievements, 'evade4b2b', 1, bruteId);
       stat.consecutiveEvades = 0;
     }
   }
@@ -236,7 +232,7 @@ export const stepFighter = (fighter: DetailedFighter): StepFighter => ({
 
 const registerHit = (
   fightData: DetailedFight['data'],
-  stats: Stats[],
+  stats: Stats,
   achievements: AchievementsStore,
   fighter: DetailedFighter,
   opponents: DetailedFighter[],
@@ -320,7 +316,7 @@ const registerHit = (
 const activateSuper = (
   fightData: DetailedFight['data'],
   skill: Skill,
-  stats: Stats[],
+  stats: Stats,
   achievements: AchievementsStore,
 ): boolean => {
   // No uses left (should never happen)
@@ -851,7 +847,7 @@ const attack = (
   fightData: DetailedFight['data'],
   fighter: DetailedFighter,
   opponent: DetailedFighter,
-  stats: Stats[],
+  stats: Stats,
   achievements: AchievementsStore,
 ) => {
   // Abort if fighter is dead
@@ -1031,7 +1027,7 @@ const reversal = (opponent: DetailedFighter) => {
 
 const startAttack = (
   fightData: DetailedFight['data'],
-  stats: Stats[],
+  stats: Stats,
   achievements: AchievementsStore,
   fighter: DetailedFighter,
   opponent: DetailedFighter,
@@ -1098,7 +1094,7 @@ const startAttack = (
 
 export const playFighterTurn = (
   fightData: DetailedFight['data'],
-  stats: Stats[],
+  stats: Stats,
   achievements: AchievementsStore,
 ) => {
   const fighter = fightData.fighters[0];

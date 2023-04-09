@@ -39,3 +39,9 @@ const sendError = (res: Response, error: unknown) => {
 };
 
 export default sendError;
+
+export const sendWorkerError = (error: unknown) => {
+  if (!(error instanceof ExpectedError)) {
+    DiscordUtils.sendLog(error).catch(console.error);
+  }
+};

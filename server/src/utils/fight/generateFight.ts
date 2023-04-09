@@ -3,13 +3,13 @@ import {
   BruteWithBodyColors, DetailedFight, Fighter, randomBetween,
 } from '@labrute/core';
 import { Prisma, PrismaClient } from '@labrute/prisma';
-import { Worker } from 'worker_threads';
 import {
   Stats,
   checkDeaths, getOpponents, orderFighters, playFighterTurn, saboteur, stepFighter,
 } from './fightMethods.js';
 import getFighters from './getFighters.js';
 import handleStats from './handleStats.js';
+import updateAchievements from './updateAchievements.js';
 
 const generateFight = async (
   prisma: PrismaClient,
@@ -23,13 +23,26 @@ const generateFight = async (
   }
 
   // Achievements
-  const achievements: AchievementsStore = [
-    { bruteId: brute1.id, achievements: {} },
-    { bruteId: brute2.id, achievements: {} },
-  ];
+  const achievements: AchievementsStore = {
+    [brute1.id]: {
+      userId: brute1.userId,
+      achievements: {},
+    },
+    [brute2.id]: {
+      userId: brute2.userId,
+      achievements: {},
+    },
+  };
 
   // Stats
-  const stats: Stats[] = [];
+  const stats: Stats = {
+    [brute1.id]: {
+      userId: brute1.userId,
+    },
+    [brute2.id]: {
+      userId: brute2.userId,
+    },
+  };
 
   // Get brute backups
   const brute1Backups = allowBackup ? await prisma.brute.findMany({
@@ -207,10 +220,7 @@ const generateFight = async (
 
   // Update achievements
   if (achievementsActive) {
-    // eslint-disable-next-line no-new
-    new Worker('./lib/workers/updateAchievements.js', {
-      workerData: achievements,
-    });
+    await updateAchievements(prisma, achievements);
   }
 
   return data;
