@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.19.1](https://github.com/Zenoo/labrute/compare/labrute-v2.19.0...labrute-v2.19.1) (2023-04-09)
+
+
+### Bug Fixes
+
+* Don't throw if achievement nor found ([9371249](https://github.com/Zenoo/labrute/commit/93712498681522ff8d269ffac356a2e527731937))
+
 ## [2.19.0](https://github.com/Zenoo/labrute/compare/labrute-v2.18.5...labrute-v2.19.0) (2023-04-08)
 
 
