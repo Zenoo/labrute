@@ -848,7 +848,7 @@ const Brutes = {
       });
 
       // Achievement
-      await increaseAchievement(prisma, user.id, brute.id, `rankUp${(brute.ranking - 1) as 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0}`);
+      await increaseAchievement(prisma, user.id, brute.id, `rankUp${brute.ranking as 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0}`);
 
       // Add rank up log
       await prisma.log.create({
