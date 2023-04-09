@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.19.2](https://github.com/Zenoo/labrute/compare/labrute-v2.19.1...labrute-v2.19.2) (2023-04-09)
+
+
+### Bug Fixes
+
+* Optimize achievements handling in fights. [#196](https://github.com/Zenoo/labrute/issues/196) ([dfa0f78](https://github.com/Zenoo/labrute/commit/dfa0f7813eb706cb3918f7ec31a11e20b0e91f29))
+
 ## [2.19.1](https://github.com/Zenoo/labrute/compare/labrute-v2.19.0...labrute-v2.19.1) (2023-04-09)
 
 
