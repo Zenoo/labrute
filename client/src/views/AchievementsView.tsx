@@ -73,7 +73,18 @@ const AchievementsView = () => {
                         key={achievement.id}
                         title={(
                           <>
-                            <Text bold h6>{t(`achievements.${achievement.name}`)} ({achievement.count})</Text>
+                            <Text bold h6>
+                              {t(`achievements.${achievement.name}`)} ({achievement.count})
+                            </Text>
+                            <Text
+                              sx={{
+                                color: `achievements.${AchievementData[achievement.name].rarety}.main`,
+                                fontStyle: 'italic',
+                                textTransform: 'capitalize',
+                              }}
+                            >
+                              {AchievementData[achievement.name].rarety}
+                            </Text>
                             <Text sx={{ fontStyle: 'italic', color: 'text.secondary' }}>{t(`achievements.${achievement.name}.description`)}</Text>
                           </>
                         )}
