@@ -1,7 +1,7 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-console */
 import {
-  BruteWithBodyColors, getRandomBody, getRandomColors,
+  BruteWithBodyColors, Fighter, getRandomBody, getRandomColors,
 } from '@labrute/core';
 import {
   LogType, Prisma, PrismaClient, TournamentType,
@@ -516,9 +516,21 @@ const handleXpGains = async (prisma: PrismaClient) => {
   const xpGains: Record<string, { bruteId: number, xp: number }> = {};
 
   for (const step of steps) {
+    const winnerFighter = (step.fight.fighters as unknown as Fighter[])
+      .find((fighter) => !fighter.master && fighter.name === step.fight.winner);
+
+    if (!winnerFighter) {
+      // Skip to next step
+      // eslint-disable-next-line no-continue
+      continue;
+    }
+
     // Get winner
     const winner = await prisma.brute.findFirst({
-      where: { name: step.fight.winner, deletedAt: null },
+      where: {
+        id: winnerFighter.id,
+        deletedAt: null,
+      },
       select: { id: true },
     });
 
