@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.19.4](https://github.com/Zenoo/labrute/compare/labrute-v2.19.3...labrute-v2.19.4) (2023-04-10)
+
+
+### Bug Fixes
+
+* Tournament win achievements not limited to tournament wins. ([5ae9f2d](https://github.com/Zenoo/labrute/commit/5ae9f2db0c153fc1b2a931857d5634be3409fb30))
+
 ## [2.19.3](https://github.com/Zenoo/labrute/compare/labrute-v2.19.2...labrute-v2.19.3) (2023-04-09)
 
 
