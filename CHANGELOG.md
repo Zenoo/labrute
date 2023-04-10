@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.19.5](https://github.com/Zenoo/labrute/compare/labrute-v2.19.4...labrute-v2.19.5) (2023-04-10)
+
+
+### Bug Fixes
+
+* Achievement english translations. [#196](https://github.com/Zenoo/labrute/issues/196) ([b8896ae](https://github.com/Zenoo/labrute/commit/b8896aeaa65bea60915d9b43e1e66ee9cab1e510))
+* Include rarity in achievement tooltip ([0a7f1e0](https://github.com/Zenoo/labrute/commit/0a7f1e085282d086308daa5cfb9702cef116ba84))
+* New achievement colors. [#196](https://github.com/Zenoo/labrute/issues/196) ([9b2a3e7](https://github.com/Zenoo/labrute/commit/9b2a3e75c3bcf92bf879122b9d837c3646d306ac))
+
 ## [2.19.4](https://github.com/Zenoo/labrute/compare/labrute-v2.19.3...labrute-v2.19.4) (2023-04-10)
 
 
