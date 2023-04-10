@@ -40,7 +40,7 @@ const handleStats = (
     }
 
     // Win with 1hp
-    if (bruteId === winner.id && winner.hp === 1 && !winner.survival) {
+    if (bruteId === winner.id && winner.hp === 1 && !winner.skills.find((s) => s.name === 'survival')) {
       achievement.achievements.winWith1HP = 1;
     }
 
