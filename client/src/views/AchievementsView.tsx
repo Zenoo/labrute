@@ -1,4 +1,4 @@
-import { AchievementData, AchievementRarety } from '@labrute/core';
+import { AchievementData } from '@labrute/core';
 import { Achievement } from '@labrute/prisma';
 import { QuestionMark } from '@mui/icons-material';
 import { Box, Grid, Paper, Tooltip, useMediaQuery, useTheme } from '@mui/material';
@@ -11,14 +11,6 @@ import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
-
-const RARITY_COLORS = {
-  [AchievementRarety.common]: 'primary',
-  [AchievementRarety.uncommon]: 'secondary',
-  [AchievementRarety.rare]: 'error',
-  [AchievementRarety.epic]: 'warning',
-  [AchievementRarety.legendary]: 'success',
-};
 
 const AchievementsView = () => {
   const { t } = useTranslation();
@@ -106,9 +98,9 @@ const AchievementsView = () => {
                             textAlign: 'center',
                             borderRadius: 1,
                             border: 1,
-                            borderColor: `${RARITY_COLORS[AchievementData[achievement.name].rarety]}.main`,
-                            bgcolor: `${RARITY_COLORS[AchievementData[achievement.name].rarety]}.light`,
-                            color: `${RARITY_COLORS[AchievementData[achievement.name].rarety]}.contrastText`,
+                            borderColor: `achievements.${AchievementData[achievement.name].rarety}.main`,
+                            bgcolor: `achievements.${AchievementData[achievement.name].rarety}.light`,
+                            color: `achievements.${AchievementData[achievement.name].rarety}.contrastText`,
                           }}
                         >
                           {AchievementData[achievement.name].illustration ? (

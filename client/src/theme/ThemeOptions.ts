@@ -1,4 +1,4 @@
-import { ThemeOptions } from '@mui/material/styles';
+import { ThemeOptions, createTheme } from '@mui/material/styles';
 import { FontStyle } from '@mui/material/styles/createTypography';
 import typography from './typography';
 
@@ -51,6 +51,13 @@ declare module '@mui/material/styles' {
     border: TypeBorder,
     button: TypeButton,
     logs: TypeLogs,
+    achievements: {
+      common: Palette['primary'];
+      uncommon: Palette['primary'];
+      rare: Palette['primary'];
+      epic: Palette['primary'];
+      legendary: Palette['primary'];
+    },
     heat: (null | string)[],
     level: string,
     hpBar: {
@@ -64,6 +71,13 @@ declare module '@mui/material/styles' {
     border?: TypeBorder,
     button?: TypeButton,
     logs?: TypeLogs,
+    achievements?: {
+      common: PaletteOptions['primary'];
+      uncommon: PaletteOptions['primary'];
+      rare: PaletteOptions['primary'];
+      epic: PaletteOptions['primary'];
+      legendary: PaletteOptions['primary'];
+    },
     heat?: (null | string)[],
     level?: string,
     hpBar?: {
@@ -104,6 +118,8 @@ declare module '@mui/material/Typography' {
   }
 }
 
+const { palette } = createTheme();
+
 const border = {
   shadow: '#bc7b4a',
   outer: '#725254',
@@ -127,6 +143,14 @@ const logs = {
     main: '#ff8889',
     light: '#fea3a3',
   },
+};
+
+const achievements = {
+  common: palette.augmentColor({ color: { main: '#dbbf95' } }),
+  uncommon: palette.augmentColor({ color: { main: '#a9d346' } }),
+  rare: palette.augmentColor({ color: { main: '#4d94ff' } }),
+  epic: palette.augmentColor({ color: { main: '#b866ff' } }),
+  legendary: palette.augmentColor({ color: { main: '#ffcd00' } }),
 };
 
 const defaultTheme: ThemeOptions = {
@@ -195,6 +219,7 @@ const defaultTheme: ThemeOptions = {
     border,
     button,
     logs,
+    achievements,
   },
   typography,
   components: {
