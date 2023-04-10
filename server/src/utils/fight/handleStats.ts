@@ -6,6 +6,7 @@ const handleStats = (
   stats: Stats,
   achievements: AchievementsStore,
   isTournamentFight: boolean,
+  isTournamentFinal: boolean,
 ) => {
   const winner = fightData.fighters.find((f) => !f.master && f.name === fightData.winner?.name);
   if (!winner) {
@@ -65,12 +66,24 @@ const handleStats = (
 
     // Tournament achievements
     if (isTournamentFight) {
-      if (bruteId === winner.id && winner.level <= 15) {
-        // Win as Lv15-
-        achievement.achievements.winTournamentAs15 = 1;
-      } else if (bruteId === winner.id && winner.level <= 20) {
-        // Win as Lv20-
-        achievement.achievements.winTournamentAs20 = 1;
+      if (isTournamentFinal) {
+        if (bruteId === winner.id && winner.level <= 15) {
+          // Win as Lv15-
+          achievement.achievements.winTournamentAs15 = 1;
+        } else if (bruteId === winner.id && winner.level <= 20) {
+          // Win as Lv20-
+          achievement.achievements.winTournamentAs20 = 1;
+        }
+
+        // Win as a lower level
+        if (bruteId === winner.id && winner.level < loser.level) {
+          achievement.achievements.winAsLower = 1;
+        }
+
+        // Win
+        if (bruteId === winner.id) {
+          achievement.achievements.win = 1;
+        }
       }
 
       if (bruteId === loser.id && loser.level >= winner.level * 4) {
@@ -93,16 +106,6 @@ const handleStats = (
       } else if (bruteId === winner.id && winner.level * 2 <= loser.level) {
         // Win against 2x level
         achievement.achievements.winAgainst2 = 1;
-      }
-
-      // Win as a lower level
-      if (bruteId === winner.id && winner.level < loser.level) {
-        achievement.achievements.winAsLower = 1;
-      }
-
-      // Win
-      if (bruteId === winner.id) {
-        achievement.achievements.win = 1;
       }
     }
   }

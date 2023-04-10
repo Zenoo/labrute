@@ -333,11 +333,11 @@ export const AchievementData: Record<
     illustration: 'r_winthi.gif',
   },
   winAsLower: {
-    rarety: AchievementRarety.uncommon,
+    rarety: AchievementRarety.rare,
     illustration: 'r_winbas.gif',
   },
   win: {
-    rarety: AchievementRarety.common,
+    rarety: AchievementRarety.uncommon,
     illustration: 'r_wintop.gif',
   },
   rankUp10: {
@@ -379,7 +379,7 @@ export const AchievementData: Record<
   },
   beta: {
     rarety: AchievementRarety.legendary,
-    illustration: 'r_beta.gif',
+    illustration: 'beta.svg',
   },
 };
 

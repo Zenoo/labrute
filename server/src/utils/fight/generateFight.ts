@@ -17,6 +17,7 @@ const generateFight = async (
   brute2: BruteWithBodyColors,
   allowBackup: boolean,
   achievementsActive: boolean,
+  isTournamentFinal: boolean,
 ) => {
   if (brute1.id === brute2.id) {
     throw new Error('Attempted to created a fight between the same brutes');
@@ -216,7 +217,7 @@ const generateFight = async (
   };
 
   // Add achievements from stats
-  handleStats(fightData, stats, achievements, !allowBackup);
+  handleStats(fightData, stats, achievements, !allowBackup, isTournamentFinal);
 
   // Update achievements
   if (achievementsActive) {
