@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.19.6](https://github.com/Zenoo/labrute/compare/labrute-v2.19.5...labrute-v2.19.6) (2023-04-10)
+
+
+### Bug Fixes
+
+* Don't count 1HP survivals for brutes with the survival skill ([4b74afe](https://github.com/Zenoo/labrute/commit/4b74afef131d2f1770f4e8c00306cacbfec40634))
+* Give XP rewards to specific brute IDs instead of names to not conflict with sacrifices ([18b2abc](https://github.com/Zenoo/labrute/commit/18b2abcc0a1a05503090f3c49d8067f167e2238f))
+* Tragic potion trigger ([4fc87a1](https://github.com/Zenoo/labrute/commit/4fc87a1fc92bd1b7b31584159897ab3a3611085f))
+
 ## [2.19.5](https://github.com/Zenoo/labrute/compare/labrute-v2.19.4...labrute-v2.19.5) (2023-04-10)
 
 
