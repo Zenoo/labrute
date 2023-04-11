@@ -25,15 +25,15 @@ export const AchievementData: Record<
 > = {
   wins: {
     rarety: AchievementRarety.common,
-    illustration: 'r_wrestl.gif',
+    illustration: 'wins.svg',
   },
   defeats: {
     rarety: AchievementRarety.common,
-    illustration: 'r_wound.gif',
+    illustration: 'defeats.svg',
   },
   flawless: {
     rarety: AchievementRarety.epic,
-    illustration: 'r_ufc.gif',
+    illustration: 'flawless.svg',
   },
   winWith1HP: {
     rarety: AchievementRarety.epic,
@@ -41,7 +41,7 @@ export const AchievementData: Record<
   },
   steal2Weapons: {
     rarety: AchievementRarety.uncommon,
-    illustration: 'r_theft.gif',
+    illustration: 'steal2Weapons.svg',
   },
   singleHitWin: {
     rarety: AchievementRarety.epic,
@@ -105,7 +105,7 @@ export const AchievementData: Record<
   },
   bear: {
     rarety: AchievementRarety.uncommon,
-    illustration: 'r_killz.gif',
+    illustration: 'bear.svg',
   },
   panther_bear: {
     rarety: AchievementRarety.legendary,
@@ -125,7 +125,7 @@ export const AchievementData: Record<
   },
   herculStr_hammer_fierceBrute: {
     rarety: AchievementRarety.uncommon,
-    illustration: 'r_dnucl.gif',
+    illustration: 'herculStr_hammer_fierceBrute.svg',
   },
   shock: {
     rarety: AchievementRarety.common,
@@ -145,7 +145,7 @@ export const AchievementData: Record<
   },
   reconnaissance_monk: {
     rarety: AchievementRarety.uncommon,
-    illustration: 'r_camp.gif',
+    illustration: 'reconnaissance_monk.svg',
   },
   immortality: {
     rarety: AchievementRarety.epic,
@@ -201,7 +201,7 @@ export const AchievementData: Record<
   },
   weaponsMaster_sharp_bodybuilder_heavy: {
     rarety: AchievementRarety.uncommon,
-    illustration: 'r_repair.gif',
+    illustration: 'weaponsMaster_sharp_bodybuilder_heavy.svg',
   },
   hostility_counterWeapon: {
     rarety: AchievementRarety.uncommon,
@@ -314,11 +314,11 @@ export const AchievementData: Record<
   },
   looseAgainst3: {
     rarety: AchievementRarety.rare,
-    illustration: 'r_dhang.gif',
+    illustration: 'looseAgainst3.svg',
   },
   looseAgainst4: {
     rarety: AchievementRarety.epic,
-    illustration: 'r_dhang.gif',
+    illustration: 'looseAgainst4.svg',
   },
   winAgainst2: {
     rarety: AchievementRarety.uncommon,
