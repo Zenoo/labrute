@@ -1,4 +1,4 @@
-import { BruteBody, BruteColors, DestinyChoice, DestinyChoiceSide, Gender, SkillName, WeaponName } from '@labrute/prisma';
+import { Brute, BruteBody, BruteColors, Clan, DestinyChoice, DestinyChoiceSide, Fight, Gender, SkillName, Tournament, TournamentStep, User, WeaponName } from '@labrute/prisma';
 import { Skill } from './brute/skills';
 import { Weapon, WeaponAnimation } from './brute/weapons';
 import { BruteRanking } from './constants';
@@ -321,3 +321,47 @@ export interface DestinyBranch extends DestinyChoice {
   [DestinyChoiceSide.LEFT]: DestinyBranch | null;
   [DestinyChoiceSide.RIGHT]: DestinyBranch | null;
 }
+
+// MODEL EXPANSIONS
+
+// User
+export type UserWithBrutes = User & {
+  brutes: Brute[];
+};
+export type UserWithBrutesBodyColor = User & {
+  brutes: BruteWithBodyColors[];
+};
+
+// Brute
+export type BruteWithBodyColors = Brute & {
+  body: BruteBody | null;
+  colors: BruteColors | null;
+};
+export type BruteWithMaster = Brute & {
+  master: Brute | null;
+};
+export type BruteWithMasterBodyColors = BruteWithBodyColors & BruteWithMaster;
+export type BruteWithClan = Brute & {
+  clan: Clan | null;
+};
+export type BruteWithMasterBodyColorsClan = BruteWithMasterBodyColors & BruteWithClan;
+export type BruteWithMasterBodyColorsClanTournament = BruteWithMasterBodyColorsClan & {
+  tournaments: Tournament[];
+};
+
+// Tournament
+export type FullTournamentStep = TournamentStep & {
+  fight: Fight & {
+    brute1: BruteWithBodyColors;
+    brute2: BruteWithBodyColors;
+  };
+};
+export type FullTournament = Tournament & {
+  steps: FullTournamentStep[];
+};
+
+// Fight
+export type FightWithBrutes = Fight & {
+  brute1: Brute;
+  brute2: Brute;
+};

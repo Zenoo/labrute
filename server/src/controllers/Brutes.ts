@@ -6,7 +6,7 @@ import {
   BruteWithBodyColors, createRandomBruteStats,
   DestinyBranch, ExpectedError, getFightsLeft, getLevelUpChoices,
   getMaxFightsPerDay,
-  getSacriPoints, getXPNeeded, increaseAchievement, updateBruteData,
+  getSacriPoints, getSacriPointsNeeded, getXPNeeded, increaseAchievement, updateBruteData,
 } from '@labrute/core';
 import {
   DestinyChoiceSide, DestinyChoiceType, Gender, LogType, Prisma, PrismaClient,
@@ -113,29 +113,22 @@ const Brutes = {
         throw new ExpectedError('This name is already taken');
       }
 
-      // Get brute amount for user
-      const bruteCount = await prisma.brute.count({
-        where: {
-          userId: user.id,
-          deletedAt: null,
-        },
-      });
-
       let pointsLost = 0;
       // Refuse if user has too many brutes and not enough points
-      if (bruteCount >= user.bruteLimit) {
-        if (user.sacrificePoints < 500) {
-          throw new ExpectedError('You have reached your brute limit. You need 500 Sacripoints to unlock a new brute.');
+      if (user.brutes.length >= user.bruteLimit) {
+        const sacriPoints = getSacriPointsNeeded(user);
+        if (user.sacrificePoints < sacriPoints) {
+          throw new ExpectedError(`You have reached your brute limit. You need ${sacriPoints} Sacripoints to unlock a new brute.`);
         } else {
-          // Remove 500 sacrifice points and update brute limit
+          // Remove XXX sacrifice points and update brute limit
           await prisma.user.update({
             where: { id: user.id },
             data: {
-              sacrificePoints: { decrement: 500 },
+              sacrificePoints: { decrement: sacriPoints },
               bruteLimit: { increment: 1 },
             },
           });
-          pointsLost = 500;
+          pointsLost = sacriPoints;
         }
       }
 

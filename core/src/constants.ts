@@ -123,3 +123,5 @@ export const StatColor = {
   combo: 'orange',
   damage: 'red',
 } as const;
+
+export const NEW_BRUTE_BASE_COST = 500;

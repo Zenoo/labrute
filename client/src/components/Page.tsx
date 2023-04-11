@@ -1,4 +1,4 @@
-import { getFightsLeft, Language, LANGUAGES } from '@labrute/core';
+import { getFightsLeft, getSacriPointsNeeded, Language, LANGUAGES } from '@labrute/core';
 import { AccountCircle, Add, AdminPanelSettings, Login, Logout, MilitaryTech } from '@mui/icons-material';
 import { Badge, Box, BoxProps, CircularProgress, Link, SpeedDial, SpeedDialAction, Tooltip } from '@mui/material';
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
@@ -158,14 +158,15 @@ const Page = ({
           />
         ))}
         {user && user.brutes
-          && (user.brutes.length < user.bruteLimit || user.sacrificePoints >= 500)
+          && (user.brutes.length < user.bruteLimit
+            || user.sacrificePoints >= getSacriPointsNeeded(user))
           && (
             <SpeedDialAction
               icon={<Add color="success" />}
-              tooltipTitle={t('newBrute')}
+              tooltipTitle={`${t('newBrute')} (${getSacriPointsNeeded(user)} SP)`}
               tooltipOpen
               onClick={goHome}
-              sx={{ textAlign: 'right' }}
+              sx={{ textAlign: 'right', whiteSpace: 'nowrap' }}
             />
           )}
       </SpeedDial>
