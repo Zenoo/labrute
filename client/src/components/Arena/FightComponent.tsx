@@ -240,39 +240,63 @@ const FightComponent = ({
         )}
         <Stack
           direction="row"
-          sx={{ position: 'absolute', bottom: 0, left: 0, zIndex: 501 }}
+          sx={{
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            zIndex: 501,
+            bgcolor: 'rgba(255, 255, 255, 0.3)',
+            borderRadius: 4,
+            m: 0.5,
+          }}
         >
           {/* Play/Pause */}
           <Tooltip title={playing ? t('fight.pause') : t('fight.play')}>
-            <IconButton onClick={toggleAnimation}>
+            <IconButton onClick={toggleAnimation} size="small">
               {playing ? <Pause /> : <PlayArrow />}
             </IconButton>
           </Tooltip>
           {/* x2 */}
           <Tooltip title={speed === 1 ? 'x2' : 'x1'}>
-            <IconButton onClick={toggleSpeed}>
+            <IconButton onClick={toggleSpeed} size="small">
               {speed === 1 ? <FastForward /> : <FastRewind />}
             </IconButton>
           </Tooltip>
           {/* SOUND */}
           <Tooltip title={soundOn ? t('disableSound') : t('enableSound')}>
-            <IconButton onClick={toggleSound}>
+            <IconButton onClick={toggleSound} size="small">
               {soundOn ? <VolumeOff /> : <VolumeUp />}
             </IconButton>
           </Tooltip>
           {/* BACKGROUND MUSIC */}
           <Tooltip title={backgroundMusicOn ? t('disableBackgroundMusic') : t('enableBackgroundMusic')}>
-            <IconButton onClick={toggleBackgroundMusic}>
+            <IconButton onClick={toggleBackgroundMusic} size="small">
               {backgroundMusicOn ? <MusicOff /> : <MusicNote />}
             </IconButton>
           </Tooltip>
         </Stack>
         {/* LOGS TOGGLE */}
-        <Tooltip title={t('fight.toggleLogs')}>
-          <IconButton onClick={toggleLogs} sx={{ position: 'absolute', bottom: 0, right: 0, zIndex: 501, }}>
-            <Rtt />
-          </IconButton>
-        </Tooltip>
+        <Stack
+          direction="row"
+          sx={{
+            position: 'absolute',
+            bottom: 0,
+            right: 0,
+            zIndex: 501,
+            bgcolor: 'rgba(255, 255, 255, 0.3)',
+            borderRadius: 4,
+            m: 0.5,
+          }}
+        >
+          <Tooltip title={t('fight.toggleLogs')}>
+            <IconButton
+              onClick={toggleLogs}
+              size="small"
+            >
+              <Rtt />
+            </IconButton>
+          </Tooltip>
+        </Stack>
       </Box>
       {completed && brute1 && brute2 && (
         <Box sx={{

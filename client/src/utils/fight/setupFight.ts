@@ -1,7 +1,7 @@
 /* eslint-disable no-void */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-await-in-loop */
-import { Fighter, FightStep } from '@labrute/core';
+import { Fighter, FightStep, randomBetween } from '@labrute/core';
 import { Fight } from '@labrute/prisma';
 import { Theme } from '@mui/material';
 import { GlowFilter } from '@pixi/filter-glow';
@@ -39,6 +39,22 @@ import trap from './trap';
 import trash from './trash';
 import updateWeapons from './updateWeapons';
 import { sound } from '@pixi/sound';
+
+const backgrounds = [
+  'background/1.jpg',
+  'background/2.jpg',
+  'background/3.png',
+  'background/4.png',
+  'background/5.png',
+  'background/6.png',
+  'background/7.png',
+  'background/8.png',
+  'background/9.png',
+  'background/10.png',
+  'background/11.png',
+  'background/12.png',
+  'background/13.png',
+];
 
 const setupFight: (
   theme: Theme,
@@ -79,8 +95,15 @@ const setupFight: (
   }
 
   // Add background
-  const background = new PIXI.Sprite(miscSheet.textures['background/1.jpg']);
+  const background = new PIXI.Sprite(miscSheet.textures[
+    backgrounds[randomBetween(0, backgrounds.length - 1)]
+  ]);
   background.zIndex = -1;
+
+  // Fill screen
+  background.width = app.screen.width;
+  background.height = app.screen.height;
+
   app.stage.addChild(background);
 
   // Add 2px border
