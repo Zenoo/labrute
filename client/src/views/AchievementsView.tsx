@@ -83,7 +83,7 @@ const AchievementsView = () => {
                                 textTransform: 'capitalize',
                               }}
                             >
-                              {AchievementData[achievement.name].rarety}
+                              {t(AchievementData[achievement.name].rarety)}
                             </Text>
                             <Text sx={{ fontStyle: 'italic', color: 'text.secondary' }}>{t(`achievements.${achievement.name}.description`)}</Text>
                           </>

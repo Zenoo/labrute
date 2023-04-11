@@ -576,5 +576,11 @@
   "achievements.sacrifice": "Sacrifice",
   "achievements.sacrifice.description": "Sacrifice a brute.",
   "achievements.beta": "Beta",
-  "achievements.beta.description": "Thank you for participating in MyBrute's beta!"
+  "achievements.beta.description": "Thank you for participating in MyBrute's beta!",
+
+  "common": "Gewöhnlich",
+  "uncommon": "Selten",
+  "rare": "Rar",
+  "epic": "Episch",
+  "legendary": "Legendär"
 }

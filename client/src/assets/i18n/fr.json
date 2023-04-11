@@ -575,5 +575,11 @@
   "achievements.sacrifice": "Sacrifice",
   "achievements.sacrifice.description": "Sacrifiez une brute.",
   "achievements.beta": "Beta",
-  "achievements.beta.description": "Merci d'avoir participé à la bêta de LaBrute !"
+  "achievements.beta.description": "Merci d'avoir participé à la bêta de LaBrute !",
+
+  "common": "Commun",
+  "uncommon": "Inhabituel",
+  "rare": "Rare",
+  "epic": "Épique",
+  "legendary": "Légendaire"
 }
