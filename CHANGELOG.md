@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.19.7](https://github.com/Zenoo/labrute/compare/labrute-v2.19.6...labrute-v2.19.7) (2023-04-11)
+
+
+### Bug Fixes
+
+* Display SP needed for next brute + Scale SP for new brutes. Fixes [#62](https://github.com/Zenoo/labrute/issues/62). Fixes [#206](https://github.com/Zenoo/labrute/issues/206) ([2f73e3a](https://github.com/Zenoo/labrute/commit/2f73e3aee25caef7ebdaadc9ff7ab8480b46563f))
+* Hammer skill damage on the next hit. Fixes [#209](https://github.com/Zenoo/labrute/issues/209) ([8bd4d40](https://github.com/Zenoo/labrute/commit/8bd4d40d82d64227e1201dbe572926d90fc84b72))
+* New achievement icons. [#196](https://github.com/Zenoo/labrute/issues/196) ([eb35384](https://github.com/Zenoo/labrute/commit/eb3538452275d79cf4041dbd8859dbea54420fb2))
+* Random background in fights. Fixes [#193](https://github.com/Zenoo/labrute/issues/193) ([f167ba4](https://github.com/Zenoo/labrute/commit/f167ba4fb8e1b22e8cf86eda670d74a020e078b8))
+* Translate achievement rarety. Fixes [#207](https://github.com/Zenoo/labrute/issues/207) ([b227b8c](https://github.com/Zenoo/labrute/commit/b227b8cea18dc38275d81707ff66dc9e0c464702))
+
 ## [2.19.6](https://github.com/Zenoo/labrute/compare/labrute-v2.19.5...labrute-v2.19.6) (2023-04-10)
 
 
