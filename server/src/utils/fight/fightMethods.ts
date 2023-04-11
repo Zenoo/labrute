@@ -470,10 +470,6 @@ const activateSuper = (
 
       // Get damage
       const damage = getDamage(fighter, opponent);
-      registerHit(fightData, stats, achievements, fighter, [opponent], damage, 'hammer');
-
-      // Increase own initiative
-      fighter.initiative += 1 * fighter.tempo;
 
       // Add skill activation step
       fightData.steps.push({
@@ -481,6 +477,21 @@ const activateSuper = (
         brute: stepFighter(fighter),
         skill: skill.name,
       });
+
+      registerHit(fightData, stats, achievements, fighter, [opponent], damage, 'hammer');
+
+      // Increase own initiative
+      fighter.initiative += 1 * fighter.tempo;
+
+      // Add skill expire step
+      fightData.steps.push({
+        action: 'skillExpire',
+        brute: stepFighter(fighter),
+        skill: skill.name,
+      });
+
+      // Remove skill from active skills
+      fighter.activeSkills = fighter.activeSkills.filter((s) => s.name !== skill.name);
 
       break;
     }
