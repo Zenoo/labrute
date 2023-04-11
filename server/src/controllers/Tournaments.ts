@@ -140,7 +140,7 @@ const Tournaments = {
       });
 
       if (!tournament) {
-        throw new Error('Tournament not found');
+        throw new ExpectedError('Tournament not found');
       }
 
       const steps = [0, 32, 48, 56, 60, 63];
