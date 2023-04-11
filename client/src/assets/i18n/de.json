@@ -388,7 +388,7 @@
   "date": "Datum",
   "dailyTournament": "Tägliches Turnier",
 
-  "achievements": "Succès",
+  "achievements": "Erfolge",
   "achievements.wins": "Fights won",
   "achievements.wins.description": "Fights won.",
   "achievements.defeats": "Fights lost",
@@ -396,7 +396,7 @@
   "achievements.flawless": "Perfection",
   "achievements.flawless.description": "Fights won without taking any damage.",
   "achievements.winWith1HP": "Survivor",
-  "achievements.winWith1HP.description": "Fights won with 1PV remaining.",
+  "achievements.winWith1HP.description": "Fights won with 1HP remaining.",
   "achievements.steal2Weapons": "2 weapons stolen",
   "achievements.steal2Weapons.description": "2 weapons stolen in a single fight.",
   "achievements.singleHitWin": "Fatal blow",
