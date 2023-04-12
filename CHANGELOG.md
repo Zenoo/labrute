@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.20.0](https://github.com/Zenoo/labrute/compare/labrute-v2.19.7...labrute-v2.20.0) (2023-04-12)
+
+
+### Features
+
+* Hideaway skill implementation. [#115](https://github.com/Zenoo/labrute/issues/115) ([609c8a0](https://github.com/Zenoo/labrute/commit/609c8a0925aab7662800c5e47845a8d176a39951))
+* Spy skill. Fixes [#115](https://github.com/Zenoo/labrute/issues/115) ([ffe3182](https://github.com/Zenoo/labrute/commit/ffe3182c5bcbd65ef5652e1801535fd7bcea2898))
+
+
+### Bug Fixes
+
+* Improve weapon tooltip readability. Fixes [#211](https://github.com/Zenoo/labrute/issues/211) ([05fe475](https://github.com/Zenoo/labrute/commit/05fe475861d4b8bbb41b7b956f7fb508aaec0eef))
+* Silence expected errors ([d99dc64](https://github.com/Zenoo/labrute/commit/d99dc64fb35d355b53b14aede7c7924c343e2df3))
+* Weapons list after stealing. Fixes [#208](https://github.com/Zenoo/labrute/issues/208) ([3f9cb01](https://github.com/Zenoo/labrute/commit/3f9cb011be3616b20dac217d248cbcb7a6a66064))
+* Wrong translation ([7cf7970](https://github.com/Zenoo/labrute/commit/7cf79706d913843cfe254cd8d6842c0baf4823fc))
+
 ## [2.19.7](https://github.com/Zenoo/labrute/compare/labrute-v2.19.6...labrute-v2.19.7) (2023-04-11)
 
 
