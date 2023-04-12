@@ -39,7 +39,12 @@ const updateWeapons = (
     if (!weapon) {
       throw new Error('Weapon not found');
     }
-    brute.weapons = brute.weapons.filter((w) => w.name !== weapon);
+
+    // Remove only one weapon
+    const index = brute.weapons.findIndex((w) => w.name === weapon);
+    if (index !== -1) {
+      brute.weapons.splice(index, 1);
+    }
   }
 
   // Only affect the UI for main brutes

@@ -57,7 +57,7 @@ const steal = async (
   updateWeapons(app, target, step.name, 'remove');
 
   // Update brute weapon list
-  updateWeapons(app, target, step.name, 'add');
+  updateWeapons(app, brute, step.name, 'add');
 
   // Set target animation to `idle`
   changeAnimation(app, target, 'idle', speed);
