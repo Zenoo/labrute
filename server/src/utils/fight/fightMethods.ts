@@ -1154,8 +1154,13 @@ export const playFighterTurn = (
   const attackType = fighter.activeWeapon?.types.includes('thrown')
     ? 'thrown'
     : fighter.activeWeapon
-      ? randomBetween(0, fighter.activeWeapon.damage) === 0
-        ? 'thrown' : 'melee'
+      ? fighter.skills.find((s) => s.name === 'hideaway')
+        // 50% chance to throw a weapon if the fighter has `hideaway`
+        ? randomBetween(0, 1) === 0
+          ? 'thrown'
+          : 'melee'
+        : randomBetween(0, fighter.activeWeapon.damage) === 0
+          ? 'thrown' : 'melee'
       : 'melee';
 
   // Get opponent
@@ -1207,6 +1212,9 @@ export const playFighterTurn = (
       throw new Error('Trying to throw a weapon but no weapon is active');
     }
 
+    // Keep weapon if it's a thrown weapon or the fighter has `hideaway`
+    const keepWeapon = fighter.activeWeapon.types.includes('thrown') || !!fighter.skills.find((s) => s.name === 'hideaway');
+
     // Get damage
     let damage = getDamage(fighter, opponent, fighter.activeWeapon);
 
@@ -1216,6 +1224,7 @@ export const playFighterTurn = (
       fighter: stepFighter(fighter),
       opponent: stepFighter(opponent),
       weapon: fighter.activeWeapon.name,
+      keep: keepWeapon,
     });
 
     // Check if opponent blocked (harder than melee)
@@ -1259,8 +1268,8 @@ export const playFighterTurn = (
       registerHit(fightData, stats, achievements, fighter, [opponent], damage);
     }
 
-    // Remove fighter weapon if it is not a thrown weapon
-    if (!fighter.activeWeapon.types.includes('thrown')) {
+    // Remove fighter weapon
+    if (!keepWeapon) {
       fighter.activeWeapon = null;
     }
 

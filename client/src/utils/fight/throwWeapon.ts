@@ -1,10 +1,10 @@
 /* eslint-disable no-void */
-import { ThrowStep, weapons } from '@labrute/core';
+import { ThrowStep } from '@labrute/core';
+import { sound } from '@pixi/sound';
 import { AnimatedSprite, Application } from 'pixi.js';
 import changeAnimation from './changeAnimation';
 import findFighter, { AnimationFighter } from './findFighter';
 import updateWeapons from './updateWeapons';
-import { sound } from '@pixi/sound';
 
 const throwWeapon = async (
   app: Application,
@@ -27,8 +27,8 @@ const throwWeapon = async (
     };
   });
 
-  // Remove weapon from brute if it is not a thrown weapon
-  if (!weapons.find((w) => w.name === step.weapon)?.types.includes('thrown')) {
+  // Remove weapon from brute if needed
+  if (!step.keep) {
     updateWeapons(app, fighter, step.weapon, 'remove');
   }
 

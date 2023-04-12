@@ -263,6 +263,7 @@ export interface ThrowStep {
   fighter: StepFighter;
   opponent: StepFighter;
   weapon: WeaponName;
+  keep: boolean;
 }
 
 export interface EndStep {
