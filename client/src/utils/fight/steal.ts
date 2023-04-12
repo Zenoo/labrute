@@ -1,13 +1,13 @@
 /* eslint-disable no-void */
 import { StealStep } from '@labrute/core';
 
+import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
 import { AnimatedSprite, Application } from 'pixi.js';
 import changeAnimation from './changeAnimation';
 import { getRandomPosition } from './fightPositions';
 import findFighter, { AnimationFighter } from './findFighter';
-import updateWeapons from './updateWeapons';
-import { sound } from '@pixi/sound';
+import { updateActiveWeapon } from './updateWeapons';
 
 const steal = async (
   app: Application,
@@ -53,11 +53,11 @@ const steal = async (
     };
   });
 
-  // Update target weapon list
-  updateWeapons(app, target, step.name, 'remove');
+  // Update target current weapon
+  updateActiveWeapon(app, target, null);
 
-  // Update brute weapon list
-  updateWeapons(app, brute, step.name, 'add');
+  // Update brute weapons
+  updateActiveWeapon(app, brute, step.name);
 
   // Set target animation to `idle`
   changeAnimation(app, target, 'idle', speed);

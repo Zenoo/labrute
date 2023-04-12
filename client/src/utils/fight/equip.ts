@@ -1,10 +1,11 @@
 /* eslint-disable no-void */
 import { EquipStep } from '@labrute/core';
 
+import { sound } from '@pixi/sound';
 import { AnimatedSprite, Application } from 'pixi.js';
 import changeAnimation from './changeAnimation';
 import findFighter, { AnimationFighter } from './findFighter';
-import { sound } from '@pixi/sound';
+import updateWeapons, { updateActiveWeapon } from './updateWeapons';
 
 const equip = async (
   app: Application,
@@ -20,6 +21,12 @@ const equip = async (
   // Set animation to `equip`
   changeAnimation(app, brute, 'equip', speed);
   (brute.currentAnimation as AnimatedSprite).animationSpeed = 0.5;
+
+  // Update available weapons
+  updateWeapons(app, brute, step.name, 'remove');
+
+  // Update active weapon
+  updateActiveWeapon(app, brute, step.name);
 
   // Play equip SFX
   void sound.play('equip', {

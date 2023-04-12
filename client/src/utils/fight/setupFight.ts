@@ -37,8 +37,9 @@ import survive from './survive';
 import throwWeapon from './throwWeapon';
 import trap from './trap';
 import trash from './trash';
-import updateWeapons from './updateWeapons';
+import updateWeapons, { updateActiveWeapon } from './updateWeapons';
 import { sound } from '@pixi/sound';
+import breakShield from './break';
 
 const backgrounds = [
   'background/1.jpg',
@@ -247,11 +248,13 @@ const setupFight: (
         : fighter.id === brute1.id ? brute1PhantomHpBar : brute2PhantomHpBar,
       weaponsIllustrations: [],
       activeEffects: [],
+      shieldIllustration: null,
     };
 
     // Update brute weapons
     if (!fighter.master) {
       updateWeapons(app, animationFighter);
+      updateActiveWeapon(app, animationFighter, null);
     }
 
     return animationFighter;
@@ -391,8 +394,11 @@ const setupFight: (
         await bomb(app, fighters, step, speed);
         break;
       }
-      case 'counter':
       case 'break': {
+        breakShield(app, fighters, step);
+        break;
+      }
+      case 'counter': {
         // Do nothing for now
         break;
       }

@@ -2,7 +2,7 @@ import { DisarmStep } from '@labrute/core';
 import { Application } from 'pixi.js';
 
 import findFighter, { AnimationFighter } from './findFighter';
-import updateWeapons from './updateWeapons';
+import { updateActiveWeapon } from './updateWeapons';
 
 const disarm = (
   app: Application,
@@ -15,7 +15,7 @@ const disarm = (
   }
 
   // Remove weapon from opponent
-  updateWeapons(app, opponent, step.weapon, 'remove');
+  updateActiveWeapon(app, opponent, null);
 };
 
 export default disarm;

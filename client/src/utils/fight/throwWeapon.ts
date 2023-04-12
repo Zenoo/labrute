@@ -4,7 +4,7 @@ import { sound } from '@pixi/sound';
 import { AnimatedSprite, Application } from 'pixi.js';
 import changeAnimation from './changeAnimation';
 import findFighter, { AnimationFighter } from './findFighter';
-import updateWeapons from './updateWeapons';
+import { updateActiveWeapon } from './updateWeapons';
 
 const throwWeapon = async (
   app: Application,
@@ -29,7 +29,7 @@ const throwWeapon = async (
 
   // Remove weapon from brute if needed
   if (!step.keep) {
-    updateWeapons(app, fighter, step.weapon, 'remove');
+    updateActiveWeapon(app, fighter, null);
   }
 
   // Set animation to `throw`

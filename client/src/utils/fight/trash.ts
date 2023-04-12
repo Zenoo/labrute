@@ -3,9 +3,9 @@ import { TrashStep } from '@labrute/core';
 import { AnimatedSprite, Application } from 'pixi.js';
 import changeAnimation from './changeAnimation';
 
-import findFighter, { AnimationFighter } from './findFighter';
-import updateWeapons from './updateWeapons';
 import { sound } from '@pixi/sound';
+import findFighter, { AnimationFighter } from './findFighter';
+import { updateActiveWeapon } from './updateWeapons';
 
 const trash = async (
   app: Application,
@@ -28,7 +28,7 @@ const trash = async (
   });
 
   // Remove weapon from brute
-  updateWeapons(app, brute, step.name, 'remove');
+  updateActiveWeapon(app, brute, null);
 
   // Wait for animation to complete
   await new Promise((resolve) => {
