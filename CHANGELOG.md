@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.21.0](https://github.com/Zenoo/labrute/compare/labrute-v2.20.1...labrute-v2.21.0) (2023-04-12)
+
+
+### Features
+
+* Display active weapon and shield in fights. Fixes [#214](https://github.com/Zenoo/labrute/issues/214) ([825349c](https://github.com/Zenoo/labrute/commit/825349c068b2e7db6edb83517a6c372aef9cf18a))
+
 ## [2.20.1](https://github.com/Zenoo/labrute/compare/labrute-v2.20.0...labrute-v2.20.1) (2023-04-12)
 
 
