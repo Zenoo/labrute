@@ -116,10 +116,10 @@ export const PERK_ODDS: Perk[] = [
 
 export const StatColor = {
   counter: 'cyan',
-  evasion: 'green',
-  block: 'blue',
+  evasion: '#17a717',
+  block: '#8686ff',
   accuracy: 'yellow',
-  disarm: 'fuchsia',
+  disarm: '#ff70ff',
   combo: 'orange',
   damage: 'red',
 } as const;

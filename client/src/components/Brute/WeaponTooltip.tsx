@@ -4,6 +4,8 @@ import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 import Text from '../Text';
 
+const textShadow = '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000';
+
 export interface WeaponTooltipProps extends Omit<TooltipProps, 'title'> {
   weapon?: Weapon;
 }
@@ -37,7 +39,11 @@ const WeaponTooltip = ({
               <Fragment key={type}>
                 <Box
                   component="span"
-                  sx={{ color: WeaponTypeColor[type], textTransform: 'capitalize' }}
+                  sx={{
+                    color: WeaponTypeColor[type],
+                    textTransform: 'capitalize',
+                    textShadow,
+                  }}
                 >
                   {t(type)}
                 </Box>
@@ -65,7 +71,7 @@ const WeaponTooltip = ({
           <Text typo="Blocky">
             {t('damage')}:
             {' '}
-            <Box component="span" sx={{ color: StatColor.damage }}>
+            <Box component="span" sx={{ color: StatColor.damage, textShadow }}>
               {weapon.damage}
             </Box>
           </Text>
@@ -87,7 +93,7 @@ const WeaponTooltip = ({
           </Text>
           {/* COUNTER */}
           {!!weapon.counter && (
-            <Text typo="Blocky" sx={{ color: StatColor.counter }}>
+            <Text typo="Blocky" sx={{ color: StatColor.counter, textShadow }}>
               {weapon.counter > 0 && '+'}
               {Math.round(weapon.counter * 100)}
               % {t('counter')}
@@ -95,7 +101,7 @@ const WeaponTooltip = ({
           )}
           {/* EVASION */}
           {!!weapon.evasion && (
-            <Text typo="Blocky" sx={{ color: StatColor.evasion }}>
+            <Text typo="Blocky" sx={{ color: StatColor.evasion, textShadow }}>
               {weapon.evasion > 0 && '+'}
               {Math.round(weapon.evasion * 100)}
               % {t('evasion')}
@@ -103,7 +109,7 @@ const WeaponTooltip = ({
           )}
           {/* BLOCK */}
           {!!weapon.block && (
-            <Text typo="Blocky" sx={{ color: StatColor.block }}>
+            <Text typo="Blocky" sx={{ color: StatColor.block, textShadow }}>
               {weapon.block > 0 && '+'}
               {Math.round(weapon.block * 100)}
               % {t('block')}
@@ -111,7 +117,7 @@ const WeaponTooltip = ({
           )}
           {/* ACCURACY */}
           {!!weapon.accuracy && (
-            <Text typo="Blocky" sx={{ color: StatColor.accuracy }}>
+            <Text typo="Blocky" sx={{ color: StatColor.accuracy, textShadow }}>
               {weapon.accuracy > 0 && '+'}
               {Math.round(weapon.accuracy * 100)}
               % {t('accuracy')}
@@ -119,7 +125,7 @@ const WeaponTooltip = ({
           )}
           {/* DISARM */}
           {!!weapon.disarm && (
-            <Text typo="Blocky" sx={{ color: StatColor.disarm }}>
+            <Text typo="Blocky" sx={{ color: StatColor.disarm, textShadow }}>
               {weapon.disarm > 0 && '+'}
               {Math.round(weapon.disarm * 100)}
               % {t('disarm')}
@@ -127,7 +133,7 @@ const WeaponTooltip = ({
           )}
           {/* COMBO */}
           {!!weapon.combo && (
-            <Text typo="Blocky" sx={{ color: StatColor.combo }}>
+            <Text typo="Blocky" sx={{ color: StatColor.combo, textShadow }}>
               {weapon.combo > 0 && '+'}
               {Math.round(weapon.combo * 100)}
               % {t('combo')}
