@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.20.1](https://github.com/Zenoo/labrute/compare/labrute-v2.20.0...labrute-v2.20.1) (2023-04-12)
+
+
+### Bug Fixes
+
+* Bomb damage ([2a66316](https://github.com/Zenoo/labrute/commit/2a6631699aa53e3c42e715db9d558511dea80ebc))
+
 ## [2.20.0](https://github.com/Zenoo/labrute/compare/labrute-v2.19.7...labrute-v2.20.0) (2023-04-12)
 
 
