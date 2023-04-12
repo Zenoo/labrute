@@ -62,6 +62,8 @@ export interface DetailedFighter {
   bodybuilder: boolean,
   // Survive with 1 HP on first death
   survival: boolean,
+  // Reduce first damage by 100%
+  decoy: boolean,
   // First hit of the fight is evaded
   balletShoes: boolean,
   // 70% chance of re-attacking on misses (evasion or block)

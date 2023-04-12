@@ -239,7 +239,10 @@ const registerHit = (
   damage: number,
   sourceName?: 'hammer' | 'flashFlood' | 'poison' | 'bomb',
 ) => {
-  let actualDamage = damage;
+  const actualDamage: Record<number, number> = opponents.reduce((acc, opponent) => ({
+    ...acc,
+    [opponent.id]: damage,
+  }), {});
 
   opponents.forEach((opponent) => {
     // Remove the net and reset initiative
@@ -248,11 +251,21 @@ const registerHit = (
       opponent.initiative = fightData.initiative + 0.5;
     }
 
-    // Max damage to 20% of opponent's health if `resistant`
-    if (opponent.skills.find((sk) => sk.name === 'resistant')) {
-      actualDamage = Math.min(damage, Math.floor(opponent.maxHp * 0.2));
+    // Reduce damage by 100% if `spy` skill and `decoy` is still active
+    if (opponent.decoy) {
+      actualDamage[opponent.id] = 0;
+      opponent.decoy = false;
 
-      if (actualDamage < damage) {
+      // Add resist step
+      fightData.steps.push({
+        action: 'resist',
+        brute: stepFighter(opponent),
+      });
+    } else if (opponent.skills.find((sk) => sk.name === 'resistant')) {
+      // Max damage to 20% of opponent's health if `resistant`
+      actualDamage[opponent.id] = Math.min(damage, Math.floor(opponent.maxHp * 0.2));
+
+      if (actualDamage[opponent.id] < damage) {
         // Add resist step
         fightData.steps.push({
           action: 'resist',
@@ -263,9 +276,9 @@ const registerHit = (
 
     // Reduce backup leave time instead of reducing hp
     if (opponent.leavesAtInitiative) {
-      opponent.leavesAtInitiative -= actualDamage * 0.05;
+      opponent.leavesAtInitiative -= actualDamage[opponent.id] * 0.05;
     } else {
-      opponent.hp -= actualDamage;
+      opponent.hp -= actualDamage[opponent.id];
     }
   });
 
@@ -275,7 +288,7 @@ const registerHit = (
       action: 'bomb',
       fighter: stepFighter(fighter),
       targets: opponents.map((opponent) => stepFighter(opponent)),
-      damage: actualDamage,
+      damage,
     });
   } else {
     opponents.forEach((opponent) => {
@@ -285,14 +298,15 @@ const registerHit = (
         fighter: stepFighter(fighter),
         target: stepFighter(opponent),
         weapon: sourceName ? null : fighter.activeWeapon?.name || null,
-        damage: actualDamage,
+        damage: actualDamage[opponent.id],
       });
     });
   }
 
   // 100 Damage achievement
-  if (actualDamage >= 100) {
-    updateAchievement(achievements, 'damage100once', 1, fighter.id);
+  const moreThan100 = Object.values(actualDamage).filter((d) => d >= 100).length;
+  if (moreThan100) {
+    updateAchievement(achievements, 'damage100once', moreThan100, fighter.id);
   }
 
   opponents.forEach((opponent) => {
