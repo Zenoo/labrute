@@ -288,7 +288,12 @@ const registerHit = (
       action: 'bomb',
       fighter: stepFighter(fighter),
       targets: opponents.map((opponent) => stepFighter(opponent)),
-      damage,
+      damage: opponents.map((opponent) => ({
+        name: opponent.name,
+        type: opponent.type,
+        master: opponent.master,
+        damage: actualDamage[opponent.id],
+      })),
     });
   } else {
     opponents.forEach((opponent) => {

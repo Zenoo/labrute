@@ -10,6 +10,22 @@ import stagger from './stagger';
 import updateHp from './updateHp';
 import { sound } from '@pixi/sound';
 
+const getBombDamage = (damage: BombStep['damage'], target: AnimationFighter) => {
+  if (typeof damage === 'number') {
+    return damage;
+  }
+
+  const targetDamage = damage.find((d) => d.name === target.name
+    && d.type === target.type
+    && d.master === target.master);
+
+  if (!targetDamage) {
+    throw new Error('Target damage not found');
+  }
+
+  return targetDamage.damage;
+};
+
 const bomb = async (
   app: Application,
   fighters: AnimationFighter[],
@@ -58,6 +74,9 @@ const bomb = async (
   for (let i = 0; i < targets.length; i++) {
     const { [i]: target } = targets;
 
+    // Get damage
+    const damage = getBombDamage(step.damage, target);
+
     // Get hit animation (random for male brute)
     const animation = target.type === 'brute' && target.data?.gender === 'male'
       ? `hit-${randomBetween(0, 3)}`
@@ -67,7 +86,7 @@ const bomb = async (
     changeAnimation(app, target, animation as Animation, speed);
 
     // Display floating and fading damage text
-    const damageText = new Text(`-${step.damage}`, {
+    const damageText = new Text(`-${damage}`, {
       fontFamily: 'Poplar', fontSize: 20, fill: 0xffffff
     });
     damageText.anchor.set(0.5);
@@ -90,7 +109,7 @@ const bomb = async (
 
     // Update HP bar
     if (target.hpBar) {
-      updateHp(target, -step.damage, speed);
+      updateHp(target, -damage, speed);
     }
 
     // Stagger

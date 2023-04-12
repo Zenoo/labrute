@@ -73,7 +73,7 @@ const translateFightStep = (fightStep: FightStep, t: TFunction) => {
     case 'bomb':
       return t(`fight.step.${fightStep.action}`, {
         fighter: getFighterName(fightStep.fighter, t),
-        damage: fightStep.damage,
+        damage: typeof fightStep.damage === 'number' ? fightStep.damage : fightStep.damage.map((d) => d.damage).join(', '),
       });
     case 'flashFlood':
       if (fightStep.weapon) {

@@ -185,7 +185,7 @@ export interface BombStep {
   action: 'bomb';
   fighter: StepFighter;
   targets: StepFighter[];
-  damage: number;
+  damage: (StepFighter & { damage: number })[];
 }
 
 export interface HypnotiseStep {
