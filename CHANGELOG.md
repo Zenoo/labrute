@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.21.1](https://github.com/Zenoo/labrute/compare/labrute-v2.21.0...labrute-v2.21.1) (2023-04-12)
+
+
+### Bug Fixes
+
+* ET user name not unique ([d498250](https://github.com/Zenoo/labrute/commit/d498250dcf32cb6d41beff2f27d071c122d5f7f9))
+
 ## [2.21.0](https://github.com/Zenoo/labrute/compare/labrute-v2.20.1...labrute-v2.21.0) (2023-04-12)
 
 
