@@ -22,7 +22,7 @@ enum Lang {
 model User {
   id              String        @unique @db.Uuid
   lang            Lang          @default(fr)
-  name            String        @unique @db.VarChar(255)
+  name            String        @db.VarChar(255)
   admin           Boolean       @default(false)
   connexionToken  String        @db.Uuid
   bruteLimit      Int           @default(3)
