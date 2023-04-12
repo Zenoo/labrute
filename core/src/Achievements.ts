@@ -205,7 +205,7 @@ export const AchievementData: Record<
   },
   hostility_counterWeapon: {
     rarety: AchievementRarety.uncommon,
-    illustration: 'r_scaddh.gif',
+    illustration: 'hostility_counterWeapon.svg',
   },
   flashFlood_twelveWeapons: {
     rarety: AchievementRarety.rare,
