@@ -115,23 +115,23 @@ const WeaponAnchorTestView = () => {
         </Box>
       )}
       <Stack direction="row" spacing={2}>
-        <Typography>X:</Typography>
-        <Typography>{anchorX.toFixed(1)}</Typography>
+        <Typography color="white">X:</Typography>
+        <Typography color="white">{anchorX.toFixed(1)}</Typography>
         <Slider value={anchorX} onChange={changeAnchorX} min={-100} max={100} step={0.1} />
       </Stack>
       <Stack direction="row" spacing={2}>
-        <Typography>Y:</Typography>
-        <Typography>{anchorY.toFixed(1)}</Typography>
+        <Typography color="white">Y:</Typography>
+        <Typography color="white">{anchorY.toFixed(1)}</Typography>
         <Slider value={anchorY} onChange={changeAnchorY} min={-100} max={100} step={0.1} />
       </Stack>
       <Stack direction="row" spacing={2}>
-        <Typography>Rotation:</Typography>
-        <Typography>{rotation.toFixed(1)}</Typography>
+        <Typography color="white">Rotation:</Typography>
+        <Typography color="white">{rotation.toFixed(1)}</Typography>
         <Slider value={rotation} onChange={changeRotation} min={-180} max={180} step={0.1} />
       </Stack>
       <Stack direction="row" spacing={2}>
-        <Typography>Zoom:</Typography>
-        <Typography>{zoom}</Typography>
+        <Typography color="white">Zoom:</Typography>
+        <Typography color="white">{zoom}</Typography>
         <Slider value={zoom} onChange={changeZoom} min={1} max={4} step={1} />
       </Stack>
     </Stack>
