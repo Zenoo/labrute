@@ -5,6 +5,7 @@ import {
   PrismaClient,
 } from '@labrute/prisma';
 import '../utils/Env.js';
+import DiscordUtils from '../utils/DiscordUtils.js';
 
 const prisma = new PrismaClient();
 
@@ -24,7 +25,7 @@ async function main() {
     },
   });
 
-  console.log(`Found ${brutes.length} brutes with dog2 or dog3 and without dog1`);
+  await DiscordUtils.sendLog(`Found ${brutes.length} brutes with dog2 or dog3 and without dog1`);
 
   for (const brute of brutes) {
     // Replace dog2 or dog3 with dog1

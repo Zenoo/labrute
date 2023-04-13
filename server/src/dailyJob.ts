@@ -107,8 +107,6 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
   const today = moment.utc().startOf('day');
   const tomorrow = moment.utc(today).add(1, 'day');
 
-  await DiscordUtils.sendLog('Starting tournament handler');
-
   // Delete misformatted tournaments
   await deleteMisformattedTournaments(prisma);
 
@@ -138,7 +136,6 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
 
   // All brutes are assigned, do nothing
   if (registeredBrutes.length === 0) {
-    await DiscordUtils.sendLog('Tournaments already handled');
     return;
   }
 
@@ -146,8 +143,6 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
   const shuffledBrutes = shuffle(registeredBrutes);
 
   const tournamentsToCreate = Math.ceil(shuffledBrutes.length / 64);
-
-  await DiscordUtils.sendLog(`Tournaments to create: ${tournamentsToCreate}`);
 
   // Create groups of 64 brutes
   let tournaments: BruteWithBodyColors[][] = Array(tournamentsToCreate)
@@ -157,7 +152,6 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
   // Fill last group with generated brutes
   if (tournaments.length && tournaments[tournaments.length - 1].length) {
     const lastTournament = tournaments[tournaments.length - 1];
-    const brutesInLastTournament = lastTournament.length;
 
     const highestLevelBrute = lastTournament
       .sort((a, b) => a.level - b.level)[lastTournament.length - 1].level;
@@ -208,8 +202,6 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
 
       // Remove last tournament
       tournaments.pop();
-
-      await DiscordUtils.sendLog(`Brutes canceled: ${brutesInLastTournament}`);
     }
   }
 
@@ -320,8 +312,6 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
 
     // Send Discord notification
     await DiscordUtils.sendTournamentNotification(tournament, brutes);
-
-    await DiscordUtils.sendLog(`Tournament created: ${tournament.id}`);
   }
 
   // Remove tournament registration for all processed brutes
@@ -340,13 +330,11 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
     },
   });
 
-  await DiscordUtils.sendLog('Tournaments handled');
+  await DiscordUtils.sendLog(`${tournamentsToCreate} daily tournaments created`);
 };
 
 const handleGlobalTournament = async (prisma: PrismaClient) => {
   const today = moment.utc().startOf('day');
-
-  await DiscordUtils.sendLog('Starting global tournament');
 
   // Check if global tournament is already handled
   const globalTournament = await prisma.tournament.count({
@@ -357,7 +345,6 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
   });
 
   if (globalTournament) {
-    await DiscordUtils.sendLog('Global tournament already handled');
     return;
   }
 
@@ -403,8 +390,6 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
 
     // Add byes
     byes.push(...roundBrutes.splice(roundBrutes.length - byesCount, byesCount));
-
-    await DiscordUtils.sendLog(`Byes: ${byes.length}`);
   }
 
   // Create tournament steps
@@ -468,7 +453,6 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
     }
 
     // Continue with next round
-    await DiscordUtils.sendLog(`Round ${round} done (${roundBrutes.length} brutes)`);
     roundBrutes = [...nextBrutes];
     round++;
   }
@@ -487,7 +471,7 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
     data: { sacrificePoints: { increment: 150 } },
   });
 
-  await DiscordUtils.sendLog('Global tournament handled');
+  await DiscordUtils.sendLog('Global tournament created');
 };
 
 const handleXpGains = async (prisma: PrismaClient) => {

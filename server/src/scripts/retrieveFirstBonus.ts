@@ -6,6 +6,7 @@ import {
   DestinyChoiceType, PetName, PrismaClient, SkillName, WeaponName,
 } from '@labrute/prisma';
 import '../utils/Env.js';
+import DiscordUtils from '../utils/DiscordUtils.js';
 
 const prisma = new PrismaClient();
 
@@ -28,7 +29,7 @@ async function main() {
     },
   });
 
-  console.log(`Found ${brutes.length} brutes with no first bonus stored`);
+  await DiscordUtils.sendLog(`Found ${brutes.length} brutes with no first bonus stored`);
 
   for (const brute of brutes) {
     const unregisteredSkill = brute.skills.find((skill) => brute.destinyChoices
@@ -45,7 +46,7 @@ async function main() {
         },
       });
 
-      console.log(`First bonus ${unregisteredSkill} found for brute ${brute.name}`);
+      await DiscordUtils.sendLog(`First bonus ${unregisteredSkill} found for brute ${brute.name}`);
 
       continue;
     }
@@ -64,7 +65,7 @@ async function main() {
         },
       });
 
-      console.log(`First bonus ${unregisteredWeapon} found for brute ${brute.name}`);
+      await DiscordUtils.sendLog(`First bonus ${unregisteredWeapon} found for brute ${brute.name}`);
 
       continue;
     }
@@ -83,7 +84,7 @@ async function main() {
         },
       });
 
-      console.log(`First bonus ${unregisteredPet} found for brute ${brute.name}`);
+      await DiscordUtils.sendLog(`First bonus ${unregisteredPet} found for brute ${brute.name}`);
 
       continue;
     }
@@ -98,7 +99,7 @@ async function main() {
     );
 
     if (!firstBonus) {
-      console.error(`No first bonus found for brute ${brute.name}`);
+      await DiscordUtils.sendLog(`No first bonus found for brute ${brute.name}`);
       continue;
     }
 

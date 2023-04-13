@@ -9,11 +9,15 @@ const auth = async (prisma: PrismaClient, request: Request) => {
     throw new ExpectedError('No authorization header');
   }
   if (typeof authorization !== 'string') {
-    throw new Error('Invalid authorization header');
+    throw new ExpectedError('Invalid authorization header');
   }
 
   const [id, token] = Buffer.from(authorization.split(' ')[1], 'base64')
     .toString().split(':');
+
+  if (!id || !token || id === 'null' || token === 'null') {
+    throw new ExpectedError('Invalid authorization header content');
+  }
 
   const user = await prisma.user.findFirst({
     where: {

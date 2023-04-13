@@ -51,7 +51,9 @@ app.use(
 );
 
 app.listen(port, () => {
-  console.warn(`App running: http://localhost:${port}/`);
+  DiscordUtils.sendLog(`**Server started on port ${port}**`).catch((e) => {
+    console.error(e);
+  });
 
   // Trigger daily job
   dailyJob(prisma)().catch((error) => {

@@ -5,6 +5,7 @@ import {
   PrismaClient,
 } from '@labrute/prisma';
 import '../utils/Env.js';
+import DiscordUtils from '../utils/DiscordUtils.js';
 
 const prisma = new PrismaClient();
 
@@ -24,7 +25,7 @@ async function main() {
     },
   });
 
-  console.log(`Found ${brutes.length} brutes witout beta achievement`);
+  await DiscordUtils.sendLog(`Found ${brutes.length} brutes witout beta achievement`);
 
   // Grant beta achievement
   await prisma.achievement.createMany({
