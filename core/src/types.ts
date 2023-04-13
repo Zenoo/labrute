@@ -21,6 +21,7 @@ export interface DetailedFighter {
   // Metadata
   id: number;
   name: string;
+  gender?: Gender;
   rank: BruteRanking;
   level: number;
   data?: {
@@ -97,6 +98,7 @@ export interface DetailedFighter {
 export interface Fighter {
   id: number;
   name: string;
+  gender?: Gender;
   rank: BruteRanking;
   level: number;
   strength: number,

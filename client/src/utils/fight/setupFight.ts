@@ -1,8 +1,8 @@
 /* eslint-disable no-void */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-await-in-loop */
-import { Fighter, FightStep, randomBetween } from '@labrute/core';
-import { Fight } from '@labrute/prisma';
+import { Animation, Fighter, FightStep, randomBetween, WEAPON_ANCHOR, WEAPON_ANIMATIONS } from '@labrute/core';
+import { Fight, Gender } from '@labrute/prisma';
 import { Theme } from '@mui/material';
 import { GlowFilter } from '@pixi/filter-glow';
 import { OutlineFilter } from '@pixi/filter-outline';
@@ -265,9 +265,32 @@ const setupFight: (
 
   let currentSpeed = speed.current;
   app.ticker.add(() => {
-    // Update zIndex on all fighters
     fighters.forEach((fighter) => {
+      // Update zIndex on all fighters
       fighter.currentAnimation.zIndex = fighter.currentAnimation.y;
+
+      // Update weapon position
+      if (fighter.activeWeapon?.sprite) {
+        const spriteData = WEAPON_ANIMATIONS[
+          fighter.gender || Gender.male
+        ][
+          fighter.currentAnimation.name as Animation
+        ][
+          (fighter.currentAnimation as AnimatedSprite).currentFrame
+        ];
+
+        if (!spriteData) {
+          fighter.activeWeapon.sprite.x = 0;
+          fighter.activeWeapon.sprite.y = 0;
+          fighter.activeWeapon.sprite.angle = 0;
+          fighter.activeWeapon.sprite.visible = false;
+        } else {
+          fighter.activeWeapon.sprite.x = spriteData.anchor[0] - WEAPON_ANCHOR.x;
+          fighter.activeWeapon.sprite.y = spriteData.anchor[1] - WEAPON_ANCHOR.y;
+          fighter.activeWeapon.sprite.angle = spriteData.rotation;
+          fighter.activeWeapon.sprite.visible = true;
+        }
+      }
     });
 
     // Update speed if needed

@@ -543,6 +543,46 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">public/images/game/resources/weapons/axe.png</key>
+            <key type="filename">public/images/game/resources/weapons/baton.png</key>
+            <key type="filename">public/images/game/resources/weapons/broadsword.png</key>
+            <key type="filename">public/images/game/resources/weapons/bumps.png</key>
+            <key type="filename">public/images/game/resources/weapons/fan.png</key>
+            <key type="filename">public/images/game/resources/weapons/flail.png</key>
+            <key type="filename">public/images/game/resources/weapons/fryingPan.png</key>
+            <key type="filename">public/images/game/resources/weapons/halbard.png</key>
+            <key type="filename">public/images/game/resources/weapons/hatchet.png</key>
+            <key type="filename">public/images/game/resources/weapons/keyboard.png</key>
+            <key type="filename">public/images/game/resources/weapons/knife.png</key>
+            <key type="filename">public/images/game/resources/weapons/lance.png</key>
+            <key type="filename">public/images/game/resources/weapons/leek.png</key>
+            <key type="filename">public/images/game/resources/weapons/mammothBone.png</key>
+            <key type="filename">public/images/game/resources/weapons/morningStar.png</key>
+            <key type="filename">public/images/game/resources/weapons/mug.png</key>
+            <key type="filename">public/images/game/resources/weapons/noodleBowl.png</key>
+            <key type="filename">public/images/game/resources/weapons/piopio.png</key>
+            <key type="filename">public/images/game/resources/weapons/racquet.png</key>
+            <key type="filename">public/images/game/resources/weapons/sai.png</key>
+            <key type="filename">public/images/game/resources/weapons/scimitar.png</key>
+            <key type="filename">public/images/game/resources/weapons/shuriken.png</key>
+            <key type="filename">public/images/game/resources/weapons/sword.png</key>
+            <key type="filename">public/images/game/resources/weapons/trident.png</key>
+            <key type="filename">public/images/game/resources/weapons/trombone.png</key>
+            <key type="filename">public/images/game/resources/weapons/whip.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>56,25,113,50</rect>
+                <key>scale9Paddings</key>
+                <rect>56,25,113,50</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
         </map>
         <key>fileLists</key>
         <map type="SpriteSheetMap">
@@ -551,6 +591,7 @@
                 <key>files</key>
                 <array>
                     <filename>public/images/game/resources/misc</filename>
+                    <filename>public/images/game/resources/weapons</filename>
                 </array>
             </struct>
         </map>

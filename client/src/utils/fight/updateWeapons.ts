@@ -1,10 +1,11 @@
 /* eslint-disable no-param-reassign */
-import { weapons } from '@labrute/core';
-import { WeaponName } from '@labrute/prisma';
+import { Animation, WEAPON_ANCHOR, WEAPON_ANIMATIONS, weapons } from '@labrute/core';
+import { Gender, WeaponName } from '@labrute/prisma';
 import { OutlineFilter } from '@pixi/filter-outline';
-import { Application, Sprite } from 'pixi.js';
+import { AnimatedSprite, Application, Sprite } from 'pixi.js';
 import { AnimationFighter } from './findFighter';
 import { GlowFilter } from '@pixi/filter-glow';
+import * as PIXI from 'pixi.js';
 
 const updateWeapons = (
   app: Application,
@@ -52,7 +53,10 @@ const updateWeapons = (
   if (!brute.master) {
     // Generate new list
     brute.weapons.forEach((w, index) => {
-      const sprite = new Sprite(spritesheet.textures[`weapons/${w.name}.png`]);
+      const texture = spritesheet.textures[`weapons/${w.name}.png`];
+      texture.baseTexture.scaleMode = PIXI.SCALE_MODES.LINEAR;
+
+      const sprite = new Sprite(texture);
       if (brute.team === 'left') {
         sprite.x = (index % 9) * 20 + 60;
       } else {
@@ -78,64 +82,111 @@ export const updateActiveWeapon = (
   }
 
   // Only affect the UI for main brutes
-  if (brute.master) return;
+  if (!brute.master) {
+    const activeItems = [];
+    if (brute.activeWeapon) {
+      activeItems.push(brute.activeWeapon.illustration);
+    }
+    if (brute.shieldIllustration) {
+      activeItems.push(brute.shieldIllustration);
+    }
 
-  const activeItems = [];
-  if (brute.activeWeapon) {
-    activeItems.push(brute.activeWeapon.illustration);
+    // Remove everything
+    activeItems.forEach((illustration) => {
+      if (illustration) {
+        illustration.destroy();
+      }
+    });
   }
-  if (brute.shieldIllustration) {
-    activeItems.push(brute.shieldIllustration);
-  }
-
-  // Remove everything
-  activeItems.forEach((illustration) => {
-    illustration.destroy();
-  });
 
   // Shield
   if (brute.shield) {
-    const sprite = new Sprite(spritesheet.textures['weapons/shield.png']);
+    let sprite: Sprite | null = null;
 
-    if (brute.team === 'left') {
-      sprite.x = 10;
-    } else {
-      sprite.x = 480 - 5;
+    // Only affect the UI for main brutes
+    if (!brute.master) {
+      const texture = spritesheet.textures['weapons/shield.png'];
+      texture.baseTexture.scaleMode = PIXI.SCALE_MODES.LINEAR;
+      sprite = new Sprite(texture);
+
+      if (brute.team === 'left') {
+        sprite.x = 10;
+      } else {
+        sprite.x = 480 - 5;
+      }
+      sprite.y = 80;
+      sprite.filters = [new OutlineFilter(), new GlowFilter({
+        color: 0xffff00,
+        outerStrength: 2,
+      })];
+      app.stage.addChild(sprite);
+
+      brute.shieldIllustration = sprite;
     }
-    sprite.y = 80;
-    sprite.filters = [new OutlineFilter(), new GlowFilter({
-      color: 0xffff00,
-      outerStrength: 2,
-    })];
-    app.stage.addChild(sprite);
-
-    brute.shieldIllustration = sprite;
   } else {
     brute.shieldIllustration = null;
   }
 
   // Active weapon
   if (weapon) {
-    // Add new weapon
-    const sprite = new Sprite(spritesheet.textures[`weapons/${weapon}.png`]);
-    if (brute.team === 'left') {
-      sprite.x = 10 + (brute.shield ? 22 : 0);
-    } else {
-      sprite.x = 480 - 5 - (brute.shield ? 22 : 0);
+    let sprite: Sprite | null = null;
+
+    // Only affect the UI for main brutes
+    if (!brute.master) {
+      // Add new weapon
+      const texture = spritesheet.textures[`weapons/${weapon}.png`];
+      texture.baseTexture.scaleMode = PIXI.SCALE_MODES.LINEAR;
+      sprite = new Sprite(texture);
+      if (brute.team === 'left') {
+        sprite.x = 10 + (brute.shield ? 22 : 0);
+      } else {
+        sprite.x = 480 - 5 - (brute.shield ? 22 : 0);
+      }
+      sprite.y = 80;
+      sprite.filters = [new OutlineFilter(), new GlowFilter({
+        color: 0xffff00,
+        outerStrength: 2,
+      })];
+      app.stage.addChild(sprite);
     }
-    sprite.y = 80;
-    sprite.filters = [new OutlineFilter(), new GlowFilter({
-      color: 0xffff00,
-      outerStrength: 2,
-    })];
-    app.stage.addChild(sprite);
+
+    const texture = spritesheet.textures[`${weapon}.png`];
+    texture.baseTexture.scaleMode = PIXI.SCALE_MODES.LINEAR;
+    const realSprite = new Sprite(texture);
+    brute.currentAnimation.addChild(realSprite);
+
+    const spriteData = WEAPON_ANIMATIONS[
+      brute.gender || Gender.male
+    ][
+      brute.currentAnimation.name as Animation
+    ][
+      (brute.currentAnimation as AnimatedSprite).currentFrame
+    ];
+
+    if (!spriteData) {
+      realSprite.x = 0;
+      realSprite.y = 0;
+      realSprite.angle = 0;
+      realSprite.visible = false;
+    } else {
+      realSprite.x = spriteData.anchor[0] - WEAPON_ANCHOR.x;
+      realSprite.y = WEAPON_ANCHOR.y + spriteData.anchor[1] - WEAPON_ANCHOR.y;
+      realSprite.angle = spriteData.rotation;
+      realSprite.visible = true;
+    }
 
     brute.activeWeapon = {
       name: weapon,
       animation: weapons.find((w) => w.name === weapon)?.animation || 'fist',
       illustration: sprite,
+      sprite: realSprite,
     };
   } else {
+    // Destroy sprite
+    if (brute.activeWeapon?.sprite) {
+      brute.activeWeapon.sprite.destroy();
+    }
+
     brute.activeWeapon = null;
   }
 };

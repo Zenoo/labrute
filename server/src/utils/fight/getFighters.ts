@@ -146,6 +146,7 @@ const getFighters = (team1: BruteAndBackup, team2: BruteAndBackup): DetailedFigh
     const fighter: DetailedFighter = {
       id: brute.id,
       name: brute.name,
+      gender: brute.gender,
       rank: brute.ranking as BruteRanking,
       level: brute.level,
       // Add minimal visual data to still be able to display the fight if the brute was deleted
@@ -269,6 +270,7 @@ const getFighters = (team1: BruteAndBackup, team2: BruteAndBackup): DetailedFigh
       const backupFighter: DetailedFighter = {
         id: backup.id,
         name: backup.name,
+        gender: backup.gender,
         rank: backup.ranking as BruteRanking,
         level: backup.level,
         // Add minimal visual data to still be able to display the fight if the brute was deleted

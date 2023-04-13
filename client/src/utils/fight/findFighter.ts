@@ -6,7 +6,10 @@ export interface AnimationFighter extends Fighter {
   type: 'brute' | 'pet';
   team: 'left' | 'right';
   currentAnimation: PIXI.AnimatedSprite | PIXI.Sprite;
-  activeWeapon: (AnimatedWeapon & { illustration: PIXI.Sprite }) | null;
+  activeWeapon: (AnimatedWeapon & {
+    illustration: PIXI.Sprite | null,
+    sprite: PIXI.Sprite | null,
+  }) | null;
   shieldIllustration: PIXI.Sprite | null;
   hpBar?: PIXI.Graphics;
   hpBarPhantom?: PIXI.Graphics;

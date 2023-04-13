@@ -189,6 +189,7 @@ const generateFight = async (
   const fighters: Fighter[] = fightData.initialFighters.map((fighter) => ({
     id: fighter.id,
     name: fighter.name,
+    gender: fighter.gender,
     rank: fighter.rank,
     level: fighter.level,
     agility: fighter.agility,

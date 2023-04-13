@@ -37,6 +37,11 @@ const getSprite = (
   // Set old animation to invisible
   fighter.currentAnimation.visible = false;
 
+  // Link weapon to new animation
+  if (fighter.activeWeapon?.sprite) {
+    fighter.activeWeapon.sprite.setParent(newAnimation);
+  }
+
   // Update current animation
   fighter.currentAnimation = newAnimation;
 
