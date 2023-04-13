@@ -3,10 +3,10 @@ import { Animation, randomBetween, SaboteurStep } from '@labrute/core';
 import { AnimatedSprite, Application } from 'pixi.js';
 import changeAnimation from './changeAnimation';
 
+import { sound } from '@pixi/sound';
 import findFighter, { AnimationFighter } from './findFighter';
 import stagger from './stagger';
-import updateWeapons from './updateWeapons';
-import { sound } from '@pixi/sound';
+import { updateActiveWeapon } from './updateWeapons';
 
 const saboteur = async (
   app: Application,
@@ -37,8 +37,8 @@ const saboteur = async (
   // Stagger animation
   await stagger(brute.currentAnimation as AnimatedSprite, brute.team, speed);
 
-  // Update weapon list
-  updateWeapons(app, brute, step.weapon, 'remove');
+  // Update active weapon
+  updateActiveWeapon(app, brute, null);
 };
 
 export default saboteur;
