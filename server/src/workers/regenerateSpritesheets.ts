@@ -9,8 +9,8 @@ import formatSpritesheet from '../utils/formatSpritesheet.js';
 const brutes = workerData as BruteWithBodyColors[];
 const prisma = new PrismaClient();
 
-await DiscordUtils.sendSimpleMessage('Regenerating all spritesheets...');
-await DiscordUtils.sendSimpleMessage(`Found ${brutes.length} brutes`);
+await DiscordUtils.sendLog('Regenerating all spritesheets...');
+await DiscordUtils.sendLog(`Found ${brutes.length} brutes`);
 
 for (let i = 0; i < brutes.length; i++) {
   const brute = brutes[i];
@@ -31,5 +31,5 @@ for (let i = 0; i < brutes.length; i++) {
     },
   });
 
-  await DiscordUtils.sendSimpleMessage(`Regenerated spritesheet for ${brute.name} (${i + 1}/${brutes.length})`);
+  await DiscordUtils.sendLog(`Regenerated spritesheet for ${brute.name} (${i + 1}/${brutes.length})`);
 }

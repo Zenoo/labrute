@@ -106,9 +106,9 @@ const Fights = {
           generatedFight = await generateFight(prisma, brute1, brute2, true, arenaFight, false);
         } catch (error) {
           // eslint-disable-next-line no-await-in-loop
-          await DiscordUtils.sendSimpleMessage(`Error while generating fight between ${brute1.name} and ${brute2.name}, retrying...`);
+          await DiscordUtils.sendLog(`Error while generating fight between ${brute1.name} and ${brute2.name}, retrying...`);
           // eslint-disable-next-line no-await-in-loop
-          await DiscordUtils.sendLog(error);
+          await DiscordUtils.sendError(error);
         }
       }
 

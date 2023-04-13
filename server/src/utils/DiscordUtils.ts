@@ -26,7 +26,7 @@ const send = async (props: WebhookCreateMessageOptions) => {
   }
 };
 
-const sendLog = async (error: unknown, res?: Response) => {
+const sendError = async (error: unknown, res?: Response) => {
   try {
     if (!Env.DISCORD_LOGS_WEBHOOK_ID) {
       console.error(error);
@@ -87,7 +87,7 @@ ${error instanceof Error ? error.stack : error}
   }
 };
 
-const sendSimpleMessage = async (message: string) => {
+const sendLog = async (message: string) => {
   try {
     if (!Env.DISCORD_LOGS_WEBHOOK_ID) {
       // eslint-disable-next-line no-console
@@ -137,7 +137,7 @@ const sendTournamentNotification = async (tournament: Tournament, brutes: Brute[
 
 export default {
   send,
+  sendError,
   sendLog,
-  sendSimpleMessage,
   sendTournamentNotification,
 };

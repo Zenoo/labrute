@@ -35,7 +35,7 @@ const Users = {
       }
 
       await dailyJob(prisma)().catch((error) => {
-        DiscordUtils.sendLog(error).catch((e) => {
+        DiscordUtils.sendError(error).catch((e) => {
           console.error(e);
         });
       });
