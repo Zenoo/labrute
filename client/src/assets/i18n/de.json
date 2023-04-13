@@ -199,7 +199,7 @@
   "backup.effect": "Dein Brutalo kann stärkeren Schülern im Kampf beiseite stehen",
   "hideaway": "Versteck",
   "hideaway.desc": "Du bist schüchtern und möchtest dich deinem Gegner überhaupt nicht nähern. Wozu auch? Man kann ihm auch aus der Ferne die Visage polieren!",
-  "hideaway.effect": "+50% Chance auf Waffenwurf",
+  "hideaway.effect": "+50% Chance auf Waffenwurf. Waffen verschwinden nicht nach einem Wurf.",
   "monk": "Mönch",
   "monk.desc": "Wenn du stillstehst, kannst du die Schläge deiner Gegner erahnen, bevor sie es selbst tun.",
   "monk.effect": "Konter +40%, Initiative -200, Intervall +100%",

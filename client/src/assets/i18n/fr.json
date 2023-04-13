@@ -198,7 +198,7 @@
   "backup.effect": "Ta brute peut intervenir dans les combats de ses collègues de niveau superieur.",
   "hideaway": "Planqué",
   "hideaway.desc": "Tu n'as vraiment pas envie de t'approcher de ton adversaire, tu préfères rester à distance et lui envoyer tout ton arsenal à la figure.",
-  "hideaway.effect": "Chances d'envoyer son arme: 50%",
+  "hideaway.effect": "Chances d'envoyer son arme: 50%. Les armes ne disparaissent pas après un lancer.",
   "monk": "Moine combattant",
   "monk.desc": "Tu peux voir les coups venir avant que ton adversaire ait le temps d'y penser si tu restes parfaitement calme.",
   "monk.effect": "Contre +40%, Initiative -200, Intervalle +100%.",

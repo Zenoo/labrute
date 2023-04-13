@@ -199,7 +199,7 @@
   "backup.effect": "Your brute can help superior team-members during fights.",
   "hideaway": "Hideaway",
   "hideaway.desc": "You really don't want to approach your opponent, you prefer to stay away and throw your whole arsenal in his face.",
-  "hideaway.effect": "Chance to throw weapon: 50%",
+  "hideaway.effect": "Chance to throw weapon: 50%. Weapons do not disappear after throwing",
   "monk": "Monk",
   "monk.desc": "You can visualize the hits before your opponent can even think about them if you stay perfectly still.",
   "monk.effect": "Counter +40%, Initiative -200, Interval +100%.",
