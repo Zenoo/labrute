@@ -779,7 +779,7 @@ const drawWeapon = (fightData: DetailedFight['data']): boolean => {
     // Add saboteur step
     fightData.steps.push({
       action: 'saboteur',
-      brute: stepFighter(fighter),
+      brute: stepFighter(getMainOpponent(fightData, fighter)),
       weapon: possibleWeapon.name,
     });
 
