@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.22.0](https://github.com/Zenoo/labrute/compare/labrute-v2.21.2...labrute-v2.22.0) (2023-04-13)
+
+
+### Features
+
+* Weapon animations prototype. [#5](https://github.com/Zenoo/labrute/issues/5) ([1c8d872](https://github.com/Zenoo/labrute/commit/1c8d8723a3864eeb61b2f4fa66fc05baf75df133))
+
+
+### Bug Fixes
+
+* Cleanup server logs ([3c3f00e](https://github.com/Zenoo/labrute/commit/3c3f00ee4af4897834cd7402928a4baa3a8d7cee))
+* Male hit-0 weapon animation. [#5](https://github.com/Zenoo/labrute/issues/5) ([5c9ad10](https://github.com/Zenoo/labrute/commit/5c9ad10dcb942e16177fcd8e18277bddd2787262))
+* Remove active weapon upon saboteur activation. ([07e9c0d](https://github.com/Zenoo/labrute/commit/07e9c0d66a25f679305c12f9831f1cb99789f5ad))
+* Rename Discord utils ([144339b](https://github.com/Zenoo/labrute/commit/144339bf11c9d870d5dcc1a6fdb1de4a12657d25))
+* Saboteur translation ([d7bb7b3](https://github.com/Zenoo/labrute/commit/d7bb7b36bff90a77984e37d785d7ae7caee090b3))
+* Wrong name in saboteur log ([7d337f3](https://github.com/Zenoo/labrute/commit/7d337f35dab8e53445a8cb90fcf84745832e66fb))
+
 ## [2.21.2](https://github.com/Zenoo/labrute/compare/labrute-v2.21.1...labrute-v2.21.2) (2023-04-13)
 
 
