@@ -25,7 +25,9 @@ async function main() {
     },
   });
 
-  await DiscordUtils.sendLog(`Found ${brutes.length} brutes witout beta achievement`);
+  if (brutes.length) {
+    await DiscordUtils.sendLog(`Found ${brutes.length} brutes witout beta achievement`);
+  }
 
   // Grant beta achievement
   await prisma.achievement.createMany({

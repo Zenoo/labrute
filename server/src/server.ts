@@ -51,7 +51,7 @@ app.use(
 );
 
 app.listen(port, () => {
-  DiscordUtils.sendLog(`**Server started on port ${port}**`).catch((e) => {
+  DiscordUtils.sendLog('**Server started**').catch((e) => {
     console.error(e);
   });
 

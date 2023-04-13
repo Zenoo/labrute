@@ -25,7 +25,9 @@ async function main() {
     },
   });
 
-  await DiscordUtils.sendLog(`Found ${brutes.length} brutes with dog2 or dog3 and without dog1`);
+  if (brutes.length) {
+    await DiscordUtils.sendLog(`Found ${brutes.length} brutes with dog2 or dog3 and without dog1`);
+  }
 
   for (const brute of brutes) {
     // Replace dog2 or dog3 with dog1

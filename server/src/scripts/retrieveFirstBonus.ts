@@ -29,7 +29,9 @@ async function main() {
     },
   });
 
-  await DiscordUtils.sendLog(`Found ${brutes.length} brutes with no first bonus stored`);
+  if (brutes.length) {
+    await DiscordUtils.sendLog(`Found ${brutes.length} brutes with no first bonus stored`);
+  }
 
   for (const brute of brutes) {
     const unregisteredSkill = brute.skills.find((skill) => brute.destinyChoices
