@@ -10,7 +10,6 @@ const translateFightStep = (fightStep: FightStep, t: TFunction) => {
   switch (fightStep.action) {
     case 'saboteur':
       return t(`fight.step.${fightStep.action}`, {
-        brute: fightStep.brute.name,
         weapon: t(fightStep.weapon),
       });
     case 'leave':

@@ -337,7 +337,7 @@
   "startFight": "Lancer le combat",
 
   "fight.discoverGames": "Découvrez nos autres jeux",
-  "fight.step.saboteur": "{{brute}} a saboté {{weapon}}.",
+  "fight.step.saboteur": "{{weapon}} était saboté !",
   "fight.step.leave": "{{name}} a pris la fuite !",
   "fight.step.arrive": "{{name}} est arrivé !",
   "fight.step.trash": "{{brute}} a jeté {{name}}.",

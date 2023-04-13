@@ -338,7 +338,7 @@
 
   "fight.discoverGames": "Descubre nuestros juegos",
 
-  "fight.step.saboteur": "{{brute}} ha saboteado {{weapon}}.",
+  "fight.step.saboteur": "¡{{weapon}} fue saboteada!",
   "fight.step.leave": "¡{{name}} ha huído!",
   "fight.step.arrive": "¡{{name}} ha llegado!",
   "fight.step.trash": "{{brute}} lanza {{name}}.",
