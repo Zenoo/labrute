@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.21.2](https://github.com/Zenoo/labrute/compare/labrute-v2.21.1...labrute-v2.21.2) (2023-04-13)
+
+
+### Bug Fixes
+
+* Missing achievement icon ([48f5155](https://github.com/Zenoo/labrute/commit/48f5155328e93e954e1dc6996bc137d344c1528e))
+* Missing skill effect in description ([6e42f2a](https://github.com/Zenoo/labrute/commit/6e42f2ab59c052edef9e2cec7c291ecdab9a5027))
+
 ## [2.21.1](https://github.com/Zenoo/labrute/compare/labrute-v2.21.0...labrute-v2.21.1) (2023-04-12)
 
 
