@@ -1,4 +1,4 @@
-import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Slider, Stack, TextField, Typography } from '@mui/material';
+import { Box, Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Slider, Stack, TextField, Typography } from '@mui/material';
 import React, { ChangeEvent, useCallback } from 'react';
 import { ANIMATION_ANCHORS, Animation, Animations, WEAPON_ANCHOR } from '@labrute/core';
 import useStateAsync from '../hooks/useStateAsync';
@@ -51,6 +51,11 @@ const WeaponAnchorTestView = () => {
   const changeZoom = useCallback((event: Event, newValue: number | number[]) => {
     setZoom(newValue as number);
   }, []);
+
+  const copyValues = useCallback(() => {
+    navigator.clipboard.writeText(`
+    { anchor: [${anchorX}, ${anchorY}], rotation: ${rotation} },`).catch(console.error);
+  }, [anchorX, anchorY, rotation]);
 
   return (
     <Stack spacing={2} sx={{ p: 2, minHeight: '100vh', bgcolor: '#363636' }}>
@@ -134,6 +139,7 @@ const WeaponAnchorTestView = () => {
         <Typography color="white">{zoom}</Typography>
         <Slider value={zoom} onChange={changeZoom} min={1} max={4} step={1} />
       </Stack>
+      <Button onClick={copyValues}>Copy values</Button>
     </Stack>
   );
 };
