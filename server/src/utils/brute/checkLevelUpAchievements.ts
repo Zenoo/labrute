@@ -51,11 +51,6 @@ const checkLevelUpAchievements = async (
     await increaseAchievement(prisma, brute.userId, brute.id, 'panther_bear');
   }
 
-  // Feline Agility
-  if (destinyChoice.skill === SkillName.felineAgility) {
-    await increaseAchievement(prisma, brute.userId, brute.id, 'felineAgility');
-  }
-
   // Feline Agility + Fists of Fury
   const felAg_fistsOfFConditions = [SkillName.felineAgility, SkillName.fistsOfFury] as SkillName[];
   if (destinyChoice.skill
