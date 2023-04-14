@@ -266,6 +266,8 @@ const setupFight: (
   let currentSpeed = speed.current;
   app.ticker.add(() => {
     fighters.forEach((fighter) => {
+      if (!fighter.currentAnimation) return;
+
       // Update zIndex on all fighters
       fighter.currentAnimation.zIndex = fighter.currentAnimation.y;
 
@@ -276,7 +278,7 @@ const setupFight: (
         ][
           fighter.currentAnimation.name as Animation
         ][
-          (fighter.currentAnimation as AnimatedSprite).currentFrame
+          (fighter.currentAnimation as AnimatedSprite).currentFrame || 0
         ];
 
         if (!spriteData) {
