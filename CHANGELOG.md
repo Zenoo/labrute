@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.22.1](https://github.com/Zenoo/labrute/compare/labrute-v2.22.0...labrute-v2.22.1) (2023-04-14)
+
+
+### Bug Fixes
+
+* Fight animation stop ([b7f6e9b](https://github.com/Zenoo/labrute/commit/b7f6e9b4609b42acd4252382dc893c6e874061fa))
+* Male hit-1 weapons animation. [#5](https://github.com/Zenoo/labrute/issues/5) ([6fb39fb](https://github.com/Zenoo/labrute/commit/6fb39fbd920a7a8cbd7da2a696bd8eb8882fbe9a))
+* Male idle weapons animations. [#5](https://github.com/Zenoo/labrute/issues/5) ([4c8fa06](https://github.com/Zenoo/labrute/commit/4c8fa063c0cb20fdea9d76752eb6aef528507a39))
+
 ## [2.22.0](https://github.com/Zenoo/labrute/compare/labrute-v2.21.2...labrute-v2.22.0) (2023-04-13)
 
 
