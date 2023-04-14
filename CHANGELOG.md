@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.22.3](https://github.com/Zenoo/labrute/compare/labrute-v2.22.2...labrute-v2.22.3) (2023-04-14)
+
+
+### Bug Fixes
+
+* Male block/death/equip/evade/grab/hit-2/prepare-throw/run/slash/steal/throw/trash/estoc weapon animation. [#5](https://github.com/Zenoo/labrute/issues/5) ([64aa521](https://github.com/Zenoo/labrute/commit/64aa521524150f8ba3dd184b52eb87fac31d17e5))
+
 ## [2.22.2](https://github.com/Zenoo/labrute/compare/labrute-v2.22.1...labrute-v2.22.2) (2023-04-14)
 
 
