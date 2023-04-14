@@ -405,8 +405,7 @@ const activateSuper = (
       break;
     }
     case 'tragicPotion': {
-      const lostHp = fighter.maxHp - fighter.hp;
-      const hpHealed = Math.floor(lostHp * (0.25 + Math.random() * 0.25));
+      const hpHealed = Math.floor(fighter.maxHp * (0.25 + Math.random() * 0.25));
       fighter.hp += hpHealed;
       fighter.poisoned = false;
 
