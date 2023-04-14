@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.22.2](https://github.com/Zenoo/labrute/compare/labrute-v2.22.1...labrute-v2.22.2) (2023-04-14)
+
+
+### Bug Fixes
+
+* Achievement received twice ([c837bea](https://github.com/Zenoo/labrute/commit/c837bea0e61d5848ce5d5c5026ec428c16aceb1b))
+* Cover all unknowns when fetching weapon animation data ([0dd9647](https://github.com/Zenoo/labrute/commit/0dd9647569d0e3a124ff6edd9a2860e4133986b9))
+* Heal 25 to 50% max HP with the tragic potion ([df19e8a](https://github.com/Zenoo/labrute/commit/df19e8a27fbf897bd49fa34799e24f87f98a6ead))
+* Tragic potion trigger ([26613b7](https://github.com/Zenoo/labrute/commit/26613b70447208bf6bf1f624beade8e2019a8966))
+
 ## [2.22.1](https://github.com/Zenoo/labrute/compare/labrute-v2.22.0...labrute-v2.22.1) (2023-04-14)
 
 
