@@ -171,7 +171,7 @@ const randomlyGetSuper = (fightData: DetailedFight['data'], brute: DetailedFight
   }
 
   // Filter out tragicPotion if not poisoned or lost less than 50 HP
-  if (brute.hp > brute.maxHp / 2 || !brute.poisoned) {
+  if (!brute.poisoned && brute.hp > brute.maxHp / 2) {
     supers = supers.filter((skill) => skill.name !== 'tragicPotion');
   }
 
