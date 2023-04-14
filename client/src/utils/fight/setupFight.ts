@@ -277,8 +277,8 @@ const setupFight: (
           fighter.gender || Gender.male
         ][
           fighter.currentAnimation.name as Animation
-        ][
-          (fighter.currentAnimation as AnimatedSprite).currentFrame || 0
+        ]?.[
+          (fighter.currentAnimation as AnimatedSprite)?.currentFrame || 0
         ];
 
         if (!spriteData) {

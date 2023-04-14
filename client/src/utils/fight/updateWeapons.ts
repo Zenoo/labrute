@@ -159,8 +159,8 @@ export const updateActiveWeapon = (
       brute.gender || Gender.male
     ][
       brute.currentAnimation.name as Animation
-    ][
-      (brute.currentAnimation as AnimatedSprite).currentFrame
+    ]?.[
+      (brute.currentAnimation as AnimatedSprite)?.currentFrame || 0
     ];
 
     if (!spriteData) {
