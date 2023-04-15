@@ -1,9 +1,9 @@
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Slider, Stack, TextField, Typography } from '@mui/material';
-import React, { ChangeEvent, useCallback } from 'react';
 import { ANIMATION_ANCHORS, Animation, Animations, WEAPON_ANCHOR } from '@labrute/core';
+import { Gender } from '@labrute/prisma';
+import { Box, Button, Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Select, SelectChangeEvent, Slider, Stack, TextField, Typography } from '@mui/material';
+import React, { ChangeEvent, useCallback } from 'react';
 import useStateAsync from '../hooks/useStateAsync';
 import Server from '../utils/Server';
-import { Gender } from '@labrute/prisma';
 
 /**
  * WeaponAnchorTestView component
@@ -16,6 +16,7 @@ const WeaponAnchorTestView = () => {
   const [anchorX, setAnchorX] = React.useState(0);
   const [anchorY, setAnchorY] = React.useState(0);
   const [rotation, setRotation] = React.useState(0);
+  const [behind, setBehind] = React.useState(false);
   const [zoom, setZoom] = React.useState(1);
 
   const { data: brutes } = useStateAsync([], Server.Brute.list, null);
@@ -48,14 +49,18 @@ const WeaponAnchorTestView = () => {
     setRotation(newValue as number);
   }, []);
 
+  const changeBehind = useCallback(() => {
+    setBehind((prev) => !prev);
+  }, []);
+
   const changeZoom = useCallback((event: Event, newValue: number | number[]) => {
     setZoom(newValue as number);
   }, []);
 
   const copyValues = useCallback(() => {
     navigator.clipboard.writeText(`
-    { anchor: [${anchorX}, ${anchorY}], rotation: ${rotation} },`).catch(console.error);
-  }, [anchorX, anchorY, rotation]);
+    { anchor: [${anchorX}, ${anchorY}], rotation: ${rotation}${behind ? ', behind: true' : ''} },`).catch(console.error);
+  }, [anchorX, anchorY, behind, rotation]);
 
   return (
     <Stack spacing={2} sx={{ p: 2, minHeight: '100vh', bgcolor: '#363636' }}>
@@ -105,6 +110,7 @@ const WeaponAnchorTestView = () => {
           <Box
             component="img"
             src={`/api/spritesheet/${brute}/${gender}/${animation}/${frame}`}
+            sx={{ position: 'relative', zIndex: 3 }}
           />
           <Box
             component="img"
@@ -115,6 +121,7 @@ const WeaponAnchorTestView = () => {
               top: `calc(${ANIMATION_ANCHORS[gender][animation][1] * 100}% - ${WEAPON_ANCHOR.y}px + ${anchorY}px)`,
               transformOrigin: `${WEAPON_ANCHOR.x}px ${WEAPON_ANCHOR.y}px`,
               transform: `rotate(${rotation}deg)`,
+              zIndex: behind ? 2 : 4,
             }}
           />
         </Box>
@@ -134,6 +141,7 @@ const WeaponAnchorTestView = () => {
         <Typography color="white">{rotation.toFixed(1)}</Typography>
         <Slider value={rotation} onChange={changeRotation} min={-180} max={180} step={0.1} />
       </Stack>
+      <FormControlLabel control={<Checkbox checked={behind} />} onChange={changeBehind} label="Behind" sx={{ color: 'white' }} />
       <Stack direction="row" spacing={2}>
         <Typography color="white">Zoom:</Typography>
         <Typography color="white">{zoom}</Typography>

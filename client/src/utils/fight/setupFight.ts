@@ -1,11 +1,12 @@
 /* eslint-disable no-void */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-await-in-loop */
-import { Animation, Fighter, FightStep, randomBetween, WEAPON_ANCHOR, WEAPON_ANIMATIONS } from '@labrute/core';
-import { Fight, Gender } from '@labrute/prisma';
+import { Fighter, FightStep, randomBetween } from '@labrute/core';
+import { Fight } from '@labrute/prisma';
 import { Theme } from '@mui/material';
 import { GlowFilter } from '@pixi/filter-glow';
 import { OutlineFilter } from '@pixi/filter-outline';
+import { sound } from '@pixi/sound';
 import { Tweener } from 'pixi-tweener';
 import * as PIXI from 'pixi.js';
 import { AnimatedSprite } from 'pixi.js';
@@ -13,6 +14,7 @@ import arrive from './arrive';
 import attemptHit from './attemptHit';
 import block from './block';
 import bomb from './bomb';
+import breakShield from './break';
 import death from './death';
 import disarm from './disarm';
 import eat from './eat';
@@ -38,8 +40,6 @@ import throwWeapon from './throwWeapon';
 import trap from './trap';
 import trash from './trash';
 import updateWeapons, { updateActiveWeapon } from './updateWeapons';
-import { sound } from '@pixi/sound';
-import breakShield from './break';
 
 const backgrounds = [
   'background/1.jpg',
@@ -270,29 +270,6 @@ const setupFight: (
 
       // Update zIndex on all fighters
       fighter.currentAnimation.zIndex = fighter.currentAnimation.y;
-
-      // Update weapon position
-      if (fighter.activeWeapon?.sprite) {
-        const spriteData = WEAPON_ANIMATIONS[
-          fighter.gender || Gender.male
-        ][
-          fighter.currentAnimation.name as Animation
-        ]?.[
-          (fighter.currentAnimation as AnimatedSprite)?.currentFrame || 0
-        ];
-
-        if (!spriteData) {
-          fighter.activeWeapon.sprite.x = 0;
-          fighter.activeWeapon.sprite.y = 0;
-          fighter.activeWeapon.sprite.angle = 0;
-          fighter.activeWeapon.sprite.visible = false;
-        } else {
-          fighter.activeWeapon.sprite.x = spriteData.anchor[0] - WEAPON_ANCHOR.x;
-          fighter.activeWeapon.sprite.y = spriteData.anchor[1] - WEAPON_ANCHOR.y;
-          fighter.activeWeapon.sprite.angle = spriteData.rotation;
-          fighter.activeWeapon.sprite.visible = true;
-        }
-      }
     });
 
     // Update speed if needed

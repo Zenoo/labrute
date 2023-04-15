@@ -5,6 +5,7 @@ import { GlowFilter } from '@pixi/filter-glow';
 import { AnimatedSprite, Application } from 'pixi.js';
 import { AnimationFighter } from './findFighter';
 import setupSprite from './setupSprite';
+import { updateWeaponFrame } from './updateWeapons';
 
 const getSprite = (
   app: Application,
@@ -37,22 +38,42 @@ const getSprite = (
   // Set old animation to invisible
   fighter.currentAnimation.visible = false;
 
-  // Link weapon to new animation
-  if (fighter.activeWeapon?.sprite) {
-    fighter.activeWeapon.sprite.setParent(newAnimation);
-  }
-
-  // Update current animation
-  fighter.currentAnimation = newAnimation;
-
   // Add Bevel filter
-  fighter.currentAnimation.filters = [new BevelFilter()];
+  newAnimation.filters = [new BevelFilter()];
 
   // Set new animation to visible
   newAnimation.visible = true;
 
   // Set inverted
   newAnimation.scale.x = fighter.team === 'left' ? 1 : -1;
+
+  // Link weapon to new animation
+  if (fighter.activeWeapon?.sprite) {
+    fighter.activeWeapon.sprite.setParent(newAnimation);
+  }
+
+  // Store old animation
+  const oldAnimation = fighter.currentAnimation;
+
+  // Update current animation
+  fighter.currentAnimation = newAnimation;
+
+  // Destroy old animation
+  oldAnimation.destroy();
+
+  // Update weapon frame
+  if (fighter.activeWeapon?.sprite) {
+    updateWeaponFrame(fighter);
+  }
+
+  if (newAnimation instanceof AnimatedSprite) {
+    // Setup weapon frame change on animation frame change
+    newAnimation.onFrameChange = () => {
+      if (fighter.activeWeapon?.sprite) {
+        updateWeaponFrame(fighter);
+      }
+    };
+  }
 
   // Play new animation
   if ((newAnimation as AnimatedSprite).play) {

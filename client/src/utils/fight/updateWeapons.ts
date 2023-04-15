@@ -7,6 +7,35 @@ import { AnimationFighter } from './findFighter';
 import { GlowFilter } from '@pixi/filter-glow';
 import * as PIXI from 'pixi.js';
 
+export const updateWeaponFrame = (
+  brute: AnimationFighter,
+) => {
+  const sprite = brute.activeWeapon?.sprite;
+  if (!sprite) return;
+
+  const spriteData = WEAPON_ANIMATIONS[
+    brute.gender || Gender.male
+  ][
+    brute.currentAnimation.name as Animation
+  ]?.[
+    (brute.currentAnimation as AnimatedSprite)?.currentFrame || 0
+  ];
+
+  console.log((brute.currentAnimation as AnimatedSprite)?.currentFrame || 0);
+
+  if (!spriteData) {
+    sprite.x = 0;
+    sprite.y = 0;
+    sprite.angle = 0;
+    sprite.visible = false;
+  } else {
+    sprite.x = spriteData.anchor[0] - WEAPON_ANCHOR.x;
+    sprite.y = spriteData.anchor[1] - WEAPON_ANCHOR.y;
+    sprite.angle = spriteData.rotation;
+    sprite.visible = true;
+  }
+};
+
 const updateWeapons = (
   app: Application,
   brute: AnimationFighter,
@@ -153,27 +182,10 @@ export const updateActiveWeapon = (
     const texture = spritesheet.textures[`${weapon}.png`];
     texture.baseTexture.scaleMode = PIXI.SCALE_MODES.LINEAR;
     const realSprite = new Sprite(texture);
+    realSprite.visible = false;
     brute.currentAnimation.addChild(realSprite);
 
-    const spriteData = WEAPON_ANIMATIONS[
-      brute.gender || Gender.male
-    ][
-      brute.currentAnimation.name as Animation
-    ]?.[
-      (brute.currentAnimation as AnimatedSprite)?.currentFrame || 0
-    ];
-
-    if (!spriteData) {
-      realSprite.x = 0;
-      realSprite.y = 0;
-      realSprite.angle = 0;
-      realSprite.visible = false;
-    } else {
-      realSprite.x = spriteData.anchor[0] - WEAPON_ANCHOR.x;
-      realSprite.y = WEAPON_ANCHOR.y + spriteData.anchor[1] - WEAPON_ANCHOR.y;
-      realSprite.angle = spriteData.rotation;
-      realSprite.visible = true;
-    }
+    updateWeaponFrame(brute);
 
     brute.activeWeapon = {
       name: weapon,
