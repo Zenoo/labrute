@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.22.5](https://github.com/Zenoo/labrute/compare/labrute-v2.22.4...labrute-v2.22.5) (2023-04-15)
+
+
+### Bug Fixes
+
+* All male weapon animations first pass done. [#5](https://github.com/Zenoo/labrute/issues/5) ([1286682](https://github.com/Zenoo/labrute/commit/12866828f22075097c1e4bc10397dcfc8078e2bf))
+* Position weapons from predefined anchor. [#5](https://github.com/Zenoo/labrute/issues/5) ([0eee0f4](https://github.com/Zenoo/labrute/commit/0eee0f4dcd5689e8709e9791a801b7a153aa5542))
+* Weapon counter to reversal. ([15e2467](https://github.com/Zenoo/labrute/commit/15e24679eed6a41f293d28904f84e695bf03d7c9))
+
 ## [2.22.4](https://github.com/Zenoo/labrute/compare/labrute-v2.22.3...labrute-v2.22.4) (2023-04-15)
 
 
