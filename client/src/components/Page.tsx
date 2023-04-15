@@ -1,6 +1,6 @@
 import { getFightsLeft, getSacriPointsNeeded, Language, LANGUAGES } from '@labrute/core';
 import { AccountCircle, Add, AdminPanelSettings, Login, Logout, MilitaryTech } from '@mui/icons-material';
-import { Badge, Box, BoxProps, CircularProgress, Link, SpeedDial, SpeedDialAction, Tooltip } from '@mui/material';
+import { Badge, Box, BoxProps, CircularProgress, Fab, Link, SpeedDial, SpeedDialAction, Tooltip } from '@mui/material';
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
@@ -98,78 +98,82 @@ const Page = ({
       <Header url={headerUrl} />
       {children}
       {/* AUTH */}
-      <SpeedDial
-        ariaLabel={t('account')}
-        open={open}
-        onMouseEnter={openSpeedDial}
-        onClick={toggleSpeedDial}
-        sx={{ position: 'fixed', bottom: 16, right: 16, zIndex: 101 }}
-        FabProps={{ sx: { bgcolor: 'success.light', '&:hover': { bgcolor: 'success.main' } } }}
-        icon={(
-          <Tooltip title={user ? user.name : t('account')}>
+      {!user ? (
+        <Tooltip title={t('login')}>
+          <Fab
+            onClick={oauth}
+            sx={{
+              position: 'fixed',
+              bottom: 16,
+              right: 16,
+              zIndex: 101,
+              bgcolor: 'success.light',
+              '&:hover': { bgcolor: 'success.main' },
+            }}
+          >
             {authing
               ? <CircularProgress color="success" sx={{ width: '20px !important', height: '20px !important' }} />
-              : <AccountCircle />}
-          </Tooltip>
-        )}
-      >
-        {!authing && !user && (
-          <SpeedDialAction
-            icon={<Login color="success" />}
-            tooltipTitle={t('login')}
-            tooltipOpen
-            onClick={oauth}
-          />
-        )}
-        {user && (
+              : <Login />}
+          </Fab>
+        </Tooltip>
+      ) : (
+        <SpeedDial
+          ariaLabel={t('account')}
+          open={open}
+          onMouseEnter={openSpeedDial}
+          onClick={toggleSpeedDial}
+          sx={{ position: 'fixed', bottom: 16, right: 16, zIndex: 101 }}
+          FabProps={{ sx: { bgcolor: 'success.light', '&:hover': { bgcolor: 'success.main' } } }}
+          icon={(
+            <Tooltip title={user.name}>
+              <AccountCircle />
+            </Tooltip>
+          )}
+        >
           <SpeedDialAction
             icon={<Logout color="error" />}
             tooltipTitle={t('logout')}
             tooltipOpen
             onClick={logout}
           />
-        )}
-        {user && (
           <SpeedDialAction
             icon={user.sacrificePoints}
             tooltipTitle={t('sacrificePoints')}
             tooltipOpen
           />
-        )}
-        {user && (
           <SpeedDialAction
             icon={<MilitaryTech color="warning" />}
             tooltipTitle={t('achievements')}
             tooltipOpen
             onClick={goToAchievements}
           />
-        )}
-        {user && user.brutes && user.brutes.map((brute) => (
-          <SpeedDialAction
-            key={brute.name}
-            icon={(
-              <Badge badgeContent={getFightsLeft(brute)} color="secondary">
-                <BrutePortrait brute={brute} sx={{ width: 40 }} />
-              </Badge>
-            )}
-            tooltipTitle={brute.name}
-            tooltipOpen
-            onClick={goToCell(brute.name)}
-          />
-        ))}
-        {user && user.brutes
-          && (user.brutes.length < user.bruteLimit
-            || user.sacrificePoints >= getSacriPointsNeeded(user))
-          && (
+          {user.brutes && user.brutes.map((brute) => (
             <SpeedDialAction
-              icon={<Add color="success" />}
-              tooltipTitle={`${t('newBrute')} (${getSacriPointsNeeded(user)} SP)`}
+              key={brute.name}
+              icon={(
+                <Badge badgeContent={getFightsLeft(brute)} color="secondary">
+                  <BrutePortrait brute={brute} sx={{ width: 40 }} />
+                </Badge>
+              )}
+              tooltipTitle={brute.name}
               tooltipOpen
-              onClick={goHome}
-              sx={{ textAlign: 'right', whiteSpace: 'nowrap' }}
+              onClick={goToCell(brute.name)}
             />
-          )}
-      </SpeedDial>
+          ))}
+          {user.brutes
+            && (user.brutes.length < user.bruteLimit
+              || user.sacrificePoints >= getSacriPointsNeeded(user))
+            && (
+              <SpeedDialAction
+                icon={<Add color="success" />}
+                tooltipTitle={`${t('newBrute')} (${getSacriPointsNeeded(user)} SP)`}
+                tooltipOpen
+                onClick={goHome}
+                sx={{ textAlign: 'right', whiteSpace: 'nowrap' }}
+              />
+            )}
+        </SpeedDial>
+      )}
       {/* FOOTER */}
       <Box sx={{ textAlign: 'center', mt: 2 }}>
         <Text color="secondary" sx={{ fontWeight: 'bold' }}>
