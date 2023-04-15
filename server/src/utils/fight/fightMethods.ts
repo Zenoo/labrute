@@ -872,6 +872,15 @@ const disarmAttacker = (fighter: DetailedFighter, opponent: DetailedFighter) => 
   return Math.random() < 0.3;
 };
 
+const reversal = (opponent: DetailedFighter) => {
+  // Only reverse if the opponent has `reversal`
+  if (!opponent.reversal) return false;
+
+  const random = Math.random();
+
+  return random < opponent.reversal + (opponent.activeWeapon?.counter || 0);
+};
+
 const attack = (
   fightData: DetailedFight['data'],
   fighter: DetailedFighter,
@@ -907,8 +916,8 @@ const attack = (
     updateStats(stats, opponent.id, 'consecutiveBlocks', 1);
     checkAchievements(stats, achievements);
 
-    // Auto reversal
-    if (opponent.autoReversalOnBlock) {
+    // Reversal
+    if (opponent.autoReversalOnBlock || reversal(opponent)) {
       // Update reversal stat
       updateStats(stats, opponent.id, 'consecutiveReversals', 1);
       checkAchievements(stats, achievements);
@@ -1016,6 +1025,19 @@ const attack = (
     }
   }
 
+  // Check if the opponent reverses the attack
+  if (damage && reversal(opponent)) {
+    // Update reversal stat
+    updateStats(stats, opponent.id, 'consecutiveReversals', 1);
+    checkAchievements(stats, achievements);
+
+    // Trigger opponent attack
+    attack(fightData, opponent, fighter, stats, achievements);
+  } else {
+    // Reset reversal stat
+    updateStats(stats, opponent.id, 'consecutiveReversals', 0);
+  }
+
   // Randomly trigger another attack if the fighter has `determination`
   if (!damage && fighter.determination && Math.random() < 0.7) {
     fighter.retryAttack = true;
@@ -1045,15 +1067,6 @@ export const checkDeaths = (fightData: DetailedFight['data']) => {
   }
 };
 
-const reversal = (opponent: DetailedFighter) => {
-  // Only reverse if the opponent has `reversal`
-  if (!opponent.reversal) return false;
-
-  const random = Math.random();
-
-  return random < opponent.reversal + (opponent.activeWeapon?.counter || 0);
-};
-
 const startAttack = (
   fightData: DetailedFight['data'],
   stats: Stats,
@@ -1062,6 +1075,9 @@ const startAttack = (
   opponent: DetailedFighter,
   isCounter?: boolean,
 ) => {
+  // Keep track of initial fighter HP
+  const initialFighterHp = fighter.hp;
+
   // Trigger fighter attack
   attack(fightData, fighter, opponent, stats, achievements);
 
@@ -1070,15 +1086,6 @@ const startAttack = (
 
   // Get combo chances
   let combo = fighter.combo + (fighter.activeWeapon?.combo || 0) + (fighter.agility * 0.01);
-
-  // Keep track of initial fighter HP
-  const initialFighterHp = fighter.hp;
-
-  // Check if opponent is not trapped and can reverse
-  if (!opponent.trapped && reversal(opponent)) {
-    // Trigger opponent attack
-    attack(fightData, opponent, fighter, stats, achievements);
-  }
 
   // Repeat attack only if not countering
   if (!isCounter) {
@@ -1099,12 +1106,6 @@ const startAttack = (
       attacksCount++;
 
       random = Math.random();
-
-      // Check if opponent is not trapped and can reverse
-      if (!opponent.trapped && reversal(opponent)) {
-        // Trigger opponent attack
-        attack(fightData, opponent, fighter, stats, achievements);
-      }
     }
 
     // Achievement for combos
