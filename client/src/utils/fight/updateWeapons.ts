@@ -21,16 +21,14 @@ export const updateWeaponFrame = (
     (brute.currentAnimation as AnimatedSprite)?.currentFrame || 0
   ];
 
-  console.log((brute.currentAnimation as AnimatedSprite)?.currentFrame || 0);
-
   if (!spriteData) {
     sprite.x = 0;
     sprite.y = 0;
     sprite.angle = 0;
     sprite.visible = false;
   } else {
-    sprite.x = spriteData.anchor[0] - WEAPON_ANCHOR.x;
-    sprite.y = spriteData.anchor[1] - WEAPON_ANCHOR.y;
+    [sprite.x] = spriteData.anchor;
+    [, sprite.y] = spriteData.anchor;
     sprite.angle = spriteData.rotation;
     sprite.visible = true;
   }
@@ -182,6 +180,8 @@ export const updateActiveWeapon = (
     const texture = spritesheet.textures[`${weapon}.png`];
     texture.baseTexture.scaleMode = PIXI.SCALE_MODES.LINEAR;
     const realSprite = new Sprite(texture);
+    realSprite.anchor.x = WEAPON_ANCHOR.x;
+    realSprite.anchor.y = WEAPON_ANCHOR.y;
     realSprite.visible = false;
     brute.currentAnimation.addChild(realSprite);
 

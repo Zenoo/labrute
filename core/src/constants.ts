@@ -99,8 +99,8 @@ export const ANIMATION_ANCHORS: Record<Gender, Record<Animation, [number, number
 };
 
 export const WEAPON_ANCHOR = {
-  x: 11.2,
-  y: 5.6,
+  x: 0.1244,
+  y: 0.14,
 } as const;
 
 export const WEAPON_ANIMATIONS: Record<Gender, Record<Animation, ({
