@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.22.4](https://github.com/Zenoo/labrute/compare/labrute-v2.22.3...labrute-v2.22.4) (2023-04-15)
+
+
+### Bug Fixes
+
+* Connexion button instead of user menu. Fixes [#226](https://github.com/Zenoo/labrute/issues/226) ([1708805](https://github.com/Zenoo/labrute/commit/1708805a98e4ba484eea4329fed7bf9286e10afb))
+* Mishandling of reversal ([c91cd8e](https://github.com/Zenoo/labrute/commit/c91cd8e7a260630e30aeecf61796d68732efa179))
+* Wrong translation for `winAsLower` achievement ([3712cea](https://github.com/Zenoo/labrute/commit/3712ceaf1a95c1320a1e8926c5c3081685b0d995))
+
 ## [2.22.3](https://github.com/Zenoo/labrute/compare/labrute-v2.22.2...labrute-v2.22.3) (2023-04-14)
 
 
