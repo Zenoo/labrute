@@ -873,12 +873,9 @@ const disarmAttacker = (fighter: DetailedFighter, opponent: DetailedFighter) => 
 };
 
 const reversal = (opponent: DetailedFighter) => {
-  // Only reverse if the opponent has `reversal`
-  if (!opponent.reversal) return false;
-
   const random = Math.random();
 
-  return random < opponent.reversal + (opponent.activeWeapon?.counter || 0);
+  return random < opponent.reversal + (opponent.activeWeapon?.reversal || 0);
 };
 
 const attack = (

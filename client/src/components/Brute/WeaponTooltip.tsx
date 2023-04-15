@@ -91,12 +91,12 @@ const WeaponTooltip = ({
               {weapon.reach}
             </Box>
           </Text>
-          {/* COUNTER */}
-          {!!weapon.counter && (
-            <Text typo="Blocky" sx={{ color: StatColor.counter, textShadow }}>
-              {weapon.counter > 0 && '+'}
-              {Math.round(weapon.counter * 100)}
-              % {t('counter')}
+          {/* REVERSAL */}
+          {!!weapon.reversal && (
+            <Text typo="Blocky" sx={{ color: StatColor.reversal, textShadow }}>
+              {weapon.reversal > 0 && '+'}
+              {Math.round(weapon.reversal * 100)}
+              % {t('reversal')}
             </Text>
           )}
           {/* EVASION */}

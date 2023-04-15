@@ -244,9 +244,9 @@ const checkLevelUpAchievements = async (
     await increaseAchievement(prisma, brute.userId, brute.id, 'weaponsMaster_sharp_bodybuilder_heavy');
   }
 
-  // Hostility + a weapon with counter
+  // Hostility + a weapon with reversal
   const counterWeapons = weapons
-    .filter((weapon) => weapon.counter)
+    .filter((weapon) => weapon.reversal)
     .map((weapon) => weapon.name);
 
   if ((destinyChoice.skill === SkillName.hostility
