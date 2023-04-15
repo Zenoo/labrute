@@ -52,14 +52,8 @@ const getSprite = (
     fighter.activeWeapon.sprite.setParent(newAnimation);
   }
 
-  // Store old animation
-  const oldAnimation = fighter.currentAnimation;
-
   // Update current animation
   fighter.currentAnimation = newAnimation;
-
-  // Destroy old animation
-  oldAnimation.destroy();
 
   // Update weapon frame
   if (fighter.activeWeapon?.sprite) {
