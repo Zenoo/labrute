@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.22.6](https://github.com/Zenoo/labrute/compare/labrute-v2.22.5...labrute-v2.22.6) (2023-04-15)
+
+
+### Bug Fixes
+
+* Don't destroy old animations. ([33c94f5](https://github.com/Zenoo/labrute/commit/33c94f52afff56a93a94ec9ad7520bb87863c9f4))
+
 ## [2.22.5](https://github.com/Zenoo/labrute/compare/labrute-v2.22.4...labrute-v2.22.5) (2023-04-15)
 
 
