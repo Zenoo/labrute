@@ -1,4 +1,4 @@
-import { Gender } from '@labrute/prisma';
+import { Gender, PetName } from '@labrute/prisma';
 import { PETS_TOTAL_ODDS } from './brute/pets';
 import { SKILLS_TOTAL_ODDS } from './brute/skills';
 import { WeaponAnimations, WEAPONS_TOTAL_ODDS } from './brute/weapons';
@@ -847,3 +847,16 @@ export const StatColor = {
 } as const;
 
 export const NEW_BRUTE_BASE_COST = 500;
+
+export const FIGHTER_HEIGHT = {
+  brute: 90,
+  [PetName.bear]: 130,
+  [PetName.panther]: 60,
+  dog: 40,
+} as const;
+export const FIGHTER_WIDTH = {
+  brute: 50,
+  [PetName.bear]: 120,
+  [PetName.panther]: 90,
+  dog: 60,
+} as const;

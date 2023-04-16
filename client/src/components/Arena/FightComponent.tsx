@@ -69,6 +69,7 @@ const FightComponent = ({
     app.ticker.speed = 0.5;
 
     app.loader
+      .add('/images/game/thrown-weapons.json')
       .add('/images/game/misc.json')
       .add('/images/game/bear.json')
       .add('/images/game/dog.json')
