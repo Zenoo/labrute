@@ -49,6 +49,9 @@ const steal = async (
   // Wait for animation to finish
   await new Promise((resolve) => {
     (target.currentAnimation as AnimatedSprite).onComplete = () => {
+      // Restore brute rotation
+      brute.container.rotation = 0;
+
       resolve(null);
     };
   });
