@@ -90,7 +90,7 @@ const throwWeapon = async (
   // Move thrown weapon
   await Tweener.add({
     target: thrownWeapon,
-    duration: 0.2 / speed.current,
+    duration: 0.25 / speed.current,
     ease: Easing.linear,
   }, {
     x: end.x,

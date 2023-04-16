@@ -345,7 +345,7 @@ const setupFight: (
         break;
       }
       case 'disarm': {
-        disarm(app, fighters, step);
+        disarm(app, fighters, step, speed);
         break;
       }
       case 'steal': {
