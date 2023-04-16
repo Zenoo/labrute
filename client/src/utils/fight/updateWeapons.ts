@@ -6,6 +6,7 @@ import { AnimatedSprite, Application, Sprite } from 'pixi.js';
 import { AnimationFighter } from './findFighter';
 import { GlowFilter } from '@pixi/filter-glow';
 import * as PIXI from 'pixi.js';
+import { BevelFilter } from '@pixi/filter-bevel';
 
 export const updateWeaponFrame = (
   brute: AnimationFighter,
@@ -31,6 +32,7 @@ export const updateWeaponFrame = (
     [, sprite.y] = spriteData.anchor;
     sprite.angle = spriteData.rotation;
     sprite.visible = true;
+    sprite.zIndex = spriteData.behind ? -1 : 1;
   }
 };
 
@@ -180,10 +182,11 @@ export const updateActiveWeapon = (
     const texture = spritesheet.textures[`${weapon}.png`];
     texture.baseTexture.scaleMode = PIXI.SCALE_MODES.LINEAR;
     const realSprite = new Sprite(texture);
+    realSprite.filters = [new BevelFilter()];
     realSprite.anchor.x = WEAPON_ANCHOR.x;
     realSprite.anchor.y = WEAPON_ANCHOR.y;
     realSprite.visible = false;
-    brute.currentAnimation.addChild(realSprite);
+    brute.container.addChild(realSprite);
 
     updateWeaponFrame(brute);
 

@@ -1,6 +1,6 @@
 /* eslint-disable no-void */
 import { Animation, randomBetween, SaboteurStep } from '@labrute/core';
-import { AnimatedSprite, Application } from 'pixi.js';
+import { Application } from 'pixi.js';
 import changeAnimation from './changeAnimation';
 
 import { sound } from '@pixi/sound';
@@ -35,7 +35,7 @@ const saboteur = async (
   });
 
   // Stagger animation
-  await stagger(brute.currentAnimation as AnimatedSprite, brute.team, speed);
+  await stagger(brute.container, brute.team, speed);
 
   // Update active weapon
   updateActiveWeapon(app, brute, null);

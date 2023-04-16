@@ -26,18 +26,18 @@ const steal = async (
 
   // Move brute to target position
   await Tweener.add({
-    target: brute.currentAnimation,
+    target: brute.container,
     duration: 0.25 / speed.current,
     ease: Easing.linear,
   }, {
-    x: target.currentAnimation.x,
-    y: target.currentAnimation.y - 60,
+    x: target.container.x,
+    y: target.container.y - 60,
   });
 
   // Set brute animation to `steal`
   changeAnimation(app, brute, 'steal', speed);
   (brute.currentAnimation as AnimatedSprite).animationSpeed = 0.5;
-  brute.currentAnimation.rotation = Math.PI / 2;
+  brute.container.rotation = Math.PI / 2;
 
   // Play steal SFX
   void sound.play('skills/thief', { speed: speed.current });
@@ -66,7 +66,7 @@ const steal = async (
 
   // Move brute to position
   await Tweener.add({
-    target: brute.currentAnimation,
+    target: brute.container,
     duration: 0.25 / speed.current,
     ease: Easing.linear,
   }, {

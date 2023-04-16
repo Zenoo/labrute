@@ -235,9 +235,25 @@ const setupFight: (
       throw new Error(`Arrive start animation not found: ${type}`);
     }
 
+    // Initialize fighter container
+    const container = new PIXI.Container();
+    container.sortableChildren = true;
+
+    // Set position
+    container.x = team === 'left' ? -100 : 600;
+    container.y = 150;
+
+    // Set inverted
+    container.scale.x = team === 'left' ? 1 : -1;
+
+    // Add to stage
+    app.stage.addChild(container);
+    container.addChild(arriveStartAnimation);
+
     const animationFighter: AnimationFighter = {
       ...fighter,
       team,
+      container,
       currentAnimation: arriveStartAnimation,
       activeWeapon: null,
       hpBar: fighter.master
@@ -266,10 +282,10 @@ const setupFight: (
   let currentSpeed = speed.current;
   app.ticker.add(() => {
     fighters.forEach((fighter) => {
-      if (!fighter.currentAnimation) return;
+      if (!fighter.container) return;
 
       // Update zIndex on all fighters
-      fighter.currentAnimation.zIndex = fighter.currentAnimation.y;
+      fighter.container.zIndex = fighter.container.y;
     });
 
     // Update speed if needed

@@ -2,15 +2,15 @@
 import { Animation, HitStep, WEAPONS_SFX, randomBetween } from '@labrute/core';
 import { GlowFilter } from '@pixi/filter-glow';
 import { OutlineFilter } from '@pixi/filter-outline';
-import { Tweener } from 'pixi-tweener';
-import { AnimatedSprite, Application, Text } from 'pixi.js';
-import changeAnimation from './changeAnimation';
 import { sound } from '@pixi/sound';
+import { Tweener } from 'pixi-tweener';
+import { Application, Text } from 'pixi.js';
+import changeAnimation from './changeAnimation';
 
+import { WeaponName } from '@labrute/prisma';
 import findFighter, { AnimationFighter } from './findFighter';
 import stagger from './stagger';
 import updateHp from './updateHp';
-import { WeaponName } from '@labrute/prisma';
 
 const hit = async (
   app: Application,
@@ -84,8 +84,8 @@ const hit = async (
     fontFamily: 'Poplar', fontSize: 20, fill: 0xffffff
   });
   damageText.anchor.set(0.5);
-  damageText.x = target.currentAnimation.x;
-  damageText.y = target.currentAnimation.y - target.currentAnimation.height;
+  damageText.x = target.container.x;
+  damageText.y = target.container.y - target.currentAnimation.height;
   damageText.zIndex = 1000;
   damageText.filters = [new OutlineFilter()];
   app.stage.addChild(damageText);
@@ -107,7 +107,7 @@ const hit = async (
   }
 
   // Stagger
-  await stagger(target.currentAnimation as AnimatedSprite, target.team, speed);
+  await stagger(target.container, target.team, speed);
 
   // Set animation to `idle`
   changeAnimation(app, target, 'idle', speed);

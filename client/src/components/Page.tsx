@@ -1,4 +1,4 @@
-import { getFightsLeft, getSacriPointsNeeded, Language, LANGUAGES } from '@labrute/core';
+import { getFightsLeft, getSacriPointsNeeded, Language, LANGUAGES, Version } from '@labrute/core';
 import { AccountCircle, Add, AdminPanelSettings, Login, Logout, MilitaryTech } from '@mui/icons-material';
 import { Badge, Box, BoxProps, CircularProgress, Fab, Link, SpeedDial, SpeedDialAction, Tooltip } from '@mui/material';
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
@@ -11,7 +11,6 @@ import { useLanguage } from '../hooks/useLanguage';
 import ads, { AdName } from '../utils/ads';
 import catchError from '../utils/catchError';
 import Fetch from '../utils/Fetch';
-import Version from '../utils/Version';
 import BrutePortrait from './Brute/Body/BrutePortait';
 import Header from './Header';
 import Text from './Text';

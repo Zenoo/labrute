@@ -34,18 +34,18 @@ const moveTo = async (
 
   // Move fighter to the position
   await Tweener.add({
-    target: fighter.currentAnimation,
+    target: fighter.container,
     duration: 0.5 / speed.current,
     ease: Easing.linear
   }, {
     x: target.team === 'right'
-      ? target.currentAnimation.x
+      ? target.container.x
         - target.currentAnimation.width / 2
         - fighter.currentAnimation.width / 2
-      : target.currentAnimation.x
+      : target.container.x
         + target.currentAnimation.width / 2
         + fighter.currentAnimation.width / 2,
-    y: target.currentAnimation.y,
+    y: target.container.y,
   });
 
   // Set animation to `idle`

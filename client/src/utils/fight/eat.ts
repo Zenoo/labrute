@@ -30,7 +30,7 @@ const eat = async (
 
   // Resize pet to 0 in 0.5s
   Tweener.add({
-    target: pet.currentAnimation,
+    target: pet.container,
     duration: 0.5 / speed.current,
     ease: Easing.linear
   }, {
@@ -48,8 +48,8 @@ const eat = async (
     fontFamily: 'Poplar', fontSize: 20, fill: 0x00ff00,
   });
   healText.anchor.set(0.5);
-  healText.x = brute.currentAnimation.x;
-  healText.y = brute.currentAnimation.y - brute.currentAnimation.height;
+  healText.x = brute.container.x;
+  healText.y = brute.container.y - brute.currentAnimation.height;
   healText.zIndex = 1000;
   healText.filters = [new OutlineFilter()];
   app.stage.addChild(healText);

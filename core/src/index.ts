@@ -24,6 +24,7 @@ import pad from './utils/pad';
 import promiseBatch from './utils/promiseBatch';
 import randomBetween from './utils/randomBetween';
 import weightedRandom from './utils/weightedRandom';
+import Version from './Version';
 
 export * from './Achievements';
 export * from './brute/pets';
@@ -57,6 +58,7 @@ export {
   weightedRandom,
   promiseBatch,
   pad,
+  Version,
 };
 
 export const LANGUAGES = ['fr', 'en', 'es', 'de'] as const;

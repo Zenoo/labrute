@@ -33,8 +33,8 @@ const heal = async (
     fontFamily: 'Poplar', fontSize: 20, fill: 0x00ff00,
   });
   healText.anchor.set(0.5);
-  healText.x = brute.currentAnimation.x;
-  healText.y = brute.currentAnimation.y - brute.currentAnimation.height;
+  healText.x = brute.container.x;
+  healText.y = brute.container.y - brute.currentAnimation.height;
   healText.zIndex = 1000;
   healText.filters = [new OutlineFilter()];
   app.stage.addChild(healText);

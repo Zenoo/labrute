@@ -45,7 +45,7 @@ const hypnotise = async (
 
   // Move pet to other team
   await Tweener.add({
-    target: pet.currentAnimation,
+    target: pet.container,
     duration: 0.5 / speed.current,
     ease: Easing.linear,
   }, { x, y });

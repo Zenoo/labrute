@@ -121,13 +121,19 @@ const WeaponAnchorTestView = () => {
 
       // Load every frame for the current animation
       WEAPON_ANIMATIONS[gender][animation].forEach((f, i) => {
+        const container = new PIXI.Container();
+        container.sortableChildren = true;
+
+        // Place the container (10 per row)
+        container.x = 50 + (i % 10) * 100;
+        container.y = (Math.floor(i / 10) + 1) * 100;
+        app.stage.addChild(container);
+
+        // Add brute
         const sprite = new PIXI.Sprite(spritesheet.textures[`${animation}_${gender}_${i + 1}.png`]);
         sprite.filters = [new BevelFilter()];
-        app.stage.addChild(sprite);
-
-        // Place the sprite (10 per row)
-        sprite.x = 50 + (i % 10) * 100;
-        sprite.y = (Math.floor(i / 10) + 1) * 100;
+        sprite.zIndex = 2;
+        container.addChild(sprite);
 
         // Add weapon
         const texture = miscSpritesheet.textures['lance.png'];
@@ -136,7 +142,7 @@ const WeaponAnchorTestView = () => {
         weaponSprite.anchor.x = WEAPON_ANCHOR.x;
         weaponSprite.anchor.y = WEAPON_ANCHOR.y;
         weaponSprite.visible = false;
-        sprite.addChild(weaponSprite);
+        container.addChild(weaponSprite);
 
         // Place weapon
         const spriteData = f;
@@ -151,6 +157,7 @@ const WeaponAnchorTestView = () => {
           [, weaponSprite.y] = spriteData.anchor;
           weaponSprite.angle = spriteData.rotation;
           weaponSprite.visible = true;
+          weaponSprite.zIndex = spriteData.behind ? 1 : 3;
         }
       });
     });

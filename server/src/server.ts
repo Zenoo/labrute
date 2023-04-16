@@ -1,13 +1,14 @@
 import express from 'express';
 
+import { Version } from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
 import bodyParser from 'body-parser';
 import schedule from 'node-schedule';
 import dailyJob from './dailyJob.js';
 import './i18n.js';
 import initRoutes from './routes.js';
-import Env from './utils/Env.js';
 import DiscordUtils from './utils/DiscordUtils.js';
+import Env from './utils/Env.js';
 
 const DEBUG_QUERIES = false;
 
@@ -51,7 +52,7 @@ app.use(
 );
 
 app.listen(port, () => {
-  DiscordUtils.sendLog('**Server started**').catch((e) => {
+  DiscordUtils.sendLog(`**Server started (v${Version})**`).catch((e) => {
     console.error(e);
   });
 

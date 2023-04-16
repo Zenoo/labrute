@@ -1,52 +1,52 @@
 import { Easing, Tweener } from 'pixi-tweener';
-import { AnimatedSprite } from 'pixi.js';
+import { Container } from 'pixi.js';
 
 const stagger = async (
-  animation: AnimatedSprite,
+  container: Container,
   team: 'left' | 'right',
   speed: React.MutableRefObject<number>,
 ) => {
   await Tweener.add({
-    target: animation,
+    target: container,
     duration: 0.05 / speed.current,
     ease: Easing.linear
-  }, { x: animation.x + (team === 'left' ? -8 : 8) });
+  }, { x: container.x + (team === 'left' ? -8 : 8) });
 
   await Tweener.add({
-    target: animation,
+    target: container,
     duration: 0.05 / speed.current,
     ease: Easing.linear
-  }, { x: animation.x + (team === 'left' ? 4 : -4) });
+  }, { x: container.x + (team === 'left' ? 4 : -4) });
 
   await Tweener.add({
-    target: animation,
+    target: container,
     duration: 0.05 / speed.current,
     ease: Easing.linear
-  }, { x: animation.x + (team === 'left' ? -4 : 4) });
+  }, { x: container.x + (team === 'left' ? -4 : 4) });
 
   await Tweener.add({
-    target: animation,
+    target: container,
     duration: 0.05 / speed.current,
     ease: Easing.linear
-  }, { x: animation.x + (team === 'left' ? 4 : -4) });
+  }, { x: container.x + (team === 'left' ? 4 : -4) });
 
   await Tweener.add({
-    target: animation,
+    target: container,
     duration: 0.1 / speed.current,
     ease: Easing.linear
-  }, { x: animation.x + (team === 'left' ? -4 : 4) });
+  }, { x: container.x + (team === 'left' ? -4 : 4) });
 
   await Tweener.add({
-    target: animation,
+    target: container,
     duration: 0.1 / speed.current,
     ease: Easing.linear
-  }, { x: animation.x + (team === 'left' ? 8 : -8) });
+  }, { x: container.x + (team === 'left' ? 8 : -8) });
 
   await Tweener.add({
-    target: animation,
+    target: container,
     duration: 0.1 / speed.current,
     ease: Easing.linear
-  }, { x: animation.x });
+  }, { x: container.x });
 };
 
 export default stagger;

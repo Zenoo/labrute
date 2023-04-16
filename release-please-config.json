@@ -2,7 +2,7 @@
   "packages": {
     ".": {
       "extra-files": [
-        "client/src/utils/Version.ts",
+        "core/src/Version.ts",
         {
           "type": "json",
           "path": "client/package.json",
@@ -27,8 +27,7 @@
           "type": "json",
           "path": "server/package.json",
           "jsonpath": "$.version"
-        },
-        "client/src/utils/Version.ts"
+        }
       ]
     }
   }

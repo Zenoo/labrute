@@ -5,6 +5,7 @@ import * as PIXI from 'pixi.js';
 export interface AnimationFighter extends Fighter {
   type: 'brute' | 'pet';
   team: 'left' | 'right';
+  container: PIXI.Container;
   currentAnimation: PIXI.AnimatedSprite | PIXI.Sprite;
   activeWeapon: (AnimatedWeapon & {
     illustration: PIXI.Sprite | null,

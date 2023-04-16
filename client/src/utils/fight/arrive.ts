@@ -35,7 +35,7 @@ const arrive = async (
 
   // Move fighter to the position
   await Tweener.add({
-    target: fighter.currentAnimation,
+    target: fighter.container,
     duration: 0.5 / speed.current,
     ease: Easing.linear
   }, { x, y });

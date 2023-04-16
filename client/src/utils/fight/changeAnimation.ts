@@ -1,11 +1,11 @@
 /* eslint-disable no-param-reassign */
 import { Animation } from '@labrute/core';
-import { BevelFilter } from '@pixi/filter-bevel';
 import { GlowFilter } from '@pixi/filter-glow';
 import { AnimatedSprite, Application } from 'pixi.js';
 import { AnimationFighter } from './findFighter';
 import setupSprite from './setupSprite';
 import { updateWeaponFrame } from './updateWeapons';
+import { BevelFilter } from '@pixi/filter-bevel';
 
 const getSprite = (
   app: Application,
@@ -31,10 +31,6 @@ const getSprite = (
     throw new Error(`New animation not found: ${animation}`);
   }
 
-  // Set new animation position to the current position
-  newAnimation.x = fighter.currentAnimation.x;
-  newAnimation.y = fighter.currentAnimation.y;
-
   // Set old animation to invisible
   fighter.currentAnimation.visible = false;
 
@@ -44,16 +40,13 @@ const getSprite = (
   // Set new animation to visible
   newAnimation.visible = true;
 
-  // Set inverted
-  newAnimation.scale.x = fighter.team === 'left' ? 1 : -1;
-
-  // Link weapon to new animation
-  if (fighter.activeWeapon?.sprite) {
-    fighter.activeWeapon.sprite.setParent(newAnimation);
-  }
+  // Remove old animation
+  fighter.container.removeChild(fighter.currentAnimation);
+  fighter.currentAnimation.destroy();
 
   // Update current animation
   fighter.currentAnimation = newAnimation;
+  fighter.container.addChild(newAnimation);
 
   // Update weapon frame
   if (fighter.activeWeapon?.sprite) {

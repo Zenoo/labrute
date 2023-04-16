@@ -2,13 +2,13 @@
 import { Animation, BombStep, randomBetween } from '@labrute/core';
 import { OutlineFilter } from '@pixi/filter-outline';
 import { Tweener } from 'pixi-tweener';
-import { AnimatedSprite, Application, Text } from 'pixi.js';
+import { Application, Text } from 'pixi.js';
 import changeAnimation from './changeAnimation';
 
+import { sound } from '@pixi/sound';
 import findFighter, { AnimationFighter } from './findFighter';
 import stagger from './stagger';
 import updateHp from './updateHp';
-import { sound } from '@pixi/sound';
 
 const getBombDamage = (damage: BombStep['damage'], target: AnimationFighter) => {
   if (typeof damage === 'number') {
@@ -90,8 +90,8 @@ const bomb = async (
       fontFamily: 'Poplar', fontSize: 20, fill: 0xffffff
     });
     damageText.anchor.set(0.5);
-    damageText.x = target.currentAnimation.x;
-    damageText.y = target.currentAnimation.y - target.currentAnimation.height;
+    damageText.x = target.container.x;
+    damageText.y = target.container.y - target.currentAnimation.height;
     damageText.zIndex = 1000;
     damageText.filters = [new OutlineFilter()];
     app.stage.addChild(damageText);
@@ -114,7 +114,7 @@ const bomb = async (
 
     // Stagger
     // eslint-disable-next-line no-await-in-loop
-    stagger(target.currentAnimation as AnimatedSprite, target.team, speed)
+    stagger(target.container, target.team, speed)
       .then(() => {
         if (target.currentAnimation.name.startsWith('hit')) {
           // Set animation to `idle`

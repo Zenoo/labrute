@@ -27,16 +27,16 @@ const evade = async (
 
   // Add vertical tween
   await Tweener.add({
-    target: fighter.currentAnimation,
+    target: fighter.container,
     duration: 0.25 / speed.current,
     ease: Easing.easeTo,
-  }, { y: fighter.currentAnimation.y - fighter.currentAnimation.height / 2 });
+  }, { y: fighter.container.y - fighter.currentAnimation.height / 2 });
 
   await Tweener.add({
-    target: fighter.currentAnimation,
+    target: fighter.container,
     duration: 0.25 / speed.current,
     ease: Easing.easeFrom,
-  }, { y: fighter.currentAnimation.y + fighter.currentAnimation.height / 2 });
+  }, { y: fighter.container.y + fighter.currentAnimation.height / 2 });
 
   // Set animation to `idle`
   changeAnimation(app, fighter, 'idle', speed);

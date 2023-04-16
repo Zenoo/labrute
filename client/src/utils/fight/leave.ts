@@ -21,17 +21,18 @@ const leave = async (
   changeAnimation(app, fighter, 'run', speed);
 
   // Invert fighter
-  fighter.currentAnimation.scale.x *= -1;
+  fighter.container.scale.x *= -1;
 
   // Move fighter to the position
   await Tweener.add({
-    target: fighter.currentAnimation,
+    target: fighter.container,
     duration: 0.5 / speed.current,
     ease: Easing.linear
   }, { x: fighter.team === 'left' ? -100 : 600 });
 
   // Remove fighter
   fighter.currentAnimation.destroy();
+  fighter.container.destroy();
   fighters.splice(fighters.indexOf(fighter), 1);
 };
 
