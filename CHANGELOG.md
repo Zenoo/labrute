@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.22.7](https://github.com/Zenoo/labrute/compare/labrute-v2.22.6...labrute-v2.22.7) (2023-04-16)
+
+
+### Bug Fixes
+
+* Allow some weapon animations to go behind the brutes. [#5](https://github.com/Zenoo/labrute/issues/5) ([9fe89ff](https://github.com/Zenoo/labrute/commit/9fe89ffb4ec7201681667e2eaa40bc53d8bba81f))
+* Display thrown weapons. [#5](https://github.com/Zenoo/labrute/issues/5) ([76e5c94](https://github.com/Zenoo/labrute/commit/76e5c948b7ff101154bd908ba4218414bb6cbd11))
+* Weapon fall animation. [#5](https://github.com/Zenoo/labrute/issues/5) ([6c82ea3](https://github.com/Zenoo/labrute/commit/6c82ea3b5a637c2eabc43419f0ad01e90b0ec06f))
+
 ## [2.22.6](https://github.com/Zenoo/labrute/compare/labrute-v2.22.5...labrute-v2.22.6) (2023-04-15)
 
 
