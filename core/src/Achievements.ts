@@ -49,15 +49,15 @@ export const AchievementData: Record<
   },
   combo3: {
     rarety: AchievementRarety.common,
-    illustration: 'r_wrestl.gif',
+    illustration: 'combo3.svg',
   },
   combo4: {
     rarety: AchievementRarety.uncommon,
-    illustration: 'r_wrestl.gif',
+    illustration: 'combo4.svg',
   },
   combo5: {
     rarety: AchievementRarety.rare,
-    illustration: 'r_wrestl.gif',
+    illustration: 'combo5.svg',
   },
   counter4b2b: {
     rarety: AchievementRarety.uncommon,
@@ -177,15 +177,15 @@ export const AchievementData: Record<
   },
   fiveWeapons: {
     rarety: AchievementRarety.common,
-    illustration: 'r_watgun.gif',
+    illustration: 'fiveWeapons.svg',
   },
   tenWeapons: {
     rarety: AchievementRarety.uncommon,
-    illustration: 'r_watgun.gif',
+    illustration: 'tenWeapons.svg',
   },
   fifteenWeapons: {
     rarety: AchievementRarety.rare,
-    illustration: 'r_watgun.gif',
+    illustration: 'fifteenWeapons.svg',
   },
   twentyWeapons: {
     rarety: AchievementRarety.epic,
