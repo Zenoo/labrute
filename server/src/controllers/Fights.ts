@@ -42,7 +42,7 @@ const Fights = {
       const user = await auth(prisma, req);
 
       if (!req.body.brute1 || !req.body.brute2) {
-        throw new Error('Invalid parameters');
+        throw new ExpectedError('Invalid parameters');
       }
 
       // Get brutes
@@ -61,7 +61,7 @@ const Fights = {
         },
       });
       if (!brute1) {
-        throw new Error('Brute 1 not found');
+        throw new ExpectedError('Brute 1 not found');
       }
 
       const brute2 = await prisma.brute.findFirst({
@@ -75,7 +75,7 @@ const Fights = {
         },
       });
       if (!brute2) {
-        throw new Error('Brute 2 not found');
+        throw new ExpectedError('Brute 2 not found');
       }
 
       // Check if this is an arena fight
