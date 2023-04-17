@@ -99,17 +99,26 @@ const Fights = {
 
       // Generate fight (retry if failed)
       let generatedFight: Prisma.FightCreateInput | null = null;
+      let expectedError: ExpectedError | null = null;
 
-      while (!generatedFight) {
+      while (!generatedFight && !expectedError) {
         try {
           // eslint-disable-next-line no-await-in-loop
           generatedFight = await generateFight(prisma, brute1, brute2, true, arenaFight, false);
         } catch (error) {
-          // eslint-disable-next-line no-await-in-loop
-          await DiscordUtils.sendLog(`Error while generating fight between ${brute1.name} and ${brute2.name}, retrying...`);
-          // eslint-disable-next-line no-await-in-loop
-          await DiscordUtils.sendError(error);
+          if (error instanceof ExpectedError) {
+            expectedError = error;
+          } else {
+            // eslint-disable-next-line no-await-in-loop
+            await DiscordUtils.sendLog(`Error while generating fight between ${brute1.name} and ${brute2.name}, retrying...`);
+            // eslint-disable-next-line no-await-in-loop
+            await DiscordUtils.sendError(error);
+          }
         }
+      }
+
+      if (expectedError || !generatedFight) {
+        throw expectedError;
       }
 
       // Save important fight data

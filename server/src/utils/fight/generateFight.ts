@@ -1,6 +1,6 @@
 import {
   AchievementsStore,
-  BruteWithBodyColors, DetailedFight, Fighter, randomBetween,
+  BruteWithBodyColors, DetailedFight, ExpectedError, Fighter, randomBetween,
 } from '@labrute/core';
 import { Prisma, PrismaClient } from '@labrute/prisma';
 import {
@@ -20,7 +20,7 @@ const generateFight = async (
   isTournamentFinal: boolean,
 ) => {
   if (brute1.id === brute2.id) {
-    throw new Error('Attempted to created a fight between the same brutes');
+    throw new ExpectedError('Attempted to created a fight between the same brutes');
   }
 
   // Achievements
@@ -132,7 +132,6 @@ const generateFight = async (
   // Fight loop
   while (!fightData.loser) {
     if (!fightData.fighters.length) {
-      console.error('No fighters left');
       // No fighters left
       break;
     }
