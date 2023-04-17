@@ -1,5 +1,5 @@
 /* eslint-disable no-void */
-import { StealStep } from '@labrute/core';
+import { FIGHTER_HEIGHT, StealStep } from '@labrute/core';
 
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
@@ -31,13 +31,15 @@ const steal = async (
     ease: Easing.linear,
   }, {
     x: target.container.x,
-    y: target.container.y - 60,
+    y: target.container.y - FIGHTER_HEIGHT.brute / 2,
   });
+
+  // Reverse brute
+  brute.container.scale.x *= -1;
 
   // Set brute animation to `steal`
   changeAnimation(app, brute, 'steal', speed);
   (brute.currentAnimation as AnimatedSprite).animationSpeed = 0.5;
-  brute.container.rotation = Math.PI / 2;
 
   // Play steal SFX
   void sound.play('skills/thief', { speed: speed.current });
@@ -49,8 +51,8 @@ const steal = async (
   // Wait for animation to finish
   await new Promise((resolve) => {
     (target.currentAnimation as AnimatedSprite).onComplete = () => {
-      // Restore brute rotation
-      brute.container.rotation = 0;
+      // Restore scale
+      brute.container.scale.x *= -1;
 
       resolve(null);
     };
