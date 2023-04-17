@@ -179,6 +179,13 @@ export const updateActiveWeapon = (
       app.stage.addChild(sprite);
     }
 
+    // Remove old weapon
+    if (brute.activeWeapon?.sprite) {
+      brute.container.removeChild(brute.activeWeapon.sprite);
+      brute.activeWeapon.sprite.destroy();
+    }
+
+    // Add new weapon
     const texture = spritesheet.textures[`${weapon}.png`];
     texture.baseTexture.scaleMode = PIXI.SCALE_MODES.LINEAR;
     const realSprite = new Sprite(texture);
