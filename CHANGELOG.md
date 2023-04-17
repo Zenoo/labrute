@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.22.9](https://github.com/Zenoo/labrute/compare/labrute-v2.22.8...labrute-v2.22.9) (2023-04-17)
+
+
+### Bug Fixes
+
+* Infinite loop while generating a fight with the same brutes. ([f4e8039](https://github.com/Zenoo/labrute/commit/f4e803971e00c83322d9ac60b3fd0301f8834602))
+* Reduce some weapon sizes. Fixes [#234](https://github.com/Zenoo/labrute/issues/234) ([a6312fa](https://github.com/Zenoo/labrute/commit/a6312faab027094bda33d0d30843d747f614654e))
+* Restore brute rotation after stealing. Fixes [#235](https://github.com/Zenoo/labrute/issues/235) ([1eff6d5](https://github.com/Zenoo/labrute/commit/1eff6d5dedd51d58aaca30890f1658037f55c457))
+
 ## [2.22.8](https://github.com/Zenoo/labrute/compare/labrute-v2.22.7...labrute-v2.22.8) (2023-04-16)
 
 
