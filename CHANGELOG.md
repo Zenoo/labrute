@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.22.10](https://github.com/Zenoo/labrute/compare/labrute-v2.22.9...labrute-v2.22.10) (2023-04-17)
+
+
+### Bug Fixes
+
+* Ghost weapons in fights. Fixes [#236](https://github.com/Zenoo/labrute/issues/236) ([adec552](https://github.com/Zenoo/labrute/commit/adec5523b7e47aed5f8589e3660177b1e7018574))
+* New `Thief` visual in fights. Fixes [#238](https://github.com/Zenoo/labrute/issues/238) ([cabd455](https://github.com/Zenoo/labrute/commit/cabd455fb7159e45ed4a230bddfa1bbb600f641f))
+
 ## [2.22.9](https://github.com/Zenoo/labrute/compare/labrute-v2.22.8...labrute-v2.22.9) (2023-04-17)
 
 
