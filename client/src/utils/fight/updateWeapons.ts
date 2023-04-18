@@ -13,6 +13,7 @@ export const updateWeaponFrame = (
 ) => {
   const sprite = brute.activeWeapon?.sprite;
   if (!sprite) return;
+  if (sprite.destroyed) return;
 
   const spriteData = WEAPON_ANIMATIONS[
     brute.gender || Gender.male
