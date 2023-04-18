@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.22.11](https://github.com/Zenoo/labrute/compare/labrute-v2.22.10...labrute-v2.22.11) (2023-04-18)
+
+
+### Bug Fixes
+
+* Bug on shield break ([517502b](https://github.com/Zenoo/labrute/commit/517502b043346c7fd2623162462931e6a2831cf1))
+* Remove useless errors ([7172c06](https://github.com/Zenoo/labrute/commit/7172c061bb202c8e3ffb8798543f3651a1e49606))
+
 ## [2.22.10](https://github.com/Zenoo/labrute/compare/labrute-v2.22.9...labrute-v2.22.10) (2023-04-17)
 
 
