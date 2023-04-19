@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.23.0](https://github.com/Zenoo/labrute/compare/labrute-v2.22.12...labrute-v2.23.0) (2023-04-19)
+
+
+### Features
+
+* `Hammer` skill VFX/SFX. Fixes [#6](https://github.com/Zenoo/labrute/issues/6) ([4990469](https://github.com/Zenoo/labrute/commit/499046959169346f8054daae54364078348790a4))
+
+
+### Bug Fixes
+
+* Stat colors client wide. Fixes [#244](https://github.com/Zenoo/labrute/issues/244) ([7d9e5a4](https://github.com/Zenoo/labrute/commit/7d9e5a486d24fe0dba99c4ba0f227e1a18313025))
+
 ## [2.22.12](https://github.com/Zenoo/labrute/compare/labrute-v2.22.11...labrute-v2.22.12) (2023-04-18)
 
 
