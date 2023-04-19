@@ -405,7 +405,11 @@ const activateSuper = (
       break;
     }
     case 'tragicPotion': {
-      const hpHealed = Math.floor(fighter.maxHp * (0.25 + Math.random() * 0.25));
+      let hpHealed = Math.floor(fighter.maxHp * (0.25 + Math.random() * 0.25));
+
+      // Limit hp to max
+      hpHealed = Math.min(hpHealed, fighter.maxHp - fighter.hp);
+
       fighter.hp += hpHealed;
       fighter.poisoned = false;
 
