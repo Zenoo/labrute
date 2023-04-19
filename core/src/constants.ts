@@ -1,7 +1,7 @@
 import { Gender, PetName } from '@labrute/prisma';
 import { PETS_TOTAL_ODDS } from './brute/pets';
 import { SKILLS_TOTAL_ODDS } from './brute/skills';
-import { WeaponAnimations, WEAPONS_TOTAL_ODDS } from './brute/weapons';
+import { WEAPONS_TOTAL_ODDS, WeaponAnimations } from './brute/weapons';
 
 export const FIGHTS_PER_DAY = 6;
 
@@ -835,16 +835,6 @@ export const PERK_ODDS: Perk[] = [
   { name: 'skill', odds: SKILLS_TOTAL_ODDS },
   { name: 'weapon', odds: WEAPONS_TOTAL_ODDS },
 ];
-
-export const StatColor = {
-  reversal: 'cyan',
-  evasion: '#17a717',
-  block: '#8686ff',
-  accuracy: 'yellow',
-  disarm: '#ff70ff',
-  combo: 'orange',
-  damage: 'red',
-} as const;
 
 export const NEW_BRUTE_BASE_COST = 500;
 

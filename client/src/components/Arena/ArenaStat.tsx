@@ -1,13 +1,17 @@
 import { Box, BoxProps, Tooltip, useTheme } from '@mui/material';
 import React from 'react';
 import Text from '../Text';
+import { FightStat } from '@labrute/core';
+import StatColor from '../../utils/StatColor';
 
 interface ArenaStatProps extends BoxProps {
+  stat: FightStat;
   name: string;
   value: number;
 }
 
 const ArenaStat = ({
+  stat,
   name,
   value,
 }: ArenaStatProps) => {
@@ -21,7 +25,7 @@ const ArenaStat = ({
       height: 14,
     }}
     >
-      <Text bold color="secondary" sx={{ fontSize: 11, mr: 0.5 }}>
+      <Text bold color="secondary" sx={{ fontSize: 11, mr: 0.5, color: StatColor[stat] }}>
         {name}
       </Text>
       <Tooltip title={value}>

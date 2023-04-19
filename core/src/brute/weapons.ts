@@ -1,10 +1,19 @@
 import { WeaponName } from '@labrute/prisma';
 
 export const WeaponTypes = ['fast', 'sharp', 'heavy', 'long', 'thrown', 'blunt'] as const;
-export type WeaponType = typeof WeaponTypes[number];
+export const WeaponType = {
+  FAST: 'fast',
+  SHARP: 'sharp',
+  HEAVY: 'heavy',
+  LONG: 'long',
+  THROWN: 'thrown',
+  BLUNT: 'blunt',
+} as const;
+
+export type WeaponType = typeof WeaponType[keyof typeof WeaponType];
 
 export const WeaponTypeColor: Record<WeaponType, string> = {
-  fast: 'blue',
+  fast: '#8686ff',
   sharp: 'red',
   heavy: 'brown',
   long: 'green',

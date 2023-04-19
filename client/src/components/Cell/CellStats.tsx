@@ -2,6 +2,7 @@ import { Box, BoxProps, Tooltip } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Text from '../Text';
+import StatColor from '../../utils/StatColor';
 
 const excesses = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -18,7 +19,7 @@ const CellStats = ({
 
   return (
     <Box>
-      <Text bold>{t(stat)} : {value}</Text>
+      <Text bold sx={{ color: StatColor[stat] }}>{t(stat)} : {value}</Text>
       <Tooltip title={`${t(stat)} : ${value}`}>
         <Box>
           {excesses.map((excess) => (

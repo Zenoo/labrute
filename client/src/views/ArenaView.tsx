@@ -1,4 +1,4 @@
-import { BruteWithBodyColors, getFightsLeft, getXPNeeded } from '@labrute/core';
+import { BruteWithBodyColors, FightStat, getFightsLeft, getXPNeeded } from '@labrute/core';
 import { Box, Button, Grid, Paper, useMediaQuery, useTheme } from '@mui/material';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -162,9 +162,9 @@ const ArenaView = () => {
                       <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
                         <BruteHP hp={opponent.hp} />
                         <Box flexGrow={1} sx={{ ml: 0.5 }}>
-                          <ArenaStat name={t('Str')} value={opponent.strengthValue} />
-                          <ArenaStat name={t('Agi')} value={opponent.agilityValue} />
-                          <ArenaStat name={t('Spe')} value={opponent.speedValue} />
+                          <ArenaStat stat={FightStat.STRENGTH} name={t('Str')} value={opponent.strengthValue} />
+                          <ArenaStat stat={FightStat.AGILITY} name={t('Agi')} value={opponent.agilityValue} />
+                          <ArenaStat stat={FightStat.SPEED} name={t('Spe')} value={opponent.speedValue} />
                         </Box>
                       </Box>
                       <BruteComponent

@@ -6,6 +6,7 @@ import CellStats from '../Cell/CellStats';
 import Text from '../Text';
 import BruteComponent from './Body/BruteComponent';
 import BruteHP from './BruteHP';
+import StatColor from '../../utils/StatColor';
 
 interface BruteBodyAndStatsProps extends BoxProps {
   brute: BruteWithBodyColors;
@@ -31,7 +32,7 @@ const BruteBodyAndStats = ({
         {/* HP */}
         <Box>
           <BruteHP hp={brute.hp} />
-          <Text bold sx={{ display: 'inline-block', ml: 1 }}>{t('healthPoints')}</Text>
+          <Text bold sx={{ display: 'inline-block', ml: 1, color: StatColor.endurance }}>{t('healthPoints')}</Text>
         </Box>
         {/* STRENGTH */}
         <CellStats value={brute.strengthValue} stat="strength" />

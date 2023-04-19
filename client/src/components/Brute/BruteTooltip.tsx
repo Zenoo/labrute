@@ -1,4 +1,4 @@
-import { Fighter } from '@labrute/core';
+import { FightStat, Fighter } from '@labrute/core';
 import { Brute } from '@labrute/prisma';
 import { Box, Tooltip, TooltipProps } from '@mui/material';
 import React from 'react';
@@ -37,9 +37,9 @@ const BruteTooltip = ({ brute, fighter, children, ...rest }: BruteTooltipProps) 
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <BruteHP hp={target.hp} />
             <Box flexGrow={1} sx={{ ml: 0.5 }}>
-              <ArenaStat name={t('Str')} value={fighter?.strength || brute?.strengthValue || 0} />
-              <ArenaStat name={t('Agi')} value={fighter?.agility || brute?.agilityValue || 0} />
-              <ArenaStat name={t('Spe')} value={fighter?.speed || brute?.speedValue || 0} />
+              <ArenaStat stat={FightStat.STRENGTH} name={t('Str')} value={fighter?.strength || brute?.strengthValue || 0} />
+              <ArenaStat stat={FightStat.AGILITY} name={t('Agi')} value={fighter?.agility || brute?.agilityValue || 0} />
+              <ArenaStat stat={FightStat.SPEED} name={t('Spe')} value={fighter?.speed || brute?.speedValue || 0} />
             </Box>
           </Box>
         </>

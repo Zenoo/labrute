@@ -1,8 +1,9 @@
 import { Box, Divider, Tooltip, TooltipProps } from '@mui/material';
 import React from 'react';
-import { Skill } from '@labrute/core';
+import { Skill, SkillModifiers } from '@labrute/core';
 import Text from '../Text';
 import { useTranslation } from 'react-i18next';
+import StatColor from '../../utils/StatColor';
 
 export interface SkillTooltipProps extends Omit<TooltipProps, 'title'> {
   skill?: Skill;
@@ -28,7 +29,21 @@ const SkillTooltip = ({
           <Text bold h5>{t(skill.name)}</Text>
           <Divider />
           <Text sx={{ mt: 1.5, fontSize: 12 }}>{t(`${skill.name}.desc`)}</Text>
-          {t(`${skill.name}.effect`) && (
+          {SkillModifiers[skill.name].map((skillModifier) => (
+            <Text
+              key={`${skillModifier.stat}-${skillModifier.value}`}
+              bold
+              sx={{ color: StatColor[skillModifier.stat], fontSize: 12, lineHeight: 1.2 }}
+            >
+              {skillModifier.value < 0 ? '' : '+'}
+              {skillModifier.value}
+              {skillModifier.percent ? '%' : ''}
+              {' '}
+              {t(skillModifier.stat)}
+              {(skillModifier.stat && typeof skillModifier.weaponType !== 'undefined') && ` (${t('weapons')}: ${t(skillModifier.weaponType || 'none')})`}
+            </Text>
+          ))}
+          {t(`${skill.name}.effect`) !== `${skill.name}.effect` && (
             <Text bold sx={{ fontSize: 12 }} color="error">{t(`${skill.name}.effect`)}</Text>
           )}
         </>

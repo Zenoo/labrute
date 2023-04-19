@@ -1,8 +1,9 @@
-import { PERKS_TOTAL_ODDS, StatColor, Weapon, WeaponTypeColor } from '@labrute/core';
+import { PERKS_TOTAL_ODDS, Weapon, WeaponTypeColor } from '@labrute/core';
 import { Box, Tooltip, TooltipProps } from '@mui/material';
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 import Text from '../Text';
+import StatColor from '../../utils/StatColor';
 
 const textShadow = '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000';
 
