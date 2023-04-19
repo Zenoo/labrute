@@ -40,11 +40,13 @@ const moveTo = async (
   }, {
     x: target.team === 'right'
       ? target.container.x
-        - target.currentAnimation.width / 2
-        - fighter.currentAnimation.width / 2
+      - (step.sameSpace
+        ? 20
+        : (target.currentAnimation.width / 2 + fighter.currentAnimation.width / 2))
       : target.container.x
-        + target.currentAnimation.width / 2
-        + fighter.currentAnimation.width / 2,
+      + (step.sameSpace
+        ? 20
+        : (target.currentAnimation.width / 2 + fighter.currentAnimation.width / 2)),
     y: target.container.y,
   });
 

@@ -496,7 +496,21 @@ const activateSuper = (
         skill: skill.name,
       });
 
+      // Add move to step
+      fightData.steps.push({
+        action: 'moveTo',
+        fighter: stepFighter(fighter),
+        target: stepFighter(opponent),
+        sameSpace: true,
+      });
+
       registerHit(fightData, stats, achievements, fighter, [opponent], damage, 'hammer');
+
+      // Add move back step
+      fightData.steps.push({
+        action: 'moveBack',
+        fighter: stepFighter(fighter),
+      });
 
       // Increase own initiative
       fighter.initiative += 1 * fighter.tempo;

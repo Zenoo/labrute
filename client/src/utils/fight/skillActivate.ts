@@ -18,13 +18,13 @@ const skillActivate = async (
   }
 
   // Play skill SFX
-  if (['cryOfTheDamned', 'fierceBrute', 'flashFlood', 'hammer'].includes(step.skill)) {
+  if (['cryOfTheDamned', 'fierceBrute', 'flashFlood'].includes(step.skill)) {
     void sound.play(`skills/${step.skill}`, {
       speed: speed.current,
     });
   }
 
-  if (['fierceBrute', 'cryOfTheDamned'].includes(step.skill)) {
+  if (['fierceBrute', 'cryOfTheDamned', 'hammer'].includes(step.skill)) {
     // Set animation to `strenghten`
     changeAnimation(app, brute, 'strengthen', speed);
 

@@ -40,6 +40,7 @@ import throwWeapon from './throwWeapon';
 import trap from './trap';
 import trash from './trash';
 import updateWeapons, { updateActiveWeapon } from './updateWeapons';
+import hammer from './hammer';
 
 const backgrounds = [
   'background/1.jpg',
@@ -326,10 +327,13 @@ const setupFight: (
         break;
       }
       case 'hit':
-      case 'hammer':
       case 'flashFlood':
       case 'poison': {
         await hit(app, fighters, step, speed);
+        break;
+      }
+      case 'hammer': {
+        await hammer(app, fighters, step, speed);
         break;
       }
       case 'death': {

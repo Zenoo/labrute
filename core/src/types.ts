@@ -200,6 +200,7 @@ export interface MoveStep {
   action: 'moveTo';
   fighter: StepFighter;
   target: StepFighter;
+  sameSpace?: boolean;
 }
 
 export interface EatStep {
