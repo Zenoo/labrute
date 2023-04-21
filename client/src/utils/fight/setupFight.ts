@@ -41,6 +41,7 @@ import trap from './trap';
 import trash from './trash';
 import updateWeapons, { updateActiveWeapon } from './updateWeapons';
 import hammer from './hammer';
+import flashFlood from './flashFlood';
 
 const backgrounds = [
   'background/1.jpg',
@@ -327,9 +328,12 @@ const setupFight: (
         break;
       }
       case 'hit':
-      case 'flashFlood':
       case 'poison': {
         await hit(app, fighters, step, speed);
+        break;
+      }
+      case 'flashFlood': {
+        await flashFlood(app, fighters, step, speed);
         break;
       }
       case 'hammer': {
@@ -389,7 +393,7 @@ const setupFight: (
         break;
       }
       case 'skillExpire': {
-        skillExpire(app, fighters, step);
+        await skillExpire(app, fighters, step, speed);
         break;
       }
       case 'end': {

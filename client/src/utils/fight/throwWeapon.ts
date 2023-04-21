@@ -73,7 +73,7 @@ const throwWeapon = async (
   // Set position
   thrownWeapon.position.set(start.x, start.y);
 
-  // Set rotation (from distance between fighter and opponent and their Y position)
+  // Set rotation (from fighter and opponent positions)
   thrownWeapon.angle = (Math.atan2(
     end.y - start.y,
     end.x - start.x,

@@ -179,7 +179,7 @@ export interface HitStep {
   action: 'hit' | 'flashFlood' | 'hammer' | 'poison';
   fighter: StepFighter;
   target: StepFighter;
-  weapon: WeaponName | SuperName | null;
+  weapon: WeaponName | null;
   damage: number;
 }
 

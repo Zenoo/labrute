@@ -60,17 +60,20 @@ const disarm = (
     y: weapon.y + 50,
     angle: opponent.team === 'left' ? -180 : 0,
   }).then(() => {
-    // Decrease opacity
-    Tweener.add({
-      target: weapon,
-      duration: 0.5 / speed.current,
-      ease: Easing.linear,
-    }, {
-      alpha: 0,
-    }).then(() => {
-      // Remove from stage
-      app.stage.removeChild(weapon);
-    }).catch(console.error);
+    // Wait a bit
+    setTimeout(() => {
+      // Decrease opacity
+      Tweener.add({
+        target: weapon,
+        duration: 0.5 / speed.current,
+        ease: Easing.linear,
+      }, {
+        alpha: 0,
+      }).then(() => {
+        // Remove from stage
+        app.stage.removeChild(weapon);
+      }).catch(console.error);
+    }, 500 / speed.current);
   }).catch(console.error);
 };
 

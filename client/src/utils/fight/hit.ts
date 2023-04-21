@@ -7,7 +7,6 @@ import { Tweener } from 'pixi-tweener';
 import { Application, Text } from 'pixi.js';
 import changeAnimation from './changeAnimation';
 
-import { WeaponName } from '@labrute/prisma';
 import findFighter, { AnimationFighter } from './findFighter';
 import stagger from './stagger';
 import updateHp from './updateHp';
@@ -18,6 +17,16 @@ const hit = async (
   step: HitStep,
   speed: React.MutableRefObject<number>,
 ) => {
+  const { loader: { resources: { '/images/game/thrown-weapons.json': { spritesheet } } } } = app;
+
+  if (!spritesheet) {
+    throw new Error('Spritesheet not found');
+  }
+
+  const fighter = findFighter(fighters, step.fighter);
+  if (!fighter) {
+    throw new Error('Fighter not found');
+  }
   const target = findFighter(fighters, step.target);
   if (!target) {
     throw new Error('Target not found');
@@ -39,13 +48,13 @@ const hit = async (
     });
   } else if (step.weapon) {
     // Skill SFX
-    if (['thief', 'fierceBrute', 'tragicPotion', 'net', 'bomb', 'hammer', 'cryOfTheDamned', 'hypnosis', 'flashFlood', 'tamer'].includes(step.weapon)) {
+    if (['thief', 'fierceBrute', 'tragicPotion', 'net', 'bomb', 'hammer', 'cryOfTheDamned', 'hypnosis', 'tamer'].includes(step.weapon)) {
       void sound.play(`skills/${step.weapon}`, {
         speed: speed.current,
       });
     } else {
       // Weapon SFX
-      void sound.play(`hitting/${WEAPONS_SFX[step.weapon as WeaponName][randomBetween(0, WEAPONS_SFX[step.weapon as WeaponName].length - 1)]}`, {
+      void sound.play(`hitting/${WEAPONS_SFX[step.weapon][randomBetween(0, WEAPONS_SFX[step.weapon].length - 1)]}`, {
         speed: speed.current,
       });
     }

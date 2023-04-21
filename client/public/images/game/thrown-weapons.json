@@ -2,7 +2,7 @@
 
 "axe.png":
 {
-	"frame": {"x":243,"y":1,"w":35,"h":20},
+	"frame": {"x":214,"y":1,"w":35,"h":20},
 	"rotated": true,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":35,"h":20},
@@ -38,7 +38,7 @@
 },
 "fan.png":
 {
-	"frame": {"x":283,"y":38,"w":22,"h":29},
+	"frame": {"x":272,"y":18,"w":22,"h":29},
 	"rotated": true,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":22,"h":29},
@@ -56,7 +56,7 @@
 },
 "fryingPan.png":
 {
-	"frame": {"x":219,"y":1,"w":36,"h":22},
+	"frame": {"x":190,"y":1,"w":36,"h":22},
 	"rotated": true,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":36,"h":22},
@@ -74,7 +74,7 @@
 },
 "hatchet.png":
 {
-	"frame": {"x":249,"y":46,"w":32,"h":16},
+	"frame": {"x":249,"y":45,"w":32,"h":16},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":16},
@@ -83,7 +83,7 @@
 },
 "keyboard.png":
 {
-	"frame": {"x":285,"y":1,"w":35,"h":14},
+	"frame": {"x":256,"y":1,"w":35,"h":14},
 	"rotated": true,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":35,"h":14},
@@ -92,7 +92,7 @@
 },
 "knife.png":
 {
-	"frame": {"x":229,"y":39,"w":31,"h":5},
+	"frame": {"x":229,"y":38,"w":31,"h":5},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":31,"h":5},
@@ -137,8 +137,8 @@
 },
 "mug.png":
 {
-	"frame": {"x":301,"y":18,"w":15,"h":13},
-	"rotated": true,
+	"frame": {"x":317,"y":18,"w":15,"h":13},
+	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":15,"h":13},
 	"sourceSize": {"w":15,"h":13},
@@ -146,20 +146,20 @@
 },
 "noodleBowl.png":
 {
-	"frame": {"x":190,"y":1,"w":36,"h":27},
+	"frame": {"x":283,"y":42,"w":18,"h":14},
 	"rotated": true,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":36,"h":27},
-	"sourceSize": {"w":36,"h":27},
+	"spriteSourceSize": {"x":0,"y":0,"w":18,"h":14},
+	"sourceSize": {"w":18,"h":14},
 	"anchor": {"x":0,"y":0}
 },
 "piopio.png":
 {
-	"frame": {"x":316,"y":18,"w":31,"h":32},
+	"frame": {"x":299,"y":42,"w":16,"h":16},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":31,"h":32},
-	"sourceSize": {"w":31,"h":32},
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16},
 	"anchor": {"x":0,"y":0}
 },
 "racquet.png":
@@ -191,7 +191,7 @@
 },
 "shuriken.png":
 {
-	"frame": {"x":349,"y":18,"w":13,"h":13},
+	"frame": {"x":317,"y":33,"w":13,"h":13},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":13,"h":13},
@@ -209,7 +209,7 @@
 },
 "trident.png":
 {
-	"frame": {"x":301,"y":1,"w":62,"h":15},
+	"frame": {"x":272,"y":1,"w":62,"h":15},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":62,"h":15},
@@ -227,7 +227,7 @@
 },
 "whip.png":
 {
-	"frame": {"x":265,"y":1,"w":35,"h":18},
+	"frame": {"x":236,"y":1,"w":35,"h":18},
 	"rotated": true,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":35,"h":18},
@@ -239,8 +239,8 @@
 	"version": "1.1",
 	"image": "thrown-weapons.png",
 	"format": "RGBA8888",
-	"size": {"w":364,"h":63},
+	"size": {"w":335,"h":63},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:98a36b6463255deafa9dece51226871b:d08086424dff2ebd8cb949ffe77375e1:3c8f04162d44b995c290ad885d7342fc$"
+	"smartupdate": "$TexturePacker:SmartUpdate:9cdd43d688030e950d4f52672f59355c:369bcfbd439a7a71c81ab31355baa185:3c8f04162d44b995c290ad885d7342fc$"
 }
 }

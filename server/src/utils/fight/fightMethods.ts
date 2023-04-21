@@ -238,6 +238,7 @@ const registerHit = (
   opponents: DetailedFighter[],
   damage: number,
   sourceName?: 'hammer' | 'flashFlood' | 'poison' | 'bomb',
+  flashFloodWeapon?: Weapon,
 ) => {
   const actualDamage: Record<number, number> = opponents.reduce((acc, opponent) => ({
     ...acc,
@@ -302,7 +303,7 @@ const registerHit = (
         action: sourceName || 'hit',
         fighter: stepFighter(fighter),
         target: stepFighter(opponent),
-        weapon: sourceName ? null : fighter.activeWeapon?.name || null,
+        weapon: sourceName ? (flashFloodWeapon?.name || null) : fighter.activeWeapon?.name || null,
         damage: actualDamage[opponent.id],
       });
     });
@@ -619,10 +620,20 @@ const activateSuper = (
       // Get half of the weapons
       const halfWeapons = shuffledWeapons.slice(0, Math.floor(shuffledWeapons.length / 2));
 
+      // Add active weapon as first weapon if any
+      if (fighter.activeWeapon) {
+        halfWeapons.unshift(fighter.activeWeapon);
+      }
+
       // Remove those weapons from the fighter
       fighter.weapons = fighter.weapons.filter(
         (w) => !halfWeapons.find((hw) => hw.name === w.name),
       );
+
+      // Remove active weapon if any
+      if (fighter.activeWeapon) {
+        fighter.activeWeapon = null;
+      }
 
       // Add skill activation step
       fightData.steps.push({
@@ -637,7 +648,14 @@ const activateSuper = (
         const damage = getDamage(fighter, opponent, w);
         damages.push(damage);
 
-        registerHit(fightData, stats, achievements, fighter, [opponent], damage, 'flashFlood');
+        registerHit(fightData, stats, achievements, fighter, [opponent], damage, 'flashFlood', w);
+      });
+
+      // Add skill expire step
+      fightData.steps.push({
+        action: 'skillExpire',
+        brute: stepFighter(fighter),
+        skill: skill.name,
       });
 
       // Increase own initiative

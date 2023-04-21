@@ -1,10 +1,11 @@
 /* eslint-disable no-void */
-import { SkillActivateStep } from '@labrute/core';
+import { FIGHTER_WIDTH, SkillActivateStep } from '@labrute/core';
 import { AnimatedSprite, Application } from 'pixi.js';
 import changeAnimation, { handleEffects } from './changeAnimation';
 
-import findFighter, { AnimationFighter } from './findFighter';
 import { sound } from '@pixi/sound';
+import { Easing, Tweener } from 'pixi-tweener';
+import findFighter, { AnimationFighter } from './findFighter';
 
 const skillActivate = async (
   app: Application,
@@ -18,7 +19,7 @@ const skillActivate = async (
   }
 
   // Play skill SFX
-  if (['cryOfTheDamned', 'fierceBrute', 'flashFlood'].includes(step.skill)) {
+  if (['cryOfTheDamned', 'fierceBrute'].includes(step.skill)) {
     void sound.play(`skills/${step.skill}`, {
       speed: speed.current,
     });
@@ -42,6 +43,24 @@ const skillActivate = async (
 
         resolve(null);
       };
+    });
+  }
+
+  // Flash flood
+  if (step.skill === 'flashFlood') {
+    // Set brute animation to `evade`
+    changeAnimation(app, brute, 'evade', speed);
+
+    // Move brute to upper middle
+    await Tweener.add({
+      target: brute.container,
+      duration: 0.4 / speed.current,
+      ease: Easing.easeOutCubic
+    }, {
+      y: 100,
+      x: brute.team === 'left'
+        ? app.screen.width / 2 - FIGHTER_WIDTH.brute / 2
+        : app.screen.width / 2 + FIGHTER_WIDTH.brute / 2,
     });
   }
 
