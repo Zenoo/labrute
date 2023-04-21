@@ -6,8 +6,6 @@ import { Tweener } from 'pixi-tweener';
 import * as PIXI from 'pixi.js';
 import React, { ChangeEvent, useCallback, useEffect, useRef } from 'react';
 import Text from '../components/Text';
-import useStateAsync from '../hooks/useStateAsync';
-import Server from '../utils/Server';
 
 /**
  * WeaponAnchorTestView component
@@ -17,18 +15,11 @@ const WeaponAnchorTestView = () => {
   const [frame, setFrame] = React.useState(1);
   const [animation, setAnimation] = React.useState<Animation>('run');
   const [gender, setGender] = React.useState<Gender>(Gender.male);
-  const [brute, setBrute] = React.useState('');
   const [anchorX, setAnchorX] = React.useState(0);
   const [anchorY, setAnchorY] = React.useState(0);
   const [rotation, setRotation] = React.useState(0);
   const [behind, setBehind] = React.useState(false);
   const [zoom, setZoom] = React.useState(1);
-
-  const { data: brutes } = useStateAsync([], Server.Brute.list, null);
-
-  const changeBrute = useCallback((event: SelectChangeEvent) => {
-    setBrute(event.target.value);
-  }, []);
 
   const changeFrame = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setFrame(+event.target.value);
@@ -171,18 +162,6 @@ const WeaponAnchorTestView = () => {
   return (
     <Box sx={{ p: 2, bgcolor: '#363636' }}>
       <Stack spacing={2} sx={{ maxWidth: 500 }}>
-        <FormControl>
-          <InputLabel>Brute</InputLabel>
-          <Select
-            value={brute}
-            label="Brute"
-            onChange={changeBrute}
-          >
-            {brutes.map((b) => (
-              <MenuItem key={b.id} value={b.name}>{b.name}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
         <TextField
           label="Frame"
           type="number"
@@ -212,11 +191,11 @@ const WeaponAnchorTestView = () => {
             ))}
           </Select>
         </FormControl>
-        {brute && (frame > 0) && (
+        {(frame > 0) && (
           <Box sx={{ position: 'relative', width: 'fit-content', fontSize: 0, zoom }}>
             <Box
               component="img"
-              src={`/api/spritesheet/${brute}/${gender}/${animation}/${frame}`}
+              src={`/api/spritesheet/${gender === Gender.male ? 'Jeff' : 'Jess'}/${gender}/${animation}/${frame}`}
               sx={{ position: 'relative', zIndex: 3 }}
             />
             <Box
