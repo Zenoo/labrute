@@ -214,6 +214,27 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">public/images/game/resources/misc/dead/1.png</key>
+            <key type="filename">public/images/game/resources/misc/dead/2.png</key>
+            <key type="filename">public/images/game/resources/misc/dead/3.png</key>
+            <key type="filename">public/images/game/resources/misc/dead/4.png</key>
+            <key type="filename">public/images/game/resources/misc/dead/5.png</key>
+            <key type="filename">public/images/game/resources/misc/dead/6.png</key>
+            <key type="filename">public/images/game/resources/misc/dead/7.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>29,29,57,57</rect>
+                <key>scale9Paddings</key>
+                <rect>29,29,57,57</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">public/images/game/resources/misc/dust/00001.png</key>
             <key type="filename">public/images/game/resources/misc/dust/00002.png</key>
             <key type="filename">public/images/game/resources/misc/dust/00003.png</key>
@@ -289,6 +310,41 @@
                 <rect>61,17,121,33</rect>
                 <key>scale9Paddings</key>
                 <rect>61,17,121,33</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/petals/1.png</key>
+            <key type="filename">public/images/game/resources/misc/petals/10.png</key>
+            <key type="filename">public/images/game/resources/misc/petals/11.png</key>
+            <key type="filename">public/images/game/resources/misc/petals/12.png</key>
+            <key type="filename">public/images/game/resources/misc/petals/13.png</key>
+            <key type="filename">public/images/game/resources/misc/petals/14.png</key>
+            <key type="filename">public/images/game/resources/misc/petals/15.png</key>
+            <key type="filename">public/images/game/resources/misc/petals/16.png</key>
+            <key type="filename">public/images/game/resources/misc/petals/17.png</key>
+            <key type="filename">public/images/game/resources/misc/petals/18.png</key>
+            <key type="filename">public/images/game/resources/misc/petals/19.png</key>
+            <key type="filename">public/images/game/resources/misc/petals/2.png</key>
+            <key type="filename">public/images/game/resources/misc/petals/20.png</key>
+            <key type="filename">public/images/game/resources/misc/petals/21.png</key>
+            <key type="filename">public/images/game/resources/misc/petals/3.png</key>
+            <key type="filename">public/images/game/resources/misc/petals/4.png</key>
+            <key type="filename">public/images/game/resources/misc/petals/5.png</key>
+            <key type="filename">public/images/game/resources/misc/petals/6.png</key>
+            <key type="filename">public/images/game/resources/misc/petals/7.png</key>
+            <key type="filename">public/images/game/resources/misc/petals/8.png</key>
+            <key type="filename">public/images/game/resources/misc/petals/9.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>6,4,11,9</rect>
+                <key>scale9Paddings</key>
+                <rect>6,4,11,9</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>

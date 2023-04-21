@@ -372,6 +372,7 @@
   "fight.step.counter": "{{fighter}} contrarresta el ataque de {{opponent}}.",
   "fight.step.skillExpire": "{{skill}} de {{brute}} ha expirado.",
   "fight.step.skillActivate": "{{brute}} utiliza {{skill}}.",
+  "fight.wonTheFight": "{{brute}} ha ganado el combate",
   "fight.play": "Play",
   "fight.pause": "Pause",
   "fight.toggleLogs": "Activar/Desactivar logs",

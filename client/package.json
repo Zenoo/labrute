@@ -18,6 +18,7 @@
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.5",
     "@pixi/filter-bevel": "^4.2.0",
+    "@pixi/filter-color-overlay": "^4.2.0",
     "@pixi/filter-glow": "^4.2.0",
     "@pixi/filter-outline": "^4.2.0",
     "@pixi/sound": "^4.3.3",

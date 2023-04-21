@@ -155,7 +155,7 @@ const FightComponent = ({
       PIXI.utils.clearTextureCache();
     });
 
-    app.loader.load(setupFight(theme, fight, app, speedRef, setCompleted));
+    app.loader.load(setupFight(theme, fight, app, speedRef, setCompleted, t));
 
     return () => {
       Tweener.dispose();
@@ -164,7 +164,7 @@ const FightComponent = ({
       // Stop all sounds
       sound.stopAll();
     };
-  }, [fight, theme]);
+  }, [fight, t, theme]);
 
   const toggleAnimation = useCallback(() => {
     setPlaying((prev) => {

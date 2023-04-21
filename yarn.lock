@@ -2498,6 +2498,7 @@ __metadata:
     "@mui/icons-material": ^5.11.0
     "@mui/material": ^5.11.5
     "@pixi/filter-bevel": ^4.2.0
+    "@pixi/filter-color-overlay": ^4.2.0
     "@pixi/filter-glow": ^4.2.0
     "@pixi/filter-outline": ^4.2.0
     "@pixi/sound": ^4.3.3
@@ -2992,6 +2993,16 @@ __metadata:
   peerDependencies:
     "@pixi/core": 6.5.9
   checksum: 3fce8a3ec440c915ce5c280c05a2a3785c638993b39d1e1440914ba8013bb4a57123a5ca5b5a65f7245c53f3ec033dd8dea3fa7cd3bf20e999897c525c12ee52
+  languageName: node
+  linkType: hard
+
+"@pixi/filter-color-overlay@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "@pixi/filter-color-overlay@npm:4.2.0"
+  peerDependencies:
+    "@pixi/core": ^6.0.0
+    "@pixi/utils": ^6.0.0
+  checksum: 4fe4a651872186f0c21a74b815ff52e5a7d336a8379a7225ed7e96d54f492b9f900bc1c1e3265a98e0da72a3e94651e846ef51ea5791f8b78e81634256b51852
   languageName: node
   linkType: hard
 

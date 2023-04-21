@@ -7,7 +7,7 @@ import { Theme } from '@mui/material';
 import { GlowFilter } from '@pixi/filter-glow';
 import { OutlineFilter } from '@pixi/filter-outline';
 import { sound } from '@pixi/sound';
-import { Tweener } from 'pixi-tweener';
+import { Easing, Tweener } from 'pixi-tweener';
 import * as PIXI from 'pixi.js';
 import { AnimatedSprite } from 'pixi.js';
 import arrive from './arrive';
@@ -42,6 +42,8 @@ import trash from './trash';
 import updateWeapons, { updateActiveWeapon } from './updateWeapons';
 import hammer from './hammer';
 import flashFlood from './flashFlood';
+import { TFunction } from 'i18next';
+import { ColorOverlayFilter } from '@pixi/filter-color-overlay';
 
 const backgrounds = [
   'background/1.jpg',
@@ -65,12 +67,14 @@ const setupFight: (
   app: PIXI.Application,
   speed: React.MutableRefObject<number>,
   setCompleted: React.Dispatch<React.SetStateAction<boolean>>,
+  t: TFunction,
 ) => PIXI.Loader.OnCompleteSignal = (
   theme,
   fight,
   app,
   speed,
   setCompleted,
+  t,
 ) => async (
   loader,
   resources,
@@ -436,6 +440,88 @@ const setupFight: (
 
   setCompleted(true);
   void sound.play('win');
+
+  // Get winner fighter
+  const winner = fighters.find((fighter) => fighter.type === 'brute' && fighter.name === fight.winner);
+
+  // Get loser fighter
+  const loser = fighters.find((fighter) => !fighter.master && fighter.type === 'brute' && fighter.name !== fight.winner);
+
+  // Display dead icon animation on the UI
+  const deadIcon = new AnimatedSprite(miscSheet.animations.dead);
+  deadIcon.filters = [new OutlineFilter()];
+  deadIcon.loop = false;
+  deadIcon.animationSpeed = 0.5;
+  deadIcon.zIndex = 1000;
+  if (loser?.team === 'right') {
+    deadIcon.scale.x = -1;
+    deadIcon.x = brute2Header.x + 32;
+    deadIcon.y = brute2Header.y - 13;
+  } else {
+    deadIcon.x = brute1Header.x - 32;
+    deadIcon.y = brute1Header.y - 13;
+  }
+  app.stage.addChild(deadIcon);
+  deadIcon.play();
+
+  // Display win message at the bottom
+  const winMessage = new PIXI.Text(t('fight.wonTheFight', { brute: fight.winner }).toLocaleUpperCase(), {
+    fontFamily: 'Poplar',
+    fontSize: 30,
+    fill: 0xffffff,
+    align: 'center',
+  });
+  winMessage.filters = [new OutlineFilter()];
+  winMessage.x = app.screen.width / 2;
+  winMessage.y = app.screen.height - 20;
+  winMessage.anchor.set(0.5, 0.5);
+  winMessage.height = 0;
+  winMessage.zIndex = 100;
+  app.stage.addChild(winMessage);
+
+  // Animate win message
+  Tweener.add({
+    target: winMessage,
+    duration: 2 / speed.current,
+    ease: Easing.bounce,
+  }, {
+    height: 30,
+  }).catch(console.error);
+
+  // Make 50 petals fall on the winner
+  for (let i = 0; i < 50; i++) {
+    const petal = new PIXI.AnimatedSprite(miscSheet.animations.petals);
+    petal.filters = [new ColorOverlayFilter(
+      // Random color
+      Math.random() * 0xffffff,
+      0.5,
+    )];
+
+    // Random horizontal position around the winner
+    petal.x = (winner?.container.x || 0) - 75 + Math.random() * 150;
+    petal.y = 0;
+    petal.width = 10;
+    petal.height = 10;
+
+    // Random animation speed
+    petal.animationSpeed = 0.1 + Math.random() * 0.5;
+
+    petal.zIndex = 0;
+    petal.play();
+    app.stage.addChild(petal);
+
+    // Animate petal
+    Tweener.add({
+      target: petal,
+      duration: (2 + Math.random() * 4) / speed.current,
+      ease: Easing.linear,
+    }, {
+      y: app.screen.height - 10 - Math.random() * 100,
+    }).then(() => {
+      // Stop animation
+      petal.stop();
+    }).catch(console.error);
+  }
 };
 
 export default setupFight;
