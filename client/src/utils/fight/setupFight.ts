@@ -476,7 +476,7 @@ const setupFight: (
   winMessage.y = app.screen.height - 20;
   winMessage.anchor.set(0.5, 0.5);
   winMessage.height = 0;
-  winMessage.zIndex = 100;
+  winMessage.zIndex = 900;
   app.stage.addChild(winMessage);
 
   // Animate win message

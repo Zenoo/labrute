@@ -169,92 +169,85 @@ const WeaponAnchorTestView = () => {
   }, [animation, gender]);
 
   return (
-    <Stack spacing={2} sx={{ p: 2, minHeight: '100vh', bgcolor: '#363636' }}>
-      <FormControl>
-        <InputLabel>Brute</InputLabel>
-        <Select
-          value={brute}
-          label="Brute"
-          onChange={changeBrute}
-        >
-          {brutes.map((b) => (
-            <MenuItem key={b.id} value={b.name}>{b.name}</MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      <TextField
-        label="Frame"
-        type="number"
-        value={frame}
-        onChange={changeFrame}
-      />
-      <FormControl>
-        <InputLabel>Gender</InputLabel>
-        <Select
-          value={gender}
-          label="Gender"
-          onChange={changeGender}
-        >
-          <MenuItem value="male">Male</MenuItem>
-          <MenuItem value="female">Female</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl>
-        <InputLabel>Animation</InputLabel>
-        <Select
-          value={animation}
-          label="Animation"
-          onChange={changeAnimation}
-        >
-          {Animations.map((anim) => (
-            <MenuItem key={anim} value={anim}>{anim}</MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      {brute && (frame > 0) && (
-        <Box sx={{ position: 'relative', width: 'fit-content', fontSize: 0, zoom }}>
-          <Box
-            component="img"
-            src={`/api/spritesheet/${brute}/${gender}/${animation}/${frame}`}
-            sx={{ position: 'relative', zIndex: 3 }}
-          />
-          <Box
-            component="img"
-            src="/images/game/resources/weapons/lance.png"
-            sx={{
-              position: 'absolute',
-              left: `calc(${ANIMATION_ANCHORS[gender][animation][0] * 100}% - ${WEAPON_ANCHOR.x * 90}px + ${anchorX}px)`,
-              top: `calc(${ANIMATION_ANCHORS[gender][animation][1] * 100}% - ${WEAPON_ANCHOR.y * 40}px + ${anchorY}px)`,
-              transformOrigin: `${WEAPON_ANCHOR.x * 100}% ${WEAPON_ANCHOR.y * 100}%`,
-              transform: `rotate(${rotation}deg)`,
-              zIndex: behind ? 2 : 4,
-            }}
-          />
-        </Box>
-      )}
-      <Stack direction="row" spacing={2}>
-        <Typography color="white">X:</Typography>
-        <Typography color="white">{anchorX.toFixed(1)}</Typography>
+    <Box sx={{ p: 2, bgcolor: '#363636' }}>
+      <Stack spacing={2} sx={{ maxWidth: 500 }}>
+        <FormControl>
+          <InputLabel>Brute</InputLabel>
+          <Select
+            value={brute}
+            label="Brute"
+            onChange={changeBrute}
+          >
+            {brutes.map((b) => (
+              <MenuItem key={b.id} value={b.name}>{b.name}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <TextField
+          label="Frame"
+          type="number"
+          value={frame}
+          onChange={changeFrame}
+        />
+        <FormControl>
+          <InputLabel>Gender</InputLabel>
+          <Select
+            value={gender}
+            label="Gender"
+            onChange={changeGender}
+          >
+            <MenuItem value="male">Male</MenuItem>
+            <MenuItem value="female">Female</MenuItem>
+          </Select>
+        </FormControl>
+        <FormControl>
+          <InputLabel>Animation</InputLabel>
+          <Select
+            value={animation}
+            label="Animation"
+            onChange={changeAnimation}
+          >
+            {Animations.map((anim) => (
+              <MenuItem key={anim} value={anim}>{anim}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        {brute && (frame > 0) && (
+          <Box sx={{ position: 'relative', width: 'fit-content', fontSize: 0, zoom }}>
+            <Box
+              component="img"
+              src={`/api/spritesheet/${brute}/${gender}/${animation}/${frame}`}
+              sx={{ position: 'relative', zIndex: 3 }}
+            />
+            <Box
+              component="img"
+              src="/images/game/resources/weapons/lance.png"
+              sx={{
+                position: 'absolute',
+                left: `calc(${ANIMATION_ANCHORS[gender][animation][0] * 100}% - ${WEAPON_ANCHOR.x * 90}px + ${anchorX}px)`,
+                top: `calc(${ANIMATION_ANCHORS[gender][animation][1] * 100}% - ${WEAPON_ANCHOR.y * 40}px + ${anchorY}px)`,
+                transformOrigin: `${WEAPON_ANCHOR.x * 100}% ${WEAPON_ANCHOR.y * 100}%`,
+                transform: `rotate(${rotation}deg)`,
+                zIndex: behind ? 2 : 4,
+              }}
+            />
+          </Box>
+        )}
+        <Typography color="white">X: {anchorX.toFixed(1)}</Typography>
         <Slider value={anchorX} onChange={changeAnchorX} min={-100} max={100} step={0.1} />
-      </Stack>
-      <Stack direction="row" spacing={2}>
-        <Typography color="white">Y:</Typography>
-        <Typography color="white">{anchorY.toFixed(1)}</Typography>
+        <Typography color="white">Y: {anchorY.toFixed(1)}</Typography>
         <Slider value={anchorY} onChange={changeAnchorY} min={-100} max={100} step={0.1} />
-      </Stack>
-      <Stack direction="row" spacing={2}>
-        <Typography color="white">Rotation:</Typography>
-        <Typography color="white">{rotation.toFixed(1)}</Typography>
+        <Typography color="white">Rotation: {rotation.toFixed(1)}</Typography>
         <Slider value={rotation} onChange={changeRotation} min={-180} max={180} step={0.1} />
+        <FormControlLabel control={<Checkbox checked={behind} />} onChange={changeBehind} label="Behind" sx={{ color: 'white' }} />
+        <Stack direction="row" spacing={2}>
+          <Typography color="white">Zoom:</Typography>
+          <Typography color="white">{zoom}</Typography>
+          <Slider value={zoom} onChange={changeZoom} min={1} max={4} step={1} />
+        </Stack>
+        <Button onClick={copyValues}>Copy values</Button>
       </Stack>
-      <FormControlLabel control={<Checkbox checked={behind} />} onChange={changeBehind} label="Behind" sx={{ color: 'white' }} />
-      <Stack direction="row" spacing={2}>
-        <Typography color="white">Zoom:</Typography>
-        <Typography color="white">{zoom}</Typography>
-        <Slider value={zoom} onChange={changeZoom} min={1} max={4} step={1} />
-      </Stack>
-      <Button onClick={copyValues}>Copy values</Button>
-      <Text>Animation render</Text>
+      <Text color="white">Animation render</Text>
       <Box
         ref={ref}
         sx={{
@@ -267,7 +260,7 @@ const WeaponAnchorTestView = () => {
           }
         }}
       />
-    </Stack>
+    </Box>
   );
 };
 
