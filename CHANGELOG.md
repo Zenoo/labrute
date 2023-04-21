@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.24.0](https://github.com/Zenoo/labrute/compare/labrute-v2.23.1...labrute-v2.24.0) (2023-04-21)
+
+
+### Features
+
+* `Flash Flood` animation. Fixes [#7](https://github.com/Zenoo/labrute/issues/7) ([4cfc5e8](https://github.com/Zenoo/labrute/commit/4cfc5e857792e1e7b302cc2bff630d52927927e7))
+* Fight endscreen. Fixes [#8](https://github.com/Zenoo/labrute/issues/8) ([b83d36f](https://github.com/Zenoo/labrute/commit/b83d36ffb112efe9c274ccf64291ce47a8750d72))
+
 ## [2.23.1](https://github.com/Zenoo/labrute/compare/labrute-v2.23.0...labrute-v2.23.1) (2023-04-19)
 
 
