@@ -17,6 +17,8 @@ import Page from '../../components/Page';
 import Text from '../../components/Text';
 import { useBrute } from '../../hooks/useBrute';
 import { AdResult } from '../../utils/ads';
+import FantasyButton from '../../components/FantasyButton';
+import { History } from '@mui/icons-material';
 
 export interface CellMobileViewProps {
   ad: AdResult;
@@ -112,6 +114,14 @@ const CellMobileView = ({
           {logs.map((log) => <CellLog key={log.id} log={log} />)}
         </Paper>
       )}
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Link to={`/${brute.name}/tournaments`}>
+          <FantasyButton color="secondary" sx={{ m: 1 }}>
+            <History sx={{ verticalAlign: 'middle', mr: 1 }} />
+            {t('tournaments')}
+          </FantasyButton>
+        </Link>
+      </Box>
     </Page>
   );
 };
