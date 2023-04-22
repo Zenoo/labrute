@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.24.1](https://github.com/Zenoo/labrute/compare/labrute-v2.24.0...labrute-v2.24.1) (2023-04-22)
+
+
+### Bug Fixes
+
+* Female `idle` weapon animation. [#5](https://github.com/Zenoo/labrute/issues/5) ([339f46d](https://github.com/Zenoo/labrute/commit/339f46d340d1b8e5e26e5ed4c302f2eefe7ee7c8))
+* Female `monk-X` weapon animation. [#5](https://github.com/Zenoo/labrute/issues/5) ([df2f34e](https://github.com/Zenoo/labrute/commit/df2f34e76a7ec6d71fafefc3075c45a0e9490f9a))
+* Tournament history button on mobile ([c30b6cb](https://github.com/Zenoo/labrute/commit/c30b6cb6ee1cfa48aa84385a49ad2924675a7454))
+* Typo ([72ceba5](https://github.com/Zenoo/labrute/commit/72ceba5b500489dead4921814bd22cd6f5e8da11))
+
 ## [2.24.0](https://github.com/Zenoo/labrute/compare/labrute-v2.23.1...labrute-v2.24.0) (2023-04-21)
 
 
