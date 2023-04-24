@@ -53,6 +53,7 @@ const hypnotise = async (
   // Change pet team
   pet.team = brute.team;
   pet.master = brute.id;
+  pet.container.scale.x *= -1;
 
   // Set pet animation to `idle`
   changeAnimation(app, pet, 'idle', speed);

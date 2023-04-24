@@ -176,7 +176,7 @@ const randomlyGetSuper = (fightData: DetailedFight['data'], brute: DetailedFight
   }
 
   // Filter out cryOfTheDamned and hypnosis if opponent has no pets
-  if (getOpponents(fightData, brute, true).filter((f) => f.type === 'pet').length === 0) {
+  if (getOpponents(fightData, brute, false, true).length === 0) {
     supers = supers.filter((skill) => skill.name !== 'cryOfTheDamned' && skill.name !== 'hypnosis');
   }
 

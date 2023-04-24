@@ -86,9 +86,11 @@ const preventSomeBonuses = (
       (weapon) => limitedWeapons.includes(weapon),
     );
 
-    if (gottenLimitedWeapons.length >= MAX_LIMITED_WEAPONS) {
+    if (limitedWeapons.find((w) => w === perkName)
+      && gottenLimitedWeapons.length >= MAX_LIMITED_WEAPONS) {
       preventPerk = true;
     } else {
+      // Prevent unlocking a weapon if the brute already has it
       preventPerk = brute.weapons.includes(perkName as WeaponName);
     }
   }
