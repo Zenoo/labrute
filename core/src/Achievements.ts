@@ -37,7 +37,7 @@ export const AchievementData: Record<
   },
   winWith1HP: {
     rarety: AchievementRarety.epic,
-    illustration: 'r_suhard.gif',
+    illustration: 'winWith1HP.svg',
   },
   steal2Weapons: {
     rarety: AchievementRarety.uncommon,
@@ -129,7 +129,7 @@ export const AchievementData: Record<
   },
   shock: {
     rarety: AchievementRarety.common,
-    illustration: 'r_broken.gif',
+    illustration: 'shock.svg',
   },
   balletShoes_survival: {
     rarety: AchievementRarety.uncommon,
@@ -149,11 +149,11 @@ export const AchievementData: Record<
   },
   immortality: {
     rarety: AchievementRarety.epic,
-    illustration: 'r_ebuild.gif',
+    illustration: 'immortality.svg',
   },
   doubleBoost: {
     rarety: AchievementRarety.rare,
-    illustration: 'r_drug.gif',
+    illustration: 'doubleBoost.svg',
   },
   tripleBoost: {
     rarety: AchievementRarety.epic,
@@ -221,12 +221,14 @@ export const AchievementData: Record<
   },
   felineAgility: {
     rarety: AchievementRarety.common,
+    illustration: 'felineAgility.svg',
   },
   lightningBolt: {
     rarety: AchievementRarety.common,
   },
   vitality: {
     rarety: AchievementRarety.common,
+    illustration: 'vitality.svg',
   },
   potion_chef: {
     rarety: AchievementRarety.uncommon,
@@ -294,7 +296,7 @@ export const AchievementData: Record<
   },
   hp300: {
     rarety: AchievementRarety.uncommon,
-    illustration: 'r_comu.gif',
+    illustration: 'hp300.svg',
   },
   hp600: {
     rarety: AchievementRarety.rare,
@@ -310,7 +312,7 @@ export const AchievementData: Record<
   },
   looseAgainst2: {
     rarety: AchievementRarety.uncommon,
-    illustration: 'r_dhang.gif',
+    illustration: 'looseAgainst2.svg',
   },
   looseAgainst3: {
     rarety: AchievementRarety.rare,
