@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.25.0](https://github.com/Zenoo/labrute/compare/labrute-v2.24.1...labrute-v2.25.0) (2023-04-24)
+
+
+### Features
+
+* Tournament earnings delayed by 1 day. Fixes [#254](https://github.com/Zenoo/labrute/issues/254) ([a048dd6](https://github.com/Zenoo/labrute/commit/a048dd6b991ff421e00294e71805b11da2dc75e4))
+
+
+### Bug Fixes
+
+* `Hypnosis` trigger. Fixes [#255](https://github.com/Zenoo/labrute/issues/255) ([0819b4f](https://github.com/Zenoo/labrute/commit/0819b4f14b7271692a06e2824fdfe6274dcfe9d2))
+
 ## [2.24.1](https://github.com/Zenoo/labrute/compare/labrute-v2.24.0...labrute-v2.24.1) (2023-04-22)
 
 
