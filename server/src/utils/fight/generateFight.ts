@@ -23,6 +23,8 @@ const generateFight = async (
     throw new ExpectedError('Attempted to created a fight between the same brutes');
   }
 
+  const isTournamentFight = !allowBackup;
+
   // Achievements
   const achievements: AchievementsStore = {
     [brute1.id]: {
@@ -217,11 +219,11 @@ const generateFight = async (
   };
 
   // Add achievements from stats
-  handleStats(fightData, stats, achievements, !allowBackup, isTournamentFinal);
+  handleStats(fightData, stats, achievements, isTournamentFight, isTournamentFinal);
 
   // Update achievements
   if (achievementsActive) {
-    await updateAchievements(prisma, achievements);
+    await updateAchievements(prisma, achievements, isTournamentFight);
   }
 
   return data;

@@ -296,9 +296,12 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
     // Only for real brutes
     if (winner.userId) {
       // Add 100 Sacripoints to winner user
-      await prisma.user.update({
-        where: { id: winner.userId },
-        data: { sacrificePoints: { increment: 100 } },
+      await prisma.tournamentEarning.create({
+        data: {
+          bruteId: winner.id,
+          date: today.toDate(),
+          points: 100,
+        },
       });
 
       // Allow rank up for winner if opponent wasn't lower rank
@@ -466,9 +469,12 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
   }
 
   // Add 150 SacriPoints to the winner user
-  await prisma.user.update({
-    where: { id: roundBrutes[0].userId },
-    data: { sacrificePoints: { increment: 150 } },
+  await prisma.tournamentEarning.create({
+    data: {
+      bruteId: roundBrutes[0].id,
+      date: today.toDate(),
+      points: 150,
+    },
   });
 
   await DiscordUtils.sendLog('Global tournament created');
@@ -555,6 +561,69 @@ const handleXpGains = async (prisma: PrismaClient) => {
   }
 };
 
+const handleTournamentEarnings = async (prisma: PrismaClient) => {
+  const earnings = await prisma.tournamentEarning.findMany({
+    where: {
+      date: {
+        lte: moment.utc().subtract(1, 'day').endOf('day').toDate(),
+      },
+    },
+    include: {
+      brute: true,
+    },
+  });
+
+  for (const earning of earnings) {
+    if (earning.points && earning.brute.userId) {
+      // Add SacriPoints to the user
+      await prisma.user.update({
+        where: { id: earning.brute.userId },
+        data: { sacrificePoints: { increment: earning.points } },
+      });
+    }
+
+    // Add achievements to the brute
+    if (earning.achievement && earning.achievementCount) {
+      // Get existing achievement
+      const existingAchievement = await prisma.achievement.findFirst({
+        where: {
+          name: earning.achievement,
+          bruteId: earning.brute.id,
+        },
+      });
+
+      if (existingAchievement) {
+        // Update existing achievement
+        await prisma.achievement.update({
+          where: {
+            id: existingAchievement.id,
+          },
+          data: {
+            count: {
+              increment: earning.achievementCount,
+            },
+          },
+        });
+      } else {
+        // Create new achievement
+        await prisma.achievement.create({
+          data: {
+            name: earning.achievement,
+            count: earning.achievementCount,
+            userId: earning.brute.userId,
+            bruteId: earning.brute.id,
+          },
+        });
+      }
+    }
+
+    // Delete earning
+    await prisma.tournamentEarning.delete({
+      where: { id: earning.id },
+    });
+  }
+};
+
 const dailyJob = (prisma: PrismaClient) => async () => {
   try {
     // Generate missing body and colors
@@ -565,6 +634,9 @@ const dailyJob = (prisma: PrismaClient) => async () => {
 
     // Handle XP won the previous day
     await handleXpGains(prisma);
+
+    // Handle tournament earnings from the previous day
+    await handleTournamentEarnings(prisma);
 
     // Handle daily tournaments
     await handleDailyTournaments(prisma);

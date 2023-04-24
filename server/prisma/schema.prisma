@@ -220,6 +220,7 @@ model Brute {
   opponentsGeneratedAt         DateTime?           @db.Date
   canRankUpSince               DateTime?           @db.Date
   achievements                 Achievement[]
+  tournamentEarnings           TournamentEarning[]
 }
 
 model BruteSpritesheet {
@@ -332,6 +333,16 @@ model TournamentStep {
   fight         Fight      @relation(fields: [fightId], references: [id])
   fightId       Int
   xpDistributed Boolean    @default(false)
+}
+
+model TournamentEarning {
+  id               Int              @id @default(autoincrement())
+  date             DateTime         @db.Date
+  brute            Brute            @relation(fields: [bruteId], references: [id])
+  bruteId          Int
+  points           Int?
+  achievement      AchievementName?
+  achievementCount Int?
 }
 
 enum AchievementName {

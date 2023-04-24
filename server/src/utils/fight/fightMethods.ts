@@ -30,7 +30,10 @@ const updateStats = (stats: Stats, bruteId: number, stat: keyof Omit<Stats[numbe
   }
 };
 
-const checkAchievements = (stats: Stats, achievements: AchievementsStore) => {
+const checkAchievements = (
+  stats: Stats,
+  achievements: AchievementsStore,
+) => {
   for (const [_bruteId, stat] of Object.entries(stats)) {
     const bruteId = +_bruteId;
     const achievement = achievements[bruteId];

@@ -250,6 +250,15 @@ exports.Prisma.SortOrder = makeEnum({
   desc: 'desc'
 });
 
+exports.Prisma.TournamentEarningScalarFieldEnum = makeEnum({
+  id: 'id',
+  date: 'date',
+  bruteId: 'bruteId',
+  points: 'points',
+  achievement: 'achievement',
+  achievementCount: 'achievementCount'
+});
+
 exports.Prisma.TournamentScalarFieldEnum = makeEnum({
   id: 'id',
   date: 'date',
@@ -522,6 +531,7 @@ exports.Prisma.ModelName = makeEnum({
   DestinyChoice: 'DestinyChoice',
   Tournament: 'Tournament',
   TournamentStep: 'TournamentStep',
+  TournamentEarning: 'TournamentEarning',
   Achievement: 'Achievement'
 });
 
