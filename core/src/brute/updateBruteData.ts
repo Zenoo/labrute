@@ -42,6 +42,9 @@ const updateBruteData = (
 ) => {
   let updatedBrute = {
     ...brute,
+    pets: [...brute.pets],
+    skills: [...brute.skills],
+    weapons: [...brute.weapons],
     xp: 0,
     level: brute.level + 1,
   };

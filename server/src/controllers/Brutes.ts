@@ -9,6 +9,7 @@ import {
   getSacriPoints, getSacriPointsNeeded, getXPNeeded, increaseAchievement, updateBruteData,
 } from '@labrute/core';
 import {
+  Brute,
   DestinyChoiceSide, DestinyChoiceType, Gender, LogType, Prisma, PrismaClient,
 } from '@labrute/prisma';
 import { Request, Response } from 'express';
@@ -312,7 +313,13 @@ const Brutes = {
       // Update brute data
       const updatedBruteData = updateBruteData(brute, destinyChoice);
 
-      const oldBrute = { ...brute };
+      const oldBrute: Brute = {
+        ...brute,
+        destinyPath: [...brute.destinyPath],
+        pets: [...brute.pets],
+        skills: [...brute.skills],
+        weapons: [...brute.weapons],
+      };
 
       // Update brute
       brute = await prisma.brute.update({
