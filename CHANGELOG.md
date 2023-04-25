@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.25.2](https://github.com/Zenoo/labrute/compare/labrute-v2.25.1...labrute-v2.25.2) (2023-04-25)
+
+
+### Bug Fixes
+
+* Weapon achievements not working. ([c9d282b](https://github.com/Zenoo/labrute/commit/c9d282b7069f9ae79b27c4d3ff3fa5618824acf8))
+
 ## [2.25.1](https://github.com/Zenoo/labrute/compare/labrute-v2.25.0...labrute-v2.25.1) (2023-04-24)
 
 
