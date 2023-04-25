@@ -341,7 +341,7 @@
   "fight.discoverGames": "Entdecke andere unsere Spiele",
 
   "fight.step.saboteur": "{{weapon}} wurde sabotiert!",
-  "fight.step.leave": "{{name}} ist rausgeflogen!",
+  "fight.step.leave": "{{name}} ist geflohen!",
   "fight.step.arrive": "{{name}} ist angekommen!",
   "fight.step.trash": "{{brute}} hat {{name}} verworfen.",
   "fight.step.steal": "{{brute}} hat {{name}} von {{target}} gestohlen.",
