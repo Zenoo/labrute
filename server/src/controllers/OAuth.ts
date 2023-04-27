@@ -5,6 +5,7 @@ import { RfcOauthClient } from '@eternal-twin/oauth-client-http/rfc-oauth-client
 import { PrismaClient } from '@labrute/prisma';
 import { Request, Response } from 'express';
 import { URL } from 'url';
+import { ExpectedError } from '@labrute/core';
 import Env from '../utils/Env.js';
 import sendError from '../utils/sendError.js';
 
@@ -29,7 +30,7 @@ const OAuth = {
   token: (prisma: PrismaClient) => async (req: Request, res: Response) => {
     try {
       if (!req.query.code || typeof req.query.code !== 'string') {
-        throw new Error('Invalid code');
+        throw new ExpectedError('Invalid code');
       }
 
       // ETwin Token
