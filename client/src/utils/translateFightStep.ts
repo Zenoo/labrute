@@ -77,7 +77,7 @@ const translateFightStep = (fightStep: FightStep, t: TFunction) => {
     case 'flashFlood':
       if (fightStep.weapon) {
         return t(`fight.step.${fightStep.action}`, {
-          fighter: getFighterName(fightStep.fighter, t),
+          brute: getFighterName(fightStep.fighter, t),
           damage: fightStep.damage,
           target: getFighterName(fightStep.target, t),
           weapon: t(fightStep.weapon),
