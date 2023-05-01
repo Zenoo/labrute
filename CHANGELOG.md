@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.26.0](https://github.com/Zenoo/labrute/compare/labrute-v2.25.2...labrute-v2.26.0) (2023-05-01)
+
+
+### Features
+
+* Female weapon animations. Fixes [#5](https://github.com/Zenoo/labrute/issues/5) ([684ca2f](https://github.com/Zenoo/labrute/commit/684ca2f136e1d74802b24cfd57347eddb30d3dca))
+
+
+### Bug Fixes
+
+* Points needed for a new brute. Fixes [#265](https://github.com/Zenoo/labrute/issues/265). Fixes [#267](https://github.com/Zenoo/labrute/issues/267) ([89d9910](https://github.com/Zenoo/labrute/commit/89d991071d06077fc0b576eb010d0131362a719e))
+* Store user settings in DB. Fixes [#266](https://github.com/Zenoo/labrute/issues/266) ([04793a6](https://github.com/Zenoo/labrute/commit/04793a6264f7ed87e8f7749a8afb7bb4a47e4019))
+
 ## [2.25.2](https://github.com/Zenoo/labrute/compare/labrute-v2.25.1...labrute-v2.25.2) (2023-04-25)
 
 
