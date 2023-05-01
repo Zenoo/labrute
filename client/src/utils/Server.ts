@@ -1,5 +1,5 @@
 import { BrutesCreateResponse, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, BruteWithBodyColors, FullTournament, TournamentsGetGlobalResponse, UserWithBrutesBodyColor } from '@labrute/core';
-import { Achievement, Brute, DestinyChoice, DestinyChoiceSide, Fight, Gender, Log, Prisma, Tournament, User } from '@labrute/prisma';
+import { Achievement, Brute, DestinyChoice, DestinyChoiceSide, Fight, Gender, Lang, Log, Prisma, Tournament, User } from '@labrute/prisma';
 import Fetch from './Fetch';
 
 const Server = {
@@ -10,6 +10,9 @@ const Server = {
     }, 'POST'),
     list: () => Fetch<User[]>('/api/user/list', {}, 'GET'),
     runDailyJob: () => Fetch<never>('/api/run-daily-job'),
+    changeLanguage: (lang: Lang) => Fetch<never>('/api/user/change-language', { lang }, 'POST'),
+    changeFightSpeed: (fightSpeed: number) => Fetch<never>('/api/user/change-fight-speed', { fightSpeed }, 'POST'),
+    toggleBackgroundMusic: (backgroundMusic: boolean) => Fetch<never>('/api/user/toggle-background-music', { backgroundMusic }, 'POST'),
   },
   Brute: {
     list: () => Fetch<Brute[]>('/api/brute/list/'),

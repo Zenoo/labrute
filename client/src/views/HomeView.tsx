@@ -31,7 +31,7 @@ const HomeView = () => {
   const Alert = useAlert();
   const { authing, setAuthing, updateData, user } = useAuth();
   const navigate = useNavigate();
-  const { language } = useLanguage();
+  const { language, setLanguage } = useLanguage();
 
   // On login error
   useEffect(() => {
@@ -49,6 +49,9 @@ const HomeView = () => {
     if (code && !authing && !user) {
       setAuthing(true);
       Fetch<UserWithBrutesBodyColor>('/api/oauth/token', { code }).then((response) => {
+        // Update language
+        setLanguage(response.lang);
+
         updateData(response);
         localStorage.setItem('user', response.id);
         localStorage.setItem('token', response.connexionToken);
@@ -69,7 +72,7 @@ const HomeView = () => {
         setAuthing(false);
       });
     }
-  }, [Alert, authing, navigate, setAuthing, t, updateData, user]);
+  }, [Alert, authing, navigate, setAuthing, setLanguage, t, updateData, user]);
 
   // Randomized left ad
   const leftAd = useMemo(() => getRandomAd(language), [language]);

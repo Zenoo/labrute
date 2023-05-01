@@ -22,6 +22,9 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
   // User
   app.post('/api/user/authenticate', Users.authenticate(prisma));
   app.get('/api/run-daily-job', Users.runDailyJob(prisma));
+  app.post('/api/user/change-language', Users.changeLanguage(prisma));
+  app.post('/api/user/change-fight-speed', Users.changeFightSpeed(prisma));
+  app.post('/api/user/toggle-background-music', Users.toggleBackgroundMusic(prisma));
 
   // Brute
   app.get('/api/brute/list', Brutes.list(prisma));

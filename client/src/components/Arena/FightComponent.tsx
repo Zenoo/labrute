@@ -11,6 +11,10 @@ import translateFightStep from '../../utils/translateFightStep';
 import Link from '../Link';
 import Text from '../Text';
 import { sound } from '@pixi/sound';
+import { useAuth } from '../../hooks/useAuth';
+import Server from '../../utils/Server';
+import catchError from '../../utils/catchError';
+import { useAlert } from '../../hooks/useAlert';
 
 export interface FightComponentProps {
   fight: Fight | null;
@@ -23,6 +27,8 @@ const FightComponent = ({
   const theme = useTheme();
   const smallScreen = useMediaQuery('(max-width: 935px)');
   const { t } = useTranslation();
+  const { user, updateData } = useAuth();
+  const Alert = useAlert();
 
   const fightSteps = fight?.steps as FightStep[] | undefined;
 
@@ -50,6 +56,17 @@ const FightComponent = ({
   const brute2 = useMemo(() => fight && (fight.fighters as unknown as Fighter[])
     .find((fighter) => !fighter.master
       && fighter.id === fight.brute2Id), [fight]);
+
+  // Update settings on user change
+  useEffect(() => {
+    if (!user) return;
+
+    setSpeed(user.fightSpeed as 1 | 2);
+    speedRef.current = user.fightSpeed as 1 | 2;
+
+    setBackgroundMusicOn(user.backgroundMusic);
+    backgroundMusicRef.current = user.backgroundMusic;
+  }, [user]);
 
   // Renderer setup
   useEffect(() => {
@@ -182,7 +199,17 @@ const FightComponent = ({
     speedRef.current = newSpeed;
     setSpeed(newSpeed);
     localStorage.setItem('fightSpeed', newSpeed.toString());
-  }, [speedRef]);
+
+    // Update user settings
+    if (user) {
+      Server.User.changeFightSpeed(newSpeed).then(() => {
+        updateData({
+          ...user,
+          fightSpeed: newSpeed,
+        });
+      }).catch(catchError(Alert));
+    }
+  }, [Alert, updateData, user]);
 
   const toggleSound = useCallback(() => {
     const newSound = !soundRef.current;
@@ -197,7 +224,17 @@ const FightComponent = ({
     setBackgroundMusicOn(newBackgroundMusic);
     sound.volume('background', newBackgroundMusic ? 1 : 0);
     localStorage.setItem('fightBackgroundMusic', newBackgroundMusic.toString());
-  }, []);
+
+    // Update user settings
+    if (user) {
+      Server.User.toggleBackgroundMusic(newBackgroundMusic).then(() => {
+        updateData({
+          ...user,
+          backgroundMusic: newBackgroundMusic,
+        });
+      }).catch(catchError(Alert));
+    }
+  }, [Alert, updateData, user]);
 
   const toggleLogs = useCallback(() => {
     setDisplayLogs((prev) => !prev);

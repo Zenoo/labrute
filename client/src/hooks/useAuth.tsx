@@ -2,6 +2,7 @@ import { UserWithBrutesBodyColor } from '@labrute/core';
 import moment from 'moment';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 import Server from '../utils/Server';
+import { useLanguage } from './useLanguage';
 
 interface AuthContextInterface {
   user: UserWithBrutesBodyColor | null,
@@ -40,6 +41,7 @@ interface AuthProviderProps {
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<UserWithBrutesBodyColor | null>(null);
   const [authing, setAuthing] = useState(false);
+  const { setLanguage } = useLanguage();
 
   const signin = useCallback(() => {
     if (authing) return;
@@ -53,6 +55,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         Server.User.authenticate(userId, token).then((response) => {
           setUser(response);
           setAuthing(false);
+
+          // Update language
+          setLanguage(response.lang);
         }).catch(() => {
           localStorage.clear();
           setAuthing(false);
@@ -64,7 +69,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     } else {
       setAuthing(false);
     }
-  }, [authing]);
+  }, [authing, setLanguage]);
 
   const signout = useCallback(() => {
     localStorage.removeItem('user');

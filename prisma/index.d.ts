@@ -24,6 +24,8 @@ export type User = {
   connexionToken: string
   bruteLimit: number
   sacrificePoints: number
+  fightSpeed: number
+  backgroundMusic: boolean
 }
 
 /**
@@ -1651,11 +1653,13 @@ export namespace Prisma {
   export type UserAvgAggregateOutputType = {
     bruteLimit: number | null
     sacrificePoints: number | null
+    fightSpeed: number | null
   }
 
   export type UserSumAggregateOutputType = {
     bruteLimit: number | null
     sacrificePoints: number | null
+    fightSpeed: number | null
   }
 
   export type UserMinAggregateOutputType = {
@@ -1666,6 +1670,8 @@ export namespace Prisma {
     connexionToken: string | null
     bruteLimit: number | null
     sacrificePoints: number | null
+    fightSpeed: number | null
+    backgroundMusic: boolean | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1676,6 +1682,8 @@ export namespace Prisma {
     connexionToken: string | null
     bruteLimit: number | null
     sacrificePoints: number | null
+    fightSpeed: number | null
+    backgroundMusic: boolean | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1686,6 +1694,8 @@ export namespace Prisma {
     connexionToken: number
     bruteLimit: number
     sacrificePoints: number
+    fightSpeed: number
+    backgroundMusic: number
     _all: number
   }
 
@@ -1693,11 +1703,13 @@ export namespace Prisma {
   export type UserAvgAggregateInputType = {
     bruteLimit?: true
     sacrificePoints?: true
+    fightSpeed?: true
   }
 
   export type UserSumAggregateInputType = {
     bruteLimit?: true
     sacrificePoints?: true
+    fightSpeed?: true
   }
 
   export type UserMinAggregateInputType = {
@@ -1708,6 +1720,8 @@ export namespace Prisma {
     connexionToken?: true
     bruteLimit?: true
     sacrificePoints?: true
+    fightSpeed?: true
+    backgroundMusic?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1718,6 +1732,8 @@ export namespace Prisma {
     connexionToken?: true
     bruteLimit?: true
     sacrificePoints?: true
+    fightSpeed?: true
+    backgroundMusic?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1728,6 +1744,8 @@ export namespace Prisma {
     connexionToken?: true
     bruteLimit?: true
     sacrificePoints?: true
+    fightSpeed?: true
+    backgroundMusic?: true
     _all?: true
   }
 
@@ -1826,6 +1844,8 @@ export namespace Prisma {
     connexionToken: string
     bruteLimit: number
     sacrificePoints: number
+    fightSpeed: number
+    backgroundMusic: boolean
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -1855,6 +1875,8 @@ export namespace Prisma {
     connexionToken?: boolean
     bruteLimit?: boolean
     sacrificePoints?: boolean
+    fightSpeed?: boolean
+    backgroundMusic?: boolean
     brutes?: boolean | User$brutesArgs
     achievements?: boolean | User$achievementsArgs
     _count?: boolean | UserCountOutputTypeArgs
@@ -15690,7 +15712,9 @@ export namespace Prisma {
     admin: 'admin',
     connexionToken: 'connexionToken',
     bruteLimit: 'bruteLimit',
-    sacrificePoints: 'sacrificePoints'
+    sacrificePoints: 'sacrificePoints',
+    fightSpeed: 'fightSpeed',
+    backgroundMusic: 'backgroundMusic'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -15712,6 +15736,8 @@ export namespace Prisma {
     connexionToken?: UuidFilter | string
     bruteLimit?: IntFilter | number
     sacrificePoints?: IntFilter | number
+    fightSpeed?: IntFilter | number
+    backgroundMusic?: BoolFilter | boolean
     brutes?: BruteListRelationFilter
     achievements?: AchievementListRelationFilter
   }
@@ -15724,6 +15750,8 @@ export namespace Prisma {
     connexionToken?: SortOrder
     bruteLimit?: SortOrder
     sacrificePoints?: SortOrder
+    fightSpeed?: SortOrder
+    backgroundMusic?: SortOrder
     brutes?: BruteOrderByRelationAggregateInput
     achievements?: AchievementOrderByRelationAggregateInput
   }
@@ -15740,6 +15768,8 @@ export namespace Prisma {
     connexionToken?: SortOrder
     bruteLimit?: SortOrder
     sacrificePoints?: SortOrder
+    fightSpeed?: SortOrder
+    backgroundMusic?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -15758,6 +15788,8 @@ export namespace Prisma {
     connexionToken?: UuidWithAggregatesFilter | string
     bruteLimit?: IntWithAggregatesFilter | number
     sacrificePoints?: IntWithAggregatesFilter | number
+    fightSpeed?: IntWithAggregatesFilter | number
+    backgroundMusic?: BoolWithAggregatesFilter | boolean
   }
 
   export type BruteBodyWhereInput = {
@@ -16656,6 +16688,8 @@ export namespace Prisma {
     connexionToken: string
     bruteLimit?: number
     sacrificePoints?: number
+    fightSpeed?: number
+    backgroundMusic?: boolean
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
   }
@@ -16668,6 +16702,8 @@ export namespace Prisma {
     connexionToken: string
     bruteLimit?: number
     sacrificePoints?: number
+    fightSpeed?: number
+    backgroundMusic?: boolean
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
   }
@@ -16680,6 +16716,8 @@ export namespace Prisma {
     connexionToken?: StringFieldUpdateOperationsInput | string
     bruteLimit?: IntFieldUpdateOperationsInput | number
     sacrificePoints?: IntFieldUpdateOperationsInput | number
+    fightSpeed?: IntFieldUpdateOperationsInput | number
+    backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
   }
@@ -16692,6 +16730,8 @@ export namespace Prisma {
     connexionToken?: StringFieldUpdateOperationsInput | string
     bruteLimit?: IntFieldUpdateOperationsInput | number
     sacrificePoints?: IntFieldUpdateOperationsInput | number
+    fightSpeed?: IntFieldUpdateOperationsInput | number
+    backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -16704,6 +16744,8 @@ export namespace Prisma {
     connexionToken: string
     bruteLimit?: number
     sacrificePoints?: number
+    fightSpeed?: number
+    backgroundMusic?: boolean
   }
 
   export type UserUpdateManyMutationInput = {
@@ -16714,6 +16756,8 @@ export namespace Prisma {
     connexionToken?: StringFieldUpdateOperationsInput | string
     bruteLimit?: IntFieldUpdateOperationsInput | number
     sacrificePoints?: IntFieldUpdateOperationsInput | number
+    fightSpeed?: IntFieldUpdateOperationsInput | number
+    backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -16724,6 +16768,8 @@ export namespace Prisma {
     connexionToken?: StringFieldUpdateOperationsInput | string
     bruteLimit?: IntFieldUpdateOperationsInput | number
     sacrificePoints?: IntFieldUpdateOperationsInput | number
+    fightSpeed?: IntFieldUpdateOperationsInput | number
+    backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type BruteBodyCreateInput = {
@@ -17937,11 +17983,14 @@ export namespace Prisma {
     connexionToken?: SortOrder
     bruteLimit?: SortOrder
     sacrificePoints?: SortOrder
+    fightSpeed?: SortOrder
+    backgroundMusic?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
     bruteLimit?: SortOrder
     sacrificePoints?: SortOrder
+    fightSpeed?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -17952,6 +18001,8 @@ export namespace Prisma {
     connexionToken?: SortOrder
     bruteLimit?: SortOrder
     sacrificePoints?: SortOrder
+    fightSpeed?: SortOrder
+    backgroundMusic?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -17962,11 +18013,14 @@ export namespace Prisma {
     connexionToken?: SortOrder
     bruteLimit?: SortOrder
     sacrificePoints?: SortOrder
+    fightSpeed?: SortOrder
+    backgroundMusic?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
     bruteLimit?: SortOrder
     sacrificePoints?: SortOrder
+    fightSpeed?: SortOrder
   }
 
   export type UuidWithAggregatesFilter = {
@@ -21647,6 +21701,8 @@ export namespace Prisma {
     connexionToken: string
     bruteLimit?: number
     sacrificePoints?: number
+    fightSpeed?: number
+    backgroundMusic?: boolean
     achievements?: AchievementCreateNestedManyWithoutUserInput
   }
 
@@ -21658,6 +21714,8 @@ export namespace Prisma {
     connexionToken: string
     bruteLimit?: number
     sacrificePoints?: number
+    fightSpeed?: number
+    backgroundMusic?: boolean
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -22432,6 +22490,8 @@ export namespace Prisma {
     connexionToken?: StringFieldUpdateOperationsInput | string
     bruteLimit?: IntFieldUpdateOperationsInput | number
     sacrificePoints?: IntFieldUpdateOperationsInput | number
+    fightSpeed?: IntFieldUpdateOperationsInput | number
+    backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     achievements?: AchievementUpdateManyWithoutUserNestedInput
   }
 
@@ -22443,6 +22503,8 @@ export namespace Prisma {
     connexionToken?: StringFieldUpdateOperationsInput | string
     bruteLimit?: IntFieldUpdateOperationsInput | number
     sacrificePoints?: IntFieldUpdateOperationsInput | number
+    fightSpeed?: IntFieldUpdateOperationsInput | number
+    backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -24871,6 +24933,8 @@ export namespace Prisma {
     connexionToken: string
     bruteLimit?: number
     sacrificePoints?: number
+    fightSpeed?: number
+    backgroundMusic?: boolean
     brutes?: BruteCreateNestedManyWithoutUserInput
   }
 
@@ -24882,6 +24946,8 @@ export namespace Prisma {
     connexionToken: string
     bruteLimit?: number
     sacrificePoints?: number
+    fightSpeed?: number
+    backgroundMusic?: boolean
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -25013,6 +25079,8 @@ export namespace Prisma {
     connexionToken?: StringFieldUpdateOperationsInput | string
     bruteLimit?: IntFieldUpdateOperationsInput | number
     sacrificePoints?: IntFieldUpdateOperationsInput | number
+    fightSpeed?: IntFieldUpdateOperationsInput | number
+    backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     brutes?: BruteUpdateManyWithoutUserNestedInput
   }
 
@@ -25024,6 +25092,8 @@ export namespace Prisma {
     connexionToken?: StringFieldUpdateOperationsInput | string
     bruteLimit?: IntFieldUpdateOperationsInput | number
     sacrificePoints?: IntFieldUpdateOperationsInput | number
+    fightSpeed?: IntFieldUpdateOperationsInput | number
+    backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
   }
 

@@ -14,6 +14,7 @@ import Fetch from '../utils/Fetch';
 import BrutePortrait from './Brute/Body/BrutePortait';
 import Header from './Header';
 import Text from './Text';
+import Server from '../utils/Server';
 
 interface Props extends BoxProps {
   title: string,
@@ -29,7 +30,7 @@ const Page = ({
 }: Props) => {
   const { t } = useTranslation();
   const Alert = useAlert();
-  const { authing, user, signout, signin } = useAuth();
+  const { authing, user, signout, signin, updateData } = useAuth();
   const navigate = useNavigate();
   const { language, setLanguage } = useLanguage();
 
@@ -77,7 +78,17 @@ const Page = ({
   // Change language
   const changeLanguage = useCallback((lang: Language) => () => {
     setLanguage(lang);
-  }, [setLanguage]);
+
+    // Update user language if logged in
+    if (user && user.lang !== lang) {
+      Server.User.changeLanguage(lang).then(() => {
+        updateData(({
+          ...user,
+          lang,
+        }));
+      }).catch(catchError(Alert));
+    }
+  }, [Alert, setLanguage, updateData, user]);
 
   // Redirect to Home page
   const goHome = useCallback(() => {

@@ -287,7 +287,9 @@ exports.Prisma.UserScalarFieldEnum = makeEnum({
   admin: 'admin',
   connexionToken: 'connexionToken',
   bruteLimit: 'bruteLimit',
-  sacrificePoints: 'sacrificePoints'
+  sacrificePoints: 'sacrificePoints',
+  fightSpeed: 'fightSpeed',
+  backgroundMusic: 'backgroundMusic'
 });
 exports.AchievementName = makeEnum({
   wins: 'wins',
