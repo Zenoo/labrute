@@ -213,7 +213,7 @@ export const AchievementData: Record<
   },
   lightningBolt_firstStrike: {
     rarety: AchievementRarety.uncommon,
-    illustration: 'r_alarm.gif',
+    illustration: 'f_alarm.gif',
   },
   herculeanStrength: {
     rarety: AchievementRarety.common,
