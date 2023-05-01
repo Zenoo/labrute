@@ -1170,6 +1170,7 @@ import maleWin6 from './male-brute/win/6.js';
 import maleWin7 from './male-brute/win/7.js';
 import maleWin8 from './male-brute/win/8.js';
 import maleWin9 from './male-brute/win/9.js';
+import femaleStolen25 from './female-brute/stolen/25.js';
 
 export const FRAMES: Record<
   'male' | 'female',
@@ -1620,6 +1621,7 @@ export const FRAMES: Record<
       femaleStolen16, femaleStolen17, femaleStolen18,
       femaleStolen19, femaleStolen20, femaleStolen21,
       femaleStolen22, femaleStolen23, femaleStolen24,
+      femaleStolen25,
     ],
     steal: [
       femaleSteal1, femaleSteal2, femaleSteal3,
