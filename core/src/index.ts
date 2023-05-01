@@ -96,3 +96,8 @@ export type BrutesGetDestinyResponse = DestinyBranch;
 export type BrutesGetFightsLeftResponse = {
   fightsLeft: number,
 };
+export type BrutesCreateResponse = {
+  brute: BruteWithBodyColors,
+  pointsLost: number,
+  newLimit: number,
+};

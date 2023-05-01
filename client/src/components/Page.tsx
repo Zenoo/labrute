@@ -1,7 +1,7 @@
 import { getFightsLeft, getSacriPointsNeeded, Language, LANGUAGES, Version } from '@labrute/core';
-import { AccountCircle, Add, AdminPanelSettings, Login, Logout, MilitaryTech } from '@mui/icons-material';
+import { AccountCircle, Add, AdminPanelSettings, DoNotDisturb, Login, Logout, MilitaryTech } from '@mui/icons-material';
 import { Badge, Box, BoxProps, CircularProgress, Fab, Link, SpeedDial, SpeedDialAction, Tooltip } from '@mui/material';
-import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -35,6 +35,9 @@ const Page = ({
 
   // Speed dial state
   const [open, setOpen] = useState(false);
+
+  // Points needed for a new brute
+  const pointsNeeded = useMemo(() => (user ? getSacriPointsNeeded(user) : 0), [user]);
 
   // Auth on page load
   useEffect(() => {
@@ -159,18 +162,13 @@ const Page = ({
               onClick={goToCell(brute.name)}
             />
           ))}
-          {user.brutes
-            && (user.brutes.length < user.bruteLimit
-              || user.sacrificePoints >= getSacriPointsNeeded(user))
-            && (
-              <SpeedDialAction
-                icon={<Add color="success" />}
-                tooltipTitle={`${t('newBrute')} (${getSacriPointsNeeded(user)} SP)`}
-                tooltipOpen
-                onClick={goHome}
-                sx={{ textAlign: 'right', whiteSpace: 'nowrap' }}
-              />
-            )}
+          <SpeedDialAction
+            icon={user.sacrificePoints >= pointsNeeded ? <Add color="success" /> : <DoNotDisturb color="error" />}
+            tooltipTitle={`${t('newBrute')}${getSacriPointsNeeded(user) > 0 ? ` (${getSacriPointsNeeded(user)} SP)` : ''}`}
+            tooltipOpen
+            onClick={user.sacrificePoints >= pointsNeeded ? goHome : undefined}
+            sx={{ textAlign: 'right', whiteSpace: 'nowrap' }}
+          />
         </SpeedDial>
       )}
       {/* FOOTER */}

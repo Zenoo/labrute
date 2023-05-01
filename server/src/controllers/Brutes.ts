@@ -1,5 +1,6 @@
 import {
   ARENA_OPPONENTS_COUNT,
+  BrutesCreateResponse,
   BrutesExistsResponse, BrutesGetDestinyResponse,
   BrutesGetFightsLeftResponse, BrutesGetForRankResponse,
   BrutesGetRankingResponse,
@@ -91,7 +92,7 @@ const Brutes = {
       colors: Prisma.BruteColorsCreateWithoutBruteInput,
       master: string | null,
     }>,
-    res: Response,
+    res: Response<BrutesCreateResponse>,
   ) => {
     try {
       const user = await auth(prisma, req);
@@ -115,6 +116,7 @@ const Brutes = {
       }
 
       let pointsLost = 0;
+      let newLimit = user.bruteLimit;
       // Refuse if user has too many brutes and not enough points
       if (user.brutes.length >= user.bruteLimit) {
         const sacriPoints = getSacriPointsNeeded(user);
@@ -130,6 +132,7 @@ const Brutes = {
             },
           });
           pointsLost = sacriPoints;
+          newLimit += 1;
         }
       }
 
@@ -203,7 +206,7 @@ const Brutes = {
         workerData: brute,
       });
 
-      res.send({ brute, pointsLost });
+      res.send({ brute, pointsLost, newLimit });
     } catch (error) {
       sendError(res, error);
     }

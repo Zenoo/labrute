@@ -168,12 +168,14 @@ const HomeView = () => {
     ).catch(catchError(Alert));
 
     if (response?.brute) {
-      // Add brute to user brutes
       updateData({
         ...user,
+        // Add brute to user brutes
         brutes: user.brutes ? [...user.brutes, response.brute] : [response.brute],
         // Update points
         sacrificePoints: user.sacrificePoints - response.pointsLost,
+        // Update brute limit
+        bruteLimit: response.newLimit,
       });
       // Redirect to brute page
       navigate(`/${name}/cell`);

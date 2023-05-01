@@ -1,4 +1,4 @@
-import { BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, BruteWithBodyColors, FullTournament, TournamentsGetGlobalResponse, UserWithBrutesBodyColor } from '@labrute/core';
+import { BrutesCreateResponse, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, BruteWithBodyColors, FullTournament, TournamentsGetGlobalResponse, UserWithBrutesBodyColor } from '@labrute/core';
 import { Achievement, Brute, DestinyChoice, DestinyChoiceSide, Fight, Gender, Log, Prisma, Tournament, User } from '@labrute/prisma';
 import Fetch from './Fetch';
 
@@ -27,7 +27,7 @@ const Server = {
       body: Prisma.BruteBodyCreateWithoutBruteInput,
       colors: Prisma.BruteColorsCreateWithoutBruteInput,
       master: string | null,
-    ) => Fetch<{ brute: BruteWithBodyColors, pointsLost: number }>('/api/brute/create', {
+    ) => Fetch<BrutesCreateResponse>('/api/brute/create', {
       name,
       user,
       gender,
