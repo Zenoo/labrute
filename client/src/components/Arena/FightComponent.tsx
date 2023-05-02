@@ -52,38 +52,15 @@ const FightComponent = ({
 
   // Brute tooltip
   const [tooltipOpen, setTooltipOpen] = useState(false);
-  const [tooltipContent, setTooltipContent] = useState<JSX.Element | null>(null);
+  const tooltipBruteRef = useRef<Fighter | null>(null);
+  const [tooltipBrute, setTooltipBrute] = useState<Fighter | null>(null);
 
   // Tooltip
-  const showTooltip = useCallback((brute: Fighter) => {
-    setTooltipContent((
-      <Box sx={{
-        '& p, & span': {
-          lineHeight: 1.2,
-          fontSize: 12,
-        },
-      }}
-      >
-        <Text bold>({brute.level}) {brute.name}</Text>
-        <Text>{t('strength')}: <Text component="span" bold>{brute.strength}</Text></Text>
-        <Text>{t('agility')}: <Text component="span" bold>{brute.agility}</Text></Text>
-        <Text>{t('speed')}: <Text component="span" bold>{brute.speed}</Text></Text>
-        <Text sx={{ textTransform: 'capitalize' }}>{t('healthPoints')}: <Text component="span" bold>{brute.hp}</Text></Text>
-        <Text>
-          <Text component="span" bold>{t('supers')}: </Text>
-          {brute.skills.filter((s) => skills.find((_s) => _s.name === s)?.type === 'super').map((s) => t(s)).join(', ')}
-        </Text>
-        <Text>
-          <Text component="span" bold>{t('skills')}: </Text>
-          {brute.skills.filter((s) => skills.find((_s) => _s.name === s)?.type !== 'super').map((s) => t(s)).join(', ')}
-        </Text>
-      </Box>
-    ));
-    setTooltipOpen(true);
-  }, [t]);
-
-  const hideTooltip = useCallback(() => {
-    setTooltipOpen(false);
+  const toggleTooltip = useCallback((brute: Fighter, forceValue?: boolean) => {
+    const previousBruteId = tooltipBruteRef.current?.id;
+    tooltipBruteRef.current = brute;
+    setTooltipBrute(brute);
+    setTooltipOpen((open) => forceValue ?? (previousBruteId !== brute.id ? true : !open));
   }, []);
 
   const brute1 = useMemo(() => fight && (fight.fighters as unknown as Fighter[])
@@ -215,8 +192,7 @@ const FightComponent = ({
       speedRef,
       setCompleted,
       t,
-      showTooltip,
-      hideTooltip,
+      toggleTooltip,
     ));
 
     return () => {
@@ -226,7 +202,7 @@ const FightComponent = ({
       // Stop all sounds
       sound.stopAll();
     };
-  }, [fight, hideTooltip, showTooltip, t, theme]);
+  }, [fight, toggleTooltip, t, theme]);
 
   // Play/pause
   const toggleAnimation = useCallback(() => {
@@ -294,7 +270,29 @@ const FightComponent = ({
       <Tooltip
         followCursor
         open={tooltipOpen}
-        title={tooltipContent}
+        title={tooltipBrute ? (
+          <Box sx={{
+            '& p, & span': {
+              lineHeight: 1.2,
+              fontSize: 12,
+            },
+          }}
+          >
+            <Text bold>({tooltipBrute.level}) {tooltipBrute.name}</Text>
+            <Text>{t('strength')}: <Text component="span" bold>{tooltipBrute.strength}</Text></Text>
+            <Text>{t('agility')}: <Text component="span" bold>{tooltipBrute.agility}</Text></Text>
+            <Text>{t('speed')}: <Text component="span" bold>{tooltipBrute.speed}</Text></Text>
+            <Text sx={{ textTransform: 'capitalize' }}>{t('healthPoints')}: <Text component="span" bold>{tooltipBrute.hp}</Text></Text>
+            <Text>
+              <Text component="span" bold>{t('supers')}: </Text>
+              {tooltipBrute.skills.filter((s) => skills.find((_s) => _s.name === s)?.type === 'super').map((s) => t(s)).join(', ')}
+            </Text>
+            <Text>
+              <Text component="span" bold>{t('skills')}: </Text>
+              {tooltipBrute.skills.filter((s) => skills.find((_s) => _s.name === s)?.type !== 'super').map((s) => t(s)).join(', ')}
+            </Text>
+          </Box>
+        ) : null}
         componentsProps={{
           tooltip: {
             sx: {

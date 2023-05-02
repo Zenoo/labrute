@@ -68,8 +68,7 @@ const setupFight: (
   speed: React.MutableRefObject<number>,
   setCompleted: React.Dispatch<React.SetStateAction<boolean>>,
   t: TFunction,
-  showTooltip: (brute: Fighter) => void,
-  hideTooltip: () => void,
+  toggleTooltip: (brute: Fighter, forceValue?: boolean) => void,
 ) => PIXI.Loader.OnCompleteSignal = (
   theme,
   fight,
@@ -77,8 +76,7 @@ const setupFight: (
   speed,
   setCompleted,
   t,
-  showTooltip,
-  hideTooltip,
+  toggleTooltip,
 ) => async (
   loader,
   resources,
@@ -137,10 +135,14 @@ const setupFight: (
   brute1Header.interactive = true;
   brute1Header.hitArea = new PIXI.Rectangle(0, 20, 50, 50);
   brute1Header.addListener('mouseover', () => {
-    showTooltip(brute1);
+    toggleTooltip(brute1, true);
   });
   brute1Header.addListener('mouseout', () => {
-    hideTooltip();
+    toggleTooltip(brute1, false);
+  });
+  brute1Header.on('tap', (e: PIXI.InteractionEvent) => {
+    e.stopPropagation();
+    toggleTooltip(brute1);
   });
   app.stage.addChild(brute1Header);
 
@@ -192,13 +194,23 @@ const setupFight: (
   brute2Header.interactive = true;
   brute2Header.hitArea = new PIXI.Rectangle(0, 20, 50, 50);
   brute2Header.on('mouseover', () => {
-    showTooltip(brute2);
+    toggleTooltip(brute2, true);
   });
   brute2Header.on('mouseout', () => {
-    hideTooltip();
+    toggleTooltip(brute2, false);
+  });
+  brute2Header.on('tap', (e: PIXI.InteractionEvent) => {
+    e.stopPropagation();
+    toggleTooltip(brute2);
   });
 
   app.stage.addChild(brute2Header);
+
+  // Reset tooltip on tap anywhere
+  app.stage.interactive = true;
+  app.stage.on('tap', () => {
+    toggleTooltip(brute1, false);
+  });
 
   // Second brute name
   const brute2Name = new PIXI.Text(brute2.name.toLocaleUpperCase(), {
