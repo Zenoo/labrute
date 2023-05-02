@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.27.0](https://github.com/Zenoo/labrute/compare/labrute-v2.26.0...labrute-v2.27.0) (2023-05-02)
+
+
+### Features
+
+* Brute tooltips in fights. Fixes [#15](https://github.com/Zenoo/labrute/issues/15) ([1e87821](https://github.com/Zenoo/labrute/commit/1e878218f8047cd7a04030246533ee3030ad76f0))
+
+
+### Bug Fixes
+
+* Broken achievement icon ([6e58ee3](https://github.com/Zenoo/labrute/commit/6e58ee314990b32cbdee8246845a8e3f16c9d49c))
+* Display brute total in rankings. Fixes [#216](https://github.com/Zenoo/labrute/issues/216) ([e9c955f](https://github.com/Zenoo/labrute/commit/e9c955f694e05060f12dba228b6d3ff2a5df07b0))
+* Fight log typo ([cd80689](https://github.com/Zenoo/labrute/commit/cd80689fa60e6caf238bbc38e99fdadbbe6dc9dc))
+* Hypnotise all pets at once. Fixes [#261](https://github.com/Zenoo/labrute/issues/261) ([4a94d49](https://github.com/Zenoo/labrute/commit/4a94d49ebcfef805c8c78c09e40ab1ddd7591a2d))
+
 ## [2.26.0](https://github.com/Zenoo/labrute/compare/labrute-v2.25.2...labrute-v2.26.0) (2023-05-01)
 
 
