@@ -68,6 +68,8 @@ const setupFight: (
   speed: React.MutableRefObject<number>,
   setCompleted: React.Dispatch<React.SetStateAction<boolean>>,
   t: TFunction,
+  showTooltip: (brute: Fighter) => void,
+  hideTooltip: () => void,
 ) => PIXI.Loader.OnCompleteSignal = (
   theme,
   fight,
@@ -75,6 +77,8 @@ const setupFight: (
   speed,
   setCompleted,
   t,
+  showTooltip,
+  hideTooltip,
 ) => async (
   loader,
   resources,
@@ -128,6 +132,16 @@ const setupFight: (
   brute1Header.x = 4;
   brute1Header.y = 10;
   brute1Header.zIndex = 101;
+
+  // Add tooltip on hover
+  brute1Header.interactive = true;
+  brute1Header.hitArea = new PIXI.Rectangle(0, 20, 50, 50);
+  brute1Header.addListener('mouseover', () => {
+    showTooltip(brute1);
+  });
+  brute1Header.addListener('mouseout', () => {
+    hideTooltip();
+  });
   app.stage.addChild(brute1Header);
 
   // First brute name
@@ -173,6 +187,17 @@ const setupFight: (
   brute2Header.x = app.screen.width - 4;
   brute2Header.y = 10;
   brute2Header.zIndex = 101;
+
+  // Add tooltip on hover
+  brute2Header.interactive = true;
+  brute2Header.hitArea = new PIXI.Rectangle(0, 20, 50, 50);
+  brute2Header.on('mouseover', () => {
+    showTooltip(brute2);
+  });
+  brute2Header.on('mouseout', () => {
+    hideTooltip();
+  });
+
   app.stage.addChild(brute2Header);
 
   // Second brute name

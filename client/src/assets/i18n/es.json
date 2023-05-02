@@ -588,5 +588,8 @@
   "legendary": "Legendario",
 
   "weapons": "Armas",
-  "none": "Ninguno"
+  "none": "Ninguno",
+  "supers": "Superpoderes",
+  "skills": "Habilidades",
+  "total": "Total"
 }

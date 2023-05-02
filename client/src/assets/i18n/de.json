@@ -588,5 +588,8 @@
   "legendary": "Legendär",
 
   "weapons": "Waffen",
-  "none": "Keine"
+  "none": "Keine",
+  "supers": "Superwaffen",
+  "skills": "Fähigkeiten",
+  "total": "Gesamt"
 }

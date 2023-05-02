@@ -1,4 +1,4 @@
-import { Fighter, FightStep } from '@labrute/core';
+import { Fighter, FightStep, skills } from '@labrute/core';
 import { Fight } from '@labrute/prisma';
 import { FastForward, FastRewind, MusicNote, MusicOff, Pause, PlayArrow, Rtt, VolumeOff, VolumeUp } from '@mui/icons-material';
 import { Box, IconButton, Stack, Tooltip, useMediaQuery, useTheme } from '@mui/material';
@@ -49,6 +49,42 @@ const FightComponent = ({
 
   // Logs display
   const [displayLogs, setDisplayLogs] = useState(false);
+
+  // Brute tooltip
+  const [tooltipOpen, setTooltipOpen] = useState(false);
+  const [tooltipContent, setTooltipContent] = useState<JSX.Element | null>(null);
+
+  // Tooltip
+  const showTooltip = useCallback((brute: Fighter) => {
+    setTooltipContent((
+      <Box sx={{
+        '& p, & span': {
+          lineHeight: 1.2,
+          fontSize: 12,
+        },
+      }}
+      >
+        <Text bold>({brute.level}) {brute.name}</Text>
+        <Text>{t('strength')}: <Text component="span" bold>{brute.strength}</Text></Text>
+        <Text>{t('agility')}: <Text component="span" bold>{brute.agility}</Text></Text>
+        <Text>{t('speed')}: <Text component="span" bold>{brute.speed}</Text></Text>
+        <Text sx={{ textTransform: 'capitalize' }}>{t('healthPoints')}: <Text component="span" bold>{brute.hp}</Text></Text>
+        <Text>
+          <Text component="span" bold>{t('supers')}: </Text>
+          {brute.skills.filter((s) => skills.find((_s) => _s.name === s)?.type === 'super').map((s) => t(s)).join(', ')}
+        </Text>
+        <Text>
+          <Text component="span" bold>{t('skills')}: </Text>
+          {brute.skills.filter((s) => skills.find((_s) => _s.name === s)?.type !== 'super').map((s) => t(s)).join(', ')}
+        </Text>
+      </Box>
+    ));
+    setTooltipOpen(true);
+  }, [t]);
+
+  const hideTooltip = useCallback(() => {
+    setTooltipOpen(false);
+  }, []);
 
   const brute1 = useMemo(() => fight && (fight.fighters as unknown as Fighter[])
     .find((fighter) => !fighter.master
@@ -172,7 +208,16 @@ const FightComponent = ({
       PIXI.utils.clearTextureCache();
     });
 
-    app.loader.load(setupFight(theme, fight, app, speedRef, setCompleted, t));
+    app.loader.load(setupFight(
+      theme,
+      fight,
+      app,
+      speedRef,
+      setCompleted,
+      t,
+      showTooltip,
+      hideTooltip,
+    ));
 
     return () => {
       Tweener.dispose();
@@ -181,8 +226,9 @@ const FightComponent = ({
       // Stop all sounds
       sound.stopAll();
     };
-  }, [fight, t, theme]);
+  }, [fight, hideTooltip, showTooltip, t, theme]);
 
+  // Play/pause
   const toggleAnimation = useCallback(() => {
     setPlaying((prev) => {
       if (prev) {
@@ -194,6 +240,7 @@ const FightComponent = ({
     });
   }, []);
 
+  // Speed
   const toggleSpeed = useCallback(() => {
     const newSpeed = speedRef.current === 1 ? 2 : 1;
     speedRef.current = newSpeed;
@@ -211,6 +258,7 @@ const FightComponent = ({
     }
   }, [Alert, updateData, user]);
 
+  // Sound
   const toggleSound = useCallback(() => {
     const newSound = !soundRef.current;
     soundRef.current = newSound;
@@ -236,106 +284,120 @@ const FightComponent = ({
     }
   }, [Alert, updateData, user]);
 
+  // Logs
   const toggleLogs = useCallback(() => {
     setDisplayLogs((prev) => !prev);
   }, []);
 
   return (fight) ? (
     <>
-      <Box
-        ref={ref}
-        sx={{
-          ml: smallScreen ? 0 : 5,
-          alignSelf: 'center',
-          position: 'relative',
-          fontSize: 0,
-          maxWidth: 500,
-          mx: smallScreen ? 'auto' : undefined,
-          '& canvas': {
-            maxWidth: '100%',
-          }
+      <Tooltip
+        followCursor
+        open={tooltipOpen}
+        title={tooltipContent}
+        componentsProps={{
+          tooltip: {
+            sx: {
+              borderRadius: 0,
+            }
+          },
         }}
       >
-        {/* LOGS */}
-        {displayLogs && (
-          <Box sx={{
-            height: 1,
-            width: 1,
-            overflowY: 'auto',
-            position: 'absolute',
-            top: 0,
-            bgcolor: 'rgba(255, 255, 255, 0.5)',
-            zIndex: 500,
-            pl: 1,
-            textAlign: 'left',
-          }}
-          >
-            {fightSteps?.filter((step) => !['moveTo', 'moveBack'].includes(step.action)).map((step, i) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <Text key={i}>{translateFightStep(step, t)}</Text>
-            ))}
-          </Box>
-        )}
-        <Stack
-          direction="row"
+        <Box
+          ref={ref}
           sx={{
-            position: 'absolute',
-            bottom: 0,
-            left: 0,
-            zIndex: 501,
-            bgcolor: 'rgba(255, 255, 255, 0.3)',
-            borderRadius: 4,
-            m: 0.5,
+            ml: smallScreen ? 0 : 5,
+            alignSelf: 'center',
+            position: 'relative',
+            fontSize: 0,
+            maxWidth: 500,
+            mx: smallScreen ? 'auto' : undefined,
+            '& canvas': {
+              maxWidth: '100%',
+            }
           }}
         >
-          {/* Play/Pause */}
-          <Tooltip title={playing ? t('fight.pause') : t('fight.play')}>
-            <IconButton onClick={toggleAnimation} size="small">
-              {playing ? <Pause /> : <PlayArrow />}
-            </IconButton>
-          </Tooltip>
-          {/* x2 */}
-          <Tooltip title={speed === 1 ? 'x2' : 'x1'}>
-            <IconButton onClick={toggleSpeed} size="small">
-              {speed === 1 ? <FastForward /> : <FastRewind />}
-            </IconButton>
-          </Tooltip>
-          {/* SOUND */}
-          <Tooltip title={soundOn ? t('disableSound') : t('enableSound')}>
-            <IconButton onClick={toggleSound} size="small">
-              {soundOn ? <VolumeOff /> : <VolumeUp />}
-            </IconButton>
-          </Tooltip>
-          {/* BACKGROUND MUSIC */}
-          <Tooltip title={backgroundMusicOn ? t('disableBackgroundMusic') : t('enableBackgroundMusic')}>
-            <IconButton onClick={toggleBackgroundMusic} size="small">
-              {backgroundMusicOn ? <MusicOff /> : <MusicNote />}
-            </IconButton>
-          </Tooltip>
-        </Stack>
-        {/* LOGS TOGGLE */}
-        <Stack
-          direction="row"
-          sx={{
-            position: 'absolute',
-            bottom: 0,
-            right: 0,
-            zIndex: 501,
-            bgcolor: 'rgba(255, 255, 255, 0.3)',
-            borderRadius: 4,
-            m: 0.5,
-          }}
-        >
-          <Tooltip title={t('fight.toggleLogs')}>
-            <IconButton
-              onClick={toggleLogs}
-              size="small"
+          {/* LOGS */}
+          {displayLogs && (
+            <Box sx={{
+              height: 1,
+              width: 1,
+              overflowY: 'auto',
+              position: 'absolute',
+              top: 0,
+              bgcolor: 'rgba(255, 255, 255, 0.5)',
+              zIndex: 500,
+              pl: 1,
+              textAlign: 'left',
+            }}
             >
-              <Rtt />
-            </IconButton>
-          </Tooltip>
-        </Stack>
-      </Box>
+              {fightSteps?.filter((step) => !['moveTo', 'moveBack'].includes(step.action)).map((step, i) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <Text key={i}>{translateFightStep(step, t)}</Text>
+              ))}
+            </Box>
+          )}
+          <Stack
+            direction="row"
+            sx={{
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              zIndex: 501,
+              bgcolor: 'rgba(255, 255, 255, 0.3)',
+              borderRadius: 4,
+              m: 0.5,
+            }}
+          >
+            {/* Play/Pause */}
+            <Tooltip title={playing ? t('fight.pause') : t('fight.play')}>
+              <IconButton onClick={toggleAnimation} size="small">
+                {playing ? <Pause /> : <PlayArrow />}
+              </IconButton>
+            </Tooltip>
+            {/* x2 */}
+            <Tooltip title={speed === 1 ? 'x2' : 'x1'}>
+              <IconButton onClick={toggleSpeed} size="small">
+                {speed === 1 ? <FastForward /> : <FastRewind />}
+              </IconButton>
+            </Tooltip>
+            {/* SOUND */}
+            <Tooltip title={soundOn ? t('disableSound') : t('enableSound')}>
+              <IconButton onClick={toggleSound} size="small">
+                {soundOn ? <VolumeOff /> : <VolumeUp />}
+              </IconButton>
+            </Tooltip>
+            {/* BACKGROUND MUSIC */}
+            <Tooltip title={backgroundMusicOn ? t('disableBackgroundMusic') : t('enableBackgroundMusic')}>
+              <IconButton onClick={toggleBackgroundMusic} size="small">
+                {backgroundMusicOn ? <MusicOff /> : <MusicNote />}
+              </IconButton>
+            </Tooltip>
+          </Stack>
+          {/* LOGS TOGGLE */}
+          <Stack
+            direction="row"
+            sx={{
+              position: 'absolute',
+              bottom: 0,
+              right: 0,
+              zIndex: 501,
+              bgcolor: 'rgba(255, 255, 255, 0.3)',
+              borderRadius: 4,
+              m: 0.5,
+            }}
+          >
+            <Tooltip title={t('fight.toggleLogs')}>
+              <IconButton
+                onClick={toggleLogs}
+                size="small"
+              >
+                <Rtt />
+              </IconButton>
+            </Tooltip>
+          </Stack>
+        </Box>
+      </Tooltip>
       {completed && brute1 && brute2 && (
         <Box sx={{
           ml: smallScreen ? 0 : 5,
