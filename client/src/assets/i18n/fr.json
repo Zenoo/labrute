@@ -354,7 +354,7 @@
   "fight.step.hammer": "{{brute}} a infligé {{damage}} dégats à {{target}} avec une technique de catch.",
   "fight.step.flashFlood": "{{brute}} a infligé {{damage}} dégats à {{target}} en lui jetant violamment {{weapon}}.",
   "fight.step.poison": "{{brute}} a infligé {{damage}} dégats de poison à {{target}}.",
-  "fight.step.hypnotise": "{{brute}} a hypnotisé un {{pet}}.",
+  "fight.step.hypnotise": "{{brute}} a hypnotisé les familiers de son adversaire.",
   "fight.step.moveTo": "{{fighter}} s'est déplacé au contact de {{target}}.",
   "fight.step.eat": "{{brute}} a mangé {{target}} et a récupéré {{heal}}PV.",
   "fight.step.moveBack": "{{fighter}} est revenu à sa position.",

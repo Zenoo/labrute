@@ -355,7 +355,7 @@
   "fight.step.hammer": "{{brute}} causa {{damage}} de daño a {{target}} con una llave letal.",
   "fight.step.flashFlood": "{{brute}} causa {{damage}} de daño a {{target}} lanzando violentamente su {{weapon}}.",
   "fight.step.poison": "{{brute}} causa {{damage}} de daño por veneno a {{target}}.",
-  "fight.step.hypnotise": "{{brute}} ha hipnotizado un {{pet}}.",
+  "fight.step.hypnotise": "{{brute}} hipnotizó las mascotas de su oponente.",
   "fight.step.moveTo": "{{fighter}} entra en contacto con {{target}}.",
   "fight.step.eat": "{{brute}} debora un {{target}} y recupera {{heal}}HP.",
   "fight.step.moveBack": "{{fighter}} vuelve a su posición.",

@@ -595,14 +595,7 @@ const activateSuper = (
 
         // Don't hypnotise trapped pets
         if (!pet.trapped) {
-          // Add hypnotise step
-          fightData.steps.push({
-            action: 'hypnotise',
-            brute: stepFighter(fighter),
-            pet: stepFighter(pet),
-          });
-
-          hypnotisedPets.push(pet);
+          hypnotisedPets.push(stepFighter(pet));
 
           // Change pet owner
           pet.master = fighter.id;
@@ -611,6 +604,13 @@ const activateSuper = (
 
       // Abort if no pet hypnotised
       if (hypnotisedPets.length === 0) return false;
+
+      // Add hypnotise step
+      fightData.steps.push({
+        action: 'hypnotise',
+        brute: stepFighter(fighter),
+        pets: hypnotisedPets,
+      });
 
       break;
     }

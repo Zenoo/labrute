@@ -355,7 +355,7 @@
   "fight.step.hammer": "{{brute}} dealt {{damage}} damage to {{target}} with a wrestling move.",
   "fight.step.flashFlood": "{{brute}} dealt {{damage}} damage to {{target}} by violently throwing {{weapon}}.",
   "fight.step.poison": "{{brute}} dealt {{damage}} poison damage to {{target}}.",
-  "fight.step.hypnotise": "{{brute}} hypnotised a {{pet}}.",
+  "fight.step.hypnotise": "{{brute}} hypnotised his opponent's pets.",
   "fight.step.moveTo": "{{fighter}} moved to {{target}}.",
   "fight.step.eat": "{{brute}} consumed {{target}} and regained {{heal}}HP.",
   "fight.step.moveBack": "{{fighter}} went back to his position.",

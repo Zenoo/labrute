@@ -93,7 +93,6 @@ const translateFightStep = (fightStep: FightStep, t: TFunction) => {
     case 'hypnotise':
       return t(`fight.step.${fightStep.action}`, {
         brute: getFighterName(fightStep.brute, t),
-        pet: getFighterName(fightStep.pet, t),
       });
     case 'moveTo':
       return t(`fight.step.${fightStep.action}`, {

@@ -193,7 +193,7 @@ export interface BombStep {
 export interface HypnotiseStep {
   action: 'hypnotise';
   brute: StepFighter;
-  pet: StepFighter;
+  pets: StepFighter[];
 }
 
 export interface MoveStep {

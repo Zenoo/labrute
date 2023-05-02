@@ -17,12 +17,6 @@ const hypnotise = async (
   if (!brute) {
     throw new Error('Brute not found');
   }
-  const pet = findFighter(fighters, step.pet);
-  if (!pet) {
-    throw new Error('Pet not found');
-  }
-  // Get random position
-  const { x, y } = getRandomPosition(fighters, brute.team);
 
   // Set brute animation to `strengthen`
   changeAnimation(app, brute, 'strengthen', speed);
@@ -40,23 +34,44 @@ const hypnotise = async (
     };
   });
 
-  // Set pet animation to `run`
-  changeAnimation(app, pet, 'run', speed);
+  if (!step.pets) {
+    return;
+  }
 
-  // Move pet to other team
-  await Tweener.add({
-    target: pet.container,
-    duration: 0.5 / speed.current,
-    ease: Easing.linear,
-  }, { x, y });
+  // Move each pet to other team
+  const animationsDone = [];
+  for (const stepPet of step.pets) {
+    // Get random position
+    const { x, y } = getRandomPosition(fighters, brute.team);
 
-  // Change pet team
-  pet.team = brute.team;
-  pet.master = brute.id;
-  pet.container.scale.x *= -1;
+    const pet = findFighter(fighters, stepPet);
+    if (!pet) {
+      throw new Error('Pet not found');
+    }
 
-  // Set pet animation to `idle`
-  changeAnimation(app, pet, 'idle', speed);
+    // Set pet animation to `run`
+    changeAnimation(app, pet, 'run', speed);
+
+    // Move pet to other team
+    animationsDone.push(
+      Tweener.add({
+        target: pet.container,
+        duration: 0.5 / speed.current,
+        ease: Easing.linear,
+      }, { x, y }).then(() => {
+        // Change pet team
+        pet.team = brute.team;
+        pet.master = brute.id;
+        pet.container.scale.x *= -1;
+
+        // Set pet animation to `idle`
+        changeAnimation(app, pet, 'idle', speed);
+      })
+    );
+  }
+
+  // Wait for all animations to complete
+  await Promise.all(animationsDone);
 };
 
 export default hypnotise;
