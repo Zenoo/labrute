@@ -74,6 +74,7 @@ export type BrutesGetForRankResponse = {
   topBrutes: BruteWithBodyColors[],
   nearbyBrutes: BruteWithBodyColors[],
   position: number,
+  total: number,
 };
 export type BrutesGetRankingResponse = {
   ranking: number,

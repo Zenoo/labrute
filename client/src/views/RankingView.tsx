@@ -131,6 +131,15 @@ const RankingView = () => {
                     )}
                   </>
                 )}
+                {/* Total */}
+                <TableRow>
+                  <TableCell component="th" scope="row">
+                    {t('total')}
+                  </TableCell>
+                  <TableCell component="th" scope="row" colSpan={2} align="right">
+                    {rankings.total}
+                  </TableCell>
+                </TableRow>
               </TableBody>
             </Table>
           </Grid>

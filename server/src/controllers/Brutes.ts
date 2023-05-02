@@ -560,7 +560,7 @@ const Brutes = {
       name?: string
       rank?: string
     }, unknown, never>,
-    res: Response,
+    res: Response<BrutesGetForRankResponse>,
   ) => {
     try {
       if (!req.params.name) {
@@ -599,10 +599,20 @@ const Brutes = {
         include: { body: true, colors: true },
       });
 
+      // Get total brutes of the same rank
+      const total = await prisma.brute.count({
+        where: {
+          ranking: rank,
+          deletedAt: null,
+          userId: { not: null },
+        },
+      });
+
       const result: BrutesGetForRankResponse = {
         topBrutes,
         nearbyBrutes: [],
         position: 0,
+        total,
       };
 
       // If current brute is not in the list, get it
