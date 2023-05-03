@@ -71,7 +71,6 @@ const trap = async (
     ease: Easing.linear,
   }, {
     x: targetPosition.x,
-    y: targetPosition.y,
   }));
 
   // Move net vertically
@@ -99,7 +98,6 @@ const trap = async (
   await Promise.all(animations);
 
   // Remove net from stage
-  app.stage.removeChild(net);
   net.destroy();
 
   // Set fighter animation to `idle`

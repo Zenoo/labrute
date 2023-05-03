@@ -1,8 +1,8 @@
 /* eslint-disable no-void */
-import { Animation, BombStep, randomBetween } from '@labrute/core';
+import { Animation, BombStep, FIGHTER_HEIGHT, FIGHTER_WIDTH, randomBetween } from '@labrute/core';
 import { OutlineFilter } from '@pixi/filter-outline';
-import { Tweener } from 'pixi-tweener';
-import { Application, Text } from 'pixi.js';
+import { Easing, Tweener } from 'pixi-tweener';
+import { AnimatedSprite, Application, Text } from 'pixi.js';
 import changeAnimation from './changeAnimation';
 
 import { sound } from '@pixi/sound';
@@ -32,6 +32,12 @@ const bomb = async (
   step: BombStep,
   speed: React.MutableRefObject<number>,
 ) => {
+  const { loader: { resources: { '/images/game/misc.json': { spritesheet } } } } = app;
+
+  if (!spritesheet) {
+    throw new Error('Spritesheet not found');
+  }
+
   const fighter = findFighter(fighters, step.fighter);
   if (!fighter) {
     throw new Error('Fighter not found');
@@ -45,12 +51,60 @@ const bomb = async (
     speed: speed.current,
   });
 
-  // Wait 500ms
-  await new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(null);
-    }, 500);
-  });
+  // Create bomb sprite
+  const bombSprite = new AnimatedSprite(spritesheet.animations.bomb);
+  bombSprite.animationSpeed = speed.current / 2;
+
+  // Set bomb sprite position
+  bombSprite.x = fighter.container.x + FIGHTER_WIDTH.brute / 2;
+  bombSprite.y = fighter.container.y - FIGHTER_HEIGHT.brute / 2;
+
+  // Get target position
+  const targetPosition = {
+    x: fighter.team === 'left' ? app.screen.width - 100 : 100,
+    y: (app.screen.height / 3) * 2,
+  };
+
+  // Add bomb sprite to stage
+  app.stage.addChild(bombSprite);
+
+  const animations = [];
+
+  // Move bomb horizontally
+  animations.push(Tweener.add({
+    target: bombSprite,
+    duration: 0.5 / speed.current,
+    ease: Easing.linear,
+  }, {
+    x: targetPosition.x,
+  }));
+
+  // Move bomb vertically
+  animations.push(new Promise((resolve) => {
+    // Move up
+    Tweener.add({
+      target: bombSprite,
+      duration: 0.25 / speed.current,
+      ease: Easing.easeOutCirc,
+    }, {
+      y: targetPosition.y - 100,
+    }).then(() => {
+      // Move down
+      Tweener.add({
+        target: bombSprite,
+        duration: 0.25 / speed.current,
+        ease: Easing.easeInCirc,
+      }, {
+        y: targetPosition.y,
+      }).then(resolve).catch(console.error);
+    }).catch(console.error);
+  }));
+
+  // Wait for animations to complete
+  await Promise.all(animations);
+
+  // Remove bomb sprite
+  bombSprite.destroy();
 
   // Set animation to `idle`
   changeAnimation(app, fighter, 'idle', speed);
