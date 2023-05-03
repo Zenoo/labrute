@@ -54,6 +54,7 @@ const bomb = async (
   // Create bomb sprite
   const bombSprite = new AnimatedSprite(spritesheet.animations.bomb);
   bombSprite.animationSpeed = speed.current / 2;
+  bombSprite.loop = true;
 
   // Set bomb sprite position
   bombSprite.x = fighter.container.x + FIGHTER_WIDTH.brute / 2;
@@ -67,6 +68,9 @@ const bomb = async (
 
   // Add bomb sprite to stage
   app.stage.addChild(bombSprite);
+
+  // Play bomb
+  bombSprite.play();
 
   const animations = [];
 

@@ -1,5 +1,5 @@
 /* eslint-disable no-void */
-import { HypnotiseStep } from '@labrute/core';
+import { FIGHTER_HEIGHT, FIGHTER_WIDTH, HypnotiseStep } from '@labrute/core';
 import { Easing, Tweener } from 'pixi-tweener';
 import { AnimatedSprite, Application } from 'pixi.js';
 import changeAnimation from './changeAnimation';
@@ -13,6 +13,12 @@ const hypnotise = async (
   step: HypnotiseStep,
   speed: React.MutableRefObject<number>,
 ) => {
+  const { loader: { resources: { '/images/game/misc.json': { spritesheet } } } } = app;
+
+  if (!spritesheet) {
+    throw new Error('Spritesheet not found');
+  }
+
   const brute = findFighter(fighters, step.brute);
   if (!brute) {
     throw new Error('Brute not found');
@@ -24,15 +30,50 @@ const hypnotise = async (
   // Play hypnosis SFX
   void sound.play('skills/hypnosis', { speed: speed.current * 4 });
 
-  // Wait for animation to complete
-  await new Promise((resolve) => {
+  const animations = [];
+
+  // Strengthen animation
+  animations.push(new Promise((resolve) => {
     (brute.currentAnimation as AnimatedSprite).onComplete = () => {
       // Set animation to `idle`
       changeAnimation(app, brute, 'idle', speed);
 
       resolve(null);
     };
-  });
+  }));
+
+  // Create wave sprite
+  const wave = new AnimatedSprite(spritesheet.animations.wave);
+  wave.animationSpeed = speed.current;
+  wave.loop = true;
+
+  // Set wave position
+  wave.position.set(
+    brute.container.x + FIGHTER_WIDTH.brute / 2,
+    brute.container.y - FIGHTER_HEIGHT.brute / 2,
+  );
+
+  // Add wave to stage
+  app.stage.addChild(wave);
+
+  // Play wave animation
+  wave.play();
+
+  // Grow wave for 0.5s
+  animations.push(Tweener.add({
+    target: wave,
+    duration: 0.5 / speed.current,
+    ease: Easing.linear,
+  }, {
+    width: 200,
+    height: 200,
+  }));
+
+  // Wait for all animations to complete
+  await Promise.all(animations);
+
+  // Destroy wave
+  wave.destroy();
 
   if (!step.pets) {
     return;
