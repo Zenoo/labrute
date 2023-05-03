@@ -149,6 +149,8 @@ const bomb = async (
     return target;
   });
 
+  const staggers = [];
+
   for (let i = 0; i < targets.length; i++) {
     const { [i]: target } = targets;
 
@@ -192,15 +194,17 @@ const bomb = async (
 
     // Stagger
     // eslint-disable-next-line no-await-in-loop
-    stagger(target.container, target.team, speed)
+    staggers.push(stagger(target.container, target.team, speed)
       .then(() => {
         if (target.currentAnimation.name.startsWith('hit')) {
           // Set animation to `idle`
           changeAnimation(app, target, 'idle', speed);
         }
-      })
-      .catch(console.error);
+      }));
   }
+
+  // Wait for staggers to complete
+  await Promise.all(staggers);
 };
 
 export default bomb;
