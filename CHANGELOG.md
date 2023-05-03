@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.27.1](https://github.com/Zenoo/labrute/compare/labrute-v2.27.0...labrute-v2.27.1) (2023-05-03)
+
+
+### Bug Fixes
+
+* Added dust VFX on fighter arrival. [#225](https://github.com/Zenoo/labrute/issues/225) ([9b749ec](https://github.com/Zenoo/labrute/commit/9b749ec715225dab4455eac7df824ca8dcaee933))
+* Allow tap event to show brute tooltips in fights. Fixes [#274](https://github.com/Zenoo/labrute/issues/274) ([56fd699](https://github.com/Zenoo/labrute/commit/56fd6996742ffca11525af0ac9dda4b7f0941559))
+* Bomb explosion VFX. [#225](https://github.com/Zenoo/labrute/issues/225) ([78beb56](https://github.com/Zenoo/labrute/commit/78beb568a27f2c532bcddcf08c67e699e207c1b1))
+* Bomb throw VFX. Fixes [#269](https://github.com/Zenoo/labrute/issues/269) ([3f8082a](https://github.com/Zenoo/labrute/commit/3f8082ac5d6cb5004fb8ae27fe18ff6274281e4f))
+* Hit + Cry VFX. [#225](https://github.com/Zenoo/labrute/issues/225) ([4746be4](https://github.com/Zenoo/labrute/commit/4746be4b003d206ffd43b4a3df91a2716cf876c1))
+* Hypnosis VFX. [#225](https://github.com/Zenoo/labrute/issues/225) ([1875022](https://github.com/Zenoo/labrute/commit/187502218a81221649f2fc58da9892d804a8bb41))
+* Import fight VFX. [#225](https://github.com/Zenoo/labrute/issues/225) ([cea57dd](https://github.com/Zenoo/labrute/commit/cea57dd85c2bf786aa15fde36c3cf628f6b2f67f))
+* Improve brute tooltip content in fights. Fixes [#275](https://github.com/Zenoo/labrute/issues/275) ([83ddf25](https://github.com/Zenoo/labrute/commit/83ddf25e41163c62d7e4dca77ef393eeccbb7c8e))
+* Net break VFX. Fixes [#225](https://github.com/Zenoo/labrute/issues/225) ([6d8ec6d](https://github.com/Zenoo/labrute/commit/6d8ec6d360d1a37575794dac86ab2e99fb0517ec))
+* Net throw VFX. Fixes [#268](https://github.com/Zenoo/labrute/issues/268) ([f28ba59](https://github.com/Zenoo/labrute/commit/f28ba59a0a631bab42fdd32c956b405ce8c7db3a))
+* Show brutes tooltips on HP bar hover. FIxes [#276](https://github.com/Zenoo/labrute/issues/276) ([45b48d7](https://github.com/Zenoo/labrute/commit/45b48d7bb3c754ba6d423888bbbc76977a05f636))
+
 ## [2.27.0](https://github.com/Zenoo/labrute/compare/labrute-v2.26.0...labrute-v2.27.0) (2023-05-02)
 
 
