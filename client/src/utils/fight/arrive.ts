@@ -4,9 +4,9 @@ import { Easing, Tweener } from 'pixi-tweener';
 import { AnimatedSprite, Application } from 'pixi.js';
 import changeAnimation from './changeAnimation';
 
+import { sound } from '@pixi/sound';
 import { getRandomPosition } from './fightPositions';
 import findFighter, { AnimationFighter } from './findFighter';
-import { sound } from '@pixi/sound';
 
 const arrive = async (
   app: Application,
@@ -14,6 +14,12 @@ const arrive = async (
   step: ArriveStep,
   speed: React.MutableRefObject<number>,
 ) => {
+  const { loader: { resources: { '/images/game/misc.json': { spritesheet } } } } = app;
+
+  if (!spritesheet) {
+    throw new Error('Spritesheet not found');
+  }
+
   const fighter = findFighter(fighters, step.fighter);
 
   if (!fighter) {
@@ -47,6 +53,26 @@ const arrive = async (
   if (!(fighter.name === 'bear' && fighter.master)) {
     (fighter.currentAnimation as AnimatedSprite).animationSpeed = 0.5;
   }
+
+  // Create dust sprite
+  const dustSprite = new AnimatedSprite(spritesheet.animations.dust);
+  dustSprite.animationSpeed = speed.current / 2;
+  dustSprite.loop = false;
+
+  // Set dust sprite position
+  dustSprite.x = fighter.container.x;
+  dustSprite.y = fighter.container.y + 20;
+
+  // Add dust sprite to stage
+  app.stage.addChild(dustSprite);
+
+  // Destroy dust sprite when animation ends
+  dustSprite.onComplete = () => {
+    dustSprite.destroy();
+  };
+
+  // Play dust
+  dustSprite.play();
 
   // Wait for animation to end before going further
   await new Promise((resolve) => {
