@@ -214,6 +214,72 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">public/images/game/resources/misc/blood/1.png</key>
+            <key type="filename">public/images/game/resources/misc/blood/10.png</key>
+            <key type="filename">public/images/game/resources/misc/blood/11.png</key>
+            <key type="filename">public/images/game/resources/misc/blood/12.png</key>
+            <key type="filename">public/images/game/resources/misc/blood/13.png</key>
+            <key type="filename">public/images/game/resources/misc/blood/14.png</key>
+            <key type="filename">public/images/game/resources/misc/blood/15.png</key>
+            <key type="filename">public/images/game/resources/misc/blood/2.png</key>
+            <key type="filename">public/images/game/resources/misc/blood/3.png</key>
+            <key type="filename">public/images/game/resources/misc/blood/4.png</key>
+            <key type="filename">public/images/game/resources/misc/blood/5.png</key>
+            <key type="filename">public/images/game/resources/misc/blood/6.png</key>
+            <key type="filename">public/images/game/resources/misc/blood/7.png</key>
+            <key type="filename">public/images/game/resources/misc/blood/8.png</key>
+            <key type="filename">public/images/game/resources/misc/blood/9.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>24,21,49,43</rect>
+                <key>scale9Paddings</key>
+                <rect>24,21,49,43</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/bomb/1.png</key>
+            <key type="filename">public/images/game/resources/misc/bomb/2.png</key>
+            <key type="filename">public/images/game/resources/misc/bomb/3.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>4,6,8,13</rect>
+                <key>scale9Paddings</key>
+                <rect>4,6,8,13</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/cry/1.png</key>
+            <key type="filename">public/images/game/resources/misc/cry/2.png</key>
+            <key type="filename">public/images/game/resources/misc/cry/3.png</key>
+            <key type="filename">public/images/game/resources/misc/cry/4.png</key>
+            <key type="filename">public/images/game/resources/misc/cry/5.png</key>
+            <key type="filename">public/images/game/resources/misc/cry/6.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>40,2,79,5</rect>
+                <key>scale9Paddings</key>
+                <rect>40,2,79,5</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">public/images/game/resources/misc/dead/1.png</key>
             <key type="filename">public/images/game/resources/misc/dead/2.png</key>
             <key type="filename">public/images/game/resources/misc/dead/3.png</key>
@@ -298,6 +364,52 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">public/images/game/resources/misc/explosion/1.png</key>
+            <key type="filename">public/images/game/resources/misc/explosion/10.png</key>
+            <key type="filename">public/images/game/resources/misc/explosion/11.png</key>
+            <key type="filename">public/images/game/resources/misc/explosion/12.png</key>
+            <key type="filename">public/images/game/resources/misc/explosion/13.png</key>
+            <key type="filename">public/images/game/resources/misc/explosion/14.png</key>
+            <key type="filename">public/images/game/resources/misc/explosion/15.png</key>
+            <key type="filename">public/images/game/resources/misc/explosion/16.png</key>
+            <key type="filename">public/images/game/resources/misc/explosion/17.png</key>
+            <key type="filename">public/images/game/resources/misc/explosion/18.png</key>
+            <key type="filename">public/images/game/resources/misc/explosion/19.png</key>
+            <key type="filename">public/images/game/resources/misc/explosion/2.png</key>
+            <key type="filename">public/images/game/resources/misc/explosion/20.png</key>
+            <key type="filename">public/images/game/resources/misc/explosion/21.png</key>
+            <key type="filename">public/images/game/resources/misc/explosion/22.png</key>
+            <key type="filename">public/images/game/resources/misc/explosion/23.png</key>
+            <key type="filename">public/images/game/resources/misc/explosion/24.png</key>
+            <key type="filename">public/images/game/resources/misc/explosion/25.png</key>
+            <key type="filename">public/images/game/resources/misc/explosion/26.png</key>
+            <key type="filename">public/images/game/resources/misc/explosion/27.png</key>
+            <key type="filename">public/images/game/resources/misc/explosion/28.png</key>
+            <key type="filename">public/images/game/resources/misc/explosion/29.png</key>
+            <key type="filename">public/images/game/resources/misc/explosion/3.png</key>
+            <key type="filename">public/images/game/resources/misc/explosion/30.png</key>
+            <key type="filename">public/images/game/resources/misc/explosion/31.png</key>
+            <key type="filename">public/images/game/resources/misc/explosion/32.png</key>
+            <key type="filename">public/images/game/resources/misc/explosion/4.png</key>
+            <key type="filename">public/images/game/resources/misc/explosion/5.png</key>
+            <key type="filename">public/images/game/resources/misc/explosion/6.png</key>
+            <key type="filename">public/images/game/resources/misc/explosion/7.png</key>
+            <key type="filename">public/images/game/resources/misc/explosion/8.png</key>
+            <key type="filename">public/images/game/resources/misc/explosion/9.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>57,64,113,128</rect>
+                <key>scale9Paddings</key>
+                <rect>57,64,113,128</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">public/images/game/resources/misc/header.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -313,6 +425,53 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">public/images/game/resources/misc/impact-1/1.png</key>
+            <key type="filename">public/images/game/resources/misc/impact-1/10.png</key>
+            <key type="filename">public/images/game/resources/misc/impact-1/11.png</key>
+            <key type="filename">public/images/game/resources/misc/impact-1/12.png</key>
+            <key type="filename">public/images/game/resources/misc/impact-1/13.png</key>
+            <key type="filename">public/images/game/resources/misc/impact-1/2.png</key>
+            <key type="filename">public/images/game/resources/misc/impact-1/3.png</key>
+            <key type="filename">public/images/game/resources/misc/impact-1/4.png</key>
+            <key type="filename">public/images/game/resources/misc/impact-1/5.png</key>
+            <key type="filename">public/images/game/resources/misc/impact-1/6.png</key>
+            <key type="filename">public/images/game/resources/misc/impact-1/7.png</key>
+            <key type="filename">public/images/game/resources/misc/impact-1/8.png</key>
+            <key type="filename">public/images/game/resources/misc/impact-1/9.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>10,9,19,17</rect>
+                <key>scale9Paddings</key>
+                <rect>10,9,19,17</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/impact-2/1.png</key>
+            <key type="filename">public/images/game/resources/misc/impact-2/2.png</key>
+            <key type="filename">public/images/game/resources/misc/impact-2/3.png</key>
+            <key type="filename">public/images/game/resources/misc/impact-2/4.png</key>
+            <key type="filename">public/images/game/resources/misc/impact-2/5.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>27,22,53,43</rect>
+                <key>scale9Paddings</key>
+                <rect>27,22,53,43</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/net-part.png</key>
             <key type="filename">public/images/game/resources/misc/petals/1.png</key>
             <key type="filename">public/images/game/resources/misc/petals/10.png</key>
             <key type="filename">public/images/game/resources/misc/petals/11.png</key>
@@ -345,6 +504,46 @@
                 <rect>6,4,11,9</rect>
                 <key>scale9Paddings</key>
                 <rect>6,4,11,9</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/thrown-net.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>20,17,39,33</rect>
+                <key>scale9Paddings</key>
+                <rect>20,17,39,33</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/wave/1.png</key>
+            <key type="filename">public/images/game/resources/misc/wave/10.png</key>
+            <key type="filename">public/images/game/resources/misc/wave/11.png</key>
+            <key type="filename">public/images/game/resources/misc/wave/2.png</key>
+            <key type="filename">public/images/game/resources/misc/wave/3.png</key>
+            <key type="filename">public/images/game/resources/misc/wave/4.png</key>
+            <key type="filename">public/images/game/resources/misc/wave/5.png</key>
+            <key type="filename">public/images/game/resources/misc/wave/6.png</key>
+            <key type="filename">public/images/game/resources/misc/wave/7.png</key>
+            <key type="filename">public/images/game/resources/misc/wave/8.png</key>
+            <key type="filename">public/images/game/resources/misc/wave/9.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>27,27,53,53</rect>
+                <key>scale9Paddings</key>
+                <rect>27,27,53,53</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
