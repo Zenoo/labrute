@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.27.2](https://github.com/Zenoo/labrute/compare/labrute-v2.27.1...labrute-v2.27.2) (2023-05-03)
+
+
+### Bug Fixes
+
+* Bomb animation cut ([5e38355](https://github.com/Zenoo/labrute/commit/5e38355b5e9ff66b8c491b6e8544da4449dd8d0e))
+
 ## [2.27.1](https://github.com/Zenoo/labrute/compare/labrute-v2.27.0...labrute-v2.27.1) (2023-05-03)
 
 
