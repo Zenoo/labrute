@@ -62,7 +62,7 @@ const bomb = async (
   // Get target position
   const targetPosition = {
     x: fighter.team === 'left' ? app.screen.width - 100 : 100,
-    y: (app.screen.height / 3) * 2,
+    y: app.screen.height * 0.75,
   };
 
   // Add bomb sprite to stage
@@ -105,6 +105,26 @@ const bomb = async (
 
   // Remove bomb sprite
   bombSprite.destroy();
+
+  // Create explosion sprite
+  const explosionSprite = new AnimatedSprite(spritesheet.animations.explosion);
+  explosionSprite.animationSpeed = speed.current;
+  explosionSprite.loop = false;
+
+  // Set explosion sprite position
+  explosionSprite.x = targetPosition.x;
+  explosionSprite.y = targetPosition.y;
+
+  // Add explosion sprite to stage
+  app.stage.addChild(explosionSprite);
+
+  // Delete explosion sprite when animation is complete
+  explosionSprite.onComplete = () => {
+    explosionSprite.destroy();
+  };
+
+  // Play explosion
+  explosionSprite.play();
 
   // Set animation to `idle`
   changeAnimation(app, fighter, 'idle', speed);
