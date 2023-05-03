@@ -133,7 +133,14 @@ const setupFight: (
 
   // Add tooltip on hover
   brute1Header.interactive = true;
-  brute1Header.hitArea = new PIXI.Rectangle(0, 20, 50, 50);
+  brute1Header.hitArea = new PIXI.Polygon([
+    new PIXI.Point(0, 10),
+    new PIXI.Point(240, 10),
+    new PIXI.Point(240, 20),
+    new PIXI.Point(50, 20),
+    new PIXI.Point(50, 65),
+    new PIXI.Point(0, 65),
+  ]);
   brute1Header.addListener('mouseover', () => {
     toggleTooltip(brute1, true);
   });
@@ -192,7 +199,14 @@ const setupFight: (
 
   // Add tooltip on hover
   brute2Header.interactive = true;
-  brute2Header.hitArea = new PIXI.Rectangle(0, 20, 50, 50);
+  brute2Header.hitArea = new PIXI.Polygon([
+    new PIXI.Point(0, 10),
+    new PIXI.Point(240, 10),
+    new PIXI.Point(240, 20),
+    new PIXI.Point(50, 20),
+    new PIXI.Point(50, 65),
+    new PIXI.Point(0, 65),
+  ]);
   brute2Header.on('mouseover', () => {
     toggleTooltip(brute2, true);
   });

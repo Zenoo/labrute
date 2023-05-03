@@ -93,6 +93,7 @@ const FightComponent = ({
       backgroundColor: 0xfbf7c0,
       width: 500,
       height: 300,
+      antialias: true,
     });
     appRef.current = app;
     ref.current.appendChild(app.view);
@@ -268,8 +269,11 @@ const FightComponent = ({
 
   return (fight) ? (
     <>
+      {/* Hidden typographies */}
+      <Text typo="Blocky" sx={{ display: 'none' }}> </Text>
+      {/* Fight */}
       <BruteTooltip
-        tooltipSx={{ borderRadius: 0, maxWidth: 200 }}
+        tooltipSx={{ borderRadius: 0, maxWidth: 200, px: 1, py: 0.5 }}
         open={tooltipOpen}
         fighter={tooltipBrute}
         displaySkills
