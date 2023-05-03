@@ -157,7 +157,7 @@ const bomb = async (
 
     // Get hit animation (random for male brute)
     const animation = target.type === 'brute' && target.data?.gender === 'male'
-      ? `hit-${randomBetween(0, 3)}`
+      ? `hit-${randomBetween(0, 2)}`
       : 'hit';
 
     // Set animation to the correct hit animation

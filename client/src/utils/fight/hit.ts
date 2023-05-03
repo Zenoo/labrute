@@ -1,15 +1,18 @@
 /* eslint-disable no-void */
-import { Animation, HitStep, WEAPONS_SFX, randomBetween } from '@labrute/core';
+import { Animation, FIGHTER_HIT_ANCHOR, HitStep, WEAPONS_SFX, randomBetween } from '@labrute/core';
 import { GlowFilter } from '@pixi/filter-glow';
 import { OutlineFilter } from '@pixi/filter-outline';
 import { sound } from '@pixi/sound';
 import { Tweener } from 'pixi-tweener';
-import { Application, Text } from 'pixi.js';
+import { AnimatedSprite, Application, Text } from 'pixi.js';
 import changeAnimation from './changeAnimation';
 
 import findFighter, { AnimationFighter } from './findFighter';
+import getFighterType from './getFighterType';
 import stagger from './stagger';
 import updateHp from './updateHp';
+
+const HIT_VFX = ['blood', 'impact-1', 'impact-2'];
 
 const hit = async (
   app: Application,
@@ -17,7 +20,7 @@ const hit = async (
   step: HitStep,
   speed: React.MutableRefObject<number>,
 ) => {
-  const { loader: { resources: { '/images/game/thrown-weapons.json': { spritesheet } } } } = app;
+  const { loader: { resources: { '/images/game/misc.json': { spritesheet } } } } = app;
 
   if (!spritesheet) {
     throw new Error('Spritesheet not found');
@@ -76,6 +79,41 @@ const hit = async (
     void sound.play(`hit/${step.target.name.replace(/\d/g, '')}`, {
       speed: speed.current,
     });
+  }
+
+  let vfx = null;
+
+  if (step.action !== 'poison') {
+    if (step.fighter.type === 'pet') {
+      vfx = 'blood';
+    } else {
+      vfx = HIT_VFX[randomBetween(0, HIT_VFX.length - 1)];
+    }
+  }
+
+  // Create hit VFX
+  if (vfx) {
+    const hitVfx = new AnimatedSprite(spritesheet.animations[vfx]);
+    hitVfx.zIndex = 1000;
+    hitVfx.animationSpeed = speed.current / 4;
+    hitVfx.loop = false;
+    hitVfx.scale.x = target.team === 'left' ? -1 : 1;
+
+    // Set hit VFX position
+    const fighterType = getFighterType(fighter);
+    hitVfx.x = target.container.x + FIGHTER_HIT_ANCHOR[fighterType].x * (target.team === 'left' ? 1 : -1);
+    hitVfx.y = target.container.y - FIGHTER_HIT_ANCHOR[fighterType].y;
+
+    // Add hit VFX to stage
+    app.stage.addChild(hitVfx);
+
+    // Destroy hit VFX when animation is finished
+    hitVfx.onComplete = () => {
+      hitVfx.destroy();
+    };
+
+    // Play hit VFX
+    hitVfx.play();
   }
 
   // Add poison filter if damage is poison

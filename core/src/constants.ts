@@ -1397,3 +1397,10 @@ export const FIGHTER_WIDTH = {
   [PetName.panther]: 90,
   dog: 60,
 } as const;
+
+export const FIGHTER_HIT_ANCHOR = {
+  brute: { x: 5, y: 40 },
+  [PetName.bear]: { x: 60, y: 100 },
+  [PetName.panther]: { x: 45, y: 45 },
+  dog: { x: 30, y: 30 },
+} as const;
