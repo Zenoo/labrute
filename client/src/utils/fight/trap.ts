@@ -1,10 +1,12 @@
 /* eslint-disable no-void */
-import { TrapStep } from '@labrute/core';
-import { AnimatedSprite, Application } from 'pixi.js';
+import { FIGHTER_HEIGHT, FIGHTER_WIDTH, TrapStep } from '@labrute/core';
+import { AnimatedSprite, Application, Sprite } from 'pixi.js';
 import changeAnimation from './changeAnimation';
 
 import findFighter, { AnimationFighter } from './findFighter';
 import { sound } from '@pixi/sound';
+import getFighterType from './getFighterType';
+import { Easing, Tweener } from 'pixi-tweener';
 
 const trap = async (
   app: Application,
@@ -12,6 +14,12 @@ const trap = async (
   step: TrapStep,
   speed: React.MutableRefObject<number>,
 ) => {
+  const { loader: { resources: { '/images/game/misc.json': { spritesheet } } } } = app;
+
+  if (!spritesheet) {
+    throw new Error('Spritesheet not found');
+  }
+
   const brute = findFighter(fighters, step.brute);
   if (!brute) {
     throw new Error('Brute not found');
@@ -29,23 +37,85 @@ const trap = async (
     speed: speed.current,
   });
 
-  // Wait 500ms
+  // Create net sprite
+  const net = new Sprite(spritesheet.textures['thrown-net.png']);
+
+  // Set net position
+  net.position.set(
+    brute.container.x + FIGHTER_WIDTH.brute / 2,
+    brute.container.y - FIGHTER_HEIGHT.brute / 2,
+  );
+
+  // Get target position
+  const targetType = getFighterType(target);
+  const targetPosition = {
+    x: target.container.x + FIGHTER_WIDTH[targetType] / 2,
+    y: target.container.y - FIGHTER_HEIGHT[targetType] / 2,
+  };
+
+  // Set rotation (from brute and target positions)
+  net.angle = (Math.atan2(
+    targetPosition.y - net.y,
+    targetPosition.x - net.x,
+  ) * 180) / Math.PI;
+
+  // Add net to stage
+  app.stage.addChild(net);
+
+  const animations = [];
+
+  // Move net horizontally
+  animations.push(Tweener.add({
+    target: net,
+    duration: 0.5 / speed.current,
+    ease: Easing.linear,
+  }, {
+    x: targetPosition.x,
+    y: targetPosition.y,
+  }));
+
+  // Move net vertically
+  animations.push(new Promise((resolve) => {
+    // Move up
+    Tweener.add({
+      target: net,
+      duration: 0.25 / speed.current,
+      ease: Easing.easeOutCirc,
+    }, {
+      y: targetPosition.y - 120,
+    }).then(() => {
+      // Move down
+      Tweener.add({
+        target: net,
+        duration: 0.25 / speed.current,
+        ease: Easing.easeInCirc,
+      }, {
+        y: targetPosition.y,
+      }).then(resolve).catch(console.error);
+    }).catch(console.error);
+  }));
+
+  // Wait for animations to complete
+  await Promise.all(animations);
+
+  // Remove net from stage
+  app.stage.removeChild(net);
+  net.destroy();
+
+  // Set fighter animation to `idle`
+  changeAnimation(app, brute, 'idle', speed);
+
+  // Set target animation to `trap`
+  changeAnimation(app, target, 'trapped-start', speed);
+
+  // Wait for animation to complete
   await new Promise((resolve) => {
-    setTimeout(() => {
-      // Set fighter animation to `idle`
-      changeAnimation(app, brute, 'idle', speed);
+    (target.currentAnimation as AnimatedSprite).onComplete = () => {
+      // Set target animation to `trapped-end`
+      changeAnimation(app, target, 'trapped-loop', speed);
 
-      // Set target animation to `trap`
-      changeAnimation(app, target, 'trapped-start', speed);
-
-      // Wait for animation to complete
-      (target.currentAnimation as AnimatedSprite).onComplete = () => {
-        // Set target animation to `trapped-end`
-        changeAnimation(app, target, 'trapped-loop', speed);
-
-        resolve(null);
-      };
-    }, 500);
+      resolve(null);
+    };
   });
 };
 
