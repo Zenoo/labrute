@@ -1,11 +1,12 @@
 /* eslint-disable no-param-reassign */
 import { Animation } from '@labrute/core';
 import { GlowFilter } from '@pixi/filter-glow';
-import { AnimatedSprite, Application } from 'pixi.js';
+import { AnimatedSprite, Application, Sprite } from 'pixi.js';
 import { AnimationFighter } from './findFighter';
 import setupSprite from './setupSprite';
 import { updateWeaponFrame } from './updateWeapons';
 import { BevelFilter } from '@pixi/filter-bevel';
+import { Easing, Tweener } from 'pixi-tweener';
 
 const getSprite = (
   app: Application,
@@ -89,9 +90,58 @@ const changeAnimation = (
   animation: Animation,
   speed: React.MutableRefObject<number>,
 ) => {
+  const { loader: { resources: { '/images/game/misc.json': { spritesheet } } } } = app;
+
+  if (!spritesheet) {
+    throw new Error('Spritesheet not found');
+  }
+
   // Cancel previous animation changes
   if ((fighter.currentAnimation as AnimatedSprite).play) {
     (fighter.currentAnimation as AnimatedSprite).off('complete');
+  }
+
+  // Add broken net VFX if fighter was trapped
+  if (fighter.currentAnimation.name === 'trapped-loop') {
+    // Create 6 net parts
+    for (let i = 0; i < 6; i += 1) {
+      const netPart = new Sprite(spritesheet.textures['net-part.png']);
+      netPart.filters = [new BevelFilter()];
+
+      // Set random position around fighter
+      netPart.position.set(
+        fighter.container.x + Math.random() * 20 - 10,
+        fighter.container.y + Math.random() * 20 - 10,
+      );
+
+      // Add net part to stage
+      app.stage.addChild(netPart);
+
+      // Set random rotation
+      netPart.rotation = Math.random() * Math.PI * 2;
+
+      // Move net part away from fighter
+      Tweener.add({
+        target: netPart,
+        duration: 0.5,
+        ease: Easing.linear,
+      }, {
+        x: netPart.x + Math.cos(netPart.rotation) * 30,
+        y: netPart.y + Math.sin(netPart.rotation) * 30,
+      }).then(() => {
+        // Fade out net part
+        Tweener.add({
+          target: netPart,
+          duration: 0.5,
+          ease: Easing.linear,
+        }, {
+          alpha: 0,
+        }).then(() => {
+          // Destroy net part
+          netPart.destroy();
+        }).catch(console.error);
+      }).catch(console.error);
+    }
   }
 
   // Handle idle differently for monks

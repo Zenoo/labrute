@@ -52,13 +52,6 @@ const setupSprite = (
   // Set to invisible
   sprite.visible = false;
 
-  // Set position
-  // sprite.x = team === 'left' ? -100 : 600;
-  // sprite.y = 150;
-
-  // Set inverted
-  // sprite.scale.x = team === 'left' ? 1 : -1;
-
   // Add to stage
   app.stage.addChild(sprite);
 
