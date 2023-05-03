@@ -1,20 +1,21 @@
-import { Fighter, FightStep, skills } from '@labrute/core';
+import { Fighter, FightStep } from '@labrute/core';
 import { Fight } from '@labrute/prisma';
 import { FastForward, FastRewind, MusicNote, MusicOff, Pause, PlayArrow, Rtt, VolumeOff, VolumeUp } from '@mui/icons-material';
 import { Box, IconButton, Stack, Tooltip, useMediaQuery, useTheme } from '@mui/material';
+import { sound } from '@pixi/sound';
 import { Tweener } from 'pixi-tweener';
 import * as PIXI from 'pixi.js';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useAlert } from '../../hooks/useAlert';
+import { useAuth } from '../../hooks/useAuth';
+import catchError from '../../utils/catchError';
 import setupFight from '../../utils/fight/setupFight';
+import Server from '../../utils/Server';
 import translateFightStep from '../../utils/translateFightStep';
+import BruteTooltip from '../Brute/BruteTooltip';
 import Link from '../Link';
 import Text from '../Text';
-import { sound } from '@pixi/sound';
-import { useAuth } from '../../hooks/useAuth';
-import Server from '../../utils/Server';
-import catchError from '../../utils/catchError';
-import { useAlert } from '../../hooks/useAlert';
 
 export interface FightComponentProps {
   fight: Fight | null;
@@ -267,39 +268,11 @@ const FightComponent = ({
 
   return (fight) ? (
     <>
-      <Tooltip
-        followCursor
+      <BruteTooltip
+        tooltipSx={{ borderRadius: 0, maxWidth: 200 }}
         open={tooltipOpen}
-        title={tooltipBrute ? (
-          <Box sx={{
-            '& p, & span': {
-              lineHeight: 1.2,
-              fontSize: 12,
-            },
-          }}
-          >
-            <Text bold>({tooltipBrute.level}) {tooltipBrute.name}</Text>
-            <Text>{t('strength')}: <Text component="span" bold>{tooltipBrute.strength}</Text></Text>
-            <Text>{t('agility')}: <Text component="span" bold>{tooltipBrute.agility}</Text></Text>
-            <Text>{t('speed')}: <Text component="span" bold>{tooltipBrute.speed}</Text></Text>
-            <Text sx={{ textTransform: 'capitalize' }}>{t('healthPoints')}: <Text component="span" bold>{tooltipBrute.hp}</Text></Text>
-            <Text>
-              <Text component="span" bold>{t('supers')}: </Text>
-              {tooltipBrute.skills.filter((s) => skills.find((_s) => _s.name === s)?.type === 'super').map((s) => t(s)).join(', ')}
-            </Text>
-            <Text>
-              <Text component="span" bold>{t('skills')}: </Text>
-              {tooltipBrute.skills.filter((s) => skills.find((_s) => _s.name === s)?.type !== 'super').map((s) => t(s)).join(', ')}
-            </Text>
-          </Box>
-        ) : null}
-        componentsProps={{
-          tooltip: {
-            sx: {
-              borderRadius: 0,
-            }
-          },
-        }}
+        fighter={tooltipBrute}
+        displaySkills
       >
         <Box
           ref={ref}
@@ -395,7 +368,7 @@ const FightComponent = ({
             </Tooltip>
           </Stack>
         </Box>
-      </Tooltip>
+      </BruteTooltip>
       {completed && brute1 && brute2 && (
         <Box sx={{
           ml: smallScreen ? 0 : 5,
