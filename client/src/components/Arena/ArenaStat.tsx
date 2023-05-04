@@ -21,7 +21,7 @@ const ArenaStat = ({
     <Box sx={{
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'space-between',
+      justifyContent: 'start',
       height: 14,
     }}
     >
