@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.27.3](https://github.com/Zenoo/labrute/compare/labrute-v2.27.2...labrute-v2.27.3) (2023-05-04)
+
+
+### Bug Fixes
+
+* Brute filters when special status are applied ([c728825](https://github.com/Zenoo/labrute/commit/c7288253588e4d87bb30d8e9c08f010e2b292542))
+* Brute tooltip display ([9c87b36](https://github.com/Zenoo/labrute/commit/9c87b366fea5728d778b23324ece011748ff5066))
+
 ## [2.27.2](https://github.com/Zenoo/labrute/compare/labrute-v2.27.1...labrute-v2.27.2) (2023-05-03)
 
 
