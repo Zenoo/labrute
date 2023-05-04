@@ -118,12 +118,14 @@ const hit = async (
 
   // Add poison filter if damage is poison
   if (step.action === 'poison') {
-    target.currentAnimation.filters = [new GlowFilter({
-      distance: 25,
-      innerStrength: 1,
-      outerStrength: 0,
-      color: 0x006400,
-    })];
+    target.currentAnimation.filters = [
+      ...target.currentAnimation.filters || [],
+      new GlowFilter({
+        distance: 25,
+        innerStrength: 1,
+        outerStrength: 0,
+        color: 0x006400,
+      })];
   }
 
   // Display floating and fading damage text
