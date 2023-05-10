@@ -49,6 +49,16 @@ const Brutes = {
     res: Response,
   ) => {
     try {
+      // Check `include` validity
+      if (req.body.include) {
+        if (req.body.include.tournaments
+          && typeof req.body.include.tournaments !== 'boolean'
+          && typeof req.body.include.tournaments.where?.date !== 'undefined'
+          && req.body.include.tournaments.where.date === null) {
+          throw new ExpectedError('Tournament date missing');
+        }
+      }
+
       const brute = await prisma.brute.findFirst({
         where: {
           ...req.body.where,
