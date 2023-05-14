@@ -1,5 +1,5 @@
 import { Language } from '@labrute/core';
-import { Paper, PaperProps } from '@mui/material';
+import { Box, Paper, PaperProps } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -44,17 +44,20 @@ const CellTournament = ({
     <>
       {/* CURRENT TOURNAMENT */}
       {!!brute.tournaments.length && (
-        <Link to={`/${brute.name}/tournament/${now.format('YYYY-MM-DD')}`}>
-          <FantasyButton
-            color="warning"
-            sx={{ my: 1 }}
-          >
-            {t('tournament')}
-          </FantasyButton>
-        </Link>
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          <Link to={`/${brute.name}/tournament/${now.format('YYYY-MM-DD')}`}>
+            <FantasyButton
+              color="warning"
+              sx={{ my: 1 }}
+            >
+              {t('tournament')}
+            </FantasyButton>
+          </Link>
+        </Box>
       )}
       {/* NEXT TOURNAMENT (Only displayed if you can't rank up and if you have watched your daily tournament) */}
-      {!brute.canRankUpSince
+      {
+        !brute.canRankUpSince
         && (!moment.utc(brute.currentTournamentDate).isSame(moment.utc(), 'day') || brute.currentTournamentStepWatched === 6)
         && (
           <Paper
@@ -87,7 +90,8 @@ const CellTournament = ({
               />
             )}
           </Paper>
-        )}
+        )
+      }
     </>
   );
 };
