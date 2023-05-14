@@ -865,7 +865,13 @@ const Brutes = {
           canRankUpSince: null,
           // Reset destiny
           destinyPath: [],
-          // Reset fights left
+        },
+      });
+
+      // Reset fights left
+      brute = await prisma.brute.update({
+        where: { id: brute.id },
+        data: {
           fightsLeft: getMaxFightsPerDay(brute),
         },
       });
