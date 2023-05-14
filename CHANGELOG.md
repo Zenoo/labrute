@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.27.4](https://github.com/Zenoo/labrute/compare/labrute-v2.27.3...labrute-v2.27.4) (2023-05-14)
+
+
+### Bug Fixes
+
+* 3 new achievement icons. [#196](https://github.com/Zenoo/labrute/issues/196) ([856658c](https://github.com/Zenoo/labrute/commit/856658cd185e8599407357cebf4d2f01e167518a))
+* Check brute getter parameters before querying ([b894eef](https://github.com/Zenoo/labrute/commit/b894eef76a90596c5c21aa28645a0ba3d22ffaed))
+* Tournament button effective width ([7cb188f](https://github.com/Zenoo/labrute/commit/7cb188ff289563fc38ef3d83b8687de8a586176e))
+* Wrong fights left after rank up with regeneration ([4124569](https://github.com/Zenoo/labrute/commit/412456902269c62477df65fe2f5dd0e0bfbf8610))
+
 ## [2.27.3](https://github.com/Zenoo/labrute/compare/labrute-v2.27.2...labrute-v2.27.3) (2023-05-04)
 
 
