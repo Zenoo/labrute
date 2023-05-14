@@ -73,7 +73,7 @@ export const AchievementData: Record<
   },
   evade4b2b: {
     rarety: AchievementRarety.uncommon,
-    illustration: 'r_goodg.gif',
+    illustration: 'evade4b2b.svg',
   },
   disarm4: {
     rarety: AchievementRarety.uncommon,
@@ -217,7 +217,7 @@ export const AchievementData: Record<
   },
   herculeanStrength: {
     rarety: AchievementRarety.common,
-    illustration: 'r_armag.gif',
+    illustration: 'herculeanStrength.svg',
   },
   felineAgility: {
     rarety: AchievementRarety.common,
@@ -324,7 +324,7 @@ export const AchievementData: Record<
   },
   winAgainst2: {
     rarety: AchievementRarety.uncommon,
-    illustration: 'r_winthi.gif',
+    illustration: 'winAgainst2.svg',
   },
   winAgainst3: {
     rarety: AchievementRarety.rare,
