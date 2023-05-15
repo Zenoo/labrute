@@ -225,6 +225,7 @@ export const AchievementData: Record<
   },
   lightningBolt: {
     rarety: AchievementRarety.common,
+    illustration: 'lightningBolt.svg',
   },
   vitality: {
     rarety: AchievementRarety.common,
