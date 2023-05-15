@@ -32,7 +32,7 @@ export const AchievementData: Record<
     illustration: 'defeats.svg',
   },
   flawless: {
-    rarety: AchievementRarety.epic,
+    rarety: AchievementRarety.rare,
     illustration: 'flawless.svg',
   },
   winWith1HP: {
