@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.28.0](https://github.com/Zenoo/labrute/compare/labrute-v2.27.4...labrute-v2.28.0) (2023-05-15)
+
+
+### Features
+
+* Admin panel with brute edition. Fixes [#143](https://github.com/Zenoo/labrute/issues/143) ([e8414de](https://github.com/Zenoo/labrute/commit/e8414deb383829358443f110b6f88ce6721c58f9))
+
+
+### Bug Fixes
+
+* Added 1 achievement icon. [#196](https://github.com/Zenoo/labrute/issues/196) ([cfe358e](https://github.com/Zenoo/labrute/commit/cfe358ebff5ee41a5f19d176df64665c596c5529))
+* Flawless achievement rarity decreased. [#196](https://github.com/Zenoo/labrute/issues/196) ([fb8a5c8](https://github.com/Zenoo/labrute/commit/fb8a5c80fa8df0e220e6b7e3846e637c4538c279))
+* Global tournament start at 08:00 ([9cfbdf7](https://github.com/Zenoo/labrute/commit/9cfbdf7a1fe25111c95837a6d72a7b9ae1dc7afe))
+
 ## [2.27.4](https://github.com/Zenoo/labrute/compare/labrute-v2.27.3...labrute-v2.27.4) (2023-05-14)
 
 
