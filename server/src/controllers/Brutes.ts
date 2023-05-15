@@ -1011,6 +1011,49 @@ const Brutes = {
       sendError(res, error);
     }
   },
+  adminUpdate: (prisma: PrismaClient) => async (
+    req: Request<{ name: string }, unknown, Prisma.BruteUncheckedUpdateInput>,
+    res: Response,
+  ) => {
+    try {
+      const { params: { name } } = req;
+
+      const user = await auth(prisma, req);
+
+      if (!user.admin) {
+        throw new Error('Unauthorized');
+      }
+
+      if (!name) {
+        throw new Error('Missing name');
+      }
+
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name,
+          deletedAt: null,
+        },
+      });
+
+      if (!brute) {
+        throw new Error('Brute not found');
+      }
+
+      // Update the brute
+      await prisma.brute.update({
+        where: { id: brute.id },
+        data: {
+          ...req.body,
+        },
+      });
+
+      res.send({
+        success: true,
+      });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
 };
 
 export default Brutes;

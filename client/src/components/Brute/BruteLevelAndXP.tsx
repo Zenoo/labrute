@@ -32,7 +32,7 @@ const BruteLevelAndXP = ({
           <Box sx={{
             bgcolor: 'level',
             height: 3,
-            width: limitedXP / xpNeededForNextLevel
+            width: Math.max(0, limitedXP) / xpNeededForNextLevel,
           }}
           />
         </Box>

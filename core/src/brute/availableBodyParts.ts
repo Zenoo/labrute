@@ -43,6 +43,6 @@ const availableBodyParts: { male: Omit<BruteBody, 'id' | 'bruteId'>, female: Omi
     lowerLeftArm: 1,
     leftShoulder: 1,
   },
-};
+} as const;
 
 export default availableBodyParts;

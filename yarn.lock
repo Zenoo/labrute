@@ -2497,6 +2497,7 @@ __metadata:
     "@labrute/prisma": "workspace:*"
     "@mui/icons-material": ^5.11.0
     "@mui/material": ^5.11.5
+    "@mui/x-date-pickers": ^6.4.0
     "@pixi/filter-bevel": ^4.2.0
     "@pixi/filter-color-overlay": ^4.2.0
     "@pixi/filter-glow": ^4.2.0
@@ -2806,6 +2807,69 @@ __metadata:
   peerDependencies:
     react: ^17.0.0 || ^18.0.0
   checksum: 268ac11cfcf5acc90137502f1fb999c4b5a4a05b00769056f48a15c9aa0c358b2ce93655c04929136282ed2f3b8b0a62d12653449c3463ed4b79723764ab6d71
+  languageName: node
+  linkType: hard
+
+"@mui/utils@npm:^5.12.3":
+  version: 5.12.3
+  resolution: "@mui/utils@npm:5.12.3"
+  dependencies:
+    "@babel/runtime": ^7.21.0
+    "@types/prop-types": ^15.7.5
+    "@types/react-is": ^16.7.1 || ^17.0.0
+    prop-types: ^15.8.1
+    react-is: ^18.2.0
+  peerDependencies:
+    react: ^17.0.0 || ^18.0.0
+  checksum: bec2d8e173805e2a7446aa4fa7a3119d96a62787b685dbf59908f337daec922fa74a54bc60038cf1269621aebb7b61e7a52caa4ac4daa0140c5e290adce20160
+  languageName: node
+  linkType: hard
+
+"@mui/x-date-pickers@npm:^6.4.0":
+  version: 6.4.0
+  resolution: "@mui/x-date-pickers@npm:6.4.0"
+  dependencies:
+    "@babel/runtime": ^7.21.0
+    "@mui/utils": ^5.12.3
+    "@types/react-transition-group": ^4.4.5
+    clsx: ^1.2.1
+    prop-types: ^15.8.1
+    react-transition-group: ^4.4.5
+  peerDependencies:
+    "@emotion/react": ^11.9.0
+    "@emotion/styled": ^11.8.1
+    "@mui/base": ^5.0.0-alpha.87
+    "@mui/material": ^5.8.6
+    "@mui/system": ^5.8.0
+    date-fns: ^2.25.0
+    date-fns-jalali: ^2.13.0-0
+    dayjs: ^1.10.7
+    luxon: ^3.0.2
+    moment: ^2.29.4
+    moment-hijri: ^2.1.2
+    moment-jalaali: ^0.7.4 || ^0.8.0 || ^0.9.0 || ^0.10.0
+    react: ^17.0.2 || ^18.0.0
+    react-dom: ^17.0.2 || ^18.0.0
+  peerDependenciesMeta:
+    "@emotion/react":
+      optional: true
+    "@emotion/styled":
+      optional: true
+    date-fns:
+      optional: true
+    date-fns-jalali:
+      optional: true
+    dayjs:
+      optional: true
+    luxon:
+      optional: true
+    moment:
+      optional: true
+    moment-hijri:
+      optional: true
+    moment-jalaali:
+      optional: true
+  checksum: 5bcdcbe00dac6fd0a0dd2cb401743fdc6d2f862dd934da1c64e34e1b4992b0c56e2e173cd65ae09dd923cb8251499ff580171ee80cf246f037ef7e66869848f2
   languageName: node
   linkType: hard
 

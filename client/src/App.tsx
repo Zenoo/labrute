@@ -8,6 +8,8 @@ import { AuthProvider } from './hooks/useAuth';
 import { ConfirmProvider } from './hooks/useConfirm';
 import routes from './routes';
 import light from './theme/light';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 
 /**
  * App entry point
@@ -17,22 +19,24 @@ const App = () => {
   const routing = useRoutes(routes);
 
   return (
-    <HelmetProvider>
-      <CssBaseline />
-      <AlertProvider>
-        <AuthProvider>
-          <StyledEngineProvider injectFirst>
-            <ThemeProvider theme={light}>
-              <ConfirmProvider>
-                <Suspense fallback={<Loader />}>
-                  {routing}
-                </Suspense>
-              </ConfirmProvider>
-            </ThemeProvider>
-          </StyledEngineProvider>
-        </AuthProvider>
-      </AlertProvider>
-    </HelmetProvider>
+    <LocalizationProvider dateAdapter={AdapterMoment}>
+      <HelmetProvider>
+        <CssBaseline />
+        <AlertProvider>
+          <AuthProvider>
+            <StyledEngineProvider injectFirst>
+              <ThemeProvider theme={light}>
+                <ConfirmProvider>
+                  <Suspense fallback={<Loader />}>
+                    {routing}
+                  </Suspense>
+                </ConfirmProvider>
+              </ThemeProvider>
+            </StyledEngineProvider>
+          </AuthProvider>
+        </AlertProvider>
+      </HelmetProvider>
+    </LocalizationProvider>
   );
 };
 
