@@ -16,10 +16,12 @@ import TournamentHistoryView from './views/TournamentHistoryView';
 import GlobalTournamentView from './views/GlobalTournamentView';
 import AchievementsView from './views/AchievementsView';
 import WeaponAnchorTestView from './views/WeaponAnchorTestView';
+import ShieldAnchorTestView from './views/ShieldAnchorTestView';
 
 const routes = [
   { path: 'anchor-test', element: <AnchorTestView /> },
   { path: 'weapon-anchor-test', element: <WeaponAnchorTestView /> },
+  { path: 'shield-anchor-test', element: <ShieldAnchorTestView /> },
   {
     path: '/',
     element: <Main />,
