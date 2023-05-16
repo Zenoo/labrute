@@ -1223,15 +1223,18 @@ export const playFighterTurn = (
 
   // Melee attack
   if (attackType === 'melee') {
+    const countered = !opponent.trapped && counterAttack(fighter, opponent);
+
     // Add moveTo step
     fightData.steps.push({
       action: 'moveTo',
       fighter: stepFighter(fighter),
       target: stepFighter(opponent),
+      countered,
     });
 
     // Check if opponent is not trapped and countered
-    if (!opponent.trapped && counterAttack(fighter, opponent)) {
+    if (countered) {
       // Update counter stat
       updateStats(stats, opponent.id, 'consecutiveCounters', 1);
       checkAchievements(stats, achievements);

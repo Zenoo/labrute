@@ -1,10 +1,11 @@
 /* eslint-disable no-void */
-import { MoveStep } from '@labrute/core';
+import { FIGHTER_WIDTH, MoveStep, weapons } from '@labrute/core';
 import { Easing, Tweener } from 'pixi-tweener';
 import { Application } from 'pixi.js';
 import changeAnimation from './changeAnimation';
 import findFighter, { AnimationFighter } from './findFighter';
 import { sound } from '@pixi/sound';
+import getFighterType from './getFighterType';
 
 const moveTo = async (
   app: Application,
@@ -32,6 +33,32 @@ const moveTo = async (
     });
   }
 
+  const targetX = target.container.x;
+  let modifier = 0;
+
+  // Same space
+  if (step.sameSpace) {
+    modifier = 20;
+  }
+
+  // Weapon reach
+  if (!step.sameSpace) {
+    // Adjust for fighter width
+    modifier += FIGHTER_WIDTH[getFighterType(target)];
+
+    let reach = 0;
+
+    // Countered, take opponent weapon reach into account
+    if (step.countered) {
+      reach = weapons.find((w) => w.name === target.activeWeapon?.name)?.reach || 0;
+    } else {
+      // Take fighter weapon reach into account
+      reach = weapons.find((w) => w.name === fighter.activeWeapon?.name)?.reach || 0;
+    }
+
+    modifier += reach * 16;
+  }
+
   // Move fighter to the position
   await Tweener.add({
     target: fighter.container,
@@ -39,14 +66,8 @@ const moveTo = async (
     ease: Easing.linear
   }, {
     x: target.team === 'right'
-      ? target.container.x
-      - (step.sameSpace
-        ? 20
-        : (target.currentAnimation.width / 2 + fighter.currentAnimation.width / 2))
-      : target.container.x
-      + (step.sameSpace
-        ? 20
-        : (target.currentAnimation.width / 2 + fighter.currentAnimation.width / 2)),
+      ? targetX - modifier
+      : targetX + modifier,
     y: target.container.y,
   });
 
