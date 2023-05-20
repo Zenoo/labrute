@@ -329,11 +329,11 @@ export const AchievementData: Record<
   },
   winAgainst3: {
     rarety: AchievementRarety.rare,
-    illustration: 'r_winthi.gif',
+    illustration: 'winAgainst3.svg',
   },
   winAgainst4: {
     rarety: AchievementRarety.epic,
-    illustration: 'r_winthi.gif',
+    illustration: 'winAgainst4.svg',
   },
   winAsLower: {
     rarety: AchievementRarety.rare,
@@ -341,7 +341,7 @@ export const AchievementData: Record<
   },
   win: {
     rarety: AchievementRarety.uncommon,
-    illustration: 'r_wintop.gif',
+    illustration: 'win.svg',
   },
   rankUp10: {
     rarety: AchievementRarety.uncommon,
@@ -378,7 +378,7 @@ export const AchievementData: Record<
   },
   sacrifice: {
     rarety: AchievementRarety.common,
-    illustration: 'r_cgarb.gif',
+    illustration: 'sacrifice.svg',
   },
   beta: {
     rarety: AchievementRarety.legendary,
