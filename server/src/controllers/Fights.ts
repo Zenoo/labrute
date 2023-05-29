@@ -1,6 +1,7 @@
-import { ExpectedError, getFightsLeft } from '@labrute/core';
-import { Prisma, PrismaClient } from '@labrute/prisma';
+import { ExpectedError, GLOBAL_TOURNAMENT_START_HOUR, getFightsLeft } from '@labrute/core';
+import { Prisma, PrismaClient, TournamentType } from '@labrute/prisma';
 import { Request, Response } from 'express';
+import moment from 'moment';
 import auth from '../utils/auth.js';
 import getOpponents from '../utils/brute/getOpponents.js';
 import DiscordUtils from '../utils/DiscordUtils.js';
@@ -29,7 +30,25 @@ const Fights = {
         throw new ExpectedError('Fight not found');
       }
 
-      res.send(fight);
+      // Limit viewing if the fight is from a global tournament round not yet reached
+      const tournamentStep = await prisma.tournamentStep.findFirst({
+        where: {
+          tournament: {
+            type: TournamentType.GLOBAL,
+            date: { gte: new Date() },
+          },
+          fightId: fight.id,
+        },
+      });
+
+      const now = moment.utc();
+      const hour = now.hour();
+
+      if (tournamentStep && tournamentStep.step > hour - GLOBAL_TOURNAMENT_START_HOUR + 1) {
+        throw new ExpectedError('Fight unavailable for now');
+      } else {
+        res.send(fight);
+      }
     } catch (error) {
       sendError(res, error);
     }
