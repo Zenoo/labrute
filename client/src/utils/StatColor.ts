@@ -4,6 +4,7 @@ const StatColor: Record<FightStat, string> = {
   [FightStat.REVERSAL]: '#8fbc8f',
   [FightStat.COUNTER]: '#daa520',
   [FightStat.EVASION]: '#17a717',
+  [FightStat.SWIFTNESS]: '#ffb6c1',
   [FightStat.BLOCK]: '#8686ff',
   [FightStat.ACCURACY]: '#808080',
   [FightStat.DISARM]: '#ff70ff',

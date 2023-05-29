@@ -881,7 +881,7 @@ const evade = (fighter: DetailedFighter, opponent: DetailedFighter, difficulty =
         + (opponent.activeWeapon?.evasion || 0)
         + agilityDifference * 0.01
         - fighter.accuracy
-        - (fighter.activeWeapon?.accuracy || 0)),
+        - (fighter.activeWeapon?.swiftness || 0)),
       0.9,
     );
 };

@@ -108,6 +108,14 @@ const WeaponTooltip = ({
               % {t('evasion')}
             </Text>
           )}
+          {/* SWIFTNESS */}
+          {!!weapon.swiftness && (
+            <Text typo="Blocky" sx={{ color: StatColor.swiftness, textShadow }}>
+              {weapon.swiftness > 0 && '+'}
+              {Math.round(weapon.swiftness * 100)}
+              % {t('swiftness')}
+            </Text>
+          )}
           {/* BLOCK */}
           {!!weapon.block && (
             <Text typo="Blocky" sx={{ color: StatColor.block, textShadow }}>
