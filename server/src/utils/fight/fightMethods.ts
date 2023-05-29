@@ -146,11 +146,22 @@ export const getOpponents = (
   return opponents;
 };
 
-const getRandomOpponent = (fightData: DetailedFight['data'], fighter: DetailedFighter, bruteOnly?: boolean, petOnly?: boolean) => {
+const getRandomOpponent = (
+  fightData: DetailedFight['data'],
+  fighter: DetailedFighter,
+  bruteOnly?: boolean,
+  petOnly?: boolean,
+  nonTrappedOnly?: boolean,
+) => {
   let opponents = getOpponents(fightData, fighter, bruteOnly, petOnly);
 
   // Filter out trapped pets
   opponents = opponents.filter((f) => f.type !== 'pet' || !f.trapped);
+
+  if (nonTrappedOnly) {
+    // Filter out trapped brutes
+    opponents = opponents.filter((f) => !f.trapped);
+  }
 
   const random = randomBetween(0, opponents.length - 1);
 
@@ -186,6 +197,12 @@ const randomlyGetSuper = (fightData: DetailedFight['data'], brute: DetailedFight
   // Filter out flashFlood if less than 3 weapons
   if (brute.weapons.length < 3) {
     supers = supers.filter((skill) => skill.name !== 'flashFlood');
+  }
+
+  // Filter out net if no available pet and no non-trapped fighter
+  if (getOpponents(fightData, brute, false, true).length === 0
+    && getOpponents(fightData, brute, true).filter((b) => !b.trapped).length === 0) {
+    supers = supers.filter((skill) => skill.name !== 'net');
   }
 
   if (!supers.length) return null;
@@ -435,7 +452,7 @@ const activateSuper = (
 
       if (!opponent) {
         // Choose brute opponent if no pet
-        opponent = getRandomOpponent(fightData, fighter, true);
+        opponent = getRandomOpponent(fightData, fighter, true, false, true);
       }
 
       // Set opponent's trapped status
