@@ -4,7 +4,7 @@ import { GlowFilter } from '@pixi/filter-glow';
 import { AnimatedSprite, Application, Sprite } from 'pixi.js';
 import { AnimationFighter } from './findFighter';
 import setupSprite from './setupSprite';
-import { updateWeaponFrame } from './updateWeapons';
+import { updateShieldFrame, updateWeaponFrame } from './updateWeapons';
 import { BevelFilter } from '@pixi/filter-bevel';
 import { Easing, Tweener } from 'pixi-tweener';
 
@@ -54,18 +54,27 @@ const getSprite = (
     updateWeaponFrame(fighter);
   }
 
-  if (newAnimation instanceof AnimatedSprite) {
-    // Setup weapon frame change on animation frame change
-    newAnimation.onFrameChange = () => {
-      if (fighter.activeWeapon?.sprite) {
-        updateWeaponFrame(fighter);
-      }
-    };
+  // Update shield frame
+  if (fighter.activeShield?.sprite) {
+    updateShieldFrame(fighter);
   }
 
-  // Play new animation
-  if ((newAnimation as AnimatedSprite).play) {
-    (newAnimation as AnimatedSprite).play();
+  if (newAnimation instanceof AnimatedSprite) {
+    // Setup weapon and shield frame change on animation frame change
+    newAnimation.onFrameChange = () => {
+      if (app.ticker?.started) {
+        if (fighter.activeWeapon?.sprite) {
+          updateWeaponFrame(fighter);
+        }
+
+        if (fighter.activeShield?.sprite) {
+          updateShieldFrame(fighter);
+        }
+      }
+    };
+
+    // Play new animation
+    newAnimation.play();
   }
 };
 

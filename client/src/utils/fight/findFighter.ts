@@ -11,7 +11,10 @@ export interface AnimationFighter extends Fighter {
     illustration: PIXI.Sprite | null,
     sprite: PIXI.Sprite | null,
   }) | null;
-  shieldIllustration: PIXI.Sprite | null;
+  activeShield: {
+    illustration: PIXI.Sprite | null,
+    sprite: PIXI.Sprite | null,
+  } | null;
   hpBar?: PIXI.Graphics;
   hpBarPhantom?: PIXI.Graphics;
   weaponsIllustrations: PIXI.Sprite[];

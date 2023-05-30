@@ -114,11 +114,22 @@ const translateFightStep = (fightStep: FightStep, t: TFunction) => {
         brute: getFighterName(fightStep.brute, t),
         name: t(fightStep.name),
       });
-    case 'attemptHit':
-      return t(`fight.step.${fightStep.action}`, {
+    case 'attemptHit': {
+      let text = t(`fight.step.${fightStep.action}`, {
         fighter: getFighterName(fightStep.fighter, t),
         target: getFighterName(fightStep.target, t),
       });
+
+      if (fightStep.brokeShield) {
+        text += ' ';
+        text += t('fight.step.break', {
+          fighter: getFighterName(fightStep.fighter, t),
+          opponent: getFighterName(fightStep.target, t),
+        });
+      }
+
+      return text;
+    }
     case 'block':
       return t(`fight.step.${fightStep.action}`, {
         fighter: getFighterName(fightStep.fighter, t),
@@ -126,11 +137,6 @@ const translateFightStep = (fightStep: FightStep, t: TFunction) => {
     case 'evade':
       return t(`fight.step.${fightStep.action}`, {
         fighter: getFighterName(fightStep.fighter, t),
-      });
-    case 'break':
-      return t(`fight.step.${fightStep.action}`, {
-        fighter: getFighterName(fightStep.fighter, t),
-        opponent: getFighterName(fightStep.opponent, t),
       });
     case 'sabotage':
       return t(`fight.step.${fightStep.action}`, {

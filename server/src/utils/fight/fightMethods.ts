@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 import {
   AchievementsStore,
+  AttemptHitStep,
   BARE_HANDS_TEMPO, DetailedFight, DetailedFighter, LeaveStep,
   randomBetween, SHIELD_BLOCK_ODDS, Skill, StepFighter, updateAchievement, Weapon,
 } from '@labrute/core';
@@ -947,16 +948,26 @@ const attack = (
   // Get damage
   let damage = getDamage(fighter, opponent, fighter.activeWeapon || undefined);
 
+  const blocked = block(opponent, fighter);
+  const evaded = evade(fighter, opponent);
+  const brokeShield = breakShield(fighter, opponent);
+
   // Add attempt step
-  fightData.steps.push({
+  const attemptStep: AttemptHitStep = {
     action: 'attemptHit',
     fighter: stepFighter(fighter),
     target: stepFighter(opponent),
     weapon: fighter.activeWeapon?.name || null,
-  });
+  };
+
+  if (!evaded && brokeShield) {
+    attemptStep.brokeShield = true;
+  }
+
+  fightData.steps.push(attemptStep);
 
   // Check if opponent blocked
-  if (block(fighter, opponent)) {
+  if (blocked) {
     damage = 0;
 
     // Add block step
@@ -987,7 +998,6 @@ const attack = (
   }
 
   // Check if opponent evaded
-  const evaded = evade(fighter, opponent);
   if (damage && evaded) {
     damage = 0;
 
@@ -1010,13 +1020,6 @@ const attack = (
     // Remove shield from opponent
     opponent.shield = false;
     opponent.block -= SHIELD_BLOCK_ODDS;
-
-    // Add break step
-    fightData.steps.push({
-      action: 'break',
-      fighter: stepFighter(fighter),
-      opponent: stepFighter(opponent),
-    });
   }
 
   // Check if the fighter sabotages an opponent's weapon

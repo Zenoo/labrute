@@ -4,9 +4,11 @@
 import { Fighter, FightStep, randomBetween } from '@labrute/core';
 import { Fight } from '@labrute/prisma';
 import { Theme } from '@mui/material';
+import { ColorOverlayFilter } from '@pixi/filter-color-overlay';
 import { GlowFilter } from '@pixi/filter-glow';
 import { OutlineFilter } from '@pixi/filter-outline';
 import { sound } from '@pixi/sound';
+import { TFunction } from 'i18next';
 import { Easing, Tweener } from 'pixi-tweener';
 import * as PIXI from 'pixi.js';
 import { AnimatedSprite } from 'pixi.js';
@@ -14,7 +16,6 @@ import arrive from './arrive';
 import attemptHit from './attemptHit';
 import block from './block';
 import bomb from './bomb';
-import breakShield from './break';
 import death from './death';
 import disarm from './disarm';
 import eat from './eat';
@@ -22,6 +23,8 @@ import end from './end';
 import equip from './equip';
 import evade from './evade';
 import { AnimationFighter } from './findFighter';
+import flashFlood from './flashFlood';
+import hammer from './hammer';
 import heal from './heal';
 import hit from './hit';
 import hypnotise from './hypnotise';
@@ -40,10 +43,6 @@ import throwWeapon from './throwWeapon';
 import trap from './trap';
 import trash from './trash';
 import updateWeapons, { updateActiveWeapon } from './updateWeapons';
-import hammer from './hammer';
-import flashFlood from './flashFlood';
-import { TFunction } from 'i18next';
-import { ColorOverlayFilter } from '@pixi/filter-color-overlay';
 
 const backgrounds = [
   'background/1.jpg',
@@ -321,7 +320,7 @@ const setupFight: (
         : fighter.id === brute1.id ? brute1PhantomHpBar : brute2PhantomHpBar,
       weaponsIllustrations: [],
       activeEffects: [],
-      shieldIllustration: null,
+      activeShield: null,
     };
 
     // Update brute weapons
@@ -473,10 +472,6 @@ const setupFight: (
       }
       case 'bomb': {
         await bomb(app, fighters, step, speed);
-        break;
-      }
-      case 'break': {
-        breakShield(app, fighters, step);
         break;
       }
       case 'counter': {

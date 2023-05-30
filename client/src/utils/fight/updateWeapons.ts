@@ -1,12 +1,12 @@
 /* eslint-disable no-param-reassign */
-import { Animation, WEAPON_ANCHOR, WEAPON_ANIMATIONS, weapons } from '@labrute/core';
+import { Animation, SHIELD_ANCHOR, SHIELD_ANIMATIONS, WEAPON_ANCHOR, WEAPON_ANIMATIONS, weapons } from '@labrute/core';
 import { Gender, WeaponName } from '@labrute/prisma';
+import { BevelFilter } from '@pixi/filter-bevel';
+import { GlowFilter } from '@pixi/filter-glow';
 import { OutlineFilter } from '@pixi/filter-outline';
+import * as PIXI from 'pixi.js';
 import { AnimatedSprite, Application, Sprite } from 'pixi.js';
 import { AnimationFighter } from './findFighter';
-import { GlowFilter } from '@pixi/filter-glow';
-import * as PIXI from 'pixi.js';
-import { BevelFilter } from '@pixi/filter-bevel';
 
 export const updateWeaponFrame = (
   brute: AnimationFighter,
@@ -34,6 +34,35 @@ export const updateWeaponFrame = (
     sprite.angle = spriteData.rotation;
     sprite.visible = true;
     sprite.zIndex = spriteData.behind ? -1 : 1;
+  }
+};
+
+export const updateShieldFrame = (
+  brute: AnimationFighter,
+) => {
+  const sprite = brute.activeShield?.sprite;
+  if (!sprite) return;
+  if (sprite.destroyed) return;
+
+  const spriteData = SHIELD_ANIMATIONS[
+    brute.gender || Gender.male
+  ][
+    brute.currentAnimation.name as Animation
+  ]?.[
+    (brute.currentAnimation as AnimatedSprite)?.currentFrame || 0
+  ];
+
+  if (!spriteData) {
+    sprite.x = 0;
+    sprite.y = 0;
+    sprite.angle = 0;
+    sprite.visible = false;
+  } else {
+    [sprite.x] = spriteData.anchor;
+    [, sprite.y] = spriteData.anchor;
+    sprite.angle = spriteData.rotation;
+    sprite.visible = true;
+    sprite.zIndex = 1;
   }
 };
 
@@ -117,8 +146,8 @@ export const updateActiveWeapon = (
     if (brute.activeWeapon) {
       activeItems.push(brute.activeWeapon.illustration);
     }
-    if (brute.shieldIllustration) {
-      activeItems.push(brute.shieldIllustration);
+    if (brute.activeShield) {
+      activeItems.push(brute.activeShield.illustration);
     }
 
     // Remove everything
@@ -151,10 +180,36 @@ export const updateActiveWeapon = (
       })];
       app.stage.addChild(sprite);
 
-      brute.shieldIllustration = sprite;
+      if (brute.activeShield) {
+        brute.activeShield.illustration = sprite;
+      }
+    }
+
+    // Add shield
+    if (!brute.activeShield?.sprite) {
+      const texture = spritesheet.textures['shield.png'];
+      texture.baseTexture.scaleMode = PIXI.SCALE_MODES.LINEAR;
+      const realSprite = new Sprite(texture);
+      realSprite.filters = [new BevelFilter()];
+      realSprite.anchor.x = SHIELD_ANCHOR.x;
+      realSprite.anchor.y = SHIELD_ANCHOR.y;
+      realSprite.visible = false;
+      brute.container.addChild(realSprite);
+
+      updateShieldFrame(brute);
+
+      brute.activeShield = {
+        illustration: sprite,
+        sprite: realSprite,
+      };
     }
   } else {
-    brute.shieldIllustration = null;
+    // Destroy sprite
+    if (brute.activeShield?.sprite) {
+      brute.activeShield.sprite.destroy();
+    }
+
+    brute.activeShield = null;
   }
 
   // Active weapon

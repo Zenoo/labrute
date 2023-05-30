@@ -30,8 +30,16 @@ const trash = async (
   changeAnimation(app, brute, 'trash', speed);
   (brute.currentAnimation as AnimatedSprite).animationSpeed = 0.5;
 
+  // Keep old onFrameChange
+  const oldOnFrameChange = (brute.currentAnimation as AnimatedSprite).onFrameChange;
+
   // Listen to 4th frame
   (brute.currentAnimation as AnimatedSprite).onFrameChange = (frame) => {
+    // Call old onFrameChange
+    if (oldOnFrameChange) {
+      oldOnFrameChange(frame);
+    }
+
     if (frame === 3) {
       // Create trashed weapon sprite
       const trashedWeapon = new Sprite(spritesheet.textures[`${step.name}.png`]);

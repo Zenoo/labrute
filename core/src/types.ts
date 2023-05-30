@@ -227,6 +227,7 @@ export interface AttemptHitStep {
   fighter: StepFighter;
   target: StepFighter;
   weapon: WeaponName | null;
+  brokeShield?: boolean;
 }
 
 export interface BlockStep {
@@ -237,12 +238,6 @@ export interface BlockStep {
 export interface EvadeStep {
   action: 'evade';
   fighter: StepFighter;
-}
-
-export interface BreakStep {
-  action: 'break';
-  fighter: StepFighter;
-  opponent: StepFighter;
 }
 
 export interface SabotageStep {
@@ -300,7 +295,7 @@ export type FightStep = SaboteurStep | LeaveStep | ArriveStep
   | TrashStep | StealStep | TrapStep | HealStep | ResistStep
   | SurviveStep | HitStep | BombStep | HypnotiseStep | MoveStep | EatStep
   | MoveBackStep | EquipStep | AttemptHitStep | BlockStep | EvadeStep
-  | BreakStep | SabotageStep | DisarmStep | DeathStep | ThrowStep | EndStep
+  | SabotageStep | DisarmStep | DeathStep | ThrowStep | EndStep
   | CounterStep | SkillActivateStep | SkillExpireStep;
 
 export interface DetailedFight {
