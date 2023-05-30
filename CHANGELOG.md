@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.29.0](https://github.com/Zenoo/labrute/compare/labrute-v2.28.0...labrute-v2.29.0) (2023-05-30)
+
+
+### Features
+
+* Male shield animations. [#270](https://github.com/Zenoo/labrute/issues/270) ([e47fa30](https://github.com/Zenoo/labrute/commit/e47fa30ec655e4e8e95ac4a4a134f4009355cd9e))
+* New `swiftness` weapon stat. Fixes [#290](https://github.com/Zenoo/labrute/issues/290) ([abea8ad](https://github.com/Zenoo/labrute/commit/abea8ad4068e2eb66545ce1ca60e51fd5fb8fed4))
+
+
+### Bug Fixes
+
+* Disallow viewing fights from next tournament rounds. Fixes [#287](https://github.com/Zenoo/labrute/issues/287) ([27f5d9c](https://github.com/Zenoo/labrute/commit/27f5d9c7f91bc5820d9612eb2d43bb8942548401))
+* New achievement icons. [#196](https://github.com/Zenoo/labrute/issues/196) ([1a502cb](https://github.com/Zenoo/labrute/commit/1a502cb72cf62b7f14a960b9a470d688fb6aec1a))
+* Prevent double net on the same brute. Fixes [#288](https://github.com/Zenoo/labrute/issues/288) ([d81ec66](https://github.com/Zenoo/labrute/commit/d81ec66012d8c6cc0ee02433b1d2f7620e902282))
+* Typo ([a64dbb1](https://github.com/Zenoo/labrute/commit/a64dbb14120ebd556c7d0d7bdf56020ebe544588))
+* Use weapon reach for brute moves. Fixes [#250](https://github.com/Zenoo/labrute/issues/250) ([188a399](https://github.com/Zenoo/labrute/commit/188a399f210b992fc223b3a2f715a82a5c561a82))
+
 ## [2.28.0](https://github.com/Zenoo/labrute/compare/labrute-v2.27.4...labrute-v2.28.0) (2023-05-15)
 
 
