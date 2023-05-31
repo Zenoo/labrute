@@ -948,7 +948,7 @@ const attack = (
   // Get damage
   let damage = getDamage(fighter, opponent, fighter.activeWeapon || undefined);
 
-  const blocked = block(opponent, fighter);
+  const blocked = block(fighter, opponent);
   const evaded = evade(fighter, opponent);
   const brokeShield = breakShield(fighter, opponent);
 
