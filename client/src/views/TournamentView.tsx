@@ -94,6 +94,9 @@ const TournamentView = () => {
     // Sixth round
     result[5] = tournament.steps.filter((step) => step.step === 63);
 
+    // Order every round by step low to high
+    result.forEach((round) => round.sort((a, b) => a.step - b.step));
+
     return result;
   }, [tournament]);
 
