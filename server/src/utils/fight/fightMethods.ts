@@ -1016,7 +1016,7 @@ const attack = (
   }
 
   // Check if opponent's shield was broken
-  if (!evaded && breakShield(fighter, opponent)) {
+  if (!evaded && brokeShield) {
     // Remove shield from opponent
     opponent.shield = false;
     opponent.block -= SHIELD_BLOCK_ODDS;
