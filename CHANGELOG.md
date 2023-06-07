@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.29.2](https://github.com/Zenoo/labrute/compare/labrute-v2.29.1...labrute-v2.29.2) (2023-06-07)
+
+
+### Bug Fixes
+
+* Display achievements when logged out. Fixes [#294](https://github.com/Zenoo/labrute/issues/294) ([23739d2](https://github.com/Zenoo/labrute/commit/23739d2bf9b426ffeef8fe4c461aec7968bdee38))
+* Multiple shield breaks. Fixes [#297](https://github.com/Zenoo/labrute/issues/297) ([9c78266](https://github.com/Zenoo/labrute/commit/9c7826693382fa2ee758f8dc48742867cfc9e804))
+* User menu flicker on mobile. Fixes [#296](https://github.com/Zenoo/labrute/issues/296) ([a556741](https://github.com/Zenoo/labrute/commit/a556741e34ebc9b40ad68679a346d5cb065ef18c))
+
 ## [2.29.1](https://github.com/Zenoo/labrute/compare/labrute-v2.29.0...labrute-v2.29.1) (2023-05-31)
 
 
