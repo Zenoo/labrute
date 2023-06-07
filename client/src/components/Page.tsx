@@ -15,6 +15,7 @@ import BrutePortrait from './Brute/Body/BrutePortait';
 import Header from './Header';
 import Text from './Text';
 import Server from '../utils/Server';
+import { isMobile } from 'react-device-detect';
 
 interface Props extends BoxProps {
   title: string,
@@ -49,6 +50,9 @@ const Page = ({
 
   // Open speed dial
   const openSpeedDial = useCallback(() => {
+    // Don't do anything on mobile
+    if (isMobile) return;
+
     setOpen(true);
   }, []);
 

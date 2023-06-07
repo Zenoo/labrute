@@ -28,6 +28,7 @@
     "pixi-tweener": "^0.12.2",
     "pixi.js": "^6.5.1",
     "react": "^18.2.0",
+    "react-device-detect": "^2.2.3",
     "react-dom": "^18.2.0",
     "react-helmet-async": "^1.3.0",
     "react-i18next": "^11.18.3",

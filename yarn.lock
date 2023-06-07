@@ -2520,6 +2520,7 @@ __metadata:
     pixi-tweener: ^0.12.2
     pixi.js: ^6.5.1
     react: ^18.2.0
+    react-device-detect: ^2.2.3
     react-dom: ^18.2.0
     react-helmet-async: ^1.3.0
     react-i18next: ^11.18.3
@@ -13970,6 +13971,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-device-detect@npm:^2.2.3":
+  version: 2.2.3
+  resolution: "react-device-detect@npm:2.2.3"
+  dependencies:
+    ua-parser-js: ^1.0.33
+  peerDependencies:
+    react: ">= 0.14.0"
+    react-dom: ">= 0.14.0"
+  checksum: 42d9b3182b9d2495bf0d7914c9f370da51d8bdb853a3eba2acaf433894ae760386a075ba103185be825b33d42f50d85ef462087f261656d433f4c74dab23861f
+  languageName: node
+  linkType: hard
+
 "react-dom@npm:^18.2.0":
   version: 18.2.0
   resolution: "react-dom@npm:18.2.0"
@@ -16233,6 +16246,13 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 8f6260acc86b56bfdda6004bc53f32ea548f543e8baef7071c8e34d29d292f3e375c8416556c8de10b24deef6933cd1c16a8233dc84a3dd43a13a13265d0faab
+  languageName: node
+  linkType: hard
+
+"ua-parser-js@npm:^1.0.33":
+  version: 1.0.35
+  resolution: "ua-parser-js@npm:1.0.35"
+  checksum: 02370d38a0c8b586f2503d1c3bbba5cbc0b97d407282f9023201a99e4c03eae4357a2800fdf50cf80d73ec25c0b0cc5bfbaa03975b0add4043d6e4c86712c9c1
   languageName: node
   linkType: hard
 

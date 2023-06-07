@@ -418,10 +418,10 @@ const checkLevelUpAchievements = async (
   }
 
   if (brute.hp >= 600 && oldBrute.hp < 600) {
-    // HP 6000
+    // HP 600
     await increaseAchievement(prisma, brute.userId, brute.id, 'hp600');
   } else if (brute.hp >= 300 && oldBrute.hp < 300) {
-    // HP 3000
+    // HP 300
     await increaseAchievement(prisma, brute.userId, brute.id, 'hp300');
   }
 };
