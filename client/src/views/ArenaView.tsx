@@ -162,9 +162,9 @@ const ArenaView = () => {
                       <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
                         <BruteHP hp={opponent.hp} />
                         <Box flexGrow={1} sx={{ ml: 0.5 }}>
-                          <ArenaStat stat={FightStat.STRENGTH} name={t('Str')} value={opponent.strengthValue} />
-                          <ArenaStat stat={FightStat.AGILITY} name={t('Agi')} value={opponent.agilityValue} />
-                          <ArenaStat stat={FightStat.SPEED} name={t('Spe')} value={opponent.speedValue} />
+                          <ArenaStat stat={FightStat.STRENGTH} name={t('Str')} value={opponent.strengthValue} hideSkillText />
+                          <ArenaStat stat={FightStat.AGILITY} name={t('Agi')} value={opponent.agilityValue} hideSkillText />
+                          <ArenaStat stat={FightStat.SPEED} name={t('Spe')} value={opponent.speedValue} hideSkillText />
                         </Box>
                       </Box>
                       <BruteComponent

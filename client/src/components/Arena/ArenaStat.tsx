@@ -8,12 +8,14 @@ interface ArenaStatProps extends BoxProps {
   stat: FightStat;
   name: string;
   value: number;
+  hideSkillText?: boolean;
 }
 
 const ArenaStat = ({
   stat,
   name,
   value,
+  hideSkillText,
 }: ArenaStatProps) => {
   const theme = useTheme();
 
@@ -53,6 +55,11 @@ const ArenaStat = ({
           />
         </Box>
       </Tooltip>
+      {!hideSkillText && (
+        <Text bold color="secondary" sx={{ fontSize: 11, ml: 0.5 }}>
+          {value}
+        </Text>
+      )}
     </Box>
   );
 };
