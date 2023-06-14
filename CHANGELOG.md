@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.29.4](https://github.com/Zenoo/labrute/compare/labrute-v2.29.3...labrute-v2.29.4) (2023-06-14)
+
+
+### Bug Fixes
+
+* Display skill as text next to the bar. Fixes [#291](https://github.com/Zenoo/labrute/issues/291) ([1760788](https://github.com/Zenoo/labrute/commit/1760788dfa218204098c02951426d2caaa6ee4c8))
+* Handle achievements for first bonuses. Fix [#299](https://github.com/Zenoo/labrute/issues/299) ([af05136](https://github.com/Zenoo/labrute/commit/af05136f259b3202949cc04546b77bcf8918f3ab))
+* Replace arena opponents on rank up. Fixes [#301](https://github.com/Zenoo/labrute/issues/301) ([66667c6](https://github.com/Zenoo/labrute/commit/66667c640c30182e2124e564a2bc9d67a206c7bc))
+
 ## [2.29.3](https://github.com/Zenoo/labrute/compare/labrute-v2.29.2...labrute-v2.29.3) (2023-06-07)
 
 
