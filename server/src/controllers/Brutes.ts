@@ -1,5 +1,6 @@
 import {
   ARENA_OPPONENTS_COUNT,
+  ARENA_OPPONENTS_MAX_GAP,
   BrutesCreateResponse,
   BrutesExistsResponse, BrutesGetDestinyResponse,
   BrutesGetFightsLeftResponse, BrutesGetForRankResponse,
@@ -7,7 +8,8 @@ import {
   BruteWithBodyColors, createRandomBruteStats,
   DestinyBranch, ExpectedError, getFightsLeft, getLevelUpChoices,
   getMaxFightsPerDay,
-  getSacriPoints, getSacriPointsNeeded, getXPNeeded, increaseAchievement, updateBruteData,
+  getSacriPoints, getSacriPointsNeeded, getXPNeeded,
+  increaseAchievement, randomBetween, updateBruteData,
 } from '@labrute/core';
 import {
   Brute,
@@ -907,6 +909,101 @@ const Brutes = {
           opponentsGeneratedAt: new Date(),
         },
       });
+
+      // Get brutes that have this brute as opponent
+      const opponentOf = await prisma.brute.findMany({
+        where: {
+          opponents: {
+            some: {
+              id: brute.id,
+            },
+          },
+        },
+        include: {
+          opponents: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      });
+
+      // Replace this brute in their opponents
+      for (const currentBrute of opponentOf) {
+        // Get same level random opponent
+        const bruteSearch = {
+          name: {
+            notIn: [
+              currentBrute.name,
+              ...currentBrute.opponents.map((o) => o.name),
+            ],
+          },
+          level: currentBrute.level,
+          deletedAt: null,
+        };
+        // eslint-disable-next-line no-await-in-loop
+        const bruteIds = await prisma.brute.findMany({
+          where: bruteSearch,
+          select: { id: true },
+        }).then((brutes) => brutes.map((b) => b.id));
+
+        let newOpponentId: number | null = null;
+
+        if (bruteIds.length === 0) {
+          // Search lower levels if no same level brutes
+          // eslint-disable-next-line no-await-in-loop
+          const lowerBruteIds = await prisma.brute.findMany({
+            where: {
+              ...bruteSearch,
+              level: {
+                lt: +brute.level,
+                gte: +brute.level - ARENA_OPPONENTS_MAX_GAP,
+              },
+            },
+            select: { id: true },
+          }).then((brutes) => brutes.map((b) => b.id));
+
+          if (lowerBruteIds.length > 0) {
+            // Select a random lower level opponent
+            newOpponentId = lowerBruteIds[randomBetween(0, lowerBruteIds.length - 1)];
+          }
+        } else {
+          // Select a new random opponent
+          newOpponentId = bruteIds[randomBetween(0, bruteIds.length - 1)];
+        }
+
+        if (newOpponentId) {
+          // Replace the brute with the new opponent
+          // eslint-disable-next-line no-await-in-loop
+          await prisma.brute.update({
+            where: { id: currentBrute.id },
+            data: {
+              opponents: {
+                set: [
+                  ...currentBrute.opponents
+                    .filter((o) => o.id !== brute?.id)
+                    .map((o) => ({ id: o.id })),
+                  { id: newOpponentId },
+                ],
+              },
+            },
+          });
+        } else {
+          // Remove the brute from the opponents if no opponent found
+          // eslint-disable-next-line no-await-in-loop
+          await prisma.brute.update({
+            where: { id: currentBrute.id },
+            data: {
+              opponents: {
+                set: currentBrute.opponents
+                  .filter((o) => o.id !== brute?.id)
+                  .map((o) => ({ id: o.id })),
+              },
+            },
+          });
+        }
+      }
 
       res.send({
         success: true,
