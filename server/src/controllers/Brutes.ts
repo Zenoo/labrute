@@ -181,7 +181,7 @@ const Brutes = {
           : DestinyChoiceType.pet;
 
       // Store first bonus
-      await prisma.destinyChoice.create({
+      const destinyChoice = await prisma.destinyChoice.create({
         data: {
           type: firstBonusType,
           pet: firstBonusType === DestinyChoiceType.pet
@@ -211,6 +211,9 @@ const Brutes = {
           },
         });
       }
+
+      // Update achievements
+      await checkLevelUpAchievements(prisma, brute, destinyChoice);
 
       // Generate spritesheet
       // eslint-disable-next-line no-new
@@ -880,6 +883,21 @@ const Brutes = {
 
       // Achievement
       await increaseAchievement(prisma, user.id, brute.id, `rankUp${brute.ranking as 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0}`);
+
+      // Get brute first bonus
+      const firstBonus = await prisma.destinyChoice.findFirst({
+        where: {
+          bruteId: brute.id,
+          path: { equals: [] },
+        },
+      });
+
+      if (!firstBonus) {
+        throw new Error('Brute has no first bonus');
+      }
+
+      // Update achievements for the first bonus
+      await checkLevelUpAchievements(prisma, brute, firstBonus);
 
       // Add rank up log
       await prisma.log.create({

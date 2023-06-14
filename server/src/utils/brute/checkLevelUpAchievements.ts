@@ -7,7 +7,7 @@ const checkLevelUpAchievements = async (
   prisma: PrismaClient,
   brute: Brute,
   destinyChoice: DestinyChoice,
-  oldBrute: Brute,
+  oldBrute?: Brute,
 ) => {
   const fastWeapons = weapons
     .filter((weapon) => weapon.types.includes('fast'))
@@ -197,27 +197,27 @@ const checkLevelUpAchievements = async (
   }
 
   // Five weapons
-  if (oldBrute.weapons.length === 4 && brute.weapons.length === 5) {
+  if (oldBrute?.weapons.length === 4 && brute.weapons.length === 5) {
     await increaseAchievement(prisma, brute.userId, brute.id, 'fiveWeapons');
   }
 
   // Ten weapons
-  if (oldBrute.weapons.length === 9 && brute.weapons.length === 10) {
+  if (oldBrute?.weapons.length === 9 && brute.weapons.length === 10) {
     await increaseAchievement(prisma, brute.userId, brute.id, 'tenWeapons');
   }
 
   // Fifteen weapons
-  if (oldBrute.weapons.length === 14 && brute.weapons.length === 15) {
+  if (oldBrute?.weapons.length === 14 && brute.weapons.length === 15) {
     await increaseAchievement(prisma, brute.userId, brute.id, 'fifteenWeapons');
   }
 
   // Twenty weapons
-  if (oldBrute.weapons.length === 19 && brute.weapons.length === 20) {
+  if (oldBrute?.weapons.length === 19 && brute.weapons.length === 20) {
     await increaseAchievement(prisma, brute.userId, brute.id, 'twentyWeapons');
   }
 
   // Twenty-three weapons
-  if (oldBrute.weapons.length === 22 && brute.weapons.length === 23) {
+  if (oldBrute?.weapons.length === 22 && brute.weapons.length === 23) {
     await increaseAchievement(prisma, brute.userId, brute.id, 'twentyThreeWeapons');
   }
 
@@ -393,34 +393,34 @@ const checkLevelUpAchievements = async (
     await increaseAchievement(prisma, brute.userId, brute.id, 'weaponsBlunt3');
   }
 
-  if (brute.agilityValue >= 100 && oldBrute.agilityValue < 100) {
+  if (brute.agilityValue >= 100 && (oldBrute?.agilityValue || 0) < 100) {
     // Agility 100
     await increaseAchievement(prisma, brute.userId, brute.id, 'agility100');
-  } else if (brute.agilityValue >= 50 && oldBrute.agilityValue < 50) {
+  } else if (brute.agilityValue >= 50 && (oldBrute?.agilityValue || 0) < 50) {
     // Agility 50
     await increaseAchievement(prisma, brute.userId, brute.id, 'agility50');
   }
 
-  if (brute.speedValue >= 100 && oldBrute.speedValue < 100) {
+  if (brute.speedValue >= 100 && (oldBrute?.speedValue || 0) < 100) {
     // Speed 100
     await increaseAchievement(prisma, brute.userId, brute.id, 'speed100');
-  } else if (brute.speedValue >= 50 && oldBrute.speedValue < 50) {
+  } else if (brute.speedValue >= 50 && (oldBrute?.speedValue || 0) < 50) {
     // Speed 50
     await increaseAchievement(prisma, brute.userId, brute.id, 'speed50');
   }
 
-  if (brute.strengthValue >= 100 && oldBrute.strengthValue < 100) {
+  if (brute.strengthValue >= 100 && (oldBrute?.strengthValue || 0) < 100) {
     // Strength 100
     await increaseAchievement(prisma, brute.userId, brute.id, 'strength100');
-  } else if (brute.strengthValue >= 50 && oldBrute.strengthValue < 50) {
+  } else if (brute.strengthValue >= 50 && (oldBrute?.strengthValue || 0) < 50) {
     // Strength 50
     await increaseAchievement(prisma, brute.userId, brute.id, 'strength50');
   }
 
-  if (brute.hp >= 600 && oldBrute.hp < 600) {
+  if (brute.hp >= 600 && (oldBrute?.hp || 0) < 600) {
     // HP 600
     await increaseAchievement(prisma, brute.userId, brute.id, 'hp600');
-  } else if (brute.hp >= 300 && oldBrute.hp < 300) {
+  } else if (brute.hp >= 300 && (oldBrute?.hp || 0) < 300) {
     // HP 300
     await increaseAchievement(prisma, brute.userId, brute.id, 'hp300');
   }
