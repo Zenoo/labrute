@@ -69,7 +69,7 @@ export const AchievementData: Record<
   },
   block4b2b: {
     rarety: AchievementRarety.uncommon,
-    illustration: 'r_jguard.gif',
+    illustration: 'block4b2b.svg',
   },
   evade4b2b: {
     rarety: AchievementRarety.uncommon,
@@ -253,7 +253,7 @@ export const AchievementData: Record<
   },
   weaponsSharp3: {
     rarety: AchievementRarety.uncommon,
-    illustration: 'r_tronco.gif',
+    illustration: 'weaponsSharp3.svg',
   },
   weaponsHeavy3: {
     rarety: AchievementRarety.uncommon,
@@ -301,7 +301,7 @@ export const AchievementData: Record<
   },
   hp600: {
     rarety: AchievementRarety.rare,
-    illustration: 'r_comu2.gif',
+    illustration: 'hp600.svg',
   },
   winTournamentAs20: {
     rarety: AchievementRarety.uncommon,
