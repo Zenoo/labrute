@@ -1,0 +1,5 @@
+files:
+  - source: /client/src/assets/i18n/en.json
+    translation: /client/src/assets/i18n/%two_letters_code%.json
+  - source: /server/i18n/en.json
+    translation: /server/i18n/%two_letters_code%.json
