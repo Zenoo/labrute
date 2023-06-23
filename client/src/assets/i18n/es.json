@@ -269,7 +269,6 @@
   "logoutSuccess": "Sesión cerrada",
   "loginSuccess": "Sesión iniciada",
   "invalidName": "Nombre inválido. Los caracteres permitidos son a-z, A-Z, 0-9, '_' y '-'. Debe tener una longitud entre 3 y 16 caracteres.",
-  "nameUnvailable": "Nombre no disponible",
   "pleaseLogin": "Por favor, inicia sesión antes de crear un Bruto",
   "newBrute": "Nuevo Bruto",
   "sacrificePoints": "SacriPuntos",
@@ -573,5 +572,6 @@
   "none": "Ninguno",
   "supers": "Superpoderes",
   "skills": "Habilidades",
-  "total": "Total"
+  "total": "Total",
+  "nameUnavailable": "Nombre no disponible"
 }
