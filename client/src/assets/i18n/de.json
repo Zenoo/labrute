@@ -277,7 +277,7 @@
   "logoutSuccess": "Erfolgreich ausgeloggt",
   "loginSuccess": "Erfolgreich eingeloggt",
   "invalidName": "Ungültiger Name. Akzeptierte Buchstaben sind a-z, A-Z, 0-9, '_' and '-'. Muss zwischen 3 und 16 Buchstaben enthalten.",
-  "nameUnvailable": "Name nicht verfügbar",
+  "nameUnavailable": "Name nicht verfügbar",
   "pleaseLogin": "Bitte vor Brutalo-Erstellung einloggen",
   "newBrute": "Neuer Brutalo",
   "sacrificePoints": "Brütpunkte",
