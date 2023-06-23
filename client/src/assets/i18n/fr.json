@@ -35,7 +35,6 @@
   "ePopotamo.desc": "ePopotamo: Le jeu de mots relax jouable en toute situation !",
   "connect": "Se connecter",
   "serverTime": "Heure du serveur",
-
   "shadow": "Ombre",
   "log.win": "Ta brute a écrasé {{value}}.",
   "log.survive": "Ta brute a survécu à {{value}}.",
@@ -61,7 +60,6 @@
   "log.xp": "{{xp}} point d'expérience gagné.",
   "log.xps": "{{xp}} points d'expérience gagnés.",
   "seeFight": "Cliquez ici pour revoir le combat",
-
   "master": "Maitre",
   "ranking": "Classement",
   "victories": "Victoires",
@@ -69,7 +67,6 @@
   "weaponsBonuses": "Armes et bonus disponibles en combat",
   "refLink": "Donne cette adresse à tes amis ou met la sur ton blog, ça te permettra de recruter des élèves et de gagner de l'expérience !",
   "clan": "Clan",
-
   "herculeanStrength": "Force herculéenne",
   "herculeanStrength.desc": "Avec ta force, tu es capable de déplacer des montagnes ! Mais pour l'instant, t'as un adversaire à cogner.",
   "herculeanStrength.effect": "",
@@ -202,8 +199,6 @@
   "monk": "Moine combattant",
   "monk.desc": "Tu peux voir les coups venir avant que ton adversaire ait le temps d'y penser si tu restes parfaitement calme.",
   "monk.effect": "",
-  
-  
   "fan": "Éventail",
   "keyboard": "Clavier",
   "knife": "Couteau",
@@ -230,7 +225,20 @@
   "broadsword": "Glaive",
   "scimitar": "Cimeterre",
   "sword": "Epée",
-
+  "level": "Niveau",
+  "healthPoints": "points de vie",
+  "endurance": "Endurance",
+  "strength": "Force",
+  "Str": "F",
+  "agility": "Agilité",
+  "Agi": "A",
+  "speed": "Rapidité",
+  "Spe": "R",
+  "dog1": "Chien",
+  "dog2": "Chien",
+  "dog3": "Chien",
+  "panther": "Panthère",
+  "bear": "Ours",
   "stat": "Stat",
   "value": "Valeur",
   "types": "Types",
@@ -254,22 +262,6 @@
   "damage": "Dégats",
   "drawChance": "Chance d'utilisation",
   "reach": "Portée",
-
-  "level": "Niveau",
-  "healthPoints": "points de vie",
-  "endurance": "Endurance",
-  "strength": "Force",
-  "Str": "F",
-  "agility": "Agilité",
-  "Agi": "A",
-  "speed": "Rapidité",
-  "Spe": "R",
-  "dog1": "Chien",
-  "dog2": "Chien",
-  "dog3": "Chien",
-  "panther": "Panthère",
-  "bear": "Ours",
-
   "account": "Compte",
   "login": "Connexion",
   "loginError": "Erreur de connexion",
@@ -277,14 +269,13 @@
   "logoutSuccess": "Déconnexion réussie",
   "loginSuccess": "Connexion réussie",
   "invalidName": "Nom invalide. Les caractères autorisés sont a-z, A-Z, 0-9, _ et -. Il doit faire entre 3 et 16 caractères.",
-  "nameUnavailable": "Nom indisponible",
+  "nameUnvailable": "Name unavailable",
   "pleaseLogin": "Veuillez vous connecter pour créer une brute",
   "newBrute": "Nouvelle brute",
   "sacrificePoints": "SacriPoints",
   "sacrifice": "Sacrifier",
   "sacrificeConfirm": "Voulez-vous vraiment sacrifier votre brute pour {{points}} SacriPoints ? Cette action est irréversible.",
   "sacrificeSuccess": "Sacrifice réussi, vous avez gagné {{points}} SacriPoints",
-
   "callToFight": "Si tu as envie de te défouler sur quelqu'un, fait le ici ! Il y a plein d'autres Brutes dans l'arène qui ne demandent qu'à échanger quelques gnons.",
   "arena": "Arène",
   "fightsLeft": "Il te reste {{value}} combats aujourd'hui.",
@@ -311,12 +302,10 @@
   "arena.search.notFound": "Aucune brute ne correspond à ta recherche.",
   "arena.search.noSelf": "Tu ne peux pas te défouler sur toi-même.",
   "arena.search.atLeastThreeCharacters": "Tu dois saisir au moins 3 caractères.",
-
   "en-version": "English version",
   "fr-version": "Version française",
   "es-version": "Versión española",
   "de-version": "Deutsche Version",
-
   "newLevelFor": "Niveau supplémentaire pour",
   "reached": "a atteint le",
   "levelLower": "niveau",
@@ -326,7 +315,6 @@
   "newPet": "Nouveau familier",
   "in": "en",
   "choiceBackground": "Arrière-plan du choix",
-  
   "bruteIsResting": "{{brute}} se repose.",
   "newFightsTomorrow": "{{amount}} nouveaux combats dès demain !",
   "bruteIsPreparing": "{{brute}} se prépare.",
@@ -335,10 +323,8 @@
   "youHaveOneFightLeft": "Il te reste un combat aujourd'hui !",
   "selectedOpponents": "Bienvenue dans l'arène ! J'ai sélectionné quelques adversaire à ta taille. Choisis-en un, et on commence le combat !",
   "backToCell": "Retour en cellule",
-
   "dareChallenge": "Vous avez osé défier {{value}} !",
   "startFight": "Lancer le combat",
-
   "fight.discoverGames": "Découvrez nos autres jeux",
   "fight.step.saboteur": "{{weapon}} était saboté !",
   "fight.step.leave": "{{name}} a pris la fuite !",
@@ -377,7 +363,6 @@
   "fight.pause": "Pause",
   "fight.toggleLogs": "Afficher/masquer les logs",
   "bruteCell": "Cellule de {{name}}",
-
   "experience": "Expérience",
   "brute": "Brute",
   "destinyOf": "Destinée de",
@@ -390,7 +375,6 @@
   "tournamentHistory": "Historique des tournois",
   "date": "Date",
   "dailyTournament": "Tournoi quotidien",
-
   "achievements": "Succès",
   "achievements.wins": "Combats gagnés",
   "achievements.wins.description": "Combats gagnés.",
@@ -580,13 +564,11 @@
   "achievements.sacrifice.description": "Sacrifiez une brute.",
   "achievements.beta": "Beta",
   "achievements.beta.description": "Merci d'avoir participé à la bêta de LaBrute !",
-
   "common": "Commun",
   "uncommon": "Inhabituel",
   "rare": "Rare",
   "epic": "Épique",
   "legendary": "Légendaire",
-
   "weapons": "Armes",
   "none": "Aucunes",
   "supers": "Supers",
