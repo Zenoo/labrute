@@ -35,9 +35,7 @@
   "ePopotamo.desc": "ePopotamo: ¡El relajante juego de palabras jugable en cualquier situación!",
   "connect": "Conectar",
   "serverTime": "Hora del servidor",
-
   "shadow": "Sombra",
-
   "log.win": "Tu Bruto ha aplastado a {{value}}.",
   "log.survive": "{{value}} fue destrozado por tu Bruto.",
   "log.lose": "{{value}} le ha dado una paliza a tu Bruto.",
@@ -62,7 +60,6 @@
   "log.xp": "{{xp}} punto de experiencia ganado.",
   "log.xps": "{{xp}} puntos de experiencia ganados.",
   "seeFight": "Haz click aquí para ver el combate",
-
   "master": "Maestro",
   "ranking": "Clasificación",
   "victories": "Victorias",
@@ -70,7 +67,6 @@
   "weaponsBonuses": "Armas y bonus disponibles en combate",
   "refLink": "Pásale esta dirección a tus amigos o ponla en tu blog. ¡Esto te permitirá reclutar alumnos y ganar experiencia!",
   "clan": "Clan",
-
   "herculeanStrength": "Fuerza de Hércules",
   "herculeanStrength.desc": "¡Eres capaz de desplazar montañas con tu fuerza! Pero de momento nada de eso... ¡tienes un adversario que destrozar!",
   "herculeanStrength.effect": "",
@@ -203,7 +199,6 @@
   "monk": "Monje",
   "monk.desc": "Puedes visualizar los golpes antes de que tu oponente pueda siquiera pensar en ellos... si te quedas perfectamente quieto.",
   "monk.effect": "",
-  
   "fan": "Abanico",
   "keyboard": "Teclado",
   "knife": "Cuchillo",
@@ -230,7 +225,20 @@
   "broadsword": "Espada corta",
   "scimitar": "Cimitarra",
   "sword": "Espada",
-
+  "level": "Nivel",
+  "healthPoints": "puntos de vida",
+  "endurance": "Vida",
+  "strength": "Fuerza",
+  "Str": "F",
+  "agility": "Agilidad",
+  "Agi": "A",
+  "speed": "Velocidad",
+  "Spe": "V",
+  "dog1": "Perro",
+  "dog2": "Perro",
+  "dog3": "Perro",
+  "panther": "Lobo",
+  "bear": "Oso",
   "stat": "Stat",
   "value": "Valor",
   "types": "Tipos",
@@ -254,22 +262,6 @@
   "damage": "Daño",
   "drawChance": "Probabilidad de uso",
   "reach": "Alcance",
-
-  "level": "Nivel",
-  "healthPoints": "puntos de vida",
-  "endurance": "Vida",
-  "strength": "Fuerza",
-  "Str": "F",
-  "agility": "Agilidad",
-  "Agi": "A",
-  "speed": "Velocidad",
-  "Spe": "V",
-  "dog1": "Perro",
-  "dog2": "Perro",
-  "dog3": "Perro",
-  "panther": "Lobo",
-  "bear": "Oso",
-
   "account": "Cuenta",
   "login": "Iniciar sesión",
   "loginError": "Error de login",
@@ -284,7 +276,6 @@
   "sacrifice": "Sacrificar",
   "sacrificeConfirm": "¿Estás seguro de que quieres sacrificar tu Bruto por {{points}} SacriPuntos? Esta acción no se puede deshacer.",
   "sacrificeSuccess": "Sacrificio exitoso, has conseguido {{points}} SacriPuntos.",
-
   "callToFight": "Si tienes ganas de descargar tu energía sobre alguien, ¡hazlo aquí! Hay muchos Brutos en la arena deseando intercambiar puñetazos...",
   "arena": "Arena",
   "fightsLeft": "Te quedan {{value}} combates para el día de hoy.",
@@ -311,12 +302,10 @@
   "arena.search.notFound": "No se ha encontrado ningún Bruto.",
   "arena.search.noSelf": "Estás confuso, pero no puedes golpearte a ti mismo.",
   "arena.search.atLeastThreeCharacters": "Introduce al menos 3 caracteres.",
-
   "en-version": "English version",
   "fr-version": "Version française",
   "es-version": "Versión española",
   "de-version": "Deutsche Version",
-
   "newLevelFor": "Nivel adicional para",
   "reached": "ha alcanzado el",
   "levelLower": "nivel",
@@ -326,7 +315,6 @@
   "newPet": "Adoptar como familiar",
   "in": "en",
   "choiceBackground": "Fondo de elección",
-
   "bruteIsResting": "{{brute}} está descansando.",
   "newFightsTomorrow": "¡{{amount}} nuevos combates estarán disponibles mañana!",
   "bruteIsPreparing": "{{brute}} se está preparando.",
@@ -335,12 +323,9 @@
   "youHaveOneFightLeft": "¡Te queda 1 combate para el día de hoy!",
   "selectedOpponents": "¡Bienvenido a la Arena! Aquí tienes una selección de adversarios de tu nivel. Elige uno y, ¡que empiece el combate!",
   "backToCell": "Volver a la celda",
-
   "dareChallenge": "¡Has osado desafiar a {{value}}!",
   "startFight": "Comenzar el combate",
-
   "fight.discoverGames": "Descubre nuestros juegos",
-
   "fight.step.saboteur": "¡{{weapon}} fue saboteada!",
   "fight.step.leave": "¡{{name}} ha huído!",
   "fight.step.arrive": "¡{{name}} ha llegado!",
@@ -378,7 +363,6 @@
   "fight.pause": "Pause",
   "fight.toggleLogs": "Activar/Desactivar logs",
   "bruteCell": "Celda de {{name}}",
-
   "experience": "Experiencia",
   "brute": "Bruto",
   "destinyOf": "Destino de",
@@ -391,7 +375,6 @@
   "tournamentHistory": "Historial de torneos",
   "date": "Fecha",
   "dailyTournament": "Torneo diario",
-
   "achievements": "Logros",
   "achievements.wins": "Fights won",
   "achievements.wins.description": "Fights won.",
@@ -581,13 +564,11 @@
   "achievements.sacrifice.description": "Sacrifice a brute.",
   "achievements.beta": "Beta",
   "achievements.beta.description": "Thank you for participating in MyBrute's beta!",
-
   "common": "Común",
   "uncommon": "Inusual",
   "rare": "Raro",
   "epic": "Épico",
   "legendary": "Legendario",
-
   "weapons": "Armas",
   "none": "Ninguno",
   "supers": "Superpoderes",
