@@ -35,9 +35,7 @@
   "ePopotamo.desc": "ePopotamo: Das entspannende Spiel mit Worten, das zu jeder Zeit spielbar ist!",
   "connect": "Verbinden",
   "serverTime": "Server-Zeit",
-
   "shadow": "Schatten",
-
   "log.win": "Dein Brutalo hat {{value}} zerschmettert.",
   "log.survive": "Dein Brutalo hat {{value}} überlebt.",
   "log.lose": "{{value}} hat deinen Brutalo geplättet.",
@@ -62,7 +60,6 @@
   "log.xp": "{{xp}} Erfahrungspunkt erhalten.",
   "log.xps": "{{xp}} Erfahrungspunkte erhalten.",
   "seeFight": "Klicke hier, um dir den Kampf anzusehen",
-
   "master": "Meister",
   "ranking": "Rangliste",
   "victories": "Siege",
@@ -70,7 +67,6 @@
   "weaponsBonuses": "Im Kampf verfügbare Waffen und Boni",
   "refLink": "Leite diese Web-Adresse an deine Freunde weiter oder poste sie in deinem Blog. Das wird dir die Möglichkeit bieten, Schüler zu rekrutieren und Erfahrung zu sammeln!",
   "clan": "Klan",
-
   "herculeanStrength": "Herkulische Kräfte",
   "herculeanStrength.desc": "Du bist so stark, du kannst selbst Berge versetzen! Aber für's Erste reicht auch dein Gegner.",
   "herculeanStrength.effect": "",
@@ -203,7 +199,6 @@
   "monk": "Mönch",
   "monk.desc": "Wenn du stillstehst, kannst du die Schläge deiner Gegner erahnen, bevor sie es selbst tun.",
   "monk.effect": "",
-  
   "fan": "Fächer",
   "keyboard": "Tastatur",
   "knife": "Messer",
@@ -230,7 +225,6 @@
   "broadsword": "Breitschwert",
   "scimitar": "Krummsäbel",
   "sword": "Zweihänder",
-
   "level": "Stufe",
   "healthPoints": "Lebenspunkte",
   "endurance": "Ausdauer",
@@ -245,7 +239,6 @@
   "dog3": "Hund",
   "panther": "Panther",
   "bear": "Bär",
-
   "stat": "Attribut",
   "value": "Wert",
   "types": "Typ",
@@ -269,7 +262,6 @@
   "damage": "Schaden",
   "drawChance": "Nutzchance",
   "reach": "Reichweite",
-
   "account": "Account",
   "login": "Einloggen",
   "loginError": "Fehler beim Einloggen",
@@ -284,7 +276,6 @@
   "sacrifice": "Opfern",
   "sacrificeConfirm": "Bist du sicher, dass du diesen Brutalo für {{points}} Brütpunkte opfern möchtest? Der Vorgang kann nicht rückgängig gemacht werden.",
   "sacrificeSuccess": "Opferung erfolgreich: {{points}} Brütpunkte erhalten",
-
   "callToFight": "Wenn du dich an jemandem austoben möchtest, kannst du das hier tun! In der Arena gibt's reichlich Brutalos, die nur darauf warten Prügel auszutauschen!",
   "arena": "Arena",
   "fightsLeft": "Dir verbleiben heute {{value}} Kämpfe.",
@@ -311,12 +302,10 @@
   "arena.search.notFound": "Kein Brutalo mit diesem Namen gefunden.",
   "arena.search.noSelf": "Hör auf dich selbst zu hauen.",
   "arena.search.atLeastThreeCharacters": "Bitte mindestens 3 Buchstaben eingeben.",
-
   "en-version": "English version",
   "fr-version": "Version française",
   "es-version": "Versión española",
   "de-version": "Deutsche Version",
-
   "newLevelFor": "Neue Stufe für",
   "reached": "erreicht",
   "levelLower": "Stufe",
@@ -326,7 +315,6 @@
   "newPet": "Neues Wildtier",
   "in": "in",
   "choiceBackground": "Auswahlhistorie",
-
   "bruteIsResting": "{{brute}} ruht sich gerade aus.",
   "newFightsTomorrow": "{{amount}} neue Kämpfe sind morgen wieder verfügbar!",
   "bruteIsPreparing": "{{brute}} ist in der Vorbereitung.",
@@ -335,12 +323,9 @@
   "youHaveOneFightLeft": "Es bleibt dir heute noch ein Kampf!",
   "selectedOpponents": "Willkommen in der Arena! Hier ist eine Auswahl an Gegnern deiner Stufe. Such dir einen aus und prügel los!",
   "backToCell": "Zurück zur Zelle",
-
   "dareChallenge": "Du traust dich {{value}} herauszufordern!",
   "startFight": "Kampf starten",
-
   "fight.discoverGames": "Entdecke andere unsere Spiele",
-
   "fight.step.saboteur": "{{weapon}} wurde sabotiert!",
   "fight.step.leave": "{{name}} ist geflohen!",
   "fight.step.arrive": "{{name}} ist angekommen!",
@@ -378,7 +363,6 @@
   "fight.pause": "Pausieren",
   "fight.toggleLogs": "Logs an/aus",
   "bruteCell": "Zur Zelle von {{name}}",
-
   "experience": "Erfahrung",
   "brute": "Brutalo",
   "destinyOf": "Schicksal von",
@@ -391,7 +375,6 @@
   "tournamentHistory": "Turnierhistorie",
   "date": "Datum",
   "dailyTournament": "Tägliches Turnier",
-
   "achievements": "Erfolge",
   "achievements.wins": "Gewonnene Kämpfe",
   "achievements.wins.description": "Gewonnene Kämpfe.",
@@ -581,13 +564,11 @@
   "achievements.sacrifice.description": "Opfere einen Brutalo.",
   "achievements.beta": "Beta",
   "achievements.beta.description": "Vielen Dank für die Teilnahme an der MeinBrutalo Beta!",
-
   "common": "Gewöhnlich",
   "uncommon": "Ungewöhnlich",
   "rare": "Selten",
   "epic": "Episch",
   "legendary": "Legendär",
-
   "weapons": "Waffen",
   "none": "Keine",
   "supers": "Superwaffen",
