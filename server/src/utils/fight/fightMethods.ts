@@ -400,6 +400,9 @@ const activateSuper = (
         // Set own weapon
         fighter.activeWeapon = opponent.activeWeapon;
 
+        // Force keep weapon for the next turn
+        fighter.keepWeaponChance = 1;
+
         // Remove opponent's weapon
         opponent.activeWeapon = null;
 
@@ -819,6 +822,9 @@ const drawWeapon = (fightData: DetailedFight['data']): boolean => {
   }
   // Equip new weapon
   fighter.activeWeapon = possibleWeapon;
+
+  // Set the chance to keep the weapon to 50%
+  fighter.keepWeaponChance = 0.5;
 
   // Remove weapon from possible weapons
   fighter.weapons = fighter.weapons.filter((w) => w.name !== possibleWeapon.name);
