@@ -358,7 +358,7 @@ export const SkillModifiers: Record<string, SkillModifier[]> = {
     { stat: FightStat.SPEED, value: 150, percent: true },
   ],
   counterAttack: [
-    { stat: FightStat.COUNTER, value: 10, percent: true },
+    { stat: FightStat.BLOCK, value: 10, percent: true },
   ],
   ironHead: [],
   thief: [],
