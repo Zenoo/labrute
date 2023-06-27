@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.29.6](https://github.com/Zenoo/labrute/compare/labrute-v2.29.5...labrute-v2.29.6) (2023-06-25)
+
+
+### Bug Fixes
+
+* Chances to keep a weapon. Fixes [#307](https://github.com/Zenoo/labrute/issues/307) ([6a611a9](https://github.com/Zenoo/labrute/commit/6a611a96aec84047702f6e244a3a4c9c36a3c243))
+* Typo + Crowdin badge ([0afaa65](https://github.com/Zenoo/labrute/commit/0afaa6506419227ba94d5434559f5ad5d098d117))
+
 ## [2.29.5](https://github.com/Zenoo/labrute/compare/labrute-v2.29.4...labrute-v2.29.5) (2023-06-20)
 
 
