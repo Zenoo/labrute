@@ -261,7 +261,7 @@ export const AchievementData: Record<
   },
   weaponsLong3: {
     rarety: AchievementRarety.uncommon,
-    illustration: 'r_tronco.gif',
+    illustration: 'weaponsLong3.svg',
   },
   weaponsThrown3: {
     rarety: AchievementRarety.uncommon,
@@ -348,12 +348,15 @@ export const AchievementData: Record<
   },
   rankUp9: {
     rarety: AchievementRarety.uncommon,
+    illustration: 'rankUp9.svg',
   },
   rankUp8: {
     rarety: AchievementRarety.uncommon,
+    illustration: 'rankUp8.svg',
   },
   rankUp7: {
     rarety: AchievementRarety.uncommon,
+    illustration: 'rankUp7.svg',
   },
   rankUp6: {
     rarety: AchievementRarety.uncommon,
