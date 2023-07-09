@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.29.7](https://github.com/Zenoo/labrute/compare/labrute-v2.29.6...labrute-v2.29.7) (2023-06-27)
+
+
+### Bug Fixes
+
+* Wrong skill modifier displayed for `counterAttack` description ([c9ebbc0](https://github.com/Zenoo/labrute/commit/c9ebbc026d76ce1fd969d7cf3f787e4baf0460e0))
+
 ## [2.29.6](https://github.com/Zenoo/labrute/compare/labrute-v2.29.5...labrute-v2.29.6) (2023-06-25)
 
 
