@@ -243,7 +243,7 @@ const weapons: Weapon[] = [
     odds: 40,
     types: ['long'],
     tempo: 1.2,
-    reversal: 0.3,
+    reversal: -0.1,
     evasion: 0,
     swiftness: 0,
     block: 0,
