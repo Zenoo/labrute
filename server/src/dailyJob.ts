@@ -12,6 +12,37 @@ import DiscordUtils from './utils/DiscordUtils.js';
 import generateFight from './utils/fight/generateFight.js';
 import shuffle from './utils/shuffle.js';
 
+const grantBetaAchievement = async (prisma: PrismaClient) => {
+  // Grant beta achievement to all brutes who don't have it yet
+  const brutes = await prisma.brute.findMany({
+    where: {
+      userId: { not: null },
+      deletedAt: null,
+      achievements: {
+        none: {
+          name: {
+            equals: 'beta',
+          },
+        },
+      },
+    },
+  });
+
+  if (brutes.length) {
+    // Grant beta achievement
+    await prisma.achievement.createMany({
+      data: brutes.map((brute) => ({
+        name: 'beta',
+        bruteId: brute.id,
+        userId: brute.userId,
+        count: 1,
+      })),
+    });
+
+    await DiscordUtils.sendLog(`Gave the beta achievement to ${brutes.length} brutes`);
+  }
+};
+
 const deleteMisformattedTournaments = async (prisma: PrismaClient) => {
   const today = moment.utc().startOf('day');
   const tomorrow = moment.utc(today).add(1, 'day');
@@ -634,6 +665,9 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
 
 const dailyJob = (prisma: PrismaClient) => async () => {
   try {
+    // Grant beta achievement to all brutes who don't have it yet
+    await grantBetaAchievement(prisma);
+
     // Generate missing body and colors
     await generateMissingBodyColors(prisma);
 
