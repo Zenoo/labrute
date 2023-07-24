@@ -4,6 +4,7 @@ import { Request, Response } from 'express';
 import moment from 'moment';
 import auth from '../utils/auth.js';
 import sendError from '../utils/sendError.js';
+import DiscordUtils from '../utils/DiscordUtils.js';
 
 const Tournaments = {
   getDaily: (prisma: PrismaClient) => async (req: Request, res: Response) => {
@@ -357,6 +358,12 @@ const Tournaments = {
           },
         },
       });
+
+      // Check if tournament is not malformed (more than 4+2+1 last rounds)
+      if (lastRounds.length > 7) {
+        await DiscordUtils.sendError(`Global tournament ${tournament.id} malformed (${moment.utc(tournament.date).format('DD/MM/YYYY')}): `);
+        throw new Error('Tournament malformed');
+      }
 
       // Check if current time has reached the end of the tournament
       const tournamentEnded = !now.isSame(date, 'day')
