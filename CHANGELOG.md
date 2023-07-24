@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.30.0](https://github.com/Zenoo/labrute/compare/labrute-v2.29.7...labrute-v2.30.0) (2023-07-24)
+
+
+### Features
+
+* Female shield animations. [#270](https://github.com/Zenoo/labrute/issues/270) ([a8e96a4](https://github.com/Zenoo/labrute/commit/a8e96a45920ac193e756fbf1e6f7923c4855deea))
+
+
+### Bug Fixes
+
+* New achievement icons. [#196](https://github.com/Zenoo/labrute/issues/196) ([cc086db](https://github.com/Zenoo/labrute/commit/cc086dbe2a4b0cb2cfe4199060b94496b0833c6c))
+* Stop infinite loop in daily job ([2e9a91d](https://github.com/Zenoo/labrute/commit/2e9a91d163ebe731db2d8c75d49efaa66c10ca76))
+* Wrong lance reversal stat ([ecd832a](https://github.com/Zenoo/labrute/commit/ecd832aca9b1939c1bca54e51c1bba80d249a7eb))
+
 ## [2.29.7](https://github.com/Zenoo/labrute/compare/labrute-v2.29.6...labrute-v2.29.7) (2023-06-27)
 
 
