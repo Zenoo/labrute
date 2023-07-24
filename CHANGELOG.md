@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.30.1](https://github.com/Zenoo/labrute/compare/labrute-v2.30.0...labrute-v2.30.1) (2023-07-24)
+
+
+### Bug Fixes
+
+* Apply beta achievement in the daily job. Fixes [#313](https://github.com/Zenoo/labrute/issues/313) ([f99aeed](https://github.com/Zenoo/labrute/commit/f99aeed62e3d8635ca622daaf712bfcd094f8492))
+* Stop malformed global tournament displaying. Fixes [#312](https://github.com/Zenoo/labrute/issues/312) ([86ee43d](https://github.com/Zenoo/labrute/commit/86ee43d2f702a0b3eaad90f2664953e8ab007232))
+
 ## [2.30.0](https://github.com/Zenoo/labrute/compare/labrute-v2.29.7...labrute-v2.30.0) (2023-07-24)
 
 
