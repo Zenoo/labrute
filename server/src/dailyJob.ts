@@ -413,8 +413,14 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
 
       // Generate fight (retry if failed)
       let generatedFight: Prisma.FightCreateInput | null = null;
+      let retries = 0;
 
       while (!generatedFight) {
+        // Stop at 10 retries
+        if (retries > 10) {
+          throw new Error('Too many retries');
+        }
+
         try {
           generatedFight = await generateFight(
             prisma,
@@ -428,6 +434,8 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
           await DiscordUtils.sendLog(`Error while generating a tournament fight between ${brute1.name} and ${brute2.name}, retrying...`);
           await DiscordUtils.sendError(error);
         }
+
+        retries++;
       }
 
       // Create fight
