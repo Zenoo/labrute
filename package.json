@@ -24,7 +24,7 @@
     "postinstall": "bash ./postInstall.sh",
     "animation:import": "ts-node importAnimation.ts",
     "studio": "cd ./server && yarn studio",
-    "audit": "yarn npm audit --recursive --all",
+    "audit": "yarn npm audit --recursive --all --environment production",
     "add:client": "yarn workspace @labrute/client add",
     "add:server": "yarn workspace @labrute/server add",
     "run:retrieveFirstBonus": "ts-node-esm server/src/scripts/retrieveFirstBonus.ts",
