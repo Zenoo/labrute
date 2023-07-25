@@ -4,7 +4,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const {
   Decimal,
   objectEnumValues,
-  makeStrictEnum
+  makeStrictEnum,
+  Public,
 } = require('./runtime/index-browser')
 
 
@@ -13,12 +14,12 @@ const Prisma = {}
 exports.Prisma = Prisma
 
 /**
- * Prisma Client JS version: 4.12.0
- * Query Engine version: 659ef412370fa3b41cd7bf6e94587c1dfb7f67e7
+ * Prisma Client JS version: 5.0.0
+ * Query Engine version: 6b0aef69b7cdfc787f822ecd7cdc76d5f1991584
  */
 Prisma.prismaVersion = {
-  client: "4.12.0",
-  engine: "659ef412370fa3b41cd7bf6e94587c1dfb7f67e7"
+  client: "5.0.0",
+  engine: "6b0aef69b7cdfc787f822ecd7cdc76d5f1991584"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -66,8 +67,19 @@ Prisma.raw = () => {
   throw new Error(`raw is unable to be run in the browser.
 In case this error is unexpected for you, please report it in https://github.com/prisma/prisma/issues`,
 )}
-Prisma.validator = () => (val) => val
+Prisma.validator = Public.validator
 
+/**
+* Extensions
+*/
+Prisma.getExtensionContext = () => {
+  throw new Error(`Extensions.getExtensionContext is unable to be run in the browser.
+In case this error is unexpected for you, please report it in https://github.com/prisma/prisma/issues`,
+)}
+Prisma.defineExtension = () => {
+  throw new Error(`Extensions.defineExtension is unable to be run in the browser.
+In case this error is unexpected for you, please report it in https://github.com/prisma/prisma/issues`,
+)}
 
 /**
  * Shorthand utilities for JSON filtering
@@ -85,19 +97,27 @@ Prisma.NullTypes = {
 /**
  * Enums
  */
-// Based on
-// https://github.com/microsoft/TypeScript/issues/3192#issuecomment-261720275
-function makeEnum(x) { return x; }
 
-exports.Prisma.AchievementScalarFieldEnum = makeEnum({
-  id: 'id',
-  name: 'name',
-  count: 'count',
-  bruteId: 'bruteId',
-  userId: 'userId'
+exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
+  ReadUncommitted: 'ReadUncommitted',
+  ReadCommitted: 'ReadCommitted',
+  RepeatableRead: 'RepeatableRead',
+  Serializable: 'Serializable'
 });
 
-exports.Prisma.BruteBodyScalarFieldEnum = makeEnum({
+exports.Prisma.UserScalarFieldEnum = {
+  id: 'id',
+  lang: 'lang',
+  name: 'name',
+  admin: 'admin',
+  connexionToken: 'connexionToken',
+  bruteLimit: 'bruteLimit',
+  sacrificePoints: 'sacrificePoints',
+  fightSpeed: 'fightSpeed',
+  backgroundMusic: 'backgroundMusic'
+};
+
+exports.Prisma.BruteBodyScalarFieldEnum = {
   id: 'id',
   bruteId: 'bruteId',
   longHair: 'longHair',
@@ -119,9 +139,9 @@ exports.Prisma.BruteBodyScalarFieldEnum = makeEnum({
   upperLeftArm: 'upperLeftArm',
   lowerLeftArm: 'lowerLeftArm',
   leftShoulder: 'leftShoulder'
-});
+};
 
-exports.Prisma.BruteColorsScalarFieldEnum = makeEnum({
+exports.Prisma.BruteColorsScalarFieldEnum = {
   id: 'id',
   bruteId: 'bruteId',
   skinColor: 'skinColor',
@@ -134,9 +154,9 @@ exports.Prisma.BruteColorsScalarFieldEnum = makeEnum({
   secondaryShade: 'secondaryShade',
   accentColor: 'accentColor',
   accentShade: 'accentShade'
-});
+};
 
-exports.Prisma.BruteScalarFieldEnum = makeEnum({
+exports.Prisma.BruteScalarFieldEnum = {
   id: 'id',
   name: 'name',
   deletedAt: 'deletedAt',
@@ -175,21 +195,43 @@ exports.Prisma.BruteScalarFieldEnum = makeEnum({
   victories: 'victories',
   opponentsGeneratedAt: 'opponentsGeneratedAt',
   canRankUpSince: 'canRankUpSince'
-});
+};
 
-exports.Prisma.BruteSpritesheetScalarFieldEnum = makeEnum({
+exports.Prisma.BruteSpritesheetScalarFieldEnum = {
   id: 'id',
   bruteId: 'bruteId',
   image: 'image',
   json: 'json'
-});
+};
 
-exports.Prisma.ClanScalarFieldEnum = makeEnum({
+exports.Prisma.ClanScalarFieldEnum = {
   id: 'id',
   name: 'name'
-});
+};
 
-exports.Prisma.DestinyChoiceScalarFieldEnum = makeEnum({
+exports.Prisma.FightScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  brute1Id: 'brute1Id',
+  brute2Id: 'brute2Id',
+  winner: 'winner',
+  loser: 'loser',
+  steps: 'steps',
+  fighters: 'fighters'
+};
+
+exports.Prisma.LogScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  currentBruteId: 'currentBruteId',
+  type: 'type',
+  level: 'level',
+  brute: 'brute',
+  fightId: 'fightId',
+  xp: 'xp'
+};
+
+exports.Prisma.DestinyChoiceScalarFieldEnum = {
   id: 'id',
   bruteId: 'bruteId',
   path: 'path',
@@ -201,97 +243,202 @@ exports.Prisma.DestinyChoiceScalarFieldEnum = makeEnum({
   stat1Value: 'stat1Value',
   stat2: 'stat2',
   stat2Value: 'stat2Value'
-});
+};
 
-exports.Prisma.FightScalarFieldEnum = makeEnum({
+exports.Prisma.TournamentScalarFieldEnum = {
   id: 'id',
   date: 'date',
-  brute1Id: 'brute1Id',
-  brute2Id: 'brute2Id',
-  winner: 'winner',
-  loser: 'loser',
-  steps: 'steps',
-  fighters: 'fighters'
-});
+  type: 'type'
+};
 
-exports.Prisma.JsonNullValueFilter = makeEnum({
-  DbNull: Prisma.DbNull,
-  JsonNull: Prisma.JsonNull,
-  AnyNull: Prisma.AnyNull
-});
-
-exports.Prisma.JsonNullValueInput = makeEnum({
-  JsonNull: Prisma.JsonNull
-});
-
-exports.Prisma.LogScalarFieldEnum = makeEnum({
+exports.Prisma.TournamentStepScalarFieldEnum = {
   id: 'id',
-  date: 'date',
-  currentBruteId: 'currentBruteId',
-  type: 'type',
-  level: 'level',
-  brute: 'brute',
+  tournamentId: 'tournamentId',
+  step: 'step',
   fightId: 'fightId',
-  xp: 'xp'
-});
+  xpDistributed: 'xpDistributed'
+};
 
-exports.Prisma.NullableJsonNullValueInput = makeEnum({
-  DbNull: Prisma.DbNull,
-  JsonNull: Prisma.JsonNull
-});
-
-exports.Prisma.QueryMode = makeEnum({
-  default: 'default',
-  insensitive: 'insensitive'
-});
-
-exports.Prisma.SortOrder = makeEnum({
-  asc: 'asc',
-  desc: 'desc'
-});
-
-exports.Prisma.TournamentEarningScalarFieldEnum = makeEnum({
+exports.Prisma.TournamentEarningScalarFieldEnum = {
   id: 'id',
   date: 'date',
   bruteId: 'bruteId',
   points: 'points',
   achievement: 'achievement',
   achievementCount: 'achievementCount'
-});
+};
 
-exports.Prisma.TournamentScalarFieldEnum = makeEnum({
+exports.Prisma.AchievementScalarFieldEnum = {
   id: 'id',
-  date: 'date',
-  type: 'type'
-});
-
-exports.Prisma.TournamentStepScalarFieldEnum = makeEnum({
-  id: 'id',
-  tournamentId: 'tournamentId',
-  step: 'step',
-  fightId: 'fightId',
-  xpDistributed: 'xpDistributed'
-});
-
-exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
-  ReadUncommitted: 'ReadUncommitted',
-  ReadCommitted: 'ReadCommitted',
-  RepeatableRead: 'RepeatableRead',
-  Serializable: 'Serializable'
-});
-
-exports.Prisma.UserScalarFieldEnum = makeEnum({
-  id: 'id',
-  lang: 'lang',
   name: 'name',
-  admin: 'admin',
-  connexionToken: 'connexionToken',
-  bruteLimit: 'bruteLimit',
-  sacrificePoints: 'sacrificePoints',
-  fightSpeed: 'fightSpeed',
-  backgroundMusic: 'backgroundMusic'
-});
-exports.AchievementName = makeEnum({
+  count: 'count',
+  bruteId: 'bruteId',
+  userId: 'userId'
+};
+
+exports.Prisma.SortOrder = {
+  asc: 'asc',
+  desc: 'desc'
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
+exports.Lang = {
+  en: 'en',
+  fr: 'fr',
+  de: 'de',
+  es: 'es'
+};
+
+exports.Gender = {
+  male: 'male',
+  female: 'female'
+};
+
+exports.DestinyChoiceSide = {
+  LEFT: 'LEFT',
+  RIGHT: 'RIGHT'
+};
+
+exports.WeaponName = {
+  fan: 'fan',
+  keyboard: 'keyboard',
+  knife: 'knife',
+  leek: 'leek',
+  mug: 'mug',
+  sai: 'sai',
+  racquet: 'racquet',
+  axe: 'axe',
+  bumps: 'bumps',
+  flail: 'flail',
+  fryingPan: 'fryingPan',
+  hatchet: 'hatchet',
+  mammothBone: 'mammothBone',
+  morningStar: 'morningStar',
+  trombone: 'trombone',
+  baton: 'baton',
+  halbard: 'halbard',
+  lance: 'lance',
+  trident: 'trident',
+  whip: 'whip',
+  noodleBowl: 'noodleBowl',
+  piopio: 'piopio',
+  shuriken: 'shuriken',
+  broadsword: 'broadsword',
+  scimitar: 'scimitar',
+  sword: 'sword'
+};
+
+exports.SkillName = {
+  herculeanStrength: 'herculeanStrength',
+  felineAgility: 'felineAgility',
+  lightningBolt: 'lightningBolt',
+  vitality: 'vitality',
+  immortality: 'immortality',
+  reconnaissance: 'reconnaissance',
+  weaponsMaster: 'weaponsMaster',
+  martialArts: 'martialArts',
+  sixthSense: 'sixthSense',
+  hostility: 'hostility',
+  fistsOfFury: 'fistsOfFury',
+  shield: 'shield',
+  armor: 'armor',
+  toughenedSkin: 'toughenedSkin',
+  untouchable: 'untouchable',
+  sabotage: 'sabotage',
+  shock: 'shock',
+  bodybuilder: 'bodybuilder',
+  relentless: 'relentless',
+  survival: 'survival',
+  leadSkeleton: 'leadSkeleton',
+  balletShoes: 'balletShoes',
+  determination: 'determination',
+  firstStrike: 'firstStrike',
+  resistant: 'resistant',
+  counterAttack: 'counterAttack',
+  ironHead: 'ironHead',
+  thief: 'thief',
+  fierceBrute: 'fierceBrute',
+  tragicPotion: 'tragicPotion',
+  net: 'net',
+  bomb: 'bomb',
+  hammer: 'hammer',
+  cryOfTheDamned: 'cryOfTheDamned',
+  hypnosis: 'hypnosis',
+  flashFlood: 'flashFlood',
+  tamer: 'tamer',
+  regeneration: 'regeneration',
+  chef: 'chef',
+  spy: 'spy',
+  saboteur: 'saboteur',
+  backup: 'backup',
+  hideaway: 'hideaway',
+  monk: 'monk'
+};
+
+exports.PetName = {
+  dog1: 'dog1',
+  dog2: 'dog2',
+  dog3: 'dog3',
+  panther: 'panther',
+  bear: 'bear'
+};
+
+exports.LogType = {
+  win: 'win',
+  lose: 'lose',
+  child: 'child',
+  childup: 'childup',
+  up: 'up',
+  lvl: 'lvl',
+  survive: 'survive',
+  tournament: 'tournament',
+  tournamentXp: 'tournamentXp'
+};
+
+exports.DestinyChoiceType = {
+  skill: 'skill',
+  weapon: 'weapon',
+  pet: 'pet',
+  stats: 'stats'
+};
+
+exports.BruteStat = {
+  endurance: 'endurance',
+  strength: 'strength',
+  agility: 'agility',
+  speed: 'speed'
+};
+
+exports.TournamentType = {
+  DAILY: 'DAILY',
+  GLOBAL: 'GLOBAL',
+  CUSTOM: 'CUSTOM'
+};
+
+exports.AchievementName = {
   wins: 'wins',
   defeats: 'defeats',
   flawless: 'flawless',
@@ -386,142 +533,9 @@ exports.AchievementName = makeEnum({
   rankUp0: 'rankUp0',
   sacrifice: 'sacrifice',
   beta: 'beta'
-});
+};
 
-exports.BruteStat = makeEnum({
-  endurance: 'endurance',
-  strength: 'strength',
-  agility: 'agility',
-  speed: 'speed'
-});
-
-exports.DestinyChoiceSide = makeEnum({
-  LEFT: 'LEFT',
-  RIGHT: 'RIGHT'
-});
-
-exports.DestinyChoiceType = makeEnum({
-  skill: 'skill',
-  weapon: 'weapon',
-  pet: 'pet',
-  stats: 'stats'
-});
-
-exports.Gender = makeEnum({
-  male: 'male',
-  female: 'female'
-});
-
-exports.Lang = makeEnum({
-  en: 'en',
-  fr: 'fr',
-  de: 'de',
-  es: 'es'
-});
-
-exports.LogType = makeEnum({
-  win: 'win',
-  lose: 'lose',
-  child: 'child',
-  childup: 'childup',
-  up: 'up',
-  lvl: 'lvl',
-  survive: 'survive',
-  tournament: 'tournament',
-  tournamentXp: 'tournamentXp'
-});
-
-exports.PetName = makeEnum({
-  dog1: 'dog1',
-  dog2: 'dog2',
-  dog3: 'dog3',
-  panther: 'panther',
-  bear: 'bear'
-});
-
-exports.SkillName = makeEnum({
-  herculeanStrength: 'herculeanStrength',
-  felineAgility: 'felineAgility',
-  lightningBolt: 'lightningBolt',
-  vitality: 'vitality',
-  immortality: 'immortality',
-  reconnaissance: 'reconnaissance',
-  weaponsMaster: 'weaponsMaster',
-  martialArts: 'martialArts',
-  sixthSense: 'sixthSense',
-  hostility: 'hostility',
-  fistsOfFury: 'fistsOfFury',
-  shield: 'shield',
-  armor: 'armor',
-  toughenedSkin: 'toughenedSkin',
-  untouchable: 'untouchable',
-  sabotage: 'sabotage',
-  shock: 'shock',
-  bodybuilder: 'bodybuilder',
-  relentless: 'relentless',
-  survival: 'survival',
-  leadSkeleton: 'leadSkeleton',
-  balletShoes: 'balletShoes',
-  determination: 'determination',
-  firstStrike: 'firstStrike',
-  resistant: 'resistant',
-  counterAttack: 'counterAttack',
-  ironHead: 'ironHead',
-  thief: 'thief',
-  fierceBrute: 'fierceBrute',
-  tragicPotion: 'tragicPotion',
-  net: 'net',
-  bomb: 'bomb',
-  hammer: 'hammer',
-  cryOfTheDamned: 'cryOfTheDamned',
-  hypnosis: 'hypnosis',
-  flashFlood: 'flashFlood',
-  tamer: 'tamer',
-  regeneration: 'regeneration',
-  chef: 'chef',
-  spy: 'spy',
-  saboteur: 'saboteur',
-  backup: 'backup',
-  hideaway: 'hideaway',
-  monk: 'monk'
-});
-
-exports.TournamentType = makeEnum({
-  DAILY: 'DAILY',
-  GLOBAL: 'GLOBAL',
-  CUSTOM: 'CUSTOM'
-});
-
-exports.WeaponName = makeEnum({
-  fan: 'fan',
-  keyboard: 'keyboard',
-  knife: 'knife',
-  leek: 'leek',
-  mug: 'mug',
-  sai: 'sai',
-  racquet: 'racquet',
-  axe: 'axe',
-  bumps: 'bumps',
-  flail: 'flail',
-  fryingPan: 'fryingPan',
-  hatchet: 'hatchet',
-  mammothBone: 'mammothBone',
-  morningStar: 'morningStar',
-  trombone: 'trombone',
-  baton: 'baton',
-  halbard: 'halbard',
-  lance: 'lance',
-  trident: 'trident',
-  whip: 'whip',
-  noodleBowl: 'noodleBowl',
-  piopio: 'piopio',
-  shuriken: 'shuriken',
-  broadsword: 'broadsword',
-  scimitar: 'scimitar',
-  sword: 'sword'
-});
-
-exports.Prisma.ModelName = makeEnum({
+exports.Prisma.ModelName = {
   User: 'User',
   BruteBody: 'BruteBody',
   BruteColors: 'BruteColors',
@@ -535,7 +549,7 @@ exports.Prisma.ModelName = makeEnum({
   TournamentStep: 'TournamentStep',
   TournamentEarning: 'TournamentEarning',
   Achievement: 'Achievement'
-});
+};
 
 /**
  * Create the Client

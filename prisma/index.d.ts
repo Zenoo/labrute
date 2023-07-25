@@ -4,244 +4,531 @@
 **/
 
 import * as runtime from './runtime/library';
-type UnwrapPromise<P extends any> = P extends Promise<infer R> ? R : P
-type UnwrapTuple<Tuple extends readonly unknown[]> = {
-  [K in keyof Tuple]: K extends `${number}` ? Tuple[K] extends Prisma.PrismaPromise<infer X> ? X : UnwrapPromise<Tuple[K]> : UnwrapPromise<Tuple[K]>
-};
+import $Types = runtime.Types // general types
+import $Public = runtime.Types.Public
+import $Utils = runtime.Types.Utils
+import $Extensions = runtime.Types.Extensions
 
-export type PrismaPromise<T> = runtime.Types.Public.PrismaPromise<T>
+export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
+
+export type UserPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  name: "User"
+  objects: {
+    brutes: BrutePayload<ExtArgs>[]
+    achievements: AchievementPayload<ExtArgs>[]
+  }
+  scalars: $Extensions.GetResult<{
+    id: string
+    lang: Lang
+    name: string
+    admin: boolean
+    connexionToken: string
+    bruteLimit: number
+    sacrificePoints: number
+    fightSpeed: number
+    backgroundMusic: boolean
+  }, ExtArgs["result"]["user"]>
+  composites: {}
+}
 
 /**
  * Model User
  * 
  */
-export type User = {
-  id: string
-  lang: Lang
-  name: string
-  admin: boolean
-  connexionToken: string
-  bruteLimit: number
-  sacrificePoints: number
-  fightSpeed: number
-  backgroundMusic: boolean
+export type User = runtime.Types.DefaultSelection<UserPayload>
+export type BruteBodyPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  name: "BruteBody"
+  objects: {
+    brute: BrutePayload<ExtArgs>
+  }
+  scalars: $Extensions.GetResult<{
+    id: number
+    bruteId: number
+    longHair: number
+    lowerRightArm: number
+    rightHand: number
+    upperRightArm: number
+    rightShoulder: number
+    rightFoot: number
+    lowerRightLeg: number
+    upperRightLeg: number
+    leftFoot: number
+    lowerLeftLeg: number
+    pelvis: number
+    upperLeftLeg: number
+    tummy: number
+    torso: number
+    head: number
+    leftHand: number
+    upperLeftArm: number
+    lowerLeftArm: number
+    leftShoulder: number
+  }, ExtArgs["result"]["bruteBody"]>
+  composites: {}
 }
 
 /**
  * Model BruteBody
  * 
  */
-export type BruteBody = {
-  id: number
-  bruteId: number
-  longHair: number
-  lowerRightArm: number
-  rightHand: number
-  upperRightArm: number
-  rightShoulder: number
-  rightFoot: number
-  lowerRightLeg: number
-  upperRightLeg: number
-  leftFoot: number
-  lowerLeftLeg: number
-  pelvis: number
-  upperLeftLeg: number
-  tummy: number
-  torso: number
-  head: number
-  leftHand: number
-  upperLeftArm: number
-  lowerLeftArm: number
-  leftShoulder: number
+export type BruteBody = runtime.Types.DefaultSelection<BruteBodyPayload>
+export type BruteColorsPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  name: "BruteColors"
+  objects: {
+    brute: BrutePayload<ExtArgs>
+  }
+  scalars: $Extensions.GetResult<{
+    id: number
+    bruteId: number
+    skinColor: string
+    skinShade: string
+    hairColor: string
+    hairShade: string
+    primaryColor: string
+    primaryShade: string
+    secondaryColor: string
+    secondaryShade: string
+    accentColor: string
+    accentShade: string
+  }, ExtArgs["result"]["bruteColors"]>
+  composites: {}
 }
 
 /**
  * Model BruteColors
  * 
  */
-export type BruteColors = {
-  id: number
-  bruteId: number
-  skinColor: string
-  skinShade: string
-  hairColor: string
-  hairShade: string
-  primaryColor: string
-  primaryShade: string
-  secondaryColor: string
-  secondaryShade: string
-  accentColor: string
-  accentShade: string
+export type BruteColors = runtime.Types.DefaultSelection<BruteColorsPayload>
+export type BrutePayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  name: "Brute"
+  objects: {
+    user: UserPayload<ExtArgs> | null
+    body: BruteBodyPayload<ExtArgs> | null
+    colors: BruteColorsPayload<ExtArgs> | null
+    master: BrutePayload<ExtArgs> | null
+    pupils: BrutePayload<ExtArgs>[]
+    clan: ClanPayload<ExtArgs> | null
+    fights: FightPayload<ExtArgs>[]
+    fightsAsAdversary: FightPayload<ExtArgs>[]
+    logs: LogPayload<ExtArgs>[]
+    destinyChoices: DestinyChoicePayload<ExtArgs>[]
+    spritesheet: BruteSpritesheetPayload<ExtArgs> | null
+    tournaments: TournamentPayload<ExtArgs>[]
+    opponents: BrutePayload<ExtArgs>[]
+    opponentOf: BrutePayload<ExtArgs>[]
+    achievements: AchievementPayload<ExtArgs>[]
+    tournamentEarnings: TournamentEarningPayload<ExtArgs>[]
+  }
+  scalars: $Extensions.GetResult<{
+    id: number
+    name: string
+    deletedAt: Date | null
+    createdAt: Date
+    destinyPath: DestinyChoiceSide[]
+    level: number
+    xp: number
+    hp: number
+    enduranceStat: number
+    enduranceModifier: number
+    enduranceValue: number
+    strengthStat: number
+    strengthModifier: number
+    strengthValue: number
+    agilityStat: number
+    agilityModifier: number
+    agilityValue: number
+    speedStat: number
+    speedModifier: number
+    speedValue: number
+    ranking: number
+    gender: Gender
+    userId: string | null
+    weapons: WeaponName[]
+    skills: SkillName[]
+    pets: PetName[]
+    masterId: number | null
+    pupilsCount: number
+    clanId: number | null
+    registeredForTournament: boolean
+    nextTournamentDate: Date | null
+    currentTournamentDate: Date | null
+    currentTournamentStepWatched: number | null
+    lastFight: Date | null
+    fightsLeft: number
+    victories: number
+    opponentsGeneratedAt: Date | null
+    canRankUpSince: Date | null
+  }, ExtArgs["result"]["brute"]>
+  composites: {}
 }
 
 /**
  * Model Brute
  * 
  */
-export type Brute = {
-  id: number
-  name: string
-  deletedAt: Date | null
-  createdAt: Date
-  destinyPath: DestinyChoiceSide[]
-  level: number
-  xp: number
-  hp: number
-  enduranceStat: number
-  enduranceModifier: number
-  enduranceValue: number
-  strengthStat: number
-  strengthModifier: number
-  strengthValue: number
-  agilityStat: number
-  agilityModifier: number
-  agilityValue: number
-  speedStat: number
-  speedModifier: number
-  speedValue: number
-  ranking: number
-  gender: Gender
-  userId: string | null
-  weapons: WeaponName[]
-  skills: SkillName[]
-  pets: PetName[]
-  masterId: number | null
-  pupilsCount: number
-  clanId: number | null
-  registeredForTournament: boolean
-  nextTournamentDate: Date | null
-  currentTournamentDate: Date | null
-  currentTournamentStepWatched: number | null
-  lastFight: Date | null
-  fightsLeft: number
-  victories: number
-  opponentsGeneratedAt: Date | null
-  canRankUpSince: Date | null
+export type Brute = runtime.Types.DefaultSelection<BrutePayload>
+export type BruteSpritesheetPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  name: "BruteSpritesheet"
+  objects: {
+    brute: BrutePayload<ExtArgs>
+  }
+  scalars: $Extensions.GetResult<{
+    id: number
+    bruteId: number
+    image: Buffer | null
+    json: Prisma.JsonValue | null
+  }, ExtArgs["result"]["bruteSpritesheet"]>
+  composites: {}
 }
 
 /**
  * Model BruteSpritesheet
  * 
  */
-export type BruteSpritesheet = {
-  id: number
-  bruteId: number
-  image: Buffer | null
-  json: Prisma.JsonValue | null
+export type BruteSpritesheet = runtime.Types.DefaultSelection<BruteSpritesheetPayload>
+export type ClanPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  name: "Clan"
+  objects: {
+    brutes: BrutePayload<ExtArgs>[]
+  }
+  scalars: $Extensions.GetResult<{
+    id: number
+    name: string
+  }, ExtArgs["result"]["clan"]>
+  composites: {}
 }
 
 /**
  * Model Clan
  * 
  */
-export type Clan = {
-  id: number
-  name: string
+export type Clan = runtime.Types.DefaultSelection<ClanPayload>
+export type FightPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  name: "Fight"
+  objects: {
+    brute1: BrutePayload<ExtArgs>
+    brute2: BrutePayload<ExtArgs>
+    logs: LogPayload<ExtArgs>[]
+    TournamentStep: TournamentStepPayload<ExtArgs>[]
+  }
+  scalars: $Extensions.GetResult<{
+    id: number
+    date: Date
+    brute1Id: number
+    brute2Id: number
+    winner: string
+    loser: string
+    steps: Prisma.JsonValue
+    fighters: Prisma.JsonValue
+  }, ExtArgs["result"]["fight"]>
+  composites: {}
 }
 
 /**
  * Model Fight
  * 
  */
-export type Fight = {
-  id: number
-  date: Date
-  brute1Id: number
-  brute2Id: number
-  winner: string
-  loser: string
-  steps: Prisma.JsonValue
-  fighters: Prisma.JsonValue
+export type Fight = runtime.Types.DefaultSelection<FightPayload>
+export type LogPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  name: "Log"
+  objects: {
+    currentBrute: BrutePayload<ExtArgs>
+    fight: FightPayload<ExtArgs> | null
+  }
+  scalars: $Extensions.GetResult<{
+    id: number
+    date: Date
+    currentBruteId: number
+    type: LogType
+    level: number | null
+    brute: string | null
+    fightId: number | null
+    xp: number | null
+  }, ExtArgs["result"]["log"]>
+  composites: {}
 }
 
 /**
  * Model Log
  * 
  */
-export type Log = {
-  id: number
-  date: Date
-  currentBruteId: number
-  type: LogType
-  level: number | null
-  brute: string | null
-  fightId: number | null
-  xp: number | null
+export type Log = runtime.Types.DefaultSelection<LogPayload>
+export type DestinyChoicePayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  name: "DestinyChoice"
+  objects: {
+    brute: BrutePayload<ExtArgs>
+  }
+  scalars: $Extensions.GetResult<{
+    id: number
+    bruteId: number
+    path: DestinyChoiceSide[]
+    type: DestinyChoiceType
+    skill: SkillName | null
+    weapon: WeaponName | null
+    pet: PetName | null
+    stat1: BruteStat | null
+    stat1Value: number | null
+    stat2: BruteStat | null
+    stat2Value: number | null
+  }, ExtArgs["result"]["destinyChoice"]>
+  composites: {}
 }
 
 /**
  * Model DestinyChoice
  * 
  */
-export type DestinyChoice = {
-  id: number
-  bruteId: number
-  path: DestinyChoiceSide[]
-  type: DestinyChoiceType
-  skill: SkillName | null
-  weapon: WeaponName | null
-  pet: PetName | null
-  stat1: BruteStat | null
-  stat1Value: number | null
-  stat2: BruteStat | null
-  stat2Value: number | null
+export type DestinyChoice = runtime.Types.DefaultSelection<DestinyChoicePayload>
+export type TournamentPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  name: "Tournament"
+  objects: {
+    participants: BrutePayload<ExtArgs>[]
+    steps: TournamentStepPayload<ExtArgs>[]
+  }
+  scalars: $Extensions.GetResult<{
+    id: number
+    date: Date
+    type: TournamentType
+  }, ExtArgs["result"]["tournament"]>
+  composites: {}
 }
 
 /**
  * Model Tournament
  * 
  */
-export type Tournament = {
-  id: number
-  date: Date
-  type: TournamentType
+export type Tournament = runtime.Types.DefaultSelection<TournamentPayload>
+export type TournamentStepPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  name: "TournamentStep"
+  objects: {
+    tournament: TournamentPayload<ExtArgs>
+    fight: FightPayload<ExtArgs>
+  }
+  scalars: $Extensions.GetResult<{
+    id: number
+    tournamentId: number
+    step: number
+    fightId: number
+    xpDistributed: boolean
+  }, ExtArgs["result"]["tournamentStep"]>
+  composites: {}
 }
 
 /**
  * Model TournamentStep
  * 
  */
-export type TournamentStep = {
-  id: number
-  tournamentId: number
-  step: number
-  fightId: number
-  xpDistributed: boolean
+export type TournamentStep = runtime.Types.DefaultSelection<TournamentStepPayload>
+export type TournamentEarningPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  name: "TournamentEarning"
+  objects: {
+    brute: BrutePayload<ExtArgs>
+  }
+  scalars: $Extensions.GetResult<{
+    id: number
+    date: Date
+    bruteId: number
+    points: number | null
+    achievement: AchievementName | null
+    achievementCount: number | null
+  }, ExtArgs["result"]["tournamentEarning"]>
+  composites: {}
 }
 
 /**
  * Model TournamentEarning
  * 
  */
-export type TournamentEarning = {
-  id: number
-  date: Date
-  bruteId: number
-  points: number | null
-  achievement: AchievementName | null
-  achievementCount: number | null
+export type TournamentEarning = runtime.Types.DefaultSelection<TournamentEarningPayload>
+export type AchievementPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  name: "Achievement"
+  objects: {
+    brute: BrutePayload<ExtArgs> | null
+    user: UserPayload<ExtArgs> | null
+  }
+  scalars: $Extensions.GetResult<{
+    id: number
+    name: AchievementName
+    count: number
+    bruteId: number | null
+    userId: string | null
+  }, ExtArgs["result"]["achievement"]>
+  composites: {}
 }
 
 /**
  * Model Achievement
  * 
  */
-export type Achievement = {
-  id: number
-  name: AchievementName
-  count: number
-  bruteId: number | null
-  userId: string | null
-}
-
+export type Achievement = runtime.Types.DefaultSelection<AchievementPayload>
 
 /**
  * Enums
  */
 
-// Based on
-// https://github.com/microsoft/TypeScript/issues/3192#issuecomment-261720275
+export const Lang: {
+  en: 'en',
+  fr: 'fr',
+  de: 'de',
+  es: 'es'
+};
+
+export type Lang = (typeof Lang)[keyof typeof Lang]
+
+
+export const Gender: {
+  male: 'male',
+  female: 'female'
+};
+
+export type Gender = (typeof Gender)[keyof typeof Gender]
+
+
+export const DestinyChoiceSide: {
+  LEFT: 'LEFT',
+  RIGHT: 'RIGHT'
+};
+
+export type DestinyChoiceSide = (typeof DestinyChoiceSide)[keyof typeof DestinyChoiceSide]
+
+
+export const WeaponName: {
+  fan: 'fan',
+  keyboard: 'keyboard',
+  knife: 'knife',
+  leek: 'leek',
+  mug: 'mug',
+  sai: 'sai',
+  racquet: 'racquet',
+  axe: 'axe',
+  bumps: 'bumps',
+  flail: 'flail',
+  fryingPan: 'fryingPan',
+  hatchet: 'hatchet',
+  mammothBone: 'mammothBone',
+  morningStar: 'morningStar',
+  trombone: 'trombone',
+  baton: 'baton',
+  halbard: 'halbard',
+  lance: 'lance',
+  trident: 'trident',
+  whip: 'whip',
+  noodleBowl: 'noodleBowl',
+  piopio: 'piopio',
+  shuriken: 'shuriken',
+  broadsword: 'broadsword',
+  scimitar: 'scimitar',
+  sword: 'sword'
+};
+
+export type WeaponName = (typeof WeaponName)[keyof typeof WeaponName]
+
+
+export const SkillName: {
+  herculeanStrength: 'herculeanStrength',
+  felineAgility: 'felineAgility',
+  lightningBolt: 'lightningBolt',
+  vitality: 'vitality',
+  immortality: 'immortality',
+  reconnaissance: 'reconnaissance',
+  weaponsMaster: 'weaponsMaster',
+  martialArts: 'martialArts',
+  sixthSense: 'sixthSense',
+  hostility: 'hostility',
+  fistsOfFury: 'fistsOfFury',
+  shield: 'shield',
+  armor: 'armor',
+  toughenedSkin: 'toughenedSkin',
+  untouchable: 'untouchable',
+  sabotage: 'sabotage',
+  shock: 'shock',
+  bodybuilder: 'bodybuilder',
+  relentless: 'relentless',
+  survival: 'survival',
+  leadSkeleton: 'leadSkeleton',
+  balletShoes: 'balletShoes',
+  determination: 'determination',
+  firstStrike: 'firstStrike',
+  resistant: 'resistant',
+  counterAttack: 'counterAttack',
+  ironHead: 'ironHead',
+  thief: 'thief',
+  fierceBrute: 'fierceBrute',
+  tragicPotion: 'tragicPotion',
+  net: 'net',
+  bomb: 'bomb',
+  hammer: 'hammer',
+  cryOfTheDamned: 'cryOfTheDamned',
+  hypnosis: 'hypnosis',
+  flashFlood: 'flashFlood',
+  tamer: 'tamer',
+  regeneration: 'regeneration',
+  chef: 'chef',
+  spy: 'spy',
+  saboteur: 'saboteur',
+  backup: 'backup',
+  hideaway: 'hideaway',
+  monk: 'monk'
+};
+
+export type SkillName = (typeof SkillName)[keyof typeof SkillName]
+
+
+export const PetName: {
+  dog1: 'dog1',
+  dog2: 'dog2',
+  dog3: 'dog3',
+  panther: 'panther',
+  bear: 'bear'
+};
+
+export type PetName = (typeof PetName)[keyof typeof PetName]
+
+
+export const LogType: {
+  win: 'win',
+  lose: 'lose',
+  child: 'child',
+  childup: 'childup',
+  up: 'up',
+  lvl: 'lvl',
+  survive: 'survive',
+  tournament: 'tournament',
+  tournamentXp: 'tournamentXp'
+};
+
+export type LogType = (typeof LogType)[keyof typeof LogType]
+
+
+export const DestinyChoiceType: {
+  skill: 'skill',
+  weapon: 'weapon',
+  pet: 'pet',
+  stats: 'stats'
+};
+
+export type DestinyChoiceType = (typeof DestinyChoiceType)[keyof typeof DestinyChoiceType]
+
+
+export const BruteStat: {
+  endurance: 'endurance',
+  strength: 'strength',
+  agility: 'agility',
+  speed: 'speed'
+};
+
+export type BruteStat = (typeof BruteStat)[keyof typeof BruteStat]
+
+
+export const TournamentType: {
+  DAILY: 'DAILY',
+  GLOBAL: 'GLOBAL',
+  CUSTOM: 'CUSTOM'
+};
+
+export type TournamentType = (typeof TournamentType)[keyof typeof TournamentType]
+
 
 export const AchievementName: {
   wins: 'wins',
@@ -343,169 +630,6 @@ export const AchievementName: {
 export type AchievementName = (typeof AchievementName)[keyof typeof AchievementName]
 
 
-export const BruteStat: {
-  endurance: 'endurance',
-  strength: 'strength',
-  agility: 'agility',
-  speed: 'speed'
-};
-
-export type BruteStat = (typeof BruteStat)[keyof typeof BruteStat]
-
-
-export const DestinyChoiceSide: {
-  LEFT: 'LEFT',
-  RIGHT: 'RIGHT'
-};
-
-export type DestinyChoiceSide = (typeof DestinyChoiceSide)[keyof typeof DestinyChoiceSide]
-
-
-export const DestinyChoiceType: {
-  skill: 'skill',
-  weapon: 'weapon',
-  pet: 'pet',
-  stats: 'stats'
-};
-
-export type DestinyChoiceType = (typeof DestinyChoiceType)[keyof typeof DestinyChoiceType]
-
-
-export const Gender: {
-  male: 'male',
-  female: 'female'
-};
-
-export type Gender = (typeof Gender)[keyof typeof Gender]
-
-
-export const Lang: {
-  en: 'en',
-  fr: 'fr',
-  de: 'de',
-  es: 'es'
-};
-
-export type Lang = (typeof Lang)[keyof typeof Lang]
-
-
-export const LogType: {
-  win: 'win',
-  lose: 'lose',
-  child: 'child',
-  childup: 'childup',
-  up: 'up',
-  lvl: 'lvl',
-  survive: 'survive',
-  tournament: 'tournament',
-  tournamentXp: 'tournamentXp'
-};
-
-export type LogType = (typeof LogType)[keyof typeof LogType]
-
-
-export const PetName: {
-  dog1: 'dog1',
-  dog2: 'dog2',
-  dog3: 'dog3',
-  panther: 'panther',
-  bear: 'bear'
-};
-
-export type PetName = (typeof PetName)[keyof typeof PetName]
-
-
-export const SkillName: {
-  herculeanStrength: 'herculeanStrength',
-  felineAgility: 'felineAgility',
-  lightningBolt: 'lightningBolt',
-  vitality: 'vitality',
-  immortality: 'immortality',
-  reconnaissance: 'reconnaissance',
-  weaponsMaster: 'weaponsMaster',
-  martialArts: 'martialArts',
-  sixthSense: 'sixthSense',
-  hostility: 'hostility',
-  fistsOfFury: 'fistsOfFury',
-  shield: 'shield',
-  armor: 'armor',
-  toughenedSkin: 'toughenedSkin',
-  untouchable: 'untouchable',
-  sabotage: 'sabotage',
-  shock: 'shock',
-  bodybuilder: 'bodybuilder',
-  relentless: 'relentless',
-  survival: 'survival',
-  leadSkeleton: 'leadSkeleton',
-  balletShoes: 'balletShoes',
-  determination: 'determination',
-  firstStrike: 'firstStrike',
-  resistant: 'resistant',
-  counterAttack: 'counterAttack',
-  ironHead: 'ironHead',
-  thief: 'thief',
-  fierceBrute: 'fierceBrute',
-  tragicPotion: 'tragicPotion',
-  net: 'net',
-  bomb: 'bomb',
-  hammer: 'hammer',
-  cryOfTheDamned: 'cryOfTheDamned',
-  hypnosis: 'hypnosis',
-  flashFlood: 'flashFlood',
-  tamer: 'tamer',
-  regeneration: 'regeneration',
-  chef: 'chef',
-  spy: 'spy',
-  saboteur: 'saboteur',
-  backup: 'backup',
-  hideaway: 'hideaway',
-  monk: 'monk'
-};
-
-export type SkillName = (typeof SkillName)[keyof typeof SkillName]
-
-
-export const TournamentType: {
-  DAILY: 'DAILY',
-  GLOBAL: 'GLOBAL',
-  CUSTOM: 'CUSTOM'
-};
-
-export type TournamentType = (typeof TournamentType)[keyof typeof TournamentType]
-
-
-export const WeaponName: {
-  fan: 'fan',
-  keyboard: 'keyboard',
-  knife: 'knife',
-  leek: 'leek',
-  mug: 'mug',
-  sai: 'sai',
-  racquet: 'racquet',
-  axe: 'axe',
-  bumps: 'bumps',
-  flail: 'flail',
-  fryingPan: 'fryingPan',
-  hatchet: 'hatchet',
-  mammothBone: 'mammothBone',
-  morningStar: 'morningStar',
-  trombone: 'trombone',
-  baton: 'baton',
-  halbard: 'halbard',
-  lance: 'lance',
-  trident: 'trident',
-  whip: 'whip',
-  noodleBowl: 'noodleBowl',
-  piopio: 'piopio',
-  shuriken: 'shuriken',
-  broadsword: 'broadsword',
-  scimitar: 'scimitar',
-  sword: 'sword'
-};
-
-export type WeaponName = (typeof WeaponName)[keyof typeof WeaponName]
-
-
 /**
  * ##  Prisma Client ʲˢ
  * 
@@ -523,10 +647,10 @@ export type WeaponName = (typeof WeaponName)[keyof typeof WeaponName]
 export class PrismaClient<
   T extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
   U = 'log' extends keyof T ? T['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<T['log']> : never : never,
-  GlobalReject extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined = 'rejectOnNotFound' extends keyof T
-    ? T['rejectOnNotFound']
-    : false
-      > {
+  ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs
+> {
+  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['other'] }
+
     /**
    * ##  Prisma Client ʲˢ
    * 
@@ -543,7 +667,7 @@ export class PrismaClient<
    */
 
   constructor(optionsArg ?: Prisma.Subset<T, Prisma.PrismaClientOptions>);
-  $on<V extends (U | 'beforeExit')>(eventType: V, callback: (event: V extends 'query' ? Prisma.QueryEvent : V extends 'beforeExit' ? () => Promise<void> : Prisma.LogEvent) => void): void;
+  $on<V extends U>(eventType: V, callback: (event: V extends 'query' ? Prisma.QueryEvent : Prisma.LogEvent) => void): void;
 
   /**
    * Connect with the database
@@ -557,6 +681,8 @@ export class PrismaClient<
 
   /**
    * Add a middleware
+   * @deprecated since 4.16.0. For new code, prefer client extensions instead.
+   * @see https://pris.ly/d/extensions
    */
   $use(cb: Prisma.Middleware): void
 
@@ -619,9 +745,12 @@ export class PrismaClient<
    * 
    * Read more in our [docs](https://www.prisma.io/docs/concepts/components/prisma-client/transactions).
    */
-  $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: { isolationLevel?: Prisma.TransactionIsolationLevel }): Promise<UnwrapTuple<P>>
+  $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: { isolationLevel?: Prisma.TransactionIsolationLevel }): Promise<runtime.Types.Utils.UnwrapTuple<P>>
 
-  $transaction<R>(fn: (prisma: Omit<this, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">) => Promise<R>, options?: { maxWait?: number, timeout?: number, isolationLevel?: Prisma.TransactionIsolationLevel }): Promise<R>
+  $transaction<R>(fn: (prisma: Omit<PrismaClient, runtime.ITXClientDenyList>) => Promise<R>, options?: { maxWait?: number, timeout?: number, isolationLevel?: Prisma.TransactionIsolationLevel }): Promise<R>
+
+
+  $extends: $Extensions.ExtendsHook<'extends', Prisma.TypeMapCb, ExtArgs>
 
       /**
    * `prisma.user`: Exposes CRUD operations for the **User** model.
@@ -631,7 +760,7 @@ export class PrismaClient<
     * const users = await prisma.user.findMany()
     * ```
     */
-  get user(): Prisma.UserDelegate<GlobalReject>;
+  get user(): Prisma.UserDelegate<ExtArgs>;
 
   /**
    * `prisma.bruteBody`: Exposes CRUD operations for the **BruteBody** model.
@@ -641,7 +770,7 @@ export class PrismaClient<
     * const bruteBodies = await prisma.bruteBody.findMany()
     * ```
     */
-  get bruteBody(): Prisma.BruteBodyDelegate<GlobalReject>;
+  get bruteBody(): Prisma.BruteBodyDelegate<ExtArgs>;
 
   /**
    * `prisma.bruteColors`: Exposes CRUD operations for the **BruteColors** model.
@@ -651,7 +780,7 @@ export class PrismaClient<
     * const bruteColors = await prisma.bruteColors.findMany()
     * ```
     */
-  get bruteColors(): Prisma.BruteColorsDelegate<GlobalReject>;
+  get bruteColors(): Prisma.BruteColorsDelegate<ExtArgs>;
 
   /**
    * `prisma.brute`: Exposes CRUD operations for the **Brute** model.
@@ -661,7 +790,7 @@ export class PrismaClient<
     * const brutes = await prisma.brute.findMany()
     * ```
     */
-  get brute(): Prisma.BruteDelegate<GlobalReject>;
+  get brute(): Prisma.BruteDelegate<ExtArgs>;
 
   /**
    * `prisma.bruteSpritesheet`: Exposes CRUD operations for the **BruteSpritesheet** model.
@@ -671,7 +800,7 @@ export class PrismaClient<
     * const bruteSpritesheets = await prisma.bruteSpritesheet.findMany()
     * ```
     */
-  get bruteSpritesheet(): Prisma.BruteSpritesheetDelegate<GlobalReject>;
+  get bruteSpritesheet(): Prisma.BruteSpritesheetDelegate<ExtArgs>;
 
   /**
    * `prisma.clan`: Exposes CRUD operations for the **Clan** model.
@@ -681,7 +810,7 @@ export class PrismaClient<
     * const clans = await prisma.clan.findMany()
     * ```
     */
-  get clan(): Prisma.ClanDelegate<GlobalReject>;
+  get clan(): Prisma.ClanDelegate<ExtArgs>;
 
   /**
    * `prisma.fight`: Exposes CRUD operations for the **Fight** model.
@@ -691,7 +820,7 @@ export class PrismaClient<
     * const fights = await prisma.fight.findMany()
     * ```
     */
-  get fight(): Prisma.FightDelegate<GlobalReject>;
+  get fight(): Prisma.FightDelegate<ExtArgs>;
 
   /**
    * `prisma.log`: Exposes CRUD operations for the **Log** model.
@@ -701,7 +830,7 @@ export class PrismaClient<
     * const logs = await prisma.log.findMany()
     * ```
     */
-  get log(): Prisma.LogDelegate<GlobalReject>;
+  get log(): Prisma.LogDelegate<ExtArgs>;
 
   /**
    * `prisma.destinyChoice`: Exposes CRUD operations for the **DestinyChoice** model.
@@ -711,7 +840,7 @@ export class PrismaClient<
     * const destinyChoices = await prisma.destinyChoice.findMany()
     * ```
     */
-  get destinyChoice(): Prisma.DestinyChoiceDelegate<GlobalReject>;
+  get destinyChoice(): Prisma.DestinyChoiceDelegate<ExtArgs>;
 
   /**
    * `prisma.tournament`: Exposes CRUD operations for the **Tournament** model.
@@ -721,7 +850,7 @@ export class PrismaClient<
     * const tournaments = await prisma.tournament.findMany()
     * ```
     */
-  get tournament(): Prisma.TournamentDelegate<GlobalReject>;
+  get tournament(): Prisma.TournamentDelegate<ExtArgs>;
 
   /**
    * `prisma.tournamentStep`: Exposes CRUD operations for the **TournamentStep** model.
@@ -731,7 +860,7 @@ export class PrismaClient<
     * const tournamentSteps = await prisma.tournamentStep.findMany()
     * ```
     */
-  get tournamentStep(): Prisma.TournamentStepDelegate<GlobalReject>;
+  get tournamentStep(): Prisma.TournamentStepDelegate<ExtArgs>;
 
   /**
    * `prisma.tournamentEarning`: Exposes CRUD operations for the **TournamentEarning** model.
@@ -741,7 +870,7 @@ export class PrismaClient<
     * const tournamentEarnings = await prisma.tournamentEarning.findMany()
     * ```
     */
-  get tournamentEarning(): Prisma.TournamentEarningDelegate<GlobalReject>;
+  get tournamentEarning(): Prisma.TournamentEarningDelegate<ExtArgs>;
 
   /**
    * `prisma.achievement`: Exposes CRUD operations for the **Achievement** model.
@@ -751,13 +880,18 @@ export class PrismaClient<
     * const achievements = await prisma.achievement.findMany()
     * ```
     */
-  get achievement(): Prisma.AchievementDelegate<GlobalReject>;
+  get achievement(): Prisma.AchievementDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
   export import DMMF = runtime.DMMF
 
-  export type PrismaPromise<T> = runtime.Types.Public.PrismaPromise<T>
+  export type PrismaPromise<T> = $Public.PrismaPromise<T>
+
+  /**
+   * Validator
+   */
+  export import validator = runtime.Public.validator
 
   /**
    * Prisma Errors
@@ -793,10 +927,19 @@ export namespace Prisma {
   export type MetricHistogram = runtime.MetricHistogram
   export type MetricHistogramBucket = runtime.MetricHistogramBucket
 
+  /**
+  * Extensions
+  */
+  export type Extension = $Extensions.UserArgs
+  export import getExtensionContext = runtime.Extensions.getExtensionContext
+  export type Args<T, F extends $Public.Operation> = $Public.Args<T, F>
+  export type Payload<T, F extends $Public.Operation> = $Public.Payload<T, F>
+  export type Result<T, A, F extends $Public.Operation> = $Public.Result<T, A, F>
+  export type Exact<T, W> = $Public.Exact<T, W>
 
   /**
-   * Prisma Client JS version: 4.12.0
-   * Query Engine version: 659ef412370fa3b41cd7bf6e94587c1dfb7f67e7
+   * Prisma Client JS version: 5.0.0
+   * Query Engine version: 6b0aef69b7cdfc787f822ecd7cdc76d5f1991584
    */
   export type PrismaVersion = {
     client: string
@@ -1164,7 +1307,7 @@ export namespace Prisma {
 
   export const type: unique symbol;
 
-  export function validator<V>(): <S>(select: runtime.Types.Utils.LegacyExact<S, V>) => S;
+
 
   /**
    * Used by group by
@@ -1205,9 +1348,9 @@ export namespace Prisma {
   type MaybeTupleToUnion<T> = T extends any[] ? TupleToUnion<T> : T
 
   /**
-   * Like `Pick`, but with an array
+   * Like `Pick`, but additionally can also accept an array of keys
    */
-  type PickArray<T, K extends Array<keyof T>> = Prisma__Pick<T, TupleToUnion<K>>
+  type PickEnumerable<T, K extends Enumerable<keyof T> | keyof T> = Prisma__Pick<T, MaybeTupleToUnion<K>>
 
   /**
    * Exclude all keys with underscores
@@ -1243,46 +1386,904 @@ export namespace Prisma {
     db?: Datasource
   }
 
+
+  interface TypeMapCb extends $Utils.Fn<{extArgs: $Extensions.Args}, $Utils.Record<string, any>> {
+    returns: Prisma.TypeMap<this['params']['extArgs']>
+  }
+
+  export type TypeMap<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    meta: {
+      modelProps: 'user' | 'bruteBody' | 'bruteColors' | 'brute' | 'bruteSpritesheet' | 'clan' | 'fight' | 'log' | 'destinyChoice' | 'tournament' | 'tournamentStep' | 'tournamentEarning' | 'achievement'
+      txIsolationLevel: Prisma.TransactionIsolationLevel
+    },
+    model: {
+      User: {
+        payload: UserPayload<ExtArgs>
+        fields: Prisma.UserFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<UserPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<UserPayload>
+          }
+          findFirst: {
+            args: Prisma.UserFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<UserPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<UserPayload>
+          }
+          findMany: {
+            args: Prisma.UserFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<UserPayload>[]
+          }
+          create: {
+            args: Prisma.UserCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<UserPayload>
+          }
+          createMany: {
+            args: Prisma.UserCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.UserDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<UserPayload>
+          }
+          update: {
+            args: Prisma.UserUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<UserPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.UserUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<UserPayload>
+          }
+          aggregate: {
+            args: Prisma.UserAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateUser>
+          }
+          groupBy: {
+            args: Prisma.UserGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<UserGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserCountArgs<ExtArgs>,
+            result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      BruteBody: {
+        payload: BruteBodyPayload<ExtArgs>
+        fields: Prisma.BruteBodyFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BruteBodyFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BruteBodyPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BruteBodyFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BruteBodyPayload>
+          }
+          findFirst: {
+            args: Prisma.BruteBodyFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BruteBodyPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BruteBodyFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BruteBodyPayload>
+          }
+          findMany: {
+            args: Prisma.BruteBodyFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BruteBodyPayload>[]
+          }
+          create: {
+            args: Prisma.BruteBodyCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BruteBodyPayload>
+          }
+          createMany: {
+            args: Prisma.BruteBodyCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.BruteBodyDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BruteBodyPayload>
+          }
+          update: {
+            args: Prisma.BruteBodyUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BruteBodyPayload>
+          }
+          deleteMany: {
+            args: Prisma.BruteBodyDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BruteBodyUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.BruteBodyUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BruteBodyPayload>
+          }
+          aggregate: {
+            args: Prisma.BruteBodyAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateBruteBody>
+          }
+          groupBy: {
+            args: Prisma.BruteBodyGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<BruteBodyGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BruteBodyCountArgs<ExtArgs>,
+            result: $Utils.Optional<BruteBodyCountAggregateOutputType> | number
+          }
+        }
+      }
+      BruteColors: {
+        payload: BruteColorsPayload<ExtArgs>
+        fields: Prisma.BruteColorsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BruteColorsFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BruteColorsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BruteColorsFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BruteColorsPayload>
+          }
+          findFirst: {
+            args: Prisma.BruteColorsFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BruteColorsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BruteColorsFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BruteColorsPayload>
+          }
+          findMany: {
+            args: Prisma.BruteColorsFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BruteColorsPayload>[]
+          }
+          create: {
+            args: Prisma.BruteColorsCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BruteColorsPayload>
+          }
+          createMany: {
+            args: Prisma.BruteColorsCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.BruteColorsDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BruteColorsPayload>
+          }
+          update: {
+            args: Prisma.BruteColorsUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BruteColorsPayload>
+          }
+          deleteMany: {
+            args: Prisma.BruteColorsDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BruteColorsUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.BruteColorsUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BruteColorsPayload>
+          }
+          aggregate: {
+            args: Prisma.BruteColorsAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateBruteColors>
+          }
+          groupBy: {
+            args: Prisma.BruteColorsGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<BruteColorsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BruteColorsCountArgs<ExtArgs>,
+            result: $Utils.Optional<BruteColorsCountAggregateOutputType> | number
+          }
+        }
+      }
+      Brute: {
+        payload: BrutePayload<ExtArgs>
+        fields: Prisma.BruteFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BruteFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BrutePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BruteFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BrutePayload>
+          }
+          findFirst: {
+            args: Prisma.BruteFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BrutePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BruteFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BrutePayload>
+          }
+          findMany: {
+            args: Prisma.BruteFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BrutePayload>[]
+          }
+          create: {
+            args: Prisma.BruteCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BrutePayload>
+          }
+          createMany: {
+            args: Prisma.BruteCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.BruteDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BrutePayload>
+          }
+          update: {
+            args: Prisma.BruteUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BrutePayload>
+          }
+          deleteMany: {
+            args: Prisma.BruteDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BruteUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.BruteUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BrutePayload>
+          }
+          aggregate: {
+            args: Prisma.BruteAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateBrute>
+          }
+          groupBy: {
+            args: Prisma.BruteGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<BruteGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BruteCountArgs<ExtArgs>,
+            result: $Utils.Optional<BruteCountAggregateOutputType> | number
+          }
+        }
+      }
+      BruteSpritesheet: {
+        payload: BruteSpritesheetPayload<ExtArgs>
+        fields: Prisma.BruteSpritesheetFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BruteSpritesheetFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BruteSpritesheetPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BruteSpritesheetFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BruteSpritesheetPayload>
+          }
+          findFirst: {
+            args: Prisma.BruteSpritesheetFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BruteSpritesheetPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BruteSpritesheetFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BruteSpritesheetPayload>
+          }
+          findMany: {
+            args: Prisma.BruteSpritesheetFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BruteSpritesheetPayload>[]
+          }
+          create: {
+            args: Prisma.BruteSpritesheetCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BruteSpritesheetPayload>
+          }
+          createMany: {
+            args: Prisma.BruteSpritesheetCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.BruteSpritesheetDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BruteSpritesheetPayload>
+          }
+          update: {
+            args: Prisma.BruteSpritesheetUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BruteSpritesheetPayload>
+          }
+          deleteMany: {
+            args: Prisma.BruteSpritesheetDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BruteSpritesheetUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.BruteSpritesheetUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<BruteSpritesheetPayload>
+          }
+          aggregate: {
+            args: Prisma.BruteSpritesheetAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateBruteSpritesheet>
+          }
+          groupBy: {
+            args: Prisma.BruteSpritesheetGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<BruteSpritesheetGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BruteSpritesheetCountArgs<ExtArgs>,
+            result: $Utils.Optional<BruteSpritesheetCountAggregateOutputType> | number
+          }
+        }
+      }
+      Clan: {
+        payload: ClanPayload<ExtArgs>
+        fields: Prisma.ClanFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ClanFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<ClanPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ClanFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<ClanPayload>
+          }
+          findFirst: {
+            args: Prisma.ClanFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<ClanPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ClanFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<ClanPayload>
+          }
+          findMany: {
+            args: Prisma.ClanFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<ClanPayload>[]
+          }
+          create: {
+            args: Prisma.ClanCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<ClanPayload>
+          }
+          createMany: {
+            args: Prisma.ClanCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.ClanDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<ClanPayload>
+          }
+          update: {
+            args: Prisma.ClanUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<ClanPayload>
+          }
+          deleteMany: {
+            args: Prisma.ClanDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ClanUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.ClanUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<ClanPayload>
+          }
+          aggregate: {
+            args: Prisma.ClanAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateClan>
+          }
+          groupBy: {
+            args: Prisma.ClanGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<ClanGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ClanCountArgs<ExtArgs>,
+            result: $Utils.Optional<ClanCountAggregateOutputType> | number
+          }
+        }
+      }
+      Fight: {
+        payload: FightPayload<ExtArgs>
+        fields: Prisma.FightFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FightFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<FightPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FightFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<FightPayload>
+          }
+          findFirst: {
+            args: Prisma.FightFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<FightPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FightFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<FightPayload>
+          }
+          findMany: {
+            args: Prisma.FightFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<FightPayload>[]
+          }
+          create: {
+            args: Prisma.FightCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<FightPayload>
+          }
+          createMany: {
+            args: Prisma.FightCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.FightDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<FightPayload>
+          }
+          update: {
+            args: Prisma.FightUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<FightPayload>
+          }
+          deleteMany: {
+            args: Prisma.FightDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FightUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.FightUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<FightPayload>
+          }
+          aggregate: {
+            args: Prisma.FightAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateFight>
+          }
+          groupBy: {
+            args: Prisma.FightGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<FightGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FightCountArgs<ExtArgs>,
+            result: $Utils.Optional<FightCountAggregateOutputType> | number
+          }
+        }
+      }
+      Log: {
+        payload: LogPayload<ExtArgs>
+        fields: Prisma.LogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LogFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<LogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LogFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<LogPayload>
+          }
+          findFirst: {
+            args: Prisma.LogFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<LogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LogFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<LogPayload>
+          }
+          findMany: {
+            args: Prisma.LogFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<LogPayload>[]
+          }
+          create: {
+            args: Prisma.LogCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<LogPayload>
+          }
+          createMany: {
+            args: Prisma.LogCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.LogDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<LogPayload>
+          }
+          update: {
+            args: Prisma.LogUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<LogPayload>
+          }
+          deleteMany: {
+            args: Prisma.LogDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LogUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.LogUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<LogPayload>
+          }
+          aggregate: {
+            args: Prisma.LogAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateLog>
+          }
+          groupBy: {
+            args: Prisma.LogGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<LogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LogCountArgs<ExtArgs>,
+            result: $Utils.Optional<LogCountAggregateOutputType> | number
+          }
+        }
+      }
+      DestinyChoice: {
+        payload: DestinyChoicePayload<ExtArgs>
+        fields: Prisma.DestinyChoiceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DestinyChoiceFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<DestinyChoicePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DestinyChoiceFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<DestinyChoicePayload>
+          }
+          findFirst: {
+            args: Prisma.DestinyChoiceFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<DestinyChoicePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DestinyChoiceFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<DestinyChoicePayload>
+          }
+          findMany: {
+            args: Prisma.DestinyChoiceFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<DestinyChoicePayload>[]
+          }
+          create: {
+            args: Prisma.DestinyChoiceCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<DestinyChoicePayload>
+          }
+          createMany: {
+            args: Prisma.DestinyChoiceCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.DestinyChoiceDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<DestinyChoicePayload>
+          }
+          update: {
+            args: Prisma.DestinyChoiceUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<DestinyChoicePayload>
+          }
+          deleteMany: {
+            args: Prisma.DestinyChoiceDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DestinyChoiceUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.DestinyChoiceUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<DestinyChoicePayload>
+          }
+          aggregate: {
+            args: Prisma.DestinyChoiceAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateDestinyChoice>
+          }
+          groupBy: {
+            args: Prisma.DestinyChoiceGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<DestinyChoiceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DestinyChoiceCountArgs<ExtArgs>,
+            result: $Utils.Optional<DestinyChoiceCountAggregateOutputType> | number
+          }
+        }
+      }
+      Tournament: {
+        payload: TournamentPayload<ExtArgs>
+        fields: Prisma.TournamentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TournamentFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TournamentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TournamentFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TournamentPayload>
+          }
+          findFirst: {
+            args: Prisma.TournamentFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TournamentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TournamentFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TournamentPayload>
+          }
+          findMany: {
+            args: Prisma.TournamentFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TournamentPayload>[]
+          }
+          create: {
+            args: Prisma.TournamentCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TournamentPayload>
+          }
+          createMany: {
+            args: Prisma.TournamentCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.TournamentDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TournamentPayload>
+          }
+          update: {
+            args: Prisma.TournamentUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TournamentPayload>
+          }
+          deleteMany: {
+            args: Prisma.TournamentDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TournamentUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.TournamentUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TournamentPayload>
+          }
+          aggregate: {
+            args: Prisma.TournamentAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateTournament>
+          }
+          groupBy: {
+            args: Prisma.TournamentGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<TournamentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TournamentCountArgs<ExtArgs>,
+            result: $Utils.Optional<TournamentCountAggregateOutputType> | number
+          }
+        }
+      }
+      TournamentStep: {
+        payload: TournamentStepPayload<ExtArgs>
+        fields: Prisma.TournamentStepFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TournamentStepFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TournamentStepPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TournamentStepFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TournamentStepPayload>
+          }
+          findFirst: {
+            args: Prisma.TournamentStepFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TournamentStepPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TournamentStepFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TournamentStepPayload>
+          }
+          findMany: {
+            args: Prisma.TournamentStepFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TournamentStepPayload>[]
+          }
+          create: {
+            args: Prisma.TournamentStepCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TournamentStepPayload>
+          }
+          createMany: {
+            args: Prisma.TournamentStepCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.TournamentStepDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TournamentStepPayload>
+          }
+          update: {
+            args: Prisma.TournamentStepUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TournamentStepPayload>
+          }
+          deleteMany: {
+            args: Prisma.TournamentStepDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TournamentStepUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.TournamentStepUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TournamentStepPayload>
+          }
+          aggregate: {
+            args: Prisma.TournamentStepAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateTournamentStep>
+          }
+          groupBy: {
+            args: Prisma.TournamentStepGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<TournamentStepGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TournamentStepCountArgs<ExtArgs>,
+            result: $Utils.Optional<TournamentStepCountAggregateOutputType> | number
+          }
+        }
+      }
+      TournamentEarning: {
+        payload: TournamentEarningPayload<ExtArgs>
+        fields: Prisma.TournamentEarningFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TournamentEarningFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TournamentEarningPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TournamentEarningFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TournamentEarningPayload>
+          }
+          findFirst: {
+            args: Prisma.TournamentEarningFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TournamentEarningPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TournamentEarningFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TournamentEarningPayload>
+          }
+          findMany: {
+            args: Prisma.TournamentEarningFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TournamentEarningPayload>[]
+          }
+          create: {
+            args: Prisma.TournamentEarningCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TournamentEarningPayload>
+          }
+          createMany: {
+            args: Prisma.TournamentEarningCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.TournamentEarningDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TournamentEarningPayload>
+          }
+          update: {
+            args: Prisma.TournamentEarningUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TournamentEarningPayload>
+          }
+          deleteMany: {
+            args: Prisma.TournamentEarningDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TournamentEarningUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.TournamentEarningUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<TournamentEarningPayload>
+          }
+          aggregate: {
+            args: Prisma.TournamentEarningAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateTournamentEarning>
+          }
+          groupBy: {
+            args: Prisma.TournamentEarningGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<TournamentEarningGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TournamentEarningCountArgs<ExtArgs>,
+            result: $Utils.Optional<TournamentEarningCountAggregateOutputType> | number
+          }
+        }
+      }
+      Achievement: {
+        payload: AchievementPayload<ExtArgs>
+        fields: Prisma.AchievementFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AchievementFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<AchievementPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AchievementFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<AchievementPayload>
+          }
+          findFirst: {
+            args: Prisma.AchievementFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<AchievementPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AchievementFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<AchievementPayload>
+          }
+          findMany: {
+            args: Prisma.AchievementFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<AchievementPayload>[]
+          }
+          create: {
+            args: Prisma.AchievementCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<AchievementPayload>
+          }
+          createMany: {
+            args: Prisma.AchievementCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.AchievementDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<AchievementPayload>
+          }
+          update: {
+            args: Prisma.AchievementUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<AchievementPayload>
+          }
+          deleteMany: {
+            args: Prisma.AchievementDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AchievementUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.AchievementUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<AchievementPayload>
+          }
+          aggregate: {
+            args: Prisma.AchievementAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateAchievement>
+          }
+          groupBy: {
+            args: Prisma.AchievementGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<AchievementGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AchievementCountArgs<ExtArgs>,
+            result: $Utils.Optional<AchievementCountAggregateOutputType> | number
+          }
+        }
+      }
+    }
+  } & {
+    other: {
+      payload: any
+      operations: {
+        $executeRawUnsafe: {
+          args: [query: string, ...values: any[]],
+          result: any
+        }
+        $executeRaw: {
+          args: [query: TemplateStringsArray | Prisma.Sql, ...values: any[]],
+          result: any
+        }
+        $queryRawUnsafe: {
+          args: [query: string, ...values: any[]],
+          result: any
+        }
+        $queryRaw: {
+          args: [query: TemplateStringsArray | Prisma.Sql, ...values: any[]],
+          result: any
+        }
+      }
+    }
+  }
+  export const defineExtension: $Extensions.ExtendsHook<'define', Prisma.TypeMapCb, $Extensions.DefaultArgs>
   export type DefaultPrismaClient = PrismaClient
-  export type RejectOnNotFound = boolean | ((error: Error) => Error)
-  export type RejectPerModel = { [P in ModelName]?: RejectOnNotFound }
-  export type RejectPerOperation =  { [P in "findUnique" | "findFirst"]?: RejectPerModel | RejectOnNotFound } 
-  type IsReject<T> = T extends true ? True : T extends (err: Error) => Error ? True : False
-  export type HasReject<
-    GlobalRejectSettings extends Prisma.PrismaClientOptions['rejectOnNotFound'],
-    LocalRejectSettings,
-    Action extends PrismaAction,
-    Model extends ModelName
-  > = LocalRejectSettings extends RejectOnNotFound
-    ? IsReject<LocalRejectSettings>
-    : GlobalRejectSettings extends RejectPerOperation
-    ? Action extends keyof GlobalRejectSettings
-      ? GlobalRejectSettings[Action] extends RejectOnNotFound
-        ? IsReject<GlobalRejectSettings[Action]>
-        : GlobalRejectSettings[Action] extends RejectPerModel
-        ? Model extends keyof GlobalRejectSettings[Action]
-          ? IsReject<GlobalRejectSettings[Action][Model]>
-          : False
-        : False
-      : False
-    : IsReject<GlobalRejectSettings>
   export type ErrorFormat = 'pretty' | 'colorless' | 'minimal'
 
   export interface PrismaClientOptions {
-    /**
-     * Configure findUnique/findFirst to throw an error if the query returns null. 
-     * @deprecated since 4.0.0. Use `findUniqueOrThrow`/`findFirstOrThrow` methods instead.
-     * @example
-     * ```
-     * // Reject on both findUnique/findFirst
-     * rejectOnNotFound: true
-     * // Reject only on findFirst with a custom error
-     * rejectOnNotFound: { findFirst: (err) => new Error("Custom Error")}
-     * // Reject on user.findUnique with a custom error
-     * rejectOnNotFound: { findUnique: {User: (err) => new Error("User not found")}}
-     * ```
-     */
-    rejectOnNotFound?: RejectOnNotFound | RejectPerOperation
     /**
      * Overwrites the datasource url from your schema.prisma file
      */
@@ -1383,7 +2384,7 @@ export namespace Prisma {
   /**
    * `PrismaClient` proxy available in interactive transactions.
    */
-  export type TransactionClient = Omit<Prisma.DefaultPrismaClient, '$connect' | '$disconnect' | '$on' | '$transaction' | '$use'>
+  export type TransactionClient = Omit<Prisma.DefaultPrismaClient, runtime.ITXClientDenyList>
 
   export type Datasource = {
     url?: string
@@ -1404,37 +2405,37 @@ export namespace Prisma {
     achievements: number
   }
 
-  export type UserCountOutputTypeSelect = {
-    brutes?: boolean
-    achievements?: boolean
+  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    brutes?: boolean | UserCountOutputTypeCountBrutesArgs
+    achievements?: boolean | UserCountOutputTypeCountAchievementsArgs
   }
-
-  export type UserCountOutputTypeGetPayload<S extends boolean | null | undefined | UserCountOutputTypeArgs> =
-    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
-    S extends true ? UserCountOutputType :
-    S extends undefined ? never :
-    S extends { include: any } & (UserCountOutputTypeArgs)
-    ? UserCountOutputType 
-    : S extends { select: any } & (UserCountOutputTypeArgs)
-      ? {
-    [P in TruthyKeys<S['select']>]:
-    P extends keyof UserCountOutputType ? UserCountOutputType[P] : never
-  } 
-      : UserCountOutputType
-
-
-
 
   // Custom InputTypes
 
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeArgs = {
+  export type UserCountOutputTypeArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the UserCountOutputType
      */
-    select?: UserCountOutputTypeSelect | null
+    select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountBrutesArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: BruteWhereInput
+  }
+
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAchievementsArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: AchievementWhereInput
   }
 
 
@@ -1457,45 +2458,109 @@ export namespace Prisma {
     tournamentEarnings: number
   }
 
-  export type BruteCountOutputTypeSelect = {
-    pupils?: boolean
-    fights?: boolean
-    fightsAsAdversary?: boolean
-    logs?: boolean
-    destinyChoices?: boolean
-    tournaments?: boolean
-    opponents?: boolean
-    opponentOf?: boolean
-    achievements?: boolean
-    tournamentEarnings?: boolean
+  export type BruteCountOutputTypeSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    pupils?: boolean | BruteCountOutputTypeCountPupilsArgs
+    fights?: boolean | BruteCountOutputTypeCountFightsArgs
+    fightsAsAdversary?: boolean | BruteCountOutputTypeCountFightsAsAdversaryArgs
+    logs?: boolean | BruteCountOutputTypeCountLogsArgs
+    destinyChoices?: boolean | BruteCountOutputTypeCountDestinyChoicesArgs
+    tournaments?: boolean | BruteCountOutputTypeCountTournamentsArgs
+    opponents?: boolean | BruteCountOutputTypeCountOpponentsArgs
+    opponentOf?: boolean | BruteCountOutputTypeCountOpponentOfArgs
+    achievements?: boolean | BruteCountOutputTypeCountAchievementsArgs
+    tournamentEarnings?: boolean | BruteCountOutputTypeCountTournamentEarningsArgs
   }
-
-  export type BruteCountOutputTypeGetPayload<S extends boolean | null | undefined | BruteCountOutputTypeArgs> =
-    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
-    S extends true ? BruteCountOutputType :
-    S extends undefined ? never :
-    S extends { include: any } & (BruteCountOutputTypeArgs)
-    ? BruteCountOutputType 
-    : S extends { select: any } & (BruteCountOutputTypeArgs)
-      ? {
-    [P in TruthyKeys<S['select']>]:
-    P extends keyof BruteCountOutputType ? BruteCountOutputType[P] : never
-  } 
-      : BruteCountOutputType
-
-
-
 
   // Custom InputTypes
 
   /**
    * BruteCountOutputType without action
    */
-  export type BruteCountOutputTypeArgs = {
+  export type BruteCountOutputTypeArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the BruteCountOutputType
      */
-    select?: BruteCountOutputTypeSelect | null
+    select?: BruteCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * BruteCountOutputType without action
+   */
+  export type BruteCountOutputTypeCountPupilsArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: BruteWhereInput
+  }
+
+
+  /**
+   * BruteCountOutputType without action
+   */
+  export type BruteCountOutputTypeCountFightsArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: FightWhereInput
+  }
+
+
+  /**
+   * BruteCountOutputType without action
+   */
+  export type BruteCountOutputTypeCountFightsAsAdversaryArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: FightWhereInput
+  }
+
+
+  /**
+   * BruteCountOutputType without action
+   */
+  export type BruteCountOutputTypeCountLogsArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: LogWhereInput
+  }
+
+
+  /**
+   * BruteCountOutputType without action
+   */
+  export type BruteCountOutputTypeCountDestinyChoicesArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: DestinyChoiceWhereInput
+  }
+
+
+  /**
+   * BruteCountOutputType without action
+   */
+  export type BruteCountOutputTypeCountTournamentsArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: TournamentWhereInput
+  }
+
+
+  /**
+   * BruteCountOutputType without action
+   */
+  export type BruteCountOutputTypeCountOpponentsArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: BruteWhereInput
+  }
+
+
+  /**
+   * BruteCountOutputType without action
+   */
+  export type BruteCountOutputTypeCountOpponentOfArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: BruteWhereInput
+  }
+
+
+  /**
+   * BruteCountOutputType without action
+   */
+  export type BruteCountOutputTypeCountAchievementsArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: AchievementWhereInput
+  }
+
+
+  /**
+   * BruteCountOutputType without action
+   */
+  export type BruteCountOutputTypeCountTournamentEarningsArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: TournamentEarningWhereInput
   }
 
 
@@ -1509,36 +2574,28 @@ export namespace Prisma {
     brutes: number
   }
 
-  export type ClanCountOutputTypeSelect = {
-    brutes?: boolean
+  export type ClanCountOutputTypeSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    brutes?: boolean | ClanCountOutputTypeCountBrutesArgs
   }
-
-  export type ClanCountOutputTypeGetPayload<S extends boolean | null | undefined | ClanCountOutputTypeArgs> =
-    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
-    S extends true ? ClanCountOutputType :
-    S extends undefined ? never :
-    S extends { include: any } & (ClanCountOutputTypeArgs)
-    ? ClanCountOutputType 
-    : S extends { select: any } & (ClanCountOutputTypeArgs)
-      ? {
-    [P in TruthyKeys<S['select']>]:
-    P extends keyof ClanCountOutputType ? ClanCountOutputType[P] : never
-  } 
-      : ClanCountOutputType
-
-
-
 
   // Custom InputTypes
 
   /**
    * ClanCountOutputType without action
    */
-  export type ClanCountOutputTypeArgs = {
+  export type ClanCountOutputTypeArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the ClanCountOutputType
      */
-    select?: ClanCountOutputTypeSelect | null
+    select?: ClanCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * ClanCountOutputType without action
+   */
+  export type ClanCountOutputTypeCountBrutesArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: BruteWhereInput
   }
 
 
@@ -1553,37 +2610,37 @@ export namespace Prisma {
     TournamentStep: number
   }
 
-  export type FightCountOutputTypeSelect = {
-    logs?: boolean
-    TournamentStep?: boolean
+  export type FightCountOutputTypeSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    logs?: boolean | FightCountOutputTypeCountLogsArgs
+    TournamentStep?: boolean | FightCountOutputTypeCountTournamentStepArgs
   }
-
-  export type FightCountOutputTypeGetPayload<S extends boolean | null | undefined | FightCountOutputTypeArgs> =
-    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
-    S extends true ? FightCountOutputType :
-    S extends undefined ? never :
-    S extends { include: any } & (FightCountOutputTypeArgs)
-    ? FightCountOutputType 
-    : S extends { select: any } & (FightCountOutputTypeArgs)
-      ? {
-    [P in TruthyKeys<S['select']>]:
-    P extends keyof FightCountOutputType ? FightCountOutputType[P] : never
-  } 
-      : FightCountOutputType
-
-
-
 
   // Custom InputTypes
 
   /**
    * FightCountOutputType without action
    */
-  export type FightCountOutputTypeArgs = {
+  export type FightCountOutputTypeArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the FightCountOutputType
      */
-    select?: FightCountOutputTypeSelect | null
+    select?: FightCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * FightCountOutputType without action
+   */
+  export type FightCountOutputTypeCountLogsArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: LogWhereInput
+  }
+
+
+  /**
+   * FightCountOutputType without action
+   */
+  export type FightCountOutputTypeCountTournamentStepArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: TournamentStepWhereInput
   }
 
 
@@ -1598,37 +2655,37 @@ export namespace Prisma {
     steps: number
   }
 
-  export type TournamentCountOutputTypeSelect = {
-    participants?: boolean
-    steps?: boolean
+  export type TournamentCountOutputTypeSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    participants?: boolean | TournamentCountOutputTypeCountParticipantsArgs
+    steps?: boolean | TournamentCountOutputTypeCountStepsArgs
   }
-
-  export type TournamentCountOutputTypeGetPayload<S extends boolean | null | undefined | TournamentCountOutputTypeArgs> =
-    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
-    S extends true ? TournamentCountOutputType :
-    S extends undefined ? never :
-    S extends { include: any } & (TournamentCountOutputTypeArgs)
-    ? TournamentCountOutputType 
-    : S extends { select: any } & (TournamentCountOutputTypeArgs)
-      ? {
-    [P in TruthyKeys<S['select']>]:
-    P extends keyof TournamentCountOutputType ? TournamentCountOutputType[P] : never
-  } 
-      : TournamentCountOutputType
-
-
-
 
   // Custom InputTypes
 
   /**
    * TournamentCountOutputType without action
    */
-  export type TournamentCountOutputTypeArgs = {
+  export type TournamentCountOutputTypeArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the TournamentCountOutputType
      */
-    select?: TournamentCountOutputTypeSelect | null
+    select?: TournamentCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * TournamentCountOutputType without action
+   */
+  export type TournamentCountOutputTypeCountParticipantsArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: BruteWhereInput
+  }
+
+
+  /**
+   * TournamentCountOutputType without action
+   */
+  export type TournamentCountOutputTypeCountStepsArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: TournamentStepWhereInput
   }
 
 
@@ -1749,7 +2806,7 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type UserAggregateArgs = {
+  export type UserAggregateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Filter which User to aggregate.
      */
@@ -1759,7 +2816,7 @@ export namespace Prisma {
      * 
      * Determine the order of Users to fetch.
      */
-    orderBy?: Enumerable<UserOrderByWithRelationInput>
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -1821,10 +2878,10 @@ export namespace Prisma {
 
 
 
-  export type UserGroupByArgs = {
+  export type UserGroupByArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     where?: UserWhereInput
-    orderBy?: Enumerable<UserOrderByWithAggregationInput>
-    by: UserScalarFieldEnum[]
+    orderBy?: UserOrderByWithAggregationInput | UserOrderByWithAggregationInput[]
+    by: UserScalarFieldEnum[] | UserScalarFieldEnum
     having?: UserScalarWhereWithAggregatesInput
     take?: number
     skip?: number
@@ -1855,7 +2912,7 @@ export namespace Prisma {
 
   type GetUserGroupByPayload<T extends UserGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickArray<UserGroupByOutputType, T['by']> &
+      PickEnumerable<UserGroupByOutputType, T['by']> &
         {
           [P in ((keyof T) & (keyof UserGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
@@ -1867,7 +2924,7 @@ export namespace Prisma {
     >
 
 
-  export type UserSelect = {
+  export type UserSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     lang?: boolean
     name?: boolean
@@ -1877,46 +2934,39 @@ export namespace Prisma {
     sacrificePoints?: boolean
     fightSpeed?: boolean
     backgroundMusic?: boolean
-    brutes?: boolean | User$brutesArgs
-    achievements?: boolean | User$achievementsArgs
-    _count?: boolean | UserCountOutputTypeArgs
+    brutes?: boolean | User$brutesArgs<ExtArgs>
+    achievements?: boolean | User$achievementsArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeArgs<ExtArgs>
+  }, ExtArgs["result"]["user"]>
+
+  export type UserSelectScalar = {
+    id?: boolean
+    lang?: boolean
+    name?: boolean
+    admin?: boolean
+    connexionToken?: boolean
+    bruteLimit?: boolean
+    sacrificePoints?: boolean
+    fightSpeed?: boolean
+    backgroundMusic?: boolean
+  }
+
+  export type UserInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    brutes?: boolean | User$brutesArgs<ExtArgs>
+    achievements?: boolean | User$achievementsArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeArgs<ExtArgs>
   }
 
 
-  export type UserInclude = {
-    brutes?: boolean | User$brutesArgs
-    achievements?: boolean | User$achievementsArgs
-    _count?: boolean | UserCountOutputTypeArgs
-  }
+  type UserGetPayload<S extends boolean | null | undefined | UserArgs> = $Types.GetResult<UserPayload, S>
 
-  export type UserGetPayload<S extends boolean | null | undefined | UserArgs> =
-    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
-    S extends true ? User :
-    S extends undefined ? never :
-    S extends { include: any } & (UserArgs | UserFindManyArgs)
-    ? User  & {
-    [P in TruthyKeys<S['include']>]:
-        P extends 'brutes' ? Array < BruteGetPayload<S['include'][P]>>  :
-        P extends 'achievements' ? Array < AchievementGetPayload<S['include'][P]>>  :
-        P extends '_count' ? UserCountOutputTypeGetPayload<S['include'][P]> :  never
-  } 
-    : S extends { select: any } & (UserArgs | UserFindManyArgs)
-      ? {
-    [P in TruthyKeys<S['select']>]:
-        P extends 'brutes' ? Array < BruteGetPayload<S['select'][P]>>  :
-        P extends 'achievements' ? Array < AchievementGetPayload<S['select'][P]>>  :
-        P extends '_count' ? UserCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof User ? User[P] : never
-  } 
-      : User
-
-
-  type UserCountArgs = 
+  type UserCountArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = 
     Omit<UserFindManyArgs, 'select' | 'include'> & {
       select?: UserCountAggregateInputType | true
     }
 
-  export interface UserDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
-
+  export interface UserDelegate<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['User'], meta: { name: 'User' } }
     /**
      * Find zero or one User that matches the filter.
      * @param {UserFindUniqueArgs} args - Arguments to find a User
@@ -1928,9 +2978,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findUnique<T extends UserFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, UserFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'User'> extends True ? Prisma__UserClient<UserGetPayload<T>> : Prisma__UserClient<UserGetPayload<T> | null, null>
+    findUnique<T extends UserFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, UserFindUniqueArgs<ExtArgs>>
+    ): Prisma__UserClient<$Types.GetResult<UserPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
      * Find one User that matches the filter or throw an error  with `error.code='P2025'` 
@@ -1944,9 +2994,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findUniqueOrThrow<T extends UserFindUniqueOrThrowArgs>(
-      args?: SelectSubset<T, UserFindUniqueOrThrowArgs>
-    ): Prisma__UserClient<UserGetPayload<T>>
+    findUniqueOrThrow<T extends UserFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, UserFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__UserClient<$Types.GetResult<UserPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
 
     /**
      * Find the first User that matches the filter.
@@ -1961,13 +3011,13 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findFirst<T extends UserFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, UserFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'User'> extends True ? Prisma__UserClient<UserGetPayload<T>> : Prisma__UserClient<UserGetPayload<T> | null, null>
+    findFirst<T extends UserFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, UserFindFirstArgs<ExtArgs>>
+    ): Prisma__UserClient<$Types.GetResult<UserPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
 
     /**
      * Find the first User that matches the filter or
-     * throw `NotFoundError` if no matches were found.
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
      * @param {UserFindFirstOrThrowArgs} args - Arguments to find a User
@@ -1979,9 +3029,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findFirstOrThrow<T extends UserFindFirstOrThrowArgs>(
-      args?: SelectSubset<T, UserFindFirstOrThrowArgs>
-    ): Prisma__UserClient<UserGetPayload<T>>
+    findFirstOrThrow<T extends UserFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, UserFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__UserClient<$Types.GetResult<UserPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
 
     /**
      * Find zero or more Users that matches the filter.
@@ -1999,9 +3049,9 @@ export namespace Prisma {
      * const userWithIdOnly = await prisma.user.findMany({ select: { id: true } })
      * 
     **/
-    findMany<T extends UserFindManyArgs>(
-      args?: SelectSubset<T, UserFindManyArgs>
-    ): Prisma.PrismaPromise<Array<UserGetPayload<T>>>
+    findMany<T extends UserFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, UserFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Types.GetResult<UserPayload<ExtArgs>, T, 'findMany'>>
 
     /**
      * Create a User.
@@ -2015,9 +3065,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    create<T extends UserCreateArgs>(
-      args: SelectSubset<T, UserCreateArgs>
-    ): Prisma__UserClient<UserGetPayload<T>>
+    create<T extends UserCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, UserCreateArgs<ExtArgs>>
+    ): Prisma__UserClient<$Types.GetResult<UserPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
     /**
      * Create many Users.
@@ -2031,8 +3081,8 @@ export namespace Prisma {
      *     })
      *     
     **/
-    createMany<T extends UserCreateManyArgs>(
-      args?: SelectSubset<T, UserCreateManyArgs>
+    createMany<T extends UserCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, UserCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -2047,9 +3097,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    delete<T extends UserDeleteArgs>(
-      args: SelectSubset<T, UserDeleteArgs>
-    ): Prisma__UserClient<UserGetPayload<T>>
+    delete<T extends UserDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, UserDeleteArgs<ExtArgs>>
+    ): Prisma__UserClient<$Types.GetResult<UserPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
 
     /**
      * Update one User.
@@ -2066,9 +3116,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    update<T extends UserUpdateArgs>(
-      args: SelectSubset<T, UserUpdateArgs>
-    ): Prisma__UserClient<UserGetPayload<T>>
+    update<T extends UserUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, UserUpdateArgs<ExtArgs>>
+    ): Prisma__UserClient<$Types.GetResult<UserPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
 
     /**
      * Delete zero or more Users.
@@ -2082,8 +3132,8 @@ export namespace Prisma {
      * })
      * 
     **/
-    deleteMany<T extends UserDeleteManyArgs>(
-      args?: SelectSubset<T, UserDeleteManyArgs>
+    deleteMany<T extends UserDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, UserDeleteManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -2103,8 +3153,8 @@ export namespace Prisma {
      * })
      * 
     **/
-    updateMany<T extends UserUpdateManyArgs>(
-      args: SelectSubset<T, UserUpdateManyArgs>
+    updateMany<T extends UserUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, UserUpdateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -2124,9 +3174,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    upsert<T extends UserUpsertArgs>(
-      args: SelectSubset<T, UserUpsertArgs>
-    ): Prisma__UserClient<UserGetPayload<T>>
+    upsert<T extends UserUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, UserUpsertArgs<ExtArgs>>
+    ): Prisma__UserClient<$Types.GetResult<UserPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
 
     /**
      * Count the number of Users.
@@ -2144,7 +3194,7 @@ export namespace Prisma {
     count<T extends UserCountArgs>(
       args?: Subset<T, UserCountArgs>,
     ): Prisma.PrismaPromise<
-      T extends _Record<'select', any>
+      T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
           : GetScalarType<T['select'], UserCountAggregateOutputType>
@@ -2205,7 +3255,7 @@ export namespace Prisma {
         ? { orderBy: UserGroupByArgs['orderBy'] }
         : { orderBy?: UserGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends TupleToUnion<T['by']>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
       HavingFields extends GetHavingFields<T['having']>,
       HavingValid extends Has<ByFields, HavingFields>,
@@ -2253,7 +3303,10 @@ export namespace Prisma {
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
     >(args: SubsetIntersection<T, UserGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-
+  /**
+   * Fields of the User model
+   */
+  readonly fields: UserFieldRefs;
   }
 
   /**
@@ -2262,7 +3315,7 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export class Prisma__UserClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+  export class Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> implements Prisma.PrismaPromise<T> {
     private readonly _dmmf;
     private readonly _queryType;
     private readonly _rootField;
@@ -2277,9 +3330,9 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
-    brutes<T extends User$brutesArgs= {}>(args?: Subset<T, User$brutesArgs>): Prisma.PrismaPromise<Array<BruteGetPayload<T>>| Null>;
+    brutes<T extends User$brutesArgs<ExtArgs> = {}>(args?: Subset<T, User$brutesArgs<ExtArgs>>): Prisma.PrismaPromise<$Types.GetResult<BrutePayload<ExtArgs>, T, 'findMany'>| Null>;
 
-    achievements<T extends User$achievementsArgs= {}>(args?: Subset<T, User$achievementsArgs>): Prisma.PrismaPromise<Array<AchievementGetPayload<T>>| Null>;
+    achievements<T extends User$achievementsArgs<ExtArgs> = {}>(args?: Subset<T, User$achievementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Types.GetResult<AchievementPayload<ExtArgs>, T, 'findMany'>| Null>;
 
     private get _document();
     /**
@@ -2306,50 +3359,36 @@ export namespace Prisma {
 
 
 
-  // Custom InputTypes
-
   /**
-   * User base type for findUnique actions
-   */
-  export type UserFindUniqueArgsBase = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: UserInclude | null
-    /**
-     * Filter, which User to fetch.
-     */
-    where: UserWhereUniqueInput
+   * Fields of the User model
+   */ 
+  interface UserFieldRefs {
+    readonly id: FieldRef<"User", 'String'>
+    readonly lang: FieldRef<"User", 'Lang'>
+    readonly name: FieldRef<"User", 'String'>
+    readonly admin: FieldRef<"User", 'Boolean'>
+    readonly connexionToken: FieldRef<"User", 'String'>
+    readonly bruteLimit: FieldRef<"User", 'Int'>
+    readonly sacrificePoints: FieldRef<"User", 'Int'>
+    readonly fightSpeed: FieldRef<"User", 'Int'>
+    readonly backgroundMusic: FieldRef<"User", 'Boolean'>
   }
+    
+
+  // Custom InputTypes
 
   /**
    * User findUnique
    */
-  export interface UserFindUniqueArgs extends UserFindUniqueArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * User findUniqueOrThrow
-   */
-  export type UserFindUniqueOrThrowArgs = {
+  export type UserFindUniqueArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the User
      */
-    select?: UserSelect | null
+    select?: UserSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: UserInclude | null
+    include?: UserInclude<ExtArgs> | null
     /**
      * Filter, which User to fetch.
      */
@@ -2358,77 +3397,36 @@ export namespace Prisma {
 
 
   /**
-   * User base type for findFirst actions
+   * User findUniqueOrThrow
    */
-  export type UserFindFirstArgsBase = {
+  export type UserFindUniqueOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the User
      */
-    select?: UserSelect | null
+    select?: UserSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: UserInclude | null
+    include?: UserInclude<ExtArgs> | null
     /**
      * Filter, which User to fetch.
      */
-    where?: UserWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Users to fetch.
-     */
-    orderBy?: Enumerable<UserOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Users.
-     */
-    cursor?: UserWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Users from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Users.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Users.
-     */
-    distinct?: Enumerable<UserScalarFieldEnum>
+    where: UserWhereUniqueInput
   }
+
 
   /**
    * User findFirst
    */
-  export interface UserFindFirstArgs extends UserFindFirstArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * User findFirstOrThrow
-   */
-  export type UserFindFirstOrThrowArgs = {
+  export type UserFindFirstArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the User
      */
-    select?: UserSelect | null
+    select?: UserSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: UserInclude | null
+    include?: UserInclude<ExtArgs> | null
     /**
      * Filter, which User to fetch.
      */
@@ -2438,7 +3436,7 @@ export namespace Prisma {
      * 
      * Determine the order of Users to fetch.
      */
-    orderBy?: Enumerable<UserOrderByWithRelationInput>
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -2462,22 +3460,71 @@ export namespace Prisma {
      * 
      * Filter by unique combinations of Users.
      */
-    distinct?: Enumerable<UserScalarFieldEnum>
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+
+  /**
+   * User findFirstOrThrow
+   */
+  export type UserFindFirstOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * Filter, which User to fetch.
+     */
+    where?: UserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Users to fetch.
+     */
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Users.
+     */
+    cursor?: UserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Users.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Users.
+     */
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
   }
 
 
   /**
    * User findMany
    */
-  export type UserFindManyArgs = {
+  export type UserFindManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the User
      */
-    select?: UserSelect | null
+    select?: UserSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: UserInclude | null
+    include?: UserInclude<ExtArgs> | null
     /**
      * Filter, which Users to fetch.
      */
@@ -2487,7 +3534,7 @@ export namespace Prisma {
      * 
      * Determine the order of Users to fetch.
      */
-    orderBy?: Enumerable<UserOrderByWithRelationInput>
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -2506,22 +3553,22 @@ export namespace Prisma {
      * Skip the first `n` Users.
      */
     skip?: number
-    distinct?: Enumerable<UserScalarFieldEnum>
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
   }
 
 
   /**
    * User create
    */
-  export type UserCreateArgs = {
+  export type UserCreateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the User
      */
-    select?: UserSelect | null
+    select?: UserSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: UserInclude | null
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to create a User.
      */
@@ -2532,11 +3579,11 @@ export namespace Prisma {
   /**
    * User createMany
    */
-  export type UserCreateManyArgs = {
+  export type UserCreateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * The data used to create many Users.
      */
-    data: Enumerable<UserCreateManyInput>
+    data: UserCreateManyInput | UserCreateManyInput[]
     skipDuplicates?: boolean
   }
 
@@ -2544,15 +3591,15 @@ export namespace Prisma {
   /**
    * User update
    */
-  export type UserUpdateArgs = {
+  export type UserUpdateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the User
      */
-    select?: UserSelect | null
+    select?: UserSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: UserInclude | null
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to update a User.
      */
@@ -2567,7 +3614,7 @@ export namespace Prisma {
   /**
    * User updateMany
    */
-  export type UserUpdateManyArgs = {
+  export type UserUpdateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * The data used to update Users.
      */
@@ -2582,15 +3629,15 @@ export namespace Prisma {
   /**
    * User upsert
    */
-  export type UserUpsertArgs = {
+  export type UserUpsertArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the User
      */
-    select?: UserSelect | null
+    select?: UserSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: UserInclude | null
+    include?: UserInclude<ExtArgs> | null
     /**
      * The filter to search for the User to update in case it exists.
      */
@@ -2609,15 +3656,15 @@ export namespace Prisma {
   /**
    * User delete
    */
-  export type UserDeleteArgs = {
+  export type UserDeleteArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the User
      */
-    select?: UserSelect | null
+    select?: UserSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: UserInclude | null
+    include?: UserInclude<ExtArgs> | null
     /**
      * Filter which User to delete.
      */
@@ -2628,7 +3675,7 @@ export namespace Prisma {
   /**
    * User deleteMany
    */
-  export type UserDeleteManyArgs = {
+  export type UserDeleteManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Filter which Users to delete
      */
@@ -2639,57 +3686,57 @@ export namespace Prisma {
   /**
    * User.brutes
    */
-  export type User$brutesArgs = {
+  export type User$brutesArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Brute
      */
-    select?: BruteSelect | null
+    select?: BruteSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteInclude | null
+    include?: BruteInclude<ExtArgs> | null
     where?: BruteWhereInput
-    orderBy?: Enumerable<BruteOrderByWithRelationInput>
+    orderBy?: BruteOrderByWithRelationInput | BruteOrderByWithRelationInput[]
     cursor?: BruteWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: Enumerable<BruteScalarFieldEnum>
+    distinct?: BruteScalarFieldEnum | BruteScalarFieldEnum[]
   }
 
 
   /**
    * User.achievements
    */
-  export type User$achievementsArgs = {
+  export type User$achievementsArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Achievement
      */
-    select?: AchievementSelect | null
+    select?: AchievementSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: AchievementInclude | null
+    include?: AchievementInclude<ExtArgs> | null
     where?: AchievementWhereInput
-    orderBy?: Enumerable<AchievementOrderByWithRelationInput>
+    orderBy?: AchievementOrderByWithRelationInput | AchievementOrderByWithRelationInput[]
     cursor?: AchievementWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: Enumerable<AchievementScalarFieldEnum>
+    distinct?: AchievementScalarFieldEnum | AchievementScalarFieldEnum[]
   }
 
 
   /**
    * User without action
    */
-  export type UserArgs = {
+  export type UserArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the User
      */
-    select?: UserSelect | null
+    select?: UserSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: UserInclude | null
+    include?: UserInclude<ExtArgs> | null
   }
 
 
@@ -2950,7 +3997,7 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type BruteBodyAggregateArgs = {
+  export type BruteBodyAggregateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Filter which BruteBody to aggregate.
      */
@@ -2960,7 +4007,7 @@ export namespace Prisma {
      * 
      * Determine the order of BruteBodies to fetch.
      */
-    orderBy?: Enumerable<BruteBodyOrderByWithRelationInput>
+    orderBy?: BruteBodyOrderByWithRelationInput | BruteBodyOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -3022,10 +4069,10 @@ export namespace Prisma {
 
 
 
-  export type BruteBodyGroupByArgs = {
+  export type BruteBodyGroupByArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     where?: BruteBodyWhereInput
-    orderBy?: Enumerable<BruteBodyOrderByWithAggregationInput>
-    by: BruteBodyScalarFieldEnum[]
+    orderBy?: BruteBodyOrderByWithAggregationInput | BruteBodyOrderByWithAggregationInput[]
+    by: BruteBodyScalarFieldEnum[] | BruteBodyScalarFieldEnum
     having?: BruteBodyScalarWhereWithAggregatesInput
     take?: number
     skip?: number
@@ -3068,7 +4115,7 @@ export namespace Prisma {
 
   type GetBruteBodyGroupByPayload<T extends BruteBodyGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickArray<BruteBodyGroupByOutputType, T['by']> &
+      PickEnumerable<BruteBodyGroupByOutputType, T['by']> &
         {
           [P in ((keyof T) & (keyof BruteBodyGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
@@ -3080,7 +4127,7 @@ export namespace Prisma {
     >
 
 
-  export type BruteBodySelect = {
+  export type BruteBodySelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     bruteId?: boolean
     longHair?: boolean
@@ -3102,38 +4149,47 @@ export namespace Prisma {
     upperLeftArm?: boolean
     lowerLeftArm?: boolean
     leftShoulder?: boolean
-    brute?: boolean | BruteArgs
+    brute?: boolean | BruteArgs<ExtArgs>
+  }, ExtArgs["result"]["bruteBody"]>
+
+  export type BruteBodySelectScalar = {
+    id?: boolean
+    bruteId?: boolean
+    longHair?: boolean
+    lowerRightArm?: boolean
+    rightHand?: boolean
+    upperRightArm?: boolean
+    rightShoulder?: boolean
+    rightFoot?: boolean
+    lowerRightLeg?: boolean
+    upperRightLeg?: boolean
+    leftFoot?: boolean
+    lowerLeftLeg?: boolean
+    pelvis?: boolean
+    upperLeftLeg?: boolean
+    tummy?: boolean
+    torso?: boolean
+    head?: boolean
+    leftHand?: boolean
+    upperLeftArm?: boolean
+    lowerLeftArm?: boolean
+    leftShoulder?: boolean
+  }
+
+  export type BruteBodyInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    brute?: boolean | BruteArgs<ExtArgs>
   }
 
 
-  export type BruteBodyInclude = {
-    brute?: boolean | BruteArgs
-  }
+  type BruteBodyGetPayload<S extends boolean | null | undefined | BruteBodyArgs> = $Types.GetResult<BruteBodyPayload, S>
 
-  export type BruteBodyGetPayload<S extends boolean | null | undefined | BruteBodyArgs> =
-    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
-    S extends true ? BruteBody :
-    S extends undefined ? never :
-    S extends { include: any } & (BruteBodyArgs | BruteBodyFindManyArgs)
-    ? BruteBody  & {
-    [P in TruthyKeys<S['include']>]:
-        P extends 'brute' ? BruteGetPayload<S['include'][P]> :  never
-  } 
-    : S extends { select: any } & (BruteBodyArgs | BruteBodyFindManyArgs)
-      ? {
-    [P in TruthyKeys<S['select']>]:
-        P extends 'brute' ? BruteGetPayload<S['select'][P]> :  P extends keyof BruteBody ? BruteBody[P] : never
-  } 
-      : BruteBody
-
-
-  type BruteBodyCountArgs = 
+  type BruteBodyCountArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = 
     Omit<BruteBodyFindManyArgs, 'select' | 'include'> & {
       select?: BruteBodyCountAggregateInputType | true
     }
 
-  export interface BruteBodyDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
-
+  export interface BruteBodyDelegate<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BruteBody'], meta: { name: 'BruteBody' } }
     /**
      * Find zero or one BruteBody that matches the filter.
      * @param {BruteBodyFindUniqueArgs} args - Arguments to find a BruteBody
@@ -3145,9 +4201,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findUnique<T extends BruteBodyFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, BruteBodyFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'BruteBody'> extends True ? Prisma__BruteBodyClient<BruteBodyGetPayload<T>> : Prisma__BruteBodyClient<BruteBodyGetPayload<T> | null, null>
+    findUnique<T extends BruteBodyFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteBodyFindUniqueArgs<ExtArgs>>
+    ): Prisma__BruteBodyClient<$Types.GetResult<BruteBodyPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
      * Find one BruteBody that matches the filter or throw an error  with `error.code='P2025'` 
@@ -3161,9 +4217,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findUniqueOrThrow<T extends BruteBodyFindUniqueOrThrowArgs>(
-      args?: SelectSubset<T, BruteBodyFindUniqueOrThrowArgs>
-    ): Prisma__BruteBodyClient<BruteBodyGetPayload<T>>
+    findUniqueOrThrow<T extends BruteBodyFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteBodyFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__BruteBodyClient<$Types.GetResult<BruteBodyPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
 
     /**
      * Find the first BruteBody that matches the filter.
@@ -3178,13 +4234,13 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findFirst<T extends BruteBodyFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, BruteBodyFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'BruteBody'> extends True ? Prisma__BruteBodyClient<BruteBodyGetPayload<T>> : Prisma__BruteBodyClient<BruteBodyGetPayload<T> | null, null>
+    findFirst<T extends BruteBodyFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteBodyFindFirstArgs<ExtArgs>>
+    ): Prisma__BruteBodyClient<$Types.GetResult<BruteBodyPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
 
     /**
      * Find the first BruteBody that matches the filter or
-     * throw `NotFoundError` if no matches were found.
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
      * @param {BruteBodyFindFirstOrThrowArgs} args - Arguments to find a BruteBody
@@ -3196,9 +4252,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findFirstOrThrow<T extends BruteBodyFindFirstOrThrowArgs>(
-      args?: SelectSubset<T, BruteBodyFindFirstOrThrowArgs>
-    ): Prisma__BruteBodyClient<BruteBodyGetPayload<T>>
+    findFirstOrThrow<T extends BruteBodyFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteBodyFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__BruteBodyClient<$Types.GetResult<BruteBodyPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
 
     /**
      * Find zero or more BruteBodies that matches the filter.
@@ -3216,9 +4272,9 @@ export namespace Prisma {
      * const bruteBodyWithIdOnly = await prisma.bruteBody.findMany({ select: { id: true } })
      * 
     **/
-    findMany<T extends BruteBodyFindManyArgs>(
-      args?: SelectSubset<T, BruteBodyFindManyArgs>
-    ): Prisma.PrismaPromise<Array<BruteBodyGetPayload<T>>>
+    findMany<T extends BruteBodyFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteBodyFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Types.GetResult<BruteBodyPayload<ExtArgs>, T, 'findMany'>>
 
     /**
      * Create a BruteBody.
@@ -3232,9 +4288,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    create<T extends BruteBodyCreateArgs>(
-      args: SelectSubset<T, BruteBodyCreateArgs>
-    ): Prisma__BruteBodyClient<BruteBodyGetPayload<T>>
+    create<T extends BruteBodyCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteBodyCreateArgs<ExtArgs>>
+    ): Prisma__BruteBodyClient<$Types.GetResult<BruteBodyPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
     /**
      * Create many BruteBodies.
@@ -3248,8 +4304,8 @@ export namespace Prisma {
      *     })
      *     
     **/
-    createMany<T extends BruteBodyCreateManyArgs>(
-      args?: SelectSubset<T, BruteBodyCreateManyArgs>
+    createMany<T extends BruteBodyCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteBodyCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -3264,9 +4320,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    delete<T extends BruteBodyDeleteArgs>(
-      args: SelectSubset<T, BruteBodyDeleteArgs>
-    ): Prisma__BruteBodyClient<BruteBodyGetPayload<T>>
+    delete<T extends BruteBodyDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteBodyDeleteArgs<ExtArgs>>
+    ): Prisma__BruteBodyClient<$Types.GetResult<BruteBodyPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
 
     /**
      * Update one BruteBody.
@@ -3283,9 +4339,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    update<T extends BruteBodyUpdateArgs>(
-      args: SelectSubset<T, BruteBodyUpdateArgs>
-    ): Prisma__BruteBodyClient<BruteBodyGetPayload<T>>
+    update<T extends BruteBodyUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteBodyUpdateArgs<ExtArgs>>
+    ): Prisma__BruteBodyClient<$Types.GetResult<BruteBodyPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
 
     /**
      * Delete zero or more BruteBodies.
@@ -3299,8 +4355,8 @@ export namespace Prisma {
      * })
      * 
     **/
-    deleteMany<T extends BruteBodyDeleteManyArgs>(
-      args?: SelectSubset<T, BruteBodyDeleteManyArgs>
+    deleteMany<T extends BruteBodyDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteBodyDeleteManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -3320,8 +4376,8 @@ export namespace Prisma {
      * })
      * 
     **/
-    updateMany<T extends BruteBodyUpdateManyArgs>(
-      args: SelectSubset<T, BruteBodyUpdateManyArgs>
+    updateMany<T extends BruteBodyUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteBodyUpdateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -3341,9 +4397,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    upsert<T extends BruteBodyUpsertArgs>(
-      args: SelectSubset<T, BruteBodyUpsertArgs>
-    ): Prisma__BruteBodyClient<BruteBodyGetPayload<T>>
+    upsert<T extends BruteBodyUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteBodyUpsertArgs<ExtArgs>>
+    ): Prisma__BruteBodyClient<$Types.GetResult<BruteBodyPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
 
     /**
      * Count the number of BruteBodies.
@@ -3361,7 +4417,7 @@ export namespace Prisma {
     count<T extends BruteBodyCountArgs>(
       args?: Subset<T, BruteBodyCountArgs>,
     ): Prisma.PrismaPromise<
-      T extends _Record<'select', any>
+      T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
           : GetScalarType<T['select'], BruteBodyCountAggregateOutputType>
@@ -3422,7 +4478,7 @@ export namespace Prisma {
         ? { orderBy: BruteBodyGroupByArgs['orderBy'] }
         : { orderBy?: BruteBodyGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends TupleToUnion<T['by']>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
       HavingFields extends GetHavingFields<T['having']>,
       HavingValid extends Has<ByFields, HavingFields>,
@@ -3470,7 +4526,10 @@ export namespace Prisma {
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
     >(args: SubsetIntersection<T, BruteBodyGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBruteBodyGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-
+  /**
+   * Fields of the BruteBody model
+   */
+  readonly fields: BruteBodyFieldRefs;
   }
 
   /**
@@ -3479,7 +4538,7 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export class Prisma__BruteBodyClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+  export class Prisma__BruteBodyClient<T, Null = never, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> implements Prisma.PrismaPromise<T> {
     private readonly _dmmf;
     private readonly _queryType;
     private readonly _rootField;
@@ -3494,7 +4553,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
-    brute<T extends BruteArgs= {}>(args?: Subset<T, BruteArgs>): Prisma__BruteClient<BruteGetPayload<T> | Null>;
+    brute<T extends BruteArgs<ExtArgs> = {}>(args?: Subset<T, BruteArgs<ExtArgs>>): Prisma__BruteClient<$Types.GetResult<BrutePayload<ExtArgs>, T, 'findUnique'> | Null, never, ExtArgs>;
 
     private get _document();
     /**
@@ -3521,50 +4580,48 @@ export namespace Prisma {
 
 
 
-  // Custom InputTypes
-
   /**
-   * BruteBody base type for findUnique actions
-   */
-  export type BruteBodyFindUniqueArgsBase = {
-    /**
-     * Select specific fields to fetch from the BruteBody
-     */
-    select?: BruteBodySelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteBodyInclude | null
-    /**
-     * Filter, which BruteBody to fetch.
-     */
-    where: BruteBodyWhereUniqueInput
+   * Fields of the BruteBody model
+   */ 
+  interface BruteBodyFieldRefs {
+    readonly id: FieldRef<"BruteBody", 'Int'>
+    readonly bruteId: FieldRef<"BruteBody", 'Int'>
+    readonly longHair: FieldRef<"BruteBody", 'Int'>
+    readonly lowerRightArm: FieldRef<"BruteBody", 'Int'>
+    readonly rightHand: FieldRef<"BruteBody", 'Int'>
+    readonly upperRightArm: FieldRef<"BruteBody", 'Int'>
+    readonly rightShoulder: FieldRef<"BruteBody", 'Int'>
+    readonly rightFoot: FieldRef<"BruteBody", 'Int'>
+    readonly lowerRightLeg: FieldRef<"BruteBody", 'Int'>
+    readonly upperRightLeg: FieldRef<"BruteBody", 'Int'>
+    readonly leftFoot: FieldRef<"BruteBody", 'Int'>
+    readonly lowerLeftLeg: FieldRef<"BruteBody", 'Int'>
+    readonly pelvis: FieldRef<"BruteBody", 'Int'>
+    readonly upperLeftLeg: FieldRef<"BruteBody", 'Int'>
+    readonly tummy: FieldRef<"BruteBody", 'Int'>
+    readonly torso: FieldRef<"BruteBody", 'Int'>
+    readonly head: FieldRef<"BruteBody", 'Int'>
+    readonly leftHand: FieldRef<"BruteBody", 'Int'>
+    readonly upperLeftArm: FieldRef<"BruteBody", 'Int'>
+    readonly lowerLeftArm: FieldRef<"BruteBody", 'Int'>
+    readonly leftShoulder: FieldRef<"BruteBody", 'Int'>
   }
+    
+
+  // Custom InputTypes
 
   /**
    * BruteBody findUnique
    */
-  export interface BruteBodyFindUniqueArgs extends BruteBodyFindUniqueArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * BruteBody findUniqueOrThrow
-   */
-  export type BruteBodyFindUniqueOrThrowArgs = {
+  export type BruteBodyFindUniqueArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the BruteBody
      */
-    select?: BruteBodySelect | null
+    select?: BruteBodySelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteBodyInclude | null
+    include?: BruteBodyInclude<ExtArgs> | null
     /**
      * Filter, which BruteBody to fetch.
      */
@@ -3573,77 +4630,36 @@ export namespace Prisma {
 
 
   /**
-   * BruteBody base type for findFirst actions
+   * BruteBody findUniqueOrThrow
    */
-  export type BruteBodyFindFirstArgsBase = {
+  export type BruteBodyFindUniqueOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the BruteBody
      */
-    select?: BruteBodySelect | null
+    select?: BruteBodySelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteBodyInclude | null
+    include?: BruteBodyInclude<ExtArgs> | null
     /**
      * Filter, which BruteBody to fetch.
      */
-    where?: BruteBodyWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of BruteBodies to fetch.
-     */
-    orderBy?: Enumerable<BruteBodyOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for BruteBodies.
-     */
-    cursor?: BruteBodyWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` BruteBodies from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` BruteBodies.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of BruteBodies.
-     */
-    distinct?: Enumerable<BruteBodyScalarFieldEnum>
+    where: BruteBodyWhereUniqueInput
   }
+
 
   /**
    * BruteBody findFirst
    */
-  export interface BruteBodyFindFirstArgs extends BruteBodyFindFirstArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * BruteBody findFirstOrThrow
-   */
-  export type BruteBodyFindFirstOrThrowArgs = {
+  export type BruteBodyFindFirstArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the BruteBody
      */
-    select?: BruteBodySelect | null
+    select?: BruteBodySelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteBodyInclude | null
+    include?: BruteBodyInclude<ExtArgs> | null
     /**
      * Filter, which BruteBody to fetch.
      */
@@ -3653,7 +4669,7 @@ export namespace Prisma {
      * 
      * Determine the order of BruteBodies to fetch.
      */
-    orderBy?: Enumerable<BruteBodyOrderByWithRelationInput>
+    orderBy?: BruteBodyOrderByWithRelationInput | BruteBodyOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -3677,22 +4693,71 @@ export namespace Prisma {
      * 
      * Filter by unique combinations of BruteBodies.
      */
-    distinct?: Enumerable<BruteBodyScalarFieldEnum>
+    distinct?: BruteBodyScalarFieldEnum | BruteBodyScalarFieldEnum[]
+  }
+
+
+  /**
+   * BruteBody findFirstOrThrow
+   */
+  export type BruteBodyFindFirstOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteBody
+     */
+    select?: BruteBodySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BruteBodyInclude<ExtArgs> | null
+    /**
+     * Filter, which BruteBody to fetch.
+     */
+    where?: BruteBodyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BruteBodies to fetch.
+     */
+    orderBy?: BruteBodyOrderByWithRelationInput | BruteBodyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BruteBodies.
+     */
+    cursor?: BruteBodyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BruteBodies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BruteBodies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BruteBodies.
+     */
+    distinct?: BruteBodyScalarFieldEnum | BruteBodyScalarFieldEnum[]
   }
 
 
   /**
    * BruteBody findMany
    */
-  export type BruteBodyFindManyArgs = {
+  export type BruteBodyFindManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the BruteBody
      */
-    select?: BruteBodySelect | null
+    select?: BruteBodySelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteBodyInclude | null
+    include?: BruteBodyInclude<ExtArgs> | null
     /**
      * Filter, which BruteBodies to fetch.
      */
@@ -3702,7 +4767,7 @@ export namespace Prisma {
      * 
      * Determine the order of BruteBodies to fetch.
      */
-    orderBy?: Enumerable<BruteBodyOrderByWithRelationInput>
+    orderBy?: BruteBodyOrderByWithRelationInput | BruteBodyOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -3721,22 +4786,22 @@ export namespace Prisma {
      * Skip the first `n` BruteBodies.
      */
     skip?: number
-    distinct?: Enumerable<BruteBodyScalarFieldEnum>
+    distinct?: BruteBodyScalarFieldEnum | BruteBodyScalarFieldEnum[]
   }
 
 
   /**
    * BruteBody create
    */
-  export type BruteBodyCreateArgs = {
+  export type BruteBodyCreateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the BruteBody
      */
-    select?: BruteBodySelect | null
+    select?: BruteBodySelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteBodyInclude | null
+    include?: BruteBodyInclude<ExtArgs> | null
     /**
      * The data needed to create a BruteBody.
      */
@@ -3747,11 +4812,11 @@ export namespace Prisma {
   /**
    * BruteBody createMany
    */
-  export type BruteBodyCreateManyArgs = {
+  export type BruteBodyCreateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * The data used to create many BruteBodies.
      */
-    data: Enumerable<BruteBodyCreateManyInput>
+    data: BruteBodyCreateManyInput | BruteBodyCreateManyInput[]
     skipDuplicates?: boolean
   }
 
@@ -3759,15 +4824,15 @@ export namespace Prisma {
   /**
    * BruteBody update
    */
-  export type BruteBodyUpdateArgs = {
+  export type BruteBodyUpdateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the BruteBody
      */
-    select?: BruteBodySelect | null
+    select?: BruteBodySelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteBodyInclude | null
+    include?: BruteBodyInclude<ExtArgs> | null
     /**
      * The data needed to update a BruteBody.
      */
@@ -3782,7 +4847,7 @@ export namespace Prisma {
   /**
    * BruteBody updateMany
    */
-  export type BruteBodyUpdateManyArgs = {
+  export type BruteBodyUpdateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * The data used to update BruteBodies.
      */
@@ -3797,15 +4862,15 @@ export namespace Prisma {
   /**
    * BruteBody upsert
    */
-  export type BruteBodyUpsertArgs = {
+  export type BruteBodyUpsertArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the BruteBody
      */
-    select?: BruteBodySelect | null
+    select?: BruteBodySelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteBodyInclude | null
+    include?: BruteBodyInclude<ExtArgs> | null
     /**
      * The filter to search for the BruteBody to update in case it exists.
      */
@@ -3824,15 +4889,15 @@ export namespace Prisma {
   /**
    * BruteBody delete
    */
-  export type BruteBodyDeleteArgs = {
+  export type BruteBodyDeleteArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the BruteBody
      */
-    select?: BruteBodySelect | null
+    select?: BruteBodySelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteBodyInclude | null
+    include?: BruteBodyInclude<ExtArgs> | null
     /**
      * Filter which BruteBody to delete.
      */
@@ -3843,7 +4908,7 @@ export namespace Prisma {
   /**
    * BruteBody deleteMany
    */
-  export type BruteBodyDeleteManyArgs = {
+  export type BruteBodyDeleteManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Filter which BruteBodies to delete
      */
@@ -3854,15 +4919,15 @@ export namespace Prisma {
   /**
    * BruteBody without action
    */
-  export type BruteBodyArgs = {
+  export type BruteBodyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the BruteBody
      */
-    select?: BruteBodySelect | null
+    select?: BruteBodySelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteBodyInclude | null
+    include?: BruteBodyInclude<ExtArgs> | null
   }
 
 
@@ -3993,7 +5058,7 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type BruteColorsAggregateArgs = {
+  export type BruteColorsAggregateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Filter which BruteColors to aggregate.
      */
@@ -4003,7 +5068,7 @@ export namespace Prisma {
      * 
      * Determine the order of BruteColors to fetch.
      */
-    orderBy?: Enumerable<BruteColorsOrderByWithRelationInput>
+    orderBy?: BruteColorsOrderByWithRelationInput | BruteColorsOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -4065,10 +5130,10 @@ export namespace Prisma {
 
 
 
-  export type BruteColorsGroupByArgs = {
+  export type BruteColorsGroupByArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     where?: BruteColorsWhereInput
-    orderBy?: Enumerable<BruteColorsOrderByWithAggregationInput>
-    by: BruteColorsScalarFieldEnum[]
+    orderBy?: BruteColorsOrderByWithAggregationInput | BruteColorsOrderByWithAggregationInput[]
+    by: BruteColorsScalarFieldEnum[] | BruteColorsScalarFieldEnum
     having?: BruteColorsScalarWhereWithAggregatesInput
     take?: number
     skip?: number
@@ -4102,7 +5167,7 @@ export namespace Prisma {
 
   type GetBruteColorsGroupByPayload<T extends BruteColorsGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickArray<BruteColorsGroupByOutputType, T['by']> &
+      PickEnumerable<BruteColorsGroupByOutputType, T['by']> &
         {
           [P in ((keyof T) & (keyof BruteColorsGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
@@ -4114,7 +5179,7 @@ export namespace Prisma {
     >
 
 
-  export type BruteColorsSelect = {
+  export type BruteColorsSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     bruteId?: boolean
     skinColor?: boolean
@@ -4127,38 +5192,38 @@ export namespace Prisma {
     secondaryShade?: boolean
     accentColor?: boolean
     accentShade?: boolean
-    brute?: boolean | BruteArgs
+    brute?: boolean | BruteArgs<ExtArgs>
+  }, ExtArgs["result"]["bruteColors"]>
+
+  export type BruteColorsSelectScalar = {
+    id?: boolean
+    bruteId?: boolean
+    skinColor?: boolean
+    skinShade?: boolean
+    hairColor?: boolean
+    hairShade?: boolean
+    primaryColor?: boolean
+    primaryShade?: boolean
+    secondaryColor?: boolean
+    secondaryShade?: boolean
+    accentColor?: boolean
+    accentShade?: boolean
+  }
+
+  export type BruteColorsInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    brute?: boolean | BruteArgs<ExtArgs>
   }
 
 
-  export type BruteColorsInclude = {
-    brute?: boolean | BruteArgs
-  }
+  type BruteColorsGetPayload<S extends boolean | null | undefined | BruteColorsArgs> = $Types.GetResult<BruteColorsPayload, S>
 
-  export type BruteColorsGetPayload<S extends boolean | null | undefined | BruteColorsArgs> =
-    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
-    S extends true ? BruteColors :
-    S extends undefined ? never :
-    S extends { include: any } & (BruteColorsArgs | BruteColorsFindManyArgs)
-    ? BruteColors  & {
-    [P in TruthyKeys<S['include']>]:
-        P extends 'brute' ? BruteGetPayload<S['include'][P]> :  never
-  } 
-    : S extends { select: any } & (BruteColorsArgs | BruteColorsFindManyArgs)
-      ? {
-    [P in TruthyKeys<S['select']>]:
-        P extends 'brute' ? BruteGetPayload<S['select'][P]> :  P extends keyof BruteColors ? BruteColors[P] : never
-  } 
-      : BruteColors
-
-
-  type BruteColorsCountArgs = 
+  type BruteColorsCountArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = 
     Omit<BruteColorsFindManyArgs, 'select' | 'include'> & {
       select?: BruteColorsCountAggregateInputType | true
     }
 
-  export interface BruteColorsDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
-
+  export interface BruteColorsDelegate<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BruteColors'], meta: { name: 'BruteColors' } }
     /**
      * Find zero or one BruteColors that matches the filter.
      * @param {BruteColorsFindUniqueArgs} args - Arguments to find a BruteColors
@@ -4170,9 +5235,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findUnique<T extends BruteColorsFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, BruteColorsFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'BruteColors'> extends True ? Prisma__BruteColorsClient<BruteColorsGetPayload<T>> : Prisma__BruteColorsClient<BruteColorsGetPayload<T> | null, null>
+    findUnique<T extends BruteColorsFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteColorsFindUniqueArgs<ExtArgs>>
+    ): Prisma__BruteColorsClient<$Types.GetResult<BruteColorsPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
      * Find one BruteColors that matches the filter or throw an error  with `error.code='P2025'` 
@@ -4186,9 +5251,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findUniqueOrThrow<T extends BruteColorsFindUniqueOrThrowArgs>(
-      args?: SelectSubset<T, BruteColorsFindUniqueOrThrowArgs>
-    ): Prisma__BruteColorsClient<BruteColorsGetPayload<T>>
+    findUniqueOrThrow<T extends BruteColorsFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteColorsFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__BruteColorsClient<$Types.GetResult<BruteColorsPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
 
     /**
      * Find the first BruteColors that matches the filter.
@@ -4203,13 +5268,13 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findFirst<T extends BruteColorsFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, BruteColorsFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'BruteColors'> extends True ? Prisma__BruteColorsClient<BruteColorsGetPayload<T>> : Prisma__BruteColorsClient<BruteColorsGetPayload<T> | null, null>
+    findFirst<T extends BruteColorsFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteColorsFindFirstArgs<ExtArgs>>
+    ): Prisma__BruteColorsClient<$Types.GetResult<BruteColorsPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
 
     /**
      * Find the first BruteColors that matches the filter or
-     * throw `NotFoundError` if no matches were found.
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
      * @param {BruteColorsFindFirstOrThrowArgs} args - Arguments to find a BruteColors
@@ -4221,9 +5286,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findFirstOrThrow<T extends BruteColorsFindFirstOrThrowArgs>(
-      args?: SelectSubset<T, BruteColorsFindFirstOrThrowArgs>
-    ): Prisma__BruteColorsClient<BruteColorsGetPayload<T>>
+    findFirstOrThrow<T extends BruteColorsFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteColorsFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__BruteColorsClient<$Types.GetResult<BruteColorsPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
 
     /**
      * Find zero or more BruteColors that matches the filter.
@@ -4241,9 +5306,9 @@ export namespace Prisma {
      * const bruteColorsWithIdOnly = await prisma.bruteColors.findMany({ select: { id: true } })
      * 
     **/
-    findMany<T extends BruteColorsFindManyArgs>(
-      args?: SelectSubset<T, BruteColorsFindManyArgs>
-    ): Prisma.PrismaPromise<Array<BruteColorsGetPayload<T>>>
+    findMany<T extends BruteColorsFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteColorsFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Types.GetResult<BruteColorsPayload<ExtArgs>, T, 'findMany'>>
 
     /**
      * Create a BruteColors.
@@ -4257,9 +5322,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    create<T extends BruteColorsCreateArgs>(
-      args: SelectSubset<T, BruteColorsCreateArgs>
-    ): Prisma__BruteColorsClient<BruteColorsGetPayload<T>>
+    create<T extends BruteColorsCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteColorsCreateArgs<ExtArgs>>
+    ): Prisma__BruteColorsClient<$Types.GetResult<BruteColorsPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
     /**
      * Create many BruteColors.
@@ -4273,8 +5338,8 @@ export namespace Prisma {
      *     })
      *     
     **/
-    createMany<T extends BruteColorsCreateManyArgs>(
-      args?: SelectSubset<T, BruteColorsCreateManyArgs>
+    createMany<T extends BruteColorsCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteColorsCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -4289,9 +5354,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    delete<T extends BruteColorsDeleteArgs>(
-      args: SelectSubset<T, BruteColorsDeleteArgs>
-    ): Prisma__BruteColorsClient<BruteColorsGetPayload<T>>
+    delete<T extends BruteColorsDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteColorsDeleteArgs<ExtArgs>>
+    ): Prisma__BruteColorsClient<$Types.GetResult<BruteColorsPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
 
     /**
      * Update one BruteColors.
@@ -4308,9 +5373,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    update<T extends BruteColorsUpdateArgs>(
-      args: SelectSubset<T, BruteColorsUpdateArgs>
-    ): Prisma__BruteColorsClient<BruteColorsGetPayload<T>>
+    update<T extends BruteColorsUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteColorsUpdateArgs<ExtArgs>>
+    ): Prisma__BruteColorsClient<$Types.GetResult<BruteColorsPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
 
     /**
      * Delete zero or more BruteColors.
@@ -4324,8 +5389,8 @@ export namespace Prisma {
      * })
      * 
     **/
-    deleteMany<T extends BruteColorsDeleteManyArgs>(
-      args?: SelectSubset<T, BruteColorsDeleteManyArgs>
+    deleteMany<T extends BruteColorsDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteColorsDeleteManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -4345,8 +5410,8 @@ export namespace Prisma {
      * })
      * 
     **/
-    updateMany<T extends BruteColorsUpdateManyArgs>(
-      args: SelectSubset<T, BruteColorsUpdateManyArgs>
+    updateMany<T extends BruteColorsUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteColorsUpdateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -4366,9 +5431,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    upsert<T extends BruteColorsUpsertArgs>(
-      args: SelectSubset<T, BruteColorsUpsertArgs>
-    ): Prisma__BruteColorsClient<BruteColorsGetPayload<T>>
+    upsert<T extends BruteColorsUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteColorsUpsertArgs<ExtArgs>>
+    ): Prisma__BruteColorsClient<$Types.GetResult<BruteColorsPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
 
     /**
      * Count the number of BruteColors.
@@ -4386,7 +5451,7 @@ export namespace Prisma {
     count<T extends BruteColorsCountArgs>(
       args?: Subset<T, BruteColorsCountArgs>,
     ): Prisma.PrismaPromise<
-      T extends _Record<'select', any>
+      T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
           : GetScalarType<T['select'], BruteColorsCountAggregateOutputType>
@@ -4447,7 +5512,7 @@ export namespace Prisma {
         ? { orderBy: BruteColorsGroupByArgs['orderBy'] }
         : { orderBy?: BruteColorsGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends TupleToUnion<T['by']>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
       HavingFields extends GetHavingFields<T['having']>,
       HavingValid extends Has<ByFields, HavingFields>,
@@ -4495,7 +5560,10 @@ export namespace Prisma {
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
     >(args: SubsetIntersection<T, BruteColorsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBruteColorsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-
+  /**
+   * Fields of the BruteColors model
+   */
+  readonly fields: BruteColorsFieldRefs;
   }
 
   /**
@@ -4504,7 +5572,7 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export class Prisma__BruteColorsClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+  export class Prisma__BruteColorsClient<T, Null = never, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> implements Prisma.PrismaPromise<T> {
     private readonly _dmmf;
     private readonly _queryType;
     private readonly _rootField;
@@ -4519,7 +5587,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
-    brute<T extends BruteArgs= {}>(args?: Subset<T, BruteArgs>): Prisma__BruteClient<BruteGetPayload<T> | Null>;
+    brute<T extends BruteArgs<ExtArgs> = {}>(args?: Subset<T, BruteArgs<ExtArgs>>): Prisma__BruteClient<$Types.GetResult<BrutePayload<ExtArgs>, T, 'findUnique'> | Null, never, ExtArgs>;
 
     private get _document();
     /**
@@ -4546,50 +5614,39 @@ export namespace Prisma {
 
 
 
-  // Custom InputTypes
-
   /**
-   * BruteColors base type for findUnique actions
-   */
-  export type BruteColorsFindUniqueArgsBase = {
-    /**
-     * Select specific fields to fetch from the BruteColors
-     */
-    select?: BruteColorsSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteColorsInclude | null
-    /**
-     * Filter, which BruteColors to fetch.
-     */
-    where: BruteColorsWhereUniqueInput
+   * Fields of the BruteColors model
+   */ 
+  interface BruteColorsFieldRefs {
+    readonly id: FieldRef<"BruteColors", 'Int'>
+    readonly bruteId: FieldRef<"BruteColors", 'Int'>
+    readonly skinColor: FieldRef<"BruteColors", 'String'>
+    readonly skinShade: FieldRef<"BruteColors", 'String'>
+    readonly hairColor: FieldRef<"BruteColors", 'String'>
+    readonly hairShade: FieldRef<"BruteColors", 'String'>
+    readonly primaryColor: FieldRef<"BruteColors", 'String'>
+    readonly primaryShade: FieldRef<"BruteColors", 'String'>
+    readonly secondaryColor: FieldRef<"BruteColors", 'String'>
+    readonly secondaryShade: FieldRef<"BruteColors", 'String'>
+    readonly accentColor: FieldRef<"BruteColors", 'String'>
+    readonly accentShade: FieldRef<"BruteColors", 'String'>
   }
+    
+
+  // Custom InputTypes
 
   /**
    * BruteColors findUnique
    */
-  export interface BruteColorsFindUniqueArgs extends BruteColorsFindUniqueArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * BruteColors findUniqueOrThrow
-   */
-  export type BruteColorsFindUniqueOrThrowArgs = {
+  export type BruteColorsFindUniqueArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the BruteColors
      */
-    select?: BruteColorsSelect | null
+    select?: BruteColorsSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteColorsInclude | null
+    include?: BruteColorsInclude<ExtArgs> | null
     /**
      * Filter, which BruteColors to fetch.
      */
@@ -4598,77 +5655,36 @@ export namespace Prisma {
 
 
   /**
-   * BruteColors base type for findFirst actions
+   * BruteColors findUniqueOrThrow
    */
-  export type BruteColorsFindFirstArgsBase = {
+  export type BruteColorsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the BruteColors
      */
-    select?: BruteColorsSelect | null
+    select?: BruteColorsSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteColorsInclude | null
+    include?: BruteColorsInclude<ExtArgs> | null
     /**
      * Filter, which BruteColors to fetch.
      */
-    where?: BruteColorsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of BruteColors to fetch.
-     */
-    orderBy?: Enumerable<BruteColorsOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for BruteColors.
-     */
-    cursor?: BruteColorsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` BruteColors from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` BruteColors.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of BruteColors.
-     */
-    distinct?: Enumerable<BruteColorsScalarFieldEnum>
+    where: BruteColorsWhereUniqueInput
   }
+
 
   /**
    * BruteColors findFirst
    */
-  export interface BruteColorsFindFirstArgs extends BruteColorsFindFirstArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * BruteColors findFirstOrThrow
-   */
-  export type BruteColorsFindFirstOrThrowArgs = {
+  export type BruteColorsFindFirstArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the BruteColors
      */
-    select?: BruteColorsSelect | null
+    select?: BruteColorsSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteColorsInclude | null
+    include?: BruteColorsInclude<ExtArgs> | null
     /**
      * Filter, which BruteColors to fetch.
      */
@@ -4678,7 +5694,7 @@ export namespace Prisma {
      * 
      * Determine the order of BruteColors to fetch.
      */
-    orderBy?: Enumerable<BruteColorsOrderByWithRelationInput>
+    orderBy?: BruteColorsOrderByWithRelationInput | BruteColorsOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -4702,22 +5718,71 @@ export namespace Prisma {
      * 
      * Filter by unique combinations of BruteColors.
      */
-    distinct?: Enumerable<BruteColorsScalarFieldEnum>
+    distinct?: BruteColorsScalarFieldEnum | BruteColorsScalarFieldEnum[]
+  }
+
+
+  /**
+   * BruteColors findFirstOrThrow
+   */
+  export type BruteColorsFindFirstOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteColors
+     */
+    select?: BruteColorsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BruteColorsInclude<ExtArgs> | null
+    /**
+     * Filter, which BruteColors to fetch.
+     */
+    where?: BruteColorsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BruteColors to fetch.
+     */
+    orderBy?: BruteColorsOrderByWithRelationInput | BruteColorsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BruteColors.
+     */
+    cursor?: BruteColorsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BruteColors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BruteColors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BruteColors.
+     */
+    distinct?: BruteColorsScalarFieldEnum | BruteColorsScalarFieldEnum[]
   }
 
 
   /**
    * BruteColors findMany
    */
-  export type BruteColorsFindManyArgs = {
+  export type BruteColorsFindManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the BruteColors
      */
-    select?: BruteColorsSelect | null
+    select?: BruteColorsSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteColorsInclude | null
+    include?: BruteColorsInclude<ExtArgs> | null
     /**
      * Filter, which BruteColors to fetch.
      */
@@ -4727,7 +5792,7 @@ export namespace Prisma {
      * 
      * Determine the order of BruteColors to fetch.
      */
-    orderBy?: Enumerable<BruteColorsOrderByWithRelationInput>
+    orderBy?: BruteColorsOrderByWithRelationInput | BruteColorsOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -4746,22 +5811,22 @@ export namespace Prisma {
      * Skip the first `n` BruteColors.
      */
     skip?: number
-    distinct?: Enumerable<BruteColorsScalarFieldEnum>
+    distinct?: BruteColorsScalarFieldEnum | BruteColorsScalarFieldEnum[]
   }
 
 
   /**
    * BruteColors create
    */
-  export type BruteColorsCreateArgs = {
+  export type BruteColorsCreateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the BruteColors
      */
-    select?: BruteColorsSelect | null
+    select?: BruteColorsSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteColorsInclude | null
+    include?: BruteColorsInclude<ExtArgs> | null
     /**
      * The data needed to create a BruteColors.
      */
@@ -4772,11 +5837,11 @@ export namespace Prisma {
   /**
    * BruteColors createMany
    */
-  export type BruteColorsCreateManyArgs = {
+  export type BruteColorsCreateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * The data used to create many BruteColors.
      */
-    data: Enumerable<BruteColorsCreateManyInput>
+    data: BruteColorsCreateManyInput | BruteColorsCreateManyInput[]
     skipDuplicates?: boolean
   }
 
@@ -4784,15 +5849,15 @@ export namespace Prisma {
   /**
    * BruteColors update
    */
-  export type BruteColorsUpdateArgs = {
+  export type BruteColorsUpdateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the BruteColors
      */
-    select?: BruteColorsSelect | null
+    select?: BruteColorsSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteColorsInclude | null
+    include?: BruteColorsInclude<ExtArgs> | null
     /**
      * The data needed to update a BruteColors.
      */
@@ -4807,7 +5872,7 @@ export namespace Prisma {
   /**
    * BruteColors updateMany
    */
-  export type BruteColorsUpdateManyArgs = {
+  export type BruteColorsUpdateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * The data used to update BruteColors.
      */
@@ -4822,15 +5887,15 @@ export namespace Prisma {
   /**
    * BruteColors upsert
    */
-  export type BruteColorsUpsertArgs = {
+  export type BruteColorsUpsertArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the BruteColors
      */
-    select?: BruteColorsSelect | null
+    select?: BruteColorsSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteColorsInclude | null
+    include?: BruteColorsInclude<ExtArgs> | null
     /**
      * The filter to search for the BruteColors to update in case it exists.
      */
@@ -4849,15 +5914,15 @@ export namespace Prisma {
   /**
    * BruteColors delete
    */
-  export type BruteColorsDeleteArgs = {
+  export type BruteColorsDeleteArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the BruteColors
      */
-    select?: BruteColorsSelect | null
+    select?: BruteColorsSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteColorsInclude | null
+    include?: BruteColorsInclude<ExtArgs> | null
     /**
      * Filter which BruteColors to delete.
      */
@@ -4868,7 +5933,7 @@ export namespace Prisma {
   /**
    * BruteColors deleteMany
    */
-  export type BruteColorsDeleteManyArgs = {
+  export type BruteColorsDeleteManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Filter which BruteColors to delete
      */
@@ -4879,15 +5944,15 @@ export namespace Prisma {
   /**
    * BruteColors without action
    */
-  export type BruteColorsArgs = {
+  export type BruteColorsArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the BruteColors
      */
-    select?: BruteColorsSelect | null
+    select?: BruteColorsSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteColorsInclude | null
+    include?: BruteColorsInclude<ExtArgs> | null
   }
 
 
@@ -5242,7 +6307,7 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type BruteAggregateArgs = {
+  export type BruteAggregateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Filter which Brute to aggregate.
      */
@@ -5252,7 +6317,7 @@ export namespace Prisma {
      * 
      * Determine the order of Brutes to fetch.
      */
-    orderBy?: Enumerable<BruteOrderByWithRelationInput>
+    orderBy?: BruteOrderByWithRelationInput | BruteOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -5314,10 +6379,10 @@ export namespace Prisma {
 
 
 
-  export type BruteGroupByArgs = {
+  export type BruteGroupByArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     where?: BruteWhereInput
-    orderBy?: Enumerable<BruteOrderByWithAggregationInput>
-    by: BruteScalarFieldEnum[]
+    orderBy?: BruteOrderByWithAggregationInput | BruteOrderByWithAggregationInput[]
+    by: BruteScalarFieldEnum[] | BruteScalarFieldEnum
     having?: BruteScalarWhereWithAggregatesInput
     take?: number
     skip?: number
@@ -5377,7 +6442,7 @@ export namespace Prisma {
 
   type GetBruteGroupByPayload<T extends BruteGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickArray<BruteGroupByOutputType, T['by']> &
+      PickEnumerable<BruteGroupByOutputType, T['by']> &
         {
           [P in ((keyof T) & (keyof BruteGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
@@ -5389,7 +6454,7 @@ export namespace Prisma {
     >
 
 
-  export type BruteSelect = {
+  export type BruteSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
     deletedAt?: boolean
@@ -5428,102 +6493,96 @@ export namespace Prisma {
     victories?: boolean
     opponentsGeneratedAt?: boolean
     canRankUpSince?: boolean
-    user?: boolean | UserArgs
-    body?: boolean | BruteBodyArgs
-    colors?: boolean | BruteColorsArgs
-    master?: boolean | BruteArgs
-    pupils?: boolean | Brute$pupilsArgs
-    clan?: boolean | ClanArgs
-    fights?: boolean | Brute$fightsArgs
-    fightsAsAdversary?: boolean | Brute$fightsAsAdversaryArgs
-    logs?: boolean | Brute$logsArgs
-    destinyChoices?: boolean | Brute$destinyChoicesArgs
-    spritesheet?: boolean | BruteSpritesheetArgs
-    tournaments?: boolean | Brute$tournamentsArgs
-    opponents?: boolean | Brute$opponentsArgs
-    opponentOf?: boolean | Brute$opponentOfArgs
-    achievements?: boolean | Brute$achievementsArgs
-    tournamentEarnings?: boolean | Brute$tournamentEarningsArgs
-    _count?: boolean | BruteCountOutputTypeArgs
+    user?: boolean | Brute$userArgs<ExtArgs>
+    body?: boolean | Brute$bodyArgs<ExtArgs>
+    colors?: boolean | Brute$colorsArgs<ExtArgs>
+    master?: boolean | Brute$masterArgs<ExtArgs>
+    pupils?: boolean | Brute$pupilsArgs<ExtArgs>
+    clan?: boolean | Brute$clanArgs<ExtArgs>
+    fights?: boolean | Brute$fightsArgs<ExtArgs>
+    fightsAsAdversary?: boolean | Brute$fightsAsAdversaryArgs<ExtArgs>
+    logs?: boolean | Brute$logsArgs<ExtArgs>
+    destinyChoices?: boolean | Brute$destinyChoicesArgs<ExtArgs>
+    spritesheet?: boolean | Brute$spritesheetArgs<ExtArgs>
+    tournaments?: boolean | Brute$tournamentsArgs<ExtArgs>
+    opponents?: boolean | Brute$opponentsArgs<ExtArgs>
+    opponentOf?: boolean | Brute$opponentOfArgs<ExtArgs>
+    achievements?: boolean | Brute$achievementsArgs<ExtArgs>
+    tournamentEarnings?: boolean | Brute$tournamentEarningsArgs<ExtArgs>
+    _count?: boolean | BruteCountOutputTypeArgs<ExtArgs>
+  }, ExtArgs["result"]["brute"]>
+
+  export type BruteSelectScalar = {
+    id?: boolean
+    name?: boolean
+    deletedAt?: boolean
+    createdAt?: boolean
+    destinyPath?: boolean
+    level?: boolean
+    xp?: boolean
+    hp?: boolean
+    enduranceStat?: boolean
+    enduranceModifier?: boolean
+    enduranceValue?: boolean
+    strengthStat?: boolean
+    strengthModifier?: boolean
+    strengthValue?: boolean
+    agilityStat?: boolean
+    agilityModifier?: boolean
+    agilityValue?: boolean
+    speedStat?: boolean
+    speedModifier?: boolean
+    speedValue?: boolean
+    ranking?: boolean
+    gender?: boolean
+    userId?: boolean
+    weapons?: boolean
+    skills?: boolean
+    pets?: boolean
+    masterId?: boolean
+    pupilsCount?: boolean
+    clanId?: boolean
+    registeredForTournament?: boolean
+    nextTournamentDate?: boolean
+    currentTournamentDate?: boolean
+    currentTournamentStepWatched?: boolean
+    lastFight?: boolean
+    fightsLeft?: boolean
+    victories?: boolean
+    opponentsGeneratedAt?: boolean
+    canRankUpSince?: boolean
+  }
+
+  export type BruteInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    user?: boolean | Brute$userArgs<ExtArgs>
+    body?: boolean | Brute$bodyArgs<ExtArgs>
+    colors?: boolean | Brute$colorsArgs<ExtArgs>
+    master?: boolean | Brute$masterArgs<ExtArgs>
+    pupils?: boolean | Brute$pupilsArgs<ExtArgs>
+    clan?: boolean | Brute$clanArgs<ExtArgs>
+    fights?: boolean | Brute$fightsArgs<ExtArgs>
+    fightsAsAdversary?: boolean | Brute$fightsAsAdversaryArgs<ExtArgs>
+    logs?: boolean | Brute$logsArgs<ExtArgs>
+    destinyChoices?: boolean | Brute$destinyChoicesArgs<ExtArgs>
+    spritesheet?: boolean | Brute$spritesheetArgs<ExtArgs>
+    tournaments?: boolean | Brute$tournamentsArgs<ExtArgs>
+    opponents?: boolean | Brute$opponentsArgs<ExtArgs>
+    opponentOf?: boolean | Brute$opponentOfArgs<ExtArgs>
+    achievements?: boolean | Brute$achievementsArgs<ExtArgs>
+    tournamentEarnings?: boolean | Brute$tournamentEarningsArgs<ExtArgs>
+    _count?: boolean | BruteCountOutputTypeArgs<ExtArgs>
   }
 
 
-  export type BruteInclude = {
-    user?: boolean | UserArgs
-    body?: boolean | BruteBodyArgs
-    colors?: boolean | BruteColorsArgs
-    master?: boolean | BruteArgs
-    pupils?: boolean | Brute$pupilsArgs
-    clan?: boolean | ClanArgs
-    fights?: boolean | Brute$fightsArgs
-    fightsAsAdversary?: boolean | Brute$fightsAsAdversaryArgs
-    logs?: boolean | Brute$logsArgs
-    destinyChoices?: boolean | Brute$destinyChoicesArgs
-    spritesheet?: boolean | BruteSpritesheetArgs
-    tournaments?: boolean | Brute$tournamentsArgs
-    opponents?: boolean | Brute$opponentsArgs
-    opponentOf?: boolean | Brute$opponentOfArgs
-    achievements?: boolean | Brute$achievementsArgs
-    tournamentEarnings?: boolean | Brute$tournamentEarningsArgs
-    _count?: boolean | BruteCountOutputTypeArgs
-  }
+  type BruteGetPayload<S extends boolean | null | undefined | BruteArgs> = $Types.GetResult<BrutePayload, S>
 
-  export type BruteGetPayload<S extends boolean | null | undefined | BruteArgs> =
-    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
-    S extends true ? Brute :
-    S extends undefined ? never :
-    S extends { include: any } & (BruteArgs | BruteFindManyArgs)
-    ? Brute  & {
-    [P in TruthyKeys<S['include']>]:
-        P extends 'user' ? UserGetPayload<S['include'][P]> | null :
-        P extends 'body' ? BruteBodyGetPayload<S['include'][P]> | null :
-        P extends 'colors' ? BruteColorsGetPayload<S['include'][P]> | null :
-        P extends 'master' ? BruteGetPayload<S['include'][P]> | null :
-        P extends 'pupils' ? Array < BruteGetPayload<S['include'][P]>>  :
-        P extends 'clan' ? ClanGetPayload<S['include'][P]> | null :
-        P extends 'fights' ? Array < FightGetPayload<S['include'][P]>>  :
-        P extends 'fightsAsAdversary' ? Array < FightGetPayload<S['include'][P]>>  :
-        P extends 'logs' ? Array < LogGetPayload<S['include'][P]>>  :
-        P extends 'destinyChoices' ? Array < DestinyChoiceGetPayload<S['include'][P]>>  :
-        P extends 'spritesheet' ? BruteSpritesheetGetPayload<S['include'][P]> | null :
-        P extends 'tournaments' ? Array < TournamentGetPayload<S['include'][P]>>  :
-        P extends 'opponents' ? Array < BruteGetPayload<S['include'][P]>>  :
-        P extends 'opponentOf' ? Array < BruteGetPayload<S['include'][P]>>  :
-        P extends 'achievements' ? Array < AchievementGetPayload<S['include'][P]>>  :
-        P extends 'tournamentEarnings' ? Array < TournamentEarningGetPayload<S['include'][P]>>  :
-        P extends '_count' ? BruteCountOutputTypeGetPayload<S['include'][P]> :  never
-  } 
-    : S extends { select: any } & (BruteArgs | BruteFindManyArgs)
-      ? {
-    [P in TruthyKeys<S['select']>]:
-        P extends 'user' ? UserGetPayload<S['select'][P]> | null :
-        P extends 'body' ? BruteBodyGetPayload<S['select'][P]> | null :
-        P extends 'colors' ? BruteColorsGetPayload<S['select'][P]> | null :
-        P extends 'master' ? BruteGetPayload<S['select'][P]> | null :
-        P extends 'pupils' ? Array < BruteGetPayload<S['select'][P]>>  :
-        P extends 'clan' ? ClanGetPayload<S['select'][P]> | null :
-        P extends 'fights' ? Array < FightGetPayload<S['select'][P]>>  :
-        P extends 'fightsAsAdversary' ? Array < FightGetPayload<S['select'][P]>>  :
-        P extends 'logs' ? Array < LogGetPayload<S['select'][P]>>  :
-        P extends 'destinyChoices' ? Array < DestinyChoiceGetPayload<S['select'][P]>>  :
-        P extends 'spritesheet' ? BruteSpritesheetGetPayload<S['select'][P]> | null :
-        P extends 'tournaments' ? Array < TournamentGetPayload<S['select'][P]>>  :
-        P extends 'opponents' ? Array < BruteGetPayload<S['select'][P]>>  :
-        P extends 'opponentOf' ? Array < BruteGetPayload<S['select'][P]>>  :
-        P extends 'achievements' ? Array < AchievementGetPayload<S['select'][P]>>  :
-        P extends 'tournamentEarnings' ? Array < TournamentEarningGetPayload<S['select'][P]>>  :
-        P extends '_count' ? BruteCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Brute ? Brute[P] : never
-  } 
-      : Brute
-
-
-  type BruteCountArgs = 
+  type BruteCountArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = 
     Omit<BruteFindManyArgs, 'select' | 'include'> & {
       select?: BruteCountAggregateInputType | true
     }
 
-  export interface BruteDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
-
+  export interface BruteDelegate<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Brute'], meta: { name: 'Brute' } }
     /**
      * Find zero or one Brute that matches the filter.
      * @param {BruteFindUniqueArgs} args - Arguments to find a Brute
@@ -5535,9 +6594,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findUnique<T extends BruteFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, BruteFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Brute'> extends True ? Prisma__BruteClient<BruteGetPayload<T>> : Prisma__BruteClient<BruteGetPayload<T> | null, null>
+    findUnique<T extends BruteFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteFindUniqueArgs<ExtArgs>>
+    ): Prisma__BruteClient<$Types.GetResult<BrutePayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
      * Find one Brute that matches the filter or throw an error  with `error.code='P2025'` 
@@ -5551,9 +6610,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findUniqueOrThrow<T extends BruteFindUniqueOrThrowArgs>(
-      args?: SelectSubset<T, BruteFindUniqueOrThrowArgs>
-    ): Prisma__BruteClient<BruteGetPayload<T>>
+    findUniqueOrThrow<T extends BruteFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__BruteClient<$Types.GetResult<BrutePayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
 
     /**
      * Find the first Brute that matches the filter.
@@ -5568,13 +6627,13 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findFirst<T extends BruteFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, BruteFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Brute'> extends True ? Prisma__BruteClient<BruteGetPayload<T>> : Prisma__BruteClient<BruteGetPayload<T> | null, null>
+    findFirst<T extends BruteFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteFindFirstArgs<ExtArgs>>
+    ): Prisma__BruteClient<$Types.GetResult<BrutePayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
 
     /**
      * Find the first Brute that matches the filter or
-     * throw `NotFoundError` if no matches were found.
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
      * @param {BruteFindFirstOrThrowArgs} args - Arguments to find a Brute
@@ -5586,9 +6645,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findFirstOrThrow<T extends BruteFindFirstOrThrowArgs>(
-      args?: SelectSubset<T, BruteFindFirstOrThrowArgs>
-    ): Prisma__BruteClient<BruteGetPayload<T>>
+    findFirstOrThrow<T extends BruteFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__BruteClient<$Types.GetResult<BrutePayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
 
     /**
      * Find zero or more Brutes that matches the filter.
@@ -5606,9 +6665,9 @@ export namespace Prisma {
      * const bruteWithIdOnly = await prisma.brute.findMany({ select: { id: true } })
      * 
     **/
-    findMany<T extends BruteFindManyArgs>(
-      args?: SelectSubset<T, BruteFindManyArgs>
-    ): Prisma.PrismaPromise<Array<BruteGetPayload<T>>>
+    findMany<T extends BruteFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Types.GetResult<BrutePayload<ExtArgs>, T, 'findMany'>>
 
     /**
      * Create a Brute.
@@ -5622,9 +6681,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    create<T extends BruteCreateArgs>(
-      args: SelectSubset<T, BruteCreateArgs>
-    ): Prisma__BruteClient<BruteGetPayload<T>>
+    create<T extends BruteCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteCreateArgs<ExtArgs>>
+    ): Prisma__BruteClient<$Types.GetResult<BrutePayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
     /**
      * Create many Brutes.
@@ -5638,8 +6697,8 @@ export namespace Prisma {
      *     })
      *     
     **/
-    createMany<T extends BruteCreateManyArgs>(
-      args?: SelectSubset<T, BruteCreateManyArgs>
+    createMany<T extends BruteCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -5654,9 +6713,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    delete<T extends BruteDeleteArgs>(
-      args: SelectSubset<T, BruteDeleteArgs>
-    ): Prisma__BruteClient<BruteGetPayload<T>>
+    delete<T extends BruteDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteDeleteArgs<ExtArgs>>
+    ): Prisma__BruteClient<$Types.GetResult<BrutePayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
 
     /**
      * Update one Brute.
@@ -5673,9 +6732,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    update<T extends BruteUpdateArgs>(
-      args: SelectSubset<T, BruteUpdateArgs>
-    ): Prisma__BruteClient<BruteGetPayload<T>>
+    update<T extends BruteUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteUpdateArgs<ExtArgs>>
+    ): Prisma__BruteClient<$Types.GetResult<BrutePayload<ExtArgs>, T, 'update'>, never, ExtArgs>
 
     /**
      * Delete zero or more Brutes.
@@ -5689,8 +6748,8 @@ export namespace Prisma {
      * })
      * 
     **/
-    deleteMany<T extends BruteDeleteManyArgs>(
-      args?: SelectSubset<T, BruteDeleteManyArgs>
+    deleteMany<T extends BruteDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteDeleteManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -5710,8 +6769,8 @@ export namespace Prisma {
      * })
      * 
     **/
-    updateMany<T extends BruteUpdateManyArgs>(
-      args: SelectSubset<T, BruteUpdateManyArgs>
+    updateMany<T extends BruteUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteUpdateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -5731,9 +6790,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    upsert<T extends BruteUpsertArgs>(
-      args: SelectSubset<T, BruteUpsertArgs>
-    ): Prisma__BruteClient<BruteGetPayload<T>>
+    upsert<T extends BruteUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteUpsertArgs<ExtArgs>>
+    ): Prisma__BruteClient<$Types.GetResult<BrutePayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
 
     /**
      * Count the number of Brutes.
@@ -5751,7 +6810,7 @@ export namespace Prisma {
     count<T extends BruteCountArgs>(
       args?: Subset<T, BruteCountArgs>,
     ): Prisma.PrismaPromise<
-      T extends _Record<'select', any>
+      T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
           : GetScalarType<T['select'], BruteCountAggregateOutputType>
@@ -5812,7 +6871,7 @@ export namespace Prisma {
         ? { orderBy: BruteGroupByArgs['orderBy'] }
         : { orderBy?: BruteGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends TupleToUnion<T['by']>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
       HavingFields extends GetHavingFields<T['having']>,
       HavingValid extends Has<ByFields, HavingFields>,
@@ -5860,7 +6919,10 @@ export namespace Prisma {
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
     >(args: SubsetIntersection<T, BruteGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBruteGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-
+  /**
+   * Fields of the Brute model
+   */
+  readonly fields: BruteFieldRefs;
   }
 
   /**
@@ -5869,7 +6931,7 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export class Prisma__BruteClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+  export class Prisma__BruteClient<T, Null = never, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> implements Prisma.PrismaPromise<T> {
     private readonly _dmmf;
     private readonly _queryType;
     private readonly _rootField;
@@ -5884,37 +6946,37 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
-    user<T extends UserArgs= {}>(args?: Subset<T, UserArgs>): Prisma__UserClient<UserGetPayload<T> | Null>;
+    user<T extends Brute$userArgs<ExtArgs> = {}>(args?: Subset<T, Brute$userArgs<ExtArgs>>): Prisma__UserClient<$Types.GetResult<UserPayload<ExtArgs>, T, 'findUnique'> | Null, never, ExtArgs>;
 
-    body<T extends BruteBodyArgs= {}>(args?: Subset<T, BruteBodyArgs>): Prisma__BruteBodyClient<BruteBodyGetPayload<T> | Null>;
+    body<T extends Brute$bodyArgs<ExtArgs> = {}>(args?: Subset<T, Brute$bodyArgs<ExtArgs>>): Prisma__BruteBodyClient<$Types.GetResult<BruteBodyPayload<ExtArgs>, T, 'findUnique'> | Null, never, ExtArgs>;
 
-    colors<T extends BruteColorsArgs= {}>(args?: Subset<T, BruteColorsArgs>): Prisma__BruteColorsClient<BruteColorsGetPayload<T> | Null>;
+    colors<T extends Brute$colorsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$colorsArgs<ExtArgs>>): Prisma__BruteColorsClient<$Types.GetResult<BruteColorsPayload<ExtArgs>, T, 'findUnique'> | Null, never, ExtArgs>;
 
-    master<T extends BruteArgs= {}>(args?: Subset<T, BruteArgs>): Prisma__BruteClient<BruteGetPayload<T> | Null>;
+    master<T extends Brute$masterArgs<ExtArgs> = {}>(args?: Subset<T, Brute$masterArgs<ExtArgs>>): Prisma__BruteClient<$Types.GetResult<BrutePayload<ExtArgs>, T, 'findUnique'> | Null, never, ExtArgs>;
 
-    pupils<T extends Brute$pupilsArgs= {}>(args?: Subset<T, Brute$pupilsArgs>): Prisma.PrismaPromise<Array<BruteGetPayload<T>>| Null>;
+    pupils<T extends Brute$pupilsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$pupilsArgs<ExtArgs>>): Prisma.PrismaPromise<$Types.GetResult<BrutePayload<ExtArgs>, T, 'findMany'>| Null>;
 
-    clan<T extends ClanArgs= {}>(args?: Subset<T, ClanArgs>): Prisma__ClanClient<ClanGetPayload<T> | Null>;
+    clan<T extends Brute$clanArgs<ExtArgs> = {}>(args?: Subset<T, Brute$clanArgs<ExtArgs>>): Prisma__ClanClient<$Types.GetResult<ClanPayload<ExtArgs>, T, 'findUnique'> | Null, never, ExtArgs>;
 
-    fights<T extends Brute$fightsArgs= {}>(args?: Subset<T, Brute$fightsArgs>): Prisma.PrismaPromise<Array<FightGetPayload<T>>| Null>;
+    fights<T extends Brute$fightsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$fightsArgs<ExtArgs>>): Prisma.PrismaPromise<$Types.GetResult<FightPayload<ExtArgs>, T, 'findMany'>| Null>;
 
-    fightsAsAdversary<T extends Brute$fightsAsAdversaryArgs= {}>(args?: Subset<T, Brute$fightsAsAdversaryArgs>): Prisma.PrismaPromise<Array<FightGetPayload<T>>| Null>;
+    fightsAsAdversary<T extends Brute$fightsAsAdversaryArgs<ExtArgs> = {}>(args?: Subset<T, Brute$fightsAsAdversaryArgs<ExtArgs>>): Prisma.PrismaPromise<$Types.GetResult<FightPayload<ExtArgs>, T, 'findMany'>| Null>;
 
-    logs<T extends Brute$logsArgs= {}>(args?: Subset<T, Brute$logsArgs>): Prisma.PrismaPromise<Array<LogGetPayload<T>>| Null>;
+    logs<T extends Brute$logsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Types.GetResult<LogPayload<ExtArgs>, T, 'findMany'>| Null>;
 
-    destinyChoices<T extends Brute$destinyChoicesArgs= {}>(args?: Subset<T, Brute$destinyChoicesArgs>): Prisma.PrismaPromise<Array<DestinyChoiceGetPayload<T>>| Null>;
+    destinyChoices<T extends Brute$destinyChoicesArgs<ExtArgs> = {}>(args?: Subset<T, Brute$destinyChoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Types.GetResult<DestinyChoicePayload<ExtArgs>, T, 'findMany'>| Null>;
 
-    spritesheet<T extends BruteSpritesheetArgs= {}>(args?: Subset<T, BruteSpritesheetArgs>): Prisma__BruteSpritesheetClient<BruteSpritesheetGetPayload<T> | Null>;
+    spritesheet<T extends Brute$spritesheetArgs<ExtArgs> = {}>(args?: Subset<T, Brute$spritesheetArgs<ExtArgs>>): Prisma__BruteSpritesheetClient<$Types.GetResult<BruteSpritesheetPayload<ExtArgs>, T, 'findUnique'> | Null, never, ExtArgs>;
 
-    tournaments<T extends Brute$tournamentsArgs= {}>(args?: Subset<T, Brute$tournamentsArgs>): Prisma.PrismaPromise<Array<TournamentGetPayload<T>>| Null>;
+    tournaments<T extends Brute$tournamentsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$tournamentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Types.GetResult<TournamentPayload<ExtArgs>, T, 'findMany'>| Null>;
 
-    opponents<T extends Brute$opponentsArgs= {}>(args?: Subset<T, Brute$opponentsArgs>): Prisma.PrismaPromise<Array<BruteGetPayload<T>>| Null>;
+    opponents<T extends Brute$opponentsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$opponentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Types.GetResult<BrutePayload<ExtArgs>, T, 'findMany'>| Null>;
 
-    opponentOf<T extends Brute$opponentOfArgs= {}>(args?: Subset<T, Brute$opponentOfArgs>): Prisma.PrismaPromise<Array<BruteGetPayload<T>>| Null>;
+    opponentOf<T extends Brute$opponentOfArgs<ExtArgs> = {}>(args?: Subset<T, Brute$opponentOfArgs<ExtArgs>>): Prisma.PrismaPromise<$Types.GetResult<BrutePayload<ExtArgs>, T, 'findMany'>| Null>;
 
-    achievements<T extends Brute$achievementsArgs= {}>(args?: Subset<T, Brute$achievementsArgs>): Prisma.PrismaPromise<Array<AchievementGetPayload<T>>| Null>;
+    achievements<T extends Brute$achievementsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$achievementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Types.GetResult<AchievementPayload<ExtArgs>, T, 'findMany'>| Null>;
 
-    tournamentEarnings<T extends Brute$tournamentEarningsArgs= {}>(args?: Subset<T, Brute$tournamentEarningsArgs>): Prisma.PrismaPromise<Array<TournamentEarningGetPayload<T>>| Null>;
+    tournamentEarnings<T extends Brute$tournamentEarningsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$tournamentEarningsArgs<ExtArgs>>): Prisma.PrismaPromise<$Types.GetResult<TournamentEarningPayload<ExtArgs>, T, 'findMany'>| Null>;
 
     private get _document();
     /**
@@ -5941,50 +7003,65 @@ export namespace Prisma {
 
 
 
-  // Custom InputTypes
-
   /**
-   * Brute base type for findUnique actions
-   */
-  export type BruteFindUniqueArgsBase = {
-    /**
-     * Select specific fields to fetch from the Brute
-     */
-    select?: BruteSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteInclude | null
-    /**
-     * Filter, which Brute to fetch.
-     */
-    where: BruteWhereUniqueInput
+   * Fields of the Brute model
+   */ 
+  interface BruteFieldRefs {
+    readonly id: FieldRef<"Brute", 'Int'>
+    readonly name: FieldRef<"Brute", 'String'>
+    readonly deletedAt: FieldRef<"Brute", 'DateTime'>
+    readonly createdAt: FieldRef<"Brute", 'DateTime'>
+    readonly destinyPath: FieldRef<"Brute", 'DestinyChoiceSide[]'>
+    readonly level: FieldRef<"Brute", 'Int'>
+    readonly xp: FieldRef<"Brute", 'Int'>
+    readonly hp: FieldRef<"Brute", 'Int'>
+    readonly enduranceStat: FieldRef<"Brute", 'Int'>
+    readonly enduranceModifier: FieldRef<"Brute", 'Float'>
+    readonly enduranceValue: FieldRef<"Brute", 'Int'>
+    readonly strengthStat: FieldRef<"Brute", 'Int'>
+    readonly strengthModifier: FieldRef<"Brute", 'Float'>
+    readonly strengthValue: FieldRef<"Brute", 'Int'>
+    readonly agilityStat: FieldRef<"Brute", 'Int'>
+    readonly agilityModifier: FieldRef<"Brute", 'Float'>
+    readonly agilityValue: FieldRef<"Brute", 'Int'>
+    readonly speedStat: FieldRef<"Brute", 'Int'>
+    readonly speedModifier: FieldRef<"Brute", 'Float'>
+    readonly speedValue: FieldRef<"Brute", 'Int'>
+    readonly ranking: FieldRef<"Brute", 'Int'>
+    readonly gender: FieldRef<"Brute", 'Gender'>
+    readonly userId: FieldRef<"Brute", 'String'>
+    readonly weapons: FieldRef<"Brute", 'WeaponName[]'>
+    readonly skills: FieldRef<"Brute", 'SkillName[]'>
+    readonly pets: FieldRef<"Brute", 'PetName[]'>
+    readonly masterId: FieldRef<"Brute", 'Int'>
+    readonly pupilsCount: FieldRef<"Brute", 'Int'>
+    readonly clanId: FieldRef<"Brute", 'Int'>
+    readonly registeredForTournament: FieldRef<"Brute", 'Boolean'>
+    readonly nextTournamentDate: FieldRef<"Brute", 'DateTime'>
+    readonly currentTournamentDate: FieldRef<"Brute", 'DateTime'>
+    readonly currentTournamentStepWatched: FieldRef<"Brute", 'Int'>
+    readonly lastFight: FieldRef<"Brute", 'DateTime'>
+    readonly fightsLeft: FieldRef<"Brute", 'Int'>
+    readonly victories: FieldRef<"Brute", 'Int'>
+    readonly opponentsGeneratedAt: FieldRef<"Brute", 'DateTime'>
+    readonly canRankUpSince: FieldRef<"Brute", 'DateTime'>
   }
+    
+
+  // Custom InputTypes
 
   /**
    * Brute findUnique
    */
-  export interface BruteFindUniqueArgs extends BruteFindUniqueArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * Brute findUniqueOrThrow
-   */
-  export type BruteFindUniqueOrThrowArgs = {
+  export type BruteFindUniqueArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Brute
      */
-    select?: BruteSelect | null
+    select?: BruteSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteInclude | null
+    include?: BruteInclude<ExtArgs> | null
     /**
      * Filter, which Brute to fetch.
      */
@@ -5993,77 +7070,36 @@ export namespace Prisma {
 
 
   /**
-   * Brute base type for findFirst actions
+   * Brute findUniqueOrThrow
    */
-  export type BruteFindFirstArgsBase = {
+  export type BruteFindUniqueOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Brute
      */
-    select?: BruteSelect | null
+    select?: BruteSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteInclude | null
+    include?: BruteInclude<ExtArgs> | null
     /**
      * Filter, which Brute to fetch.
      */
-    where?: BruteWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Brutes to fetch.
-     */
-    orderBy?: Enumerable<BruteOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Brutes.
-     */
-    cursor?: BruteWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Brutes from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Brutes.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Brutes.
-     */
-    distinct?: Enumerable<BruteScalarFieldEnum>
+    where: BruteWhereUniqueInput
   }
+
 
   /**
    * Brute findFirst
    */
-  export interface BruteFindFirstArgs extends BruteFindFirstArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * Brute findFirstOrThrow
-   */
-  export type BruteFindFirstOrThrowArgs = {
+  export type BruteFindFirstArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Brute
      */
-    select?: BruteSelect | null
+    select?: BruteSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteInclude | null
+    include?: BruteInclude<ExtArgs> | null
     /**
      * Filter, which Brute to fetch.
      */
@@ -6073,7 +7109,7 @@ export namespace Prisma {
      * 
      * Determine the order of Brutes to fetch.
      */
-    orderBy?: Enumerable<BruteOrderByWithRelationInput>
+    orderBy?: BruteOrderByWithRelationInput | BruteOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -6097,22 +7133,71 @@ export namespace Prisma {
      * 
      * Filter by unique combinations of Brutes.
      */
-    distinct?: Enumerable<BruteScalarFieldEnum>
+    distinct?: BruteScalarFieldEnum | BruteScalarFieldEnum[]
+  }
+
+
+  /**
+   * Brute findFirstOrThrow
+   */
+  export type BruteFindFirstOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Brute
+     */
+    select?: BruteSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BruteInclude<ExtArgs> | null
+    /**
+     * Filter, which Brute to fetch.
+     */
+    where?: BruteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Brutes to fetch.
+     */
+    orderBy?: BruteOrderByWithRelationInput | BruteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Brutes.
+     */
+    cursor?: BruteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Brutes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Brutes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Brutes.
+     */
+    distinct?: BruteScalarFieldEnum | BruteScalarFieldEnum[]
   }
 
 
   /**
    * Brute findMany
    */
-  export type BruteFindManyArgs = {
+  export type BruteFindManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Brute
      */
-    select?: BruteSelect | null
+    select?: BruteSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteInclude | null
+    include?: BruteInclude<ExtArgs> | null
     /**
      * Filter, which Brutes to fetch.
      */
@@ -6122,7 +7207,7 @@ export namespace Prisma {
      * 
      * Determine the order of Brutes to fetch.
      */
-    orderBy?: Enumerable<BruteOrderByWithRelationInput>
+    orderBy?: BruteOrderByWithRelationInput | BruteOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -6141,22 +7226,22 @@ export namespace Prisma {
      * Skip the first `n` Brutes.
      */
     skip?: number
-    distinct?: Enumerable<BruteScalarFieldEnum>
+    distinct?: BruteScalarFieldEnum | BruteScalarFieldEnum[]
   }
 
 
   /**
    * Brute create
    */
-  export type BruteCreateArgs = {
+  export type BruteCreateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Brute
      */
-    select?: BruteSelect | null
+    select?: BruteSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteInclude | null
+    include?: BruteInclude<ExtArgs> | null
     /**
      * The data needed to create a Brute.
      */
@@ -6167,11 +7252,11 @@ export namespace Prisma {
   /**
    * Brute createMany
    */
-  export type BruteCreateManyArgs = {
+  export type BruteCreateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * The data used to create many Brutes.
      */
-    data: Enumerable<BruteCreateManyInput>
+    data: BruteCreateManyInput | BruteCreateManyInput[]
     skipDuplicates?: boolean
   }
 
@@ -6179,15 +7264,15 @@ export namespace Prisma {
   /**
    * Brute update
    */
-  export type BruteUpdateArgs = {
+  export type BruteUpdateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Brute
      */
-    select?: BruteSelect | null
+    select?: BruteSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteInclude | null
+    include?: BruteInclude<ExtArgs> | null
     /**
      * The data needed to update a Brute.
      */
@@ -6202,7 +7287,7 @@ export namespace Prisma {
   /**
    * Brute updateMany
    */
-  export type BruteUpdateManyArgs = {
+  export type BruteUpdateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * The data used to update Brutes.
      */
@@ -6217,15 +7302,15 @@ export namespace Prisma {
   /**
    * Brute upsert
    */
-  export type BruteUpsertArgs = {
+  export type BruteUpsertArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Brute
      */
-    select?: BruteSelect | null
+    select?: BruteSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteInclude | null
+    include?: BruteInclude<ExtArgs> | null
     /**
      * The filter to search for the Brute to update in case it exists.
      */
@@ -6244,15 +7329,15 @@ export namespace Prisma {
   /**
    * Brute delete
    */
-  export type BruteDeleteArgs = {
+  export type BruteDeleteArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Brute
      */
-    select?: BruteSelect | null
+    select?: BruteSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteInclude | null
+    include?: BruteInclude<ExtArgs> | null
     /**
      * Filter which Brute to delete.
      */
@@ -6263,7 +7348,7 @@ export namespace Prisma {
   /**
    * Brute deleteMany
    */
-  export type BruteDeleteManyArgs = {
+  export type BruteDeleteManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Filter which Brutes to delete
      */
@@ -6272,227 +7357,323 @@ export namespace Prisma {
 
 
   /**
-   * Brute.pupils
+   * Brute.user
    */
-  export type Brute$pupilsArgs = {
+  export type Brute$userArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Brute
+     * Select specific fields to fetch from the User
      */
-    select?: BruteSelect | null
+    select?: UserSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteInclude | null
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+
+  /**
+   * Brute.body
+   */
+  export type Brute$bodyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteBody
+     */
+    select?: BruteBodySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BruteBodyInclude<ExtArgs> | null
+    where?: BruteBodyWhereInput
+  }
+
+
+  /**
+   * Brute.colors
+   */
+  export type Brute$colorsArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteColors
+     */
+    select?: BruteColorsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BruteColorsInclude<ExtArgs> | null
+    where?: BruteColorsWhereInput
+  }
+
+
+  /**
+   * Brute.master
+   */
+  export type Brute$masterArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Brute
+     */
+    select?: BruteSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BruteInclude<ExtArgs> | null
     where?: BruteWhereInput
-    orderBy?: Enumerable<BruteOrderByWithRelationInput>
+  }
+
+
+  /**
+   * Brute.pupils
+   */
+  export type Brute$pupilsArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Brute
+     */
+    select?: BruteSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BruteInclude<ExtArgs> | null
+    where?: BruteWhereInput
+    orderBy?: BruteOrderByWithRelationInput | BruteOrderByWithRelationInput[]
     cursor?: BruteWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: Enumerable<BruteScalarFieldEnum>
+    distinct?: BruteScalarFieldEnum | BruteScalarFieldEnum[]
+  }
+
+
+  /**
+   * Brute.clan
+   */
+  export type Brute$clanArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Clan
+     */
+    select?: ClanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ClanInclude<ExtArgs> | null
+    where?: ClanWhereInput
   }
 
 
   /**
    * Brute.fights
    */
-  export type Brute$fightsArgs = {
+  export type Brute$fightsArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Fight
      */
-    select?: FightSelect | null
+    select?: FightSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: FightInclude | null
+    include?: FightInclude<ExtArgs> | null
     where?: FightWhereInput
-    orderBy?: Enumerable<FightOrderByWithRelationInput>
+    orderBy?: FightOrderByWithRelationInput | FightOrderByWithRelationInput[]
     cursor?: FightWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: Enumerable<FightScalarFieldEnum>
+    distinct?: FightScalarFieldEnum | FightScalarFieldEnum[]
   }
 
 
   /**
    * Brute.fightsAsAdversary
    */
-  export type Brute$fightsAsAdversaryArgs = {
+  export type Brute$fightsAsAdversaryArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Fight
      */
-    select?: FightSelect | null
+    select?: FightSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: FightInclude | null
+    include?: FightInclude<ExtArgs> | null
     where?: FightWhereInput
-    orderBy?: Enumerable<FightOrderByWithRelationInput>
+    orderBy?: FightOrderByWithRelationInput | FightOrderByWithRelationInput[]
     cursor?: FightWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: Enumerable<FightScalarFieldEnum>
+    distinct?: FightScalarFieldEnum | FightScalarFieldEnum[]
   }
 
 
   /**
    * Brute.logs
    */
-  export type Brute$logsArgs = {
+  export type Brute$logsArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Log
      */
-    select?: LogSelect | null
+    select?: LogSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: LogInclude | null
+    include?: LogInclude<ExtArgs> | null
     where?: LogWhereInput
-    orderBy?: Enumerable<LogOrderByWithRelationInput>
+    orderBy?: LogOrderByWithRelationInput | LogOrderByWithRelationInput[]
     cursor?: LogWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: Enumerable<LogScalarFieldEnum>
+    distinct?: LogScalarFieldEnum | LogScalarFieldEnum[]
   }
 
 
   /**
    * Brute.destinyChoices
    */
-  export type Brute$destinyChoicesArgs = {
+  export type Brute$destinyChoicesArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the DestinyChoice
      */
-    select?: DestinyChoiceSelect | null
+    select?: DestinyChoiceSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: DestinyChoiceInclude | null
+    include?: DestinyChoiceInclude<ExtArgs> | null
     where?: DestinyChoiceWhereInput
-    orderBy?: Enumerable<DestinyChoiceOrderByWithRelationInput>
+    orderBy?: DestinyChoiceOrderByWithRelationInput | DestinyChoiceOrderByWithRelationInput[]
     cursor?: DestinyChoiceWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: Enumerable<DestinyChoiceScalarFieldEnum>
+    distinct?: DestinyChoiceScalarFieldEnum | DestinyChoiceScalarFieldEnum[]
+  }
+
+
+  /**
+   * Brute.spritesheet
+   */
+  export type Brute$spritesheetArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteSpritesheet
+     */
+    select?: BruteSpritesheetSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BruteSpritesheetInclude<ExtArgs> | null
+    where?: BruteSpritesheetWhereInput
   }
 
 
   /**
    * Brute.tournaments
    */
-  export type Brute$tournamentsArgs = {
+  export type Brute$tournamentsArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Tournament
      */
-    select?: TournamentSelect | null
+    select?: TournamentSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: TournamentInclude | null
+    include?: TournamentInclude<ExtArgs> | null
     where?: TournamentWhereInput
-    orderBy?: Enumerable<TournamentOrderByWithRelationInput>
+    orderBy?: TournamentOrderByWithRelationInput | TournamentOrderByWithRelationInput[]
     cursor?: TournamentWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: Enumerable<TournamentScalarFieldEnum>
+    distinct?: TournamentScalarFieldEnum | TournamentScalarFieldEnum[]
   }
 
 
   /**
    * Brute.opponents
    */
-  export type Brute$opponentsArgs = {
+  export type Brute$opponentsArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Brute
      */
-    select?: BruteSelect | null
+    select?: BruteSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteInclude | null
+    include?: BruteInclude<ExtArgs> | null
     where?: BruteWhereInput
-    orderBy?: Enumerable<BruteOrderByWithRelationInput>
+    orderBy?: BruteOrderByWithRelationInput | BruteOrderByWithRelationInput[]
     cursor?: BruteWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: Enumerable<BruteScalarFieldEnum>
+    distinct?: BruteScalarFieldEnum | BruteScalarFieldEnum[]
   }
 
 
   /**
    * Brute.opponentOf
    */
-  export type Brute$opponentOfArgs = {
+  export type Brute$opponentOfArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Brute
      */
-    select?: BruteSelect | null
+    select?: BruteSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteInclude | null
+    include?: BruteInclude<ExtArgs> | null
     where?: BruteWhereInput
-    orderBy?: Enumerable<BruteOrderByWithRelationInput>
+    orderBy?: BruteOrderByWithRelationInput | BruteOrderByWithRelationInput[]
     cursor?: BruteWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: Enumerable<BruteScalarFieldEnum>
+    distinct?: BruteScalarFieldEnum | BruteScalarFieldEnum[]
   }
 
 
   /**
    * Brute.achievements
    */
-  export type Brute$achievementsArgs = {
+  export type Brute$achievementsArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Achievement
      */
-    select?: AchievementSelect | null
+    select?: AchievementSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: AchievementInclude | null
+    include?: AchievementInclude<ExtArgs> | null
     where?: AchievementWhereInput
-    orderBy?: Enumerable<AchievementOrderByWithRelationInput>
+    orderBy?: AchievementOrderByWithRelationInput | AchievementOrderByWithRelationInput[]
     cursor?: AchievementWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: Enumerable<AchievementScalarFieldEnum>
+    distinct?: AchievementScalarFieldEnum | AchievementScalarFieldEnum[]
   }
 
 
   /**
    * Brute.tournamentEarnings
    */
-  export type Brute$tournamentEarningsArgs = {
+  export type Brute$tournamentEarningsArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the TournamentEarning
      */
-    select?: TournamentEarningSelect | null
+    select?: TournamentEarningSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: TournamentEarningInclude | null
+    include?: TournamentEarningInclude<ExtArgs> | null
     where?: TournamentEarningWhereInput
-    orderBy?: Enumerable<TournamentEarningOrderByWithRelationInput>
+    orderBy?: TournamentEarningOrderByWithRelationInput | TournamentEarningOrderByWithRelationInput[]
     cursor?: TournamentEarningWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: Enumerable<TournamentEarningScalarFieldEnum>
+    distinct?: TournamentEarningScalarFieldEnum | TournamentEarningScalarFieldEnum[]
   }
 
 
   /**
    * Brute without action
    */
-  export type BruteArgs = {
+  export type BruteArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Brute
      */
-    select?: BruteSelect | null
+    select?: BruteSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteInclude | null
+    include?: BruteInclude<ExtArgs> | null
   }
 
 
@@ -6571,7 +7752,7 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type BruteSpritesheetAggregateArgs = {
+  export type BruteSpritesheetAggregateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Filter which BruteSpritesheet to aggregate.
      */
@@ -6581,7 +7762,7 @@ export namespace Prisma {
      * 
      * Determine the order of BruteSpritesheets to fetch.
      */
-    orderBy?: Enumerable<BruteSpritesheetOrderByWithRelationInput>
+    orderBy?: BruteSpritesheetOrderByWithRelationInput | BruteSpritesheetOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -6643,10 +7824,10 @@ export namespace Prisma {
 
 
 
-  export type BruteSpritesheetGroupByArgs = {
+  export type BruteSpritesheetGroupByArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     where?: BruteSpritesheetWhereInput
-    orderBy?: Enumerable<BruteSpritesheetOrderByWithAggregationInput>
-    by: BruteSpritesheetScalarFieldEnum[]
+    orderBy?: BruteSpritesheetOrderByWithAggregationInput | BruteSpritesheetOrderByWithAggregationInput[]
+    by: BruteSpritesheetScalarFieldEnum[] | BruteSpritesheetScalarFieldEnum
     having?: BruteSpritesheetScalarWhereWithAggregatesInput
     take?: number
     skip?: number
@@ -6672,7 +7853,7 @@ export namespace Prisma {
 
   type GetBruteSpritesheetGroupByPayload<T extends BruteSpritesheetGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickArray<BruteSpritesheetGroupByOutputType, T['by']> &
+      PickEnumerable<BruteSpritesheetGroupByOutputType, T['by']> &
         {
           [P in ((keyof T) & (keyof BruteSpritesheetGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
@@ -6684,43 +7865,35 @@ export namespace Prisma {
     >
 
 
-  export type BruteSpritesheetSelect = {
+  export type BruteSpritesheetSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     bruteId?: boolean
     image?: boolean
     json?: boolean
-    brute?: boolean | BruteArgs
+    brute?: boolean | BruteArgs<ExtArgs>
+  }, ExtArgs["result"]["bruteSpritesheet"]>
+
+  export type BruteSpritesheetSelectScalar = {
+    id?: boolean
+    bruteId?: boolean
+    image?: boolean
+    json?: boolean
+  }
+
+  export type BruteSpritesheetInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    brute?: boolean | BruteArgs<ExtArgs>
   }
 
 
-  export type BruteSpritesheetInclude = {
-    brute?: boolean | BruteArgs
-  }
+  type BruteSpritesheetGetPayload<S extends boolean | null | undefined | BruteSpritesheetArgs> = $Types.GetResult<BruteSpritesheetPayload, S>
 
-  export type BruteSpritesheetGetPayload<S extends boolean | null | undefined | BruteSpritesheetArgs> =
-    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
-    S extends true ? BruteSpritesheet :
-    S extends undefined ? never :
-    S extends { include: any } & (BruteSpritesheetArgs | BruteSpritesheetFindManyArgs)
-    ? BruteSpritesheet  & {
-    [P in TruthyKeys<S['include']>]:
-        P extends 'brute' ? BruteGetPayload<S['include'][P]> :  never
-  } 
-    : S extends { select: any } & (BruteSpritesheetArgs | BruteSpritesheetFindManyArgs)
-      ? {
-    [P in TruthyKeys<S['select']>]:
-        P extends 'brute' ? BruteGetPayload<S['select'][P]> :  P extends keyof BruteSpritesheet ? BruteSpritesheet[P] : never
-  } 
-      : BruteSpritesheet
-
-
-  type BruteSpritesheetCountArgs = 
+  type BruteSpritesheetCountArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = 
     Omit<BruteSpritesheetFindManyArgs, 'select' | 'include'> & {
       select?: BruteSpritesheetCountAggregateInputType | true
     }
 
-  export interface BruteSpritesheetDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
-
+  export interface BruteSpritesheetDelegate<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BruteSpritesheet'], meta: { name: 'BruteSpritesheet' } }
     /**
      * Find zero or one BruteSpritesheet that matches the filter.
      * @param {BruteSpritesheetFindUniqueArgs} args - Arguments to find a BruteSpritesheet
@@ -6732,9 +7905,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findUnique<T extends BruteSpritesheetFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, BruteSpritesheetFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'BruteSpritesheet'> extends True ? Prisma__BruteSpritesheetClient<BruteSpritesheetGetPayload<T>> : Prisma__BruteSpritesheetClient<BruteSpritesheetGetPayload<T> | null, null>
+    findUnique<T extends BruteSpritesheetFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteSpritesheetFindUniqueArgs<ExtArgs>>
+    ): Prisma__BruteSpritesheetClient<$Types.GetResult<BruteSpritesheetPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
      * Find one BruteSpritesheet that matches the filter or throw an error  with `error.code='P2025'` 
@@ -6748,9 +7921,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findUniqueOrThrow<T extends BruteSpritesheetFindUniqueOrThrowArgs>(
-      args?: SelectSubset<T, BruteSpritesheetFindUniqueOrThrowArgs>
-    ): Prisma__BruteSpritesheetClient<BruteSpritesheetGetPayload<T>>
+    findUniqueOrThrow<T extends BruteSpritesheetFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteSpritesheetFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__BruteSpritesheetClient<$Types.GetResult<BruteSpritesheetPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
 
     /**
      * Find the first BruteSpritesheet that matches the filter.
@@ -6765,13 +7938,13 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findFirst<T extends BruteSpritesheetFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, BruteSpritesheetFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'BruteSpritesheet'> extends True ? Prisma__BruteSpritesheetClient<BruteSpritesheetGetPayload<T>> : Prisma__BruteSpritesheetClient<BruteSpritesheetGetPayload<T> | null, null>
+    findFirst<T extends BruteSpritesheetFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteSpritesheetFindFirstArgs<ExtArgs>>
+    ): Prisma__BruteSpritesheetClient<$Types.GetResult<BruteSpritesheetPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
 
     /**
      * Find the first BruteSpritesheet that matches the filter or
-     * throw `NotFoundError` if no matches were found.
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
      * @param {BruteSpritesheetFindFirstOrThrowArgs} args - Arguments to find a BruteSpritesheet
@@ -6783,9 +7956,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findFirstOrThrow<T extends BruteSpritesheetFindFirstOrThrowArgs>(
-      args?: SelectSubset<T, BruteSpritesheetFindFirstOrThrowArgs>
-    ): Prisma__BruteSpritesheetClient<BruteSpritesheetGetPayload<T>>
+    findFirstOrThrow<T extends BruteSpritesheetFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteSpritesheetFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__BruteSpritesheetClient<$Types.GetResult<BruteSpritesheetPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
 
     /**
      * Find zero or more BruteSpritesheets that matches the filter.
@@ -6803,9 +7976,9 @@ export namespace Prisma {
      * const bruteSpritesheetWithIdOnly = await prisma.bruteSpritesheet.findMany({ select: { id: true } })
      * 
     **/
-    findMany<T extends BruteSpritesheetFindManyArgs>(
-      args?: SelectSubset<T, BruteSpritesheetFindManyArgs>
-    ): Prisma.PrismaPromise<Array<BruteSpritesheetGetPayload<T>>>
+    findMany<T extends BruteSpritesheetFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteSpritesheetFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Types.GetResult<BruteSpritesheetPayload<ExtArgs>, T, 'findMany'>>
 
     /**
      * Create a BruteSpritesheet.
@@ -6819,9 +7992,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    create<T extends BruteSpritesheetCreateArgs>(
-      args: SelectSubset<T, BruteSpritesheetCreateArgs>
-    ): Prisma__BruteSpritesheetClient<BruteSpritesheetGetPayload<T>>
+    create<T extends BruteSpritesheetCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteSpritesheetCreateArgs<ExtArgs>>
+    ): Prisma__BruteSpritesheetClient<$Types.GetResult<BruteSpritesheetPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
     /**
      * Create many BruteSpritesheets.
@@ -6835,8 +8008,8 @@ export namespace Prisma {
      *     })
      *     
     **/
-    createMany<T extends BruteSpritesheetCreateManyArgs>(
-      args?: SelectSubset<T, BruteSpritesheetCreateManyArgs>
+    createMany<T extends BruteSpritesheetCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteSpritesheetCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -6851,9 +8024,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    delete<T extends BruteSpritesheetDeleteArgs>(
-      args: SelectSubset<T, BruteSpritesheetDeleteArgs>
-    ): Prisma__BruteSpritesheetClient<BruteSpritesheetGetPayload<T>>
+    delete<T extends BruteSpritesheetDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteSpritesheetDeleteArgs<ExtArgs>>
+    ): Prisma__BruteSpritesheetClient<$Types.GetResult<BruteSpritesheetPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
 
     /**
      * Update one BruteSpritesheet.
@@ -6870,9 +8043,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    update<T extends BruteSpritesheetUpdateArgs>(
-      args: SelectSubset<T, BruteSpritesheetUpdateArgs>
-    ): Prisma__BruteSpritesheetClient<BruteSpritesheetGetPayload<T>>
+    update<T extends BruteSpritesheetUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteSpritesheetUpdateArgs<ExtArgs>>
+    ): Prisma__BruteSpritesheetClient<$Types.GetResult<BruteSpritesheetPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
 
     /**
      * Delete zero or more BruteSpritesheets.
@@ -6886,8 +8059,8 @@ export namespace Prisma {
      * })
      * 
     **/
-    deleteMany<T extends BruteSpritesheetDeleteManyArgs>(
-      args?: SelectSubset<T, BruteSpritesheetDeleteManyArgs>
+    deleteMany<T extends BruteSpritesheetDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteSpritesheetDeleteManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -6907,8 +8080,8 @@ export namespace Prisma {
      * })
      * 
     **/
-    updateMany<T extends BruteSpritesheetUpdateManyArgs>(
-      args: SelectSubset<T, BruteSpritesheetUpdateManyArgs>
+    updateMany<T extends BruteSpritesheetUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteSpritesheetUpdateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -6928,9 +8101,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    upsert<T extends BruteSpritesheetUpsertArgs>(
-      args: SelectSubset<T, BruteSpritesheetUpsertArgs>
-    ): Prisma__BruteSpritesheetClient<BruteSpritesheetGetPayload<T>>
+    upsert<T extends BruteSpritesheetUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteSpritesheetUpsertArgs<ExtArgs>>
+    ): Prisma__BruteSpritesheetClient<$Types.GetResult<BruteSpritesheetPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
 
     /**
      * Count the number of BruteSpritesheets.
@@ -6948,7 +8121,7 @@ export namespace Prisma {
     count<T extends BruteSpritesheetCountArgs>(
       args?: Subset<T, BruteSpritesheetCountArgs>,
     ): Prisma.PrismaPromise<
-      T extends _Record<'select', any>
+      T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
           : GetScalarType<T['select'], BruteSpritesheetCountAggregateOutputType>
@@ -7009,7 +8182,7 @@ export namespace Prisma {
         ? { orderBy: BruteSpritesheetGroupByArgs['orderBy'] }
         : { orderBy?: BruteSpritesheetGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends TupleToUnion<T['by']>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
       HavingFields extends GetHavingFields<T['having']>,
       HavingValid extends Has<ByFields, HavingFields>,
@@ -7057,7 +8230,10 @@ export namespace Prisma {
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
     >(args: SubsetIntersection<T, BruteSpritesheetGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBruteSpritesheetGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-
+  /**
+   * Fields of the BruteSpritesheet model
+   */
+  readonly fields: BruteSpritesheetFieldRefs;
   }
 
   /**
@@ -7066,7 +8242,7 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export class Prisma__BruteSpritesheetClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+  export class Prisma__BruteSpritesheetClient<T, Null = never, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> implements Prisma.PrismaPromise<T> {
     private readonly _dmmf;
     private readonly _queryType;
     private readonly _rootField;
@@ -7081,7 +8257,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
-    brute<T extends BruteArgs= {}>(args?: Subset<T, BruteArgs>): Prisma__BruteClient<BruteGetPayload<T> | Null>;
+    brute<T extends BruteArgs<ExtArgs> = {}>(args?: Subset<T, BruteArgs<ExtArgs>>): Prisma__BruteClient<$Types.GetResult<BrutePayload<ExtArgs>, T, 'findUnique'> | Null, never, ExtArgs>;
 
     private get _document();
     /**
@@ -7108,50 +8284,31 @@ export namespace Prisma {
 
 
 
-  // Custom InputTypes
-
   /**
-   * BruteSpritesheet base type for findUnique actions
-   */
-  export type BruteSpritesheetFindUniqueArgsBase = {
-    /**
-     * Select specific fields to fetch from the BruteSpritesheet
-     */
-    select?: BruteSpritesheetSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteSpritesheetInclude | null
-    /**
-     * Filter, which BruteSpritesheet to fetch.
-     */
-    where: BruteSpritesheetWhereUniqueInput
+   * Fields of the BruteSpritesheet model
+   */ 
+  interface BruteSpritesheetFieldRefs {
+    readonly id: FieldRef<"BruteSpritesheet", 'Int'>
+    readonly bruteId: FieldRef<"BruteSpritesheet", 'Int'>
+    readonly image: FieldRef<"BruteSpritesheet", 'Bytes'>
+    readonly json: FieldRef<"BruteSpritesheet", 'Json'>
   }
+    
+
+  // Custom InputTypes
 
   /**
    * BruteSpritesheet findUnique
    */
-  export interface BruteSpritesheetFindUniqueArgs extends BruteSpritesheetFindUniqueArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * BruteSpritesheet findUniqueOrThrow
-   */
-  export type BruteSpritesheetFindUniqueOrThrowArgs = {
+  export type BruteSpritesheetFindUniqueArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the BruteSpritesheet
      */
-    select?: BruteSpritesheetSelect | null
+    select?: BruteSpritesheetSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteSpritesheetInclude | null
+    include?: BruteSpritesheetInclude<ExtArgs> | null
     /**
      * Filter, which BruteSpritesheet to fetch.
      */
@@ -7160,77 +8317,36 @@ export namespace Prisma {
 
 
   /**
-   * BruteSpritesheet base type for findFirst actions
+   * BruteSpritesheet findUniqueOrThrow
    */
-  export type BruteSpritesheetFindFirstArgsBase = {
+  export type BruteSpritesheetFindUniqueOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the BruteSpritesheet
      */
-    select?: BruteSpritesheetSelect | null
+    select?: BruteSpritesheetSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteSpritesheetInclude | null
+    include?: BruteSpritesheetInclude<ExtArgs> | null
     /**
      * Filter, which BruteSpritesheet to fetch.
      */
-    where?: BruteSpritesheetWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of BruteSpritesheets to fetch.
-     */
-    orderBy?: Enumerable<BruteSpritesheetOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for BruteSpritesheets.
-     */
-    cursor?: BruteSpritesheetWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` BruteSpritesheets from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` BruteSpritesheets.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of BruteSpritesheets.
-     */
-    distinct?: Enumerable<BruteSpritesheetScalarFieldEnum>
+    where: BruteSpritesheetWhereUniqueInput
   }
+
 
   /**
    * BruteSpritesheet findFirst
    */
-  export interface BruteSpritesheetFindFirstArgs extends BruteSpritesheetFindFirstArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * BruteSpritesheet findFirstOrThrow
-   */
-  export type BruteSpritesheetFindFirstOrThrowArgs = {
+  export type BruteSpritesheetFindFirstArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the BruteSpritesheet
      */
-    select?: BruteSpritesheetSelect | null
+    select?: BruteSpritesheetSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteSpritesheetInclude | null
+    include?: BruteSpritesheetInclude<ExtArgs> | null
     /**
      * Filter, which BruteSpritesheet to fetch.
      */
@@ -7240,7 +8356,7 @@ export namespace Prisma {
      * 
      * Determine the order of BruteSpritesheets to fetch.
      */
-    orderBy?: Enumerable<BruteSpritesheetOrderByWithRelationInput>
+    orderBy?: BruteSpritesheetOrderByWithRelationInput | BruteSpritesheetOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -7264,22 +8380,71 @@ export namespace Prisma {
      * 
      * Filter by unique combinations of BruteSpritesheets.
      */
-    distinct?: Enumerable<BruteSpritesheetScalarFieldEnum>
+    distinct?: BruteSpritesheetScalarFieldEnum | BruteSpritesheetScalarFieldEnum[]
+  }
+
+
+  /**
+   * BruteSpritesheet findFirstOrThrow
+   */
+  export type BruteSpritesheetFindFirstOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteSpritesheet
+     */
+    select?: BruteSpritesheetSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BruteSpritesheetInclude<ExtArgs> | null
+    /**
+     * Filter, which BruteSpritesheet to fetch.
+     */
+    where?: BruteSpritesheetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BruteSpritesheets to fetch.
+     */
+    orderBy?: BruteSpritesheetOrderByWithRelationInput | BruteSpritesheetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BruteSpritesheets.
+     */
+    cursor?: BruteSpritesheetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BruteSpritesheets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BruteSpritesheets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BruteSpritesheets.
+     */
+    distinct?: BruteSpritesheetScalarFieldEnum | BruteSpritesheetScalarFieldEnum[]
   }
 
 
   /**
    * BruteSpritesheet findMany
    */
-  export type BruteSpritesheetFindManyArgs = {
+  export type BruteSpritesheetFindManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the BruteSpritesheet
      */
-    select?: BruteSpritesheetSelect | null
+    select?: BruteSpritesheetSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteSpritesheetInclude | null
+    include?: BruteSpritesheetInclude<ExtArgs> | null
     /**
      * Filter, which BruteSpritesheets to fetch.
      */
@@ -7289,7 +8454,7 @@ export namespace Prisma {
      * 
      * Determine the order of BruteSpritesheets to fetch.
      */
-    orderBy?: Enumerable<BruteSpritesheetOrderByWithRelationInput>
+    orderBy?: BruteSpritesheetOrderByWithRelationInput | BruteSpritesheetOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -7308,22 +8473,22 @@ export namespace Prisma {
      * Skip the first `n` BruteSpritesheets.
      */
     skip?: number
-    distinct?: Enumerable<BruteSpritesheetScalarFieldEnum>
+    distinct?: BruteSpritesheetScalarFieldEnum | BruteSpritesheetScalarFieldEnum[]
   }
 
 
   /**
    * BruteSpritesheet create
    */
-  export type BruteSpritesheetCreateArgs = {
+  export type BruteSpritesheetCreateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the BruteSpritesheet
      */
-    select?: BruteSpritesheetSelect | null
+    select?: BruteSpritesheetSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteSpritesheetInclude | null
+    include?: BruteSpritesheetInclude<ExtArgs> | null
     /**
      * The data needed to create a BruteSpritesheet.
      */
@@ -7334,11 +8499,11 @@ export namespace Prisma {
   /**
    * BruteSpritesheet createMany
    */
-  export type BruteSpritesheetCreateManyArgs = {
+  export type BruteSpritesheetCreateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * The data used to create many BruteSpritesheets.
      */
-    data: Enumerable<BruteSpritesheetCreateManyInput>
+    data: BruteSpritesheetCreateManyInput | BruteSpritesheetCreateManyInput[]
     skipDuplicates?: boolean
   }
 
@@ -7346,15 +8511,15 @@ export namespace Prisma {
   /**
    * BruteSpritesheet update
    */
-  export type BruteSpritesheetUpdateArgs = {
+  export type BruteSpritesheetUpdateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the BruteSpritesheet
      */
-    select?: BruteSpritesheetSelect | null
+    select?: BruteSpritesheetSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteSpritesheetInclude | null
+    include?: BruteSpritesheetInclude<ExtArgs> | null
     /**
      * The data needed to update a BruteSpritesheet.
      */
@@ -7369,7 +8534,7 @@ export namespace Prisma {
   /**
    * BruteSpritesheet updateMany
    */
-  export type BruteSpritesheetUpdateManyArgs = {
+  export type BruteSpritesheetUpdateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * The data used to update BruteSpritesheets.
      */
@@ -7384,15 +8549,15 @@ export namespace Prisma {
   /**
    * BruteSpritesheet upsert
    */
-  export type BruteSpritesheetUpsertArgs = {
+  export type BruteSpritesheetUpsertArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the BruteSpritesheet
      */
-    select?: BruteSpritesheetSelect | null
+    select?: BruteSpritesheetSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteSpritesheetInclude | null
+    include?: BruteSpritesheetInclude<ExtArgs> | null
     /**
      * The filter to search for the BruteSpritesheet to update in case it exists.
      */
@@ -7411,15 +8576,15 @@ export namespace Prisma {
   /**
    * BruteSpritesheet delete
    */
-  export type BruteSpritesheetDeleteArgs = {
+  export type BruteSpritesheetDeleteArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the BruteSpritesheet
      */
-    select?: BruteSpritesheetSelect | null
+    select?: BruteSpritesheetSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteSpritesheetInclude | null
+    include?: BruteSpritesheetInclude<ExtArgs> | null
     /**
      * Filter which BruteSpritesheet to delete.
      */
@@ -7430,7 +8595,7 @@ export namespace Prisma {
   /**
    * BruteSpritesheet deleteMany
    */
-  export type BruteSpritesheetDeleteManyArgs = {
+  export type BruteSpritesheetDeleteManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Filter which BruteSpritesheets to delete
      */
@@ -7441,15 +8606,15 @@ export namespace Prisma {
   /**
    * BruteSpritesheet without action
    */
-  export type BruteSpritesheetArgs = {
+  export type BruteSpritesheetArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the BruteSpritesheet
      */
-    select?: BruteSpritesheetSelect | null
+    select?: BruteSpritesheetSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteSpritesheetInclude | null
+    include?: BruteSpritesheetInclude<ExtArgs> | null
   }
 
 
@@ -7516,7 +8681,7 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type ClanAggregateArgs = {
+  export type ClanAggregateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Filter which Clan to aggregate.
      */
@@ -7526,7 +8691,7 @@ export namespace Prisma {
      * 
      * Determine the order of Clans to fetch.
      */
-    orderBy?: Enumerable<ClanOrderByWithRelationInput>
+    orderBy?: ClanOrderByWithRelationInput | ClanOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -7588,10 +8753,10 @@ export namespace Prisma {
 
 
 
-  export type ClanGroupByArgs = {
+  export type ClanGroupByArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     where?: ClanWhereInput
-    orderBy?: Enumerable<ClanOrderByWithAggregationInput>
-    by: ClanScalarFieldEnum[]
+    orderBy?: ClanOrderByWithAggregationInput | ClanOrderByWithAggregationInput[]
+    by: ClanScalarFieldEnum[] | ClanScalarFieldEnum
     having?: ClanScalarWhereWithAggregatesInput
     take?: number
     skip?: number
@@ -7615,7 +8780,7 @@ export namespace Prisma {
 
   type GetClanGroupByPayload<T extends ClanGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickArray<ClanGroupByOutputType, T['by']> &
+      PickEnumerable<ClanGroupByOutputType, T['by']> &
         {
           [P in ((keyof T) & (keyof ClanGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
@@ -7627,45 +8792,33 @@ export namespace Prisma {
     >
 
 
-  export type ClanSelect = {
+  export type ClanSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    brutes?: boolean | Clan$brutesArgs
-    _count?: boolean | ClanCountOutputTypeArgs
+    brutes?: boolean | Clan$brutesArgs<ExtArgs>
+    _count?: boolean | ClanCountOutputTypeArgs<ExtArgs>
+  }, ExtArgs["result"]["clan"]>
+
+  export type ClanSelectScalar = {
+    id?: boolean
+    name?: boolean
+  }
+
+  export type ClanInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    brutes?: boolean | Clan$brutesArgs<ExtArgs>
+    _count?: boolean | ClanCountOutputTypeArgs<ExtArgs>
   }
 
 
-  export type ClanInclude = {
-    brutes?: boolean | Clan$brutesArgs
-    _count?: boolean | ClanCountOutputTypeArgs
-  }
+  type ClanGetPayload<S extends boolean | null | undefined | ClanArgs> = $Types.GetResult<ClanPayload, S>
 
-  export type ClanGetPayload<S extends boolean | null | undefined | ClanArgs> =
-    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
-    S extends true ? Clan :
-    S extends undefined ? never :
-    S extends { include: any } & (ClanArgs | ClanFindManyArgs)
-    ? Clan  & {
-    [P in TruthyKeys<S['include']>]:
-        P extends 'brutes' ? Array < BruteGetPayload<S['include'][P]>>  :
-        P extends '_count' ? ClanCountOutputTypeGetPayload<S['include'][P]> :  never
-  } 
-    : S extends { select: any } & (ClanArgs | ClanFindManyArgs)
-      ? {
-    [P in TruthyKeys<S['select']>]:
-        P extends 'brutes' ? Array < BruteGetPayload<S['select'][P]>>  :
-        P extends '_count' ? ClanCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Clan ? Clan[P] : never
-  } 
-      : Clan
-
-
-  type ClanCountArgs = 
+  type ClanCountArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = 
     Omit<ClanFindManyArgs, 'select' | 'include'> & {
       select?: ClanCountAggregateInputType | true
     }
 
-  export interface ClanDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
-
+  export interface ClanDelegate<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Clan'], meta: { name: 'Clan' } }
     /**
      * Find zero or one Clan that matches the filter.
      * @param {ClanFindUniqueArgs} args - Arguments to find a Clan
@@ -7677,9 +8830,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findUnique<T extends ClanFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, ClanFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Clan'> extends True ? Prisma__ClanClient<ClanGetPayload<T>> : Prisma__ClanClient<ClanGetPayload<T> | null, null>
+    findUnique<T extends ClanFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, ClanFindUniqueArgs<ExtArgs>>
+    ): Prisma__ClanClient<$Types.GetResult<ClanPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
      * Find one Clan that matches the filter or throw an error  with `error.code='P2025'` 
@@ -7693,9 +8846,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findUniqueOrThrow<T extends ClanFindUniqueOrThrowArgs>(
-      args?: SelectSubset<T, ClanFindUniqueOrThrowArgs>
-    ): Prisma__ClanClient<ClanGetPayload<T>>
+    findUniqueOrThrow<T extends ClanFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, ClanFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__ClanClient<$Types.GetResult<ClanPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
 
     /**
      * Find the first Clan that matches the filter.
@@ -7710,13 +8863,13 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findFirst<T extends ClanFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, ClanFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Clan'> extends True ? Prisma__ClanClient<ClanGetPayload<T>> : Prisma__ClanClient<ClanGetPayload<T> | null, null>
+    findFirst<T extends ClanFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, ClanFindFirstArgs<ExtArgs>>
+    ): Prisma__ClanClient<$Types.GetResult<ClanPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
 
     /**
      * Find the first Clan that matches the filter or
-     * throw `NotFoundError` if no matches were found.
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
      * @param {ClanFindFirstOrThrowArgs} args - Arguments to find a Clan
@@ -7728,9 +8881,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findFirstOrThrow<T extends ClanFindFirstOrThrowArgs>(
-      args?: SelectSubset<T, ClanFindFirstOrThrowArgs>
-    ): Prisma__ClanClient<ClanGetPayload<T>>
+    findFirstOrThrow<T extends ClanFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, ClanFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__ClanClient<$Types.GetResult<ClanPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
 
     /**
      * Find zero or more Clans that matches the filter.
@@ -7748,9 +8901,9 @@ export namespace Prisma {
      * const clanWithIdOnly = await prisma.clan.findMany({ select: { id: true } })
      * 
     **/
-    findMany<T extends ClanFindManyArgs>(
-      args?: SelectSubset<T, ClanFindManyArgs>
-    ): Prisma.PrismaPromise<Array<ClanGetPayload<T>>>
+    findMany<T extends ClanFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ClanFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Types.GetResult<ClanPayload<ExtArgs>, T, 'findMany'>>
 
     /**
      * Create a Clan.
@@ -7764,9 +8917,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    create<T extends ClanCreateArgs>(
-      args: SelectSubset<T, ClanCreateArgs>
-    ): Prisma__ClanClient<ClanGetPayload<T>>
+    create<T extends ClanCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, ClanCreateArgs<ExtArgs>>
+    ): Prisma__ClanClient<$Types.GetResult<ClanPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
     /**
      * Create many Clans.
@@ -7780,8 +8933,8 @@ export namespace Prisma {
      *     })
      *     
     **/
-    createMany<T extends ClanCreateManyArgs>(
-      args?: SelectSubset<T, ClanCreateManyArgs>
+    createMany<T extends ClanCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ClanCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -7796,9 +8949,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    delete<T extends ClanDeleteArgs>(
-      args: SelectSubset<T, ClanDeleteArgs>
-    ): Prisma__ClanClient<ClanGetPayload<T>>
+    delete<T extends ClanDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, ClanDeleteArgs<ExtArgs>>
+    ): Prisma__ClanClient<$Types.GetResult<ClanPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
 
     /**
      * Update one Clan.
@@ -7815,9 +8968,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    update<T extends ClanUpdateArgs>(
-      args: SelectSubset<T, ClanUpdateArgs>
-    ): Prisma__ClanClient<ClanGetPayload<T>>
+    update<T extends ClanUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, ClanUpdateArgs<ExtArgs>>
+    ): Prisma__ClanClient<$Types.GetResult<ClanPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
 
     /**
      * Delete zero or more Clans.
@@ -7831,8 +8984,8 @@ export namespace Prisma {
      * })
      * 
     **/
-    deleteMany<T extends ClanDeleteManyArgs>(
-      args?: SelectSubset<T, ClanDeleteManyArgs>
+    deleteMany<T extends ClanDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ClanDeleteManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -7852,8 +9005,8 @@ export namespace Prisma {
      * })
      * 
     **/
-    updateMany<T extends ClanUpdateManyArgs>(
-      args: SelectSubset<T, ClanUpdateManyArgs>
+    updateMany<T extends ClanUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, ClanUpdateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -7873,9 +9026,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    upsert<T extends ClanUpsertArgs>(
-      args: SelectSubset<T, ClanUpsertArgs>
-    ): Prisma__ClanClient<ClanGetPayload<T>>
+    upsert<T extends ClanUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, ClanUpsertArgs<ExtArgs>>
+    ): Prisma__ClanClient<$Types.GetResult<ClanPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
 
     /**
      * Count the number of Clans.
@@ -7893,7 +9046,7 @@ export namespace Prisma {
     count<T extends ClanCountArgs>(
       args?: Subset<T, ClanCountArgs>,
     ): Prisma.PrismaPromise<
-      T extends _Record<'select', any>
+      T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
           : GetScalarType<T['select'], ClanCountAggregateOutputType>
@@ -7954,7 +9107,7 @@ export namespace Prisma {
         ? { orderBy: ClanGroupByArgs['orderBy'] }
         : { orderBy?: ClanGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends TupleToUnion<T['by']>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
       HavingFields extends GetHavingFields<T['having']>,
       HavingValid extends Has<ByFields, HavingFields>,
@@ -8002,7 +9155,10 @@ export namespace Prisma {
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
     >(args: SubsetIntersection<T, ClanGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetClanGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-
+  /**
+   * Fields of the Clan model
+   */
+  readonly fields: ClanFieldRefs;
   }
 
   /**
@@ -8011,7 +9167,7 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export class Prisma__ClanClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+  export class Prisma__ClanClient<T, Null = never, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> implements Prisma.PrismaPromise<T> {
     private readonly _dmmf;
     private readonly _queryType;
     private readonly _rootField;
@@ -8026,7 +9182,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
-    brutes<T extends Clan$brutesArgs= {}>(args?: Subset<T, Clan$brutesArgs>): Prisma.PrismaPromise<Array<BruteGetPayload<T>>| Null>;
+    brutes<T extends Clan$brutesArgs<ExtArgs> = {}>(args?: Subset<T, Clan$brutesArgs<ExtArgs>>): Prisma.PrismaPromise<$Types.GetResult<BrutePayload<ExtArgs>, T, 'findMany'>| Null>;
 
     private get _document();
     /**
@@ -8053,50 +9209,29 @@ export namespace Prisma {
 
 
 
-  // Custom InputTypes
-
   /**
-   * Clan base type for findUnique actions
-   */
-  export type ClanFindUniqueArgsBase = {
-    /**
-     * Select specific fields to fetch from the Clan
-     */
-    select?: ClanSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: ClanInclude | null
-    /**
-     * Filter, which Clan to fetch.
-     */
-    where: ClanWhereUniqueInput
+   * Fields of the Clan model
+   */ 
+  interface ClanFieldRefs {
+    readonly id: FieldRef<"Clan", 'Int'>
+    readonly name: FieldRef<"Clan", 'String'>
   }
+    
+
+  // Custom InputTypes
 
   /**
    * Clan findUnique
    */
-  export interface ClanFindUniqueArgs extends ClanFindUniqueArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * Clan findUniqueOrThrow
-   */
-  export type ClanFindUniqueOrThrowArgs = {
+  export type ClanFindUniqueArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Clan
      */
-    select?: ClanSelect | null
+    select?: ClanSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: ClanInclude | null
+    include?: ClanInclude<ExtArgs> | null
     /**
      * Filter, which Clan to fetch.
      */
@@ -8105,77 +9240,36 @@ export namespace Prisma {
 
 
   /**
-   * Clan base type for findFirst actions
+   * Clan findUniqueOrThrow
    */
-  export type ClanFindFirstArgsBase = {
+  export type ClanFindUniqueOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Clan
      */
-    select?: ClanSelect | null
+    select?: ClanSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: ClanInclude | null
+    include?: ClanInclude<ExtArgs> | null
     /**
      * Filter, which Clan to fetch.
      */
-    where?: ClanWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Clans to fetch.
-     */
-    orderBy?: Enumerable<ClanOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Clans.
-     */
-    cursor?: ClanWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Clans from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Clans.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Clans.
-     */
-    distinct?: Enumerable<ClanScalarFieldEnum>
+    where: ClanWhereUniqueInput
   }
+
 
   /**
    * Clan findFirst
    */
-  export interface ClanFindFirstArgs extends ClanFindFirstArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * Clan findFirstOrThrow
-   */
-  export type ClanFindFirstOrThrowArgs = {
+  export type ClanFindFirstArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Clan
      */
-    select?: ClanSelect | null
+    select?: ClanSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: ClanInclude | null
+    include?: ClanInclude<ExtArgs> | null
     /**
      * Filter, which Clan to fetch.
      */
@@ -8185,7 +9279,7 @@ export namespace Prisma {
      * 
      * Determine the order of Clans to fetch.
      */
-    orderBy?: Enumerable<ClanOrderByWithRelationInput>
+    orderBy?: ClanOrderByWithRelationInput | ClanOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -8209,22 +9303,71 @@ export namespace Prisma {
      * 
      * Filter by unique combinations of Clans.
      */
-    distinct?: Enumerable<ClanScalarFieldEnum>
+    distinct?: ClanScalarFieldEnum | ClanScalarFieldEnum[]
+  }
+
+
+  /**
+   * Clan findFirstOrThrow
+   */
+  export type ClanFindFirstOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Clan
+     */
+    select?: ClanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ClanInclude<ExtArgs> | null
+    /**
+     * Filter, which Clan to fetch.
+     */
+    where?: ClanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Clans to fetch.
+     */
+    orderBy?: ClanOrderByWithRelationInput | ClanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Clans.
+     */
+    cursor?: ClanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Clans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Clans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Clans.
+     */
+    distinct?: ClanScalarFieldEnum | ClanScalarFieldEnum[]
   }
 
 
   /**
    * Clan findMany
    */
-  export type ClanFindManyArgs = {
+  export type ClanFindManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Clan
      */
-    select?: ClanSelect | null
+    select?: ClanSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: ClanInclude | null
+    include?: ClanInclude<ExtArgs> | null
     /**
      * Filter, which Clans to fetch.
      */
@@ -8234,7 +9377,7 @@ export namespace Prisma {
      * 
      * Determine the order of Clans to fetch.
      */
-    orderBy?: Enumerable<ClanOrderByWithRelationInput>
+    orderBy?: ClanOrderByWithRelationInput | ClanOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -8253,22 +9396,22 @@ export namespace Prisma {
      * Skip the first `n` Clans.
      */
     skip?: number
-    distinct?: Enumerable<ClanScalarFieldEnum>
+    distinct?: ClanScalarFieldEnum | ClanScalarFieldEnum[]
   }
 
 
   /**
    * Clan create
    */
-  export type ClanCreateArgs = {
+  export type ClanCreateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Clan
      */
-    select?: ClanSelect | null
+    select?: ClanSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: ClanInclude | null
+    include?: ClanInclude<ExtArgs> | null
     /**
      * The data needed to create a Clan.
      */
@@ -8279,11 +9422,11 @@ export namespace Prisma {
   /**
    * Clan createMany
    */
-  export type ClanCreateManyArgs = {
+  export type ClanCreateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * The data used to create many Clans.
      */
-    data: Enumerable<ClanCreateManyInput>
+    data: ClanCreateManyInput | ClanCreateManyInput[]
     skipDuplicates?: boolean
   }
 
@@ -8291,15 +9434,15 @@ export namespace Prisma {
   /**
    * Clan update
    */
-  export type ClanUpdateArgs = {
+  export type ClanUpdateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Clan
      */
-    select?: ClanSelect | null
+    select?: ClanSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: ClanInclude | null
+    include?: ClanInclude<ExtArgs> | null
     /**
      * The data needed to update a Clan.
      */
@@ -8314,7 +9457,7 @@ export namespace Prisma {
   /**
    * Clan updateMany
    */
-  export type ClanUpdateManyArgs = {
+  export type ClanUpdateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * The data used to update Clans.
      */
@@ -8329,15 +9472,15 @@ export namespace Prisma {
   /**
    * Clan upsert
    */
-  export type ClanUpsertArgs = {
+  export type ClanUpsertArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Clan
      */
-    select?: ClanSelect | null
+    select?: ClanSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: ClanInclude | null
+    include?: ClanInclude<ExtArgs> | null
     /**
      * The filter to search for the Clan to update in case it exists.
      */
@@ -8356,15 +9499,15 @@ export namespace Prisma {
   /**
    * Clan delete
    */
-  export type ClanDeleteArgs = {
+  export type ClanDeleteArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Clan
      */
-    select?: ClanSelect | null
+    select?: ClanSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: ClanInclude | null
+    include?: ClanInclude<ExtArgs> | null
     /**
      * Filter which Clan to delete.
      */
@@ -8375,7 +9518,7 @@ export namespace Prisma {
   /**
    * Clan deleteMany
    */
-  export type ClanDeleteManyArgs = {
+  export type ClanDeleteManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Filter which Clans to delete
      */
@@ -8386,36 +9529,36 @@ export namespace Prisma {
   /**
    * Clan.brutes
    */
-  export type Clan$brutesArgs = {
+  export type Clan$brutesArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Brute
      */
-    select?: BruteSelect | null
+    select?: BruteSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteInclude | null
+    include?: BruteInclude<ExtArgs> | null
     where?: BruteWhereInput
-    orderBy?: Enumerable<BruteOrderByWithRelationInput>
+    orderBy?: BruteOrderByWithRelationInput | BruteOrderByWithRelationInput[]
     cursor?: BruteWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: Enumerable<BruteScalarFieldEnum>
+    distinct?: BruteScalarFieldEnum | BruteScalarFieldEnum[]
   }
 
 
   /**
    * Clan without action
    */
-  export type ClanArgs = {
+  export type ClanArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Clan
      */
-    select?: ClanSelect | null
+    select?: ClanSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: ClanInclude | null
+    include?: ClanInclude<ExtArgs> | null
   }
 
 
@@ -8518,7 +9661,7 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type FightAggregateArgs = {
+  export type FightAggregateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Filter which Fight to aggregate.
      */
@@ -8528,7 +9671,7 @@ export namespace Prisma {
      * 
      * Determine the order of Fights to fetch.
      */
-    orderBy?: Enumerable<FightOrderByWithRelationInput>
+    orderBy?: FightOrderByWithRelationInput | FightOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -8590,10 +9733,10 @@ export namespace Prisma {
 
 
 
-  export type FightGroupByArgs = {
+  export type FightGroupByArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     where?: FightWhereInput
-    orderBy?: Enumerable<FightOrderByWithAggregationInput>
-    by: FightScalarFieldEnum[]
+    orderBy?: FightOrderByWithAggregationInput | FightOrderByWithAggregationInput[]
+    by: FightScalarFieldEnum[] | FightScalarFieldEnum
     having?: FightScalarWhereWithAggregatesInput
     take?: number
     skip?: number
@@ -8623,7 +9766,7 @@ export namespace Prisma {
 
   type GetFightGroupByPayload<T extends FightGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickArray<FightGroupByOutputType, T['by']> &
+      PickEnumerable<FightGroupByOutputType, T['by']> &
         {
           [P in ((keyof T) & (keyof FightGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
@@ -8635,7 +9778,7 @@ export namespace Prisma {
     >
 
 
-  export type FightSelect = {
+  export type FightSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     date?: boolean
     brute1Id?: boolean
@@ -8644,54 +9787,42 @@ export namespace Prisma {
     loser?: boolean
     steps?: boolean
     fighters?: boolean
-    brute1?: boolean | BruteArgs
-    brute2?: boolean | BruteArgs
-    logs?: boolean | Fight$logsArgs
-    TournamentStep?: boolean | Fight$TournamentStepArgs
-    _count?: boolean | FightCountOutputTypeArgs
+    brute1?: boolean | BruteArgs<ExtArgs>
+    brute2?: boolean | BruteArgs<ExtArgs>
+    logs?: boolean | Fight$logsArgs<ExtArgs>
+    TournamentStep?: boolean | Fight$TournamentStepArgs<ExtArgs>
+    _count?: boolean | FightCountOutputTypeArgs<ExtArgs>
+  }, ExtArgs["result"]["fight"]>
+
+  export type FightSelectScalar = {
+    id?: boolean
+    date?: boolean
+    brute1Id?: boolean
+    brute2Id?: boolean
+    winner?: boolean
+    loser?: boolean
+    steps?: boolean
+    fighters?: boolean
+  }
+
+  export type FightInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    brute1?: boolean | BruteArgs<ExtArgs>
+    brute2?: boolean | BruteArgs<ExtArgs>
+    logs?: boolean | Fight$logsArgs<ExtArgs>
+    TournamentStep?: boolean | Fight$TournamentStepArgs<ExtArgs>
+    _count?: boolean | FightCountOutputTypeArgs<ExtArgs>
   }
 
 
-  export type FightInclude = {
-    brute1?: boolean | BruteArgs
-    brute2?: boolean | BruteArgs
-    logs?: boolean | Fight$logsArgs
-    TournamentStep?: boolean | Fight$TournamentStepArgs
-    _count?: boolean | FightCountOutputTypeArgs
-  }
+  type FightGetPayload<S extends boolean | null | undefined | FightArgs> = $Types.GetResult<FightPayload, S>
 
-  export type FightGetPayload<S extends boolean | null | undefined | FightArgs> =
-    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
-    S extends true ? Fight :
-    S extends undefined ? never :
-    S extends { include: any } & (FightArgs | FightFindManyArgs)
-    ? Fight  & {
-    [P in TruthyKeys<S['include']>]:
-        P extends 'brute1' ? BruteGetPayload<S['include'][P]> :
-        P extends 'brute2' ? BruteGetPayload<S['include'][P]> :
-        P extends 'logs' ? Array < LogGetPayload<S['include'][P]>>  :
-        P extends 'TournamentStep' ? Array < TournamentStepGetPayload<S['include'][P]>>  :
-        P extends '_count' ? FightCountOutputTypeGetPayload<S['include'][P]> :  never
-  } 
-    : S extends { select: any } & (FightArgs | FightFindManyArgs)
-      ? {
-    [P in TruthyKeys<S['select']>]:
-        P extends 'brute1' ? BruteGetPayload<S['select'][P]> :
-        P extends 'brute2' ? BruteGetPayload<S['select'][P]> :
-        P extends 'logs' ? Array < LogGetPayload<S['select'][P]>>  :
-        P extends 'TournamentStep' ? Array < TournamentStepGetPayload<S['select'][P]>>  :
-        P extends '_count' ? FightCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Fight ? Fight[P] : never
-  } 
-      : Fight
-
-
-  type FightCountArgs = 
+  type FightCountArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = 
     Omit<FightFindManyArgs, 'select' | 'include'> & {
       select?: FightCountAggregateInputType | true
     }
 
-  export interface FightDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
-
+  export interface FightDelegate<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Fight'], meta: { name: 'Fight' } }
     /**
      * Find zero or one Fight that matches the filter.
      * @param {FightFindUniqueArgs} args - Arguments to find a Fight
@@ -8703,9 +9834,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findUnique<T extends FightFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, FightFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Fight'> extends True ? Prisma__FightClient<FightGetPayload<T>> : Prisma__FightClient<FightGetPayload<T> | null, null>
+    findUnique<T extends FightFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, FightFindUniqueArgs<ExtArgs>>
+    ): Prisma__FightClient<$Types.GetResult<FightPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
      * Find one Fight that matches the filter or throw an error  with `error.code='P2025'` 
@@ -8719,9 +9850,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findUniqueOrThrow<T extends FightFindUniqueOrThrowArgs>(
-      args?: SelectSubset<T, FightFindUniqueOrThrowArgs>
-    ): Prisma__FightClient<FightGetPayload<T>>
+    findUniqueOrThrow<T extends FightFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, FightFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__FightClient<$Types.GetResult<FightPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
 
     /**
      * Find the first Fight that matches the filter.
@@ -8736,13 +9867,13 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findFirst<T extends FightFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, FightFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Fight'> extends True ? Prisma__FightClient<FightGetPayload<T>> : Prisma__FightClient<FightGetPayload<T> | null, null>
+    findFirst<T extends FightFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, FightFindFirstArgs<ExtArgs>>
+    ): Prisma__FightClient<$Types.GetResult<FightPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
 
     /**
      * Find the first Fight that matches the filter or
-     * throw `NotFoundError` if no matches were found.
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
      * @param {FightFindFirstOrThrowArgs} args - Arguments to find a Fight
@@ -8754,9 +9885,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findFirstOrThrow<T extends FightFindFirstOrThrowArgs>(
-      args?: SelectSubset<T, FightFindFirstOrThrowArgs>
-    ): Prisma__FightClient<FightGetPayload<T>>
+    findFirstOrThrow<T extends FightFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, FightFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__FightClient<$Types.GetResult<FightPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
 
     /**
      * Find zero or more Fights that matches the filter.
@@ -8774,9 +9905,9 @@ export namespace Prisma {
      * const fightWithIdOnly = await prisma.fight.findMany({ select: { id: true } })
      * 
     **/
-    findMany<T extends FightFindManyArgs>(
-      args?: SelectSubset<T, FightFindManyArgs>
-    ): Prisma.PrismaPromise<Array<FightGetPayload<T>>>
+    findMany<T extends FightFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, FightFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Types.GetResult<FightPayload<ExtArgs>, T, 'findMany'>>
 
     /**
      * Create a Fight.
@@ -8790,9 +9921,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    create<T extends FightCreateArgs>(
-      args: SelectSubset<T, FightCreateArgs>
-    ): Prisma__FightClient<FightGetPayload<T>>
+    create<T extends FightCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, FightCreateArgs<ExtArgs>>
+    ): Prisma__FightClient<$Types.GetResult<FightPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
     /**
      * Create many Fights.
@@ -8806,8 +9937,8 @@ export namespace Prisma {
      *     })
      *     
     **/
-    createMany<T extends FightCreateManyArgs>(
-      args?: SelectSubset<T, FightCreateManyArgs>
+    createMany<T extends FightCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, FightCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -8822,9 +9953,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    delete<T extends FightDeleteArgs>(
-      args: SelectSubset<T, FightDeleteArgs>
-    ): Prisma__FightClient<FightGetPayload<T>>
+    delete<T extends FightDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, FightDeleteArgs<ExtArgs>>
+    ): Prisma__FightClient<$Types.GetResult<FightPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
 
     /**
      * Update one Fight.
@@ -8841,9 +9972,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    update<T extends FightUpdateArgs>(
-      args: SelectSubset<T, FightUpdateArgs>
-    ): Prisma__FightClient<FightGetPayload<T>>
+    update<T extends FightUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, FightUpdateArgs<ExtArgs>>
+    ): Prisma__FightClient<$Types.GetResult<FightPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
 
     /**
      * Delete zero or more Fights.
@@ -8857,8 +9988,8 @@ export namespace Prisma {
      * })
      * 
     **/
-    deleteMany<T extends FightDeleteManyArgs>(
-      args?: SelectSubset<T, FightDeleteManyArgs>
+    deleteMany<T extends FightDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, FightDeleteManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -8878,8 +10009,8 @@ export namespace Prisma {
      * })
      * 
     **/
-    updateMany<T extends FightUpdateManyArgs>(
-      args: SelectSubset<T, FightUpdateManyArgs>
+    updateMany<T extends FightUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, FightUpdateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -8899,9 +10030,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    upsert<T extends FightUpsertArgs>(
-      args: SelectSubset<T, FightUpsertArgs>
-    ): Prisma__FightClient<FightGetPayload<T>>
+    upsert<T extends FightUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, FightUpsertArgs<ExtArgs>>
+    ): Prisma__FightClient<$Types.GetResult<FightPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
 
     /**
      * Count the number of Fights.
@@ -8919,7 +10050,7 @@ export namespace Prisma {
     count<T extends FightCountArgs>(
       args?: Subset<T, FightCountArgs>,
     ): Prisma.PrismaPromise<
-      T extends _Record<'select', any>
+      T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
           : GetScalarType<T['select'], FightCountAggregateOutputType>
@@ -8980,7 +10111,7 @@ export namespace Prisma {
         ? { orderBy: FightGroupByArgs['orderBy'] }
         : { orderBy?: FightGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends TupleToUnion<T['by']>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
       HavingFields extends GetHavingFields<T['having']>,
       HavingValid extends Has<ByFields, HavingFields>,
@@ -9028,7 +10159,10 @@ export namespace Prisma {
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
     >(args: SubsetIntersection<T, FightGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFightGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-
+  /**
+   * Fields of the Fight model
+   */
+  readonly fields: FightFieldRefs;
   }
 
   /**
@@ -9037,7 +10171,7 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export class Prisma__FightClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+  export class Prisma__FightClient<T, Null = never, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> implements Prisma.PrismaPromise<T> {
     private readonly _dmmf;
     private readonly _queryType;
     private readonly _rootField;
@@ -9052,13 +10186,13 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
-    brute1<T extends BruteArgs= {}>(args?: Subset<T, BruteArgs>): Prisma__BruteClient<BruteGetPayload<T> | Null>;
+    brute1<T extends BruteArgs<ExtArgs> = {}>(args?: Subset<T, BruteArgs<ExtArgs>>): Prisma__BruteClient<$Types.GetResult<BrutePayload<ExtArgs>, T, 'findUnique'> | Null, never, ExtArgs>;
 
-    brute2<T extends BruteArgs= {}>(args?: Subset<T, BruteArgs>): Prisma__BruteClient<BruteGetPayload<T> | Null>;
+    brute2<T extends BruteArgs<ExtArgs> = {}>(args?: Subset<T, BruteArgs<ExtArgs>>): Prisma__BruteClient<$Types.GetResult<BrutePayload<ExtArgs>, T, 'findUnique'> | Null, never, ExtArgs>;
 
-    logs<T extends Fight$logsArgs= {}>(args?: Subset<T, Fight$logsArgs>): Prisma.PrismaPromise<Array<LogGetPayload<T>>| Null>;
+    logs<T extends Fight$logsArgs<ExtArgs> = {}>(args?: Subset<T, Fight$logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Types.GetResult<LogPayload<ExtArgs>, T, 'findMany'>| Null>;
 
-    TournamentStep<T extends Fight$TournamentStepArgs= {}>(args?: Subset<T, Fight$TournamentStepArgs>): Prisma.PrismaPromise<Array<TournamentStepGetPayload<T>>| Null>;
+    TournamentStep<T extends Fight$TournamentStepArgs<ExtArgs> = {}>(args?: Subset<T, Fight$TournamentStepArgs<ExtArgs>>): Prisma.PrismaPromise<$Types.GetResult<TournamentStepPayload<ExtArgs>, T, 'findMany'>| Null>;
 
     private get _document();
     /**
@@ -9085,50 +10219,35 @@ export namespace Prisma {
 
 
 
-  // Custom InputTypes
-
   /**
-   * Fight base type for findUnique actions
-   */
-  export type FightFindUniqueArgsBase = {
-    /**
-     * Select specific fields to fetch from the Fight
-     */
-    select?: FightSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: FightInclude | null
-    /**
-     * Filter, which Fight to fetch.
-     */
-    where: FightWhereUniqueInput
+   * Fields of the Fight model
+   */ 
+  interface FightFieldRefs {
+    readonly id: FieldRef<"Fight", 'Int'>
+    readonly date: FieldRef<"Fight", 'DateTime'>
+    readonly brute1Id: FieldRef<"Fight", 'Int'>
+    readonly brute2Id: FieldRef<"Fight", 'Int'>
+    readonly winner: FieldRef<"Fight", 'String'>
+    readonly loser: FieldRef<"Fight", 'String'>
+    readonly steps: FieldRef<"Fight", 'Json'>
+    readonly fighters: FieldRef<"Fight", 'Json'>
   }
+    
+
+  // Custom InputTypes
 
   /**
    * Fight findUnique
    */
-  export interface FightFindUniqueArgs extends FightFindUniqueArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * Fight findUniqueOrThrow
-   */
-  export type FightFindUniqueOrThrowArgs = {
+  export type FightFindUniqueArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Fight
      */
-    select?: FightSelect | null
+    select?: FightSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: FightInclude | null
+    include?: FightInclude<ExtArgs> | null
     /**
      * Filter, which Fight to fetch.
      */
@@ -9137,77 +10256,36 @@ export namespace Prisma {
 
 
   /**
-   * Fight base type for findFirst actions
+   * Fight findUniqueOrThrow
    */
-  export type FightFindFirstArgsBase = {
+  export type FightFindUniqueOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Fight
      */
-    select?: FightSelect | null
+    select?: FightSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: FightInclude | null
+    include?: FightInclude<ExtArgs> | null
     /**
      * Filter, which Fight to fetch.
      */
-    where?: FightWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Fights to fetch.
-     */
-    orderBy?: Enumerable<FightOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Fights.
-     */
-    cursor?: FightWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Fights from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Fights.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Fights.
-     */
-    distinct?: Enumerable<FightScalarFieldEnum>
+    where: FightWhereUniqueInput
   }
+
 
   /**
    * Fight findFirst
    */
-  export interface FightFindFirstArgs extends FightFindFirstArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * Fight findFirstOrThrow
-   */
-  export type FightFindFirstOrThrowArgs = {
+  export type FightFindFirstArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Fight
      */
-    select?: FightSelect | null
+    select?: FightSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: FightInclude | null
+    include?: FightInclude<ExtArgs> | null
     /**
      * Filter, which Fight to fetch.
      */
@@ -9217,7 +10295,7 @@ export namespace Prisma {
      * 
      * Determine the order of Fights to fetch.
      */
-    orderBy?: Enumerable<FightOrderByWithRelationInput>
+    orderBy?: FightOrderByWithRelationInput | FightOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -9241,22 +10319,71 @@ export namespace Prisma {
      * 
      * Filter by unique combinations of Fights.
      */
-    distinct?: Enumerable<FightScalarFieldEnum>
+    distinct?: FightScalarFieldEnum | FightScalarFieldEnum[]
+  }
+
+
+  /**
+   * Fight findFirstOrThrow
+   */
+  export type FightFindFirstOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Fight
+     */
+    select?: FightSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: FightInclude<ExtArgs> | null
+    /**
+     * Filter, which Fight to fetch.
+     */
+    where?: FightWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Fights to fetch.
+     */
+    orderBy?: FightOrderByWithRelationInput | FightOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Fights.
+     */
+    cursor?: FightWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Fights from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Fights.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Fights.
+     */
+    distinct?: FightScalarFieldEnum | FightScalarFieldEnum[]
   }
 
 
   /**
    * Fight findMany
    */
-  export type FightFindManyArgs = {
+  export type FightFindManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Fight
      */
-    select?: FightSelect | null
+    select?: FightSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: FightInclude | null
+    include?: FightInclude<ExtArgs> | null
     /**
      * Filter, which Fights to fetch.
      */
@@ -9266,7 +10393,7 @@ export namespace Prisma {
      * 
      * Determine the order of Fights to fetch.
      */
-    orderBy?: Enumerable<FightOrderByWithRelationInput>
+    orderBy?: FightOrderByWithRelationInput | FightOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -9285,22 +10412,22 @@ export namespace Prisma {
      * Skip the first `n` Fights.
      */
     skip?: number
-    distinct?: Enumerable<FightScalarFieldEnum>
+    distinct?: FightScalarFieldEnum | FightScalarFieldEnum[]
   }
 
 
   /**
    * Fight create
    */
-  export type FightCreateArgs = {
+  export type FightCreateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Fight
      */
-    select?: FightSelect | null
+    select?: FightSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: FightInclude | null
+    include?: FightInclude<ExtArgs> | null
     /**
      * The data needed to create a Fight.
      */
@@ -9311,11 +10438,11 @@ export namespace Prisma {
   /**
    * Fight createMany
    */
-  export type FightCreateManyArgs = {
+  export type FightCreateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * The data used to create many Fights.
      */
-    data: Enumerable<FightCreateManyInput>
+    data: FightCreateManyInput | FightCreateManyInput[]
     skipDuplicates?: boolean
   }
 
@@ -9323,15 +10450,15 @@ export namespace Prisma {
   /**
    * Fight update
    */
-  export type FightUpdateArgs = {
+  export type FightUpdateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Fight
      */
-    select?: FightSelect | null
+    select?: FightSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: FightInclude | null
+    include?: FightInclude<ExtArgs> | null
     /**
      * The data needed to update a Fight.
      */
@@ -9346,7 +10473,7 @@ export namespace Prisma {
   /**
    * Fight updateMany
    */
-  export type FightUpdateManyArgs = {
+  export type FightUpdateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * The data used to update Fights.
      */
@@ -9361,15 +10488,15 @@ export namespace Prisma {
   /**
    * Fight upsert
    */
-  export type FightUpsertArgs = {
+  export type FightUpsertArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Fight
      */
-    select?: FightSelect | null
+    select?: FightSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: FightInclude | null
+    include?: FightInclude<ExtArgs> | null
     /**
      * The filter to search for the Fight to update in case it exists.
      */
@@ -9388,15 +10515,15 @@ export namespace Prisma {
   /**
    * Fight delete
    */
-  export type FightDeleteArgs = {
+  export type FightDeleteArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Fight
      */
-    select?: FightSelect | null
+    select?: FightSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: FightInclude | null
+    include?: FightInclude<ExtArgs> | null
     /**
      * Filter which Fight to delete.
      */
@@ -9407,7 +10534,7 @@ export namespace Prisma {
   /**
    * Fight deleteMany
    */
-  export type FightDeleteManyArgs = {
+  export type FightDeleteManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Filter which Fights to delete
      */
@@ -9418,57 +10545,57 @@ export namespace Prisma {
   /**
    * Fight.logs
    */
-  export type Fight$logsArgs = {
+  export type Fight$logsArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Log
      */
-    select?: LogSelect | null
+    select?: LogSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: LogInclude | null
+    include?: LogInclude<ExtArgs> | null
     where?: LogWhereInput
-    orderBy?: Enumerable<LogOrderByWithRelationInput>
+    orderBy?: LogOrderByWithRelationInput | LogOrderByWithRelationInput[]
     cursor?: LogWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: Enumerable<LogScalarFieldEnum>
+    distinct?: LogScalarFieldEnum | LogScalarFieldEnum[]
   }
 
 
   /**
    * Fight.TournamentStep
    */
-  export type Fight$TournamentStepArgs = {
+  export type Fight$TournamentStepArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the TournamentStep
      */
-    select?: TournamentStepSelect | null
+    select?: TournamentStepSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: TournamentStepInclude | null
+    include?: TournamentStepInclude<ExtArgs> | null
     where?: TournamentStepWhereInput
-    orderBy?: Enumerable<TournamentStepOrderByWithRelationInput>
+    orderBy?: TournamentStepOrderByWithRelationInput | TournamentStepOrderByWithRelationInput[]
     cursor?: TournamentStepWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: Enumerable<TournamentStepScalarFieldEnum>
+    distinct?: TournamentStepScalarFieldEnum | TournamentStepScalarFieldEnum[]
   }
 
 
   /**
    * Fight without action
    */
-  export type FightArgs = {
+  export type FightArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Fight
      */
-    select?: FightSelect | null
+    select?: FightSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: FightInclude | null
+    include?: FightInclude<ExtArgs> | null
   }
 
 
@@ -9587,7 +10714,7 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type LogAggregateArgs = {
+  export type LogAggregateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Filter which Log to aggregate.
      */
@@ -9597,7 +10724,7 @@ export namespace Prisma {
      * 
      * Determine the order of Logs to fetch.
      */
-    orderBy?: Enumerable<LogOrderByWithRelationInput>
+    orderBy?: LogOrderByWithRelationInput | LogOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -9659,10 +10786,10 @@ export namespace Prisma {
 
 
 
-  export type LogGroupByArgs = {
+  export type LogGroupByArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     where?: LogWhereInput
-    orderBy?: Enumerable<LogOrderByWithAggregationInput>
-    by: LogScalarFieldEnum[]
+    orderBy?: LogOrderByWithAggregationInput | LogOrderByWithAggregationInput[]
+    by: LogScalarFieldEnum[] | LogScalarFieldEnum
     having?: LogScalarWhereWithAggregatesInput
     take?: number
     skip?: number
@@ -9692,7 +10819,7 @@ export namespace Prisma {
 
   type GetLogGroupByPayload<T extends LogGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickArray<LogGroupByOutputType, T['by']> &
+      PickEnumerable<LogGroupByOutputType, T['by']> &
         {
           [P in ((keyof T) & (keyof LogGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
@@ -9704,7 +10831,7 @@ export namespace Prisma {
     >
 
 
-  export type LogSelect = {
+  export type LogSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     date?: boolean
     currentBruteId?: boolean
@@ -9713,42 +10840,36 @@ export namespace Prisma {
     brute?: boolean
     fightId?: boolean
     xp?: boolean
-    currentBrute?: boolean | BruteArgs
-    fight?: boolean | FightArgs
+    currentBrute?: boolean | BruteArgs<ExtArgs>
+    fight?: boolean | Log$fightArgs<ExtArgs>
+  }, ExtArgs["result"]["log"]>
+
+  export type LogSelectScalar = {
+    id?: boolean
+    date?: boolean
+    currentBruteId?: boolean
+    type?: boolean
+    level?: boolean
+    brute?: boolean
+    fightId?: boolean
+    xp?: boolean
+  }
+
+  export type LogInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    currentBrute?: boolean | BruteArgs<ExtArgs>
+    fight?: boolean | Log$fightArgs<ExtArgs>
   }
 
 
-  export type LogInclude = {
-    currentBrute?: boolean | BruteArgs
-    fight?: boolean | FightArgs
-  }
+  type LogGetPayload<S extends boolean | null | undefined | LogArgs> = $Types.GetResult<LogPayload, S>
 
-  export type LogGetPayload<S extends boolean | null | undefined | LogArgs> =
-    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
-    S extends true ? Log :
-    S extends undefined ? never :
-    S extends { include: any } & (LogArgs | LogFindManyArgs)
-    ? Log  & {
-    [P in TruthyKeys<S['include']>]:
-        P extends 'currentBrute' ? BruteGetPayload<S['include'][P]> :
-        P extends 'fight' ? FightGetPayload<S['include'][P]> | null :  never
-  } 
-    : S extends { select: any } & (LogArgs | LogFindManyArgs)
-      ? {
-    [P in TruthyKeys<S['select']>]:
-        P extends 'currentBrute' ? BruteGetPayload<S['select'][P]> :
-        P extends 'fight' ? FightGetPayload<S['select'][P]> | null :  P extends keyof Log ? Log[P] : never
-  } 
-      : Log
-
-
-  type LogCountArgs = 
+  type LogCountArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = 
     Omit<LogFindManyArgs, 'select' | 'include'> & {
       select?: LogCountAggregateInputType | true
     }
 
-  export interface LogDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
-
+  export interface LogDelegate<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Log'], meta: { name: 'Log' } }
     /**
      * Find zero or one Log that matches the filter.
      * @param {LogFindUniqueArgs} args - Arguments to find a Log
@@ -9760,9 +10881,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findUnique<T extends LogFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, LogFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Log'> extends True ? Prisma__LogClient<LogGetPayload<T>> : Prisma__LogClient<LogGetPayload<T> | null, null>
+    findUnique<T extends LogFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, LogFindUniqueArgs<ExtArgs>>
+    ): Prisma__LogClient<$Types.GetResult<LogPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
      * Find one Log that matches the filter or throw an error  with `error.code='P2025'` 
@@ -9776,9 +10897,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findUniqueOrThrow<T extends LogFindUniqueOrThrowArgs>(
-      args?: SelectSubset<T, LogFindUniqueOrThrowArgs>
-    ): Prisma__LogClient<LogGetPayload<T>>
+    findUniqueOrThrow<T extends LogFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, LogFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__LogClient<$Types.GetResult<LogPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
 
     /**
      * Find the first Log that matches the filter.
@@ -9793,13 +10914,13 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findFirst<T extends LogFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, LogFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Log'> extends True ? Prisma__LogClient<LogGetPayload<T>> : Prisma__LogClient<LogGetPayload<T> | null, null>
+    findFirst<T extends LogFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, LogFindFirstArgs<ExtArgs>>
+    ): Prisma__LogClient<$Types.GetResult<LogPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
 
     /**
      * Find the first Log that matches the filter or
-     * throw `NotFoundError` if no matches were found.
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
      * @param {LogFindFirstOrThrowArgs} args - Arguments to find a Log
@@ -9811,9 +10932,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findFirstOrThrow<T extends LogFindFirstOrThrowArgs>(
-      args?: SelectSubset<T, LogFindFirstOrThrowArgs>
-    ): Prisma__LogClient<LogGetPayload<T>>
+    findFirstOrThrow<T extends LogFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, LogFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__LogClient<$Types.GetResult<LogPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
 
     /**
      * Find zero or more Logs that matches the filter.
@@ -9831,9 +10952,9 @@ export namespace Prisma {
      * const logWithIdOnly = await prisma.log.findMany({ select: { id: true } })
      * 
     **/
-    findMany<T extends LogFindManyArgs>(
-      args?: SelectSubset<T, LogFindManyArgs>
-    ): Prisma.PrismaPromise<Array<LogGetPayload<T>>>
+    findMany<T extends LogFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, LogFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Types.GetResult<LogPayload<ExtArgs>, T, 'findMany'>>
 
     /**
      * Create a Log.
@@ -9847,9 +10968,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    create<T extends LogCreateArgs>(
-      args: SelectSubset<T, LogCreateArgs>
-    ): Prisma__LogClient<LogGetPayload<T>>
+    create<T extends LogCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, LogCreateArgs<ExtArgs>>
+    ): Prisma__LogClient<$Types.GetResult<LogPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
     /**
      * Create many Logs.
@@ -9863,8 +10984,8 @@ export namespace Prisma {
      *     })
      *     
     **/
-    createMany<T extends LogCreateManyArgs>(
-      args?: SelectSubset<T, LogCreateManyArgs>
+    createMany<T extends LogCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, LogCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -9879,9 +11000,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    delete<T extends LogDeleteArgs>(
-      args: SelectSubset<T, LogDeleteArgs>
-    ): Prisma__LogClient<LogGetPayload<T>>
+    delete<T extends LogDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, LogDeleteArgs<ExtArgs>>
+    ): Prisma__LogClient<$Types.GetResult<LogPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
 
     /**
      * Update one Log.
@@ -9898,9 +11019,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    update<T extends LogUpdateArgs>(
-      args: SelectSubset<T, LogUpdateArgs>
-    ): Prisma__LogClient<LogGetPayload<T>>
+    update<T extends LogUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, LogUpdateArgs<ExtArgs>>
+    ): Prisma__LogClient<$Types.GetResult<LogPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
 
     /**
      * Delete zero or more Logs.
@@ -9914,8 +11035,8 @@ export namespace Prisma {
      * })
      * 
     **/
-    deleteMany<T extends LogDeleteManyArgs>(
-      args?: SelectSubset<T, LogDeleteManyArgs>
+    deleteMany<T extends LogDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, LogDeleteManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -9935,8 +11056,8 @@ export namespace Prisma {
      * })
      * 
     **/
-    updateMany<T extends LogUpdateManyArgs>(
-      args: SelectSubset<T, LogUpdateManyArgs>
+    updateMany<T extends LogUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, LogUpdateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -9956,9 +11077,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    upsert<T extends LogUpsertArgs>(
-      args: SelectSubset<T, LogUpsertArgs>
-    ): Prisma__LogClient<LogGetPayload<T>>
+    upsert<T extends LogUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, LogUpsertArgs<ExtArgs>>
+    ): Prisma__LogClient<$Types.GetResult<LogPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
 
     /**
      * Count the number of Logs.
@@ -9976,7 +11097,7 @@ export namespace Prisma {
     count<T extends LogCountArgs>(
       args?: Subset<T, LogCountArgs>,
     ): Prisma.PrismaPromise<
-      T extends _Record<'select', any>
+      T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
           : GetScalarType<T['select'], LogCountAggregateOutputType>
@@ -10037,7 +11158,7 @@ export namespace Prisma {
         ? { orderBy: LogGroupByArgs['orderBy'] }
         : { orderBy?: LogGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends TupleToUnion<T['by']>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
       HavingFields extends GetHavingFields<T['having']>,
       HavingValid extends Has<ByFields, HavingFields>,
@@ -10085,7 +11206,10 @@ export namespace Prisma {
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
     >(args: SubsetIntersection<T, LogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-
+  /**
+   * Fields of the Log model
+   */
+  readonly fields: LogFieldRefs;
   }
 
   /**
@@ -10094,7 +11218,7 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export class Prisma__LogClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+  export class Prisma__LogClient<T, Null = never, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> implements Prisma.PrismaPromise<T> {
     private readonly _dmmf;
     private readonly _queryType;
     private readonly _rootField;
@@ -10109,9 +11233,9 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
-    currentBrute<T extends BruteArgs= {}>(args?: Subset<T, BruteArgs>): Prisma__BruteClient<BruteGetPayload<T> | Null>;
+    currentBrute<T extends BruteArgs<ExtArgs> = {}>(args?: Subset<T, BruteArgs<ExtArgs>>): Prisma__BruteClient<$Types.GetResult<BrutePayload<ExtArgs>, T, 'findUnique'> | Null, never, ExtArgs>;
 
-    fight<T extends FightArgs= {}>(args?: Subset<T, FightArgs>): Prisma__FightClient<FightGetPayload<T> | Null>;
+    fight<T extends Log$fightArgs<ExtArgs> = {}>(args?: Subset<T, Log$fightArgs<ExtArgs>>): Prisma__FightClient<$Types.GetResult<FightPayload<ExtArgs>, T, 'findUnique'> | Null, never, ExtArgs>;
 
     private get _document();
     /**
@@ -10138,50 +11262,35 @@ export namespace Prisma {
 
 
 
-  // Custom InputTypes
-
   /**
-   * Log base type for findUnique actions
-   */
-  export type LogFindUniqueArgsBase = {
-    /**
-     * Select specific fields to fetch from the Log
-     */
-    select?: LogSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: LogInclude | null
-    /**
-     * Filter, which Log to fetch.
-     */
-    where: LogWhereUniqueInput
+   * Fields of the Log model
+   */ 
+  interface LogFieldRefs {
+    readonly id: FieldRef<"Log", 'Int'>
+    readonly date: FieldRef<"Log", 'DateTime'>
+    readonly currentBruteId: FieldRef<"Log", 'Int'>
+    readonly type: FieldRef<"Log", 'LogType'>
+    readonly level: FieldRef<"Log", 'Int'>
+    readonly brute: FieldRef<"Log", 'String'>
+    readonly fightId: FieldRef<"Log", 'Int'>
+    readonly xp: FieldRef<"Log", 'Int'>
   }
+    
+
+  // Custom InputTypes
 
   /**
    * Log findUnique
    */
-  export interface LogFindUniqueArgs extends LogFindUniqueArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * Log findUniqueOrThrow
-   */
-  export type LogFindUniqueOrThrowArgs = {
+  export type LogFindUniqueArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Log
      */
-    select?: LogSelect | null
+    select?: LogSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: LogInclude | null
+    include?: LogInclude<ExtArgs> | null
     /**
      * Filter, which Log to fetch.
      */
@@ -10190,77 +11299,36 @@ export namespace Prisma {
 
 
   /**
-   * Log base type for findFirst actions
+   * Log findUniqueOrThrow
    */
-  export type LogFindFirstArgsBase = {
+  export type LogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Log
      */
-    select?: LogSelect | null
+    select?: LogSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: LogInclude | null
+    include?: LogInclude<ExtArgs> | null
     /**
      * Filter, which Log to fetch.
      */
-    where?: LogWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Logs to fetch.
-     */
-    orderBy?: Enumerable<LogOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Logs.
-     */
-    cursor?: LogWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Logs from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Logs.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Logs.
-     */
-    distinct?: Enumerable<LogScalarFieldEnum>
+    where: LogWhereUniqueInput
   }
+
 
   /**
    * Log findFirst
    */
-  export interface LogFindFirstArgs extends LogFindFirstArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * Log findFirstOrThrow
-   */
-  export type LogFindFirstOrThrowArgs = {
+  export type LogFindFirstArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Log
      */
-    select?: LogSelect | null
+    select?: LogSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: LogInclude | null
+    include?: LogInclude<ExtArgs> | null
     /**
      * Filter, which Log to fetch.
      */
@@ -10270,7 +11338,7 @@ export namespace Prisma {
      * 
      * Determine the order of Logs to fetch.
      */
-    orderBy?: Enumerable<LogOrderByWithRelationInput>
+    orderBy?: LogOrderByWithRelationInput | LogOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -10294,22 +11362,71 @@ export namespace Prisma {
      * 
      * Filter by unique combinations of Logs.
      */
-    distinct?: Enumerable<LogScalarFieldEnum>
+    distinct?: LogScalarFieldEnum | LogScalarFieldEnum[]
+  }
+
+
+  /**
+   * Log findFirstOrThrow
+   */
+  export type LogFindFirstOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Log
+     */
+    select?: LogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LogInclude<ExtArgs> | null
+    /**
+     * Filter, which Log to fetch.
+     */
+    where?: LogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Logs to fetch.
+     */
+    orderBy?: LogOrderByWithRelationInput | LogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Logs.
+     */
+    cursor?: LogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Logs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Logs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Logs.
+     */
+    distinct?: LogScalarFieldEnum | LogScalarFieldEnum[]
   }
 
 
   /**
    * Log findMany
    */
-  export type LogFindManyArgs = {
+  export type LogFindManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Log
      */
-    select?: LogSelect | null
+    select?: LogSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: LogInclude | null
+    include?: LogInclude<ExtArgs> | null
     /**
      * Filter, which Logs to fetch.
      */
@@ -10319,7 +11436,7 @@ export namespace Prisma {
      * 
      * Determine the order of Logs to fetch.
      */
-    orderBy?: Enumerable<LogOrderByWithRelationInput>
+    orderBy?: LogOrderByWithRelationInput | LogOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -10338,22 +11455,22 @@ export namespace Prisma {
      * Skip the first `n` Logs.
      */
     skip?: number
-    distinct?: Enumerable<LogScalarFieldEnum>
+    distinct?: LogScalarFieldEnum | LogScalarFieldEnum[]
   }
 
 
   /**
    * Log create
    */
-  export type LogCreateArgs = {
+  export type LogCreateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Log
      */
-    select?: LogSelect | null
+    select?: LogSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: LogInclude | null
+    include?: LogInclude<ExtArgs> | null
     /**
      * The data needed to create a Log.
      */
@@ -10364,11 +11481,11 @@ export namespace Prisma {
   /**
    * Log createMany
    */
-  export type LogCreateManyArgs = {
+  export type LogCreateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * The data used to create many Logs.
      */
-    data: Enumerable<LogCreateManyInput>
+    data: LogCreateManyInput | LogCreateManyInput[]
     skipDuplicates?: boolean
   }
 
@@ -10376,15 +11493,15 @@ export namespace Prisma {
   /**
    * Log update
    */
-  export type LogUpdateArgs = {
+  export type LogUpdateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Log
      */
-    select?: LogSelect | null
+    select?: LogSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: LogInclude | null
+    include?: LogInclude<ExtArgs> | null
     /**
      * The data needed to update a Log.
      */
@@ -10399,7 +11516,7 @@ export namespace Prisma {
   /**
    * Log updateMany
    */
-  export type LogUpdateManyArgs = {
+  export type LogUpdateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * The data used to update Logs.
      */
@@ -10414,15 +11531,15 @@ export namespace Prisma {
   /**
    * Log upsert
    */
-  export type LogUpsertArgs = {
+  export type LogUpsertArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Log
      */
-    select?: LogSelect | null
+    select?: LogSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: LogInclude | null
+    include?: LogInclude<ExtArgs> | null
     /**
      * The filter to search for the Log to update in case it exists.
      */
@@ -10441,15 +11558,15 @@ export namespace Prisma {
   /**
    * Log delete
    */
-  export type LogDeleteArgs = {
+  export type LogDeleteArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Log
      */
-    select?: LogSelect | null
+    select?: LogSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: LogInclude | null
+    include?: LogInclude<ExtArgs> | null
     /**
      * Filter which Log to delete.
      */
@@ -10460,7 +11577,7 @@ export namespace Prisma {
   /**
    * Log deleteMany
    */
-  export type LogDeleteManyArgs = {
+  export type LogDeleteManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Filter which Logs to delete
      */
@@ -10469,17 +11586,33 @@ export namespace Prisma {
 
 
   /**
-   * Log without action
+   * Log.fight
    */
-  export type LogArgs = {
+  export type Log$fightArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Log
+     * Select specific fields to fetch from the Fight
      */
-    select?: LogSelect | null
+    select?: FightSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: LogInclude | null
+    include?: FightInclude<ExtArgs> | null
+    where?: FightWhereInput
+  }
+
+
+  /**
+   * Log without action
+   */
+  export type LogArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Log
+     */
+    select?: LogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: LogInclude<ExtArgs> | null
   }
 
 
@@ -10608,7 +11741,7 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type DestinyChoiceAggregateArgs = {
+  export type DestinyChoiceAggregateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Filter which DestinyChoice to aggregate.
      */
@@ -10618,7 +11751,7 @@ export namespace Prisma {
      * 
      * Determine the order of DestinyChoices to fetch.
      */
-    orderBy?: Enumerable<DestinyChoiceOrderByWithRelationInput>
+    orderBy?: DestinyChoiceOrderByWithRelationInput | DestinyChoiceOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -10680,10 +11813,10 @@ export namespace Prisma {
 
 
 
-  export type DestinyChoiceGroupByArgs = {
+  export type DestinyChoiceGroupByArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     where?: DestinyChoiceWhereInput
-    orderBy?: Enumerable<DestinyChoiceOrderByWithAggregationInput>
-    by: DestinyChoiceScalarFieldEnum[]
+    orderBy?: DestinyChoiceOrderByWithAggregationInput | DestinyChoiceOrderByWithAggregationInput[]
+    by: DestinyChoiceScalarFieldEnum[] | DestinyChoiceScalarFieldEnum
     having?: DestinyChoiceScalarWhereWithAggregatesInput
     take?: number
     skip?: number
@@ -10716,7 +11849,7 @@ export namespace Prisma {
 
   type GetDestinyChoiceGroupByPayload<T extends DestinyChoiceGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickArray<DestinyChoiceGroupByOutputType, T['by']> &
+      PickEnumerable<DestinyChoiceGroupByOutputType, T['by']> &
         {
           [P in ((keyof T) & (keyof DestinyChoiceGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
@@ -10728,7 +11861,7 @@ export namespace Prisma {
     >
 
 
-  export type DestinyChoiceSelect = {
+  export type DestinyChoiceSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     bruteId?: boolean
     path?: boolean
@@ -10740,38 +11873,37 @@ export namespace Prisma {
     stat1Value?: boolean
     stat2?: boolean
     stat2Value?: boolean
-    brute?: boolean | BruteArgs
+    brute?: boolean | BruteArgs<ExtArgs>
+  }, ExtArgs["result"]["destinyChoice"]>
+
+  export type DestinyChoiceSelectScalar = {
+    id?: boolean
+    bruteId?: boolean
+    path?: boolean
+    type?: boolean
+    skill?: boolean
+    weapon?: boolean
+    pet?: boolean
+    stat1?: boolean
+    stat1Value?: boolean
+    stat2?: boolean
+    stat2Value?: boolean
+  }
+
+  export type DestinyChoiceInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    brute?: boolean | BruteArgs<ExtArgs>
   }
 
 
-  export type DestinyChoiceInclude = {
-    brute?: boolean | BruteArgs
-  }
+  type DestinyChoiceGetPayload<S extends boolean | null | undefined | DestinyChoiceArgs> = $Types.GetResult<DestinyChoicePayload, S>
 
-  export type DestinyChoiceGetPayload<S extends boolean | null | undefined | DestinyChoiceArgs> =
-    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
-    S extends true ? DestinyChoice :
-    S extends undefined ? never :
-    S extends { include: any } & (DestinyChoiceArgs | DestinyChoiceFindManyArgs)
-    ? DestinyChoice  & {
-    [P in TruthyKeys<S['include']>]:
-        P extends 'brute' ? BruteGetPayload<S['include'][P]> :  never
-  } 
-    : S extends { select: any } & (DestinyChoiceArgs | DestinyChoiceFindManyArgs)
-      ? {
-    [P in TruthyKeys<S['select']>]:
-        P extends 'brute' ? BruteGetPayload<S['select'][P]> :  P extends keyof DestinyChoice ? DestinyChoice[P] : never
-  } 
-      : DestinyChoice
-
-
-  type DestinyChoiceCountArgs = 
+  type DestinyChoiceCountArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = 
     Omit<DestinyChoiceFindManyArgs, 'select' | 'include'> & {
       select?: DestinyChoiceCountAggregateInputType | true
     }
 
-  export interface DestinyChoiceDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
-
+  export interface DestinyChoiceDelegate<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DestinyChoice'], meta: { name: 'DestinyChoice' } }
     /**
      * Find zero or one DestinyChoice that matches the filter.
      * @param {DestinyChoiceFindUniqueArgs} args - Arguments to find a DestinyChoice
@@ -10783,9 +11915,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findUnique<T extends DestinyChoiceFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, DestinyChoiceFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'DestinyChoice'> extends True ? Prisma__DestinyChoiceClient<DestinyChoiceGetPayload<T>> : Prisma__DestinyChoiceClient<DestinyChoiceGetPayload<T> | null, null>
+    findUnique<T extends DestinyChoiceFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, DestinyChoiceFindUniqueArgs<ExtArgs>>
+    ): Prisma__DestinyChoiceClient<$Types.GetResult<DestinyChoicePayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
      * Find one DestinyChoice that matches the filter or throw an error  with `error.code='P2025'` 
@@ -10799,9 +11931,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findUniqueOrThrow<T extends DestinyChoiceFindUniqueOrThrowArgs>(
-      args?: SelectSubset<T, DestinyChoiceFindUniqueOrThrowArgs>
-    ): Prisma__DestinyChoiceClient<DestinyChoiceGetPayload<T>>
+    findUniqueOrThrow<T extends DestinyChoiceFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, DestinyChoiceFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__DestinyChoiceClient<$Types.GetResult<DestinyChoicePayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
 
     /**
      * Find the first DestinyChoice that matches the filter.
@@ -10816,13 +11948,13 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findFirst<T extends DestinyChoiceFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, DestinyChoiceFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'DestinyChoice'> extends True ? Prisma__DestinyChoiceClient<DestinyChoiceGetPayload<T>> : Prisma__DestinyChoiceClient<DestinyChoiceGetPayload<T> | null, null>
+    findFirst<T extends DestinyChoiceFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, DestinyChoiceFindFirstArgs<ExtArgs>>
+    ): Prisma__DestinyChoiceClient<$Types.GetResult<DestinyChoicePayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
 
     /**
      * Find the first DestinyChoice that matches the filter or
-     * throw `NotFoundError` if no matches were found.
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
      * @param {DestinyChoiceFindFirstOrThrowArgs} args - Arguments to find a DestinyChoice
@@ -10834,9 +11966,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findFirstOrThrow<T extends DestinyChoiceFindFirstOrThrowArgs>(
-      args?: SelectSubset<T, DestinyChoiceFindFirstOrThrowArgs>
-    ): Prisma__DestinyChoiceClient<DestinyChoiceGetPayload<T>>
+    findFirstOrThrow<T extends DestinyChoiceFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, DestinyChoiceFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__DestinyChoiceClient<$Types.GetResult<DestinyChoicePayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
 
     /**
      * Find zero or more DestinyChoices that matches the filter.
@@ -10854,9 +11986,9 @@ export namespace Prisma {
      * const destinyChoiceWithIdOnly = await prisma.destinyChoice.findMany({ select: { id: true } })
      * 
     **/
-    findMany<T extends DestinyChoiceFindManyArgs>(
-      args?: SelectSubset<T, DestinyChoiceFindManyArgs>
-    ): Prisma.PrismaPromise<Array<DestinyChoiceGetPayload<T>>>
+    findMany<T extends DestinyChoiceFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, DestinyChoiceFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Types.GetResult<DestinyChoicePayload<ExtArgs>, T, 'findMany'>>
 
     /**
      * Create a DestinyChoice.
@@ -10870,9 +12002,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    create<T extends DestinyChoiceCreateArgs>(
-      args: SelectSubset<T, DestinyChoiceCreateArgs>
-    ): Prisma__DestinyChoiceClient<DestinyChoiceGetPayload<T>>
+    create<T extends DestinyChoiceCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, DestinyChoiceCreateArgs<ExtArgs>>
+    ): Prisma__DestinyChoiceClient<$Types.GetResult<DestinyChoicePayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
     /**
      * Create many DestinyChoices.
@@ -10886,8 +12018,8 @@ export namespace Prisma {
      *     })
      *     
     **/
-    createMany<T extends DestinyChoiceCreateManyArgs>(
-      args?: SelectSubset<T, DestinyChoiceCreateManyArgs>
+    createMany<T extends DestinyChoiceCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, DestinyChoiceCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -10902,9 +12034,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    delete<T extends DestinyChoiceDeleteArgs>(
-      args: SelectSubset<T, DestinyChoiceDeleteArgs>
-    ): Prisma__DestinyChoiceClient<DestinyChoiceGetPayload<T>>
+    delete<T extends DestinyChoiceDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, DestinyChoiceDeleteArgs<ExtArgs>>
+    ): Prisma__DestinyChoiceClient<$Types.GetResult<DestinyChoicePayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
 
     /**
      * Update one DestinyChoice.
@@ -10921,9 +12053,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    update<T extends DestinyChoiceUpdateArgs>(
-      args: SelectSubset<T, DestinyChoiceUpdateArgs>
-    ): Prisma__DestinyChoiceClient<DestinyChoiceGetPayload<T>>
+    update<T extends DestinyChoiceUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, DestinyChoiceUpdateArgs<ExtArgs>>
+    ): Prisma__DestinyChoiceClient<$Types.GetResult<DestinyChoicePayload<ExtArgs>, T, 'update'>, never, ExtArgs>
 
     /**
      * Delete zero or more DestinyChoices.
@@ -10937,8 +12069,8 @@ export namespace Prisma {
      * })
      * 
     **/
-    deleteMany<T extends DestinyChoiceDeleteManyArgs>(
-      args?: SelectSubset<T, DestinyChoiceDeleteManyArgs>
+    deleteMany<T extends DestinyChoiceDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, DestinyChoiceDeleteManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -10958,8 +12090,8 @@ export namespace Prisma {
      * })
      * 
     **/
-    updateMany<T extends DestinyChoiceUpdateManyArgs>(
-      args: SelectSubset<T, DestinyChoiceUpdateManyArgs>
+    updateMany<T extends DestinyChoiceUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, DestinyChoiceUpdateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -10979,9 +12111,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    upsert<T extends DestinyChoiceUpsertArgs>(
-      args: SelectSubset<T, DestinyChoiceUpsertArgs>
-    ): Prisma__DestinyChoiceClient<DestinyChoiceGetPayload<T>>
+    upsert<T extends DestinyChoiceUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, DestinyChoiceUpsertArgs<ExtArgs>>
+    ): Prisma__DestinyChoiceClient<$Types.GetResult<DestinyChoicePayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
 
     /**
      * Count the number of DestinyChoices.
@@ -10999,7 +12131,7 @@ export namespace Prisma {
     count<T extends DestinyChoiceCountArgs>(
       args?: Subset<T, DestinyChoiceCountArgs>,
     ): Prisma.PrismaPromise<
-      T extends _Record<'select', any>
+      T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
           : GetScalarType<T['select'], DestinyChoiceCountAggregateOutputType>
@@ -11060,7 +12192,7 @@ export namespace Prisma {
         ? { orderBy: DestinyChoiceGroupByArgs['orderBy'] }
         : { orderBy?: DestinyChoiceGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends TupleToUnion<T['by']>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
       HavingFields extends GetHavingFields<T['having']>,
       HavingValid extends Has<ByFields, HavingFields>,
@@ -11108,7 +12240,10 @@ export namespace Prisma {
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
     >(args: SubsetIntersection<T, DestinyChoiceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDestinyChoiceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-
+  /**
+   * Fields of the DestinyChoice model
+   */
+  readonly fields: DestinyChoiceFieldRefs;
   }
 
   /**
@@ -11117,7 +12252,7 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export class Prisma__DestinyChoiceClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+  export class Prisma__DestinyChoiceClient<T, Null = never, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> implements Prisma.PrismaPromise<T> {
     private readonly _dmmf;
     private readonly _queryType;
     private readonly _rootField;
@@ -11132,7 +12267,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
-    brute<T extends BruteArgs= {}>(args?: Subset<T, BruteArgs>): Prisma__BruteClient<BruteGetPayload<T> | Null>;
+    brute<T extends BruteArgs<ExtArgs> = {}>(args?: Subset<T, BruteArgs<ExtArgs>>): Prisma__BruteClient<$Types.GetResult<BrutePayload<ExtArgs>, T, 'findUnique'> | Null, never, ExtArgs>;
 
     private get _document();
     /**
@@ -11159,50 +12294,38 @@ export namespace Prisma {
 
 
 
-  // Custom InputTypes
-
   /**
-   * DestinyChoice base type for findUnique actions
-   */
-  export type DestinyChoiceFindUniqueArgsBase = {
-    /**
-     * Select specific fields to fetch from the DestinyChoice
-     */
-    select?: DestinyChoiceSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: DestinyChoiceInclude | null
-    /**
-     * Filter, which DestinyChoice to fetch.
-     */
-    where: DestinyChoiceWhereUniqueInput
+   * Fields of the DestinyChoice model
+   */ 
+  interface DestinyChoiceFieldRefs {
+    readonly id: FieldRef<"DestinyChoice", 'Int'>
+    readonly bruteId: FieldRef<"DestinyChoice", 'Int'>
+    readonly path: FieldRef<"DestinyChoice", 'DestinyChoiceSide[]'>
+    readonly type: FieldRef<"DestinyChoice", 'DestinyChoiceType'>
+    readonly skill: FieldRef<"DestinyChoice", 'SkillName'>
+    readonly weapon: FieldRef<"DestinyChoice", 'WeaponName'>
+    readonly pet: FieldRef<"DestinyChoice", 'PetName'>
+    readonly stat1: FieldRef<"DestinyChoice", 'BruteStat'>
+    readonly stat1Value: FieldRef<"DestinyChoice", 'Int'>
+    readonly stat2: FieldRef<"DestinyChoice", 'BruteStat'>
+    readonly stat2Value: FieldRef<"DestinyChoice", 'Int'>
   }
+    
+
+  // Custom InputTypes
 
   /**
    * DestinyChoice findUnique
    */
-  export interface DestinyChoiceFindUniqueArgs extends DestinyChoiceFindUniqueArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * DestinyChoice findUniqueOrThrow
-   */
-  export type DestinyChoiceFindUniqueOrThrowArgs = {
+  export type DestinyChoiceFindUniqueArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the DestinyChoice
      */
-    select?: DestinyChoiceSelect | null
+    select?: DestinyChoiceSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: DestinyChoiceInclude | null
+    include?: DestinyChoiceInclude<ExtArgs> | null
     /**
      * Filter, which DestinyChoice to fetch.
      */
@@ -11211,77 +12334,36 @@ export namespace Prisma {
 
 
   /**
-   * DestinyChoice base type for findFirst actions
+   * DestinyChoice findUniqueOrThrow
    */
-  export type DestinyChoiceFindFirstArgsBase = {
+  export type DestinyChoiceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the DestinyChoice
      */
-    select?: DestinyChoiceSelect | null
+    select?: DestinyChoiceSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: DestinyChoiceInclude | null
+    include?: DestinyChoiceInclude<ExtArgs> | null
     /**
      * Filter, which DestinyChoice to fetch.
      */
-    where?: DestinyChoiceWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of DestinyChoices to fetch.
-     */
-    orderBy?: Enumerable<DestinyChoiceOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for DestinyChoices.
-     */
-    cursor?: DestinyChoiceWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` DestinyChoices from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` DestinyChoices.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of DestinyChoices.
-     */
-    distinct?: Enumerable<DestinyChoiceScalarFieldEnum>
+    where: DestinyChoiceWhereUniqueInput
   }
+
 
   /**
    * DestinyChoice findFirst
    */
-  export interface DestinyChoiceFindFirstArgs extends DestinyChoiceFindFirstArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * DestinyChoice findFirstOrThrow
-   */
-  export type DestinyChoiceFindFirstOrThrowArgs = {
+  export type DestinyChoiceFindFirstArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the DestinyChoice
      */
-    select?: DestinyChoiceSelect | null
+    select?: DestinyChoiceSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: DestinyChoiceInclude | null
+    include?: DestinyChoiceInclude<ExtArgs> | null
     /**
      * Filter, which DestinyChoice to fetch.
      */
@@ -11291,7 +12373,7 @@ export namespace Prisma {
      * 
      * Determine the order of DestinyChoices to fetch.
      */
-    orderBy?: Enumerable<DestinyChoiceOrderByWithRelationInput>
+    orderBy?: DestinyChoiceOrderByWithRelationInput | DestinyChoiceOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -11315,22 +12397,71 @@ export namespace Prisma {
      * 
      * Filter by unique combinations of DestinyChoices.
      */
-    distinct?: Enumerable<DestinyChoiceScalarFieldEnum>
+    distinct?: DestinyChoiceScalarFieldEnum | DestinyChoiceScalarFieldEnum[]
+  }
+
+
+  /**
+   * DestinyChoice findFirstOrThrow
+   */
+  export type DestinyChoiceFindFirstOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DestinyChoice
+     */
+    select?: DestinyChoiceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: DestinyChoiceInclude<ExtArgs> | null
+    /**
+     * Filter, which DestinyChoice to fetch.
+     */
+    where?: DestinyChoiceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DestinyChoices to fetch.
+     */
+    orderBy?: DestinyChoiceOrderByWithRelationInput | DestinyChoiceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DestinyChoices.
+     */
+    cursor?: DestinyChoiceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DestinyChoices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DestinyChoices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DestinyChoices.
+     */
+    distinct?: DestinyChoiceScalarFieldEnum | DestinyChoiceScalarFieldEnum[]
   }
 
 
   /**
    * DestinyChoice findMany
    */
-  export type DestinyChoiceFindManyArgs = {
+  export type DestinyChoiceFindManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the DestinyChoice
      */
-    select?: DestinyChoiceSelect | null
+    select?: DestinyChoiceSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: DestinyChoiceInclude | null
+    include?: DestinyChoiceInclude<ExtArgs> | null
     /**
      * Filter, which DestinyChoices to fetch.
      */
@@ -11340,7 +12471,7 @@ export namespace Prisma {
      * 
      * Determine the order of DestinyChoices to fetch.
      */
-    orderBy?: Enumerable<DestinyChoiceOrderByWithRelationInput>
+    orderBy?: DestinyChoiceOrderByWithRelationInput | DestinyChoiceOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -11359,22 +12490,22 @@ export namespace Prisma {
      * Skip the first `n` DestinyChoices.
      */
     skip?: number
-    distinct?: Enumerable<DestinyChoiceScalarFieldEnum>
+    distinct?: DestinyChoiceScalarFieldEnum | DestinyChoiceScalarFieldEnum[]
   }
 
 
   /**
    * DestinyChoice create
    */
-  export type DestinyChoiceCreateArgs = {
+  export type DestinyChoiceCreateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the DestinyChoice
      */
-    select?: DestinyChoiceSelect | null
+    select?: DestinyChoiceSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: DestinyChoiceInclude | null
+    include?: DestinyChoiceInclude<ExtArgs> | null
     /**
      * The data needed to create a DestinyChoice.
      */
@@ -11385,11 +12516,11 @@ export namespace Prisma {
   /**
    * DestinyChoice createMany
    */
-  export type DestinyChoiceCreateManyArgs = {
+  export type DestinyChoiceCreateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * The data used to create many DestinyChoices.
      */
-    data: Enumerable<DestinyChoiceCreateManyInput>
+    data: DestinyChoiceCreateManyInput | DestinyChoiceCreateManyInput[]
     skipDuplicates?: boolean
   }
 
@@ -11397,15 +12528,15 @@ export namespace Prisma {
   /**
    * DestinyChoice update
    */
-  export type DestinyChoiceUpdateArgs = {
+  export type DestinyChoiceUpdateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the DestinyChoice
      */
-    select?: DestinyChoiceSelect | null
+    select?: DestinyChoiceSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: DestinyChoiceInclude | null
+    include?: DestinyChoiceInclude<ExtArgs> | null
     /**
      * The data needed to update a DestinyChoice.
      */
@@ -11420,7 +12551,7 @@ export namespace Prisma {
   /**
    * DestinyChoice updateMany
    */
-  export type DestinyChoiceUpdateManyArgs = {
+  export type DestinyChoiceUpdateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * The data used to update DestinyChoices.
      */
@@ -11435,15 +12566,15 @@ export namespace Prisma {
   /**
    * DestinyChoice upsert
    */
-  export type DestinyChoiceUpsertArgs = {
+  export type DestinyChoiceUpsertArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the DestinyChoice
      */
-    select?: DestinyChoiceSelect | null
+    select?: DestinyChoiceSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: DestinyChoiceInclude | null
+    include?: DestinyChoiceInclude<ExtArgs> | null
     /**
      * The filter to search for the DestinyChoice to update in case it exists.
      */
@@ -11462,15 +12593,15 @@ export namespace Prisma {
   /**
    * DestinyChoice delete
    */
-  export type DestinyChoiceDeleteArgs = {
+  export type DestinyChoiceDeleteArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the DestinyChoice
      */
-    select?: DestinyChoiceSelect | null
+    select?: DestinyChoiceSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: DestinyChoiceInclude | null
+    include?: DestinyChoiceInclude<ExtArgs> | null
     /**
      * Filter which DestinyChoice to delete.
      */
@@ -11481,7 +12612,7 @@ export namespace Prisma {
   /**
    * DestinyChoice deleteMany
    */
-  export type DestinyChoiceDeleteManyArgs = {
+  export type DestinyChoiceDeleteManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Filter which DestinyChoices to delete
      */
@@ -11492,15 +12623,15 @@ export namespace Prisma {
   /**
    * DestinyChoice without action
    */
-  export type DestinyChoiceArgs = {
+  export type DestinyChoiceArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the DestinyChoice
      */
-    select?: DestinyChoiceSelect | null
+    select?: DestinyChoiceSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: DestinyChoiceInclude | null
+    include?: DestinyChoiceInclude<ExtArgs> | null
   }
 
 
@@ -11573,7 +12704,7 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type TournamentAggregateArgs = {
+  export type TournamentAggregateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Filter which Tournament to aggregate.
      */
@@ -11583,7 +12714,7 @@ export namespace Prisma {
      * 
      * Determine the order of Tournaments to fetch.
      */
-    orderBy?: Enumerable<TournamentOrderByWithRelationInput>
+    orderBy?: TournamentOrderByWithRelationInput | TournamentOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -11645,10 +12776,10 @@ export namespace Prisma {
 
 
 
-  export type TournamentGroupByArgs = {
+  export type TournamentGroupByArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     where?: TournamentWhereInput
-    orderBy?: Enumerable<TournamentOrderByWithAggregationInput>
-    by: TournamentScalarFieldEnum[]
+    orderBy?: TournamentOrderByWithAggregationInput | TournamentOrderByWithAggregationInput[]
+    by: TournamentScalarFieldEnum[] | TournamentScalarFieldEnum
     having?: TournamentScalarWhereWithAggregatesInput
     take?: number
     skip?: number
@@ -11673,7 +12804,7 @@ export namespace Prisma {
 
   type GetTournamentGroupByPayload<T extends TournamentGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickArray<TournamentGroupByOutputType, T['by']> &
+      PickEnumerable<TournamentGroupByOutputType, T['by']> &
         {
           [P in ((keyof T) & (keyof TournamentGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
@@ -11685,50 +12816,37 @@ export namespace Prisma {
     >
 
 
-  export type TournamentSelect = {
+  export type TournamentSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     date?: boolean
     type?: boolean
-    participants?: boolean | Tournament$participantsArgs
-    steps?: boolean | Tournament$stepsArgs
-    _count?: boolean | TournamentCountOutputTypeArgs
+    participants?: boolean | Tournament$participantsArgs<ExtArgs>
+    steps?: boolean | Tournament$stepsArgs<ExtArgs>
+    _count?: boolean | TournamentCountOutputTypeArgs<ExtArgs>
+  }, ExtArgs["result"]["tournament"]>
+
+  export type TournamentSelectScalar = {
+    id?: boolean
+    date?: boolean
+    type?: boolean
+  }
+
+  export type TournamentInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    participants?: boolean | Tournament$participantsArgs<ExtArgs>
+    steps?: boolean | Tournament$stepsArgs<ExtArgs>
+    _count?: boolean | TournamentCountOutputTypeArgs<ExtArgs>
   }
 
 
-  export type TournamentInclude = {
-    participants?: boolean | Tournament$participantsArgs
-    steps?: boolean | Tournament$stepsArgs
-    _count?: boolean | TournamentCountOutputTypeArgs
-  }
+  type TournamentGetPayload<S extends boolean | null | undefined | TournamentArgs> = $Types.GetResult<TournamentPayload, S>
 
-  export type TournamentGetPayload<S extends boolean | null | undefined | TournamentArgs> =
-    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
-    S extends true ? Tournament :
-    S extends undefined ? never :
-    S extends { include: any } & (TournamentArgs | TournamentFindManyArgs)
-    ? Tournament  & {
-    [P in TruthyKeys<S['include']>]:
-        P extends 'participants' ? Array < BruteGetPayload<S['include'][P]>>  :
-        P extends 'steps' ? Array < TournamentStepGetPayload<S['include'][P]>>  :
-        P extends '_count' ? TournamentCountOutputTypeGetPayload<S['include'][P]> :  never
-  } 
-    : S extends { select: any } & (TournamentArgs | TournamentFindManyArgs)
-      ? {
-    [P in TruthyKeys<S['select']>]:
-        P extends 'participants' ? Array < BruteGetPayload<S['select'][P]>>  :
-        P extends 'steps' ? Array < TournamentStepGetPayload<S['select'][P]>>  :
-        P extends '_count' ? TournamentCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Tournament ? Tournament[P] : never
-  } 
-      : Tournament
-
-
-  type TournamentCountArgs = 
+  type TournamentCountArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = 
     Omit<TournamentFindManyArgs, 'select' | 'include'> & {
       select?: TournamentCountAggregateInputType | true
     }
 
-  export interface TournamentDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
-
+  export interface TournamentDelegate<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Tournament'], meta: { name: 'Tournament' } }
     /**
      * Find zero or one Tournament that matches the filter.
      * @param {TournamentFindUniqueArgs} args - Arguments to find a Tournament
@@ -11740,9 +12858,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findUnique<T extends TournamentFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, TournamentFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Tournament'> extends True ? Prisma__TournamentClient<TournamentGetPayload<T>> : Prisma__TournamentClient<TournamentGetPayload<T> | null, null>
+    findUnique<T extends TournamentFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, TournamentFindUniqueArgs<ExtArgs>>
+    ): Prisma__TournamentClient<$Types.GetResult<TournamentPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
      * Find one Tournament that matches the filter or throw an error  with `error.code='P2025'` 
@@ -11756,9 +12874,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findUniqueOrThrow<T extends TournamentFindUniqueOrThrowArgs>(
-      args?: SelectSubset<T, TournamentFindUniqueOrThrowArgs>
-    ): Prisma__TournamentClient<TournamentGetPayload<T>>
+    findUniqueOrThrow<T extends TournamentFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, TournamentFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__TournamentClient<$Types.GetResult<TournamentPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
 
     /**
      * Find the first Tournament that matches the filter.
@@ -11773,13 +12891,13 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findFirst<T extends TournamentFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, TournamentFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Tournament'> extends True ? Prisma__TournamentClient<TournamentGetPayload<T>> : Prisma__TournamentClient<TournamentGetPayload<T> | null, null>
+    findFirst<T extends TournamentFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, TournamentFindFirstArgs<ExtArgs>>
+    ): Prisma__TournamentClient<$Types.GetResult<TournamentPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
 
     /**
      * Find the first Tournament that matches the filter or
-     * throw `NotFoundError` if no matches were found.
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
      * @param {TournamentFindFirstOrThrowArgs} args - Arguments to find a Tournament
@@ -11791,9 +12909,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findFirstOrThrow<T extends TournamentFindFirstOrThrowArgs>(
-      args?: SelectSubset<T, TournamentFindFirstOrThrowArgs>
-    ): Prisma__TournamentClient<TournamentGetPayload<T>>
+    findFirstOrThrow<T extends TournamentFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, TournamentFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__TournamentClient<$Types.GetResult<TournamentPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
 
     /**
      * Find zero or more Tournaments that matches the filter.
@@ -11811,9 +12929,9 @@ export namespace Prisma {
      * const tournamentWithIdOnly = await prisma.tournament.findMany({ select: { id: true } })
      * 
     **/
-    findMany<T extends TournamentFindManyArgs>(
-      args?: SelectSubset<T, TournamentFindManyArgs>
-    ): Prisma.PrismaPromise<Array<TournamentGetPayload<T>>>
+    findMany<T extends TournamentFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, TournamentFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Types.GetResult<TournamentPayload<ExtArgs>, T, 'findMany'>>
 
     /**
      * Create a Tournament.
@@ -11827,9 +12945,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    create<T extends TournamentCreateArgs>(
-      args: SelectSubset<T, TournamentCreateArgs>
-    ): Prisma__TournamentClient<TournamentGetPayload<T>>
+    create<T extends TournamentCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, TournamentCreateArgs<ExtArgs>>
+    ): Prisma__TournamentClient<$Types.GetResult<TournamentPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
     /**
      * Create many Tournaments.
@@ -11843,8 +12961,8 @@ export namespace Prisma {
      *     })
      *     
     **/
-    createMany<T extends TournamentCreateManyArgs>(
-      args?: SelectSubset<T, TournamentCreateManyArgs>
+    createMany<T extends TournamentCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, TournamentCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -11859,9 +12977,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    delete<T extends TournamentDeleteArgs>(
-      args: SelectSubset<T, TournamentDeleteArgs>
-    ): Prisma__TournamentClient<TournamentGetPayload<T>>
+    delete<T extends TournamentDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, TournamentDeleteArgs<ExtArgs>>
+    ): Prisma__TournamentClient<$Types.GetResult<TournamentPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
 
     /**
      * Update one Tournament.
@@ -11878,9 +12996,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    update<T extends TournamentUpdateArgs>(
-      args: SelectSubset<T, TournamentUpdateArgs>
-    ): Prisma__TournamentClient<TournamentGetPayload<T>>
+    update<T extends TournamentUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, TournamentUpdateArgs<ExtArgs>>
+    ): Prisma__TournamentClient<$Types.GetResult<TournamentPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
 
     /**
      * Delete zero or more Tournaments.
@@ -11894,8 +13012,8 @@ export namespace Prisma {
      * })
      * 
     **/
-    deleteMany<T extends TournamentDeleteManyArgs>(
-      args?: SelectSubset<T, TournamentDeleteManyArgs>
+    deleteMany<T extends TournamentDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, TournamentDeleteManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -11915,8 +13033,8 @@ export namespace Prisma {
      * })
      * 
     **/
-    updateMany<T extends TournamentUpdateManyArgs>(
-      args: SelectSubset<T, TournamentUpdateManyArgs>
+    updateMany<T extends TournamentUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, TournamentUpdateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -11936,9 +13054,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    upsert<T extends TournamentUpsertArgs>(
-      args: SelectSubset<T, TournamentUpsertArgs>
-    ): Prisma__TournamentClient<TournamentGetPayload<T>>
+    upsert<T extends TournamentUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, TournamentUpsertArgs<ExtArgs>>
+    ): Prisma__TournamentClient<$Types.GetResult<TournamentPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
 
     /**
      * Count the number of Tournaments.
@@ -11956,7 +13074,7 @@ export namespace Prisma {
     count<T extends TournamentCountArgs>(
       args?: Subset<T, TournamentCountArgs>,
     ): Prisma.PrismaPromise<
-      T extends _Record<'select', any>
+      T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
           : GetScalarType<T['select'], TournamentCountAggregateOutputType>
@@ -12017,7 +13135,7 @@ export namespace Prisma {
         ? { orderBy: TournamentGroupByArgs['orderBy'] }
         : { orderBy?: TournamentGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends TupleToUnion<T['by']>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
       HavingFields extends GetHavingFields<T['having']>,
       HavingValid extends Has<ByFields, HavingFields>,
@@ -12065,7 +13183,10 @@ export namespace Prisma {
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
     >(args: SubsetIntersection<T, TournamentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTournamentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-
+  /**
+   * Fields of the Tournament model
+   */
+  readonly fields: TournamentFieldRefs;
   }
 
   /**
@@ -12074,7 +13195,7 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export class Prisma__TournamentClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+  export class Prisma__TournamentClient<T, Null = never, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> implements Prisma.PrismaPromise<T> {
     private readonly _dmmf;
     private readonly _queryType;
     private readonly _rootField;
@@ -12089,9 +13210,9 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
-    participants<T extends Tournament$participantsArgs= {}>(args?: Subset<T, Tournament$participantsArgs>): Prisma.PrismaPromise<Array<BruteGetPayload<T>>| Null>;
+    participants<T extends Tournament$participantsArgs<ExtArgs> = {}>(args?: Subset<T, Tournament$participantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Types.GetResult<BrutePayload<ExtArgs>, T, 'findMany'>| Null>;
 
-    steps<T extends Tournament$stepsArgs= {}>(args?: Subset<T, Tournament$stepsArgs>): Prisma.PrismaPromise<Array<TournamentStepGetPayload<T>>| Null>;
+    steps<T extends Tournament$stepsArgs<ExtArgs> = {}>(args?: Subset<T, Tournament$stepsArgs<ExtArgs>>): Prisma.PrismaPromise<$Types.GetResult<TournamentStepPayload<ExtArgs>, T, 'findMany'>| Null>;
 
     private get _document();
     /**
@@ -12118,50 +13239,30 @@ export namespace Prisma {
 
 
 
-  // Custom InputTypes
-
   /**
-   * Tournament base type for findUnique actions
-   */
-  export type TournamentFindUniqueArgsBase = {
-    /**
-     * Select specific fields to fetch from the Tournament
-     */
-    select?: TournamentSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: TournamentInclude | null
-    /**
-     * Filter, which Tournament to fetch.
-     */
-    where: TournamentWhereUniqueInput
+   * Fields of the Tournament model
+   */ 
+  interface TournamentFieldRefs {
+    readonly id: FieldRef<"Tournament", 'Int'>
+    readonly date: FieldRef<"Tournament", 'DateTime'>
+    readonly type: FieldRef<"Tournament", 'TournamentType'>
   }
+    
+
+  // Custom InputTypes
 
   /**
    * Tournament findUnique
    */
-  export interface TournamentFindUniqueArgs extends TournamentFindUniqueArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * Tournament findUniqueOrThrow
-   */
-  export type TournamentFindUniqueOrThrowArgs = {
+  export type TournamentFindUniqueArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Tournament
      */
-    select?: TournamentSelect | null
+    select?: TournamentSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: TournamentInclude | null
+    include?: TournamentInclude<ExtArgs> | null
     /**
      * Filter, which Tournament to fetch.
      */
@@ -12170,77 +13271,36 @@ export namespace Prisma {
 
 
   /**
-   * Tournament base type for findFirst actions
+   * Tournament findUniqueOrThrow
    */
-  export type TournamentFindFirstArgsBase = {
+  export type TournamentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Tournament
      */
-    select?: TournamentSelect | null
+    select?: TournamentSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: TournamentInclude | null
+    include?: TournamentInclude<ExtArgs> | null
     /**
      * Filter, which Tournament to fetch.
      */
-    where?: TournamentWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Tournaments to fetch.
-     */
-    orderBy?: Enumerable<TournamentOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Tournaments.
-     */
-    cursor?: TournamentWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Tournaments from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Tournaments.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Tournaments.
-     */
-    distinct?: Enumerable<TournamentScalarFieldEnum>
+    where: TournamentWhereUniqueInput
   }
+
 
   /**
    * Tournament findFirst
    */
-  export interface TournamentFindFirstArgs extends TournamentFindFirstArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * Tournament findFirstOrThrow
-   */
-  export type TournamentFindFirstOrThrowArgs = {
+  export type TournamentFindFirstArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Tournament
      */
-    select?: TournamentSelect | null
+    select?: TournamentSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: TournamentInclude | null
+    include?: TournamentInclude<ExtArgs> | null
     /**
      * Filter, which Tournament to fetch.
      */
@@ -12250,7 +13310,7 @@ export namespace Prisma {
      * 
      * Determine the order of Tournaments to fetch.
      */
-    orderBy?: Enumerable<TournamentOrderByWithRelationInput>
+    orderBy?: TournamentOrderByWithRelationInput | TournamentOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -12274,22 +13334,71 @@ export namespace Prisma {
      * 
      * Filter by unique combinations of Tournaments.
      */
-    distinct?: Enumerable<TournamentScalarFieldEnum>
+    distinct?: TournamentScalarFieldEnum | TournamentScalarFieldEnum[]
+  }
+
+
+  /**
+   * Tournament findFirstOrThrow
+   */
+  export type TournamentFindFirstOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tournament
+     */
+    select?: TournamentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: TournamentInclude<ExtArgs> | null
+    /**
+     * Filter, which Tournament to fetch.
+     */
+    where?: TournamentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tournaments to fetch.
+     */
+    orderBy?: TournamentOrderByWithRelationInput | TournamentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Tournaments.
+     */
+    cursor?: TournamentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tournaments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tournaments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Tournaments.
+     */
+    distinct?: TournamentScalarFieldEnum | TournamentScalarFieldEnum[]
   }
 
 
   /**
    * Tournament findMany
    */
-  export type TournamentFindManyArgs = {
+  export type TournamentFindManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Tournament
      */
-    select?: TournamentSelect | null
+    select?: TournamentSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: TournamentInclude | null
+    include?: TournamentInclude<ExtArgs> | null
     /**
      * Filter, which Tournaments to fetch.
      */
@@ -12299,7 +13408,7 @@ export namespace Prisma {
      * 
      * Determine the order of Tournaments to fetch.
      */
-    orderBy?: Enumerable<TournamentOrderByWithRelationInput>
+    orderBy?: TournamentOrderByWithRelationInput | TournamentOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -12318,22 +13427,22 @@ export namespace Prisma {
      * Skip the first `n` Tournaments.
      */
     skip?: number
-    distinct?: Enumerable<TournamentScalarFieldEnum>
+    distinct?: TournamentScalarFieldEnum | TournamentScalarFieldEnum[]
   }
 
 
   /**
    * Tournament create
    */
-  export type TournamentCreateArgs = {
+  export type TournamentCreateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Tournament
      */
-    select?: TournamentSelect | null
+    select?: TournamentSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: TournamentInclude | null
+    include?: TournamentInclude<ExtArgs> | null
     /**
      * The data needed to create a Tournament.
      */
@@ -12344,11 +13453,11 @@ export namespace Prisma {
   /**
    * Tournament createMany
    */
-  export type TournamentCreateManyArgs = {
+  export type TournamentCreateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * The data used to create many Tournaments.
      */
-    data: Enumerable<TournamentCreateManyInput>
+    data: TournamentCreateManyInput | TournamentCreateManyInput[]
     skipDuplicates?: boolean
   }
 
@@ -12356,15 +13465,15 @@ export namespace Prisma {
   /**
    * Tournament update
    */
-  export type TournamentUpdateArgs = {
+  export type TournamentUpdateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Tournament
      */
-    select?: TournamentSelect | null
+    select?: TournamentSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: TournamentInclude | null
+    include?: TournamentInclude<ExtArgs> | null
     /**
      * The data needed to update a Tournament.
      */
@@ -12379,7 +13488,7 @@ export namespace Prisma {
   /**
    * Tournament updateMany
    */
-  export type TournamentUpdateManyArgs = {
+  export type TournamentUpdateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * The data used to update Tournaments.
      */
@@ -12394,15 +13503,15 @@ export namespace Prisma {
   /**
    * Tournament upsert
    */
-  export type TournamentUpsertArgs = {
+  export type TournamentUpsertArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Tournament
      */
-    select?: TournamentSelect | null
+    select?: TournamentSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: TournamentInclude | null
+    include?: TournamentInclude<ExtArgs> | null
     /**
      * The filter to search for the Tournament to update in case it exists.
      */
@@ -12421,15 +13530,15 @@ export namespace Prisma {
   /**
    * Tournament delete
    */
-  export type TournamentDeleteArgs = {
+  export type TournamentDeleteArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Tournament
      */
-    select?: TournamentSelect | null
+    select?: TournamentSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: TournamentInclude | null
+    include?: TournamentInclude<ExtArgs> | null
     /**
      * Filter which Tournament to delete.
      */
@@ -12440,7 +13549,7 @@ export namespace Prisma {
   /**
    * Tournament deleteMany
    */
-  export type TournamentDeleteManyArgs = {
+  export type TournamentDeleteManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Filter which Tournaments to delete
      */
@@ -12451,57 +13560,57 @@ export namespace Prisma {
   /**
    * Tournament.participants
    */
-  export type Tournament$participantsArgs = {
+  export type Tournament$participantsArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Brute
      */
-    select?: BruteSelect | null
+    select?: BruteSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: BruteInclude | null
+    include?: BruteInclude<ExtArgs> | null
     where?: BruteWhereInput
-    orderBy?: Enumerable<BruteOrderByWithRelationInput>
+    orderBy?: BruteOrderByWithRelationInput | BruteOrderByWithRelationInput[]
     cursor?: BruteWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: Enumerable<BruteScalarFieldEnum>
+    distinct?: BruteScalarFieldEnum | BruteScalarFieldEnum[]
   }
 
 
   /**
    * Tournament.steps
    */
-  export type Tournament$stepsArgs = {
+  export type Tournament$stepsArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the TournamentStep
      */
-    select?: TournamentStepSelect | null
+    select?: TournamentStepSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: TournamentStepInclude | null
+    include?: TournamentStepInclude<ExtArgs> | null
     where?: TournamentStepWhereInput
-    orderBy?: Enumerable<TournamentStepOrderByWithRelationInput>
+    orderBy?: TournamentStepOrderByWithRelationInput | TournamentStepOrderByWithRelationInput[]
     cursor?: TournamentStepWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: Enumerable<TournamentStepScalarFieldEnum>
+    distinct?: TournamentStepScalarFieldEnum | TournamentStepScalarFieldEnum[]
   }
 
 
   /**
    * Tournament without action
    */
-  export type TournamentArgs = {
+  export type TournamentArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Tournament
      */
-    select?: TournamentSelect | null
+    select?: TournamentSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: TournamentInclude | null
+    include?: TournamentInclude<ExtArgs> | null
   }
 
 
@@ -12598,7 +13707,7 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type TournamentStepAggregateArgs = {
+  export type TournamentStepAggregateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Filter which TournamentStep to aggregate.
      */
@@ -12608,7 +13717,7 @@ export namespace Prisma {
      * 
      * Determine the order of TournamentSteps to fetch.
      */
-    orderBy?: Enumerable<TournamentStepOrderByWithRelationInput>
+    orderBy?: TournamentStepOrderByWithRelationInput | TournamentStepOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -12670,10 +13779,10 @@ export namespace Prisma {
 
 
 
-  export type TournamentStepGroupByArgs = {
+  export type TournamentStepGroupByArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     where?: TournamentStepWhereInput
-    orderBy?: Enumerable<TournamentStepOrderByWithAggregationInput>
-    by: TournamentStepScalarFieldEnum[]
+    orderBy?: TournamentStepOrderByWithAggregationInput | TournamentStepOrderByWithAggregationInput[]
+    by: TournamentStepScalarFieldEnum[] | TournamentStepScalarFieldEnum
     having?: TournamentStepScalarWhereWithAggregatesInput
     take?: number
     skip?: number
@@ -12700,7 +13809,7 @@ export namespace Prisma {
 
   type GetTournamentStepGroupByPayload<T extends TournamentStepGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickArray<TournamentStepGroupByOutputType, T['by']> &
+      PickEnumerable<TournamentStepGroupByOutputType, T['by']> &
         {
           [P in ((keyof T) & (keyof TournamentStepGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
@@ -12712,48 +13821,39 @@ export namespace Prisma {
     >
 
 
-  export type TournamentStepSelect = {
+  export type TournamentStepSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     tournamentId?: boolean
     step?: boolean
     fightId?: boolean
     xpDistributed?: boolean
-    tournament?: boolean | TournamentArgs
-    fight?: boolean | FightArgs
+    tournament?: boolean | TournamentArgs<ExtArgs>
+    fight?: boolean | FightArgs<ExtArgs>
+  }, ExtArgs["result"]["tournamentStep"]>
+
+  export type TournamentStepSelectScalar = {
+    id?: boolean
+    tournamentId?: boolean
+    step?: boolean
+    fightId?: boolean
+    xpDistributed?: boolean
+  }
+
+  export type TournamentStepInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    tournament?: boolean | TournamentArgs<ExtArgs>
+    fight?: boolean | FightArgs<ExtArgs>
   }
 
 
-  export type TournamentStepInclude = {
-    tournament?: boolean | TournamentArgs
-    fight?: boolean | FightArgs
-  }
+  type TournamentStepGetPayload<S extends boolean | null | undefined | TournamentStepArgs> = $Types.GetResult<TournamentStepPayload, S>
 
-  export type TournamentStepGetPayload<S extends boolean | null | undefined | TournamentStepArgs> =
-    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
-    S extends true ? TournamentStep :
-    S extends undefined ? never :
-    S extends { include: any } & (TournamentStepArgs | TournamentStepFindManyArgs)
-    ? TournamentStep  & {
-    [P in TruthyKeys<S['include']>]:
-        P extends 'tournament' ? TournamentGetPayload<S['include'][P]> :
-        P extends 'fight' ? FightGetPayload<S['include'][P]> :  never
-  } 
-    : S extends { select: any } & (TournamentStepArgs | TournamentStepFindManyArgs)
-      ? {
-    [P in TruthyKeys<S['select']>]:
-        P extends 'tournament' ? TournamentGetPayload<S['select'][P]> :
-        P extends 'fight' ? FightGetPayload<S['select'][P]> :  P extends keyof TournamentStep ? TournamentStep[P] : never
-  } 
-      : TournamentStep
-
-
-  type TournamentStepCountArgs = 
+  type TournamentStepCountArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = 
     Omit<TournamentStepFindManyArgs, 'select' | 'include'> & {
       select?: TournamentStepCountAggregateInputType | true
     }
 
-  export interface TournamentStepDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
-
+  export interface TournamentStepDelegate<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TournamentStep'], meta: { name: 'TournamentStep' } }
     /**
      * Find zero or one TournamentStep that matches the filter.
      * @param {TournamentStepFindUniqueArgs} args - Arguments to find a TournamentStep
@@ -12765,9 +13865,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findUnique<T extends TournamentStepFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, TournamentStepFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'TournamentStep'> extends True ? Prisma__TournamentStepClient<TournamentStepGetPayload<T>> : Prisma__TournamentStepClient<TournamentStepGetPayload<T> | null, null>
+    findUnique<T extends TournamentStepFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, TournamentStepFindUniqueArgs<ExtArgs>>
+    ): Prisma__TournamentStepClient<$Types.GetResult<TournamentStepPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
      * Find one TournamentStep that matches the filter or throw an error  with `error.code='P2025'` 
@@ -12781,9 +13881,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findUniqueOrThrow<T extends TournamentStepFindUniqueOrThrowArgs>(
-      args?: SelectSubset<T, TournamentStepFindUniqueOrThrowArgs>
-    ): Prisma__TournamentStepClient<TournamentStepGetPayload<T>>
+    findUniqueOrThrow<T extends TournamentStepFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, TournamentStepFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__TournamentStepClient<$Types.GetResult<TournamentStepPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
 
     /**
      * Find the first TournamentStep that matches the filter.
@@ -12798,13 +13898,13 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findFirst<T extends TournamentStepFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, TournamentStepFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'TournamentStep'> extends True ? Prisma__TournamentStepClient<TournamentStepGetPayload<T>> : Prisma__TournamentStepClient<TournamentStepGetPayload<T> | null, null>
+    findFirst<T extends TournamentStepFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, TournamentStepFindFirstArgs<ExtArgs>>
+    ): Prisma__TournamentStepClient<$Types.GetResult<TournamentStepPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
 
     /**
      * Find the first TournamentStep that matches the filter or
-     * throw `NotFoundError` if no matches were found.
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
      * @param {TournamentStepFindFirstOrThrowArgs} args - Arguments to find a TournamentStep
@@ -12816,9 +13916,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findFirstOrThrow<T extends TournamentStepFindFirstOrThrowArgs>(
-      args?: SelectSubset<T, TournamentStepFindFirstOrThrowArgs>
-    ): Prisma__TournamentStepClient<TournamentStepGetPayload<T>>
+    findFirstOrThrow<T extends TournamentStepFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, TournamentStepFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__TournamentStepClient<$Types.GetResult<TournamentStepPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
 
     /**
      * Find zero or more TournamentSteps that matches the filter.
@@ -12836,9 +13936,9 @@ export namespace Prisma {
      * const tournamentStepWithIdOnly = await prisma.tournamentStep.findMany({ select: { id: true } })
      * 
     **/
-    findMany<T extends TournamentStepFindManyArgs>(
-      args?: SelectSubset<T, TournamentStepFindManyArgs>
-    ): Prisma.PrismaPromise<Array<TournamentStepGetPayload<T>>>
+    findMany<T extends TournamentStepFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, TournamentStepFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Types.GetResult<TournamentStepPayload<ExtArgs>, T, 'findMany'>>
 
     /**
      * Create a TournamentStep.
@@ -12852,9 +13952,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    create<T extends TournamentStepCreateArgs>(
-      args: SelectSubset<T, TournamentStepCreateArgs>
-    ): Prisma__TournamentStepClient<TournamentStepGetPayload<T>>
+    create<T extends TournamentStepCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, TournamentStepCreateArgs<ExtArgs>>
+    ): Prisma__TournamentStepClient<$Types.GetResult<TournamentStepPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
     /**
      * Create many TournamentSteps.
@@ -12868,8 +13968,8 @@ export namespace Prisma {
      *     })
      *     
     **/
-    createMany<T extends TournamentStepCreateManyArgs>(
-      args?: SelectSubset<T, TournamentStepCreateManyArgs>
+    createMany<T extends TournamentStepCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, TournamentStepCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -12884,9 +13984,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    delete<T extends TournamentStepDeleteArgs>(
-      args: SelectSubset<T, TournamentStepDeleteArgs>
-    ): Prisma__TournamentStepClient<TournamentStepGetPayload<T>>
+    delete<T extends TournamentStepDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, TournamentStepDeleteArgs<ExtArgs>>
+    ): Prisma__TournamentStepClient<$Types.GetResult<TournamentStepPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
 
     /**
      * Update one TournamentStep.
@@ -12903,9 +14003,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    update<T extends TournamentStepUpdateArgs>(
-      args: SelectSubset<T, TournamentStepUpdateArgs>
-    ): Prisma__TournamentStepClient<TournamentStepGetPayload<T>>
+    update<T extends TournamentStepUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, TournamentStepUpdateArgs<ExtArgs>>
+    ): Prisma__TournamentStepClient<$Types.GetResult<TournamentStepPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
 
     /**
      * Delete zero or more TournamentSteps.
@@ -12919,8 +14019,8 @@ export namespace Prisma {
      * })
      * 
     **/
-    deleteMany<T extends TournamentStepDeleteManyArgs>(
-      args?: SelectSubset<T, TournamentStepDeleteManyArgs>
+    deleteMany<T extends TournamentStepDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, TournamentStepDeleteManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -12940,8 +14040,8 @@ export namespace Prisma {
      * })
      * 
     **/
-    updateMany<T extends TournamentStepUpdateManyArgs>(
-      args: SelectSubset<T, TournamentStepUpdateManyArgs>
+    updateMany<T extends TournamentStepUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, TournamentStepUpdateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -12961,9 +14061,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    upsert<T extends TournamentStepUpsertArgs>(
-      args: SelectSubset<T, TournamentStepUpsertArgs>
-    ): Prisma__TournamentStepClient<TournamentStepGetPayload<T>>
+    upsert<T extends TournamentStepUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, TournamentStepUpsertArgs<ExtArgs>>
+    ): Prisma__TournamentStepClient<$Types.GetResult<TournamentStepPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
 
     /**
      * Count the number of TournamentSteps.
@@ -12981,7 +14081,7 @@ export namespace Prisma {
     count<T extends TournamentStepCountArgs>(
       args?: Subset<T, TournamentStepCountArgs>,
     ): Prisma.PrismaPromise<
-      T extends _Record<'select', any>
+      T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
           : GetScalarType<T['select'], TournamentStepCountAggregateOutputType>
@@ -13042,7 +14142,7 @@ export namespace Prisma {
         ? { orderBy: TournamentStepGroupByArgs['orderBy'] }
         : { orderBy?: TournamentStepGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends TupleToUnion<T['by']>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
       HavingFields extends GetHavingFields<T['having']>,
       HavingValid extends Has<ByFields, HavingFields>,
@@ -13090,7 +14190,10 @@ export namespace Prisma {
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
     >(args: SubsetIntersection<T, TournamentStepGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTournamentStepGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-
+  /**
+   * Fields of the TournamentStep model
+   */
+  readonly fields: TournamentStepFieldRefs;
   }
 
   /**
@@ -13099,7 +14202,7 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export class Prisma__TournamentStepClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+  export class Prisma__TournamentStepClient<T, Null = never, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> implements Prisma.PrismaPromise<T> {
     private readonly _dmmf;
     private readonly _queryType;
     private readonly _rootField;
@@ -13114,9 +14217,9 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
-    tournament<T extends TournamentArgs= {}>(args?: Subset<T, TournamentArgs>): Prisma__TournamentClient<TournamentGetPayload<T> | Null>;
+    tournament<T extends TournamentArgs<ExtArgs> = {}>(args?: Subset<T, TournamentArgs<ExtArgs>>): Prisma__TournamentClient<$Types.GetResult<TournamentPayload<ExtArgs>, T, 'findUnique'> | Null, never, ExtArgs>;
 
-    fight<T extends FightArgs= {}>(args?: Subset<T, FightArgs>): Prisma__FightClient<FightGetPayload<T> | Null>;
+    fight<T extends FightArgs<ExtArgs> = {}>(args?: Subset<T, FightArgs<ExtArgs>>): Prisma__FightClient<$Types.GetResult<FightPayload<ExtArgs>, T, 'findUnique'> | Null, never, ExtArgs>;
 
     private get _document();
     /**
@@ -13143,50 +14246,32 @@ export namespace Prisma {
 
 
 
-  // Custom InputTypes
-
   /**
-   * TournamentStep base type for findUnique actions
-   */
-  export type TournamentStepFindUniqueArgsBase = {
-    /**
-     * Select specific fields to fetch from the TournamentStep
-     */
-    select?: TournamentStepSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: TournamentStepInclude | null
-    /**
-     * Filter, which TournamentStep to fetch.
-     */
-    where: TournamentStepWhereUniqueInput
+   * Fields of the TournamentStep model
+   */ 
+  interface TournamentStepFieldRefs {
+    readonly id: FieldRef<"TournamentStep", 'Int'>
+    readonly tournamentId: FieldRef<"TournamentStep", 'Int'>
+    readonly step: FieldRef<"TournamentStep", 'Int'>
+    readonly fightId: FieldRef<"TournamentStep", 'Int'>
+    readonly xpDistributed: FieldRef<"TournamentStep", 'Boolean'>
   }
+    
+
+  // Custom InputTypes
 
   /**
    * TournamentStep findUnique
    */
-  export interface TournamentStepFindUniqueArgs extends TournamentStepFindUniqueArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * TournamentStep findUniqueOrThrow
-   */
-  export type TournamentStepFindUniqueOrThrowArgs = {
+  export type TournamentStepFindUniqueArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the TournamentStep
      */
-    select?: TournamentStepSelect | null
+    select?: TournamentStepSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: TournamentStepInclude | null
+    include?: TournamentStepInclude<ExtArgs> | null
     /**
      * Filter, which TournamentStep to fetch.
      */
@@ -13195,77 +14280,36 @@ export namespace Prisma {
 
 
   /**
-   * TournamentStep base type for findFirst actions
+   * TournamentStep findUniqueOrThrow
    */
-  export type TournamentStepFindFirstArgsBase = {
+  export type TournamentStepFindUniqueOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the TournamentStep
      */
-    select?: TournamentStepSelect | null
+    select?: TournamentStepSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: TournamentStepInclude | null
+    include?: TournamentStepInclude<ExtArgs> | null
     /**
      * Filter, which TournamentStep to fetch.
      */
-    where?: TournamentStepWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of TournamentSteps to fetch.
-     */
-    orderBy?: Enumerable<TournamentStepOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for TournamentSteps.
-     */
-    cursor?: TournamentStepWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` TournamentSteps from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` TournamentSteps.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of TournamentSteps.
-     */
-    distinct?: Enumerable<TournamentStepScalarFieldEnum>
+    where: TournamentStepWhereUniqueInput
   }
+
 
   /**
    * TournamentStep findFirst
    */
-  export interface TournamentStepFindFirstArgs extends TournamentStepFindFirstArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * TournamentStep findFirstOrThrow
-   */
-  export type TournamentStepFindFirstOrThrowArgs = {
+  export type TournamentStepFindFirstArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the TournamentStep
      */
-    select?: TournamentStepSelect | null
+    select?: TournamentStepSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: TournamentStepInclude | null
+    include?: TournamentStepInclude<ExtArgs> | null
     /**
      * Filter, which TournamentStep to fetch.
      */
@@ -13275,7 +14319,7 @@ export namespace Prisma {
      * 
      * Determine the order of TournamentSteps to fetch.
      */
-    orderBy?: Enumerable<TournamentStepOrderByWithRelationInput>
+    orderBy?: TournamentStepOrderByWithRelationInput | TournamentStepOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -13299,22 +14343,71 @@ export namespace Prisma {
      * 
      * Filter by unique combinations of TournamentSteps.
      */
-    distinct?: Enumerable<TournamentStepScalarFieldEnum>
+    distinct?: TournamentStepScalarFieldEnum | TournamentStepScalarFieldEnum[]
+  }
+
+
+  /**
+   * TournamentStep findFirstOrThrow
+   */
+  export type TournamentStepFindFirstOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TournamentStep
+     */
+    select?: TournamentStepSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: TournamentStepInclude<ExtArgs> | null
+    /**
+     * Filter, which TournamentStep to fetch.
+     */
+    where?: TournamentStepWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TournamentSteps to fetch.
+     */
+    orderBy?: TournamentStepOrderByWithRelationInput | TournamentStepOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TournamentSteps.
+     */
+    cursor?: TournamentStepWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TournamentSteps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TournamentSteps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TournamentSteps.
+     */
+    distinct?: TournamentStepScalarFieldEnum | TournamentStepScalarFieldEnum[]
   }
 
 
   /**
    * TournamentStep findMany
    */
-  export type TournamentStepFindManyArgs = {
+  export type TournamentStepFindManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the TournamentStep
      */
-    select?: TournamentStepSelect | null
+    select?: TournamentStepSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: TournamentStepInclude | null
+    include?: TournamentStepInclude<ExtArgs> | null
     /**
      * Filter, which TournamentSteps to fetch.
      */
@@ -13324,7 +14417,7 @@ export namespace Prisma {
      * 
      * Determine the order of TournamentSteps to fetch.
      */
-    orderBy?: Enumerable<TournamentStepOrderByWithRelationInput>
+    orderBy?: TournamentStepOrderByWithRelationInput | TournamentStepOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -13343,22 +14436,22 @@ export namespace Prisma {
      * Skip the first `n` TournamentSteps.
      */
     skip?: number
-    distinct?: Enumerable<TournamentStepScalarFieldEnum>
+    distinct?: TournamentStepScalarFieldEnum | TournamentStepScalarFieldEnum[]
   }
 
 
   /**
    * TournamentStep create
    */
-  export type TournamentStepCreateArgs = {
+  export type TournamentStepCreateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the TournamentStep
      */
-    select?: TournamentStepSelect | null
+    select?: TournamentStepSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: TournamentStepInclude | null
+    include?: TournamentStepInclude<ExtArgs> | null
     /**
      * The data needed to create a TournamentStep.
      */
@@ -13369,11 +14462,11 @@ export namespace Prisma {
   /**
    * TournamentStep createMany
    */
-  export type TournamentStepCreateManyArgs = {
+  export type TournamentStepCreateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * The data used to create many TournamentSteps.
      */
-    data: Enumerable<TournamentStepCreateManyInput>
+    data: TournamentStepCreateManyInput | TournamentStepCreateManyInput[]
     skipDuplicates?: boolean
   }
 
@@ -13381,15 +14474,15 @@ export namespace Prisma {
   /**
    * TournamentStep update
    */
-  export type TournamentStepUpdateArgs = {
+  export type TournamentStepUpdateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the TournamentStep
      */
-    select?: TournamentStepSelect | null
+    select?: TournamentStepSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: TournamentStepInclude | null
+    include?: TournamentStepInclude<ExtArgs> | null
     /**
      * The data needed to update a TournamentStep.
      */
@@ -13404,7 +14497,7 @@ export namespace Prisma {
   /**
    * TournamentStep updateMany
    */
-  export type TournamentStepUpdateManyArgs = {
+  export type TournamentStepUpdateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * The data used to update TournamentSteps.
      */
@@ -13419,15 +14512,15 @@ export namespace Prisma {
   /**
    * TournamentStep upsert
    */
-  export type TournamentStepUpsertArgs = {
+  export type TournamentStepUpsertArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the TournamentStep
      */
-    select?: TournamentStepSelect | null
+    select?: TournamentStepSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: TournamentStepInclude | null
+    include?: TournamentStepInclude<ExtArgs> | null
     /**
      * The filter to search for the TournamentStep to update in case it exists.
      */
@@ -13446,15 +14539,15 @@ export namespace Prisma {
   /**
    * TournamentStep delete
    */
-  export type TournamentStepDeleteArgs = {
+  export type TournamentStepDeleteArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the TournamentStep
      */
-    select?: TournamentStepSelect | null
+    select?: TournamentStepSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: TournamentStepInclude | null
+    include?: TournamentStepInclude<ExtArgs> | null
     /**
      * Filter which TournamentStep to delete.
      */
@@ -13465,7 +14558,7 @@ export namespace Prisma {
   /**
    * TournamentStep deleteMany
    */
-  export type TournamentStepDeleteManyArgs = {
+  export type TournamentStepDeleteManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Filter which TournamentSteps to delete
      */
@@ -13476,15 +14569,15 @@ export namespace Prisma {
   /**
    * TournamentStep without action
    */
-  export type TournamentStepArgs = {
+  export type TournamentStepArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the TournamentStep
      */
-    select?: TournamentStepSelect | null
+    select?: TournamentStepSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: TournamentStepInclude | null
+    include?: TournamentStepInclude<ExtArgs> | null
   }
 
 
@@ -13587,7 +14680,7 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type TournamentEarningAggregateArgs = {
+  export type TournamentEarningAggregateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Filter which TournamentEarning to aggregate.
      */
@@ -13597,7 +14690,7 @@ export namespace Prisma {
      * 
      * Determine the order of TournamentEarnings to fetch.
      */
-    orderBy?: Enumerable<TournamentEarningOrderByWithRelationInput>
+    orderBy?: TournamentEarningOrderByWithRelationInput | TournamentEarningOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -13659,10 +14752,10 @@ export namespace Prisma {
 
 
 
-  export type TournamentEarningGroupByArgs = {
+  export type TournamentEarningGroupByArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     where?: TournamentEarningWhereInput
-    orderBy?: Enumerable<TournamentEarningOrderByWithAggregationInput>
-    by: TournamentEarningScalarFieldEnum[]
+    orderBy?: TournamentEarningOrderByWithAggregationInput | TournamentEarningOrderByWithAggregationInput[]
+    by: TournamentEarningScalarFieldEnum[] | TournamentEarningScalarFieldEnum
     having?: TournamentEarningScalarWhereWithAggregatesInput
     take?: number
     skip?: number
@@ -13690,7 +14783,7 @@ export namespace Prisma {
 
   type GetTournamentEarningGroupByPayload<T extends TournamentEarningGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickArray<TournamentEarningGroupByOutputType, T['by']> &
+      PickEnumerable<TournamentEarningGroupByOutputType, T['by']> &
         {
           [P in ((keyof T) & (keyof TournamentEarningGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
@@ -13702,45 +14795,39 @@ export namespace Prisma {
     >
 
 
-  export type TournamentEarningSelect = {
+  export type TournamentEarningSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     date?: boolean
     bruteId?: boolean
     points?: boolean
     achievement?: boolean
     achievementCount?: boolean
-    brute?: boolean | BruteArgs
+    brute?: boolean | BruteArgs<ExtArgs>
+  }, ExtArgs["result"]["tournamentEarning"]>
+
+  export type TournamentEarningSelectScalar = {
+    id?: boolean
+    date?: boolean
+    bruteId?: boolean
+    points?: boolean
+    achievement?: boolean
+    achievementCount?: boolean
+  }
+
+  export type TournamentEarningInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    brute?: boolean | BruteArgs<ExtArgs>
   }
 
 
-  export type TournamentEarningInclude = {
-    brute?: boolean | BruteArgs
-  }
+  type TournamentEarningGetPayload<S extends boolean | null | undefined | TournamentEarningArgs> = $Types.GetResult<TournamentEarningPayload, S>
 
-  export type TournamentEarningGetPayload<S extends boolean | null | undefined | TournamentEarningArgs> =
-    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
-    S extends true ? TournamentEarning :
-    S extends undefined ? never :
-    S extends { include: any } & (TournamentEarningArgs | TournamentEarningFindManyArgs)
-    ? TournamentEarning  & {
-    [P in TruthyKeys<S['include']>]:
-        P extends 'brute' ? BruteGetPayload<S['include'][P]> :  never
-  } 
-    : S extends { select: any } & (TournamentEarningArgs | TournamentEarningFindManyArgs)
-      ? {
-    [P in TruthyKeys<S['select']>]:
-        P extends 'brute' ? BruteGetPayload<S['select'][P]> :  P extends keyof TournamentEarning ? TournamentEarning[P] : never
-  } 
-      : TournamentEarning
-
-
-  type TournamentEarningCountArgs = 
+  type TournamentEarningCountArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = 
     Omit<TournamentEarningFindManyArgs, 'select' | 'include'> & {
       select?: TournamentEarningCountAggregateInputType | true
     }
 
-  export interface TournamentEarningDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
-
+  export interface TournamentEarningDelegate<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TournamentEarning'], meta: { name: 'TournamentEarning' } }
     /**
      * Find zero or one TournamentEarning that matches the filter.
      * @param {TournamentEarningFindUniqueArgs} args - Arguments to find a TournamentEarning
@@ -13752,9 +14839,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findUnique<T extends TournamentEarningFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, TournamentEarningFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'TournamentEarning'> extends True ? Prisma__TournamentEarningClient<TournamentEarningGetPayload<T>> : Prisma__TournamentEarningClient<TournamentEarningGetPayload<T> | null, null>
+    findUnique<T extends TournamentEarningFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, TournamentEarningFindUniqueArgs<ExtArgs>>
+    ): Prisma__TournamentEarningClient<$Types.GetResult<TournamentEarningPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
      * Find one TournamentEarning that matches the filter or throw an error  with `error.code='P2025'` 
@@ -13768,9 +14855,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findUniqueOrThrow<T extends TournamentEarningFindUniqueOrThrowArgs>(
-      args?: SelectSubset<T, TournamentEarningFindUniqueOrThrowArgs>
-    ): Prisma__TournamentEarningClient<TournamentEarningGetPayload<T>>
+    findUniqueOrThrow<T extends TournamentEarningFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, TournamentEarningFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__TournamentEarningClient<$Types.GetResult<TournamentEarningPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
 
     /**
      * Find the first TournamentEarning that matches the filter.
@@ -13785,13 +14872,13 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findFirst<T extends TournamentEarningFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, TournamentEarningFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'TournamentEarning'> extends True ? Prisma__TournamentEarningClient<TournamentEarningGetPayload<T>> : Prisma__TournamentEarningClient<TournamentEarningGetPayload<T> | null, null>
+    findFirst<T extends TournamentEarningFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, TournamentEarningFindFirstArgs<ExtArgs>>
+    ): Prisma__TournamentEarningClient<$Types.GetResult<TournamentEarningPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
 
     /**
      * Find the first TournamentEarning that matches the filter or
-     * throw `NotFoundError` if no matches were found.
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
      * @param {TournamentEarningFindFirstOrThrowArgs} args - Arguments to find a TournamentEarning
@@ -13803,9 +14890,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findFirstOrThrow<T extends TournamentEarningFindFirstOrThrowArgs>(
-      args?: SelectSubset<T, TournamentEarningFindFirstOrThrowArgs>
-    ): Prisma__TournamentEarningClient<TournamentEarningGetPayload<T>>
+    findFirstOrThrow<T extends TournamentEarningFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, TournamentEarningFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__TournamentEarningClient<$Types.GetResult<TournamentEarningPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
 
     /**
      * Find zero or more TournamentEarnings that matches the filter.
@@ -13823,9 +14910,9 @@ export namespace Prisma {
      * const tournamentEarningWithIdOnly = await prisma.tournamentEarning.findMany({ select: { id: true } })
      * 
     **/
-    findMany<T extends TournamentEarningFindManyArgs>(
-      args?: SelectSubset<T, TournamentEarningFindManyArgs>
-    ): Prisma.PrismaPromise<Array<TournamentEarningGetPayload<T>>>
+    findMany<T extends TournamentEarningFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, TournamentEarningFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Types.GetResult<TournamentEarningPayload<ExtArgs>, T, 'findMany'>>
 
     /**
      * Create a TournamentEarning.
@@ -13839,9 +14926,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    create<T extends TournamentEarningCreateArgs>(
-      args: SelectSubset<T, TournamentEarningCreateArgs>
-    ): Prisma__TournamentEarningClient<TournamentEarningGetPayload<T>>
+    create<T extends TournamentEarningCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, TournamentEarningCreateArgs<ExtArgs>>
+    ): Prisma__TournamentEarningClient<$Types.GetResult<TournamentEarningPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
     /**
      * Create many TournamentEarnings.
@@ -13855,8 +14942,8 @@ export namespace Prisma {
      *     })
      *     
     **/
-    createMany<T extends TournamentEarningCreateManyArgs>(
-      args?: SelectSubset<T, TournamentEarningCreateManyArgs>
+    createMany<T extends TournamentEarningCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, TournamentEarningCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -13871,9 +14958,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    delete<T extends TournamentEarningDeleteArgs>(
-      args: SelectSubset<T, TournamentEarningDeleteArgs>
-    ): Prisma__TournamentEarningClient<TournamentEarningGetPayload<T>>
+    delete<T extends TournamentEarningDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, TournamentEarningDeleteArgs<ExtArgs>>
+    ): Prisma__TournamentEarningClient<$Types.GetResult<TournamentEarningPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
 
     /**
      * Update one TournamentEarning.
@@ -13890,9 +14977,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    update<T extends TournamentEarningUpdateArgs>(
-      args: SelectSubset<T, TournamentEarningUpdateArgs>
-    ): Prisma__TournamentEarningClient<TournamentEarningGetPayload<T>>
+    update<T extends TournamentEarningUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, TournamentEarningUpdateArgs<ExtArgs>>
+    ): Prisma__TournamentEarningClient<$Types.GetResult<TournamentEarningPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
 
     /**
      * Delete zero or more TournamentEarnings.
@@ -13906,8 +14993,8 @@ export namespace Prisma {
      * })
      * 
     **/
-    deleteMany<T extends TournamentEarningDeleteManyArgs>(
-      args?: SelectSubset<T, TournamentEarningDeleteManyArgs>
+    deleteMany<T extends TournamentEarningDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, TournamentEarningDeleteManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -13927,8 +15014,8 @@ export namespace Prisma {
      * })
      * 
     **/
-    updateMany<T extends TournamentEarningUpdateManyArgs>(
-      args: SelectSubset<T, TournamentEarningUpdateManyArgs>
+    updateMany<T extends TournamentEarningUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, TournamentEarningUpdateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -13948,9 +15035,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    upsert<T extends TournamentEarningUpsertArgs>(
-      args: SelectSubset<T, TournamentEarningUpsertArgs>
-    ): Prisma__TournamentEarningClient<TournamentEarningGetPayload<T>>
+    upsert<T extends TournamentEarningUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, TournamentEarningUpsertArgs<ExtArgs>>
+    ): Prisma__TournamentEarningClient<$Types.GetResult<TournamentEarningPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
 
     /**
      * Count the number of TournamentEarnings.
@@ -13968,7 +15055,7 @@ export namespace Prisma {
     count<T extends TournamentEarningCountArgs>(
       args?: Subset<T, TournamentEarningCountArgs>,
     ): Prisma.PrismaPromise<
-      T extends _Record<'select', any>
+      T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
           : GetScalarType<T['select'], TournamentEarningCountAggregateOutputType>
@@ -14029,7 +15116,7 @@ export namespace Prisma {
         ? { orderBy: TournamentEarningGroupByArgs['orderBy'] }
         : { orderBy?: TournamentEarningGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends TupleToUnion<T['by']>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
       HavingFields extends GetHavingFields<T['having']>,
       HavingValid extends Has<ByFields, HavingFields>,
@@ -14077,7 +15164,10 @@ export namespace Prisma {
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
     >(args: SubsetIntersection<T, TournamentEarningGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTournamentEarningGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-
+  /**
+   * Fields of the TournamentEarning model
+   */
+  readonly fields: TournamentEarningFieldRefs;
   }
 
   /**
@@ -14086,7 +15176,7 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export class Prisma__TournamentEarningClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+  export class Prisma__TournamentEarningClient<T, Null = never, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> implements Prisma.PrismaPromise<T> {
     private readonly _dmmf;
     private readonly _queryType;
     private readonly _rootField;
@@ -14101,7 +15191,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
-    brute<T extends BruteArgs= {}>(args?: Subset<T, BruteArgs>): Prisma__BruteClient<BruteGetPayload<T> | Null>;
+    brute<T extends BruteArgs<ExtArgs> = {}>(args?: Subset<T, BruteArgs<ExtArgs>>): Prisma__BruteClient<$Types.GetResult<BrutePayload<ExtArgs>, T, 'findUnique'> | Null, never, ExtArgs>;
 
     private get _document();
     /**
@@ -14128,50 +15218,33 @@ export namespace Prisma {
 
 
 
-  // Custom InputTypes
-
   /**
-   * TournamentEarning base type for findUnique actions
-   */
-  export type TournamentEarningFindUniqueArgsBase = {
-    /**
-     * Select specific fields to fetch from the TournamentEarning
-     */
-    select?: TournamentEarningSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: TournamentEarningInclude | null
-    /**
-     * Filter, which TournamentEarning to fetch.
-     */
-    where: TournamentEarningWhereUniqueInput
+   * Fields of the TournamentEarning model
+   */ 
+  interface TournamentEarningFieldRefs {
+    readonly id: FieldRef<"TournamentEarning", 'Int'>
+    readonly date: FieldRef<"TournamentEarning", 'DateTime'>
+    readonly bruteId: FieldRef<"TournamentEarning", 'Int'>
+    readonly points: FieldRef<"TournamentEarning", 'Int'>
+    readonly achievement: FieldRef<"TournamentEarning", 'AchievementName'>
+    readonly achievementCount: FieldRef<"TournamentEarning", 'Int'>
   }
+    
+
+  // Custom InputTypes
 
   /**
    * TournamentEarning findUnique
    */
-  export interface TournamentEarningFindUniqueArgs extends TournamentEarningFindUniqueArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * TournamentEarning findUniqueOrThrow
-   */
-  export type TournamentEarningFindUniqueOrThrowArgs = {
+  export type TournamentEarningFindUniqueArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the TournamentEarning
      */
-    select?: TournamentEarningSelect | null
+    select?: TournamentEarningSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: TournamentEarningInclude | null
+    include?: TournamentEarningInclude<ExtArgs> | null
     /**
      * Filter, which TournamentEarning to fetch.
      */
@@ -14180,77 +15253,36 @@ export namespace Prisma {
 
 
   /**
-   * TournamentEarning base type for findFirst actions
+   * TournamentEarning findUniqueOrThrow
    */
-  export type TournamentEarningFindFirstArgsBase = {
+  export type TournamentEarningFindUniqueOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the TournamentEarning
      */
-    select?: TournamentEarningSelect | null
+    select?: TournamentEarningSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: TournamentEarningInclude | null
+    include?: TournamentEarningInclude<ExtArgs> | null
     /**
      * Filter, which TournamentEarning to fetch.
      */
-    where?: TournamentEarningWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of TournamentEarnings to fetch.
-     */
-    orderBy?: Enumerable<TournamentEarningOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for TournamentEarnings.
-     */
-    cursor?: TournamentEarningWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` TournamentEarnings from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` TournamentEarnings.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of TournamentEarnings.
-     */
-    distinct?: Enumerable<TournamentEarningScalarFieldEnum>
+    where: TournamentEarningWhereUniqueInput
   }
+
 
   /**
    * TournamentEarning findFirst
    */
-  export interface TournamentEarningFindFirstArgs extends TournamentEarningFindFirstArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * TournamentEarning findFirstOrThrow
-   */
-  export type TournamentEarningFindFirstOrThrowArgs = {
+  export type TournamentEarningFindFirstArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the TournamentEarning
      */
-    select?: TournamentEarningSelect | null
+    select?: TournamentEarningSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: TournamentEarningInclude | null
+    include?: TournamentEarningInclude<ExtArgs> | null
     /**
      * Filter, which TournamentEarning to fetch.
      */
@@ -14260,7 +15292,7 @@ export namespace Prisma {
      * 
      * Determine the order of TournamentEarnings to fetch.
      */
-    orderBy?: Enumerable<TournamentEarningOrderByWithRelationInput>
+    orderBy?: TournamentEarningOrderByWithRelationInput | TournamentEarningOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -14284,22 +15316,71 @@ export namespace Prisma {
      * 
      * Filter by unique combinations of TournamentEarnings.
      */
-    distinct?: Enumerable<TournamentEarningScalarFieldEnum>
+    distinct?: TournamentEarningScalarFieldEnum | TournamentEarningScalarFieldEnum[]
+  }
+
+
+  /**
+   * TournamentEarning findFirstOrThrow
+   */
+  export type TournamentEarningFindFirstOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TournamentEarning
+     */
+    select?: TournamentEarningSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: TournamentEarningInclude<ExtArgs> | null
+    /**
+     * Filter, which TournamentEarning to fetch.
+     */
+    where?: TournamentEarningWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TournamentEarnings to fetch.
+     */
+    orderBy?: TournamentEarningOrderByWithRelationInput | TournamentEarningOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TournamentEarnings.
+     */
+    cursor?: TournamentEarningWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TournamentEarnings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TournamentEarnings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TournamentEarnings.
+     */
+    distinct?: TournamentEarningScalarFieldEnum | TournamentEarningScalarFieldEnum[]
   }
 
 
   /**
    * TournamentEarning findMany
    */
-  export type TournamentEarningFindManyArgs = {
+  export type TournamentEarningFindManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the TournamentEarning
      */
-    select?: TournamentEarningSelect | null
+    select?: TournamentEarningSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: TournamentEarningInclude | null
+    include?: TournamentEarningInclude<ExtArgs> | null
     /**
      * Filter, which TournamentEarnings to fetch.
      */
@@ -14309,7 +15390,7 @@ export namespace Prisma {
      * 
      * Determine the order of TournamentEarnings to fetch.
      */
-    orderBy?: Enumerable<TournamentEarningOrderByWithRelationInput>
+    orderBy?: TournamentEarningOrderByWithRelationInput | TournamentEarningOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -14328,22 +15409,22 @@ export namespace Prisma {
      * Skip the first `n` TournamentEarnings.
      */
     skip?: number
-    distinct?: Enumerable<TournamentEarningScalarFieldEnum>
+    distinct?: TournamentEarningScalarFieldEnum | TournamentEarningScalarFieldEnum[]
   }
 
 
   /**
    * TournamentEarning create
    */
-  export type TournamentEarningCreateArgs = {
+  export type TournamentEarningCreateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the TournamentEarning
      */
-    select?: TournamentEarningSelect | null
+    select?: TournamentEarningSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: TournamentEarningInclude | null
+    include?: TournamentEarningInclude<ExtArgs> | null
     /**
      * The data needed to create a TournamentEarning.
      */
@@ -14354,11 +15435,11 @@ export namespace Prisma {
   /**
    * TournamentEarning createMany
    */
-  export type TournamentEarningCreateManyArgs = {
+  export type TournamentEarningCreateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * The data used to create many TournamentEarnings.
      */
-    data: Enumerable<TournamentEarningCreateManyInput>
+    data: TournamentEarningCreateManyInput | TournamentEarningCreateManyInput[]
     skipDuplicates?: boolean
   }
 
@@ -14366,15 +15447,15 @@ export namespace Prisma {
   /**
    * TournamentEarning update
    */
-  export type TournamentEarningUpdateArgs = {
+  export type TournamentEarningUpdateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the TournamentEarning
      */
-    select?: TournamentEarningSelect | null
+    select?: TournamentEarningSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: TournamentEarningInclude | null
+    include?: TournamentEarningInclude<ExtArgs> | null
     /**
      * The data needed to update a TournamentEarning.
      */
@@ -14389,7 +15470,7 @@ export namespace Prisma {
   /**
    * TournamentEarning updateMany
    */
-  export type TournamentEarningUpdateManyArgs = {
+  export type TournamentEarningUpdateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * The data used to update TournamentEarnings.
      */
@@ -14404,15 +15485,15 @@ export namespace Prisma {
   /**
    * TournamentEarning upsert
    */
-  export type TournamentEarningUpsertArgs = {
+  export type TournamentEarningUpsertArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the TournamentEarning
      */
-    select?: TournamentEarningSelect | null
+    select?: TournamentEarningSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: TournamentEarningInclude | null
+    include?: TournamentEarningInclude<ExtArgs> | null
     /**
      * The filter to search for the TournamentEarning to update in case it exists.
      */
@@ -14431,15 +15512,15 @@ export namespace Prisma {
   /**
    * TournamentEarning delete
    */
-  export type TournamentEarningDeleteArgs = {
+  export type TournamentEarningDeleteArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the TournamentEarning
      */
-    select?: TournamentEarningSelect | null
+    select?: TournamentEarningSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: TournamentEarningInclude | null
+    include?: TournamentEarningInclude<ExtArgs> | null
     /**
      * Filter which TournamentEarning to delete.
      */
@@ -14450,7 +15531,7 @@ export namespace Prisma {
   /**
    * TournamentEarning deleteMany
    */
-  export type TournamentEarningDeleteManyArgs = {
+  export type TournamentEarningDeleteManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Filter which TournamentEarnings to delete
      */
@@ -14461,15 +15542,15 @@ export namespace Prisma {
   /**
    * TournamentEarning without action
    */
-  export type TournamentEarningArgs = {
+  export type TournamentEarningArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the TournamentEarning
      */
-    select?: TournamentEarningSelect | null
+    select?: TournamentEarningSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: TournamentEarningInclude | null
+    include?: TournamentEarningInclude<ExtArgs> | null
   }
 
 
@@ -14562,7 +15643,7 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type AchievementAggregateArgs = {
+  export type AchievementAggregateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Filter which Achievement to aggregate.
      */
@@ -14572,7 +15653,7 @@ export namespace Prisma {
      * 
      * Determine the order of Achievements to fetch.
      */
-    orderBy?: Enumerable<AchievementOrderByWithRelationInput>
+    orderBy?: AchievementOrderByWithRelationInput | AchievementOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -14634,10 +15715,10 @@ export namespace Prisma {
 
 
 
-  export type AchievementGroupByArgs = {
+  export type AchievementGroupByArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     where?: AchievementWhereInput
-    orderBy?: Enumerable<AchievementOrderByWithAggregationInput>
-    by: AchievementScalarFieldEnum[]
+    orderBy?: AchievementOrderByWithAggregationInput | AchievementOrderByWithAggregationInput[]
+    by: AchievementScalarFieldEnum[] | AchievementScalarFieldEnum
     having?: AchievementScalarWhereWithAggregatesInput
     take?: number
     skip?: number
@@ -14664,7 +15745,7 @@ export namespace Prisma {
 
   type GetAchievementGroupByPayload<T extends AchievementGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickArray<AchievementGroupByOutputType, T['by']> &
+      PickEnumerable<AchievementGroupByOutputType, T['by']> &
         {
           [P in ((keyof T) & (keyof AchievementGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
@@ -14676,48 +15757,39 @@ export namespace Prisma {
     >
 
 
-  export type AchievementSelect = {
+  export type AchievementSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
     count?: boolean
     bruteId?: boolean
     userId?: boolean
-    brute?: boolean | BruteArgs
-    user?: boolean | UserArgs
+    brute?: boolean | Achievement$bruteArgs<ExtArgs>
+    user?: boolean | Achievement$userArgs<ExtArgs>
+  }, ExtArgs["result"]["achievement"]>
+
+  export type AchievementSelectScalar = {
+    id?: boolean
+    name?: boolean
+    count?: boolean
+    bruteId?: boolean
+    userId?: boolean
+  }
+
+  export type AchievementInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    brute?: boolean | Achievement$bruteArgs<ExtArgs>
+    user?: boolean | Achievement$userArgs<ExtArgs>
   }
 
 
-  export type AchievementInclude = {
-    brute?: boolean | BruteArgs
-    user?: boolean | UserArgs
-  }
+  type AchievementGetPayload<S extends boolean | null | undefined | AchievementArgs> = $Types.GetResult<AchievementPayload, S>
 
-  export type AchievementGetPayload<S extends boolean | null | undefined | AchievementArgs> =
-    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
-    S extends true ? Achievement :
-    S extends undefined ? never :
-    S extends { include: any } & (AchievementArgs | AchievementFindManyArgs)
-    ? Achievement  & {
-    [P in TruthyKeys<S['include']>]:
-        P extends 'brute' ? BruteGetPayload<S['include'][P]> | null :
-        P extends 'user' ? UserGetPayload<S['include'][P]> | null :  never
-  } 
-    : S extends { select: any } & (AchievementArgs | AchievementFindManyArgs)
-      ? {
-    [P in TruthyKeys<S['select']>]:
-        P extends 'brute' ? BruteGetPayload<S['select'][P]> | null :
-        P extends 'user' ? UserGetPayload<S['select'][P]> | null :  P extends keyof Achievement ? Achievement[P] : never
-  } 
-      : Achievement
-
-
-  type AchievementCountArgs = 
+  type AchievementCountArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = 
     Omit<AchievementFindManyArgs, 'select' | 'include'> & {
       select?: AchievementCountAggregateInputType | true
     }
 
-  export interface AchievementDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
-
+  export interface AchievementDelegate<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Achievement'], meta: { name: 'Achievement' } }
     /**
      * Find zero or one Achievement that matches the filter.
      * @param {AchievementFindUniqueArgs} args - Arguments to find a Achievement
@@ -14729,9 +15801,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findUnique<T extends AchievementFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, AchievementFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Achievement'> extends True ? Prisma__AchievementClient<AchievementGetPayload<T>> : Prisma__AchievementClient<AchievementGetPayload<T> | null, null>
+    findUnique<T extends AchievementFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, AchievementFindUniqueArgs<ExtArgs>>
+    ): Prisma__AchievementClient<$Types.GetResult<AchievementPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
      * Find one Achievement that matches the filter or throw an error  with `error.code='P2025'` 
@@ -14745,9 +15817,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findUniqueOrThrow<T extends AchievementFindUniqueOrThrowArgs>(
-      args?: SelectSubset<T, AchievementFindUniqueOrThrowArgs>
-    ): Prisma__AchievementClient<AchievementGetPayload<T>>
+    findUniqueOrThrow<T extends AchievementFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, AchievementFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__AchievementClient<$Types.GetResult<AchievementPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
 
     /**
      * Find the first Achievement that matches the filter.
@@ -14762,13 +15834,13 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findFirst<T extends AchievementFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, AchievementFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Achievement'> extends True ? Prisma__AchievementClient<AchievementGetPayload<T>> : Prisma__AchievementClient<AchievementGetPayload<T> | null, null>
+    findFirst<T extends AchievementFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, AchievementFindFirstArgs<ExtArgs>>
+    ): Prisma__AchievementClient<$Types.GetResult<AchievementPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
 
     /**
      * Find the first Achievement that matches the filter or
-     * throw `NotFoundError` if no matches were found.
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
      * @param {AchievementFindFirstOrThrowArgs} args - Arguments to find a Achievement
@@ -14780,9 +15852,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    findFirstOrThrow<T extends AchievementFindFirstOrThrowArgs>(
-      args?: SelectSubset<T, AchievementFindFirstOrThrowArgs>
-    ): Prisma__AchievementClient<AchievementGetPayload<T>>
+    findFirstOrThrow<T extends AchievementFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, AchievementFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__AchievementClient<$Types.GetResult<AchievementPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
 
     /**
      * Find zero or more Achievements that matches the filter.
@@ -14800,9 +15872,9 @@ export namespace Prisma {
      * const achievementWithIdOnly = await prisma.achievement.findMany({ select: { id: true } })
      * 
     **/
-    findMany<T extends AchievementFindManyArgs>(
-      args?: SelectSubset<T, AchievementFindManyArgs>
-    ): Prisma.PrismaPromise<Array<AchievementGetPayload<T>>>
+    findMany<T extends AchievementFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, AchievementFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Types.GetResult<AchievementPayload<ExtArgs>, T, 'findMany'>>
 
     /**
      * Create a Achievement.
@@ -14816,9 +15888,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    create<T extends AchievementCreateArgs>(
-      args: SelectSubset<T, AchievementCreateArgs>
-    ): Prisma__AchievementClient<AchievementGetPayload<T>>
+    create<T extends AchievementCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, AchievementCreateArgs<ExtArgs>>
+    ): Prisma__AchievementClient<$Types.GetResult<AchievementPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
     /**
      * Create many Achievements.
@@ -14832,8 +15904,8 @@ export namespace Prisma {
      *     })
      *     
     **/
-    createMany<T extends AchievementCreateManyArgs>(
-      args?: SelectSubset<T, AchievementCreateManyArgs>
+    createMany<T extends AchievementCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, AchievementCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -14848,9 +15920,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    delete<T extends AchievementDeleteArgs>(
-      args: SelectSubset<T, AchievementDeleteArgs>
-    ): Prisma__AchievementClient<AchievementGetPayload<T>>
+    delete<T extends AchievementDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, AchievementDeleteArgs<ExtArgs>>
+    ): Prisma__AchievementClient<$Types.GetResult<AchievementPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
 
     /**
      * Update one Achievement.
@@ -14867,9 +15939,9 @@ export namespace Prisma {
      * })
      * 
     **/
-    update<T extends AchievementUpdateArgs>(
-      args: SelectSubset<T, AchievementUpdateArgs>
-    ): Prisma__AchievementClient<AchievementGetPayload<T>>
+    update<T extends AchievementUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, AchievementUpdateArgs<ExtArgs>>
+    ): Prisma__AchievementClient<$Types.GetResult<AchievementPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
 
     /**
      * Delete zero or more Achievements.
@@ -14883,8 +15955,8 @@ export namespace Prisma {
      * })
      * 
     **/
-    deleteMany<T extends AchievementDeleteManyArgs>(
-      args?: SelectSubset<T, AchievementDeleteManyArgs>
+    deleteMany<T extends AchievementDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, AchievementDeleteManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -14904,8 +15976,8 @@ export namespace Prisma {
      * })
      * 
     **/
-    updateMany<T extends AchievementUpdateManyArgs>(
-      args: SelectSubset<T, AchievementUpdateManyArgs>
+    updateMany<T extends AchievementUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, AchievementUpdateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
 
     /**
@@ -14925,9 +15997,9 @@ export namespace Prisma {
      *   }
      * })
     **/
-    upsert<T extends AchievementUpsertArgs>(
-      args: SelectSubset<T, AchievementUpsertArgs>
-    ): Prisma__AchievementClient<AchievementGetPayload<T>>
+    upsert<T extends AchievementUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, AchievementUpsertArgs<ExtArgs>>
+    ): Prisma__AchievementClient<$Types.GetResult<AchievementPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
 
     /**
      * Count the number of Achievements.
@@ -14945,7 +16017,7 @@ export namespace Prisma {
     count<T extends AchievementCountArgs>(
       args?: Subset<T, AchievementCountArgs>,
     ): Prisma.PrismaPromise<
-      T extends _Record<'select', any>
+      T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
           : GetScalarType<T['select'], AchievementCountAggregateOutputType>
@@ -15006,7 +16078,7 @@ export namespace Prisma {
         ? { orderBy: AchievementGroupByArgs['orderBy'] }
         : { orderBy?: AchievementGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends TupleToUnion<T['by']>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
       HavingFields extends GetHavingFields<T['having']>,
       HavingValid extends Has<ByFields, HavingFields>,
@@ -15054,7 +16126,10 @@ export namespace Prisma {
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
     >(args: SubsetIntersection<T, AchievementGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAchievementGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-
+  /**
+   * Fields of the Achievement model
+   */
+  readonly fields: AchievementFieldRefs;
   }
 
   /**
@@ -15063,7 +16138,7 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export class Prisma__AchievementClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+  export class Prisma__AchievementClient<T, Null = never, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> implements Prisma.PrismaPromise<T> {
     private readonly _dmmf;
     private readonly _queryType;
     private readonly _rootField;
@@ -15078,9 +16153,9 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
-    brute<T extends BruteArgs= {}>(args?: Subset<T, BruteArgs>): Prisma__BruteClient<BruteGetPayload<T> | Null>;
+    brute<T extends Achievement$bruteArgs<ExtArgs> = {}>(args?: Subset<T, Achievement$bruteArgs<ExtArgs>>): Prisma__BruteClient<$Types.GetResult<BrutePayload<ExtArgs>, T, 'findUnique'> | Null, never, ExtArgs>;
 
-    user<T extends UserArgs= {}>(args?: Subset<T, UserArgs>): Prisma__UserClient<UserGetPayload<T> | Null>;
+    user<T extends Achievement$userArgs<ExtArgs> = {}>(args?: Subset<T, Achievement$userArgs<ExtArgs>>): Prisma__UserClient<$Types.GetResult<UserPayload<ExtArgs>, T, 'findUnique'> | Null, never, ExtArgs>;
 
     private get _document();
     /**
@@ -15107,50 +16182,32 @@ export namespace Prisma {
 
 
 
-  // Custom InputTypes
-
   /**
-   * Achievement base type for findUnique actions
-   */
-  export type AchievementFindUniqueArgsBase = {
-    /**
-     * Select specific fields to fetch from the Achievement
-     */
-    select?: AchievementSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: AchievementInclude | null
-    /**
-     * Filter, which Achievement to fetch.
-     */
-    where: AchievementWhereUniqueInput
+   * Fields of the Achievement model
+   */ 
+  interface AchievementFieldRefs {
+    readonly id: FieldRef<"Achievement", 'Int'>
+    readonly name: FieldRef<"Achievement", 'AchievementName'>
+    readonly count: FieldRef<"Achievement", 'Int'>
+    readonly bruteId: FieldRef<"Achievement", 'Int'>
+    readonly userId: FieldRef<"Achievement", 'String'>
   }
+    
+
+  // Custom InputTypes
 
   /**
    * Achievement findUnique
    */
-  export interface AchievementFindUniqueArgs extends AchievementFindUniqueArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * Achievement findUniqueOrThrow
-   */
-  export type AchievementFindUniqueOrThrowArgs = {
+  export type AchievementFindUniqueArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Achievement
      */
-    select?: AchievementSelect | null
+    select?: AchievementSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: AchievementInclude | null
+    include?: AchievementInclude<ExtArgs> | null
     /**
      * Filter, which Achievement to fetch.
      */
@@ -15159,77 +16216,36 @@ export namespace Prisma {
 
 
   /**
-   * Achievement base type for findFirst actions
+   * Achievement findUniqueOrThrow
    */
-  export type AchievementFindFirstArgsBase = {
+  export type AchievementFindUniqueOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Achievement
      */
-    select?: AchievementSelect | null
+    select?: AchievementSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: AchievementInclude | null
+    include?: AchievementInclude<ExtArgs> | null
     /**
      * Filter, which Achievement to fetch.
      */
-    where?: AchievementWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Achievements to fetch.
-     */
-    orderBy?: Enumerable<AchievementOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Achievements.
-     */
-    cursor?: AchievementWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Achievements from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Achievements.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Achievements.
-     */
-    distinct?: Enumerable<AchievementScalarFieldEnum>
+    where: AchievementWhereUniqueInput
   }
+
 
   /**
    * Achievement findFirst
    */
-  export interface AchievementFindFirstArgs extends AchievementFindFirstArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * Achievement findFirstOrThrow
-   */
-  export type AchievementFindFirstOrThrowArgs = {
+  export type AchievementFindFirstArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Achievement
      */
-    select?: AchievementSelect | null
+    select?: AchievementSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: AchievementInclude | null
+    include?: AchievementInclude<ExtArgs> | null
     /**
      * Filter, which Achievement to fetch.
      */
@@ -15239,7 +16255,7 @@ export namespace Prisma {
      * 
      * Determine the order of Achievements to fetch.
      */
-    orderBy?: Enumerable<AchievementOrderByWithRelationInput>
+    orderBy?: AchievementOrderByWithRelationInput | AchievementOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -15263,22 +16279,71 @@ export namespace Prisma {
      * 
      * Filter by unique combinations of Achievements.
      */
-    distinct?: Enumerable<AchievementScalarFieldEnum>
+    distinct?: AchievementScalarFieldEnum | AchievementScalarFieldEnum[]
+  }
+
+
+  /**
+   * Achievement findFirstOrThrow
+   */
+  export type AchievementFindFirstOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AchievementInclude<ExtArgs> | null
+    /**
+     * Filter, which Achievement to fetch.
+     */
+    where?: AchievementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Achievements to fetch.
+     */
+    orderBy?: AchievementOrderByWithRelationInput | AchievementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Achievements.
+     */
+    cursor?: AchievementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Achievements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Achievements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Achievements.
+     */
+    distinct?: AchievementScalarFieldEnum | AchievementScalarFieldEnum[]
   }
 
 
   /**
    * Achievement findMany
    */
-  export type AchievementFindManyArgs = {
+  export type AchievementFindManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Achievement
      */
-    select?: AchievementSelect | null
+    select?: AchievementSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: AchievementInclude | null
+    include?: AchievementInclude<ExtArgs> | null
     /**
      * Filter, which Achievements to fetch.
      */
@@ -15288,7 +16353,7 @@ export namespace Prisma {
      * 
      * Determine the order of Achievements to fetch.
      */
-    orderBy?: Enumerable<AchievementOrderByWithRelationInput>
+    orderBy?: AchievementOrderByWithRelationInput | AchievementOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
@@ -15307,22 +16372,22 @@ export namespace Prisma {
      * Skip the first `n` Achievements.
      */
     skip?: number
-    distinct?: Enumerable<AchievementScalarFieldEnum>
+    distinct?: AchievementScalarFieldEnum | AchievementScalarFieldEnum[]
   }
 
 
   /**
    * Achievement create
    */
-  export type AchievementCreateArgs = {
+  export type AchievementCreateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Achievement
      */
-    select?: AchievementSelect | null
+    select?: AchievementSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: AchievementInclude | null
+    include?: AchievementInclude<ExtArgs> | null
     /**
      * The data needed to create a Achievement.
      */
@@ -15333,11 +16398,11 @@ export namespace Prisma {
   /**
    * Achievement createMany
    */
-  export type AchievementCreateManyArgs = {
+  export type AchievementCreateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * The data used to create many Achievements.
      */
-    data: Enumerable<AchievementCreateManyInput>
+    data: AchievementCreateManyInput | AchievementCreateManyInput[]
     skipDuplicates?: boolean
   }
 
@@ -15345,15 +16410,15 @@ export namespace Prisma {
   /**
    * Achievement update
    */
-  export type AchievementUpdateArgs = {
+  export type AchievementUpdateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Achievement
      */
-    select?: AchievementSelect | null
+    select?: AchievementSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: AchievementInclude | null
+    include?: AchievementInclude<ExtArgs> | null
     /**
      * The data needed to update a Achievement.
      */
@@ -15368,7 +16433,7 @@ export namespace Prisma {
   /**
    * Achievement updateMany
    */
-  export type AchievementUpdateManyArgs = {
+  export type AchievementUpdateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * The data used to update Achievements.
      */
@@ -15383,15 +16448,15 @@ export namespace Prisma {
   /**
    * Achievement upsert
    */
-  export type AchievementUpsertArgs = {
+  export type AchievementUpsertArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Achievement
      */
-    select?: AchievementSelect | null
+    select?: AchievementSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: AchievementInclude | null
+    include?: AchievementInclude<ExtArgs> | null
     /**
      * The filter to search for the Achievement to update in case it exists.
      */
@@ -15410,15 +16475,15 @@ export namespace Prisma {
   /**
    * Achievement delete
    */
-  export type AchievementDeleteArgs = {
+  export type AchievementDeleteArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Achievement
      */
-    select?: AchievementSelect | null
+    select?: AchievementSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: AchievementInclude | null
+    include?: AchievementInclude<ExtArgs> | null
     /**
      * Filter which Achievement to delete.
      */
@@ -15429,7 +16494,7 @@ export namespace Prisma {
   /**
    * Achievement deleteMany
    */
-  export type AchievementDeleteManyArgs = {
+  export type AchievementDeleteManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
      * Filter which Achievements to delete
      */
@@ -15438,17 +16503,49 @@ export namespace Prisma {
 
 
   /**
-   * Achievement without action
+   * Achievement.brute
    */
-  export type AchievementArgs = {
+  export type Achievement$bruteArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Achievement
+     * Select specific fields to fetch from the Brute
      */
-    select?: AchievementSelect | null
+    select?: BruteSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: AchievementInclude | null
+    include?: BruteInclude<ExtArgs> | null
+    where?: BruteWhereInput
+  }
+
+
+  /**
+   * Achievement.user
+   */
+  export type Achievement$userArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+
+  /**
+   * Achievement without action
+   */
+  export type AchievementArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AchievementInclude<ExtArgs> | null
   }
 
 
@@ -15457,18 +16554,29 @@ export namespace Prisma {
    * Enums
    */
 
-  // Based on
-  // https://github.com/microsoft/TypeScript/issues/3192#issuecomment-261720275
-
-  export const AchievementScalarFieldEnum: {
-    id: 'id',
-    name: 'name',
-    count: 'count',
-    bruteId: 'bruteId',
-    userId: 'userId'
+  export const TransactionIsolationLevel: {
+    ReadUncommitted: 'ReadUncommitted',
+    ReadCommitted: 'ReadCommitted',
+    RepeatableRead: 'RepeatableRead',
+    Serializable: 'Serializable'
   };
 
-  export type AchievementScalarFieldEnum = (typeof AchievementScalarFieldEnum)[keyof typeof AchievementScalarFieldEnum]
+  export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+  export const UserScalarFieldEnum: {
+    id: 'id',
+    lang: 'lang',
+    name: 'name',
+    admin: 'admin',
+    connexionToken: 'connexionToken',
+    bruteLimit: 'bruteLimit',
+    sacrificePoints: 'sacrificePoints',
+    fightSpeed: 'fightSpeed',
+    backgroundMusic: 'backgroundMusic'
+  };
+
+  export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
   export const BruteBodyScalarFieldEnum: {
@@ -15578,23 +16686,6 @@ export namespace Prisma {
   export type ClanScalarFieldEnum = (typeof ClanScalarFieldEnum)[keyof typeof ClanScalarFieldEnum]
 
 
-  export const DestinyChoiceScalarFieldEnum: {
-    id: 'id',
-    bruteId: 'bruteId',
-    path: 'path',
-    type: 'type',
-    skill: 'skill',
-    weapon: 'weapon',
-    pet: 'pet',
-    stat1: 'stat1',
-    stat1Value: 'stat1Value',
-    stat2: 'stat2',
-    stat2Value: 'stat2Value'
-  };
-
-  export type DestinyChoiceScalarFieldEnum = (typeof DestinyChoiceScalarFieldEnum)[keyof typeof DestinyChoiceScalarFieldEnum]
-
-
   export const FightScalarFieldEnum: {
     id: 'id',
     date: 'date',
@@ -15607,22 +16698,6 @@ export namespace Prisma {
   };
 
   export type FightScalarFieldEnum = (typeof FightScalarFieldEnum)[keyof typeof FightScalarFieldEnum]
-
-
-  export const JsonNullValueFilter: {
-    DbNull: typeof DbNull,
-    JsonNull: typeof JsonNull,
-    AnyNull: typeof AnyNull
-  };
-
-  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
-
-
-  export const JsonNullValueInput: {
-    JsonNull: typeof JsonNull
-  };
-
-  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
   export const LogScalarFieldEnum: {
@@ -15639,40 +16714,21 @@ export namespace Prisma {
   export type LogScalarFieldEnum = (typeof LogScalarFieldEnum)[keyof typeof LogScalarFieldEnum]
 
 
-  export const NullableJsonNullValueInput: {
-    DbNull: typeof DbNull,
-    JsonNull: typeof JsonNull
-  };
-
-  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
-
-
-  export const QueryMode: {
-    default: 'default',
-    insensitive: 'insensitive'
-  };
-
-  export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
-
-
-  export const SortOrder: {
-    asc: 'asc',
-    desc: 'desc'
-  };
-
-  export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
-
-
-  export const TournamentEarningScalarFieldEnum: {
+  export const DestinyChoiceScalarFieldEnum: {
     id: 'id',
-    date: 'date',
     bruteId: 'bruteId',
-    points: 'points',
-    achievement: 'achievement',
-    achievementCount: 'achievementCount'
+    path: 'path',
+    type: 'type',
+    skill: 'skill',
+    weapon: 'weapon',
+    pet: 'pet',
+    stat1: 'stat1',
+    stat1Value: 'stat1Value',
+    stat2: 'stat2',
+    stat2Value: 'stat2Value'
   };
 
-  export type TournamentEarningScalarFieldEnum = (typeof TournamentEarningScalarFieldEnum)[keyof typeof TournamentEarningScalarFieldEnum]
+  export type DestinyChoiceScalarFieldEnum = (typeof DestinyChoiceScalarFieldEnum)[keyof typeof DestinyChoiceScalarFieldEnum]
 
 
   export const TournamentScalarFieldEnum: {
@@ -15695,49 +16751,336 @@ export namespace Prisma {
   export type TournamentStepScalarFieldEnum = (typeof TournamentStepScalarFieldEnum)[keyof typeof TournamentStepScalarFieldEnum]
 
 
-  export const TransactionIsolationLevel: {
-    ReadUncommitted: 'ReadUncommitted',
-    ReadCommitted: 'ReadCommitted',
-    RepeatableRead: 'RepeatableRead',
-    Serializable: 'Serializable'
-  };
-
-  export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
-
-
-  export const UserScalarFieldEnum: {
+  export const TournamentEarningScalarFieldEnum: {
     id: 'id',
-    lang: 'lang',
-    name: 'name',
-    admin: 'admin',
-    connexionToken: 'connexionToken',
-    bruteLimit: 'bruteLimit',
-    sacrificePoints: 'sacrificePoints',
-    fightSpeed: 'fightSpeed',
-    backgroundMusic: 'backgroundMusic'
+    date: 'date',
+    bruteId: 'bruteId',
+    points: 'points',
+    achievement: 'achievement',
+    achievementCount: 'achievementCount'
   };
 
-  export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+  export type TournamentEarningScalarFieldEnum = (typeof TournamentEarningScalarFieldEnum)[keyof typeof TournamentEarningScalarFieldEnum]
 
 
+  export const AchievementScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    count: 'count',
+    bruteId: 'bruteId',
+    userId: 'userId'
+  };
+
+  export type AchievementScalarFieldEnum = (typeof AchievementScalarFieldEnum)[keyof typeof AchievementScalarFieldEnum]
+
+
+  export const SortOrder: {
+    asc: 'asc',
+    desc: 'desc'
+  };
+
+  export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
+  export const QueryMode: {
+    default: 'default',
+    insensitive: 'insensitive'
+  };
+
+  export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
+
+
+  /**
+   * Field references 
+   */
+
+
+  /**
+   * Reference to a field of type 'String'
+   */
+  export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
+    
+
+
+  /**
+   * Reference to a field of type 'String[]'
+   */
+  export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Lang'
+   */
+  export type EnumLangFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Lang'>
+    
+
+
+  /**
+   * Reference to a field of type 'Lang[]'
+   */
+  export type ListEnumLangFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Lang[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'DestinyChoiceSide[]'
+   */
+  export type ListEnumDestinyChoiceSideFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DestinyChoiceSide[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'DestinyChoiceSide'
+   */
+  export type EnumDestinyChoiceSideFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DestinyChoiceSide'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Gender'
+   */
+  export type EnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Gender'>
+    
+
+
+  /**
+   * Reference to a field of type 'Gender[]'
+   */
+  export type ListEnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Gender[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'WeaponName[]'
+   */
+  export type ListEnumWeaponNameFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WeaponName[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'WeaponName'
+   */
+  export type EnumWeaponNameFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WeaponName'>
+    
+
+
+  /**
+   * Reference to a field of type 'SkillName[]'
+   */
+  export type ListEnumSkillNameFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SkillName[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'SkillName'
+   */
+  export type EnumSkillNameFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SkillName'>
+    
+
+
+  /**
+   * Reference to a field of type 'PetName[]'
+   */
+  export type ListEnumPetNameFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PetName[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'PetName'
+   */
+  export type EnumPetNameFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PetName'>
+    
+
+
+  /**
+   * Reference to a field of type 'Bytes'
+   */
+  export type BytesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Bytes'>
+    
+
+
+  /**
+   * Reference to a field of type 'Bytes[]'
+   */
+  export type ListBytesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Bytes[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'LogType'
+   */
+  export type EnumLogTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LogType'>
+    
+
+
+  /**
+   * Reference to a field of type 'LogType[]'
+   */
+  export type ListEnumLogTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LogType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'DestinyChoiceType'
+   */
+  export type EnumDestinyChoiceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DestinyChoiceType'>
+    
+
+
+  /**
+   * Reference to a field of type 'DestinyChoiceType[]'
+   */
+  export type ListEnumDestinyChoiceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DestinyChoiceType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'BruteStat'
+   */
+  export type EnumBruteStatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BruteStat'>
+    
+
+
+  /**
+   * Reference to a field of type 'BruteStat[]'
+   */
+  export type ListEnumBruteStatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BruteStat[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'TournamentType'
+   */
+  export type EnumTournamentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TournamentType'>
+    
+
+
+  /**
+   * Reference to a field of type 'TournamentType[]'
+   */
+  export type ListEnumTournamentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TournamentType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'AchievementName'
+   */
+  export type EnumAchievementNameFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AchievementName'>
+    
+
+
+  /**
+   * Reference to a field of type 'AchievementName[]'
+   */
+  export type ListEnumAchievementNameFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AchievementName[]'>
+    
   /**
    * Deep Input Types
    */
 
 
   export type UserWhereInput = {
-    AND?: Enumerable<UserWhereInput>
-    OR?: Enumerable<UserWhereInput>
-    NOT?: Enumerable<UserWhereInput>
-    id?: UuidFilter | string
-    lang?: EnumLangFilter | Lang
-    name?: StringFilter | string
-    admin?: BoolFilter | boolean
-    connexionToken?: UuidFilter | string
-    bruteLimit?: IntFilter | number
-    sacrificePoints?: IntFilter | number
-    fightSpeed?: IntFilter | number
-    backgroundMusic?: BoolFilter | boolean
+    AND?: UserWhereInput | UserWhereInput[]
+    OR?: UserWhereInput[]
+    NOT?: UserWhereInput | UserWhereInput[]
+    id?: UuidFilter<"User"> | string
+    lang?: EnumLangFilter<"User"> | Lang
+    name?: StringFilter<"User"> | string
+    admin?: BoolFilter<"User"> | boolean
+    connexionToken?: UuidFilter<"User"> | string
+    bruteLimit?: IntFilter<"User"> | number
+    sacrificePoints?: IntFilter<"User"> | number
+    fightSpeed?: IntFilter<"User"> | number
+    backgroundMusic?: BoolFilter<"User"> | boolean
     brutes?: BruteListRelationFilter
     achievements?: AchievementListRelationFilter
   }
@@ -15756,9 +17099,22 @@ export namespace Prisma {
     achievements?: AchievementOrderByRelationAggregateInput
   }
 
-  export type UserWhereUniqueInput = {
+  export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-  }
+    AND?: UserWhereInput | UserWhereInput[]
+    OR?: UserWhereInput[]
+    NOT?: UserWhereInput | UserWhereInput[]
+    lang?: EnumLangFilter<"User"> | Lang
+    name?: StringFilter<"User"> | string
+    admin?: BoolFilter<"User"> | boolean
+    connexionToken?: UuidFilter<"User"> | string
+    bruteLimit?: IntFilter<"User"> | number
+    sacrificePoints?: IntFilter<"User"> | number
+    fightSpeed?: IntFilter<"User"> | number
+    backgroundMusic?: BoolFilter<"User"> | boolean
+    brutes?: BruteListRelationFilter
+    achievements?: AchievementListRelationFilter
+  }, "id">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
@@ -15778,45 +17134,45 @@ export namespace Prisma {
   }
 
   export type UserScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<UserScalarWhereWithAggregatesInput>
-    OR?: Enumerable<UserScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<UserScalarWhereWithAggregatesInput>
-    id?: UuidWithAggregatesFilter | string
-    lang?: EnumLangWithAggregatesFilter | Lang
-    name?: StringWithAggregatesFilter | string
-    admin?: BoolWithAggregatesFilter | boolean
-    connexionToken?: UuidWithAggregatesFilter | string
-    bruteLimit?: IntWithAggregatesFilter | number
-    sacrificePoints?: IntWithAggregatesFilter | number
-    fightSpeed?: IntWithAggregatesFilter | number
-    backgroundMusic?: BoolWithAggregatesFilter | boolean
+    AND?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
+    OR?: UserScalarWhereWithAggregatesInput[]
+    NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"User"> | string
+    lang?: EnumLangWithAggregatesFilter<"User"> | Lang
+    name?: StringWithAggregatesFilter<"User"> | string
+    admin?: BoolWithAggregatesFilter<"User"> | boolean
+    connexionToken?: UuidWithAggregatesFilter<"User"> | string
+    bruteLimit?: IntWithAggregatesFilter<"User"> | number
+    sacrificePoints?: IntWithAggregatesFilter<"User"> | number
+    fightSpeed?: IntWithAggregatesFilter<"User"> | number
+    backgroundMusic?: BoolWithAggregatesFilter<"User"> | boolean
   }
 
   export type BruteBodyWhereInput = {
-    AND?: Enumerable<BruteBodyWhereInput>
-    OR?: Enumerable<BruteBodyWhereInput>
-    NOT?: Enumerable<BruteBodyWhereInput>
-    id?: IntFilter | number
-    bruteId?: IntFilter | number
-    longHair?: IntFilter | number
-    lowerRightArm?: IntFilter | number
-    rightHand?: IntFilter | number
-    upperRightArm?: IntFilter | number
-    rightShoulder?: IntFilter | number
-    rightFoot?: IntFilter | number
-    lowerRightLeg?: IntFilter | number
-    upperRightLeg?: IntFilter | number
-    leftFoot?: IntFilter | number
-    lowerLeftLeg?: IntFilter | number
-    pelvis?: IntFilter | number
-    upperLeftLeg?: IntFilter | number
-    tummy?: IntFilter | number
-    torso?: IntFilter | number
-    head?: IntFilter | number
-    leftHand?: IntFilter | number
-    upperLeftArm?: IntFilter | number
-    lowerLeftArm?: IntFilter | number
-    leftShoulder?: IntFilter | number
+    AND?: BruteBodyWhereInput | BruteBodyWhereInput[]
+    OR?: BruteBodyWhereInput[]
+    NOT?: BruteBodyWhereInput | BruteBodyWhereInput[]
+    id?: IntFilter<"BruteBody"> | number
+    bruteId?: IntFilter<"BruteBody"> | number
+    longHair?: IntFilter<"BruteBody"> | number
+    lowerRightArm?: IntFilter<"BruteBody"> | number
+    rightHand?: IntFilter<"BruteBody"> | number
+    upperRightArm?: IntFilter<"BruteBody"> | number
+    rightShoulder?: IntFilter<"BruteBody"> | number
+    rightFoot?: IntFilter<"BruteBody"> | number
+    lowerRightLeg?: IntFilter<"BruteBody"> | number
+    upperRightLeg?: IntFilter<"BruteBody"> | number
+    leftFoot?: IntFilter<"BruteBody"> | number
+    lowerLeftLeg?: IntFilter<"BruteBody"> | number
+    pelvis?: IntFilter<"BruteBody"> | number
+    upperLeftLeg?: IntFilter<"BruteBody"> | number
+    tummy?: IntFilter<"BruteBody"> | number
+    torso?: IntFilter<"BruteBody"> | number
+    head?: IntFilter<"BruteBody"> | number
+    leftHand?: IntFilter<"BruteBody"> | number
+    upperLeftArm?: IntFilter<"BruteBody"> | number
+    lowerLeftArm?: IntFilter<"BruteBody"> | number
+    leftShoulder?: IntFilter<"BruteBody"> | number
     brute?: XOR<BruteRelationFilter, BruteWhereInput>
   }
 
@@ -15845,10 +17201,33 @@ export namespace Prisma {
     brute?: BruteOrderByWithRelationInput
   }
 
-  export type BruteBodyWhereUniqueInput = {
+  export type BruteBodyWhereUniqueInput = Prisma.AtLeast<{
     id?: number
     bruteId?: number
-  }
+    AND?: BruteBodyWhereInput | BruteBodyWhereInput[]
+    OR?: BruteBodyWhereInput[]
+    NOT?: BruteBodyWhereInput | BruteBodyWhereInput[]
+    longHair?: IntFilter<"BruteBody"> | number
+    lowerRightArm?: IntFilter<"BruteBody"> | number
+    rightHand?: IntFilter<"BruteBody"> | number
+    upperRightArm?: IntFilter<"BruteBody"> | number
+    rightShoulder?: IntFilter<"BruteBody"> | number
+    rightFoot?: IntFilter<"BruteBody"> | number
+    lowerRightLeg?: IntFilter<"BruteBody"> | number
+    upperRightLeg?: IntFilter<"BruteBody"> | number
+    leftFoot?: IntFilter<"BruteBody"> | number
+    lowerLeftLeg?: IntFilter<"BruteBody"> | number
+    pelvis?: IntFilter<"BruteBody"> | number
+    upperLeftLeg?: IntFilter<"BruteBody"> | number
+    tummy?: IntFilter<"BruteBody"> | number
+    torso?: IntFilter<"BruteBody"> | number
+    head?: IntFilter<"BruteBody"> | number
+    leftHand?: IntFilter<"BruteBody"> | number
+    upperLeftArm?: IntFilter<"BruteBody"> | number
+    lowerLeftArm?: IntFilter<"BruteBody"> | number
+    leftShoulder?: IntFilter<"BruteBody"> | number
+    brute?: XOR<BruteRelationFilter, BruteWhereInput>
+  }, "id" | "bruteId">
 
   export type BruteBodyOrderByWithAggregationInput = {
     id?: SortOrder
@@ -15880,48 +17259,48 @@ export namespace Prisma {
   }
 
   export type BruteBodyScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<BruteBodyScalarWhereWithAggregatesInput>
-    OR?: Enumerable<BruteBodyScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<BruteBodyScalarWhereWithAggregatesInput>
-    id?: IntWithAggregatesFilter | number
-    bruteId?: IntWithAggregatesFilter | number
-    longHair?: IntWithAggregatesFilter | number
-    lowerRightArm?: IntWithAggregatesFilter | number
-    rightHand?: IntWithAggregatesFilter | number
-    upperRightArm?: IntWithAggregatesFilter | number
-    rightShoulder?: IntWithAggregatesFilter | number
-    rightFoot?: IntWithAggregatesFilter | number
-    lowerRightLeg?: IntWithAggregatesFilter | number
-    upperRightLeg?: IntWithAggregatesFilter | number
-    leftFoot?: IntWithAggregatesFilter | number
-    lowerLeftLeg?: IntWithAggregatesFilter | number
-    pelvis?: IntWithAggregatesFilter | number
-    upperLeftLeg?: IntWithAggregatesFilter | number
-    tummy?: IntWithAggregatesFilter | number
-    torso?: IntWithAggregatesFilter | number
-    head?: IntWithAggregatesFilter | number
-    leftHand?: IntWithAggregatesFilter | number
-    upperLeftArm?: IntWithAggregatesFilter | number
-    lowerLeftArm?: IntWithAggregatesFilter | number
-    leftShoulder?: IntWithAggregatesFilter | number
+    AND?: BruteBodyScalarWhereWithAggregatesInput | BruteBodyScalarWhereWithAggregatesInput[]
+    OR?: BruteBodyScalarWhereWithAggregatesInput[]
+    NOT?: BruteBodyScalarWhereWithAggregatesInput | BruteBodyScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"BruteBody"> | number
+    bruteId?: IntWithAggregatesFilter<"BruteBody"> | number
+    longHair?: IntWithAggregatesFilter<"BruteBody"> | number
+    lowerRightArm?: IntWithAggregatesFilter<"BruteBody"> | number
+    rightHand?: IntWithAggregatesFilter<"BruteBody"> | number
+    upperRightArm?: IntWithAggregatesFilter<"BruteBody"> | number
+    rightShoulder?: IntWithAggregatesFilter<"BruteBody"> | number
+    rightFoot?: IntWithAggregatesFilter<"BruteBody"> | number
+    lowerRightLeg?: IntWithAggregatesFilter<"BruteBody"> | number
+    upperRightLeg?: IntWithAggregatesFilter<"BruteBody"> | number
+    leftFoot?: IntWithAggregatesFilter<"BruteBody"> | number
+    lowerLeftLeg?: IntWithAggregatesFilter<"BruteBody"> | number
+    pelvis?: IntWithAggregatesFilter<"BruteBody"> | number
+    upperLeftLeg?: IntWithAggregatesFilter<"BruteBody"> | number
+    tummy?: IntWithAggregatesFilter<"BruteBody"> | number
+    torso?: IntWithAggregatesFilter<"BruteBody"> | number
+    head?: IntWithAggregatesFilter<"BruteBody"> | number
+    leftHand?: IntWithAggregatesFilter<"BruteBody"> | number
+    upperLeftArm?: IntWithAggregatesFilter<"BruteBody"> | number
+    lowerLeftArm?: IntWithAggregatesFilter<"BruteBody"> | number
+    leftShoulder?: IntWithAggregatesFilter<"BruteBody"> | number
   }
 
   export type BruteColorsWhereInput = {
-    AND?: Enumerable<BruteColorsWhereInput>
-    OR?: Enumerable<BruteColorsWhereInput>
-    NOT?: Enumerable<BruteColorsWhereInput>
-    id?: IntFilter | number
-    bruteId?: IntFilter | number
-    skinColor?: StringFilter | string
-    skinShade?: StringFilter | string
-    hairColor?: StringFilter | string
-    hairShade?: StringFilter | string
-    primaryColor?: StringFilter | string
-    primaryShade?: StringFilter | string
-    secondaryColor?: StringFilter | string
-    secondaryShade?: StringFilter | string
-    accentColor?: StringFilter | string
-    accentShade?: StringFilter | string
+    AND?: BruteColorsWhereInput | BruteColorsWhereInput[]
+    OR?: BruteColorsWhereInput[]
+    NOT?: BruteColorsWhereInput | BruteColorsWhereInput[]
+    id?: IntFilter<"BruteColors"> | number
+    bruteId?: IntFilter<"BruteColors"> | number
+    skinColor?: StringFilter<"BruteColors"> | string
+    skinShade?: StringFilter<"BruteColors"> | string
+    hairColor?: StringFilter<"BruteColors"> | string
+    hairShade?: StringFilter<"BruteColors"> | string
+    primaryColor?: StringFilter<"BruteColors"> | string
+    primaryShade?: StringFilter<"BruteColors"> | string
+    secondaryColor?: StringFilter<"BruteColors"> | string
+    secondaryShade?: StringFilter<"BruteColors"> | string
+    accentColor?: StringFilter<"BruteColors"> | string
+    accentShade?: StringFilter<"BruteColors"> | string
     brute?: XOR<BruteRelationFilter, BruteWhereInput>
   }
 
@@ -15941,10 +17320,24 @@ export namespace Prisma {
     brute?: BruteOrderByWithRelationInput
   }
 
-  export type BruteColorsWhereUniqueInput = {
+  export type BruteColorsWhereUniqueInput = Prisma.AtLeast<{
     id?: number
     bruteId?: number
-  }
+    AND?: BruteColorsWhereInput | BruteColorsWhereInput[]
+    OR?: BruteColorsWhereInput[]
+    NOT?: BruteColorsWhereInput | BruteColorsWhereInput[]
+    skinColor?: StringFilter<"BruteColors"> | string
+    skinShade?: StringFilter<"BruteColors"> | string
+    hairColor?: StringFilter<"BruteColors"> | string
+    hairShade?: StringFilter<"BruteColors"> | string
+    primaryColor?: StringFilter<"BruteColors"> | string
+    primaryShade?: StringFilter<"BruteColors"> | string
+    secondaryColor?: StringFilter<"BruteColors"> | string
+    secondaryShade?: StringFilter<"BruteColors"> | string
+    accentColor?: StringFilter<"BruteColors"> | string
+    accentShade?: StringFilter<"BruteColors"> | string
+    brute?: XOR<BruteRelationFilter, BruteWhereInput>
+  }, "id" | "bruteId">
 
   export type BruteColorsOrderByWithAggregationInput = {
     id?: SortOrder
@@ -15967,76 +17360,76 @@ export namespace Prisma {
   }
 
   export type BruteColorsScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<BruteColorsScalarWhereWithAggregatesInput>
-    OR?: Enumerable<BruteColorsScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<BruteColorsScalarWhereWithAggregatesInput>
-    id?: IntWithAggregatesFilter | number
-    bruteId?: IntWithAggregatesFilter | number
-    skinColor?: StringWithAggregatesFilter | string
-    skinShade?: StringWithAggregatesFilter | string
-    hairColor?: StringWithAggregatesFilter | string
-    hairShade?: StringWithAggregatesFilter | string
-    primaryColor?: StringWithAggregatesFilter | string
-    primaryShade?: StringWithAggregatesFilter | string
-    secondaryColor?: StringWithAggregatesFilter | string
-    secondaryShade?: StringWithAggregatesFilter | string
-    accentColor?: StringWithAggregatesFilter | string
-    accentShade?: StringWithAggregatesFilter | string
+    AND?: BruteColorsScalarWhereWithAggregatesInput | BruteColorsScalarWhereWithAggregatesInput[]
+    OR?: BruteColorsScalarWhereWithAggregatesInput[]
+    NOT?: BruteColorsScalarWhereWithAggregatesInput | BruteColorsScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"BruteColors"> | number
+    bruteId?: IntWithAggregatesFilter<"BruteColors"> | number
+    skinColor?: StringWithAggregatesFilter<"BruteColors"> | string
+    skinShade?: StringWithAggregatesFilter<"BruteColors"> | string
+    hairColor?: StringWithAggregatesFilter<"BruteColors"> | string
+    hairShade?: StringWithAggregatesFilter<"BruteColors"> | string
+    primaryColor?: StringWithAggregatesFilter<"BruteColors"> | string
+    primaryShade?: StringWithAggregatesFilter<"BruteColors"> | string
+    secondaryColor?: StringWithAggregatesFilter<"BruteColors"> | string
+    secondaryShade?: StringWithAggregatesFilter<"BruteColors"> | string
+    accentColor?: StringWithAggregatesFilter<"BruteColors"> | string
+    accentShade?: StringWithAggregatesFilter<"BruteColors"> | string
   }
 
   export type BruteWhereInput = {
-    AND?: Enumerable<BruteWhereInput>
-    OR?: Enumerable<BruteWhereInput>
-    NOT?: Enumerable<BruteWhereInput>
-    id?: IntFilter | number
-    name?: StringFilter | string
-    deletedAt?: DateTimeNullableFilter | Date | string | null
-    createdAt?: DateTimeFilter | Date | string
-    destinyPath?: EnumDestinyChoiceSideNullableListFilter
-    level?: IntFilter | number
-    xp?: IntFilter | number
-    hp?: IntFilter | number
-    enduranceStat?: IntFilter | number
-    enduranceModifier?: FloatFilter | number
-    enduranceValue?: IntFilter | number
-    strengthStat?: IntFilter | number
-    strengthModifier?: FloatFilter | number
-    strengthValue?: IntFilter | number
-    agilityStat?: IntFilter | number
-    agilityModifier?: FloatFilter | number
-    agilityValue?: IntFilter | number
-    speedStat?: IntFilter | number
-    speedModifier?: FloatFilter | number
-    speedValue?: IntFilter | number
-    ranking?: IntFilter | number
-    gender?: EnumGenderFilter | Gender
-    userId?: UuidNullableFilter | string | null
-    weapons?: EnumWeaponNameNullableListFilter
-    skills?: EnumSkillNameNullableListFilter
-    pets?: EnumPetNameNullableListFilter
-    masterId?: IntNullableFilter | number | null
-    pupilsCount?: IntFilter | number
-    clanId?: IntNullableFilter | number | null
-    registeredForTournament?: BoolFilter | boolean
-    nextTournamentDate?: DateTimeNullableFilter | Date | string | null
-    currentTournamentDate?: DateTimeNullableFilter | Date | string | null
-    currentTournamentStepWatched?: IntNullableFilter | number | null
-    lastFight?: DateTimeNullableFilter | Date | string | null
-    fightsLeft?: IntFilter | number
-    victories?: IntFilter | number
-    opponentsGeneratedAt?: DateTimeNullableFilter | Date | string | null
-    canRankUpSince?: DateTimeNullableFilter | Date | string | null
-    user?: XOR<UserRelationFilter, UserWhereInput> | null
-    body?: XOR<BruteBodyRelationFilter, BruteBodyWhereInput> | null
-    colors?: XOR<BruteColorsRelationFilter, BruteColorsWhereInput> | null
-    master?: XOR<BruteRelationFilter, BruteWhereInput> | null
+    AND?: BruteWhereInput | BruteWhereInput[]
+    OR?: BruteWhereInput[]
+    NOT?: BruteWhereInput | BruteWhereInput[]
+    id?: IntFilter<"Brute"> | number
+    name?: StringFilter<"Brute"> | string
+    deletedAt?: DateTimeNullableFilter<"Brute"> | Date | string | null
+    createdAt?: DateTimeFilter<"Brute"> | Date | string
+    destinyPath?: EnumDestinyChoiceSideNullableListFilter<"Brute">
+    level?: IntFilter<"Brute"> | number
+    xp?: IntFilter<"Brute"> | number
+    hp?: IntFilter<"Brute"> | number
+    enduranceStat?: IntFilter<"Brute"> | number
+    enduranceModifier?: FloatFilter<"Brute"> | number
+    enduranceValue?: IntFilter<"Brute"> | number
+    strengthStat?: IntFilter<"Brute"> | number
+    strengthModifier?: FloatFilter<"Brute"> | number
+    strengthValue?: IntFilter<"Brute"> | number
+    agilityStat?: IntFilter<"Brute"> | number
+    agilityModifier?: FloatFilter<"Brute"> | number
+    agilityValue?: IntFilter<"Brute"> | number
+    speedStat?: IntFilter<"Brute"> | number
+    speedModifier?: FloatFilter<"Brute"> | number
+    speedValue?: IntFilter<"Brute"> | number
+    ranking?: IntFilter<"Brute"> | number
+    gender?: EnumGenderFilter<"Brute"> | Gender
+    userId?: UuidNullableFilter<"Brute"> | string | null
+    weapons?: EnumWeaponNameNullableListFilter<"Brute">
+    skills?: EnumSkillNameNullableListFilter<"Brute">
+    pets?: EnumPetNameNullableListFilter<"Brute">
+    masterId?: IntNullableFilter<"Brute"> | number | null
+    pupilsCount?: IntFilter<"Brute"> | number
+    clanId?: IntNullableFilter<"Brute"> | number | null
+    registeredForTournament?: BoolFilter<"Brute"> | boolean
+    nextTournamentDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
+    currentTournamentDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
+    currentTournamentStepWatched?: IntNullableFilter<"Brute"> | number | null
+    lastFight?: DateTimeNullableFilter<"Brute"> | Date | string | null
+    fightsLeft?: IntFilter<"Brute"> | number
+    victories?: IntFilter<"Brute"> | number
+    opponentsGeneratedAt?: DateTimeNullableFilter<"Brute"> | Date | string | null
+    canRankUpSince?: DateTimeNullableFilter<"Brute"> | Date | string | null
+    user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+    body?: XOR<BruteBodyNullableRelationFilter, BruteBodyWhereInput> | null
+    colors?: XOR<BruteColorsNullableRelationFilter, BruteColorsWhereInput> | null
+    master?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
     pupils?: BruteListRelationFilter
-    clan?: XOR<ClanRelationFilter, ClanWhereInput> | null
+    clan?: XOR<ClanNullableRelationFilter, ClanWhereInput> | null
     fights?: FightListRelationFilter
     fightsAsAdversary?: FightListRelationFilter
     logs?: LogListRelationFilter
     destinyChoices?: DestinyChoiceListRelationFilter
-    spritesheet?: XOR<BruteSpritesheetRelationFilter, BruteSpritesheetWhereInput> | null
+    spritesheet?: XOR<BruteSpritesheetNullableRelationFilter, BruteSpritesheetWhereInput> | null
     tournaments?: TournamentListRelationFilter
     opponents?: BruteListRelationFilter
     opponentOf?: BruteListRelationFilter
@@ -16047,7 +17440,7 @@ export namespace Prisma {
   export type BruteOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    deletedAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     destinyPath?: SortOrder
     level?: SortOrder
@@ -16067,22 +17460,22 @@ export namespace Prisma {
     speedValue?: SortOrder
     ranking?: SortOrder
     gender?: SortOrder
-    userId?: SortOrder
+    userId?: SortOrderInput | SortOrder
     weapons?: SortOrder
     skills?: SortOrder
     pets?: SortOrder
-    masterId?: SortOrder
+    masterId?: SortOrderInput | SortOrder
     pupilsCount?: SortOrder
-    clanId?: SortOrder
+    clanId?: SortOrderInput | SortOrder
     registeredForTournament?: SortOrder
-    nextTournamentDate?: SortOrder
-    currentTournamentDate?: SortOrder
-    currentTournamentStepWatched?: SortOrder
-    lastFight?: SortOrder
+    nextTournamentDate?: SortOrderInput | SortOrder
+    currentTournamentDate?: SortOrderInput | SortOrder
+    currentTournamentStepWatched?: SortOrderInput | SortOrder
+    lastFight?: SortOrderInput | SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
-    opponentsGeneratedAt?: SortOrder
-    canRankUpSince?: SortOrder
+    opponentsGeneratedAt?: SortOrderInput | SortOrder
+    canRankUpSince?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
     body?: BruteBodyOrderByWithRelationInput
     colors?: BruteColorsOrderByWithRelationInput
@@ -16101,14 +17494,70 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningOrderByRelationAggregateInput
   }
 
-  export type BruteWhereUniqueInput = {
+  export type BruteWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-  }
+    AND?: BruteWhereInput | BruteWhereInput[]
+    OR?: BruteWhereInput[]
+    NOT?: BruteWhereInput | BruteWhereInput[]
+    name?: StringFilter<"Brute"> | string
+    deletedAt?: DateTimeNullableFilter<"Brute"> | Date | string | null
+    createdAt?: DateTimeFilter<"Brute"> | Date | string
+    destinyPath?: EnumDestinyChoiceSideNullableListFilter<"Brute">
+    level?: IntFilter<"Brute"> | number
+    xp?: IntFilter<"Brute"> | number
+    hp?: IntFilter<"Brute"> | number
+    enduranceStat?: IntFilter<"Brute"> | number
+    enduranceModifier?: FloatFilter<"Brute"> | number
+    enduranceValue?: IntFilter<"Brute"> | number
+    strengthStat?: IntFilter<"Brute"> | number
+    strengthModifier?: FloatFilter<"Brute"> | number
+    strengthValue?: IntFilter<"Brute"> | number
+    agilityStat?: IntFilter<"Brute"> | number
+    agilityModifier?: FloatFilter<"Brute"> | number
+    agilityValue?: IntFilter<"Brute"> | number
+    speedStat?: IntFilter<"Brute"> | number
+    speedModifier?: FloatFilter<"Brute"> | number
+    speedValue?: IntFilter<"Brute"> | number
+    ranking?: IntFilter<"Brute"> | number
+    gender?: EnumGenderFilter<"Brute"> | Gender
+    userId?: UuidNullableFilter<"Brute"> | string | null
+    weapons?: EnumWeaponNameNullableListFilter<"Brute">
+    skills?: EnumSkillNameNullableListFilter<"Brute">
+    pets?: EnumPetNameNullableListFilter<"Brute">
+    masterId?: IntNullableFilter<"Brute"> | number | null
+    pupilsCount?: IntFilter<"Brute"> | number
+    clanId?: IntNullableFilter<"Brute"> | number | null
+    registeredForTournament?: BoolFilter<"Brute"> | boolean
+    nextTournamentDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
+    currentTournamentDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
+    currentTournamentStepWatched?: IntNullableFilter<"Brute"> | number | null
+    lastFight?: DateTimeNullableFilter<"Brute"> | Date | string | null
+    fightsLeft?: IntFilter<"Brute"> | number
+    victories?: IntFilter<"Brute"> | number
+    opponentsGeneratedAt?: DateTimeNullableFilter<"Brute"> | Date | string | null
+    canRankUpSince?: DateTimeNullableFilter<"Brute"> | Date | string | null
+    user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+    body?: XOR<BruteBodyNullableRelationFilter, BruteBodyWhereInput> | null
+    colors?: XOR<BruteColorsNullableRelationFilter, BruteColorsWhereInput> | null
+    master?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
+    pupils?: BruteListRelationFilter
+    clan?: XOR<ClanNullableRelationFilter, ClanWhereInput> | null
+    fights?: FightListRelationFilter
+    fightsAsAdversary?: FightListRelationFilter
+    logs?: LogListRelationFilter
+    destinyChoices?: DestinyChoiceListRelationFilter
+    spritesheet?: XOR<BruteSpritesheetNullableRelationFilter, BruteSpritesheetWhereInput> | null
+    tournaments?: TournamentListRelationFilter
+    opponents?: BruteListRelationFilter
+    opponentOf?: BruteListRelationFilter
+    achievements?: AchievementListRelationFilter
+    tournamentEarnings?: TournamentEarningListRelationFilter
+  }, "id">
 
   export type BruteOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    deletedAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     destinyPath?: SortOrder
     level?: SortOrder
@@ -16128,22 +17577,22 @@ export namespace Prisma {
     speedValue?: SortOrder
     ranking?: SortOrder
     gender?: SortOrder
-    userId?: SortOrder
+    userId?: SortOrderInput | SortOrder
     weapons?: SortOrder
     skills?: SortOrder
     pets?: SortOrder
-    masterId?: SortOrder
+    masterId?: SortOrderInput | SortOrder
     pupilsCount?: SortOrder
-    clanId?: SortOrder
+    clanId?: SortOrderInput | SortOrder
     registeredForTournament?: SortOrder
-    nextTournamentDate?: SortOrder
-    currentTournamentDate?: SortOrder
-    currentTournamentStepWatched?: SortOrder
-    lastFight?: SortOrder
+    nextTournamentDate?: SortOrderInput | SortOrder
+    currentTournamentDate?: SortOrderInput | SortOrder
+    currentTournamentStepWatched?: SortOrderInput | SortOrder
+    lastFight?: SortOrderInput | SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
-    opponentsGeneratedAt?: SortOrder
-    canRankUpSince?: SortOrder
+    opponentsGeneratedAt?: SortOrderInput | SortOrder
+    canRankUpSince?: SortOrderInput | SortOrder
     _count?: BruteCountOrderByAggregateInput
     _avg?: BruteAvgOrderByAggregateInput
     _max?: BruteMaxOrderByAggregateInput
@@ -16152,78 +17601,84 @@ export namespace Prisma {
   }
 
   export type BruteScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<BruteScalarWhereWithAggregatesInput>
-    OR?: Enumerable<BruteScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<BruteScalarWhereWithAggregatesInput>
-    id?: IntWithAggregatesFilter | number
-    name?: StringWithAggregatesFilter | string
-    deletedAt?: DateTimeNullableWithAggregatesFilter | Date | string | null
-    createdAt?: DateTimeWithAggregatesFilter | Date | string
-    destinyPath?: EnumDestinyChoiceSideNullableListFilter
-    level?: IntWithAggregatesFilter | number
-    xp?: IntWithAggregatesFilter | number
-    hp?: IntWithAggregatesFilter | number
-    enduranceStat?: IntWithAggregatesFilter | number
-    enduranceModifier?: FloatWithAggregatesFilter | number
-    enduranceValue?: IntWithAggregatesFilter | number
-    strengthStat?: IntWithAggregatesFilter | number
-    strengthModifier?: FloatWithAggregatesFilter | number
-    strengthValue?: IntWithAggregatesFilter | number
-    agilityStat?: IntWithAggregatesFilter | number
-    agilityModifier?: FloatWithAggregatesFilter | number
-    agilityValue?: IntWithAggregatesFilter | number
-    speedStat?: IntWithAggregatesFilter | number
-    speedModifier?: FloatWithAggregatesFilter | number
-    speedValue?: IntWithAggregatesFilter | number
-    ranking?: IntWithAggregatesFilter | number
-    gender?: EnumGenderWithAggregatesFilter | Gender
-    userId?: UuidNullableWithAggregatesFilter | string | null
-    weapons?: EnumWeaponNameNullableListFilter
-    skills?: EnumSkillNameNullableListFilter
-    pets?: EnumPetNameNullableListFilter
-    masterId?: IntNullableWithAggregatesFilter | number | null
-    pupilsCount?: IntWithAggregatesFilter | number
-    clanId?: IntNullableWithAggregatesFilter | number | null
-    registeredForTournament?: BoolWithAggregatesFilter | boolean
-    nextTournamentDate?: DateTimeNullableWithAggregatesFilter | Date | string | null
-    currentTournamentDate?: DateTimeNullableWithAggregatesFilter | Date | string | null
-    currentTournamentStepWatched?: IntNullableWithAggregatesFilter | number | null
-    lastFight?: DateTimeNullableWithAggregatesFilter | Date | string | null
-    fightsLeft?: IntWithAggregatesFilter | number
-    victories?: IntWithAggregatesFilter | number
-    opponentsGeneratedAt?: DateTimeNullableWithAggregatesFilter | Date | string | null
-    canRankUpSince?: DateTimeNullableWithAggregatesFilter | Date | string | null
+    AND?: BruteScalarWhereWithAggregatesInput | BruteScalarWhereWithAggregatesInput[]
+    OR?: BruteScalarWhereWithAggregatesInput[]
+    NOT?: BruteScalarWhereWithAggregatesInput | BruteScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Brute"> | number
+    name?: StringWithAggregatesFilter<"Brute"> | string
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Brute"> | Date | string
+    destinyPath?: EnumDestinyChoiceSideNullableListFilter<"Brute">
+    level?: IntWithAggregatesFilter<"Brute"> | number
+    xp?: IntWithAggregatesFilter<"Brute"> | number
+    hp?: IntWithAggregatesFilter<"Brute"> | number
+    enduranceStat?: IntWithAggregatesFilter<"Brute"> | number
+    enduranceModifier?: FloatWithAggregatesFilter<"Brute"> | number
+    enduranceValue?: IntWithAggregatesFilter<"Brute"> | number
+    strengthStat?: IntWithAggregatesFilter<"Brute"> | number
+    strengthModifier?: FloatWithAggregatesFilter<"Brute"> | number
+    strengthValue?: IntWithAggregatesFilter<"Brute"> | number
+    agilityStat?: IntWithAggregatesFilter<"Brute"> | number
+    agilityModifier?: FloatWithAggregatesFilter<"Brute"> | number
+    agilityValue?: IntWithAggregatesFilter<"Brute"> | number
+    speedStat?: IntWithAggregatesFilter<"Brute"> | number
+    speedModifier?: FloatWithAggregatesFilter<"Brute"> | number
+    speedValue?: IntWithAggregatesFilter<"Brute"> | number
+    ranking?: IntWithAggregatesFilter<"Brute"> | number
+    gender?: EnumGenderWithAggregatesFilter<"Brute"> | Gender
+    userId?: UuidNullableWithAggregatesFilter<"Brute"> | string | null
+    weapons?: EnumWeaponNameNullableListFilter<"Brute">
+    skills?: EnumSkillNameNullableListFilter<"Brute">
+    pets?: EnumPetNameNullableListFilter<"Brute">
+    masterId?: IntNullableWithAggregatesFilter<"Brute"> | number | null
+    pupilsCount?: IntWithAggregatesFilter<"Brute"> | number
+    clanId?: IntNullableWithAggregatesFilter<"Brute"> | number | null
+    registeredForTournament?: BoolWithAggregatesFilter<"Brute"> | boolean
+    nextTournamentDate?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
+    currentTournamentDate?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
+    currentTournamentStepWatched?: IntNullableWithAggregatesFilter<"Brute"> | number | null
+    lastFight?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
+    fightsLeft?: IntWithAggregatesFilter<"Brute"> | number
+    victories?: IntWithAggregatesFilter<"Brute"> | number
+    opponentsGeneratedAt?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
+    canRankUpSince?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
   }
 
   export type BruteSpritesheetWhereInput = {
-    AND?: Enumerable<BruteSpritesheetWhereInput>
-    OR?: Enumerable<BruteSpritesheetWhereInput>
-    NOT?: Enumerable<BruteSpritesheetWhereInput>
-    id?: IntFilter | number
-    bruteId?: IntFilter | number
-    image?: BytesNullableFilter | Buffer | null
-    json?: JsonNullableFilter
+    AND?: BruteSpritesheetWhereInput | BruteSpritesheetWhereInput[]
+    OR?: BruteSpritesheetWhereInput[]
+    NOT?: BruteSpritesheetWhereInput | BruteSpritesheetWhereInput[]
+    id?: IntFilter<"BruteSpritesheet"> | number
+    bruteId?: IntFilter<"BruteSpritesheet"> | number
+    image?: BytesNullableFilter<"BruteSpritesheet"> | Buffer | null
+    json?: JsonNullableFilter<"BruteSpritesheet">
     brute?: XOR<BruteRelationFilter, BruteWhereInput>
   }
 
   export type BruteSpritesheetOrderByWithRelationInput = {
     id?: SortOrder
     bruteId?: SortOrder
-    image?: SortOrder
-    json?: SortOrder
+    image?: SortOrderInput | SortOrder
+    json?: SortOrderInput | SortOrder
     brute?: BruteOrderByWithRelationInput
   }
 
-  export type BruteSpritesheetWhereUniqueInput = {
+  export type BruteSpritesheetWhereUniqueInput = Prisma.AtLeast<{
     id?: number
     bruteId?: number
-  }
+    AND?: BruteSpritesheetWhereInput | BruteSpritesheetWhereInput[]
+    OR?: BruteSpritesheetWhereInput[]
+    NOT?: BruteSpritesheetWhereInput | BruteSpritesheetWhereInput[]
+    image?: BytesNullableFilter<"BruteSpritesheet"> | Buffer | null
+    json?: JsonNullableFilter<"BruteSpritesheet">
+    brute?: XOR<BruteRelationFilter, BruteWhereInput>
+  }, "id" | "bruteId">
 
   export type BruteSpritesheetOrderByWithAggregationInput = {
     id?: SortOrder
     bruteId?: SortOrder
-    image?: SortOrder
-    json?: SortOrder
+    image?: SortOrderInput | SortOrder
+    json?: SortOrderInput | SortOrder
     _count?: BruteSpritesheetCountOrderByAggregateInput
     _avg?: BruteSpritesheetAvgOrderByAggregateInput
     _max?: BruteSpritesheetMaxOrderByAggregateInput
@@ -16232,21 +17687,21 @@ export namespace Prisma {
   }
 
   export type BruteSpritesheetScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<BruteSpritesheetScalarWhereWithAggregatesInput>
-    OR?: Enumerable<BruteSpritesheetScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<BruteSpritesheetScalarWhereWithAggregatesInput>
-    id?: IntWithAggregatesFilter | number
-    bruteId?: IntWithAggregatesFilter | number
-    image?: BytesNullableWithAggregatesFilter | Buffer | null
-    json?: JsonNullableWithAggregatesFilter
+    AND?: BruteSpritesheetScalarWhereWithAggregatesInput | BruteSpritesheetScalarWhereWithAggregatesInput[]
+    OR?: BruteSpritesheetScalarWhereWithAggregatesInput[]
+    NOT?: BruteSpritesheetScalarWhereWithAggregatesInput | BruteSpritesheetScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
+    bruteId?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
+    image?: BytesNullableWithAggregatesFilter<"BruteSpritesheet"> | Buffer | null
+    json?: JsonNullableWithAggregatesFilter<"BruteSpritesheet">
   }
 
   export type ClanWhereInput = {
-    AND?: Enumerable<ClanWhereInput>
-    OR?: Enumerable<ClanWhereInput>
-    NOT?: Enumerable<ClanWhereInput>
-    id?: IntFilter | number
-    name?: StringFilter | string
+    AND?: ClanWhereInput | ClanWhereInput[]
+    OR?: ClanWhereInput[]
+    NOT?: ClanWhereInput | ClanWhereInput[]
+    id?: IntFilter<"Clan"> | number
+    name?: StringFilter<"Clan"> | string
     brutes?: BruteListRelationFilter
   }
 
@@ -16256,10 +17711,14 @@ export namespace Prisma {
     brutes?: BruteOrderByRelationAggregateInput
   }
 
-  export type ClanWhereUniqueInput = {
+  export type ClanWhereUniqueInput = Prisma.AtLeast<{
     id?: number
     name?: string
-  }
+    AND?: ClanWhereInput | ClanWhereInput[]
+    OR?: ClanWhereInput[]
+    NOT?: ClanWhereInput | ClanWhereInput[]
+    brutes?: BruteListRelationFilter
+  }, "id" | "name">
 
   export type ClanOrderByWithAggregationInput = {
     id?: SortOrder
@@ -16272,25 +17731,25 @@ export namespace Prisma {
   }
 
   export type ClanScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<ClanScalarWhereWithAggregatesInput>
-    OR?: Enumerable<ClanScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<ClanScalarWhereWithAggregatesInput>
-    id?: IntWithAggregatesFilter | number
-    name?: StringWithAggregatesFilter | string
+    AND?: ClanScalarWhereWithAggregatesInput | ClanScalarWhereWithAggregatesInput[]
+    OR?: ClanScalarWhereWithAggregatesInput[]
+    NOT?: ClanScalarWhereWithAggregatesInput | ClanScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Clan"> | number
+    name?: StringWithAggregatesFilter<"Clan"> | string
   }
 
   export type FightWhereInput = {
-    AND?: Enumerable<FightWhereInput>
-    OR?: Enumerable<FightWhereInput>
-    NOT?: Enumerable<FightWhereInput>
-    id?: IntFilter | number
-    date?: DateTimeFilter | Date | string
-    brute1Id?: IntFilter | number
-    brute2Id?: IntFilter | number
-    winner?: StringFilter | string
-    loser?: StringFilter | string
-    steps?: JsonFilter
-    fighters?: JsonFilter
+    AND?: FightWhereInput | FightWhereInput[]
+    OR?: FightWhereInput[]
+    NOT?: FightWhereInput | FightWhereInput[]
+    id?: IntFilter<"Fight"> | number
+    date?: DateTimeFilter<"Fight"> | Date | string
+    brute1Id?: IntFilter<"Fight"> | number
+    brute2Id?: IntFilter<"Fight"> | number
+    winner?: StringFilter<"Fight"> | string
+    loser?: StringFilter<"Fight"> | string
+    steps?: JsonFilter<"Fight">
+    fighters?: JsonFilter<"Fight">
     brute1?: XOR<BruteRelationFilter, BruteWhereInput>
     brute2?: XOR<BruteRelationFilter, BruteWhereInput>
     logs?: LogListRelationFilter
@@ -16312,9 +17771,23 @@ export namespace Prisma {
     TournamentStep?: TournamentStepOrderByRelationAggregateInput
   }
 
-  export type FightWhereUniqueInput = {
+  export type FightWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-  }
+    AND?: FightWhereInput | FightWhereInput[]
+    OR?: FightWhereInput[]
+    NOT?: FightWhereInput | FightWhereInput[]
+    date?: DateTimeFilter<"Fight"> | Date | string
+    brute1Id?: IntFilter<"Fight"> | number
+    brute2Id?: IntFilter<"Fight"> | number
+    winner?: StringFilter<"Fight"> | string
+    loser?: StringFilter<"Fight"> | string
+    steps?: JsonFilter<"Fight">
+    fighters?: JsonFilter<"Fight">
+    brute1?: XOR<BruteRelationFilter, BruteWhereInput>
+    brute2?: XOR<BruteRelationFilter, BruteWhereInput>
+    logs?: LogListRelationFilter
+    TournamentStep?: TournamentStepListRelationFilter
+  }, "id">
 
   export type FightOrderByWithAggregationInput = {
     id?: SortOrder
@@ -16333,33 +17806,33 @@ export namespace Prisma {
   }
 
   export type FightScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<FightScalarWhereWithAggregatesInput>
-    OR?: Enumerable<FightScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<FightScalarWhereWithAggregatesInput>
-    id?: IntWithAggregatesFilter | number
-    date?: DateTimeWithAggregatesFilter | Date | string
-    brute1Id?: IntWithAggregatesFilter | number
-    brute2Id?: IntWithAggregatesFilter | number
-    winner?: StringWithAggregatesFilter | string
-    loser?: StringWithAggregatesFilter | string
-    steps?: JsonWithAggregatesFilter
-    fighters?: JsonWithAggregatesFilter
+    AND?: FightScalarWhereWithAggregatesInput | FightScalarWhereWithAggregatesInput[]
+    OR?: FightScalarWhereWithAggregatesInput[]
+    NOT?: FightScalarWhereWithAggregatesInput | FightScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Fight"> | number
+    date?: DateTimeWithAggregatesFilter<"Fight"> | Date | string
+    brute1Id?: IntWithAggregatesFilter<"Fight"> | number
+    brute2Id?: IntWithAggregatesFilter<"Fight"> | number
+    winner?: StringWithAggregatesFilter<"Fight"> | string
+    loser?: StringWithAggregatesFilter<"Fight"> | string
+    steps?: JsonWithAggregatesFilter<"Fight">
+    fighters?: JsonWithAggregatesFilter<"Fight">
   }
 
   export type LogWhereInput = {
-    AND?: Enumerable<LogWhereInput>
-    OR?: Enumerable<LogWhereInput>
-    NOT?: Enumerable<LogWhereInput>
-    id?: IntFilter | number
-    date?: DateTimeFilter | Date | string
-    currentBruteId?: IntFilter | number
-    type?: EnumLogTypeFilter | LogType
-    level?: IntNullableFilter | number | null
-    brute?: StringNullableFilter | string | null
-    fightId?: IntNullableFilter | number | null
-    xp?: IntNullableFilter | number | null
+    AND?: LogWhereInput | LogWhereInput[]
+    OR?: LogWhereInput[]
+    NOT?: LogWhereInput | LogWhereInput[]
+    id?: IntFilter<"Log"> | number
+    date?: DateTimeFilter<"Log"> | Date | string
+    currentBruteId?: IntFilter<"Log"> | number
+    type?: EnumLogTypeFilter<"Log"> | LogType
+    level?: IntNullableFilter<"Log"> | number | null
+    brute?: StringNullableFilter<"Log"> | string | null
+    fightId?: IntNullableFilter<"Log"> | number | null
+    xp?: IntNullableFilter<"Log"> | number | null
     currentBrute?: XOR<BruteRelationFilter, BruteWhereInput>
-    fight?: XOR<FightRelationFilter, FightWhereInput> | null
+    fight?: XOR<FightNullableRelationFilter, FightWhereInput> | null
   }
 
   export type LogOrderByWithRelationInput = {
@@ -16367,27 +17840,39 @@ export namespace Prisma {
     date?: SortOrder
     currentBruteId?: SortOrder
     type?: SortOrder
-    level?: SortOrder
-    brute?: SortOrder
-    fightId?: SortOrder
-    xp?: SortOrder
+    level?: SortOrderInput | SortOrder
+    brute?: SortOrderInput | SortOrder
+    fightId?: SortOrderInput | SortOrder
+    xp?: SortOrderInput | SortOrder
     currentBrute?: BruteOrderByWithRelationInput
     fight?: FightOrderByWithRelationInput
   }
 
-  export type LogWhereUniqueInput = {
+  export type LogWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-  }
+    AND?: LogWhereInput | LogWhereInput[]
+    OR?: LogWhereInput[]
+    NOT?: LogWhereInput | LogWhereInput[]
+    date?: DateTimeFilter<"Log"> | Date | string
+    currentBruteId?: IntFilter<"Log"> | number
+    type?: EnumLogTypeFilter<"Log"> | LogType
+    level?: IntNullableFilter<"Log"> | number | null
+    brute?: StringNullableFilter<"Log"> | string | null
+    fightId?: IntNullableFilter<"Log"> | number | null
+    xp?: IntNullableFilter<"Log"> | number | null
+    currentBrute?: XOR<BruteRelationFilter, BruteWhereInput>
+    fight?: XOR<FightNullableRelationFilter, FightWhereInput> | null
+  }, "id">
 
   export type LogOrderByWithAggregationInput = {
     id?: SortOrder
     date?: SortOrder
     currentBruteId?: SortOrder
     type?: SortOrder
-    level?: SortOrder
-    brute?: SortOrder
-    fightId?: SortOrder
-    xp?: SortOrder
+    level?: SortOrderInput | SortOrder
+    brute?: SortOrderInput | SortOrder
+    fightId?: SortOrderInput | SortOrder
+    xp?: SortOrderInput | SortOrder
     _count?: LogCountOrderByAggregateInput
     _avg?: LogAvgOrderByAggregateInput
     _max?: LogMaxOrderByAggregateInput
@@ -16396,34 +17881,34 @@ export namespace Prisma {
   }
 
   export type LogScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<LogScalarWhereWithAggregatesInput>
-    OR?: Enumerable<LogScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<LogScalarWhereWithAggregatesInput>
-    id?: IntWithAggregatesFilter | number
-    date?: DateTimeWithAggregatesFilter | Date | string
-    currentBruteId?: IntWithAggregatesFilter | number
-    type?: EnumLogTypeWithAggregatesFilter | LogType
-    level?: IntNullableWithAggregatesFilter | number | null
-    brute?: StringNullableWithAggregatesFilter | string | null
-    fightId?: IntNullableWithAggregatesFilter | number | null
-    xp?: IntNullableWithAggregatesFilter | number | null
+    AND?: LogScalarWhereWithAggregatesInput | LogScalarWhereWithAggregatesInput[]
+    OR?: LogScalarWhereWithAggregatesInput[]
+    NOT?: LogScalarWhereWithAggregatesInput | LogScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Log"> | number
+    date?: DateTimeWithAggregatesFilter<"Log"> | Date | string
+    currentBruteId?: IntWithAggregatesFilter<"Log"> | number
+    type?: EnumLogTypeWithAggregatesFilter<"Log"> | LogType
+    level?: IntNullableWithAggregatesFilter<"Log"> | number | null
+    brute?: StringNullableWithAggregatesFilter<"Log"> | string | null
+    fightId?: IntNullableWithAggregatesFilter<"Log"> | number | null
+    xp?: IntNullableWithAggregatesFilter<"Log"> | number | null
   }
 
   export type DestinyChoiceWhereInput = {
-    AND?: Enumerable<DestinyChoiceWhereInput>
-    OR?: Enumerable<DestinyChoiceWhereInput>
-    NOT?: Enumerable<DestinyChoiceWhereInput>
-    id?: IntFilter | number
-    bruteId?: IntFilter | number
-    path?: EnumDestinyChoiceSideNullableListFilter
-    type?: EnumDestinyChoiceTypeFilter | DestinyChoiceType
-    skill?: EnumSkillNameNullableFilter | SkillName | null
-    weapon?: EnumWeaponNameNullableFilter | WeaponName | null
-    pet?: EnumPetNameNullableFilter | PetName | null
-    stat1?: EnumBruteStatNullableFilter | BruteStat | null
-    stat1Value?: IntNullableFilter | number | null
-    stat2?: EnumBruteStatNullableFilter | BruteStat | null
-    stat2Value?: IntNullableFilter | number | null
+    AND?: DestinyChoiceWhereInput | DestinyChoiceWhereInput[]
+    OR?: DestinyChoiceWhereInput[]
+    NOT?: DestinyChoiceWhereInput | DestinyChoiceWhereInput[]
+    id?: IntFilter<"DestinyChoice"> | number
+    bruteId?: IntFilter<"DestinyChoice"> | number
+    path?: EnumDestinyChoiceSideNullableListFilter<"DestinyChoice">
+    type?: EnumDestinyChoiceTypeFilter<"DestinyChoice"> | DestinyChoiceType
+    skill?: EnumSkillNameNullableFilter<"DestinyChoice"> | SkillName | null
+    weapon?: EnumWeaponNameNullableFilter<"DestinyChoice"> | WeaponName | null
+    pet?: EnumPetNameNullableFilter<"DestinyChoice"> | PetName | null
+    stat1?: EnumBruteStatNullableFilter<"DestinyChoice"> | BruteStat | null
+    stat1Value?: IntNullableFilter<"DestinyChoice"> | number | null
+    stat2?: EnumBruteStatNullableFilter<"DestinyChoice"> | BruteStat | null
+    stat2Value?: IntNullableFilter<"DestinyChoice"> | number | null
     brute?: XOR<BruteRelationFilter, BruteWhereInput>
   }
 
@@ -16432,32 +17917,46 @@ export namespace Prisma {
     bruteId?: SortOrder
     path?: SortOrder
     type?: SortOrder
-    skill?: SortOrder
-    weapon?: SortOrder
-    pet?: SortOrder
-    stat1?: SortOrder
-    stat1Value?: SortOrder
-    stat2?: SortOrder
-    stat2Value?: SortOrder
+    skill?: SortOrderInput | SortOrder
+    weapon?: SortOrderInput | SortOrder
+    pet?: SortOrderInput | SortOrder
+    stat1?: SortOrderInput | SortOrder
+    stat1Value?: SortOrderInput | SortOrder
+    stat2?: SortOrderInput | SortOrder
+    stat2Value?: SortOrderInput | SortOrder
     brute?: BruteOrderByWithRelationInput
   }
 
-  export type DestinyChoiceWhereUniqueInput = {
+  export type DestinyChoiceWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-  }
+    AND?: DestinyChoiceWhereInput | DestinyChoiceWhereInput[]
+    OR?: DestinyChoiceWhereInput[]
+    NOT?: DestinyChoiceWhereInput | DestinyChoiceWhereInput[]
+    bruteId?: IntFilter<"DestinyChoice"> | number
+    path?: EnumDestinyChoiceSideNullableListFilter<"DestinyChoice">
+    type?: EnumDestinyChoiceTypeFilter<"DestinyChoice"> | DestinyChoiceType
+    skill?: EnumSkillNameNullableFilter<"DestinyChoice"> | SkillName | null
+    weapon?: EnumWeaponNameNullableFilter<"DestinyChoice"> | WeaponName | null
+    pet?: EnumPetNameNullableFilter<"DestinyChoice"> | PetName | null
+    stat1?: EnumBruteStatNullableFilter<"DestinyChoice"> | BruteStat | null
+    stat1Value?: IntNullableFilter<"DestinyChoice"> | number | null
+    stat2?: EnumBruteStatNullableFilter<"DestinyChoice"> | BruteStat | null
+    stat2Value?: IntNullableFilter<"DestinyChoice"> | number | null
+    brute?: XOR<BruteRelationFilter, BruteWhereInput>
+  }, "id">
 
   export type DestinyChoiceOrderByWithAggregationInput = {
     id?: SortOrder
     bruteId?: SortOrder
     path?: SortOrder
     type?: SortOrder
-    skill?: SortOrder
-    weapon?: SortOrder
-    pet?: SortOrder
-    stat1?: SortOrder
-    stat1Value?: SortOrder
-    stat2?: SortOrder
-    stat2Value?: SortOrder
+    skill?: SortOrderInput | SortOrder
+    weapon?: SortOrderInput | SortOrder
+    pet?: SortOrderInput | SortOrder
+    stat1?: SortOrderInput | SortOrder
+    stat1Value?: SortOrderInput | SortOrder
+    stat2?: SortOrderInput | SortOrder
+    stat2Value?: SortOrderInput | SortOrder
     _count?: DestinyChoiceCountOrderByAggregateInput
     _avg?: DestinyChoiceAvgOrderByAggregateInput
     _max?: DestinyChoiceMaxOrderByAggregateInput
@@ -16466,29 +17965,29 @@ export namespace Prisma {
   }
 
   export type DestinyChoiceScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<DestinyChoiceScalarWhereWithAggregatesInput>
-    OR?: Enumerable<DestinyChoiceScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<DestinyChoiceScalarWhereWithAggregatesInput>
-    id?: IntWithAggregatesFilter | number
-    bruteId?: IntWithAggregatesFilter | number
-    path?: EnumDestinyChoiceSideNullableListFilter
-    type?: EnumDestinyChoiceTypeWithAggregatesFilter | DestinyChoiceType
-    skill?: EnumSkillNameNullableWithAggregatesFilter | SkillName | null
-    weapon?: EnumWeaponNameNullableWithAggregatesFilter | WeaponName | null
-    pet?: EnumPetNameNullableWithAggregatesFilter | PetName | null
-    stat1?: EnumBruteStatNullableWithAggregatesFilter | BruteStat | null
-    stat1Value?: IntNullableWithAggregatesFilter | number | null
-    stat2?: EnumBruteStatNullableWithAggregatesFilter | BruteStat | null
-    stat2Value?: IntNullableWithAggregatesFilter | number | null
+    AND?: DestinyChoiceScalarWhereWithAggregatesInput | DestinyChoiceScalarWhereWithAggregatesInput[]
+    OR?: DestinyChoiceScalarWhereWithAggregatesInput[]
+    NOT?: DestinyChoiceScalarWhereWithAggregatesInput | DestinyChoiceScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"DestinyChoice"> | number
+    bruteId?: IntWithAggregatesFilter<"DestinyChoice"> | number
+    path?: EnumDestinyChoiceSideNullableListFilter<"DestinyChoice">
+    type?: EnumDestinyChoiceTypeWithAggregatesFilter<"DestinyChoice"> | DestinyChoiceType
+    skill?: EnumSkillNameNullableWithAggregatesFilter<"DestinyChoice"> | SkillName | null
+    weapon?: EnumWeaponNameNullableWithAggregatesFilter<"DestinyChoice"> | WeaponName | null
+    pet?: EnumPetNameNullableWithAggregatesFilter<"DestinyChoice"> | PetName | null
+    stat1?: EnumBruteStatNullableWithAggregatesFilter<"DestinyChoice"> | BruteStat | null
+    stat1Value?: IntNullableWithAggregatesFilter<"DestinyChoice"> | number | null
+    stat2?: EnumBruteStatNullableWithAggregatesFilter<"DestinyChoice"> | BruteStat | null
+    stat2Value?: IntNullableWithAggregatesFilter<"DestinyChoice"> | number | null
   }
 
   export type TournamentWhereInput = {
-    AND?: Enumerable<TournamentWhereInput>
-    OR?: Enumerable<TournamentWhereInput>
-    NOT?: Enumerable<TournamentWhereInput>
-    id?: IntFilter | number
-    date?: DateTimeFilter | Date | string
-    type?: EnumTournamentTypeFilter | TournamentType
+    AND?: TournamentWhereInput | TournamentWhereInput[]
+    OR?: TournamentWhereInput[]
+    NOT?: TournamentWhereInput | TournamentWhereInput[]
+    id?: IntFilter<"Tournament"> | number
+    date?: DateTimeFilter<"Tournament"> | Date | string
+    type?: EnumTournamentTypeFilter<"Tournament"> | TournamentType
     participants?: BruteListRelationFilter
     steps?: TournamentStepListRelationFilter
   }
@@ -16501,9 +18000,16 @@ export namespace Prisma {
     steps?: TournamentStepOrderByRelationAggregateInput
   }
 
-  export type TournamentWhereUniqueInput = {
+  export type TournamentWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-  }
+    AND?: TournamentWhereInput | TournamentWhereInput[]
+    OR?: TournamentWhereInput[]
+    NOT?: TournamentWhereInput | TournamentWhereInput[]
+    date?: DateTimeFilter<"Tournament"> | Date | string
+    type?: EnumTournamentTypeFilter<"Tournament"> | TournamentType
+    participants?: BruteListRelationFilter
+    steps?: TournamentStepListRelationFilter
+  }, "id">
 
   export type TournamentOrderByWithAggregationInput = {
     id?: SortOrder
@@ -16517,23 +18023,23 @@ export namespace Prisma {
   }
 
   export type TournamentScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<TournamentScalarWhereWithAggregatesInput>
-    OR?: Enumerable<TournamentScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<TournamentScalarWhereWithAggregatesInput>
-    id?: IntWithAggregatesFilter | number
-    date?: DateTimeWithAggregatesFilter | Date | string
-    type?: EnumTournamentTypeWithAggregatesFilter | TournamentType
+    AND?: TournamentScalarWhereWithAggregatesInput | TournamentScalarWhereWithAggregatesInput[]
+    OR?: TournamentScalarWhereWithAggregatesInput[]
+    NOT?: TournamentScalarWhereWithAggregatesInput | TournamentScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Tournament"> | number
+    date?: DateTimeWithAggregatesFilter<"Tournament"> | Date | string
+    type?: EnumTournamentTypeWithAggregatesFilter<"Tournament"> | TournamentType
   }
 
   export type TournamentStepWhereInput = {
-    AND?: Enumerable<TournamentStepWhereInput>
-    OR?: Enumerable<TournamentStepWhereInput>
-    NOT?: Enumerable<TournamentStepWhereInput>
-    id?: IntFilter | number
-    tournamentId?: IntFilter | number
-    step?: IntFilter | number
-    fightId?: IntFilter | number
-    xpDistributed?: BoolFilter | boolean
+    AND?: TournamentStepWhereInput | TournamentStepWhereInput[]
+    OR?: TournamentStepWhereInput[]
+    NOT?: TournamentStepWhereInput | TournamentStepWhereInput[]
+    id?: IntFilter<"TournamentStep"> | number
+    tournamentId?: IntFilter<"TournamentStep"> | number
+    step?: IntFilter<"TournamentStep"> | number
+    fightId?: IntFilter<"TournamentStep"> | number
+    xpDistributed?: BoolFilter<"TournamentStep"> | boolean
     tournament?: XOR<TournamentRelationFilter, TournamentWhereInput>
     fight?: XOR<FightRelationFilter, FightWhereInput>
   }
@@ -16548,9 +18054,18 @@ export namespace Prisma {
     fight?: FightOrderByWithRelationInput
   }
 
-  export type TournamentStepWhereUniqueInput = {
+  export type TournamentStepWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-  }
+    AND?: TournamentStepWhereInput | TournamentStepWhereInput[]
+    OR?: TournamentStepWhereInput[]
+    NOT?: TournamentStepWhereInput | TournamentStepWhereInput[]
+    tournamentId?: IntFilter<"TournamentStep"> | number
+    step?: IntFilter<"TournamentStep"> | number
+    fightId?: IntFilter<"TournamentStep"> | number
+    xpDistributed?: BoolFilter<"TournamentStep"> | boolean
+    tournament?: XOR<TournamentRelationFilter, TournamentWhereInput>
+    fight?: XOR<FightRelationFilter, FightWhereInput>
+  }, "id">
 
   export type TournamentStepOrderByWithAggregationInput = {
     id?: SortOrder
@@ -16566,26 +18081,26 @@ export namespace Prisma {
   }
 
   export type TournamentStepScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<TournamentStepScalarWhereWithAggregatesInput>
-    OR?: Enumerable<TournamentStepScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<TournamentStepScalarWhereWithAggregatesInput>
-    id?: IntWithAggregatesFilter | number
-    tournamentId?: IntWithAggregatesFilter | number
-    step?: IntWithAggregatesFilter | number
-    fightId?: IntWithAggregatesFilter | number
-    xpDistributed?: BoolWithAggregatesFilter | boolean
+    AND?: TournamentStepScalarWhereWithAggregatesInput | TournamentStepScalarWhereWithAggregatesInput[]
+    OR?: TournamentStepScalarWhereWithAggregatesInput[]
+    NOT?: TournamentStepScalarWhereWithAggregatesInput | TournamentStepScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"TournamentStep"> | number
+    tournamentId?: IntWithAggregatesFilter<"TournamentStep"> | number
+    step?: IntWithAggregatesFilter<"TournamentStep"> | number
+    fightId?: IntWithAggregatesFilter<"TournamentStep"> | number
+    xpDistributed?: BoolWithAggregatesFilter<"TournamentStep"> | boolean
   }
 
   export type TournamentEarningWhereInput = {
-    AND?: Enumerable<TournamentEarningWhereInput>
-    OR?: Enumerable<TournamentEarningWhereInput>
-    NOT?: Enumerable<TournamentEarningWhereInput>
-    id?: IntFilter | number
-    date?: DateTimeFilter | Date | string
-    bruteId?: IntFilter | number
-    points?: IntNullableFilter | number | null
-    achievement?: EnumAchievementNameNullableFilter | AchievementName | null
-    achievementCount?: IntNullableFilter | number | null
+    AND?: TournamentEarningWhereInput | TournamentEarningWhereInput[]
+    OR?: TournamentEarningWhereInput[]
+    NOT?: TournamentEarningWhereInput | TournamentEarningWhereInput[]
+    id?: IntFilter<"TournamentEarning"> | number
+    date?: DateTimeFilter<"TournamentEarning"> | Date | string
+    bruteId?: IntFilter<"TournamentEarning"> | number
+    points?: IntNullableFilter<"TournamentEarning"> | number | null
+    achievement?: EnumAchievementNameNullableFilter<"TournamentEarning"> | AchievementName | null
+    achievementCount?: IntNullableFilter<"TournamentEarning"> | number | null
     brute?: XOR<BruteRelationFilter, BruteWhereInput>
   }
 
@@ -16593,23 +18108,32 @@ export namespace Prisma {
     id?: SortOrder
     date?: SortOrder
     bruteId?: SortOrder
-    points?: SortOrder
-    achievement?: SortOrder
-    achievementCount?: SortOrder
+    points?: SortOrderInput | SortOrder
+    achievement?: SortOrderInput | SortOrder
+    achievementCount?: SortOrderInput | SortOrder
     brute?: BruteOrderByWithRelationInput
   }
 
-  export type TournamentEarningWhereUniqueInput = {
+  export type TournamentEarningWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-  }
+    AND?: TournamentEarningWhereInput | TournamentEarningWhereInput[]
+    OR?: TournamentEarningWhereInput[]
+    NOT?: TournamentEarningWhereInput | TournamentEarningWhereInput[]
+    date?: DateTimeFilter<"TournamentEarning"> | Date | string
+    bruteId?: IntFilter<"TournamentEarning"> | number
+    points?: IntNullableFilter<"TournamentEarning"> | number | null
+    achievement?: EnumAchievementNameNullableFilter<"TournamentEarning"> | AchievementName | null
+    achievementCount?: IntNullableFilter<"TournamentEarning"> | number | null
+    brute?: XOR<BruteRelationFilter, BruteWhereInput>
+  }, "id">
 
   export type TournamentEarningOrderByWithAggregationInput = {
     id?: SortOrder
     date?: SortOrder
     bruteId?: SortOrder
-    points?: SortOrder
-    achievement?: SortOrder
-    achievementCount?: SortOrder
+    points?: SortOrderInput | SortOrder
+    achievement?: SortOrderInput | SortOrder
+    achievementCount?: SortOrderInput | SortOrder
     _count?: TournamentEarningCountOrderByAggregateInput
     _avg?: TournamentEarningAvgOrderByAggregateInput
     _max?: TournamentEarningMaxOrderByAggregateInput
@@ -16618,50 +18142,59 @@ export namespace Prisma {
   }
 
   export type TournamentEarningScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<TournamentEarningScalarWhereWithAggregatesInput>
-    OR?: Enumerable<TournamentEarningScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<TournamentEarningScalarWhereWithAggregatesInput>
-    id?: IntWithAggregatesFilter | number
-    date?: DateTimeWithAggregatesFilter | Date | string
-    bruteId?: IntWithAggregatesFilter | number
-    points?: IntNullableWithAggregatesFilter | number | null
-    achievement?: EnumAchievementNameNullableWithAggregatesFilter | AchievementName | null
-    achievementCount?: IntNullableWithAggregatesFilter | number | null
+    AND?: TournamentEarningScalarWhereWithAggregatesInput | TournamentEarningScalarWhereWithAggregatesInput[]
+    OR?: TournamentEarningScalarWhereWithAggregatesInput[]
+    NOT?: TournamentEarningScalarWhereWithAggregatesInput | TournamentEarningScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"TournamentEarning"> | number
+    date?: DateTimeWithAggregatesFilter<"TournamentEarning"> | Date | string
+    bruteId?: IntWithAggregatesFilter<"TournamentEarning"> | number
+    points?: IntNullableWithAggregatesFilter<"TournamentEarning"> | number | null
+    achievement?: EnumAchievementNameNullableWithAggregatesFilter<"TournamentEarning"> | AchievementName | null
+    achievementCount?: IntNullableWithAggregatesFilter<"TournamentEarning"> | number | null
   }
 
   export type AchievementWhereInput = {
-    AND?: Enumerable<AchievementWhereInput>
-    OR?: Enumerable<AchievementWhereInput>
-    NOT?: Enumerable<AchievementWhereInput>
-    id?: IntFilter | number
-    name?: EnumAchievementNameFilter | AchievementName
-    count?: IntFilter | number
-    bruteId?: IntNullableFilter | number | null
-    userId?: UuidNullableFilter | string | null
-    brute?: XOR<BruteRelationFilter, BruteWhereInput> | null
-    user?: XOR<UserRelationFilter, UserWhereInput> | null
+    AND?: AchievementWhereInput | AchievementWhereInput[]
+    OR?: AchievementWhereInput[]
+    NOT?: AchievementWhereInput | AchievementWhereInput[]
+    id?: IntFilter<"Achievement"> | number
+    name?: EnumAchievementNameFilter<"Achievement"> | AchievementName
+    count?: IntFilter<"Achievement"> | number
+    bruteId?: IntNullableFilter<"Achievement"> | number | null
+    userId?: UuidNullableFilter<"Achievement"> | string | null
+    brute?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
+    user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
   }
 
   export type AchievementOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
     count?: SortOrder
-    bruteId?: SortOrder
-    userId?: SortOrder
+    bruteId?: SortOrderInput | SortOrder
+    userId?: SortOrderInput | SortOrder
     brute?: BruteOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
   }
 
-  export type AchievementWhereUniqueInput = {
+  export type AchievementWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-  }
+    AND?: AchievementWhereInput | AchievementWhereInput[]
+    OR?: AchievementWhereInput[]
+    NOT?: AchievementWhereInput | AchievementWhereInput[]
+    name?: EnumAchievementNameFilter<"Achievement"> | AchievementName
+    count?: IntFilter<"Achievement"> | number
+    bruteId?: IntNullableFilter<"Achievement"> | number | null
+    userId?: UuidNullableFilter<"Achievement"> | string | null
+    brute?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
+    user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+  }, "id">
 
   export type AchievementOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
     count?: SortOrder
-    bruteId?: SortOrder
-    userId?: SortOrder
+    bruteId?: SortOrderInput | SortOrder
+    userId?: SortOrderInput | SortOrder
     _count?: AchievementCountOrderByAggregateInput
     _avg?: AchievementAvgOrderByAggregateInput
     _max?: AchievementMaxOrderByAggregateInput
@@ -16670,14 +18203,14 @@ export namespace Prisma {
   }
 
   export type AchievementScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<AchievementScalarWhereWithAggregatesInput>
-    OR?: Enumerable<AchievementScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<AchievementScalarWhereWithAggregatesInput>
-    id?: IntWithAggregatesFilter | number
-    name?: EnumAchievementNameWithAggregatesFilter | AchievementName
-    count?: IntWithAggregatesFilter | number
-    bruteId?: IntNullableWithAggregatesFilter | number | null
-    userId?: UuidNullableWithAggregatesFilter | string | null
+    AND?: AchievementScalarWhereWithAggregatesInput | AchievementScalarWhereWithAggregatesInput[]
+    OR?: AchievementScalarWhereWithAggregatesInput[]
+    NOT?: AchievementScalarWhereWithAggregatesInput | AchievementScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Achievement"> | number
+    name?: EnumAchievementNameWithAggregatesFilter<"Achievement"> | AchievementName
+    count?: IntWithAggregatesFilter<"Achievement"> | number
+    bruteId?: IntNullableWithAggregatesFilter<"Achievement"> | number | null
+    userId?: UuidNullableWithAggregatesFilter<"Achievement"> | string | null
   }
 
   export type UserCreateInput = {
@@ -17041,7 +18574,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -17059,9 +18592,9 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: Gender
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -17095,7 +18628,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -17114,9 +18647,9 @@ export namespace Prisma {
     ranking?: number
     gender: Gender
     userId?: string | null
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     masterId?: number | null
     pupilsCount?: number
     clanId?: number | null
@@ -17148,7 +18681,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -17166,9 +18699,9 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -17202,7 +18735,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -17221,9 +18754,9 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     masterId?: NullableIntFieldUpdateOperationsInput | number | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -17256,7 +18789,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -17275,9 +18808,9 @@ export namespace Prisma {
     ranking?: number
     gender: Gender
     userId?: string | null
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     masterId?: number | null
     pupilsCount?: number
     clanId?: number | null
@@ -17296,7 +18829,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -17314,9 +18847,9 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -17334,7 +18867,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -17353,9 +18886,9 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     masterId?: NullableIntFieldUpdateOperationsInput | number | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -17604,7 +19137,7 @@ export namespace Prisma {
   }
 
   export type DestinyChoiceCreateInput = {
-    path?: DestinyChoiceCreatepathInput | Enumerable<DestinyChoiceSide>
+    path?: DestinyChoiceCreatepathInput | DestinyChoiceSide[]
     type: DestinyChoiceType
     skill?: SkillName | null
     weapon?: WeaponName | null
@@ -17619,7 +19152,7 @@ export namespace Prisma {
   export type DestinyChoiceUncheckedCreateInput = {
     id?: number
     bruteId: number
-    path?: DestinyChoiceCreatepathInput | Enumerable<DestinyChoiceSide>
+    path?: DestinyChoiceCreatepathInput | DestinyChoiceSide[]
     type: DestinyChoiceType
     skill?: SkillName | null
     weapon?: WeaponName | null
@@ -17631,7 +19164,7 @@ export namespace Prisma {
   }
 
   export type DestinyChoiceUpdateInput = {
-    path?: DestinyChoiceUpdatepathInput | Enumerable<DestinyChoiceSide>
+    path?: DestinyChoiceUpdatepathInput | DestinyChoiceSide[]
     type?: EnumDestinyChoiceTypeFieldUpdateOperationsInput | DestinyChoiceType
     skill?: NullableEnumSkillNameFieldUpdateOperationsInput | SkillName | null
     weapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | WeaponName | null
@@ -17646,7 +19179,7 @@ export namespace Prisma {
   export type DestinyChoiceUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     bruteId?: IntFieldUpdateOperationsInput | number
-    path?: DestinyChoiceUpdatepathInput | Enumerable<DestinyChoiceSide>
+    path?: DestinyChoiceUpdatepathInput | DestinyChoiceSide[]
     type?: EnumDestinyChoiceTypeFieldUpdateOperationsInput | DestinyChoiceType
     skill?: NullableEnumSkillNameFieldUpdateOperationsInput | SkillName | null
     weapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | WeaponName | null
@@ -17660,7 +19193,7 @@ export namespace Prisma {
   export type DestinyChoiceCreateManyInput = {
     id?: number
     bruteId: number
-    path?: DestinyChoiceCreatepathInput | Enumerable<DestinyChoiceSide>
+    path?: DestinyChoiceCreatepathInput | DestinyChoiceSide[]
     type: DestinyChoiceType
     skill?: SkillName | null
     weapon?: WeaponName | null
@@ -17672,7 +19205,7 @@ export namespace Prisma {
   }
 
   export type DestinyChoiceUpdateManyMutationInput = {
-    path?: DestinyChoiceUpdatepathInput | Enumerable<DestinyChoiceSide>
+    path?: DestinyChoiceUpdatepathInput | DestinyChoiceSide[]
     type?: EnumDestinyChoiceTypeFieldUpdateOperationsInput | DestinyChoiceType
     skill?: NullableEnumSkillNameFieldUpdateOperationsInput | SkillName | null
     weapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | WeaponName | null
@@ -17686,7 +19219,7 @@ export namespace Prisma {
   export type DestinyChoiceUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     bruteId?: IntFieldUpdateOperationsInput | number
-    path?: DestinyChoiceUpdatepathInput | Enumerable<DestinyChoiceSide>
+    path?: DestinyChoiceUpdatepathInput | DestinyChoiceSide[]
     type?: EnumDestinyChoiceTypeFieldUpdateOperationsInput | DestinyChoiceType
     skill?: NullableEnumSkillNameFieldUpdateOperationsInput | SkillName | null
     weapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | WeaponName | null
@@ -17905,54 +19438,54 @@ export namespace Prisma {
     userId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type UuidFilter = {
-    equals?: string
-    in?: Enumerable<string>
-    notIn?: Enumerable<string>
-    lt?: string
-    lte?: string
-    gt?: string
-    gte?: string
+  export type UuidFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
-    not?: NestedUuidFilter | string
+    not?: NestedUuidFilter<$PrismaModel> | string
   }
 
-  export type EnumLangFilter = {
-    equals?: Lang
-    in?: Enumerable<Lang>
-    notIn?: Enumerable<Lang>
-    not?: NestedEnumLangFilter | Lang
+  export type EnumLangFilter<$PrismaModel = never> = {
+    equals?: Lang | EnumLangFieldRefInput<$PrismaModel>
+    in?: Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
+    notIn?: Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
+    not?: NestedEnumLangFilter<$PrismaModel> | Lang
   }
 
-  export type StringFilter = {
-    equals?: string
-    in?: Enumerable<string>
-    notIn?: Enumerable<string>
-    lt?: string
-    lte?: string
-    gt?: string
-    gte?: string
-    contains?: string
-    startsWith?: string
-    endsWith?: string
+  export type StringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
-    not?: NestedStringFilter | string
+    not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type BoolFilter = {
-    equals?: boolean
-    not?: NestedBoolFilter | boolean
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
-  export type IntFilter = {
-    equals?: number
-    in?: Enumerable<number>
-    notIn?: Enumerable<number>
-    lt?: number
-    lte?: number
-    gt?: number
-    gte?: number
-    not?: NestedIntFilter | number
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type BruteListRelationFilter = {
@@ -18023,76 +19556,76 @@ export namespace Prisma {
     fightSpeed?: SortOrder
   }
 
-  export type UuidWithAggregatesFilter = {
-    equals?: string
-    in?: Enumerable<string>
-    notIn?: Enumerable<string>
-    lt?: string
-    lte?: string
-    gt?: string
-    gte?: string
+  export type UuidWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
-    not?: NestedUuidWithAggregatesFilter | string
-    _count?: NestedIntFilter
-    _min?: NestedStringFilter
-    _max?: NestedStringFilter
+    not?: NestedUuidWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type EnumLangWithAggregatesFilter = {
-    equals?: Lang
-    in?: Enumerable<Lang>
-    notIn?: Enumerable<Lang>
-    not?: NestedEnumLangWithAggregatesFilter | Lang
-    _count?: NestedIntFilter
-    _min?: NestedEnumLangFilter
-    _max?: NestedEnumLangFilter
+  export type EnumLangWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Lang | EnumLangFieldRefInput<$PrismaModel>
+    in?: Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
+    notIn?: Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
+    not?: NestedEnumLangWithAggregatesFilter<$PrismaModel> | Lang
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumLangFilter<$PrismaModel>
+    _max?: NestedEnumLangFilter<$PrismaModel>
   }
 
-  export type StringWithAggregatesFilter = {
-    equals?: string
-    in?: Enumerable<string>
-    notIn?: Enumerable<string>
-    lt?: string
-    lte?: string
-    gt?: string
-    gte?: string
-    contains?: string
-    startsWith?: string
-    endsWith?: string
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
-    not?: NestedStringWithAggregatesFilter | string
-    _count?: NestedIntFilter
-    _min?: NestedStringFilter
-    _max?: NestedStringFilter
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type BoolWithAggregatesFilter = {
-    equals?: boolean
-    not?: NestedBoolWithAggregatesFilter | boolean
-    _count?: NestedIntFilter
-    _min?: NestedBoolFilter
-    _max?: NestedBoolFilter
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
-  export type IntWithAggregatesFilter = {
-    equals?: number
-    in?: Enumerable<number>
-    notIn?: Enumerable<number>
-    lt?: number
-    lte?: number
-    gt?: number
-    gte?: number
-    not?: NestedIntWithAggregatesFilter | number
-    _count?: NestedIntFilter
-    _avg?: NestedFloatFilter
-    _sum?: NestedIntFilter
-    _min?: NestedIntFilter
-    _max?: NestedIntFilter
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type BruteRelationFilter = {
-    is?: BruteWhereInput | null
-    isNot?: BruteWhereInput | null
+    is?: BruteWhereInput
+    isNot?: BruteWhereInput
   }
 
   export type BruteBodyCountOrderByAggregateInput = {
@@ -18270,117 +19803,122 @@ export namespace Prisma {
     bruteId?: SortOrder
   }
 
-  export type DateTimeNullableFilter = {
-    equals?: Date | string | null
-    in?: Enumerable<Date> | Enumerable<string> | null
-    notIn?: Enumerable<Date> | Enumerable<string> | null
-    lt?: Date | string
-    lte?: Date | string
-    gt?: Date | string
-    gte?: Date | string
-    not?: NestedDateTimeNullableFilter | Date | string | null
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
-  export type DateTimeFilter = {
-    equals?: Date | string
-    in?: Enumerable<Date> | Enumerable<string>
-    notIn?: Enumerable<Date> | Enumerable<string>
-    lt?: Date | string
-    lte?: Date | string
-    gt?: Date | string
-    gte?: Date | string
-    not?: NestedDateTimeFilter | Date | string
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type EnumDestinyChoiceSideNullableListFilter = {
-    equals?: Enumerable<DestinyChoiceSide> | null
-    has?: DestinyChoiceSide | null
-    hasEvery?: Enumerable<DestinyChoiceSide>
-    hasSome?: Enumerable<DestinyChoiceSide>
+  export type EnumDestinyChoiceSideNullableListFilter<$PrismaModel = never> = {
+    equals?: DestinyChoiceSide[] | ListEnumDestinyChoiceSideFieldRefInput<$PrismaModel> | null
+    has?: DestinyChoiceSide | EnumDestinyChoiceSideFieldRefInput<$PrismaModel> | null
+    hasEvery?: DestinyChoiceSide[] | ListEnumDestinyChoiceSideFieldRefInput<$PrismaModel>
+    hasSome?: DestinyChoiceSide[] | ListEnumDestinyChoiceSideFieldRefInput<$PrismaModel>
     isEmpty?: boolean
   }
 
-  export type FloatFilter = {
-    equals?: number
-    in?: Enumerable<number>
-    notIn?: Enumerable<number>
-    lt?: number
-    lte?: number
-    gt?: number
-    gte?: number
-    not?: NestedFloatFilter | number
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type EnumGenderFilter = {
-    equals?: Gender
-    in?: Enumerable<Gender>
-    notIn?: Enumerable<Gender>
-    not?: NestedEnumGenderFilter | Gender
+  export type EnumGenderFilter<$PrismaModel = never> = {
+    equals?: Gender | EnumGenderFieldRefInput<$PrismaModel>
+    in?: Gender[] | ListEnumGenderFieldRefInput<$PrismaModel>
+    notIn?: Gender[] | ListEnumGenderFieldRefInput<$PrismaModel>
+    not?: NestedEnumGenderFilter<$PrismaModel> | Gender
   }
 
-  export type UuidNullableFilter = {
-    equals?: string | null
-    in?: Enumerable<string> | null
-    notIn?: Enumerable<string> | null
-    lt?: string
-    lte?: string
-    gt?: string
-    gte?: string
+  export type UuidNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
-    not?: NestedUuidNullableFilter | string | null
+    not?: NestedUuidNullableFilter<$PrismaModel> | string | null
   }
 
-  export type EnumWeaponNameNullableListFilter = {
-    equals?: Enumerable<WeaponName> | null
-    has?: WeaponName | null
-    hasEvery?: Enumerable<WeaponName>
-    hasSome?: Enumerable<WeaponName>
+  export type EnumWeaponNameNullableListFilter<$PrismaModel = never> = {
+    equals?: WeaponName[] | ListEnumWeaponNameFieldRefInput<$PrismaModel> | null
+    has?: WeaponName | EnumWeaponNameFieldRefInput<$PrismaModel> | null
+    hasEvery?: WeaponName[] | ListEnumWeaponNameFieldRefInput<$PrismaModel>
+    hasSome?: WeaponName[] | ListEnumWeaponNameFieldRefInput<$PrismaModel>
     isEmpty?: boolean
   }
 
-  export type EnumSkillNameNullableListFilter = {
-    equals?: Enumerable<SkillName> | null
-    has?: SkillName | null
-    hasEvery?: Enumerable<SkillName>
-    hasSome?: Enumerable<SkillName>
+  export type EnumSkillNameNullableListFilter<$PrismaModel = never> = {
+    equals?: SkillName[] | ListEnumSkillNameFieldRefInput<$PrismaModel> | null
+    has?: SkillName | EnumSkillNameFieldRefInput<$PrismaModel> | null
+    hasEvery?: SkillName[] | ListEnumSkillNameFieldRefInput<$PrismaModel>
+    hasSome?: SkillName[] | ListEnumSkillNameFieldRefInput<$PrismaModel>
     isEmpty?: boolean
   }
 
-  export type EnumPetNameNullableListFilter = {
-    equals?: Enumerable<PetName> | null
-    has?: PetName | null
-    hasEvery?: Enumerable<PetName>
-    hasSome?: Enumerable<PetName>
+  export type EnumPetNameNullableListFilter<$PrismaModel = never> = {
+    equals?: PetName[] | ListEnumPetNameFieldRefInput<$PrismaModel> | null
+    has?: PetName | EnumPetNameFieldRefInput<$PrismaModel> | null
+    hasEvery?: PetName[] | ListEnumPetNameFieldRefInput<$PrismaModel>
+    hasSome?: PetName[] | ListEnumPetNameFieldRefInput<$PrismaModel>
     isEmpty?: boolean
   }
 
-  export type IntNullableFilter = {
-    equals?: number | null
-    in?: Enumerable<number> | null
-    notIn?: Enumerable<number> | null
-    lt?: number
-    lte?: number
-    gt?: number
-    gte?: number
-    not?: NestedIntNullableFilter | number | null
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type UserRelationFilter = {
+  export type UserNullableRelationFilter = {
     is?: UserWhereInput | null
     isNot?: UserWhereInput | null
   }
 
-  export type BruteBodyRelationFilter = {
+  export type BruteBodyNullableRelationFilter = {
     is?: BruteBodyWhereInput | null
     isNot?: BruteBodyWhereInput | null
   }
 
-  export type BruteColorsRelationFilter = {
+  export type BruteColorsNullableRelationFilter = {
     is?: BruteColorsWhereInput | null
     isNot?: BruteColorsWhereInput | null
   }
 
-  export type ClanRelationFilter = {
+  export type BruteNullableRelationFilter = {
+    is?: BruteWhereInput | null
+    isNot?: BruteWhereInput | null
+  }
+
+  export type ClanNullableRelationFilter = {
     is?: ClanWhereInput | null
     isNot?: ClanWhereInput | null
   }
@@ -18403,7 +19941,7 @@ export namespace Prisma {
     none?: DestinyChoiceWhereInput
   }
 
-  export type BruteSpritesheetRelationFilter = {
+  export type BruteSpritesheetNullableRelationFilter = {
     is?: BruteSpritesheetWhereInput | null
     isNot?: BruteSpritesheetWhereInput | null
   }
@@ -18418,6 +19956,11 @@ export namespace Prisma {
     every?: TournamentEarningWhereInput
     some?: TournamentEarningWhereInput
     none?: TournamentEarningWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type FightOrderByRelationAggregateInput = {
@@ -18607,118 +20150,118 @@ export namespace Prisma {
     victories?: SortOrder
   }
 
-  export type DateTimeNullableWithAggregatesFilter = {
-    equals?: Date | string | null
-    in?: Enumerable<Date> | Enumerable<string> | null
-    notIn?: Enumerable<Date> | Enumerable<string> | null
-    lt?: Date | string
-    lte?: Date | string
-    gt?: Date | string
-    gte?: Date | string
-    not?: NestedDateTimeNullableWithAggregatesFilter | Date | string | null
-    _count?: NestedIntNullableFilter
-    _min?: NestedDateTimeNullableFilter
-    _max?: NestedDateTimeNullableFilter
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type DateTimeWithAggregatesFilter = {
-    equals?: Date | string
-    in?: Enumerable<Date> | Enumerable<string>
-    notIn?: Enumerable<Date> | Enumerable<string>
-    lt?: Date | string
-    lte?: Date | string
-    gt?: Date | string
-    gte?: Date | string
-    not?: NestedDateTimeWithAggregatesFilter | Date | string
-    _count?: NestedIntFilter
-    _min?: NestedDateTimeFilter
-    _max?: NestedDateTimeFilter
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type FloatWithAggregatesFilter = {
-    equals?: number
-    in?: Enumerable<number>
-    notIn?: Enumerable<number>
-    lt?: number
-    lte?: number
-    gt?: number
-    gte?: number
-    not?: NestedFloatWithAggregatesFilter | number
-    _count?: NestedIntFilter
-    _avg?: NestedFloatFilter
-    _sum?: NestedFloatFilter
-    _min?: NestedFloatFilter
-    _max?: NestedFloatFilter
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
-  export type EnumGenderWithAggregatesFilter = {
-    equals?: Gender
-    in?: Enumerable<Gender>
-    notIn?: Enumerable<Gender>
-    not?: NestedEnumGenderWithAggregatesFilter | Gender
-    _count?: NestedIntFilter
-    _min?: NestedEnumGenderFilter
-    _max?: NestedEnumGenderFilter
+  export type EnumGenderWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Gender | EnumGenderFieldRefInput<$PrismaModel>
+    in?: Gender[] | ListEnumGenderFieldRefInput<$PrismaModel>
+    notIn?: Gender[] | ListEnumGenderFieldRefInput<$PrismaModel>
+    not?: NestedEnumGenderWithAggregatesFilter<$PrismaModel> | Gender
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumGenderFilter<$PrismaModel>
+    _max?: NestedEnumGenderFilter<$PrismaModel>
   }
 
-  export type UuidNullableWithAggregatesFilter = {
-    equals?: string | null
-    in?: Enumerable<string> | null
-    notIn?: Enumerable<string> | null
-    lt?: string
-    lte?: string
-    gt?: string
-    gte?: string
+  export type UuidNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
-    not?: NestedUuidNullableWithAggregatesFilter | string | null
-    _count?: NestedIntNullableFilter
-    _min?: NestedStringNullableFilter
-    _max?: NestedStringNullableFilter
+    not?: NestedUuidNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type IntNullableWithAggregatesFilter = {
-    equals?: number | null
-    in?: Enumerable<number> | null
-    notIn?: Enumerable<number> | null
-    lt?: number
-    lte?: number
-    gt?: number
-    gte?: number
-    not?: NestedIntNullableWithAggregatesFilter | number | null
-    _count?: NestedIntNullableFilter
-    _avg?: NestedFloatNullableFilter
-    _sum?: NestedIntNullableFilter
-    _min?: NestedIntNullableFilter
-    _max?: NestedIntNullableFilter
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type BytesNullableFilter = {
-    equals?: Buffer | null
-    in?: Enumerable<Buffer> | null
-    notIn?: Enumerable<Buffer> | null
-    not?: NestedBytesNullableFilter | Buffer | null
+  export type BytesNullableFilter<$PrismaModel = never> = {
+    equals?: Buffer | BytesFieldRefInput<$PrismaModel> | null
+    in?: Buffer[] | ListBytesFieldRefInput<$PrismaModel> | null
+    notIn?: Buffer[] | ListBytesFieldRefInput<$PrismaModel> | null
+    not?: NestedBytesNullableFilter<$PrismaModel> | Buffer | null
   }
-  export type JsonNullableFilter = 
+  export type JsonNullableFilter<$PrismaModel = never> = 
     | PatchUndefined<
-        Either<Required<JsonNullableFilterBase>, Exclude<keyof Required<JsonNullableFilterBase>, 'path'>>,
-        Required<JsonNullableFilterBase>
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
       >
-    | OptionalFlat<Omit<Required<JsonNullableFilterBase>, 'path'>>
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
 
-  export type JsonNullableFilterBase = {
-    equals?: InputJsonValue | JsonNullValueFilter
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
     path?: string[]
-    string_contains?: string
-    string_starts_with?: string
-    string_ends_with?: string
-    array_contains?: InputJsonValue | null
-    array_starts_with?: InputJsonValue | null
-    array_ends_with?: InputJsonValue | null
-    lt?: InputJsonValue
-    lte?: InputJsonValue
-    gt?: InputJsonValue
-    gte?: InputJsonValue
-    not?: InputJsonValue | JsonNullValueFilter
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type BruteSpritesheetCountOrderByAggregateInput = {
@@ -18750,39 +20293,39 @@ export namespace Prisma {
     bruteId?: SortOrder
   }
 
-  export type BytesNullableWithAggregatesFilter = {
-    equals?: Buffer | null
-    in?: Enumerable<Buffer> | null
-    notIn?: Enumerable<Buffer> | null
-    not?: NestedBytesNullableWithAggregatesFilter | Buffer | null
-    _count?: NestedIntNullableFilter
-    _min?: NestedBytesNullableFilter
-    _max?: NestedBytesNullableFilter
+  export type BytesNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Buffer | BytesFieldRefInput<$PrismaModel> | null
+    in?: Buffer[] | ListBytesFieldRefInput<$PrismaModel> | null
+    notIn?: Buffer[] | ListBytesFieldRefInput<$PrismaModel> | null
+    not?: NestedBytesNullableWithAggregatesFilter<$PrismaModel> | Buffer | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBytesNullableFilter<$PrismaModel>
+    _max?: NestedBytesNullableFilter<$PrismaModel>
   }
-  export type JsonNullableWithAggregatesFilter = 
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> = 
     | PatchUndefined<
-        Either<Required<JsonNullableWithAggregatesFilterBase>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase>, 'path'>>,
-        Required<JsonNullableWithAggregatesFilterBase>
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
       >
-    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase>, 'path'>>
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
 
-  export type JsonNullableWithAggregatesFilterBase = {
-    equals?: InputJsonValue | JsonNullValueFilter
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
     path?: string[]
-    string_contains?: string
-    string_starts_with?: string
-    string_ends_with?: string
-    array_contains?: InputJsonValue | null
-    array_starts_with?: InputJsonValue | null
-    array_ends_with?: InputJsonValue | null
-    lt?: InputJsonValue
-    lte?: InputJsonValue
-    gt?: InputJsonValue
-    gte?: InputJsonValue
-    not?: InputJsonValue | JsonNullValueFilter
-    _count?: NestedIntNullableFilter
-    _min?: NestedJsonNullableFilter
-    _max?: NestedJsonNullableFilter
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type ClanCountOrderByAggregateInput = {
@@ -18807,27 +20350,27 @@ export namespace Prisma {
   export type ClanSumOrderByAggregateInput = {
     id?: SortOrder
   }
-  export type JsonFilter = 
+  export type JsonFilter<$PrismaModel = never> = 
     | PatchUndefined<
-        Either<Required<JsonFilterBase>, Exclude<keyof Required<JsonFilterBase>, 'path'>>,
-        Required<JsonFilterBase>
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
       >
-    | OptionalFlat<Omit<Required<JsonFilterBase>, 'path'>>
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
 
-  export type JsonFilterBase = {
-    equals?: InputJsonValue | JsonNullValueFilter
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
     path?: string[]
-    string_contains?: string
-    string_starts_with?: string
-    string_ends_with?: string
-    array_contains?: InputJsonValue | null
-    array_starts_with?: InputJsonValue | null
-    array_ends_with?: InputJsonValue | null
-    lt?: InputJsonValue
-    lte?: InputJsonValue
-    gt?: InputJsonValue
-    gte?: InputJsonValue
-    not?: InputJsonValue | JsonNullValueFilter
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type TournamentStepListRelationFilter = {
@@ -18880,55 +20423,55 @@ export namespace Prisma {
     brute1Id?: SortOrder
     brute2Id?: SortOrder
   }
-  export type JsonWithAggregatesFilter = 
+  export type JsonWithAggregatesFilter<$PrismaModel = never> = 
     | PatchUndefined<
-        Either<Required<JsonWithAggregatesFilterBase>, Exclude<keyof Required<JsonWithAggregatesFilterBase>, 'path'>>,
-        Required<JsonWithAggregatesFilterBase>
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
       >
-    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase>, 'path'>>
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
 
-  export type JsonWithAggregatesFilterBase = {
-    equals?: InputJsonValue | JsonNullValueFilter
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
     path?: string[]
-    string_contains?: string
-    string_starts_with?: string
-    string_ends_with?: string
-    array_contains?: InputJsonValue | null
-    array_starts_with?: InputJsonValue | null
-    array_ends_with?: InputJsonValue | null
-    lt?: InputJsonValue
-    lte?: InputJsonValue
-    gt?: InputJsonValue
-    gte?: InputJsonValue
-    not?: InputJsonValue | JsonNullValueFilter
-    _count?: NestedIntFilter
-    _min?: NestedJsonFilter
-    _max?: NestedJsonFilter
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
   }
 
-  export type EnumLogTypeFilter = {
-    equals?: LogType
-    in?: Enumerable<LogType>
-    notIn?: Enumerable<LogType>
-    not?: NestedEnumLogTypeFilter | LogType
+  export type EnumLogTypeFilter<$PrismaModel = never> = {
+    equals?: LogType | EnumLogTypeFieldRefInput<$PrismaModel>
+    in?: LogType[] | ListEnumLogTypeFieldRefInput<$PrismaModel>
+    notIn?: LogType[] | ListEnumLogTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumLogTypeFilter<$PrismaModel> | LogType
   }
 
-  export type StringNullableFilter = {
-    equals?: string | null
-    in?: Enumerable<string> | null
-    notIn?: Enumerable<string> | null
-    lt?: string
-    lte?: string
-    gt?: string
-    gte?: string
-    contains?: string
-    startsWith?: string
-    endsWith?: string
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
-    not?: NestedStringNullableFilter | string | null
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type FightRelationFilter = {
+  export type FightNullableRelationFilter = {
     is?: FightWhereInput | null
     isNot?: FightWhereInput | null
   }
@@ -18982,67 +20525,67 @@ export namespace Prisma {
     xp?: SortOrder
   }
 
-  export type EnumLogTypeWithAggregatesFilter = {
-    equals?: LogType
-    in?: Enumerable<LogType>
-    notIn?: Enumerable<LogType>
-    not?: NestedEnumLogTypeWithAggregatesFilter | LogType
-    _count?: NestedIntFilter
-    _min?: NestedEnumLogTypeFilter
-    _max?: NestedEnumLogTypeFilter
+  export type EnumLogTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: LogType | EnumLogTypeFieldRefInput<$PrismaModel>
+    in?: LogType[] | ListEnumLogTypeFieldRefInput<$PrismaModel>
+    notIn?: LogType[] | ListEnumLogTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumLogTypeWithAggregatesFilter<$PrismaModel> | LogType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumLogTypeFilter<$PrismaModel>
+    _max?: NestedEnumLogTypeFilter<$PrismaModel>
   }
 
-  export type StringNullableWithAggregatesFilter = {
-    equals?: string | null
-    in?: Enumerable<string> | null
-    notIn?: Enumerable<string> | null
-    lt?: string
-    lte?: string
-    gt?: string
-    gte?: string
-    contains?: string
-    startsWith?: string
-    endsWith?: string
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter | string | null
-    _count?: NestedIntNullableFilter
-    _min?: NestedStringNullableFilter
-    _max?: NestedStringNullableFilter
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type EnumDestinyChoiceTypeFilter = {
-    equals?: DestinyChoiceType
-    in?: Enumerable<DestinyChoiceType>
-    notIn?: Enumerable<DestinyChoiceType>
-    not?: NestedEnumDestinyChoiceTypeFilter | DestinyChoiceType
+  export type EnumDestinyChoiceTypeFilter<$PrismaModel = never> = {
+    equals?: DestinyChoiceType | EnumDestinyChoiceTypeFieldRefInput<$PrismaModel>
+    in?: DestinyChoiceType[] | ListEnumDestinyChoiceTypeFieldRefInput<$PrismaModel>
+    notIn?: DestinyChoiceType[] | ListEnumDestinyChoiceTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumDestinyChoiceTypeFilter<$PrismaModel> | DestinyChoiceType
   }
 
-  export type EnumSkillNameNullableFilter = {
-    equals?: SkillName | null
-    in?: Enumerable<SkillName> | null
-    notIn?: Enumerable<SkillName> | null
-    not?: NestedEnumSkillNameNullableFilter | SkillName | null
+  export type EnumSkillNameNullableFilter<$PrismaModel = never> = {
+    equals?: SkillName | EnumSkillNameFieldRefInput<$PrismaModel> | null
+    in?: SkillName[] | ListEnumSkillNameFieldRefInput<$PrismaModel> | null
+    notIn?: SkillName[] | ListEnumSkillNameFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumSkillNameNullableFilter<$PrismaModel> | SkillName | null
   }
 
-  export type EnumWeaponNameNullableFilter = {
-    equals?: WeaponName | null
-    in?: Enumerable<WeaponName> | null
-    notIn?: Enumerable<WeaponName> | null
-    not?: NestedEnumWeaponNameNullableFilter | WeaponName | null
+  export type EnumWeaponNameNullableFilter<$PrismaModel = never> = {
+    equals?: WeaponName | EnumWeaponNameFieldRefInput<$PrismaModel> | null
+    in?: WeaponName[] | ListEnumWeaponNameFieldRefInput<$PrismaModel> | null
+    notIn?: WeaponName[] | ListEnumWeaponNameFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumWeaponNameNullableFilter<$PrismaModel> | WeaponName | null
   }
 
-  export type EnumPetNameNullableFilter = {
-    equals?: PetName | null
-    in?: Enumerable<PetName> | null
-    notIn?: Enumerable<PetName> | null
-    not?: NestedEnumPetNameNullableFilter | PetName | null
+  export type EnumPetNameNullableFilter<$PrismaModel = never> = {
+    equals?: PetName | EnumPetNameFieldRefInput<$PrismaModel> | null
+    in?: PetName[] | ListEnumPetNameFieldRefInput<$PrismaModel> | null
+    notIn?: PetName[] | ListEnumPetNameFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumPetNameNullableFilter<$PrismaModel> | PetName | null
   }
 
-  export type EnumBruteStatNullableFilter = {
-    equals?: BruteStat | null
-    in?: Enumerable<BruteStat> | null
-    notIn?: Enumerable<BruteStat> | null
-    not?: NestedEnumBruteStatNullableFilter | BruteStat | null
+  export type EnumBruteStatNullableFilter<$PrismaModel = never> = {
+    equals?: BruteStat | EnumBruteStatFieldRefInput<$PrismaModel> | null
+    in?: BruteStat[] | ListEnumBruteStatFieldRefInput<$PrismaModel> | null
+    notIn?: BruteStat[] | ListEnumBruteStatFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumBruteStatNullableFilter<$PrismaModel> | BruteStat | null
   }
 
   export type DestinyChoiceCountOrderByAggregateInput = {
@@ -19099,61 +20642,61 @@ export namespace Prisma {
     stat2Value?: SortOrder
   }
 
-  export type EnumDestinyChoiceTypeWithAggregatesFilter = {
-    equals?: DestinyChoiceType
-    in?: Enumerable<DestinyChoiceType>
-    notIn?: Enumerable<DestinyChoiceType>
-    not?: NestedEnumDestinyChoiceTypeWithAggregatesFilter | DestinyChoiceType
-    _count?: NestedIntFilter
-    _min?: NestedEnumDestinyChoiceTypeFilter
-    _max?: NestedEnumDestinyChoiceTypeFilter
+  export type EnumDestinyChoiceTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: DestinyChoiceType | EnumDestinyChoiceTypeFieldRefInput<$PrismaModel>
+    in?: DestinyChoiceType[] | ListEnumDestinyChoiceTypeFieldRefInput<$PrismaModel>
+    notIn?: DestinyChoiceType[] | ListEnumDestinyChoiceTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumDestinyChoiceTypeWithAggregatesFilter<$PrismaModel> | DestinyChoiceType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDestinyChoiceTypeFilter<$PrismaModel>
+    _max?: NestedEnumDestinyChoiceTypeFilter<$PrismaModel>
   }
 
-  export type EnumSkillNameNullableWithAggregatesFilter = {
-    equals?: SkillName | null
-    in?: Enumerable<SkillName> | null
-    notIn?: Enumerable<SkillName> | null
-    not?: NestedEnumSkillNameNullableWithAggregatesFilter | SkillName | null
-    _count?: NestedIntNullableFilter
-    _min?: NestedEnumSkillNameNullableFilter
-    _max?: NestedEnumSkillNameNullableFilter
+  export type EnumSkillNameNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: SkillName | EnumSkillNameFieldRefInput<$PrismaModel> | null
+    in?: SkillName[] | ListEnumSkillNameFieldRefInput<$PrismaModel> | null
+    notIn?: SkillName[] | ListEnumSkillNameFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumSkillNameNullableWithAggregatesFilter<$PrismaModel> | SkillName | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumSkillNameNullableFilter<$PrismaModel>
+    _max?: NestedEnumSkillNameNullableFilter<$PrismaModel>
   }
 
-  export type EnumWeaponNameNullableWithAggregatesFilter = {
-    equals?: WeaponName | null
-    in?: Enumerable<WeaponName> | null
-    notIn?: Enumerable<WeaponName> | null
-    not?: NestedEnumWeaponNameNullableWithAggregatesFilter | WeaponName | null
-    _count?: NestedIntNullableFilter
-    _min?: NestedEnumWeaponNameNullableFilter
-    _max?: NestedEnumWeaponNameNullableFilter
+  export type EnumWeaponNameNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: WeaponName | EnumWeaponNameFieldRefInput<$PrismaModel> | null
+    in?: WeaponName[] | ListEnumWeaponNameFieldRefInput<$PrismaModel> | null
+    notIn?: WeaponName[] | ListEnumWeaponNameFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumWeaponNameNullableWithAggregatesFilter<$PrismaModel> | WeaponName | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumWeaponNameNullableFilter<$PrismaModel>
+    _max?: NestedEnumWeaponNameNullableFilter<$PrismaModel>
   }
 
-  export type EnumPetNameNullableWithAggregatesFilter = {
-    equals?: PetName | null
-    in?: Enumerable<PetName> | null
-    notIn?: Enumerable<PetName> | null
-    not?: NestedEnumPetNameNullableWithAggregatesFilter | PetName | null
-    _count?: NestedIntNullableFilter
-    _min?: NestedEnumPetNameNullableFilter
-    _max?: NestedEnumPetNameNullableFilter
+  export type EnumPetNameNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: PetName | EnumPetNameFieldRefInput<$PrismaModel> | null
+    in?: PetName[] | ListEnumPetNameFieldRefInput<$PrismaModel> | null
+    notIn?: PetName[] | ListEnumPetNameFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumPetNameNullableWithAggregatesFilter<$PrismaModel> | PetName | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumPetNameNullableFilter<$PrismaModel>
+    _max?: NestedEnumPetNameNullableFilter<$PrismaModel>
   }
 
-  export type EnumBruteStatNullableWithAggregatesFilter = {
-    equals?: BruteStat | null
-    in?: Enumerable<BruteStat> | null
-    notIn?: Enumerable<BruteStat> | null
-    not?: NestedEnumBruteStatNullableWithAggregatesFilter | BruteStat | null
-    _count?: NestedIntNullableFilter
-    _min?: NestedEnumBruteStatNullableFilter
-    _max?: NestedEnumBruteStatNullableFilter
+  export type EnumBruteStatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: BruteStat | EnumBruteStatFieldRefInput<$PrismaModel> | null
+    in?: BruteStat[] | ListEnumBruteStatFieldRefInput<$PrismaModel> | null
+    notIn?: BruteStat[] | ListEnumBruteStatFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumBruteStatNullableWithAggregatesFilter<$PrismaModel> | BruteStat | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumBruteStatNullableFilter<$PrismaModel>
+    _max?: NestedEnumBruteStatNullableFilter<$PrismaModel>
   }
 
-  export type EnumTournamentTypeFilter = {
-    equals?: TournamentType
-    in?: Enumerable<TournamentType>
-    notIn?: Enumerable<TournamentType>
-    not?: NestedEnumTournamentTypeFilter | TournamentType
+  export type EnumTournamentTypeFilter<$PrismaModel = never> = {
+    equals?: TournamentType | EnumTournamentTypeFieldRefInput<$PrismaModel>
+    in?: TournamentType[] | ListEnumTournamentTypeFieldRefInput<$PrismaModel>
+    notIn?: TournamentType[] | ListEnumTournamentTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTournamentTypeFilter<$PrismaModel> | TournamentType
   }
 
   export type TournamentCountOrderByAggregateInput = {
@@ -19182,19 +20725,24 @@ export namespace Prisma {
     id?: SortOrder
   }
 
-  export type EnumTournamentTypeWithAggregatesFilter = {
-    equals?: TournamentType
-    in?: Enumerable<TournamentType>
-    notIn?: Enumerable<TournamentType>
-    not?: NestedEnumTournamentTypeWithAggregatesFilter | TournamentType
-    _count?: NestedIntFilter
-    _min?: NestedEnumTournamentTypeFilter
-    _max?: NestedEnumTournamentTypeFilter
+  export type EnumTournamentTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: TournamentType | EnumTournamentTypeFieldRefInput<$PrismaModel>
+    in?: TournamentType[] | ListEnumTournamentTypeFieldRefInput<$PrismaModel>
+    notIn?: TournamentType[] | ListEnumTournamentTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTournamentTypeWithAggregatesFilter<$PrismaModel> | TournamentType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTournamentTypeFilter<$PrismaModel>
+    _max?: NestedEnumTournamentTypeFilter<$PrismaModel>
   }
 
   export type TournamentRelationFilter = {
     is?: TournamentWhereInput
     isNot?: TournamentWhereInput
+  }
+
+  export type FightRelationFilter = {
+    is?: FightWhereInput
+    isNot?: FightWhereInput
   }
 
   export type TournamentStepCountOrderByAggregateInput = {
@@ -19235,11 +20783,11 @@ export namespace Prisma {
     fightId?: SortOrder
   }
 
-  export type EnumAchievementNameNullableFilter = {
-    equals?: AchievementName | null
-    in?: Enumerable<AchievementName> | null
-    notIn?: Enumerable<AchievementName> | null
-    not?: NestedEnumAchievementNameNullableFilter | AchievementName | null
+  export type EnumAchievementNameNullableFilter<$PrismaModel = never> = {
+    equals?: AchievementName | EnumAchievementNameFieldRefInput<$PrismaModel> | null
+    in?: AchievementName[] | ListEnumAchievementNameFieldRefInput<$PrismaModel> | null
+    notIn?: AchievementName[] | ListEnumAchievementNameFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumAchievementNameNullableFilter<$PrismaModel> | AchievementName | null
   }
 
   export type TournamentEarningCountOrderByAggregateInput = {
@@ -19283,21 +20831,21 @@ export namespace Prisma {
     achievementCount?: SortOrder
   }
 
-  export type EnumAchievementNameNullableWithAggregatesFilter = {
-    equals?: AchievementName | null
-    in?: Enumerable<AchievementName> | null
-    notIn?: Enumerable<AchievementName> | null
-    not?: NestedEnumAchievementNameNullableWithAggregatesFilter | AchievementName | null
-    _count?: NestedIntNullableFilter
-    _min?: NestedEnumAchievementNameNullableFilter
-    _max?: NestedEnumAchievementNameNullableFilter
+  export type EnumAchievementNameNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: AchievementName | EnumAchievementNameFieldRefInput<$PrismaModel> | null
+    in?: AchievementName[] | ListEnumAchievementNameFieldRefInput<$PrismaModel> | null
+    notIn?: AchievementName[] | ListEnumAchievementNameFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumAchievementNameNullableWithAggregatesFilter<$PrismaModel> | AchievementName | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumAchievementNameNullableFilter<$PrismaModel>
+    _max?: NestedEnumAchievementNameNullableFilter<$PrismaModel>
   }
 
-  export type EnumAchievementNameFilter = {
-    equals?: AchievementName
-    in?: Enumerable<AchievementName>
-    notIn?: Enumerable<AchievementName>
-    not?: NestedEnumAchievementNameFilter | AchievementName
+  export type EnumAchievementNameFilter<$PrismaModel = never> = {
+    equals?: AchievementName | EnumAchievementNameFieldRefInput<$PrismaModel>
+    in?: AchievementName[] | ListEnumAchievementNameFieldRefInput<$PrismaModel>
+    notIn?: AchievementName[] | ListEnumAchievementNameFieldRefInput<$PrismaModel>
+    not?: NestedEnumAchievementNameFilter<$PrismaModel> | AchievementName
   }
 
   export type AchievementCountOrderByAggregateInput = {
@@ -19336,42 +20884,42 @@ export namespace Prisma {
     bruteId?: SortOrder
   }
 
-  export type EnumAchievementNameWithAggregatesFilter = {
-    equals?: AchievementName
-    in?: Enumerable<AchievementName>
-    notIn?: Enumerable<AchievementName>
-    not?: NestedEnumAchievementNameWithAggregatesFilter | AchievementName
-    _count?: NestedIntFilter
-    _min?: NestedEnumAchievementNameFilter
-    _max?: NestedEnumAchievementNameFilter
+  export type EnumAchievementNameWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: AchievementName | EnumAchievementNameFieldRefInput<$PrismaModel>
+    in?: AchievementName[] | ListEnumAchievementNameFieldRefInput<$PrismaModel>
+    notIn?: AchievementName[] | ListEnumAchievementNameFieldRefInput<$PrismaModel>
+    not?: NestedEnumAchievementNameWithAggregatesFilter<$PrismaModel> | AchievementName
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAchievementNameFilter<$PrismaModel>
+    _max?: NestedEnumAchievementNameFilter<$PrismaModel>
   }
 
   export type BruteCreateNestedManyWithoutUserInput = {
-    create?: XOR<Enumerable<BruteCreateWithoutUserInput>, Enumerable<BruteUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<BruteCreateOrConnectWithoutUserInput>
+    create?: XOR<BruteCreateWithoutUserInput, BruteUncheckedCreateWithoutUserInput> | BruteCreateWithoutUserInput[] | BruteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutUserInput | BruteCreateOrConnectWithoutUserInput[]
     createMany?: BruteCreateManyUserInputEnvelope
-    connect?: Enumerable<BruteWhereUniqueInput>
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
   }
 
   export type AchievementCreateNestedManyWithoutUserInput = {
-    create?: XOR<Enumerable<AchievementCreateWithoutUserInput>, Enumerable<AchievementUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<AchievementCreateOrConnectWithoutUserInput>
+    create?: XOR<AchievementCreateWithoutUserInput, AchievementUncheckedCreateWithoutUserInput> | AchievementCreateWithoutUserInput[] | AchievementUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AchievementCreateOrConnectWithoutUserInput | AchievementCreateOrConnectWithoutUserInput[]
     createMany?: AchievementCreateManyUserInputEnvelope
-    connect?: Enumerable<AchievementWhereUniqueInput>
+    connect?: AchievementWhereUniqueInput | AchievementWhereUniqueInput[]
   }
 
   export type BruteUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<Enumerable<BruteCreateWithoutUserInput>, Enumerable<BruteUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<BruteCreateOrConnectWithoutUserInput>
+    create?: XOR<BruteCreateWithoutUserInput, BruteUncheckedCreateWithoutUserInput> | BruteCreateWithoutUserInput[] | BruteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutUserInput | BruteCreateOrConnectWithoutUserInput[]
     createMany?: BruteCreateManyUserInputEnvelope
-    connect?: Enumerable<BruteWhereUniqueInput>
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
   }
 
   export type AchievementUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<Enumerable<AchievementCreateWithoutUserInput>, Enumerable<AchievementUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<AchievementCreateOrConnectWithoutUserInput>
+    create?: XOR<AchievementCreateWithoutUserInput, AchievementUncheckedCreateWithoutUserInput> | AchievementCreateWithoutUserInput[] | AchievementUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AchievementCreateOrConnectWithoutUserInput | AchievementCreateOrConnectWithoutUserInput[]
     createMany?: AchievementCreateManyUserInputEnvelope
-    connect?: Enumerable<AchievementWhereUniqueInput>
+    connect?: AchievementWhereUniqueInput | AchievementWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -19395,59 +20943,59 @@ export namespace Prisma {
   }
 
   export type BruteUpdateManyWithoutUserNestedInput = {
-    create?: XOR<Enumerable<BruteCreateWithoutUserInput>, Enumerable<BruteUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<BruteCreateOrConnectWithoutUserInput>
-    upsert?: Enumerable<BruteUpsertWithWhereUniqueWithoutUserInput>
+    create?: XOR<BruteCreateWithoutUserInput, BruteUncheckedCreateWithoutUserInput> | BruteCreateWithoutUserInput[] | BruteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutUserInput | BruteCreateOrConnectWithoutUserInput[]
+    upsert?: BruteUpsertWithWhereUniqueWithoutUserInput | BruteUpsertWithWhereUniqueWithoutUserInput[]
     createMany?: BruteCreateManyUserInputEnvelope
-    set?: Enumerable<BruteWhereUniqueInput>
-    disconnect?: Enumerable<BruteWhereUniqueInput>
-    delete?: Enumerable<BruteWhereUniqueInput>
-    connect?: Enumerable<BruteWhereUniqueInput>
-    update?: Enumerable<BruteUpdateWithWhereUniqueWithoutUserInput>
-    updateMany?: Enumerable<BruteUpdateManyWithWhereWithoutUserInput>
-    deleteMany?: Enumerable<BruteScalarWhereInput>
+    set?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    disconnect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    delete?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    update?: BruteUpdateWithWhereUniqueWithoutUserInput | BruteUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: BruteUpdateManyWithWhereWithoutUserInput | BruteUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: BruteScalarWhereInput | BruteScalarWhereInput[]
   }
 
   export type AchievementUpdateManyWithoutUserNestedInput = {
-    create?: XOR<Enumerable<AchievementCreateWithoutUserInput>, Enumerable<AchievementUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<AchievementCreateOrConnectWithoutUserInput>
-    upsert?: Enumerable<AchievementUpsertWithWhereUniqueWithoutUserInput>
+    create?: XOR<AchievementCreateWithoutUserInput, AchievementUncheckedCreateWithoutUserInput> | AchievementCreateWithoutUserInput[] | AchievementUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AchievementCreateOrConnectWithoutUserInput | AchievementCreateOrConnectWithoutUserInput[]
+    upsert?: AchievementUpsertWithWhereUniqueWithoutUserInput | AchievementUpsertWithWhereUniqueWithoutUserInput[]
     createMany?: AchievementCreateManyUserInputEnvelope
-    set?: Enumerable<AchievementWhereUniqueInput>
-    disconnect?: Enumerable<AchievementWhereUniqueInput>
-    delete?: Enumerable<AchievementWhereUniqueInput>
-    connect?: Enumerable<AchievementWhereUniqueInput>
-    update?: Enumerable<AchievementUpdateWithWhereUniqueWithoutUserInput>
-    updateMany?: Enumerable<AchievementUpdateManyWithWhereWithoutUserInput>
-    deleteMany?: Enumerable<AchievementScalarWhereInput>
+    set?: AchievementWhereUniqueInput | AchievementWhereUniqueInput[]
+    disconnect?: AchievementWhereUniqueInput | AchievementWhereUniqueInput[]
+    delete?: AchievementWhereUniqueInput | AchievementWhereUniqueInput[]
+    connect?: AchievementWhereUniqueInput | AchievementWhereUniqueInput[]
+    update?: AchievementUpdateWithWhereUniqueWithoutUserInput | AchievementUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AchievementUpdateManyWithWhereWithoutUserInput | AchievementUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AchievementScalarWhereInput | AchievementScalarWhereInput[]
   }
 
   export type BruteUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<Enumerable<BruteCreateWithoutUserInput>, Enumerable<BruteUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<BruteCreateOrConnectWithoutUserInput>
-    upsert?: Enumerable<BruteUpsertWithWhereUniqueWithoutUserInput>
+    create?: XOR<BruteCreateWithoutUserInput, BruteUncheckedCreateWithoutUserInput> | BruteCreateWithoutUserInput[] | BruteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutUserInput | BruteCreateOrConnectWithoutUserInput[]
+    upsert?: BruteUpsertWithWhereUniqueWithoutUserInput | BruteUpsertWithWhereUniqueWithoutUserInput[]
     createMany?: BruteCreateManyUserInputEnvelope
-    set?: Enumerable<BruteWhereUniqueInput>
-    disconnect?: Enumerable<BruteWhereUniqueInput>
-    delete?: Enumerable<BruteWhereUniqueInput>
-    connect?: Enumerable<BruteWhereUniqueInput>
-    update?: Enumerable<BruteUpdateWithWhereUniqueWithoutUserInput>
-    updateMany?: Enumerable<BruteUpdateManyWithWhereWithoutUserInput>
-    deleteMany?: Enumerable<BruteScalarWhereInput>
+    set?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    disconnect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    delete?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    update?: BruteUpdateWithWhereUniqueWithoutUserInput | BruteUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: BruteUpdateManyWithWhereWithoutUserInput | BruteUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: BruteScalarWhereInput | BruteScalarWhereInput[]
   }
 
   export type AchievementUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<Enumerable<AchievementCreateWithoutUserInput>, Enumerable<AchievementUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<AchievementCreateOrConnectWithoutUserInput>
-    upsert?: Enumerable<AchievementUpsertWithWhereUniqueWithoutUserInput>
+    create?: XOR<AchievementCreateWithoutUserInput, AchievementUncheckedCreateWithoutUserInput> | AchievementCreateWithoutUserInput[] | AchievementUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AchievementCreateOrConnectWithoutUserInput | AchievementCreateOrConnectWithoutUserInput[]
+    upsert?: AchievementUpsertWithWhereUniqueWithoutUserInput | AchievementUpsertWithWhereUniqueWithoutUserInput[]
     createMany?: AchievementCreateManyUserInputEnvelope
-    set?: Enumerable<AchievementWhereUniqueInput>
-    disconnect?: Enumerable<AchievementWhereUniqueInput>
-    delete?: Enumerable<AchievementWhereUniqueInput>
-    connect?: Enumerable<AchievementWhereUniqueInput>
-    update?: Enumerable<AchievementUpdateWithWhereUniqueWithoutUserInput>
-    updateMany?: Enumerable<AchievementUpdateManyWithWhereWithoutUserInput>
-    deleteMany?: Enumerable<AchievementScalarWhereInput>
+    set?: AchievementWhereUniqueInput | AchievementWhereUniqueInput[]
+    disconnect?: AchievementWhereUniqueInput | AchievementWhereUniqueInput[]
+    delete?: AchievementWhereUniqueInput | AchievementWhereUniqueInput[]
+    connect?: AchievementWhereUniqueInput | AchievementWhereUniqueInput[]
+    update?: AchievementUpdateWithWhereUniqueWithoutUserInput | AchievementUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AchievementUpdateManyWithWhereWithoutUserInput | AchievementUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AchievementScalarWhereInput | AchievementScalarWhereInput[]
   }
 
   export type BruteCreateNestedOneWithoutBodyInput = {
@@ -19461,7 +21009,7 @@ export namespace Prisma {
     connectOrCreate?: BruteCreateOrConnectWithoutBodyInput
     upsert?: BruteUpsertWithoutBodyInput
     connect?: BruteWhereUniqueInput
-    update?: XOR<BruteUpdateWithoutBodyInput, BruteUncheckedUpdateWithoutBodyInput>
+    update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutBodyInput, BruteUpdateWithoutBodyInput>, BruteUncheckedUpdateWithoutBodyInput>
   }
 
   export type BruteCreateNestedOneWithoutColorsInput = {
@@ -19475,23 +21023,23 @@ export namespace Prisma {
     connectOrCreate?: BruteCreateOrConnectWithoutColorsInput
     upsert?: BruteUpsertWithoutColorsInput
     connect?: BruteWhereUniqueInput
-    update?: XOR<BruteUpdateWithoutColorsInput, BruteUncheckedUpdateWithoutColorsInput>
+    update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutColorsInput, BruteUpdateWithoutColorsInput>, BruteUncheckedUpdateWithoutColorsInput>
   }
 
   export type BruteCreatedestinyPathInput = {
-    set: Enumerable<DestinyChoiceSide>
+    set: DestinyChoiceSide[]
   }
 
   export type BruteCreateweaponsInput = {
-    set: Enumerable<WeaponName>
+    set: WeaponName[]
   }
 
   export type BruteCreateskillsInput = {
-    set: Enumerable<SkillName>
+    set: SkillName[]
   }
 
   export type BruteCreatepetsInput = {
-    set: Enumerable<PetName>
+    set: PetName[]
   }
 
   export type UserCreateNestedOneWithoutBrutesInput = {
@@ -19519,10 +21067,10 @@ export namespace Prisma {
   }
 
   export type BruteCreateNestedManyWithoutMasterInput = {
-    create?: XOR<Enumerable<BruteCreateWithoutMasterInput>, Enumerable<BruteUncheckedCreateWithoutMasterInput>>
-    connectOrCreate?: Enumerable<BruteCreateOrConnectWithoutMasterInput>
+    create?: XOR<BruteCreateWithoutMasterInput, BruteUncheckedCreateWithoutMasterInput> | BruteCreateWithoutMasterInput[] | BruteUncheckedCreateWithoutMasterInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutMasterInput | BruteCreateOrConnectWithoutMasterInput[]
     createMany?: BruteCreateManyMasterInputEnvelope
-    connect?: Enumerable<BruteWhereUniqueInput>
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
   }
 
   export type ClanCreateNestedOneWithoutBrutesInput = {
@@ -19532,31 +21080,31 @@ export namespace Prisma {
   }
 
   export type FightCreateNestedManyWithoutBrute1Input = {
-    create?: XOR<Enumerable<FightCreateWithoutBrute1Input>, Enumerable<FightUncheckedCreateWithoutBrute1Input>>
-    connectOrCreate?: Enumerable<FightCreateOrConnectWithoutBrute1Input>
+    create?: XOR<FightCreateWithoutBrute1Input, FightUncheckedCreateWithoutBrute1Input> | FightCreateWithoutBrute1Input[] | FightUncheckedCreateWithoutBrute1Input[]
+    connectOrCreate?: FightCreateOrConnectWithoutBrute1Input | FightCreateOrConnectWithoutBrute1Input[]
     createMany?: FightCreateManyBrute1InputEnvelope
-    connect?: Enumerable<FightWhereUniqueInput>
+    connect?: FightWhereUniqueInput | FightWhereUniqueInput[]
   }
 
   export type FightCreateNestedManyWithoutBrute2Input = {
-    create?: XOR<Enumerable<FightCreateWithoutBrute2Input>, Enumerable<FightUncheckedCreateWithoutBrute2Input>>
-    connectOrCreate?: Enumerable<FightCreateOrConnectWithoutBrute2Input>
+    create?: XOR<FightCreateWithoutBrute2Input, FightUncheckedCreateWithoutBrute2Input> | FightCreateWithoutBrute2Input[] | FightUncheckedCreateWithoutBrute2Input[]
+    connectOrCreate?: FightCreateOrConnectWithoutBrute2Input | FightCreateOrConnectWithoutBrute2Input[]
     createMany?: FightCreateManyBrute2InputEnvelope
-    connect?: Enumerable<FightWhereUniqueInput>
+    connect?: FightWhereUniqueInput | FightWhereUniqueInput[]
   }
 
   export type LogCreateNestedManyWithoutCurrentBruteInput = {
-    create?: XOR<Enumerable<LogCreateWithoutCurrentBruteInput>, Enumerable<LogUncheckedCreateWithoutCurrentBruteInput>>
-    connectOrCreate?: Enumerable<LogCreateOrConnectWithoutCurrentBruteInput>
+    create?: XOR<LogCreateWithoutCurrentBruteInput, LogUncheckedCreateWithoutCurrentBruteInput> | LogCreateWithoutCurrentBruteInput[] | LogUncheckedCreateWithoutCurrentBruteInput[]
+    connectOrCreate?: LogCreateOrConnectWithoutCurrentBruteInput | LogCreateOrConnectWithoutCurrentBruteInput[]
     createMany?: LogCreateManyCurrentBruteInputEnvelope
-    connect?: Enumerable<LogWhereUniqueInput>
+    connect?: LogWhereUniqueInput | LogWhereUniqueInput[]
   }
 
   export type DestinyChoiceCreateNestedManyWithoutBruteInput = {
-    create?: XOR<Enumerable<DestinyChoiceCreateWithoutBruteInput>, Enumerable<DestinyChoiceUncheckedCreateWithoutBruteInput>>
-    connectOrCreate?: Enumerable<DestinyChoiceCreateOrConnectWithoutBruteInput>
+    create?: XOR<DestinyChoiceCreateWithoutBruteInput, DestinyChoiceUncheckedCreateWithoutBruteInput> | DestinyChoiceCreateWithoutBruteInput[] | DestinyChoiceUncheckedCreateWithoutBruteInput[]
+    connectOrCreate?: DestinyChoiceCreateOrConnectWithoutBruteInput | DestinyChoiceCreateOrConnectWithoutBruteInput[]
     createMany?: DestinyChoiceCreateManyBruteInputEnvelope
-    connect?: Enumerable<DestinyChoiceWhereUniqueInput>
+    connect?: DestinyChoiceWhereUniqueInput | DestinyChoiceWhereUniqueInput[]
   }
 
   export type BruteSpritesheetCreateNestedOneWithoutBruteInput = {
@@ -19566,35 +21114,35 @@ export namespace Prisma {
   }
 
   export type TournamentCreateNestedManyWithoutParticipantsInput = {
-    create?: XOR<Enumerable<TournamentCreateWithoutParticipantsInput>, Enumerable<TournamentUncheckedCreateWithoutParticipantsInput>>
-    connectOrCreate?: Enumerable<TournamentCreateOrConnectWithoutParticipantsInput>
-    connect?: Enumerable<TournamentWhereUniqueInput>
+    create?: XOR<TournamentCreateWithoutParticipantsInput, TournamentUncheckedCreateWithoutParticipantsInput> | TournamentCreateWithoutParticipantsInput[] | TournamentUncheckedCreateWithoutParticipantsInput[]
+    connectOrCreate?: TournamentCreateOrConnectWithoutParticipantsInput | TournamentCreateOrConnectWithoutParticipantsInput[]
+    connect?: TournamentWhereUniqueInput | TournamentWhereUniqueInput[]
   }
 
   export type BruteCreateNestedManyWithoutOpponentOfInput = {
-    create?: XOR<Enumerable<BruteCreateWithoutOpponentOfInput>, Enumerable<BruteUncheckedCreateWithoutOpponentOfInput>>
-    connectOrCreate?: Enumerable<BruteCreateOrConnectWithoutOpponentOfInput>
-    connect?: Enumerable<BruteWhereUniqueInput>
+    create?: XOR<BruteCreateWithoutOpponentOfInput, BruteUncheckedCreateWithoutOpponentOfInput> | BruteCreateWithoutOpponentOfInput[] | BruteUncheckedCreateWithoutOpponentOfInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutOpponentOfInput | BruteCreateOrConnectWithoutOpponentOfInput[]
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
   }
 
   export type BruteCreateNestedManyWithoutOpponentsInput = {
-    create?: XOR<Enumerable<BruteCreateWithoutOpponentsInput>, Enumerable<BruteUncheckedCreateWithoutOpponentsInput>>
-    connectOrCreate?: Enumerable<BruteCreateOrConnectWithoutOpponentsInput>
-    connect?: Enumerable<BruteWhereUniqueInput>
+    create?: XOR<BruteCreateWithoutOpponentsInput, BruteUncheckedCreateWithoutOpponentsInput> | BruteCreateWithoutOpponentsInput[] | BruteUncheckedCreateWithoutOpponentsInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutOpponentsInput | BruteCreateOrConnectWithoutOpponentsInput[]
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
   }
 
   export type AchievementCreateNestedManyWithoutBruteInput = {
-    create?: XOR<Enumerable<AchievementCreateWithoutBruteInput>, Enumerable<AchievementUncheckedCreateWithoutBruteInput>>
-    connectOrCreate?: Enumerable<AchievementCreateOrConnectWithoutBruteInput>
+    create?: XOR<AchievementCreateWithoutBruteInput, AchievementUncheckedCreateWithoutBruteInput> | AchievementCreateWithoutBruteInput[] | AchievementUncheckedCreateWithoutBruteInput[]
+    connectOrCreate?: AchievementCreateOrConnectWithoutBruteInput | AchievementCreateOrConnectWithoutBruteInput[]
     createMany?: AchievementCreateManyBruteInputEnvelope
-    connect?: Enumerable<AchievementWhereUniqueInput>
+    connect?: AchievementWhereUniqueInput | AchievementWhereUniqueInput[]
   }
 
   export type TournamentEarningCreateNestedManyWithoutBruteInput = {
-    create?: XOR<Enumerable<TournamentEarningCreateWithoutBruteInput>, Enumerable<TournamentEarningUncheckedCreateWithoutBruteInput>>
-    connectOrCreate?: Enumerable<TournamentEarningCreateOrConnectWithoutBruteInput>
+    create?: XOR<TournamentEarningCreateWithoutBruteInput, TournamentEarningUncheckedCreateWithoutBruteInput> | TournamentEarningCreateWithoutBruteInput[] | TournamentEarningUncheckedCreateWithoutBruteInput[]
+    connectOrCreate?: TournamentEarningCreateOrConnectWithoutBruteInput | TournamentEarningCreateOrConnectWithoutBruteInput[]
     createMany?: TournamentEarningCreateManyBruteInputEnvelope
-    connect?: Enumerable<TournamentEarningWhereUniqueInput>
+    connect?: TournamentEarningWhereUniqueInput | TournamentEarningWhereUniqueInput[]
   }
 
   export type BruteBodyUncheckedCreateNestedOneWithoutBruteInput = {
@@ -19610,38 +21158,38 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedCreateNestedManyWithoutMasterInput = {
-    create?: XOR<Enumerable<BruteCreateWithoutMasterInput>, Enumerable<BruteUncheckedCreateWithoutMasterInput>>
-    connectOrCreate?: Enumerable<BruteCreateOrConnectWithoutMasterInput>
+    create?: XOR<BruteCreateWithoutMasterInput, BruteUncheckedCreateWithoutMasterInput> | BruteCreateWithoutMasterInput[] | BruteUncheckedCreateWithoutMasterInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutMasterInput | BruteCreateOrConnectWithoutMasterInput[]
     createMany?: BruteCreateManyMasterInputEnvelope
-    connect?: Enumerable<BruteWhereUniqueInput>
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
   }
 
   export type FightUncheckedCreateNestedManyWithoutBrute1Input = {
-    create?: XOR<Enumerable<FightCreateWithoutBrute1Input>, Enumerable<FightUncheckedCreateWithoutBrute1Input>>
-    connectOrCreate?: Enumerable<FightCreateOrConnectWithoutBrute1Input>
+    create?: XOR<FightCreateWithoutBrute1Input, FightUncheckedCreateWithoutBrute1Input> | FightCreateWithoutBrute1Input[] | FightUncheckedCreateWithoutBrute1Input[]
+    connectOrCreate?: FightCreateOrConnectWithoutBrute1Input | FightCreateOrConnectWithoutBrute1Input[]
     createMany?: FightCreateManyBrute1InputEnvelope
-    connect?: Enumerable<FightWhereUniqueInput>
+    connect?: FightWhereUniqueInput | FightWhereUniqueInput[]
   }
 
   export type FightUncheckedCreateNestedManyWithoutBrute2Input = {
-    create?: XOR<Enumerable<FightCreateWithoutBrute2Input>, Enumerable<FightUncheckedCreateWithoutBrute2Input>>
-    connectOrCreate?: Enumerable<FightCreateOrConnectWithoutBrute2Input>
+    create?: XOR<FightCreateWithoutBrute2Input, FightUncheckedCreateWithoutBrute2Input> | FightCreateWithoutBrute2Input[] | FightUncheckedCreateWithoutBrute2Input[]
+    connectOrCreate?: FightCreateOrConnectWithoutBrute2Input | FightCreateOrConnectWithoutBrute2Input[]
     createMany?: FightCreateManyBrute2InputEnvelope
-    connect?: Enumerable<FightWhereUniqueInput>
+    connect?: FightWhereUniqueInput | FightWhereUniqueInput[]
   }
 
   export type LogUncheckedCreateNestedManyWithoutCurrentBruteInput = {
-    create?: XOR<Enumerable<LogCreateWithoutCurrentBruteInput>, Enumerable<LogUncheckedCreateWithoutCurrentBruteInput>>
-    connectOrCreate?: Enumerable<LogCreateOrConnectWithoutCurrentBruteInput>
+    create?: XOR<LogCreateWithoutCurrentBruteInput, LogUncheckedCreateWithoutCurrentBruteInput> | LogCreateWithoutCurrentBruteInput[] | LogUncheckedCreateWithoutCurrentBruteInput[]
+    connectOrCreate?: LogCreateOrConnectWithoutCurrentBruteInput | LogCreateOrConnectWithoutCurrentBruteInput[]
     createMany?: LogCreateManyCurrentBruteInputEnvelope
-    connect?: Enumerable<LogWhereUniqueInput>
+    connect?: LogWhereUniqueInput | LogWhereUniqueInput[]
   }
 
   export type DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput = {
-    create?: XOR<Enumerable<DestinyChoiceCreateWithoutBruteInput>, Enumerable<DestinyChoiceUncheckedCreateWithoutBruteInput>>
-    connectOrCreate?: Enumerable<DestinyChoiceCreateOrConnectWithoutBruteInput>
+    create?: XOR<DestinyChoiceCreateWithoutBruteInput, DestinyChoiceUncheckedCreateWithoutBruteInput> | DestinyChoiceCreateWithoutBruteInput[] | DestinyChoiceUncheckedCreateWithoutBruteInput[]
+    connectOrCreate?: DestinyChoiceCreateOrConnectWithoutBruteInput | DestinyChoiceCreateOrConnectWithoutBruteInput[]
     createMany?: DestinyChoiceCreateManyBruteInputEnvelope
-    connect?: Enumerable<DestinyChoiceWhereUniqueInput>
+    connect?: DestinyChoiceWhereUniqueInput | DestinyChoiceWhereUniqueInput[]
   }
 
   export type BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput = {
@@ -19651,35 +21199,35 @@ export namespace Prisma {
   }
 
   export type TournamentUncheckedCreateNestedManyWithoutParticipantsInput = {
-    create?: XOR<Enumerable<TournamentCreateWithoutParticipantsInput>, Enumerable<TournamentUncheckedCreateWithoutParticipantsInput>>
-    connectOrCreate?: Enumerable<TournamentCreateOrConnectWithoutParticipantsInput>
-    connect?: Enumerable<TournamentWhereUniqueInput>
+    create?: XOR<TournamentCreateWithoutParticipantsInput, TournamentUncheckedCreateWithoutParticipantsInput> | TournamentCreateWithoutParticipantsInput[] | TournamentUncheckedCreateWithoutParticipantsInput[]
+    connectOrCreate?: TournamentCreateOrConnectWithoutParticipantsInput | TournamentCreateOrConnectWithoutParticipantsInput[]
+    connect?: TournamentWhereUniqueInput | TournamentWhereUniqueInput[]
   }
 
   export type BruteUncheckedCreateNestedManyWithoutOpponentOfInput = {
-    create?: XOR<Enumerable<BruteCreateWithoutOpponentOfInput>, Enumerable<BruteUncheckedCreateWithoutOpponentOfInput>>
-    connectOrCreate?: Enumerable<BruteCreateOrConnectWithoutOpponentOfInput>
-    connect?: Enumerable<BruteWhereUniqueInput>
+    create?: XOR<BruteCreateWithoutOpponentOfInput, BruteUncheckedCreateWithoutOpponentOfInput> | BruteCreateWithoutOpponentOfInput[] | BruteUncheckedCreateWithoutOpponentOfInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutOpponentOfInput | BruteCreateOrConnectWithoutOpponentOfInput[]
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
   }
 
   export type BruteUncheckedCreateNestedManyWithoutOpponentsInput = {
-    create?: XOR<Enumerable<BruteCreateWithoutOpponentsInput>, Enumerable<BruteUncheckedCreateWithoutOpponentsInput>>
-    connectOrCreate?: Enumerable<BruteCreateOrConnectWithoutOpponentsInput>
-    connect?: Enumerable<BruteWhereUniqueInput>
+    create?: XOR<BruteCreateWithoutOpponentsInput, BruteUncheckedCreateWithoutOpponentsInput> | BruteCreateWithoutOpponentsInput[] | BruteUncheckedCreateWithoutOpponentsInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutOpponentsInput | BruteCreateOrConnectWithoutOpponentsInput[]
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
   }
 
   export type AchievementUncheckedCreateNestedManyWithoutBruteInput = {
-    create?: XOR<Enumerable<AchievementCreateWithoutBruteInput>, Enumerable<AchievementUncheckedCreateWithoutBruteInput>>
-    connectOrCreate?: Enumerable<AchievementCreateOrConnectWithoutBruteInput>
+    create?: XOR<AchievementCreateWithoutBruteInput, AchievementUncheckedCreateWithoutBruteInput> | AchievementCreateWithoutBruteInput[] | AchievementUncheckedCreateWithoutBruteInput[]
+    connectOrCreate?: AchievementCreateOrConnectWithoutBruteInput | AchievementCreateOrConnectWithoutBruteInput[]
     createMany?: AchievementCreateManyBruteInputEnvelope
-    connect?: Enumerable<AchievementWhereUniqueInput>
+    connect?: AchievementWhereUniqueInput | AchievementWhereUniqueInput[]
   }
 
   export type TournamentEarningUncheckedCreateNestedManyWithoutBruteInput = {
-    create?: XOR<Enumerable<TournamentEarningCreateWithoutBruteInput>, Enumerable<TournamentEarningUncheckedCreateWithoutBruteInput>>
-    connectOrCreate?: Enumerable<TournamentEarningCreateOrConnectWithoutBruteInput>
+    create?: XOR<TournamentEarningCreateWithoutBruteInput, TournamentEarningUncheckedCreateWithoutBruteInput> | TournamentEarningCreateWithoutBruteInput[] | TournamentEarningUncheckedCreateWithoutBruteInput[]
+    connectOrCreate?: TournamentEarningCreateOrConnectWithoutBruteInput | TournamentEarningCreateOrConnectWithoutBruteInput[]
     createMany?: TournamentEarningCreateManyBruteInputEnvelope
-    connect?: Enumerable<TournamentEarningWhereUniqueInput>
+    connect?: TournamentEarningWhereUniqueInput | TournamentEarningWhereUniqueInput[]
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -19691,8 +21239,8 @@ export namespace Prisma {
   }
 
   export type BruteUpdatedestinyPathInput = {
-    set?: Enumerable<DestinyChoiceSide>
-    push?: Enumerable<DestinyChoiceSide>
+    set?: DestinyChoiceSide[]
+    push?: DestinyChoiceSide | DestinyChoiceSide[]
   }
 
   export type FloatFieldUpdateOperationsInput = {
@@ -19708,18 +21256,18 @@ export namespace Prisma {
   }
 
   export type BruteUpdateweaponsInput = {
-    set?: Enumerable<WeaponName>
-    push?: Enumerable<WeaponName>
+    set?: WeaponName[]
+    push?: WeaponName | WeaponName[]
   }
 
   export type BruteUpdateskillsInput = {
-    set?: Enumerable<SkillName>
-    push?: Enumerable<SkillName>
+    set?: SkillName[]
+    push?: SkillName | SkillName[]
   }
 
   export type BruteUpdatepetsInput = {
-    set?: Enumerable<PetName>
-    push?: Enumerable<PetName>
+    set?: PetName[]
+    push?: PetName | PetName[]
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -19734,197 +21282,197 @@ export namespace Prisma {
     create?: XOR<UserCreateWithoutBrutesInput, UserUncheckedCreateWithoutBrutesInput>
     connectOrCreate?: UserCreateOrConnectWithoutBrutesInput
     upsert?: UserUpsertWithoutBrutesInput
-    disconnect?: boolean
-    delete?: boolean
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
-    update?: XOR<UserUpdateWithoutBrutesInput, UserUncheckedUpdateWithoutBrutesInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutBrutesInput, UserUpdateWithoutBrutesInput>, UserUncheckedUpdateWithoutBrutesInput>
   }
 
   export type BruteBodyUpdateOneWithoutBruteNestedInput = {
     create?: XOR<BruteBodyCreateWithoutBruteInput, BruteBodyUncheckedCreateWithoutBruteInput>
     connectOrCreate?: BruteBodyCreateOrConnectWithoutBruteInput
     upsert?: BruteBodyUpsertWithoutBruteInput
-    disconnect?: boolean
-    delete?: boolean
+    disconnect?: BruteBodyWhereInput | boolean
+    delete?: BruteBodyWhereInput | boolean
     connect?: BruteBodyWhereUniqueInput
-    update?: XOR<BruteBodyUpdateWithoutBruteInput, BruteBodyUncheckedUpdateWithoutBruteInput>
+    update?: XOR<XOR<BruteBodyUpdateToOneWithWhereWithoutBruteInput, BruteBodyUpdateWithoutBruteInput>, BruteBodyUncheckedUpdateWithoutBruteInput>
   }
 
   export type BruteColorsUpdateOneWithoutBruteNestedInput = {
     create?: XOR<BruteColorsCreateWithoutBruteInput, BruteColorsUncheckedCreateWithoutBruteInput>
     connectOrCreate?: BruteColorsCreateOrConnectWithoutBruteInput
     upsert?: BruteColorsUpsertWithoutBruteInput
-    disconnect?: boolean
-    delete?: boolean
+    disconnect?: BruteColorsWhereInput | boolean
+    delete?: BruteColorsWhereInput | boolean
     connect?: BruteColorsWhereUniqueInput
-    update?: XOR<BruteColorsUpdateWithoutBruteInput, BruteColorsUncheckedUpdateWithoutBruteInput>
+    update?: XOR<XOR<BruteColorsUpdateToOneWithWhereWithoutBruteInput, BruteColorsUpdateWithoutBruteInput>, BruteColorsUncheckedUpdateWithoutBruteInput>
   }
 
   export type BruteUpdateOneWithoutPupilsNestedInput = {
     create?: XOR<BruteCreateWithoutPupilsInput, BruteUncheckedCreateWithoutPupilsInput>
     connectOrCreate?: BruteCreateOrConnectWithoutPupilsInput
     upsert?: BruteUpsertWithoutPupilsInput
-    disconnect?: boolean
-    delete?: boolean
+    disconnect?: BruteWhereInput | boolean
+    delete?: BruteWhereInput | boolean
     connect?: BruteWhereUniqueInput
-    update?: XOR<BruteUpdateWithoutPupilsInput, BruteUncheckedUpdateWithoutPupilsInput>
+    update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutPupilsInput, BruteUpdateWithoutPupilsInput>, BruteUncheckedUpdateWithoutPupilsInput>
   }
 
   export type BruteUpdateManyWithoutMasterNestedInput = {
-    create?: XOR<Enumerable<BruteCreateWithoutMasterInput>, Enumerable<BruteUncheckedCreateWithoutMasterInput>>
-    connectOrCreate?: Enumerable<BruteCreateOrConnectWithoutMasterInput>
-    upsert?: Enumerable<BruteUpsertWithWhereUniqueWithoutMasterInput>
+    create?: XOR<BruteCreateWithoutMasterInput, BruteUncheckedCreateWithoutMasterInput> | BruteCreateWithoutMasterInput[] | BruteUncheckedCreateWithoutMasterInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutMasterInput | BruteCreateOrConnectWithoutMasterInput[]
+    upsert?: BruteUpsertWithWhereUniqueWithoutMasterInput | BruteUpsertWithWhereUniqueWithoutMasterInput[]
     createMany?: BruteCreateManyMasterInputEnvelope
-    set?: Enumerable<BruteWhereUniqueInput>
-    disconnect?: Enumerable<BruteWhereUniqueInput>
-    delete?: Enumerable<BruteWhereUniqueInput>
-    connect?: Enumerable<BruteWhereUniqueInput>
-    update?: Enumerable<BruteUpdateWithWhereUniqueWithoutMasterInput>
-    updateMany?: Enumerable<BruteUpdateManyWithWhereWithoutMasterInput>
-    deleteMany?: Enumerable<BruteScalarWhereInput>
+    set?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    disconnect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    delete?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    update?: BruteUpdateWithWhereUniqueWithoutMasterInput | BruteUpdateWithWhereUniqueWithoutMasterInput[]
+    updateMany?: BruteUpdateManyWithWhereWithoutMasterInput | BruteUpdateManyWithWhereWithoutMasterInput[]
+    deleteMany?: BruteScalarWhereInput | BruteScalarWhereInput[]
   }
 
   export type ClanUpdateOneWithoutBrutesNestedInput = {
     create?: XOR<ClanCreateWithoutBrutesInput, ClanUncheckedCreateWithoutBrutesInput>
     connectOrCreate?: ClanCreateOrConnectWithoutBrutesInput
     upsert?: ClanUpsertWithoutBrutesInput
-    disconnect?: boolean
-    delete?: boolean
+    disconnect?: ClanWhereInput | boolean
+    delete?: ClanWhereInput | boolean
     connect?: ClanWhereUniqueInput
-    update?: XOR<ClanUpdateWithoutBrutesInput, ClanUncheckedUpdateWithoutBrutesInput>
+    update?: XOR<XOR<ClanUpdateToOneWithWhereWithoutBrutesInput, ClanUpdateWithoutBrutesInput>, ClanUncheckedUpdateWithoutBrutesInput>
   }
 
   export type FightUpdateManyWithoutBrute1NestedInput = {
-    create?: XOR<Enumerable<FightCreateWithoutBrute1Input>, Enumerable<FightUncheckedCreateWithoutBrute1Input>>
-    connectOrCreate?: Enumerable<FightCreateOrConnectWithoutBrute1Input>
-    upsert?: Enumerable<FightUpsertWithWhereUniqueWithoutBrute1Input>
+    create?: XOR<FightCreateWithoutBrute1Input, FightUncheckedCreateWithoutBrute1Input> | FightCreateWithoutBrute1Input[] | FightUncheckedCreateWithoutBrute1Input[]
+    connectOrCreate?: FightCreateOrConnectWithoutBrute1Input | FightCreateOrConnectWithoutBrute1Input[]
+    upsert?: FightUpsertWithWhereUniqueWithoutBrute1Input | FightUpsertWithWhereUniqueWithoutBrute1Input[]
     createMany?: FightCreateManyBrute1InputEnvelope
-    set?: Enumerable<FightWhereUniqueInput>
-    disconnect?: Enumerable<FightWhereUniqueInput>
-    delete?: Enumerable<FightWhereUniqueInput>
-    connect?: Enumerable<FightWhereUniqueInput>
-    update?: Enumerable<FightUpdateWithWhereUniqueWithoutBrute1Input>
-    updateMany?: Enumerable<FightUpdateManyWithWhereWithoutBrute1Input>
-    deleteMany?: Enumerable<FightScalarWhereInput>
+    set?: FightWhereUniqueInput | FightWhereUniqueInput[]
+    disconnect?: FightWhereUniqueInput | FightWhereUniqueInput[]
+    delete?: FightWhereUniqueInput | FightWhereUniqueInput[]
+    connect?: FightWhereUniqueInput | FightWhereUniqueInput[]
+    update?: FightUpdateWithWhereUniqueWithoutBrute1Input | FightUpdateWithWhereUniqueWithoutBrute1Input[]
+    updateMany?: FightUpdateManyWithWhereWithoutBrute1Input | FightUpdateManyWithWhereWithoutBrute1Input[]
+    deleteMany?: FightScalarWhereInput | FightScalarWhereInput[]
   }
 
   export type FightUpdateManyWithoutBrute2NestedInput = {
-    create?: XOR<Enumerable<FightCreateWithoutBrute2Input>, Enumerable<FightUncheckedCreateWithoutBrute2Input>>
-    connectOrCreate?: Enumerable<FightCreateOrConnectWithoutBrute2Input>
-    upsert?: Enumerable<FightUpsertWithWhereUniqueWithoutBrute2Input>
+    create?: XOR<FightCreateWithoutBrute2Input, FightUncheckedCreateWithoutBrute2Input> | FightCreateWithoutBrute2Input[] | FightUncheckedCreateWithoutBrute2Input[]
+    connectOrCreate?: FightCreateOrConnectWithoutBrute2Input | FightCreateOrConnectWithoutBrute2Input[]
+    upsert?: FightUpsertWithWhereUniqueWithoutBrute2Input | FightUpsertWithWhereUniqueWithoutBrute2Input[]
     createMany?: FightCreateManyBrute2InputEnvelope
-    set?: Enumerable<FightWhereUniqueInput>
-    disconnect?: Enumerable<FightWhereUniqueInput>
-    delete?: Enumerable<FightWhereUniqueInput>
-    connect?: Enumerable<FightWhereUniqueInput>
-    update?: Enumerable<FightUpdateWithWhereUniqueWithoutBrute2Input>
-    updateMany?: Enumerable<FightUpdateManyWithWhereWithoutBrute2Input>
-    deleteMany?: Enumerable<FightScalarWhereInput>
+    set?: FightWhereUniqueInput | FightWhereUniqueInput[]
+    disconnect?: FightWhereUniqueInput | FightWhereUniqueInput[]
+    delete?: FightWhereUniqueInput | FightWhereUniqueInput[]
+    connect?: FightWhereUniqueInput | FightWhereUniqueInput[]
+    update?: FightUpdateWithWhereUniqueWithoutBrute2Input | FightUpdateWithWhereUniqueWithoutBrute2Input[]
+    updateMany?: FightUpdateManyWithWhereWithoutBrute2Input | FightUpdateManyWithWhereWithoutBrute2Input[]
+    deleteMany?: FightScalarWhereInput | FightScalarWhereInput[]
   }
 
   export type LogUpdateManyWithoutCurrentBruteNestedInput = {
-    create?: XOR<Enumerable<LogCreateWithoutCurrentBruteInput>, Enumerable<LogUncheckedCreateWithoutCurrentBruteInput>>
-    connectOrCreate?: Enumerable<LogCreateOrConnectWithoutCurrentBruteInput>
-    upsert?: Enumerable<LogUpsertWithWhereUniqueWithoutCurrentBruteInput>
+    create?: XOR<LogCreateWithoutCurrentBruteInput, LogUncheckedCreateWithoutCurrentBruteInput> | LogCreateWithoutCurrentBruteInput[] | LogUncheckedCreateWithoutCurrentBruteInput[]
+    connectOrCreate?: LogCreateOrConnectWithoutCurrentBruteInput | LogCreateOrConnectWithoutCurrentBruteInput[]
+    upsert?: LogUpsertWithWhereUniqueWithoutCurrentBruteInput | LogUpsertWithWhereUniqueWithoutCurrentBruteInput[]
     createMany?: LogCreateManyCurrentBruteInputEnvelope
-    set?: Enumerable<LogWhereUniqueInput>
-    disconnect?: Enumerable<LogWhereUniqueInput>
-    delete?: Enumerable<LogWhereUniqueInput>
-    connect?: Enumerable<LogWhereUniqueInput>
-    update?: Enumerable<LogUpdateWithWhereUniqueWithoutCurrentBruteInput>
-    updateMany?: Enumerable<LogUpdateManyWithWhereWithoutCurrentBruteInput>
-    deleteMany?: Enumerable<LogScalarWhereInput>
+    set?: LogWhereUniqueInput | LogWhereUniqueInput[]
+    disconnect?: LogWhereUniqueInput | LogWhereUniqueInput[]
+    delete?: LogWhereUniqueInput | LogWhereUniqueInput[]
+    connect?: LogWhereUniqueInput | LogWhereUniqueInput[]
+    update?: LogUpdateWithWhereUniqueWithoutCurrentBruteInput | LogUpdateWithWhereUniqueWithoutCurrentBruteInput[]
+    updateMany?: LogUpdateManyWithWhereWithoutCurrentBruteInput | LogUpdateManyWithWhereWithoutCurrentBruteInput[]
+    deleteMany?: LogScalarWhereInput | LogScalarWhereInput[]
   }
 
   export type DestinyChoiceUpdateManyWithoutBruteNestedInput = {
-    create?: XOR<Enumerable<DestinyChoiceCreateWithoutBruteInput>, Enumerable<DestinyChoiceUncheckedCreateWithoutBruteInput>>
-    connectOrCreate?: Enumerable<DestinyChoiceCreateOrConnectWithoutBruteInput>
-    upsert?: Enumerable<DestinyChoiceUpsertWithWhereUniqueWithoutBruteInput>
+    create?: XOR<DestinyChoiceCreateWithoutBruteInput, DestinyChoiceUncheckedCreateWithoutBruteInput> | DestinyChoiceCreateWithoutBruteInput[] | DestinyChoiceUncheckedCreateWithoutBruteInput[]
+    connectOrCreate?: DestinyChoiceCreateOrConnectWithoutBruteInput | DestinyChoiceCreateOrConnectWithoutBruteInput[]
+    upsert?: DestinyChoiceUpsertWithWhereUniqueWithoutBruteInput | DestinyChoiceUpsertWithWhereUniqueWithoutBruteInput[]
     createMany?: DestinyChoiceCreateManyBruteInputEnvelope
-    set?: Enumerable<DestinyChoiceWhereUniqueInput>
-    disconnect?: Enumerable<DestinyChoiceWhereUniqueInput>
-    delete?: Enumerable<DestinyChoiceWhereUniqueInput>
-    connect?: Enumerable<DestinyChoiceWhereUniqueInput>
-    update?: Enumerable<DestinyChoiceUpdateWithWhereUniqueWithoutBruteInput>
-    updateMany?: Enumerable<DestinyChoiceUpdateManyWithWhereWithoutBruteInput>
-    deleteMany?: Enumerable<DestinyChoiceScalarWhereInput>
+    set?: DestinyChoiceWhereUniqueInput | DestinyChoiceWhereUniqueInput[]
+    disconnect?: DestinyChoiceWhereUniqueInput | DestinyChoiceWhereUniqueInput[]
+    delete?: DestinyChoiceWhereUniqueInput | DestinyChoiceWhereUniqueInput[]
+    connect?: DestinyChoiceWhereUniqueInput | DestinyChoiceWhereUniqueInput[]
+    update?: DestinyChoiceUpdateWithWhereUniqueWithoutBruteInput | DestinyChoiceUpdateWithWhereUniqueWithoutBruteInput[]
+    updateMany?: DestinyChoiceUpdateManyWithWhereWithoutBruteInput | DestinyChoiceUpdateManyWithWhereWithoutBruteInput[]
+    deleteMany?: DestinyChoiceScalarWhereInput | DestinyChoiceScalarWhereInput[]
   }
 
   export type BruteSpritesheetUpdateOneWithoutBruteNestedInput = {
     create?: XOR<BruteSpritesheetCreateWithoutBruteInput, BruteSpritesheetUncheckedCreateWithoutBruteInput>
     connectOrCreate?: BruteSpritesheetCreateOrConnectWithoutBruteInput
     upsert?: BruteSpritesheetUpsertWithoutBruteInput
-    disconnect?: boolean
-    delete?: boolean
+    disconnect?: BruteSpritesheetWhereInput | boolean
+    delete?: BruteSpritesheetWhereInput | boolean
     connect?: BruteSpritesheetWhereUniqueInput
-    update?: XOR<BruteSpritesheetUpdateWithoutBruteInput, BruteSpritesheetUncheckedUpdateWithoutBruteInput>
+    update?: XOR<XOR<BruteSpritesheetUpdateToOneWithWhereWithoutBruteInput, BruteSpritesheetUpdateWithoutBruteInput>, BruteSpritesheetUncheckedUpdateWithoutBruteInput>
   }
 
   export type TournamentUpdateManyWithoutParticipantsNestedInput = {
-    create?: XOR<Enumerable<TournamentCreateWithoutParticipantsInput>, Enumerable<TournamentUncheckedCreateWithoutParticipantsInput>>
-    connectOrCreate?: Enumerable<TournamentCreateOrConnectWithoutParticipantsInput>
-    upsert?: Enumerable<TournamentUpsertWithWhereUniqueWithoutParticipantsInput>
-    set?: Enumerable<TournamentWhereUniqueInput>
-    disconnect?: Enumerable<TournamentWhereUniqueInput>
-    delete?: Enumerable<TournamentWhereUniqueInput>
-    connect?: Enumerable<TournamentWhereUniqueInput>
-    update?: Enumerable<TournamentUpdateWithWhereUniqueWithoutParticipantsInput>
-    updateMany?: Enumerable<TournamentUpdateManyWithWhereWithoutParticipantsInput>
-    deleteMany?: Enumerable<TournamentScalarWhereInput>
+    create?: XOR<TournamentCreateWithoutParticipantsInput, TournamentUncheckedCreateWithoutParticipantsInput> | TournamentCreateWithoutParticipantsInput[] | TournamentUncheckedCreateWithoutParticipantsInput[]
+    connectOrCreate?: TournamentCreateOrConnectWithoutParticipantsInput | TournamentCreateOrConnectWithoutParticipantsInput[]
+    upsert?: TournamentUpsertWithWhereUniqueWithoutParticipantsInput | TournamentUpsertWithWhereUniqueWithoutParticipantsInput[]
+    set?: TournamentWhereUniqueInput | TournamentWhereUniqueInput[]
+    disconnect?: TournamentWhereUniqueInput | TournamentWhereUniqueInput[]
+    delete?: TournamentWhereUniqueInput | TournamentWhereUniqueInput[]
+    connect?: TournamentWhereUniqueInput | TournamentWhereUniqueInput[]
+    update?: TournamentUpdateWithWhereUniqueWithoutParticipantsInput | TournamentUpdateWithWhereUniqueWithoutParticipantsInput[]
+    updateMany?: TournamentUpdateManyWithWhereWithoutParticipantsInput | TournamentUpdateManyWithWhereWithoutParticipantsInput[]
+    deleteMany?: TournamentScalarWhereInput | TournamentScalarWhereInput[]
   }
 
   export type BruteUpdateManyWithoutOpponentOfNestedInput = {
-    create?: XOR<Enumerable<BruteCreateWithoutOpponentOfInput>, Enumerable<BruteUncheckedCreateWithoutOpponentOfInput>>
-    connectOrCreate?: Enumerable<BruteCreateOrConnectWithoutOpponentOfInput>
-    upsert?: Enumerable<BruteUpsertWithWhereUniqueWithoutOpponentOfInput>
-    set?: Enumerable<BruteWhereUniqueInput>
-    disconnect?: Enumerable<BruteWhereUniqueInput>
-    delete?: Enumerable<BruteWhereUniqueInput>
-    connect?: Enumerable<BruteWhereUniqueInput>
-    update?: Enumerable<BruteUpdateWithWhereUniqueWithoutOpponentOfInput>
-    updateMany?: Enumerable<BruteUpdateManyWithWhereWithoutOpponentOfInput>
-    deleteMany?: Enumerable<BruteScalarWhereInput>
+    create?: XOR<BruteCreateWithoutOpponentOfInput, BruteUncheckedCreateWithoutOpponentOfInput> | BruteCreateWithoutOpponentOfInput[] | BruteUncheckedCreateWithoutOpponentOfInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutOpponentOfInput | BruteCreateOrConnectWithoutOpponentOfInput[]
+    upsert?: BruteUpsertWithWhereUniqueWithoutOpponentOfInput | BruteUpsertWithWhereUniqueWithoutOpponentOfInput[]
+    set?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    disconnect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    delete?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    update?: BruteUpdateWithWhereUniqueWithoutOpponentOfInput | BruteUpdateWithWhereUniqueWithoutOpponentOfInput[]
+    updateMany?: BruteUpdateManyWithWhereWithoutOpponentOfInput | BruteUpdateManyWithWhereWithoutOpponentOfInput[]
+    deleteMany?: BruteScalarWhereInput | BruteScalarWhereInput[]
   }
 
   export type BruteUpdateManyWithoutOpponentsNestedInput = {
-    create?: XOR<Enumerable<BruteCreateWithoutOpponentsInput>, Enumerable<BruteUncheckedCreateWithoutOpponentsInput>>
-    connectOrCreate?: Enumerable<BruteCreateOrConnectWithoutOpponentsInput>
-    upsert?: Enumerable<BruteUpsertWithWhereUniqueWithoutOpponentsInput>
-    set?: Enumerable<BruteWhereUniqueInput>
-    disconnect?: Enumerable<BruteWhereUniqueInput>
-    delete?: Enumerable<BruteWhereUniqueInput>
-    connect?: Enumerable<BruteWhereUniqueInput>
-    update?: Enumerable<BruteUpdateWithWhereUniqueWithoutOpponentsInput>
-    updateMany?: Enumerable<BruteUpdateManyWithWhereWithoutOpponentsInput>
-    deleteMany?: Enumerable<BruteScalarWhereInput>
+    create?: XOR<BruteCreateWithoutOpponentsInput, BruteUncheckedCreateWithoutOpponentsInput> | BruteCreateWithoutOpponentsInput[] | BruteUncheckedCreateWithoutOpponentsInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutOpponentsInput | BruteCreateOrConnectWithoutOpponentsInput[]
+    upsert?: BruteUpsertWithWhereUniqueWithoutOpponentsInput | BruteUpsertWithWhereUniqueWithoutOpponentsInput[]
+    set?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    disconnect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    delete?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    update?: BruteUpdateWithWhereUniqueWithoutOpponentsInput | BruteUpdateWithWhereUniqueWithoutOpponentsInput[]
+    updateMany?: BruteUpdateManyWithWhereWithoutOpponentsInput | BruteUpdateManyWithWhereWithoutOpponentsInput[]
+    deleteMany?: BruteScalarWhereInput | BruteScalarWhereInput[]
   }
 
   export type AchievementUpdateManyWithoutBruteNestedInput = {
-    create?: XOR<Enumerable<AchievementCreateWithoutBruteInput>, Enumerable<AchievementUncheckedCreateWithoutBruteInput>>
-    connectOrCreate?: Enumerable<AchievementCreateOrConnectWithoutBruteInput>
-    upsert?: Enumerable<AchievementUpsertWithWhereUniqueWithoutBruteInput>
+    create?: XOR<AchievementCreateWithoutBruteInput, AchievementUncheckedCreateWithoutBruteInput> | AchievementCreateWithoutBruteInput[] | AchievementUncheckedCreateWithoutBruteInput[]
+    connectOrCreate?: AchievementCreateOrConnectWithoutBruteInput | AchievementCreateOrConnectWithoutBruteInput[]
+    upsert?: AchievementUpsertWithWhereUniqueWithoutBruteInput | AchievementUpsertWithWhereUniqueWithoutBruteInput[]
     createMany?: AchievementCreateManyBruteInputEnvelope
-    set?: Enumerable<AchievementWhereUniqueInput>
-    disconnect?: Enumerable<AchievementWhereUniqueInput>
-    delete?: Enumerable<AchievementWhereUniqueInput>
-    connect?: Enumerable<AchievementWhereUniqueInput>
-    update?: Enumerable<AchievementUpdateWithWhereUniqueWithoutBruteInput>
-    updateMany?: Enumerable<AchievementUpdateManyWithWhereWithoutBruteInput>
-    deleteMany?: Enumerable<AchievementScalarWhereInput>
+    set?: AchievementWhereUniqueInput | AchievementWhereUniqueInput[]
+    disconnect?: AchievementWhereUniqueInput | AchievementWhereUniqueInput[]
+    delete?: AchievementWhereUniqueInput | AchievementWhereUniqueInput[]
+    connect?: AchievementWhereUniqueInput | AchievementWhereUniqueInput[]
+    update?: AchievementUpdateWithWhereUniqueWithoutBruteInput | AchievementUpdateWithWhereUniqueWithoutBruteInput[]
+    updateMany?: AchievementUpdateManyWithWhereWithoutBruteInput | AchievementUpdateManyWithWhereWithoutBruteInput[]
+    deleteMany?: AchievementScalarWhereInput | AchievementScalarWhereInput[]
   }
 
   export type TournamentEarningUpdateManyWithoutBruteNestedInput = {
-    create?: XOR<Enumerable<TournamentEarningCreateWithoutBruteInput>, Enumerable<TournamentEarningUncheckedCreateWithoutBruteInput>>
-    connectOrCreate?: Enumerable<TournamentEarningCreateOrConnectWithoutBruteInput>
-    upsert?: Enumerable<TournamentEarningUpsertWithWhereUniqueWithoutBruteInput>
+    create?: XOR<TournamentEarningCreateWithoutBruteInput, TournamentEarningUncheckedCreateWithoutBruteInput> | TournamentEarningCreateWithoutBruteInput[] | TournamentEarningUncheckedCreateWithoutBruteInput[]
+    connectOrCreate?: TournamentEarningCreateOrConnectWithoutBruteInput | TournamentEarningCreateOrConnectWithoutBruteInput[]
+    upsert?: TournamentEarningUpsertWithWhereUniqueWithoutBruteInput | TournamentEarningUpsertWithWhereUniqueWithoutBruteInput[]
     createMany?: TournamentEarningCreateManyBruteInputEnvelope
-    set?: Enumerable<TournamentEarningWhereUniqueInput>
-    disconnect?: Enumerable<TournamentEarningWhereUniqueInput>
-    delete?: Enumerable<TournamentEarningWhereUniqueInput>
-    connect?: Enumerable<TournamentEarningWhereUniqueInput>
-    update?: Enumerable<TournamentEarningUpdateWithWhereUniqueWithoutBruteInput>
-    updateMany?: Enumerable<TournamentEarningUpdateManyWithWhereWithoutBruteInput>
-    deleteMany?: Enumerable<TournamentEarningScalarWhereInput>
+    set?: TournamentEarningWhereUniqueInput | TournamentEarningWhereUniqueInput[]
+    disconnect?: TournamentEarningWhereUniqueInput | TournamentEarningWhereUniqueInput[]
+    delete?: TournamentEarningWhereUniqueInput | TournamentEarningWhereUniqueInput[]
+    connect?: TournamentEarningWhereUniqueInput | TournamentEarningWhereUniqueInput[]
+    update?: TournamentEarningUpdateWithWhereUniqueWithoutBruteInput | TournamentEarningUpdateWithWhereUniqueWithoutBruteInput[]
+    updateMany?: TournamentEarningUpdateManyWithWhereWithoutBruteInput | TournamentEarningUpdateManyWithWhereWithoutBruteInput[]
+    deleteMany?: TournamentEarningScalarWhereInput | TournamentEarningScalarWhereInput[]
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -19935,167 +21483,167 @@ export namespace Prisma {
     create?: XOR<BruteBodyCreateWithoutBruteInput, BruteBodyUncheckedCreateWithoutBruteInput>
     connectOrCreate?: BruteBodyCreateOrConnectWithoutBruteInput
     upsert?: BruteBodyUpsertWithoutBruteInput
-    disconnect?: boolean
-    delete?: boolean
+    disconnect?: BruteBodyWhereInput | boolean
+    delete?: BruteBodyWhereInput | boolean
     connect?: BruteBodyWhereUniqueInput
-    update?: XOR<BruteBodyUpdateWithoutBruteInput, BruteBodyUncheckedUpdateWithoutBruteInput>
+    update?: XOR<XOR<BruteBodyUpdateToOneWithWhereWithoutBruteInput, BruteBodyUpdateWithoutBruteInput>, BruteBodyUncheckedUpdateWithoutBruteInput>
   }
 
   export type BruteColorsUncheckedUpdateOneWithoutBruteNestedInput = {
     create?: XOR<BruteColorsCreateWithoutBruteInput, BruteColorsUncheckedCreateWithoutBruteInput>
     connectOrCreate?: BruteColorsCreateOrConnectWithoutBruteInput
     upsert?: BruteColorsUpsertWithoutBruteInput
-    disconnect?: boolean
-    delete?: boolean
+    disconnect?: BruteColorsWhereInput | boolean
+    delete?: BruteColorsWhereInput | boolean
     connect?: BruteColorsWhereUniqueInput
-    update?: XOR<BruteColorsUpdateWithoutBruteInput, BruteColorsUncheckedUpdateWithoutBruteInput>
+    update?: XOR<XOR<BruteColorsUpdateToOneWithWhereWithoutBruteInput, BruteColorsUpdateWithoutBruteInput>, BruteColorsUncheckedUpdateWithoutBruteInput>
   }
 
   export type BruteUncheckedUpdateManyWithoutMasterNestedInput = {
-    create?: XOR<Enumerable<BruteCreateWithoutMasterInput>, Enumerable<BruteUncheckedCreateWithoutMasterInput>>
-    connectOrCreate?: Enumerable<BruteCreateOrConnectWithoutMasterInput>
-    upsert?: Enumerable<BruteUpsertWithWhereUniqueWithoutMasterInput>
+    create?: XOR<BruteCreateWithoutMasterInput, BruteUncheckedCreateWithoutMasterInput> | BruteCreateWithoutMasterInput[] | BruteUncheckedCreateWithoutMasterInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutMasterInput | BruteCreateOrConnectWithoutMasterInput[]
+    upsert?: BruteUpsertWithWhereUniqueWithoutMasterInput | BruteUpsertWithWhereUniqueWithoutMasterInput[]
     createMany?: BruteCreateManyMasterInputEnvelope
-    set?: Enumerable<BruteWhereUniqueInput>
-    disconnect?: Enumerable<BruteWhereUniqueInput>
-    delete?: Enumerable<BruteWhereUniqueInput>
-    connect?: Enumerable<BruteWhereUniqueInput>
-    update?: Enumerable<BruteUpdateWithWhereUniqueWithoutMasterInput>
-    updateMany?: Enumerable<BruteUpdateManyWithWhereWithoutMasterInput>
-    deleteMany?: Enumerable<BruteScalarWhereInput>
+    set?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    disconnect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    delete?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    update?: BruteUpdateWithWhereUniqueWithoutMasterInput | BruteUpdateWithWhereUniqueWithoutMasterInput[]
+    updateMany?: BruteUpdateManyWithWhereWithoutMasterInput | BruteUpdateManyWithWhereWithoutMasterInput[]
+    deleteMany?: BruteScalarWhereInput | BruteScalarWhereInput[]
   }
 
   export type FightUncheckedUpdateManyWithoutBrute1NestedInput = {
-    create?: XOR<Enumerable<FightCreateWithoutBrute1Input>, Enumerable<FightUncheckedCreateWithoutBrute1Input>>
-    connectOrCreate?: Enumerable<FightCreateOrConnectWithoutBrute1Input>
-    upsert?: Enumerable<FightUpsertWithWhereUniqueWithoutBrute1Input>
+    create?: XOR<FightCreateWithoutBrute1Input, FightUncheckedCreateWithoutBrute1Input> | FightCreateWithoutBrute1Input[] | FightUncheckedCreateWithoutBrute1Input[]
+    connectOrCreate?: FightCreateOrConnectWithoutBrute1Input | FightCreateOrConnectWithoutBrute1Input[]
+    upsert?: FightUpsertWithWhereUniqueWithoutBrute1Input | FightUpsertWithWhereUniqueWithoutBrute1Input[]
     createMany?: FightCreateManyBrute1InputEnvelope
-    set?: Enumerable<FightWhereUniqueInput>
-    disconnect?: Enumerable<FightWhereUniqueInput>
-    delete?: Enumerable<FightWhereUniqueInput>
-    connect?: Enumerable<FightWhereUniqueInput>
-    update?: Enumerable<FightUpdateWithWhereUniqueWithoutBrute1Input>
-    updateMany?: Enumerable<FightUpdateManyWithWhereWithoutBrute1Input>
-    deleteMany?: Enumerable<FightScalarWhereInput>
+    set?: FightWhereUniqueInput | FightWhereUniqueInput[]
+    disconnect?: FightWhereUniqueInput | FightWhereUniqueInput[]
+    delete?: FightWhereUniqueInput | FightWhereUniqueInput[]
+    connect?: FightWhereUniqueInput | FightWhereUniqueInput[]
+    update?: FightUpdateWithWhereUniqueWithoutBrute1Input | FightUpdateWithWhereUniqueWithoutBrute1Input[]
+    updateMany?: FightUpdateManyWithWhereWithoutBrute1Input | FightUpdateManyWithWhereWithoutBrute1Input[]
+    deleteMany?: FightScalarWhereInput | FightScalarWhereInput[]
   }
 
   export type FightUncheckedUpdateManyWithoutBrute2NestedInput = {
-    create?: XOR<Enumerable<FightCreateWithoutBrute2Input>, Enumerable<FightUncheckedCreateWithoutBrute2Input>>
-    connectOrCreate?: Enumerable<FightCreateOrConnectWithoutBrute2Input>
-    upsert?: Enumerable<FightUpsertWithWhereUniqueWithoutBrute2Input>
+    create?: XOR<FightCreateWithoutBrute2Input, FightUncheckedCreateWithoutBrute2Input> | FightCreateWithoutBrute2Input[] | FightUncheckedCreateWithoutBrute2Input[]
+    connectOrCreate?: FightCreateOrConnectWithoutBrute2Input | FightCreateOrConnectWithoutBrute2Input[]
+    upsert?: FightUpsertWithWhereUniqueWithoutBrute2Input | FightUpsertWithWhereUniqueWithoutBrute2Input[]
     createMany?: FightCreateManyBrute2InputEnvelope
-    set?: Enumerable<FightWhereUniqueInput>
-    disconnect?: Enumerable<FightWhereUniqueInput>
-    delete?: Enumerable<FightWhereUniqueInput>
-    connect?: Enumerable<FightWhereUniqueInput>
-    update?: Enumerable<FightUpdateWithWhereUniqueWithoutBrute2Input>
-    updateMany?: Enumerable<FightUpdateManyWithWhereWithoutBrute2Input>
-    deleteMany?: Enumerable<FightScalarWhereInput>
+    set?: FightWhereUniqueInput | FightWhereUniqueInput[]
+    disconnect?: FightWhereUniqueInput | FightWhereUniqueInput[]
+    delete?: FightWhereUniqueInput | FightWhereUniqueInput[]
+    connect?: FightWhereUniqueInput | FightWhereUniqueInput[]
+    update?: FightUpdateWithWhereUniqueWithoutBrute2Input | FightUpdateWithWhereUniqueWithoutBrute2Input[]
+    updateMany?: FightUpdateManyWithWhereWithoutBrute2Input | FightUpdateManyWithWhereWithoutBrute2Input[]
+    deleteMany?: FightScalarWhereInput | FightScalarWhereInput[]
   }
 
   export type LogUncheckedUpdateManyWithoutCurrentBruteNestedInput = {
-    create?: XOR<Enumerable<LogCreateWithoutCurrentBruteInput>, Enumerable<LogUncheckedCreateWithoutCurrentBruteInput>>
-    connectOrCreate?: Enumerable<LogCreateOrConnectWithoutCurrentBruteInput>
-    upsert?: Enumerable<LogUpsertWithWhereUniqueWithoutCurrentBruteInput>
+    create?: XOR<LogCreateWithoutCurrentBruteInput, LogUncheckedCreateWithoutCurrentBruteInput> | LogCreateWithoutCurrentBruteInput[] | LogUncheckedCreateWithoutCurrentBruteInput[]
+    connectOrCreate?: LogCreateOrConnectWithoutCurrentBruteInput | LogCreateOrConnectWithoutCurrentBruteInput[]
+    upsert?: LogUpsertWithWhereUniqueWithoutCurrentBruteInput | LogUpsertWithWhereUniqueWithoutCurrentBruteInput[]
     createMany?: LogCreateManyCurrentBruteInputEnvelope
-    set?: Enumerable<LogWhereUniqueInput>
-    disconnect?: Enumerable<LogWhereUniqueInput>
-    delete?: Enumerable<LogWhereUniqueInput>
-    connect?: Enumerable<LogWhereUniqueInput>
-    update?: Enumerable<LogUpdateWithWhereUniqueWithoutCurrentBruteInput>
-    updateMany?: Enumerable<LogUpdateManyWithWhereWithoutCurrentBruteInput>
-    deleteMany?: Enumerable<LogScalarWhereInput>
+    set?: LogWhereUniqueInput | LogWhereUniqueInput[]
+    disconnect?: LogWhereUniqueInput | LogWhereUniqueInput[]
+    delete?: LogWhereUniqueInput | LogWhereUniqueInput[]
+    connect?: LogWhereUniqueInput | LogWhereUniqueInput[]
+    update?: LogUpdateWithWhereUniqueWithoutCurrentBruteInput | LogUpdateWithWhereUniqueWithoutCurrentBruteInput[]
+    updateMany?: LogUpdateManyWithWhereWithoutCurrentBruteInput | LogUpdateManyWithWhereWithoutCurrentBruteInput[]
+    deleteMany?: LogScalarWhereInput | LogScalarWhereInput[]
   }
 
   export type DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput = {
-    create?: XOR<Enumerable<DestinyChoiceCreateWithoutBruteInput>, Enumerable<DestinyChoiceUncheckedCreateWithoutBruteInput>>
-    connectOrCreate?: Enumerable<DestinyChoiceCreateOrConnectWithoutBruteInput>
-    upsert?: Enumerable<DestinyChoiceUpsertWithWhereUniqueWithoutBruteInput>
+    create?: XOR<DestinyChoiceCreateWithoutBruteInput, DestinyChoiceUncheckedCreateWithoutBruteInput> | DestinyChoiceCreateWithoutBruteInput[] | DestinyChoiceUncheckedCreateWithoutBruteInput[]
+    connectOrCreate?: DestinyChoiceCreateOrConnectWithoutBruteInput | DestinyChoiceCreateOrConnectWithoutBruteInput[]
+    upsert?: DestinyChoiceUpsertWithWhereUniqueWithoutBruteInput | DestinyChoiceUpsertWithWhereUniqueWithoutBruteInput[]
     createMany?: DestinyChoiceCreateManyBruteInputEnvelope
-    set?: Enumerable<DestinyChoiceWhereUniqueInput>
-    disconnect?: Enumerable<DestinyChoiceWhereUniqueInput>
-    delete?: Enumerable<DestinyChoiceWhereUniqueInput>
-    connect?: Enumerable<DestinyChoiceWhereUniqueInput>
-    update?: Enumerable<DestinyChoiceUpdateWithWhereUniqueWithoutBruteInput>
-    updateMany?: Enumerable<DestinyChoiceUpdateManyWithWhereWithoutBruteInput>
-    deleteMany?: Enumerable<DestinyChoiceScalarWhereInput>
+    set?: DestinyChoiceWhereUniqueInput | DestinyChoiceWhereUniqueInput[]
+    disconnect?: DestinyChoiceWhereUniqueInput | DestinyChoiceWhereUniqueInput[]
+    delete?: DestinyChoiceWhereUniqueInput | DestinyChoiceWhereUniqueInput[]
+    connect?: DestinyChoiceWhereUniqueInput | DestinyChoiceWhereUniqueInput[]
+    update?: DestinyChoiceUpdateWithWhereUniqueWithoutBruteInput | DestinyChoiceUpdateWithWhereUniqueWithoutBruteInput[]
+    updateMany?: DestinyChoiceUpdateManyWithWhereWithoutBruteInput | DestinyChoiceUpdateManyWithWhereWithoutBruteInput[]
+    deleteMany?: DestinyChoiceScalarWhereInput | DestinyChoiceScalarWhereInput[]
   }
 
   export type BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput = {
     create?: XOR<BruteSpritesheetCreateWithoutBruteInput, BruteSpritesheetUncheckedCreateWithoutBruteInput>
     connectOrCreate?: BruteSpritesheetCreateOrConnectWithoutBruteInput
     upsert?: BruteSpritesheetUpsertWithoutBruteInput
-    disconnect?: boolean
-    delete?: boolean
+    disconnect?: BruteSpritesheetWhereInput | boolean
+    delete?: BruteSpritesheetWhereInput | boolean
     connect?: BruteSpritesheetWhereUniqueInput
-    update?: XOR<BruteSpritesheetUpdateWithoutBruteInput, BruteSpritesheetUncheckedUpdateWithoutBruteInput>
+    update?: XOR<XOR<BruteSpritesheetUpdateToOneWithWhereWithoutBruteInput, BruteSpritesheetUpdateWithoutBruteInput>, BruteSpritesheetUncheckedUpdateWithoutBruteInput>
   }
 
   export type TournamentUncheckedUpdateManyWithoutParticipantsNestedInput = {
-    create?: XOR<Enumerable<TournamentCreateWithoutParticipantsInput>, Enumerable<TournamentUncheckedCreateWithoutParticipantsInput>>
-    connectOrCreate?: Enumerable<TournamentCreateOrConnectWithoutParticipantsInput>
-    upsert?: Enumerable<TournamentUpsertWithWhereUniqueWithoutParticipantsInput>
-    set?: Enumerable<TournamentWhereUniqueInput>
-    disconnect?: Enumerable<TournamentWhereUniqueInput>
-    delete?: Enumerable<TournamentWhereUniqueInput>
-    connect?: Enumerable<TournamentWhereUniqueInput>
-    update?: Enumerable<TournamentUpdateWithWhereUniqueWithoutParticipantsInput>
-    updateMany?: Enumerable<TournamentUpdateManyWithWhereWithoutParticipantsInput>
-    deleteMany?: Enumerable<TournamentScalarWhereInput>
+    create?: XOR<TournamentCreateWithoutParticipantsInput, TournamentUncheckedCreateWithoutParticipantsInput> | TournamentCreateWithoutParticipantsInput[] | TournamentUncheckedCreateWithoutParticipantsInput[]
+    connectOrCreate?: TournamentCreateOrConnectWithoutParticipantsInput | TournamentCreateOrConnectWithoutParticipantsInput[]
+    upsert?: TournamentUpsertWithWhereUniqueWithoutParticipantsInput | TournamentUpsertWithWhereUniqueWithoutParticipantsInput[]
+    set?: TournamentWhereUniqueInput | TournamentWhereUniqueInput[]
+    disconnect?: TournamentWhereUniqueInput | TournamentWhereUniqueInput[]
+    delete?: TournamentWhereUniqueInput | TournamentWhereUniqueInput[]
+    connect?: TournamentWhereUniqueInput | TournamentWhereUniqueInput[]
+    update?: TournamentUpdateWithWhereUniqueWithoutParticipantsInput | TournamentUpdateWithWhereUniqueWithoutParticipantsInput[]
+    updateMany?: TournamentUpdateManyWithWhereWithoutParticipantsInput | TournamentUpdateManyWithWhereWithoutParticipantsInput[]
+    deleteMany?: TournamentScalarWhereInput | TournamentScalarWhereInput[]
   }
 
   export type BruteUncheckedUpdateManyWithoutOpponentOfNestedInput = {
-    create?: XOR<Enumerable<BruteCreateWithoutOpponentOfInput>, Enumerable<BruteUncheckedCreateWithoutOpponentOfInput>>
-    connectOrCreate?: Enumerable<BruteCreateOrConnectWithoutOpponentOfInput>
-    upsert?: Enumerable<BruteUpsertWithWhereUniqueWithoutOpponentOfInput>
-    set?: Enumerable<BruteWhereUniqueInput>
-    disconnect?: Enumerable<BruteWhereUniqueInput>
-    delete?: Enumerable<BruteWhereUniqueInput>
-    connect?: Enumerable<BruteWhereUniqueInput>
-    update?: Enumerable<BruteUpdateWithWhereUniqueWithoutOpponentOfInput>
-    updateMany?: Enumerable<BruteUpdateManyWithWhereWithoutOpponentOfInput>
-    deleteMany?: Enumerable<BruteScalarWhereInput>
+    create?: XOR<BruteCreateWithoutOpponentOfInput, BruteUncheckedCreateWithoutOpponentOfInput> | BruteCreateWithoutOpponentOfInput[] | BruteUncheckedCreateWithoutOpponentOfInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutOpponentOfInput | BruteCreateOrConnectWithoutOpponentOfInput[]
+    upsert?: BruteUpsertWithWhereUniqueWithoutOpponentOfInput | BruteUpsertWithWhereUniqueWithoutOpponentOfInput[]
+    set?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    disconnect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    delete?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    update?: BruteUpdateWithWhereUniqueWithoutOpponentOfInput | BruteUpdateWithWhereUniqueWithoutOpponentOfInput[]
+    updateMany?: BruteUpdateManyWithWhereWithoutOpponentOfInput | BruteUpdateManyWithWhereWithoutOpponentOfInput[]
+    deleteMany?: BruteScalarWhereInput | BruteScalarWhereInput[]
   }
 
   export type BruteUncheckedUpdateManyWithoutOpponentsNestedInput = {
-    create?: XOR<Enumerable<BruteCreateWithoutOpponentsInput>, Enumerable<BruteUncheckedCreateWithoutOpponentsInput>>
-    connectOrCreate?: Enumerable<BruteCreateOrConnectWithoutOpponentsInput>
-    upsert?: Enumerable<BruteUpsertWithWhereUniqueWithoutOpponentsInput>
-    set?: Enumerable<BruteWhereUniqueInput>
-    disconnect?: Enumerable<BruteWhereUniqueInput>
-    delete?: Enumerable<BruteWhereUniqueInput>
-    connect?: Enumerable<BruteWhereUniqueInput>
-    update?: Enumerable<BruteUpdateWithWhereUniqueWithoutOpponentsInput>
-    updateMany?: Enumerable<BruteUpdateManyWithWhereWithoutOpponentsInput>
-    deleteMany?: Enumerable<BruteScalarWhereInput>
+    create?: XOR<BruteCreateWithoutOpponentsInput, BruteUncheckedCreateWithoutOpponentsInput> | BruteCreateWithoutOpponentsInput[] | BruteUncheckedCreateWithoutOpponentsInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutOpponentsInput | BruteCreateOrConnectWithoutOpponentsInput[]
+    upsert?: BruteUpsertWithWhereUniqueWithoutOpponentsInput | BruteUpsertWithWhereUniqueWithoutOpponentsInput[]
+    set?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    disconnect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    delete?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    update?: BruteUpdateWithWhereUniqueWithoutOpponentsInput | BruteUpdateWithWhereUniqueWithoutOpponentsInput[]
+    updateMany?: BruteUpdateManyWithWhereWithoutOpponentsInput | BruteUpdateManyWithWhereWithoutOpponentsInput[]
+    deleteMany?: BruteScalarWhereInput | BruteScalarWhereInput[]
   }
 
   export type AchievementUncheckedUpdateManyWithoutBruteNestedInput = {
-    create?: XOR<Enumerable<AchievementCreateWithoutBruteInput>, Enumerable<AchievementUncheckedCreateWithoutBruteInput>>
-    connectOrCreate?: Enumerable<AchievementCreateOrConnectWithoutBruteInput>
-    upsert?: Enumerable<AchievementUpsertWithWhereUniqueWithoutBruteInput>
+    create?: XOR<AchievementCreateWithoutBruteInput, AchievementUncheckedCreateWithoutBruteInput> | AchievementCreateWithoutBruteInput[] | AchievementUncheckedCreateWithoutBruteInput[]
+    connectOrCreate?: AchievementCreateOrConnectWithoutBruteInput | AchievementCreateOrConnectWithoutBruteInput[]
+    upsert?: AchievementUpsertWithWhereUniqueWithoutBruteInput | AchievementUpsertWithWhereUniqueWithoutBruteInput[]
     createMany?: AchievementCreateManyBruteInputEnvelope
-    set?: Enumerable<AchievementWhereUniqueInput>
-    disconnect?: Enumerable<AchievementWhereUniqueInput>
-    delete?: Enumerable<AchievementWhereUniqueInput>
-    connect?: Enumerable<AchievementWhereUniqueInput>
-    update?: Enumerable<AchievementUpdateWithWhereUniqueWithoutBruteInput>
-    updateMany?: Enumerable<AchievementUpdateManyWithWhereWithoutBruteInput>
-    deleteMany?: Enumerable<AchievementScalarWhereInput>
+    set?: AchievementWhereUniqueInput | AchievementWhereUniqueInput[]
+    disconnect?: AchievementWhereUniqueInput | AchievementWhereUniqueInput[]
+    delete?: AchievementWhereUniqueInput | AchievementWhereUniqueInput[]
+    connect?: AchievementWhereUniqueInput | AchievementWhereUniqueInput[]
+    update?: AchievementUpdateWithWhereUniqueWithoutBruteInput | AchievementUpdateWithWhereUniqueWithoutBruteInput[]
+    updateMany?: AchievementUpdateManyWithWhereWithoutBruteInput | AchievementUpdateManyWithWhereWithoutBruteInput[]
+    deleteMany?: AchievementScalarWhereInput | AchievementScalarWhereInput[]
   }
 
   export type TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput = {
-    create?: XOR<Enumerable<TournamentEarningCreateWithoutBruteInput>, Enumerable<TournamentEarningUncheckedCreateWithoutBruteInput>>
-    connectOrCreate?: Enumerable<TournamentEarningCreateOrConnectWithoutBruteInput>
-    upsert?: Enumerable<TournamentEarningUpsertWithWhereUniqueWithoutBruteInput>
+    create?: XOR<TournamentEarningCreateWithoutBruteInput, TournamentEarningUncheckedCreateWithoutBruteInput> | TournamentEarningCreateWithoutBruteInput[] | TournamentEarningUncheckedCreateWithoutBruteInput[]
+    connectOrCreate?: TournamentEarningCreateOrConnectWithoutBruteInput | TournamentEarningCreateOrConnectWithoutBruteInput[]
+    upsert?: TournamentEarningUpsertWithWhereUniqueWithoutBruteInput | TournamentEarningUpsertWithWhereUniqueWithoutBruteInput[]
     createMany?: TournamentEarningCreateManyBruteInputEnvelope
-    set?: Enumerable<TournamentEarningWhereUniqueInput>
-    disconnect?: Enumerable<TournamentEarningWhereUniqueInput>
-    delete?: Enumerable<TournamentEarningWhereUniqueInput>
-    connect?: Enumerable<TournamentEarningWhereUniqueInput>
-    update?: Enumerable<TournamentEarningUpdateWithWhereUniqueWithoutBruteInput>
-    updateMany?: Enumerable<TournamentEarningUpdateManyWithWhereWithoutBruteInput>
-    deleteMany?: Enumerable<TournamentEarningScalarWhereInput>
+    set?: TournamentEarningWhereUniqueInput | TournamentEarningWhereUniqueInput[]
+    disconnect?: TournamentEarningWhereUniqueInput | TournamentEarningWhereUniqueInput[]
+    delete?: TournamentEarningWhereUniqueInput | TournamentEarningWhereUniqueInput[]
+    connect?: TournamentEarningWhereUniqueInput | TournamentEarningWhereUniqueInput[]
+    update?: TournamentEarningUpdateWithWhereUniqueWithoutBruteInput | TournamentEarningUpdateWithWhereUniqueWithoutBruteInput[]
+    updateMany?: TournamentEarningUpdateManyWithWhereWithoutBruteInput | TournamentEarningUpdateManyWithWhereWithoutBruteInput[]
+    deleteMany?: TournamentEarningScalarWhereInput | TournamentEarningScalarWhereInput[]
   }
 
   export type BruteCreateNestedOneWithoutSpritesheetInput = {
@@ -20113,49 +21661,49 @@ export namespace Prisma {
     connectOrCreate?: BruteCreateOrConnectWithoutSpritesheetInput
     upsert?: BruteUpsertWithoutSpritesheetInput
     connect?: BruteWhereUniqueInput
-    update?: XOR<BruteUpdateWithoutSpritesheetInput, BruteUncheckedUpdateWithoutSpritesheetInput>
+    update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutSpritesheetInput, BruteUpdateWithoutSpritesheetInput>, BruteUncheckedUpdateWithoutSpritesheetInput>
   }
 
   export type BruteCreateNestedManyWithoutClanInput = {
-    create?: XOR<Enumerable<BruteCreateWithoutClanInput>, Enumerable<BruteUncheckedCreateWithoutClanInput>>
-    connectOrCreate?: Enumerable<BruteCreateOrConnectWithoutClanInput>
+    create?: XOR<BruteCreateWithoutClanInput, BruteUncheckedCreateWithoutClanInput> | BruteCreateWithoutClanInput[] | BruteUncheckedCreateWithoutClanInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutClanInput | BruteCreateOrConnectWithoutClanInput[]
     createMany?: BruteCreateManyClanInputEnvelope
-    connect?: Enumerable<BruteWhereUniqueInput>
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
   }
 
   export type BruteUncheckedCreateNestedManyWithoutClanInput = {
-    create?: XOR<Enumerable<BruteCreateWithoutClanInput>, Enumerable<BruteUncheckedCreateWithoutClanInput>>
-    connectOrCreate?: Enumerable<BruteCreateOrConnectWithoutClanInput>
+    create?: XOR<BruteCreateWithoutClanInput, BruteUncheckedCreateWithoutClanInput> | BruteCreateWithoutClanInput[] | BruteUncheckedCreateWithoutClanInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutClanInput | BruteCreateOrConnectWithoutClanInput[]
     createMany?: BruteCreateManyClanInputEnvelope
-    connect?: Enumerable<BruteWhereUniqueInput>
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
   }
 
   export type BruteUpdateManyWithoutClanNestedInput = {
-    create?: XOR<Enumerable<BruteCreateWithoutClanInput>, Enumerable<BruteUncheckedCreateWithoutClanInput>>
-    connectOrCreate?: Enumerable<BruteCreateOrConnectWithoutClanInput>
-    upsert?: Enumerable<BruteUpsertWithWhereUniqueWithoutClanInput>
+    create?: XOR<BruteCreateWithoutClanInput, BruteUncheckedCreateWithoutClanInput> | BruteCreateWithoutClanInput[] | BruteUncheckedCreateWithoutClanInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutClanInput | BruteCreateOrConnectWithoutClanInput[]
+    upsert?: BruteUpsertWithWhereUniqueWithoutClanInput | BruteUpsertWithWhereUniqueWithoutClanInput[]
     createMany?: BruteCreateManyClanInputEnvelope
-    set?: Enumerable<BruteWhereUniqueInput>
-    disconnect?: Enumerable<BruteWhereUniqueInput>
-    delete?: Enumerable<BruteWhereUniqueInput>
-    connect?: Enumerable<BruteWhereUniqueInput>
-    update?: Enumerable<BruteUpdateWithWhereUniqueWithoutClanInput>
-    updateMany?: Enumerable<BruteUpdateManyWithWhereWithoutClanInput>
-    deleteMany?: Enumerable<BruteScalarWhereInput>
+    set?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    disconnect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    delete?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    update?: BruteUpdateWithWhereUniqueWithoutClanInput | BruteUpdateWithWhereUniqueWithoutClanInput[]
+    updateMany?: BruteUpdateManyWithWhereWithoutClanInput | BruteUpdateManyWithWhereWithoutClanInput[]
+    deleteMany?: BruteScalarWhereInput | BruteScalarWhereInput[]
   }
 
   export type BruteUncheckedUpdateManyWithoutClanNestedInput = {
-    create?: XOR<Enumerable<BruteCreateWithoutClanInput>, Enumerable<BruteUncheckedCreateWithoutClanInput>>
-    connectOrCreate?: Enumerable<BruteCreateOrConnectWithoutClanInput>
-    upsert?: Enumerable<BruteUpsertWithWhereUniqueWithoutClanInput>
+    create?: XOR<BruteCreateWithoutClanInput, BruteUncheckedCreateWithoutClanInput> | BruteCreateWithoutClanInput[] | BruteUncheckedCreateWithoutClanInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutClanInput | BruteCreateOrConnectWithoutClanInput[]
+    upsert?: BruteUpsertWithWhereUniqueWithoutClanInput | BruteUpsertWithWhereUniqueWithoutClanInput[]
     createMany?: BruteCreateManyClanInputEnvelope
-    set?: Enumerable<BruteWhereUniqueInput>
-    disconnect?: Enumerable<BruteWhereUniqueInput>
-    delete?: Enumerable<BruteWhereUniqueInput>
-    connect?: Enumerable<BruteWhereUniqueInput>
-    update?: Enumerable<BruteUpdateWithWhereUniqueWithoutClanInput>
-    updateMany?: Enumerable<BruteUpdateManyWithWhereWithoutClanInput>
-    deleteMany?: Enumerable<BruteScalarWhereInput>
+    set?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    disconnect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    delete?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    update?: BruteUpdateWithWhereUniqueWithoutClanInput | BruteUpdateWithWhereUniqueWithoutClanInput[]
+    updateMany?: BruteUpdateManyWithWhereWithoutClanInput | BruteUpdateManyWithWhereWithoutClanInput[]
+    deleteMany?: BruteScalarWhereInput | BruteScalarWhereInput[]
   }
 
   export type BruteCreateNestedOneWithoutFightsInput = {
@@ -20171,31 +21719,31 @@ export namespace Prisma {
   }
 
   export type LogCreateNestedManyWithoutFightInput = {
-    create?: XOR<Enumerable<LogCreateWithoutFightInput>, Enumerable<LogUncheckedCreateWithoutFightInput>>
-    connectOrCreate?: Enumerable<LogCreateOrConnectWithoutFightInput>
+    create?: XOR<LogCreateWithoutFightInput, LogUncheckedCreateWithoutFightInput> | LogCreateWithoutFightInput[] | LogUncheckedCreateWithoutFightInput[]
+    connectOrCreate?: LogCreateOrConnectWithoutFightInput | LogCreateOrConnectWithoutFightInput[]
     createMany?: LogCreateManyFightInputEnvelope
-    connect?: Enumerable<LogWhereUniqueInput>
+    connect?: LogWhereUniqueInput | LogWhereUniqueInput[]
   }
 
   export type TournamentStepCreateNestedManyWithoutFightInput = {
-    create?: XOR<Enumerable<TournamentStepCreateWithoutFightInput>, Enumerable<TournamentStepUncheckedCreateWithoutFightInput>>
-    connectOrCreate?: Enumerable<TournamentStepCreateOrConnectWithoutFightInput>
+    create?: XOR<TournamentStepCreateWithoutFightInput, TournamentStepUncheckedCreateWithoutFightInput> | TournamentStepCreateWithoutFightInput[] | TournamentStepUncheckedCreateWithoutFightInput[]
+    connectOrCreate?: TournamentStepCreateOrConnectWithoutFightInput | TournamentStepCreateOrConnectWithoutFightInput[]
     createMany?: TournamentStepCreateManyFightInputEnvelope
-    connect?: Enumerable<TournamentStepWhereUniqueInput>
+    connect?: TournamentStepWhereUniqueInput | TournamentStepWhereUniqueInput[]
   }
 
   export type LogUncheckedCreateNestedManyWithoutFightInput = {
-    create?: XOR<Enumerable<LogCreateWithoutFightInput>, Enumerable<LogUncheckedCreateWithoutFightInput>>
-    connectOrCreate?: Enumerable<LogCreateOrConnectWithoutFightInput>
+    create?: XOR<LogCreateWithoutFightInput, LogUncheckedCreateWithoutFightInput> | LogCreateWithoutFightInput[] | LogUncheckedCreateWithoutFightInput[]
+    connectOrCreate?: LogCreateOrConnectWithoutFightInput | LogCreateOrConnectWithoutFightInput[]
     createMany?: LogCreateManyFightInputEnvelope
-    connect?: Enumerable<LogWhereUniqueInput>
+    connect?: LogWhereUniqueInput | LogWhereUniqueInput[]
   }
 
   export type TournamentStepUncheckedCreateNestedManyWithoutFightInput = {
-    create?: XOR<Enumerable<TournamentStepCreateWithoutFightInput>, Enumerable<TournamentStepUncheckedCreateWithoutFightInput>>
-    connectOrCreate?: Enumerable<TournamentStepCreateOrConnectWithoutFightInput>
+    create?: XOR<TournamentStepCreateWithoutFightInput, TournamentStepUncheckedCreateWithoutFightInput> | TournamentStepCreateWithoutFightInput[] | TournamentStepUncheckedCreateWithoutFightInput[]
+    connectOrCreate?: TournamentStepCreateOrConnectWithoutFightInput | TournamentStepCreateOrConnectWithoutFightInput[]
     createMany?: TournamentStepCreateManyFightInputEnvelope
-    connect?: Enumerable<TournamentStepWhereUniqueInput>
+    connect?: TournamentStepWhereUniqueInput | TournamentStepWhereUniqueInput[]
   }
 
   export type BruteUpdateOneRequiredWithoutFightsNestedInput = {
@@ -20203,7 +21751,7 @@ export namespace Prisma {
     connectOrCreate?: BruteCreateOrConnectWithoutFightsInput
     upsert?: BruteUpsertWithoutFightsInput
     connect?: BruteWhereUniqueInput
-    update?: XOR<BruteUpdateWithoutFightsInput, BruteUncheckedUpdateWithoutFightsInput>
+    update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutFightsInput, BruteUpdateWithoutFightsInput>, BruteUncheckedUpdateWithoutFightsInput>
   }
 
   export type BruteUpdateOneRequiredWithoutFightsAsAdversaryNestedInput = {
@@ -20211,63 +21759,63 @@ export namespace Prisma {
     connectOrCreate?: BruteCreateOrConnectWithoutFightsAsAdversaryInput
     upsert?: BruteUpsertWithoutFightsAsAdversaryInput
     connect?: BruteWhereUniqueInput
-    update?: XOR<BruteUpdateWithoutFightsAsAdversaryInput, BruteUncheckedUpdateWithoutFightsAsAdversaryInput>
+    update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutFightsAsAdversaryInput, BruteUpdateWithoutFightsAsAdversaryInput>, BruteUncheckedUpdateWithoutFightsAsAdversaryInput>
   }
 
   export type LogUpdateManyWithoutFightNestedInput = {
-    create?: XOR<Enumerable<LogCreateWithoutFightInput>, Enumerable<LogUncheckedCreateWithoutFightInput>>
-    connectOrCreate?: Enumerable<LogCreateOrConnectWithoutFightInput>
-    upsert?: Enumerable<LogUpsertWithWhereUniqueWithoutFightInput>
+    create?: XOR<LogCreateWithoutFightInput, LogUncheckedCreateWithoutFightInput> | LogCreateWithoutFightInput[] | LogUncheckedCreateWithoutFightInput[]
+    connectOrCreate?: LogCreateOrConnectWithoutFightInput | LogCreateOrConnectWithoutFightInput[]
+    upsert?: LogUpsertWithWhereUniqueWithoutFightInput | LogUpsertWithWhereUniqueWithoutFightInput[]
     createMany?: LogCreateManyFightInputEnvelope
-    set?: Enumerable<LogWhereUniqueInput>
-    disconnect?: Enumerable<LogWhereUniqueInput>
-    delete?: Enumerable<LogWhereUniqueInput>
-    connect?: Enumerable<LogWhereUniqueInput>
-    update?: Enumerable<LogUpdateWithWhereUniqueWithoutFightInput>
-    updateMany?: Enumerable<LogUpdateManyWithWhereWithoutFightInput>
-    deleteMany?: Enumerable<LogScalarWhereInput>
+    set?: LogWhereUniqueInput | LogWhereUniqueInput[]
+    disconnect?: LogWhereUniqueInput | LogWhereUniqueInput[]
+    delete?: LogWhereUniqueInput | LogWhereUniqueInput[]
+    connect?: LogWhereUniqueInput | LogWhereUniqueInput[]
+    update?: LogUpdateWithWhereUniqueWithoutFightInput | LogUpdateWithWhereUniqueWithoutFightInput[]
+    updateMany?: LogUpdateManyWithWhereWithoutFightInput | LogUpdateManyWithWhereWithoutFightInput[]
+    deleteMany?: LogScalarWhereInput | LogScalarWhereInput[]
   }
 
   export type TournamentStepUpdateManyWithoutFightNestedInput = {
-    create?: XOR<Enumerable<TournamentStepCreateWithoutFightInput>, Enumerable<TournamentStepUncheckedCreateWithoutFightInput>>
-    connectOrCreate?: Enumerable<TournamentStepCreateOrConnectWithoutFightInput>
-    upsert?: Enumerable<TournamentStepUpsertWithWhereUniqueWithoutFightInput>
+    create?: XOR<TournamentStepCreateWithoutFightInput, TournamentStepUncheckedCreateWithoutFightInput> | TournamentStepCreateWithoutFightInput[] | TournamentStepUncheckedCreateWithoutFightInput[]
+    connectOrCreate?: TournamentStepCreateOrConnectWithoutFightInput | TournamentStepCreateOrConnectWithoutFightInput[]
+    upsert?: TournamentStepUpsertWithWhereUniqueWithoutFightInput | TournamentStepUpsertWithWhereUniqueWithoutFightInput[]
     createMany?: TournamentStepCreateManyFightInputEnvelope
-    set?: Enumerable<TournamentStepWhereUniqueInput>
-    disconnect?: Enumerable<TournamentStepWhereUniqueInput>
-    delete?: Enumerable<TournamentStepWhereUniqueInput>
-    connect?: Enumerable<TournamentStepWhereUniqueInput>
-    update?: Enumerable<TournamentStepUpdateWithWhereUniqueWithoutFightInput>
-    updateMany?: Enumerable<TournamentStepUpdateManyWithWhereWithoutFightInput>
-    deleteMany?: Enumerable<TournamentStepScalarWhereInput>
+    set?: TournamentStepWhereUniqueInput | TournamentStepWhereUniqueInput[]
+    disconnect?: TournamentStepWhereUniqueInput | TournamentStepWhereUniqueInput[]
+    delete?: TournamentStepWhereUniqueInput | TournamentStepWhereUniqueInput[]
+    connect?: TournamentStepWhereUniqueInput | TournamentStepWhereUniqueInput[]
+    update?: TournamentStepUpdateWithWhereUniqueWithoutFightInput | TournamentStepUpdateWithWhereUniqueWithoutFightInput[]
+    updateMany?: TournamentStepUpdateManyWithWhereWithoutFightInput | TournamentStepUpdateManyWithWhereWithoutFightInput[]
+    deleteMany?: TournamentStepScalarWhereInput | TournamentStepScalarWhereInput[]
   }
 
   export type LogUncheckedUpdateManyWithoutFightNestedInput = {
-    create?: XOR<Enumerable<LogCreateWithoutFightInput>, Enumerable<LogUncheckedCreateWithoutFightInput>>
-    connectOrCreate?: Enumerable<LogCreateOrConnectWithoutFightInput>
-    upsert?: Enumerable<LogUpsertWithWhereUniqueWithoutFightInput>
+    create?: XOR<LogCreateWithoutFightInput, LogUncheckedCreateWithoutFightInput> | LogCreateWithoutFightInput[] | LogUncheckedCreateWithoutFightInput[]
+    connectOrCreate?: LogCreateOrConnectWithoutFightInput | LogCreateOrConnectWithoutFightInput[]
+    upsert?: LogUpsertWithWhereUniqueWithoutFightInput | LogUpsertWithWhereUniqueWithoutFightInput[]
     createMany?: LogCreateManyFightInputEnvelope
-    set?: Enumerable<LogWhereUniqueInput>
-    disconnect?: Enumerable<LogWhereUniqueInput>
-    delete?: Enumerable<LogWhereUniqueInput>
-    connect?: Enumerable<LogWhereUniqueInput>
-    update?: Enumerable<LogUpdateWithWhereUniqueWithoutFightInput>
-    updateMany?: Enumerable<LogUpdateManyWithWhereWithoutFightInput>
-    deleteMany?: Enumerable<LogScalarWhereInput>
+    set?: LogWhereUniqueInput | LogWhereUniqueInput[]
+    disconnect?: LogWhereUniqueInput | LogWhereUniqueInput[]
+    delete?: LogWhereUniqueInput | LogWhereUniqueInput[]
+    connect?: LogWhereUniqueInput | LogWhereUniqueInput[]
+    update?: LogUpdateWithWhereUniqueWithoutFightInput | LogUpdateWithWhereUniqueWithoutFightInput[]
+    updateMany?: LogUpdateManyWithWhereWithoutFightInput | LogUpdateManyWithWhereWithoutFightInput[]
+    deleteMany?: LogScalarWhereInput | LogScalarWhereInput[]
   }
 
   export type TournamentStepUncheckedUpdateManyWithoutFightNestedInput = {
-    create?: XOR<Enumerable<TournamentStepCreateWithoutFightInput>, Enumerable<TournamentStepUncheckedCreateWithoutFightInput>>
-    connectOrCreate?: Enumerable<TournamentStepCreateOrConnectWithoutFightInput>
-    upsert?: Enumerable<TournamentStepUpsertWithWhereUniqueWithoutFightInput>
+    create?: XOR<TournamentStepCreateWithoutFightInput, TournamentStepUncheckedCreateWithoutFightInput> | TournamentStepCreateWithoutFightInput[] | TournamentStepUncheckedCreateWithoutFightInput[]
+    connectOrCreate?: TournamentStepCreateOrConnectWithoutFightInput | TournamentStepCreateOrConnectWithoutFightInput[]
+    upsert?: TournamentStepUpsertWithWhereUniqueWithoutFightInput | TournamentStepUpsertWithWhereUniqueWithoutFightInput[]
     createMany?: TournamentStepCreateManyFightInputEnvelope
-    set?: Enumerable<TournamentStepWhereUniqueInput>
-    disconnect?: Enumerable<TournamentStepWhereUniqueInput>
-    delete?: Enumerable<TournamentStepWhereUniqueInput>
-    connect?: Enumerable<TournamentStepWhereUniqueInput>
-    update?: Enumerable<TournamentStepUpdateWithWhereUniqueWithoutFightInput>
-    updateMany?: Enumerable<TournamentStepUpdateManyWithWhereWithoutFightInput>
-    deleteMany?: Enumerable<TournamentStepScalarWhereInput>
+    set?: TournamentStepWhereUniqueInput | TournamentStepWhereUniqueInput[]
+    disconnect?: TournamentStepWhereUniqueInput | TournamentStepWhereUniqueInput[]
+    delete?: TournamentStepWhereUniqueInput | TournamentStepWhereUniqueInput[]
+    connect?: TournamentStepWhereUniqueInput | TournamentStepWhereUniqueInput[]
+    update?: TournamentStepUpdateWithWhereUniqueWithoutFightInput | TournamentStepUpdateWithWhereUniqueWithoutFightInput[]
+    updateMany?: TournamentStepUpdateManyWithWhereWithoutFightInput | TournamentStepUpdateManyWithWhereWithoutFightInput[]
+    deleteMany?: TournamentStepScalarWhereInput | TournamentStepScalarWhereInput[]
   }
 
   export type BruteCreateNestedOneWithoutLogsInput = {
@@ -20291,21 +21839,21 @@ export namespace Prisma {
     connectOrCreate?: BruteCreateOrConnectWithoutLogsInput
     upsert?: BruteUpsertWithoutLogsInput
     connect?: BruteWhereUniqueInput
-    update?: XOR<BruteUpdateWithoutLogsInput, BruteUncheckedUpdateWithoutLogsInput>
+    update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutLogsInput, BruteUpdateWithoutLogsInput>, BruteUncheckedUpdateWithoutLogsInput>
   }
 
   export type FightUpdateOneWithoutLogsNestedInput = {
     create?: XOR<FightCreateWithoutLogsInput, FightUncheckedCreateWithoutLogsInput>
     connectOrCreate?: FightCreateOrConnectWithoutLogsInput
     upsert?: FightUpsertWithoutLogsInput
-    disconnect?: boolean
-    delete?: boolean
+    disconnect?: FightWhereInput | boolean
+    delete?: FightWhereInput | boolean
     connect?: FightWhereUniqueInput
-    update?: XOR<FightUpdateWithoutLogsInput, FightUncheckedUpdateWithoutLogsInput>
+    update?: XOR<XOR<FightUpdateToOneWithWhereWithoutLogsInput, FightUpdateWithoutLogsInput>, FightUncheckedUpdateWithoutLogsInput>
   }
 
   export type DestinyChoiceCreatepathInput = {
-    set: Enumerable<DestinyChoiceSide>
+    set: DestinyChoiceSide[]
   }
 
   export type BruteCreateNestedOneWithoutDestinyChoicesInput = {
@@ -20315,8 +21863,8 @@ export namespace Prisma {
   }
 
   export type DestinyChoiceUpdatepathInput = {
-    set?: Enumerable<DestinyChoiceSide>
-    push?: Enumerable<DestinyChoiceSide>
+    set?: DestinyChoiceSide[]
+    push?: DestinyChoiceSide | DestinyChoiceSide[]
   }
 
   export type EnumDestinyChoiceTypeFieldUpdateOperationsInput = {
@@ -20344,33 +21892,33 @@ export namespace Prisma {
     connectOrCreate?: BruteCreateOrConnectWithoutDestinyChoicesInput
     upsert?: BruteUpsertWithoutDestinyChoicesInput
     connect?: BruteWhereUniqueInput
-    update?: XOR<BruteUpdateWithoutDestinyChoicesInput, BruteUncheckedUpdateWithoutDestinyChoicesInput>
+    update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutDestinyChoicesInput, BruteUpdateWithoutDestinyChoicesInput>, BruteUncheckedUpdateWithoutDestinyChoicesInput>
   }
 
   export type BruteCreateNestedManyWithoutTournamentsInput = {
-    create?: XOR<Enumerable<BruteCreateWithoutTournamentsInput>, Enumerable<BruteUncheckedCreateWithoutTournamentsInput>>
-    connectOrCreate?: Enumerable<BruteCreateOrConnectWithoutTournamentsInput>
-    connect?: Enumerable<BruteWhereUniqueInput>
+    create?: XOR<BruteCreateWithoutTournamentsInput, BruteUncheckedCreateWithoutTournamentsInput> | BruteCreateWithoutTournamentsInput[] | BruteUncheckedCreateWithoutTournamentsInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutTournamentsInput | BruteCreateOrConnectWithoutTournamentsInput[]
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
   }
 
   export type TournamentStepCreateNestedManyWithoutTournamentInput = {
-    create?: XOR<Enumerable<TournamentStepCreateWithoutTournamentInput>, Enumerable<TournamentStepUncheckedCreateWithoutTournamentInput>>
-    connectOrCreate?: Enumerable<TournamentStepCreateOrConnectWithoutTournamentInput>
+    create?: XOR<TournamentStepCreateWithoutTournamentInput, TournamentStepUncheckedCreateWithoutTournamentInput> | TournamentStepCreateWithoutTournamentInput[] | TournamentStepUncheckedCreateWithoutTournamentInput[]
+    connectOrCreate?: TournamentStepCreateOrConnectWithoutTournamentInput | TournamentStepCreateOrConnectWithoutTournamentInput[]
     createMany?: TournamentStepCreateManyTournamentInputEnvelope
-    connect?: Enumerable<TournamentStepWhereUniqueInput>
+    connect?: TournamentStepWhereUniqueInput | TournamentStepWhereUniqueInput[]
   }
 
   export type BruteUncheckedCreateNestedManyWithoutTournamentsInput = {
-    create?: XOR<Enumerable<BruteCreateWithoutTournamentsInput>, Enumerable<BruteUncheckedCreateWithoutTournamentsInput>>
-    connectOrCreate?: Enumerable<BruteCreateOrConnectWithoutTournamentsInput>
-    connect?: Enumerable<BruteWhereUniqueInput>
+    create?: XOR<BruteCreateWithoutTournamentsInput, BruteUncheckedCreateWithoutTournamentsInput> | BruteCreateWithoutTournamentsInput[] | BruteUncheckedCreateWithoutTournamentsInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutTournamentsInput | BruteCreateOrConnectWithoutTournamentsInput[]
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
   }
 
   export type TournamentStepUncheckedCreateNestedManyWithoutTournamentInput = {
-    create?: XOR<Enumerable<TournamentStepCreateWithoutTournamentInput>, Enumerable<TournamentStepUncheckedCreateWithoutTournamentInput>>
-    connectOrCreate?: Enumerable<TournamentStepCreateOrConnectWithoutTournamentInput>
+    create?: XOR<TournamentStepCreateWithoutTournamentInput, TournamentStepUncheckedCreateWithoutTournamentInput> | TournamentStepCreateWithoutTournamentInput[] | TournamentStepUncheckedCreateWithoutTournamentInput[]
+    connectOrCreate?: TournamentStepCreateOrConnectWithoutTournamentInput | TournamentStepCreateOrConnectWithoutTournamentInput[]
     createMany?: TournamentStepCreateManyTournamentInputEnvelope
-    connect?: Enumerable<TournamentStepWhereUniqueInput>
+    connect?: TournamentStepWhereUniqueInput | TournamentStepWhereUniqueInput[]
   }
 
   export type EnumTournamentTypeFieldUpdateOperationsInput = {
@@ -20378,57 +21926,57 @@ export namespace Prisma {
   }
 
   export type BruteUpdateManyWithoutTournamentsNestedInput = {
-    create?: XOR<Enumerable<BruteCreateWithoutTournamentsInput>, Enumerable<BruteUncheckedCreateWithoutTournamentsInput>>
-    connectOrCreate?: Enumerable<BruteCreateOrConnectWithoutTournamentsInput>
-    upsert?: Enumerable<BruteUpsertWithWhereUniqueWithoutTournamentsInput>
-    set?: Enumerable<BruteWhereUniqueInput>
-    disconnect?: Enumerable<BruteWhereUniqueInput>
-    delete?: Enumerable<BruteWhereUniqueInput>
-    connect?: Enumerable<BruteWhereUniqueInput>
-    update?: Enumerable<BruteUpdateWithWhereUniqueWithoutTournamentsInput>
-    updateMany?: Enumerable<BruteUpdateManyWithWhereWithoutTournamentsInput>
-    deleteMany?: Enumerable<BruteScalarWhereInput>
+    create?: XOR<BruteCreateWithoutTournamentsInput, BruteUncheckedCreateWithoutTournamentsInput> | BruteCreateWithoutTournamentsInput[] | BruteUncheckedCreateWithoutTournamentsInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutTournamentsInput | BruteCreateOrConnectWithoutTournamentsInput[]
+    upsert?: BruteUpsertWithWhereUniqueWithoutTournamentsInput | BruteUpsertWithWhereUniqueWithoutTournamentsInput[]
+    set?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    disconnect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    delete?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    update?: BruteUpdateWithWhereUniqueWithoutTournamentsInput | BruteUpdateWithWhereUniqueWithoutTournamentsInput[]
+    updateMany?: BruteUpdateManyWithWhereWithoutTournamentsInput | BruteUpdateManyWithWhereWithoutTournamentsInput[]
+    deleteMany?: BruteScalarWhereInput | BruteScalarWhereInput[]
   }
 
   export type TournamentStepUpdateManyWithoutTournamentNestedInput = {
-    create?: XOR<Enumerable<TournamentStepCreateWithoutTournamentInput>, Enumerable<TournamentStepUncheckedCreateWithoutTournamentInput>>
-    connectOrCreate?: Enumerable<TournamentStepCreateOrConnectWithoutTournamentInput>
-    upsert?: Enumerable<TournamentStepUpsertWithWhereUniqueWithoutTournamentInput>
+    create?: XOR<TournamentStepCreateWithoutTournamentInput, TournamentStepUncheckedCreateWithoutTournamentInput> | TournamentStepCreateWithoutTournamentInput[] | TournamentStepUncheckedCreateWithoutTournamentInput[]
+    connectOrCreate?: TournamentStepCreateOrConnectWithoutTournamentInput | TournamentStepCreateOrConnectWithoutTournamentInput[]
+    upsert?: TournamentStepUpsertWithWhereUniqueWithoutTournamentInput | TournamentStepUpsertWithWhereUniqueWithoutTournamentInput[]
     createMany?: TournamentStepCreateManyTournamentInputEnvelope
-    set?: Enumerable<TournamentStepWhereUniqueInput>
-    disconnect?: Enumerable<TournamentStepWhereUniqueInput>
-    delete?: Enumerable<TournamentStepWhereUniqueInput>
-    connect?: Enumerable<TournamentStepWhereUniqueInput>
-    update?: Enumerable<TournamentStepUpdateWithWhereUniqueWithoutTournamentInput>
-    updateMany?: Enumerable<TournamentStepUpdateManyWithWhereWithoutTournamentInput>
-    deleteMany?: Enumerable<TournamentStepScalarWhereInput>
+    set?: TournamentStepWhereUniqueInput | TournamentStepWhereUniqueInput[]
+    disconnect?: TournamentStepWhereUniqueInput | TournamentStepWhereUniqueInput[]
+    delete?: TournamentStepWhereUniqueInput | TournamentStepWhereUniqueInput[]
+    connect?: TournamentStepWhereUniqueInput | TournamentStepWhereUniqueInput[]
+    update?: TournamentStepUpdateWithWhereUniqueWithoutTournamentInput | TournamentStepUpdateWithWhereUniqueWithoutTournamentInput[]
+    updateMany?: TournamentStepUpdateManyWithWhereWithoutTournamentInput | TournamentStepUpdateManyWithWhereWithoutTournamentInput[]
+    deleteMany?: TournamentStepScalarWhereInput | TournamentStepScalarWhereInput[]
   }
 
   export type BruteUncheckedUpdateManyWithoutTournamentsNestedInput = {
-    create?: XOR<Enumerable<BruteCreateWithoutTournamentsInput>, Enumerable<BruteUncheckedCreateWithoutTournamentsInput>>
-    connectOrCreate?: Enumerable<BruteCreateOrConnectWithoutTournamentsInput>
-    upsert?: Enumerable<BruteUpsertWithWhereUniqueWithoutTournamentsInput>
-    set?: Enumerable<BruteWhereUniqueInput>
-    disconnect?: Enumerable<BruteWhereUniqueInput>
-    delete?: Enumerable<BruteWhereUniqueInput>
-    connect?: Enumerable<BruteWhereUniqueInput>
-    update?: Enumerable<BruteUpdateWithWhereUniqueWithoutTournamentsInput>
-    updateMany?: Enumerable<BruteUpdateManyWithWhereWithoutTournamentsInput>
-    deleteMany?: Enumerable<BruteScalarWhereInput>
+    create?: XOR<BruteCreateWithoutTournamentsInput, BruteUncheckedCreateWithoutTournamentsInput> | BruteCreateWithoutTournamentsInput[] | BruteUncheckedCreateWithoutTournamentsInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutTournamentsInput | BruteCreateOrConnectWithoutTournamentsInput[]
+    upsert?: BruteUpsertWithWhereUniqueWithoutTournamentsInput | BruteUpsertWithWhereUniqueWithoutTournamentsInput[]
+    set?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    disconnect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    delete?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    update?: BruteUpdateWithWhereUniqueWithoutTournamentsInput | BruteUpdateWithWhereUniqueWithoutTournamentsInput[]
+    updateMany?: BruteUpdateManyWithWhereWithoutTournamentsInput | BruteUpdateManyWithWhereWithoutTournamentsInput[]
+    deleteMany?: BruteScalarWhereInput | BruteScalarWhereInput[]
   }
 
   export type TournamentStepUncheckedUpdateManyWithoutTournamentNestedInput = {
-    create?: XOR<Enumerable<TournamentStepCreateWithoutTournamentInput>, Enumerable<TournamentStepUncheckedCreateWithoutTournamentInput>>
-    connectOrCreate?: Enumerable<TournamentStepCreateOrConnectWithoutTournamentInput>
-    upsert?: Enumerable<TournamentStepUpsertWithWhereUniqueWithoutTournamentInput>
+    create?: XOR<TournamentStepCreateWithoutTournamentInput, TournamentStepUncheckedCreateWithoutTournamentInput> | TournamentStepCreateWithoutTournamentInput[] | TournamentStepUncheckedCreateWithoutTournamentInput[]
+    connectOrCreate?: TournamentStepCreateOrConnectWithoutTournamentInput | TournamentStepCreateOrConnectWithoutTournamentInput[]
+    upsert?: TournamentStepUpsertWithWhereUniqueWithoutTournamentInput | TournamentStepUpsertWithWhereUniqueWithoutTournamentInput[]
     createMany?: TournamentStepCreateManyTournamentInputEnvelope
-    set?: Enumerable<TournamentStepWhereUniqueInput>
-    disconnect?: Enumerable<TournamentStepWhereUniqueInput>
-    delete?: Enumerable<TournamentStepWhereUniqueInput>
-    connect?: Enumerable<TournamentStepWhereUniqueInput>
-    update?: Enumerable<TournamentStepUpdateWithWhereUniqueWithoutTournamentInput>
-    updateMany?: Enumerable<TournamentStepUpdateManyWithWhereWithoutTournamentInput>
-    deleteMany?: Enumerable<TournamentStepScalarWhereInput>
+    set?: TournamentStepWhereUniqueInput | TournamentStepWhereUniqueInput[]
+    disconnect?: TournamentStepWhereUniqueInput | TournamentStepWhereUniqueInput[]
+    delete?: TournamentStepWhereUniqueInput | TournamentStepWhereUniqueInput[]
+    connect?: TournamentStepWhereUniqueInput | TournamentStepWhereUniqueInput[]
+    update?: TournamentStepUpdateWithWhereUniqueWithoutTournamentInput | TournamentStepUpdateWithWhereUniqueWithoutTournamentInput[]
+    updateMany?: TournamentStepUpdateManyWithWhereWithoutTournamentInput | TournamentStepUpdateManyWithWhereWithoutTournamentInput[]
+    deleteMany?: TournamentStepScalarWhereInput | TournamentStepScalarWhereInput[]
   }
 
   export type TournamentCreateNestedOneWithoutStepsInput = {
@@ -20448,7 +21996,7 @@ export namespace Prisma {
     connectOrCreate?: TournamentCreateOrConnectWithoutStepsInput
     upsert?: TournamentUpsertWithoutStepsInput
     connect?: TournamentWhereUniqueInput
-    update?: XOR<TournamentUpdateWithoutStepsInput, TournamentUncheckedUpdateWithoutStepsInput>
+    update?: XOR<XOR<TournamentUpdateToOneWithWhereWithoutStepsInput, TournamentUpdateWithoutStepsInput>, TournamentUncheckedUpdateWithoutStepsInput>
   }
 
   export type FightUpdateOneRequiredWithoutTournamentStepNestedInput = {
@@ -20456,7 +22004,7 @@ export namespace Prisma {
     connectOrCreate?: FightCreateOrConnectWithoutTournamentStepInput
     upsert?: FightUpsertWithoutTournamentStepInput
     connect?: FightWhereUniqueInput
-    update?: XOR<FightUpdateWithoutTournamentStepInput, FightUncheckedUpdateWithoutTournamentStepInput>
+    update?: XOR<XOR<FightUpdateToOneWithWhereWithoutTournamentStepInput, FightUpdateWithoutTournamentStepInput>, FightUncheckedUpdateWithoutTournamentStepInput>
   }
 
   export type BruteCreateNestedOneWithoutTournamentEarningsInput = {
@@ -20474,7 +22022,7 @@ export namespace Prisma {
     connectOrCreate?: BruteCreateOrConnectWithoutTournamentEarningsInput
     upsert?: BruteUpsertWithoutTournamentEarningsInput
     connect?: BruteWhereUniqueInput
-    update?: XOR<BruteUpdateWithoutTournamentEarningsInput, BruteUncheckedUpdateWithoutTournamentEarningsInput>
+    update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutTournamentEarningsInput, BruteUpdateWithoutTournamentEarningsInput>, BruteUncheckedUpdateWithoutTournamentEarningsInput>
   }
 
   export type BruteCreateNestedOneWithoutAchievementsInput = {
@@ -20497,542 +22045,542 @@ export namespace Prisma {
     create?: XOR<BruteCreateWithoutAchievementsInput, BruteUncheckedCreateWithoutAchievementsInput>
     connectOrCreate?: BruteCreateOrConnectWithoutAchievementsInput
     upsert?: BruteUpsertWithoutAchievementsInput
-    disconnect?: boolean
-    delete?: boolean
+    disconnect?: BruteWhereInput | boolean
+    delete?: BruteWhereInput | boolean
     connect?: BruteWhereUniqueInput
-    update?: XOR<BruteUpdateWithoutAchievementsInput, BruteUncheckedUpdateWithoutAchievementsInput>
+    update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutAchievementsInput, BruteUpdateWithoutAchievementsInput>, BruteUncheckedUpdateWithoutAchievementsInput>
   }
 
   export type UserUpdateOneWithoutAchievementsNestedInput = {
     create?: XOR<UserCreateWithoutAchievementsInput, UserUncheckedCreateWithoutAchievementsInput>
     connectOrCreate?: UserCreateOrConnectWithoutAchievementsInput
     upsert?: UserUpsertWithoutAchievementsInput
-    disconnect?: boolean
-    delete?: boolean
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
-    update?: XOR<UserUpdateWithoutAchievementsInput, UserUncheckedUpdateWithoutAchievementsInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAchievementsInput, UserUpdateWithoutAchievementsInput>, UserUncheckedUpdateWithoutAchievementsInput>
   }
 
-  export type NestedUuidFilter = {
-    equals?: string
-    in?: Enumerable<string>
-    notIn?: Enumerable<string>
-    lt?: string
-    lte?: string
-    gt?: string
-    gte?: string
-    not?: NestedUuidFilter | string
+  export type NestedUuidFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedUuidFilter<$PrismaModel> | string
   }
 
-  export type NestedEnumLangFilter = {
-    equals?: Lang
-    in?: Enumerable<Lang>
-    notIn?: Enumerable<Lang>
-    not?: NestedEnumLangFilter | Lang
+  export type NestedEnumLangFilter<$PrismaModel = never> = {
+    equals?: Lang | EnumLangFieldRefInput<$PrismaModel>
+    in?: Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
+    notIn?: Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
+    not?: NestedEnumLangFilter<$PrismaModel> | Lang
   }
 
-  export type NestedStringFilter = {
-    equals?: string
-    in?: Enumerable<string>
-    notIn?: Enumerable<string>
-    lt?: string
-    lte?: string
-    gt?: string
-    gte?: string
-    contains?: string
-    startsWith?: string
-    endsWith?: string
-    not?: NestedStringFilter | string
+  export type NestedStringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type NestedBoolFilter = {
-    equals?: boolean
-    not?: NestedBoolFilter | boolean
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
-  export type NestedIntFilter = {
-    equals?: number
-    in?: Enumerable<number>
-    notIn?: Enumerable<number>
-    lt?: number
-    lte?: number
-    gt?: number
-    gte?: number
-    not?: NestedIntFilter | number
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type NestedUuidWithAggregatesFilter = {
-    equals?: string
-    in?: Enumerable<string>
-    notIn?: Enumerable<string>
-    lt?: string
-    lte?: string
-    gt?: string
-    gte?: string
-    not?: NestedUuidWithAggregatesFilter | string
-    _count?: NestedIntFilter
-    _min?: NestedStringFilter
-    _max?: NestedStringFilter
+  export type NestedUuidWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedUuidWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type NestedEnumLangWithAggregatesFilter = {
-    equals?: Lang
-    in?: Enumerable<Lang>
-    notIn?: Enumerable<Lang>
-    not?: NestedEnumLangWithAggregatesFilter | Lang
-    _count?: NestedIntFilter
-    _min?: NestedEnumLangFilter
-    _max?: NestedEnumLangFilter
+  export type NestedEnumLangWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Lang | EnumLangFieldRefInput<$PrismaModel>
+    in?: Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
+    notIn?: Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
+    not?: NestedEnumLangWithAggregatesFilter<$PrismaModel> | Lang
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumLangFilter<$PrismaModel>
+    _max?: NestedEnumLangFilter<$PrismaModel>
   }
 
-  export type NestedStringWithAggregatesFilter = {
-    equals?: string
-    in?: Enumerable<string>
-    notIn?: Enumerable<string>
-    lt?: string
-    lte?: string
-    gt?: string
-    gte?: string
-    contains?: string
-    startsWith?: string
-    endsWith?: string
-    not?: NestedStringWithAggregatesFilter | string
-    _count?: NestedIntFilter
-    _min?: NestedStringFilter
-    _max?: NestedStringFilter
+  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type NestedBoolWithAggregatesFilter = {
-    equals?: boolean
-    not?: NestedBoolWithAggregatesFilter | boolean
-    _count?: NestedIntFilter
-    _min?: NestedBoolFilter
-    _max?: NestedBoolFilter
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
-  export type NestedIntWithAggregatesFilter = {
-    equals?: number
-    in?: Enumerable<number>
-    notIn?: Enumerable<number>
-    lt?: number
-    lte?: number
-    gt?: number
-    gte?: number
-    not?: NestedIntWithAggregatesFilter | number
-    _count?: NestedIntFilter
-    _avg?: NestedFloatFilter
-    _sum?: NestedIntFilter
-    _min?: NestedIntFilter
-    _max?: NestedIntFilter
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type NestedFloatFilter = {
-    equals?: number
-    in?: Enumerable<number>
-    notIn?: Enumerable<number>
-    lt?: number
-    lte?: number
-    gt?: number
-    gte?: number
-    not?: NestedFloatFilter | number
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedDateTimeNullableFilter = {
-    equals?: Date | string | null
-    in?: Enumerable<Date> | Enumerable<string> | null
-    notIn?: Enumerable<Date> | Enumerable<string> | null
-    lt?: Date | string
-    lte?: Date | string
-    gt?: Date | string
-    gte?: Date | string
-    not?: NestedDateTimeNullableFilter | Date | string | null
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
-  export type NestedDateTimeFilter = {
-    equals?: Date | string
-    in?: Enumerable<Date> | Enumerable<string>
-    notIn?: Enumerable<Date> | Enumerable<string>
-    lt?: Date | string
-    lte?: Date | string
-    gt?: Date | string
-    gte?: Date | string
-    not?: NestedDateTimeFilter | Date | string
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type NestedEnumGenderFilter = {
-    equals?: Gender
-    in?: Enumerable<Gender>
-    notIn?: Enumerable<Gender>
-    not?: NestedEnumGenderFilter | Gender
+  export type NestedEnumGenderFilter<$PrismaModel = never> = {
+    equals?: Gender | EnumGenderFieldRefInput<$PrismaModel>
+    in?: Gender[] | ListEnumGenderFieldRefInput<$PrismaModel>
+    notIn?: Gender[] | ListEnumGenderFieldRefInput<$PrismaModel>
+    not?: NestedEnumGenderFilter<$PrismaModel> | Gender
   }
 
-  export type NestedUuidNullableFilter = {
-    equals?: string | null
-    in?: Enumerable<string> | null
-    notIn?: Enumerable<string> | null
-    lt?: string
-    lte?: string
-    gt?: string
-    gte?: string
-    not?: NestedUuidNullableFilter | string | null
+  export type NestedUuidNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedUuidNullableFilter<$PrismaModel> | string | null
   }
 
-  export type NestedIntNullableFilter = {
-    equals?: number | null
-    in?: Enumerable<number> | null
-    notIn?: Enumerable<number> | null
-    lt?: number
-    lte?: number
-    gt?: number
-    gte?: number
-    not?: NestedIntNullableFilter | number | null
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedDateTimeNullableWithAggregatesFilter = {
-    equals?: Date | string | null
-    in?: Enumerable<Date> | Enumerable<string> | null
-    notIn?: Enumerable<Date> | Enumerable<string> | null
-    lt?: Date | string
-    lte?: Date | string
-    gt?: Date | string
-    gte?: Date | string
-    not?: NestedDateTimeNullableWithAggregatesFilter | Date | string | null
-    _count?: NestedIntNullableFilter
-    _min?: NestedDateTimeNullableFilter
-    _max?: NestedDateTimeNullableFilter
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type NestedDateTimeWithAggregatesFilter = {
-    equals?: Date | string
-    in?: Enumerable<Date> | Enumerable<string>
-    notIn?: Enumerable<Date> | Enumerable<string>
-    lt?: Date | string
-    lte?: Date | string
-    gt?: Date | string
-    gte?: Date | string
-    not?: NestedDateTimeWithAggregatesFilter | Date | string
-    _count?: NestedIntFilter
-    _min?: NestedDateTimeFilter
-    _max?: NestedDateTimeFilter
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedFloatWithAggregatesFilter = {
-    equals?: number
-    in?: Enumerable<number>
-    notIn?: Enumerable<number>
-    lt?: number
-    lte?: number
-    gt?: number
-    gte?: number
-    not?: NestedFloatWithAggregatesFilter | number
-    _count?: NestedIntFilter
-    _avg?: NestedFloatFilter
-    _sum?: NestedFloatFilter
-    _min?: NestedFloatFilter
-    _max?: NestedFloatFilter
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
-  export type NestedEnumGenderWithAggregatesFilter = {
-    equals?: Gender
-    in?: Enumerable<Gender>
-    notIn?: Enumerable<Gender>
-    not?: NestedEnumGenderWithAggregatesFilter | Gender
-    _count?: NestedIntFilter
-    _min?: NestedEnumGenderFilter
-    _max?: NestedEnumGenderFilter
+  export type NestedEnumGenderWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Gender | EnumGenderFieldRefInput<$PrismaModel>
+    in?: Gender[] | ListEnumGenderFieldRefInput<$PrismaModel>
+    notIn?: Gender[] | ListEnumGenderFieldRefInput<$PrismaModel>
+    not?: NestedEnumGenderWithAggregatesFilter<$PrismaModel> | Gender
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumGenderFilter<$PrismaModel>
+    _max?: NestedEnumGenderFilter<$PrismaModel>
   }
 
-  export type NestedUuidNullableWithAggregatesFilter = {
-    equals?: string | null
-    in?: Enumerable<string> | null
-    notIn?: Enumerable<string> | null
-    lt?: string
-    lte?: string
-    gt?: string
-    gte?: string
-    not?: NestedUuidNullableWithAggregatesFilter | string | null
-    _count?: NestedIntNullableFilter
-    _min?: NestedStringNullableFilter
-    _max?: NestedStringNullableFilter
+  export type NestedUuidNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedUuidNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type NestedStringNullableFilter = {
-    equals?: string | null
-    in?: Enumerable<string> | null
-    notIn?: Enumerable<string> | null
-    lt?: string
-    lte?: string
-    gt?: string
-    gte?: string
-    contains?: string
-    startsWith?: string
-    endsWith?: string
-    not?: NestedStringNullableFilter | string | null
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type NestedIntNullableWithAggregatesFilter = {
-    equals?: number | null
-    in?: Enumerable<number> | null
-    notIn?: Enumerable<number> | null
-    lt?: number
-    lte?: number
-    gt?: number
-    gte?: number
-    not?: NestedIntNullableWithAggregatesFilter | number | null
-    _count?: NestedIntNullableFilter
-    _avg?: NestedFloatNullableFilter
-    _sum?: NestedIntNullableFilter
-    _min?: NestedIntNullableFilter
-    _max?: NestedIntNullableFilter
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type NestedFloatNullableFilter = {
-    equals?: number | null
-    in?: Enumerable<number> | null
-    notIn?: Enumerable<number> | null
-    lt?: number
-    lte?: number
-    gt?: number
-    gte?: number
-    not?: NestedFloatNullableFilter | number | null
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedBytesNullableFilter = {
-    equals?: Buffer | null
-    in?: Enumerable<Buffer> | null
-    notIn?: Enumerable<Buffer> | null
-    not?: NestedBytesNullableFilter | Buffer | null
+  export type NestedBytesNullableFilter<$PrismaModel = never> = {
+    equals?: Buffer | BytesFieldRefInput<$PrismaModel> | null
+    in?: Buffer[] | ListBytesFieldRefInput<$PrismaModel> | null
+    notIn?: Buffer[] | ListBytesFieldRefInput<$PrismaModel> | null
+    not?: NestedBytesNullableFilter<$PrismaModel> | Buffer | null
   }
 
-  export type NestedBytesNullableWithAggregatesFilter = {
-    equals?: Buffer | null
-    in?: Enumerable<Buffer> | null
-    notIn?: Enumerable<Buffer> | null
-    not?: NestedBytesNullableWithAggregatesFilter | Buffer | null
-    _count?: NestedIntNullableFilter
-    _min?: NestedBytesNullableFilter
-    _max?: NestedBytesNullableFilter
+  export type NestedBytesNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Buffer | BytesFieldRefInput<$PrismaModel> | null
+    in?: Buffer[] | ListBytesFieldRefInput<$PrismaModel> | null
+    notIn?: Buffer[] | ListBytesFieldRefInput<$PrismaModel> | null
+    not?: NestedBytesNullableWithAggregatesFilter<$PrismaModel> | Buffer | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBytesNullableFilter<$PrismaModel>
+    _max?: NestedBytesNullableFilter<$PrismaModel>
   }
-  export type NestedJsonNullableFilter = 
+  export type NestedJsonNullableFilter<$PrismaModel = never> = 
     | PatchUndefined<
-        Either<Required<NestedJsonNullableFilterBase>, Exclude<keyof Required<NestedJsonNullableFilterBase>, 'path'>>,
-        Required<NestedJsonNullableFilterBase>
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
       >
-    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase>, 'path'>>
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
 
-  export type NestedJsonNullableFilterBase = {
-    equals?: InputJsonValue | JsonNullValueFilter
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
     path?: string[]
-    string_contains?: string
-    string_starts_with?: string
-    string_ends_with?: string
-    array_contains?: InputJsonValue | null
-    array_starts_with?: InputJsonValue | null
-    array_ends_with?: InputJsonValue | null
-    lt?: InputJsonValue
-    lte?: InputJsonValue
-    gt?: InputJsonValue
-    gte?: InputJsonValue
-    not?: InputJsonValue | JsonNullValueFilter
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
-  export type NestedJsonFilter = 
+  export type NestedJsonFilter<$PrismaModel = never> = 
     | PatchUndefined<
-        Either<Required<NestedJsonFilterBase>, Exclude<keyof Required<NestedJsonFilterBase>, 'path'>>,
-        Required<NestedJsonFilterBase>
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
       >
-    | OptionalFlat<Omit<Required<NestedJsonFilterBase>, 'path'>>
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
 
-  export type NestedJsonFilterBase = {
-    equals?: InputJsonValue | JsonNullValueFilter
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
     path?: string[]
-    string_contains?: string
-    string_starts_with?: string
-    string_ends_with?: string
-    array_contains?: InputJsonValue | null
-    array_starts_with?: InputJsonValue | null
-    array_ends_with?: InputJsonValue | null
-    lt?: InputJsonValue
-    lte?: InputJsonValue
-    gt?: InputJsonValue
-    gte?: InputJsonValue
-    not?: InputJsonValue | JsonNullValueFilter
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type NestedEnumLogTypeFilter = {
-    equals?: LogType
-    in?: Enumerable<LogType>
-    notIn?: Enumerable<LogType>
-    not?: NestedEnumLogTypeFilter | LogType
+  export type NestedEnumLogTypeFilter<$PrismaModel = never> = {
+    equals?: LogType | EnumLogTypeFieldRefInput<$PrismaModel>
+    in?: LogType[] | ListEnumLogTypeFieldRefInput<$PrismaModel>
+    notIn?: LogType[] | ListEnumLogTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumLogTypeFilter<$PrismaModel> | LogType
   }
 
-  export type NestedEnumLogTypeWithAggregatesFilter = {
-    equals?: LogType
-    in?: Enumerable<LogType>
-    notIn?: Enumerable<LogType>
-    not?: NestedEnumLogTypeWithAggregatesFilter | LogType
-    _count?: NestedIntFilter
-    _min?: NestedEnumLogTypeFilter
-    _max?: NestedEnumLogTypeFilter
+  export type NestedEnumLogTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: LogType | EnumLogTypeFieldRefInput<$PrismaModel>
+    in?: LogType[] | ListEnumLogTypeFieldRefInput<$PrismaModel>
+    notIn?: LogType[] | ListEnumLogTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumLogTypeWithAggregatesFilter<$PrismaModel> | LogType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumLogTypeFilter<$PrismaModel>
+    _max?: NestedEnumLogTypeFilter<$PrismaModel>
   }
 
-  export type NestedStringNullableWithAggregatesFilter = {
-    equals?: string | null
-    in?: Enumerable<string> | null
-    notIn?: Enumerable<string> | null
-    lt?: string
-    lte?: string
-    gt?: string
-    gte?: string
-    contains?: string
-    startsWith?: string
-    endsWith?: string
-    not?: NestedStringNullableWithAggregatesFilter | string | null
-    _count?: NestedIntNullableFilter
-    _min?: NestedStringNullableFilter
-    _max?: NestedStringNullableFilter
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type NestedEnumDestinyChoiceTypeFilter = {
-    equals?: DestinyChoiceType
-    in?: Enumerable<DestinyChoiceType>
-    notIn?: Enumerable<DestinyChoiceType>
-    not?: NestedEnumDestinyChoiceTypeFilter | DestinyChoiceType
+  export type NestedEnumDestinyChoiceTypeFilter<$PrismaModel = never> = {
+    equals?: DestinyChoiceType | EnumDestinyChoiceTypeFieldRefInput<$PrismaModel>
+    in?: DestinyChoiceType[] | ListEnumDestinyChoiceTypeFieldRefInput<$PrismaModel>
+    notIn?: DestinyChoiceType[] | ListEnumDestinyChoiceTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumDestinyChoiceTypeFilter<$PrismaModel> | DestinyChoiceType
   }
 
-  export type NestedEnumSkillNameNullableFilter = {
-    equals?: SkillName | null
-    in?: Enumerable<SkillName> | null
-    notIn?: Enumerable<SkillName> | null
-    not?: NestedEnumSkillNameNullableFilter | SkillName | null
+  export type NestedEnumSkillNameNullableFilter<$PrismaModel = never> = {
+    equals?: SkillName | EnumSkillNameFieldRefInput<$PrismaModel> | null
+    in?: SkillName[] | ListEnumSkillNameFieldRefInput<$PrismaModel> | null
+    notIn?: SkillName[] | ListEnumSkillNameFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumSkillNameNullableFilter<$PrismaModel> | SkillName | null
   }
 
-  export type NestedEnumWeaponNameNullableFilter = {
-    equals?: WeaponName | null
-    in?: Enumerable<WeaponName> | null
-    notIn?: Enumerable<WeaponName> | null
-    not?: NestedEnumWeaponNameNullableFilter | WeaponName | null
+  export type NestedEnumWeaponNameNullableFilter<$PrismaModel = never> = {
+    equals?: WeaponName | EnumWeaponNameFieldRefInput<$PrismaModel> | null
+    in?: WeaponName[] | ListEnumWeaponNameFieldRefInput<$PrismaModel> | null
+    notIn?: WeaponName[] | ListEnumWeaponNameFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumWeaponNameNullableFilter<$PrismaModel> | WeaponName | null
   }
 
-  export type NestedEnumPetNameNullableFilter = {
-    equals?: PetName | null
-    in?: Enumerable<PetName> | null
-    notIn?: Enumerable<PetName> | null
-    not?: NestedEnumPetNameNullableFilter | PetName | null
+  export type NestedEnumPetNameNullableFilter<$PrismaModel = never> = {
+    equals?: PetName | EnumPetNameFieldRefInput<$PrismaModel> | null
+    in?: PetName[] | ListEnumPetNameFieldRefInput<$PrismaModel> | null
+    notIn?: PetName[] | ListEnumPetNameFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumPetNameNullableFilter<$PrismaModel> | PetName | null
   }
 
-  export type NestedEnumBruteStatNullableFilter = {
-    equals?: BruteStat | null
-    in?: Enumerable<BruteStat> | null
-    notIn?: Enumerable<BruteStat> | null
-    not?: NestedEnumBruteStatNullableFilter | BruteStat | null
+  export type NestedEnumBruteStatNullableFilter<$PrismaModel = never> = {
+    equals?: BruteStat | EnumBruteStatFieldRefInput<$PrismaModel> | null
+    in?: BruteStat[] | ListEnumBruteStatFieldRefInput<$PrismaModel> | null
+    notIn?: BruteStat[] | ListEnumBruteStatFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumBruteStatNullableFilter<$PrismaModel> | BruteStat | null
   }
 
-  export type NestedEnumDestinyChoiceTypeWithAggregatesFilter = {
-    equals?: DestinyChoiceType
-    in?: Enumerable<DestinyChoiceType>
-    notIn?: Enumerable<DestinyChoiceType>
-    not?: NestedEnumDestinyChoiceTypeWithAggregatesFilter | DestinyChoiceType
-    _count?: NestedIntFilter
-    _min?: NestedEnumDestinyChoiceTypeFilter
-    _max?: NestedEnumDestinyChoiceTypeFilter
+  export type NestedEnumDestinyChoiceTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: DestinyChoiceType | EnumDestinyChoiceTypeFieldRefInput<$PrismaModel>
+    in?: DestinyChoiceType[] | ListEnumDestinyChoiceTypeFieldRefInput<$PrismaModel>
+    notIn?: DestinyChoiceType[] | ListEnumDestinyChoiceTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumDestinyChoiceTypeWithAggregatesFilter<$PrismaModel> | DestinyChoiceType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDestinyChoiceTypeFilter<$PrismaModel>
+    _max?: NestedEnumDestinyChoiceTypeFilter<$PrismaModel>
   }
 
-  export type NestedEnumSkillNameNullableWithAggregatesFilter = {
-    equals?: SkillName | null
-    in?: Enumerable<SkillName> | null
-    notIn?: Enumerable<SkillName> | null
-    not?: NestedEnumSkillNameNullableWithAggregatesFilter | SkillName | null
-    _count?: NestedIntNullableFilter
-    _min?: NestedEnumSkillNameNullableFilter
-    _max?: NestedEnumSkillNameNullableFilter
+  export type NestedEnumSkillNameNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: SkillName | EnumSkillNameFieldRefInput<$PrismaModel> | null
+    in?: SkillName[] | ListEnumSkillNameFieldRefInput<$PrismaModel> | null
+    notIn?: SkillName[] | ListEnumSkillNameFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumSkillNameNullableWithAggregatesFilter<$PrismaModel> | SkillName | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumSkillNameNullableFilter<$PrismaModel>
+    _max?: NestedEnumSkillNameNullableFilter<$PrismaModel>
   }
 
-  export type NestedEnumWeaponNameNullableWithAggregatesFilter = {
-    equals?: WeaponName | null
-    in?: Enumerable<WeaponName> | null
-    notIn?: Enumerable<WeaponName> | null
-    not?: NestedEnumWeaponNameNullableWithAggregatesFilter | WeaponName | null
-    _count?: NestedIntNullableFilter
-    _min?: NestedEnumWeaponNameNullableFilter
-    _max?: NestedEnumWeaponNameNullableFilter
+  export type NestedEnumWeaponNameNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: WeaponName | EnumWeaponNameFieldRefInput<$PrismaModel> | null
+    in?: WeaponName[] | ListEnumWeaponNameFieldRefInput<$PrismaModel> | null
+    notIn?: WeaponName[] | ListEnumWeaponNameFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumWeaponNameNullableWithAggregatesFilter<$PrismaModel> | WeaponName | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumWeaponNameNullableFilter<$PrismaModel>
+    _max?: NestedEnumWeaponNameNullableFilter<$PrismaModel>
   }
 
-  export type NestedEnumPetNameNullableWithAggregatesFilter = {
-    equals?: PetName | null
-    in?: Enumerable<PetName> | null
-    notIn?: Enumerable<PetName> | null
-    not?: NestedEnumPetNameNullableWithAggregatesFilter | PetName | null
-    _count?: NestedIntNullableFilter
-    _min?: NestedEnumPetNameNullableFilter
-    _max?: NestedEnumPetNameNullableFilter
+  export type NestedEnumPetNameNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: PetName | EnumPetNameFieldRefInput<$PrismaModel> | null
+    in?: PetName[] | ListEnumPetNameFieldRefInput<$PrismaModel> | null
+    notIn?: PetName[] | ListEnumPetNameFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumPetNameNullableWithAggregatesFilter<$PrismaModel> | PetName | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumPetNameNullableFilter<$PrismaModel>
+    _max?: NestedEnumPetNameNullableFilter<$PrismaModel>
   }
 
-  export type NestedEnumBruteStatNullableWithAggregatesFilter = {
-    equals?: BruteStat | null
-    in?: Enumerable<BruteStat> | null
-    notIn?: Enumerable<BruteStat> | null
-    not?: NestedEnumBruteStatNullableWithAggregatesFilter | BruteStat | null
-    _count?: NestedIntNullableFilter
-    _min?: NestedEnumBruteStatNullableFilter
-    _max?: NestedEnumBruteStatNullableFilter
+  export type NestedEnumBruteStatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: BruteStat | EnumBruteStatFieldRefInput<$PrismaModel> | null
+    in?: BruteStat[] | ListEnumBruteStatFieldRefInput<$PrismaModel> | null
+    notIn?: BruteStat[] | ListEnumBruteStatFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumBruteStatNullableWithAggregatesFilter<$PrismaModel> | BruteStat | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumBruteStatNullableFilter<$PrismaModel>
+    _max?: NestedEnumBruteStatNullableFilter<$PrismaModel>
   }
 
-  export type NestedEnumTournamentTypeFilter = {
-    equals?: TournamentType
-    in?: Enumerable<TournamentType>
-    notIn?: Enumerable<TournamentType>
-    not?: NestedEnumTournamentTypeFilter | TournamentType
+  export type NestedEnumTournamentTypeFilter<$PrismaModel = never> = {
+    equals?: TournamentType | EnumTournamentTypeFieldRefInput<$PrismaModel>
+    in?: TournamentType[] | ListEnumTournamentTypeFieldRefInput<$PrismaModel>
+    notIn?: TournamentType[] | ListEnumTournamentTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTournamentTypeFilter<$PrismaModel> | TournamentType
   }
 
-  export type NestedEnumTournamentTypeWithAggregatesFilter = {
-    equals?: TournamentType
-    in?: Enumerable<TournamentType>
-    notIn?: Enumerable<TournamentType>
-    not?: NestedEnumTournamentTypeWithAggregatesFilter | TournamentType
-    _count?: NestedIntFilter
-    _min?: NestedEnumTournamentTypeFilter
-    _max?: NestedEnumTournamentTypeFilter
+  export type NestedEnumTournamentTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: TournamentType | EnumTournamentTypeFieldRefInput<$PrismaModel>
+    in?: TournamentType[] | ListEnumTournamentTypeFieldRefInput<$PrismaModel>
+    notIn?: TournamentType[] | ListEnumTournamentTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTournamentTypeWithAggregatesFilter<$PrismaModel> | TournamentType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTournamentTypeFilter<$PrismaModel>
+    _max?: NestedEnumTournamentTypeFilter<$PrismaModel>
   }
 
-  export type NestedEnumAchievementNameNullableFilter = {
-    equals?: AchievementName | null
-    in?: Enumerable<AchievementName> | null
-    notIn?: Enumerable<AchievementName> | null
-    not?: NestedEnumAchievementNameNullableFilter | AchievementName | null
+  export type NestedEnumAchievementNameNullableFilter<$PrismaModel = never> = {
+    equals?: AchievementName | EnumAchievementNameFieldRefInput<$PrismaModel> | null
+    in?: AchievementName[] | ListEnumAchievementNameFieldRefInput<$PrismaModel> | null
+    notIn?: AchievementName[] | ListEnumAchievementNameFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumAchievementNameNullableFilter<$PrismaModel> | AchievementName | null
   }
 
-  export type NestedEnumAchievementNameNullableWithAggregatesFilter = {
-    equals?: AchievementName | null
-    in?: Enumerable<AchievementName> | null
-    notIn?: Enumerable<AchievementName> | null
-    not?: NestedEnumAchievementNameNullableWithAggregatesFilter | AchievementName | null
-    _count?: NestedIntNullableFilter
-    _min?: NestedEnumAchievementNameNullableFilter
-    _max?: NestedEnumAchievementNameNullableFilter
+  export type NestedEnumAchievementNameNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: AchievementName | EnumAchievementNameFieldRefInput<$PrismaModel> | null
+    in?: AchievementName[] | ListEnumAchievementNameFieldRefInput<$PrismaModel> | null
+    notIn?: AchievementName[] | ListEnumAchievementNameFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumAchievementNameNullableWithAggregatesFilter<$PrismaModel> | AchievementName | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumAchievementNameNullableFilter<$PrismaModel>
+    _max?: NestedEnumAchievementNameNullableFilter<$PrismaModel>
   }
 
-  export type NestedEnumAchievementNameFilter = {
-    equals?: AchievementName
-    in?: Enumerable<AchievementName>
-    notIn?: Enumerable<AchievementName>
-    not?: NestedEnumAchievementNameFilter | AchievementName
+  export type NestedEnumAchievementNameFilter<$PrismaModel = never> = {
+    equals?: AchievementName | EnumAchievementNameFieldRefInput<$PrismaModel>
+    in?: AchievementName[] | ListEnumAchievementNameFieldRefInput<$PrismaModel>
+    notIn?: AchievementName[] | ListEnumAchievementNameFieldRefInput<$PrismaModel>
+    not?: NestedEnumAchievementNameFilter<$PrismaModel> | AchievementName
   }
 
-  export type NestedEnumAchievementNameWithAggregatesFilter = {
-    equals?: AchievementName
-    in?: Enumerable<AchievementName>
-    notIn?: Enumerable<AchievementName>
-    not?: NestedEnumAchievementNameWithAggregatesFilter | AchievementName
-    _count?: NestedIntFilter
-    _min?: NestedEnumAchievementNameFilter
-    _max?: NestedEnumAchievementNameFilter
+  export type NestedEnumAchievementNameWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: AchievementName | EnumAchievementNameFieldRefInput<$PrismaModel>
+    in?: AchievementName[] | ListEnumAchievementNameFieldRefInput<$PrismaModel>
+    notIn?: AchievementName[] | ListEnumAchievementNameFieldRefInput<$PrismaModel>
+    not?: NestedEnumAchievementNameWithAggregatesFilter<$PrismaModel> | AchievementName
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAchievementNameFilter<$PrismaModel>
+    _max?: NestedEnumAchievementNameFilter<$PrismaModel>
   }
 
   export type BruteCreateWithoutUserInput = {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -21050,9 +22598,9 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: Gender
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -21085,7 +22633,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -21103,9 +22651,9 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: Gender
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     masterId?: number | null
     pupilsCount?: number
     clanId?: number | null
@@ -21139,7 +22687,7 @@ export namespace Prisma {
   }
 
   export type BruteCreateManyUserInputEnvelope = {
-    data: Enumerable<BruteCreateManyUserInput>
+    data: BruteCreateManyUserInput | BruteCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -21162,7 +22710,7 @@ export namespace Prisma {
   }
 
   export type AchievementCreateManyUserInputEnvelope = {
-    data: Enumerable<AchievementCreateManyUserInput>
+    data: AchievementCreateManyUserInput | AchievementCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -21179,51 +22727,51 @@ export namespace Prisma {
 
   export type BruteUpdateManyWithWhereWithoutUserInput = {
     where: BruteScalarWhereInput
-    data: XOR<BruteUpdateManyMutationInput, BruteUncheckedUpdateManyWithoutBrutesInput>
+    data: XOR<BruteUpdateManyMutationInput, BruteUncheckedUpdateManyWithoutUserInput>
   }
 
   export type BruteScalarWhereInput = {
-    AND?: Enumerable<BruteScalarWhereInput>
-    OR?: Enumerable<BruteScalarWhereInput>
-    NOT?: Enumerable<BruteScalarWhereInput>
-    id?: IntFilter | number
-    name?: StringFilter | string
-    deletedAt?: DateTimeNullableFilter | Date | string | null
-    createdAt?: DateTimeFilter | Date | string
-    destinyPath?: EnumDestinyChoiceSideNullableListFilter
-    level?: IntFilter | number
-    xp?: IntFilter | number
-    hp?: IntFilter | number
-    enduranceStat?: IntFilter | number
-    enduranceModifier?: FloatFilter | number
-    enduranceValue?: IntFilter | number
-    strengthStat?: IntFilter | number
-    strengthModifier?: FloatFilter | number
-    strengthValue?: IntFilter | number
-    agilityStat?: IntFilter | number
-    agilityModifier?: FloatFilter | number
-    agilityValue?: IntFilter | number
-    speedStat?: IntFilter | number
-    speedModifier?: FloatFilter | number
-    speedValue?: IntFilter | number
-    ranking?: IntFilter | number
-    gender?: EnumGenderFilter | Gender
-    userId?: UuidNullableFilter | string | null
-    weapons?: EnumWeaponNameNullableListFilter
-    skills?: EnumSkillNameNullableListFilter
-    pets?: EnumPetNameNullableListFilter
-    masterId?: IntNullableFilter | number | null
-    pupilsCount?: IntFilter | number
-    clanId?: IntNullableFilter | number | null
-    registeredForTournament?: BoolFilter | boolean
-    nextTournamentDate?: DateTimeNullableFilter | Date | string | null
-    currentTournamentDate?: DateTimeNullableFilter | Date | string | null
-    currentTournamentStepWatched?: IntNullableFilter | number | null
-    lastFight?: DateTimeNullableFilter | Date | string | null
-    fightsLeft?: IntFilter | number
-    victories?: IntFilter | number
-    opponentsGeneratedAt?: DateTimeNullableFilter | Date | string | null
-    canRankUpSince?: DateTimeNullableFilter | Date | string | null
+    AND?: BruteScalarWhereInput | BruteScalarWhereInput[]
+    OR?: BruteScalarWhereInput[]
+    NOT?: BruteScalarWhereInput | BruteScalarWhereInput[]
+    id?: IntFilter<"Brute"> | number
+    name?: StringFilter<"Brute"> | string
+    deletedAt?: DateTimeNullableFilter<"Brute"> | Date | string | null
+    createdAt?: DateTimeFilter<"Brute"> | Date | string
+    destinyPath?: EnumDestinyChoiceSideNullableListFilter<"Brute">
+    level?: IntFilter<"Brute"> | number
+    xp?: IntFilter<"Brute"> | number
+    hp?: IntFilter<"Brute"> | number
+    enduranceStat?: IntFilter<"Brute"> | number
+    enduranceModifier?: FloatFilter<"Brute"> | number
+    enduranceValue?: IntFilter<"Brute"> | number
+    strengthStat?: IntFilter<"Brute"> | number
+    strengthModifier?: FloatFilter<"Brute"> | number
+    strengthValue?: IntFilter<"Brute"> | number
+    agilityStat?: IntFilter<"Brute"> | number
+    agilityModifier?: FloatFilter<"Brute"> | number
+    agilityValue?: IntFilter<"Brute"> | number
+    speedStat?: IntFilter<"Brute"> | number
+    speedModifier?: FloatFilter<"Brute"> | number
+    speedValue?: IntFilter<"Brute"> | number
+    ranking?: IntFilter<"Brute"> | number
+    gender?: EnumGenderFilter<"Brute"> | Gender
+    userId?: UuidNullableFilter<"Brute"> | string | null
+    weapons?: EnumWeaponNameNullableListFilter<"Brute">
+    skills?: EnumSkillNameNullableListFilter<"Brute">
+    pets?: EnumPetNameNullableListFilter<"Brute">
+    masterId?: IntNullableFilter<"Brute"> | number | null
+    pupilsCount?: IntFilter<"Brute"> | number
+    clanId?: IntNullableFilter<"Brute"> | number | null
+    registeredForTournament?: BoolFilter<"Brute"> | boolean
+    nextTournamentDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
+    currentTournamentDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
+    currentTournamentStepWatched?: IntNullableFilter<"Brute"> | number | null
+    lastFight?: DateTimeNullableFilter<"Brute"> | Date | string | null
+    fightsLeft?: IntFilter<"Brute"> | number
+    victories?: IntFilter<"Brute"> | number
+    opponentsGeneratedAt?: DateTimeNullableFilter<"Brute"> | Date | string | null
+    canRankUpSince?: DateTimeNullableFilter<"Brute"> | Date | string | null
   }
 
   export type AchievementUpsertWithWhereUniqueWithoutUserInput = {
@@ -21239,25 +22787,25 @@ export namespace Prisma {
 
   export type AchievementUpdateManyWithWhereWithoutUserInput = {
     where: AchievementScalarWhereInput
-    data: XOR<AchievementUpdateManyMutationInput, AchievementUncheckedUpdateManyWithoutAchievementsInput>
+    data: XOR<AchievementUpdateManyMutationInput, AchievementUncheckedUpdateManyWithoutUserInput>
   }
 
   export type AchievementScalarWhereInput = {
-    AND?: Enumerable<AchievementScalarWhereInput>
-    OR?: Enumerable<AchievementScalarWhereInput>
-    NOT?: Enumerable<AchievementScalarWhereInput>
-    id?: IntFilter | number
-    name?: EnumAchievementNameFilter | AchievementName
-    count?: IntFilter | number
-    bruteId?: IntNullableFilter | number | null
-    userId?: UuidNullableFilter | string | null
+    AND?: AchievementScalarWhereInput | AchievementScalarWhereInput[]
+    OR?: AchievementScalarWhereInput[]
+    NOT?: AchievementScalarWhereInput | AchievementScalarWhereInput[]
+    id?: IntFilter<"Achievement"> | number
+    name?: EnumAchievementNameFilter<"Achievement"> | AchievementName
+    count?: IntFilter<"Achievement"> | number
+    bruteId?: IntNullableFilter<"Achievement"> | number | null
+    userId?: UuidNullableFilter<"Achievement"> | string | null
   }
 
   export type BruteCreateWithoutBodyInput = {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -21275,9 +22823,9 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: Gender
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -21310,7 +22858,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -21329,9 +22877,9 @@ export namespace Prisma {
     ranking?: number
     gender: Gender
     userId?: string | null
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     masterId?: number | null
     pupilsCount?: number
     clanId?: number | null
@@ -21366,13 +22914,19 @@ export namespace Prisma {
   export type BruteUpsertWithoutBodyInput = {
     update: XOR<BruteUpdateWithoutBodyInput, BruteUncheckedUpdateWithoutBodyInput>
     create: XOR<BruteCreateWithoutBodyInput, BruteUncheckedCreateWithoutBodyInput>
+    where?: BruteWhereInput
+  }
+
+  export type BruteUpdateToOneWithWhereWithoutBodyInput = {
+    where?: BruteWhereInput
+    data: XOR<BruteUpdateWithoutBodyInput, BruteUncheckedUpdateWithoutBodyInput>
   }
 
   export type BruteUpdateWithoutBodyInput = {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -21390,9 +22944,9 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21425,7 +22979,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -21444,9 +22998,9 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     masterId?: NullableIntFieldUpdateOperationsInput | number | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -21477,7 +23031,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -21495,9 +23049,9 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: Gender
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -21530,7 +23084,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -21549,9 +23103,9 @@ export namespace Prisma {
     ranking?: number
     gender: Gender
     userId?: string | null
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     masterId?: number | null
     pupilsCount?: number
     clanId?: number | null
@@ -21586,13 +23140,19 @@ export namespace Prisma {
   export type BruteUpsertWithoutColorsInput = {
     update: XOR<BruteUpdateWithoutColorsInput, BruteUncheckedUpdateWithoutColorsInput>
     create: XOR<BruteCreateWithoutColorsInput, BruteUncheckedCreateWithoutColorsInput>
+    where?: BruteWhereInput
+  }
+
+  export type BruteUpdateToOneWithWhereWithoutColorsInput = {
+    where?: BruteWhereInput
+    data: XOR<BruteUpdateWithoutColorsInput, BruteUncheckedUpdateWithoutColorsInput>
   }
 
   export type BruteUpdateWithoutColorsInput = {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -21610,9 +23170,9 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21645,7 +23205,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -21664,9 +23224,9 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     masterId?: NullableIntFieldUpdateOperationsInput | number | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -21810,7 +23370,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -21828,9 +23388,9 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: Gender
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -21863,7 +23423,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -21882,9 +23442,9 @@ export namespace Prisma {
     ranking?: number
     gender: Gender
     userId?: string | null
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     masterId?: number | null
     pupilsCount?: number
     clanId?: number | null
@@ -21920,7 +23480,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -21938,9 +23498,9 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: Gender
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -21973,7 +23533,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -21992,9 +23552,9 @@ export namespace Prisma {
     ranking?: number
     gender: Gender
     userId?: string | null
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     pupilsCount?: number
     clanId?: number | null
     registeredForTournament?: boolean
@@ -22027,7 +23587,7 @@ export namespace Prisma {
   }
 
   export type BruteCreateManyMasterInputEnvelope = {
-    data: Enumerable<BruteCreateManyMasterInput>
+    data: BruteCreateManyMasterInput | BruteCreateManyMasterInput[]
     skipDuplicates?: boolean
   }
 
@@ -22074,7 +23634,7 @@ export namespace Prisma {
   }
 
   export type FightCreateManyBrute1InputEnvelope = {
-    data: Enumerable<FightCreateManyBrute1Input>
+    data: FightCreateManyBrute1Input | FightCreateManyBrute1Input[]
     skipDuplicates?: boolean
   }
 
@@ -22107,7 +23667,7 @@ export namespace Prisma {
   }
 
   export type FightCreateManyBrute2InputEnvelope = {
-    data: Enumerable<FightCreateManyBrute2Input>
+    data: FightCreateManyBrute2Input | FightCreateManyBrute2Input[]
     skipDuplicates?: boolean
   }
 
@@ -22136,12 +23696,12 @@ export namespace Prisma {
   }
 
   export type LogCreateManyCurrentBruteInputEnvelope = {
-    data: Enumerable<LogCreateManyCurrentBruteInput>
+    data: LogCreateManyCurrentBruteInput | LogCreateManyCurrentBruteInput[]
     skipDuplicates?: boolean
   }
 
   export type DestinyChoiceCreateWithoutBruteInput = {
-    path?: DestinyChoiceCreatepathInput | Enumerable<DestinyChoiceSide>
+    path?: DestinyChoiceCreatepathInput | DestinyChoiceSide[]
     type: DestinyChoiceType
     skill?: SkillName | null
     weapon?: WeaponName | null
@@ -22154,7 +23714,7 @@ export namespace Prisma {
 
   export type DestinyChoiceUncheckedCreateWithoutBruteInput = {
     id?: number
-    path?: DestinyChoiceCreatepathInput | Enumerable<DestinyChoiceSide>
+    path?: DestinyChoiceCreatepathInput | DestinyChoiceSide[]
     type: DestinyChoiceType
     skill?: SkillName | null
     weapon?: WeaponName | null
@@ -22171,7 +23731,7 @@ export namespace Prisma {
   }
 
   export type DestinyChoiceCreateManyBruteInputEnvelope = {
-    data: Enumerable<DestinyChoiceCreateManyBruteInput>
+    data: DestinyChoiceCreateManyBruteInput | DestinyChoiceCreateManyBruteInput[]
     skipDuplicates?: boolean
   }
 
@@ -22213,7 +23773,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -22231,9 +23791,9 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: Gender
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -22266,7 +23826,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -22285,9 +23845,9 @@ export namespace Prisma {
     ranking?: number
     gender: Gender
     userId?: string | null
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     masterId?: number | null
     pupilsCount?: number
     clanId?: number | null
@@ -22323,7 +23883,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -22341,9 +23901,9 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: Gender
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -22376,7 +23936,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -22395,9 +23955,9 @@ export namespace Prisma {
     ranking?: number
     gender: Gender
     userId?: string | null
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     masterId?: number | null
     pupilsCount?: number
     clanId?: number | null
@@ -22448,7 +24008,7 @@ export namespace Prisma {
   }
 
   export type AchievementCreateManyBruteInputEnvelope = {
-    data: Enumerable<AchievementCreateManyBruteInput>
+    data: AchievementCreateManyBruteInput | AchievementCreateManyBruteInput[]
     skipDuplicates?: boolean
   }
 
@@ -22473,13 +24033,19 @@ export namespace Prisma {
   }
 
   export type TournamentEarningCreateManyBruteInputEnvelope = {
-    data: Enumerable<TournamentEarningCreateManyBruteInput>
+    data: TournamentEarningCreateManyBruteInput | TournamentEarningCreateManyBruteInput[]
     skipDuplicates?: boolean
   }
 
   export type UserUpsertWithoutBrutesInput = {
     update: XOR<UserUpdateWithoutBrutesInput, UserUncheckedUpdateWithoutBrutesInput>
     create: XOR<UserCreateWithoutBrutesInput, UserUncheckedCreateWithoutBrutesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutBrutesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutBrutesInput, UserUncheckedUpdateWithoutBrutesInput>
   }
 
   export type UserUpdateWithoutBrutesInput = {
@@ -22511,6 +24077,12 @@ export namespace Prisma {
   export type BruteBodyUpsertWithoutBruteInput = {
     update: XOR<BruteBodyUpdateWithoutBruteInput, BruteBodyUncheckedUpdateWithoutBruteInput>
     create: XOR<BruteBodyCreateWithoutBruteInput, BruteBodyUncheckedCreateWithoutBruteInput>
+    where?: BruteBodyWhereInput
+  }
+
+  export type BruteBodyUpdateToOneWithWhereWithoutBruteInput = {
+    where?: BruteBodyWhereInput
+    data: XOR<BruteBodyUpdateWithoutBruteInput, BruteBodyUncheckedUpdateWithoutBruteInput>
   }
 
   export type BruteBodyUpdateWithoutBruteInput = {
@@ -22561,6 +24133,12 @@ export namespace Prisma {
   export type BruteColorsUpsertWithoutBruteInput = {
     update: XOR<BruteColorsUpdateWithoutBruteInput, BruteColorsUncheckedUpdateWithoutBruteInput>
     create: XOR<BruteColorsCreateWithoutBruteInput, BruteColorsUncheckedCreateWithoutBruteInput>
+    where?: BruteColorsWhereInput
+  }
+
+  export type BruteColorsUpdateToOneWithWhereWithoutBruteInput = {
+    where?: BruteColorsWhereInput
+    data: XOR<BruteColorsUpdateWithoutBruteInput, BruteColorsUncheckedUpdateWithoutBruteInput>
   }
 
   export type BruteColorsUpdateWithoutBruteInput = {
@@ -22593,13 +24171,19 @@ export namespace Prisma {
   export type BruteUpsertWithoutPupilsInput = {
     update: XOR<BruteUpdateWithoutPupilsInput, BruteUncheckedUpdateWithoutPupilsInput>
     create: XOR<BruteCreateWithoutPupilsInput, BruteUncheckedCreateWithoutPupilsInput>
+    where?: BruteWhereInput
+  }
+
+  export type BruteUpdateToOneWithWhereWithoutPupilsInput = {
+    where?: BruteWhereInput
+    data: XOR<BruteUpdateWithoutPupilsInput, BruteUncheckedUpdateWithoutPupilsInput>
   }
 
   export type BruteUpdateWithoutPupilsInput = {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -22617,9 +24201,9 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -22652,7 +24236,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -22671,9 +24255,9 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     masterId?: NullableIntFieldUpdateOperationsInput | number | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -22713,12 +24297,18 @@ export namespace Prisma {
 
   export type BruteUpdateManyWithWhereWithoutMasterInput = {
     where: BruteScalarWhereInput
-    data: XOR<BruteUpdateManyMutationInput, BruteUncheckedUpdateManyWithoutPupilsInput>
+    data: XOR<BruteUpdateManyMutationInput, BruteUncheckedUpdateManyWithoutMasterInput>
   }
 
   export type ClanUpsertWithoutBrutesInput = {
     update: XOR<ClanUpdateWithoutBrutesInput, ClanUncheckedUpdateWithoutBrutesInput>
     create: XOR<ClanCreateWithoutBrutesInput, ClanUncheckedCreateWithoutBrutesInput>
+    where?: ClanWhereInput
+  }
+
+  export type ClanUpdateToOneWithWhereWithoutBrutesInput = {
+    where?: ClanWhereInput
+    data: XOR<ClanUpdateWithoutBrutesInput, ClanUncheckedUpdateWithoutBrutesInput>
   }
 
   export type ClanUpdateWithoutBrutesInput = {
@@ -22743,21 +24333,21 @@ export namespace Prisma {
 
   export type FightUpdateManyWithWhereWithoutBrute1Input = {
     where: FightScalarWhereInput
-    data: XOR<FightUpdateManyMutationInput, FightUncheckedUpdateManyWithoutFightsInput>
+    data: XOR<FightUpdateManyMutationInput, FightUncheckedUpdateManyWithoutBrute1Input>
   }
 
   export type FightScalarWhereInput = {
-    AND?: Enumerable<FightScalarWhereInput>
-    OR?: Enumerable<FightScalarWhereInput>
-    NOT?: Enumerable<FightScalarWhereInput>
-    id?: IntFilter | number
-    date?: DateTimeFilter | Date | string
-    brute1Id?: IntFilter | number
-    brute2Id?: IntFilter | number
-    winner?: StringFilter | string
-    loser?: StringFilter | string
-    steps?: JsonFilter
-    fighters?: JsonFilter
+    AND?: FightScalarWhereInput | FightScalarWhereInput[]
+    OR?: FightScalarWhereInput[]
+    NOT?: FightScalarWhereInput | FightScalarWhereInput[]
+    id?: IntFilter<"Fight"> | number
+    date?: DateTimeFilter<"Fight"> | Date | string
+    brute1Id?: IntFilter<"Fight"> | number
+    brute2Id?: IntFilter<"Fight"> | number
+    winner?: StringFilter<"Fight"> | string
+    loser?: StringFilter<"Fight"> | string
+    steps?: JsonFilter<"Fight">
+    fighters?: JsonFilter<"Fight">
   }
 
   export type FightUpsertWithWhereUniqueWithoutBrute2Input = {
@@ -22773,7 +24363,7 @@ export namespace Prisma {
 
   export type FightUpdateManyWithWhereWithoutBrute2Input = {
     where: FightScalarWhereInput
-    data: XOR<FightUpdateManyMutationInput, FightUncheckedUpdateManyWithoutFightsAsAdversaryInput>
+    data: XOR<FightUpdateManyMutationInput, FightUncheckedUpdateManyWithoutBrute2Input>
   }
 
   export type LogUpsertWithWhereUniqueWithoutCurrentBruteInput = {
@@ -22789,21 +24379,21 @@ export namespace Prisma {
 
   export type LogUpdateManyWithWhereWithoutCurrentBruteInput = {
     where: LogScalarWhereInput
-    data: XOR<LogUpdateManyMutationInput, LogUncheckedUpdateManyWithoutLogsInput>
+    data: XOR<LogUpdateManyMutationInput, LogUncheckedUpdateManyWithoutCurrentBruteInput>
   }
 
   export type LogScalarWhereInput = {
-    AND?: Enumerable<LogScalarWhereInput>
-    OR?: Enumerable<LogScalarWhereInput>
-    NOT?: Enumerable<LogScalarWhereInput>
-    id?: IntFilter | number
-    date?: DateTimeFilter | Date | string
-    currentBruteId?: IntFilter | number
-    type?: EnumLogTypeFilter | LogType
-    level?: IntNullableFilter | number | null
-    brute?: StringNullableFilter | string | null
-    fightId?: IntNullableFilter | number | null
-    xp?: IntNullableFilter | number | null
+    AND?: LogScalarWhereInput | LogScalarWhereInput[]
+    OR?: LogScalarWhereInput[]
+    NOT?: LogScalarWhereInput | LogScalarWhereInput[]
+    id?: IntFilter<"Log"> | number
+    date?: DateTimeFilter<"Log"> | Date | string
+    currentBruteId?: IntFilter<"Log"> | number
+    type?: EnumLogTypeFilter<"Log"> | LogType
+    level?: IntNullableFilter<"Log"> | number | null
+    brute?: StringNullableFilter<"Log"> | string | null
+    fightId?: IntNullableFilter<"Log"> | number | null
+    xp?: IntNullableFilter<"Log"> | number | null
   }
 
   export type DestinyChoiceUpsertWithWhereUniqueWithoutBruteInput = {
@@ -22819,29 +24409,35 @@ export namespace Prisma {
 
   export type DestinyChoiceUpdateManyWithWhereWithoutBruteInput = {
     where: DestinyChoiceScalarWhereInput
-    data: XOR<DestinyChoiceUpdateManyMutationInput, DestinyChoiceUncheckedUpdateManyWithoutDestinyChoicesInput>
+    data: XOR<DestinyChoiceUpdateManyMutationInput, DestinyChoiceUncheckedUpdateManyWithoutBruteInput>
   }
 
   export type DestinyChoiceScalarWhereInput = {
-    AND?: Enumerable<DestinyChoiceScalarWhereInput>
-    OR?: Enumerable<DestinyChoiceScalarWhereInput>
-    NOT?: Enumerable<DestinyChoiceScalarWhereInput>
-    id?: IntFilter | number
-    bruteId?: IntFilter | number
-    path?: EnumDestinyChoiceSideNullableListFilter
-    type?: EnumDestinyChoiceTypeFilter | DestinyChoiceType
-    skill?: EnumSkillNameNullableFilter | SkillName | null
-    weapon?: EnumWeaponNameNullableFilter | WeaponName | null
-    pet?: EnumPetNameNullableFilter | PetName | null
-    stat1?: EnumBruteStatNullableFilter | BruteStat | null
-    stat1Value?: IntNullableFilter | number | null
-    stat2?: EnumBruteStatNullableFilter | BruteStat | null
-    stat2Value?: IntNullableFilter | number | null
+    AND?: DestinyChoiceScalarWhereInput | DestinyChoiceScalarWhereInput[]
+    OR?: DestinyChoiceScalarWhereInput[]
+    NOT?: DestinyChoiceScalarWhereInput | DestinyChoiceScalarWhereInput[]
+    id?: IntFilter<"DestinyChoice"> | number
+    bruteId?: IntFilter<"DestinyChoice"> | number
+    path?: EnumDestinyChoiceSideNullableListFilter<"DestinyChoice">
+    type?: EnumDestinyChoiceTypeFilter<"DestinyChoice"> | DestinyChoiceType
+    skill?: EnumSkillNameNullableFilter<"DestinyChoice"> | SkillName | null
+    weapon?: EnumWeaponNameNullableFilter<"DestinyChoice"> | WeaponName | null
+    pet?: EnumPetNameNullableFilter<"DestinyChoice"> | PetName | null
+    stat1?: EnumBruteStatNullableFilter<"DestinyChoice"> | BruteStat | null
+    stat1Value?: IntNullableFilter<"DestinyChoice"> | number | null
+    stat2?: EnumBruteStatNullableFilter<"DestinyChoice"> | BruteStat | null
+    stat2Value?: IntNullableFilter<"DestinyChoice"> | number | null
   }
 
   export type BruteSpritesheetUpsertWithoutBruteInput = {
     update: XOR<BruteSpritesheetUpdateWithoutBruteInput, BruteSpritesheetUncheckedUpdateWithoutBruteInput>
     create: XOR<BruteSpritesheetCreateWithoutBruteInput, BruteSpritesheetUncheckedCreateWithoutBruteInput>
+    where?: BruteSpritesheetWhereInput
+  }
+
+  export type BruteSpritesheetUpdateToOneWithWhereWithoutBruteInput = {
+    where?: BruteSpritesheetWhereInput
+    data: XOR<BruteSpritesheetUpdateWithoutBruteInput, BruteSpritesheetUncheckedUpdateWithoutBruteInput>
   }
 
   export type BruteSpritesheetUpdateWithoutBruteInput = {
@@ -22868,16 +24464,16 @@ export namespace Prisma {
 
   export type TournamentUpdateManyWithWhereWithoutParticipantsInput = {
     where: TournamentScalarWhereInput
-    data: XOR<TournamentUpdateManyMutationInput, TournamentUncheckedUpdateManyWithoutTournamentsInput>
+    data: XOR<TournamentUpdateManyMutationInput, TournamentUncheckedUpdateManyWithoutParticipantsInput>
   }
 
   export type TournamentScalarWhereInput = {
-    AND?: Enumerable<TournamentScalarWhereInput>
-    OR?: Enumerable<TournamentScalarWhereInput>
-    NOT?: Enumerable<TournamentScalarWhereInput>
-    id?: IntFilter | number
-    date?: DateTimeFilter | Date | string
-    type?: EnumTournamentTypeFilter | TournamentType
+    AND?: TournamentScalarWhereInput | TournamentScalarWhereInput[]
+    OR?: TournamentScalarWhereInput[]
+    NOT?: TournamentScalarWhereInput | TournamentScalarWhereInput[]
+    id?: IntFilter<"Tournament"> | number
+    date?: DateTimeFilter<"Tournament"> | Date | string
+    type?: EnumTournamentTypeFilter<"Tournament"> | TournamentType
   }
 
   export type BruteUpsertWithWhereUniqueWithoutOpponentOfInput = {
@@ -22893,7 +24489,7 @@ export namespace Prisma {
 
   export type BruteUpdateManyWithWhereWithoutOpponentOfInput = {
     where: BruteScalarWhereInput
-    data: XOR<BruteUpdateManyMutationInput, BruteUncheckedUpdateManyWithoutOpponentsInput>
+    data: XOR<BruteUpdateManyMutationInput, BruteUncheckedUpdateManyWithoutOpponentOfInput>
   }
 
   export type BruteUpsertWithWhereUniqueWithoutOpponentsInput = {
@@ -22909,7 +24505,7 @@ export namespace Prisma {
 
   export type BruteUpdateManyWithWhereWithoutOpponentsInput = {
     where: BruteScalarWhereInput
-    data: XOR<BruteUpdateManyMutationInput, BruteUncheckedUpdateManyWithoutOpponentOfInput>
+    data: XOR<BruteUpdateManyMutationInput, BruteUncheckedUpdateManyWithoutOpponentsInput>
   }
 
   export type AchievementUpsertWithWhereUniqueWithoutBruteInput = {
@@ -22925,7 +24521,7 @@ export namespace Prisma {
 
   export type AchievementUpdateManyWithWhereWithoutBruteInput = {
     where: AchievementScalarWhereInput
-    data: XOR<AchievementUpdateManyMutationInput, AchievementUncheckedUpdateManyWithoutAchievementsInput>
+    data: XOR<AchievementUpdateManyMutationInput, AchievementUncheckedUpdateManyWithoutBruteInput>
   }
 
   export type TournamentEarningUpsertWithWhereUniqueWithoutBruteInput = {
@@ -22941,26 +24537,26 @@ export namespace Prisma {
 
   export type TournamentEarningUpdateManyWithWhereWithoutBruteInput = {
     where: TournamentEarningScalarWhereInput
-    data: XOR<TournamentEarningUpdateManyMutationInput, TournamentEarningUncheckedUpdateManyWithoutTournamentEarningsInput>
+    data: XOR<TournamentEarningUpdateManyMutationInput, TournamentEarningUncheckedUpdateManyWithoutBruteInput>
   }
 
   export type TournamentEarningScalarWhereInput = {
-    AND?: Enumerable<TournamentEarningScalarWhereInput>
-    OR?: Enumerable<TournamentEarningScalarWhereInput>
-    NOT?: Enumerable<TournamentEarningScalarWhereInput>
-    id?: IntFilter | number
-    date?: DateTimeFilter | Date | string
-    bruteId?: IntFilter | number
-    points?: IntNullableFilter | number | null
-    achievement?: EnumAchievementNameNullableFilter | AchievementName | null
-    achievementCount?: IntNullableFilter | number | null
+    AND?: TournamentEarningScalarWhereInput | TournamentEarningScalarWhereInput[]
+    OR?: TournamentEarningScalarWhereInput[]
+    NOT?: TournamentEarningScalarWhereInput | TournamentEarningScalarWhereInput[]
+    id?: IntFilter<"TournamentEarning"> | number
+    date?: DateTimeFilter<"TournamentEarning"> | Date | string
+    bruteId?: IntFilter<"TournamentEarning"> | number
+    points?: IntNullableFilter<"TournamentEarning"> | number | null
+    achievement?: EnumAchievementNameNullableFilter<"TournamentEarning"> | AchievementName | null
+    achievementCount?: IntNullableFilter<"TournamentEarning"> | number | null
   }
 
   export type BruteCreateWithoutSpritesheetInput = {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -22978,9 +24574,9 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: Gender
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -23013,7 +24609,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -23032,9 +24628,9 @@ export namespace Prisma {
     ranking?: number
     gender: Gender
     userId?: string | null
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     masterId?: number | null
     pupilsCount?: number
     clanId?: number | null
@@ -23069,13 +24665,19 @@ export namespace Prisma {
   export type BruteUpsertWithoutSpritesheetInput = {
     update: XOR<BruteUpdateWithoutSpritesheetInput, BruteUncheckedUpdateWithoutSpritesheetInput>
     create: XOR<BruteCreateWithoutSpritesheetInput, BruteUncheckedCreateWithoutSpritesheetInput>
+    where?: BruteWhereInput
+  }
+
+  export type BruteUpdateToOneWithWhereWithoutSpritesheetInput = {
+    where?: BruteWhereInput
+    data: XOR<BruteUpdateWithoutSpritesheetInput, BruteUncheckedUpdateWithoutSpritesheetInput>
   }
 
   export type BruteUpdateWithoutSpritesheetInput = {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -23093,9 +24695,9 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -23128,7 +24730,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -23147,9 +24749,9 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     masterId?: NullableIntFieldUpdateOperationsInput | number | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -23180,7 +24782,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -23198,9 +24800,9 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: Gender
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -23233,7 +24835,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -23252,9 +24854,9 @@ export namespace Prisma {
     ranking?: number
     gender: Gender
     userId?: string | null
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     masterId?: number | null
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -23287,7 +24889,7 @@ export namespace Prisma {
   }
 
   export type BruteCreateManyClanInputEnvelope = {
-    data: Enumerable<BruteCreateManyClanInput>
+    data: BruteCreateManyClanInput | BruteCreateManyClanInput[]
     skipDuplicates?: boolean
   }
 
@@ -23304,14 +24906,14 @@ export namespace Prisma {
 
   export type BruteUpdateManyWithWhereWithoutClanInput = {
     where: BruteScalarWhereInput
-    data: XOR<BruteUpdateManyMutationInput, BruteUncheckedUpdateManyWithoutBrutesInput>
+    data: XOR<BruteUpdateManyMutationInput, BruteUncheckedUpdateManyWithoutClanInput>
   }
 
   export type BruteCreateWithoutFightsInput = {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -23329,9 +24931,9 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: Gender
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -23364,7 +24966,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -23383,9 +24985,9 @@ export namespace Prisma {
     ranking?: number
     gender: Gender
     userId?: string | null
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     masterId?: number | null
     pupilsCount?: number
     clanId?: number | null
@@ -23421,7 +25023,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -23439,9 +25041,9 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: Gender
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -23474,7 +25076,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -23493,9 +25095,9 @@ export namespace Prisma {
     ranking?: number
     gender: Gender
     userId?: string | null
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     masterId?: number | null
     pupilsCount?: number
     clanId?: number | null
@@ -23552,7 +25154,7 @@ export namespace Prisma {
   }
 
   export type LogCreateManyFightInputEnvelope = {
-    data: Enumerable<LogCreateManyFightInput>
+    data: LogCreateManyFightInput | LogCreateManyFightInput[]
     skipDuplicates?: boolean
   }
 
@@ -23575,20 +25177,26 @@ export namespace Prisma {
   }
 
   export type TournamentStepCreateManyFightInputEnvelope = {
-    data: Enumerable<TournamentStepCreateManyFightInput>
+    data: TournamentStepCreateManyFightInput | TournamentStepCreateManyFightInput[]
     skipDuplicates?: boolean
   }
 
   export type BruteUpsertWithoutFightsInput = {
     update: XOR<BruteUpdateWithoutFightsInput, BruteUncheckedUpdateWithoutFightsInput>
     create: XOR<BruteCreateWithoutFightsInput, BruteUncheckedCreateWithoutFightsInput>
+    where?: BruteWhereInput
+  }
+
+  export type BruteUpdateToOneWithWhereWithoutFightsInput = {
+    where?: BruteWhereInput
+    data: XOR<BruteUpdateWithoutFightsInput, BruteUncheckedUpdateWithoutFightsInput>
   }
 
   export type BruteUpdateWithoutFightsInput = {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -23606,9 +25214,9 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -23641,7 +25249,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -23660,9 +25268,9 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     masterId?: NullableIntFieldUpdateOperationsInput | number | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -23692,13 +25300,19 @@ export namespace Prisma {
   export type BruteUpsertWithoutFightsAsAdversaryInput = {
     update: XOR<BruteUpdateWithoutFightsAsAdversaryInput, BruteUncheckedUpdateWithoutFightsAsAdversaryInput>
     create: XOR<BruteCreateWithoutFightsAsAdversaryInput, BruteUncheckedCreateWithoutFightsAsAdversaryInput>
+    where?: BruteWhereInput
+  }
+
+  export type BruteUpdateToOneWithWhereWithoutFightsAsAdversaryInput = {
+    where?: BruteWhereInput
+    data: XOR<BruteUpdateWithoutFightsAsAdversaryInput, BruteUncheckedUpdateWithoutFightsAsAdversaryInput>
   }
 
   export type BruteUpdateWithoutFightsAsAdversaryInput = {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -23716,9 +25330,9 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -23751,7 +25365,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -23770,9 +25384,9 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     masterId?: NullableIntFieldUpdateOperationsInput | number | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -23812,7 +25426,7 @@ export namespace Prisma {
 
   export type LogUpdateManyWithWhereWithoutFightInput = {
     where: LogScalarWhereInput
-    data: XOR<LogUpdateManyMutationInput, LogUncheckedUpdateManyWithoutLogsInput>
+    data: XOR<LogUpdateManyMutationInput, LogUncheckedUpdateManyWithoutFightInput>
   }
 
   export type TournamentStepUpsertWithWhereUniqueWithoutFightInput = {
@@ -23828,25 +25442,25 @@ export namespace Prisma {
 
   export type TournamentStepUpdateManyWithWhereWithoutFightInput = {
     where: TournamentStepScalarWhereInput
-    data: XOR<TournamentStepUpdateManyMutationInput, TournamentStepUncheckedUpdateManyWithoutTournamentStepInput>
+    data: XOR<TournamentStepUpdateManyMutationInput, TournamentStepUncheckedUpdateManyWithoutFightInput>
   }
 
   export type TournamentStepScalarWhereInput = {
-    AND?: Enumerable<TournamentStepScalarWhereInput>
-    OR?: Enumerable<TournamentStepScalarWhereInput>
-    NOT?: Enumerable<TournamentStepScalarWhereInput>
-    id?: IntFilter | number
-    tournamentId?: IntFilter | number
-    step?: IntFilter | number
-    fightId?: IntFilter | number
-    xpDistributed?: BoolFilter | boolean
+    AND?: TournamentStepScalarWhereInput | TournamentStepScalarWhereInput[]
+    OR?: TournamentStepScalarWhereInput[]
+    NOT?: TournamentStepScalarWhereInput | TournamentStepScalarWhereInput[]
+    id?: IntFilter<"TournamentStep"> | number
+    tournamentId?: IntFilter<"TournamentStep"> | number
+    step?: IntFilter<"TournamentStep"> | number
+    fightId?: IntFilter<"TournamentStep"> | number
+    xpDistributed?: BoolFilter<"TournamentStep"> | boolean
   }
 
   export type BruteCreateWithoutLogsInput = {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -23864,9 +25478,9 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: Gender
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -23899,7 +25513,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -23918,9 +25532,9 @@ export namespace Prisma {
     ranking?: number
     gender: Gender
     userId?: string | null
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     masterId?: number | null
     pupilsCount?: number
     clanId?: number | null
@@ -23983,13 +25597,19 @@ export namespace Prisma {
   export type BruteUpsertWithoutLogsInput = {
     update: XOR<BruteUpdateWithoutLogsInput, BruteUncheckedUpdateWithoutLogsInput>
     create: XOR<BruteCreateWithoutLogsInput, BruteUncheckedCreateWithoutLogsInput>
+    where?: BruteWhereInput
+  }
+
+  export type BruteUpdateToOneWithWhereWithoutLogsInput = {
+    where?: BruteWhereInput
+    data: XOR<BruteUpdateWithoutLogsInput, BruteUncheckedUpdateWithoutLogsInput>
   }
 
   export type BruteUpdateWithoutLogsInput = {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -24007,9 +25627,9 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -24042,7 +25662,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -24061,9 +25681,9 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     masterId?: NullableIntFieldUpdateOperationsInput | number | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -24093,6 +25713,12 @@ export namespace Prisma {
   export type FightUpsertWithoutLogsInput = {
     update: XOR<FightUpdateWithoutLogsInput, FightUncheckedUpdateWithoutLogsInput>
     create: XOR<FightCreateWithoutLogsInput, FightUncheckedCreateWithoutLogsInput>
+    where?: FightWhereInput
+  }
+
+  export type FightUpdateToOneWithWhereWithoutLogsInput = {
+    where?: FightWhereInput
+    data: XOR<FightUpdateWithoutLogsInput, FightUncheckedUpdateWithoutLogsInput>
   }
 
   export type FightUpdateWithoutLogsInput = {
@@ -24122,7 +25748,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -24140,9 +25766,9 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: Gender
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -24175,7 +25801,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -24194,9 +25820,9 @@ export namespace Prisma {
     ranking?: number
     gender: Gender
     userId?: string | null
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     masterId?: number | null
     pupilsCount?: number
     clanId?: number | null
@@ -24231,13 +25857,19 @@ export namespace Prisma {
   export type BruteUpsertWithoutDestinyChoicesInput = {
     update: XOR<BruteUpdateWithoutDestinyChoicesInput, BruteUncheckedUpdateWithoutDestinyChoicesInput>
     create: XOR<BruteCreateWithoutDestinyChoicesInput, BruteUncheckedCreateWithoutDestinyChoicesInput>
+    where?: BruteWhereInput
+  }
+
+  export type BruteUpdateToOneWithWhereWithoutDestinyChoicesInput = {
+    where?: BruteWhereInput
+    data: XOR<BruteUpdateWithoutDestinyChoicesInput, BruteUncheckedUpdateWithoutDestinyChoicesInput>
   }
 
   export type BruteUpdateWithoutDestinyChoicesInput = {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -24255,9 +25887,9 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -24290,7 +25922,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -24309,9 +25941,9 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     masterId?: NullableIntFieldUpdateOperationsInput | number | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -24342,7 +25974,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -24360,9 +25992,9 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: Gender
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -24395,7 +26027,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -24414,9 +26046,9 @@ export namespace Prisma {
     ranking?: number
     gender: Gender
     userId?: string | null
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     masterId?: number | null
     pupilsCount?: number
     clanId?: number | null
@@ -24467,7 +26099,7 @@ export namespace Prisma {
   }
 
   export type TournamentStepCreateManyTournamentInputEnvelope = {
-    data: Enumerable<TournamentStepCreateManyTournamentInput>
+    data: TournamentStepCreateManyTournamentInput | TournamentStepCreateManyTournamentInput[]
     skipDuplicates?: boolean
   }
 
@@ -24484,7 +26116,7 @@ export namespace Prisma {
 
   export type BruteUpdateManyWithWhereWithoutTournamentsInput = {
     where: BruteScalarWhereInput
-    data: XOR<BruteUpdateManyMutationInput, BruteUncheckedUpdateManyWithoutParticipantsInput>
+    data: XOR<BruteUpdateManyMutationInput, BruteUncheckedUpdateManyWithoutTournamentsInput>
   }
 
   export type TournamentStepUpsertWithWhereUniqueWithoutTournamentInput = {
@@ -24500,7 +26132,7 @@ export namespace Prisma {
 
   export type TournamentStepUpdateManyWithWhereWithoutTournamentInput = {
     where: TournamentStepScalarWhereInput
-    data: XOR<TournamentStepUpdateManyMutationInput, TournamentStepUncheckedUpdateManyWithoutStepsInput>
+    data: XOR<TournamentStepUpdateManyMutationInput, TournamentStepUncheckedUpdateManyWithoutTournamentInput>
   }
 
   export type TournamentCreateWithoutStepsInput = {
@@ -24552,6 +26184,12 @@ export namespace Prisma {
   export type TournamentUpsertWithoutStepsInput = {
     update: XOR<TournamentUpdateWithoutStepsInput, TournamentUncheckedUpdateWithoutStepsInput>
     create: XOR<TournamentCreateWithoutStepsInput, TournamentUncheckedCreateWithoutStepsInput>
+    where?: TournamentWhereInput
+  }
+
+  export type TournamentUpdateToOneWithWhereWithoutStepsInput = {
+    where?: TournamentWhereInput
+    data: XOR<TournamentUpdateWithoutStepsInput, TournamentUncheckedUpdateWithoutStepsInput>
   }
 
   export type TournamentUpdateWithoutStepsInput = {
@@ -24570,6 +26208,12 @@ export namespace Prisma {
   export type FightUpsertWithoutTournamentStepInput = {
     update: XOR<FightUpdateWithoutTournamentStepInput, FightUncheckedUpdateWithoutTournamentStepInput>
     create: XOR<FightCreateWithoutTournamentStepInput, FightUncheckedCreateWithoutTournamentStepInput>
+    where?: FightWhereInput
+  }
+
+  export type FightUpdateToOneWithWhereWithoutTournamentStepInput = {
+    where?: FightWhereInput
+    data: XOR<FightUpdateWithoutTournamentStepInput, FightUncheckedUpdateWithoutTournamentStepInput>
   }
 
   export type FightUpdateWithoutTournamentStepInput = {
@@ -24599,7 +26243,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -24617,9 +26261,9 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: Gender
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -24652,7 +26296,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -24671,9 +26315,9 @@ export namespace Prisma {
     ranking?: number
     gender: Gender
     userId?: string | null
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     masterId?: number | null
     pupilsCount?: number
     clanId?: number | null
@@ -24708,13 +26352,19 @@ export namespace Prisma {
   export type BruteUpsertWithoutTournamentEarningsInput = {
     update: XOR<BruteUpdateWithoutTournamentEarningsInput, BruteUncheckedUpdateWithoutTournamentEarningsInput>
     create: XOR<BruteCreateWithoutTournamentEarningsInput, BruteUncheckedCreateWithoutTournamentEarningsInput>
+    where?: BruteWhereInput
+  }
+
+  export type BruteUpdateToOneWithWhereWithoutTournamentEarningsInput = {
+    where?: BruteWhereInput
+    data: XOR<BruteUpdateWithoutTournamentEarningsInput, BruteUncheckedUpdateWithoutTournamentEarningsInput>
   }
 
   export type BruteUpdateWithoutTournamentEarningsInput = {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -24732,9 +26382,9 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -24767,7 +26417,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -24786,9 +26436,9 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     masterId?: NullableIntFieldUpdateOperationsInput | number | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -24819,7 +26469,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -24837,9 +26487,9 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: Gender
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -24872,7 +26522,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -24891,9 +26541,9 @@ export namespace Prisma {
     ranking?: number
     gender: Gender
     userId?: string | null
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     masterId?: number | null
     pupilsCount?: number
     clanId?: number | null
@@ -24959,13 +26609,19 @@ export namespace Prisma {
   export type BruteUpsertWithoutAchievementsInput = {
     update: XOR<BruteUpdateWithoutAchievementsInput, BruteUncheckedUpdateWithoutAchievementsInput>
     create: XOR<BruteCreateWithoutAchievementsInput, BruteUncheckedCreateWithoutAchievementsInput>
+    where?: BruteWhereInput
+  }
+
+  export type BruteUpdateToOneWithWhereWithoutAchievementsInput = {
+    where?: BruteWhereInput
+    data: XOR<BruteUpdateWithoutAchievementsInput, BruteUncheckedUpdateWithoutAchievementsInput>
   }
 
   export type BruteUpdateWithoutAchievementsInput = {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -24983,9 +26639,9 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -25018,7 +26674,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -25037,9 +26693,9 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     masterId?: NullableIntFieldUpdateOperationsInput | number | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -25069,6 +26725,12 @@ export namespace Prisma {
   export type UserUpsertWithoutAchievementsInput = {
     update: XOR<UserUpdateWithoutAchievementsInput, UserUncheckedUpdateWithoutAchievementsInput>
     create: XOR<UserCreateWithoutAchievementsInput, UserUncheckedCreateWithoutAchievementsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAchievementsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAchievementsInput, UserUncheckedUpdateWithoutAchievementsInput>
   }
 
   export type UserUpdateWithoutAchievementsInput = {
@@ -25102,7 +26764,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -25120,9 +26782,9 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: Gender
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     masterId?: number | null
     pupilsCount?: number
     clanId?: number | null
@@ -25148,7 +26810,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -25166,9 +26828,9 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -25201,7 +26863,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -25219,9 +26881,9 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     masterId?: NullableIntFieldUpdateOperationsInput | number | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -25249,12 +26911,12 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
   }
 
-  export type BruteUncheckedUpdateManyWithoutBrutesInput = {
+  export type BruteUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -25272,9 +26934,9 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     masterId?: NullableIntFieldUpdateOperationsInput | number | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -25302,7 +26964,7 @@ export namespace Prisma {
     bruteId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
-  export type AchievementUncheckedUpdateManyWithoutAchievementsInput = {
+  export type AchievementUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: EnumAchievementNameFieldUpdateOperationsInput | AchievementName
     count?: IntFieldUpdateOperationsInput | number
@@ -25314,7 +26976,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -25333,9 +26995,9 @@ export namespace Prisma {
     ranking?: number
     gender: Gender
     userId?: string | null
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     pupilsCount?: number
     clanId?: number | null
     registeredForTournament?: boolean
@@ -25381,7 +27043,7 @@ export namespace Prisma {
 
   export type DestinyChoiceCreateManyBruteInput = {
     id?: number
-    path?: DestinyChoiceCreatepathInput | Enumerable<DestinyChoiceSide>
+    path?: DestinyChoiceCreatepathInput | DestinyChoiceSide[]
     type: DestinyChoiceType
     skill?: SkillName | null
     weapon?: WeaponName | null
@@ -25411,7 +27073,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -25429,9 +27091,9 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -25464,7 +27126,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -25483,9 +27145,9 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -25512,12 +27174,12 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
   }
 
-  export type BruteUncheckedUpdateManyWithoutPupilsInput = {
+  export type BruteUncheckedUpdateManyWithoutMasterInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -25536,9 +27198,9 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -25575,7 +27237,7 @@ export namespace Prisma {
     TournamentStep?: TournamentStepUncheckedUpdateManyWithoutFightNestedInput
   }
 
-  export type FightUncheckedUpdateManyWithoutFightsInput = {
+  export type FightUncheckedUpdateManyWithoutBrute1Input = {
     id?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     brute2Id?: IntFieldUpdateOperationsInput | number
@@ -25608,7 +27270,7 @@ export namespace Prisma {
     TournamentStep?: TournamentStepUncheckedUpdateManyWithoutFightNestedInput
   }
 
-  export type FightUncheckedUpdateManyWithoutFightsAsAdversaryInput = {
+  export type FightUncheckedUpdateManyWithoutBrute2Input = {
     id?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     brute1Id?: IntFieldUpdateOperationsInput | number
@@ -25637,7 +27299,7 @@ export namespace Prisma {
     xp?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
-  export type LogUncheckedUpdateManyWithoutLogsInput = {
+  export type LogUncheckedUpdateManyWithoutCurrentBruteInput = {
     id?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumLogTypeFieldUpdateOperationsInput | LogType
@@ -25648,7 +27310,7 @@ export namespace Prisma {
   }
 
   export type DestinyChoiceUpdateWithoutBruteInput = {
-    path?: DestinyChoiceUpdatepathInput | Enumerable<DestinyChoiceSide>
+    path?: DestinyChoiceUpdatepathInput | DestinyChoiceSide[]
     type?: EnumDestinyChoiceTypeFieldUpdateOperationsInput | DestinyChoiceType
     skill?: NullableEnumSkillNameFieldUpdateOperationsInput | SkillName | null
     weapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | WeaponName | null
@@ -25661,7 +27323,7 @@ export namespace Prisma {
 
   export type DestinyChoiceUncheckedUpdateWithoutBruteInput = {
     id?: IntFieldUpdateOperationsInput | number
-    path?: DestinyChoiceUpdatepathInput | Enumerable<DestinyChoiceSide>
+    path?: DestinyChoiceUpdatepathInput | DestinyChoiceSide[]
     type?: EnumDestinyChoiceTypeFieldUpdateOperationsInput | DestinyChoiceType
     skill?: NullableEnumSkillNameFieldUpdateOperationsInput | SkillName | null
     weapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | WeaponName | null
@@ -25672,9 +27334,9 @@ export namespace Prisma {
     stat2Value?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
-  export type DestinyChoiceUncheckedUpdateManyWithoutDestinyChoicesInput = {
+  export type DestinyChoiceUncheckedUpdateManyWithoutBruteInput = {
     id?: IntFieldUpdateOperationsInput | number
-    path?: DestinyChoiceUpdatepathInput | Enumerable<DestinyChoiceSide>
+    path?: DestinyChoiceUpdatepathInput | DestinyChoiceSide[]
     type?: EnumDestinyChoiceTypeFieldUpdateOperationsInput | DestinyChoiceType
     skill?: NullableEnumSkillNameFieldUpdateOperationsInput | SkillName | null
     weapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | WeaponName | null
@@ -25698,7 +27360,7 @@ export namespace Prisma {
     steps?: TournamentStepUncheckedUpdateManyWithoutTournamentNestedInput
   }
 
-  export type TournamentUncheckedUpdateManyWithoutTournamentsInput = {
+  export type TournamentUncheckedUpdateManyWithoutParticipantsInput = {
     id?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumTournamentTypeFieldUpdateOperationsInput | TournamentType
@@ -25708,7 +27370,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -25726,9 +27388,9 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -25761,7 +27423,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -25780,9 +27442,9 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     masterId?: NullableIntFieldUpdateOperationsInput | number | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -25809,12 +27471,12 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
   }
 
-  export type BruteUncheckedUpdateManyWithoutOpponentsInput = {
+  export type BruteUncheckedUpdateManyWithoutOpponentOfInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -25833,9 +27495,9 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     masterId?: NullableIntFieldUpdateOperationsInput | number | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -25854,7 +27516,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -25872,9 +27534,9 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -25907,7 +27569,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -25926,9 +27588,9 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     masterId?: NullableIntFieldUpdateOperationsInput | number | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -25955,12 +27617,12 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
   }
 
-  export type BruteUncheckedUpdateManyWithoutOpponentOfInput = {
+  export type BruteUncheckedUpdateManyWithoutOpponentsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -25979,9 +27641,9 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     masterId?: NullableIntFieldUpdateOperationsInput | number | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -26009,6 +27671,13 @@ export namespace Prisma {
     userId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type AchievementUncheckedUpdateManyWithoutBruteInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: EnumAchievementNameFieldUpdateOperationsInput | AchievementName
+    count?: IntFieldUpdateOperationsInput | number
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type TournamentEarningUpdateWithoutBruteInput = {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     points?: NullableIntFieldUpdateOperationsInput | number | null
@@ -26024,7 +27693,7 @@ export namespace Prisma {
     achievementCount?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
-  export type TournamentEarningUncheckedUpdateManyWithoutTournamentEarningsInput = {
+  export type TournamentEarningUncheckedUpdateManyWithoutBruteInput = {
     id?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     points?: NullableIntFieldUpdateOperationsInput | number | null
@@ -26037,7 +27706,7 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteCreatedestinyPathInput | DestinyChoiceSide[]
     level?: number
     xp?: number
     hp?: number
@@ -26056,9 +27725,9 @@ export namespace Prisma {
     ranking?: number
     gender: Gender
     userId?: string | null
-    weapons?: BruteCreateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteCreateskillsInput | Enumerable<SkillName>
-    pets?: BruteCreatepetsInput | Enumerable<PetName>
+    weapons?: BruteCreateweaponsInput | WeaponName[]
+    skills?: BruteCreateskillsInput | SkillName[]
+    pets?: BruteCreatepetsInput | PetName[]
     masterId?: number | null
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -26076,7 +27745,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -26094,9 +27763,9 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -26129,7 +27798,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -26148,9 +27817,9 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     masterId?: NullableIntFieldUpdateOperationsInput | number | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -26175,6 +27844,46 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
+  }
+
+  export type BruteUncheckedUpdateManyWithoutClanInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    gender?: EnumGenderFieldUpdateOperationsInput | Gender
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
+    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type LogCreateManyFightInput = {
@@ -26213,6 +27922,16 @@ export namespace Prisma {
     xp?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
+  export type LogUncheckedUpdateManyWithoutFightInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    currentBruteId?: IntFieldUpdateOperationsInput | number
+    type?: EnumLogTypeFieldUpdateOperationsInput | LogType
+    level?: NullableIntFieldUpdateOperationsInput | number | null
+    brute?: NullableStringFieldUpdateOperationsInput | string | null
+    xp?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
   export type TournamentStepUpdateWithoutFightInput = {
     step?: IntFieldUpdateOperationsInput | number
     xpDistributed?: BoolFieldUpdateOperationsInput | boolean
@@ -26226,7 +27945,7 @@ export namespace Prisma {
     xpDistributed?: BoolFieldUpdateOperationsInput | boolean
   }
 
-  export type TournamentStepUncheckedUpdateManyWithoutTournamentStepInput = {
+  export type TournamentStepUncheckedUpdateManyWithoutFightInput = {
     id?: IntFieldUpdateOperationsInput | number
     tournamentId?: IntFieldUpdateOperationsInput | number
     step?: IntFieldUpdateOperationsInput | number
@@ -26244,7 +27963,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -26262,9 +27981,9 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -26297,7 +28016,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -26316,9 +28035,9 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     masterId?: NullableIntFieldUpdateOperationsInput | number | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -26345,12 +28064,12 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
   }
 
-  export type BruteUncheckedUpdateManyWithoutParticipantsInput = {
+  export type BruteUncheckedUpdateManyWithoutTournamentsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | Enumerable<DestinyChoiceSide>
+    destinyPath?: BruteUpdatedestinyPathInput | DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     hp?: IntFieldUpdateOperationsInput | number
@@ -26369,9 +28088,9 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
-    weapons?: BruteUpdateweaponsInput | Enumerable<WeaponName>
-    skills?: BruteUpdateskillsInput | Enumerable<SkillName>
-    pets?: BruteUpdatepetsInput | Enumerable<PetName>
+    weapons?: BruteUpdateweaponsInput | WeaponName[]
+    skills?: BruteUpdateskillsInput | SkillName[]
+    pets?: BruteUpdatepetsInput | PetName[]
     masterId?: NullableIntFieldUpdateOperationsInput | number | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -26399,7 +28118,7 @@ export namespace Prisma {
     xpDistributed?: BoolFieldUpdateOperationsInput | boolean
   }
 
-  export type TournamentStepUncheckedUpdateManyWithoutStepsInput = {
+  export type TournamentStepUncheckedUpdateManyWithoutTournamentInput = {
     id?: IntFieldUpdateOperationsInput | number
     step?: IntFieldUpdateOperationsInput | number
     fightId?: IntFieldUpdateOperationsInput | number
