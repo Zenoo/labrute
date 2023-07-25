@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.31.0](https://github.com/Zenoo/labrute/compare/labrute-v2.30.1...labrute-v2.31.0) (2023-07-25)
+
+
+### Features
+
+* Female shield animations. [#270](https://github.com/Zenoo/labrute/issues/270) ([a876184](https://github.com/Zenoo/labrute/commit/a876184e178b90f976251bb254ce07782cb443e5))
+* Female shield animations. Fixes [#270](https://github.com/Zenoo/labrute/issues/270) ([0b86028](https://github.com/Zenoo/labrute/commit/0b86028f8411001426b82f1592a4788741b6f53e))
+
 ## [2.30.1](https://github.com/Zenoo/labrute/compare/labrute-v2.30.0...labrute-v2.30.1) (2023-07-24)
 
 
