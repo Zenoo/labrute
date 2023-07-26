@@ -577,5 +577,7 @@
 
   "notFound.title": "Page introuvable",
   "notFound.subtitle": "La page que vous avez demandée n'existe pas.",
-  "home": "Accueil"
+  "home": "Accueil",
+  "bruteNotFound.title": "Brute introuvable",
+  "bruteNotFound.subtitle": "La brute que vous avez demandée n'existe pas ou a été sacrifiée."
 }

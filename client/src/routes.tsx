@@ -19,6 +19,7 @@ import WeaponAnchorTestView from './views/WeaponAnchorTestView';
 import ShieldAnchorTestView from './views/ShieldAnchorTestView';
 import { Navigate, RouteObject } from 'react-router';
 import NotFoundView from './views/NotFoundView';
+import BruteNotFoundView from './views/BruteNotFoundView';
 
 const routes: RouteObject[] = [
   { path: 'anchor-test', element: <AnchorTestView /> },
@@ -32,6 +33,7 @@ const routes: RouteObject[] = [
       { path: 'oauth/callback', element: <HomeView /> },
       { path: 'admin-panel', element: <AdminView /> },
       { path: 'achievements', element: <AchievementsView /> },
+      { path: 'unknown-brute', element: <BruteNotFoundView /> },
       {
         path: ':bruteName',
         children: [

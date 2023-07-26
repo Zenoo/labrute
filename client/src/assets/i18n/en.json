@@ -596,5 +596,7 @@
 
   "notFound.title": "Page not found",
   "notFound.subtitle": "The page you are looking for does not exist.",
-  "home": "Home"
+  "home": "Home",
+  "bruteNotFound.title": "Brute not found",
+  "bruteNotFound.subtitle": "The brute you are looking for does not exist or has been sacrificed."
 }
