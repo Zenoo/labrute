@@ -17,8 +17,9 @@ import GlobalTournamentView from './views/GlobalTournamentView';
 import AchievementsView from './views/AchievementsView';
 import WeaponAnchorTestView from './views/WeaponAnchorTestView';
 import ShieldAnchorTestView from './views/ShieldAnchorTestView';
+import { Navigate, RouteObject } from 'react-router';
 
-const routes = [
+const routes: RouteObject[] = [
   { path: 'anchor-test', element: <AnchorTestView /> },
   { path: 'weapon-anchor-test', element: <WeaponAnchorTestView /> },
   { path: 'shield-anchor-test', element: <ShieldAnchorTestView /> },
@@ -51,6 +52,8 @@ const routes = [
           { path: 'destiny', element: <DestinyView /> },
           { path: 'tournaments', element: <TournamentHistoryView /> },
           { path: 'achievements', element: <AchievementsView /> },
+          // Redirect :name to :name/cell
+          { path: '', element: <Navigate to="cell" /> },
         ],
       },
     ],
