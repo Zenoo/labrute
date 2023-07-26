@@ -18,6 +18,7 @@ import AchievementsView from './views/AchievementsView';
 import WeaponAnchorTestView from './views/WeaponAnchorTestView';
 import ShieldAnchorTestView from './views/ShieldAnchorTestView';
 import { Navigate, RouteObject } from 'react-router';
+import NotFoundView from './views/NotFoundView';
 
 const routes: RouteObject[] = [
   { path: 'anchor-test', element: <AnchorTestView /> },
@@ -56,6 +57,8 @@ const routes: RouteObject[] = [
           { path: '', element: <Navigate to="cell" /> },
         ],
       },
+      // 404
+      { path: '*', element: <NotFoundView /> },
     ],
   },
 ];

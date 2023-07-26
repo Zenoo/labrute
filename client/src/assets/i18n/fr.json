@@ -573,5 +573,9 @@
   "none": "Aucunes",
   "supers": "Supers",
   "skills": "Compétences",
-  "total": "Total"
+  "total": "Total",
+
+  "notFound.title": "Page introuvable",
+  "notFound.subtitle": "La page que vous avez demandée n'existe pas.",
+  "home": "Accueil"
 }
