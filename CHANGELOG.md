@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.32.0](https://github.com/Zenoo/labrute/compare/labrute-v2.31.1...labrute-v2.32.0) (2023-07-26)
+
+
+### Features
+
+* Update to Prisma 5. Fixes [#319](https://github.com/Zenoo/labrute/issues/319) ([4281ee9](https://github.com/Zenoo/labrute/commit/4281ee995e65adae6da4b29a4b789440b808abe0))
+
+
+### Bug Fixes
+
+* 404 page ([e47d7a5](https://github.com/Zenoo/labrute/commit/e47d7a52a61892faa6dfabfedd8d0fd559a06e8a))
+* Audit script ([fc3dbee](https://github.com/Zenoo/labrute/commit/fc3dbee198335871aef500619aa21a6fa06ed20d))
+* Error page when accessing an unknown brute. Fixes [#286](https://github.com/Zenoo/labrute/issues/286) ([1788095](https://github.com/Zenoo/labrute/commit/1788095fc81721c3904491025a0288df4e00cb74))
+* Move react scripts to dev dependencies ([018393d](https://github.com/Zenoo/labrute/commit/018393dfe0d8aed41b8c3eb060e95be04a6a5c8c))
+* Redirect /xxx to /xxx/cell. Fixes [#318](https://github.com/Zenoo/labrute/issues/318) ([e2288e5](https://github.com/Zenoo/labrute/commit/e2288e5133075e537ba05e2c179bca086a5d2d80))
+
 ## [2.31.1](https://github.com/Zenoo/labrute/compare/labrute-v2.31.0...labrute-v2.31.1) (2023-07-25)
 
 
