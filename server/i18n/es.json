@@ -13,10 +13,10 @@
   "resetPassword": "Reiniciar contraseña",
   "passwordResetMessage": "Si el botón no funciona, copia y pega lo siguiente en tu navegador",
   "resetYourPassword": "Reiniciar tu contraseña",
-  "clickLinkToResetPassword": "Click the following link to reset your password",
-  "emailNotSent": "Email not sent",
-  "emailSent": "Email sent",
-  "tokenValid": "Token valid",
-  "invalidToken": "Invalid token",
-  "unableToConnectToMailServer": "Unable to connect to mail server"
+  "clickLinkToResetPassword": "Por favor, haga click en el siguiente enlace para configurar su nueva contraseña",
+  "emailNotSent": "Correo electrónico no enviado",
+  "emailSent": "Email enviado",
+  "tokenValid": "Token válido",
+  "invalidToken": "Token invalido",
+  "unableToConnectToMailServer": "No se ha podido conectar con el servidor de correo"
 }
