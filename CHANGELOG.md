@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.32.1](https://github.com/Zenoo/labrute/compare/labrute-v2.32.0...labrute-v2.32.1) (2023-07-27)
+
+
+### Bug Fixes
+
+* Lower sword odds ([a54e6a2](https://github.com/Zenoo/labrute/commit/a54e6a26f947f8e2899e8e760c803d72fd4637fd))
+
 ## [2.32.0](https://github.com/Zenoo/labrute/compare/labrute-v2.31.1...labrute-v2.32.0) (2023-07-26)
 
 
