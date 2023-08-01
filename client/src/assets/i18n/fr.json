@@ -578,5 +578,7 @@
   "notFound.subtitle": "La page que vous cherchez n'existe pas.",
   "home": "Accueil",
   "bruteNotFound.title": "Brute introuvable",
-  "bruteNotFound.subtitle": "La brute que vous cherchez n'existe pas ou a été sacrifiée."
+  "bruteNotFound.subtitle": "La brute que vous cherchez n'existe pas ou a été sacrifiée.",
+  "pleaseWait": "Please wait...",
+  "generatingTournaments": "We are generating today's tournaments. Please wait for a few minutes."
 }
