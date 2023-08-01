@@ -102,3 +102,7 @@ export type BrutesCreateResponse = {
   pointsLost: number,
   newLimit: number,
 };
+
+export type ServerReadyResponse = {
+  ready: boolean,
+};

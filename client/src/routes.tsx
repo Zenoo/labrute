@@ -20,6 +20,7 @@ import ShieldAnchorTestView from './views/ShieldAnchorTestView';
 import { Navigate, RouteObject } from 'react-router';
 import NotFoundView from './views/NotFoundView';
 import BruteNotFoundView from './views/BruteNotFoundView';
+import GeneratingView from './views/GeneratingView';
 
 const routes: RouteObject[] = [
   { path: 'anchor-test', element: <AnchorTestView /> },
@@ -34,6 +35,7 @@ const routes: RouteObject[] = [
       { path: 'admin-panel', element: <AdminView /> },
       { path: 'achievements', element: <AchievementsView /> },
       { path: 'unknown-brute', element: <BruteNotFoundView /> },
+      { path: 'generating-tournaments', element: <GeneratingView /> },
       {
         path: ':bruteName',
         children: [

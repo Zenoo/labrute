@@ -11,6 +11,7 @@ import { Worker } from 'worker_threads';
 import DiscordUtils from './utils/DiscordUtils.js';
 import generateFight from './utils/fight/generateFight.js';
 import shuffle from './utils/shuffle.js';
+import ServerState from './utils/ServerState.js';
 
 const grantBetaAchievement = async (prisma: PrismaClient) => {
   // Grant beta achievement to all brutes who don't have it yet
@@ -680,15 +681,27 @@ const dailyJob = (prisma: PrismaClient) => async () => {
     // Handle tournament earnings from the previous day
     await handleTournamentEarnings(prisma);
 
+    // Update server state to hold traffic
+    console.log('Updating server state to hold traffic');
+    ServerState.setTournamentsReady(false);
+
     // Handle daily tournaments
     await handleDailyTournaments(prisma);
 
     // Handle global tournament
     await handleGlobalTournament(prisma);
+
+    // Update server state to release traffic
+    console.log('Updating server state to release traffic');
+    ServerState.setTournamentsReady(true);
   } catch (error) {
     DiscordUtils.sendError(error).catch(console.error);
     // Delete misformatted tournaments
     await deleteMisformattedTournaments(prisma);
+
+    // Update server state to release traffic
+    console.log('Updating server state to release traffic');
+    ServerState.setTournamentsReady(true);
   }
 };
 
