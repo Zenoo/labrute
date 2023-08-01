@@ -311,8 +311,10 @@ const Brutes = {
         throw new Error('Brute not found');
       }
 
+      const xpNeeded = getXPNeeded(brute.level + 1);
+
       // Check if brute has enough XP
-      if (brute.xp < getXPNeeded(brute.level + 1)) {
+      if (brute.xp < xpNeeded) {
         throw new ExpectedError('Not enough XP');
       }
 
@@ -345,7 +347,7 @@ const Brutes = {
         data: {
           ...updatedBruteData,
           destinyPath: { push: req.body.choice },
-          xp: { decrement: getXPNeeded(brute.level + 1) },
+          xp: { decrement: xpNeeded },
         },
       });
 

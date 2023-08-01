@@ -60,7 +60,7 @@ const HomeView = () => {
 
         // Redirect to first brute if exists
         if (response.brutes.length) {
-          navigate(`/${response.brutes[0].name}/cell`);
+          window.location.href = `/${response.brutes[0].name}/cell`;
         }
       }).catch(catchError(Alert)).finally(() => {
         // Remove code/state from url and set url to '/'
@@ -72,7 +72,7 @@ const HomeView = () => {
         setAuthing(false);
       });
     }
-  }, [Alert, authing, navigate, setAuthing, setLanguage, t, updateData, user]);
+  }, [Alert, authing, setAuthing, setLanguage, t, updateData, user]);
 
   // Randomized left ad
   const leftAd = useMemo(() => getRandomAd(language), [language]);

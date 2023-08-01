@@ -11,6 +11,38 @@ import { Worker } from 'worker_threads';
 import DiscordUtils from './utils/DiscordUtils.js';
 import generateFight from './utils/fight/generateFight.js';
 import shuffle from './utils/shuffle.js';
+import ServerState from './utils/ServerState.js';
+
+const grantBetaAchievement = async (prisma: PrismaClient) => {
+  // Grant beta achievement to all brutes who don't have it yet
+  const brutes = await prisma.brute.findMany({
+    where: {
+      userId: { not: null },
+      deletedAt: null,
+      achievements: {
+        none: {
+          name: {
+            equals: 'beta',
+          },
+        },
+      },
+    },
+  });
+
+  if (brutes.length) {
+    // Grant beta achievement
+    await prisma.achievement.createMany({
+      data: brutes.map((brute) => ({
+        name: 'beta',
+        bruteId: brute.id,
+        userId: brute.userId,
+        count: 1,
+      })),
+    });
+
+    await DiscordUtils.sendLog(`Gave the beta achievement to ${brutes.length} brutes`);
+  }
+};
 
 const deleteMisformattedTournaments = async (prisma: PrismaClient) => {
   const today = moment.utc().startOf('day');
@@ -634,6 +666,9 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
 
 const dailyJob = (prisma: PrismaClient) => async () => {
   try {
+    // Grant beta achievement to all brutes who don't have it yet
+    await grantBetaAchievement(prisma);
+
     // Generate missing body and colors
     await generateMissingBodyColors(prisma);
 
@@ -646,15 +681,27 @@ const dailyJob = (prisma: PrismaClient) => async () => {
     // Handle tournament earnings from the previous day
     await handleTournamentEarnings(prisma);
 
+    // Update server state to hold traffic
+    console.log('Updating server state to hold traffic');
+    ServerState.setTournamentsReady(false);
+
     // Handle daily tournaments
     await handleDailyTournaments(prisma);
 
     // Handle global tournament
     await handleGlobalTournament(prisma);
+
+    // Update server state to release traffic
+    console.log('Updating server state to release traffic');
+    ServerState.setTournamentsReady(true);
   } catch (error) {
     DiscordUtils.sendError(error).catch(console.error);
     // Delete misformatted tournaments
     await deleteMisformattedTournaments(prisma);
+
+    // Update server state to release traffic
+    console.log('Updating server state to release traffic');
+    ServerState.setTournamentsReady(true);
   }
 };
 

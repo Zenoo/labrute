@@ -16,17 +16,20 @@ import Header from './Header';
 import Text from './Text';
 import Server from '../utils/Server';
 import { isMobile } from 'react-device-detect';
+import useStateAsync from '../hooks/useStateAsync';
 
 interface Props extends BoxProps {
   title: string,
   headerUrl?: string,
   children: React.ReactNode;
+  checkServer?: boolean;
 }
 
 const Page = ({
   title,
   headerUrl,
   children,
+  checkServer = true,
   ...rest
 }: Props) => {
   const { t } = useTranslation();
@@ -34,6 +37,9 @@ const Page = ({
   const { authing, user, signout, signin, updateData } = useAuth();
   const navigate = useNavigate();
   const { language, setLanguage } = useLanguage();
+
+  // Check if server is ready
+  const { data: serverState } = useStateAsync(null, Server.isReady, undefined);
 
   // Speed dial state
   const [open, setOpen] = useState(false);
@@ -47,6 +53,15 @@ const Page = ({
       signin();
     }
   }, [authing, signin, user]);
+
+  // Redirect to waiting page if server is not ready
+  useEffect(() => {
+    if (serverState === null) return;
+
+    if (checkServer && !serverState.ready) {
+      navigate('/generating-tournaments');
+    }
+  }, [checkServer, navigate, serverState]);
 
   // Open speed dial
   const openSpeedDial = useCallback(() => {
@@ -113,7 +128,7 @@ const Page = ({
       </Helmet>
       {/* HEADER */}
       <Header url={headerUrl} />
-      {children}
+      {(!!serverState?.ready) && children}
       {/* AUTH */}
       {!user ? (
         <Tooltip title={t('login')}>

@@ -3,7 +3,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 const Env = {
-  NOTE_ENV: process.env.NODE_ENV || 'development',
+  NODE_ENV: process.env.NODE_ENV || 'development',
   PORT: process.env.PORT || 9000,
   SELF_URL: process.env.SELF_URL || '',
   DISCORD_WEBHOOK_ID: process.env.DISCORD_WEBHOOK_ID || '',

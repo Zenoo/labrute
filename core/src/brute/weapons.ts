@@ -427,7 +427,7 @@ const weapons: Weapon[] = [
   },
   {
     name: 'sword',
-    odds: 100,
+    odds: 4,
     types: ['sharp'],
     tempo: 1.8,
     reversal: 0,

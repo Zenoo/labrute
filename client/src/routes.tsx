@@ -17,8 +17,12 @@ import GlobalTournamentView from './views/GlobalTournamentView';
 import AchievementsView from './views/AchievementsView';
 import WeaponAnchorTestView from './views/WeaponAnchorTestView';
 import ShieldAnchorTestView from './views/ShieldAnchorTestView';
+import { Navigate, RouteObject } from 'react-router';
+import NotFoundView from './views/NotFoundView';
+import BruteNotFoundView from './views/BruteNotFoundView';
+import GeneratingView from './views/GeneratingView';
 
-const routes = [
+const routes: RouteObject[] = [
   { path: 'anchor-test', element: <AnchorTestView /> },
   { path: 'weapon-anchor-test', element: <WeaponAnchorTestView /> },
   { path: 'shield-anchor-test', element: <ShieldAnchorTestView /> },
@@ -30,6 +34,8 @@ const routes = [
       { path: 'oauth/callback', element: <HomeView /> },
       { path: 'admin-panel', element: <AdminView /> },
       { path: 'achievements', element: <AchievementsView /> },
+      { path: 'unknown-brute', element: <BruteNotFoundView /> },
+      { path: 'generating-tournaments', element: <GeneratingView /> },
       {
         path: ':bruteName',
         children: [
@@ -51,8 +57,12 @@ const routes = [
           { path: 'destiny', element: <DestinyView /> },
           { path: 'tournaments', element: <TournamentHistoryView /> },
           { path: 'achievements', element: <AchievementsView /> },
+          // Redirect :name to :name/cell
+          { path: '', element: <Navigate to="cell" /> },
         ],
       },
+      // 404
+      { path: '*', element: <NotFoundView /> },
     ],
   },
 ];

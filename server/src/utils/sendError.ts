@@ -1,14 +1,11 @@
 import { ExpectedError } from '@labrute/core';
-import {
-  PrismaClientInitializationError,
-  PrismaClientKnownRequestError, PrismaClientUnknownRequestError, PrismaClientValidationError,
-} from '@labrute/prisma/runtime/index.js';
+import { Prisma } from '@labrute/prisma';
 import { Response } from 'express';
 import DiscordUtils from './DiscordUtils.js';
 
 const sendError = (res: Response, error: unknown) => {
   res.status(500);
-  if (error instanceof PrismaClientKnownRequestError) {
+  if (error instanceof Prisma.PrismaClientKnownRequestError) {
     switch (error.code) {
       case 'P2025': {
         res.send(error.message);
@@ -20,11 +17,11 @@ const sendError = (res: Response, error: unknown) => {
         break;
       }
     }
-  } else if (error instanceof PrismaClientUnknownRequestError) {
+  } else if (error instanceof Prisma.PrismaClientUnknownRequestError) {
     res.send(error.message);
-  } else if (error instanceof PrismaClientInitializationError) {
+  } else if (error instanceof Prisma.PrismaClientInitializationError) {
     res.send(error.message);
-  } else if (error instanceof PrismaClientValidationError) {
+  } else if (error instanceof Prisma.PrismaClientValidationError) {
     console.error(error.message);
     res.send('Wrong data format');
   } else if (error instanceof Error) {

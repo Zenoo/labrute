@@ -61,7 +61,7 @@ const CellView = () => {
           updateBrute(data as BruteWithMasterBodyColorsClanTournament);
         }
       }).catch(() => {
-        navigate('/');
+        navigate('/unknown-brute');
       });
     }
     return () => { isSubscribed = false; };

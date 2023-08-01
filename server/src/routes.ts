@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { PrismaClient } from '@labrute/prisma';
 import { Express, Request, Response } from 'express';
+import { ServerReadyResponse } from '@labrute/core';
 import Brutes from './controllers/Brutes.js';
 import Fights from './controllers/Fights.js';
 import Logs from './controllers/Logs.js';
@@ -9,10 +10,19 @@ import Spritesheets from './controllers/Spritesheets.js';
 import Tournaments from './controllers/Tournaments.js';
 import Users from './controllers/Users.js';
 import Achievements from './controllers/Achievements.js';
+import ServerState from './utils/ServerState.js';
 
 const initRoutes = (app: Express, prisma: PrismaClient) => {
   app.get('/api', (req: Request, res: Response) => res.status(200).send({
     message: 'server is running!',
+  }));
+
+  // Server state
+  app.get('/api/is-ready', (
+    req: Request,
+    res: Response<ServerReadyResponse>,
+  ) => res.status(200).send({
+    ready: ServerState.isTournamentsReady(),
   }));
 
   // OAuth

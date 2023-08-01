@@ -1,6 +1,6 @@
 {
   "name": "@labrute/server",
-  "version": "2.30.0",
+  "version": "2.32.1",
   "private": true,
   "exports": "./src/server.js",
   "engines": {
@@ -13,7 +13,7 @@
     "start:watch": "tsc-watch --build ./tsconfig.json --onSuccess \"node ./lib/server.js\"",
     "db:migrate:manual": "prisma migrate dev --create-only",
     "db:sync:dev": "prisma migrate dev && cp ../prisma/package.reference.json ../prisma/package.json",
-    "db:sync:prod": "prisma migrate deploy && yarn db:seed && yarn run:fixErroredBonuses && yarn run:retrieveFirstBonus && yarn run:grantBetaAchievement",
+    "db:sync:prod": "prisma migrate deploy && yarn db:seed && yarn run:fixErroredBonuses && yarn run:retrieveFirstBonus",
     "db:seed": "prisma db seed",
     "db:reset": "prisma migrate reset --skip-generate",
     "studio": "prisma studio"
@@ -26,7 +26,7 @@
     "@eternal-twin/etwin-client-http": "^0.10.3",
     "@labrute/core": "workspace:*",
     "@labrute/prisma": "workspace:*",
-    "@prisma/client": "^4.12.0",
+    "@prisma/client": "^5.0.0",
     "@resvg/resvg-js": "^2.2.0",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.0",
@@ -58,7 +58,7 @@
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-tsdoc": "^0.2.16",
-    "prisma": "^4.12.0",
+    "prisma": "^5.0.0",
     "ts-node": "^10.9.1",
     "tsc-watch": "^5.0.3",
     "typescript": "^4.9.4"

@@ -2,6 +2,52 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.32.1](https://github.com/Zenoo/labrute/compare/labrute-v2.32.0...labrute-v2.32.1) (2023-07-27)
+
+
+### Bug Fixes
+
+* Lower sword odds ([a54e6a2](https://github.com/Zenoo/labrute/commit/a54e6a26f947f8e2899e8e760c803d72fd4637fd))
+
+## [2.32.0](https://github.com/Zenoo/labrute/compare/labrute-v2.31.1...labrute-v2.32.0) (2023-07-26)
+
+
+### Features
+
+* Update to Prisma 5. Fixes [#319](https://github.com/Zenoo/labrute/issues/319) ([4281ee9](https://github.com/Zenoo/labrute/commit/4281ee995e65adae6da4b29a4b789440b808abe0))
+
+
+### Bug Fixes
+
+* 404 page ([e47d7a5](https://github.com/Zenoo/labrute/commit/e47d7a52a61892faa6dfabfedd8d0fd559a06e8a))
+* Audit script ([fc3dbee](https://github.com/Zenoo/labrute/commit/fc3dbee198335871aef500619aa21a6fa06ed20d))
+* Error page when accessing an unknown brute. Fixes [#286](https://github.com/Zenoo/labrute/issues/286) ([1788095](https://github.com/Zenoo/labrute/commit/1788095fc81721c3904491025a0288df4e00cb74))
+* Move react scripts to dev dependencies ([018393d](https://github.com/Zenoo/labrute/commit/018393dfe0d8aed41b8c3eb060e95be04a6a5c8c))
+* Redirect /xxx to /xxx/cell. Fixes [#318](https://github.com/Zenoo/labrute/issues/318) ([e2288e5](https://github.com/Zenoo/labrute/commit/e2288e5133075e537ba05e2c179bca086a5d2d80))
+
+## [2.31.1](https://github.com/Zenoo/labrute/compare/labrute-v2.31.0...labrute-v2.31.1) (2023-07-25)
+
+
+### Bug Fixes
+
+* Negative XP on level up. Fixes [#316](https://github.com/Zenoo/labrute/issues/316) ([434f9ad](https://github.com/Zenoo/labrute/commit/434f9ade7f31639856229613f8b5b201208a669d))
+
+## [2.31.0](https://github.com/Zenoo/labrute/compare/labrute-v2.30.1...labrute-v2.31.0) (2023-07-25)
+
+
+### Features
+
+* Female shield animations. [#270](https://github.com/Zenoo/labrute/issues/270) ([a876184](https://github.com/Zenoo/labrute/commit/a876184e178b90f976251bb254ce07782cb443e5))
+* Female shield animations. Fixes [#270](https://github.com/Zenoo/labrute/issues/270) ([0b86028](https://github.com/Zenoo/labrute/commit/0b86028f8411001426b82f1592a4788741b6f53e))
+
+## [2.30.1](https://github.com/Zenoo/labrute/compare/labrute-v2.30.0...labrute-v2.30.1) (2023-07-24)
+
+
+### Bug Fixes
+
+* Apply beta achievement in the daily job. Fixes [#313](https://github.com/Zenoo/labrute/issues/313) ([f99aeed](https://github.com/Zenoo/labrute/commit/f99aeed62e3d8635ca622daaf712bfcd094f8492))
+* Stop malformed global tournament displaying. Fixes [#312](https://github.com/Zenoo/labrute/issues/312) ([86ee43d](https://github.com/Zenoo/labrute/commit/86ee43d2f702a0b3eaad90f2664953e8ab007232))
+
 ## [2.30.0](https://github.com/Zenoo/labrute/compare/labrute-v2.29.7...labrute-v2.30.0) (2023-07-24)
 
 
