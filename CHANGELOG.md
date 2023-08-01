@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.32.2](https://github.com/Zenoo/labrute/compare/labrute-v2.32.1...labrute-v2.32.2) (2023-08-01)
+
+
+### Bug Fixes
+
+* Display a waiting page when the server is not ready. Fixes [#323](https://github.com/Zenoo/labrute/issues/323) ([dcc11b3](https://github.com/Zenoo/labrute/commit/dcc11b31f4b2ae9ec34e880e28ebcd6d6da1092e))
+
 ## [2.32.1](https://github.com/Zenoo/labrute/compare/labrute-v2.32.0...labrute-v2.32.1) (2023-07-27)
 
 
