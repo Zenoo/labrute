@@ -574,10 +574,11 @@
   "supers": "Supers",
   "skills": "Compétences",
   "total": "Total",
-
   "notFound.title": "Page introuvable",
-  "notFound.subtitle": "La page que vous avez demandée n'existe pas.",
+  "notFound.subtitle": "La page que vous cherchez n'existe pas.",
   "home": "Accueil",
   "bruteNotFound.title": "Brute introuvable",
-  "bruteNotFound.subtitle": "La brute que vous avez demandée n'existe pas ou a été sacrifiée."
+  "bruteNotFound.subtitle": "La brute que vous cherchez n'existe pas ou a été sacrifiée.",
+  "pleaseWait": "Veuillez patienter...",
+  "generatingTournaments": "Nous générons les tournois d'aujourd'hui. Merci d'attendre quelques minutes."
 }
