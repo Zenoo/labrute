@@ -1,6 +1,7 @@
 import {
   ARENA_OPPONENTS_COUNT,
   ARENA_OPPONENTS_MAX_GAP,
+  BruteRestoreResponse,
   BrutesCreateResponse,
   BrutesExistsResponse, BrutesGetDestinyResponse,
   BrutesGetFightsLeftResponse, BrutesGetForRankResponse,
@@ -1161,6 +1162,64 @@ const Brutes = {
         where: { id: brute.id },
         data: {
           ...req.body,
+        },
+      });
+
+      res.send({
+        success: true,
+      });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  restore: (prisma: PrismaClient) => async (
+    req: Request<{ id: string }>,
+    res: Response<BruteRestoreResponse>,
+  ) => {
+    try {
+      const { params: { id } } = req;
+
+      const user = await auth(prisma, req);
+
+      if (!user.admin) {
+        throw new ExpectedError('Unauthorized');
+      }
+
+      if (!id) {
+        throw new ExpectedError('Missing id');
+      }
+
+      const brute = await prisma.brute.findFirst({
+        where: {
+          id: +id,
+          deletedAt: {
+            not: null,
+          },
+        },
+        select: { name: true, id: true },
+      });
+
+      if (!brute) {
+        throw new ExpectedError('Brute not found or not deleted');
+      }
+
+      // Check if another brute has the same name
+      const brutesWithSameName = await prisma.brute.count({
+        where: {
+          name: brute.name,
+          deletedAt: null,
+        },
+      });
+
+      if (brutesWithSameName > 0) {
+        throw new ExpectedError('Another brute has the same name');
+      }
+
+      // Restore the brute
+      await prisma.brute.update({
+        where: { id: brute.id },
+        data: {
+          deletedAt: null,
         },
       });
 

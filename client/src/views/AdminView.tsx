@@ -1,6 +1,6 @@
 import { BruteWithBodyColors, availableBodyParts } from '@labrute/core';
 import { BruteBody, BruteColors, DestinyChoiceSide, Gender, PetName, SkillName, WeaponName } from '@labrute/prisma';
-import { Checkbox, Divider, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Paper, Select, Stack } from '@mui/material';
+import { Box, Checkbox, Divider, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Paper, Select, Stack } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
 import moment from 'moment';
 import React, { useCallback, useEffect } from 'react';
@@ -20,12 +20,18 @@ const AdminView = () => {
   const Alert = useAlert();
 
   const [bruteName, setBruteName] = React.useState('');
+  const [bruteId, setBruteId] = React.useState(0);
   const [brute, setBrute] = React.useState<BruteWithBodyColors | null>(null);
   const { user } = useAuth();
 
   // Change bruteName
   const changeBruteName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setBruteName(e.target.value);
+  }, []);
+
+  // Change bruteId
+  const changeBruteId = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setBruteId(+e.target.value);
   }, []);
 
   // Delete daily tournaments
@@ -112,6 +118,15 @@ const AdminView = () => {
     }).catch(catchError(Alert));
   }, [Alert, brute, bruteName]);
 
+  // Restore brute
+  const restoreBrute = useCallback(() => {
+    if (!bruteId) return;
+
+    Server.Brute.restore(bruteId).then(() => {
+      Alert.open('success', 'Brute restored');
+    }).catch(catchError(Alert));
+  }, [Alert, bruteId]);
+
   return (
     <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl="/">
       <Paper sx={{ mx: 4 }}>
@@ -131,7 +146,6 @@ const AdminView = () => {
             <StyledInput
               onChange={changeBruteName}
               value={bruteName}
-              sx={{ mr: 2 }}
             />
             {brute && brute.body && brute.colors && (
               <>
@@ -671,6 +685,16 @@ const AdminView = () => {
                 <FantasyButton onClick={saveBrute}>Save</FantasyButton>
               </>
             )}
+            <Divider />
+            <Text bold h3 smallCaps color="secondary">Restore brute with ID</Text>
+            <Box sx={{ display: 'flex' }}>
+              <StyledInput
+                onChange={changeBruteId}
+                value={bruteId}
+                sx={{ mr: 2 }}
+              />
+              <FantasyButton onClick={restoreBrute}>Restore</FantasyButton>
+            </Box>
           </Stack>
         ) : (
           <Text>Nice try buddy.</Text>

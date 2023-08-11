@@ -106,3 +106,6 @@ export type BrutesCreateResponse = {
 export type ServerReadyResponse = {
   ready: boolean,
 };
+export type BruteRestoreResponse = {
+  success: boolean,
+};
