@@ -543,7 +543,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\fzeno\\Documents\\Github\\labrute\\prisma",
+      "value": "C:\\Users\\perso\\Documents\\GitHub\\labrute\\prisma",
       "fromEnvVar": null
     },
     "config": {

@@ -157,7 +157,7 @@ const CellView = () => {
                   textAlign: 'center',
                 }}
                 >
-                  <Text bold>{`${window.location.origin}?ref=${bruteName || ''}`}</Text>
+                  <Text bold sx={{ wordBreak: 'break-word' }}>{`${window.location.origin}?ref=${bruteName || ''}`}</Text>
                 </Paper>
               </Tooltip>
 
