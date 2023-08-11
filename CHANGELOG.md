@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.32.3](https://github.com/Zenoo/labrute/compare/labrute-v2.32.2...labrute-v2.32.3) (2023-08-11)
+
+
+### Bug Fixes
+
+* Referee link bug on Firefox ([1349cf8](https://github.com/Zenoo/labrute/commit/1349cf88c0df6c24c322d1e73ae5d353197dacd3))
+
 ## [2.32.2](https://github.com/Zenoo/labrute/compare/labrute-v2.32.1...labrute-v2.32.2) (2023-08-01)
 
 
