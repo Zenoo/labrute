@@ -574,11 +574,11 @@
   "supers": "Superwaffen",
   "skills": "Fähigkeiten",
   "total": "Gesamt",
-  "notFound.title": "Page not found",
-  "notFound.subtitle": "The page you are looking for does not exist.",
-  "home": "Home",
-  "bruteNotFound.title": "Brute not found",
-  "bruteNotFound.subtitle": "The brute you are looking for does not exist or has been sacrificed.",
-  "pleaseWait": "Please wait...",
-  "generatingTournaments": "We are generating today's tournaments. Please wait for a few minutes."
+  "notFound.title": "Seite nicht gefunden",
+  "notFound.subtitle": "Die Seite, die du suchst, existiert nicht.",
+  "home": "Startseite",
+  "bruteNotFound.title": "Brutalo nicht gefunden",
+  "bruteNotFound.subtitle": "Der Brutalo, den du suchst, existiert nicht oder er wurde geopfert.",
+  "pleaseWait": "Bitte warten...",
+  "generatingTournaments": "Heutige Wettkämpfe werden erstellt. Bitte warte einige Minuten."
 }
