@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.33.1](https://github.com/Zenoo/labrute/compare/labrute-v2.33.0...labrute-v2.33.1) (2023-09-03)
+
+
+### Bug Fixes
+
+* Wrong flail stats ([79c2ca9](https://github.com/Zenoo/labrute/commit/79c2ca93a3b0b317612dda89e7c32b907470b230))
+
 ## [2.33.0](https://github.com/Zenoo/labrute/compare/labrute-v2.32.3...labrute-v2.33.0) (2023-08-11)
 
 
