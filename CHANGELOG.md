@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.33.2](https://github.com/Zenoo/labrute/compare/labrute-v2.33.1...labrute-v2.33.2) (2023-09-05)
+
+
+### Bug Fixes
+
+* Wrong evasion chances ([6122a62](https://github.com/Zenoo/labrute/commit/6122a624470f060960d6f56f04baa5b9c0112b04))
+
 ## [2.33.1](https://github.com/Zenoo/labrute/compare/labrute-v2.33.0...labrute-v2.33.1) (2023-09-03)
 
 
