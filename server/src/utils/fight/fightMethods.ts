@@ -892,7 +892,7 @@ const evade = (fighter: DetailedFighter, opponent: DetailedFighter, difficulty =
   const agilityDifference = Math.min(
     Math.max(
       -40,
-      (opponent.agility - fighter.agility),
+      (opponent.agility - fighter.agility) * 2,
     ),
     40,
   );
