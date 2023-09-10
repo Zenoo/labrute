@@ -555,29 +555,14 @@ const handleXpGains = async (prisma: PrismaClient) => {
       continue;
     }
 
-    // Get winner
-    const winner = await prisma.brute.findFirst({
-      where: {
-        id: winnerFighter.id,
-        deletedAt: null,
-      },
-      select: { id: true },
-    });
-
-    if (!winner) {
-      // Skip to next step
-      // eslint-disable-next-line no-continue
-      continue;
-    }
-
     // +1 XP to the winner
     await prisma.brute.update({
-      where: { id: winner.id },
+      where: { id: winnerFighter.id },
       data: { xp: { increment: 1 } },
     });
 
     xpGains[step.fight.winner] = {
-      bruteId: winner.id,
+      bruteId: winnerFighter.id,
       xp: (xpGains[step.fight.winner]?.xp || 0) + 1,
     };
 
