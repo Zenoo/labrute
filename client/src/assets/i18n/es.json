@@ -195,7 +195,7 @@
   "backup.effect": "Tu Bruto puede ayudar a tus otros Brutos de más nivel durante las peleas.",
   "hideaway": "Escondite",
   "hideaway.desc": "Realmente no quieres acercarte a tu oponente, prefieres mantenerte alejado y tirarle todo tu arsenal en la cara.",
-  "hideaway.effect": "Probabilidad de enviar armas: 50%. Las armas no desaparecen después de un lanzamiento.",
+  "hideaway.effect": "Probabilidad de lanzar armas: 50%. Las armas no desaparecen después de un lanzamiento.",
   "monk": "Monje",
   "monk.desc": "Puedes visualizar los golpes antes de que tu oponente pueda siquiera pensar en ellos... si te quedas perfectamente quieto.",
   "monk.effect": "",
