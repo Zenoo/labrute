@@ -134,7 +134,7 @@ const Page = ({
       </Helmet>
       {/* HEADER */}
       <Header url={headerUrl} />
-      {(!!serverState?.ready) && children}
+      {children}
       {/* AUTH */}
       {!user ? (
         <Tooltip title={t('login')}>
