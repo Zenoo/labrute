@@ -271,6 +271,7 @@
   "invalidName": "Ungültiger Name. Akzeptierte Buchstaben sind a-z, A-Z, 0-9, '_' and '-'. Muss zwischen 3 und 16 Buchstaben enthalten.",
   "nameUnavailable": "Name nicht verfügbar",
   "pleaseLogin": "Bitte vor Brutalo-Erstellung einloggen",
+  "hall": "Halle",
   "newBrute": "Neuer Brutalo",
   "sacrificePoints": "Brütpunkte",
   "sacrifice": "Opfern",

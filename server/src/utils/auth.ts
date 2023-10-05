@@ -31,6 +31,7 @@ const auth = async (prisma: PrismaClient, request: Request) => {
           body: true,
           colors: true,
         },
+        orderBy: { id: 'asc' },
       },
     },
   });

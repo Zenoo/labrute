@@ -271,6 +271,7 @@
   "invalidName": "Nom invalide. Les caractères autorisés sont a-z, A-Z, 0-9, _ et -. Il doit faire entre 3 et 16 caractères.",
   "nameUnavailable": "Nom indisponible",
   "pleaseLogin": "Veuillez vous connecter pour créer une brute",
+  "hall": "Hall",
   "newBrute": "Nouvelle brute",
   "sacrificePoints": "SacriPoints",
   "sacrifice": "Sacrifier",
