@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.34.0](https://github.com/Zenoo/labrute/compare/labrute-v2.33.2...labrute-v2.34.0) (2023-10-05)
+
+
+### Features
+
+* Limit brutes in menu to 3 + page with all brutes. Fixes [#280](https://github.com/Zenoo/labrute/issues/280) ([da2d1cc](https://github.com/Zenoo/labrute/commit/da2d1cca46ec2649e5597f2f3b01d6c1712a0b0d))
+
+
+### Bug Fixes
+
+* Empty generating view. Fixes [#333](https://github.com/Zenoo/labrute/issues/333) ([9b5b54b](https://github.com/Zenoo/labrute/commit/9b5b54b8062e4b0503ac9e162b9c99908782b205))
+* Error on tournament generation. Fixes [#334](https://github.com/Zenoo/labrute/issues/334) ([ba9e7b7](https://github.com/Zenoo/labrute/commit/ba9e7b702b8c9a057bb81a74290d9dced5cf83df))
+* Optimize XP gains loop ([b53c9b4](https://github.com/Zenoo/labrute/commit/b53c9b4c974201f33d0e1db83e99c04456b75a93))
+* Renamed the `Hammer` skill to `Piledriver` ([90045f6](https://github.com/Zenoo/labrute/commit/90045f61259d0b32558f857b1c0489a065553032))
+
 ## [2.33.2](https://github.com/Zenoo/labrute/compare/labrute-v2.33.1...labrute-v2.33.2) (2023-09-05)
 
 
