@@ -45,7 +45,7 @@ export const AchievementData: Record<
   },
   singleHitWin: {
     rarety: AchievementRarety.epic,
-    illustration: 'r_winbas.gif',
+    illustration: 'singleHitWin.svg',
   },
   combo3: {
     rarety: AchievementRarety.common,
@@ -97,7 +97,7 @@ export const AchievementData: Record<
   },
   dog: {
     rarety: AchievementRarety.common,
-    illustration: 'r_jtamer.gif',
+    illustration: 'dog.svg',
   },
   panther: {
     rarety: AchievementRarety.uncommon,
@@ -173,7 +173,7 @@ export const AchievementData: Record<
   },
   tripleDogs: {
     rarety: AchievementRarety.uncommon,
-    illustration: 'r_gsp.gif',
+    illustration: 'tripleDogs.svg',
   },
   fiveWeapons: {
     rarety: AchievementRarety.common,
@@ -360,6 +360,7 @@ export const AchievementData: Record<
   },
   rankUp6: {
     rarety: AchievementRarety.uncommon,
+    illustration: 'rankUp6.svg',
   },
   rankUp5: {
     rarety: AchievementRarety.uncommon,
@@ -386,6 +387,10 @@ export const AchievementData: Record<
   beta: {
     rarety: AchievementRarety.legendary,
     illustration: 'beta.svg',
+  },
+  bug: {
+    rarety: AchievementRarety.legendary,
+    illustration: 'bug.svg',
   },
 };
 

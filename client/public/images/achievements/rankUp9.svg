@@ -24,12 +24,12 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="8.3553674"
-     inkscape:cx="16.336804"
-     inkscape:cy="25.31307"
+     inkscape:zoom="1.0444209"
+     inkscape:cx="20.58557"
+     inkscape:cy="-158.46101"
      inkscape:window-width="958"
      inkscape:window-height="1000"
-     inkscape:window-x="953"
+     inkscape:window-x="946"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
      inkscape:current-layer="layer1" />
@@ -46,7 +46,7 @@
        stroke="none"
        d="m 14.325574,35.519378 v -8.466665 h 8.466664 v 8.466665 h -8.466664"
        id="path1694-1-6-0-0-2-4-2"
-       style="fill:#008000;fill-opacity:1;stroke-width:0.264583"
+       style="fill:#44aa00;fill-opacity:1;stroke-width:0.264583"
        inkscape:export-filename="victoire.png"
        inkscape:export-xdpi="90.352943"
        inkscape:export-ydpi="90.352943" />
@@ -78,7 +78,7 @@
        sodipodi:nodetypes="ccccc" />
     <path
        id="path369-0-3"
-       style="fill:#008000;fill-opacity:1;stroke:none;stroke-width:0.11622;stroke-dasharray:none;stroke-dashoffset:14.7;stroke-opacity:1"
+       style="fill:#44aa00;fill-opacity:1;stroke:none;stroke-width:0.11622;stroke-dasharray:none;stroke-dashoffset:14.7;stroke-opacity:1"
        d="m 16.593954,31.205681 c 0.0036,0.02046 0.0071,0.04065 0.01093,0.061 l 1.639302,1.162272 c -0.004,-0.02009 -0.0074,-0.0406 -0.0114,-0.06147 z m 0.02897,0.152968 c 0.0043,0.02102 0.0088,0.04205 0.0133,0.0629 l 1.643103,1.165132 c -0.005,-0.0205 -0.0099,-0.04259 -0.01473,-0.06433 z m 0.0247,0.113892 c 0.01876,0.08357 0.03843,0.165582 0.05985,0.245417 l 1.670179,1.183716 c -0.02607,-0.05881 -0.05582,-0.149461 -0.08503,-0.262571 z m 0.43037,0.56136 c 0.158835,0.134356 0.315982,0.26634 0.475022,0.390283 l 0.448422,0.31785 c 0.110546,0.06906 0.223775,0.132438 0.340591,0.187756 z" />
     <path
        style="fill:#fad6b8;fill-opacity:1;stroke:#000000;stroke-width:0.1;stroke-dasharray:none;stroke-dashoffset:14.7;stroke-opacity:1"
@@ -146,7 +146,7 @@
        id="path4237-3" />
     <path
        id="path467-0-5"
-       style="fill:#008000;fill-opacity:1;stroke:none;stroke-width:0.126232;stroke-dasharray:none;stroke-dashoffset:14.7;stroke-opacity:1"
+       style="fill:#44aa00;fill-opacity:1;stroke:none;stroke-width:0.126232;stroke-dasharray:none;stroke-dashoffset:14.7;stroke-opacity:1"
        d="m 20.544923,31.765948 c -0.09531,0.08912 -0.19049,0.168416 -0.286288,0.237712 l 1.000456,1.231966 c 0.104494,-0.05938 0.205863,-0.123958 0.305408,-0.190686 z m -0.317809,0.259932 c -0.0254,0.01782 -0.05105,0.03414 -0.07648,0.05064 l 0.992703,1.222148 c 0.02767,-0.01427 0.05501,-0.02941 0.08217,-0.04444 z m -0.0925,0.0615 c -0.0069,0.0044 -0.01381,0.0086 -0.02067,0.01292 l 0.99012,1.218013 c 0.0074,-0.0037 0.01483,-0.0071 0.02222,-0.01085 z m -0.04134,0.02532 c -0.02663,0.01626 -0.05292,0.03215 -0.07958,0.04703 l 0.982368,1.209229 c 0.0289,-0.01279 0.05752,-0.02606 0.08578,-0.03979 z m -0.09663,0.05633 c -0.0072,0.004 -0.01446,0.008 -0.0217,0.01189 l 0.979785,1.206128 c 0.0078,-0.0033 0.01554,-0.0065 0.02325,-0.0098 z m -0.05426,0.02842 c -0.0073,0.0037 -0.0144,0.0077 -0.0217,0.01137 l 0.976168,1.201477 c 0.0077,-0.003 0.01557,-0.0062 0.02325,-0.0093 z" />
   </g>
 </svg>

@@ -449,6 +449,7 @@ enum AchievementName {
   // User
   sacrifice
   beta
+  bug
 }
 
 model Achievement {

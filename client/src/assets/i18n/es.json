@@ -565,6 +565,8 @@
   "achievements.sacrifice.description": "Sacrifica un bruto.",
   "achievements.beta": "Beta",
   "achievements.beta.description": "¡Gracias por participar en la beta de MyBrute!",
+  "achievements.bug": "Bug",
+  "achievements.bug.description": "¡Gracias por reportar un bug!",
   "common": "Común",
   "uncommon": "Inusual",
   "rare": "Raro",

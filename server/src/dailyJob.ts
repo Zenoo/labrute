@@ -44,6 +44,35 @@ const grantBetaAchievement = async (prisma: PrismaClient) => {
   }
 };
 
+const grantBugAchievement = async (prisma: PrismaClient) => {
+  // Grant bug achievement to all admins who don't have it yet
+  const admins = await prisma.user.findMany({
+    where: {
+      admin: true,
+      achievements: {
+        none: {
+          name: {
+            equals: 'bug',
+          },
+        },
+      },
+    },
+  });
+
+  if (admins.length) {
+    // Grant bug achievement
+    await prisma.achievement.createMany({
+      data: admins.map((admin) => ({
+        name: 'bug',
+        userId: admin.id,
+        count: 999,
+      })),
+    });
+
+    await DiscordUtils.sendLog(`Gave the bug achievement to ${admins.length} admins`);
+  }
+};
+
 const deleteMisformattedTournaments = async (prisma: PrismaClient) => {
   const today = moment.utc().startOf('day');
   const tomorrow = moment.utc(today).add(1, 'day');
@@ -669,6 +698,9 @@ const dailyJob = (prisma: PrismaClient) => async () => {
   try {
     // Grant beta achievement to all brutes who don't have it yet
     await grantBetaAchievement(prisma);
+
+    // Grant bug achievements to all admins who don't have it yet
+    await grantBugAchievement(prisma);
 
     // Generate missing body and colors
     await generateMissingBodyColors(prisma);

@@ -565,6 +565,8 @@
   "achievements.sacrifice.description": "Opfere einen Brutalo.",
   "achievements.beta": "Beta",
   "achievements.beta.description": "Vielen Dank für die Teilnahme an der MeinBrutalo Beta!",
+  "achievements.bug": "Bug",
+  "achievements.bug.description": "Du hast einen Bug gefunden und gemeldet. Vielen Dank!",
   "common": "Gewöhnlich",
   "uncommon": "Ungewöhnlich",
   "rare": "Selten",
