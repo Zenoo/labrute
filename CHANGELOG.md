@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.34.2](https://github.com/Zenoo/labrute/compare/labrute-v2.34.1...labrute-v2.34.2) (2023-10-06)
+
+
+### Bug Fixes
+
+* User admin page. Fixes [#353](https://github.com/Zenoo/labrute/issues/353) ([fafb7f0](https://github.com/Zenoo/labrute/commit/fafb7f0775409d43594d4dec738506506be385ce))
+
 ## [2.34.1](https://github.com/Zenoo/labrute/compare/labrute-v2.34.0...labrute-v2.34.1) (2023-10-05)
 
 
