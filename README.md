@@ -14,6 +14,8 @@
 
 - Make sure your NodeJS and yarn versions are up to date
 
+- If you are using Windows, make sure to use [Git Bash](https://gitforwindows.org/) as your terminal
+
 - Setup your local Postgres database
 
 - Copy `.env.sample` to `.env` and adapt the variables
