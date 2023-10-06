@@ -25,6 +25,7 @@ import promiseBatch from './utils/promiseBatch';
 import randomBetween from './utils/randomBetween';
 import weightedRandom from './utils/weightedRandom';
 import Version from './Version';
+import { Achievement, Prisma } from '@labrute/prisma';
 
 export * from './Achievements';
 export * from './brute/pets';
@@ -108,4 +109,8 @@ export type ServerReadyResponse = {
 };
 export type BruteRestoreResponse = {
   success: boolean,
+};
+export type UsersAdminUpdateRequest = {
+  user: Prisma.UserUncheckedUpdateInput,
+  achievements: Achievement[],
 };

@@ -1,4 +1,4 @@
-import { Brute, BruteBody, BruteColors, Clan, DestinyChoice, DestinyChoiceSide, Fight, Gender, SkillName, Tournament, TournamentStep, User, WeaponName } from '@labrute/prisma';
+import { Achievement, Brute, BruteBody, BruteColors, Clan, DestinyChoice, DestinyChoiceSide, Fight, Gender, SkillName, Tournament, TournamentStep, User, WeaponName } from '@labrute/prisma';
 import { Skill } from './brute/skills';
 import { Weapon, WeaponAnimation } from './brute/weapons';
 import { BruteRanking } from './constants';
@@ -332,6 +332,9 @@ export type UserWithBrutes = User & {
 };
 export type UserWithBrutesBodyColor = User & {
   brutes: BruteWithBodyColors[];
+};
+export type UserWithAchievements = User & {
+  achievements: Achievement[];
 };
 
 // Brute

@@ -14,6 +14,7 @@ import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
+import Link from '../components/Link';
 
 const AdminView = () => {
   const { t } = useTranslation();
@@ -140,6 +141,9 @@ const AdminView = () => {
               <FantasyButton color="error" onClick={deleteGlobalTournament}>DELETE GLOBAL TOURNAMENT</FantasyButton>
               <FantasyButton color="warning" onClick={runDailyJob}>RUN DAILY JOB</FantasyButton>
               <FantasyButton color="success" onClick={regenerateSpritesheets}>REGENERATE SPRITESHEETS</FantasyButton>
+              <Link to="/admin-panel/user">
+                <FantasyButton color="secondary">USER ADMIN</FantasyButton>
+              </Link>
             </Stack>
             <Divider />
             <Text bold h3 smallCaps color="secondary">{t('brute')}</Text>
