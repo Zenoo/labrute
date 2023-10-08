@@ -265,7 +265,7 @@ const getFighters = (team1: BruteAndBackup, team2: BruteAndBackup): DetailedFigh
       }
 
       // Arrives at a random time
-      const arrivesAt = randomBetween(0, 500) / 100;
+      const arrivesAt = randomBetween(1, 500) / 100;
 
       const backupFighter: DetailedFighter = {
         id: backup.id,
