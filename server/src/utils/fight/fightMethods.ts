@@ -945,6 +945,7 @@ const attack = (
   fightData: DetailedFight['data'],
   fighter: DetailedFighter,
   opponent: DetailedFighter,
+  isReversal: boolean,
   stats: Stats,
   achievements: AchievementsStore,
 ) => {
@@ -987,13 +988,13 @@ const attack = (
     checkAchievements(stats, achievements);
 
     // Reversal
-    if (opponent.autoReversalOnBlock || reversal(opponent)) {
+    if (!isReversal && (opponent.autoReversalOnBlock || reversal(opponent))) {
       // Update reversal stat
       updateStats(stats, opponent.id, 'consecutiveReversals', 1);
       checkAchievements(stats, achievements);
 
       // Trigger fighter attack
-      attack(fightData, opponent, fighter, stats, achievements);
+      attack(fightData, opponent, fighter, true, stats, achievements);
     } else {
       // Reset reversal stat
       updateStats(stats, opponent.id, 'consecutiveReversals', 0);
@@ -1088,13 +1089,13 @@ const attack = (
   }
 
   // Check if the opponent reverses the attack
-  if (damage && reversal(opponent)) {
+  if (!isReversal && damage && reversal(opponent)) {
     // Update reversal stat
     updateStats(stats, opponent.id, 'consecutiveReversals', 1);
     checkAchievements(stats, achievements);
 
     // Trigger opponent attack
-    attack(fightData, opponent, fighter, stats, achievements);
+    attack(fightData, opponent, fighter, true, stats, achievements);
   } else {
     // Reset reversal stat
     updateStats(stats, opponent.id, 'consecutiveReversals', 0);
@@ -1141,7 +1142,7 @@ const startAttack = (
   const initialFighterHp = fighter.hp;
 
   // Trigger fighter attack
-  attack(fightData, fighter, opponent, stats, achievements);
+  attack(fightData, fighter, opponent, false, stats, achievements);
 
   // Keep track of attacks
   let attacksCount = 1;
@@ -1164,7 +1165,7 @@ const startAttack = (
       fighter.retryAttack = false;
 
       // Trigger fighter attack
-      attack(fightData, fighter, opponent, stats, achievements);
+      attack(fightData, fighter, opponent, false, stats, achievements);
       attacksCount++;
 
       random = Math.random();
