@@ -1,12 +1,13 @@
 /* eslint-disable no-param-reassign */
 import { Animation } from '@labrute/core';
 import { GlowFilter } from '@pixi/filter-glow';
-import { AnimatedSprite, Application, Sprite } from 'pixi.js';
+import { AnimatedSprite, Application, Filter, Sprite } from 'pixi.js';
 import { AnimationFighter } from './findFighter';
 import setupSprite from './setupSprite';
 import { updateShieldFrame, updateWeaponFrame } from './updateWeapons';
 import { BevelFilter } from '@pixi/filter-bevel';
 import { Easing, Tweener } from 'pixi-tweener';
+import { OutlineFilter } from '@pixi/filter-outline';
 
 const getSprite = (
   app: Application,
@@ -80,9 +81,17 @@ const getSprite = (
 
 export const handleEffects = (
   fighter: AnimationFighter,
+  previousFilters: Filter[] | null,
 ) => {
   if (!fighter.currentAnimation.filters) {
     fighter.currentAnimation.filters = [];
+  }
+
+  // Carry resistant filter over
+  const resistantFilter = previousFilters
+    ?.find((f) => f instanceof OutlineFilter && f.color === 0xffff00);
+  if (resistantFilter) {
+    fighter.currentAnimation.filters.push(resistantFilter);
   }
 
   if (fighter.activeEffects.includes('fierceBrute')) {
@@ -104,6 +113,9 @@ const changeAnimation = (
   if (!spritesheet) {
     throw new Error('Spritesheet not found');
   }
+
+  // Store previous filters
+  const { filters: previousFilters } = fighter.currentAnimation;
 
   // Cancel previous animation changes
   if ((fighter.currentAnimation as AnimatedSprite).play) {
@@ -169,7 +181,7 @@ const changeAnimation = (
     getSprite(app, fighter, animation, speed);
   }
 
-  handleEffects(fighter);
+  handleEffects(fighter, previousFilters);
 };
 
 export default changeAnimation;

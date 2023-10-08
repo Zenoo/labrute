@@ -467,7 +467,7 @@ const setupFight: (
         break;
       }
       case 'resist': {
-        resist(app, fighters, step);
+        resist(app, fighters, step, steps[i + 1], speed);
         break;
       }
       case 'bomb': {
