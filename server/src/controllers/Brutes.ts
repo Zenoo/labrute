@@ -294,7 +294,7 @@ const Brutes = {
   },
   levelUp: (prisma: PrismaClient) => async (
     req: Request<{ name: string }, unknown, { choice: DestinyChoiceSide }>,
-    res: Response,
+    res: Response<Brute>,
   ) => {
     try {
       const user = await auth(prisma, req);
@@ -393,7 +393,7 @@ const Brutes = {
         });
       }
 
-      res.send({});
+      res.send(brute);
     } catch (error) {
       sendError(res, error);
     }
