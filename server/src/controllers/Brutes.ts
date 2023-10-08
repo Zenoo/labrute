@@ -342,6 +342,22 @@ const Brutes = {
         weapons: [...brute.weapons],
       };
 
+      // Refetch brute XP
+      const freshBrute = await prisma.brute.findFirst({
+        where: {
+          id: brute.id,
+        },
+        select: { xp: true },
+      });
+
+      if (!freshBrute) {
+        throw new Error('Brute not found');
+      }
+
+      if (freshBrute.xp !== brute.xp) {
+        throw new ExpectedError('Wooow, slow your clicks down!');
+      }
+
       // Update brute
       brute = await prisma.brute.update({
         where: { id: brute.id },
