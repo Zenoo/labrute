@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.34.3](https://github.com/Zenoo/labrute/compare/labrute-v2.34.2...labrute-v2.34.3) (2023-10-08)
+
+
+### Bug Fixes
+
+* Backups considered as already arrived if initiative = 0. Fixes [#348](https://github.com/Zenoo/labrute/issues/348) ([b477e50](https://github.com/Zenoo/labrute/commit/b477e5038637f3bdf5ae70a89fb69bb10288fb0d))
+* Disallow reversal chains. Fixes [#358](https://github.com/Zenoo/labrute/issues/358) ([f300372](https://github.com/Zenoo/labrute/commit/f300372099d0a97a523e8edbc235ee4cb26a7f5b))
+* Ignore amror on throws. FIxes [#342](https://github.com/Zenoo/labrute/issues/342) ([71e6400](https://github.com/Zenoo/labrute/commit/71e640067dce7fef7f8714a8d15a328a90a4e05a))
+* Negative XP on level up. Fixes [#340](https://github.com/Zenoo/labrute/issues/340) ([9caa35e](https://github.com/Zenoo/labrute/commit/9caa35e2eef63daf5347a2f46e9600b754897d47))
+* Resistant outline on hammer. Fixes [#339](https://github.com/Zenoo/labrute/issues/339) ([e422b54](https://github.com/Zenoo/labrute/commit/e422b54a7fb8a681e96443dd1a720da3026234bb))
+* Update local brute data on level up. Fixes [#356](https://github.com/Zenoo/labrute/issues/356) ([defdf81](https://github.com/Zenoo/labrute/commit/defdf8145ee6065d248a1f41e4bd395e43f502e5))
+
 ## [2.34.2](https://github.com/Zenoo/labrute/compare/labrute-v2.34.1...labrute-v2.34.2) (2023-10-06)
 
 
