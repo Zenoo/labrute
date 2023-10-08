@@ -52,8 +52,10 @@ const getDamage = (
     );
   }
 
-  // Reduce damage with opponent's armor
-  damage -= opponent.armor;
+  // Reduce damage with opponent's armor if not thrown
+  if (!thrown) {
+    damage -= opponent.armor;
+  }
 
   // Set minimum damage to 1
   if (damage < 1) {
