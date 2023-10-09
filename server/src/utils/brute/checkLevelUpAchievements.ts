@@ -246,7 +246,7 @@ const checkLevelUpAchievements = async (
 
   // Hostility + a weapon with reversal
   const counterWeapons = weapons
-    .filter((weapon) => weapon.reversal)
+    .filter((weapon) => weapon.reversal > 0)
     .map((weapon) => weapon.name);
 
   if ((destinyChoice.skill === SkillName.hostility
