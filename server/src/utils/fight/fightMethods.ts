@@ -1156,13 +1156,14 @@ const startAttack = (
     while (random < combo || fighter.retryAttack) {
       // Stop the combo if the fighter took a hit
       if (fighter.hp < initialFighterHp) {
+        // Reset retry attack flag
+        fighter.retryAttack = false;
+
         break;
       }
 
       // Decrease combo chances
       combo *= 0.5;
-      // Reset retry attack flag
-      fighter.retryAttack = false;
 
       // Trigger fighter attack
       attack(fightData, fighter, opponent, false, stats, achievements);
