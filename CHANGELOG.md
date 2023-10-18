@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.34.4](https://github.com/Zenoo/labrute/compare/labrute-v2.34.3...labrute-v2.34.4) (2023-10-18)
+
+
+### Bug Fixes
+
+* `hostility_counterWeapon` working on negative reversal weapons ([7ffec13](https://github.com/Zenoo/labrute/commit/7ffec138a25f8b773e51ef30c61d6855bfdb1892))
+* Disable `Martial Arts` multiplier with `PIledriver` ([2dd5468](https://github.com/Zenoo/labrute/commit/2dd5468ee30820f0fc3805d156a745616d920eb0))
+* Stop determination hit after taking damage. ([8f6b952](https://github.com/Zenoo/labrute/commit/8f6b952f3176beac707fe777376de17b84217717))
+
 ## [2.34.3](https://github.com/Zenoo/labrute/compare/labrute-v2.34.2...labrute-v2.34.3) (2023-10-08)
 
 
