@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.34.5](https://github.com/Zenoo/labrute/compare/labrute-v2.34.4...labrute-v2.34.5) (2023-10-18)
+
+
+### Bug Fixes
+
+* combo attack bug in fightMethods.ts ([31813ac](https://github.com/Zenoo/labrute/commit/31813ac9a4bd942fbda4b347c93e5720dc41b218))
+
 ## [2.34.4](https://github.com/Zenoo/labrute/compare/labrute-v2.34.3...labrute-v2.34.4) (2023-10-18)
 
 
