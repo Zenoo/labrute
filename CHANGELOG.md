@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.34.6](https://github.com/Zenoo/labrute/compare/labrute-v2.34.5...labrute-v2.34.6) (2023-10-19)
+
+
+### Bug Fixes
+
+* Separate global tournament participants into chunks of 1000 to avoid insert error. Fixes [#368](https://github.com/Zenoo/labrute/issues/368) ([2f1d9a9](https://github.com/Zenoo/labrute/commit/2f1d9a9e13b5df8accacf1f740d2b12c92e8ddb2))
+
 ## [2.34.5](https://github.com/Zenoo/labrute/compare/labrute-v2.34.4...labrute-v2.34.5) (2023-10-18)
 
 
