@@ -448,11 +448,25 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
     data: {
       date: today.toDate(),
       type: TournamentType.GLOBAL,
-      participants: {
-        connect: shuffledBrutes.map((brute) => ({ id: brute.id })),
-      },
     },
   });
+
+  // Separate brutes 1000 by 1000
+  const brutesChunks = Array(Math.ceil(shuffledBrutes.length / 1000))
+    .fill([])
+    .map((_, index) => shuffledBrutes.slice(index * 1000, index * 1000 + 1000));
+
+  // Set tourmanent participants separately, 1000 by 1000 to avoid insert error
+  for (const brutesChunk of brutesChunks) {
+    await prisma.tournament.update({
+      where: { id: tournament.id },
+      data: {
+        participants: {
+          connect: brutesChunk.map((brute) => ({ id: brute.id })),
+        },
+      },
+    });
+  }
 
   // For the global tournament, tournamentStep.step represents the round number
   let round = 1;

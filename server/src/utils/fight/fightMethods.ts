@@ -1159,7 +1159,6 @@ const startAttack = (
 
       // Stop the combo if the fighter took a hit
       if (fighter.hp < initialFighterHp) {
-
         break;
       }
 
