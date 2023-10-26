@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.35.0](https://github.com/Zenoo/labrute/compare/labrute-v2.34.6...labrute-v2.35.0) (2023-10-26)
+
+
+### Features
+
+* New russian language. Fixes [#372](https://github.com/Zenoo/labrute/issues/372) ([7db09e2](https://github.com/Zenoo/labrute/commit/7db09e2694aa91c3968e17e24b21ca5383a433dd))
+
 ## [2.34.6](https://github.com/Zenoo/labrute/compare/labrute-v2.34.5...labrute-v2.34.6) (2023-10-19)
 
 
