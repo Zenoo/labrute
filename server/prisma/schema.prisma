@@ -17,6 +17,7 @@ enum Lang {
   fr
   de
   es
+  ru
 }
 
 model User {

@@ -371,7 +371,8 @@ export const Lang: {
   en: 'en',
   fr: 'fr',
   de: 'de',
-  es: 'es'
+  es: 'es',
+  ru: 'ru'
 };
 
 export type Lang = (typeof Lang)[keyof typeof Lang]

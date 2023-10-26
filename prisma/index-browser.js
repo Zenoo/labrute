@@ -309,7 +309,8 @@ exports.Lang = {
   en: 'en',
   fr: 'fr',
   de: 'de',
-  es: 'es'
+  es: 'es',
+  ru: 'ru'
 };
 
 exports.Gender = {

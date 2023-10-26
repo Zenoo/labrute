@@ -1154,11 +1154,11 @@ const startAttack = (
   if (!isCounter) {
     let random = Math.random();
     while (random < combo || fighter.retryAttack) {
+      // Reset retry attack flag
+      fighter.retryAttack = false;
+
       // Stop the combo if the fighter took a hit
       if (fighter.hp < initialFighterHp) {
-        // Reset retry attack flag
-        fighter.retryAttack = false;
-
         break;
       }
 
