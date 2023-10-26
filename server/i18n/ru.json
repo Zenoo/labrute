@@ -1,1 +1,22 @@
-{}
+{
+  "noIDProvided": "No ID provided",
+  "nothingToExport": "Nothing to export",
+  "unauthorized": "Unauthorized",
+  "missingLogin": "Missing login",
+  "missingPassword": "Missing password",
+  "missingToken": "Missing token",
+  "passwordUpdated": "Password updated",
+  "sessionExpiredPleaseReconnect": "Session expired, please reconnect",
+  "invalidPassword": "Invalid password",
+  "resetPasswordEmail": "Reset password email",
+  "cannotSendOldPassword": "We cannot simply send you your old password. A unique link to reset your password has been generated for you. To reset your password, click the following button and follow the instructions.",
+  "resetPassword": "Reset password",
+  "passwordResetMessage": "If the button doesnt work copy and paste the following in your browser",
+  "resetYourPassword": "Reset your password",
+  "clickLinkToResetPassword": "Click the following link to reset your password",
+  "emailNotSent": "Email not sent",
+  "emailSent": "Email sent",
+  "tokenValid": "Token valid",
+  "invalidToken": "Invalid token",
+  "unableToConnectToMailServer": "Unable to connect to mail server"
+}
