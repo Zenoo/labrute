@@ -21,6 +21,7 @@ const ads: Record<AdName, AdProps> = {
       en: ['MH_Ads_Template_en.png'],
       es: ['MH_Ads_Template_es.png'],
       de: ['MH_Ads_Template_de.png'],
+      ru: ['MH_Ads_Template_en.png'],
     },
   },
   eMush: {
@@ -30,6 +31,7 @@ const ads: Record<AdName, AdProps> = {
       en: ['mush_en.gif'],
       es: [],
       de: [],
+      ru: [],
     },
   },
   eternalDinoRPG: {
@@ -39,6 +41,7 @@ const ads: Record<AdName, AdProps> = {
       en: ['dinorpg_2.jpg', 'dinorpg_3.jpg', 'dinorpg-tw-brute-en.gif'],
       es: [],
       de: [],
+      ru: [],
     },
   },
   neoparc: {
@@ -48,6 +51,7 @@ const ads: Record<AdName, AdProps> = {
       en: [],
       es: [],
       de: [],
+      ru: [],
     },
   },
   eternalfest: {
@@ -57,6 +61,7 @@ const ads: Record<AdName, AdProps> = {
       en: [],
       es: [],
       de: [],
+      ru: [],
     },
   },
   eternalKingdom: {
@@ -66,6 +71,7 @@ const ads: Record<AdName, AdProps> = {
       en: ['kingdom_1.png'],
       es: [],
       de: [],
+      ru: [],
     },
   },
   directquiz: {
@@ -75,6 +81,7 @@ const ads: Record<AdName, AdProps> = {
       en: [],
       es: [],
       de: [],
+      ru: [],
     },
   },
   ePopotamo: {
@@ -84,6 +91,7 @@ const ads: Record<AdName, AdProps> = {
       en: [],
       es: [],
       de: [],
+      ru: [],
     },
   },
 };
