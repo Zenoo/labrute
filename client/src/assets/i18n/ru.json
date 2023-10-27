@@ -171,7 +171,7 @@
   "counterAttack.effect": "Каждое успешное блокирование поспособствует контрудару вашим Бруталом",
   "ironHead": "Железная Голова",
   "ironHead.desc": "В то время как вы терпите удары, это вашему противнику предстоит вытерпеть столкновение!",
-  "ironHead.effect": "For each attack targeted at you, your opponent will have a 30% chance of losing their weapon.",
+  "ironHead.effect": "Ударяя, противник имеет 30% шанс уронить своё оружие",
   "reconnaissance": "Reconnaissance",
   "reconnaissance.desc": "You're prepared to take your time in order to analyse your opponent's weaknesses, but once you start fighting, nothing will stop you.",
   "reconnaissance.effect": "",
