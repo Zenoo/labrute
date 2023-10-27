@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.35.1](https://github.com/Zenoo/labrute/compare/labrute-v2.35.0...labrute-v2.35.1) (2023-10-27)
+
+
+### Bug Fixes
+
+* Resized russian flag ([d7b6a5f](https://github.com/Zenoo/labrute/commit/d7b6a5faa2982c5adc6effac26de6dcff9ac3d70))
+
 ## [2.35.0](https://github.com/Zenoo/labrute/compare/labrute-v2.34.6...labrute-v2.35.0) (2023-10-26)
 
 
