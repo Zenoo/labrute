@@ -39,7 +39,7 @@ const skillActivate = async (
     brute.activeEffects.push(step.skill);
 
     // Add filter
-    handleEffects(brute);
+    handleEffects(brute, null);
 
     const animations = [];
 

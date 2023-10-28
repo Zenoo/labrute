@@ -21,6 +21,8 @@ import { Navigate, RouteObject } from 'react-router';
 import NotFoundView from './views/NotFoundView';
 import BruteNotFoundView from './views/BruteNotFoundView';
 import GeneratingView from './views/GeneratingView';
+import HallView from './views/HallView';
+import UserAdminView from './views/UserAdminView';
 
 const routes: RouteObject[] = [
   { path: 'anchor-test', element: <AnchorTestView /> },
@@ -33,9 +35,11 @@ const routes: RouteObject[] = [
       { path: '', element: <HomeView /> },
       { path: 'oauth/callback', element: <HomeView /> },
       { path: 'admin-panel', element: <AdminView /> },
+      { path: 'admin-panel/user', element: <UserAdminView /> },
       { path: 'achievements', element: <AchievementsView /> },
       { path: 'unknown-brute', element: <BruteNotFoundView /> },
       { path: 'generating-tournaments', element: <GeneratingView /> },
+      { path: 'hall', element: <HallView /> },
       {
         path: ':bruteName',
         children: [

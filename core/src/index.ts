@@ -25,6 +25,8 @@ import promiseBatch from './utils/promiseBatch';
 import randomBetween from './utils/randomBetween';
 import weightedRandom from './utils/weightedRandom';
 import Version from './Version';
+import { Achievement, Prisma } from '@labrute/prisma';
+import canLevelUp from './brute/canLevelUp';
 
 export * from './Achievements';
 export * from './brute/pets';
@@ -59,9 +61,10 @@ export {
   promiseBatch,
   pad,
   Version,
+  canLevelUp,
 };
 
-export const LANGUAGES = ['fr', 'en', 'es', 'de'] as const;
+export const LANGUAGES = ['fr', 'en', 'es', 'de', 'ru'] as const;
 export const DEFAULT_LANGUAGE = LANGUAGES[0];
 export type Language = typeof LANGUAGES[number];
 
@@ -108,4 +111,8 @@ export type ServerReadyResponse = {
 };
 export type BruteRestoreResponse = {
   success: boolean,
+};
+export type UsersAdminUpdateRequest = {
+  user: Prisma.UserUncheckedUpdateInput,
+  achievements: Achievement[],
 };

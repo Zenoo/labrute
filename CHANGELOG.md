@@ -2,6 +2,112 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.35.3](https://github.com/Zenoo/labrute/compare/labrute-v2.35.2...labrute-v2.35.3) (2023-10-28)
+
+
+### Bug Fixes
+
+* typo in achievement description ([af71352](https://github.com/Zenoo/labrute/commit/af713527dc1c97147bb8ca8f3ffbd735ef2e03b3))
+
+## [2.35.2](https://github.com/Zenoo/labrute/compare/labrute-v2.35.1...labrute-v2.35.2) (2023-10-28)
+
+
+### Bug Fixes
+
+* Prevent LevelUp from generating choices without enough XP ([a6a93d1](https://github.com/Zenoo/labrute/commit/a6a93d1abd44494ab9165aabf3ab160eb1deab1c))
+
+## [2.35.1](https://github.com/Zenoo/labrute/compare/labrute-v2.35.0...labrute-v2.35.1) (2023-10-27)
+
+
+### Bug Fixes
+
+* Resized russian flag ([d7b6a5f](https://github.com/Zenoo/labrute/commit/d7b6a5faa2982c5adc6effac26de6dcff9ac3d70))
+
+## [2.35.0](https://github.com/Zenoo/labrute/compare/labrute-v2.34.6...labrute-v2.35.0) (2023-10-26)
+
+
+### Features
+
+* New russian language. Fixes [#372](https://github.com/Zenoo/labrute/issues/372) ([7db09e2](https://github.com/Zenoo/labrute/commit/7db09e2694aa91c3968e17e24b21ca5383a433dd))
+
+## [2.34.6](https://github.com/Zenoo/labrute/compare/labrute-v2.34.5...labrute-v2.34.6) (2023-10-19)
+
+
+### Bug Fixes
+
+* Separate global tournament participants into chunks of 1000 to avoid insert error. Fixes [#368](https://github.com/Zenoo/labrute/issues/368) ([2f1d9a9](https://github.com/Zenoo/labrute/commit/2f1d9a9e13b5df8accacf1f740d2b12c92e8ddb2))
+
+## [2.34.5](https://github.com/Zenoo/labrute/compare/labrute-v2.34.4...labrute-v2.34.5) (2023-10-18)
+
+
+### Bug Fixes
+
+* combo attack bug in fightMethods.ts ([31813ac](https://github.com/Zenoo/labrute/commit/31813ac9a4bd942fbda4b347c93e5720dc41b218))
+
+## [2.34.4](https://github.com/Zenoo/labrute/compare/labrute-v2.34.3...labrute-v2.34.4) (2023-10-18)
+
+
+### Bug Fixes
+
+* `hostility_counterWeapon` working on negative reversal weapons ([7ffec13](https://github.com/Zenoo/labrute/commit/7ffec138a25f8b773e51ef30c61d6855bfdb1892))
+* Disable `Martial Arts` multiplier with `PIledriver` ([2dd5468](https://github.com/Zenoo/labrute/commit/2dd5468ee30820f0fc3805d156a745616d920eb0))
+* Stop determination hit after taking damage. ([8f6b952](https://github.com/Zenoo/labrute/commit/8f6b952f3176beac707fe777376de17b84217717))
+
+## [2.34.3](https://github.com/Zenoo/labrute/compare/labrute-v2.34.2...labrute-v2.34.3) (2023-10-08)
+
+
+### Bug Fixes
+
+* Backups considered as already arrived if initiative = 0. Fixes [#348](https://github.com/Zenoo/labrute/issues/348) ([b477e50](https://github.com/Zenoo/labrute/commit/b477e5038637f3bdf5ae70a89fb69bb10288fb0d))
+* Disallow reversal chains. Fixes [#358](https://github.com/Zenoo/labrute/issues/358) ([f300372](https://github.com/Zenoo/labrute/commit/f300372099d0a97a523e8edbc235ee4cb26a7f5b))
+* Ignore amror on throws. FIxes [#342](https://github.com/Zenoo/labrute/issues/342) ([71e6400](https://github.com/Zenoo/labrute/commit/71e640067dce7fef7f8714a8d15a328a90a4e05a))
+* Negative XP on level up. Fixes [#340](https://github.com/Zenoo/labrute/issues/340) ([9caa35e](https://github.com/Zenoo/labrute/commit/9caa35e2eef63daf5347a2f46e9600b754897d47))
+* Resistant outline on hammer. Fixes [#339](https://github.com/Zenoo/labrute/issues/339) ([e422b54](https://github.com/Zenoo/labrute/commit/e422b54a7fb8a681e96443dd1a720da3026234bb))
+* Update local brute data on level up. Fixes [#356](https://github.com/Zenoo/labrute/issues/356) ([defdf81](https://github.com/Zenoo/labrute/commit/defdf8145ee6065d248a1f41e4bd395e43f502e5))
+
+## [2.34.2](https://github.com/Zenoo/labrute/compare/labrute-v2.34.1...labrute-v2.34.2) (2023-10-06)
+
+
+### Bug Fixes
+
+* User admin page. Fixes [#353](https://github.com/Zenoo/labrute/issues/353) ([fafb7f0](https://github.com/Zenoo/labrute/commit/fafb7f0775409d43594d4dec738506506be385ce))
+
+## [2.34.1](https://github.com/Zenoo/labrute/compare/labrute-v2.34.0...labrute-v2.34.1) (2023-10-05)
+
+
+### Bug Fixes
+
+* New achievement icons + bug hunter. [#196](https://github.com/Zenoo/labrute/issues/196) ([606c085](https://github.com/Zenoo/labrute/commit/606c0856a35899360e2ff40a6bfeb5cb05683333))
+
+## [2.34.0](https://github.com/Zenoo/labrute/compare/labrute-v2.33.2...labrute-v2.34.0) (2023-10-05)
+
+
+### Features
+
+* Limit brutes in menu to 3 + page with all brutes. Fixes [#280](https://github.com/Zenoo/labrute/issues/280) ([da2d1cc](https://github.com/Zenoo/labrute/commit/da2d1cca46ec2649e5597f2f3b01d6c1712a0b0d))
+
+
+### Bug Fixes
+
+* Empty generating view. Fixes [#333](https://github.com/Zenoo/labrute/issues/333) ([9b5b54b](https://github.com/Zenoo/labrute/commit/9b5b54b8062e4b0503ac9e162b9c99908782b205))
+* Error on tournament generation. Fixes [#334](https://github.com/Zenoo/labrute/issues/334) ([ba9e7b7](https://github.com/Zenoo/labrute/commit/ba9e7b702b8c9a057bb81a74290d9dced5cf83df))
+* Optimize XP gains loop ([b53c9b4](https://github.com/Zenoo/labrute/commit/b53c9b4c974201f33d0e1db83e99c04456b75a93))
+* Renamed the `Hammer` skill to `Piledriver` ([90045f6](https://github.com/Zenoo/labrute/commit/90045f61259d0b32558f857b1c0489a065553032))
+
+## [2.33.2](https://github.com/Zenoo/labrute/compare/labrute-v2.33.1...labrute-v2.33.2) (2023-09-05)
+
+
+### Bug Fixes
+
+* Wrong evasion chances ([6122a62](https://github.com/Zenoo/labrute/commit/6122a624470f060960d6f56f04baa5b9c0112b04))
+
+## [2.33.1](https://github.com/Zenoo/labrute/compare/labrute-v2.33.0...labrute-v2.33.1) (2023-09-03)
+
+
+### Bug Fixes
+
+* Wrong flail stats ([79c2ca9](https://github.com/Zenoo/labrute/commit/79c2ca93a3b0b317612dda89e7c32b907470b230))
+
 ## [2.33.0](https://github.com/Zenoo/labrute/compare/labrute-v2.32.3...labrute-v2.33.0) (2023-08-11)
 
 

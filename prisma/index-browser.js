@@ -309,7 +309,8 @@ exports.Lang = {
   en: 'en',
   fr: 'fr',
   de: 'de',
-  es: 'es'
+  es: 'es',
+  ru: 'ru'
 };
 
 exports.Gender = {
@@ -532,7 +533,8 @@ exports.AchievementName = {
   rankUp1: 'rankUp1',
   rankUp0: 'rankUp0',
   sacrifice: 'sacrifice',
-  beta: 'beta'
+  beta: 'beta',
+  bug: 'bug'
 };
 
 exports.Prisma.ModelName = {

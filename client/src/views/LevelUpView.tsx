@@ -19,7 +19,7 @@ import Server from '../utils/Server';
 const LevelUpView = () => {
   const { t } = useTranslation();
   const { bruteName } = useParams();
-  const { user } = useAuth();
+  const { user, updateData } = useAuth();
   const navigate = useNavigate();
   const Alert = useAlert();
   const smallScreen = useMediaQuery('(max-width: 638px)');
@@ -52,12 +52,21 @@ const LevelUpView = () => {
   const levelUp = useCallback((choice: DestinyChoiceSide) => async () => {
     if (!brute || !choices) return;
 
-    await Server.Brute.levelUp(
+    const newBrute = await Server.Brute.levelUp(
       brute.name,
       choice,
     ).catch(catchError(Alert));
+
+    if (!newBrute) return;
+
+    // Update user data
+    updateData((data) => (data ? ({
+      ...data,
+      brutes: data.brutes.map((b) => (b.name === brute.name ? ({ ...b, ...newBrute }) : b)),
+    }) : null));
+
     navigate(`/${brute.name}/cell`);
-  }, [Alert, brute, choices, navigate]);
+  }, [Alert, brute, choices, navigate, updateData]);
 
   return brute && (
     <Page title={`${t('MyBrute')}. ${t('newLevelFor')} ${brute.name || ''}`} headerUrl={`/${brute.name}/cell`}>

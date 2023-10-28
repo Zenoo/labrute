@@ -371,7 +371,8 @@ export const Lang: {
   en: 'en',
   fr: 'fr',
   de: 'de',
-  es: 'es'
+  es: 'es',
+  ru: 'ru'
 };
 
 export type Lang = (typeof Lang)[keyof typeof Lang]
@@ -624,7 +625,8 @@ export const AchievementName: {
   rankUp1: 'rankUp1',
   rankUp0: 'rankUp0',
   sacrifice: 'sacrifice',
-  beta: 'beta'
+  beta: 'beta',
+  bug: 'bug'
 };
 
 export type AchievementName = (typeof AchievementName)[keyof typeof AchievementName]

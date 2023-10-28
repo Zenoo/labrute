@@ -44,6 +44,35 @@ const grantBetaAchievement = async (prisma: PrismaClient) => {
   }
 };
 
+const grantBugAchievement = async (prisma: PrismaClient) => {
+  // Grant bug achievement to all admins who don't have it yet
+  const admins = await prisma.user.findMany({
+    where: {
+      admin: true,
+      achievements: {
+        none: {
+          name: {
+            equals: 'bug',
+          },
+        },
+      },
+    },
+  });
+
+  if (admins.length) {
+    // Grant bug achievement
+    await prisma.achievement.createMany({
+      data: admins.map((admin) => ({
+        name: 'bug',
+        userId: admin.id,
+        count: 999,
+      })),
+    });
+
+    await DiscordUtils.sendLog(`Gave the bug achievement to ${admins.length} admins`);
+  }
+};
+
 const deleteMisformattedTournaments = async (prisma: PrismaClient) => {
   const today = moment.utc().startOf('day');
   const tomorrow = moment.utc(today).add(1, 'day');
@@ -262,10 +291,20 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
         const brute1 = roundBrutes[i];
         const brute2 = roundBrutes[i + 1];
 
+        if (brute1.name === brute2.name) {
+          throw new Error('Attempting to fight a brute against itself');
+        }
+
         // Generate fight (retry if failed)
         let generatedFight: Prisma.FightCreateInput | null = null;
+        let retries = 0;
 
         while (!generatedFight) {
+          // Stop at 10 retries
+          if (retries > 10) {
+            throw new Error('Too many retries');
+          }
+
           try {
             generatedFight = await generateFight(
               prisma,
@@ -279,6 +318,8 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
             await DiscordUtils.sendLog(`Error while generating a tournament fight between ${brute1.name} and ${brute2.name}, retrying...`);
             await DiscordUtils.sendError(error);
           }
+
+          retries++;
         }
 
         lastFight = generatedFight;
@@ -407,11 +448,25 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
     data: {
       date: today.toDate(),
       type: TournamentType.GLOBAL,
-      participants: {
-        connect: shuffledBrutes.map((brute) => ({ id: brute.id })),
-      },
     },
   });
+
+  // Separate brutes 1000 by 1000
+  const brutesChunks = Array(Math.ceil(shuffledBrutes.length / 1000))
+    .fill([])
+    .map((_, index) => shuffledBrutes.slice(index * 1000, index * 1000 + 1000));
+
+  // Set tourmanent participants separately, 1000 by 1000 to avoid insert error
+  for (const brutesChunk of brutesChunks) {
+    await prisma.tournament.update({
+      where: { id: tournament.id },
+      data: {
+        participants: {
+          connect: brutesChunk.map((brute) => ({ id: brute.id })),
+        },
+      },
+    });
+  }
 
   // For the global tournament, tournamentStep.step represents the round number
   let round = 1;
@@ -434,6 +489,10 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
     for (let i = 0; i < roundBrutes.length - 1; i += 2) {
       const brute1 = roundBrutes[i];
       const brute2 = roundBrutes[i + 1];
+
+      if (brute1.name === brute2.name) {
+        throw new Error('Attempting to fight a brute against itself');
+      }
 
       // Skip if no adversary
       if (!brute2) {
@@ -555,29 +614,14 @@ const handleXpGains = async (prisma: PrismaClient) => {
       continue;
     }
 
-    // Get winner
-    const winner = await prisma.brute.findFirst({
-      where: {
-        id: winnerFighter.id,
-        deletedAt: null,
-      },
-      select: { id: true },
-    });
-
-    if (!winner) {
-      // Skip to next step
-      // eslint-disable-next-line no-continue
-      continue;
-    }
-
     // +1 XP to the winner
     await prisma.brute.update({
-      where: { id: winner.id },
+      where: { id: winnerFighter.id },
       data: { xp: { increment: 1 } },
     });
 
     xpGains[step.fight.winner] = {
-      bruteId: winner.id,
+      bruteId: winnerFighter.id,
       xp: (xpGains[step.fight.winner]?.xp || 0) + 1,
     };
 
@@ -668,6 +712,9 @@ const dailyJob = (prisma: PrismaClient) => async () => {
   try {
     // Grant beta achievement to all brutes who don't have it yet
     await grantBetaAchievement(prisma);
+
+    // Grant bug achievements to all admins who don't have it yet
+    await grantBugAchievement(prisma);
 
     // Generate missing body and colors
     await generateMissingBodyColors(prisma);

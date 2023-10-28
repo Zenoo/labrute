@@ -1,22 +1,22 @@
 import { getFightsLeft, getSacriPointsNeeded, Language, LANGUAGES, Version } from '@labrute/core';
-import { AccountCircle, Add, AdminPanelSettings, DoNotDisturb, Login, Logout, MilitaryTech } from '@mui/icons-material';
+import { AccountCircle, Add, AdminPanelSettings, DoNotDisturb, Login, Logout, MilitaryTech, MoreHoriz } from '@mui/icons-material';
 import { Badge, Box, BoxProps, CircularProgress, Fab, Link, SpeedDial, SpeedDialAction, Tooltip } from '@mui/material';
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
+import { isMobile } from 'react-device-detect';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import { useLanguage } from '../hooks/useLanguage';
+import useStateAsync from '../hooks/useStateAsync';
 import ads, { AdName } from '../utils/ads';
 import catchError from '../utils/catchError';
 import Fetch from '../utils/Fetch';
+import Server from '../utils/Server';
 import BrutePortrait from './Brute/Body/BrutePortait';
 import Header from './Header';
 import Text from './Text';
-import Server from '../utils/Server';
-import { isMobile } from 'react-device-detect';
-import useStateAsync from '../hooks/useStateAsync';
 
 interface Props extends BoxProps {
   title: string,
@@ -121,6 +121,12 @@ const Page = ({
     navigate('/achievements');
   }, [navigate]);
 
+  // Redirect to Hall page
+  const goToHall = useCallback(() => {
+    setOpen(false);
+    navigate('/hall');
+  }, [navigate]);
+
   return (
     <Box {...rest}>
       <Helmet>
@@ -128,7 +134,7 @@ const Page = ({
       </Helmet>
       {/* HEADER */}
       <Header url={headerUrl} />
-      {(!!serverState?.ready) && children}
+      {children}
       {/* AUTH */}
       {!user ? (
         <Tooltip title={t('login')}>
@@ -179,7 +185,7 @@ const Page = ({
             tooltipOpen
             onClick={goToAchievements}
           />
-          {user.brutes && user.brutes.map((brute) => (
+          {user.brutes.slice(0, 3).map((brute) => (
             <SpeedDialAction
               key={brute.name}
               icon={(
@@ -192,6 +198,14 @@ const Page = ({
               onClick={goToCell(brute.name)}
             />
           ))}
+          {user.brutes.length > 3 && (
+            <SpeedDialAction
+              icon={<MoreHoriz color="secondary" />}
+              tooltipTitle={t('hall')}
+              tooltipOpen
+              onClick={goToHall}
+            />
+          )}
           <SpeedDialAction
             icon={user.sacrificePoints >= pointsNeeded ? <Add color="success" /> : <DoNotDisturb color="error" />}
             tooltipTitle={`${t('newBrute')}${getSacriPointsNeeded(user) > 0 ? ` (${getSacriPointsNeeded(user)} SP)` : ''}`}

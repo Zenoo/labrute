@@ -11,6 +11,7 @@ import {
   getMaxFightsPerDay,
   getSacriPoints, getSacriPointsNeeded, getXPNeeded,
   increaseAchievement, randomBetween, updateBruteData,
+  canLevelUp,
 } from '@labrute/core';
 import {
   Brute,
@@ -244,6 +245,10 @@ const Brutes = {
         throw new ExpectedError('Brute not found');
       }
 
+      if (!canLevelUp(brute)) {
+        throw new ExpectedError('Brute cannot level up');
+      }
+
       const firstChoicePath = [...brute.destinyPath, DestinyChoiceSide.LEFT];
       const secondChoicePath = [...brute.destinyPath, DestinyChoiceSide.RIGHT];
 
@@ -294,7 +299,7 @@ const Brutes = {
   },
   levelUp: (prisma: PrismaClient) => async (
     req: Request<{ name: string }, unknown, { choice: DestinyChoiceSide }>,
-    res: Response,
+    res: Response<Brute>,
   ) => {
     try {
       const user = await auth(prisma, req);
@@ -341,6 +346,22 @@ const Brutes = {
         skills: [...brute.skills],
         weapons: [...brute.weapons],
       };
+
+      // Refetch brute XP
+      const freshBrute = await prisma.brute.findFirst({
+        where: {
+          id: brute.id,
+        },
+        select: { xp: true },
+      });
+
+      if (!freshBrute) {
+        throw new Error('Brute not found');
+      }
+
+      if (freshBrute.xp !== brute.xp) {
+        throw new ExpectedError('Wooow, slow your clicks down!');
+      }
 
       // Update brute
       brute = await prisma.brute.update({
@@ -393,7 +414,7 @@ const Brutes = {
         });
       }
 
-      res.send({});
+      res.send(brute);
     } catch (error) {
       sendError(res, error);
     }

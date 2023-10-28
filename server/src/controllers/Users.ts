@@ -1,18 +1,41 @@
-import { Lang, PrismaClient } from '@labrute/prisma';
+import { Lang, Prisma, PrismaClient } from '@labrute/prisma';
 import { Request, Response } from 'express';
+import { ExpectedError, UsersAdminUpdateRequest } from '@labrute/core';
 import dailyJob from '../dailyJob.js';
 import auth from '../utils/auth.js';
 import DiscordUtils from '../utils/DiscordUtils.js';
 import sendError from '../utils/sendError.js';
 
 const Users = {
-  list: (prisma: PrismaClient) => async (req: Request, res: Response) => {
+  get: (prisma: PrismaClient) => async (
+    req: Request<{
+      name: string
+    }, unknown, {
+      include: Prisma.UserInclude,
+      where: Prisma.UserWhereInput
+    }>,
+    res: Response,
+  ) => {
     try {
-      await auth(prisma, req);
+      const admin = await auth(prisma, req);
 
-      const users = await prisma.user.findMany();
+      if (!admin.admin) {
+        throw new Error('Unauthorized');
+      }
 
-      res.send(users);
+      const user = await prisma.user.findFirst({
+        where: {
+          ...req.body.where,
+          name: req.params.name,
+        },
+        include: req.body.include,
+      });
+
+      if (!user) {
+        throw new ExpectedError('User not found');
+      }
+
+      res.send(user);
     } catch (error) {
       sendError(res, error);
     }
@@ -104,6 +127,71 @@ const Users = {
       });
 
       res.send({ message: 'Background music changed' });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  adminUpdate: (prisma: PrismaClient) => async (
+    req: Request<{ id: string }, unknown, UsersAdminUpdateRequest>,
+    res: Response,
+  ) => {
+    try {
+      const { params: { id } } = req;
+
+      const admin = await auth(prisma, req);
+
+      if (!admin.admin) {
+        throw new Error('Unauthorized');
+      }
+
+      if (!id) {
+        throw new Error('Missing id');
+      }
+
+      const user = await prisma.user.findFirst({
+        where: {
+          id,
+        },
+      });
+
+      if (!user) {
+        throw new Error('User not found');
+      }
+
+      // Update the user
+      await prisma.user.update({
+        where: { id: user.id },
+        data: {
+          ...req.body.user,
+        },
+      });
+
+      // Update achievements
+      const queries = [];
+      for (const achievement of req.body.achievements) {
+        queries.push(
+          prisma.achievement.upsert({
+            where: {
+              userId: achievement.userId,
+              id: achievement.id,
+            },
+            update: {
+              count: achievement.count,
+            },
+            create: {
+              userId: user.id,
+              name: achievement.name,
+              count: achievement.count,
+            },
+          }),
+        );
+      }
+
+      await Promise.all(queries);
+
+      res.send({
+        success: true,
+      });
     } catch (error) {
       sendError(res, error);
     }
