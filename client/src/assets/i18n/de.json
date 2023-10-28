@@ -180,7 +180,7 @@
   "tamer.effect": "Aktion (x4): Dein Brutalo verspeist besiegte Gegner und stellt dabei zwischen 20% und 50% seiner LP wieder her, abhängig von der Fleischqualität",
   "regeneration": "Regeneration",
   "regeneration.desc": "Dank deiner außergewöhnlichen Selbstheilungskräfte scheust du nie einen Kampf!",
-  "regeneration.effect": "Dein Brutalo kann täglich ein Mal mehr kämpfen",
+  "regeneration.effect": "Dein Brutalo verträgt täglich zwei weitere Kämpfe",
   "chef": "Chefkoch",
   "chef.desc": "Jeder Brutalo weiß, dass ein Großteil der Kämpfe nicht in der Arena ausgetragen wird, sondern in der Kantine.",
   "chef.effect": "Gegner verlieren am Ende ihrer Angriffe 2% ihrer LP",
