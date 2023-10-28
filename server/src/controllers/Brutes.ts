@@ -11,6 +11,7 @@ import {
   getMaxFightsPerDay,
   getSacriPoints, getSacriPointsNeeded, getXPNeeded,
   increaseAchievement, randomBetween, updateBruteData,
+  canLevelUp,
 } from '@labrute/core';
 import {
   Brute,
@@ -242,6 +243,10 @@ const Brutes = {
       });
       if (!brute) {
         throw new ExpectedError('Brute not found');
+      }
+
+      if (!canLevelUp(brute)) {
+        throw new ExpectedError('Brute cannot level up');
       }
 
       const firstChoicePath = [...brute.destinyPath, DestinyChoiceSide.LEFT];
