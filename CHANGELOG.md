@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.35.2](https://github.com/Zenoo/labrute/compare/labrute-v2.35.1...labrute-v2.35.2) (2023-10-28)
+
+
+### Bug Fixes
+
+* Prevent LevelUp from generating choices without enough XP ([a6a93d1](https://github.com/Zenoo/labrute/commit/a6a93d1abd44494ab9165aabf3ab160eb1deab1c))
+
 ## [2.35.1](https://github.com/Zenoo/labrute/compare/labrute-v2.35.0...labrute-v2.35.1) (2023-10-27)
 
 
