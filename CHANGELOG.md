@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.35.5](https://github.com/Zenoo/labrute/compare/labrute-v2.35.4...labrute-v2.35.5) (2023-10-29)
+
+
+### Bug Fixes
+
+* Add Russian translation to i18n resources. ([34bd6e9](https://github.com/Zenoo/labrute/commit/34bd6e9850fa4ba0975327ac23029dd8f46b3bfe))
+
 ## [2.35.4](https://github.com/Zenoo/labrute/compare/labrute-v2.35.3...labrute-v2.35.4) (2023-10-28)
 
 
