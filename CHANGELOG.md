@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.35.4](https://github.com/Zenoo/labrute/compare/labrute-v2.35.3...labrute-v2.35.4) (2023-10-28)
+
+
+### Bug Fixes
+
+* Added russian buttons ([#382](https://github.com/Zenoo/labrute/issues/382)) ([22083ab](https://github.com/Zenoo/labrute/commit/22083ab5586d025773c4363bd7ee338b882ea94e))
+
+## [2.35.3](https://github.com/Zenoo/labrute/compare/labrute-v2.35.2...labrute-v2.35.3) (2023-10-28)
+
+
+### Bug Fixes
+
+* typo in achievement description ([af71352](https://github.com/Zenoo/labrute/commit/af713527dc1c97147bb8ca8f3ffbd735ef2e03b3))
+
 ## [2.35.2](https://github.com/Zenoo/labrute/compare/labrute-v2.35.1...labrute-v2.35.2) (2023-10-28)
 
 
