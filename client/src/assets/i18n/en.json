@@ -193,7 +193,7 @@
   "spy.effect": "Reduces first damage taken by 100%.",
   "saboteur": "Saboteur",
   "saboteur.desc": "From foam hammers to plastic swords, you're fake weapon king! Your opponents won't notice until it's too late.",
-  "saboteur.effect": "Destroy one of your opponent's weapon (initiative -100 when used)",
+  "saboteur.effect": "Destroy one of your opponent's weapon (opponent initiative -100 when used)",
   "backup": "Backup",
   "backup.desc": "Friendship is all about sharing. Luckily for you, you've learnt to share your blows with your opponents so that they can have some too!",
   "backup.effect": "Your brute can help superior team-members during fights.",
