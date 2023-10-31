@@ -154,7 +154,7 @@ const setupFight: (
 
   // First brute name
   const brute1Name = new PIXI.Text(brute1.name.toLocaleUpperCase(), {
-    fontFamily: 'Poplar', fontSize: 20, fill: 0xffffff
+    fontFamily: 'GameFont', fontSize: 20, fill: 0xffffff
   });
   brute1Name.filters = [new OutlineFilter()];
   brute1Name.x = 4;
@@ -227,7 +227,7 @@ const setupFight: (
 
   // Second brute name
   const brute2Name = new PIXI.Text(brute2.name.toLocaleUpperCase(), {
-    fontFamily: 'Poplar', fontSize: 20, fill: 0xffffff, align: 'right'
+    fontFamily: 'GameFont', fontSize: 20, fill: 0xffffff, align: 'right'
   });
   brute2Name.anchor.x = 1;
   brute2Name.filters = [new OutlineFilter()];
@@ -512,7 +512,7 @@ const setupFight: (
 
   // Display win message at the bottom
   const winMessage = new PIXI.Text(t('fight.wonTheFight', { brute: fight.winner }).toLocaleUpperCase(), {
-    fontFamily: 'Poplar',
+    fontFamily: 'GameFont',
     fontSize: 30,
     fill: 0xffffff,
     align: 'center',

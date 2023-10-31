@@ -1,18 +1,19 @@
 @font-face {
-  font-family: Verdana;
-  src: url(./assets/fonts/Verdana_10pt_st.woff);
+  font-family: Pixelized;
+  src: url(./assets/fonts/BarcadeBrawlRegular.ttf) format("ttf"),
+    url(./assets/fonts/BarcadeBrawlRegular.woff) format("woff");
 }
 
 @font-face {
-  font-family: Poplar;
-  src: url(./assets/fonts/PoplarStd.ttf) format("ttf"),
-    url(./assets/fonts/PoplarStd.woff) format("woff");
+  font-family: GameFont;
+  src: url(./assets/fonts/Movavi_Grotesque_Black.ttf) format("ttf"),
+    url(./assets/fonts/Movavi_Grotesque_Black.woff) format("woff");
 }
 
 @font-face {
-  font-family: Poplar;
-  src: url(./assets/fonts/PoplarStd.ttf) format("ttf"),
-    url(./assets/fonts/PoplarStd.woff) format("woff");
+  font-family: Handwritten;
+  src: url(./assets/fonts/acmesa.ttf) format("ttf"),
+    url(./assets/fonts/acmesa.woff) format("woff");
 }
 
 @font-face {

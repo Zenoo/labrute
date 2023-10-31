@@ -35,13 +35,13 @@ const defaultTypography = {
     fontWeight: 500
   },
   handwritten: {
-    fontFamily: '"Architects Daughter", cursive',
+    fontFamily: '"Handwritten", cursive',
   },
-  Verdana: {
-    fontFamily: 'Verdana',
+  Pixelized: {
+    fontFamily: 'Pixelized',
   },
-  Poplar: {
-    fontFamily: 'Poplar',
+  GameFont: {
+    fontFamily: 'GameFont',
   },
   Blocky: {
     fontFamily: 'Blocky',

@@ -45,7 +45,7 @@ const eat = async (
 
   // Display floating and fading green heal text
   const healText = new Text(`+${step.heal}`, {
-    fontFamily: 'Poplar', fontSize: 20, fill: 0x00ff00,
+    fontFamily: 'GameFont', fontSize: 20, fill: 0x00ff00,
   });
   healText.anchor.set(0.5);
   healText.x = brute.container.x;

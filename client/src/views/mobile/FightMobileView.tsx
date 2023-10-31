@@ -30,7 +30,7 @@ const FightMobileView = ({
         <FightComponent fight={fight} />
 
         {/* ADVERTS */}
-        <Text color="text.primary" center typo="Poplar" upperCase sx={{ mt: 2 }}>{t('fight.discoverGames')}</Text>
+        <Text color="text.primary" center typo="GameFont" upperCase sx={{ mt: 2 }}>{t('fight.discoverGames')}</Text>
         <Grid container spacing={2}>
           {ads.map((ad) => (
             <Grid item key={ad.name} xs={12} sm={6}>

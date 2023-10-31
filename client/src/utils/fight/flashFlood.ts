@@ -106,7 +106,7 @@ const flashFlood = async (
 
     // Display floating and fading damage text
     const damageText = new Text(`-${step.damage}`, {
-      fontFamily: 'Poplar', fontSize: 20, fill: 0xffffff
+      fontFamily: 'GameFont', fontSize: 20, fill: 0xffffff
     });
     damageText.anchor.set(0.5);
     damageText.x = target.container.x;

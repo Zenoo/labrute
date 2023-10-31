@@ -91,21 +91,21 @@ declare module '@mui/material/styles' {
 
   interface Typography {
     handwritten: FontStyle
-    Verdana: FontStyle
-    Poplar: FontStyle
+    Pixelized: FontStyle
+    GameFont: FontStyle
   }
 
   interface TypographyVariants {
     handwritten: React.CSSProperties
-    Verdana: React.CSSProperties
-    Poplar: React.CSSProperties
+    Pixelized: React.CSSProperties
+    GameFont: React.CSSProperties
   }
 
   // allow configuration using `createTheme`
   interface TypographyVariantsOptions {
     handwritten?: React.CSSProperties
-    Verdana?: React.CSSProperties
-    Poplar?: React.CSSProperties
+    Pixelized?: React.CSSProperties
+    GameFont?: React.CSSProperties
   }
 }
 
@@ -113,8 +113,8 @@ declare module '@mui/material/styles' {
 declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
     handwritten: true
-    Verdana: true
-    Poplar: true
+    Pixelized: true
+    GameFont: true
   }
 }
 

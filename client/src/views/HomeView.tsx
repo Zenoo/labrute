@@ -224,7 +224,7 @@ const HomeView = () => {
             {/* CREATION HEADER */}
             <Grid container sx={{ pl: 7, pr: 4, pt: 3 }}>
               <Grid item xs={9} sx={{ pl: 4 }}>
-                <Text sx={{ typography: 'Verdana', fontSize: 10 }} color="secondary">{t('chooseName')}</Text>
+                <Text sx={{ typography: 'Pixelized', fontSize: 7 }} color="secondary">{t('chooseName')}</Text>
               </Grid>
               <Grid item xs={3}>
                 <Box component="img" src="/images/creation/arrow.png" alt={t('arrow')} />
