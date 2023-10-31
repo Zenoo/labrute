@@ -189,7 +189,7 @@
   "spy.effect": "Reduziert ersten erlittenen Schaden um 100%",
   "saboteur": "Saboteur",
   "saboteur.desc": "Von Schwammhämmern bis zu Plastikschwertern: du bist der König der Waffen-Attrappen! Bis deine Gegner das merken, ist es für sie bereits zu spät.",
-  "saboteur.effect": "Destroy one of your opponent's weapon (opponent initiative -100 when used)",
+  "saboteur.effect": "Zerstört vor dem Kampf eine der gegnerischen Waffen (-100 Initiative des Gegners, falls diese gezogen wird)",
   "backup": "Verstärkung",
   "backup.desc": "Im Freundeskreis wird stets alles geteilt. Gut dass du gelernt hast, Schläge auszuteilen, damit die Gegner deiner Kollegen auch was davon haben.",
   "backup.effect": "Dein Brutalo kann stärkeren Schülern im Kampf beiseite stehen",
