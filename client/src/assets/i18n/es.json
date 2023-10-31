@@ -189,7 +189,7 @@
   "spy.effect": "Reduce el primer daño recibido en un 100%.",
   "saboteur": "Saboteador",
   "saboteur.desc": "Desde pequeño ya les sacabas la lengua a tus amigos, hoy eres un verdadero carnicero.",
-  "saboteur.effect": "Destruye un arma de tus enemigos (iniciativa -100 al usar)",
+  "saboteur.effect": "Destruye un arma de tu oponente (también sufre iniciativa -100)",
   "backup": "Apoyo táctico",
   "backup.desc": "Compartir es vivir. ¡Afortunadamente para ti, has aprendido a compartir tus golpes con tus oponentes para que ellos también puedan recibir algunos!",
   "backup.effect": "Tu Bruto puede ayudar a tus otros Brutos de más nivel durante las peleas.",
