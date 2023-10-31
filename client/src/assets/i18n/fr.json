@@ -189,7 +189,7 @@
   "spy.effect": "Réduit de 100% les premiers dégâts subis.",
   "saboteur": "Saboteur",
   "saboteur.desc": "Du marteau en mousse à l'épée en plastique, tu es le roi de l'imitation, tes adversaires n'y voient que du feu.",
-  "saboteur.effect": "Sabote une arme de ton adversaire (initiative -100 lorsqu'elle est utilisée)",
+  "saboteur.effect": "Destroy one of your opponent's weapon (opponent initiative -100 when used)",
   "backup": "Renforts",
   "backup.desc": "Parce que l'amitié, c'est le partage, tu as appris à partager tes baffes pour que les adversaires de tes collègues profitent aussi un peu !",
   "backup.effect": "Ta brute peut intervenir dans les combats de ses collègues de niveau supérieur.",
