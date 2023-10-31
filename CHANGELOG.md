@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.35.6](https://github.com/Zenoo/labrute/compare/labrute-v2.35.5...labrute-v2.35.6) (2023-10-31)
+
+
+### Bug Fixes
+
+* Clarify saboteur description ([600a621](https://github.com/Zenoo/labrute/commit/600a6211fcbd257dbbd5f559232b6ec4c9b6f1d6))
+* New fonts for cyrillic support ([4b8ff66](https://github.com/Zenoo/labrute/commit/4b8ff66e5c429ede8305ecd18ffcb47f4b7ccd17))
+
 ## [2.35.5](https://github.com/Zenoo/labrute/compare/labrute-v2.35.4...labrute-v2.35.5) (2023-10-29)
 
 
