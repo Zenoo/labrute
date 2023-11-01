@@ -952,6 +952,9 @@ const attack = (
   // Abort if fighter is dead
   if (fighter.hp <= 0) return;
 
+  // Was opponent trapped ?
+  const opponentWasTrapped = opponent.trapped;
+
   // Get damage
   let damage = getDamage(fighter, opponent, fighter.activeWeapon || undefined);
 
@@ -1089,7 +1092,7 @@ const attack = (
   }
 
   // Check if the opponent reverses the attack
-  if (!isReversal && damage && reversal(opponent)) {
+  if (!opponentWasTrapped && !isReversal && damage && reversal(opponent)) {
     // Update reversal stat
     updateStats(stats, opponent.id, 'consecutiveReversals', 1);
     checkAchievements(stats, achievements);
