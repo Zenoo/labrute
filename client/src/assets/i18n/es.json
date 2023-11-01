@@ -279,6 +279,7 @@
   "sacrificeSuccess": "Sacrificio exitoso, has conseguido {{gold}} Oro.",
   "callToFight": "Si tienes ganas de descargar tu energía sobre alguien, ¡hazlo aquí! Hay muchos Brutos en la arena deseando intercambiar puñetazos...",
   "arena": "Arena",
+  "arena.search": "GO !",
   "fightsLeft": "Te quedan {{value}} combates para el día de hoy.",
   "fightLeft": "Te queda 1 combate para el día de hoy.",
   "levelUp": "¡Sube de nivel!",

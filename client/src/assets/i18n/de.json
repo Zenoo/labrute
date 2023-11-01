@@ -279,6 +279,7 @@
   "sacrificeSuccess": "Opferung erfolgreich: {{gold}} Gold erhalten",
   "callToFight": "Wenn du dich an jemandem austoben möchtest, kannst du das hier tun! In der Arena gibt's reichlich Brutalos, die nur darauf warten Prügel auszutauschen!",
   "arena": "Arena",
+  "arena.search": "GO !",
   "fightsLeft": "Dir verbleiben heute {{value}} Kämpfe.",
   "fightLeft": "Dir verbleibt heute ein Kampf.",
   "levelUp": "Stufenaufstieg!",

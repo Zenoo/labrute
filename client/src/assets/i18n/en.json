@@ -288,6 +288,7 @@
 
   "callToFight": "If you want to discharge your energy on someone, do it here! There are a lot of Brutes in the Arena who can't wait to swap punches!",
   "arena": "Arena",
+  "arena.search": "GO !",
   "fightsLeft": "You have {{value}} fights left today.",
   "fightLeft": "You have one fight left today.",
   "levelUp": "Level up!",

@@ -208,7 +208,7 @@ const Page = ({
           )}
           <SpeedDialAction
             icon={user.gold >= goldNeeded ? <Add color="success" /> : <DoNotDisturb color="error" />}
-            tooltipTitle={`${t('newBrute')}${getGoldNeededForNewBrute(user) > 0 ? ` (${getGoldNeededForNewBrute(user)} SP)` : ''}`}
+            tooltipTitle={`${t('newBrute')}${getGoldNeededForNewBrute(user) > 0 ? ` (${getGoldNeededForNewBrute(user)} ${t('gold')})` : ''}`}
             tooltipOpen
             onClick={user.gold >= goldNeeded ? goHome : undefined}
             sx={{ textAlign: 'right', whiteSpace: 'nowrap' }}
