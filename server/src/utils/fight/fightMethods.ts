@@ -190,8 +190,9 @@ const randomlyGetSuper = (fightData: DetailedFight['data'], brute: DetailedFight
     supers = supers.filter((skill) => skill.name !== 'tragicPotion');
   }
 
-  // Filter out cryOfTheDamned and hypnosis if opponent has no pets
-  if (getOpponents(fightData, brute, false, true).length === 0) {
+  // Filter out cryOfTheDamned and hypnosis if opponent has no non-trapped pets
+  if (getOpponents(fightData, brute, false, true)
+    .filter((fighter) => !fighter.trapped).length === 0) {
     supers = supers.filter((skill) => skill.name !== 'cryOfTheDamned' && skill.name !== 'hypnosis');
   }
 
@@ -559,9 +560,10 @@ const activateSuper = (
     case 'cryOfTheDamned': {
       // Get main opponent
       const opponent = getMainOpponent(fightData, fighter);
-      // Get opponent's pets
+      // Get opponent's non trapped pets
       const opponentPets = fightData.fighters.filter((f) => f.type === 'pet'
         && f.master === opponent.id
+        && !f.trapped
         && f.hp > 0);
 
       // Abort if no pet
@@ -603,9 +605,10 @@ const activateSuper = (
     case 'hypnosis': {
       // Get main opponent
       const opponent = getMainOpponent(fightData, fighter);
-      // Get opponent's pets
+      // Get opponent's non trapped pets
       const opponentPets = fightData.fighters.filter((f) => f.type === 'pet'
         && f.master === opponent.id
+        && !f.trapped
         && f.hp > 0);
 
       // Keep track of hypnotised pets
