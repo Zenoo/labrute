@@ -945,15 +945,11 @@ const attack = (
   fightData: DetailedFight['data'],
   fighter: DetailedFighter,
   opponent: DetailedFighter,
-  isReversal: boolean,
   stats: Stats,
   achievements: AchievementsStore,
 ) => {
   // Abort if fighter is dead
-  if (fighter.hp <= 0) return;
-
-  // Was opponent trapped ?
-  const opponentWasTrapped = opponent.trapped;
+  if (fighter.hp <= 0) return { blocked: false };
 
   // Get damage
   let damage = getDamage(fighter, opponent, fighter.activeWeapon || undefined);
@@ -989,19 +985,6 @@ const attack = (
     // Update block stat
     updateStats(stats, opponent.id, 'consecutiveBlocks', 1);
     checkAchievements(stats, achievements);
-
-    // Reversal
-    if (!isReversal && (opponent.autoReversalOnBlock || reversal(opponent))) {
-      // Update reversal stat
-      updateStats(stats, opponent.id, 'consecutiveReversals', 1);
-      checkAchievements(stats, achievements);
-
-      // Trigger fighter attack
-      attack(fightData, opponent, fighter, true, stats, achievements);
-    } else {
-      // Reset reversal stat
-      updateStats(stats, opponent.id, 'consecutiveReversals', 0);
-    }
   } else {
     // Reset block stat
     updateStats(stats, opponent.id, 'consecutiveBlocks', 0);
@@ -1091,23 +1074,14 @@ const attack = (
     }
   }
 
-  // Check if the opponent reverses the attack
-  if (!opponentWasTrapped && !isReversal && damage && reversal(opponent)) {
-    // Update reversal stat
-    updateStats(stats, opponent.id, 'consecutiveReversals', 1);
-    checkAchievements(stats, achievements);
-
-    // Trigger opponent attack
-    attack(fightData, opponent, fighter, true, stats, achievements);
-  } else {
-    // Reset reversal stat
-    updateStats(stats, opponent.id, 'consecutiveReversals', 0);
-  }
-
   // Randomly trigger another attack if the fighter has `determination`
   if (!damage && fighter.determination && Math.random() < 0.7) {
     fighter.retryAttack = true;
   }
+
+  return {
+    blocked,
+  };
 };
 
 export const checkDeaths = (fightData: DetailedFight['data']) => {
@@ -1144,8 +1118,18 @@ const startAttack = (
   // Keep track of initial fighter HP
   const initialFighterHp = fighter.hp;
 
+  // Was opponent trapped ?
+  const opponentWasTrapped = opponent.trapped;
+
+  const attackResult = {
+    blocked: false,
+  };
+
   // Trigger fighter attack
-  attack(fightData, fighter, opponent, false, stats, achievements);
+  const { blocked } = attack(fightData, fighter, opponent, stats, achievements);
+
+  // Keep track of blocked status
+  if (blocked) attackResult.blocked = true;
 
   // Keep track of attacks
   let attacksCount = 1;
@@ -1169,10 +1153,28 @@ const startAttack = (
       combo *= 0.5;
 
       // Trigger fighter attack
-      attack(fightData, fighter, opponent, false, stats, achievements);
+      const { blocked: comboBlocked } = attack(fightData, fighter, opponent, stats, achievements);
       attacksCount++;
 
+      // Keep track of blocked status
+      if (comboBlocked) attackResult.blocked = true;
+
       random = Math.random();
+    }
+
+    // Check if the opponent reverses the attack
+    if (!opponentWasTrapped
+      && attackResult.blocked
+      && (opponent.autoReversalOnBlock || reversal(opponent))) {
+      // Update reversal stat
+      updateStats(stats, opponent.id, 'consecutiveReversals', 1);
+      checkAchievements(stats, achievements);
+
+      // Trigger fighter attack
+      attack(fightData, opponent, fighter, stats, achievements);
+    } else {
+      // Reset reversal stat
+      updateStats(stats, opponent.id, 'consecutiveReversals', 0);
     }
 
     // Achievement for combos
