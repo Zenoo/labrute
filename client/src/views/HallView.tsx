@@ -1,6 +1,6 @@
 import { FightStat, getFightsLeft } from '@labrute/core';
-import { CrisisAlert } from '@mui/icons-material';
-import { Box, Paper } from '@mui/material';
+import { Check, CrisisAlert } from '@mui/icons-material';
+import { Box, Paper, Tooltip } from '@mui/material';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -78,7 +78,23 @@ const HallView = () => {
               position: 'relative',
             }}
             >
-              <Text bold color="secondary">{brute.name}</Text>
+              <Box display="flex">
+                {/* Registration status */}
+                {brute.registeredForTournament && (
+                  <Tooltip title={t('bruteRegistered')}>
+                    <Check
+                      fontSize="small"
+                      sx={{
+                        m: 0.25,
+                        p: '2px',
+                        bgcolor: 'warning.main',
+                        borderRadius: '50%',
+                      }}
+                    />
+                  </Tooltip>
+                )}
+                <Text bold color="secondary" sx={{ display: 'inline' }}>{brute.name}</Text>
+              </Box>
               <Text bold smallCaps color="text.primary">
                 {t('level')}
                 <Text component="span" bold color="secondary"> {brute.level}</Text>
@@ -102,30 +118,32 @@ const HallView = () => {
               />
             </Box>
             {/* Fights left */}
-            <Box sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: 21,
-              mt: -1,
-              zIndex: 1,
-            }}
-            >
-              {new Array(getFightsLeft(brute)).fill(0).map((_, i) => (
-                <CrisisAlert
-                  // eslint-disable-next-line react/no-array-index-key
-                  key={i}
-                  fontSize="small"
-                  sx={{
-                    m: 0.25,
-                    p: '2px',
-                    bgcolor: 'success.main',
-                    borderRadius: '50%',
-                    color: 'success.light',
-                  }}
-                />
-              ))}
-            </Box>
+            <Tooltip title={t('fightsLeft', { value: getFightsLeft(brute) })}>
+              <Box sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: 21,
+                mt: -1,
+                zIndex: 1,
+              }}
+              >
+                {new Array(getFightsLeft(brute)).fill(0).map((_, i) => (
+                  <CrisisAlert
+                    // eslint-disable-next-line react/no-array-index-key
+                    key={i}
+                    fontSize="small"
+                    sx={{
+                      m: 0.25,
+                      p: '2px',
+                      bgcolor: 'success.main',
+                      borderRadius: '50%',
+                      color: 'success.light',
+                    }}
+                  />
+                ))}
+              </Box>
+            </Tooltip>
           </StyledButton>
         ))}
       </Paper>

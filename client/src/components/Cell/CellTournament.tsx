@@ -4,9 +4,10 @@ import moment from 'moment';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAlert } from '../../hooks/useAlert';
+import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
-import catchError from '../../utils/catchError';
 import Server from '../../utils/Server';
+import catchError from '../../utils/catchError';
 import FantasyButton from '../FantasyButton';
 import Link from '../Link';
 import StyledButton from '../StyledButton';
@@ -24,6 +25,7 @@ const CellTournament = ({
   const { t } = useTranslation();
   const Alert = useAlert();
   const { brute, owner, updateBrute } = useBrute();
+  const { updateData } = useAuth();
 
   const now = useMemo(() => moment.utc(), []);
   const tomorrow = useMemo(() => moment.utc().add(1, 'day'), []);
@@ -37,8 +39,20 @@ const CellTournament = ({
         ...brute,
         registeredForTournament: true,
       });
+      updateData((data) => (data ? ({
+        ...data,
+        brutes: data.brutes.map((b) => {
+          if (b.name === brute.name) {
+            return {
+              ...b,
+              registeredForTournament: true,
+            };
+          }
+          return b;
+        }),
+      }) : data));
     }).catch(catchError(Alert));
-  }, [Alert, brute, t, updateBrute]);
+  }, [Alert, brute, t, updateBrute, updateData]);
 
   return brute && (
     <>
