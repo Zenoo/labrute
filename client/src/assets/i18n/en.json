@@ -281,10 +281,10 @@
   "pleaseLogin": "Please login before creating a Brute",
   "hall": "Hall",
   "newBrute": "New Brute",
-  "sacrificePoints": "SacriPoints",
+  "gold": "Gold",
   "sacrifice": "Sacrifice",
-  "sacrificeConfirm": "Are you sure you want to sacrifice your brute for {{points}} SacriPoints ? This action cannot be undone.",
-  "sacrificeSuccess": "Sacrifice success, you gained {{points}} SacriPoints",
+  "sacrificeConfirm": "Are you sure you want to sacrifice your brute for {{gold}} Gold ? This action cannot be undone.",
+  "sacrificeSuccess": "Sacrifice success, you gained {{gold}} Gold",
 
   "callToFight": "If you want to discharge your energy on someone, do it here! There are a lot of Brutes in the Arena who can't wait to swap punches!",
   "arena": "Arena",

@@ -1,4 +1,4 @@
-import { BruteRanking, getFightsLeft, getMaxFightsPerDay, getSacriPoints, getXPNeeded, Language, UserWithBrutesBodyColor } from '@labrute/core';
+import { BruteRanking, getFightsLeft, getMaxFightsPerDay, getBruteGoldValue, getXPNeeded, Language, UserWithBrutesBodyColor } from '@labrute/core';
 import { Box, BoxProps, Stack } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useMemo } from 'react';
@@ -53,14 +53,14 @@ const CellMain = ({
   const confirmSacrifice = useCallback(() => {
     if (!brute) return;
 
-    Confirm.open(t('sacrifice'), t('sacrificeConfirm', { points: getSacriPoints(brute) }), () => {
-      Server.Brute.sacrifice(brute.name).then(({ points }) => {
-        Alert.open('success', t('sacrificeSuccess', { points }));
+    Confirm.open(t('sacrifice'), t('sacrificeConfirm', { gold: getBruteGoldValue(brute) }), () => {
+      Server.Brute.sacrifice(brute.name).then(({ gold }) => {
+        Alert.open('success', t('sacrificeSuccess', { gold }));
         navigate('/');
 
         updateData((data) => ({
           ...data,
-          sacrificePoints: (data?.sacrificePoints || 0) + points,
+          gold: (data?.gold || 0) + gold,
           brutes: data?.brutes?.filter((b) => b.name !== brute.name) || [],
         }) as UserWithBrutesBodyColor);
       }).catch(catchError(Alert));

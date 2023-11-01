@@ -112,7 +112,7 @@ exports.Prisma.UserScalarFieldEnum = {
   admin: 'admin',
   connexionToken: 'connexionToken',
   bruteLimit: 'bruteLimit',
-  sacrificePoints: 'sacrificePoints',
+  gold: 'gold',
   fightSpeed: 'fightSpeed',
   backgroundMusic: 'backgroundMusic'
 };

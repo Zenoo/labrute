@@ -175,8 +175,8 @@ const HomeView = () => {
         ...user,
         // Add brute to user brutes
         brutes: user.brutes ? [...user.brutes, response.brute] : [response.brute],
-        // Update points
-        sacrificePoints: user.sacrificePoints - response.pointsLost,
+        // Update gold
+        gold: user.gold - response.goldLost,
         // Update brute limit
         bruteLimit: response.newLimit,
       });

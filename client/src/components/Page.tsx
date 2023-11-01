@@ -1,4 +1,4 @@
-import { getFightsLeft, getSacriPointsNeeded, Language, LANGUAGES, Version } from '@labrute/core';
+import { getFightsLeft, getGoldNeededForNewBrute, Language, LANGUAGES, Version } from '@labrute/core';
 import { AccountCircle, Add, AdminPanelSettings, DoNotDisturb, Login, Logout, MilitaryTech, MoreHoriz } from '@mui/icons-material';
 import { Badge, Box, BoxProps, CircularProgress, Fab, Link, SpeedDial, SpeedDialAction, Tooltip } from '@mui/material';
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
@@ -44,8 +44,8 @@ const Page = ({
   // Speed dial state
   const [open, setOpen] = useState(false);
 
-  // Points needed for a new brute
-  const pointsNeeded = useMemo(() => (user ? getSacriPointsNeeded(user) : 0), [user]);
+  // Gold needed for a new brute
+  const goldNeeded = useMemo(() => (user ? getGoldNeededForNewBrute(user) : 0), [user]);
 
   // Auth on page load
   useEffect(() => {
@@ -175,8 +175,8 @@ const Page = ({
             onClick={logout}
           />
           <SpeedDialAction
-            icon={user.sacrificePoints}
-            tooltipTitle={t('sacrificePoints')}
+            icon={user.gold}
+            tooltipTitle={t('gold')}
             tooltipOpen
           />
           <SpeedDialAction
@@ -207,10 +207,10 @@ const Page = ({
             />
           )}
           <SpeedDialAction
-            icon={user.sacrificePoints >= pointsNeeded ? <Add color="success" /> : <DoNotDisturb color="error" />}
-            tooltipTitle={`${t('newBrute')}${getSacriPointsNeeded(user) > 0 ? ` (${getSacriPointsNeeded(user)} SP)` : ''}`}
+            icon={user.gold >= goldNeeded ? <Add color="success" /> : <DoNotDisturb color="error" />}
+            tooltipTitle={`${t('newBrute')}${getGoldNeededForNewBrute(user) > 0 ? ` (${getGoldNeededForNewBrute(user)} SP)` : ''}`}
             tooltipOpen
-            onClick={user.sacrificePoints >= pointsNeeded ? goHome : undefined}
+            onClick={user.gold >= goldNeeded ? goHome : undefined}
             sx={{ textAlign: 'right', whiteSpace: 'nowrap' }}
           />
         </SpeedDial>
