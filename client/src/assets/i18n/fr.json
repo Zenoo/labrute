@@ -279,6 +279,7 @@
   "sacrificeSuccess": "Sacrifice success, you gained {{gold}} Gold",
   "callToFight": "Si tu as envie de te défouler sur quelqu'un, fait le ici ! Il y a plein d'autres Brutes dans l'arène qui ne demandent qu'à échanger quelques gnons !",
   "arena": "Arène",
+  "arena.search": "GO !",
   "fightsLeft": "Il te reste {{value}} combats aujourd'hui.",
   "fightLeft": "Il te reste un combat aujourd'hui.",
   "levelUp": "Nouveau niveau !",
