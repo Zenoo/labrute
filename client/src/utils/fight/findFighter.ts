@@ -5,6 +5,7 @@ import * as PIXI from 'pixi.js';
 export interface AnimationFighter extends Fighter {
   type: 'brute' | 'pet';
   team: 'left' | 'right';
+  hypnotised?: boolean;
   container: PIXI.Container;
   currentAnimation: PIXI.AnimatedSprite | PIXI.Sprite;
   activeWeapon: (AnimatedWeapon & {
@@ -26,6 +27,7 @@ const findFighter = (
   stepFighter?: StepFighter,
 ) => (stepFighter ? fighters.find((f) => f.name === stepFighter.name
   && f.type === stepFighter.type
+  && f.hypnotised === stepFighter.hypnotised
   && f.master === stepFighter.master) : undefined);
 
 export default findFighter;

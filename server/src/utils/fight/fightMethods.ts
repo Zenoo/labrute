@@ -246,11 +246,22 @@ const randomlyDrawWeapon = (weapons: Weapon[]) => {
   return null;
 };
 
-export const stepFighter = (fighter: DetailedFighter): StepFighter => ({
-  name: fighter.name,
-  type: fighter.type,
-  master: fighter.master,
-});
+export const stepFighter = (fighter: DetailedFighter): StepFighter => {
+  const data: StepFighter = {
+    name: fighter.name,
+    type: fighter.type,
+  };
+
+  if (fighter.master) {
+    data.master = fighter.master;
+  }
+
+  if (fighter.hypnotised) {
+    data.hypnotised = true;
+  }
+
+  return data;
+};
 
 const registerHit = (
   fightData: DetailedFight['data'],
@@ -617,13 +628,11 @@ const activateSuper = (
       for (let i = 0; i < opponentPets.length; i++) {
         const pet = opponentPets[i];
 
-        // Don't hypnotise trapped pets
-        if (!pet.trapped) {
-          hypnotisedPets.push(stepFighter(pet));
+        hypnotisedPets.push(stepFighter(pet));
 
-          // Change pet owner
-          pet.master = fighter.id;
-        }
+        // Change pet owner
+        pet.master = fighter.id;
+        pet.hypnotised = true;
       }
 
       // Abort if no pet hypnotised
