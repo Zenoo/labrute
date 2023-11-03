@@ -39,7 +39,7 @@ const UserAdminView = () => {
         admin: u.admin,
         connexionToken: u.connexionToken,
         bruteLimit: u.bruteLimit,
-        sacrificePoints: u.sacrificePoints,
+        gold: u.gold,
         fightSpeed: u.fightSpeed,
         backgroundMusic: u.backgroundMusic,
       });
@@ -67,7 +67,7 @@ const UserAdminView = () => {
         lang: user.lang,
         admin: user.admin,
         bruteLimit: user.bruteLimit,
-        sacrificePoints: user.sacrificePoints,
+        gold: user.gold,
         fightSpeed: user.fightSpeed,
         backgroundMusic: user.backgroundMusic,
       },
@@ -146,12 +146,12 @@ const UserAdminView = () => {
                   </Grid>
                   <Grid item xs={6} sm={3}>
                     <StyledInput
-                      label="SacriPoints"
-                      value={user.sacrificePoints}
+                      label="Gold"
+                      value={user.gold}
                       onChange={(event) => {
                         setUser((b) => (b ? ({
                           ...b,
-                          sacrificePoints: +event.target.value,
+                          gold: +event.target.value,
                         }) : null));
                       }}
                       fullWidth

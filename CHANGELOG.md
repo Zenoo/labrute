@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.35.7](https://github.com/Zenoo/labrute/compare/labrute-v2.35.6...labrute-v2.35.7) (2023-11-01)
+
+
+### Bug Fixes
+
+* Display registration status in the Hall. Fixes [#357](https://github.com/Zenoo/labrute/issues/357) ([bda0abb](https://github.com/Zenoo/labrute/commit/bda0abbdbe581b06c28fd10cf30b84f093b6d466))
+* Exclude trapped pets from hypnosis and cryOfTheDamned. Fixes [#366](https://github.com/Zenoo/labrute/issues/366) ([63c1af8](https://github.com/Zenoo/labrute/commit/63c1af8584375107c600339243816e29381e0813))
+* Font fixes after new fonts ([a43aa68](https://github.com/Zenoo/labrute/commit/a43aa683aed22f16ac36aa770b602ba12bc8adbf))
+* Invisible backup shields. Fixes [#377](https://github.com/Zenoo/labrute/issues/377) ([48a473d](https://github.com/Zenoo/labrute/commit/48a473d691a2e7aa18d6756b16f8d9cb3b6f34b4))
+* No reversal after breaking out of a net. Fixes [#371](https://github.com/Zenoo/labrute/issues/371) ([4ddd12c](https://github.com/Zenoo/labrute/commit/4ddd12c9650c1afed116ec42a3fe8d4568e18812))
+* Rename SacriPoints to Gold. Fixes [#360](https://github.com/Zenoo/labrute/issues/360) ([e442c3f](https://github.com/Zenoo/labrute/commit/e442c3f245e7827b30257f8017e7a9034a907f2d))
+* Reversal only at the end of the combo. Fixes [#370](https://github.com/Zenoo/labrute/issues/370) ([9731f43](https://github.com/Zenoo/labrute/commit/9731f4301b80ff27967185dc7c28aa475de5396f))
+* Wrong target on hypnotised pets. Fixes [#365](https://github.com/Zenoo/labrute/issues/365) ([7b44c17](https://github.com/Zenoo/labrute/commit/7b44c17474bad0c0d422bd0a40c053617ed5dae2))
+
 ## [2.35.6](https://github.com/Zenoo/labrute/compare/labrute-v2.35.5...labrute-v2.35.6) (2023-10-31)
 
 

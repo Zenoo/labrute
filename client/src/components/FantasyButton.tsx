@@ -41,6 +41,7 @@ const FantasyButton = React.forwardRef<HTMLDivElement, FantasyButtonProps>(({
           typography: 'Pixelized',
           fontSize: 9,
           fontWeight: 600,
+          letterSpacing: 1,
           color: theme.palette[color].contrastText,
           textTransform: 'uppercase',
           py: 1,

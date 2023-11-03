@@ -27,7 +27,7 @@ model User {
   admin           Boolean       @default(false)
   connexionToken  String        @db.Uuid
   bruteLimit      Int           @default(3)
-  sacrificePoints Int           @default(0)
+  gold            Int           @default(0)
   fightSpeed      Int           @default(1)
   backgroundMusic Boolean       @default(true)
   brutes          Brute[]

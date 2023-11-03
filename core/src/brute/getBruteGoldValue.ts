@@ -10,11 +10,11 @@ const getPointsFromLevel = (level: number) => {
   return Math.floor((level - 50) / 10) * 100 + NEW_BRUTE_BASE_COST;
 };
 
-const getSacriPoints = (brute: Brute) => {
+const getBruteGoldValue = (brute: Brute) => {
   const rankPoints = (BruteRankings[0] - brute.ranking) * NEW_BRUTE_BASE_COST;
   const levelPoints = getPointsFromLevel(brute.level);
 
   return rankPoints + levelPoints;
 };
 
-export default getSacriPoints;
+export default getBruteGoldValue;

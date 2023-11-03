@@ -93,6 +93,7 @@ export interface DetailedFighter {
   // Status effects
   poisoned: boolean,
   trapped: boolean,
+  hypnotised?: boolean;
 }
 
 export interface Fighter {
@@ -122,6 +123,7 @@ export interface StepFighter {
   name: string;
   type: 'brute' | 'pet';
   master?: number;
+  hypnotised?: boolean;
 }
 
 export interface SaboteurStep {

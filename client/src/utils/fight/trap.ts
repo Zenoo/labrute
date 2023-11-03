@@ -109,7 +109,7 @@ const trap = async (
   // Wait for animation to complete
   await new Promise((resolve) => {
     (target.currentAnimation as AnimatedSprite).onComplete = () => {
-      // Set target animation to `trapped-end`
+      // Set target animation to `trapped-loop`
       changeAnimation(app, target, 'trapped-loop', speed);
 
       resolve(null);

@@ -190,8 +190,9 @@ const randomlyGetSuper = (fightData: DetailedFight['data'], brute: DetailedFight
     supers = supers.filter((skill) => skill.name !== 'tragicPotion');
   }
 
-  // Filter out cryOfTheDamned and hypnosis if opponent has no pets
-  if (getOpponents(fightData, brute, false, true).length === 0) {
+  // Filter out cryOfTheDamned and hypnosis if opponent has no non-trapped pets
+  if (getOpponents(fightData, brute, false, true)
+    .filter((fighter) => !fighter.trapped).length === 0) {
     supers = supers.filter((skill) => skill.name !== 'cryOfTheDamned' && skill.name !== 'hypnosis');
   }
 
@@ -245,11 +246,22 @@ const randomlyDrawWeapon = (weapons: Weapon[]) => {
   return null;
 };
 
-export const stepFighter = (fighter: DetailedFighter): StepFighter => ({
-  name: fighter.name,
-  type: fighter.type,
-  master: fighter.master,
-});
+export const stepFighter = (fighter: DetailedFighter): StepFighter => {
+  const data: StepFighter = {
+    name: fighter.name,
+    type: fighter.type,
+  };
+
+  if (fighter.master) {
+    data.master = fighter.master;
+  }
+
+  if (fighter.hypnotised) {
+    data.hypnotised = true;
+  }
+
+  return data;
+};
 
 const registerHit = (
   fightData: DetailedFight['data'],
@@ -559,9 +571,10 @@ const activateSuper = (
     case 'cryOfTheDamned': {
       // Get main opponent
       const opponent = getMainOpponent(fightData, fighter);
-      // Get opponent's pets
+      // Get opponent's non trapped pets
       const opponentPets = fightData.fighters.filter((f) => f.type === 'pet'
         && f.master === opponent.id
+        && !f.trapped
         && f.hp > 0);
 
       // Abort if no pet
@@ -603,9 +616,10 @@ const activateSuper = (
     case 'hypnosis': {
       // Get main opponent
       const opponent = getMainOpponent(fightData, fighter);
-      // Get opponent's pets
+      // Get opponent's non trapped pets
       const opponentPets = fightData.fighters.filter((f) => f.type === 'pet'
         && f.master === opponent.id
+        && !f.trapped
         && f.hp > 0);
 
       // Keep track of hypnotised pets
@@ -614,13 +628,11 @@ const activateSuper = (
       for (let i = 0; i < opponentPets.length; i++) {
         const pet = opponentPets[i];
 
-        // Don't hypnotise trapped pets
-        if (!pet.trapped) {
-          hypnotisedPets.push(stepFighter(pet));
+        hypnotisedPets.push(stepFighter(pet));
 
-          // Change pet owner
-          pet.master = fighter.id;
-        }
+        // Change pet owner
+        pet.master = fighter.id;
+        pet.hypnotised = true;
       }
 
       // Abort if no pet hypnotised
@@ -945,12 +957,11 @@ const attack = (
   fightData: DetailedFight['data'],
   fighter: DetailedFighter,
   opponent: DetailedFighter,
-  isReversal: boolean,
   stats: Stats,
   achievements: AchievementsStore,
 ) => {
   // Abort if fighter is dead
-  if (fighter.hp <= 0) return;
+  if (fighter.hp <= 0) return { blocked: false };
 
   // Get damage
   let damage = getDamage(fighter, opponent, fighter.activeWeapon || undefined);
@@ -986,19 +997,6 @@ const attack = (
     // Update block stat
     updateStats(stats, opponent.id, 'consecutiveBlocks', 1);
     checkAchievements(stats, achievements);
-
-    // Reversal
-    if (!isReversal && (opponent.autoReversalOnBlock || reversal(opponent))) {
-      // Update reversal stat
-      updateStats(stats, opponent.id, 'consecutiveReversals', 1);
-      checkAchievements(stats, achievements);
-
-      // Trigger fighter attack
-      attack(fightData, opponent, fighter, true, stats, achievements);
-    } else {
-      // Reset reversal stat
-      updateStats(stats, opponent.id, 'consecutiveReversals', 0);
-    }
   } else {
     // Reset block stat
     updateStats(stats, opponent.id, 'consecutiveBlocks', 0);
@@ -1088,23 +1086,14 @@ const attack = (
     }
   }
 
-  // Check if the opponent reverses the attack
-  if (!isReversal && damage && reversal(opponent)) {
-    // Update reversal stat
-    updateStats(stats, opponent.id, 'consecutiveReversals', 1);
-    checkAchievements(stats, achievements);
-
-    // Trigger opponent attack
-    attack(fightData, opponent, fighter, true, stats, achievements);
-  } else {
-    // Reset reversal stat
-    updateStats(stats, opponent.id, 'consecutiveReversals', 0);
-  }
-
   // Randomly trigger another attack if the fighter has `determination`
   if (!damage && fighter.determination && Math.random() < 0.7) {
     fighter.retryAttack = true;
   }
+
+  return {
+    blocked,
+  };
 };
 
 export const checkDeaths = (fightData: DetailedFight['data']) => {
@@ -1141,8 +1130,18 @@ const startAttack = (
   // Keep track of initial fighter HP
   const initialFighterHp = fighter.hp;
 
+  // Was opponent trapped ?
+  const opponentWasTrapped = opponent.trapped;
+
+  const attackResult = {
+    blocked: false,
+  };
+
   // Trigger fighter attack
-  attack(fightData, fighter, opponent, false, stats, achievements);
+  const { blocked } = attack(fightData, fighter, opponent, stats, achievements);
+
+  // Keep track of blocked status
+  if (blocked) attackResult.blocked = true;
 
   // Keep track of attacks
   let attacksCount = 1;
@@ -1166,10 +1165,28 @@ const startAttack = (
       combo *= 0.5;
 
       // Trigger fighter attack
-      attack(fightData, fighter, opponent, false, stats, achievements);
+      const { blocked: comboBlocked } = attack(fightData, fighter, opponent, stats, achievements);
       attacksCount++;
 
+      // Keep track of blocked status
+      if (comboBlocked) attackResult.blocked = true;
+
       random = Math.random();
+    }
+
+    // Check if the opponent reverses the attack
+    if (!opponentWasTrapped
+      && attackResult.blocked
+      && (opponent.autoReversalOnBlock || reversal(opponent))) {
+      // Update reversal stat
+      updateStats(stats, opponent.id, 'consecutiveReversals', 1);
+      checkAchievements(stats, achievements);
+
+      // Trigger fighter attack
+      attack(fightData, opponent, fighter, stats, achievements);
+    } else {
+      // Reset reversal stat
+      updateStats(stats, opponent.id, 'consecutiveReversals', 0);
     }
 
     // Achievement for combos

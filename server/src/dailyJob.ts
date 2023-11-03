@@ -368,7 +368,7 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
 
     // Only for real brutes
     if (winner.userId) {
-      // Add 100 Sacripoints to winner user
+      // Add 100 Gold to winner user
       await prisma.tournamentEarning.create({
         data: {
           bruteId: winner.id,
@@ -567,7 +567,7 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
     throw new Error('Tournament winner has no user');
   }
 
-  // Add 150 SacriPoints to the winner user
+  // Add 150 Gold to the winner user
   await prisma.tournamentEarning.create({
     data: {
       bruteId: roundBrutes[0].id,
@@ -659,10 +659,10 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
 
   for (const earning of earnings) {
     if (earning.points && earning.brute.userId) {
-      // Add SacriPoints to the user
+      // Add Gold to the user
       await prisma.user.update({
         where: { id: earning.brute.userId },
-        data: { sacrificePoints: { increment: earning.points } },
+        data: { gold: { increment: earning.points } },
       });
     }
 

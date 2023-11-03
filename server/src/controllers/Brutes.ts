@@ -9,7 +9,7 @@ import {
   BruteWithBodyColors, createRandomBruteStats,
   DestinyBranch, ExpectedError, getFightsLeft, getLevelUpChoices,
   getMaxFightsPerDay,
-  getSacriPoints, getSacriPointsNeeded, getXPNeeded,
+  getBruteGoldValue, getGoldNeededForNewBrute, getXPNeeded,
   increaseAchievement, randomBetween, updateBruteData,
   canLevelUp,
 } from '@labrute/core';
@@ -129,23 +129,23 @@ const Brutes = {
         throw new ExpectedError('This name is already taken');
       }
 
-      let pointsLost = 0;
+      let goldLost = 0;
       let newLimit = user.bruteLimit;
-      // Refuse if user has too many brutes and not enough points
+      // Refuse if user has too many brutes and not enough gold
       if (user.brutes.length >= user.bruteLimit) {
-        const sacriPoints = getSacriPointsNeeded(user);
-        if (user.sacrificePoints < sacriPoints) {
-          throw new ExpectedError(`You have reached your brute limit. You need ${sacriPoints} Sacripoints to unlock a new brute.`);
+        const gold = getGoldNeededForNewBrute(user);
+        if (user.gold < gold) {
+          throw new ExpectedError(`You have reached your brute limit. You need ${gold} Gold to unlock a new brute.`);
         } else {
-          // Remove XXX sacrifice points and update brute limit
+          // Remove XXX Gold and update brute limit
           await prisma.user.update({
             where: { id: user.id },
             data: {
-              sacrificePoints: { decrement: sacriPoints },
+              gold: { decrement: gold },
               bruteLimit: { increment: 1 },
             },
           });
-          pointsLost = sacriPoints;
+          goldLost = gold;
           newLimit += 1;
         }
       }
@@ -223,7 +223,7 @@ const Brutes = {
         workerData: brute,
       });
 
-      res.send({ brute, pointsLost, newLimit });
+      res.send({ brute, goldLost, newLimit });
     } catch (error) {
       sendError(res, error);
     }
@@ -492,12 +492,12 @@ const Brutes = {
         throw new ExpectedError('You cannot sacrifice your brute the day of creation');
       }
 
-      // Add SacriPoints to user
-      const sacriPoints = getSacriPoints(brute);
+      // Add Gold to user
+      const gold = getBruteGoldValue(brute);
       await prisma.user.update({
         where: { id: user.id },
         data: {
-          sacrificePoints: { increment: sacriPoints },
+          gold: { increment: gold },
         },
       });
 
@@ -575,7 +575,7 @@ const Brutes = {
       // Achievement
       await increaseAchievement(prisma, user.id, null, 'sacrifice');
 
-      res.send({ points: sacriPoints });
+      res.send({ gold });
     } catch (error) {
       sendError(res, error);
     }

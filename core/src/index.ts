@@ -9,8 +9,8 @@ import getMaxFightsPerDay from './brute/getMaxFightsPerDay';
 import getRandomBody from './brute/getRandomBody';
 import getRandomBonus from './brute/getRandomBonus';
 import getRandomColors from './brute/getRandomColors';
-import getSacriPoints from './brute/getSacriPoints';
-import getSacriPointsNeeded from './brute/getSacriPointsNeeded';
+import getBruteGoldValue from './brute/getBruteGoldValue';
+import getGoldNeededForNewBrute from './brute/getGoldNeededForNewBrute';
 import getXPNeeded from './brute/getXPNeeded';
 import pets from './brute/pets';
 import skills from './brute/skills';
@@ -46,8 +46,8 @@ export {
   getRandomBody,
   getRandomBonus,
   getRandomColors,
-  getSacriPoints,
-  getSacriPointsNeeded,
+  getBruteGoldValue,
+  getGoldNeededForNewBrute,
   getXPNeeded,
   ExpectedError,
   hexToRgba,
@@ -102,7 +102,7 @@ export type BrutesGetFightsLeftResponse = {
 };
 export type BrutesCreateResponse = {
   brute: BruteWithBodyColors,
-  pointsLost: number,
+  goldLost: number,
   newLimit: number,
 };
 

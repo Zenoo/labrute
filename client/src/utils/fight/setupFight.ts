@@ -324,10 +324,8 @@ const setupFight: (
     };
 
     // Update brute weapons
-    if (!fighter.master) {
-      updateWeapons(app, animationFighter);
-      updateActiveWeapon(app, animationFighter, null);
-    }
+    updateWeapons(app, animationFighter);
+    updateActiveWeapon(app, animationFighter, null);
 
     return animationFighter;
   });
@@ -513,7 +511,7 @@ const setupFight: (
   // Display win message at the bottom
   const winMessage = new PIXI.Text(t('fight.wonTheFight', { brute: fight.winner }).toLocaleUpperCase(), {
     fontFamily: 'GameFont',
-    fontSize: 30,
+    fontSize: 20,
     fill: 0xffffff,
     align: 'center',
   });
