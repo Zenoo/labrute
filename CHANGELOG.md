@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.36.1](https://github.com/Zenoo/labrute/compare/labrute-v2.36.0...labrute-v2.36.1) (2023-11-04)
+
+
+### Bug Fixes
+
+* Added the report button on mobile ([bfb1262](https://github.com/Zenoo/labrute/commit/bfb12627051d172af712cca920cf7d134f49c33d))
+
 ## [2.36.0](https://github.com/Zenoo/labrute/compare/labrute-v2.35.8...labrute-v2.36.0) (2023-11-04)
 
 
