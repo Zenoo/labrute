@@ -6,44 +6,46 @@ const {
   objectEnumValues,
   makeStrictEnum,
   Public,
+  detectRuntime,
 } = require('./runtime/index-browser')
 
 
 const Prisma = {}
 
 exports.Prisma = Prisma
+exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 5.0.0
- * Query Engine version: 6b0aef69b7cdfc787f822ecd7cdc76d5f1991584
+ * Prisma Client JS version: 5.5.2
+ * Query Engine version: aebc046ce8b88ebbcb45efe31cbe7d06fd6abc0a
  */
 Prisma.prismaVersion = {
-  client: "5.0.0",
-  engine: "6b0aef69b7cdfc787f822ecd7cdc76d5f1991584"
+  client: "5.5.2",
+  engine: "aebc046ce8b88ebbcb45efe31cbe7d06fd6abc0a"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
-  throw new Error(`PrismaClientKnownRequestError is unable to be run in the browser.
+  throw new Error(`PrismaClientKnownRequestError is unable to be run ${runtimeDescription}.
 In case this error is unexpected for you, please report it in https://github.com/prisma/prisma/issues`,
 )};
 Prisma.PrismaClientUnknownRequestError = () => {
-  throw new Error(`PrismaClientUnknownRequestError is unable to be run in the browser.
+  throw new Error(`PrismaClientUnknownRequestError is unable to be run ${runtimeDescription}.
 In case this error is unexpected for you, please report it in https://github.com/prisma/prisma/issues`,
 )}
 Prisma.PrismaClientRustPanicError = () => {
-  throw new Error(`PrismaClientRustPanicError is unable to be run in the browser.
+  throw new Error(`PrismaClientRustPanicError is unable to be run ${runtimeDescription}.
 In case this error is unexpected for you, please report it in https://github.com/prisma/prisma/issues`,
 )}
 Prisma.PrismaClientInitializationError = () => {
-  throw new Error(`PrismaClientInitializationError is unable to be run in the browser.
+  throw new Error(`PrismaClientInitializationError is unable to be run ${runtimeDescription}.
 In case this error is unexpected for you, please report it in https://github.com/prisma/prisma/issues`,
 )}
 Prisma.PrismaClientValidationError = () => {
-  throw new Error(`PrismaClientValidationError is unable to be run in the browser.
+  throw new Error(`PrismaClientValidationError is unable to be run ${runtimeDescription}.
 In case this error is unexpected for you, please report it in https://github.com/prisma/prisma/issues`,
 )}
 Prisma.NotFoundError = () => {
-  throw new Error(`NotFoundError is unable to be run in the browser.
+  throw new Error(`NotFoundError is unable to be run ${runtimeDescription}.
 In case this error is unexpected for you, please report it in https://github.com/prisma/prisma/issues`,
 )}
 Prisma.Decimal = Decimal
@@ -52,19 +54,19 @@ Prisma.Decimal = Decimal
  * Re-export of sql-template-tag
  */
 Prisma.sql = () => {
-  throw new Error(`sqltag is unable to be run in the browser.
+  throw new Error(`sqltag is unable to be run ${runtimeDescription}.
 In case this error is unexpected for you, please report it in https://github.com/prisma/prisma/issues`,
 )}
 Prisma.empty = () => {
-  throw new Error(`empty is unable to be run in the browser.
+  throw new Error(`empty is unable to be run ${runtimeDescription}.
 In case this error is unexpected for you, please report it in https://github.com/prisma/prisma/issues`,
 )}
 Prisma.join = () => {
-  throw new Error(`join is unable to be run in the browser.
+  throw new Error(`join is unable to be run ${runtimeDescription}.
 In case this error is unexpected for you, please report it in https://github.com/prisma/prisma/issues`,
 )}
 Prisma.raw = () => {
-  throw new Error(`raw is unable to be run in the browser.
+  throw new Error(`raw is unable to be run ${runtimeDescription}.
 In case this error is unexpected for you, please report it in https://github.com/prisma/prisma/issues`,
 )}
 Prisma.validator = Public.validator
@@ -73,11 +75,11 @@ Prisma.validator = Public.validator
 * Extensions
 */
 Prisma.getExtensionContext = () => {
-  throw new Error(`Extensions.getExtensionContext is unable to be run in the browser.
+  throw new Error(`Extensions.getExtensionContext is unable to be run ${runtimeDescription}.
 In case this error is unexpected for you, please report it in https://github.com/prisma/prisma/issues`,
 )}
 Prisma.defineExtension = () => {
-  throw new Error(`Extensions.defineExtension is unable to be run in the browser.
+  throw new Error(`Extensions.defineExtension is unable to be run ${runtimeDescription}.
 In case this error is unexpected for you, please report it in https://github.com/prisma/prisma/issues`,
 )}
 
@@ -276,6 +278,15 @@ exports.Prisma.AchievementScalarFieldEnum = {
   userId: 'userId'
 };
 
+exports.Prisma.BruteReportScalarFieldEnum = {
+  id: 'id',
+  bruteId: 'bruteId',
+  userId: 'userId',
+  reason: 'reason',
+  date: 'date',
+  status: 'status'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -305,7 +316,7 @@ exports.Prisma.JsonNullValueFilter = {
   JsonNull: Prisma.JsonNull,
   AnyNull: Prisma.AnyNull
 };
-exports.Lang = {
+exports.Lang = exports.$Enums.Lang = {
   en: 'en',
   fr: 'fr',
   de: 'de',
@@ -313,17 +324,17 @@ exports.Lang = {
   ru: 'ru'
 };
 
-exports.Gender = {
+exports.Gender = exports.$Enums.Gender = {
   male: 'male',
   female: 'female'
 };
 
-exports.DestinyChoiceSide = {
+exports.DestinyChoiceSide = exports.$Enums.DestinyChoiceSide = {
   LEFT: 'LEFT',
   RIGHT: 'RIGHT'
 };
 
-exports.WeaponName = {
+exports.WeaponName = exports.$Enums.WeaponName = {
   fan: 'fan',
   keyboard: 'keyboard',
   knife: 'knife',
@@ -352,7 +363,7 @@ exports.WeaponName = {
   sword: 'sword'
 };
 
-exports.SkillName = {
+exports.SkillName = exports.$Enums.SkillName = {
   herculeanStrength: 'herculeanStrength',
   felineAgility: 'felineAgility',
   lightningBolt: 'lightningBolt',
@@ -399,7 +410,7 @@ exports.SkillName = {
   monk: 'monk'
 };
 
-exports.PetName = {
+exports.PetName = exports.$Enums.PetName = {
   dog1: 'dog1',
   dog2: 'dog2',
   dog3: 'dog3',
@@ -407,7 +418,7 @@ exports.PetName = {
   bear: 'bear'
 };
 
-exports.LogType = {
+exports.LogType = exports.$Enums.LogType = {
   win: 'win',
   lose: 'lose',
   child: 'child',
@@ -419,27 +430,27 @@ exports.LogType = {
   tournamentXp: 'tournamentXp'
 };
 
-exports.DestinyChoiceType = {
+exports.DestinyChoiceType = exports.$Enums.DestinyChoiceType = {
   skill: 'skill',
   weapon: 'weapon',
   pet: 'pet',
   stats: 'stats'
 };
 
-exports.BruteStat = {
+exports.BruteStat = exports.$Enums.BruteStat = {
   endurance: 'endurance',
   strength: 'strength',
   agility: 'agility',
   speed: 'speed'
 };
 
-exports.TournamentType = {
+exports.TournamentType = exports.$Enums.TournamentType = {
   DAILY: 'DAILY',
   GLOBAL: 'GLOBAL',
   CUSTOM: 'CUSTOM'
 };
 
-exports.AchievementName = {
+exports.AchievementName = exports.$Enums.AchievementName = {
   wins: 'wins',
   defeats: 'defeats',
   flawless: 'flawless',
@@ -537,6 +548,12 @@ exports.AchievementName = {
   bug: 'bug'
 };
 
+exports.BruteReportStatus = exports.$Enums.BruteReportStatus = {
+  pending: 'pending',
+  accepted: 'accepted',
+  rejected: 'rejected'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   BruteBody: 'BruteBody',
@@ -550,20 +567,41 @@ exports.Prisma.ModelName = {
   Tournament: 'Tournament',
   TournamentStep: 'TournamentStep',
   TournamentEarning: 'TournamentEarning',
-  Achievement: 'Achievement'
+  Achievement: 'Achievement',
+  BruteReport: 'BruteReport'
 };
 
 /**
- * Create the Client
+ * This is a stub Prisma Client that will error at runtime if called.
  */
 class PrismaClient {
   constructor() {
-    throw new Error(
-      `PrismaClient is unable to be run in the browser.
-In case this error is unexpected for you, please report it in https://github.com/prisma/prisma/issues`,
-    )
+    return new Proxy(this, {
+      get(target, prop) {
+        const runtime = detectRuntime()
+        const edgeRuntimeName = {
+          'workerd': 'Cloudflare Workers',
+          'deno': 'Deno and Deno Deploy',
+          'netlify': 'Netlify Edge Functions',
+          'edge-light': 'Vercel Edge Functions',
+        }[runtime]
+
+        let message = 'PrismaClient is unable to run in '
+        if (edgeRuntimeName !== undefined) {
+          message += edgeRuntimeName + '. As an alternative, try Accelerate: https://pris.ly/d/accelerate.'
+        } else {
+          message += 'this browser environment, or has been bundled for the browser (running in `' + runtime + '`).'
+        }
+        
+        message += `
+If this is unexpected, please open an issue: https://github.com/prisma/prisma/issues`
+
+        throw new Error(message)
+      }
+    })
   }
 }
+
 exports.PrismaClient = PrismaClient
 
 Object.assign(exports, Prisma)
