@@ -353,6 +353,13 @@ export const AchievementName: {
 export type AchievementName = (typeof AchievementName)[keyof typeof AchievementName]
 
 
+export const BruteReportReason: {
+  name: 'name'
+};
+
+export type BruteReportReason = (typeof BruteReportReason)[keyof typeof BruteReportReason]
+
+
 export const BruteReportStatus: {
   pending: 'pending',
   accepted: 'accepted',
@@ -406,6 +413,10 @@ export const TournamentType: typeof $Enums.TournamentType
 export type AchievementName = $Enums.AchievementName
 
 export const AchievementName: typeof $Enums.AchievementName
+
+export type BruteReportReason = $Enums.BruteReportReason
+
+export const BruteReportReason: typeof $Enums.BruteReportReason
 
 export type BruteReportStatus = $Enums.BruteReportStatus
 
@@ -2550,6 +2561,40 @@ export namespace Prisma {
    */
   export type TournamentCountOutputTypeCountStepsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TournamentStepWhereInput
+  }
+
+
+
+  /**
+   * Count Type BruteReportCountOutputType
+   */
+
+  export type BruteReportCountOutputType = {
+    users: number
+  }
+
+  export type BruteReportCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    users?: boolean | BruteReportCountOutputTypeCountUsersArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * BruteReportCountOutputType without action
+   */
+  export type BruteReportCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteReportCountOutputType
+     */
+    select?: BruteReportCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * BruteReportCountOutputType without action
+   */
+  export type BruteReportCountOutputTypeCountUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
   }
 
 
@@ -16584,18 +16629,20 @@ export namespace Prisma {
   export type BruteReportAvgAggregateOutputType = {
     id: number | null
     bruteId: number | null
+    count: number | null
   }
 
   export type BruteReportSumAggregateOutputType = {
     id: number | null
     bruteId: number | null
+    count: number | null
   }
 
   export type BruteReportMinAggregateOutputType = {
     id: number | null
     bruteId: number | null
-    userId: string | null
-    reason: string | null
+    reason: $Enums.BruteReportReason | null
+    count: number | null
     date: Date | null
     status: $Enums.BruteReportStatus | null
   }
@@ -16603,8 +16650,8 @@ export namespace Prisma {
   export type BruteReportMaxAggregateOutputType = {
     id: number | null
     bruteId: number | null
-    userId: string | null
-    reason: string | null
+    reason: $Enums.BruteReportReason | null
+    count: number | null
     date: Date | null
     status: $Enums.BruteReportStatus | null
   }
@@ -16612,8 +16659,8 @@ export namespace Prisma {
   export type BruteReportCountAggregateOutputType = {
     id: number
     bruteId: number
-    userId: number
     reason: number
+    count: number
     date: number
     status: number
     _all: number
@@ -16623,18 +16670,20 @@ export namespace Prisma {
   export type BruteReportAvgAggregateInputType = {
     id?: true
     bruteId?: true
+    count?: true
   }
 
   export type BruteReportSumAggregateInputType = {
     id?: true
     bruteId?: true
+    count?: true
   }
 
   export type BruteReportMinAggregateInputType = {
     id?: true
     bruteId?: true
-    userId?: true
     reason?: true
+    count?: true
     date?: true
     status?: true
   }
@@ -16642,8 +16691,8 @@ export namespace Prisma {
   export type BruteReportMaxAggregateInputType = {
     id?: true
     bruteId?: true
-    userId?: true
     reason?: true
+    count?: true
     date?: true
     status?: true
   }
@@ -16651,8 +16700,8 @@ export namespace Prisma {
   export type BruteReportCountAggregateInputType = {
     id?: true
     bruteId?: true
-    userId?: true
     reason?: true
+    count?: true
     date?: true
     status?: true
     _all?: true
@@ -16747,8 +16796,8 @@ export namespace Prisma {
   export type BruteReportGroupByOutputType = {
     id: number
     bruteId: number
-    userId: string
-    reason: string
+    reason: $Enums.BruteReportReason
+    count: number
     date: Date
     status: $Enums.BruteReportStatus
     _count: BruteReportCountAggregateOutputType | null
@@ -16775,26 +16824,28 @@ export namespace Prisma {
   export type BruteReportSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     bruteId?: boolean
-    userId?: boolean
     reason?: boolean
+    count?: boolean
     date?: boolean
     status?: boolean
     brute?: boolean | BruteDefaultArgs<ExtArgs>
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    users?: boolean | BruteReport$usersArgs<ExtArgs>
+    _count?: boolean | BruteReportCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["bruteReport"]>
 
   export type BruteReportSelectScalar = {
     id?: boolean
     bruteId?: boolean
-    userId?: boolean
     reason?: boolean
+    count?: boolean
     date?: boolean
     status?: boolean
   }
 
   export type BruteReportInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brute?: boolean | BruteDefaultArgs<ExtArgs>
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    users?: boolean | BruteReport$usersArgs<ExtArgs>
+    _count?: boolean | BruteReportCountOutputTypeDefaultArgs<ExtArgs>
   }
 
 
@@ -16802,13 +16853,13 @@ export namespace Prisma {
     name: "BruteReport"
     objects: {
       brute: Prisma.$BrutePayload<ExtArgs>
-      user: Prisma.$UserPayload<ExtArgs>
+      users: Prisma.$UserPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       bruteId: number
-      userId: string
-      reason: string
+      reason: $Enums.BruteReportReason
+      count: number
       date: Date
       status: $Enums.BruteReportStatus
     }, ExtArgs["result"]["bruteReport"]>
@@ -17178,7 +17229,7 @@ export namespace Prisma {
 
     brute<T extends BruteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BruteDefaultArgs<ExtArgs>>): Prisma__BruteClient<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+    users<T extends BruteReport$usersArgs<ExtArgs> = {}>(args?: Subset<T, BruteReport$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -17210,8 +17261,8 @@ export namespace Prisma {
   interface BruteReportFieldRefs {
     readonly id: FieldRef<"BruteReport", 'Int'>
     readonly bruteId: FieldRef<"BruteReport", 'Int'>
-    readonly userId: FieldRef<"BruteReport", 'String'>
-    readonly reason: FieldRef<"BruteReport", 'String'>
+    readonly reason: FieldRef<"BruteReport", 'BruteReportReason'>
+    readonly count: FieldRef<"BruteReport", 'Int'>
     readonly date: FieldRef<"BruteReport", 'DateTime'>
     readonly status: FieldRef<"BruteReport", 'BruteReportStatus'>
   }
@@ -17526,6 +17577,27 @@ export namespace Prisma {
 
 
   /**
+   * BruteReport.users
+   */
+  export type BruteReport$usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    cursor?: UserWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+
+  /**
    * BruteReport without action
    */
   export type BruteReportDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -17768,8 +17840,8 @@ export namespace Prisma {
   export const BruteReportScalarFieldEnum: {
     id: 'id',
     bruteId: 'bruteId',
-    userId: 'userId',
     reason: 'reason',
+    count: 'count',
     date: 'date',
     status: 'status'
   };
@@ -18069,6 +18141,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'BruteReportReason'
+   */
+  export type EnumBruteReportReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BruteReportReason'>
+    
+
+
+  /**
+   * Reference to a field of type 'BruteReportReason[]'
+   */
+  export type ListEnumBruteReportReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BruteReportReason[]'>
+    
+
+
+  /**
    * Reference to a field of type 'BruteReportStatus'
    */
   export type EnumBruteReportStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BruteReportStatus'>
@@ -18134,7 +18220,7 @@ export namespace Prisma {
     brutes?: BruteListRelationFilter
     achievements?: AchievementListRelationFilter
     reports?: BruteReportListRelationFilter
-  }, "id">
+  }, "id" | "id">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
@@ -19242,23 +19328,23 @@ export namespace Prisma {
     NOT?: BruteReportWhereInput | BruteReportWhereInput[]
     id?: IntFilter<"BruteReport"> | number
     bruteId?: IntFilter<"BruteReport"> | number
-    userId?: UuidFilter<"BruteReport"> | string
-    reason?: StringFilter<"BruteReport"> | string
+    reason?: EnumBruteReportReasonFilter<"BruteReport"> | $Enums.BruteReportReason
+    count?: IntFilter<"BruteReport"> | number
     date?: DateTimeFilter<"BruteReport"> | Date | string
     status?: EnumBruteReportStatusFilter<"BruteReport"> | $Enums.BruteReportStatus
     brute?: XOR<BruteRelationFilter, BruteWhereInput>
-    user?: XOR<UserRelationFilter, UserWhereInput>
+    users?: UserListRelationFilter
   }
 
   export type BruteReportOrderByWithRelationInput = {
     id?: SortOrder
     bruteId?: SortOrder
-    userId?: SortOrder
     reason?: SortOrder
+    count?: SortOrder
     date?: SortOrder
     status?: SortOrder
     brute?: BruteOrderByWithRelationInput
-    user?: UserOrderByWithRelationInput
+    users?: UserOrderByRelationAggregateInput
   }
 
   export type BruteReportWhereUniqueInput = Prisma.AtLeast<{
@@ -19267,19 +19353,19 @@ export namespace Prisma {
     OR?: BruteReportWhereInput[]
     NOT?: BruteReportWhereInput | BruteReportWhereInput[]
     bruteId?: IntFilter<"BruteReport"> | number
-    userId?: UuidFilter<"BruteReport"> | string
-    reason?: StringFilter<"BruteReport"> | string
+    reason?: EnumBruteReportReasonFilter<"BruteReport"> | $Enums.BruteReportReason
+    count?: IntFilter<"BruteReport"> | number
     date?: DateTimeFilter<"BruteReport"> | Date | string
     status?: EnumBruteReportStatusFilter<"BruteReport"> | $Enums.BruteReportStatus
     brute?: XOR<BruteRelationFilter, BruteWhereInput>
-    user?: XOR<UserRelationFilter, UserWhereInput>
+    users?: UserListRelationFilter
   }, "id">
 
   export type BruteReportOrderByWithAggregationInput = {
     id?: SortOrder
     bruteId?: SortOrder
-    userId?: SortOrder
     reason?: SortOrder
+    count?: SortOrder
     date?: SortOrder
     status?: SortOrder
     _count?: BruteReportCountOrderByAggregateInput
@@ -19295,8 +19381,8 @@ export namespace Prisma {
     NOT?: BruteReportScalarWhereWithAggregatesInput | BruteReportScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"BruteReport"> | number
     bruteId?: IntWithAggregatesFilter<"BruteReport"> | number
-    userId?: UuidWithAggregatesFilter<"BruteReport"> | string
-    reason?: StringWithAggregatesFilter<"BruteReport"> | string
+    reason?: EnumBruteReportReasonWithAggregatesFilter<"BruteReport"> | $Enums.BruteReportReason
+    count?: IntWithAggregatesFilter<"BruteReport"> | number
     date?: DateTimeWithAggregatesFilter<"BruteReport"> | Date | string
     status?: EnumBruteReportStatusWithAggregatesFilter<"BruteReport"> | $Enums.BruteReportStatus
   }
@@ -19313,7 +19399,7 @@ export namespace Prisma {
     backgroundMusic?: boolean
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
-    reports?: BruteReportCreateNestedManyWithoutUserInput
+    reports?: BruteReportCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -19328,7 +19414,7 @@ export namespace Prisma {
     backgroundMusic?: boolean
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
-    reports?: BruteReportUncheckedCreateNestedManyWithoutUserInput
+    reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserUpdateInput = {
@@ -19343,7 +19429,7 @@ export namespace Prisma {
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
-    reports?: BruteReportUpdateManyWithoutUserNestedInput
+    reports?: BruteReportUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -19358,7 +19444,7 @@ export namespace Prisma {
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
-    reports?: BruteReportUncheckedUpdateManyWithoutUserNestedInput
+    reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -20535,50 +20621,55 @@ export namespace Prisma {
   }
 
   export type BruteReportCreateInput = {
-    reason: string
+    reason?: $Enums.BruteReportReason
+    count?: number
     date?: Date | string
-    status: $Enums.BruteReportStatus
+    status?: $Enums.BruteReportStatus
     brute: BruteCreateNestedOneWithoutReportsInput
-    user: UserCreateNestedOneWithoutReportsInput
+    users?: UserCreateNestedManyWithoutReportsInput
   }
 
   export type BruteReportUncheckedCreateInput = {
     id?: number
     bruteId: number
-    userId: string
-    reason: string
+    reason?: $Enums.BruteReportReason
+    count?: number
     date?: Date | string
-    status: $Enums.BruteReportStatus
+    status?: $Enums.BruteReportStatus
+    users?: UserUncheckedCreateNestedManyWithoutReportsInput
   }
 
   export type BruteReportUpdateInput = {
-    reason?: StringFieldUpdateOperationsInput | string
+    reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
+    count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBruteReportStatusFieldUpdateOperationsInput | $Enums.BruteReportStatus
     brute?: BruteUpdateOneRequiredWithoutReportsNestedInput
-    user?: UserUpdateOneRequiredWithoutReportsNestedInput
+    users?: UserUpdateManyWithoutReportsNestedInput
   }
 
   export type BruteReportUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     bruteId?: IntFieldUpdateOperationsInput | number
-    userId?: StringFieldUpdateOperationsInput | string
-    reason?: StringFieldUpdateOperationsInput | string
+    reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
+    count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBruteReportStatusFieldUpdateOperationsInput | $Enums.BruteReportStatus
+    users?: UserUncheckedUpdateManyWithoutReportsNestedInput
   }
 
   export type BruteReportCreateManyInput = {
     id?: number
     bruteId: number
-    userId: string
-    reason: string
+    reason?: $Enums.BruteReportReason
+    count?: number
     date?: Date | string
-    status: $Enums.BruteReportStatus
+    status?: $Enums.BruteReportStatus
   }
 
   export type BruteReportUpdateManyMutationInput = {
-    reason?: StringFieldUpdateOperationsInput | string
+    reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
+    count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBruteReportStatusFieldUpdateOperationsInput | $Enums.BruteReportStatus
   }
@@ -20586,8 +20677,8 @@ export namespace Prisma {
   export type BruteReportUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     bruteId?: IntFieldUpdateOperationsInput | number
-    userId?: StringFieldUpdateOperationsInput | string
-    reason?: StringFieldUpdateOperationsInput | string
+    reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
+    count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBruteReportStatusFieldUpdateOperationsInput | $Enums.BruteReportStatus
   }
@@ -22058,6 +22149,13 @@ export namespace Prisma {
     _max?: NestedEnumAchievementNameFilter<$PrismaModel>
   }
 
+  export type EnumBruteReportReasonFilter<$PrismaModel = never> = {
+    equals?: $Enums.BruteReportReason | EnumBruteReportReasonFieldRefInput<$PrismaModel>
+    in?: $Enums.BruteReportReason[] | ListEnumBruteReportReasonFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BruteReportReason[] | ListEnumBruteReportReasonFieldRefInput<$PrismaModel>
+    not?: NestedEnumBruteReportReasonFilter<$PrismaModel> | $Enums.BruteReportReason
+  }
+
   export type EnumBruteReportStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.BruteReportStatus | EnumBruteReportStatusFieldRefInput<$PrismaModel>
     in?: $Enums.BruteReportStatus[] | ListEnumBruteReportStatusFieldRefInput<$PrismaModel>
@@ -22065,16 +22163,21 @@ export namespace Prisma {
     not?: NestedEnumBruteReportStatusFilter<$PrismaModel> | $Enums.BruteReportStatus
   }
 
-  export type UserRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
+  export type UserListRelationFilter = {
+    every?: UserWhereInput
+    some?: UserWhereInput
+    none?: UserWhereInput
+  }
+
+  export type UserOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type BruteReportCountOrderByAggregateInput = {
     id?: SortOrder
     bruteId?: SortOrder
-    userId?: SortOrder
     reason?: SortOrder
+    count?: SortOrder
     date?: SortOrder
     status?: SortOrder
   }
@@ -22082,13 +22185,14 @@ export namespace Prisma {
   export type BruteReportAvgOrderByAggregateInput = {
     id?: SortOrder
     bruteId?: SortOrder
+    count?: SortOrder
   }
 
   export type BruteReportMaxOrderByAggregateInput = {
     id?: SortOrder
     bruteId?: SortOrder
-    userId?: SortOrder
     reason?: SortOrder
+    count?: SortOrder
     date?: SortOrder
     status?: SortOrder
   }
@@ -22096,8 +22200,8 @@ export namespace Prisma {
   export type BruteReportMinOrderByAggregateInput = {
     id?: SortOrder
     bruteId?: SortOrder
-    userId?: SortOrder
     reason?: SortOrder
+    count?: SortOrder
     date?: SortOrder
     status?: SortOrder
   }
@@ -22105,6 +22209,17 @@ export namespace Prisma {
   export type BruteReportSumOrderByAggregateInput = {
     id?: SortOrder
     bruteId?: SortOrder
+    count?: SortOrder
+  }
+
+  export type EnumBruteReportReasonWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BruteReportReason | EnumBruteReportReasonFieldRefInput<$PrismaModel>
+    in?: $Enums.BruteReportReason[] | ListEnumBruteReportReasonFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BruteReportReason[] | ListEnumBruteReportReasonFieldRefInput<$PrismaModel>
+    not?: NestedEnumBruteReportReasonWithAggregatesFilter<$PrismaModel> | $Enums.BruteReportReason
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBruteReportReasonFilter<$PrismaModel>
+    _max?: NestedEnumBruteReportReasonFilter<$PrismaModel>
   }
 
   export type EnumBruteReportStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -22131,10 +22246,9 @@ export namespace Prisma {
     connect?: AchievementWhereUniqueInput | AchievementWhereUniqueInput[]
   }
 
-  export type BruteReportCreateNestedManyWithoutUserInput = {
-    create?: XOR<BruteReportCreateWithoutUserInput, BruteReportUncheckedCreateWithoutUserInput> | BruteReportCreateWithoutUserInput[] | BruteReportUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: BruteReportCreateOrConnectWithoutUserInput | BruteReportCreateOrConnectWithoutUserInput[]
-    createMany?: BruteReportCreateManyUserInputEnvelope
+  export type BruteReportCreateNestedManyWithoutUsersInput = {
+    create?: XOR<BruteReportCreateWithoutUsersInput, BruteReportUncheckedCreateWithoutUsersInput> | BruteReportCreateWithoutUsersInput[] | BruteReportUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: BruteReportCreateOrConnectWithoutUsersInput | BruteReportCreateOrConnectWithoutUsersInput[]
     connect?: BruteReportWhereUniqueInput | BruteReportWhereUniqueInput[]
   }
 
@@ -22152,10 +22266,9 @@ export namespace Prisma {
     connect?: AchievementWhereUniqueInput | AchievementWhereUniqueInput[]
   }
 
-  export type BruteReportUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<BruteReportCreateWithoutUserInput, BruteReportUncheckedCreateWithoutUserInput> | BruteReportCreateWithoutUserInput[] | BruteReportUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: BruteReportCreateOrConnectWithoutUserInput | BruteReportCreateOrConnectWithoutUserInput[]
-    createMany?: BruteReportCreateManyUserInputEnvelope
+  export type BruteReportUncheckedCreateNestedManyWithoutUsersInput = {
+    create?: XOR<BruteReportCreateWithoutUsersInput, BruteReportUncheckedCreateWithoutUsersInput> | BruteReportCreateWithoutUsersInput[] | BruteReportUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: BruteReportCreateOrConnectWithoutUsersInput | BruteReportCreateOrConnectWithoutUsersInput[]
     connect?: BruteReportWhereUniqueInput | BruteReportWhereUniqueInput[]
   }
 
@@ -22207,17 +22320,16 @@ export namespace Prisma {
     deleteMany?: AchievementScalarWhereInput | AchievementScalarWhereInput[]
   }
 
-  export type BruteReportUpdateManyWithoutUserNestedInput = {
-    create?: XOR<BruteReportCreateWithoutUserInput, BruteReportUncheckedCreateWithoutUserInput> | BruteReportCreateWithoutUserInput[] | BruteReportUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: BruteReportCreateOrConnectWithoutUserInput | BruteReportCreateOrConnectWithoutUserInput[]
-    upsert?: BruteReportUpsertWithWhereUniqueWithoutUserInput | BruteReportUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: BruteReportCreateManyUserInputEnvelope
+  export type BruteReportUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<BruteReportCreateWithoutUsersInput, BruteReportUncheckedCreateWithoutUsersInput> | BruteReportCreateWithoutUsersInput[] | BruteReportUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: BruteReportCreateOrConnectWithoutUsersInput | BruteReportCreateOrConnectWithoutUsersInput[]
+    upsert?: BruteReportUpsertWithWhereUniqueWithoutUsersInput | BruteReportUpsertWithWhereUniqueWithoutUsersInput[]
     set?: BruteReportWhereUniqueInput | BruteReportWhereUniqueInput[]
     disconnect?: BruteReportWhereUniqueInput | BruteReportWhereUniqueInput[]
     delete?: BruteReportWhereUniqueInput | BruteReportWhereUniqueInput[]
     connect?: BruteReportWhereUniqueInput | BruteReportWhereUniqueInput[]
-    update?: BruteReportUpdateWithWhereUniqueWithoutUserInput | BruteReportUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: BruteReportUpdateManyWithWhereWithoutUserInput | BruteReportUpdateManyWithWhereWithoutUserInput[]
+    update?: BruteReportUpdateWithWhereUniqueWithoutUsersInput | BruteReportUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: BruteReportUpdateManyWithWhereWithoutUsersInput | BruteReportUpdateManyWithWhereWithoutUsersInput[]
     deleteMany?: BruteReportScalarWhereInput | BruteReportScalarWhereInput[]
   }
 
@@ -22249,17 +22361,16 @@ export namespace Prisma {
     deleteMany?: AchievementScalarWhereInput | AchievementScalarWhereInput[]
   }
 
-  export type BruteReportUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<BruteReportCreateWithoutUserInput, BruteReportUncheckedCreateWithoutUserInput> | BruteReportCreateWithoutUserInput[] | BruteReportUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: BruteReportCreateOrConnectWithoutUserInput | BruteReportCreateOrConnectWithoutUserInput[]
-    upsert?: BruteReportUpsertWithWhereUniqueWithoutUserInput | BruteReportUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: BruteReportCreateManyUserInputEnvelope
+  export type BruteReportUncheckedUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<BruteReportCreateWithoutUsersInput, BruteReportUncheckedCreateWithoutUsersInput> | BruteReportCreateWithoutUsersInput[] | BruteReportUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: BruteReportCreateOrConnectWithoutUsersInput | BruteReportCreateOrConnectWithoutUsersInput[]
+    upsert?: BruteReportUpsertWithWhereUniqueWithoutUsersInput | BruteReportUpsertWithWhereUniqueWithoutUsersInput[]
     set?: BruteReportWhereUniqueInput | BruteReportWhereUniqueInput[]
     disconnect?: BruteReportWhereUniqueInput | BruteReportWhereUniqueInput[]
     delete?: BruteReportWhereUniqueInput | BruteReportWhereUniqueInput[]
     connect?: BruteReportWhereUniqueInput | BruteReportWhereUniqueInput[]
-    update?: BruteReportUpdateWithWhereUniqueWithoutUserInput | BruteReportUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: BruteReportUpdateManyWithWhereWithoutUserInput | BruteReportUpdateManyWithWhereWithoutUserInput[]
+    update?: BruteReportUpdateWithWhereUniqueWithoutUsersInput | BruteReportUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: BruteReportUpdateManyWithWhereWithoutUsersInput | BruteReportUpdateManyWithWhereWithoutUsersInput[]
     deleteMany?: BruteReportScalarWhereInput | BruteReportScalarWhereInput[]
   }
 
@@ -23374,10 +23485,20 @@ export namespace Prisma {
     connect?: BruteWhereUniqueInput
   }
 
-  export type UserCreateNestedOneWithoutReportsInput = {
-    create?: XOR<UserCreateWithoutReportsInput, UserUncheckedCreateWithoutReportsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutReportsInput
-    connect?: UserWhereUniqueInput
+  export type UserCreateNestedManyWithoutReportsInput = {
+    create?: XOR<UserCreateWithoutReportsInput, UserUncheckedCreateWithoutReportsInput> | UserCreateWithoutReportsInput[] | UserUncheckedCreateWithoutReportsInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutReportsInput | UserCreateOrConnectWithoutReportsInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type UserUncheckedCreateNestedManyWithoutReportsInput = {
+    create?: XOR<UserCreateWithoutReportsInput, UserUncheckedCreateWithoutReportsInput> | UserCreateWithoutReportsInput[] | UserUncheckedCreateWithoutReportsInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutReportsInput | UserCreateOrConnectWithoutReportsInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type EnumBruteReportReasonFieldUpdateOperationsInput = {
+    set?: $Enums.BruteReportReason
   }
 
   export type EnumBruteReportStatusFieldUpdateOperationsInput = {
@@ -23392,12 +23513,30 @@ export namespace Prisma {
     update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutReportsInput, BruteUpdateWithoutReportsInput>, BruteUncheckedUpdateWithoutReportsInput>
   }
 
-  export type UserUpdateOneRequiredWithoutReportsNestedInput = {
-    create?: XOR<UserCreateWithoutReportsInput, UserUncheckedCreateWithoutReportsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutReportsInput
-    upsert?: UserUpsertWithoutReportsInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReportsInput, UserUpdateWithoutReportsInput>, UserUncheckedUpdateWithoutReportsInput>
+  export type UserUpdateManyWithoutReportsNestedInput = {
+    create?: XOR<UserCreateWithoutReportsInput, UserUncheckedCreateWithoutReportsInput> | UserCreateWithoutReportsInput[] | UserUncheckedCreateWithoutReportsInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutReportsInput | UserCreateOrConnectWithoutReportsInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutReportsInput | UserUpsertWithWhereUniqueWithoutReportsInput[]
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutReportsInput | UserUpdateWithWhereUniqueWithoutReportsInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutReportsInput | UserUpdateManyWithWhereWithoutReportsInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type UserUncheckedUpdateManyWithoutReportsNestedInput = {
+    create?: XOR<UserCreateWithoutReportsInput, UserUncheckedCreateWithoutReportsInput> | UserCreateWithoutReportsInput[] | UserUncheckedCreateWithoutReportsInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutReportsInput | UserCreateOrConnectWithoutReportsInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutReportsInput | UserUpsertWithWhereUniqueWithoutReportsInput[]
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutReportsInput | UserUpdateWithWhereUniqueWithoutReportsInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutReportsInput | UserUpdateManyWithWhereWithoutReportsInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -23915,11 +24054,28 @@ export namespace Prisma {
     _max?: NestedEnumAchievementNameFilter<$PrismaModel>
   }
 
+  export type NestedEnumBruteReportReasonFilter<$PrismaModel = never> = {
+    equals?: $Enums.BruteReportReason | EnumBruteReportReasonFieldRefInput<$PrismaModel>
+    in?: $Enums.BruteReportReason[] | ListEnumBruteReportReasonFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BruteReportReason[] | ListEnumBruteReportReasonFieldRefInput<$PrismaModel>
+    not?: NestedEnumBruteReportReasonFilter<$PrismaModel> | $Enums.BruteReportReason
+  }
+
   export type NestedEnumBruteReportStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.BruteReportStatus | EnumBruteReportStatusFieldRefInput<$PrismaModel>
     in?: $Enums.BruteReportStatus[] | ListEnumBruteReportStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.BruteReportStatus[] | ListEnumBruteReportStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumBruteReportStatusFilter<$PrismaModel> | $Enums.BruteReportStatus
+  }
+
+  export type NestedEnumBruteReportReasonWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BruteReportReason | EnumBruteReportReasonFieldRefInput<$PrismaModel>
+    in?: $Enums.BruteReportReason[] | ListEnumBruteReportReasonFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BruteReportReason[] | ListEnumBruteReportReasonFieldRefInput<$PrismaModel>
+    not?: NestedEnumBruteReportReasonWithAggregatesFilter<$PrismaModel> | $Enums.BruteReportReason
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBruteReportReasonFilter<$PrismaModel>
+    _max?: NestedEnumBruteReportReasonFilter<$PrismaModel>
   }
 
   export type NestedEnumBruteReportStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -24072,29 +24228,26 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type BruteReportCreateWithoutUserInput = {
-    reason: string
+  export type BruteReportCreateWithoutUsersInput = {
+    reason?: $Enums.BruteReportReason
+    count?: number
     date?: Date | string
-    status: $Enums.BruteReportStatus
+    status?: $Enums.BruteReportStatus
     brute: BruteCreateNestedOneWithoutReportsInput
   }
 
-  export type BruteReportUncheckedCreateWithoutUserInput = {
+  export type BruteReportUncheckedCreateWithoutUsersInput = {
     id?: number
     bruteId: number
-    reason: string
+    reason?: $Enums.BruteReportReason
+    count?: number
     date?: Date | string
-    status: $Enums.BruteReportStatus
+    status?: $Enums.BruteReportStatus
   }
 
-  export type BruteReportCreateOrConnectWithoutUserInput = {
+  export type BruteReportCreateOrConnectWithoutUsersInput = {
     where: BruteReportWhereUniqueInput
-    create: XOR<BruteReportCreateWithoutUserInput, BruteReportUncheckedCreateWithoutUserInput>
-  }
-
-  export type BruteReportCreateManyUserInputEnvelope = {
-    data: BruteReportCreateManyUserInput | BruteReportCreateManyUserInput[]
-    skipDuplicates?: boolean
+    create: XOR<BruteReportCreateWithoutUsersInput, BruteReportUncheckedCreateWithoutUsersInput>
   }
 
   export type BruteUpsertWithWhereUniqueWithoutUserInput = {
@@ -24184,20 +24337,20 @@ export namespace Prisma {
     userId?: UuidNullableFilter<"Achievement"> | string | null
   }
 
-  export type BruteReportUpsertWithWhereUniqueWithoutUserInput = {
+  export type BruteReportUpsertWithWhereUniqueWithoutUsersInput = {
     where: BruteReportWhereUniqueInput
-    update: XOR<BruteReportUpdateWithoutUserInput, BruteReportUncheckedUpdateWithoutUserInput>
-    create: XOR<BruteReportCreateWithoutUserInput, BruteReportUncheckedCreateWithoutUserInput>
+    update: XOR<BruteReportUpdateWithoutUsersInput, BruteReportUncheckedUpdateWithoutUsersInput>
+    create: XOR<BruteReportCreateWithoutUsersInput, BruteReportUncheckedCreateWithoutUsersInput>
   }
 
-  export type BruteReportUpdateWithWhereUniqueWithoutUserInput = {
+  export type BruteReportUpdateWithWhereUniqueWithoutUsersInput = {
     where: BruteReportWhereUniqueInput
-    data: XOR<BruteReportUpdateWithoutUserInput, BruteReportUncheckedUpdateWithoutUserInput>
+    data: XOR<BruteReportUpdateWithoutUsersInput, BruteReportUncheckedUpdateWithoutUsersInput>
   }
 
-  export type BruteReportUpdateManyWithWhereWithoutUserInput = {
+  export type BruteReportUpdateManyWithWhereWithoutUsersInput = {
     where: BruteReportScalarWhereInput
-    data: XOR<BruteReportUpdateManyMutationInput, BruteReportUncheckedUpdateManyWithoutUserInput>
+    data: XOR<BruteReportUpdateManyMutationInput, BruteReportUncheckedUpdateManyWithoutUsersInput>
   }
 
   export type BruteReportScalarWhereInput = {
@@ -24206,8 +24359,8 @@ export namespace Prisma {
     NOT?: BruteReportScalarWhereInput | BruteReportScalarWhereInput[]
     id?: IntFilter<"BruteReport"> | number
     bruteId?: IntFilter<"BruteReport"> | number
-    userId?: UuidFilter<"BruteReport"> | string
-    reason?: StringFilter<"BruteReport"> | string
+    reason?: EnumBruteReportReasonFilter<"BruteReport"> | $Enums.BruteReportReason
+    count?: IntFilter<"BruteReport"> | number
     date?: DateTimeFilter<"BruteReport"> | Date | string
     status?: EnumBruteReportStatusFilter<"BruteReport"> | $Enums.BruteReportStatus
   }
@@ -24683,7 +24836,7 @@ export namespace Prisma {
     fightSpeed?: number
     backgroundMusic?: boolean
     achievements?: AchievementCreateNestedManyWithoutUserInput
-    reports?: BruteReportCreateNestedManyWithoutUserInput
+    reports?: BruteReportCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutBrutesInput = {
@@ -24697,7 +24850,7 @@ export namespace Prisma {
     fightSpeed?: number
     backgroundMusic?: boolean
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
-    reports?: BruteReportUncheckedCreateNestedManyWithoutUserInput
+    reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutBrutesInput = {
@@ -25467,18 +25620,20 @@ export namespace Prisma {
   }
 
   export type BruteReportCreateWithoutBruteInput = {
-    reason: string
+    reason?: $Enums.BruteReportReason
+    count?: number
     date?: Date | string
-    status: $Enums.BruteReportStatus
-    user: UserCreateNestedOneWithoutReportsInput
+    status?: $Enums.BruteReportStatus
+    users?: UserCreateNestedManyWithoutReportsInput
   }
 
   export type BruteReportUncheckedCreateWithoutBruteInput = {
     id?: number
-    userId: string
-    reason: string
+    reason?: $Enums.BruteReportReason
+    count?: number
     date?: Date | string
-    status: $Enums.BruteReportStatus
+    status?: $Enums.BruteReportStatus
+    users?: UserUncheckedCreateNestedManyWithoutReportsInput
   }
 
   export type BruteReportCreateOrConnectWithoutBruteInput = {
@@ -25513,7 +25668,7 @@ export namespace Prisma {
     fightSpeed?: IntFieldUpdateOperationsInput | number
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     achievements?: AchievementUpdateManyWithoutUserNestedInput
-    reports?: BruteReportUpdateManyWithoutUserNestedInput
+    reports?: BruteReportUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBrutesInput = {
@@ -25527,7 +25682,7 @@ export namespace Prisma {
     fightSpeed?: IntFieldUpdateOperationsInput | number
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
-    reports?: BruteReportUncheckedUpdateManyWithoutUserNestedInput
+    reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type BruteBodyUpsertWithoutBruteInput = {
@@ -28090,7 +28245,7 @@ export namespace Prisma {
     fightSpeed?: number
     backgroundMusic?: boolean
     brutes?: BruteCreateNestedManyWithoutUserInput
-    reports?: BruteReportCreateNestedManyWithoutUserInput
+    reports?: BruteReportCreateNestedManyWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutAchievementsInput = {
@@ -28104,7 +28259,7 @@ export namespace Prisma {
     fightSpeed?: number
     backgroundMusic?: boolean
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
-    reports?: BruteReportUncheckedCreateNestedManyWithoutUserInput
+    reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
   }
 
   export type UserCreateOrConnectWithoutAchievementsInput = {
@@ -28252,7 +28407,7 @@ export namespace Prisma {
     fightSpeed?: IntFieldUpdateOperationsInput | number
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     brutes?: BruteUpdateManyWithoutUserNestedInput
-    reports?: BruteReportUpdateManyWithoutUserNestedInput
+    reports?: BruteReportUpdateManyWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAchievementsInput = {
@@ -28266,7 +28421,7 @@ export namespace Prisma {
     fightSpeed?: IntFieldUpdateOperationsInput | number
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
-    reports?: BruteReportUncheckedUpdateManyWithoutUserNestedInput
+    reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type BruteCreateWithoutReportsInput = {
@@ -28532,43 +28687,35 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
   }
 
-  export type UserUpsertWithoutReportsInput = {
+  export type UserUpsertWithWhereUniqueWithoutReportsInput = {
+    where: UserWhereUniqueInput
     update: XOR<UserUpdateWithoutReportsInput, UserUncheckedUpdateWithoutReportsInput>
     create: XOR<UserCreateWithoutReportsInput, UserUncheckedCreateWithoutReportsInput>
-    where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutReportsInput = {
-    where?: UserWhereInput
+  export type UserUpdateWithWhereUniqueWithoutReportsInput = {
+    where: UserWhereUniqueInput
     data: XOR<UserUpdateWithoutReportsInput, UserUncheckedUpdateWithoutReportsInput>
   }
 
-  export type UserUpdateWithoutReportsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
-    name?: StringFieldUpdateOperationsInput | string
-    admin?: BoolFieldUpdateOperationsInput | boolean
-    connexionToken?: StringFieldUpdateOperationsInput | string
-    bruteLimit?: IntFieldUpdateOperationsInput | number
-    gold?: IntFieldUpdateOperationsInput | number
-    fightSpeed?: IntFieldUpdateOperationsInput | number
-    backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
-    brutes?: BruteUpdateManyWithoutUserNestedInput
-    achievements?: AchievementUpdateManyWithoutUserNestedInput
+  export type UserUpdateManyWithWhereWithoutReportsInput = {
+    where: UserScalarWhereInput
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutReportsInput>
   }
 
-  export type UserUncheckedUpdateWithoutReportsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
-    name?: StringFieldUpdateOperationsInput | string
-    admin?: BoolFieldUpdateOperationsInput | boolean
-    connexionToken?: StringFieldUpdateOperationsInput | string
-    bruteLimit?: IntFieldUpdateOperationsInput | number
-    gold?: IntFieldUpdateOperationsInput | number
-    fightSpeed?: IntFieldUpdateOperationsInput | number
-    backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
-    brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
-    achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
+  export type UserScalarWhereInput = {
+    AND?: UserScalarWhereInput | UserScalarWhereInput[]
+    OR?: UserScalarWhereInput[]
+    NOT?: UserScalarWhereInput | UserScalarWhereInput[]
+    id?: UuidFilter<"User"> | string
+    lang?: EnumLangFilter<"User"> | $Enums.Lang
+    name?: StringFilter<"User"> | string
+    admin?: BoolFilter<"User"> | boolean
+    connexionToken?: UuidFilter<"User"> | string
+    bruteLimit?: IntFilter<"User"> | number
+    gold?: IntFilter<"User"> | number
+    fightSpeed?: IntFilter<"User"> | number
+    backgroundMusic?: BoolFilter<"User"> | boolean
   }
 
   export type BruteCreateManyUserInput = {
@@ -28616,14 +28763,6 @@ export namespace Prisma {
     name: $Enums.AchievementName
     count?: number
     bruteId?: number | null
-  }
-
-  export type BruteReportCreateManyUserInput = {
-    id?: number
-    bruteId: number
-    reason: string
-    date?: Date | string
-    status: $Enums.BruteReportStatus
   }
 
   export type BruteUpdateWithoutUserInput = {
@@ -28793,25 +28932,28 @@ export namespace Prisma {
     bruteId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
-  export type BruteReportUpdateWithoutUserInput = {
-    reason?: StringFieldUpdateOperationsInput | string
+  export type BruteReportUpdateWithoutUsersInput = {
+    reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
+    count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBruteReportStatusFieldUpdateOperationsInput | $Enums.BruteReportStatus
     brute?: BruteUpdateOneRequiredWithoutReportsNestedInput
   }
 
-  export type BruteReportUncheckedUpdateWithoutUserInput = {
+  export type BruteReportUncheckedUpdateWithoutUsersInput = {
     id?: IntFieldUpdateOperationsInput | number
     bruteId?: IntFieldUpdateOperationsInput | number
-    reason?: StringFieldUpdateOperationsInput | string
+    reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
+    count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBruteReportStatusFieldUpdateOperationsInput | $Enums.BruteReportStatus
   }
 
-  export type BruteReportUncheckedUpdateManyWithoutUserInput = {
+  export type BruteReportUncheckedUpdateManyWithoutUsersInput = {
     id?: IntFieldUpdateOperationsInput | number
     bruteId?: IntFieldUpdateOperationsInput | number
-    reason?: StringFieldUpdateOperationsInput | string
+    reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
+    count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBruteReportStatusFieldUpdateOperationsInput | $Enums.BruteReportStatus
   }
@@ -28916,10 +29058,10 @@ export namespace Prisma {
 
   export type BruteReportCreateManyBruteInput = {
     id?: number
-    userId: string
-    reason: string
+    reason?: $Enums.BruteReportReason
+    count?: number
     date?: Date | string
-    status: $Enums.BruteReportStatus
+    status?: $Enums.BruteReportStatus
   }
 
   export type BruteUpdateWithoutMasterInput = {
@@ -29561,24 +29703,26 @@ export namespace Prisma {
   }
 
   export type BruteReportUpdateWithoutBruteInput = {
-    reason?: StringFieldUpdateOperationsInput | string
+    reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
+    count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBruteReportStatusFieldUpdateOperationsInput | $Enums.BruteReportStatus
-    user?: UserUpdateOneRequiredWithoutReportsNestedInput
+    users?: UserUpdateManyWithoutReportsNestedInput
   }
 
   export type BruteReportUncheckedUpdateWithoutBruteInput = {
     id?: IntFieldUpdateOperationsInput | number
-    userId?: StringFieldUpdateOperationsInput | string
-    reason?: StringFieldUpdateOperationsInput | string
+    reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
+    count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBruteReportStatusFieldUpdateOperationsInput | $Enums.BruteReportStatus
+    users?: UserUncheckedUpdateManyWithoutReportsNestedInput
   }
 
   export type BruteReportUncheckedUpdateManyWithoutBruteInput = {
     id?: IntFieldUpdateOperationsInput | number
-    userId?: StringFieldUpdateOperationsInput | string
-    reason?: StringFieldUpdateOperationsInput | string
+    reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
+    count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBruteReportStatusFieldUpdateOperationsInput | $Enums.BruteReportStatus
   }
@@ -30011,6 +30155,46 @@ export namespace Prisma {
     xpDistributed?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type UserUpdateWithoutReportsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
+    name?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    connexionToken?: StringFieldUpdateOperationsInput | string
+    bruteLimit?: IntFieldUpdateOperationsInput | number
+    gold?: IntFieldUpdateOperationsInput | number
+    fightSpeed?: IntFieldUpdateOperationsInput | number
+    backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
+    brutes?: BruteUpdateManyWithoutUserNestedInput
+    achievements?: AchievementUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutReportsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
+    name?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    connexionToken?: StringFieldUpdateOperationsInput | string
+    bruteLimit?: IntFieldUpdateOperationsInput | number
+    gold?: IntFieldUpdateOperationsInput | number
+    fightSpeed?: IntFieldUpdateOperationsInput | number
+    backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
+    brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateManyWithoutReportsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
+    name?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    connexionToken?: StringFieldUpdateOperationsInput | string
+    bruteLimit?: IntFieldUpdateOperationsInput | number
+    gold?: IntFieldUpdateOperationsInput | number
+    fightSpeed?: IntFieldUpdateOperationsInput | number
+    backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
+  }
+
 
 
   /**
@@ -30036,6 +30220,10 @@ export namespace Prisma {
      * @deprecated Use TournamentCountOutputTypeDefaultArgs instead
      */
     export type TournamentCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TournamentCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use BruteReportCountOutputTypeDefaultArgs instead
+     */
+    export type BruteReportCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BruteReportCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use UserDefaultArgs instead
      */

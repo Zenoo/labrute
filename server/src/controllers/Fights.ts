@@ -7,6 +7,7 @@ import getOpponents from '../utils/brute/getOpponents.js';
 import DiscordUtils from '../utils/DiscordUtils.js';
 import generateFight from '../utils/fight/generateFight.js';
 import sendError from '../utils/sendError.js';
+import translate from '../utils/translate.js';
 
 const Fights = {
   get: (prisma: PrismaClient) => async (req: Request, res: Response) => {
@@ -61,7 +62,7 @@ const Fights = {
       const user = await auth(prisma, req);
 
       if (!req.body.brute1 || !req.body.brute2) {
-        throw new ExpectedError('Invalid parameters');
+        throw new ExpectedError(translate('missingParameters', user));
       }
 
       // Get brutes
@@ -80,7 +81,7 @@ const Fights = {
         },
       });
       if (!brute1) {
-        throw new ExpectedError('Brute 1 not found');
+        throw new ExpectedError(translate('bruteNotFound', user));
       }
 
       const brute2 = await prisma.brute.findFirst({
@@ -94,7 +95,7 @@ const Fights = {
         },
       });
       if (!brute2) {
-        throw new ExpectedError('Brute 2 not found');
+        throw new ExpectedError(translate('bruteNotFound', user));
       }
 
       // Check if this is an arena fight
@@ -102,7 +103,7 @@ const Fights = {
 
       // Cancel if brute1 has no fights left
       if (arenaFight && getFightsLeft(brute1) <= 0) {
-        throw new ExpectedError('No fights left');
+        throw new ExpectedError(translate('noFightsLeft', user));
       }
 
       // Update brute last fight and fights left if arena fight
@@ -119,9 +120,12 @@ const Fights = {
       // Generate fight (retry if failed)
       let generatedFight: Prisma.FightCreateInput | null = null;
       let expectedError: ExpectedError | null = null;
+      let retry = 0;
 
-      while (!generatedFight && !expectedError) {
+      while (!generatedFight && !expectedError && retry < 10) {
         try {
+          retry += 1;
+
           // eslint-disable-next-line no-await-in-loop
           generatedFight = await generateFight(prisma, brute1, brute2, true, arenaFight, false);
         } catch (error) {

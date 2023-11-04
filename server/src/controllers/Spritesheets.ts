@@ -12,6 +12,7 @@ import getFrame, { FRAMES } from '../animations/getFrame.js';
 import auth from '../utils/auth.js';
 import Env from '../utils/Env.js';
 import sendError from '../utils/sendError.js';
+import translate from '../utils/translate.js';
 
 const Spritesheets = {
   getImage: (prisma: PrismaClient) => async (req: Request<{
@@ -242,7 +243,7 @@ const Spritesheets = {
       const user = await auth(prisma, req);
 
       if (!user.admin) {
-        throw new Error('Unauthorized');
+        throw new Error(translate('unauthorized', user));
       }
 
       // Get all brutes

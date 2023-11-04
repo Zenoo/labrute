@@ -281,8 +281,8 @@ exports.Prisma.AchievementScalarFieldEnum = {
 exports.Prisma.BruteReportScalarFieldEnum = {
   id: 'id',
   bruteId: 'bruteId',
-  userId: 'userId',
   reason: 'reason',
+  count: 'count',
   date: 'date',
   status: 'status'
 };
@@ -546,6 +546,10 @@ exports.AchievementName = exports.$Enums.AchievementName = {
   sacrifice: 'sacrifice',
   beta: 'beta',
   bug: 'bug'
+};
+
+exports.BruteReportReason = exports.$Enums.BruteReportReason = {
+  name: 'name'
 };
 
 exports.BruteReportStatus = exports.$Enums.BruteReportStatus = {

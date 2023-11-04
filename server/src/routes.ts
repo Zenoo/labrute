@@ -11,6 +11,7 @@ import Tournaments from './controllers/Tournaments.js';
 import Users from './controllers/Users.js';
 import Achievements from './controllers/Achievements.js';
 import ServerState from './utils/ServerState.js';
+import BruteReports from './controllers/BruteReports.js';
 
 const initRoutes = (app: Express, prisma: PrismaClient) => {
   app.get('/api', (req: Request, res: Response) => res.status(200).send({
@@ -85,6 +86,12 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
   // Achievement
   app.post('/api/achievements', Achievements.getForUser(prisma));
   app.get('/api/achievements/:name', Achievements.getForBrute(prisma));
+
+  // BruteReport
+  app.get('/api/report/list/:status', BruteReports.list(prisma));
+  app.get('/api/report/send/:name/:reason', BruteReports.send(prisma));
+  app.get('/api/report/:id/accept', BruteReports.accept(prisma));
+  app.get('/api/report/:id/reject', BruteReports.reject(prisma));
 };
 
 export default initRoutes;

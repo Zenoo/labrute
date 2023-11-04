@@ -21,7 +21,7 @@ enum Lang {
 }
 
 model User {
-  id              String        @unique @db.Uuid
+  id              String        @id @unique @db.Uuid
   lang            Lang          @default(fr)
   name            String        @db.VarChar(255)
   admin           Boolean       @default(false)
@@ -32,6 +32,7 @@ model User {
   backgroundMusic Boolean       @default(true)
   brutes          Brute[]
   achievements    Achievement[]
+  reports         BruteReport[]
 }
 
 enum DestinyChoiceSide {
@@ -224,6 +225,7 @@ model Brute {
   canRankUpSince               DateTime?           @db.Date
   achievements                 Achievement[]
   tournamentEarnings           TournamentEarning[]
+  reports                      BruteReport[]
 }
 
 model BruteSpritesheet {
@@ -461,4 +463,25 @@ model Achievement {
   bruteId Int?
   user    User?           @relation(fields: [userId], references: [id])
   userId  String?         @db.Uuid
+}
+
+enum BruteReportStatus {
+  pending
+  accepted
+  rejected
+}
+
+enum BruteReportReason {
+  name
+}
+
+model BruteReport {
+  id      Int               @id @default(autoincrement())
+  brute   Brute             @relation(fields: [bruteId], references: [id])
+  bruteId Int
+  users   User[]
+  reason  BruteReportReason @default(name)
+  count   Int               @default(1)
+  date    DateTime          @default(now()) @db.Date
+  status  BruteReportStatus @default(pending)
 }

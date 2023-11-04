@@ -26,6 +26,7 @@ import checkColors from '../utils/brute/checkColors.js';
 import checkLevelUpAchievements from '../utils/brute/checkLevelUpAchievements.js';
 import getOpponents from '../utils/brute/getOpponents.js';
 import sendError from '../utils/sendError.js';
+import translate from '../utils/translate.js';
 
 const Brutes = {
   list: (prisma: PrismaClient) => async (req: Request, res: Response) => {
@@ -112,10 +113,10 @@ const Brutes = {
       const user = await auth(prisma, req);
 
       // Check colors validity
-      checkColors(req.body.gender, req.body.colors);
+      checkColors(user, req.body.gender, req.body.colors);
 
       // Check body validity
-      checkBody(req.body.gender, req.body.body);
+      checkBody(user, req.body.gender, req.body.body);
 
       // Check if name is available
       const count = await prisma.brute.count({
@@ -126,7 +127,7 @@ const Brutes = {
       });
 
       if (count > 0) {
-        throw new ExpectedError('This name is already taken');
+        throw new ExpectedError(translate('nameAlreadyTaken', user));
       }
 
       let goldLost = 0;
@@ -135,7 +136,7 @@ const Brutes = {
       if (user.brutes.length >= user.bruteLimit) {
         const gold = getGoldNeededForNewBrute(user);
         if (user.gold < gold) {
-          throw new ExpectedError(`You have reached your brute limit. You need ${gold} Gold to unlock a new brute.`);
+          throw new ExpectedError(translate('bruteLimitReached', user, { gold }));
         } else {
           // Remove XXX Gold and update brute limit
           await prisma.user.update({
@@ -242,11 +243,11 @@ const Brutes = {
         include: { body: true, colors: true },
       });
       if (!brute) {
-        throw new ExpectedError('Brute not found');
+        throw new ExpectedError(translate('bruteNotFound', user));
       }
 
       if (!canLevelUp(brute)) {
-        throw new ExpectedError('Brute cannot level up');
+        throw new ExpectedError(translate('bruteCannotLevelUp', user));
       }
 
       const firstChoicePath = [...brute.destinyPath, DestinyChoiceSide.LEFT];
@@ -314,14 +315,14 @@ const Brutes = {
       });
 
       if (!brute) {
-        throw new Error('Brute not found');
+        throw new Error(translate('bruteNotFound', user));
       }
 
       const xpNeeded = getXPNeeded(brute.level + 1);
 
       // Check if brute has enough XP
       if (brute.xp < xpNeeded) {
-        throw new ExpectedError('Not enough XP');
+        throw new ExpectedError(translate('notEnoughXP', user));
       }
 
       // Get destiny choice
@@ -333,7 +334,7 @@ const Brutes = {
       });
 
       if (!destinyChoice) {
-        throw new Error('Destiny choice not found');
+        throw new Error(translate('destinyChoiceNotFound', user));
       }
 
       // Update brute data
@@ -356,11 +357,11 @@ const Brutes = {
       });
 
       if (!freshBrute) {
-        throw new Error('Brute not found');
+        throw new Error(translate('bruteNotFound', user));
       }
 
       if (freshBrute.xp !== brute.xp) {
-        throw new ExpectedError('Wooow, slow your clicks down!');
+        throw new ExpectedError(translate('slowDown', user));
       }
 
       // Update brute
@@ -437,7 +438,7 @@ const Brutes = {
       });
 
       if (!brute) {
-        throw new ExpectedError('Brute not found');
+        throw new ExpectedError(translate('bruteNotFound', user));
       }
 
       // Handle deleted opponents
@@ -484,12 +485,12 @@ const Brutes = {
       });
 
       if (!brute) {
-        throw new ExpectedError('Brute not found');
+        throw new ExpectedError(translate('bruteNotFound', user));
       }
 
       // Prevent sacrificing the day of creation
       if (moment.utc().isSame(moment.utc(brute.createdAt), 'day')) {
-        throw new ExpectedError('You cannot sacrifice your brute the day of creation');
+        throw new ExpectedError(translate('cannotSacrificeSameDay', user));
       }
 
       // Add Gold to user
@@ -841,7 +842,7 @@ const Brutes = {
       const user = await auth(prisma, req);
 
       if (!name) {
-        throw new Error('Missing name');
+        throw new Error(translate('missingName', user));
       }
 
       let brute = await prisma.brute.findFirst({
@@ -853,15 +854,15 @@ const Brutes = {
       });
 
       if (!brute) {
-        throw new Error('Brute not found');
+        throw new Error(translate('bruteNotFound', user));
       }
 
       if (!brute.canRankUpSince) {
-        throw new ExpectedError('Brute cannot rank up');
+        throw new ExpectedError(translate('bruteCannotRankUp', user));
       }
 
       if (brute.ranking === 0) {
-        throw new ExpectedError('Brute is already at the highest rank');
+        throw new ExpectedError(translate('bruteAlreadyMaxRank', user));
       }
 
       // Get first bonus
@@ -873,7 +874,7 @@ const Brutes = {
       });
 
       if (!bonus) {
-        throw new Error('Brute has no first bonus');
+        throw new Error(translate('noFirstBonus', user));
       }
 
       // Update the brute
@@ -917,7 +918,7 @@ const Brutes = {
       });
 
       if (!firstBonus) {
-        throw new Error('Brute has no first bonus');
+        throw new Error(translate('noFirstBonus', user));
       }
 
       // Update achievements for the first bonus
@@ -1160,11 +1161,11 @@ const Brutes = {
       const user = await auth(prisma, req);
 
       if (!user.admin) {
-        throw new Error('Unauthorized');
+        throw new Error(translate('unauthorized', user));
       }
 
       if (!name) {
-        throw new Error('Missing name');
+        throw new Error(translate('missingName', user));
       }
 
       const brute = await prisma.brute.findFirst({
@@ -1175,7 +1176,7 @@ const Brutes = {
       });
 
       if (!brute) {
-        throw new Error('Brute not found');
+        throw new Error(translate('bruteNotFound', user));
       }
 
       // Update the brute
@@ -1203,11 +1204,11 @@ const Brutes = {
       const user = await auth(prisma, req);
 
       if (!user.admin) {
-        throw new ExpectedError('Unauthorized');
+        throw new ExpectedError(translate('unauthorized', user));
       }
 
       if (!id) {
-        throw new ExpectedError('Missing id');
+        throw new ExpectedError(translate('noIDProvided', user));
       }
 
       const brute = await prisma.brute.findFirst({
@@ -1221,7 +1222,7 @@ const Brutes = {
       });
 
       if (!brute) {
-        throw new ExpectedError('Brute not found or not deleted');
+        throw new ExpectedError(translate('bruteNotFoundOrNotDeleted', user));
       }
 
       // Check if another brute has the same name
@@ -1233,7 +1234,7 @@ const Brutes = {
       });
 
       if (brutesWithSameName > 0) {
-        throw new ExpectedError('Another brute has the same name');
+        throw new ExpectedError(translate('anotherBruteHasThisName', user));
       }
 
       // Restore the brute

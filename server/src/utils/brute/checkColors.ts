@@ -1,7 +1,12 @@
 import { adjustColor, colors } from '@labrute/core';
-import { Gender, Prisma } from '@labrute/prisma';
+import { Gender, Prisma, User } from '@labrute/prisma';
+import translate from '../translate.js';
 
-const checkColors = (gender: Gender, inputs: Prisma.BruteColorsCreateWithoutBruteInput) => {
+const checkColors = (
+  user: User,
+  gender: Gender,
+  inputs: Prisma.BruteColorsCreateWithoutBruteInput,
+) => {
   if (!colors[gender].clothing.includes(inputs.accentColor)
     || adjustColor(inputs.accentColor, -20) !== inputs.accentShade
     || !colors[gender].clothing.includes(inputs.primaryColor)
@@ -13,7 +18,7 @@ const checkColors = (gender: Gender, inputs: Prisma.BruteColorsCreateWithoutBrut
     || !colors[gender].skin.includes(inputs.skinColor)
     || adjustColor(inputs.skinColor, -20) !== inputs.skinShade
   ) {
-    throw new Error('I sense a disturbance in the force.');
+    throw new Error(translate('invalidCreation', user));
   }
 };
 

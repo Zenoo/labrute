@@ -23,6 +23,7 @@ import BruteNotFoundView from './views/BruteNotFoundView';
 import GeneratingView from './views/GeneratingView';
 import HallView from './views/HallView';
 import UserAdminView from './views/UserAdminView';
+import ReportAdminView from './views/ReportAdminView';
 
 const routes: RouteObject[] = [
   { path: 'anchor-test', element: <AnchorTestView /> },
@@ -36,6 +37,7 @@ const routes: RouteObject[] = [
       { path: 'oauth/callback', element: <HomeView /> },
       { path: 'admin-panel', element: <AdminView /> },
       { path: 'admin-panel/user', element: <UserAdminView /> },
+      { path: 'admin-panel/report', element: <ReportAdminView /> },
       { path: 'achievements', element: <AchievementsView /> },
       { path: 'unknown-brute', element: <BruteNotFoundView /> },
       { path: 'generating-tournaments', element: <GeneratingView /> },

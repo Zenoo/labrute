@@ -144,6 +144,9 @@ const AdminView = () => {
               <Link to="/admin-panel/user">
                 <FantasyButton color="secondary">USER ADMIN</FantasyButton>
               </Link>
+              <Link to="/admin-panel/report">
+                <FantasyButton color="primary">REPORTS</FantasyButton>
+              </Link>
             </Stack>
             <Divider />
             <Text bold h3 smallCaps color="secondary">{t('brute')}</Text>

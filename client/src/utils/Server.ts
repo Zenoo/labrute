@@ -1,5 +1,5 @@
-import { BrutesCreateResponse, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, BruteWithBodyColors, FullTournament, ServerReadyResponse, TournamentsGetGlobalResponse, UsersAdminUpdateRequest, UserWithBrutesBodyColor } from '@labrute/core';
-import { Achievement, Brute, DestinyChoice, DestinyChoiceSide, Fight, Gender, Lang, Log, Prisma, Tournament, User } from '@labrute/prisma';
+import { BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, BruteWithBodyColors, FullTournament, ServerReadyResponse, TournamentsGetGlobalResponse, UsersAdminUpdateRequest, UserWithBrutesBodyColor } from '@labrute/core';
+import { Achievement, Brute, BruteReportReason, BruteReportStatus, DestinyChoice, DestinyChoiceSide, Fight, Gender, Lang, Log, Prisma, Tournament, User } from '@labrute/prisma';
 import Fetch from './Fetch';
 
 const Server = {
@@ -92,6 +92,12 @@ const Server = {
   Achievement: {
     getForUser: (userId: string) => Fetch<Achievement[]>('/api/achievements', { userId }, 'POST'),
     getForBrute: (name: string) => Fetch<Achievement[]>(`/api/achievements/${name}`),
+  },
+  BruteReport: {
+    list: (status: BruteReportStatus) => Fetch<BruteReportsListResponse>(`/api/report/list/${status}`),
+    send: (name: string, reason: BruteReportReason) => Fetch<never>(`/api/report/send/${name}/${reason}`),
+    accept: (id: number) => Fetch<never>(`/api/report/${id}/accept`),
+    reject: (id: number) => Fetch<never>(`/api/report/${id}/reject`),
   },
 };
 

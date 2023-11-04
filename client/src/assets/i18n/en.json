@@ -605,5 +605,9 @@
   "bruteNotFound.subtitle": "The brute you are looking for does not exist or has been sacrificed.",
 
   "pleaseWait": "Please wait...",
-  "generatingTournaments": "We are generating today's tournaments. Please wait for a few minutes."
+  "generatingTournaments": "We are generating today's tournaments. Please wait for a few minutes.",
+  "report": "report",
+  "reportName": "Report inappropriate name",
+  "reportConfirm": "Are you sure you want to report the brute name {{brute}} as inappropriate?",
+  "reportSuccess": "Report successfully sent."
 }

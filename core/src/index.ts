@@ -16,7 +16,7 @@ import pets from './brute/pets';
 import skills from './brute/skills';
 import updateBruteData from './brute/updateBruteData';
 import weapons from './brute/weapons';
-import { BruteWithBodyColors, DestinyBranch, FullTournament, FullTournamentStep } from './types';
+import { BruteReportWithNames, BruteWithBodyColors, DestinyBranch, FullTournament, FullTournamentStep } from './types';
 import ExpectedError from './utils/ExpectedError';
 import adjustColor from './utils/adjustColor';
 import hexToRgba from './utils/hexToRgba';
@@ -25,7 +25,7 @@ import promiseBatch from './utils/promiseBatch';
 import randomBetween from './utils/randomBetween';
 import weightedRandom from './utils/weightedRandom';
 import Version from './Version';
-import { Achievement, Prisma } from '@labrute/prisma';
+import { Achievement, BruteReportReason, BruteReportStatus, Prisma } from '@labrute/prisma';
 import canLevelUp from './brute/canLevelUp';
 
 export * from './Achievements';
@@ -115,4 +115,14 @@ export type BruteRestoreResponse = {
 export type UsersAdminUpdateRequest = {
   user: Prisma.UserUncheckedUpdateInput,
   achievements: Achievement[],
+};
+
+export type BruteReportsListRequest = {
+  status: BruteReportStatus,
+};
+export type BruteReportsListResponse = BruteReportWithNames[];
+
+export type BruteReportsSendRequest = {
+  name: string,
+  reason: BruteReportReason,
 };

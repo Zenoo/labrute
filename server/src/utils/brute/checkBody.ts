@@ -1,11 +1,16 @@
 import { availableBodyParts } from '@labrute/core';
-import { Gender, Prisma } from '@labrute/prisma';
+import { Gender, Prisma, User } from '@labrute/prisma';
+import translate from '../translate.js';
 
 const checkBodyPart = (value: number, expected: number) => (expected === 0
   ? value === 0
   : value > 0 && value <= expected);
 
-const checkBody = (gender: Gender, inputs: Prisma.BruteBodyCreateWithoutBruteInput) => {
+const checkBody = (
+  user: User,
+  gender: Gender,
+  inputs: Prisma.BruteBodyCreateWithoutBruteInput,
+) => {
   if (!checkBodyPart(inputs.longHair, availableBodyParts[gender].longHair)
     || !checkBodyPart(inputs.lowerRightArm, availableBodyParts[gender].lowerRightArm)
     || !checkBodyPart(inputs.rightHand, availableBodyParts[gender].rightHand)
@@ -26,7 +31,7 @@ const checkBody = (gender: Gender, inputs: Prisma.BruteBodyCreateWithoutBruteInp
     || !checkBodyPart(inputs.lowerLeftArm, availableBodyParts[gender].lowerLeftArm)
     || !checkBodyPart(inputs.leftShoulder, availableBodyParts[gender].leftShoulder)
   ) {
-    throw new Error('I sense a disturbance in the force.');
+    throw new Error(translate('invalidCreation', user));
   }
 };
 

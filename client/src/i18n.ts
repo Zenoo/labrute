@@ -6,6 +6,7 @@ import es from './assets/i18n/es.json';
 import de from './assets/i18n/de.json';
 import ru from './assets/i18n/ru.json';
 import { DEFAULT_LANGUAGE } from '@labrute/core';
+import { Lang } from '@labrute/prisma';
 
 export const defaultNS = 'common';
 export const resources = {
@@ -31,7 +32,8 @@ i18n.use(initReactI18next).init({
   resources,
   interpolation: {
     escapeValue: false
-  }
+  },
+  fallbackLng: Lang.en,
 }).catch((err) => {
   console.error('Error loading language', err);
 });

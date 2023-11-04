@@ -5,6 +5,7 @@ import dailyJob from '../dailyJob.js';
 import auth from '../utils/auth.js';
 import DiscordUtils from '../utils/DiscordUtils.js';
 import sendError from '../utils/sendError.js';
+import translate from '../utils/translate.js';
 
 const Users = {
   get: (prisma: PrismaClient) => async (
@@ -20,7 +21,7 @@ const Users = {
       const admin = await auth(prisma, req);
 
       if (!admin.admin) {
-        throw new Error('Unauthorized');
+        throw new Error(translate('unauthorized', admin));
       }
 
       const user = await prisma.user.findFirst({
@@ -32,7 +33,7 @@ const Users = {
       });
 
       if (!user) {
-        throw new ExpectedError('User not found');
+        throw new ExpectedError(translate('userNotFound', admin));
       }
 
       res.send(user);
@@ -54,7 +55,7 @@ const Users = {
       const user = await auth(prisma, req);
 
       if (!user.admin) {
-        throw new Error('Unauthorized');
+        throw new Error(translate('unauthorized', user));
       }
 
       await dailyJob(prisma)().catch((error) => {
@@ -141,11 +142,11 @@ const Users = {
       const admin = await auth(prisma, req);
 
       if (!admin.admin) {
-        throw new Error('Unauthorized');
+        throw new Error(translate('unauthorized', admin));
       }
 
       if (!id) {
-        throw new Error('Missing id');
+        throw new Error(translate('noIDProvided', admin));
       }
 
       const user = await prisma.user.findFirst({
@@ -155,7 +156,7 @@ const Users = {
       });
 
       if (!user) {
-        throw new Error('User not found');
+        throw new Error(translate('userNotFound', admin));
       }
 
       // Update the user

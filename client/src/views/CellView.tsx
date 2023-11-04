@@ -1,8 +1,8 @@
 import { BruteWithMasterBodyColorsClanTournament } from '@labrute/core';
-import { TournamentType } from '@labrute/prisma';
+import { BruteReportReason, TournamentType } from '@labrute/prisma';
 import { Box, Paper, Tooltip, useMediaQuery } from '@mui/material';
 import moment from 'moment';
-import React, { useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import BoxBg from '../components/BoxBg';
@@ -24,6 +24,9 @@ import Server from '../utils/Server';
 import CellMobileView from './mobile/CellMobileView';
 import FantasyButton from '../components/FantasyButton';
 import { History } from '@mui/icons-material';
+import { useConfirm } from '../hooks/useConfirm';
+import { useAlert } from '../hooks/useAlert';
+import catchError from '../utils/catchError';
 
 /**
  * CellView component
@@ -35,6 +38,8 @@ const CellView = () => {
   const { language } = useLanguage();
   const navigate = useNavigate();
   const { brute, updateBrute } = useBrute();
+  const Confirm = useConfirm();
+  const Alert = useAlert();
 
   const { data: logs } = useStateAsync([], Server.Log.list, bruteName || '');
 
@@ -69,6 +74,17 @@ const CellView = () => {
 
   // Randomized advertising
   const ad = useMemo(() => getRandomAd(language), [language]);
+
+  // Report brute
+  const confirmReport = useCallback(() => {
+    if (!brute) return;
+
+    Confirm.open(t('reportName'), t('reportConfirm', { brute: brute.name }), () => {
+      Server.BruteReport.send(brute.name, BruteReportReason.name).then(() => {
+        Alert.open('success', t('reportSuccess'));
+      }).catch(catchError(Alert));
+    });
+  }, [Alert, Confirm, brute, t]);
 
   return brute && (smallScreen
     ? (
@@ -194,6 +210,15 @@ const CellView = () => {
                   </FantasyButton>
                 </Link>
               </Box>
+              <Text
+                smallCaps
+                subtitle2
+                center
+                onClick={confirmReport}
+                sx={{ cursor: 'pointer' }}
+              >
+                {t('report')}
+              </Text>
             </Box>
           </Box>
         </Paper>

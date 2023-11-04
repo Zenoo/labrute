@@ -5,6 +5,7 @@ import moment from 'moment';
 import auth from '../utils/auth.js';
 import sendError from '../utils/sendError.js';
 import DiscordUtils from '../utils/DiscordUtils.js';
+import translate from '../utils/translate.js';
 
 const Tournaments = {
   getDaily: (prisma: PrismaClient) => async (req: Request, res: Response) => {
@@ -62,7 +63,7 @@ const Tournaments = {
       const user = await auth(prisma, req);
 
       if (!req.params.name) {
-        throw new Error('Invalid parameters');
+        throw new Error(translate('missingParameters', user));
       }
 
       // Get brute
@@ -77,12 +78,12 @@ const Tournaments = {
       });
 
       if (!brute) {
-        throw new ExpectedError('Brute not found');
+        throw new ExpectedError(translate('bruteNotFound', user));
       }
 
       // Prevent if brute can rank up
       if (brute.canRankUpSince) {
-        throw new ExpectedError('Rank up before participating in a tournament');
+        throw new ExpectedError(translate('rankUpBeforeTournament', user));
       }
 
       // Update brute tournament date
@@ -109,7 +110,7 @@ const Tournaments = {
       const user = await auth(prisma, req);
 
       if (!req.params.name) {
-        throw new Error('Invalid parameters');
+        throw new Error(translate('missingParameters', user));
       }
 
       // Get brute
@@ -124,7 +125,7 @@ const Tournaments = {
       });
 
       if (!brute) {
-        throw new ExpectedError('Brute not found');
+        throw new ExpectedError(translate('bruteNotFound', user));
       }
 
       const tournament = await prisma.tournament.findFirst({
@@ -141,7 +142,7 @@ const Tournaments = {
       });
 
       if (!tournament) {
-        throw new ExpectedError('Tournament not found');
+        throw new ExpectedError(translate('tournamentNotFound', user));
       }
 
       const steps = [0, 32, 48, 56, 60, 63];
@@ -196,7 +197,7 @@ const Tournaments = {
       const user = await auth(prisma, req);
 
       if (!req.params.name) {
-        throw new Error('Invalid parameters');
+        throw new Error(translate('missingParameters', user));
       }
 
       // Get brute
@@ -211,7 +212,7 @@ const Tournaments = {
       });
 
       if (!brute) {
-        throw new ExpectedError('Brute not found');
+        throw new ExpectedError(translate('bruteNotFound', user));
       }
 
       // Update brute tournament date
@@ -421,7 +422,7 @@ const Tournaments = {
       const user = await auth(prisma, req);
 
       if (!user.admin) {
-        throw new ExpectedError('Unauthorized');
+        throw new ExpectedError(translate('unauthorized', user));
       }
 
       // Get tournament step ids
@@ -477,7 +478,7 @@ const Tournaments = {
       const user = await auth(prisma, req);
 
       if (!user.admin) {
-        throw new ExpectedError('Unauthorized');
+        throw new ExpectedError(translate('unauthorized', user));
       }
 
       // Get tournament step ids
