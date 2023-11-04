@@ -24,12 +24,14 @@ export interface CellMobileViewProps {
   ad: AdResult;
   logs: (Log & { currentBrute: { name: string } })[];
   language: Language;
+  confirmReport: () => void;
 }
 
 const CellMobileView = ({
   ad,
   logs,
   language,
+  confirmReport,
 }: CellMobileViewProps) => {
   const { t } = useTranslation();
   const { brute } = useBrute();
@@ -80,6 +82,15 @@ const CellMobileView = ({
               smallScreen
             />
           </Paper>
+          <Text
+            smallCaps
+            subtitle2
+            center
+            onClick={confirmReport}
+            sx={{ cursor: 'pointer' }}
+          >
+            {t('report')}
+          </Text>
         </Grid>
         <Grid item xs={12} sm={6} sx={{ textAlign: 'center' }} order={isXs ? 4 : 0}>
           {/* PETS OR ADVERT */}

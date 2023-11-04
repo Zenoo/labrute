@@ -92,6 +92,7 @@ const CellView = () => {
         ad={ad}
         logs={logs}
         language={language}
+        confirmReport={confirmReport}
       />
     )
     : (
