@@ -61,7 +61,7 @@ const Header = ({
       <Link component={RouterLink} to={url || '/'}>
         <Box
           component="img"
-          src={`/images/${language}/header/head.jpg`}
+          src={`/images/${language}/header/head.png`}
           alt={t('MyBrute')}
           sx={{ width: 1 }}
         />
