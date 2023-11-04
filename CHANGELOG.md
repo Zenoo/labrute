@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.35.8](https://github.com/Zenoo/labrute/compare/labrute-v2.35.7...labrute-v2.35.8) (2023-11-04)
+
+
+### Bug Fixes
+
+* New ES/DE/RU headers. ([09b35a2](https://github.com/Zenoo/labrute/commit/09b35a2007c5561d071411e01e0c2ce6da9ff455))
+* Slightly improved Russian buttons readability ([#393](https://github.com/Zenoo/labrute/issues/393)) ([1777d07](https://github.com/Zenoo/labrute/commit/1777d071da3211433d4a25a9d8a2f5de59b27458))
+* Typos ([8dcac31](https://github.com/Zenoo/labrute/commit/8dcac3114eebfd93f51830092b0f77a78205ce5f))
+
 ## [2.35.7](https://github.com/Zenoo/labrute/compare/labrute-v2.35.6...labrute-v2.35.7) (2023-11-01)
 
 
