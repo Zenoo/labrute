@@ -586,8 +586,8 @@
   "bruteNotFound.subtitle": "El bruto que estás buscando no existe o ha sido sacrificado.",
   "pleaseWait": "Espere por favor...",
   "generatingTournaments": "El torneo de hoy se está generado. Por favor espere unos minutos.",
-  "report": "report",
-  "reportName": "Report inappropriate name",
-  "reportConfirm": "Are you sure you want to report the brute name {{brute}} as inappropriate?",
-  "reportSuccess": "Report successfully sent."
+  "report": "reportar",
+  "reportName": "Reportar nombre inapropiado",
+  "reportConfirm": "¿Estás seguro de que quieres reportar el nombre {{brute}} como inapropiado?",
+  "reportSuccess": "Reporte enviado con éxito."
 }
