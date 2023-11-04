@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.36.0](https://github.com/Zenoo/labrute/compare/labrute-v2.35.8...labrute-v2.36.0) (2023-11-04)
+
+
+### Features
+
+* Brute report system. Fixes [#182](https://github.com/Zenoo/labrute/issues/182) ([98611b4](https://github.com/Zenoo/labrute/commit/98611b419f9036cd4143378d21b44b510a5cc076))
+
+
+### Bug Fixes
+
+* Update Prisma version ([c5a59ef](https://github.com/Zenoo/labrute/commit/c5a59ef2bba6b834feb302c91abb55d01a6544b3))
+
 ## [2.35.8](https://github.com/Zenoo/labrute/compare/labrute-v2.35.7...labrute-v2.35.8) (2023-11-04)
 
 
