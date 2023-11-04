@@ -37,7 +37,7 @@
   "serverTime": "Время сервера",
   "shadow": "Тень",
   "log.win": "Ваш Брутал разгромил {{value}}.",
-  "log.survive": "Ваш Брутал выжил нападение {{value}}.",
+  "log.survive": "Bаш Брутал стал жертвой нападения {{value}}, но выжил.",
   "log.lose": "{{value}} сравнял вашего Брутала с землёй.",
   "log.child": "Новый ученик: {{value}}!",
   "log.childup": "Ваш ученик, {{value}}, теперь сильнее чем прежде.",
@@ -586,8 +586,8 @@
   "bruteNotFound.subtitle": "Брутал, которого вы ищете, не существует или был принесён в жертву.",
   "pleaseWait": "Подождите, пожалуйста...",
   "generatingTournaments": "Мы составляем сегодняшние турниры. Подождите, пожалуйста, пару минут.",
-  "report": "report",
-  "reportName": "Report inappropriate name",
-  "reportConfirm": "Are you sure you want to report the brute name {{brute}} as inappropriate?",
-  "reportSuccess": "Report successfully sent."
+  "report": "пожаловаться",
+  "reportName": "Пожаловаться на неуместное имя",
+  "reportConfirm": "Вы уверены, что хотите пометить имя {{brute}} неуместным?",
+  "reportSuccess": "Жалоба отправлена успешно."
 }
