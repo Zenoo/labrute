@@ -585,5 +585,9 @@
   "bruteNotFound.title": "Brutalo nicht gefunden",
   "bruteNotFound.subtitle": "Der Brutalo, den du suchst, existiert nicht oder er wurde geopfert.",
   "pleaseWait": "Bitte warten...",
-  "generatingTournaments": "Heutige Wettkämpfe werden erstellt. Bitte warte einige Minuten."
+  "generatingTournaments": "Heutige Wettkämpfe werden erstellt. Bitte warte einige Minuten.",
+  "report": "report",
+  "reportName": "Report inappropriate name",
+  "reportConfirm": "Are you sure you want to report the brute name {{brute}} as inappropriate?",
+  "reportSuccess": "Report successfully sent."
 }
