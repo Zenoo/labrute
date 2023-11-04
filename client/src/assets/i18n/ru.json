@@ -585,5 +585,9 @@
   "bruteNotFound.title": "Брутал не найден",
   "bruteNotFound.subtitle": "Брутал, которого вы ищете, не существует или был принесён в жертву.",
   "pleaseWait": "Подождите, пожалуйста...",
-  "generatingTournaments": "Мы составляем сегодняшние турниры. Подождите, пожалуйста, пару минут."
+  "generatingTournaments": "Мы составляем сегодняшние турниры. Подождите, пожалуйста, пару минут.",
+  "report": "report",
+  "reportName": "Report inappropriate name",
+  "reportConfirm": "Are you sure you want to report the brute name {{brute}} as inappropriate?",
+  "reportSuccess": "Report successfully sent."
 }
