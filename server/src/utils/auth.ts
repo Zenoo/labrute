@@ -6,7 +6,7 @@ const auth = async (prisma: PrismaClient, request: Request) => {
   const { headers: { authorization } } = request;
 
   if (!authorization) {
-    throw new ExpectedError('No authorization header');
+    throw new ExpectedError('You are not logged in');
   }
   if (typeof authorization !== 'string') {
     throw new ExpectedError('Invalid authorization header');

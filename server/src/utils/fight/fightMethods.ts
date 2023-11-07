@@ -1104,6 +1104,7 @@ export const checkDeaths = (fightData: DetailedFight['data']) => {
     if (fighter.hp <= 0 && fightData.steps.filter((step) => step.action === 'death'
       && step.fighter.master === fighter.master
       && step.fighter.type === fighter.type
+      && step.fighter.hypnotised === fighter.hypnotised
       && step.fighter.name === fighter.name).length === 0) {
       // Add death step
       fightData.steps.push({
