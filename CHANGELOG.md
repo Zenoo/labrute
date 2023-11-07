@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.36.2](https://github.com/Zenoo/labrute/compare/labrute-v2.36.1...labrute-v2.36.2) (2023-11-07)
+
+
+### Bug Fixes
+
+* authorization error and add hypnotised check ([9215e7d](https://github.com/Zenoo/labrute/commit/9215e7ded6b72c2dd68512bf48b41fdbc2943a92))
+
 ## [2.36.1](https://github.com/Zenoo/labrute/compare/labrute-v2.36.0...labrute-v2.36.1) (2023-11-04)
 
 
