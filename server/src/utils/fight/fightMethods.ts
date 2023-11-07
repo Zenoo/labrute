@@ -569,13 +569,9 @@ const activateSuper = (
       break;
     }
     case 'cryOfTheDamned': {
-      // Get main opponent
-      const opponent = getMainOpponent(fightData, fighter);
       // Get opponent's non trapped pets
-      const opponentPets = fightData.fighters.filter((f) => f.type === 'pet'
-        && f.master === opponent.id
-        && !f.trapped
-        && f.hp > 0);
+      const opponentPets = getOpponents(fightData, fighter, false, true)
+        .filter((f) => !f.trapped && f.hp > 0);
 
       // Abort if no pet
       if (opponentPets.length === 0) return false;
@@ -594,7 +590,13 @@ const activateSuper = (
           } as LeaveStep);
 
           // Remove pet from fight
-          fightData.fighters = fightData.fighters.filter((f) => f.type === 'brute' || (f.type === 'pet' && f.name !== pet.name));
+          fightData.fighters = fightData.fighters
+            .filter((f) => f.type === 'brute'
+              || !(f.type === 'pet'
+                && f.master === pet.master
+                && f.name === pet.name
+                && f.hypnotised === pet.hypnotised
+              ));
         }
       }
 
