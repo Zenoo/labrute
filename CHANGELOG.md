@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.36.3](https://github.com/Zenoo/labrute/compare/labrute-v2.36.2...labrute-v2.36.3) (2023-11-07)
+
+
+### Bug Fixes
+
+* Inactive pet after cry of the damned ([df03b40](https://github.com/Zenoo/labrute/commit/df03b4044bbbbc9e319e3f73b46551308d8f8bc1))
+
 ## [2.36.2](https://github.com/Zenoo/labrute/compare/labrute-v2.36.1...labrute-v2.36.2) (2023-11-07)
 
 
