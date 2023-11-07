@@ -586,8 +586,8 @@
   "bruteNotFound.subtitle": "La brute que vous cherchez n'existe pas ou a été sacrifiée.",
   "pleaseWait": "Veuillez patienter...",
   "generatingTournaments": "Nous générons les tournois d'aujourd'hui. Merci d'attendre quelques minutes.",
-  "report": "report",
-  "reportName": "Report inappropriate name",
-  "reportConfirm": "Are you sure you want to report the brute name {{brute}} as inappropriate?",
-  "reportSuccess": "Report successfully sent."
+  "report": "signaler",
+  "reportName": "Signaler un nom inapproprié",
+  "reportConfirm": "Êtes-vous sûr de vouloir signaler le nom de la brute {{brute}} comme inapproprié ?",
+  "reportSuccess": "Signalement envoyé avec succès."
 }
