@@ -165,6 +165,7 @@ export interface HealStep {
   action: 'heal';
   brute: StepFighter;
   amount: number;
+  poisonHeal?: boolean;
 }
 
 export interface ResistStep {

@@ -443,12 +443,17 @@ const activateSuper = (
     }
     case 'tragicPotion': {
       let hpHealed = Math.floor(fighter.maxHp * (0.25 + Math.random() * 0.25));
+      let poisonHeal = false;
 
       // Limit hp to max
       hpHealed = Math.min(hpHealed, fighter.maxHp - fighter.hp);
 
       fighter.hp += hpHealed;
-      fighter.poisoned = false;
+
+      if (fighter.poisoned) {
+        fighter.poisoned = false;
+        poisonHeal = true;
+      }
 
       // Increas own initiative
       fighter.initiative += 0.15;
@@ -458,6 +463,7 @@ const activateSuper = (
         action: 'heal',
         brute: stepFighter(fighter),
         amount: hpHealed,
+        poisonHeal,
       });
 
       break;

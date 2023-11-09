@@ -2,7 +2,7 @@
 import { HealStep } from '@labrute/core';
 import { OutlineFilter } from '@pixi/filter-outline';
 import { Tweener } from 'pixi-tweener';
-import { AnimatedSprite, Application, Text } from 'pixi.js';
+import { AnimatedSprite, Application, Sprite, Text } from 'pixi.js';
 import changeAnimation from './changeAnimation';
 
 import findFighter, { AnimationFighter } from './findFighter';
@@ -15,6 +15,12 @@ const heal = async (
   step: HealStep,
   speed: React.MutableRefObject<number>,
 ) => {
+  const { loader: { resources: { '/images/game/misc.json': { spritesheet } } } } = app;
+
+  if (!spritesheet) {
+    throw new Error('Spritesheet not found');
+  }
+
   const brute = findFighter(fighters, step.brute);
   if (!brute) {
     throw new Error('Brute not found');
@@ -49,6 +55,29 @@ const heal = async (
     // Remove text
     healText.destroy();
   }).catch(console.error);
+
+  // Display floating and fading cure icon if brute was poison healed
+  if (step.poisonHeal) {
+    const cureIcon = new Sprite(spritesheet.textures['cure.png']);
+    cureIcon.anchor.set(0.5);
+    cureIcon.width = 30;
+    cureIcon.height = 30;
+    cureIcon.x = brute.container.x - 35;
+    cureIcon.y = brute.container.y - brute.currentAnimation.height;
+    cureIcon.zIndex = 1000;
+    app.stage.addChild(cureIcon);
+
+    Tweener.add({
+      target: cureIcon,
+      duration: 2 / speed.current,
+    }, {
+      y: cureIcon.y - 100,
+      alpha: 0,
+    }).then(() => {
+      // Remove icon
+      cureIcon.destroy();
+    }).catch(console.error);
+  }
 
   // Wait for animation to complete
   await new Promise((resolve) => {
