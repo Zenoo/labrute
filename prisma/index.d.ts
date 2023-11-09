@@ -83,6 +83,11 @@ export type Achievement = $Result.DefaultSelection<Prisma.$AchievementPayload>
  * 
  */
 export type BruteReport = $Result.DefaultSelection<Prisma.$BruteReportPayload>
+/**
+ * Model ServerState
+ * 
+ */
+export type ServerState = $Result.DefaultSelection<Prisma.$ServerStatePayload>
 
 /**
  * Enums
@@ -683,6 +688,16 @@ export class PrismaClient<
     * ```
     */
   get bruteReport(): Prisma.BruteReportDelegate<ExtArgs>;
+
+  /**
+   * `prisma.serverState`: Exposes CRUD operations for the **ServerState** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ServerStates
+    * const serverStates = await prisma.serverState.findMany()
+    * ```
+    */
+  get serverState(): Prisma.ServerStateDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -1166,7 +1181,8 @@ export namespace Prisma {
     TournamentStep: 'TournamentStep',
     TournamentEarning: 'TournamentEarning',
     Achievement: 'Achievement',
-    BruteReport: 'BruteReport'
+    BruteReport: 'BruteReport',
+    ServerState: 'ServerState'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1183,7 +1199,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'user' | 'bruteBody' | 'bruteColors' | 'brute' | 'bruteSpritesheet' | 'clan' | 'fight' | 'log' | 'destinyChoice' | 'tournament' | 'tournamentStep' | 'tournamentEarning' | 'achievement' | 'bruteReport'
+      modelProps: 'user' | 'bruteBody' | 'bruteColors' | 'brute' | 'bruteSpritesheet' | 'clan' | 'fight' | 'log' | 'destinyChoice' | 'tournament' | 'tournamentStep' | 'tournamentEarning' | 'achievement' | 'bruteReport' | 'serverState'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -2108,6 +2124,72 @@ export namespace Prisma {
           count: {
             args: Prisma.BruteReportCountArgs<ExtArgs>,
             result: $Utils.Optional<BruteReportCountAggregateOutputType> | number
+          }
+        }
+      }
+      ServerState: {
+        payload: Prisma.$ServerStatePayload<ExtArgs>
+        fields: Prisma.ServerStateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ServerStateFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ServerStatePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ServerStateFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ServerStatePayload>
+          }
+          findFirst: {
+            args: Prisma.ServerStateFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ServerStatePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ServerStateFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ServerStatePayload>
+          }
+          findMany: {
+            args: Prisma.ServerStateFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ServerStatePayload>[]
+          }
+          create: {
+            args: Prisma.ServerStateCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ServerStatePayload>
+          }
+          createMany: {
+            args: Prisma.ServerStateCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.ServerStateDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ServerStatePayload>
+          }
+          update: {
+            args: Prisma.ServerStateUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ServerStatePayload>
+          }
+          deleteMany: {
+            args: Prisma.ServerStateDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ServerStateUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.ServerStateUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ServerStatePayload>
+          }
+          aggregate: {
+            args: Prisma.ServerStateAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateServerState>
+          }
+          groupBy: {
+            args: Prisma.ServerStateGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<ServerStateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ServerStateCountArgs<ExtArgs>,
+            result: $Utils.Optional<ServerStateCountAggregateOutputType> | number
           }
         }
       }
@@ -17614,6 +17696,877 @@ export namespace Prisma {
 
 
   /**
+   * Model ServerState
+   */
+
+  export type AggregateServerState = {
+    _count: ServerStateCountAggregateOutputType | null
+    _avg: ServerStateAvgAggregateOutputType | null
+    _sum: ServerStateSumAggregateOutputType | null
+    _min: ServerStateMinAggregateOutputType | null
+    _max: ServerStateMaxAggregateOutputType | null
+  }
+
+  export type ServerStateAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type ServerStateSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type ServerStateMinAggregateOutputType = {
+    id: number | null
+    ready: boolean | null
+  }
+
+  export type ServerStateMaxAggregateOutputType = {
+    id: number | null
+    ready: boolean | null
+  }
+
+  export type ServerStateCountAggregateOutputType = {
+    id: number
+    ready: number
+    _all: number
+  }
+
+
+  export type ServerStateAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type ServerStateSumAggregateInputType = {
+    id?: true
+  }
+
+  export type ServerStateMinAggregateInputType = {
+    id?: true
+    ready?: true
+  }
+
+  export type ServerStateMaxAggregateInputType = {
+    id?: true
+    ready?: true
+  }
+
+  export type ServerStateCountAggregateInputType = {
+    id?: true
+    ready?: true
+    _all?: true
+  }
+
+  export type ServerStateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ServerState to aggregate.
+     */
+    where?: ServerStateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ServerStates to fetch.
+     */
+    orderBy?: ServerStateOrderByWithRelationInput | ServerStateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ServerStateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ServerStates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ServerStates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ServerStates
+    **/
+    _count?: true | ServerStateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ServerStateAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ServerStateSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ServerStateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ServerStateMaxAggregateInputType
+  }
+
+  export type GetServerStateAggregateType<T extends ServerStateAggregateArgs> = {
+        [P in keyof T & keyof AggregateServerState]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateServerState[P]>
+      : GetScalarType<T[P], AggregateServerState[P]>
+  }
+
+
+
+
+  export type ServerStateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ServerStateWhereInput
+    orderBy?: ServerStateOrderByWithAggregationInput | ServerStateOrderByWithAggregationInput[]
+    by: ServerStateScalarFieldEnum[] | ServerStateScalarFieldEnum
+    having?: ServerStateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ServerStateCountAggregateInputType | true
+    _avg?: ServerStateAvgAggregateInputType
+    _sum?: ServerStateSumAggregateInputType
+    _min?: ServerStateMinAggregateInputType
+    _max?: ServerStateMaxAggregateInputType
+  }
+
+  export type ServerStateGroupByOutputType = {
+    id: number
+    ready: boolean
+    _count: ServerStateCountAggregateOutputType | null
+    _avg: ServerStateAvgAggregateOutputType | null
+    _sum: ServerStateSumAggregateOutputType | null
+    _min: ServerStateMinAggregateOutputType | null
+    _max: ServerStateMaxAggregateOutputType | null
+  }
+
+  type GetServerStateGroupByPayload<T extends ServerStateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ServerStateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ServerStateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ServerStateGroupByOutputType[P]>
+            : GetScalarType<T[P], ServerStateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ServerStateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ready?: boolean
+  }, ExtArgs["result"]["serverState"]>
+
+  export type ServerStateSelectScalar = {
+    id?: boolean
+    ready?: boolean
+  }
+
+
+  export type $ServerStatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ServerState"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      ready: boolean
+    }, ExtArgs["result"]["serverState"]>
+    composites: {}
+  }
+
+
+  type ServerStateGetPayload<S extends boolean | null | undefined | ServerStateDefaultArgs> = $Result.GetResult<Prisma.$ServerStatePayload, S>
+
+  type ServerStateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ServerStateFindManyArgs, 'select' | 'include' | 'distinct' > & {
+      select?: ServerStateCountAggregateInputType | true
+    }
+
+  export interface ServerStateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ServerState'], meta: { name: 'ServerState' } }
+    /**
+     * Find zero or one ServerState that matches the filter.
+     * @param {ServerStateFindUniqueArgs} args - Arguments to find a ServerState
+     * @example
+     * // Get one ServerState
+     * const serverState = await prisma.serverState.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends ServerStateFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, ServerStateFindUniqueArgs<ExtArgs>>
+    ): Prisma__ServerStateClient<$Result.GetResult<Prisma.$ServerStatePayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one ServerState that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {ServerStateFindUniqueOrThrowArgs} args - Arguments to find a ServerState
+     * @example
+     * // Get one ServerState
+     * const serverState = await prisma.serverState.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends ServerStateFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, ServerStateFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__ServerStateClient<$Result.GetResult<Prisma.$ServerStatePayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first ServerState that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServerStateFindFirstArgs} args - Arguments to find a ServerState
+     * @example
+     * // Get one ServerState
+     * const serverState = await prisma.serverState.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends ServerStateFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, ServerStateFindFirstArgs<ExtArgs>>
+    ): Prisma__ServerStateClient<$Result.GetResult<Prisma.$ServerStatePayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first ServerState that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServerStateFindFirstOrThrowArgs} args - Arguments to find a ServerState
+     * @example
+     * // Get one ServerState
+     * const serverState = await prisma.serverState.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends ServerStateFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, ServerStateFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__ServerStateClient<$Result.GetResult<Prisma.$ServerStatePayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more ServerStates that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServerStateFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ServerStates
+     * const serverStates = await prisma.serverState.findMany()
+     * 
+     * // Get first 10 ServerStates
+     * const serverStates = await prisma.serverState.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const serverStateWithIdOnly = await prisma.serverState.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends ServerStateFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ServerStateFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServerStatePayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a ServerState.
+     * @param {ServerStateCreateArgs} args - Arguments to create a ServerState.
+     * @example
+     * // Create one ServerState
+     * const ServerState = await prisma.serverState.create({
+     *   data: {
+     *     // ... data to create a ServerState
+     *   }
+     * })
+     * 
+    **/
+    create<T extends ServerStateCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, ServerStateCreateArgs<ExtArgs>>
+    ): Prisma__ServerStateClient<$Result.GetResult<Prisma.$ServerStatePayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many ServerStates.
+     *     @param {ServerStateCreateManyArgs} args - Arguments to create many ServerStates.
+     *     @example
+     *     // Create many ServerStates
+     *     const serverState = await prisma.serverState.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends ServerStateCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ServerStateCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a ServerState.
+     * @param {ServerStateDeleteArgs} args - Arguments to delete one ServerState.
+     * @example
+     * // Delete one ServerState
+     * const ServerState = await prisma.serverState.delete({
+     *   where: {
+     *     // ... filter to delete one ServerState
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends ServerStateDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, ServerStateDeleteArgs<ExtArgs>>
+    ): Prisma__ServerStateClient<$Result.GetResult<Prisma.$ServerStatePayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one ServerState.
+     * @param {ServerStateUpdateArgs} args - Arguments to update one ServerState.
+     * @example
+     * // Update one ServerState
+     * const serverState = await prisma.serverState.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends ServerStateUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, ServerStateUpdateArgs<ExtArgs>>
+    ): Prisma__ServerStateClient<$Result.GetResult<Prisma.$ServerStatePayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more ServerStates.
+     * @param {ServerStateDeleteManyArgs} args - Arguments to filter ServerStates to delete.
+     * @example
+     * // Delete a few ServerStates
+     * const { count } = await prisma.serverState.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends ServerStateDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ServerStateDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ServerStates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServerStateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ServerStates
+     * const serverState = await prisma.serverState.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends ServerStateUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, ServerStateUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ServerState.
+     * @param {ServerStateUpsertArgs} args - Arguments to update or create a ServerState.
+     * @example
+     * // Update or create a ServerState
+     * const serverState = await prisma.serverState.upsert({
+     *   create: {
+     *     // ... data to create a ServerState
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ServerState we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends ServerStateUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, ServerStateUpsertArgs<ExtArgs>>
+    ): Prisma__ServerStateClient<$Result.GetResult<Prisma.$ServerStatePayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of ServerStates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServerStateCountArgs} args - Arguments to filter ServerStates to count.
+     * @example
+     * // Count the number of ServerStates
+     * const count = await prisma.serverState.count({
+     *   where: {
+     *     // ... the filter for the ServerStates we want to count
+     *   }
+     * })
+    **/
+    count<T extends ServerStateCountArgs>(
+      args?: Subset<T, ServerStateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ServerStateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ServerState.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServerStateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ServerStateAggregateArgs>(args: Subset<T, ServerStateAggregateArgs>): Prisma.PrismaPromise<GetServerStateAggregateType<T>>
+
+    /**
+     * Group by ServerState.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServerStateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ServerStateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ServerStateGroupByArgs['orderBy'] }
+        : { orderBy?: ServerStateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ServerStateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetServerStateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ServerState model
+   */
+  readonly fields: ServerStateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ServerState.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ServerStateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the ServerState model
+   */ 
+  interface ServerStateFieldRefs {
+    readonly id: FieldRef<"ServerState", 'Int'>
+    readonly ready: FieldRef<"ServerState", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * ServerState findUnique
+   */
+  export type ServerStateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServerState
+     */
+    select?: ServerStateSelect<ExtArgs> | null
+    /**
+     * Filter, which ServerState to fetch.
+     */
+    where: ServerStateWhereUniqueInput
+  }
+
+
+  /**
+   * ServerState findUniqueOrThrow
+   */
+  export type ServerStateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServerState
+     */
+    select?: ServerStateSelect<ExtArgs> | null
+    /**
+     * Filter, which ServerState to fetch.
+     */
+    where: ServerStateWhereUniqueInput
+  }
+
+
+  /**
+   * ServerState findFirst
+   */
+  export type ServerStateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServerState
+     */
+    select?: ServerStateSelect<ExtArgs> | null
+    /**
+     * Filter, which ServerState to fetch.
+     */
+    where?: ServerStateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ServerStates to fetch.
+     */
+    orderBy?: ServerStateOrderByWithRelationInput | ServerStateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ServerStates.
+     */
+    cursor?: ServerStateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ServerStates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ServerStates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ServerStates.
+     */
+    distinct?: ServerStateScalarFieldEnum | ServerStateScalarFieldEnum[]
+  }
+
+
+  /**
+   * ServerState findFirstOrThrow
+   */
+  export type ServerStateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServerState
+     */
+    select?: ServerStateSelect<ExtArgs> | null
+    /**
+     * Filter, which ServerState to fetch.
+     */
+    where?: ServerStateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ServerStates to fetch.
+     */
+    orderBy?: ServerStateOrderByWithRelationInput | ServerStateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ServerStates.
+     */
+    cursor?: ServerStateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ServerStates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ServerStates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ServerStates.
+     */
+    distinct?: ServerStateScalarFieldEnum | ServerStateScalarFieldEnum[]
+  }
+
+
+  /**
+   * ServerState findMany
+   */
+  export type ServerStateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServerState
+     */
+    select?: ServerStateSelect<ExtArgs> | null
+    /**
+     * Filter, which ServerStates to fetch.
+     */
+    where?: ServerStateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ServerStates to fetch.
+     */
+    orderBy?: ServerStateOrderByWithRelationInput | ServerStateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ServerStates.
+     */
+    cursor?: ServerStateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ServerStates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ServerStates.
+     */
+    skip?: number
+    distinct?: ServerStateScalarFieldEnum | ServerStateScalarFieldEnum[]
+  }
+
+
+  /**
+   * ServerState create
+   */
+  export type ServerStateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServerState
+     */
+    select?: ServerStateSelect<ExtArgs> | null
+    /**
+     * The data needed to create a ServerState.
+     */
+    data?: XOR<ServerStateCreateInput, ServerStateUncheckedCreateInput>
+  }
+
+
+  /**
+   * ServerState createMany
+   */
+  export type ServerStateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ServerStates.
+     */
+    data: ServerStateCreateManyInput | ServerStateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * ServerState update
+   */
+  export type ServerStateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServerState
+     */
+    select?: ServerStateSelect<ExtArgs> | null
+    /**
+     * The data needed to update a ServerState.
+     */
+    data: XOR<ServerStateUpdateInput, ServerStateUncheckedUpdateInput>
+    /**
+     * Choose, which ServerState to update.
+     */
+    where: ServerStateWhereUniqueInput
+  }
+
+
+  /**
+   * ServerState updateMany
+   */
+  export type ServerStateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ServerStates.
+     */
+    data: XOR<ServerStateUpdateManyMutationInput, ServerStateUncheckedUpdateManyInput>
+    /**
+     * Filter which ServerStates to update
+     */
+    where?: ServerStateWhereInput
+  }
+
+
+  /**
+   * ServerState upsert
+   */
+  export type ServerStateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServerState
+     */
+    select?: ServerStateSelect<ExtArgs> | null
+    /**
+     * The filter to search for the ServerState to update in case it exists.
+     */
+    where: ServerStateWhereUniqueInput
+    /**
+     * In case the ServerState found by the `where` argument doesn't exist, create a new ServerState with this data.
+     */
+    create: XOR<ServerStateCreateInput, ServerStateUncheckedCreateInput>
+    /**
+     * In case the ServerState was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ServerStateUpdateInput, ServerStateUncheckedUpdateInput>
+  }
+
+
+  /**
+   * ServerState delete
+   */
+  export type ServerStateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServerState
+     */
+    select?: ServerStateSelect<ExtArgs> | null
+    /**
+     * Filter which ServerState to delete.
+     */
+    where: ServerStateWhereUniqueInput
+  }
+
+
+  /**
+   * ServerState deleteMany
+   */
+  export type ServerStateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ServerStates to delete
+     */
+    where?: ServerStateWhereInput
+  }
+
+
+  /**
+   * ServerState without action
+   */
+  export type ServerStateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServerState
+     */
+    select?: ServerStateSelect<ExtArgs> | null
+  }
+
+
+
+  /**
    * Enums
    */
 
@@ -17847,6 +18800,14 @@ export namespace Prisma {
   };
 
   export type BruteReportScalarFieldEnum = (typeof BruteReportScalarFieldEnum)[keyof typeof BruteReportScalarFieldEnum]
+
+
+  export const ServerStateScalarFieldEnum: {
+    id: 'id',
+    ready: 'ready'
+  };
+
+  export type ServerStateScalarFieldEnum = (typeof ServerStateScalarFieldEnum)[keyof typeof ServerStateScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -19387,6 +20348,45 @@ export namespace Prisma {
     status?: EnumBruteReportStatusWithAggregatesFilter<"BruteReport"> | $Enums.BruteReportStatus
   }
 
+  export type ServerStateWhereInput = {
+    AND?: ServerStateWhereInput | ServerStateWhereInput[]
+    OR?: ServerStateWhereInput[]
+    NOT?: ServerStateWhereInput | ServerStateWhereInput[]
+    id?: IntFilter<"ServerState"> | number
+    ready?: BoolFilter<"ServerState"> | boolean
+  }
+
+  export type ServerStateOrderByWithRelationInput = {
+    id?: SortOrder
+    ready?: SortOrder
+  }
+
+  export type ServerStateWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: ServerStateWhereInput | ServerStateWhereInput[]
+    OR?: ServerStateWhereInput[]
+    NOT?: ServerStateWhereInput | ServerStateWhereInput[]
+    ready?: BoolFilter<"ServerState"> | boolean
+  }, "id">
+
+  export type ServerStateOrderByWithAggregationInput = {
+    id?: SortOrder
+    ready?: SortOrder
+    _count?: ServerStateCountOrderByAggregateInput
+    _avg?: ServerStateAvgOrderByAggregateInput
+    _max?: ServerStateMaxOrderByAggregateInput
+    _min?: ServerStateMinOrderByAggregateInput
+    _sum?: ServerStateSumOrderByAggregateInput
+  }
+
+  export type ServerStateScalarWhereWithAggregatesInput = {
+    AND?: ServerStateScalarWhereWithAggregatesInput | ServerStateScalarWhereWithAggregatesInput[]
+    OR?: ServerStateScalarWhereWithAggregatesInput[]
+    NOT?: ServerStateScalarWhereWithAggregatesInput | ServerStateScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"ServerState"> | number
+    ready?: BoolWithAggregatesFilter<"ServerState"> | boolean
+  }
+
   export type UserCreateInput = {
     id: string
     lang?: $Enums.Lang
@@ -20681,6 +21681,38 @@ export namespace Prisma {
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBruteReportStatusFieldUpdateOperationsInput | $Enums.BruteReportStatus
+  }
+
+  export type ServerStateCreateInput = {
+    ready?: boolean
+  }
+
+  export type ServerStateUncheckedCreateInput = {
+    id?: number
+    ready?: boolean
+  }
+
+  export type ServerStateUpdateInput = {
+    ready?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type ServerStateUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    ready?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type ServerStateCreateManyInput = {
+    id?: number
+    ready?: boolean
+  }
+
+  export type ServerStateUpdateManyMutationInput = {
+    ready?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type ServerStateUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    ready?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UuidFilter<$PrismaModel = never> = {
@@ -22230,6 +23262,29 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumBruteReportStatusFilter<$PrismaModel>
     _max?: NestedEnumBruteReportStatusFilter<$PrismaModel>
+  }
+
+  export type ServerStateCountOrderByAggregateInput = {
+    id?: SortOrder
+    ready?: SortOrder
+  }
+
+  export type ServerStateAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type ServerStateMaxOrderByAggregateInput = {
+    id?: SortOrder
+    ready?: SortOrder
+  }
+
+  export type ServerStateMinOrderByAggregateInput = {
+    id?: SortOrder
+    ready?: SortOrder
+  }
+
+  export type ServerStateSumOrderByAggregateInput = {
+    id?: SortOrder
   }
 
   export type BruteCreateNestedManyWithoutUserInput = {
@@ -30280,6 +31335,10 @@ export namespace Prisma {
      * @deprecated Use BruteReportDefaultArgs instead
      */
     export type BruteReportArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BruteReportDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ServerStateDefaultArgs instead
+     */
+    export type ServerStateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ServerStateDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

@@ -287,6 +287,11 @@ exports.Prisma.BruteReportScalarFieldEnum = {
   status: 'status'
 };
 
+exports.Prisma.ServerStateScalarFieldEnum = {
+  id: 'id',
+  ready: 'ready'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -572,7 +577,8 @@ exports.Prisma.ModelName = {
   TournamentStep: 'TournamentStep',
   TournamentEarning: 'TournamentEarning',
   Achievement: 'Achievement',
-  BruteReport: 'BruteReport'
+  BruteReport: 'BruteReport',
+  ServerState: 'ServerState'
 };
 
 /**

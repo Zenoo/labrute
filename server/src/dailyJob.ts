@@ -730,7 +730,7 @@ const dailyJob = (prisma: PrismaClient) => async () => {
 
     // Update server state to hold traffic
     console.log('Updating server state to hold traffic');
-    ServerState.setTournamentsReady(false);
+    await ServerState.setReady(prisma, false);
 
     // Handle daily tournaments
     await handleDailyTournaments(prisma);
@@ -740,7 +740,7 @@ const dailyJob = (prisma: PrismaClient) => async () => {
 
     // Update server state to release traffic
     console.log('Updating server state to release traffic');
-    ServerState.setTournamentsReady(true);
+    await ServerState.setReady(prisma, true);
   } catch (error) {
     DiscordUtils.sendError(error).catch(console.error);
     // Delete misformatted tournaments
@@ -748,7 +748,7 @@ const dailyJob = (prisma: PrismaClient) => async () => {
 
     // Update server state to release traffic
     console.log('Updating server state to release traffic');
-    ServerState.setTournamentsReady(true);
+    await ServerState.setReady(prisma, true);
   }
 };
 

@@ -485,3 +485,8 @@ model BruteReport {
   date    DateTime          @default(now()) @db.Date
   status  BruteReportStatus @default(pending)
 }
+
+model ServerState {
+  id    Int     @id @default(autoincrement())
+  ready Boolean @default(true)
+}

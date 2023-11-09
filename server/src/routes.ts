@@ -19,12 +19,14 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
   }));
 
   // Server state
-  app.get('/api/is-ready', (
+  app.get('/api/is-ready', async (
     req: Request,
     res: Response<ServerReadyResponse>,
-  ) => res.status(200).send({
-    ready: ServerState.isTournamentsReady(),
-  }));
+  ) => {
+    res.status(200).send({
+      ready: await ServerState.isReady(prisma),
+    });
+  });
 
   // OAuth
   app.get('/api/oauth/redirect', OAuth.redirect);

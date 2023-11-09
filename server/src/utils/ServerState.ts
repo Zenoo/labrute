@@ -1,12 +1,26 @@
-let tournamentsReady = true;
+import { PrismaClient } from '@labrute/prisma';
 
-const setTournamentsReady = (ready: boolean) => {
-  tournamentsReady = ready;
+const setReady = async (prisma: PrismaClient, ready: boolean) => {
+  await prisma.serverState.upsert({
+    where: { id: 1 },
+    update: {
+      ready,
+    },
+    create: {
+      ready,
+    },
+  });
 };
 
-const isTournamentsReady = () => tournamentsReady;
+const isReady = async (prisma: PrismaClient) => {
+  const serverState = await prisma.serverState.findFirst({
+    where: { id: 1 },
+  });
+
+  return serverState?.ready ?? false;
+};
 
 export default {
-  setTournamentsReady,
-  isTournamentsReady,
+  setReady,
+  isReady,
 };
