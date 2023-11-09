@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.37.0](https://github.com/Zenoo/labrute/compare/labrute-v2.36.4...labrute-v2.37.0) (2023-11-09)
+
+
+### Features
+
+* Favorite brutes. Fixes [#350](https://github.com/Zenoo/labrute/issues/350) ([237f949](https://github.com/Zenoo/labrute/commit/237f94955504a25f7e4dc5ffbbf315d3beda77ed))
+
 ## [2.36.4](https://github.com/Zenoo/labrute/compare/labrute-v2.36.3...labrute-v2.36.4) (2023-11-09)
 
 
