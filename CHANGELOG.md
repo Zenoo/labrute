@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.36.4](https://github.com/Zenoo/labrute/compare/labrute-v2.36.3...labrute-v2.36.4) (2023-11-09)
+
+
+### Bug Fixes
+
+* Add error handling and logging for invalid ([ba288b9](https://github.com/Zenoo/labrute/commit/ba288b975065100eee41021ff6c8f9c25f7ee531))
+* Add server state management to DB. Fixes [#392](https://github.com/Zenoo/labrute/issues/392) ([9f30bcd](https://github.com/Zenoo/labrute/commit/9f30bcd2495956ed024e87fe3a14a31bfb709680))
+* Check for banned ([c73c232](https://github.com/Zenoo/labrute/commit/c73c232b4e3269fe35b402c85c1ef55c7e27825a))
+* parameter validation in Fights controller. Fixes [#395](https://github.com/Zenoo/labrute/issues/395) ([e3cf320](https://github.com/Zenoo/labrute/commit/e3cf320e7fca2567c08e57e5ab666f51226b222f))
+* Reversal now works inside combos. Fixes [#394](https://github.com/Zenoo/labrute/issues/394) ([74a2a6e](https://github.com/Zenoo/labrute/commit/74a2a6eff9fae5da2e69786b539914b08c4498fe))
+* Visual indicator when curing poison with the tragic potion. Fixes [#338](https://github.com/Zenoo/labrute/issues/338) ([4f96b4a](https://github.com/Zenoo/labrute/commit/4f96b4a7b19b35e14d7c6682d111e967c33aa43e))
+* Wrong global tournament data flash on cell change. Fixes [#402](https://github.com/Zenoo/labrute/issues/402) ([58eff41](https://github.com/Zenoo/labrute/commit/58eff41ab367f2aa72a990f985aa0f0342f70733))
+
 ## [2.36.3](https://github.com/Zenoo/labrute/compare/labrute-v2.36.2...labrute-v2.36.3) (2023-11-07)
 
 
