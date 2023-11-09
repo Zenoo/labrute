@@ -27,6 +27,7 @@ import checkLevelUpAchievements from '../utils/brute/checkLevelUpAchievements.js
 import getOpponents from '../utils/brute/getOpponents.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
+import DiscordUtils from '../utils/DiscordUtils.js';
 
 const Brutes = {
   list: (prisma: PrismaClient) => async (req: Request, res: Response) => {
@@ -112,11 +113,15 @@ const Brutes = {
     try {
       const user = await auth(prisma, req);
 
-      // Check colors validity
-      checkColors(user, req.body.gender, req.body.colors);
+      try {
+        // Check colors validity
+        checkColors(user, req.body.gender, req.body.colors);
 
-      // Check body validity
-      checkBody(user, req.body.gender, req.body.body);
+        // Check body validity
+        checkBody(user, req.body.gender, req.body.body);
+      } catch (error) {
+        await DiscordUtils.sendLog(`User ${user.name} tried to create a brute with invalid colors or body.`);
+      }
 
       // Check if name is available
       const count = await prisma.brute.count({

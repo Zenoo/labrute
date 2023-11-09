@@ -97,6 +97,12 @@ const Users = {
     try {
       const user = await auth(prisma, req);
 
+      const { fightSpeed } = req.body;
+
+      if (![1, 2].includes(fightSpeed)) {
+        throw new Error(translate('invalidParameters', user));
+      }
+
       await prisma.user.update({
         where: {
           id: user.id,
@@ -117,6 +123,12 @@ const Users = {
   ) => {
     try {
       const user = await auth(prisma, req);
+
+      const { backgroundMusic } = req.body;
+
+      if (typeof backgroundMusic !== 'boolean') {
+        throw new Error(translate('invalidParameters', user));
+      }
 
       await prisma.user.update({
         where: {
@@ -142,11 +154,11 @@ const Users = {
       const admin = await auth(prisma, req);
 
       if (!admin.admin) {
-        throw new Error(translate('unauthorized', admin));
+        throw new ExpectedError(translate('unauthorized', admin));
       }
 
       if (!id) {
-        throw new Error(translate('noIDProvided', admin));
+        throw new ExpectedError(translate('noIDProvided', admin));
       }
 
       const user = await prisma.user.findFirst({

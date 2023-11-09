@@ -41,5 +41,6 @@
   "noFightsLeft": "No fights left",
   "rankUpBeforeTournament": "Rank up before participating in a tournament",
   "tournamentNotFound": "Tournament not found",
-  "userNotFound": "User not found"
+  "userNotFound": "User not found",
+  "invalidParameters": "Invalid parameters"
 }

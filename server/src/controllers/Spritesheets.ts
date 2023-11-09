@@ -23,10 +23,10 @@ const Spritesheets = {
         throw new Error('Invalid parameters');
       }
 
-      let bruteId = +req.params.brute;
+      let bruteId = +req.params.brute || 0;
 
       // Handle old getter with name instead of id
-      if (Number.isNaN(bruteId)) {
+      if (Number.isNaN(+req.params.brute)) {
         const brute = await prisma.brute.findFirst({
           where: { name: req.params.brute, deletedAt: null },
           select: { id: true },
@@ -86,9 +86,11 @@ const Spritesheets = {
         throw new Error('Invalid parameters');
       }
 
+      const bruteId = +req.params.brute || 0;
+
       // Get brute spritesheet json
       const spritesheet = await prisma.bruteSpritesheet.findFirst({
-        where: { bruteId: +req.params.brute },
+        where: { bruteId },
         select: { json: true },
       });
 
@@ -97,7 +99,7 @@ const Spritesheets = {
       } else {
         // Get brute gender
         const brute = await prisma.brute.findFirst({
-          where: { id: +req.params.brute },
+          where: { id: bruteId },
           select: { gender: true },
         });
 
