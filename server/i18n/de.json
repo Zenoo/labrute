@@ -43,5 +43,6 @@
   "tournamentNotFound": "Wettkampf nicht gefunden",
   "userNotFound": "Nutzer nicht gefunden",
   "invalidParameters": "Ungültige Parameter",
-  "nameContainsBannedWord": "Dieser Name enthält ein verbotenes Wort"
+  "nameContainsBannedWord": "Dieser Name enthält ein verbotenes Wort",
+  "favoriteLimitReached": "You have reached your favorite brutes limit"
 }
