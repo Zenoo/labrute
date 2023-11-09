@@ -609,5 +609,8 @@
   "report": "report",
   "reportName": "Report inappropriate name",
   "reportConfirm": "Are you sure you want to report the brute name {{brute}} as inappropriate?",
-  "reportSuccess": "Report successfully sent."
+  "reportSuccess": "Report successfully sent.",
+  
+  "chooseAsFavorite": "Choose as favorite (max {{amount}})",
+  "removeFromFavorites": "Remove from favorites"
 }
