@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.37.1](https://github.com/Zenoo/labrute/compare/labrute-v2.37.0...labrute-v2.37.1) (2023-11-09)
+
+
+### Bug Fixes
+
+* Added bare hands fighter stats. Fixes [#407](https://github.com/Zenoo/labrute/issues/407) ([5876aa4](https://github.com/Zenoo/labrute/commit/5876aa44bcd39fa9f1e8c3d5474984bc7e51c431))
+
 ## [2.37.0](https://github.com/Zenoo/labrute/compare/labrute-v2.36.4...labrute-v2.37.0) (2023-11-09)
 
 
