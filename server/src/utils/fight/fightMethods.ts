@@ -971,6 +971,7 @@ const attack = (
   const blocked = block(fighter, opponent);
   const evaded = evade(fighter, opponent);
   const brokeShield = breakShield(fighter, opponent);
+  const reversed = reversal(opponent);
 
   // Add attempt step
   const attemptStep: AttemptHitStep = {
@@ -1095,6 +1096,7 @@ const attack = (
 
   return {
     blocked,
+    reversed: (!!damage && reversed) || (blocked && opponent.autoReversalOnBlock),
   };
 };
 
@@ -1138,13 +1140,15 @@ const startAttack = (
 
   const attackResult = {
     blocked: false,
+    reversed: false,
   };
 
   // Trigger fighter attack
-  const { blocked } = attack(fightData, fighter, opponent, stats, achievements);
+  const { blocked, reversed } = attack(fightData, fighter, opponent, stats, achievements);
 
-  // Keep track of blocked status
+  // Keep track of attack status
   if (blocked) attackResult.blocked = true;
+  if (reversed) attackResult.reversed = true;
 
   // Keep track of attacks
   let attacksCount = 1;
@@ -1155,7 +1159,7 @@ const startAttack = (
   // Repeat attack only if not countering
   if (!isCounter) {
     let random = Math.random();
-    while (random < combo || fighter.retryAttack) {
+    while (!attackResult.reversed && (random < combo || fighter.retryAttack)) {
       // Reset retry attack flag
       fighter.retryAttack = false;
 
@@ -1168,19 +1172,21 @@ const startAttack = (
       combo *= 0.5;
 
       // Trigger fighter attack
-      const { blocked: comboBlocked } = attack(fightData, fighter, opponent, stats, achievements);
+      const {
+        blocked: comboBlocked,
+        reversed: comboReversed,
+      } = attack(fightData, fighter, opponent, stats, achievements);
       attacksCount++;
 
-      // Keep track of blocked status
+      // Keep track of attack status
       if (comboBlocked) attackResult.blocked = true;
+      if (comboReversed) attackResult.reversed = true;
 
       random = Math.random();
     }
 
     // Check if the opponent reverses the attack
-    if (!opponentWasTrapped
-      && attackResult.blocked
-      && (opponent.autoReversalOnBlock || reversal(opponent))) {
+    if (!opponentWasTrapped && attackResult.reversed) {
       // Update reversal stat
       updateStats(stats, opponent.id, 'consecutiveReversals', 1);
       checkAchievements(stats, achievements);
