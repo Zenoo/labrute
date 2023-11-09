@@ -2,7 +2,8 @@
 import {
   AchievementsStore,
   AttemptHitStep,
-  BARE_HANDS_TEMPO, DetailedFight, DetailedFighter, LeaveStep,
+  BASE_FIGHTER_STATS,
+  DetailedFight, DetailedFighter, FighterStat, LeaveStep,
   randomBetween, SHIELD_BLOCK_ODDS, Skill, StepFighter, updateAchievement, Weapon,
 } from '@labrute/core';
 import getDamage from './getDamage.js';
@@ -18,6 +19,35 @@ export type Stats = Record<number, {
   consecutiveEvades?: number;
   disarms?: number;
 }>;
+
+const getFighterStat = (
+  fighter: DetailedFighter,
+  stat: FighterStat,
+  onlyStat?: 'fighter' | 'weapon',
+) => {
+  // Special case for swiftness as it only exists on weapons
+  if (stat === 'swiftness') {
+    if (onlyStat === 'fighter') return 0;
+
+    if (fighter.activeWeapon) {
+      return fighter.activeWeapon[stat];
+    }
+
+    return fighter.type === 'brute' ? BASE_FIGHTER_STATS[stat] : 0;
+  }
+
+  let total = onlyStat === 'weapon' ? 0 : fighter[stat];
+
+  if (onlyStat !== 'fighter') {
+    if (fighter.activeWeapon) {
+      total += fighter.activeWeapon[stat];
+    } else {
+      total += fighter.type === 'brute' ? BASE_FIGHTER_STATS[stat] : 0;
+    }
+  }
+
+  return total;
+};
 
 const updateStats = (stats: Stats, bruteId: number, stat: keyof Omit<Stats[number], 'userId'>, value: number) => {
   const current = stats[bruteId];
@@ -889,9 +919,8 @@ const block = (fighter: DetailedFighter, opponent: DetailedFighter, ease = 1) =>
   if (opponent.type === 'pet') return false;
 
   return Math.random() * ease
-    < (opponent.block
-      + (opponent.activeWeapon?.block || 0)
-      - (fighter.activeWeapon?.accuracy || 0));
+    < (getFighterStat(opponent, 'block')
+      - getFighterStat(fighter, 'accuracy', 'weapon'));
 };
 
 const evade = (fighter: DetailedFighter, opponent: DetailedFighter, difficulty = 1) => {
@@ -921,11 +950,10 @@ const evade = (fighter: DetailedFighter, opponent: DetailedFighter, difficulty =
 
   return random * difficulty
     < Math.min(
-      (opponent.evasion
-        + (opponent.activeWeapon?.evasion || 0)
+      (getFighterStat(opponent, 'evasion')
         + agilityDifference * 0.01
-        - fighter.accuracy
-        - (fighter.activeWeapon?.swiftness || 0)),
+        - getFighterStat(fighter, 'accuracy', 'fighter')
+        - getFighterStat(fighter, 'swiftness')),
       0.9,
     );
 };
@@ -934,14 +962,14 @@ const breakShield = (fighter: DetailedFighter, opponent: DetailedFighter) => {
   // Can't break someone's shield if they are not holding a shield >.>
   if (!opponent.shield) return false;
 
-  return (fighter.disarm + (fighter.activeWeapon?.disarm || 0)) * 100 > randomBetween(0, 300);
+  return getFighterStat(fighter, 'disarm') * 100 > randomBetween(0, 300);
 };
 
 const disarm = (fighter: DetailedFighter, opponent: DetailedFighter) => {
   // Can't disarm someone if they are not holding a weapon >.>
   if (!opponent.activeWeapon) return false;
 
-  return (fighter.disarm + (fighter.activeWeapon?.disarm || 0)) * 100 > randomBetween(0, 100);
+  return getFighterStat(fighter, 'disarm') * 100 > randomBetween(0, 100);
 };
 
 const disarmAttacker = (fighter: DetailedFighter, opponent: DetailedFighter) => {
@@ -958,7 +986,7 @@ const disarmAttacker = (fighter: DetailedFighter, opponent: DetailedFighter) => 
 const reversal = (opponent: DetailedFighter) => {
   const random = Math.random();
 
-  return random < opponent.reversal + (opponent.activeWeapon?.reversal || 0);
+  return random < getFighterStat(opponent, 'reversal');
 };
 
 const attack = (
@@ -1160,7 +1188,7 @@ const startAttack = (
   let attacksCount = 1;
 
   // Get combo chances
-  let combo = fighter.combo + (fighter.activeWeapon?.combo || 0) + (fighter.agility * 0.01);
+  let combo = getFighterStat(fighter, 'combo') + (fighter.agility * 0.01);
 
   // Repeat attack only if not countering
   if (!isCounter) {
@@ -1406,7 +1434,7 @@ export const playFighterTurn = (
 
   // Increase own initiative
   const random = randomBetween(0, 10);
-  let tempo = (fighter.activeWeapon?.tempo || BARE_HANDS_TEMPO)
+  let tempo = getFighterStat(fighter, 'tempo', 'weapon')
     * fighter.tempo
     + (random / 100);
 

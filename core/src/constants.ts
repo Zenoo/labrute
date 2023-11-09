@@ -12,7 +12,6 @@ export const BRUTE_STARTING_POINTS = 11;
 export const PERKS_TOTAL_ODDS = WEAPONS_TOTAL_ODDS + PETS_TOTAL_ODDS + SKILLS_TOTAL_ODDS;
 
 export const SHIELD_BLOCK_ODDS = 0.45;
-export const BARE_HANDS_TEMPO = 1.2;
 
 export const Animations = [
   'arrive-end', 'arrive-start', 'attack', 'block', 'death', 'drink', 'eat',
@@ -2571,3 +2570,16 @@ export const FIGHTER_HIT_ANCHOR = {
 } as const;
 
 export const MAX_FAVORITE_BRUTES = 3;
+
+export const BASE_FIGHTER_STATS = {
+  reversal: 0,
+  evasion: 0.1,
+  swiftness: 0.2,
+  block: -0.25,
+  accuracy: 0,
+  disarm: 0.05,
+  combo: 0,
+  tempo: 1.2,
+} as const;
+
+export type FighterStat = keyof typeof BASE_FIGHTER_STATS;
