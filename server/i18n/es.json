@@ -41,5 +41,7 @@
   "noFightsLeft": "No quedan combates",
   "rankUpBeforeTournament": "Tienes que subir de rango antes de participar en un torneo",
   "tournamentNotFound": "Torneo no encontrado",
-  "userNotFound": "Usuario no encontrado"
+  "userNotFound": "Usuario no encontrado",
+  "invalidParameters": "Invalid parameters",
+  "nameContainsBannedWord": "This name contains a banned word"
 }
