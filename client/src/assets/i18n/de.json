@@ -590,6 +590,6 @@
   "reportName": "Unangemessenen Namen melden",
   "reportConfirm": "Sind Sie sicher, dass Sie den Namen des Brutalos {{brute}} als unangemessen melden möchten?",
   "reportSuccess": "Erfolgreich gemeldet.",
-  "chooseAsFavorite": "Choose as favorite (max {{amount}})",
-  "removeFromFavorites": "Remove from favorites"
+  "chooseAsFavorite": "Zum Favorit ernennen (maximal {{amount}})",
+  "removeFromFavorites": "Nicht mehr favorisieren"
 }
