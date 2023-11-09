@@ -2569,3 +2569,5 @@ export const FIGHTER_HIT_ANCHOR = {
   [PetName.panther]: { x: 45, y: 45 },
   dog: { x: 30, y: 30 },
 } as const;
+
+export const MAX_FAVORITE_BRUTES = 3;

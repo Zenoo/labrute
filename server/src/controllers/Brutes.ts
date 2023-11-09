@@ -12,6 +12,7 @@ import {
   getBruteGoldValue, getGoldNeededForNewBrute, getXPNeeded,
   increaseAchievement, randomBetween, updateBruteData,
   canLevelUp,
+  MAX_FAVORITE_BRUTES,
 } from '@labrute/core';
 import {
   Brute,
@@ -1264,6 +1265,53 @@ const Brutes = {
         where: { id: brute.id },
         data: {
           deletedAt: null,
+        },
+      });
+
+      res.send({
+        success: true,
+      });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  toggleFavorite: (prisma: PrismaClient) => async (
+    req: Request<{ name: string }>,
+    res: Response,
+  ) => {
+    try {
+      const { params: { name } } = req;
+
+      const user = await auth(prisma, req);
+
+      if (!name) {
+        throw new Error(translate('missingName', user));
+      }
+
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name,
+          deletedAt: null,
+          userId: user.id,
+        },
+        select: { id: true, favorite: true },
+      });
+
+      if (!brute) {
+        throw new Error(translate('bruteNotFound', user));
+      }
+
+      // Abort if limit reached
+      const favoritesCount = user.brutes.filter((b) => b.favorite).length;
+      if (!brute.favorite && favoritesCount >= MAX_FAVORITE_BRUTES) {
+        throw new ExpectedError(translate('favoriteLimitReached', user));
+      }
+
+      // Toggle favorite
+      await prisma.brute.update({
+        where: { id: brute.id },
+        data: {
+          favorite: !brute.favorite,
         },
       });
 

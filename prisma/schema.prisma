@@ -226,6 +226,7 @@ model Brute {
   achievements                 Achievement[]
   tournamentEarnings           TournamentEarning[]
   reports                      BruteReport[]
+  favorite                     Boolean             @default(false)
 }
 
 model BruteSpritesheet {

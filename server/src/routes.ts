@@ -60,6 +60,7 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
   app.get('/api/brute/:name/destiny', Brutes.getDestiny(prisma));
   app.post('/api/brute/:name/admin-update', Brutes.adminUpdate(prisma));
   app.get('/api/brute/:id/restore', Brutes.restore(prisma));
+  app.get('/api/brute/:name/favorite', Brutes.toggleFavorite(prisma));
 
   // Log
   app.get('/api/log/list/:name', Logs.list(prisma));
