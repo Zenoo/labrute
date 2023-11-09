@@ -13,7 +13,11 @@ const Fights = {
   get: (prisma: PrismaClient) => async (req: Request, res: Response) => {
     try {
       if (!req.params.name || !req.params.id) {
-        throw new Error('Invalid parameters');
+        throw new ExpectedError('Missing parameters');
+      }
+
+      if (Number.isNaN(+req.params.id)) {
+        throw new ExpectedError('Invalid parameters');
       }
 
       // Get fight
