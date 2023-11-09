@@ -43,5 +43,6 @@
   "tournamentNotFound": "Турнир не найден",
   "userNotFound": "Пользователь не найден",
   "invalidParameters": "Неверные параметры",
-  "nameContainsBannedWord": "Это имя содержит недопустимое слово"
+  "nameContainsBannedWord": "Это имя содержит недопустимое слово",
+  "favoriteLimitReached": "You have reached your favorite brutes limit"
 }
