@@ -36,10 +36,12 @@
   "bruteCannotRankUp": "Dein Brutalo kann nicht im Rang aufsteigen",
   "bruteAlreadyMaxRank": "Dein Brutalo hat bereits den höchsten Rang",
   "noFirstBonus": "Brutalo hat keinen Startbonus",
-  "bruteNotFoundOrNotDeleted": "Brute nicht gefunden oder nicht gelöscht",
+  "bruteNotFoundOrNotDeleted": "Brutalo nicht gefunden oder nicht gelöscht",
   "anotherBruteHasThisName": "Dieser Name gehört einem anderen Brutalo",
   "noFightsLeft": "Es sind keine Kämpfe übrig",
   "rankUpBeforeTournament": "Steige im Rang auf, bevor du dich für ein Turnier anmeldest",
   "tournamentNotFound": "Wettkampf nicht gefunden",
-  "userNotFound": "Nutzer nicht gefunden"
+  "userNotFound": "Nutzer nicht gefunden",
+  "invalidParameters": "Invalid parameters",
+  "nameContainsBannedWord": "This name contains a banned word"
 }
