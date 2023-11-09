@@ -590,6 +590,6 @@
   "reportName": "Пожаловаться на неуместное имя",
   "reportConfirm": "Вы уверены, что хотите пометить имя {{brute}} неуместным?",
   "reportSuccess": "Жалоба отправлена успешно.",
-  "chooseAsFavorite": "Choose as favorite (max {{amount}})",
-  "removeFromFavorites": "Remove from favorites"
+  "chooseAsFavorite": "Сделать избранным (макс. {{amount}})",
+  "removeFromFavorites": "Удалить из избранных"
 }
