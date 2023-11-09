@@ -44,5 +44,5 @@
   "userNotFound": "Пользователь не найден",
   "invalidParameters": "Неверные параметры",
   "nameContainsBannedWord": "Это имя содержит недопустимое слово",
-  "favoriteLimitReached": "You have reached your favorite brutes limit"
+  "favoriteLimitReached": "Вы достигли максимальное количество избранных"
 }
