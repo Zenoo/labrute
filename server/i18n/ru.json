@@ -41,5 +41,7 @@
   "noFightsLeft": "Битв не осталось",
   "rankUpBeforeTournament": "Получите новое звание, прежде чем записываться на турнир",
   "tournamentNotFound": "Турнир не найден",
-  "userNotFound": "Пользователь не найден"
+  "userNotFound": "Пользователь не найден",
+  "invalidParameters": "Invalid parameters",
+  "nameContainsBannedWord": "This name contains a banned word"
 }
