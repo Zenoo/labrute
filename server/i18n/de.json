@@ -44,5 +44,5 @@
   "userNotFound": "Nutzer nicht gefunden",
   "invalidParameters": "Ungültige Parameter",
   "nameContainsBannedWord": "Dieser Name enthält ein verbotenes Wort",
-  "favoriteLimitReached": "You have reached your favorite brutes limit"
+  "favoriteLimitReached": "Du hast das Maximum an Favoriten erreicht"
 }
