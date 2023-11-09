@@ -33,6 +33,7 @@ const CellGlobalTournament = ({
 
   // Get data
   useEffect(() => {
+    setData(null);
     Server.Tournament.getGlobal({ name: bruteName, date: (date || now).format('YYYY-MM-DD') }).then(setData).catch(() => {
       setData(null);
     });
