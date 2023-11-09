@@ -289,7 +289,8 @@ exports.Prisma.BruteReportScalarFieldEnum = {
 
 exports.Prisma.ServerStateScalarFieldEnum = {
   id: 'id',
-  ready: 'ready'
+  ready: 'ready',
+  banWords: 'banWords'
 };
 
 exports.Prisma.SortOrder = {

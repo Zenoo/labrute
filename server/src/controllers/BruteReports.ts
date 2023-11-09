@@ -161,6 +161,14 @@ const BruteReports = {
         where: {
           id: +req.params.id,
         },
+        include: {
+          brute: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
       });
 
       if (!report) {
@@ -173,6 +181,18 @@ const BruteReports = {
         },
         data: {
           status: BruteReportStatus.accepted,
+        },
+      });
+
+      // Add name to banned words
+      await prisma.serverState.update({
+        where: {
+          id: 1,
+        },
+        data: {
+          banWords: {
+            push: report.brute.name.toLowerCase(),
+          },
         },
       });
 

@@ -123,6 +123,23 @@ const Brutes = {
         await DiscordUtils.sendLog(`User ${user.name} tried to create a brute with invalid colors or body.`);
       }
 
+      // Check name for banned words
+      const server = await prisma.serverState.findFirst({
+        where: { id: 1 },
+        select: { banWords: true },
+      });
+
+      if (!server) {
+        throw new Error('Server state not found');
+      }
+
+      const bannedWords = server.banWords;
+      const name = req.body.name.toLowerCase();
+
+      if (bannedWords.some((word) => name.includes(word))) {
+        throw new ExpectedError(translate('nameContainsBannedWord', user));
+      }
+
       // Check if name is available
       const count = await prisma.brute.count({
         where: {

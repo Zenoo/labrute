@@ -17728,6 +17728,7 @@ export namespace Prisma {
   export type ServerStateCountAggregateOutputType = {
     id: number
     ready: number
+    banWords: number
     _all: number
   }
 
@@ -17753,6 +17754,7 @@ export namespace Prisma {
   export type ServerStateCountAggregateInputType = {
     id?: true
     ready?: true
+    banWords?: true
     _all?: true
   }
 
@@ -17845,6 +17847,7 @@ export namespace Prisma {
   export type ServerStateGroupByOutputType = {
     id: number
     ready: boolean
+    banWords: string[]
     _count: ServerStateCountAggregateOutputType | null
     _avg: ServerStateAvgAggregateOutputType | null
     _sum: ServerStateSumAggregateOutputType | null
@@ -17869,11 +17872,13 @@ export namespace Prisma {
   export type ServerStateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     ready?: boolean
+    banWords?: boolean
   }, ExtArgs["result"]["serverState"]>
 
   export type ServerStateSelectScalar = {
     id?: boolean
     ready?: boolean
+    banWords?: boolean
   }
 
 
@@ -17883,6 +17888,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       ready: boolean
+      banWords: string[]
     }, ExtArgs["result"]["serverState"]>
     composites: {}
   }
@@ -18279,6 +18285,7 @@ export namespace Prisma {
   interface ServerStateFieldRefs {
     readonly id: FieldRef<"ServerState", 'Int'>
     readonly ready: FieldRef<"ServerState", 'Boolean'>
+    readonly banWords: FieldRef<"ServerState", 'String[]'>
   }
     
 
@@ -18804,7 +18811,8 @@ export namespace Prisma {
 
   export const ServerStateScalarFieldEnum: {
     id: 'id',
-    ready: 'ready'
+    ready: 'ready',
+    banWords: 'banWords'
   };
 
   export type ServerStateScalarFieldEnum = (typeof ServerStateScalarFieldEnum)[keyof typeof ServerStateScalarFieldEnum]
@@ -20354,11 +20362,13 @@ export namespace Prisma {
     NOT?: ServerStateWhereInput | ServerStateWhereInput[]
     id?: IntFilter<"ServerState"> | number
     ready?: BoolFilter<"ServerState"> | boolean
+    banWords?: StringNullableListFilter<"ServerState">
   }
 
   export type ServerStateOrderByWithRelationInput = {
     id?: SortOrder
     ready?: SortOrder
+    banWords?: SortOrder
   }
 
   export type ServerStateWhereUniqueInput = Prisma.AtLeast<{
@@ -20367,11 +20377,13 @@ export namespace Prisma {
     OR?: ServerStateWhereInput[]
     NOT?: ServerStateWhereInput | ServerStateWhereInput[]
     ready?: BoolFilter<"ServerState"> | boolean
+    banWords?: StringNullableListFilter<"ServerState">
   }, "id">
 
   export type ServerStateOrderByWithAggregationInput = {
     id?: SortOrder
     ready?: SortOrder
+    banWords?: SortOrder
     _count?: ServerStateCountOrderByAggregateInput
     _avg?: ServerStateAvgOrderByAggregateInput
     _max?: ServerStateMaxOrderByAggregateInput
@@ -20385,6 +20397,7 @@ export namespace Prisma {
     NOT?: ServerStateScalarWhereWithAggregatesInput | ServerStateScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"ServerState"> | number
     ready?: BoolWithAggregatesFilter<"ServerState"> | boolean
+    banWords?: StringNullableListFilter<"ServerState">
   }
 
   export type UserCreateInput = {
@@ -21685,34 +21698,41 @@ export namespace Prisma {
 
   export type ServerStateCreateInput = {
     ready?: boolean
+    banWords?: ServerStateCreatebanWordsInput | string[]
   }
 
   export type ServerStateUncheckedCreateInput = {
     id?: number
     ready?: boolean
+    banWords?: ServerStateCreatebanWordsInput | string[]
   }
 
   export type ServerStateUpdateInput = {
     ready?: BoolFieldUpdateOperationsInput | boolean
+    banWords?: ServerStateUpdatebanWordsInput | string[]
   }
 
   export type ServerStateUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     ready?: BoolFieldUpdateOperationsInput | boolean
+    banWords?: ServerStateUpdatebanWordsInput | string[]
   }
 
   export type ServerStateCreateManyInput = {
     id?: number
     ready?: boolean
+    banWords?: ServerStateCreatebanWordsInput | string[]
   }
 
   export type ServerStateUpdateManyMutationInput = {
     ready?: BoolFieldUpdateOperationsInput | boolean
+    banWords?: ServerStateUpdatebanWordsInput | string[]
   }
 
   export type ServerStateUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     ready?: BoolFieldUpdateOperationsInput | boolean
+    banWords?: ServerStateUpdatebanWordsInput | string[]
   }
 
   export type UuidFilter<$PrismaModel = never> = {
@@ -23264,9 +23284,18 @@ export namespace Prisma {
     _max?: NestedEnumBruteReportStatusFilter<$PrismaModel>
   }
 
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
   export type ServerStateCountOrderByAggregateInput = {
     id?: SortOrder
     ready?: SortOrder
+    banWords?: SortOrder
   }
 
   export type ServerStateAvgOrderByAggregateInput = {
@@ -24592,6 +24621,15 @@ export namespace Prisma {
     update?: UserUpdateWithWhereUniqueWithoutReportsInput | UserUpdateWithWhereUniqueWithoutReportsInput[]
     updateMany?: UserUpdateManyWithWhereWithoutReportsInput | UserUpdateManyWithWhereWithoutReportsInput[]
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type ServerStateCreatebanWordsInput = {
+    set: string[]
+  }
+
+  export type ServerStateUpdatebanWordsInput = {
+    set?: string[]
+    push?: string | string[]
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {

@@ -15,6 +15,7 @@ const setReady = async (prisma: PrismaClient, ready: boolean) => {
 const isReady = async (prisma: PrismaClient) => {
   const serverState = await prisma.serverState.findFirst({
     where: { id: 1 },
+    select: { ready: true },
   });
 
   return serverState?.ready ?? false;
