@@ -590,6 +590,6 @@
   "reportName": "Reportar nombre inapropiado",
   "reportConfirm": "¿Estás seguro de que quieres reportar el nombre {{brute}} como inapropiado?",
   "reportSuccess": "Reporte enviado con éxito.",
-  "chooseAsFavorite": "Choose as favorite (max {{amount}})",
-  "removeFromFavorites": "Remove from favorites"
+  "chooseAsFavorite": "Elige como favorito (máx. {{amount}})",
+  "removeFromFavorites": "Eliminar de favoritos"
 }
