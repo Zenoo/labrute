@@ -42,6 +42,6 @@
   "rankUpBeforeTournament": "Steige im Rang auf, bevor du dich für ein Turnier anmeldest",
   "tournamentNotFound": "Wettkampf nicht gefunden",
   "userNotFound": "Nutzer nicht gefunden",
-  "invalidParameters": "Invalid parameters",
-  "nameContainsBannedWord": "This name contains a banned word"
+  "invalidParameters": "Ungültige Parameter",
+  "nameContainsBannedWord": "Dieser Name enthält ein verbotenes Wort"
 }
