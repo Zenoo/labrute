@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.37.5](https://github.com/Zenoo/labrute/compare/labrute-v2.37.4...labrute-v2.37.5) (2023-11-10)
+
+
+### Bug Fixes
+
+* Wrong achievement icon color ([14a8d30](https://github.com/Zenoo/labrute/commit/14a8d305cb2fe87e4c153b3bcf3e3a2397187129))
+
 ## [2.37.4](https://github.com/Zenoo/labrute/compare/labrute-v2.37.3...labrute-v2.37.4) (2023-11-10)
 
 
