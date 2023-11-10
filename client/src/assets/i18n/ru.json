@@ -591,5 +591,6 @@
   "reportConfirm": "Вы уверены, что хотите пометить имя {{brute}} неуместным?",
   "reportSuccess": "Жалоба отправлена успешно.",
   "chooseAsFavorite": "Сделать избранным (макс. {{amount}})",
-  "removeFromFavorites": "Удалить из избранных"
+  "removeFromFavorites": "Удалить из избранных",
+  "bareHands": "Bare hands"
 }
