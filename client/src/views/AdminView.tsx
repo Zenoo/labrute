@@ -1,5 +1,5 @@
 import { BruteWithBodyColors, availableBodyParts } from '@labrute/core';
-import { BruteBody, BruteColors, DestinyChoiceSide, Gender, PetName, SkillName, WeaponName } from '@labrute/prisma';
+import { BruteBody, BruteColors, DestinyChoiceSide, Gender, PetName, SkillName, User, WeaponName } from '@labrute/prisma';
 import { Box, Checkbox, Divider, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Paper, Select, Stack } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
 import moment from 'moment';
@@ -22,7 +22,7 @@ const AdminView = () => {
 
   const [bruteName, setBruteName] = React.useState('');
   const [bruteId, setBruteId] = React.useState(0);
-  const [brute, setBrute] = React.useState<BruteWithBodyColors | null>(null);
+  const [brute, setBrute] = React.useState<BruteWithBodyColors & { user: User } | null>(null);
   const { user } = useAuth();
 
   // Change bruteName
@@ -67,9 +67,9 @@ const AdminView = () => {
   const updateBrute = useCallback(() => {
     Server.Brute.get({
       name: bruteName,
-      include: { body: true, colors: true },
+      include: { body: true, colors: true, user: true },
     }).then((b) => {
-      setBrute(b as BruteWithBodyColors);
+      setBrute(b as BruteWithBodyColors & { user: User });
     }).catch(catchError(Alert));
   }, [Alert, bruteName]);
 
@@ -88,6 +88,11 @@ const AdminView = () => {
   const saveBrute = useCallback(() => {
     if (!brute) return;
 
+    const bruteData = {
+      ...brute,
+      user: undefined,
+    };
+
     const body = {
       ...brute.body,
       id: undefined,
@@ -101,7 +106,7 @@ const AdminView = () => {
     };
 
     Server.Brute.adminUpdate(bruteName, {
-      ...brute,
+      ...bruteData,
       destinyPath: {
         set: brute.destinyPath,
       },
@@ -156,7 +161,7 @@ const AdminView = () => {
             />
             {brute && brute.body && brute.colors && (
               <>
-                <Text h2 smallCaps>{brute.name} ({brute.userId})</Text>
+                <Text h2 smallCaps>{brute.name} ({brute.user.name})</Text>
                 <BruteComponent brute={brute} sx={{ width: 100 }} />
                 <Grid container spacing={1}>
                   <Grid item xs={6} sm={3}>
