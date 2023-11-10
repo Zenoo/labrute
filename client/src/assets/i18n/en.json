@@ -612,5 +612,6 @@
   "reportSuccess": "Report successfully sent.",
   
   "chooseAsFavorite": "Choose as favorite (max {{amount}})",
-  "removeFromFavorites": "Remove from favorites"
+  "removeFromFavorites": "Remove from favorites",
+  "bareHands": "Bare hands"
 }
