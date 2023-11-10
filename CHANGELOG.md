@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.37.2](https://github.com/Zenoo/labrute/compare/labrute-v2.37.1...labrute-v2.37.2) (2023-11-10)
+
+
+### Bug Fixes
+
+* Refactor spritesheets to never generate the same one twice. Fixes [#88](https://github.com/Zenoo/labrute/issues/88) ([812ff42](https://github.com/Zenoo/labrute/commit/812ff42b9919fb8377ae768ebe46770c062e3b7e))
+* Round large achievement counts. Fixes [#341](https://github.com/Zenoo/labrute/issues/341) ([c22443f](https://github.com/Zenoo/labrute/commit/c22443f6bed5169abdce8f645028cf85e2899615))
+
 ## [2.37.1](https://github.com/Zenoo/labrute/compare/labrute-v2.37.0...labrute-v2.37.1) (2023-11-09)
 
 
