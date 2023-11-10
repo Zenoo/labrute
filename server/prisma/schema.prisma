@@ -226,6 +226,7 @@ model Brute {
   tournamentEarnings           TournamentEarning[]
   reports                      BruteReport[]
   favorite                     Boolean             @default(false)
+  titles                       Title[]
 }
 
 model BruteSpritesheet {
@@ -250,18 +251,19 @@ model BruteSpritesheet {
   upperLeftArm   Int    @default(1)
   lowerLeftArm   Int    @default(1)
   leftShoulder   Int    @default(1)
-  skinColor      String @db.VarChar(255) @default("#000000")
-  skinShade      String @db.VarChar(255) @default("#000000")
-  hairColor      String @db.VarChar(255) @default("#000000")
-  hairShade      String @db.VarChar(255) @default("#000000")
-  primaryColor   String @db.VarChar(255) @default("#000000")
-  primaryShade   String @db.VarChar(255) @default("#000000")
-  secondaryColor String @db.VarChar(255) @default("#000000")
-  secondaryShade String @db.VarChar(255) @default("#000000")
-  accentColor    String @db.VarChar(255) @default("#000000")
-  accentShade    String @db.VarChar(255) @default("#000000")
+  skinColor      String @default("#000000") @db.VarChar(255)
+  skinShade      String @default("#000000") @db.VarChar(255)
+  hairColor      String @default("#000000") @db.VarChar(255)
+  hairShade      String @default("#000000") @db.VarChar(255)
+  primaryColor   String @default("#000000") @db.VarChar(255)
+  primaryShade   String @default("#000000") @db.VarChar(255)
+  secondaryColor String @default("#000000") @db.VarChar(255)
+  secondaryShade String @default("#000000") @db.VarChar(255)
+  accentColor    String @default("#000000") @db.VarChar(255)
+  accentShade    String @default("#000000") @db.VarChar(255)
   image          Bytes? @db.ByteA
   json           Json?  @db.Json
+
   @@unique([gender, longHair, lowerRightArm, rightHand, upperRightArm, rightShoulder, rightFoot, lowerRightLeg, upperRightLeg, leftFoot, lowerLeftLeg, pelvis, upperLeftLeg, tummy, torso, head, leftHand, upperLeftArm, lowerLeftArm, leftShoulder, skinColor, skinShade, hairColor, hairShade, primaryColor, primaryShade, secondaryColor, secondaryShade, accentColor, accentShade])
 }
 
@@ -492,6 +494,13 @@ model Achievement {
   bruteId Int?
   user    User?           @relation(fields: [userId], references: [id])
   userId  String?         @db.Uuid
+}
+
+model Title {
+  id     Int             @id @default(autoincrement())
+  name   AchievementName
+  count  Int             @default(1)
+  brutes Brute[]
 }
 
 enum BruteReportStatus {

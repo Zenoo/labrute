@@ -79,6 +79,11 @@ export type TournamentEarning = $Result.DefaultSelection<Prisma.$TournamentEarni
  */
 export type Achievement = $Result.DefaultSelection<Prisma.$AchievementPayload>
 /**
+ * Model Title
+ * 
+ */
+export type Title = $Result.DefaultSelection<Prisma.$TitlePayload>
+/**
  * Model BruteReport
  * 
  */
@@ -680,6 +685,16 @@ export class PrismaClient<
   get achievement(): Prisma.AchievementDelegate<ExtArgs>;
 
   /**
+   * `prisma.title`: Exposes CRUD operations for the **Title** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Titles
+    * const titles = await prisma.title.findMany()
+    * ```
+    */
+  get title(): Prisma.TitleDelegate<ExtArgs>;
+
+  /**
    * `prisma.bruteReport`: Exposes CRUD operations for the **BruteReport** model.
     * Example usage:
     * ```ts
@@ -1181,6 +1196,7 @@ export namespace Prisma {
     TournamentStep: 'TournamentStep',
     TournamentEarning: 'TournamentEarning',
     Achievement: 'Achievement',
+    Title: 'Title',
     BruteReport: 'BruteReport',
     ServerState: 'ServerState'
   };
@@ -1199,7 +1215,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'user' | 'bruteBody' | 'bruteColors' | 'brute' | 'bruteSpritesheet' | 'clan' | 'fight' | 'log' | 'destinyChoice' | 'tournament' | 'tournamentStep' | 'tournamentEarning' | 'achievement' | 'bruteReport' | 'serverState'
+      modelProps: 'user' | 'bruteBody' | 'bruteColors' | 'brute' | 'bruteSpritesheet' | 'clan' | 'fight' | 'log' | 'destinyChoice' | 'tournament' | 'tournamentStep' | 'tournamentEarning' | 'achievement' | 'title' | 'bruteReport' | 'serverState'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -2061,6 +2077,72 @@ export namespace Prisma {
           }
         }
       }
+      Title: {
+        payload: Prisma.$TitlePayload<ExtArgs>
+        fields: Prisma.TitleFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TitleFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$TitlePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TitleFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$TitlePayload>
+          }
+          findFirst: {
+            args: Prisma.TitleFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$TitlePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TitleFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$TitlePayload>
+          }
+          findMany: {
+            args: Prisma.TitleFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$TitlePayload>[]
+          }
+          create: {
+            args: Prisma.TitleCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$TitlePayload>
+          }
+          createMany: {
+            args: Prisma.TitleCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.TitleDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$TitlePayload>
+          }
+          update: {
+            args: Prisma.TitleUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$TitlePayload>
+          }
+          deleteMany: {
+            args: Prisma.TitleDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TitleUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.TitleUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$TitlePayload>
+          }
+          aggregate: {
+            args: Prisma.TitleAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateTitle>
+          }
+          groupBy: {
+            args: Prisma.TitleGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<TitleGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TitleCountArgs<ExtArgs>,
+            result: $Utils.Optional<TitleCountAggregateOutputType> | number
+          }
+        }
+      }
       BruteReport: {
         payload: Prisma.$BruteReportPayload<ExtArgs>
         fields: Prisma.BruteReportFieldRefs
@@ -2407,6 +2489,7 @@ export namespace Prisma {
     achievements: number
     tournamentEarnings: number
     reports: number
+    titles: number
   }
 
   export type BruteCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2421,6 +2504,7 @@ export namespace Prisma {
     achievements?: boolean | BruteCountOutputTypeCountAchievementsArgs
     tournamentEarnings?: boolean | BruteCountOutputTypeCountTournamentEarningsArgs
     reports?: boolean | BruteCountOutputTypeCountReportsArgs
+    titles?: boolean | BruteCountOutputTypeCountTitlesArgs
   }
 
   // Custom InputTypes
@@ -2521,6 +2605,14 @@ export namespace Prisma {
    */
   export type BruteCountOutputTypeCountReportsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BruteReportWhereInput
+  }
+
+
+  /**
+   * BruteCountOutputType without action
+   */
+  export type BruteCountOutputTypeCountTitlesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TitleWhereInput
   }
 
 
@@ -2643,6 +2735,40 @@ export namespace Prisma {
    */
   export type TournamentCountOutputTypeCountStepsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TournamentStepWhereInput
+  }
+
+
+
+  /**
+   * Count Type TitleCountOutputType
+   */
+
+  export type TitleCountOutputType = {
+    brutes: number
+  }
+
+  export type TitleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    brutes?: boolean | TitleCountOutputTypeCountBrutesArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * TitleCountOutputType without action
+   */
+  export type TitleCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TitleCountOutputType
+     */
+    select?: TitleCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * TitleCountOutputType without action
+   */
+  export type TitleCountOutputTypeCountBrutesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BruteWhereInput
   }
 
 
@@ -6563,6 +6689,7 @@ export namespace Prisma {
     achievements?: boolean | Brute$achievementsArgs<ExtArgs>
     tournamentEarnings?: boolean | Brute$tournamentEarningsArgs<ExtArgs>
     reports?: boolean | Brute$reportsArgs<ExtArgs>
+    titles?: boolean | Brute$titlesArgs<ExtArgs>
     _count?: boolean | BruteCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["brute"]>
 
@@ -6625,6 +6752,7 @@ export namespace Prisma {
     achievements?: boolean | Brute$achievementsArgs<ExtArgs>
     tournamentEarnings?: boolean | Brute$tournamentEarningsArgs<ExtArgs>
     reports?: boolean | Brute$reportsArgs<ExtArgs>
+    titles?: boolean | Brute$titlesArgs<ExtArgs>
     _count?: boolean | BruteCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -6648,6 +6776,7 @@ export namespace Prisma {
       achievements: Prisma.$AchievementPayload<ExtArgs>[]
       tournamentEarnings: Prisma.$TournamentEarningPayload<ExtArgs>[]
       reports: Prisma.$BruteReportPayload<ExtArgs>[]
+      titles: Prisma.$TitlePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -7085,6 +7214,8 @@ export namespace Prisma {
     tournamentEarnings<T extends Brute$tournamentEarningsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$tournamentEarningsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TournamentEarningPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     reports<T extends Brute$reportsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$reportsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BruteReportPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    titles<T extends Brute$titlesArgs<ExtArgs> = {}>(args?: Subset<T, Brute$titlesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TitlePayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -7772,6 +7903,27 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: BruteReportScalarFieldEnum | BruteReportScalarFieldEnum[]
+  }
+
+
+  /**
+   * Brute.titles
+   */
+  export type Brute$titlesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Title
+     */
+    select?: TitleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: TitleInclude<ExtArgs> | null
+    where?: TitleWhereInput
+    orderBy?: TitleOrderByWithRelationInput | TitleOrderByWithRelationInput[]
+    cursor?: TitleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TitleScalarFieldEnum | TitleScalarFieldEnum[]
   }
 
 
@@ -17030,6 +17182,963 @@ export namespace Prisma {
 
 
   /**
+   * Model Title
+   */
+
+  export type AggregateTitle = {
+    _count: TitleCountAggregateOutputType | null
+    _avg: TitleAvgAggregateOutputType | null
+    _sum: TitleSumAggregateOutputType | null
+    _min: TitleMinAggregateOutputType | null
+    _max: TitleMaxAggregateOutputType | null
+  }
+
+  export type TitleAvgAggregateOutputType = {
+    id: number | null
+    count: number | null
+  }
+
+  export type TitleSumAggregateOutputType = {
+    id: number | null
+    count: number | null
+  }
+
+  export type TitleMinAggregateOutputType = {
+    id: number | null
+    name: $Enums.AchievementName | null
+    count: number | null
+  }
+
+  export type TitleMaxAggregateOutputType = {
+    id: number | null
+    name: $Enums.AchievementName | null
+    count: number | null
+  }
+
+  export type TitleCountAggregateOutputType = {
+    id: number
+    name: number
+    count: number
+    _all: number
+  }
+
+
+  export type TitleAvgAggregateInputType = {
+    id?: true
+    count?: true
+  }
+
+  export type TitleSumAggregateInputType = {
+    id?: true
+    count?: true
+  }
+
+  export type TitleMinAggregateInputType = {
+    id?: true
+    name?: true
+    count?: true
+  }
+
+  export type TitleMaxAggregateInputType = {
+    id?: true
+    name?: true
+    count?: true
+  }
+
+  export type TitleCountAggregateInputType = {
+    id?: true
+    name?: true
+    count?: true
+    _all?: true
+  }
+
+  export type TitleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Title to aggregate.
+     */
+    where?: TitleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Titles to fetch.
+     */
+    orderBy?: TitleOrderByWithRelationInput | TitleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TitleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Titles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Titles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Titles
+    **/
+    _count?: true | TitleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TitleAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TitleSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TitleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TitleMaxAggregateInputType
+  }
+
+  export type GetTitleAggregateType<T extends TitleAggregateArgs> = {
+        [P in keyof T & keyof AggregateTitle]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTitle[P]>
+      : GetScalarType<T[P], AggregateTitle[P]>
+  }
+
+
+
+
+  export type TitleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TitleWhereInput
+    orderBy?: TitleOrderByWithAggregationInput | TitleOrderByWithAggregationInput[]
+    by: TitleScalarFieldEnum[] | TitleScalarFieldEnum
+    having?: TitleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TitleCountAggregateInputType | true
+    _avg?: TitleAvgAggregateInputType
+    _sum?: TitleSumAggregateInputType
+    _min?: TitleMinAggregateInputType
+    _max?: TitleMaxAggregateInputType
+  }
+
+  export type TitleGroupByOutputType = {
+    id: number
+    name: $Enums.AchievementName
+    count: number
+    _count: TitleCountAggregateOutputType | null
+    _avg: TitleAvgAggregateOutputType | null
+    _sum: TitleSumAggregateOutputType | null
+    _min: TitleMinAggregateOutputType | null
+    _max: TitleMaxAggregateOutputType | null
+  }
+
+  type GetTitleGroupByPayload<T extends TitleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TitleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TitleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TitleGroupByOutputType[P]>
+            : GetScalarType<T[P], TitleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TitleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    count?: boolean
+    brutes?: boolean | Title$brutesArgs<ExtArgs>
+    _count?: boolean | TitleCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["title"]>
+
+  export type TitleSelectScalar = {
+    id?: boolean
+    name?: boolean
+    count?: boolean
+  }
+
+  export type TitleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    brutes?: boolean | Title$brutesArgs<ExtArgs>
+    _count?: boolean | TitleCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+
+  export type $TitlePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Title"
+    objects: {
+      brutes: Prisma.$BrutePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      name: $Enums.AchievementName
+      count: number
+    }, ExtArgs["result"]["title"]>
+    composites: {}
+  }
+
+
+  type TitleGetPayload<S extends boolean | null | undefined | TitleDefaultArgs> = $Result.GetResult<Prisma.$TitlePayload, S>
+
+  type TitleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<TitleFindManyArgs, 'select' | 'include' | 'distinct' > & {
+      select?: TitleCountAggregateInputType | true
+    }
+
+  export interface TitleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Title'], meta: { name: 'Title' } }
+    /**
+     * Find zero or one Title that matches the filter.
+     * @param {TitleFindUniqueArgs} args - Arguments to find a Title
+     * @example
+     * // Get one Title
+     * const title = await prisma.title.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends TitleFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, TitleFindUniqueArgs<ExtArgs>>
+    ): Prisma__TitleClient<$Result.GetResult<Prisma.$TitlePayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one Title that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {TitleFindUniqueOrThrowArgs} args - Arguments to find a Title
+     * @example
+     * // Get one Title
+     * const title = await prisma.title.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends TitleFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, TitleFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__TitleClient<$Result.GetResult<Prisma.$TitlePayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first Title that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TitleFindFirstArgs} args - Arguments to find a Title
+     * @example
+     * // Get one Title
+     * const title = await prisma.title.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends TitleFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, TitleFindFirstArgs<ExtArgs>>
+    ): Prisma__TitleClient<$Result.GetResult<Prisma.$TitlePayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first Title that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TitleFindFirstOrThrowArgs} args - Arguments to find a Title
+     * @example
+     * // Get one Title
+     * const title = await prisma.title.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends TitleFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, TitleFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__TitleClient<$Result.GetResult<Prisma.$TitlePayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more Titles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TitleFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Titles
+     * const titles = await prisma.title.findMany()
+     * 
+     * // Get first 10 Titles
+     * const titles = await prisma.title.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const titleWithIdOnly = await prisma.title.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends TitleFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, TitleFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TitlePayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a Title.
+     * @param {TitleCreateArgs} args - Arguments to create a Title.
+     * @example
+     * // Create one Title
+     * const Title = await prisma.title.create({
+     *   data: {
+     *     // ... data to create a Title
+     *   }
+     * })
+     * 
+    **/
+    create<T extends TitleCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, TitleCreateArgs<ExtArgs>>
+    ): Prisma__TitleClient<$Result.GetResult<Prisma.$TitlePayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many Titles.
+     *     @param {TitleCreateManyArgs} args - Arguments to create many Titles.
+     *     @example
+     *     // Create many Titles
+     *     const title = await prisma.title.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends TitleCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, TitleCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Title.
+     * @param {TitleDeleteArgs} args - Arguments to delete one Title.
+     * @example
+     * // Delete one Title
+     * const Title = await prisma.title.delete({
+     *   where: {
+     *     // ... filter to delete one Title
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends TitleDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, TitleDeleteArgs<ExtArgs>>
+    ): Prisma__TitleClient<$Result.GetResult<Prisma.$TitlePayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one Title.
+     * @param {TitleUpdateArgs} args - Arguments to update one Title.
+     * @example
+     * // Update one Title
+     * const title = await prisma.title.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends TitleUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, TitleUpdateArgs<ExtArgs>>
+    ): Prisma__TitleClient<$Result.GetResult<Prisma.$TitlePayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more Titles.
+     * @param {TitleDeleteManyArgs} args - Arguments to filter Titles to delete.
+     * @example
+     * // Delete a few Titles
+     * const { count } = await prisma.title.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends TitleDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, TitleDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Titles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TitleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Titles
+     * const title = await prisma.title.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends TitleUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, TitleUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Title.
+     * @param {TitleUpsertArgs} args - Arguments to update or create a Title.
+     * @example
+     * // Update or create a Title
+     * const title = await prisma.title.upsert({
+     *   create: {
+     *     // ... data to create a Title
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Title we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends TitleUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, TitleUpsertArgs<ExtArgs>>
+    ): Prisma__TitleClient<$Result.GetResult<Prisma.$TitlePayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of Titles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TitleCountArgs} args - Arguments to filter Titles to count.
+     * @example
+     * // Count the number of Titles
+     * const count = await prisma.title.count({
+     *   where: {
+     *     // ... the filter for the Titles we want to count
+     *   }
+     * })
+    **/
+    count<T extends TitleCountArgs>(
+      args?: Subset<T, TitleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TitleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Title.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TitleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TitleAggregateArgs>(args: Subset<T, TitleAggregateArgs>): Prisma.PrismaPromise<GetTitleAggregateType<T>>
+
+    /**
+     * Group by Title.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TitleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TitleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TitleGroupByArgs['orderBy'] }
+        : { orderBy?: TitleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TitleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTitleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Title model
+   */
+  readonly fields: TitleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Title.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TitleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    brutes<T extends Title$brutesArgs<ExtArgs> = {}>(args?: Subset<T, Title$brutesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the Title model
+   */ 
+  interface TitleFieldRefs {
+    readonly id: FieldRef<"Title", 'Int'>
+    readonly name: FieldRef<"Title", 'AchievementName'>
+    readonly count: FieldRef<"Title", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * Title findUnique
+   */
+  export type TitleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Title
+     */
+    select?: TitleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: TitleInclude<ExtArgs> | null
+    /**
+     * Filter, which Title to fetch.
+     */
+    where: TitleWhereUniqueInput
+  }
+
+
+  /**
+   * Title findUniqueOrThrow
+   */
+  export type TitleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Title
+     */
+    select?: TitleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: TitleInclude<ExtArgs> | null
+    /**
+     * Filter, which Title to fetch.
+     */
+    where: TitleWhereUniqueInput
+  }
+
+
+  /**
+   * Title findFirst
+   */
+  export type TitleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Title
+     */
+    select?: TitleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: TitleInclude<ExtArgs> | null
+    /**
+     * Filter, which Title to fetch.
+     */
+    where?: TitleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Titles to fetch.
+     */
+    orderBy?: TitleOrderByWithRelationInput | TitleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Titles.
+     */
+    cursor?: TitleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Titles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Titles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Titles.
+     */
+    distinct?: TitleScalarFieldEnum | TitleScalarFieldEnum[]
+  }
+
+
+  /**
+   * Title findFirstOrThrow
+   */
+  export type TitleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Title
+     */
+    select?: TitleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: TitleInclude<ExtArgs> | null
+    /**
+     * Filter, which Title to fetch.
+     */
+    where?: TitleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Titles to fetch.
+     */
+    orderBy?: TitleOrderByWithRelationInput | TitleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Titles.
+     */
+    cursor?: TitleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Titles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Titles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Titles.
+     */
+    distinct?: TitleScalarFieldEnum | TitleScalarFieldEnum[]
+  }
+
+
+  /**
+   * Title findMany
+   */
+  export type TitleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Title
+     */
+    select?: TitleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: TitleInclude<ExtArgs> | null
+    /**
+     * Filter, which Titles to fetch.
+     */
+    where?: TitleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Titles to fetch.
+     */
+    orderBy?: TitleOrderByWithRelationInput | TitleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Titles.
+     */
+    cursor?: TitleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Titles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Titles.
+     */
+    skip?: number
+    distinct?: TitleScalarFieldEnum | TitleScalarFieldEnum[]
+  }
+
+
+  /**
+   * Title create
+   */
+  export type TitleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Title
+     */
+    select?: TitleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: TitleInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Title.
+     */
+    data: XOR<TitleCreateInput, TitleUncheckedCreateInput>
+  }
+
+
+  /**
+   * Title createMany
+   */
+  export type TitleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Titles.
+     */
+    data: TitleCreateManyInput | TitleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * Title update
+   */
+  export type TitleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Title
+     */
+    select?: TitleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: TitleInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Title.
+     */
+    data: XOR<TitleUpdateInput, TitleUncheckedUpdateInput>
+    /**
+     * Choose, which Title to update.
+     */
+    where: TitleWhereUniqueInput
+  }
+
+
+  /**
+   * Title updateMany
+   */
+  export type TitleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Titles.
+     */
+    data: XOR<TitleUpdateManyMutationInput, TitleUncheckedUpdateManyInput>
+    /**
+     * Filter which Titles to update
+     */
+    where?: TitleWhereInput
+  }
+
+
+  /**
+   * Title upsert
+   */
+  export type TitleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Title
+     */
+    select?: TitleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: TitleInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Title to update in case it exists.
+     */
+    where: TitleWhereUniqueInput
+    /**
+     * In case the Title found by the `where` argument doesn't exist, create a new Title with this data.
+     */
+    create: XOR<TitleCreateInput, TitleUncheckedCreateInput>
+    /**
+     * In case the Title was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TitleUpdateInput, TitleUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Title delete
+   */
+  export type TitleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Title
+     */
+    select?: TitleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: TitleInclude<ExtArgs> | null
+    /**
+     * Filter which Title to delete.
+     */
+    where: TitleWhereUniqueInput
+  }
+
+
+  /**
+   * Title deleteMany
+   */
+  export type TitleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Titles to delete
+     */
+    where?: TitleWhereInput
+  }
+
+
+  /**
+   * Title.brutes
+   */
+  export type Title$brutesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Brute
+     */
+    select?: BruteSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BruteInclude<ExtArgs> | null
+    where?: BruteWhereInput
+    orderBy?: BruteOrderByWithRelationInput | BruteOrderByWithRelationInput[]
+    cursor?: BruteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BruteScalarFieldEnum | BruteScalarFieldEnum[]
+  }
+
+
+  /**
+   * Title without action
+   */
+  export type TitleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Title
+     */
+    select?: TitleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: TitleInclude<ExtArgs> | null
+  }
+
+
+
+  /**
    * Model BruteReport
    */
 
@@ -19160,6 +20269,15 @@ export namespace Prisma {
   export type AchievementScalarFieldEnum = (typeof AchievementScalarFieldEnum)[keyof typeof AchievementScalarFieldEnum]
 
 
+  export const TitleScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    count: 'count'
+  };
+
+  export type TitleScalarFieldEnum = (typeof TitleScalarFieldEnum)[keyof typeof TitleScalarFieldEnum]
+
+
   export const BruteReportScalarFieldEnum: {
     id: 'id',
     bruteId: 'bruteId',
@@ -19874,6 +20992,7 @@ export namespace Prisma {
     achievements?: AchievementListRelationFilter
     tournamentEarnings?: TournamentEarningListRelationFilter
     reports?: BruteReportListRelationFilter
+    titles?: TitleListRelationFilter
   }
 
   export type BruteOrderByWithRelationInput = {
@@ -19932,6 +21051,7 @@ export namespace Prisma {
     achievements?: AchievementOrderByRelationAggregateInput
     tournamentEarnings?: TournamentEarningOrderByRelationAggregateInput
     reports?: BruteReportOrderByRelationAggregateInput
+    titles?: TitleOrderByRelationAggregateInput
   }
 
   export type BruteWhereUniqueInput = Prisma.AtLeast<{
@@ -19993,6 +21113,7 @@ export namespace Prisma {
     achievements?: AchievementListRelationFilter
     tournamentEarnings?: TournamentEarningListRelationFilter
     reports?: BruteReportListRelationFilter
+    titles?: TitleListRelationFilter
   }, "id">
 
   export type BruteOrderByWithAggregationInput = {
@@ -20799,6 +21920,53 @@ export namespace Prisma {
     userId?: UuidNullableWithAggregatesFilter<"Achievement"> | string | null
   }
 
+  export type TitleWhereInput = {
+    AND?: TitleWhereInput | TitleWhereInput[]
+    OR?: TitleWhereInput[]
+    NOT?: TitleWhereInput | TitleWhereInput[]
+    id?: IntFilter<"Title"> | number
+    name?: EnumAchievementNameFilter<"Title"> | $Enums.AchievementName
+    count?: IntFilter<"Title"> | number
+    brutes?: BruteListRelationFilter
+  }
+
+  export type TitleOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    count?: SortOrder
+    brutes?: BruteOrderByRelationAggregateInput
+  }
+
+  export type TitleWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: TitleWhereInput | TitleWhereInput[]
+    OR?: TitleWhereInput[]
+    NOT?: TitleWhereInput | TitleWhereInput[]
+    name?: EnumAchievementNameFilter<"Title"> | $Enums.AchievementName
+    count?: IntFilter<"Title"> | number
+    brutes?: BruteListRelationFilter
+  }, "id">
+
+  export type TitleOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    count?: SortOrder
+    _count?: TitleCountOrderByAggregateInput
+    _avg?: TitleAvgOrderByAggregateInput
+    _max?: TitleMaxOrderByAggregateInput
+    _min?: TitleMinOrderByAggregateInput
+    _sum?: TitleSumOrderByAggregateInput
+  }
+
+  export type TitleScalarWhereWithAggregatesInput = {
+    AND?: TitleScalarWhereWithAggregatesInput | TitleScalarWhereWithAggregatesInput[]
+    OR?: TitleScalarWhereWithAggregatesInput[]
+    NOT?: TitleScalarWhereWithAggregatesInput | TitleScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Title"> | number
+    name?: EnumAchievementNameWithAggregatesFilter<"Title"> | $Enums.AchievementName
+    count?: IntWithAggregatesFilter<"Title"> | number
+  }
+
   export type BruteReportWhereInput = {
     AND?: BruteReportWhereInput | BruteReportWhereInput[]
     OR?: BruteReportWhereInput[]
@@ -21321,6 +22489,7 @@ export namespace Prisma {
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
+    titles?: TitleCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteUncheckedCreateInput = {
@@ -21376,6 +22545,7 @@ export namespace Prisma {
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
+    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteUpdateInput = {
@@ -21430,6 +22600,7 @@ export namespace Prisma {
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
+    titles?: TitleUpdateManyWithoutBrutesNestedInput
   }
 
   export type BruteUncheckedUpdateInput = {
@@ -21485,6 +22656,7 @@ export namespace Prisma {
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
+    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
   }
 
   export type BruteCreateManyInput = {
@@ -22348,6 +23520,49 @@ export namespace Prisma {
     userId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type TitleCreateInput = {
+    name: $Enums.AchievementName
+    count?: number
+    brutes?: BruteCreateNestedManyWithoutTitlesInput
+  }
+
+  export type TitleUncheckedCreateInput = {
+    id?: number
+    name: $Enums.AchievementName
+    count?: number
+    brutes?: BruteUncheckedCreateNestedManyWithoutTitlesInput
+  }
+
+  export type TitleUpdateInput = {
+    name?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
+    count?: IntFieldUpdateOperationsInput | number
+    brutes?: BruteUpdateManyWithoutTitlesNestedInput
+  }
+
+  export type TitleUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
+    count?: IntFieldUpdateOperationsInput | number
+    brutes?: BruteUncheckedUpdateManyWithoutTitlesNestedInput
+  }
+
+  export type TitleCreateManyInput = {
+    id?: number
+    name: $Enums.AchievementName
+    count?: number
+  }
+
+  export type TitleUpdateManyMutationInput = {
+    name?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
+    count?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type TitleUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
+    count?: IntFieldUpdateOperationsInput | number
+  }
+
   export type BruteReportCreateInput = {
     reason?: $Enums.BruteReportReason
     count?: number
@@ -22975,6 +24190,12 @@ export namespace Prisma {
     none?: TournamentEarningWhereInput
   }
 
+  export type TitleListRelationFilter = {
+    every?: TitleWhereInput
+    some?: TitleWhereInput
+    none?: TitleWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -22997,6 +24218,10 @@ export namespace Prisma {
   }
 
   export type TournamentEarningOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TitleOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -24070,6 +25295,34 @@ export namespace Prisma {
     _max?: NestedEnumAchievementNameFilter<$PrismaModel>
   }
 
+  export type TitleCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    count?: SortOrder
+  }
+
+  export type TitleAvgOrderByAggregateInput = {
+    id?: SortOrder
+    count?: SortOrder
+  }
+
+  export type TitleMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    count?: SortOrder
+  }
+
+  export type TitleMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    count?: SortOrder
+  }
+
+  export type TitleSumOrderByAggregateInput = {
+    id?: SortOrder
+    count?: SortOrder
+  }
+
   export type EnumBruteReportReasonFilter<$PrismaModel = never> = {
     equals?: $Enums.BruteReportReason | EnumBruteReportReasonFieldRefInput<$PrismaModel>
     in?: $Enums.BruteReportReason[] | ListEnumBruteReportReasonFieldRefInput<$PrismaModel>
@@ -24475,6 +25728,12 @@ export namespace Prisma {
     connect?: BruteReportWhereUniqueInput | BruteReportWhereUniqueInput[]
   }
 
+  export type TitleCreateNestedManyWithoutBrutesInput = {
+    create?: XOR<TitleCreateWithoutBrutesInput, TitleUncheckedCreateWithoutBrutesInput> | TitleCreateWithoutBrutesInput[] | TitleUncheckedCreateWithoutBrutesInput[]
+    connectOrCreate?: TitleCreateOrConnectWithoutBrutesInput | TitleCreateOrConnectWithoutBrutesInput[]
+    connect?: TitleWhereUniqueInput | TitleWhereUniqueInput[]
+  }
+
   export type BruteBodyUncheckedCreateNestedOneWithoutBruteInput = {
     create?: XOR<BruteBodyCreateWithoutBruteInput, BruteBodyUncheckedCreateWithoutBruteInput>
     connectOrCreate?: BruteBodyCreateOrConnectWithoutBruteInput
@@ -24559,6 +25818,12 @@ export namespace Prisma {
     connectOrCreate?: BruteReportCreateOrConnectWithoutBruteInput | BruteReportCreateOrConnectWithoutBruteInput[]
     createMany?: BruteReportCreateManyBruteInputEnvelope
     connect?: BruteReportWhereUniqueInput | BruteReportWhereUniqueInput[]
+  }
+
+  export type TitleUncheckedCreateNestedManyWithoutBrutesInput = {
+    create?: XOR<TitleCreateWithoutBrutesInput, TitleUncheckedCreateWithoutBrutesInput> | TitleCreateWithoutBrutesInput[] | TitleUncheckedCreateWithoutBrutesInput[]
+    connectOrCreate?: TitleCreateOrConnectWithoutBrutesInput | TitleCreateOrConnectWithoutBrutesInput[]
+    connect?: TitleWhereUniqueInput | TitleWhereUniqueInput[]
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -24810,6 +26075,19 @@ export namespace Prisma {
     deleteMany?: BruteReportScalarWhereInput | BruteReportScalarWhereInput[]
   }
 
+  export type TitleUpdateManyWithoutBrutesNestedInput = {
+    create?: XOR<TitleCreateWithoutBrutesInput, TitleUncheckedCreateWithoutBrutesInput> | TitleCreateWithoutBrutesInput[] | TitleUncheckedCreateWithoutBrutesInput[]
+    connectOrCreate?: TitleCreateOrConnectWithoutBrutesInput | TitleCreateOrConnectWithoutBrutesInput[]
+    upsert?: TitleUpsertWithWhereUniqueWithoutBrutesInput | TitleUpsertWithWhereUniqueWithoutBrutesInput[]
+    set?: TitleWhereUniqueInput | TitleWhereUniqueInput[]
+    disconnect?: TitleWhereUniqueInput | TitleWhereUniqueInput[]
+    delete?: TitleWhereUniqueInput | TitleWhereUniqueInput[]
+    connect?: TitleWhereUniqueInput | TitleWhereUniqueInput[]
+    update?: TitleUpdateWithWhereUniqueWithoutBrutesInput | TitleUpdateWithWhereUniqueWithoutBrutesInput[]
+    updateMany?: TitleUpdateManyWithWhereWithoutBrutesInput | TitleUpdateManyWithWhereWithoutBrutesInput[]
+    deleteMany?: TitleScalarWhereInput | TitleScalarWhereInput[]
+  }
+
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
   }
@@ -24983,6 +26261,19 @@ export namespace Prisma {
     update?: BruteReportUpdateWithWhereUniqueWithoutBruteInput | BruteReportUpdateWithWhereUniqueWithoutBruteInput[]
     updateMany?: BruteReportUpdateManyWithWhereWithoutBruteInput | BruteReportUpdateManyWithWhereWithoutBruteInput[]
     deleteMany?: BruteReportScalarWhereInput | BruteReportScalarWhereInput[]
+  }
+
+  export type TitleUncheckedUpdateManyWithoutBrutesNestedInput = {
+    create?: XOR<TitleCreateWithoutBrutesInput, TitleUncheckedCreateWithoutBrutesInput> | TitleCreateWithoutBrutesInput[] | TitleUncheckedCreateWithoutBrutesInput[]
+    connectOrCreate?: TitleCreateOrConnectWithoutBrutesInput | TitleCreateOrConnectWithoutBrutesInput[]
+    upsert?: TitleUpsertWithWhereUniqueWithoutBrutesInput | TitleUpsertWithWhereUniqueWithoutBrutesInput[]
+    set?: TitleWhereUniqueInput | TitleWhereUniqueInput[]
+    disconnect?: TitleWhereUniqueInput | TitleWhereUniqueInput[]
+    delete?: TitleWhereUniqueInput | TitleWhereUniqueInput[]
+    connect?: TitleWhereUniqueInput | TitleWhereUniqueInput[]
+    update?: TitleUpdateWithWhereUniqueWithoutBrutesInput | TitleUpdateWithWhereUniqueWithoutBrutesInput[]
+    updateMany?: TitleUpdateManyWithWhereWithoutBrutesInput | TitleUpdateManyWithWhereWithoutBrutesInput[]
+    deleteMany?: TitleScalarWhereInput | TitleScalarWhereInput[]
   }
 
   export type NullableBytesFieldUpdateOperationsInput = {
@@ -25384,6 +26675,44 @@ export namespace Prisma {
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAchievementsInput, UserUpdateWithoutAchievementsInput>, UserUncheckedUpdateWithoutAchievementsInput>
+  }
+
+  export type BruteCreateNestedManyWithoutTitlesInput = {
+    create?: XOR<BruteCreateWithoutTitlesInput, BruteUncheckedCreateWithoutTitlesInput> | BruteCreateWithoutTitlesInput[] | BruteUncheckedCreateWithoutTitlesInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutTitlesInput | BruteCreateOrConnectWithoutTitlesInput[]
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+  }
+
+  export type BruteUncheckedCreateNestedManyWithoutTitlesInput = {
+    create?: XOR<BruteCreateWithoutTitlesInput, BruteUncheckedCreateWithoutTitlesInput> | BruteCreateWithoutTitlesInput[] | BruteUncheckedCreateWithoutTitlesInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutTitlesInput | BruteCreateOrConnectWithoutTitlesInput[]
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+  }
+
+  export type BruteUpdateManyWithoutTitlesNestedInput = {
+    create?: XOR<BruteCreateWithoutTitlesInput, BruteUncheckedCreateWithoutTitlesInput> | BruteCreateWithoutTitlesInput[] | BruteUncheckedCreateWithoutTitlesInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutTitlesInput | BruteCreateOrConnectWithoutTitlesInput[]
+    upsert?: BruteUpsertWithWhereUniqueWithoutTitlesInput | BruteUpsertWithWhereUniqueWithoutTitlesInput[]
+    set?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    disconnect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    delete?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    update?: BruteUpdateWithWhereUniqueWithoutTitlesInput | BruteUpdateWithWhereUniqueWithoutTitlesInput[]
+    updateMany?: BruteUpdateManyWithWhereWithoutTitlesInput | BruteUpdateManyWithWhereWithoutTitlesInput[]
+    deleteMany?: BruteScalarWhereInput | BruteScalarWhereInput[]
+  }
+
+  export type BruteUncheckedUpdateManyWithoutTitlesNestedInput = {
+    create?: XOR<BruteCreateWithoutTitlesInput, BruteUncheckedCreateWithoutTitlesInput> | BruteCreateWithoutTitlesInput[] | BruteUncheckedCreateWithoutTitlesInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutTitlesInput | BruteCreateOrConnectWithoutTitlesInput[]
+    upsert?: BruteUpsertWithWhereUniqueWithoutTitlesInput | BruteUpsertWithWhereUniqueWithoutTitlesInput[]
+    set?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    disconnect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    delete?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    update?: BruteUpdateWithWhereUniqueWithoutTitlesInput | BruteUpdateWithWhereUniqueWithoutTitlesInput[]
+    updateMany?: BruteUpdateManyWithWhereWithoutTitlesInput | BruteUpdateManyWithWhereWithoutTitlesInput[]
+    deleteMany?: BruteScalarWhereInput | BruteScalarWhereInput[]
   }
 
   export type BruteCreateNestedOneWithoutReportsInput = {
@@ -26055,6 +27384,7 @@ export namespace Prisma {
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
+    titles?: TitleCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteUncheckedCreateWithoutUserInput = {
@@ -26109,6 +27439,7 @@ export namespace Prisma {
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
+    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteCreateOrConnectWithoutUserInput = {
@@ -26333,6 +27664,7 @@ export namespace Prisma {
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
+    titles?: TitleCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteUncheckedCreateWithoutBodyInput = {
@@ -26387,6 +27719,7 @@ export namespace Prisma {
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
+    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteCreateOrConnectWithoutBodyInput = {
@@ -26456,6 +27789,7 @@ export namespace Prisma {
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
+    titles?: TitleUpdateManyWithoutBrutesNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutBodyInput = {
@@ -26510,6 +27844,7 @@ export namespace Prisma {
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
+    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
   }
 
   export type BruteCreateWithoutColorsInput = {
@@ -26563,6 +27898,7 @@ export namespace Prisma {
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
+    titles?: TitleCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteUncheckedCreateWithoutColorsInput = {
@@ -26617,6 +27953,7 @@ export namespace Prisma {
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
+    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteCreateOrConnectWithoutColorsInput = {
@@ -26686,6 +28023,7 @@ export namespace Prisma {
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
+    titles?: TitleUpdateManyWithoutBrutesNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutColorsInput = {
@@ -26740,6 +28078,7 @@ export namespace Prisma {
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
+    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
   }
 
   export type UserCreateWithoutBrutesInput = {
@@ -26908,6 +28247,7 @@ export namespace Prisma {
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
+    titles?: TitleCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteUncheckedCreateWithoutPupilsInput = {
@@ -26962,6 +28302,7 @@ export namespace Prisma {
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
+    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteCreateOrConnectWithoutPupilsInput = {
@@ -27020,6 +28361,7 @@ export namespace Prisma {
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
+    titles?: TitleCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteUncheckedCreateWithoutMasterInput = {
@@ -27074,6 +28416,7 @@ export namespace Prisma {
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
+    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteCreateOrConnectWithoutMasterInput = {
@@ -27299,6 +28642,7 @@ export namespace Prisma {
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
+    titles?: TitleCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteUncheckedCreateWithoutOpponentOfInput = {
@@ -27353,6 +28697,7 @@ export namespace Prisma {
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
+    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteCreateOrConnectWithoutOpponentOfInput = {
@@ -27411,6 +28756,7 @@ export namespace Prisma {
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
+    titles?: TitleCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteUncheckedCreateWithoutOpponentsInput = {
@@ -27465,6 +28811,7 @@ export namespace Prisma {
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
+    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteCreateOrConnectWithoutOpponentsInput = {
@@ -27545,6 +28892,22 @@ export namespace Prisma {
   export type BruteReportCreateManyBruteInputEnvelope = {
     data: BruteReportCreateManyBruteInput | BruteReportCreateManyBruteInput[]
     skipDuplicates?: boolean
+  }
+
+  export type TitleCreateWithoutBrutesInput = {
+    name: $Enums.AchievementName
+    count?: number
+  }
+
+  export type TitleUncheckedCreateWithoutBrutesInput = {
+    id?: number
+    name: $Enums.AchievementName
+    count?: number
+  }
+
+  export type TitleCreateOrConnectWithoutBrutesInput = {
+    where: TitleWhereUniqueInput
+    create: XOR<TitleCreateWithoutBrutesInput, TitleUncheckedCreateWithoutBrutesInput>
   }
 
   export type UserUpsertWithoutBrutesInput = {
@@ -27742,6 +29105,7 @@ export namespace Prisma {
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
+    titles?: TitleUpdateManyWithoutBrutesNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutPupilsInput = {
@@ -27796,6 +29160,7 @@ export namespace Prisma {
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
+    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
   }
 
   export type BruteUpsertWithWhereUniqueWithoutMasterInput = {
@@ -28060,6 +29425,31 @@ export namespace Prisma {
     data: XOR<BruteReportUpdateManyMutationInput, BruteReportUncheckedUpdateManyWithoutBruteInput>
   }
 
+  export type TitleUpsertWithWhereUniqueWithoutBrutesInput = {
+    where: TitleWhereUniqueInput
+    update: XOR<TitleUpdateWithoutBrutesInput, TitleUncheckedUpdateWithoutBrutesInput>
+    create: XOR<TitleCreateWithoutBrutesInput, TitleUncheckedCreateWithoutBrutesInput>
+  }
+
+  export type TitleUpdateWithWhereUniqueWithoutBrutesInput = {
+    where: TitleWhereUniqueInput
+    data: XOR<TitleUpdateWithoutBrutesInput, TitleUncheckedUpdateWithoutBrutesInput>
+  }
+
+  export type TitleUpdateManyWithWhereWithoutBrutesInput = {
+    where: TitleScalarWhereInput
+    data: XOR<TitleUpdateManyMutationInput, TitleUncheckedUpdateManyWithoutBrutesInput>
+  }
+
+  export type TitleScalarWhereInput = {
+    AND?: TitleScalarWhereInput | TitleScalarWhereInput[]
+    OR?: TitleScalarWhereInput[]
+    NOT?: TitleScalarWhereInput | TitleScalarWhereInput[]
+    id?: IntFilter<"Title"> | number
+    name?: EnumAchievementNameFilter<"Title"> | $Enums.AchievementName
+    count?: IntFilter<"Title"> | number
+  }
+
   export type BruteCreateWithoutClanInput = {
     name: string
     deletedAt?: Date | string | null
@@ -28111,6 +29501,7 @@ export namespace Prisma {
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
+    titles?: TitleCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteUncheckedCreateWithoutClanInput = {
@@ -28165,6 +29556,7 @@ export namespace Prisma {
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
+    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteCreateOrConnectWithoutClanInput = {
@@ -28244,6 +29636,7 @@ export namespace Prisma {
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
+    titles?: TitleCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteUncheckedCreateWithoutFightsInput = {
@@ -28298,6 +29691,7 @@ export namespace Prisma {
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
+    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteCreateOrConnectWithoutFightsInput = {
@@ -28356,6 +29750,7 @@ export namespace Prisma {
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
+    titles?: TitleCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteUncheckedCreateWithoutFightsAsAdversaryInput = {
@@ -28410,6 +29805,7 @@ export namespace Prisma {
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
+    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteCreateOrConnectWithoutFightsAsAdversaryInput = {
@@ -28531,6 +29927,7 @@ export namespace Prisma {
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
+    titles?: TitleUpdateManyWithoutBrutesNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutFightsInput = {
@@ -28585,6 +29982,7 @@ export namespace Prisma {
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
+    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
   }
 
   export type BruteUpsertWithoutFightsAsAdversaryInput = {
@@ -28649,6 +30047,7 @@ export namespace Prisma {
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
+    titles?: TitleUpdateManyWithoutBrutesNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutFightsAsAdversaryInput = {
@@ -28703,6 +30102,7 @@ export namespace Prisma {
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
+    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
   }
 
   export type LogUpsertWithWhereUniqueWithoutFightInput = {
@@ -28799,6 +30199,7 @@ export namespace Prisma {
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
+    titles?: TitleCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteUncheckedCreateWithoutLogsInput = {
@@ -28853,6 +30254,7 @@ export namespace Prisma {
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
+    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteCreateOrConnectWithoutLogsInput = {
@@ -28950,6 +30352,7 @@ export namespace Prisma {
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
+    titles?: TitleUpdateManyWithoutBrutesNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutLogsInput = {
@@ -29004,6 +30407,7 @@ export namespace Prisma {
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
+    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
   }
 
   export type FightUpsertWithoutLogsInput = {
@@ -29091,6 +30495,7 @@ export namespace Prisma {
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
+    titles?: TitleCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteUncheckedCreateWithoutDestinyChoicesInput = {
@@ -29145,6 +30550,7 @@ export namespace Prisma {
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
+    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteCreateOrConnectWithoutDestinyChoicesInput = {
@@ -29214,6 +30620,7 @@ export namespace Prisma {
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
+    titles?: TitleUpdateManyWithoutBrutesNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutDestinyChoicesInput = {
@@ -29268,6 +30675,7 @@ export namespace Prisma {
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
+    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
   }
 
   export type BruteCreateWithoutTournamentsInput = {
@@ -29321,6 +30729,7 @@ export namespace Prisma {
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
+    titles?: TitleCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteUncheckedCreateWithoutTournamentsInput = {
@@ -29375,6 +30784,7 @@ export namespace Prisma {
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
+    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteCreateOrConnectWithoutTournamentsInput = {
@@ -29592,6 +31002,7 @@ export namespace Prisma {
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
+    titles?: TitleCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteUncheckedCreateWithoutTournamentEarningsInput = {
@@ -29646,6 +31057,7 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
+    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteCreateOrConnectWithoutTournamentEarningsInput = {
@@ -29715,6 +31127,7 @@ export namespace Prisma {
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
+    titles?: TitleUpdateManyWithoutBrutesNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutTournamentEarningsInput = {
@@ -29769,6 +31182,7 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
+    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
   }
 
   export type BruteCreateWithoutAchievementsInput = {
@@ -29822,6 +31236,7 @@ export namespace Prisma {
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
+    titles?: TitleCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteUncheckedCreateWithoutAchievementsInput = {
@@ -29876,6 +31291,7 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
+    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteCreateOrConnectWithoutAchievementsInput = {
@@ -29978,6 +31394,7 @@ export namespace Prisma {
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
+    titles?: TitleUpdateManyWithoutBrutesNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutAchievementsInput = {
@@ -30032,6 +31449,7 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
+    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
   }
 
   export type UserUpsertWithoutAchievementsInput = {
@@ -30071,6 +31489,136 @@ export namespace Prisma {
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
+  }
+
+  export type BruteCreateWithoutTitlesInput = {
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hp?: number
+    enduranceStat?: number
+    enduranceModifier?: number
+    enduranceValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    gender: $Enums.Gender
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    pupilsCount?: number
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    user?: UserCreateNestedOneWithoutBrutesInput
+    body?: BruteBodyCreateNestedOneWithoutBruteInput
+    colors?: BruteColorsCreateNestedOneWithoutBruteInput
+    master?: BruteCreateNestedOneWithoutPupilsInput
+    pupils?: BruteCreateNestedManyWithoutMasterInput
+    clan?: ClanCreateNestedOneWithoutBrutesInput
+    fights?: FightCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
+    logs?: LogCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
+    tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementCreateNestedManyWithoutBruteInput
+    tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
+    reports?: BruteReportCreateNestedManyWithoutBruteInput
+  }
+
+  export type BruteUncheckedCreateWithoutTitlesInput = {
+    id?: number
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hp?: number
+    enduranceStat?: number
+    enduranceModifier?: number
+    enduranceValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    gender: $Enums.Gender
+    userId?: string | null
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    masterId?: number | null
+    pupilsCount?: number
+    clanId?: number | null
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
+    colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
+    pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
+    fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
+    logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
+    tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
+    tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
+    reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
+  }
+
+  export type BruteCreateOrConnectWithoutTitlesInput = {
+    where: BruteWhereUniqueInput
+    create: XOR<BruteCreateWithoutTitlesInput, BruteUncheckedCreateWithoutTitlesInput>
+  }
+
+  export type BruteUpsertWithWhereUniqueWithoutTitlesInput = {
+    where: BruteWhereUniqueInput
+    update: XOR<BruteUpdateWithoutTitlesInput, BruteUncheckedUpdateWithoutTitlesInput>
+    create: XOR<BruteCreateWithoutTitlesInput, BruteUncheckedCreateWithoutTitlesInput>
+  }
+
+  export type BruteUpdateWithWhereUniqueWithoutTitlesInput = {
+    where: BruteWhereUniqueInput
+    data: XOR<BruteUpdateWithoutTitlesInput, BruteUncheckedUpdateWithoutTitlesInput>
+  }
+
+  export type BruteUpdateManyWithWhereWithoutTitlesInput = {
+    where: BruteScalarWhereInput
+    data: XOR<BruteUpdateManyMutationInput, BruteUncheckedUpdateManyWithoutTitlesInput>
   }
 
   export type BruteCreateWithoutReportsInput = {
@@ -30124,6 +31672,7 @@ export namespace Prisma {
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
+    titles?: TitleCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteUncheckedCreateWithoutReportsInput = {
@@ -30178,6 +31727,7 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
+    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
   }
 
   export type BruteCreateOrConnectWithoutReportsInput = {
@@ -30280,6 +31830,7 @@ export namespace Prisma {
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
+    titles?: TitleUpdateManyWithoutBrutesNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutReportsInput = {
@@ -30334,6 +31885,7 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
+    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
   }
 
   export type UserUpsertWithWhereUniqueWithoutReportsInput = {
@@ -30466,6 +32018,7 @@ export namespace Prisma {
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
+    titles?: TitleUpdateManyWithoutBrutesNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutUserInput = {
@@ -30520,6 +32073,7 @@ export namespace Prisma {
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
+    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutUserInput = {
@@ -30767,6 +32321,7 @@ export namespace Prisma {
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
+    titles?: TitleUpdateManyWithoutBrutesNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutMasterInput = {
@@ -30821,6 +32376,7 @@ export namespace Prisma {
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
+    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutMasterInput = {
@@ -31067,6 +32623,7 @@ export namespace Prisma {
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
+    titles?: TitleUpdateManyWithoutBrutesNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutOpponentOfInput = {
@@ -31121,6 +32678,7 @@ export namespace Prisma {
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
+    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutOpponentOfInput = {
@@ -31216,6 +32774,7 @@ export namespace Prisma {
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
+    titles?: TitleUpdateManyWithoutBrutesNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutOpponentsInput = {
@@ -31270,6 +32829,7 @@ export namespace Prisma {
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
+    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutOpponentsInput = {
@@ -31382,6 +32942,23 @@ export namespace Prisma {
     status?: EnumBruteReportStatusFieldUpdateOperationsInput | $Enums.BruteReportStatus
   }
 
+  export type TitleUpdateWithoutBrutesInput = {
+    name?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
+    count?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type TitleUncheckedUpdateWithoutBrutesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
+    count?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type TitleUncheckedUpdateManyWithoutBrutesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
+    count?: IntFieldUpdateOperationsInput | number
+  }
+
   export type BruteCreateManyClanInput = {
     id?: number
     name: string
@@ -31474,6 +33051,7 @@ export namespace Prisma {
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
+    titles?: TitleUpdateManyWithoutBrutesNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutClanInput = {
@@ -31528,6 +33106,7 @@ export namespace Prisma {
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
+    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutClanInput = {
@@ -31695,6 +33274,7 @@ export namespace Prisma {
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
+    titles?: TitleUpdateManyWithoutBrutesNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutTournamentsInput = {
@@ -31749,6 +33329,7 @@ export namespace Prisma {
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
+    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutTournamentsInput = {
@@ -31811,6 +33392,157 @@ export namespace Prisma {
     step?: IntFieldUpdateOperationsInput | number
     fightId?: IntFieldUpdateOperationsInput | number
     xpDistributed?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type BruteUpdateWithoutTitlesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    user?: UserUpdateOneWithoutBrutesNestedInput
+    body?: BruteBodyUpdateOneWithoutBruteNestedInput
+    colors?: BruteColorsUpdateOneWithoutBruteNestedInput
+    master?: BruteUpdateOneWithoutPupilsNestedInput
+    pupils?: BruteUpdateManyWithoutMasterNestedInput
+    clan?: ClanUpdateOneWithoutBrutesNestedInput
+    fights?: FightUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
+    logs?: LogUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
+    tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUpdateManyWithoutBruteNestedInput
+    tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
+    reports?: BruteReportUpdateManyWithoutBruteNestedInput
+  }
+
+  export type BruteUncheckedUpdateWithoutTitlesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
+    colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
+    pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
+    fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
+    logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
+    tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
+    tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
+    reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
+  }
+
+  export type BruteUncheckedUpdateManyWithoutTitlesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserUpdateWithoutReportsInput = {
@@ -31879,6 +33611,10 @@ export namespace Prisma {
      */
     export type TournamentCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TournamentCountOutputTypeDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use TitleCountOutputTypeDefaultArgs instead
+     */
+    export type TitleCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TitleCountOutputTypeDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use BruteReportCountOutputTypeDefaultArgs instead
      */
     export type BruteReportCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BruteReportCountOutputTypeDefaultArgs<ExtArgs>
@@ -31934,6 +33670,10 @@ export namespace Prisma {
      * @deprecated Use AchievementDefaultArgs instead
      */
     export type AchievementArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AchievementDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use TitleDefaultArgs instead
+     */
+    export type TitleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TitleDefaultArgs<ExtArgs>
     /**
      * @deprecated Use BruteReportDefaultArgs instead
      */

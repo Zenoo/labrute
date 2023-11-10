@@ -1,4 +1,7 @@
-import { AchievementData, ExpectedError, RaretyOrder } from '@labrute/core';
+import {
+  AchievementData,
+  BaseTitleRequirements, ExpectedError, RaretyOrder,
+} from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
 import { Request, Response } from 'express';
 import sendError from '../utils/sendError.js';
@@ -69,6 +72,23 @@ const Achievements = {
       });
 
       res.status(200).send(achievements);
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  generateTitlesCSV: (req: Request, res: Response) => {
+    try {
+      const csvLines = [
+        'name,count,title',
+      ];
+
+      Object.entries(AchievementData).forEach(([name, achievement]) => {
+        csvLines.push(...BaseTitleRequirements[achievement.rarety].map((count) => `${name},${count},`));
+      });
+
+      res.header('Content-Type', 'text/csv')
+        .header('Content-Disposition', 'attachment; filename="titles.csv"')
+        .send(csvLines.join('\n'));
     } catch (error) {
       sendError(res, error);
     }

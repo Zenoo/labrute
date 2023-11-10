@@ -308,6 +308,12 @@ exports.Prisma.AchievementScalarFieldEnum = {
   userId: 'userId'
 };
 
+exports.Prisma.TitleScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  count: 'count'
+};
+
 exports.Prisma.BruteReportScalarFieldEnum = {
   id: 'id',
   bruteId: 'bruteId',
@@ -608,6 +614,7 @@ exports.Prisma.ModelName = {
   TournamentStep: 'TournamentStep',
   TournamentEarning: 'TournamentEarning',
   Achievement: 'Achievement',
+  Title: 'Title',
   BruteReport: 'BruteReport',
   ServerState: 'ServerState'
 };
