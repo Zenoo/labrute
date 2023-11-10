@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.37.7](https://github.com/Zenoo/labrute/compare/labrute-v2.37.6...labrute-v2.37.7) (2023-11-10)
+
+
+### Bug Fixes
+
+* Hyperactive pets ([32c624a](https://github.com/Zenoo/labrute/commit/32c624a4de064c68c638ed750fa5abdb8c891f23))
+
 ## [2.37.6](https://github.com/Zenoo/labrute/compare/labrute-v2.37.5...labrute-v2.37.6) (2023-11-10)
 
 
