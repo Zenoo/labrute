@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import {
+  BARE_HANDS_DAMAGE,
   BruteRanking,
   BruteWithBodyColors, DetailedFighter, pets, randomBetween, SHIELD_BLOCK_ODDS, skills, weapons,
 } from '@labrute/core';
@@ -163,7 +164,7 @@ const getFighters = (team1: BruteAndBackup, team2: BruteAndBackup): DetailedFigh
       speed: brute.speedValue,
       initiative: randomBetween(0, 10) / 100,
       tempo: 0.25 + (20 / (10 + brute.speedValue)) * 0.75,
-      baseDamage: 5,
+      baseDamage: BARE_HANDS_DAMAGE,
       counter: 0,
       autoReversalOnBlock: false,
       combo: 0,
@@ -290,7 +291,7 @@ const getFighters = (team1: BruteAndBackup, team2: BruteAndBackup): DetailedFigh
         speed: backup.speedValue,
         initiative: arrivesAt,
         tempo: (0.25 + (20 / (10 + backup.speedValue)) * 0.75),
-        baseDamage: 5,
+        baseDamage: BARE_HANDS_DAMAGE,
         counter: 0,
         autoReversalOnBlock: false,
         combo: 0,
