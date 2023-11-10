@@ -1,4 +1,4 @@
-import { BruteWithBodyColors } from '@labrute/core';
+import { BruteWithBodyColors, getBruteVisuals } from '@labrute/core';
 import { Prisma, PrismaClient } from '@labrute/prisma';
 import { workerData } from 'worker_threads';
 import createSpritesheet from '../utils/createSpritesheet.js';
@@ -7,9 +7,11 @@ import formatSpritesheet from '../utils/formatSpritesheet.js';
 const brute = workerData as BruteWithBodyColors;
 const prisma = new PrismaClient();
 
+const visuals = getBruteVisuals(brute);
+
 // Check if spritesheet already exists
 const count = await prisma.bruteSpritesheet.count({
-  where: { brute: { id: brute.id } },
+  where: { ...visuals },
 });
 
 if (count > 0) {
@@ -17,12 +19,12 @@ if (count > 0) {
 }
 
 // Create spritesheet
-const spritesheet = await createSpritesheet(brute);
+const spritesheet = await createSpritesheet(visuals);
 
 await prisma.bruteSpritesheet.create({
   data: {
     image: spritesheet.image,
     json: formatSpritesheet(spritesheet, brute) as unknown as Prisma.JsonObject,
-    brute: { connect: { id: brute.id } },
+    ...visuals,
   },
 });

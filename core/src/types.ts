@@ -317,8 +317,8 @@ export interface DetailedFight {
 export type AnimationModel = 'bear' | 'dog' | 'panther' | 'male-brute' | 'female-brute';
 
 export interface FrameProps {
-  colors: BruteColors,
-  body: BruteBody
+  colors: Omit<BruteColors, 'id' | 'bruteId'>,
+  body: Omit<BruteBody, 'id' | 'bruteId'>,
 }
 
 export interface DestinyBranch extends DestinyChoice {

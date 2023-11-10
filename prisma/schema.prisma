@@ -217,7 +217,6 @@ model Brute {
   fightsAsAdversary            Fight[]             @relation("Adversary")
   logs                         Log[]
   destinyChoices               DestinyChoice[]
-  spritesheet                  BruteSpritesheet?
   tournaments                  Tournament[]
   opponents                    Brute[]             @relation("Opponents")
   opponentOf                   Brute[]             @relation("Opponents")
@@ -230,11 +229,40 @@ model Brute {
 }
 
 model BruteSpritesheet {
-  id      Int    @id @default(autoincrement())
-  brute   Brute  @relation(fields: [bruteId], references: [id])
-  bruteId Int    @unique
-  image   Bytes? @db.ByteA
-  json    Json?  @db.Json
+  id             Int    @id @default(autoincrement())
+  gender         Gender @default(male)
+  longHair       Int    @default(1)
+  lowerRightArm  Int    @default(1)
+  rightHand      Int    @default(1)
+  upperRightArm  Int    @default(1)
+  rightShoulder  Int    @default(1)
+  rightFoot      Int    @default(1)
+  lowerRightLeg  Int    @default(1)
+  upperRightLeg  Int    @default(1)
+  leftFoot       Int    @default(1)
+  lowerLeftLeg   Int    @default(1)
+  pelvis         Int    @default(1)
+  upperLeftLeg   Int    @default(1)
+  tummy          Int    @default(1)
+  torso          Int    @default(1)
+  head           Int    @default(1)
+  leftHand       Int    @default(1)
+  upperLeftArm   Int    @default(1)
+  lowerLeftArm   Int    @default(1)
+  leftShoulder   Int    @default(1)
+  skinColor      String @db.VarChar(255) @default("#000000")
+  skinShade      String @db.VarChar(255) @default("#000000")
+  hairColor      String @db.VarChar(255) @default("#000000")
+  hairShade      String @db.VarChar(255) @default("#000000")
+  primaryColor   String @db.VarChar(255) @default("#000000")
+  primaryShade   String @db.VarChar(255) @default("#000000")
+  secondaryColor String @db.VarChar(255) @default("#000000")
+  secondaryShade String @db.VarChar(255) @default("#000000")
+  accentColor    String @db.VarChar(255) @default("#000000")
+  accentShade    String @db.VarChar(255) @default("#000000")
+  image          Bytes? @db.ByteA
+  json           Json?  @db.Json
+  @@unique([gender, longHair, lowerRightArm, rightHand, upperRightArm, rightShoulder, rightFoot, lowerRightLeg, upperRightLeg, leftFoot, lowerLeftLeg, pelvis, upperLeftLeg, tummy, torso, head, leftHand, upperLeftArm, lowerLeftArm, leftShoulder, skinColor, skinShade, hairColor, hairShade, primaryColor, primaryShade, secondaryColor, secondaryShade, accentColor, accentShade])
 }
 
 model Clan {

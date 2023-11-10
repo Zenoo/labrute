@@ -13,6 +13,7 @@ import {
   increaseAchievement, randomBetween, updateBruteData,
   canLevelUp,
   MAX_FAVORITE_BRUTES,
+  BruteVisuals,
 } from '@labrute/core';
 import {
   Brute,
@@ -565,12 +566,6 @@ const Brutes = {
             where: { bruteId: brute.id },
           });
         }
-        // Delete spritesheet
-        if (await prisma.bruteSpritesheet.count({ where: { bruteId: brute.id } })) {
-          await prisma.bruteSpritesheet.delete({
-            where: { bruteId: brute.id },
-          });
-        }
         // Delete logs
         if (await prisma.log.count({ where: { currentBruteId: brute.id } })) {
           await prisma.log.deleteMany({
@@ -604,13 +599,22 @@ const Brutes = {
       sendError(res, error);
     }
   },
-  isReadyToFight: (prisma: PrismaClient) => async (req: Request, res: Response) => {
+  isReadyToFight: (prisma: PrismaClient) => async (
+    req: Request<never, unknown, { visuals: BruteVisuals }>,
+    res: Response,
+  ) => {
     try {
-      await auth(prisma, req);
+      const user = await auth(prisma, req);
 
-      // Check if brute has a spritesheet
+      const { visuals } = req.body;
+
+      if (!visuals) {
+        throw new Error(translate('missingParameters', user));
+      }
+
+      // Check if a spritesheet already exists
       const count = await prisma.bruteSpritesheet.count({
-        where: { brute: { name: req.params.name, deletedAt: null } },
+        where: { ...visuals },
       });
 
       res.send(count === 1);

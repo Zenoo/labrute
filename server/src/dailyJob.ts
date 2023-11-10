@@ -7,11 +7,10 @@ import {
   LogType, Prisma, PrismaClient, TournamentType,
 } from '@labrute/prisma';
 import moment from 'moment';
-import { Worker } from 'worker_threads';
 import DiscordUtils from './utils/DiscordUtils.js';
+import ServerState from './utils/ServerState.js';
 import generateFight from './utils/fight/generateFight.js';
 import shuffle from './utils/shuffle.js';
-import ServerState from './utils/ServerState.js';
 
 const grantBetaAchievement = async (prisma: PrismaClient) => {
   // Grant beta achievement to all brutes who don't have it yet
@@ -133,33 +132,6 @@ const generateMissingBodyColors = async (prisma: PrismaClient) => {
         body: { create: getRandomBody(brute.gender) },
         colors: { create: getRandomColors(brute.gender) },
       },
-    });
-  }
-};
-
-const generateMissingSpritesheets = async (prisma: PrismaClient) => {
-  const brutesWithoutSpritesheet = await prisma.brute.findMany({
-    where: {
-      deletedAt: null,
-      spritesheet: null,
-      body: {
-        isNot: null,
-      },
-      colors: {
-        isNot: null,
-      },
-    },
-    include: {
-      body: true,
-      colors: true,
-    },
-  });
-
-  for (const brute of brutesWithoutSpritesheet) {
-    // Generate spritesheet
-    // eslint-disable-next-line no-new
-    new Worker('./lib/workers/generateSpritesheet.js', {
-      workerData: brute,
     });
   }
 };
@@ -718,9 +690,6 @@ const dailyJob = (prisma: PrismaClient) => async () => {
 
     // Generate missing body and colors
     await generateMissingBodyColors(prisma);
-
-    // Generate missing spritesheets
-    await generateMissingSpritesheets(prisma);
 
     // Handle XP won the previous day
     await handleXpGains(prisma);

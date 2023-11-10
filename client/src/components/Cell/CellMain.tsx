@@ -1,4 +1,4 @@
-import { BruteRanking, getFightsLeft, getMaxFightsPerDay, getBruteGoldValue, getXPNeeded, Language, UserWithBrutesBodyColor } from '@labrute/core';
+import { BruteRanking, getFightsLeft, getMaxFightsPerDay, getBruteGoldValue, getXPNeeded, Language, UserWithBrutesBodyColor, getBruteVisuals } from '@labrute/core';
 import { Box, BoxProps, Stack } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useMemo } from 'react';
@@ -47,7 +47,8 @@ const CellMain = ({
     [brute],
   );
 
-  const { data: ready } = useStateAsync(false, Server.Brute.isReadyToFight, brute?.name || '');
+  const bruteVisuals = useMemo(() => (brute ? getBruteVisuals(brute) : null), [brute]);
+  const { data: ready } = useStateAsync(false, Server.Brute.isReadyToFight, bruteVisuals);
 
   // Sacrifice brute
   const confirmSacrifice = useCallback(() => {

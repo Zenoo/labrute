@@ -1,4 +1,4 @@
-import { BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, BruteWithBodyColors, FullTournament, ServerReadyResponse, TournamentsGetGlobalResponse, UsersAdminUpdateRequest, UserWithBrutesBodyColor } from '@labrute/core';
+import { BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, BruteVisuals, BruteWithBodyColors, FullTournament, ServerReadyResponse, TournamentsGetGlobalResponse, UsersAdminUpdateRequest, UserWithBrutesBodyColor } from '@labrute/core';
 import { Achievement, Brute, BruteReportReason, BruteReportStatus, DestinyChoice, DestinyChoiceSide, Fight, Gender, Lang, Log, Prisma, Tournament, User } from '@labrute/prisma';
 import Fetch from './Fetch';
 
@@ -28,7 +28,7 @@ const Server = {
       where,
     }: { name: string, include?: Prisma.BruteInclude, where?: Prisma.BruteWhereInput }) => Fetch<Brute>(`/api/brute/${name}/get`, { include, where }, 'POST'),
     isNameAvailable: (name: string) => Fetch<boolean>(`/api/brute/${name}/available`),
-    isReadyToFight: (name: string) => Fetch<boolean>(`/api/brute/${name}/ready`),
+    isReadyToFight: (visuals: BruteVisuals | null) => Fetch<boolean>('/api/brute/ready', { visuals }, 'POST'),
     create: (
       name: string,
       user: string,

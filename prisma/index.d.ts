@@ -6557,7 +6557,6 @@ export namespace Prisma {
     fightsAsAdversary?: boolean | Brute$fightsAsAdversaryArgs<ExtArgs>
     logs?: boolean | Brute$logsArgs<ExtArgs>
     destinyChoices?: boolean | Brute$destinyChoicesArgs<ExtArgs>
-    spritesheet?: boolean | Brute$spritesheetArgs<ExtArgs>
     tournaments?: boolean | Brute$tournamentsArgs<ExtArgs>
     opponents?: boolean | Brute$opponentsArgs<ExtArgs>
     opponentOf?: boolean | Brute$opponentOfArgs<ExtArgs>
@@ -6620,7 +6619,6 @@ export namespace Prisma {
     fightsAsAdversary?: boolean | Brute$fightsAsAdversaryArgs<ExtArgs>
     logs?: boolean | Brute$logsArgs<ExtArgs>
     destinyChoices?: boolean | Brute$destinyChoicesArgs<ExtArgs>
-    spritesheet?: boolean | Brute$spritesheetArgs<ExtArgs>
     tournaments?: boolean | Brute$tournamentsArgs<ExtArgs>
     opponents?: boolean | Brute$opponentsArgs<ExtArgs>
     opponentOf?: boolean | Brute$opponentOfArgs<ExtArgs>
@@ -6644,7 +6642,6 @@ export namespace Prisma {
       fightsAsAdversary: Prisma.$FightPayload<ExtArgs>[]
       logs: Prisma.$LogPayload<ExtArgs>[]
       destinyChoices: Prisma.$DestinyChoicePayload<ExtArgs>[]
-      spritesheet: Prisma.$BruteSpritesheetPayload<ExtArgs> | null
       tournaments: Prisma.$TournamentPayload<ExtArgs>[]
       opponents: Prisma.$BrutePayload<ExtArgs>[]
       opponentOf: Prisma.$BrutePayload<ExtArgs>[]
@@ -7076,8 +7073,6 @@ export namespace Prisma {
     logs<T extends Brute$logsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     destinyChoices<T extends Brute$destinyChoicesArgs<ExtArgs> = {}>(args?: Subset<T, Brute$destinyChoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DestinyChoicePayload<ExtArgs>, T, 'findMany'> | Null>;
-
-    spritesheet<T extends Brute$spritesheetArgs<ExtArgs> = {}>(args?: Subset<T, Brute$spritesheetArgs<ExtArgs>>): Prisma__BruteSpritesheetClient<$Result.GetResult<Prisma.$BruteSpritesheetPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
     tournaments<T extends Brute$tournamentsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$tournamentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TournamentPayload<ExtArgs>, T, 'findMany'> | Null>;
 
@@ -7655,22 +7650,6 @@ export namespace Prisma {
 
 
   /**
-   * Brute.spritesheet
-   */
-  export type Brute$spritesheetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteSpritesheet
-     */
-    select?: BruteSpritesheetSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteSpritesheetInclude<ExtArgs> | null
-    where?: BruteSpritesheetWhereInput
-  }
-
-
-  /**
    * Brute.tournaments
    */
   export type Brute$tournamentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7826,29 +7805,152 @@ export namespace Prisma {
 
   export type BruteSpritesheetAvgAggregateOutputType = {
     id: number | null
-    bruteId: number | null
+    longHair: number | null
+    lowerRightArm: number | null
+    rightHand: number | null
+    upperRightArm: number | null
+    rightShoulder: number | null
+    rightFoot: number | null
+    lowerRightLeg: number | null
+    upperRightLeg: number | null
+    leftFoot: number | null
+    lowerLeftLeg: number | null
+    pelvis: number | null
+    upperLeftLeg: number | null
+    tummy: number | null
+    torso: number | null
+    head: number | null
+    leftHand: number | null
+    upperLeftArm: number | null
+    lowerLeftArm: number | null
+    leftShoulder: number | null
   }
 
   export type BruteSpritesheetSumAggregateOutputType = {
     id: number | null
-    bruteId: number | null
+    longHair: number | null
+    lowerRightArm: number | null
+    rightHand: number | null
+    upperRightArm: number | null
+    rightShoulder: number | null
+    rightFoot: number | null
+    lowerRightLeg: number | null
+    upperRightLeg: number | null
+    leftFoot: number | null
+    lowerLeftLeg: number | null
+    pelvis: number | null
+    upperLeftLeg: number | null
+    tummy: number | null
+    torso: number | null
+    head: number | null
+    leftHand: number | null
+    upperLeftArm: number | null
+    lowerLeftArm: number | null
+    leftShoulder: number | null
   }
 
   export type BruteSpritesheetMinAggregateOutputType = {
     id: number | null
-    bruteId: number | null
+    gender: $Enums.Gender | null
+    longHair: number | null
+    lowerRightArm: number | null
+    rightHand: number | null
+    upperRightArm: number | null
+    rightShoulder: number | null
+    rightFoot: number | null
+    lowerRightLeg: number | null
+    upperRightLeg: number | null
+    leftFoot: number | null
+    lowerLeftLeg: number | null
+    pelvis: number | null
+    upperLeftLeg: number | null
+    tummy: number | null
+    torso: number | null
+    head: number | null
+    leftHand: number | null
+    upperLeftArm: number | null
+    lowerLeftArm: number | null
+    leftShoulder: number | null
+    skinColor: string | null
+    skinShade: string | null
+    hairColor: string | null
+    hairShade: string | null
+    primaryColor: string | null
+    primaryShade: string | null
+    secondaryColor: string | null
+    secondaryShade: string | null
+    accentColor: string | null
+    accentShade: string | null
     image: Buffer | null
   }
 
   export type BruteSpritesheetMaxAggregateOutputType = {
     id: number | null
-    bruteId: number | null
+    gender: $Enums.Gender | null
+    longHair: number | null
+    lowerRightArm: number | null
+    rightHand: number | null
+    upperRightArm: number | null
+    rightShoulder: number | null
+    rightFoot: number | null
+    lowerRightLeg: number | null
+    upperRightLeg: number | null
+    leftFoot: number | null
+    lowerLeftLeg: number | null
+    pelvis: number | null
+    upperLeftLeg: number | null
+    tummy: number | null
+    torso: number | null
+    head: number | null
+    leftHand: number | null
+    upperLeftArm: number | null
+    lowerLeftArm: number | null
+    leftShoulder: number | null
+    skinColor: string | null
+    skinShade: string | null
+    hairColor: string | null
+    hairShade: string | null
+    primaryColor: string | null
+    primaryShade: string | null
+    secondaryColor: string | null
+    secondaryShade: string | null
+    accentColor: string | null
+    accentShade: string | null
     image: Buffer | null
   }
 
   export type BruteSpritesheetCountAggregateOutputType = {
     id: number
-    bruteId: number
+    gender: number
+    longHair: number
+    lowerRightArm: number
+    rightHand: number
+    upperRightArm: number
+    rightShoulder: number
+    rightFoot: number
+    lowerRightLeg: number
+    upperRightLeg: number
+    leftFoot: number
+    lowerLeftLeg: number
+    pelvis: number
+    upperLeftLeg: number
+    tummy: number
+    torso: number
+    head: number
+    leftHand: number
+    upperLeftArm: number
+    lowerLeftArm: number
+    leftShoulder: number
+    skinColor: number
+    skinShade: number
+    hairColor: number
+    hairShade: number
+    primaryColor: number
+    primaryShade: number
+    secondaryColor: number
+    secondaryShade: number
+    accentColor: number
+    accentShade: number
     image: number
     json: number
     _all: number
@@ -7857,29 +7959,152 @@ export namespace Prisma {
 
   export type BruteSpritesheetAvgAggregateInputType = {
     id?: true
-    bruteId?: true
+    longHair?: true
+    lowerRightArm?: true
+    rightHand?: true
+    upperRightArm?: true
+    rightShoulder?: true
+    rightFoot?: true
+    lowerRightLeg?: true
+    upperRightLeg?: true
+    leftFoot?: true
+    lowerLeftLeg?: true
+    pelvis?: true
+    upperLeftLeg?: true
+    tummy?: true
+    torso?: true
+    head?: true
+    leftHand?: true
+    upperLeftArm?: true
+    lowerLeftArm?: true
+    leftShoulder?: true
   }
 
   export type BruteSpritesheetSumAggregateInputType = {
     id?: true
-    bruteId?: true
+    longHair?: true
+    lowerRightArm?: true
+    rightHand?: true
+    upperRightArm?: true
+    rightShoulder?: true
+    rightFoot?: true
+    lowerRightLeg?: true
+    upperRightLeg?: true
+    leftFoot?: true
+    lowerLeftLeg?: true
+    pelvis?: true
+    upperLeftLeg?: true
+    tummy?: true
+    torso?: true
+    head?: true
+    leftHand?: true
+    upperLeftArm?: true
+    lowerLeftArm?: true
+    leftShoulder?: true
   }
 
   export type BruteSpritesheetMinAggregateInputType = {
     id?: true
-    bruteId?: true
+    gender?: true
+    longHair?: true
+    lowerRightArm?: true
+    rightHand?: true
+    upperRightArm?: true
+    rightShoulder?: true
+    rightFoot?: true
+    lowerRightLeg?: true
+    upperRightLeg?: true
+    leftFoot?: true
+    lowerLeftLeg?: true
+    pelvis?: true
+    upperLeftLeg?: true
+    tummy?: true
+    torso?: true
+    head?: true
+    leftHand?: true
+    upperLeftArm?: true
+    lowerLeftArm?: true
+    leftShoulder?: true
+    skinColor?: true
+    skinShade?: true
+    hairColor?: true
+    hairShade?: true
+    primaryColor?: true
+    primaryShade?: true
+    secondaryColor?: true
+    secondaryShade?: true
+    accentColor?: true
+    accentShade?: true
     image?: true
   }
 
   export type BruteSpritesheetMaxAggregateInputType = {
     id?: true
-    bruteId?: true
+    gender?: true
+    longHair?: true
+    lowerRightArm?: true
+    rightHand?: true
+    upperRightArm?: true
+    rightShoulder?: true
+    rightFoot?: true
+    lowerRightLeg?: true
+    upperRightLeg?: true
+    leftFoot?: true
+    lowerLeftLeg?: true
+    pelvis?: true
+    upperLeftLeg?: true
+    tummy?: true
+    torso?: true
+    head?: true
+    leftHand?: true
+    upperLeftArm?: true
+    lowerLeftArm?: true
+    leftShoulder?: true
+    skinColor?: true
+    skinShade?: true
+    hairColor?: true
+    hairShade?: true
+    primaryColor?: true
+    primaryShade?: true
+    secondaryColor?: true
+    secondaryShade?: true
+    accentColor?: true
+    accentShade?: true
     image?: true
   }
 
   export type BruteSpritesheetCountAggregateInputType = {
     id?: true
-    bruteId?: true
+    gender?: true
+    longHair?: true
+    lowerRightArm?: true
+    rightHand?: true
+    upperRightArm?: true
+    rightShoulder?: true
+    rightFoot?: true
+    lowerRightLeg?: true
+    upperRightLeg?: true
+    leftFoot?: true
+    lowerLeftLeg?: true
+    pelvis?: true
+    upperLeftLeg?: true
+    tummy?: true
+    torso?: true
+    head?: true
+    leftHand?: true
+    upperLeftArm?: true
+    lowerLeftArm?: true
+    leftShoulder?: true
+    skinColor?: true
+    skinShade?: true
+    hairColor?: true
+    hairShade?: true
+    primaryColor?: true
+    primaryShade?: true
+    secondaryColor?: true
+    secondaryShade?: true
+    accentColor?: true
+    accentShade?: true
     image?: true
     json?: true
     _all?: true
@@ -7973,7 +8198,36 @@ export namespace Prisma {
 
   export type BruteSpritesheetGroupByOutputType = {
     id: number
-    bruteId: number
+    gender: $Enums.Gender
+    longHair: number
+    lowerRightArm: number
+    rightHand: number
+    upperRightArm: number
+    rightShoulder: number
+    rightFoot: number
+    lowerRightLeg: number
+    upperRightLeg: number
+    leftFoot: number
+    lowerLeftLeg: number
+    pelvis: number
+    upperLeftLeg: number
+    tummy: number
+    torso: number
+    head: number
+    leftHand: number
+    upperLeftArm: number
+    lowerLeftArm: number
+    leftShoulder: number
+    skinColor: string
+    skinShade: string
+    hairColor: string
+    hairShade: string
+    primaryColor: string
+    primaryShade: string
+    secondaryColor: string
+    secondaryShade: string
+    accentColor: string
+    accentShade: string
     image: Buffer | null
     json: JsonValue | null
     _count: BruteSpritesheetCountAggregateOutputType | null
@@ -7999,32 +8253,112 @@ export namespace Prisma {
 
   export type BruteSpritesheetSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    bruteId?: boolean
+    gender?: boolean
+    longHair?: boolean
+    lowerRightArm?: boolean
+    rightHand?: boolean
+    upperRightArm?: boolean
+    rightShoulder?: boolean
+    rightFoot?: boolean
+    lowerRightLeg?: boolean
+    upperRightLeg?: boolean
+    leftFoot?: boolean
+    lowerLeftLeg?: boolean
+    pelvis?: boolean
+    upperLeftLeg?: boolean
+    tummy?: boolean
+    torso?: boolean
+    head?: boolean
+    leftHand?: boolean
+    upperLeftArm?: boolean
+    lowerLeftArm?: boolean
+    leftShoulder?: boolean
+    skinColor?: boolean
+    skinShade?: boolean
+    hairColor?: boolean
+    hairShade?: boolean
+    primaryColor?: boolean
+    primaryShade?: boolean
+    secondaryColor?: boolean
+    secondaryShade?: boolean
+    accentColor?: boolean
+    accentShade?: boolean
     image?: boolean
     json?: boolean
-    brute?: boolean | BruteDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["bruteSpritesheet"]>
 
   export type BruteSpritesheetSelectScalar = {
     id?: boolean
-    bruteId?: boolean
+    gender?: boolean
+    longHair?: boolean
+    lowerRightArm?: boolean
+    rightHand?: boolean
+    upperRightArm?: boolean
+    rightShoulder?: boolean
+    rightFoot?: boolean
+    lowerRightLeg?: boolean
+    upperRightLeg?: boolean
+    leftFoot?: boolean
+    lowerLeftLeg?: boolean
+    pelvis?: boolean
+    upperLeftLeg?: boolean
+    tummy?: boolean
+    torso?: boolean
+    head?: boolean
+    leftHand?: boolean
+    upperLeftArm?: boolean
+    lowerLeftArm?: boolean
+    leftShoulder?: boolean
+    skinColor?: boolean
+    skinShade?: boolean
+    hairColor?: boolean
+    hairShade?: boolean
+    primaryColor?: boolean
+    primaryShade?: boolean
+    secondaryColor?: boolean
+    secondaryShade?: boolean
+    accentColor?: boolean
+    accentShade?: boolean
     image?: boolean
     json?: boolean
-  }
-
-  export type BruteSpritesheetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    brute?: boolean | BruteDefaultArgs<ExtArgs>
   }
 
 
   export type $BruteSpritesheetPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "BruteSpritesheet"
-    objects: {
-      brute: Prisma.$BrutePayload<ExtArgs>
-    }
+    objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      bruteId: number
+      gender: $Enums.Gender
+      longHair: number
+      lowerRightArm: number
+      rightHand: number
+      upperRightArm: number
+      rightShoulder: number
+      rightFoot: number
+      lowerRightLeg: number
+      upperRightLeg: number
+      leftFoot: number
+      lowerLeftLeg: number
+      pelvis: number
+      upperLeftLeg: number
+      tummy: number
+      torso: number
+      head: number
+      leftHand: number
+      upperLeftArm: number
+      lowerLeftArm: number
+      leftShoulder: number
+      skinColor: string
+      skinShade: string
+      hairColor: string
+      hairShade: string
+      primaryColor: string
+      primaryShade: string
+      secondaryColor: string
+      secondaryShade: string
+      accentColor: string
+      accentShade: string
       image: Buffer | null
       json: Prisma.JsonValue | null
     }, ExtArgs["result"]["bruteSpritesheet"]>
@@ -8392,7 +8726,6 @@ export namespace Prisma {
   export interface Prisma__BruteSpritesheetClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
-    brute<T extends BruteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BruteDefaultArgs<ExtArgs>>): Prisma__BruteClient<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -8423,7 +8756,36 @@ export namespace Prisma {
    */ 
   interface BruteSpritesheetFieldRefs {
     readonly id: FieldRef<"BruteSpritesheet", 'Int'>
-    readonly bruteId: FieldRef<"BruteSpritesheet", 'Int'>
+    readonly gender: FieldRef<"BruteSpritesheet", 'Gender'>
+    readonly longHair: FieldRef<"BruteSpritesheet", 'Int'>
+    readonly lowerRightArm: FieldRef<"BruteSpritesheet", 'Int'>
+    readonly rightHand: FieldRef<"BruteSpritesheet", 'Int'>
+    readonly upperRightArm: FieldRef<"BruteSpritesheet", 'Int'>
+    readonly rightShoulder: FieldRef<"BruteSpritesheet", 'Int'>
+    readonly rightFoot: FieldRef<"BruteSpritesheet", 'Int'>
+    readonly lowerRightLeg: FieldRef<"BruteSpritesheet", 'Int'>
+    readonly upperRightLeg: FieldRef<"BruteSpritesheet", 'Int'>
+    readonly leftFoot: FieldRef<"BruteSpritesheet", 'Int'>
+    readonly lowerLeftLeg: FieldRef<"BruteSpritesheet", 'Int'>
+    readonly pelvis: FieldRef<"BruteSpritesheet", 'Int'>
+    readonly upperLeftLeg: FieldRef<"BruteSpritesheet", 'Int'>
+    readonly tummy: FieldRef<"BruteSpritesheet", 'Int'>
+    readonly torso: FieldRef<"BruteSpritesheet", 'Int'>
+    readonly head: FieldRef<"BruteSpritesheet", 'Int'>
+    readonly leftHand: FieldRef<"BruteSpritesheet", 'Int'>
+    readonly upperLeftArm: FieldRef<"BruteSpritesheet", 'Int'>
+    readonly lowerLeftArm: FieldRef<"BruteSpritesheet", 'Int'>
+    readonly leftShoulder: FieldRef<"BruteSpritesheet", 'Int'>
+    readonly skinColor: FieldRef<"BruteSpritesheet", 'String'>
+    readonly skinShade: FieldRef<"BruteSpritesheet", 'String'>
+    readonly hairColor: FieldRef<"BruteSpritesheet", 'String'>
+    readonly hairShade: FieldRef<"BruteSpritesheet", 'String'>
+    readonly primaryColor: FieldRef<"BruteSpritesheet", 'String'>
+    readonly primaryShade: FieldRef<"BruteSpritesheet", 'String'>
+    readonly secondaryColor: FieldRef<"BruteSpritesheet", 'String'>
+    readonly secondaryShade: FieldRef<"BruteSpritesheet", 'String'>
+    readonly accentColor: FieldRef<"BruteSpritesheet", 'String'>
+    readonly accentShade: FieldRef<"BruteSpritesheet", 'String'>
     readonly image: FieldRef<"BruteSpritesheet", 'Bytes'>
     readonly json: FieldRef<"BruteSpritesheet", 'Json'>
   }
@@ -8440,10 +8802,6 @@ export namespace Prisma {
      */
     select?: BruteSpritesheetSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteSpritesheetInclude<ExtArgs> | null
-    /**
      * Filter, which BruteSpritesheet to fetch.
      */
     where: BruteSpritesheetWhereUniqueInput
@@ -8459,10 +8817,6 @@ export namespace Prisma {
      */
     select?: BruteSpritesheetSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteSpritesheetInclude<ExtArgs> | null
-    /**
      * Filter, which BruteSpritesheet to fetch.
      */
     where: BruteSpritesheetWhereUniqueInput
@@ -8477,10 +8831,6 @@ export namespace Prisma {
      * Select specific fields to fetch from the BruteSpritesheet
      */
     select?: BruteSpritesheetSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteSpritesheetInclude<ExtArgs> | null
     /**
      * Filter, which BruteSpritesheet to fetch.
      */
@@ -8527,10 +8877,6 @@ export namespace Prisma {
      */
     select?: BruteSpritesheetSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteSpritesheetInclude<ExtArgs> | null
-    /**
      * Filter, which BruteSpritesheet to fetch.
      */
     where?: BruteSpritesheetWhereInput
@@ -8576,10 +8922,6 @@ export namespace Prisma {
      */
     select?: BruteSpritesheetSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteSpritesheetInclude<ExtArgs> | null
-    /**
      * Filter, which BruteSpritesheets to fetch.
      */
     where?: BruteSpritesheetWhereInput
@@ -8620,13 +8962,9 @@ export namespace Prisma {
      */
     select?: BruteSpritesheetSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteSpritesheetInclude<ExtArgs> | null
-    /**
      * The data needed to create a BruteSpritesheet.
      */
-    data: XOR<BruteSpritesheetCreateInput, BruteSpritesheetUncheckedCreateInput>
+    data?: XOR<BruteSpritesheetCreateInput, BruteSpritesheetUncheckedCreateInput>
   }
 
 
@@ -8650,10 +8988,6 @@ export namespace Prisma {
      * Select specific fields to fetch from the BruteSpritesheet
      */
     select?: BruteSpritesheetSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteSpritesheetInclude<ExtArgs> | null
     /**
      * The data needed to update a BruteSpritesheet.
      */
@@ -8689,10 +9023,6 @@ export namespace Prisma {
      */
     select?: BruteSpritesheetSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteSpritesheetInclude<ExtArgs> | null
-    /**
      * The filter to search for the BruteSpritesheet to update in case it exists.
      */
     where: BruteSpritesheetWhereUniqueInput
@@ -8715,10 +9045,6 @@ export namespace Prisma {
      * Select specific fields to fetch from the BruteSpritesheet
      */
     select?: BruteSpritesheetSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteSpritesheetInclude<ExtArgs> | null
     /**
      * Filter which BruteSpritesheet to delete.
      */
@@ -8745,10 +9071,6 @@ export namespace Prisma {
      * Select specific fields to fetch from the BruteSpritesheet
      */
     select?: BruteSpritesheetSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteSpritesheetInclude<ExtArgs> | null
   }
 
 
@@ -18705,7 +19027,36 @@ export namespace Prisma {
 
   export const BruteSpritesheetScalarFieldEnum: {
     id: 'id',
-    bruteId: 'bruteId',
+    gender: 'gender',
+    longHair: 'longHair',
+    lowerRightArm: 'lowerRightArm',
+    rightHand: 'rightHand',
+    upperRightArm: 'upperRightArm',
+    rightShoulder: 'rightShoulder',
+    rightFoot: 'rightFoot',
+    lowerRightLeg: 'lowerRightLeg',
+    upperRightLeg: 'upperRightLeg',
+    leftFoot: 'leftFoot',
+    lowerLeftLeg: 'lowerLeftLeg',
+    pelvis: 'pelvis',
+    upperLeftLeg: 'upperLeftLeg',
+    tummy: 'tummy',
+    torso: 'torso',
+    head: 'head',
+    leftHand: 'leftHand',
+    upperLeftArm: 'upperLeftArm',
+    lowerLeftArm: 'lowerLeftArm',
+    leftShoulder: 'leftShoulder',
+    skinColor: 'skinColor',
+    skinShade: 'skinShade',
+    hairColor: 'hairColor',
+    hairShade: 'hairShade',
+    primaryColor: 'primaryColor',
+    primaryShade: 'primaryShade',
+    secondaryColor: 'secondaryColor',
+    secondaryShade: 'secondaryShade',
+    accentColor: 'accentColor',
+    accentShade: 'accentShade',
     image: 'image',
     json: 'json'
   };
@@ -19517,7 +19868,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightListRelationFilter
     logs?: LogListRelationFilter
     destinyChoices?: DestinyChoiceListRelationFilter
-    spritesheet?: XOR<BruteSpritesheetNullableRelationFilter, BruteSpritesheetWhereInput> | null
     tournaments?: TournamentListRelationFilter
     opponents?: BruteListRelationFilter
     opponentOf?: BruteListRelationFilter
@@ -19576,7 +19926,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightOrderByRelationAggregateInput
     logs?: LogOrderByRelationAggregateInput
     destinyChoices?: DestinyChoiceOrderByRelationAggregateInput
-    spritesheet?: BruteSpritesheetOrderByWithRelationInput
     tournaments?: TournamentOrderByRelationAggregateInput
     opponents?: BruteOrderByRelationAggregateInput
     opponentOf?: BruteOrderByRelationAggregateInput
@@ -19638,7 +19987,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightListRelationFilter
     logs?: LogListRelationFilter
     destinyChoices?: DestinyChoiceListRelationFilter
-    spritesheet?: XOR<BruteSpritesheetNullableRelationFilter, BruteSpritesheetWhereInput> | null
     tournaments?: TournamentListRelationFilter
     opponents?: BruteListRelationFilter
     opponentOf?: BruteListRelationFilter
@@ -19744,34 +20092,148 @@ export namespace Prisma {
     OR?: BruteSpritesheetWhereInput[]
     NOT?: BruteSpritesheetWhereInput | BruteSpritesheetWhereInput[]
     id?: IntFilter<"BruteSpritesheet"> | number
-    bruteId?: IntFilter<"BruteSpritesheet"> | number
+    gender?: EnumGenderFilter<"BruteSpritesheet"> | $Enums.Gender
+    longHair?: IntFilter<"BruteSpritesheet"> | number
+    lowerRightArm?: IntFilter<"BruteSpritesheet"> | number
+    rightHand?: IntFilter<"BruteSpritesheet"> | number
+    upperRightArm?: IntFilter<"BruteSpritesheet"> | number
+    rightShoulder?: IntFilter<"BruteSpritesheet"> | number
+    rightFoot?: IntFilter<"BruteSpritesheet"> | number
+    lowerRightLeg?: IntFilter<"BruteSpritesheet"> | number
+    upperRightLeg?: IntFilter<"BruteSpritesheet"> | number
+    leftFoot?: IntFilter<"BruteSpritesheet"> | number
+    lowerLeftLeg?: IntFilter<"BruteSpritesheet"> | number
+    pelvis?: IntFilter<"BruteSpritesheet"> | number
+    upperLeftLeg?: IntFilter<"BruteSpritesheet"> | number
+    tummy?: IntFilter<"BruteSpritesheet"> | number
+    torso?: IntFilter<"BruteSpritesheet"> | number
+    head?: IntFilter<"BruteSpritesheet"> | number
+    leftHand?: IntFilter<"BruteSpritesheet"> | number
+    upperLeftArm?: IntFilter<"BruteSpritesheet"> | number
+    lowerLeftArm?: IntFilter<"BruteSpritesheet"> | number
+    leftShoulder?: IntFilter<"BruteSpritesheet"> | number
+    skinColor?: StringFilter<"BruteSpritesheet"> | string
+    skinShade?: StringFilter<"BruteSpritesheet"> | string
+    hairColor?: StringFilter<"BruteSpritesheet"> | string
+    hairShade?: StringFilter<"BruteSpritesheet"> | string
+    primaryColor?: StringFilter<"BruteSpritesheet"> | string
+    primaryShade?: StringFilter<"BruteSpritesheet"> | string
+    secondaryColor?: StringFilter<"BruteSpritesheet"> | string
+    secondaryShade?: StringFilter<"BruteSpritesheet"> | string
+    accentColor?: StringFilter<"BruteSpritesheet"> | string
+    accentShade?: StringFilter<"BruteSpritesheet"> | string
     image?: BytesNullableFilter<"BruteSpritesheet"> | Buffer | null
     json?: JsonNullableFilter<"BruteSpritesheet">
-    brute?: XOR<BruteRelationFilter, BruteWhereInput>
   }
 
   export type BruteSpritesheetOrderByWithRelationInput = {
     id?: SortOrder
-    bruteId?: SortOrder
+    gender?: SortOrder
+    longHair?: SortOrder
+    lowerRightArm?: SortOrder
+    rightHand?: SortOrder
+    upperRightArm?: SortOrder
+    rightShoulder?: SortOrder
+    rightFoot?: SortOrder
+    lowerRightLeg?: SortOrder
+    upperRightLeg?: SortOrder
+    leftFoot?: SortOrder
+    lowerLeftLeg?: SortOrder
+    pelvis?: SortOrder
+    upperLeftLeg?: SortOrder
+    tummy?: SortOrder
+    torso?: SortOrder
+    head?: SortOrder
+    leftHand?: SortOrder
+    upperLeftArm?: SortOrder
+    lowerLeftArm?: SortOrder
+    leftShoulder?: SortOrder
+    skinColor?: SortOrder
+    skinShade?: SortOrder
+    hairColor?: SortOrder
+    hairShade?: SortOrder
+    primaryColor?: SortOrder
+    primaryShade?: SortOrder
+    secondaryColor?: SortOrder
+    secondaryShade?: SortOrder
+    accentColor?: SortOrder
+    accentShade?: SortOrder
     image?: SortOrderInput | SortOrder
     json?: SortOrderInput | SortOrder
-    brute?: BruteOrderByWithRelationInput
   }
 
   export type BruteSpritesheetWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    bruteId?: number
+    gender_longHair_lowerRightArm_rightHand_upperRightArm_rightShoulder_rightFoot_lowerRightLeg_upperRightLeg_leftFoot_lowerLeftLeg_pelvis_upperLeftLeg_tummy_torso_head_leftHand_upperLeftArm_lowerLeftArm_leftShoulder_skinColor_skinShade_hairColor_hairShade_primaryColor_primaryShade_secondaryColor_secondaryShade_accentColor_accentShade?: BruteSpritesheetGenderLongHairLowerRightArmRightHandUpperRightArmRightShoulderRightFootLowerRightLegUpperRightLegLeftFootLowerLeftLegPelvisUpperLeftLegTummyTorsoHeadLeftHandUpperLeftArmLowerLeftArmLeftShoulderSkinColorSkinShadeHairColorHairShadePrimaryColorPrimaryShadeSecondaryColorSecondaryShadeAccentColorAccentShadeCompoundUniqueInput
     AND?: BruteSpritesheetWhereInput | BruteSpritesheetWhereInput[]
     OR?: BruteSpritesheetWhereInput[]
     NOT?: BruteSpritesheetWhereInput | BruteSpritesheetWhereInput[]
+    gender?: EnumGenderFilter<"BruteSpritesheet"> | $Enums.Gender
+    longHair?: IntFilter<"BruteSpritesheet"> | number
+    lowerRightArm?: IntFilter<"BruteSpritesheet"> | number
+    rightHand?: IntFilter<"BruteSpritesheet"> | number
+    upperRightArm?: IntFilter<"BruteSpritesheet"> | number
+    rightShoulder?: IntFilter<"BruteSpritesheet"> | number
+    rightFoot?: IntFilter<"BruteSpritesheet"> | number
+    lowerRightLeg?: IntFilter<"BruteSpritesheet"> | number
+    upperRightLeg?: IntFilter<"BruteSpritesheet"> | number
+    leftFoot?: IntFilter<"BruteSpritesheet"> | number
+    lowerLeftLeg?: IntFilter<"BruteSpritesheet"> | number
+    pelvis?: IntFilter<"BruteSpritesheet"> | number
+    upperLeftLeg?: IntFilter<"BruteSpritesheet"> | number
+    tummy?: IntFilter<"BruteSpritesheet"> | number
+    torso?: IntFilter<"BruteSpritesheet"> | number
+    head?: IntFilter<"BruteSpritesheet"> | number
+    leftHand?: IntFilter<"BruteSpritesheet"> | number
+    upperLeftArm?: IntFilter<"BruteSpritesheet"> | number
+    lowerLeftArm?: IntFilter<"BruteSpritesheet"> | number
+    leftShoulder?: IntFilter<"BruteSpritesheet"> | number
+    skinColor?: StringFilter<"BruteSpritesheet"> | string
+    skinShade?: StringFilter<"BruteSpritesheet"> | string
+    hairColor?: StringFilter<"BruteSpritesheet"> | string
+    hairShade?: StringFilter<"BruteSpritesheet"> | string
+    primaryColor?: StringFilter<"BruteSpritesheet"> | string
+    primaryShade?: StringFilter<"BruteSpritesheet"> | string
+    secondaryColor?: StringFilter<"BruteSpritesheet"> | string
+    secondaryShade?: StringFilter<"BruteSpritesheet"> | string
+    accentColor?: StringFilter<"BruteSpritesheet"> | string
+    accentShade?: StringFilter<"BruteSpritesheet"> | string
     image?: BytesNullableFilter<"BruteSpritesheet"> | Buffer | null
     json?: JsonNullableFilter<"BruteSpritesheet">
-    brute?: XOR<BruteRelationFilter, BruteWhereInput>
-  }, "id" | "bruteId">
+  }, "id" | "gender_longHair_lowerRightArm_rightHand_upperRightArm_rightShoulder_rightFoot_lowerRightLeg_upperRightLeg_leftFoot_lowerLeftLeg_pelvis_upperLeftLeg_tummy_torso_head_leftHand_upperLeftArm_lowerLeftArm_leftShoulder_skinColor_skinShade_hairColor_hairShade_primaryColor_primaryShade_secondaryColor_secondaryShade_accentColor_accentShade">
 
   export type BruteSpritesheetOrderByWithAggregationInput = {
     id?: SortOrder
-    bruteId?: SortOrder
+    gender?: SortOrder
+    longHair?: SortOrder
+    lowerRightArm?: SortOrder
+    rightHand?: SortOrder
+    upperRightArm?: SortOrder
+    rightShoulder?: SortOrder
+    rightFoot?: SortOrder
+    lowerRightLeg?: SortOrder
+    upperRightLeg?: SortOrder
+    leftFoot?: SortOrder
+    lowerLeftLeg?: SortOrder
+    pelvis?: SortOrder
+    upperLeftLeg?: SortOrder
+    tummy?: SortOrder
+    torso?: SortOrder
+    head?: SortOrder
+    leftHand?: SortOrder
+    upperLeftArm?: SortOrder
+    lowerLeftArm?: SortOrder
+    leftShoulder?: SortOrder
+    skinColor?: SortOrder
+    skinShade?: SortOrder
+    hairColor?: SortOrder
+    hairShade?: SortOrder
+    primaryColor?: SortOrder
+    primaryShade?: SortOrder
+    secondaryColor?: SortOrder
+    secondaryShade?: SortOrder
+    accentColor?: SortOrder
+    accentShade?: SortOrder
     image?: SortOrderInput | SortOrder
     json?: SortOrderInput | SortOrder
     _count?: BruteSpritesheetCountOrderByAggregateInput
@@ -19786,7 +20248,36 @@ export namespace Prisma {
     OR?: BruteSpritesheetScalarWhereWithAggregatesInput[]
     NOT?: BruteSpritesheetScalarWhereWithAggregatesInput | BruteSpritesheetScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
-    bruteId?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
+    gender?: EnumGenderWithAggregatesFilter<"BruteSpritesheet"> | $Enums.Gender
+    longHair?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
+    lowerRightArm?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
+    rightHand?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
+    upperRightArm?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
+    rightShoulder?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
+    rightFoot?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
+    lowerRightLeg?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
+    upperRightLeg?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
+    leftFoot?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
+    lowerLeftLeg?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
+    pelvis?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
+    upperLeftLeg?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
+    tummy?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
+    torso?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
+    head?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
+    leftHand?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
+    upperLeftArm?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
+    lowerLeftArm?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
+    leftShoulder?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
+    skinColor?: StringWithAggregatesFilter<"BruteSpritesheet"> | string
+    skinShade?: StringWithAggregatesFilter<"BruteSpritesheet"> | string
+    hairColor?: StringWithAggregatesFilter<"BruteSpritesheet"> | string
+    hairShade?: StringWithAggregatesFilter<"BruteSpritesheet"> | string
+    primaryColor?: StringWithAggregatesFilter<"BruteSpritesheet"> | string
+    primaryShade?: StringWithAggregatesFilter<"BruteSpritesheet"> | string
+    secondaryColor?: StringWithAggregatesFilter<"BruteSpritesheet"> | string
+    secondaryShade?: StringWithAggregatesFilter<"BruteSpritesheet"> | string
+    accentColor?: StringWithAggregatesFilter<"BruteSpritesheet"> | string
+    accentShade?: StringWithAggregatesFilter<"BruteSpritesheet"> | string
     image?: BytesNullableWithAggregatesFilter<"BruteSpritesheet"> | Buffer | null
     json?: JsonNullableWithAggregatesFilter<"BruteSpritesheet">
   }
@@ -20824,7 +21315,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
     logs?: LogCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
-    spritesheet?: BruteSpritesheetCreateNestedOneWithoutBruteInput
     tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
@@ -20880,7 +21370,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
     logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
-    spritesheet?: BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput
     tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
@@ -20935,7 +21424,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
     logs?: LogUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
-    spritesheet?: BruteSpritesheetUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
@@ -20991,7 +21479,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
     logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
-    spritesheet?: BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
@@ -21123,46 +21610,250 @@ export namespace Prisma {
   }
 
   export type BruteSpritesheetCreateInput = {
+    gender?: $Enums.Gender
+    longHair?: number
+    lowerRightArm?: number
+    rightHand?: number
+    upperRightArm?: number
+    rightShoulder?: number
+    rightFoot?: number
+    lowerRightLeg?: number
+    upperRightLeg?: number
+    leftFoot?: number
+    lowerLeftLeg?: number
+    pelvis?: number
+    upperLeftLeg?: number
+    tummy?: number
+    torso?: number
+    head?: number
+    leftHand?: number
+    upperLeftArm?: number
+    lowerLeftArm?: number
+    leftShoulder?: number
+    skinColor?: string
+    skinShade?: string
+    hairColor?: string
+    hairShade?: string
+    primaryColor?: string
+    primaryShade?: string
+    secondaryColor?: string
+    secondaryShade?: string
+    accentColor?: string
+    accentShade?: string
     image?: Buffer | null
     json?: NullableJsonNullValueInput | InputJsonValue
-    brute: BruteCreateNestedOneWithoutSpritesheetInput
   }
 
   export type BruteSpritesheetUncheckedCreateInput = {
     id?: number
-    bruteId: number
+    gender?: $Enums.Gender
+    longHair?: number
+    lowerRightArm?: number
+    rightHand?: number
+    upperRightArm?: number
+    rightShoulder?: number
+    rightFoot?: number
+    lowerRightLeg?: number
+    upperRightLeg?: number
+    leftFoot?: number
+    lowerLeftLeg?: number
+    pelvis?: number
+    upperLeftLeg?: number
+    tummy?: number
+    torso?: number
+    head?: number
+    leftHand?: number
+    upperLeftArm?: number
+    lowerLeftArm?: number
+    leftShoulder?: number
+    skinColor?: string
+    skinShade?: string
+    hairColor?: string
+    hairShade?: string
+    primaryColor?: string
+    primaryShade?: string
+    secondaryColor?: string
+    secondaryShade?: string
+    accentColor?: string
+    accentShade?: string
     image?: Buffer | null
     json?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type BruteSpritesheetUpdateInput = {
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    longHair?: IntFieldUpdateOperationsInput | number
+    lowerRightArm?: IntFieldUpdateOperationsInput | number
+    rightHand?: IntFieldUpdateOperationsInput | number
+    upperRightArm?: IntFieldUpdateOperationsInput | number
+    rightShoulder?: IntFieldUpdateOperationsInput | number
+    rightFoot?: IntFieldUpdateOperationsInput | number
+    lowerRightLeg?: IntFieldUpdateOperationsInput | number
+    upperRightLeg?: IntFieldUpdateOperationsInput | number
+    leftFoot?: IntFieldUpdateOperationsInput | number
+    lowerLeftLeg?: IntFieldUpdateOperationsInput | number
+    pelvis?: IntFieldUpdateOperationsInput | number
+    upperLeftLeg?: IntFieldUpdateOperationsInput | number
+    tummy?: IntFieldUpdateOperationsInput | number
+    torso?: IntFieldUpdateOperationsInput | number
+    head?: IntFieldUpdateOperationsInput | number
+    leftHand?: IntFieldUpdateOperationsInput | number
+    upperLeftArm?: IntFieldUpdateOperationsInput | number
+    lowerLeftArm?: IntFieldUpdateOperationsInput | number
+    leftShoulder?: IntFieldUpdateOperationsInput | number
+    skinColor?: StringFieldUpdateOperationsInput | string
+    skinShade?: StringFieldUpdateOperationsInput | string
+    hairColor?: StringFieldUpdateOperationsInput | string
+    hairShade?: StringFieldUpdateOperationsInput | string
+    primaryColor?: StringFieldUpdateOperationsInput | string
+    primaryShade?: StringFieldUpdateOperationsInput | string
+    secondaryColor?: StringFieldUpdateOperationsInput | string
+    secondaryShade?: StringFieldUpdateOperationsInput | string
+    accentColor?: StringFieldUpdateOperationsInput | string
+    accentShade?: StringFieldUpdateOperationsInput | string
     image?: NullableBytesFieldUpdateOperationsInput | Buffer | null
     json?: NullableJsonNullValueInput | InputJsonValue
-    brute?: BruteUpdateOneRequiredWithoutSpritesheetNestedInput
   }
 
   export type BruteSpritesheetUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    bruteId?: IntFieldUpdateOperationsInput | number
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    longHair?: IntFieldUpdateOperationsInput | number
+    lowerRightArm?: IntFieldUpdateOperationsInput | number
+    rightHand?: IntFieldUpdateOperationsInput | number
+    upperRightArm?: IntFieldUpdateOperationsInput | number
+    rightShoulder?: IntFieldUpdateOperationsInput | number
+    rightFoot?: IntFieldUpdateOperationsInput | number
+    lowerRightLeg?: IntFieldUpdateOperationsInput | number
+    upperRightLeg?: IntFieldUpdateOperationsInput | number
+    leftFoot?: IntFieldUpdateOperationsInput | number
+    lowerLeftLeg?: IntFieldUpdateOperationsInput | number
+    pelvis?: IntFieldUpdateOperationsInput | number
+    upperLeftLeg?: IntFieldUpdateOperationsInput | number
+    tummy?: IntFieldUpdateOperationsInput | number
+    torso?: IntFieldUpdateOperationsInput | number
+    head?: IntFieldUpdateOperationsInput | number
+    leftHand?: IntFieldUpdateOperationsInput | number
+    upperLeftArm?: IntFieldUpdateOperationsInput | number
+    lowerLeftArm?: IntFieldUpdateOperationsInput | number
+    leftShoulder?: IntFieldUpdateOperationsInput | number
+    skinColor?: StringFieldUpdateOperationsInput | string
+    skinShade?: StringFieldUpdateOperationsInput | string
+    hairColor?: StringFieldUpdateOperationsInput | string
+    hairShade?: StringFieldUpdateOperationsInput | string
+    primaryColor?: StringFieldUpdateOperationsInput | string
+    primaryShade?: StringFieldUpdateOperationsInput | string
+    secondaryColor?: StringFieldUpdateOperationsInput | string
+    secondaryShade?: StringFieldUpdateOperationsInput | string
+    accentColor?: StringFieldUpdateOperationsInput | string
+    accentShade?: StringFieldUpdateOperationsInput | string
     image?: NullableBytesFieldUpdateOperationsInput | Buffer | null
     json?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type BruteSpritesheetCreateManyInput = {
     id?: number
-    bruteId: number
+    gender?: $Enums.Gender
+    longHair?: number
+    lowerRightArm?: number
+    rightHand?: number
+    upperRightArm?: number
+    rightShoulder?: number
+    rightFoot?: number
+    lowerRightLeg?: number
+    upperRightLeg?: number
+    leftFoot?: number
+    lowerLeftLeg?: number
+    pelvis?: number
+    upperLeftLeg?: number
+    tummy?: number
+    torso?: number
+    head?: number
+    leftHand?: number
+    upperLeftArm?: number
+    lowerLeftArm?: number
+    leftShoulder?: number
+    skinColor?: string
+    skinShade?: string
+    hairColor?: string
+    hairShade?: string
+    primaryColor?: string
+    primaryShade?: string
+    secondaryColor?: string
+    secondaryShade?: string
+    accentColor?: string
+    accentShade?: string
     image?: Buffer | null
     json?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type BruteSpritesheetUpdateManyMutationInput = {
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    longHair?: IntFieldUpdateOperationsInput | number
+    lowerRightArm?: IntFieldUpdateOperationsInput | number
+    rightHand?: IntFieldUpdateOperationsInput | number
+    upperRightArm?: IntFieldUpdateOperationsInput | number
+    rightShoulder?: IntFieldUpdateOperationsInput | number
+    rightFoot?: IntFieldUpdateOperationsInput | number
+    lowerRightLeg?: IntFieldUpdateOperationsInput | number
+    upperRightLeg?: IntFieldUpdateOperationsInput | number
+    leftFoot?: IntFieldUpdateOperationsInput | number
+    lowerLeftLeg?: IntFieldUpdateOperationsInput | number
+    pelvis?: IntFieldUpdateOperationsInput | number
+    upperLeftLeg?: IntFieldUpdateOperationsInput | number
+    tummy?: IntFieldUpdateOperationsInput | number
+    torso?: IntFieldUpdateOperationsInput | number
+    head?: IntFieldUpdateOperationsInput | number
+    leftHand?: IntFieldUpdateOperationsInput | number
+    upperLeftArm?: IntFieldUpdateOperationsInput | number
+    lowerLeftArm?: IntFieldUpdateOperationsInput | number
+    leftShoulder?: IntFieldUpdateOperationsInput | number
+    skinColor?: StringFieldUpdateOperationsInput | string
+    skinShade?: StringFieldUpdateOperationsInput | string
+    hairColor?: StringFieldUpdateOperationsInput | string
+    hairShade?: StringFieldUpdateOperationsInput | string
+    primaryColor?: StringFieldUpdateOperationsInput | string
+    primaryShade?: StringFieldUpdateOperationsInput | string
+    secondaryColor?: StringFieldUpdateOperationsInput | string
+    secondaryShade?: StringFieldUpdateOperationsInput | string
+    accentColor?: StringFieldUpdateOperationsInput | string
+    accentShade?: StringFieldUpdateOperationsInput | string
     image?: NullableBytesFieldUpdateOperationsInput | Buffer | null
     json?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type BruteSpritesheetUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    bruteId?: IntFieldUpdateOperationsInput | number
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    longHair?: IntFieldUpdateOperationsInput | number
+    lowerRightArm?: IntFieldUpdateOperationsInput | number
+    rightHand?: IntFieldUpdateOperationsInput | number
+    upperRightArm?: IntFieldUpdateOperationsInput | number
+    rightShoulder?: IntFieldUpdateOperationsInput | number
+    rightFoot?: IntFieldUpdateOperationsInput | number
+    lowerRightLeg?: IntFieldUpdateOperationsInput | number
+    upperRightLeg?: IntFieldUpdateOperationsInput | number
+    leftFoot?: IntFieldUpdateOperationsInput | number
+    lowerLeftLeg?: IntFieldUpdateOperationsInput | number
+    pelvis?: IntFieldUpdateOperationsInput | number
+    upperLeftLeg?: IntFieldUpdateOperationsInput | number
+    tummy?: IntFieldUpdateOperationsInput | number
+    torso?: IntFieldUpdateOperationsInput | number
+    head?: IntFieldUpdateOperationsInput | number
+    leftHand?: IntFieldUpdateOperationsInput | number
+    upperLeftArm?: IntFieldUpdateOperationsInput | number
+    lowerLeftArm?: IntFieldUpdateOperationsInput | number
+    leftShoulder?: IntFieldUpdateOperationsInput | number
+    skinColor?: StringFieldUpdateOperationsInput | string
+    skinShade?: StringFieldUpdateOperationsInput | string
+    hairColor?: StringFieldUpdateOperationsInput | string
+    hairShade?: StringFieldUpdateOperationsInput | string
+    primaryColor?: StringFieldUpdateOperationsInput | string
+    primaryShade?: StringFieldUpdateOperationsInput | string
+    secondaryColor?: StringFieldUpdateOperationsInput | string
+    secondaryShade?: StringFieldUpdateOperationsInput | string
+    accentColor?: StringFieldUpdateOperationsInput | string
+    accentShade?: StringFieldUpdateOperationsInput | string
     image?: NullableBytesFieldUpdateOperationsInput | Buffer | null
     json?: NullableJsonNullValueInput | InputJsonValue
   }
@@ -22272,11 +22963,6 @@ export namespace Prisma {
     none?: DestinyChoiceWhereInput
   }
 
-  export type BruteSpritesheetNullableRelationFilter = {
-    is?: BruteSpritesheetWhereInput | null
-    isNot?: BruteSpritesheetWhereInput | null
-  }
-
   export type TournamentListRelationFilter = {
     every?: TournamentWhereInput
     some?: TournamentWhereInput
@@ -22598,33 +23284,189 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type BruteSpritesheetGenderLongHairLowerRightArmRightHandUpperRightArmRightShoulderRightFootLowerRightLegUpperRightLegLeftFootLowerLeftLegPelvisUpperLeftLegTummyTorsoHeadLeftHandUpperLeftArmLowerLeftArmLeftShoulderSkinColorSkinShadeHairColorHairShadePrimaryColorPrimaryShadeSecondaryColorSecondaryShadeAccentColorAccentShadeCompoundUniqueInput = {
+    gender: $Enums.Gender
+    longHair: number
+    lowerRightArm: number
+    rightHand: number
+    upperRightArm: number
+    rightShoulder: number
+    rightFoot: number
+    lowerRightLeg: number
+    upperRightLeg: number
+    leftFoot: number
+    lowerLeftLeg: number
+    pelvis: number
+    upperLeftLeg: number
+    tummy: number
+    torso: number
+    head: number
+    leftHand: number
+    upperLeftArm: number
+    lowerLeftArm: number
+    leftShoulder: number
+    skinColor: string
+    skinShade: string
+    hairColor: string
+    hairShade: string
+    primaryColor: string
+    primaryShade: string
+    secondaryColor: string
+    secondaryShade: string
+    accentColor: string
+    accentShade: string
+  }
+
   export type BruteSpritesheetCountOrderByAggregateInput = {
     id?: SortOrder
-    bruteId?: SortOrder
+    gender?: SortOrder
+    longHair?: SortOrder
+    lowerRightArm?: SortOrder
+    rightHand?: SortOrder
+    upperRightArm?: SortOrder
+    rightShoulder?: SortOrder
+    rightFoot?: SortOrder
+    lowerRightLeg?: SortOrder
+    upperRightLeg?: SortOrder
+    leftFoot?: SortOrder
+    lowerLeftLeg?: SortOrder
+    pelvis?: SortOrder
+    upperLeftLeg?: SortOrder
+    tummy?: SortOrder
+    torso?: SortOrder
+    head?: SortOrder
+    leftHand?: SortOrder
+    upperLeftArm?: SortOrder
+    lowerLeftArm?: SortOrder
+    leftShoulder?: SortOrder
+    skinColor?: SortOrder
+    skinShade?: SortOrder
+    hairColor?: SortOrder
+    hairShade?: SortOrder
+    primaryColor?: SortOrder
+    primaryShade?: SortOrder
+    secondaryColor?: SortOrder
+    secondaryShade?: SortOrder
+    accentColor?: SortOrder
+    accentShade?: SortOrder
     image?: SortOrder
     json?: SortOrder
   }
 
   export type BruteSpritesheetAvgOrderByAggregateInput = {
     id?: SortOrder
-    bruteId?: SortOrder
+    longHair?: SortOrder
+    lowerRightArm?: SortOrder
+    rightHand?: SortOrder
+    upperRightArm?: SortOrder
+    rightShoulder?: SortOrder
+    rightFoot?: SortOrder
+    lowerRightLeg?: SortOrder
+    upperRightLeg?: SortOrder
+    leftFoot?: SortOrder
+    lowerLeftLeg?: SortOrder
+    pelvis?: SortOrder
+    upperLeftLeg?: SortOrder
+    tummy?: SortOrder
+    torso?: SortOrder
+    head?: SortOrder
+    leftHand?: SortOrder
+    upperLeftArm?: SortOrder
+    lowerLeftArm?: SortOrder
+    leftShoulder?: SortOrder
   }
 
   export type BruteSpritesheetMaxOrderByAggregateInput = {
     id?: SortOrder
-    bruteId?: SortOrder
+    gender?: SortOrder
+    longHair?: SortOrder
+    lowerRightArm?: SortOrder
+    rightHand?: SortOrder
+    upperRightArm?: SortOrder
+    rightShoulder?: SortOrder
+    rightFoot?: SortOrder
+    lowerRightLeg?: SortOrder
+    upperRightLeg?: SortOrder
+    leftFoot?: SortOrder
+    lowerLeftLeg?: SortOrder
+    pelvis?: SortOrder
+    upperLeftLeg?: SortOrder
+    tummy?: SortOrder
+    torso?: SortOrder
+    head?: SortOrder
+    leftHand?: SortOrder
+    upperLeftArm?: SortOrder
+    lowerLeftArm?: SortOrder
+    leftShoulder?: SortOrder
+    skinColor?: SortOrder
+    skinShade?: SortOrder
+    hairColor?: SortOrder
+    hairShade?: SortOrder
+    primaryColor?: SortOrder
+    primaryShade?: SortOrder
+    secondaryColor?: SortOrder
+    secondaryShade?: SortOrder
+    accentColor?: SortOrder
+    accentShade?: SortOrder
     image?: SortOrder
   }
 
   export type BruteSpritesheetMinOrderByAggregateInput = {
     id?: SortOrder
-    bruteId?: SortOrder
+    gender?: SortOrder
+    longHair?: SortOrder
+    lowerRightArm?: SortOrder
+    rightHand?: SortOrder
+    upperRightArm?: SortOrder
+    rightShoulder?: SortOrder
+    rightFoot?: SortOrder
+    lowerRightLeg?: SortOrder
+    upperRightLeg?: SortOrder
+    leftFoot?: SortOrder
+    lowerLeftLeg?: SortOrder
+    pelvis?: SortOrder
+    upperLeftLeg?: SortOrder
+    tummy?: SortOrder
+    torso?: SortOrder
+    head?: SortOrder
+    leftHand?: SortOrder
+    upperLeftArm?: SortOrder
+    lowerLeftArm?: SortOrder
+    leftShoulder?: SortOrder
+    skinColor?: SortOrder
+    skinShade?: SortOrder
+    hairColor?: SortOrder
+    hairShade?: SortOrder
+    primaryColor?: SortOrder
+    primaryShade?: SortOrder
+    secondaryColor?: SortOrder
+    secondaryShade?: SortOrder
+    accentColor?: SortOrder
+    accentShade?: SortOrder
     image?: SortOrder
   }
 
   export type BruteSpritesheetSumOrderByAggregateInput = {
     id?: SortOrder
-    bruteId?: SortOrder
+    longHair?: SortOrder
+    lowerRightArm?: SortOrder
+    rightHand?: SortOrder
+    upperRightArm?: SortOrder
+    rightShoulder?: SortOrder
+    rightFoot?: SortOrder
+    lowerRightLeg?: SortOrder
+    upperRightLeg?: SortOrder
+    leftFoot?: SortOrder
+    lowerLeftLeg?: SortOrder
+    pelvis?: SortOrder
+    upperLeftLeg?: SortOrder
+    tummy?: SortOrder
+    torso?: SortOrder
+    head?: SortOrder
+    leftHand?: SortOrder
+    upperLeftArm?: SortOrder
+    lowerLeftArm?: SortOrder
+    leftShoulder?: SortOrder
   }
 
   export type BytesNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -23594,12 +24436,6 @@ export namespace Prisma {
     connect?: DestinyChoiceWhereUniqueInput | DestinyChoiceWhereUniqueInput[]
   }
 
-  export type BruteSpritesheetCreateNestedOneWithoutBruteInput = {
-    create?: XOR<BruteSpritesheetCreateWithoutBruteInput, BruteSpritesheetUncheckedCreateWithoutBruteInput>
-    connectOrCreate?: BruteSpritesheetCreateOrConnectWithoutBruteInput
-    connect?: BruteSpritesheetWhereUniqueInput
-  }
-
   export type TournamentCreateNestedManyWithoutParticipantsInput = {
     create?: XOR<TournamentCreateWithoutParticipantsInput, TournamentUncheckedCreateWithoutParticipantsInput> | TournamentCreateWithoutParticipantsInput[] | TournamentUncheckedCreateWithoutParticipantsInput[]
     connectOrCreate?: TournamentCreateOrConnectWithoutParticipantsInput | TournamentCreateOrConnectWithoutParticipantsInput[]
@@ -23684,12 +24520,6 @@ export namespace Prisma {
     connectOrCreate?: DestinyChoiceCreateOrConnectWithoutBruteInput | DestinyChoiceCreateOrConnectWithoutBruteInput[]
     createMany?: DestinyChoiceCreateManyBruteInputEnvelope
     connect?: DestinyChoiceWhereUniqueInput | DestinyChoiceWhereUniqueInput[]
-  }
-
-  export type BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput = {
-    create?: XOR<BruteSpritesheetCreateWithoutBruteInput, BruteSpritesheetUncheckedCreateWithoutBruteInput>
-    connectOrCreate?: BruteSpritesheetCreateOrConnectWithoutBruteInput
-    connect?: BruteSpritesheetWhereUniqueInput
   }
 
   export type TournamentUncheckedCreateNestedManyWithoutParticipantsInput = {
@@ -23899,16 +24729,6 @@ export namespace Prisma {
     deleteMany?: DestinyChoiceScalarWhereInput | DestinyChoiceScalarWhereInput[]
   }
 
-  export type BruteSpritesheetUpdateOneWithoutBruteNestedInput = {
-    create?: XOR<BruteSpritesheetCreateWithoutBruteInput, BruteSpritesheetUncheckedCreateWithoutBruteInput>
-    connectOrCreate?: BruteSpritesheetCreateOrConnectWithoutBruteInput
-    upsert?: BruteSpritesheetUpsertWithoutBruteInput
-    disconnect?: BruteSpritesheetWhereInput | boolean
-    delete?: BruteSpritesheetWhereInput | boolean
-    connect?: BruteSpritesheetWhereUniqueInput
-    update?: XOR<XOR<BruteSpritesheetUpdateToOneWithWhereWithoutBruteInput, BruteSpritesheetUpdateWithoutBruteInput>, BruteSpritesheetUncheckedUpdateWithoutBruteInput>
-  }
-
   export type TournamentUpdateManyWithoutParticipantsNestedInput = {
     create?: XOR<TournamentCreateWithoutParticipantsInput, TournamentUncheckedCreateWithoutParticipantsInput> | TournamentCreateWithoutParticipantsInput[] | TournamentUncheckedCreateWithoutParticipantsInput[]
     connectOrCreate?: TournamentCreateOrConnectWithoutParticipantsInput | TournamentCreateOrConnectWithoutParticipantsInput[]
@@ -24084,16 +24904,6 @@ export namespace Prisma {
     deleteMany?: DestinyChoiceScalarWhereInput | DestinyChoiceScalarWhereInput[]
   }
 
-  export type BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput = {
-    create?: XOR<BruteSpritesheetCreateWithoutBruteInput, BruteSpritesheetUncheckedCreateWithoutBruteInput>
-    connectOrCreate?: BruteSpritesheetCreateOrConnectWithoutBruteInput
-    upsert?: BruteSpritesheetUpsertWithoutBruteInput
-    disconnect?: BruteSpritesheetWhereInput | boolean
-    delete?: BruteSpritesheetWhereInput | boolean
-    connect?: BruteSpritesheetWhereUniqueInput
-    update?: XOR<XOR<BruteSpritesheetUpdateToOneWithWhereWithoutBruteInput, BruteSpritesheetUpdateWithoutBruteInput>, BruteSpritesheetUncheckedUpdateWithoutBruteInput>
-  }
-
   export type TournamentUncheckedUpdateManyWithoutParticipantsNestedInput = {
     create?: XOR<TournamentCreateWithoutParticipantsInput, TournamentUncheckedCreateWithoutParticipantsInput> | TournamentCreateWithoutParticipantsInput[] | TournamentUncheckedCreateWithoutParticipantsInput[]
     connectOrCreate?: TournamentCreateOrConnectWithoutParticipantsInput | TournamentCreateOrConnectWithoutParticipantsInput[]
@@ -24175,22 +24985,8 @@ export namespace Prisma {
     deleteMany?: BruteReportScalarWhereInput | BruteReportScalarWhereInput[]
   }
 
-  export type BruteCreateNestedOneWithoutSpritesheetInput = {
-    create?: XOR<BruteCreateWithoutSpritesheetInput, BruteUncheckedCreateWithoutSpritesheetInput>
-    connectOrCreate?: BruteCreateOrConnectWithoutSpritesheetInput
-    connect?: BruteWhereUniqueInput
-  }
-
   export type NullableBytesFieldUpdateOperationsInput = {
     set?: Buffer | null
-  }
-
-  export type BruteUpdateOneRequiredWithoutSpritesheetNestedInput = {
-    create?: XOR<BruteCreateWithoutSpritesheetInput, BruteUncheckedCreateWithoutSpritesheetInput>
-    connectOrCreate?: BruteCreateOrConnectWithoutSpritesheetInput
-    upsert?: BruteUpsertWithoutSpritesheetInput
-    connect?: BruteWhereUniqueInput
-    update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutSpritesheetInput, BruteUpdateWithoutSpritesheetInput>, BruteUncheckedUpdateWithoutSpritesheetInput>
   }
 
   export type BruteCreateNestedManyWithoutClanInput = {
@@ -25253,7 +26049,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
     logs?: LogCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
-    spritesheet?: BruteSpritesheetCreateNestedOneWithoutBruteInput
     tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
@@ -25308,7 +26103,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
     logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
-    spritesheet?: BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput
     tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
@@ -25533,7 +26327,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
     logs?: LogCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
-    spritesheet?: BruteSpritesheetCreateNestedOneWithoutBruteInput
     tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
@@ -25588,7 +26381,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
     logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
-    spritesheet?: BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput
     tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
@@ -25658,7 +26450,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
     logs?: LogUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
-    spritesheet?: BruteSpritesheetUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
@@ -25713,7 +26504,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
     logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
-    spritesheet?: BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
@@ -25767,7 +26557,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
     logs?: LogCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
-    spritesheet?: BruteSpritesheetCreateNestedOneWithoutBruteInput
     tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
@@ -25822,7 +26611,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
     logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
-    spritesheet?: BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput
     tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
@@ -25892,7 +26680,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
     logs?: LogUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
-    spritesheet?: BruteSpritesheetUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
@@ -25947,7 +26734,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
     logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
-    spritesheet?: BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
@@ -26116,7 +26902,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
     logs?: LogCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
-    spritesheet?: BruteSpritesheetCreateNestedOneWithoutBruteInput
     tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
@@ -26171,7 +26956,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
     logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
-    spritesheet?: BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput
     tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
@@ -26230,7 +27014,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
     logs?: LogCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
-    spritesheet?: BruteSpritesheetCreateNestedOneWithoutBruteInput
     tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
@@ -26285,7 +27068,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
     logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
-    spritesheet?: BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput
     tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
@@ -26448,22 +27230,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type BruteSpritesheetCreateWithoutBruteInput = {
-    image?: Buffer | null
-    json?: NullableJsonNullValueInput | InputJsonValue
-  }
-
-  export type BruteSpritesheetUncheckedCreateWithoutBruteInput = {
-    id?: number
-    image?: Buffer | null
-    json?: NullableJsonNullValueInput | InputJsonValue
-  }
-
-  export type BruteSpritesheetCreateOrConnectWithoutBruteInput = {
-    where: BruteSpritesheetWhereUniqueInput
-    create: XOR<BruteSpritesheetCreateWithoutBruteInput, BruteSpritesheetUncheckedCreateWithoutBruteInput>
-  }
-
   export type TournamentCreateWithoutParticipantsInput = {
     date: Date | string
     type?: $Enums.TournamentType
@@ -26528,7 +27294,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
     logs?: LogCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
-    spritesheet?: BruteSpritesheetCreateNestedOneWithoutBruteInput
     tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
@@ -26583,7 +27348,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
     logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
-    spritesheet?: BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput
     tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
@@ -26642,7 +27406,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
     logs?: LogCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
-    spritesheet?: BruteSpritesheetCreateNestedOneWithoutBruteInput
     tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
@@ -26697,7 +27460,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
     logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
-    spritesheet?: BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput
     tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
@@ -26974,7 +27736,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
     logs?: LogUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
-    spritesheet?: BruteSpritesheetUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
@@ -27029,7 +27790,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
     logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
-    spritesheet?: BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
@@ -27183,28 +27943,6 @@ export namespace Prisma {
     stat2Value?: IntNullableFilter<"DestinyChoice"> | number | null
   }
 
-  export type BruteSpritesheetUpsertWithoutBruteInput = {
-    update: XOR<BruteSpritesheetUpdateWithoutBruteInput, BruteSpritesheetUncheckedUpdateWithoutBruteInput>
-    create: XOR<BruteSpritesheetCreateWithoutBruteInput, BruteSpritesheetUncheckedCreateWithoutBruteInput>
-    where?: BruteSpritesheetWhereInput
-  }
-
-  export type BruteSpritesheetUpdateToOneWithWhereWithoutBruteInput = {
-    where?: BruteSpritesheetWhereInput
-    data: XOR<BruteSpritesheetUpdateWithoutBruteInput, BruteSpritesheetUncheckedUpdateWithoutBruteInput>
-  }
-
-  export type BruteSpritesheetUpdateWithoutBruteInput = {
-    image?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    json?: NullableJsonNullValueInput | InputJsonValue
-  }
-
-  export type BruteSpritesheetUncheckedUpdateWithoutBruteInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    image?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    json?: NullableJsonNullValueInput | InputJsonValue
-  }
-
   export type TournamentUpsertWithWhereUniqueWithoutParticipantsInput = {
     where: TournamentWhereUniqueInput
     update: XOR<TournamentUpdateWithoutParticipantsInput, TournamentUncheckedUpdateWithoutParticipantsInput>
@@ -27322,240 +28060,6 @@ export namespace Prisma {
     data: XOR<BruteReportUpdateManyMutationInput, BruteReportUncheckedUpdateManyWithoutBruteInput>
   }
 
-  export type BruteCreateWithoutSpritesheetInput = {
-    name: string
-    deletedAt?: Date | string | null
-    createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
-    level?: number
-    xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
-    strengthStat?: number
-    strengthModifier?: number
-    strengthValue?: number
-    agilityStat?: number
-    agilityModifier?: number
-    agilityValue?: number
-    speedStat?: number
-    speedModifier?: number
-    speedValue?: number
-    ranking?: number
-    gender: $Enums.Gender
-    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
-    skills?: BruteCreateskillsInput | $Enums.SkillName[]
-    pets?: BruteCreatepetsInput | $Enums.PetName[]
-    pupilsCount?: number
-    registeredForTournament?: boolean
-    nextTournamentDate?: Date | string | null
-    currentTournamentDate?: Date | string | null
-    currentTournamentStepWatched?: number | null
-    lastFight?: Date | string | null
-    fightsLeft?: number
-    victories?: number
-    opponentsGeneratedAt?: Date | string | null
-    canRankUpSince?: Date | string | null
-    favorite?: boolean
-    user?: UserCreateNestedOneWithoutBrutesInput
-    body?: BruteBodyCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsCreateNestedOneWithoutBruteInput
-    master?: BruteCreateNestedOneWithoutPupilsInput
-    pupils?: BruteCreateNestedManyWithoutMasterInput
-    clan?: ClanCreateNestedOneWithoutBrutesInput
-    fights?: FightCreateNestedManyWithoutBrute1Input
-    fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
-    logs?: LogCreateNestedManyWithoutCurrentBruteInput
-    destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
-    tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
-    opponents?: BruteCreateNestedManyWithoutOpponentOfInput
-    opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
-    achievements?: AchievementCreateNestedManyWithoutBruteInput
-    tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
-    reports?: BruteReportCreateNestedManyWithoutBruteInput
-  }
-
-  export type BruteUncheckedCreateWithoutSpritesheetInput = {
-    id?: number
-    name: string
-    deletedAt?: Date | string | null
-    createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
-    level?: number
-    xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
-    strengthStat?: number
-    strengthModifier?: number
-    strengthValue?: number
-    agilityStat?: number
-    agilityModifier?: number
-    agilityValue?: number
-    speedStat?: number
-    speedModifier?: number
-    speedValue?: number
-    ranking?: number
-    gender: $Enums.Gender
-    userId?: string | null
-    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
-    skills?: BruteCreateskillsInput | $Enums.SkillName[]
-    pets?: BruteCreatepetsInput | $Enums.PetName[]
-    masterId?: number | null
-    pupilsCount?: number
-    clanId?: number | null
-    registeredForTournament?: boolean
-    nextTournamentDate?: Date | string | null
-    currentTournamentDate?: Date | string | null
-    currentTournamentStepWatched?: number | null
-    lastFight?: Date | string | null
-    fightsLeft?: number
-    victories?: number
-    opponentsGeneratedAt?: Date | string | null
-    canRankUpSince?: Date | string | null
-    favorite?: boolean
-    body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
-    pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
-    fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
-    fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
-    logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
-    destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
-    tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
-    opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
-    opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
-    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
-    tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
-    reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-  }
-
-  export type BruteCreateOrConnectWithoutSpritesheetInput = {
-    where: BruteWhereUniqueInput
-    create: XOR<BruteCreateWithoutSpritesheetInput, BruteUncheckedCreateWithoutSpritesheetInput>
-  }
-
-  export type BruteUpsertWithoutSpritesheetInput = {
-    update: XOR<BruteUpdateWithoutSpritesheetInput, BruteUncheckedUpdateWithoutSpritesheetInput>
-    create: XOR<BruteCreateWithoutSpritesheetInput, BruteUncheckedCreateWithoutSpritesheetInput>
-    where?: BruteWhereInput
-  }
-
-  export type BruteUpdateToOneWithWhereWithoutSpritesheetInput = {
-    where?: BruteWhereInput
-    data: XOR<BruteUpdateWithoutSpritesheetInput, BruteUncheckedUpdateWithoutSpritesheetInput>
-  }
-
-  export type BruteUpdateWithoutSpritesheetInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
-    level?: IntFieldUpdateOperationsInput | number
-    xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
-    strengthStat?: IntFieldUpdateOperationsInput | number
-    strengthModifier?: FloatFieldUpdateOperationsInput | number
-    strengthValue?: IntFieldUpdateOperationsInput | number
-    agilityStat?: IntFieldUpdateOperationsInput | number
-    agilityModifier?: FloatFieldUpdateOperationsInput | number
-    agilityValue?: IntFieldUpdateOperationsInput | number
-    speedStat?: IntFieldUpdateOperationsInput | number
-    speedModifier?: FloatFieldUpdateOperationsInput | number
-    speedValue?: IntFieldUpdateOperationsInput | number
-    ranking?: IntFieldUpdateOperationsInput | number
-    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
-    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
-    pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    pupilsCount?: IntFieldUpdateOperationsInput | number
-    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
-    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
-    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    fightsLeft?: IntFieldUpdateOperationsInput | number
-    victories?: IntFieldUpdateOperationsInput | number
-    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    favorite?: BoolFieldUpdateOperationsInput | boolean
-    user?: UserUpdateOneWithoutBrutesNestedInput
-    body?: BruteBodyUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUpdateOneWithoutBruteNestedInput
-    master?: BruteUpdateOneWithoutPupilsNestedInput
-    pupils?: BruteUpdateManyWithoutMasterNestedInput
-    clan?: ClanUpdateOneWithoutBrutesNestedInput
-    fights?: FightUpdateManyWithoutBrute1NestedInput
-    fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
-    logs?: LogUpdateManyWithoutCurrentBruteNestedInput
-    destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
-    tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
-    opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
-    opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
-    achievements?: AchievementUpdateManyWithoutBruteNestedInput
-    tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
-    reports?: BruteReportUpdateManyWithoutBruteNestedInput
-  }
-
-  export type BruteUncheckedUpdateWithoutSpritesheetInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
-    level?: IntFieldUpdateOperationsInput | number
-    xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
-    strengthStat?: IntFieldUpdateOperationsInput | number
-    strengthModifier?: FloatFieldUpdateOperationsInput | number
-    strengthValue?: IntFieldUpdateOperationsInput | number
-    agilityStat?: IntFieldUpdateOperationsInput | number
-    agilityModifier?: FloatFieldUpdateOperationsInput | number
-    agilityValue?: IntFieldUpdateOperationsInput | number
-    speedStat?: IntFieldUpdateOperationsInput | number
-    speedModifier?: FloatFieldUpdateOperationsInput | number
-    speedValue?: IntFieldUpdateOperationsInput | number
-    ranking?: IntFieldUpdateOperationsInput | number
-    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
-    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
-    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
-    pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
-    pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
-    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
-    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
-    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    fightsLeft?: IntFieldUpdateOperationsInput | number
-    victories?: IntFieldUpdateOperationsInput | number
-    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    favorite?: BoolFieldUpdateOperationsInput | boolean
-    body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
-    pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
-    fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
-    fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
-    logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
-    destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
-    tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
-    opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
-    opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
-    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
-    tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
-    reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-  }
-
   export type BruteCreateWithoutClanInput = {
     name: string
     deletedAt?: Date | string | null
@@ -27601,7 +28105,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
     logs?: LogCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
-    spritesheet?: BruteSpritesheetCreateNestedOneWithoutBruteInput
     tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
@@ -27656,7 +28159,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
     logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
-    spritesheet?: BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput
     tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
@@ -27736,7 +28238,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
     logs?: LogCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
-    spritesheet?: BruteSpritesheetCreateNestedOneWithoutBruteInput
     tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
@@ -27791,7 +28292,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
     logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
-    spritesheet?: BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput
     tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
@@ -27850,7 +28350,6 @@ export namespace Prisma {
     fights?: FightCreateNestedManyWithoutBrute1Input
     logs?: LogCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
-    spritesheet?: BruteSpritesheetCreateNestedOneWithoutBruteInput
     tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
@@ -27905,7 +28404,6 @@ export namespace Prisma {
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
     logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
-    spritesheet?: BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput
     tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
@@ -28027,7 +28525,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
     logs?: LogUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
-    spritesheet?: BruteSpritesheetUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
@@ -28082,7 +28579,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
     logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
-    spritesheet?: BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
@@ -28147,7 +28643,6 @@ export namespace Prisma {
     fights?: FightUpdateManyWithoutBrute1NestedInput
     logs?: LogUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
-    spritesheet?: BruteSpritesheetUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
@@ -28202,7 +28697,6 @@ export namespace Prisma {
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
     logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
-    spritesheet?: BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
@@ -28299,7 +28793,6 @@ export namespace Prisma {
     fights?: FightCreateNestedManyWithoutBrute1Input
     fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
     destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
-    spritesheet?: BruteSpritesheetCreateNestedOneWithoutBruteInput
     tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
@@ -28354,7 +28847,6 @@ export namespace Prisma {
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
     destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
-    spritesheet?: BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput
     tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
@@ -28452,7 +28944,6 @@ export namespace Prisma {
     fights?: FightUpdateManyWithoutBrute1NestedInput
     fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
     destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
-    spritesheet?: BruteSpritesheetUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
@@ -28507,7 +28998,6 @@ export namespace Prisma {
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
     destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
-    spritesheet?: BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
@@ -28595,7 +29085,6 @@ export namespace Prisma {
     fights?: FightCreateNestedManyWithoutBrute1Input
     fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
     logs?: LogCreateNestedManyWithoutCurrentBruteInput
-    spritesheet?: BruteSpritesheetCreateNestedOneWithoutBruteInput
     tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
@@ -28650,7 +29139,6 @@ export namespace Prisma {
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
     logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
-    spritesheet?: BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput
     tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
@@ -28720,7 +29208,6 @@ export namespace Prisma {
     fights?: FightUpdateManyWithoutBrute1NestedInput
     fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
     logs?: LogUpdateManyWithoutCurrentBruteNestedInput
-    spritesheet?: BruteSpritesheetUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
@@ -28775,7 +29262,6 @@ export namespace Prisma {
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
     logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
-    spritesheet?: BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
@@ -28830,7 +29316,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
     logs?: LogCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
-    spritesheet?: BruteSpritesheetCreateNestedOneWithoutBruteInput
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
@@ -28885,7 +29370,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
     logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
-    spritesheet?: BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
@@ -29103,7 +29587,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
     logs?: LogCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
-    spritesheet?: BruteSpritesheetCreateNestedOneWithoutBruteInput
     tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
@@ -29158,7 +29641,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
     logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
-    spritesheet?: BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput
     tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
@@ -29228,7 +29710,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
     logs?: LogUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
-    spritesheet?: BruteSpritesheetUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
@@ -29283,7 +29764,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
     logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
-    spritesheet?: BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
@@ -29337,7 +29817,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
     logs?: LogCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
-    spritesheet?: BruteSpritesheetCreateNestedOneWithoutBruteInput
     tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
@@ -29392,7 +29871,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
     logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
-    spritesheet?: BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput
     tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
@@ -29495,7 +29973,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
     logs?: LogUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
-    spritesheet?: BruteSpritesheetUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
@@ -29550,7 +30027,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
     logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
-    spritesheet?: BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
@@ -29643,7 +30119,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
     logs?: LogCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
-    spritesheet?: BruteSpritesheetCreateNestedOneWithoutBruteInput
     tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
@@ -29698,7 +30173,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
     logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
     destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
-    spritesheet?: BruteSpritesheetUncheckedCreateNestedOneWithoutBruteInput
     tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
@@ -29801,7 +30275,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
     logs?: LogUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
-    spritesheet?: BruteSpritesheetUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
@@ -29856,7 +30329,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
     logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
-    spritesheet?: BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
@@ -29988,7 +30460,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
     logs?: LogUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
-    spritesheet?: BruteSpritesheetUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
@@ -30043,7 +30514,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
     logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
-    spritesheet?: BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
@@ -30291,7 +30761,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
     logs?: LogUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
-    spritesheet?: BruteSpritesheetUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
@@ -30346,7 +30815,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
     logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
-    spritesheet?: BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
@@ -30594,7 +31062,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
     logs?: LogUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
-    spritesheet?: BruteSpritesheetUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
@@ -30649,7 +31116,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
     logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
-    spritesheet?: BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
@@ -30745,7 +31211,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
     logs?: LogUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
-    spritesheet?: BruteSpritesheetUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
@@ -30800,7 +31265,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
     logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
-    spritesheet?: BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
@@ -31004,7 +31468,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
     logs?: LogUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
-    spritesheet?: BruteSpritesheetUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
@@ -31059,7 +31522,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
     logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
-    spritesheet?: BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput
     tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
@@ -31228,7 +31690,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
     logs?: LogUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
-    spritesheet?: BruteSpritesheetUpdateOneWithoutBruteNestedInput
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
@@ -31283,7 +31744,6 @@ export namespace Prisma {
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
     logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
     destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
-    spritesheet?: BruteSpritesheetUncheckedUpdateOneWithoutBruteNestedInput
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput

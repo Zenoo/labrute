@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 import { Gender, Prisma, PrismaClient } from '@labrute/prisma';
 import {
-  ARENA_OPPONENTS_COUNT, createRandomBruteStats, FIGHTS_PER_DAY, getLevelUpChoices, getRandomBody,
+  ARENA_OPPONENTS_COUNT, createRandomBruteStats, FIGHTS_PER_DAY, getBruteVisuals, getLevelUpChoices, getRandomBody,
   getRandomColors, updateBruteData,
 } from '@labrute/core';
 import {
@@ -106,20 +106,35 @@ async function main() {
       include: { body: true, colors: true },
     });
 
-    // Generate animation spritesheet
-    const spritesheet = await createSpritesheet(brute);
+    if (!brute.body || !brute.colors) {
+      throw new Error('Brute body or colors missing');
+    }
 
-    // Store spritesheet image in database as blob and data as json
-    await prisma.bruteSpritesheet.create({
-      data: {
-        image: spritesheet.image,
-        json: formatSpritesheet(spritesheet, brute) as unknown as Prisma.JsonObject,
-        brute: { connect: { id: brute.id } },
-      },
+    const visuals = getBruteVisuals(brute);
+
+    // Check if spritesheet already exists
+    const existingSpritesheet = await prisma.bruteSpritesheet.count({
+      where: { ...visuals },
     });
 
-    const end = Date.now();
-    await DiscordUtils.sendLog(`Generated brute ${i + 1}/${ARENA_OPPONENTS_COUNT * 100} in ${((end - start) / 1000).toFixed(2)}s`);
+    if (existingSpritesheet > 0) {
+      await DiscordUtils.sendLog(`Spritesheet already exists for brute ${i + 1}/${ARENA_OPPONENTS_COUNT * 100}, skipping...`);
+    } else {
+      // Generate animation spritesheet
+      const spritesheet = await createSpritesheet(visuals);
+
+      // Store spritesheet image in database as blob and data as json
+      await prisma.bruteSpritesheet.create({
+        data: {
+          image: spritesheet.image,
+          json: formatSpritesheet(spritesheet, brute) as unknown as Prisma.JsonObject,
+          ...visuals,
+        },
+      });
+
+      const end = Date.now();
+      await DiscordUtils.sendLog(`Generated brute ${i + 1}/${ARENA_OPPONENTS_COUNT * 100} in ${((end - start) / 1000).toFixed(2)}s`);
+    }
   }
 }
 main()

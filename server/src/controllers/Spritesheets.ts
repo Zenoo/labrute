@@ -1,5 +1,5 @@
 import {
-  Animation,
+  Animation, BruteWithBodyColors, getBruteVisuals,
 } from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
 import { Resvg } from '@resvg/resvg-js';
@@ -23,51 +23,72 @@ const Spritesheets = {
         throw new Error('Invalid parameters');
       }
 
-      let bruteId = +req.params.brute || 0;
+      const bruteId = +req.params.brute || 0;
+      let brute: BruteWithBodyColors | null;
 
       // Handle old getter with name instead of id
       if (Number.isNaN(+req.params.brute)) {
-        const brute = await prisma.brute.findFirst({
+        brute = await prisma.brute.findFirst({
           where: { name: req.params.brute, deletedAt: null },
-          select: { id: true },
+          include: {
+            body: true,
+            colors: true,
+          },
         });
 
         if (!brute) {
           // Brute was probably deleted
-          const deletedBrute = await prisma.brute.findFirst({
+          brute = await prisma.brute.findFirst({
             where: { name: req.params.brute },
-            select: { id: true },
+            include: {
+              body: true,
+              colors: true,
+            },
           });
 
-          if (!deletedBrute) {
+          if (!brute) {
             throw new Error('Brute not found');
           }
+        }
+      } else {
+        brute = await prisma.brute.findFirst({
+          where: { id: bruteId, deletedAt: null },
+          include: {
+            body: true,
+            colors: true,
+          },
+        });
 
-          bruteId = deletedBrute.id;
-        } else {
-          bruteId = brute.id;
+        if (!brute) {
+          // Brute was probably deleted
+          brute = await prisma.brute.findFirst({
+            where: { id: bruteId },
+            include: {
+              body: true,
+              colors: true,
+            },
+          });
+
+          if (!brute) {
+            throw new Error('Brute not found');
+          }
         }
       }
 
+      const visuals = getBruteVisuals(brute);
+
       // Get brute spritesheet
-      const spritesheet = await prisma.bruteSpritesheet.findFirst({
-        where: { bruteId },
+      const spritesheet = await prisma.bruteSpritesheet.findUnique({
+        where: {
+          // eslint-disable-next-line max-len
+          gender_longHair_lowerRightArm_rightHand_upperRightArm_rightShoulder_rightFoot_lowerRightLeg_upperRightLeg_leftFoot_lowerLeftLeg_pelvis_upperLeftLeg_tummy_torso_head_leftHand_upperLeftArm_lowerLeftArm_leftShoulder_skinColor_skinShade_hairColor_hairShade_primaryColor_primaryShade_secondaryColor_secondaryShade_accentColor_accentShade: visuals,
+        },
         select: { image: true },
       });
 
       if (spritesheet) {
         res.header('Content-Type', 'image/png').send(spritesheet.image);
       } else {
-        // Get brute gender
-        const brute = await prisma.brute.findFirst({
-          where: { id: bruteId },
-          select: { gender: true },
-        });
-
-        if (!brute) {
-          throw new Error('Brute not found');
-        }
-
         // Load default spritesheet
         const defaultSpritesheet = await fetch(`${Env.SELF_URL}/images/game/${brute.gender}-brute.png`);
 
@@ -87,27 +108,72 @@ const Spritesheets = {
       }
 
       const bruteId = +req.params.brute || 0;
+      let brute: BruteWithBodyColors | null;
 
-      // Get brute spritesheet json
-      const spritesheet = await prisma.bruteSpritesheet.findFirst({
-        where: { bruteId },
+      // Handle old getter with name instead of id
+      if (Number.isNaN(+req.params.brute)) {
+        brute = await prisma.brute.findFirst({
+          where: { name: req.params.brute, deletedAt: null },
+          include: {
+            body: true,
+            colors: true,
+          },
+        });
+
+        if (!brute) {
+          // Brute was probably deleted
+          brute = await prisma.brute.findFirst({
+            where: { name: req.params.brute },
+            include: {
+              body: true,
+              colors: true,
+            },
+          });
+
+          if (!brute) {
+            throw new Error('Brute not found');
+          }
+        }
+      } else {
+        brute = await prisma.brute.findFirst({
+          where: { id: bruteId, deletedAt: null },
+          include: {
+            body: true,
+            colors: true,
+          },
+        });
+
+        if (!brute) {
+          // Brute was probably deleted
+          brute = await prisma.brute.findFirst({
+            where: { id: bruteId },
+            include: {
+              body: true,
+              colors: true,
+            },
+          });
+
+          if (!brute) {
+            throw new Error('Brute not found');
+          }
+        }
+      }
+
+      const visuals = getBruteVisuals(brute);
+
+      // Get brute spritesheet
+      const spritesheet = await prisma.bruteSpritesheet.findUnique({
+        where: {
+          // eslint-disable-next-line max-len
+          gender_longHair_lowerRightArm_rightHand_upperRightArm_rightShoulder_rightFoot_lowerRightLeg_upperRightLeg_leftFoot_lowerLeftLeg_pelvis_upperLeftLeg_tummy_torso_head_leftHand_upperLeftArm_lowerLeftArm_leftShoulder_skinColor_skinShade_hairColor_hairShade_primaryColor_primaryShade_secondaryColor_secondaryShade_accentColor_accentShade: visuals,
+        },
         select: { json: true },
       });
 
       if (spritesheet) {
         res.header('Content-Type', 'application/json').send(spritesheet.json);
       } else {
-        // Get brute gender
-        const brute = await prisma.brute.findFirst({
-          where: { id: bruteId },
-          select: { gender: true },
-        });
-
-        if (!brute) {
-          throw new Error('Brute not found');
-        }
-
-        // Load default spritesheet json
+        // Load default spritesheet
         const defaultSpritesheet = await fetch(`${Env.SELF_URL}/images/game/${brute.gender}-brute.json`);
 
         // Send default spritesheet
