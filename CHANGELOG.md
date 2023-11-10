@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.37.4](https://github.com/Zenoo/labrute/compare/labrute-v2.37.3...labrute-v2.37.4) (2023-11-10)
+
+
+### Bug Fixes
+
+* Display bare hands stats in the cell weapons ([827f66b](https://github.com/Zenoo/labrute/commit/827f66b8c408c72095d7010bada3535062b1ee03))
+
 ## [2.37.3](https://github.com/Zenoo/labrute/compare/labrute-v2.37.2...labrute-v2.37.3) (2023-11-10)
 
 
