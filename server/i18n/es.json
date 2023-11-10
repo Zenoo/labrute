@@ -42,6 +42,7 @@
   "rankUpBeforeTournament": "Tienes que subir de rango antes de participar en un torneo",
   "tournamentNotFound": "Torneo no encontrado",
   "userNotFound": "Usuario no encontrado",
-  "invalidParameters": "Invalid parameters",
-  "nameContainsBannedWord": "This name contains a banned word"
+  "invalidParameters": "Parámetros inválidos",
+  "nameContainsBannedWord": "Este nombre contiene alguna palabra prohibida",
+  "favoriteLimitReached": "Has alcanzado tu límite de brutos favoritos"
 }

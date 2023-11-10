@@ -42,6 +42,7 @@
   "rankUpBeforeTournament": "Получите новое звание, прежде чем записываться на турнир",
   "tournamentNotFound": "Турнир не найден",
   "userNotFound": "Пользователь не найден",
-  "invalidParameters": "Invalid parameters",
-  "nameContainsBannedWord": "This name contains a banned word"
+  "invalidParameters": "Неверные параметры",
+  "nameContainsBannedWord": "Это имя содержит недопустимое слово",
+  "favoriteLimitReached": "Вы достигли максимальное количество избранных"
 }

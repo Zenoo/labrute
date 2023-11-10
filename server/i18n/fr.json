@@ -42,6 +42,7 @@
   "rankUpBeforeTournament": "Montez de rang avant de participer à un tournoi",
   "tournamentNotFound": "Tournoi introuvable",
   "userNotFound": "Utilisateur introuvable",
-  "invalidParameters": "Invalid parameters",
-  "nameContainsBannedWord": "This name contains a banned word"
+  "invalidParameters": "Paramètres invalides",
+  "nameContainsBannedWord": "Ce nom contient un mot banni",
+  "favoriteLimitReached": "Vous avez atteint votre limite de brutes favorites"
 }
