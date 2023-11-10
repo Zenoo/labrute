@@ -1,4 +1,4 @@
-import { AchievementData } from '@labrute/core';
+import { AchievementData, formatLargeNumber } from '@labrute/core';
 import { Achievement } from '@labrute/prisma';
 import { QuestionMark } from '@mui/icons-material';
 import { Box, Grid, Paper, Tooltip, useMediaQuery, useTheme } from '@mui/material';
@@ -115,7 +115,7 @@ const AchievementsView = () => {
                       ) : (
                         <QuestionMark />
                       )}
-                      <Text bold>{achievement.count}</Text>
+                      <Text bold>{formatLargeNumber(achievement.count)}</Text>
                     </Box>
                   </Tooltip>
                 ))}

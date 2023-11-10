@@ -27,6 +27,7 @@ import weightedRandom from './utils/weightedRandom';
 import Version from './Version';
 import { Achievement, BruteReportReason, BruteReportStatus, Prisma } from '@labrute/prisma';
 import canLevelUp from './brute/canLevelUp';
+import formatLargeNumber from './utils/formatLargeNumber';
 
 export * from './Achievements';
 export * from './brute/pets';
@@ -62,6 +63,7 @@ export {
   pad,
   Version,
   canLevelUp,
+  formatLargeNumber,
 };
 
 export const LANGUAGES = ['fr', 'en', 'es', 'de', 'ru'] as const;
