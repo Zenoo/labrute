@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.37.6](https://github.com/Zenoo/labrute/compare/labrute-v2.37.5...labrute-v2.37.6) (2023-11-10)
+
+
+### Bug Fixes
+
+* Display user name when looking up a brute in the admin panel ([2e68e57](https://github.com/Zenoo/labrute/commit/2e68e579be2f64c0ef632fa5cc4b28fa88887573))
+* Include user ID in admin panel when searching for a brute ([4b8d2ea](https://github.com/Zenoo/labrute/commit/4b8d2eaefe19d20e91e6f4648f73ffc1adbe58ec))
+
 ## [2.37.5](https://github.com/Zenoo/labrute/compare/labrute-v2.37.4...labrute-v2.37.5) (2023-11-10)
 
 
