@@ -590,6 +590,6 @@
   "reportName": "Signaler un nom inapproprié",
   "reportConfirm": "Êtes-vous sûr de vouloir signaler le nom de la brute {{brute}} comme inapproprié ?",
   "reportSuccess": "Signalement envoyé avec succès.",
-  "chooseAsFavorite": "Choose as favorite (max {{amount}})",
-  "removeFromFavorites": "Remove from favorites"
+  "chooseAsFavorite": "Choisir comme favori (max {{amount}})",
+  "removeFromFavorites": "Retirer des favoris"
 }
