@@ -1443,7 +1443,7 @@ export const playFighterTurn = (
 
   // Increase own initiative
   const random = randomBetween(0, 10);
-  let tempo = getFighterStat(fighter, 'tempo', 'weapon')
+  let tempo = getFighterStat(fighter, 'tempo')
     * fighter.tempo
     + (random / 100);
 
