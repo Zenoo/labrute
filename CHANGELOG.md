@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.38.2](https://github.com/Zenoo/labrute/compare/labrute-v2.38.1...labrute-v2.38.2) (2023-11-11)
+
+
+### Bug Fixes
+
+* Add spy action to fight steps translation ([62c0543](https://github.com/Zenoo/labrute/commit/62c05438f511964102d6ff58481645a6310d6740))
+
 ## [2.38.1](https://github.com/Zenoo/labrute/compare/labrute-v2.38.0...labrute-v2.38.1) (2023-11-11)
 
 
