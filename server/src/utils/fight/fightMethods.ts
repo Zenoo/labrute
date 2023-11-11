@@ -36,13 +36,13 @@ const getFighterStat = (
     return fighter.type === 'brute' ? BASE_FIGHTER_STATS[stat] : 0;
   }
 
-  // Special case for tempo as it's either weapon or fighter
+  // Special case for tempo as it's either weapon or base
   if (stat === 'tempo') {
     if (fighter.activeWeapon) {
       return fighter.activeWeapon[stat];
     }
 
-    return fighter[stat];
+    return BASE_FIGHTER_STATS[stat];
   }
 
   let total = onlyStat === 'weapon' ? 0 : fighter[stat];
