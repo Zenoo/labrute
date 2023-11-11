@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.38.1](https://github.com/Zenoo/labrute/compare/labrute-v2.38.0...labrute-v2.38.1) (2023-11-11)
+
+
+### Bug Fixes
+
+* Tempo handling ([5bf532b](https://github.com/Zenoo/labrute/commit/5bf532bde5885ffd4691b3ae7f2c32bdba39f4a8))
+
 ## [2.38.0](https://github.com/Zenoo/labrute/compare/labrute-v2.37.7...labrute-v2.38.0) (2023-11-11)
 
 
