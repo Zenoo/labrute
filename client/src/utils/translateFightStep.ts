@@ -180,6 +180,11 @@ const translateFightStep = (fightStep: FightStep, t: TFunction) => {
         brute: getFighterName(fightStep.brute, t),
         skill: t(fightStep.skill),
       });
+    case 'spy':
+      return t(`fight.step.${fightStep.action}`, {
+        brute: getFighterName(fightStep.brute, t),
+        opponent: getFighterName(fightStep.opponent, t),
+      });
     default:
       return '';
   }
