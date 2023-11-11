@@ -36,6 +36,15 @@ const getFighterStat = (
     return fighter.type === 'brute' ? BASE_FIGHTER_STATS[stat] : 0;
   }
 
+  // Special case for tempo as it's either weapon or fighter
+  if (stat === 'tempo') {
+    if (fighter.activeWeapon) {
+      return fighter.activeWeapon[stat];
+    }
+
+    return fighter[stat];
+  }
+
   let total = onlyStat === 'weapon' ? 0 : fighter[stat];
 
   if (onlyStat !== 'fighter') {
@@ -315,17 +324,7 @@ const registerHit = (
       opponent.initiative = fightData.initiative + 0.5;
     }
 
-    // Reduce damage by 100% if `spy` skill and `decoy` is still active
-    if (opponent.decoy) {
-      actualDamage[opponent.id] = 0;
-      opponent.decoy = false;
-
-      // Add resist step
-      fightData.steps.push({
-        action: 'resist',
-        brute: stepFighter(opponent),
-      });
-    } else if (opponent.skills.find((sk) => sk.name === 'resistant')) {
+    if (opponent.skills.find((sk) => sk.name === 'resistant')) {
       // Max damage to 20% of opponent's health if `resistant`
       actualDamage[opponent.id] = Math.min(damage, Math.floor(opponent.maxHp * 0.2));
 
@@ -1434,7 +1433,7 @@ export const playFighterTurn = (
 
   // Increase own initiative
   const random = randomBetween(0, 10);
-  let tempo = getFighterStat(fighter, 'tempo', 'weapon')
+  let tempo = getFighterStat(fighter, 'tempo')
     * fighter.tempo
     + (random / 100);
 

@@ -7,24 +7,26 @@ import formatSpritesheet from '../utils/formatSpritesheet.js';
 const brute = workerData as BruteWithBodyColors;
 const prisma = new PrismaClient();
 
-const visuals = getBruteVisuals(brute);
+try {
+  const visuals = getBruteVisuals(brute);
 
-// Check if spritesheet already exists
-const count = await prisma.bruteSpritesheet.count({
-  where: { ...visuals },
-});
+  // Check if spritesheet already exists
+  const count = await prisma.bruteSpritesheet.count({
+    where: { ...visuals },
+  });
 
-if (count > 0) {
-  throw new Error(`Spritesheet already exists for ${brute.name}`);
-}
+  if (count > 0) {
+    throw new Error(`Spritesheet already exists for ${brute.name}`);
+  }
 
-// Create spritesheet
-const spritesheet = await createSpritesheet(visuals);
+  // Create spritesheet
+  const spritesheet = await createSpritesheet(visuals);
 
-await prisma.bruteSpritesheet.create({
-  data: {
-    image: spritesheet.image,
-    json: formatSpritesheet(spritesheet, brute) as unknown as Prisma.JsonObject,
-    ...visuals,
-  },
-});
+  await prisma.bruteSpritesheet.create({
+    data: {
+      image: spritesheet.image,
+      json: formatSpritesheet(spritesheet, brute) as unknown as Prisma.JsonObject,
+      ...visuals,
+    },
+  });
+} catch (error) { /* ignore */ }

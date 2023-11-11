@@ -2583,3 +2583,5 @@ export const BASE_FIGHTER_STATS = {
 } as const;
 
 export type FighterStat = keyof typeof BASE_FIGHTER_STATS;
+
+export const BARE_HANDS_DAMAGE = 5;

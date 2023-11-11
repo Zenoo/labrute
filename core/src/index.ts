@@ -31,6 +31,7 @@ import formatLargeNumber from './utils/formatLargeNumber';
 import getBruteVisuals, { BruteVisuals } from './brute/getBruteVisuals';
 
 export * from './Achievements';
+export * from './Titles';
 export * from './brute/pets';
 export * from './brute/skills';
 export * from './brute/weapons';

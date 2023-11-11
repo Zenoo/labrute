@@ -43,6 +43,7 @@ import throwWeapon from './throwWeapon';
 import trap from './trap';
 import trash from './trash';
 import updateWeapons, { updateActiveWeapon } from './updateWeapons';
+import spy from './spy';
 
 const backgrounds = [
   'background/1.jpg',
@@ -470,6 +471,10 @@ const setupFight: (
       }
       case 'bomb': {
         await bomb(app, fighters, step, speed);
+        break;
+      }
+      case 'spy': {
+        await spy(app, fighters, step, speed);
         break;
       }
       case 'counter': {

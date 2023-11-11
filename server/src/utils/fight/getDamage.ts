@@ -57,6 +57,11 @@ const getDamage = (
     );
   }
 
+  // -25% damage if fighter is spied and uses a weapon
+  if (fighter.spied && fighter.activeWeapon) {
+    damage = Math.floor(damage * 0.75);
+  }
+
   // Reduce damage with opponent's armor if not thrown
   if (!thrown) {
     damage -= opponent.armor;

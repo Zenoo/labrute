@@ -93,7 +93,7 @@ export const AchievementData: Record<
   },
   saboteur: {
     rarety: AchievementRarety.common,
-    illustration: 'r_maso.gif',
+    illustration: 'saboteur.svg',
   },
   dog: {
     rarety: AchievementRarety.common,
@@ -157,7 +157,7 @@ export const AchievementData: Record<
   },
   tripleBoost: {
     rarety: AchievementRarety.epic,
-    illustration: 'r_drug.gif',
+    illustration: 'tripleBoost.svg',
   },
   quadrupleBoost: {
     rarety: AchievementRarety.legendary,

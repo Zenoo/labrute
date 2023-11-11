@@ -2,6 +2,43 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.37.7](https://github.com/Zenoo/labrute/compare/labrute-v2.37.6...labrute-v2.37.7) (2023-11-10)
+
+
+### Bug Fixes
+
+* Hyperactive pets ([32c624a](https://github.com/Zenoo/labrute/commit/32c624a4de064c68c638ed750fa5abdb8c891f23))
+
+## [2.37.6](https://github.com/Zenoo/labrute/compare/labrute-v2.37.5...labrute-v2.37.6) (2023-11-10)
+
+
+### Bug Fixes
+
+* Display user name when looking up a brute in the admin panel ([2e68e57](https://github.com/Zenoo/labrute/commit/2e68e579be2f64c0ef632fa5cc4b28fa88887573))
+* Include user ID in admin panel when searching for a brute ([4b8d2ea](https://github.com/Zenoo/labrute/commit/4b8d2eaefe19d20e91e6f4648f73ffc1adbe58ec))
+
+## [2.37.5](https://github.com/Zenoo/labrute/compare/labrute-v2.37.4...labrute-v2.37.5) (2023-11-10)
+
+
+### Bug Fixes
+
+* Wrong achievement icon color ([14a8d30](https://github.com/Zenoo/labrute/commit/14a8d305cb2fe87e4c153b3bcf3e3a2397187129))
+
+## [2.37.4](https://github.com/Zenoo/labrute/compare/labrute-v2.37.3...labrute-v2.37.4) (2023-11-10)
+
+
+### Bug Fixes
+
+* Display bare hands stats in the cell weapons ([827f66b](https://github.com/Zenoo/labrute/commit/827f66b8c408c72095d7010bada3535062b1ee03))
+
+## [2.37.3](https://github.com/Zenoo/labrute/compare/labrute-v2.37.2...labrute-v2.37.3) (2023-11-10)
+
+
+### Bug Fixes
+
+* New achievement icons. [#196](https://github.com/Zenoo/labrute/issues/196) ([3d7ccd0](https://github.com/Zenoo/labrute/commit/3d7ccd079d3c1277f0bbfe68d1135eecc2150c28))
+* Worker stop signal ([0f4fdc4](https://github.com/Zenoo/labrute/commit/0f4fdc483f262d80f8848eb5b0c9d0146c47cae2))
+
 ## [2.37.2](https://github.com/Zenoo/labrute/compare/labrute-v2.37.1...labrute-v2.37.2) (2023-11-10)
 
 
