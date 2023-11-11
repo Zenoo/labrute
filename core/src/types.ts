@@ -63,8 +63,8 @@ export interface DetailedFighter {
   bodybuilder: boolean,
   // Survive with 1 HP on first death
   survival: boolean,
-  // Reduce first damage by 100%
-  decoy: boolean,
+  // Reduce weapon damage by 25%
+  spied: boolean,
   // First hit of the fight is evaded
   balletShoes: boolean,
   // 70% chance of re-attacking on misses (evasion or block)
@@ -294,12 +294,18 @@ export interface SkillExpireStep {
   skill: SkillName;
 }
 
+export interface SpyStep {
+  action: 'spy';
+  brute: StepFighter;
+  opponent: StepFighter;
+}
+
 export type FightStep = SaboteurStep | LeaveStep | ArriveStep
   | TrashStep | StealStep | TrapStep | HealStep | ResistStep
   | SurviveStep | HitStep | BombStep | HypnotiseStep | MoveStep | EatStep
   | MoveBackStep | EquipStep | AttemptHitStep | BlockStep | EvadeStep
   | SabotageStep | DisarmStep | DeathStep | ThrowStep | EndStep
-  | CounterStep | SkillActivateStep | SkillExpireStep;
+  | CounterStep | SkillActivateStep | SkillExpireStep | SpyStep;
 
 export interface DetailedFight {
   brute_1: string;

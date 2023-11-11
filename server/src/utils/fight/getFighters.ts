@@ -114,9 +114,6 @@ const handleSkills = (brute: BruteWithBodyColors, fighter: DetailedFighter) => {
   if (brute.skills.includes('survival')) {
     fighter.survival = true;
   }
-  if (brute.skills.includes('spy')) {
-    fighter.decoy = true;
-  }
   if (brute.skills.includes('balletShoes')) {
     fighter.balletShoes = true;
   }
@@ -177,7 +174,7 @@ const getFighters = (team1: BruteAndBackup, team2: BruteAndBackup): DetailedFigh
       sabotage: false,
       bodybuilder: false,
       survival: false,
-      decoy: false,
+      spied: false,
       balletShoes: false,
       determination: false,
       retryAttack: false,
@@ -237,7 +234,7 @@ const getFighters = (team1: BruteAndBackup, team2: BruteAndBackup): DetailedFigh
         sabotage: false,
         bodybuilder: false,
         survival: false,
-        decoy: false,
+        spied: false,
         balletShoes: false,
         determination: false,
         retryAttack: false,
@@ -304,7 +301,7 @@ const getFighters = (team1: BruteAndBackup, team2: BruteAndBackup): DetailedFigh
         sabotage: false,
         bodybuilder: false,
         survival: false,
-        decoy: false,
+        spied: false,
         balletShoes: false,
         determination: false,
         retryAttack: false,

@@ -129,6 +129,38 @@ const generateFight = async (
     });
   });
 
+  // Add spy steps
+  if (mainFighters[0].skills.find((skill) => skill.name === 'spy')) {
+    fightData.steps.push({
+      action: 'spy',
+      brute: stepFighter(mainFighters[0]),
+      opponent: stepFighter(mainFighters[1]),
+    });
+
+    // Swap weapons
+    const temp = mainFighters[0].weapons;
+    mainFighters[0].weapons = mainFighters[1].weapons;
+    mainFighters[1].weapons = temp;
+
+    // Set spied flag
+    mainFighters[1].spied = true;
+  }
+  if (mainFighters[1].skills.find((skill) => skill.name === 'spy')) {
+    fightData.steps.push({
+      action: 'spy',
+      brute: stepFighter(mainFighters[1]),
+      opponent: stepFighter(mainFighters[0]),
+    });
+
+    // Swap weapons
+    const temp = [...mainFighters[0].weapons];
+    mainFighters[0].weapons = [...mainFighters[1].weapons];
+    mainFighters[1].weapons = temp;
+
+    // Set spied flag
+    mainFighters[0].spied = true;
+  }
+
   let turn = 0;
 
   // Fight loop
