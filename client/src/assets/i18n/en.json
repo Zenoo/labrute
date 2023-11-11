@@ -376,6 +376,7 @@
   "fight.step.counter": "{{fighter}} countered {{opponent}}.",
   "fight.step.skillExpire": "{{brute}}'s {{skill}} expired.",
   "fight.step.skillActivate": "{{brute}} used {{skill}}.",
+  "fight.step.spy": "{{brute}} swapped weapons with {{opponent}}.",
   "fight.wonTheFight": "{{brute}} won the fight",
   "fight.play": "Play",
   "fight.pause": "Pause",
