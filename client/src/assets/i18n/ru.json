@@ -361,6 +361,7 @@
   "fight.step.counter": "{{fighter}} наносит {{opponent}} контрудар.",
   "fight.step.skillExpire": "Умение «{{skill}}» {{brute}} перестаёт действовать.",
   "fight.step.skillActivate": "{{brute}} использует умение «{{skill}}».",
+  "fight.step.spy": "{{brute}} swapped weapons with {{opponent}}.",
   "fight.wonTheFight": "{{brute}} выигрывает бой",
   "fight.play": "Воспроизвести",
   "fight.pause": "Приостановить",
