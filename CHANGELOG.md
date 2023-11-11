@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.38.0](https://github.com/Zenoo/labrute/compare/labrute-v2.37.7...labrute-v2.38.0) (2023-11-11)
+
+
+### Features
+
+* Achievement titles. Fixes [#197](https://github.com/Zenoo/labrute/issues/197) ([48dd50d](https://github.com/Zenoo/labrute/commit/48dd50d1bd4f6bad89a89561659d49efa579051b))
+* New `Spy` implementation. Fixes [#325](https://github.com/Zenoo/labrute/issues/325) ([74b14a5](https://github.com/Zenoo/labrute/commit/74b14a57168bb8ecbdd2b011b987ec781eca0d09))
+
 ## [2.37.7](https://github.com/Zenoo/labrute/compare/labrute-v2.37.6...labrute-v2.37.7) (2023-11-10)
 
 
