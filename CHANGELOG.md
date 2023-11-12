@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.38.3](https://github.com/Zenoo/labrute/compare/labrute-v2.38.2...labrute-v2.38.3) (2023-11-12)
+
+
+### Bug Fixes
+
+* Log server state changes to Discord ([3d7d00a](https://github.com/Zenoo/labrute/commit/3d7d00aea64ced806b1c4bf76a1c1e02b1c15b44))
+* Refactor getDamage function to include thrown ([9d3ab29](https://github.com/Zenoo/labrute/commit/9d3ab294559dc21f5eba97ad6d98d2422e9628a9))
+* Wrong damage calculation for melee hits ([4dafe66](https://github.com/Zenoo/labrute/commit/4dafe6692002a07ad5eb775c478b82908e37291c))
+
 ## [2.38.2](https://github.com/Zenoo/labrute/compare/labrute-v2.38.1...labrute-v2.38.2) (2023-11-11)
 
 
