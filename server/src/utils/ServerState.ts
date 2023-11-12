@@ -1,6 +1,9 @@
 import { PrismaClient } from '@labrute/prisma';
+import DiscordUtils from './DiscordUtils.js';
 
 const setReady = async (prisma: PrismaClient, ready: boolean) => {
+  await DiscordUtils.sendLog(`Updating server state to ${ready ? 'release' : 'hold'} traffic`);
+
   await prisma.serverState.upsert({
     where: { id: 1 },
     update: {
