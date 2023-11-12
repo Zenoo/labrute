@@ -5,7 +5,9 @@ const getDamage = (
   opponent: DetailedFighter,
   thrown?: Weapon,
 ) => {
-  const base = fighter.activeWeapon?.damage || fighter.baseDamage;
+  const base = thrown
+    ? thrown.damage
+    : (fighter.activeWeapon?.damage || fighter.baseDamage);
   let skillsMultiplier = 1;
 
   // Using Piledriver ?
