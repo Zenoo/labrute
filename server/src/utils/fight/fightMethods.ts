@@ -999,7 +999,7 @@ const attack = (
   if (fighter.hp <= 0) return { blocked: false };
 
   // Get damage
-  let damage = getDamage(fighter, opponent, fighter.activeWeapon || undefined);
+  let damage = getDamage(fighter, opponent);
 
   const blocked = block(fighter, opponent);
   const evaded = evade(fighter, opponent);
@@ -1100,7 +1100,7 @@ const attack = (
 
   // Register hit if damage was done
   if (damage) {
-    registerHit(fightData, stats, achievements, fighter, [opponent], getDamage(fighter, opponent));
+    registerHit(fightData, stats, achievements, fighter, [opponent], damage);
   }
 
   // Check if the fighter gets disarmed
