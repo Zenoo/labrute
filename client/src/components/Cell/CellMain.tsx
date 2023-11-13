@@ -1,16 +1,14 @@
-import { BruteRanking, getFightsLeft, getMaxFightsPerDay, getBruteGoldValue, getXPNeeded, Language, UserWithBrutesBodyColor, getBruteVisuals } from '@labrute/core';
+import { BruteRanking, Language, getBruteVisuals, getFightsLeft, getMaxFightsPerDay, getXPNeeded } from '@labrute/core';
 import { Box, BoxProps, Stack } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
 import { useAlert } from '../../hooks/useAlert';
-import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
 import { useConfirm } from '../../hooks/useConfirm';
 import useStateAsync from '../../hooks/useStateAsync';
-import catchError from '../../utils/catchError';
 import Server from '../../utils/Server';
+import catchError from '../../utils/catchError';
 import BruteBodyAndStats from '../Brute/BruteBodyAndStats';
 import BruteLevelAndXP from '../Brute/BruteLevelAndXP';
 import FantasyButton from '../FantasyButton';
@@ -23,18 +21,18 @@ import CellTournament from './CellTournament';
 export interface CellMainProps extends BoxProps {
   language: Language;
   smallScreen?: boolean;
+  confirmSacrifice?: () => void;
 }
 
 const CellMain = ({
   language,
   smallScreen,
+  confirmSacrifice,
   ...rest
 }: CellMainProps) => {
   const { t } = useTranslation();
   const Confirm = useConfirm();
   const Alert = useAlert();
-  const { updateData } = useAuth();
-  const navigate = useNavigate();
   const { brute, owner } = useBrute();
 
   const xpNeededForNextLevel = useMemo(
@@ -49,24 +47,6 @@ const CellMain = ({
 
   const bruteVisuals = useMemo(() => (brute ? getBruteVisuals(brute) : null), [brute]);
   const { data: ready } = useStateAsync(false, Server.Brute.isReadyToFight, bruteVisuals);
-
-  // Sacrifice brute
-  const confirmSacrifice = useCallback(() => {
-    if (!brute) return;
-
-    Confirm.open(t('sacrifice'), t('sacrificeConfirm', { gold: getBruteGoldValue(brute) }), () => {
-      Server.Brute.sacrifice(brute.name).then(({ gold }) => {
-        Alert.open('success', t('sacrificeSuccess', { gold }));
-        navigate('/');
-
-        updateData((data) => ({
-          ...data,
-          gold: (data?.gold || 0) + gold,
-          brutes: data?.brutes?.filter((b) => b.name !== brute.name) || [],
-        }) as UserWithBrutesBodyColor);
-      }).catch(catchError(Alert));
-    });
-  }, [Alert, Confirm, brute, navigate, t, updateData]);
 
   // Rank up
   const rankUp = useCallback(() => {
@@ -157,17 +137,20 @@ const CellMain = ({
         <CellGlobalTournament sx={{ mt: 3 }} />
       )}
       {/* BRUTE SACRIFICE */}
-      {owner && moment.utc().isAfter(moment.utc(brute.createdAt), 'day') && (
-        <FantasyButton
-          color="error"
-          onClick={confirmSacrifice}
-          sx={{
-            mt: 1,
-          }}
-        >
-          {t('sacrifice')}
-        </FantasyButton>
-      )}
+      {owner
+        && moment.utc().isAfter(moment.utc(brute.createdAt), 'day')
+        && !!confirmSacrifice
+        && (
+          <FantasyButton
+            color="error"
+            onClick={confirmSacrifice}
+            sx={{
+              mt: 1,
+            }}
+          >
+            {t('sacrifice')}
+          </FantasyButton>
+        )}
     </Box>
   );
 };

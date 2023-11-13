@@ -19,12 +19,14 @@ import { useBrute } from '../../hooks/useBrute';
 import { AdResult } from '../../utils/ads';
 import FantasyButton from '../../components/FantasyButton';
 import { History } from '@mui/icons-material';
+import moment from 'moment';
 
 export interface CellMobileViewProps {
   ad: AdResult;
   logs: (Log & { currentBrute: { name: string } })[];
   language: Language;
   confirmReport: () => void;
+  confirmSacrifice: () => void;
 }
 
 const CellMobileView = ({
@@ -32,9 +34,10 @@ const CellMobileView = ({
   logs,
   language,
   confirmReport,
+  confirmSacrifice,
 }: CellMobileViewProps) => {
   const { t } = useTranslation();
-  const { brute } = useBrute();
+  const { brute, owner } = useBrute();
   const theme = useTheme();
   const isXs = useMediaQuery(theme.breakpoints.only('xs'));
 
@@ -133,6 +136,23 @@ const CellMobileView = ({
           </FantasyButton>
         </Link>
       </Box>
+      {/* BRUTE SACRIFICE */}
+      {owner
+        && moment.utc().isAfter(moment.utc(brute.createdAt), 'day')
+        && !!confirmSacrifice
+        && (
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <FantasyButton
+              color="error"
+              onClick={confirmSacrifice}
+              sx={{
+                mt: 1,
+              }}
+            >
+              {t('sacrifice')}
+            </FantasyButton>
+          </Box>
+        )}
     </Page>
   );
 };

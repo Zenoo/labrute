@@ -1,4 +1,4 @@
-import { BruteWithMasterBodyColorsClanTournament } from '@labrute/core';
+import { BruteWithMasterBodyColorsClanTournament, UserWithBrutesBodyColor, getBruteGoldValue } from '@labrute/core';
 import { BruteReportReason, TournamentType } from '@labrute/prisma';
 import { Box, Paper, Tooltip, useMediaQuery } from '@mui/material';
 import moment from 'moment';
@@ -27,6 +27,7 @@ import { History } from '@mui/icons-material';
 import { useConfirm } from '../hooks/useConfirm';
 import { useAlert } from '../hooks/useAlert';
 import catchError from '../utils/catchError';
+import { useAuth } from '../hooks/useAuth';
 
 /**
  * CellView component
@@ -40,8 +41,27 @@ const CellView = () => {
   const { brute, updateBrute } = useBrute();
   const Confirm = useConfirm();
   const Alert = useAlert();
+  const { updateData } = useAuth();
 
   const { data: logs } = useStateAsync([], Server.Log.list, bruteName || '');
+
+  // Sacrifice brute
+  const confirmSacrifice = useCallback(() => {
+    if (!brute) return;
+
+    Confirm.open(t('sacrifice'), t('sacrificeConfirm', { gold: getBruteGoldValue(brute) }), () => {
+      Server.Brute.sacrifice(brute.name).then(({ gold }) => {
+        Alert.open('success', t('sacrificeSuccess', { gold }));
+        navigate('/');
+
+        updateData((data) => ({
+          ...data,
+          gold: (data?.gold || 0) + gold,
+          brutes: data?.brutes?.filter((b) => b.name !== brute.name) || [],
+        }) as UserWithBrutesBodyColor);
+      }).catch(catchError(Alert));
+    });
+  }, [Alert, Confirm, brute, navigate, t, updateData]);
 
   // Fetch brute
   useEffect(() => {
@@ -93,6 +113,7 @@ const CellView = () => {
         logs={logs}
         language={language}
         confirmReport={confirmReport}
+        confirmSacrifice={confirmSacrifice}
       />
     )
     : (
@@ -155,6 +176,7 @@ const CellView = () => {
               <CellMain
                 sx={{ flexGrow: 1 }}
                 language={language}
+                confirmSacrifice={confirmSacrifice}
               />
             </Box>
             {/* RIGHT SIDE */}
