@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.38.5](https://github.com/Zenoo/labrute/compare/labrute-v2.38.4...labrute-v2.38.5) (2023-11-13)
+
+
+### Bug Fixes
+
+* Order daily tournament brutes by rank then level ([2cb8175](https://github.com/Zenoo/labrute/commit/2cb81758f68f8fb8d2ce41328df96b92826bcd80))
+
 ## [2.38.4](https://github.com/Zenoo/labrute/compare/labrute-v2.38.3...labrute-v2.38.4) (2023-11-13)
 
 
