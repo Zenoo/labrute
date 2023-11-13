@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.38.4](https://github.com/Zenoo/labrute/compare/labrute-v2.38.3...labrute-v2.38.4) (2023-11-13)
+
+
+### Bug Fixes
+
+* Add timers to daily job ([0f18310](https://github.com/Zenoo/labrute/commit/0f18310780b030201b85348b1043d43d00156b2e))
+* Change sacrifice button position on mobile. Fixes [#426](https://github.com/Zenoo/labrute/issues/426) ([2f9a2d4](https://github.com/Zenoo/labrute/commit/2f9a2d4d3ef19a6603ea0bbbc4086aba28ce10b6))
+* Improve achievement view. Fixes [#426](https://github.com/Zenoo/labrute/issues/426) ([4f31978](https://github.com/Zenoo/labrute/commit/4f31978a28a98a57dc62d4ef1b8b584fd7a7d602))
+* Split daily tournament fights participants into two equal sides (alternative highest to lowest). Fixes [#425](https://github.com/Zenoo/labrute/issues/425) ([f44ed27](https://github.com/Zenoo/labrute/commit/f44ed27d396bd9adfbedd9e6212e9805902acfcd))
+
 ## [2.38.3](https://github.com/Zenoo/labrute/compare/labrute-v2.38.2...labrute-v2.38.3) (2023-11-12)
 
 
