@@ -123,6 +123,8 @@ const generateMissingBodyColors = async (prisma: PrismaClient) => {
     },
   });
 
+  await DiscordUtils.sendLog(`${brutesWithoutBodyColors.length} brutes without body or colors`);
+
   for (const brute of brutesWithoutBodyColors) {
     await prisma.brute.update({
       where: {
@@ -552,6 +554,8 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
 };
 
 const handleXpGains = async (prisma: PrismaClient) => {
+  const now = moment.utc().valueOf();
+
   // Get tournaments from yesterday
   const tournaments = await prisma.tournament.findMany({
     where: {
@@ -615,9 +619,13 @@ const handleXpGains = async (prisma: PrismaClient) => {
       },
     });
   }
+
+  await DiscordUtils.sendLog(`${moment.utc().valueOf() - now}ms to handle ${Object.keys(xpGains).length} xp gains`);
 };
 
 const handleTournamentEarnings = async (prisma: PrismaClient) => {
+  const now = moment.utc().valueOf();
+
   const earnings = await prisma.tournamentEarning.findMany({
     where: {
       date: {
@@ -678,6 +686,8 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
       where: { id: earning.id },
     });
   }
+
+  await DiscordUtils.sendLog(`${moment.utc().valueOf() - now}ms to handle ${earnings.length} tournament earnings`);
 };
 
 const dailyJob = (prisma: PrismaClient) => async () => {
