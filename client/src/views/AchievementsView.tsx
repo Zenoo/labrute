@@ -58,6 +58,7 @@ const AchievementsView = () => {
                 borderColor: theme.palette.border.shadow,
                 textAlign: 'left',
                 display: 'flex',
+                justifyContent: 'center',
                 flexWrap: 'wrap',
                 px: 0.25,
               }}
@@ -203,10 +204,21 @@ const AchievementsView = () => {
                     >
                       {availableTitles.map((titleCount, i) => (
                         <Tooltip key={titleCount} title={`${t(`achievements.${achievement.name}`)} x ${titleCount}`}>
-                          <ListItem sx={{ py: 0 }}>
+                          <ListItem sx={{
+                            py: 0,
+                            '&:not(:last-child)': {
+                              borderBottom: '1px dashed',
+                            },
+                          }}
+                          >
                             <ListItemText
-                              primary={t(`${achievement.name}.title.${(i + 1) as 1 | 2 | 3 | 4 | 5}`) || 'TODO'}
                               sx={{ my: 0 }}
+                              primary={(
+                                <>
+                                  <span>{t(`${achievement.name}.title.${(i + 1) as 1 | 2 | 3 | 4 | 5}`) || 'TODO'}</span>
+                                  <Box component="span" sx={{ ml: 0.5, color: 'text.secondary' }}>(x{titleCount})</Box>
+                                </>
+                              )}
                             />
                           </ListItem>
                         </Tooltip>
