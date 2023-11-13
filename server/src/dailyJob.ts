@@ -240,8 +240,25 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
     }
   }
 
-  // Remove empty tournaments and shuffle each tournament
-  tournaments = tournaments.filter(Boolean).map((tournament) => shuffle(tournament));
+  // Remove empty tournaments and sort brutes by level
+  // (Split in two halves)
+  tournaments = tournaments.filter(Boolean).map((tournament) => {
+    const firstHalf = [];
+    const secondHalf = [];
+    const sortedTournament = tournament.sort((a, b) => b.level - a.level);
+
+    // Alternate between first and second half
+    for (const brute of sortedTournament) {
+      if (firstHalf.length === secondHalf.length) {
+        firstHalf.push(brute);
+      } else {
+        secondHalf.push(brute);
+      }
+    }
+
+    // Shuffle first and second half before returning
+    return [...shuffle(firstHalf), ...shuffle(secondHalf)];
+  });
 
   // Create tournaments
   for (const brutes of tournaments) {
