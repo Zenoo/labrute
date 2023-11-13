@@ -240,12 +240,18 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
     }
   }
 
-  // Remove empty tournaments and sort brutes by level
+  // Remove empty tournaments and sort brutes by rank and level
   // (Split in two halves)
   tournaments = tournaments.filter(Boolean).map((tournament) => {
     const firstHalf = [];
     const secondHalf = [];
-    const sortedTournament = tournament.sort((a, b) => b.level - a.level);
+    const sortedTournament = tournament.sort((a, b) => {
+      if (a.ranking === b.ranking) {
+        return b.level - a.level;
+      }
+
+      return a.ranking - b.ranking;
+    });
 
     // Alternate between first and second half
     for (const brute of sortedTournament) {
