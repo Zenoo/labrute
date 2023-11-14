@@ -31,7 +31,7 @@ interface BruteComponentProps extends BoxProps {
 const BruteComponent = React.forwardRef(({
   brute,
   inverted,
-  shadow = true,
+  shadow = false,
   sx,
   ...rest
 }: BruteComponentProps, ref) => {
