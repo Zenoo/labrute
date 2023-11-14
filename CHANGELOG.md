@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.38.6](https://github.com/Zenoo/labrute/compare/labrute-v2.38.5...labrute-v2.38.6) (2023-11-14)
+
+
+### Bug Fixes
+
+* Optimize dailyJob. Fixes [#429](https://github.com/Zenoo/labrute/issues/429). Fixes [#430](https://github.com/Zenoo/labrute/issues/430) ([a1eee94](https://github.com/Zenoo/labrute/commit/a1eee94115340a17d6116261522d89d106a8c376))
+
 ## [2.38.5](https://github.com/Zenoo/labrute/compare/labrute-v2.38.4...labrute-v2.38.5) (2023-11-13)
 
 
