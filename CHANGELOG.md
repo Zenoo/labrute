@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.38.8](https://github.com/Zenoo/labrute/compare/labrute-v2.38.7...labrute-v2.38.8) (2023-11-15)
+
+
+### Bug Fixes
+
+* Revert daily job optimization and generate tournaments first thing instead ([3d639b9](https://github.com/Zenoo/labrute/commit/3d639b91e628ec21c97bbff964f2203672324227))
+
 ## [2.38.7](https://github.com/Zenoo/labrute/compare/labrute-v2.38.6...labrute-v2.38.7) (2023-11-15)
 
 
