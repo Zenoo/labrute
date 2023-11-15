@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.38.7](https://github.com/Zenoo/labrute/compare/labrute-v2.38.6...labrute-v2.38.7) (2023-11-15)
+
+
+### Bug Fixes
+
+* Prevent binding errors in daily job ([552824c](https://github.com/Zenoo/labrute/commit/552824cd431c58b43c682984ae578dc07be472bb))
+* Unwanted shadow under brute svg ([9064f61](https://github.com/Zenoo/labrute/commit/9064f61ceddc132a790e08354ea7b6face0be704))
+
 ## [2.38.6](https://github.com/Zenoo/labrute/compare/labrute-v2.38.5...labrute-v2.38.6) (2023-11-14)
 
 
