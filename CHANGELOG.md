@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.38.10](https://github.com/Zenoo/labrute/compare/labrute-v2.38.9...labrute-v2.38.10) (2023-11-15)
+
+
+### Bug Fixes
+
+* Check for reversal after the hit, not before (in case a disarm changes the stats) ([617237b](https://github.com/Zenoo/labrute/commit/617237bde4df81cad97ab34233440f89229b802a))
+
 ## [2.38.9](https://github.com/Zenoo/labrute/compare/labrute-v2.38.8...labrute-v2.38.9) (2023-11-15)
 
 
