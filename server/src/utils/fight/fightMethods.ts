@@ -1004,7 +1004,6 @@ const attack = (
   const blocked = block(fighter, opponent);
   const evaded = evade(fighter, opponent);
   const brokeShield = breakShield(fighter, opponent);
-  const reversed = reversal(opponent);
 
   // Add attempt step
   const attemptStep: AttemptHitStep = {
@@ -1126,6 +1125,8 @@ const attack = (
   if (!damage && fighter.determination && Math.random() < 0.7) {
     fighter.retryAttack = true;
   }
+
+  const reversed = reversal(opponent);
 
   return {
     blocked,
