@@ -11,6 +11,7 @@ import getFighterType from './getFighterType';
 import stagger from './stagger';
 import updateHp from './updateHp';
 import updateWeapons, { updateActiveWeapon } from './updateWeapons';
+import insideXBounds from './insideXBounds';
 
 const flashFlood = async (
   app: Application,
@@ -109,7 +110,7 @@ const flashFlood = async (
       fontFamily: 'GameFont', fontSize: 20, fill: 0xffffff
     });
     damageText.anchor.set(0.5);
-    damageText.x = target.container.x;
+    damageText.x = insideXBounds(target.container.x);
     damageText.y = target.container.y - target.currentAnimation.height;
     damageText.zIndex = 1000;
     damageText.filters = [new OutlineFilter()];

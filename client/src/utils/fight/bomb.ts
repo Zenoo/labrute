@@ -9,6 +9,7 @@ import { sound } from '@pixi/sound';
 import findFighter, { AnimationFighter } from './findFighter';
 import stagger from './stagger';
 import updateHp from './updateHp';
+import insideXBounds from './insideXBounds';
 
 const getBombDamage = (damage: BombStep['damage'], target: AnimationFighter) => {
   if (typeof damage === 'number') {
@@ -170,7 +171,7 @@ const bomb = async (
       fontFamily: 'GameFont', fontSize: 20, fill: 0xffffff
     });
     damageText.anchor.set(0.5);
-    damageText.x = target.container.x;
+    damageText.x = insideXBounds(target.container.x);
     damageText.y = target.container.y - target.currentAnimation.height;
     damageText.zIndex = 1000;
     damageText.filters = [new OutlineFilter()];

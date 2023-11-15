@@ -8,6 +8,7 @@ import changeAnimation from './changeAnimation';
 import findFighter, { AnimationFighter } from './findFighter';
 import updateHp from './updateHp';
 import { sound } from '@pixi/sound';
+import insideXBounds from './insideXBounds';
 
 const eat = async (
   app: Application,
@@ -48,7 +49,7 @@ const eat = async (
     fontFamily: 'GameFont', fontSize: 20, fill: 0x00ff00,
   });
   healText.anchor.set(0.5);
-  healText.x = brute.container.x;
+  healText.x = insideXBounds(brute.container.x);
   healText.y = brute.container.y - brute.currentAnimation.height;
   healText.zIndex = 1000;
   healText.filters = [new OutlineFilter()];

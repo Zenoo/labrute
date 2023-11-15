@@ -28,19 +28,20 @@ const grantBetaAchievement = async (prisma: PrismaClient) => {
     },
   });
 
-  if (brutes.length) {
-    // Grant beta achievement
-    await prisma.achievement.createMany({
-      data: brutes.map((brute) => ({
-        name: 'beta',
-        bruteId: brute.id,
-        userId: brute.userId,
-        count: 1,
-      })),
-    });
-
-    await DiscordUtils.sendLog(`Gave the beta achievement to ${brutes.length} brutes`);
+  if (!brutes.length) {
+    return;
   }
+  // Grant beta achievement
+  await prisma.achievement.createMany({
+    data: brutes.map((brute) => ({
+      name: 'beta',
+      bruteId: brute.id,
+      userId: brute.userId,
+      count: 1,
+    })),
+  });
+
+  await DiscordUtils.sendLog(`Gave the beta achievement to ${brutes.length} brutes`);
 };
 
 const grantBugAchievement = async (prisma: PrismaClient) => {
@@ -58,18 +59,19 @@ const grantBugAchievement = async (prisma: PrismaClient) => {
     },
   });
 
-  if (admins.length) {
-    // Grant bug achievement
-    await prisma.achievement.createMany({
-      data: admins.map((admin) => ({
-        name: 'bug',
-        userId: admin.id,
-        count: 999,
-      })),
-    });
-
-    await DiscordUtils.sendLog(`Gave the bug achievement to ${admins.length} admins`);
+  if (!admins.length) {
+    return;
   }
+  // Grant bug achievement
+  await prisma.achievement.createMany({
+    data: admins.map((admin) => ({
+      name: 'bug',
+      userId: admin.id,
+      count: 999,
+    })),
+  });
+
+  await DiscordUtils.sendLog(`Gave the bug achievement to ${admins.length} admins`);
 };
 
 const deleteMisformattedTournaments = async (prisma: PrismaClient) => {
@@ -122,6 +124,10 @@ const generateMissingBodyColors = async (prisma: PrismaClient) => {
       ],
     },
   });
+
+  if (!brutesWithoutBodyColors.length) {
+    return;
+  }
 
   await DiscordUtils.sendLog(`${brutesWithoutBodyColors.length} brutes without body or colors`);
 
@@ -600,6 +606,10 @@ const handleXpGains = async (prisma: PrismaClient) => {
   const steps = tournaments.flatMap((tournament) => tournament.steps)
     .filter((step) => !step.xpDistributed);
 
+  if (!steps.length) {
+    return;
+  }
+
   // Keep track of xp gains per brute
   const xpGains: Record<string, { bruteId: number, xp: number }> = {};
 
@@ -659,6 +669,10 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
       brute: true,
     },
   });
+
+  if (!earnings.length) {
+    return;
+  }
 
   for (const earning of earnings) {
     if (earning.points && earning.brute.userId) {
