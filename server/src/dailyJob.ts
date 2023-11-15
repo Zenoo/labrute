@@ -640,29 +640,41 @@ const handleXpGains = async (prisma: PrismaClient) => {
     })
   )));
 
+  // Split steps in chunks of 10000 to avoid binding error
+  const stepChunks = Array(Math.ceil(steps.length / 10000))
+    .fill([])
+    .map((_, index) => steps.slice(index * 10000, index * 10000 + 10000));
+
   // Set all steps as handled
-  await prisma.tournamentStep.updateMany({
-    where: {
-      id: {
-        in: steps.map((step) => step.id),
+  await prisma.$transaction(stepChunks.map((stepChunk) => (
+    prisma.tournamentStep.updateMany({
+      where: {
+        id: {
+          in: stepChunk.map((step) => step.id),
+        },
       },
-    },
-    data: {
-      xpDistributed: true,
-    },
-  });
+      data: { xpDistributed: true },
+    })
+  )));
 
   const date = moment.utc().toDate();
 
+  // Split xp gains in chunks of 10000 to avoid binding error
+  const xpGainChunks = Array(Math.ceil(Object.keys(xpGains).length / 10000))
+    .fill([])
+    .map((_, index) => Object.values(xpGains).slice(index * 10000, index * 10000 + 10000));
+
   // Add logs for each brute
-  await prisma.log.createMany({
-    data: Object.values(xpGains).map((xpGain) => ({
-      date,
-      currentBruteId: xpGain.bruteId,
-      type: LogType.tournamentXp,
-      xp: xpGain.xp,
-    })),
-  });
+  await prisma.$transaction(xpGainChunks.map((xpGainChunk) => (
+    prisma.log.createMany({
+      data: xpGainChunk.map((xpGain) => ({
+        currentBruteId: xpGain.bruteId,
+        type: LogType.tournamentXp,
+        date,
+        xp: xpGain.xp,
+      })),
+    })
+  )));
 
   await DiscordUtils.sendLog(`${moment.utc().valueOf() - now}ms to handle ${Object.keys(xpGains).length} xp gains`);
 };
@@ -698,15 +710,32 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
   const earningsWithAchievements = earnings
     .filter((earning) => earning.achievement && earning.achievementCount);
 
+  // Split earnings with achievements in chunks of 10000 to avoid binding error
+  const earningsWithAchievementsChunks = Array(Math.ceil(earningsWithAchievements.length / 10000))
+    .fill([])
+    .map((_, index) => earningsWithAchievements.slice(index * 10000, index * 10000 + 10000));
+
   // Get existing achievements for those earnings
-  const existingAchievements = await prisma.achievement.findMany({
-    where: {
-      OR: earningsWithAchievements.map((earning) => ({
-        name: earning.achievement as AchievementName,
-        bruteId: earning.brute.id,
-      })),
-    },
-  });
+  const existingAchievements: {
+    id: number;
+    name: AchievementName;
+    count: number;
+    bruteId: number | null;
+    userId: string | null;
+  }[] = [];
+
+  for (const earningsWithAchievementsChunk of earningsWithAchievementsChunks) {
+    const existingAchievementsChunk = await prisma.achievement.findMany({
+      where: {
+        OR: earningsWithAchievementsChunk.map((earning) => ({
+          name: earning.achievement as AchievementName,
+          bruteId: earning.brute.id,
+        })),
+      },
+    });
+
+    existingAchievements.push(...existingAchievementsChunk);
+  }
 
   // Map existing achievements with earnings
   const earningsWithAchievementsMap = earningsWithAchievements
@@ -746,15 +775,27 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
   const earningsWithoutExistingAchievements = earningsWithAchievementsMap
     .filter((earning) => !earning.existingAchievement);
 
+  // Split earnings without existing achievements in chunks of 10000 to avoid binding error
+  const earningsWithoutExistingAchievementsChunks = Array(
+    Math.ceil(earningsWithoutExistingAchievements.length / 10000),
+  )
+    .fill([])
+    .map((_, index) => earningsWithoutExistingAchievements
+      .slice(index * 10000, index * 10000 + 10000));
+
   // Create new achievements
-  await prisma.achievement.createMany({
-    data: earningsWithoutExistingAchievements.map((earning) => ({
-      name: earning.achievement as AchievementName,
-      count: earning.achievementCount || 0,
-      userId: earning.brute.userId,
-      bruteId: earning.brute.id,
-    })),
-  });
+  await prisma.$transaction(
+    earningsWithoutExistingAchievementsChunks.map((earningsWithoutExistingAchievementsChunk) => (
+      prisma.achievement.createMany({
+        data: earningsWithoutExistingAchievementsChunk.map((earning) => ({
+          name: earning.achievement as AchievementName,
+          bruteId: earning.brute.id,
+          userId: earning.brute.userId,
+          count: earning.achievementCount || 0,
+        })),
+      })
+    )),
+  );
 
   // Filter earnings with points
   const earningsWithPoints = earnings
@@ -768,14 +809,21 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
     })
   )));
 
+  // Split earnings in chunks of 10000 to avoid binding error
+  const earningsChunks = Array(Math.ceil(earnings.length / 10000))
+    .fill([])
+    .map((_, index) => earnings.slice(index * 10000, index * 10000 + 10000));
+
   // Delete all earnings
-  await prisma.tournamentEarning.deleteMany({
-    where: {
-      id: {
-        in: earnings.map((earning) => earning.id),
+  await prisma.$transaction(earningsChunks.map((earningsChunk) => (
+    prisma.tournamentEarning.deleteMany({
+      where: {
+        id: {
+          in: earningsChunk.map((earning) => earning.id),
+        },
       },
-    },
-  });
+    })
+  )));
 
   await DiscordUtils.sendLog(`${moment.utc().valueOf() - now}ms to handle ${earnings.length} tournament earnings`);
 };
