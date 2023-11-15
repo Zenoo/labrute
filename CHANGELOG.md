@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.38.9](https://github.com/Zenoo/labrute/compare/labrute-v2.38.8...labrute-v2.38.9) (2023-11-15)
+
+
+### Bug Fixes
+
+* Limit the texts displayed in fights to the bounds on the X axis ([3b5bb28](https://github.com/Zenoo/labrute/commit/3b5bb2803067c370759f490a52d1d5341ed290e9))
+
 ## [2.38.8](https://github.com/Zenoo/labrute/compare/labrute-v2.38.7...labrute-v2.38.8) (2023-11-15)
 
 
