@@ -2840,6 +2840,7 @@ export namespace Prisma {
     lang: $Enums.Lang | null
     name: string | null
     admin: boolean | null
+    moderator: boolean | null
     connexionToken: string | null
     bruteLimit: number | null
     gold: number | null
@@ -2852,6 +2853,7 @@ export namespace Prisma {
     lang: $Enums.Lang | null
     name: string | null
     admin: boolean | null
+    moderator: boolean | null
     connexionToken: string | null
     bruteLimit: number | null
     gold: number | null
@@ -2864,6 +2866,7 @@ export namespace Prisma {
     lang: number
     name: number
     admin: number
+    moderator: number
     connexionToken: number
     bruteLimit: number
     gold: number
@@ -2890,6 +2893,7 @@ export namespace Prisma {
     lang?: true
     name?: true
     admin?: true
+    moderator?: true
     connexionToken?: true
     bruteLimit?: true
     gold?: true
@@ -2902,6 +2906,7 @@ export namespace Prisma {
     lang?: true
     name?: true
     admin?: true
+    moderator?: true
     connexionToken?: true
     bruteLimit?: true
     gold?: true
@@ -2914,6 +2919,7 @@ export namespace Prisma {
     lang?: true
     name?: true
     admin?: true
+    moderator?: true
     connexionToken?: true
     bruteLimit?: true
     gold?: true
@@ -3013,6 +3019,7 @@ export namespace Prisma {
     lang: $Enums.Lang
     name: string
     admin: boolean
+    moderator: boolean
     connexionToken: string
     bruteLimit: number
     gold: number
@@ -3044,6 +3051,7 @@ export namespace Prisma {
     lang?: boolean
     name?: boolean
     admin?: boolean
+    moderator?: boolean
     connexionToken?: boolean
     bruteLimit?: boolean
     gold?: boolean
@@ -3060,6 +3068,7 @@ export namespace Prisma {
     lang?: boolean
     name?: boolean
     admin?: boolean
+    moderator?: boolean
     connexionToken?: boolean
     bruteLimit?: boolean
     gold?: boolean
@@ -3087,6 +3096,7 @@ export namespace Prisma {
       lang: $Enums.Lang
       name: string
       admin: boolean
+      moderator: boolean
       connexionToken: string
       bruteLimit: number
       gold: number
@@ -3495,6 +3505,7 @@ export namespace Prisma {
     readonly lang: FieldRef<"User", 'Lang'>
     readonly name: FieldRef<"User", 'String'>
     readonly admin: FieldRef<"User", 'Boolean'>
+    readonly moderator: FieldRef<"User", 'Boolean'>
     readonly connexionToken: FieldRef<"User", 'String'>
     readonly bruteLimit: FieldRef<"User", 'Int'>
     readonly gold: FieldRef<"User", 'Int'>
@@ -20034,6 +20045,7 @@ export namespace Prisma {
     lang: 'lang',
     name: 'name',
     admin: 'admin',
+    moderator: 'moderator',
     connexionToken: 'connexionToken',
     bruteLimit: 'bruteLimit',
     gold: 'gold',
@@ -20629,6 +20641,7 @@ export namespace Prisma {
     lang?: EnumLangFilter<"User"> | $Enums.Lang
     name?: StringFilter<"User"> | string
     admin?: BoolFilter<"User"> | boolean
+    moderator?: BoolFilter<"User"> | boolean
     connexionToken?: UuidFilter<"User"> | string
     bruteLimit?: IntFilter<"User"> | number
     gold?: IntFilter<"User"> | number
@@ -20644,6 +20657,7 @@ export namespace Prisma {
     lang?: SortOrder
     name?: SortOrder
     admin?: SortOrder
+    moderator?: SortOrder
     connexionToken?: SortOrder
     bruteLimit?: SortOrder
     gold?: SortOrder
@@ -20662,6 +20676,7 @@ export namespace Prisma {
     lang?: EnumLangFilter<"User"> | $Enums.Lang
     name?: StringFilter<"User"> | string
     admin?: BoolFilter<"User"> | boolean
+    moderator?: BoolFilter<"User"> | boolean
     connexionToken?: UuidFilter<"User"> | string
     bruteLimit?: IntFilter<"User"> | number
     gold?: IntFilter<"User"> | number
@@ -20677,6 +20692,7 @@ export namespace Prisma {
     lang?: SortOrder
     name?: SortOrder
     admin?: SortOrder
+    moderator?: SortOrder
     connexionToken?: SortOrder
     bruteLimit?: SortOrder
     gold?: SortOrder
@@ -20697,6 +20713,7 @@ export namespace Prisma {
     lang?: EnumLangWithAggregatesFilter<"User"> | $Enums.Lang
     name?: StringWithAggregatesFilter<"User"> | string
     admin?: BoolWithAggregatesFilter<"User"> | boolean
+    moderator?: BoolWithAggregatesFilter<"User"> | boolean
     connexionToken?: UuidWithAggregatesFilter<"User"> | string
     bruteLimit?: IntWithAggregatesFilter<"User"> | number
     gold?: IntWithAggregatesFilter<"User"> | number
@@ -22081,6 +22098,7 @@ export namespace Prisma {
     lang?: $Enums.Lang
     name: string
     admin?: boolean
+    moderator?: boolean
     connexionToken: string
     bruteLimit?: number
     gold?: number
@@ -22096,6 +22114,7 @@ export namespace Prisma {
     lang?: $Enums.Lang
     name: string
     admin?: boolean
+    moderator?: boolean
     connexionToken: string
     bruteLimit?: number
     gold?: number
@@ -22111,6 +22130,7 @@ export namespace Prisma {
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
+    moderator?: BoolFieldUpdateOperationsInput | boolean
     connexionToken?: StringFieldUpdateOperationsInput | string
     bruteLimit?: IntFieldUpdateOperationsInput | number
     gold?: IntFieldUpdateOperationsInput | number
@@ -22126,6 +22146,7 @@ export namespace Prisma {
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
+    moderator?: BoolFieldUpdateOperationsInput | boolean
     connexionToken?: StringFieldUpdateOperationsInput | string
     bruteLimit?: IntFieldUpdateOperationsInput | number
     gold?: IntFieldUpdateOperationsInput | number
@@ -22141,6 +22162,7 @@ export namespace Prisma {
     lang?: $Enums.Lang
     name: string
     admin?: boolean
+    moderator?: boolean
     connexionToken: string
     bruteLimit?: number
     gold?: number
@@ -22153,6 +22175,7 @@ export namespace Prisma {
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
+    moderator?: BoolFieldUpdateOperationsInput | boolean
     connexionToken?: StringFieldUpdateOperationsInput | string
     bruteLimit?: IntFieldUpdateOperationsInput | number
     gold?: IntFieldUpdateOperationsInput | number
@@ -22165,6 +22188,7 @@ export namespace Prisma {
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
+    moderator?: BoolFieldUpdateOperationsInput | boolean
     connexionToken?: StringFieldUpdateOperationsInput | string
     bruteLimit?: IntFieldUpdateOperationsInput | number
     gold?: IntFieldUpdateOperationsInput | number
@@ -23750,6 +23774,7 @@ export namespace Prisma {
     lang?: SortOrder
     name?: SortOrder
     admin?: SortOrder
+    moderator?: SortOrder
     connexionToken?: SortOrder
     bruteLimit?: SortOrder
     gold?: SortOrder
@@ -23768,6 +23793,7 @@ export namespace Prisma {
     lang?: SortOrder
     name?: SortOrder
     admin?: SortOrder
+    moderator?: SortOrder
     connexionToken?: SortOrder
     bruteLimit?: SortOrder
     gold?: SortOrder
@@ -23780,6 +23806,7 @@ export namespace Prisma {
     lang?: SortOrder
     name?: SortOrder
     admin?: SortOrder
+    moderator?: SortOrder
     connexionToken?: SortOrder
     bruteLimit?: SortOrder
     gold?: SortOrder
@@ -28086,6 +28113,7 @@ export namespace Prisma {
     lang?: $Enums.Lang
     name: string
     admin?: boolean
+    moderator?: boolean
     connexionToken: string
     bruteLimit?: number
     gold?: number
@@ -28100,6 +28128,7 @@ export namespace Prisma {
     lang?: $Enums.Lang
     name: string
     admin?: boolean
+    moderator?: boolean
     connexionToken: string
     bruteLimit?: number
     gold?: number
@@ -28926,6 +28955,7 @@ export namespace Prisma {
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
+    moderator?: BoolFieldUpdateOperationsInput | boolean
     connexionToken?: StringFieldUpdateOperationsInput | string
     bruteLimit?: IntFieldUpdateOperationsInput | number
     gold?: IntFieldUpdateOperationsInput | number
@@ -28940,6 +28970,7 @@ export namespace Prisma {
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
+    moderator?: BoolFieldUpdateOperationsInput | boolean
     connexionToken?: StringFieldUpdateOperationsInput | string
     bruteLimit?: IntFieldUpdateOperationsInput | number
     gold?: IntFieldUpdateOperationsInput | number
@@ -31304,6 +31335,7 @@ export namespace Prisma {
     lang?: $Enums.Lang
     name: string
     admin?: boolean
+    moderator?: boolean
     connexionToken: string
     bruteLimit?: number
     gold?: number
@@ -31318,6 +31350,7 @@ export namespace Prisma {
     lang?: $Enums.Lang
     name: string
     admin?: boolean
+    moderator?: boolean
     connexionToken: string
     bruteLimit?: number
     gold?: number
@@ -31468,6 +31501,7 @@ export namespace Prisma {
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
+    moderator?: BoolFieldUpdateOperationsInput | boolean
     connexionToken?: StringFieldUpdateOperationsInput | string
     bruteLimit?: IntFieldUpdateOperationsInput | number
     gold?: IntFieldUpdateOperationsInput | number
@@ -31482,6 +31516,7 @@ export namespace Prisma {
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
+    moderator?: BoolFieldUpdateOperationsInput | boolean
     connexionToken?: StringFieldUpdateOperationsInput | string
     bruteLimit?: IntFieldUpdateOperationsInput | number
     gold?: IntFieldUpdateOperationsInput | number
@@ -31740,6 +31775,7 @@ export namespace Prisma {
     lang?: $Enums.Lang
     name: string
     admin?: boolean
+    moderator?: boolean
     connexionToken: string
     bruteLimit?: number
     gold?: number
@@ -31754,6 +31790,7 @@ export namespace Prisma {
     lang?: $Enums.Lang
     name: string
     admin?: boolean
+    moderator?: boolean
     connexionToken: string
     bruteLimit?: number
     gold?: number
@@ -31912,6 +31949,7 @@ export namespace Prisma {
     lang?: EnumLangFilter<"User"> | $Enums.Lang
     name?: StringFilter<"User"> | string
     admin?: BoolFilter<"User"> | boolean
+    moderator?: BoolFilter<"User"> | boolean
     connexionToken?: UuidFilter<"User"> | string
     bruteLimit?: IntFilter<"User"> | number
     gold?: IntFilter<"User"> | number
@@ -33550,6 +33588,7 @@ export namespace Prisma {
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
+    moderator?: BoolFieldUpdateOperationsInput | boolean
     connexionToken?: StringFieldUpdateOperationsInput | string
     bruteLimit?: IntFieldUpdateOperationsInput | number
     gold?: IntFieldUpdateOperationsInput | number
@@ -33564,6 +33603,7 @@ export namespace Prisma {
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
+    moderator?: BoolFieldUpdateOperationsInput | boolean
     connexionToken?: StringFieldUpdateOperationsInput | string
     bruteLimit?: IntFieldUpdateOperationsInput | number
     gold?: IntFieldUpdateOperationsInput | number
@@ -33578,6 +33618,7 @@ export namespace Prisma {
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
+    moderator?: BoolFieldUpdateOperationsInput | boolean
     connexionToken?: StringFieldUpdateOperationsInput | string
     bruteLimit?: IntFieldUpdateOperationsInput | number
     gold?: IntFieldUpdateOperationsInput | number

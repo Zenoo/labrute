@@ -7,6 +7,7 @@ import useStateAsync from '../../hooks/useStateAsync';
 import Server from '../../utils/Server';
 import Link from '../Link';
 import Text from '../Text';
+import { useAuth } from '../../hooks/useAuth';
 
 export interface CellSocialsProps extends PaperProps {
   smallScreen?: boolean;
@@ -17,6 +18,7 @@ const CellSocials = ({
   ...rest
 }: CellSocialsProps) => {
   const { brute } = useBrute();
+  const { user } = useAuth();
   const { t } = useTranslation();
 
   const { data: getter } = useStateAsync(null, Server.Brute.getRanking, brute?.name || '');
@@ -78,6 +80,9 @@ const CellSocials = ({
           )}
         </Grid>
       </Grid>
+      {user?.moderator && (
+        <Text smallCaps subtitle2>{brute.user.name} ({brute.userId})</Text>
+      )}
     </Paper>
   );
 };

@@ -25,6 +25,7 @@ model User {
   lang            Lang          @default(fr)
   name            String        @db.VarChar(255)
   admin           Boolean       @default(false)
+  moderator       Boolean       @default(false)
   connexionToken  String        @db.Uuid
   bruteLimit      Int           @default(3)
   gold            Int           @default(0)

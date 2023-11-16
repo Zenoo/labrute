@@ -1,4 +1,4 @@
-import { BruteWithMasterBodyColorsClanTournament, UserWithBrutesBodyColor, getBruteGoldValue } from '@labrute/core';
+import { FullBrute, UserWithBrutesBodyColor, getBruteGoldValue } from '@labrute/core';
 import { BruteReportReason, TournamentType } from '@labrute/prisma';
 import { Box, Paper, Tooltip, useMediaQuery } from '@mui/material';
 import moment from 'moment';
@@ -74,6 +74,7 @@ const CellView = () => {
           body: true,
           colors: true,
           clan: true,
+          user: true,
           tournaments: {
             where: {
               type: TournamentType.DAILY,
@@ -83,7 +84,7 @@ const CellView = () => {
         },
       }).then((data) => {
         if (isSubscribed) {
-          updateBrute(data as BruteWithMasterBodyColorsClanTournament);
+          updateBrute(data as FullBrute);
         }
       }).catch(() => {
         navigate('/unknown-brute');

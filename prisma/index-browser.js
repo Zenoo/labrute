@@ -112,6 +112,7 @@ exports.Prisma.UserScalarFieldEnum = {
   lang: 'lang',
   name: 'name',
   admin: 'admin',
+  moderator: 'moderator',
   connexionToken: 'connexionToken',
   bruteLimit: 'bruteLimit',
   gold: 'gold',

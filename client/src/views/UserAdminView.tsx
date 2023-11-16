@@ -37,6 +37,7 @@ const UserAdminView = () => {
         lang: u.lang,
         name: u.name,
         admin: u.admin,
+        moderator: u.moderator,
         connexionToken: u.connexionToken,
         bruteLimit: u.bruteLimit,
         gold: u.gold,
@@ -66,6 +67,7 @@ const UserAdminView = () => {
       user: {
         lang: user.lang,
         admin: user.admin,
+        moderator: user.moderator,
         bruteLimit: user.bruteLimit,
         gold: user.gold,
         fightSpeed: user.fightSpeed,
@@ -129,6 +131,22 @@ const UserAdminView = () => {
                         />
                       )}
                       label="Admin"
+                    />
+                  </Grid>
+                  <Grid item xs={6} sm={3}>
+                    <FormControlLabel
+                      control={(
+                        <Checkbox
+                          checked={user.moderator}
+                          onChange={(event) => {
+                            setUser((b) => (b ? ({
+                              ...b,
+                              moderator: event.target.checked,
+                            }) : null));
+                          }}
+                        />
+                      )}
+                      label="Moderator"
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
