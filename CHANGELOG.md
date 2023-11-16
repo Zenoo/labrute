@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.38.11](https://github.com/Zenoo/labrute/compare/labrute-v2.38.10...labrute-v2.38.11) (2023-11-16)
+
+
+### Bug Fixes
+
+* Moderator role to check a brute user and userId. Fixes [#436](https://github.com/Zenoo/labrute/issues/436) ([2fa57b2](https://github.com/Zenoo/labrute/commit/2fa57b248c342311b6d43e86820c52662eb86649))
+
 ## [2.38.10](https://github.com/Zenoo/labrute/compare/labrute-v2.38.9...labrute-v2.38.10) (2023-11-15)
 
 
