@@ -20,6 +20,7 @@ const updateAchievements = async (
             achievement: name,
             bruteId,
           },
+          select: { id: true },
         });
 
         if (existingAchievement) {
@@ -33,6 +34,7 @@ const updateAchievements = async (
                 increment: count,
               },
             },
+            select: { id: true },
           });
         } else {
           // Create new delayed achievement
@@ -43,6 +45,7 @@ const updateAchievements = async (
               bruteId,
               date: new Date(),
             },
+            select: { id: true },
           });
         }
       } else {
@@ -54,6 +57,7 @@ const updateAchievements = async (
             name,
             bruteId,
           },
+          select: { id: true },
         });
 
         if (existingAchievement) {
@@ -67,6 +71,7 @@ const updateAchievements = async (
                 increment: count,
               },
             },
+            select: { id: true },
           });
         } else {
           // Create new achievement
@@ -77,6 +82,7 @@ const updateAchievements = async (
               userId: bruteStore.userId,
               bruteId,
             },
+            select: { id: true },
           });
         }
       }

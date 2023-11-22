@@ -699,6 +699,7 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
           name: earning.achievement,
           bruteId: earning.brute.id,
         },
+        select: { id: true },
       });
 
       if (existingAchievement) {

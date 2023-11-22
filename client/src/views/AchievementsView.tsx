@@ -81,6 +81,18 @@ const AchievementsView = () => {
                           {t(AchievementData[achievement.name].rarety)}
                         </Text>
                         <Text sx={{ fontStyle: 'italic', color: 'text.secondary' }}>{t(`achievements.${achievement.name}.description`)}</Text>
+                        {AchievementData[achievement.name].onePerFight && (
+                          <Text subtitle2 sx={{ color: 'achievements.common.main' }}>
+                            {t('maxPerFight')}:{' '}
+                            <Text component="span" subtitle2 bold sx={{ color: 'secondary.contrastText' }}>1</Text>
+                          </Text>
+                        )}
+                        {AchievementData[achievement.name].perBrute && (
+                          <Text subtitle2 sx={{ color: 'achievements.common.main' }}>
+                            {t('maxPerBrute')}:{' '}
+                            <Text component="span" subtitle2 bold sx={{ color: 'secondary.contrastText' }}>{AchievementData[achievement.name].perBrute}</Text>
+                          </Text>
+                        )}
                       </>
                     )}
                     componentsProps={{
@@ -171,6 +183,18 @@ const AchievementsView = () => {
                                 {t(AchievementData[achievement.name].rarety)}
                               </Text>
                               <Text sx={{ fontStyle: 'italic', color: 'text.secondary' }}>{t(`achievements.${achievement.name}.description`)}</Text>
+                              {AchievementData[achievement.name].onePerFight && (
+                                <Text subtitle2 sx={{ color: 'achievements.common.main' }}>
+                                  {t('maxPerFight')}:{' '}
+                                  <Text component="span" subtitle2 bold sx={{ color: 'secondary.contrastText' }}>1</Text>
+                                </Text>
+                              )}
+                              {AchievementData[achievement.name].perBrute && (
+                                <Text subtitle2 sx={{ color: 'achievements.common.main' }}>
+                                  {t('maxPerBrute')}:{' '}
+                                  <Text component="span" subtitle2 bold sx={{ color: 'secondary.contrastText' }}>{AchievementData[achievement.name].perBrute}</Text>
+                                </Text>
+                              )}
                             </>
                           )}
                           componentsProps={{

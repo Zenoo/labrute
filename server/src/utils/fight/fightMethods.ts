@@ -13,11 +13,17 @@ export type Stats = Record<number, {
   skillsUsed?: number;
   weaponsStolen?: number;
   hits?: number;
+  counters?: number;
+  countersTriggered?: number;
+  evades?: number;
+  blocks?: number;
   consecutiveCounters?: number;
   consecutiveReversals?: number;
   consecutiveBlocks?: number;
   consecutiveEvades?: number;
+  consecutiveThrows?: number;
   disarms?: number;
+  petsKilled?: number;
 }>;
 
 const getFighterStat = (
@@ -56,6 +62,14 @@ const getFighterStat = (
   }
 
   return total;
+};
+
+const resetOthersStats = (stats: Stats, excludedFighter: number, stat: keyof Omit<Stats[number], 'userId'>) => {
+  for (const [bruteId, bruteStats] of Object.entries(stats)) {
+    if (+bruteId !== excludedFighter) {
+      bruteStats[stat] = 0;
+    }
+  }
 };
 
 const updateStats = (stats: Stats, bruteId: number, stat: keyof Omit<Stats[number], 'userId'>, value: number) => {
@@ -105,6 +119,12 @@ const checkAchievements = (
     if (stat.consecutiveEvades && stat.consecutiveEvades >= 4) {
       updateAchievement(achievements, 'evade4b2b', 1, bruteId);
       stat.consecutiveEvades = 0;
+    }
+
+    // Consecutive throws
+    if (stat.consecutiveThrows && stat.consecutiveThrows >= 10) {
+      updateAchievement(achievements, 'throw10b2b', 1, bruteId);
+      stat.consecutiveThrows = 0;
     }
   }
 };
@@ -369,6 +389,12 @@ const registerHit = (
         damage: actualDamage[opponent.id],
       });
     });
+  }
+
+  // 50 Damage achievement
+  const moreThan50 = Object.values(actualDamage).filter((d) => d >= 50).length;
+  if (moreThan50) {
+    updateAchievement(achievements, 'damage50once', moreThan50, fighter.id);
   }
 
   // 100 Damage achievement
@@ -1015,6 +1041,9 @@ const attack = (
 
   if (!evaded && brokeShield) {
     attemptStep.brokeShield = true;
+
+    // Update disarm stat
+    updateStats(stats, fighter.id, 'disarms', 1);
   }
 
   fightData.steps.push(attemptStep);
@@ -1030,6 +1059,7 @@ const attack = (
     });
 
     // Update block stat
+    updateStats(stats, opponent.id, 'blocks', 1);
     updateStats(stats, opponent.id, 'consecutiveBlocks', 1);
     checkAchievements(stats, achievements);
   } else {
@@ -1048,6 +1078,7 @@ const attack = (
     });
 
     // Update evasion stat
+    updateStats(stats, opponent.id, 'evades', 1);
     updateStats(stats, opponent.id, 'consecutiveEvades', 1);
     checkAchievements(stats, achievements);
   } else {
@@ -1134,7 +1165,10 @@ const attack = (
   };
 };
 
-export const checkDeaths = (fightData: DetailedFight['data']) => {
+export const checkDeaths = (
+  fightData: DetailedFight['data'],
+  stats: Stats,
+) => {
   for (let i = 0; i < fightData.fighters.length; i++) {
     const fighter = fightData.fighters[i];
 
@@ -1149,6 +1183,11 @@ export const checkDeaths = (fightData: DetailedFight['data']) => {
         action: 'death',
         fighter: stepFighter(fighter),
       });
+
+      // Update pet kills stat
+      if (fighter.type === 'pet') {
+        updateStats(stats, fightData.fighters[0].id, 'petsKilled', 1);
+      }
 
       // Set loser if fighter is a main brute
       if (fighter.type === 'brute' && !fighter.master) {
@@ -1243,7 +1282,7 @@ const startAttack = (
   }
 
   // Check if a fighter is dead
-  checkDeaths(fightData);
+  checkDeaths(fightData, stats);
 };
 
 export const playFighterTurn = (
@@ -1252,6 +1291,9 @@ export const playFighterTurn = (
   achievements: AchievementsStore,
 ) => {
   const fighter = fightData.fighters[0];
+
+  // Reset throw counter
+  resetOthersStats(stats, fighter.id, 'consecutiveThrows');
 
   // Check if backup should leave
   if (fighter.leavesAtInitiative && fighter.leavesAtInitiative <= fightData.initiative) {
@@ -1324,6 +1366,8 @@ export const playFighterTurn = (
     // Check if opponent is not trapped and countered
     if (countered) {
       // Update counter stat
+      updateStats(stats, opponent.id, 'counters', 1);
+      updateStats(stats, fighter.id, 'countersTriggered', 1);
       updateStats(stats, opponent.id, 'consecutiveCounters', 1);
       checkAchievements(stats, achievements);
 
@@ -1373,6 +1417,10 @@ export const playFighterTurn = (
       keep: keepWeapon,
     });
 
+    // Update consecutive throw stat
+    updateStats(stats, fighter.id, 'consecutiveThrows', 1);
+    checkAchievements(stats, achievements);
+
     // Check if opponent blocked (harder than melee)
     if (block(fighter, opponent, 2)) {
       damage = 0;
@@ -1384,6 +1432,7 @@ export const playFighterTurn = (
       });
 
       // Update block stat
+      updateStats(stats, opponent.id, 'blocks', 1);
       updateStats(stats, opponent.id, 'consecutiveBlocks', 1);
       checkAchievements(stats, achievements);
     } else {
@@ -1420,7 +1469,7 @@ export const playFighterTurn = (
     }
 
     // Check if a fighter is dead
-    checkDeaths(fightData);
+    checkDeaths(fightData, stats);
   }
 
   // Check if fighter is poisoned
