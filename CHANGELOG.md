@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.38.13](https://github.com/Zenoo/labrute/compare/labrute-v2.38.12...labrute-v2.38.13) (2023-11-22)
+
+
+### Bug Fixes
+
+* Display loader on tournament history page ([83c904f](https://github.com/Zenoo/labrute/commit/83c904f4b5343a9c19ebefb9a5fd7cd9020cb62a))
+
 ## [2.38.12](https://github.com/Zenoo/labrute/compare/labrute-v2.38.11...labrute-v2.38.12) (2023-11-22)
 
 
