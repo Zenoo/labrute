@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.38.14](https://github.com/Zenoo/labrute/compare/labrute-v2.38.13...labrute-v2.38.14) (2023-11-22)
+
+
+### Bug Fixes
+
+* Added old achievements + limited some per fight/brute. Fixes [#416](https://github.com/Zenoo/labrute/issues/416). Fixes [#439](https://github.com/Zenoo/labrute/issues/439) ([24acfbd](https://github.com/Zenoo/labrute/commit/24acfbd68ab8ba83e7c79d80a8864c1906e44c85))
+* Optimize DB requests by only returning IDs when nothing more is needed ([07a78a5](https://github.com/Zenoo/labrute/commit/07a78a5f441890d6837d77b8d60969b3dcded40b))
+
 ## [2.38.13](https://github.com/Zenoo/labrute/compare/labrute-v2.38.12...labrute-v2.38.13) (2023-11-22)
 
 
