@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.38.12](https://github.com/Zenoo/labrute/compare/labrute-v2.38.11...labrute-v2.38.12) (2023-11-22)
+
+
+### Bug Fixes
+
+* Display tournament last round in tournament history. Fixes [#438](https://github.com/Zenoo/labrute/issues/438) ([ef66e0e](https://github.com/Zenoo/labrute/commit/ef66e0e2fc359a623720db9bdd0524c0232a0990))
+* Reports page title ([2ca1c55](https://github.com/Zenoo/labrute/commit/2ca1c55a9b7866ae38193ce08d3269c76c67a352))
+
 ## [2.38.11](https://github.com/Zenoo/labrute/compare/labrute-v2.38.10...labrute-v2.38.11) (2023-11-16)
 
 
