@@ -1070,8 +1070,8 @@
   "bug.title.3": "Hackerman",
   "bug.title.4": "Anonymous",
   "bug.title.5": "Elliot",
-  "result": "Result",
-  "tournament.result.1": "st",
-  "tournament.result.2": "nd",
-  "tournament.result.other": "th"
+  "result": "Résultat",
+  "tournament.result.1": "er",
+  "tournament.result.2": "e",
+  "tournament.result.other": "e"
 }
