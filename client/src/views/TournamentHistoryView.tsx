@@ -9,6 +9,7 @@ import Page from '../components/Page';
 import Text from '../components/Text';
 import useStateAsync from '../hooks/useStateAsync';
 import Server from '../utils/Server';
+import Loader from '../components/Loader';
 
 const DAILY_ROUNDS = [
   ...Array<number>(32).fill(1),
@@ -27,7 +28,7 @@ const TournamentHistoryView = () => {
 
   const { data: tournaments } = useStateAsync(null, Server.Tournament.getHistory, bruteName || '');
 
-  return tournaments && (
+  return (
     <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/cell`}>
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('tournamentHistory')}</Text>
@@ -64,7 +65,7 @@ const TournamentHistoryView = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {tournaments.map((tournament) => (
+                {tournaments ? tournaments.map((tournament) => (
                   <TableRow
                     key={tournament.id}
                   >
@@ -98,7 +99,15 @@ const TournamentHistoryView = () => {
                       )}
                     </TableCell>
                   </TableRow>
-                ))}
+                )) : (
+                  <TableRow>
+                    <TableCell component="th" scope="row" />
+                    <TableCell>
+                      <Loader size={20} />
+                    </TableCell>
+                    <TableCell />
+                  </TableRow>
+                )}
               </TableBody>
             </Table>
           </Grid>
