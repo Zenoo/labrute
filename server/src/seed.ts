@@ -2,7 +2,8 @@
 /* eslint-disable no-console */
 import { Gender, Prisma, PrismaClient } from '@labrute/prisma';
 import {
-  ARENA_OPPONENTS_COUNT, createRandomBruteStats, FIGHTS_PER_DAY, getBruteVisuals, getLevelUpChoices, getRandomBody,
+  ARENA_OPPONENTS_COUNT, createRandomBruteStats,
+  FIGHTS_PER_DAY, getBruteVisuals, getLevelUpChoices, getRandomBody,
   getRandomColors, updateBruteData,
 } from '@labrute/core';
 import {
@@ -130,6 +131,7 @@ async function main() {
           json: formatSpritesheet(spritesheet, brute) as unknown as Prisma.JsonObject,
           ...visuals,
         },
+        select: { id: true },
       });
 
       const end = Date.now();

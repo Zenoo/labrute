@@ -59,6 +59,7 @@ const OAuth = {
             connexionToken: token.accessToken,
             name: etwinUser.displayName.current.value,
           },
+          select: { id: true },
         });
       } else {
         // If user exists, update it
@@ -68,6 +69,7 @@ const OAuth = {
             name: etwinUser.displayName.current.value,
             connexionToken: token.accessToken,
           },
+          select: { id: true },
         });
       }
 

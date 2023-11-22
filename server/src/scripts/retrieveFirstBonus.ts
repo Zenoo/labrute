@@ -46,6 +46,7 @@ async function main() {
           bruteId: brute.id,
           path: [],
         },
+        select: { id: true },
       });
 
       await DiscordUtils.sendLog(`First bonus ${unregisteredSkill} found for brute ${brute.name}`);
@@ -65,6 +66,7 @@ async function main() {
           bruteId: brute.id,
           path: [],
         },
+        select: { id: true },
       });
 
       await DiscordUtils.sendLog(`First bonus ${unregisteredWeapon} found for brute ${brute.name}`);
@@ -84,6 +86,7 @@ async function main() {
           bruteId: brute.id,
           path: [],
         },
+        select: { id: true },
       });
 
       await DiscordUtils.sendLog(`First bonus ${unregisteredPet} found for brute ${brute.name}`);
@@ -118,6 +121,7 @@ async function main() {
         bruteId: brute.id,
         path: [],
       },
+      select: { id: true },
     });
   }
 }

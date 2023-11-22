@@ -140,6 +140,7 @@ const generateMissingBodyColors = async (prisma: PrismaClient) => {
         body: { create: getRandomBody(brute.gender) },
         colors: { create: getRandomColors(brute.gender) },
       },
+      select: { id: true },
     });
   }
 };
@@ -283,6 +284,7 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
         },
         rounds: 6,
       },
+      select: { id: true, date: true },
     });
 
     // Create tournament steps (1 to 32 for first round, 33 to 48 for 2nd, etc etc)
@@ -344,6 +346,7 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
             step,
             fight: { connect: fight },
           },
+          select: { id: true },
         });
 
         step++;
@@ -379,6 +382,7 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
           date: today.toDate(),
           points: 100,
         },
+        select: { id: true },
       });
 
       // Allow rank up for winner if opponent wasn't lower rank
@@ -386,6 +390,7 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
         await prisma.brute.update({
           where: { id: winner.id },
           data: { canRankUpSince: new Date() },
+          select: { id: true },
         });
       }
     }
@@ -454,6 +459,7 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
       type: TournamentType.GLOBAL,
       rounds: 0,
     },
+    select: { id: true },
   });
 
   // Separate brutes 1000 by 1000
@@ -470,6 +476,7 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
           connect: brutesChunk.map((brute) => ({ id: brute.id })),
         },
       },
+      select: { id: true },
     });
   }
 
@@ -550,6 +557,7 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
           step: round,
           fight: { connect: fight },
         },
+        select: { id: true },
       });
     }
 
@@ -579,12 +587,14 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
       date: today.toDate(),
       points: 150,
     },
+    select: { id: true },
   });
 
   // Update tournament with rounds
   await prisma.tournament.update({
     where: { id: tournament.id },
     data: { rounds: round - 1 },
+    select: { id: true },
   });
 
   await DiscordUtils.sendLog('Global tournament created');
@@ -635,6 +645,7 @@ const handleXpGains = async (prisma: PrismaClient) => {
     await prisma.brute.update({
       where: { id: winnerFighter.id },
       data: { xp: { increment: 1 } },
+      select: { id: true },
     });
 
     xpGains[step.fight.winner] = {
@@ -646,6 +657,7 @@ const handleXpGains = async (prisma: PrismaClient) => {
     await prisma.tournamentStep.update({
       where: { id: step.id },
       data: { xpDistributed: true },
+      select: { id: true },
     });
   }
 
@@ -658,6 +670,7 @@ const handleXpGains = async (prisma: PrismaClient) => {
         type: LogType.tournamentXp,
         xp: brute.xp,
       },
+      select: { id: true },
     });
   }
 
@@ -688,6 +701,7 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
       await prisma.user.update({
         where: { id: earning.brute.userId },
         data: { gold: { increment: earning.points } },
+        select: { id: true },
       });
     }
 
@@ -713,6 +727,7 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
               increment: earning.achievementCount,
             },
           },
+          select: { id: true },
         });
       } else {
         // Create new achievement
@@ -723,6 +738,7 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
             userId: earning.brute.userId,
             bruteId: earning.brute.id,
           },
+          select: { id: true },
         });
       }
     }

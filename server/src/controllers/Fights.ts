@@ -118,6 +118,7 @@ const Fights = {
             lastFight: new Date(),
             fightsLeft: getFightsLeft(brute1) - 1,
           },
+          select: { id: true },
         });
       }
 
@@ -173,6 +174,7 @@ const Fights = {
             xp: { increment: xpGained },
             victories: { increment: generatedFight.winner === brute1.name ? 1 : 0 },
           },
+          select: { id: true },
         });
       }
 
@@ -185,6 +187,7 @@ const Fights = {
           fight: { connect: { id: fightId } },
           xp: xpGained,
         },
+        select: { id: true },
       });
 
       // Add opponent log
@@ -195,6 +198,7 @@ const Fights = {
           brute: brute1.name,
           fight: { connect: { id: fightId } },
         },
+        select: { id: true },
       });
 
       // Update brute opponents if the opponent was in the arena
@@ -216,6 +220,7 @@ const Fights = {
             // Update opponentsGeneratedAt
             opponentsGeneratedAt: new Date(),
           },
+          select: { id: true },
         });
       }
 

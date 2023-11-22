@@ -98,6 +98,7 @@ const Tournaments = {
           registeredForTournament: true,
           nextTournamentDate: moment.utc().startOf('day').add(1, 'day').toDate(),
         },
+        select: { id: true },
       });
 
       res.send({ success: true });
@@ -166,6 +167,7 @@ const Tournaments = {
             currentTournamentDate: moment.utc().toDate(),
             currentTournamentStepWatched: 6,
           },
+          select: { id: true },
         });
         // First watch of the day
       } else if (!brute.currentTournamentDate || moment.utc(brute.currentTournamentDate).isBefore(moment.utc().startOf('day'))) {
@@ -177,6 +179,7 @@ const Tournaments = {
             currentTournamentDate: moment.utc().toDate(),
             currentTournamentStepWatched: 1,
           },
+          select: { id: true },
         });
       } else {
         // Update brute watched tournament step
@@ -187,6 +190,7 @@ const Tournaments = {
           data: {
             currentTournamentStepWatched: { increment: 1 },
           },
+          select: { id: true },
         });
       }
 
@@ -227,6 +231,7 @@ const Tournaments = {
           currentTournamentDate: moment.utc().toDate(),
           currentTournamentStepWatched: 6,
         },
+        select: { id: true },
       });
 
       res.send({ success: true });
