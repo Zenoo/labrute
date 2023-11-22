@@ -281,6 +281,7 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
         participants: {
           connect: brutes.map((brute) => ({ id: brute.id })),
         },
+        rounds: 6,
       },
     });
 
@@ -451,6 +452,7 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
     data: {
       date: today.toDate(),
       type: TournamentType.GLOBAL,
+      rounds: 0,
     },
   });
 
@@ -577,6 +579,12 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
       date: today.toDate(),
       points: 150,
     },
+  });
+
+  // Update tournament with rounds
+  await prisma.tournament.update({
+    where: { id: tournament.id },
+    data: { rounds: round - 1 },
   });
 
   await DiscordUtils.sendLog('Global tournament created');

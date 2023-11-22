@@ -4,11 +4,20 @@ import moment from 'moment';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
+import Link from '../components/Link';
 import Page from '../components/Page';
 import Text from '../components/Text';
 import useStateAsync from '../hooks/useStateAsync';
 import Server from '../utils/Server';
-import Link from '../components/Link';
+
+const DAILY_ROUNDS = [
+  ...Array<number>(32).fill(1),
+  ...Array<number>(16).fill(2),
+  ...Array<number>(8).fill(3),
+  ...Array<number>(4).fill(4),
+  ...Array<number>(2).fill(5),
+  6
+];
 
 const TournamentHistoryView = () => {
   const { t } = useTranslation();
@@ -51,6 +60,7 @@ const TournamentHistoryView = () => {
                 <TableRow>
                   <TableCell>{t('date')}</TableCell>
                   <TableCell align="right">{t('tournament')}</TableCell>
+                  <TableCell align="right" sx={{ width: 10 }}>{t('result')}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -71,6 +81,21 @@ const TournamentHistoryView = () => {
                               : tournament.type}
                         </Text>
                       </Link>
+                    </TableCell>
+                    <TableCell align="right">
+                      {!moment.utc(tournament.date).isSame(moment.utc(), 'day') && (
+                        !tournament.steps.length ? (
+                          <Text>
+                            1{t('tournament.result.1')}
+                          </Text>
+                        ) : (
+                          <Text>
+                            {tournament.type === TournamentType.GLOBAL
+                              ? tournament.steps[0].step === tournament.rounds ? `2${t('tournament.result.2')}` : `${2 ** (tournament.rounds - tournament.steps[0].step + 1)}${t('tournament.result.other')}`
+                              : DAILY_ROUNDS[tournament.steps[0].step - 1] === tournament.rounds ? `2${t('tournament.result.2')}` : `${2 ** (tournament.rounds - DAILY_ROUNDS[tournament.steps[0].step - 1] + 1)}${t('tournament.result.other')}`}
+                          </Text>
+                        )
+                      )}
                     </TableCell>
                   </TableRow>
                 ))}

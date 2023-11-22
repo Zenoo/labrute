@@ -281,7 +281,8 @@ exports.Prisma.DestinyChoiceScalarFieldEnum = {
 exports.Prisma.TournamentScalarFieldEnum = {
   id: 'id',
   date: 'date',
-  type: 'type'
+  type: 'type',
+  rounds: 'rounds'
 };
 
 exports.Prisma.TournamentStepScalarFieldEnum = {

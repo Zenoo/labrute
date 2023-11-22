@@ -1,10 +1,13 @@
-import { ExpectedError, GLOBAL_TOURNAMENT_START_HOUR, TournamentsGetGlobalResponse } from '@labrute/core';
+import {
+  ExpectedError, GLOBAL_TOURNAMENT_START_HOUR,
+  TournamentHistoryResponse, TournamentsGetGlobalResponse,
+} from '@labrute/core';
 import { PrismaClient, TournamentType } from '@labrute/prisma';
 import { Request, Response } from 'express';
 import moment from 'moment';
+import DiscordUtils from '../utils/DiscordUtils.js';
 import auth from '../utils/auth.js';
 import sendError from '../utils/sendError.js';
-import DiscordUtils from '../utils/DiscordUtils.js';
 import translate from '../utils/translate.js';
 
 const Tournaments = {
@@ -529,7 +532,10 @@ const Tournaments = {
       sendError(res, error);
     }
   },
-  getHistory: (prisma: PrismaClient) => async (req: Request, res: Response) => {
+  getHistory: (prisma: PrismaClient) => async (
+    req: Request,
+    res: Response<TournamentHistoryResponse>,
+  ) => {
     try {
       if (!req.params.name) {
         throw new ExpectedError('Invalid parameters');
@@ -540,7 +546,7 @@ const Tournaments = {
           name: req.params.name,
           deletedAt: null,
         },
-        select: { id: true },
+        select: { id: true, name: true },
       });
 
       if (!brute) {
@@ -555,11 +561,32 @@ const Tournaments = {
             },
           },
         },
+        include: {
+          steps: {
+            where: {
+              fight: {
+                AND: [
+                  { OR: [{ brute1Id: brute.id }, { brute2Id: brute.id }] },
+                  { loser: brute.name },
+                ],
+              },
+            },
+            select: { step: true },
+          },
+        },
         orderBy: {
           date: 'desc',
         },
         take: 100,
       });
+
+      // Remove step for today's global tournament
+      const today = moment.utc().startOf('day');
+      const todayTournament = tournaments.find((t) => moment.utc(t.date).isSame(today, 'day') && t.type === TournamentType.GLOBAL);
+
+      if (todayTournament) {
+        todayTournament.steps = [];
+      }
 
       res.send(tournaments);
     } catch (error) {

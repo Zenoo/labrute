@@ -360,6 +360,7 @@ model Tournament {
   type         TournamentType   @default(DAILY)
   participants Brute[]
   steps        TournamentStep[]
+  rounds       Int
 }
 
 model TournamentStep {

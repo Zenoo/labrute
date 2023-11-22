@@ -13286,56 +13286,66 @@ export namespace Prisma {
 
   export type TournamentAvgAggregateOutputType = {
     id: number | null
+    rounds: number | null
   }
 
   export type TournamentSumAggregateOutputType = {
     id: number | null
+    rounds: number | null
   }
 
   export type TournamentMinAggregateOutputType = {
     id: number | null
     date: Date | null
     type: $Enums.TournamentType | null
+    rounds: number | null
   }
 
   export type TournamentMaxAggregateOutputType = {
     id: number | null
     date: Date | null
     type: $Enums.TournamentType | null
+    rounds: number | null
   }
 
   export type TournamentCountAggregateOutputType = {
     id: number
     date: number
     type: number
+    rounds: number
     _all: number
   }
 
 
   export type TournamentAvgAggregateInputType = {
     id?: true
+    rounds?: true
   }
 
   export type TournamentSumAggregateInputType = {
     id?: true
+    rounds?: true
   }
 
   export type TournamentMinAggregateInputType = {
     id?: true
     date?: true
     type?: true
+    rounds?: true
   }
 
   export type TournamentMaxAggregateInputType = {
     id?: true
     date?: true
     type?: true
+    rounds?: true
   }
 
   export type TournamentCountAggregateInputType = {
     id?: true
     date?: true
     type?: true
+    rounds?: true
     _all?: true
   }
 
@@ -13429,6 +13439,7 @@ export namespace Prisma {
     id: number
     date: Date
     type: $Enums.TournamentType
+    rounds: number
     _count: TournamentCountAggregateOutputType | null
     _avg: TournamentAvgAggregateOutputType | null
     _sum: TournamentSumAggregateOutputType | null
@@ -13454,6 +13465,7 @@ export namespace Prisma {
     id?: boolean
     date?: boolean
     type?: boolean
+    rounds?: boolean
     participants?: boolean | Tournament$participantsArgs<ExtArgs>
     steps?: boolean | Tournament$stepsArgs<ExtArgs>
     _count?: boolean | TournamentCountOutputTypeDefaultArgs<ExtArgs>
@@ -13463,6 +13475,7 @@ export namespace Prisma {
     id?: boolean
     date?: boolean
     type?: boolean
+    rounds?: boolean
   }
 
   export type TournamentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -13482,6 +13495,7 @@ export namespace Prisma {
       id: number
       date: Date
       type: $Enums.TournamentType
+      rounds: number
     }, ExtArgs["result"]["tournament"]>
     composites: {}
   }
@@ -13882,6 +13896,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Tournament", 'Int'>
     readonly date: FieldRef<"Tournament", 'DateTime'>
     readonly type: FieldRef<"Tournament", 'TournamentType'>
+    readonly rounds: FieldRef<"Tournament", 'Int'>
   }
     
 
@@ -20241,7 +20256,8 @@ export namespace Prisma {
   export const TournamentScalarFieldEnum: {
     id: 'id',
     date: 'date',
-    type: 'type'
+    type: 'type',
+    rounds: 'rounds'
   };
 
   export type TournamentScalarFieldEnum = (typeof TournamentScalarFieldEnum)[keyof typeof TournamentScalarFieldEnum]
@@ -21712,6 +21728,7 @@ export namespace Prisma {
     id?: IntFilter<"Tournament"> | number
     date?: DateTimeFilter<"Tournament"> | Date | string
     type?: EnumTournamentTypeFilter<"Tournament"> | $Enums.TournamentType
+    rounds?: IntFilter<"Tournament"> | number
     participants?: BruteListRelationFilter
     steps?: TournamentStepListRelationFilter
   }
@@ -21720,6 +21737,7 @@ export namespace Prisma {
     id?: SortOrder
     date?: SortOrder
     type?: SortOrder
+    rounds?: SortOrder
     participants?: BruteOrderByRelationAggregateInput
     steps?: TournamentStepOrderByRelationAggregateInput
   }
@@ -21731,6 +21749,7 @@ export namespace Prisma {
     NOT?: TournamentWhereInput | TournamentWhereInput[]
     date?: DateTimeFilter<"Tournament"> | Date | string
     type?: EnumTournamentTypeFilter<"Tournament"> | $Enums.TournamentType
+    rounds?: IntFilter<"Tournament"> | number
     participants?: BruteListRelationFilter
     steps?: TournamentStepListRelationFilter
   }, "id">
@@ -21739,6 +21758,7 @@ export namespace Prisma {
     id?: SortOrder
     date?: SortOrder
     type?: SortOrder
+    rounds?: SortOrder
     _count?: TournamentCountOrderByAggregateInput
     _avg?: TournamentAvgOrderByAggregateInput
     _max?: TournamentMaxOrderByAggregateInput
@@ -21753,6 +21773,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Tournament"> | number
     date?: DateTimeWithAggregatesFilter<"Tournament"> | Date | string
     type?: EnumTournamentTypeWithAggregatesFilter<"Tournament"> | $Enums.TournamentType
+    rounds?: IntWithAggregatesFilter<"Tournament"> | number
   }
 
   export type TournamentStepWhereInput = {
@@ -23339,6 +23360,7 @@ export namespace Prisma {
   export type TournamentCreateInput = {
     date: Date | string
     type?: $Enums.TournamentType
+    rounds: number
     participants?: BruteCreateNestedManyWithoutTournamentsInput
     steps?: TournamentStepCreateNestedManyWithoutTournamentInput
   }
@@ -23347,6 +23369,7 @@ export namespace Prisma {
     id?: number
     date: Date | string
     type?: $Enums.TournamentType
+    rounds: number
     participants?: BruteUncheckedCreateNestedManyWithoutTournamentsInput
     steps?: TournamentStepUncheckedCreateNestedManyWithoutTournamentInput
   }
@@ -23354,6 +23377,7 @@ export namespace Prisma {
   export type TournamentUpdateInput = {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumTournamentTypeFieldUpdateOperationsInput | $Enums.TournamentType
+    rounds?: IntFieldUpdateOperationsInput | number
     participants?: BruteUpdateManyWithoutTournamentsNestedInput
     steps?: TournamentStepUpdateManyWithoutTournamentNestedInput
   }
@@ -23362,6 +23386,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumTournamentTypeFieldUpdateOperationsInput | $Enums.TournamentType
+    rounds?: IntFieldUpdateOperationsInput | number
     participants?: BruteUncheckedUpdateManyWithoutTournamentsNestedInput
     steps?: TournamentStepUncheckedUpdateManyWithoutTournamentNestedInput
   }
@@ -23370,17 +23395,20 @@ export namespace Prisma {
     id?: number
     date: Date | string
     type?: $Enums.TournamentType
+    rounds: number
   }
 
   export type TournamentUpdateManyMutationInput = {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumTournamentTypeFieldUpdateOperationsInput | $Enums.TournamentType
+    rounds?: IntFieldUpdateOperationsInput | number
   }
 
   export type TournamentUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumTournamentTypeFieldUpdateOperationsInput | $Enums.TournamentType
+    rounds?: IntFieldUpdateOperationsInput | number
   }
 
   export type TournamentStepCreateInput = {
@@ -25131,26 +25159,31 @@ export namespace Prisma {
     id?: SortOrder
     date?: SortOrder
     type?: SortOrder
+    rounds?: SortOrder
   }
 
   export type TournamentAvgOrderByAggregateInput = {
     id?: SortOrder
+    rounds?: SortOrder
   }
 
   export type TournamentMaxOrderByAggregateInput = {
     id?: SortOrder
     date?: SortOrder
     type?: SortOrder
+    rounds?: SortOrder
   }
 
   export type TournamentMinOrderByAggregateInput = {
     id?: SortOrder
     date?: SortOrder
     type?: SortOrder
+    rounds?: SortOrder
   }
 
   export type TournamentSumOrderByAggregateInput = {
     id?: SortOrder
+    rounds?: SortOrder
   }
 
   export type EnumTournamentTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -28605,6 +28638,7 @@ export namespace Prisma {
   export type TournamentCreateWithoutParticipantsInput = {
     date: Date | string
     type?: $Enums.TournamentType
+    rounds: number
     steps?: TournamentStepCreateNestedManyWithoutTournamentInput
   }
 
@@ -28612,6 +28646,7 @@ export namespace Prisma {
     id?: number
     date: Date | string
     type?: $Enums.TournamentType
+    rounds: number
     steps?: TournamentStepUncheckedCreateNestedManyWithoutTournamentInput
   }
 
@@ -29362,6 +29397,7 @@ export namespace Prisma {
     id?: IntFilter<"Tournament"> | number
     date?: DateTimeFilter<"Tournament"> | Date | string
     type?: EnumTournamentTypeFilter<"Tournament"> | $Enums.TournamentType
+    rounds?: IntFilter<"Tournament"> | number
   }
 
   export type BruteUpsertWithWhereUniqueWithoutOpponentOfInput = {
@@ -30881,6 +30917,7 @@ export namespace Prisma {
   export type TournamentCreateWithoutStepsInput = {
     date: Date | string
     type?: $Enums.TournamentType
+    rounds: number
     participants?: BruteCreateNestedManyWithoutTournamentsInput
   }
 
@@ -30888,6 +30925,7 @@ export namespace Prisma {
     id?: number
     date: Date | string
     type?: $Enums.TournamentType
+    rounds: number
     participants?: BruteUncheckedCreateNestedManyWithoutTournamentsInput
   }
 
@@ -30938,6 +30976,7 @@ export namespace Prisma {
   export type TournamentUpdateWithoutStepsInput = {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumTournamentTypeFieldUpdateOperationsInput | $Enums.TournamentType
+    rounds?: IntFieldUpdateOperationsInput | number
     participants?: BruteUpdateManyWithoutTournamentsNestedInput
   }
 
@@ -30945,6 +30984,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumTournamentTypeFieldUpdateOperationsInput | $Enums.TournamentType
+    rounds?: IntFieldUpdateOperationsInput | number
     participants?: BruteUncheckedUpdateManyWithoutTournamentsNestedInput
   }
 
@@ -32594,6 +32634,7 @@ export namespace Prisma {
   export type TournamentUpdateWithoutParticipantsInput = {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumTournamentTypeFieldUpdateOperationsInput | $Enums.TournamentType
+    rounds?: IntFieldUpdateOperationsInput | number
     steps?: TournamentStepUpdateManyWithoutTournamentNestedInput
   }
 
@@ -32601,6 +32642,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumTournamentTypeFieldUpdateOperationsInput | $Enums.TournamentType
+    rounds?: IntFieldUpdateOperationsInput | number
     steps?: TournamentStepUncheckedUpdateManyWithoutTournamentNestedInput
   }
 
@@ -32608,6 +32650,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumTournamentTypeFieldUpdateOperationsInput | $Enums.TournamentType
+    rounds?: IntFieldUpdateOperationsInput | number
   }
 
   export type BruteUpdateWithoutOpponentOfInput = {
