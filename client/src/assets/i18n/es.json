@@ -1069,5 +1069,9 @@
   "bug.title.2": "Cyber-Punk",
   "bug.title.3": "Hackerman",
   "bug.title.4": "Anonymous",
-  "bug.title.5": "Elliot"
+  "bug.title.5": "Elliot",
+  "result": "Result",
+  "tournament.result.1": "st",
+  "tournament.result.2": "nd",
+  "tournament.result.other": "th"
 }
