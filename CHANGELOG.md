@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.39.0](https://github.com/Zenoo/labrute/compare/labrute-v2.38.14...labrute-v2.39.0) (2023-11-23)
+
+
+### Features
+
+* maxLevel / maxDamage achievements. Fixes [#447](https://github.com/Zenoo/labrute/issues/447) ([164c3f4](https://github.com/Zenoo/labrute/commit/164c3f4595178f6d5cb0589bb0d980588026ee35))
+* New achievement for unlocking all achievements on a brute. Fixes [#446](https://github.com/Zenoo/labrute/issues/446) ([f5fad52](https://github.com/Zenoo/labrute/commit/f5fad5222ff11401aa0730fdac0253d576c507a1))
+
 ## [2.38.14](https://github.com/Zenoo/labrute/compare/labrute-v2.38.13...labrute-v2.38.14) (2023-11-22)
 
 
