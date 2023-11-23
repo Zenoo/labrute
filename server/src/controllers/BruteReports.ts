@@ -117,6 +117,7 @@ const BruteReports = {
               },
             },
           },
+          select: { id: true },
         });
       } else {
         // Create report
@@ -133,6 +134,7 @@ const BruteReports = {
               },
             },
           },
+          select: { id: true },
         });
       }
 
@@ -182,6 +184,7 @@ const BruteReports = {
         data: {
           status: BruteReportStatus.accepted,
         },
+        select: { id: true },
       });
 
       // Add name to banned words
@@ -194,6 +197,7 @@ const BruteReports = {
             push: report.brute.name.toLowerCase(),
           },
         },
+        select: { id: true },
       });
 
       // Delete brute
@@ -204,6 +208,7 @@ const BruteReports = {
         data: {
           deletedAt: new Date(),
         },
+        select: { id: true },
       });
 
       res.status(200).send({
@@ -242,6 +247,7 @@ const BruteReports = {
         data: {
           status: BruteReportStatus.rejected,
         },
+        select: { id: true },
       });
 
       res.status(200).send({

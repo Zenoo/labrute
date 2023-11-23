@@ -1,0 +1,116 @@
+/* 
+Reset limited brute achievements to 1
+Achievements: 
+panther
+bear
+panther_bear
+felAg_fistsOfF
+felAg_fistsOfF_untouch_relentless
+vita_armor_toughened
+herculStr_hammer_fierceBrute
+shock
+balletShoes_survival
+cryOfTheDamned_hypnosis
+shield_counterAttack
+reconnaissance_monk
+immortality
+doubleBoost
+tripleBoost
+quadrupleBoost
+regeneration_potion
+bear_tamer
+tripleDogs
+fiveWeapons
+tenWeapons
+fifteenWeapons
+twentyWeapons
+twentyThreeWeapons
+monk_sixthSense_whip
+weaponsMaster_sharp_bodybuilder_heavy
+hostility_counterWeapon
+flashFlood_twelveWeapons
+lightningBolt_firstStrike
+herculeanStrength
+felineAgility
+lightningBolt
+vitality
+potion_chef
+tamer_net
+untouchable_balletShoes
+survival_resistant
+hideaway_spy
+weaponsFast3
+weaponsSharp3
+weaponsHeavy3
+weaponsLong3
+weaponsThrown3
+weaponsBlunt3
+agility50
+agility100
+speed50
+speed100
+strength50
+strength100
+hp300
+hp600
+*/
+
+UPDATE "Achievement" SET "count" = 1 WHERE "bruteId" IS NOT NULL AND "name" IN (
+  'panther',
+  'bear',
+  'panther_bear',
+  'felAg_fistsOfF',
+  'felAg_fistsOfF_untouch_relentless',
+  'vita_armor_toughened',
+  'herculStr_hammer_fierceBrute',
+  'shock',
+  'balletShoes_survival',
+  'cryOfTheDamned_hypnosis',
+  'shield_counterAttack',
+  'reconnaissance_monk',
+  'immortality', 'doubleBoost',
+  'tripleBoost',
+  'quadrupleBoost',
+  'regeneration_potion',
+  'bear_tamer',
+  'tripleDogs',
+  'fiveWeapons',
+  'tenWeapons',
+  'fifteenWeapons',
+  'twentyWeapons',
+  'twentyThreeWeapons',
+  'monk_sixthSense_whip',
+  'weaponsMaster_sharp_bodybuilder_heavy',
+  'hostility_counterWeapon',
+  'flashFlood_twelveWeapons',
+  'lightningBolt_firstStrike',
+  'herculeanStrength',
+  'felineAgility',
+  'lightningBolt',
+  'vitality',
+  'potion_chef',
+  'tamer_net',
+  'untouchable_balletShoes',
+  'survival_resistant',
+  'hideaway_spy',
+  'weaponsFast3',
+  'weaponsSharp3',
+  'weaponsHeavy3',
+  'weaponsLong3',
+  'weaponsThrown3',
+  'weaponsBlunt3',
+  'agility50',
+  'agility100',
+  'speed50',
+  'speed100',
+  'strength50',
+  'strength100',
+  'hp300',
+  'hp600'
+);
+
+-- Limite dog achievements to 3
+UPDATE "Achievement" SET "count" = 3 WHERE
+  "count" > 3 AND
+  "bruteId" IS NOT NULL AND
+  "name" = 'dog';

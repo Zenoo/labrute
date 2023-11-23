@@ -1,7 +1,9 @@
-import { increaseAchievement, skills, weapons } from '@labrute/core';
+import { skills, weapons } from '@labrute/core';
 import {
+  AchievementName,
   Brute, DestinyChoice, PetName, PrismaClient, SkillName, WeaponName,
 } from '@labrute/prisma';
+import { increaseAchievement } from '../../controllers/Achievements.js';
 
 const checkLevelUpAchievements = async (
   prisma: PrismaClient,
@@ -27,6 +29,40 @@ const checkLevelUpAchievements = async (
   const bluntWeapons = weapons
     .filter((weapon) => weapon.types.includes('blunt'))
     .map((weapon) => weapon.name);
+
+  // Max level
+  const currentMaxLevel = await prisma.achievement.findFirst({
+    where: {
+      bruteId: brute.id,
+      name: AchievementName.maxLevel,
+    },
+    select: { id: true, count: true },
+  });
+
+  if (currentMaxLevel) {
+    // Only increase if new level is higher
+    if (brute.level > currentMaxLevel.count) {
+      await prisma.achievement.update({
+        where: {
+          id: currentMaxLevel.id,
+        },
+        data: {
+          count: brute.level,
+        },
+        select: { id: true },
+      });
+    }
+  } else {
+    await prisma.achievement.create({
+      data: {
+        bruteId: brute.id,
+        userId: brute.userId,
+        name: AchievementName.maxLevel,
+        count: brute.level,
+      },
+      select: { id: true },
+    });
+  }
 
   // Dog
   if (destinyChoice.pet?.startsWith('dog')) {

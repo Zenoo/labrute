@@ -394,14 +394,22 @@ enum AchievementName {
   combo3
   combo4
   combo5
+  counter5
+  evade10
+  block25
   counter4b2b
   reversal4b2b
   block4b2b
   evade4b2b
+  throw10b2b
   disarm4
+  disarm8
+  damage50once
   damage100once
   hit20times
   use10skills
+  kill3pets
+  maxDamage
   // Skills use
   saboteur
   // Perks unlock
@@ -459,6 +467,8 @@ enum AchievementName {
   strength100
   hp300
   hp600
+  maxLevel
+  allAchievements
   // Tournament
   winTournamentAs20
   winTournamentAs15

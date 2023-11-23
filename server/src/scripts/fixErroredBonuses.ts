@@ -38,6 +38,7 @@ async function main() {
       data: {
         pets: [...brute.pets.filter((pet) => pet !== 'dog2' && pet !== 'dog3'), 'dog1'],
       },
+      select: { id: true },
     });
   }
 }

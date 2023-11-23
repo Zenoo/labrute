@@ -34,6 +34,11 @@ const handleStats = (
       achievement.achievements.defeats = 1;
     }
 
+    // Max damage
+    if (stat.maxDamage) {
+      achievement.achievements.maxDamage = stat.maxDamage;
+    }
+
     // Flawless
     if (bruteId === winner.id && winner.hp === winner.maxHp) {
       achievement.achievements.flawless = 1;
@@ -62,6 +67,36 @@ const handleStats = (
     // 10 Skills used
     if (stat.skillsUsed && stat.skillsUsed >= 10) {
       achievement.achievements.use10skills = 1;
+    }
+
+    // 5 counters
+    if (stat.counters && stat.counters >= 5) {
+      achievement.achievements.counter5 = 1;
+    }
+
+    // 10 evades
+    if (stat.evades && stat.evades >= 10) {
+      achievement.achievements.evade10 = 1;
+    }
+
+    // 25 blocks
+    if (stat.blocks && stat.blocks >= 25) {
+      achievement.achievements.block25 = 1;
+    }
+
+    // 4 disarms
+    if (stat.disarms && stat.disarms >= 4) {
+      achievement.achievements.disarm4 = 1;
+    }
+
+    // 8 disarms
+    if (stat.disarms && stat.disarms >= 8) {
+      achievement.achievements.disarm8 = 1;
+    }
+
+    // Kill 3 pets
+    if (stat.petsKilled && stat.petsKilled >= 3) {
+      achievement.achievements.kill3pets = 1;
     }
 
     // Tournament achievements

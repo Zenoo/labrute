@@ -106,7 +106,7 @@ const sendLog = async (message: string) => {
   }
 };
 
-const sendTournamentNotification = async (tournament: Tournament, brutes: Brute[]) => {
+const sendTournamentNotification = async (tournament: Pick<Tournament, 'date'>, brutes: Brute[]) => {
   const embed = new EmbedBuilder()
     .setColor(0xebad70)
     .setTitle('New tournament created!')

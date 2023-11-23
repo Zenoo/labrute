@@ -28,5 +28,6 @@ try {
       json: formatSpritesheet(spritesheet, brute) as unknown as Prisma.JsonObject,
       ...visuals,
     },
+    select: { id: true },
   });
 } catch (error) { /* ignore */ }

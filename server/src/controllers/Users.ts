@@ -83,6 +83,7 @@ const Users = {
         data: {
           lang: req.body.lang,
         },
+        select: { id: true },
       });
 
       res.send({ message: 'Language changed' });
@@ -110,6 +111,7 @@ const Users = {
         data: {
           fightSpeed: req.body.fightSpeed,
         },
+        select: { id: true },
       });
 
       res.send({ message: 'Fight speed changed' });
@@ -137,6 +139,7 @@ const Users = {
         data: {
           backgroundMusic: req.body.backgroundMusic,
         },
+        select: { id: true },
       });
 
       res.send({ message: 'Background music changed' });
@@ -177,6 +180,7 @@ const Users = {
         data: {
           ...req.body.user,
         },
+        select: { id: true },
       });
 
       // Update achievements

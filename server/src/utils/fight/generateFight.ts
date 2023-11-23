@@ -188,7 +188,7 @@ const generateFight = async (
     playFighterTurn(fightData, stats, achievements);
 
     // Check deaths
-    checkDeaths(fightData);
+    checkDeaths(fightData, stats);
 
     turn += 1;
   }

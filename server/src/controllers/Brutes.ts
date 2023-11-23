@@ -10,7 +10,7 @@ import {
   DestinyBranch, ExpectedError, getFightsLeft, getLevelUpChoices,
   getMaxFightsPerDay,
   getBruteGoldValue, getGoldNeededForNewBrute, getXPNeeded,
-  increaseAchievement, randomBetween, updateBruteData,
+  randomBetween, updateBruteData,
   canLevelUp,
   MAX_FAVORITE_BRUTES,
   BruteVisuals,
@@ -30,6 +30,7 @@ import getOpponents from '../utils/brute/getOpponents.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
 import DiscordUtils from '../utils/DiscordUtils.js';
+import { increaseAchievement } from './Achievements.js';
 
 const Brutes = {
   list: (prisma: PrismaClient) => async (req: Request, res: Response) => {
@@ -169,6 +170,7 @@ const Brutes = {
               gold: { decrement: gold },
               bruteLimit: { increment: 1 },
             },
+            select: { id: true },
           });
           goldLost = gold;
           newLimit += 1;
@@ -227,6 +229,7 @@ const Brutes = {
         await prisma.brute.update({
           where: { id: master.id },
           data: { pupilsCount: { increment: 1 } },
+          select: { id: true },
         });
 
         // Add log
@@ -236,6 +239,7 @@ const Brutes = {
             type: 'child',
             brute: brute.name,
           },
+          select: { id: true },
         });
       }
 
@@ -418,6 +422,7 @@ const Brutes = {
           // Update opponentsGeneratedAt
           opponentsGeneratedAt: new Date(),
         },
+        select: { id: true },
       });
 
       // Add log
@@ -426,6 +431,7 @@ const Brutes = {
           currentBrute: { connect: { id: brute.id } },
           type: 'up',
         },
+        select: { id: true },
       });
 
       if (brute.masterId) {
@@ -436,6 +442,7 @@ const Brutes = {
             type: 'childup',
             brute: brute.name,
           },
+          select: { id: true },
         });
       }
 
@@ -487,6 +494,7 @@ const Brutes = {
             // Update opponentsGeneratedAt
             opponentsGeneratedAt: new Date(),
           },
+          select: { id: true },
         });
       }
 
@@ -524,6 +532,7 @@ const Brutes = {
         data: {
           gold: { increment: gold },
         },
+        select: { id: true },
       });
 
       // Decrease master's pupils count
@@ -533,6 +542,7 @@ const Brutes = {
           data: {
             pupilsCount: { decrement: 1 },
           },
+          select: { id: true },
         });
       }
 
@@ -588,6 +598,7 @@ const Brutes = {
           data: {
             deletedAt: new Date(),
           },
+          select: { id: true },
         });
       }
 
@@ -959,6 +970,7 @@ const Brutes = {
           type: LogType.lvl,
           level: brute.ranking,
         },
+        select: { id: true },
       });
 
       // Get new opponents
@@ -978,6 +990,7 @@ const Brutes = {
           // Update opponentsGeneratedAt
           opponentsGeneratedAt: new Date(),
         },
+        select: { id: true },
       });
 
       // Get brutes that have this brute as opponent
@@ -1058,6 +1071,7 @@ const Brutes = {
                 ],
               },
             },
+            select: { id: true },
           });
         } else {
           // Remove the brute from the opponents if no opponent found
@@ -1071,6 +1085,7 @@ const Brutes = {
                   .map((o) => ({ id: o.id })),
               },
             },
+            select: { id: true },
           });
         }
       }
@@ -1212,6 +1227,7 @@ const Brutes = {
         data: {
           ...req.body,
         },
+        select: { id: true },
       });
 
       res.send({
@@ -1270,6 +1286,7 @@ const Brutes = {
         data: {
           deletedAt: null,
         },
+        select: { id: true },
       });
 
       res.send({
@@ -1317,6 +1334,7 @@ const Brutes = {
         data: {
           favorite: !brute.favorite,
         },
+        select: { id: true },
       });
 
       res.send({

@@ -2,9 +2,91 @@ import {
   AchievementData,
   BaseTitleRequirements, ExpectedError, RaretyOrder,
 } from '@labrute/core';
-import { PrismaClient } from '@labrute/prisma';
+import { AchievementName, PrismaClient } from '@labrute/prisma';
 import { Request, Response } from 'express';
 import sendError from '../utils/sendError.js';
+
+export const increaseAchievement = async (
+  prisma: PrismaClient,
+  userId: string | null,
+  bruteId: number | null,
+  name: AchievementName,
+) => {
+  const current = await prisma.achievement.findFirst({
+    where: {
+      bruteId,
+      userId,
+      name,
+    },
+    select: { id: true, count: true },
+  });
+
+  if (current) {
+    // Check if achievement is already maxed
+    const maxCount = AchievementData[name].perBrute;
+
+    // Do not increase if maxed
+    if (maxCount && current.count >= maxCount) {
+      return;
+    }
+
+    await prisma.achievement.update({
+      where: {
+        id: current.id,
+      },
+      data: {
+        count: Math.min(current.count + 1, maxCount || Infinity),
+      },
+      select: { id: true },
+    });
+  } else {
+    await prisma.achievement.create({
+      data: {
+        bruteId,
+        userId,
+        name,
+        count: 1,
+      },
+      select: { id: true },
+    });
+
+    if (bruteId) {
+      // Check if brute has unlocked all unlockable achievements
+      const count = await prisma.achievement.count({
+        where: {
+          bruteId,
+          name: {
+            // Filter out beta and bug achievements
+            notIn: [AchievementName.beta, AchievementName.bug],
+          },
+        },
+      });
+
+      if (count >= Object.keys(AchievementData).length - 3) {
+        // Check if brute has already unlocked the achievement
+        const existing = await prisma.achievement.findFirst({
+          where: {
+            bruteId,
+            name: AchievementName.allAchievements,
+          },
+          select: { id: true },
+        });
+
+        if (!existing) {
+          await prisma.achievement.create({
+            data: {
+              bruteId,
+              userId,
+              name: AchievementName.allAchievements,
+              count: 1,
+            },
+            select: { id: true },
+          });
+        }
+      }
+    }
+  }
+};
 
 const Achievements = {
   getForUser: (prisma: PrismaClient) => async (
@@ -23,7 +105,15 @@ const Achievements = {
       const mergedAchievements = achievements.reduce((acc, achievement) => {
         const existingAchievement = acc.find((a) => a.name === achievement.name);
         if (existingAchievement) {
-          existingAchievement.count += achievement.count;
+          // Display the highest count for some achievements
+          if (AchievementData[achievement.name].max) {
+            existingAchievement.count = Math.max(
+              existingAchievement.count,
+              achievement.count,
+            );
+          } else {
+            existingAchievement.count += achievement.count;
+          }
         } else {
           acc.push(achievement);
         }
