@@ -24,6 +24,7 @@ export type Stats = Record<number, {
   consecutiveThrows?: number;
   disarms?: number;
   petsKilled?: number;
+  maxDamage?: number;
 }>;
 
 const getFighterStat = (
@@ -401,6 +402,12 @@ const registerHit = (
   const moreThan100 = Object.values(actualDamage).filter((d) => d >= 100).length;
   if (moreThan100) {
     updateAchievement(achievements, 'damage100once', moreThan100, fighter.id);
+  }
+
+  // Max damage achievement
+  const maxDamage = Math.max(...Object.values(actualDamage));
+  if ((stats[fighter.id]?.maxDamage || 0) < maxDamage) {
+    updateStats(stats, fighter.id, 'maxDamage', maxDamage - (stats[fighter.id]?.maxDamage || 0));
   }
 
   opponents.forEach((opponent) => {

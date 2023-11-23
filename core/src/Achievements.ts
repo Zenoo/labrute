@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { AchievementName, PrismaClient } from '@labrute/prisma';
+import { AchievementName } from '@labrute/prisma';
 
 export const AchievementRarety = {
   common: 'common',
@@ -26,6 +26,7 @@ export const AchievementData: Record<
     illustration?: string,
     perBrute?: number,
     onePerFight?: boolean,
+    max?: boolean,
   }
 > = {
   wins: {
@@ -137,6 +138,10 @@ export const AchievementData: Record<
   kill3pets: {
     rarety: AchievementRarety.uncommon,
     onePerFight: true,
+  },
+  maxDamage: {
+    rarety: AchievementRarety.common,
+    max: true,
   },
   use10skills: {
     rarety: AchievementRarety.rare,
@@ -408,6 +413,10 @@ export const AchievementData: Record<
     illustration: 'hp600.svg',
     perBrute: 1,
   },
+  maxLevel: {
+    rarety: AchievementRarety.common,
+    max: true,
+  },
   winTournamentAs20: {
     rarety: AchievementRarety.uncommon,
     illustration: 'r_winthi.gif',
@@ -522,50 +531,4 @@ export const updateAchievement = (
   if (previousCount > 0 && AchievementData[name].onePerFight) return;
 
   current.achievements[name] = previousCount + count;
-};
-
-export const increaseAchievement = async (
-  prisma: PrismaClient,
-  userId: string | null,
-  bruteId: number | null,
-  name: AchievementName,
-) => {
-  const current = await prisma.achievement.findFirst({
-    where: {
-      bruteId,
-      userId,
-      name,
-    },
-    select: { id: true, count: true },
-  });
-
-  if (current) {
-    // Check if achievement is already maxed
-    const maxCount = AchievementData[name].perBrute;
-
-    // Do not increase if maxed
-    if (maxCount && current.count >= maxCount) {
-      return;
-    }
-
-    await prisma.achievement.update({
-      where: {
-        id: current.id,
-      },
-      data: {
-        count: Math.min(current.count + 1, maxCount || Infinity),
-      },
-      select: { id: true },
-    });
-  } else {
-    await prisma.achievement.create({
-      data: {
-        bruteId,
-        userId,
-        name,
-        count: 1,
-      },
-      select: { id: true },
-    });
-  }
 };

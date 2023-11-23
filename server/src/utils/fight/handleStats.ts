@@ -34,6 +34,11 @@ const handleStats = (
       achievement.achievements.defeats = 1;
     }
 
+    // Max damage
+    if (stat.maxDamage) {
+      achievement.achievements.maxDamage = stat.maxDamage;
+    }
+
     // Flawless
     if (bruteId === winner.id && winner.hp === winner.maxHp) {
       achievement.achievements.flawless = 1;

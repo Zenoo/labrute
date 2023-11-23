@@ -10,7 +10,7 @@ import {
   DestinyBranch, ExpectedError, getFightsLeft, getLevelUpChoices,
   getMaxFightsPerDay,
   getBruteGoldValue, getGoldNeededForNewBrute, getXPNeeded,
-  increaseAchievement, randomBetween, updateBruteData,
+  randomBetween, updateBruteData,
   canLevelUp,
   MAX_FAVORITE_BRUTES,
   BruteVisuals,
@@ -30,6 +30,7 @@ import getOpponents from '../utils/brute/getOpponents.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
 import DiscordUtils from '../utils/DiscordUtils.js';
+import { increaseAchievement } from './Achievements.js';
 
 const Brutes = {
   list: (prisma: PrismaClient) => async (req: Request, res: Response) => {

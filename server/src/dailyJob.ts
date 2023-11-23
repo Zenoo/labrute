@@ -4,6 +4,7 @@ import {
   BruteWithBodyColors, Fighter, getRandomBody, getRandomColors,
 } from '@labrute/core';
 import {
+  AchievementName,
   LogType, Prisma, PrismaClient, TournamentType,
 } from '@labrute/prisma';
 import moment from 'moment';
@@ -713,22 +714,37 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
           name: earning.achievement,
           bruteId: earning.brute.id,
         },
-        select: { id: true },
+        select: { id: true, count: true },
       });
 
       if (existingAchievement) {
-        // Update existing achievement
-        await prisma.achievement.update({
-          where: {
-            id: existingAchievement.id,
-          },
-          data: {
-            count: {
-              increment: earning.achievementCount,
+        // Only update max damage if it's higher
+        if (earning.achievement === AchievementName.maxDamage) {
+          if ((existingAchievement.count || 0) < earning.achievementCount) {
+            await prisma.achievement.update({
+              where: {
+                id: existingAchievement.id,
+              },
+              data: {
+                count: earning.achievementCount,
+              },
+              select: { id: true },
+            });
+          }
+        } else {
+          // Update existing achievement
+          await prisma.achievement.update({
+            where: {
+              id: existingAchievement.id,
             },
-          },
-          select: { id: true },
-        });
+            data: {
+              count: {
+                increment: earning.achievementCount,
+              },
+            },
+            select: { id: true },
+          });
+        }
       } else {
         // Create new achievement
         await prisma.achievement.create({

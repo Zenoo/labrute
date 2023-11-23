@@ -409,6 +409,7 @@ enum AchievementName {
   hit20times
   use10skills
   kill3pets
+  maxDamage
   // Skills use
   saboteur
   // Perks unlock
@@ -466,6 +467,7 @@ enum AchievementName {
   strength100
   hp300
   hp600
+  maxLevel
   // Tournament
   winTournamentAs20
   winTournamentAs15
