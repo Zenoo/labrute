@@ -343,6 +343,7 @@ export const AchievementName: {
   hp300: 'hp300',
   hp600: 'hp600',
   maxLevel: 'maxLevel',
+  allAchievements: 'allAchievements',
   winTournamentAs20: 'winTournamentAs20',
   winTournamentAs15: 'winTournamentAs15',
   looseAgainst2: 'looseAgainst2',

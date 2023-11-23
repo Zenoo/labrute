@@ -417,6 +417,10 @@ export const AchievementData: Record<
     rarety: AchievementRarety.common,
     max: true,
   },
+  allAchievements: {
+    rarety: AchievementRarety.legendary,
+    perBrute: 1,
+  },
   winTournamentAs20: {
     rarety: AchievementRarety.uncommon,
     illustration: 'r_winthi.gif',

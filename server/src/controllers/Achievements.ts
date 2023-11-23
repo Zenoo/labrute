@@ -49,6 +49,42 @@ export const increaseAchievement = async (
       },
       select: { id: true },
     });
+
+    if (bruteId) {
+      // Check if brute has unlocked all unlockable achievements
+      const count = await prisma.achievement.count({
+        where: {
+          bruteId,
+          name: {
+            // Filter out beta and bug achievements
+            notIn: [AchievementName.beta, AchievementName.bug],
+          },
+        },
+      });
+
+      if (count >= Object.keys(AchievementData).length - 3) {
+        // Check if brute has already unlocked the achievement
+        const existing = await prisma.achievement.findFirst({
+          where: {
+            bruteId,
+            name: AchievementName.allAchievements,
+          },
+          select: { id: true },
+        });
+
+        if (!existing) {
+          await prisma.achievement.create({
+            data: {
+              bruteId,
+              userId,
+              name: AchievementName.allAchievements,
+              count: 1,
+            },
+            select: { id: true },
+          });
+        }
+      }
+    }
   }
 };
 

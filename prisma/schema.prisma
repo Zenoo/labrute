@@ -468,6 +468,7 @@ enum AchievementName {
   hp300
   hp600
   maxLevel
+  allAchievements
   // Tournament
   winTournamentAs20
   winTournamentAs15
