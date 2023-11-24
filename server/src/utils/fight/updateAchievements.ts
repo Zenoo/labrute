@@ -27,12 +27,12 @@ const updateAchievements = async (
           // Only update max damage if it's higher
           if (name === AchievementName.maxDamage) {
             if ((existingAchievement.achievementCount || 0) < count) {
-              await prisma.achievement.update({
+              await prisma.tournamentEarning.update({
                 where: {
                   id: existingAchievement.id,
                 },
                 data: {
-                  count,
+                  achievementCount: count,
                 },
                 select: { id: true },
               });
