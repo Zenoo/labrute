@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.40.0](https://github.com/Zenoo/labrute/compare/labrute-v2.39.1...labrute-v2.40.0) (2023-11-29)
+
+
+### Features
+
+* Colors in female spritesheets. Fixes [#454](https://github.com/Zenoo/labrute/issues/454) ([1cdc114](https://github.com/Zenoo/labrute/commit/1cdc11482d9678f51de9fb89c36d8a107dc09383))
+
 ## [2.39.1](https://github.com/Zenoo/labrute/compare/labrute-v2.39.0...labrute-v2.39.1) (2023-11-24)
 
 
