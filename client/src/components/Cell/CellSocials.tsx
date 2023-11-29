@@ -80,7 +80,7 @@ const CellSocials = ({
           )}
         </Grid>
       </Grid>
-      {user?.moderator && (
+      {user?.moderator && brute.user && (
         <Text smallCaps subtitle2>{brute.user.name} ({brute.userId})</Text>
       )}
     </Paper>

@@ -314,22 +314,9 @@ const Spritesheets = {
         throw new Error(translate('unauthorized', user));
       }
 
-      // Get all brutes
-      const brutes = await prisma.brute.findMany({
-        where: {
-          deletedAt: null,
-        },
-        include: {
-          body: true,
-          colors: true,
-        },
-      });
-
       // Regenerate spritesheets
       // eslint-disable-next-line no-new
-      new Worker('./lib/workers/regenerateSpritesheets.js', {
-        workerData: brutes,
-      });
+      new Worker('./lib/workers/regenerateSpritesheets.js', {});
 
       res.send({
         message: 'Regeneration started',

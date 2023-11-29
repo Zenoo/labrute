@@ -55,7 +55,7 @@ const generateAnimations = (gender: Gender) => Animations
 
 const formatSpritesheet = (
   spritesheet: SpritesmithResult,
-  brute: Brute,
+  brute: Pick<Brute, 'gender'>,
 ): SpritesheetJson => ({
   frames: {
     ...Object.entries(spritesheet.coordinates)
@@ -83,7 +83,7 @@ const formatSpritesheet = (
   meta: {
     app: 'https://www.codeandweb.com/texturepacker',
     version: '1.0',
-    image: `${brute.id}.png`,
+    image: `${brute.gender}.png`,
     format: 'RGBA8888',
     size: { w: spritesheet.properties.width, h: spritesheet.properties.height },
     scale: '1',
