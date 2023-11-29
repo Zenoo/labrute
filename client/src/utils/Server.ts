@@ -89,6 +89,7 @@ const Server = {
   },
   Spritesheet: {
     regenerate: () => Fetch<never>('/api/spritesheet/regenerate'),
+    regenerateBrute: (brute: string) => Fetch<never>(`/api/spritesheet/regenerate/${brute}`),
   },
   Achievement: {
     getForUser: (userId: string) => Fetch<Achievement[]>('/api/achievements', { userId }, 'POST'),

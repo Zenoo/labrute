@@ -29,6 +29,7 @@ import { Achievement, BruteReportReason, BruteReportStatus, Prisma, Tournament, 
 import canLevelUp from './brute/canLevelUp';
 import formatLargeNumber from './utils/formatLargeNumber';
 import getBruteVisuals, { BruteVisuals } from './brute/getBruteVisuals';
+import getVisualsFromUrl from './brute/getVisualsFromUrl';
 
 export * from './Achievements';
 export * from './Titles';
@@ -68,6 +69,7 @@ export {
   formatLargeNumber,
   getBruteVisuals,
   BruteVisuals,
+  getVisualsFromUrl,
 };
 
 export const LANGUAGES = ['fr', 'en', 'es', 'de', 'ru'] as const;

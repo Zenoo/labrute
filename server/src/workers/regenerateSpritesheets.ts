@@ -337,7 +337,7 @@ for (let i = 0; i < allVisuals.length; i++) {
       image: spritesheet.image,
       json: formatSpritesheet(
         spritesheet,
-        { gender: visuals.gender },
+        visuals,
       ) as unknown as Prisma.JsonObject,
       ...visuals,
     },
@@ -345,7 +345,7 @@ for (let i = 0; i < allVisuals.length; i++) {
       image: spritesheet.image,
       json: formatSpritesheet(
         spritesheet,
-        { gender: visuals.gender },
+        visuals,
       ) as unknown as Prisma.JsonObject,
     },
   });

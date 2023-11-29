@@ -71,7 +71,8 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
 
   // Spritesheet
   app.get('/api/spritesheet/regenerate', Spritesheets.regenerate(prisma));
-  app.get('/api/spritesheet/:brute.png', Spritesheets.getImage(prisma));
+  app.get('/api/spritesheet/regenerate/:brute', Spritesheets.regenerateBrute(prisma));
+  app.get('/api/spritesheet/:gender.png', Spritesheets.getImage(prisma));
   app.get('/api/spritesheet/:brute.json', Spritesheets.getJson(prisma));
   app.get('/api/spritesheet/:brute/:model/:animation/:frame', Spritesheets.getFrame(prisma));
   app.get('/api/spritesheet/:brute/:model/:animation', Spritesheets.getAnimation(prisma));

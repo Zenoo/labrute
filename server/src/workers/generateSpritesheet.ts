@@ -25,7 +25,7 @@ try {
   await prisma.bruteSpritesheet.create({
     data: {
       image: spritesheet.image,
-      json: formatSpritesheet(spritesheet, brute) as unknown as Prisma.JsonObject,
+      json: formatSpritesheet(spritesheet, visuals) as unknown as Prisma.JsonObject,
       ...visuals,
     },
     select: { id: true },
