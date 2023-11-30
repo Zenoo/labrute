@@ -3,7 +3,7 @@ import { BruteVisuals, adjustColor, colors } from '@labrute/core';
 import { Gender, Prisma, PrismaClient } from '@labrute/prisma';
 import createSpritesheet from '../utils/createSpritesheet.js';
 import DiscordUtils from '../utils/DiscordUtils.js';
-import formatSpritesheet from '../utils/formatSpritesheet.js';
+import formatSpritesheet, { SpritesheetJson } from '../utils/formatSpritesheet.js';
 
 const prisma = new PrismaClient();
 
@@ -324,6 +324,25 @@ await DiscordUtils.sendLog('Regenerating all spritesheets...');
 
 for (let i = 0; i < allVisuals.length; i++) {
   const visuals = allVisuals[i];
+
+  // Check if spritesheet already exists and is up to date
+  const existingSpritesheet = await prisma.bruteSpritesheet.findUnique({
+    where: {
+      // eslint-disable-next-line max-len
+      gender_longHair_lowerRightArm_rightHand_upperRightArm_rightShoulder_rightFoot_lowerRightLeg_upperRightLeg_leftFoot_lowerLeftLeg_pelvis_upperLeftLeg_tummy_torso_head_leftHand_upperLeftArm_lowerLeftArm_leftShoulder_skinColor_skinShade_hairColor_hairShade_primaryColor_primaryShade_secondaryColor_secondaryShade_accentColor_accentShade: visuals,
+    },
+    select: {
+      json: true,
+    },
+  });
+
+  // TODO: Replace with a spritesheet version check when everything is done instead
+  if (existingSpritesheet && (existingSpritesheet.json as unknown as SpritesheetJson).meta.image.includes('lra')) {
+    await DiscordUtils.sendLog(`Skipped spritesheet for visual ${i + 1}/${allVisuals.length}`);
+
+    // eslint-disable-next-line no-continue
+    continue;
+  }
 
   // Create spritesheet
   const spritesheet = await createSpritesheet(visuals);

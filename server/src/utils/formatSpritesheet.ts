@@ -2,6 +2,7 @@ import {
   ANIMATION_ANCHORS,
   Animation, Animations,
   BruteVisuals,
+  SPRITESHEET_VERSION,
 } from '@labrute/core';
 import { Gender } from '@labrute/prisma';
 import { SpritesmithResult } from 'spritesmith';
@@ -118,7 +119,7 @@ const formatSpritesheet = (
     animations: generateAnimations(visuals.gender),
     meta: {
       app: 'https://www.codeandweb.com/texturepacker',
-      version: '1.0',
+      version: SPRITESHEET_VERSION,
       image: `${visuals.gender}.png${imageUrl.search}`,
       format: 'RGBA8888',
       size: { w: spritesheet.properties.width, h: spritesheet.properties.height },
