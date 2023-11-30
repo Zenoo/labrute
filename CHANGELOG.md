@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.40.2](https://github.com/Zenoo/labrute/compare/labrute-v2.40.1...labrute-v2.40.2) (2023-11-30)
+
+
+### Bug Fixes
+
+* Skipped already up to date spritesheets in regeneration ([afdbe8d](https://github.com/Zenoo/labrute/commit/afdbe8da70786d58b7d029edf0207ccfd307e968))
+
 ## [2.40.1](https://github.com/Zenoo/labrute/compare/labrute-v2.40.0...labrute-v2.40.1) (2023-11-29)
 
 
