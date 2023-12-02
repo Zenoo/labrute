@@ -49,7 +49,6 @@ const TournamentHistoryView = () => {
                 borderColor: 'background.default',
               },
               '& td': {
-                bgcolor: 'background.paperDark',
                 py: 0.5,
                 px: 1,
                 border: '1px solid',
@@ -68,6 +67,11 @@ const TournamentHistoryView = () => {
                 {tournaments ? tournaments.map((tournament) => (
                   <TableRow
                     key={tournament.id}
+                    sx={{
+                      '& td': {
+                        bgcolor: tournament.type === TournamentType.GLOBAL ? 'background.paperDark' : 'background.paper',
+                      }
+                    }}
                   >
                     <TableCell component="th" scope="row">
                       {moment.utc(tournament.date).format('DD/MM/YYYY')}
