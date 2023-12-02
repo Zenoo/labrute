@@ -45,5 +45,5 @@
   "invalidParameters": "Неверные параметры",
   "nameContainsBannedWord": "Это имя содержит недопустимое слово",
   "favoriteLimitReached": "Вы достигли максимальное количество избранных",
-  "notEnoughGold": "Not enough gold"
+  "notEnoughGold": "Недостаточно золота"
 }
