@@ -1038,7 +1038,7 @@ const attack = (
   const evaded = evade(fighter, opponent);
   const brokeShield = breakShield(fighter, opponent);
 
-  // Add attempt step
+  // Prepare attempt step
   const attemptStep: AttemptHitStep = {
     action: 'attemptHit',
     fighter: stepFighter(fighter),
@@ -1046,36 +1046,11 @@ const attack = (
     weapon: fighter.activeWeapon?.name || null,
   };
 
-  if (!evaded && brokeShield) {
-    attemptStep.brokeShield = true;
-
-    // Update disarm stat
-    updateStats(stats, fighter.id, 'disarms', 1);
-  }
-
-  fightData.steps.push(attemptStep);
-
-  // Check if opponent blocked
-  if (blocked) {
-    damage = 0;
-
-    // Add block step
-    fightData.steps.push({
-      action: 'block',
-      fighter: stepFighter(opponent),
-    });
-
-    // Update block stat
-    updateStats(stats, opponent.id, 'blocks', 1);
-    updateStats(stats, opponent.id, 'consecutiveBlocks', 1);
-    checkAchievements(stats, achievements);
-  } else {
-    // Reset block stat
-    updateStats(stats, opponent.id, 'consecutiveBlocks', 0);
-  }
-
   // Check if opponent evaded
-  if (damage && evaded) {
+  if (evaded) {
+    // Add attempt step as is
+    fightData.steps.push(attemptStep);
+
     damage = 0;
 
     // Add evade step
@@ -1091,13 +1066,42 @@ const attack = (
   } else {
     // Reset evasion stat
     updateStats(stats, opponent.id, 'consecutiveEvades', 0);
-  }
 
-  // Check if opponent's shield was broken
-  if (!evaded && brokeShield) {
-    // Remove shield from opponent
-    opponent.shield = false;
-    opponent.block -= SHIELD_BLOCK_ODDS;
+    // Check if the opponent shield broke
+    if (brokeShield) {
+      // Update disarm stat
+      updateStats(stats, fighter.id, 'disarms', 1);
+
+      // Add attempt step with shield break
+      attemptStep.brokeShield = true;
+      fightData.steps.push(attemptStep);
+
+      // Remove shield from opponent
+      opponent.shield = false;
+      opponent.block -= SHIELD_BLOCK_ODDS;
+    } else {
+      // Add attempt step as is
+      fightData.steps.push(attemptStep);
+    }
+
+    // Check if opponent blocked
+    if (blocked) {
+      damage = 0;
+
+      // Add block step
+      fightData.steps.push({
+        action: 'block',
+        fighter: stepFighter(opponent),
+      });
+
+      // Update block stat
+      updateStats(stats, opponent.id, 'blocks', 1);
+      updateStats(stats, opponent.id, 'consecutiveBlocks', 1);
+      checkAchievements(stats, achievements);
+    } else {
+      // Reset block stat
+      updateStats(stats, opponent.id, 'consecutiveBlocks', 0);
+    }
   }
 
   // Check if the fighter sabotages an opponent's weapon
