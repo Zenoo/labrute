@@ -373,6 +373,10 @@ export const AchievementData: Record<
     illustration: 'r_refine.gif',
     perBrute: 1,
   },
+  thor: {
+    rarety: AchievementRarety.rare,
+    perBrute: 1,
+  },
   agility50: {
     rarety: AchievementRarety.uncommon,
     illustration: 'r_derwin.gif',

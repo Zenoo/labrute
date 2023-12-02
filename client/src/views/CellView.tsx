@@ -35,7 +35,7 @@ import { useAuth } from '../hooks/useAuth';
 const CellView = () => {
   const { t } = useTranslation();
   const { bruteName } = useParams();
-  const smallScreen = useMediaQuery('(max-width: 935px)');
+  const smallScreen = useMediaQuery('(max-width: 938px)');
   const { language } = useLanguage();
   const navigate = useNavigate();
   const { brute, updateBrute } = useBrute();

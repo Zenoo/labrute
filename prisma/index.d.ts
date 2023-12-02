@@ -334,6 +334,7 @@ export const AchievementName: {
   weaponsLong3: 'weaponsLong3',
   weaponsThrown3: 'weaponsThrown3',
   weaponsBlunt3: 'weaponsBlunt3',
+  thor: 'thor',
   agility50: 'agility50',
   agility100: 'agility100',
   speed50: 'speed50',

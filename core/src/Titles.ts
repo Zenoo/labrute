@@ -83,6 +83,7 @@ export const TitleRequirements: Record<AchievementName, number[]> = {
   weaponsLong3: BruteUniqueTitleRequirements,
   weaponsThrown3: BruteUniqueTitleRequirements,
   weaponsBlunt3: BruteUniqueTitleRequirements,
+  thor: BruteUniqueTitleRequirements,
   agility50: BruteUniqueTitleRequirements,
   agility100: BruteUniqueTitleRequirements,
   speed50: BruteUniqueTitleRequirements,

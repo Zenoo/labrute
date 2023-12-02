@@ -458,6 +458,7 @@ enum AchievementName {
   weaponsLong3
   weaponsThrown3
   weaponsBlunt3
+  thor
   // Stats
   agility50
   agility100
