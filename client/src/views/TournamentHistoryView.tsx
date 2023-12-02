@@ -64,46 +64,60 @@ const TournamentHistoryView = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {tournaments ? tournaments.map((tournament) => (
-                  <TableRow
-                    key={tournament.id}
-                    sx={{
-                      '& td': {
-                        bgcolor: tournament.type === TournamentType.GLOBAL ? 'background.paperDark' : 'background.paper',
-                      }
-                    }}
-                  >
-                    <TableCell component="th" scope="row">
-                      {moment.utc(tournament.date).format('DD/MM/YYYY')}
-                    </TableCell>
-                    <TableCell align="right">
-                      <Link to={`/${bruteName || ''}/tournament/${tournament.type === TournamentType.GLOBAL ? 'global/' : ''}${moment.utc(tournament.date).format('YYYY-MM-DD')}`}>
-                        <Text bold>
-                          {tournament.type === TournamentType.DAILY
-                            ? t('dailyTournament')
-                            : tournament.type === TournamentType.GLOBAL
-                              ? t('globalTournament')
-                              : tournament.type}
-                        </Text>
-                      </Link>
-                    </TableCell>
-                    <TableCell align="right">
-                      {!moment.utc(tournament.date).isSame(moment.utc(), 'day') && (
-                        !tournament.steps.length ? (
-                          <Text>
-                            1{t('tournament.result.1')}
+                {tournaments ? tournaments.map((tournament) => {
+                  let position = 0;
+                  const tournamentDate = moment.utc(tournament.date);
+                  const isToday = tournamentDate.isSame(moment.utc(), 'day');
+
+                  if (!isToday) {
+                    if (!tournament.steps.length) {
+                      position = 1;
+                    } else if (tournament.type === TournamentType.GLOBAL) {
+                      position = tournament.steps[0].step === tournament.rounds
+                        ? 2
+                        : 2 ** (tournament.rounds - tournament.steps[0].step + 1);
+                    } else {
+                      position = DAILY_ROUNDS[tournament.steps[0].step - 1] === tournament.rounds
+                        ? 2
+                        : 2 ** (tournament.rounds - DAILY_ROUNDS[tournament.steps[0].step - 1] + 1);
+                    }
+                  }
+
+                  const lastDigit = position % 10;
+
+                  return (
+                    <TableRow
+                      key={tournament.id}
+                      sx={{
+                        '& td': {
+                          bgcolor: tournament.type === TournamentType.GLOBAL ? 'background.paperDark' : 'background.paper',
+                        }
+                      }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {tournamentDate.format('DD/MM/YYYY')}
+                      </TableCell>
+                      <TableCell align="right">
+                        <Link to={`/${bruteName || ''}/tournament/${tournament.type === TournamentType.GLOBAL ? 'global/' : ''}${moment.utc(tournament.date).format('YYYY-MM-DD')}`}>
+                          <Text bold>
+                            {tournament.type === TournamentType.DAILY
+                              ? t('dailyTournament')
+                              : tournament.type === TournamentType.GLOBAL
+                                ? t('globalTournament')
+                                : tournament.type}
                           </Text>
-                        ) : (
+                        </Link>
+                      </TableCell>
+                      <TableCell align="right">
+                        {!isToday && (
                           <Text>
-                            {tournament.type === TournamentType.GLOBAL
-                              ? tournament.steps[0].step === tournament.rounds ? `2${t('tournament.result.2')}` : `${2 ** (tournament.rounds - tournament.steps[0].step + 1)}${t('tournament.result.other')}`
-                              : DAILY_ROUNDS[tournament.steps[0].step - 1] === tournament.rounds ? `2${t('tournament.result.2')}` : `${2 ** (tournament.rounds - DAILY_ROUNDS[tournament.steps[0].step - 1] + 1)}${t('tournament.result.other')}`}
+                            {position}{t(`tournament.result.finishingWith.${[1, 2, 3].includes(lastDigit) ? (lastDigit as 1 | 2 | 3) : 'other'}`)}
                           </Text>
-                        )
-                      )}
-                    </TableCell>
-                  </TableRow>
-                )) : (
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  );
+                }) : (
                   <TableRow>
                     <TableCell component="th" scope="row" />
                     <TableCell>

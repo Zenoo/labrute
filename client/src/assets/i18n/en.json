@@ -1164,7 +1164,8 @@
   "bug.title.4": "Anonymous",
   "bug.title.5": "Elliot",
   "result": "Result",
-  "tournament.result.1": "st",
-  "tournament.result.2": "nd",
-  "tournament.result.other": "th"
+  "tournament.result.finishingWith.1": "st",
+  "tournament.result.finishingWith.2": "nd",
+  "tournament.result.finishingWith.3": "rd",
+  "tournament.result.finishingWith.other": "th"
 }
