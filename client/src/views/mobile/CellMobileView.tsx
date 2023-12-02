@@ -27,6 +27,7 @@ export interface CellMobileViewProps {
   language: Language;
   confirmReport: () => void;
   confirmSacrifice: () => void;
+  confirmReset: () => void;
 }
 
 const CellMobileView = ({
@@ -35,6 +36,7 @@ const CellMobileView = ({
   language,
   confirmReport,
   confirmSacrifice,
+  confirmReset,
 }: CellMobileViewProps) => {
   const { t } = useTranslation();
   const { brute, owner } = useBrute();
@@ -139,7 +141,6 @@ const CellMobileView = ({
       {/* BRUTE SACRIFICE */}
       {owner
         && moment.utc().isAfter(moment.utc(brute.createdAt), 'day')
-        && !!confirmSacrifice
         && (
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <FantasyButton
@@ -153,6 +154,20 @@ const CellMobileView = ({
             </FantasyButton>
           </Box>
         )}
+      {/* BRUTE RESET */}
+      {owner && (
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          <FantasyButton
+            color="warning"
+            onClick={confirmReset}
+            sx={{
+              mt: 2,
+            }}
+          >
+            {t('reset')}
+          </FantasyButton>
+        </Box>
+      )}
     </Page>
   );
 };

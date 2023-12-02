@@ -14,10 +14,12 @@ import {
   canLevelUp,
   MAX_FAVORITE_BRUTES,
   BruteVisuals,
+  RESET_PRICE,
+  FullBrute,
 } from '@labrute/core';
 import {
   Brute,
-  DestinyChoiceSide, DestinyChoiceType, Gender, LogType, Prisma, PrismaClient,
+  DestinyChoiceSide, DestinyChoiceType, Gender, LogType, Prisma, PrismaClient, TournamentType,
 } from '@labrute/prisma';
 import { Request, Response } from 'express';
 import moment from 'moment';
@@ -904,50 +906,6 @@ const Brutes = {
       }
 
       // Get first bonus
-      const bonus = await prisma.destinyChoice.findFirst({
-        where: {
-          bruteId: brute.id,
-          path: { equals: [] },
-        },
-      });
-
-      if (!bonus) {
-        throw new Error(translate('noFirstBonus', user));
-      }
-
-      // Update the brute
-      brute = await prisma.brute.update({
-        where: { id: brute.id },
-        data: {
-          // Random stats
-          ...createRandomBruteStats(
-            bonus.type,
-            bonus.type === DestinyChoiceType.pet
-              ? bonus.pet
-              : bonus.type === DestinyChoiceType.weapon
-                ? bonus.weapon
-                : bonus.skill,
-          ),
-          // Rank up
-          ranking: brute.ranking - 1,
-          canRankUpSince: null,
-          // Reset destiny
-          destinyPath: [],
-        },
-      });
-
-      // Reset fights left
-      brute = await prisma.brute.update({
-        where: { id: brute.id },
-        data: {
-          fightsLeft: getMaxFightsPerDay(brute),
-        },
-      });
-
-      // Achievement
-      await increaseAchievement(prisma, user.id, brute.id, `rankUp${brute.ranking as 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0}`);
-
-      // Get brute first bonus
       const firstBonus = await prisma.destinyChoice.findFirst({
         where: {
           bruteId: brute.id,
@@ -958,6 +916,34 @@ const Brutes = {
       if (!firstBonus) {
         throw new Error(translate('noFirstBonus', user));
       }
+
+      // Random stats
+      const stats = createRandomBruteStats(
+        firstBonus.type,
+        firstBonus.type === DestinyChoiceType.pet
+          ? firstBonus.pet
+          : firstBonus.type === DestinyChoiceType.weapon
+            ? firstBonus.weapon
+            : firstBonus.skill,
+      );
+
+      // Update the brute
+      brute = await prisma.brute.update({
+        where: { id: brute.id },
+        data: {
+          ...stats,
+          // Rank up
+          ranking: brute.ranking - 1,
+          canRankUpSince: null,
+          // Reset destiny
+          destinyPath: [],
+          // Reset fights left
+          fightsLeft: getMaxFightsPerDay(stats),
+        },
+      });
+
+      // Achievement
+      await increaseAchievement(prisma, user.id, brute.id, `rankUp${brute.ranking as 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0}`);
 
       // Update achievements for the first bonus
       await checkLevelUpAchievements(prisma, brute, firstBonus);
@@ -1340,6 +1326,212 @@ const Brutes = {
       res.send({
         success: true,
       });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  reset: (prisma: PrismaClient) => async (
+    req: Request<{ name: string }>,
+    res: Response<BruteWithBodyColors>,
+  ) => {
+    try {
+      const user = await auth(prisma, req);
+
+      // Get brute
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name: req.params.name,
+          userId: user.id,
+          deletedAt: null,
+        },
+      });
+
+      if (!brute) {
+        throw new Error(translate('bruteNotFound', user));
+      }
+
+      // Check if user has enough gold
+      if (user.gold < RESET_PRICE) {
+        throw new ExpectedError(translate('notEnoughGold', user));
+      }
+
+      // Get first bonus
+      const firstBonus = await prisma.destinyChoice.findFirst({
+        where: {
+          bruteId: brute.id,
+          path: { equals: [] },
+        },
+      });
+
+      if (!firstBonus) {
+        throw new Error(translate('noFirstBonus', user));
+      }
+
+      // Remove gold from user
+      await prisma.user.update({
+        where: { id: user.id },
+        data: {
+          gold: { decrement: RESET_PRICE },
+        },
+        select: { id: true },
+      });
+
+      // Random stats
+      const stats = createRandomBruteStats(
+        firstBonus.type,
+        firstBonus.type === DestinyChoiceType.pet
+          ? firstBonus.pet
+          : firstBonus.type === DestinyChoiceType.weapon
+            ? firstBonus.weapon
+            : firstBonus.skill,
+      );
+
+      // Update the brute
+      const updatedBrute: FullBrute = await prisma.brute.update({
+        where: { id: brute.id },
+        data: {
+          ...stats,
+          // Reset destiny
+          destinyPath: [],
+          // Reset fights left
+          fightsLeft: getMaxFightsPerDay(stats),
+        },
+        include: {
+          master: true,
+          body: true,
+          colors: true,
+          clan: true,
+          user: true,
+          tournaments: {
+            where: {
+              type: TournamentType.DAILY,
+              date: moment.utc().startOf('day').toDate(),
+            },
+          },
+        },
+      });
+
+      // Update achievements for the first bonus
+      await checkLevelUpAchievements(prisma, updatedBrute, firstBonus);
+
+      // Get new opponents
+      const opponents = await getOpponents(prisma, updatedBrute);
+
+      // Save opponents
+      await prisma.brute.update({
+        where: {
+          id: updatedBrute.id,
+        },
+        data: {
+          opponents: {
+            set: opponents.map((o) => ({
+              id: o.id,
+            })),
+          },
+          // Update opponentsGeneratedAt
+          opponentsGeneratedAt: new Date(),
+        },
+        select: { id: true },
+      });
+
+      // Get brutes that have this brute as opponent
+      const opponentOf = await prisma.brute.findMany({
+        where: {
+          opponents: {
+            some: {
+              id: updatedBrute.id,
+            },
+          },
+        },
+        include: {
+          opponents: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      });
+
+      // Replace this brute in their opponents
+      for (const currentBrute of opponentOf) {
+        // Get same level random opponent
+        const bruteSearch = {
+          name: {
+            notIn: [
+              currentBrute.name,
+              ...currentBrute.opponents.map((o) => o.name),
+            ],
+          },
+          level: currentBrute.level,
+          deletedAt: null,
+        };
+        // eslint-disable-next-line no-await-in-loop
+        const bruteIds = await prisma.brute.findMany({
+          where: bruteSearch,
+          select: { id: true },
+        }).then((brutes) => brutes.map((b) => b.id));
+
+        let newOpponentId: number | null = null;
+
+        if (bruteIds.length === 0) {
+          // Search lower levels if no same level brutes
+          // eslint-disable-next-line no-await-in-loop
+          const lowerBruteIds = await prisma.brute.findMany({
+            where: {
+              ...bruteSearch,
+              level: {
+                lt: +brute.level,
+                gte: +brute.level - ARENA_OPPONENTS_MAX_GAP,
+              },
+            },
+            select: { id: true },
+          }).then((brutes) => brutes.map((b) => b.id));
+
+          if (lowerBruteIds.length > 0) {
+            // Select a random lower level opponent
+            newOpponentId = lowerBruteIds[randomBetween(0, lowerBruteIds.length - 1)];
+          }
+        } else {
+          // Select a new random opponent
+          newOpponentId = bruteIds[randomBetween(0, bruteIds.length - 1)];
+        }
+
+        if (newOpponentId) {
+          // Replace the brute with the new opponent
+          // eslint-disable-next-line no-await-in-loop
+          await prisma.brute.update({
+            where: { id: currentBrute.id },
+            data: {
+              opponents: {
+                set: [
+                  ...currentBrute.opponents
+                    .filter((o) => o.id !== brute?.id)
+                    .map((o) => ({ id: o.id })),
+                  { id: newOpponentId },
+                ],
+              },
+            },
+            select: { id: true },
+          });
+        } else {
+          // Remove the brute from the opponents if no opponent found
+          // eslint-disable-next-line no-await-in-loop
+          await prisma.brute.update({
+            where: { id: currentBrute.id },
+            data: {
+              opponents: {
+                set: currentBrute.opponents
+                  .filter((o) => o.id !== brute?.id)
+                  .map((o) => ({ id: o.id })),
+              },
+            },
+            select: { id: true },
+          });
+        }
+      }
+
+      res.send(updatedBrute);
     } catch (error) {
       sendError(res, error);
     }

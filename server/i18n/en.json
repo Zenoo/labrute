@@ -44,5 +44,6 @@
   "userNotFound": "User not found",
   "invalidParameters": "Invalid parameters",
   "nameContainsBannedWord": "This name contains a banned word",
-  "favoriteLimitReached": "You have reached your favorite brutes limit"
+  "favoriteLimitReached": "You have reached your favorite brutes limit",
+  "notEnoughGold": "Not enough gold"
 }

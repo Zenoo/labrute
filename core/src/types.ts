@@ -363,7 +363,7 @@ export type BruteWithClan = Brute & {
 export type BruteWithMasterBodyColorsClan = BruteWithMasterBodyColors & BruteWithClan;
 export type FullBrute = BruteWithMasterBodyColorsClan & {
   tournaments: Tournament[];
-  user: User;
+  user: User | null;
 };
 
 // Tournament

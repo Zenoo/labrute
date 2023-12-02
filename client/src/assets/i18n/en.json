@@ -285,6 +285,9 @@
   "sacrifice": "Sacrifice",
   "sacrificeConfirm": "Are you sure you want to sacrifice your brute for {{gold}} Gold ? This action cannot be undone.",
   "sacrificeSuccess": "Sacrifice success, you gained {{gold}} Gold",
+  "reset": "Reset",
+  "resetConfirm": "Are you sure you want to reset your brute to level 1 ? This will cost you {{gold}} Gold. This action cannot be undone.",
+  "resetSuccess": "Reset success",
 
   "callToFight": "If you want to discharge your energy on someone, do it here! There are a lot of Brutes in the Arena who can't wait to swap punches!",
   "arena": "Arena",

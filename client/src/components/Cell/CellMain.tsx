@@ -22,12 +22,14 @@ export interface CellMainProps extends BoxProps {
   language: Language;
   smallScreen?: boolean;
   confirmSacrifice?: () => void;
+  confirmReset?: () => void;
 }
 
 const CellMain = ({
   language,
   smallScreen,
   confirmSacrifice,
+  confirmReset,
   ...rest
 }: CellMainProps) => {
   const { t } = useTranslation();
@@ -151,6 +153,18 @@ const CellMain = ({
             {t('sacrifice')}
           </FantasyButton>
         )}
+      {/* BRUTE RESET */}
+      {owner && !!confirmReset && (
+        <FantasyButton
+          color="warning"
+          onClick={confirmReset}
+          sx={{
+            mt: 2,
+          }}
+        >
+          {t('reset')}
+        </FantasyButton>
+      )}
     </Box>
   );
 };

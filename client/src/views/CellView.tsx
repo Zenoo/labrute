@@ -1,5 +1,6 @@
-import { FullBrute, UserWithBrutesBodyColor, getBruteGoldValue } from '@labrute/core';
+import { FullBrute, RESET_PRICE, getBruteGoldValue } from '@labrute/core';
 import { BruteReportReason, TournamentType } from '@labrute/prisma';
+import { History } from '@mui/icons-material';
 import { Box, Paper, Tooltip, useMediaQuery } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useEffect, useMemo } from 'react';
@@ -13,21 +14,20 @@ import CellPets from '../components/Cell/CellPets';
 import CellSkills from '../components/Cell/CellSkills';
 import CellSocials from '../components/Cell/CellSocials';
 import CellWeapons from '../components/Cell/CellWeapons';
+import FantasyButton from '../components/FantasyButton';
 import Link from '../components/Link';
 import Page from '../components/Page';
 import Text from '../components/Text';
+import { useAlert } from '../hooks/useAlert';
+import { useAuth } from '../hooks/useAuth';
 import { useBrute } from '../hooks/useBrute';
+import { useConfirm } from '../hooks/useConfirm';
 import { useLanguage } from '../hooks/useLanguage';
 import useStateAsync from '../hooks/useStateAsync';
-import { getRandomAd } from '../utils/ads';
 import Server from '../utils/Server';
-import CellMobileView from './mobile/CellMobileView';
-import FantasyButton from '../components/FantasyButton';
-import { History } from '@mui/icons-material';
-import { useConfirm } from '../hooks/useConfirm';
-import { useAlert } from '../hooks/useAlert';
+import { getRandomAd } from '../utils/ads';
 import catchError from '../utils/catchError';
-import { useAuth } from '../hooks/useAuth';
+import CellMobileView from './mobile/CellMobileView';
 
 /**
  * CellView component
@@ -54,14 +54,35 @@ const CellView = () => {
         Alert.open('success', t('sacrificeSuccess', { gold }));
         navigate('/');
 
-        updateData((data) => ({
+        // Update user data
+        updateData((data) => (data ? ({
           ...data,
-          gold: (data?.gold || 0) + gold,
-          brutes: data?.brutes?.filter((b) => b.name !== brute.name) || [],
-        }) as UserWithBrutesBodyColor);
+          gold: (data.gold || 0) + gold,
+          brutes: data.brutes.filter((b) => b.name !== brute.name) || [],
+        }) : null));
       }).catch(catchError(Alert));
     });
   }, [Alert, Confirm, brute, navigate, t, updateData]);
+
+  // Reset brute
+  const confirmReset = useCallback(() => {
+    if (!brute) return;
+
+    Confirm.open(t('reset'), t('resetConfirm', { gold: RESET_PRICE }), () => {
+      Server.Brute.reset(brute.name).then((newBrute) => {
+        Alert.open('success', t('resetSuccess'));
+
+        // Update user data
+        updateData((data) => (data ? ({
+          ...data,
+          brutes: data.brutes.map((b) => (b.name === brute.name ? newBrute : b)),
+        }) : null));
+
+        // Update brute data
+        updateBrute(newBrute);
+      }).catch(catchError(Alert));
+    });
+  }, [Alert, Confirm, brute, t, updateBrute, updateData]);
 
   // Fetch brute
   useEffect(() => {
@@ -115,6 +136,7 @@ const CellView = () => {
         language={language}
         confirmReport={confirmReport}
         confirmSacrifice={confirmSacrifice}
+        confirmReset={confirmReset}
       />
     )
     : (
@@ -178,6 +200,7 @@ const CellView = () => {
                 sx={{ flexGrow: 1 }}
                 language={language}
                 confirmSacrifice={confirmSacrifice}
+                confirmReset={confirmReset}
               />
             </Box>
             {/* RIGHT SIDE */}
