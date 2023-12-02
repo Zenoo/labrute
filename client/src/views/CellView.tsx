@@ -75,6 +75,7 @@ const CellView = () => {
         // Update user data
         updateData((data) => (data ? ({
           ...data,
+          gold: data.gold - RESET_PRICE,
           brutes: data.brutes.map((b) => (b.name === brute.name ? newBrute : b)),
         }) : null));
 
