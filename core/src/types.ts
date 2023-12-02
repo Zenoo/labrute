@@ -298,6 +298,8 @@ export interface SpyStep {
   action: 'spy';
   brute: StepFighter;
   opponent: StepFighter;
+  sent: WeaponName[];
+  received: WeaponName[];
 }
 
 export type FightStep = SaboteurStep | LeaveStep | ArriveStep

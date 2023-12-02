@@ -116,6 +116,8 @@ const updateWeapons = (
       texture.baseTexture.scaleMode = PIXI.SCALE_MODES.LINEAR;
 
       const sprite = new Sprite(texture);
+      sprite.name = w.name;
+
       if (brute.team === 'left') {
         sprite.x = (index % 9) * 20 + 60;
       } else {
