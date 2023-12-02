@@ -1168,7 +1168,7 @@ const attack = (
 
   return {
     blocked,
-    reversed: (!!damage && reversed) || (blocked && opponent.autoReversalOnBlock),
+    reversed: (!evaded && reversed) || (blocked && opponent.autoReversalOnBlock),
   };
 };
 
