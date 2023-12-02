@@ -13,6 +13,9 @@ const attemptHit = (
   step: AttemptHitStep,
   speed: React.MutableRefObject<number>,
 ) => {
+  if (!app.loader) {
+    return;
+  }
   const { loader: { resources: { '/images/game/misc.json': { spritesheet } } } } = app;
 
   if (!spritesheet) {

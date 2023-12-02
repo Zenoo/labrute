@@ -10,6 +10,10 @@ const setupSprite = (
   team: 'left' | 'right',
   speed: React.MutableRefObject<number>,
 ): Sprite | AnimatedSprite | null => {
+  if (!app.loader) {
+    return null;
+  }
+
   const type = getFighterType(fighter);
   const { loader: { resources: {
     [type === 'brute' ? `/api/spritesheet/${fighter.id}.json` : `/images/game/${type}.json`]: { spritesheet }

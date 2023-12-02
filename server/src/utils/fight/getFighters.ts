@@ -174,7 +174,6 @@ const getFighters = (team1: BruteAndBackup, team2: BruteAndBackup): DetailedFigh
       sabotage: false,
       bodybuilder: false,
       survival: false,
-      spied: false,
       balletShoes: false,
       determination: false,
       retryAttack: false,
@@ -194,6 +193,7 @@ const getFighters = (team1: BruteAndBackup, team2: BruteAndBackup): DetailedFigh
       sabotagedWeapon: null,
       poisoned: false,
       trapped: false,
+      damagedWeapons: [],
     };
 
     handleSkills(brute, fighter);
@@ -234,7 +234,6 @@ const getFighters = (team1: BruteAndBackup, team2: BruteAndBackup): DetailedFigh
         sabotage: false,
         bodybuilder: false,
         survival: false,
-        spied: false,
         balletShoes: false,
         determination: false,
         retryAttack: false,
@@ -251,6 +250,7 @@ const getFighters = (team1: BruteAndBackup, team2: BruteAndBackup): DetailedFigh
         sabotagedWeapon: null,
         poisoned: false,
         trapped: false,
+        damagedWeapons: [],
       });
     });
 
@@ -301,7 +301,6 @@ const getFighters = (team1: BruteAndBackup, team2: BruteAndBackup): DetailedFigh
         sabotage: false,
         bodybuilder: false,
         survival: false,
-        spied: false,
         balletShoes: false,
         determination: false,
         retryAttack: false,
@@ -320,6 +319,7 @@ const getFighters = (team1: BruteAndBackup, team2: BruteAndBackup): DetailedFigh
         sabotagedWeapon: null,
         poisoned: false,
         trapped: false,
+        damagedWeapons: [],
       };
 
       handleSkills(backup, backupFighter);

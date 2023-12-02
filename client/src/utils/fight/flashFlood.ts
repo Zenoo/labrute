@@ -19,6 +19,9 @@ const flashFlood = async (
   step: HitStep,
   speed: React.MutableRefObject<number>,
 ) => {
+  if (!app.loader) {
+    return;
+  }
   const { loader: { resources: { '/images/game/thrown-weapons.json': { spritesheet } } } } = app;
 
   if (!spritesheet) {

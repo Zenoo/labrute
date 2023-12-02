@@ -72,6 +72,9 @@ const updateWeapons = (
   weapon?: string,
   action?: 'add' | 'remove',
 ) => {
+  if (!app.loader) {
+    return;
+  }
   const { loader: { resources: { '/images/game/misc.json': { spritesheet } } } } = app;
 
   if (!spritesheet) {
@@ -136,6 +139,9 @@ export const updateActiveWeapon = (
   brute: AnimationFighter,
   weapon: WeaponName | null,
 ) => {
+  if (!app.loader) {
+    return;
+  }
   const { loader: { resources: { '/images/game/misc.json': { spritesheet } } } } = app;
 
   if (!spritesheet) {

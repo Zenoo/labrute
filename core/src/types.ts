@@ -63,8 +63,6 @@ export interface DetailedFighter {
   bodybuilder: boolean,
   // Survive with 1 HP on first death
   survival: boolean,
-  // Reduce weapon damage by 25%
-  spied: boolean,
   // First hit of the fight is evaded
   balletShoes: boolean,
   // 70% chance of re-attacking on misses (evasion or block)
@@ -94,6 +92,8 @@ export interface DetailedFighter {
   poisoned: boolean,
   trapped: boolean,
   hypnotised?: boolean;
+  // Reduce some weapons damage by 25%
+  damagedWeapons: WeaponName[],
 }
 
 export interface Fighter {

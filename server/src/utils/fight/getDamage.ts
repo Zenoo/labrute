@@ -59,8 +59,8 @@ const getDamage = (
     );
   }
 
-  // -25% damage if fighter is spied and uses a weapon
-  if (fighter.spied && fighter.activeWeapon) {
+  // -25% damage if fighter uses a damaged weapon
+  if (fighter.activeWeapon && fighter.damagedWeapons.includes(fighter.activeWeapon.name)) {
     damage = Math.floor(damage * 0.75);
   }
 

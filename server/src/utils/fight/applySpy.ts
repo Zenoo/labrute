@@ -35,8 +35,8 @@ const applySpy = (
       .filter((weapon) => !bruteWeaponsToSwap.includes(weapon))
       .concat(opponentWeaponsToSwap);
 
-    // Set spied flag
-    brute.spied = true;
+    // Add own weapons to opponent damaged weapons
+    opponent.damagedWeapons.push(...bruteWeaponsToSwap.map((weapon) => weapon.name));
   }
 };
 

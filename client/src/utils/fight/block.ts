@@ -12,6 +12,9 @@ const block = async (
   step: BlockStep,
   speed: React.MutableRefObject<number>,
 ) => {
+  if (!app.loader) {
+    return;
+  }
   const fighter = findFighter(fighters, step.fighter);
   if (!fighter) {
     throw new Error('Fighter not found');
