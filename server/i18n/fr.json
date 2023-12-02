@@ -44,5 +44,6 @@
   "userNotFound": "Utilisateur introuvable",
   "invalidParameters": "Paramètres invalides",
   "nameContainsBannedWord": "Ce nom contient un mot banni",
-  "favoriteLimitReached": "Vous avez atteint votre limite de brutes favorites"
+  "favoriteLimitReached": "Vous avez atteint votre limite de brutes favorites",
+  "notEnoughGold": "Not enough gold"
 }
