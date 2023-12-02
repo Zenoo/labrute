@@ -70,15 +70,7 @@ const Tournaments = {
       }
 
       // Get brute
-      const brute = await prisma.brute.findFirst({
-        where: {
-          name: req.params.name,
-          deletedAt: null,
-          user: {
-            id: user.id,
-          },
-        },
-      });
+      const brute = user.brutes.find((b) => b.name === req.params.name);
 
       if (!brute) {
         throw new ExpectedError(translate('bruteNotFound', user));
@@ -118,15 +110,7 @@ const Tournaments = {
       }
 
       // Get brute
-      const brute = await prisma.brute.findFirst({
-        where: {
-          name: req.params.name,
-          deletedAt: null,
-          user: {
-            id: user.id,
-          },
-        },
-      });
+      const brute = user.brutes.find((b) => b.name === req.params.name);
 
       if (!brute) {
         throw new ExpectedError(translate('bruteNotFound', user));
@@ -208,15 +192,7 @@ const Tournaments = {
       }
 
       // Get brute
-      const brute = await prisma.brute.findFirst({
-        where: {
-          name: req.params.name,
-          deletedAt: null,
-          user: {
-            id: user.id,
-          },
-        },
-      });
+      const brute = user.brutes.find((b) => b.name === req.params.name);
 
       if (!brute) {
         throw new ExpectedError(translate('bruteNotFound', user));

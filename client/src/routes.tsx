@@ -24,6 +24,9 @@ import GeneratingView from './views/GeneratingView';
 import HallView from './views/HallView';
 import UserAdminView from './views/UserAdminView';
 import ReportAdminView from './views/ReportAdminView';
+import ClanRankingView from './views/clan/ClanRankingView';
+import ClanCreateView from './views/clan/ClanCreateView';
+import ClanView from './views/clan/ClanView';
 
 const routes: RouteObject[] = [
   { path: 'anchor-test', element: <AnchorTestView /> },
@@ -63,6 +66,15 @@ const routes: RouteObject[] = [
           { path: 'destiny', element: <DestinyView /> },
           { path: 'tournaments', element: <TournamentHistoryView /> },
           { path: 'achievements', element: <AchievementsView /> },
+          {
+            path: 'clan',
+            element: <ProvideBrute />,
+            children: [
+              { path: 'ranking', element: <ClanRankingView /> },
+              { path: 'create', element: <ClanCreateView /> },
+              { path: ':id', element: <ClanView /> },
+            ],
+          },
           // Redirect :name to :name/cell
           { path: '', element: <Navigate to="cell" /> },
         ],

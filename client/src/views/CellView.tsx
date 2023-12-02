@@ -1,8 +1,7 @@
-import { FullBrute, RESET_PRICE, getBruteGoldValue } from '@labrute/core';
-import { BruteReportReason, TournamentType } from '@labrute/prisma';
+import { RESET_PRICE, getBruteGoldValue } from '@labrute/core';
+import { BruteReportReason } from '@labrute/prisma';
 import { History } from '@mui/icons-material';
 import { Box, Paper, Tooltip, useMediaQuery } from '@mui/material';
-import moment from 'moment';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -38,7 +37,7 @@ const CellView = () => {
   const smallScreen = useMediaQuery('(max-width: 938px)');
   const { language } = useLanguage();
   const navigate = useNavigate();
-  const { brute, updateBrute } = useBrute();
+  const { brute, fetchBrute, updateBrute } = useBrute();
   const Confirm = useConfirm();
   const Alert = useAlert();
   const { updateData } = useAuth();
@@ -87,33 +86,10 @@ const CellView = () => {
 
   // Fetch brute
   useEffect(() => {
-    let isSubscribed = true;
-    if (bruteName) {
-      Server.Brute.get({
-        name: bruteName,
-        include: {
-          master: true,
-          body: true,
-          colors: true,
-          clan: true,
-          user: true,
-          tournaments: {
-            where: {
-              type: TournamentType.DAILY,
-              date: moment.utc().startOf('day').toDate(),
-            }
-          }
-        },
-      }).then((data) => {
-        if (isSubscribed) {
-          updateBrute(data as FullBrute);
-        }
-      }).catch(() => {
-        navigate('/unknown-brute');
-      });
-    }
-    return () => { isSubscribed = false; };
-  }, [bruteName, navigate, updateBrute]);
+    if (!bruteName) return;
+
+    fetchBrute(bruteName);
+  }, [bruteName, fetchBrute]);
 
   // Randomized advertising
   const ad = useMemo(() => getRandomAd(language), [language]);
@@ -226,7 +202,7 @@ const CellView = () => {
               </Tooltip>
 
               {/* CLAN */}
-              <CellClan brute={brute} />
+              <CellClan brute={brute} sx={{ ml: 4 }} />
               {/* ADVERT */}
               <BoxBg
                 src={`/images/${language}/cell/a-bg.gif`}

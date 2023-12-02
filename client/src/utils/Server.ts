@@ -1,4 +1,4 @@
-import { BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, BruteVisuals, BruteWithBodyColors, FullBrute, FullTournament, ServerReadyResponse, TournamentHistoryResponse, TournamentsGetGlobalResponse, UsersAdminUpdateRequest, UserWithBrutesBodyColor } from '@labrute/core';
+import { BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, BruteVisuals, BruteWithBodyColors, ClanCreateResponse, ClanGetResponse, ClanListResponse, FullBrute, FullTournament, ServerReadyResponse, TournamentHistoryResponse, TournamentsGetGlobalResponse, UsersAdminUpdateRequest, UserWithBrutesBodyColor } from '@labrute/core';
 import { Achievement, Brute, BruteReportReason, BruteReportStatus, DestinyChoice, DestinyChoiceSide, Fight, Gender, Lang, Log, Prisma, User } from '@labrute/prisma';
 import Fetch from './Fetch';
 
@@ -102,6 +102,11 @@ const Server = {
     accept: (id: number) => Fetch<never>(`/api/report/${id}/accept`),
     reject: (id: number) => Fetch<never>(`/api/report/${id}/reject`),
   },
+  Clan: {
+    list: (page: number) => Fetch<ClanListResponse>('/api/clan/list', { page }),
+    create: (brute: string, name: string) => Fetch<ClanCreateResponse>(`/api/clan/${brute}/create`, { name }),
+    get: (id: number) => Fetch<ClanGetResponse>(`/api/clan/${id}`),
+  }
 };
 
 export default Server;

@@ -25,7 +25,7 @@ import promiseBatch from './utils/promiseBatch';
 import randomBetween from './utils/randomBetween';
 import weightedRandom from './utils/weightedRandom';
 import Version from './Version';
-import { Achievement, BruteReportReason, BruteReportStatus, Prisma, Tournament, TournamentStep } from '@labrute/prisma';
+import { Achievement, Brute, BruteReportReason, BruteReportStatus, Clan, Prisma, Tournament, TournamentStep } from '@labrute/prisma';
 import canLevelUp from './brute/canLevelUp';
 import formatLargeNumber from './utils/formatLargeNumber';
 import getBruteVisuals, { BruteVisuals } from './brute/getBruteVisuals';
@@ -138,3 +138,12 @@ export type BruteReportsSendRequest = {
 export type TournamentHistoryResponse = (Tournament & {
   steps: Pick<TournamentStep, 'step'>[],
 })[];
+
+export type ClanListResponse = (Clan & {
+  brutes: Pick<Brute, 'id'>[],
+  master: Pick<Brute, 'name'>,
+})[];
+export type ClanCreateResponse = Pick<Clan, 'id' | 'name'>;
+export type ClanGetResponse = Clan & {
+  brutes: BruteWithBodyColors[],
+};

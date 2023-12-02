@@ -237,11 +237,6 @@ exports.Prisma.BruteSpritesheetScalarFieldEnum = {
   json: 'json'
 };
 
-exports.Prisma.ClanScalarFieldEnum = {
-  id: 'id',
-  name: 'name'
-};
-
 exports.Prisma.FightScalarFieldEnum = {
   id: 'id',
   date: 'date',
@@ -329,6 +324,29 @@ exports.Prisma.ServerStateScalarFieldEnum = {
   id: 'id',
   ready: 'ready',
   banWords: 'banWords'
+};
+
+exports.Prisma.ClanScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  limit: 'limit',
+  points: 'points',
+  masterId: 'masterId'
+};
+
+exports.Prisma.ClanThreadScalarFieldEnum = {
+  id: 'id',
+  clanId: 'clanId',
+  title: 'title',
+  locked: 'locked'
+};
+
+exports.Prisma.ClanPostScalarFieldEnum = {
+  id: 'id',
+  threadId: 'threadId',
+  authorId: 'authorId',
+  date: 'date',
+  message: 'message'
 };
 
 exports.Prisma.SortOrder = {
@@ -619,7 +637,6 @@ exports.Prisma.ModelName = {
   BruteColors: 'BruteColors',
   Brute: 'Brute',
   BruteSpritesheet: 'BruteSpritesheet',
-  Clan: 'Clan',
   Fight: 'Fight',
   Log: 'Log',
   DestinyChoice: 'DestinyChoice',
@@ -629,7 +646,10 @@ exports.Prisma.ModelName = {
   Achievement: 'Achievement',
   Title: 'Title',
   BruteReport: 'BruteReport',
-  ServerState: 'ServerState'
+  ServerState: 'ServerState',
+  Clan: 'Clan',
+  ClanThread: 'ClanThread',
+  ClanPost: 'ClanPost'
 };
 
 /**

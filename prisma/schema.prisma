@@ -228,6 +228,8 @@ model Brute {
   reports                      BruteReport[]
   favorite                     Boolean             @default(false)
   titles                       Title[]
+  MasterOfClan                 Clan?               @relation("MasterOfClan")
+  ClanPost                     ClanPost[]
 }
 
 model BruteSpritesheet {
@@ -268,24 +270,7 @@ model BruteSpritesheet {
   @@unique([gender, longHair, lowerRightArm, rightHand, upperRightArm, rightShoulder, rightFoot, lowerRightLeg, upperRightLeg, leftFoot, lowerLeftLeg, pelvis, upperLeftLeg, tummy, torso, head, leftHand, upperLeftArm, lowerLeftArm, leftShoulder, skinColor, skinShade, hairColor, hairShade, primaryColor, primaryShade, secondaryColor, secondaryShade, accentColor, accentShade])
 }
 
-model Clan {
-  id     Int     @id @default(autoincrement())
-  name   String  @unique @db.VarChar(255)
-  brutes Brute[]
-}
-
-enum LogType {
-  win
-  lose
-  child
-  childup
-  up
-  lvl
-  survive
-  tournament
-  tournamentXp
-}
-
+// FIGHTS
 enum FighterType {
   brute
   pet
@@ -306,6 +291,19 @@ model Fight {
   TournamentStep TournamentStep[]
 }
 
+// LOGS
+enum LogType {
+  win
+  lose
+  child
+  childup
+  up
+  lvl
+  survive
+  tournament
+  tournamentXp
+}
+
 model Log {
   id             Int      @id @default(autoincrement())
   date           DateTime @default(now()) @db.Date
@@ -319,6 +317,7 @@ model Log {
   xp             Int?
 }
 
+// LEVEL UP
 enum DestinyChoiceType {
   skill
   weapon
@@ -348,6 +347,7 @@ model DestinyChoice {
   stat2Value Int?
 }
 
+// TOURNAMENTS
 enum TournamentType {
   DAILY
   GLOBAL
@@ -383,6 +383,7 @@ model TournamentEarning {
   achievementCount Int?
 }
 
+// ACHIEVEMENTS
 enum AchievementName {
   // Fights
   wins
@@ -516,6 +517,7 @@ model Title {
   brutes Brute[]
 }
 
+// REPORTS
 enum BruteReportStatus {
   pending
   accepted
@@ -537,8 +539,40 @@ model BruteReport {
   status  BruteReportStatus @default(pending)
 }
 
+// SERVER STATE
 model ServerState {
   id       Int      @id @default(autoincrement())
   ready    Boolean  @default(true)
   banWords String[]
+}
+
+// CLANS
+model Clan {
+  id       Int          @id @default(autoincrement())
+  name     String       @unique @db.VarChar(255)
+  limit    Int          @default(10)
+  points   Int          @default(0)
+  master   Brute        @relation("MasterOfClan", fields: [masterId], references: [id])
+  masterId Int          @unique
+  brutes   Brute[]
+  threads  ClanThread[]
+}
+
+model ClanThread {
+  id       Int        @id @default(autoincrement())
+  clan     Clan       @relation(fields: [clanId], references: [id])
+  clanId   Int
+  title    String     @db.VarChar(255)
+  locked   Boolean    @default(false)
+  messages ClanPost[]
+}
+
+model ClanPost {
+  id       Int        @id @default(autoincrement())
+  thread   ClanThread @relation(fields: [threadId], references: [id])
+  threadId Int
+  author   Brute      @relation(fields: [authorId], references: [id])
+  authorId Int
+  date     DateTime   @default(now()) @db.Date
+  message  String     @db.Text
 }

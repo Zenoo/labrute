@@ -1,9 +1,11 @@
 import { BruteWithClan } from '@labrute/core';
+import { LinkProps } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import StyledButton, { StyledButtonProps } from '../StyledButton';
+import Link from '../Link';
+import StyledButton from '../StyledButton';
 
-export interface CellClanProps extends Omit<StyledButtonProps, 'ref'> {
+export interface CellClanProps extends LinkProps {
   brute: BruteWithClan;
 }
 
@@ -14,25 +16,32 @@ const CellClan = ({
 }: CellClanProps) => {
   const { t } = useTranslation();
 
-  return brute.clan ? (
-    <StyledButton
-      image="/images/button.gif"
-      imageHover="/images/button-hover.gif"
-      shadow={false}
-      contrast={false}
+  return (
+    <Link
+      to={brute.clan ? `/${brute.name}/clan/${brute.clan.id}` : `/${brute.name}/clan/ranking`}
       sx={{
-        fontVariant: 'small-caps',
+        display: 'inline-block',
         m: '0 auto',
-        mt: 2,
-        height: 56,
-        width: 246,
-        ...sx
+        mt: 1,
+        ...sx,
       }}
       {...rest}
     >
-      {t('clan')} {brute.clan.name}
-    </StyledButton>
-  ) : null;
+      <StyledButton
+        image="/images/button.gif"
+        imageHover="/images/button-hover.gif"
+        shadow={false}
+        contrast={false}
+        sx={{
+          fontVariant: 'small-caps',
+          height: 56,
+          width: 246,
+        }}
+      >
+        {brute.clan ? `${t('clan')} ${brute.clan.name}` : t('joinAClan')}
+      </StyledButton>
+    </Link>
+  );
 };
 
 export default CellClan;

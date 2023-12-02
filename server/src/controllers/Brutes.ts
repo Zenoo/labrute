@@ -264,14 +264,7 @@ const Brutes = {
       const user = await auth(prisma, req);
 
       // Get brute
-      const brute = await prisma.brute.findFirst({
-        where: {
-          name: req.params.name,
-          userId: user.id,
-          deletedAt: null,
-        },
-        include: { body: true, colors: true },
-      });
+      const brute = user.brutes.find((b) => b.name === req.params.name);
       if (!brute) {
         throw new ExpectedError(translate('bruteNotFound', user));
       }
@@ -336,13 +329,7 @@ const Brutes = {
       const user = await auth(prisma, req);
 
       // Get brute
-      let brute = await prisma.brute.findFirst({
-        where: {
-          name: req.params.name,
-          userId: user.id,
-          deletedAt: null,
-        },
-      });
+      const brute = user.brutes.find((b) => b.name === req.params.name);
 
       if (!brute) {
         throw new Error(translate('bruteNotFound', user));
@@ -395,7 +382,7 @@ const Brutes = {
       }
 
       // Update brute
-      brute = await prisma.brute.update({
+      const updatedBrute = await prisma.brute.update({
         where: { id: brute.id },
         data: {
           ...updatedBruteData,
@@ -405,15 +392,15 @@ const Brutes = {
       });
 
       // Check level up achievements
-      await checkLevelUpAchievements(prisma, brute, destinyChoice, oldBrute);
+      await checkLevelUpAchievements(prisma, updatedBrute, destinyChoice, oldBrute);
 
       // Get new opponents
-      const opponents = await getOpponents(prisma, brute);
+      const opponents = await getOpponents(prisma, updatedBrute);
 
       // Save opponents
       await prisma.brute.update({
         where: {
-          id: brute.id,
+          id: updatedBrute.id,
         },
         data: {
           opponents: {
@@ -430,25 +417,25 @@ const Brutes = {
       // Add log
       await prisma.log.create({
         data: {
-          currentBrute: { connect: { id: brute.id } },
+          currentBrute: { connect: { id: updatedBrute.id } },
           type: 'up',
         },
         select: { id: true },
       });
 
-      if (brute.masterId) {
+      if (updatedBrute.masterId) {
         // Add log to master
         await prisma.log.create({
           data: {
-            currentBrute: { connect: { id: brute.masterId } },
+            currentBrute: { connect: { id: updatedBrute.masterId } },
             type: 'childup',
-            brute: brute.name,
+            brute: updatedBrute.name,
           },
           select: { id: true },
         });
       }
 
-      res.send(brute);
+      res.send(updatedBrute);
     } catch (error) {
       sendError(res, error);
     }
@@ -510,13 +497,7 @@ const Brutes = {
       const user = await auth(prisma, req);
 
       // Get brute
-      const brute = await prisma.brute.findFirst({
-        where: {
-          name: req.params.name,
-          userId: user.id,
-          deletedAt: null,
-        },
-      });
+      const brute = user.brutes.find((b) => b.name === req.params.name);
 
       if (!brute) {
         throw new ExpectedError(translate('bruteNotFound', user));
@@ -885,30 +866,24 @@ const Brutes = {
         throw new Error(translate('missingName', user));
       }
 
-      let brute = await prisma.brute.findFirst({
-        where: {
-          name,
-          deletedAt: null,
-          userId: user.id,
-        },
-      });
+      const userBrute = user.brutes.find((b) => b.name === name);
 
-      if (!brute) {
+      if (!userBrute) {
         throw new Error(translate('bruteNotFound', user));
       }
 
-      if (!brute.canRankUpSince) {
+      if (!userBrute.canRankUpSince) {
         throw new ExpectedError(translate('bruteCannotRankUp', user));
       }
 
-      if (brute.ranking === 0) {
+      if (userBrute.ranking === 0) {
         throw new ExpectedError(translate('bruteAlreadyMaxRank', user));
       }
 
       // Get first bonus
       const firstBonus = await prisma.destinyChoice.findFirst({
         where: {
-          bruteId: brute.id,
+          bruteId: userBrute.id,
           path: { equals: [] },
         },
       });
@@ -928,12 +903,12 @@ const Brutes = {
       );
 
       // Update the brute
-      brute = await prisma.brute.update({
-        where: { id: brute.id },
+      const brute = await prisma.brute.update({
+        where: { id: userBrute.id },
         data: {
           ...stats,
           // Rank up
-          ranking: brute.ranking - 1,
+          ranking: userBrute.ranking - 1,
           canRankUpSince: null,
           // Reset destiny
           destinyPath: [],
@@ -1295,14 +1270,7 @@ const Brutes = {
         throw new Error(translate('missingName', user));
       }
 
-      const brute = await prisma.brute.findFirst({
-        where: {
-          name,
-          deletedAt: null,
-          userId: user.id,
-        },
-        select: { id: true, favorite: true },
-      });
+      const brute = user.brutes.find((b) => b.name === name);
 
       if (!brute) {
         throw new Error(translate('bruteNotFound', user));
@@ -1338,13 +1306,7 @@ const Brutes = {
       const user = await auth(prisma, req);
 
       // Get brute
-      const brute = await prisma.brute.findFirst({
-        where: {
-          name: req.params.name,
-          userId: user.id,
-          deletedAt: null,
-        },
-      });
+      const brute = user.brutes.find((b) => b.name === req.params.name);
 
       if (!brute) {
         throw new Error(translate('bruteNotFound', user));

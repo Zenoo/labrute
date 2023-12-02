@@ -3,7 +3,7 @@ import { Link as MUILink, LinkBaseProps } from '@mui/material';
 import { Link as LinkComponent } from 'react-router-dom';
 
 export interface LinkProps extends LinkBaseProps {
-  to: string;
+  to?: string;
 }
 
 const Link = forwardRef<HTMLAnchorElement, LinkProps>(({
@@ -12,7 +12,7 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(({
   ...rest
 }, ref) => (
   <MUILink
-    component={LinkComponent}
+    component={to ? LinkComponent : 'a'}
     ref={ref}
     to={to}
     {...rest}

@@ -12,6 +12,7 @@ import Users from './controllers/Users.js';
 import Achievements from './controllers/Achievements.js';
 import ServerState from './utils/ServerState.js';
 import BruteReports from './controllers/BruteReports.js';
+import Clans from './controllers/Clans.js';
 
 const initRoutes = (app: Express, prisma: PrismaClient) => {
   app.get('/api', (req: Request, res: Response) => res.status(200).send({
@@ -98,6 +99,11 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
   app.get('/api/report/send/:name/:reason', BruteReports.send(prisma));
   app.get('/api/report/:id/accept', BruteReports.accept(prisma));
   app.get('/api/report/:id/reject', BruteReports.reject(prisma));
+
+  // Clan
+  app.get('/api/clan/list', Clans.list(prisma));
+  app.get('/api/clan/:brute/create', Clans.create(prisma));
+  app.get('/api/clan/:id', Clans.get(prisma));
 };
 
 export default initRoutes;
