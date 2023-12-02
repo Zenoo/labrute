@@ -278,8 +278,8 @@
   "sacrificeConfirm": "Bist du sicher, dass du diesen Brutalo für {{gold}} Gold opfern möchtest? Der Vorgang kann nicht rückgängig gemacht werden.",
   "sacrificeSuccess": "Opferung erfolgreich: {{gold}} Gold erhalten",
   "reset": "Zurücksetzen",
-  "resetConfirm": "Are you sure you want to reset your brute to level 1 ? This will cost you {{gold}} Gold. This action cannot be undone.",
-  "resetSuccess": "Reset success",
+  "resetConfirm": "Bist du sicher, dass du deinen Brutalo für {{gold}} Gold auf Stufe 1 zurücksetzen möchtest? Der Vorgang kann nicht rückgängig gemacht werden.",
+  "resetSuccess": "Zurücksetzung erfolgreich",
   "callToFight": "Wenn du dich an jemandem austoben möchtest, kannst du das hier tun! In der Arena gibt's reichlich Brutalos, die nur darauf warten Prügel auszutauschen!",
   "arena": "Arena",
   "arena.search": "Los!",
@@ -364,7 +364,7 @@
   "fight.step.counter": "{{fighter}} hat den Angriff von {{opponent}} gekontert.",
   "fight.step.skillExpire": "{{skill}} von {{brute}} ist abgelaufen.",
   "fight.step.skillActivate": "{{brute}} hat {{skill}} benutzt.",
-  "fight.step.spy": "{{brute}} swapped some weapons with {{opponent}}.",
+  "fight.step.spy": "{{brute}} hat einige Waffen mit {{opponent}} getauscht.",
   "fight.wonTheFight": "{{brute}} hat den Kampf gewonnen",
   "fight.play": "Abspielen",
   "fight.pause": "Pausieren",
@@ -1153,8 +1153,8 @@
   "bug.title.4": "Anonymous",
   "bug.title.5": "Elliot",
   "result": "Resultat",
-  "tournament.result.finishingWith.1": "st",
-  "tournament.result.finishingWith.2": "nd",
-  "tournament.result.finishingWith.3": "rd",
-  "tournament.result.finishingWith.other": "th"
+  "tournament.result.finishingWith.1": "er",
+  "tournament.result.finishingWith.2": "er",
+  "tournament.result.finishingWith.3": "er",
+  "tournament.result.finishingWith.other": "er"
 }
