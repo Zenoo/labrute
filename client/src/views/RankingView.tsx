@@ -1,5 +1,5 @@
 import { BruteRanking, BruteRankings, BruteWithBodyColors } from '@labrute/core';
-import { Box, Grid, Link, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Grid, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
@@ -10,6 +10,7 @@ import StyledButton from '../components/StyledButton';
 import Text from '../components/Text';
 import useStateAsync from '../hooks/useStateAsync';
 import Server from '../utils/Server';
+import Link from '../components/Link';
 
 const RankingView = () => {
   const { t } = useTranslation();
@@ -41,7 +42,7 @@ const RankingView = () => {
       <TableCell>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <BrutePortrait brute={brute} shadow={false} sx={{ width: 40, mr: 1, filter: null, }} />
-          <Link component={RouterLink} to={`/${brute.name}/cell`}>
+          <Link to={`/${brute.name}/cell`}>
             <Text bold>{brute.name}</Text>
           </Link>
         </Box>

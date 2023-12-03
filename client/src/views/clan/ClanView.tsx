@@ -1,5 +1,5 @@
-import { BruteRanking, ClanGetResponse } from '@labrute/core';
-import { Box, Paper } from '@mui/material';
+import { BruteRanking, BruteWithBodyColors, ClanGetResponse } from '@labrute/core';
+import { Box, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip } from '@mui/material';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -13,6 +13,9 @@ import catchError from '../../utils/catchError';
 import StyledButton from '../../components/StyledButton';
 import BruteComponent from '../../components/Brute/Body/BruteComponent';
 import { useConfirm } from '../../hooks/useConfirm';
+import BrutePortrait from '../../components/Brute/Body/BrutePortait';
+import FantasyButton from '../../components/FantasyButton';
+import { HighlightOff } from '@mui/icons-material';
 
 const ClanView = () => {
   const { t } = useTranslation();
@@ -81,6 +84,60 @@ const ClanView = () => {
     });
   };
 
+  // Accept join request
+  const acceptJoin = (requester: BruteWithBodyColors) => () => {
+    if (!clan) return;
+
+    Confirm.open(t('acceptJoinRequest'), t('confirmAcceptRequest'), () => {
+      Server.Clan.accept(requester.name, clan.id).then(() => {
+        Alert.open('success', t('requestAccepted'));
+
+        // Update clan
+        setClan((prevClan) => (prevClan ? ({
+          ...prevClan,
+          joinRequests: prevClan.joinRequests.filter((br) => br.id !== requester.id),
+          brutes: [...prevClan.brutes, requester],
+        }) : null));
+      }).catch(catchError(Alert));
+    });
+  };
+
+  // Reject join request
+  const rejectJoin = (requester: BruteWithBodyColors) => () => {
+    if (!clan) return;
+
+    Confirm.open(t('rejectJoinRequest'), t('confirmRejectRequest'), () => {
+      Server.Clan.reject(requester.name, clan.id).then(() => {
+        Alert.open('success', t('requestRejected'));
+
+        // Update clan
+        setClan((prevClan) => (prevClan ? ({
+          ...prevClan,
+          joinRequests: prevClan.joinRequests.filter((br) => br.id !== requester.id),
+        }) : null));
+      }).catch(catchError(Alert));
+    });
+  };
+
+  // Remove brute from clan
+  const removeFromClan = (clanBrute: BruteWithBodyColors) => (e: React.MouseEvent) => {
+    e.stopPropagation();
+
+    if (!clan) return;
+
+    Confirm.open(t('removeFromClan'), t('confirmRemoveFromClan'), () => {
+      Server.Clan.remove(clanBrute.name, clan.id).then(() => {
+        Alert.open('success', t('bruteRemoved'));
+
+        // Update clan
+        setClan((prevClan) => (prevClan ? ({
+          ...prevClan,
+          brutes: prevClan.brutes.filter((br) => br.id !== clanBrute.id),
+        }) : null));
+      }).catch(catchError(Alert));
+    });
+  };
+
   return clan && (
     <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/cell`}>
       <Paper sx={{ mx: 4 }}>
@@ -122,6 +179,7 @@ const ClanView = () => {
             )}
         </Box>
         <Text bold h4 sx={{ my: 1 }}>{clan.brutes.length}/{clan.limit} {t('brutes')}</Text>
+        {/* MEMBERS */}
         <Box sx={{
           display: 'flex',
           flexWrap: 'wrap',
@@ -162,7 +220,18 @@ const ClanView = () => {
                 >
                   <Box display="flex" alignItems="center">
                     {clan.masterId === clanBrute.id && (
-                      <Box component="img" src="/images/clan/master.png" sx={{ mr: 0.5 }} />
+                      <Box component="img" src="/images/clan/master.gif" sx={{ mr: 0.5, width: 7 }} />
+                    )}
+                    {/* Button to remove brute from clan */}
+                    {clan.masterId === brute?.id && clan.masterId !== clanBrute.id && (
+                      <Tooltip title={t('removeFromClan')}>
+                        <HighlightOff
+                          onClick={removeFromClan(clanBrute)}
+                          fontSize="small"
+                          color="error"
+                          sx={{ mr: 0.5 }}
+                        />
+                      </Tooltip>
                     )}
                     <Text bold color="secondary" sx={{ display: 'inline' }}>{clanBrute.name}</Text>
                   </Box>
@@ -188,6 +257,77 @@ const ClanView = () => {
             </StyledButton>
           ))}
         </Box>
+        {/* JOIN REQUESTS */}
+        {clan.masterId === brute?.id && !!clan.joinRequests.length && (
+          <>
+            <Text bold h4 sx={{ my: 1 }}>{t('joinRequests')}</Text>
+            <Table sx={{
+              maxWidth: 1,
+              '& th': {
+                bgcolor: 'secondary.main',
+                color: 'secondary.contrastText',
+                py: 0.5,
+                px: 1,
+                fontWeight: 'bold',
+                border: '1px solid',
+                borderColor: 'background.default',
+              },
+              '& td': {
+                bgcolor: 'background.paperDark',
+                py: 0.5,
+                px: 1,
+                border: '1px solid',
+                borderColor: 'background.default',
+              },
+            }}
+            >
+              <TableHead>
+                <TableRow>
+                  <TableCell>{t('ranking')}</TableCell>
+                  <TableCell>{t('brute')}</TableCell>
+                  <TableCell align="right">{t('level')}</TableCell>
+                  <TableCell align="right">{t('actions')}</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {clan.joinRequests.map((requester) => (
+                  <TableRow
+                    key={requester.id}
+                  >
+                    <TableCell component="th" scope="row">
+                      <Box component="img" src={`/images/rankings/lvl_${requester.ranking}.png`} sx={{ width: 20 }} />
+                    </TableCell>
+                    <TableCell>
+                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <BrutePortrait
+                          brute={requester}
+                          shadow={false}
+                          sx={{ width: 40, mr: 1, filter: null, }}
+                        />
+                        <Link to={`/${requester.name}/cell`}>
+                          <Text bold>{requester.name}</Text>
+                        </Link>
+                      </Box>
+                    </TableCell>
+                    <TableCell align="right">{t('level')} {requester.level}</TableCell>
+                    <TableCell align="right">
+                      <Box sx={{
+                        display: 'flex',
+                        justifyContent: 'flex-end',
+                        p: 1,
+                        gap: 1,
+                      }}
+                      >
+                        <FantasyButton color="success" onClick={acceptJoin(requester)}>{t('accept')}</FantasyButton>
+                        <FantasyButton color="error" onClick={rejectJoin(requester)}>{t('reject')}</FantasyButton>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </>
+        )}
       </Paper>
     </Page>
   );
