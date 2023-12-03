@@ -230,6 +230,8 @@ model Brute {
   titles                       Title[]
   MasterOfClan                 Clan?               @relation("MasterOfClan")
   ClanPost                     ClanPost[]
+  WantToJoin                   Clan?               @relation("JoinRequests", fields: [wantToJoinId], references: [id])
+  wantToJoinId                 Int?
 }
 
 model BruteSpritesheet {
@@ -548,14 +550,15 @@ model ServerState {
 
 // CLANS
 model Clan {
-  id       Int          @id @default(autoincrement())
-  name     String       @unique @db.VarChar(255)
-  limit    Int          @default(10)
-  points   Int          @default(0)
-  master   Brute        @relation("MasterOfClan", fields: [masterId], references: [id])
-  masterId Int          @unique
-  brutes   Brute[]
-  threads  ClanThread[]
+  id           Int          @id @default(autoincrement())
+  name         String       @unique @db.VarChar(255)
+  limit        Int          @default(10)
+  points       Int          @default(0)
+  master       Brute        @relation("MasterOfClan", fields: [masterId], references: [id])
+  masterId     Int          @unique
+  brutes       Brute[]
+  joinRequests Brute[]      @relation("JoinRequests")
+  threads      ClanThread[]
 }
 
 model ClanThread {

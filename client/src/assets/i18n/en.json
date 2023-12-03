@@ -84,6 +84,13 @@
   "create": "Create",
   "clanNameLength": "The name of your clan must be between 3 and 50 characters long.",
   "clanCreated": "Your clan has been created.",
+  "brutes": "Brutes",
+  "askToJoin": "Ask to join",
+  "confirmJoin": "Do you really want to join this clan ?",
+  "requestSent": "Your request has been sent.",
+  "cancelJoinRequest": "Cancel join request",
+  "confirmCancelRequest": "Do you really want to cancel your join request ?",
+  "requestCanceled": "Your request has been canceled.",
 
   "herculeanStrength": "Herculean Strength",
   "herculeanStrength.desc": "You're strong enough to move mountains, but first you must defeat your opponent.",

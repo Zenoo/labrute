@@ -198,7 +198,8 @@ exports.Prisma.BruteScalarFieldEnum = {
   victories: 'victories',
   opponentsGeneratedAt: 'opponentsGeneratedAt',
   canRankUpSince: 'canRankUpSince',
-  favorite: 'favorite'
+  favorite: 'favorite',
+  wantToJoinId: 'wantToJoinId'
 };
 
 exports.Prisma.BruteSpritesheetScalarFieldEnum = {

@@ -102,7 +102,11 @@ const ClanRankingView = () => {
                         <TableCell component="th" scope="row">
                           {index + 1}
                         </TableCell>
-                        <TableCell>{clan.name}</TableCell>
+                        <TableCell>
+                          <Link to={`/${bruteName || ''}/clan/${clan.id}`}>
+                            {clan.name}
+                          </Link>
+                        </TableCell>
                         <TableCell>{clan.master.name}</TableCell>
                         <TableCell>{clan.brutes.length}</TableCell>
                         <TableCell align="right">{clan.points}</TableCell>

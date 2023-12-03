@@ -146,4 +146,5 @@ export type ClanListResponse = (Clan & {
 export type ClanCreateResponse = Pick<Clan, 'id' | 'name'>;
 export type ClanGetResponse = Clan & {
   brutes: BruteWithBodyColors[],
+  joinRequests: BruteWithBodyColors[],
 };

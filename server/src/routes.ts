@@ -104,6 +104,9 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
   app.get('/api/clan/list', Clans.list(prisma));
   app.get('/api/clan/:brute/create', Clans.create(prisma));
   app.get('/api/clan/:id', Clans.get(prisma));
+  app.get('/api/clan/:brute/request/:id', Clans.request(prisma));
+  app.get('/api/clan/:brute/request-cancel/:id', Clans.cancelRequest(prisma));
+  app.get('/api/clan/:brute/accept/:id', Clans.accept(prisma));
 };
 
 export default initRoutes;

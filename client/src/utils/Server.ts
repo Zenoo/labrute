@@ -106,6 +106,9 @@ const Server = {
     list: (page: number) => Fetch<ClanListResponse>('/api/clan/list', { page }),
     create: (brute: string, name: string) => Fetch<ClanCreateResponse>(`/api/clan/${brute}/create`, { name }),
     get: (id: number) => Fetch<ClanGetResponse>(`/api/clan/${id}`),
+    request: (brute: string, id: number) => Fetch<never>(`/api/clan/${brute}/request/${id}`),
+    cancelRequest: (brute: string, id: number) => Fetch<never>(`/api/clan/${brute}/request-cancel/${id}`),
+    accept: (brute: string, id: number) => Fetch<never>(`/api/clan/${brute}/accept/${id}`),
   }
 };
 

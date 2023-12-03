@@ -48,5 +48,10 @@
   "notEnoughGold": "Not enough gold",
   "clanNameLength": "The name of your clan must be between 3 and 50 characters long.",
   "clanNameAlreadyTaken": "This name is already taken",
-  "clanNotFound": "Clan not found"
+  "clanNotFound": "Clan not found",
+  "alreadyInClan": "You are already in a clan",
+  "clanFull": "Clan is full",
+  "noRequestFound": "No request found",
+  "alreadyRequested": "You already requested to join this clan",
+  "missingClanId": "Missing clan ID"
 }
