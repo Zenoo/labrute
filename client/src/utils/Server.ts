@@ -111,6 +111,7 @@ const Server = {
     accept: (brute: string, id: number) => Fetch<never>(`/api/clan/${brute}/accept/${id}`),
     reject: (brute: string, id: number) => Fetch<never>(`/api/clan/${brute}/reject/${id}`),
     remove: (brute: string, id: number) => Fetch<never>(`/api/clan/${brute}/remove/${id}`),
+    leave: (brute: string, id: number) => Fetch<never>(`/api/clan/${brute}/leave/${id}`),
   }
 };
 

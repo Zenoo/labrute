@@ -117,12 +117,20 @@ const Clans = {
               body: true,
               colors: true,
             },
+            orderBy: [
+              { ranking: 'asc' },
+              { level: 'desc' },
+            ],
           },
           joinRequests: {
             include: {
               body: true,
               colors: true,
             },
+            orderBy: [
+              { ranking: 'asc' },
+              { level: 'desc' },
+            ],
           },
         },
       });
@@ -424,6 +432,64 @@ const Clans = {
         where: { id },
         data: { brutes: { disconnect: { id: brute.id } } },
       });
+
+      res.status(200).send({ message: 'ok' });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  leave: (prisma: PrismaClient) => async (
+    req: Request<{ id: string; brute: string }>,
+    res: Response,
+  ) => {
+    try {
+      const user = await auth(prisma, req);
+
+      if (!req.params.id || Number.isNaN(+req.params.id)) {
+        throw new ExpectedError(translate('missingClanId', user));
+      }
+
+      const id = +req.params.id;
+
+      const clan = await prisma.clan.findFirst({
+        where: { id },
+        select: {
+          id: true,
+          masterId: true,
+          brutes: { select: { id: true } },
+        },
+      });
+
+      if (!clan) {
+        throw new ExpectedError(translate('clanNotFound', user));
+      }
+
+      const brute = user.brutes.find((b) => b.name === req.params.brute);
+      if (!brute) {
+        throw new ExpectedError(translate('bruteNotFound', user));
+      }
+
+      // Check if brute is in clan
+      if (!clan.brutes.some((b) => b.id === brute.id)) {
+        throw new ExpectedError(translate('bruteNotInClan', user));
+      }
+
+      // Check if brute is the clan master
+      if (clan.masterId === brute.id) {
+        // Check if clan has other members
+        if (clan.brutes.length > 1) {
+          throw new ExpectedError(translate('masterCannotLeave', user));
+        }
+
+        // Delete clan
+        await prisma.clan.delete({ where: { id } });
+      } else {
+        // Update clan
+        await prisma.clan.update({
+          where: { id },
+          data: { brutes: { disconnect: { id: brute.id } } },
+        });
+      }
 
       res.status(200).send({ message: 'ok' });
     } catch (error) {

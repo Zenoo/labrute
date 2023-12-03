@@ -53,5 +53,6 @@
   "clanFull": "Clan is full",
   "noRequestFound": "No request found",
   "alreadyRequested": "You already requested to join this clan",
-  "missingClanId": "Missing clan ID"
+  "missingClanId": "Missing clan ID",
+  "masterCannotLeave": "The master cannot leave a clan that has members"
 }

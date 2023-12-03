@@ -104,6 +104,10 @@
   "removeFromClan": "Remove from clan",
   "confirmRemoveFromClan": "Do you really want to remove this member from the clan ?",
   "bruteRemoved": "The member has been removed from the clan.",
+  "leave": "Leave",
+  "leaveClan": "Leave clan",
+  "confirmLeaveClan": "Do you really want to leave this clan ?",
+  "clanLeft": "You have left the clan.",
 
   "herculeanStrength": "Herculean Strength",
   "herculeanStrength.desc": "You're strong enough to move mountains, but first you must defeat your opponent.",

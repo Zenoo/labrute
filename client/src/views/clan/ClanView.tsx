@@ -21,7 +21,7 @@ const ClanView = () => {
   const { t } = useTranslation();
   const { bruteName, id } = useParams();
   const Alert = useAlert();
-  const { user } = useAuth();
+  const { user, updateData } = useAuth();
   const navigate = useNavigate();
   const Confirm = useConfirm();
 
@@ -138,6 +138,36 @@ const ClanView = () => {
     });
   };
 
+  // Leave clan
+  const leave = (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    if (!clan || !brute) return;
+
+    Confirm.open(t('leaveClan'), t('confirmLeaveClan'), () => {
+      Server.Clan.leave(brute.name, clan.id).then(() => {
+        Alert.open('success', t('clanLeft'));
+
+        // Update clan
+        setClan((prevClan) => (prevClan ? ({
+          ...prevClan,
+          brutes: prevClan.brutes.filter((br) => br.id !== brute?.id),
+        }) : null));
+
+        // Update user data
+        updateData((data) => (data ? ({
+          ...data,
+          brutes: data.brutes.map((b) => (b.name === brute.name ? {
+            ...b, clanId: null,
+          } : b)),
+        }) : null));
+
+        // Redirect to cell
+        navigate(`/${brute.name}/cell`);
+      }).catch(catchError(Alert));
+    });
+  };
+
   return clan && (
     <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/cell`}>
       <Paper sx={{ mx: 4 }}>
@@ -177,6 +207,11 @@ const ClanView = () => {
                 <Text bold smallCaps>{t('cancelJoinRequest')}</Text>
               </Link>
             )}
+          {user && brute?.clanId === clan.id && (
+            <Link href="#" onClick={leave}>
+              <Text bold smallCaps>{t('leave')}</Text>
+            </Link>
+          )}
         </Box>
         <Text bold h4 sx={{ my: 1 }}>{clan.brutes.length}/{clan.limit} {t('brutes')}</Text>
         {/* MEMBERS */}
