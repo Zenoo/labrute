@@ -2665,7 +2665,7 @@ export namespace Prisma {
     tournamentEarnings: number
     reports: number
     titles: number
-    ClanPost: number
+    clanPosts: number
   }
 
   export type BruteCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2681,7 +2681,7 @@ export namespace Prisma {
     tournamentEarnings?: boolean | BruteCountOutputTypeCountTournamentEarningsArgs
     reports?: boolean | BruteCountOutputTypeCountReportsArgs
     titles?: boolean | BruteCountOutputTypeCountTitlesArgs
-    ClanPost?: boolean | BruteCountOutputTypeCountClanPostArgs
+    clanPosts?: boolean | BruteCountOutputTypeCountClanPostsArgs
   }
 
   // Custom InputTypes
@@ -2796,7 +2796,7 @@ export namespace Prisma {
   /**
    * BruteCountOutputType without action
    */
-  export type BruteCountOutputTypeCountClanPostArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type BruteCountOutputTypeCountClanPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ClanPostWhereInput
   }
 
@@ -3017,11 +3017,11 @@ export namespace Prisma {
    */
 
   export type ClanThreadCountOutputType = {
-    messages: number
+    posts: number
   }
 
   export type ClanThreadCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    messages?: boolean | ClanThreadCountOutputTypeCountMessagesArgs
+    posts?: boolean | ClanThreadCountOutputTypeCountPostsArgs
   }
 
   // Custom InputTypes
@@ -3040,7 +3040,7 @@ export namespace Prisma {
   /**
    * ClanThreadCountOutputType without action
    */
-  export type ClanThreadCountOutputTypeCountMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClanThreadCountOutputTypeCountPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ClanPostWhereInput
   }
 
@@ -6417,7 +6417,7 @@ export namespace Prisma {
     currentTournamentStepWatched: number | null
     fightsLeft: number | null
     victories: number | null
-    wantToJoinId: number | null
+    wantToJoinClanId: number | null
   }
 
   export type BruteSumAggregateOutputType = {
@@ -6444,7 +6444,7 @@ export namespace Prisma {
     currentTournamentStepWatched: number | null
     fightsLeft: number | null
     victories: number | null
-    wantToJoinId: number | null
+    wantToJoinClanId: number | null
   }
 
   export type BruteMinAggregateOutputType = {
@@ -6483,7 +6483,7 @@ export namespace Prisma {
     opponentsGeneratedAt: Date | null
     canRankUpSince: Date | null
     favorite: boolean | null
-    wantToJoinId: number | null
+    wantToJoinClanId: number | null
   }
 
   export type BruteMaxAggregateOutputType = {
@@ -6522,7 +6522,7 @@ export namespace Prisma {
     opponentsGeneratedAt: Date | null
     canRankUpSince: Date | null
     favorite: boolean | null
-    wantToJoinId: number | null
+    wantToJoinClanId: number | null
   }
 
   export type BruteCountAggregateOutputType = {
@@ -6565,7 +6565,7 @@ export namespace Prisma {
     opponentsGeneratedAt: number
     canRankUpSince: number
     favorite: number
-    wantToJoinId: number
+    wantToJoinClanId: number
     _all: number
   }
 
@@ -6594,7 +6594,7 @@ export namespace Prisma {
     currentTournamentStepWatched?: true
     fightsLeft?: true
     victories?: true
-    wantToJoinId?: true
+    wantToJoinClanId?: true
   }
 
   export type BruteSumAggregateInputType = {
@@ -6621,7 +6621,7 @@ export namespace Prisma {
     currentTournamentStepWatched?: true
     fightsLeft?: true
     victories?: true
-    wantToJoinId?: true
+    wantToJoinClanId?: true
   }
 
   export type BruteMinAggregateInputType = {
@@ -6660,7 +6660,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: true
     canRankUpSince?: true
     favorite?: true
-    wantToJoinId?: true
+    wantToJoinClanId?: true
   }
 
   export type BruteMaxAggregateInputType = {
@@ -6699,7 +6699,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: true
     canRankUpSince?: true
     favorite?: true
-    wantToJoinId?: true
+    wantToJoinClanId?: true
   }
 
   export type BruteCountAggregateInputType = {
@@ -6742,7 +6742,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: true
     canRankUpSince?: true
     favorite?: true
-    wantToJoinId?: true
+    wantToJoinClanId?: true
     _all?: true
   }
 
@@ -6872,7 +6872,7 @@ export namespace Prisma {
     opponentsGeneratedAt: Date | null
     canRankUpSince: Date | null
     favorite: boolean
-    wantToJoinId: number | null
+    wantToJoinClanId: number | null
     _count: BruteCountAggregateOutputType | null
     _avg: BruteAvgAggregateOutputType | null
     _sum: BruteSumAggregateOutputType | null
@@ -6934,7 +6934,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: boolean
     canRankUpSince?: boolean
     favorite?: boolean
-    wantToJoinId?: boolean
+    wantToJoinClanId?: boolean
     user?: boolean | Brute$userArgs<ExtArgs>
     body?: boolean | Brute$bodyArgs<ExtArgs>
     colors?: boolean | Brute$colorsArgs<ExtArgs>
@@ -6952,9 +6952,9 @@ export namespace Prisma {
     tournamentEarnings?: boolean | Brute$tournamentEarningsArgs<ExtArgs>
     reports?: boolean | Brute$reportsArgs<ExtArgs>
     titles?: boolean | Brute$titlesArgs<ExtArgs>
-    MasterOfClan?: boolean | Brute$MasterOfClanArgs<ExtArgs>
-    ClanPost?: boolean | Brute$ClanPostArgs<ExtArgs>
-    WantToJoin?: boolean | Brute$WantToJoinArgs<ExtArgs>
+    masterOfClan?: boolean | Brute$masterOfClanArgs<ExtArgs>
+    clanPosts?: boolean | Brute$clanPostsArgs<ExtArgs>
+    wantToJoinClan?: boolean | Brute$wantToJoinClanArgs<ExtArgs>
     _count?: boolean | BruteCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["brute"]>
 
@@ -6998,7 +6998,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: boolean
     canRankUpSince?: boolean
     favorite?: boolean
-    wantToJoinId?: boolean
+    wantToJoinClanId?: boolean
   }
 
   export type BruteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7019,9 +7019,9 @@ export namespace Prisma {
     tournamentEarnings?: boolean | Brute$tournamentEarningsArgs<ExtArgs>
     reports?: boolean | Brute$reportsArgs<ExtArgs>
     titles?: boolean | Brute$titlesArgs<ExtArgs>
-    MasterOfClan?: boolean | Brute$MasterOfClanArgs<ExtArgs>
-    ClanPost?: boolean | Brute$ClanPostArgs<ExtArgs>
-    WantToJoin?: boolean | Brute$WantToJoinArgs<ExtArgs>
+    masterOfClan?: boolean | Brute$masterOfClanArgs<ExtArgs>
+    clanPosts?: boolean | Brute$clanPostsArgs<ExtArgs>
+    wantToJoinClan?: boolean | Brute$wantToJoinClanArgs<ExtArgs>
     _count?: boolean | BruteCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -7046,9 +7046,9 @@ export namespace Prisma {
       tournamentEarnings: Prisma.$TournamentEarningPayload<ExtArgs>[]
       reports: Prisma.$BruteReportPayload<ExtArgs>[]
       titles: Prisma.$TitlePayload<ExtArgs>[]
-      MasterOfClan: Prisma.$ClanPayload<ExtArgs> | null
-      ClanPost: Prisma.$ClanPostPayload<ExtArgs>[]
-      WantToJoin: Prisma.$ClanPayload<ExtArgs> | null
+      masterOfClan: Prisma.$ClanPayload<ExtArgs> | null
+      clanPosts: Prisma.$ClanPostPayload<ExtArgs>[]
+      wantToJoinClan: Prisma.$ClanPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -7090,7 +7090,7 @@ export namespace Prisma {
       opponentsGeneratedAt: Date | null
       canRankUpSince: Date | null
       favorite: boolean
-      wantToJoinId: number | null
+      wantToJoinClanId: number | null
     }, ExtArgs["result"]["brute"]>
     composites: {}
   }
@@ -7490,11 +7490,11 @@ export namespace Prisma {
 
     titles<T extends Brute$titlesArgs<ExtArgs> = {}>(args?: Subset<T, Brute$titlesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TitlePayload<ExtArgs>, T, 'findMany'> | Null>;
 
-    MasterOfClan<T extends Brute$MasterOfClanArgs<ExtArgs> = {}>(args?: Subset<T, Brute$MasterOfClanArgs<ExtArgs>>): Prisma__ClanClient<$Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+    masterOfClan<T extends Brute$masterOfClanArgs<ExtArgs> = {}>(args?: Subset<T, Brute$masterOfClanArgs<ExtArgs>>): Prisma__ClanClient<$Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
-    ClanPost<T extends Brute$ClanPostArgs<ExtArgs> = {}>(args?: Subset<T, Brute$ClanPostArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClanPostPayload<ExtArgs>, T, 'findMany'> | Null>;
+    clanPosts<T extends Brute$clanPostsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$clanPostsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClanPostPayload<ExtArgs>, T, 'findMany'> | Null>;
 
-    WantToJoin<T extends Brute$WantToJoinArgs<ExtArgs> = {}>(args?: Subset<T, Brute$WantToJoinArgs<ExtArgs>>): Prisma__ClanClient<$Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+    wantToJoinClan<T extends Brute$wantToJoinClanArgs<ExtArgs> = {}>(args?: Subset<T, Brute$wantToJoinClanArgs<ExtArgs>>): Prisma__ClanClient<$Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -7563,7 +7563,7 @@ export namespace Prisma {
     readonly opponentsGeneratedAt: FieldRef<"Brute", 'DateTime'>
     readonly canRankUpSince: FieldRef<"Brute", 'DateTime'>
     readonly favorite: FieldRef<"Brute", 'Boolean'>
-    readonly wantToJoinId: FieldRef<"Brute", 'Int'>
+    readonly wantToJoinClanId: FieldRef<"Brute", 'Int'>
   }
     
 
@@ -8208,9 +8208,9 @@ export namespace Prisma {
 
 
   /**
-   * Brute.MasterOfClan
+   * Brute.masterOfClan
    */
-  export type Brute$MasterOfClanArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Brute$masterOfClanArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Clan
      */
@@ -8224,9 +8224,9 @@ export namespace Prisma {
 
 
   /**
-   * Brute.ClanPost
+   * Brute.clanPosts
    */
-  export type Brute$ClanPostArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Brute$clanPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the ClanPost
      */
@@ -8245,9 +8245,9 @@ export namespace Prisma {
 
 
   /**
-   * Brute.WantToJoin
+   * Brute.wantToJoinClan
    */
-  export type Brute$WantToJoinArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Brute$wantToJoinClanArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Clan
      */
@@ -20480,11 +20480,13 @@ export namespace Prisma {
   export type ClanThreadAvgAggregateOutputType = {
     id: number | null
     clanId: number | null
+    postCount: number | null
   }
 
   export type ClanThreadSumAggregateOutputType = {
     id: number | null
     clanId: number | null
+    postCount: number | null
   }
 
   export type ClanThreadMinAggregateOutputType = {
@@ -20492,6 +20494,7 @@ export namespace Prisma {
     clanId: number | null
     title: string | null
     locked: boolean | null
+    postCount: number | null
   }
 
   export type ClanThreadMaxAggregateOutputType = {
@@ -20499,6 +20502,7 @@ export namespace Prisma {
     clanId: number | null
     title: string | null
     locked: boolean | null
+    postCount: number | null
   }
 
   export type ClanThreadCountAggregateOutputType = {
@@ -20506,6 +20510,7 @@ export namespace Prisma {
     clanId: number
     title: number
     locked: number
+    postCount: number
     _all: number
   }
 
@@ -20513,11 +20518,13 @@ export namespace Prisma {
   export type ClanThreadAvgAggregateInputType = {
     id?: true
     clanId?: true
+    postCount?: true
   }
 
   export type ClanThreadSumAggregateInputType = {
     id?: true
     clanId?: true
+    postCount?: true
   }
 
   export type ClanThreadMinAggregateInputType = {
@@ -20525,6 +20532,7 @@ export namespace Prisma {
     clanId?: true
     title?: true
     locked?: true
+    postCount?: true
   }
 
   export type ClanThreadMaxAggregateInputType = {
@@ -20532,6 +20540,7 @@ export namespace Prisma {
     clanId?: true
     title?: true
     locked?: true
+    postCount?: true
   }
 
   export type ClanThreadCountAggregateInputType = {
@@ -20539,6 +20548,7 @@ export namespace Prisma {
     clanId?: true
     title?: true
     locked?: true
+    postCount?: true
     _all?: true
   }
 
@@ -20633,6 +20643,7 @@ export namespace Prisma {
     clanId: number
     title: string
     locked: boolean
+    postCount: number
     _count: ClanThreadCountAggregateOutputType | null
     _avg: ClanThreadAvgAggregateOutputType | null
     _sum: ClanThreadSumAggregateOutputType | null
@@ -20659,8 +20670,9 @@ export namespace Prisma {
     clanId?: boolean
     title?: boolean
     locked?: boolean
+    postCount?: boolean
     clan?: boolean | ClanDefaultArgs<ExtArgs>
-    messages?: boolean | ClanThread$messagesArgs<ExtArgs>
+    posts?: boolean | ClanThread$postsArgs<ExtArgs>
     _count?: boolean | ClanThreadCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["clanThread"]>
 
@@ -20669,11 +20681,12 @@ export namespace Prisma {
     clanId?: boolean
     title?: boolean
     locked?: boolean
+    postCount?: boolean
   }
 
   export type ClanThreadInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     clan?: boolean | ClanDefaultArgs<ExtArgs>
-    messages?: boolean | ClanThread$messagesArgs<ExtArgs>
+    posts?: boolean | ClanThread$postsArgs<ExtArgs>
     _count?: boolean | ClanThreadCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -20682,13 +20695,14 @@ export namespace Prisma {
     name: "ClanThread"
     objects: {
       clan: Prisma.$ClanPayload<ExtArgs>
-      messages: Prisma.$ClanPostPayload<ExtArgs>[]
+      posts: Prisma.$ClanPostPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       clanId: number
       title: string
       locked: boolean
+      postCount: number
     }, ExtArgs["result"]["clanThread"]>
     composites: {}
   }
@@ -21056,7 +21070,7 @@ export namespace Prisma {
 
     clan<T extends ClanDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ClanDefaultArgs<ExtArgs>>): Prisma__ClanClient<$Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
-    messages<T extends ClanThread$messagesArgs<ExtArgs> = {}>(args?: Subset<T, ClanThread$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClanPostPayload<ExtArgs>, T, 'findMany'> | Null>;
+    posts<T extends ClanThread$postsArgs<ExtArgs> = {}>(args?: Subset<T, ClanThread$postsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClanPostPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -21090,6 +21104,7 @@ export namespace Prisma {
     readonly clanId: FieldRef<"ClanThread", 'Int'>
     readonly title: FieldRef<"ClanThread", 'String'>
     readonly locked: FieldRef<"ClanThread", 'Boolean'>
+    readonly postCount: FieldRef<"ClanThread", 'Int'>
   }
     
 
@@ -21402,9 +21417,9 @@ export namespace Prisma {
 
 
   /**
-   * ClanThread.messages
+   * ClanThread.posts
    */
-  export type ClanThread$messagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClanThread$postsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the ClanPost
      */
@@ -22518,7 +22533,7 @@ export namespace Prisma {
     opponentsGeneratedAt: 'opponentsGeneratedAt',
     canRankUpSince: 'canRankUpSince',
     favorite: 'favorite',
-    wantToJoinId: 'wantToJoinId'
+    wantToJoinClanId: 'wantToJoinClanId'
   };
 
   export type BruteScalarFieldEnum = (typeof BruteScalarFieldEnum)[keyof typeof BruteScalarFieldEnum]
@@ -22697,7 +22712,8 @@ export namespace Prisma {
     id: 'id',
     clanId: 'clanId',
     title: 'title',
-    locked: 'locked'
+    locked: 'locked',
+    postCount: 'postCount'
   };
 
   export type ClanThreadScalarFieldEnum = (typeof ClanThreadScalarFieldEnum)[keyof typeof ClanThreadScalarFieldEnum]
@@ -23396,7 +23412,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: DateTimeNullableFilter<"Brute"> | Date | string | null
     canRankUpSince?: DateTimeNullableFilter<"Brute"> | Date | string | null
     favorite?: BoolFilter<"Brute"> | boolean
-    wantToJoinId?: IntNullableFilter<"Brute"> | number | null
+    wantToJoinClanId?: IntNullableFilter<"Brute"> | number | null
     user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
     body?: XOR<BruteBodyNullableRelationFilter, BruteBodyWhereInput> | null
     colors?: XOR<BruteColorsNullableRelationFilter, BruteColorsWhereInput> | null
@@ -23414,9 +23430,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningListRelationFilter
     reports?: BruteReportListRelationFilter
     titles?: TitleListRelationFilter
-    MasterOfClan?: XOR<ClanNullableRelationFilter, ClanWhereInput> | null
-    ClanPost?: ClanPostListRelationFilter
-    WantToJoin?: XOR<ClanNullableRelationFilter, ClanWhereInput> | null
+    masterOfClan?: XOR<ClanNullableRelationFilter, ClanWhereInput> | null
+    clanPosts?: ClanPostListRelationFilter
+    wantToJoinClan?: XOR<ClanNullableRelationFilter, ClanWhereInput> | null
   }
 
   export type BruteOrderByWithRelationInput = {
@@ -23459,7 +23475,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: SortOrderInput | SortOrder
     canRankUpSince?: SortOrderInput | SortOrder
     favorite?: SortOrder
-    wantToJoinId?: SortOrderInput | SortOrder
+    wantToJoinClanId?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
     body?: BruteBodyOrderByWithRelationInput
     colors?: BruteColorsOrderByWithRelationInput
@@ -23477,9 +23493,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningOrderByRelationAggregateInput
     reports?: BruteReportOrderByRelationAggregateInput
     titles?: TitleOrderByRelationAggregateInput
-    MasterOfClan?: ClanOrderByWithRelationInput
-    ClanPost?: ClanPostOrderByRelationAggregateInput
-    WantToJoin?: ClanOrderByWithRelationInput
+    masterOfClan?: ClanOrderByWithRelationInput
+    clanPosts?: ClanPostOrderByRelationAggregateInput
+    wantToJoinClan?: ClanOrderByWithRelationInput
   }
 
   export type BruteWhereUniqueInput = Prisma.AtLeast<{
@@ -23525,7 +23541,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: DateTimeNullableFilter<"Brute"> | Date | string | null
     canRankUpSince?: DateTimeNullableFilter<"Brute"> | Date | string | null
     favorite?: BoolFilter<"Brute"> | boolean
-    wantToJoinId?: IntNullableFilter<"Brute"> | number | null
+    wantToJoinClanId?: IntNullableFilter<"Brute"> | number | null
     user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
     body?: XOR<BruteBodyNullableRelationFilter, BruteBodyWhereInput> | null
     colors?: XOR<BruteColorsNullableRelationFilter, BruteColorsWhereInput> | null
@@ -23543,9 +23559,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningListRelationFilter
     reports?: BruteReportListRelationFilter
     titles?: TitleListRelationFilter
-    MasterOfClan?: XOR<ClanNullableRelationFilter, ClanWhereInput> | null
-    ClanPost?: ClanPostListRelationFilter
-    WantToJoin?: XOR<ClanNullableRelationFilter, ClanWhereInput> | null
+    masterOfClan?: XOR<ClanNullableRelationFilter, ClanWhereInput> | null
+    clanPosts?: ClanPostListRelationFilter
+    wantToJoinClan?: XOR<ClanNullableRelationFilter, ClanWhereInput> | null
   }, "id">
 
   export type BruteOrderByWithAggregationInput = {
@@ -23588,7 +23604,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: SortOrderInput | SortOrder
     canRankUpSince?: SortOrderInput | SortOrder
     favorite?: SortOrder
-    wantToJoinId?: SortOrderInput | SortOrder
+    wantToJoinClanId?: SortOrderInput | SortOrder
     _count?: BruteCountOrderByAggregateInput
     _avg?: BruteAvgOrderByAggregateInput
     _max?: BruteMaxOrderByAggregateInput
@@ -23639,7 +23655,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
     canRankUpSince?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
     favorite?: BoolWithAggregatesFilter<"Brute"> | boolean
-    wantToJoinId?: IntNullableWithAggregatesFilter<"Brute"> | number | null
+    wantToJoinClanId?: IntNullableWithAggregatesFilter<"Brute"> | number | null
   }
 
   export type BruteSpritesheetWhereInput = {
@@ -24547,8 +24563,9 @@ export namespace Prisma {
     clanId?: IntFilter<"ClanThread"> | number
     title?: StringFilter<"ClanThread"> | string
     locked?: BoolFilter<"ClanThread"> | boolean
+    postCount?: IntFilter<"ClanThread"> | number
     clan?: XOR<ClanRelationFilter, ClanWhereInput>
-    messages?: ClanPostListRelationFilter
+    posts?: ClanPostListRelationFilter
   }
 
   export type ClanThreadOrderByWithRelationInput = {
@@ -24556,8 +24573,9 @@ export namespace Prisma {
     clanId?: SortOrder
     title?: SortOrder
     locked?: SortOrder
+    postCount?: SortOrder
     clan?: ClanOrderByWithRelationInput
-    messages?: ClanPostOrderByRelationAggregateInput
+    posts?: ClanPostOrderByRelationAggregateInput
   }
 
   export type ClanThreadWhereUniqueInput = Prisma.AtLeast<{
@@ -24568,8 +24586,9 @@ export namespace Prisma {
     clanId?: IntFilter<"ClanThread"> | number
     title?: StringFilter<"ClanThread"> | string
     locked?: BoolFilter<"ClanThread"> | boolean
+    postCount?: IntFilter<"ClanThread"> | number
     clan?: XOR<ClanRelationFilter, ClanWhereInput>
-    messages?: ClanPostListRelationFilter
+    posts?: ClanPostListRelationFilter
   }, "id">
 
   export type ClanThreadOrderByWithAggregationInput = {
@@ -24577,6 +24596,7 @@ export namespace Prisma {
     clanId?: SortOrder
     title?: SortOrder
     locked?: SortOrder
+    postCount?: SortOrder
     _count?: ClanThreadCountOrderByAggregateInput
     _avg?: ClanThreadAvgOrderByAggregateInput
     _max?: ClanThreadMaxOrderByAggregateInput
@@ -24592,6 +24612,7 @@ export namespace Prisma {
     clanId?: IntWithAggregatesFilter<"ClanThread"> | number
     title?: StringWithAggregatesFilter<"ClanThread"> | string
     locked?: BoolWithAggregatesFilter<"ClanThread"> | boolean
+    postCount?: IntWithAggregatesFilter<"ClanThread"> | number
   }
 
   export type ClanPostWhereInput = {
@@ -25075,9 +25096,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
     titles?: TitleCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostCreateNestedManyWithoutAuthorInput
-    WantToJoin?: ClanCreateNestedOneWithoutJoinRequestsInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
   }
 
   export type BruteUncheckedCreateInput = {
@@ -25120,7 +25141,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinId?: number | null
+    wantToJoinClanId?: number | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
@@ -25135,8 +25156,8 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
     titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type BruteUpdateInput = {
@@ -25192,9 +25213,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
     titles?: TitleUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUpdateManyWithoutAuthorNestedInput
-    WantToJoin?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
   }
 
   export type BruteUncheckedUpdateInput = {
@@ -25237,7 +25258,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
@@ -25252,8 +25273,8 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
     titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type BruteCreateManyInput = {
@@ -25296,7 +25317,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinId?: number | null
+    wantToJoinClanId?: number | null
   }
 
   export type BruteUpdateManyMutationInput = {
@@ -25377,7 +25398,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type BruteSpritesheetCreateInput = {
@@ -26241,7 +26262,7 @@ export namespace Prisma {
     points?: number
     master: BruteCreateNestedOneWithoutMasterOfClanInput
     brutes?: BruteCreateNestedManyWithoutClanInput
-    joinRequests?: BruteCreateNestedManyWithoutWantToJoinInput
+    joinRequests?: BruteCreateNestedManyWithoutWantToJoinClanInput
     threads?: ClanThreadCreateNestedManyWithoutClanInput
   }
 
@@ -26252,7 +26273,7 @@ export namespace Prisma {
     points?: number
     masterId: number
     brutes?: BruteUncheckedCreateNestedManyWithoutClanInput
-    joinRequests?: BruteUncheckedCreateNestedManyWithoutWantToJoinInput
+    joinRequests?: BruteUncheckedCreateNestedManyWithoutWantToJoinClanInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutClanInput
   }
 
@@ -26262,7 +26283,7 @@ export namespace Prisma {
     points?: IntFieldUpdateOperationsInput | number
     master?: BruteUpdateOneRequiredWithoutMasterOfClanNestedInput
     brutes?: BruteUpdateManyWithoutClanNestedInput
-    joinRequests?: BruteUpdateManyWithoutWantToJoinNestedInput
+    joinRequests?: BruteUpdateManyWithoutWantToJoinClanNestedInput
     threads?: ClanThreadUpdateManyWithoutClanNestedInput
   }
 
@@ -26273,7 +26294,7 @@ export namespace Prisma {
     points?: IntFieldUpdateOperationsInput | number
     masterId?: IntFieldUpdateOperationsInput | number
     brutes?: BruteUncheckedUpdateManyWithoutClanNestedInput
-    joinRequests?: BruteUncheckedUpdateManyWithoutWantToJoinNestedInput
+    joinRequests?: BruteUncheckedUpdateManyWithoutWantToJoinClanNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutClanNestedInput
   }
 
@@ -26302,8 +26323,9 @@ export namespace Prisma {
   export type ClanThreadCreateInput = {
     title: string
     locked?: boolean
+    postCount?: number
     clan: ClanCreateNestedOneWithoutThreadsInput
-    messages?: ClanPostCreateNestedManyWithoutThreadInput
+    posts?: ClanPostCreateNestedManyWithoutThreadInput
   }
 
   export type ClanThreadUncheckedCreateInput = {
@@ -26311,14 +26333,16 @@ export namespace Prisma {
     clanId: number
     title: string
     locked?: boolean
-    messages?: ClanPostUncheckedCreateNestedManyWithoutThreadInput
+    postCount?: number
+    posts?: ClanPostUncheckedCreateNestedManyWithoutThreadInput
   }
 
   export type ClanThreadUpdateInput = {
     title?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
+    postCount?: IntFieldUpdateOperationsInput | number
     clan?: ClanUpdateOneRequiredWithoutThreadsNestedInput
-    messages?: ClanPostUpdateManyWithoutThreadNestedInput
+    posts?: ClanPostUpdateManyWithoutThreadNestedInput
   }
 
   export type ClanThreadUncheckedUpdateInput = {
@@ -26326,7 +26350,8 @@ export namespace Prisma {
     clanId?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
-    messages?: ClanPostUncheckedUpdateManyWithoutThreadNestedInput
+    postCount?: IntFieldUpdateOperationsInput | number
+    posts?: ClanPostUncheckedUpdateManyWithoutThreadNestedInput
   }
 
   export type ClanThreadCreateManyInput = {
@@ -26334,11 +26359,13 @@ export namespace Prisma {
     clanId: number
     title: string
     locked?: boolean
+    postCount?: number
   }
 
   export type ClanThreadUpdateManyMutationInput = {
     title?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
+    postCount?: IntFieldUpdateOperationsInput | number
   }
 
   export type ClanThreadUncheckedUpdateManyInput = {
@@ -26346,13 +26373,14 @@ export namespace Prisma {
     clanId?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
+    postCount?: IntFieldUpdateOperationsInput | number
   }
 
   export type ClanPostCreateInput = {
     date?: Date | string
     message: string
-    thread: ClanThreadCreateNestedOneWithoutMessagesInput
-    author: BruteCreateNestedOneWithoutClanPostInput
+    thread: ClanThreadCreateNestedOneWithoutPostsInput
+    author: BruteCreateNestedOneWithoutClanPostsInput
   }
 
   export type ClanPostUncheckedCreateInput = {
@@ -26366,8 +26394,8 @@ export namespace Prisma {
   export type ClanPostUpdateInput = {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     message?: StringFieldUpdateOperationsInput | string
-    thread?: ClanThreadUpdateOneRequiredWithoutMessagesNestedInput
-    author?: BruteUpdateOneRequiredWithoutClanPostNestedInput
+    thread?: ClanThreadUpdateOneRequiredWithoutPostsNestedInput
+    author?: BruteUpdateOneRequiredWithoutClanPostsNestedInput
   }
 
   export type ClanPostUncheckedUpdateInput = {
@@ -27012,7 +27040,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: SortOrder
     canRankUpSince?: SortOrder
     favorite?: SortOrder
-    wantToJoinId?: SortOrder
+    wantToJoinClanId?: SortOrder
   }
 
   export type BruteAvgOrderByAggregateInput = {
@@ -27039,7 +27067,7 @@ export namespace Prisma {
     currentTournamentStepWatched?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
-    wantToJoinId?: SortOrder
+    wantToJoinClanId?: SortOrder
   }
 
   export type BruteMaxOrderByAggregateInput = {
@@ -27078,7 +27106,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: SortOrder
     canRankUpSince?: SortOrder
     favorite?: SortOrder
-    wantToJoinId?: SortOrder
+    wantToJoinClanId?: SortOrder
   }
 
   export type BruteMinOrderByAggregateInput = {
@@ -27117,7 +27145,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: SortOrder
     canRankUpSince?: SortOrder
     favorite?: SortOrder
-    wantToJoinId?: SortOrder
+    wantToJoinClanId?: SortOrder
   }
 
   export type BruteSumOrderByAggregateInput = {
@@ -27144,7 +27172,7 @@ export namespace Prisma {
     currentTournamentStepWatched?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
-    wantToJoinId?: SortOrder
+    wantToJoinClanId?: SortOrder
   }
 
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -28230,11 +28258,13 @@ export namespace Prisma {
     clanId?: SortOrder
     title?: SortOrder
     locked?: SortOrder
+    postCount?: SortOrder
   }
 
   export type ClanThreadAvgOrderByAggregateInput = {
     id?: SortOrder
     clanId?: SortOrder
+    postCount?: SortOrder
   }
 
   export type ClanThreadMaxOrderByAggregateInput = {
@@ -28242,6 +28272,7 @@ export namespace Prisma {
     clanId?: SortOrder
     title?: SortOrder
     locked?: SortOrder
+    postCount?: SortOrder
   }
 
   export type ClanThreadMinOrderByAggregateInput = {
@@ -28249,11 +28280,13 @@ export namespace Prisma {
     clanId?: SortOrder
     title?: SortOrder
     locked?: SortOrder
+    postCount?: SortOrder
   }
 
   export type ClanThreadSumOrderByAggregateInput = {
     id?: SortOrder
     clanId?: SortOrder
+    postCount?: SortOrder
   }
 
   export type ClanThreadRelationFilter = {
@@ -29704,10 +29737,10 @@ export namespace Prisma {
     connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
   }
 
-  export type BruteCreateNestedManyWithoutWantToJoinInput = {
-    create?: XOR<BruteCreateWithoutWantToJoinInput, BruteUncheckedCreateWithoutWantToJoinInput> | BruteCreateWithoutWantToJoinInput[] | BruteUncheckedCreateWithoutWantToJoinInput[]
-    connectOrCreate?: BruteCreateOrConnectWithoutWantToJoinInput | BruteCreateOrConnectWithoutWantToJoinInput[]
-    createMany?: BruteCreateManyWantToJoinInputEnvelope
+  export type BruteCreateNestedManyWithoutWantToJoinClanInput = {
+    create?: XOR<BruteCreateWithoutWantToJoinClanInput, BruteUncheckedCreateWithoutWantToJoinClanInput> | BruteCreateWithoutWantToJoinClanInput[] | BruteUncheckedCreateWithoutWantToJoinClanInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutWantToJoinClanInput | BruteCreateOrConnectWithoutWantToJoinClanInput[]
+    createMany?: BruteCreateManyWantToJoinClanInputEnvelope
     connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
   }
 
@@ -29725,10 +29758,10 @@ export namespace Prisma {
     connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
   }
 
-  export type BruteUncheckedCreateNestedManyWithoutWantToJoinInput = {
-    create?: XOR<BruteCreateWithoutWantToJoinInput, BruteUncheckedCreateWithoutWantToJoinInput> | BruteCreateWithoutWantToJoinInput[] | BruteUncheckedCreateWithoutWantToJoinInput[]
-    connectOrCreate?: BruteCreateOrConnectWithoutWantToJoinInput | BruteCreateOrConnectWithoutWantToJoinInput[]
-    createMany?: BruteCreateManyWantToJoinInputEnvelope
+  export type BruteUncheckedCreateNestedManyWithoutWantToJoinClanInput = {
+    create?: XOR<BruteCreateWithoutWantToJoinClanInput, BruteUncheckedCreateWithoutWantToJoinClanInput> | BruteCreateWithoutWantToJoinClanInput[] | BruteUncheckedCreateWithoutWantToJoinClanInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutWantToJoinClanInput | BruteCreateOrConnectWithoutWantToJoinClanInput[]
+    createMany?: BruteCreateManyWantToJoinClanInputEnvelope
     connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
   }
 
@@ -29761,17 +29794,17 @@ export namespace Prisma {
     deleteMany?: BruteScalarWhereInput | BruteScalarWhereInput[]
   }
 
-  export type BruteUpdateManyWithoutWantToJoinNestedInput = {
-    create?: XOR<BruteCreateWithoutWantToJoinInput, BruteUncheckedCreateWithoutWantToJoinInput> | BruteCreateWithoutWantToJoinInput[] | BruteUncheckedCreateWithoutWantToJoinInput[]
-    connectOrCreate?: BruteCreateOrConnectWithoutWantToJoinInput | BruteCreateOrConnectWithoutWantToJoinInput[]
-    upsert?: BruteUpsertWithWhereUniqueWithoutWantToJoinInput | BruteUpsertWithWhereUniqueWithoutWantToJoinInput[]
-    createMany?: BruteCreateManyWantToJoinInputEnvelope
+  export type BruteUpdateManyWithoutWantToJoinClanNestedInput = {
+    create?: XOR<BruteCreateWithoutWantToJoinClanInput, BruteUncheckedCreateWithoutWantToJoinClanInput> | BruteCreateWithoutWantToJoinClanInput[] | BruteUncheckedCreateWithoutWantToJoinClanInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutWantToJoinClanInput | BruteCreateOrConnectWithoutWantToJoinClanInput[]
+    upsert?: BruteUpsertWithWhereUniqueWithoutWantToJoinClanInput | BruteUpsertWithWhereUniqueWithoutWantToJoinClanInput[]
+    createMany?: BruteCreateManyWantToJoinClanInputEnvelope
     set?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
     disconnect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
     delete?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
     connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
-    update?: BruteUpdateWithWhereUniqueWithoutWantToJoinInput | BruteUpdateWithWhereUniqueWithoutWantToJoinInput[]
-    updateMany?: BruteUpdateManyWithWhereWithoutWantToJoinInput | BruteUpdateManyWithWhereWithoutWantToJoinInput[]
+    update?: BruteUpdateWithWhereUniqueWithoutWantToJoinClanInput | BruteUpdateWithWhereUniqueWithoutWantToJoinClanInput[]
+    updateMany?: BruteUpdateManyWithWhereWithoutWantToJoinClanInput | BruteUpdateManyWithWhereWithoutWantToJoinClanInput[]
     deleteMany?: BruteScalarWhereInput | BruteScalarWhereInput[]
   }
 
@@ -29803,17 +29836,17 @@ export namespace Prisma {
     deleteMany?: BruteScalarWhereInput | BruteScalarWhereInput[]
   }
 
-  export type BruteUncheckedUpdateManyWithoutWantToJoinNestedInput = {
-    create?: XOR<BruteCreateWithoutWantToJoinInput, BruteUncheckedCreateWithoutWantToJoinInput> | BruteCreateWithoutWantToJoinInput[] | BruteUncheckedCreateWithoutWantToJoinInput[]
-    connectOrCreate?: BruteCreateOrConnectWithoutWantToJoinInput | BruteCreateOrConnectWithoutWantToJoinInput[]
-    upsert?: BruteUpsertWithWhereUniqueWithoutWantToJoinInput | BruteUpsertWithWhereUniqueWithoutWantToJoinInput[]
-    createMany?: BruteCreateManyWantToJoinInputEnvelope
+  export type BruteUncheckedUpdateManyWithoutWantToJoinClanNestedInput = {
+    create?: XOR<BruteCreateWithoutWantToJoinClanInput, BruteUncheckedCreateWithoutWantToJoinClanInput> | BruteCreateWithoutWantToJoinClanInput[] | BruteUncheckedCreateWithoutWantToJoinClanInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutWantToJoinClanInput | BruteCreateOrConnectWithoutWantToJoinClanInput[]
+    upsert?: BruteUpsertWithWhereUniqueWithoutWantToJoinClanInput | BruteUpsertWithWhereUniqueWithoutWantToJoinClanInput[]
+    createMany?: BruteCreateManyWantToJoinClanInputEnvelope
     set?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
     disconnect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
     delete?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
     connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
-    update?: BruteUpdateWithWhereUniqueWithoutWantToJoinInput | BruteUpdateWithWhereUniqueWithoutWantToJoinInput[]
-    updateMany?: BruteUpdateManyWithWhereWithoutWantToJoinInput | BruteUpdateManyWithWhereWithoutWantToJoinInput[]
+    update?: BruteUpdateWithWhereUniqueWithoutWantToJoinClanInput | BruteUpdateWithWhereUniqueWithoutWantToJoinClanInput[]
+    updateMany?: BruteUpdateManyWithWhereWithoutWantToJoinClanInput | BruteUpdateManyWithWhereWithoutWantToJoinClanInput[]
     deleteMany?: BruteScalarWhereInput | BruteScalarWhereInput[]
   }
 
@@ -29887,32 +29920,32 @@ export namespace Prisma {
     deleteMany?: ClanPostScalarWhereInput | ClanPostScalarWhereInput[]
   }
 
-  export type ClanThreadCreateNestedOneWithoutMessagesInput = {
-    create?: XOR<ClanThreadCreateWithoutMessagesInput, ClanThreadUncheckedCreateWithoutMessagesInput>
-    connectOrCreate?: ClanThreadCreateOrConnectWithoutMessagesInput
+  export type ClanThreadCreateNestedOneWithoutPostsInput = {
+    create?: XOR<ClanThreadCreateWithoutPostsInput, ClanThreadUncheckedCreateWithoutPostsInput>
+    connectOrCreate?: ClanThreadCreateOrConnectWithoutPostsInput
     connect?: ClanThreadWhereUniqueInput
   }
 
-  export type BruteCreateNestedOneWithoutClanPostInput = {
-    create?: XOR<BruteCreateWithoutClanPostInput, BruteUncheckedCreateWithoutClanPostInput>
-    connectOrCreate?: BruteCreateOrConnectWithoutClanPostInput
+  export type BruteCreateNestedOneWithoutClanPostsInput = {
+    create?: XOR<BruteCreateWithoutClanPostsInput, BruteUncheckedCreateWithoutClanPostsInput>
+    connectOrCreate?: BruteCreateOrConnectWithoutClanPostsInput
     connect?: BruteWhereUniqueInput
   }
 
-  export type ClanThreadUpdateOneRequiredWithoutMessagesNestedInput = {
-    create?: XOR<ClanThreadCreateWithoutMessagesInput, ClanThreadUncheckedCreateWithoutMessagesInput>
-    connectOrCreate?: ClanThreadCreateOrConnectWithoutMessagesInput
-    upsert?: ClanThreadUpsertWithoutMessagesInput
+  export type ClanThreadUpdateOneRequiredWithoutPostsNestedInput = {
+    create?: XOR<ClanThreadCreateWithoutPostsInput, ClanThreadUncheckedCreateWithoutPostsInput>
+    connectOrCreate?: ClanThreadCreateOrConnectWithoutPostsInput
+    upsert?: ClanThreadUpsertWithoutPostsInput
     connect?: ClanThreadWhereUniqueInput
-    update?: XOR<XOR<ClanThreadUpdateToOneWithWhereWithoutMessagesInput, ClanThreadUpdateWithoutMessagesInput>, ClanThreadUncheckedUpdateWithoutMessagesInput>
+    update?: XOR<XOR<ClanThreadUpdateToOneWithWhereWithoutPostsInput, ClanThreadUpdateWithoutPostsInput>, ClanThreadUncheckedUpdateWithoutPostsInput>
   }
 
-  export type BruteUpdateOneRequiredWithoutClanPostNestedInput = {
-    create?: XOR<BruteCreateWithoutClanPostInput, BruteUncheckedCreateWithoutClanPostInput>
-    connectOrCreate?: BruteCreateOrConnectWithoutClanPostInput
-    upsert?: BruteUpsertWithoutClanPostInput
+  export type BruteUpdateOneRequiredWithoutClanPostsNestedInput = {
+    create?: XOR<BruteCreateWithoutClanPostsInput, BruteUncheckedCreateWithoutClanPostsInput>
+    connectOrCreate?: BruteCreateOrConnectWithoutClanPostsInput
+    upsert?: BruteUpsertWithoutClanPostsInput
     connect?: BruteWhereUniqueInput
-    update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutClanPostInput, BruteUpdateWithoutClanPostInput>, BruteUncheckedUpdateWithoutClanPostInput>
+    update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutClanPostsInput, BruteUpdateWithoutClanPostsInput>, BruteUncheckedUpdateWithoutClanPostsInput>
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -30516,9 +30549,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
     titles?: TitleCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostCreateNestedManyWithoutAuthorInput
-    WantToJoin?: ClanCreateNestedOneWithoutJoinRequestsInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
   }
 
   export type BruteUncheckedCreateWithoutUserInput = {
@@ -30560,7 +30593,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinId?: number | null
+    wantToJoinClanId?: number | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
@@ -30575,8 +30608,8 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
     titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type BruteCreateOrConnectWithoutUserInput = {
@@ -30693,7 +30726,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: DateTimeNullableFilter<"Brute"> | Date | string | null
     canRankUpSince?: DateTimeNullableFilter<"Brute"> | Date | string | null
     favorite?: BoolFilter<"Brute"> | boolean
-    wantToJoinId?: IntNullableFilter<"Brute"> | number | null
+    wantToJoinClanId?: IntNullableFilter<"Brute"> | number | null
   }
 
   export type AchievementUpsertWithWhereUniqueWithoutUserInput = {
@@ -30803,9 +30836,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
     titles?: TitleCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostCreateNestedManyWithoutAuthorInput
-    WantToJoin?: ClanCreateNestedOneWithoutJoinRequestsInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
   }
 
   export type BruteUncheckedCreateWithoutBodyInput = {
@@ -30848,7 +30881,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinId?: number | null
+    wantToJoinClanId?: number | null
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
@@ -30862,8 +30895,8 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
     titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type BruteCreateOrConnectWithoutBodyInput = {
@@ -30934,9 +30967,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
     titles?: TitleUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUpdateManyWithoutAuthorNestedInput
-    WantToJoin?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutBodyInput = {
@@ -30979,7 +31012,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
@@ -30993,8 +31026,8 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
     titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type BruteCreateWithoutColorsInput = {
@@ -31049,9 +31082,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
     titles?: TitleCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostCreateNestedManyWithoutAuthorInput
-    WantToJoin?: ClanCreateNestedOneWithoutJoinRequestsInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
   }
 
   export type BruteUncheckedCreateWithoutColorsInput = {
@@ -31094,7 +31127,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinId?: number | null
+    wantToJoinClanId?: number | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
@@ -31108,8 +31141,8 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
     titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type BruteCreateOrConnectWithoutColorsInput = {
@@ -31180,9 +31213,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
     titles?: TitleUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUpdateManyWithoutAuthorNestedInput
-    WantToJoin?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutColorsInput = {
@@ -31225,7 +31258,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
@@ -31239,8 +31272,8 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
     titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type UserCreateWithoutBrutesInput = {
@@ -31412,9 +31445,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
     titles?: TitleCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostCreateNestedManyWithoutAuthorInput
-    WantToJoin?: ClanCreateNestedOneWithoutJoinRequestsInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
   }
 
   export type BruteUncheckedCreateWithoutPupilsInput = {
@@ -31457,7 +31490,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinId?: number | null
+    wantToJoinClanId?: number | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
@@ -31471,8 +31504,8 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
     titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type BruteCreateOrConnectWithoutPupilsInput = {
@@ -31532,9 +31565,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
     titles?: TitleCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostCreateNestedManyWithoutAuthorInput
-    WantToJoin?: ClanCreateNestedOneWithoutJoinRequestsInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
   }
 
   export type BruteUncheckedCreateWithoutMasterInput = {
@@ -31576,7 +31609,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinId?: number | null
+    wantToJoinClanId?: number | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
@@ -31591,8 +31624,8 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
     titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type BruteCreateOrConnectWithoutMasterInput = {
@@ -31610,7 +31643,7 @@ export namespace Prisma {
     limit?: number
     points?: number
     master: BruteCreateNestedOneWithoutMasterOfClanInput
-    joinRequests?: BruteCreateNestedManyWithoutWantToJoinInput
+    joinRequests?: BruteCreateNestedManyWithoutWantToJoinClanInput
     threads?: ClanThreadCreateNestedManyWithoutClanInput
   }
 
@@ -31620,7 +31653,7 @@ export namespace Prisma {
     limit?: number
     points?: number
     masterId: number
-    joinRequests?: BruteUncheckedCreateNestedManyWithoutWantToJoinInput
+    joinRequests?: BruteUncheckedCreateNestedManyWithoutWantToJoinClanInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutClanInput
   }
 
@@ -31831,9 +31864,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
     titles?: TitleCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostCreateNestedManyWithoutAuthorInput
-    WantToJoin?: ClanCreateNestedOneWithoutJoinRequestsInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
   }
 
   export type BruteUncheckedCreateWithoutOpponentOfInput = {
@@ -31876,7 +31909,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinId?: number | null
+    wantToJoinClanId?: number | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
@@ -31890,8 +31923,8 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
     titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type BruteCreateOrConnectWithoutOpponentOfInput = {
@@ -31951,9 +31984,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
     titles?: TitleCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostCreateNestedManyWithoutAuthorInput
-    WantToJoin?: ClanCreateNestedOneWithoutJoinRequestsInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
   }
 
   export type BruteUncheckedCreateWithoutOpponentsInput = {
@@ -31996,7 +32029,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinId?: number | null
+    wantToJoinClanId?: number | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
@@ -32010,8 +32043,8 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
     titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type BruteCreateOrConnectWithoutOpponentsInput = {
@@ -32115,7 +32148,7 @@ export namespace Prisma {
     limit?: number
     points?: number
     brutes?: BruteCreateNestedManyWithoutClanInput
-    joinRequests?: BruteCreateNestedManyWithoutWantToJoinInput
+    joinRequests?: BruteCreateNestedManyWithoutWantToJoinClanInput
     threads?: ClanThreadCreateNestedManyWithoutClanInput
   }
 
@@ -32125,7 +32158,7 @@ export namespace Prisma {
     limit?: number
     points?: number
     brutes?: BruteUncheckedCreateNestedManyWithoutClanInput
-    joinRequests?: BruteUncheckedCreateNestedManyWithoutWantToJoinInput
+    joinRequests?: BruteUncheckedCreateNestedManyWithoutWantToJoinClanInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutClanInput
   }
 
@@ -32137,7 +32170,7 @@ export namespace Prisma {
   export type ClanPostCreateWithoutAuthorInput = {
     date?: Date | string
     message: string
-    thread: ClanThreadCreateNestedOneWithoutMessagesInput
+    thread: ClanThreadCreateNestedOneWithoutPostsInput
   }
 
   export type ClanPostUncheckedCreateWithoutAuthorInput = {
@@ -32379,9 +32412,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
     titles?: TitleUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUpdateManyWithoutAuthorNestedInput
-    WantToJoin?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutPupilsInput = {
@@ -32424,7 +32457,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
@@ -32438,8 +32471,8 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
     titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type BruteUpsertWithWhereUniqueWithoutMasterInput = {
@@ -32474,7 +32507,7 @@ export namespace Prisma {
     limit?: IntFieldUpdateOperationsInput | number
     points?: IntFieldUpdateOperationsInput | number
     master?: BruteUpdateOneRequiredWithoutMasterOfClanNestedInput
-    joinRequests?: BruteUpdateManyWithoutWantToJoinNestedInput
+    joinRequests?: BruteUpdateManyWithoutWantToJoinClanNestedInput
     threads?: ClanThreadUpdateManyWithoutClanNestedInput
   }
 
@@ -32484,7 +32517,7 @@ export namespace Prisma {
     limit?: IntFieldUpdateOperationsInput | number
     points?: IntFieldUpdateOperationsInput | number
     masterId?: IntFieldUpdateOperationsInput | number
-    joinRequests?: BruteUncheckedUpdateManyWithoutWantToJoinNestedInput
+    joinRequests?: BruteUncheckedUpdateManyWithoutWantToJoinClanNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutClanNestedInput
   }
 
@@ -32756,7 +32789,7 @@ export namespace Prisma {
     limit?: IntFieldUpdateOperationsInput | number
     points?: IntFieldUpdateOperationsInput | number
     brutes?: BruteUpdateManyWithoutClanNestedInput
-    joinRequests?: BruteUpdateManyWithoutWantToJoinNestedInput
+    joinRequests?: BruteUpdateManyWithoutWantToJoinClanNestedInput
     threads?: ClanThreadUpdateManyWithoutClanNestedInput
   }
 
@@ -32766,7 +32799,7 @@ export namespace Prisma {
     limit?: IntFieldUpdateOperationsInput | number
     points?: IntFieldUpdateOperationsInput | number
     brutes?: BruteUncheckedUpdateManyWithoutClanNestedInput
-    joinRequests?: BruteUncheckedUpdateManyWithoutWantToJoinNestedInput
+    joinRequests?: BruteUncheckedUpdateManyWithoutWantToJoinClanNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutClanNestedInput
   }
 
@@ -32879,9 +32912,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
     titles?: TitleCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostCreateNestedManyWithoutAuthorInput
-    WantToJoin?: ClanCreateNestedOneWithoutJoinRequestsInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
   }
 
   export type BruteUncheckedCreateWithoutFightsInput = {
@@ -32924,7 +32957,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinId?: number | null
+    wantToJoinClanId?: number | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
@@ -32938,8 +32971,8 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
     titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type BruteCreateOrConnectWithoutFightsInput = {
@@ -32999,9 +33032,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
     titles?: TitleCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostCreateNestedManyWithoutAuthorInput
-    WantToJoin?: ClanCreateNestedOneWithoutJoinRequestsInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
   }
 
   export type BruteUncheckedCreateWithoutFightsAsAdversaryInput = {
@@ -33044,7 +33077,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinId?: number | null
+    wantToJoinClanId?: number | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
@@ -33058,8 +33091,8 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
     titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type BruteCreateOrConnectWithoutFightsAsAdversaryInput = {
@@ -33182,9 +33215,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
     titles?: TitleUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUpdateManyWithoutAuthorNestedInput
-    WantToJoin?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutFightsInput = {
@@ -33227,7 +33260,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
@@ -33241,8 +33274,8 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
     titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type BruteUpsertWithoutFightsAsAdversaryInput = {
@@ -33308,9 +33341,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
     titles?: TitleUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUpdateManyWithoutAuthorNestedInput
-    WantToJoin?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutFightsAsAdversaryInput = {
@@ -33353,7 +33386,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
@@ -33367,8 +33400,8 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
     titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type LogUpsertWithWhereUniqueWithoutFightInput = {
@@ -33466,9 +33499,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
     titles?: TitleCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostCreateNestedManyWithoutAuthorInput
-    WantToJoin?: ClanCreateNestedOneWithoutJoinRequestsInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
   }
 
   export type BruteUncheckedCreateWithoutLogsInput = {
@@ -33511,7 +33544,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinId?: number | null
+    wantToJoinClanId?: number | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
@@ -33525,8 +33558,8 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
     titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type BruteCreateOrConnectWithoutLogsInput = {
@@ -33625,9 +33658,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
     titles?: TitleUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUpdateManyWithoutAuthorNestedInput
-    WantToJoin?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutLogsInput = {
@@ -33670,7 +33703,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
@@ -33684,8 +33717,8 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
     titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type FightUpsertWithoutLogsInput = {
@@ -33774,9 +33807,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
     titles?: TitleCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostCreateNestedManyWithoutAuthorInput
-    WantToJoin?: ClanCreateNestedOneWithoutJoinRequestsInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
   }
 
   export type BruteUncheckedCreateWithoutDestinyChoicesInput = {
@@ -33819,7 +33852,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinId?: number | null
+    wantToJoinClanId?: number | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
@@ -33833,8 +33866,8 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
     titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type BruteCreateOrConnectWithoutDestinyChoicesInput = {
@@ -33905,9 +33938,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
     titles?: TitleUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUpdateManyWithoutAuthorNestedInput
-    WantToJoin?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutDestinyChoicesInput = {
@@ -33950,7 +33983,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
@@ -33964,8 +33997,8 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
     titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type BruteCreateWithoutTournamentsInput = {
@@ -34020,9 +34053,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
     titles?: TitleCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostCreateNestedManyWithoutAuthorInput
-    WantToJoin?: ClanCreateNestedOneWithoutJoinRequestsInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
   }
 
   export type BruteUncheckedCreateWithoutTournamentsInput = {
@@ -34065,7 +34098,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinId?: number | null
+    wantToJoinClanId?: number | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
@@ -34079,8 +34112,8 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
     titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type BruteCreateOrConnectWithoutTournamentsInput = {
@@ -34303,9 +34336,9 @@ export namespace Prisma {
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
     titles?: TitleCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostCreateNestedManyWithoutAuthorInput
-    WantToJoin?: ClanCreateNestedOneWithoutJoinRequestsInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
   }
 
   export type BruteUncheckedCreateWithoutTournamentEarningsInput = {
@@ -34348,7 +34381,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinId?: number | null
+    wantToJoinClanId?: number | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
@@ -34362,8 +34395,8 @@ export namespace Prisma {
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
     titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type BruteCreateOrConnectWithoutTournamentEarningsInput = {
@@ -34434,9 +34467,9 @@ export namespace Prisma {
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
     titles?: TitleUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUpdateManyWithoutAuthorNestedInput
-    WantToJoin?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutTournamentEarningsInput = {
@@ -34479,7 +34512,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
@@ -34493,8 +34526,8 @@ export namespace Prisma {
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
     titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type BruteCreateWithoutAchievementsInput = {
@@ -34549,9 +34582,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
     titles?: TitleCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostCreateNestedManyWithoutAuthorInput
-    WantToJoin?: ClanCreateNestedOneWithoutJoinRequestsInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
   }
 
   export type BruteUncheckedCreateWithoutAchievementsInput = {
@@ -34594,7 +34627,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinId?: number | null
+    wantToJoinClanId?: number | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
@@ -34608,8 +34641,8 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
     titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type BruteCreateOrConnectWithoutAchievementsInput = {
@@ -34715,9 +34748,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
     titles?: TitleUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUpdateManyWithoutAuthorNestedInput
-    WantToJoin?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutAchievementsInput = {
@@ -34760,7 +34793,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
@@ -34774,8 +34807,8 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
     titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type UserUpsertWithoutAchievementsInput = {
@@ -34871,9 +34904,9 @@ export namespace Prisma {
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
-    MasterOfClan?: ClanCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostCreateNestedManyWithoutAuthorInput
-    WantToJoin?: ClanCreateNestedOneWithoutJoinRequestsInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
   }
 
   export type BruteUncheckedCreateWithoutTitlesInput = {
@@ -34916,7 +34949,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinId?: number | null
+    wantToJoinClanId?: number | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
@@ -34930,8 +34963,8 @@ export namespace Prisma {
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-    MasterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type BruteCreateOrConnectWithoutTitlesInput = {
@@ -35007,9 +35040,9 @@ export namespace Prisma {
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     titles?: TitleCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostCreateNestedManyWithoutAuthorInput
-    WantToJoin?: ClanCreateNestedOneWithoutJoinRequestsInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
   }
 
   export type BruteUncheckedCreateWithoutReportsInput = {
@@ -35052,7 +35085,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinId?: number | null
+    wantToJoinClanId?: number | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
@@ -35066,8 +35099,8 @@ export namespace Prisma {
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type BruteCreateOrConnectWithoutReportsInput = {
@@ -35173,9 +35206,9 @@ export namespace Prisma {
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     titles?: TitleUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUpdateManyWithoutAuthorNestedInput
-    WantToJoin?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutReportsInput = {
@@ -35218,7 +35251,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
@@ -35232,8 +35265,8 @@ export namespace Prisma {
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type UserUpsertWithWhereUniqueWithoutReportsInput = {
@@ -35321,8 +35354,8 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
     titles?: TitleCreateNestedManyWithoutBrutesInput
-    ClanPost?: ClanPostCreateNestedManyWithoutAuthorInput
-    WantToJoin?: ClanCreateNestedOneWithoutJoinRequestsInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
   }
 
   export type BruteUncheckedCreateWithoutMasterOfClanInput = {
@@ -35365,7 +35398,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinId?: number | null
+    wantToJoinClanId?: number | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
@@ -35380,7 +35413,7 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
     titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
-    ClanPost?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type BruteCreateOrConnectWithoutMasterOfClanInput = {
@@ -35440,9 +35473,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
     titles?: TitleCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostCreateNestedManyWithoutAuthorInput
-    WantToJoin?: ClanCreateNestedOneWithoutJoinRequestsInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
   }
 
   export type BruteUncheckedCreateWithoutClanInput = {
@@ -35484,7 +35517,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinId?: number | null
+    wantToJoinClanId?: number | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
@@ -35499,8 +35532,8 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
     titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type BruteCreateOrConnectWithoutClanInput = {
@@ -35513,7 +35546,7 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type BruteCreateWithoutWantToJoinInput = {
+  export type BruteCreateWithoutWantToJoinClanInput = {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -35566,11 +35599,11 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
     titles?: TitleCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostCreateNestedManyWithoutAuthorInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
   }
 
-  export type BruteUncheckedCreateWithoutWantToJoinInput = {
+  export type BruteUncheckedCreateWithoutWantToJoinClanInput = {
     id?: number
     name: string
     deletedAt?: Date | string | null
@@ -35624,31 +35657,33 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
     titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
-    ClanPost?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
   }
 
-  export type BruteCreateOrConnectWithoutWantToJoinInput = {
+  export type BruteCreateOrConnectWithoutWantToJoinClanInput = {
     where: BruteWhereUniqueInput
-    create: XOR<BruteCreateWithoutWantToJoinInput, BruteUncheckedCreateWithoutWantToJoinInput>
+    create: XOR<BruteCreateWithoutWantToJoinClanInput, BruteUncheckedCreateWithoutWantToJoinClanInput>
   }
 
-  export type BruteCreateManyWantToJoinInputEnvelope = {
-    data: BruteCreateManyWantToJoinInput | BruteCreateManyWantToJoinInput[]
+  export type BruteCreateManyWantToJoinClanInputEnvelope = {
+    data: BruteCreateManyWantToJoinClanInput | BruteCreateManyWantToJoinClanInput[]
     skipDuplicates?: boolean
   }
 
   export type ClanThreadCreateWithoutClanInput = {
     title: string
     locked?: boolean
-    messages?: ClanPostCreateNestedManyWithoutThreadInput
+    postCount?: number
+    posts?: ClanPostCreateNestedManyWithoutThreadInput
   }
 
   export type ClanThreadUncheckedCreateWithoutClanInput = {
     id?: number
     title: string
     locked?: boolean
-    messages?: ClanPostUncheckedCreateNestedManyWithoutThreadInput
+    postCount?: number
+    posts?: ClanPostUncheckedCreateNestedManyWithoutThreadInput
   }
 
   export type ClanThreadCreateOrConnectWithoutClanInput = {
@@ -35725,8 +35760,8 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
     titles?: TitleUpdateManyWithoutBrutesNestedInput
-    ClanPost?: ClanPostUpdateManyWithoutAuthorNestedInput
-    WantToJoin?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutMasterOfClanInput = {
@@ -35769,7 +35804,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
@@ -35784,7 +35819,7 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
     titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
-    ClanPost?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type BruteUpsertWithWhereUniqueWithoutClanInput = {
@@ -35803,20 +35838,20 @@ export namespace Prisma {
     data: XOR<BruteUpdateManyMutationInput, BruteUncheckedUpdateManyWithoutClanInput>
   }
 
-  export type BruteUpsertWithWhereUniqueWithoutWantToJoinInput = {
+  export type BruteUpsertWithWhereUniqueWithoutWantToJoinClanInput = {
     where: BruteWhereUniqueInput
-    update: XOR<BruteUpdateWithoutWantToJoinInput, BruteUncheckedUpdateWithoutWantToJoinInput>
-    create: XOR<BruteCreateWithoutWantToJoinInput, BruteUncheckedCreateWithoutWantToJoinInput>
+    update: XOR<BruteUpdateWithoutWantToJoinClanInput, BruteUncheckedUpdateWithoutWantToJoinClanInput>
+    create: XOR<BruteCreateWithoutWantToJoinClanInput, BruteUncheckedCreateWithoutWantToJoinClanInput>
   }
 
-  export type BruteUpdateWithWhereUniqueWithoutWantToJoinInput = {
+  export type BruteUpdateWithWhereUniqueWithoutWantToJoinClanInput = {
     where: BruteWhereUniqueInput
-    data: XOR<BruteUpdateWithoutWantToJoinInput, BruteUncheckedUpdateWithoutWantToJoinInput>
+    data: XOR<BruteUpdateWithoutWantToJoinClanInput, BruteUncheckedUpdateWithoutWantToJoinClanInput>
   }
 
-  export type BruteUpdateManyWithWhereWithoutWantToJoinInput = {
+  export type BruteUpdateManyWithWhereWithoutWantToJoinClanInput = {
     where: BruteScalarWhereInput
-    data: XOR<BruteUpdateManyMutationInput, BruteUncheckedUpdateManyWithoutWantToJoinInput>
+    data: XOR<BruteUpdateManyMutationInput, BruteUncheckedUpdateManyWithoutWantToJoinClanInput>
   }
 
   export type ClanThreadUpsertWithWhereUniqueWithoutClanInput = {
@@ -35843,6 +35878,7 @@ export namespace Prisma {
     clanId?: IntFilter<"ClanThread"> | number
     title?: StringFilter<"ClanThread"> | string
     locked?: BoolFilter<"ClanThread"> | boolean
+    postCount?: IntFilter<"ClanThread"> | number
   }
 
   export type ClanCreateWithoutThreadsInput = {
@@ -35851,7 +35887,7 @@ export namespace Prisma {
     points?: number
     master: BruteCreateNestedOneWithoutMasterOfClanInput
     brutes?: BruteCreateNestedManyWithoutClanInput
-    joinRequests?: BruteCreateNestedManyWithoutWantToJoinInput
+    joinRequests?: BruteCreateNestedManyWithoutWantToJoinClanInput
   }
 
   export type ClanUncheckedCreateWithoutThreadsInput = {
@@ -35861,7 +35897,7 @@ export namespace Prisma {
     points?: number
     masterId: number
     brutes?: BruteUncheckedCreateNestedManyWithoutClanInput
-    joinRequests?: BruteUncheckedCreateNestedManyWithoutWantToJoinInput
+    joinRequests?: BruteUncheckedCreateNestedManyWithoutWantToJoinClanInput
   }
 
   export type ClanCreateOrConnectWithoutThreadsInput = {
@@ -35872,7 +35908,7 @@ export namespace Prisma {
   export type ClanPostCreateWithoutThreadInput = {
     date?: Date | string
     message: string
-    author: BruteCreateNestedOneWithoutClanPostInput
+    author: BruteCreateNestedOneWithoutClanPostsInput
   }
 
   export type ClanPostUncheckedCreateWithoutThreadInput = {
@@ -35909,7 +35945,7 @@ export namespace Prisma {
     points?: IntFieldUpdateOperationsInput | number
     master?: BruteUpdateOneRequiredWithoutMasterOfClanNestedInput
     brutes?: BruteUpdateManyWithoutClanNestedInput
-    joinRequests?: BruteUpdateManyWithoutWantToJoinNestedInput
+    joinRequests?: BruteUpdateManyWithoutWantToJoinClanNestedInput
   }
 
   export type ClanUncheckedUpdateWithoutThreadsInput = {
@@ -35919,7 +35955,7 @@ export namespace Prisma {
     points?: IntFieldUpdateOperationsInput | number
     masterId?: IntFieldUpdateOperationsInput | number
     brutes?: BruteUncheckedUpdateManyWithoutClanNestedInput
-    joinRequests?: BruteUncheckedUpdateManyWithoutWantToJoinNestedInput
+    joinRequests?: BruteUncheckedUpdateManyWithoutWantToJoinClanNestedInput
   }
 
   export type ClanPostUpsertWithWhereUniqueWithoutThreadInput = {
@@ -35938,25 +35974,27 @@ export namespace Prisma {
     data: XOR<ClanPostUpdateManyMutationInput, ClanPostUncheckedUpdateManyWithoutThreadInput>
   }
 
-  export type ClanThreadCreateWithoutMessagesInput = {
+  export type ClanThreadCreateWithoutPostsInput = {
     title: string
     locked?: boolean
+    postCount?: number
     clan: ClanCreateNestedOneWithoutThreadsInput
   }
 
-  export type ClanThreadUncheckedCreateWithoutMessagesInput = {
+  export type ClanThreadUncheckedCreateWithoutPostsInput = {
     id?: number
     clanId: number
     title: string
     locked?: boolean
+    postCount?: number
   }
 
-  export type ClanThreadCreateOrConnectWithoutMessagesInput = {
+  export type ClanThreadCreateOrConnectWithoutPostsInput = {
     where: ClanThreadWhereUniqueInput
-    create: XOR<ClanThreadCreateWithoutMessagesInput, ClanThreadUncheckedCreateWithoutMessagesInput>
+    create: XOR<ClanThreadCreateWithoutPostsInput, ClanThreadUncheckedCreateWithoutPostsInput>
   }
 
-  export type BruteCreateWithoutClanPostInput = {
+  export type BruteCreateWithoutClanPostsInput = {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -36009,11 +36047,11 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
     titles?: TitleCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanCreateNestedOneWithoutMasterInput
-    WantToJoin?: ClanCreateNestedOneWithoutJoinRequestsInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
   }
 
-  export type BruteUncheckedCreateWithoutClanPostInput = {
+  export type BruteUncheckedCreateWithoutClanPostsInput = {
     id?: number
     name: string
     deletedAt?: Date | string | null
@@ -36053,7 +36091,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinId?: number | null
+    wantToJoinClanId?: number | null
     body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
     colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
@@ -36068,50 +36106,52 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
     titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
-    MasterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
   }
 
-  export type BruteCreateOrConnectWithoutClanPostInput = {
+  export type BruteCreateOrConnectWithoutClanPostsInput = {
     where: BruteWhereUniqueInput
-    create: XOR<BruteCreateWithoutClanPostInput, BruteUncheckedCreateWithoutClanPostInput>
+    create: XOR<BruteCreateWithoutClanPostsInput, BruteUncheckedCreateWithoutClanPostsInput>
   }
 
-  export type ClanThreadUpsertWithoutMessagesInput = {
-    update: XOR<ClanThreadUpdateWithoutMessagesInput, ClanThreadUncheckedUpdateWithoutMessagesInput>
-    create: XOR<ClanThreadCreateWithoutMessagesInput, ClanThreadUncheckedCreateWithoutMessagesInput>
+  export type ClanThreadUpsertWithoutPostsInput = {
+    update: XOR<ClanThreadUpdateWithoutPostsInput, ClanThreadUncheckedUpdateWithoutPostsInput>
+    create: XOR<ClanThreadCreateWithoutPostsInput, ClanThreadUncheckedCreateWithoutPostsInput>
     where?: ClanThreadWhereInput
   }
 
-  export type ClanThreadUpdateToOneWithWhereWithoutMessagesInput = {
+  export type ClanThreadUpdateToOneWithWhereWithoutPostsInput = {
     where?: ClanThreadWhereInput
-    data: XOR<ClanThreadUpdateWithoutMessagesInput, ClanThreadUncheckedUpdateWithoutMessagesInput>
+    data: XOR<ClanThreadUpdateWithoutPostsInput, ClanThreadUncheckedUpdateWithoutPostsInput>
   }
 
-  export type ClanThreadUpdateWithoutMessagesInput = {
+  export type ClanThreadUpdateWithoutPostsInput = {
     title?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
+    postCount?: IntFieldUpdateOperationsInput | number
     clan?: ClanUpdateOneRequiredWithoutThreadsNestedInput
   }
 
-  export type ClanThreadUncheckedUpdateWithoutMessagesInput = {
+  export type ClanThreadUncheckedUpdateWithoutPostsInput = {
     id?: IntFieldUpdateOperationsInput | number
     clanId?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
+    postCount?: IntFieldUpdateOperationsInput | number
   }
 
-  export type BruteUpsertWithoutClanPostInput = {
-    update: XOR<BruteUpdateWithoutClanPostInput, BruteUncheckedUpdateWithoutClanPostInput>
-    create: XOR<BruteCreateWithoutClanPostInput, BruteUncheckedCreateWithoutClanPostInput>
+  export type BruteUpsertWithoutClanPostsInput = {
+    update: XOR<BruteUpdateWithoutClanPostsInput, BruteUncheckedUpdateWithoutClanPostsInput>
+    create: XOR<BruteCreateWithoutClanPostsInput, BruteUncheckedCreateWithoutClanPostsInput>
     where?: BruteWhereInput
   }
 
-  export type BruteUpdateToOneWithWhereWithoutClanPostInput = {
+  export type BruteUpdateToOneWithWhereWithoutClanPostsInput = {
     where?: BruteWhereInput
-    data: XOR<BruteUpdateWithoutClanPostInput, BruteUncheckedUpdateWithoutClanPostInput>
+    data: XOR<BruteUpdateWithoutClanPostsInput, BruteUncheckedUpdateWithoutClanPostsInput>
   }
 
-  export type BruteUpdateWithoutClanPostInput = {
+  export type BruteUpdateWithoutClanPostsInput = {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36164,11 +36204,11 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
     titles?: TitleUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUpdateOneWithoutMasterNestedInput
-    WantToJoin?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
   }
 
-  export type BruteUncheckedUpdateWithoutClanPostInput = {
+  export type BruteUncheckedUpdateWithoutClanPostsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -36208,7 +36248,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
@@ -36223,7 +36263,7 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
     titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
   }
 
   export type BruteCreateManyUserInput = {
@@ -36265,7 +36305,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinId?: number | null
+    wantToJoinClanId?: number | null
   }
 
   export type AchievementCreateManyUserInput = {
@@ -36327,9 +36367,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
     titles?: TitleUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUpdateManyWithoutAuthorNestedInput
-    WantToJoin?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutUserInput = {
@@ -36371,7 +36411,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
@@ -36386,8 +36426,8 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
     titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutUserInput = {
@@ -36429,7 +36469,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type AchievementUpdateWithoutUserInput = {
@@ -36517,7 +36557,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinId?: number | null
+    wantToJoinClanId?: number | null
   }
 
   export type FightCreateManyBrute1Input = {
@@ -36645,9 +36685,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
     titles?: TitleUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUpdateManyWithoutAuthorNestedInput
-    WantToJoin?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutMasterInput = {
@@ -36689,7 +36729,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
@@ -36704,8 +36744,8 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
     titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutMasterInput = {
@@ -36747,7 +36787,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type FightUpdateWithoutBrute1Input = {
@@ -36957,9 +36997,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
     titles?: TitleUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUpdateManyWithoutAuthorNestedInput
-    WantToJoin?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutOpponentOfInput = {
@@ -37002,7 +37042,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
@@ -37016,8 +37056,8 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
     titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutOpponentOfInput = {
@@ -37060,7 +37100,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type BruteUpdateWithoutOpponentsInput = {
@@ -37115,9 +37155,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
     titles?: TitleUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUpdateManyWithoutAuthorNestedInput
-    WantToJoin?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutOpponentsInput = {
@@ -37160,7 +37200,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
@@ -37174,8 +37214,8 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
     titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutOpponentsInput = {
@@ -37218,7 +37258,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type AchievementUpdateWithoutBruteInput = {
@@ -37309,7 +37349,7 @@ export namespace Prisma {
   export type ClanPostUpdateWithoutAuthorInput = {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     message?: StringFieldUpdateOperationsInput | string
-    thread?: ClanThreadUpdateOneRequiredWithoutMessagesNestedInput
+    thread?: ClanThreadUpdateOneRequiredWithoutPostsNestedInput
   }
 
   export type ClanPostUncheckedUpdateWithoutAuthorInput = {
@@ -37451,9 +37491,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
     titles?: TitleUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUpdateManyWithoutAuthorNestedInput
-    WantToJoin?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutTournamentsInput = {
@@ -37496,7 +37536,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
@@ -37510,8 +37550,8 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
     titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutTournamentsInput = {
@@ -37554,7 +37594,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type TournamentStepUpdateWithoutTournamentInput = {
@@ -37629,9 +37669,9 @@ export namespace Prisma {
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
-    MasterOfClan?: ClanUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUpdateManyWithoutAuthorNestedInput
-    WantToJoin?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutTitlesInput = {
@@ -37674,7 +37714,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
@@ -37688,8 +37728,8 @@ export namespace Prisma {
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-    MasterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutTitlesInput = {
@@ -37732,7 +37772,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type UserUpdateWithoutReportsInput = {
@@ -37817,10 +37857,10 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinId?: number | null
+    wantToJoinClanId?: number | null
   }
 
-  export type BruteCreateManyWantToJoinInput = {
+  export type BruteCreateManyWantToJoinClanInput = {
     id?: number
     name: string
     deletedAt?: Date | string | null
@@ -37866,6 +37906,7 @@ export namespace Prisma {
     id?: number
     title: string
     locked?: boolean
+    postCount?: number
   }
 
   export type BruteUpdateWithoutClanInput = {
@@ -37920,9 +37961,9 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
     titles?: TitleUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUpdateManyWithoutAuthorNestedInput
-    WantToJoin?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutClanInput = {
@@ -37964,7 +38005,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
     body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
     colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
@@ -37979,8 +38020,8 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
     titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutClanInput = {
@@ -38022,10 +38063,10 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
-  export type BruteUpdateWithoutWantToJoinInput = {
+  export type BruteUpdateWithoutWantToJoinClanInput = {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -38078,11 +38119,11 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
     titles?: TitleUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUpdateManyWithoutAuthorNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
   }
 
-  export type BruteUncheckedUpdateWithoutWantToJoinInput = {
+  export type BruteUncheckedUpdateWithoutWantToJoinClanInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -38136,11 +38177,11 @@ export namespace Prisma {
     tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
     titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
-    MasterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
-    ClanPost?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
-  export type BruteUncheckedUpdateManyWithoutWantToJoinInput = {
+  export type BruteUncheckedUpdateManyWithoutWantToJoinClanInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -38185,20 +38226,23 @@ export namespace Prisma {
   export type ClanThreadUpdateWithoutClanInput = {
     title?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
-    messages?: ClanPostUpdateManyWithoutThreadNestedInput
+    postCount?: IntFieldUpdateOperationsInput | number
+    posts?: ClanPostUpdateManyWithoutThreadNestedInput
   }
 
   export type ClanThreadUncheckedUpdateWithoutClanInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
-    messages?: ClanPostUncheckedUpdateManyWithoutThreadNestedInput
+    postCount?: IntFieldUpdateOperationsInput | number
+    posts?: ClanPostUncheckedUpdateManyWithoutThreadNestedInput
   }
 
   export type ClanThreadUncheckedUpdateManyWithoutClanInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
+    postCount?: IntFieldUpdateOperationsInput | number
   }
 
   export type ClanPostCreateManyThreadInput = {
@@ -38211,7 +38255,7 @@ export namespace Prisma {
   export type ClanPostUpdateWithoutThreadInput = {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     message?: StringFieldUpdateOperationsInput | string
-    author?: BruteUpdateOneRequiredWithoutClanPostNestedInput
+    author?: BruteUpdateOneRequiredWithoutClanPostsNestedInput
   }
 
   export type ClanPostUncheckedUpdateWithoutThreadInput = {

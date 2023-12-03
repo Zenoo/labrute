@@ -199,7 +199,7 @@ exports.Prisma.BruteScalarFieldEnum = {
   opponentsGeneratedAt: 'opponentsGeneratedAt',
   canRankUpSince: 'canRankUpSince',
   favorite: 'favorite',
-  wantToJoinId: 'wantToJoinId'
+  wantToJoinClanId: 'wantToJoinClanId'
 };
 
 exports.Prisma.BruteSpritesheetScalarFieldEnum = {
@@ -339,7 +339,8 @@ exports.Prisma.ClanThreadScalarFieldEnum = {
   id: 'id',
   clanId: 'clanId',
   title: 'title',
-  locked: 'locked'
+  locked: 'locked',
+  postCount: 'postCount'
 };
 
 exports.Prisma.ClanPostScalarFieldEnum = {

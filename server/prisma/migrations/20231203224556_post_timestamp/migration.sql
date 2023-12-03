@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "ClanPost" ALTER COLUMN "date" SET DATA TYPE TIMESTAMP;

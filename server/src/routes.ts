@@ -102,14 +102,18 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
 
   // Clan
   app.get('/api/clan/list', Clans.list(prisma));
-  app.get('/api/clan/:brute/create', Clans.create(prisma));
+  app.get('/api/brute/:brute/clan/create', Clans.create(prisma));
   app.get('/api/clan/:id', Clans.get(prisma));
-  app.get('/api/clan/:brute/request/:id', Clans.request(prisma));
-  app.get('/api/clan/:brute/request-cancel/:id', Clans.cancelRequest(prisma));
-  app.get('/api/clan/:brute/accept/:id', Clans.accept(prisma));
-  app.get('/api/clan/:brute/reject/:id', Clans.reject(prisma));
-  app.get('/api/clan/:brute/remove/:id', Clans.remove(prisma));
-  app.get('/api/clan/:brute/leave/:id', Clans.leave(prisma));
+  app.get('/api/brute/:brute/clan/:id/request', Clans.request(prisma));
+  app.get('/api/brute/:brute/clan/:id/request-cancel', Clans.cancelRequest(prisma));
+  app.get('/api/clan/:id/accept/:brute', Clans.accept(prisma));
+  app.get('/api/clan/:id/reject/:brute', Clans.reject(prisma));
+  app.get('/api/clan/:id/remove/:brute', Clans.remove(prisma));
+  app.get('/api/brute/:brute/clan/:id/leave', Clans.leave(prisma));
+  app.get('/api/brute/:brute/clan/:id/threads', Clans.getThreads(prisma));
+  app.post('/api/brute/:brute/clan/:id/thread/create', Clans.createThread(prisma));
+  app.post('/api/brute/:brute/thread/:id/post/create', Clans.createPost(prisma));
+  app.get('/api/brute/:brute/clan/:id/thread/:threadId/lock', Clans.lockThread(prisma));
 };
 
 export default initRoutes;

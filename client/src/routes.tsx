@@ -27,6 +27,9 @@ import ReportAdminView from './views/ReportAdminView';
 import ClanRankingView from './views/clan/ClanRankingView';
 import ClanCreateView from './views/clan/ClanCreateView';
 import ClanView from './views/clan/ClanView';
+import ClanForumView from './views/clan/ClanForumView';
+import ClanThreadView from './views/clan/ClanThreadView';
+import ClanPostView from './views/clan/ClanPostView';
 
 const routes: RouteObject[] = [
   { path: 'anchor-test', element: <AnchorTestView /> },
@@ -72,7 +75,15 @@ const routes: RouteObject[] = [
             children: [
               { path: 'ranking', element: <ClanRankingView /> },
               { path: 'create', element: <ClanCreateView /> },
-              { path: ':id', element: <ClanView /> },
+              {
+                path: ':id',
+                children: [
+                  { path: '', element: <ClanView /> },
+                  { path: 'forum', element: <ClanForumView /> },
+                  { path: 'thread/:tid', element: <ClanThreadView /> },
+                  { path: 'post/:tid', element: <ClanPostView /> },
+                ],
+              },
             ],
           },
           // Redirect :name to :name/cell

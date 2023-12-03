@@ -1,4 +1,4 @@
-import { BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, BruteVisuals, BruteWithBodyColors, ClanCreateResponse, ClanGetResponse, ClanListResponse, FullBrute, FullTournament, ServerReadyResponse, TournamentHistoryResponse, TournamentsGetGlobalResponse, UsersAdminUpdateRequest, UserWithBrutesBodyColor } from '@labrute/core';
+import { BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, BruteVisuals, BruteWithBodyColors, ClanCreateResponse, ClanGetResponse, ClanGetThreadsResponse, ClanListResponse, FullBrute, FullTournament, ServerReadyResponse, TournamentHistoryResponse, TournamentsGetGlobalResponse, UsersAdminUpdateRequest, UserWithBrutesBodyColor } from '@labrute/core';
 import { Achievement, Brute, BruteReportReason, BruteReportStatus, DestinyChoice, DestinyChoiceSide, Fight, Gender, Lang, Log, Prisma, User } from '@labrute/prisma';
 import Fetch from './Fetch';
 
@@ -104,14 +104,27 @@ const Server = {
   },
   Clan: {
     list: (page: number) => Fetch<ClanListResponse>('/api/clan/list', { page }),
-    create: (brute: string, name: string) => Fetch<ClanCreateResponse>(`/api/clan/${brute}/create`, { name }),
+    create: (brute: string, name: string) => Fetch<ClanCreateResponse>(`/api/brute/${brute}/clan/create`, { name }),
     get: (id: number) => Fetch<ClanGetResponse>(`/api/clan/${id}`),
-    request: (brute: string, id: number) => Fetch<never>(`/api/clan/${brute}/request/${id}`),
-    cancelRequest: (brute: string, id: number) => Fetch<never>(`/api/clan/${brute}/request-cancel/${id}`),
-    accept: (brute: string, id: number) => Fetch<never>(`/api/clan/${brute}/accept/${id}`),
-    reject: (brute: string, id: number) => Fetch<never>(`/api/clan/${brute}/reject/${id}`),
-    remove: (brute: string, id: number) => Fetch<never>(`/api/clan/${brute}/remove/${id}`),
-    leave: (brute: string, id: number) => Fetch<never>(`/api/clan/${brute}/leave/${id}`),
+    request: (brute: string, id: number) => Fetch<never>(`/api/brute/${brute}/clan/${id}/request`),
+    cancelRequest: (brute: string, id: number) => Fetch<never>(`/api/brute/${brute}/clan/${id}/request-cancel`),
+    accept: (brute: string, id: number) => Fetch<never>(`/api/clan/${id}/accept/${brute}`),
+    reject: (brute: string, id: number) => Fetch<never>(`/api/clan/${id}/reject/${brute}`),
+    remove: (brute: string, id: number) => Fetch<never>(`/api/clan/${id}/remove/${brute}`),
+    leave: (brute: string, id: number) => Fetch<never>(`/api/brute/${brute}/clan/${id}/leave`),
+    getThreads: (data: { brute: string, id: number }) => Fetch<ClanGetThreadsResponse>(`/api/brute/${data.brute}/clan/${data.id}/threads`),
+    createThread: (
+      brute: string,
+      id: number,
+      title: string,
+      content: string,
+    ) => Fetch<ClanGetThreadsResponse>(`/api/brute/${brute}/clan/${id}/thread/create`, { title, content }, 'POST'),
+    createPost: (
+      brute: string,
+      id: number,
+      content: string,
+    ) => Fetch<never>(`/api/brute/${brute}/thread/${id}/post/create`, { content }, 'POST'),
+    lockThread: (brute: string, id: number, threadId: number) => Fetch<never>(`/api/brute/${brute}/clan/${id}/thread/${threadId}/lock`),
   }
 };
 

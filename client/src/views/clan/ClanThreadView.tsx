@@ -17,7 +17,7 @@ import BrutePortrait from '../../components/Brute/Body/BrutePortait';
 import FantasyButton from '../../components/FantasyButton';
 import { HighlightOff } from '@mui/icons-material';
 
-const ClanView = () => {
+const ClanThreadView = () => {
   const { t } = useTranslation();
   const { bruteName, id } = useParams();
   const Alert = useAlert();
@@ -368,4 +368,4 @@ const ClanView = () => {
   );
 };
 
-export default ClanView;
+export default ClanThreadView;

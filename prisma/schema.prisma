@@ -228,10 +228,10 @@ model Brute {
   reports                      BruteReport[]
   favorite                     Boolean             @default(false)
   titles                       Title[]
-  MasterOfClan                 Clan?               @relation("MasterOfClan")
-  ClanPost                     ClanPost[]
-  WantToJoin                   Clan?               @relation("JoinRequests", fields: [wantToJoinId], references: [id])
-  wantToJoinId                 Int?
+  masterOfClan                 Clan?               @relation("MasterOfClan")
+  clanPosts                    ClanPost[]
+  wantToJoinClan               Clan?               @relation("JoinRequests", fields: [wantToJoinClanId], references: [id])
+  wantToJoinClanId             Int?
 }
 
 model BruteSpritesheet {
@@ -562,12 +562,13 @@ model Clan {
 }
 
 model ClanThread {
-  id       Int        @id @default(autoincrement())
-  clan     Clan       @relation(fields: [clanId], references: [id])
-  clanId   Int
-  title    String     @db.VarChar(255)
-  locked   Boolean    @default(false)
-  messages ClanPost[]
+  id        Int        @id @default(autoincrement())
+  clan      Clan       @relation(fields: [clanId], references: [id])
+  clanId    Int
+  title     String     @db.VarChar(255)
+  locked    Boolean    @default(false)
+  postCount Int        @default(1)
+  posts     ClanPost[]
 }
 
 model ClanPost {
@@ -576,6 +577,6 @@ model ClanPost {
   threadId Int
   author   Brute      @relation(fields: [authorId], references: [id])
   authorId Int
-  date     DateTime   @default(now()) @db.Date
+  date     DateTime   @default(now()) @db.Timestamp()
   message  String     @db.Text
 }

@@ -25,7 +25,7 @@ import promiseBatch from './utils/promiseBatch';
 import randomBetween from './utils/randomBetween';
 import weightedRandom from './utils/weightedRandom';
 import Version from './Version';
-import { Achievement, Brute, BruteReportReason, BruteReportStatus, Clan, Prisma, Tournament, TournamentStep } from '@labrute/prisma';
+import { Achievement, Brute, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, Prisma, Tournament, TournamentStep } from '@labrute/prisma';
 import canLevelUp from './brute/canLevelUp';
 import formatLargeNumber from './utils/formatLargeNumber';
 import getBruteVisuals, { BruteVisuals } from './brute/getBruteVisuals';
@@ -147,4 +147,12 @@ export type ClanCreateResponse = Pick<Clan, 'id' | 'name'>;
 export type ClanGetResponse = Clan & {
   brutes: BruteWithBodyColors[],
   joinRequests: BruteWithBodyColors[],
+};
+export type ClanGetThreadsResponse = {
+  masterId: number,
+  threads: (ClanThread & {
+    posts: (Pick<ClanPost, 'date'> & {
+      author: Pick<Brute, 'id' | 'name'>,
+    })[];
+  })[],
 };
