@@ -53,5 +53,7 @@
   "clanFull": "Klan ist voll",
   "noRequestFound": "Keine Anfrage gefunden",
   "alreadyRequested": "Du hast bereits bei diesem Klan um Beitritt angefragt",
-  "missingClanId": "Klan-ID fehlt"
+  "missingClanId": "Klan-ID fehlt",
+  "masterCannotLeave": "The master cannot leave a clan that has members",
+  "threadNotFound": "Thread not found"
 }
