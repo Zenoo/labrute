@@ -33,6 +33,7 @@ import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
 import DiscordUtils from '../utils/DiscordUtils.js';
 import { increaseAchievement } from './Achievements.js';
+import updateClanPoints from '../utils/clan/updateClanPoints.js';
 
 const Brutes = {
   list: (prisma: PrismaClient) => async (req: Request, res: Response) => {
@@ -354,8 +355,16 @@ const Brutes = {
         throw new Error(translate('destinyChoiceNotFound', user));
       }
 
+      const bruteWithoutBodyColors = {
+        ...brute,
+        body: undefined,
+        colors: undefined,
+      };
+      delete bruteWithoutBodyColors.body;
+      delete bruteWithoutBodyColors.colors;
+
       // Update brute data
-      const updatedBruteData = updateBruteData(brute, destinyChoice);
+      const updatedBruteData = updateBruteData(bruteWithoutBodyColors, destinyChoice);
 
       const oldBrute: Brute = {
         ...brute,
@@ -433,6 +442,11 @@ const Brutes = {
           },
           select: { id: true },
         });
+      }
+
+      // Update clan points
+      if (brute.clanId) {
+        await updateClanPoints(prisma, brute.clanId, 'add', updatedBrute, oldBrute);
       }
 
       res.send(updatedBrute);
@@ -1049,6 +1063,11 @@ const Brutes = {
             select: { id: true },
           });
         }
+      }
+
+      // Update clan points
+      if (userBrute.clanId) {
+        await updateClanPoints(prisma, userBrute.clanId, 'add', brute, userBrute);
       }
 
       res.send({

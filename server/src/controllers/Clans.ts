@@ -6,6 +6,7 @@ import { Request, Response } from 'express';
 import auth from '../utils/auth.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
+import updateClanPoints from '../utils/clan/updateClanPoints.js';
 
 const Clans = {
   list: (prisma: PrismaClient) => async (
@@ -92,6 +93,9 @@ const Clans = {
         },
         select: { id: true, name: true },
       });
+
+      // Update clan points
+      await updateClanPoints(prisma, clan.id, 'add', brute);
 
       res.status(200).send(clan);
     } catch (error) {
@@ -290,7 +294,12 @@ const Clans = {
           name: req.params.brute,
           deletedAt: null,
         },
-        select: { id: true, clanId: true },
+        select: {
+          id: true,
+          clanId: true,
+          level: true,
+          ranking: true,
+        },
       });
       if (!brute) {
         throw new ExpectedError(translate('bruteNotFound', user));
@@ -321,6 +330,9 @@ const Clans = {
           joinRequests: { disconnect: { id: brute.id } },
         },
       });
+
+      // Update clan points
+      await updateClanPoints(prisma, clan.id, 'add', brute);
 
       res.status(200).send({ message: 'ok' });
     } catch (error) {
@@ -416,7 +428,7 @@ const Clans = {
           name: req.params.brute,
           deletedAt: null,
         },
-        select: { id: true },
+        select: { id: true, level: true, ranking: true },
       });
       if (!brute) {
         throw new ExpectedError(translate('bruteNotFound', user));
@@ -432,6 +444,9 @@ const Clans = {
         where: { id },
         data: { brutes: { disconnect: { id: brute.id } } },
       });
+
+      // Update clan points
+      await updateClanPoints(prisma, clan.id, 'remove', brute);
 
       res.status(200).send({ message: 'ok' });
     } catch (error) {
@@ -489,6 +504,9 @@ const Clans = {
           where: { id },
           data: { brutes: { disconnect: { id: brute.id } } },
         });
+
+        // Update clan points
+        await updateClanPoints(prisma, clan.id, 'remove', brute);
       }
 
       res.status(200).send({ message: 'ok' });
