@@ -53,5 +53,7 @@
   "clanFull": "В клане нет места",
   "noRequestFound": "Заявка не найдена",
   "alreadyRequested": "Вы уже подали заявку на вступление в клан",
-  "missingClanId": "Отсутствует ID клана"
+  "missingClanId": "Отсутствует ID клана",
+  "masterCannotLeave": "The master cannot leave a clan that has members",
+  "threadNotFound": "Thread not found"
 }
