@@ -1512,6 +1512,11 @@ const Brutes = {
         }
       }
 
+      // Update clan points
+      if (brute.clanId) {
+        await updateClanPoints(prisma, brute.clanId, 'add', brute, updatedBrute);
+      }
+
       res.send(updatedBrute);
     } catch (error) {
       sendError(res, error);
