@@ -119,6 +119,11 @@
   "creator": "Creator",
   "msg": "Msg.",
   "lastReply": "Last reply",
+  "lockThread": "Lock thread",
+  "confirmLockThread": "Do you really want to lock this thread ?",
+  "threadLocked": "The thread has been locked.",
+  "first": "First",
+  "last": "Last",
 
   "herculeanStrength": "Herculean Strength",
   "herculeanStrength.desc": "You're strong enough to move mountains, but first you must defeat your opponent.",

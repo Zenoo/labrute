@@ -569,6 +569,8 @@ model ClanThread {
   locked    Boolean    @default(false)
   postCount Int        @default(1)
   posts     ClanPost[]
+  createdAt DateTime   @default(now()) @db.Timestamp()
+  updatedAt DateTime   @default(now()) @db.Timestamp()
 }
 
 model ClanPost {

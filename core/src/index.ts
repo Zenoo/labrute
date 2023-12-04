@@ -156,3 +156,9 @@ export type ClanGetThreadsResponse = {
     })[];
   })[],
 };
+export type ClanGetThreadResponse = ClanThread & {
+  posts: (ClanPost & {
+    author: BruteWithBodyColors,
+  })[],
+  clan: Pick<Clan, 'masterId' | 'name'>,
+};
