@@ -100,7 +100,7 @@ const ClanRankingView = () => {
                     {clans ? (clans.map((clan, index) => (
                       <TableRow key={clan.id}>
                         <TableCell component="th" scope="row">
-                          {index + 1}
+                          {(page - 1) * 15 + index + 1}
                         </TableCell>
                         <TableCell>
                           <Link to={`/${bruteName || ''}/clan/${clan.id}`}>
