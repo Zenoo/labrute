@@ -1,5 +1,5 @@
 import {
-  Animation, BruteWithBodyColors, getBruteVisuals, getVisualsFromUrl,
+  Animation, BruteWithBodyColors, SPRITESHEET_VERSION, getBruteVisuals, getVisualsFromUrl,
 } from '@labrute/core';
 import { Gender, Prisma, PrismaClient } from '@labrute/prisma';
 import { Resvg } from '@resvg/resvg-js';
@@ -61,7 +61,7 @@ const Spritesheets = {
         return;
       }
 
-      // Old getter with brute id
+      // Getter with brute id
       const bruteId = +req.params.gender || 0;
 
       let brute = await prisma.brute.findFirst({
@@ -103,6 +103,12 @@ const Spritesheets = {
       } else {
         // Load default spritesheet
         const defaultSpritesheet = await fetch(`${Env.SELF_URL}/images/game/${brute.gender}-brute.png`);
+
+        // This still means the spritesheet is not correct, update it in the BG
+        // eslint-disable-next-line no-new
+        new Worker('./lib/workers/generateSpritesheet.js', {
+          workerData: brute,
+        });
 
         // Send default spritesheet
         res.header('Content-Type', 'image/png').send(Buffer.from(await defaultSpritesheet.arrayBuffer()));
@@ -179,14 +185,28 @@ const Spritesheets = {
           // eslint-disable-next-line max-len
           gender_longHair_lowerRightArm_rightHand_upperRightArm_rightShoulder_rightFoot_lowerRightLeg_upperRightLeg_leftFoot_lowerLeftLeg_pelvis_upperLeftLeg_tummy_torso_head_leftHand_upperLeftArm_lowerLeftArm_leftShoulder_skinColor_skinShade_hairColor_hairShade_primaryColor_primaryShade_secondaryColor_secondaryShade_accentColor_accentShade: visuals,
         },
-        select: { json: true },
+        select: { json: true, version: true },
       });
 
       if (spritesheet) {
+        // If spritesheet is outdated, update it in the BG
+        if (spritesheet.version !== SPRITESHEET_VERSION) {
+          // eslint-disable-next-line no-new
+          new Worker('./lib/workers/updateSpritesheet.js', {
+            workerData: visuals,
+          });
+        }
+
         res.header('Content-Type', 'application/json').send(spritesheet.json);
       } else {
         // Load default spritesheet
         const defaultSpritesheet = await fetch(`${Env.SELF_URL}/images/game/${brute.gender}-brute.json`);
+
+        // Create missing spritesheet in the BG
+        // eslint-disable-next-line no-new
+        new Worker('./lib/workers/generateSpritesheet.js', {
+          workerData: brute,
+        });
 
         // Send default spritesheet
         res.header('Content-Type', 'application/json').send(Buffer.from(await defaultSpritesheet.arrayBuffer()));
@@ -384,6 +404,7 @@ const Spritesheets = {
             visuals,
           ) as unknown as Prisma.JsonObject,
           ...visuals,
+          version: SPRITESHEET_VERSION,
         },
         update: {
           image: spritesheet.image,
@@ -391,6 +412,7 @@ const Spritesheets = {
             spritesheet,
             visuals,
           ) as unknown as Prisma.JsonObject,
+          version: SPRITESHEET_VERSION,
         },
       });
 

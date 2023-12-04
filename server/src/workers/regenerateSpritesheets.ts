@@ -1,9 +1,11 @@
 /* eslint-disable no-await-in-loop */
-import { BruteVisuals, adjustColor, colors } from '@labrute/core';
+import {
+  BruteVisuals, SPRITESHEET_VERSION, adjustColor, colors,
+} from '@labrute/core';
 import { Gender, Prisma, PrismaClient } from '@labrute/prisma';
-import createSpritesheet from '../utils/createSpritesheet.js';
 import DiscordUtils from '../utils/DiscordUtils.js';
-import formatSpritesheet, { SpritesheetJson } from '../utils/formatSpritesheet.js';
+import createSpritesheet from '../utils/createSpritesheet.js';
+import formatSpritesheet from '../utils/formatSpritesheet.js';
 
 const prisma = new PrismaClient();
 
@@ -332,12 +334,11 @@ for (let i = 0; i < allVisuals.length; i++) {
       gender_longHair_lowerRightArm_rightHand_upperRightArm_rightShoulder_rightFoot_lowerRightLeg_upperRightLeg_leftFoot_lowerLeftLeg_pelvis_upperLeftLeg_tummy_torso_head_leftHand_upperLeftArm_lowerLeftArm_leftShoulder_skinColor_skinShade_hairColor_hairShade_primaryColor_primaryShade_secondaryColor_secondaryShade_accentColor_accentShade: visuals,
     },
     select: {
-      json: true,
+      version: true,
     },
   });
 
-  // TODO: Replace with a spritesheet version check when everything is done instead
-  if (existingSpritesheet && (existingSpritesheet.json as unknown as SpritesheetJson).meta.image.includes('lra')) {
+  if (existingSpritesheet && existingSpritesheet.version === SPRITESHEET_VERSION) {
     await DiscordUtils.sendLog(`Skipped spritesheet for visual ${i + 1}/${allVisuals.length}`);
 
     // eslint-disable-next-line no-continue
@@ -359,6 +360,7 @@ for (let i = 0; i < allVisuals.length; i++) {
         visuals,
       ) as unknown as Prisma.JsonObject,
       ...visuals,
+      version: SPRITESHEET_VERSION,
     },
     update: {
       image: spritesheet.image,
@@ -366,6 +368,7 @@ for (let i = 0; i < allVisuals.length; i++) {
         spritesheet,
         visuals,
       ) as unknown as Prisma.JsonObject,
+      version: SPRITESHEET_VERSION,
     },
   });
 

@@ -204,6 +204,7 @@ exports.Prisma.BruteScalarFieldEnum = {
 
 exports.Prisma.BruteSpritesheetScalarFieldEnum = {
   id: 'id',
+  version: 'version',
   gender: 'gender',
   longHair: 'longHair',
   lowerRightArm: 'lowerRightArm',

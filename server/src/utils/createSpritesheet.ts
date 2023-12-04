@@ -7,7 +7,7 @@ import Spritesmith, { SpritesmithResult } from 'spritesmith';
 import Vinyl from 'vinyl';
 import getFrame, { FRAMES } from '../animations/getFrame.js';
 
-const createSpritesheet = async (visuals: Omit<BruteSpritesheet, 'id' | 'image' | 'json'>) => {
+const createSpritesheet = async (visuals: Omit<BruteSpritesheet, 'id' | 'image' | 'json' | 'version'>) => {
   const model = visuals.gender;
 
   // Get every model animation

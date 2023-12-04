@@ -2586,6 +2586,6 @@ export type FighterStat = keyof typeof BASE_FIGHTER_STATS;
 
 export const BARE_HANDS_DAMAGE = 5;
 
-export const SPRITESHEET_VERSION = '1.0';
+export const SPRITESHEET_VERSION = '2.0';
 
 export const RESET_PRICE = 100;

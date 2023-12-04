@@ -236,6 +236,7 @@ model Brute {
 
 model BruteSpritesheet {
   id             Int    @id @default(autoincrement())
+  version        String @db.VarChar(255) @default("1.0")
   gender         Gender @default(male)
   longHair       Int    @default(1)
   lowerRightArm  Int    @default(1)

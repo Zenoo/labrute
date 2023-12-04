@@ -4,7 +4,7 @@ import { Gender, Prisma, PrismaClient } from '@labrute/prisma';
 import {
   ARENA_OPPONENTS_COUNT, createRandomBruteStats,
   FIGHTS_PER_DAY, getBruteVisuals, getLevelUpChoices, getRandomBody,
-  getRandomColors, updateBruteData,
+  getRandomColors, SPRITESHEET_VERSION, updateBruteData,
 } from '@labrute/core';
 import {
   adjectives, animals, colors, languages, names, starWars, uniqueNamesGenerator,
@@ -115,7 +115,7 @@ async function main() {
 
     // Check if spritesheet already exists
     const existingSpritesheet = await prisma.bruteSpritesheet.count({
-      where: { ...visuals },
+      where: { ...visuals, version: SPRITESHEET_VERSION },
     });
 
     if (existingSpritesheet > 0) {
@@ -123,6 +123,11 @@ async function main() {
     } else {
       // Generate animation spritesheet
       const spritesheet = await createSpritesheet(visuals);
+
+      // Delete outdated spritesheet
+      await prisma.bruteSpritesheet.deleteMany({
+        where: { ...visuals, version: { not: SPRITESHEET_VERSION } },
+      });
 
       // Store spritesheet image in database as blob and data as json
       await prisma.bruteSpritesheet.create({
@@ -133,6 +138,7 @@ async function main() {
             getBruteVisuals(brute),
           ) as unknown as Prisma.JsonObject,
           ...visuals,
+          version: SPRITESHEET_VERSION,
         },
         select: { id: true },
       });

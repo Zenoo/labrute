@@ -1,8 +1,7 @@
-import { BruteSpritesheet, Gender } from '@labrute/prisma';
+import { Gender } from '@labrute/prisma';
 import adjustColor from '../utils/adjustColor';
 import colors from './colors';
-
-export type BruteVisuals = Omit<BruteSpritesheet, 'id' | 'image' | 'json'>;
+import { BruteVisuals } from './getBruteVisuals';
 
 const getVisualsFromUrl = (gender: Gender, query: Record<string, string>): BruteVisuals => ({
   gender,

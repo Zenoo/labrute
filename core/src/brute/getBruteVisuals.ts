@@ -1,7 +1,7 @@
 import { BruteSpritesheet } from '@labrute/prisma';
 import { BruteWithBodyColors } from '../types';
 
-export type BruteVisuals = Omit<BruteSpritesheet, 'id' | 'image' | 'json'>;
+export type BruteVisuals = Omit<BruteSpritesheet, 'id' | 'image' | 'json' | 'version'>;
 
 const getBruteVisuals = (brute: BruteWithBodyColors) => {
   if (!brute.body || !brute.colors) {

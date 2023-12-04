@@ -8348,6 +8348,7 @@ export namespace Prisma {
 
   export type BruteSpritesheetMinAggregateOutputType = {
     id: number | null
+    version: string | null
     gender: $Enums.Gender | null
     longHair: number | null
     lowerRightArm: number | null
@@ -8383,6 +8384,7 @@ export namespace Prisma {
 
   export type BruteSpritesheetMaxAggregateOutputType = {
     id: number | null
+    version: string | null
     gender: $Enums.Gender | null
     longHair: number | null
     lowerRightArm: number | null
@@ -8418,6 +8420,7 @@ export namespace Prisma {
 
   export type BruteSpritesheetCountAggregateOutputType = {
     id: number
+    version: number
     gender: number
     longHair: number
     lowerRightArm: number
@@ -8502,6 +8505,7 @@ export namespace Prisma {
 
   export type BruteSpritesheetMinAggregateInputType = {
     id?: true
+    version?: true
     gender?: true
     longHair?: true
     lowerRightArm?: true
@@ -8537,6 +8541,7 @@ export namespace Prisma {
 
   export type BruteSpritesheetMaxAggregateInputType = {
     id?: true
+    version?: true
     gender?: true
     longHair?: true
     lowerRightArm?: true
@@ -8572,6 +8577,7 @@ export namespace Prisma {
 
   export type BruteSpritesheetCountAggregateInputType = {
     id?: true
+    version?: true
     gender?: true
     longHair?: true
     lowerRightArm?: true
@@ -8695,6 +8701,7 @@ export namespace Prisma {
 
   export type BruteSpritesheetGroupByOutputType = {
     id: number
+    version: string
     gender: $Enums.Gender
     longHair: number
     lowerRightArm: number
@@ -8750,6 +8757,7 @@ export namespace Prisma {
 
   export type BruteSpritesheetSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    version?: boolean
     gender?: boolean
     longHair?: boolean
     lowerRightArm?: boolean
@@ -8786,6 +8794,7 @@ export namespace Prisma {
 
   export type BruteSpritesheetSelectScalar = {
     id?: boolean
+    version?: boolean
     gender?: boolean
     longHair?: boolean
     lowerRightArm?: boolean
@@ -8826,6 +8835,7 @@ export namespace Prisma {
     objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: number
+      version: string
       gender: $Enums.Gender
       longHair: number
       lowerRightArm: number
@@ -9253,6 +9263,7 @@ export namespace Prisma {
    */ 
   interface BruteSpritesheetFieldRefs {
     readonly id: FieldRef<"BruteSpritesheet", 'Int'>
+    readonly version: FieldRef<"BruteSpritesheet", 'String'>
     readonly gender: FieldRef<"BruteSpritesheet", 'Gender'>
     readonly longHair: FieldRef<"BruteSpritesheet", 'Int'>
     readonly lowerRightArm: FieldRef<"BruteSpritesheet", 'Int'>
@@ -22617,6 +22628,7 @@ export namespace Prisma {
 
   export const BruteSpritesheetScalarFieldEnum: {
     id: 'id',
+    version: 'version',
     gender: 'gender',
     longHair: 'longHair',
     lowerRightArm: 'lowerRightArm',
@@ -23757,6 +23769,7 @@ export namespace Prisma {
     OR?: BruteSpritesheetWhereInput[]
     NOT?: BruteSpritesheetWhereInput | BruteSpritesheetWhereInput[]
     id?: IntFilter<"BruteSpritesheet"> | number
+    version?: StringFilter<"BruteSpritesheet"> | string
     gender?: EnumGenderFilter<"BruteSpritesheet"> | $Enums.Gender
     longHair?: IntFilter<"BruteSpritesheet"> | number
     lowerRightArm?: IntFilter<"BruteSpritesheet"> | number
@@ -23793,6 +23806,7 @@ export namespace Prisma {
 
   export type BruteSpritesheetOrderByWithRelationInput = {
     id?: SortOrder
+    version?: SortOrder
     gender?: SortOrder
     longHair?: SortOrder
     lowerRightArm?: SortOrder
@@ -23833,6 +23847,7 @@ export namespace Prisma {
     AND?: BruteSpritesheetWhereInput | BruteSpritesheetWhereInput[]
     OR?: BruteSpritesheetWhereInput[]
     NOT?: BruteSpritesheetWhereInput | BruteSpritesheetWhereInput[]
+    version?: StringFilter<"BruteSpritesheet"> | string
     gender?: EnumGenderFilter<"BruteSpritesheet"> | $Enums.Gender
     longHair?: IntFilter<"BruteSpritesheet"> | number
     lowerRightArm?: IntFilter<"BruteSpritesheet"> | number
@@ -23869,6 +23884,7 @@ export namespace Prisma {
 
   export type BruteSpritesheetOrderByWithAggregationInput = {
     id?: SortOrder
+    version?: SortOrder
     gender?: SortOrder
     longHair?: SortOrder
     lowerRightArm?: SortOrder
@@ -23913,6 +23929,7 @@ export namespace Prisma {
     OR?: BruteSpritesheetScalarWhereWithAggregatesInput[]
     NOT?: BruteSpritesheetScalarWhereWithAggregatesInput | BruteSpritesheetScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
+    version?: StringWithAggregatesFilter<"BruteSpritesheet"> | string
     gender?: EnumGenderWithAggregatesFilter<"BruteSpritesheet"> | $Enums.Gender
     longHair?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
     lowerRightArm?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
@@ -25516,6 +25533,7 @@ export namespace Prisma {
   }
 
   export type BruteSpritesheetCreateInput = {
+    version?: string
     gender?: $Enums.Gender
     longHair?: number
     lowerRightArm?: number
@@ -25552,6 +25570,7 @@ export namespace Prisma {
 
   export type BruteSpritesheetUncheckedCreateInput = {
     id?: number
+    version?: string
     gender?: $Enums.Gender
     longHair?: number
     lowerRightArm?: number
@@ -25587,6 +25606,7 @@ export namespace Prisma {
   }
 
   export type BruteSpritesheetUpdateInput = {
+    version?: StringFieldUpdateOperationsInput | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     longHair?: IntFieldUpdateOperationsInput | number
     lowerRightArm?: IntFieldUpdateOperationsInput | number
@@ -25623,6 +25643,7 @@ export namespace Prisma {
 
   export type BruteSpritesheetUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
+    version?: StringFieldUpdateOperationsInput | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     longHair?: IntFieldUpdateOperationsInput | number
     lowerRightArm?: IntFieldUpdateOperationsInput | number
@@ -25659,6 +25680,7 @@ export namespace Prisma {
 
   export type BruteSpritesheetCreateManyInput = {
     id?: number
+    version?: string
     gender?: $Enums.Gender
     longHair?: number
     lowerRightArm?: number
@@ -25694,6 +25716,7 @@ export namespace Prisma {
   }
 
   export type BruteSpritesheetUpdateManyMutationInput = {
+    version?: StringFieldUpdateOperationsInput | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     longHair?: IntFieldUpdateOperationsInput | number
     lowerRightArm?: IntFieldUpdateOperationsInput | number
@@ -25730,6 +25753,7 @@ export namespace Prisma {
 
   export type BruteSpritesheetUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
+    version?: StringFieldUpdateOperationsInput | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     longHair?: IntFieldUpdateOperationsInput | number
     lowerRightArm?: IntFieldUpdateOperationsInput | number
@@ -27466,6 +27490,7 @@ export namespace Prisma {
 
   export type BruteSpritesheetCountOrderByAggregateInput = {
     id?: SortOrder
+    version?: SortOrder
     gender?: SortOrder
     longHair?: SortOrder
     lowerRightArm?: SortOrder
@@ -27525,6 +27550,7 @@ export namespace Prisma {
 
   export type BruteSpritesheetMaxOrderByAggregateInput = {
     id?: SortOrder
+    version?: SortOrder
     gender?: SortOrder
     longHair?: SortOrder
     lowerRightArm?: SortOrder
@@ -27560,6 +27586,7 @@ export namespace Prisma {
 
   export type BruteSpritesheetMinOrderByAggregateInput = {
     id?: SortOrder
+    version?: SortOrder
     gender?: SortOrder
     longHair?: SortOrder
     lowerRightArm?: SortOrder

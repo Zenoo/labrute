@@ -1,4 +1,4 @@
-import { BruteWithBodyColors, getBruteVisuals } from '@labrute/core';
+import { BruteWithBodyColors, SPRITESHEET_VERSION, getBruteVisuals } from '@labrute/core';
 import { Prisma, PrismaClient } from '@labrute/prisma';
 import { workerData } from 'worker_threads';
 import createSpritesheet from '../utils/createSpritesheet.js';
@@ -12,7 +12,10 @@ try {
 
   // Check if spritesheet already exists
   const count = await prisma.bruteSpritesheet.count({
-    where: { ...visuals },
+    where: {
+      ...visuals,
+      version: SPRITESHEET_VERSION,
+    },
   });
 
   if (count > 0) {
@@ -21,6 +24,14 @@ try {
 
   // Create spritesheet
   const spritesheet = await createSpritesheet(visuals);
+
+  // Delete outdated spritesheet
+  await prisma.bruteSpritesheet.deleteMany({
+    where: {
+      ...visuals,
+      version: { not: SPRITESHEET_VERSION },
+    },
+  });
 
   await prisma.bruteSpritesheet.create({
     data: {
