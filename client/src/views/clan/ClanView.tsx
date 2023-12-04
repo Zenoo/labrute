@@ -189,7 +189,7 @@ const ClanView = () => {
       ...data,
       brutes: data.brutes.map((b) => (b.name === brute.name ? {
         ...b,
-        fightsLeft: b.fightsLeft - 1,
+        fightsLeft: getFightsLeft(b) - 1,
         lastFight: new Date(),
       } : b)),
     }) : null));
