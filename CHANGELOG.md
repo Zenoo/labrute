@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.41.4](https://github.com/Zenoo/labrute/compare/labrute-v2.41.3...labrute-v2.41.4) (2023-12-04)
+
+
+### Bug Fixes
+
+* Clan rank number ([c7f4f4c](https://github.com/Zenoo/labrute/commit/c7f4f4cf0e001a924cb30b8435f9677570d1d7db))
+* Update clan points on brute reset ([b66172e](https://github.com/Zenoo/labrute/commit/b66172eb35ca84cf08220898f9564eb8bf5c0737))
+* Update clan points when accepting a report ([56f5212](https://github.com/Zenoo/labrute/commit/56f5212afb2e8e4ec6374cca038b3d99206f898b))
+
 ## [2.41.3](https://github.com/Zenoo/labrute/compare/labrute-v2.41.2...labrute-v2.41.3) (2023-12-04)
 
 
