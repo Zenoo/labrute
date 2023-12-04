@@ -47,13 +47,13 @@
   "favoriteLimitReached": "Has alcanzado tu límite de brutos favoritos",
   "notEnoughGold": "Oro insuficiente",
   "clanNameLength": "El nombre de tu clan debe tener entre 3 y 50 caracteres.",
-  "clanNameAlreadyTaken": "This name is already taken",
-  "clanNotFound": "Clan not found",
-  "alreadyInClan": "You are already in a clan",
-  "clanFull": "Clan is full",
-  "noRequestFound": "No request found",
-  "alreadyRequested": "You already requested to join this clan",
-  "missingClanId": "Missing clan ID",
-  "masterCannotLeave": "The master cannot leave a clan that has members",
-  "threadNotFound": "Thread not found"
+  "clanNameAlreadyTaken": "Este nombre ya está en uso",
+  "clanNotFound": "Clan no encontrado",
+  "alreadyInClan": "Ya estás en un clan",
+  "clanFull": "El clan está lleno",
+  "noRequestFound": "No se encontraron solicitudes",
+  "alreadyRequested": "Ya has solicitado unirte a este clan",
+  "missingClanId": "Falta el ID del clan",
+  "masterCannotLeave": "El maestro no puede dejar un clan que tiene miembros",
+  "threadNotFound": "Hilo no encontrado"
 }
