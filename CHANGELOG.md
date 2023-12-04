@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.41.10](https://github.com/Zenoo/labrute/compare/labrute-v2.41.9...labrute-v2.41.10) (2023-12-04)
+
+
+### Bug Fixes
+
+* Include job ID when starting new job ([b63f32c](https://github.com/Zenoo/labrute/commit/b63f32cdc594d0cc50a339417e7a6338e76c595b))
+
 ## [2.41.9](https://github.com/Zenoo/labrute/compare/labrute-v2.41.8...labrute-v2.41.9) (2023-12-04)
 
 
