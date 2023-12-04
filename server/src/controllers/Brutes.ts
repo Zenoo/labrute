@@ -1381,6 +1381,8 @@ const Brutes = {
           destinyPath: [],
           // Reset fights left
           fightsLeft: getMaxFightsPerDay(stats),
+          // Keep ranking
+          ranking: brute.ranking,
         },
         include: {
           master: true,
