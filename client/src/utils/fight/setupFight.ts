@@ -569,10 +569,10 @@ const setupFight: (
   void sound.play('win');
 
   // Get winner fighter
-  const winner = fighters.find((fighter) => fighter.type === 'brute' && fighter.name === fight.winner);
+  const winner = fighters.find((fighter) => (fighter.type === 'brute' || fighter.type === 'boss') && fighter.name === fight.winner);
 
   // Get loser fighter
-  const loser = fighters.find((fighter) => !fighter.master && fighter.type === 'brute' && fighter.name !== fight.winner);
+  const loser = fighters.find((fighter) => !fighter.master && ((fighter.type === 'brute' && fighter.name !== fight.winner) || fighter.type === 'boss'));
 
   // Display dead icon animation on the UI
   const deadIcon = new AnimatedSprite(miscSheet.animations.dead);
@@ -583,10 +583,10 @@ const setupFight: (
   if (loser?.team === 'right') {
     deadIcon.scale.x = -1;
     if (brute2Header) {
-      deadIcon.x = brute2Header.x - 32;
+      deadIcon.x = brute2Header.x + 32;
       deadIcon.y = brute2Header.y - 13;
     } else if (bossHeader) {
-      deadIcon.x = bossHeader.x - 32;
+      deadIcon.x = bossHeader.x + 32;
       deadIcon.y = bossHeader.y - 13;
     }
   } else {
