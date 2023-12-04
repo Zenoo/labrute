@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.41.2](https://github.com/Zenoo/labrute/compare/labrute-v2.41.1...labrute-v2.41.2) (2023-12-04)
+
+
+### Bug Fixes
+
+* Error when accepting clan members ([28c1199](https://github.com/Zenoo/labrute/commit/28c11996610e74cf3afaeb85ad4faa52fb1732e4))
+* Hide clan creation button on other brutes ([255ea13](https://github.com/Zenoo/labrute/commit/255ea1360ea4de96405d33faf3b9bfba2ce36113))
+
 ## [2.41.1](https://github.com/Zenoo/labrute/compare/labrute-v2.41.0...labrute-v2.41.1) (2023-12-04)
 
 
