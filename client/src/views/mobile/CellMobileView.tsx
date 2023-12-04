@@ -25,6 +25,7 @@ export interface CellMobileViewProps {
   ad: AdResult;
   logs: (Log & { currentBrute: { name: string } })[];
   language: Language;
+  ownsBrute: boolean;
   confirmReport: () => void;
   confirmSacrifice: () => void;
   confirmReset: () => void;
@@ -34,6 +35,7 @@ const CellMobileView = ({
   ad,
   logs,
   language,
+  ownsBrute,
   confirmReport,
   confirmSacrifice,
   confirmReset,
@@ -67,7 +69,9 @@ const CellMobileView = ({
             <Tooltip title={t('refLink')}>
               <Text bold center>{`${window.location.origin}?ref=${brute.name}`}</Text>
             </Tooltip>
-            <CellClan brute={brute} />
+            {(ownsBrute || !!brute.clanId) && (
+              <CellClan brute={brute} sx={{ ml: 4 }} />
+            )}
           </Paper>
         </Grid>
         <Grid item xs={12} sm={6} order={isXs ? 3 : 0} sx={{ textAlign: 'center', px: 1, alignSelf: 'center' }}>

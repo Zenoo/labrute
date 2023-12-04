@@ -40,9 +40,12 @@ const CellView = () => {
   const { brute, fetchBrute, updateBrute } = useBrute();
   const Confirm = useConfirm();
   const Alert = useAlert();
-  const { updateData } = useAuth();
+  const { authing, user, updateData } = useAuth();
 
   const { data: logs } = useStateAsync([], Server.Log.list, bruteName || '');
+
+  const ownsBrute = useMemo(() => (authing
+    || !!(brute && user && brute.userId === user.id)), [authing, brute, user]);
 
   // Sacrifice brute
   const confirmSacrifice = useCallback(() => {
@@ -111,6 +114,7 @@ const CellView = () => {
         ad={ad}
         logs={logs}
         language={language}
+        ownsBrute={ownsBrute}
         confirmReport={confirmReport}
         confirmSacrifice={confirmSacrifice}
         confirmReset={confirmReset}
@@ -202,7 +206,9 @@ const CellView = () => {
               </Tooltip>
 
               {/* CLAN */}
-              <CellClan brute={brute} sx={{ ml: 4 }} />
+              {(ownsBrute || !!brute.clanId) && (
+                <CellClan brute={brute} sx={{ ml: 4 }} />
+              )}
               {/* ADVERT */}
               <BoxBg
                 src={`/images/${language}/cell/a-bg.gif`}
