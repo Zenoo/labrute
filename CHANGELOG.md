@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.41.9](https://github.com/Zenoo/labrute/compare/labrute-v2.41.8...labrute-v2.41.9) (2023-12-04)
+
+
+### Bug Fixes
+
+* Start the worker queue on server start ([fe6a9d0](https://github.com/Zenoo/labrute/commit/fe6a9d0e2cc47eac5647aa3ecc942190b2730207))
+
 ## [2.41.8](https://github.com/Zenoo/labrute/compare/labrute-v2.41.7...labrute-v2.41.8) (2023-12-04)
 
 
