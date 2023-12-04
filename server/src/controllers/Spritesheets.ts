@@ -29,8 +29,14 @@ const Spritesheets = {
 
       // New getter with gender + visuals
       if (gender === Gender.male || gender === Gender.female) {
+        // If no visuals, return default spritesheet
         if (Object.keys(req.query).length === 0) {
-          throw new Error('Missing visuals');
+          // Load default spritesheet
+          const defaultSpritesheet = await fetch(`${Env.SELF_URL}/images/game/${gender}-brute.png`);
+
+          // Send default spritesheet
+          res.header('Content-Type', 'image/png').send(Buffer.from(await defaultSpritesheet.arrayBuffer()));
+          return;
         }
         const visuals = getVisualsFromUrl(gender, req.query as unknown as Record<string, string>);
 
