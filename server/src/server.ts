@@ -9,6 +9,7 @@ import './i18n.js';
 import initRoutes from './routes.js';
 import DiscordUtils from './utils/DiscordUtils.js';
 import Env from './utils/Env.js';
+import startJob from './workers/startJob.js';
 
 const DEBUG_QUERIES = false;
 
@@ -65,6 +66,13 @@ app.listen(port, () => {
 
   // Initialize daily scheduler
   schedule.scheduleJob('0 0 * * *', dailyJob(prisma));
+
+  // Start worker queue
+  startJob(prisma).catch((error) => {
+    DiscordUtils.sendError(error).catch((e) => {
+      console.error(e);
+    });
+  });
 });
 
 initRoutes(app, prisma);

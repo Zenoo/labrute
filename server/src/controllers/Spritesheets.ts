@@ -7,14 +7,13 @@ import { Request, Response } from 'express';
 import fetch from 'node-fetch';
 import Spritesmith from 'spritesmith';
 import Vynil from 'vinyl';
-import { Worker } from 'worker_threads';
 import getFrame, { FRAMES } from '../animations/getFrame.js';
-import auth from '../utils/auth.js';
 import Env from '../utils/Env.js';
-import sendError from '../utils/sendError.js';
-import translate from '../utils/translate.js';
+import auth from '../utils/auth.js';
 import createSpritesheet from '../utils/createSpritesheet.js';
 import formatSpritesheet from '../utils/formatSpritesheet.js';
+import sendError from '../utils/sendError.js';
+import translate from '../utils/translate.js';
 import queueJob from '../workers/queueJob.js';
 
 const Spritesheets = {
