@@ -132,9 +132,9 @@ const checkAchievements = (
 
 const getMainOpponent = (fightData: DetailedFight['data'], brute: DetailedFighter) => {
   const mainOpponent = fightData.fighters.find(
-    (fighter) => fighter.type === 'brute'
-      && !fighter.master
-      && fighter.name !== brute.name
+    (fighter) => (fighter.type === 'boss'
+      || (fighter.type === 'brute'
+        && !fighter.master && fighter.name !== brute.name))
       && fighter.hp > 0,
   );
 
