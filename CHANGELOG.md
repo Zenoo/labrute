@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.41.7](https://github.com/Zenoo/labrute/compare/labrute-v2.41.6...labrute-v2.41.7) (2023-12-04)
+
+
+### Bug Fixes
+
+* Allow bosses to be targeted by brute only stuff ([5c18e49](https://github.com/Zenoo/labrute/commit/5c18e49219666329757141e2e43e320919dd520c))
+* Stop the game engine after the fight is over ([068fb13](https://github.com/Zenoo/labrute/commit/068fb13072391a8182fdc121b9498b97d730e3cf))
+* Update brute clan on join ([88a3402](https://github.com/Zenoo/labrute/commit/88a340290c434356a34041c714e2591861dbf2a9))
+* Update spritesheet on query if outdated ([18e9aa2](https://github.com/Zenoo/labrute/commit/18e9aa2258e84703846549863d13467c848b6659))
+
 ## [2.41.6](https://github.com/Zenoo/labrute/compare/labrute-v2.41.5...labrute-v2.41.6) (2023-12-04)
 
 
