@@ -86,7 +86,7 @@ const ClanView = () => {
 
   // Accept join request
   const acceptJoin = (requester: BruteWithBodyColors) => () => {
-    if (!clan) return;
+    if (!user || !clan) return;
 
     Confirm.open(t('acceptJoinRequest'), t('confirmAcceptRequest'), () => {
       Server.Clan.accept(requester.name, clan.id).then(() => {
@@ -98,6 +98,16 @@ const ClanView = () => {
           joinRequests: prevClan.joinRequests.filter((br) => br.id !== requester.id),
           brutes: [...prevClan.brutes, requester],
         }) : null));
+
+        // Update user data if it's an own brute
+        if (user.brutes.find((b) => b.id === requester.id)) {
+          updateData((data) => (data ? ({
+            ...data,
+            brutes: data.brutes.map((b) => (b.name === requester.name ? {
+              ...b, clanId: clan.id,
+            } : b)),
+          }) : null));
+        }
       }).catch(catchError(Alert));
     });
   };
