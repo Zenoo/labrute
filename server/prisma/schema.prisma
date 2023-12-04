@@ -549,6 +549,12 @@ model ServerState {
   banWords String[]
 }
 
+model WorkerJob {
+  id      Int      @id @default(autoincrement())
+  worker  String   @db.VarChar(255)
+  payload Json     @db.Json
+}
+
 // CLANS
 enum BossName {
   GoldClaw

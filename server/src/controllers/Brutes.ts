@@ -34,6 +34,7 @@ import translate from '../utils/translate.js';
 import DiscordUtils from '../utils/DiscordUtils.js';
 import { increaseAchievement } from './Achievements.js';
 import updateClanPoints from '../utils/clan/updateClanPoints.js';
+import queueJob from '../workers/queueJob.js';
 
 const Brutes = {
   list: (prisma: PrismaClient) => async (req: Request, res: Response) => {
@@ -250,10 +251,7 @@ const Brutes = {
       await checkLevelUpAchievements(prisma, brute, destinyChoice);
 
       // Generate spritesheet
-      // eslint-disable-next-line no-new
-      new Worker('./lib/workers/generateSpritesheet.js', {
-        workerData: brute,
-      });
+      await queueJob(prisma, 'generateSpritesheet', brute);
 
       res.send({ brute, goldLost, newLimit });
     } catch (error) {

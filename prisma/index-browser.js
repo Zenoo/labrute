@@ -328,6 +328,12 @@ exports.Prisma.ServerStateScalarFieldEnum = {
   banWords: 'banWords'
 };
 
+exports.Prisma.WorkerJobScalarFieldEnum = {
+  id: 'id',
+  worker: 'worker',
+  payload: 'payload'
+};
+
 exports.Prisma.ClanScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -659,6 +665,7 @@ exports.Prisma.ModelName = {
   Title: 'Title',
   BruteReport: 'BruteReport',
   ServerState: 'ServerState',
+  WorkerJob: 'WorkerJob',
   Clan: 'Clan',
   ClanThread: 'ClanThread',
   ClanPost: 'ClanPost'

@@ -3,9 +3,15 @@ import { Prisma, PrismaClient } from '@labrute/prisma';
 import { workerData } from 'worker_threads';
 import createSpritesheet from '../utils/createSpritesheet.js';
 import formatSpritesheet from '../utils/formatSpritesheet.js';
-import DiscordUtils from '../utils/DiscordUtils.js';
+import startJob from './startJob.js';
 
-const visuals = workerData as BruteVisuals;
+const {
+  payload: visuals,
+  jobId,
+} = workerData as {
+  payload: BruteVisuals;
+  jobId: number;
+};
 const prisma = new PrismaClient();
 
 try {
@@ -20,8 +26,6 @@ try {
   if (count > 0) {
     throw new Error('Spritesheet already exists');
   }
-
-  await DiscordUtils.sendLog(`Updating spritesheet for \`${JSON.stringify(visuals)}\``);
 
   // Create spritesheet
   const spritesheet = await createSpritesheet(visuals);
@@ -39,6 +43,10 @@ try {
     },
     select: { id: true },
   });
+} catch (error) { /* ignore */ } finally {
+  // Delete job
+  await prisma.workerJob.delete({ where: { id: jobId } });
 
-  await DiscordUtils.sendLog('Updated spritesheet');
-} catch (error) { /* ignore */ }
+  // Start the next job
+  await startJob(prisma);
+}

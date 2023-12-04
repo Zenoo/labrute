@@ -15,6 +15,7 @@ import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
 import createSpritesheet from '../utils/createSpritesheet.js';
 import formatSpritesheet from '../utils/formatSpritesheet.js';
+import queueJob from '../workers/queueJob.js';
 
 const Spritesheets = {
   getImage: (prisma: PrismaClient) => async (req: Request<{
@@ -105,10 +106,7 @@ const Spritesheets = {
         const defaultSpritesheet = await fetch(`${Env.SELF_URL}/images/game/${brute.gender}-brute.png`);
 
         // This still means the spritesheet is not correct, update it in the BG
-        // eslint-disable-next-line no-new
-        new Worker('./lib/workers/generateSpritesheet.js', {
-          workerData: brute,
-        });
+        await queueJob(prisma, 'generateSpritesheet', brute);
 
         // Send default spritesheet
         res.header('Content-Type', 'image/png').send(Buffer.from(await defaultSpritesheet.arrayBuffer()));
@@ -191,10 +189,7 @@ const Spritesheets = {
       if (spritesheet) {
         // If spritesheet is outdated, update it in the BG
         if (spritesheet.version !== SPRITESHEET_VERSION) {
-          // eslint-disable-next-line no-new
-          new Worker('./lib/workers/updateSpritesheet.js', {
-            workerData: visuals,
-          });
+          await queueJob(prisma, 'updateSpritesheet', visuals);
         }
 
         res.header('Content-Type', 'application/json').send(spritesheet.json);
@@ -203,10 +198,7 @@ const Spritesheets = {
         const defaultSpritesheet = await fetch(`${Env.SELF_URL}/images/game/${brute.gender}-brute.json`);
 
         // Create missing spritesheet in the BG
-        // eslint-disable-next-line no-new
-        new Worker('./lib/workers/generateSpritesheet.js', {
-          workerData: brute,
-        });
+        await queueJob(prisma, 'generateSpritesheet', brute);
 
         // Send default spritesheet
         res.header('Content-Type', 'application/json').send(Buffer.from(await defaultSpritesheet.arrayBuffer()));
@@ -347,8 +339,7 @@ const Spritesheets = {
       }
 
       // Regenerate spritesheets
-      // eslint-disable-next-line no-new
-      new Worker('./lib/workers/regenerateSpritesheets.js', {});
+      await queueJob(prisma, 'regenerateSpritesheets', {});
 
       res.send({
         message: 'Regeneration started',

@@ -3,8 +3,15 @@ import { Prisma, PrismaClient } from '@labrute/prisma';
 import { workerData } from 'worker_threads';
 import createSpritesheet from '../utils/createSpritesheet.js';
 import formatSpritesheet from '../utils/formatSpritesheet.js';
+import startJob from './startJob.js';
 
-const brute = workerData as BruteWithBodyColors;
+const {
+  payload: brute,
+  jobId,
+} = workerData as {
+  payload: BruteWithBodyColors;
+  jobId: number;
+};
 const prisma = new PrismaClient();
 
 try {
@@ -41,4 +48,10 @@ try {
     },
     select: { id: true },
   });
-} catch (error) { /* ignore */ }
+} catch (error) { /* ignore */ } finally {
+  // Delete job
+  await prisma.workerJob.delete({ where: { id: jobId } });
+
+  // Start the next job
+  await startJob(prisma);
+}
