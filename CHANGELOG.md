@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.41.0](https://github.com/Zenoo/labrute/compare/labrute-v2.40.2...labrute-v2.41.0) (2023-12-04)
+
+
+### Features
+
+* Boss fights. Fixes [#232](https://github.com/Zenoo/labrute/issues/232) ([cd8f8cc](https://github.com/Zenoo/labrute/commit/cd8f8cca9f4fd7e7282d78d777123dc02c32acd4))
+* Clan forum. [#464](https://github.com/Zenoo/labrute/issues/464) ([abef36a](https://github.com/Zenoo/labrute/commit/abef36af63b73d2b815aef70d9e743ddd4d8c4fc))
+* Clan join request. [#464](https://github.com/Zenoo/labrute/issues/464) ([4d01443](https://github.com/Zenoo/labrute/commit/4d01443ddb2919d63724b0b35d6789305139535b))
+* Clan join/remove. [#464](https://github.com/Zenoo/labrute/issues/464) ([a56ebb5](https://github.com/Zenoo/labrute/commit/a56ebb5a4bebe3052079831da0298e6f8fee07d1))
+* Clan list / creation. [#464](https://github.com/Zenoo/labrute/issues/464) ([022693e](https://github.com/Zenoo/labrute/commit/022693e451d17b722c4284c3d15319198289468e))
+* Clan points. [#464](https://github.com/Zenoo/labrute/issues/464) ([63e2cbe](https://github.com/Zenoo/labrute/commit/63e2cbed2ea88f6bbedd9451796f2a3883c78118))
+* Create post and list posts. [#464](https://github.com/Zenoo/labrute/issues/464) ([3a7607a](https://github.com/Zenoo/labrute/commit/3a7607ac80842a31ab583b8fb41edceb387741c1))
+* Leave clan. [#464](https://github.com/Zenoo/labrute/issues/464) ([5259b44](https://github.com/Zenoo/labrute/commit/5259b443bc5a8090a52c9078471fa5f82d513bd1))
+* Option to reset your brute to level 1. Fixes [#147](https://github.com/Zenoo/labrute/issues/147) ([55a1b63](https://github.com/Zenoo/labrute/commit/55a1b63bac2ad8684826e40f377a9c2b241f4396))
+
+
+### Bug Fixes
+
+* Brutes should be able to reverse after blocking. Fixes [#453](https://github.com/Zenoo/labrute/issues/453) ([15ae5d2](https://github.com/Zenoo/labrute/commit/15ae5d2455a420395d0963438869f40272a2cc26))
+* Different background in tournament history depending on the type. Fixes [#456](https://github.com/Zenoo/labrute/issues/456) ([1034685](https://github.com/Zenoo/labrute/commit/10346855f82a11feb3ab4639f1e8a3ae21c027b7))
+* Evade before block. Fixes [#452](https://github.com/Zenoo/labrute/issues/452) ([9681871](https://github.com/Zenoo/labrute/commit/968187137bf570198ccd1803525a5d1800472f30))
+* Icons and favicons. Fixes [#18](https://github.com/Zenoo/labrute/issues/18) ([fa1ef45](https://github.com/Zenoo/labrute/commit/fa1ef457a856fa9a7df5d3d815dfd3e7f599b9c7))
+* New `Thor` achievement. FIxes [#258](https://github.com/Zenoo/labrute/issues/258) ([9c41326](https://github.com/Zenoo/labrute/commit/9c41326c26e69ad19a78fd68ab50a261aa83670e))
+* New achievement titles. [#196](https://github.com/Zenoo/labrute/issues/196) ([17a11c5](https://github.com/Zenoo/labrute/commit/17a11c58280b7f38bea197f4ce7ad23f8b54fba8))
+* Send default spritesheet if no visual found ([efb9954](https://github.com/Zenoo/labrute/commit/efb9954a73441751cce9831942297aa823d82cec))
+* Spy only trades the min of the max weapons + Saboteur works after spy. Fixes [#460](https://github.com/Zenoo/labrute/issues/460). Fixes [#461](https://github.com/Zenoo/labrute/issues/461) ([34e9e3b](https://github.com/Zenoo/labrute/commit/34e9e3b65bce27246d29f3140c583fa00924b4fa))
+* Update the damaged weapon logic when receiving a weapon through spy ([33f4222](https://github.com/Zenoo/labrute/commit/33f4222ad7bc05eb821eede9df3bf3793c14f8af))
+* Update user gold after brute reset ([b38cf1b](https://github.com/Zenoo/labrute/commit/b38cf1b1c6dd563ab24af5652465d39acffcffcb))
+* Wrong position suffix in tournament history. Fixes [#455](https://github.com/Zenoo/labrute/issues/455) ([7873aca](https://github.com/Zenoo/labrute/commit/7873aca5349ec177a0374274bdf2889528dd504e))
+
 ## [2.40.2](https://github.com/Zenoo/labrute/compare/labrute-v2.40.1...labrute-v2.40.2) (2023-11-30)
 
 
