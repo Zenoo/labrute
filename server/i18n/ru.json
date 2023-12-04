@@ -44,5 +44,16 @@
   "userNotFound": "Пользователь не найден",
   "invalidParameters": "Неверные параметры",
   "nameContainsBannedWord": "Это имя содержит недопустимое слово",
-  "favoriteLimitReached": "Вы достигли максимальное количество избранных"
+  "favoriteLimitReached": "Вы достигли максимальное количество избранных",
+  "notEnoughGold": "Недостаточно золота",
+  "clanNameLength": "Название клана должно быть длиной от 3 до 50 букв.",
+  "clanNameAlreadyTaken": "Название уже существует",
+  "clanNotFound": "Клан не найден",
+  "alreadyInClan": "У вас уже есть клан",
+  "clanFull": "В клане нет места",
+  "noRequestFound": "Заявка не найдена",
+  "alreadyRequested": "Вы уже подали заявку на вступление в клан",
+  "missingClanId": "Отсутствует ID клана",
+  "masterCannotLeave": "The master cannot leave a clan that has members",
+  "threadNotFound": "Thread not found"
 }

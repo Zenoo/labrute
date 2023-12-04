@@ -44,5 +44,16 @@
   "userNotFound": "Nutzer nicht gefunden",
   "invalidParameters": "Ungültige Parameter",
   "nameContainsBannedWord": "Dieser Name enthält ein verbotenes Wort",
-  "favoriteLimitReached": "Du hast das Maximum an Favoriten erreicht"
+  "favoriteLimitReached": "Du hast das Maximum an Favoriten erreicht",
+  "notEnoughGold": "Nicht genügend Gold",
+  "clanNameLength": "Der Name deines Klans muss zwischen 3 und 50 Zeichen lang sein.",
+  "clanNameAlreadyTaken": "Dieser Name ist bereits vergeben",
+  "clanNotFound": "Klan nicht gefunden",
+  "alreadyInClan": "Du bist bereits in einem Klan",
+  "clanFull": "Klan ist voll",
+  "noRequestFound": "Keine Anfrage gefunden",
+  "alreadyRequested": "Du hast bereits bei diesem Klan um Beitritt angefragt",
+  "missingClanId": "Klan-ID fehlt",
+  "masterCannotLeave": "The master cannot leave a clan that has members",
+  "threadNotFound": "Thread not found"
 }

@@ -44,5 +44,16 @@
   "userNotFound": "Utilisateur introuvable",
   "invalidParameters": "Paramètres invalides",
   "nameContainsBannedWord": "Ce nom contient un mot banni",
-  "favoriteLimitReached": "Vous avez atteint votre limite de brutes favorites"
+  "favoriteLimitReached": "Vous avez atteint votre limite de brutes favorites",
+  "notEnoughGold": "Pas assez d'Or",
+  "clanNameLength": "Le nom de votre clan doit contenir entre 3 et 50 caractères.",
+  "clanNameAlreadyTaken": "Ce nom est déjà utilisé",
+  "clanNotFound": "Clan introuvable",
+  "alreadyInClan": "Vous êtes déjà dans un clan",
+  "clanFull": "Le clan est plein",
+  "noRequestFound": "Aucune demande trouvée",
+  "alreadyRequested": "Vous avez déjà demandé à rejoindre ce clan",
+  "missingClanId": "ID du clan manquant",
+  "masterCannotLeave": "Un maître ne peut pas quitter un clan ayant des membres",
+  "threadNotFound": "Sujet introuvable"
 }
