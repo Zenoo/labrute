@@ -653,6 +653,13 @@ const setupFight: (
       // Stop animation
       petal.stop();
     }).catch(console.error);
+
+    // Freeze app after 10 seconds to save GPU
+    setTimeout(() => {
+      if (app?.ticker) {
+        app.ticker.stop();
+      }
+    }, 10000);
   }
 };
 
