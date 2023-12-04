@@ -196,8 +196,9 @@ export const getOpponents = (
       && f.master !== fighter.id);
   }
 
+  // Allow bosses too
   if (bruteOnly) {
-    opponents = opponents.filter((f) => f.type === 'brute');
+    opponents = opponents.filter((f) => f.type === 'brute' || f.type === 'boss');
   }
 
   if (petOnly) {
