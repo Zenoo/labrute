@@ -599,6 +599,11 @@ const Brutes = {
         });
       }
 
+      // Update clan points
+      if (brute.clanId) {
+        await updateClanPoints(prisma, brute.clanId, 'remove', brute);
+      }
+
       // Achievement
       await increaseAchievement(prisma, user.id, null, 'sacrifice');
 

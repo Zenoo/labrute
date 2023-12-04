@@ -8,6 +8,7 @@ import auth from '../utils/auth.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
 import DiscordUtils from '../utils/DiscordUtils.js';
+import updateClanPoints from '../utils/clan/updateClanPoints.js';
 
 const BruteReports = {
   list: (prisma: PrismaClient) => async (
@@ -168,6 +169,9 @@ const BruteReports = {
             select: {
               id: true,
               name: true,
+              clanId: true,
+              level: true,
+              ranking: true,
             },
           },
         },
@@ -210,6 +214,11 @@ const BruteReports = {
         },
         select: { id: true },
       });
+
+      // Update clan points
+      if (report.brute.clanId) {
+        await updateClanPoints(prisma, report.brute.clanId, 'remove', report.brute);
+      }
 
       res.status(200).send({
         success: true,
