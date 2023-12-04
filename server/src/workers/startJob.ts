@@ -19,7 +19,10 @@ const startJob = async (prisma: PrismaClient) => {
 
   // eslint-disable-next-line no-new
   new Worker(`./lib/workers/${job.worker}.js`, {
-    workerData: job.payload,
+    workerData: {
+      jobId: job.id,
+      payload: job.payload,
+    },
   });
 };
 
