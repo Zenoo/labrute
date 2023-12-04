@@ -279,6 +279,7 @@ const Clans = {
         select: {
           id: true,
           limit: true,
+          masterId: true,
           brutes: { select: { id: true } },
           joinRequests: { select: { id: true } },
         },
@@ -289,7 +290,7 @@ const Clans = {
       }
 
       // Check if one of the user brutes is the clan master
-      if (!clan.brutes.some((b) => b.id === user.brutes[0].id)) {
+      if (!user.brutes.some((b) => b.id === clan.masterId)) {
         throw new ExpectedError(translate('unauthorized', user));
       }
 
