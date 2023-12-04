@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.41.3](https://github.com/Zenoo/labrute/compare/labrute-v2.41.2...labrute-v2.41.3) (2023-12-04)
+
+
+### Bug Fixes
+
+* Wrong fights left after challenging a boss ([59d45cb](https://github.com/Zenoo/labrute/commit/59d45cb602b27a10d2dbfe89add0394988cf2838))
+
 ## [2.41.2](https://github.com/Zenoo/labrute/compare/labrute-v2.41.1...labrute-v2.41.2) (2023-12-04)
 
 
