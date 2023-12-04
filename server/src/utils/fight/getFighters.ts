@@ -4,10 +4,12 @@ import {
   BruteRanking,
   BruteWithBodyColors, DetailedFighter, pets, randomBetween, SHIELD_BLOCK_ODDS, skills, weapons,
 } from '@labrute/core';
+import { Boss } from '@labrute/core/src/brute/bosses.js';
 
-interface BruteAndBackup {
-  brute: BruteWithBodyColors;
+interface Team {
+  brute: BruteWithBodyColors | null;
   backup: BruteWithBodyColors | null;
+  boss?: Boss
 }
 
 const handleSkills = (brute: BruteWithBodyColors, fighter: DetailedFighter) => {
@@ -131,106 +133,232 @@ const handleSkills = (brute: BruteWithBodyColors, fighter: DetailedFighter) => {
   }
 };
 
-const getFighters = (team1: BruteAndBackup, team2: BruteAndBackup): DetailedFighter[] => {
+const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
   const fighters: DetailedFighter[] = [];
   [team1, team2].forEach((team) => {
     const { brute } = team;
 
-    if (!brute.body || !brute.colors) {
-      throw new Error('Brute body or colors are missing');
-    }
-
-    // Brute stats
-    const fighter: DetailedFighter = {
-      id: brute.id,
-      name: brute.name,
-      gender: brute.gender,
-      rank: brute.ranking as BruteRanking,
-      level: brute.level,
-      // Add minimal visual data to still be able to display the fight if the brute was deleted
-      data: {
-        gender: brute.gender,
-        colors: brute.colors,
-        body: brute.body,
-      },
-      type: 'brute' as const,
-      maxHp: brute.hp,
-      hp: brute.hp,
-      strength: brute.strengthValue,
-      agility: brute.agilityValue,
-      speed: brute.speedValue,
-      initiative: randomBetween(0, 10) / 100,
-      tempo: 0.25 + (20 / (10 + brute.speedValue)) * 0.75,
-      baseDamage: BARE_HANDS_DAMAGE,
-      counter: 0,
-      autoReversalOnBlock: false,
-      combo: 0,
-      reversal: 0,
-      block: 0,
-      accuracy: 0,
-      armor: 0,
-      disarm: 0,
-      evasion: 0,
-      sabotage: false,
-      bodybuilder: false,
-      survival: false,
-      balletShoes: false,
-      determination: false,
-      retryAttack: false,
-      ironHead: false,
-      resistant: false,
-      monk: false,
-      skills: skills
-        .filter((skill) => brute.skills.includes(skill.name))
-        .map((skill) => ({ ...skill })),
-      weapons: weapons
-        .filter((weapon) => brute.weapons.includes(weapon.name)),
-      shield: false,
-      activeSkills: [],
-      activeWeapon: null,
-      keepWeaponChance: 0,
-      saboteur: false,
-      sabotagedWeapon: null,
-      poisoned: false,
-      trapped: false,
-      damagedWeapons: [],
-    };
-
-    handleSkills(brute, fighter);
-
-    fighters.push(fighter);
-
-    // Pets stats
-    brute.pets.forEach((petName) => {
-      const pet = pets.find((p) => p.name === petName);
-      if (!pet) {
-        throw new Error(`Pet ${petName} not found`);
+    if (brute) {
+      if (!brute.body || !brute.colors) {
+        throw new Error('Brute body or colors are missing');
       }
 
+      // Brute stats
+      const fighter: DetailedFighter = {
+        id: brute.id,
+        name: brute.name,
+        gender: brute.gender,
+        rank: brute.ranking as BruteRanking,
+        level: brute.level,
+        // Add minimal visual data to still be able to display the fight if the brute was deleted
+        data: {
+          gender: brute.gender,
+          colors: brute.colors,
+          body: brute.body,
+        },
+        type: 'brute' as const,
+        maxHp: brute.hp,
+        hp: brute.hp,
+        strength: brute.strengthValue,
+        agility: brute.agilityValue,
+        speed: brute.speedValue,
+        initiative: randomBetween(0, 10) / 100,
+        tempo: 0.25 + (20 / (10 + brute.speedValue)) * 0.75,
+        baseDamage: BARE_HANDS_DAMAGE,
+        counter: 0,
+        autoReversalOnBlock: false,
+        combo: 0,
+        reversal: 0,
+        block: 0,
+        accuracy: 0,
+        armor: 0,
+        disarm: 0,
+        evasion: 0,
+        sabotage: false,
+        bodybuilder: false,
+        survival: false,
+        balletShoes: false,
+        determination: false,
+        retryAttack: false,
+        ironHead: false,
+        resistant: false,
+        monk: false,
+        skills: skills
+          .filter((skill) => brute.skills.includes(skill.name))
+          .map((skill) => ({ ...skill })),
+        weapons: weapons
+          .filter((weapon) => brute.weapons.includes(weapon.name)),
+        shield: false,
+        activeSkills: [],
+        activeWeapon: null,
+        keepWeaponChance: 0,
+        saboteur: false,
+        sabotagedWeapon: null,
+        poisoned: false,
+        trapped: false,
+        damagedWeapons: [],
+      };
+
+      handleSkills(brute, fighter);
+
+      fighters.push(fighter);
+
+      // Pets stats
+      brute.pets.forEach((petName) => {
+        const pet = pets.find((p) => p.name === petName);
+        if (!pet) {
+          throw new Error(`Pet ${petName} not found`);
+        }
+
+        fighters.push({
+          id: 0,
+          name: petName,
+          rank: 0,
+          level: 0,
+          type: 'pet' as const,
+          master: brute.id,
+          maxHp: pet.hp,
+          hp: pet.hp,
+          strength: pet.strength,
+          agility: pet.agility,
+          speed: pet.speed,
+          initiative: pet.initiative + randomBetween(0, 10) / 100,
+          tempo: 0.25 + (20 / (10 + pet.speed)) * 0.75,
+          baseDamage: pet.damage,
+          counter: pet.counter,
+          autoReversalOnBlock: false,
+          combo: pet.combo,
+          reversal: pet.counter,
+          block: pet.block,
+          accuracy: pet.accuracy,
+          armor: 0,
+          disarm: pet.disarm,
+          evasion: pet.evasion,
+          sabotage: false,
+          bodybuilder: false,
+          survival: false,
+          balletShoes: false,
+          determination: false,
+          retryAttack: false,
+          ironHead: false,
+          resistant: false,
+          monk: false,
+          skills: [],
+          weapons: [],
+          shield: false,
+          activeSkills: [],
+          activeWeapon: null,
+          keepWeaponChance: 0,
+          saboteur: false,
+          sabotagedWeapon: null,
+          poisoned: false,
+          trapped: false,
+          damagedWeapons: [],
+        });
+      });
+
+      // Backup stats
+      if (team.backup) {
+        const { backup } = team;
+
+        if (!backup.body || !backup.colors) {
+          throw new Error('Backup body or colors are missing');
+        }
+
+        // Arrives at a random time
+        const arrivesAt = randomBetween(1, 500) / 100;
+
+        const backupFighter: DetailedFighter = {
+          id: backup.id,
+          name: backup.name,
+          gender: backup.gender,
+          rank: backup.ranking as BruteRanking,
+          level: backup.level,
+          // Add minimal visual data to still be able to display the fight if the brute was deleted
+          data: {
+            gender: backup.gender,
+            colors: backup.colors,
+            body: backup.body,
+          },
+          type: 'brute' as const,
+          master: brute.id,
+          arrivesAtInitiative: arrivesAt,
+          leavesAtInitiative: arrivesAt + 2.8,
+          maxHp: backup.hp,
+          hp: backup.hp,
+          strength: backup.strengthValue,
+          agility: backup.agilityValue,
+          speed: backup.speedValue,
+          initiative: arrivesAt,
+          tempo: (0.25 + (20 / (10 + backup.speedValue)) * 0.75),
+          baseDamage: BARE_HANDS_DAMAGE,
+          counter: 0,
+          autoReversalOnBlock: false,
+          combo: 0,
+          reversal: 0,
+          block: 0,
+          accuracy: 0,
+          armor: 0,
+          disarm: 0,
+          evasion: 0,
+          sabotage: false,
+          bodybuilder: false,
+          survival: false,
+          balletShoes: false,
+          determination: false,
+          retryAttack: false,
+          ironHead: false,
+          resistant: false,
+          monk: false,
+          skills: skills
+            .filter((skill) => backup.skills.includes(skill.name))
+            .map((skill) => ({ ...skill })),
+          weapons: weapons.filter((weapon) => backup.weapons.includes(weapon.name)),
+          shield: false,
+          activeSkills: [],
+          activeWeapon: null,
+          keepWeaponChance: 0,
+          saboteur: false,
+          sabotagedWeapon: null,
+          poisoned: false,
+          trapped: false,
+          damagedWeapons: [],
+        };
+
+        handleSkills(backup, backupFighter);
+
+        // Reset initiative to arrive at the desired time
+        backupFighter.initiative = arrivesAt;
+
+        fighters.push(backupFighter);
+      }
+    }
+
+    // Boss
+    if (team.boss) {
       fighters.push({
         id: 0,
-        name: petName,
+        name: team.boss.name,
         rank: 0,
         level: 0,
-        type: 'pet' as const,
-        master: brute.id,
-        maxHp: pet.hp,
-        hp: pet.hp,
-        strength: pet.strength,
-        agility: pet.agility,
-        speed: pet.speed,
-        initiative: pet.initiative + randomBetween(0, 10) / 100,
-        tempo: 0.25 + (20 / (10 + pet.speed)) * 0.75,
-        baseDamage: pet.damage,
-        counter: pet.counter,
+        type: 'boss' as const,
+        maxHp: team.boss.hp,
+        hp: team.boss.hp,
+        strength: team.boss.strength,
+        agility: team.boss.agility,
+        speed: team.boss.speed,
+        initiative: team.boss.initiative + randomBetween(0, 10) / 100,
+        tempo: 0.25 + (20 / (10 + team.boss.speed)) * 0.75,
+        baseDamage: team.boss.damage,
+        counter: team.boss.counter,
         autoReversalOnBlock: false,
-        combo: pet.combo,
-        reversal: pet.counter,
-        block: pet.block,
-        accuracy: pet.accuracy,
+        combo: team.boss.combo,
+        reversal: team.boss.counter,
+        block: team.boss.block,
+        accuracy: team.boss.accuracy,
         armor: 0,
-        disarm: pet.disarm,
-        evasion: pet.evasion,
+        disarm: team.boss.disarm,
+        evasion: team.boss.evasion,
         sabotage: false,
         bodybuilder: false,
         survival: false,
@@ -252,82 +380,6 @@ const getFighters = (team1: BruteAndBackup, team2: BruteAndBackup): DetailedFigh
         trapped: false,
         damagedWeapons: [],
       });
-    });
-
-    // Backup stats
-    if (team.backup) {
-      const { backup } = team;
-
-      if (!backup.body || !backup.colors) {
-        throw new Error('Backup body or colors are missing');
-      }
-
-      // Arrives at a random time
-      const arrivesAt = randomBetween(1, 500) / 100;
-
-      const backupFighter: DetailedFighter = {
-        id: backup.id,
-        name: backup.name,
-        gender: backup.gender,
-        rank: backup.ranking as BruteRanking,
-        level: backup.level,
-        // Add minimal visual data to still be able to display the fight if the brute was deleted
-        data: {
-          gender: backup.gender,
-          colors: backup.colors,
-          body: backup.body,
-        },
-        type: 'brute' as const,
-        master: brute.id,
-        arrivesAtInitiative: arrivesAt,
-        leavesAtInitiative: arrivesAt + 2.8,
-        maxHp: backup.hp,
-        hp: backup.hp,
-        strength: backup.strengthValue,
-        agility: backup.agilityValue,
-        speed: backup.speedValue,
-        initiative: arrivesAt,
-        tempo: (0.25 + (20 / (10 + backup.speedValue)) * 0.75),
-        baseDamage: BARE_HANDS_DAMAGE,
-        counter: 0,
-        autoReversalOnBlock: false,
-        combo: 0,
-        reversal: 0,
-        block: 0,
-        accuracy: 0,
-        armor: 0,
-        disarm: 0,
-        evasion: 0,
-        sabotage: false,
-        bodybuilder: false,
-        survival: false,
-        balletShoes: false,
-        determination: false,
-        retryAttack: false,
-        ironHead: false,
-        resistant: false,
-        monk: false,
-        skills: skills
-          .filter((skill) => backup.skills.includes(skill.name))
-          .map((skill) => ({ ...skill })),
-        weapons: weapons.filter((weapon) => backup.weapons.includes(weapon.name)),
-        shield: false,
-        activeSkills: [],
-        activeWeapon: null,
-        keepWeaponChance: 0,
-        saboteur: false,
-        sabotagedWeapon: null,
-        poisoned: false,
-        trapped: false,
-        damagedWeapons: [],
-      };
-
-      handleSkills(backup, backupFighter);
-
-      // Reset initiative to arrive at the desired time
-      backupFighter.initiative = arrivesAt;
-
-      fighters.push(backupFighter);
     }
   });
 

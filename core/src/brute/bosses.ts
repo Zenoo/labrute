@@ -1,0 +1,62 @@
+import { BossName, PetName } from '@labrute/prisma';
+import pets, { Pet } from './pets';
+
+export interface Boss {
+  name: BossName;
+  base: PetName;
+  scale: number;
+  initiative: number;
+  strength: number;
+  agility: number;
+  speed: number;
+  hp: number;
+  counter: number;
+  combo: number;
+  block: number;
+  evasion: number;
+  accuracy: number;
+  disarm: number;
+  damage: number;
+}
+
+const bear = pets.find((p) => p.name === PetName.bear) as Pet;
+const panther = pets.find((p) => p.name === PetName.panther) as Pet;
+
+const bosses: Boss[] = [
+  {
+    name: BossName.GoldClaw,
+    base: PetName.bear,
+    scale: 2,
+    initiative: bear.initiative,
+    strength: bear.strength * 10,
+    agility: bear.agility,
+    speed: bear.speed,
+    hp: 10000,
+    counter: bear.counter,
+    combo: bear.combo,
+    block: bear.block,
+    evasion: bear.evasion,
+    accuracy: bear.accuracy,
+    disarm: bear.disarm,
+    damage: bear.damage,
+  },
+  {
+    name: BossName.EmberFang,
+    base: PetName.panther,
+    scale: 2,
+    initiative: panther.initiative,
+    strength: panther.strength * 2,
+    agility: panther.agility,
+    speed: panther.speed * 10,
+    hp: 10000,
+    counter: panther.counter,
+    combo: panther.combo,
+    block: panther.block,
+    evasion: panther.evasion,
+    accuracy: panther.accuracy,
+    disarm: panther.disarm,
+    damage: panther.damage,
+  },
+];
+
+export default bosses;

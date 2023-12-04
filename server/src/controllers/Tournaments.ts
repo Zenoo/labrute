@@ -393,7 +393,7 @@ const Tournaments = {
         rounds: maxStep,
         nextOpponent: nextFight
           ? nextFight.fight.brute1.name === brute.name
-            ? nextFight.fight.brute2.name
+            ? nextFight.fight.brute2?.name || ''
             : nextFight?.fight.brute1.name
           : null,
       });

@@ -126,6 +126,7 @@ const Server = {
     ) => Fetch<never>(`/api/brute/${brute}/thread/${id}/post/create`, { content }, 'POST'),
     lockThread: (brute: string, id: number, threadId: number) => Fetch<never>(`/api/brute/${brute}/clan/${id}/thread/${threadId}/lock`),
     getThread: (brute: string, id: number, threadId: number, page: number) => Fetch<ClanGetThreadResponse>(`/api/brute/${brute}/clan/${id}/thread/${threadId}`, { page }),
+    challengeBoss: (brute: string, id: number) => Fetch<{ id: number }>(`/api/brute/${brute}/clan/${id}/challenge-boss`),
   }
 };
 

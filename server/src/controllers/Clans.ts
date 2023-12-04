@@ -1,13 +1,15 @@
 import {
   ClanCreateResponse, ClanGetResponse, ClanGetThreadResponse,
-  ClanGetThreadsResponse, ClanListResponse, ExpectedError,
+  ClanGetThreadsResponse, ClanListResponse, ExpectedError, bosses, getFightsLeft, randomBetween,
 } from '@labrute/core';
-import { PrismaClient } from '@labrute/prisma';
+import { Prisma, PrismaClient } from '@labrute/prisma';
 import { Request, Response } from 'express';
 import auth from '../utils/auth.js';
 import updateClanPoints from '../utils/clan/updateClanPoints.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
+import generateFight from '../utils/fight/generateFight.js';
+import DiscordUtils from '../utils/DiscordUtils.js';
 
 const Clans = {
   list: (prisma: PrismaClient) => async (
@@ -91,6 +93,7 @@ const Clans = {
           name: clanName,
           master: { connect: { id: brute.id } },
           brutes: { connect: { id: brute.id } },
+          boss: bosses[randomBetween(0, bosses.length - 1)].name,
         },
         select: { id: true, name: true },
       });
@@ -497,8 +500,18 @@ const Clans = {
           throw new ExpectedError(translate('masterCannotLeave', user));
         }
 
+        // Delete posts
+        await prisma.clanPost.deleteMany({
+          where: { thread: { clanId: clan.id } },
+        });
+
+        // Delete threads
+        await prisma.clanThread.deleteMany({
+          where: { clanId: clan.id },
+        });
+
         // Delete clan
-        await prisma.clan.delete({ where: { id } });
+        await prisma.clan.delete({ where: { id: clan.id } });
       } else {
         // Update clan
         await prisma.clan.update({
@@ -780,6 +793,101 @@ const Clans = {
       }
 
       res.status(200).send(thread);
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  challengeBoss: (prisma: PrismaClient) => async (
+    req: Request<
+      { brute: string, id: string }
+    >,
+    res: Response,
+  ) => {
+    try {
+      const user = await auth(prisma, req);
+
+      if (!req.params.id || Number.isNaN(+req.params.id)) {
+        throw new ExpectedError(translate('missingId', user));
+      }
+
+      const brute = user.brutes.find((b) => b.name === req.params.brute);
+      if (!brute) {
+        throw new ExpectedError(translate('bruteNotFound', user));
+      }
+
+      const id = +req.params.id;
+      const clan = await prisma.clan.findFirst({
+        where: {
+          id,
+        },
+        select: { id: true, boss: true, damageOnBoss: true },
+      });
+
+      if (!clan) {
+        throw new ExpectedError(translate('clanNotFound', user));
+      }
+
+      // Get boss
+      const boss = bosses.find((b) => b.name === clan.boss);
+      if (!boss) {
+        throw new Error('Boss not found');
+      }
+
+      // Update brute last fight and fights left
+      await prisma.brute.update({
+        where: { id: brute.id },
+        data: {
+          lastFight: new Date(),
+          fightsLeft: getFightsLeft(brute) - 1,
+        },
+        select: { id: true },
+      });
+
+      // Generate fight (retry if failed)
+      let generatedFight: Prisma.FightCreateInput | null = null;
+      let expectedError: ExpectedError | null = null;
+      let retry = 0;
+
+      while (!generatedFight && !expectedError && retry < 10) {
+        try {
+          retry += 1;
+
+          // eslint-disable-next-line no-await-in-loop
+          generatedFight = await generateFight(
+            prisma,
+            brute,
+            null,
+            false,
+            false,
+            false,
+            boss,
+            boss.hp - clan.damageOnBoss,
+            clan.id,
+          );
+        } catch (error) {
+          if (error instanceof ExpectedError) {
+            expectedError = error;
+          } else {
+            // eslint-disable-next-line no-await-in-loop
+            await DiscordUtils.sendLog(`Error while generating fight between ${brute.name} and ${clan.boss}, retrying...`);
+            // eslint-disable-next-line no-await-in-loop
+            await DiscordUtils.sendError(error);
+          }
+        }
+      }
+
+      if (expectedError || !generatedFight) {
+        throw expectedError;
+      }
+
+      // Save important fight data
+      const { id: fightId } = await prisma.fight.create({
+        data: generatedFight,
+        select: { id: true },
+      });
+
+      // Send fight id to client
+      res.status(200).send({ id: fightId });
     } catch (error) {
       sendError(res, error);
     }

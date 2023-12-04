@@ -2864,6 +2864,7 @@ __metadata:
     "@mui/icons-material": ^5.11.0
     "@mui/material": ^5.11.5
     "@mui/x-date-pickers": ^6.4.0
+    "@pixi/filter-adjustment": ^5.1.1
     "@pixi/filter-bevel": ^4.2.0
     "@pixi/filter-color-overlay": ^4.2.0
     "@pixi/filter-glow": ^4.2.0
@@ -3384,6 +3385,15 @@ __metadata:
     "@pixi/math": 6.5.9
     "@pixi/utils": 6.5.9
   checksum: 6cf56a15f7928e3f7106880c53138c5a8d10ce146c7d188a8c836885f070c2bf9f3de61cc2ab9a16f302eb7617bc9d2e69940558e7c63d9577a2f856c88d124b
+  languageName: node
+  linkType: hard
+
+"@pixi/filter-adjustment@npm:^5.1.1":
+  version: 5.1.1
+  resolution: "@pixi/filter-adjustment@npm:5.1.1"
+  peerDependencies:
+    "@pixi/core": ^7.0.0-X
+  checksum: 8e2746a13867580535c46e6549cc377d8d66fa27b0edbfcec617b7b922ae0e0f7beddae1a888f66a232bafc656907f30bdfe4590040f86eac7ea74801e95fbfc
   languageName: node
   linkType: hard
 

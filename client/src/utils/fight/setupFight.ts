@@ -24,6 +24,7 @@ import equip from './equip';
 import evade from './evade';
 import { AnimationFighter } from './findFighter';
 import flashFlood from './flashFlood';
+import getFighterType from './getFighterType';
 import hammer from './hammer';
 import heal from './heal';
 import hit from './hit';
@@ -37,13 +38,13 @@ import saboteur from './saboteur';
 import setupSprite from './setupSprite';
 import skillActivate from './skillActivate';
 import skillExpire from './skillExpire';
+import spy from './spy';
 import steal from './steal';
 import survive from './survive';
 import throwWeapon from './throwWeapon';
 import trap from './trap';
 import trash from './trash';
 import updateWeapons, { updateActiveWeapon } from './updateWeapons';
-import spy from './spy';
 
 const backgrounds = [
   'background/1.jpg',
@@ -98,8 +99,9 @@ const setupFight: (
     && fighter.id === fight.brute1Id);
   const brute2 = fightFighters.find((fighter) => !fighter.master
     && fighter.id === fight.brute2Id);
+  const boss = fightFighters.find((fighter) => fighter.type === 'boss');
 
-  if (!brute1 || !brute2) {
+  if (!brute1) {
     throw new Error('Brute not found');
   }
 
@@ -189,86 +191,166 @@ const setupFight: (
   brute1HpBar.name = `${brute1.name}.hp-phantom`;
   app.stage.addChild(brute1PhantomHpBar);
 
-  // Second brute header
-  const brute2Header = new PIXI.Sprite(miscSheet.textures['header.png']);
-  brute2Header.filters = [new OutlineFilter()];
-  brute2Header.scale.x = -1;
-  brute2Header.x = app.screen.width - 4;
-  brute2Header.y = 10;
-  brute2Header.zIndex = 101;
-
-  // Add tooltip on hover
-  brute2Header.interactive = true;
-  brute2Header.hitArea = new PIXI.Polygon([
-    new PIXI.Point(0, 10),
-    new PIXI.Point(240, 10),
-    new PIXI.Point(240, 20),
-    new PIXI.Point(50, 20),
-    new PIXI.Point(50, 65),
-    new PIXI.Point(0, 65),
-  ]);
-  brute2Header.on('mouseover', () => {
-    toggleTooltip(brute2, true);
-  });
-  brute2Header.on('mouseout', () => {
-    toggleTooltip(brute2, false);
-  });
-  brute2Header.on('tap', (e: PIXI.InteractionEvent) => {
-    e.stopPropagation();
-    toggleTooltip(brute2);
-  });
-
-  app.stage.addChild(brute2Header);
-
   // Reset tooltip on tap anywhere
   app.stage.interactive = true;
   app.stage.on('tap', () => {
     toggleTooltip(brute1, false);
   });
 
-  // Second brute name
-  const brute2Name = new PIXI.Text(brute2.name.toLocaleUpperCase(), {
-    fontFamily: 'GameFont', fontSize: 20, fill: 0xffffff, align: 'right'
-  });
-  brute2Name.anchor.x = 1;
-  brute2Name.filters = [new OutlineFilter()];
-  brute2Name.x = app.screen.width - 4;
-  brute2Name.y = 0;
-  brute2Name.zIndex = 102;
-  app.stage.addChild(brute2Name);
+  let brute2Header: PIXI.Sprite | null = null;
+  let brute2HpBar: PIXI.Graphics | null = null;
+  let brute2PhantomHpBar: PIXI.Graphics | null = null;
+  if (brute2) {
+    // Second brute header
+    brute2Header = new PIXI.Sprite(miscSheet.textures['header.png']);
+    brute2Header.filters = [new OutlineFilter()];
+    brute2Header.scale.x = -1;
+    brute2Header.x = app.screen.width - 4;
+    brute2Header.y = 10;
+    brute2Header.zIndex = 101;
 
-  // Second brute HP bar
-  const brute2HpBar = new PIXI.Graphics();
-  brute2HpBar.beginFill(PIXI.utils.string2hex(theme.palette.hpBar.main));
-  brute2HpBar.drawRoundedRect(0, 0, 236, 9, 4);
-  brute2HpBar.filters = [new GlowFilter({
-    distance: 6,
-    innerStrength: 2,
-    outerStrength: 0,
-    color: PIXI.utils.string2hex(theme.palette.hpBar.dark),
-  })];
-  brute2HpBar.scale.x = -1;
-  brute2HpBar.x = app.screen.width - 7;
-  brute2HpBar.y = 21;
-  brute2HpBar.zIndex = 103;
-  brute1HpBar.name = `${brute2.name}.hp`;
-  app.stage.addChild(brute2HpBar);
+    // Add tooltip on hover
+    brute2Header.interactive = true;
+    brute2Header.hitArea = new PIXI.Polygon([
+      new PIXI.Point(0, 10),
+      new PIXI.Point(240, 10),
+      new PIXI.Point(240, 20),
+      new PIXI.Point(50, 20),
+      new PIXI.Point(50, 65),
+      new PIXI.Point(0, 65),
+    ]);
+    brute2Header.on('mouseover', () => {
+      toggleTooltip(brute2, true);
+    });
+    brute2Header.on('mouseout', () => {
+      toggleTooltip(brute2, false);
+    });
+    brute2Header.on('tap', (e: PIXI.InteractionEvent) => {
+      e.stopPropagation();
+      toggleTooltip(brute2);
+    });
 
-  // Second brute phantom HP bar
-  const brute2PhantomHpBar = new PIXI.Graphics();
-  brute2PhantomHpBar.beginFill(PIXI.utils.string2hex(theme.palette.error.main));
-  brute2PhantomHpBar.drawRoundedRect(0, 0, 236, 9, 4);
-  brute2PhantomHpBar.scale.x = -1;
-  brute2PhantomHpBar.x = app.screen.width - 7;
-  brute2PhantomHpBar.y = 21;
-  brute2PhantomHpBar.zIndex = 102;
-  brute1HpBar.name = `${brute2.name}.hp-phantom`;
-  app.stage.addChild(brute2PhantomHpBar);
+    app.stage.addChild(brute2Header);
+
+    // Second brute name
+    const brute2Name = new PIXI.Text(brute2.name.toLocaleUpperCase(), {
+      fontFamily: 'GameFont', fontSize: 20, fill: 0xffffff, align: 'right'
+    });
+    brute2Name.anchor.x = 1;
+    brute2Name.filters = [new OutlineFilter()];
+    brute2Name.x = app.screen.width - 4;
+    brute2Name.y = 0;
+    brute2Name.zIndex = 102;
+    app.stage.addChild(brute2Name);
+
+    // Second brute HP bar
+    brute2HpBar = new PIXI.Graphics();
+    brute2HpBar.beginFill(PIXI.utils.string2hex(theme.palette.hpBar.main));
+    brute2HpBar.drawRoundedRect(0, 0, 236, 9, 4);
+    brute2HpBar.filters = [new GlowFilter({
+      distance: 6,
+      innerStrength: 2,
+      outerStrength: 0,
+      color: PIXI.utils.string2hex(theme.palette.hpBar.dark),
+    })];
+    brute2HpBar.scale.x = -1;
+    brute2HpBar.x = app.screen.width - 7;
+    brute2HpBar.y = 21;
+    brute2HpBar.zIndex = 103;
+    brute2HpBar.name = `${brute2.name}.hp`;
+    app.stage.addChild(brute2HpBar);
+
+    // Second brute phantom HP bar
+    brute2PhantomHpBar = new PIXI.Graphics();
+    brute2PhantomHpBar.beginFill(PIXI.utils.string2hex(theme.palette.error.main));
+    brute2PhantomHpBar.drawRoundedRect(0, 0, 236, 9, 4);
+    brute2PhantomHpBar.scale.x = -1;
+    brute2PhantomHpBar.x = app.screen.width - 7;
+    brute2PhantomHpBar.y = 21;
+    brute2PhantomHpBar.zIndex = 102;
+    brute2PhantomHpBar.name = `${brute2.name}.hp-phantom`;
+    app.stage.addChild(brute2PhantomHpBar);
+  }
+
+  let bossHeader: PIXI.Sprite | null = null;
+  let bossHpBar: PIXI.Graphics | null = null;
+  let bossPhantomHpBar: PIXI.Graphics | null = null;
+  if (boss) {
+    // boss header
+    bossHeader = new PIXI.Sprite(miscSheet.textures['header.png']);
+    bossHeader.filters = [new OutlineFilter()];
+    bossHeader.scale.x = -1;
+    bossHeader.x = app.screen.width - 4;
+    bossHeader.y = 10;
+    bossHeader.zIndex = 101;
+
+    // Add tooltip on hover
+    bossHeader.interactive = true;
+    bossHeader.hitArea = new PIXI.Polygon([
+      new PIXI.Point(0, 10),
+      new PIXI.Point(240, 10),
+      new PIXI.Point(240, 20),
+      new PIXI.Point(50, 20),
+      new PIXI.Point(50, 65),
+      new PIXI.Point(0, 65),
+    ]);
+    bossHeader.on('mouseover', () => {
+      toggleTooltip(boss, true);
+    });
+    bossHeader.on('mouseout', () => {
+      toggleTooltip(boss, false);
+    });
+    bossHeader.on('tap', (e: PIXI.InteractionEvent) => {
+      e.stopPropagation();
+      toggleTooltip(boss);
+    });
+
+    app.stage.addChild(bossHeader);
+
+    // Boss name
+    const bossName = new PIXI.Text(boss.name.toLocaleUpperCase(), {
+      fontFamily: 'GameFont', fontSize: 20, fill: 0xffffff, align: 'right'
+    });
+    bossName.anchor.x = 1;
+    bossName.filters = [new OutlineFilter()];
+    bossName.x = app.screen.width - 4;
+    bossName.y = 0;
+    bossName.zIndex = 102;
+    app.stage.addChild(bossName);
+
+    // Boss HP bar
+    bossHpBar = new PIXI.Graphics();
+    bossHpBar.beginFill(PIXI.utils.string2hex(theme.palette.hpBar.main));
+    bossHpBar.drawRoundedRect(0, 0, (boss.hp / boss.maxHp) * 236, 9, 4);
+    bossHpBar.filters = [new GlowFilter({
+      distance: 6,
+      innerStrength: 2,
+      outerStrength: 0,
+      color: PIXI.utils.string2hex(theme.palette.hpBar.dark),
+    })];
+    bossHpBar.scale.x = -1;
+    bossHpBar.x = app.screen.width - 7;
+    bossHpBar.y = 21;
+    bossHpBar.zIndex = 103;
+    bossHpBar.name = `${boss.name}.hp`;
+    app.stage.addChild(bossHpBar);
+
+    // Second brute phantom HP bar
+    bossPhantomHpBar = new PIXI.Graphics();
+    bossPhantomHpBar.beginFill(PIXI.utils.string2hex(theme.palette.error.main));
+    bossPhantomHpBar.drawRoundedRect(0, 0, (boss.hp / boss.maxHp) * 236, 9, 4);
+    bossPhantomHpBar.scale.x = -1;
+    bossPhantomHpBar.x = app.screen.width - 7;
+    bossPhantomHpBar.y = 21;
+    bossPhantomHpBar.zIndex = 102;
+    bossPhantomHpBar.name = `${boss.name}.hp-phantom`;
+    app.stage.addChild(bossPhantomHpBar);
+  }
 
   // Set stage as sortable
   app.stage.sortableChildren = true;
 
-  // Set amnimation to 30 FPS
+  // Set animation to 30 FPS
   app.ticker.speed = 0.5;
 
   // Set background music
@@ -276,13 +358,7 @@ const setupFight: (
 
   // Get fighters animations
   const fighters: AnimationFighter[] = fightFighters.map((fighter) => {
-    const type = fighter.type === 'pet'
-      ? fighter.name.startsWith('dog')
-        ? 'dog'
-        : fighter.name === 'bear'
-          ? 'bear'
-          : 'panther'
-      : fighter.name;
+    const type = getFighterType(fighter);
 
     const team = (fighter.master || fighter.id) === brute1.id ? 'left' : 'right';
 
@@ -315,10 +391,12 @@ const setupFight: (
       activeWeapon: null,
       hpBar: fighter.master
         ? undefined
-        : fighter.id === brute1.id ? brute1HpBar : brute2HpBar,
+        : fighter.id === brute1.id ? brute1HpBar : (brute2HpBar || bossHpBar || undefined),
       hpBarPhantom: fighter.master
         ? undefined
-        : fighter.id === brute1.id ? brute1PhantomHpBar : brute2PhantomHpBar,
+        : fighter.id === brute1.id
+          ? brute1PhantomHpBar
+          : (brute2PhantomHpBar || bossPhantomHpBar || undefined),
       weaponsIllustrations: [],
       activeEffects: [],
       activeShield: null,
@@ -504,8 +582,13 @@ const setupFight: (
   deadIcon.zIndex = 1000;
   if (loser?.team === 'right') {
     deadIcon.scale.x = -1;
-    deadIcon.x = brute2Header.x + 32;
-    deadIcon.y = brute2Header.y - 13;
+    if (brute2Header) {
+      deadIcon.x = brute2Header.x - 32;
+      deadIcon.y = brute2Header.y - 13;
+    } else if (bossHeader) {
+      deadIcon.x = bossHeader.x - 32;
+      deadIcon.y = bossHeader.y - 13;
+    }
   } else {
     deadIcon.x = brute1Header.x - 32;
     deadIcon.y = brute1Header.y - 13;

@@ -132,7 +132,14 @@ const Fights = {
           retry += 1;
 
           // eslint-disable-next-line no-await-in-loop
-          generatedFight = await generateFight(prisma, brute1, brute2, true, arenaFight, false);
+          generatedFight = await generateFight(
+            prisma,
+            brute1,
+            brute2,
+            true,
+            arenaFight,
+            false,
+          );
         } catch (error) {
           if (error instanceof ExpectedError) {
             expectedError = error;

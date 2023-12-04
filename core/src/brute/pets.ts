@@ -20,7 +20,7 @@ export interface Pet {
 
 const pets: Pet[] = [
   {
-    name: 'bear',
+    name: PetName.bear,
     odds: 1,
     enduranceMalus: 8,
     initiative: 3.6,
@@ -37,7 +37,7 @@ const pets: Pet[] = [
     damage: 5,
   },
   {
-    name: 'panther',
+    name: PetName.panther,
     odds: 1,
     enduranceMalus: 6,
     initiative: 0.6,
@@ -54,7 +54,7 @@ const pets: Pet[] = [
     damage: 3,
   },
   {
-    name: 'dog3',
+    name: PetName.dog3,
     odds: 2,
     enduranceMalus: 2,
     initiative: 0.1,
@@ -71,7 +71,7 @@ const pets: Pet[] = [
     damage: 3,
   },
   {
-    name: 'dog2',
+    name: PetName.dog2,
     odds: 8,
     enduranceMalus: 2,
     initiative: 0.1,
@@ -88,7 +88,7 @@ const pets: Pet[] = [
     damage: 3,
   },
   {
-    name: 'dog1',
+    name: PetName.dog1,
     odds: 20,
     enduranceMalus: 2,
     initiative: 0.1,

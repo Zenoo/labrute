@@ -51,10 +51,18 @@ const trap = async (
 
   // Get target position
   const targetType = getFighterType(target);
-  const targetPosition = {
+  let targetPosition = {
     x: target.container.x + FIGHTER_WIDTH[targetType] / 2,
     y: target.container.y - FIGHTER_HEIGHT[targetType] / 2,
   };
+
+  // Adjust for bosses
+  if (target.type === 'boss') {
+    targetPosition = {
+      x: target.container.x + FIGHTER_WIDTH[targetType],
+      y: target.container.y - FIGHTER_HEIGHT[targetType],
+    };
+  }
 
   // Set rotation (from brute and target positions)
   net.angle = (Math.atan2(

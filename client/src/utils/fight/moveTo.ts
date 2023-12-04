@@ -44,7 +44,11 @@ const moveTo = async (
   // Weapon reach
   if (!step.sameSpace) {
     // Adjust for fighter width
-    modifier += FIGHTER_WIDTH[getFighterType(target)];
+    let width = FIGHTER_WIDTH[getFighterType(fighter)];
+    if (fighter.type === 'boss') {
+      width *= 1.5;
+    }
+    modifier += width;
 
     let reach = 0;
 

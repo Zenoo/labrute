@@ -1200,8 +1200,8 @@ export const checkDeaths = (
         updateStats(stats, fightData.fighters[0].id, 'petsKilled', 1);
       }
 
-      // Set loser if fighter is a main brute
-      if (fighter.type === 'brute' && !fighter.master) {
+      // Set loser if fighter is a main brute or a boss
+      if (fighter.type === 'boss' || (fighter.type === 'brute' && !fighter.master)) {
         fightData.loser = stepFighter(fighter);
       }
     }

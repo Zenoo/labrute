@@ -332,6 +332,8 @@ exports.Prisma.ClanScalarFieldEnum = {
   name: 'name',
   limit: 'limit',
   points: 'points',
+  boss: 'boss',
+  damageOnBoss: 'damageOnBoss',
   masterId: 'masterId'
 };
 
@@ -633,6 +635,11 @@ exports.BruteReportStatus = exports.$Enums.BruteReportStatus = {
   pending: 'pending',
   accepted: 'accepted',
   rejected: 'rejected'
+};
+
+exports.BossName = exports.$Enums.BossName = {
+  GoldClaw: 'GoldClaw',
+  EmberFang: 'EmberFang'
 };
 
 exports.Prisma.ModelName = {

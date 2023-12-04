@@ -1,7 +1,9 @@
-import { Fighter } from '@labrute/core';
+import { Fighter, bosses } from '@labrute/core';
+import { AdjustmentFilter } from '@pixi/filter-adjustment';
 import { AnimatedSprite, Application, Sprite } from 'pixi.js';
 import { AnimationFighter } from './findFighter';
 import getFighterType from './getFighterType';
+import { BossName } from '@labrute/prisma';
 
 const setupSprite = (
   app: Application,
@@ -47,6 +49,30 @@ const setupSprite = (
     (sprite as AnimatedSprite).loop = true;
   } else {
     (sprite as AnimatedSprite).loop = false;
+  }
+
+  if (fighter.type === 'boss') {
+    // Change color on bosses
+    const boss = bosses.find(({ name }) => name === fighter.name);
+    if (!boss) {
+      throw new Error(`Boss not found: ${fighter.name}`);
+    }
+
+    if (fighter.name === BossName.GoldClaw) {
+      sprite.filters = [new AdjustmentFilter({
+        gamma: 1,
+        brightness: 4,
+      })];
+    } else if (fighter.name === BossName.EmberFang) {
+      sprite.filters = [new AdjustmentFilter({
+        red: 4.8,
+        green: 0.8,
+        blue: 0.8,
+      })];
+    }
+
+    // Scale bosses
+    sprite.scale.set(boss.scale);
   }
 
   // Set animation length

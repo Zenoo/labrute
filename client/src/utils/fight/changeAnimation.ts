@@ -37,7 +37,7 @@ const getSprite = (
   fighter.currentAnimation.visible = false;
 
   // Add Bevel filter
-  newAnimation.filters = [new BevelFilter()];
+  newAnimation.filters = [...(newAnimation.filters || []), new BevelFilter()];
 
   // Set new animation to visible
   newAnimation.visible = true;

@@ -124,6 +124,8 @@
   "threadLocked": "The thread has been locked.",
   "first": "First",
   "last": "Last",
+  "noFightsLeft": "You have no fights left today.",
+  "challengeBoss": "Challenge the boss",
 
   "herculeanStrength": "Herculean Strength",
   "herculeanStrength.desc": "You're strong enough to move mountains, but first you must defeat your opponent.",

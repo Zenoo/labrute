@@ -283,8 +283,8 @@ model Fight {
   date           DateTime         @default(now()) @db.Date
   brute1         Brute            @relation(fields: [brute1Id], references: [id])
   brute1Id       Int
-  brute2         Brute            @relation("Adversary", fields: [brute2Id], references: [id])
-  brute2Id       Int
+  brute2         Brute?           @relation("Adversary", fields: [brute2Id], references: [id])
+  brute2Id       Int?
   winner         String           @db.VarChar(255)
   loser          String           @db.VarChar(255)
   steps          Json             @db.Json
@@ -549,11 +549,18 @@ model ServerState {
 }
 
 // CLANS
+enum BossName {
+  GoldClaw
+  EmberFang
+}
+
 model Clan {
   id           Int          @id @default(autoincrement())
   name         String       @unique @db.VarChar(255)
   limit        Int          @default(10)
   points       Int          @default(0)
+  boss         BossName     @default(GoldClaw)
+  damageOnBoss Int          @default(0)
   master       Brute        @relation("MasterOfClan", fields: [masterId], references: [id])
   masterId     Int          @unique
   brutes       Brute[]

@@ -27,6 +27,8 @@
     "audit": "yarn npm audit --recursive --all --environment production",
     "add:client": "yarn workspace @labrute/client add",
     "add:server": "yarn workspace @labrute/server add",
+    "remove:client": "yarn workspace @labrute/client remove",
+    "remove:server": "yarn workspace @labrute/server remove",
     "run:retrieveFirstBonus": "ts-node-esm server/src/scripts/retrieveFirstBonus.ts",
     "run:fixErroredBonuses": "ts-node-esm server/src/scripts/fixErroredBonuses.ts"
   },

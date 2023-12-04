@@ -3,7 +3,7 @@ import { SkillName } from '@labrute/prisma';
 import * as PIXI from 'pixi.js';
 
 export interface AnimationFighter extends Fighter {
-  type: 'brute' | 'pet';
+  type: 'brute' | 'pet' | 'boss';
   team: 'left' | 'right';
   hypnotised?: boolean;
   container: PIXI.Container;

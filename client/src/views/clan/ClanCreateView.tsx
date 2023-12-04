@@ -8,6 +8,7 @@ import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
+import { useAuth } from '../../hooks/useAuth';
 
 const ClanCreateView = () => {
   const { t } = useTranslation();
@@ -16,6 +17,7 @@ const ClanCreateView = () => {
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
   const Alert = useAlert();
   const navigate = useNavigate();
+  const { updateData } = useAuth();
 
   const [name, setName] = React.useState('');
 
@@ -31,8 +33,17 @@ const ClanCreateView = () => {
       return;
     }
 
-    Server.Clan.create(bruteName, name).then(() => {
+    Server.Clan.create(bruteName, name).then((clan) => {
       Alert.open('success', t('clanCreated'));
+
+      // Update user data
+      updateData((data) => (data ? ({
+        ...data,
+        brutes: data.brutes.map((brute) => (brute.name === bruteName
+          ? { ...brute, clan, clanId: clan.id }
+          : brute
+        )),
+      }) : null));
       navigate(`/${bruteName}/cell`);
     }).catch(catchError(Alert));
   };

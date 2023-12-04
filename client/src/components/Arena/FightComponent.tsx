@@ -373,7 +373,7 @@ const FightComponent = ({
           </Stack>
         </Box>
       </BruteTooltip>
-      {completed && brute1 && brute2 && (
+      {completed && brute1 && (
         <Box sx={{
           ml: smallScreen ? 0 : 5,
           bgcolor: 'background.paper',
@@ -388,11 +388,13 @@ const FightComponent = ({
           >
             <Text component="span" bold color="secondary">{t('bruteCell', { name: brute1.name })}</Text>
           </Link>
-          <Link
-            to={`/${brute2.name}/cell`}
-          >
-            <Text component="span" bold color="secondary">{t('bruteCell', { name: brute2.name })}</Text>
-          </Link>
+          {brute2 && (
+            <Link
+              to={`/${brute2.name}/cell`}
+            >
+              <Text component="span" bold color="secondary">{t('bruteCell', { name: brute2.name })}</Text>
+            </Link>
+          )}
         </Box>
       )}
     </>

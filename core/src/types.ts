@@ -29,7 +29,7 @@ export interface DetailedFighter {
     body: BruteBody,
     colors: BruteColors,
   }
-  type: 'brute' | 'pet';
+  type: 'brute' | 'pet' | 'boss';
   // Follower/Backup variables
   master?: number;
   arrivesAtInitiative?: number;
@@ -110,7 +110,7 @@ export interface Fighter {
     body: BruteBody,
     colors: BruteColors,
   };
-  type: 'brute' | 'pet';
+  type: 'brute' | 'pet' | 'boss';
   master?: number;
   maxHp: number;
   hp: number,
@@ -121,7 +121,7 @@ export interface Fighter {
 
 export interface StepFighter {
   name: string;
-  type: 'brute' | 'pet';
+  type: 'brute' | 'pet' | 'boss';
   master?: number;
   hypnotised?: boolean;
 }
@@ -370,7 +370,7 @@ export type FullBrute = BruteWithMasterBodyColorsClan & {
 export type FullTournamentStep = TournamentStep & {
   fight: Fight & {
     brute1: BruteWithBodyColors;
-    brute2: BruteWithBodyColors;
+    brute2: BruteWithBodyColors | null;
   };
 };
 export type FullTournament = Tournament & {
@@ -380,7 +380,7 @@ export type FullTournament = Tournament & {
 // Fight
 export type FightWithBrutes = Fight & {
   brute1: Brute;
-  brute2: Brute;
+  brute2: Brute | null;
 };
 
 // Brute report

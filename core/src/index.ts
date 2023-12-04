@@ -13,6 +13,7 @@ import getBruteGoldValue from './brute/getBruteGoldValue';
 import getGoldNeededForNewBrute from './brute/getGoldNeededForNewBrute';
 import getXPNeeded from './brute/getXPNeeded';
 import pets from './brute/pets';
+import bosses, { Boss } from './brute/bosses';
 import skills from './brute/skills';
 import updateBruteData from './brute/updateBruteData';
 import weapons from './brute/weapons';
@@ -70,6 +71,8 @@ export {
   getBruteVisuals,
   BruteVisuals,
   getVisualsFromUrl,
+  bosses,
+  Boss,
 };
 
 export const LANGUAGES = ['fr', 'en', 'es', 'de', 'ru'] as const;

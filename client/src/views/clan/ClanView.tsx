@@ -1,4 +1,4 @@
-import { BruteRanking, BruteWithBodyColors, ClanGetResponse } from '@labrute/core';
+import { BruteRanking, BruteWithBodyColors, ClanGetResponse, getFightsLeft } from '@labrute/core';
 import { Box, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip } from '@mui/material';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -168,6 +168,33 @@ const ClanView = () => {
     });
   };
 
+  // Challenge boss
+  const challengeBoss = (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    if (!clan || !brute) return;
+
+    // Check if brute still has fights left
+    if (getFightsLeft(brute) <= 0) {
+      Alert.open('error', t('noFightsLeft'));
+      return;
+    }
+
+    Server.Clan.challengeBoss(brute.name, clan.id).then((fight) => {
+      navigate(`/${brute.name}/fight/${fight.id}`);
+    }).catch(catchError(Alert));
+
+    // Update fights left
+    updateData((data) => (data ? ({
+      ...data,
+      brutes: data.brutes.map((b) => (b.name === brute.name ? {
+        ...b,
+        fightsLeft: b.fightsLeft - 1,
+        lastFight: new Date(),
+      } : b)),
+    }) : null));
+  };
+
   return clan && (
     <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/cell`}>
       <Paper sx={{ mx: 4 }}>
@@ -213,6 +240,11 @@ const ClanView = () => {
             </Link>
           )}
         </Box>
+        {user && brute?.clanId === clan.id && (
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1 }}>
+            <FantasyButton color="warning" onClick={challengeBoss}>{t('challengeBoss')}</FantasyButton>
+          </Box>
+        )}
         <Text bold h4 sx={{ my: 1 }}>{clan.brutes.length}/{clan.limit} {t('brutes')}</Text>
         {/* MEMBERS */}
         <Box sx={{
