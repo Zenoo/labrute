@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.41.6](https://github.com/Zenoo/labrute/compare/labrute-v2.41.5...labrute-v2.41.6) (2023-12-04)
+
+
+### Bug Fixes
+
+* Keep ranking when resetting a brute ([4618124](https://github.com/Zenoo/labrute/commit/4618124abd9eaa02100cda9db3a8b5f39f1cb026))
+
 ## [2.41.5](https://github.com/Zenoo/labrute/compare/labrute-v2.41.4...labrute-v2.41.5) (2023-12-04)
 
 
