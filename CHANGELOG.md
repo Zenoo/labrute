@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.41.5](https://github.com/Zenoo/labrute/compare/labrute-v2.41.4...labrute-v2.41.5) (2023-12-04)
+
+
+### Bug Fixes
+
+* Buff bosses and dead icon placement ([52e0484](https://github.com/Zenoo/labrute/commit/52e0484dc1b9da70a29b1ebe6ecaf4373336f0f9))
+
 ## [2.41.4](https://github.com/Zenoo/labrute/compare/labrute-v2.41.3...labrute-v2.41.4) (2023-12-04)
 
 
