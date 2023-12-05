@@ -1,8 +1,7 @@
 import { BruteWithClan } from '@labrute/core';
-import { LinkProps } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import Link from '../Link';
+import Link, { LinkProps } from '../Link';
 import StyledButton from '../StyledButton';
 
 export interface CellClanProps extends LinkProps {

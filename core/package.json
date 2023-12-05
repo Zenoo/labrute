@@ -7,7 +7,7 @@
   },
   "types": "lib/index.d.ts",
   "devDependencies": {
-    "typescript": "^4.9.4"
+    "typescript": "^5.3.2"
   },
   "dependencies": {
     "@labrute/prisma": "workspace:*",

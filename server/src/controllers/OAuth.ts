@@ -4,7 +4,6 @@ import { HttpEtwinClient } from '@eternal-twin/etwin-client-http';
 import { RfcOauthClient } from '@eternal-twin/oauth-client-http/rfc-oauth-client';
 import { PrismaClient } from '@labrute/prisma';
 import { Request, Response } from 'express';
-import { URL } from 'url';
 import { ExpectedError } from '@labrute/core';
 import Env from '../utils/Env.js';
 import sendError from '../utils/sendError.js';

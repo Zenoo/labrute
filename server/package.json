@@ -8,7 +8,7 @@
   },
   "type": "module",
   "scripts": {
-    "compile": "tsc",
+    "compile": "tsc --build ./tsconfig.json",
     "start": "node ./lib/server.js",
     "start:watch": "tsc-watch --build ./tsconfig.json --onSuccess \"node ./lib/server.js\"",
     "db:migrate:manual": "prisma migrate dev --create-only",
@@ -16,7 +16,9 @@
     "db:sync:prod": "prisma migrate deploy && yarn db:seed && yarn run:fixErroredBonuses && yarn run:retrieveFirstBonus",
     "db:seed": "prisma db seed",
     "db:reset": "prisma migrate reset --skip-generate",
-    "studio": "prisma studio"
+    "studio": "prisma studio",
+    "run:retrieveFirstBonus": "yarn run compile && node ./lib/scripts/retrieveFirstBonus.js",
+    "run:fixErroredBonuses": "yarn run compile && node ./lib/scripts/fixErroredBonuses.js"
   },
   "prisma": {
     "seed": "node --loader ts-node/esm src/seed.ts"
@@ -52,15 +54,18 @@
     "@types/nodemailer": "^6.4.7",
     "@types/spritesmith": "^3.4.1",
     "@types/vinyl": "^2.0.7",
-    "@typescript-eslint/eslint-plugin": "^5.31.0",
-    "@typescript-eslint/parser": "^5.31.0",
-    "eslint": "^8.20.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.2",
+    "@typescript-eslint/parser": "^6.13.2",
+    "eslint": "^8.55.0",
     "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-tsdoc": "^0.2.16",
-    "prisma": "^5.5.2",
-    "ts-node": "^10.9.1",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-tsdoc": "^0.2.17",
+    "prisma": "^5.6.0",
     "tsc-watch": "^5.0.3",
-    "typescript": "^4.9.4"
+    "typescript": "^5.3.2"
   }
 }
