@@ -21,6 +21,17 @@ const spy = async (
     throw new Error('Opponent not found');
   }
 
+  // Old versions didn't have sent/received weapons
+  // apply all weapons to brute and opponent
+  if (!step.sent) {
+    // eslint-disable-next-line no-param-reassign
+    step.sent = brute.weapons.map((weapon) => weapon.name);
+  }
+  if (!step.received) {
+    // eslint-disable-next-line no-param-reassign
+    step.received = opponent.weapons.map((weapon) => weapon.name);
+  }
+
   const animations: Promise<unknown>[] = [];
 
   // Get final brute weapons
