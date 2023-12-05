@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.41.12](https://github.com/Zenoo/labrute/compare/labrute-v2.41.11...labrute-v2.41.12) (2023-12-05)
+
+
+### Bug Fixes
+
+* Disable spritesheet regen until we figure out the memory leak ([84e041c](https://github.com/Zenoo/labrute/commit/84e041c004f54bc29b144a067e078d8a9dd9ed2d))
+* Throw error to exit workers ([6ef9968](https://github.com/Zenoo/labrute/commit/6ef9968b26c34b8996d8a8d2a9638cf511d369fe))
+
 ## [2.41.11](https://github.com/Zenoo/labrute/compare/labrute-v2.41.10...labrute-v2.41.11) (2023-12-05)
 
 
