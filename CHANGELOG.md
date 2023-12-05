@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.41.13](https://github.com/Zenoo/labrute/compare/labrute-v2.41.12...labrute-v2.41.13) (2023-12-05)
+
+
+### Bug Fixes
+
+* Spy retro compatibility ([9e30799](https://github.com/Zenoo/labrute/commit/9e30799da483cf2dfec0227be7b9b74fca576291))
+
 ## [2.41.12](https://github.com/Zenoo/labrute/compare/labrute-v2.41.11...labrute-v2.41.12) (2023-12-05)
 
 
