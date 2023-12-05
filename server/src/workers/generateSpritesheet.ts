@@ -57,3 +57,6 @@ try {
   // Start the next job
   await startJob(prisma);
 }
+
+// Throw error to exit worker
+throw new Error('ExitWorker');

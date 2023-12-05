@@ -19,12 +19,19 @@ const queueJob = async (prisma: PrismaClient, worker: string, payload: unknown) 
 
   // Start the worker if the queue was empty
   if (count === 0) {
-    // eslint-disable-next-line no-new
-    new Worker(`./lib/workers/${worker}.js`, {
+    const w = new Worker(`./lib/workers/${worker}.js`, {
       workerData: {
         jobId: job.id,
         payload,
       },
+    });
+
+    w.on('error', (error) => {
+      if (error.message === 'ExitWorker') {
+        return;
+      }
+
+      DiscordUtils.sendError(error);
     });
   }
 };

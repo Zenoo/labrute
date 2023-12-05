@@ -17,12 +17,19 @@ const startJob = async (prisma: PrismaClient) => {
     return;
   }
 
-  // eslint-disable-next-line no-new
-  new Worker(`./lib/workers/${job.worker}.js`, {
+  const worker = new Worker(`./lib/workers/${job.worker}.js`, {
     workerData: {
       jobId: job.id,
       payload: job.payload,
     },
+  });
+
+  worker.on('error', (error) => {
+    if (error.message === 'ExitWorker') {
+      return;
+    }
+
+    DiscordUtils.sendError(error);
   });
 };
 
