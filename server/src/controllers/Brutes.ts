@@ -622,12 +622,13 @@ const Brutes = {
         throw new Error(translate('missingParameters', user));
       }
 
-      // Check if a spritesheet already exists
-      const count = await prisma.bruteSpritesheet.count({
-        where: { ...visuals },
-      });
+      // // Check if a spritesheet already exists
+      // const count = await prisma.bruteSpritesheet.count({
+      //   where: { ...visuals },
+      // });
 
-      res.send(count === 1);
+      // res.send(count === 1);
+      res.send(true);
     } catch (error) {
       sendError(res, error);
     }
