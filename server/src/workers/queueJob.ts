@@ -6,7 +6,7 @@ const queueJob = async (prisma: PrismaClient, worker: string, payload: unknown) 
   // Check if the queue is empty
   const count = await prisma.workerJob.count();
 
-  await DiscordUtils.sendLog(`Queuing ${worker} job`);
+  DiscordUtils.sendLog(`Queuing ${worker} job`);
 
   // Create a new job
   const job = await prisma.workerJob.create({

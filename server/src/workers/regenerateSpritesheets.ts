@@ -18,7 +18,7 @@ const {
 const prisma = new PrismaClient();
 
 try {
-  await DiscordUtils.sendLog('Calculating every possible brute visual...');
+  DiscordUtils.sendLog('Calculating every possible brute visual...');
 
   // MALE
 
@@ -56,7 +56,7 @@ try {
     accentShade: '',
   }));
 
-  await DiscordUtils.sendLog(`1st pass: ${malesWithSkin.length} possible visuals`);
+  DiscordUtils.sendLog(`1st pass: ${malesWithSkin.length} possible visuals`);
 
   // Hair
   const malesWithHair: BruteVisuals[] = [];
@@ -95,7 +95,7 @@ try {
     })));
   }
 
-  await DiscordUtils.sendLog(`2nd pass: ${malesWithHair.length} possible visuals`);
+  DiscordUtils.sendLog(`2nd pass: ${malesWithHair.length} possible visuals`);
 
   // Primary
   const malesWithPrimary: BruteVisuals[] = [];
@@ -134,7 +134,7 @@ try {
     })));
   }
 
-  await DiscordUtils.sendLog(`3rd pass: ${malesWithPrimary.length} possible visuals`);
+  DiscordUtils.sendLog(`3rd pass: ${malesWithPrimary.length} possible visuals`);
 
   // Secondary
   const malesWithSecondary: BruteVisuals[] = [];
@@ -173,7 +173,7 @@ try {
     })));
   }
 
-  await DiscordUtils.sendLog(`4th pass: ${malesWithSecondary.length} possible visuals`);
+  DiscordUtils.sendLog(`4th pass: ${malesWithSecondary.length} possible visuals`);
 
   // FEMALE
 
@@ -211,7 +211,7 @@ try {
     accentShade: '',
   }));
 
-  await DiscordUtils.sendLog(`5th pass: ${malesWithSecondary.length + femalesWithSkin.length} possible visuals`);
+  DiscordUtils.sendLog(`5th pass: ${malesWithSecondary.length + femalesWithSkin.length} possible visuals`);
 
   // Hair
   const femalesWithHair: BruteVisuals[] = [];
@@ -250,7 +250,7 @@ try {
     })));
   }
 
-  await DiscordUtils.sendLog(`6th pass: ${malesWithSecondary.length + femalesWithHair.length} possible visuals`);
+  DiscordUtils.sendLog(`6th pass: ${malesWithSecondary.length + femalesWithHair.length} possible visuals`);
 
   // Primary
   const femalesWithPrimary: BruteVisuals[] = [];
@@ -289,7 +289,7 @@ try {
     })));
   }
 
-  await DiscordUtils.sendLog(`7th pass: ${malesWithSecondary.length + femalesWithPrimary.length} possible visuals`);
+  DiscordUtils.sendLog(`7th pass: ${malesWithSecondary.length + femalesWithPrimary.length} possible visuals`);
 
   // Secondary
   const femalesWithSecondary: BruteVisuals[] = [];
@@ -330,8 +330,8 @@ try {
 
   const allVisuals = [...malesWithSecondary, ...femalesWithSecondary];
 
-  await DiscordUtils.sendLog(`8th pass: ${allVisuals.length} possible visuals`);
-  await DiscordUtils.sendLog('Regenerating all spritesheets...');
+  DiscordUtils.sendLog(`8th pass: ${allVisuals.length} possible visuals`);
+  DiscordUtils.sendLog('Regenerating all spritesheets...');
 
   for (let i = 0; i < allVisuals.length; i++) {
     const visuals = allVisuals[i];
@@ -348,7 +348,7 @@ try {
     });
 
     if (existingSpritesheet && existingSpritesheet.version === SPRITESHEET_VERSION) {
-      await DiscordUtils.sendLog(`Skipped spritesheet for visual ${i + 1}/${allVisuals.length}`);
+      DiscordUtils.sendLog(`Skipped spritesheet for visual ${i + 1}/${allVisuals.length}`);
 
       // eslint-disable-next-line no-continue
       continue;
@@ -381,9 +381,11 @@ try {
       },
     });
 
-    await DiscordUtils.sendLog(`Regenerated spritesheet for visual ${i + 1}/${allVisuals.length}`);
+    DiscordUtils.sendLog(`Regenerated spritesheet for visual ${i + 1}/${allVisuals.length}`);
   }
-} catch (error) { /* ignore */ } finally {
+} catch (error) {
+  console.error(error);
+} finally {
   // Delete job
   await prisma.workerJob.delete({ where: { id: jobId } });
 

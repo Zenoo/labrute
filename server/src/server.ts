@@ -53,15 +53,11 @@ app.use(
 );
 
 app.listen(port, () => {
-  DiscordUtils.sendLog(`**Server started (v${Version})**`).catch((e) => {
-    console.error(e);
-  });
+  DiscordUtils.sendLog(`**Server started (v${Version})**`);
 
   // Trigger daily job
   dailyJob(prisma)().catch((error) => {
-    DiscordUtils.sendError(error).catch((e) => {
-      console.error(e);
-    });
+    DiscordUtils.sendError(error);
   });
 
   // Initialize daily scheduler
@@ -69,9 +65,7 @@ app.listen(port, () => {
 
   // Start worker queue
   startJob(prisma).catch((error) => {
-    DiscordUtils.sendError(error).catch((e) => {
-      console.error(e);
-    });
+    DiscordUtils.sendError(error);
   });
 });
 

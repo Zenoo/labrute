@@ -42,7 +42,7 @@ const grantBetaAchievement = async (prisma: PrismaClient) => {
     })),
   });
 
-  await DiscordUtils.sendLog(`Gave the beta achievement to ${brutes.length} brutes`);
+  DiscordUtils.sendLog(`Gave the beta achievement to ${brutes.length} brutes`);
 };
 
 const grantBugAchievement = async (prisma: PrismaClient) => {
@@ -72,7 +72,7 @@ const grantBugAchievement = async (prisma: PrismaClient) => {
     })),
   });
 
-  await DiscordUtils.sendLog(`Gave the bug achievement to ${admins.length} admins`);
+  DiscordUtils.sendLog(`Gave the bug achievement to ${admins.length} admins`);
 };
 
 const deleteMisformattedTournaments = async (prisma: PrismaClient) => {
@@ -130,7 +130,7 @@ const generateMissingBodyColors = async (prisma: PrismaClient) => {
     return;
   }
 
-  await DiscordUtils.sendLog(`${brutesWithoutBodyColors.length} brutes without body or colors`);
+  DiscordUtils.sendLog(`${brutesWithoutBodyColors.length} brutes without body or colors`);
 
   for (const brute of brutesWithoutBodyColors) {
     await prisma.brute.update({
@@ -322,8 +322,8 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
               roundBrutes.length === 2,
             );
           } catch (error) {
-            await DiscordUtils.sendLog(`Error while generating a tournament fight between ${brute1.name} and ${brute2.name}, retrying...`);
-            await DiscordUtils.sendError(error);
+            DiscordUtils.sendLog(`Error while generating a tournament fight between ${brute1.name} and ${brute2.name}, retrying...`);
+            DiscordUtils.sendError(error);
           }
 
           retries++;
@@ -397,7 +397,7 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
     }
 
     // Send Discord notification
-    await DiscordUtils.sendTournamentNotification(tournament, brutes);
+    DiscordUtils.sendTournamentNotification(tournament, brutes);
   }
 
   // Remove tournament registration for all processed brutes
@@ -416,7 +416,7 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
     },
   });
 
-  await DiscordUtils.sendLog(`${tournamentsToCreate} daily tournaments created`);
+  DiscordUtils.sendLog(`${tournamentsToCreate} daily tournaments created`);
 };
 
 const handleGlobalTournament = async (prisma: PrismaClient) => {
@@ -448,7 +448,7 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
     },
   });
 
-  await DiscordUtils.sendLog(`Total brutes: ${brutes.length}`);
+  DiscordUtils.sendLog(`Total brutes: ${brutes.length}`);
 
   // Shuffle brutes
   const shuffledBrutes = shuffle(brutes);
@@ -535,8 +535,8 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
             roundBrutes.length === 2,
           );
         } catch (error) {
-          await DiscordUtils.sendLog(`Error while generating a tournament fight between ${brute1.name} and ${brute2.name}, retrying...`);
-          await DiscordUtils.sendError(error);
+          DiscordUtils.sendLog(`Error while generating a tournament fight between ${brute1.name} and ${brute2.name}, retrying...`);
+          DiscordUtils.sendError(error);
         }
 
         retries++;
@@ -598,7 +598,7 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
     select: { id: true },
   });
 
-  await DiscordUtils.sendLog('Global tournament created');
+  DiscordUtils.sendLog('Global tournament created');
 };
 
 const handleXpGains = async (prisma: PrismaClient) => {
@@ -675,7 +675,7 @@ const handleXpGains = async (prisma: PrismaClient) => {
     });
   }
 
-  await DiscordUtils.sendLog(`${moment.utc().valueOf() - now}ms to handle ${Object.keys(xpGains).length} xp gains`);
+  DiscordUtils.sendLog(`${moment.utc().valueOf() - now}ms to handle ${Object.keys(xpGains).length} xp gains`);
 };
 
 const handleTournamentEarnings = async (prisma: PrismaClient) => {
@@ -765,7 +765,7 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
     });
   }
 
-  await DiscordUtils.sendLog(`${moment.utc().valueOf() - now}ms to handle ${earnings.length} tournament earnings`);
+  DiscordUtils.sendLog(`${moment.utc().valueOf() - now}ms to handle ${earnings.length} tournament earnings`);
 };
 
 const dailyJob = (prisma: PrismaClient) => async () => {
@@ -797,7 +797,7 @@ const dailyJob = (prisma: PrismaClient) => async () => {
     // Handle tournament earnings from the previous day
     await handleTournamentEarnings(prisma);
   } catch (error) {
-    DiscordUtils.sendError(error).catch(console.error);
+    DiscordUtils.sendError(error);
     // Delete misformatted tournaments
     await deleteMisformattedTournaments(prisma);
 

@@ -26,7 +26,7 @@ const send = async (props: WebhookCreateMessageOptions) => {
   }
 };
 
-const sendError = async (error: unknown, res?: Response) => {
+const sendError = (error: unknown, res?: Response) => {
   try {
     if (!Env.DISCORD_LOGS_WEBHOOK_ID) {
       console.error(error);
@@ -81,13 +81,13 @@ ${error instanceof Error ? error.stack : error}
       }
     }
 
-    await webhookClient.send({ embeds: [embed] });
+    webhookClient.send({ embeds: [embed] }).catch(console.error);
   } catch (err) {
     console.error('Error trying to send a message: ', err);
   }
 };
 
-const sendLog = async (message: string) => {
+const sendLog = (message: string) => {
   try {
     if (!Env.DISCORD_LOGS_WEBHOOK_ID) {
       // eslint-disable-next-line no-console
@@ -100,13 +100,13 @@ const sendLog = async (message: string) => {
       token: Env.DISCORD_LOGS_WEBHOOK_TOKEN,
     });
 
-    await webhookClient.send(message);
+    webhookClient.send(message).catch(console.error);
   } catch (error) {
     console.error('Error trying to send a message: ', error);
   }
 };
 
-const sendTournamentNotification = async (tournament: Pick<Tournament, 'date'>, brutes: Brute[]) => {
+const sendTournamentNotification = (tournament: Pick<Tournament, 'date'>, brutes: Brute[]) => {
   const embed = new EmbedBuilder()
     .setColor(0xebad70)
     .setTitle('New tournament created!')
@@ -132,11 +132,10 @@ const sendTournamentNotification = async (tournament: Pick<Tournament, 'date'>, 
       iconURL: `${server}/favicon.png`,
     });
 
-  await send({ embeds: [embed] });
+  send({ embeds: [embed] }).catch(console.error);
 };
 
 export default {
-  send,
   sendError,
   sendLog,
   sendTournamentNotification,

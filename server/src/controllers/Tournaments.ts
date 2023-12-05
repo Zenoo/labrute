@@ -346,7 +346,7 @@ const Tournaments = {
 
       // Check if tournament is not malformed (more than 4+2+1 last rounds)
       if (lastRounds.length > 7) {
-        await DiscordUtils.sendError(`Global tournament ${tournament.id} malformed (${moment.utc(tournament.date).format('DD/MM/YYYY')}): `);
+        DiscordUtils.sendError(`Global tournament ${tournament.id} malformed (${moment.utc(tournament.date).format('DD/MM/YYYY')}): `);
         throw new Error('Tournament malformed');
       }
 

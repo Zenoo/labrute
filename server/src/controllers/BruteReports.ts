@@ -139,7 +139,7 @@ const BruteReports = {
         });
       }
 
-      await DiscordUtils.sendLog(`New report for ${brute.name} by ${user.name}`);
+      DiscordUtils.sendLog(`New report for ${brute.name} by ${user.name}`);
 
       res.status(200).send({
         success: true,

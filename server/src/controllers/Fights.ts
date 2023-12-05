@@ -145,9 +145,9 @@ const Fights = {
             expectedError = error;
           } else {
             // eslint-disable-next-line no-await-in-loop
-            await DiscordUtils.sendLog(`Error while generating fight between ${brute1.name} and ${brute2.name}, retrying...`);
+            DiscordUtils.sendLog(`Error while generating fight between ${brute1.name} and ${brute2.name}, retrying...`);
             // eslint-disable-next-line no-await-in-loop
-            await DiscordUtils.sendError(error);
+            DiscordUtils.sendError(error);
           }
         }
       }

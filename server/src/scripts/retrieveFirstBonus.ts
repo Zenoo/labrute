@@ -30,7 +30,7 @@ async function main() {
   });
 
   if (brutes.length) {
-    await DiscordUtils.sendLog(`Found ${brutes.length} brutes with no first bonus stored`);
+    DiscordUtils.sendLog(`Found ${brutes.length} brutes with no first bonus stored`);
   }
 
   for (const brute of brutes) {
@@ -49,7 +49,7 @@ async function main() {
         select: { id: true },
       });
 
-      await DiscordUtils.sendLog(`First bonus ${unregisteredSkill} found for brute ${brute.name}`);
+      DiscordUtils.sendLog(`First bonus ${unregisteredSkill} found for brute ${brute.name}`);
 
       continue;
     }
@@ -69,7 +69,7 @@ async function main() {
         select: { id: true },
       });
 
-      await DiscordUtils.sendLog(`First bonus ${unregisteredWeapon} found for brute ${brute.name}`);
+      DiscordUtils.sendLog(`First bonus ${unregisteredWeapon} found for brute ${brute.name}`);
 
       continue;
     }
@@ -89,7 +89,7 @@ async function main() {
         select: { id: true },
       });
 
-      await DiscordUtils.sendLog(`First bonus ${unregisteredPet} found for brute ${brute.name}`);
+      DiscordUtils.sendLog(`First bonus ${unregisteredPet} found for brute ${brute.name}`);
 
       continue;
     }
@@ -104,7 +104,7 @@ async function main() {
     );
 
     if (!firstBonus) {
-      await DiscordUtils.sendLog(`No first bonus found for brute ${brute.name}`);
+      DiscordUtils.sendLog(`No first bonus found for brute ${brute.name}`);
       continue;
     }
 

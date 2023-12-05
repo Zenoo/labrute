@@ -126,7 +126,7 @@ const Brutes = {
         // Check body validity
         checkBody(user, req.body.gender, req.body.body);
       } catch (error) {
-        await DiscordUtils.sendLog(`User ${user.name} tried to create a brute with invalid colors or body.`);
+        DiscordUtils.sendLog(`User ${user.name} tried to create a brute with invalid colors or body.`);
       }
 
       // Check name for banned words

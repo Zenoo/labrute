@@ -31,7 +31,7 @@ const sendError = (res: Response, error: unknown) => {
   }
 
   if (!(error instanceof ExpectedError)) {
-    DiscordUtils.sendError(error, res).catch(console.error);
+    DiscordUtils.sendError(error, res);
   }
 };
 
@@ -39,6 +39,6 @@ export default sendError;
 
 export const sendWorkerError = (error: unknown) => {
   if (!(error instanceof ExpectedError)) {
-    DiscordUtils.sendError(error).catch(console.error);
+    DiscordUtils.sendError(error);
   }
 };

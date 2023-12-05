@@ -84,7 +84,7 @@ async function main() {
   });
 
   // Generate random names
-  await DiscordUtils.sendLog(`DB only contains ${count} generated brutes, regenerating ${ARENA_OPPONENTS_COUNT * 100}...`);
+  DiscordUtils.sendLog(`DB only contains ${count} generated brutes, regenerating ${ARENA_OPPONENTS_COUNT * 100}...`);
   const nicks: string[] = [];
   for (let i = 0; i < ARENA_OPPONENTS_COUNT * 100; i++) {
     const start = Date.now();
@@ -119,7 +119,7 @@ async function main() {
     });
 
     if (existingSpritesheet > 0) {
-      await DiscordUtils.sendLog(`Spritesheet already exists for brute ${i + 1}/${ARENA_OPPONENTS_COUNT * 100}, skipping...`);
+      DiscordUtils.sendLog(`Spritesheet already exists for brute ${i + 1}/${ARENA_OPPONENTS_COUNT * 100}, skipping...`);
     } else {
       // Generate animation spritesheet
       const spritesheet = await createSpritesheet(visuals);
@@ -144,7 +144,7 @@ async function main() {
       });
 
       const end = Date.now();
-      await DiscordUtils.sendLog(`Generated brute ${i + 1}/${ARENA_OPPONENTS_COUNT * 100} in ${((end - start) / 1000).toFixed(2)}s`);
+      DiscordUtils.sendLog(`Generated brute ${i + 1}/${ARENA_OPPONENTS_COUNT * 100} in ${((end - start) / 1000).toFixed(2)}s`);
     }
   }
 }

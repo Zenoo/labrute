@@ -26,7 +26,7 @@ async function main() {
   });
 
   if (brutes.length) {
-    await DiscordUtils.sendLog(`Found ${brutes.length} brutes with dog2 or dog3 and without dog1`);
+    DiscordUtils.sendLog(`Found ${brutes.length} brutes with dog2 or dog3 and without dog1`);
   }
 
   for (const brute of brutes) {

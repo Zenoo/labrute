@@ -870,9 +870,9 @@ const Clans = {
             expectedError = error;
           } else {
             // eslint-disable-next-line no-await-in-loop
-            await DiscordUtils.sendLog(`Error while generating fight between ${brute.name} and ${clan.boss}, retrying...`);
+            DiscordUtils.sendLog(`Error while generating fight between ${brute.name} and ${clan.boss}, retrying...`);
             // eslint-disable-next-line no-await-in-loop
-            await DiscordUtils.sendError(error);
+            DiscordUtils.sendError(error);
           }
         }
       }

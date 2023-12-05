@@ -48,7 +48,9 @@ try {
     },
     select: { id: true },
   });
-} catch (error) { /* ignore */ } finally {
+} catch (error) {
+  console.error(error);
+} finally {
   // Delete job
   await prisma.workerJob.delete({ where: { id: jobId } });
 
