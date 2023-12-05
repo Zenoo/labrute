@@ -27,6 +27,8 @@ const send = async (props: WebhookCreateMessageOptions) => {
 };
 
 const sendError = (error: unknown, res?: Response) => {
+  if (!error) return;
+
   try {
     if (!Env.DISCORD_LOGS_WEBHOOK_ID) {
       console.error(error);
@@ -88,6 +90,8 @@ ${error instanceof Error ? error.stack : error}
 };
 
 const sendLog = (message: string) => {
+  if (!message) return;
+
   try {
     if (!Env.DISCORD_LOGS_WEBHOOK_ID) {
       // eslint-disable-next-line no-console

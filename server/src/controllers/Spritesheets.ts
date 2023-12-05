@@ -105,7 +105,7 @@ const Spritesheets = {
         const defaultSpritesheet = await fetch(`${Env.SELF_URL}/images/game/${brute.gender}-brute.png`);
 
         // This still means the spritesheet is not correct, update it in the BG
-        await queueJob(prisma, 'generateSpritesheet', brute);
+        // await queueJob(prisma, 'generateSpritesheet', brute);
 
         // Send default spritesheet
         res.header('Content-Type', 'image/png').send(Buffer.from(await defaultSpritesheet.arrayBuffer()));
@@ -187,9 +187,9 @@ const Spritesheets = {
 
       if (spritesheet) {
         // If spritesheet is outdated, update it in the BG
-        if (spritesheet.version !== SPRITESHEET_VERSION) {
-          await queueJob(prisma, 'updateSpritesheet', visuals);
-        }
+        // if (spritesheet.version !== SPRITESHEET_VERSION) {
+        //   await queueJob(prisma, 'updateSpritesheet', visuals);
+        // }
 
         res.header('Content-Type', 'application/json').send(spritesheet.json);
       } else {
@@ -197,7 +197,7 @@ const Spritesheets = {
         const defaultSpritesheet = await fetch(`${Env.SELF_URL}/images/game/${brute.gender}-brute.json`);
 
         // Create missing spritesheet in the BG
-        await queueJob(prisma, 'generateSpritesheet', brute);
+        // await queueJob(prisma, 'generateSpritesheet', brute);
 
         // Send default spritesheet
         res.header('Content-Type', 'application/json').send(Buffer.from(await defaultSpritesheet.arrayBuffer()));
