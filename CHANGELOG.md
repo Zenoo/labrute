@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.41.11](https://github.com/Zenoo/labrute/compare/labrute-v2.41.10...labrute-v2.41.11) (2023-12-05)
+
+
+### Bug Fixes
+
+* Stop awaiting Discord logs ([e51ec11](https://github.com/Zenoo/labrute/commit/e51ec116af623a242b2a105d5d4a750ec5742bc4))
+
 ## [2.41.10](https://github.com/Zenoo/labrute/compare/labrute-v2.41.9...labrute-v2.41.10) (2023-12-04)
 
 
