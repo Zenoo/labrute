@@ -1,19 +1,16 @@
 /* eslint-disable no-continue */
 /* eslint-disable no-await-in-loop */
-/* eslint-disable no-console */
 import { getRandomBonus } from '@labrute/core';
 import {
-  DestinyChoiceType, PetName, PrismaClient, SkillName, WeaponName,
+  DestinyChoiceType, PetName, SkillName, WeaponName,
 } from '@labrute/prisma';
 import '../utils/Env.js';
-import {LOGGER} from "../context.js";
+import { GLOBAL, ServerContext } from "../context.js";
 
-const prisma = new PrismaClient();
-
-async function main() {
-  LOGGER.debug('WorkerStart');
+async function main(cx: ServerContext) {
+  cx.logger.info('retrieveFirstBonus: start');
   // Get all brutes with no first bonus stored
-  const brutes = await prisma.brute.findMany({
+  const brutes = await cx.prisma.brute.findMany({
     where: {
       userId: { not: null },
       deletedAt: null,
@@ -31,7 +28,7 @@ async function main() {
   });
 
   if (brutes.length) {
-    LOGGER.log(`Found ${brutes.length} brutes with no first bonus stored`);
+    cx.logger.log(`Found ${brutes.length} brutes with no first bonus stored`);
   }
 
   for (const brute of brutes) {
@@ -40,7 +37,7 @@ async function main() {
 
     if (unregisteredSkill) {
       // Store first bonus
-      await prisma.destinyChoice.create({
+      await cx.prisma.destinyChoice.create({
         data: {
           type: DestinyChoiceType.skill,
           skill: unregisteredSkill,
@@ -50,7 +47,7 @@ async function main() {
         select: { id: true },
       });
 
-      LOGGER.log(`First bonus ${unregisteredSkill} found for brute ${brute.name}`);
+      cx.logger.log(`First bonus ${unregisteredSkill} found for brute ${brute.name}`);
 
       continue;
     }
@@ -60,7 +57,7 @@ async function main() {
 
     if (unregisteredWeapon) {
       // Store first bonus
-      await prisma.destinyChoice.create({
+      await cx.prisma.destinyChoice.create({
         data: {
           type: DestinyChoiceType.weapon,
           weapon: unregisteredWeapon,
@@ -70,7 +67,7 @@ async function main() {
         select: { id: true },
       });
 
-      LOGGER.log(`First bonus ${unregisteredWeapon} found for brute ${brute.name}`);
+      cx.logger.log(`First bonus ${unregisteredWeapon} found for brute ${brute.name}`);
 
       continue;
     }
@@ -80,7 +77,7 @@ async function main() {
 
     if (unregisteredPet) {
       // Store first bonus
-      await prisma.destinyChoice.create({
+      await cx.prisma.destinyChoice.create({
         data: {
           type: DestinyChoiceType.pet,
           pet: unregisteredPet,
@@ -90,7 +87,7 @@ async function main() {
         select: { id: true },
       });
 
-      LOGGER.log(`First bonus ${unregisteredPet} found for brute ${brute.name}`);
+      cx.logger.log(`First bonus ${unregisteredPet} found for brute ${brute.name}`);
 
       continue;
     }
@@ -105,12 +102,12 @@ async function main() {
     );
 
     if (!firstBonus) {
-      LOGGER.log(`No first bonus found for brute ${brute.name}`);
+      cx.logger.log(`No first bonus found for brute ${brute.name}`);
       continue;
     }
 
     // Store first bonus
-    await prisma.destinyChoice.create({
+    await cx.prisma.destinyChoice.create({
       data: {
         type: firstBonus.type,
         pet: firstBonus.type === DestinyChoiceType.pet
@@ -126,16 +123,13 @@ async function main() {
     });
   }
 }
-main()
-  .then(async () => {
-    LOGGER.debug("retrieveFirstBonus end");
-    await prisma.$disconnect();
-    LOGGER.debug("retrieveFirstBonus end - OK");
-  })
-  .catch(async (e) => {
-    LOGGER.debug("retrieveFirstBonus end - ERROR");
-    LOGGER.error(e);
-    await prisma.$disconnect();
-    // eslint-disable-next-line no-process-exit
-    process.exit(1);
-  });
+
+/**
+ * Initialize the global context, then run `main`
+ */
+async function mainWrapper() {
+  await using context = GLOBAL;
+  await main(context);
+}
+
+await mainWrapper();

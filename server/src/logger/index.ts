@@ -1,4 +1,5 @@
 import { inspect } from 'node:util';
+import {ASYNC_DISPOSE} from "../utils/dispose.js";
 
 /**
  * Normalize a log message into a string.
@@ -115,10 +116,14 @@ export class Logger implements LogHandler {
   }
 
   public async flush(): Promise<void> {
-    await Promise.all(this.#handlers.map((h) => h.flush()));
+    await Promise.allSettled(this.#handlers.map((h) => h.flush()));
   }
 
   public async close(): Promise<void> {
-    await Promise.all(this.#handlers.map((h) => h.close()));
+    await Promise.allSettled(this.#handlers.map((h) => h.close()));
+  }
+
+  public async [ASYNC_DISPOSE](): Promise<void> {
+    await this.close();
   }
 }

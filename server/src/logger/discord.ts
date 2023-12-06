@@ -1,5 +1,6 @@
 import { formatLogRecord, LogHandler, LogRecord } from './index.js';
 import { DiscordClient, SEND_MESSAGE_SAFE_LENGTH } from '../utils/DiscordUtils.js';
+import {ASYNC_DISPOSE} from "../utils/dispose.js";
 
 /**
  * Duration during which logs should be batched before being sent.
@@ -75,7 +76,7 @@ export class DiscordLogHandler implements LogHandler {
     }
     let recordCount = this.#nextBatch.length;
     const formatted = format(this.#nextBatch);
-    if (formatted.length > SEND_MESSAGE_SAFE_LENGTH && recordCount >= 2) {
+    if (!this.#closed && formatted.length > SEND_MESSAGE_SAFE_LENGTH && recordCount >= 2) {
       // This flush was most likely triggered by an `emit` detecting that we
       // filled the max content length. Try to send one message less in this
       // case to reduce risks of truncation. It's not perfect because if there
@@ -98,6 +99,10 @@ export class DiscordLogHandler implements LogHandler {
 
   public async close(): Promise<void> {
     this.#closed = true;
+    if (this.#batchTimer !== null) {
+      clearInterval(this.#batchTimer);
+      this.#batchTimer = null;
+    }
     await this.flush();
   }
 
@@ -125,5 +130,9 @@ export class DiscordLogHandler implements LogHandler {
         throw e;
       }
     }
+  }
+
+  public async [ASYNC_DISPOSE](): Promise<void> {
+    await this.close();
   }
 }

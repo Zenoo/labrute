@@ -1,6 +1,6 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-console */
-import { Gender, Prisma, PrismaClient } from '@labrute/prisma';
+import { Gender, Prisma } from '@labrute/prisma';
 import {
   ARENA_OPPONENTS_COUNT, createRandomBruteStats,
   FIGHTS_PER_DAY, getBruteVisuals, getLevelUpChoices, getRandomBody,
@@ -12,9 +12,7 @@ import {
 import moment from 'moment';
 import formatSpritesheet from './utils/formatSpritesheet.js';
 import createSpritesheet from './utils/createSpritesheet.js';
-import { LOGGER } from './context.js';
-
-const prisma = new PrismaClient();
+import { GLOBAL, ServerContext } from './context.js';
 
 const generateBrute = (
   level: number,
@@ -67,9 +65,9 @@ const generateBrute = (
   return data;
 };
 
-async function main() {
+async function main(cx: ServerContext) {
   // Check if DB is already seeded
-  const count = await prisma.brute.count({
+  const count = await cx.prisma.brute.count({
     where: { userId: null },
   });
 
@@ -78,13 +76,13 @@ async function main() {
   }
 
   // Setting old generated brutes as deleted
-  await prisma.brute.updateMany({
+  await cx.prisma.brute.updateMany({
     where: { userId: null },
     data: { deletedAt: moment.utc().toDate() },
   });
 
   // Generate random names
-  LOGGER.log(`DB only contains ${count} generated brutes, regenerating ${ARENA_OPPONENTS_COUNT * 100}...`);
+  cx.logger.log(`DB only contains ${count} generated brutes, regenerating ${ARENA_OPPONENTS_COUNT * 100}...`);
   const nicks: string[] = [];
   for (let i = 0; i < ARENA_OPPONENTS_COUNT * 100; i++) {
     const start = Date.now();
@@ -102,7 +100,7 @@ async function main() {
 
     nicks.push(generatedName);
 
-    const brute = await prisma.brute.create({
+    const brute = await cx.prisma.brute.create({
       data: generateBrute(Math.floor(i / (ARENA_OPPONENTS_COUNT / 2)) + 1, generatedName),
       include: { body: true, colors: true },
     });
@@ -114,23 +112,23 @@ async function main() {
     const visuals = getBruteVisuals(brute);
 
     // Check if spritesheet already exists
-    const existingSpritesheet = await prisma.bruteSpritesheet.count({
+    const existingSpritesheet = await cx.prisma.bruteSpritesheet.count({
       where: { ...visuals, version: SPRITESHEET_VERSION },
     });
 
     if (existingSpritesheet > 0) {
-      LOGGER.log(`Spritesheet already exists for brute ${i + 1}/${ARENA_OPPONENTS_COUNT * 100}, skipping...`);
+      cx.logger.log(`Spritesheet already exists for brute ${i + 1}/${ARENA_OPPONENTS_COUNT * 100}, skipping...`);
     } else {
       // Generate animation spritesheet
       const spritesheet = await createSpritesheet(visuals);
 
       // Delete outdated spritesheet
-      await prisma.bruteSpritesheet.deleteMany({
+      await cx.prisma.bruteSpritesheet.deleteMany({
         where: { ...visuals, version: { not: SPRITESHEET_VERSION } },
       });
 
       // Store spritesheet image in database as blob and data as json
-      await prisma.bruteSpritesheet.create({
+      await cx.prisma.bruteSpritesheet.create({
         data: {
           image: spritesheet.image,
           json: formatSpritesheet(
@@ -144,17 +142,17 @@ async function main() {
       });
 
       const end = Date.now();
-      LOGGER.log(`Generated brute ${i + 1}/${ARENA_OPPONENTS_COUNT * 100} in ${((end - start) / 1000).toFixed(2)}s`);
+      cx.logger.log(`Generated brute ${i + 1}/${ARENA_OPPONENTS_COUNT * 100} in ${((end - start) / 1000).toFixed(2)}s`);
     }
   }
 }
-main()
-  .then(async () => {
-    await prisma.$disconnect();
-  })
-  .catch(async (e) => {
-    LOGGER.error(e);
-    await prisma.$disconnect();
-    // eslint-disable-next-line no-process-exit
-    process.exit(1);
-  });
+
+/**
+ * Initialize the global context, then run `main`
+ */
+async function mainWrapper() {
+  await using context = GLOBAL;
+  await main(context);
+}
+
+await mainWrapper();
