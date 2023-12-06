@@ -236,7 +236,7 @@ model Brute {
 
 model BruteSpritesheet {
   id             Int    @id @default(autoincrement())
-  version        String @db.VarChar(255) @default("1.0")
+  version        String @default("1.0") @db.VarChar(255)
   gender         Gender @default(male)
   longHair       Int    @default(1)
   lowerRightArm  Int    @default(1)
@@ -544,15 +544,16 @@ model BruteReport {
 
 // SERVER STATE
 model ServerState {
-  id       Int      @id @default(autoincrement())
-  ready    Boolean  @default(true)
-  banWords String[]
+  id                    Int      @id @default(autoincrement())
+  ready                 Boolean  @default(true)
+  banWords              String[]
+  globalTournamentValid Boolean  @default(true)
 }
 
 model WorkerJob {
-  id      Int      @id @default(autoincrement())
-  worker  String   @db.VarChar(255)
-  payload Json     @db.Json
+  id      Int    @id @default(autoincrement())
+  worker  String @db.VarChar(255)
+  payload Json   @db.Json
 }
 
 // CLANS

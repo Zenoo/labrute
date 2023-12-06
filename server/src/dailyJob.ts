@@ -434,6 +434,9 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
     return;
   }
 
+  // Set tournament as valid
+  await ServerState.setGlobalTournamentValid(prisma, true);
+
   // Get all real brutes
   const brutes = await prisma.brute.findMany({
     where: {
@@ -617,13 +620,15 @@ const handleXpGains = async (prisma: PrismaClient) => {
         include: {
           fight: true,
         },
+        where: {
+          xpDistributed: false,
+        },
       },
     },
   });
 
   // Get all steps that have not been handled yet
-  const steps = tournaments.flatMap((tournament) => tournament.steps)
-    .filter((step) => !step.xpDistributed);
+  const steps = tournaments.flatMap((tournament) => tournament.steps);
 
   if (!steps.length) {
     return;
@@ -688,7 +693,12 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
       },
     },
     include: {
-      brute: true,
+      brute: {
+        select: {
+          id: true,
+          userId: true,
+        },
+      },
     },
   });
 
@@ -770,32 +780,50 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
 
 const dailyJob = (prisma: PrismaClient) => async () => {
   try {
+    let start = new Date();
     // Update server state to hold traffic
     await ServerState.setReady(prisma, false);
+    console.log(`Server state updated in ${new Date().getTime() - start.getTime()}ms`);
 
+    start = new Date();
     // Handle daily tournaments
     await handleDailyTournaments(prisma);
+    console.log(`Daily tournaments handled in ${new Date().getTime() - start.getTime()}ms`);
 
+    start = new Date();
     // Handle global tournament
     await handleGlobalTournament(prisma);
+    console.log(`Global tournament handled in ${new Date().getTime() - start.getTime()}ms`);
 
+    start = new Date();
     // Update server state to release traffic
     await ServerState.setReady(prisma, true);
+    console.log(`Server state updated in ${new Date().getTime() - start.getTime()}ms`);
 
+    start = new Date();
     // Grant beta achievement to all brutes who don't have it yet
     await grantBetaAchievement(prisma);
+    console.log(`Beta achievement granted in ${new Date().getTime() - start.getTime()}ms`);
 
+    start = new Date();
     // Grant bug achievements to all admins who don't have it yet
     await grantBugAchievement(prisma);
+    console.log(`Bug achievement granted in ${new Date().getTime() - start.getTime()}ms`);
 
+    start = new Date();
     // Generate missing body and colors
     await generateMissingBodyColors(prisma);
+    console.log(`Missing body and colors generated in ${new Date().getTime() - start.getTime()}ms`);
 
+    start = new Date();
     // Handle XP won the previous day
     await handleXpGains(prisma);
+    console.log(`XP gains handled in ${new Date().getTime() - start.getTime()}ms`);
 
+    start = new Date();
     // Handle tournament earnings from the previous day
     await handleTournamentEarnings(prisma);
+    console.log(`Tournament earnings handled in ${new Date().getTime() - start.getTime()}ms`);
   } catch (error) {
     DiscordUtils.sendError(error);
     // Delete misformatted tournaments

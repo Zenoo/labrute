@@ -325,7 +325,8 @@ exports.Prisma.BruteReportScalarFieldEnum = {
 exports.Prisma.ServerStateScalarFieldEnum = {
   id: 'id',
   ready: 'ready',
-  banWords: 'banWords'
+  banWords: 'banWords',
+  globalTournamentValid: 'globalTournamentValid'
 };
 
 exports.Prisma.WorkerJobScalarFieldEnum = {

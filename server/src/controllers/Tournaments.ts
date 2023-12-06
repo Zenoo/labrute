@@ -5,7 +5,7 @@ import {
 import { PrismaClient, TournamentType } from '@labrute/prisma';
 import { Request, Response } from 'express';
 import moment from 'moment';
-import DiscordUtils from '../utils/DiscordUtils.js';
+import ServerState from '../utils/ServerState.js';
 import auth from '../utils/auth.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
@@ -346,8 +346,8 @@ const Tournaments = {
 
       // Check if tournament is not malformed (more than 4+2+1 last rounds)
       if (lastRounds.length > 7) {
-        DiscordUtils.sendError(`Global tournament ${tournament.id} malformed (${moment.utc(tournament.date).format('DD/MM/YYYY')}): `);
-        throw new Error('Tournament malformed');
+        await ServerState.setGlobalTournamentValid(prisma, false);
+        throw new ExpectedError('Tournament malformed');
       }
 
       // Check if current time has reached the end of the tournament
@@ -570,6 +570,24 @@ const Tournaments = {
       }
 
       res.send(tournaments);
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  isGlobalTournamentValid: (prisma: PrismaClient) => async (
+    req: Request,
+    res: Response,
+  ) => {
+    try {
+      const user = await auth(prisma, req);
+
+      if (!user.admin) {
+        throw new ExpectedError(translate('unauthorized', user));
+      }
+
+      const isValid = await ServerState.isGlobalTournamentValid(prisma);
+
+      res.send({ isValid });
     } catch (error) {
       sendError(res, error);
     }

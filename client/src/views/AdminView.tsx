@@ -1,6 +1,6 @@
 import { BruteWithBodyColors, availableBodyParts } from '@labrute/core';
 import { BruteBody, BruteColors, DestinyChoiceSide, Gender, PetName, SkillName, User, WeaponName } from '@labrute/prisma';
-import { Box, Checkbox, Divider, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Paper, Select, Stack } from '@mui/material';
+import { Alert as MuiAlert, Box, Checkbox, Divider, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Paper, Select, Stack } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
 import moment from 'moment';
 import React, { useCallback, useEffect } from 'react';
@@ -19,11 +19,12 @@ import Link from '../components/Link';
 const AdminView = () => {
   const { t } = useTranslation();
   const Alert = useAlert();
+  const { user } = useAuth();
 
   const [bruteName, setBruteName] = React.useState('');
   const [bruteId, setBruteId] = React.useState(0);
   const [brute, setBrute] = React.useState<BruteWithBodyColors & { user: User } | null>(null);
-  const { user } = useAuth();
+  const [globalTournamentValid, setGlobalTournamentValid] = React.useState(true);
 
   // Change bruteName
   const changeBruteName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -84,6 +85,13 @@ const AdminView = () => {
     return () => clearTimeout(timeout);
   }, [bruteName, updateBrute]);
 
+  // Fetch global tournament status
+  useEffect(() => {
+    Server.Tournament.isGlobalTournamentValid().then(({ isValid }) => {
+      setGlobalTournamentValid(isValid);
+    }).catch(catchError(Alert));
+  }, [Alert]);
+
   // Save brute
   const saveBrute = useCallback(() => {
     if (!brute) return;
@@ -142,6 +150,11 @@ const AdminView = () => {
 
   return (
     <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl="/">
+      {!globalTournamentValid && (
+        <MuiAlert severity="warning" variant="filled">
+          <Text h5>Global tournament malformed</Text>
+        </MuiAlert>
+      )}
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten">{t('adminPanel')}</Text>
       </Paper>

@@ -18687,17 +18687,20 @@ export namespace Prisma {
   export type ServerStateMinAggregateOutputType = {
     id: number | null
     ready: boolean | null
+    globalTournamentValid: boolean | null
   }
 
   export type ServerStateMaxAggregateOutputType = {
     id: number | null
     ready: boolean | null
+    globalTournamentValid: boolean | null
   }
 
   export type ServerStateCountAggregateOutputType = {
     id: number
     ready: number
     banWords: number
+    globalTournamentValid: number
     _all: number
   }
 
@@ -18713,17 +18716,20 @@ export namespace Prisma {
   export type ServerStateMinAggregateInputType = {
     id?: true
     ready?: true
+    globalTournamentValid?: true
   }
 
   export type ServerStateMaxAggregateInputType = {
     id?: true
     ready?: true
+    globalTournamentValid?: true
   }
 
   export type ServerStateCountAggregateInputType = {
     id?: true
     ready?: true
     banWords?: true
+    globalTournamentValid?: true
     _all?: true
   }
 
@@ -18817,6 +18823,7 @@ export namespace Prisma {
     id: number
     ready: boolean
     banWords: string[]
+    globalTournamentValid: boolean
     _count: ServerStateCountAggregateOutputType | null
     _avg: ServerStateAvgAggregateOutputType | null
     _sum: ServerStateSumAggregateOutputType | null
@@ -18842,12 +18849,14 @@ export namespace Prisma {
     id?: boolean
     ready?: boolean
     banWords?: boolean
+    globalTournamentValid?: boolean
   }, ExtArgs["result"]["serverState"]>
 
   export type ServerStateSelectScalar = {
     id?: boolean
     ready?: boolean
     banWords?: boolean
+    globalTournamentValid?: boolean
   }
 
 
@@ -18858,6 +18867,7 @@ export namespace Prisma {
       id: number
       ready: boolean
       banWords: string[]
+      globalTournamentValid: boolean
     }, ExtArgs["result"]["serverState"]>
     composites: {}
   }
@@ -19255,6 +19265,7 @@ export namespace Prisma {
     readonly id: FieldRef<"ServerState", 'Int'>
     readonly ready: FieldRef<"ServerState", 'Boolean'>
     readonly banWords: FieldRef<"ServerState", 'String[]'>
+    readonly globalTournamentValid: FieldRef<"ServerState", 'Boolean'>
   }
     
 
@@ -23739,7 +23750,8 @@ export namespace Prisma {
   export const ServerStateScalarFieldEnum: {
     id: 'id',
     ready: 'ready',
-    banWords: 'banWords'
+    banWords: 'banWords',
+    globalTournamentValid: 'globalTournamentValid'
   };
 
   export type ServerStateScalarFieldEnum = (typeof ServerStateScalarFieldEnum)[keyof typeof ServerStateScalarFieldEnum]
@@ -25532,12 +25544,14 @@ export namespace Prisma {
     id?: IntFilter<"ServerState"> | number
     ready?: BoolFilter<"ServerState"> | boolean
     banWords?: StringNullableListFilter<"ServerState">
+    globalTournamentValid?: BoolFilter<"ServerState"> | boolean
   }
 
   export type ServerStateOrderByWithRelationInput = {
     id?: SortOrder
     ready?: SortOrder
     banWords?: SortOrder
+    globalTournamentValid?: SortOrder
   }
 
   export type ServerStateWhereUniqueInput = Prisma.AtLeast<{
@@ -25547,12 +25561,14 @@ export namespace Prisma {
     NOT?: ServerStateWhereInput | ServerStateWhereInput[]
     ready?: BoolFilter<"ServerState"> | boolean
     banWords?: StringNullableListFilter<"ServerState">
+    globalTournamentValid?: BoolFilter<"ServerState"> | boolean
   }, "id">
 
   export type ServerStateOrderByWithAggregationInput = {
     id?: SortOrder
     ready?: SortOrder
     banWords?: SortOrder
+    globalTournamentValid?: SortOrder
     _count?: ServerStateCountOrderByAggregateInput
     _avg?: ServerStateAvgOrderByAggregateInput
     _max?: ServerStateMaxOrderByAggregateInput
@@ -25567,6 +25583,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"ServerState"> | number
     ready?: BoolWithAggregatesFilter<"ServerState"> | boolean
     banWords?: StringNullableListFilter<"ServerState">
+    globalTournamentValid?: BoolWithAggregatesFilter<"ServerState"> | boolean
   }
 
   export type WorkerJobWhereInput = {
@@ -27371,40 +27388,47 @@ export namespace Prisma {
   export type ServerStateCreateInput = {
     ready?: boolean
     banWords?: ServerStateCreatebanWordsInput | string[]
+    globalTournamentValid?: boolean
   }
 
   export type ServerStateUncheckedCreateInput = {
     id?: number
     ready?: boolean
     banWords?: ServerStateCreatebanWordsInput | string[]
+    globalTournamentValid?: boolean
   }
 
   export type ServerStateUpdateInput = {
     ready?: BoolFieldUpdateOperationsInput | boolean
     banWords?: ServerStateUpdatebanWordsInput | string[]
+    globalTournamentValid?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ServerStateUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     ready?: BoolFieldUpdateOperationsInput | boolean
     banWords?: ServerStateUpdatebanWordsInput | string[]
+    globalTournamentValid?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ServerStateCreateManyInput = {
     id?: number
     ready?: boolean
     banWords?: ServerStateCreatebanWordsInput | string[]
+    globalTournamentValid?: boolean
   }
 
   export type ServerStateUpdateManyMutationInput = {
     ready?: BoolFieldUpdateOperationsInput | boolean
     banWords?: ServerStateUpdatebanWordsInput | string[]
+    globalTournamentValid?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ServerStateUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     ready?: BoolFieldUpdateOperationsInput | boolean
     banWords?: ServerStateUpdatebanWordsInput | string[]
+    globalTournamentValid?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type WorkerJobCreateInput = {
@@ -29401,6 +29425,7 @@ export namespace Prisma {
     id?: SortOrder
     ready?: SortOrder
     banWords?: SortOrder
+    globalTournamentValid?: SortOrder
   }
 
   export type ServerStateAvgOrderByAggregateInput = {
@@ -29410,11 +29435,13 @@ export namespace Prisma {
   export type ServerStateMaxOrderByAggregateInput = {
     id?: SortOrder
     ready?: SortOrder
+    globalTournamentValid?: SortOrder
   }
 
   export type ServerStateMinOrderByAggregateInput = {
     id?: SortOrder
     ready?: SortOrder
+    globalTournamentValid?: SortOrder
   }
 
   export type ServerStateSumOrderByAggregateInput = {

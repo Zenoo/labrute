@@ -87,6 +87,7 @@ const Server = {
     deleteDaily: () => Fetch<never>('/api/tournament/daily', {}, 'DELETE'),
     deleteGlobal: () => Fetch<never>('/api/tournament/global', {}, 'DELETE'),
     getHistory: (name: string) => Fetch<TournamentHistoryResponse>(`/api/tournament/${name}/history`),
+    isGlobalTournamentValid: () => Fetch<{ isValid: boolean }>('/api/tournament/is-valid/global'),
   },
   Spritesheet: {
     regenerate: () => Fetch<never>('/api/spritesheet/regenerate'),
