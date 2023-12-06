@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.41.15](https://github.com/Zenoo/labrute/compare/labrute-v2.41.14...labrute-v2.41.15) (2023-12-06)
+
+
+### Bug Fixes
+
+* Fights not displaying ([76a2eab](https://github.com/Zenoo/labrute/commit/76a2eab33894bee48ec357ce92bfb00ec1d23390))
+* update dependencies, support Node 21 ([b836194](https://github.com/Zenoo/labrute/commit/b8361945b866dbeb12c38215ffc2444c5da674d9))
+
 ## [2.41.14](https://github.com/Zenoo/labrute/compare/labrute-v2.41.13...labrute-v2.41.14) (2023-12-05)
 
 
