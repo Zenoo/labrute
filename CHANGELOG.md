@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.41.17](https://github.com/Zenoo/labrute/compare/labrute-v2.41.16...labrute-v2.41.17) (2023-12-06)
+
+
+### Bug Fixes
+
+* Store global tournament state and display it in the admin panel ([a7ddaaf](https://github.com/Zenoo/labrute/commit/a7ddaaf7c4f70fb679f0e7a15c12a9b6b9c6a215))
+
 ## [2.41.16](https://github.com/Zenoo/labrute/compare/labrute-v2.41.15...labrute-v2.41.16) (2023-12-06)
 
 
