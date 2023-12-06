@@ -4,6 +4,7 @@ import { workerData } from 'worker_threads';
 import createSpritesheet from '../utils/createSpritesheet.js';
 import formatSpritesheet from '../utils/formatSpritesheet.js';
 import startJob from './startJob.js';
+import {LOGGER} from "../context.js";
 
 const {
   payload: visuals,
@@ -12,6 +13,9 @@ const {
   payload: BruteVisuals;
   jobId: number;
 };
+
+LOGGER.info('updateSpritesheet: start');
+
 const prisma = new PrismaClient();
 
 try {
@@ -44,7 +48,7 @@ try {
     select: { id: true },
   });
 } catch (error) {
-  console.error(error);
+  LOGGER.error(error);
 } finally {
   // Delete job
   await prisma.workerJob.delete({ where: { id: jobId } });
@@ -53,5 +57,4 @@ try {
   await startJob(prisma);
 }
 
-// Throw error to exit worker
-throw new Error('ExitWorker');
+LOGGER.info('updateSpritesheet: end');

@@ -1,5 +1,6 @@
 import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
+import { LOGGER } from './context.js';
 
 i18next.use(Backend).init({
   lng: 'en',
@@ -11,7 +12,7 @@ i18next.use(Backend).init({
   debug: false,
   returnNull: false,
 }).catch((err) => {
-  console.error('Error loading language', err);
+  LOGGER.error(`Error loading language ${err}`);
 });
 
 export default i18next;

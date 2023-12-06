@@ -12,7 +12,7 @@ import {
 import moment from 'moment';
 import formatSpritesheet from './utils/formatSpritesheet.js';
 import createSpritesheet from './utils/createSpritesheet.js';
-import DiscordUtils from './utils/DiscordUtils.js';
+import { LOGGER } from './context.js';
 
 const prisma = new PrismaClient();
 
@@ -84,7 +84,7 @@ async function main() {
   });
 
   // Generate random names
-  DiscordUtils.sendLog(`DB only contains ${count} generated brutes, regenerating ${ARENA_OPPONENTS_COUNT * 100}...`);
+  LOGGER.log(`DB only contains ${count} generated brutes, regenerating ${ARENA_OPPONENTS_COUNT * 100}...`);
   const nicks: string[] = [];
   for (let i = 0; i < ARENA_OPPONENTS_COUNT * 100; i++) {
     const start = Date.now();
@@ -119,7 +119,7 @@ async function main() {
     });
 
     if (existingSpritesheet > 0) {
-      DiscordUtils.sendLog(`Spritesheet already exists for brute ${i + 1}/${ARENA_OPPONENTS_COUNT * 100}, skipping...`);
+      LOGGER.log(`Spritesheet already exists for brute ${i + 1}/${ARENA_OPPONENTS_COUNT * 100}, skipping...`);
     } else {
       // Generate animation spritesheet
       const spritesheet = await createSpritesheet(visuals);
@@ -144,7 +144,7 @@ async function main() {
       });
 
       const end = Date.now();
-      DiscordUtils.sendLog(`Generated brute ${i + 1}/${ARENA_OPPONENTS_COUNT * 100} in ${((end - start) / 1000).toFixed(2)}s`);
+      LOGGER.log(`Generated brute ${i + 1}/${ARENA_OPPONENTS_COUNT * 100} in ${((end - start) / 1000).toFixed(2)}s`);
     }
   }
 }
@@ -153,7 +153,7 @@ main()
     await prisma.$disconnect();
   })
   .catch(async (e) => {
-    console.error(e);
+    LOGGER.error(e);
     await prisma.$disconnect();
     // eslint-disable-next-line no-process-exit
     process.exit(1);

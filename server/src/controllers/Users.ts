@@ -3,9 +3,9 @@ import { Request, Response } from 'express';
 import { ExpectedError, UsersAdminUpdateRequest } from '@labrute/core';
 import dailyJob from '../dailyJob.js';
 import auth from '../utils/auth.js';
-import DiscordUtils from '../utils/DiscordUtils.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
+import {DISCORD} from "../context.js";
 
 const Users = {
   get: (prisma: PrismaClient) => async (
@@ -58,8 +58,8 @@ const Users = {
         throw new Error(translate('unauthorized', user));
       }
 
-      await dailyJob(prisma)().catch((error) => {
-        DiscordUtils.sendError(error);
+      await dailyJob(prisma)().catch((error: Error) => {
+        DISCORD.sendError(error);
       });
 
       res.send({ message: 'Job run' });

@@ -9,7 +9,7 @@ import updateClanPoints from '../utils/clan/updateClanPoints.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
 import generateFight from '../utils/fight/generateFight.js';
-import DiscordUtils from '../utils/DiscordUtils.js';
+import {DISCORD, LOGGER} from '../context.js';
 
 const Clans = {
   list: (prisma: PrismaClient) => async (
@@ -865,14 +865,15 @@ const Clans = {
             boss.hp - clan.damageOnBoss,
             clan.id,
           );
-        } catch (error) {
+        } catch (error: unknown) {
+          if (!(error instanceof Error)) {
+            throw error;
+          }
           if (error instanceof ExpectedError) {
             expectedError = error;
           } else {
-            // eslint-disable-next-line no-await-in-loop
-            DiscordUtils.sendLog(`Error while generating fight between ${brute.name} and ${clan.boss}, retrying...`);
-            // eslint-disable-next-line no-await-in-loop
-            DiscordUtils.sendError(error);
+            LOGGER.log(`Error while generating fight between ${brute.name} and ${clan.boss}, retrying...`);
+            DISCORD.sendError(error);
           }
         }
       }

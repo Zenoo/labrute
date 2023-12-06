@@ -5,11 +5,12 @@ import {
   PrismaClient,
 } from '@labrute/prisma';
 import '../utils/Env.js';
-import DiscordUtils from '../utils/DiscordUtils.js';
+import { LOGGER } from '../context.js';
 
 const prisma = new PrismaClient();
 
 async function main() {
+  LOGGER.debug('fixErroredBonuses start');
   // Get all brutes with dog2 or dog3 and without dog1
   const brutes = await prisma.brute.findMany({
     where: {
@@ -26,7 +27,7 @@ async function main() {
   });
 
   if (brutes.length) {
-    DiscordUtils.sendLog(`Found ${brutes.length} brutes with dog2 or dog3 and without dog1`);
+    LOGGER.log(`Found ${brutes.length} brutes with dog2 or dog3 and without dog1`);
   }
 
   for (const brute of brutes) {
@@ -45,9 +46,11 @@ async function main() {
 main()
   .then(async () => {
     await prisma.$disconnect();
+    LOGGER.debug('fixErroredBonuses end - OK');
   })
   .catch(async (e) => {
-    console.error(e);
+    LOGGER.debug('fixErroredBonuses end - ERROR');
+    LOGGER.error(e);
     await prisma.$disconnect();
     // eslint-disable-next-line no-process-exit
     process.exit(1);

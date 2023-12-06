@@ -30,10 +30,10 @@ import checkLevelUpAchievements from '../utils/brute/checkLevelUpAchievements.js
 import getOpponents from '../utils/brute/getOpponents.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
-import DiscordUtils from '../utils/DiscordUtils.js';
 import { increaseAchievement } from './Achievements.js';
 import updateClanPoints from '../utils/clan/updateClanPoints.js';
 import queueJob from '../workers/queueJob.js';
+import {LOGGER} from "../context.js";
 
 const Brutes = {
   list: (prisma: PrismaClient) => async (req: Request, res: Response) => {
@@ -126,7 +126,7 @@ const Brutes = {
         // Check body validity
         checkBody(user, req.body.gender, req.body.body);
       } catch (error) {
-        DiscordUtils.sendLog(`User ${user.name} tried to create a brute with invalid colors or body.`);
+        LOGGER.log(`User ${user.name} tried to create a brute with invalid colors or body.`);
       }
 
       // Check name for banned words

@@ -4,10 +4,10 @@ import {
 } from '@labrute/core';
 import { Gender, Prisma, PrismaClient } from '@labrute/prisma';
 import { workerData } from 'worker_threads';
-import DiscordUtils from '../utils/DiscordUtils.js';
 import createSpritesheet from '../utils/createSpritesheet.js';
 import formatSpritesheet from '../utils/formatSpritesheet.js';
 import startJob from './startJob.js';
+import { LOGGER } from "../context.js";
 
 const {
   jobId,
@@ -15,10 +15,13 @@ const {
   jobId: number;
 };
 
+LOGGER.info('regenerateSpritesheets: start');
+
 const prisma = new PrismaClient();
 
+LOGGER.debug('WorkerStart');
 try {
-  DiscordUtils.sendLog('Calculating every possible brute visual...');
+  LOGGER.log('Calculating every possible brute visual...');
 
   // MALE
 
@@ -56,7 +59,7 @@ try {
     accentShade: '',
   }));
 
-  DiscordUtils.sendLog(`1st pass: ${malesWithSkin.length} possible visuals`);
+  LOGGER.log(`1st pass: ${malesWithSkin.length} possible visuals`);
 
   // Hair
   const malesWithHair: BruteVisuals[] = [];
@@ -95,7 +98,7 @@ try {
     })));
   }
 
-  DiscordUtils.sendLog(`2nd pass: ${malesWithHair.length} possible visuals`);
+  LOGGER.log(`2nd pass: ${malesWithHair.length} possible visuals`);
 
   // Primary
   const malesWithPrimary: BruteVisuals[] = [];
@@ -134,7 +137,7 @@ try {
     })));
   }
 
-  DiscordUtils.sendLog(`3rd pass: ${malesWithPrimary.length} possible visuals`);
+  LOGGER.log(`3rd pass: ${malesWithPrimary.length} possible visuals`);
 
   // Secondary
   const malesWithSecondary: BruteVisuals[] = [];
@@ -173,7 +176,7 @@ try {
     })));
   }
 
-  DiscordUtils.sendLog(`4th pass: ${malesWithSecondary.length} possible visuals`);
+  LOGGER.log(`4th pass: ${malesWithSecondary.length} possible visuals`);
 
   // FEMALE
 
@@ -211,7 +214,7 @@ try {
     accentShade: '',
   }));
 
-  DiscordUtils.sendLog(`5th pass: ${malesWithSecondary.length + femalesWithSkin.length} possible visuals`);
+  LOGGER.log(`5th pass: ${malesWithSecondary.length + femalesWithSkin.length} possible visuals`);
 
   // Hair
   const femalesWithHair: BruteVisuals[] = [];
@@ -250,7 +253,7 @@ try {
     })));
   }
 
-  DiscordUtils.sendLog(`6th pass: ${malesWithSecondary.length + femalesWithHair.length} possible visuals`);
+  LOGGER.log(`6th pass: ${malesWithSecondary.length + femalesWithHair.length} possible visuals`);
 
   // Primary
   const femalesWithPrimary: BruteVisuals[] = [];
@@ -289,7 +292,7 @@ try {
     })));
   }
 
-  DiscordUtils.sendLog(`7th pass: ${malesWithSecondary.length + femalesWithPrimary.length} possible visuals`);
+  LOGGER.log(`7th pass: ${malesWithSecondary.length + femalesWithPrimary.length} possible visuals`);
 
   // Secondary
   const femalesWithSecondary: BruteVisuals[] = [];
@@ -330,8 +333,8 @@ try {
 
   const allVisuals = [...malesWithSecondary, ...femalesWithSecondary];
 
-  DiscordUtils.sendLog(`8th pass: ${allVisuals.length} possible visuals`);
-  DiscordUtils.sendLog('Regenerating all spritesheets...');
+  LOGGER.log(`8th pass: ${allVisuals.length} possible visuals`);
+  LOGGER.log('Regenerating all spritesheets...');
 
   for (let i = 0; i < allVisuals.length; i++) {
     const visuals = allVisuals[i];
@@ -348,7 +351,7 @@ try {
     });
 
     if (existingSpritesheet && existingSpritesheet.version === SPRITESHEET_VERSION) {
-      DiscordUtils.sendLog(`Skipped spritesheet for visual ${i + 1}/${allVisuals.length}`);
+      LOGGER.log(`Skipped spritesheet for visual ${i + 1}/${allVisuals.length}`);
 
       // eslint-disable-next-line no-continue
       continue;
@@ -380,11 +383,10 @@ try {
         version: SPRITESHEET_VERSION,
       },
     });
-
-    DiscordUtils.sendLog(`Regenerated spritesheet for visual ${i + 1}/${allVisuals.length}`);
+    LOGGER.log(`Regenerated spritesheet for visual ${i + 1}/${allVisuals.length}`);
   }
 } catch (error) {
-  console.error(error);
+  LOGGER.error(error);
 } finally {
   // Delete job
   await prisma.workerJob.delete({ where: { id: jobId } });
@@ -393,5 +395,4 @@ try {
   await startJob(prisma);
 }
 
-// Throw error to exit worker
-throw new Error('ExitWorker');
+LOGGER.info('regenerateSpritesheets: end');

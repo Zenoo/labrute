@@ -6,11 +6,12 @@ import {
   DestinyChoiceType, PetName, PrismaClient, SkillName, WeaponName,
 } from '@labrute/prisma';
 import '../utils/Env.js';
-import DiscordUtils from '../utils/DiscordUtils.js';
+import {LOGGER} from "../context.js";
 
 const prisma = new PrismaClient();
 
 async function main() {
+  LOGGER.debug('WorkerStart');
   // Get all brutes with no first bonus stored
   const brutes = await prisma.brute.findMany({
     where: {
@@ -30,7 +31,7 @@ async function main() {
   });
 
   if (brutes.length) {
-    DiscordUtils.sendLog(`Found ${brutes.length} brutes with no first bonus stored`);
+    LOGGER.log(`Found ${brutes.length} brutes with no first bonus stored`);
   }
 
   for (const brute of brutes) {
@@ -49,7 +50,7 @@ async function main() {
         select: { id: true },
       });
 
-      DiscordUtils.sendLog(`First bonus ${unregisteredSkill} found for brute ${brute.name}`);
+      LOGGER.log(`First bonus ${unregisteredSkill} found for brute ${brute.name}`);
 
       continue;
     }
@@ -69,7 +70,7 @@ async function main() {
         select: { id: true },
       });
 
-      DiscordUtils.sendLog(`First bonus ${unregisteredWeapon} found for brute ${brute.name}`);
+      LOGGER.log(`First bonus ${unregisteredWeapon} found for brute ${brute.name}`);
 
       continue;
     }
@@ -89,7 +90,7 @@ async function main() {
         select: { id: true },
       });
 
-      DiscordUtils.sendLog(`First bonus ${unregisteredPet} found for brute ${brute.name}`);
+      LOGGER.log(`First bonus ${unregisteredPet} found for brute ${brute.name}`);
 
       continue;
     }
@@ -104,7 +105,7 @@ async function main() {
     );
 
     if (!firstBonus) {
-      DiscordUtils.sendLog(`No first bonus found for brute ${brute.name}`);
+      LOGGER.log(`No first bonus found for brute ${brute.name}`);
       continue;
     }
 
@@ -127,10 +128,13 @@ async function main() {
 }
 main()
   .then(async () => {
+    LOGGER.debug("retrieveFirstBonus end");
     await prisma.$disconnect();
+    LOGGER.debug("retrieveFirstBonus end - OK");
   })
   .catch(async (e) => {
-    console.error(e);
+    LOGGER.debug("retrieveFirstBonus end - ERROR");
+    LOGGER.error(e);
     await prisma.$disconnect();
     // eslint-disable-next-line no-process-exit
     process.exit(1);

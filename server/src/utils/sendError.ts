@@ -1,9 +1,12 @@
 import { ExpectedError } from '@labrute/core';
 import { Prisma } from '@labrute/prisma';
 import { Response } from 'express';
-import DiscordUtils from './DiscordUtils.js';
+import { DISCORD, LOGGER } from '../context.js';
 
 const sendError = (res: Response, error: unknown) => {
+  if (!(error instanceof Error)) {
+    throw error;
+  }
   res.status(500);
   if (error instanceof Prisma.PrismaClientKnownRequestError) {
     switch (error.code) {
@@ -12,7 +15,7 @@ const sendError = (res: Response, error: unknown) => {
         break;
       }
       default: {
-        console.error(error.message);
+        LOGGER.error(error.message);
         res.send(`Wrong data format: ${error.code}`);
         break;
       }
@@ -22,7 +25,7 @@ const sendError = (res: Response, error: unknown) => {
   } else if (error instanceof Prisma.PrismaClientInitializationError) {
     res.send(error.message);
   } else if (error instanceof Prisma.PrismaClientValidationError) {
-    console.error(error.message);
+    LOGGER.error(error.message);
     res.send('Wrong data format');
   } else if (error instanceof Error) {
     res.send(error.message);
@@ -31,14 +34,14 @@ const sendError = (res: Response, error: unknown) => {
   }
 
   if (!(error instanceof ExpectedError)) {
-    DiscordUtils.sendError(error, res);
+    DISCORD.sendError(error, res);
   }
 };
 
 export default sendError;
 
-export const sendWorkerError = (error: unknown) => {
+export const sendWorkerError = (error: Error) => {
   if (!(error instanceof ExpectedError)) {
-    DiscordUtils.sendError(error);
+    DISCORD.sendError(error);
   }
 };

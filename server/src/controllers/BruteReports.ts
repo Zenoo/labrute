@@ -7,8 +7,8 @@ import { Request, Response } from 'express';
 import auth from '../utils/auth.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
-import DiscordUtils from '../utils/DiscordUtils.js';
 import updateClanPoints from '../utils/clan/updateClanPoints.js';
+import {LOGGER} from '../context.js';
 
 const BruteReports = {
   list: (prisma: PrismaClient) => async (
@@ -139,7 +139,7 @@ const BruteReports = {
         });
       }
 
-      DiscordUtils.sendLog(`New report for ${brute.name} by ${user.name}`);
+      LOGGER.log(`New report for ${brute.name} by ${user.name}`);
 
       res.status(200).send({
         success: true,

@@ -7,11 +7,13 @@ import schedule from 'node-schedule';
 import dailyJob from './dailyJob.js';
 import './i18n.js';
 import initRoutes from './routes.js';
-import DiscordUtils from './utils/DiscordUtils.js';
 import Env from './utils/Env.js';
 import startJob from './workers/startJob.js';
+import { DISCORD, LOGGER } from './context.js';
 
 const DEBUG_QUERIES = false;
+
+LOGGER.info(`start server v${Version}`);
 
 const prisma = new PrismaClient(DEBUG_QUERIES ? {
   log: [
@@ -36,9 +38,9 @@ const prisma = new PrismaClient(DEBUG_QUERIES ? {
 
 if (DEBUG_QUERIES) {
   prisma.$on('query', (e) => {
-    console.warn(`Query: ${e.query}`);
-    console.warn(`Params: ${e.params}`);
-    console.warn(`Duration: ${e.duration}ms`);
+    LOGGER.warn(`Query: ${e.query}`);
+    LOGGER.warn(`Params: ${e.params}`);
+    LOGGER.warn(`Duration: ${e.duration}ms`);
   });
 }
 
@@ -53,19 +55,19 @@ app.use(
 );
 
 app.listen(port, () => {
-  DiscordUtils.sendLog(`**Server started (v${Version})**`);
+  LOGGER.info('server started, listening');
 
   // Trigger daily job
-  dailyJob(prisma)().catch((error) => {
-    DiscordUtils.sendError(error);
+  dailyJob(prisma)().catch((error: Error) => {
+    DISCORD.sendError(error);
   });
 
   // Initialize daily scheduler
   schedule.scheduleJob('0 0 * * *', dailyJob(prisma));
 
   // Start worker queue
-  startJob(prisma).catch((error) => {
-    DiscordUtils.sendError(error);
+  startJob(prisma).catch((error: Error) => {
+    DISCORD.sendError(error);
   });
 });
 

@@ -1,12 +1,13 @@
 import { Prisma, PrismaClient } from '@labrute/prisma';
 import { Worker } from 'worker_threads';
-import DiscordUtils from '../utils/DiscordUtils.js';
+import { DISCORD, LOGGER } from '../context.js';
+import { forwardWorkerLog } from '../logger/parent-port.js';
 
 const queueJob = async (prisma: PrismaClient, worker: string, payload: unknown) => {
   // Check if the queue is empty
   const count = await prisma.workerJob.count();
 
-  DiscordUtils.sendLog(`Queuing ${worker} job`);
+  LOGGER.log(`Queuing ${worker} job`);
 
   // Create a new job
   const job = await prisma.workerJob.create({
@@ -26,12 +27,16 @@ const queueJob = async (prisma: PrismaClient, worker: string, payload: unknown) 
       },
     });
 
-    w.on('error', (error) => {
-      if (error.message === 'ExitWorker') {
-        return;
-      }
+    w.on('message', forwardWorkerLog(LOGGER));
 
-      DiscordUtils.sendError(error);
+    w.on('error', (error) => {
+      LOGGER.error(`worker error: ${error}`);
+      DISCORD.sendError(error);
+    });
+
+    w.once('exit', () => {
+      LOGGER.info('worker exit');
+      w.removeAllListeners();
     });
   }
 };

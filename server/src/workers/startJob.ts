@@ -1,12 +1,15 @@
 import { PrismaClient } from '@labrute/prisma';
 import { Worker } from 'worker_threads';
-import DiscordUtils from '../utils/DiscordUtils.js';
+import { DISCORD, LOGGER } from '../context.js';
+import { forwardWorkerLog } from '../logger/parent-port.js';
 
 const startJob = async (prisma: PrismaClient) => {
+  LOGGER.debug('startJob: start');
+
   // Get the number of jobs
   const count = await prisma.workerJob.count();
 
-  DiscordUtils.sendLog(`${count} job${count === 1 ? '' : 's'} left in queue`);
+  LOGGER.log(`${count} job${count === 1 ? '' : 's'} left in queue`);
 
   // Get the first job
   const job = await prisma.workerJob.findFirst({
@@ -24,12 +27,16 @@ const startJob = async (prisma: PrismaClient) => {
     },
   });
 
-  worker.on('error', (error) => {
-    if (error.message === 'ExitWorker') {
-      return;
-    }
+  worker.on('message', forwardWorkerLog(LOGGER));
 
-    DiscordUtils.sendError(error);
+  worker.on('error', (error) => {
+    LOGGER.error(`worker error: ${error}`);
+    DISCORD.sendError(error);
+  });
+
+  worker.once('exit', () => {
+    LOGGER.info('worker exit');
+    worker.removeAllListeners();
   });
 };
 
