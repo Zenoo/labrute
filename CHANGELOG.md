@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.41.16](https://github.com/Zenoo/labrute/compare/labrute-v2.41.15...labrute-v2.41.16) (2023-12-06)
+
+
+### Bug Fixes
+
+* Disable boss blocks ([f65ce58](https://github.com/Zenoo/labrute/commit/f65ce582aa9a543142a28440fb6ebf9bd5099550))
+
 ## [2.41.15](https://github.com/Zenoo/labrute/compare/labrute-v2.41.14...labrute-v2.41.15) (2023-12-06)
 
 
