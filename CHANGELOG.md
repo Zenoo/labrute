@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.42.1](https://github.com/Zenoo/labrute/compare/labrute-v2.42.0...labrute-v2.42.1) (2023-12-07)
+
+
+### Bug Fixes
+
+* close Discord log handler ([b9da6c8](https://github.com/Zenoo/labrute/commit/b9da6c810026e6f50874736d6ee63a7684fddf3d))
+* do not dispose server context ([2053b8e](https://github.com/Zenoo/labrute/commit/2053b8e942578748984331eed667ffa3c75daf37))
+* eslint errors ([b19d158](https://github.com/Zenoo/labrute/commit/b19d1582b6afdd9fd3aa27c96cd1eb48b0933e5c))
+* Optimize daily job to minimize memory usage ([33dc63d](https://github.com/Zenoo/labrute/commit/33dc63d7019a9ee2174523d9d578221064867263))
+
 ## [2.42.0](https://github.com/Zenoo/labrute/compare/labrute-v2.41.17...labrute-v2.42.0) (2023-12-06)
 
 
