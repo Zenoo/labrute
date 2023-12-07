@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.42.2](https://github.com/Zenoo/labrute/compare/labrute-v2.42.1...labrute-v2.42.2) (2023-12-07)
+
+
+### Bug Fixes
+
+* Optimize every findMany call ([98da9eb](https://github.com/Zenoo/labrute/commit/98da9eb8a674bc0d759578976b4b94510e38f001))
+
 ## [2.42.1](https://github.com/Zenoo/labrute/compare/labrute-v2.42.0...labrute-v2.42.1) (2023-12-07)
 
 
