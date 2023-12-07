@@ -1,16 +1,16 @@
 /* eslint-disable no-await-in-loop */
 import {
-  BruteWithBodyColors, Fighter, getRandomBody, getRandomColors,
+  Fighter, getRandomBody, getRandomColors,
 } from '@labrute/core';
 import {
   AchievementName,
   LogType, Prisma, PrismaClient, TournamentType,
 } from '@labrute/prisma';
 import moment from 'moment';
+import { DISCORD, LOGGER } from './context.js';
 import ServerState from './utils/ServerState.js';
 import generateFight from './utils/fight/generateFight.js';
 import shuffle from './utils/shuffle.js';
-import { DISCORD, LOGGER } from './context.js';
 
 const grantBetaAchievement = async (prisma: PrismaClient) => {
   // Grant beta achievement to all brutes who don't have it yet
@@ -170,9 +170,11 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
         },
       },
     },
-    include: {
-      body: true,
-      colors: true,
+    select: {
+      id: true,
+      level: true,
+      ranking: true,
+      name: true,
     },
   });
 
@@ -187,7 +189,7 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
   const tournamentsToCreate = Math.ceil(shuffledBrutes.length / 64);
 
   // Create groups of 64 brutes
-  let tournaments: BruteWithBodyColors[][] = Array(tournamentsToCreate)
+  let tournaments: (typeof registeredBrutes)[] = Array(tournamentsToCreate)
     .fill([])
     .map((_, index) => shuffledBrutes.slice(index * 64, index * 64 + 64));
 
@@ -290,12 +292,28 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
     // Create tournament steps (1 to 32 for first round, 33 to 48 for 2nd, etc etc)
     let step = 1;
     let roundBrutes = [...brutes];
-    let winners: BruteWithBodyColors[] = [];
+    let winners: typeof registeredBrutes = [];
     let lastFight: Prisma.FightCreateInput | null = null;
     while (roundBrutes.length > 1) {
       for (let i = 0; i < roundBrutes.length - 1; i += 2) {
-        const brute1 = roundBrutes[i];
-        const brute2 = roundBrutes[i + 1];
+        const brute1 = await prisma.brute.findUnique({
+          where: { id: roundBrutes[i].id },
+          include: {
+            body: true,
+            colors: true,
+          },
+        });
+        const brute2 = await prisma.brute.findUnique({
+          where: { id: roundBrutes[i + 1].id },
+          include: {
+            body: true,
+            colors: true,
+          },
+        });
+
+        if (!brute1 || !brute2) {
+          throw new Error(`Brute not found: ${brute1?.id || brute2?.id}`);
+        }
 
         if (brute1.name === brute2.name) {
           throw new Error('Attempting to fight a brute against itself');
@@ -339,8 +357,11 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
           select: { id: true },
         });
 
+        // Get fight winner
+        const winnerId = lastFight.winner === brute1.name ? brute1.id : brute2.id;
+
         // Add winner to next round
-        winners.push(brute1.name === lastFight.winner ? brute1 : brute2);
+        winners.push(winnerId === roundBrutes[i].id ? roundBrutes[i] : roundBrutes[i + 1]);
 
         // Create tournament step
         await prisma.tournamentStep.create({
@@ -364,24 +385,42 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
       throw new Error('No last fight');
     }
 
-    const fight = lastFight;
-
-    const winner = brutes.find((brute) => brute.name === fight.winner);
+    // Get last fight winner
+    const winner = roundBrutes[0];
     if (!winner) {
       throw new Error('No winner');
     }
 
-    const loser = brutes.find((brute) => brute.name === fight.loser);
+    const loser = (lastFight.fighters as unknown as Fighter[])
+      .find((fighter) => !fighter.master && fighter.id !== winner.id);
     if (!loser) {
       throw new Error('No loser');
     }
 
     // Only for real brutes
-    if (winner.userId) {
+    const winnerBrute = await prisma.brute.findUnique({
+      where: { id: winner.id },
+      select: {
+        id: true,
+        userId: true,
+        ranking: true,
+        canRankUpSince: true,
+      },
+    });
+    const loserBrute = await prisma.brute.findUnique({
+      where: { id: loser.id },
+      select: { id: true, ranking: true },
+    });
+
+    if (!winnerBrute || !loserBrute) {
+      throw new Error(`Brute not found: ${winnerBrute?.id || loserBrute?.id}`);
+    }
+
+    if (winnerBrute.userId) {
       // Add 100 Gold to winner user
       await prisma.tournamentEarning.create({
         data: {
-          bruteId: winner.id,
+          bruteId: winnerBrute.id,
           date: today.toDate(),
           points: 100,
         },
@@ -389,9 +428,9 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
       });
 
       // Allow rank up for winner if opponent wasn't lower rank
-      if (!winner.canRankUpSince && winner.ranking >= loser.ranking) {
+      if (!winnerBrute.canRankUpSince && winnerBrute.ranking >= loserBrute.ranking) {
         await prisma.brute.update({
-          where: { id: winner.id },
+          where: { id: winnerBrute.id },
           data: { canRankUpSince: new Date() },
           select: { id: true },
         });
@@ -447,10 +486,7 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
         isNot: null,
       },
     },
-    include: {
-      body: true,
-      colors: true,
-    },
+    select: { id: true },
   });
 
   LOGGER.log(`Total brutes: ${brutes.length}`);
@@ -489,7 +525,7 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
   // For the global tournament, tournamentStep.step represents the round number
   let round = 1;
   let roundBrutes = [...shuffledBrutes];
-  const byes: BruteWithBodyColors[] = [];
+  const byes: typeof brutes = [];
 
   // Handle byes for first round (power of 2)
   if (roundBrutes.length !== 2 ** Math.floor(Math.log2(roundBrutes.length))) {
@@ -502,11 +538,27 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
 
   // Create tournament steps
   while (roundBrutes.length > 1) {
-    const nextBrutes: BruteWithBodyColors[] = [];
+    const nextBrutes: typeof brutes = [];
 
     for (let i = 0; i < roundBrutes.length - 1; i += 2) {
-      const brute1 = roundBrutes[i];
-      const brute2 = roundBrutes[i + 1];
+      const brute1 = await prisma.brute.findUnique({
+        where: { id: roundBrutes[i].id },
+        include: {
+          body: true,
+          colors: true,
+        },
+      });
+      const brute2 = await prisma.brute.findUnique({
+        where: { id: roundBrutes[i + 1].id },
+        include: {
+          body: true,
+          colors: true,
+        },
+      });
+
+      if (!brute1 || !brute2) {
+        throw new Error(`Brute not found: ${brute1?.id || brute2?.id}`);
+      }
 
       if (brute1.name === brute2.name) {
         throw new Error('Attempting to fight a brute against itself');
@@ -585,10 +637,6 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
     throw new Error('Invalid tournament');
   }
 
-  if (!roundBrutes[0].userId) {
-    throw new Error('Tournament winner has no user');
-  }
-
   // Add 150 Gold to the winner user
   await prisma.tournamentEarning.create({
     data: {
@@ -620,13 +668,13 @@ const handleXpGains = async (prisma: PrismaClient) => {
         lt: moment.utc().startOf('day').toDate(),
       },
     },
-    include: {
+    select: {
       steps: {
-        include: {
-          fight: true,
-        },
         where: {
           xpDistributed: false,
+        },
+        select: {
+          id: true,
         },
       },
     },
@@ -643,8 +691,21 @@ const handleXpGains = async (prisma: PrismaClient) => {
   const xpGains: Record<string, { bruteId: number, xp: number }> = {};
 
   for (const step of steps) {
-    const winnerFighter = (step.fight.fighters as unknown as Fighter[])
-      .find((fighter) => !fighter.master && fighter.name === step.fight.winner);
+    const fullStep = await prisma.tournamentStep.findUnique({
+      where: { id: step.id },
+      select: {
+        fight: {
+          select: { fighters: true, winner: true },
+        },
+      },
+    });
+
+    if (!fullStep) {
+      throw new Error('Step not found');
+    }
+
+    const winnerFighter = (fullStep.fight.fighters as unknown as Fighter[])
+      .find((fighter) => !fighter.master && fighter.name === fullStep.fight.winner);
 
     if (!winnerFighter) {
       // Skip to next step
@@ -659,9 +720,9 @@ const handleXpGains = async (prisma: PrismaClient) => {
       select: { id: true },
     });
 
-    xpGains[step.fight.winner] = {
+    xpGains[fullStep.fight.winner] = {
       bruteId: winnerFighter.id,
-      xp: (xpGains[step.fight.winner]?.xp || 0) + 1,
+      xp: (xpGains[fullStep.fight.winner]?.xp || 0) + 1,
     };
 
     // Update step
@@ -691,27 +752,39 @@ const handleXpGains = async (prisma: PrismaClient) => {
 const handleTournamentEarnings = async (prisma: PrismaClient) => {
   const now = moment.utc().valueOf();
 
-  const earnings = await prisma.tournamentEarning.findMany({
+  const earningIds = await prisma.tournamentEarning.findMany({
     where: {
       date: {
         lte: moment.utc().subtract(1, 'day').endOf('day').toDate(),
       },
     },
-    include: {
-      brute: {
-        select: {
-          id: true,
-          userId: true,
-        },
-      },
-    },
+    select: { id: true },
   });
 
-  if (!earnings.length) {
+  if (!earningIds.length) {
     return;
   }
 
-  for (const earning of earnings) {
+  for (const earningWithId of earningIds) {
+    const earning = await prisma.tournamentEarning.findUnique({
+      where: { id: earningWithId.id },
+      select: {
+        points: true,
+        achievement: true,
+        achievementCount: true,
+        brute: {
+          select: {
+            id: true,
+            userId: true,
+          },
+        },
+      },
+    });
+
+    if (!earning) {
+      throw new Error('Earning not found');
+    }
+
     if (earning.points && earning.brute.userId) {
       // Add Gold to the user
       await prisma.user.update({
@@ -776,11 +849,11 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
 
     // Delete earning
     await prisma.tournamentEarning.delete({
-      where: { id: earning.id },
+      where: { id: earningWithId.id },
     });
   }
 
-  LOGGER.log(`${moment.utc().valueOf() - now}ms to handle ${earnings.length} tournament earnings`);
+  LOGGER.log(`${moment.utc().valueOf() - now}ms to handle ${earningIds.length} tournament earnings`);
 };
 
 const dailyJob = (prisma: PrismaClient) => async () => {

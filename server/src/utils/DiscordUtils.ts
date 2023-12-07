@@ -36,7 +36,7 @@ function formatEmbedTitle(title: string) {
 
 export interface DiscordClient {
   sendError(error: Error, res?: Response): void;
-  sendTournamentNotification(tournament: Pick<Tournament, 'date'>, brutes: Brute[]): void;
+  sendTournamentNotification(tournament: Pick<Tournament, 'date'>, brutes: Pick<Brute, 'name' | 'level'>[]): void;
   sendMessage(message: string): Promise<void>;
 }
 
@@ -153,7 +153,7 @@ ${error.stack}
     });
   }
 
-  public sendTournamentNotification(tournament: Pick<Tournament, 'date'>, brutes: Brute[]) {
+  public sendTournamentNotification(tournament: Pick<Tournament, 'date'>, brutes: Pick<Brute, 'name' | 'level'>[]) {
     const embed = new EmbedBuilder()
       .setColor(0xebad70)
       .setTitle(formatEmbedTitle('New tournament created!'))
