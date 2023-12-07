@@ -46,9 +46,10 @@ function main(cx: ServerContext) {
 /**
  * Initialize the global context, then run `main`
  */
-async function mainWrapper() {
-  await using context = GLOBAL;
-  main(context);
+function mainWrapper() {
+  // Note: We don't dispose the global context since the server is expected to
+  // run forever
+  main(GLOBAL);
 }
 
-await mainWrapper();
+mainWrapper();
