@@ -1,6 +1,6 @@
-import { formatLogRecord, LogHandler, LogRecord } from './index.js';
 import { DiscordClient, SEND_MESSAGE_SAFE_LENGTH } from '../utils/DiscordUtils.js';
-import {ASYNC_DISPOSE} from "../utils/dispose.js";
+import { ASYNC_DISPOSE } from '../utils/dispose.js';
+import { formatLogRecord, LogHandler, LogRecord } from './index.js';
 
 /**
  * Duration during which logs should be batched before being sent.
@@ -62,7 +62,13 @@ export class DiscordLogHandler implements LogHandler {
     this.#ensureActive();
     const formatted = format(this.#nextBatch);
     if (formatted.length >= SEND_MESSAGE_SAFE_LENGTH) {
-      this.flush();
+      this.flush().catch((e: Error) => {
+        if (this.#errorHandler !== null) {
+          this.#errorHandler(e);
+        } else {
+          throw e;
+        }
+      });
     }
   }
 
@@ -115,7 +121,13 @@ export class DiscordLogHandler implements LogHandler {
 
   #onTick() {
     if (this.#currentRequest === null) {
-      this.flush();
+      this.flush().catch((e: Error) => {
+        if (this.#errorHandler !== null) {
+          this.#errorHandler(e);
+        } else {
+          throw e;
+        }
+      });
     }
   }
 

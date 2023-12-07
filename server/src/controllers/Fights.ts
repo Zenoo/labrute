@@ -2,12 +2,12 @@ import { ExpectedError, GLOBAL_TOURNAMENT_START_HOUR, getFightsLeft } from '@lab
 import { Prisma, PrismaClient, TournamentType } from '@labrute/prisma';
 import { Request, Response } from 'express';
 import moment from 'moment';
+import { DISCORD, LOGGER } from '../context.js';
 import auth from '../utils/auth.js';
 import getOpponents from '../utils/brute/getOpponents.js';
 import generateFight from '../utils/fight/generateFight.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
-import {DISCORD, LOGGER} from "../context.js";
 
 const Fights = {
   get: (prisma: PrismaClient) => async (req: Request, res: Response) => {

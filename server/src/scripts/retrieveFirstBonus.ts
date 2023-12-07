@@ -5,7 +5,7 @@ import {
   DestinyChoiceType, PetName, SkillName, WeaponName,
 } from '@labrute/prisma';
 import '../utils/Env.js';
-import { GLOBAL, ServerContext } from "../context.js";
+import { GLOBAL, ServerContext } from '../context.js';
 
 async function main(cx: ServerContext) {
   cx.logger.info('retrieveFirstBonus: start');

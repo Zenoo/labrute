@@ -17,7 +17,9 @@ const SEND_MESSAGE_PREFIX = '```\n';
 const SEND_MESSAGE_SUFFIX = '\n```';
 const SEND_MESSAGE_SUFFIX_TRUNCATED = `\n${ELLIPSIS}\n\`\`\``;
 // Maximum length of a `sendMessage` input to avoid truncation
-export const SEND_MESSAGE_SAFE_LENGTH = MAX_CONTENT_LENGTH - SEND_MESSAGE_PREFIX.length - SEND_MESSAGE_SUFFIX.length;
+export const SEND_MESSAGE_SAFE_LENGTH = MAX_CONTENT_LENGTH
+  - SEND_MESSAGE_PREFIX.length
+  - SEND_MESSAGE_SUFFIX.length;
 
 /**
  * Format the provided string as an embed title.
@@ -33,19 +35,17 @@ function formatEmbedTitle(title: string) {
 }
 
 export interface DiscordClient {
-  sendError(error: Error, res?: Response): Promise<void>;
-  sendTournamentNotification(tournament: Pick<Tournament, 'date'>, brutes: Brute[]): Promise<void>;
+  sendError(error: Error, res?: Response): void;
+  sendTournamentNotification(tournament: Pick<Tournament, 'date'>, brutes: Brute[]): void;
   sendMessage(message: string): Promise<void>;
 }
 
 export const NOOP_DISCORD_CLIENT: DiscordClient = {
-  sendError(): Promise<void> {
-    return Promise.resolve();
+  sendError() {
   },
-  sendTournamentNotification(): Promise<void> {
-    return Promise.resolve();
+  sendTournamentNotification() {
   },
-  sendMessage(): Promise<void> {
+  sendMessage() {
     return Promise.resolve();
   },
 };
@@ -104,7 +104,7 @@ export class NetworkDiscordClient implements DiscordClient {
     this.#server = options.server;
   }
 
-  public async sendError(error: Error, res?: Response): Promise<void> {
+  public sendError(error: Error, res?: Response) {
     const embed = new EmbedBuilder()
       .setColor(0xff0000)
       .setTitle(formatEmbedTitle(res ? res.req.url : error.message))
@@ -148,14 +148,12 @@ ${error.stack}
       }
     }
 
-    try {
-      await this.#logClient.send({embeds: [embed]});
-    } catch (error) {
-      this.#logger.error(`Error trying to send a message: ${error}`);
-    }
+    this.#logClient.send({ embeds: [embed] }).catch((err) => {
+      this.#logger.error(`Error trying to send a message: ${err}`);
+    });
   }
 
-  public async sendTournamentNotification(tournament: Pick<Tournament, 'date'>, brutes: Brute[]): Promise<void> {
+  public sendTournamentNotification(tournament: Pick<Tournament, 'date'>, brutes: Brute[]) {
     const embed = new EmbedBuilder()
       .setColor(0xebad70)
       .setTitle(formatEmbedTitle('New tournament created!'))
@@ -181,17 +179,17 @@ ${error.stack}
         iconURL: `${this.#server}/favicon.png`,
       });
 
-    try {
-      await this.#tournamentClient.send({ embeds: [embed] });
-    } catch (error) {
-      this.#logger.error(`Error trying to send a message: ${error}`);
-    }
+    this.#tournamentClient.send({ embeds: [embed] }).catch((err) => {
+      this.#logger.error(`Error trying to send a message: ${err}`);
+    });
   }
 
-  public async sendMessage(message: string): Promise<void> {
+  public async sendMessage(message: string) {
     let content = SEND_MESSAGE_PREFIX + message + SEND_MESSAGE_SUFFIX;
     if (content.length > MAX_CONTENT_LENGTH) {
-      const shortLen = MAX_CONTENT_LENGTH - SEND_MESSAGE_PREFIX.length - SEND_MESSAGE_SUFFIX_TRUNCATED.length;
+      const shortLen = MAX_CONTENT_LENGTH
+        - SEND_MESSAGE_PREFIX.length
+        - SEND_MESSAGE_SUFFIX_TRUNCATED.length;
       const short = message.substring(0, shortLen);
       content = SEND_MESSAGE_PREFIX + short + SEND_MESSAGE_SUFFIX_TRUNCATED;
     }

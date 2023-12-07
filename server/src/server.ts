@@ -11,7 +11,7 @@ import startJob from './workers/startJob.js';
 import { GLOBAL, ServerContext } from './context.js';
 
 function main(cx: ServerContext) {
-  cx.logger.info(`start server v${Version}`);
+  cx.logger.info(`Server started (v${Version})`);
 
   const app = express();
   const port = Env.PORT;
@@ -24,7 +24,7 @@ function main(cx: ServerContext) {
   );
 
   app.listen(port, () => {
-    cx.logger.info('server started, listening');
+    cx.logger.info('Server listening');
 
     // Trigger daily job
     dailyJob(cx.prisma)().catch((error: Error) => {

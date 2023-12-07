@@ -2,20 +2,25 @@ import {
   ARENA_OPPONENTS_COUNT,
   ARENA_OPPONENTS_MAX_GAP,
   BruteRestoreResponse,
+  BruteVisuals,
+  BruteWithBodyColors,
   BrutesCreateResponse,
   BrutesExistsResponse, BrutesGetDestinyResponse,
   BrutesGetFightsLeftResponse, BrutesGetForRankResponse,
   BrutesGetRankingResponse,
-  BruteWithBodyColors, createRandomBruteStats,
-  DestinyBranch, ExpectedError, getFightsLeft, getLevelUpChoices,
-  getMaxFightsPerDay,
-  getBruteGoldValue, getGoldNeededForNewBrute, getXPNeeded,
-  randomBetween, updateBruteData,
-  canLevelUp,
-  MAX_FAVORITE_BRUTES,
-  BruteVisuals,
-  RESET_PRICE,
+  DestinyBranch, ExpectedError,
   FullBrute,
+  MAX_FAVORITE_BRUTES,
+  RESET_PRICE,
+  canLevelUp,
+  createRandomBruteStats,
+  getBruteGoldValue,
+  getFightsLeft,
+  getGoldNeededForNewBrute,
+  getLevelUpChoices,
+  getMaxFightsPerDay,
+  getXPNeeded,
+  randomBetween, updateBruteData,
 } from '@labrute/core';
 import {
   Brute,
@@ -23,17 +28,17 @@ import {
 } from '@labrute/prisma';
 import { Request, Response } from 'express';
 import moment from 'moment';
+import { LOGGER } from '../context.js';
 import auth from '../utils/auth.js';
 import checkBody from '../utils/brute/checkBody.js';
 import checkColors from '../utils/brute/checkColors.js';
 import checkLevelUpAchievements from '../utils/brute/checkLevelUpAchievements.js';
 import getOpponents from '../utils/brute/getOpponents.js';
+import updateClanPoints from '../utils/clan/updateClanPoints.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
-import { increaseAchievement } from './Achievements.js';
-import updateClanPoints from '../utils/clan/updateClanPoints.js';
 import queueJob from '../workers/queueJob.js';
-import {LOGGER} from "../context.js";
+import { increaseAchievement } from './Achievements.js';
 
 const Brutes = {
   list: (prisma: PrismaClient) => async (req: Request, res: Response) => {

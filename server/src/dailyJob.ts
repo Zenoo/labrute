@@ -10,7 +10,7 @@ import moment from 'moment';
 import ServerState from './utils/ServerState.js';
 import generateFight from './utils/fight/generateFight.js';
 import shuffle from './utils/shuffle.js';
-import {DISCORD, LOGGER} from './context.js';
+import { DISCORD, LOGGER } from './context.js';
 
 const grantBetaAchievement = async (prisma: PrismaClient) => {
   // Grant beta achievement to all brutes who don't have it yet

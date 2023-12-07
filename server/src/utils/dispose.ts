@@ -5,9 +5,9 @@
  */
 
 // Ignore the `readonly` error; this is a polyfill
-// @ts-ignore
+// @ts-expect-error Some readonly shenanigans
 Symbol.dispose ??= Symbol('Symbol.dispose');
-// @ts-ignore
+// @ts-expect-error Some readonly shenanigans
 Symbol.asyncDispose ??= Symbol('Symbol.asyncDispose');
 
 export const DISPOSE: typeof Symbol.dispose = Symbol.dispose;

@@ -1,12 +1,12 @@
+import { PrismaClient } from '@labrute/prisma';
 import { isMainThread } from 'node:worker_threads';
-import { Logger } from './logger/index.js';
-import { DiscordClient, NetworkDiscordClient, NOOP_DISCORD_CLIENT } from './utils/DiscordUtils.js';
-import Env from './utils/Env.js';
 import { CONSOLE } from './logger/console.js';
 import { DiscordLogHandler } from './logger/discord.js';
+import { Logger } from './logger/index.js';
 import { PARENT_PORT } from './logger/parent-port.js';
-import {ASYNC_DISPOSE} from "./utils/dispose.js";
-import {PrismaClient} from "@labrute/prisma";
+import { DiscordClient, NetworkDiscordClient, NOOP_DISCORD_CLIENT } from './utils/DiscordUtils.js';
+import { ASYNC_DISPOSE } from './utils/dispose.js';
+import Env from './utils/Env.js';
 
 const DEBUG_QUERIES = false;
 

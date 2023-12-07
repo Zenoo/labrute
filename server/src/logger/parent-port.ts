@@ -1,5 +1,5 @@
 import { parentPort } from 'node:worker_threads';
-import {Logger, LogHandler, LogRecord} from './index.js';
+import { LogHandler, LogRecord } from './index.js';
 
 const EVENT = 'Log';
 
@@ -10,7 +10,7 @@ const EVENT = 'Log';
  */
 export const PARENT_PORT: LogHandler = {
   emit(record: Readonly<LogRecord>): void {
-    parentPort?.postMessage({event: EVENT, record});
+    parentPort?.postMessage({ event: EVENT, record });
   },
   flush(): Promise<void> {
     // Nothing to do

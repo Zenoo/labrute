@@ -1,11 +1,11 @@
+import { ExpectedError, UsersAdminUpdateRequest } from '@labrute/core';
 import { Lang, Prisma, PrismaClient } from '@labrute/prisma';
 import { Request, Response } from 'express';
-import { ExpectedError, UsersAdminUpdateRequest } from '@labrute/core';
+import { DISCORD } from '../context.js';
 import dailyJob from '../dailyJob.js';
 import auth from '../utils/auth.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
-import {DISCORD} from "../context.js";
 
 const Users = {
   get: (prisma: PrismaClient) => async (

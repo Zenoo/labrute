@@ -4,12 +4,12 @@ import {
 } from '@labrute/core';
 import { Prisma, PrismaClient } from '@labrute/prisma';
 import { Request, Response } from 'express';
+import { DISCORD, LOGGER } from '../context.js';
 import auth from '../utils/auth.js';
 import updateClanPoints from '../utils/clan/updateClanPoints.js';
+import generateFight from '../utils/fight/generateFight.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
-import generateFight from '../utils/fight/generateFight.js';
-import {DISCORD, LOGGER} from '../context.js';
 
 const Clans = {
   list: (prisma: PrismaClient) => async (
@@ -58,7 +58,11 @@ const Clans = {
         throw new ExpectedError(translate('bruteNotFound', user));
       }
 
-      const clanName = req.query.name.toString().trim();
+      if (typeof req.query.name !== 'string') {
+        throw new ExpectedError(translate('invalidClanName', user));
+      }
+
+      const clanName = req.query.name.trim();
 
       // Check for clan name length
       if (clanName.length < 3 || clanName.length > 50) {

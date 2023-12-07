@@ -9,7 +9,6 @@ import ServerState from '../utils/ServerState.js';
 import auth from '../utils/auth.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
-import {DISCORD} from "../context.js";
 
 const Tournaments = {
   getDaily: (prisma: PrismaClient) => async (req: Request, res: Response) => {

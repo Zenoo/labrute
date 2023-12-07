@@ -1,5 +1,5 @@
 import { inspect } from 'node:util';
-import {ASYNC_DISPOSE} from "../utils/dispose.js";
+import { ASYNC_DISPOSE } from '../utils/dispose.js';
 
 /**
  * Normalize a log message into a string.

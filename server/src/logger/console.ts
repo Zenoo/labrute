@@ -1,4 +1,7 @@
-import { formatLogRecord, LogHandler, LogLevel, LogRecord } from './index.js';
+/* eslint-disable no-console */
+import {
+  formatLogRecord, LogHandler, LogLevel, LogRecord,
+} from './index.js';
 
 /**
  * Write logs to JS console.

@@ -30,7 +30,7 @@ const startJob = async (prisma: PrismaClient) => {
   worker.on('message', forwardWorkerLog(LOGGER));
 
   worker.on('error', (error) => {
-    LOGGER.error(`worker error: ${error}`);
+    LOGGER.error(`worker error: ${error?.message}`);
     DISCORD.sendError(error);
   });
 

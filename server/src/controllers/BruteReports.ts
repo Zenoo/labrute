@@ -4,11 +4,11 @@ import {
 } from '@labrute/core';
 import { BruteReportReason, BruteReportStatus, PrismaClient } from '@labrute/prisma';
 import { Request, Response } from 'express';
+import { LOGGER } from '../context.js';
 import auth from '../utils/auth.js';
+import updateClanPoints from '../utils/clan/updateClanPoints.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
-import updateClanPoints from '../utils/clan/updateClanPoints.js';
-import {LOGGER} from '../context.js';
 
 const BruteReports = {
   list: (prisma: PrismaClient) => async (

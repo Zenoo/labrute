@@ -4,6 +4,8 @@
     "import/extensions": "off",
     "import/no-unresolved": "off",
     "node/no-missing-import": "off",
-    "no-restricted-syntax": "off"
+    "no-restricted-syntax": "off",
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": "error"
   }
 }

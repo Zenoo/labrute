@@ -30,7 +30,7 @@ const queueJob = async (prisma: PrismaClient, worker: string, payload: unknown) 
     w.on('message', forwardWorkerLog(LOGGER));
 
     w.on('error', (error) => {
-      LOGGER.error(`worker error: ${error}`);
+      LOGGER.error(`worker error: ${error?.message}`);
       DISCORD.sendError(error);
     });
 
