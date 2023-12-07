@@ -985,7 +985,10 @@ const Brutes = {
             },
           },
         },
-        include: {
+        select: {
+          id: true,
+          name: true,
+          level: true,
           opponents: {
             select: {
               id: true,
@@ -1434,7 +1437,10 @@ const Brutes = {
             },
           },
         },
-        include: {
+        select: {
+          id: true,
+          name: true,
+          level: true,
           opponents: {
             select: {
               id: true,

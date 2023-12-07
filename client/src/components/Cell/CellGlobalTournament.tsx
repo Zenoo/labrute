@@ -1,4 +1,4 @@
-import { Fighter, FullTournamentStep, GLOBAL_TOURNAMENT_START_HOUR, TournamentsGetGlobalResponse } from '@labrute/core';
+import { Fighter, GLOBAL_TOURNAMENT_START_HOUR, TournamentsGetGlobalResponse } from '@labrute/core';
 import { Close } from '@mui/icons-material';
 import { Box, Paper, PaperProps, useTheme } from '@mui/material';
 import moment from 'moment';
@@ -50,7 +50,10 @@ const CellGlobalTournament = ({
   );
 
   // Last fights renderer
-  const renderFight = (step: FullTournamentStep, finals = false) => {
+  const renderFight = (
+    step: TournamentsGetGlobalResponse['tournament']['steps'][number],
+    finals = false,
+  ) => {
     if (!bruteName) return null;
 
     const bruteInFight = step.fight.brute1.name === bruteName

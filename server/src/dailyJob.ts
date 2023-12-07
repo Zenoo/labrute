@@ -26,6 +26,7 @@ const grantBetaAchievement = async (prisma: PrismaClient) => {
         },
       },
     },
+    select: { id: true, userId: true },
   });
 
   if (!brutes.length) {
@@ -57,6 +58,7 @@ const grantBugAchievement = async (prisma: PrismaClient) => {
         },
       },
     },
+    select: { id: true },
   });
 
   if (!admins.length) {
@@ -87,7 +89,10 @@ const deleteMisformattedTournaments = async (prisma: PrismaClient) => {
         lt: tomorrow.toDate(),
       },
     },
-    include: { steps: true },
+    select: {
+      id: true,
+      steps: { select: { id: true } },
+    },
   });
 
   // Delete misformatted tournaments
@@ -123,6 +128,7 @@ const generateMissingBodyColors = async (prisma: PrismaClient) => {
         { colors: null },
       ],
     },
+    select: { id: true, gender: true },
   });
 
   if (!brutesWithoutBodyColors.length) {
@@ -209,9 +215,11 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
           lte: highestLevelBrute,
         },
       },
-      include: {
-        body: true,
-        colors: true,
+      select: {
+        id: true,
+        level: true,
+        ranking: true,
+        name: true,
       },
     });
 

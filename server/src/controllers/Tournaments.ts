@@ -291,17 +291,36 @@ const Tournaments = {
         orderBy: {
           step: 'asc',
         },
-        include: {
+        select: {
+          id: true,
+          step: true,
+          fightId: true,
           fight: {
-            include: {
+            select: {
+              winner: true,
+              fighters: true,
               brute1: {
-                include: {
+                select: {
+                  name: true,
+                  hp: true,
+                  level: true,
+                  strengthValue: true,
+                  agilityValue: true,
+                  speedValue: true,
+                  gender: true,
                   body: true,
                   colors: true,
                 },
               },
               brute2: {
-                include: {
+                select: {
+                  name: true,
+                  hp: true,
+                  level: true,
+                  strengthValue: true,
+                  agilityValue: true,
+                  speedValue: true,
+                  gender: true,
                   body: true,
                   colors: true,
                 },
@@ -324,17 +343,36 @@ const Tournaments = {
         orderBy: {
           step: 'asc',
         },
-        include: {
+        select: {
+          id: true,
+          step: true,
+          fightId: true,
           fight: {
-            include: {
+            select: {
+              winner: true,
+              fighters: true,
               brute1: {
-                include: {
+                select: {
+                  name: true,
+                  hp: true,
+                  level: true,
+                  strengthValue: true,
+                  agilityValue: true,
+                  speedValue: true,
+                  gender: true,
                   body: true,
                   colors: true,
                 },
               },
               brute2: {
-                include: {
+                select: {
+                  name: true,
+                  hp: true,
+                  level: true,
+                  strengthValue: true,
+                  agilityValue: true,
+                  speedValue: true,
+                  gender: true,
                   body: true,
                   colors: true,
                 },
@@ -542,7 +580,11 @@ const Tournaments = {
             },
           },
         },
-        include: {
+        select: {
+          id: true,
+          date: true,
+          type: true,
+          rounds: true,
           steps: {
             where: {
               fight: {

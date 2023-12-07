@@ -1,35 +1,34 @@
 import React from 'react';
+import { Navigate, RouteObject } from 'react-router';
 import ProvideBrute from './components/Brute/ProvideBrute';
 import Main from './layouts/Main';
+import AchievementsView from './views/AchievementsView';
 import AdminView from './views/AdminView';
 import AnchorTestView from './views/AnchorTestView';
 import ArenaView from './views/ArenaView';
+import BruteNotFoundView from './views/BruteNotFoundView';
 import CellView from './views/CellView';
 import DestinyView from './views/DestinyView';
 import FightView from './views/FightView';
-import HomeView from './views/HomeView';
-import LevelUpView from './views/LevelUpView';
-import RankingView from './views/RankingView';
-import TournamentView from './views/TournamentView';
-import VersusView from './views/VersusView';
-import TournamentHistoryView from './views/TournamentHistoryView';
-import GlobalTournamentView from './views/GlobalTournamentView';
-import AchievementsView from './views/AchievementsView';
-import WeaponAnchorTestView from './views/WeaponAnchorTestView';
-import ShieldAnchorTestView from './views/ShieldAnchorTestView';
-import { Navigate, RouteObject } from 'react-router';
-import NotFoundView from './views/NotFoundView';
-import BruteNotFoundView from './views/BruteNotFoundView';
 import GeneratingView from './views/GeneratingView';
 import HallView from './views/HallView';
-import UserAdminView from './views/UserAdminView';
+import HomeView from './views/HomeView';
+import LevelUpView from './views/LevelUpView';
+import NotFoundView from './views/NotFoundView';
+import RankingView from './views/RankingView';
 import ReportAdminView from './views/ReportAdminView';
-import ClanRankingView from './views/clan/ClanRankingView';
+import ShieldAnchorTestView from './views/ShieldAnchorTestView';
+import TournamentHistoryView from './views/TournamentHistoryView';
+import TournamentView from './views/TournamentView';
+import UserAdminView from './views/UserAdminView';
+import VersusView from './views/VersusView';
+import WeaponAnchorTestView from './views/WeaponAnchorTestView';
 import ClanCreateView from './views/clan/ClanCreateView';
-import ClanView from './views/clan/ClanView';
 import ClanForumView from './views/clan/ClanForumView';
-import ClanThreadView from './views/clan/ClanThreadView';
 import ClanPostView from './views/clan/ClanPostView';
+import ClanRankingView from './views/clan/ClanRankingView';
+import ClanThreadView from './views/clan/ClanThreadView';
+import ClanView from './views/clan/ClanView';
 
 const routes: RouteObject[] = [
   { path: 'anchor-test', element: <AnchorTestView /> },
@@ -62,7 +61,6 @@ const routes: RouteObject[] = [
           { path: 'arena', element: <ArenaView /> },
           { path: 'versus/:opponentName', element: <VersusView /> },
           { path: 'fight/:fightId', element: <FightView /> },
-          { path: 'tournament/global/:date', element: <GlobalTournamentView /> },
           { path: 'tournament/:date', element: <TournamentView /> },
           { path: 'ranking', element: <RankingView /> },
           { path: 'ranking/:rank', element: <RankingView /> },

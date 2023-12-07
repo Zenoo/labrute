@@ -1,36 +1,36 @@
+import { Achievement, Brute, BruteBody, BruteColors, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, Fight, Prisma, Tournament, TournamentStep } from '@labrute/prisma';
+import Version from './Version';
 import applySkillModifiers from './brute/applySkillModifiers';
 import availableBodyParts from './brute/availableBodyParts';
+import bosses, { Boss } from './brute/bosses';
+import canLevelUp from './brute/canLevelUp';
 import colors from './brute/colors';
 import createRandomBruteStats from './brute/createRandomBruteStats';
+import getBruteGoldValue from './brute/getBruteGoldValue';
+import getBruteVisuals, { BruteVisuals } from './brute/getBruteVisuals';
 import getFightsLeft from './brute/getFightsLeft';
+import getGoldNeededForNewBrute from './brute/getGoldNeededForNewBrute';
 import getHP from './brute/getHP';
 import getLevelUpChoices from './brute/getLevelUpChoices';
 import getMaxFightsPerDay from './brute/getMaxFightsPerDay';
 import getRandomBody from './brute/getRandomBody';
 import getRandomBonus from './brute/getRandomBonus';
 import getRandomColors from './brute/getRandomColors';
-import getBruteGoldValue from './brute/getBruteGoldValue';
-import getGoldNeededForNewBrute from './brute/getGoldNeededForNewBrute';
+import getVisualsFromUrl from './brute/getVisualsFromUrl';
 import getXPNeeded from './brute/getXPNeeded';
 import pets from './brute/pets';
-import bosses, { Boss } from './brute/bosses';
 import skills from './brute/skills';
 import updateBruteData from './brute/updateBruteData';
 import weapons from './brute/weapons';
-import { BruteReportWithNames, BruteWithBodyColors, DestinyBranch, FullTournament, FullTournamentStep } from './types';
+import { BruteReportWithNames, BruteWithBodyColors, DestinyBranch } from './types';
 import ExpectedError from './utils/ExpectedError';
 import adjustColor from './utils/adjustColor';
+import formatLargeNumber from './utils/formatLargeNumber';
 import hexToRgba from './utils/hexToRgba';
 import pad from './utils/pad';
 import promiseBatch from './utils/promiseBatch';
 import randomBetween from './utils/randomBetween';
 import weightedRandom from './utils/weightedRandom';
-import Version from './Version';
-import { Achievement, Brute, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, Prisma, Tournament, TournamentStep } from '@labrute/prisma';
-import canLevelUp from './brute/canLevelUp';
-import formatLargeNumber from './utils/formatLargeNumber';
-import getBruteVisuals, { BruteVisuals } from './brute/getBruteVisuals';
-import getVisualsFromUrl from './brute/getVisualsFromUrl';
 
 export * from './Achievements';
 export * from './Titles';
@@ -40,39 +40,18 @@ export * from './brute/weapons';
 export * from './constants';
 export * from './types';
 export {
-  applySkillModifiers,
-  availableBodyParts,
-  colors,
-  createRandomBruteStats,
-  getFightsLeft,
-  getHP,
+  Boss, BruteVisuals, ExpectedError, Version, adjustColor, applySkillModifiers,
+  availableBodyParts, bosses, canLevelUp, colors,
+  createRandomBruteStats, formatLargeNumber, getBruteGoldValue,
+  getBruteVisuals, getFightsLeft, getGoldNeededForNewBrute, getHP,
   getLevelUpChoices,
   getMaxFightsPerDay,
   getRandomBody,
   getRandomBonus,
-  getRandomColors,
-  getBruteGoldValue,
-  getGoldNeededForNewBrute,
-  getXPNeeded,
-  ExpectedError,
-  hexToRgba,
-  pets,
-  skills,
-  updateBruteData,
-  adjustColor,
-  randomBetween,
-  weapons,
-  weightedRandom,
-  promiseBatch,
-  pad,
-  Version,
-  canLevelUp,
-  formatLargeNumber,
-  getBruteVisuals,
-  BruteVisuals,
-  getVisualsFromUrl,
-  bosses,
-  Boss,
+  getRandomColors, getVisualsFromUrl, getXPNeeded, hexToRgba,
+  pad, pets, promiseBatch, randomBetween, skills,
+  updateBruteData, weapons,
+  weightedRandom
 };
 
 export const LANGUAGES = ['fr', 'en', 'es', 'de', 'ru'] as const;
@@ -100,9 +79,42 @@ export type BrutesExistsResponse = {
   exists: true,
   name: string,
 };
+
+type TournamentsGetGlobalStep = Pick<TournamentStep, 'id' | 'step' | 'fightId'> & {
+  fight: Pick<Fight, 'winner' | 'fighters'> & {
+    brute1: Pick<
+      Brute,
+      'name' |
+      'hp' |
+      'level' |
+      'strengthValue' |
+      'agilityValue' |
+      'speedValue' |
+      'gender'
+    > & {
+      body: BruteBody | null,
+      colors: BruteColors | null,
+    },
+    brute2: (Pick<
+      Brute,
+      'name' |
+      'hp' |
+      'level' |
+      'strengthValue' |
+      'agilityValue' |
+      'speedValue' |
+      'gender'
+    > & {
+      body: BruteBody | null,
+      colors: BruteColors | null,
+    }) | null,
+  },
+};
 export type TournamentsGetGlobalResponse = {
-  tournament: FullTournament,
-  lastRounds: FullTournamentStep[],
+  tournament: {
+    steps: TournamentsGetGlobalStep[];
+  },
+  lastRounds: TournamentsGetGlobalStep[],
   done: boolean,
   rounds: number,
   nextOpponent: string | null,
@@ -138,7 +150,13 @@ export type BruteReportsSendRequest = {
   reason: BruteReportReason,
 };
 
-export type TournamentHistoryResponse = (Tournament & {
+export type TournamentHistoryResponse = (Pick<
+  Tournament,
+  'id' |
+  'date' |
+  'type' |
+  'rounds'
+> & {
   steps: Pick<TournamentStep, 'step'>[],
 })[];
 

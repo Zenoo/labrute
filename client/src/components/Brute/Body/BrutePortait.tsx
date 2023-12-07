@@ -1,12 +1,15 @@
-import { BruteWithBodyColors } from '@labrute/core';
-import { BruteColors } from '@labrute/prisma';
+import { Brute, BruteBody, BruteColors } from '@labrute/prisma';
 import { Box, BoxProps } from '@mui/material';
 import React from 'react';
 import Head from './Head/Head';
 import LongHair from './Head/LongHair';
 
 interface BrutePortraitProps extends BoxProps {
-  brute: BruteWithBodyColors;
+  brute: Pick<
+    Brute, 'gender' | 'name'> & {
+    body: BruteBody | null;
+    colors: BruteColors | null;
+  };
   inverted?: boolean;
   shadow?: boolean
 }
@@ -18,13 +21,15 @@ const BrutePortrait = React.forwardRef(({
   sx,
   ...rest
 }: BrutePortraitProps, ref) => {
+  if (!brute.body || !brute.colors) return null;
+
   const props = {
     id: brute.name,
     gender: brute.gender,
-    colors: brute.colors as BruteColors,
+    colors: brute.colors,
   };
 
-  return brute.body && (
+  return (
     <Box
       component="svg"
       xmlns="http://www.w3.org/2000/svg"

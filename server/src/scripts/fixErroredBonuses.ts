@@ -18,6 +18,10 @@ async function main(cx: ServerContext) {
         pets: { has: 'dog1' },
       },
     },
+    select: {
+      id: true,
+      pets: true,
+    },
   });
 
   if (brutes.length) {

@@ -8,7 +8,15 @@ import Text from '../Text';
 import BruteHP from './BruteHP';
 
 interface BruteTooltipProps extends Omit<TooltipProps, 'title'> {
-  brute?: Brute;
+  brute?: Pick<
+    Brute,
+    'name' |
+    'hp' |
+    'level' |
+    'strengthValue' |
+    'agilityValue' |
+    'speedValue'
+  >;
   fighter?: Fighter | null;
   displaySkills?: boolean;
   hideSkillText?: boolean;
@@ -54,15 +62,15 @@ const BruteTooltip = ({
               <ArenaStat stat={FightStat.SPEED} name={t('Spe')} value={fighter?.speed || brute?.speedValue || 0} hideSkillText={hideSkillText} />
             </Box>
           </Box>
-          {displaySkills && (
+          {displaySkills && fighter && (
             <>
               <Text sx={{ fontSize: 12, lineHeight: 1.2 }}>
                 <Text component="span" bold sx={{ lineHeight: 1.2 }}>{t('supers')}: </Text>
-                {target.skills.filter((s) => skills.find((_s) => _s.name === s)?.type === 'super').map((s) => t(s)).join(', ')}
+                {fighter.skills.filter((s) => skills.find((_s) => _s.name === s)?.type === 'super').map((s) => t(s)).join(', ')}
               </Text>
               <Text sx={{ fontSize: 12, lineHeight: 1.2 }}>
                 <Text component="span" bold sx={{ lineHeight: 1.2 }}>{t('skills')}: </Text>
-                {target.skills.filter((s) => skills.find((_s) => _s.name === s)?.type !== 'super').map((s) => t(s)).join(', ')}
+                {fighter.skills.filter((s) => skills.find((_s) => _s.name === s)?.type !== 'super').map((s) => t(s)).join(', ')}
               </Text>
             </>
           )}

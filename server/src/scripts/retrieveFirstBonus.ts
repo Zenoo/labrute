@@ -22,8 +22,8 @@ async function main(cx: ServerContext) {
         },
       },
     },
-    include: {
-      destinyChoices: true,
+    select: {
+      id: true,
     },
   });
 
@@ -31,7 +31,33 @@ async function main(cx: ServerContext) {
     cx.logger.log(`Found ${brutes.length} brutes with no first bonus stored`);
   }
 
-  for (const brute of brutes) {
+  for (const bruteWithId of brutes) {
+    const brute = await cx.prisma.brute.findUnique({
+      where: {
+        id: bruteWithId.id,
+      },
+      select: {
+        id: true,
+        name: true,
+        skills: true,
+        weapons: true,
+        pets: true,
+        level: true,
+        destinyChoices: {
+          select: {
+            skill: true,
+            weapon: true,
+            pet: true,
+          },
+        },
+      },
+    });
+
+    if (!brute) {
+      cx.logger.error(`Brute ${bruteWithId.id} not found`);
+      continue;
+    }
+
     const unregisteredSkill = brute.skills.find((skill) => brute.destinyChoices
       .every((choice) => choice.skill !== skill));
 

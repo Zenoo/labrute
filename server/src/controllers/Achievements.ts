@@ -99,6 +99,10 @@ const Achievements = {
       // Get achievements
       const achievements = await prisma.achievement.findMany({
         where: { userId: req.body.userId },
+        select: {
+          name: true,
+          count: true,
+        },
       });
 
       // Merge achievements with same name
@@ -147,6 +151,10 @@ const Achievements = {
             deletedAt: null,
             name: req.params.name,
           },
+        },
+        select: {
+          name: true,
+          count: true,
         },
       });
 
