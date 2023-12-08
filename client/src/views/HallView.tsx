@@ -153,9 +153,21 @@ const HallView = () => {
               <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
                 <BruteHP hp={brute.hp} />
                 <Box flexGrow={1} sx={{ ml: 0.5 }}>
-                  <ArenaStat stat={FightStat.STRENGTH} name={t('Str')} value={brute.strengthValue} hideSkillText />
-                  <ArenaStat stat={FightStat.AGILITY} name={t('Agi')} value={brute.agilityValue} hideSkillText />
-                  <ArenaStat stat={FightStat.SPEED} name={t('Spe')} value={brute.speedValue} hideSkillText />
+                  <ArenaStat
+                    stat={FightStat.STRENGTH}
+                    value={brute.strengthValue}
+                    hideSkillText
+                  />
+                  <ArenaStat
+                    stat={FightStat.AGILITY}
+                    value={brute.agilityValue}
+                    hideSkillText
+                  />
+                  <ArenaStat
+                    stat={FightStat.SPEED}
+                    value={brute.speedValue}
+                    hideSkillText
+                  />
                 </Box>
               </Box>
               <BruteComponent

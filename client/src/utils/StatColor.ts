@@ -13,8 +13,8 @@ const StatColor: Record<FightStat, string> = {
   [FightStat.INTERVAL]: '#00008b',
   [FightStat.INITIATIVE]: '#f08080',
   [FightStat.STRENGTH]: 'red',
-  [FightStat.AGILITY]: '#eb9800',
-  [FightStat.SPEED]: '#8686ff',
+  [FightStat.AGILITY]: '#8686ff',
+  [FightStat.SPEED]: '#eb9800',
   [FightStat.ENDURANCE]: '#17a717',
   [FightStat.DAMAGE]: 'red',
 } as const;

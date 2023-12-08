@@ -6,14 +6,12 @@ import StatColor from '../../utils/StatColor';
 
 interface ArenaStatProps extends BoxProps {
   stat: FightStat;
-  name: string;
   value: number;
   hideSkillText?: boolean;
 }
 
 const ArenaStat = ({
   stat,
-  name,
   value,
   hideSkillText,
 }: ArenaStatProps) => {
@@ -27,9 +25,7 @@ const ArenaStat = ({
       height: 14,
     }}
     >
-      <Text bold color="secondary" sx={{ fontSize: 11, mr: 0.5, color: StatColor[stat] }}>
-        {name}
-      </Text>
+      <Box component="img" src={`/images/${stat}.gif`} sx={{ mr: 0.5, width: 11 }} alt={stat} />
       <Tooltip title={value}>
         <Box sx={{
           height: 8,
@@ -56,7 +52,7 @@ const ArenaStat = ({
         </Box>
       </Tooltip>
       {!hideSkillText && (
-        <Text bold color="secondary" sx={{ fontSize: 11, ml: 0.5 }}>
+        <Text bold color="secondary" sx={{ fontSize: 11, ml: 0.5, color: StatColor[stat] }}>
           {value}
         </Text>
       )}

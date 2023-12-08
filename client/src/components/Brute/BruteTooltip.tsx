@@ -57,9 +57,21 @@ const BruteTooltip = ({
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <BruteHP hp={target.hp} />
             <Box flexGrow={1} sx={{ ml: 0.5 }}>
-              <ArenaStat stat={FightStat.STRENGTH} name={t('Str')} value={fighter?.strength || brute?.strengthValue || 0} hideSkillText={hideSkillText} />
-              <ArenaStat stat={FightStat.AGILITY} name={t('Agi')} value={fighter?.agility || brute?.agilityValue || 0} hideSkillText={hideSkillText} />
-              <ArenaStat stat={FightStat.SPEED} name={t('Spe')} value={fighter?.speed || brute?.speedValue || 0} hideSkillText={hideSkillText} />
+              <ArenaStat
+                stat={FightStat.STRENGTH}
+                value={fighter?.strength || brute?.strengthValue || 0}
+                hideSkillText={hideSkillText}
+              />
+              <ArenaStat
+                stat={FightStat.AGILITY}
+                value={fighter?.agility || brute?.agilityValue || 0}
+                hideSkillText={hideSkillText}
+              />
+              <ArenaStat
+                stat={FightStat.SPEED}
+                value={fighter?.speed || brute?.speedValue || 0}
+                hideSkillText={hideSkillText}
+              />
             </Box>
           </Box>
           {displaySkills && fighter && (
