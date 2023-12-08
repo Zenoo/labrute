@@ -1,20 +1,29 @@
+import { ClanGetThreadsResponse } from '@labrute/core';
 import { Box, Paper, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
-import React, { Fragment, useMemo } from 'react';
+import moment from 'moment';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import Link from '../../components/Link';
 import Page from '../../components/Page';
 import Text from '../../components/Text';
-import useStateAsync from '../../hooks/useStateAsync';
+import { useAlert } from '../../hooks/useAlert';
 import Server from '../../utils/Server';
-import moment from 'moment';
+import catchError from '../../utils/catchError';
 
 const ClanForumView = () => {
   const { t } = useTranslation();
   const { bruteName, id } = useParams();
+  const Alert = useAlert();
 
-  const params = useMemo(() => ({ brute: bruteName || '', id: id ? +id : 0 }), [bruteName, id]);
-  const { data } = useStateAsync(null, Server.Clan.getThreads, params);
+  const [data, setData] = useState<ClanGetThreadsResponse | null>(null);
+
+  // Fetch data
+  useEffect(() => {
+    if (!bruteName || !id) return;
+
+    Server.Clan.getThreads({ brute: bruteName, id: +id }).then(setData).catch(catchError(Alert));
+  }, [Alert, bruteName, id]);
 
   return (
     <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/cell`}>
