@@ -1,4 +1,4 @@
-import { Prisma, PrismaClient } from '@labrute/prisma';
+import { PrismaClient } from '@labrute/prisma';
 import { Worker } from 'worker_threads';
 import { DISCORD, LOGGER } from '../context.js';
 import { forwardWorkerLog } from '../logger/parent-port.js';
@@ -13,7 +13,7 @@ const queueJob = async (prisma: PrismaClient, worker: string, payload: unknown) 
   const job = await prisma.workerJob.create({
     data: {
       worker,
-      payload: payload as Prisma.JsonObject,
+      payload: JSON.stringify(payload),
     },
     select: { id: true },
   });

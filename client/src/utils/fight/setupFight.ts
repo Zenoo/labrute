@@ -93,7 +93,7 @@ const setupFight: (
     throw new Error('Misc spritesheet not found');
   }
 
-  const fightFighters = fight.fighters as unknown as Fighter[];
+  const fightFighters = JSON.parse(fight.fighters) as Fighter[];
 
   const brute1 = fightFighters.find((fighter) => !fighter.master
     && fighter.id === fight.brute1Id);
@@ -433,7 +433,7 @@ const setupFight: (
   });
 
   // Loop on steps
-  const steps = fight.steps as unknown as FightStep[];
+  const steps = JSON.parse(fight.steps) as FightStep[];
   for (let i = 0; i < steps.length; i++) {
     const { [i]: step } = steps;
 

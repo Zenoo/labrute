@@ -31,7 +31,9 @@ const FightComponent = ({
   const { user, updateData } = useAuth();
   const Alert = useAlert();
 
-  const fightSteps = fight?.steps as FightStep[] | undefined;
+  const fightSteps = useMemo(() => (fight
+    ? JSON.parse(fight.steps) as FightStep[]
+    : undefined), [fight]);
 
   // Fight status
   const appRef = useRef<PIXI.Application | null>(null);
@@ -64,12 +66,16 @@ const FightComponent = ({
     setTooltipOpen((open) => forceValue ?? (previousBruteId !== brute.id ? true : !open));
   }, []);
 
-  const brute1 = useMemo(() => fight && (fight.fighters as unknown as Fighter[])
+  const fighters = useMemo(() => (fight
+    ? JSON.parse(fight.fighters) as Fighter[]
+    : undefined), [fight]);
+
+  const brute1 = useMemo(() => fight && fighters && fighters
     .find((fighter) => !fighter.master
-      && fighter.id === fight.brute1Id), [fight]);
-  const brute2 = useMemo(() => fight && (fight.fighters as unknown as Fighter[])
+      && fighter.id === fight.brute1Id), [fight, fighters]);
+  const brute2 = useMemo(() => fight && fighters && fighters
     .find((fighter) => !fighter.master
-      && fighter.id === fight.brute2Id), [fight]);
+      && fighter.id === fight.brute2Id), [fight, fighters]);
 
   // Update settings on user change
   useEffect(() => {
@@ -173,7 +179,7 @@ const FightComponent = ({
     sound.volume('background', backgroundMusicRef.current ? 1 : 0);
 
     const addedSpritesheets: string[] = [];
-    (fight.fighters as unknown as Fighter[]).forEach((fighter) => {
+    (JSON.parse(fight.fighters) as Fighter[]).forEach((fighter) => {
       if (fighter.type === 'brute') {
         const spritesheet = `/api/spritesheet/${fighter.id}.json`;
         if (!addedSpritesheets.includes(spritesheet)) {

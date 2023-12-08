@@ -131,10 +131,10 @@ async function main(cx: ServerContext) {
       await cx.prisma.bruteSpritesheet.create({
         data: {
           image: spritesheet.image,
-          json: formatSpritesheet(
+          json: JSON.stringify(formatSpritesheet(
             spritesheet,
             getBruteVisuals(brute),
-          ) as unknown as Prisma.JsonObject,
+          )),
           ...visuals,
           version: SPRITESHEET_VERSION,
         },

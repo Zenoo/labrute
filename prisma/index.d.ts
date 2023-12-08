@@ -8462,6 +8462,7 @@ export namespace Prisma {
     accentColor: string | null
     accentShade: string | null
     image: Buffer | null
+    json: string | null
   }
 
   export type BruteSpritesheetMaxAggregateOutputType = {
@@ -8498,6 +8499,7 @@ export namespace Prisma {
     accentColor: string | null
     accentShade: string | null
     image: Buffer | null
+    json: string | null
   }
 
   export type BruteSpritesheetCountAggregateOutputType = {
@@ -8619,6 +8621,7 @@ export namespace Prisma {
     accentColor?: true
     accentShade?: true
     image?: true
+    json?: true
   }
 
   export type BruteSpritesheetMaxAggregateInputType = {
@@ -8655,6 +8658,7 @@ export namespace Prisma {
     accentColor?: true
     accentShade?: true
     image?: true
+    json?: true
   }
 
   export type BruteSpritesheetCountAggregateInputType = {
@@ -8815,7 +8819,7 @@ export namespace Prisma {
     accentColor: string
     accentShade: string
     image: Buffer | null
-    json: JsonValue | null
+    json: string | null
     _count: BruteSpritesheetCountAggregateOutputType | null
     _avg: BruteSpritesheetAvgAggregateOutputType | null
     _sum: BruteSpritesheetSumAggregateOutputType | null
@@ -8949,7 +8953,7 @@ export namespace Prisma {
       accentColor: string
       accentShade: string
       image: Buffer | null
-      json: Prisma.JsonValue | null
+      json: string | null
     }, ExtArgs["result"]["bruteSpritesheet"]>
     composites: {}
   }
@@ -9377,7 +9381,7 @@ export namespace Prisma {
     readonly accentColor: FieldRef<"BruteSpritesheet", 'String'>
     readonly accentShade: FieldRef<"BruteSpritesheet", 'String'>
     readonly image: FieldRef<"BruteSpritesheet", 'Bytes'>
-    readonly json: FieldRef<"BruteSpritesheet", 'Json'>
+    readonly json: FieldRef<"BruteSpritesheet", 'String'>
   }
     
 
@@ -9696,6 +9700,8 @@ export namespace Prisma {
     brute2Id: number | null
     winner: string | null
     loser: string | null
+    steps: string | null
+    fighters: string | null
   }
 
   export type FightMaxAggregateOutputType = {
@@ -9705,6 +9711,8 @@ export namespace Prisma {
     brute2Id: number | null
     winner: string | null
     loser: string | null
+    steps: string | null
+    fighters: string | null
   }
 
   export type FightCountAggregateOutputType = {
@@ -9739,6 +9747,8 @@ export namespace Prisma {
     brute2Id?: true
     winner?: true
     loser?: true
+    steps?: true
+    fighters?: true
   }
 
   export type FightMaxAggregateInputType = {
@@ -9748,6 +9758,8 @@ export namespace Prisma {
     brute2Id?: true
     winner?: true
     loser?: true
+    steps?: true
+    fighters?: true
   }
 
   export type FightCountAggregateInputType = {
@@ -9855,8 +9867,8 @@ export namespace Prisma {
     brute2Id: number | null
     winner: string
     loser: string
-    steps: JsonValue
-    fighters: JsonValue
+    steps: string
+    fighters: string
     _count: FightCountAggregateOutputType | null
     _avg: FightAvgAggregateOutputType | null
     _sum: FightSumAggregateOutputType | null
@@ -9929,8 +9941,8 @@ export namespace Prisma {
       brute2Id: number | null
       winner: string
       loser: string
-      steps: Prisma.JsonValue
-      fighters: Prisma.JsonValue
+      steps: string
+      fighters: string
     }, ExtArgs["result"]["fight"]>
     composites: {}
   }
@@ -10338,8 +10350,8 @@ export namespace Prisma {
     readonly brute2Id: FieldRef<"Fight", 'Int'>
     readonly winner: FieldRef<"Fight", 'String'>
     readonly loser: FieldRef<"Fight", 'String'>
-    readonly steps: FieldRef<"Fight", 'Json'>
-    readonly fighters: FieldRef<"Fight", 'Json'>
+    readonly steps: FieldRef<"Fight", 'String'>
+    readonly fighters: FieldRef<"Fight", 'String'>
   }
     
 
@@ -19576,11 +19588,13 @@ export namespace Prisma {
   export type WorkerJobMinAggregateOutputType = {
     id: number | null
     worker: string | null
+    payload: string | null
   }
 
   export type WorkerJobMaxAggregateOutputType = {
     id: number | null
     worker: string | null
+    payload: string | null
   }
 
   export type WorkerJobCountAggregateOutputType = {
@@ -19602,11 +19616,13 @@ export namespace Prisma {
   export type WorkerJobMinAggregateInputType = {
     id?: true
     worker?: true
+    payload?: true
   }
 
   export type WorkerJobMaxAggregateInputType = {
     id?: true
     worker?: true
+    payload?: true
   }
 
   export type WorkerJobCountAggregateInputType = {
@@ -19705,7 +19721,7 @@ export namespace Prisma {
   export type WorkerJobGroupByOutputType = {
     id: number
     worker: string
-    payload: JsonValue
+    payload: string
     _count: WorkerJobCountAggregateOutputType | null
     _avg: WorkerJobAvgAggregateOutputType | null
     _sum: WorkerJobSumAggregateOutputType | null
@@ -19746,7 +19762,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       worker: string
-      payload: Prisma.JsonValue
+      payload: string
     }, ExtArgs["result"]["workerJob"]>
     composites: {}
   }
@@ -20143,7 +20159,7 @@ export namespace Prisma {
   interface WorkerJobFieldRefs {
     readonly id: FieldRef<"WorkerJob", 'Int'>
     readonly worker: FieldRef<"WorkerJob", 'String'>
-    readonly payload: FieldRef<"WorkerJob", 'Json'>
+    readonly payload: FieldRef<"WorkerJob", 'String'>
   }
     
 
@@ -23811,21 +23827,6 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-  export const NullableJsonNullValueInput: {
-    DbNull: typeof DbNull,
-    JsonNull: typeof JsonNull
-  };
-
-  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
-
-
-  export const JsonNullValueInput: {
-    JsonNull: typeof JsonNull
-  };
-
-  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
-
-
   export const QueryMode: {
     default: 'default',
     insensitive: 'insensitive'
@@ -23840,15 +23841,6 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
-
-
-  export const JsonNullValueFilter: {
-    DbNull: typeof DbNull,
-    JsonNull: typeof JsonNull,
-    AnyNull: typeof AnyNull
-  };
-
-  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -24014,13 +24006,6 @@ export namespace Prisma {
    * Reference to a field of type 'Bytes[]'
    */
   export type ListBytesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Bytes[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Json'
-   */
-  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
     
 
 
@@ -24782,7 +24767,7 @@ export namespace Prisma {
     accentColor?: StringFilter<"BruteSpritesheet"> | string
     accentShade?: StringFilter<"BruteSpritesheet"> | string
     image?: BytesNullableFilter<"BruteSpritesheet"> | Buffer | null
-    json?: JsonNullableFilter<"BruteSpritesheet">
+    json?: StringNullableFilter<"BruteSpritesheet"> | string | null
   }
 
   export type BruteSpritesheetOrderByWithRelationInput = {
@@ -24860,7 +24845,7 @@ export namespace Prisma {
     accentColor?: StringFilter<"BruteSpritesheet"> | string
     accentShade?: StringFilter<"BruteSpritesheet"> | string
     image?: BytesNullableFilter<"BruteSpritesheet"> | Buffer | null
-    json?: JsonNullableFilter<"BruteSpritesheet">
+    json?: StringNullableFilter<"BruteSpritesheet"> | string | null
   }, "id" | "gender_longHair_lowerRightArm_rightHand_upperRightArm_rightShoulder_rightFoot_lowerRightLeg_upperRightLeg_leftFoot_lowerLeftLeg_pelvis_upperLeftLeg_tummy_torso_head_leftHand_upperLeftArm_lowerLeftArm_leftShoulder_skinColor_skinShade_hairColor_hairShade_primaryColor_primaryShade_secondaryColor_secondaryShade_accentColor_accentShade">
 
   export type BruteSpritesheetOrderByWithAggregationInput = {
@@ -24942,7 +24927,7 @@ export namespace Prisma {
     accentColor?: StringWithAggregatesFilter<"BruteSpritesheet"> | string
     accentShade?: StringWithAggregatesFilter<"BruteSpritesheet"> | string
     image?: BytesNullableWithAggregatesFilter<"BruteSpritesheet"> | Buffer | null
-    json?: JsonNullableWithAggregatesFilter<"BruteSpritesheet">
+    json?: StringNullableWithAggregatesFilter<"BruteSpritesheet"> | string | null
   }
 
   export type FightWhereInput = {
@@ -24955,8 +24940,8 @@ export namespace Prisma {
     brute2Id?: IntNullableFilter<"Fight"> | number | null
     winner?: StringFilter<"Fight"> | string
     loser?: StringFilter<"Fight"> | string
-    steps?: JsonFilter<"Fight">
-    fighters?: JsonFilter<"Fight">
+    steps?: StringFilter<"Fight"> | string
+    fighters?: StringFilter<"Fight"> | string
     brute1?: XOR<BruteRelationFilter, BruteWhereInput>
     brute2?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
     logs?: LogListRelationFilter
@@ -24988,8 +24973,8 @@ export namespace Prisma {
     brute2Id?: IntNullableFilter<"Fight"> | number | null
     winner?: StringFilter<"Fight"> | string
     loser?: StringFilter<"Fight"> | string
-    steps?: JsonFilter<"Fight">
-    fighters?: JsonFilter<"Fight">
+    steps?: StringFilter<"Fight"> | string
+    fighters?: StringFilter<"Fight"> | string
     brute1?: XOR<BruteRelationFilter, BruteWhereInput>
     brute2?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
     logs?: LogListRelationFilter
@@ -25022,8 +25007,8 @@ export namespace Prisma {
     brute2Id?: IntNullableWithAggregatesFilter<"Fight"> | number | null
     winner?: StringWithAggregatesFilter<"Fight"> | string
     loser?: StringWithAggregatesFilter<"Fight"> | string
-    steps?: JsonWithAggregatesFilter<"Fight">
-    fighters?: JsonWithAggregatesFilter<"Fight">
+    steps?: StringWithAggregatesFilter<"Fight"> | string
+    fighters?: StringWithAggregatesFilter<"Fight"> | string
   }
 
   export type LogWhereInput = {
@@ -25592,7 +25577,7 @@ export namespace Prisma {
     NOT?: WorkerJobWhereInput | WorkerJobWhereInput[]
     id?: IntFilter<"WorkerJob"> | number
     worker?: StringFilter<"WorkerJob"> | string
-    payload?: JsonFilter<"WorkerJob">
+    payload?: StringFilter<"WorkerJob"> | string
   }
 
   export type WorkerJobOrderByWithRelationInput = {
@@ -25607,7 +25592,7 @@ export namespace Prisma {
     OR?: WorkerJobWhereInput[]
     NOT?: WorkerJobWhereInput | WorkerJobWhereInput[]
     worker?: StringFilter<"WorkerJob"> | string
-    payload?: JsonFilter<"WorkerJob">
+    payload?: StringFilter<"WorkerJob"> | string
   }, "id">
 
   export type WorkerJobOrderByWithAggregationInput = {
@@ -25627,7 +25612,7 @@ export namespace Prisma {
     NOT?: WorkerJobScalarWhereWithAggregatesInput | WorkerJobScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"WorkerJob"> | number
     worker?: StringWithAggregatesFilter<"WorkerJob"> | string
-    payload?: JsonWithAggregatesFilter<"WorkerJob">
+    payload?: StringWithAggregatesFilter<"WorkerJob"> | string
   }
 
   export type ClanWhereInput = {
@@ -26595,7 +26580,7 @@ export namespace Prisma {
     accentColor?: string
     accentShade?: string
     image?: Buffer | null
-    json?: NullableJsonNullValueInput | InputJsonValue
+    json?: string | null
   }
 
   export type BruteSpritesheetUncheckedCreateInput = {
@@ -26632,7 +26617,7 @@ export namespace Prisma {
     accentColor?: string
     accentShade?: string
     image?: Buffer | null
-    json?: NullableJsonNullValueInput | InputJsonValue
+    json?: string | null
   }
 
   export type BruteSpritesheetUpdateInput = {
@@ -26668,7 +26653,7 @@ export namespace Prisma {
     accentColor?: StringFieldUpdateOperationsInput | string
     accentShade?: StringFieldUpdateOperationsInput | string
     image?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    json?: NullableJsonNullValueInput | InputJsonValue
+    json?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BruteSpritesheetUncheckedUpdateInput = {
@@ -26705,7 +26690,7 @@ export namespace Prisma {
     accentColor?: StringFieldUpdateOperationsInput | string
     accentShade?: StringFieldUpdateOperationsInput | string
     image?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    json?: NullableJsonNullValueInput | InputJsonValue
+    json?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BruteSpritesheetCreateManyInput = {
@@ -26742,7 +26727,7 @@ export namespace Prisma {
     accentColor?: string
     accentShade?: string
     image?: Buffer | null
-    json?: NullableJsonNullValueInput | InputJsonValue
+    json?: string | null
   }
 
   export type BruteSpritesheetUpdateManyMutationInput = {
@@ -26778,7 +26763,7 @@ export namespace Prisma {
     accentColor?: StringFieldUpdateOperationsInput | string
     accentShade?: StringFieldUpdateOperationsInput | string
     image?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    json?: NullableJsonNullValueInput | InputJsonValue
+    json?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BruteSpritesheetUncheckedUpdateManyInput = {
@@ -26815,15 +26800,15 @@ export namespace Prisma {
     accentColor?: StringFieldUpdateOperationsInput | string
     accentShade?: StringFieldUpdateOperationsInput | string
     image?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    json?: NullableJsonNullValueInput | InputJsonValue
+    json?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type FightCreateInput = {
     date?: Date | string
     winner: string
     loser: string
-    steps: JsonNullValueInput | InputJsonValue
-    fighters: JsonNullValueInput | InputJsonValue
+    steps: string
+    fighters: string
     brute1: BruteCreateNestedOneWithoutFightsInput
     brute2?: BruteCreateNestedOneWithoutFightsAsAdversaryInput
     logs?: LogCreateNestedManyWithoutFightInput
@@ -26837,8 +26822,8 @@ export namespace Prisma {
     brute2Id?: number | null
     winner: string
     loser: string
-    steps: JsonNullValueInput | InputJsonValue
-    fighters: JsonNullValueInput | InputJsonValue
+    steps: string
+    fighters: string
     logs?: LogUncheckedCreateNestedManyWithoutFightInput
     TournamentStep?: TournamentStepUncheckedCreateNestedManyWithoutFightInput
   }
@@ -26847,8 +26832,8 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
-    steps?: JsonNullValueInput | InputJsonValue
-    fighters?: JsonNullValueInput | InputJsonValue
+    steps?: StringFieldUpdateOperationsInput | string
+    fighters?: StringFieldUpdateOperationsInput | string
     brute1?: BruteUpdateOneRequiredWithoutFightsNestedInput
     brute2?: BruteUpdateOneWithoutFightsAsAdversaryNestedInput
     logs?: LogUpdateManyWithoutFightNestedInput
@@ -26862,8 +26847,8 @@ export namespace Prisma {
     brute2Id?: NullableIntFieldUpdateOperationsInput | number | null
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
-    steps?: JsonNullValueInput | InputJsonValue
-    fighters?: JsonNullValueInput | InputJsonValue
+    steps?: StringFieldUpdateOperationsInput | string
+    fighters?: StringFieldUpdateOperationsInput | string
     logs?: LogUncheckedUpdateManyWithoutFightNestedInput
     TournamentStep?: TournamentStepUncheckedUpdateManyWithoutFightNestedInput
   }
@@ -26875,16 +26860,16 @@ export namespace Prisma {
     brute2Id?: number | null
     winner: string
     loser: string
-    steps: JsonNullValueInput | InputJsonValue
-    fighters: JsonNullValueInput | InputJsonValue
+    steps: string
+    fighters: string
   }
 
   export type FightUpdateManyMutationInput = {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
-    steps?: JsonNullValueInput | InputJsonValue
-    fighters?: JsonNullValueInput | InputJsonValue
+    steps?: StringFieldUpdateOperationsInput | string
+    fighters?: StringFieldUpdateOperationsInput | string
   }
 
   export type FightUncheckedUpdateManyInput = {
@@ -26894,8 +26879,8 @@ export namespace Prisma {
     brute2Id?: NullableIntFieldUpdateOperationsInput | number | null
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
-    steps?: JsonNullValueInput | InputJsonValue
-    fighters?: JsonNullValueInput | InputJsonValue
+    steps?: StringFieldUpdateOperationsInput | string
+    fighters?: StringFieldUpdateOperationsInput | string
   }
 
   export type LogCreateInput = {
@@ -27433,41 +27418,41 @@ export namespace Prisma {
 
   export type WorkerJobCreateInput = {
     worker: string
-    payload: JsonNullValueInput | InputJsonValue
+    payload: string
   }
 
   export type WorkerJobUncheckedCreateInput = {
     id?: number
     worker: string
-    payload: JsonNullValueInput | InputJsonValue
+    payload: string
   }
 
   export type WorkerJobUpdateInput = {
     worker?: StringFieldUpdateOperationsInput | string
-    payload?: JsonNullValueInput | InputJsonValue
+    payload?: StringFieldUpdateOperationsInput | string
   }
 
   export type WorkerJobUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     worker?: StringFieldUpdateOperationsInput | string
-    payload?: JsonNullValueInput | InputJsonValue
+    payload?: StringFieldUpdateOperationsInput | string
   }
 
   export type WorkerJobCreateManyInput = {
     id?: number
     worker: string
-    payload: JsonNullValueInput | InputJsonValue
+    payload: string
   }
 
   export type WorkerJobUpdateManyMutationInput = {
     worker?: StringFieldUpdateOperationsInput | string
-    payload?: JsonNullValueInput | InputJsonValue
+    payload?: StringFieldUpdateOperationsInput | string
   }
 
   export type WorkerJobUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     worker?: StringFieldUpdateOperationsInput | string
-    payload?: JsonNullValueInput | InputJsonValue
+    payload?: StringFieldUpdateOperationsInput | string
   }
 
   export type ClanCreateInput = {
@@ -28508,27 +28493,20 @@ export namespace Prisma {
     notIn?: Buffer[] | ListBytesFieldRefInput<$PrismaModel> | null
     not?: NestedBytesNullableFilter<$PrismaModel> | Buffer | null
   }
-  export type JsonNullableFilter<$PrismaModel = never> = 
-    | PatchUndefined<
-        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
 
-  export type JsonNullableFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type BruteSpritesheetGenderLongHairLowerRightArmRightHandUpperRightArmRightShoulderRightFootLowerRightLegUpperRightLegLeftFootLowerLeftLegPelvisUpperLeftLegTummyTorsoHeadLeftHandUpperLeftArmLowerLeftArmLeftShoulderSkinColorSkinShadeHairColorHairShadePrimaryColorPrimaryShadeSecondaryColorSecondaryShadeAccentColorAccentShadeCompoundUniqueInput = {
@@ -28658,6 +28636,7 @@ export namespace Prisma {
     accentColor?: SortOrder
     accentShade?: SortOrder
     image?: SortOrder
+    json?: SortOrder
   }
 
   export type BruteSpritesheetMinOrderByAggregateInput = {
@@ -28694,6 +28673,7 @@ export namespace Prisma {
     accentColor?: SortOrder
     accentShade?: SortOrder
     image?: SortOrder
+    json?: SortOrder
   }
 
   export type BruteSpritesheetSumOrderByAggregateInput = {
@@ -28728,52 +28708,23 @@ export namespace Prisma {
     _min?: NestedBytesNullableFilter<$PrismaModel>
     _max?: NestedBytesNullableFilter<$PrismaModel>
   }
-  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> = 
-    | PatchUndefined<
-        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
 
-  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
     _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedJsonNullableFilter<$PrismaModel>
-    _max?: NestedJsonNullableFilter<$PrismaModel>
-  }
-  export type JsonFilter<$PrismaModel = never> = 
-    | PatchUndefined<
-        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type TournamentStepListRelationFilter = {
@@ -28810,6 +28761,8 @@ export namespace Prisma {
     brute2Id?: SortOrder
     winner?: SortOrder
     loser?: SortOrder
+    steps?: SortOrder
+    fighters?: SortOrder
   }
 
   export type FightMinOrderByAggregateInput = {
@@ -28819,6 +28772,8 @@ export namespace Prisma {
     brute2Id?: SortOrder
     winner?: SortOrder
     loser?: SortOrder
+    steps?: SortOrder
+    fighters?: SortOrder
   }
 
   export type FightSumOrderByAggregateInput = {
@@ -28826,52 +28781,12 @@ export namespace Prisma {
     brute1Id?: SortOrder
     brute2Id?: SortOrder
   }
-  export type JsonWithAggregatesFilter<$PrismaModel = never> = 
-    | PatchUndefined<
-        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedJsonFilter<$PrismaModel>
-    _max?: NestedJsonFilter<$PrismaModel>
-  }
 
   export type EnumLogTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.LogType | EnumLogTypeFieldRefInput<$PrismaModel>
     in?: $Enums.LogType[] | ListEnumLogTypeFieldRefInput<$PrismaModel>
     notIn?: $Enums.LogType[] | ListEnumLogTypeFieldRefInput<$PrismaModel>
     not?: NestedEnumLogTypeFilter<$PrismaModel> | $Enums.LogType
-  }
-
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type FightNullableRelationFilter = {
@@ -28936,24 +28851,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumLogTypeFilter<$PrismaModel>
     _max?: NestedEnumLogTypeFilter<$PrismaModel>
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type EnumDestinyChoiceTypeFilter<$PrismaModel = never> = {
@@ -29461,11 +29358,13 @@ export namespace Prisma {
   export type WorkerJobMaxOrderByAggregateInput = {
     id?: SortOrder
     worker?: SortOrder
+    payload?: SortOrder
   }
 
   export type WorkerJobMinOrderByAggregateInput = {
     id?: SortOrder
     worker?: SortOrder
+    payload?: SortOrder
   }
 
   export type WorkerJobSumOrderByAggregateInput = {
@@ -31557,49 +31456,22 @@ export namespace Prisma {
     _min?: NestedBytesNullableFilter<$PrismaModel>
     _max?: NestedBytesNullableFilter<$PrismaModel>
   }
-  export type NestedJsonNullableFilter<$PrismaModel = never> = 
-    | PatchUndefined<
-        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<NestedJsonNullableFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
 
-  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
-  export type NestedJsonFilter<$PrismaModel = never> = 
-    | PatchUndefined<
-        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
-        Required<NestedJsonFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
-
-  export type NestedJsonFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumLogTypeFilter<$PrismaModel = never> = {
@@ -31617,23 +31489,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumLogTypeFilter<$PrismaModel>
     _max?: NestedEnumLogTypeFilter<$PrismaModel>
-  }
-
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumDestinyChoiceTypeFilter<$PrismaModel = never> = {
@@ -32996,8 +32851,8 @@ export namespace Prisma {
     date?: Date | string
     winner: string
     loser: string
-    steps: JsonNullValueInput | InputJsonValue
-    fighters: JsonNullValueInput | InputJsonValue
+    steps: string
+    fighters: string
     brute2?: BruteCreateNestedOneWithoutFightsAsAdversaryInput
     logs?: LogCreateNestedManyWithoutFightInput
     TournamentStep?: TournamentStepCreateNestedManyWithoutFightInput
@@ -33009,8 +32864,8 @@ export namespace Prisma {
     brute2Id?: number | null
     winner: string
     loser: string
-    steps: JsonNullValueInput | InputJsonValue
-    fighters: JsonNullValueInput | InputJsonValue
+    steps: string
+    fighters: string
     logs?: LogUncheckedCreateNestedManyWithoutFightInput
     TournamentStep?: TournamentStepUncheckedCreateNestedManyWithoutFightInput
   }
@@ -33029,8 +32884,8 @@ export namespace Prisma {
     date?: Date | string
     winner: string
     loser: string
-    steps: JsonNullValueInput | InputJsonValue
-    fighters: JsonNullValueInput | InputJsonValue
+    steps: string
+    fighters: string
     brute1: BruteCreateNestedOneWithoutFightsInput
     logs?: LogCreateNestedManyWithoutFightInput
     TournamentStep?: TournamentStepCreateNestedManyWithoutFightInput
@@ -33042,8 +32897,8 @@ export namespace Prisma {
     brute1Id: number
     winner: string
     loser: string
-    steps: JsonNullValueInput | InputJsonValue
-    fighters: JsonNullValueInput | InputJsonValue
+    steps: string
+    fighters: string
     logs?: LogUncheckedCreateNestedManyWithoutFightInput
     TournamentStep?: TournamentStepUncheckedCreateNestedManyWithoutFightInput
   }
@@ -33889,8 +33744,8 @@ export namespace Prisma {
     brute2Id?: IntNullableFilter<"Fight"> | number | null
     winner?: StringFilter<"Fight"> | string
     loser?: StringFilter<"Fight"> | string
-    steps?: JsonFilter<"Fight">
-    fighters?: JsonFilter<"Fight">
+    steps?: StringFilter<"Fight"> | string
+    fighters?: StringFilter<"Fight"> | string
   }
 
   export type FightUpsertWithWhereUniqueWithoutBrute2Input = {
@@ -34921,8 +34776,8 @@ export namespace Prisma {
     date?: Date | string
     winner: string
     loser: string
-    steps: JsonNullValueInput | InputJsonValue
-    fighters: JsonNullValueInput | InputJsonValue
+    steps: string
+    fighters: string
     brute1: BruteCreateNestedOneWithoutFightsInput
     brute2?: BruteCreateNestedOneWithoutFightsAsAdversaryInput
     TournamentStep?: TournamentStepCreateNestedManyWithoutFightInput
@@ -34935,8 +34790,8 @@ export namespace Prisma {
     brute2Id?: number | null
     winner: string
     loser: string
-    steps: JsonNullValueInput | InputJsonValue
-    fighters: JsonNullValueInput | InputJsonValue
+    steps: string
+    fighters: string
     TournamentStep?: TournamentStepUncheckedCreateNestedManyWithoutFightInput
   }
 
@@ -35086,8 +34941,8 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
-    steps?: JsonNullValueInput | InputJsonValue
-    fighters?: JsonNullValueInput | InputJsonValue
+    steps?: StringFieldUpdateOperationsInput | string
+    fighters?: StringFieldUpdateOperationsInput | string
     brute1?: BruteUpdateOneRequiredWithoutFightsNestedInput
     brute2?: BruteUpdateOneWithoutFightsAsAdversaryNestedInput
     TournamentStep?: TournamentStepUpdateManyWithoutFightNestedInput
@@ -35100,8 +34955,8 @@ export namespace Prisma {
     brute2Id?: NullableIntFieldUpdateOperationsInput | number | null
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
-    steps?: JsonNullValueInput | InputJsonValue
-    fighters?: JsonNullValueInput | InputJsonValue
+    steps?: StringFieldUpdateOperationsInput | string
+    fighters?: StringFieldUpdateOperationsInput | string
     TournamentStep?: TournamentStepUncheckedUpdateManyWithoutFightNestedInput
   }
 
@@ -35550,8 +35405,8 @@ export namespace Prisma {
     date?: Date | string
     winner: string
     loser: string
-    steps: JsonNullValueInput | InputJsonValue
-    fighters: JsonNullValueInput | InputJsonValue
+    steps: string
+    fighters: string
     brute1: BruteCreateNestedOneWithoutFightsInput
     brute2?: BruteCreateNestedOneWithoutFightsAsAdversaryInput
     logs?: LogCreateNestedManyWithoutFightInput
@@ -35564,8 +35419,8 @@ export namespace Prisma {
     brute2Id?: number | null
     winner: string
     loser: string
-    steps: JsonNullValueInput | InputJsonValue
-    fighters: JsonNullValueInput | InputJsonValue
+    steps: string
+    fighters: string
     logs?: LogUncheckedCreateNestedManyWithoutFightInput
   }
 
@@ -35615,8 +35470,8 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
-    steps?: JsonNullValueInput | InputJsonValue
-    fighters?: JsonNullValueInput | InputJsonValue
+    steps?: StringFieldUpdateOperationsInput | string
+    fighters?: StringFieldUpdateOperationsInput | string
     brute1?: BruteUpdateOneRequiredWithoutFightsNestedInput
     brute2?: BruteUpdateOneWithoutFightsAsAdversaryNestedInput
     logs?: LogUpdateManyWithoutFightNestedInput
@@ -35629,8 +35484,8 @@ export namespace Prisma {
     brute2Id?: NullableIntFieldUpdateOperationsInput | number | null
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
-    steps?: JsonNullValueInput | InputJsonValue
-    fighters?: JsonNullValueInput | InputJsonValue
+    steps?: StringFieldUpdateOperationsInput | string
+    fighters?: StringFieldUpdateOperationsInput | string
     logs?: LogUncheckedUpdateManyWithoutFightNestedInput
   }
 
@@ -37938,8 +37793,8 @@ export namespace Prisma {
     brute2Id?: number | null
     winner: string
     loser: string
-    steps: JsonNullValueInput | InputJsonValue
-    fighters: JsonNullValueInput | InputJsonValue
+    steps: string
+    fighters: string
   }
 
   export type FightCreateManyBrute2Input = {
@@ -37948,8 +37803,8 @@ export namespace Prisma {
     brute1Id: number
     winner: string
     loser: string
-    steps: JsonNullValueInput | InputJsonValue
-    fighters: JsonNullValueInput | InputJsonValue
+    steps: string
+    fighters: string
   }
 
   export type LogCreateManyCurrentBruteInput = {
@@ -38166,8 +38021,8 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
-    steps?: JsonNullValueInput | InputJsonValue
-    fighters?: JsonNullValueInput | InputJsonValue
+    steps?: StringFieldUpdateOperationsInput | string
+    fighters?: StringFieldUpdateOperationsInput | string
     brute2?: BruteUpdateOneWithoutFightsAsAdversaryNestedInput
     logs?: LogUpdateManyWithoutFightNestedInput
     TournamentStep?: TournamentStepUpdateManyWithoutFightNestedInput
@@ -38179,8 +38034,8 @@ export namespace Prisma {
     brute2Id?: NullableIntFieldUpdateOperationsInput | number | null
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
-    steps?: JsonNullValueInput | InputJsonValue
-    fighters?: JsonNullValueInput | InputJsonValue
+    steps?: StringFieldUpdateOperationsInput | string
+    fighters?: StringFieldUpdateOperationsInput | string
     logs?: LogUncheckedUpdateManyWithoutFightNestedInput
     TournamentStep?: TournamentStepUncheckedUpdateManyWithoutFightNestedInput
   }
@@ -38191,16 +38046,16 @@ export namespace Prisma {
     brute2Id?: NullableIntFieldUpdateOperationsInput | number | null
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
-    steps?: JsonNullValueInput | InputJsonValue
-    fighters?: JsonNullValueInput | InputJsonValue
+    steps?: StringFieldUpdateOperationsInput | string
+    fighters?: StringFieldUpdateOperationsInput | string
   }
 
   export type FightUpdateWithoutBrute2Input = {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
-    steps?: JsonNullValueInput | InputJsonValue
-    fighters?: JsonNullValueInput | InputJsonValue
+    steps?: StringFieldUpdateOperationsInput | string
+    fighters?: StringFieldUpdateOperationsInput | string
     brute1?: BruteUpdateOneRequiredWithoutFightsNestedInput
     logs?: LogUpdateManyWithoutFightNestedInput
     TournamentStep?: TournamentStepUpdateManyWithoutFightNestedInput
@@ -38212,8 +38067,8 @@ export namespace Prisma {
     brute1Id?: IntFieldUpdateOperationsInput | number
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
-    steps?: JsonNullValueInput | InputJsonValue
-    fighters?: JsonNullValueInput | InputJsonValue
+    steps?: StringFieldUpdateOperationsInput | string
+    fighters?: StringFieldUpdateOperationsInput | string
     logs?: LogUncheckedUpdateManyWithoutFightNestedInput
     TournamentStep?: TournamentStepUncheckedUpdateManyWithoutFightNestedInput
   }
@@ -38224,8 +38079,8 @@ export namespace Prisma {
     brute1Id?: IntFieldUpdateOperationsInput | number
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
-    steps?: JsonNullValueInput | InputJsonValue
-    fighters?: JsonNullValueInput | InputJsonValue
+    steps?: StringFieldUpdateOperationsInput | string
+    fighters?: StringFieldUpdateOperationsInput | string
   }
 
   export type LogUpdateWithoutCurrentBruteInput = {

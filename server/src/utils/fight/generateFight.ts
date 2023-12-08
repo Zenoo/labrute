@@ -253,8 +253,8 @@ const generateFight = async (
     brute1: { connect: { id: brute1.id } },
     winner: winner.name,
     loser: loser.name,
-    steps: fightData.steps as unknown as Prisma.JsonArray,
-    fighters: fighters as unknown as Prisma.JsonArray,
+    steps: JSON.stringify(fightData.steps),
+    fighters: JSON.stringify(fighters),
   };
 
   if (brute2) {

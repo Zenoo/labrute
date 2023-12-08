@@ -365,10 +365,10 @@ async function main(cx: ServerContext) {
         },
         create: {
           image: spritesheet.image,
-          json: formatSpritesheet(
+          json: JSON.stringify(formatSpritesheet(
             spritesheet,
             visuals,
-          ) as unknown as Prisma.JsonObject,
+          )),
           ...visuals,
           version: SPRITESHEET_VERSION,
         },

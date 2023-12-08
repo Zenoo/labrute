@@ -27,6 +27,7 @@ interface Props {
   bruteName?: string,
   tournament: FullTournament,
   winnerStep?: FullTournament['steps'][number],
+  winnerStepFighters?: Fighter[],
   ownsBrute: boolean,
   stepWatched: number,
   brute: Brute | null,
@@ -39,6 +40,7 @@ const TournamentMobileView = ({
   bruteName,
   tournament,
   winnerStep,
+  winnerStepFighters,
   ownsBrute,
   stepWatched,
   brute,
@@ -91,91 +93,43 @@ const TournamentMobileView = ({
                 }}
               >
                 {tournament.steps.filter((step) => step.step > start && step.step <= end)
-                  .map((step) => (
-                    // Fight button
-                    <StyledButton
-                      key={step.id}
-                      onClick={goToFight(step.fight, index + 1)}
-                      shadowColor={(bruteName === step.fight.brute1.name
-                        || bruteName === step.fight.brute2?.name)
-                        ? 'rgba(255, 0, 0, 0.6)'
-                        : undefined}
-                      sx={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        backgroundSize: 'contain',
-                        width: StyledButtonWidth * 0.7,
-                        height: StyledButtonHeight * 0.7,
-                        m: 1,
-                      }}
-                    >
-                      {/* Left fighter */}
-                      <BruteTooltip
-                        fighter={(step.fight.fighters as unknown as Fighter[])
-                          .find((fighter) => fighter.type === 'brute' && fighter.name === step.fight.brute1.name)}
-                        brute={step.fight.brute1}
-                      >
-                        <Box sx={{ position: 'relative', mt: 1 }}>
-                          <BrutePortrait
-                            inverted
-                            brute={step.fight.brute1}
-                            sx={{
-                              height: 45,
-                            }}
-                          />
-                          {/* Lost indicator */}
-                          {shouldResultDisplay && step.fight.winner === step.fight.brute2?.name && (
-                            <Close
-                              color="error"
-                              sx={{
-                                position: 'absolute',
-                                top: 0,
-                                left: 0,
-                                width: 1,
-                                height: 1,
-                                zIndex: 3,
-                              }}
-                            />
-                          )}
-                          {/* Rank */}
-                          <Box
-                            component="img"
-                            src={`/images/rankings/lvl_${(step.fight.fighters as unknown as Fighter[]).find((f) => f.id === step.fight.brute1Id)?.rank || step.fight.brute1.ranking}.png`}
-                            sx={{
-                              position: 'absolute',
-                              bottom: 4,
-                              right: 4,
-                              width: 20,
-                              zIndex: 2,
-                            }}
-                          />
-                        </Box>
-                      </BruteTooltip>
-                      {/* VS */}
-                      <Box
-                        component="img"
-                        src="/images/tournament/vs.svg"
+                  .map((step) => {
+                    const fighters = JSON.parse(step.fight.fighters) as Fighter[];
+
+                    return (
+                      // Fight button
+                      <StyledButton
+                        key={step.id}
+                        onClick={goToFight(step.fight, index + 1)}
+                        shadowColor={(bruteName === step.fight.brute1.name
+                          || bruteName === step.fight.brute2?.name)
+                          ? 'rgba(255, 0, 0, 0.6)'
+                          : undefined}
                         sx={{
-                          width: 40,
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          backgroundSize: 'contain',
+                          width: StyledButtonWidth * 0.7,
+                          height: StyledButtonHeight * 0.7,
+                          m: 1,
                         }}
-                      />
-                      {/* Right fighter */}
-                      {step.fight.brute2 && (
+                      >
+                        {/* Left fighter */}
                         <BruteTooltip
-                          fighter={(step.fight.fighters as unknown as Fighter[])
-                            .find((fighter) => fighter.type === 'brute' && fighter.name === step.fight.brute2?.name)}
-                          brute={step.fight.brute2}
+                          fighter={fighters.find((fighter) => fighter.type === 'brute' && fighter.name === step.fight.brute1.name)}
+                          brute={step.fight.brute1}
                         >
                           <Box sx={{ position: 'relative', mt: 1 }}>
                             <BrutePortrait
-                              brute={step.fight.brute2}
+                              inverted
+                              brute={step.fight.brute1}
                               sx={{
                                 height: 45,
                               }}
                             />
                             {/* Lost indicator */}
                             {shouldResultDisplay
-                              && step.fight.winner === step.fight.brute1.name
+                              && step.fight.winner === step.fight.brute2?.name
                               && (
                                 <Close
                                   color="error"
@@ -192,35 +146,88 @@ const TournamentMobileView = ({
                             {/* Rank */}
                             <Box
                               component="img"
-                              src={`/images/rankings/lvl_${(step.fight.fighters as unknown as Fighter[]).find((f) => f.id === step.fight.brute2Id)?.rank || step.fight.brute2.ranking}.png`}
+                              src={`/images/rankings/lvl_${fighters.find((f) => f.id === step.fight.brute1Id)?.rank || step.fight.brute1.ranking}.png`}
                               sx={{
                                 position: 'absolute',
                                 bottom: 4,
-                                left: 4,
+                                right: 4,
                                 width: 20,
-                                transform: 'scaleX(-1)',
                                 zIndex: 2,
                               }}
                             />
                           </Box>
                         </BruteTooltip>
-                      )}
-                    </StyledButton>
-                  ))}
+                        {/* VS */}
+                        <Box
+                          component="img"
+                          src="/images/tournament/vs.svg"
+                          sx={{
+                            width: 40,
+                          }}
+                        />
+                        {/* Right fighter */}
+                        {step.fight.brute2 && (
+                          <BruteTooltip
+                            fighter={fighters.find((fighter) => fighter.type === 'brute' && fighter.name === step.fight.brute2?.name)}
+                            brute={step.fight.brute2}
+                          >
+                            <Box sx={{ position: 'relative', mt: 1 }}>
+                              <BrutePortrait
+                                brute={step.fight.brute2}
+                                sx={{
+                                  height: 45,
+                                }}
+                              />
+                              {/* Lost indicator */}
+                              {shouldResultDisplay
+                                && step.fight.winner === step.fight.brute1.name
+                                && (
+                                  <Close
+                                    color="error"
+                                    sx={{
+                                      position: 'absolute',
+                                      top: 0,
+                                      left: 0,
+                                      width: 1,
+                                      height: 1,
+                                      zIndex: 3,
+                                    }}
+                                  />
+                                )}
+                              {/* Rank */}
+                              <Box
+                                component="img"
+                                src={`/images/rankings/lvl_${fighters.find((f) => f.id === step.fight.brute2Id)?.rank || step.fight.brute2.ranking}.png`}
+                                sx={{
+                                  position: 'absolute',
+                                  bottom: 4,
+                                  left: 4,
+                                  width: 20,
+                                  transform: 'scaleX(-1)',
+                                  zIndex: 2,
+                                }}
+                              />
+                            </Box>
+                          </BruteTooltip>
+                        )}
+                      </StyledButton>
+                    );
+                  })}
               </Box>
             </Fragment>
           );
         })}
         {display
           && winnerStep?.fight.brute2
+          && winnerStepFighters
           && (!authing && brute)
           && (!ownsBrute || (ownsBrute && stepWatched > 5))
           && (
             <BruteTooltip
               fighter={winnerStep.fight.winner === winnerStep.fight.brute1.name
-                ? (winnerStep.fight.fighters as unknown as Fighter[])
+                ? winnerStepFighters
                   .find((fighter) => fighter.type === 'brute' && fighter.name === winnerStep.fight.brute1.name)
-                : (winnerStep.fight.fighters as unknown as Fighter[])
+                : winnerStepFighters
                   .find((fighter) => fighter.type === 'brute' && fighter.name === winnerStep.fight.brute2?.name)}
               brute={winnerStep.fight.winner === winnerStep.fight.brute1.name
                 ? winnerStep.fight.brute1

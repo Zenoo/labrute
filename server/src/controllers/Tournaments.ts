@@ -9,6 +9,7 @@ import ServerState from '../utils/ServerState.js';
 import auth from '../utils/auth.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
+import { LOGGER } from '../context.js';
 
 const Tournaments = {
   getDaily: (prisma: PrismaClient) => async (req: Request, res: Response) => {
@@ -219,6 +220,7 @@ const Tournaments = {
     req: Request,
     res: Response<TournamentsGetGlobalResponse>,
   ) => {
+    const start = new Date();
     try {
       if (!req.params.name || !req.params.date) {
         throw new Error('Invalid parameters');
@@ -254,6 +256,10 @@ const Tournaments = {
             },
           },
         },
+        select: {
+          id: true,
+          rounds: true,
+        },
       });
 
       if (!tournament) {
@@ -262,16 +268,6 @@ const Tournaments = {
 
       const now = moment.utc();
       const hour = now.hour();
-
-      // Get max step
-      const maxStep = (await prisma.tournamentStep.findFirstOrThrow({
-        where: {
-          tournamentId: tournament.id,
-        },
-        orderBy: {
-          step: 'desc',
-        },
-      })).step;
 
       // Get brute steps (round 1 at 11h, round 2 at 12h, etc...)
       const steps = await prisma.tournamentStep.findMany({
@@ -335,7 +331,7 @@ const Tournaments = {
         where: {
           tournamentId: tournament.id,
           step: {
-            gte: maxStep - 2,
+            gte: tournament.rounds - 2,
             // Only limit if same day
             lte: now.isSame(date, 'day') ? hour - GLOBAL_TOURNAMENT_START_HOUR + 1 : undefined,
           },
@@ -384,7 +380,7 @@ const Tournaments = {
 
       // Check if current time has reached the end of the tournament
       const tournamentEnded = !now.isSame(date, 'day')
-        || hour >= GLOBAL_TOURNAMENT_START_HOUR - 1 + maxStep;
+        || hour >= GLOBAL_TOURNAMENT_START_HOUR - 1 + tournament.rounds;
 
       // Get next opponent if exists
       let nextFight;
@@ -422,7 +418,6 @@ const Tournaments = {
         },
         lastRounds,
         done: tournamentEnded,
-        rounds: maxStep,
         nextOpponent: nextFight
           ? nextFight.fight.brute1.name === brute.name
             ? nextFight.fight.brute2?.name || ''
@@ -432,6 +427,8 @@ const Tournaments = {
     } catch (error) {
       sendError(res, error);
     }
+
+    LOGGER.info(`Tournaments.getGlobal: ${new Date().getTime() - start.getTime()}ms`);
   },
   deleteDaily: (prisma: PrismaClient) => async (req: Request, res: Response) => {
     try {

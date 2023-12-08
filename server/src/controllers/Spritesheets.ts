@@ -185,13 +185,13 @@ const Spritesheets = {
         select: { json: true, version: true },
       });
 
-      if (spritesheet) {
+      if (spritesheet?.json) {
         // If spritesheet is outdated, update it in the BG
         // if (spritesheet.version !== SPRITESHEET_VERSION) {
         //   await queueJob(prisma, 'updateSpritesheet', visuals);
         // }
 
-        res.header('Content-Type', 'application/json').send(spritesheet.json);
+        res.header('Content-Type', 'application/json').send(JSON.parse(spritesheet.json));
       } else {
         // Load default spritesheet
         const defaultSpritesheet = await fetch(`${Env.SELF_URL}/images/game/${brute.gender}-brute.json`);
@@ -389,10 +389,10 @@ const Spritesheets = {
         },
         create: {
           image: spritesheet.image,
-          json: formatSpritesheet(
+          json: JSON.stringify(formatSpritesheet(
             spritesheet,
             visuals,
-          ) as unknown as Prisma.JsonObject,
+          )),
           ...visuals,
           version: SPRITESHEET_VERSION,
         },

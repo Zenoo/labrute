@@ -111,12 +111,11 @@ type TournamentsGetGlobalStep = Pick<TournamentStep, 'id' | 'step' | 'fightId'> 
   },
 };
 export type TournamentsGetGlobalResponse = {
-  tournament: {
+  tournament: Pick<Tournament, 'id' | 'rounds'> & {
     steps: TournamentsGetGlobalStep[];
   },
   lastRounds: TournamentsGetGlobalStep[],
   done: boolean,
-  rounds: number,
   nextOpponent: string | null,
 };
 export type BrutesGetDestinyResponse = DestinyBranch;

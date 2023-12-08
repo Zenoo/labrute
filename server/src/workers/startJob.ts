@@ -23,7 +23,7 @@ const startJob = async (prisma: PrismaClient) => {
   const worker = new Worker(`./lib/workers/${job.worker}.js`, {
     workerData: {
       jobId: job.id,
-      payload: job.payload,
+      payload: JSON.parse(job.payload) as unknown,
     },
   });
 

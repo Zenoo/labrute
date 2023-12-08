@@ -399,7 +399,7 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
       throw new Error('No winner');
     }
 
-    const loser = (lastFight.fighters as unknown as Fighter[])
+    const loser = (JSON.parse(lastFight.fighters) as Fighter[])
       .find((fighter) => !fighter.master && fighter.id !== winner.id);
     if (!loser) {
       throw new Error('No loser');
@@ -546,6 +546,7 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
 
   // Create tournament steps
   while (roundBrutes.length > 1) {
+    LOGGER.log(`Round ${round}`);
     const nextBrutes: typeof brutes = [];
 
     for (let i = 0; i < roundBrutes.length - 1; i += 2) {
@@ -715,7 +716,7 @@ const handleXpGains = async (prisma: PrismaClient) => {
       throw new Error('Step not found');
     }
 
-    const winnerFighter = (fullStep.fight.fighters as unknown as Fighter[])
+    const winnerFighter = (JSON.parse(fullStep.fight.fighters) as Fighter[])
       .find((fighter) => !fighter.master && fighter.name === fullStep.fight.winner);
 
     if (!winnerFighter) {

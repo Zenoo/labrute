@@ -60,9 +60,11 @@ const CellGlobalTournament = ({
       || step.fight.brute2?.name === bruteName;
     const won = bruteInFight && step.fight.winner === bruteName;
 
-    const fighter1 = (step.fight.fighters as unknown as Fighter[])
+    const fighters = JSON.parse(step.fight.fighters) as Fighter[];
+
+    const fighter1 = fighters
       .find((fighter) => fighter.type === 'brute' && fighter.name === step.fight.brute1.name);
-    const fighter2 = (step.fight.fighters as unknown as Fighter[])
+    const fighter2 = fighters
       .find((fighter) => fighter.type === 'brute' && fighter.name === step.fight.brute2?.name);
 
     return (
@@ -190,7 +192,7 @@ const CellGlobalTournament = ({
     </Box>
   );
 
-  return bruteName ? data && (
+  return bruteName ? data && data?.lastRounds.length < 8 && (
     <Paper
       sx={{
         bgcolor: 'background.paperDark',
@@ -212,7 +214,7 @@ const CellGlobalTournament = ({
       }}
       >
         {/* Rounds */}
-        {Array.from({ length: data.rounds - 3 }).map((_, i) => {
+        {Array.from({ length: data.tournament.rounds - 3 }).map((_, i) => {
           const step = data.tournament.steps.find((s) => s.step === i + 1);
 
           // Free bye
@@ -258,9 +260,10 @@ const CellGlobalTournament = ({
             ? step.fight.brute2?.name
             : step.fight.brute1.name;
 
-          const fighter1 = (step.fight.fighters as unknown as Fighter[])
+          const fighters = JSON.parse(step.fight.fighters) as Fighter[];
+          const fighter1 = fighters
             .find((fighter) => fighter.type === 'brute' && fighter.name === step.fight.brute1.name);
-          const fighter2 = (step.fight.fighters as unknown as Fighter[])
+          const fighter2 = fighters
             .find((fighter) => fighter.type === 'brute' && fighter.name === step.fight.brute2?.name);
 
           // Normal fight
@@ -313,7 +316,7 @@ const CellGlobalTournament = ({
           );
         })}
         {/* Lost marker */}
-        {lostRound && lostRound.step <= data.rounds - 3 && renderLostMarker()}
+        {lostRound && lostRound.step <= data.tournament.rounds - 3 && renderLostMarker()}
         {/* Next opponent */}
         {data.nextOpponent && data.lastRounds.length === 0 && renderNextOpponent()}
         {/* Last rounds */}

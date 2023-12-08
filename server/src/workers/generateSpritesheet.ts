@@ -1,10 +1,9 @@
 import { BruteWithBodyColors, SPRITESHEET_VERSION, getBruteVisuals } from '@labrute/core';
-import { Prisma } from '@labrute/prisma';
 import { workerData } from 'worker_threads';
+import { GLOBAL, ServerContext } from '../context.js';
 import createSpritesheet from '../utils/createSpritesheet.js';
 import formatSpritesheet from '../utils/formatSpritesheet.js';
 import startJob from './startJob.js';
-import { GLOBAL, ServerContext } from '../context.js';
 
 async function main(cx: ServerContext) {
   const {
@@ -46,7 +45,7 @@ async function main(cx: ServerContext) {
     await cx.prisma.bruteSpritesheet.create({
       data: {
         image: spritesheet.image,
-        json: formatSpritesheet(spritesheet, visuals) as unknown as Prisma.JsonObject,
+        json: JSON.stringify(formatSpritesheet(spritesheet, visuals)),
         ...visuals,
       },
       select: { id: true },

@@ -1,0 +1,6 @@
+-- AlterTable
+ALTER TABLE "Fight" ALTER COLUMN "steps" DROP DEFAULT,
+ALTER COLUMN "fighters" DROP DEFAULT;
+
+-- AlterTable
+ALTER TABLE "WorkerJob" ALTER COLUMN "payload" DROP DEFAULT;

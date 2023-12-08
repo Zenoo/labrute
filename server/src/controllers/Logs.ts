@@ -1,10 +1,12 @@
-import { ExpectedError } from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
 import { Request, Response } from 'express';
+import { ExpectedError } from '@labrute/core';
 import sendError from '../utils/sendError.js';
+import { LOGGER } from '../context.js';
 
 const Logs = {
   list: (prisma: PrismaClient) => async (req: Request, res: Response) => {
+    const now = new Date();
     try {
       if (!req.params.name) {
         res.send([]);
@@ -23,7 +25,9 @@ const Logs = {
 
       // Get logs
       const logs = await prisma.log.findMany({
-        where: { currentBrute: { id: brute.id } },
+        where: {
+          currentBruteId: brute.id,
+        },
         orderBy: { id: 'desc' },
         take: 7,
         include: {
@@ -37,6 +41,8 @@ const Logs = {
     } catch (error) {
       sendError(res, error);
     }
+
+    LOGGER.info(`Logs.list: ${req.params.name} - ${new Date().getTime() - now.getTime()}ms`);
   },
 };
 
