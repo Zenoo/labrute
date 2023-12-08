@@ -1,9 +1,7 @@
+import { Animation, Animations } from '@labrute/core';
+import { Gender } from '@labrute/prisma';
 import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Slider, Stack, TextField, Typography } from '@mui/material';
 import React, { ChangeEvent, useCallback } from 'react';
-import { Animation, Animations } from '@labrute/core';
-import useStateAsync from '../hooks/useStateAsync';
-import Server from '../utils/Server';
-import { Gender } from '@labrute/prisma';
 
 /**
  * AnchorTestView component
@@ -16,7 +14,7 @@ const AnchorTestView = () => {
   const [anchorX, setAnchorX] = React.useState(0.5);
   const [anchorY, setAnchorY] = React.useState(0.5);
 
-  const { data: brutes } = useStateAsync([], Server.Brute.list, null);
+  const brutes = ['Jess', 'Jeff'];
 
   const changeBrute = useCallback((event: SelectChangeEvent) => {
     setBrute(event.target.value);
@@ -52,7 +50,7 @@ const AnchorTestView = () => {
           onChange={changeBrute}
         >
           {brutes.map((b) => (
-            <MenuItem key={b.id} value={b.name}>{b.name}</MenuItem>
+            <MenuItem key={b} value={b}>{b}</MenuItem>
           ))}
         </Select>
       </FormControl>

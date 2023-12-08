@@ -41,21 +41,6 @@ import queueJob from '../workers/queueJob.js';
 import { increaseAchievement } from './Achievements.js';
 
 const Brutes = {
-  list: (prisma: PrismaClient) => async (req: Request, res: Response) => {
-    try {
-      await auth(prisma, req);
-
-      const brutes = await prisma.brute.findMany({
-        where: {
-          deletedAt: null,
-        },
-      });
-
-      res.send(brutes);
-    } catch (error) {
-      sendError(res, error);
-    }
-  },
   get: (prisma: PrismaClient) => async (
     req: Request<{
       name: string

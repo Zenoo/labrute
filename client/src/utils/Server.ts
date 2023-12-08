@@ -21,7 +21,6 @@ const Server = {
     adminUpdate: (id: string, data: UsersAdminUpdateRequest) => Fetch<never>(`/api/user/${id}/admin-update`, data, 'POST'),
   },
   Brute: {
-    list: () => Fetch<Brute[]>('/api/brute/list/'),
     get: ({
       name,
       include,
