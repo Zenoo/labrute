@@ -21546,6 +21546,7 @@ export namespace Prisma {
     clanId: number | null
     title: string | null
     locked: boolean | null
+    pinned: boolean | null
     postCount: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -21556,6 +21557,7 @@ export namespace Prisma {
     clanId: number | null
     title: string | null
     locked: boolean | null
+    pinned: boolean | null
     postCount: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -21566,6 +21568,7 @@ export namespace Prisma {
     clanId: number
     title: number
     locked: number
+    pinned: number
     postCount: number
     createdAt: number
     updatedAt: number
@@ -21590,6 +21593,7 @@ export namespace Prisma {
     clanId?: true
     title?: true
     locked?: true
+    pinned?: true
     postCount?: true
     createdAt?: true
     updatedAt?: true
@@ -21600,6 +21604,7 @@ export namespace Prisma {
     clanId?: true
     title?: true
     locked?: true
+    pinned?: true
     postCount?: true
     createdAt?: true
     updatedAt?: true
@@ -21610,6 +21615,7 @@ export namespace Prisma {
     clanId?: true
     title?: true
     locked?: true
+    pinned?: true
     postCount?: true
     createdAt?: true
     updatedAt?: true
@@ -21707,6 +21713,7 @@ export namespace Prisma {
     clanId: number
     title: string
     locked: boolean
+    pinned: boolean
     postCount: number
     createdAt: Date
     updatedAt: Date
@@ -21736,6 +21743,7 @@ export namespace Prisma {
     clanId?: boolean
     title?: boolean
     locked?: boolean
+    pinned?: boolean
     postCount?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -21749,6 +21757,7 @@ export namespace Prisma {
     clanId?: boolean
     title?: boolean
     locked?: boolean
+    pinned?: boolean
     postCount?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -21772,6 +21781,7 @@ export namespace Prisma {
       clanId: number
       title: string
       locked: boolean
+      pinned: boolean
       postCount: number
       createdAt: Date
       updatedAt: Date
@@ -22176,6 +22186,7 @@ export namespace Prisma {
     readonly clanId: FieldRef<"ClanThread", 'Int'>
     readonly title: FieldRef<"ClanThread", 'String'>
     readonly locked: FieldRef<"ClanThread", 'Boolean'>
+    readonly pinned: FieldRef<"ClanThread", 'Boolean'>
     readonly postCount: FieldRef<"ClanThread", 'Int'>
     readonly createdAt: FieldRef<"ClanThread", 'DateTime'>
     readonly updatedAt: FieldRef<"ClanThread", 'DateTime'>
@@ -23800,6 +23811,7 @@ export namespace Prisma {
     clanId: 'clanId',
     title: 'title',
     locked: 'locked',
+    pinned: 'pinned',
     postCount: 'postCount',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -25699,6 +25711,7 @@ export namespace Prisma {
     clanId?: IntFilter<"ClanThread"> | number
     title?: StringFilter<"ClanThread"> | string
     locked?: BoolFilter<"ClanThread"> | boolean
+    pinned?: BoolFilter<"ClanThread"> | boolean
     postCount?: IntFilter<"ClanThread"> | number
     createdAt?: DateTimeFilter<"ClanThread"> | Date | string
     updatedAt?: DateTimeFilter<"ClanThread"> | Date | string
@@ -25711,6 +25724,7 @@ export namespace Prisma {
     clanId?: SortOrder
     title?: SortOrder
     locked?: SortOrder
+    pinned?: SortOrder
     postCount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -25726,6 +25740,7 @@ export namespace Prisma {
     clanId?: IntFilter<"ClanThread"> | number
     title?: StringFilter<"ClanThread"> | string
     locked?: BoolFilter<"ClanThread"> | boolean
+    pinned?: BoolFilter<"ClanThread"> | boolean
     postCount?: IntFilter<"ClanThread"> | number
     createdAt?: DateTimeFilter<"ClanThread"> | Date | string
     updatedAt?: DateTimeFilter<"ClanThread"> | Date | string
@@ -25738,6 +25753,7 @@ export namespace Prisma {
     clanId?: SortOrder
     title?: SortOrder
     locked?: SortOrder
+    pinned?: SortOrder
     postCount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -25756,6 +25772,7 @@ export namespace Prisma {
     clanId?: IntWithAggregatesFilter<"ClanThread"> | number
     title?: StringWithAggregatesFilter<"ClanThread"> | string
     locked?: BoolWithAggregatesFilter<"ClanThread"> | boolean
+    pinned?: BoolWithAggregatesFilter<"ClanThread"> | boolean
     postCount?: IntWithAggregatesFilter<"ClanThread"> | number
     createdAt?: DateTimeWithAggregatesFilter<"ClanThread"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"ClanThread"> | Date | string
@@ -27536,6 +27553,7 @@ export namespace Prisma {
   export type ClanThreadCreateInput = {
     title: string
     locked?: boolean
+    pinned?: boolean
     postCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -27548,6 +27566,7 @@ export namespace Prisma {
     clanId: number
     title: string
     locked?: boolean
+    pinned?: boolean
     postCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -27557,6 +27576,7 @@ export namespace Prisma {
   export type ClanThreadUpdateInput = {
     title?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
+    pinned?: BoolFieldUpdateOperationsInput | boolean
     postCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27569,6 +27589,7 @@ export namespace Prisma {
     clanId?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
+    pinned?: BoolFieldUpdateOperationsInput | boolean
     postCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27580,6 +27601,7 @@ export namespace Prisma {
     clanId: number
     title: string
     locked?: boolean
+    pinned?: boolean
     postCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -27588,6 +27610,7 @@ export namespace Prisma {
   export type ClanThreadUpdateManyMutationInput = {
     title?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
+    pinned?: BoolFieldUpdateOperationsInput | boolean
     postCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27598,6 +27621,7 @@ export namespace Prisma {
     clanId?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
+    pinned?: BoolFieldUpdateOperationsInput | boolean
     postCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29454,6 +29478,7 @@ export namespace Prisma {
     clanId?: SortOrder
     title?: SortOrder
     locked?: SortOrder
+    pinned?: SortOrder
     postCount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -29470,6 +29495,7 @@ export namespace Prisma {
     clanId?: SortOrder
     title?: SortOrder
     locked?: SortOrder
+    pinned?: SortOrder
     postCount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -29480,6 +29506,7 @@ export namespace Prisma {
     clanId?: SortOrder
     title?: SortOrder
     locked?: SortOrder
+    pinned?: SortOrder
     postCount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -36879,6 +36906,7 @@ export namespace Prisma {
   export type ClanThreadCreateWithoutClanInput = {
     title: string
     locked?: boolean
+    pinned?: boolean
     postCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -36889,6 +36917,7 @@ export namespace Prisma {
     id?: number
     title: string
     locked?: boolean
+    pinned?: boolean
     postCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -37087,6 +37116,7 @@ export namespace Prisma {
     clanId?: IntFilter<"ClanThread"> | number
     title?: StringFilter<"ClanThread"> | string
     locked?: BoolFilter<"ClanThread"> | boolean
+    pinned?: BoolFilter<"ClanThread"> | boolean
     postCount?: IntFilter<"ClanThread"> | number
     createdAt?: DateTimeFilter<"ClanThread"> | Date | string
     updatedAt?: DateTimeFilter<"ClanThread"> | Date | string
@@ -37196,6 +37226,7 @@ export namespace Prisma {
   export type ClanThreadCreateWithoutPostsInput = {
     title: string
     locked?: boolean
+    pinned?: boolean
     postCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -37207,6 +37238,7 @@ export namespace Prisma {
     clanId: number
     title: string
     locked?: boolean
+    pinned?: boolean
     postCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -37351,6 +37383,7 @@ export namespace Prisma {
   export type ClanThreadUpdateWithoutPostsInput = {
     title?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
+    pinned?: BoolFieldUpdateOperationsInput | boolean
     postCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -37362,6 +37395,7 @@ export namespace Prisma {
     clanId?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
+    pinned?: BoolFieldUpdateOperationsInput | boolean
     postCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39133,6 +39167,7 @@ export namespace Prisma {
     id?: number
     title: string
     locked?: boolean
+    pinned?: boolean
     postCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -39455,6 +39490,7 @@ export namespace Prisma {
   export type ClanThreadUpdateWithoutClanInput = {
     title?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
+    pinned?: BoolFieldUpdateOperationsInput | boolean
     postCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39465,6 +39501,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
+    pinned?: BoolFieldUpdateOperationsInput | boolean
     postCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39475,6 +39512,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
+    pinned?: BoolFieldUpdateOperationsInput | boolean
     postCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

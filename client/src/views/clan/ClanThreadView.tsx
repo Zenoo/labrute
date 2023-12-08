@@ -52,6 +52,34 @@ const ClanThreadView = () => {
     });
   };
 
+  // Pin thread
+  const pinThread = (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    if (!bruteName || !id || !tid) return;
+
+    Server.Clan.pinThread(bruteName, +id, +tid).then(() => {
+      Alert.open('success', t('threadPinned'));
+
+      // Go to forum
+      navigate(`/${bruteName}/clan/${id}/forum`);
+    }).catch(catchError(Alert));
+  };
+
+  // Unpin thread
+  const unpinThread = (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    if (!bruteName || !id || !tid) return;
+
+    Server.Clan.unpinThread(bruteName, +id, +tid).then(() => {
+      Alert.open('success', t('threadUnpinned'));
+
+      // Go to forum
+      navigate(`/${bruteName}/clan/${id}/forum`);
+    }).catch(catchError(Alert));
+  };
+
   const changePage = (delta: number) => () => {
     setPage(page + delta);
   };
@@ -85,6 +113,16 @@ const ClanThreadView = () => {
               {brute.id === thread.clan.masterId && !thread.locked && (
                 <Link href="#" onClick={lockThread}>
                   <Text bold smallCaps>{t('lockThread')}</Text>
+                </Link>
+              )}
+              {brute.id === thread.clan.masterId && !thread.pinned && (
+                <Link href="#" onClick={pinThread}>
+                  <Text bold smallCaps>{t('pinThread')}</Text>
+                </Link>
+              )}
+              {brute.id === thread.clan.masterId && thread.pinned && (
+                <Link href="#" onClick={unpinThread}>
+                  <Text bold smallCaps>{t('unpinThread')}</Text>
                 </Link>
               )}
             </Box>

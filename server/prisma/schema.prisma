@@ -582,6 +582,7 @@ model ClanThread {
   clanId    Int
   title     String     @db.VarChar(255)
   locked    Boolean    @default(false)
+  pinned    Boolean    @default(false)
   postCount Int        @default(1)
   posts     ClanPost[]
   createdAt DateTime   @default(now()) @db.Timestamp()

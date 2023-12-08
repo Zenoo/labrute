@@ -1,5 +1,5 @@
 import { ClanGetThreadsResponse } from '@labrute/core';
-import { Box, Paper, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import { Box, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip } from '@mui/material';
 import moment from 'moment';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -96,8 +96,15 @@ const ClanForumView = () => {
                     <TableRow>
                       <TableCell>
                         <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                          {thread.pinned && (
+                            <Tooltip title={t('pinned')}>
+                              <Box component="img" src="/images/clan/pinned.png" sx={{ width: 16 }} />
+                            </Tooltip>
+                          )}
                           {thread.locked && (
-                            <Box component="img" src="/images/clan/lock.gif" sx={{ mr: 0.5, width: 11 }} />
+                            <Tooltip title={t('locked')}>
+                              <Box component="img" src="/images/clan/lock.gif" sx={{ mr: 0.5, width: 11 }} />
+                            </Tooltip>
                           )}
                           <Link to={`/${bruteName}/clan/${id}/thread/${thread.id}`}>
                             <Text bold>{thread.title.substring(0, 50)}{thread.title.length > 50 && '...'}</Text>
@@ -107,7 +114,9 @@ const ClanForumView = () => {
                       <TableCell>
                         <Box sx={{ display: 'flex', alignItems: 'center' }}>
                           {thread.posts[0].author.id === data.masterId && (
-                            <Box component="img" src="/images/clan/master.gif" sx={{ mr: 0.5, width: 7 }} />
+                            <Tooltip title={t('clanMaster')}>
+                              <Box component="img" src="/images/clan/master.gif" sx={{ mr: 0.5, width: 7 }} />
+                            </Tooltip>
                           )}
                           <Text bold>{thread.posts[0].author.name}</Text>
                         </Box>

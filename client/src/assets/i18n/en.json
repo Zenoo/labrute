@@ -127,6 +127,13 @@
   "noFightsLeft": "You have no fights left today.",
   "challengeBoss": "Challenge the boss",
   "boss": "Boss",
+  "pinThread": "Pin thread",
+  "unpinThread": "Unpin thread",
+  "threadPinned": "The thread has been pinned.",
+  "threadUnpinned": "The thread has been unpinned.",
+  "pinned": "Pinned",
+  "locked": "Locked",
+  "clanMaster": "Clan master",
 
   "herculeanStrength": "Herculean Strength",
   "herculeanStrength.desc": "You're strong enough to move mountains, but first you must defeat your opponent.",

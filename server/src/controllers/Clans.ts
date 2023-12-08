@@ -603,7 +603,7 @@ const Clans = {
             take: 1,
           },
         },
-        orderBy: { updatedAt: 'desc' },
+        orderBy: [{ pinned: 'desc' }, { updatedAt: 'desc' }],
       });
 
       res.status(200).send({
@@ -949,6 +949,128 @@ const Clans = {
 
       // Send fight id to client
       res.status(200).send({ id: fightId });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  pinThread: (prisma: PrismaClient) => async (
+    req: Request<{ brute: string, id: string, threadId: string }>,
+    res: Response,
+  ) => {
+    try {
+      const user = await auth(prisma, req);
+
+      if (!req.params.id
+        || Number.isNaN(+req.params.id)
+        || !req.params.threadId
+        || Number.isNaN(+req.params.threadId)) {
+        throw new ExpectedError(translate('missingId', user));
+      }
+
+      const id = +req.params.id;
+      const threadId = +req.params.threadId;
+
+      const brute = user.brutes.find((b) => b.name === req.params.brute);
+
+      if (!brute) {
+        throw new ExpectedError(translate('bruteNotFound', user));
+      }
+
+      const clan = await prisma.clan.findFirst({
+        where: {
+          id,
+        },
+        select: { id: true, masterId: true },
+      });
+
+      if (!clan) {
+        throw new ExpectedError(translate('clanNotFound', user));
+      }
+
+      // Check if brute is the clan master
+      if (clan.masterId !== brute.id) {
+        throw new ExpectedError(translate('unauthorized', user));
+      }
+
+      const thread = await prisma.clanThread.findFirst({
+        where: {
+          id: threadId,
+          clanId: clan.id,
+        },
+        select: { id: true },
+      });
+
+      if (!thread) {
+        throw new ExpectedError(translate('threadNotFound', user));
+      }
+
+      await prisma.clanThread.update({
+        where: { id: threadId },
+        data: { pinned: true },
+      });
+
+      res.status(200).send({ message: 'ok' });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  unpinThread: (prisma: PrismaClient) => async (
+    req: Request<{ brute: string, id: string, threadId: string }>,
+    res: Response,
+  ) => {
+    try {
+      const user = await auth(prisma, req);
+
+      if (!req.params.id
+        || Number.isNaN(+req.params.id)
+        || !req.params.threadId
+        || Number.isNaN(+req.params.threadId)) {
+        throw new ExpectedError(translate('missingId', user));
+      }
+
+      const id = +req.params.id;
+      const threadId = +req.params.threadId;
+
+      const brute = user.brutes.find((b) => b.name === req.params.brute);
+
+      if (!brute) {
+        throw new ExpectedError(translate('bruteNotFound', user));
+      }
+
+      const clan = await prisma.clan.findFirst({
+        where: {
+          id,
+        },
+        select: { id: true, masterId: true },
+      });
+
+      if (!clan) {
+        throw new ExpectedError(translate('clanNotFound', user));
+      }
+
+      // Check if brute is the clan master
+      if (clan.masterId !== brute.id) {
+        throw new ExpectedError(translate('unauthorized', user));
+      }
+
+      const thread = await prisma.clanThread.findFirst({
+        where: {
+          id: threadId,
+          clanId: clan.id,
+        },
+        select: { id: true },
+      });
+
+      if (!thread) {
+        throw new ExpectedError(translate('threadNotFound', user));
+      }
+
+      await prisma.clanThread.update({
+        where: { id: threadId },
+        data: { pinned: false },
+      });
+
+      res.status(200).send({ message: 'ok' });
     } catch (error) {
       sendError(res, error);
     }

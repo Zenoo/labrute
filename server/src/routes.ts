@@ -114,6 +114,8 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
   app.post('/api/brute/:brute/clan/:id/thread/create', Clans.createThread(prisma));
   app.post('/api/brute/:brute/thread/:id/post/create', Clans.createPost(prisma));
   app.get('/api/brute/:brute/clan/:id/thread/:threadId/lock', Clans.lockThread(prisma));
+  app.get('/api/brute/:brute/clan/:id/thread/:threadId/pin', Clans.pinThread(prisma));
+  app.get('/api/brute/:brute/clan/:id/thread/:threadId/unpin', Clans.unpinThread(prisma));
   app.get('/api/brute/:brute/clan/:id/thread/:threadId', Clans.getThread(prisma));
   app.get('/api/brute/:brute/clan/:id/challenge-boss', Clans.challengeBoss(prisma));
 };
