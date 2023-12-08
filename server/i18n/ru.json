@@ -55,5 +55,6 @@
   "alreadyRequested": "Вы уже подали заявку на вступление в клан",
   "missingClanId": "Отсутствует ID клана",
   "masterCannotLeave": "The master cannot leave a clan that has members",
-  "threadNotFound": "Thread not found"
+  "threadNotFound": "Thread not found",
+  "notYourClan": "This is not your clan"
 }
