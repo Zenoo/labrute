@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.42.4](https://github.com/Zenoo/labrute/compare/labrute-v2.42.3...labrute-v2.42.4) (2023-12-08)
+
+
+### Bug Fixes
+
+* Clan safeguards ([2360857](https://github.com/Zenoo/labrute/commit/2360857a423d16f359582e6537f2d164d41d2842))
+
 ## [2.42.3](https://github.com/Zenoo/labrute/compare/labrute-v2.42.2...labrute-v2.42.3) (2023-12-08)
 
 
