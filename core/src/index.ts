@@ -171,6 +171,7 @@ export type ClanGetResponse = Clan & {
 export type ClanGetThreadsResponse = {
   masterId: number,
   threads: (ClanThread & {
+    creator: Pick<Brute, 'id' | 'name'>,
     posts: (Pick<ClanPost, 'date'> & {
       author: Pick<Brute, 'id' | 'name'>,
     })[];

@@ -113,12 +113,12 @@ const ClanForumView = () => {
                       </TableCell>
                       <TableCell>
                         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                          {thread.posts[0].author.id === data.masterId && (
+                          {thread.creator.id === data.masterId && (
                             <Tooltip title={t('clanMaster')}>
                               <Box component="img" src="/images/clan/master.gif" sx={{ mr: 0.5, width: 7 }} />
                             </Tooltip>
                           )}
-                          <Text bold>{thread.posts[0].author.name}</Text>
+                          <Text bold>{thread.creator.name}</Text>
                         </Box>
                       </TableCell>
                       <TableCell>{thread.postCount}</TableCell>

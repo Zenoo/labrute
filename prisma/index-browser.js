@@ -348,6 +348,7 @@ exports.Prisma.ClanScalarFieldEnum = {
 exports.Prisma.ClanThreadScalarFieldEnum = {
   id: 'id',
   clanId: 'clanId',
+  creatorId: 'creatorId',
   title: 'title',
   locked: 'locked',
   pinned: 'pinned',

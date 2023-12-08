@@ -599,6 +599,7 @@ const Clans = {
           },
         },
         include: {
+          creator: { select: { id: true, name: true } },
           posts: {
             select: {
               date: true,
@@ -651,6 +652,7 @@ const Clans = {
         data: {
           title: req.body.title,
           clan: { connect: { id } },
+          creator: { connect: { id: brute.id } },
           posts: {
             create: {
               author: { connect: { id: brute.id } },

@@ -232,6 +232,7 @@ model Brute {
   clanPosts                    ClanPost[]
   wantToJoinClan               Clan?               @relation("JoinRequests", fields: [wantToJoinClanId], references: [id])
   wantToJoinClanId             Int?
+  threads                      ClanThread[]
 }
 
 model BruteSpritesheet {
@@ -580,6 +581,8 @@ model ClanThread {
   id        Int        @id @default(autoincrement())
   clan      Clan       @relation(fields: [clanId], references: [id])
   clanId    Int
+  creator   Brute      @relation(fields: [creatorId], references: [id])
+  creatorId Int
   title     String     @db.VarChar(255)
   locked    Boolean    @default(false)
   pinned    Boolean    @default(false)
