@@ -1,5 +1,5 @@
 import { Box, Grid, Paper, Table, TableBody, TableCell, TableHead, TableRow, useMediaQuery, useTheme } from '@mui/material';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import Link from '../../components/Link';
@@ -9,6 +9,8 @@ import Text from '../../components/Text';
 import { useBrute } from '../../hooks/useBrute';
 import useStateAsync from '../../hooks/useStateAsync';
 import Server from '../../utils/Server';
+import FantasyButton from '../../components/FantasyButton';
+import StyledInput from '../../components/StyledInput';
 
 const ClanRankingView = () => {
   const { t } = useTranslation();
@@ -18,8 +20,15 @@ const ClanRankingView = () => {
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
 
   const [page, setPage] = React.useState(1);
+  const [search, setSearch] = React.useState('');
 
-  const { data: clans } = useStateAsync(null, Server.Clan.list, page);
+  const params = useMemo(() => ({ page, search }), [page, search]);
+  const { data: clans } = useStateAsync(null, Server.Clan.list, params);
+
+  const changeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+    setPage(1);
+  };
 
   const changePage = (delta: number) => () => {
     setPage(page + delta);
@@ -67,6 +76,13 @@ const ClanRankingView = () => {
             <Grid container spacing={1} sx={{ mt: 2 }}>
               <Grid item xs={12} md={3} />
               <Grid item xs={12} md={6}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', my: 1 }}>
+                  <Text bold color="text.primary" smallCaps>{t('searchByName')}</Text>
+                  <StyledInput
+                    onChange={changeSearch}
+                    value={search}
+                  />
+                </Box>
                 <Table sx={{
                   maxWidth: 1,
                   '& th': {
@@ -121,15 +137,15 @@ const ClanRankingView = () => {
                     )}
                   </TableBody>
                 </Table>
-                <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-around', mt: 1 }}>
                   {page > 1 && (
                     <Link onClick={changePage(-1)} href="#">
-                      <Text>{t('previous')}</Text>
+                      <FantasyButton>{t('previous')}</FantasyButton>
                     </Link>
                   )}
                   {clans?.length === 15 && (
                     <Link onClick={changePage(1)} href="#">
-                      <Text>{t('next')}</Text>
+                      <FantasyButton>{t('next')}</FantasyButton>
                     </Link>
                   )}
                 </Box>

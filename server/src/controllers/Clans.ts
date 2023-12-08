@@ -22,12 +22,17 @@ const Clans = {
       }
 
       const page = +req.query.page;
-
       if (page < 1) {
         throw new ExpectedError('Page number must be greater than 0');
       }
 
+      const { search } = req.query;
+      if (search && typeof search !== 'string') {
+        throw new ExpectedError('Invalid search parameter');
+      }
+
       const clans = await prisma.clan.findMany({
+        where: search ? { name: { contains: search, mode: 'insensitive' } } : {},
         skip: (page - 1) * 15,
         take: 15,
         orderBy: { points: 'desc' },
