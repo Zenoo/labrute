@@ -110,6 +110,12 @@ const Clans = {
       // Update clan points
       await updateClanPoints(prisma, clan.id, 'add', brute);
 
+      // Remove brute join request
+      await prisma.brute.update({
+        where: { id: brute.id },
+        data: { wantToJoinClanId: null },
+      });
+
       res.status(200).send(clan);
     } catch (error) {
       sendError(res, error);
