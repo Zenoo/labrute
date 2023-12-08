@@ -55,5 +55,6 @@
   "alreadyRequested": "Vous avez déjà demandé à rejoindre ce clan",
   "missingClanId": "ID du clan manquant",
   "masterCannotLeave": "Un maître ne peut pas quitter un clan ayant des membres",
-  "threadNotFound": "Sujet introuvable"
+  "threadNotFound": "Sujet introuvable",
+  "notYourClan": "This is not your clan"
 }
