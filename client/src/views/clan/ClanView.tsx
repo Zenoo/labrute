@@ -1,4 +1,4 @@
-import { BruteRanking, BruteWithBodyColors, ClanGetResponse, getFightsLeft } from '@labrute/core';
+import { BruteRanking, BruteWithBodyColors, ClanGetResponse, bosses, getFightsLeft } from '@labrute/core';
 import { Box, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip } from '@mui/material';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -31,6 +31,8 @@ const ClanView = () => {
     () => (user ? user.brutes.find((b) => b.name === bruteName) : null),
     [bruteName, user],
   );
+
+  const boss = useMemo(() => clan && bosses.find((b) => b.name === clan.boss), [clan]);
 
   // Fetch clan
   useEffect(() => {
@@ -250,13 +252,40 @@ const ClanView = () => {
             </Link>
           )}
         </Box>
+        {/* BOSS */}
+        {boss && (
+          <Box sx={{ textAlign: 'center' }}>
+            <Box sx={{ display: 'inline-block' }}>
+              <Text h4 bold color="secondary" center>{t('boss')}</Text>
+              <Text bold h5 smallCaps color="primary.text">{clan.boss}</Text>
+              {/* HP BAR */}
+              <Tooltip title={`${boss.hp - clan.damageOnBoss} / ${boss.hp}`}>
+                <Box sx={{
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                  bgcolor: 'secondary.main',
+                  p: '2px',
+                  width: 120,
+                }}
+                >
+                  <Box sx={{
+                    bgcolor: 'level',
+                    height: 3,
+                    width: (boss.hp - clan.damageOnBoss) / boss.hp,
+                  }}
+                  />
+                </Box>
+              </Tooltip>
+            </Box>
+          </Box>
+        )}
         {user && brute?.clanId === clan.id && (
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1 }}>
             <FantasyButton color="warning" onClick={challengeBoss}>{t('challengeBoss')}</FantasyButton>
           </Box>
         )}
-        <Text bold h4 sx={{ my: 1 }}>{clan.brutes.length}/{clan.limit} {t('brutes')}</Text>
         {/* MEMBERS */}
+        <Text bold h4 sx={{ my: 1 }}>{clan.brutes.length}/{clan.limit} {t('brutes')}</Text>
         <Box sx={{
           display: 'flex',
           flexWrap: 'wrap',
