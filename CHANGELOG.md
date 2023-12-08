@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.43.0](https://github.com/Zenoo/labrute/compare/labrute-v2.42.4...labrute-v2.43.0) (2023-12-08)
+
+
+### Features
+
+* Clan search. Fixes [#497](https://github.com/Zenoo/labrute/issues/497) ([38dceab](https://github.com/Zenoo/labrute/commit/38dceab604dae3cee36e87606664cf291b794956))
+* Possibility to pin threads ([63b999f](https://github.com/Zenoo/labrute/commit/63b999ffe3911ba0627fecc1bb51194f56629d9f))
+
+
+### Bug Fixes
+
+* Delete join requests when creating a clan ([30a94ba](https://github.com/Zenoo/labrute/commit/30a94bad3733c06d61096a9bc69f5bae94f92df4))
+* Display boss in clans. Fixes [#475](https://github.com/Zenoo/labrute/issues/475) ([a828eae](https://github.com/Zenoo/labrute/commit/a828eae7c601232bd9aeae6646092668215a31cf))
+* Display brute stat icons. Fixes [#467](https://github.com/Zenoo/labrute/issues/467) ([fa56df7](https://github.com/Zenoo/labrute/commit/fa56df74184a4420becd1898715cdf6fc9e637fd))
+* Store thread creator ([6b444ea](https://github.com/Zenoo/labrute/commit/6b444eaea10a390c2a00dfe9c4221b5cb059bca0))
+
 ## [2.42.4](https://github.com/Zenoo/labrute/compare/labrute-v2.42.3...labrute-v2.42.4) (2023-12-08)
 
 
