@@ -382,12 +382,6 @@ const Tournaments = {
         },
       });
 
-      // Check if tournament is not malformed (more than 4+2+1 last rounds)
-      if (lastRounds.length > 7) {
-        await ServerState.setGlobalTournamentValid(prisma, false);
-        throw new ExpectedError('Tournament malformed');
-      }
-
       // Check if current time has reached the end of the tournament
       const tournamentEnded = !now.isSame(date, 'day')
         || hour >= GLOBAL_TOURNAMENT_START_HOUR - 1 + maxStep;

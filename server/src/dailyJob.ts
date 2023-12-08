@@ -483,8 +483,8 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
     return;
   }
 
-  // Set tournament as valid
-  await ServerState.setGlobalTournamentValid(prisma, true);
+  // Set tournament as invalid until it's finished
+  await ServerState.setGlobalTournamentValid(prisma, false);
 
   // Get all real brutes
   const brutes = await prisma.brute.findMany({
@@ -661,6 +661,9 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
     data: { rounds: round - 1 },
     select: { id: true },
   });
+
+  // Set tournament as valid
+  await ServerState.setGlobalTournamentValid(prisma, true);
 
   LOGGER.log('Global tournament created');
 };
