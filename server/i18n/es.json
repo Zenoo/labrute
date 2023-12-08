@@ -55,5 +55,6 @@
   "alreadyRequested": "Ya has solicitado unirte a este clan",
   "missingClanId": "Falta el ID del clan",
   "masterCannotLeave": "El maestro no puede dejar un clan que tiene miembros",
-  "threadNotFound": "Hilo no encontrado"
+  "threadNotFound": "Hilo no encontrado",
+  "notYourClan": "This is not your clan"
 }
