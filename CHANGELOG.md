@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.42.3](https://github.com/Zenoo/labrute/compare/labrute-v2.42.2...labrute-v2.42.3) (2023-12-08)
+
+
+### Bug Fixes
+
+* Changed jsons to be stored as strings in DB ([8528c9a](https://github.com/Zenoo/labrute/commit/8528c9a2edee565cc4272e0e66a8fd817267c630))
+* Global tournament validity check ([2dd40fd](https://github.com/Zenoo/labrute/commit/2dd40fd6cdadc0603ad45de2a642ea9d3a0ad330))
+* Remove unused Brutes.list ([fd8581f](https://github.com/Zenoo/labrute/commit/fd8581fa3bf227b37eabb56b66cb2348e052f310))
+
 ## [2.42.2](https://github.com/Zenoo/labrute/compare/labrute-v2.42.1...labrute-v2.42.2) (2023-12-07)
 
 
