@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.43.1](https://github.com/Zenoo/labrute/compare/labrute-v2.43.0...labrute-v2.43.1) (2023-12-09)
+
+
+### Bug Fixes
+
+* Lightened the post dates color ([87142a8](https://github.com/Zenoo/labrute/commit/87142a85aca1ae485e409d4e75cfc3aab67a47c8))
+* Remove sacrificed brutes from clans ([1b1f3dd](https://github.com/Zenoo/labrute/commit/1b1f3dd157b2a19721a942734838b5c900123309))
+
 ## [2.43.0](https://github.com/Zenoo/labrute/compare/labrute-v2.42.4...labrute-v2.43.0) (2023-12-08)
 
 
