@@ -581,6 +581,7 @@ const Brutes = {
           where: { id: brute.id },
           data: {
             deletedAt: new Date(),
+            clanId: null,
           },
           select: { id: true },
         });
