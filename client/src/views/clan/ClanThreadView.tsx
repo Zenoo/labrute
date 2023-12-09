@@ -146,7 +146,7 @@ const ClanThreadView = () => {
                       <Box component="img" src="/images/clan/master.gif" sx={{ ml: 1, width: 7 }} />
                     )}
                   </Box>
-                  <Text>{moment(post.date).format('D MMM YYYY HH:mm')}</Text>
+                  <Text color="primary">{moment(post.date).format('D MMM YYYY HH:mm')}</Text>
                 </Box>
                 {/* CONTENT */}
                 <Box
