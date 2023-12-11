@@ -1,4 +1,4 @@
-import { BruteRanking, Language, getBruteVisuals, getFightsLeft, getMaxFightsPerDay, getXPNeeded } from '@labrute/core';
+import { BruteRanking, getBruteVisuals, getFightsLeft, getMaxFightsPerDay, getXPNeeded } from '@labrute/core';
 import { Box, BoxProps, Stack } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useMemo } from 'react';
@@ -17,9 +17,10 @@ import StyledButton from '../StyledButton';
 import Text from '../Text';
 import CellGlobalTournament from './CellGlobalTournament';
 import CellTournament from './CellTournament';
+import { Lang } from '@labrute/prisma';
 
 export interface CellMainProps extends BoxProps {
-  language: Language;
+  language: Lang;
   smallScreen?: boolean;
   confirmSacrifice?: () => void;
   confirmReset?: () => void;

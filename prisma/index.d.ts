@@ -123,7 +123,8 @@ export namespace $Enums {
   fr: 'fr',
   de: 'de',
   es: 'es',
-  ru: 'ru'
+  ru: 'ru',
+  pt: 'pt'
 };
 
 export type Lang = (typeof Lang)[keyof typeof Lang]

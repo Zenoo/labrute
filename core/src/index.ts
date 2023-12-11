@@ -1,4 +1,4 @@
-import { Achievement, Brute, BruteBody, BruteColors, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, Fight, Prisma, Tournament, TournamentStep } from '@labrute/prisma';
+import { Achievement, Brute, BruteBody, BruteColors, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, Fight, Lang, Prisma, Tournament, TournamentStep } from '@labrute/prisma';
 import Version from './Version';
 import applySkillModifiers from './brute/applySkillModifiers';
 import availableBodyParts from './brute/availableBodyParts';
@@ -54,9 +54,7 @@ export {
   weightedRandom
 };
 
-export const LANGUAGES = ['fr', 'en', 'es', 'de', 'ru'] as const;
-export const DEFAULT_LANGUAGE = LANGUAGES[0];
-export type Language = typeof LANGUAGES[number];
+export const DEFAULT_LANGUAGE = Lang.en;
 
 export type PrismaInclude = {
   [key: string]: boolean | PrismaInclude;

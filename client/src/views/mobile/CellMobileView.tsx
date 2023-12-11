@@ -1,5 +1,4 @@
-import { Language } from '@labrute/core';
-import { Log } from '@labrute/prisma';
+import { Lang, Log } from '@labrute/prisma';
 import { Box, Grid, Paper, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -24,7 +23,7 @@ import moment from 'moment';
 export interface CellMobileViewProps {
   ad: AdResult;
   logs: (Log & { currentBrute: { name: string } })[];
-  language: Language;
+  language: Lang;
   ownsBrute: boolean;
   confirmReport: () => void;
   confirmSacrifice: () => void;

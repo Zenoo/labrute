@@ -1,5 +1,5 @@
-import { LANGUAGES, Language, UserWithAchievements } from '@labrute/core';
-import { Achievement, AchievementName, User } from '@labrute/prisma';
+import { UserWithAchievements } from '@labrute/core';
+import { Achievement, AchievementName, Lang, User } from '@labrute/prisma';
 import { Checkbox, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Paper, Select, Stack } from '@mui/material';
 import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -105,11 +105,11 @@ const UserAdminView = () => {
                         onChange={(event) => {
                           setUser((b) => (b ? ({
                             ...b,
-                            lang: event.target.value as Language,
+                            lang: event.target.value as Lang,
                           }) : null));
                         }}
                       >
-                        {LANGUAGES.map((lang) => (
+                        {Object.values(Lang).map((lang) => (
                           <MenuItem key={lang} value={lang}>
                             {lang}
                           </MenuItem>
