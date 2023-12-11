@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.44.0](https://github.com/Zenoo/labrute/compare/labrute-v2.43.2...labrute-v2.44.0) (2023-12-11)
+
+
+### Features
+
+* Change clan master. Fixes [#499](https://github.com/Zenoo/labrute/issues/499) ([53db761](https://github.com/Zenoo/labrute/commit/53db7611ed547acfd6de47d4717f21a616708058))
+
+
+### Bug Fixes
+
+* Clarify beta alert ([85e93d2](https://github.com/Zenoo/labrute/commit/85e93d230b575524b04694dc30e2c751b0101e55))
+* Remove timer logs ([355348c](https://github.com/Zenoo/labrute/commit/355348cf56fcb6b40d28d50a936972c8e38248d5))
+* Store banned words in a separate table. Fixes [#505](https://github.com/Zenoo/labrute/issues/505) ([ec8124d](https://github.com/Zenoo/labrute/commit/ec8124d1f5ac202d67e90b017af5aaa007f96a8c))
+
 ## [2.43.2](https://github.com/Zenoo/labrute/compare/labrute-v2.43.1...labrute-v2.43.2) (2023-12-11)
 
 
