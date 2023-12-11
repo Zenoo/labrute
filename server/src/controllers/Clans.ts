@@ -35,7 +35,7 @@ const Clans = {
         where: search ? { name: { contains: search, mode: 'insensitive' } } : {},
         skip: (page - 1) * 15,
         take: 15,
-        orderBy: { points: 'desc' },
+        orderBy: { points: 'desc', name: 'asc' },
         include: {
           brutes: { select: { id: true } },
           master: { select: { name: true } },
