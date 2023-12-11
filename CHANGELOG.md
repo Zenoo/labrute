@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.44.2](https://github.com/Zenoo/labrute/compare/labrute-v2.44.1...labrute-v2.44.2) (2023-12-11)
+
+
+### Bug Fixes
+
+* Clean logs ([82a6756](https://github.com/Zenoo/labrute/commit/82a6756ee7eee116f2badce601e8f7a753feaa16))
+* Order clans by points then name (cases with two clans with the same points) ([f08210b](https://github.com/Zenoo/labrute/commit/f08210b28bd2b1a487351a347654c16f15716289))
+
 ## [2.44.1](https://github.com/Zenoo/labrute/compare/labrute-v2.44.0...labrute-v2.44.1) (2023-12-11)
 
 
