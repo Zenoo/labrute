@@ -1172,8 +1172,8 @@ const attack = (
   const reversed = reversal(opponent);
 
   return {
-    blocked,
-    reversed: (!evaded && reversed) || (blocked && opponent.autoReversalOnBlock),
+    blocked: !evaded && blocked,
+    reversed: (!evaded && reversed) || (!evaded && blocked && opponent.autoReversalOnBlock),
   };
 };
 
