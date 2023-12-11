@@ -89,6 +89,11 @@ export type BruteReport = $Result.DefaultSelection<Prisma.$BruteReportPayload>
  */
 export type ServerState = $Result.DefaultSelection<Prisma.$ServerStatePayload>
 /**
+ * Model BannedWord
+ * 
+ */
+export type BannedWord = $Result.DefaultSelection<Prisma.$BannedWordPayload>
+/**
  * Model WorkerJob
  * 
  */
@@ -743,6 +748,16 @@ export class PrismaClient<
   get serverState(): Prisma.ServerStateDelegate<ExtArgs>;
 
   /**
+   * `prisma.bannedWord`: Exposes CRUD operations for the **BannedWord** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BannedWords
+    * const bannedWords = await prisma.bannedWord.findMany()
+    * ```
+    */
+  get bannedWord(): Prisma.BannedWordDelegate<ExtArgs>;
+
+  /**
    * `prisma.workerJob`: Exposes CRUD operations for the **WorkerJob** model.
     * Example usage:
     * ```ts
@@ -1266,6 +1281,7 @@ export namespace Prisma {
     Title: 'Title',
     BruteReport: 'BruteReport',
     ServerState: 'ServerState',
+    BannedWord: 'BannedWord',
     WorkerJob: 'WorkerJob',
     Clan: 'Clan',
     ClanThread: 'ClanThread',
@@ -1286,7 +1302,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'user' | 'bruteBody' | 'bruteColors' | 'brute' | 'bruteSpritesheet' | 'fight' | 'log' | 'destinyChoice' | 'tournament' | 'tournamentStep' | 'tournamentEarning' | 'achievement' | 'title' | 'bruteReport' | 'serverState' | 'workerJob' | 'clan' | 'clanThread' | 'clanPost'
+      modelProps: 'user' | 'bruteBody' | 'bruteColors' | 'brute' | 'bruteSpritesheet' | 'fight' | 'log' | 'destinyChoice' | 'tournament' | 'tournamentStep' | 'tournamentEarning' | 'achievement' | 'title' | 'bruteReport' | 'serverState' | 'bannedWord' | 'workerJob' | 'clan' | 'clanThread' | 'clanPost'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -2277,6 +2293,72 @@ export namespace Prisma {
           count: {
             args: Prisma.ServerStateCountArgs<ExtArgs>,
             result: $Utils.Optional<ServerStateCountAggregateOutputType> | number
+          }
+        }
+      }
+      BannedWord: {
+        payload: Prisma.$BannedWordPayload<ExtArgs>
+        fields: Prisma.BannedWordFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BannedWordFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BannedWordPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BannedWordFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BannedWordPayload>
+          }
+          findFirst: {
+            args: Prisma.BannedWordFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BannedWordPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BannedWordFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BannedWordPayload>
+          }
+          findMany: {
+            args: Prisma.BannedWordFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BannedWordPayload>[]
+          }
+          create: {
+            args: Prisma.BannedWordCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BannedWordPayload>
+          }
+          createMany: {
+            args: Prisma.BannedWordCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.BannedWordDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BannedWordPayload>
+          }
+          update: {
+            args: Prisma.BannedWordUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BannedWordPayload>
+          }
+          deleteMany: {
+            args: Prisma.BannedWordDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BannedWordUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.BannedWordUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BannedWordPayload>
+          }
+          aggregate: {
+            args: Prisma.BannedWordAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateBannedWord>
+          }
+          groupBy: {
+            args: Prisma.BannedWordGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<BannedWordGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BannedWordCountArgs<ExtArgs>,
+            result: $Utils.Optional<BannedWordCountAggregateOutputType> | number
           }
         }
       }
@@ -18747,7 +18829,6 @@ export namespace Prisma {
   export type ServerStateCountAggregateOutputType = {
     id: number
     ready: number
-    banWords: number
     globalTournamentValid: number
     _all: number
   }
@@ -18776,7 +18857,6 @@ export namespace Prisma {
   export type ServerStateCountAggregateInputType = {
     id?: true
     ready?: true
-    banWords?: true
     globalTournamentValid?: true
     _all?: true
   }
@@ -18870,7 +18950,6 @@ export namespace Prisma {
   export type ServerStateGroupByOutputType = {
     id: number
     ready: boolean
-    banWords: string[]
     globalTournamentValid: boolean
     _count: ServerStateCountAggregateOutputType | null
     _avg: ServerStateAvgAggregateOutputType | null
@@ -18896,14 +18975,12 @@ export namespace Prisma {
   export type ServerStateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     ready?: boolean
-    banWords?: boolean
     globalTournamentValid?: boolean
   }, ExtArgs["result"]["serverState"]>
 
   export type ServerStateSelectScalar = {
     id?: boolean
     ready?: boolean
-    banWords?: boolean
     globalTournamentValid?: boolean
   }
 
@@ -18914,7 +18991,6 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       ready: boolean
-      banWords: string[]
       globalTournamentValid: boolean
     }, ExtArgs["result"]["serverState"]>
     composites: {}
@@ -19312,7 +19388,6 @@ export namespace Prisma {
   interface ServerStateFieldRefs {
     readonly id: FieldRef<"ServerState", 'Int'>
     readonly ready: FieldRef<"ServerState", 'Boolean'>
-    readonly banWords: FieldRef<"ServerState", 'String[]'>
     readonly globalTournamentValid: FieldRef<"ServerState", 'Boolean'>
   }
     
@@ -19597,6 +19672,877 @@ export namespace Prisma {
      * Select specific fields to fetch from the ServerState
      */
     select?: ServerStateSelect<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model BannedWord
+   */
+
+  export type AggregateBannedWord = {
+    _count: BannedWordCountAggregateOutputType | null
+    _avg: BannedWordAvgAggregateOutputType | null
+    _sum: BannedWordSumAggregateOutputType | null
+    _min: BannedWordMinAggregateOutputType | null
+    _max: BannedWordMaxAggregateOutputType | null
+  }
+
+  export type BannedWordAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type BannedWordSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type BannedWordMinAggregateOutputType = {
+    id: number | null
+    word: string | null
+  }
+
+  export type BannedWordMaxAggregateOutputType = {
+    id: number | null
+    word: string | null
+  }
+
+  export type BannedWordCountAggregateOutputType = {
+    id: number
+    word: number
+    _all: number
+  }
+
+
+  export type BannedWordAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type BannedWordSumAggregateInputType = {
+    id?: true
+  }
+
+  export type BannedWordMinAggregateInputType = {
+    id?: true
+    word?: true
+  }
+
+  export type BannedWordMaxAggregateInputType = {
+    id?: true
+    word?: true
+  }
+
+  export type BannedWordCountAggregateInputType = {
+    id?: true
+    word?: true
+    _all?: true
+  }
+
+  export type BannedWordAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BannedWord to aggregate.
+     */
+    where?: BannedWordWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BannedWords to fetch.
+     */
+    orderBy?: BannedWordOrderByWithRelationInput | BannedWordOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BannedWordWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BannedWords from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BannedWords.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BannedWords
+    **/
+    _count?: true | BannedWordCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BannedWordAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BannedWordSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BannedWordMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BannedWordMaxAggregateInputType
+  }
+
+  export type GetBannedWordAggregateType<T extends BannedWordAggregateArgs> = {
+        [P in keyof T & keyof AggregateBannedWord]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBannedWord[P]>
+      : GetScalarType<T[P], AggregateBannedWord[P]>
+  }
+
+
+
+
+  export type BannedWordGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BannedWordWhereInput
+    orderBy?: BannedWordOrderByWithAggregationInput | BannedWordOrderByWithAggregationInput[]
+    by: BannedWordScalarFieldEnum[] | BannedWordScalarFieldEnum
+    having?: BannedWordScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BannedWordCountAggregateInputType | true
+    _avg?: BannedWordAvgAggregateInputType
+    _sum?: BannedWordSumAggregateInputType
+    _min?: BannedWordMinAggregateInputType
+    _max?: BannedWordMaxAggregateInputType
+  }
+
+  export type BannedWordGroupByOutputType = {
+    id: number
+    word: string
+    _count: BannedWordCountAggregateOutputType | null
+    _avg: BannedWordAvgAggregateOutputType | null
+    _sum: BannedWordSumAggregateOutputType | null
+    _min: BannedWordMinAggregateOutputType | null
+    _max: BannedWordMaxAggregateOutputType | null
+  }
+
+  type GetBannedWordGroupByPayload<T extends BannedWordGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BannedWordGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BannedWordGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BannedWordGroupByOutputType[P]>
+            : GetScalarType<T[P], BannedWordGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BannedWordSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    word?: boolean
+  }, ExtArgs["result"]["bannedWord"]>
+
+  export type BannedWordSelectScalar = {
+    id?: boolean
+    word?: boolean
+  }
+
+
+  export type $BannedWordPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BannedWord"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      word: string
+    }, ExtArgs["result"]["bannedWord"]>
+    composites: {}
+  }
+
+
+  type BannedWordGetPayload<S extends boolean | null | undefined | BannedWordDefaultArgs> = $Result.GetResult<Prisma.$BannedWordPayload, S>
+
+  type BannedWordCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<BannedWordFindManyArgs, 'select' | 'include' | 'distinct' > & {
+      select?: BannedWordCountAggregateInputType | true
+    }
+
+  export interface BannedWordDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BannedWord'], meta: { name: 'BannedWord' } }
+    /**
+     * Find zero or one BannedWord that matches the filter.
+     * @param {BannedWordFindUniqueArgs} args - Arguments to find a BannedWord
+     * @example
+     * // Get one BannedWord
+     * const bannedWord = await prisma.bannedWord.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends BannedWordFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, BannedWordFindUniqueArgs<ExtArgs>>
+    ): Prisma__BannedWordClient<$Result.GetResult<Prisma.$BannedWordPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one BannedWord that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {BannedWordFindUniqueOrThrowArgs} args - Arguments to find a BannedWord
+     * @example
+     * // Get one BannedWord
+     * const bannedWord = await prisma.bannedWord.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends BannedWordFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, BannedWordFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__BannedWordClient<$Result.GetResult<Prisma.$BannedWordPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first BannedWord that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BannedWordFindFirstArgs} args - Arguments to find a BannedWord
+     * @example
+     * // Get one BannedWord
+     * const bannedWord = await prisma.bannedWord.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends BannedWordFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, BannedWordFindFirstArgs<ExtArgs>>
+    ): Prisma__BannedWordClient<$Result.GetResult<Prisma.$BannedWordPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first BannedWord that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BannedWordFindFirstOrThrowArgs} args - Arguments to find a BannedWord
+     * @example
+     * // Get one BannedWord
+     * const bannedWord = await prisma.bannedWord.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends BannedWordFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, BannedWordFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__BannedWordClient<$Result.GetResult<Prisma.$BannedWordPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more BannedWords that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BannedWordFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BannedWords
+     * const bannedWords = await prisma.bannedWord.findMany()
+     * 
+     * // Get first 10 BannedWords
+     * const bannedWords = await prisma.bannedWord.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const bannedWordWithIdOnly = await prisma.bannedWord.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends BannedWordFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BannedWordFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BannedWordPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a BannedWord.
+     * @param {BannedWordCreateArgs} args - Arguments to create a BannedWord.
+     * @example
+     * // Create one BannedWord
+     * const BannedWord = await prisma.bannedWord.create({
+     *   data: {
+     *     // ... data to create a BannedWord
+     *   }
+     * })
+     * 
+    **/
+    create<T extends BannedWordCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, BannedWordCreateArgs<ExtArgs>>
+    ): Prisma__BannedWordClient<$Result.GetResult<Prisma.$BannedWordPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many BannedWords.
+     *     @param {BannedWordCreateManyArgs} args - Arguments to create many BannedWords.
+     *     @example
+     *     // Create many BannedWords
+     *     const bannedWord = await prisma.bannedWord.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends BannedWordCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BannedWordCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a BannedWord.
+     * @param {BannedWordDeleteArgs} args - Arguments to delete one BannedWord.
+     * @example
+     * // Delete one BannedWord
+     * const BannedWord = await prisma.bannedWord.delete({
+     *   where: {
+     *     // ... filter to delete one BannedWord
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends BannedWordDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, BannedWordDeleteArgs<ExtArgs>>
+    ): Prisma__BannedWordClient<$Result.GetResult<Prisma.$BannedWordPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one BannedWord.
+     * @param {BannedWordUpdateArgs} args - Arguments to update one BannedWord.
+     * @example
+     * // Update one BannedWord
+     * const bannedWord = await prisma.bannedWord.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends BannedWordUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, BannedWordUpdateArgs<ExtArgs>>
+    ): Prisma__BannedWordClient<$Result.GetResult<Prisma.$BannedWordPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more BannedWords.
+     * @param {BannedWordDeleteManyArgs} args - Arguments to filter BannedWords to delete.
+     * @example
+     * // Delete a few BannedWords
+     * const { count } = await prisma.bannedWord.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends BannedWordDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BannedWordDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BannedWords.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BannedWordUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BannedWords
+     * const bannedWord = await prisma.bannedWord.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends BannedWordUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, BannedWordUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one BannedWord.
+     * @param {BannedWordUpsertArgs} args - Arguments to update or create a BannedWord.
+     * @example
+     * // Update or create a BannedWord
+     * const bannedWord = await prisma.bannedWord.upsert({
+     *   create: {
+     *     // ... data to create a BannedWord
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BannedWord we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends BannedWordUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, BannedWordUpsertArgs<ExtArgs>>
+    ): Prisma__BannedWordClient<$Result.GetResult<Prisma.$BannedWordPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of BannedWords.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BannedWordCountArgs} args - Arguments to filter BannedWords to count.
+     * @example
+     * // Count the number of BannedWords
+     * const count = await prisma.bannedWord.count({
+     *   where: {
+     *     // ... the filter for the BannedWords we want to count
+     *   }
+     * })
+    **/
+    count<T extends BannedWordCountArgs>(
+      args?: Subset<T, BannedWordCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BannedWordCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BannedWord.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BannedWordAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BannedWordAggregateArgs>(args: Subset<T, BannedWordAggregateArgs>): Prisma.PrismaPromise<GetBannedWordAggregateType<T>>
+
+    /**
+     * Group by BannedWord.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BannedWordGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BannedWordGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BannedWordGroupByArgs['orderBy'] }
+        : { orderBy?: BannedWordGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BannedWordGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBannedWordGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BannedWord model
+   */
+  readonly fields: BannedWordFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BannedWord.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BannedWordClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the BannedWord model
+   */ 
+  interface BannedWordFieldRefs {
+    readonly id: FieldRef<"BannedWord", 'Int'>
+    readonly word: FieldRef<"BannedWord", 'String'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * BannedWord findUnique
+   */
+  export type BannedWordFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedWord
+     */
+    select?: BannedWordSelect<ExtArgs> | null
+    /**
+     * Filter, which BannedWord to fetch.
+     */
+    where: BannedWordWhereUniqueInput
+  }
+
+
+  /**
+   * BannedWord findUniqueOrThrow
+   */
+  export type BannedWordFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedWord
+     */
+    select?: BannedWordSelect<ExtArgs> | null
+    /**
+     * Filter, which BannedWord to fetch.
+     */
+    where: BannedWordWhereUniqueInput
+  }
+
+
+  /**
+   * BannedWord findFirst
+   */
+  export type BannedWordFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedWord
+     */
+    select?: BannedWordSelect<ExtArgs> | null
+    /**
+     * Filter, which BannedWord to fetch.
+     */
+    where?: BannedWordWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BannedWords to fetch.
+     */
+    orderBy?: BannedWordOrderByWithRelationInput | BannedWordOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BannedWords.
+     */
+    cursor?: BannedWordWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BannedWords from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BannedWords.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BannedWords.
+     */
+    distinct?: BannedWordScalarFieldEnum | BannedWordScalarFieldEnum[]
+  }
+
+
+  /**
+   * BannedWord findFirstOrThrow
+   */
+  export type BannedWordFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedWord
+     */
+    select?: BannedWordSelect<ExtArgs> | null
+    /**
+     * Filter, which BannedWord to fetch.
+     */
+    where?: BannedWordWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BannedWords to fetch.
+     */
+    orderBy?: BannedWordOrderByWithRelationInput | BannedWordOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BannedWords.
+     */
+    cursor?: BannedWordWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BannedWords from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BannedWords.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BannedWords.
+     */
+    distinct?: BannedWordScalarFieldEnum | BannedWordScalarFieldEnum[]
+  }
+
+
+  /**
+   * BannedWord findMany
+   */
+  export type BannedWordFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedWord
+     */
+    select?: BannedWordSelect<ExtArgs> | null
+    /**
+     * Filter, which BannedWords to fetch.
+     */
+    where?: BannedWordWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BannedWords to fetch.
+     */
+    orderBy?: BannedWordOrderByWithRelationInput | BannedWordOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BannedWords.
+     */
+    cursor?: BannedWordWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BannedWords from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BannedWords.
+     */
+    skip?: number
+    distinct?: BannedWordScalarFieldEnum | BannedWordScalarFieldEnum[]
+  }
+
+
+  /**
+   * BannedWord create
+   */
+  export type BannedWordCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedWord
+     */
+    select?: BannedWordSelect<ExtArgs> | null
+    /**
+     * The data needed to create a BannedWord.
+     */
+    data: XOR<BannedWordCreateInput, BannedWordUncheckedCreateInput>
+  }
+
+
+  /**
+   * BannedWord createMany
+   */
+  export type BannedWordCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BannedWords.
+     */
+    data: BannedWordCreateManyInput | BannedWordCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * BannedWord update
+   */
+  export type BannedWordUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedWord
+     */
+    select?: BannedWordSelect<ExtArgs> | null
+    /**
+     * The data needed to update a BannedWord.
+     */
+    data: XOR<BannedWordUpdateInput, BannedWordUncheckedUpdateInput>
+    /**
+     * Choose, which BannedWord to update.
+     */
+    where: BannedWordWhereUniqueInput
+  }
+
+
+  /**
+   * BannedWord updateMany
+   */
+  export type BannedWordUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BannedWords.
+     */
+    data: XOR<BannedWordUpdateManyMutationInput, BannedWordUncheckedUpdateManyInput>
+    /**
+     * Filter which BannedWords to update
+     */
+    where?: BannedWordWhereInput
+  }
+
+
+  /**
+   * BannedWord upsert
+   */
+  export type BannedWordUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedWord
+     */
+    select?: BannedWordSelect<ExtArgs> | null
+    /**
+     * The filter to search for the BannedWord to update in case it exists.
+     */
+    where: BannedWordWhereUniqueInput
+    /**
+     * In case the BannedWord found by the `where` argument doesn't exist, create a new BannedWord with this data.
+     */
+    create: XOR<BannedWordCreateInput, BannedWordUncheckedCreateInput>
+    /**
+     * In case the BannedWord was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BannedWordUpdateInput, BannedWordUncheckedUpdateInput>
+  }
+
+
+  /**
+   * BannedWord delete
+   */
+  export type BannedWordDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedWord
+     */
+    select?: BannedWordSelect<ExtArgs> | null
+    /**
+     * Filter which BannedWord to delete.
+     */
+    where: BannedWordWhereUniqueInput
+  }
+
+
+  /**
+   * BannedWord deleteMany
+   */
+  export type BannedWordDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BannedWords to delete
+     */
+    where?: BannedWordWhereInput
+  }
+
+
+  /**
+   * BannedWord without action
+   */
+  export type BannedWordDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedWord
+     */
+    select?: BannedWordSelect<ExtArgs> | null
   }
 
 
@@ -23833,11 +24779,18 @@ export namespace Prisma {
   export const ServerStateScalarFieldEnum: {
     id: 'id',
     ready: 'ready',
-    banWords: 'banWords',
     globalTournamentValid: 'globalTournamentValid'
   };
 
   export type ServerStateScalarFieldEnum = (typeof ServerStateScalarFieldEnum)[keyof typeof ServerStateScalarFieldEnum]
+
+
+  export const BannedWordScalarFieldEnum: {
+    id: 'id',
+    word: 'word'
+  };
+
+  export type BannedWordScalarFieldEnum = (typeof BannedWordScalarFieldEnum)[keyof typeof BannedWordScalarFieldEnum]
 
 
   export const WorkerJobScalarFieldEnum: {
@@ -25600,14 +26553,12 @@ export namespace Prisma {
     NOT?: ServerStateWhereInput | ServerStateWhereInput[]
     id?: IntFilter<"ServerState"> | number
     ready?: BoolFilter<"ServerState"> | boolean
-    banWords?: StringNullableListFilter<"ServerState">
     globalTournamentValid?: BoolFilter<"ServerState"> | boolean
   }
 
   export type ServerStateOrderByWithRelationInput = {
     id?: SortOrder
     ready?: SortOrder
-    banWords?: SortOrder
     globalTournamentValid?: SortOrder
   }
 
@@ -25617,14 +26568,12 @@ export namespace Prisma {
     OR?: ServerStateWhereInput[]
     NOT?: ServerStateWhereInput | ServerStateWhereInput[]
     ready?: BoolFilter<"ServerState"> | boolean
-    banWords?: StringNullableListFilter<"ServerState">
     globalTournamentValid?: BoolFilter<"ServerState"> | boolean
   }, "id">
 
   export type ServerStateOrderByWithAggregationInput = {
     id?: SortOrder
     ready?: SortOrder
-    banWords?: SortOrder
     globalTournamentValid?: SortOrder
     _count?: ServerStateCountOrderByAggregateInput
     _avg?: ServerStateAvgOrderByAggregateInput
@@ -25639,8 +26588,46 @@ export namespace Prisma {
     NOT?: ServerStateScalarWhereWithAggregatesInput | ServerStateScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"ServerState"> | number
     ready?: BoolWithAggregatesFilter<"ServerState"> | boolean
-    banWords?: StringNullableListFilter<"ServerState">
     globalTournamentValid?: BoolWithAggregatesFilter<"ServerState"> | boolean
+  }
+
+  export type BannedWordWhereInput = {
+    AND?: BannedWordWhereInput | BannedWordWhereInput[]
+    OR?: BannedWordWhereInput[]
+    NOT?: BannedWordWhereInput | BannedWordWhereInput[]
+    id?: IntFilter<"BannedWord"> | number
+    word?: StringFilter<"BannedWord"> | string
+  }
+
+  export type BannedWordOrderByWithRelationInput = {
+    id?: SortOrder
+    word?: SortOrder
+  }
+
+  export type BannedWordWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: BannedWordWhereInput | BannedWordWhereInput[]
+    OR?: BannedWordWhereInput[]
+    NOT?: BannedWordWhereInput | BannedWordWhereInput[]
+    word?: StringFilter<"BannedWord"> | string
+  }, "id">
+
+  export type BannedWordOrderByWithAggregationInput = {
+    id?: SortOrder
+    word?: SortOrder
+    _count?: BannedWordCountOrderByAggregateInput
+    _avg?: BannedWordAvgOrderByAggregateInput
+    _max?: BannedWordMaxOrderByAggregateInput
+    _min?: BannedWordMinOrderByAggregateInput
+    _sum?: BannedWordSumOrderByAggregateInput
+  }
+
+  export type BannedWordScalarWhereWithAggregatesInput = {
+    AND?: BannedWordScalarWhereWithAggregatesInput | BannedWordScalarWhereWithAggregatesInput[]
+    OR?: BannedWordScalarWhereWithAggregatesInput[]
+    NOT?: BannedWordScalarWhereWithAggregatesInput | BannedWordScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"BannedWord"> | number
+    word?: StringWithAggregatesFilter<"BannedWord"> | string
   }
 
   export type WorkerJobWhereInput = {
@@ -27461,48 +28448,73 @@ export namespace Prisma {
 
   export type ServerStateCreateInput = {
     ready?: boolean
-    banWords?: ServerStateCreatebanWordsInput | string[]
     globalTournamentValid?: boolean
   }
 
   export type ServerStateUncheckedCreateInput = {
     id?: number
     ready?: boolean
-    banWords?: ServerStateCreatebanWordsInput | string[]
     globalTournamentValid?: boolean
   }
 
   export type ServerStateUpdateInput = {
     ready?: BoolFieldUpdateOperationsInput | boolean
-    banWords?: ServerStateUpdatebanWordsInput | string[]
     globalTournamentValid?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ServerStateUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     ready?: BoolFieldUpdateOperationsInput | boolean
-    banWords?: ServerStateUpdatebanWordsInput | string[]
     globalTournamentValid?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ServerStateCreateManyInput = {
     id?: number
     ready?: boolean
-    banWords?: ServerStateCreatebanWordsInput | string[]
     globalTournamentValid?: boolean
   }
 
   export type ServerStateUpdateManyMutationInput = {
     ready?: BoolFieldUpdateOperationsInput | boolean
-    banWords?: ServerStateUpdatebanWordsInput | string[]
     globalTournamentValid?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ServerStateUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     ready?: BoolFieldUpdateOperationsInput | boolean
-    banWords?: ServerStateUpdatebanWordsInput | string[]
     globalTournamentValid?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type BannedWordCreateInput = {
+    word: string
+  }
+
+  export type BannedWordUncheckedCreateInput = {
+    id?: number
+    word: string
+  }
+
+  export type BannedWordUpdateInput = {
+    word?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type BannedWordUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    word?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type BannedWordCreateManyInput = {
+    id?: number
+    word: string
+  }
+
+  export type BannedWordUpdateManyMutationInput = {
+    word?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type BannedWordUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    word?: StringFieldUpdateOperationsInput | string
   }
 
   export type WorkerJobCreateInput = {
@@ -29422,18 +30434,9 @@ export namespace Prisma {
     _max?: NestedEnumBruteReportStatusFilter<$PrismaModel>
   }
 
-  export type StringNullableListFilter<$PrismaModel = never> = {
-    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    has?: string | StringFieldRefInput<$PrismaModel> | null
-    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
-    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
-    isEmpty?: boolean
-  }
-
   export type ServerStateCountOrderByAggregateInput = {
     id?: SortOrder
     ready?: SortOrder
-    banWords?: SortOrder
     globalTournamentValid?: SortOrder
   }
 
@@ -29454,6 +30457,29 @@ export namespace Prisma {
   }
 
   export type ServerStateSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type BannedWordCountOrderByAggregateInput = {
+    id?: SortOrder
+    word?: SortOrder
+  }
+
+  export type BannedWordAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type BannedWordMaxOrderByAggregateInput = {
+    id?: SortOrder
+    word?: SortOrder
+  }
+
+  export type BannedWordMinOrderByAggregateInput = {
+    id?: SortOrder
+    word?: SortOrder
+  }
+
+  export type BannedWordSumOrderByAggregateInput = {
     id?: SortOrder
   }
 
@@ -31069,15 +32095,6 @@ export namespace Prisma {
     update?: UserUpdateWithWhereUniqueWithoutReportsInput | UserUpdateWithWhereUniqueWithoutReportsInput[]
     updateMany?: UserUpdateManyWithWhereWithoutReportsInput | UserUpdateManyWithWhereWithoutReportsInput[]
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
-  }
-
-  export type ServerStateCreatebanWordsInput = {
-    set: string[]
-  }
-
-  export type ServerStateUpdatebanWordsInput = {
-    set?: string[]
-    push?: string | string[]
   }
 
   export type BruteCreateNestedOneWithoutMasterOfClanInput = {
@@ -40216,6 +41233,10 @@ export namespace Prisma {
      * @deprecated Use ServerStateDefaultArgs instead
      */
     export type ServerStateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ServerStateDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use BannedWordDefaultArgs instead
+     */
+    export type BannedWordArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BannedWordDefaultArgs<ExtArgs>
     /**
      * @deprecated Use WorkerJobDefaultArgs instead
      */

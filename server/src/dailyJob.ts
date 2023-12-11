@@ -779,6 +779,8 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
     return;
   }
 
+  LOGGER.log(`${earningIds.length} tournament earnings to handle`);
+
   for (const earningWithId of earningIds) {
     const earning = await prisma.tournamentEarning.findUnique({
       where: { id: earningWithId.id },

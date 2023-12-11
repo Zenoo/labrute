@@ -89,16 +89,12 @@ const Clans = {
       }
 
       // Check name for banned words
-      const server = await prisma.serverState.findFirst({
-        where: { id: 1 },
-        select: { banWords: true },
-      });
+      const banned: { count: bigint }[] = await prisma.$queryRaw`SELECT COUNT(*) FROM "BannedWord" WHERE ${clanName.toLowerCase()} LIKE CONCAT('%', word, '%')`;
 
-      if (!server) {
-        throw new Error('Server state not found');
+      if (typeof banned?.[0]?.count !== 'bigint') {
+        throw new Error('Error while checking banned words');
       }
-
-      if (server.banWords.some((word) => clanName.includes(word))) {
+      if (banned[0].count > 0) {
         throw new ExpectedError(translate('nameContainsBannedWord', user));
       }
 

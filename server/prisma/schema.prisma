@@ -547,8 +547,12 @@ model BruteReport {
 model ServerState {
   id                    Int      @id @default(autoincrement())
   ready                 Boolean  @default(true)
-  banWords              String[]
   globalTournamentValid Boolean  @default(true)
+}
+
+model BannedWord {
+  id   Int    @id @default(autoincrement())
+  word String @db.VarChar(255)
 }
 
 model WorkerJob {

@@ -192,14 +192,9 @@ const BruteReports = {
       });
 
       // Add name to banned words
-      await prisma.serverState.update({
-        where: {
-          id: 1,
-        },
+      await prisma.bannedWord.create({
         data: {
-          banWords: {
-            push: report.brute.name.toLowerCase(),
-          },
+          word: report.brute.name.toLowerCase(),
         },
         select: { id: true },
       });
