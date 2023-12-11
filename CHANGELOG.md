@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.44.1](https://github.com/Zenoo/labrute/compare/labrute-v2.44.0...labrute-v2.44.1) (2023-12-11)
+
+
+### Bug Fixes
+
+* Don't reverse after evading ([5aa2dd4](https://github.com/Zenoo/labrute/commit/5aa2dd4ddf9aab6e285492e2c8ce590f4e4e78f0))
+
 ## [2.44.0](https://github.com/Zenoo/labrute/compare/labrute-v2.43.2...labrute-v2.44.0) (2023-12-11)
 
 
