@@ -14,7 +14,7 @@ async function main(cx: ServerContext) {
     jobId: number;
   };
 
-  cx.logger.info('updateSpritesheet: start');
+  cx.logger.info(`Job updateSpritesheet (ID: ${jobId}) started`);
 
   try {
     // Check if spritesheet already exists
@@ -54,8 +54,6 @@ async function main(cx: ServerContext) {
     // Start the next job
     await startJob(cx.prisma);
   }
-
-  cx.logger.info('updateSpritesheet: end');
 }
 
 /**

@@ -14,7 +14,7 @@ async function main(cx: ServerContext) {
     jobId: number;
   };
 
-  cx.logger.info('generateSpritesheet: start');
+  cx.logger.info(`Job generateSpritesheet (ID: ${jobId}) started`);
 
   try {
     const visuals = getBruteVisuals(brute);
@@ -59,8 +59,6 @@ async function main(cx: ServerContext) {
     // Start the next job
     await startJob(cx.prisma);
   }
-
-  cx.logger.info('generateSpritesheet: end');
 }
 
 /**

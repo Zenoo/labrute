@@ -16,7 +16,7 @@ async function main(cx: ServerContext) {
     jobId: number;
   };
 
-  cx.logger.info('regenerateSpritesheets: start');
+  cx.logger.info(`Job regenerateSpritesheets (ID: ${jobId}) started`);
 
   try {
     cx.logger.log('Calculating every possible brute visual...');
@@ -392,8 +392,6 @@ async function main(cx: ServerContext) {
     // Start the next job
     await startJob(cx.prisma);
   }
-
-  cx.logger.info('regenerateSpritesheets: end');
 }
 
 /**

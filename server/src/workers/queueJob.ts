@@ -7,8 +7,6 @@ const queueJob = async (prisma: PrismaClient, worker: string, payload: unknown) 
   // Check if the queue is empty
   const count = await prisma.workerJob.count();
 
-  LOGGER.log(`Queuing ${worker} job`);
-
   // Create a new job
   const job = await prisma.workerJob.create({
     data: {
@@ -17,6 +15,8 @@ const queueJob = async (prisma: PrismaClient, worker: string, payload: unknown) 
     },
     select: { id: true },
   });
+
+  LOGGER.info(`Queuing ${worker} job (ID: ${job.id})`);
 
   // Start the worker if the queue was empty
   if (count === 0) {
@@ -35,7 +35,7 @@ const queueJob = async (prisma: PrismaClient, worker: string, payload: unknown) 
     });
 
     w.once('exit', () => {
-      LOGGER.info('worker exit');
+      LOGGER.info(`${worker} job (ID: ${job.id}) finished`);
       w.removeAllListeners();
     });
   }
