@@ -12,6 +12,8 @@ import ServerState from './utils/ServerState.js';
 import generateFight from './utils/fight/generateFight.js';
 import shuffle from './utils/shuffle.js';
 
+const GENERATE_TOURNAMENTS_IN_DEV = false;
+
 const grantBetaAchievement = async (prisma: PrismaClient) => {
   // Grant beta achievement to all brutes who don't have it yet
   const brutes = await prisma.brute.findMany({
@@ -870,50 +872,34 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
 
 const dailyJob = (prisma: PrismaClient) => async () => {
   try {
-    let start = new Date();
-    // Update server state to hold traffic
-    await ServerState.setReady(prisma, false);
-    LOGGER.log(`Server state updated in ${new Date().getTime() - start.getTime()}ms`);
+    if (process.env.NODE_ENV === 'production' || GENERATE_TOURNAMENTS_IN_DEV) {
+      // Update server state to hold traffic
+      await ServerState.setReady(prisma, false);
 
-    start = new Date();
-    // Handle daily tournaments
-    await handleDailyTournaments(prisma);
-    LOGGER.log(`Daily tournaments handled in ${new Date().getTime() - start.getTime()}ms`);
+      // Handle daily tournaments
+      await handleDailyTournaments(prisma);
 
-    start = new Date();
-    // Handle global tournament
-    await handleGlobalTournament(prisma);
-    LOGGER.log(`Global tournament handled in ${new Date().getTime() - start.getTime()}ms`);
+      // Handle global tournament
+      await handleGlobalTournament(prisma);
 
-    start = new Date();
-    // Update server state to release traffic
-    await ServerState.setReady(prisma, true);
-    LOGGER.log(`Server state updated in ${new Date().getTime() - start.getTime()}ms`);
+      // Update server state to release traffic
+      await ServerState.setReady(prisma, true);
+    }
 
-    start = new Date();
     // Grant beta achievement to all brutes who don't have it yet
     await grantBetaAchievement(prisma);
-    LOGGER.log(`Beta achievement granted in ${new Date().getTime() - start.getTime()}ms`);
 
-    start = new Date();
     // Grant bug achievements to all admins who don't have it yet
     await grantBugAchievement(prisma);
-    LOGGER.log(`Bug achievement granted in ${new Date().getTime() - start.getTime()}ms`);
 
-    start = new Date();
     // Generate missing body and colors
     await generateMissingBodyColors(prisma);
-    LOGGER.log(`Missing body and colors generated in ${new Date().getTime() - start.getTime()}ms`);
 
-    start = new Date();
     // Handle XP won the previous day
     await handleXpGains(prisma);
-    LOGGER.log(`XP gains handled in ${new Date().getTime() - start.getTime()}ms`);
 
-    start = new Date();
     // Handle tournament earnings from the previous day
     await handleTournamentEarnings(prisma);
-    LOGGER.log(`Tournament earnings handled in ${new Date().getTime() - start.getTime()}ms`);
   } catch (error: unknown) {
     if (!(error instanceof Error)) {
       throw error;

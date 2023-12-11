@@ -1,6 +1,6 @@
 import { getFightsLeft, getGoldNeededForNewBrute, Language, LANGUAGES, Version } from '@labrute/core';
-import { AccountCircle, Add, AdminPanelSettings, DoNotDisturb, Login, Logout, MilitaryTech, MoreHoriz } from '@mui/icons-material';
-import { Badge, Box, BoxProps, CircularProgress, Fab, Link, SpeedDial, SpeedDialAction, Tooltip } from '@mui/material';
+import { AccountCircle, Add, AdminPanelSettings, DoNotDisturb, Login, Logout, MilitaryTech, MoreHoriz, OpenInNew } from '@mui/icons-material';
+import { Alert as MuiAlert, Badge, Box, BoxProps, CircularProgress, Fab, Link, SpeedDial, SpeedDialAction, Tooltip, AlertTitle, IconButton } from '@mui/material';
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import { Helmet } from 'react-helmet-async';
@@ -23,6 +23,7 @@ interface Props extends BoxProps {
   headerUrl?: string,
   children: React.ReactNode;
   checkServer?: boolean;
+  sx?: BoxProps['sx'];
 }
 
 const Page = ({
@@ -30,6 +31,7 @@ const Page = ({
   headerUrl,
   children,
   checkServer = true,
+  sx,
   ...rest
 }: Props) => {
   const { t } = useTranslation();
@@ -128,7 +130,13 @@ const Page = ({
   }, [navigate]);
 
   return (
-    <Box {...rest}>
+    <Box
+      sx={{
+        pb: 2,
+        ...sx,
+      }}
+      {...rest}
+    >
       <Helmet>
         <title>{title}</title>
       </Helmet>
@@ -262,6 +270,23 @@ const Page = ({
           )}
         </Text>
       </Box>
+      <MuiAlert
+        severity="warning"
+        variant="filled"
+        sx={{ mb: 0 }}
+        action={(
+          <Tooltip title={t('joinDiscord')}>
+            <Link href="https://discord.gg/ERc3svy" target="_blank">
+              <IconButton color="inherit" size="small">
+                <OpenInNew />
+              </IconButton>
+            </Link>
+          </Tooltip>
+        )}
+      >
+        <AlertTitle>{t('betaTitle')}</AlertTitle>
+        {t('betaDescription')}
+      </MuiAlert>
     </Box>
   );
 };

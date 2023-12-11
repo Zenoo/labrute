@@ -35,6 +35,9 @@
   "ePopotamo.desc": "ePopotamo: The relaxing word game playable in any situation!",
   "connect": "Connect",
   "serverTime": "Server time",
+  "betaTitle": "Beta version",
+  "betaDescription": "This game is still in beta. Things are prone to change and bugs may occur. Please report any bug you find on our Discord.",
+  "joinDiscord": "Join our Discord",
 
   "shadow": "Shadow",
 
