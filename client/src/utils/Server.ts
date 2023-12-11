@@ -111,6 +111,7 @@ const Server = {
     accept: (brute: string, id: number) => Fetch<never>(`/api/clan/${id}/accept/${brute}`),
     reject: (brute: string, id: number) => Fetch<never>(`/api/clan/${id}/reject/${brute}`),
     remove: (brute: string, id: number) => Fetch<never>(`/api/clan/${id}/remove/${brute}`),
+    setMaster: (brute: string, id: number) => Fetch<never>(`/api/clan/${id}/set-master/${brute}`),
     leave: (brute: string, id: number) => Fetch<never>(`/api/brute/${brute}/clan/${id}/leave`),
     getThreads: (data: { brute: string, id: number }) => Fetch<ClanGetThreadsResponse>(`/api/brute/${data.brute}/clan/${data.id}/threads`),
     createThread: (

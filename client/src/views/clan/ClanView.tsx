@@ -1,21 +1,21 @@
 import { BruteRanking, BruteWithBodyColors, ClanGetResponse, bosses, getFightsLeft } from '@labrute/core';
+import { HighlightOff, PlayCircleOutline } from '@mui/icons-material';
 import { Box, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip } from '@mui/material';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
+import BruteComponent from '../../components/Brute/Body/BruteComponent';
+import BrutePortrait from '../../components/Brute/Body/BrutePortait';
+import FantasyButton from '../../components/FantasyButton';
 import Link from '../../components/Link';
 import Page from '../../components/Page';
+import StyledButton from '../../components/StyledButton';
 import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
+import { useConfirm } from '../../hooks/useConfirm';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
-import StyledButton from '../../components/StyledButton';
-import BruteComponent from '../../components/Brute/Body/BruteComponent';
-import { useConfirm } from '../../hooks/useConfirm';
-import BrutePortrait from '../../components/Brute/Body/BrutePortait';
-import FantasyButton from '../../components/FantasyButton';
-import { HighlightOff } from '@mui/icons-material';
 
 const ClanView = () => {
   const { t } = useTranslation();
@@ -145,6 +145,25 @@ const ClanView = () => {
         setClan((prevClan) => (prevClan ? ({
           ...prevClan,
           brutes: prevClan.brutes.filter((br) => br.id !== clanBrute.id),
+        }) : null));
+      }).catch(catchError(Alert));
+    });
+  };
+
+  // Set as clan master
+  const setMaster = (clanBrute: BruteWithBodyColors) => (e: React.MouseEvent) => {
+    e.stopPropagation();
+
+    if (!clan) return;
+
+    Confirm.open(t('setNewMaster'), t('confirmSetNewMaster'), () => {
+      Server.Clan.setMaster(clanBrute.name, clan.id).then(() => {
+        Alert.open('success', t('clanMasterChanged'));
+
+        // Update clan
+        setClan((prevClan) => (prevClan ? ({
+          ...prevClan,
+          masterId: clanBrute.id,
         }) : null));
       }).catch(catchError(Alert));
     });
@@ -335,6 +354,17 @@ const ClanView = () => {
                           onClick={removeFromClan(clanBrute)}
                           fontSize="small"
                           color="error"
+                          sx={{ mr: 0.5 }}
+                        />
+                      </Tooltip>
+                    )}
+                    {/* Button to set brute as master */}
+                    {clan.masterId === brute?.id && clan.masterId !== clanBrute.id && (
+                      <Tooltip title={t('setAsClanMaster')}>
+                        <PlayCircleOutline
+                          onClick={setMaster(clanBrute)}
+                          fontSize="small"
+                          color="warning"
                           sx={{ mr: 0.5 }}
                         />
                       </Tooltip>

@@ -139,6 +139,10 @@
   "locked": "Locked",
   "clanMaster": "Clan master",
   "searchByName": "Search by name",
+  "setAsClanMaster": "Set as clan master",
+  "setNewMaster": "Set new master",
+  "confirmSetNewMaster": "Do you really want to set this member as the new clan master ?",
+  "clanMasterChanged": "The clan master has been changed.",
 
   "herculeanStrength": "Herculean Strength",
   "herculeanStrength.desc": "You're strong enough to move mountains, but first you must defeat your opponent.",

@@ -1078,6 +1078,64 @@ const Clans = {
       sendError(res, error);
     }
   },
+  setMaster: (prisma: PrismaClient) => async (
+    req: Request<{ id: string; brute: string }>,
+    res: Response,
+  ) => {
+    try {
+      const user = await auth(prisma, req);
+
+      if (!req.params.id || Number.isNaN(+req.params.id)) {
+        throw new ExpectedError(translate('missingClanId', user));
+      }
+
+      const id = +req.params.id;
+
+      const clan = await prisma.clan.findFirst({
+        where: { id },
+        select: {
+          id: true,
+          masterId: true,
+          brutes: { select: { id: true } },
+        },
+      });
+
+      if (!clan) {
+        throw new ExpectedError(translate('clanNotFound', user));
+      }
+
+      // Check if one of the user brutes is the clan master
+      if (!user.brutes.some((b) => b.id === clan.masterId)) {
+        throw new ExpectedError(translate('unauthorized', user));
+      }
+
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name: req.params.brute,
+          deletedAt: null,
+        },
+        select: { id: true, level: true, ranking: true },
+      });
+      if (!brute) {
+        throw new ExpectedError(translate('bruteNotFound', user));
+      }
+
+      // Check if brute is in clan
+      if (!clan.brutes.some((b) => b.id === brute.id)) {
+        throw new ExpectedError(translate('bruteNotInClan', user));
+      }
+
+      // Update clan
+      await prisma.clan.update({
+        where: { id },
+        data: { masterId: brute.id },
+      });
+
+      res.status(200).send({ message: 'ok' });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
 };
 
 export default Clans;

@@ -109,6 +109,7 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
   app.get('/api/clan/:id/accept/:brute', Clans.accept(prisma));
   app.get('/api/clan/:id/reject/:brute', Clans.reject(prisma));
   app.get('/api/clan/:id/remove/:brute', Clans.remove(prisma));
+  app.get('/api/clan/:id/set-master/:brute', Clans.setMaster(prisma));
   app.get('/api/brute/:brute/clan/:id/leave', Clans.leave(prisma));
   app.get('/api/brute/:brute/clan/:id/threads', Clans.getThreads(prisma));
   app.post('/api/brute/:brute/clan/:id/thread/create', Clans.createThread(prisma));
