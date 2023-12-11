@@ -220,7 +220,6 @@ const Tournaments = {
     req: Request,
     res: Response<TournamentsGetGlobalResponse>,
   ) => {
-    const start = new Date();
     try {
       if (!req.params.name || !req.params.date) {
         throw new Error('Invalid parameters');
@@ -427,8 +426,6 @@ const Tournaments = {
     } catch (error) {
       sendError(res, error);
     }
-
-    LOGGER.info(`Tournaments.getGlobal: ${new Date().getTime() - start.getTime()}ms`);
   },
   deleteDaily: (prisma: PrismaClient) => async (req: Request, res: Response) => {
     try {
