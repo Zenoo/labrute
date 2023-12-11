@@ -13,6 +13,10 @@ const applySpy = (
     const bruteWeaponsCount = brute.weapons.length;
     const weaponsToSwap = Math.min(opponentWeaponsCount, bruteWeaponsCount);
 
+    if (weaponsToSwap === 0) {
+      return;
+    }
+
     // Only swap the amount of weapons the spy has (maxed at opponent's weapons count)
     const opponentWeaponsToSwap = shuffle(opponent.weapons)
       .slice(0, weaponsToSwap);
