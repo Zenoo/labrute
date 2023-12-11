@@ -1,6 +1,6 @@
 import { getFightsLeft, getGoldNeededForNewBrute, Language, LANGUAGES, Version } from '@labrute/core';
-import { AccountCircle, Add, AdminPanelSettings, DoNotDisturb, Login, Logout, MilitaryTech, MoreHoriz, OpenInNew } from '@mui/icons-material';
-import { Alert as MuiAlert, Badge, Box, BoxProps, CircularProgress, Fab, Link, SpeedDial, SpeedDialAction, Tooltip, AlertTitle, IconButton } from '@mui/material';
+import { AccountCircle, Add, AdminPanelSettings, DoNotDisturb, Login, Logout, MilitaryTech, MoreHoriz } from '@mui/icons-material';
+import { AlertTitle, Badge, Box, BoxProps, CircularProgress, Fab, Link, Alert as MuiAlert, SpeedDial, SpeedDialAction, Tooltip } from '@mui/material';
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import { Helmet } from 'react-helmet-async';
@@ -274,18 +274,14 @@ const Page = ({
         severity="warning"
         variant="filled"
         sx={{ mb: 0 }}
-        action={(
-          <Tooltip title={t('joinDiscord')}>
-            <Link href="https://discord.gg/ERc3svy" target="_blank">
-              <IconButton color="inherit" size="small">
-                <OpenInNew />
-              </IconButton>
-            </Link>
-          </Tooltip>
-        )}
       >
         <AlertTitle>{t('betaTitle')}</AlertTitle>
         {t('betaDescription')}
+        <Link underline="always" href="https://discord.gg/ERc3svy" target="_blank" sx={{ ml: 0.5 }}>
+          {t('discord')}
+        </Link>
+        .<br />
+        {t('betaReset')}
       </MuiAlert>
     </Box>
   );

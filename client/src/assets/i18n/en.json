@@ -36,8 +36,9 @@
   "connect": "Connect",
   "serverTime": "Server time",
   "betaTitle": "Beta version",
-  "betaDescription": "This game is still in beta. Things are prone to change and bugs may occur. Please report any bug you find on our Discord.",
-  "joinDiscord": "Join our Discord",
+  "betaDescription": "This game is still in beta. Things are prone to change and bugs may occur. Please report any bug you find on our",
+  "discord": "Discord",
+  "betaReset": "Keep in mind everything will be reset at the end of the beta.",
 
   "shadow": "Shadow",
 
