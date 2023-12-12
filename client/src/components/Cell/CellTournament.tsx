@@ -1,4 +1,3 @@
-import { Language } from '@labrute/core';
 import { Box, Paper, PaperProps } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useMemo } from 'react';
@@ -12,9 +11,10 @@ import FantasyButton from '../FantasyButton';
 import Link from '../Link';
 import StyledButton from '../StyledButton';
 import Text from '../Text';
+import { Lang } from '@labrute/prisma';
 
 export interface CellTournamentProps extends PaperProps {
-  language: Language;
+  language: Lang;
 }
 
 const CellTournament = ({

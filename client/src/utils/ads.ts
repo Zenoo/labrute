@@ -1,4 +1,4 @@
-import { Language } from '@labrute/core';
+import { Lang } from '@labrute/prisma';
 
 export type AdName = 'myHordes' | 'eMush' | 'eternalDinoRPG' | 'neoparc' | 'eternalfest' | 'eternalKingdom' | 'directquiz' | 'ePopotamo';
 
@@ -10,7 +10,7 @@ export interface AdResult {
 
 interface AdProps {
   url: string;
-  illustrations: Record<Language, string[]>;
+  illustrations: Record<Lang, string[]>;
 }
 
 const ads: Record<AdName, AdProps> = {
@@ -22,6 +22,7 @@ const ads: Record<AdName, AdProps> = {
       es: ['MH_Ads_Template_es.png'],
       de: ['MH_Ads_Template_de.png'],
       ru: ['MH_Ads_Template_en.png'],
+      pt: ['MH_Ads_Template_en.png'],
     },
   },
   eMush: {
@@ -29,19 +30,21 @@ const ads: Record<AdName, AdProps> = {
     illustrations: {
       fr: ['mush_1.jpg', 'mush_2.jpg'],
       en: ['mush_en.gif'],
-      es: [],
-      de: [],
-      ru: [],
+      es: ['mush_en.gif'],
+      de: ['mush_en.gif'],
+      ru: ['mush_en.gif'],
+      pt: ['mush_en.gif'],
     },
   },
   eternalDinoRPG: {
     url: 'https://dinorpg.eternaltwin.org/',
     illustrations: {
-      fr: [],
+      fr: ['dinorpg_2.jpg', 'dinorpg_3.jpg', 'dinorpg-tw-brute-en.gif'],
       en: ['dinorpg_2.jpg', 'dinorpg_3.jpg', 'dinorpg-tw-brute-en.gif'],
-      es: [],
-      de: [],
-      ru: [],
+      es: ['dinorpg_2.jpg', 'dinorpg_3.jpg', 'dinorpg-tw-brute-en.gif'],
+      de: ['dinorpg_2.jpg', 'dinorpg_3.jpg', 'dinorpg-tw-brute-en.gif'],
+      ru: ['dinorpg_2.jpg', 'dinorpg_3.jpg', 'dinorpg-tw-brute-en.gif'],
+      pt: ['dinorpg_2.jpg', 'dinorpg_3.jpg', 'dinorpg-tw-brute-en.gif'],
     },
   },
   neoparc: {
@@ -52,6 +55,7 @@ const ads: Record<AdName, AdProps> = {
       es: [],
       de: [],
       ru: [],
+      pt: [],
     },
   },
   eternalfest: {
@@ -62,16 +66,18 @@ const ads: Record<AdName, AdProps> = {
       es: [],
       de: [],
       ru: [],
+      pt: [],
     },
   },
   eternalKingdom: {
     url: 'https://kingdom.eternaltwin.org/',
     illustrations: {
-      fr: [],
+      fr: ['kingdom_1.png'],
       en: ['kingdom_1.png'],
-      es: [],
-      de: [],
-      ru: [],
+      es: ['kingdom_1.png'],
+      de: ['kingdom_1.png'],
+      ru: ['kingdom_1.png'],
+      pt: ['kingdom_1.png'],
     },
   },
   directquiz: {
@@ -82,6 +88,7 @@ const ads: Record<AdName, AdProps> = {
       es: [],
       de: [],
       ru: [],
+      pt: [],
     },
   },
   ePopotamo: {
@@ -92,13 +99,14 @@ const ads: Record<AdName, AdProps> = {
       es: [],
       de: [],
       ru: [],
+      pt: [],
     },
   },
 };
 
 export default ads;
 
-const getAd = (adName: AdName, language: Language) => {
+const getAd = (adName: AdName, language: Lang) => {
   const ad = ads[adName];
   let illustrations = ad.illustrations[language];
 
@@ -126,7 +134,7 @@ const getAd = (adName: AdName, language: Language) => {
   return result;
 };
 
-export const getRandomAd = (language: Language, exclude?: AdName) => {
+export const getRandomAd = (language: Lang, exclude?: AdName) => {
   // Ignore ads with no illustration
   const adNames = (Object.keys(ads) as AdName[]).filter((adName) => {
     const ad = ads[adName];

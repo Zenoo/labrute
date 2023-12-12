@@ -1,4 +1,4 @@
-import { getFightsLeft, getGoldNeededForNewBrute, Language, LANGUAGES, Version } from '@labrute/core';
+import { getFightsLeft, getGoldNeededForNewBrute, Version } from '@labrute/core';
 import { AccountCircle, Add, AdminPanelSettings, DoNotDisturb, Login, Logout, MilitaryTech, MoreHoriz } from '@mui/icons-material';
 import { AlertTitle, Badge, Box, BoxProps, CircularProgress, Fab, Link, Alert as MuiAlert, SpeedDial, SpeedDialAction, Tooltip } from '@mui/material';
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
@@ -17,6 +17,7 @@ import Server from '../utils/Server';
 import BrutePortrait from './Brute/Body/BrutePortait';
 import Header from './Header';
 import Text from './Text';
+import { Lang } from '@labrute/prisma';
 
 interface Props extends BoxProps {
   title: string,
@@ -97,7 +98,7 @@ const Page = ({
   }, [Alert, signout, t]);
 
   // Change language
-  const changeLanguage = useCallback((lang: Language) => () => {
+  const changeLanguage = useCallback((lang: Lang) => () => {
     setLanguage(lang);
 
     // Update user language if logged in
@@ -249,7 +250,7 @@ const Page = ({
           {' '}| v{Version} Remade with love at{' '}
           <Link href="https://eternal-twin.net/">Eternal Twin</Link>
           {/* LANGUAGE */}
-          {LANGUAGES.map((lang) => lang !== language && (
+          {Object.values(Lang).map((lang) => lang !== language && (
             <Tooltip title={t(`${lang}-version`)} key={lang}>
               <Box
                 component="img"

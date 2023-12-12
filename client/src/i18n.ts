@@ -5,6 +5,7 @@ import en from './assets/i18n/en.json';
 import es from './assets/i18n/es.json';
 import de from './assets/i18n/de.json';
 import ru from './assets/i18n/ru.json';
+import pt from './assets/i18n/pt.json';
 import { DEFAULT_LANGUAGE } from '@labrute/core';
 import { Lang } from '@labrute/prisma';
 
@@ -24,6 +25,9 @@ export const resources = {
   },
   ru: {
     translation: ru,
+  },
+  pt: {
+    translation: pt,
   },
 } as const;
 

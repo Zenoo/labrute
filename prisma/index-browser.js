@@ -388,7 +388,8 @@ exports.Lang = exports.$Enums.Lang = {
   fr: 'fr',
   de: 'de',
   es: 'es',
-  ru: 'ru'
+  ru: 'ru',
+  pt: 'pt'
 };
 
 exports.Gender = exports.$Enums.Gender = {

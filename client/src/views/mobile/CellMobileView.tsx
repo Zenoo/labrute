@@ -1,5 +1,4 @@
-import { Language } from '@labrute/core';
-import { Log } from '@labrute/prisma';
+import { Lang, Log } from '@labrute/prisma';
 import { Box, Grid, Paper, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -24,7 +23,7 @@ import moment from 'moment';
 export interface CellMobileViewProps {
   ad: AdResult;
   logs: (Log & { currentBrute: { name: string } })[];
-  language: Language;
+  language: Lang;
   ownsBrute: boolean;
   confirmReport: () => void;
   confirmSacrifice: () => void;
@@ -70,7 +69,7 @@ const CellMobileView = ({
               <Text bold center>{`${window.location.origin}?ref=${brute.name}`}</Text>
             </Tooltip>
             {(ownsBrute || !!brute.clanId) && (
-              <CellClan brute={brute} sx={{ ml: 4 }} />
+              <CellClan brute={brute} />
             )}
           </Paper>
         </Grid>
@@ -130,7 +129,14 @@ const CellMobileView = ({
       </Grid>
       {/* LOGS */}
       {!!logs.length && (
-        <Paper sx={{ bgcolor: 'background.paperLight' }}>
+        <Paper
+          sx={{
+            bgcolor: 'background.paperLight',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
           {logs.map((log) => <CellLog key={log.id} log={log} />)}
         </Paper>
       )}

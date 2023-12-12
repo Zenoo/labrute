@@ -132,7 +132,7 @@ export const AchievementData: Record<
   },
   hit20times: {
     rarety: AchievementRarety.common,
-    illustration: 'r_dinfec.gif',
+    illustration: 'hit20times.svg',
     onePerFight: true,
   },
   kill3pets: {
