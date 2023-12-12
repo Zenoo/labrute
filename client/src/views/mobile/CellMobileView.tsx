@@ -69,7 +69,7 @@ const CellMobileView = ({
               <Text bold center>{`${window.location.origin}?ref=${brute.name}`}</Text>
             </Tooltip>
             {(ownsBrute || !!brute.clanId) && (
-              <CellClan brute={brute} sx={{ ml: 4 }} />
+              <CellClan brute={brute} />
             )}
           </Paper>
         </Grid>
@@ -129,7 +129,14 @@ const CellMobileView = ({
       </Grid>
       {/* LOGS */}
       {!!logs.length && (
-        <Paper sx={{ bgcolor: 'background.paperLight' }}>
+        <Paper
+          sx={{
+            bgcolor: 'background.paperLight',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
           {logs.map((log) => <CellLog key={log.id} log={log} />)}
         </Paper>
       )}
