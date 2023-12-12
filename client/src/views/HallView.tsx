@@ -67,7 +67,7 @@ const HallView = () => {
       }}
       >
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('hall')}</Text>
-        {fightsLeft && (
+        {!!fightsLeft && (
           <Text bold color="secondary">
             {fightsLeft > 1
               ? t('youHaveXFightsLeft', { value: fightsLeft })
