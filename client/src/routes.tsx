@@ -29,6 +29,7 @@ import ClanPostView from './views/clan/ClanPostView';
 import ClanRankingView from './views/clan/ClanRankingView';
 import ClanThreadView from './views/clan/ClanThreadView';
 import ClanView from './views/clan/ClanView';
+import GlobalTournamentView from './views/GlobalTournamentView';
 
 const routes: RouteObject[] = [
   { path: 'anchor-test', element: <AnchorTestView /> },
@@ -61,6 +62,7 @@ const routes: RouteObject[] = [
           { path: 'arena', element: <ArenaView /> },
           { path: 'versus/:opponentName', element: <VersusView /> },
           { path: 'fight/:fightId', element: <FightView /> },
+          { path: 'tournament/global/:date', element: <GlobalTournamentView /> },
           { path: 'tournament/:date', element: <TournamentView /> },
           { path: 'ranking', element: <RankingView /> },
           { path: 'ranking/:rank', element: <RankingView /> },
