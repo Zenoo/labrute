@@ -49,7 +49,6 @@ const Header = ({
       <Box
         component="img"
         src={`/images/header/left/${pad(leftArt, 2)}.png`}
-        alt={t('MyBruteIllustration')}
         sx={{
           position: 'absolute',
           top: 0,
@@ -62,14 +61,12 @@ const Header = ({
         <Box
           component="img"
           src={`/images/${language}/header/head.png`}
-          alt={t('MyBrute')}
           sx={{ width: 1 }}
         />
       </Link>
       <Box
         component="img"
         src={`/images/header/right/1${pad(rightArt, 2)}.png`}
-        alt={t('MyBruteIllustration')}
         sx={{
           position: 'absolute',
           top: 0,

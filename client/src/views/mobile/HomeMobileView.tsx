@@ -86,7 +86,7 @@ const HomeMobileView = ({
                 <Text sx={{ typography: 'Pixelized', fontSize: 7 }} color="secondary">{t('chooseName')}</Text>
               </Grid>
               <Grid item xs={6}>
-                <Box component="img" src="/images/creation/arrow.png" alt={t('arrow')} />
+                <Box component="img" src="/images/creation/arrow.png" />
               </Grid>
             </Grid>
             {/* NAME INPUT */}
