@@ -255,7 +255,7 @@ const Page = ({
               <Box
                 component="img"
                 src={`/images/${lang}/flag.svg`}
-                alt={t(`${lang}-version`)}
+                alt={lang}
                 onClick={changeLanguage(lang)}
                 sx={{ ml: 1, cursor: 'pointer', width: 15 }}
               />
