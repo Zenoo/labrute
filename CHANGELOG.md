@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.45.2](https://github.com/Zenoo/labrute/compare/labrute-v2.45.1...labrute-v2.45.2) (2023-12-12)
+
+
+### Bug Fixes
+
+* Remove i18n from alt attributes ([588745b](https://github.com/Zenoo/labrute/commit/588745bbb885fe79f9c89a67f1b6d299284fa7c9))
+
 ## [2.45.1](https://github.com/Zenoo/labrute/compare/labrute-v2.45.0...labrute-v2.45.1) (2023-12-12)
 
 
