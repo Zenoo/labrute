@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.45.1](https://github.com/Zenoo/labrute/compare/labrute-v2.45.0...labrute-v2.45.1) (2023-12-12)
+
+
+### Bug Fixes
+
+* ESLint error ([b322f2f](https://github.com/Zenoo/labrute/commit/b322f2f8456723269503609769f99ce5e8c1f080))
+
 ## [2.45.0](https://github.com/Zenoo/labrute/compare/labrute-v2.44.3...labrute-v2.45.0) (2023-12-12)
 
 
