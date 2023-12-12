@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.45.0](https://github.com/Zenoo/labrute/compare/labrute-v2.44.3...labrute-v2.45.0) (2023-12-12)
+
+
+### Features
+
+* Portuguese version ([b8ce0f3](https://github.com/Zenoo/labrute/commit/b8ce0f3bd6cfd65edeec2b290d0703d7b56f0631))
+
+
+### Bug Fixes
+
+* Cell display on mobile ([8c3476e](https://github.com/Zenoo/labrute/commit/8c3476e23153294080f8438ec8718f729d163d5a))
+* new achievement icon. [#196](https://github.com/Zenoo/labrute/issues/196) ([6dc2ef9](https://github.com/Zenoo/labrute/commit/6dc2ef968c74fc2c5f39b843e297ee93ea7d92c4))
+* Restore missing global tournament history view ([35355a0](https://github.com/Zenoo/labrute/commit/35355a0812c0c92cbc2b0e965ea1351e3f0580a7))
+* Skip spy if no weapons are swapped ([82e4579](https://github.com/Zenoo/labrute/commit/82e457935a9977e124dd4631095de7568f0ec745))
+
 ## [2.44.3](https://github.com/Zenoo/labrute/compare/labrute-v2.44.2...labrute-v2.44.3) (2023-12-11)
 
 
