@@ -141,7 +141,9 @@ const ClanThreadView = () => {
                 >
                   <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <Box component="img" src={`/images/rankings/lvl_${post.author.ranking}.png`} sx={{ mr: 1, width: 20 }} />
-                    <Text bold color="primary">{post.author.name}</Text>
+                    <Link to={`/${post.author.name}/cell`}>
+                      <Text bold color="primary">{post.author.name}</Text>
+                    </Link>
                     {post.author.id === thread.clan.masterId && (
                       <Box component="img" src="/images/clan/master.gif" sx={{ ml: 1, width: 7 }} />
                     )}
