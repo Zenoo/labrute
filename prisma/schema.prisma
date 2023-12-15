@@ -178,6 +178,7 @@ model Brute {
   deletedAt                    DateTime?           @db.Timestamptz()
   createdAt                    DateTime            @default(now()) @db.Timestamptz()
   destinyPath                  DestinyChoiceSide[] @default([])
+  previousDestinyPath          DestinyChoiceSide[] @default([])
   level                        Int                 @default(1)
   xp                           Int                 @default(0)
   hp                           Int                 @default(0)

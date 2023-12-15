@@ -120,7 +120,12 @@ const LevelUpView = () => {
                 }}
               >
                 <BoxBg
-                  src="/images/level-up/box.png"
+                  src={((brute.previousDestinyPath[brute.level - 1] === DestinyChoiceSide.LEFT
+                    && i === 0)
+                    || (brute.previousDestinyPath[brute.level - 1] === DestinyChoiceSide.RIGHT
+                      && i === 1))
+                    ? '/images/level-up/box-current.png'
+                    : '/images/level-up/box.png'}
                   sx={{
                     pt: 5,
                     height: 129,

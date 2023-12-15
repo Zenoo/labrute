@@ -165,6 +165,7 @@ exports.Prisma.BruteScalarFieldEnum = {
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   destinyPath: 'destinyPath',
+  previousDestinyPath: 'previousDestinyPath',
   level: 'level',
   xp: 'xp',
   hp: 'hp',

@@ -911,6 +911,8 @@ const Brutes = {
           // Rank up
           ranking: userBrute.ranking - 1,
           canRankUpSince: null,
+          // Store previous destiny
+          previousDestinyPath: userBrute.destinyPath,
           // Reset destiny
           destinyPath: [],
           // Reset fights left
@@ -1362,6 +1364,8 @@ const Brutes = {
         where: { id: brute.id },
         data: {
           ...stats,
+          // Store previous destiny
+          previousDestinyPath: brute.destinyPath,
           // Reset destiny
           destinyPath: [],
           // Reset fights left
