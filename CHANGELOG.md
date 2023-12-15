@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.46.0](https://github.com/Zenoo/labrute/compare/labrute-v2.45.2...labrute-v2.46.0) (2023-12-15)
+
+
+### Features
+
+* Previous destiny choices shown on level up ([3b355eb](https://github.com/Zenoo/labrute/commit/3b355ebf21ebbbcb38b2b77de3d5df6ddceac6f4))
+
+
+### Bug Fixes
+
+* Achievement icon size ([2796185](https://github.com/Zenoo/labrute/commit/279618550fbf450bcd37c842d9ead4c179daab06))
+* Hall title ([7a1acac](https://github.com/Zenoo/labrute/commit/7a1acacb04079070db717f0a00676189663ec726))
+* Link to brute cell in forums ([92332bb](https://github.com/Zenoo/labrute/commit/92332bbc92bcaefe2d49189cc57a27d9a85ce26a))
+
 ## [2.45.2](https://github.com/Zenoo/labrute/compare/labrute-v2.45.1...labrute-v2.45.2) (2023-12-12)
 
 
