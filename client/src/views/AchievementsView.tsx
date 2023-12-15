@@ -122,7 +122,7 @@ const AchievementsView = () => {
                       }}
                     >
                       {AchievementData[achievement.name].illustration ? (
-                        <Box component="img" src={`/images/achievements/${AchievementData[achievement.name].illustration || ''}`} sx={{ maxWidth: 1 }} />
+                        <Box component="img" src={`/images/achievements/${AchievementData[achievement.name].illustration || ''}`} sx={{ maxWidth: 34 }} />
                       ) : (
                         <QuestionMark />
                       )}
