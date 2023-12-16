@@ -531,54 +531,17 @@ const Brutes = {
         },
       });
 
-      // Completely delete if fresh brute
-      const fightsFought = await prisma.fight.count({
-        where: {
-          OR: [
-            { brute1Id: brute.id },
-            { brute2Id: brute.id },
-          ],
+      // Set brute as deleted
+      await prisma.brute.update({
+        where: { id: brute.id },
+        data: {
+          deletedAt: new Date(),
+          clanId: null,
+          // Delete join request
+          wantToJoinClanId: null,
         },
+        select: { id: true },
       });
-      if (fightsFought === 0) {
-        // Delete body
-        if (await prisma.bruteBody.count({ where: { bruteId: brute.id } })) {
-          await prisma.bruteBody.delete({
-            where: { bruteId: brute.id },
-          });
-        }
-        // Delete colors
-        if (await prisma.bruteColors.count({ where: { bruteId: brute.id } })) {
-          await prisma.bruteColors.delete({
-            where: { bruteId: brute.id },
-          });
-        }
-        // Delete logs
-        if (await prisma.log.count({ where: { currentBruteId: brute.id } })) {
-          await prisma.log.deleteMany({
-            where: { currentBruteId: brute.id },
-          });
-        }
-        // Delete destiny choices
-        if (await prisma.destinyChoice.count({ where: { bruteId: brute.id } })) {
-          await prisma.destinyChoice.deleteMany({
-            where: { bruteId: brute.id },
-          });
-        }
-        await prisma.brute.delete({
-          where: { id: brute.id },
-        });
-      } else {
-        // Set brute as deleted
-        await prisma.brute.update({
-          where: { id: brute.id },
-          data: {
-            deletedAt: new Date(),
-            clanId: null,
-          },
-          select: { id: true },
-        });
-      }
 
       // Update clan points
       if (brute.clanId) {

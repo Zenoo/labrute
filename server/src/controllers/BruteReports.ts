@@ -206,6 +206,10 @@ const BruteReports = {
         },
         data: {
           deletedAt: new Date(),
+          // Remove from clan
+          clanId: null,
+          // Delete join requests
+          wantToJoinClanId: null,
         },
         select: { id: true },
       });

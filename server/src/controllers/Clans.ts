@@ -394,19 +394,12 @@ const Clans = {
       const brute = await prisma.brute.findFirst({
         where: {
           name: req.params.brute,
-          deletedAt: null,
+          wantToJoinClanId: id,
         },
         select: { id: true },
       });
       if (!brute) {
         throw new ExpectedError(translate('bruteNotFound', user));
-      }
-
-      // Check if brute sent a request
-      const request = clan.joinRequests.find((r) => r.id === brute.id);
-
-      if (!request) {
-        throw new ExpectedError(translate('noRequestFound', user));
       }
 
       // Delete request
