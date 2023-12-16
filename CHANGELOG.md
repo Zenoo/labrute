@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.46.1](https://github.com/Zenoo/labrute/compare/labrute-v2.46.0...labrute-v2.46.1) (2023-12-16)
+
+
+### Bug Fixes
+
+* Boss resets without full HP ([7de8c43](https://github.com/Zenoo/labrute/commit/7de8c43e22cd5744707df544fe4066f069a5d96f))
+* Delete join requests when a brute is deleted. Fixes [#520](https://github.com/Zenoo/labrute/issues/520) ([f736d4b](https://github.com/Zenoo/labrute/commit/f736d4bb519b24c504a49c87950e739564a8866a))
+* Only highlight previous level up choices if on the same path ([c3e03d5](https://github.com/Zenoo/labrute/commit/c3e03d53036c31b3a7135427c7db1daa83e54914))
+
 ## [2.46.0](https://github.com/Zenoo/labrute/compare/labrute-v2.45.2...labrute-v2.46.0) (2023-12-15)
 
 
