@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.46.2](https://github.com/Zenoo/labrute/compare/labrute-v2.46.1...labrute-v2.46.2) (2023-12-16)
+
+
+### Bug Fixes
+
+* Remove brute global access ([052e38d](https://github.com/Zenoo/labrute/commit/052e38df711ea1e56a87c7e89167498cbe31251a))
+
 ## [2.46.1](https://github.com/Zenoo/labrute/compare/labrute-v2.46.0...labrute-v2.46.1) (2023-12-16)
 
 
