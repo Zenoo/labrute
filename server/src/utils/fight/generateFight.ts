@@ -261,33 +261,33 @@ const generateFight = async (
     data.brute2 = { connect: { id: brute2.id } };
   }
 
-  // Update clan limit and boss if boss slain
-  if (loser.type === 'boss') {
-    await prisma.clan.update({
-      where: { id: clanId },
-      data: {
-        boss: bosses[randomBetween(0, bosses.length - 1)].name,
-        damageOnBoss: 0,
-        limit: { increment: 10 },
-      },
-    });
-  }
-
-  // Update damage on boss
   if (boss) {
-    const initialBoss = fightDataInitialFighters.find((fighter) => fighter.type === 'boss');
-    const finalBoss = fightData.fighters.find((fighter) => fighter.type === 'boss');
-    if (!initialBoss || !finalBoss) {
-      throw new Error('Boss not found');
-    }
-    const damage = initialBoss.hp - finalBoss.hp;
+    // Update clan limit and boss if boss slain
+    if (loser.type === 'boss') {
+      await prisma.clan.update({
+        where: { id: clanId },
+        data: {
+          boss: bosses[randomBetween(0, bosses.length - 1)].name,
+          damageOnBoss: 0,
+          limit: { increment: 10 },
+        },
+      });
+    } else {
+      // Update damage on boss
+      const initialBoss = fightDataInitialFighters.find((fighter) => fighter.type === 'boss');
+      const finalBoss = fightData.fighters.find((fighter) => fighter.type === 'boss');
+      if (!initialBoss || !finalBoss) {
+        throw new Error('Boss not found');
+      }
+      const damage = initialBoss.hp - finalBoss.hp;
 
-    await prisma.clan.update({
-      where: { id: clanId },
-      data: {
-        damageOnBoss: { increment: damage },
-      },
-    });
+      await prisma.clan.update({
+        where: { id: clanId },
+        data: {
+          damageOnBoss: { increment: damage },
+        },
+      });
+    }
   }
 
   // Add achievements from stats
