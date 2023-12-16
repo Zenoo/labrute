@@ -1,8 +1,8 @@
-import { BruteWithBodyColors, DestinyBranch, skills, weapons } from '@labrute/core';
+import { DestinyBranch, skills, weapons } from '@labrute/core';
 import { BruteStat, PetName, SkillName, WeaponName } from '@labrute/prisma';
 import { QuestionMark } from '@mui/icons-material';
 import { Box, Paper, SxProps } from '@mui/material';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
@@ -11,6 +11,7 @@ import SkillTooltip from '../components/Brute/SkillTooltip';
 import WeaponTooltip from '../components/Brute/WeaponTooltip';
 import Page from '../components/Page';
 import Text from '../components/Text';
+import { useBrute } from '../hooks/useBrute';
 import useStateAsync from '../hooks/useStateAsync';
 import Server from '../utils/Server';
 
@@ -85,12 +86,7 @@ const styles: Record<string, SxProps> = {
 const DestinyView = () => {
   const { t } = useTranslation();
   const { bruteName } = useParams();
-
-  // Brute
-  const bruteParams = useMemo(() => ({ name: bruteName || '', include: { body: true, colors: true } }), [bruteName]);
-  const { data: _brute } = useStateAsync(null, Server.Brute.get, bruteParams);
-
-  const brute = _brute as BruteWithBodyColors;
+  const { brute } = useBrute();
 
   // Destiny choices
   const { data: tree } = useStateAsync(null, Server.Brute.getDestiny, bruteName || '');

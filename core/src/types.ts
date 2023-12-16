@@ -353,16 +353,15 @@ export type BruteWithBodyColors = Brute & {
   body: BruteBody | null;
   colors: BruteColors | null;
 };
-export type BruteWithMaster = Brute & {
-  master: Brute | null;
-};
-export type BruteWithMasterBodyColors = BruteWithBodyColors & BruteWithMaster;
-export type BruteWithClan = Brute & {
-  clan: Clan | null;
-};
-export type BruteWithMasterBodyColorsClan = BruteWithMasterBodyColors & BruteWithClan;
-export type FullBrute = BruteWithMasterBodyColorsClan & {
+export type HookBrute = Brute & {
+  master: Pick<Brute, 'id' | 'name'> | null;
+  body: BruteBody | null;
+  colors: BruteColors | null;
+  clan: Pick<Clan, 'id' | 'name'> | null;
+  user: Pick<User, 'id' | 'name'> | null;
   tournaments: Tournament[];
+};
+export type AdminPanelBrute = BruteWithBodyColors & {
   user: User | null;
 };
 

@@ -1,4 +1,4 @@
-import { BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, BruteVisuals, BruteWithBodyColors, ClanCreateResponse, ClanGetResponse, ClanGetThreadResponse, ClanGetThreadsResponse, ClanListResponse, FullBrute, FullTournament, ServerReadyResponse, TournamentHistoryResponse, TournamentsGetGlobalResponse, UsersAdminUpdateRequest, UserWithBrutesBodyColor } from '@labrute/core';
+import { AdminPanelBrute, BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, BruteVisuals, BruteWithBodyColors, ClanCreateResponse, ClanGetResponse, ClanGetThreadResponse, ClanGetThreadsResponse, ClanListResponse, FullTournament, HookBrute, ServerReadyResponse, TournamentHistoryResponse, TournamentsGetGlobalResponse, UsersAdminUpdateRequest, UserWithBrutesBodyColor } from '@labrute/core';
 import { Achievement, Brute, BruteReportReason, BruteReportStatus, DestinyChoice, DestinyChoiceSide, Fight, Gender, Lang, Log, Prisma, User } from '@labrute/prisma';
 import Fetch from './Fetch';
 
@@ -21,11 +21,9 @@ const Server = {
     adminUpdate: (id: string, data: UsersAdminUpdateRequest) => Fetch<never>(`/api/user/${id}/admin-update`, data, 'POST'),
   },
   Brute: {
-    get: ({
-      name,
-      include,
-      where,
-    }: { name: string, include?: Prisma.BruteInclude, where?: Prisma.BruteWhereInput }) => Fetch<Brute>(`/api/brute/${name}/get`, { include, where }, 'POST'),
+    getForHook: (name: string) => Fetch<HookBrute>(`/api/brute/${name}/for-hook`),
+    getForAdmin: (name: string) => Fetch<AdminPanelBrute>(`/api/brute/${name}/for-admin`),
+    getForVersus: (name: string) => Fetch<BruteWithBodyColors>(`/api/brute/${name}/for-versus`),
     isNameAvailable: (name: string) => Fetch<boolean>(`/api/brute/${name}/available`),
     isReadyToFight: (visuals: BruteVisuals | null) => Fetch<boolean>('/api/brute/ready', { visuals }, 'POST'),
     create: (
@@ -62,7 +60,7 @@ const Server = {
     adminUpdate: (name: string, data: Prisma.BruteUncheckedUpdateInput) => Fetch<never>(`/api/brute/${name}/admin-update`, data, 'POST'),
     restore: (id: number) => Fetch<never>(`/api/brute/${id}/restore`),
     favorite: (name: string) => Fetch<never>(`/api/brute/${name}/favorite`),
-    reset: (name: string) => Fetch<FullBrute>(`/api/brute/${name}/reset`),
+    reset: (name: string) => Fetch<HookBrute>(`/api/brute/${name}/reset`),
   },
   Log: {
     list: (brute: string) => Fetch<(Log & { currentBrute: { name: string } })[]>(`/api/log/list/${brute}`),

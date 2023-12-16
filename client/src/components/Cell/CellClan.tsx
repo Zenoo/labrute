@@ -1,11 +1,13 @@
-import { BruteWithClan } from '@labrute/core';
+import { Brute, Clan } from '@labrute/prisma';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Link, { LinkProps } from '../Link';
 import StyledButton from '../StyledButton';
 
 export interface CellClanProps extends LinkProps {
-  brute: BruteWithClan;
+  brute: Pick<Brute, 'name'> & {
+    clan: Pick<Clan, 'id' | 'name'> | null;
+  };
 }
 
 const CellClan = ({

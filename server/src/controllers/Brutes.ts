@@ -1,6 +1,7 @@
 import {
   ARENA_OPPONENTS_COUNT,
   ARENA_OPPONENTS_MAX_GAP,
+  AdminPanelBrute,
   BruteRestoreResponse,
   BruteVisuals,
   BruteWithBodyColors,
@@ -9,7 +10,7 @@ import {
   BrutesGetFightsLeftResponse, BrutesGetForRankResponse,
   BrutesGetRankingResponse,
   DestinyBranch, ExpectedError,
-  FullBrute,
+  HookBrute,
   MAX_FAVORITE_BRUTES,
   RESET_PRICE,
   canLevelUp,
@@ -41,33 +42,107 @@ import queueJob from '../workers/queueJob.js';
 import { increaseAchievement } from './Achievements.js';
 
 const Brutes = {
-  get: (prisma: PrismaClient) => async (
+  getForVersus: (prisma: PrismaClient) => async (
     req: Request<{
       name: string
-    }, unknown, {
-      include: Prisma.BruteInclude,
-      where: Prisma.BruteWhereInput
     }>,
-    res: Response,
+    res: Response<BruteWithBodyColors>,
   ) => {
     try {
-      // Check `include` validity
-      if (req.body.include) {
-        if (req.body.include.tournaments
-          && typeof req.body.include.tournaments !== 'boolean'
-          && typeof req.body.include.tournaments.where?.date !== 'undefined'
-          && req.body.include.tournaments.where.date === null) {
-          throw new ExpectedError('Tournament date missing');
-        }
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name: req.params.name,
+          deletedAt: null,
+        },
+        include: {
+          body: true,
+          colors: true,
+        },
+      });
+
+      if (!brute) {
+        throw new ExpectedError('Brute not found');
+      }
+
+      res.send(brute);
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  getForHook: (prisma: PrismaClient) => async (
+    req: Request<{
+      name: string
+    }>,
+    res: Response<HookBrute>,
+  ) => {
+    try {
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name: req.params.name,
+          deletedAt: null,
+        },
+        include: {
+          master: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+          body: true,
+          colors: true,
+          clan: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+          user: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+          tournaments: {
+            where: {
+              type: TournamentType.DAILY,
+              date: moment.utc().startOf('day').toDate(),
+            },
+          },
+        },
+      });
+
+      if (!brute) {
+        throw new ExpectedError('Brute not found');
+      }
+
+      res.send(brute);
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  getForAdmin: (prisma: PrismaClient) => async (
+    req: Request<{
+      name: string
+    }>,
+    res: Response<AdminPanelBrute>,
+  ) => {
+    try {
+      const user = await auth(prisma, req);
+
+      if (!user.admin) {
+        throw new ExpectedError(translate('unauthorized', user));
       }
 
       const brute = await prisma.brute.findFirst({
         where: {
-          ...req.body.where,
           name: req.params.name,
           deletedAt: null,
         },
-        include: req.body.include,
+        include: {
+          body: true,
+          colors: true,
+          user: true,
+        },
       });
 
       if (!brute) {
@@ -1323,7 +1398,7 @@ const Brutes = {
       );
 
       // Update the brute
-      const updatedBrute: FullBrute = await prisma.brute.update({
+      const updatedBrute: HookBrute = await prisma.brute.update({
         where: { id: brute.id },
         data: {
           ...stats,
@@ -1337,11 +1412,26 @@ const Brutes = {
           ranking: brute.ranking,
         },
         include: {
-          master: true,
+          master: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
           body: true,
           colors: true,
-          clan: true,
-          user: true,
+          clan: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+          user: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
           tournaments: {
             where: {
               type: TournamentType.DAILY,

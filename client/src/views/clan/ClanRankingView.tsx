@@ -1,21 +1,21 @@
 import { Box, Grid, Paper, Table, TableBody, TableCell, TableHead, TableRow, useMediaQuery, useTheme } from '@mui/material';
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
+import FantasyButton from '../../components/FantasyButton';
 import Link from '../../components/Link';
 import Loader from '../../components/Loader';
 import Page from '../../components/Page';
+import StyledInput from '../../components/StyledInput';
 import Text from '../../components/Text';
 import { useBrute } from '../../hooks/useBrute';
 import useStateAsync from '../../hooks/useStateAsync';
 import Server from '../../utils/Server';
-import FantasyButton from '../../components/FantasyButton';
-import StyledInput from '../../components/StyledInput';
 
 const ClanRankingView = () => {
   const { t } = useTranslation();
   const { bruteName } = useParams();
-  const { brute, fetchBrute } = useBrute();
+  const { brute } = useBrute();
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -33,13 +33,6 @@ const ClanRankingView = () => {
   const changePage = (delta: number) => () => {
     setPage(page + delta);
   };
-
-  // Fetch brute
-  useEffect(() => {
-    if (!bruteName) return;
-
-    fetchBrute(bruteName);
-  }, [bruteName, fetchBrute]);
 
   return (
     <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/cell`}>

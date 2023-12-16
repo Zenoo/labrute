@@ -50,14 +50,9 @@ const routes: RouteObject[] = [
       { path: 'hall', element: <HallView /> },
       {
         path: ':bruteName',
+        element: <ProvideBrute />,
         children: [
-          {
-            path: 'cell',
-            element: <ProvideBrute />,
-            children: [
-              { path: '', element: <CellView /> },
-            ],
-          },
+          { path: 'cell', element: <CellView /> },
           { path: 'level-up', element: <LevelUpView /> },
           { path: 'arena', element: <ArenaView /> },
           { path: 'versus/:opponentName', element: <VersusView /> },

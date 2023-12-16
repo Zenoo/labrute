@@ -1,12 +1,13 @@
-import { BruteWithBodyColors, availableBodyParts } from '@labrute/core';
-import { BruteBody, BruteColors, DestinyChoiceSide, Gender, PetName, SkillName, User, WeaponName } from '@labrute/prisma';
-import { Alert as MuiAlert, Box, Checkbox, Divider, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Paper, Select, Stack } from '@mui/material';
+import { AdminPanelBrute, availableBodyParts } from '@labrute/core';
+import { BruteBody, BruteColors, DestinyChoiceSide, Gender, PetName, SkillName, WeaponName } from '@labrute/prisma';
+import { Box, Checkbox, Divider, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Alert as MuiAlert, Paper, Select, Stack } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
 import moment from 'moment';
 import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import BruteComponent from '../components/Brute/Body/BruteComponent';
 import FantasyButton from '../components/FantasyButton';
+import Link from '../components/Link';
 import Page from '../components/Page';
 import StyledInput from '../components/StyledInput';
 import Text from '../components/Text';
@@ -14,7 +15,6 @@ import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
-import Link from '../components/Link';
 
 const AdminView = () => {
   const { t } = useTranslation();
@@ -23,7 +23,7 @@ const AdminView = () => {
 
   const [bruteName, setBruteName] = React.useState('');
   const [bruteId, setBruteId] = React.useState(0);
-  const [brute, setBrute] = React.useState<BruteWithBodyColors & { user: User } | null>(null);
+  const [brute, setBrute] = React.useState<AdminPanelBrute | null>(null);
   const [globalTournamentValid, setGlobalTournamentValid] = React.useState(true);
 
   // Change bruteName
@@ -66,11 +66,8 @@ const AdminView = () => {
 
   // Fetch brute
   const updateBrute = useCallback(() => {
-    Server.Brute.get({
-      name: bruteName,
-      include: { body: true, colors: true, user: true },
-    }).then((b) => {
-      setBrute(b as BruteWithBodyColors & { user: User });
+    Server.Brute.getForAdmin(bruteName).then((b) => {
+      setBrute(b);
     }).catch(catchError(Alert));
   }, [Alert, bruteName]);
 
@@ -181,7 +178,7 @@ const AdminView = () => {
             />
             {brute && brute.body && brute.colors && (
               <>
-                <Text h2 smallCaps>{brute.name} ({brute.user.name})</Text>
+                <Text h2 smallCaps>{brute.name} ({brute.user?.name})</Text>
                 <BruteComponent brute={brute} sx={{ width: 100 }} />
                 <FantasyButton color="success" onClick={regenerateBruteSpritesheet}>REGENERATE SPRITESHEET</FantasyButton>
                 <Grid container spacing={1}>

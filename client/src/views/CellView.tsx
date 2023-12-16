@@ -2,7 +2,7 @@ import { RESET_PRICE, getBruteGoldValue } from '@labrute/core';
 import { BruteReportReason } from '@labrute/prisma';
 import { History } from '@mui/icons-material';
 import { Box, Paper, Tooltip, useMediaQuery } from '@mui/material';
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import BoxBg from '../components/BoxBg';
@@ -37,7 +37,7 @@ const CellView = () => {
   const smallScreen = useMediaQuery('(max-width: 938px)');
   const { language } = useLanguage();
   const navigate = useNavigate();
-  const { brute, fetchBrute, updateBrute } = useBrute();
+  const { brute, updateBrute } = useBrute();
   const Confirm = useConfirm();
   const Alert = useAlert();
   const { authing, user, updateData } = useAuth();
@@ -86,13 +86,6 @@ const CellView = () => {
       }).catch(catchError(Alert));
     });
   }, [Alert, Confirm, brute, t, updateBrute, updateData]);
-
-  // Fetch brute
-  useEffect(() => {
-    if (!bruteName) return;
-
-    fetchBrute(bruteName);
-  }, [bruteName, fetchBrute]);
 
   // Randomized advertising
   const ad = useMemo(() => getRandomAd(language), [language]);

@@ -43,7 +43,9 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
   app.post('/api/user/:id/admin-update', Users.adminUpdate(prisma));
 
   // Brute
-  app.post('/api/brute/:name/get', Brutes.get(prisma));
+  app.get('/api/brute/:name/for-versus', Brutes.getForVersus(prisma));
+  app.get('/api/brute/:name/for-hook', Brutes.getForHook(prisma));
+  app.get('/api/brute/:name/for-admin', Brutes.getForAdmin(prisma));
   app.get('/api/brute/:name/fights-left', Brutes.getFightsLeft(prisma));
   app.get('/api/brute/:name/available', Brutes.isNameAvailable(prisma));
   app.post('/api/brute/ready', Brutes.isReadyToFight(prisma));

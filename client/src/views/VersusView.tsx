@@ -1,4 +1,4 @@
-import { BruteWithBodyColors, getXPNeeded } from '@labrute/core';
+import { getXPNeeded } from '@labrute/core';
 import { Grid, useMediaQuery } from '@mui/material';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -10,6 +10,7 @@ import StyledButton from '../components/StyledButton';
 import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
+import { useBrute } from '../hooks/useBrute';
 import useStateAsync from '../hooks/useStateAsync';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
@@ -17,22 +18,17 @@ import VersusMobileView from './mobile/VersusMobileView';
 
 const VersusView = () => {
   const { t } = useTranslation();
-  const { bruteName, opponentName } = useParams();
+  const { opponentName } = useParams();
   const navigate = useNavigate();
   const Alert = useAlert();
   const { user, updateData } = useAuth();
+  const { brute } = useBrute();
   const smallScreen = useMediaQuery('(max-width: 935px)');
 
   // Prevent multi click
   const [fighting, setFighting] = React.useState(false);
 
-  const bruteProps = useMemo(() => ({ name: bruteName || '', include: { body: true, colors: true } }), [bruteName]);
-  const { data: _brute } = useStateAsync(null, Server.Brute.get, bruteProps);
-  const opponentProps = useMemo(() => ({ name: opponentName || '', include: { body: true, colors: true } }), [opponentName]);
-  const { data: _opponent } = useStateAsync(null, Server.Brute.get, opponentProps);
-
-  const brute = _brute as BruteWithBodyColors;
-  const opponent = _opponent as BruteWithBodyColors;
+  const { data: opponent } = useStateAsync(null, Server.Brute.getForVersus, opponentName || '');
 
   const xpNeededForNextLevel = useMemo(() => brute
     && getXPNeeded(brute.level + 1), [brute]);

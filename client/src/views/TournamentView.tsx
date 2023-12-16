@@ -1,5 +1,4 @@
 import { Fighter, FightWithBrutes } from '@labrute/core';
-import { Brute } from '@labrute/prisma';
 import { Close } from '@mui/icons-material';
 import { Box, Paper, useMediaQuery } from '@mui/material';
 import moment from 'moment';
@@ -14,6 +13,7 @@ import Page from '../components/Page';
 import StyledButton, { StyledButtonHeight, StyledButtonWidth } from '../components/StyledButton';
 import Text from '../components/Text';
 import { useAuth } from '../hooks/useAuth';
+import { useBrute } from '../hooks/useBrute';
 import useStateAsync from '../hooks/useStateAsync';
 import Server from '../utils/Server';
 import TournamentMobileView from './mobile/TournamentMobileView';
@@ -36,12 +36,10 @@ const TournamentView = () => {
   const { user, authing } = useAuth();
   const navigate = useNavigate();
   const smallScreen = useMediaQuery('(max-width: 935px)');
+  const { brute, updateBrute } = useBrute();
 
   const tournamentProps = useMemo(() => ({ name: bruteName || '', date: date || '' }), [bruteName, date]);
   const { data: tournament } = useStateAsync(null, Server.Tournament.getDaily, tournamentProps);
-
-  const bruteProps = useMemo(() => ({ name: bruteName || '' }), [bruteName]);
-  const { data: brute, set: setBrute } = useStateAsync(null, Server.Brute.get, bruteProps);
 
   const stepWatched = useMemo(() => {
     if (!tournament?.date) return 0;
@@ -124,12 +122,12 @@ const TournamentView = () => {
 
     await Server.Tournament.setDailyWatched(brute.name);
 
-    setBrute((b) => ({
-      ...b as Brute,
+    updateBrute((b) => (b ? {
+      ...b,
       currentTournamentDate: moment.utc().startOf('day').toDate(),
       currentTournamentStepWatched: 6,
-    }));
-  }, [brute, setBrute]);
+    } : null));
+  }, [brute, updateBrute]);
 
   return tournament && (smallScreen
     ? (

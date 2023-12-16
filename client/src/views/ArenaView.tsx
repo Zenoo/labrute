@@ -1,4 +1,5 @@
 import { BruteWithBodyColors, FightStat, getFightsLeft, getXPNeeded } from '@labrute/core';
+import { Brute } from '@labrute/prisma';
 import { Box, Button, Grid, Paper, useMediaQuery, useTheme } from '@mui/material';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -7,17 +8,16 @@ import ArenaStat from '../components/Arena/ArenaStat';
 import BruteComponent from '../components/Brute/Body/BruteComponent';
 import BruteBodyAndStats from '../components/Brute/BruteBodyAndStats';
 import BruteHP from '../components/Brute/BruteHP';
+import BruteLevelAndXP from '../components/Brute/BruteLevelAndXP';
 import Link from '../components/Link';
 import Page from '../components/Page';
 import StyledButton from '../components/StyledButton';
 import StyledInput from '../components/StyledInput';
 import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
-import useStateAsync from '../hooks/useStateAsync';
-import catchError from '../utils/catchError';
+import { useBrute } from '../hooks/useBrute';
 import Server from '../utils/Server';
-import BruteLevelAndXP from '../components/Brute/BruteLevelAndXP';
-import { Brute } from '@labrute/prisma';
+import catchError from '../utils/catchError';
 
 const ArenaView = () => {
   const { t } = useTranslation();
@@ -26,18 +26,15 @@ const ArenaView = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
+  const { brute } = useBrute();
 
-  const bruteProps = useMemo(() => ({ name: bruteName || '', include: { body: true, colors: true } }), [bruteName]);
-  const { data: _brute } = useStateAsync(null, Server.Brute.get, bruteProps);
   const [opponents, setOpponents] = useState<BruteWithBodyColors[]>([]);
   const [search, setSearch] = useState('');
-
-  const brute = _brute as BruteWithBodyColors;
 
   const xpNeededForNextLevel = useMemo(() => brute
     && getXPNeeded(brute.level + 1), [brute]);
 
-  const fightsLeft = useMemo(() => brute && getFightsLeft(brute), [brute]);
+  const fightsLeft = useMemo(() => (brute && getFightsLeft(brute)) ?? 0, [brute]);
 
   // Fetch random opponents
   useEffect(() => {
