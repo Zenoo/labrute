@@ -76,6 +76,7 @@ export const AchievementData: Record<
   },
   counter5: {
     rarety: AchievementRarety.uncommon,
+    illustration: 'counter5.svg',
     onePerFight: true,
   },
   evade10: {
@@ -112,12 +113,12 @@ export const AchievementData: Record<
   },
   disarm4: {
     rarety: AchievementRarety.uncommon,
-    illustration: 'r_broken.gif',
+    illustration: 'disarm4.svg',
     onePerFight: true,
   },
   disarm8: {
     rarety: AchievementRarety.uncommon,
-    illustration: 'r_broken.gif',
+    illustration: 'disarm8.svg',
     onePerFight: true,
   },
   damage50once: {
@@ -209,7 +210,7 @@ export const AchievementData: Record<
   },
   shield_counterAttack: {
     rarety: AchievementRarety.uncommon,
-    illustration: 'r_jguard.gif',
+    illustration: 'shield_counterAttack.svg',
     perBrute: 1,
   },
   reconnaissance_monk: {
@@ -299,7 +300,7 @@ export const AchievementData: Record<
   },
   lightningBolt_firstStrike: {
     rarety: AchievementRarety.uncommon,
-    illustration: 'f_alarm.gif',
+    illustration: 'lightningBolt_firstStrike.svg',
     perBrute: 1,
   },
   herculeanStrength: {
@@ -355,7 +356,7 @@ export const AchievementData: Record<
   },
   weaponsHeavy3: {
     rarety: AchievementRarety.uncommon,
-    illustration: 'r_tronco.gif',
+    illustration: 'weaponsHeavy3.svg',
     perBrute: 1,
   },
   weaponsLong3: {
