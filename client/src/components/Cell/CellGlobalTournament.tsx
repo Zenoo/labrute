@@ -33,10 +33,21 @@ const CellGlobalTournament = ({
 
   // Get data
   useEffect(() => {
+    let isSubscribed = true;
+    if (!bruteName) return () => { isSubscribed = false; };
+
     setData(null);
-    Server.Tournament.getGlobal({ name: bruteName, date: (date || now).format('YYYY-MM-DD') }).then(setData).catch(() => {
-      setData(null);
+    Server.Tournament.getGlobal({ name: bruteName, date: (date || now).format('YYYY-MM-DD') }).then((d) => {
+      if (isSubscribed) {
+        setData(d);
+      }
+    }).catch(() => {
+      if (isSubscribed) {
+        setData(null);
+      }
     });
+
+    return () => { isSubscribed = false; };
   }, [bruteName, date, now]);
 
   const lostRound = useMemo(
