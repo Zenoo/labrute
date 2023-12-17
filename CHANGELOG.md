@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.46.3](https://github.com/Zenoo/labrute/compare/labrute-v2.46.2...labrute-v2.46.3) (2023-12-17)
+
+
+### Bug Fixes
+
+* Update bosses initiative ([011ebf0](https://github.com/Zenoo/labrute/commit/011ebf0f2892a4661fa59ccb22034c370262c84d))
+
 ## [2.46.2](https://github.com/Zenoo/labrute/compare/labrute-v2.46.1...labrute-v2.46.2) (2023-12-16)
 
 
