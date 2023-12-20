@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.46.4](https://github.com/Zenoo/labrute/compare/labrute-v2.46.3...labrute-v2.46.4) (2023-12-20)
+
+
+### Bug Fixes
+
+* New achievement icons. [#196](https://github.com/Zenoo/labrute/issues/196) ([44b0a67](https://github.com/Zenoo/labrute/commit/44b0a67c65f4deb7174baa5fc13e819d1965e4c7))
+* Prevent unlimited boss fights ([5a37a03](https://github.com/Zenoo/labrute/commit/5a37a03c8bb289f6a0bb2c4b75c94074d7886a5e))
+* Update prisma version ([d45a331](https://github.com/Zenoo/labrute/commit/d45a3312d4b7900b5eb304983f596b5899c66035))
+
 ## [2.46.3](https://github.com/Zenoo/labrute/compare/labrute-v2.46.2...labrute-v2.46.3) (2023-12-17)
 
 
