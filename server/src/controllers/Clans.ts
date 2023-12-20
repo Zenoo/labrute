@@ -865,6 +865,11 @@ const Clans = {
         throw new ExpectedError(translate('bruteNotFound', user));
       }
 
+      // Check if the brute has fights left
+      if (getFightsLeft(brute) <= 0) {
+        throw new ExpectedError(translate('noFightsLeft', user));
+      }
+
       const id = +req.params.id;
 
       // Check if the brute is in the clan
