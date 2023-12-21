@@ -539,16 +539,16 @@ export default class FighterHolder {
       if (fighter.gender === Gender.female) {
         switch (fighter.data?.body.longHair) {
           case 1:
-            this.#parts.p2 = 0;
+            this.#parts.p3 = 0;
             break;
           case 2:
-            this.#parts.p2 = 4;
+            this.#parts.p3 = 4;
             break;
           case 3:
-            this.#parts.p2 = 7;
+            this.#parts.p3 = 7;
             break;
           default:
-            this.#parts.p2 = 0;
+            this.#parts.p3 = 0;
         }
       }
     }
@@ -570,15 +570,6 @@ export default class FighterHolder {
     symbolContainer.sortableChildren = true;
     symbolContainer.x = 0;
     symbolContainer.y = 0;
-
-    // Add red circle at 0 0
-    const circle = new PIXI.Graphics();
-    circle.beginFill(0xff0000);
-    circle.drawCircle(0, 0, 5);
-    circle.endFill();
-    circle.zIndex = 1000;
-    circle.visible = true;
-    symbolContainer.addChild(circle);
 
     // Handle team side
     symbolContainer.scale.x = this.team === 'left' ? 1 : -1;
@@ -760,7 +751,7 @@ export default class FighterHolder {
     }
   };
 
-  setAnimation(animation: Animation) {
+  setAnimation(animation: Animation, frame = 0) {
     // Handle idle differently for monks
     if (animation === 'idle' && this.skills.includes('monk')) {
       this.animation = 'monk';
@@ -789,7 +780,7 @@ export default class FighterHolder {
     this.#animationContainer.visible = true;
 
     // Reset frame
-    this.#frame = 0;
+    this.#frame = frame;
     this.#frameCount = this.#animationSymbol?.frames?.length ?? 0;
     this.#timer = 0;
     this.#playing = true;
@@ -894,7 +885,7 @@ export default class FighterHolder {
 
         // Increase loading scale for better resolution in some cases
         if (this.type === 'pet') {
-          customScale = 1.5;
+          customScale = 2;
         } else if (this.type === 'boss') {
           customScale = 2;
         }

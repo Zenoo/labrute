@@ -3187,21 +3187,12 @@ __metadata:
     "@mui/material": "npm:^5.14.20"
     "@mui/system": "npm:^5.14.20"
     "@mui/x-date-pickers": "npm:^6.18.3"
-    "@pixi/constants": "npm:^6.5.9"
-    "@pixi/core": "npm:^6.5.9"
-    "@pixi/extensions": "npm:^6.5.9"
     "@pixi/filter-adjustment": "npm:^5.1.1"
     "@pixi/filter-bevel": "npm:^4.2.0"
     "@pixi/filter-color-overlay": "npm:^4.2.0"
     "@pixi/filter-glow": "npm:^4.2.0"
     "@pixi/filter-outline": "npm:^4.2.0"
-    "@pixi/loaders": "npm:^6.5.9"
-    "@pixi/math": "npm:^6.5.9"
-    "@pixi/runner": "npm:^6.5.9"
-    "@pixi/settings": "npm:^6.5.9"
-    "@pixi/sound": "npm:^4.3.3"
-    "@pixi/ticker": "npm:^6.5.9"
-    "@pixi/utils": "npm:^6.5.9"
+    "@pixi/sound": "npm:^4.4.1"
     "@types/node": "npm:^18.6.3"
     "@types/react": "npm:^18.2.42"
     "@types/react-dom": "npm:^18.2.17"
@@ -3656,14 +3647,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pixi/constants@npm:6.5.10, @pixi/constants@npm:^6.5.9":
+"@pixi/constants@npm:6.5.10":
   version: 6.5.10
   resolution: "@pixi/constants@npm:6.5.10"
   checksum: ca7eac110cffaf818e50fa352642ab8ec6e6c80adad6a35cb5d010424fac14bd8b1ae099ba283b609b795c19f74b9d2f520143541af489ed1852dce3cc66dd75
   languageName: node
   linkType: hard
 
-"@pixi/core@npm:6.5.10, @pixi/core@npm:^6.5.9":
+"@pixi/core@npm:6.5.10":
   version: 6.5.10
   resolution: "@pixi/core@npm:6.5.10"
   dependencies:
@@ -3692,7 +3683,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pixi/extensions@npm:6.5.10, @pixi/extensions@npm:^6.5.9":
+"@pixi/extensions@npm:6.5.10":
   version: 6.5.10
   resolution: "@pixi/extensions@npm:6.5.10"
   checksum: 8df6e4298603a92cf6360c0650f4bb9dce61284bde8ad9ec36a636d881179bd4277379f322365abc924c0b5e226887747d78f11104d699aa0d3c7ac62ee829cf
@@ -3846,7 +3837,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pixi/loaders@npm:6.5.10, @pixi/loaders@npm:^6.5.9":
+"@pixi/loaders@npm:6.5.10":
   version: 6.5.10
   resolution: "@pixi/loaders@npm:6.5.10"
   peerDependencies:
@@ -3857,7 +3848,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pixi/math@npm:6.5.10, @pixi/math@npm:^6.5.9":
+"@pixi/math@npm:6.5.10":
   version: 6.5.10
   resolution: "@pixi/math@npm:6.5.10"
   checksum: 423d3c8f7a3ca8fb03153ede88e3339164906e370ea67d3c00b4f8b5b6184be6f9d9df3dd071ff3e4d798125a36480526b63dbaf9e8da72b51154f7cf2d626e0
@@ -3964,14 +3955,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pixi/runner@npm:6.5.10, @pixi/runner@npm:^6.5.9":
+"@pixi/runner@npm:6.5.10":
   version: 6.5.10
   resolution: "@pixi/runner@npm:6.5.10"
   checksum: 22b04e51b3331afe307c229668e17235986f7d1bf404a371b42f8c502a15a0a9a05e2b5397563f0c119eb200adbcee3008f210d8c14de2e8dffa2d1adbf4c5ca
   languageName: node
   linkType: hard
 
-"@pixi/settings@npm:6.5.10, @pixi/settings@npm:^6.5.9":
+"@pixi/settings@npm:6.5.10":
   version: 6.5.10
   resolution: "@pixi/settings@npm:6.5.10"
   peerDependencies:
@@ -3980,15 +3971,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pixi/sound@npm:^4.3.3":
-  version: 4.3.3
-  resolution: "@pixi/sound@npm:4.3.3"
+"@pixi/sound@npm:^4.4.1":
+  version: 4.4.1
+  resolution: "@pixi/sound@npm:4.4.1"
   peerDependencies:
     "@pixi/core": ">=5 <7"
     "@pixi/loaders": ">=5 <7"
     "@pixi/ticker": ">=5 <7"
     "@pixi/utils": ">=5 <7"
-  checksum: be07d11addfb0c5cf3d548ac531df5cf60bd0a37d69e15067a0facaf08ab2b70844fd03529c9ccff76fc281d3b440c40fd21fda0d91311296b57a305105703a0
+  checksum: 9811ba7f923332b29f658be15bec0d6b4a6f27a8461d89dbb7b5f2b336350a1b7a3cd9e7f6b041abd801fe7c8924884995e690e45dac9ff2afd7d637f1eb8ec4
   languageName: node
   linkType: hard
 
@@ -4073,7 +4064,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pixi/ticker@npm:6.5.10, @pixi/ticker@npm:^6.5.9":
+"@pixi/ticker@npm:6.5.10":
   version: 6.5.10
   resolution: "@pixi/ticker@npm:6.5.10"
   peerDependencies:
@@ -4083,7 +4074,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pixi/utils@npm:6.5.10, @pixi/utils@npm:^6.5.9":
+"@pixi/utils@npm:6.5.10":
   version: 6.5.10
   resolution: "@pixi/utils@npm:6.5.10"
   dependencies:

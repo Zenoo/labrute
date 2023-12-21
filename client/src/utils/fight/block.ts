@@ -21,8 +21,8 @@ const block = async (
 
   const animationEnded = fighter.animation.waitForEvent('block:end');
 
-  // Set animation to `block`
-  fighter.animation.setAnimation('block');
+  // Set animation to `block` (start at frame 3)
+  fighter.animation.setAnimation('block', 3);
 
   // Play block SFX
   void sound.play('hit/block', {
