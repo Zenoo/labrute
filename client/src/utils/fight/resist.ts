@@ -19,8 +19,8 @@ const resist = (
   // Add a yellow outline filter to the brute on the next animation
   setTimeout(() => {
     const outline = new OutlineFilter(2, 0xffff00);
-    brute.currentAnimation.filters = [
-      ...brute.currentAnimation.filters || [],
+    brute.animation.container.filters = [
+      ...brute.animation.container.filters || [],
       outline
     ];
 
@@ -28,7 +28,7 @@ const resist = (
     const duration = (nextStep.action === 'hammer' ? 800 : 200) / speed.current;
 
     setTimeout(() => {
-      brute.currentAnimation.filters = brute.currentAnimation.filters
+      brute.animation.container.filters = brute.animation.container.filters
         ?.filter((f) => !(f instanceof OutlineFilter)) || [];
     }, duration);
   }, 5);

@@ -3215,6 +3215,7 @@ __metadata:
     eslint-plugin-react: "npm:^7.33.2"
     eslint-plugin-react-hooks: "npm:^4.6.0"
     i18next: "npm:^21.9.0"
+    labrute-fla-parser: "npm:^1.0.3"
     moment: "npm:^2.29.4"
     pixi-tweener: "npm:^0.12.2"
     pixi.js: "npm:^6.5.9"
@@ -12426,6 +12427,13 @@ __metadata:
     object-inspect: "npm:^1.10.3"
     tslib: "npm:^2.3.0"
   checksum: 6ae022527762150c33ced23b895f6979fd8e9f7c690d85dd47ea25b92a1a9b01140c5f1e74de9228b33f3f0f0cf4ee99b12d369676031cb6b2787546a0112f8d
+  languageName: node
+  linkType: hard
+
+"labrute-fla-parser@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "labrute-fla-parser@npm:1.0.3"
+  checksum: 6c8275788edb145937b786773685c386c92dae19e351d6f26a65d609e7fd1e42c971dcffc3bb7fe6f0432538b76e22f6b35b58363187a4340386e64b14990e51
   languageName: node
   linkType: hard
 

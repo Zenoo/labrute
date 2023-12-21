@@ -2,13 +2,12 @@
 import { HealStep } from '@labrute/core';
 import { OutlineFilter } from '@pixi/filter-outline';
 import { Tweener } from 'pixi-tweener';
-import { AnimatedSprite, Application, Sprite, Text } from 'pixi.js';
-import changeAnimation from './changeAnimation';
+import { Application, Sprite, Text } from 'pixi.js';
 
-import findFighter, { AnimationFighter } from './findFighter';
-import updateHp from './updateHp';
 import { sound } from '@pixi/sound';
+import findFighter, { AnimationFighter } from './findFighter';
 import insideXBounds from './insideXBounds';
+import updateHp from './updateHp';
 
 const heal = async (
   app: Application,
@@ -30,8 +29,10 @@ const heal = async (
     throw new Error('Brute not found');
   }
 
+  const animationEnded = brute.animation.waitForEvent('drink:end');
+
   // Set animation to `drink`
-  changeAnimation(app, brute, 'drink', speed);
+  brute.animation.setAnimation('drink');
 
   // Play heal SFX
   void sound.play('skills/tragicPotion', {
@@ -43,8 +44,8 @@ const heal = async (
     fontFamily: 'GameFont', fontSize: 20, fill: 0x00ff00,
   });
   healText.anchor.set(0.5);
-  healText.x = insideXBounds(brute.container.x);
-  healText.y = brute.container.y - brute.currentAnimation.height;
+  healText.x = insideXBounds(brute.animation.container.x);
+  healText.y = brute.animation.container.y - brute.animation.container.height;
   healText.zIndex = 1000;
   healText.filters = [new OutlineFilter()];
   app.stage.addChild(healText);
@@ -66,8 +67,8 @@ const heal = async (
     cureIcon.anchor.set(0.5);
     cureIcon.width = 30;
     cureIcon.height = 30;
-    cureIcon.x = insideXBounds(brute.container.x) - 35;
-    cureIcon.y = brute.container.y - brute.currentAnimation.height;
+    cureIcon.x = insideXBounds(brute.animation.container.x) - 35;
+    cureIcon.y = brute.animation.container.y - brute.animation.container.height;
     cureIcon.zIndex = 1000;
     app.stage.addChild(cureIcon);
 
@@ -84,17 +85,13 @@ const heal = async (
   }
 
   // Wait for animation to complete
-  await new Promise((resolve) => {
-    (brute.currentAnimation as AnimatedSprite).onComplete = () => {
-      resolve(null);
-    };
-  });
+  await animationEnded;
 
   // Heal brute
   updateHp(brute, step.amount, speed);
 
   // Set animation to `idle`
-  changeAnimation(app, brute, 'idle', speed);
+  brute.animation.setAnimation('idle');
 };
 
 export default heal;

@@ -1,10 +1,9 @@
 /* eslint-disable no-void */
 import { BlockStep } from '@labrute/core';
-import { AnimatedSprite, Application } from 'pixi.js';
-import changeAnimation from './changeAnimation';
+import { Application } from 'pixi.js';
 
-import findFighter, { AnimationFighter } from './findFighter';
 import { sound } from '@pixi/sound';
+import findFighter, { AnimationFighter } from './findFighter';
 
 const block = async (
   app: Application,
@@ -20,8 +19,10 @@ const block = async (
     throw new Error('Fighter not found');
   }
 
+  const animationEnded = fighter.animation.waitForEvent('block:end');
+
   // Set animation to `block`
-  changeAnimation(app, fighter, 'block', speed);
+  fighter.animation.setAnimation('block');
 
   // Play block SFX
   void sound.play('hit/block', {
@@ -29,14 +30,10 @@ const block = async (
   });
 
   // Wait for animation to complete
-  await new Promise((resolve) => {
-    (fighter.currentAnimation as AnimatedSprite).onComplete = () => {
-      resolve(null);
-    };
-  });
+  await animationEnded;
 
   // Set animation to `idle`
-  changeAnimation(app, fighter, 'idle', speed);
+  fighter.animation.setAnimation('idle');
 };
 
 export default block;

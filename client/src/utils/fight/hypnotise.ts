@@ -1,11 +1,10 @@
 /* eslint-disable no-void */
 import { FIGHTER_HEIGHT, FIGHTER_WIDTH, HypnotiseStep } from '@labrute/core';
+import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
 import { AnimatedSprite, Application } from 'pixi.js';
-import changeAnimation from './changeAnimation';
 import { getRandomPosition } from './fightPositions';
 import findFighter, { AnimationFighter } from './findFighter';
-import { sound } from '@pixi/sound';
 
 const hypnotise = async (
   app: Application,
@@ -27,8 +26,10 @@ const hypnotise = async (
     throw new Error('Brute not found');
   }
 
+  const animationEnded = brute.animation.waitForEvent('strengthen:end');
+
   // Set brute animation to `strengthen`
-  changeAnimation(app, brute, 'strengthen', speed);
+  brute.animation.setAnimation('strengthen');
 
   // Play hypnosis SFX
   void sound.play('skills/hypnosis', { speed: speed.current * 4 });
@@ -37,12 +38,14 @@ const hypnotise = async (
 
   // Strengthen animation
   animations.push(new Promise((resolve) => {
-    (brute.currentAnimation as AnimatedSprite).onComplete = () => {
+    animationEnded.then(() => {
       // Set animation to `idle`
-      changeAnimation(app, brute, 'idle', speed);
+      brute.animation.setAnimation('idle');
 
       resolve(null);
-    };
+    }).catch((err) => {
+      console.error(err);
+    });
   }));
 
   // Create wave sprite
@@ -52,8 +55,8 @@ const hypnotise = async (
 
   // Set wave position
   wave.position.set(
-    brute.container.x + FIGHTER_WIDTH.brute / 2,
-    brute.container.y - FIGHTER_HEIGHT.brute / 2,
+    brute.animation.container.x + FIGHTER_WIDTH.brute / 2,
+    brute.animation.container.y - FIGHTER_HEIGHT.brute / 2,
   );
 
   // Add wave to stage
@@ -86,7 +89,7 @@ const hypnotise = async (
   const animationsDone = [];
   for (const stepPet of step.pets) {
     // Get random position
-    const { x, y } = getRandomPosition(fighters, brute.team);
+    const { x, y } = getRandomPosition(fighters, brute.animation.team);
 
     const pet = findFighter(fighters, stepPet);
     if (!pet) {
@@ -94,23 +97,23 @@ const hypnotise = async (
     }
 
     // Set pet animation to `run`
-    changeAnimation(app, pet, 'run', speed);
+    pet.animation.setAnimation('run');
 
     // Move pet to other team
     animationsDone.push(
       Tweener.add({
-        target: pet.container,
+        target: pet.animation.container,
         duration: 0.5 / speed.current,
         ease: Easing.linear,
       }, { x, y }).then(() => {
         // Change pet team
-        pet.team = brute.team;
+        pet.animation.team = brute.animation.team;
         pet.master = brute.id;
         pet.hypnotised = true;
-        pet.container.scale.x *= -1;
+        pet.animation.container.scale.x *= -1;
 
         // Set pet animation to `idle`
-        changeAnimation(app, pet, 'idle', speed);
+        pet.animation.setAnimation('idle');
       })
     );
   }

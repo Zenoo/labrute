@@ -1,13 +1,10 @@
 /* eslint-disable no-void */
 import { EvadeStep } from '@labrute/core';
-import { Easing, Tweener } from 'pixi-tweener';
-import { Application } from 'pixi.js';
-import changeAnimation from './changeAnimation';
-import findFighter, { AnimationFighter } from './findFighter';
 import { sound } from '@pixi/sound';
+import { Easing, Tweener } from 'pixi-tweener';
+import findFighter, { AnimationFighter } from './findFighter';
 
 const evade = async (
-  app: Application,
   fighters: AnimationFighter[],
   step: EvadeStep,
   speed: React.MutableRefObject<number>,
@@ -18,7 +15,7 @@ const evade = async (
   }
 
   // Set animation to `evade`
-  changeAnimation(app, fighter, 'evade', speed);
+  fighter.animation.setAnimation('evade');
 
   // Play evade SFX
   void sound.play('hit/evade', {
@@ -27,19 +24,19 @@ const evade = async (
 
   // Add vertical tween
   await Tweener.add({
-    target: fighter.container,
+    target: fighter.animation.container,
     duration: 0.25 / speed.current,
     ease: Easing.easeTo,
-  }, { y: fighter.container.y - fighter.currentAnimation.height / 2 });
+  }, { y: fighter.animation.container.y - fighter.animation.container.height / 2 });
 
   await Tweener.add({
-    target: fighter.container,
+    target: fighter.animation.container,
     duration: 0.25 / speed.current,
     ease: Easing.easeFrom,
-  }, { y: fighter.container.y + fighter.currentAnimation.height / 2 });
+  }, { y: fighter.animation.container.y + fighter.animation.container.height / 2 });
 
   // Set animation to `idle`
-  changeAnimation(app, fighter, 'idle', speed);
+  fighter.animation.setAnimation('idle');
 };
 
 export default evade;

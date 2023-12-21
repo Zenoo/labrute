@@ -2,7 +2,6 @@
 import { LeaveStep } from '@labrute/core';
 import { Easing, Tweener } from 'pixi-tweener';
 import { Application } from 'pixi.js';
-import changeAnimation from './changeAnimation';
 
 import findFighter, { AnimationFighter } from './findFighter';
 
@@ -18,21 +17,20 @@ const leave = async (
   }
 
   // Set animation to `run`
-  changeAnimation(app, fighter, 'run', speed);
+  fighter.animation.setAnimation('run');
 
   // Invert fighter
-  fighter.container.scale.x *= -1;
+  fighter.animation.container.scale.x *= -1;
 
   // Move fighter to the position
   await Tweener.add({
-    target: fighter.container,
+    target: fighter.animation.container,
     duration: 0.5 / speed.current,
     ease: Easing.linear
-  }, { x: fighter.team === 'left' ? -100 : 600 });
+  }, { x: fighter.animation.team === 'left' ? -100 : 600 });
 
   // Remove fighter
-  fighter.currentAnimation.destroy();
-  fighter.container.destroy();
+  fighter.animation.destroy();
   fighters.splice(fighters.indexOf(fighter), 1);
 };
 

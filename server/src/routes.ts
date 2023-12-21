@@ -6,7 +6,6 @@ import Brutes from './controllers/Brutes.js';
 import Fights from './controllers/Fights.js';
 import Logs from './controllers/Logs.js';
 import OAuth from './controllers/OAuth.js';
-import Spritesheets from './controllers/Spritesheets.js';
 import Tournaments from './controllers/Tournaments.js';
 import Users from './controllers/Users.js';
 import Achievements from './controllers/Achievements.js';
@@ -48,7 +47,6 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
   app.get('/api/brute/:name/for-admin', Brutes.getForAdmin(prisma));
   app.get('/api/brute/:name/fights-left', Brutes.getFightsLeft(prisma));
   app.get('/api/brute/:name/available', Brutes.isNameAvailable(prisma));
-  app.post('/api/brute/ready', Brutes.isReadyToFight(prisma));
   app.post('/api/brute/create', Brutes.create(prisma));
   app.get('/api/brute/:name/level-up-choices', Brutes.getLevelUpChoices(prisma));
   app.post('/api/brute/:name/level-up', Brutes.levelUp(prisma));
@@ -71,14 +69,6 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
   // Fight
   app.get('/api/fight/:name/:id', Fights.get(prisma));
   app.post('/api/fight/create', Fights.create(prisma));
-
-  // Spritesheet
-  app.get('/api/spritesheet/regenerate', Spritesheets.regenerate(prisma));
-  app.get('/api/spritesheet/regenerate/:brute', Spritesheets.regenerateBrute(prisma));
-  app.get('/api/spritesheet/:gender.png', Spritesheets.getImage(prisma));
-  app.get('/api/spritesheet/:brute.json', Spritesheets.getJson(prisma));
-  app.get('/api/spritesheet/:brute/:model/:animation/:frame', Spritesheets.getFrame(prisma));
-  app.get('/api/spritesheet/:brute/:model/:animation', Spritesheets.getAnimation(prisma));
 
   // Tournament
   app.get('/api/tournament/is-valid/global', Tournaments.isGlobalTournamentValid(prisma));

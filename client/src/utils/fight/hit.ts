@@ -1,17 +1,16 @@
 /* eslint-disable no-void */
-import { Animation, FIGHTER_HIT_ANCHOR, HitStep, WEAPONS_SFX, randomBetween } from '@labrute/core';
+import { FIGHTER_HIT_ANCHOR, HitStep, WEAPONS_SFX, randomBetween } from '@labrute/core';
 import { GlowFilter } from '@pixi/filter-glow';
 import { OutlineFilter } from '@pixi/filter-outline';
 import { sound } from '@pixi/sound';
 import { Tweener } from 'pixi-tweener';
 import { AnimatedSprite, Application, Text } from 'pixi.js';
-import changeAnimation from './changeAnimation';
 
 import findFighter, { AnimationFighter } from './findFighter';
 import getFighterType from './getFighterType';
+import insideXBounds from './insideXBounds';
 import stagger from './stagger';
 import updateHp from './updateHp';
-import insideXBounds from './insideXBounds';
 
 const HIT_VFX = ['blood', 'impact-1', 'impact-2'];
 
@@ -40,12 +39,12 @@ const hit = async (
   }
 
   // Get hit animation (random for male brute)
-  const animation = target.type === 'brute' && target.data?.gender === 'male'
-    ? `hit-${randomBetween(0, 2)}`
+  const animation: 'hit' | 'hit-0' | 'hit-1' | 'hit-2' = target.type === 'brute' && target.data?.gender === 'male'
+    ? `hit-${randomBetween(0, 2) as 0 | 1 | 2}`
     : 'hit';
 
   // Set animation to the correct hit animation
-  changeAnimation(app, target, animation as Animation, speed);
+  target.animation.setAnimation(animation);
 
   // Play hitting SFX
   if (step.action === 'poison') {
@@ -101,12 +100,12 @@ const hit = async (
     hitVfx.zIndex = 1000;
     hitVfx.animationSpeed = speed.current / 4;
     hitVfx.loop = false;
-    hitVfx.scale.x = target.team === 'left' ? -1 : 1;
+    hitVfx.scale.x = target.animation.team === 'left' ? -1 : 1;
 
     // Set hit VFX position
     const fighterType = getFighterType(fighter);
-    hitVfx.x = target.container.x + FIGHTER_HIT_ANCHOR[fighterType].x * (target.team === 'left' ? 1 : -1);
-    hitVfx.y = target.container.y - FIGHTER_HIT_ANCHOR[fighterType].y;
+    hitVfx.x = target.animation.container.x + FIGHTER_HIT_ANCHOR[fighterType].x * (target.animation.team === 'left' ? 1 : -1);
+    hitVfx.y = target.animation.container.y - FIGHTER_HIT_ANCHOR[fighterType].y;
 
     // Add hit VFX to stage
     app.stage.addChild(hitVfx);
@@ -122,8 +121,8 @@ const hit = async (
 
   // Add poison filter if damage is poison
   if (step.action === 'poison') {
-    target.currentAnimation.filters = [
-      ...target.currentAnimation.filters || [],
+    target.animation.container.filters = [
+      ...target.animation.container.filters || [],
       new GlowFilter({
         distance: 25,
         innerStrength: 1,
@@ -137,8 +136,8 @@ const hit = async (
     fontFamily: 'GameFont', fontSize: 20, fill: 0xffffff
   });
   damageText.anchor.set(0.5);
-  damageText.x = insideXBounds(target.container.x);
-  damageText.y = target.container.y - target.currentAnimation.height;
+  damageText.x = insideXBounds(target.animation.container.x);
+  damageText.y = target.animation.container.y - target.animation.container.height;
   damageText.zIndex = 1000;
   damageText.filters = [new OutlineFilter()];
   app.stage.addChild(damageText);
@@ -160,10 +159,10 @@ const hit = async (
   }
 
   // Stagger
-  await stagger(target.container, target.team, speed);
+  await stagger(target.animation.container, target.animation.team, speed);
 
   // Set animation to `idle`
-  changeAnimation(app, target, 'idle', speed);
+  target.animation.setAnimation('idle');
 };
 
 export default hit;

@@ -1,17 +1,16 @@
 /* eslint-disable no-void */
-import { Animation, FIGHTER_HEIGHT, FIGHTER_WIDTH, HitStep, randomBetween } from '@labrute/core';
+import { FIGHTER_HEIGHT, FIGHTER_WIDTH, HitStep, randomBetween } from '@labrute/core';
 import { OutlineFilter } from '@pixi/filter-outline';
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
 import { Application, Sprite, Text } from 'pixi.js';
-import changeAnimation from './changeAnimation';
 
 import findFighter, { AnimationFighter } from './findFighter';
 import getFighterType from './getFighterType';
+import insideXBounds from './insideXBounds';
 import stagger from './stagger';
 import updateHp from './updateHp';
-import updateWeapons, { updateActiveWeapon } from './updateWeapons';
-import insideXBounds from './insideXBounds';
+import updateWeapons from './updateWeapons';
 
 const flashFlood = async (
   app: Application,
@@ -38,12 +37,12 @@ const flashFlood = async (
   }
 
   // Set animation to `throw`
-  changeAnimation(app, fighter, 'throw', speed);
+  fighter.animation.setAnimation('throw');
 
   const weapon = step.weapon || 'lance';
 
   // Update current weapon
-  updateActiveWeapon(app, fighter, weapon);
+  fighter.animation.weapon = weapon;
 
   // Create thrown weapon sprite
   const thrownWeapon = new Sprite(spritesheet.textures[`${weapon}.png`]);
@@ -53,18 +52,18 @@ const flashFlood = async (
 
   // Get starting position
   const start = {
-    x: fighter.team === 'left'
-      ? fighter.container.x + FIGHTER_WIDTH.brute
-      : fighter.container.x,
-    y: fighter.container.y - FIGHTER_HEIGHT.brute * 0.5,
+    x: fighter.animation.team === 'left'
+      ? fighter.animation.container.x + FIGHTER_WIDTH.brute
+      : fighter.animation.container.x,
+    y: fighter.animation.container.y - FIGHTER_HEIGHT.brute * 0.5,
   };
 
   // Get end position
   const end = {
-    x: target.team === 'left'
-      ? target.container.x + FIGHTER_WIDTH[getFighterType(target)]
-      : target.container.x,
-    y: target.container.y - FIGHTER_HEIGHT[getFighterType(target)] * 0.5,
+    x: target.animation.team === 'left'
+      ? target.animation.container.x + FIGHTER_WIDTH[getFighterType(target)]
+      : target.animation.container.x,
+    y: target.animation.container.y - FIGHTER_HEIGHT[getFighterType(target)] * 0.5,
   };
 
   // Set position
@@ -97,12 +96,12 @@ const flashFlood = async (
     y: end.y,
   }).then(() => {
     // Get hit animation (random for male brute)
-    const animation = target.type === 'brute' && target.data?.gender === 'male'
-      ? `hit-${randomBetween(0, 2)}`
+    const animation: 'hit' | 'hit-0' | 'hit-1' | 'hit-2' = target.type === 'brute' && target.data?.gender === 'male'
+      ? `hit-${randomBetween(0, 2) as 0 | 1 | 2}`
       : 'hit';
 
     // Set animation to the correct hit animation
-    changeAnimation(app, target, animation as Animation, speed);
+    target.animation.setAnimation(animation);
 
     // Remove thrown weapon
     app.stage.removeChild(thrownWeapon);
@@ -113,8 +112,8 @@ const flashFlood = async (
       fontFamily: 'GameFont', fontSize: 20, fill: 0xffffff
     });
     damageText.anchor.set(0.5);
-    damageText.x = insideXBounds(target.container.x);
-    damageText.y = target.container.y - target.currentAnimation.height;
+    damageText.x = insideXBounds(target.animation.container.x);
+    damageText.y = target.animation.container.y - target.animation.container.height;
     damageText.zIndex = 1000;
     damageText.filters = [new OutlineFilter()];
     app.stage.addChild(damageText);
@@ -136,7 +135,7 @@ const flashFlood = async (
     }
 
     // Stagger
-    stagger(target.container, target.team, speed).catch(console.error);
+    stagger(target.animation.container, target.animation.team, speed).catch(console.error);
   }).catch(console.error);
 
   // Wait 0.15s

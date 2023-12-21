@@ -3,11 +3,9 @@ import { FIGHTER_HEIGHT, StealStep } from '@labrute/core';
 
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
-import { AnimatedSprite, Application } from 'pixi.js';
-import changeAnimation from './changeAnimation';
+import { Application } from 'pixi.js';
 import { getRandomPosition } from './fightPositions';
 import findFighter, { AnimationFighter } from './findFighter';
-import { updateActiveWeapon } from './updateWeapons';
 
 const steal = async (
   app: Application,
@@ -26,52 +24,48 @@ const steal = async (
 
   // Move brute to target position
   await Tweener.add({
-    target: brute.container,
+    target: brute.animation.container,
     duration: 0.25 / speed.current,
     ease: Easing.linear,
   }, {
-    x: target.container.x,
-    y: target.container.y - FIGHTER_HEIGHT.brute / 2,
+    x: target.animation.container.x,
+    y: target.animation.container.y - FIGHTER_HEIGHT.brute / 2,
   });
 
   // Reverse brute
-  brute.container.scale.x *= -1;
+  brute.animation.container.scale.x *= -1;
 
   // Set brute animation to `steal`
-  changeAnimation(app, brute, 'steal', speed);
-  (brute.currentAnimation as AnimatedSprite).animationSpeed = 0.5;
+  brute.animation.setAnimation('steal');
 
   // Play steal SFX
   void sound.play('skills/thief', { speed: speed.current });
 
+  const animationEnded = target.animation.waitForEvent('stolen:end');
+
   // Set target animation to `stolen`
-  changeAnimation(app, target, 'stolen', speed);
-  (target.currentAnimation as AnimatedSprite).animationSpeed = 0.5;
+  target.animation.setAnimation('stolen');
 
   // Wait for animation to finish
-  await new Promise((resolve) => {
-    (target.currentAnimation as AnimatedSprite).onComplete = () => {
-      // Restore scale
-      brute.container.scale.x *= -1;
-
-      resolve(null);
-    };
-  });
+  await animationEnded;
 
   // Update target current weapon
-  updateActiveWeapon(app, target, null);
+  target.animation.weapon = null;
 
   // Update brute weapons
-  updateActiveWeapon(app, brute, step.name);
+  brute.animation.weapon = step.name;
+
+  // Restore scale
+  brute.animation.container.scale.x *= -1;
 
   // Set target animation to `idle`
-  changeAnimation(app, target, 'idle', speed);
+  target.animation.setAnimation('idle');
 
-  const { x, y } = getRandomPosition(fighters, brute.team);
+  const { x, y } = getRandomPosition(fighters, brute.animation.team);
 
   // Move brute to position
   await Tweener.add({
-    target: brute.container,
+    target: brute.animation.container,
     duration: 0.25 / speed.current,
     ease: Easing.linear,
   }, {
@@ -80,7 +74,7 @@ const steal = async (
   });
 
   // Set brute animation to `idle`
-  changeAnimation(app, brute, 'idle', speed);
+  brute.animation.setAnimation('idle');
 };
 
 export default steal;

@@ -1,8 +1,8 @@
 /* eslint-disable no-void */
 import { FIGHTER_HEIGHT, FIGHTER_WIDTH, SkillActivateStep } from '@labrute/core';
 import { AnimatedSprite, Application } from 'pixi.js';
-import changeAnimation, { handleEffects } from './changeAnimation';
 
+import { GlowFilter } from '@pixi/filter-glow';
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
 import findFighter, { AnimationFighter } from './findFighter';
@@ -35,25 +35,35 @@ const skillActivate = async (
   }
 
   if (['fierceBrute', 'cryOfTheDamned', 'hammer'].includes(step.skill)) {
-    // Set animation to `strenghten`
-    changeAnimation(app, brute, 'strengthen', speed);
+    const animationEnded = brute.animation.waitForEvent('strengthen:end');
 
-    // Add to active effects
-    brute.activeEffects.push(step.skill);
+    // Set animation to `strenghten`
+    brute.animation.setAnimation('strengthen');
 
     // Add filter
-    handleEffects(brute, null);
+    if (step.skill === 'fierceBrute') {
+      if (!brute.animation.container.filters) {
+        brute.animation.container.filters = [];
+      }
+
+      brute.animation.container.filters.push(new GlowFilter({
+        color: 0xff0000,
+        outerStrength: 1,
+      }));
+    }
 
     const animations = [];
 
     // Strengthen animation
     animations.push(new Promise((resolve) => {
-      (brute.currentAnimation as AnimatedSprite).onComplete = () => {
+      animationEnded.then(() => {
         // Set animation to `idle`
-        changeAnimation(app, brute, 'idle', speed);
+        brute.animation.setAnimation('idle');
 
         resolve(null);
-      };
+      }).catch((err) => {
+        console.error(err);
+      });
     }));
 
     if (step.skill === 'cryOfTheDamned') {
@@ -66,8 +76,8 @@ const skillActivate = async (
 
         // Set cry position
         cry.position.set(
-          brute.container.x + (i % 2) * 20,
-          brute.container.y - FIGHTER_HEIGHT.brute / 2 + i * 20,
+          brute.animation.container.x + (i % 2) * 20,
+          brute.animation.container.y - FIGHTER_HEIGHT.brute / 2 + i * 20,
         );
 
         // Add cry to stage
@@ -91,7 +101,7 @@ const skillActivate = async (
           duration: 1 / speed.current,
           ease: Easing.linear,
         }, {
-          x: brute.team === 'left' ? cry.x + 100 : cry.x - 100,
+          x: brute.animation.team === 'left' ? cry.x + 100 : cry.x - 100,
         }).then(() => {
           // Destroy cry
           cry.destroy();
@@ -106,16 +116,16 @@ const skillActivate = async (
   // Flash flood
   if (step.skill === 'flashFlood') {
     // Set brute animation to `evade`
-    changeAnimation(app, brute, 'evade', speed);
+    brute.animation.setAnimation('evade');
 
     // Move brute to upper middle
     await Tweener.add({
-      target: brute.container,
+      target: brute.animation.container,
       duration: 0.4 / speed.current,
       ease: Easing.easeOutCubic
     }, {
       y: 100,
-      x: brute.team === 'left'
+      x: brute.animation.team === 'left'
         ? app.screen.width / 2 - FIGHTER_WIDTH.brute / 2
         : app.screen.width / 2 + FIGHTER_WIDTH.brute / 2,
     });

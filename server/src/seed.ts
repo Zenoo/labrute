@@ -1,17 +1,18 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-console */
-import { Gender, Prisma } from '@labrute/prisma';
 import {
-  ARENA_OPPONENTS_COUNT, createRandomBruteStats,
-  FIGHTS_PER_DAY, getBruteVisuals, getLevelUpChoices, getRandomBody,
-  getRandomColors, SPRITESHEET_VERSION, updateBruteData,
+  ARENA_OPPONENTS_COUNT,
+  FIGHTS_PER_DAY,
+  createRandomBruteStats,
+  getLevelUpChoices, getRandomBody,
+  getRandomColors,
+  updateBruteData,
 } from '@labrute/core';
+import { Gender, Prisma } from '@labrute/prisma';
+import moment from 'moment';
 import {
   adjectives, animals, colors, languages, names, starWars, uniqueNamesGenerator,
 } from 'unique-names-generator';
-import moment from 'moment';
-import formatSpritesheet from './utils/formatSpritesheet.js';
-import createSpritesheet from './utils/createSpritesheet.js';
 import { GLOBAL, ServerContext } from './context.js';
 
 const generateBrute = (
@@ -85,7 +86,6 @@ async function main(cx: ServerContext) {
   cx.logger.log(`DB only contains ${count} generated brutes, regenerating ${ARENA_OPPONENTS_COUNT * 100}...`);
   const nicks: string[] = [];
   for (let i = 0; i < ARENA_OPPONENTS_COUNT * 100; i++) {
-    const start = Date.now();
     let generatedName;
 
     // Reroll if name already exists
@@ -107,42 +107,6 @@ async function main(cx: ServerContext) {
 
     if (!brute.body || !brute.colors) {
       throw new Error('Brute body or colors missing');
-    }
-
-    const visuals = getBruteVisuals(brute);
-
-    // Check if spritesheet already exists
-    const existingSpritesheet = await cx.prisma.bruteSpritesheet.count({
-      where: { ...visuals, version: SPRITESHEET_VERSION },
-    });
-
-    if (existingSpritesheet > 0) {
-      cx.logger.log(`Spritesheet already exists for brute ${i + 1}/${ARENA_OPPONENTS_COUNT * 100}, skipping...`);
-    } else {
-      // Generate animation spritesheet
-      const spritesheet = await createSpritesheet(visuals);
-
-      // Delete outdated spritesheet
-      await cx.prisma.bruteSpritesheet.deleteMany({
-        where: { ...visuals, version: { not: SPRITESHEET_VERSION } },
-      });
-
-      // Store spritesheet image in database as blob and data as json
-      await cx.prisma.bruteSpritesheet.create({
-        data: {
-          image: spritesheet.image,
-          json: JSON.stringify(formatSpritesheet(
-            spritesheet,
-            getBruteVisuals(brute),
-          )),
-          ...visuals,
-          version: SPRITESHEET_VERSION,
-        },
-        select: { id: true },
-      });
-
-      const end = Date.now();
-      cx.logger.log(`Generated brute ${i + 1}/${ARENA_OPPONENTS_COUNT * 100} in ${((end - start) / 1000).toFixed(2)}s`);
     }
   }
 }

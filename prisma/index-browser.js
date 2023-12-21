@@ -141,7 +141,18 @@ exports.Prisma.BruteBodyScalarFieldEnum = {
   leftHand: 'leftHand',
   upperLeftArm: 'upperLeftArm',
   lowerLeftArm: 'lowerLeftArm',
-  leftShoulder: 'leftShoulder'
+  leftShoulder: 'leftShoulder',
+  p2: 'p2',
+  p3: 'p3',
+  p4: 'p4',
+  p7: 'p7',
+  p1: 'p1',
+  p1a: 'p1a',
+  p1b: 'p1b',
+  p6: 'p6',
+  p8: 'p8',
+  p7b: 'p7b',
+  p5: 'p5'
 };
 
 exports.Prisma.BruteColorsScalarFieldEnum = {
@@ -156,7 +167,23 @@ exports.Prisma.BruteColorsScalarFieldEnum = {
   secondaryColor: 'secondaryColor',
   secondaryShade: 'secondaryShade',
   accentColor: 'accentColor',
-  accentShade: 'accentShade'
+  accentShade: 'accentShade',
+  col0: 'col0',
+  col0a: 'col0a',
+  col0c: 'col0c',
+  col1: 'col1',
+  col1a: 'col1a',
+  col1b: 'col1b',
+  col1c: 'col1c',
+  col1d: 'col1d',
+  col3: 'col3',
+  col2: 'col2',
+  col2b: 'col2b',
+  col3b: 'col3b',
+  col2a: 'col2a',
+  col4: 'col4',
+  col4a: 'col4a',
+  col4b: 'col4b'
 };
 
 exports.Prisma.BruteScalarFieldEnum = {
@@ -201,43 +228,6 @@ exports.Prisma.BruteScalarFieldEnum = {
   canRankUpSince: 'canRankUpSince',
   favorite: 'favorite',
   wantToJoinClanId: 'wantToJoinClanId'
-};
-
-exports.Prisma.BruteSpritesheetScalarFieldEnum = {
-  id: 'id',
-  version: 'version',
-  gender: 'gender',
-  longHair: 'longHair',
-  lowerRightArm: 'lowerRightArm',
-  rightHand: 'rightHand',
-  upperRightArm: 'upperRightArm',
-  rightShoulder: 'rightShoulder',
-  rightFoot: 'rightFoot',
-  lowerRightLeg: 'lowerRightLeg',
-  upperRightLeg: 'upperRightLeg',
-  leftFoot: 'leftFoot',
-  lowerLeftLeg: 'lowerLeftLeg',
-  pelvis: 'pelvis',
-  upperLeftLeg: 'upperLeftLeg',
-  tummy: 'tummy',
-  torso: 'torso',
-  head: 'head',
-  leftHand: 'leftHand',
-  upperLeftArm: 'upperLeftArm',
-  lowerLeftArm: 'lowerLeftArm',
-  leftShoulder: 'leftShoulder',
-  skinColor: 'skinColor',
-  skinShade: 'skinShade',
-  hairColor: 'hairColor',
-  hairShade: 'hairShade',
-  primaryColor: 'primaryColor',
-  primaryShade: 'primaryShade',
-  secondaryColor: 'secondaryColor',
-  secondaryShade: 'secondaryShade',
-  accentColor: 'accentColor',
-  accentShade: 'accentShade',
-  image: 'image',
-  json: 'json'
 };
 
 exports.Prisma.FightScalarFieldEnum = {
@@ -648,7 +638,6 @@ exports.Prisma.ModelName = {
   BruteBody: 'BruteBody',
   BruteColors: 'BruteColors',
   Brute: 'Brute',
-  BruteSpritesheet: 'BruteSpritesheet',
   Fight: 'Fight',
   Log: 'Log',
   DestinyChoice: 'DestinyChoice',

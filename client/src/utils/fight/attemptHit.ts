@@ -1,13 +1,11 @@
 import { AttemptHitStep, FIGHTER_HEIGHT, FIGHTER_WIDTH, weapons } from '@labrute/core';
 
-import { AnimatedSprite, Application, Sprite } from 'pixi.js';
-import changeAnimation from './changeAnimation';
-import findFighter, { AnimationFighter } from './findFighter';
-import { updateActiveWeapon } from './updateWeapons';
 import { BevelFilter } from '@pixi/filter-bevel';
 import { Easing, Tweener } from 'pixi-tweener';
+import { Application, Sprite } from 'pixi.js';
+import findFighter, { AnimationFighter } from './findFighter';
 
-const attemptHit = (
+const attemptHit = async (
   app: Application,
   fighters: AnimationFighter[],
   step: AttemptHitStep,
@@ -37,21 +35,20 @@ const attemptHit = (
     ? weapons.find((w) => w.name === step.weapon)?.animation || 'fist'
     : 'attack';
 
+  const animationEnded = fighter.animation.waitForEvent(`${animation}:end`);
+
   // Set animation to the correct hitting animation
-  changeAnimation(app, fighter, animation, speed);
+  fighter.animation.setAnimation(animation);
 
   // Wait for animation to finish
-  (fighter.currentAnimation as AnimatedSprite).onComplete = () => {
-    // Set animation to `idle`
-    changeAnimation(app, fighter, 'idle', speed);
-  };
+  await animationEnded;
+
+  // Set animation to `idle`
+  fighter.animation.setAnimation('idle');
 
   // Handle shield breaking
   if (step.brokeShield) {
-    target.shield = false;
-
-    // Update active weapon
-    updateActiveWeapon(app, target, target.activeWeapon ? target.activeWeapon.name : null);
+    target.animation.shield = false;
 
     // Create trashed shield sprite
     const trashedShield = new Sprite(spritesheet.textures['shield.png']);
@@ -63,14 +60,14 @@ const attemptHit = (
 
     // Set position
     trashedShield.position.set(
-      target.team === 'left'
-        ? target.container.x + FIGHTER_WIDTH.brute / 4
-        : target.container.x + FIGHTER_WIDTH.brute * 0.75,
-      target.container.y - FIGHTER_HEIGHT.brute * 0.5,
+      target.animation.team === 'left'
+        ? target.animation.container.x + FIGHTER_WIDTH.brute / 4
+        : target.animation.container.x + FIGHTER_WIDTH.brute * 0.75,
+      target.animation.container.y - FIGHTER_HEIGHT.brute * 0.5,
     );
 
     // Set angle
-    trashedShield.angle = target.team === 'left' ? -110 : 70;
+    trashedShield.angle = target.animation.team === 'left' ? -110 : 70;
 
     // Add to stage
     app.stage.addChild(trashedShield);
@@ -81,11 +78,11 @@ const attemptHit = (
       duration: 0.3 / speed.current,
       ease: Easing.linear,
     }, {
-      x: target.team === 'left'
+      x: target.animation.team === 'left'
         ? trashedShield.x - 20
         : trashedShield.x + 20,
       y: trashedShield.y + 50,
-      angle: target.team === 'left' ? -180 : 0,
+      angle: target.animation.team === 'left' ? -180 : 0,
     }).then(() => {
       // Wait a bit
       setTimeout(() => {

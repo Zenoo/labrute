@@ -1,4 +1,4 @@
-import { AdminPanelBrute, BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, BruteVisuals, BruteWithBodyColors, ClanCreateResponse, ClanGetResponse, ClanGetThreadResponse, ClanGetThreadsResponse, ClanListResponse, FullTournament, HookBrute, ServerReadyResponse, TournamentHistoryResponse, TournamentsGetGlobalResponse, UsersAdminUpdateRequest, UserWithBrutesBodyColor } from '@labrute/core';
+import { AdminPanelBrute, BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, BruteWithBodyColors, ClanCreateResponse, ClanGetResponse, ClanGetThreadResponse, ClanGetThreadsResponse, ClanListResponse, FullTournament, HookBrute, ServerReadyResponse, TournamentHistoryResponse, TournamentsGetGlobalResponse, UsersAdminUpdateRequest, UserWithBrutesBodyColor } from '@labrute/core';
 import { Achievement, Brute, BruteReportReason, BruteReportStatus, DestinyChoice, DestinyChoiceSide, Fight, Gender, Lang, Log, Prisma, User } from '@labrute/prisma';
 import Fetch from './Fetch';
 
@@ -25,7 +25,6 @@ const Server = {
     getForAdmin: (name: string) => Fetch<AdminPanelBrute>(`/api/brute/${name}/for-admin`),
     getForVersus: (name: string) => Fetch<BruteWithBodyColors>(`/api/brute/${name}/for-versus`),
     isNameAvailable: (name: string) => Fetch<boolean>(`/api/brute/${name}/available`),
-    isReadyToFight: (visuals: BruteVisuals | null) => Fetch<boolean>('/api/brute/ready', { visuals }, 'POST'),
     create: (
       name: string,
       user: string,
@@ -85,10 +84,6 @@ const Server = {
     deleteGlobal: () => Fetch<never>('/api/tournament/global', {}, 'DELETE'),
     getHistory: (name: string) => Fetch<TournamentHistoryResponse>(`/api/tournament/${name}/history`),
     isGlobalTournamentValid: () => Fetch<{ isValid: boolean }>('/api/tournament/is-valid/global'),
-  },
-  Spritesheet: {
-    regenerate: () => Fetch<never>('/api/spritesheet/regenerate'),
-    regenerateBrute: (brute: string) => Fetch<never>(`/api/spritesheet/regenerate/${brute}`),
   },
   Achievement: {
     getForUser: (userId: string) => Fetch<Achievement[]>('/api/achievements', { userId }, 'POST'),

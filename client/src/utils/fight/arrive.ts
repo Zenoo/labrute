@@ -2,7 +2,6 @@
 import { ArriveStep } from '@labrute/core';
 import { Easing, Tweener } from 'pixi-tweener';
 import { AnimatedSprite, Application } from 'pixi.js';
-import changeAnimation from './changeAnimation';
 
 import { sound } from '@pixi/sound';
 import { getRandomPosition } from './fightPositions';
@@ -30,12 +29,12 @@ const arrive = async (
   }
 
   // Get random position
-  const { x, y } = getRandomPosition(fighters, fighter.team);
+  const { x, y } = getRandomPosition(fighters, fighter.animation.team);
 
-  // Current animation
-
-  // Set current animation to visible
-  fighter.currentAnimation.visible = true;
+  fighter.animation.once('arrive:start', () => {
+    fighter.animation.pause();
+  });
+  fighter.animation.setAnimation('arrive');
 
   // Wait 0.25s before playing arrive SFX
   setTimeout(() => {
@@ -44,18 +43,15 @@ const arrive = async (
 
   // Move fighter to the position
   await Tweener.add({
-    target: fighter.container,
+    target: fighter.animation.container,
     duration: 0.5 / speed.current,
     ease: Easing.linear
   }, { x, y });
 
-  // Set animation to `arrive-end`
-  changeAnimation(app, fighter, 'arrive-end', speed);
+  const animationEnded = fighter.animation.waitForEvent('arrive:end');
 
-  // Slow every animation but the bear
-  if (!(fighter.name === 'bear' && fighter.master)) {
-    (fighter.currentAnimation as AnimatedSprite).animationSpeed = 0.5;
-  }
+  // Finish the arrive animation
+  fighter.animation.play();
 
   // Create dust sprite
   const dustSprite = new AnimatedSprite(spritesheet.animations.dust);
@@ -63,8 +59,8 @@ const arrive = async (
   dustSprite.loop = false;
 
   // Set dust sprite position
-  dustSprite.x = fighter.container.x;
-  dustSprite.y = fighter.container.y + 20;
+  dustSprite.x = fighter.animation.container.x;
+  dustSprite.y = fighter.animation.container.y + 20;
 
   // Add dust sprite to stage
   app.stage.addChild(dustSprite);
@@ -78,14 +74,10 @@ const arrive = async (
   dustSprite.play();
 
   // Wait for animation to end before going further
-  await new Promise((resolve) => {
-    (fighter.currentAnimation as AnimatedSprite).onComplete = () => {
-      // Set animation to `idle`
-      changeAnimation(app, fighter, 'idle', speed);
+  await animationEnded;
 
-      resolve(null);
-    };
-  });
+  // Set animation to `idle`
+  fighter.animation.setAnimation('idle');
 };
 
 export default arrive;

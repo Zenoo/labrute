@@ -2,13 +2,12 @@
 import { EatStep } from '@labrute/core';
 import { OutlineFilter } from '@pixi/filter-outline';
 import { Easing, Tweener } from 'pixi-tweener';
-import { AnimatedSprite, Application, Text } from 'pixi.js';
-import changeAnimation from './changeAnimation';
+import { Application, Text } from 'pixi.js';
 
-import findFighter, { AnimationFighter } from './findFighter';
-import updateHp from './updateHp';
 import { sound } from '@pixi/sound';
+import findFighter, { AnimationFighter } from './findFighter';
 import insideXBounds from './insideXBounds';
+import updateHp from './updateHp';
 
 const eat = async (
   app: Application,
@@ -26,12 +25,14 @@ const eat = async (
     throw new Error('Pet not found');
   }
 
+  const animationEnded = brute.animation.waitForEvent('eat:end');
+
   // Set brute animation to `eat`
-  changeAnimation(app, brute, 'eat', speed);
+  brute.animation.setAnimation('eat');
 
   // Resize pet to 0 in 0.5s
   Tweener.add({
-    target: pet.container,
+    target: pet.animation.container,
     duration: 0.5 / speed.current,
     ease: Easing.linear
   }, {
@@ -49,8 +50,8 @@ const eat = async (
     fontFamily: 'GameFont', fontSize: 20, fill: 0x00ff00,
   });
   healText.anchor.set(0.5);
-  healText.x = insideXBounds(brute.container.x);
-  healText.y = brute.container.y - brute.currentAnimation.height;
+  healText.x = insideXBounds(brute.animation.container.x);
+  healText.y = brute.animation.container.y - brute.animation.container.height;
   healText.zIndex = 1000;
   healText.filters = [new OutlineFilter()];
   app.stage.addChild(healText);
@@ -67,11 +68,7 @@ const eat = async (
   }).catch(console.error);
 
   // Wait for animation to complete
-  await new Promise((resolve) => {
-    (brute.currentAnimation as AnimatedSprite).onComplete = () => {
-      resolve(null);
-    };
-  });
+  await animationEnded;
 
   // Heal brute
   updateHp(brute, step.heal, speed);

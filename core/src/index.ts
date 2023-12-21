@@ -7,7 +7,6 @@ import canLevelUp from './brute/canLevelUp';
 import colors from './brute/colors';
 import createRandomBruteStats from './brute/createRandomBruteStats';
 import getBruteGoldValue from './brute/getBruteGoldValue';
-import getBruteVisuals, { BruteVisuals } from './brute/getBruteVisuals';
 import getFightsLeft from './brute/getFightsLeft';
 import getGoldNeededForNewBrute from './brute/getGoldNeededForNewBrute';
 import getHP from './brute/getHP';
@@ -16,7 +15,6 @@ import getMaxFightsPerDay from './brute/getMaxFightsPerDay';
 import getRandomBody from './brute/getRandomBody';
 import getRandomBonus from './brute/getRandomBonus';
 import getRandomColors from './brute/getRandomColors';
-import getVisualsFromUrl from './brute/getVisualsFromUrl';
 import getXPNeeded from './brute/getXPNeeded';
 import pets from './brute/pets';
 import skills from './brute/skills';
@@ -40,15 +38,15 @@ export * from './brute/weapons';
 export * from './constants';
 export * from './types';
 export {
-  Boss, BruteVisuals, ExpectedError, Version, adjustColor, applySkillModifiers,
+  Boss, ExpectedError, Version, adjustColor, applySkillModifiers,
   availableBodyParts, bosses, canLevelUp, colors,
   createRandomBruteStats, formatLargeNumber, getBruteGoldValue,
-  getBruteVisuals, getFightsLeft, getGoldNeededForNewBrute, getHP,
+  getFightsLeft, getGoldNeededForNewBrute, getHP,
   getLevelUpChoices,
   getMaxFightsPerDay,
   getRandomBody,
   getRandomBonus,
-  getRandomColors, getVisualsFromUrl, getXPNeeded, hexToRgba,
+  getRandomColors, getXPNeeded, hexToRgba,
   pad, pets, promiseBatch, randomBetween, skills,
   updateBruteData, weapons,
   weightedRandom

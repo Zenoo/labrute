@@ -3,7 +3,6 @@ import {
   ARENA_OPPONENTS_MAX_GAP,
   AdminPanelBrute,
   BruteRestoreResponse,
-  BruteVisuals,
   BruteWithBodyColors,
   BrutesCreateResponse,
   BrutesExistsResponse, BrutesGetDestinyResponse,
@@ -38,7 +37,6 @@ import getOpponents from '../utils/brute/getOpponents.js';
 import updateClanPoints from '../utils/clan/updateClanPoints.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
-import queueJob from '../workers/queueJob.js';
 import { increaseAchievement } from './Achievements.js';
 
 const Brutes = {
@@ -306,9 +304,6 @@ const Brutes = {
 
       // Update achievements
       await checkLevelUpAchievements(prisma, brute, destinyChoice);
-
-      // Generate spritesheet
-      await queueJob(prisma, 'generateSpritesheet', brute);
 
       res.send({ brute, goldLost, newLimit });
     } catch (error) {
@@ -627,30 +622,6 @@ const Brutes = {
       await increaseAchievement(prisma, user.id, null, 'sacrifice');
 
       res.send({ gold });
-    } catch (error) {
-      sendError(res, error);
-    }
-  },
-  isReadyToFight: (prisma: PrismaClient) => async (
-    req: Request<never, unknown, { visuals: BruteVisuals }>,
-    res: Response,
-  ) => {
-    try {
-      const user = await auth(prisma, req);
-
-      const { visuals } = req.body;
-
-      if (!visuals) {
-        throw new Error(translate('missingParameters', user));
-      }
-
-      // // Check if a spritesheet already exists
-      // const count = await prisma.bruteSpritesheet.count({
-      //   where: { ...visuals },
-      // });
-
-      // res.send(count === 1);
-      res.send(true);
     } catch (error) {
       sendError(res, error);
     }

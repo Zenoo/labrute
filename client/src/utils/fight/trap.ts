@@ -1,12 +1,11 @@
 /* eslint-disable no-void */
 import { FIGHTER_HEIGHT, FIGHTER_WIDTH, TrapStep } from '@labrute/core';
-import { AnimatedSprite, Application, Sprite } from 'pixi.js';
-import changeAnimation from './changeAnimation';
+import { Application, Sprite } from 'pixi.js';
 
-import findFighter, { AnimationFighter } from './findFighter';
 import { sound } from '@pixi/sound';
-import getFighterType from './getFighterType';
 import { Easing, Tweener } from 'pixi-tweener';
+import findFighter, { AnimationFighter } from './findFighter';
+import getFighterType from './getFighterType';
 
 const trap = async (
   app: Application,
@@ -33,7 +32,7 @@ const trap = async (
   }
 
   // Set fighter animation to `launch`
-  changeAnimation(app, brute, 'launch', speed);
+  brute.animation.setAnimation('launch');
 
   // Play trap SFX
   void sound.play('skills/net', {
@@ -45,22 +44,22 @@ const trap = async (
 
   // Set net position
   net.position.set(
-    brute.container.x + FIGHTER_WIDTH.brute / 2,
-    brute.container.y - FIGHTER_HEIGHT.brute / 2,
+    brute.animation.container.x + FIGHTER_WIDTH.brute / 2,
+    brute.animation.container.y - FIGHTER_HEIGHT.brute / 2,
   );
 
   // Get target position
   const targetType = getFighterType(target);
   let targetPosition = {
-    x: target.container.x + FIGHTER_WIDTH[targetType] / 2,
-    y: target.container.y - FIGHTER_HEIGHT[targetType] / 2,
+    x: target.animation.container.x + FIGHTER_WIDTH[targetType] / 2,
+    y: target.animation.container.y - FIGHTER_HEIGHT[targetType] / 2,
   };
 
   // Adjust for bosses
   if (target.type === 'boss') {
     targetPosition = {
-      x: target.container.x + FIGHTER_WIDTH[targetType],
-      y: target.container.y - FIGHTER_HEIGHT[targetType],
+      x: target.animation.container.x + FIGHTER_WIDTH[targetType],
+      y: target.animation.container.y - FIGHTER_HEIGHT[targetType],
     };
   }
 
@@ -112,20 +111,10 @@ const trap = async (
   net.destroy();
 
   // Set fighter animation to `idle`
-  changeAnimation(app, brute, 'idle', speed);
+  brute.animation.setAnimation('idle');
 
-  // Set target animation to `trap`
-  changeAnimation(app, target, 'trapped-start', speed);
-
-  // Wait for animation to complete
-  await new Promise((resolve) => {
-    (target.currentAnimation as AnimatedSprite).onComplete = () => {
-      // Set target animation to `trapped-loop`
-      changeAnimation(app, target, 'trapped-loop', speed);
-
-      resolve(null);
-    };
-  });
+  // Set target animation to `trapped`
+  target.animation.setAnimation('trapped');
 };
 
 export default trap;

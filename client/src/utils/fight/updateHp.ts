@@ -16,7 +16,7 @@ const updateHp = (
 
   let newWidth = 0;
 
-  if (brute.team === 'left') {
+  if (brute.animation.team === 'left') {
     if (fix) {
       newWidth = percent;
     } else {
@@ -28,9 +28,9 @@ const updateHp = (
     newWidth = brute.hpBar.width - percent;
   }
 
-  if (brute.team === 'left' && newWidth < 0) {
+  if (brute.animation.team === 'left' && newWidth < 0) {
     newWidth = 0;
-  } else if (brute.team === 'right' && newWidth > 0) {
+  } else if (brute.animation.team === 'right' && newWidth > 0) {
     newWidth = 0;
   }
 

@@ -2,7 +2,6 @@
 import { MoveBackStep } from '@labrute/core';
 import { Easing, Tweener } from 'pixi-tweener';
 import { Application } from 'pixi.js';
-import changeAnimation from './changeAnimation';
 
 import { getRandomPosition } from './fightPositions';
 import findFighter, { AnimationFighter } from './findFighter';
@@ -19,26 +18,26 @@ const moveBack = async (
   }
 
   // Set animation to `run`
-  changeAnimation(app, fighter, 'run', speed);
+  fighter.animation.setAnimation('run');
 
   // Invert fighter
-  fighter.container.scale.x *= -1;
+  fighter.animation.container.scale.x *= -1;
 
   // Get positions
-  const { x, y } = getRandomPosition(fighters, fighter.team);
+  const { x, y } = getRandomPosition(fighters, fighter.animation.team);
 
   // Move fighter to the position
   await Tweener.add({
-    target: fighter.container,
+    target: fighter.animation.container,
     duration: 0.5 / speed.current,
     ease: Easing.linear
   }, { x, y });
 
   // Invert fighter
-  fighter.container.scale.x *= -1;
+  fighter.animation.container.scale.x *= -1;
 
   // Set animation to `idle`
-  changeAnimation(app, fighter, 'idle', speed);
+  fighter.animation.setAnimation('idle');
 };
 
 export default moveBack;

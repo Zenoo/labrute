@@ -1,25 +1,14 @@
-import { AnimatedWeapon, Fighter, StepFighter } from '@labrute/core';
-import { SkillName } from '@labrute/prisma';
+import { Fighter, StepFighter } from '@labrute/core';
 import * as PIXI from 'pixi.js';
+import FighterHolder from './FighterHolder';
 
-export interface AnimationFighter extends Fighter {
+export interface AnimationFighter extends Omit<Fighter, 'shield'> {
   type: 'brute' | 'pet' | 'boss';
-  team: 'left' | 'right';
   hypnotised?: boolean;
-  container: PIXI.Container;
-  currentAnimation: PIXI.AnimatedSprite | PIXI.Sprite;
-  activeWeapon: (AnimatedWeapon & {
-    illustration: PIXI.Sprite | null,
-    sprite: PIXI.Sprite | null,
-  }) | null;
-  activeShield: {
-    illustration: PIXI.Sprite | null,
-    sprite: PIXI.Sprite | null,
-  } | null;
   hpBar?: PIXI.Graphics;
   hpBarPhantom?: PIXI.Graphics;
   weaponsIllustrations: PIXI.Sprite[];
-  activeEffects: SkillName[];
+  animation: FighterHolder;
 }
 
 const findFighter = (

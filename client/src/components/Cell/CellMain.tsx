@@ -1,4 +1,5 @@
-import { BruteRanking, getBruteVisuals, getFightsLeft, getMaxFightsPerDay, getXPNeeded } from '@labrute/core';
+import { BruteRanking, getFightsLeft, getMaxFightsPerDay, getXPNeeded } from '@labrute/core';
+import { Lang } from '@labrute/prisma';
 import { Box, BoxProps, Stack } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useMemo } from 'react';
@@ -6,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import { useAlert } from '../../hooks/useAlert';
 import { useBrute } from '../../hooks/useBrute';
 import { useConfirm } from '../../hooks/useConfirm';
-import useStateAsync from '../../hooks/useStateAsync';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
 import BruteBodyAndStats from '../Brute/BruteBodyAndStats';
@@ -17,7 +17,6 @@ import StyledButton from '../StyledButton';
 import Text from '../Text';
 import CellGlobalTournament from './CellGlobalTournament';
 import CellTournament from './CellTournament';
-import { Lang } from '@labrute/prisma';
 
 export interface CellMainProps extends BoxProps {
   language: Lang;
@@ -47,9 +46,6 @@ const CellMain = ({
     () => (brute ? getFightsLeft(brute) : 0),
     [brute],
   );
-
-  const bruteVisuals = useMemo(() => (brute ? getBruteVisuals(brute) : null), [brute]);
-  const { data: ready } = useStateAsync(false, Server.Brute.isReadyToFight, bruteVisuals);
 
   // Rank up
   const rankUp = useCallback(() => {
@@ -82,7 +78,7 @@ const CellMain = ({
           {t('rankUp')}
         </FantasyButton>
       )}
-      {owner && (brute.xp < xpNeededForNextLevel ? fightsLeft > 0 ? ready ? (
+      {owner && (brute.xp < xpNeededForNextLevel ? fightsLeft > 0 ? (
         <Stack spacing={1} sx={{ alignItems: 'center', mt: 1 }}>
           <Text bold sx={{ pl: 1 }}>{t('callToFight')}</Text>
           <Link to={`/${brute.name}/arena`}>
@@ -99,11 +95,6 @@ const CellMain = ({
           </Link>
           <Text bold color="error">{fightsLeft > 1 ? t('fightsLeft', { value: fightsLeft }) : t('fightLeft')}</Text>
         </Stack>
-      ) : (
-        <Box sx={{ textAlign: 'center' }}>
-          <Text bold color="error">{t('bruteIsPreparing', { brute: brute.name })}</Text>
-          <Text color="error">{t('comeBackInAFew')}</Text>
-        </Box>
       ) : (
         <Box sx={{ textAlign: 'center' }}>
           <Text bold color="error">{t('bruteIsResting', { brute: brute.name })}</Text>

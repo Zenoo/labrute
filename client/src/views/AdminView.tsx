@@ -57,13 +57,6 @@ const AdminView = () => {
     }).catch(catchError(Alert));
   }, [Alert]);
 
-  // Regenerate spritesheets
-  const regenerateSpritesheets = useCallback(() => {
-    Server.Spritesheet.regenerate().then(() => {
-      Alert.open('success', 'Spritesheets regenerating');
-    }).catch(catchError(Alert));
-  }, [Alert]);
-
   // Fetch brute
   const updateBrute = useCallback(() => {
     Server.Brute.getForAdmin(bruteName).then((b) => {
@@ -129,13 +122,6 @@ const AdminView = () => {
     }).catch(catchError(Alert));
   }, [Alert, brute, bruteName]);
 
-  // Regenerate brute spritesheet
-  const regenerateBruteSpritesheet = useCallback(() => {
-    Server.Spritesheet.regenerateBrute(bruteName).then(() => {
-      Alert.open('success', 'Spritesheet regenerated');
-    }).catch(catchError(Alert));
-  }, [Alert, bruteName]);
-
   // Restore brute
   const restoreBrute = useCallback(() => {
     if (!bruteId) return;
@@ -162,7 +148,6 @@ const AdminView = () => {
               <FantasyButton color="error" onClick={deleteDailyTournaments}>DELETE DAILY TOURNAMENTS</FantasyButton>
               <FantasyButton color="error" onClick={deleteGlobalTournament}>DELETE GLOBAL TOURNAMENT</FantasyButton>
               <FantasyButton color="warning" onClick={runDailyJob}>RUN DAILY JOB</FantasyButton>
-              <FantasyButton color="success" onClick={regenerateSpritesheets}>REGENERATE SPRITESHEETS</FantasyButton>
               <Link to="/admin-panel/user">
                 <FantasyButton color="secondary">USER ADMIN</FantasyButton>
               </Link>
@@ -180,7 +165,6 @@ const AdminView = () => {
               <>
                 <Text h2 smallCaps>{brute.name} ({brute.user?.name})</Text>
                 <BruteComponent brute={brute} sx={{ width: 100 }} />
-                <FantasyButton color="success" onClick={regenerateBruteSpritesheet}>REGENERATE SPRITESHEET</FantasyButton>
                 <Grid container spacing={1}>
                   <Grid item xs={6} sm={3}>
                     <StyledInput

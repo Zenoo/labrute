@@ -22,11 +22,11 @@ const rightPositions = [
 ];
 
 const getAvailablePositions = (fighters: AnimationFighter[], team: 'left' | 'right') => {
-  const teamFighters = fighters.filter((fighter) => fighter.team === team);
+  const teamFighters = fighters.filter((fighter) => fighter.animation.team === team);
 
   return (team === 'left' ? leftPositions : rightPositions)
-    .filter((p) => !teamFighters.find((f) => f.container.x === p.x
-    && f.container.y === p.y));
+    .filter((p) => !teamFighters.find((f) => f.animation.container.x === p.x
+    && f.animation.container.y === p.y));
 };
 
 const getRandomPosition = (fighters: AnimationFighter[], team: 'left' | 'right') => {

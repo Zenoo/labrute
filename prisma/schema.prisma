@@ -2,9 +2,9 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider      = "prisma-client-js"
-  output        = "../../prisma"
-  binaryTargets = ["native", "debian-openssl-3.0.x", "debian-openssl-1.1.x"]
+  provider        = "prisma-client-js"
+  output          = "../../prisma"
+  binaryTargets   = ["native", "debian-openssl-3.0.x", "debian-openssl-1.1.x"]
   previewFeatures = ["relationJoins", "nativeDistinct"]
 }
 
@@ -71,6 +71,17 @@ model BruteBody {
   upperLeftArm  Int
   lowerLeftArm  Int
   leftShoulder  Int
+  p2            Int   @default(0) // Body size (small = 0, big = 7) (male only, 0 for females)
+  p3            Int   @default(0) // Hair [0-11] 12 = no head
+  p4            Int   @default(0) // (male) Beard [0-4] 5 = nothing / (female) Front hair [0-2] 3 = nothing
+  p7            Int   @default(0) // Main clothing [0-6] 7 = naked
+  p1            Int   @default(0) // Armor variation [0-1]
+  p1a           Int   @default(0) // [0-1] 0=belt, 1=nothing
+  p1b           Int   @default(0) // [0-1] 0=roman belt, 1=nothing
+  p6            Int   @default(0) // (male) 0=shorts, 1=trousers / (female) 0=shorts, 1=nothing
+  p8            Int   @default(0) // [0-4] Supposed to be shoes but doesn't change anything ??
+  p7b           Int   @default(2) // Shoes underside (2 = visible, others = hidden)
+  p5            Int   @default(0) // 0=Nothing, 1=Shirt. Doesn't work
 }
 
 model BruteColors {
@@ -87,6 +98,22 @@ model BruteColors {
   secondaryShade String @db.VarChar(255)
   accentColor    String @db.VarChar(255)
   accentShade    String @db.VarChar(255)
+  col0           String @db.VarChar(7) @default("#eaaca6") // Skin
+  col0a          String @db.VarChar(7) @default("#eaaca6") // Face
+  col0c          String @db.VarChar(7) @default("#eaaca6") // Ear
+  col1           String @db.VarChar(7) @default("#ffaa1e") // Hair
+  col1a          String @db.VarChar(7) @default("#ffaa1e") // Hair back
+  col1b          String @db.VarChar(7) @default("#ffaa1e") // Hair back 2
+  col1c          String @db.VarChar(7) @default("#ffaa1e") // Hair front
+  col1d          String @db.VarChar(7) @default("#ffaa1e") // Eyebrows
+  col3           String @db.VarChar(7) @default("#bb1111") // Primary (includes eyes)
+  col2           String @db.VarChar(7) @default("#8ba3d7") // Secondary
+  col2b          String @db.VarChar(7) @default("#7a73c8") // Accent 1
+  col3b          String @db.VarChar(7) @default("#fae31f") // Accent 2
+  col2a          String @db.VarChar(7) @default("#fff9ae") // Accent 3
+  col4           String @db.VarChar(7) @default("#559399") // Shirt
+  col4a          String @db.VarChar(7) @default("#7a73c8") // Shoes accent ?
+  col4b          String @db.VarChar(7) @default("#0000ff") // ??
 }
 
 enum WeaponName {
@@ -236,45 +263,6 @@ model Brute {
   wantToJoinClan               Clan?               @relation("JoinRequests", fields: [wantToJoinClanId], references: [id])
   wantToJoinClanId             Int?
   threads                      ClanThread[]
-}
-
-model BruteSpritesheet {
-  id             Int     @id @default(autoincrement())
-  version        String  @default("1.0") @db.VarChar(255)
-  gender         Gender  @default(male)
-  longHair       Int     @default(1)
-  lowerRightArm  Int     @default(1)
-  rightHand      Int     @default(1)
-  upperRightArm  Int     @default(1)
-  rightShoulder  Int     @default(1)
-  rightFoot      Int     @default(1)
-  lowerRightLeg  Int     @default(1)
-  upperRightLeg  Int     @default(1)
-  leftFoot       Int     @default(1)
-  lowerLeftLeg   Int     @default(1)
-  pelvis         Int     @default(1)
-  upperLeftLeg   Int     @default(1)
-  tummy          Int     @default(1)
-  torso          Int     @default(1)
-  head           Int     @default(1)
-  leftHand       Int     @default(1)
-  upperLeftArm   Int     @default(1)
-  lowerLeftArm   Int     @default(1)
-  leftShoulder   Int     @default(1)
-  skinColor      String  @default("#000000") @db.VarChar(255)
-  skinShade      String  @default("#000000") @db.VarChar(255)
-  hairColor      String  @default("#000000") @db.VarChar(255)
-  hairShade      String  @default("#000000") @db.VarChar(255)
-  primaryColor   String  @default("#000000") @db.VarChar(255)
-  primaryShade   String  @default("#000000") @db.VarChar(255)
-  secondaryColor String  @default("#000000") @db.VarChar(255)
-  secondaryShade String  @default("#000000") @db.VarChar(255)
-  accentColor    String  @default("#000000") @db.VarChar(255)
-  accentShade    String  @default("#000000") @db.VarChar(255)
-  image          Bytes?  @db.ByteA
-  json           String? @db.Text
-
-  @@unique([gender, longHair, lowerRightArm, rightHand, upperRightArm, rightShoulder, rightFoot, lowerRightLeg, upperRightLeg, leftFoot, lowerLeftLeg, pelvis, upperLeftLeg, tummy, torso, head, leftHand, upperLeftArm, lowerLeftArm, leftShoulder, skinColor, skinShade, hairColor, hairShade, primaryColor, primaryShade, secondaryColor, secondaryShade, accentColor, accentShade])
 }
 
 // FIGHTS
@@ -548,9 +536,9 @@ model BruteReport {
 
 // SERVER STATE
 model ServerState {
-  id                    Int      @id @default(autoincrement())
-  ready                 Boolean  @default(true)
-  globalTournamentValid Boolean  @default(true)
+  id                    Int     @id @default(autoincrement())
+  ready                 Boolean @default(true)
+  globalTournamentValid Boolean @default(true)
 }
 
 model BannedWord {

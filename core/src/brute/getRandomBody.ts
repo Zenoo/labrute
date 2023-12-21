@@ -22,6 +22,7 @@ const getRandomBody = (gender: Gender) => ({
   upperLeftArm: randomBetween(1, availableBodyParts[gender].upperLeftArm),
   lowerLeftArm: randomBetween(1, availableBodyParts[gender].lowerLeftArm),
   leftShoulder: randomBetween(1, availableBodyParts[gender].leftShoulder),
+  // TODO: Set new parts
 });
 
 export default getRandomBody;

@@ -34,11 +34,6 @@ export type BruteColors = $Result.DefaultSelection<Prisma.$BruteColorsPayload>
  */
 export type Brute = $Result.DefaultSelection<Prisma.$BrutePayload>
 /**
- * Model BruteSpritesheet
- * 
- */
-export type BruteSpritesheet = $Result.DefaultSelection<Prisma.$BruteSpritesheetPayload>
-/**
  * Model Fight
  * 
  */
@@ -637,16 +632,6 @@ export class PrismaClient<
     * ```
     */
   get brute(): Prisma.BruteDelegate<ExtArgs>;
-
-  /**
-   * `prisma.bruteSpritesheet`: Exposes CRUD operations for the **BruteSpritesheet** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more BruteSpritesheets
-    * const bruteSpritesheets = await prisma.bruteSpritesheet.findMany()
-    * ```
-    */
-  get bruteSpritesheet(): Prisma.BruteSpritesheetDelegate<ExtArgs>;
 
   /**
    * `prisma.fight`: Exposes CRUD operations for the **Fight** model.
@@ -1271,7 +1256,6 @@ export namespace Prisma {
     BruteBody: 'BruteBody',
     BruteColors: 'BruteColors',
     Brute: 'Brute',
-    BruteSpritesheet: 'BruteSpritesheet',
     Fight: 'Fight',
     Log: 'Log',
     DestinyChoice: 'DestinyChoice',
@@ -1303,7 +1287,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'user' | 'bruteBody' | 'bruteColors' | 'brute' | 'bruteSpritesheet' | 'fight' | 'log' | 'destinyChoice' | 'tournament' | 'tournamentStep' | 'tournamentEarning' | 'achievement' | 'title' | 'bruteReport' | 'serverState' | 'bannedWord' | 'workerJob' | 'clan' | 'clanThread' | 'clanPost'
+      modelProps: 'user' | 'bruteBody' | 'bruteColors' | 'brute' | 'fight' | 'log' | 'destinyChoice' | 'tournament' | 'tournamentStep' | 'tournamentEarning' | 'achievement' | 'title' | 'bruteReport' | 'serverState' | 'bannedWord' | 'workerJob' | 'clan' | 'clanThread' | 'clanPost'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -1568,72 +1552,6 @@ export namespace Prisma {
           count: {
             args: Prisma.BruteCountArgs<ExtArgs>,
             result: $Utils.Optional<BruteCountAggregateOutputType> | number
-          }
-        }
-      }
-      BruteSpritesheet: {
-        payload: Prisma.$BruteSpritesheetPayload<ExtArgs>
-        fields: Prisma.BruteSpritesheetFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.BruteSpritesheetFindUniqueArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$BruteSpritesheetPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.BruteSpritesheetFindUniqueOrThrowArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$BruteSpritesheetPayload>
-          }
-          findFirst: {
-            args: Prisma.BruteSpritesheetFindFirstArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$BruteSpritesheetPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.BruteSpritesheetFindFirstOrThrowArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$BruteSpritesheetPayload>
-          }
-          findMany: {
-            args: Prisma.BruteSpritesheetFindManyArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$BruteSpritesheetPayload>[]
-          }
-          create: {
-            args: Prisma.BruteSpritesheetCreateArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$BruteSpritesheetPayload>
-          }
-          createMany: {
-            args: Prisma.BruteSpritesheetCreateManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
-          }
-          delete: {
-            args: Prisma.BruteSpritesheetDeleteArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$BruteSpritesheetPayload>
-          }
-          update: {
-            args: Prisma.BruteSpritesheetUpdateArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$BruteSpritesheetPayload>
-          }
-          deleteMany: {
-            args: Prisma.BruteSpritesheetDeleteManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
-          }
-          updateMany: {
-            args: Prisma.BruteSpritesheetUpdateManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
-          }
-          upsert: {
-            args: Prisma.BruteSpritesheetUpsertArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$BruteSpritesheetPayload>
-          }
-          aggregate: {
-            args: Prisma.BruteSpritesheetAggregateArgs<ExtArgs>,
-            result: $Utils.Optional<AggregateBruteSpritesheet>
-          }
-          groupBy: {
-            args: Prisma.BruteSpritesheetGroupByArgs<ExtArgs>,
-            result: $Utils.Optional<BruteSpritesheetGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.BruteSpritesheetCountArgs<ExtArgs>,
-            result: $Utils.Optional<BruteSpritesheetCountAggregateOutputType> | number
           }
         }
       }
@@ -4361,6 +4279,17 @@ export namespace Prisma {
     upperLeftArm: number | null
     lowerLeftArm: number | null
     leftShoulder: number | null
+    p2: number | null
+    p3: number | null
+    p4: number | null
+    p7: number | null
+    p1: number | null
+    p1a: number | null
+    p1b: number | null
+    p6: number | null
+    p8: number | null
+    p7b: number | null
+    p5: number | null
   }
 
   export type BruteBodySumAggregateOutputType = {
@@ -4385,6 +4314,17 @@ export namespace Prisma {
     upperLeftArm: number | null
     lowerLeftArm: number | null
     leftShoulder: number | null
+    p2: number | null
+    p3: number | null
+    p4: number | null
+    p7: number | null
+    p1: number | null
+    p1a: number | null
+    p1b: number | null
+    p6: number | null
+    p8: number | null
+    p7b: number | null
+    p5: number | null
   }
 
   export type BruteBodyMinAggregateOutputType = {
@@ -4409,6 +4349,17 @@ export namespace Prisma {
     upperLeftArm: number | null
     lowerLeftArm: number | null
     leftShoulder: number | null
+    p2: number | null
+    p3: number | null
+    p4: number | null
+    p7: number | null
+    p1: number | null
+    p1a: number | null
+    p1b: number | null
+    p6: number | null
+    p8: number | null
+    p7b: number | null
+    p5: number | null
   }
 
   export type BruteBodyMaxAggregateOutputType = {
@@ -4433,6 +4384,17 @@ export namespace Prisma {
     upperLeftArm: number | null
     lowerLeftArm: number | null
     leftShoulder: number | null
+    p2: number | null
+    p3: number | null
+    p4: number | null
+    p7: number | null
+    p1: number | null
+    p1a: number | null
+    p1b: number | null
+    p6: number | null
+    p8: number | null
+    p7b: number | null
+    p5: number | null
   }
 
   export type BruteBodyCountAggregateOutputType = {
@@ -4457,6 +4419,17 @@ export namespace Prisma {
     upperLeftArm: number
     lowerLeftArm: number
     leftShoulder: number
+    p2: number
+    p3: number
+    p4: number
+    p7: number
+    p1: number
+    p1a: number
+    p1b: number
+    p6: number
+    p8: number
+    p7b: number
+    p5: number
     _all: number
   }
 
@@ -4483,6 +4456,17 @@ export namespace Prisma {
     upperLeftArm?: true
     lowerLeftArm?: true
     leftShoulder?: true
+    p2?: true
+    p3?: true
+    p4?: true
+    p7?: true
+    p1?: true
+    p1a?: true
+    p1b?: true
+    p6?: true
+    p8?: true
+    p7b?: true
+    p5?: true
   }
 
   export type BruteBodySumAggregateInputType = {
@@ -4507,6 +4491,17 @@ export namespace Prisma {
     upperLeftArm?: true
     lowerLeftArm?: true
     leftShoulder?: true
+    p2?: true
+    p3?: true
+    p4?: true
+    p7?: true
+    p1?: true
+    p1a?: true
+    p1b?: true
+    p6?: true
+    p8?: true
+    p7b?: true
+    p5?: true
   }
 
   export type BruteBodyMinAggregateInputType = {
@@ -4531,6 +4526,17 @@ export namespace Prisma {
     upperLeftArm?: true
     lowerLeftArm?: true
     leftShoulder?: true
+    p2?: true
+    p3?: true
+    p4?: true
+    p7?: true
+    p1?: true
+    p1a?: true
+    p1b?: true
+    p6?: true
+    p8?: true
+    p7b?: true
+    p5?: true
   }
 
   export type BruteBodyMaxAggregateInputType = {
@@ -4555,6 +4561,17 @@ export namespace Prisma {
     upperLeftArm?: true
     lowerLeftArm?: true
     leftShoulder?: true
+    p2?: true
+    p3?: true
+    p4?: true
+    p7?: true
+    p1?: true
+    p1a?: true
+    p1b?: true
+    p6?: true
+    p8?: true
+    p7b?: true
+    p5?: true
   }
 
   export type BruteBodyCountAggregateInputType = {
@@ -4579,6 +4596,17 @@ export namespace Prisma {
     upperLeftArm?: true
     lowerLeftArm?: true
     leftShoulder?: true
+    p2?: true
+    p3?: true
+    p4?: true
+    p7?: true
+    p1?: true
+    p1a?: true
+    p1b?: true
+    p6?: true
+    p8?: true
+    p7b?: true
+    p5?: true
     _all?: true
   }
 
@@ -4690,6 +4718,17 @@ export namespace Prisma {
     upperLeftArm: number
     lowerLeftArm: number
     leftShoulder: number
+    p2: number
+    p3: number
+    p4: number
+    p7: number
+    p1: number
+    p1a: number
+    p1b: number
+    p6: number
+    p8: number
+    p7b: number
+    p5: number
     _count: BruteBodyCountAggregateOutputType | null
     _avg: BruteBodyAvgAggregateOutputType | null
     _sum: BruteBodySumAggregateOutputType | null
@@ -4733,6 +4772,17 @@ export namespace Prisma {
     upperLeftArm?: boolean
     lowerLeftArm?: boolean
     leftShoulder?: boolean
+    p2?: boolean
+    p3?: boolean
+    p4?: boolean
+    p7?: boolean
+    p1?: boolean
+    p1a?: boolean
+    p1b?: boolean
+    p6?: boolean
+    p8?: boolean
+    p7b?: boolean
+    p5?: boolean
     brute?: boolean | BruteDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["bruteBody"]>
 
@@ -4758,6 +4808,17 @@ export namespace Prisma {
     upperLeftArm?: boolean
     lowerLeftArm?: boolean
     leftShoulder?: boolean
+    p2?: boolean
+    p3?: boolean
+    p4?: boolean
+    p7?: boolean
+    p1?: boolean
+    p1a?: boolean
+    p1b?: boolean
+    p6?: boolean
+    p8?: boolean
+    p7b?: boolean
+    p5?: boolean
   }
 
   export type BruteBodyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4792,6 +4853,17 @@ export namespace Prisma {
       upperLeftArm: number
       lowerLeftArm: number
       leftShoulder: number
+      p2: number
+      p3: number
+      p4: number
+      p7: number
+      p1: number
+      p1a: number
+      p1b: number
+      p6: number
+      p8: number
+      p7b: number
+      p5: number
     }, ExtArgs["result"]["bruteBody"]>
     composites: {}
   }
@@ -5208,6 +5280,17 @@ export namespace Prisma {
     readonly upperLeftArm: FieldRef<"BruteBody", 'Int'>
     readonly lowerLeftArm: FieldRef<"BruteBody", 'Int'>
     readonly leftShoulder: FieldRef<"BruteBody", 'Int'>
+    readonly p2: FieldRef<"BruteBody", 'Int'>
+    readonly p3: FieldRef<"BruteBody", 'Int'>
+    readonly p4: FieldRef<"BruteBody", 'Int'>
+    readonly p7: FieldRef<"BruteBody", 'Int'>
+    readonly p1: FieldRef<"BruteBody", 'Int'>
+    readonly p1a: FieldRef<"BruteBody", 'Int'>
+    readonly p1b: FieldRef<"BruteBody", 'Int'>
+    readonly p6: FieldRef<"BruteBody", 'Int'>
+    readonly p8: FieldRef<"BruteBody", 'Int'>
+    readonly p7b: FieldRef<"BruteBody", 'Int'>
+    readonly p5: FieldRef<"BruteBody", 'Int'>
   }
     
 
@@ -5570,6 +5653,22 @@ export namespace Prisma {
     secondaryShade: string | null
     accentColor: string | null
     accentShade: string | null
+    col0: string | null
+    col0a: string | null
+    col0c: string | null
+    col1: string | null
+    col1a: string | null
+    col1b: string | null
+    col1c: string | null
+    col1d: string | null
+    col3: string | null
+    col2: string | null
+    col2b: string | null
+    col3b: string | null
+    col2a: string | null
+    col4: string | null
+    col4a: string | null
+    col4b: string | null
   }
 
   export type BruteColorsMaxAggregateOutputType = {
@@ -5585,6 +5684,22 @@ export namespace Prisma {
     secondaryShade: string | null
     accentColor: string | null
     accentShade: string | null
+    col0: string | null
+    col0a: string | null
+    col0c: string | null
+    col1: string | null
+    col1a: string | null
+    col1b: string | null
+    col1c: string | null
+    col1d: string | null
+    col3: string | null
+    col2: string | null
+    col2b: string | null
+    col3b: string | null
+    col2a: string | null
+    col4: string | null
+    col4a: string | null
+    col4b: string | null
   }
 
   export type BruteColorsCountAggregateOutputType = {
@@ -5600,6 +5715,22 @@ export namespace Prisma {
     secondaryShade: number
     accentColor: number
     accentShade: number
+    col0: number
+    col0a: number
+    col0c: number
+    col1: number
+    col1a: number
+    col1b: number
+    col1c: number
+    col1d: number
+    col3: number
+    col2: number
+    col2b: number
+    col3b: number
+    col2a: number
+    col4: number
+    col4a: number
+    col4b: number
     _all: number
   }
 
@@ -5627,6 +5758,22 @@ export namespace Prisma {
     secondaryShade?: true
     accentColor?: true
     accentShade?: true
+    col0?: true
+    col0a?: true
+    col0c?: true
+    col1?: true
+    col1a?: true
+    col1b?: true
+    col1c?: true
+    col1d?: true
+    col3?: true
+    col2?: true
+    col2b?: true
+    col3b?: true
+    col2a?: true
+    col4?: true
+    col4a?: true
+    col4b?: true
   }
 
   export type BruteColorsMaxAggregateInputType = {
@@ -5642,6 +5789,22 @@ export namespace Prisma {
     secondaryShade?: true
     accentColor?: true
     accentShade?: true
+    col0?: true
+    col0a?: true
+    col0c?: true
+    col1?: true
+    col1a?: true
+    col1b?: true
+    col1c?: true
+    col1d?: true
+    col3?: true
+    col2?: true
+    col2b?: true
+    col3b?: true
+    col2a?: true
+    col4?: true
+    col4a?: true
+    col4b?: true
   }
 
   export type BruteColorsCountAggregateInputType = {
@@ -5657,6 +5820,22 @@ export namespace Prisma {
     secondaryShade?: true
     accentColor?: true
     accentShade?: true
+    col0?: true
+    col0a?: true
+    col0c?: true
+    col1?: true
+    col1a?: true
+    col1b?: true
+    col1c?: true
+    col1d?: true
+    col3?: true
+    col2?: true
+    col2b?: true
+    col3b?: true
+    col2a?: true
+    col4?: true
+    col4a?: true
+    col4b?: true
     _all?: true
   }
 
@@ -5759,6 +5938,22 @@ export namespace Prisma {
     secondaryShade: string
     accentColor: string
     accentShade: string
+    col0: string
+    col0a: string
+    col0c: string
+    col1: string
+    col1a: string
+    col1b: string
+    col1c: string
+    col1d: string
+    col3: string
+    col2: string
+    col2b: string
+    col3b: string
+    col2a: string
+    col4: string
+    col4a: string
+    col4b: string
     _count: BruteColorsCountAggregateOutputType | null
     _avg: BruteColorsAvgAggregateOutputType | null
     _sum: BruteColorsSumAggregateOutputType | null
@@ -5793,6 +5988,22 @@ export namespace Prisma {
     secondaryShade?: boolean
     accentColor?: boolean
     accentShade?: boolean
+    col0?: boolean
+    col0a?: boolean
+    col0c?: boolean
+    col1?: boolean
+    col1a?: boolean
+    col1b?: boolean
+    col1c?: boolean
+    col1d?: boolean
+    col3?: boolean
+    col2?: boolean
+    col2b?: boolean
+    col3b?: boolean
+    col2a?: boolean
+    col4?: boolean
+    col4a?: boolean
+    col4b?: boolean
     brute?: boolean | BruteDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["bruteColors"]>
 
@@ -5809,6 +6020,22 @@ export namespace Prisma {
     secondaryShade?: boolean
     accentColor?: boolean
     accentShade?: boolean
+    col0?: boolean
+    col0a?: boolean
+    col0c?: boolean
+    col1?: boolean
+    col1a?: boolean
+    col1b?: boolean
+    col1c?: boolean
+    col1d?: boolean
+    col3?: boolean
+    col2?: boolean
+    col2b?: boolean
+    col3b?: boolean
+    col2a?: boolean
+    col4?: boolean
+    col4a?: boolean
+    col4b?: boolean
   }
 
   export type BruteColorsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5834,6 +6061,22 @@ export namespace Prisma {
       secondaryShade: string
       accentColor: string
       accentShade: string
+      col0: string
+      col0a: string
+      col0c: string
+      col1: string
+      col1a: string
+      col1b: string
+      col1c: string
+      col1d: string
+      col3: string
+      col2: string
+      col2b: string
+      col3b: string
+      col2a: string
+      col4: string
+      col4a: string
+      col4b: string
     }, ExtArgs["result"]["bruteColors"]>
     composites: {}
   }
@@ -6241,6 +6484,22 @@ export namespace Prisma {
     readonly secondaryShade: FieldRef<"BruteColors", 'String'>
     readonly accentColor: FieldRef<"BruteColors", 'String'>
     readonly accentShade: FieldRef<"BruteColors", 'String'>
+    readonly col0: FieldRef<"BruteColors", 'String'>
+    readonly col0a: FieldRef<"BruteColors", 'String'>
+    readonly col0c: FieldRef<"BruteColors", 'String'>
+    readonly col1: FieldRef<"BruteColors", 'String'>
+    readonly col1a: FieldRef<"BruteColors", 'String'>
+    readonly col1b: FieldRef<"BruteColors", 'String'>
+    readonly col1c: FieldRef<"BruteColors", 'String'>
+    readonly col1d: FieldRef<"BruteColors", 'String'>
+    readonly col3: FieldRef<"BruteColors", 'String'>
+    readonly col2: FieldRef<"BruteColors", 'String'>
+    readonly col2b: FieldRef<"BruteColors", 'String'>
+    readonly col3b: FieldRef<"BruteColors", 'String'>
+    readonly col2a: FieldRef<"BruteColors", 'String'>
+    readonly col4: FieldRef<"BruteColors", 'String'>
+    readonly col4a: FieldRef<"BruteColors", 'String'>
+    readonly col4b: FieldRef<"BruteColors", 'String'>
   }
     
 
@@ -8492,1305 +8751,6 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well.
      */
     include?: BruteInclude<ExtArgs> | null
-  }
-
-
-
-  /**
-   * Model BruteSpritesheet
-   */
-
-  export type AggregateBruteSpritesheet = {
-    _count: BruteSpritesheetCountAggregateOutputType | null
-    _avg: BruteSpritesheetAvgAggregateOutputType | null
-    _sum: BruteSpritesheetSumAggregateOutputType | null
-    _min: BruteSpritesheetMinAggregateOutputType | null
-    _max: BruteSpritesheetMaxAggregateOutputType | null
-  }
-
-  export type BruteSpritesheetAvgAggregateOutputType = {
-    id: number | null
-    longHair: number | null
-    lowerRightArm: number | null
-    rightHand: number | null
-    upperRightArm: number | null
-    rightShoulder: number | null
-    rightFoot: number | null
-    lowerRightLeg: number | null
-    upperRightLeg: number | null
-    leftFoot: number | null
-    lowerLeftLeg: number | null
-    pelvis: number | null
-    upperLeftLeg: number | null
-    tummy: number | null
-    torso: number | null
-    head: number | null
-    leftHand: number | null
-    upperLeftArm: number | null
-    lowerLeftArm: number | null
-    leftShoulder: number | null
-  }
-
-  export type BruteSpritesheetSumAggregateOutputType = {
-    id: number | null
-    longHair: number | null
-    lowerRightArm: number | null
-    rightHand: number | null
-    upperRightArm: number | null
-    rightShoulder: number | null
-    rightFoot: number | null
-    lowerRightLeg: number | null
-    upperRightLeg: number | null
-    leftFoot: number | null
-    lowerLeftLeg: number | null
-    pelvis: number | null
-    upperLeftLeg: number | null
-    tummy: number | null
-    torso: number | null
-    head: number | null
-    leftHand: number | null
-    upperLeftArm: number | null
-    lowerLeftArm: number | null
-    leftShoulder: number | null
-  }
-
-  export type BruteSpritesheetMinAggregateOutputType = {
-    id: number | null
-    version: string | null
-    gender: $Enums.Gender | null
-    longHair: number | null
-    lowerRightArm: number | null
-    rightHand: number | null
-    upperRightArm: number | null
-    rightShoulder: number | null
-    rightFoot: number | null
-    lowerRightLeg: number | null
-    upperRightLeg: number | null
-    leftFoot: number | null
-    lowerLeftLeg: number | null
-    pelvis: number | null
-    upperLeftLeg: number | null
-    tummy: number | null
-    torso: number | null
-    head: number | null
-    leftHand: number | null
-    upperLeftArm: number | null
-    lowerLeftArm: number | null
-    leftShoulder: number | null
-    skinColor: string | null
-    skinShade: string | null
-    hairColor: string | null
-    hairShade: string | null
-    primaryColor: string | null
-    primaryShade: string | null
-    secondaryColor: string | null
-    secondaryShade: string | null
-    accentColor: string | null
-    accentShade: string | null
-    image: Buffer | null
-    json: string | null
-  }
-
-  export type BruteSpritesheetMaxAggregateOutputType = {
-    id: number | null
-    version: string | null
-    gender: $Enums.Gender | null
-    longHair: number | null
-    lowerRightArm: number | null
-    rightHand: number | null
-    upperRightArm: number | null
-    rightShoulder: number | null
-    rightFoot: number | null
-    lowerRightLeg: number | null
-    upperRightLeg: number | null
-    leftFoot: number | null
-    lowerLeftLeg: number | null
-    pelvis: number | null
-    upperLeftLeg: number | null
-    tummy: number | null
-    torso: number | null
-    head: number | null
-    leftHand: number | null
-    upperLeftArm: number | null
-    lowerLeftArm: number | null
-    leftShoulder: number | null
-    skinColor: string | null
-    skinShade: string | null
-    hairColor: string | null
-    hairShade: string | null
-    primaryColor: string | null
-    primaryShade: string | null
-    secondaryColor: string | null
-    secondaryShade: string | null
-    accentColor: string | null
-    accentShade: string | null
-    image: Buffer | null
-    json: string | null
-  }
-
-  export type BruteSpritesheetCountAggregateOutputType = {
-    id: number
-    version: number
-    gender: number
-    longHair: number
-    lowerRightArm: number
-    rightHand: number
-    upperRightArm: number
-    rightShoulder: number
-    rightFoot: number
-    lowerRightLeg: number
-    upperRightLeg: number
-    leftFoot: number
-    lowerLeftLeg: number
-    pelvis: number
-    upperLeftLeg: number
-    tummy: number
-    torso: number
-    head: number
-    leftHand: number
-    upperLeftArm: number
-    lowerLeftArm: number
-    leftShoulder: number
-    skinColor: number
-    skinShade: number
-    hairColor: number
-    hairShade: number
-    primaryColor: number
-    primaryShade: number
-    secondaryColor: number
-    secondaryShade: number
-    accentColor: number
-    accentShade: number
-    image: number
-    json: number
-    _all: number
-  }
-
-
-  export type BruteSpritesheetAvgAggregateInputType = {
-    id?: true
-    longHair?: true
-    lowerRightArm?: true
-    rightHand?: true
-    upperRightArm?: true
-    rightShoulder?: true
-    rightFoot?: true
-    lowerRightLeg?: true
-    upperRightLeg?: true
-    leftFoot?: true
-    lowerLeftLeg?: true
-    pelvis?: true
-    upperLeftLeg?: true
-    tummy?: true
-    torso?: true
-    head?: true
-    leftHand?: true
-    upperLeftArm?: true
-    lowerLeftArm?: true
-    leftShoulder?: true
-  }
-
-  export type BruteSpritesheetSumAggregateInputType = {
-    id?: true
-    longHair?: true
-    lowerRightArm?: true
-    rightHand?: true
-    upperRightArm?: true
-    rightShoulder?: true
-    rightFoot?: true
-    lowerRightLeg?: true
-    upperRightLeg?: true
-    leftFoot?: true
-    lowerLeftLeg?: true
-    pelvis?: true
-    upperLeftLeg?: true
-    tummy?: true
-    torso?: true
-    head?: true
-    leftHand?: true
-    upperLeftArm?: true
-    lowerLeftArm?: true
-    leftShoulder?: true
-  }
-
-  export type BruteSpritesheetMinAggregateInputType = {
-    id?: true
-    version?: true
-    gender?: true
-    longHair?: true
-    lowerRightArm?: true
-    rightHand?: true
-    upperRightArm?: true
-    rightShoulder?: true
-    rightFoot?: true
-    lowerRightLeg?: true
-    upperRightLeg?: true
-    leftFoot?: true
-    lowerLeftLeg?: true
-    pelvis?: true
-    upperLeftLeg?: true
-    tummy?: true
-    torso?: true
-    head?: true
-    leftHand?: true
-    upperLeftArm?: true
-    lowerLeftArm?: true
-    leftShoulder?: true
-    skinColor?: true
-    skinShade?: true
-    hairColor?: true
-    hairShade?: true
-    primaryColor?: true
-    primaryShade?: true
-    secondaryColor?: true
-    secondaryShade?: true
-    accentColor?: true
-    accentShade?: true
-    image?: true
-    json?: true
-  }
-
-  export type BruteSpritesheetMaxAggregateInputType = {
-    id?: true
-    version?: true
-    gender?: true
-    longHair?: true
-    lowerRightArm?: true
-    rightHand?: true
-    upperRightArm?: true
-    rightShoulder?: true
-    rightFoot?: true
-    lowerRightLeg?: true
-    upperRightLeg?: true
-    leftFoot?: true
-    lowerLeftLeg?: true
-    pelvis?: true
-    upperLeftLeg?: true
-    tummy?: true
-    torso?: true
-    head?: true
-    leftHand?: true
-    upperLeftArm?: true
-    lowerLeftArm?: true
-    leftShoulder?: true
-    skinColor?: true
-    skinShade?: true
-    hairColor?: true
-    hairShade?: true
-    primaryColor?: true
-    primaryShade?: true
-    secondaryColor?: true
-    secondaryShade?: true
-    accentColor?: true
-    accentShade?: true
-    image?: true
-    json?: true
-  }
-
-  export type BruteSpritesheetCountAggregateInputType = {
-    id?: true
-    version?: true
-    gender?: true
-    longHair?: true
-    lowerRightArm?: true
-    rightHand?: true
-    upperRightArm?: true
-    rightShoulder?: true
-    rightFoot?: true
-    lowerRightLeg?: true
-    upperRightLeg?: true
-    leftFoot?: true
-    lowerLeftLeg?: true
-    pelvis?: true
-    upperLeftLeg?: true
-    tummy?: true
-    torso?: true
-    head?: true
-    leftHand?: true
-    upperLeftArm?: true
-    lowerLeftArm?: true
-    leftShoulder?: true
-    skinColor?: true
-    skinShade?: true
-    hairColor?: true
-    hairShade?: true
-    primaryColor?: true
-    primaryShade?: true
-    secondaryColor?: true
-    secondaryShade?: true
-    accentColor?: true
-    accentShade?: true
-    image?: true
-    json?: true
-    _all?: true
-  }
-
-  export type BruteSpritesheetAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which BruteSpritesheet to aggregate.
-     */
-    where?: BruteSpritesheetWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of BruteSpritesheets to fetch.
-     */
-    orderBy?: BruteSpritesheetOrderByWithRelationInput | BruteSpritesheetOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: BruteSpritesheetWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` BruteSpritesheets from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` BruteSpritesheets.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned BruteSpritesheets
-    **/
-    _count?: true | BruteSpritesheetCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: BruteSpritesheetAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: BruteSpritesheetSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: BruteSpritesheetMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: BruteSpritesheetMaxAggregateInputType
-  }
-
-  export type GetBruteSpritesheetAggregateType<T extends BruteSpritesheetAggregateArgs> = {
-        [P in keyof T & keyof AggregateBruteSpritesheet]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateBruteSpritesheet[P]>
-      : GetScalarType<T[P], AggregateBruteSpritesheet[P]>
-  }
-
-
-
-
-  export type BruteSpritesheetGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: BruteSpritesheetWhereInput
-    orderBy?: BruteSpritesheetOrderByWithAggregationInput | BruteSpritesheetOrderByWithAggregationInput[]
-    by: BruteSpritesheetScalarFieldEnum[] | BruteSpritesheetScalarFieldEnum
-    having?: BruteSpritesheetScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: BruteSpritesheetCountAggregateInputType | true
-    _avg?: BruteSpritesheetAvgAggregateInputType
-    _sum?: BruteSpritesheetSumAggregateInputType
-    _min?: BruteSpritesheetMinAggregateInputType
-    _max?: BruteSpritesheetMaxAggregateInputType
-  }
-
-  export type BruteSpritesheetGroupByOutputType = {
-    id: number
-    version: string
-    gender: $Enums.Gender
-    longHair: number
-    lowerRightArm: number
-    rightHand: number
-    upperRightArm: number
-    rightShoulder: number
-    rightFoot: number
-    lowerRightLeg: number
-    upperRightLeg: number
-    leftFoot: number
-    lowerLeftLeg: number
-    pelvis: number
-    upperLeftLeg: number
-    tummy: number
-    torso: number
-    head: number
-    leftHand: number
-    upperLeftArm: number
-    lowerLeftArm: number
-    leftShoulder: number
-    skinColor: string
-    skinShade: string
-    hairColor: string
-    hairShade: string
-    primaryColor: string
-    primaryShade: string
-    secondaryColor: string
-    secondaryShade: string
-    accentColor: string
-    accentShade: string
-    image: Buffer | null
-    json: string | null
-    _count: BruteSpritesheetCountAggregateOutputType | null
-    _avg: BruteSpritesheetAvgAggregateOutputType | null
-    _sum: BruteSpritesheetSumAggregateOutputType | null
-    _min: BruteSpritesheetMinAggregateOutputType | null
-    _max: BruteSpritesheetMaxAggregateOutputType | null
-  }
-
-  type GetBruteSpritesheetGroupByPayload<T extends BruteSpritesheetGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<BruteSpritesheetGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof BruteSpritesheetGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], BruteSpritesheetGroupByOutputType[P]>
-            : GetScalarType<T[P], BruteSpritesheetGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type BruteSpritesheetSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    version?: boolean
-    gender?: boolean
-    longHair?: boolean
-    lowerRightArm?: boolean
-    rightHand?: boolean
-    upperRightArm?: boolean
-    rightShoulder?: boolean
-    rightFoot?: boolean
-    lowerRightLeg?: boolean
-    upperRightLeg?: boolean
-    leftFoot?: boolean
-    lowerLeftLeg?: boolean
-    pelvis?: boolean
-    upperLeftLeg?: boolean
-    tummy?: boolean
-    torso?: boolean
-    head?: boolean
-    leftHand?: boolean
-    upperLeftArm?: boolean
-    lowerLeftArm?: boolean
-    leftShoulder?: boolean
-    skinColor?: boolean
-    skinShade?: boolean
-    hairColor?: boolean
-    hairShade?: boolean
-    primaryColor?: boolean
-    primaryShade?: boolean
-    secondaryColor?: boolean
-    secondaryShade?: boolean
-    accentColor?: boolean
-    accentShade?: boolean
-    image?: boolean
-    json?: boolean
-  }, ExtArgs["result"]["bruteSpritesheet"]>
-
-  export type BruteSpritesheetSelectScalar = {
-    id?: boolean
-    version?: boolean
-    gender?: boolean
-    longHair?: boolean
-    lowerRightArm?: boolean
-    rightHand?: boolean
-    upperRightArm?: boolean
-    rightShoulder?: boolean
-    rightFoot?: boolean
-    lowerRightLeg?: boolean
-    upperRightLeg?: boolean
-    leftFoot?: boolean
-    lowerLeftLeg?: boolean
-    pelvis?: boolean
-    upperLeftLeg?: boolean
-    tummy?: boolean
-    torso?: boolean
-    head?: boolean
-    leftHand?: boolean
-    upperLeftArm?: boolean
-    lowerLeftArm?: boolean
-    leftShoulder?: boolean
-    skinColor?: boolean
-    skinShade?: boolean
-    hairColor?: boolean
-    hairShade?: boolean
-    primaryColor?: boolean
-    primaryShade?: boolean
-    secondaryColor?: boolean
-    secondaryShade?: boolean
-    accentColor?: boolean
-    accentShade?: boolean
-    image?: boolean
-    json?: boolean
-  }
-
-
-  export type $BruteSpritesheetPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "BruteSpritesheet"
-    objects: {}
-    scalars: $Extensions.GetPayloadResult<{
-      id: number
-      version: string
-      gender: $Enums.Gender
-      longHair: number
-      lowerRightArm: number
-      rightHand: number
-      upperRightArm: number
-      rightShoulder: number
-      rightFoot: number
-      lowerRightLeg: number
-      upperRightLeg: number
-      leftFoot: number
-      lowerLeftLeg: number
-      pelvis: number
-      upperLeftLeg: number
-      tummy: number
-      torso: number
-      head: number
-      leftHand: number
-      upperLeftArm: number
-      lowerLeftArm: number
-      leftShoulder: number
-      skinColor: string
-      skinShade: string
-      hairColor: string
-      hairShade: string
-      primaryColor: string
-      primaryShade: string
-      secondaryColor: string
-      secondaryShade: string
-      accentColor: string
-      accentShade: string
-      image: Buffer | null
-      json: string | null
-    }, ExtArgs["result"]["bruteSpritesheet"]>
-    composites: {}
-  }
-
-
-  type BruteSpritesheetGetPayload<S extends boolean | null | undefined | BruteSpritesheetDefaultArgs> = $Result.GetResult<Prisma.$BruteSpritesheetPayload, S>
-
-  type BruteSpritesheetCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<BruteSpritesheetFindManyArgs, 'select' | 'include' | 'distinct' > & {
-      select?: BruteSpritesheetCountAggregateInputType | true
-    }
-
-  export interface BruteSpritesheetDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BruteSpritesheet'], meta: { name: 'BruteSpritesheet' } }
-    /**
-     * Find zero or one BruteSpritesheet that matches the filter.
-     * @param {BruteSpritesheetFindUniqueArgs} args - Arguments to find a BruteSpritesheet
-     * @example
-     * // Get one BruteSpritesheet
-     * const bruteSpritesheet = await prisma.bruteSpritesheet.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findUnique<T extends BruteSpritesheetFindUniqueArgs<ExtArgs>>(
-      args: SelectSubset<T, BruteSpritesheetFindUniqueArgs<ExtArgs>>
-    ): Prisma__BruteSpritesheetClient<$Result.GetResult<Prisma.$BruteSpritesheetPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
-
-    /**
-     * Find one BruteSpritesheet that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
-     * @param {BruteSpritesheetFindUniqueOrThrowArgs} args - Arguments to find a BruteSpritesheet
-     * @example
-     * // Get one BruteSpritesheet
-     * const bruteSpritesheet = await prisma.bruteSpritesheet.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findUniqueOrThrow<T extends BruteSpritesheetFindUniqueOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, BruteSpritesheetFindUniqueOrThrowArgs<ExtArgs>>
-    ): Prisma__BruteSpritesheetClient<$Result.GetResult<Prisma.$BruteSpritesheetPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
-
-    /**
-     * Find the first BruteSpritesheet that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BruteSpritesheetFindFirstArgs} args - Arguments to find a BruteSpritesheet
-     * @example
-     * // Get one BruteSpritesheet
-     * const bruteSpritesheet = await prisma.bruteSpritesheet.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findFirst<T extends BruteSpritesheetFindFirstArgs<ExtArgs>>(
-      args?: SelectSubset<T, BruteSpritesheetFindFirstArgs<ExtArgs>>
-    ): Prisma__BruteSpritesheetClient<$Result.GetResult<Prisma.$BruteSpritesheetPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
-
-    /**
-     * Find the first BruteSpritesheet that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BruteSpritesheetFindFirstOrThrowArgs} args - Arguments to find a BruteSpritesheet
-     * @example
-     * // Get one BruteSpritesheet
-     * const bruteSpritesheet = await prisma.bruteSpritesheet.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findFirstOrThrow<T extends BruteSpritesheetFindFirstOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, BruteSpritesheetFindFirstOrThrowArgs<ExtArgs>>
-    ): Prisma__BruteSpritesheetClient<$Result.GetResult<Prisma.$BruteSpritesheetPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
-
-    /**
-     * Find zero or more BruteSpritesheets that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BruteSpritesheetFindManyArgs=} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all BruteSpritesheets
-     * const bruteSpritesheets = await prisma.bruteSpritesheet.findMany()
-     * 
-     * // Get first 10 BruteSpritesheets
-     * const bruteSpritesheets = await prisma.bruteSpritesheet.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const bruteSpritesheetWithIdOnly = await prisma.bruteSpritesheet.findMany({ select: { id: true } })
-     * 
-    **/
-    findMany<T extends BruteSpritesheetFindManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, BruteSpritesheetFindManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BruteSpritesheetPayload<ExtArgs>, T, 'findMany'>>
-
-    /**
-     * Create a BruteSpritesheet.
-     * @param {BruteSpritesheetCreateArgs} args - Arguments to create a BruteSpritesheet.
-     * @example
-     * // Create one BruteSpritesheet
-     * const BruteSpritesheet = await prisma.bruteSpritesheet.create({
-     *   data: {
-     *     // ... data to create a BruteSpritesheet
-     *   }
-     * })
-     * 
-    **/
-    create<T extends BruteSpritesheetCreateArgs<ExtArgs>>(
-      args: SelectSubset<T, BruteSpritesheetCreateArgs<ExtArgs>>
-    ): Prisma__BruteSpritesheetClient<$Result.GetResult<Prisma.$BruteSpritesheetPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
-
-    /**
-     * Create many BruteSpritesheets.
-     *     @param {BruteSpritesheetCreateManyArgs} args - Arguments to create many BruteSpritesheets.
-     *     @example
-     *     // Create many BruteSpritesheets
-     *     const bruteSpritesheet = await prisma.bruteSpritesheet.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
-     *     
-    **/
-    createMany<T extends BruteSpritesheetCreateManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, BruteSpritesheetCreateManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a BruteSpritesheet.
-     * @param {BruteSpritesheetDeleteArgs} args - Arguments to delete one BruteSpritesheet.
-     * @example
-     * // Delete one BruteSpritesheet
-     * const BruteSpritesheet = await prisma.bruteSpritesheet.delete({
-     *   where: {
-     *     // ... filter to delete one BruteSpritesheet
-     *   }
-     * })
-     * 
-    **/
-    delete<T extends BruteSpritesheetDeleteArgs<ExtArgs>>(
-      args: SelectSubset<T, BruteSpritesheetDeleteArgs<ExtArgs>>
-    ): Prisma__BruteSpritesheetClient<$Result.GetResult<Prisma.$BruteSpritesheetPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
-
-    /**
-     * Update one BruteSpritesheet.
-     * @param {BruteSpritesheetUpdateArgs} args - Arguments to update one BruteSpritesheet.
-     * @example
-     * // Update one BruteSpritesheet
-     * const bruteSpritesheet = await prisma.bruteSpritesheet.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
-    update<T extends BruteSpritesheetUpdateArgs<ExtArgs>>(
-      args: SelectSubset<T, BruteSpritesheetUpdateArgs<ExtArgs>>
-    ): Prisma__BruteSpritesheetClient<$Result.GetResult<Prisma.$BruteSpritesheetPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
-
-    /**
-     * Delete zero or more BruteSpritesheets.
-     * @param {BruteSpritesheetDeleteManyArgs} args - Arguments to filter BruteSpritesheets to delete.
-     * @example
-     * // Delete a few BruteSpritesheets
-     * const { count } = await prisma.bruteSpritesheet.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-    **/
-    deleteMany<T extends BruteSpritesheetDeleteManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, BruteSpritesheetDeleteManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more BruteSpritesheets.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BruteSpritesheetUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many BruteSpritesheets
-     * const bruteSpritesheet = await prisma.bruteSpritesheet.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
-    updateMany<T extends BruteSpritesheetUpdateManyArgs<ExtArgs>>(
-      args: SelectSubset<T, BruteSpritesheetUpdateManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one BruteSpritesheet.
-     * @param {BruteSpritesheetUpsertArgs} args - Arguments to update or create a BruteSpritesheet.
-     * @example
-     * // Update or create a BruteSpritesheet
-     * const bruteSpritesheet = await prisma.bruteSpritesheet.upsert({
-     *   create: {
-     *     // ... data to create a BruteSpritesheet
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the BruteSpritesheet we want to update
-     *   }
-     * })
-    **/
-    upsert<T extends BruteSpritesheetUpsertArgs<ExtArgs>>(
-      args: SelectSubset<T, BruteSpritesheetUpsertArgs<ExtArgs>>
-    ): Prisma__BruteSpritesheetClient<$Result.GetResult<Prisma.$BruteSpritesheetPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
-
-    /**
-     * Count the number of BruteSpritesheets.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BruteSpritesheetCountArgs} args - Arguments to filter BruteSpritesheets to count.
-     * @example
-     * // Count the number of BruteSpritesheets
-     * const count = await prisma.bruteSpritesheet.count({
-     *   where: {
-     *     // ... the filter for the BruteSpritesheets we want to count
-     *   }
-     * })
-    **/
-    count<T extends BruteSpritesheetCountArgs>(
-      args?: Subset<T, BruteSpritesheetCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], BruteSpritesheetCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a BruteSpritesheet.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BruteSpritesheetAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends BruteSpritesheetAggregateArgs>(args: Subset<T, BruteSpritesheetAggregateArgs>): Prisma.PrismaPromise<GetBruteSpritesheetAggregateType<T>>
-
-    /**
-     * Group by BruteSpritesheet.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BruteSpritesheetGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends BruteSpritesheetGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: BruteSpritesheetGroupByArgs['orderBy'] }
-        : { orderBy?: BruteSpritesheetGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, BruteSpritesheetGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBruteSpritesheetGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the BruteSpritesheet model
-   */
-  readonly fields: BruteSpritesheetFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for BruteSpritesheet.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__BruteSpritesheetClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: 'PrismaPromise';
-
-
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
-  }
-
-
-
-  /**
-   * Fields of the BruteSpritesheet model
-   */ 
-  interface BruteSpritesheetFieldRefs {
-    readonly id: FieldRef<"BruteSpritesheet", 'Int'>
-    readonly version: FieldRef<"BruteSpritesheet", 'String'>
-    readonly gender: FieldRef<"BruteSpritesheet", 'Gender'>
-    readonly longHair: FieldRef<"BruteSpritesheet", 'Int'>
-    readonly lowerRightArm: FieldRef<"BruteSpritesheet", 'Int'>
-    readonly rightHand: FieldRef<"BruteSpritesheet", 'Int'>
-    readonly upperRightArm: FieldRef<"BruteSpritesheet", 'Int'>
-    readonly rightShoulder: FieldRef<"BruteSpritesheet", 'Int'>
-    readonly rightFoot: FieldRef<"BruteSpritesheet", 'Int'>
-    readonly lowerRightLeg: FieldRef<"BruteSpritesheet", 'Int'>
-    readonly upperRightLeg: FieldRef<"BruteSpritesheet", 'Int'>
-    readonly leftFoot: FieldRef<"BruteSpritesheet", 'Int'>
-    readonly lowerLeftLeg: FieldRef<"BruteSpritesheet", 'Int'>
-    readonly pelvis: FieldRef<"BruteSpritesheet", 'Int'>
-    readonly upperLeftLeg: FieldRef<"BruteSpritesheet", 'Int'>
-    readonly tummy: FieldRef<"BruteSpritesheet", 'Int'>
-    readonly torso: FieldRef<"BruteSpritesheet", 'Int'>
-    readonly head: FieldRef<"BruteSpritesheet", 'Int'>
-    readonly leftHand: FieldRef<"BruteSpritesheet", 'Int'>
-    readonly upperLeftArm: FieldRef<"BruteSpritesheet", 'Int'>
-    readonly lowerLeftArm: FieldRef<"BruteSpritesheet", 'Int'>
-    readonly leftShoulder: FieldRef<"BruteSpritesheet", 'Int'>
-    readonly skinColor: FieldRef<"BruteSpritesheet", 'String'>
-    readonly skinShade: FieldRef<"BruteSpritesheet", 'String'>
-    readonly hairColor: FieldRef<"BruteSpritesheet", 'String'>
-    readonly hairShade: FieldRef<"BruteSpritesheet", 'String'>
-    readonly primaryColor: FieldRef<"BruteSpritesheet", 'String'>
-    readonly primaryShade: FieldRef<"BruteSpritesheet", 'String'>
-    readonly secondaryColor: FieldRef<"BruteSpritesheet", 'String'>
-    readonly secondaryShade: FieldRef<"BruteSpritesheet", 'String'>
-    readonly accentColor: FieldRef<"BruteSpritesheet", 'String'>
-    readonly accentShade: FieldRef<"BruteSpritesheet", 'String'>
-    readonly image: FieldRef<"BruteSpritesheet", 'Bytes'>
-    readonly json: FieldRef<"BruteSpritesheet", 'String'>
-  }
-    
-
-  // Custom InputTypes
-
-  /**
-   * BruteSpritesheet findUnique
-   */
-  export type BruteSpritesheetFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteSpritesheet
-     */
-    select?: BruteSpritesheetSelect<ExtArgs> | null
-    /**
-     * Filter, which BruteSpritesheet to fetch.
-     */
-    where: BruteSpritesheetWhereUniqueInput
-  }
-
-
-  /**
-   * BruteSpritesheet findUniqueOrThrow
-   */
-  export type BruteSpritesheetFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteSpritesheet
-     */
-    select?: BruteSpritesheetSelect<ExtArgs> | null
-    /**
-     * Filter, which BruteSpritesheet to fetch.
-     */
-    where: BruteSpritesheetWhereUniqueInput
-  }
-
-
-  /**
-   * BruteSpritesheet findFirst
-   */
-  export type BruteSpritesheetFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteSpritesheet
-     */
-    select?: BruteSpritesheetSelect<ExtArgs> | null
-    /**
-     * Filter, which BruteSpritesheet to fetch.
-     */
-    where?: BruteSpritesheetWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of BruteSpritesheets to fetch.
-     */
-    orderBy?: BruteSpritesheetOrderByWithRelationInput | BruteSpritesheetOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for BruteSpritesheets.
-     */
-    cursor?: BruteSpritesheetWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` BruteSpritesheets from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` BruteSpritesheets.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of BruteSpritesheets.
-     */
-    distinct?: BruteSpritesheetScalarFieldEnum | BruteSpritesheetScalarFieldEnum[]
-  }
-
-
-  /**
-   * BruteSpritesheet findFirstOrThrow
-   */
-  export type BruteSpritesheetFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteSpritesheet
-     */
-    select?: BruteSpritesheetSelect<ExtArgs> | null
-    /**
-     * Filter, which BruteSpritesheet to fetch.
-     */
-    where?: BruteSpritesheetWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of BruteSpritesheets to fetch.
-     */
-    orderBy?: BruteSpritesheetOrderByWithRelationInput | BruteSpritesheetOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for BruteSpritesheets.
-     */
-    cursor?: BruteSpritesheetWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` BruteSpritesheets from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` BruteSpritesheets.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of BruteSpritesheets.
-     */
-    distinct?: BruteSpritesheetScalarFieldEnum | BruteSpritesheetScalarFieldEnum[]
-  }
-
-
-  /**
-   * BruteSpritesheet findMany
-   */
-  export type BruteSpritesheetFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteSpritesheet
-     */
-    select?: BruteSpritesheetSelect<ExtArgs> | null
-    /**
-     * Filter, which BruteSpritesheets to fetch.
-     */
-    where?: BruteSpritesheetWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of BruteSpritesheets to fetch.
-     */
-    orderBy?: BruteSpritesheetOrderByWithRelationInput | BruteSpritesheetOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing BruteSpritesheets.
-     */
-    cursor?: BruteSpritesheetWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` BruteSpritesheets from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` BruteSpritesheets.
-     */
-    skip?: number
-    distinct?: BruteSpritesheetScalarFieldEnum | BruteSpritesheetScalarFieldEnum[]
-  }
-
-
-  /**
-   * BruteSpritesheet create
-   */
-  export type BruteSpritesheetCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteSpritesheet
-     */
-    select?: BruteSpritesheetSelect<ExtArgs> | null
-    /**
-     * The data needed to create a BruteSpritesheet.
-     */
-    data?: XOR<BruteSpritesheetCreateInput, BruteSpritesheetUncheckedCreateInput>
-  }
-
-
-  /**
-   * BruteSpritesheet createMany
-   */
-  export type BruteSpritesheetCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many BruteSpritesheets.
-     */
-    data: BruteSpritesheetCreateManyInput | BruteSpritesheetCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-
-  /**
-   * BruteSpritesheet update
-   */
-  export type BruteSpritesheetUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteSpritesheet
-     */
-    select?: BruteSpritesheetSelect<ExtArgs> | null
-    /**
-     * The data needed to update a BruteSpritesheet.
-     */
-    data: XOR<BruteSpritesheetUpdateInput, BruteSpritesheetUncheckedUpdateInput>
-    /**
-     * Choose, which BruteSpritesheet to update.
-     */
-    where: BruteSpritesheetWhereUniqueInput
-  }
-
-
-  /**
-   * BruteSpritesheet updateMany
-   */
-  export type BruteSpritesheetUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update BruteSpritesheets.
-     */
-    data: XOR<BruteSpritesheetUpdateManyMutationInput, BruteSpritesheetUncheckedUpdateManyInput>
-    /**
-     * Filter which BruteSpritesheets to update
-     */
-    where?: BruteSpritesheetWhereInput
-  }
-
-
-  /**
-   * BruteSpritesheet upsert
-   */
-  export type BruteSpritesheetUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteSpritesheet
-     */
-    select?: BruteSpritesheetSelect<ExtArgs> | null
-    /**
-     * The filter to search for the BruteSpritesheet to update in case it exists.
-     */
-    where: BruteSpritesheetWhereUniqueInput
-    /**
-     * In case the BruteSpritesheet found by the `where` argument doesn't exist, create a new BruteSpritesheet with this data.
-     */
-    create: XOR<BruteSpritesheetCreateInput, BruteSpritesheetUncheckedCreateInput>
-    /**
-     * In case the BruteSpritesheet was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<BruteSpritesheetUpdateInput, BruteSpritesheetUncheckedUpdateInput>
-  }
-
-
-  /**
-   * BruteSpritesheet delete
-   */
-  export type BruteSpritesheetDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteSpritesheet
-     */
-    select?: BruteSpritesheetSelect<ExtArgs> | null
-    /**
-     * Filter which BruteSpritesheet to delete.
-     */
-    where: BruteSpritesheetWhereUniqueInput
-  }
-
-
-  /**
-   * BruteSpritesheet deleteMany
-   */
-  export type BruteSpritesheetDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which BruteSpritesheets to delete
-     */
-    where?: BruteSpritesheetWhereInput
-  }
-
-
-  /**
-   * BruteSpritesheet without action
-   */
-  export type BruteSpritesheetDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteSpritesheet
-     */
-    select?: BruteSpritesheetSelect<ExtArgs> | null
   }
 
 
@@ -24564,7 +23524,18 @@ export namespace Prisma {
     leftHand: 'leftHand',
     upperLeftArm: 'upperLeftArm',
     lowerLeftArm: 'lowerLeftArm',
-    leftShoulder: 'leftShoulder'
+    leftShoulder: 'leftShoulder',
+    p2: 'p2',
+    p3: 'p3',
+    p4: 'p4',
+    p7: 'p7',
+    p1: 'p1',
+    p1a: 'p1a',
+    p1b: 'p1b',
+    p6: 'p6',
+    p8: 'p8',
+    p7b: 'p7b',
+    p5: 'p5'
   };
 
   export type BruteBodyScalarFieldEnum = (typeof BruteBodyScalarFieldEnum)[keyof typeof BruteBodyScalarFieldEnum]
@@ -24582,7 +23553,23 @@ export namespace Prisma {
     secondaryColor: 'secondaryColor',
     secondaryShade: 'secondaryShade',
     accentColor: 'accentColor',
-    accentShade: 'accentShade'
+    accentShade: 'accentShade',
+    col0: 'col0',
+    col0a: 'col0a',
+    col0c: 'col0c',
+    col1: 'col1',
+    col1a: 'col1a',
+    col1b: 'col1b',
+    col1c: 'col1c',
+    col1d: 'col1d',
+    col3: 'col3',
+    col2: 'col2',
+    col2b: 'col2b',
+    col3b: 'col3b',
+    col2a: 'col2a',
+    col4: 'col4',
+    col4a: 'col4a',
+    col4b: 'col4b'
   };
 
   export type BruteColorsScalarFieldEnum = (typeof BruteColorsScalarFieldEnum)[keyof typeof BruteColorsScalarFieldEnum]
@@ -24633,46 +23620,6 @@ export namespace Prisma {
   };
 
   export type BruteScalarFieldEnum = (typeof BruteScalarFieldEnum)[keyof typeof BruteScalarFieldEnum]
-
-
-  export const BruteSpritesheetScalarFieldEnum: {
-    id: 'id',
-    version: 'version',
-    gender: 'gender',
-    longHair: 'longHair',
-    lowerRightArm: 'lowerRightArm',
-    rightHand: 'rightHand',
-    upperRightArm: 'upperRightArm',
-    rightShoulder: 'rightShoulder',
-    rightFoot: 'rightFoot',
-    lowerRightLeg: 'lowerRightLeg',
-    upperRightLeg: 'upperRightLeg',
-    leftFoot: 'leftFoot',
-    lowerLeftLeg: 'lowerLeftLeg',
-    pelvis: 'pelvis',
-    upperLeftLeg: 'upperLeftLeg',
-    tummy: 'tummy',
-    torso: 'torso',
-    head: 'head',
-    leftHand: 'leftHand',
-    upperLeftArm: 'upperLeftArm',
-    lowerLeftArm: 'lowerLeftArm',
-    leftShoulder: 'leftShoulder',
-    skinColor: 'skinColor',
-    skinShade: 'skinShade',
-    hairColor: 'hairColor',
-    hairShade: 'hairShade',
-    primaryColor: 'primaryColor',
-    primaryShade: 'primaryShade',
-    secondaryColor: 'secondaryColor',
-    secondaryShade: 'secondaryShade',
-    accentColor: 'accentColor',
-    accentShade: 'accentShade',
-    image: 'image',
-    json: 'json'
-  };
-
-  export type BruteSpritesheetScalarFieldEnum = (typeof BruteSpritesheetScalarFieldEnum)[keyof typeof BruteSpritesheetScalarFieldEnum]
 
 
   export const FightScalarFieldEnum: {
@@ -25027,20 +23974,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Bytes'
-   */
-  export type BytesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Bytes'>
-    
-
-
-  /**
-   * Reference to a field of type 'Bytes[]'
-   */
-  export type ListBytesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Bytes[]'>
-    
-
-
-  /**
    * Reference to a field of type 'LogType'
    */
   export type EnumLogTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LogType'>
@@ -25268,6 +24201,17 @@ export namespace Prisma {
     upperLeftArm?: IntFilter<"BruteBody"> | number
     lowerLeftArm?: IntFilter<"BruteBody"> | number
     leftShoulder?: IntFilter<"BruteBody"> | number
+    p2?: IntFilter<"BruteBody"> | number
+    p3?: IntFilter<"BruteBody"> | number
+    p4?: IntFilter<"BruteBody"> | number
+    p7?: IntFilter<"BruteBody"> | number
+    p1?: IntFilter<"BruteBody"> | number
+    p1a?: IntFilter<"BruteBody"> | number
+    p1b?: IntFilter<"BruteBody"> | number
+    p6?: IntFilter<"BruteBody"> | number
+    p8?: IntFilter<"BruteBody"> | number
+    p7b?: IntFilter<"BruteBody"> | number
+    p5?: IntFilter<"BruteBody"> | number
     brute?: XOR<BruteRelationFilter, BruteWhereInput>
   }
 
@@ -25293,6 +24237,17 @@ export namespace Prisma {
     upperLeftArm?: SortOrder
     lowerLeftArm?: SortOrder
     leftShoulder?: SortOrder
+    p2?: SortOrder
+    p3?: SortOrder
+    p4?: SortOrder
+    p7?: SortOrder
+    p1?: SortOrder
+    p1a?: SortOrder
+    p1b?: SortOrder
+    p6?: SortOrder
+    p8?: SortOrder
+    p7b?: SortOrder
+    p5?: SortOrder
     brute?: BruteOrderByWithRelationInput
   }
 
@@ -25321,6 +24276,17 @@ export namespace Prisma {
     upperLeftArm?: IntFilter<"BruteBody"> | number
     lowerLeftArm?: IntFilter<"BruteBody"> | number
     leftShoulder?: IntFilter<"BruteBody"> | number
+    p2?: IntFilter<"BruteBody"> | number
+    p3?: IntFilter<"BruteBody"> | number
+    p4?: IntFilter<"BruteBody"> | number
+    p7?: IntFilter<"BruteBody"> | number
+    p1?: IntFilter<"BruteBody"> | number
+    p1a?: IntFilter<"BruteBody"> | number
+    p1b?: IntFilter<"BruteBody"> | number
+    p6?: IntFilter<"BruteBody"> | number
+    p8?: IntFilter<"BruteBody"> | number
+    p7b?: IntFilter<"BruteBody"> | number
+    p5?: IntFilter<"BruteBody"> | number
     brute?: XOR<BruteRelationFilter, BruteWhereInput>
   }, "id" | "bruteId">
 
@@ -25346,6 +24312,17 @@ export namespace Prisma {
     upperLeftArm?: SortOrder
     lowerLeftArm?: SortOrder
     leftShoulder?: SortOrder
+    p2?: SortOrder
+    p3?: SortOrder
+    p4?: SortOrder
+    p7?: SortOrder
+    p1?: SortOrder
+    p1a?: SortOrder
+    p1b?: SortOrder
+    p6?: SortOrder
+    p8?: SortOrder
+    p7b?: SortOrder
+    p5?: SortOrder
     _count?: BruteBodyCountOrderByAggregateInput
     _avg?: BruteBodyAvgOrderByAggregateInput
     _max?: BruteBodyMaxOrderByAggregateInput
@@ -25378,6 +24355,17 @@ export namespace Prisma {
     upperLeftArm?: IntWithAggregatesFilter<"BruteBody"> | number
     lowerLeftArm?: IntWithAggregatesFilter<"BruteBody"> | number
     leftShoulder?: IntWithAggregatesFilter<"BruteBody"> | number
+    p2?: IntWithAggregatesFilter<"BruteBody"> | number
+    p3?: IntWithAggregatesFilter<"BruteBody"> | number
+    p4?: IntWithAggregatesFilter<"BruteBody"> | number
+    p7?: IntWithAggregatesFilter<"BruteBody"> | number
+    p1?: IntWithAggregatesFilter<"BruteBody"> | number
+    p1a?: IntWithAggregatesFilter<"BruteBody"> | number
+    p1b?: IntWithAggregatesFilter<"BruteBody"> | number
+    p6?: IntWithAggregatesFilter<"BruteBody"> | number
+    p8?: IntWithAggregatesFilter<"BruteBody"> | number
+    p7b?: IntWithAggregatesFilter<"BruteBody"> | number
+    p5?: IntWithAggregatesFilter<"BruteBody"> | number
   }
 
   export type BruteColorsWhereInput = {
@@ -25396,6 +24384,22 @@ export namespace Prisma {
     secondaryShade?: StringFilter<"BruteColors"> | string
     accentColor?: StringFilter<"BruteColors"> | string
     accentShade?: StringFilter<"BruteColors"> | string
+    col0?: StringFilter<"BruteColors"> | string
+    col0a?: StringFilter<"BruteColors"> | string
+    col0c?: StringFilter<"BruteColors"> | string
+    col1?: StringFilter<"BruteColors"> | string
+    col1a?: StringFilter<"BruteColors"> | string
+    col1b?: StringFilter<"BruteColors"> | string
+    col1c?: StringFilter<"BruteColors"> | string
+    col1d?: StringFilter<"BruteColors"> | string
+    col3?: StringFilter<"BruteColors"> | string
+    col2?: StringFilter<"BruteColors"> | string
+    col2b?: StringFilter<"BruteColors"> | string
+    col3b?: StringFilter<"BruteColors"> | string
+    col2a?: StringFilter<"BruteColors"> | string
+    col4?: StringFilter<"BruteColors"> | string
+    col4a?: StringFilter<"BruteColors"> | string
+    col4b?: StringFilter<"BruteColors"> | string
     brute?: XOR<BruteRelationFilter, BruteWhereInput>
   }
 
@@ -25412,6 +24416,22 @@ export namespace Prisma {
     secondaryShade?: SortOrder
     accentColor?: SortOrder
     accentShade?: SortOrder
+    col0?: SortOrder
+    col0a?: SortOrder
+    col0c?: SortOrder
+    col1?: SortOrder
+    col1a?: SortOrder
+    col1b?: SortOrder
+    col1c?: SortOrder
+    col1d?: SortOrder
+    col3?: SortOrder
+    col2?: SortOrder
+    col2b?: SortOrder
+    col3b?: SortOrder
+    col2a?: SortOrder
+    col4?: SortOrder
+    col4a?: SortOrder
+    col4b?: SortOrder
     brute?: BruteOrderByWithRelationInput
   }
 
@@ -25431,6 +24451,22 @@ export namespace Prisma {
     secondaryShade?: StringFilter<"BruteColors"> | string
     accentColor?: StringFilter<"BruteColors"> | string
     accentShade?: StringFilter<"BruteColors"> | string
+    col0?: StringFilter<"BruteColors"> | string
+    col0a?: StringFilter<"BruteColors"> | string
+    col0c?: StringFilter<"BruteColors"> | string
+    col1?: StringFilter<"BruteColors"> | string
+    col1a?: StringFilter<"BruteColors"> | string
+    col1b?: StringFilter<"BruteColors"> | string
+    col1c?: StringFilter<"BruteColors"> | string
+    col1d?: StringFilter<"BruteColors"> | string
+    col3?: StringFilter<"BruteColors"> | string
+    col2?: StringFilter<"BruteColors"> | string
+    col2b?: StringFilter<"BruteColors"> | string
+    col3b?: StringFilter<"BruteColors"> | string
+    col2a?: StringFilter<"BruteColors"> | string
+    col4?: StringFilter<"BruteColors"> | string
+    col4a?: StringFilter<"BruteColors"> | string
+    col4b?: StringFilter<"BruteColors"> | string
     brute?: XOR<BruteRelationFilter, BruteWhereInput>
   }, "id" | "bruteId">
 
@@ -25447,6 +24483,22 @@ export namespace Prisma {
     secondaryShade?: SortOrder
     accentColor?: SortOrder
     accentShade?: SortOrder
+    col0?: SortOrder
+    col0a?: SortOrder
+    col0c?: SortOrder
+    col1?: SortOrder
+    col1a?: SortOrder
+    col1b?: SortOrder
+    col1c?: SortOrder
+    col1d?: SortOrder
+    col3?: SortOrder
+    col2?: SortOrder
+    col2b?: SortOrder
+    col3b?: SortOrder
+    col2a?: SortOrder
+    col4?: SortOrder
+    col4a?: SortOrder
+    col4b?: SortOrder
     _count?: BruteColorsCountOrderByAggregateInput
     _avg?: BruteColorsAvgOrderByAggregateInput
     _max?: BruteColorsMaxOrderByAggregateInput
@@ -25470,6 +24522,22 @@ export namespace Prisma {
     secondaryShade?: StringWithAggregatesFilter<"BruteColors"> | string
     accentColor?: StringWithAggregatesFilter<"BruteColors"> | string
     accentShade?: StringWithAggregatesFilter<"BruteColors"> | string
+    col0?: StringWithAggregatesFilter<"BruteColors"> | string
+    col0a?: StringWithAggregatesFilter<"BruteColors"> | string
+    col0c?: StringWithAggregatesFilter<"BruteColors"> | string
+    col1?: StringWithAggregatesFilter<"BruteColors"> | string
+    col1a?: StringWithAggregatesFilter<"BruteColors"> | string
+    col1b?: StringWithAggregatesFilter<"BruteColors"> | string
+    col1c?: StringWithAggregatesFilter<"BruteColors"> | string
+    col1d?: StringWithAggregatesFilter<"BruteColors"> | string
+    col3?: StringWithAggregatesFilter<"BruteColors"> | string
+    col2?: StringWithAggregatesFilter<"BruteColors"> | string
+    col2b?: StringWithAggregatesFilter<"BruteColors"> | string
+    col3b?: StringWithAggregatesFilter<"BruteColors"> | string
+    col2a?: StringWithAggregatesFilter<"BruteColors"> | string
+    col4?: StringWithAggregatesFilter<"BruteColors"> | string
+    col4a?: StringWithAggregatesFilter<"BruteColors"> | string
+    col4b?: StringWithAggregatesFilter<"BruteColors"> | string
   }
 
   export type BruteWhereInput = {
@@ -25767,206 +24835,6 @@ export namespace Prisma {
     canRankUpSince?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
     favorite?: BoolWithAggregatesFilter<"Brute"> | boolean
     wantToJoinClanId?: IntNullableWithAggregatesFilter<"Brute"> | number | null
-  }
-
-  export type BruteSpritesheetWhereInput = {
-    AND?: BruteSpritesheetWhereInput | BruteSpritesheetWhereInput[]
-    OR?: BruteSpritesheetWhereInput[]
-    NOT?: BruteSpritesheetWhereInput | BruteSpritesheetWhereInput[]
-    id?: IntFilter<"BruteSpritesheet"> | number
-    version?: StringFilter<"BruteSpritesheet"> | string
-    gender?: EnumGenderFilter<"BruteSpritesheet"> | $Enums.Gender
-    longHair?: IntFilter<"BruteSpritesheet"> | number
-    lowerRightArm?: IntFilter<"BruteSpritesheet"> | number
-    rightHand?: IntFilter<"BruteSpritesheet"> | number
-    upperRightArm?: IntFilter<"BruteSpritesheet"> | number
-    rightShoulder?: IntFilter<"BruteSpritesheet"> | number
-    rightFoot?: IntFilter<"BruteSpritesheet"> | number
-    lowerRightLeg?: IntFilter<"BruteSpritesheet"> | number
-    upperRightLeg?: IntFilter<"BruteSpritesheet"> | number
-    leftFoot?: IntFilter<"BruteSpritesheet"> | number
-    lowerLeftLeg?: IntFilter<"BruteSpritesheet"> | number
-    pelvis?: IntFilter<"BruteSpritesheet"> | number
-    upperLeftLeg?: IntFilter<"BruteSpritesheet"> | number
-    tummy?: IntFilter<"BruteSpritesheet"> | number
-    torso?: IntFilter<"BruteSpritesheet"> | number
-    head?: IntFilter<"BruteSpritesheet"> | number
-    leftHand?: IntFilter<"BruteSpritesheet"> | number
-    upperLeftArm?: IntFilter<"BruteSpritesheet"> | number
-    lowerLeftArm?: IntFilter<"BruteSpritesheet"> | number
-    leftShoulder?: IntFilter<"BruteSpritesheet"> | number
-    skinColor?: StringFilter<"BruteSpritesheet"> | string
-    skinShade?: StringFilter<"BruteSpritesheet"> | string
-    hairColor?: StringFilter<"BruteSpritesheet"> | string
-    hairShade?: StringFilter<"BruteSpritesheet"> | string
-    primaryColor?: StringFilter<"BruteSpritesheet"> | string
-    primaryShade?: StringFilter<"BruteSpritesheet"> | string
-    secondaryColor?: StringFilter<"BruteSpritesheet"> | string
-    secondaryShade?: StringFilter<"BruteSpritesheet"> | string
-    accentColor?: StringFilter<"BruteSpritesheet"> | string
-    accentShade?: StringFilter<"BruteSpritesheet"> | string
-    image?: BytesNullableFilter<"BruteSpritesheet"> | Buffer | null
-    json?: StringNullableFilter<"BruteSpritesheet"> | string | null
-  }
-
-  export type BruteSpritesheetOrderByWithRelationInput = {
-    id?: SortOrder
-    version?: SortOrder
-    gender?: SortOrder
-    longHair?: SortOrder
-    lowerRightArm?: SortOrder
-    rightHand?: SortOrder
-    upperRightArm?: SortOrder
-    rightShoulder?: SortOrder
-    rightFoot?: SortOrder
-    lowerRightLeg?: SortOrder
-    upperRightLeg?: SortOrder
-    leftFoot?: SortOrder
-    lowerLeftLeg?: SortOrder
-    pelvis?: SortOrder
-    upperLeftLeg?: SortOrder
-    tummy?: SortOrder
-    torso?: SortOrder
-    head?: SortOrder
-    leftHand?: SortOrder
-    upperLeftArm?: SortOrder
-    lowerLeftArm?: SortOrder
-    leftShoulder?: SortOrder
-    skinColor?: SortOrder
-    skinShade?: SortOrder
-    hairColor?: SortOrder
-    hairShade?: SortOrder
-    primaryColor?: SortOrder
-    primaryShade?: SortOrder
-    secondaryColor?: SortOrder
-    secondaryShade?: SortOrder
-    accentColor?: SortOrder
-    accentShade?: SortOrder
-    image?: SortOrderInput | SortOrder
-    json?: SortOrderInput | SortOrder
-  }
-
-  export type BruteSpritesheetWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    gender_longHair_lowerRightArm_rightHand_upperRightArm_rightShoulder_rightFoot_lowerRightLeg_upperRightLeg_leftFoot_lowerLeftLeg_pelvis_upperLeftLeg_tummy_torso_head_leftHand_upperLeftArm_lowerLeftArm_leftShoulder_skinColor_skinShade_hairColor_hairShade_primaryColor_primaryShade_secondaryColor_secondaryShade_accentColor_accentShade?: BruteSpritesheetGenderLongHairLowerRightArmRightHandUpperRightArmRightShoulderRightFootLowerRightLegUpperRightLegLeftFootLowerLeftLegPelvisUpperLeftLegTummyTorsoHeadLeftHandUpperLeftArmLowerLeftArmLeftShoulderSkinColorSkinShadeHairColorHairShadePrimaryColorPrimaryShadeSecondaryColorSecondaryShadeAccentColorAccentShadeCompoundUniqueInput
-    AND?: BruteSpritesheetWhereInput | BruteSpritesheetWhereInput[]
-    OR?: BruteSpritesheetWhereInput[]
-    NOT?: BruteSpritesheetWhereInput | BruteSpritesheetWhereInput[]
-    version?: StringFilter<"BruteSpritesheet"> | string
-    gender?: EnumGenderFilter<"BruteSpritesheet"> | $Enums.Gender
-    longHair?: IntFilter<"BruteSpritesheet"> | number
-    lowerRightArm?: IntFilter<"BruteSpritesheet"> | number
-    rightHand?: IntFilter<"BruteSpritesheet"> | number
-    upperRightArm?: IntFilter<"BruteSpritesheet"> | number
-    rightShoulder?: IntFilter<"BruteSpritesheet"> | number
-    rightFoot?: IntFilter<"BruteSpritesheet"> | number
-    lowerRightLeg?: IntFilter<"BruteSpritesheet"> | number
-    upperRightLeg?: IntFilter<"BruteSpritesheet"> | number
-    leftFoot?: IntFilter<"BruteSpritesheet"> | number
-    lowerLeftLeg?: IntFilter<"BruteSpritesheet"> | number
-    pelvis?: IntFilter<"BruteSpritesheet"> | number
-    upperLeftLeg?: IntFilter<"BruteSpritesheet"> | number
-    tummy?: IntFilter<"BruteSpritesheet"> | number
-    torso?: IntFilter<"BruteSpritesheet"> | number
-    head?: IntFilter<"BruteSpritesheet"> | number
-    leftHand?: IntFilter<"BruteSpritesheet"> | number
-    upperLeftArm?: IntFilter<"BruteSpritesheet"> | number
-    lowerLeftArm?: IntFilter<"BruteSpritesheet"> | number
-    leftShoulder?: IntFilter<"BruteSpritesheet"> | number
-    skinColor?: StringFilter<"BruteSpritesheet"> | string
-    skinShade?: StringFilter<"BruteSpritesheet"> | string
-    hairColor?: StringFilter<"BruteSpritesheet"> | string
-    hairShade?: StringFilter<"BruteSpritesheet"> | string
-    primaryColor?: StringFilter<"BruteSpritesheet"> | string
-    primaryShade?: StringFilter<"BruteSpritesheet"> | string
-    secondaryColor?: StringFilter<"BruteSpritesheet"> | string
-    secondaryShade?: StringFilter<"BruteSpritesheet"> | string
-    accentColor?: StringFilter<"BruteSpritesheet"> | string
-    accentShade?: StringFilter<"BruteSpritesheet"> | string
-    image?: BytesNullableFilter<"BruteSpritesheet"> | Buffer | null
-    json?: StringNullableFilter<"BruteSpritesheet"> | string | null
-  }, "id" | "gender_longHair_lowerRightArm_rightHand_upperRightArm_rightShoulder_rightFoot_lowerRightLeg_upperRightLeg_leftFoot_lowerLeftLeg_pelvis_upperLeftLeg_tummy_torso_head_leftHand_upperLeftArm_lowerLeftArm_leftShoulder_skinColor_skinShade_hairColor_hairShade_primaryColor_primaryShade_secondaryColor_secondaryShade_accentColor_accentShade">
-
-  export type BruteSpritesheetOrderByWithAggregationInput = {
-    id?: SortOrder
-    version?: SortOrder
-    gender?: SortOrder
-    longHair?: SortOrder
-    lowerRightArm?: SortOrder
-    rightHand?: SortOrder
-    upperRightArm?: SortOrder
-    rightShoulder?: SortOrder
-    rightFoot?: SortOrder
-    lowerRightLeg?: SortOrder
-    upperRightLeg?: SortOrder
-    leftFoot?: SortOrder
-    lowerLeftLeg?: SortOrder
-    pelvis?: SortOrder
-    upperLeftLeg?: SortOrder
-    tummy?: SortOrder
-    torso?: SortOrder
-    head?: SortOrder
-    leftHand?: SortOrder
-    upperLeftArm?: SortOrder
-    lowerLeftArm?: SortOrder
-    leftShoulder?: SortOrder
-    skinColor?: SortOrder
-    skinShade?: SortOrder
-    hairColor?: SortOrder
-    hairShade?: SortOrder
-    primaryColor?: SortOrder
-    primaryShade?: SortOrder
-    secondaryColor?: SortOrder
-    secondaryShade?: SortOrder
-    accentColor?: SortOrder
-    accentShade?: SortOrder
-    image?: SortOrderInput | SortOrder
-    json?: SortOrderInput | SortOrder
-    _count?: BruteSpritesheetCountOrderByAggregateInput
-    _avg?: BruteSpritesheetAvgOrderByAggregateInput
-    _max?: BruteSpritesheetMaxOrderByAggregateInput
-    _min?: BruteSpritesheetMinOrderByAggregateInput
-    _sum?: BruteSpritesheetSumOrderByAggregateInput
-  }
-
-  export type BruteSpritesheetScalarWhereWithAggregatesInput = {
-    AND?: BruteSpritesheetScalarWhereWithAggregatesInput | BruteSpritesheetScalarWhereWithAggregatesInput[]
-    OR?: BruteSpritesheetScalarWhereWithAggregatesInput[]
-    NOT?: BruteSpritesheetScalarWhereWithAggregatesInput | BruteSpritesheetScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
-    version?: StringWithAggregatesFilter<"BruteSpritesheet"> | string
-    gender?: EnumGenderWithAggregatesFilter<"BruteSpritesheet"> | $Enums.Gender
-    longHair?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
-    lowerRightArm?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
-    rightHand?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
-    upperRightArm?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
-    rightShoulder?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
-    rightFoot?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
-    lowerRightLeg?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
-    upperRightLeg?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
-    leftFoot?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
-    lowerLeftLeg?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
-    pelvis?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
-    upperLeftLeg?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
-    tummy?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
-    torso?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
-    head?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
-    leftHand?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
-    upperLeftArm?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
-    lowerLeftArm?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
-    leftShoulder?: IntWithAggregatesFilter<"BruteSpritesheet"> | number
-    skinColor?: StringWithAggregatesFilter<"BruteSpritesheet"> | string
-    skinShade?: StringWithAggregatesFilter<"BruteSpritesheet"> | string
-    hairColor?: StringWithAggregatesFilter<"BruteSpritesheet"> | string
-    hairShade?: StringWithAggregatesFilter<"BruteSpritesheet"> | string
-    primaryColor?: StringWithAggregatesFilter<"BruteSpritesheet"> | string
-    primaryShade?: StringWithAggregatesFilter<"BruteSpritesheet"> | string
-    secondaryColor?: StringWithAggregatesFilter<"BruteSpritesheet"> | string
-    secondaryShade?: StringWithAggregatesFilter<"BruteSpritesheet"> | string
-    accentColor?: StringWithAggregatesFilter<"BruteSpritesheet"> | string
-    accentShade?: StringWithAggregatesFilter<"BruteSpritesheet"> | string
-    image?: BytesNullableWithAggregatesFilter<"BruteSpritesheet"> | Buffer | null
-    json?: StringNullableWithAggregatesFilter<"BruteSpritesheet"> | string | null
   }
 
   export type FightWhereInput = {
@@ -27030,6 +25898,17 @@ export namespace Prisma {
     upperLeftArm: number
     lowerLeftArm: number
     leftShoulder: number
+    p2?: number
+    p3?: number
+    p4?: number
+    p7?: number
+    p1?: number
+    p1a?: number
+    p1b?: number
+    p6?: number
+    p8?: number
+    p7b?: number
+    p5?: number
     brute: BruteCreateNestedOneWithoutBodyInput
   }
 
@@ -27055,6 +25934,17 @@ export namespace Prisma {
     upperLeftArm: number
     lowerLeftArm: number
     leftShoulder: number
+    p2?: number
+    p3?: number
+    p4?: number
+    p7?: number
+    p1?: number
+    p1a?: number
+    p1b?: number
+    p6?: number
+    p8?: number
+    p7b?: number
+    p5?: number
   }
 
   export type BruteBodyUpdateInput = {
@@ -27077,6 +25967,17 @@ export namespace Prisma {
     upperLeftArm?: IntFieldUpdateOperationsInput | number
     lowerLeftArm?: IntFieldUpdateOperationsInput | number
     leftShoulder?: IntFieldUpdateOperationsInput | number
+    p2?: IntFieldUpdateOperationsInput | number
+    p3?: IntFieldUpdateOperationsInput | number
+    p4?: IntFieldUpdateOperationsInput | number
+    p7?: IntFieldUpdateOperationsInput | number
+    p1?: IntFieldUpdateOperationsInput | number
+    p1a?: IntFieldUpdateOperationsInput | number
+    p1b?: IntFieldUpdateOperationsInput | number
+    p6?: IntFieldUpdateOperationsInput | number
+    p8?: IntFieldUpdateOperationsInput | number
+    p7b?: IntFieldUpdateOperationsInput | number
+    p5?: IntFieldUpdateOperationsInput | number
     brute?: BruteUpdateOneRequiredWithoutBodyNestedInput
   }
 
@@ -27102,6 +26003,17 @@ export namespace Prisma {
     upperLeftArm?: IntFieldUpdateOperationsInput | number
     lowerLeftArm?: IntFieldUpdateOperationsInput | number
     leftShoulder?: IntFieldUpdateOperationsInput | number
+    p2?: IntFieldUpdateOperationsInput | number
+    p3?: IntFieldUpdateOperationsInput | number
+    p4?: IntFieldUpdateOperationsInput | number
+    p7?: IntFieldUpdateOperationsInput | number
+    p1?: IntFieldUpdateOperationsInput | number
+    p1a?: IntFieldUpdateOperationsInput | number
+    p1b?: IntFieldUpdateOperationsInput | number
+    p6?: IntFieldUpdateOperationsInput | number
+    p8?: IntFieldUpdateOperationsInput | number
+    p7b?: IntFieldUpdateOperationsInput | number
+    p5?: IntFieldUpdateOperationsInput | number
   }
 
   export type BruteBodyCreateManyInput = {
@@ -27126,6 +26038,17 @@ export namespace Prisma {
     upperLeftArm: number
     lowerLeftArm: number
     leftShoulder: number
+    p2?: number
+    p3?: number
+    p4?: number
+    p7?: number
+    p1?: number
+    p1a?: number
+    p1b?: number
+    p6?: number
+    p8?: number
+    p7b?: number
+    p5?: number
   }
 
   export type BruteBodyUpdateManyMutationInput = {
@@ -27148,6 +26071,17 @@ export namespace Prisma {
     upperLeftArm?: IntFieldUpdateOperationsInput | number
     lowerLeftArm?: IntFieldUpdateOperationsInput | number
     leftShoulder?: IntFieldUpdateOperationsInput | number
+    p2?: IntFieldUpdateOperationsInput | number
+    p3?: IntFieldUpdateOperationsInput | number
+    p4?: IntFieldUpdateOperationsInput | number
+    p7?: IntFieldUpdateOperationsInput | number
+    p1?: IntFieldUpdateOperationsInput | number
+    p1a?: IntFieldUpdateOperationsInput | number
+    p1b?: IntFieldUpdateOperationsInput | number
+    p6?: IntFieldUpdateOperationsInput | number
+    p8?: IntFieldUpdateOperationsInput | number
+    p7b?: IntFieldUpdateOperationsInput | number
+    p5?: IntFieldUpdateOperationsInput | number
   }
 
   export type BruteBodyUncheckedUpdateManyInput = {
@@ -27172,6 +26106,17 @@ export namespace Prisma {
     upperLeftArm?: IntFieldUpdateOperationsInput | number
     lowerLeftArm?: IntFieldUpdateOperationsInput | number
     leftShoulder?: IntFieldUpdateOperationsInput | number
+    p2?: IntFieldUpdateOperationsInput | number
+    p3?: IntFieldUpdateOperationsInput | number
+    p4?: IntFieldUpdateOperationsInput | number
+    p7?: IntFieldUpdateOperationsInput | number
+    p1?: IntFieldUpdateOperationsInput | number
+    p1a?: IntFieldUpdateOperationsInput | number
+    p1b?: IntFieldUpdateOperationsInput | number
+    p6?: IntFieldUpdateOperationsInput | number
+    p8?: IntFieldUpdateOperationsInput | number
+    p7b?: IntFieldUpdateOperationsInput | number
+    p5?: IntFieldUpdateOperationsInput | number
   }
 
   export type BruteColorsCreateInput = {
@@ -27185,6 +26130,22 @@ export namespace Prisma {
     secondaryShade: string
     accentColor: string
     accentShade: string
+    col0?: string
+    col0a?: string
+    col0c?: string
+    col1?: string
+    col1a?: string
+    col1b?: string
+    col1c?: string
+    col1d?: string
+    col3?: string
+    col2?: string
+    col2b?: string
+    col3b?: string
+    col2a?: string
+    col4?: string
+    col4a?: string
+    col4b?: string
     brute: BruteCreateNestedOneWithoutColorsInput
   }
 
@@ -27201,6 +26162,22 @@ export namespace Prisma {
     secondaryShade: string
     accentColor: string
     accentShade: string
+    col0?: string
+    col0a?: string
+    col0c?: string
+    col1?: string
+    col1a?: string
+    col1b?: string
+    col1c?: string
+    col1d?: string
+    col3?: string
+    col2?: string
+    col2b?: string
+    col3b?: string
+    col2a?: string
+    col4?: string
+    col4a?: string
+    col4b?: string
   }
 
   export type BruteColorsUpdateInput = {
@@ -27214,6 +26191,22 @@ export namespace Prisma {
     secondaryShade?: StringFieldUpdateOperationsInput | string
     accentColor?: StringFieldUpdateOperationsInput | string
     accentShade?: StringFieldUpdateOperationsInput | string
+    col0?: StringFieldUpdateOperationsInput | string
+    col0a?: StringFieldUpdateOperationsInput | string
+    col0c?: StringFieldUpdateOperationsInput | string
+    col1?: StringFieldUpdateOperationsInput | string
+    col1a?: StringFieldUpdateOperationsInput | string
+    col1b?: StringFieldUpdateOperationsInput | string
+    col1c?: StringFieldUpdateOperationsInput | string
+    col1d?: StringFieldUpdateOperationsInput | string
+    col3?: StringFieldUpdateOperationsInput | string
+    col2?: StringFieldUpdateOperationsInput | string
+    col2b?: StringFieldUpdateOperationsInput | string
+    col3b?: StringFieldUpdateOperationsInput | string
+    col2a?: StringFieldUpdateOperationsInput | string
+    col4?: StringFieldUpdateOperationsInput | string
+    col4a?: StringFieldUpdateOperationsInput | string
+    col4b?: StringFieldUpdateOperationsInput | string
     brute?: BruteUpdateOneRequiredWithoutColorsNestedInput
   }
 
@@ -27230,6 +26223,22 @@ export namespace Prisma {
     secondaryShade?: StringFieldUpdateOperationsInput | string
     accentColor?: StringFieldUpdateOperationsInput | string
     accentShade?: StringFieldUpdateOperationsInput | string
+    col0?: StringFieldUpdateOperationsInput | string
+    col0a?: StringFieldUpdateOperationsInput | string
+    col0c?: StringFieldUpdateOperationsInput | string
+    col1?: StringFieldUpdateOperationsInput | string
+    col1a?: StringFieldUpdateOperationsInput | string
+    col1b?: StringFieldUpdateOperationsInput | string
+    col1c?: StringFieldUpdateOperationsInput | string
+    col1d?: StringFieldUpdateOperationsInput | string
+    col3?: StringFieldUpdateOperationsInput | string
+    col2?: StringFieldUpdateOperationsInput | string
+    col2b?: StringFieldUpdateOperationsInput | string
+    col3b?: StringFieldUpdateOperationsInput | string
+    col2a?: StringFieldUpdateOperationsInput | string
+    col4?: StringFieldUpdateOperationsInput | string
+    col4a?: StringFieldUpdateOperationsInput | string
+    col4b?: StringFieldUpdateOperationsInput | string
   }
 
   export type BruteColorsCreateManyInput = {
@@ -27245,6 +26254,22 @@ export namespace Prisma {
     secondaryShade: string
     accentColor: string
     accentShade: string
+    col0?: string
+    col0a?: string
+    col0c?: string
+    col1?: string
+    col1a?: string
+    col1b?: string
+    col1c?: string
+    col1d?: string
+    col3?: string
+    col2?: string
+    col2b?: string
+    col3b?: string
+    col2a?: string
+    col4?: string
+    col4a?: string
+    col4b?: string
   }
 
   export type BruteColorsUpdateManyMutationInput = {
@@ -27258,6 +26283,22 @@ export namespace Prisma {
     secondaryShade?: StringFieldUpdateOperationsInput | string
     accentColor?: StringFieldUpdateOperationsInput | string
     accentShade?: StringFieldUpdateOperationsInput | string
+    col0?: StringFieldUpdateOperationsInput | string
+    col0a?: StringFieldUpdateOperationsInput | string
+    col0c?: StringFieldUpdateOperationsInput | string
+    col1?: StringFieldUpdateOperationsInput | string
+    col1a?: StringFieldUpdateOperationsInput | string
+    col1b?: StringFieldUpdateOperationsInput | string
+    col1c?: StringFieldUpdateOperationsInput | string
+    col1d?: StringFieldUpdateOperationsInput | string
+    col3?: StringFieldUpdateOperationsInput | string
+    col2?: StringFieldUpdateOperationsInput | string
+    col2b?: StringFieldUpdateOperationsInput | string
+    col3b?: StringFieldUpdateOperationsInput | string
+    col2a?: StringFieldUpdateOperationsInput | string
+    col4?: StringFieldUpdateOperationsInput | string
+    col4a?: StringFieldUpdateOperationsInput | string
+    col4b?: StringFieldUpdateOperationsInput | string
   }
 
   export type BruteColorsUncheckedUpdateManyInput = {
@@ -27273,6 +26314,22 @@ export namespace Prisma {
     secondaryShade?: StringFieldUpdateOperationsInput | string
     accentColor?: StringFieldUpdateOperationsInput | string
     accentShade?: StringFieldUpdateOperationsInput | string
+    col0?: StringFieldUpdateOperationsInput | string
+    col0a?: StringFieldUpdateOperationsInput | string
+    col0c?: StringFieldUpdateOperationsInput | string
+    col1?: StringFieldUpdateOperationsInput | string
+    col1a?: StringFieldUpdateOperationsInput | string
+    col1b?: StringFieldUpdateOperationsInput | string
+    col1c?: StringFieldUpdateOperationsInput | string
+    col1d?: StringFieldUpdateOperationsInput | string
+    col3?: StringFieldUpdateOperationsInput | string
+    col2?: StringFieldUpdateOperationsInput | string
+    col2b?: StringFieldUpdateOperationsInput | string
+    col3b?: StringFieldUpdateOperationsInput | string
+    col2a?: StringFieldUpdateOperationsInput | string
+    col4?: StringFieldUpdateOperationsInput | string
+    col4a?: StringFieldUpdateOperationsInput | string
+    col4b?: StringFieldUpdateOperationsInput | string
   }
 
   export type BruteCreateInput = {
@@ -27642,262 +26699,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
-  }
-
-  export type BruteSpritesheetCreateInput = {
-    version?: string
-    gender?: $Enums.Gender
-    longHair?: number
-    lowerRightArm?: number
-    rightHand?: number
-    upperRightArm?: number
-    rightShoulder?: number
-    rightFoot?: number
-    lowerRightLeg?: number
-    upperRightLeg?: number
-    leftFoot?: number
-    lowerLeftLeg?: number
-    pelvis?: number
-    upperLeftLeg?: number
-    tummy?: number
-    torso?: number
-    head?: number
-    leftHand?: number
-    upperLeftArm?: number
-    lowerLeftArm?: number
-    leftShoulder?: number
-    skinColor?: string
-    skinShade?: string
-    hairColor?: string
-    hairShade?: string
-    primaryColor?: string
-    primaryShade?: string
-    secondaryColor?: string
-    secondaryShade?: string
-    accentColor?: string
-    accentShade?: string
-    image?: Buffer | null
-    json?: string | null
-  }
-
-  export type BruteSpritesheetUncheckedCreateInput = {
-    id?: number
-    version?: string
-    gender?: $Enums.Gender
-    longHair?: number
-    lowerRightArm?: number
-    rightHand?: number
-    upperRightArm?: number
-    rightShoulder?: number
-    rightFoot?: number
-    lowerRightLeg?: number
-    upperRightLeg?: number
-    leftFoot?: number
-    lowerLeftLeg?: number
-    pelvis?: number
-    upperLeftLeg?: number
-    tummy?: number
-    torso?: number
-    head?: number
-    leftHand?: number
-    upperLeftArm?: number
-    lowerLeftArm?: number
-    leftShoulder?: number
-    skinColor?: string
-    skinShade?: string
-    hairColor?: string
-    hairShade?: string
-    primaryColor?: string
-    primaryShade?: string
-    secondaryColor?: string
-    secondaryShade?: string
-    accentColor?: string
-    accentShade?: string
-    image?: Buffer | null
-    json?: string | null
-  }
-
-  export type BruteSpritesheetUpdateInput = {
-    version?: StringFieldUpdateOperationsInput | string
-    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    longHair?: IntFieldUpdateOperationsInput | number
-    lowerRightArm?: IntFieldUpdateOperationsInput | number
-    rightHand?: IntFieldUpdateOperationsInput | number
-    upperRightArm?: IntFieldUpdateOperationsInput | number
-    rightShoulder?: IntFieldUpdateOperationsInput | number
-    rightFoot?: IntFieldUpdateOperationsInput | number
-    lowerRightLeg?: IntFieldUpdateOperationsInput | number
-    upperRightLeg?: IntFieldUpdateOperationsInput | number
-    leftFoot?: IntFieldUpdateOperationsInput | number
-    lowerLeftLeg?: IntFieldUpdateOperationsInput | number
-    pelvis?: IntFieldUpdateOperationsInput | number
-    upperLeftLeg?: IntFieldUpdateOperationsInput | number
-    tummy?: IntFieldUpdateOperationsInput | number
-    torso?: IntFieldUpdateOperationsInput | number
-    head?: IntFieldUpdateOperationsInput | number
-    leftHand?: IntFieldUpdateOperationsInput | number
-    upperLeftArm?: IntFieldUpdateOperationsInput | number
-    lowerLeftArm?: IntFieldUpdateOperationsInput | number
-    leftShoulder?: IntFieldUpdateOperationsInput | number
-    skinColor?: StringFieldUpdateOperationsInput | string
-    skinShade?: StringFieldUpdateOperationsInput | string
-    hairColor?: StringFieldUpdateOperationsInput | string
-    hairShade?: StringFieldUpdateOperationsInput | string
-    primaryColor?: StringFieldUpdateOperationsInput | string
-    primaryShade?: StringFieldUpdateOperationsInput | string
-    secondaryColor?: StringFieldUpdateOperationsInput | string
-    secondaryShade?: StringFieldUpdateOperationsInput | string
-    accentColor?: StringFieldUpdateOperationsInput | string
-    accentShade?: StringFieldUpdateOperationsInput | string
-    image?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    json?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type BruteSpritesheetUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    version?: StringFieldUpdateOperationsInput | string
-    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    longHair?: IntFieldUpdateOperationsInput | number
-    lowerRightArm?: IntFieldUpdateOperationsInput | number
-    rightHand?: IntFieldUpdateOperationsInput | number
-    upperRightArm?: IntFieldUpdateOperationsInput | number
-    rightShoulder?: IntFieldUpdateOperationsInput | number
-    rightFoot?: IntFieldUpdateOperationsInput | number
-    lowerRightLeg?: IntFieldUpdateOperationsInput | number
-    upperRightLeg?: IntFieldUpdateOperationsInput | number
-    leftFoot?: IntFieldUpdateOperationsInput | number
-    lowerLeftLeg?: IntFieldUpdateOperationsInput | number
-    pelvis?: IntFieldUpdateOperationsInput | number
-    upperLeftLeg?: IntFieldUpdateOperationsInput | number
-    tummy?: IntFieldUpdateOperationsInput | number
-    torso?: IntFieldUpdateOperationsInput | number
-    head?: IntFieldUpdateOperationsInput | number
-    leftHand?: IntFieldUpdateOperationsInput | number
-    upperLeftArm?: IntFieldUpdateOperationsInput | number
-    lowerLeftArm?: IntFieldUpdateOperationsInput | number
-    leftShoulder?: IntFieldUpdateOperationsInput | number
-    skinColor?: StringFieldUpdateOperationsInput | string
-    skinShade?: StringFieldUpdateOperationsInput | string
-    hairColor?: StringFieldUpdateOperationsInput | string
-    hairShade?: StringFieldUpdateOperationsInput | string
-    primaryColor?: StringFieldUpdateOperationsInput | string
-    primaryShade?: StringFieldUpdateOperationsInput | string
-    secondaryColor?: StringFieldUpdateOperationsInput | string
-    secondaryShade?: StringFieldUpdateOperationsInput | string
-    accentColor?: StringFieldUpdateOperationsInput | string
-    accentShade?: StringFieldUpdateOperationsInput | string
-    image?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    json?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type BruteSpritesheetCreateManyInput = {
-    id?: number
-    version?: string
-    gender?: $Enums.Gender
-    longHair?: number
-    lowerRightArm?: number
-    rightHand?: number
-    upperRightArm?: number
-    rightShoulder?: number
-    rightFoot?: number
-    lowerRightLeg?: number
-    upperRightLeg?: number
-    leftFoot?: number
-    lowerLeftLeg?: number
-    pelvis?: number
-    upperLeftLeg?: number
-    tummy?: number
-    torso?: number
-    head?: number
-    leftHand?: number
-    upperLeftArm?: number
-    lowerLeftArm?: number
-    leftShoulder?: number
-    skinColor?: string
-    skinShade?: string
-    hairColor?: string
-    hairShade?: string
-    primaryColor?: string
-    primaryShade?: string
-    secondaryColor?: string
-    secondaryShade?: string
-    accentColor?: string
-    accentShade?: string
-    image?: Buffer | null
-    json?: string | null
-  }
-
-  export type BruteSpritesheetUpdateManyMutationInput = {
-    version?: StringFieldUpdateOperationsInput | string
-    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    longHair?: IntFieldUpdateOperationsInput | number
-    lowerRightArm?: IntFieldUpdateOperationsInput | number
-    rightHand?: IntFieldUpdateOperationsInput | number
-    upperRightArm?: IntFieldUpdateOperationsInput | number
-    rightShoulder?: IntFieldUpdateOperationsInput | number
-    rightFoot?: IntFieldUpdateOperationsInput | number
-    lowerRightLeg?: IntFieldUpdateOperationsInput | number
-    upperRightLeg?: IntFieldUpdateOperationsInput | number
-    leftFoot?: IntFieldUpdateOperationsInput | number
-    lowerLeftLeg?: IntFieldUpdateOperationsInput | number
-    pelvis?: IntFieldUpdateOperationsInput | number
-    upperLeftLeg?: IntFieldUpdateOperationsInput | number
-    tummy?: IntFieldUpdateOperationsInput | number
-    torso?: IntFieldUpdateOperationsInput | number
-    head?: IntFieldUpdateOperationsInput | number
-    leftHand?: IntFieldUpdateOperationsInput | number
-    upperLeftArm?: IntFieldUpdateOperationsInput | number
-    lowerLeftArm?: IntFieldUpdateOperationsInput | number
-    leftShoulder?: IntFieldUpdateOperationsInput | number
-    skinColor?: StringFieldUpdateOperationsInput | string
-    skinShade?: StringFieldUpdateOperationsInput | string
-    hairColor?: StringFieldUpdateOperationsInput | string
-    hairShade?: StringFieldUpdateOperationsInput | string
-    primaryColor?: StringFieldUpdateOperationsInput | string
-    primaryShade?: StringFieldUpdateOperationsInput | string
-    secondaryColor?: StringFieldUpdateOperationsInput | string
-    secondaryShade?: StringFieldUpdateOperationsInput | string
-    accentColor?: StringFieldUpdateOperationsInput | string
-    accentShade?: StringFieldUpdateOperationsInput | string
-    image?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    json?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type BruteSpritesheetUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    version?: StringFieldUpdateOperationsInput | string
-    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    longHair?: IntFieldUpdateOperationsInput | number
-    lowerRightArm?: IntFieldUpdateOperationsInput | number
-    rightHand?: IntFieldUpdateOperationsInput | number
-    upperRightArm?: IntFieldUpdateOperationsInput | number
-    rightShoulder?: IntFieldUpdateOperationsInput | number
-    rightFoot?: IntFieldUpdateOperationsInput | number
-    lowerRightLeg?: IntFieldUpdateOperationsInput | number
-    upperRightLeg?: IntFieldUpdateOperationsInput | number
-    leftFoot?: IntFieldUpdateOperationsInput | number
-    lowerLeftLeg?: IntFieldUpdateOperationsInput | number
-    pelvis?: IntFieldUpdateOperationsInput | number
-    upperLeftLeg?: IntFieldUpdateOperationsInput | number
-    tummy?: IntFieldUpdateOperationsInput | number
-    torso?: IntFieldUpdateOperationsInput | number
-    head?: IntFieldUpdateOperationsInput | number
-    leftHand?: IntFieldUpdateOperationsInput | number
-    upperLeftArm?: IntFieldUpdateOperationsInput | number
-    lowerLeftArm?: IntFieldUpdateOperationsInput | number
-    leftShoulder?: IntFieldUpdateOperationsInput | number
-    skinColor?: StringFieldUpdateOperationsInput | string
-    skinShade?: StringFieldUpdateOperationsInput | string
-    hairColor?: StringFieldUpdateOperationsInput | string
-    hairShade?: StringFieldUpdateOperationsInput | string
-    primaryColor?: StringFieldUpdateOperationsInput | string
-    primaryShade?: StringFieldUpdateOperationsInput | string
-    secondaryColor?: StringFieldUpdateOperationsInput | string
-    secondaryShade?: StringFieldUpdateOperationsInput | string
-    accentColor?: StringFieldUpdateOperationsInput | string
-    accentShade?: StringFieldUpdateOperationsInput | string
-    image?: NullableBytesFieldUpdateOperationsInput | Buffer | null
-    json?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type FightCreateInput = {
@@ -29014,6 +27815,17 @@ export namespace Prisma {
     upperLeftArm?: SortOrder
     lowerLeftArm?: SortOrder
     leftShoulder?: SortOrder
+    p2?: SortOrder
+    p3?: SortOrder
+    p4?: SortOrder
+    p7?: SortOrder
+    p1?: SortOrder
+    p1a?: SortOrder
+    p1b?: SortOrder
+    p6?: SortOrder
+    p8?: SortOrder
+    p7b?: SortOrder
+    p5?: SortOrder
   }
 
   export type BruteBodyAvgOrderByAggregateInput = {
@@ -29038,6 +27850,17 @@ export namespace Prisma {
     upperLeftArm?: SortOrder
     lowerLeftArm?: SortOrder
     leftShoulder?: SortOrder
+    p2?: SortOrder
+    p3?: SortOrder
+    p4?: SortOrder
+    p7?: SortOrder
+    p1?: SortOrder
+    p1a?: SortOrder
+    p1b?: SortOrder
+    p6?: SortOrder
+    p8?: SortOrder
+    p7b?: SortOrder
+    p5?: SortOrder
   }
 
   export type BruteBodyMaxOrderByAggregateInput = {
@@ -29062,6 +27885,17 @@ export namespace Prisma {
     upperLeftArm?: SortOrder
     lowerLeftArm?: SortOrder
     leftShoulder?: SortOrder
+    p2?: SortOrder
+    p3?: SortOrder
+    p4?: SortOrder
+    p7?: SortOrder
+    p1?: SortOrder
+    p1a?: SortOrder
+    p1b?: SortOrder
+    p6?: SortOrder
+    p8?: SortOrder
+    p7b?: SortOrder
+    p5?: SortOrder
   }
 
   export type BruteBodyMinOrderByAggregateInput = {
@@ -29086,6 +27920,17 @@ export namespace Prisma {
     upperLeftArm?: SortOrder
     lowerLeftArm?: SortOrder
     leftShoulder?: SortOrder
+    p2?: SortOrder
+    p3?: SortOrder
+    p4?: SortOrder
+    p7?: SortOrder
+    p1?: SortOrder
+    p1a?: SortOrder
+    p1b?: SortOrder
+    p6?: SortOrder
+    p8?: SortOrder
+    p7b?: SortOrder
+    p5?: SortOrder
   }
 
   export type BruteBodySumOrderByAggregateInput = {
@@ -29110,6 +27955,17 @@ export namespace Prisma {
     upperLeftArm?: SortOrder
     lowerLeftArm?: SortOrder
     leftShoulder?: SortOrder
+    p2?: SortOrder
+    p3?: SortOrder
+    p4?: SortOrder
+    p7?: SortOrder
+    p1?: SortOrder
+    p1a?: SortOrder
+    p1b?: SortOrder
+    p6?: SortOrder
+    p8?: SortOrder
+    p7b?: SortOrder
+    p5?: SortOrder
   }
 
   export type BruteColorsCountOrderByAggregateInput = {
@@ -29125,6 +27981,22 @@ export namespace Prisma {
     secondaryShade?: SortOrder
     accentColor?: SortOrder
     accentShade?: SortOrder
+    col0?: SortOrder
+    col0a?: SortOrder
+    col0c?: SortOrder
+    col1?: SortOrder
+    col1a?: SortOrder
+    col1b?: SortOrder
+    col1c?: SortOrder
+    col1d?: SortOrder
+    col3?: SortOrder
+    col2?: SortOrder
+    col2b?: SortOrder
+    col3b?: SortOrder
+    col2a?: SortOrder
+    col4?: SortOrder
+    col4a?: SortOrder
+    col4b?: SortOrder
   }
 
   export type BruteColorsAvgOrderByAggregateInput = {
@@ -29145,6 +28017,22 @@ export namespace Prisma {
     secondaryShade?: SortOrder
     accentColor?: SortOrder
     accentShade?: SortOrder
+    col0?: SortOrder
+    col0a?: SortOrder
+    col0c?: SortOrder
+    col1?: SortOrder
+    col1a?: SortOrder
+    col1b?: SortOrder
+    col1c?: SortOrder
+    col1d?: SortOrder
+    col3?: SortOrder
+    col2?: SortOrder
+    col2b?: SortOrder
+    col3b?: SortOrder
+    col2a?: SortOrder
+    col4?: SortOrder
+    col4a?: SortOrder
+    col4b?: SortOrder
   }
 
   export type BruteColorsMinOrderByAggregateInput = {
@@ -29160,6 +28048,22 @@ export namespace Prisma {
     secondaryShade?: SortOrder
     accentColor?: SortOrder
     accentShade?: SortOrder
+    col0?: SortOrder
+    col0a?: SortOrder
+    col0c?: SortOrder
+    col1?: SortOrder
+    col1a?: SortOrder
+    col1b?: SortOrder
+    col1c?: SortOrder
+    col1d?: SortOrder
+    col3?: SortOrder
+    col2?: SortOrder
+    col2b?: SortOrder
+    col3b?: SortOrder
+    col2a?: SortOrder
+    col4?: SortOrder
+    col4a?: SortOrder
+    col4b?: SortOrder
   }
 
   export type BruteColorsSumOrderByAggregateInput = {
@@ -29633,246 +28537,6 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type BytesNullableFilter<$PrismaModel = never> = {
-    equals?: Buffer | BytesFieldRefInput<$PrismaModel> | null
-    in?: Buffer[] | ListBytesFieldRefInput<$PrismaModel> | null
-    notIn?: Buffer[] | ListBytesFieldRefInput<$PrismaModel> | null
-    not?: NestedBytesNullableFilter<$PrismaModel> | Buffer | null
-  }
-
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type BruteSpritesheetGenderLongHairLowerRightArmRightHandUpperRightArmRightShoulderRightFootLowerRightLegUpperRightLegLeftFootLowerLeftLegPelvisUpperLeftLegTummyTorsoHeadLeftHandUpperLeftArmLowerLeftArmLeftShoulderSkinColorSkinShadeHairColorHairShadePrimaryColorPrimaryShadeSecondaryColorSecondaryShadeAccentColorAccentShadeCompoundUniqueInput = {
-    gender: $Enums.Gender
-    longHair: number
-    lowerRightArm: number
-    rightHand: number
-    upperRightArm: number
-    rightShoulder: number
-    rightFoot: number
-    lowerRightLeg: number
-    upperRightLeg: number
-    leftFoot: number
-    lowerLeftLeg: number
-    pelvis: number
-    upperLeftLeg: number
-    tummy: number
-    torso: number
-    head: number
-    leftHand: number
-    upperLeftArm: number
-    lowerLeftArm: number
-    leftShoulder: number
-    skinColor: string
-    skinShade: string
-    hairColor: string
-    hairShade: string
-    primaryColor: string
-    primaryShade: string
-    secondaryColor: string
-    secondaryShade: string
-    accentColor: string
-    accentShade: string
-  }
-
-  export type BruteSpritesheetCountOrderByAggregateInput = {
-    id?: SortOrder
-    version?: SortOrder
-    gender?: SortOrder
-    longHair?: SortOrder
-    lowerRightArm?: SortOrder
-    rightHand?: SortOrder
-    upperRightArm?: SortOrder
-    rightShoulder?: SortOrder
-    rightFoot?: SortOrder
-    lowerRightLeg?: SortOrder
-    upperRightLeg?: SortOrder
-    leftFoot?: SortOrder
-    lowerLeftLeg?: SortOrder
-    pelvis?: SortOrder
-    upperLeftLeg?: SortOrder
-    tummy?: SortOrder
-    torso?: SortOrder
-    head?: SortOrder
-    leftHand?: SortOrder
-    upperLeftArm?: SortOrder
-    lowerLeftArm?: SortOrder
-    leftShoulder?: SortOrder
-    skinColor?: SortOrder
-    skinShade?: SortOrder
-    hairColor?: SortOrder
-    hairShade?: SortOrder
-    primaryColor?: SortOrder
-    primaryShade?: SortOrder
-    secondaryColor?: SortOrder
-    secondaryShade?: SortOrder
-    accentColor?: SortOrder
-    accentShade?: SortOrder
-    image?: SortOrder
-    json?: SortOrder
-  }
-
-  export type BruteSpritesheetAvgOrderByAggregateInput = {
-    id?: SortOrder
-    longHair?: SortOrder
-    lowerRightArm?: SortOrder
-    rightHand?: SortOrder
-    upperRightArm?: SortOrder
-    rightShoulder?: SortOrder
-    rightFoot?: SortOrder
-    lowerRightLeg?: SortOrder
-    upperRightLeg?: SortOrder
-    leftFoot?: SortOrder
-    lowerLeftLeg?: SortOrder
-    pelvis?: SortOrder
-    upperLeftLeg?: SortOrder
-    tummy?: SortOrder
-    torso?: SortOrder
-    head?: SortOrder
-    leftHand?: SortOrder
-    upperLeftArm?: SortOrder
-    lowerLeftArm?: SortOrder
-    leftShoulder?: SortOrder
-  }
-
-  export type BruteSpritesheetMaxOrderByAggregateInput = {
-    id?: SortOrder
-    version?: SortOrder
-    gender?: SortOrder
-    longHair?: SortOrder
-    lowerRightArm?: SortOrder
-    rightHand?: SortOrder
-    upperRightArm?: SortOrder
-    rightShoulder?: SortOrder
-    rightFoot?: SortOrder
-    lowerRightLeg?: SortOrder
-    upperRightLeg?: SortOrder
-    leftFoot?: SortOrder
-    lowerLeftLeg?: SortOrder
-    pelvis?: SortOrder
-    upperLeftLeg?: SortOrder
-    tummy?: SortOrder
-    torso?: SortOrder
-    head?: SortOrder
-    leftHand?: SortOrder
-    upperLeftArm?: SortOrder
-    lowerLeftArm?: SortOrder
-    leftShoulder?: SortOrder
-    skinColor?: SortOrder
-    skinShade?: SortOrder
-    hairColor?: SortOrder
-    hairShade?: SortOrder
-    primaryColor?: SortOrder
-    primaryShade?: SortOrder
-    secondaryColor?: SortOrder
-    secondaryShade?: SortOrder
-    accentColor?: SortOrder
-    accentShade?: SortOrder
-    image?: SortOrder
-    json?: SortOrder
-  }
-
-  export type BruteSpritesheetMinOrderByAggregateInput = {
-    id?: SortOrder
-    version?: SortOrder
-    gender?: SortOrder
-    longHair?: SortOrder
-    lowerRightArm?: SortOrder
-    rightHand?: SortOrder
-    upperRightArm?: SortOrder
-    rightShoulder?: SortOrder
-    rightFoot?: SortOrder
-    lowerRightLeg?: SortOrder
-    upperRightLeg?: SortOrder
-    leftFoot?: SortOrder
-    lowerLeftLeg?: SortOrder
-    pelvis?: SortOrder
-    upperLeftLeg?: SortOrder
-    tummy?: SortOrder
-    torso?: SortOrder
-    head?: SortOrder
-    leftHand?: SortOrder
-    upperLeftArm?: SortOrder
-    lowerLeftArm?: SortOrder
-    leftShoulder?: SortOrder
-    skinColor?: SortOrder
-    skinShade?: SortOrder
-    hairColor?: SortOrder
-    hairShade?: SortOrder
-    primaryColor?: SortOrder
-    primaryShade?: SortOrder
-    secondaryColor?: SortOrder
-    secondaryShade?: SortOrder
-    accentColor?: SortOrder
-    accentShade?: SortOrder
-    image?: SortOrder
-    json?: SortOrder
-  }
-
-  export type BruteSpritesheetSumOrderByAggregateInput = {
-    id?: SortOrder
-    longHair?: SortOrder
-    lowerRightArm?: SortOrder
-    rightHand?: SortOrder
-    upperRightArm?: SortOrder
-    rightShoulder?: SortOrder
-    rightFoot?: SortOrder
-    lowerRightLeg?: SortOrder
-    upperRightLeg?: SortOrder
-    leftFoot?: SortOrder
-    lowerLeftLeg?: SortOrder
-    pelvis?: SortOrder
-    upperLeftLeg?: SortOrder
-    tummy?: SortOrder
-    torso?: SortOrder
-    head?: SortOrder
-    leftHand?: SortOrder
-    upperLeftArm?: SortOrder
-    lowerLeftArm?: SortOrder
-    leftShoulder?: SortOrder
-  }
-
-  export type BytesNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Buffer | BytesFieldRefInput<$PrismaModel> | null
-    in?: Buffer[] | ListBytesFieldRefInput<$PrismaModel> | null
-    notIn?: Buffer[] | ListBytesFieldRefInput<$PrismaModel> | null
-    not?: NestedBytesNullableWithAggregatesFilter<$PrismaModel> | Buffer | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedBytesNullableFilter<$PrismaModel>
-    _max?: NestedBytesNullableFilter<$PrismaModel>
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
   export type TournamentStepListRelationFilter = {
     every?: TournamentStepWhereInput
     some?: TournamentStepWhereInput
@@ -29933,6 +28597,21 @@ export namespace Prisma {
     in?: $Enums.LogType[] | ListEnumLogTypeFieldRefInput<$PrismaModel>
     notIn?: $Enums.LogType[] | ListEnumLogTypeFieldRefInput<$PrismaModel>
     not?: NestedEnumLogTypeFilter<$PrismaModel> | $Enums.LogType
+  }
+
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type FightNullableRelationFilter = {
@@ -29997,6 +28676,24 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumLogTypeFilter<$PrismaModel>
     _max?: NestedEnumLogTypeFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type EnumDestinyChoiceTypeFilter<$PrismaModel = never> = {
@@ -31669,10 +30366,6 @@ export namespace Prisma {
     deleteMany?: ClanThreadScalarWhereInput | ClanThreadScalarWhereInput[]
   }
 
-  export type NullableBytesFieldUpdateOperationsInput = {
-    set?: Buffer | null
-  }
-
   export type BruteCreateNestedOneWithoutFightsInput = {
     create?: XOR<BruteCreateWithoutFightsInput, BruteUncheckedCreateWithoutFightsInput>
     connectOrCreate?: BruteCreateOrConnectWithoutFightsInput
@@ -32654,21 +31347,21 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedBytesNullableFilter<$PrismaModel = never> = {
-    equals?: Buffer | BytesFieldRefInput<$PrismaModel> | null
-    in?: Buffer[] | ListBytesFieldRefInput<$PrismaModel> | null
-    notIn?: Buffer[] | ListBytesFieldRefInput<$PrismaModel> | null
-    not?: NestedBytesNullableFilter<$PrismaModel> | Buffer | null
+  export type NestedEnumLogTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.LogType | EnumLogTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.LogType[] | ListEnumLogTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LogType[] | ListEnumLogTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumLogTypeFilter<$PrismaModel> | $Enums.LogType
   }
 
-  export type NestedBytesNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Buffer | BytesFieldRefInput<$PrismaModel> | null
-    in?: Buffer[] | ListBytesFieldRefInput<$PrismaModel> | null
-    notIn?: Buffer[] | ListBytesFieldRefInput<$PrismaModel> | null
-    not?: NestedBytesNullableWithAggregatesFilter<$PrismaModel> | Buffer | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedBytesNullableFilter<$PrismaModel>
-    _max?: NestedBytesNullableFilter<$PrismaModel>
+  export type NestedEnumLogTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.LogType | EnumLogTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.LogType[] | ListEnumLogTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LogType[] | ListEnumLogTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumLogTypeWithAggregatesFilter<$PrismaModel> | $Enums.LogType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumLogTypeFilter<$PrismaModel>
+    _max?: NestedEnumLogTypeFilter<$PrismaModel>
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -32686,23 +31379,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type NestedEnumLogTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.LogType | EnumLogTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.LogType[] | ListEnumLogTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.LogType[] | ListEnumLogTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumLogTypeFilter<$PrismaModel> | $Enums.LogType
-  }
-
-  export type NestedEnumLogTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.LogType | EnumLogTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.LogType[] | ListEnumLogTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.LogType[] | ListEnumLogTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumLogTypeWithAggregatesFilter<$PrismaModel> | $Enums.LogType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumLogTypeFilter<$PrismaModel>
-    _max?: NestedEnumLogTypeFilter<$PrismaModel>
   }
 
   export type NestedEnumDestinyChoiceTypeFilter<$PrismaModel = never> = {
@@ -33747,6 +32423,17 @@ export namespace Prisma {
     upperLeftArm: number
     lowerLeftArm: number
     leftShoulder: number
+    p2?: number
+    p3?: number
+    p4?: number
+    p7?: number
+    p1?: number
+    p1a?: number
+    p1b?: number
+    p6?: number
+    p8?: number
+    p7b?: number
+    p5?: number
   }
 
   export type BruteBodyUncheckedCreateWithoutBruteInput = {
@@ -33770,6 +32457,17 @@ export namespace Prisma {
     upperLeftArm: number
     lowerLeftArm: number
     leftShoulder: number
+    p2?: number
+    p3?: number
+    p4?: number
+    p7?: number
+    p1?: number
+    p1a?: number
+    p1b?: number
+    p6?: number
+    p8?: number
+    p7b?: number
+    p5?: number
   }
 
   export type BruteBodyCreateOrConnectWithoutBruteInput = {
@@ -33788,6 +32486,22 @@ export namespace Prisma {
     secondaryShade: string
     accentColor: string
     accentShade: string
+    col0?: string
+    col0a?: string
+    col0c?: string
+    col1?: string
+    col1a?: string
+    col1b?: string
+    col1c?: string
+    col1d?: string
+    col3?: string
+    col2?: string
+    col2b?: string
+    col3b?: string
+    col2a?: string
+    col4?: string
+    col4a?: string
+    col4b?: string
   }
 
   export type BruteColorsUncheckedCreateWithoutBruteInput = {
@@ -33802,6 +32516,22 @@ export namespace Prisma {
     secondaryShade: string
     accentColor: string
     accentShade: string
+    col0?: string
+    col0a?: string
+    col0c?: string
+    col1?: string
+    col1a?: string
+    col1b?: string
+    col1c?: string
+    col1d?: string
+    col3?: string
+    col2?: string
+    col2b?: string
+    col3b?: string
+    col2a?: string
+    col4?: string
+    col4a?: string
+    col4b?: string
   }
 
   export type BruteColorsCreateOrConnectWithoutBruteInput = {
@@ -34763,6 +33493,17 @@ export namespace Prisma {
     upperLeftArm?: IntFieldUpdateOperationsInput | number
     lowerLeftArm?: IntFieldUpdateOperationsInput | number
     leftShoulder?: IntFieldUpdateOperationsInput | number
+    p2?: IntFieldUpdateOperationsInput | number
+    p3?: IntFieldUpdateOperationsInput | number
+    p4?: IntFieldUpdateOperationsInput | number
+    p7?: IntFieldUpdateOperationsInput | number
+    p1?: IntFieldUpdateOperationsInput | number
+    p1a?: IntFieldUpdateOperationsInput | number
+    p1b?: IntFieldUpdateOperationsInput | number
+    p6?: IntFieldUpdateOperationsInput | number
+    p8?: IntFieldUpdateOperationsInput | number
+    p7b?: IntFieldUpdateOperationsInput | number
+    p5?: IntFieldUpdateOperationsInput | number
   }
 
   export type BruteBodyUncheckedUpdateWithoutBruteInput = {
@@ -34786,6 +33527,17 @@ export namespace Prisma {
     upperLeftArm?: IntFieldUpdateOperationsInput | number
     lowerLeftArm?: IntFieldUpdateOperationsInput | number
     leftShoulder?: IntFieldUpdateOperationsInput | number
+    p2?: IntFieldUpdateOperationsInput | number
+    p3?: IntFieldUpdateOperationsInput | number
+    p4?: IntFieldUpdateOperationsInput | number
+    p7?: IntFieldUpdateOperationsInput | number
+    p1?: IntFieldUpdateOperationsInput | number
+    p1a?: IntFieldUpdateOperationsInput | number
+    p1b?: IntFieldUpdateOperationsInput | number
+    p6?: IntFieldUpdateOperationsInput | number
+    p8?: IntFieldUpdateOperationsInput | number
+    p7b?: IntFieldUpdateOperationsInput | number
+    p5?: IntFieldUpdateOperationsInput | number
   }
 
   export type BruteColorsUpsertWithoutBruteInput = {
@@ -34810,6 +33562,22 @@ export namespace Prisma {
     secondaryShade?: StringFieldUpdateOperationsInput | string
     accentColor?: StringFieldUpdateOperationsInput | string
     accentShade?: StringFieldUpdateOperationsInput | string
+    col0?: StringFieldUpdateOperationsInput | string
+    col0a?: StringFieldUpdateOperationsInput | string
+    col0c?: StringFieldUpdateOperationsInput | string
+    col1?: StringFieldUpdateOperationsInput | string
+    col1a?: StringFieldUpdateOperationsInput | string
+    col1b?: StringFieldUpdateOperationsInput | string
+    col1c?: StringFieldUpdateOperationsInput | string
+    col1d?: StringFieldUpdateOperationsInput | string
+    col3?: StringFieldUpdateOperationsInput | string
+    col2?: StringFieldUpdateOperationsInput | string
+    col2b?: StringFieldUpdateOperationsInput | string
+    col3b?: StringFieldUpdateOperationsInput | string
+    col2a?: StringFieldUpdateOperationsInput | string
+    col4?: StringFieldUpdateOperationsInput | string
+    col4a?: StringFieldUpdateOperationsInput | string
+    col4b?: StringFieldUpdateOperationsInput | string
   }
 
   export type BruteColorsUncheckedUpdateWithoutBruteInput = {
@@ -34824,6 +33592,22 @@ export namespace Prisma {
     secondaryShade?: StringFieldUpdateOperationsInput | string
     accentColor?: StringFieldUpdateOperationsInput | string
     accentShade?: StringFieldUpdateOperationsInput | string
+    col0?: StringFieldUpdateOperationsInput | string
+    col0a?: StringFieldUpdateOperationsInput | string
+    col0c?: StringFieldUpdateOperationsInput | string
+    col1?: StringFieldUpdateOperationsInput | string
+    col1a?: StringFieldUpdateOperationsInput | string
+    col1b?: StringFieldUpdateOperationsInput | string
+    col1c?: StringFieldUpdateOperationsInput | string
+    col1d?: StringFieldUpdateOperationsInput | string
+    col3?: StringFieldUpdateOperationsInput | string
+    col2?: StringFieldUpdateOperationsInput | string
+    col2b?: StringFieldUpdateOperationsInput | string
+    col3b?: StringFieldUpdateOperationsInput | string
+    col2a?: StringFieldUpdateOperationsInput | string
+    col4?: StringFieldUpdateOperationsInput | string
+    col4a?: StringFieldUpdateOperationsInput | string
+    col4b?: StringFieldUpdateOperationsInput | string
   }
 
   export type BruteUpsertWithoutPupilsInput = {
@@ -41317,10 +40101,6 @@ export namespace Prisma {
      * @deprecated Use BruteDefaultArgs instead
      */
     export type BruteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BruteDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use BruteSpritesheetDefaultArgs instead
-     */
-    export type BruteSpritesheetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BruteSpritesheetDefaultArgs<ExtArgs>
     /**
      * @deprecated Use FightDefaultArgs instead
      */

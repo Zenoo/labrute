@@ -22,9 +22,9 @@ import eat from './eat';
 import end from './end';
 import equip from './equip';
 import evade from './evade';
+import FighterHolder from './FighterHolder';
 import { AnimationFighter } from './findFighter';
 import flashFlood from './flashFlood';
-import getFighterType from './getFighterType';
 import hammer from './hammer';
 import heal from './heal';
 import hit from './hit';
@@ -35,7 +35,6 @@ import moveTo from './moveTo';
 import resist from './resist';
 import sabotage from './sabotage';
 import saboteur from './saboteur';
-import setupSprite from './setupSprite';
 import skillActivate from './skillActivate';
 import skillExpire from './skillExpire';
 import spy from './spy';
@@ -44,7 +43,7 @@ import survive from './survive';
 import throwWeapon from './throwWeapon';
 import trap from './trap';
 import trash from './trash';
-import updateWeapons, { updateActiveWeapon } from './updateWeapons';
+import updateWeapons from './updateWeapons';
 
 const backgrounds = [
   'background/1.jpg',
@@ -350,45 +349,15 @@ const setupFight: (
   // Set stage as sortable
   app.stage.sortableChildren = true;
 
-  // Set animation to 30 FPS
-  app.ticker.speed = 0.5;
-
   // Set background music
   await sound.play('background', { loop: true });
 
   // Get fighters animations
   const fighters: AnimationFighter[] = fightFighters.map((fighter) => {
-    const type = getFighterType(fighter);
-
     const team = (fighter.master || fighter.id) === brute1.id ? 'left' : 'right';
-
-    const arriveStartAnimation = setupSprite(app, fighter, 'arrive-start', team, speed);
-
-    if (!arriveStartAnimation) {
-      throw new Error(`Arrive start animation not found: ${type}`);
-    }
-
-    // Initialize fighter container
-    const container = new PIXI.Container();
-    container.sortableChildren = true;
-
-    // Set position
-    container.x = team === 'left' ? -100 : 600;
-    container.y = 150;
-
-    // Set inverted
-    container.scale.x = team === 'left' ? 1 : -1;
-
-    // Add to stage
-    app.stage.addChild(container);
-    container.addChild(arriveStartAnimation);
 
     const animationFighter: AnimationFighter = {
       ...fighter,
-      team,
-      container,
-      currentAnimation: arriveStartAnimation,
-      activeWeapon: null,
       hpBar: fighter.master
         ? undefined
         : fighter.id === brute1.id ? brute1HpBar : (brute2HpBar || bossHpBar || undefined),
@@ -398,39 +367,32 @@ const setupFight: (
           ? brute1PhantomHpBar
           : (brute2PhantomHpBar || bossPhantomHpBar || undefined),
       weaponsIllustrations: [],
-      activeEffects: [],
-      activeShield: null,
+      animation: new FighterHolder(
+        app,
+        fighter,
+        team,
+        speed
+      ),
     };
+
+    // Set position
+    animationFighter.animation.container.x = team === 'left' ? -100 : 600;
+    animationFighter.animation.container.y = 150;
+
+    // Set inverted
+    animationFighter.animation.container.scale.x = team === 'left' ? 1 : -1;
+
+    // Add to stage
+    app.stage.addChild(animationFighter.animation.container);
 
     // Update brute weapons
     updateWeapons(app, animationFighter);
-    updateActiveWeapon(app, animationFighter, null);
 
     return animationFighter;
   });
 
   // Initialize tweener
   Tweener.init(app.ticker);
-
-  let currentSpeed = speed.current;
-  app.ticker.add(() => {
-    fighters.forEach((fighter) => {
-      if (!fighter.container) return;
-
-      // Update zIndex on all fighters
-      fighter.container.zIndex = fighter.container.y;
-    });
-
-    // Update speed if needed
-    if (currentSpeed !== speed.current) {
-      fighters.forEach((fighter) => {
-        if ((fighter.currentAnimation as AnimatedSprite).play) {
-          (fighter.currentAnimation as AnimatedSprite).animationSpeed = speed.current;
-        }
-      });
-      currentSpeed = speed.current;
-    }
-  });
 
   // Loop on steps
   const steps = JSON.parse(fight.steps) as FightStep[];
@@ -455,7 +417,7 @@ const setupFight: (
         break;
       }
       case 'attemptHit': {
-        attemptHit(app, fighters, step, speed);
+        await attemptHit(app, fighters, step, speed);
         break;
       }
       case 'hit':
@@ -472,11 +434,11 @@ const setupFight: (
         break;
       }
       case 'death': {
-        death(app, fighters, step, speed);
+        death(fighters, step);
         break;
       }
       case 'evade': {
-        await evade(app, fighters, step, speed);
+        await evade(fighters, step, speed);
         break;
       }
       case 'saboteur': {
@@ -528,7 +490,7 @@ const setupFight: (
         break;
       }
       case 'end': {
-        end(app, fighters, step, speed);
+        end(fighters, step);
         break;
       }
       case 'hypnotise': {
@@ -580,7 +542,7 @@ const setupFight: (
   deadIcon.loop = false;
   deadIcon.animationSpeed = 0.5;
   deadIcon.zIndex = 1000;
-  if (loser?.team === 'right') {
+  if (loser?.animation.team === 'right') {
     deadIcon.scale.x = -1;
     if (brute2Header) {
       deadIcon.x = brute2Header.x + 32;
@@ -630,7 +592,7 @@ const setupFight: (
     )];
 
     // Random horizontal position around the winner
-    petal.x = (winner?.container.x || 0) - 75 + Math.random() * 150;
+    petal.x = (winner?.animation.container.x || 0) - 75 + Math.random() * 150;
     petal.y = 0;
     petal.width = 10;
     petal.height = 10;

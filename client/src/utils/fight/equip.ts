@@ -2,10 +2,9 @@
 import { EquipStep } from '@labrute/core';
 
 import { sound } from '@pixi/sound';
-import { AnimatedSprite, Application } from 'pixi.js';
-import changeAnimation from './changeAnimation';
+import { Application } from 'pixi.js';
 import findFighter, { AnimationFighter } from './findFighter';
-import updateWeapons, { updateActiveWeapon } from './updateWeapons';
+import updateWeapons from './updateWeapons';
 
 const equip = async (
   app: Application,
@@ -18,15 +17,16 @@ const equip = async (
     throw new Error('Brute not found');
   }
 
+  const animationEnded = brute.animation.waitForEvent('equip:end');
+
   // Set animation to `equip`
-  changeAnimation(app, brute, 'equip', speed);
-  (brute.currentAnimation as AnimatedSprite).animationSpeed = 0.5;
+  brute.animation.setAnimation('equip');
 
   // Update available weapons
   updateWeapons(app, brute, step.name, 'remove');
 
   // Update active weapon
-  updateActiveWeapon(app, brute, step.name);
+  brute.animation.weapon = step.name;
 
   // Play equip SFX
   void sound.play('equip', {
@@ -34,14 +34,10 @@ const equip = async (
   });
 
   // Wait for animation to complete
-  await new Promise((resolve) => {
-    (brute.currentAnimation as AnimatedSprite).onComplete = () => {
-      // Set animation to `idle`
-      changeAnimation(app, brute, 'idle', speed);
+  await animationEnded;
 
-      resolve(null);
-    };
-  });
+  // Set animation to `idle`
+  brute.animation.setAnimation('idle');
 };
 
 export default equip;

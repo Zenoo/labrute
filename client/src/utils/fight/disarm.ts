@@ -2,7 +2,6 @@ import { DisarmStep, FIGHTER_HEIGHT, FIGHTER_WIDTH } from '@labrute/core';
 import { Application, Sprite } from 'pixi.js';
 
 import findFighter, { AnimationFighter } from './findFighter';
-import { updateActiveWeapon } from './updateWeapons';
 import { BevelFilter } from '@pixi/filter-bevel';
 import { Easing, Tweener } from 'pixi-tweener';
 
@@ -27,7 +26,7 @@ const disarm = (
   }
 
   // Remove weapon from opponent
-  updateActiveWeapon(app, opponent, null);
+  opponent.animation.weapon = null;
 
   // Create weapon sprite
   const weapon = new Sprite(spritesheet.textures[`${step.weapon}.png`]);
@@ -39,14 +38,14 @@ const disarm = (
 
   // Set position
   weapon.position.set(
-    opponent.team === 'left'
-      ? opponent.container.x + FIGHTER_WIDTH.brute / 4
-      : opponent.container.x + FIGHTER_WIDTH.brute * 0.75,
-    opponent.container.y - FIGHTER_HEIGHT.brute * 0.5,
+    opponent.animation.team === 'left'
+      ? opponent.animation.container.x + FIGHTER_WIDTH.brute / 4
+      : opponent.animation.container.x + FIGHTER_WIDTH.brute * 0.75,
+    opponent.animation.container.y - FIGHTER_HEIGHT.brute * 0.5,
   );
 
   // Set angle
-  weapon.angle = opponent.team === 'left' ? -110 : 70;
+  weapon.angle = opponent.animation.team === 'left' ? -110 : 70;
 
   // Add to stage
   app.stage.addChild(weapon);
@@ -57,11 +56,11 @@ const disarm = (
     duration: 0.3 / speed.current,
     ease: Easing.linear,
   }, {
-    x: opponent.team === 'left'
+    x: opponent.animation.team === 'left'
       ? weapon.x - 20
       : weapon.x + 20,
     y: weapon.y + 50,
-    angle: opponent.team === 'left' ? -180 : 0,
+    angle: opponent.animation.team === 'left' ? -180 : 0,
   }).then(() => {
     // Wait a bit
     setTimeout(() => {

@@ -1,15 +1,14 @@
 /* eslint-disable no-void */
-import { Animation, BombStep, FIGHTER_HEIGHT, FIGHTER_WIDTH, randomBetween } from '@labrute/core';
+import { BombStep, FIGHTER_HEIGHT, FIGHTER_WIDTH, randomBetween } from '@labrute/core';
 import { OutlineFilter } from '@pixi/filter-outline';
 import { Easing, Tweener } from 'pixi-tweener';
 import { AnimatedSprite, Application, Text } from 'pixi.js';
-import changeAnimation from './changeAnimation';
 
 import { sound } from '@pixi/sound';
 import findFighter, { AnimationFighter } from './findFighter';
+import insideXBounds from './insideXBounds';
 import stagger from './stagger';
 import updateHp from './updateHp';
-import insideXBounds from './insideXBounds';
 
 const getBombDamage = (damage: BombStep['damage'], target: AnimationFighter) => {
   if (typeof damage === 'number') {
@@ -48,7 +47,7 @@ const bomb = async (
   }
 
   // Set animation to `launch`
-  changeAnimation(app, fighter, 'launch', speed);
+  fighter.animation.setAnimation('launch');
 
   // Play launch SFX
   void sound.play('skills/net', {
@@ -61,12 +60,12 @@ const bomb = async (
   bombSprite.loop = true;
 
   // Set bomb sprite position
-  bombSprite.x = fighter.container.x + FIGHTER_WIDTH.brute / 2;
-  bombSprite.y = fighter.container.y - FIGHTER_HEIGHT.brute / 2;
+  bombSprite.x = fighter.animation.container.x + FIGHTER_WIDTH.brute / 2;
+  bombSprite.y = fighter.animation.container.y - FIGHTER_HEIGHT.brute / 2;
 
   // Get target position
   const targetPosition = {
-    x: fighter.team === 'left' ? app.screen.width - 100 : 100,
+    x: fighter.animation.team === 'left' ? app.screen.width - 100 : 100,
     y: app.screen.height * 0.75,
   };
 
@@ -135,7 +134,7 @@ const bomb = async (
   explosionSprite.play();
 
   // Set animation to `idle`
-  changeAnimation(app, fighter, 'idle', speed);
+  fighter.animation.setAnimation('idle');
 
   // Play bomb SFX
   void sound.play('skills/bomb', {
@@ -162,20 +161,20 @@ const bomb = async (
     const damage = getBombDamage(step.damage, target);
 
     // Get hit animation (random for male brute)
-    const animation = target.type === 'brute' && target.data?.gender === 'male'
-      ? `hit-${randomBetween(0, 2)}`
+    const animation: 'hit' | 'hit-0' | 'hit-1' | 'hit-2' = target.type === 'brute' && target.data?.gender === 'male'
+      ? `hit-${randomBetween(0, 2) as 0 | 1 | 2}`
       : 'hit';
 
     // Set animation to the correct hit animation
-    changeAnimation(app, target, animation as Animation, speed);
+    target.animation.setAnimation(animation);
 
     // Display floating and fading damage text
     const damageText = new Text(`-${damage}`, {
       fontFamily: 'GameFont', fontSize: 20, fill: 0xffffff
     });
     damageText.anchor.set(0.5);
-    damageText.x = insideXBounds(target.container.x);
-    damageText.y = target.container.y - target.currentAnimation.height;
+    damageText.x = insideXBounds(target.animation.container.x);
+    damageText.y = target.animation.container.y - target.animation.container.height;
     damageText.zIndex = 1000;
     damageText.filters = [new OutlineFilter()];
     app.stage.addChild(damageText);
@@ -198,11 +197,11 @@ const bomb = async (
 
     // Stagger
     // eslint-disable-next-line no-await-in-loop
-    staggers.push(stagger(target.container, target.team, speed)
+    staggers.push(stagger(target.animation.container, target.animation.team, speed)
       .then(() => {
-        if (target.currentAnimation.name.startsWith('hit')) {
+        if (target.animation.animation.startsWith('hit')) {
           // Set animation to `idle`
-          changeAnimation(app, target, 'idle', speed);
+          target.animation.setAnimation('idle');
         }
       }));
   }

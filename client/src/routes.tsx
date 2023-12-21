@@ -4,7 +4,6 @@ import ProvideBrute from './components/Brute/ProvideBrute';
 import Main from './layouts/Main';
 import AchievementsView from './views/AchievementsView';
 import AdminView from './views/AdminView';
-import AnchorTestView from './views/AnchorTestView';
 import ArenaView from './views/ArenaView';
 import BruteNotFoundView from './views/BruteNotFoundView';
 import CellView from './views/CellView';
@@ -17,12 +16,10 @@ import LevelUpView from './views/LevelUpView';
 import NotFoundView from './views/NotFoundView';
 import RankingView from './views/RankingView';
 import ReportAdminView from './views/ReportAdminView';
-import ShieldAnchorTestView from './views/ShieldAnchorTestView';
 import TournamentHistoryView from './views/TournamentHistoryView';
 import TournamentView from './views/TournamentView';
 import UserAdminView from './views/UserAdminView';
 import VersusView from './views/VersusView';
-import WeaponAnchorTestView from './views/WeaponAnchorTestView';
 import ClanCreateView from './views/clan/ClanCreateView';
 import ClanForumView from './views/clan/ClanForumView';
 import ClanPostView from './views/clan/ClanPostView';
@@ -32,9 +29,6 @@ import ClanView from './views/clan/ClanView';
 import GlobalTournamentView from './views/GlobalTournamentView';
 
 const routes: RouteObject[] = [
-  { path: 'anchor-test', element: <AnchorTestView /> },
-  { path: 'weapon-anchor-test', element: <WeaponAnchorTestView /> },
-  { path: 'shield-anchor-test', element: <ShieldAnchorTestView /> },
   {
     path: '/',
     element: <Main />,

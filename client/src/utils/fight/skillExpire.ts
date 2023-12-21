@@ -1,12 +1,10 @@
 import { SkillExpireStep } from '@labrute/core';
 import { GlowFilter } from '@pixi/filter-glow';
-import { AnimatedSprite, Application } from 'pixi.js';
+import { Application } from 'pixi.js';
 
-import findFighter, { AnimationFighter } from './findFighter';
-import changeAnimation from './changeAnimation';
 import { Easing, Tweener } from 'pixi-tweener';
 import { getRandomPosition } from './fightPositions';
-import { updateActiveWeapon } from './updateWeapons';
+import findFighter, { AnimationFighter } from './findFighter';
 
 const skillExpire = async (
   app: Application,
@@ -20,47 +18,40 @@ const skillExpire = async (
   }
 
   if (step.skill === 'fierceBrute') {
-    // Remove from active effects
-    brute.activeEffects = brute.activeEffects.filter(
-      (effect) => effect !== step.skill,
-    );
-
     // Remove Glow filter
-    brute.currentAnimation.filters = brute.currentAnimation.filters?.filter(
+    brute.animation.container.filters = brute.animation.container.filters?.filter(
       (filter) => !(filter instanceof GlowFilter),
     ) || [];
   }
 
   // Flash flood
   if (step.skill === 'flashFlood') {
-    // Remove active weapon
-    updateActiveWeapon(app, brute, null);
-
-    // Set brute animation to `arrive-start`
-    changeAnimation(app, brute, 'arrive-start', speed);
+    // Set brute animation to `arrive`
+    brute.animation.once('arrive:start', () => {
+      brute.animation.pause();
+    });
+    brute.animation.setAnimation('arrive');
 
     // Get positions
-    const { x, y } = getRandomPosition(fighters, brute.team);
+    const { x, y } = getRandomPosition(fighters, brute.animation.team);
 
     // Move brute back
     await Tweener.add({
-      target: brute.container,
+      target: brute.animation.container,
       duration: 0.4 / speed.current,
       ease: Easing.easeInCubic
     }, { x, y });
 
-    // Set brute animation to `arrive-end`
-    changeAnimation(app, brute, 'arrive-end', speed);
+    const animationEnded = brute.animation.waitForEvent('arrive:end');
+
+    // Continue brute animation
+    brute.animation.play();
 
     // Wait for animation to end before going further
-    await new Promise((resolve) => {
-      (brute.currentAnimation as AnimatedSprite).onComplete = () => {
-        // Set animation to `idle`
-        changeAnimation(app, brute, 'idle', speed);
+    await animationEnded;
 
-        resolve(null);
-      };
-    });
+    // Set animation to `idle`
+    brute.animation.setAnimation('idle');
   }
 
   // TODO: different visual for every skill expiration

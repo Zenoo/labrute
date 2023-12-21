@@ -100,6 +100,8 @@ const FightComponent = ({
       width: 500,
       height: 300,
       antialias: true,
+      autoDensity: true,
+      resolution: window.devicePixelRatio * 2,
     });
     appRef.current = app;
     ref.current.appendChild(app.view);
@@ -108,10 +110,7 @@ const FightComponent = ({
 
     app.loader
       .add('/images/game/thrown-weapons.json')
-      .add('/images/game/misc.json')
-      .add('/images/game/bear.json')
-      .add('/images/game/dog.json')
-      .add('/images/game/panther.json');
+      .add('/images/game/misc.json');
 
     const sounds = [
       'background.mp3',
@@ -177,17 +176,6 @@ const FightComponent = ({
     sound.volumeAll = 0;
     // Background music
     sound.volume('background', backgroundMusicRef.current ? 1 : 0);
-
-    const addedSpritesheets: string[] = [];
-    (JSON.parse(fight.fighters) as Fighter[]).forEach((fighter) => {
-      if (fighter.type === 'brute') {
-        const spritesheet = `/api/spritesheet/${fighter.id}.json`;
-        if (!addedSpritesheets.includes(spritesheet)) {
-          app.loader.add(spritesheet);
-          addedSpritesheets.push(spritesheet);
-        }
-      }
-    });
 
     app.loader.onLoad.add(() => {
       PIXI.utils.clearTextureCache();

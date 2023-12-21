@@ -6,6 +6,7 @@ const fightersEqual = (
   b: AnimationFighter | StepFighter | undefined,
 ) => !a || !b || (a.name === b.name
   && a.type === b.type
-  && a.master === b.master);
+  && a.master === b.master
+  && a.hypnotised === b.hypnotised);
 
 export default fightersEqual;

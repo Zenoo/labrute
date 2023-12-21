@@ -31,6 +31,7 @@ const getRandomColors = (gender: Gender) => {
     secondaryShade: adjustColor(secondary, -20),
     accentColor: accent,
     accentShade: adjustColor(accent, -20),
+    // TODO: Set new colors
   };
 };
 

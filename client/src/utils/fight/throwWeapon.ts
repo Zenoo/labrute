@@ -1,11 +1,9 @@
 /* eslint-disable no-void */
 import { FIGHTER_HEIGHT, FIGHTER_WIDTH, ThrowStep } from '@labrute/core';
 import { sound } from '@pixi/sound';
-import { AnimatedSprite, Application, Sprite } from 'pixi.js';
-import changeAnimation from './changeAnimation';
-import findFighter, { AnimationFighter } from './findFighter';
-import { updateActiveWeapon } from './updateWeapons';
 import { Easing, Tweener } from 'pixi-tweener';
+import { Application, Sprite } from 'pixi.js';
+import findFighter, { AnimationFighter } from './findFighter';
 import getFighterType from './getFighterType';
 
 const throwWeapon = async (
@@ -33,23 +31,21 @@ const throwWeapon = async (
     throw new Error('Opponent not found');
   }
 
+  const prepareEnded = fighter.animation.waitForEvent('prepare-throw:end');
+
   // Set animation to `prepare-throw`
-  changeAnimation(app, fighter, 'prepare-throw', speed);
+  fighter.animation.setAnimation('prepare-throw');
 
   // Wait for animation to finish
-  await new Promise((resolve) => {
-    (fighter.currentAnimation as AnimatedSprite).onComplete = () => {
-      resolve(null);
-    };
-  });
+  await prepareEnded;
 
   // Remove weapon from brute if needed
   if (!step.keep) {
-    updateActiveWeapon(app, fighter, null);
+    fighter.animation.weapon = null;
   }
 
   // Set animation to `throw`
-  changeAnimation(app, fighter, 'throw', speed);
+  fighter.animation.setAnimation('throw');
 
   // Create thrown weapon sprite
   const thrownWeapon = new Sprite(spritesheet.textures[`${step.weapon}.png`]);
@@ -59,18 +55,18 @@ const throwWeapon = async (
 
   // Get starting position
   const start = {
-    x: fighter.team === 'left'
-      ? fighter.container.x + FIGHTER_WIDTH.brute
-      : fighter.container.x,
-    y: fighter.container.y - FIGHTER_HEIGHT.brute * 0.5,
+    x: fighter.animation.team === 'left'
+      ? fighter.animation.container.x + FIGHTER_WIDTH.brute
+      : fighter.animation.container.x,
+    y: fighter.animation.container.y - FIGHTER_HEIGHT.brute * 0.5,
   };
 
   // Get end position
   const end = {
-    x: opponent.team === 'left'
-      ? opponent.container.x + FIGHTER_WIDTH[getFighterType(opponent)]
-      : opponent.container.x,
-    y: opponent.container.y - FIGHTER_HEIGHT[getFighterType(opponent)] * 0.5,
+    x: opponent.animation.team === 'left'
+      ? opponent.animation.container.x + FIGHTER_WIDTH[getFighterType(opponent)]
+      : opponent.animation.container.x,
+    y: opponent.animation.container.y - FIGHTER_HEIGHT[getFighterType(opponent)] * 0.5,
   };
 
   // Set position
@@ -105,7 +101,7 @@ const throwWeapon = async (
   thrownWeapon.destroy();
 
   // Set animation to `idle`
-  changeAnimation(app, fighter, 'idle', speed);
+  fighter.animation.setAnimation('idle');
 };
 
 export default throwWeapon;
