@@ -18,7 +18,7 @@ const resist = (
 
   // Add a yellow outline filter to the brute on the next animation
   setTimeout(() => {
-    const outline = new OutlineFilter(2, 0xffff00);
+    const outline = new OutlineFilter(1, 0xffff00);
     brute.animation.container.filters = [
       ...brute.animation.container.filters || [],
       outline

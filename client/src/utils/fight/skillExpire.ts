@@ -1,7 +1,7 @@
 import { SkillExpireStep } from '@labrute/core';
-import { GlowFilter } from '@pixi/filter-glow';
 import { Application } from 'pixi.js';
 
+import { OutlineFilter } from '@pixi/filter-outline';
 import { Easing, Tweener } from 'pixi-tweener';
 import { getRandomPosition } from './fightPositions';
 import findFighter, { AnimationFighter } from './findFighter';
@@ -18,9 +18,9 @@ const skillExpire = async (
   }
 
   if (step.skill === 'fierceBrute') {
-    // Remove Glow filter
+    // Remove Outline filter
     brute.animation.container.filters = brute.animation.container.filters?.filter(
-      (filter) => !(filter instanceof GlowFilter),
+      (filter) => !(filter instanceof OutlineFilter),
     ) || [];
   }
 

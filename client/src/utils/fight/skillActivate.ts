@@ -2,7 +2,7 @@
 import { FIGHTER_HEIGHT, FIGHTER_WIDTH, SkillActivateStep } from '@labrute/core';
 import { AnimatedSprite, Application } from 'pixi.js';
 
-import { GlowFilter } from '@pixi/filter-glow';
+import { OutlineFilter } from '@pixi/filter-outline';
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
 import findFighter, { AnimationFighter } from './findFighter';
@@ -46,10 +46,7 @@ const skillActivate = async (
         brute.animation.container.filters = [];
       }
 
-      brute.animation.container.filters.push(new GlowFilter({
-        color: 0xff0000,
-        outerStrength: 1,
-      }));
+      brute.animation.container.filters.push(new OutlineFilter(1, 0xff0000));
     }
 
     const animations = [];

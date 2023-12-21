@@ -379,9 +379,6 @@ const setupFight: (
     animationFighter.animation.container.x = team === 'left' ? -100 : 600;
     animationFighter.animation.container.y = 150;
 
-    // Set inverted
-    animationFighter.animation.container.scale.x = team === 'left' ? 1 : -1;
-
     // Add to stage
     app.stage.addChild(animationFighter.animation.container);
 
@@ -390,6 +387,13 @@ const setupFight: (
 
     return animationFighter;
   });
+
+  // Wait for all fighters to be loaded
+  while (fighters.some((fighter) => !fighter.animation.loaded)) {
+    await new Promise((resolve) => {
+      setTimeout(resolve, 100);
+    });
+  }
 
   // Initialize tweener
   Tweener.init(app.ticker);

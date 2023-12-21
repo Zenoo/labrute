@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "BruteBody" ALTER COLUMN "p7b" SET DEFAULT 0;

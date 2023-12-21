@@ -35,16 +35,19 @@ const attemptHit = async (
     ? weapons.find((w) => w.name === step.weapon)?.animation || 'fist'
     : 'attack';
 
+  const hitTriggered = fighter.animation.waitForEvent(`${animation}:hit`);
   const animationEnded = fighter.animation.waitForEvent(`${animation}:end`);
 
   // Set animation to the correct hitting animation
   fighter.animation.setAnimation(animation);
 
-  // Wait for animation to finish
-  await animationEnded;
+  // Wait for animation to hit
+  await hitTriggered;
 
-  // Set animation to `idle`
-  fighter.animation.setAnimation('idle');
+  animationEnded.then(() => {
+    // Set animation to `idle`
+    fighter.animation.setAnimation('idle');
+  }).catch(console.error);
 
   // Handle shield breaking
   if (step.brokeShield) {

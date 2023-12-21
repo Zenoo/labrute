@@ -473,6 +473,8 @@ export default class FighterHolder {
 
   #usedSvgs: Record<string, number> = {};
 
+  readonly loaded: boolean = false;
+
   // Events
   events: Record<string, ((event: string) => void)[]> = {};
 
@@ -504,21 +506,21 @@ export default class FighterHolder {
 
     // Fail safe for old fights without the new colors and parts
     if (!this.#colors.col0) {
-      this.#colors.col0 = '#eaaca6';
-      this.#colors.col0a = '#eaaca6';
-      this.#colors.col0c = '#eaaca6';
-      this.#colors.col1 = '#ffaa1e';
-      this.#colors.col1a = '#ffaa1e';
-      this.#colors.col1b = '#ffaa1e';
-      this.#colors.col1c = '#ffaa1e';
-      this.#colors.col1d = '#ffaa1e';
-      this.#colors.col3 = '#bb1111';
-      this.#colors.col2 = '#8ba3d7';
-      this.#colors.col2b = '#7a73c8';
-      this.#colors.col3b = '#fae31f';
-      this.#colors.col2a = '#fff9ae';
-      this.#colors.col4 = '#559399';
-      this.#colors.col4a = '#7a73c8';
+      this.#colors.col0 = fighter.data?.colors.skinColor || '';
+      this.#colors.col0a = fighter.data?.colors.skinColor || '';
+      this.#colors.col0c = fighter.data?.colors.skinColor || '';
+      this.#colors.col1 = fighter.data?.colors.hairColor || '';
+      this.#colors.col1a = fighter.data?.colors.hairColor || '';
+      this.#colors.col1b = fighter.data?.colors.hairColor || '';
+      this.#colors.col1c = fighter.data?.colors.hairColor || '';
+      this.#colors.col1d = fighter.data?.colors.hairColor || '';
+      this.#colors.col3 = fighter.data?.colors.primaryColor || '';
+      this.#colors.col2 = fighter.data?.colors.secondaryColor || '';
+      this.#colors.col2b = fighter.data?.colors.accentColor || '';
+      this.#colors.col3b = fighter.data?.colors.accentColor || '';
+      this.#colors.col2a = fighter.data?.colors.accentColor || '';
+      this.#colors.col4 = fighter.data?.colors.accentColor || '';
+      this.#colors.col4a = fighter.data?.colors.accentColor || '';
       this.#colors.col4b = '#0000ff';
 
       this.#parts.p2 = 0;
@@ -530,10 +532,25 @@ export default class FighterHolder {
       this.#parts.p1b = 0;
       this.#parts.p6 = 0;
       this.#parts.p8 = 0;
-      this.#parts.p7b = 2;
+      this.#parts.p7b = 0;
       this.#parts.p5 = 0;
 
-      // TODO: Prefill with old values instead
+      // Adapt female hair
+      if (fighter.gender === Gender.female) {
+        switch (fighter.data?.body.longHair) {
+          case 1:
+            this.#parts.p2 = 0;
+            break;
+          case 2:
+            this.#parts.p2 = 4;
+            break;
+          case 3:
+            this.#parts.p2 = 7;
+            break;
+          default:
+            this.#parts.p2 = 0;
+        }
+      }
     }
 
     // Get animation type
@@ -553,7 +570,23 @@ export default class FighterHolder {
     symbolContainer.sortableChildren = true;
     symbolContainer.x = 0;
     symbolContainer.y = 0;
+
+    // Add red circle at 0 0
+    const circle = new PIXI.Graphics();
+    circle.beginFill(0xff0000);
+    circle.drawCircle(0, 0, 5);
+    circle.endFill();
+    circle.zIndex = 1000;
+    circle.visible = true;
+    symbolContainer.addChild(circle);
+
+    // Handle team side
     symbolContainer.scale.x = this.team === 'left' ? 1 : -1;
+
+    // Reverse X for dog
+    if (this.#animationType === 'dog') {
+      symbolContainer.scale.x *= -1;
+    }
 
     this.container = symbolContainer;
 
@@ -623,8 +656,13 @@ export default class FighterHolder {
     // Load SVGs
     this.#loadSvgs(maxSvgs);
 
+    // Loaded event
+    this.loaded = true;
+
     // Play animation (loop on frames with PIXI ticker)
     app.ticker.add(() => {
+      if (this.container.destroyed) return;
+
       // Update zIndex
       this.container.zIndex = this.container.y;
 
@@ -661,6 +699,21 @@ export default class FighterHolder {
         // :trashed event
         if (this.animation === 'trash' && this.#frame === 3) {
           this.#triggerEvents(`${this.animation}:trashed`);
+        }
+
+        // :hit event
+        if (this.animation === 'fist' && this.#frame === 2) {
+          this.#triggerEvents(`${this.animation}:hit`);
+        } else if (this.animation === 'estoc' && this.#frame === 4) {
+          this.#triggerEvents(`${this.animation}:hit`);
+        } else if (this.animation === 'slash' && this.#frame === 5) {
+          this.#triggerEvents(`${this.animation}:hit`);
+        } else if (this.animation === 'whip' && this.#frame === 4) {
+          this.#triggerEvents(`${this.animation}:hit`);
+        } else if (this.animation === 'attack' && this.#animationType === 'dog' && this.#frame === 2) {
+          this.#triggerEvents(`${this.animation}:hit`);
+        } else if (this.animation === 'attack' && this.#animationType === 'bear' && this.#frame === 4) {
+          this.#triggerEvents(`${this.animation}:hit`);
         }
 
         this.#frame++;
@@ -796,6 +849,9 @@ export default class FighterHolder {
         } else if (symbol.name === WEAPON_SYMBOL) {
           // Load all weapon frames
           framesToLoad = WEAPON_FRAMES.map((_, index) => index);
+        } else if (symbol.name === 'Symbol526') {
+          // Special case for whip animation
+          framesToLoad = [16];
         } else {
           // Load only the first frame
           framesToLoad = [0];
@@ -867,6 +923,7 @@ export default class FighterHolder {
     symbol: LaBruteSymbol | Svg | null,
     colorIdx?: string,
     zIndex?: number,
+    svgMaskedBy?: number,
   ) => {
     if (!symbolContainer || !symbol) return;
 
@@ -881,8 +938,23 @@ export default class FighterHolder {
       // Hide shield if needed
       if (sprite.name === SHIELD_SYMBOL[this.#animationType]) {
         sprite.visible = this.shield;
+      } else if (!this.weapon) {
+        // Hide 39 if no weapon
+        sprite.visible = sprite.name !== 'Symbol39';
       } else {
         sprite.visible = true;
+      }
+
+      // Apply masking
+      if (svgMaskedBy) {
+        // Get mask sprite
+        const maskSprite = this.svgs.find((svg) => svg.name === `Symbol${svgMaskedBy}`);
+        if (!maskSprite) {
+          throw new Error(`Mask sprite Symbol${svgMaskedBy} not found`);
+        }
+
+        symbolContainer.addChild(maskSprite);
+        sprite.mask = maskSprite;
       }
 
       // Apply color
@@ -923,6 +995,9 @@ export default class FighterHolder {
       } else if (symbol.name === WEAPON_SYMBOL) {
         // Load current weapon frame
         frameToLoad = WEAPON_FRAMES.indexOf(this.weapon);
+      } else if (symbol.name === 'Symbol526') {
+        // Special case for whip animation
+        frameToLoad = 16;
       } else if (ANIMATION_SYMBOL_NAMES[this.#animationType].includes(symbol.name)) {
         // If the symbol is an animation, load the current frame
         frameToLoad = this.#frame;
@@ -954,6 +1029,7 @@ export default class FighterHolder {
             framePartSymbol,
             colorIdx,
             frameParts.length - i,
+            framePart.maskedBy,
           );
           continue;
         }

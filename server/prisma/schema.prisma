@@ -80,7 +80,7 @@ model BruteBody {
   p1b           Int   @default(0) // [0-1] 0=roman belt, 1=nothing
   p6            Int   @default(0) // (male) 0=shorts, 1=trousers / (female) 0=shorts, 1=nothing
   p8            Int   @default(0) // [0-4] Supposed to be shoes but doesn't change anything ??
-  p7b           Int   @default(2) // Shoes underside (2 = visible, others = hidden)
+  p7b           Int   @default(0) // Shoes underside (2 = visible, others = hidden)
   p5            Int   @default(0) // 0=Nothing, 1=Shirt. Doesn't work
 }
 

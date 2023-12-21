@@ -1,6 +1,5 @@
 /* eslint-disable no-void */
 import { FIGHTER_HIT_ANCHOR, HitStep, WEAPONS_SFX, randomBetween } from '@labrute/core';
-import { GlowFilter } from '@pixi/filter-glow';
 import { OutlineFilter } from '@pixi/filter-outline';
 import { sound } from '@pixi/sound';
 import { Tweener } from 'pixi-tweener';
@@ -120,15 +119,13 @@ const hit = async (
   }
 
   // Add poison filter if damage is poison
+  let poisonFilter: OutlineFilter | null = null;
   if (step.action === 'poison') {
+    poisonFilter = new OutlineFilter(1, 0x006400);
     target.animation.container.filters = [
       ...target.animation.container.filters || [],
-      new GlowFilter({
-        distance: 25,
-        innerStrength: 1,
-        outerStrength: 0,
-        color: 0x006400,
-      })];
+      poisonFilter,
+    ];
   }
 
   // Display floating and fading damage text
@@ -160,6 +157,13 @@ const hit = async (
 
   // Stagger
   await stagger(target.animation.container, target.animation.team, speed);
+
+  // Remove poison filter
+  if (step.action === 'poison') {
+    target.animation.container.filters = target.animation.container.filters?.filter(
+      (filter) => filter !== poisonFilter,
+    ) || [];
+  }
 
   // Set animation to `idle`
   target.animation.setAnimation('idle');
