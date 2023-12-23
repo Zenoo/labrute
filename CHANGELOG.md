@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.47.1](https://github.com/Zenoo/labrute/compare/labrute-v2.47.0...labrute-v2.47.1) (2023-12-23)
+
+
+### Bug Fixes
+
+* Brute sizes on Firefox ([3f1fc9e](https://github.com/Zenoo/labrute/commit/3f1fc9e584acadde1ab5c59b09e732cd04165534))
+
 ## [2.47.0](https://github.com/Zenoo/labrute/compare/labrute-v2.46.4...labrute-v2.47.0) (2023-12-23)
 
 
