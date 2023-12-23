@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.47.0](https://github.com/Zenoo/labrute/compare/labrute-v2.46.4...labrute-v2.47.0) (2023-12-23)
+
+
+### Features
+
+* New brute visuals ([ad49633](https://github.com/Zenoo/labrute/commit/ad4963322a0c8d2e43bede901700e281755e4024))
+* New fight animations ([eb2e25c](https://github.com/Zenoo/labrute/commit/eb2e25c0a1e88de00363b5e5fb487b40e7a0f9dc))
+
+
+### Bug Fixes
+
+* Fight display issues ([5fdeede](https://github.com/Zenoo/labrute/commit/5fdeedeb268179b120489e4f0de655df69852be3))
+* Fight positions ([d688111](https://github.com/Zenoo/labrute/commit/d6881115507c18a56bb5e4d932b1348300cafd62))
+
 ## [2.46.4](https://github.com/Zenoo/labrute/compare/labrute-v2.46.3...labrute-v2.46.4) (2023-12-20)
 
 
