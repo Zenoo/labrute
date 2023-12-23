@@ -27,6 +27,7 @@ import ClanRankingView from './views/clan/ClanRankingView';
 import ClanThreadView from './views/clan/ClanThreadView';
 import ClanView from './views/clan/ClanView';
 import GlobalTournamentView from './views/GlobalTournamentView';
+import ResetVisualsView from './views/ResetVisualsView';
 
 const routes: RouteObject[] = [
   {
@@ -58,6 +59,7 @@ const routes: RouteObject[] = [
           { path: 'destiny', element: <DestinyView /> },
           { path: 'tournaments', element: <TournamentHistoryView /> },
           { path: 'achievements', element: <AchievementsView /> },
+          { path: 'reset-visuals', element: <ResetVisualsView /> },
           {
             path: 'clan',
             element: <ProvideBrute />,

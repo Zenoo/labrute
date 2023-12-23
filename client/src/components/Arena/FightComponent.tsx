@@ -193,7 +193,7 @@ const FightComponent = ({
 
     return () => {
       Tweener.dispose();
-      app.destroy(true);
+      app.destroy(true, true);
 
       // Stop all sounds
       sound.stopAll();

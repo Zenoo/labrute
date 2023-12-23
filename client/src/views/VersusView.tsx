@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import BoxBg from '../components/BoxBg';
-import BruteComponent from '../components/Brute/Body/BruteComponent';
+import BruteRender from '../components/Brute/Body/BruteRender';
 import Page from '../components/Page';
 import StyledButton from '../components/StyledButton';
 import Text from '../components/Text';
@@ -101,19 +101,25 @@ const VersusView = () => {
         <Text h2 smallCaps bold color="text.primary">{t('dareChallenge', { value: opponent.name })}</Text>
         <Grid container spacing={2} sx={{ mt: 4, mb: 5 }}>
           <Grid item xs={12} sm={4}>
-            <BruteComponent
+            <BruteRender
               brute={brute}
-              sx={{ maxWidth: 200 }}
-              inverted
+              width={200}
+              height={300}
+              scale={1}
+              sx={{ mx: 'auto', mt: '-35px' }}
             />
             <Text h3 smallCaps bold color="text.primary">{brute.name}</Text>
             <Text h5 upperCase bold color="secondary">{t('level')} {brute.level}</Text>
           </Grid>
           <Grid item xs={4} sx={{ display: { xs: 'none', sm: 'block' } }} />
           <Grid item xs={12} sm={4}>
-            <BruteComponent
+            <BruteRender
               brute={opponent}
-              sx={{ maxWidth: 200 }}
+              width={200}
+              height={300}
+              scale={1}
+              looking="left"
+              sx={{ mx: 'auto', mt: '-35px' }}
             />
             <Text h3 smallCaps bold color="text.primary">{opponent.name}</Text>
             <Text h5 upperCase bold color="secondary">{t('level')} {opponent.level}</Text>

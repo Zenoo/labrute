@@ -14,10 +14,10 @@ import ads, { AdName } from '../utils/ads';
 import catchError from '../utils/catchError';
 import Fetch from '../utils/Fetch';
 import Server from '../utils/Server';
-import BrutePortrait from './Brute/Body/BrutePortait';
 import Header from './Header';
 import Text from './Text';
 import { Lang } from '@labrute/prisma';
+import BruteRender from './Brute/Body/BruteRender';
 
 interface Props extends BoxProps {
   title: string,
@@ -199,7 +199,18 @@ const Page = ({
               key={brute.name}
               icon={(
                 <Badge badgeContent={getFightsLeft(brute)} color="secondary">
-                  <BrutePortrait brute={brute} sx={{ width: 40 }} />
+                  <BruteRender
+                    brute={brute}
+                    looking="left"
+                    scale={0.4}
+                    y="5px"
+                    sx={{
+                      width: 40,
+                      height: 40,
+                      borderRadius: '50%',
+                      overflow: 'hidden',
+                    }}
+                  />
                 </Badge>
               )}
               tooltipTitle={brute.name}

@@ -2,11 +2,11 @@ import { BruteWithBodyColors } from '@labrute/core';
 import { Box, BoxProps, Stack } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import StatColor from '../../utils/StatColor';
 import CellStats from '../Cell/CellStats';
 import Text from '../Text';
-import BruteComponent from './Body/BruteComponent';
+import BruteRender from './Body/BruteRender';
 import BruteHP from './BruteHP';
-import StatColor from '../../utils/StatColor';
 
 interface BruteBodyAndStatsProps extends BoxProps {
   brute: BruteWithBodyColors;
@@ -21,12 +21,19 @@ const BruteBodyAndStats = ({
   const { t } = useTranslation();
 
   return (
-    <Box display="flex" flexDirection="row" justifyContent={isMd ? 'center' : undefined} {...rest}>
+    <Box
+      position="relative"
+      display="flex"
+      flexDirection="row"
+      justifyContent={isMd ? 'center' : undefined}
+      {...rest}
+    >
       {/* BRUTE */}
-      <BruteComponent
+      <BruteRender
         brute={brute}
-        inverted
-        sx={{ height: 160 }}
+        scale={0.8}
+        width={120}
+        height={180}
       />
       <Stack spacing={1} flexGrow={isMd ? undefined : 1} sx={{ minWidth: 153 }}>
         {/* HP */}

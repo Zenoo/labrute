@@ -505,22 +505,23 @@ export default class FighterHolder {
     this.speed = speed;
 
     // Fail safe for old fights without the new colors and parts
-    if (!this.#colors.col0) {
-      this.#colors.col0 = fighter.data?.colors.skinColor || '';
-      this.#colors.col0a = fighter.data?.colors.skinColor || '';
-      this.#colors.col0c = fighter.data?.colors.skinColor || '';
-      this.#colors.col1 = fighter.data?.colors.hairColor || '';
-      this.#colors.col1a = fighter.data?.colors.hairColor || '';
-      this.#colors.col1b = fighter.data?.colors.hairColor || '';
-      this.#colors.col1c = fighter.data?.colors.hairColor || '';
-      this.#colors.col1d = fighter.data?.colors.hairColor || '';
-      this.#colors.col3 = fighter.data?.colors.primaryColor || '';
-      this.#colors.col2 = fighter.data?.colors.secondaryColor || '';
-      this.#colors.col2b = fighter.data?.colors.accentColor || '';
-      this.#colors.col3b = fighter.data?.colors.accentColor || '';
-      this.#colors.col2a = fighter.data?.colors.accentColor || '';
-      this.#colors.col4 = fighter.data?.colors.accentColor || '';
-      this.#colors.col4a = fighter.data?.colors.accentColor || '';
+    if (this.type === 'brute' && !this.#colors.col0) {
+      const oldColors = fighter.data?.colors as unknown as Record<string, string>;
+      this.#colors.col0 = oldColors.skinColor;
+      this.#colors.col0a = oldColors.skinColor;
+      this.#colors.col0c = oldColors.skinColor;
+      this.#colors.col1 = oldColors.hairColor;
+      this.#colors.col1a = oldColors.hairColor;
+      this.#colors.col1b = oldColors.hairColor;
+      this.#colors.col1c = oldColors.hairColor;
+      this.#colors.col1d = oldColors.hairColor;
+      this.#colors.col3 = oldColors.primaryColor;
+      this.#colors.col2 = oldColors.secondaryColor;
+      this.#colors.col2b = oldColors.accentColor;
+      this.#colors.col3b = oldColors.accentColor;
+      this.#colors.col2a = oldColors.accentColor;
+      this.#colors.col4 = oldColors.accentColor;
+      this.#colors.col4a = oldColors.accentColor;
       this.#colors.col4b = '#0000ff';
 
       this.#parts.p2 = 0;
@@ -537,7 +538,8 @@ export default class FighterHolder {
 
       // Adapt female hair
       if (fighter.gender === Gender.female) {
-        switch (fighter.data?.body.longHair) {
+        const oldParts = fighter.data?.body as unknown as Record<string, number>;
+        switch (oldParts.longHair) {
           case 1:
             this.#parts.p3 = 0;
             break;
@@ -662,7 +664,7 @@ export default class FighterHolder {
         return;
       }
 
-      const tickRate = 1000 / (24 * this.speed.current);
+      const tickRate = 1000 / (30 * this.speed.current);
 
       this.#timer += app.ticker.elapsedMS;
       if (this.#timer === 0 || this.#timer >= tickRate) {

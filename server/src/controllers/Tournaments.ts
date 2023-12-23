@@ -9,7 +9,6 @@ import ServerState from '../utils/ServerState.js';
 import auth from '../utils/auth.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
-import { LOGGER } from '../context.js';
 
 const Tournaments = {
   getDaily: (prisma: PrismaClient) => async (req: Request, res: Response) => {
@@ -296,6 +295,7 @@ const Tournaments = {
               fighters: true,
               brute1: {
                 select: {
+                  id: true,
                   name: true,
                   hp: true,
                   level: true,
@@ -309,6 +309,7 @@ const Tournaments = {
               },
               brute2: {
                 select: {
+                  id: true,
                   name: true,
                   hp: true,
                   level: true,
@@ -348,6 +349,7 @@ const Tournaments = {
               fighters: true,
               brute1: {
                 select: {
+                  id: true,
                   name: true,
                   hp: true,
                   level: true,
@@ -361,6 +363,7 @@ const Tournaments = {
               },
               brute2: {
                 select: {
+                  id: true,
                   name: true,
                   hp: true,
                   level: true,
@@ -573,33 +576,50 @@ const Tournaments = {
           date: true,
           type: true,
           rounds: true,
-          steps: {
-            where: {
-              fight: {
-                AND: [
-                  { OR: [{ brute1Id: brute.id }, { brute2Id: brute.id }] },
-                  { loser: brute.name },
-                ],
-              },
-            },
-            select: { step: true },
-          },
         },
         orderBy: {
           date: 'desc',
         },
         take: 100,
       });
-
-      // Remove step for today's global tournament
       const today = moment.utc().startOf('day');
-      const todayTournament = tournaments.find((t) => moment.utc(t.date).isSame(today, 'day') && t.type === TournamentType.GLOBAL);
 
-      if (todayTournament) {
-        todayTournament.steps = [];
+      // Find steps for each tournament
+      const fullTournaments: TournamentHistoryResponse = [];
+
+      for (const tournament of tournaments) {
+        // Dont send steps for today's tournaments
+        if (moment.utc(tournament.date).isSame(today, 'day')) {
+          fullTournaments.push({
+            ...tournament,
+            steps: [],
+          });
+
+          // eslint-disable-next-line no-continue
+          continue;
+        }
+
+        // eslint-disable-next-line no-await-in-loop
+        const steps = await prisma.tournamentStep.findMany({
+          where: {
+            tournamentId: tournament.id,
+            fight: {
+              AND: [
+                { OR: [{ brute1Id: brute.id }, { brute2Id: brute.id }] },
+                { loser: brute.name },
+              ],
+            },
+          },
+          select: { step: true },
+        });
+
+        fullTournaments.push({
+          ...tournament,
+          steps,
+        });
       }
 
-      res.send(tournaments);
+      res.send(fullTournaments);
     } catch (error) {
       sendError(res, error);
     }

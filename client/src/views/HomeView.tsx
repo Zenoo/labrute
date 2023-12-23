@@ -1,13 +1,14 @@
-import { BruteWithBodyColors, getRandomBody, getRandomColors, UserWithBrutesBodyColor } from '@labrute/core';
-import { Gender, Prisma } from '@labrute/prisma';
-import { Box, Grid, Link, Tooltip, useMediaQuery } from '@mui/material';
+import { getRandomBody, getRandomColors, UserWithBrutesBodyColor } from '@labrute/core';
+import { BruteBody, BruteColors, Gender } from '@labrute/prisma';
+import { Box, Link, Tooltip, useMediaQuery } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import BoxBg from '../components/BoxBg';
-import BruteComponent from '../components/Brute/Body/BruteComponent';
+import BruteRender from '../components/Brute/Body/BruteRender';
 import EmptyBrute from '../components/Brute/Body/EmptyBrute';
+import FantasyButton from '../components/FantasyButton';
 import Page from '../components/Page';
 import StyledButton from '../components/StyledButton';
 import StyledInput from '../components/StyledInput';
@@ -20,7 +21,6 @@ import catchError from '../utils/catchError';
 import Fetch from '../utils/Fetch';
 import Server from '../utils/Server';
 import HomeMobileView from './mobile/HomeMobileView';
-import FantasyButton from '../components/FantasyButton';
 
 /**
  * HomeView component
@@ -84,10 +84,10 @@ const HomeView = () => {
   /* CHARACTER CREATOR */
   const [creationStarted, setCreationStarted] = useState(false);
   const [gender, setGender] = useState<Gender>(Gender.female);
-  const [bodyParts, setBodyParts] = useState<Prisma.BruteBodyCreateWithoutBruteInput>(
+  const [bodyParts, setBodyParts] = useState<Omit<BruteBody, 'id' | 'bruteId'>>(
     getRandomBody(gender),
   );
-  const [bodyColors, setBodyColors] = useState<Prisma.BruteColorsCreateWithoutBruteInput>(
+  const [bodyColors, setBodyColors] = useState<Omit<BruteColors, 'id' | 'bruteId'>>(
     getRandomColors(gender),
   );
 
@@ -159,7 +159,7 @@ const HomeView = () => {
 
     // Get referer
     const url = new URL(window.location.href);
-    const ref = url.searchParams.get('ref');
+    const referer = url.searchParams.get('ref');
 
     const response = await Server.Brute.create(
       name,
@@ -167,7 +167,7 @@ const HomeView = () => {
       gender,
       bodyParts,
       bodyColors,
-      ref
+      referer
     ).catch(catchError(Alert));
 
     if (response?.brute) {
@@ -192,20 +192,45 @@ const HomeView = () => {
     }).catch(catchError(Alert));
   }, [Alert]);
 
+  const character = (
+    <Box sx={{ textAlign: 'center', mt: creationStarted ? 0 : 1 }}>
+      <BruteRender
+        brute={{
+          id: 0,
+          name: '',
+          body: bodyParts,
+          colors: bodyColors,
+          gender,
+        }}
+        scale={0.8}
+        sx={{
+          display: creationStarted ? 'block' : 'none',
+          alignSelf: 'center',
+          position: 'relative',
+          fontSize: 0,
+          height: 250,
+          mt: -5,
+          mx: smallScreen ? 'auto' : undefined,
+          '& canvas': {
+            maxWidth: '100%',
+          }
+        }}
+      />
+      {!creationStarted && <EmptyBrute style={{ marginBottom: '12px' }} />}
+    </Box>
+  );
+
   return smallScreen
     ? (
       <HomeMobileView
         changeName={changeName}
         name={name}
-        creationStarted={creationStarted}
-        gender={gender}
-        bodyParts={bodyParts}
-        bodyColors={bodyColors}
         changeAppearance={changeAppearance}
         changeColors={changeColors}
         leftAd={leftAd}
         rightAd={rightAd}
         createBrute={createBrute}
+        character={character}
       />
     )
     : (
@@ -222,14 +247,21 @@ const HomeView = () => {
             }}
           >
             {/* CREATION HEADER */}
-            <Grid container sx={{ pl: 7, pr: 4, pt: 3 }}>
-              <Grid item xs={9} sx={{ pl: 4 }}>
-                <Text sx={{ typography: 'Pixelized', fontSize: 7 }} color="secondary">{t('chooseName')}</Text>
-              </Grid>
-              <Grid item xs={3}>
-                <Box component="img" src="/images/creation/arrow.png" />
-              </Grid>
-            </Grid>
+            <Box sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: 1,
+              mt: 1.5,
+            }}
+            >
+              <Text sx={{ typography: 'Pixelized', fontSize: 7 }} color="secondary">{t('chooseName')}</Text>
+              <Box
+                component="img"
+                src="/images/creation/arrow.png"
+                sx={{ width: 20 }}
+              />
+            </Box>
             {/* NAME INPUT */}
             <Box sx={{ pl: 6.5, pr: 4 }}>
               <StyledInput
@@ -237,28 +269,23 @@ const HomeView = () => {
                 value={name}
               />
               {/* CHARACTER */}
-              <Box sx={{ textAlign: 'center', mt: creationStarted ? 0 : 1 }}>
-                {creationStarted ? (
-                  <BruteComponent
-                    brute={{
-                      name,
-                      gender,
-                      body: bodyParts,
-                      colors: bodyColors,
-                    } as BruteWithBodyColors}
-                    inverted
-                    sx={{ height: 160 }}
-                  />
-                ) : <EmptyBrute style={{ marginBottom: '12px' }} />}
-              </Box>
+              {character}
               {/* CUSTOMIZATION BUTTONS */}
-              <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Box sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                mt: creationStarted ? -11.25 : -5.85,
+              }}
+              >
                 <Tooltip title={t('changeAppearance')}>
                   <StyledButton
                     onClick={changeAppearance}
                     image="/images/creation/bodyType.svg"
                     swapImage={false}
-                    sx={{ width: 89, height: 89, mt: -9.5 }}
+                    sx={{
+                      width: 89,
+                      height: 89,
+                    }}
                   />
                 </Tooltip>
                 <Tooltip title={t('changeColors')}>
@@ -266,7 +293,10 @@ const HomeView = () => {
                     onClick={changeColors}
                     image="/images/creation/color.svg"
                     swapImage={false}
-                    sx={{ width: 89, height: 89, mt: -9.5 }}
+                    sx={{
+                      width: 89,
+                      height: 89,
+                    }}
                   />
                 </Tooltip>
               </Box>
@@ -275,7 +305,7 @@ const HomeView = () => {
                 component="img"
                 src="/images/creation/broken.png"
                 alt="Crack"
-                sx={{ mt: -1.5, ml: 16 }}
+                sx={{ mt: -0.25, ml: 16 }}
               />
               {/* VALIDATION */}
               <Box sx={{ textAlign: 'center' }}>

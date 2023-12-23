@@ -5,8 +5,6 @@ import moment from 'moment';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
-import BruteComponent from '../components/Brute/Body/BruteComponent';
-import BrutePortrait from '../components/Brute/Body/BrutePortait';
 import BruteTooltip from '../components/Brute/BruteTooltip';
 import FantasyButton from '../components/FantasyButton';
 import Page from '../components/Page';
@@ -17,6 +15,7 @@ import { useBrute } from '../hooks/useBrute';
 import useStateAsync from '../hooks/useStateAsync';
 import Server from '../utils/Server';
 import TournamentMobileView from './mobile/TournamentMobileView';
+import BruteRender from '../components/Brute/Body/BruteRender';
 
 const scale = (base: number, round: number) => ((round === 0 || round === 10)
   ? base * 0.5
@@ -246,6 +245,7 @@ const TournamentView = () => {
                           width: scale(StyledButtonWidth, index),
                           height: scale(StyledButtonHeight, index),
                           m: `${scale(8, index)}px`,
+                          overflow: 'hidden',
                         }}
                       >
                         {/* Left fighter */}
@@ -254,12 +254,12 @@ const TournamentView = () => {
                           brute={step.fight.brute1}
                         >
                           <Box sx={{ position: 'relative', mt: 1 }}>
-                            <BrutePortrait
-                              inverted
+                            <BruteRender
                               brute={step.fight.brute1}
-                              sx={{
-                                width: scale(100, index),
-                              }}
+                              scale={scale(0.5, index)}
+                              width={scale(100, index)}
+                              height={scale(60, index)}
+                              y={`${scale(10, index)}px`}
                             />
                             {/* Lost indicator */}
                             {shouldResultDisplay
@@ -306,11 +306,13 @@ const TournamentView = () => {
                             brute={step.fight.brute2}
                           >
                             <Box sx={{ position: 'relative', mt: 1 }}>
-                              <BrutePortrait
+                              <BruteRender
                                 brute={step.fight.brute2}
-                                sx={{
-                                  width: scale(100, index),
-                                }}
+                                looking="left"
+                                scale={scale(0.5, index)}
+                                width={scale(100, index)}
+                                height={scale(60, index)}
+                                y={`${scale(10, index)}px`}
                               />
                               {/* Lost indicator */}
                               {shouldResultDisplay
@@ -367,7 +369,7 @@ const TournamentView = () => {
                   ? winnerStep.fight.brute1
                   : winnerStep.fight.brute2}
               >
-                <BruteComponent
+                <BruteRender
                   brute={winnerStep.fight.winner === winnerStep.fight.brute1.name
                     ? winnerStep.fight.brute1
                     : winnerStep?.fight.brute2}
@@ -378,6 +380,7 @@ const TournamentView = () => {
                     right: 0,
                     margin: 'auto',
                     width: 140,
+                    height: 250,
                   }}
                 />
               </BruteTooltip>

@@ -5,14 +5,13 @@ import { Box, Paper } from '@mui/material';
 import moment from 'moment';
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
-import BruteComponent from '../../components/Brute/Body/BruteComponent';
-import BrutePortrait from '../../components/Brute/Body/BrutePortait';
 import BruteTooltip from '../../components/Brute/BruteTooltip';
 import FantasyButton from '../../components/FantasyButton';
 import Page from '../../components/Page';
 import StyledButton, { StyledButtonHeight, StyledButtonWidth } from '../../components/StyledButton';
 import Text from '../../components/Text';
 import { useAuth } from '../../hooks/useAuth';
+import BruteRender from '../../components/Brute/Body/BruteRender';
 
 const rounds = [
   [-1, 32],
@@ -112,6 +111,7 @@ const TournamentMobileView = ({
                           width: StyledButtonWidth * 0.7,
                           height: StyledButtonHeight * 0.7,
                           m: 1,
+                          overflow: 'hidden',
                         }}
                       >
                         {/* Left fighter */}
@@ -120,12 +120,13 @@ const TournamentMobileView = ({
                           brute={step.fight.brute1}
                         >
                           <Box sx={{ position: 'relative', mt: 1 }}>
-                            <BrutePortrait
-                              inverted
+                            <BruteRender
                               brute={step.fight.brute1}
-                              sx={{
-                                height: 45,
-                              }}
+                              scale={0.35}
+                              width={40}
+                              height={40}
+                              y="5px"
+                              mr={1}
                             />
                             {/* Lost indicator */}
                             {shouldResultDisplay
@@ -172,11 +173,14 @@ const TournamentMobileView = ({
                             brute={step.fight.brute2}
                           >
                             <Box sx={{ position: 'relative', mt: 1 }}>
-                              <BrutePortrait
+                              <BruteRender
                                 brute={step.fight.brute2}
-                                sx={{
-                                  height: 45,
-                                }}
+                                looking="left"
+                                scale={0.35}
+                                width={40}
+                                height={40}
+                                y="5px"
+                                ml={1}
                               />
                               {/* Lost indicator */}
                               {shouldResultDisplay
@@ -233,15 +237,13 @@ const TournamentMobileView = ({
                 ? winnerStep.fight.brute1
                 : winnerStep.fight.brute2}
             >
-              <BruteComponent
+              <BruteRender
                 brute={winnerStep.fight.winner === winnerStep.fight.brute1.name
                   ? winnerStep.fight.brute1
                   : winnerStep?.fight.brute2}
-                sx={{
-                  display: 'block',
-                  width: 140,
-                  m: '0 auto'
-                }}
+                width={140}
+                height={250}
+                sx={{ mx: 'auto' }}
               />
             </BruteTooltip>
           )}

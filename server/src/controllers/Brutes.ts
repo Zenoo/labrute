@@ -7,6 +7,7 @@ import {
   BrutesCreateResponse,
   BrutesExistsResponse, BrutesGetDestinyResponse,
   BrutesGetFightsLeftResponse, BrutesGetForRankResponse,
+  BrutesGetOpponentsResponse,
   BrutesGetRankingResponse,
   DestinyBranch, ExpectedError,
   HookBrute,
@@ -24,11 +25,11 @@ import {
 } from '@labrute/core';
 import {
   Brute,
-  DestinyChoiceSide, DestinyChoiceType, Gender, LogType, Prisma, PrismaClient, TournamentType,
+  DestinyChoiceSide, DestinyChoiceType, Gender,
+  InventoryItemType, LogType, Prisma, PrismaClient, TournamentType,
 } from '@labrute/prisma';
 import { Request, Response } from 'express';
 import moment from 'moment';
-import { LOGGER } from '../context.js';
 import auth from '../utils/auth.js';
 import checkBody from '../utils/brute/checkBody.js';
 import checkColors from '../utils/brute/checkColors.js';
@@ -106,6 +107,7 @@ const Brutes = {
               date: moment.utc().startOf('day').toDate(),
             },
           },
+          inventory: true,
         },
       });
 
@@ -182,15 +184,11 @@ const Brutes = {
     try {
       const user = await auth(prisma, req);
 
-      try {
-        // Check colors validity
-        checkColors(user, req.body.gender, req.body.colors);
+      // Check colors validity
+      checkColors(user, req.body.gender, req.body.colors);
 
-        // Check body validity
-        checkBody(user, req.body.gender, req.body.body);
-      } catch (error) {
-        LOGGER.log(`User ${user.name} tried to create a brute with invalid colors or body.`);
-      }
+      // Check body validity
+      checkBody(user, req.body.gender, req.body.body);
 
       // Check name for banned words
       const banned: { count: bigint }[] = await prisma.$queryRaw`SELECT COUNT(*) FROM "BannedWord" WHERE ${req.body.name.toLowerCase()} LIKE CONCAT('%', word, '%')`;
@@ -506,7 +504,7 @@ const Brutes = {
   },
   getOpponents: (prisma: PrismaClient) => async (
     req: Request,
-    res: Response<BruteWithBodyColors[]>,
+    res: Response<BrutesGetOpponentsResponse>,
   ) => {
     try {
       const user = await auth(prisma, req);
@@ -518,7 +516,27 @@ const Brutes = {
           deletedAt: null,
           userId: user.id,
         },
-        include: { opponents: { include: { body: true, colors: true } } },
+        select: {
+          id: true,
+          name: true,
+          level: true,
+          opponentsGeneratedAt: true,
+          opponents: {
+            select: {
+              id: true,
+              name: true,
+              level: true,
+              gender: true,
+              hp: true,
+              strengthValue: true,
+              agilityValue: true,
+              speedValue: true,
+              deletedAt: true,
+              body: true,
+              colors: true,
+            },
+          },
+        },
       });
 
       if (!brute) {
@@ -1409,6 +1427,7 @@ const Brutes = {
               date: moment.utc().startOf('day').toDate(),
             },
           },
+          inventory: true,
         },
       });
 
@@ -1541,6 +1560,94 @@ const Brutes = {
       }
 
       res.send(updatedBrute);
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  resetVisuals: (prisma: PrismaClient) => async (
+    req: Request<{
+      name: string,
+    }, unknown, {
+      body: Prisma.BruteBodyCreateWithoutBruteInput,
+      colors: Prisma.BruteColorsCreateWithoutBruteInput,
+    }>,
+    res: Response,
+  ) => {
+    try {
+      const user = await auth(prisma, req);
+
+      // Check if user owns the brute
+      const brute = user.brutes.find((b) => b.name === req.params.name);
+
+      if (!brute) {
+        throw new Error(translate('bruteNotFound', user));
+      }
+
+      // Check if brute can change visuals
+      const inventory = await prisma.bruteInventoryItem.findUnique({
+        where: {
+          type_bruteId: {
+            bruteId: brute.id,
+            type: InventoryItemType.visualReset,
+          },
+        },
+      });
+
+      if (!inventory) {
+        throw new ExpectedError(translate('unauthorized', user));
+      }
+
+      // Check colors validity
+      checkColors(user, brute.gender, req.body.colors);
+
+      // Check body validity
+      checkBody(user, brute.gender, req.body.body);
+
+      // Update the brute body
+      await prisma.bruteBody.update({
+        where: { bruteId: brute.id },
+        data: {
+          ...req.body.body,
+        },
+        select: { id: true },
+      });
+
+      // Update the brute colors
+      await prisma.bruteColors.update({
+        where: { bruteId: brute.id },
+        data: {
+          ...req.body.colors,
+        },
+        select: { id: true },
+      });
+
+      // Update the brute inventory
+      if (inventory.count === 1) {
+        await prisma.bruteInventoryItem.delete({
+          where: {
+            type_bruteId: {
+              bruteId: brute.id,
+              type: InventoryItemType.visualReset,
+            },
+          },
+        });
+      } else {
+        await prisma.bruteInventoryItem.update({
+          where: {
+            type_bruteId: {
+              bruteId: brute.id,
+              type: InventoryItemType.visualReset,
+            },
+          },
+          data: {
+            count: {
+              decrement: 1,
+            },
+          },
+        });
+      }
+
+      res.send({ success: true });
     } catch (error) {
       sendError(res, error);
     }

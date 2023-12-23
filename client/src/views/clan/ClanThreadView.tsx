@@ -12,7 +12,7 @@ import { useConfirm } from '../../hooks/useConfirm';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
 import moment from 'moment';
-import BruteComponent from '../../components/Brute/Body/BruteComponent';
+import BruteRender from '../../components/Brute/Body/BruteRender';
 
 const ClanThreadView = () => {
   const { t } = useTranslation();
@@ -165,14 +165,15 @@ const ClanThreadView = () => {
                   }}
                 />
                 {/* BRUTE */}
-                <BruteComponent
+                <BruteRender
                   brute={post.author}
-                  inverted
+                  scale={0.7}
                   sx={{
                     position: 'absolute',
                     top: -10,
                     left: -30,
                     height: 150,
+                    width: 100,
                   }}
                 />
               </Box>

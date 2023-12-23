@@ -1,11 +1,11 @@
 import { BruteWithBodyColors, getXPNeeded, skills, weapons } from '@labrute/core';
 import { BruteStat, DestinyChoice, DestinyChoiceSide, PetName, SkillName, WeaponName } from '@labrute/prisma';
-import { Alert as MuiAlert, Box, Paper, useMediaQuery } from '@mui/material';
+import { Box, Alert as MuiAlert, Paper, useMediaQuery } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import BoxBg from '../components/BoxBg';
-import BruteComponent from '../components/Brute/Body/BruteComponent';
+import BruteRender from '../components/Brute/Body/BruteRender';
 import SkillTooltip from '../components/Brute/SkillTooltip';
 import WeaponTooltip from '../components/Brute/WeaponTooltip';
 import Page from '../components/Page';
@@ -13,8 +13,8 @@ import StyledButton from '../components/StyledButton';
 import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
-import catchError from '../utils/catchError';
 import Server from '../utils/Server';
+import catchError from '../utils/catchError';
 
 const LevelUpView = () => {
   const { t } = useTranslation();
@@ -93,10 +93,12 @@ const LevelUpView = () => {
               mt: 1,
             }}
           >
-            <BruteComponent
+            <BruteRender
               brute={brute}
-              inverted
-              sx={{ height: 160, mt: 1 }}
+              width={120}
+              height={180}
+              scale={0.6}
+              sx={{ mx: 'auto' }}
             />
           </BoxBg>
           {/* ARROWS */}

@@ -4,13 +4,13 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
-import BrutePortrait from '../components/Brute/Body/BrutePortait';
 import Page from '../components/Page';
 import StyledButton from '../components/StyledButton';
 import Text from '../components/Text';
 import useStateAsync from '../hooks/useStateAsync';
 import Server from '../utils/Server';
 import Link from '../components/Link';
+import BruteRender from '../components/Brute/Body/BruteRender';
 
 const RankingView = () => {
   const { t } = useTranslation();
@@ -39,10 +39,16 @@ const RankingView = () => {
       <TableCell component="th" scope="row">
         {index + 1}
       </TableCell>
-      <TableCell>
+      <TableCell sx={{ overflow: 'hidden' }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <BrutePortrait brute={brute} shadow={false} sx={{ width: 40, mr: 1, filter: null, }} />
-          <Link to={`/${brute.name}/cell`}>
+          <BruteRender
+            brute={brute}
+            scale={0.3}
+            width={30}
+            height={20}
+            y="-10px"
+          />
+          <Link to={`/${brute.name}/cell`} sx={{ ml: 1 }}>
             <Text bold>{brute.name}</Text>
           </Link>
         </Box>

@@ -60,6 +60,7 @@ const Server = {
     restore: (id: number) => Fetch<never>(`/api/brute/${id}/restore`),
     favorite: (name: string) => Fetch<never>(`/api/brute/${name}/favorite`),
     reset: (name: string) => Fetch<HookBrute>(`/api/brute/${name}/reset`),
+    resetVisuals: (name: string, body: Prisma.BruteBodyCreateWithoutBruteInput, colors: Prisma.BruteColorsCreateWithoutBruteInput) => Fetch<never>(`/api/brute/${name}/reset-visuals`, { body, colors }, 'POST'),
   },
   Log: {
     list: (brute: string) => Fetch<(Log & { currentBrute: { name: string } })[]>(`/api/log/list/${brute}`),

@@ -6,10 +6,10 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useBrute } from '../../hooks/useBrute';
 import Server from '../../utils/Server';
-import BrutePortrait from '../Brute/Body/BrutePortait';
 import BruteTooltip from '../Brute/BruteTooltip';
 import Link from '../Link';
 import Text from '../Text';
+import BruteRender from '../Brute/Body/BruteRender';
 
 interface CellGlobalTournamentProps extends PaperProps {
   date?: moment.Moment;
@@ -95,16 +95,26 @@ const CellGlobalTournament = ({
           borderColor: theme.palette.border.shadow,
           borderRadius: 1,
           m: 1,
+          overflow: 'hidden',
+          width: finals ? 140 : 95,
+          height: finals ? 40 : 28,
         }}
       >
         <BruteTooltip fighter={fighter1} brute={step.fight.brute1}>
-          <Box sx={{ position: 'relative', display: 'inline-block', ml: -0.5 }}>
-            <BrutePortrait
-              inverted
+          <Box
+            sx={{
+              position: 'relative',
+              display: 'inline-block',
+              mt: finals ? 5 : 4,
+            }}
+          >
+            <BruteRender
               brute={step.fight.brute1}
+              looking="right"
+              scale={finals ? 0.4 : 0.3}
               sx={{
+                height: finals ? 45 : 30,
                 width: finals ? 60 : 40,
-                verticalAlign: 'middle',
               }}
             />
             {step.fight.winner === step.fight.brute2?.name && (
@@ -130,12 +140,20 @@ const CellGlobalTournament = ({
         />
         {step.fight.brute2 && (
           <BruteTooltip fighter={fighter2} brute={step.fight.brute2}>
-            <Box sx={{ position: 'relative', display: 'inline-block', mr: -0.5 }}>
-              <BrutePortrait
+            <Box
+              sx={{
+                position: 'relative',
+                display: 'inline-block',
+                mt: finals ? 5 : 4,
+              }}
+            >
+              <BruteRender
                 brute={step.fight.brute2}
+                looking="left"
+                scale={finals ? 0.4 : 0.3}
                 sx={{
+                  height: finals ? 45 : 30,
                   width: finals ? 60 : 40,
-                  verticalAlign: 'middle',
                 }}
               />
               {step.fight.winner === step.fight.brute1.name && (

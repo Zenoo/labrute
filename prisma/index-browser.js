@@ -123,25 +123,6 @@ exports.Prisma.UserScalarFieldEnum = {
 exports.Prisma.BruteBodyScalarFieldEnum = {
   id: 'id',
   bruteId: 'bruteId',
-  longHair: 'longHair',
-  lowerRightArm: 'lowerRightArm',
-  rightHand: 'rightHand',
-  upperRightArm: 'upperRightArm',
-  rightShoulder: 'rightShoulder',
-  rightFoot: 'rightFoot',
-  lowerRightLeg: 'lowerRightLeg',
-  upperRightLeg: 'upperRightLeg',
-  leftFoot: 'leftFoot',
-  lowerLeftLeg: 'lowerLeftLeg',
-  pelvis: 'pelvis',
-  upperLeftLeg: 'upperLeftLeg',
-  tummy: 'tummy',
-  torso: 'torso',
-  head: 'head',
-  leftHand: 'leftHand',
-  upperLeftArm: 'upperLeftArm',
-  lowerLeftArm: 'lowerLeftArm',
-  leftShoulder: 'leftShoulder',
   p2: 'p2',
   p3: 'p3',
   p4: 'p4',
@@ -158,16 +139,6 @@ exports.Prisma.BruteBodyScalarFieldEnum = {
 exports.Prisma.BruteColorsScalarFieldEnum = {
   id: 'id',
   bruteId: 'bruteId',
-  skinColor: 'skinColor',
-  skinShade: 'skinShade',
-  hairColor: 'hairColor',
-  hairShade: 'hairShade',
-  primaryColor: 'primaryColor',
-  primaryShade: 'primaryShade',
-  secondaryColor: 'secondaryColor',
-  secondaryShade: 'secondaryShade',
-  accentColor: 'accentColor',
-  accentShade: 'accentShade',
   col0: 'col0',
   col0a: 'col0a',
   col0c: 'col0c',
@@ -358,6 +329,13 @@ exports.Prisma.ClanPostScalarFieldEnum = {
   authorId: 'authorId',
   date: 'date',
   message: 'message'
+};
+
+exports.Prisma.BruteInventoryItemScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  count: 'count',
+  bruteId: 'bruteId'
 };
 
 exports.Prisma.SortOrder = {
@@ -633,6 +611,10 @@ exports.BossName = exports.$Enums.BossName = {
   EmberFang: 'EmberFang'
 };
 
+exports.InventoryItemType = exports.$Enums.InventoryItemType = {
+  visualReset: 'visualReset'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   BruteBody: 'BruteBody',
@@ -652,7 +634,8 @@ exports.Prisma.ModelName = {
   WorkerJob: 'WorkerJob',
   Clan: 'Clan',
   ClanThread: 'ClanThread',
-  ClanPost: 'ClanPost'
+  ClanPost: 'ClanPost',
+  BruteInventoryItem: 'BruteInventoryItem'
 };
 
 /**

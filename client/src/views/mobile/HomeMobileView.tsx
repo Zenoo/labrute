@@ -1,10 +1,6 @@
-import { BruteWithBodyColors } from '@labrute/core';
-import { Gender, Prisma } from '@labrute/prisma';
 import { Box, Grid, Link, Paper, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import BruteComponent from '../../components/Brute/Body/BruteComponent';
-import EmptyBrute from '../../components/Brute/Body/EmptyBrute';
 import Page from '../../components/Page';
 import StyledButton from '../../components/StyledButton';
 import StyledInput from '../../components/StyledInput';
@@ -14,29 +10,23 @@ import { AdResult } from '../../utils/ads';
 export interface HomeMobileViewProps {
   changeName: (event: React.ChangeEvent<HTMLInputElement>) => void;
   name: string;
-  creationStarted: boolean;
-  gender: Gender;
-  bodyParts: Prisma.BruteBodyCreateWithoutBruteInput;
-  bodyColors: Prisma.BruteColorsCreateWithoutBruteInput;
   changeAppearance: () => void;
   changeColors: () => void;
   leftAd: AdResult;
   rightAd: AdResult;
   createBrute: () => void;
+  character: React.JSX.Element;
 }
 
 const HomeMobileView = ({
   changeName,
   name,
-  creationStarted,
-  gender,
-  bodyParts,
-  bodyColors,
   changeAppearance,
   changeColors,
   leftAd,
   rightAd,
-  createBrute
+  createBrute,
+  character,
 }: HomeMobileViewProps) => {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -97,20 +87,7 @@ const HomeMobileView = ({
                 sx={{ mx: 'auto' }}
               />
               {/* CHARACTER */}
-              <Box sx={{ textAlign: 'center', mt: creationStarted ? 0 : 1 }}>
-                {creationStarted ? (
-                  <BruteComponent
-                    brute={{
-                      name,
-                      gender,
-                      body: bodyParts,
-                      colors: bodyColors,
-                    } as BruteWithBodyColors}
-                    inverted
-                    sx={{ height: 160 }}
-                  />
-                ) : <EmptyBrute style={{ marginBottom: '12px' }} />}
-              </Box>
+              {character}
               {/* CUSTOMIZATION BUTTONS */}
               <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Tooltip title={t('changeAppearance')}>

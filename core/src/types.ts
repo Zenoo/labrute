@@ -1,4 +1,4 @@
-import { Achievement, Brute, BruteBody, BruteColors, BruteReport, Clan, DestinyChoice, DestinyChoiceSide, Fight, Gender, SkillName, Tournament, TournamentStep, User, WeaponName } from '@labrute/prisma';
+import { Achievement, Brute, BruteBody, BruteColors, BruteInventoryItem, BruteReport, Clan, DestinyChoice, DestinyChoiceSide, Fight, Gender, SkillName, Tournament, TournamentStep, User, WeaponName } from '@labrute/prisma';
 import { Skill } from './brute/skills';
 import { Weapon, WeaponAnimation } from './brute/weapons';
 import { BruteRanking } from './constants';
@@ -360,6 +360,7 @@ export type HookBrute = Brute & {
   clan: Pick<Clan, 'id' | 'name'> | null;
   user: Pick<User, 'id' | 'name'> | null;
   tournaments: Tournament[];
+  inventory: BruteInventoryItem[];
 };
 export type AdminPanelBrute = BruteWithBodyColors & {
   user: User | null;

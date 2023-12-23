@@ -10,7 +10,7 @@
   "createBrute": "Insert a name to create your own Brute. You will be able to fight against other Brutes in the arena and recruit new pupils. Gain experience and fight tough in the ranking to become... THE BRUTE!",
   "orNotToBe": "... OR NOT TO BE",
   "otherGames": "If all this unrelenting violence is too much for you, you can try our other funny games:",
-  "chooseName": "Choose a name to generate a Brute",
+  "chooseName": "Choose a name",
   "arrow": "Arrow",
   "character": "Character",
   "changeAppearance": "Change the appearance",
@@ -361,6 +361,11 @@
   "reset": "Reset",
   "resetConfirm": "Are you sure you want to reset your brute to level 1 ? This will cost you {{gold}} Gold. This action cannot be undone.",
   "resetSuccess": "Reset success",
+  "resetVisuals": "Reset appearance",
+  "resetVisualsDescription": "You can change your brute's appearance here. Be careful, this action cannot be undone.",
+  "resetVisualsConfirm": "Are you sure you want to reset your brute's appearance ? This action cannot be undone.",
+  "resetVisualsSuccess": "Appearance reset successfull",
+
 
   "callToFight": "If you want to discharge your energy on someone, do it here! There are a lot of Brutes in the Arena who can't wait to swap punches!",
   "arena": "Arena",

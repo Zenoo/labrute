@@ -1,11 +1,11 @@
-import { BruteWithBodyColors, FightStat, getFightsLeft, getXPNeeded } from '@labrute/core';
+import { BrutesGetOpponentsResponse, FightStat, getFightsLeft, getXPNeeded } from '@labrute/core';
 import { Brute } from '@labrute/prisma';
 import { Box, Button, Grid, Paper, useMediaQuery, useTheme } from '@mui/material';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import ArenaStat from '../components/Arena/ArenaStat';
-import BruteComponent from '../components/Brute/Body/BruteComponent';
+import BruteRender from '../components/Brute/Body/BruteRender';
 import BruteBodyAndStats from '../components/Brute/BruteBodyAndStats';
 import BruteHP from '../components/Brute/BruteHP';
 import BruteLevelAndXP from '../components/Brute/BruteLevelAndXP';
@@ -28,7 +28,7 @@ const ArenaView = () => {
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
   const { brute } = useBrute();
 
-  const [opponents, setOpponents] = useState<BruteWithBodyColors[]>([]);
+  const [opponents, setOpponents] = useState<BrutesGetOpponentsResponse>([]);
   const [search, setSearch] = useState('');
 
   const xpNeededForNextLevel = useMemo(() => brute
@@ -63,7 +63,7 @@ const ArenaView = () => {
   }, [Alert, brute, fightsLeft, navigate, xpNeededForNextLevel]);
 
   // Go to versus page
-  const goToVersus = useCallback((opponent: Brute) => () => {
+  const goToVersus = useCallback((opponent: Pick<Brute, 'name'>) => () => {
     navigate(`/${bruteName || ''}/versus/${opponent.name}`);
   }, [bruteName, navigate]);
 
@@ -176,13 +176,14 @@ const ArenaView = () => {
                           />
                         </Box>
                       </Box>
-                      <BruteComponent
+                      <BruteRender
                         brute={opponent}
+                        looking="left"
+                        scale={0.8}
                         sx={{
                           position: 'absolute',
-                          height: 160,
-                          top: 0,
-                          left: 92,
+                          bottom: 0,
+                          left: 145,
                         }}
                       />
                     </Box>

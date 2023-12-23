@@ -10,6 +10,7 @@ import routes from './routes';
 import light from './theme/light';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { RendererProvider } from './hooks/useRenderer';
 
 /**
  * App entry point
@@ -24,15 +25,17 @@ const App = () => {
         <CssBaseline />
         <AlertProvider>
           <AuthProvider>
-            <StyledEngineProvider injectFirst>
-              <ThemeProvider theme={light}>
-                <ConfirmProvider>
-                  <Suspense fallback={<Loader />}>
-                    {routing}
-                  </Suspense>
-                </ConfirmProvider>
-              </ThemeProvider>
-            </StyledEngineProvider>
+            <RendererProvider>
+              <StyledEngineProvider injectFirst>
+                <ThemeProvider theme={light}>
+                  <ConfirmProvider>
+                    <Suspense fallback={<Loader />}>
+                      {routing}
+                    </Suspense>
+                  </ConfirmProvider>
+                </ThemeProvider>
+              </StyledEngineProvider>
+            </RendererProvider>
           </AuthProvider>
         </AlertProvider>
       </HelmetProvider>

@@ -1,5 +1,5 @@
 import { BruteRanking, getFightsLeft, getMaxFightsPerDay, getXPNeeded } from '@labrute/core';
-import { Lang } from '@labrute/prisma';
+import { InventoryItemType, Lang } from '@labrute/prisma';
 import { Box, BoxProps, Stack } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useMemo } from 'react';
@@ -47,6 +47,12 @@ const CellMain = ({
     [brute],
   );
 
+  const canResetVisuals = useMemo(
+    () => (brute ? brute.inventory
+      .some((item) => item.type === InventoryItemType.visualReset && item.count > 0) : false),
+    [brute],
+  );
+
   // Rank up
   const rankUp = useCallback(() => {
     if (!brute) return;
@@ -70,7 +76,7 @@ const CellMain = ({
           <Text bold color="secondary" sx={{ pl: 0.5 }}>{t(`lvl_${brute.ranking as BruteRanking}`)}</Text>
         </Box>
       </Box>
-      <BruteBodyAndStats brute={brute} sx={{ mb: 1 }} />
+      <BruteBodyAndStats brute={brute} sx={{ mb: 1, zIndex: -1, }} />
 
       {/* Rank up */}
       {owner && brute.canRankUpSince && brute.ranking > 0 && (!moment.utc(brute.canRankUpSince).isSame(moment.utc(), 'day') || brute.currentTournamentStepWatched === 6) && (
@@ -156,6 +162,19 @@ const CellMain = ({
         >
           {t('reset')}
         </FantasyButton>
+      )}
+      {/* RESET VISUALS */}
+      {owner && canResetVisuals && (
+        <Link to={`/${brute.name}/reset-visuals`}>
+          <FantasyButton
+            color="secondary"
+            sx={{
+              mt: 2,
+            }}
+          >
+            {t('resetVisuals')}
+          </FantasyButton>
+        </Link>
       )}
     </Box>
   );

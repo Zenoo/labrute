@@ -5,7 +5,6 @@ import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import ArenaStat from '../components/Arena/ArenaStat';
-import BruteComponent from '../components/Brute/Body/BruteComponent';
 import BruteHP from '../components/Brute/BruteHP';
 import Page from '../components/Page';
 import StyledButton from '../components/StyledButton';
@@ -14,6 +13,7 @@ import { useAuth } from '../hooks/useAuth';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
 import { useAlert } from '../hooks/useAlert';
+import BruteRender from '../components/Brute/Body/BruteRender';
 
 const HallView = () => {
   const { t } = useTranslation();
@@ -170,13 +170,16 @@ const HallView = () => {
                   />
                 </Box>
               </Box>
-              <BruteComponent
+              <BruteRender
                 brute={brute}
+                looking="left"
+                scale={0.8}
+                width={120}
+                height={100}
                 sx={{
                   position: 'absolute',
-                  height: 160,
-                  top: 0,
-                  left: 92,
+                  top: 42,
+                  left: 86,
                 }}
               />
             </Box>

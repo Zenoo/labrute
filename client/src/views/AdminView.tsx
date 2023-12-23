@@ -5,7 +5,7 @@ import { DatePicker } from '@mui/x-date-pickers';
 import moment from 'moment';
 import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import BruteComponent from '../components/Brute/Body/BruteComponent';
+import BruteRender from '../components/Brute/Body/BruteRender';
 import FantasyButton from '../components/FantasyButton';
 import Link from '../components/Link';
 import Page from '../components/Page';
@@ -164,7 +164,12 @@ const AdminView = () => {
             {brute && brute.body && brute.colors && (
               <>
                 <Text h2 smallCaps>{brute.name} ({brute.user?.name})</Text>
-                <BruteComponent brute={brute} sx={{ width: 100 }} />
+                <BruteRender
+                  brute={brute}
+                  scale={0.8}
+                  width={120}
+                  height={180}
+                />
                 <Grid container spacing={1}>
                   <Grid item xs={6} sm={3}>
                     <StyledInput
@@ -677,7 +682,7 @@ const AdminView = () => {
                       </FormControl>
                     </Grid>
                   ))}
-                  {(['skinColor', 'skinShade', 'hairColor', 'hairShade', 'primaryColor', 'primaryShade', 'secondaryColor', 'secondaryShade', 'accentColor', 'accentShade'] as const).map((color) => (
+                  {(['col0', 'col0a', 'col0c', 'col1', 'col1a', 'col1b', 'col1c', 'col1d', 'col3', 'col2', 'col2b', 'col3b', 'col2a', 'col4', 'col4a', 'col4b'] as const).map((color) => (
                     <Grid item xs={6} sm={3} key={color}>
                       <StyledInput
                         label={color}

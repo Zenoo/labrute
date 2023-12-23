@@ -49,71 +49,42 @@ enum Gender {
 }
 
 model BruteBody {
-  id            Int   @id @default(autoincrement())
-  brute         Brute @relation(fields: [bruteId], references: [id])
-  bruteId       Int   @unique
-  longHair      Int
-  lowerRightArm Int
-  rightHand     Int
-  upperRightArm Int
-  rightShoulder Int
-  rightFoot     Int
-  lowerRightLeg Int
-  upperRightLeg Int
-  leftFoot      Int
-  lowerLeftLeg  Int
-  pelvis        Int
-  upperLeftLeg  Int
-  tummy         Int
-  torso         Int
-  head          Int
-  leftHand      Int
-  upperLeftArm  Int
-  lowerLeftArm  Int
-  leftShoulder  Int
-  p2            Int   @default(0) // Body size (small = 0, big = 7) (male only, 0 for females)
-  p3            Int   @default(0) // Hair [0-11] 12 = no head
-  p4            Int   @default(0) // (male) Beard [0-4] 5 = nothing / (female) Front hair [0-2] 3 = nothing
-  p7            Int   @default(0) // Main clothing [0-6] 7 = naked
-  p1            Int   @default(0) // Armor variation [0-1]
-  p1a           Int   @default(0) // [0-1] 0=belt, 1=nothing
-  p1b           Int   @default(0) // [0-1] 0=roman belt, 1=nothing
-  p6            Int   @default(0) // (male) 0=shorts, 1=trousers / (female) 0=shorts, 1=nothing
-  p8            Int   @default(0) // [0-4] Supposed to be shoes but doesn't change anything ??
-  p7b           Int   @default(0) // Shoes underside (2 = visible, others = hidden)
-  p5            Int   @default(0) // 0=Nothing, 1=Shirt. Doesn't work
+  id      Int   @id @default(autoincrement())
+  brute   Brute @relation(fields: [bruteId], references: [id])
+  bruteId Int   @unique
+  p2      Int   @default(0) // Body size (small = 0, big = 7) (male only, 0 for females)
+  p3      Int   @default(0) // Hair [0-11] 12 = no head
+  p4      Int   @default(0) // (male) Beard [0-4] 5 = nothing / (female) Front hair [0-2] 3 = nothing
+  p7      Int   @default(0) // Main clothing [0-6] 7 = naked
+  p1      Int   @default(0) // Armor variation [0-1]
+  p1a     Int   @default(0) // [0-1] 0=belt, 1=nothing
+  p1b     Int   @default(0) // [0-1] 0=roman belt, 1=nothing
+  p6      Int   @default(0) // (male) 0=shorts, 1=trousers / (female) 0=shorts, 1=nothing
+  p8      Int   @default(0) // [0-4] Supposed to be shoes but doesn't change anything ??
+  p7b     Int   @default(0) // Shoes underside (2 = visible, others = hidden)
+  p5      Int   @default(0) // 0=Nothing, 1=Shirt.
 }
 
 model BruteColors {
-  id             Int    @id @default(autoincrement())
-  brute          Brute  @relation(fields: [bruteId], references: [id])
-  bruteId        Int    @unique
-  skinColor      String @db.VarChar(255)
-  skinShade      String @db.VarChar(255)
-  hairColor      String @db.VarChar(255)
-  hairShade      String @db.VarChar(255)
-  primaryColor   String @db.VarChar(255)
-  primaryShade   String @db.VarChar(255)
-  secondaryColor String @db.VarChar(255)
-  secondaryShade String @db.VarChar(255)
-  accentColor    String @db.VarChar(255)
-  accentShade    String @db.VarChar(255)
-  col0           String @db.VarChar(7) @default("#eaaca6") // Skin
-  col0a          String @db.VarChar(7) @default("#eaaca6") // Face
-  col0c          String @db.VarChar(7) @default("#eaaca6") // Ear
-  col1           String @db.VarChar(7) @default("#ffaa1e") // Hair
-  col1a          String @db.VarChar(7) @default("#ffaa1e") // Hair back
-  col1b          String @db.VarChar(7) @default("#ffaa1e") // Hair back 2
-  col1c          String @db.VarChar(7) @default("#ffaa1e") // Hair front
-  col1d          String @db.VarChar(7) @default("#ffaa1e") // Eyebrows
-  col3           String @db.VarChar(7) @default("#bb1111") // Primary (includes eyes)
-  col2           String @db.VarChar(7) @default("#8ba3d7") // Secondary
-  col2b          String @db.VarChar(7) @default("#7a73c8") // Accent 1
-  col3b          String @db.VarChar(7) @default("#fae31f") // Accent 2
-  col2a          String @db.VarChar(7) @default("#fff9ae") // Accent 3
-  col4           String @db.VarChar(7) @default("#559399") // Shirt
-  col4a          String @db.VarChar(7) @default("#7a73c8") // Shoes accent ?
-  col4b          String @db.VarChar(7) @default("#0000ff") // ??
+  id      Int    @id @default(autoincrement())
+  brute   Brute  @relation(fields: [bruteId], references: [id])
+  bruteId Int    @unique
+  col0    String @default("#eaaca6") @db.VarChar(7) // Skin
+  col0a   String @default("#eaaca6") @db.VarChar(7) // Face
+  col0c   String @default("#eaaca6") @db.VarChar(7) // Ear
+  col1    String @default("#ffaa1e") @db.VarChar(7) // Hair
+  col1a   String @default("#ffaa1e") @db.VarChar(7) // Hair back
+  col1b   String @default("#ffaa1e") @db.VarChar(7) // Hair back 2
+  col1c   String @default("#ffaa1e") @db.VarChar(7) // Hair front
+  col1d   String @default("#ffaa1e") @db.VarChar(7) // Eyebrows
+  col3    String @default("#bb1111") @db.VarChar(7) // Primary (includes eyes)
+  col2    String @default("#8ba3d7") @db.VarChar(7) // Secondary
+  col2b   String @default("#7a73c8") @db.VarChar(7) // Accent 1
+  col3b   String @default("#fae31f") @db.VarChar(7) // Accent 2
+  col2a   String @default("#fff9ae") @db.VarChar(7) // Accent 3
+  col4    String @default("#559399") @db.VarChar(7) // Shirt
+  col4a   String @default("#7a73c8") @db.VarChar(7) // Shoes accent ?
+  col4b   String @default("#0000ff") @db.VarChar(7) // ??
 }
 
 enum WeaponName {
@@ -201,68 +172,69 @@ enum PetName {
 }
 
 model Brute {
-  id                           Int                 @id @default(autoincrement())
-  name                         String              @db.VarChar(255)
-  deletedAt                    DateTime?           @db.Timestamptz()
-  createdAt                    DateTime            @default(now()) @db.Timestamptz()
-  destinyPath                  DestinyChoiceSide[] @default([])
-  previousDestinyPath          DestinyChoiceSide[] @default([])
-  level                        Int                 @default(1)
-  xp                           Int                 @default(0)
-  hp                           Int                 @default(0)
-  enduranceStat                Int                 @default(0)
-  enduranceModifier            Float               @default(1)
-  enduranceValue               Int                 @default(0)
-  strengthStat                 Int                 @default(0)
-  strengthModifier             Float               @default(1)
-  strengthValue                Int                 @default(0)
-  agilityStat                  Int                 @default(0)
-  agilityModifier              Float               @default(1)
-  agilityValue                 Int                 @default(0)
-  speedStat                    Int                 @default(0)
-  speedModifier                Float               @default(1)
-  speedValue                   Int                 @default(0)
-  ranking                      Int                 @default(11)
+  id                           Int                  @id @default(autoincrement())
+  name                         String               @db.VarChar(255)
+  deletedAt                    DateTime?            @db.Timestamptz()
+  createdAt                    DateTime             @default(now()) @db.Timestamptz()
+  destinyPath                  DestinyChoiceSide[]  @default([])
+  previousDestinyPath          DestinyChoiceSide[]  @default([])
+  level                        Int                  @default(1)
+  xp                           Int                  @default(0)
+  hp                           Int                  @default(0)
+  enduranceStat                Int                  @default(0)
+  enduranceModifier            Float                @default(1)
+  enduranceValue               Int                  @default(0)
+  strengthStat                 Int                  @default(0)
+  strengthModifier             Float                @default(1)
+  strengthValue                Int                  @default(0)
+  agilityStat                  Int                  @default(0)
+  agilityModifier              Float                @default(1)
+  agilityValue                 Int                  @default(0)
+  speedStat                    Int                  @default(0)
+  speedModifier                Float                @default(1)
+  speedValue                   Int                  @default(0)
+  ranking                      Int                  @default(11)
   gender                       Gender
-  user                         User?               @relation(fields: [userId], references: [id])
-  userId                       String?             @db.Uuid
+  user                         User?                @relation(fields: [userId], references: [id])
+  userId                       String?              @db.Uuid
   body                         BruteBody?
   colors                       BruteColors?
-  weapons                      WeaponName[]        @default([])
-  skills                       SkillName[]         @default([])
-  pets                         PetName[]           @default([])
-  master                       Brute?              @relation("Master", fields: [masterId], references: [id])
+  weapons                      WeaponName[]         @default([])
+  skills                       SkillName[]          @default([])
+  pets                         PetName[]            @default([])
+  master                       Brute?               @relation("Master", fields: [masterId], references: [id])
   masterId                     Int?
-  pupils                       Brute[]             @relation("Master")
-  pupilsCount                  Int                 @default(0)
-  clan                         Clan?               @relation(fields: [clanId], references: [id])
+  pupils                       Brute[]              @relation("Master")
+  pupilsCount                  Int                  @default(0)
+  clan                         Clan?                @relation(fields: [clanId], references: [id])
   clanId                       Int?
-  registeredForTournament      Boolean             @default(false)
-  nextTournamentDate           DateTime?           @db.Date
-  currentTournamentDate        DateTime?           @db.Date
-  currentTournamentStepWatched Int?                @default(0)
-  lastFight                    DateTime?           @db.Date
-  fightsLeft                   Int                 @default(6)
-  victories                    Int                 @default(0)
+  registeredForTournament      Boolean              @default(false)
+  nextTournamentDate           DateTime?            @db.Date
+  currentTournamentDate        DateTime?            @db.Date
+  currentTournamentStepWatched Int?                 @default(0)
+  lastFight                    DateTime?            @db.Date
+  fightsLeft                   Int                  @default(6)
+  victories                    Int                  @default(0)
   fights                       Fight[]
-  fightsAsAdversary            Fight[]             @relation("Adversary")
+  fightsAsAdversary            Fight[]              @relation("Adversary")
   logs                         Log[]
   destinyChoices               DestinyChoice[]
   tournaments                  Tournament[]
-  opponents                    Brute[]             @relation("Opponents")
-  opponentOf                   Brute[]             @relation("Opponents")
-  opponentsGeneratedAt         DateTime?           @db.Date
-  canRankUpSince               DateTime?           @db.Date
+  opponents                    Brute[]              @relation("Opponents")
+  opponentOf                   Brute[]              @relation("Opponents")
+  opponentsGeneratedAt         DateTime?            @db.Date
+  canRankUpSince               DateTime?            @db.Date
   achievements                 Achievement[]
   tournamentEarnings           TournamentEarning[]
   reports                      BruteReport[]
-  favorite                     Boolean             @default(false)
+  favorite                     Boolean              @default(false)
   titles                       Title[]
-  masterOfClan                 Clan?               @relation("MasterOfClan")
+  masterOfClan                 Clan?                @relation("MasterOfClan")
   clanPosts                    ClanPost[]
-  wantToJoinClan               Clan?               @relation("JoinRequests", fields: [wantToJoinClanId], references: [id])
+  wantToJoinClan               Clan?                @relation("JoinRequests", fields: [wantToJoinClanId], references: [id])
   wantToJoinClanId             Int?
   threads                      ClanThread[]
+  inventory                    BruteInventoryItem[]
 }
 
 // FIGHTS
@@ -595,4 +567,18 @@ model ClanPost {
   authorId Int
   date     DateTime   @default(now()) @db.Timestamp()
   message  String     @db.Text
+}
+
+// Inventory
+enum InventoryItemType {
+  visualReset
+}
+
+model BruteInventoryItem {
+  id      Int               @id @default(autoincrement())
+  type    InventoryItemType
+  count   Int               @default(1)
+  brute   Brute             @relation(fields: [bruteId], references: [id])
+  bruteId Int
+  @@unique([type, bruteId])
 }

@@ -4,8 +4,6 @@ import { Box, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip }
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
-import BruteComponent from '../../components/Brute/Body/BruteComponent';
-import BrutePortrait from '../../components/Brute/Body/BrutePortait';
 import FantasyButton from '../../components/FantasyButton';
 import Link from '../../components/Link';
 import Page from '../../components/Page';
@@ -16,6 +14,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { useConfirm } from '../../hooks/useConfirm';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
+import BruteRender from '../../components/Brute/Body/BruteRender';
 
 const ClanView = () => {
   const { t } = useTranslation();
@@ -380,13 +379,16 @@ const ClanView = () => {
                   <Box component="img" src={`/images/rankings/lvl_${clanBrute.ranking}.png`} sx={{ mr: 1 }} />
                   <Text bold color="text.primary" sx={{ lineHeight: 1 }}>{t(`lvl_${clanBrute.ranking as BruteRanking}`)}</Text>
                 </Box>
-                <BruteComponent
+                <BruteRender
                   brute={clanBrute}
+                  looking="left"
+                  scale={0.8}
+                  width={120}
+                  height={100}
                   sx={{
                     position: 'absolute',
-                    height: 160,
-                    top: 0,
-                    left: 92,
+                    top: 42,
+                    left: 86,
                   }}
                 />
               </Box>
@@ -433,12 +435,14 @@ const ClanView = () => {
                     <TableCell component="th" scope="row">
                       <Box component="img" src={`/images/rankings/lvl_${requester.ranking}.png`} sx={{ width: 20 }} />
                     </TableCell>
-                    <TableCell>
+                    <TableCell sx={{ overflow: 'hidden' }}>
                       <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <BrutePortrait
+                        <BruteRender
                           brute={requester}
-                          shadow={false}
-                          sx={{ width: 40, mr: 1, filter: null, }}
+                          scale={0.8}
+                          width={80}
+                          height={60}
+                          y="-15px"
                         />
                         <Link to={`/${requester.name}/cell`}>
                           <Text bold>{requester.name}</Text>

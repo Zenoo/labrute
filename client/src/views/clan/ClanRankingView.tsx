@@ -23,14 +23,16 @@ const ClanRankingView = () => {
   const [search, setSearch] = React.useState('');
 
   const params = useMemo(() => ({ page, search }), [page, search]);
-  const { data: clans } = useStateAsync(null, Server.Clan.list, params);
+  const { data: clans, set: setClans } = useStateAsync(null, Server.Clan.list, params);
 
   const changeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setClans(null);
     setSearch(e.target.value);
     setPage(1);
   };
 
   const changePage = (delta: number) => () => {
+    setClans(null);
     setPage(page + delta);
   };
 

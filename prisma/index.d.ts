@@ -108,6 +108,11 @@ export type ClanThread = $Result.DefaultSelection<Prisma.$ClanThreadPayload>
  * 
  */
 export type ClanPost = $Result.DefaultSelection<Prisma.$ClanPostPayload>
+/**
+ * Model BruteInventoryItem
+ * 
+ */
+export type BruteInventoryItem = $Result.DefaultSelection<Prisma.$BruteInventoryItemPayload>
 
 /**
  * Enums
@@ -413,6 +418,13 @@ export const BossName: {
 
 export type BossName = (typeof BossName)[keyof typeof BossName]
 
+
+export const InventoryItemType: {
+  visualReset: 'visualReset'
+};
+
+export type InventoryItemType = (typeof InventoryItemType)[keyof typeof InventoryItemType]
+
 }
 
 export type Lang = $Enums.Lang
@@ -470,6 +482,10 @@ export const BruteReportStatus: typeof $Enums.BruteReportStatus
 export type BossName = $Enums.BossName
 
 export const BossName: typeof $Enums.BossName
+
+export type InventoryItemType = $Enums.InventoryItemType
+
+export const InventoryItemType: typeof $Enums.InventoryItemType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -782,6 +798,16 @@ export class PrismaClient<
     * ```
     */
   get clanPost(): Prisma.ClanPostDelegate<ExtArgs>;
+
+  /**
+   * `prisma.bruteInventoryItem`: Exposes CRUD operations for the **BruteInventoryItem** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BruteInventoryItems
+    * const bruteInventoryItems = await prisma.bruteInventoryItem.findMany()
+    * ```
+    */
+  get bruteInventoryItem(): Prisma.BruteInventoryItemDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -1270,7 +1296,8 @@ export namespace Prisma {
     WorkerJob: 'WorkerJob',
     Clan: 'Clan',
     ClanThread: 'ClanThread',
-    ClanPost: 'ClanPost'
+    ClanPost: 'ClanPost',
+    BruteInventoryItem: 'BruteInventoryItem'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1287,7 +1314,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'user' | 'bruteBody' | 'bruteColors' | 'brute' | 'fight' | 'log' | 'destinyChoice' | 'tournament' | 'tournamentStep' | 'tournamentEarning' | 'achievement' | 'title' | 'bruteReport' | 'serverState' | 'bannedWord' | 'workerJob' | 'clan' | 'clanThread' | 'clanPost'
+      modelProps: 'user' | 'bruteBody' | 'bruteColors' | 'brute' | 'fight' | 'log' | 'destinyChoice' | 'tournament' | 'tournamentStep' | 'tournamentEarning' | 'achievement' | 'title' | 'bruteReport' | 'serverState' | 'bannedWord' | 'workerJob' | 'clan' | 'clanThread' | 'clanPost' | 'bruteInventoryItem'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -2545,6 +2572,72 @@ export namespace Prisma {
           }
         }
       }
+      BruteInventoryItem: {
+        payload: Prisma.$BruteInventoryItemPayload<ExtArgs>
+        fields: Prisma.BruteInventoryItemFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BruteInventoryItemFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BruteInventoryItemPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BruteInventoryItemFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BruteInventoryItemPayload>
+          }
+          findFirst: {
+            args: Prisma.BruteInventoryItemFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BruteInventoryItemPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BruteInventoryItemFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BruteInventoryItemPayload>
+          }
+          findMany: {
+            args: Prisma.BruteInventoryItemFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BruteInventoryItemPayload>[]
+          }
+          create: {
+            args: Prisma.BruteInventoryItemCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BruteInventoryItemPayload>
+          }
+          createMany: {
+            args: Prisma.BruteInventoryItemCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.BruteInventoryItemDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BruteInventoryItemPayload>
+          }
+          update: {
+            args: Prisma.BruteInventoryItemUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BruteInventoryItemPayload>
+          }
+          deleteMany: {
+            args: Prisma.BruteInventoryItemDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BruteInventoryItemUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.BruteInventoryItemUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BruteInventoryItemPayload>
+          }
+          aggregate: {
+            args: Prisma.BruteInventoryItemAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateBruteInventoryItem>
+          }
+          groupBy: {
+            args: Prisma.BruteInventoryItemGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<BruteInventoryItemGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BruteInventoryItemCountArgs<ExtArgs>,
+            result: $Utils.Optional<BruteInventoryItemCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2762,6 +2855,7 @@ export namespace Prisma {
     titles: number
     clanPosts: number
     threads: number
+    inventory: number
   }
 
   export type BruteCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2779,6 +2873,7 @@ export namespace Prisma {
     titles?: boolean | BruteCountOutputTypeCountTitlesArgs
     clanPosts?: boolean | BruteCountOutputTypeCountClanPostsArgs
     threads?: boolean | BruteCountOutputTypeCountThreadsArgs
+    inventory?: boolean | BruteCountOutputTypeCountInventoryArgs
   }
 
   // Custom InputTypes
@@ -2903,6 +2998,14 @@ export namespace Prisma {
    */
   export type BruteCountOutputTypeCountThreadsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ClanThreadWhereInput
+  }
+
+
+  /**
+   * BruteCountOutputType without action
+   */
+  export type BruteCountOutputTypeCountInventoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BruteInventoryItemWhereInput
   }
 
 
@@ -4260,25 +4363,6 @@ export namespace Prisma {
   export type BruteBodyAvgAggregateOutputType = {
     id: number | null
     bruteId: number | null
-    longHair: number | null
-    lowerRightArm: number | null
-    rightHand: number | null
-    upperRightArm: number | null
-    rightShoulder: number | null
-    rightFoot: number | null
-    lowerRightLeg: number | null
-    upperRightLeg: number | null
-    leftFoot: number | null
-    lowerLeftLeg: number | null
-    pelvis: number | null
-    upperLeftLeg: number | null
-    tummy: number | null
-    torso: number | null
-    head: number | null
-    leftHand: number | null
-    upperLeftArm: number | null
-    lowerLeftArm: number | null
-    leftShoulder: number | null
     p2: number | null
     p3: number | null
     p4: number | null
@@ -4295,25 +4379,6 @@ export namespace Prisma {
   export type BruteBodySumAggregateOutputType = {
     id: number | null
     bruteId: number | null
-    longHair: number | null
-    lowerRightArm: number | null
-    rightHand: number | null
-    upperRightArm: number | null
-    rightShoulder: number | null
-    rightFoot: number | null
-    lowerRightLeg: number | null
-    upperRightLeg: number | null
-    leftFoot: number | null
-    lowerLeftLeg: number | null
-    pelvis: number | null
-    upperLeftLeg: number | null
-    tummy: number | null
-    torso: number | null
-    head: number | null
-    leftHand: number | null
-    upperLeftArm: number | null
-    lowerLeftArm: number | null
-    leftShoulder: number | null
     p2: number | null
     p3: number | null
     p4: number | null
@@ -4330,25 +4395,6 @@ export namespace Prisma {
   export type BruteBodyMinAggregateOutputType = {
     id: number | null
     bruteId: number | null
-    longHair: number | null
-    lowerRightArm: number | null
-    rightHand: number | null
-    upperRightArm: number | null
-    rightShoulder: number | null
-    rightFoot: number | null
-    lowerRightLeg: number | null
-    upperRightLeg: number | null
-    leftFoot: number | null
-    lowerLeftLeg: number | null
-    pelvis: number | null
-    upperLeftLeg: number | null
-    tummy: number | null
-    torso: number | null
-    head: number | null
-    leftHand: number | null
-    upperLeftArm: number | null
-    lowerLeftArm: number | null
-    leftShoulder: number | null
     p2: number | null
     p3: number | null
     p4: number | null
@@ -4365,25 +4411,6 @@ export namespace Prisma {
   export type BruteBodyMaxAggregateOutputType = {
     id: number | null
     bruteId: number | null
-    longHair: number | null
-    lowerRightArm: number | null
-    rightHand: number | null
-    upperRightArm: number | null
-    rightShoulder: number | null
-    rightFoot: number | null
-    lowerRightLeg: number | null
-    upperRightLeg: number | null
-    leftFoot: number | null
-    lowerLeftLeg: number | null
-    pelvis: number | null
-    upperLeftLeg: number | null
-    tummy: number | null
-    torso: number | null
-    head: number | null
-    leftHand: number | null
-    upperLeftArm: number | null
-    lowerLeftArm: number | null
-    leftShoulder: number | null
     p2: number | null
     p3: number | null
     p4: number | null
@@ -4400,25 +4427,6 @@ export namespace Prisma {
   export type BruteBodyCountAggregateOutputType = {
     id: number
     bruteId: number
-    longHair: number
-    lowerRightArm: number
-    rightHand: number
-    upperRightArm: number
-    rightShoulder: number
-    rightFoot: number
-    lowerRightLeg: number
-    upperRightLeg: number
-    leftFoot: number
-    lowerLeftLeg: number
-    pelvis: number
-    upperLeftLeg: number
-    tummy: number
-    torso: number
-    head: number
-    leftHand: number
-    upperLeftArm: number
-    lowerLeftArm: number
-    leftShoulder: number
     p2: number
     p3: number
     p4: number
@@ -4437,25 +4445,6 @@ export namespace Prisma {
   export type BruteBodyAvgAggregateInputType = {
     id?: true
     bruteId?: true
-    longHair?: true
-    lowerRightArm?: true
-    rightHand?: true
-    upperRightArm?: true
-    rightShoulder?: true
-    rightFoot?: true
-    lowerRightLeg?: true
-    upperRightLeg?: true
-    leftFoot?: true
-    lowerLeftLeg?: true
-    pelvis?: true
-    upperLeftLeg?: true
-    tummy?: true
-    torso?: true
-    head?: true
-    leftHand?: true
-    upperLeftArm?: true
-    lowerLeftArm?: true
-    leftShoulder?: true
     p2?: true
     p3?: true
     p4?: true
@@ -4472,25 +4461,6 @@ export namespace Prisma {
   export type BruteBodySumAggregateInputType = {
     id?: true
     bruteId?: true
-    longHair?: true
-    lowerRightArm?: true
-    rightHand?: true
-    upperRightArm?: true
-    rightShoulder?: true
-    rightFoot?: true
-    lowerRightLeg?: true
-    upperRightLeg?: true
-    leftFoot?: true
-    lowerLeftLeg?: true
-    pelvis?: true
-    upperLeftLeg?: true
-    tummy?: true
-    torso?: true
-    head?: true
-    leftHand?: true
-    upperLeftArm?: true
-    lowerLeftArm?: true
-    leftShoulder?: true
     p2?: true
     p3?: true
     p4?: true
@@ -4507,25 +4477,6 @@ export namespace Prisma {
   export type BruteBodyMinAggregateInputType = {
     id?: true
     bruteId?: true
-    longHair?: true
-    lowerRightArm?: true
-    rightHand?: true
-    upperRightArm?: true
-    rightShoulder?: true
-    rightFoot?: true
-    lowerRightLeg?: true
-    upperRightLeg?: true
-    leftFoot?: true
-    lowerLeftLeg?: true
-    pelvis?: true
-    upperLeftLeg?: true
-    tummy?: true
-    torso?: true
-    head?: true
-    leftHand?: true
-    upperLeftArm?: true
-    lowerLeftArm?: true
-    leftShoulder?: true
     p2?: true
     p3?: true
     p4?: true
@@ -4542,25 +4493,6 @@ export namespace Prisma {
   export type BruteBodyMaxAggregateInputType = {
     id?: true
     bruteId?: true
-    longHair?: true
-    lowerRightArm?: true
-    rightHand?: true
-    upperRightArm?: true
-    rightShoulder?: true
-    rightFoot?: true
-    lowerRightLeg?: true
-    upperRightLeg?: true
-    leftFoot?: true
-    lowerLeftLeg?: true
-    pelvis?: true
-    upperLeftLeg?: true
-    tummy?: true
-    torso?: true
-    head?: true
-    leftHand?: true
-    upperLeftArm?: true
-    lowerLeftArm?: true
-    leftShoulder?: true
     p2?: true
     p3?: true
     p4?: true
@@ -4577,25 +4509,6 @@ export namespace Prisma {
   export type BruteBodyCountAggregateInputType = {
     id?: true
     bruteId?: true
-    longHair?: true
-    lowerRightArm?: true
-    rightHand?: true
-    upperRightArm?: true
-    rightShoulder?: true
-    rightFoot?: true
-    lowerRightLeg?: true
-    upperRightLeg?: true
-    leftFoot?: true
-    lowerLeftLeg?: true
-    pelvis?: true
-    upperLeftLeg?: true
-    tummy?: true
-    torso?: true
-    head?: true
-    leftHand?: true
-    upperLeftArm?: true
-    lowerLeftArm?: true
-    leftShoulder?: true
     p2?: true
     p3?: true
     p4?: true
@@ -4699,25 +4612,6 @@ export namespace Prisma {
   export type BruteBodyGroupByOutputType = {
     id: number
     bruteId: number
-    longHair: number
-    lowerRightArm: number
-    rightHand: number
-    upperRightArm: number
-    rightShoulder: number
-    rightFoot: number
-    lowerRightLeg: number
-    upperRightLeg: number
-    leftFoot: number
-    lowerLeftLeg: number
-    pelvis: number
-    upperLeftLeg: number
-    tummy: number
-    torso: number
-    head: number
-    leftHand: number
-    upperLeftArm: number
-    lowerLeftArm: number
-    leftShoulder: number
     p2: number
     p3: number
     p4: number
@@ -4753,25 +4647,6 @@ export namespace Prisma {
   export type BruteBodySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     bruteId?: boolean
-    longHair?: boolean
-    lowerRightArm?: boolean
-    rightHand?: boolean
-    upperRightArm?: boolean
-    rightShoulder?: boolean
-    rightFoot?: boolean
-    lowerRightLeg?: boolean
-    upperRightLeg?: boolean
-    leftFoot?: boolean
-    lowerLeftLeg?: boolean
-    pelvis?: boolean
-    upperLeftLeg?: boolean
-    tummy?: boolean
-    torso?: boolean
-    head?: boolean
-    leftHand?: boolean
-    upperLeftArm?: boolean
-    lowerLeftArm?: boolean
-    leftShoulder?: boolean
     p2?: boolean
     p3?: boolean
     p4?: boolean
@@ -4789,25 +4664,6 @@ export namespace Prisma {
   export type BruteBodySelectScalar = {
     id?: boolean
     bruteId?: boolean
-    longHair?: boolean
-    lowerRightArm?: boolean
-    rightHand?: boolean
-    upperRightArm?: boolean
-    rightShoulder?: boolean
-    rightFoot?: boolean
-    lowerRightLeg?: boolean
-    upperRightLeg?: boolean
-    leftFoot?: boolean
-    lowerLeftLeg?: boolean
-    pelvis?: boolean
-    upperLeftLeg?: boolean
-    tummy?: boolean
-    torso?: boolean
-    head?: boolean
-    leftHand?: boolean
-    upperLeftArm?: boolean
-    lowerLeftArm?: boolean
-    leftShoulder?: boolean
     p2?: boolean
     p3?: boolean
     p4?: boolean
@@ -4834,25 +4690,6 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       bruteId: number
-      longHair: number
-      lowerRightArm: number
-      rightHand: number
-      upperRightArm: number
-      rightShoulder: number
-      rightFoot: number
-      lowerRightLeg: number
-      upperRightLeg: number
-      leftFoot: number
-      lowerLeftLeg: number
-      pelvis: number
-      upperLeftLeg: number
-      tummy: number
-      torso: number
-      head: number
-      leftHand: number
-      upperLeftArm: number
-      lowerLeftArm: number
-      leftShoulder: number
       p2: number
       p3: number
       p4: number
@@ -5261,25 +5098,6 @@ export namespace Prisma {
   interface BruteBodyFieldRefs {
     readonly id: FieldRef<"BruteBody", 'Int'>
     readonly bruteId: FieldRef<"BruteBody", 'Int'>
-    readonly longHair: FieldRef<"BruteBody", 'Int'>
-    readonly lowerRightArm: FieldRef<"BruteBody", 'Int'>
-    readonly rightHand: FieldRef<"BruteBody", 'Int'>
-    readonly upperRightArm: FieldRef<"BruteBody", 'Int'>
-    readonly rightShoulder: FieldRef<"BruteBody", 'Int'>
-    readonly rightFoot: FieldRef<"BruteBody", 'Int'>
-    readonly lowerRightLeg: FieldRef<"BruteBody", 'Int'>
-    readonly upperRightLeg: FieldRef<"BruteBody", 'Int'>
-    readonly leftFoot: FieldRef<"BruteBody", 'Int'>
-    readonly lowerLeftLeg: FieldRef<"BruteBody", 'Int'>
-    readonly pelvis: FieldRef<"BruteBody", 'Int'>
-    readonly upperLeftLeg: FieldRef<"BruteBody", 'Int'>
-    readonly tummy: FieldRef<"BruteBody", 'Int'>
-    readonly torso: FieldRef<"BruteBody", 'Int'>
-    readonly head: FieldRef<"BruteBody", 'Int'>
-    readonly leftHand: FieldRef<"BruteBody", 'Int'>
-    readonly upperLeftArm: FieldRef<"BruteBody", 'Int'>
-    readonly lowerLeftArm: FieldRef<"BruteBody", 'Int'>
-    readonly leftShoulder: FieldRef<"BruteBody", 'Int'>
     readonly p2: FieldRef<"BruteBody", 'Int'>
     readonly p3: FieldRef<"BruteBody", 'Int'>
     readonly p4: FieldRef<"BruteBody", 'Int'>
@@ -5643,16 +5461,6 @@ export namespace Prisma {
   export type BruteColorsMinAggregateOutputType = {
     id: number | null
     bruteId: number | null
-    skinColor: string | null
-    skinShade: string | null
-    hairColor: string | null
-    hairShade: string | null
-    primaryColor: string | null
-    primaryShade: string | null
-    secondaryColor: string | null
-    secondaryShade: string | null
-    accentColor: string | null
-    accentShade: string | null
     col0: string | null
     col0a: string | null
     col0c: string | null
@@ -5674,16 +5482,6 @@ export namespace Prisma {
   export type BruteColorsMaxAggregateOutputType = {
     id: number | null
     bruteId: number | null
-    skinColor: string | null
-    skinShade: string | null
-    hairColor: string | null
-    hairShade: string | null
-    primaryColor: string | null
-    primaryShade: string | null
-    secondaryColor: string | null
-    secondaryShade: string | null
-    accentColor: string | null
-    accentShade: string | null
     col0: string | null
     col0a: string | null
     col0c: string | null
@@ -5705,16 +5503,6 @@ export namespace Prisma {
   export type BruteColorsCountAggregateOutputType = {
     id: number
     bruteId: number
-    skinColor: number
-    skinShade: number
-    hairColor: number
-    hairShade: number
-    primaryColor: number
-    primaryShade: number
-    secondaryColor: number
-    secondaryShade: number
-    accentColor: number
-    accentShade: number
     col0: number
     col0a: number
     col0c: number
@@ -5748,16 +5536,6 @@ export namespace Prisma {
   export type BruteColorsMinAggregateInputType = {
     id?: true
     bruteId?: true
-    skinColor?: true
-    skinShade?: true
-    hairColor?: true
-    hairShade?: true
-    primaryColor?: true
-    primaryShade?: true
-    secondaryColor?: true
-    secondaryShade?: true
-    accentColor?: true
-    accentShade?: true
     col0?: true
     col0a?: true
     col0c?: true
@@ -5779,16 +5557,6 @@ export namespace Prisma {
   export type BruteColorsMaxAggregateInputType = {
     id?: true
     bruteId?: true
-    skinColor?: true
-    skinShade?: true
-    hairColor?: true
-    hairShade?: true
-    primaryColor?: true
-    primaryShade?: true
-    secondaryColor?: true
-    secondaryShade?: true
-    accentColor?: true
-    accentShade?: true
     col0?: true
     col0a?: true
     col0c?: true
@@ -5810,16 +5578,6 @@ export namespace Prisma {
   export type BruteColorsCountAggregateInputType = {
     id?: true
     bruteId?: true
-    skinColor?: true
-    skinShade?: true
-    hairColor?: true
-    hairShade?: true
-    primaryColor?: true
-    primaryShade?: true
-    secondaryColor?: true
-    secondaryShade?: true
-    accentColor?: true
-    accentShade?: true
     col0?: true
     col0a?: true
     col0c?: true
@@ -5928,16 +5686,6 @@ export namespace Prisma {
   export type BruteColorsGroupByOutputType = {
     id: number
     bruteId: number
-    skinColor: string
-    skinShade: string
-    hairColor: string
-    hairShade: string
-    primaryColor: string
-    primaryShade: string
-    secondaryColor: string
-    secondaryShade: string
-    accentColor: string
-    accentShade: string
     col0: string
     col0a: string
     col0c: string
@@ -5978,16 +5726,6 @@ export namespace Prisma {
   export type BruteColorsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     bruteId?: boolean
-    skinColor?: boolean
-    skinShade?: boolean
-    hairColor?: boolean
-    hairShade?: boolean
-    primaryColor?: boolean
-    primaryShade?: boolean
-    secondaryColor?: boolean
-    secondaryShade?: boolean
-    accentColor?: boolean
-    accentShade?: boolean
     col0?: boolean
     col0a?: boolean
     col0c?: boolean
@@ -6010,16 +5748,6 @@ export namespace Prisma {
   export type BruteColorsSelectScalar = {
     id?: boolean
     bruteId?: boolean
-    skinColor?: boolean
-    skinShade?: boolean
-    hairColor?: boolean
-    hairShade?: boolean
-    primaryColor?: boolean
-    primaryShade?: boolean
-    secondaryColor?: boolean
-    secondaryShade?: boolean
-    accentColor?: boolean
-    accentShade?: boolean
     col0?: boolean
     col0a?: boolean
     col0c?: boolean
@@ -6051,16 +5779,6 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       bruteId: number
-      skinColor: string
-      skinShade: string
-      hairColor: string
-      hairShade: string
-      primaryColor: string
-      primaryShade: string
-      secondaryColor: string
-      secondaryShade: string
-      accentColor: string
-      accentShade: string
       col0: string
       col0a: string
       col0c: string
@@ -6474,16 +6192,6 @@ export namespace Prisma {
   interface BruteColorsFieldRefs {
     readonly id: FieldRef<"BruteColors", 'Int'>
     readonly bruteId: FieldRef<"BruteColors", 'Int'>
-    readonly skinColor: FieldRef<"BruteColors", 'String'>
-    readonly skinShade: FieldRef<"BruteColors", 'String'>
-    readonly hairColor: FieldRef<"BruteColors", 'String'>
-    readonly hairShade: FieldRef<"BruteColors", 'String'>
-    readonly primaryColor: FieldRef<"BruteColors", 'String'>
-    readonly primaryShade: FieldRef<"BruteColors", 'String'>
-    readonly secondaryColor: FieldRef<"BruteColors", 'String'>
-    readonly secondaryShade: FieldRef<"BruteColors", 'String'>
-    readonly accentColor: FieldRef<"BruteColors", 'String'>
-    readonly accentShade: FieldRef<"BruteColors", 'String'>
     readonly col0: FieldRef<"BruteColors", 'String'>
     readonly col0a: FieldRef<"BruteColors", 'String'>
     readonly col0c: FieldRef<"BruteColors", 'String'>
@@ -7406,6 +7114,7 @@ export namespace Prisma {
     clanPosts?: boolean | Brute$clanPostsArgs<ExtArgs>
     wantToJoinClan?: boolean | Brute$wantToJoinClanArgs<ExtArgs>
     threads?: boolean | Brute$threadsArgs<ExtArgs>
+    inventory?: boolean | Brute$inventoryArgs<ExtArgs>
     _count?: boolean | BruteCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["brute"]>
 
@@ -7475,6 +7184,7 @@ export namespace Prisma {
     clanPosts?: boolean | Brute$clanPostsArgs<ExtArgs>
     wantToJoinClan?: boolean | Brute$wantToJoinClanArgs<ExtArgs>
     threads?: boolean | Brute$threadsArgs<ExtArgs>
+    inventory?: boolean | Brute$inventoryArgs<ExtArgs>
     _count?: boolean | BruteCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -7503,6 +7213,7 @@ export namespace Prisma {
       clanPosts: Prisma.$ClanPostPayload<ExtArgs>[]
       wantToJoinClan: Prisma.$ClanPayload<ExtArgs> | null
       threads: Prisma.$ClanThreadPayload<ExtArgs>[]
+      inventory: Prisma.$BruteInventoryItemPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -7952,6 +7663,8 @@ export namespace Prisma {
     wantToJoinClan<T extends Brute$wantToJoinClanArgs<ExtArgs> = {}>(args?: Subset<T, Brute$wantToJoinClanArgs<ExtArgs>>): Prisma__ClanClient<$Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
     threads<T extends Brute$threadsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$threadsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClanThreadPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    inventory<T extends Brute$inventoryArgs<ExtArgs> = {}>(args?: Subset<T, Brute$inventoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BruteInventoryItemPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -8736,6 +8449,27 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ClanThreadScalarFieldEnum | ClanThreadScalarFieldEnum[]
+  }
+
+
+  /**
+   * Brute.inventory
+   */
+  export type Brute$inventoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteInventoryItem
+     */
+    select?: BruteInventoryItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BruteInventoryItemInclude<ExtArgs> | null
+    where?: BruteInventoryItemWhereInput
+    orderBy?: BruteInventoryItemOrderByWithRelationInput | BruteInventoryItemOrderByWithRelationInput[]
+    cursor?: BruteInventoryItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BruteInventoryItemScalarFieldEnum | BruteInventoryItemScalarFieldEnum[]
   }
 
 
@@ -23474,6 +23208,955 @@ export namespace Prisma {
 
 
   /**
+   * Model BruteInventoryItem
+   */
+
+  export type AggregateBruteInventoryItem = {
+    _count: BruteInventoryItemCountAggregateOutputType | null
+    _avg: BruteInventoryItemAvgAggregateOutputType | null
+    _sum: BruteInventoryItemSumAggregateOutputType | null
+    _min: BruteInventoryItemMinAggregateOutputType | null
+    _max: BruteInventoryItemMaxAggregateOutputType | null
+  }
+
+  export type BruteInventoryItemAvgAggregateOutputType = {
+    id: number | null
+    count: number | null
+    bruteId: number | null
+  }
+
+  export type BruteInventoryItemSumAggregateOutputType = {
+    id: number | null
+    count: number | null
+    bruteId: number | null
+  }
+
+  export type BruteInventoryItemMinAggregateOutputType = {
+    id: number | null
+    type: $Enums.InventoryItemType | null
+    count: number | null
+    bruteId: number | null
+  }
+
+  export type BruteInventoryItemMaxAggregateOutputType = {
+    id: number | null
+    type: $Enums.InventoryItemType | null
+    count: number | null
+    bruteId: number | null
+  }
+
+  export type BruteInventoryItemCountAggregateOutputType = {
+    id: number
+    type: number
+    count: number
+    bruteId: number
+    _all: number
+  }
+
+
+  export type BruteInventoryItemAvgAggregateInputType = {
+    id?: true
+    count?: true
+    bruteId?: true
+  }
+
+  export type BruteInventoryItemSumAggregateInputType = {
+    id?: true
+    count?: true
+    bruteId?: true
+  }
+
+  export type BruteInventoryItemMinAggregateInputType = {
+    id?: true
+    type?: true
+    count?: true
+    bruteId?: true
+  }
+
+  export type BruteInventoryItemMaxAggregateInputType = {
+    id?: true
+    type?: true
+    count?: true
+    bruteId?: true
+  }
+
+  export type BruteInventoryItemCountAggregateInputType = {
+    id?: true
+    type?: true
+    count?: true
+    bruteId?: true
+    _all?: true
+  }
+
+  export type BruteInventoryItemAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BruteInventoryItem to aggregate.
+     */
+    where?: BruteInventoryItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BruteInventoryItems to fetch.
+     */
+    orderBy?: BruteInventoryItemOrderByWithRelationInput | BruteInventoryItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BruteInventoryItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BruteInventoryItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BruteInventoryItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BruteInventoryItems
+    **/
+    _count?: true | BruteInventoryItemCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BruteInventoryItemAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BruteInventoryItemSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BruteInventoryItemMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BruteInventoryItemMaxAggregateInputType
+  }
+
+  export type GetBruteInventoryItemAggregateType<T extends BruteInventoryItemAggregateArgs> = {
+        [P in keyof T & keyof AggregateBruteInventoryItem]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBruteInventoryItem[P]>
+      : GetScalarType<T[P], AggregateBruteInventoryItem[P]>
+  }
+
+
+
+
+  export type BruteInventoryItemGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BruteInventoryItemWhereInput
+    orderBy?: BruteInventoryItemOrderByWithAggregationInput | BruteInventoryItemOrderByWithAggregationInput[]
+    by: BruteInventoryItemScalarFieldEnum[] | BruteInventoryItemScalarFieldEnum
+    having?: BruteInventoryItemScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BruteInventoryItemCountAggregateInputType | true
+    _avg?: BruteInventoryItemAvgAggregateInputType
+    _sum?: BruteInventoryItemSumAggregateInputType
+    _min?: BruteInventoryItemMinAggregateInputType
+    _max?: BruteInventoryItemMaxAggregateInputType
+  }
+
+  export type BruteInventoryItemGroupByOutputType = {
+    id: number
+    type: $Enums.InventoryItemType
+    count: number
+    bruteId: number
+    _count: BruteInventoryItemCountAggregateOutputType | null
+    _avg: BruteInventoryItemAvgAggregateOutputType | null
+    _sum: BruteInventoryItemSumAggregateOutputType | null
+    _min: BruteInventoryItemMinAggregateOutputType | null
+    _max: BruteInventoryItemMaxAggregateOutputType | null
+  }
+
+  type GetBruteInventoryItemGroupByPayload<T extends BruteInventoryItemGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BruteInventoryItemGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BruteInventoryItemGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BruteInventoryItemGroupByOutputType[P]>
+            : GetScalarType<T[P], BruteInventoryItemGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BruteInventoryItemSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    type?: boolean
+    count?: boolean
+    bruteId?: boolean
+    brute?: boolean | BruteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bruteInventoryItem"]>
+
+  export type BruteInventoryItemSelectScalar = {
+    id?: boolean
+    type?: boolean
+    count?: boolean
+    bruteId?: boolean
+  }
+
+  export type BruteInventoryItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    brute?: boolean | BruteDefaultArgs<ExtArgs>
+  }
+
+
+  export type $BruteInventoryItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BruteInventoryItem"
+    objects: {
+      brute: Prisma.$BrutePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      type: $Enums.InventoryItemType
+      count: number
+      bruteId: number
+    }, ExtArgs["result"]["bruteInventoryItem"]>
+    composites: {}
+  }
+
+
+  type BruteInventoryItemGetPayload<S extends boolean | null | undefined | BruteInventoryItemDefaultArgs> = $Result.GetResult<Prisma.$BruteInventoryItemPayload, S>
+
+  type BruteInventoryItemCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<BruteInventoryItemFindManyArgs, 'select' | 'include' | 'distinct' > & {
+      select?: BruteInventoryItemCountAggregateInputType | true
+    }
+
+  export interface BruteInventoryItemDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BruteInventoryItem'], meta: { name: 'BruteInventoryItem' } }
+    /**
+     * Find zero or one BruteInventoryItem that matches the filter.
+     * @param {BruteInventoryItemFindUniqueArgs} args - Arguments to find a BruteInventoryItem
+     * @example
+     * // Get one BruteInventoryItem
+     * const bruteInventoryItem = await prisma.bruteInventoryItem.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends BruteInventoryItemFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteInventoryItemFindUniqueArgs<ExtArgs>>
+    ): Prisma__BruteInventoryItemClient<$Result.GetResult<Prisma.$BruteInventoryItemPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one BruteInventoryItem that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {BruteInventoryItemFindUniqueOrThrowArgs} args - Arguments to find a BruteInventoryItem
+     * @example
+     * // Get one BruteInventoryItem
+     * const bruteInventoryItem = await prisma.bruteInventoryItem.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends BruteInventoryItemFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteInventoryItemFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__BruteInventoryItemClient<$Result.GetResult<Prisma.$BruteInventoryItemPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first BruteInventoryItem that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteInventoryItemFindFirstArgs} args - Arguments to find a BruteInventoryItem
+     * @example
+     * // Get one BruteInventoryItem
+     * const bruteInventoryItem = await prisma.bruteInventoryItem.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends BruteInventoryItemFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteInventoryItemFindFirstArgs<ExtArgs>>
+    ): Prisma__BruteInventoryItemClient<$Result.GetResult<Prisma.$BruteInventoryItemPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first BruteInventoryItem that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteInventoryItemFindFirstOrThrowArgs} args - Arguments to find a BruteInventoryItem
+     * @example
+     * // Get one BruteInventoryItem
+     * const bruteInventoryItem = await prisma.bruteInventoryItem.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends BruteInventoryItemFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteInventoryItemFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__BruteInventoryItemClient<$Result.GetResult<Prisma.$BruteInventoryItemPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more BruteInventoryItems that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteInventoryItemFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BruteInventoryItems
+     * const bruteInventoryItems = await prisma.bruteInventoryItem.findMany()
+     * 
+     * // Get first 10 BruteInventoryItems
+     * const bruteInventoryItems = await prisma.bruteInventoryItem.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const bruteInventoryItemWithIdOnly = await prisma.bruteInventoryItem.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends BruteInventoryItemFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteInventoryItemFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BruteInventoryItemPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a BruteInventoryItem.
+     * @param {BruteInventoryItemCreateArgs} args - Arguments to create a BruteInventoryItem.
+     * @example
+     * // Create one BruteInventoryItem
+     * const BruteInventoryItem = await prisma.bruteInventoryItem.create({
+     *   data: {
+     *     // ... data to create a BruteInventoryItem
+     *   }
+     * })
+     * 
+    **/
+    create<T extends BruteInventoryItemCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteInventoryItemCreateArgs<ExtArgs>>
+    ): Prisma__BruteInventoryItemClient<$Result.GetResult<Prisma.$BruteInventoryItemPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many BruteInventoryItems.
+     *     @param {BruteInventoryItemCreateManyArgs} args - Arguments to create many BruteInventoryItems.
+     *     @example
+     *     // Create many BruteInventoryItems
+     *     const bruteInventoryItem = await prisma.bruteInventoryItem.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends BruteInventoryItemCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteInventoryItemCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a BruteInventoryItem.
+     * @param {BruteInventoryItemDeleteArgs} args - Arguments to delete one BruteInventoryItem.
+     * @example
+     * // Delete one BruteInventoryItem
+     * const BruteInventoryItem = await prisma.bruteInventoryItem.delete({
+     *   where: {
+     *     // ... filter to delete one BruteInventoryItem
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends BruteInventoryItemDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteInventoryItemDeleteArgs<ExtArgs>>
+    ): Prisma__BruteInventoryItemClient<$Result.GetResult<Prisma.$BruteInventoryItemPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one BruteInventoryItem.
+     * @param {BruteInventoryItemUpdateArgs} args - Arguments to update one BruteInventoryItem.
+     * @example
+     * // Update one BruteInventoryItem
+     * const bruteInventoryItem = await prisma.bruteInventoryItem.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends BruteInventoryItemUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteInventoryItemUpdateArgs<ExtArgs>>
+    ): Prisma__BruteInventoryItemClient<$Result.GetResult<Prisma.$BruteInventoryItemPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more BruteInventoryItems.
+     * @param {BruteInventoryItemDeleteManyArgs} args - Arguments to filter BruteInventoryItems to delete.
+     * @example
+     * // Delete a few BruteInventoryItems
+     * const { count } = await prisma.bruteInventoryItem.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends BruteInventoryItemDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteInventoryItemDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BruteInventoryItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteInventoryItemUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BruteInventoryItems
+     * const bruteInventoryItem = await prisma.bruteInventoryItem.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends BruteInventoryItemUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteInventoryItemUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one BruteInventoryItem.
+     * @param {BruteInventoryItemUpsertArgs} args - Arguments to update or create a BruteInventoryItem.
+     * @example
+     * // Update or create a BruteInventoryItem
+     * const bruteInventoryItem = await prisma.bruteInventoryItem.upsert({
+     *   create: {
+     *     // ... data to create a BruteInventoryItem
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BruteInventoryItem we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends BruteInventoryItemUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteInventoryItemUpsertArgs<ExtArgs>>
+    ): Prisma__BruteInventoryItemClient<$Result.GetResult<Prisma.$BruteInventoryItemPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of BruteInventoryItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteInventoryItemCountArgs} args - Arguments to filter BruteInventoryItems to count.
+     * @example
+     * // Count the number of BruteInventoryItems
+     * const count = await prisma.bruteInventoryItem.count({
+     *   where: {
+     *     // ... the filter for the BruteInventoryItems we want to count
+     *   }
+     * })
+    **/
+    count<T extends BruteInventoryItemCountArgs>(
+      args?: Subset<T, BruteInventoryItemCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BruteInventoryItemCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BruteInventoryItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteInventoryItemAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BruteInventoryItemAggregateArgs>(args: Subset<T, BruteInventoryItemAggregateArgs>): Prisma.PrismaPromise<GetBruteInventoryItemAggregateType<T>>
+
+    /**
+     * Group by BruteInventoryItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteInventoryItemGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BruteInventoryItemGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BruteInventoryItemGroupByArgs['orderBy'] }
+        : { orderBy?: BruteInventoryItemGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BruteInventoryItemGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBruteInventoryItemGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BruteInventoryItem model
+   */
+  readonly fields: BruteInventoryItemFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BruteInventoryItem.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BruteInventoryItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    brute<T extends BruteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BruteDefaultArgs<ExtArgs>>): Prisma__BruteClient<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the BruteInventoryItem model
+   */ 
+  interface BruteInventoryItemFieldRefs {
+    readonly id: FieldRef<"BruteInventoryItem", 'Int'>
+    readonly type: FieldRef<"BruteInventoryItem", 'InventoryItemType'>
+    readonly count: FieldRef<"BruteInventoryItem", 'Int'>
+    readonly bruteId: FieldRef<"BruteInventoryItem", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * BruteInventoryItem findUnique
+   */
+  export type BruteInventoryItemFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteInventoryItem
+     */
+    select?: BruteInventoryItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BruteInventoryItemInclude<ExtArgs> | null
+    /**
+     * Filter, which BruteInventoryItem to fetch.
+     */
+    where: BruteInventoryItemWhereUniqueInput
+  }
+
+
+  /**
+   * BruteInventoryItem findUniqueOrThrow
+   */
+  export type BruteInventoryItemFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteInventoryItem
+     */
+    select?: BruteInventoryItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BruteInventoryItemInclude<ExtArgs> | null
+    /**
+     * Filter, which BruteInventoryItem to fetch.
+     */
+    where: BruteInventoryItemWhereUniqueInput
+  }
+
+
+  /**
+   * BruteInventoryItem findFirst
+   */
+  export type BruteInventoryItemFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteInventoryItem
+     */
+    select?: BruteInventoryItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BruteInventoryItemInclude<ExtArgs> | null
+    /**
+     * Filter, which BruteInventoryItem to fetch.
+     */
+    where?: BruteInventoryItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BruteInventoryItems to fetch.
+     */
+    orderBy?: BruteInventoryItemOrderByWithRelationInput | BruteInventoryItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BruteInventoryItems.
+     */
+    cursor?: BruteInventoryItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BruteInventoryItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BruteInventoryItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BruteInventoryItems.
+     */
+    distinct?: BruteInventoryItemScalarFieldEnum | BruteInventoryItemScalarFieldEnum[]
+  }
+
+
+  /**
+   * BruteInventoryItem findFirstOrThrow
+   */
+  export type BruteInventoryItemFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteInventoryItem
+     */
+    select?: BruteInventoryItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BruteInventoryItemInclude<ExtArgs> | null
+    /**
+     * Filter, which BruteInventoryItem to fetch.
+     */
+    where?: BruteInventoryItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BruteInventoryItems to fetch.
+     */
+    orderBy?: BruteInventoryItemOrderByWithRelationInput | BruteInventoryItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BruteInventoryItems.
+     */
+    cursor?: BruteInventoryItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BruteInventoryItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BruteInventoryItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BruteInventoryItems.
+     */
+    distinct?: BruteInventoryItemScalarFieldEnum | BruteInventoryItemScalarFieldEnum[]
+  }
+
+
+  /**
+   * BruteInventoryItem findMany
+   */
+  export type BruteInventoryItemFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteInventoryItem
+     */
+    select?: BruteInventoryItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BruteInventoryItemInclude<ExtArgs> | null
+    /**
+     * Filter, which BruteInventoryItems to fetch.
+     */
+    where?: BruteInventoryItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BruteInventoryItems to fetch.
+     */
+    orderBy?: BruteInventoryItemOrderByWithRelationInput | BruteInventoryItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BruteInventoryItems.
+     */
+    cursor?: BruteInventoryItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BruteInventoryItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BruteInventoryItems.
+     */
+    skip?: number
+    distinct?: BruteInventoryItemScalarFieldEnum | BruteInventoryItemScalarFieldEnum[]
+  }
+
+
+  /**
+   * BruteInventoryItem create
+   */
+  export type BruteInventoryItemCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteInventoryItem
+     */
+    select?: BruteInventoryItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BruteInventoryItemInclude<ExtArgs> | null
+    /**
+     * The data needed to create a BruteInventoryItem.
+     */
+    data: XOR<BruteInventoryItemCreateInput, BruteInventoryItemUncheckedCreateInput>
+  }
+
+
+  /**
+   * BruteInventoryItem createMany
+   */
+  export type BruteInventoryItemCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BruteInventoryItems.
+     */
+    data: BruteInventoryItemCreateManyInput | BruteInventoryItemCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * BruteInventoryItem update
+   */
+  export type BruteInventoryItemUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteInventoryItem
+     */
+    select?: BruteInventoryItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BruteInventoryItemInclude<ExtArgs> | null
+    /**
+     * The data needed to update a BruteInventoryItem.
+     */
+    data: XOR<BruteInventoryItemUpdateInput, BruteInventoryItemUncheckedUpdateInput>
+    /**
+     * Choose, which BruteInventoryItem to update.
+     */
+    where: BruteInventoryItemWhereUniqueInput
+  }
+
+
+  /**
+   * BruteInventoryItem updateMany
+   */
+  export type BruteInventoryItemUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BruteInventoryItems.
+     */
+    data: XOR<BruteInventoryItemUpdateManyMutationInput, BruteInventoryItemUncheckedUpdateManyInput>
+    /**
+     * Filter which BruteInventoryItems to update
+     */
+    where?: BruteInventoryItemWhereInput
+  }
+
+
+  /**
+   * BruteInventoryItem upsert
+   */
+  export type BruteInventoryItemUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteInventoryItem
+     */
+    select?: BruteInventoryItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BruteInventoryItemInclude<ExtArgs> | null
+    /**
+     * The filter to search for the BruteInventoryItem to update in case it exists.
+     */
+    where: BruteInventoryItemWhereUniqueInput
+    /**
+     * In case the BruteInventoryItem found by the `where` argument doesn't exist, create a new BruteInventoryItem with this data.
+     */
+    create: XOR<BruteInventoryItemCreateInput, BruteInventoryItemUncheckedCreateInput>
+    /**
+     * In case the BruteInventoryItem was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BruteInventoryItemUpdateInput, BruteInventoryItemUncheckedUpdateInput>
+  }
+
+
+  /**
+   * BruteInventoryItem delete
+   */
+  export type BruteInventoryItemDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteInventoryItem
+     */
+    select?: BruteInventoryItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BruteInventoryItemInclude<ExtArgs> | null
+    /**
+     * Filter which BruteInventoryItem to delete.
+     */
+    where: BruteInventoryItemWhereUniqueInput
+  }
+
+
+  /**
+   * BruteInventoryItem deleteMany
+   */
+  export type BruteInventoryItemDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BruteInventoryItems to delete
+     */
+    where?: BruteInventoryItemWhereInput
+  }
+
+
+  /**
+   * BruteInventoryItem without action
+   */
+  export type BruteInventoryItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteInventoryItem
+     */
+    select?: BruteInventoryItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: BruteInventoryItemInclude<ExtArgs> | null
+  }
+
+
+
+  /**
    * Enums
    */
 
@@ -23506,25 +24189,6 @@ export namespace Prisma {
   export const BruteBodyScalarFieldEnum: {
     id: 'id',
     bruteId: 'bruteId',
-    longHair: 'longHair',
-    lowerRightArm: 'lowerRightArm',
-    rightHand: 'rightHand',
-    upperRightArm: 'upperRightArm',
-    rightShoulder: 'rightShoulder',
-    rightFoot: 'rightFoot',
-    lowerRightLeg: 'lowerRightLeg',
-    upperRightLeg: 'upperRightLeg',
-    leftFoot: 'leftFoot',
-    lowerLeftLeg: 'lowerLeftLeg',
-    pelvis: 'pelvis',
-    upperLeftLeg: 'upperLeftLeg',
-    tummy: 'tummy',
-    torso: 'torso',
-    head: 'head',
-    leftHand: 'leftHand',
-    upperLeftArm: 'upperLeftArm',
-    lowerLeftArm: 'lowerLeftArm',
-    leftShoulder: 'leftShoulder',
     p2: 'p2',
     p3: 'p3',
     p4: 'p4',
@@ -23544,16 +24208,6 @@ export namespace Prisma {
   export const BruteColorsScalarFieldEnum: {
     id: 'id',
     bruteId: 'bruteId',
-    skinColor: 'skinColor',
-    skinShade: 'skinShade',
-    hairColor: 'hairColor',
-    hairShade: 'hairShade',
-    primaryColor: 'primaryColor',
-    primaryShade: 'primaryShade',
-    secondaryColor: 'secondaryColor',
-    secondaryShade: 'secondaryShade',
-    accentColor: 'accentColor',
-    accentShade: 'accentShade',
     col0: 'col0',
     col0a: 'col0a',
     col0c: 'col0c',
@@ -23795,6 +24449,16 @@ export namespace Prisma {
   };
 
   export type ClanPostScalarFieldEnum = (typeof ClanPostScalarFieldEnum)[keyof typeof ClanPostScalarFieldEnum]
+
+
+  export const BruteInventoryItemScalarFieldEnum: {
+    id: 'id',
+    type: 'type',
+    count: 'count',
+    bruteId: 'bruteId'
+  };
+
+  export type BruteInventoryItemScalarFieldEnum = (typeof BruteInventoryItemScalarFieldEnum)[keyof typeof BruteInventoryItemScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -24083,6 +24747,20 @@ export namespace Prisma {
    */
   export type ListEnumBossNameFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BossName[]'>
     
+
+
+  /**
+   * Reference to a field of type 'InventoryItemType'
+   */
+  export type EnumInventoryItemTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InventoryItemType'>
+    
+
+
+  /**
+   * Reference to a field of type 'InventoryItemType[]'
+   */
+  export type ListEnumInventoryItemTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InventoryItemType[]'>
+    
   /**
    * Deep Input Types
    */
@@ -24182,25 +24860,6 @@ export namespace Prisma {
     NOT?: BruteBodyWhereInput | BruteBodyWhereInput[]
     id?: IntFilter<"BruteBody"> | number
     bruteId?: IntFilter<"BruteBody"> | number
-    longHair?: IntFilter<"BruteBody"> | number
-    lowerRightArm?: IntFilter<"BruteBody"> | number
-    rightHand?: IntFilter<"BruteBody"> | number
-    upperRightArm?: IntFilter<"BruteBody"> | number
-    rightShoulder?: IntFilter<"BruteBody"> | number
-    rightFoot?: IntFilter<"BruteBody"> | number
-    lowerRightLeg?: IntFilter<"BruteBody"> | number
-    upperRightLeg?: IntFilter<"BruteBody"> | number
-    leftFoot?: IntFilter<"BruteBody"> | number
-    lowerLeftLeg?: IntFilter<"BruteBody"> | number
-    pelvis?: IntFilter<"BruteBody"> | number
-    upperLeftLeg?: IntFilter<"BruteBody"> | number
-    tummy?: IntFilter<"BruteBody"> | number
-    torso?: IntFilter<"BruteBody"> | number
-    head?: IntFilter<"BruteBody"> | number
-    leftHand?: IntFilter<"BruteBody"> | number
-    upperLeftArm?: IntFilter<"BruteBody"> | number
-    lowerLeftArm?: IntFilter<"BruteBody"> | number
-    leftShoulder?: IntFilter<"BruteBody"> | number
     p2?: IntFilter<"BruteBody"> | number
     p3?: IntFilter<"BruteBody"> | number
     p4?: IntFilter<"BruteBody"> | number
@@ -24218,25 +24877,6 @@ export namespace Prisma {
   export type BruteBodyOrderByWithRelationInput = {
     id?: SortOrder
     bruteId?: SortOrder
-    longHair?: SortOrder
-    lowerRightArm?: SortOrder
-    rightHand?: SortOrder
-    upperRightArm?: SortOrder
-    rightShoulder?: SortOrder
-    rightFoot?: SortOrder
-    lowerRightLeg?: SortOrder
-    upperRightLeg?: SortOrder
-    leftFoot?: SortOrder
-    lowerLeftLeg?: SortOrder
-    pelvis?: SortOrder
-    upperLeftLeg?: SortOrder
-    tummy?: SortOrder
-    torso?: SortOrder
-    head?: SortOrder
-    leftHand?: SortOrder
-    upperLeftArm?: SortOrder
-    lowerLeftArm?: SortOrder
-    leftShoulder?: SortOrder
     p2?: SortOrder
     p3?: SortOrder
     p4?: SortOrder
@@ -24257,25 +24897,6 @@ export namespace Prisma {
     AND?: BruteBodyWhereInput | BruteBodyWhereInput[]
     OR?: BruteBodyWhereInput[]
     NOT?: BruteBodyWhereInput | BruteBodyWhereInput[]
-    longHair?: IntFilter<"BruteBody"> | number
-    lowerRightArm?: IntFilter<"BruteBody"> | number
-    rightHand?: IntFilter<"BruteBody"> | number
-    upperRightArm?: IntFilter<"BruteBody"> | number
-    rightShoulder?: IntFilter<"BruteBody"> | number
-    rightFoot?: IntFilter<"BruteBody"> | number
-    lowerRightLeg?: IntFilter<"BruteBody"> | number
-    upperRightLeg?: IntFilter<"BruteBody"> | number
-    leftFoot?: IntFilter<"BruteBody"> | number
-    lowerLeftLeg?: IntFilter<"BruteBody"> | number
-    pelvis?: IntFilter<"BruteBody"> | number
-    upperLeftLeg?: IntFilter<"BruteBody"> | number
-    tummy?: IntFilter<"BruteBody"> | number
-    torso?: IntFilter<"BruteBody"> | number
-    head?: IntFilter<"BruteBody"> | number
-    leftHand?: IntFilter<"BruteBody"> | number
-    upperLeftArm?: IntFilter<"BruteBody"> | number
-    lowerLeftArm?: IntFilter<"BruteBody"> | number
-    leftShoulder?: IntFilter<"BruteBody"> | number
     p2?: IntFilter<"BruteBody"> | number
     p3?: IntFilter<"BruteBody"> | number
     p4?: IntFilter<"BruteBody"> | number
@@ -24293,25 +24914,6 @@ export namespace Prisma {
   export type BruteBodyOrderByWithAggregationInput = {
     id?: SortOrder
     bruteId?: SortOrder
-    longHair?: SortOrder
-    lowerRightArm?: SortOrder
-    rightHand?: SortOrder
-    upperRightArm?: SortOrder
-    rightShoulder?: SortOrder
-    rightFoot?: SortOrder
-    lowerRightLeg?: SortOrder
-    upperRightLeg?: SortOrder
-    leftFoot?: SortOrder
-    lowerLeftLeg?: SortOrder
-    pelvis?: SortOrder
-    upperLeftLeg?: SortOrder
-    tummy?: SortOrder
-    torso?: SortOrder
-    head?: SortOrder
-    leftHand?: SortOrder
-    upperLeftArm?: SortOrder
-    lowerLeftArm?: SortOrder
-    leftShoulder?: SortOrder
     p2?: SortOrder
     p3?: SortOrder
     p4?: SortOrder
@@ -24336,25 +24938,6 @@ export namespace Prisma {
     NOT?: BruteBodyScalarWhereWithAggregatesInput | BruteBodyScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"BruteBody"> | number
     bruteId?: IntWithAggregatesFilter<"BruteBody"> | number
-    longHair?: IntWithAggregatesFilter<"BruteBody"> | number
-    lowerRightArm?: IntWithAggregatesFilter<"BruteBody"> | number
-    rightHand?: IntWithAggregatesFilter<"BruteBody"> | number
-    upperRightArm?: IntWithAggregatesFilter<"BruteBody"> | number
-    rightShoulder?: IntWithAggregatesFilter<"BruteBody"> | number
-    rightFoot?: IntWithAggregatesFilter<"BruteBody"> | number
-    lowerRightLeg?: IntWithAggregatesFilter<"BruteBody"> | number
-    upperRightLeg?: IntWithAggregatesFilter<"BruteBody"> | number
-    leftFoot?: IntWithAggregatesFilter<"BruteBody"> | number
-    lowerLeftLeg?: IntWithAggregatesFilter<"BruteBody"> | number
-    pelvis?: IntWithAggregatesFilter<"BruteBody"> | number
-    upperLeftLeg?: IntWithAggregatesFilter<"BruteBody"> | number
-    tummy?: IntWithAggregatesFilter<"BruteBody"> | number
-    torso?: IntWithAggregatesFilter<"BruteBody"> | number
-    head?: IntWithAggregatesFilter<"BruteBody"> | number
-    leftHand?: IntWithAggregatesFilter<"BruteBody"> | number
-    upperLeftArm?: IntWithAggregatesFilter<"BruteBody"> | number
-    lowerLeftArm?: IntWithAggregatesFilter<"BruteBody"> | number
-    leftShoulder?: IntWithAggregatesFilter<"BruteBody"> | number
     p2?: IntWithAggregatesFilter<"BruteBody"> | number
     p3?: IntWithAggregatesFilter<"BruteBody"> | number
     p4?: IntWithAggregatesFilter<"BruteBody"> | number
@@ -24374,16 +24957,6 @@ export namespace Prisma {
     NOT?: BruteColorsWhereInput | BruteColorsWhereInput[]
     id?: IntFilter<"BruteColors"> | number
     bruteId?: IntFilter<"BruteColors"> | number
-    skinColor?: StringFilter<"BruteColors"> | string
-    skinShade?: StringFilter<"BruteColors"> | string
-    hairColor?: StringFilter<"BruteColors"> | string
-    hairShade?: StringFilter<"BruteColors"> | string
-    primaryColor?: StringFilter<"BruteColors"> | string
-    primaryShade?: StringFilter<"BruteColors"> | string
-    secondaryColor?: StringFilter<"BruteColors"> | string
-    secondaryShade?: StringFilter<"BruteColors"> | string
-    accentColor?: StringFilter<"BruteColors"> | string
-    accentShade?: StringFilter<"BruteColors"> | string
     col0?: StringFilter<"BruteColors"> | string
     col0a?: StringFilter<"BruteColors"> | string
     col0c?: StringFilter<"BruteColors"> | string
@@ -24406,16 +24979,6 @@ export namespace Prisma {
   export type BruteColorsOrderByWithRelationInput = {
     id?: SortOrder
     bruteId?: SortOrder
-    skinColor?: SortOrder
-    skinShade?: SortOrder
-    hairColor?: SortOrder
-    hairShade?: SortOrder
-    primaryColor?: SortOrder
-    primaryShade?: SortOrder
-    secondaryColor?: SortOrder
-    secondaryShade?: SortOrder
-    accentColor?: SortOrder
-    accentShade?: SortOrder
     col0?: SortOrder
     col0a?: SortOrder
     col0c?: SortOrder
@@ -24441,16 +25004,6 @@ export namespace Prisma {
     AND?: BruteColorsWhereInput | BruteColorsWhereInput[]
     OR?: BruteColorsWhereInput[]
     NOT?: BruteColorsWhereInput | BruteColorsWhereInput[]
-    skinColor?: StringFilter<"BruteColors"> | string
-    skinShade?: StringFilter<"BruteColors"> | string
-    hairColor?: StringFilter<"BruteColors"> | string
-    hairShade?: StringFilter<"BruteColors"> | string
-    primaryColor?: StringFilter<"BruteColors"> | string
-    primaryShade?: StringFilter<"BruteColors"> | string
-    secondaryColor?: StringFilter<"BruteColors"> | string
-    secondaryShade?: StringFilter<"BruteColors"> | string
-    accentColor?: StringFilter<"BruteColors"> | string
-    accentShade?: StringFilter<"BruteColors"> | string
     col0?: StringFilter<"BruteColors"> | string
     col0a?: StringFilter<"BruteColors"> | string
     col0c?: StringFilter<"BruteColors"> | string
@@ -24473,16 +25026,6 @@ export namespace Prisma {
   export type BruteColorsOrderByWithAggregationInput = {
     id?: SortOrder
     bruteId?: SortOrder
-    skinColor?: SortOrder
-    skinShade?: SortOrder
-    hairColor?: SortOrder
-    hairShade?: SortOrder
-    primaryColor?: SortOrder
-    primaryShade?: SortOrder
-    secondaryColor?: SortOrder
-    secondaryShade?: SortOrder
-    accentColor?: SortOrder
-    accentShade?: SortOrder
     col0?: SortOrder
     col0a?: SortOrder
     col0c?: SortOrder
@@ -24512,16 +25055,6 @@ export namespace Prisma {
     NOT?: BruteColorsScalarWhereWithAggregatesInput | BruteColorsScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"BruteColors"> | number
     bruteId?: IntWithAggregatesFilter<"BruteColors"> | number
-    skinColor?: StringWithAggregatesFilter<"BruteColors"> | string
-    skinShade?: StringWithAggregatesFilter<"BruteColors"> | string
-    hairColor?: StringWithAggregatesFilter<"BruteColors"> | string
-    hairShade?: StringWithAggregatesFilter<"BruteColors"> | string
-    primaryColor?: StringWithAggregatesFilter<"BruteColors"> | string
-    primaryShade?: StringWithAggregatesFilter<"BruteColors"> | string
-    secondaryColor?: StringWithAggregatesFilter<"BruteColors"> | string
-    secondaryShade?: StringWithAggregatesFilter<"BruteColors"> | string
-    accentColor?: StringWithAggregatesFilter<"BruteColors"> | string
-    accentShade?: StringWithAggregatesFilter<"BruteColors"> | string
     col0?: StringWithAggregatesFilter<"BruteColors"> | string
     col0a?: StringWithAggregatesFilter<"BruteColors"> | string
     col0c?: StringWithAggregatesFilter<"BruteColors"> | string
@@ -24606,6 +25139,7 @@ export namespace Prisma {
     clanPosts?: ClanPostListRelationFilter
     wantToJoinClan?: XOR<ClanNullableRelationFilter, ClanWhereInput> | null
     threads?: ClanThreadListRelationFilter
+    inventory?: BruteInventoryItemListRelationFilter
   }
 
   export type BruteOrderByWithRelationInput = {
@@ -24671,6 +25205,7 @@ export namespace Prisma {
     clanPosts?: ClanPostOrderByRelationAggregateInput
     wantToJoinClan?: ClanOrderByWithRelationInput
     threads?: ClanThreadOrderByRelationAggregateInput
+    inventory?: BruteInventoryItemOrderByRelationAggregateInput
   }
 
   export type BruteWhereUniqueInput = Prisma.AtLeast<{
@@ -24739,6 +25274,7 @@ export namespace Prisma {
     clanPosts?: ClanPostListRelationFilter
     wantToJoinClan?: XOR<ClanNullableRelationFilter, ClanWhereInput> | null
     threads?: ClanThreadListRelationFilter
+    inventory?: BruteInventoryItemListRelationFilter
   }, "id">
 
   export type BruteOrderByWithAggregationInput = {
@@ -25775,6 +26311,59 @@ export namespace Prisma {
     message?: StringWithAggregatesFilter<"ClanPost"> | string
   }
 
+  export type BruteInventoryItemWhereInput = {
+    AND?: BruteInventoryItemWhereInput | BruteInventoryItemWhereInput[]
+    OR?: BruteInventoryItemWhereInput[]
+    NOT?: BruteInventoryItemWhereInput | BruteInventoryItemWhereInput[]
+    id?: IntFilter<"BruteInventoryItem"> | number
+    type?: EnumInventoryItemTypeFilter<"BruteInventoryItem"> | $Enums.InventoryItemType
+    count?: IntFilter<"BruteInventoryItem"> | number
+    bruteId?: IntFilter<"BruteInventoryItem"> | number
+    brute?: XOR<BruteRelationFilter, BruteWhereInput>
+  }
+
+  export type BruteInventoryItemOrderByWithRelationInput = {
+    id?: SortOrder
+    type?: SortOrder
+    count?: SortOrder
+    bruteId?: SortOrder
+    brute?: BruteOrderByWithRelationInput
+  }
+
+  export type BruteInventoryItemWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    type_bruteId?: BruteInventoryItemTypeBruteIdCompoundUniqueInput
+    AND?: BruteInventoryItemWhereInput | BruteInventoryItemWhereInput[]
+    OR?: BruteInventoryItemWhereInput[]
+    NOT?: BruteInventoryItemWhereInput | BruteInventoryItemWhereInput[]
+    type?: EnumInventoryItemTypeFilter<"BruteInventoryItem"> | $Enums.InventoryItemType
+    count?: IntFilter<"BruteInventoryItem"> | number
+    bruteId?: IntFilter<"BruteInventoryItem"> | number
+    brute?: XOR<BruteRelationFilter, BruteWhereInput>
+  }, "id" | "type_bruteId">
+
+  export type BruteInventoryItemOrderByWithAggregationInput = {
+    id?: SortOrder
+    type?: SortOrder
+    count?: SortOrder
+    bruteId?: SortOrder
+    _count?: BruteInventoryItemCountOrderByAggregateInput
+    _avg?: BruteInventoryItemAvgOrderByAggregateInput
+    _max?: BruteInventoryItemMaxOrderByAggregateInput
+    _min?: BruteInventoryItemMinOrderByAggregateInput
+    _sum?: BruteInventoryItemSumOrderByAggregateInput
+  }
+
+  export type BruteInventoryItemScalarWhereWithAggregatesInput = {
+    AND?: BruteInventoryItemScalarWhereWithAggregatesInput | BruteInventoryItemScalarWhereWithAggregatesInput[]
+    OR?: BruteInventoryItemScalarWhereWithAggregatesInput[]
+    NOT?: BruteInventoryItemScalarWhereWithAggregatesInput | BruteInventoryItemScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"BruteInventoryItem"> | number
+    type?: EnumInventoryItemTypeWithAggregatesFilter<"BruteInventoryItem"> | $Enums.InventoryItemType
+    count?: IntWithAggregatesFilter<"BruteInventoryItem"> | number
+    bruteId?: IntWithAggregatesFilter<"BruteInventoryItem"> | number
+  }
+
   export type UserCreateInput = {
     id: string
     lang?: $Enums.Lang
@@ -25879,25 +26468,6 @@ export namespace Prisma {
   }
 
   export type BruteBodyCreateInput = {
-    longHair: number
-    lowerRightArm: number
-    rightHand: number
-    upperRightArm: number
-    rightShoulder: number
-    rightFoot: number
-    lowerRightLeg: number
-    upperRightLeg: number
-    leftFoot: number
-    lowerLeftLeg: number
-    pelvis: number
-    upperLeftLeg: number
-    tummy: number
-    torso: number
-    head: number
-    leftHand: number
-    upperLeftArm: number
-    lowerLeftArm: number
-    leftShoulder: number
     p2?: number
     p3?: number
     p4?: number
@@ -25915,25 +26485,6 @@ export namespace Prisma {
   export type BruteBodyUncheckedCreateInput = {
     id?: number
     bruteId: number
-    longHair: number
-    lowerRightArm: number
-    rightHand: number
-    upperRightArm: number
-    rightShoulder: number
-    rightFoot: number
-    lowerRightLeg: number
-    upperRightLeg: number
-    leftFoot: number
-    lowerLeftLeg: number
-    pelvis: number
-    upperLeftLeg: number
-    tummy: number
-    torso: number
-    head: number
-    leftHand: number
-    upperLeftArm: number
-    lowerLeftArm: number
-    leftShoulder: number
     p2?: number
     p3?: number
     p4?: number
@@ -25948,25 +26499,6 @@ export namespace Prisma {
   }
 
   export type BruteBodyUpdateInput = {
-    longHair?: IntFieldUpdateOperationsInput | number
-    lowerRightArm?: IntFieldUpdateOperationsInput | number
-    rightHand?: IntFieldUpdateOperationsInput | number
-    upperRightArm?: IntFieldUpdateOperationsInput | number
-    rightShoulder?: IntFieldUpdateOperationsInput | number
-    rightFoot?: IntFieldUpdateOperationsInput | number
-    lowerRightLeg?: IntFieldUpdateOperationsInput | number
-    upperRightLeg?: IntFieldUpdateOperationsInput | number
-    leftFoot?: IntFieldUpdateOperationsInput | number
-    lowerLeftLeg?: IntFieldUpdateOperationsInput | number
-    pelvis?: IntFieldUpdateOperationsInput | number
-    upperLeftLeg?: IntFieldUpdateOperationsInput | number
-    tummy?: IntFieldUpdateOperationsInput | number
-    torso?: IntFieldUpdateOperationsInput | number
-    head?: IntFieldUpdateOperationsInput | number
-    leftHand?: IntFieldUpdateOperationsInput | number
-    upperLeftArm?: IntFieldUpdateOperationsInput | number
-    lowerLeftArm?: IntFieldUpdateOperationsInput | number
-    leftShoulder?: IntFieldUpdateOperationsInput | number
     p2?: IntFieldUpdateOperationsInput | number
     p3?: IntFieldUpdateOperationsInput | number
     p4?: IntFieldUpdateOperationsInput | number
@@ -25984,25 +26516,6 @@ export namespace Prisma {
   export type BruteBodyUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     bruteId?: IntFieldUpdateOperationsInput | number
-    longHair?: IntFieldUpdateOperationsInput | number
-    lowerRightArm?: IntFieldUpdateOperationsInput | number
-    rightHand?: IntFieldUpdateOperationsInput | number
-    upperRightArm?: IntFieldUpdateOperationsInput | number
-    rightShoulder?: IntFieldUpdateOperationsInput | number
-    rightFoot?: IntFieldUpdateOperationsInput | number
-    lowerRightLeg?: IntFieldUpdateOperationsInput | number
-    upperRightLeg?: IntFieldUpdateOperationsInput | number
-    leftFoot?: IntFieldUpdateOperationsInput | number
-    lowerLeftLeg?: IntFieldUpdateOperationsInput | number
-    pelvis?: IntFieldUpdateOperationsInput | number
-    upperLeftLeg?: IntFieldUpdateOperationsInput | number
-    tummy?: IntFieldUpdateOperationsInput | number
-    torso?: IntFieldUpdateOperationsInput | number
-    head?: IntFieldUpdateOperationsInput | number
-    leftHand?: IntFieldUpdateOperationsInput | number
-    upperLeftArm?: IntFieldUpdateOperationsInput | number
-    lowerLeftArm?: IntFieldUpdateOperationsInput | number
-    leftShoulder?: IntFieldUpdateOperationsInput | number
     p2?: IntFieldUpdateOperationsInput | number
     p3?: IntFieldUpdateOperationsInput | number
     p4?: IntFieldUpdateOperationsInput | number
@@ -26019,25 +26532,6 @@ export namespace Prisma {
   export type BruteBodyCreateManyInput = {
     id?: number
     bruteId: number
-    longHair: number
-    lowerRightArm: number
-    rightHand: number
-    upperRightArm: number
-    rightShoulder: number
-    rightFoot: number
-    lowerRightLeg: number
-    upperRightLeg: number
-    leftFoot: number
-    lowerLeftLeg: number
-    pelvis: number
-    upperLeftLeg: number
-    tummy: number
-    torso: number
-    head: number
-    leftHand: number
-    upperLeftArm: number
-    lowerLeftArm: number
-    leftShoulder: number
     p2?: number
     p3?: number
     p4?: number
@@ -26052,25 +26546,6 @@ export namespace Prisma {
   }
 
   export type BruteBodyUpdateManyMutationInput = {
-    longHair?: IntFieldUpdateOperationsInput | number
-    lowerRightArm?: IntFieldUpdateOperationsInput | number
-    rightHand?: IntFieldUpdateOperationsInput | number
-    upperRightArm?: IntFieldUpdateOperationsInput | number
-    rightShoulder?: IntFieldUpdateOperationsInput | number
-    rightFoot?: IntFieldUpdateOperationsInput | number
-    lowerRightLeg?: IntFieldUpdateOperationsInput | number
-    upperRightLeg?: IntFieldUpdateOperationsInput | number
-    leftFoot?: IntFieldUpdateOperationsInput | number
-    lowerLeftLeg?: IntFieldUpdateOperationsInput | number
-    pelvis?: IntFieldUpdateOperationsInput | number
-    upperLeftLeg?: IntFieldUpdateOperationsInput | number
-    tummy?: IntFieldUpdateOperationsInput | number
-    torso?: IntFieldUpdateOperationsInput | number
-    head?: IntFieldUpdateOperationsInput | number
-    leftHand?: IntFieldUpdateOperationsInput | number
-    upperLeftArm?: IntFieldUpdateOperationsInput | number
-    lowerLeftArm?: IntFieldUpdateOperationsInput | number
-    leftShoulder?: IntFieldUpdateOperationsInput | number
     p2?: IntFieldUpdateOperationsInput | number
     p3?: IntFieldUpdateOperationsInput | number
     p4?: IntFieldUpdateOperationsInput | number
@@ -26087,25 +26562,6 @@ export namespace Prisma {
   export type BruteBodyUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     bruteId?: IntFieldUpdateOperationsInput | number
-    longHair?: IntFieldUpdateOperationsInput | number
-    lowerRightArm?: IntFieldUpdateOperationsInput | number
-    rightHand?: IntFieldUpdateOperationsInput | number
-    upperRightArm?: IntFieldUpdateOperationsInput | number
-    rightShoulder?: IntFieldUpdateOperationsInput | number
-    rightFoot?: IntFieldUpdateOperationsInput | number
-    lowerRightLeg?: IntFieldUpdateOperationsInput | number
-    upperRightLeg?: IntFieldUpdateOperationsInput | number
-    leftFoot?: IntFieldUpdateOperationsInput | number
-    lowerLeftLeg?: IntFieldUpdateOperationsInput | number
-    pelvis?: IntFieldUpdateOperationsInput | number
-    upperLeftLeg?: IntFieldUpdateOperationsInput | number
-    tummy?: IntFieldUpdateOperationsInput | number
-    torso?: IntFieldUpdateOperationsInput | number
-    head?: IntFieldUpdateOperationsInput | number
-    leftHand?: IntFieldUpdateOperationsInput | number
-    upperLeftArm?: IntFieldUpdateOperationsInput | number
-    lowerLeftArm?: IntFieldUpdateOperationsInput | number
-    leftShoulder?: IntFieldUpdateOperationsInput | number
     p2?: IntFieldUpdateOperationsInput | number
     p3?: IntFieldUpdateOperationsInput | number
     p4?: IntFieldUpdateOperationsInput | number
@@ -26120,16 +26576,6 @@ export namespace Prisma {
   }
 
   export type BruteColorsCreateInput = {
-    skinColor: string
-    skinShade: string
-    hairColor: string
-    hairShade: string
-    primaryColor: string
-    primaryShade: string
-    secondaryColor: string
-    secondaryShade: string
-    accentColor: string
-    accentShade: string
     col0?: string
     col0a?: string
     col0c?: string
@@ -26152,16 +26598,6 @@ export namespace Prisma {
   export type BruteColorsUncheckedCreateInput = {
     id?: number
     bruteId: number
-    skinColor: string
-    skinShade: string
-    hairColor: string
-    hairShade: string
-    primaryColor: string
-    primaryShade: string
-    secondaryColor: string
-    secondaryShade: string
-    accentColor: string
-    accentShade: string
     col0?: string
     col0a?: string
     col0c?: string
@@ -26181,16 +26617,6 @@ export namespace Prisma {
   }
 
   export type BruteColorsUpdateInput = {
-    skinColor?: StringFieldUpdateOperationsInput | string
-    skinShade?: StringFieldUpdateOperationsInput | string
-    hairColor?: StringFieldUpdateOperationsInput | string
-    hairShade?: StringFieldUpdateOperationsInput | string
-    primaryColor?: StringFieldUpdateOperationsInput | string
-    primaryShade?: StringFieldUpdateOperationsInput | string
-    secondaryColor?: StringFieldUpdateOperationsInput | string
-    secondaryShade?: StringFieldUpdateOperationsInput | string
-    accentColor?: StringFieldUpdateOperationsInput | string
-    accentShade?: StringFieldUpdateOperationsInput | string
     col0?: StringFieldUpdateOperationsInput | string
     col0a?: StringFieldUpdateOperationsInput | string
     col0c?: StringFieldUpdateOperationsInput | string
@@ -26213,16 +26639,6 @@ export namespace Prisma {
   export type BruteColorsUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     bruteId?: IntFieldUpdateOperationsInput | number
-    skinColor?: StringFieldUpdateOperationsInput | string
-    skinShade?: StringFieldUpdateOperationsInput | string
-    hairColor?: StringFieldUpdateOperationsInput | string
-    hairShade?: StringFieldUpdateOperationsInput | string
-    primaryColor?: StringFieldUpdateOperationsInput | string
-    primaryShade?: StringFieldUpdateOperationsInput | string
-    secondaryColor?: StringFieldUpdateOperationsInput | string
-    secondaryShade?: StringFieldUpdateOperationsInput | string
-    accentColor?: StringFieldUpdateOperationsInput | string
-    accentShade?: StringFieldUpdateOperationsInput | string
     col0?: StringFieldUpdateOperationsInput | string
     col0a?: StringFieldUpdateOperationsInput | string
     col0c?: StringFieldUpdateOperationsInput | string
@@ -26244,16 +26660,6 @@ export namespace Prisma {
   export type BruteColorsCreateManyInput = {
     id?: number
     bruteId: number
-    skinColor: string
-    skinShade: string
-    hairColor: string
-    hairShade: string
-    primaryColor: string
-    primaryShade: string
-    secondaryColor: string
-    secondaryShade: string
-    accentColor: string
-    accentShade: string
     col0?: string
     col0a?: string
     col0c?: string
@@ -26273,16 +26679,6 @@ export namespace Prisma {
   }
 
   export type BruteColorsUpdateManyMutationInput = {
-    skinColor?: StringFieldUpdateOperationsInput | string
-    skinShade?: StringFieldUpdateOperationsInput | string
-    hairColor?: StringFieldUpdateOperationsInput | string
-    hairShade?: StringFieldUpdateOperationsInput | string
-    primaryColor?: StringFieldUpdateOperationsInput | string
-    primaryShade?: StringFieldUpdateOperationsInput | string
-    secondaryColor?: StringFieldUpdateOperationsInput | string
-    secondaryShade?: StringFieldUpdateOperationsInput | string
-    accentColor?: StringFieldUpdateOperationsInput | string
-    accentShade?: StringFieldUpdateOperationsInput | string
     col0?: StringFieldUpdateOperationsInput | string
     col0a?: StringFieldUpdateOperationsInput | string
     col0c?: StringFieldUpdateOperationsInput | string
@@ -26304,16 +26700,6 @@ export namespace Prisma {
   export type BruteColorsUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     bruteId?: IntFieldUpdateOperationsInput | number
-    skinColor?: StringFieldUpdateOperationsInput | string
-    skinShade?: StringFieldUpdateOperationsInput | string
-    hairColor?: StringFieldUpdateOperationsInput | string
-    hairShade?: StringFieldUpdateOperationsInput | string
-    primaryColor?: StringFieldUpdateOperationsInput | string
-    primaryShade?: StringFieldUpdateOperationsInput | string
-    secondaryColor?: StringFieldUpdateOperationsInput | string
-    secondaryShade?: StringFieldUpdateOperationsInput | string
-    accentColor?: StringFieldUpdateOperationsInput | string
-    accentShade?: StringFieldUpdateOperationsInput | string
     col0?: StringFieldUpdateOperationsInput | string
     col0a?: StringFieldUpdateOperationsInput | string
     col0c?: StringFieldUpdateOperationsInput | string
@@ -26390,6 +26776,7 @@ export namespace Prisma {
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
     threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateInput = {
@@ -26451,6 +26838,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUpdateInput = {
@@ -26511,6 +26899,7 @@ export namespace Prisma {
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
     threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateInput = {
@@ -26572,6 +26961,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteCreateManyInput = {
@@ -27590,6 +27980,51 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
   }
 
+  export type BruteInventoryItemCreateInput = {
+    type: $Enums.InventoryItemType
+    count?: number
+    brute: BruteCreateNestedOneWithoutInventoryInput
+  }
+
+  export type BruteInventoryItemUncheckedCreateInput = {
+    id?: number
+    type: $Enums.InventoryItemType
+    count?: number
+    bruteId: number
+  }
+
+  export type BruteInventoryItemUpdateInput = {
+    type?: EnumInventoryItemTypeFieldUpdateOperationsInput | $Enums.InventoryItemType
+    count?: IntFieldUpdateOperationsInput | number
+    brute?: BruteUpdateOneRequiredWithoutInventoryNestedInput
+  }
+
+  export type BruteInventoryItemUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    type?: EnumInventoryItemTypeFieldUpdateOperationsInput | $Enums.InventoryItemType
+    count?: IntFieldUpdateOperationsInput | number
+    bruteId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type BruteInventoryItemCreateManyInput = {
+    id?: number
+    type: $Enums.InventoryItemType
+    count?: number
+    bruteId: number
+  }
+
+  export type BruteInventoryItemUpdateManyMutationInput = {
+    type?: EnumInventoryItemTypeFieldUpdateOperationsInput | $Enums.InventoryItemType
+    count?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type BruteInventoryItemUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    type?: EnumInventoryItemTypeFieldUpdateOperationsInput | $Enums.InventoryItemType
+    count?: IntFieldUpdateOperationsInput | number
+    bruteId?: IntFieldUpdateOperationsInput | number
+  }
+
   export type UuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -27796,25 +28231,6 @@ export namespace Prisma {
   export type BruteBodyCountOrderByAggregateInput = {
     id?: SortOrder
     bruteId?: SortOrder
-    longHair?: SortOrder
-    lowerRightArm?: SortOrder
-    rightHand?: SortOrder
-    upperRightArm?: SortOrder
-    rightShoulder?: SortOrder
-    rightFoot?: SortOrder
-    lowerRightLeg?: SortOrder
-    upperRightLeg?: SortOrder
-    leftFoot?: SortOrder
-    lowerLeftLeg?: SortOrder
-    pelvis?: SortOrder
-    upperLeftLeg?: SortOrder
-    tummy?: SortOrder
-    torso?: SortOrder
-    head?: SortOrder
-    leftHand?: SortOrder
-    upperLeftArm?: SortOrder
-    lowerLeftArm?: SortOrder
-    leftShoulder?: SortOrder
     p2?: SortOrder
     p3?: SortOrder
     p4?: SortOrder
@@ -27831,25 +28247,6 @@ export namespace Prisma {
   export type BruteBodyAvgOrderByAggregateInput = {
     id?: SortOrder
     bruteId?: SortOrder
-    longHair?: SortOrder
-    lowerRightArm?: SortOrder
-    rightHand?: SortOrder
-    upperRightArm?: SortOrder
-    rightShoulder?: SortOrder
-    rightFoot?: SortOrder
-    lowerRightLeg?: SortOrder
-    upperRightLeg?: SortOrder
-    leftFoot?: SortOrder
-    lowerLeftLeg?: SortOrder
-    pelvis?: SortOrder
-    upperLeftLeg?: SortOrder
-    tummy?: SortOrder
-    torso?: SortOrder
-    head?: SortOrder
-    leftHand?: SortOrder
-    upperLeftArm?: SortOrder
-    lowerLeftArm?: SortOrder
-    leftShoulder?: SortOrder
     p2?: SortOrder
     p3?: SortOrder
     p4?: SortOrder
@@ -27866,25 +28263,6 @@ export namespace Prisma {
   export type BruteBodyMaxOrderByAggregateInput = {
     id?: SortOrder
     bruteId?: SortOrder
-    longHair?: SortOrder
-    lowerRightArm?: SortOrder
-    rightHand?: SortOrder
-    upperRightArm?: SortOrder
-    rightShoulder?: SortOrder
-    rightFoot?: SortOrder
-    lowerRightLeg?: SortOrder
-    upperRightLeg?: SortOrder
-    leftFoot?: SortOrder
-    lowerLeftLeg?: SortOrder
-    pelvis?: SortOrder
-    upperLeftLeg?: SortOrder
-    tummy?: SortOrder
-    torso?: SortOrder
-    head?: SortOrder
-    leftHand?: SortOrder
-    upperLeftArm?: SortOrder
-    lowerLeftArm?: SortOrder
-    leftShoulder?: SortOrder
     p2?: SortOrder
     p3?: SortOrder
     p4?: SortOrder
@@ -27901,25 +28279,6 @@ export namespace Prisma {
   export type BruteBodyMinOrderByAggregateInput = {
     id?: SortOrder
     bruteId?: SortOrder
-    longHair?: SortOrder
-    lowerRightArm?: SortOrder
-    rightHand?: SortOrder
-    upperRightArm?: SortOrder
-    rightShoulder?: SortOrder
-    rightFoot?: SortOrder
-    lowerRightLeg?: SortOrder
-    upperRightLeg?: SortOrder
-    leftFoot?: SortOrder
-    lowerLeftLeg?: SortOrder
-    pelvis?: SortOrder
-    upperLeftLeg?: SortOrder
-    tummy?: SortOrder
-    torso?: SortOrder
-    head?: SortOrder
-    leftHand?: SortOrder
-    upperLeftArm?: SortOrder
-    lowerLeftArm?: SortOrder
-    leftShoulder?: SortOrder
     p2?: SortOrder
     p3?: SortOrder
     p4?: SortOrder
@@ -27936,25 +28295,6 @@ export namespace Prisma {
   export type BruteBodySumOrderByAggregateInput = {
     id?: SortOrder
     bruteId?: SortOrder
-    longHair?: SortOrder
-    lowerRightArm?: SortOrder
-    rightHand?: SortOrder
-    upperRightArm?: SortOrder
-    rightShoulder?: SortOrder
-    rightFoot?: SortOrder
-    lowerRightLeg?: SortOrder
-    upperRightLeg?: SortOrder
-    leftFoot?: SortOrder
-    lowerLeftLeg?: SortOrder
-    pelvis?: SortOrder
-    upperLeftLeg?: SortOrder
-    tummy?: SortOrder
-    torso?: SortOrder
-    head?: SortOrder
-    leftHand?: SortOrder
-    upperLeftArm?: SortOrder
-    lowerLeftArm?: SortOrder
-    leftShoulder?: SortOrder
     p2?: SortOrder
     p3?: SortOrder
     p4?: SortOrder
@@ -27971,16 +28311,6 @@ export namespace Prisma {
   export type BruteColorsCountOrderByAggregateInput = {
     id?: SortOrder
     bruteId?: SortOrder
-    skinColor?: SortOrder
-    skinShade?: SortOrder
-    hairColor?: SortOrder
-    hairShade?: SortOrder
-    primaryColor?: SortOrder
-    primaryShade?: SortOrder
-    secondaryColor?: SortOrder
-    secondaryShade?: SortOrder
-    accentColor?: SortOrder
-    accentShade?: SortOrder
     col0?: SortOrder
     col0a?: SortOrder
     col0c?: SortOrder
@@ -28007,16 +28337,6 @@ export namespace Prisma {
   export type BruteColorsMaxOrderByAggregateInput = {
     id?: SortOrder
     bruteId?: SortOrder
-    skinColor?: SortOrder
-    skinShade?: SortOrder
-    hairColor?: SortOrder
-    hairShade?: SortOrder
-    primaryColor?: SortOrder
-    primaryShade?: SortOrder
-    secondaryColor?: SortOrder
-    secondaryShade?: SortOrder
-    accentColor?: SortOrder
-    accentShade?: SortOrder
     col0?: SortOrder
     col0a?: SortOrder
     col0c?: SortOrder
@@ -28038,16 +28358,6 @@ export namespace Prisma {
   export type BruteColorsMinOrderByAggregateInput = {
     id?: SortOrder
     bruteId?: SortOrder
-    skinColor?: SortOrder
-    skinShade?: SortOrder
-    hairColor?: SortOrder
-    hairShade?: SortOrder
-    primaryColor?: SortOrder
-    primaryShade?: SortOrder
-    secondaryColor?: SortOrder
-    secondaryShade?: SortOrder
-    accentColor?: SortOrder
-    accentShade?: SortOrder
     col0?: SortOrder
     col0a?: SortOrder
     col0c?: SortOrder
@@ -28239,6 +28549,12 @@ export namespace Prisma {
     none?: ClanThreadWhereInput
   }
 
+  export type BruteInventoryItemListRelationFilter = {
+    every?: BruteInventoryItemWhereInput
+    some?: BruteInventoryItemWhereInput
+    none?: BruteInventoryItemWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -28273,6 +28589,10 @@ export namespace Prisma {
   }
 
   export type ClanThreadOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type BruteInventoryItemOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -29387,6 +29707,61 @@ export namespace Prisma {
     authorId?: SortOrder
   }
 
+  export type EnumInventoryItemTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.InventoryItemType | EnumInventoryItemTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.InventoryItemType[] | ListEnumInventoryItemTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.InventoryItemType[] | ListEnumInventoryItemTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumInventoryItemTypeFilter<$PrismaModel> | $Enums.InventoryItemType
+  }
+
+  export type BruteInventoryItemTypeBruteIdCompoundUniqueInput = {
+    type: $Enums.InventoryItemType
+    bruteId: number
+  }
+
+  export type BruteInventoryItemCountOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    count?: SortOrder
+    bruteId?: SortOrder
+  }
+
+  export type BruteInventoryItemAvgOrderByAggregateInput = {
+    id?: SortOrder
+    count?: SortOrder
+    bruteId?: SortOrder
+  }
+
+  export type BruteInventoryItemMaxOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    count?: SortOrder
+    bruteId?: SortOrder
+  }
+
+  export type BruteInventoryItemMinOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    count?: SortOrder
+    bruteId?: SortOrder
+  }
+
+  export type BruteInventoryItemSumOrderByAggregateInput = {
+    id?: SortOrder
+    count?: SortOrder
+    bruteId?: SortOrder
+  }
+
+  export type EnumInventoryItemTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.InventoryItemType | EnumInventoryItemTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.InventoryItemType[] | ListEnumInventoryItemTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.InventoryItemType[] | ListEnumInventoryItemTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumInventoryItemTypeWithAggregatesFilter<$PrismaModel> | $Enums.InventoryItemType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumInventoryItemTypeFilter<$PrismaModel>
+    _max?: NestedEnumInventoryItemTypeFilter<$PrismaModel>
+  }
+
   export type BruteCreateNestedManyWithoutUserInput = {
     create?: XOR<BruteCreateWithoutUserInput, BruteUncheckedCreateWithoutUserInput> | BruteCreateWithoutUserInput[] | BruteUncheckedCreateWithoutUserInput[]
     connectOrCreate?: BruteCreateOrConnectWithoutUserInput | BruteCreateOrConnectWithoutUserInput[]
@@ -29713,6 +30088,13 @@ export namespace Prisma {
     connect?: ClanThreadWhereUniqueInput | ClanThreadWhereUniqueInput[]
   }
 
+  export type BruteInventoryItemCreateNestedManyWithoutBruteInput = {
+    create?: XOR<BruteInventoryItemCreateWithoutBruteInput, BruteInventoryItemUncheckedCreateWithoutBruteInput> | BruteInventoryItemCreateWithoutBruteInput[] | BruteInventoryItemUncheckedCreateWithoutBruteInput[]
+    connectOrCreate?: BruteInventoryItemCreateOrConnectWithoutBruteInput | BruteInventoryItemCreateOrConnectWithoutBruteInput[]
+    createMany?: BruteInventoryItemCreateManyBruteInputEnvelope
+    connect?: BruteInventoryItemWhereUniqueInput | BruteInventoryItemWhereUniqueInput[]
+  }
+
   export type BruteBodyUncheckedCreateNestedOneWithoutBruteInput = {
     create?: XOR<BruteBodyCreateWithoutBruteInput, BruteBodyUncheckedCreateWithoutBruteInput>
     connectOrCreate?: BruteBodyCreateOrConnectWithoutBruteInput
@@ -29823,6 +30205,13 @@ export namespace Prisma {
     connectOrCreate?: ClanThreadCreateOrConnectWithoutCreatorInput | ClanThreadCreateOrConnectWithoutCreatorInput[]
     createMany?: ClanThreadCreateManyCreatorInputEnvelope
     connect?: ClanThreadWhereUniqueInput | ClanThreadWhereUniqueInput[]
+  }
+
+  export type BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput = {
+    create?: XOR<BruteInventoryItemCreateWithoutBruteInput, BruteInventoryItemUncheckedCreateWithoutBruteInput> | BruteInventoryItemCreateWithoutBruteInput[] | BruteInventoryItemUncheckedCreateWithoutBruteInput[]
+    connectOrCreate?: BruteInventoryItemCreateOrConnectWithoutBruteInput | BruteInventoryItemCreateOrConnectWithoutBruteInput[]
+    createMany?: BruteInventoryItemCreateManyBruteInputEnvelope
+    connect?: BruteInventoryItemWhereUniqueInput | BruteInventoryItemWhereUniqueInput[]
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -30140,6 +30529,20 @@ export namespace Prisma {
     deleteMany?: ClanThreadScalarWhereInput | ClanThreadScalarWhereInput[]
   }
 
+  export type BruteInventoryItemUpdateManyWithoutBruteNestedInput = {
+    create?: XOR<BruteInventoryItemCreateWithoutBruteInput, BruteInventoryItemUncheckedCreateWithoutBruteInput> | BruteInventoryItemCreateWithoutBruteInput[] | BruteInventoryItemUncheckedCreateWithoutBruteInput[]
+    connectOrCreate?: BruteInventoryItemCreateOrConnectWithoutBruteInput | BruteInventoryItemCreateOrConnectWithoutBruteInput[]
+    upsert?: BruteInventoryItemUpsertWithWhereUniqueWithoutBruteInput | BruteInventoryItemUpsertWithWhereUniqueWithoutBruteInput[]
+    createMany?: BruteInventoryItemCreateManyBruteInputEnvelope
+    set?: BruteInventoryItemWhereUniqueInput | BruteInventoryItemWhereUniqueInput[]
+    disconnect?: BruteInventoryItemWhereUniqueInput | BruteInventoryItemWhereUniqueInput[]
+    delete?: BruteInventoryItemWhereUniqueInput | BruteInventoryItemWhereUniqueInput[]
+    connect?: BruteInventoryItemWhereUniqueInput | BruteInventoryItemWhereUniqueInput[]
+    update?: BruteInventoryItemUpdateWithWhereUniqueWithoutBruteInput | BruteInventoryItemUpdateWithWhereUniqueWithoutBruteInput[]
+    updateMany?: BruteInventoryItemUpdateManyWithWhereWithoutBruteInput | BruteInventoryItemUpdateManyWithWhereWithoutBruteInput[]
+    deleteMany?: BruteInventoryItemScalarWhereInput | BruteInventoryItemScalarWhereInput[]
+  }
+
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
   }
@@ -30364,6 +30767,20 @@ export namespace Prisma {
     update?: ClanThreadUpdateWithWhereUniqueWithoutCreatorInput | ClanThreadUpdateWithWhereUniqueWithoutCreatorInput[]
     updateMany?: ClanThreadUpdateManyWithWhereWithoutCreatorInput | ClanThreadUpdateManyWithWhereWithoutCreatorInput[]
     deleteMany?: ClanThreadScalarWhereInput | ClanThreadScalarWhereInput[]
+  }
+
+  export type BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput = {
+    create?: XOR<BruteInventoryItemCreateWithoutBruteInput, BruteInventoryItemUncheckedCreateWithoutBruteInput> | BruteInventoryItemCreateWithoutBruteInput[] | BruteInventoryItemUncheckedCreateWithoutBruteInput[]
+    connectOrCreate?: BruteInventoryItemCreateOrConnectWithoutBruteInput | BruteInventoryItemCreateOrConnectWithoutBruteInput[]
+    upsert?: BruteInventoryItemUpsertWithWhereUniqueWithoutBruteInput | BruteInventoryItemUpsertWithWhereUniqueWithoutBruteInput[]
+    createMany?: BruteInventoryItemCreateManyBruteInputEnvelope
+    set?: BruteInventoryItemWhereUniqueInput | BruteInventoryItemWhereUniqueInput[]
+    disconnect?: BruteInventoryItemWhereUniqueInput | BruteInventoryItemWhereUniqueInput[]
+    delete?: BruteInventoryItemWhereUniqueInput | BruteInventoryItemWhereUniqueInput[]
+    connect?: BruteInventoryItemWhereUniqueInput | BruteInventoryItemWhereUniqueInput[]
+    update?: BruteInventoryItemUpdateWithWhereUniqueWithoutBruteInput | BruteInventoryItemUpdateWithWhereUniqueWithoutBruteInput[]
+    updateMany?: BruteInventoryItemUpdateManyWithWhereWithoutBruteInput | BruteInventoryItemUpdateManyWithWhereWithoutBruteInput[]
+    deleteMany?: BruteInventoryItemScalarWhereInput | BruteInventoryItemScalarWhereInput[]
   }
 
   export type BruteCreateNestedOneWithoutFightsInput = {
@@ -31063,6 +31480,24 @@ export namespace Prisma {
     update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutClanPostsInput, BruteUpdateWithoutClanPostsInput>, BruteUncheckedUpdateWithoutClanPostsInput>
   }
 
+  export type BruteCreateNestedOneWithoutInventoryInput = {
+    create?: XOR<BruteCreateWithoutInventoryInput, BruteUncheckedCreateWithoutInventoryInput>
+    connectOrCreate?: BruteCreateOrConnectWithoutInventoryInput
+    connect?: BruteWhereUniqueInput
+  }
+
+  export type EnumInventoryItemTypeFieldUpdateOperationsInput = {
+    set?: $Enums.InventoryItemType
+  }
+
+  export type BruteUpdateOneRequiredWithoutInventoryNestedInput = {
+    create?: XOR<BruteCreateWithoutInventoryInput, BruteUncheckedCreateWithoutInventoryInput>
+    connectOrCreate?: BruteCreateOrConnectWithoutInventoryInput
+    upsert?: BruteUpsertWithoutInventoryInput
+    connect?: BruteWhereUniqueInput
+    update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutInventoryInput, BruteUpdateWithoutInventoryInput>, BruteUncheckedUpdateWithoutInventoryInput>
+  }
+
   export type NestedUuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -31568,6 +32003,23 @@ export namespace Prisma {
     _max?: NestedEnumBossNameFilter<$PrismaModel>
   }
 
+  export type NestedEnumInventoryItemTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.InventoryItemType | EnumInventoryItemTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.InventoryItemType[] | ListEnumInventoryItemTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.InventoryItemType[] | ListEnumInventoryItemTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumInventoryItemTypeFilter<$PrismaModel> | $Enums.InventoryItemType
+  }
+
+  export type NestedEnumInventoryItemTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.InventoryItemType | EnumInventoryItemTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.InventoryItemType[] | ListEnumInventoryItemTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.InventoryItemType[] | ListEnumInventoryItemTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumInventoryItemTypeWithAggregatesFilter<$PrismaModel> | $Enums.InventoryItemType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumInventoryItemTypeFilter<$PrismaModel>
+    _max?: NestedEnumInventoryItemTypeFilter<$PrismaModel>
+  }
+
   export type BruteCreateWithoutUserInput = {
     name: string
     deletedAt?: Date | string | null
@@ -31625,6 +32077,7 @@ export namespace Prisma {
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
     threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutUserInput = {
@@ -31685,6 +32138,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutUserInput = {
@@ -31917,6 +32371,7 @@ export namespace Prisma {
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
     threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutBodyInput = {
@@ -31977,6 +32432,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutBodyInput = {
@@ -32052,6 +32508,7 @@ export namespace Prisma {
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
     threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutBodyInput = {
@@ -32112,6 +32569,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteCreateWithoutColorsInput = {
@@ -32171,6 +32629,7 @@ export namespace Prisma {
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
     threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutColorsInput = {
@@ -32231,6 +32690,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutColorsInput = {
@@ -32306,6 +32766,7 @@ export namespace Prisma {
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
     threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutColorsInput = {
@@ -32366,6 +32827,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type UserCreateWithoutBrutesInput = {
@@ -32404,25 +32866,6 @@ export namespace Prisma {
   }
 
   export type BruteBodyCreateWithoutBruteInput = {
-    longHair: number
-    lowerRightArm: number
-    rightHand: number
-    upperRightArm: number
-    rightShoulder: number
-    rightFoot: number
-    lowerRightLeg: number
-    upperRightLeg: number
-    leftFoot: number
-    lowerLeftLeg: number
-    pelvis: number
-    upperLeftLeg: number
-    tummy: number
-    torso: number
-    head: number
-    leftHand: number
-    upperLeftArm: number
-    lowerLeftArm: number
-    leftShoulder: number
     p2?: number
     p3?: number
     p4?: number
@@ -32438,25 +32881,6 @@ export namespace Prisma {
 
   export type BruteBodyUncheckedCreateWithoutBruteInput = {
     id?: number
-    longHair: number
-    lowerRightArm: number
-    rightHand: number
-    upperRightArm: number
-    rightShoulder: number
-    rightFoot: number
-    lowerRightLeg: number
-    upperRightLeg: number
-    leftFoot: number
-    lowerLeftLeg: number
-    pelvis: number
-    upperLeftLeg: number
-    tummy: number
-    torso: number
-    head: number
-    leftHand: number
-    upperLeftArm: number
-    lowerLeftArm: number
-    leftShoulder: number
     p2?: number
     p3?: number
     p4?: number
@@ -32476,16 +32900,6 @@ export namespace Prisma {
   }
 
   export type BruteColorsCreateWithoutBruteInput = {
-    skinColor: string
-    skinShade: string
-    hairColor: string
-    hairShade: string
-    primaryColor: string
-    primaryShade: string
-    secondaryColor: string
-    secondaryShade: string
-    accentColor: string
-    accentShade: string
     col0?: string
     col0a?: string
     col0c?: string
@@ -32506,16 +32920,6 @@ export namespace Prisma {
 
   export type BruteColorsUncheckedCreateWithoutBruteInput = {
     id?: number
-    skinColor: string
-    skinShade: string
-    hairColor: string
-    hairShade: string
-    primaryColor: string
-    primaryShade: string
-    secondaryColor: string
-    secondaryShade: string
-    accentColor: string
-    accentShade: string
     col0?: string
     col0a?: string
     col0c?: string
@@ -32596,6 +33000,7 @@ export namespace Prisma {
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
     threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutPupilsInput = {
@@ -32656,6 +33061,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutPupilsInput = {
@@ -32720,6 +33126,7 @@ export namespace Prisma {
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
     threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutMasterInput = {
@@ -32780,6 +33187,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutMasterInput = {
@@ -33027,6 +33435,7 @@ export namespace Prisma {
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
     threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutOpponentOfInput = {
@@ -33087,6 +33496,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutOpponentOfInput = {
@@ -33151,6 +33561,7 @@ export namespace Prisma {
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
     threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutOpponentsInput = {
@@ -33211,6 +33622,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutOpponentsInput = {
@@ -33421,6 +33833,27 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type BruteInventoryItemCreateWithoutBruteInput = {
+    type: $Enums.InventoryItemType
+    count?: number
+  }
+
+  export type BruteInventoryItemUncheckedCreateWithoutBruteInput = {
+    id?: number
+    type: $Enums.InventoryItemType
+    count?: number
+  }
+
+  export type BruteInventoryItemCreateOrConnectWithoutBruteInput = {
+    where: BruteInventoryItemWhereUniqueInput
+    create: XOR<BruteInventoryItemCreateWithoutBruteInput, BruteInventoryItemUncheckedCreateWithoutBruteInput>
+  }
+
+  export type BruteInventoryItemCreateManyBruteInputEnvelope = {
+    data: BruteInventoryItemCreateManyBruteInput | BruteInventoryItemCreateManyBruteInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutBrutesInput = {
     update: XOR<UserUpdateWithoutBrutesInput, UserUncheckedUpdateWithoutBrutesInput>
     create: XOR<UserCreateWithoutBrutesInput, UserUncheckedCreateWithoutBrutesInput>
@@ -33474,25 +33907,6 @@ export namespace Prisma {
   }
 
   export type BruteBodyUpdateWithoutBruteInput = {
-    longHair?: IntFieldUpdateOperationsInput | number
-    lowerRightArm?: IntFieldUpdateOperationsInput | number
-    rightHand?: IntFieldUpdateOperationsInput | number
-    upperRightArm?: IntFieldUpdateOperationsInput | number
-    rightShoulder?: IntFieldUpdateOperationsInput | number
-    rightFoot?: IntFieldUpdateOperationsInput | number
-    lowerRightLeg?: IntFieldUpdateOperationsInput | number
-    upperRightLeg?: IntFieldUpdateOperationsInput | number
-    leftFoot?: IntFieldUpdateOperationsInput | number
-    lowerLeftLeg?: IntFieldUpdateOperationsInput | number
-    pelvis?: IntFieldUpdateOperationsInput | number
-    upperLeftLeg?: IntFieldUpdateOperationsInput | number
-    tummy?: IntFieldUpdateOperationsInput | number
-    torso?: IntFieldUpdateOperationsInput | number
-    head?: IntFieldUpdateOperationsInput | number
-    leftHand?: IntFieldUpdateOperationsInput | number
-    upperLeftArm?: IntFieldUpdateOperationsInput | number
-    lowerLeftArm?: IntFieldUpdateOperationsInput | number
-    leftShoulder?: IntFieldUpdateOperationsInput | number
     p2?: IntFieldUpdateOperationsInput | number
     p3?: IntFieldUpdateOperationsInput | number
     p4?: IntFieldUpdateOperationsInput | number
@@ -33508,25 +33922,6 @@ export namespace Prisma {
 
   export type BruteBodyUncheckedUpdateWithoutBruteInput = {
     id?: IntFieldUpdateOperationsInput | number
-    longHair?: IntFieldUpdateOperationsInput | number
-    lowerRightArm?: IntFieldUpdateOperationsInput | number
-    rightHand?: IntFieldUpdateOperationsInput | number
-    upperRightArm?: IntFieldUpdateOperationsInput | number
-    rightShoulder?: IntFieldUpdateOperationsInput | number
-    rightFoot?: IntFieldUpdateOperationsInput | number
-    lowerRightLeg?: IntFieldUpdateOperationsInput | number
-    upperRightLeg?: IntFieldUpdateOperationsInput | number
-    leftFoot?: IntFieldUpdateOperationsInput | number
-    lowerLeftLeg?: IntFieldUpdateOperationsInput | number
-    pelvis?: IntFieldUpdateOperationsInput | number
-    upperLeftLeg?: IntFieldUpdateOperationsInput | number
-    tummy?: IntFieldUpdateOperationsInput | number
-    torso?: IntFieldUpdateOperationsInput | number
-    head?: IntFieldUpdateOperationsInput | number
-    leftHand?: IntFieldUpdateOperationsInput | number
-    upperLeftArm?: IntFieldUpdateOperationsInput | number
-    lowerLeftArm?: IntFieldUpdateOperationsInput | number
-    leftShoulder?: IntFieldUpdateOperationsInput | number
     p2?: IntFieldUpdateOperationsInput | number
     p3?: IntFieldUpdateOperationsInput | number
     p4?: IntFieldUpdateOperationsInput | number
@@ -33552,16 +33947,6 @@ export namespace Prisma {
   }
 
   export type BruteColorsUpdateWithoutBruteInput = {
-    skinColor?: StringFieldUpdateOperationsInput | string
-    skinShade?: StringFieldUpdateOperationsInput | string
-    hairColor?: StringFieldUpdateOperationsInput | string
-    hairShade?: StringFieldUpdateOperationsInput | string
-    primaryColor?: StringFieldUpdateOperationsInput | string
-    primaryShade?: StringFieldUpdateOperationsInput | string
-    secondaryColor?: StringFieldUpdateOperationsInput | string
-    secondaryShade?: StringFieldUpdateOperationsInput | string
-    accentColor?: StringFieldUpdateOperationsInput | string
-    accentShade?: StringFieldUpdateOperationsInput | string
     col0?: StringFieldUpdateOperationsInput | string
     col0a?: StringFieldUpdateOperationsInput | string
     col0c?: StringFieldUpdateOperationsInput | string
@@ -33582,16 +33967,6 @@ export namespace Prisma {
 
   export type BruteColorsUncheckedUpdateWithoutBruteInput = {
     id?: IntFieldUpdateOperationsInput | number
-    skinColor?: StringFieldUpdateOperationsInput | string
-    skinShade?: StringFieldUpdateOperationsInput | string
-    hairColor?: StringFieldUpdateOperationsInput | string
-    hairShade?: StringFieldUpdateOperationsInput | string
-    primaryColor?: StringFieldUpdateOperationsInput | string
-    primaryShade?: StringFieldUpdateOperationsInput | string
-    secondaryColor?: StringFieldUpdateOperationsInput | string
-    secondaryShade?: StringFieldUpdateOperationsInput | string
-    accentColor?: StringFieldUpdateOperationsInput | string
-    accentShade?: StringFieldUpdateOperationsInput | string
     col0?: StringFieldUpdateOperationsInput | string
     col0a?: StringFieldUpdateOperationsInput | string
     col0c?: StringFieldUpdateOperationsInput | string
@@ -33678,6 +34053,7 @@ export namespace Prisma {
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
     threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutPupilsInput = {
@@ -33738,6 +34114,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUpsertWithWhereUniqueWithoutMasterInput = {
@@ -34168,6 +34545,32 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"ClanThread"> | Date | string
   }
 
+  export type BruteInventoryItemUpsertWithWhereUniqueWithoutBruteInput = {
+    where: BruteInventoryItemWhereUniqueInput
+    update: XOR<BruteInventoryItemUpdateWithoutBruteInput, BruteInventoryItemUncheckedUpdateWithoutBruteInput>
+    create: XOR<BruteInventoryItemCreateWithoutBruteInput, BruteInventoryItemUncheckedCreateWithoutBruteInput>
+  }
+
+  export type BruteInventoryItemUpdateWithWhereUniqueWithoutBruteInput = {
+    where: BruteInventoryItemWhereUniqueInput
+    data: XOR<BruteInventoryItemUpdateWithoutBruteInput, BruteInventoryItemUncheckedUpdateWithoutBruteInput>
+  }
+
+  export type BruteInventoryItemUpdateManyWithWhereWithoutBruteInput = {
+    where: BruteInventoryItemScalarWhereInput
+    data: XOR<BruteInventoryItemUpdateManyMutationInput, BruteInventoryItemUncheckedUpdateManyWithoutBruteInput>
+  }
+
+  export type BruteInventoryItemScalarWhereInput = {
+    AND?: BruteInventoryItemScalarWhereInput | BruteInventoryItemScalarWhereInput[]
+    OR?: BruteInventoryItemScalarWhereInput[]
+    NOT?: BruteInventoryItemScalarWhereInput | BruteInventoryItemScalarWhereInput[]
+    id?: IntFilter<"BruteInventoryItem"> | number
+    type?: EnumInventoryItemTypeFilter<"BruteInventoryItem"> | $Enums.InventoryItemType
+    count?: IntFilter<"BruteInventoryItem"> | number
+    bruteId?: IntFilter<"BruteInventoryItem"> | number
+  }
+
   export type BruteCreateWithoutFightsInput = {
     name: string
     deletedAt?: Date | string | null
@@ -34225,6 +34628,7 @@ export namespace Prisma {
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
     threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutFightsInput = {
@@ -34285,6 +34689,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutFightsInput = {
@@ -34349,6 +34754,7 @@ export namespace Prisma {
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
     threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutFightsAsAdversaryInput = {
@@ -34409,6 +34815,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutFightsAsAdversaryInput = {
@@ -34536,6 +34943,7 @@ export namespace Prisma {
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
     threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutFightsInput = {
@@ -34596,6 +35004,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUpsertWithoutFightsAsAdversaryInput = {
@@ -34666,6 +35075,7 @@ export namespace Prisma {
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
     threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutFightsAsAdversaryInput = {
@@ -34726,6 +35136,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type LogUpsertWithWhereUniqueWithoutFightInput = {
@@ -34828,6 +35239,7 @@ export namespace Prisma {
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
     threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutLogsInput = {
@@ -34888,6 +35300,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutLogsInput = {
@@ -34991,6 +35404,7 @@ export namespace Prisma {
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
     threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutLogsInput = {
@@ -35051,6 +35465,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type FightUpsertWithoutLogsInput = {
@@ -35144,6 +35559,7 @@ export namespace Prisma {
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
     threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutDestinyChoicesInput = {
@@ -35204,6 +35620,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutDestinyChoicesInput = {
@@ -35279,6 +35696,7 @@ export namespace Prisma {
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
     threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutDestinyChoicesInput = {
@@ -35339,6 +35757,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteCreateWithoutTournamentsInput = {
@@ -35398,6 +35817,7 @@ export namespace Prisma {
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
     threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutTournamentsInput = {
@@ -35458,6 +35878,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutTournamentsInput = {
@@ -35685,6 +36106,7 @@ export namespace Prisma {
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
     threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutTournamentEarningsInput = {
@@ -35745,6 +36167,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutTournamentEarningsInput = {
@@ -35820,6 +36243,7 @@ export namespace Prisma {
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
     threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutTournamentEarningsInput = {
@@ -35880,6 +36304,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteCreateWithoutAchievementsInput = {
@@ -35939,6 +36364,7 @@ export namespace Prisma {
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
     threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutAchievementsInput = {
@@ -35999,6 +36425,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutAchievementsInput = {
@@ -36109,6 +36536,7 @@ export namespace Prisma {
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
     threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutAchievementsInput = {
@@ -36169,6 +36597,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type UserUpsertWithoutAchievementsInput = {
@@ -36269,6 +36698,7 @@ export namespace Prisma {
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
     threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutTitlesInput = {
@@ -36329,6 +36759,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutTitlesInput = {
@@ -36409,6 +36840,7 @@ export namespace Prisma {
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
     threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutReportsInput = {
@@ -36469,6 +36901,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutReportsInput = {
@@ -36579,6 +37012,7 @@ export namespace Prisma {
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
     threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutReportsInput = {
@@ -36639,6 +37073,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type UserUpsertWithWhereUniqueWithoutReportsInput = {
@@ -36730,6 +37165,7 @@ export namespace Prisma {
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
     threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutMasterOfClanInput = {
@@ -36790,6 +37226,7 @@ export namespace Prisma {
     titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutMasterOfClanInput = {
@@ -36854,6 +37291,7 @@ export namespace Prisma {
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
     threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutClanInput = {
@@ -36914,6 +37352,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutClanInput = {
@@ -36983,6 +37422,7 @@ export namespace Prisma {
     masterOfClan?: ClanCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutWantToJoinClanInput = {
@@ -37043,6 +37483,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutWantToJoinClanInput = {
@@ -37156,6 +37597,7 @@ export namespace Prisma {
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
     threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutMasterOfClanInput = {
@@ -37216,6 +37658,7 @@ export namespace Prisma {
     titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUpsertWithWhereUniqueWithoutClanInput = {
@@ -37351,6 +37794,7 @@ export namespace Prisma {
     masterOfClan?: ClanCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
+    inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutThreadsInput = {
@@ -37411,6 +37855,7 @@ export namespace Prisma {
     titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutThreadsInput = {
@@ -37543,6 +37988,7 @@ export namespace Prisma {
     masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutThreadsInput = {
@@ -37603,6 +38049,7 @@ export namespace Prisma {
     titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type ClanPostUpsertWithWhereUniqueWithoutThreadInput = {
@@ -37706,6 +38153,7 @@ export namespace Prisma {
     masterOfClan?: ClanCreateNestedOneWithoutMasterInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
     threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutClanPostsInput = {
@@ -37766,6 +38214,7 @@ export namespace Prisma {
     titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutClanPostsInput = {
@@ -37875,6 +38324,7 @@ export namespace Prisma {
     masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
     threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutClanPostsInput = {
@@ -37934,6 +38384,265 @@ export namespace Prisma {
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
     titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
+  }
+
+  export type BruteCreateWithoutInventoryInput = {
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hp?: number
+    enduranceStat?: number
+    enduranceModifier?: number
+    enduranceValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    gender: $Enums.Gender
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    pupilsCount?: number
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    user?: UserCreateNestedOneWithoutBrutesInput
+    body?: BruteBodyCreateNestedOneWithoutBruteInput
+    colors?: BruteColorsCreateNestedOneWithoutBruteInput
+    master?: BruteCreateNestedOneWithoutPupilsInput
+    pupils?: BruteCreateNestedManyWithoutMasterInput
+    clan?: ClanCreateNestedOneWithoutBrutesInput
+    fights?: FightCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
+    logs?: LogCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
+    tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementCreateNestedManyWithoutBruteInput
+    tournamentEarnings?: TournamentEarningCreateNestedManyWithoutBruteInput
+    reports?: BruteReportCreateNestedManyWithoutBruteInput
+    titles?: TitleCreateNestedManyWithoutBrutesInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
+    threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+  }
+
+  export type BruteUncheckedCreateWithoutInventoryInput = {
+    id?: number
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hp?: number
+    enduranceStat?: number
+    enduranceModifier?: number
+    enduranceValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    gender: $Enums.Gender
+    userId?: string | null
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    masterId?: number | null
+    pupilsCount?: number
+    clanId?: number | null
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    wantToJoinClanId?: number | null
+    body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
+    colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
+    pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
+    fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
+    logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
+    tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
+    tournamentEarnings?: TournamentEarningUncheckedCreateNestedManyWithoutBruteInput
+    reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
+    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+  }
+
+  export type BruteCreateOrConnectWithoutInventoryInput = {
+    where: BruteWhereUniqueInput
+    create: XOR<BruteCreateWithoutInventoryInput, BruteUncheckedCreateWithoutInventoryInput>
+  }
+
+  export type BruteUpsertWithoutInventoryInput = {
+    update: XOR<BruteUpdateWithoutInventoryInput, BruteUncheckedUpdateWithoutInventoryInput>
+    create: XOR<BruteCreateWithoutInventoryInput, BruteUncheckedCreateWithoutInventoryInput>
+    where?: BruteWhereInput
+  }
+
+  export type BruteUpdateToOneWithWhereWithoutInventoryInput = {
+    where?: BruteWhereInput
+    data: XOR<BruteUpdateWithoutInventoryInput, BruteUncheckedUpdateWithoutInventoryInput>
+  }
+
+  export type BruteUpdateWithoutInventoryInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    user?: UserUpdateOneWithoutBrutesNestedInput
+    body?: BruteBodyUpdateOneWithoutBruteNestedInput
+    colors?: BruteColorsUpdateOneWithoutBruteNestedInput
+    master?: BruteUpdateOneWithoutPupilsNestedInput
+    pupils?: BruteUpdateManyWithoutMasterNestedInput
+    clan?: ClanUpdateOneWithoutBrutesNestedInput
+    fights?: FightUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
+    logs?: LogUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
+    tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUpdateManyWithoutBruteNestedInput
+    tournamentEarnings?: TournamentEarningUpdateManyWithoutBruteNestedInput
+    reports?: BruteReportUpdateManyWithoutBruteNestedInput
+    titles?: TitleUpdateManyWithoutBrutesNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+  }
+
+  export type BruteUncheckedUpdateWithoutInventoryInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
+    colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
+    pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
+    fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
+    logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
+    tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
+    tournamentEarnings?: TournamentEarningUncheckedUpdateManyWithoutBruteNestedInput
+    reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
+    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
   }
 
@@ -38044,6 +38753,7 @@ export namespace Prisma {
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
     threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutUserInput = {
@@ -38104,6 +38814,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutUserInput = {
@@ -38322,6 +39033,12 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type BruteInventoryItemCreateManyBruteInput = {
+    id?: number
+    type: $Enums.InventoryItemType
+    count?: number
+  }
+
   export type BruteUpdateWithoutMasterInput = {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -38379,6 +39096,7 @@ export namespace Prisma {
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
     threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutMasterInput = {
@@ -38439,6 +39157,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutMasterInput = {
@@ -38696,6 +39415,7 @@ export namespace Prisma {
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
     threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutOpponentOfInput = {
@@ -38756,6 +39476,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutOpponentOfInput = {
@@ -38859,6 +39580,7 @@ export namespace Prisma {
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
     threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutOpponentsInput = {
@@ -38919,6 +39641,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutOpponentsInput = {
@@ -39104,6 +39827,23 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type BruteInventoryItemUpdateWithoutBruteInput = {
+    type?: EnumInventoryItemTypeFieldUpdateOperationsInput | $Enums.InventoryItemType
+    count?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type BruteInventoryItemUncheckedUpdateWithoutBruteInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    type?: EnumInventoryItemTypeFieldUpdateOperationsInput | $Enums.InventoryItemType
+    count?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type BruteInventoryItemUncheckedUpdateManyWithoutBruteInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    type?: EnumInventoryItemTypeFieldUpdateOperationsInput | $Enums.InventoryItemType
+    count?: IntFieldUpdateOperationsInput | number
+  }
+
   export type LogCreateManyFightInput = {
     id?: number
     date?: Date | string
@@ -39234,6 +39974,7 @@ export namespace Prisma {
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
     threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutTournamentsInput = {
@@ -39294,6 +40035,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutTournamentsInput = {
@@ -39417,6 +40159,7 @@ export namespace Prisma {
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
     threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutTitlesInput = {
@@ -39477,6 +40220,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutTitlesInput = {
@@ -39720,6 +40464,7 @@ export namespace Prisma {
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
     threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutClanInput = {
@@ -39780,6 +40525,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutClanInput = {
@@ -39882,6 +40628,7 @@ export namespace Prisma {
     masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutWantToJoinClanInput = {
@@ -39942,6 +40689,7 @@ export namespace Prisma {
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutWantToJoinClanInput = {
@@ -40161,6 +40909,10 @@ export namespace Prisma {
      * @deprecated Use ClanPostDefaultArgs instead
      */
     export type ClanPostArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ClanPostDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use BruteInventoryItemDefaultArgs instead
+     */
+    export type BruteInventoryItemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BruteInventoryItemDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

@@ -68,7 +68,10 @@ export type BrutesGetForRankResponse = {
 export type BrutesGetRankingResponse = {
   ranking: number,
 };
-export type BrutesGetOpponentsResponse = BruteWithBodyColors[];
+export type BrutesGetOpponentsResponse = (Pick<Brute, 'id' | 'name' | 'gender' | 'level' | 'deletedAt' | 'hp' | 'strengthValue' | 'agilityValue' | 'speedValue'> & {
+  body: BruteBody | null,
+  colors: BruteColors | null,
+})[];
 export type BrutesExistsResponse = {
   exists: false
 } | {
@@ -80,6 +83,7 @@ type TournamentsGetGlobalStep = Pick<TournamentStep, 'id' | 'step' | 'fightId'> 
   fight: Pick<Fight, 'winner' | 'fighters'> & {
     brute1: Pick<
       Brute,
+      'id' |
       'name' |
       'hp' |
       'level' |
@@ -93,6 +97,7 @@ type TournamentsGetGlobalStep = Pick<TournamentStep, 'id' | 'step' | 'fightId'> 
     },
     brute2: (Pick<
       Brute,
+      'id' |
       'name' |
       'hp' |
       'level' |

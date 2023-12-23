@@ -1,7 +1,10 @@
 import { ARENA_OPPONENTS_COUNT, ARENA_OPPONENTS_MAX_GAP, BruteWithBodyColors } from '@labrute/core';
 import { Brute, PrismaClient } from '@labrute/prisma';
 
-const getOpponents = async (prisma: PrismaClient, brute: Brute) => {
+const getOpponents = async (
+  prisma: PrismaClient,
+  brute: Pick<Brute, 'name' | 'level'>,
+) => {
   // Get same level random opponents
   const bruteSearch = {
     name: { not: brute.name },
@@ -28,7 +31,7 @@ const getOpponents = async (prisma: PrismaClient, brute: Brute) => {
     }
   }
 
-  const opponents: BruteWithBodyColors[] = [];
+  const opponents = [];
   for (let i = 0; i < randomlySelectedBruteIds.length; i++) {
     const id = randomlySelectedBruteIds[i];
 
@@ -38,7 +41,19 @@ const getOpponents = async (prisma: PrismaClient, brute: Brute) => {
         ...bruteSearch,
         id,
       },
-      include: { body: true, colors: true },
+      select: {
+        id: true,
+        name: true,
+        gender: true,
+        level: true,
+        hp: true,
+        strengthValue: true,
+        agilityValue: true,
+        speedValue: true,
+        deletedAt: true,
+        body: true,
+        colors: true,
+      },
     });
 
     if (opponent) {
