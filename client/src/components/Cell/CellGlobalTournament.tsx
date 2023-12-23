@@ -105,7 +105,6 @@ const CellGlobalTournament = ({
             sx={{
               position: 'relative',
               display: 'inline-block',
-              mt: finals ? 5 : 4,
             }}
           >
             <BruteRender
@@ -116,6 +115,7 @@ const CellGlobalTournament = ({
                 height: finals ? 45 : 30,
                 width: finals ? 60 : 40,
               }}
+              y={finals ? '-65px' : '-77px'}
             />
             {step.fight.winner === step.fight.brute2?.name && (
               <Close
@@ -144,7 +144,6 @@ const CellGlobalTournament = ({
               sx={{
                 position: 'relative',
                 display: 'inline-block',
-                mt: finals ? 5 : 4,
               }}
             >
               <BruteRender
@@ -155,6 +154,7 @@ const CellGlobalTournament = ({
                   height: finals ? 45 : 30,
                   width: finals ? 60 : 40,
                 }}
+                y={finals ? '-65px' : '-77px'}
               />
               {step.fight.winner === step.fight.brute1.name && (
                 <Close

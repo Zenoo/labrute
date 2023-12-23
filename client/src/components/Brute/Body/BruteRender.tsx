@@ -54,8 +54,7 @@ const BruteRender = ({
           position: 'absolute',
           left: x === 'center' ? '50%' : x,
           top: y === 'center' ? '50%' : y,
-          transform: `${x === 'center' ? 'translateX(-50%)' : ''} ${y === 'center' ? 'translateY(-50%)' : ''}`,
-          zoom: scale,
+          transform: `${x === 'center' ? 'translateX(-50%)' : ''} ${y === 'center' ? 'translateY(-50%)' : ''} ${scale === 1 ? '' : `scale(${scale})`}`,
         }}
       />
     </Box>
