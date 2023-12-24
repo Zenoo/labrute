@@ -135,7 +135,7 @@ const flashFlood = async (
     }
 
     // Stagger
-    stagger(target.animation.container, target.animation.team, speed).catch(console.error);
+    stagger(target, speed).catch(console.error);
   }).catch(console.error);
 
   // Wait 0.15s

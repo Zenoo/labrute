@@ -9,6 +9,7 @@ export interface AnimationFighter extends Omit<Fighter, 'shield'> {
   hpBarPhantom?: PIXI.Graphics;
   weaponsIllustrations: PIXI.Sprite[];
   animation: FighterHolder;
+  bust: PIXI.Sprite | undefined;
 }
 
 const findFighter = (

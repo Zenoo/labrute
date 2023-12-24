@@ -46,7 +46,7 @@ const saboteur = async (
   });
 
   // Stagger animation
-  const staggerVfx = stagger(brute.animation.container, brute.animation.team, speed);
+  const staggerVfx = stagger(brute, speed);
 
   // Update active weapon
   brute.animation.weapon = null;

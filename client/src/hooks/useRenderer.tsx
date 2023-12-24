@@ -16,7 +16,7 @@ type RenderCallback = (content: string) => void;
 
 type OnRenderMethod = (id: number, callback: RenderCallback) => void;
 
-interface RendererContextInterface {
+export interface RendererContextInterface {
   render: RenderMethod;
   onRender: OnRenderMethod;
   resetCache: (id: number) => void;

@@ -2,7 +2,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-await-in-loop */
 import { Fighter, FightStep, randomBetween } from '@labrute/core';
-import { Fight } from '@labrute/prisma';
+import { Fight, Gender } from '@labrute/prisma';
 import { Theme } from '@mui/material';
 import { ColorOverlayFilter } from '@pixi/filter-color-overlay';
 import { GlowFilter } from '@pixi/filter-glow';
@@ -11,7 +11,7 @@ import { sound } from '@pixi/sound';
 import { TFunction } from 'i18next';
 import { Easing, Tweener } from 'pixi-tweener';
 import * as PIXI from 'pixi.js';
-import { AnimatedSprite } from 'pixi.js';
+import { AnimatedSprite, BaseTexture, Texture } from 'pixi.js';
 import arrive from './arrive';
 import attemptHit from './attemptHit';
 import block from './block';
@@ -44,6 +44,7 @@ import throwWeapon from './throwWeapon';
 import trap from './trap';
 import trash from './trash';
 import updateWeapons from './updateWeapons';
+import { RendererContextInterface } from '../../hooks/useRenderer';
 
 const backgrounds = [
   'background/1.jpg',
@@ -69,6 +70,7 @@ const setupFight: (
   setCompleted: React.Dispatch<React.SetStateAction<boolean>>,
   t: TFunction,
   toggleTooltip: (brute: Fighter, forceValue?: boolean) => void,
+  renderer: RendererContextInterface,
 ) => PIXI.Loader.OnCompleteSignal = (
   theme,
   fight,
@@ -77,6 +79,7 @@ const setupFight: (
   setCompleted,
   t,
   toggleTooltip,
+  renderer,
 ) => async (
   loader,
   resources,
@@ -196,9 +199,47 @@ const setupFight: (
     toggleTooltip(brute1, false);
   });
 
+  // First brute bust
+  const brute1BustImg = await new Promise<HTMLImageElement | null>((resolve) => {
+    if (!brute1.data) {
+      resolve(null);
+      return;
+    }
+
+    renderer.onRender(brute1.id, (content) => {
+      const img = document.createElement('img');
+      img.src = content;
+      resolve(img);
+    });
+
+    renderer.render({
+      ...brute1,
+      gender: brute1.gender || Gender.male,
+      body: brute1.data.body,
+      colors: brute1.data.colors,
+    });
+  });
+
+  const brute1Bust = new PIXI.Sprite(new Texture(new BaseTexture(brute1BustImg)));
+  brute1Bust.x = 52;
+  brute1Bust.y = 35;
+  brute1Bust.zIndex = 102;
+  brute1Bust.scale.y = 0.45;
+  brute1Bust.scale.x = -0.45;
+  app.stage.addChild(brute1Bust);
+
+  // Clip bust to fit in the header
+  const brute1BustMask = new PIXI.Graphics();
+  brute1BustMask.beginFill(0xFFFFFF);
+  brute1BustMask.drawRect(0, 0, 100, 88);
+  brute1BustMask.endFill();
+  brute1Bust.addChild(brute1BustMask);
+  brute1Bust.mask = brute1BustMask;
+
   let brute2Header: PIXI.Sprite | null = null;
   let brute2HpBar: PIXI.Graphics | null = null;
   let brute2PhantomHpBar: PIXI.Graphics | null = null;
+  let brute2Bust: PIXI.Sprite | null = null;
   if (brute2) {
     // Second brute header
     brute2Header = new PIXI.Sprite(miscSheet.textures['header.png']);
@@ -269,6 +310,43 @@ const setupFight: (
     brute2PhantomHpBar.zIndex = 102;
     brute2PhantomHpBar.name = `${brute2.name}.hp-phantom`;
     app.stage.addChild(brute2PhantomHpBar);
+
+    // First brute bust
+    const brute2BustImg = await new Promise<HTMLImageElement | null>((resolve) => {
+      if (!brute2?.data) {
+        resolve(null);
+        return;
+      }
+
+      renderer.onRender(brute2.id, (content) => {
+        const img = document.createElement('img');
+        img.src = content;
+        resolve(img);
+      });
+
+      renderer.render({
+        ...brute2,
+        gender: brute2.gender || Gender.male,
+        body: brute2.data.body,
+        colors: brute2.data.colors,
+      });
+    });
+
+    brute2Bust = new PIXI.Sprite(new Texture(new BaseTexture(brute2BustImg)));
+    brute2Bust.x = 450;
+    brute2Bust.y = 35;
+    brute2Bust.zIndex = 102;
+    brute2Bust.scale.y = 0.45;
+    brute2Bust.scale.x = 0.45;
+    app.stage.addChild(brute2Bust);
+
+    // Clip bust to fit in the header
+    const brute2BustMask = new PIXI.Graphics();
+    brute2BustMask.beginFill(0xFFFFFF);
+    brute2BustMask.drawRect(0, 0, 100, 88);
+    brute2BustMask.endFill();
+    brute2Bust.addChild(brute2BustMask);
+    brute2Bust.mask = brute2BustMask;
   }
 
   let bossHeader: PIXI.Sprite | null = null;
@@ -366,6 +444,9 @@ const setupFight: (
         : fighter.id === brute1.id
           ? brute1PhantomHpBar
           : (brute2PhantomHpBar || bossPhantomHpBar || undefined),
+      bust: fighter.master
+        ? undefined
+        : fighter.id === brute1.id ? brute1Bust : (brute2Bust || undefined),
       weaponsIllustrations: [],
       animation: new FighterHolder(
         app,

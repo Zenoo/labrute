@@ -38,8 +38,8 @@ const hammer = async (
   });
 
   // Stagger both
-  stagger(fighter.animation.container, target.animation.team, speed).catch(console.error);
-  stagger(target.animation.container, target.animation.team, speed).catch(console.error);
+  stagger(fighter, speed).catch(console.error);
+  stagger(target, speed).catch(console.error);
 
   // Levitate both
   const animations = [fighter, target].map((f) => Tweener.add({
@@ -101,7 +101,7 @@ const hammer = async (
   target.animation.setAnimation('idle');
 
   // Stagger target
-  stagger(target.animation.container, target.animation.team, speed).catch(console.error);
+  stagger(target, speed).catch(console.error);
 };
 
 export default hammer;

@@ -156,7 +156,7 @@ const hit = async (
   }
 
   // Stagger
-  await stagger(target.animation.container, target.animation.team, speed);
+  await stagger(target, speed);
 
   // Remove poison filter
   if (step.action === 'poison') {

@@ -16,6 +16,7 @@ import translateFightStep from '../../utils/translateFightStep';
 import BruteTooltip from '../Brute/BruteTooltip';
 import Link from '../Link';
 import Text from '../Text';
+import { useRenderer } from '../../hooks/useRenderer';
 
 export interface FightComponentProps {
   fight: Fight | null;
@@ -30,6 +31,7 @@ const FightComponent = ({
   const { t } = useTranslation();
   const { user, updateData } = useAuth();
   const Alert = useAlert();
+  const renderer = useRenderer();
 
   const fightSteps = useMemo(() => (fight
     ? JSON.parse(fight.steps) as FightStep[]
@@ -186,6 +188,7 @@ const FightComponent = ({
       setCompleted,
       t,
       toggleTooltip,
+      renderer,
     ));
 
     return () => {
@@ -195,7 +198,7 @@ const FightComponent = ({
       // Stop all sounds
       sound.stopAll();
     };
-  }, [fight, toggleTooltip, t, theme]);
+  }, [fight, toggleTooltip, t, theme, renderer]);
 
   // Play/pause
   const toggleAnimation = useCallback(() => {
