@@ -1,7 +1,7 @@
 import { getRandomBody, getRandomColors } from '@labrute/core';
-import { BruteBody, BruteColors, Gender, InventoryItemType } from '@labrute/prisma';
+import { BruteBody, BruteColors, InventoryItemType } from '@labrute/prisma';
 import { Box, Paper, Tooltip } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import BruteRender from '../components/Brute/Body/BruteRender';
@@ -13,9 +13,9 @@ import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import { useBrute } from '../hooks/useBrute';
 import { useConfirm } from '../hooks/useConfirm';
+import { useRenderer } from '../hooks/useRenderer';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
-import { useRenderer } from '../hooks/useRenderer';
 
 const ResetVisualsView = () => {
   const { t } = useTranslation();
@@ -26,12 +26,20 @@ const ResetVisualsView = () => {
   const Confirm = useConfirm();
   const { resetCache } = useRenderer();
 
-  const [bodyParts, setBodyParts] = useState<Omit<BruteBody, 'id' | 'bruteId'>>(
-    getRandomBody(Gender.male),
+  const [bodyParts, setBodyParts] = useState<Omit<BruteBody, 'id' | 'bruteId'> | null>(
+    null
   );
-  const [bodyColors, setBodyColors] = useState<Omit<BruteColors, 'id' | 'bruteId'>>(
-    getRandomColors(Gender.male),
+  const [bodyColors, setBodyColors] = useState<Omit<BruteColors, 'id' | 'bruteId'> | null>(
+    null
   );
+
+  // Update visuals on brute load
+  useEffect(() => {
+    if (!brute) return;
+
+    setBodyParts(getRandomBody(brute.gender));
+    setBodyColors(getRandomColors(brute.gender));
+  }, [brute]);
 
   // Change appearance
   const changeAppearance = () => {
@@ -50,7 +58,7 @@ const ResetVisualsView = () => {
 
   // Reset visuals
   const resetVisuals = () => {
-    if (!brute) return;
+    if (!brute || !bodyParts || !bodyColors) return;
 
     Confirm.open(t('resetVisuals'), t('resetVisualsConfirm'), () => {
       // Update brute visuals
