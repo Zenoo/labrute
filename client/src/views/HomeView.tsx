@@ -193,30 +193,23 @@ const HomeView = () => {
   }, [Alert]);
 
   const character = (
-    <Box sx={{ textAlign: 'center', mt: creationStarted ? 0 : 1 }}>
-      <BruteRender
-        brute={{
-          id: 0,
-          name: '',
-          body: bodyParts,
-          colors: bodyColors,
-          gender,
-        }}
-        scale={0.8}
-        sx={{
-          display: creationStarted ? 'block' : 'none',
-          alignSelf: 'center',
-          position: 'relative',
-          fontSize: 0,
-          height: 250,
-          mt: -5,
-          mx: smallScreen ? 'auto' : undefined,
-          '& canvas': {
-            maxWidth: '100%',
-          }
-        }}
-      />
-      {!creationStarted && <EmptyBrute style={{ marginBottom: '12px' }} />}
+    <Box sx={{
+      mx: 'auto',
+      width: 70,
+      height: 210,
+    }}
+    >
+      {creationStarted ? (
+        <BruteRender
+          brute={{
+            id: 0,
+            name: '',
+            body: bodyParts,
+            colors: bodyColors,
+            gender,
+          }}
+        />
+      ) : <EmptyBrute style={{ marginTop: '16px' }} />}
     </Box>
   );
 
@@ -274,7 +267,7 @@ const HomeView = () => {
               <Box sx={{
                 display: 'flex',
                 justifyContent: 'space-between',
-                mt: creationStarted ? -11.25 : -5.85,
+                mt: -11.25,
               }}
               >
                 <Tooltip title={t('changeAppearance')}>

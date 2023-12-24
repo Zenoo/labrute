@@ -119,15 +119,14 @@ const TournamentMobileView = ({
                           fighter={fighters.find((fighter) => fighter.type === 'brute' && fighter.name === step.fight.brute1.name)}
                           brute={step.fight.brute1}
                         >
-                          <Box sx={{ position: 'relative', mt: 1 }}>
-                            <BruteRender
-                              brute={step.fight.brute1}
-                              scale={0.35}
-                              width={40}
-                              height={40}
-                              y="5px"
-                              mr={1}
-                            />
+                          <Box sx={{
+                            position: 'relative',
+                            height: 1,
+                            width: 35,
+                            mr: 1,
+                          }}
+                          >
+                            <BruteRender brute={step.fight.brute1} />
                             {/* Lost indicator */}
                             {shouldResultDisplay
                               && step.fight.winner === step.fight.brute2?.name
@@ -136,7 +135,7 @@ const TournamentMobileView = ({
                                   color="error"
                                   sx={{
                                     position: 'absolute',
-                                    top: 0,
+                                    top: 5,
                                     left: 0,
                                     width: 1,
                                     height: 1,
@@ -150,8 +149,8 @@ const TournamentMobileView = ({
                               src={`/images/rankings/lvl_${fighters.find((f) => f.id === step.fight.brute1Id)?.rank || step.fight.brute1.ranking}.png`}
                               sx={{
                                 position: 'absolute',
-                                bottom: 4,
-                                right: 4,
+                                bottom: -6,
+                                right: -18,
                                 width: 20,
                                 zIndex: 2,
                               }}
@@ -172,15 +171,16 @@ const TournamentMobileView = ({
                             fighter={fighters.find((fighter) => fighter.type === 'brute' && fighter.name === step.fight.brute2?.name)}
                             brute={step.fight.brute2}
                           >
-                            <Box sx={{ position: 'relative', mt: 1 }}>
+                            <Box sx={{
+                              position: 'relative',
+                              height: 1,
+                              width: 35,
+                              ml: 1,
+                            }}
+                            >
                               <BruteRender
                                 brute={step.fight.brute2}
                                 looking="left"
-                                scale={0.35}
-                                width={40}
-                                height={40}
-                                y="5px"
-                                ml={1}
                               />
                               {/* Lost indicator */}
                               {shouldResultDisplay
@@ -190,7 +190,7 @@ const TournamentMobileView = ({
                                     color="error"
                                     sx={{
                                       position: 'absolute',
-                                      top: 0,
+                                      top: 5,
                                       left: 0,
                                       width: 1,
                                       height: 1,
@@ -204,8 +204,8 @@ const TournamentMobileView = ({
                                 src={`/images/rankings/lvl_${fighters.find((f) => f.id === step.fight.brute2Id)?.rank || step.fight.brute2.ranking}.png`}
                                 sx={{
                                   position: 'absolute',
-                                  bottom: 4,
-                                  left: 4,
+                                  bottom: -6,
+                                  left: -18,
                                   width: 20,
                                   transform: 'scaleX(-1)',
                                   zIndex: 2,
@@ -237,14 +237,14 @@ const TournamentMobileView = ({
                 ? winnerStep.fight.brute1
                 : winnerStep.fight.brute2}
             >
-              <BruteRender
-                brute={winnerStep.fight.winner === winnerStep.fight.brute1.name
-                  ? winnerStep.fight.brute1
-                  : winnerStep?.fight.brute2}
-                width={140}
-                height={250}
-                sx={{ mx: 'auto' }}
-              />
+              <Box width={100} mx="auto">
+                <BruteRender
+                  brute={winnerStep.fight.winner === winnerStep.fight.brute1.name
+                    ? winnerStep.fight.brute1
+                    : winnerStep?.fight.brute2}
+                  width={100}
+                />
+              </Box>
             </BruteTooltip>
           )}
 

@@ -40,14 +40,15 @@ const RankingView = () => {
         {index + 1}
       </TableCell>
       <TableCell sx={{ overflow: 'hidden' }}>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <BruteRender
-            brute={brute}
-            scale={0.3}
-            width={30}
-            height={20}
-            y="-10px"
-          />
+        <Box sx={{
+          display: 'flex',
+          alignItems: 'center',
+          height: 16,
+        }}
+        >
+          <Box width={24} height={1}>
+            <BruteRender brute={brute} y={-5} />
+          </Box>
           <Link to={`/${brute.name}/cell`} sx={{ ml: 1 }}>
             <Text bold>{brute.name}</Text>
           </Link>

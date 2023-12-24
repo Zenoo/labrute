@@ -113,17 +113,21 @@ const ResetVisualsView = () => {
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         <Text bold center>{t('resetVisualsDescription')}</Text>
-        <BruteRender
-          brute={{
-            id: 0,
-            name: brute.name,
-            body: bodyParts,
-            colors: bodyColors,
-            gender: brute.gender,
-          }}
-          height={200}
-          scale={0.8}
-        />
+        <Box sx={{
+          mx: 'auto',
+          width: 70,
+        }}
+        >
+          <BruteRender
+            brute={{
+              id: 0,
+              name: brute.name,
+              body: bodyParts,
+              colors: bodyColors,
+              gender: brute.gender,
+            }}
+          />
+        </Box>
         {/* CUSTOMIZATION BUTTONS */}
         <Box sx={{
           display: 'flex',

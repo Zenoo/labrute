@@ -199,18 +199,21 @@ const Page = ({
               key={brute.name}
               icon={(
                 <Badge badgeContent={getFightsLeft(brute)} color="secondary">
-                  <BruteRender
-                    brute={brute}
-                    looking="left"
-                    scale={0.4}
-                    y="5px"
-                    sx={{
-                      width: 40,
-                      height: 40,
-                      borderRadius: '50%',
-                      overflow: 'hidden',
-                    }}
-                  />
+                  <Box sx={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: '50%',
+                    overflow: 'hidden',
+                  }}
+                  >
+                    <BruteRender
+                      brute={brute}
+                      looking="left"
+                      sx={{
+                        width: 40,
+                      }}
+                    />
+                  </Box>
                 </Badge>
               )}
               tooltipTitle={brute.name}

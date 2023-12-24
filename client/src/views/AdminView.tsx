@@ -163,13 +163,10 @@ const AdminView = () => {
             />
             {brute && brute.body && brute.colors && (
               <>
-                <Text h2 smallCaps>{brute.name} ({brute.user?.name})</Text>
-                <BruteRender
-                  brute={brute}
-                  scale={0.8}
-                  width={120}
-                  height={180}
-                />
+                <Text h2 smallCaps>{brute.name} ({brute.user?.name} {brute.user?.id})</Text>
+                <Box width={100}>
+                  <BruteRender brute={brute} />
+                </Box>
                 <Grid container spacing={1}>
                   <Grid item xs={6} sm={3}>
                     <StyledInput

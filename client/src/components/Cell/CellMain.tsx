@@ -76,7 +76,7 @@ const CellMain = ({
           <Text bold color="secondary" sx={{ pl: 0.5 }}>{t(`lvl_${brute.ranking as BruteRanking}`)}</Text>
         </Box>
       </Box>
-      <BruteBodyAndStats brute={brute} sx={{ mb: 1, zIndex: -1, }} />
+      <BruteBodyAndStats brute={brute} sx={{ mb: 1 }} />
 
       {/* Rank up */}
       {owner && brute.canRankUpSince && brute.ranking > 0 && (!moment.utc(brute.canRankUpSince).isSame(moment.utc(), 'day') || brute.currentTournamentStepWatched === 6) && (

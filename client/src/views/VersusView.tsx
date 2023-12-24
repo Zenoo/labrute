@@ -1,5 +1,5 @@
 import { getXPNeeded } from '@labrute/core';
-import { Grid, useMediaQuery } from '@mui/material';
+import { Box, Grid, useMediaQuery } from '@mui/material';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -101,26 +101,22 @@ const VersusView = () => {
         <Text h2 smallCaps bold color="text.primary">{t('dareChallenge', { value: opponent.name })}</Text>
         <Grid container spacing={2} sx={{ mt: 4, mb: 5 }}>
           <Grid item xs={12} sm={4}>
-            <BruteRender
-              brute={brute}
-              width={200}
-              height={300}
-              scale={1}
-              sx={{ mx: 'auto', mt: '-35px' }}
-            />
+            <Box width={100} mx="auto">
+              <BruteRender
+                brute={brute}
+              />
+            </Box>
             <Text h3 smallCaps bold color="text.primary">{brute.name}</Text>
             <Text h5 upperCase bold color="secondary">{t('level')} {brute.level}</Text>
           </Grid>
           <Grid item xs={4} sx={{ display: { xs: 'none', sm: 'block' } }} />
           <Grid item xs={12} sm={4}>
-            <BruteRender
-              brute={opponent}
-              width={200}
-              height={300}
-              scale={1}
-              looking="left"
-              sx={{ mx: 'auto', mt: '-35px' }}
-            />
+            <Box width={100} mx="auto">
+              <BruteRender
+                brute={opponent}
+                looking="left"
+              />
+            </Box>
             <Text h3 smallCaps bold color="text.primary">{opponent.name}</Text>
             <Text h5 upperCase bold color="secondary">{t('level')} {opponent.level}</Text>
           </Grid>

@@ -146,7 +146,6 @@ const ArenaView = () => {
                       pl: 1,
                       pt: 0.5,
                       display: 'inline-block',
-                      overflow: 'hidden',
                       textAlign: 'left',
                       position: 'relative',
                     }}
@@ -176,16 +175,21 @@ const ArenaView = () => {
                           />
                         </Box>
                       </Box>
-                      <BruteRender
-                        brute={opponent}
-                        looking="left"
-                        scale={0.8}
-                        sx={{
-                          position: 'absolute',
-                          bottom: 0,
-                          left: 145,
-                        }}
-                      />
+                      <Box sx={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 115,
+                        width: 70,
+                      }}
+                      >
+                        <BruteRender
+                          brute={opponent}
+                          looking="left"
+                          sx={{
+                            height: 90,
+                          }}
+                        />
+                      </Box>
                     </Box>
                   </StyledButton>
                 </Grid>

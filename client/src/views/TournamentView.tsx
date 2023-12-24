@@ -253,14 +253,14 @@ const TournamentView = () => {
                           fighter={fighters.find((fighter) => fighter.type === 'brute' && fighter.name === step.fight.brute1.name)}
                           brute={step.fight.brute1}
                         >
-                          <Box sx={{ position: 'relative', mt: 1 }}>
-                            <BruteRender
-                              brute={step.fight.brute1}
-                              scale={scale(0.5, index)}
-                              width={scale(100, index)}
-                              height={scale(60, index)}
-                              y={`${scale(10, index)}px`}
-                            />
+                          <Box sx={{
+                            position: 'relative',
+                            height: 1,
+                            width: scale(50, index),
+                            mr: 1,
+                          }}
+                          >
+                            <BruteRender brute={step.fight.brute1} />
                             {/* Lost indicator */}
                             {shouldResultDisplay
                               && step.fight.winner === step.fight.brute2?.name
@@ -269,7 +269,7 @@ const TournamentView = () => {
                                   color="error"
                                   sx={{
                                     position: 'absolute',
-                                    top: 0,
+                                    top: 5,
                                     left: 0,
                                     width: 1,
                                     height: 1,
@@ -283,8 +283,8 @@ const TournamentView = () => {
                               src={`/images/rankings/lvl_${fighters.find((f) => f.id === step.fight.brute1Id)?.rank || step.fight.brute1.ranking}.png`}
                               sx={{
                                 position: 'absolute',
-                                bottom: scale(6, index),
-                                right: scale(6, index),
+                                bottom: scale(-6, index),
+                                right: scale(-18, index),
                                 width: scale(30, index),
                                 zIndex: 2,
                               }}
@@ -305,14 +305,16 @@ const TournamentView = () => {
                             fighter={fighters.find((fighter) => fighter.type === 'brute' && fighter.name === step.fight?.brute2?.name)}
                             brute={step.fight.brute2}
                           >
-                            <Box sx={{ position: 'relative', mt: 1 }}>
+                            <Box sx={{
+                              position: 'relative',
+                              height: 1,
+                              width: scale(50, index),
+                              ml: 1,
+                            }}
+                            >
                               <BruteRender
                                 brute={step.fight.brute2}
                                 looking="left"
-                                scale={scale(0.5, index)}
-                                width={scale(100, index)}
-                                height={scale(60, index)}
-                                y={`${scale(10, index)}px`}
                               />
                               {/* Lost indicator */}
                               {shouldResultDisplay
@@ -322,7 +324,7 @@ const TournamentView = () => {
                                     color="error"
                                     sx={{
                                       position: 'absolute',
-                                      top: 0,
+                                      top: 5,
                                       left: 0,
                                       width: 1,
                                       height: 1,
@@ -335,8 +337,8 @@ const TournamentView = () => {
                                 src={`/images/rankings/lvl_${fighters.find((f) => f.id === step.fight.brute2Id)?.rank || step.fight.brute2.ranking}.png`}
                                 sx={{
                                   position: 'absolute',
-                                  bottom: scale(6, index),
-                                  left: scale(6, index),
+                                  bottom: scale(-6, index),
+                                  left: scale(-18, index),
                                   width: scale(30, index),
                                   transform: 'scaleX(-1)',
                                   zIndex: 2,
@@ -378,9 +380,10 @@ const TournamentView = () => {
                     bottom: 0,
                     left: 0,
                     right: 0,
-                    margin: 'auto',
-                    width: 140,
-                    height: 250,
+                    mx: 'auto',
+                    top: 'initial',
+                    width: 100,
+                    transformOrigin: 'bottom center',
                   }}
                 />
               </BruteTooltip>

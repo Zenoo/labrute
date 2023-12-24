@@ -87,19 +87,20 @@ const LevelUpView = () => {
           <BoxBg
             src="/images/level-up/brute-bg.gif"
             sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
               height: 182,
               width: 201,
               mx: 'auto',
               mt: 1,
             }}
           >
-            <BruteRender
-              brute={brute}
-              width={120}
-              height={180}
-              scale={0.6}
-              sx={{ mx: 'auto' }}
-            />
+            <Box width={60}>
+              <BruteRender
+                brute={brute}
+              />
+            </Box>
           </BoxBg>
           {/* ARROWS */}
           {!smallScreen && (

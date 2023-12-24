@@ -104,7 +104,6 @@ const HallView = () => {
               pl: 1,
               pt: 0.5,
               display: 'inline-block',
-              overflow: 'hidden',
               textAlign: 'left',
               position: 'relative',
             }}
@@ -170,18 +169,21 @@ const HallView = () => {
                   />
                 </Box>
               </Box>
-              <BruteRender
-                brute={brute}
-                looking="left"
-                scale={0.8}
-                width={120}
-                height={100}
-                sx={{
-                  position: 'absolute',
-                  top: 42,
-                  left: 86,
-                }}
-              />
+              <Box sx={{
+                position: 'absolute',
+                top: 0,
+                left: 115,
+                width: 70,
+              }}
+              >
+                <BruteRender
+                  brute={brute}
+                  looking="left"
+                  sx={{
+                    height: 92,
+                  }}
+                />
+              </Box>
             </Box>
             {/* Fights left */}
             <Tooltip title={t('fightsLeft', { value: getFightsLeft(brute) })}>

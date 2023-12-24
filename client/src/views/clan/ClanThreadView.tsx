@@ -165,17 +165,17 @@ const ClanThreadView = () => {
                   }}
                 />
                 {/* BRUTE */}
-                <BruteRender
-                  brute={post.author}
-                  scale={0.7}
-                  sx={{
-                    position: 'absolute',
-                    top: -10,
-                    left: -30,
-                    height: 150,
-                    width: 100,
-                  }}
-                />
+                <Box sx={{
+                  position: 'absolute',
+                  top: -10,
+                  left: 0,
+                  width: 58,
+                }}
+                >
+                  <BruteRender
+                    brute={post.author}
+                  />
+                </Box>
               </Box>
             ))}
             <Box sx={{ display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap' }}>

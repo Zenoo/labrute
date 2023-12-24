@@ -25,17 +25,16 @@ const BruteBodyAndStats = ({
       position="relative"
       display="flex"
       flexDirection="row"
-      justifyContent={isMd ? 'center' : undefined}
+      justifyContent={isMd ? 'center' : 'space-between'}
       {...rest}
     >
       {/* BRUTE */}
-      <BruteRender
-        brute={brute}
-        scale={0.8}
-        width={120}
-        height={180}
-      />
-      <Stack spacing={1} flexGrow={isMd ? undefined : 1} sx={{ minWidth: 153 }}>
+      <Box flexGrow={1}>
+        <Box width={80} mx="auto">
+          <BruteRender brute={brute} />
+        </Box>
+      </Box>
+      <Stack spacing={1} sx={{ minWidth: 153 }}>
         {/* HP */}
         <Box>
           <BruteHP hp={brute.hp} />

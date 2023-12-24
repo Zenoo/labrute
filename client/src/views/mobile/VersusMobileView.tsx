@@ -49,12 +49,11 @@ const VersusMobileView = ({
         </StyledButton>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={5}>
-            <BruteRender
-              brute={brute}
-              height={200}
-              width={150}
-              sx={{ mx: 'auto' }}
-            />
+            <Box width={100} mx="auto">
+              <BruteRender
+                brute={brute}
+              />
+            </Box>
             <Text h3 smallCaps bold color="text.primary">{brute.name}</Text>
             <Text h5 upperCase bold color="secondary">{t('level')} {brute.level}</Text>
           </Grid>
@@ -62,13 +61,12 @@ const VersusMobileView = ({
             <Box component="img" src="/images/versus/vs.png" sx={{ width: 100, maxWidth: 1 }} />
           </Grid>
           <Grid item xs={12} sm={5}>
-            <BruteRender
-              brute={opponent}
-              height={200}
-              width={150}
-              looking="left"
-              sx={{ mx: 'auto' }}
-            />
+            <Box width={100} mx="auto">
+              <BruteRender
+                brute={opponent}
+                looking="left"
+              />
+            </Box>
             <Text h3 smallCaps bold color="text.primary">{opponent.name}</Text>
             <Text h5 upperCase bold color="secondary">{t('level')} {opponent.level}</Text>
           </Grid>

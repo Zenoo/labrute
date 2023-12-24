@@ -331,7 +331,6 @@ const ClanView = () => {
                 pl: 1,
                 pt: 0.5,
                 display: 'inline-block',
-                overflow: 'hidden',
                 textAlign: 'left',
                 position: 'relative',
               }}
@@ -379,18 +378,21 @@ const ClanView = () => {
                   <Box component="img" src={`/images/rankings/lvl_${clanBrute.ranking}.png`} sx={{ mr: 1 }} />
                   <Text bold color="text.primary" sx={{ lineHeight: 1 }}>{t(`lvl_${clanBrute.ranking as BruteRanking}`)}</Text>
                 </Box>
-                <BruteRender
-                  brute={clanBrute}
-                  looking="left"
-                  scale={0.8}
-                  width={120}
-                  height={100}
-                  sx={{
-                    position: 'absolute',
-                    top: 42,
-                    left: 86,
-                  }}
-                />
+                <Box sx={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 115,
+                  width: 70,
+                }}
+                >
+                  <BruteRender
+                    brute={clanBrute}
+                    looking="left"
+                    sx={{
+                      height: 92,
+                    }}
+                  />
+                </Box>
               </Box>
             </StyledButton>
           ))}
@@ -437,13 +439,11 @@ const ClanView = () => {
                     </TableCell>
                     <TableCell sx={{ overflow: 'hidden' }}>
                       <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <BruteRender
-                          brute={requester}
-                          scale={0.8}
-                          width={80}
-                          height={60}
-                          y="-15px"
-                        />
+                        <Box width={40} height={45} mx={1}>
+                          <BruteRender
+                            brute={requester}
+                          />
+                        </Box>
                         <Link to={`/${requester.name}/cell`}>
                           <Text bold>{requester.name}</Text>
                         </Link>
