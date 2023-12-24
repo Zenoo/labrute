@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.47.4](https://github.com/Zenoo/labrute/compare/labrute-v2.47.3...labrute-v2.47.4) (2023-12-24)
+
+
+### Bug Fixes
+
+* Missing arms in fights ([75ef0fa](https://github.com/Zenoo/labrute/commit/75ef0fa8a91965ca9c238e0ec3a797ce7f2cc13c))
+
 ## [2.47.3](https://github.com/Zenoo/labrute/compare/labrute-v2.47.2...labrute-v2.47.3) (2023-12-24)
 
 
