@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.47.3](https://github.com/Zenoo/labrute/compare/labrute-v2.47.2...labrute-v2.47.3) (2023-12-24)
+
+
+### Bug Fixes
+
+* Display brute portrait in fights ([59d9798](https://github.com/Zenoo/labrute/commit/59d979899f09a560a32717b1ea4c2c3bc73ededc))
+* Fight positions too high. Fixes [#535](https://github.com/Zenoo/labrute/issues/535) ([a369008](https://github.com/Zenoo/labrute/commit/a369008e0b6b88ad834d4196c83ad2d9102fbf14))
+* Saboteur visual. Fixes [#541](https://github.com/Zenoo/labrute/issues/541) ([e72b683](https://github.com/Zenoo/labrute/commit/e72b683fbb4b248ccae0f5e205e4624a5149bf70))
+* Stop logging creation bypass attempts ([bc09ca5](https://github.com/Zenoo/labrute/commit/bc09ca5e82de1184c4ddd98b1ff779fca4223811))
+* Wrong visuals on reset ([7482f3b](https://github.com/Zenoo/labrute/commit/7482f3ba2be45eb1ce33eff54c3da69c8d6bcd51))
+
 ## [2.47.2](https://github.com/Zenoo/labrute/compare/labrute-v2.47.1...labrute-v2.47.2) (2023-12-24)
 
 
