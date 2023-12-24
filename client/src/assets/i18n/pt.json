@@ -356,7 +356,7 @@
   "resetVisuals": "Reset appearance",
   "resetVisualsDescription": "You can change your brute's appearance here. Be careful, this action cannot be undone.",
   "resetVisualsConfirm": "Are you sure you want to reset your brute's appearance ? This action cannot be undone.",
-  "resetVisualsSuccess": "Appearance reset successfull",
+  "resetVisualsSuccess": "Appearance reset successful",
   "callToFight": "Se você quer descarregar sua energia em alguém, faça aqui! Há muitos Brutos na Arena que mal podem esperar para trocar socos!",
   "arena": "Arena",
   "arena.search": "GO !",
