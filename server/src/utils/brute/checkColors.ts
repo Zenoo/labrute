@@ -1,4 +1,4 @@
-import { colors } from '@labrute/core';
+import { ExpectedError, colors } from '@labrute/core';
 import { Gender, Prisma, User } from '@labrute/prisma';
 import translate from '../translate.js';
 import { LOGGER } from '../../context.js';
@@ -28,13 +28,13 @@ const checkColors = (
     || !isValid(inputs.col4b, colors[gender].clothing)
   ) {
     LOGGER.log(`User ${user.name} tried to create a brute with invalid colors or body.`);
-    throw new Error(translate('invalidCreation', user));
+    throw new ExpectedError(translate('invalidCreation', user));
   }
 
   // col0, col0a, col0c must be the same
   if (inputs.col0 !== inputs.col0a || inputs.col0 !== inputs.col0c) {
     LOGGER.log(`User ${user.name} tried to create a brute with invalid colors or body.`);
-    throw new Error(translate('invalidCreation', user));
+    throw new ExpectedError(translate('invalidCreation', user));
   }
 
   // col1, col1a, col1b, col1c, col1d must be the same
@@ -43,7 +43,7 @@ const checkColors = (
     || inputs.col1 !== inputs.col1c
     || inputs.col1 !== inputs.col1d) {
     LOGGER.log(`User ${user.name} tried to create a brute with invalid colors or body.`);
-    throw new Error(translate('invalidCreation', user));
+    throw new ExpectedError(translate('invalidCreation', user));
   }
 };
 

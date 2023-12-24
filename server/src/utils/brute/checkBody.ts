@@ -1,4 +1,4 @@
-import { availableBodyParts } from '@labrute/core';
+import { ExpectedError, availableBodyParts } from '@labrute/core';
 import { Gender, Prisma, User } from '@labrute/prisma';
 import translate from '../translate.js';
 import { LOGGER } from '../../context.js';
@@ -26,7 +26,7 @@ const checkBody = (
     || !checkBodyPart(inputs.p5, availableBodyParts[gender].p5)
   ) {
     LOGGER.log(`User ${user.name} tried to create a brute with invalid colors or body.`);
-    throw new Error(translate('invalidCreation', user));
+    throw new ExpectedError(translate('invalidCreation', user));
   }
 };
 
