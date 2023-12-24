@@ -1,8 +1,10 @@
 /* eslint-disable no-void */
-import { randomBetween, SaboteurStep } from '@labrute/core';
-import { Application } from 'pixi.js';
+import { FIGHTER_HEIGHT, randomBetween, SaboteurStep } from '@labrute/core';
+import { Application, Sprite } from 'pixi.js';
 
+import { BevelFilter } from '@pixi/filter-bevel';
 import { sound } from '@pixi/sound';
+import { Easing, Tweener } from 'pixi-tweener';
 import findFighter, { AnimationFighter } from './findFighter';
 import stagger from './stagger';
 
@@ -12,15 +14,31 @@ const saboteur = async (
   step: SaboteurStep,
   speed: React.MutableRefObject<number>,
 ) => {
+  if (!app.loader) {
+    return;
+  }
+  const { loader: { resources: { '/images/game/thrown-weapons.json': { spritesheet } } } } = app;
+
+  if (!spritesheet) {
+    throw new Error('Spritesheet not found');
+  }
+
   const brute = findFighter(fighters, step.brute);
   if (!brute) {
     throw new Error('Brute not found');
   }
 
+  const animation = brute.data?.gender === 'male'
+    ? `hit-${randomBetween(0, 2) as 0 | 1 | 2}` as const
+    : 'hit' as const;
+
+  brute.animation.waitForEvent(`${animation}:end`).then(() => {
+    // Set animation to `idle`
+    brute.animation.setAnimation('idle');
+  }).catch(console.error);
+
   // Set animation to `hit`
-  brute.animation.setAnimation(brute.data?.gender === 'male'
-    ? `hit-${randomBetween(0, 2) as 0 | 1 | 2}`
-    : 'hit');
+  brute.animation.setAnimation(animation);
 
   // Play saboteur SFX
   void sound.play('skills/saboteur', {
@@ -28,10 +46,61 @@ const saboteur = async (
   });
 
   // Stagger animation
-  await stagger(brute.animation.container, brute.animation.team, speed);
+  const staggerVfx = stagger(brute.animation.container, brute.animation.team, speed);
 
   // Update active weapon
   brute.animation.weapon = null;
+
+  // Create weapon sprite
+  const weapon = new Sprite(spritesheet.textures[`${step.weapon}.png`]);
+  weapon.filters = [new BevelFilter()];
+  weapon.zIndex = 1;
+
+  // Anchor to left center
+  weapon.anchor.set(0, 0.5);
+
+  // Set position
+  weapon.position.set(
+    brute.animation.container.x,
+    brute.animation.container.y - FIGHTER_HEIGHT.brute * 0.5,
+  );
+
+  // Set angle
+  weapon.angle = brute.animation.team === 'left' ? -110 : 70;
+
+  // Add to stage
+  app.stage.addChild(weapon);
+
+  // Animate the fall
+  Tweener.add({
+    target: weapon,
+    duration: 0.3 / speed.current,
+    ease: Easing.linear,
+  }, {
+    x: brute.animation.team === 'left'
+      ? weapon.x - 20
+      : weapon.x + 20,
+    y: weapon.y + 50,
+    angle: brute.animation.team === 'left' ? -180 : 0,
+  }).then(() => {
+    // Wait a bit
+    setTimeout(() => {
+      // Decrease opacity
+      Tweener.add({
+        target: weapon,
+        duration: 0.5 / speed.current,
+        ease: Easing.linear,
+      }, {
+        alpha: 0,
+      }).then(() => {
+        // Remove from stage
+        app.stage.removeChild(weapon);
+      }).catch(console.error);
+    }, 500 / speed.current);
+  }).catch(console.error);
+
+  // Wait for stagger
+  await staggerVfx;
 };
 
 export default saboteur;
