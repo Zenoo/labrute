@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.47.2](https://github.com/Zenoo/labrute/compare/labrute-v2.47.1...labrute-v2.47.2) (2023-12-24)
+
+
+### Bug Fixes
+
+* Improve fight performance on mobile ([6a8cf60](https://github.com/Zenoo/labrute/commit/6a8cf603f40d048072a1d5e172c03e8836e167a4))
+* Missing and displaced renders. Fixes [#539](https://github.com/Zenoo/labrute/issues/539). Fixes [#537](https://github.com/Zenoo/labrute/issues/537) ([765af5e](https://github.com/Zenoo/labrute/commit/765af5e0cd7f0b94cf950473f835fedb0998b55f))
+
 ## [2.47.1](https://github.com/Zenoo/labrute/compare/labrute-v2.47.0...labrute-v2.47.1) (2023-12-23)
 
 
