@@ -2,23 +2,23 @@ import { AnimationFighter } from './findFighter';
 import { randomBetween } from '@labrute/core';
 
 const leftPositions = [
-  { x: 60, y: 170 },
-  { x: 40, y: 185 },
   { x: 60, y: 200 },
-  { x: 40, y: 215 },
-  { x: 60, y: 230 },
-  { x: 40, y: 245 },
-  { x: 60, y: 260 },
+  { x: 40, y: 212 },
+  { x: 60, y: 224 },
+  { x: 40, y: 236 },
+  { x: 60, y: 248 },
+  { x: 40, y: 260 },
+  { x: 60, y: 272 },
 ];
 
 const rightPositions = [
-  { x: 440, y: 170 },
-  { x: 460, y: 185 },
   { x: 440, y: 200 },
-  { x: 460, y: 215 },
-  { x: 440, y: 230 },
-  { x: 460, y: 245 },
-  { x: 440, y: 260 },
+  { x: 460, y: 212 },
+  { x: 440, y: 224 },
+  { x: 460, y: 236 },
+  { x: 440, y: 248 },
+  { x: 460, y: 260 },
+  { x: 440, y: 272 },
 ];
 
 const getAvailablePositions = (fighters: AnimationFighter[], team: 'left' | 'right') => {
