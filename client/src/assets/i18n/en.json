@@ -39,9 +39,7 @@
   "betaDescription": "This game is still in beta. Things are prone to change and bugs may occur. Please report any bug you find on our",
   "discord": "Discord",
   "betaReset": "Keep in mind everything will be reset at the end of the beta.",
-
   "shadow": "Shadow",
-
   "log.win": "Your Brute has crushed {{value}}.",
   "log.survive": "Your Brute has survived to {{value}}.",
   "log.lose": "{{value}} has flattened your Brute.",
@@ -66,7 +64,6 @@
   "log.xp": "{{xp}} experience point gained.",
   "log.xps": "{{xp}} experience points gained.",
   "seeFight": "Click here to see the fight",
-
   "master": "Master",
   "ranking": "Ranking",
   "victories": "Victories",
@@ -143,7 +140,6 @@
   "setNewMaster": "Set new master",
   "confirmSetNewMaster": "Do you really want to set this member as the new clan master ?",
   "clanMasterChanged": "The clan master has been changed.",
-
   "herculeanStrength": "Herculean Strength",
   "herculeanStrength.desc": "You're strong enough to move mountains, but first you must defeat your opponent.",
   "herculeanStrength.effect": "",
@@ -276,7 +272,6 @@
   "monk": "Monk",
   "monk.desc": "You can visualize the hits before your opponent can even think about them if you stay perfectly still.",
   "monk.effect": "",
-  
   "fan": "Fan",
   "keyboard": "Keyboard",
   "knife": "Knife",
@@ -303,7 +298,6 @@
   "broadsword": "Broadsword",
   "scimitar": "Scimitar",
   "sword": "Sword",
-
   "level": "Level",
   "healthPoints": "health points",
   "endurance": "Endurance",
@@ -318,7 +312,6 @@
   "dog3": "Dog",
   "panther": "Panther",
   "bear": "Bear",
-
   "stat": "Stat",
   "value": "Value",
   "types": "Types",
@@ -342,7 +335,6 @@
   "damage": "Damage",
   "drawChance": "Draw Chance",
   "reach": "Reach",
-
   "account": "Account",
   "login": "Login",
   "loginError": "Login error",
@@ -364,9 +356,7 @@
   "resetVisuals": "Reset appearance",
   "resetVisualsDescription": "You can change your brute's appearance here. Be careful, this action cannot be undone.",
   "resetVisualsConfirm": "Are you sure you want to reset your brute's appearance ? This action cannot be undone.",
-  "resetVisualsSuccess": "Appearance reset successfull",
-
-
+  "resetVisualsSuccess": "Appearance reset successful",
   "callToFight": "If you want to discharge your energy on someone, do it here! There are a lot of Brutes in the Arena who can't wait to swap punches!",
   "arena": "Arena",
   "arena.search": "GO !",
@@ -394,14 +384,12 @@
   "arena.search.notFound": "No Brute found with this name.",
   "arena.search.noSelf": "Stop hitting yourself.",
   "arena.search.atLeastThreeCharacters": "Please enter at least 3 characters.",
-
   "en-version": "English version",
   "fr-version": "Version française",
   "es-version": "Versión española",
   "de-version": "Deutsche Version",
   "ru-version": "Русская версия",
   "pt-version": "Versão portuguesa",
-
   "newLevelFor": "New level for",
   "reached": "reached",
   "levelLower": "level",
@@ -411,7 +399,6 @@
   "newPet": "New pet",
   "in": "in",
   "choiceBackground": "Choice background",
-
   "bruteIsResting": "{{brute}} is resting.",
   "newFightsTomorrow": "{{amount}} new fights will be available tomorrow!",
   "bruteIsPreparing": "{{brute}} is preparing.",
@@ -420,12 +407,9 @@
   "youHaveOneFightLeft": "You have one fight left today !",
   "selectedOpponents": "Welcome to the Arena! Here is a selection of opponents of your level. Choose one and let's start the fight!",
   "backToCell": "Back to the cell",
-
   "dareChallenge": "You dare to challenge {{value}}!",
   "startFight": "Start fight",
-
   "fight.discoverGames": "Discover our other games",
-
   "fight.step.saboteur": "{{weapon}} was sabotaged!",
   "fight.step.leave": "{{name}} retreated!",
   "fight.step.arrive": "{{name}} has arrived !",
@@ -464,7 +448,6 @@
   "fight.pause": "Pause",
   "fight.toggleLogs": "Toggle logs",
   "bruteCell": "{{name}}'s cell",
-
   "experience": "Experience",
   "brute": "Brute",
   "destinyOf": "Destiny of",
@@ -477,7 +460,6 @@
   "tournamentHistory": "Tournament history",
   "date": "Date",
   "dailyTournament": "Daily tournament",
-
   "achievements": "Achievements",
   "achievements.wins": "Fights won",
   "achievements.wins.description": "Fights won.",
@@ -698,26 +680,22 @@
   "legendary": "Legendary",
   "maxPerFight": "Max per fight",
   "maxPerBrute": "Max per brute",
-
   "weapons": "Weapons",
   "none": "None",
   "supers": "Supers",
   "skills": "Skills",
   "total": "Total",
-
   "notFound.title": "Page not found",
   "notFound.subtitle": "The page you are looking for does not exist.",
   "home": "Home",
   "bruteNotFound.title": "Brute not found",
   "bruteNotFound.subtitle": "The brute you are looking for does not exist or has been sacrificed.",
-
   "pleaseWait": "Please wait...",
   "generatingTournaments": "We are generating today's tournaments. Please wait for a few minutes.",
   "report": "report",
   "reportName": "Report inappropriate name",
   "reportConfirm": "Are you sure you want to report the brute name {{brute}} as inappropriate?",
   "reportSuccess": "Report successfully sent.",
-  
   "chooseAsFavorite": "Choose as favorite (max {{amount}})",
   "removeFromFavorites": "Remove from favorites",
   "bareHands": "Bare hands",
