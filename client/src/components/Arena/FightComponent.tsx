@@ -93,15 +93,12 @@ const FightComponent = ({
     if (!ref.current || !fight) {
       return undefined;
     }
-    PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
     const app = new PIXI.Application({
       backgroundColor: 0xfbf7c0,
       width: 500,
       height: 300,
-      antialias: true,
-      autoDensity: true,
-      resolution: window.devicePixelRatio * 2,
+      resolution: window.devicePixelRatio,
     });
     appRef.current = app;
     ref.current.appendChild(app.view);
