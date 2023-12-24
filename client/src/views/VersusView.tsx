@@ -101,7 +101,7 @@ const VersusView = () => {
         <Text h2 smallCaps bold color="text.primary">{t('dareChallenge', { value: opponent.name })}</Text>
         <Grid container spacing={2} sx={{ mt: 4, mb: 5 }}>
           <Grid item xs={12} sm={4}>
-            <Box width={100} mx="auto">
+            <Box width={100} height={270} mx="auto">
               <BruteRender
                 brute={brute}
               />
@@ -111,7 +111,7 @@ const VersusView = () => {
           </Grid>
           <Grid item xs={4} sx={{ display: { xs: 'none', sm: 'block' } }} />
           <Grid item xs={12} sm={4}>
-            <Box width={100} mx="auto">
+            <Box width={100} height={270} mx="auto">
               <BruteRender
                 brute={opponent}
                 looking="left"

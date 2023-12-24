@@ -33,7 +33,7 @@
     "@pixi/filter-outline": "^4.2.0",
     "@pixi/sound": "^4.4.1",
     "i18next": "^21.9.0",
-    "labrute-fla-parser": "^1.0.8",
+    "labrute-fla-parser": "^1.0.9",
     "labrute-static-fla-parser": "^1.0.2",
     "moment": "^2.29.4",
     "pixi-tweener": "^0.12.2",
