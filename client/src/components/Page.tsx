@@ -204,14 +204,12 @@ const Page = ({
                     height: 40,
                     borderRadius: '50%',
                     overflow: 'hidden',
+                    p: 0.25,
                   }}
                   >
                     <BruteRender
                       brute={brute}
                       looking="left"
-                      sx={{
-                        width: 40,
-                      }}
                     />
                   </Box>
                 </Badge>

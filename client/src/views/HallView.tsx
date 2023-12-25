@@ -106,6 +106,7 @@ const HallView = () => {
               display: 'inline-block',
               textAlign: 'left',
               position: 'relative',
+              overflow: 'hidden',
             }}
             >
               <Box sx={{
@@ -174,6 +175,7 @@ const HallView = () => {
                 top: 0,
                 left: 115,
                 width: 70,
+                height: 1,
               }}
               >
                 <BruteRender

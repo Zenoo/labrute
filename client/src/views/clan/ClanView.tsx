@@ -333,6 +333,7 @@ const ClanView = () => {
                 display: 'inline-block',
                 textAlign: 'left',
                 position: 'relative',
+                overflow: 'hidden',
               }}
               >
                 <Box sx={{
@@ -383,6 +384,7 @@ const ClanView = () => {
                   top: 0,
                   left: 115,
                   width: 70,
+                  height: 1,
                 }}
                 >
                   <BruteRender

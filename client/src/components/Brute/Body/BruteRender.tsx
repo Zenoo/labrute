@@ -41,21 +41,27 @@ const BruteRender = ({
 
   // Shift some renders since the body is not centered
   if (brute.gender === Gender.female) {
+    // Female variants
+
     switch (brute.body?.p3) {
       case 0:
-        width = 115;
-        shift.y = 7;
+        width += 15;
+        shift.y += 7;
+        break;
+      case 1:
+        width += -10;
+        shift.y += 10;
         break;
       case 3:
-        width = 140;
+        width += 40;
         break;
       case 4:
-        width = 140;
-        shift.y = -10;
+        width += 40;
+        shift.y += -10;
         break;
       case 7:
-        width = 140;
-        shift.y = -4;
+        width += 40;
+        shift.y += -4;
         break;
       default:
         break;
@@ -64,16 +70,56 @@ const BruteRender = ({
     if (looking === 'right') {
       switch (brute.body?.p3) {
         case 0:
-          shift.x = -20;
+          shift.x += -20;
           break;
         case 3:
-          shift.x = -40;
+          shift.x += -40;
           break;
         case 4:
-          shift.x = -40;
+          shift.x += -40;
           break;
         case 7:
-          shift.x = -40;
+          shift.x += -40;
+          break;
+        default:
+          break;
+      }
+    }
+  } else {
+    // Male variants
+
+    switch (brute.body?.p3) {
+      case 10:
+        width += 10;
+        shift.y += 5;
+        break;
+      case 11:
+        shift.y += 20;
+        break;
+      default:
+        break;
+    }
+
+    switch (brute.body?.p7) {
+      case 5:
+        width += 30;
+        break;
+      default:
+        break;
+    }
+
+    if (looking === 'right') {
+      switch (brute.body?.p7) {
+        case 5:
+          shift.x += -20;
+          break;
+        default:
+          break;
+      }
+    } else {
+      switch (brute.body?.p7) {
+        case 5:
+          shift.x += -10;
           break;
         default:
           break;

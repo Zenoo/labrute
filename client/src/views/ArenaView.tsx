@@ -148,6 +148,7 @@ const ArenaView = () => {
                       display: 'inline-block',
                       textAlign: 'left',
                       position: 'relative',
+                      overflow: 'hidden',
                     }}
                     >
                       <Text bold color="secondary">{opponent.name}</Text>
@@ -180,6 +181,7 @@ const ArenaView = () => {
                         top: 0,
                         left: 115,
                         width: 70,
+                        height: 1,
                       }}
                       >
                         <BruteRender
