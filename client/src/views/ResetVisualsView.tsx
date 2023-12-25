@@ -35,11 +35,11 @@ const ResetVisualsView = () => {
 
   // Update visuals on brute load
   useEffect(() => {
-    if (!brute) return;
+    if (!brute || bodyParts || bodyColors) return;
 
     setBodyParts(getRandomBody(brute.gender));
     setBodyColors(getRandomColors(brute.gender));
-  }, [brute]);
+  }, [bodyColors, bodyParts, brute]);
 
   // Change appearance
   const changeAppearance = () => {
