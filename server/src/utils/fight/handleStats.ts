@@ -56,7 +56,10 @@ const handleStats = (
 
     // Single hit win
     if (bruteId === winner.id && stat.hits === 1) {
-      achievement.achievements.singleHitWin = 1;
+      // Only apply if other team member didn't hit
+      if (!stat.otherTeamMembersHits) {
+        achievement.achievements.singleHitWin = 1;
+      }
     }
 
     // Hit 20 times

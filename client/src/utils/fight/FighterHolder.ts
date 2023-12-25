@@ -886,9 +886,7 @@ export default class FighterHolder {
         }
 
         // Increase loading scale for better resolution in some cases
-        if (this.type === 'pet') {
-          customScale = 2;
-        } else if (this.type === 'boss') {
+        if (this.type === 'boss') {
           customScale = 2;
         }
 

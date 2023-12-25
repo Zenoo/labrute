@@ -25,6 +25,7 @@ export type Stats = Record<number, {
   disarms?: number;
   petsKilled?: number;
   maxDamage?: number;
+  otherTeamMembersHits?: number;
 }>;
 
 const getFighterStat = (
@@ -73,7 +74,18 @@ const resetOthersStats = (stats: Stats, excludedFighter: number, stat: keyof Omi
   }
 };
 
-const updateStats = (stats: Stats, bruteId: number, stat: keyof Omit<Stats[number], 'userId'>, value: number) => {
+const updateStats = (stats: Stats, bruteId: number, stat: keyof Omit<Stats[number], 'userId'>, value: number, masterId?: number) => {
+  // Special case for hits, add to otherTeamMembersHits if not master
+  if (stat === 'hits' && masterId) {
+    const master = stats[masterId];
+
+    if (master) {
+      master.otherTeamMembersHits = (master.otherTeamMembersHits || 0) + value;
+    }
+
+    return;
+  }
+
   const current = stats[bruteId];
 
   if (!current) return;
@@ -426,7 +438,7 @@ const registerHit = (
   });
 
   // Update stats
-  updateStats(stats, fighter.id, 'hits', 1);
+  updateStats(stats, fighter.id, 'hits', 1, fighter.master);
 };
 
 const activateSuper = (
