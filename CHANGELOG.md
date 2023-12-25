@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.47.5](https://github.com/Zenoo/labrute/compare/labrute-v2.47.4...labrute-v2.47.5) (2023-12-25)
+
+
+### Bug Fixes
+
+* Blurry brutes + net position ([b1d2aec](https://github.com/Zenoo/labrute/commit/b1d2aec4a29aeacf5bb8b1b512e040799146b2be))
+* Damage text height on bosses ([2868699](https://github.com/Zenoo/labrute/commit/286869922f41736d0eceaf3862f784df6ffc3eb1))
+
 ## [2.47.4](https://github.com/Zenoo/labrute/compare/labrute-v2.47.3...labrute-v2.47.4) (2023-12-24)
 
 
