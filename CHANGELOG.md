@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.47.7](https://github.com/Zenoo/labrute/compare/labrute-v2.47.6...labrute-v2.47.7) (2023-12-25)
+
+
+### Bug Fixes
+
+* Admin panel to add a free visual reset ([aefa105](https://github.com/Zenoo/labrute/commit/aefa105be0dba3c33c26437a1f1a688193393af7))
+* Brute sizes ([6b88bcb](https://github.com/Zenoo/labrute/commit/6b88bcb781a9f4b2bb6ef217ce4482ddd69e020b))
+* Wrong visual reset if no reroll ([439f19e](https://github.com/Zenoo/labrute/commit/439f19e4bace569a97c17d2eca708633b971beb2))
+
 ## [2.47.6](https://github.com/Zenoo/labrute/compare/labrute-v2.47.5...labrute-v2.47.6) (2023-12-25)
 
 
