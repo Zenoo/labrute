@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.47.6](https://github.com/Zenoo/labrute/compare/labrute-v2.47.5...labrute-v2.47.6) (2023-12-25)
+
+
+### Bug Fixes
+
+* Single hit win disabled when other team members attack ([6b4fa61](https://github.com/Zenoo/labrute/commit/6b4fa61d31b65951f486cdaa51a58a2e920aba2a))
+
 ## [2.47.5](https://github.com/Zenoo/labrute/compare/labrute-v2.47.4...labrute-v2.47.5) (2023-12-25)
 
 
