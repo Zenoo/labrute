@@ -61,6 +61,7 @@ const Server = {
     favorite: (name: string) => Fetch<never>(`/api/brute/${name}/favorite`),
     reset: (name: string) => Fetch<HookBrute>(`/api/brute/${name}/reset`),
     resetVisuals: (name: string, body: Prisma.BruteBodyCreateWithoutBruteInput, colors: Prisma.BruteColorsCreateWithoutBruteInput) => Fetch<never>(`/api/brute/${name}/reset-visuals`, { body, colors }, 'POST'),
+    giveFreeVisualReset: (name: string) => Fetch<never>(`/api/brute/${name}/give-free-visual-reset`),
   },
   Log: {
     list: (brute: string) => Fetch<(Log & { currentBrute: { name: string } })[]>(`/api/log/list/${brute}`),

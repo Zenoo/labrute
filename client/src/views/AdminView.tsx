@@ -131,6 +131,15 @@ const AdminView = () => {
     }).catch(catchError(Alert));
   }, [Alert, bruteId]);
 
+  // Give free visual reset
+  const giveFreeVisualReset = useCallback(() => {
+    if (!brute) return;
+
+    Server.Brute.giveFreeVisualReset(brute.name).then(() => {
+      Alert.open('success', 'Free visual reset given');
+    }).catch(catchError(Alert));
+  }, [Alert, brute]);
+
   return (
     <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl="/">
       {!globalTournamentValid && (
@@ -167,6 +176,7 @@ const AdminView = () => {
                 <Box width={100}>
                   <BruteRender brute={brute} />
                 </Box>
+                <FantasyButton onClick={giveFreeVisualReset}>Give free visual reset</FantasyButton>
                 <Grid container spacing={1}>
                   <Grid item xs={6} sm={3}>
                     <StyledInput

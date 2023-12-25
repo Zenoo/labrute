@@ -1652,6 +1652,58 @@ const Brutes = {
       sendError(res, error);
     }
   },
+  giveFreeVisualReset: (prisma: PrismaClient) => async (
+    req: Request<{
+      name: string,
+    }>,
+    res: Response,
+  ) => {
+    try {
+      const user = await auth(prisma, req);
+
+      // Check is user is admin
+      if (!user.admin) {
+        throw new Error(translate('unauthorized', user));
+      }
+
+      // Get brute
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name: req.params.name,
+          deletedAt: null,
+        },
+        select: { id: true },
+      });
+
+      if (!brute) {
+        throw new Error(translate('bruteNotFound', user));
+      }
+
+      // Give free visual reset
+      await prisma.bruteInventoryItem.upsert({
+        where: {
+          type_bruteId: {
+            bruteId: brute.id,
+            type: InventoryItemType.visualReset,
+          },
+        },
+        create: {
+          type: InventoryItemType.visualReset,
+          count: 1,
+          bruteId: brute.id,
+        },
+        update: {
+          count: {
+            increment: 1,
+          },
+        },
+      });
+
+      res.send({ success: true });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
 };
 
 export default Brutes;
