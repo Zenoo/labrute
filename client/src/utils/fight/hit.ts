@@ -2,12 +2,11 @@
 import { FIGHTER_HIT_ANCHOR, HitStep, WEAPONS_SFX, randomBetween } from '@labrute/core';
 import { OutlineFilter } from '@pixi/filter-outline';
 import { sound } from '@pixi/sound';
-import { Tweener } from 'pixi-tweener';
-import { AnimatedSprite, Application, Text } from 'pixi.js';
+import { AnimatedSprite, Application } from 'pixi.js';
 
+import displayDamage from './displayDamage';
 import findFighter, { AnimationFighter } from './findFighter';
 import getFighterType from './getFighterType';
-import insideXBounds from './insideXBounds';
 import stagger from './stagger';
 import updateHp from './updateHp';
 
@@ -128,27 +127,7 @@ const hit = async (
     ];
   }
 
-  // Display floating and fading damage text
-  const damageText = new Text(`-${step.damage}`, {
-    fontFamily: 'GameFont', fontSize: 20, fill: 0xffffff
-  });
-  damageText.anchor.set(0.5);
-  damageText.x = insideXBounds(target.animation.container.x);
-  damageText.y = target.animation.container.y - target.animation.container.height;
-  damageText.zIndex = 1000;
-  damageText.filters = [new OutlineFilter()];
-  app.stage.addChild(damageText);
-
-  Tweener.add({
-    target: damageText,
-    duration: 2 / speed.current,
-  }, {
-    y: damageText.y - 100,
-    alpha: 0,
-  }).then(() => {
-    // Remove text
-    damageText.destroy();
-  }).catch(console.error);
+  displayDamage(app, target, step.damage, speed);
 
   // Update HP bar
   if (target.hpBar) {

@@ -1,12 +1,11 @@
 /* eslint-disable no-void */
 import { BombStep, FIGHTER_HEIGHT, FIGHTER_WIDTH, randomBetween } from '@labrute/core';
-import { OutlineFilter } from '@pixi/filter-outline';
 import { Easing, Tweener } from 'pixi-tweener';
-import { AnimatedSprite, Application, Text } from 'pixi.js';
+import { AnimatedSprite, Application } from 'pixi.js';
 
 import { sound } from '@pixi/sound';
+import displayDamage from './displayDamage';
 import findFighter, { AnimationFighter } from './findFighter';
-import insideXBounds from './insideXBounds';
 import stagger from './stagger';
 import updateHp from './updateHp';
 
@@ -168,27 +167,7 @@ const bomb = async (
     // Set animation to the correct hit animation
     target.animation.setAnimation(animation);
 
-    // Display floating and fading damage text
-    const damageText = new Text(`-${damage}`, {
-      fontFamily: 'GameFont', fontSize: 20, fill: 0xffffff
-    });
-    damageText.anchor.set(0.5);
-    damageText.x = insideXBounds(target.animation.container.x);
-    damageText.y = target.animation.container.y - target.animation.container.height;
-    damageText.zIndex = 1000;
-    damageText.filters = [new OutlineFilter()];
-    app.stage.addChild(damageText);
-
-    Tweener.add({
-      target: damageText,
-      duration: 2 / speed.current,
-    }, {
-      y: damageText.y - 100,
-      alpha: 0,
-    }).then(() => {
-      // Remove text
-      damageText.destroy();
-    }).catch(console.error);
+    displayDamage(app, target, damage, speed);
 
     // Update HP bar
     if (target.hpBar) {

@@ -43,7 +43,7 @@ const bosses: Boss[] = [
   {
     name: BossName.EmberFang,
     base: PetName.panther,
-    scale: 2,
+    scale: 3,
     initiative: -0.5,
     strength: panther.strength * 2,
     agility: panther.agility,

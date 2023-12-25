@@ -638,7 +638,7 @@ export default class FighterHolder {
           })];
         } else if (fighter.name === BossName.EmberFang) {
           this.container.filters = [new AdjustmentFilter({
-            red: 4.8,
+            red: 2.2,
             green: 0.8,
             blue: 0.8,
           })];

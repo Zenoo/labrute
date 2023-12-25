@@ -12,7 +12,7 @@ import ServerState from './utils/ServerState.js';
 import generateFight from './utils/fight/generateFight.js';
 import shuffle from './utils/shuffle.js';
 
-const GENERATE_TOURNAMENTS_IN_DEV = true;
+const GENERATE_TOURNAMENTS_IN_DEV = false;
 
 const grantBetaAchievement = async (prisma: PrismaClient) => {
   // Grant beta achievement to all brutes who don't have it yet

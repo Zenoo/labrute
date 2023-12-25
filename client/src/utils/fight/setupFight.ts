@@ -361,27 +361,6 @@ const setupFight: (
     bossHeader.y = 10;
     bossHeader.zIndex = 101;
 
-    // Add tooltip on hover
-    bossHeader.interactive = true;
-    bossHeader.hitArea = new PIXI.Polygon([
-      new PIXI.Point(0, 10),
-      new PIXI.Point(240, 10),
-      new PIXI.Point(240, 20),
-      new PIXI.Point(50, 20),
-      new PIXI.Point(50, 65),
-      new PIXI.Point(0, 65),
-    ]);
-    bossHeader.on('mouseover', () => {
-      toggleTooltip(boss, true);
-    });
-    bossHeader.on('mouseout', () => {
-      toggleTooltip(boss, false);
-    });
-    bossHeader.on('tap', (e: PIXI.InteractionEvent) => {
-      e.stopPropagation();
-      toggleTooltip(boss);
-    });
-
     app.stage.addChild(bossHeader);
 
     // Boss name
