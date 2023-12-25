@@ -892,9 +892,10 @@ export default class FighterHolder {
           customScale = 2;
         }
 
-        const svgSprite = new PIXI.Sprite(Texture.from(svg.svg, {
-          resourceOptions: { scale: size * customScale }
-        }));
+        const svgSprite = new PIXI.Sprite(Texture.from(
+          `${svg.svg}<!-- ${size * customScale} -->`,
+          { resourceOptions: { scale: size * customScale } },
+        ));
         svgSprite.name = svg.name;
         svgSprite.scale.set(1 / customScale);
         svgSprite.visible = false;
