@@ -1233,7 +1233,7 @@ const startAttack = (
   const initialFighterHp = fighter.hp;
 
   // Was opponent trapped ?
-  const opponentWasTrapped = opponent.trapped;
+  let opponentWasTrapped = opponent.trapped;
 
   const attackResult = {
     blocked: false,
@@ -1278,6 +1278,9 @@ const startAttack = (
       // Keep track of attack status
       if (comboBlocked) attackResult.blocked = true;
       if (comboReversed) attackResult.reversed = true;
+
+      // Opponent cannot be trapped starting from the second attack
+      opponentWasTrapped = false;
 
       random = Math.random();
     }
