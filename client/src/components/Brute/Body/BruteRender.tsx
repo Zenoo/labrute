@@ -36,6 +36,7 @@ const BruteRender = ({
     renderer.render(brute);
   }, [brute, renderer]);
 
+  const { p3, p7 } = brute.body || { p3: undefined, p7: undefined };
   const shift = { x: 0, y: 0 };
   let width = 100;
 
@@ -43,86 +44,62 @@ const BruteRender = ({
   if (brute.gender === Gender.female) {
     // Female variants
 
-    switch (brute.body?.p3) {
-      case 0:
-        width += 15;
-        shift.y += 7;
-        break;
-      case 1:
-        width += -10;
-        shift.y += 10;
-        break;
-      case 3:
-        width += 40;
-        break;
-      case 4:
-        width += 40;
-        shift.y += -10;
-        break;
-      case 7:
-        width += 40;
-        shift.y += -4;
-        break;
-      default:
-        break;
-    }
+    if (p3 === 0) {
+      width += 15;
+      shift.y += 7;
 
-    if (looking === 'right') {
-      switch (brute.body?.p3) {
-        case 0:
-          shift.x += -20;
-          break;
-        case 3:
-          shift.x += -40;
-          break;
-        case 4:
-          shift.x += -40;
-          break;
-        case 7:
-          shift.x += -40;
-          break;
-        default:
-          break;
+      if (looking === 'right') {
+        shift.x += -20;
+      }
+    } else if (p3 === 1) {
+      width += -10;
+      shift.y += 10;
+    } else if (p3 === 3) {
+      width += 40;
+
+      if (looking === 'right') {
+        shift.x += -40;
+      }
+    } else if (p3 === 4) {
+      width += 40;
+      shift.y += -10;
+
+      if (looking === 'right') {
+        shift.x += -40;
+      }
+    } else if (p3 === 7) {
+      width += 40;
+      shift.y += -4;
+
+      if (looking === 'right') {
+        shift.x += -40;
       }
     }
   } else {
     // Male variants
 
-    switch (brute.body?.p3) {
-      case 10:
+    if (p3 === 10) {
+      width += 10;
+      shift.y += 5;
+    } else if (p3 === 11) {
+      shift.y += 10;
+    }
+
+    if (p7 === 5) {
+      if (p3 === 9) {
         width += 10;
-        shift.y += 5;
-        break;
-      case 11:
-        shift.y += 20;
-        break;
-      default:
-        break;
-    }
 
-    switch (brute.body?.p7) {
-      case 5:
+        if (looking === 'right') {
+          shift.x += -15;
+        }
+      } else {
         width += 30;
-        break;
-      default:
-        break;
-    }
 
-    if (looking === 'right') {
-      switch (brute.body?.p7) {
-        case 5:
+        if (looking === 'right') {
           shift.x += -20;
-          break;
-        default:
-          break;
-      }
-    } else {
-      switch (brute.body?.p7) {
-        case 5:
+        } else {
           shift.x += -10;
-          break;
-        default:
-          break;
+        }
       }
     }
   }
