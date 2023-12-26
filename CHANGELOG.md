@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.47.8](https://github.com/Zenoo/labrute/compare/labrute-v2.47.7...labrute-v2.47.8) (2023-12-26)
+
+
+### Bug Fixes
+
+* Allow reversal in combos after being freed from a trap ([fa0e33e](https://github.com/Zenoo/labrute/commit/fa0e33ec83fe42a19163a80497328e5be275a814))
+* Brute sizes ([a0e26d6](https://github.com/Zenoo/labrute/commit/a0e26d66050c6c079c395320bf120e5a50a018c5))
+
 ## [2.47.7](https://github.com/Zenoo/labrute/compare/labrute-v2.47.6...labrute-v2.47.7) (2023-12-25)
 
 
