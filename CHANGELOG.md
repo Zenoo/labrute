@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.47.9](https://github.com/Zenoo/labrute/compare/labrute-v2.47.8...labrute-v2.47.9) (2024-01-03)
+
+
+### Bug Fixes
+
+* Optimize tournament earnings. Fixes [#551](https://github.com/Zenoo/labrute/issues/551) ([35726fd](https://github.com/Zenoo/labrute/commit/35726fd3be410f1ee3f5ec413e4ac351c166b5fd))
+
 ## [2.47.8](https://github.com/Zenoo/labrute/compare/labrute-v2.47.7...labrute-v2.47.8) (2023-12-26)
 
 
