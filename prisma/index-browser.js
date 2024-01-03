@@ -248,17 +248,29 @@ exports.Prisma.TournamentStepScalarFieldEnum = {
   id: 'id',
   tournamentId: 'tournamentId',
   step: 'step',
-  fightId: 'fightId',
-  xpDistributed: 'xpDistributed'
+  fightId: 'fightId'
 };
 
-exports.Prisma.TournamentEarningScalarFieldEnum = {
+exports.Prisma.TournamentAchievementScalarFieldEnum = {
   id: 'id',
   date: 'date',
   bruteId: 'bruteId',
-  points: 'points',
   achievement: 'achievement',
   achievementCount: 'achievementCount'
+};
+
+exports.Prisma.TournamentGoldScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  userId: 'userId',
+  gold: 'gold'
+};
+
+exports.Prisma.TournamentXpScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  bruteId: 'bruteId',
+  xp: 'xp'
 };
 
 exports.Prisma.AchievementScalarFieldEnum = {
@@ -625,7 +637,9 @@ exports.Prisma.ModelName = {
   DestinyChoice: 'DestinyChoice',
   Tournament: 'Tournament',
   TournamentStep: 'TournamentStep',
-  TournamentEarning: 'TournamentEarning',
+  TournamentAchievement: 'TournamentAchievement',
+  TournamentGold: 'TournamentGold',
+  TournamentXp: 'TournamentXp',
   Achievement: 'Achievement',
   Title: 'Title',
   BruteReport: 'BruteReport',

@@ -3,7 +3,6 @@ import {
   Fighter, getRandomBody, getRandomColors,
 } from '@labrute/core';
 import {
-  AchievementName,
   LogType, Prisma, PrismaClient, TournamentType,
 } from '@labrute/prisma';
 import moment from 'moment';
@@ -12,7 +11,7 @@ import ServerState from './utils/ServerState.js';
 import generateFight from './utils/fight/generateFight.js';
 import shuffle from './utils/shuffle.js';
 
-const GENERATE_TOURNAMENTS_IN_DEV = false;
+const GENERATE_TOURNAMENTS_IN_DEV = true;
 
 const grantBetaAchievement = async (prisma: PrismaClient) => {
   // Grant beta achievement to all brutes who don't have it yet
@@ -154,6 +153,9 @@ const generateMissingBodyColors = async (prisma: PrismaClient) => {
 };
 
 const handleDailyTournaments = async (prisma: PrismaClient) => {
+  // Keep track of XP gains
+  const xpGains: Record<number, number> = {};
+
   const today = moment.utc().startOf('day');
   const tomorrow = moment.utc(today).add(1, 'day');
 
@@ -188,7 +190,7 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
 
   // All brutes are assigned, do nothing
   if (registeredBrutes.length === 0) {
-    return;
+    return xpGains;
   }
 
   // Shuffle brutes
@@ -383,6 +385,9 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
           select: { id: true },
         });
 
+        // Store XP for winner
+        xpGains[winnerId] = (xpGains[winnerId] || 0) + 1;
+
         step++;
       }
 
@@ -407,7 +412,6 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
       throw new Error('No loser');
     }
 
-    // Only for real brutes
     const winnerBrute = await prisma.brute.findUnique({
       where: { id: winner.id },
       select: {
@@ -426,13 +430,14 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
       throw new Error(`Brute not found: ${winnerBrute?.id || loserBrute?.id}`);
     }
 
+    // Only for real brutes
     if (winnerBrute.userId) {
       // Add 100 Gold to winner user
-      await prisma.tournamentEarning.create({
+      await prisma.tournamentGold.create({
         data: {
-          bruteId: winnerBrute.id,
+          userId: winnerBrute.userId,
           date: today.toDate(),
-          points: 100,
+          gold: 100,
         },
         select: { id: true },
       });
@@ -468,9 +473,14 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
   });
 
   LOGGER.log(`${tournamentsToCreate} daily tournaments created`);
+
+  return xpGains;
 };
 
 const handleGlobalTournament = async (prisma: PrismaClient) => {
+  // Keep track of XP gains
+  const xpGains: Record<number, number> = {};
+
   const today = moment.utc().startOf('day');
 
   // Check if global tournament is already handled
@@ -482,7 +492,7 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
   });
 
   if (globalTournament) {
-    return;
+    return xpGains;
   }
 
   // Set tournament as invalid until it's finished
@@ -631,6 +641,11 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
         },
         select: { id: true },
       });
+
+      const winnerId = brute1.name === generatedFight.winner ? brute1.id : brute2.id;
+
+      // Store XP for winner
+      xpGains[winnerId] = (xpGains[winnerId] || 0) + 1;
     }
 
     // Add byes to next round
@@ -648,12 +663,22 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
     throw new Error('Invalid tournament');
   }
 
+  // Get winner user
+  const winnerUser = await prisma.user.findFirst({
+    where: { brutes: { some: { id: roundBrutes[0].id } } },
+    select: { id: true },
+  });
+
+  if (!winnerUser) {
+    throw new Error('Winner user not found');
+  }
+
   // Add 150 Gold to the winner user
-  await prisma.tournamentEarning.create({
+  await prisma.tournamentGold.create({
     data: {
-      bruteId: roundBrutes[0].id,
+      userId: winnerUser.id,
       date: today.toDate(),
-      points: 150,
+      gold: 150,
     },
     select: { id: true },
   });
@@ -669,207 +694,169 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
   await ServerState.setGlobalTournamentValid(prisma, true);
 
   LOGGER.log('Global tournament created');
+
+  return xpGains;
+};
+
+const storeXpGains = async (
+  prisma: PrismaClient,
+  dailyXpGains: Record<number, number>,
+  globalXpGains: Record<number, number>,
+) => {
+  const now = moment.utc().valueOf();
+
+  if (!Object.keys(dailyXpGains).length && !Object.keys(globalXpGains).length) {
+    return;
+  }
+
+  // Add XP gains together
+  const xpGains: Record<number, number> = {};
+
+  for (const [bruteId, xp] of Object.entries(dailyXpGains)) {
+    xpGains[+bruteId] = (xpGains[+bruteId] || 0) + xp;
+  }
+
+  for (const [bruteId, xp] of Object.entries(globalXpGains)) {
+    xpGains[+bruteId] = (xpGains[+bruteId] || 0) + xp;
+  }
+
+  const today = moment.utc().startOf('day').toDate();
+  const tomorrow = moment.utc().add(1, 'day').startOf('day').toDate();
+
+  // Store XP gains
+  await prisma.tournamentXp.createMany({
+    data: Object.entries(xpGains).map(([bruteId, xp]) => ({
+      bruteId: +bruteId,
+      date: today,
+      xp,
+    })),
+  });
+
+  // Create XP gains logs for tomorrow
+  await prisma.log.createMany({
+    data: Object.entries(xpGains).map(([bruteId, xp]) => ({
+      currentBruteId: +bruteId,
+      type: LogType.tournamentXp,
+      xp,
+      date: tomorrow,
+    })),
+  });
+
+  LOGGER.log(`${moment.utc().valueOf() - now}ms to store ${Object.keys(xpGains).length} xp gains`);
 };
 
 const handleXpGains = async (prisma: PrismaClient) => {
   const now = moment.utc().valueOf();
+  const today = moment.utc().startOf('day');
 
-  // Get tournaments from yesterday
-  const tournaments = await prisma.tournament.findMany({
+  const count = await prisma.tournamentXp.count({
     where: {
       date: {
-        gte: moment.utc().subtract(1, 'day').startOf('day').toDate(),
-        lt: moment.utc().startOf('day').toDate(),
-      },
-    },
-    select: {
-      steps: {
-        where: {
-          xpDistributed: false,
-        },
-        select: {
-          id: true,
-        },
+        lt: today.toDate(),
       },
     },
   });
 
-  // Get all steps that have not been handled yet
-  const steps = tournaments.flatMap((tournament) => tournament.steps);
-
-  if (!steps.length) {
+  if (!count) {
     return;
   }
 
-  // Keep track of xp gains per brute
-  const xpGains: Record<string, { bruteId: number, xp: number }> = {};
-
-  for (const step of steps) {
-    const fullStep = await prisma.tournamentStep.findUnique({
-      where: { id: step.id },
-      select: {
-        fight: {
-          select: { fighters: true, winner: true },
+  await prisma.$transaction([
+    // Update brutes XP
+    prisma.$executeRaw`
+      UPDATE "Brute" b 
+      SET xp = b.xp + txp.xp
+      FROM (
+          SELECT SUM(xp) xp, "bruteId"
+          FROM "TournamentXp"
+          WHERE date < ${today.toDate()}
+          GROUP BY "bruteId"
+      ) txp
+      WHERE b.id = txp."bruteId"
+    `,
+    // Delete tournament XP
+    prisma.tournamentXp.deleteMany({
+      where: {
+        date: {
+          lt: today.toDate(),
         },
       },
-    });
+    }),
+  ]);
 
-    if (!fullStep) {
-      throw new Error('Step not found');
-    }
-
-    const winnerFighter = (JSON.parse(fullStep.fight.fighters) as Fighter[])
-      .find((fighter) => !fighter.master && fighter.name === fullStep.fight.winner);
-
-    if (!winnerFighter) {
-      // Skip to next step
-      // eslint-disable-next-line no-continue
-      continue;
-    }
-
-    // +1 XP to the winner
-    await prisma.brute.update({
-      where: { id: winnerFighter.id },
-      data: { xp: { increment: 1 } },
-      select: { id: true },
-    });
-
-    xpGains[fullStep.fight.winner] = {
-      bruteId: winnerFighter.id,
-      xp: (xpGains[fullStep.fight.winner]?.xp || 0) + 1,
-    };
-
-    // Update step
-    await prisma.tournamentStep.update({
-      where: { id: step.id },
-      data: { xpDistributed: true },
-      select: { id: true },
-    });
-  }
-
-  // Add logs for each brute
-  for (const brute of Object.values(xpGains)) {
-    await prisma.log.create({
-      data: {
-        date: moment.utc().toDate(),
-        currentBrute: { connect: { id: brute.bruteId } },
-        type: LogType.tournamentXp,
-        xp: brute.xp,
-      },
-      select: { id: true },
-    });
-  }
-
-  LOGGER.log(`${moment.utc().valueOf() - now}ms to handle ${Object.keys(xpGains).length} xp gains`);
+  LOGGER.log(`${moment.utc().valueOf() - now}ms to handle ${count} xp gains`);
 };
 
 const handleTournamentEarnings = async (prisma: PrismaClient) => {
   const now = moment.utc().valueOf();
+  const today = moment.utc().startOf('day');
 
-  const earningIds = await prisma.tournamentEarning.findMany({
+  const achievementCount = await prisma.tournamentAchievement.count({
     where: {
       date: {
-        lte: moment.utc().subtract(1, 'day').endOf('day').toDate(),
+        lt: today.toDate(),
       },
     },
-    select: { id: true },
+  });
+  const goldCount = await prisma.tournamentGold.count({
+    where: {
+      date: {
+        lt: today.toDate(),
+      },
+    },
   });
 
-  if (!earningIds.length) {
+  if (!achievementCount && !goldCount) {
     return;
   }
 
-  LOGGER.log(`${earningIds.length} tournament earnings to handle`);
-
-  for (const earningWithId of earningIds) {
-    const earning = await prisma.tournamentEarning.findUnique({
-      where: { id: earningWithId.id },
-      select: {
-        points: true,
-        achievement: true,
-        achievementCount: true,
-        brute: {
-          select: {
-            id: true,
-            userId: true,
-          },
+  await prisma.$transaction([
+    // Upsert achievements
+    prisma.$executeRaw`
+      INSERT INTO "Achievement" ("name", "count", "bruteId", "userId")
+      (SELECT ta."achievement" "name", ta."achievementCount" "count", b.id "bruteId", b."userId" "userId"
+      FROM (
+          SELECT SUM("achievementCount") "achievementCount", "achievement", "bruteId"
+          FROM "TournamentAchievement"
+          WHERE date < ${today.toDate()}
+          GROUP BY "bruteId", "achievement"
+      ) ta
+      LEFT JOIN "Brute" b
+      ON ta."bruteId" = b.id)
+      ON CONFLICT ("name", "bruteId") DO UPDATE
+      SET "count" = "Achievement"."count" + EXCLUDED."count"
+    `,
+    // Delete tournament achievements
+    prisma.tournamentAchievement.deleteMany({
+      where: {
+        date: {
+          lt: today.toDate(),
         },
       },
-    });
-
-    if (!earning) {
-      throw new Error('Earning not found');
-    }
-
-    if (earning.points && earning.brute.userId) {
-      // Add Gold to the user
-      await prisma.user.update({
-        where: { id: earning.brute.userId },
-        data: { gold: { increment: earning.points } },
-        select: { id: true },
-      });
-    }
-
-    // Add achievements to the brute
-    if (earning.achievement && earning.achievementCount) {
-      // Get existing achievement
-      const existingAchievement = await prisma.achievement.findFirst({
-        where: {
-          name: earning.achievement,
-          bruteId: earning.brute.id,
+    }),
+    // Add Gold to users
+    prisma.$executeRaw`
+      UPDATE "User" u 
+      SET gold = u.gold + tg.gold
+      FROM (
+          SELECT SUM(gold) gold, "userId"
+          FROM "TournamentGold"
+          WHERE date < ${today.toDate()}
+          GROUP BY "userId"
+      ) tg
+      WHERE u.id = tg."userId"
+    `,
+    // Delete tournament gold
+    prisma.tournamentGold.deleteMany({
+      where: {
+        date: {
+          lt: today.toDate(),
         },
-        select: { id: true, count: true },
-      });
+      },
+    }),
+  ]);
 
-      if (existingAchievement) {
-        // Only update max damage if it's higher
-        if (earning.achievement === AchievementName.maxDamage) {
-          if ((existingAchievement.count || 0) < earning.achievementCount) {
-            await prisma.achievement.update({
-              where: {
-                id: existingAchievement.id,
-              },
-              data: {
-                count: earning.achievementCount,
-              },
-              select: { id: true },
-            });
-          }
-        } else {
-          // Update existing achievement
-          await prisma.achievement.update({
-            where: {
-              id: existingAchievement.id,
-            },
-            data: {
-              count: {
-                increment: earning.achievementCount,
-              },
-            },
-            select: { id: true },
-          });
-        }
-      } else {
-        // Create new achievement
-        await prisma.achievement.create({
-          data: {
-            name: earning.achievement,
-            count: earning.achievementCount,
-            userId: earning.brute.userId,
-            bruteId: earning.brute.id,
-          },
-          select: { id: true },
-        });
-      }
-    }
-
-    // Delete earning
-    await prisma.tournamentEarning.delete({
-      where: { id: earningWithId.id },
-    });
-  }
-
-  LOGGER.log(`${moment.utc().valueOf() - now}ms to handle ${earningIds.length} tournament earnings`);
+  LOGGER.log(`${moment.utc().valueOf() - now}ms to handle ${achievementCount} achievements and ${goldCount} gold earnings`);
 };
 
 const dailyJob = (prisma: PrismaClient) => async () => {
@@ -879,10 +866,13 @@ const dailyJob = (prisma: PrismaClient) => async () => {
       await ServerState.setReady(prisma, false);
 
       // Handle daily tournaments
-      await handleDailyTournaments(prisma);
+      const dailyXpGains = await handleDailyTournaments(prisma);
 
       // Handle global tournament
-      await handleGlobalTournament(prisma);
+      const globalXpGains = await handleGlobalTournament(prisma);
+
+      // Store XP gains
+      await storeXpGains(prisma, dailyXpGains, globalXpGains);
 
       // Update server state to release traffic
       await ServerState.setReady(prisma, true);

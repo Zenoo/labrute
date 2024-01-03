@@ -19,6 +19,19 @@ export const RaretyOrder = [
   AchievementRarety.legendary,
 ];
 
+export const TournamentAchievements = [
+  'winTournamentAs20',
+  'winTournamentAs15',
+  'looseAgainst2',
+  'looseAgainst3',
+  'looseAgainst4',
+  'winAgainst2',
+  'winAgainst3',
+  'winAgainst4',
+  'winAsLower',
+  'win',
+];
+
 export const AchievementData: Record<
   AchievementName,
   {

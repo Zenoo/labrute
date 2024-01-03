@@ -21,10 +21,15 @@ const Logs = {
         throw new ExpectedError('Brute not found');
       }
 
+      const now = new Date();
+
       // Get logs
       const logs = await prisma.log.findMany({
         where: {
           currentBruteId: brute.id,
+          date: {
+            lte: now,
+          },
         },
         orderBy: { id: 'desc' },
         take: 7,

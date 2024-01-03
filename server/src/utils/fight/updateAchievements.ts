@@ -1,5 +1,5 @@
 /* eslint-disable no-await-in-loop */
-import { AchievementsStore } from '@labrute/core';
+import { AchievementsStore, TournamentAchievements } from '@labrute/core';
 import { AchievementName, PrismaClient } from '@labrute/prisma';
 
 const updateAchievements = async (
@@ -11,11 +11,12 @@ const updateAchievements = async (
     const bruteId = +_bruteId;
     for (const [_name, count] of Object.entries(bruteStore.achievements)) {
       const name = _name as AchievementName;
+      const isTournamentRelated = TournamentAchievements.includes(name);
 
-      // Tournament fight, delay
-      if (isTournamentFight) {
+      // Tournament fight, delay if achievement is tournament related
+      if (isTournamentFight && isTournamentRelated) {
         // Get existing delayed achievement
-        const existingAchievement = await prisma.tournamentEarning.findFirst({
+        const existingAchievement = await prisma.tournamentAchievement.findFirst({
           where: {
             achievement: name,
             bruteId,
@@ -24,36 +25,21 @@ const updateAchievements = async (
         });
 
         if (existingAchievement) {
-          // Only update max damage if it's higher
-          if (name === AchievementName.maxDamage) {
-            if ((existingAchievement.achievementCount || 0) < count) {
-              await prisma.tournamentEarning.update({
-                where: {
-                  id: existingAchievement.id,
-                },
-                data: {
-                  achievementCount: count,
-                },
-                select: { id: true },
-              });
-            }
-          } else {
-            // Update existing delayed achievement
-            await prisma.tournamentEarning.update({
-              where: {
-                id: existingAchievement.id,
+          // Update existing delayed achievement
+          await prisma.tournamentAchievement.update({
+            where: {
+              id: existingAchievement.id,
+            },
+            data: {
+              achievementCount: {
+                increment: count,
               },
-              data: {
-                achievementCount: {
-                  increment: count,
-                },
-              },
-              select: { id: true },
-            });
-          }
+            },
+            select: { id: true },
+          });
         } else {
           // Create new delayed achievement
-          await prisma.tournamentEarning.create({
+          await prisma.tournamentAchievement.create({
             data: {
               achievement: name,
               achievementCount: count,
@@ -64,7 +50,7 @@ const updateAchievements = async (
           });
         }
       } else {
-        // Normal fight, update immediately
+        // Normal fight or non tournament related achievement, update immediately
 
         // Get existing achievement
         const existingAchievement = await prisma.achievement.findFirst({

@@ -23,19 +23,20 @@ enum Lang {
 }
 
 model User {
-  id              String        @id @unique @db.Uuid
-  lang            Lang          @default(fr)
-  name            String        @db.VarChar(255)
-  admin           Boolean       @default(false)
-  moderator       Boolean       @default(false)
-  connexionToken  String        @db.Uuid
-  bruteLimit      Int           @default(3)
-  gold            Int           @default(0)
-  fightSpeed      Int           @default(1)
-  backgroundMusic Boolean       @default(true)
+  id              String           @id @unique @db.Uuid
+  lang            Lang             @default(fr)
+  name            String           @db.VarChar(255)
+  admin           Boolean          @default(false)
+  moderator       Boolean          @default(false)
+  connexionToken  String           @db.Uuid
+  bruteLimit      Int              @default(3)
+  gold            Int              @default(0)
+  fightSpeed      Int              @default(1)
+  backgroundMusic Boolean          @default(true)
   brutes          Brute[]
   achievements    Achievement[]
   reports         BruteReport[]
+  tournamentGolds TournamentGold[]
 }
 
 enum DestinyChoiceSide {
@@ -172,69 +173,70 @@ enum PetName {
 }
 
 model Brute {
-  id                           Int                  @id @default(autoincrement())
-  name                         String               @db.VarChar(255)
-  deletedAt                    DateTime?            @db.Timestamptz()
-  createdAt                    DateTime             @default(now()) @db.Timestamptz()
-  destinyPath                  DestinyChoiceSide[]  @default([])
-  previousDestinyPath          DestinyChoiceSide[]  @default([])
-  level                        Int                  @default(1)
-  xp                           Int                  @default(0)
-  hp                           Int                  @default(0)
-  enduranceStat                Int                  @default(0)
-  enduranceModifier            Float                @default(1)
-  enduranceValue               Int                  @default(0)
-  strengthStat                 Int                  @default(0)
-  strengthModifier             Float                @default(1)
-  strengthValue                Int                  @default(0)
-  agilityStat                  Int                  @default(0)
-  agilityModifier              Float                @default(1)
-  agilityValue                 Int                  @default(0)
-  speedStat                    Int                  @default(0)
-  speedModifier                Float                @default(1)
-  speedValue                   Int                  @default(0)
-  ranking                      Int                  @default(11)
+  id                           Int                     @id @default(autoincrement())
+  name                         String                  @db.VarChar(255)
+  deletedAt                    DateTime?               @db.Timestamptz()
+  createdAt                    DateTime                @default(now()) @db.Timestamptz()
+  destinyPath                  DestinyChoiceSide[]     @default([])
+  previousDestinyPath          DestinyChoiceSide[]     @default([])
+  level                        Int                     @default(1)
+  xp                           Int                     @default(0)
+  hp                           Int                     @default(0)
+  enduranceStat                Int                     @default(0)
+  enduranceModifier            Float                   @default(1)
+  enduranceValue               Int                     @default(0)
+  strengthStat                 Int                     @default(0)
+  strengthModifier             Float                   @default(1)
+  strengthValue                Int                     @default(0)
+  agilityStat                  Int                     @default(0)
+  agilityModifier              Float                   @default(1)
+  agilityValue                 Int                     @default(0)
+  speedStat                    Int                     @default(0)
+  speedModifier                Float                   @default(1)
+  speedValue                   Int                     @default(0)
+  ranking                      Int                     @default(11)
   gender                       Gender
-  user                         User?                @relation(fields: [userId], references: [id])
-  userId                       String?              @db.Uuid
+  user                         User?                   @relation(fields: [userId], references: [id])
+  userId                       String?                 @db.Uuid
   body                         BruteBody?
   colors                       BruteColors?
-  weapons                      WeaponName[]         @default([])
-  skills                       SkillName[]          @default([])
-  pets                         PetName[]            @default([])
-  master                       Brute?               @relation("Master", fields: [masterId], references: [id])
+  weapons                      WeaponName[]            @default([])
+  skills                       SkillName[]             @default([])
+  pets                         PetName[]               @default([])
+  master                       Brute?                  @relation("Master", fields: [masterId], references: [id])
   masterId                     Int?
-  pupils                       Brute[]              @relation("Master")
-  pupilsCount                  Int                  @default(0)
-  clan                         Clan?                @relation(fields: [clanId], references: [id])
+  pupils                       Brute[]                 @relation("Master")
+  pupilsCount                  Int                     @default(0)
+  clan                         Clan?                   @relation(fields: [clanId], references: [id])
   clanId                       Int?
-  registeredForTournament      Boolean              @default(false)
-  nextTournamentDate           DateTime?            @db.Date
-  currentTournamentDate        DateTime?            @db.Date
-  currentTournamentStepWatched Int?                 @default(0)
-  lastFight                    DateTime?            @db.Date
-  fightsLeft                   Int                  @default(6)
-  victories                    Int                  @default(0)
+  registeredForTournament      Boolean                 @default(false)
+  nextTournamentDate           DateTime?               @db.Date
+  currentTournamentDate        DateTime?               @db.Date
+  currentTournamentStepWatched Int?                    @default(0)
+  lastFight                    DateTime?               @db.Date
+  fightsLeft                   Int                     @default(6)
+  victories                    Int                     @default(0)
   fights                       Fight[]
-  fightsAsAdversary            Fight[]              @relation("Adversary")
+  fightsAsAdversary            Fight[]                 @relation("Adversary")
   logs                         Log[]
   destinyChoices               DestinyChoice[]
   tournaments                  Tournament[]
-  opponents                    Brute[]              @relation("Opponents")
-  opponentOf                   Brute[]              @relation("Opponents")
-  opponentsGeneratedAt         DateTime?            @db.Date
-  canRankUpSince               DateTime?            @db.Date
+  opponents                    Brute[]                 @relation("Opponents")
+  opponentOf                   Brute[]                 @relation("Opponents")
+  opponentsGeneratedAt         DateTime?               @db.Date
+  canRankUpSince               DateTime?               @db.Date
   achievements                 Achievement[]
-  tournamentEarnings           TournamentEarning[]
   reports                      BruteReport[]
-  favorite                     Boolean              @default(false)
+  favorite                     Boolean                 @default(false)
   titles                       Title[]
-  masterOfClan                 Clan?                @relation("MasterOfClan")
+  masterOfClan                 Clan?                   @relation("MasterOfClan")
   clanPosts                    ClanPost[]
-  wantToJoinClan               Clan?                @relation("JoinRequests", fields: [wantToJoinClanId], references: [id])
+  wantToJoinClan               Clan?                   @relation("JoinRequests", fields: [wantToJoinClanId], references: [id])
   wantToJoinClanId             Int?
   threads                      ClanThread[]
   inventory                    BruteInventoryItem[]
+  tournamentAchievements       TournamentAchievement[]
+  tournamentXps                TournamentXp[]
 }
 
 // FIGHTS
@@ -337,17 +339,31 @@ model TournamentStep {
   step          Int
   fight         Fight      @relation(fields: [fightId], references: [id])
   fightId       Int
-  xpDistributed Boolean    @default(false)
 }
 
-model TournamentEarning {
-  id               Int              @id @default(autoincrement())
-  date             DateTime         @db.Date
-  brute            Brute            @relation(fields: [bruteId], references: [id])
+model TournamentAchievement {
+  id               Int             @id @default(autoincrement())
+  date             DateTime        @db.Date
+  brute            Brute           @relation(fields: [bruteId], references: [id])
   bruteId          Int
-  points           Int?
-  achievement      AchievementName?
-  achievementCount Int?
+  achievement      AchievementName
+  achievementCount Int
+}
+
+model TournamentGold {
+  id     Int      @id @default(autoincrement())
+  date   DateTime @db.Date
+  user   User     @relation(fields: [userId], references: [id])
+  userId String   @db.Uuid
+  gold   Int
+}
+
+model TournamentXp {
+  id      Int      @id @default(autoincrement())
+  date    DateTime @db.Date
+  brute   Brute    @relation(fields: [bruteId], references: [id])
+  bruteId Int
+  xp      Int
 }
 
 // ACHIEVEMENTS
@@ -475,6 +491,7 @@ model Achievement {
   bruteId Int?
   user    User?           @relation(fields: [userId], references: [id])
   userId  String?         @db.Uuid
+  @@unique([name, bruteId])
 }
 
 model Title {
@@ -580,5 +597,6 @@ model BruteInventoryItem {
   count   Int               @default(1)
   brute   Brute             @relation(fields: [bruteId], references: [id])
   bruteId Int
+
   @@unique([type, bruteId])
 }

@@ -187,9 +187,6 @@ const ArenaView = () => {
                         <BruteRender
                           brute={opponent}
                           looking="left"
-                          sx={{
-                            height: 90,
-                          }}
                         />
                       </Box>
                     </Box>
