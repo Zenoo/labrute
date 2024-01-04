@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.48.2](https://github.com/Zenoo/labrute/compare/labrute-v2.48.1...labrute-v2.48.2) (2024-01-04)
+
+
+### Bug Fixes
+
+* User admin update payload ([8477272](https://github.com/Zenoo/labrute/commit/847727249b165c2d81a62afab9416feb36dfc7b1))
+
 ## [2.48.1](https://github.com/Zenoo/labrute/compare/labrute-v2.48.0...labrute-v2.48.1) (2024-01-04)
 
 
