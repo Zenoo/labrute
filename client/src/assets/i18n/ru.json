@@ -345,6 +345,7 @@
   "nameUnavailable": "Имя недоступно",
   "pleaseLogin": "Пожалуйста, войдите, прежде чем создавать Брутала",
   "hall": "Зал",
+  "userProfile": "{{user}}'s profile",
   "newBrute": "Новый Брутал",
   "gold": "Золото",
   "sacrifice": "В жертву",

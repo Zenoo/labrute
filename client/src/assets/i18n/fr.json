@@ -345,6 +345,7 @@
   "nameUnavailable": "Nom indisponible",
   "pleaseLogin": "Veuillez vous connecter pour créer une brute",
   "hall": "Hall",
+  "userProfile": "Profil de {{user}}",
   "newBrute": "Nouvelle brute",
   "gold": "Or",
   "sacrifice": "Sacrifier",
