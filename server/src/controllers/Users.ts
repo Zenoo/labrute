@@ -248,6 +248,9 @@ const Users = {
               body: true,
               colors: true,
             },
+            where: {
+              deletedAt: null,
+            },
           },
           achievements: {
             select: {
