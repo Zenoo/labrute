@@ -345,6 +345,7 @@
   "nameUnavailable": "Name unavailable",
   "pleaseLogin": "Please login before creating a Brute",
   "hall": "Hall",
+  "userProfile": "{{user}}'s profile",
   "newBrute": "New Brute",
   "gold": "Gold",
   "sacrifice": "Sacrifice",
