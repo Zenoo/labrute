@@ -345,6 +345,7 @@
   "nameUnavailable": "Name nicht verfügbar",
   "pleaseLogin": "Bitte vor Brutalo-Erstellung einloggen",
   "hall": "Halle",
+  "userProfile": "{{user}}'s profile",
   "newBrute": "Neuer Brutalo",
   "gold": "Gold",
   "sacrifice": "Opfern",
