@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.48.0](https://github.com/Zenoo/labrute/compare/labrute-v2.47.9...labrute-v2.48.0) (2024-01-04)
+
+
+### Features
+
+* User profile. Fixes [#465](https://github.com/Zenoo/labrute/issues/465) ([2101ab8](https://github.com/Zenoo/labrute/commit/2101ab82080b2b94b16ae4ea7e70209b6832f212))
+
+
+### Bug Fixes
+
+* Blurry hair in fights. Fixes [#550](https://github.com/Zenoo/labrute/issues/550) ([11bff04](https://github.com/Zenoo/labrute/commit/11bff04135b8f2a79fbba26cefd85cf1a50b5ee5))
+* Colors mismatch; Fixes [#548](https://github.com/Zenoo/labrute/issues/548) ([c16560a](https://github.com/Zenoo/labrute/commit/c16560abcc59414b8588dec27ab5fbafbb65b844))
+* Flash flood leftover weapon. Fixes [#549](https://github.com/Zenoo/labrute/issues/549) ([4dee1ab](https://github.com/Zenoo/labrute/commit/4dee1ab676f2ec2fbefd00b0c72fb644e6661f38))
+* Stop sending prisma errors twice ([3d0cb58](https://github.com/Zenoo/labrute/commit/3d0cb589700eb88aaf77c6fce44a49a8838c7aac))
+
 ## [2.47.9](https://github.com/Zenoo/labrute/compare/labrute-v2.47.8...labrute-v2.47.9) (2024-01-03)
 
 
