@@ -1,5 +1,5 @@
-import { UserWithAchievements } from '@labrute/core';
-import { Achievement, AchievementName, Lang, User } from '@labrute/prisma';
+import { UserGetAdminResponse } from '@labrute/core';
+import { AchievementName, Lang } from '@labrute/prisma';
 import { Checkbox, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Paper, Select, Stack } from '@mui/material';
 import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -17,8 +17,9 @@ const UserAdminView = () => {
   const Alert = useAlert();
 
   const [userName, setUserName] = React.useState('');
-  const [user, setUser] = React.useState<User | null>(null);
-  const [achievements, setAchievements] = React.useState<Achievement[]>([]);
+  const [user, setUser] = React.useState<Omit<UserGetAdminResponse, 'achievements'> | null>(null);
+  const [achievements, setAchievements] = React.useState<UserGetAdminResponse['achievements']>([]);
+  const [initialAchievements, setInitialAchievements] = React.useState<UserGetAdminResponse['achievements']>([]);
   const { user: admin } = useAuth();
 
   // Change user name
@@ -28,10 +29,7 @@ const UserAdminView = () => {
 
   // Fetch user
   const updateUser = useCallback(() => {
-    Server.User.get({
-      name: userName,
-      include: { achievements: true },
-    }).then((u) => {
+    Server.User.getForAdmin(userName).then((u) => {
       setUser({
         id: u.id,
         lang: u.lang,
@@ -44,7 +42,9 @@ const UserAdminView = () => {
         fightSpeed: u.fightSpeed,
         backgroundMusic: u.backgroundMusic,
       });
-      setAchievements((u as UserWithAchievements).achievements);
+      setAchievements(u.achievements);
+      // Map to new array to avoid reference
+      setInitialAchievements(u.achievements.map((a) => ({ ...a })));
     }).catch(catchError(Alert));
   }, [Alert, userName]);
 
@@ -63,6 +63,11 @@ const UserAdminView = () => {
   const saveUser = useCallback(() => {
     if (!user) return;
 
+    const changedAchievements = achievements.filter((a) => {
+      const initialAchievement = initialAchievements.find((b) => b.name === a.name);
+      return !initialAchievement || initialAchievement.count !== a.count;
+    });
+
     Server.User.adminUpdate(user.id, {
       user: {
         lang: user.lang,
@@ -73,11 +78,11 @@ const UserAdminView = () => {
         fightSpeed: user.fightSpeed,
         backgroundMusic: user.backgroundMusic,
       },
-      achievements,
+      achievements: changedAchievements,
     }).then(() => {
       Alert.open('success', 'User saved');
     }).catch(catchError(Alert));
-  }, [Alert, achievements, user]);
+  }, [Alert, achievements, initialAchievements, user]);
 
   return (
     <Page title={`${userName || ''} ${t('MyBrute')}`} headerUrl="/">
@@ -212,7 +217,7 @@ const UserAdminView = () => {
                       <StyledInput
                         label={key}
                         value={achievements
-                          .find((a) => !a.bruteId && a.name === key as AchievementName)?.count || 0}
+                          .find((a) => a.name === key as AchievementName)?.count || 0}
                         onChange={(event) => {
                           const count = +event.target.value;
                           setAchievements((a) => {
@@ -221,11 +226,8 @@ const UserAdminView = () => {
                               achievement.count = count;
                             } else {
                               a.push({
-                                id: 0,
                                 name: key as AchievementName,
                                 count,
-                                bruteId: null,
-                                userId: user.id,
                               });
                             }
                             return [...a];

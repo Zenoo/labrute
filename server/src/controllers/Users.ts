@@ -1,8 +1,10 @@
 import {
-  AchievementData, ExpectedError, RaretyOrder, UserGetProfileResponse, UsersAdminUpdateRequest,
+  AchievementData, ExpectedError, RaretyOrder,
+  UserGetAdminResponse, UserGetProfileResponse, UsersAdminUpdateRequest,
 } from '@labrute/core';
 import {
-  Achievement, Lang, Prisma, PrismaClient,
+  Achievement, Lang,
+  PrismaClient,
 } from '@labrute/prisma';
 import { Request, Response } from 'express';
 import { DISCORD } from '../context.js';
@@ -15,11 +17,8 @@ const Users = {
   get: (prisma: PrismaClient) => async (
     req: Request<{
       name: string
-    }, unknown, {
-      include: Prisma.UserInclude,
-      where: Prisma.UserWhereInput
     }>,
-    res: Response,
+    res: Response<UserGetAdminResponse>,
   ) => {
     try {
       const admin = await auth(prisma, req);
@@ -30,17 +29,45 @@ const Users = {
 
       const user = await prisma.user.findFirst({
         where: {
-          ...req.body.where,
           name: req.params.name,
         },
-        include: req.body.include,
+        include: {
+          achievements: {
+            select: {
+              count: true,
+              name: true,
+            },
+          },
+        },
       });
 
       if (!user) {
         throw new ExpectedError(translate('userNotFound', admin));
       }
 
-      res.send(user);
+      // Merge achievements with same name
+      const mergedAchievements = user.achievements.reduce((acc, achievement) => {
+        const existingAchievement = acc.find((a) => a.name === achievement.name);
+        if (existingAchievement) {
+          // Display the highest count for some achievements
+          if (AchievementData[achievement.name].max) {
+            existingAchievement.count = Math.max(
+              existingAchievement.count,
+              achievement.count,
+            );
+          } else {
+            existingAchievement.count += achievement.count;
+          }
+        } else {
+          acc.push(achievement);
+        }
+        return acc;
+      }, [] as Pick<Achievement, 'count' | 'name'>[]);
+
+      res.send({
+        ...user,
+        achievements: mergedAchievements,
+      });
     } catch (error) {
       sendError(res, error);
     }
@@ -186,27 +213,49 @@ const Users = {
       });
 
       // Update achievements
-      const queries = [];
       for (const achievement of req.body.achievements) {
-        queries.push(
-          prisma.achievement.upsert({
+        if (achievement.count === 0) {
+          // eslint-disable-next-line no-await-in-loop
+          await prisma.achievement.deleteMany({
             where: {
-              userId: achievement.userId,
-              id: achievement.id,
-            },
-            update: {
-              count: achievement.count,
-            },
-            create: {
               userId: user.id,
               name: achievement.name,
-              count: achievement.count,
             },
-          }),
-        );
-      }
+          });
+        } else {
+          // eslint-disable-next-line no-await-in-loop
+          const existingAchievement = await prisma.achievement.findFirst({
+            where: {
+              userId: user.id,
+              name: achievement.name,
+            },
+            select: {
+              id: true,
+            },
+          });
 
-      await Promise.all(queries);
+          if (existingAchievement) {
+            // eslint-disable-next-line no-await-in-loop
+            await prisma.achievement.update({
+              where: {
+                id: existingAchievement.id,
+              },
+              data: {
+                count: achievement.count,
+              },
+            });
+          } else {
+            // eslint-disable-next-line no-await-in-loop
+            await prisma.achievement.create({
+              data: {
+                userId: user.id,
+                name: achievement.name,
+                count: achievement.count,
+              },
+            });
+          }
+        }
+      }
 
       res.send({
         success: true,

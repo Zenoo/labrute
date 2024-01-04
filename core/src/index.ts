@@ -137,7 +137,7 @@ export type BruteRestoreResponse = {
 };
 export type UsersAdminUpdateRequest = {
   user: Prisma.UserUncheckedUpdateInput,
-  achievements: Achievement[],
+  achievements: Pick<Achievement, 'count' | 'name'>[],
 };
 
 export type BruteReportsListRequest = {
@@ -185,6 +185,9 @@ export type ClanGetThreadResponse = ClanThread & {
   clan: Pick<Clan, 'masterId' | 'name'>,
 };
 
+export type UserGetAdminResponse = User & {
+  achievements: Pick<Achievement, 'name' | 'count'>[],
+};
 export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang'> & {
   brutes: (Pick<
     Brute,
