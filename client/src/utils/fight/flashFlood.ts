@@ -105,6 +105,7 @@ const flashFlood = async (
     // Remove thrown weapon
     app.stage.removeChild(thrownWeapon);
     thrownWeapon.destroy();
+    fighter.animation.weapon = null;
 
     displayDamage(app, target, step.damage, speed);
 
