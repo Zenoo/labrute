@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.48.1](https://github.com/Zenoo/labrute/compare/labrute-v2.48.0...labrute-v2.48.1) (2024-01-04)
+
+
+### Bug Fixes
+
+* Don't show deleted brutes in user profile ([17f68c3](https://github.com/Zenoo/labrute/commit/17f68c356a1d76aff52c923eaef653cfcfa521d4))
+
 ## [2.48.0](https://github.com/Zenoo/labrute/compare/labrute-v2.47.9...labrute-v2.48.0) (2024-01-04)
 
 
