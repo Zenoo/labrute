@@ -1,7 +1,7 @@
 import { ExpectedError } from '@labrute/core';
 import { Prisma } from '@labrute/prisma';
 import { Response } from 'express';
-import { DISCORD, LOGGER } from '../context.js';
+import { DISCORD } from '../context.js';
 
 const sendError = (res: Response, error: unknown) => {
   if (!(error instanceof Error)) {
@@ -15,7 +15,6 @@ const sendError = (res: Response, error: unknown) => {
         break;
       }
       default: {
-        LOGGER.error(error.message);
         res.send(`Wrong data format: ${error.code}`);
         break;
       }
@@ -25,7 +24,6 @@ const sendError = (res: Response, error: unknown) => {
   } else if (error instanceof Prisma.PrismaClientInitializationError) {
     res.send(error.message);
   } else if (error instanceof Prisma.PrismaClientValidationError) {
-    LOGGER.error(error.message);
     res.send('Wrong data format');
   } else if (error instanceof Error) {
     res.send(error.message);
