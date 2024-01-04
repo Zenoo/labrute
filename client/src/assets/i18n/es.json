@@ -345,7 +345,7 @@
   "nameUnavailable": "Nombre no disponible",
   "pleaseLogin": "Por favor, inicia sesión antes de crear un Bruto",
   "hall": "Salón",
-  "userProfile": "{{user}}'s profile",
+  "userProfile": "Perfil de {{user}}",
   "newBrute": "Nuevo Bruto",
   "gold": "Oro",
   "sacrifice": "Sacrificar",
