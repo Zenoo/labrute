@@ -1,5 +1,9 @@
-import { ExpectedError, UsersAdminUpdateRequest } from '@labrute/core';
-import { Lang, Prisma, PrismaClient } from '@labrute/prisma';
+import {
+  AchievementData, ExpectedError, RaretyOrder, UserGetProfileResponse, UsersAdminUpdateRequest,
+} from '@labrute/core';
+import {
+  Achievement, Lang, Prisma, PrismaClient,
+} from '@labrute/prisma';
 import { Request, Response } from 'express';
 import { DISCORD } from '../context.js';
 import dailyJob from '../dailyJob.js';
@@ -206,6 +210,91 @@ const Users = {
 
       res.send({
         success: true,
+      });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  getProfile: (prisma: PrismaClient) => async (
+    req: Request<{
+      userId: string
+    }>,
+    res: Response<UserGetProfileResponse>,
+  ) => {
+    try {
+      if (!req.params.userId) {
+        throw new ExpectedError('No user ID provided');
+      }
+
+      const user = await prisma.user.findFirst({
+        where: {
+          id: req.params.userId,
+        },
+        select: {
+          id: true,
+          name: true,
+          gold: true,
+          lang: true,
+          brutes: {
+            select: {
+              id: true,
+              name: true,
+              gender: true,
+              level: true,
+              strengthValue: true,
+              speedValue: true,
+              agilityValue: true,
+              hp: true,
+              body: true,
+              colors: true,
+            },
+          },
+          achievements: {
+            select: {
+              name: true,
+              count: true,
+            },
+          },
+        },
+      });
+
+      if (!user) {
+        throw new ExpectedError(translate('userNotFound'));
+      }
+
+      // Merge achievements with same name
+      const mergedAchievements = user.achievements.reduce((acc, achievement) => {
+        const existingAchievement = acc.find((a) => a.name === achievement.name);
+        if (existingAchievement) {
+          // Display the highest count for some achievements
+          if (AchievementData[achievement.name].max) {
+            existingAchievement.count = Math.max(
+              existingAchievement.count,
+              achievement.count,
+            );
+          } else {
+            existingAchievement.count += achievement.count;
+          }
+        } else {
+          acc.push(achievement);
+        }
+        return acc;
+      }, [] as Pick<Achievement, 'count' | 'name'>[]);
+
+      // Order by rarety then count
+      mergedAchievements.sort((a, b) => {
+        const aRarety = RaretyOrder.indexOf(AchievementData[a.name].rarety);
+        const bRarety = RaretyOrder.indexOf(AchievementData[b.name].rarety);
+        if (aRarety < bRarety) return 1;
+        if (aRarety > bRarety) return -1;
+        if (a.count > b.count) return -1;
+        if (a.count < b.count) return 1;
+        return 0;
+      });
+
+      res.send({
+        ...user,
+        achievements: mergedAchievements,
       });
     } catch (error) {
       sendError(res, error);

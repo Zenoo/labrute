@@ -1,4 +1,4 @@
-import { Achievement, Brute, BruteBody, BruteColors, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, Fight, Lang, Prisma, Tournament, TournamentStep } from '@labrute/prisma';
+import { Achievement, Brute, BruteBody, BruteColors, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, Fight, Lang, Prisma, Tournament, TournamentStep, User } from '@labrute/prisma';
 import Version from './Version';
 import applySkillModifiers from './brute/applySkillModifiers';
 import availableBodyParts from './brute/availableBodyParts';
@@ -183,4 +183,22 @@ export type ClanGetThreadResponse = ClanThread & {
     author: BruteWithBodyColors,
   })[],
   clan: Pick<Clan, 'masterId' | 'name'>,
+};
+
+export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang'> & {
+  brutes: (Pick<
+    Brute,
+    'id' |
+    'name' |
+    'gender' |
+    'level' |
+    'strengthValue' |
+    'agilityValue' |
+    'speedValue' |
+    'hp'
+  > & {
+    body: BruteBody | null,
+    colors: BruteColors | null,
+  })[],
+  achievements: Pick<Achievement, 'name' | 'count'>[],
 };

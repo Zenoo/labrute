@@ -1,5 +1,5 @@
-import { AccountTree, MilitaryTech } from '@mui/icons-material';
-import { Box, Grid, Paper, PaperProps, Tooltip } from '@mui/material';
+import { AccountTree, MilitaryTech, Person } from '@mui/icons-material';
+import { Box, Button, Grid, Paper, PaperProps, Tooltip } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useBrute } from '../../hooks/useBrute';
@@ -8,6 +8,7 @@ import Server from '../../utils/Server';
 import Link from '../Link';
 import Text from '../Text';
 import { useAuth } from '../../hooks/useAuth';
+import { Link as RouterLink } from 'react-router-dom';
 
 export interface CellSocialsProps extends PaperProps {
   smallScreen?: boolean;
@@ -80,6 +81,19 @@ const CellSocials = ({
           )}
         </Grid>
       </Grid>
+      {brute.user && (
+        <Tooltip title={t('userProfile', { user: brute.user.name })}>
+          <Button
+            component={RouterLink}
+            to={`/user/${brute.user.id}`}
+            size="small"
+            startIcon={<Person fontSize="small" />}
+            color="secondary"
+          >
+            <Text smallCaps subtitle2>{brute.user.name}</Text>
+          </Button>
+        </Tooltip>
+      )}
       {user?.moderator && brute.user && (
         <Text smallCaps subtitle2>{brute.id} | {brute.user.name} ({brute.userId})</Text>
       )}

@@ -40,6 +40,7 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
   app.post('/api/user/change-fight-speed', Users.changeFightSpeed(prisma));
   app.post('/api/user/toggle-background-music', Users.toggleBackgroundMusic(prisma));
   app.post('/api/user/:id/admin-update', Users.adminUpdate(prisma));
+  app.get('/api/user/:userId/profile', Users.getProfile(prisma));
 
   // Brute
   app.get('/api/brute/:name/for-versus', Brutes.getForVersus(prisma));

@@ -28,6 +28,7 @@ import ClanThreadView from './views/clan/ClanThreadView';
 import ClanView from './views/clan/ClanView';
 import GlobalTournamentView from './views/GlobalTournamentView';
 import ResetVisualsView from './views/ResetVisualsView';
+import UserView from './views/UserView';
 
 const routes: RouteObject[] = [
   {
@@ -43,6 +44,7 @@ const routes: RouteObject[] = [
       { path: 'unknown-brute', element: <BruteNotFoundView /> },
       { path: 'generating-tournaments', element: <GeneratingView /> },
       { path: 'hall', element: <HallView /> },
+      { path: 'user/:userId', element: <UserView /> },
       {
         path: ':bruteName',
         element: <ProvideBrute />,

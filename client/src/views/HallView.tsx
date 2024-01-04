@@ -181,9 +181,6 @@ const HallView = () => {
                 <BruteRender
                   brute={brute}
                   looking="left"
-                  sx={{
-                    height: 92,
-                  }}
                 />
               </Box>
             </Box>
