@@ -16,9 +16,11 @@
 
 - If you are using Windows, make sure to use [Git Bash](https://gitforwindows.org/) as your terminal
 
-- Setup your local Postgres database
+- Setup your local Postgres databases (labrute + etwin)
 
 - Copy `.env.sample` to `.env` and adapt the variables
+
+- Copy `etwin.toml.example` to `etwin.toml` and adapt the variables
 
 - Install dependencies: `yarn install` (This should also setup your database from the `schema.prisma` file and the migrations)
 

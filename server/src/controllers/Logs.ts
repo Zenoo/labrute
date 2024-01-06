@@ -31,7 +31,10 @@ const Logs = {
             lte: now,
           },
         },
-        orderBy: { id: 'desc' },
+        orderBy: [
+          { date: 'desc' },
+          { id: 'desc' },
+        ],
         take: 7,
         include: {
           currentBrute: {
