@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.48.4](https://github.com/Zenoo/labrute/compare/labrute-v2.48.3...labrute-v2.48.4) (2024-01-09)
+
+
+### Bug Fixes
+
+* Color mismatch ([e81ea92](https://github.com/Zenoo/labrute/commit/e81ea92282f7988172d1737d66b245467785dee7))
+
 ## [2.48.3](https://github.com/Zenoo/labrute/compare/labrute-v2.48.2...labrute-v2.48.3) (2024-01-06)
 
 
