@@ -122,6 +122,7 @@ export const AchievementData: Record<
   },
   throw10b2b: {
     rarety: AchievementRarety.uncommon,
+    illustration: 'throw10b2b.svg',
     onePerFight: true,
   },
   disarm4: {
@@ -393,32 +394,32 @@ export const AchievementData: Record<
   },
   agility50: {
     rarety: AchievementRarety.uncommon,
-    illustration: 'r_derwin.gif',
+    illustration: 'agility50.svg',
     perBrute: 1,
   },
   agility100: {
     rarety: AchievementRarety.rare,
-    illustration: 'r_derwin.gif',
+    illustration: 'agility100.svg',
     perBrute: 1,
   },
   speed50: {
     rarety: AchievementRarety.uncommon,
-    illustration: 'r_derwin.gif',
+    illustration: 'speed50.svg',
     perBrute: 1,
   },
   speed100: {
     rarety: AchievementRarety.rare,
-    illustration: 'r_derwin.gif',
+    illustration: 'speed100.svg',
     perBrute: 1,
   },
   strength50: {
     rarety: AchievementRarety.uncommon,
-    illustration: 'r_derwin.gif',
+    illustration: 'strength50.svg',
     perBrute: 1,
   },
   strength100: {
     rarety: AchievementRarety.rare,
-    illustration: 'r_derwin.gif',
+    illustration: 'strength100.svg',
     perBrute: 1,
   },
   hp300: {
