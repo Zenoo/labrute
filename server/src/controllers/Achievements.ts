@@ -205,18 +205,35 @@ const Achievements = {
           count: number;
           userName: string | null;
         }[] = await prisma.$queryRaw`
-          SELECT a.name, a."userId", a.count, u."name" AS "userName"
+          SELECT a.name, a."userId", 
+            CASE 
+              WHEN a.name = 'maxDamage' THEN MAX(a.count) 
+              WHEN a.name = 'maxLevel' THEN MAX(a.count)
+              ELSE SUM(a.count) 
+            END as count,
+            u."name" AS "userName"
           FROM (
-            SELECT name, "userId", SUM(count) as count,
-              ROW_NUMBER() OVER (PARTITION BY name ORDER BY SUM(count) DESC) AS row_number
+            SELECT name, "userId", count,
+              ROW_NUMBER() OVER (PARTITION BY name ORDER BY 
+                CASE 
+                  WHEN name = 'maxDamage' THEN count 
+                  WHEN name = 'maxLevel' THEN count
+                  ELSE SUM(count) 
+                END DESC
+              ) AS row_number
             FROM "Achievement"
             WHERE "userId" IS NOT NULL
-            GROUP BY name, "userId"
+            GROUP BY name, "userId", count
           ) AS a
           LEFT JOIN "User" u ON a."userId" = u.id
           WHERE a.row_number <= 3
-          GROUP BY a.name, a."userId", a.count, u."name"
-          ORDER BY a.name, SUM(a.count) DESC;
+          GROUP BY a.name, a."userId", u."name"
+          ORDER BY a.name, 
+            CASE 
+              WHEN a.name = 'maxDamage' THEN MAX(a.count) 
+              WHEN a.name = 'maxLevel' THEN MAX(a.count)
+              ELSE SUM(a.count) 
+            END DESC;
         `;
 
         res.status(200).send(top3.filter((t) => t.userId).map((t) => ({
