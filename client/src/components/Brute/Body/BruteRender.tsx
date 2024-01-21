@@ -86,7 +86,7 @@ const BruteRender = ({
     }
 
     if (p7 === 5) {
-      if (p3 === 9) {
+      if (p3 === 9 || p3 === 4) {
         width += 10;
 
         if (looking === 'right') {
