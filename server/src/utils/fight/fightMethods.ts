@@ -1437,67 +1437,83 @@ export const playFighterTurn = (
     // Keep weapon if it's a thrown weapon or the fighter has `hideaway`
     const keepWeapon = fighter.activeWeapon.types.includes('thrown') || !!fighter.skills.find((s) => s.name === 'hideaway');
 
-    // Get damage
-    let damage = getDamage(fighter, opponent, fighter.activeWeapon);
+    let firstThrow = true;
 
-    // Add throw step
-    fightData.steps.push({
-      action: 'throw',
-      fighter: stepFighter(fighter),
-      opponent: stepFighter(opponent),
-      weapon: fighter.activeWeapon.name,
-      keep: keepWeapon,
-    });
+    // Get combo chances
+    let combo = getFighterStat(fighter, 'combo') + (fighter.agility * 0.01);
+    let random = Math.random();
 
-    // Update consecutive throw stat
-    updateStats(stats, fighter.id, 'consecutiveThrows', 1);
-    checkAchievements(stats, achievements);
+    while (firstThrow || (keepWeapon && random < combo)) {
+      if (!fighter.activeWeapon) {
+        throw new Error('Trying to throw a weapon but no weapon is active');
+      }
 
-    // Check if opponent blocked (harder than melee)
-    if (block(fighter, opponent, 2)) {
-      damage = 0;
+      // Get damage
+      let damage = getDamage(fighter, opponent, fighter.activeWeapon);
 
-      // Add block step
+      // Add throw step
       fightData.steps.push({
-        action: 'block',
-        fighter: stepFighter(opponent),
+        action: 'throw',
+        fighter: stepFighter(fighter),
+        opponent: stepFighter(opponent),
+        weapon: fighter.activeWeapon.name,
+        keep: keepWeapon,
       });
 
-      // Update block stat
-      updateStats(stats, opponent.id, 'blocks', 1);
-      updateStats(stats, opponent.id, 'consecutiveBlocks', 1);
+      // Update consecutive throw stat
+      updateStats(stats, fighter.id, 'consecutiveThrows', 1);
       checkAchievements(stats, achievements);
-    } else {
-      // Reset block stat
-      updateStats(stats, opponent.id, 'consecutiveBlocks', 0);
-    }
 
-    // Check if opponent evaded (harder than melee)
-    if (damage && evade(fighter, opponent, 2)) {
-      damage = 0;
+      // Check if opponent blocked (harder than melee)
+      if (block(fighter, opponent, 2)) {
+        damage = 0;
 
-      // Add evade step
-      fightData.steps.push({
-        action: 'evade',
-        fighter: stepFighter(opponent),
-      });
+        // Add block step
+        fightData.steps.push({
+          action: 'block',
+          fighter: stepFighter(opponent),
+        });
 
-      // Update evade stat
-      updateStats(stats, opponent.id, 'consecutiveEvades', 1);
-      checkAchievements(stats, achievements);
-    } else {
-      // Reset evade stat
-      updateStats(stats, opponent.id, 'consecutiveEvades', 0);
-    }
+        // Update block stat
+        updateStats(stats, opponent.id, 'blocks', 1);
+        updateStats(stats, opponent.id, 'consecutiveBlocks', 1);
+        checkAchievements(stats, achievements);
+      } else {
+        // Reset block stat
+        updateStats(stats, opponent.id, 'consecutiveBlocks', 0);
+      }
 
-    // Register hit if damage was done
-    if (damage) {
-      registerHit(fightData, stats, achievements, fighter, [opponent], damage);
-    }
+      // Check if opponent evaded (harder than melee)
+      if (damage && evade(fighter, opponent, 2)) {
+        damage = 0;
 
-    // Remove fighter weapon
-    if (!keepWeapon) {
-      fighter.activeWeapon = null;
+        // Add evade step
+        fightData.steps.push({
+          action: 'evade',
+          fighter: stepFighter(opponent),
+        });
+
+        // Update evade stat
+        updateStats(stats, opponent.id, 'consecutiveEvades', 1);
+        checkAchievements(stats, achievements);
+      } else {
+        // Reset evade stat
+        updateStats(stats, opponent.id, 'consecutiveEvades', 0);
+      }
+
+      // Register hit if damage was done
+      if (damage) {
+        registerHit(fightData, stats, achievements, fighter, [opponent], damage);
+      }
+
+      // Remove fighter weapon
+      if (!keepWeapon) {
+        fighter.activeWeapon = null;
+      }
+
+      firstThrow = false;
+      combo *= 0.5;
+      random = Math.random();
     }
 
     // Check if a fighter is dead
