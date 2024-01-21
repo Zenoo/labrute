@@ -307,6 +307,7 @@
   "Agi": "Л",
   "speed": "Быстрота",
   "Spe": "Б",
+  "HP": "HP",
   "dog1": "Пёс",
   "dog2": "Пёс",
   "dog3": "Пёс",
@@ -322,6 +323,7 @@
   "thrown": "метательное",
   "blunt": "ударное",
   "odds": "Вероятность",
+  "enduranceMalus": "Endurance malus",
   "interval": "Интервал",
   "initiative": "Инициатива",
   "counter": "Встречный удар",
@@ -1235,5 +1237,8 @@
   "tournament.result.finishingWith.1": "-й",
   "tournament.result.finishingWith.2": "-й",
   "tournament.result.finishingWith.3": "-й",
-  "tournament.result.finishingWith.other": "-й"
+  "tournament.result.finishingWith.other": "-й",
+  "achievementRankings": "Achievement rankings",
+  "achievement": "Achievement",
+  "byUser": "By user"
 }
