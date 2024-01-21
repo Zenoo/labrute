@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.49.0](https://github.com/Zenoo/labrute/compare/labrute-v2.48.5...labrute-v2.49.0) (2024-01-21)
+
+
+### Features
+
+* Achievement ranking page. Fixes [#498](https://github.com/Zenoo/labrute/issues/498) ([fa8ddd4](https://github.com/Zenoo/labrute/commit/fa8ddd4b0ed30dc70ce8461e1ccc1c6a97ed7cda))
+* Buff speed stat ([70013f1](https://github.com/Zenoo/labrute/commit/70013f153feafd58505564b5a654498e4f4195ce))
+
+
+### Bug Fixes
+
+* Add indexes for some queries to run faster ([ef2651c](https://github.com/Zenoo/labrute/commit/ef2651cfa277d0a93a50e2ab43f6c4de3abd29ab))
+* Brute size ([53cb1f9](https://github.com/Zenoo/labrute/commit/53cb1f9533f9d6fefe697e236abb7485312a4b9e))
+* combo5 achievement condition ([71c7c8c](https://github.com/Zenoo/labrute/commit/71c7c8c225d79dd339c70828383f88346aa939e0))
+* Determination hit ported over next turn if triggered in a counter ([a7baed5](https://github.com/Zenoo/labrute/commit/a7baed5f9bea40628c7ec6cf1bbdb6e3e0bd2f7b))
+* Hostility rate 33 to 30% ([5dd751b](https://github.com/Zenoo/labrute/commit/5dd751b9e16c7c54425b5de182704a5c108e4868))
+* Pet stat scaling + tooltip. Fixes [#564](https://github.com/Zenoo/labrute/issues/564) ([319d5f1](https://github.com/Zenoo/labrute/commit/319d5f19f97854e34dc7f741d9643a3697fa2b10))
+* Prevent sacrificing a clan master ([1219276](https://github.com/Zenoo/labrute/commit/12192765b4729844d11ae0ac2c9e0d01f08f91a2))
+* Round brute cost ([7cd0f90](https://github.com/Zenoo/labrute/commit/7cd0f9081a7cf385e2b85745581b47f741c55e5c))
+* Throws can combo. Fixes [#562](https://github.com/Zenoo/labrute/issues/562) ([73f9ffe](https://github.com/Zenoo/labrute/commit/73f9ffec14309b069a7072542696f180ff7e79f3))
+* Update prisma ([258b938](https://github.com/Zenoo/labrute/commit/258b9385128441e3bc5000b8833dcba49f1418d5))
+* Use opponent strength for piledriver ([cd707b4](https://github.com/Zenoo/labrute/commit/cd707b4de01def258dda6eaf77186e22c12f9030))
+* Weapon names aren't unique anymore, stop filtering on that ([7db4abd](https://github.com/Zenoo/labrute/commit/7db4abde21c6bc51fd2da78ea85d58a7a521745b))
+
 ## [2.48.5](https://github.com/Zenoo/labrute/compare/labrute-v2.48.4...labrute-v2.48.5) (2024-01-13)
 
 
