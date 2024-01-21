@@ -330,6 +330,7 @@ model Tournament {
   participants Brute[]
   steps        TournamentStep[]
   rounds       Int
+  @@index([type, date])
 }
 
 model TournamentStep {
@@ -559,6 +560,7 @@ model Clan {
   brutes       Brute[]
   joinRequests Brute[]      @relation("JoinRequests")
   threads      ClanThread[]
+  @@index([name, points])
 }
 
 model ClanThread {
