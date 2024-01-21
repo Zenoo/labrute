@@ -323,7 +323,7 @@
   "thrown": "distancia",
   "blunt": "contundente",
   "odds": "Probabilidades",
-  "enduranceMalus": "Endurance malus",
+  "enduranceMalus": "Penalización de resistencia",
   "interval": "Intervalo",
   "initiative": "Iniciativa",
   "counter": "Contra",
@@ -1238,7 +1238,7 @@
   "tournament.result.finishingWith.2": "º",
   "tournament.result.finishingWith.3": "º",
   "tournament.result.finishingWith.other": "º",
-  "achievementRankings": "Achievement rankings",
-  "achievement": "Achievement",
-  "byUser": "By user"
+  "achievementRankings": "Clasificación de Logros",
+  "achievement": "Logro",
+  "byUser": "Por usuario"
 }
