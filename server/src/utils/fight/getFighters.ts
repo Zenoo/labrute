@@ -51,9 +51,9 @@ const handleSkills = (brute: BruteWithBodyColors, fighter: DetailedFighter) => {
 
   /* REVERSAL */
 
-  // +33% reversal for `hostility`
+  // +30% reversal for `hostility`
   if (brute.skills.includes('hostility')) {
-    fighter.reversal += 0.33;
+    fighter.reversal += 0.30;
   }
 
   /* BLOCK */
