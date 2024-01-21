@@ -49,7 +49,7 @@ const getDamage = (
     );
   } else if (piledriver) {
     damage = Math.floor(
-      (10 + fighter.strength * 0.6)
+      (10 + opponent.strength * 0.6)
       * (0.8 + Math.random() * 0.4) * skillsMultiplier,
     );
   } else {
