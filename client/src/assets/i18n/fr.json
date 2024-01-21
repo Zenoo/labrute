@@ -307,6 +307,7 @@
   "Agi": "A",
   "speed": "Rapidité",
   "Spe": "R",
+  "HP": "HP",
   "dog1": "Chien",
   "dog2": "Chien",
   "dog3": "Chien",
@@ -322,6 +323,7 @@
   "thrown": "distance",
   "blunt": "contondant",
   "odds": "Obtention",
+  "enduranceMalus": "Endurance malus",
   "interval": "Intervalle",
   "initiative": "Initiative",
   "counter": "Contre",
@@ -1235,5 +1237,8 @@
   "tournament.result.finishingWith.1": "er",
   "tournament.result.finishingWith.2": "e",
   "tournament.result.finishingWith.3": "e",
-  "tournament.result.finishingWith.other": "e"
+  "tournament.result.finishingWith.other": "e",
+  "achievementRankings": "Achievement rankings",
+  "achievement": "Achievement",
+  "byUser": "By user"
 }
