@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.49.1](https://github.com/Zenoo/labrute/compare/labrute-v2.49.0...labrute-v2.49.1) (2024-01-21)
+
+
+### Bug Fixes
+
+* Don't add maxLevel and maxDamage user achievements ([8f05cb3](https://github.com/Zenoo/labrute/commit/8f05cb395eaf829793f98e73f2c286c77029507a))
+* Use new tempo for pets ([8b4bfc2](https://github.com/Zenoo/labrute/commit/8b4bfc2df40d0716bd34158a26f5c14af60219b2))
+
 ## [2.49.0](https://github.com/Zenoo/labrute/compare/labrute-v2.48.5...labrute-v2.49.0) (2024-01-21)
 
 
