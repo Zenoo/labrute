@@ -226,7 +226,7 @@ const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
           agility: getPetStat(brute, pet, 'agility'),
           speed: getPetStat(brute, pet, 'speed'),
           initiative: pet.initiative + randomBetween(0, 10) / 100,
-          tempo: 0.25 + (20 / (10 + getPetStat(brute, pet, 'speed'))) * 0.75,
+          tempo: getTempo(getPetStat(brute, pet, 'speed')),
           baseDamage: pet.damage,
           counter: pet.counter,
           autoReversalOnBlock: false,
