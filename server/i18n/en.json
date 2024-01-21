@@ -32,6 +32,7 @@
   "destinyChoiceNotFound": "Destiny choice not found",
   "slowDown": "Wooow, slow your clicks down!",
   "cannotSacrificeSameDay": "You cannot sacrifice your brute the day of creation",
+  "cannotSacrificeClanMaster": "You cannot sacrifice the master of a clan",
   "missingName": "Missing name",
   "bruteCannotRankUp": "Your brute cannot rank up",
   "bruteAlreadyMaxRank": "Your brute is already at the highest rank",

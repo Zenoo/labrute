@@ -590,6 +590,17 @@ const Brutes = {
         throw new ExpectedError(translate('cannotSacrificeSameDay', user));
       }
 
+      // Check if brute is master of a clan
+      const isClanMaster = await prisma.clan.count({
+        where: {
+          masterId: brute.id,
+        },
+      });
+
+      if (isClanMaster) {
+        throw new ExpectedError(translate('cannotSacrificeClanMaster', user));
+      }
+
       // Add Gold to user
       const gold = getBruteGoldValue(brute);
       await prisma.user.update({
