@@ -323,7 +323,7 @@
   "thrown": "geworfen",
   "blunt": "stumpf",
   "odds": "Wahrscheinlichkeit",
-  "enduranceMalus": "Endurance malus",
+  "enduranceMalus": "Malus auf Ausdauer",
   "interval": "Intervall",
   "initiative": "Initiative",
   "counter": "Konter",
@@ -347,7 +347,7 @@
   "nameUnavailable": "Name nicht verfügbar",
   "pleaseLogin": "Bitte vor Brutalo-Erstellung einloggen",
   "hall": "Halle",
-  "userProfile": "{{user}}'s profile",
+  "userProfile": "Profil von {{user}}",
   "newBrute": "Neuer Brutalo",
   "gold": "Gold",
   "sacrifice": "Opfern",
@@ -1238,7 +1238,7 @@
   "tournament.result.finishingWith.2": "er",
   "tournament.result.finishingWith.3": "er",
   "tournament.result.finishingWith.other": "er",
-  "achievementRankings": "Achievement rankings",
-  "achievement": "Achievement",
-  "byUser": "By user"
+  "achievementRankings": "Erfolgsrangliste",
+  "achievement": "Erfolg",
+  "byUser": "Vom Nutzer"
 }
