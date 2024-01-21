@@ -745,9 +745,10 @@ const activateSuper = (
       }
 
       // Remove those weapons from the fighter
-      fighter.weapons = fighter.weapons.filter(
-        (w) => !halfWeapons.find((hw) => hw.name === w.name),
-      );
+      halfWeapons.forEach((w) => {
+        const weaponIndex = fighter.weapons.findIndex((weapon) => weapon.name === w.name);
+        fighter.weapons.splice(weaponIndex, 1);
+      });
 
       // Remove active weapon if any
       if (fighter.activeWeapon) {
@@ -922,7 +923,8 @@ const drawWeapon = (fightData: DetailedFight['data']): boolean => {
   fighter.keepWeaponChance = 0.5;
 
   // Remove weapon from possible weapons
-  fighter.weapons = fighter.weapons.filter((w) => w.name !== possibleWeapon.name);
+  const weaponIndex = fighter.weapons.findIndex((w) => w.name === possibleWeapon.name);
+  fighter.weapons.splice(weaponIndex, 1);
 
   // Add equip step
   fightData.steps.push({
