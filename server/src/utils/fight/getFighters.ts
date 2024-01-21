@@ -134,7 +134,7 @@ const handleSkills = (brute: BruteWithBodyColors, fighter: DetailedFighter) => {
   }
 };
 
-const getTempo = (speed: number) => 0.10 + (20 / (5 + speed)) * 0.90;
+const getTempo = (speed: number) => 0.10 + (20 / (10 + (speed * 1.5))) * 0.90;
 
 const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
   const fighters: DetailedFighter[] = [];
