@@ -32,6 +32,7 @@
   "destinyChoiceNotFound": "Opción del destino no encontrada",
   "slowDown": "¡Eeeeh, no tan rápido!",
   "cannotSacrificeSameDay": "No puedes sacrificar tu bruto el día que ha sido creado",
+  "cannotSacrificeClanMaster": "You cannot sacrifice the master of a clan",
   "missingName": "Falta el nombre",
   "bruteCannotRankUp": "Tu bruto no puede subir de rango",
   "bruteAlreadyMaxRank": "Tu bruto ya está en el rango más alto",
