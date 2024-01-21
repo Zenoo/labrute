@@ -1303,7 +1303,7 @@ const startAttack = (
       updateAchievement(achievements, 'combo3', 1, fighter.id);
     } else if (attacksCount === 4) {
       updateAchievement(achievements, 'combo4', 1, fighter.id);
-    } else if (attacksCount > 5) {
+    } else if (attacksCount === 5) {
       updateAchievement(achievements, 'combo5', 1, fighter.id);
     }
   }
