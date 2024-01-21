@@ -32,7 +32,7 @@
   "destinyChoiceNotFound": "Выбор Судьбы не найден",
   "slowDown": "Эй, хорош кликать!",
   "cannotSacrificeSameDay": "Вы не можете принести в жертву Брутала в день его сотворения",
-  "cannotSacrificeClanMaster": "You cannot sacrifice the master of a clan",
+  "cannotSacrificeClanMaster": "Лидер клана не может быть принесён в жертву",
   "missingName": "Имя отсутствует",
   "bruteCannotRankUp": "Ваш Брутал сейчас не может получить звание",
   "bruteAlreadyMaxRank": "У вашего Брутала уже высшее звание",

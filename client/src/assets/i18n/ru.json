@@ -307,7 +307,7 @@
   "Agi": "Л",
   "speed": "Быстрота",
   "Spe": "Б",
-  "HP": "HP",
+  "HP": "ОЗ",
   "dog1": "Пёс",
   "dog2": "Пёс",
   "dog3": "Пёс",
@@ -323,7 +323,7 @@
   "thrown": "метательное",
   "blunt": "ударное",
   "odds": "Вероятность",
-  "enduranceMalus": "Endurance malus",
+  "enduranceMalus": "Малус на выносливость",
   "interval": "Интервал",
   "initiative": "Инициатива",
   "counter": "Встречный удар",
@@ -347,7 +347,7 @@
   "nameUnavailable": "Имя недоступно",
   "pleaseLogin": "Пожалуйста, войдите, прежде чем создавать Брутала",
   "hall": "Зал",
-  "userProfile": "{{user}}'s profile",
+  "userProfile": "Профиль {{user}}",
   "newBrute": "Новый Брутал",
   "gold": "Золото",
   "sacrifice": "В жертву",
@@ -1238,7 +1238,7 @@
   "tournament.result.finishingWith.2": "-й",
   "tournament.result.finishingWith.3": "-й",
   "tournament.result.finishingWith.other": "-й",
-  "achievementRankings": "Achievement rankings",
-  "achievement": "Achievement",
-  "byUser": "By user"
+  "achievementRankings": "Рейтинг достижений",
+  "achievement": "Достижение",
+  "byUser": "Пользователя"
 }
