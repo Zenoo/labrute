@@ -1,5 +1,6 @@
 import {
   AchievementData,
+  AchievementGetRankingsResponse,
   BaseTitleRequirements, ExpectedError, RaretyOrder,
 } from '@labrute/core';
 import { AchievementName, PrismaClient } from '@labrute/prisma';
@@ -187,6 +188,76 @@ const Achievements = {
       res.header('Content-Type', 'text/csv')
         .header('Content-Disposition', 'attachment; filename="titles.csv"')
         .send(csvLines.join('\n'));
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  getRankings: (prisma: PrismaClient) => async (
+    req: Request,
+    res: Response<AchievementGetRankingsResponse>,
+  ) => {
+    try {
+      const byUser = req.query.byUser === 'true';
+      if (byUser) {
+        const top3: {
+          name: AchievementName;
+          userId: string | null;
+          count: number;
+          userName: string | null;
+        }[] = await prisma.$queryRaw`
+          SELECT a.name, a."userId", a.count, u."name" AS "userName"
+          FROM (
+            SELECT name, "userId", SUM(count) as count,
+              ROW_NUMBER() OVER (PARTITION BY name ORDER BY SUM(count) DESC) AS row_number
+            FROM "Achievement"
+            WHERE "userId" IS NOT NULL
+            GROUP BY name, "userId"
+          ) AS a
+          LEFT JOIN "User" u ON a."userId" = u.id
+          WHERE a.row_number <= 3
+          GROUP BY a.name, a."userId", a.count, u."name"
+          ORDER BY a.name, SUM(a.count) DESC;
+        `;
+
+        res.status(200).send(top3.filter((t) => t.userId).map((t) => ({
+          name: t.name,
+          user: {
+            name: t.userName || '',
+            id: t.userId || '',
+          },
+          brute: null,
+          count: Number(t.count),
+        })));
+        return;
+      }
+
+      // Get top 3
+      const top3: {
+        name: AchievementName;
+        bruteId: number | null;
+        count: number;
+        bruteName: string | null;
+      }[] = await prisma.$queryRaw`
+        SELECT a.name, a."bruteId", a.count, b.name AS "bruteName"
+        FROM (
+          SELECT name, "bruteId", count,
+            ROW_NUMBER() OVER (PARTITION BY name ORDER BY count DESC) AS row_number
+          FROM "Achievement"
+        ) AS a
+        LEFT JOIN "Brute" b ON a."bruteId" = b.id
+        WHERE a.row_number <= 3
+        ORDER BY a.name, a.count DESC;
+      `;
+
+      res.status(200).send(top3.filter((t) => t.bruteId).map((t) => ({
+        name: t.name,
+        user: null,
+        brute: {
+          name: t.bruteName || '',
+          id: t.bruteId || 0,
+        },
+        count: t.count,
+      })));
     } catch (error) {
       sendError(res, error);
     }

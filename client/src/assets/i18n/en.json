@@ -1237,5 +1237,8 @@
   "tournament.result.finishingWith.1": "st",
   "tournament.result.finishingWith.2": "nd",
   "tournament.result.finishingWith.3": "rd",
-  "tournament.result.finishingWith.other": "th"
+  "tournament.result.finishingWith.other": "th",
+  "achievementRankings": "Achievement rankings",
+  "achievement": "Achievement",
+  "byUser": "By user"
 }

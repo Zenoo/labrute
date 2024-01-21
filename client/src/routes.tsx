@@ -29,6 +29,7 @@ import ClanView from './views/clan/ClanView';
 import GlobalTournamentView from './views/GlobalTournamentView';
 import ResetVisualsView from './views/ResetVisualsView';
 import UserView from './views/UserView';
+import AchievementRankingView from './views/AchievementRankingView';
 
 const routes: RouteObject[] = [
   {
@@ -41,6 +42,7 @@ const routes: RouteObject[] = [
       { path: 'admin-panel/user', element: <UserAdminView /> },
       { path: 'admin-panel/report', element: <ReportAdminView /> },
       { path: 'achievements', element: <AchievementsView /> },
+      { path: 'achievements/rankings', element: <AchievementRankingView /> },
       { path: 'unknown-brute', element: <BruteNotFoundView /> },
       { path: 'generating-tournaments', element: <GeneratingView /> },
       { path: 'hall', element: <HallView /> },

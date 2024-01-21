@@ -1,4 +1,4 @@
-import { Achievement, Brute, BruteBody, BruteColors, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, Fight, Lang, Prisma, Tournament, TournamentStep, User } from '@labrute/prisma';
+import { Achievement, AchievementName, Brute, BruteBody, BruteColors, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, Fight, Lang, Prisma, Tournament, TournamentStep, User } from '@labrute/prisma';
 import Version from './Version';
 import applySkillModifiers from './brute/applySkillModifiers';
 import availableBodyParts from './brute/availableBodyParts';
@@ -16,7 +16,6 @@ import getRandomBody from './brute/getRandomBody';
 import getRandomBonus from './brute/getRandomBonus';
 import getRandomColors from './brute/getRandomColors';
 import getXPNeeded from './brute/getXPNeeded';
-import { pets } from './brute/pets';
 import skills from './brute/skills';
 import updateBruteData from './brute/updateBruteData';
 import weapons from './brute/weapons';
@@ -47,7 +46,7 @@ export {
   getRandomBody,
   getRandomBonus,
   getRandomColors, getXPNeeded, hexToRgba,
-  pad, pets, promiseBatch, randomBetween, skills,
+  pad, promiseBatch, randomBetween, skills,
   updateBruteData, weapons,
   weightedRandom
 };
@@ -205,3 +204,10 @@ export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang'>
   })[],
   achievements: Pick<Achievement, 'name' | 'count'>[],
 };
+
+export type AchievementGetRankingsResponse = {
+  name: AchievementName,
+  user: Pick<User, 'name' | 'id'> | null,
+  brute: Pick<Brute, 'name' | 'id'> | null,
+  count: number,
+}[];

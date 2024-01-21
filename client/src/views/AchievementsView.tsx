@@ -11,6 +11,8 @@ import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
+import FantasyButton from '../components/FantasyButton';
+import Link from '../components/Link';
 
 const AchievementsView = () => {
   const { t } = useTranslation();
@@ -40,6 +42,16 @@ const AchievementsView = () => {
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('achievements')}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+        <Link to="/achievements/rankings">
+          <FantasyButton
+            color="secondary"
+            sx={{
+              mb: 1,
+            }}
+          >
+            {t('ranking')}
+          </FantasyButton>
+        </Link>
         <Grid container spacing={1}>
           <Grid item xs={12} md={6}>
             <Paper

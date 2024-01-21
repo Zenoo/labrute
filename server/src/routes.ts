@@ -88,6 +88,7 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
   app.post('/api/achievements', Achievements.getForUser(prisma));
   // app.get('/api/achievements/titles-as-csv', Achievements.generateTitlesCSV);
   app.get('/api/achievements/:name', Achievements.getForBrute(prisma));
+  app.get('/api/achievements/rankings/all', Achievements.getRankings(prisma));
 
   // BruteReport
   app.get('/api/report/list/:status', BruteReports.list(prisma));
