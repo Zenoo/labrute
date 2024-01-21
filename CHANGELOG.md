@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.49.2](https://github.com/Zenoo/labrute/compare/labrute-v2.49.1...labrute-v2.49.2) (2024-01-21)
+
+
+### Bug Fixes
+
+* Tempo formula ([7fb09bb](https://github.com/Zenoo/labrute/commit/7fb09bbaad42f45d1baab055bbde0a9ecdd98111))
+
 ## [2.49.1](https://github.com/Zenoo/labrute/compare/labrute-v2.49.0...labrute-v2.49.1) (2024-01-21)
 
 
