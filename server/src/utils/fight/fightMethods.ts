@@ -1310,6 +1310,9 @@ const startAttack = (
     }
   }
 
+  // Reset retry attack flag
+  fighter.retryAttack = false;
+
   // Check if a fighter is dead
   checkDeaths(fightData, stats);
 };
