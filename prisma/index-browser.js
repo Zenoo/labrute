@@ -16,12 +16,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 5.7.1
- * Query Engine version: 0ca5ccbcfa6bdc81c003cf549abe4269f59c41e5
+ * Prisma Client JS version: 5.8.1
+ * Query Engine version: 78caf6feeaed953168c64e15a249c3e9a033ebe2
  */
 Prisma.prismaVersion = {
-  client: "5.7.1",
-  engine: "0ca5ccbcfa6bdc81c003cf549abe4269f59c41e5"
+  client: "5.8.1",
+  engine: "78caf6feeaed953168c64e15a249c3e9a033ebe2"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -118,6 +118,11 @@ exports.Prisma.UserScalarFieldEnum = {
   gold: 'gold',
   fightSpeed: 'fightSpeed',
   backgroundMusic: 'backgroundMusic'
+};
+
+exports.Prisma.RelationLoadStrategy = {
+  query: 'query',
+  join: 'join'
 };
 
 exports.Prisma.BruteBodyScalarFieldEnum = {
