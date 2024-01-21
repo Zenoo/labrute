@@ -134,6 +134,8 @@ const handleSkills = (brute: BruteWithBodyColors, fighter: DetailedFighter) => {
   }
 };
 
+const getTempo = (speed: number) => 0.10 + (20 / (5 + speed)) * 0.90;
+
 const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
   const fighters: DetailedFighter[] = [];
   [team1, team2].forEach((team) => {
@@ -164,7 +166,7 @@ const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
         agility: brute.agilityValue,
         speed: brute.speedValue,
         initiative: randomBetween(0, 10) / 100,
-        tempo: 0.25 + (20 / (10 + brute.speedValue)) * 0.75,
+        tempo: getTempo(brute.speedValue),
         baseDamage: BARE_HANDS_DAMAGE,
         counter: 0,
         autoReversalOnBlock: false,
@@ -291,7 +293,7 @@ const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
           agility: backup.agilityValue,
           speed: backup.speedValue,
           initiative: arrivesAt,
-          tempo: (0.25 + (20 / (10 + backup.speedValue)) * 0.75),
+          tempo: getTempo(backup.speedValue),
           baseDamage: BARE_HANDS_DAMAGE,
           counter: 0,
           autoReversalOnBlock: false,
@@ -349,7 +351,7 @@ const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
         agility: team.boss.agility,
         speed: team.boss.speed,
         initiative: team.boss.initiative + randomBetween(0, 10) / 100,
-        tempo: 0.25 + (20 / (10 + team.boss.speed)) * 0.75,
+        tempo: getTempo(team.boss.speed),
         baseDamage: team.boss.damage,
         counter: team.boss.counter,
         autoReversalOnBlock: false,
