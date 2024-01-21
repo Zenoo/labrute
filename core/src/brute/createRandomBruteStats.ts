@@ -4,7 +4,7 @@ import randomBetween from '../utils/randomBetween';
 import applySkillModifiers from './applySkillModifiers';
 import getHP from './getHP';
 import getRandomBonus from './getRandomBonus';
-import pets from './pets';
+import { pets } from './pets';
 
 const createRandomBruteStats = (perkType?: DestinyChoiceType, perkName?: string | null) => {
   let brute = {

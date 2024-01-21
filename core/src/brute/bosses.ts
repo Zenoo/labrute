@@ -1,5 +1,5 @@
 import { BossName, PetName } from '@labrute/prisma';
-import pets, { Pet } from './pets';
+import { pets, Pet } from './pets';
 
 export interface Boss {
   name: BossName;

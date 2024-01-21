@@ -2,7 +2,7 @@ import { Brute, BruteStat, DestinyChoice, PetName, SkillName, WeaponName } from 
 import applySkillModifiers from './applySkillModifiers';
 import getHP from './getHP';
 import { LevelUpChoice } from './getLevelUpChoices';
-import pets, { Pet } from './pets';
+import { pets, Pet } from './pets';
 
 type BruteData = Pick<Brute, 'level' | 'skills' | 'enduranceStat' | 'strengthStat'
 | 'agilityStat' | 'speedStat' | 'enduranceModifier' | 'strengthModifier'

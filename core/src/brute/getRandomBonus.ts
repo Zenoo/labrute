@@ -1,7 +1,7 @@
 import { Brute, DestinyChoiceType, PetName, SkillName, WeaponName } from '@labrute/prisma';
 import randomBetween from '../utils/randomBetween';
 import weightedRandom from '../utils/weightedRandom';
-import pets, { PETS_TOTAL_ODDS } from './pets';
+import { pets, PETS_TOTAL_ODDS } from './pets';
 import skills, { SKILLS_TOTAL_ODDS } from './skills';
 import weapons, { limitedWeapons, MAX_LIMITED_WEAPONS, WEAPONS_TOTAL_ODDS } from './weapons';
 

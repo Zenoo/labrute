@@ -1,4 +1,4 @@
-import { PetName } from '@labrute/prisma';
+import { Brute, PetName } from '@labrute/prisma';
 
 export interface Pet {
   name: PetName;
@@ -18,7 +18,7 @@ export interface Pet {
   damage: number;
 }
 
-const pets: Pet[] = [
+export const pets: Pet[] = [
   {
     name: PetName.bear,
     odds: 1,
@@ -108,4 +108,28 @@ const pets: Pet[] = [
 
 export const PETS_TOTAL_ODDS = pets.reduce((acc, pet) => acc + pet.odds, 0);
 
-export default pets;
+const scalingStats = [
+  'strength',
+  'agility',
+  'speed',
+  'hp',
+] as const;
+
+export const getPetStat = (
+  brute: Pick<Brute, 'hp' | 'strengthValue' | 'agilityValue' | 'speedValue'>,
+  pet: Pet,
+  stat: typeof scalingStats[number]
+) => {
+  switch (stat) {
+    case 'strength':
+      return Math.ceil(pet.strength + brute.strengthValue * 0.3);
+    case 'agility':
+      return Math.ceil(pet.agility + brute.agilityValue * 0.3);
+    case 'speed':
+      return Math.ceil(pet.speed + brute.speedValue * 0.3);
+    case 'hp':
+      return Math.ceil(pet.hp + brute.hp * 0.3);
+    default:
+      throw new Error('Invalid stat');
+  }
+};

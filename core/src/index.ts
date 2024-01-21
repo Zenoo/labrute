@@ -16,7 +16,7 @@ import getRandomBody from './brute/getRandomBody';
 import getRandomBonus from './brute/getRandomBonus';
 import getRandomColors from './brute/getRandomColors';
 import getXPNeeded from './brute/getXPNeeded';
-import pets from './brute/pets';
+import { pets } from './brute/pets';
 import skills from './brute/skills';
 import updateBruteData from './brute/updateBruteData';
 import weapons from './brute/weapons';

@@ -2,7 +2,8 @@
 import {
   BARE_HANDS_DAMAGE,
   BruteRanking,
-  BruteWithBodyColors, DetailedFighter, pets, randomBetween, SHIELD_BLOCK_ODDS, skills, weapons,
+  BruteWithBodyColors, DetailedFighter, getPetStat,
+  pets, randomBetween, SHIELD_BLOCK_ODDS, skills, weapons,
 } from '@labrute/core';
 import { Boss } from '@labrute/core/src/brute/bosses.js';
 
@@ -218,12 +219,12 @@ const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
           type: 'pet' as const,
           master: brute.id,
           maxHp: pet.hp,
-          hp: pet.hp,
-          strength: pet.strength,
-          agility: pet.agility,
-          speed: pet.speed,
+          hp: getPetStat(brute, pet, 'hp'),
+          strength: getPetStat(brute, pet, 'strength'),
+          agility: getPetStat(brute, pet, 'agility'),
+          speed: getPetStat(brute, pet, 'speed'),
           initiative: pet.initiative + randomBetween(0, 10) / 100,
-          tempo: 0.25 + (20 / (10 + pet.speed)) * 0.75,
+          tempo: 0.25 + (20 / (10 + getPetStat(brute, pet, 'speed'))) * 0.75,
           baseDamage: pet.damage,
           counter: pet.counter,
           autoReversalOnBlock: false,
