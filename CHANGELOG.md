@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.49.4](https://github.com/Zenoo/labrute/compare/labrute-v2.49.3...labrute-v2.49.4) (2024-01-22)
+
+
+### Bug Fixes
+
+* Wrong achievement count in stats ([2e786c0](https://github.com/Zenoo/labrute/commit/2e786c06095511417e1371e30904d45ed9e4cb5d))
+
 ## [2.49.3](https://github.com/Zenoo/labrute/compare/labrute-v2.49.2...labrute-v2.49.3) (2024-01-22)
 
 
