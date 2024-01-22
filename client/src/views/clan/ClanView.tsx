@@ -390,9 +390,6 @@ const ClanView = () => {
                   <BruteRender
                     brute={clanBrute}
                     looking="left"
-                    sx={{
-                      height: 92,
-                    }}
                   />
                 </Box>
               </Box>
