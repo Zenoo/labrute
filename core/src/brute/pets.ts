@@ -108,28 +108,53 @@ export const pets: Pet[] = [
 
 export const PETS_TOTAL_ODDS = pets.reduce((acc, pet) => acc + pet.odds, 0);
 
-const scalingStats = [
-  'strength',
-  'agility',
-  'speed',
-  'hp',
-] as const;
+const scalingByPet = {
+  [PetName.bear]: {
+    strength: 0.4,
+    agility: 0.1,
+    speed: 0.1,
+    hp: 0.4,
+  },
+  [PetName.panther]: {
+    strength: 0.25,
+    agility: 0.3,
+    speed: 0.3,
+    hp: 0.15,
+  },
+  [PetName.dog3]: {
+    strength: 0.1,
+    agility: 0.2,
+    speed: 0.4,
+    hp: 0.1,
+  },
+  [PetName.dog2]: {
+    strength: 0.1,
+    agility: 0.2,
+    speed: 0.4,
+    hp: 0.1,
+  },
+  [PetName.dog1]: {
+    strength: 0.1,
+    agility: 0.2,
+    speed: 0.4,
+    hp: 0.1,
+  },
+} as const;
+
+const petStatToBruteStat = {
+  strength: 'strengthValue',
+  agility: 'agilityValue',
+  speed: 'speedValue',
+  hp: 'hp',
+} as const;
 
 export const getPetStat = (
   brute: Pick<Brute, 'hp' | 'strengthValue' | 'agilityValue' | 'speedValue'>,
   pet: Pet,
-  stat: typeof scalingStats[number]
+  stat: keyof typeof scalingByPet[PetName],
 ) => {
-  switch (stat) {
-    case 'strength':
-      return Math.ceil(pet.strength + brute.strengthValue * 0.3);
-    case 'agility':
-      return Math.ceil(pet.agility + brute.agilityValue * 0.3);
-    case 'speed':
-      return Math.ceil(pet.speed + brute.speedValue * 0.3);
-    case 'hp':
-      return Math.ceil(pet.hp + brute.hp * 0.3);
-    default:
-      throw new Error('Invalid stat');
-  }
+  const base = pet[stat];
+  const scaling = scalingByPet[pet.name][stat];
+  const bruteStat = brute[petStatToBruteStat[stat]];
+  return base + Math.ceil(scaling * bruteStat);
 };
