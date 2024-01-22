@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.49.3](https://github.com/Zenoo/labrute/compare/labrute-v2.49.2...labrute-v2.49.3) (2024-01-22)
+
+
+### Bug Fixes
+
+* Pet scaling ([e697ea7](https://github.com/Zenoo/labrute/commit/e697ea7ffabc94e9fd7b6a760241b1dc219c419d))
+
 ## [2.49.2](https://github.com/Zenoo/labrute/compare/labrute-v2.49.1...labrute-v2.49.2) (2024-01-21)
 
 
