@@ -205,34 +205,27 @@ const Achievements = {
           count: number;
           userName: string | null;
         }[] = await prisma.$queryRaw`
-          SELECT a.name, a."userId", a.count, u."name" AS "userName"
+          SELECT a.name, "userId", count, u.name as "userName"
           FROM (
-            SELECT name, "userId", 
-              CASE 
-                WHEN name = 'maxDamage' THEN MAX(count) 
-                WHEN name = 'maxLevel' THEN MAX(count)
-                ELSE SUM(count) 
-              END as count,
-              ROW_NUMBER() OVER (PARTITION BY name ORDER BY 
-                CASE 
-                  WHEN name = 'maxDamage' THEN MAX(count) 
-                  WHEN name = 'maxLevel' THEN MAX(count)
-                  ELSE SUM(count) 
-                END DESC
-              ) AS row_number
-            FROM "Achievement"
-            WHERE "userId" IS NOT NULL
-            GROUP BY name, "userId"
+              SELECT *,
+                  ROW_NUMBER() OVER ( PARTITION BY name ORDER BY count DESC ) as rank
+              FROM (
+                  SELECT name,
+                      "userId",
+                      CASE
+                          WHEN name = 'maxDamage' THEN MAX(count)
+                          WHEN name = 'maxLevel' THEN MAX(count)
+                          ELSE SUM(count)
+                      END as count
+                  FROM "Achievement"
+              WHERE "userId" IS NOT NULL
+                  GROUP BY name, "userId"
+              )
           ) AS a
-          LEFT JOIN "User" u ON a."userId" = u.id
-          WHERE a.row_number <= 3
-          GROUP BY a.name, a."userId", a.count, u."name"
-          ORDER BY a.name, 
-            CASE 
-              WHEN a.name = 'maxDamage' THEN MAX(a.count) 
-              WHEN a.name = 'maxLevel' THEN MAX(a.count)
-              ELSE SUM(a.count) 
-            END DESC;
+          LEFT JOIN "User" u ON "userId" = u.id
+          WHERE
+              rank <= 3
+          ORDER BY name ASC, rank ASC;
         `;
 
         res.status(200).send(top3.filter((t) => t.userId).map((t) => ({
