@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.49.5](https://github.com/Zenoo/labrute/compare/labrute-v2.49.4...labrute-v2.49.5) (2024-01-23)
+
+
+### Bug Fixes
+
+* Brute portraits in clan ([3fad238](https://github.com/Zenoo/labrute/commit/3fad2383ed237b5960c3ffc4692989fd3851e591))
+* Missing rankings when user is at multiple top spots ([d9ad420](https://github.com/Zenoo/labrute/commit/d9ad420573a426d4d560e5cfd303764a42c86b54))
+
 ## [2.49.4](https://github.com/Zenoo/labrute/compare/labrute-v2.49.3...labrute-v2.49.4) (2024-01-22)
 
 
