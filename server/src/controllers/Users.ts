@@ -301,6 +301,10 @@ const Users = {
             where: {
               deletedAt: null,
             },
+            orderBy: [
+              { ranking: 'asc' },
+              { level: 'desc' },
+            ],
           },
           achievements: {
             select: {
