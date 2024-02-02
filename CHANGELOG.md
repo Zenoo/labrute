@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.49.6](https://github.com/Zenoo/labrute/compare/labrute-v2.49.5...labrute-v2.49.6) (2024-02-02)
+
+
+### Bug Fixes
+
+* Display brute ranks in user profiles ([c6915c6](https://github.com/Zenoo/labrute/commit/c6915c637c298944ae899b9d6c44d82ca71ebf6d))
+* Ignore deleted brute achievements in rankings ([984920c](https://github.com/Zenoo/labrute/commit/984920c15c406b97a2a08eee938058636a5e7761))
+* Optimize clan rankings ([c12b0c5](https://github.com/Zenoo/labrute/commit/c12b0c506373083cc0e6c4c1d7cc9c3af83a6c3d))
+* Order brutes by rank and level in profiles ([c1741b8](https://github.com/Zenoo/labrute/commit/c1741b87be946af093ac6d410d4096db573696cd))
+* Perk odds display ([19072a9](https://github.com/Zenoo/labrute/commit/19072a9bb33d529adaf9c8a3482843b3471fef2c))
+* Slight tournament history query optimization ([28bdfcf](https://github.com/Zenoo/labrute/commit/28bdfcfe3c67f68f26ba5934f165c70c4018d300))
+
 ## [2.49.5](https://github.com/Zenoo/labrute/compare/labrute-v2.49.4...labrute-v2.49.5) (2024-01-23)
 
 
