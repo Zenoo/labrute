@@ -296,6 +296,7 @@ const Users = {
               hp: true,
               body: true,
               colors: true,
+              ranking: true,
             },
             where: {
               deletedAt: null,

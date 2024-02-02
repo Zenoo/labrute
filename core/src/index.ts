@@ -197,7 +197,8 @@ export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang'>
     'strengthValue' |
     'agilityValue' |
     'speedValue' |
-    'hp'
+    'hp' |
+    'ranking'
   > & {
     body: BruteBody | null,
     colors: BruteColors | null,
