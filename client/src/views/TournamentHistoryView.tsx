@@ -67,20 +67,17 @@ const TournamentHistoryView = () => {
                 {tournaments ? tournaments.map((tournament) => {
                   let position = 0;
                   const tournamentDate = moment.utc(tournament.date);
-                  const isToday = tournamentDate.isSame(moment.utc(), 'day');
 
-                  if (!isToday) {
-                    if (!tournament.steps.length) {
-                      position = 1;
-                    } else if (tournament.type === TournamentType.GLOBAL) {
-                      position = tournament.steps[0].step === tournament.rounds
-                        ? 2
-                        : 2 ** (tournament.rounds - tournament.steps[0].step + 1);
-                    } else {
-                      position = DAILY_ROUNDS[tournament.steps[0].step - 1] === tournament.rounds
-                        ? 2
-                        : 2 ** (tournament.rounds - DAILY_ROUNDS[tournament.steps[0].step - 1] + 1);
-                    }
+                  if (!tournament.steps.length) {
+                    position = 1;
+                  } else if (tournament.type === TournamentType.GLOBAL) {
+                    position = tournament.steps[0].step === tournament.rounds
+                      ? 2
+                      : 2 ** (tournament.rounds - tournament.steps[0].step + 1);
+                  } else {
+                    position = DAILY_ROUNDS[tournament.steps[0].step - 1] === tournament.rounds
+                      ? 2
+                      : 2 ** (tournament.rounds - DAILY_ROUNDS[tournament.steps[0].step - 1] + 1);
                   }
 
                   const lastDigit = position % 10;
@@ -109,11 +106,9 @@ const TournamentHistoryView = () => {
                         </Link>
                       </TableCell>
                       <TableCell align="right">
-                        {!isToday && (
-                          <Text>
-                            {position}{t(`tournament.result.finishingWith.${[1, 2, 3].includes(lastDigit) ? (lastDigit as 1 | 2 | 3) : 'other'}`)}
-                          </Text>
-                        )}
+                        <Text>
+                          {position}{t(`tournament.result.finishingWith.${[1, 2, 3].includes(lastDigit) ? (lastDigit as 1 | 2 | 3) : 'other'}`)}
+                        </Text>
                       </TableCell>
                     </TableRow>
                   );

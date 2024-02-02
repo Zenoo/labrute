@@ -2,7 +2,9 @@ import {
   ExpectedError, GLOBAL_TOURNAMENT_START_HOUR,
   TournamentHistoryResponse, TournamentsGetGlobalResponse,
 } from '@labrute/core';
-import { PrismaClient, TournamentType } from '@labrute/prisma';
+import {
+  PrismaClient, Tournament, TournamentStep, TournamentType,
+} from '@labrute/prisma';
 import { Request, Response } from 'express';
 import moment from 'moment';
 import ServerState from '../utils/ServerState.js';
@@ -563,61 +565,33 @@ const Tournaments = {
         throw new ExpectedError('Brute not found');
       }
 
-      const tournaments = await prisma.tournament.findMany({
-        where: {
-          participants: {
-            some: {
-              id: brute.id,
-            },
-          },
-        },
-        select: {
-          id: true,
-          date: true,
-          type: true,
-          rounds: true,
-        },
-        orderBy: {
-          date: 'desc',
-        },
-        take: 100,
-      });
-      const today = moment.utc().startOf('day');
+      const tournamentsWithSteps: (Pick<Tournament, 'id' | 'date' | 'type' | 'rounds'> & Pick<TournamentStep, 'step'>)[] = await prisma.$queryRaw`
+        SELECT t.id, t.date, t.type, t.rounds, ts.step
+        FROM "Tournament" t
+        LEFT JOIN "TournamentStep" ts ON ts."tournamentId" = t.id
+        WHERE EXISTS (
+          SELECT 1
+          FROM "_BruteToTournament"
+          WHERE "_BruteToTournament"."B" = t.id
+          AND "_BruteToTournament"."A" = ${brute.id}
+        )
+        AND t.date < NOW()
+        AND ts."fightId" IN (
+          SELECT "id"
+          FROM "Fight"
+          WHERE ("brute1Id" = ${brute.id} OR "brute2Id" = ${brute.id})
+          AND "loser" = ${brute.name}
+        )
+        ORDER BY t.date DESC
+        LIMIT 100;
+      `;
 
-      // Find steps for each tournament
-      const fullTournaments: TournamentHistoryResponse = [];
-
-      for (const tournament of tournaments) {
-        // Dont send steps for today's tournaments
-        if (moment.utc(tournament.date).isSame(today, 'day')) {
-          fullTournaments.push({
-            ...tournament,
-            steps: [],
-          });
-
-          // eslint-disable-next-line no-continue
-          continue;
-        }
-
-        // eslint-disable-next-line no-await-in-loop
-        const steps = await prisma.tournamentStep.findMany({
-          where: {
-            tournamentId: tournament.id,
-            fight: {
-              AND: [
-                { OR: [{ brute1Id: brute.id }, { brute2Id: brute.id }] },
-                { loser: brute.name },
-              ],
-            },
-          },
-          select: { step: true },
-        });
-
-        fullTournaments.push({
-          ...tournament,
-          steps,
-        });
-      }
+      const fullTournaments: TournamentHistoryResponse = tournamentsWithSteps.map((tournament) => ({
+        ...tournament,
+        steps: [
+          { step: tournament.step },
+        ],
+      }));
 
       res.send(fullTournaments);
     } catch (error) {

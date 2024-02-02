@@ -75,7 +75,6 @@ const Clans = {
         brutes: clan.brutesId.map((id: number) => ({ id })),
       })));
     } catch (error) {
-      console.log(error);
       sendError(res, error);
     }
   },
