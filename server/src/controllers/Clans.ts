@@ -2,7 +2,7 @@ import {
   ClanCreateResponse, ClanGetResponse, ClanGetThreadResponse,
   ClanGetThreadsResponse, ClanListResponse, ExpectedError, bosses, getFightsLeft, randomBetween,
 } from '@labrute/core';
-import { Prisma, PrismaClient } from '@labrute/prisma';
+import { Clan, Prisma, PrismaClient } from '@labrute/prisma';
 import { Request, Response } from 'express';
 import { DISCORD, LOGGER } from '../context.js';
 import auth from '../utils/auth.js';
@@ -31,19 +31,51 @@ const Clans = {
         throw new ExpectedError('Invalid search parameter');
       }
 
-      const clans = await prisma.clan.findMany({
-        where: search ? { name: { contains: search, mode: 'insensitive' } } : {},
-        skip: (page - 1) * 15,
-        take: 15,
-        orderBy: [{ points: 'desc' }, { name: 'asc' }],
-        include: {
-          brutes: { select: { id: true } },
-          master: { select: { name: true } },
-        },
-      });
+      let clans: (Clan & {
+        'brutesId': number[],
+        'masterName': string,
+      })[] = [];
 
-      res.status(200).send(clans);
+      if (search) {
+        clans = await prisma.$queryRaw`
+          SELECT c.*, array_agg(b.id) AS "brutesId", m.name AS "masterName"
+          FROM "Clan" AS c
+          LEFT JOIN "Brute" AS b ON c.id = b."clanId"
+          LEFT JOIN "Brute" AS m ON c."masterId" = m.id
+          WHERE c.name ILIKE ${`%${search}%`}
+          GROUP BY c.id, m.name
+          ORDER BY c.points DESC, c.name ASC
+          OFFSET ${(page - 1) * 15}
+          LIMIT 15;
+        `;
+      } else {
+        clans = await prisma.$queryRaw`
+          SELECT c.*, array_agg(b.id) AS "brutesId", m.name AS "masterName"
+          FROM "Clan" AS c
+          LEFT JOIN "Brute" AS b ON c.id = b."clanId"
+          LEFT JOIN "Brute" AS m ON c."masterId" = m.id
+          GROUP BY c.id, m.name
+          ORDER BY c.points DESC, c.name ASC
+          OFFSET ${(page - 1) * 15}
+          LIMIT 15;
+        `;
+      }
+
+      res.status(200).send(clans.map((clan) => ({
+        id: clan.id,
+        name: clan.name,
+        limit: clan.limit,
+        points: clan.points,
+        boss: clan.boss,
+        damageOnBoss: clan.damageOnBoss,
+        masterId: clan.masterId,
+        master: {
+          name: clan.masterName,
+        },
+        brutes: clan.brutesId.map((id: number) => ({ id })),
+      })));
     } catch (error) {
+      console.log(error);
       sendError(res, error);
     }
   },
