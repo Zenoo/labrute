@@ -1,6 +1,6 @@
 import { Box, Divider, Tooltip, TooltipProps } from '@mui/material';
 import React from 'react';
-import { Skill, SkillModifiers } from '@labrute/core';
+import { PERKS_TOTAL_ODDS, Skill, SkillModifiers } from '@labrute/core';
 import Text from '../Text';
 import { useTranslation } from 'react-i18next';
 import StatColor from '../../utils/StatColor';
@@ -46,6 +46,7 @@ const SkillTooltip = ({
           {t(`${skill.name}.effect`) !== `${skill.name}.effect` && (
             <Text bold sx={{ fontSize: 12 }} color="error">{t(`${skill.name}.effect`)}</Text>
           )}
+          <Text subtitle1 sx={{ opacity: 0.7, fontSize: 12 }}>{t('odds')}: {((skill.odds / PERKS_TOTAL_ODDS) * 100).toFixed(2)}%</Text>
         </>
       ) : ''}
       componentsProps={{

@@ -1,4 +1,4 @@
-import { PETS_TOTAL_ODDS, Pet, getPetStat } from '@labrute/core';
+import { PERKS_TOTAL_ODDS, Pet, getPetStat } from '@labrute/core';
 import { Box, Tooltip, TooltipProps } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -34,7 +34,7 @@ const PetTooltip = ({
             {t('odds')}:
             {' '}
             <Box component="span" sx={{ opacity: 0.7 }}>
-              {((pet.odds / PETS_TOTAL_ODDS) * 100).toFixed(2)}%
+              {((pet.odds / PERKS_TOTAL_ODDS) * 100).toFixed(2)}%
             </Box>
           </Text>
           {/* ENDURANCE MALUS */}
