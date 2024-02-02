@@ -219,6 +219,14 @@ const Achievements = {
                       END as count
                   FROM "Achievement"
               WHERE "userId" IS NOT NULL
+                  AND (
+                    "bruteId" IS NULL
+                    OR "bruteId" IN (
+                      SELECT id
+                      FROM "Brute"
+                      WHERE "deletedAt" IS NULL
+                    )
+                  )
                   GROUP BY name, "userId"
               )
           ) AS a
@@ -254,7 +262,7 @@ const Achievements = {
           FROM "Achievement"
         ) AS a
         LEFT JOIN "Brute" b ON a."bruteId" = b.id
-        WHERE a.row_number <= 3
+        WHERE a.row_number <= 3 AND b."deletedAt" IS NULL
         ORDER BY a.name, a.count DESC;
       `;
 
