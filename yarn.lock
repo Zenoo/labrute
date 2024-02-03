@@ -3279,7 +3279,7 @@ __metadata:
     moment: "npm:^2.29.4"
     node-fetch: "npm:^3.3.0"
     node-schedule: "npm:^2.1.1"
-    nodemailer: "npm:^6.8.0"
+    nodemailer: "npm:^6.9.9"
     prisma: "npm:^5.8.1"
     spritesmith: "npm:^3.4.0"
     tsc-watch: "npm:^5.0.3"
@@ -13324,10 +13324,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nodemailer@npm:^6.8.0":
-  version: 6.9.1
-  resolution: "nodemailer@npm:6.9.1"
-  checksum: 6997bda4806f51e72cd46a2afe48f7416b06f37f8c417b7116c8e9a10ff7eaba10c4676e68f47abeb62f5dabe10705819dbd31f2539db7a910daa3d51f6715b6
+"nodemailer@npm:^6.9.9":
+  version: 6.9.9
+  resolution: "nodemailer@npm:6.9.9"
+  checksum: d81f8613c35785aeb60dd0e3ead2c2c0171c709381fde17ada112f5ac635630814ad09492dacaf0fd30158492ed834abb82d9c58b49e9b495e5c675fbc5fffef
   languageName: node
   linkType: hard
 
