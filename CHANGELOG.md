@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.49.7](https://github.com/Zenoo/labrute/compare/labrute-v2.49.6...labrute-v2.49.7) (2024-02-03)
+
+
+### Bug Fixes
+
+* Missing data in achievements ranking by brute ([ed52d1f](https://github.com/Zenoo/labrute/commit/ed52d1f5960ece95bf714de58b53b7e46f99c421))
+
 ## [2.49.6](https://github.com/Zenoo/labrute/compare/labrute-v2.49.5...labrute-v2.49.6) (2024-02-02)
 
 
