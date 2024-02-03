@@ -260,9 +260,14 @@ const Achievements = {
           SELECT name, "bruteId", count,
             ROW_NUMBER() OVER (PARTITION BY name ORDER BY count DESC) AS row_number
           FROM "Achievement"
+          WHERE "bruteId" IN (
+              SELECT id
+              FROM "Brute"
+              WHERE "deletedAt" IS NULL
+            )
         ) AS a
         LEFT JOIN "Brute" b ON a."bruteId" = b.id
-        WHERE a.row_number <= 3 AND b."deletedAt" IS NULL
+        WHERE a.row_number <= 3
         ORDER BY a.name, a.count DESC;
       `;
 
