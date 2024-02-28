@@ -18,6 +18,8 @@
 
 - Setup your local Postgres databases (labrute + etwin)
 
+- Make sure to initialize your etwin database by running `yarn etwin db create`
+
 - Copy `.env.sample` to `.env` and adapt the variables
 
 - Copy `etwin.toml.example` to `etwin.toml` and adapt the variables
