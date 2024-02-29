@@ -21,7 +21,18 @@ const isReady = async (prisma: PrismaClient) => {
     select: { ready: true },
   });
 
-  return serverState?.ready ?? false;
+  if (!serverState) {
+    // Create the server state if it doesn't exist
+    await prisma.serverState.create({
+      data: {
+        ready: true,
+      },
+    });
+
+    return true;
+  }
+
+  return serverState.ready;
 };
 
 const setGlobalTournamentValid = async (prisma: PrismaClient, valid: boolean) => {
