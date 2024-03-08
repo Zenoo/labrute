@@ -466,24 +466,25 @@ const Tournaments = {
         chunks.push(tournamentSteps.slice(i, i + 10000));
       }
 
-      // Delete all global tournaments steps
       for (const chunk of chunks) {
+        // Delete all global tournaments steps
         // eslint-disable-next-line no-await-in-loop
         await prisma.tournamentStep.deleteMany({
           where: {
             id: { in: chunk.map((ts) => ts.id) },
           },
         });
-      }
 
-      // Delete all fights from global tournaments steps
-      await prisma.fight.deleteMany({
-        where: {
-          TournamentStep: {
-            some: { id: { in: tournamentSteps.map((ts) => ts.id) } },
+        // Delete all fights from global tournaments steps
+        // eslint-disable-next-line no-await-in-loop
+        await prisma.fight.deleteMany({
+          where: {
+            TournamentStep: {
+              some: { id: { in: chunk.map((ts) => ts.id) } },
+            },
           },
-        },
-      });
+        });
+      }
 
       // Delete global tournament
       await prisma.tournament.deleteMany({
