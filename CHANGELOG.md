@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.49.9](https://github.com/Zenoo/labrute/compare/labrute-v2.49.8...labrute-v2.49.9) (2024-03-08)
+
+
+### Bug Fixes
+
+* Delete tournament steps by chunk ([fbb3822](https://github.com/Zenoo/labrute/commit/fbb3822c092df69b091bea856cc5e2ec8ce9db2c))
+
 ## [2.49.8](https://github.com/Zenoo/labrute/compare/labrute-v2.49.7...labrute-v2.49.8) (2024-03-08)
 
 
