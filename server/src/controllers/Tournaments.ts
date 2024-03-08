@@ -460,12 +460,21 @@ const Tournaments = {
         },
       });
 
+      // Separate by chunks of 10k
+      const chunks = [];
+      for (let i = 0; i < tournamentSteps.length; i += 10000) {
+        chunks.push(tournamentSteps.slice(i, i + 10000));
+      }
+
       // Delete all global tournaments steps
-      await prisma.tournamentStep.deleteMany({
-        where: {
-          id: { in: tournamentSteps.map((ts) => ts.id) },
-        },
-      });
+      for (const chunk of chunks) {
+        // eslint-disable-next-line no-await-in-loop
+        await prisma.tournamentStep.deleteMany({
+          where: {
+            id: { in: chunk.map((ts) => ts.id) },
+          },
+        });
+      }
 
       // Delete all fights from global tournaments steps
       await prisma.fight.deleteMany({
