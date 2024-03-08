@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.49.8](https://github.com/Zenoo/labrute/compare/labrute-v2.49.7...labrute-v2.49.8) (2024-03-08)
+
+
+### Bug Fixes
+
+* Clarify installation steps ([3fd2b7f](https://github.com/Zenoo/labrute/commit/3fd2b7f90b47c1694b0713a5bfd8c7b7d8c63274))
+* Create serverstate if non existent ([5756f8f](https://github.com/Zenoo/labrute/commit/5756f8f9c481d2ae369c98eb1dc32e323e7eda28))
+* Give combo5 for 5+ instead of 5 ([25f2d3d](https://github.com/Zenoo/labrute/commit/25f2d3d5e8121bdc0def1c2ce10ab0f3f6e4fc30))
+* Optimize global tournament query ([4ec2df2](https://github.com/Zenoo/labrute/commit/4ec2df2c4b8bbe099b938559f8f8428a3c2b3f8d))
+
 ## [2.49.7](https://github.com/Zenoo/labrute/compare/labrute-v2.49.6...labrute-v2.49.7) (2024-02-03)
 
 
