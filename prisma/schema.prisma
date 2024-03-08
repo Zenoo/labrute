@@ -340,6 +340,7 @@ model TournamentStep {
   step          Int
   fight         Fight      @relation(fields: [fightId], references: [id])
   fightId       Int
+  @@index([tournamentId, step])
 }
 
 model TournamentAchievement {

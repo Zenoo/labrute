@@ -6,10 +6,24 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useBrute } from '../../hooks/useBrute';
 import Server from '../../utils/Server';
+import BruteRender from '../Brute/Body/BruteRender';
 import BruteTooltip from '../Brute/BruteTooltip';
 import Link from '../Link';
 import Text from '../Text';
-import BruteRender from '../Brute/Body/BruteRender';
+import { Gender } from '@labrute/prisma';
+
+const fighterToBrute = (fighter: Fighter) => ({
+  id: fighter.id,
+  gender: fighter.gender || Gender.male,
+  name: fighter.name,
+  hp: fighter.maxHp,
+  level: fighter.level,
+  strengthValue: fighter.strength,
+  agilityValue: fighter.agility,
+  speedValue: fighter.speed,
+  body: fighter.data?.body || null,
+  colors: fighter.data?.colors || null,
+});
 
 interface CellGlobalTournamentProps extends PaperProps {
   date?: moment.Moment;
@@ -53,11 +67,11 @@ const CellGlobalTournament = ({
   const lostRound = useMemo(
     () => (bruteName && data
       ? data.tournament.steps.find((step) => step.fight.winner !== bruteName)
-      || data.lastRounds.find((step) => (step.fight.brute1.name === bruteName
-        || step.fight.brute2?.name === bruteName)
+      || data.lastRounds.find((step) => (step.fight.brute1Id === brute?.id
+        || step.fight.brute2Id === brute?.id)
         && step.fight.winner !== bruteName)
       : null),
-    [bruteName, data],
+    [brute?.id, bruteName, data],
   );
 
   // Last fights renderer
@@ -67,20 +81,23 @@ const CellGlobalTournament = ({
   ) => {
     if (!bruteName) return null;
 
-    const bruteInFight = step.fight.brute1.name === bruteName
-      || step.fight.brute2?.name === bruteName;
+    const bruteInFight = step.fight.brute1Id === brute?.id
+      || step.fight.brute2Id === brute?.id;
     const won = bruteInFight && step.fight.winner === bruteName;
 
     const fighters = JSON.parse(step.fight.fighters) as Fighter[];
 
     const fighter1 = fighters
-      .find((fighter) => fighter.type === 'brute' && fighter.name === step.fight.brute1.name);
+      .find((fighter) => fighter.type === 'brute' && fighter.id === step.fight.brute1Id);
     const fighter2 = fighters
-      .find((fighter) => fighter.type === 'brute' && fighter.name === step.fight.brute2?.name);
+      .find((fighter) => fighter.type === 'brute' && fighter.id === step.fight.brute2Id);
+
+    if (!fighter1) return null;
+    if (!fighter2) return null;
 
     return (
       <Link
-        to={`/${step.fight.brute1.name}/fight/${step.fightId}`}
+        to={`/${fighter1.name}/fight/${step.fightId}`}
         key={step.id}
         sx={{
           display: 'inline-flex',
@@ -100,7 +117,7 @@ const CellGlobalTournament = ({
           height: finals ? 40 : 28,
         }}
       >
-        <BruteTooltip fighter={fighter1} brute={step.fight.brute1}>
+        <BruteTooltip fighter={fighter1}>
           <Box
             sx={{
               position: 'relative',
@@ -110,11 +127,11 @@ const CellGlobalTournament = ({
             }}
           >
             <BruteRender
-              brute={step.fight.brute1}
+              brute={fighterToBrute(fighter1)}
               looking="right"
               y={-3}
             />
-            {step.fight.winner === step.fight.brute2?.name && (
+            {step.fight.winner === fighter2.name && (
               <Close
                 color="error"
                 sx={{
@@ -135,36 +152,34 @@ const CellGlobalTournament = ({
             width: finals ? 30 : 20,
           }}
         />
-        {step.fight.brute2 && (
-          <BruteTooltip fighter={fighter2} brute={step.fight.brute2}>
-            <Box
-              sx={{
-                position: 'relative',
-                display: 'inline-block',
-                width: finals ? 40 : 30,
-                height: 1,
-              }}
-            >
-              <BruteRender
-                brute={step.fight.brute2}
-                looking="left"
-                y={-3}
+        <BruteTooltip fighter={fighter2}>
+          <Box
+            sx={{
+              position: 'relative',
+              display: 'inline-block',
+              width: finals ? 40 : 30,
+              height: 1,
+            }}
+          >
+            <BruteRender
+              brute={fighterToBrute(fighter2)}
+              looking="left"
+              y={-3}
+            />
+            {step.fight.winner === fighter1.name && (
+              <Close
+                color="error"
+                sx={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: 1,
+                  height: 1,
+                }}
               />
-              {step.fight.winner === step.fight.brute1.name && (
-                <Close
-                  color="error"
-                  sx={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: 1,
-                    height: 1,
-                  }}
-                />
-              )}
-            </Box>
-          </BruteTooltip>
-        )}
+            )}
+          </Box>
+        </BruteTooltip>
       </Link>
     );
   };
@@ -184,9 +199,7 @@ const CellGlobalTournament = ({
     >
       <Text bold color="text.disabled">
         {t('eliminatedBy', {
-          value: bruteName === lostRound.fight.brute1.name
-            ? lostRound.fight.brute2?.name
-            : lostRound.fight.brute1.name
+          value: lostRound.fight.winner
         })}
       </Text>
     </Box>
@@ -278,24 +291,24 @@ const CellGlobalTournament = ({
             );
           }
 
-          const won = step.fight.winner === bruteName;
-          const opponent = bruteName === step.fight.brute1.name
-            ? step.fight.brute2?.name
-            : step.fight.brute1.name;
-
           const fighters = JSON.parse(step.fight.fighters) as Fighter[];
           const fighter1 = fighters
-            .find((fighter) => fighter.type === 'brute' && fighter.name === step.fight.brute1.name);
+            .find((fighter) => fighter.type === 'brute' && fighter.id === step.fight.brute1Id);
           const fighter2 = fighters
-            .find((fighter) => fighter.type === 'brute' && fighter.name === step.fight.brute2?.name);
+            .find((fighter) => fighter.type === 'brute' && fighter.id === step.fight.brute2Id);
+
+          if (!fighter1) return null;
+          if (!fighter2) return null;
+
+          const won = step.fight.winner === bruteName;
+          const opponent = brute?.id === step.fight.brute1Id
+            ? fighter2.name
+            : fighter1.name;
 
           // Normal fight
-          return step.fight.brute2 && (
+          return (
             <BruteTooltip
-              fighter={bruteName === step.fight.brute1.name ? fighter2 : fighter1}
-              brute={bruteName === step.fight.brute1.name
-                ? step.fight.brute2
-                : step.fight.brute1}
+              fighter={bruteName === fighter2.name ? fighter2 : fighter1}
               key={step.id}
             >
               <Link

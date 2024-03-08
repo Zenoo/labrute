@@ -25,6 +25,7 @@ const isReady = async (prisma: PrismaClient) => {
     // Create the server state if it doesn't exist
     await prisma.serverState.create({
       data: {
+        id: 1,
         ready: true,
       },
     });

@@ -79,36 +79,7 @@ export type BrutesExistsResponse = {
 };
 
 type TournamentsGetGlobalStep = Pick<TournamentStep, 'id' | 'step' | 'fightId'> & {
-  fight: Pick<Fight, 'winner' | 'fighters'> & {
-    brute1: Pick<
-      Brute,
-      'id' |
-      'name' |
-      'hp' |
-      'level' |
-      'strengthValue' |
-      'agilityValue' |
-      'speedValue' |
-      'gender'
-    > & {
-      body: BruteBody | null,
-      colors: BruteColors | null,
-    },
-    brute2: (Pick<
-      Brute,
-      'id' |
-      'name' |
-      'hp' |
-      'level' |
-      'strengthValue' |
-      'agilityValue' |
-      'speedValue' |
-      'gender'
-    > & {
-      body: BruteBody | null,
-      colors: BruteColors | null,
-    }) | null,
-  },
+  fight: Pick<Fight, 'winner' | 'fighters' | 'brute1Id' | 'brute2Id'>,
 };
 export type TournamentsGetGlobalResponse = {
   tournament: Pick<Tournament, 'id' | 'rounds'> & {
