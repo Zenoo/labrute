@@ -102,7 +102,7 @@ export const AchievementData: Record<
   },
   counter4b2b: {
     rarety: AchievementRarety.uncommon,
-    illustration: 'r_guard.gif',
+    illustration: 'counter4b2b.svg',
     onePerFight: true,
   },
   reversal4b2b: {
@@ -254,7 +254,7 @@ export const AchievementData: Record<
   },
   regeneration_potion: {
     rarety: AchievementRarety.uncommon,
-    illustration: 'r_drgmkr.gif',
+    illustration: 'regeneration_potion.svg',
     perBrute: 1,
   },
   bear_tamer: {
@@ -434,6 +434,7 @@ export const AchievementData: Record<
   },
   maxLevel: {
     rarety: AchievementRarety.common,
+    illustration: 'maxLevel.svg',
     max: true,
   },
   allAchievements: {
