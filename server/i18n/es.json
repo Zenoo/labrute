@@ -57,5 +57,6 @@
   "missingClanId": "Falta el ID del clan",
   "masterCannotLeave": "El maestro no puede dejar un clan que tiene miembros",
   "threadNotFound": "Hilo no encontrado",
-  "notYourClan": "Este no es tu clan"
+  "notYourClan": "Este no es tu clan",
+  "invalidName": "Invalid name. Accepted characters are a-z, A-Z, 0-9, '_' and '-'. Must be between 3 and 16 characters long."
 }
