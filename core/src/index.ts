@@ -28,6 +28,7 @@ import pad from './utils/pad';
 import promiseBatch from './utils/promiseBatch';
 import randomBetween from './utils/randomBetween';
 import weightedRandom from './utils/weightedRandom';
+import { isNameValid } from './brute/isNameValid';
 
 export * from './Achievements';
 export * from './Titles';
@@ -48,7 +49,7 @@ export {
   getRandomColors, getXPNeeded, hexToRgba,
   pad, promiseBatch, randomBetween, skills,
   updateBruteData, weapons,
-  weightedRandom
+  weightedRandom, isNameValid,
 };
 
 export const DEFAULT_LANGUAGE = Lang.en;

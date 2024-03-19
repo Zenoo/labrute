@@ -21,6 +21,7 @@ import {
   getLevelUpChoices,
   getMaxFightsPerDay,
   getXPNeeded,
+  isNameValid,
   randomBetween, updateBruteData,
 } from '@labrute/core';
 import {
@@ -183,6 +184,11 @@ const Brutes = {
   ) => {
     try {
       const user = await auth(prisma, req);
+
+      // Check name length
+      if (!isNameValid(req.body.name)) {
+        throw new ExpectedError(translate('invalidName', user));
+      }
 
       // Check colors validity
       checkColors(user, req.body.gender, req.body.colors);

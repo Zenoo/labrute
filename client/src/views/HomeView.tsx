@@ -1,4 +1,4 @@
-import { getRandomBody, getRandomColors, UserWithBrutesBodyColor } from '@labrute/core';
+import { getRandomBody, getRandomColors, isNameValid, UserWithBrutesBodyColor } from '@labrute/core';
 import { BruteBody, BruteColors, Gender } from '@labrute/prisma';
 import { Box, Link, Tooltip, useMediaQuery } from '@mui/material';
 import moment from 'moment';
@@ -135,8 +135,9 @@ const HomeView = () => {
       Alert.open('error', t('pleaseLogin'));
       return;
     }
+
     // Check name validity
-    if (!name.match(/^[a-zA-Z0-9_-]*$/) || name.length < 3 || name.length > 16) {
+    if (!isNameValid(name)) {
       Alert.open('error', t('invalidName'));
       return;
     }
