@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.49.11](https://github.com/Zenoo/labrute/compare/labrute-v2.49.10...labrute-v2.49.11) (2024-03-19)
+
+
+### Bug Fixes
+
+* New achievement icons. [#196](https://github.com/Zenoo/labrute/issues/196) ([9f1c33e](https://github.com/Zenoo/labrute/commit/9f1c33e02ebdf4bd5614b94d3f472b68e31754b8))
+* New panther achievement title ([6cee6ec](https://github.com/Zenoo/labrute/commit/6cee6ec91b71f439d2c7958720b6dd1cd008d63a))
+* Prevent invalid names in the backend ([c881e81](https://github.com/Zenoo/labrute/commit/c881e8178a87e23626d6e12ea62f64b2bccee829))
+* Tournament start at 6 ([e7ddc51](https://github.com/Zenoo/labrute/commit/e7ddc51b06dfc6047eefc6d85dcdc56b688f5cc0))
+
 ## [2.49.10](https://github.com/Zenoo/labrute/compare/labrute-v2.49.9...labrute-v2.49.10) (2024-03-08)
 
 
