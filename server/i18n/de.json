@@ -57,5 +57,6 @@
   "missingClanId": "Klan-ID fehlt",
   "masterCannotLeave": "Der Anführer kann einen Klan nicht verlassen, solange dieser noch andere Mitglieder hat",
   "threadNotFound": "Thema nicht gefunden",
-  "notYourClan": "Das ist nicht dein Klan"
+  "notYourClan": "Das ist nicht dein Klan",
+  "invalidName": "Invalid name. Accepted characters are a-z, A-Z, 0-9, '_' and '-'. Must be between 3 and 16 characters long."
 }
