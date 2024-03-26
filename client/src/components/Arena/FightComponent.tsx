@@ -43,8 +43,8 @@ const FightComponent = ({
   const [completed, setCompleted] = useState(false);
 
   // Fight speed
-  const speedRef = useRef(localStorage.getItem('fightSpeed') === '2' ? 2 : 1);
-  const [speed, setSpeed] = useState<1 | 2>(localStorage.getItem('fightSpeed') === '2' ? 2 : 1);
+  const speedRef = useRef(localStorage.getItem('fightSpeed') === '1' ? 1 : 2);
+  const [speed, setSpeed] = useState<1 | 2>(localStorage.getItem('fightSpeed') === '1' ? 1 : 2);
 
   // Fight sound
   const soundRef = useRef(false);
