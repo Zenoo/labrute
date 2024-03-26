@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.49.12](https://github.com/Zenoo/labrute/compare/labrute-v2.49.11...labrute-v2.49.12) (2024-03-26)
+
+
+### Bug Fixes
+
+* Default fight speed to x2 ([495be99](https://github.com/Zenoo/labrute/commit/495be99a4544b886659e6af60d3fbf54566c107c))
+* Rename panther to wolf. Fixes [#600](https://github.com/Zenoo/labrute/issues/600) ([401b736](https://github.com/Zenoo/labrute/commit/401b736e7958407f44d51e4f8aaddb107611db9e))
+
 ## [2.49.11](https://github.com/Zenoo/labrute/compare/labrute-v2.49.10...labrute-v2.49.11) (2024-03-19)
 
 
