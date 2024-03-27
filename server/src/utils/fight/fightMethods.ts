@@ -200,7 +200,7 @@ export const getOpponents = (
   // Fighter is a pet/backup
   if (fighter.master) {
     opponents = opponents.filter((f) => (f.master
-      ? f.master !== fighter.master
+      ? (f.hypnotised ? f.master === fighter.master : f.master !== fighter.master)
       : f.id !== fighter.master));
   } else {
     // Fighter is a real brute
