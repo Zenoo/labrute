@@ -66,17 +66,39 @@ const checkLevelUpAchievements = async (
 
   // Dog
   if (destinyChoice.pet?.startsWith('dog')) {
-    await increaseAchievement(prisma, brute.userId, brute.id, 'dog');
+    const current = await prisma.achievement.findFirst({
+      where: {
+        bruteId: brute.id,
+        userId: brute.userId,
+        name: AchievementName.dog,
+      },
+      select: { id: true, count: true },
+    });
+
+    // First dog
+    if (destinyChoice.pet === PetName.dog1) {
+      if (!current) {
+        await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.dog);
+      }
+    } else if (destinyChoice.pet === PetName.dog2) {
+      // Second dog
+      if (current?.count === 1) {
+        await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.dog);
+      }
+    } else if (current?.count === 2) {
+      // Third dog
+      await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.dog);
+    }
   }
 
   // Panther
   if (destinyChoice.pet === PetName.panther) {
-    await increaseAchievement(prisma, brute.userId, brute.id, 'panther');
+    await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.panther);
   }
 
   // Bear
   if (destinyChoice.pet === PetName.bear) {
-    await increaseAchievement(prisma, brute.userId, brute.id, 'bear');
+    await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.bear);
   }
 
   // Panther + Bear
@@ -84,7 +106,7 @@ const checkLevelUpAchievements = async (
   if (destinyChoice.pet
     && pantherBearConditions.includes(destinyChoice.pet)
     && pantherBearConditions.every((pet) => brute.pets.includes(pet))) {
-    await increaseAchievement(prisma, brute.userId, brute.id, 'panther_bear');
+    await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.panther_bear);
   }
 
   // Feline Agility + Fists of Fury
@@ -92,7 +114,7 @@ const checkLevelUpAchievements = async (
   if (destinyChoice.skill
     && felAg_fistsOfFConditions.includes(destinyChoice.skill)
     && felAg_fistsOfFConditions.every((skill) => brute.skills.includes(skill))) {
-    await increaseAchievement(prisma, brute.userId, brute.id, 'felAg_fistsOfF');
+    await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.felAg_fistsOfF);
   }
 
   // Feline Agility + Fists of Fury + Untouchable + Relentless
