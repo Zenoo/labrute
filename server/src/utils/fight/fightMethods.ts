@@ -204,8 +204,11 @@ export const getOpponents = (
       : f.id !== fighter.master));
   } else {
     // Fighter is a real brute
-    opponents = opponents.filter((f) => f.name !== fighter.name
-      && f.master !== fighter.id);
+    opponents = opponents.filter((f) => (f.master
+      ? f.hypnotised
+        ? f.master === fighter.id
+        : f.master !== fighter.id
+      : f.id !== fighter.id));
   }
 
   // Allow bosses too
