@@ -308,7 +308,7 @@ const CellGlobalTournament = ({
           // Normal fight
           return (
             <BruteTooltip
-              fighter={bruteName === fighter2.name ? fighter2 : fighter1}
+              fighter={bruteName === fighter2.name ? fighter1 : fighter2}
               key={step.id}
             >
               <Link
