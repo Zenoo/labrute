@@ -19,17 +19,7 @@ const CellSkills = ({
           key={skill.name}
           sx={{ opacity: brute.skills.includes(skill.name) ? 1 : 0.4 }}
         >
-          {brute.skills.includes(skill.name) ? (
-            <SkillTooltip skill={skill}>
-              <Box
-                component="img"
-                src={`/images/skills/${skill.name}.svg`}
-                sx={{
-                  boxShadow: 4,
-                }}
-              />
-            </SkillTooltip>
-          ) : (
+          <SkillTooltip skill={skill}>
             <Box
               component="img"
               src={`/images/skills/${skill.name}.svg`}
@@ -37,7 +27,7 @@ const CellSkills = ({
                 boxShadow: 4,
               }}
             />
-          )}
+          </SkillTooltip>
         </Grid>
       ))}
     </Grid>
