@@ -7,10 +7,21 @@ import { increaseAchievement } from '../../controllers/Achievements.js';
 
 const checkLevelUpAchievements = async (
   prisma: PrismaClient,
-  brute: Brute,
+  _brute: Brute,
   destinyChoice: DestinyChoice,
   oldBrute?: Brute,
 ) => {
+  const { userId } = _brute;
+
+  if (!userId) {
+    return;
+  }
+
+  const brute = {
+    ..._brute,
+    userId,
+  };
+
   const fastWeapons = weapons
     .filter((weapon) => weapon.types.includes('fast'))
     .map((weapon) => weapon.name);

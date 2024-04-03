@@ -9,7 +9,7 @@ import sendError from '../utils/sendError.js';
 
 export const increaseAchievement = async (
   prisma: PrismaClient,
-  userId: string | null,
+  userId: string,
   bruteId: number | null,
   name: AchievementName,
 ) => {
