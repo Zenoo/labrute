@@ -40,6 +40,7 @@ import updateClanPoints from '../utils/clan/updateClanPoints.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
 import { increaseAchievement } from './Achievements.js';
+import { LOGGER } from '../context.js';
 
 const Brutes = {
   getForVersus: (prisma: PrismaClient) => async (
@@ -454,9 +455,13 @@ const Brutes = {
         },
       });
 
-      // Check level up achievements
-      await checkLevelUpAchievements(prisma, updatedBrute, destinyChoice, oldBrute);
-
+      try {
+        // Check level up achievements
+        await checkLevelUpAchievements(prisma, updatedBrute, destinyChoice, oldBrute);
+      } catch (error) {
+        LOGGER.log(`Error while checking level up achievements for brute ${updatedBrute.name} with destiny choice ${JSON.stringify(destinyChoice)}`);
+        LOGGER.error(error);
+      }
       // Get new opponents
       const opponents = await getOpponents(prisma, updatedBrute);
 
