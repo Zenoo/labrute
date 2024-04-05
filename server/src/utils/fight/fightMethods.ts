@@ -1215,7 +1215,21 @@ export const checkDeaths = (
 
       // Update pet kills stat
       if (fighter.type === 'pet') {
-        updateStats(stats, fightData.fighters[0].id, 'petsKilled', 1);
+        const { master } = fighter;
+
+        if (!master) {
+          throw new Error('Pet without master');
+        }
+
+        if (fighter.hypnotised) {
+          updateStats(stats, master, 'petsKilled', 1);
+        } else {
+          const opponent = fightData.fighters.find((f) => f.id !== master && !f.master);
+
+          if (opponent) {
+            updateStats(stats, opponent.id, 'petsKilled', 1);
+          }
+        }
       }
 
       // Set loser if fighter is a main brute or a boss
