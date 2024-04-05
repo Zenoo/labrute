@@ -1,10 +1,11 @@
+/* eslint-disable max-len */
 import { RESET_PRICE, getBruteGoldValue } from '@labrute/core';
 import { BruteReportReason } from '@labrute/prisma';
 import { History } from '@mui/icons-material';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import { Box, Paper, Tooltip, useMediaQuery } from '@mui/material';
-import React, { KeyboardEvent, useCallback, useMemo } from 'react';
+import { Box, Fab, Paper, Tooltip, useMediaQuery } from '@mui/material';
+import React, { KeyboardEvent, useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import BoxBg from '../components/BoxBg';
@@ -44,7 +45,6 @@ const CellView = () => {
   const Alert = useAlert();
   const { authing, user, updateData } = useAuth();
   const { data: logs } = useStateAsync([], Server.Log.list, bruteName || '');
-  const bruteList : string[] | undefined = user?.brutes.map((bruteDetails) => bruteDetails.name);
   const ownsBrute = useMemo(() => (authing
     || !!(brute && user && brute.userId === user.id)), [authing, brute, user]);
 
@@ -67,13 +67,24 @@ const CellView = () => {
     });
   }, [Alert, Confirm, brute, navigate, t, updateData]);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleKey = (event: KeyboardEvent) => {
-    if (event.key === 'ArrowLeft' && bruteList && bruteList[bruteList.indexOf(brute!.name) - 1]) {
-      navigate(`/${bruteList[bruteList.indexOf(brute!.name) - 1]}/cell`);
+  const switchBrute = useCallback((side : number) => {
+    if (user && brute && user.brutes) {
+      const index = user.brutes.findIndex((bruteTemp) => bruteTemp.id === brute.id) + side;
+      // handle the case of index = -1
+      if (index === -1 && side < 0) {
+        navigate(`/${user.brutes[user.brutes.length - 1].name}/cell`);
+      } else {
+        navigate(`/${user.brutes[index % user.brutes.length].name}/cell`);
+      }
     }
-    if (event.key === 'ArrowRight' && bruteList && bruteList[bruteList.indexOf(brute!.name) + 1]) {
-      navigate(`/${bruteList[bruteList.indexOf(brute!.name) + 1]}/cell`);
+  }, [brute, navigate, user]);
+  // Handle swipe
+  const handleKey = (event: KeyboardEvent) => {
+    if (event.key === 'ArrowLeft') {
+      switchBrute(-1);
+    }
+    if (event.key === 'ArrowRight') {
+      switchBrute(1);
     }
   };
   // Reset brute
@@ -111,158 +122,195 @@ const CellView = () => {
     });
   }, [Alert, Confirm, brute, t]);
 
+  useEffect(
+
+    () => {
+      let touchstartX = 0;
+      let touchendX = 0;
+
+      const checkSwipe = () => {
+        if (user && brute && user.brutes) {
+          if (touchendX > touchstartX && touchendX - touchstartX > 120) {
+            switchBrute(-1);
+          }
+          if (touchendX < touchstartX && touchstartX - touchendX > 120) {
+            switchBrute(1);
+          }
+        }
+      };
+      const handlerStart = (e : TouchEvent) => {
+        touchstartX = e.changedTouches[0].screenX;
+      };
+      const handlerEnd = (e : TouchEvent) => {
+        touchendX = e.changedTouches[0].screenX;
+        checkSwipe();
+      };
+      document.addEventListener('touchstart', handlerStart);
+      document.addEventListener('touchend', handlerEnd);
+
+      return () => {
+        document.removeEventListener('touchstart', handlerStart);
+        document.removeEventListener('touchend', handlerEnd);
+      };
+    },
+
+    [brute, navigate, switchBrute, user]
+  );
+
   return brute && (smallScreen
     ? (
-      <CellMobileView
-        ad={ad}
-        logs={logs}
-        language={language}
-        ownsBrute={ownsBrute}
-        confirmReport={confirmReport}
-        confirmSacrifice={confirmSacrifice}
-        confirmReset={confirmReset}
-        bruteList={bruteList}
+      <>
+        { user && user.brutes && user.brutes.length > 1 && brute && <Fab size="small" sx={{ position: 'absolute', backgroundColor: 'primary.main', left: '25px', top: '50%', cursor: 'pointer', }}><NavigateBeforeIcon onClick={() => switchBrute(-1)} sx={{ color: 'secondary.main', cursor: 'pointer', margin: 'auto' }} /></Fab>}
+        <CellMobileView
+          ad={ad}
+          logs={logs}
+          language={language}
+          ownsBrute={ownsBrute}
+          confirmReport={confirmReport}
+          confirmSacrifice={confirmSacrifice}
+          confirmReset={confirmReset}
 
-      />
+        />
+        { user && user.brutes && user.brutes.length > 1 && brute && <Fab size="small" sx={{ position: 'absolute', backgroundColor: 'primary.main', right: '25px', top: '50%', cursor: 'pointer', margin: 'auto', }}> <NavigateNextIcon onClick={() => switchBrute(1)} sx={{ color: 'secondary.main', cursor: 'pointer' }} /></Fab>}
+      </>
     )
     : (
-      <>
-        { bruteList && bruteList[bruteList.indexOf(brute.name) - 1] && <NavigateBeforeIcon onClick={() => navigate(`/${bruteList[bruteList.indexOf(brute.name) - 1]}/cell`)} sx={{ position: 'absolute', left: '0px', top: '50%', color: '#7d4736', cursor: 'pointer', fontSize: '100px' }} />}
-        <Page autoFocus tabIndex={-1} onKeyDown={(event) => handleKey(event)} title={`${brute.name} ${t('MyBrute')}`} headerUrl={`/${brute.name}/cell`}>
 
-          <Box display="flex" zIndex={1}>
-            {/* BRUTE NAME + SOCIALS */}
-            <CellSocials
-              sx={{
-                borderTopLeftRadius: 0,
-                borderBottomLeftRadius: 0,
-                borderBottomRightRadius: 0,
-                ml: 3,
-                mr: 1,
-                flexGrow: 1,
-                py: 0,
-                px: 1,
-                mb: '5px',
-              }}
-            />
-            <Paper sx={{
+      <Page autoFocus tabIndex={-1} onKeyDown={(event) => handleKey(event)} title={`${brute.name} ${t('MyBrute')}`} headerUrl={`/${brute.name}/cell`}>
+        { user && user.brutes && user.brutes.length > 1 && brute && <NavigateBeforeIcon onClick={() => switchBrute(-1)} sx={{ position: 'absolute', left: '0px', top: '50%', color: 'secondary.main', cursor: 'pointer', fontSize: '100px' }} />}
+        <Box display="flex" zIndex={1}>
+          {/* BRUTE NAME + SOCIALS */}
+          <CellSocials
+            sx={{
               borderTopLeftRadius: 0,
               borderBottomLeftRadius: 0,
               borderBottomRightRadius: 0,
-              borderBottom: 'none',
-              width: 270,
-              bgcolor: 'background.paperLight',
-              mb: 0,
+              ml: 3,
+              mr: 1,
+              flexGrow: 1,
+              py: 0,
+              px: 1,
+              mb: '5px',
             }}
-            />
-          </Box>
+          />
           <Paper sx={{
-            borderTopRightRadius: 0,
+            borderTopLeftRadius: 0,
+            borderBottomLeftRadius: 0,
+            borderBottomRightRadius: 0,
+            borderBottom: 'none',
+            width: 270,
             bgcolor: 'background.paperLight',
-            zIndex: 2,
-            position: 'relative',
-            mt: 0,
-            '&::before': {
-              content: '""',
-              position: 'absolute',
-              top: -9,
-              right: 0,
-              width: 270,
-              height: '9px',
-              bgcolor: 'background.paperLight',
-            },
+            mb: 0,
           }}
-          >
-            <Box display="flex">
-              <Box sx={{ display: 'flex', flexGrow: 1 }}>
-                <Box sx={{ width: 315 }}>
-                  {/* WEAPONS */}
-                  <Text bold center>{t('weaponsBonuses')}</Text>
-                  <CellWeapons />
-                  {/* SKILLS */}
-                  <CellSkills />
-                  {/* PETS */}
-                  <CellPets sx={{ mt: 2 }} />
-                </Box>
-                {/* MAIN */}
-                <CellMain
-                  sx={{ flexGrow: 1 }}
-                  language={language}
-                  confirmSacrifice={confirmSacrifice}
-                  confirmReset={confirmReset}
-                />
+          />
+        </Box>
+        <Paper sx={{
+          borderTopRightRadius: 0,
+          bgcolor: 'background.paperLight',
+          zIndex: 2,
+          position: 'relative',
+          mt: 0,
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: -9,
+            right: 0,
+            width: 270,
+            height: '9px',
+            bgcolor: 'background.paperLight',
+          },
+        }}
+        >
+          <Box display="flex">
+            <Box sx={{ display: 'flex', flexGrow: 1 }}>
+              <Box sx={{ width: 315 }}>
+                {/* WEAPONS */}
+                <Text bold center>{t('weaponsBonuses')}</Text>
+                <CellWeapons />
+                {/* SKILLS */}
+                <CellSkills />
+                {/* PETS */}
+                <CellPets sx={{ mt: 2 }} />
               </Box>
-              {/* RIGHT SIDE */}
-              <Box sx={{
-                position: 'relative',
-                width: 270,
-                mt: -7,
-              }}
-              >
-                {/* REF LINK */}
-                <Tooltip title={t('refLink')}>
-                  <Paper sx={{
-                    p: 1,
-                    mr: 0,
-                    ml: 4,
-                    bgcolor: 'background.paperAccent',
-                    textAlign: 'center',
-                  }}
-                  >
-                    <Text bold sx={{ wordBreak: 'break-word' }}>{`${window.location.origin}?ref=${bruteName || ''}`}</Text>
-                  </Paper>
-                </Tooltip>
-
-                {/* CLAN */}
-                {(ownsBrute || !!brute.clanId) && (
-                <CellClan brute={brute} sx={{ ml: 4 }} />
-                )}
-                {/* ADVERT */}
-                <BoxBg
-                  src={`/images/${language}/cell/a-bg.gif`}
-                  sx={{
-                    width: 300,
-                    height: 205,
-                    ml: 0.5,
-                  }}
-                >
-                  <Tooltip title={t(`${ad.name}.desc`)}>
-                    <Link to={ad.url} target="_blank" sx={{ width: 200, mx: 4, display: 'inline-block' }}>
-                      <Box
-                        component="img"
-                        src={`/images/redirects/${ad.illustration}`}
-                        sx={{ ml: 1, mt: 3.5 }}
-                      />
-                    </Link>
-                  </Tooltip>
-                </BoxBg>
-                {/* LOGS */}
-                <Box sx={{ ml: 2, mt: 1 }}>
-                  {logs.map((log) => <CellLog key={log.id} log={log} />)}
-                </Box>
-                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                  <Link to={`/${brute.name}/tournaments`}>
-                    <FantasyButton color="secondary" sx={{ m: 1 }}>
-                      <History sx={{ verticalAlign: 'middle', mr: 1 }} />
-                      {t('tournaments')}
-                    </FantasyButton>
-                  </Link>
-                </Box>
-                <Text
-                  smallCaps
-                  subtitle2
-                  center
-                  onClick={confirmReport}
-                  sx={{ cursor: 'pointer' }}
-                >
-                  {t('report')}
-                </Text>
-              </Box>
+              {/* MAIN */}
+              <CellMain
+                sx={{ flexGrow: 1 }}
+                language={language}
+                confirmSacrifice={confirmSacrifice}
+                confirmReset={confirmReset}
+              />
             </Box>
-          </Paper>
-        </Page>
-        { bruteList && bruteList[bruteList.indexOf(brute.name) + 1] && <NavigateNextIcon onClick={() => navigate(`/${bruteList[bruteList.indexOf(brute.name) + 1]}/cell`)} sx={{ position: 'absolute', right: '0px', top: '50%', color: '#7d4736', cursor: 'pointer', fontSize: '100px' }} />}
-      </>
+            {/* RIGHT SIDE */}
+            <Box sx={{
+              position: 'relative',
+              width: 270,
+              mt: -7,
+            }}
+            >
+              {/* REF LINK */}
+              <Tooltip title={t('refLink')}>
+                <Paper sx={{
+                  p: 1,
+                  mr: 0,
+                  ml: 4,
+                  bgcolor: 'background.paperAccent',
+                  textAlign: 'center',
+                }}
+                >
+                  <Text bold sx={{ wordBreak: 'break-word' }}>{`${window.location.origin}?ref=${bruteName || ''}`}</Text>
+                </Paper>
+              </Tooltip>
+
+              {/* CLAN */}
+              {(ownsBrute || !!brute.clanId) && (
+                <CellClan brute={brute} sx={{ ml: 4 }} />
+              )}
+              {/* ADVERT */}
+              <BoxBg
+                src={`/images/${language}/cell/a-bg.gif`}
+                sx={{
+                  width: 300,
+                  height: 205,
+                  ml: 0.5,
+                }}
+              >
+                <Tooltip title={t(`${ad.name}.desc`)}>
+                  <Link to={ad.url} target="_blank" sx={{ width: 200, mx: 4, display: 'inline-block' }}>
+                    <Box
+                      component="img"
+                      src={`/images/redirects/${ad.illustration}`}
+                      sx={{ ml: 1, mt: 3.5 }}
+                    />
+                  </Link>
+                </Tooltip>
+              </BoxBg>
+              {/* LOGS */}
+              <Box sx={{ ml: 2, mt: 1 }}>
+                {logs.map((log) => <CellLog key={log.id} log={log} />)}
+              </Box>
+              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <Link to={`/${brute.name}/tournaments`}>
+                  <FantasyButton color="secondary" sx={{ m: 1 }}>
+                    <History sx={{ verticalAlign: 'middle', mr: 1 }} />
+                    {t('tournaments')}
+                  </FantasyButton>
+                </Link>
+              </Box>
+              <Text
+                smallCaps
+                subtitle2
+                center
+                onClick={confirmReport}
+                sx={{ cursor: 'pointer' }}
+              >
+                {t('report')}
+              </Text>
+            </Box>
+          </Box>
+        </Paper>
+        { user && user.brutes && user.brutes.length > 1 && brute && <NavigateNextIcon onClick={() => switchBrute(1)} sx={{ position: 'absolute', right: '0px', top: '50%', color: 'secondary.main', cursor: 'pointer', fontSize: '100px' }} />}
+      </Page>
+
     ));
 };
 

@@ -17,10 +17,6 @@ import StyledButton from '../StyledButton';
 import Text from '../Text';
 import CellGlobalTournament from './CellGlobalTournament';
 import CellTournament from './CellTournament';
-import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import { useAuth } from '../../hooks/useAuth';
-import { useNavigate } from 'react-router';
 
 export interface CellMainProps extends BoxProps {
   language: Lang;
@@ -40,32 +36,11 @@ const CellMain = ({
   const Confirm = useConfirm();
   const Alert = useAlert();
   const { brute, owner } = useBrute();
-  const { user } = useAuth();
-  const navigate = useNavigate();
   const xpNeededForNextLevel = useMemo(
     () => (brute ? getXPNeeded(brute.level + 1) : 0),
     [brute],
   );
-  const arrowProps = {
-    maxHeight: '70px', maxWidth: '70px', color: '#7d4736', cursor: 'pointer', fontSize: '150px', margin: 'auto'
-  };
-  const bruteList : string[] | undefined = user?.brutes.map((bruteDetails) => bruteDetails.name);
-  const swipeBrute = (direction : string) => {
-    switch (direction) {
-      case 'left':
-        if (bruteList && bruteList[bruteList.indexOf(brute!.name) - 1]) {
-          navigate(`/${bruteList[bruteList.indexOf(brute!.name) - 1]}/cell`);
-        }
-        break;
-      case 'right':
-        if (bruteList && bruteList[bruteList.indexOf(brute!.name) + 1]) {
-          navigate(`/${bruteList[bruteList.indexOf(brute!.name) + 1]}/cell`);
-        }
-        break;
-      default:
-        break;
-    }
-  };
+
   const fightsLeft = useMemo(
     () => (brute ? getFightsLeft(brute) : 0),
     [brute],
@@ -112,22 +87,20 @@ const CellMain = ({
       {owner && (brute.xp < xpNeededForNextLevel ? fightsLeft > 0 ? (
         <Stack spacing={1} sx={{ alignItems: 'center', mt: 1 }}>
           <Text bold sx={{ pl: 1 }}>{t('callToFight')}</Text>
-          <Box sx={{ display: 'flex' }}>
-            { smallScreen && <NavigateBeforeIcon onClick={() => swipeBrute('left')} sx={{ ...arrowProps, left: 0, opacity: smallScreen && bruteList && bruteList[bruteList.indexOf(brute.name) - 1] ? 1 : 0 }} />}
-            <Link to={`/${brute.name}/arena`}>
-              <StyledButton
-                sx={{
-                  height: 72,
-                  width: 218,
-                }}
-                image={`/images/${language}/cell/arena.gif`}
-                imageHover={`/images/${language}/cell/arena-hover.gif`}
-                shadow={false}
-                contrast={false}
-              />
-            </Link>
-            { smallScreen && <NavigateNextIcon onClick={() => swipeBrute('right')} sx={{ ...arrowProps, right: 0, opacity: smallScreen && bruteList && bruteList[bruteList.indexOf(brute.name) + 1] ? 1 : 0 }} />}
-          </Box>
+
+          <Link to={`/${brute.name}/arena`}>
+            <StyledButton
+              sx={{
+                height: 72,
+                width: 218,
+              }}
+              image={`/images/${language}/cell/arena.gif`}
+              imageHover={`/images/${language}/cell/arena-hover.gif`}
+              shadow={false}
+              contrast={false}
+            />
+          </Link>
+
           <Text bold color="error">{fightsLeft > 1 ? t('fightsLeft', { value: fightsLeft }) : t('fightLeft')}</Text>
         </Stack>
       ) : (
