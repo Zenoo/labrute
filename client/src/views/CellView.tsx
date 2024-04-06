@@ -3,7 +3,7 @@ import { BruteReportReason } from '@labrute/prisma';
 import { History } from '@mui/icons-material';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import { Box, Paper, Tooltip, useMediaQuery } from '@mui/material';
+import { Box, Fab, Paper, Tooltip, useMediaQuery } from '@mui/material';
 import React, { KeyboardEvent, useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -16,7 +16,6 @@ import CellSkills from '../components/Cell/CellSkills';
 import CellSocials from '../components/Cell/CellSocials';
 import CellWeapons from '../components/Cell/CellWeapons';
 import FantasyButton from '../components/FantasyButton';
-import IconFab from '../components/IconFab';
 import Link from '../components/Link';
 import Page from '../components/Page';
 import Text from '../components/Text';
@@ -125,42 +124,43 @@ const CellView = () => {
 
   useEffect(
     () => {
-      if (user && brute && user.id === brute.userId) {
-        let touchstartX = 0;
-        let touchendX = 0;
+      if (!user || !brute || user.id !== brute.userId) return () => {};
+      let touchstartX = 0;
+      let touchendX = 0;
 
-        const checkSwipe = () => {
-          if (touchendX > touchstartX && touchendX - touchstartX > 120) {
-            switchBrute(-1);
-          }
-          if (touchendX < touchstartX && touchstartX - touchendX > 120) {
-            switchBrute(1);
-          }
-        };
-        const handlerStart = (e : TouchEvent) => {
-          touchstartX = e.changedTouches[0].screenX;
-        };
-        const handlerEnd = (e : TouchEvent) => {
-          touchendX = e.changedTouches[0].screenX;
-          checkSwipe();
-        };
-        document.addEventListener('touchstart', handlerStart);
-        document.addEventListener('touchend', handlerEnd);
+      const checkSwipe = () => {
+        if (touchendX > touchstartX && touchendX - touchstartX > 120) {
+          switchBrute(-1);
+        }
+        if (touchendX < touchstartX && touchstartX - touchendX > 120) {
+          switchBrute(1);
+        }
+      };
+      const handlerStart = (e : TouchEvent) => {
+        touchstartX = e.changedTouches[0].screenX;
+      };
+      const handlerEnd = (e : TouchEvent) => {
+        touchendX = e.changedTouches[0].screenX;
+        checkSwipe();
+      };
+      document.addEventListener('touchstart', handlerStart);
+      document.addEventListener('touchend', handlerEnd);
 
-        return () => {
-          document.removeEventListener('touchstart', handlerStart);
-          document.removeEventListener('touchend', handlerEnd);
-        };
-      } return () => {};
+      return () => {
+        document.removeEventListener('touchstart', handlerStart);
+        document.removeEventListener('touchend', handlerEnd);
+      };
     },
 
     [brute, navigate, switchBrute, user]
   );
 
+  const ArrowPrevious = (<Fab size={smallScreen ? 'small' : 'medium'} onClick={() => switchBrute(-1)} sx={{ position: 'absolute', backgroundColor: 'primary.main', left: '25px', top: '50%', cursor: 'pointer', margin: 'auto', }}><NavigateBeforeIcon sx={{ color: 'secondary.main', cursor: 'pointer', margin: 'auto' }} /></Fab>);
+  const ArrowNext = (<Fab size={smallScreen ? 'small' : 'medium'} onClick={() => switchBrute(1)} sx={{ position: 'absolute', backgroundColor: 'primary.main', right: '25px', top: '50%', cursor: 'pointer', margin: 'auto', }}> <NavigateNextIcon sx={{ color: 'secondary.main', cursor: 'pointer', margin: 'auto' }} /></Fab>);
   return brute && (smallScreen
     ? (
       <>
-        { user && user.brutes && user.brutes.length > 1 && brute && user.id === brute.userId && <IconFab sizeFab="small" onclick={() => switchBrute(-1)} sxFab={{ position: 'absolute', backgroundColor: 'primary.main', left: '25px', top: '50%', cursor: 'pointer', margin: 'auto', }}><NavigateBeforeIcon sx={{ color: 'secondary.main', cursor: 'pointer', margin: 'auto' }} /></IconFab>}
+        { ownsBrute && ArrowPrevious}
         <CellMobileView
           ad={ad}
           logs={logs}
@@ -171,13 +171,13 @@ const CellView = () => {
           confirmReset={confirmReset}
 
         />
-        { user && user.brutes && user.brutes.length > 1 && brute && user.id === brute.userId && <IconFab sizeFab="small" onclick={() => switchBrute(1)} sxFab={{ position: 'absolute', backgroundColor: 'primary.main', right: '25px', top: '50%', cursor: 'pointer', margin: 'auto', }}> <NavigateNextIcon sx={{ color: 'secondary.main', cursor: 'pointer', margin: 'auto' }} /></IconFab>}
+        { ownsBrute && ArrowNext }
       </>
     )
     : (
 
       <Page autoFocus tabIndex={-1} onKeyDown={(event) => handleKey(event)} title={`${brute.name} ${t('MyBrute')}`} headerUrl={`/${brute.name}/cell`}>
-        { user && user.brutes && user.id === brute.userId && user.brutes.length > 1 && brute && <IconFab sizeFab="medium" onclick={() => switchBrute(-1)} sxFab={{ position: 'absolute', backgroundColor: 'primary.main', left: '25px', top: '50%', cursor: 'pointer', margin: 'auto', }}><NavigateBeforeIcon sx={{ color: 'secondary.main', cursor: 'pointer', margin: 'auto' }} /></IconFab>}
+        { ownsBrute && ArrowPrevious }
         <Box display="flex" zIndex={1}>
           {/* BRUTE NAME + SOCIALS */}
           <CellSocials
@@ -308,7 +308,7 @@ const CellView = () => {
             </Box>
           </Box>
         </Paper>
-        { user && user.brutes && user.brutes.length > 1 && brute && user.id === brute.userId && <IconFab sizeFab="medium" onclick={() => switchBrute(1)} sxFab={{ position: 'absolute', backgroundColor: 'primary.main', right: '25px', top: '50%', cursor: 'pointer', margin: 'auto', }}><NavigateNextIcon sx={{ color: 'secondary.main', cursor: 'pointer', margin: 'auto' }} /></IconFab>}
+        { ownsBrute && ArrowNext}
       </Page>
 
     ));
