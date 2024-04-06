@@ -1,6 +1,6 @@
 import { BruteRanking, getFightsLeft, getMaxFightsPerDay, getXPNeeded } from '@labrute/core';
 import { InventoryItemType, Lang } from '@labrute/prisma';
-import { Box, BoxProps, Stack, } from '@mui/material';
+import { Box, BoxProps, Stack } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -36,6 +36,7 @@ const CellMain = ({
   const Confirm = useConfirm();
   const Alert = useAlert();
   const { brute, owner } = useBrute();
+
   const xpNeededForNextLevel = useMemo(
     () => (brute ? getXPNeeded(brute.level + 1) : 0),
     [brute],
@@ -83,11 +84,9 @@ const CellMain = ({
           {t('rankUp')}
         </FantasyButton>
       )}
-
       {owner && (brute.xp < xpNeededForNextLevel ? fightsLeft > 0 ? (
         <Stack spacing={1} sx={{ alignItems: 'center', mt: 1 }}>
           <Text bold sx={{ pl: 1 }}>{t('callToFight')}</Text>
-
           <Link to={`/${brute.name}/arena`}>
             <StyledButton
               sx={{
@@ -100,7 +99,6 @@ const CellMain = ({
               contrast={false}
             />
           </Link>
-
           <Text bold color="error">{fightsLeft > 1 ? t('fightsLeft', { value: fightsLeft }) : t('fightLeft')}</Text>
         </Stack>
       ) : (

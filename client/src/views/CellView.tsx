@@ -1,10 +1,9 @@
-/* eslint-disable max-len */
 import { RESET_PRICE, getBruteGoldValue } from '@labrute/core';
 import { BruteReportReason } from '@labrute/prisma';
 import { History } from '@mui/icons-material';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import { Box, Fab, Paper, Tooltip, useMediaQuery } from '@mui/material';
+import { Box, Paper, Tooltip, useMediaQuery } from '@mui/material';
 import React, { KeyboardEvent, useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -17,6 +16,7 @@ import CellSkills from '../components/Cell/CellSkills';
 import CellSocials from '../components/Cell/CellSocials';
 import CellWeapons from '../components/Cell/CellWeapons';
 import FantasyButton from '../components/FantasyButton';
+import IconFab from '../components/IconFab';
 import Link from '../components/Link';
 import Page from '../components/Page';
 import Text from '../components/Text';
@@ -68,16 +68,17 @@ const CellView = () => {
   }, [Alert, Confirm, brute, navigate, t, updateData]);
 
   const switchBrute = useCallback((side : number) => {
-    if (user && brute && user.brutes) {
-      const index = user.brutes.findIndex((bruteTemp) => bruteTemp.id === brute.id) + side;
-      // handle the case of index = -1
-      if (index === -1 && side < 0) {
-        navigate(`/${user.brutes[user.brutes.length - 1].name}/cell`);
-      } else {
-        navigate(`/${user.brutes[index % user.brutes.length].name}/cell`);
-      }
+    if (!user || !brute || !user.brutes) return;
+    const currentBruteIndex = user.brutes.findIndex((bruteTemp) => bruteTemp.id === brute.id);
+    if (currentBruteIndex < 0) return;
+    let newBrute = user.brutes[(currentBruteIndex + side) % user.brutes.length];
+    if (currentBruteIndex === 0 && side === -1) {
+      newBrute = user.brutes[user.brutes.length - 1];
     }
+    if (!newBrute) return;
+    navigate(`/${newBrute.name}/cell`);
   }, [brute, navigate, user]);
+
   // Handle swipe
   const handleKey = (event: KeyboardEvent) => {
     if (event.key === 'ArrowLeft') {
@@ -123,35 +124,34 @@ const CellView = () => {
   }, [Alert, Confirm, brute, t]);
 
   useEffect(
-
     () => {
-      let touchstartX = 0;
-      let touchendX = 0;
+      if (user && brute && user.id === brute.userId) {
+        let touchstartX = 0;
+        let touchendX = 0;
 
-      const checkSwipe = () => {
-        if (user && brute && user.brutes) {
+        const checkSwipe = () => {
           if (touchendX > touchstartX && touchendX - touchstartX > 120) {
             switchBrute(-1);
           }
           if (touchendX < touchstartX && touchstartX - touchendX > 120) {
             switchBrute(1);
           }
-        }
-      };
-      const handlerStart = (e : TouchEvent) => {
-        touchstartX = e.changedTouches[0].screenX;
-      };
-      const handlerEnd = (e : TouchEvent) => {
-        touchendX = e.changedTouches[0].screenX;
-        checkSwipe();
-      };
-      document.addEventListener('touchstart', handlerStart);
-      document.addEventListener('touchend', handlerEnd);
+        };
+        const handlerStart = (e : TouchEvent) => {
+          touchstartX = e.changedTouches[0].screenX;
+        };
+        const handlerEnd = (e : TouchEvent) => {
+          touchendX = e.changedTouches[0].screenX;
+          checkSwipe();
+        };
+        document.addEventListener('touchstart', handlerStart);
+        document.addEventListener('touchend', handlerEnd);
 
-      return () => {
-        document.removeEventListener('touchstart', handlerStart);
-        document.removeEventListener('touchend', handlerEnd);
-      };
+        return () => {
+          document.removeEventListener('touchstart', handlerStart);
+          document.removeEventListener('touchend', handlerEnd);
+        };
+      } return () => {};
     },
 
     [brute, navigate, switchBrute, user]
@@ -160,7 +160,7 @@ const CellView = () => {
   return brute && (smallScreen
     ? (
       <>
-        { user && user.brutes && user.brutes.length > 1 && brute && <Fab size="small" sx={{ position: 'absolute', backgroundColor: 'primary.main', left: '25px', top: '50%', cursor: 'pointer', }}><NavigateBeforeIcon onClick={() => switchBrute(-1)} sx={{ color: 'secondary.main', cursor: 'pointer', margin: 'auto' }} /></Fab>}
+        { user && user.brutes && user.brutes.length > 1 && brute && user.id === brute.userId && <IconFab sizeFab="small" onclick={() => switchBrute(-1)} sxFab={{ position: 'absolute', backgroundColor: 'primary.main', left: '25px', top: '50%', cursor: 'pointer', margin: 'auto', }}><NavigateBeforeIcon sx={{ color: 'secondary.main', cursor: 'pointer', margin: 'auto' }} /></IconFab>}
         <CellMobileView
           ad={ad}
           logs={logs}
@@ -171,13 +171,13 @@ const CellView = () => {
           confirmReset={confirmReset}
 
         />
-        { user && user.brutes && user.brutes.length > 1 && brute && <Fab size="small" sx={{ position: 'absolute', backgroundColor: 'primary.main', right: '25px', top: '50%', cursor: 'pointer', margin: 'auto', }}> <NavigateNextIcon onClick={() => switchBrute(1)} sx={{ color: 'secondary.main', cursor: 'pointer' }} /></Fab>}
+        { user && user.brutes && user.brutes.length > 1 && brute && user.id === brute.userId && <IconFab sizeFab="small" onclick={() => switchBrute(1)} sxFab={{ position: 'absolute', backgroundColor: 'primary.main', right: '25px', top: '50%', cursor: 'pointer', margin: 'auto', }}> <NavigateNextIcon sx={{ color: 'secondary.main', cursor: 'pointer', margin: 'auto' }} /></IconFab>}
       </>
     )
     : (
 
       <Page autoFocus tabIndex={-1} onKeyDown={(event) => handleKey(event)} title={`${brute.name} ${t('MyBrute')}`} headerUrl={`/${brute.name}/cell`}>
-        { user && user.brutes && user.brutes.length > 1 && brute && <NavigateBeforeIcon onClick={() => switchBrute(-1)} sx={{ position: 'absolute', left: '0px', top: '50%', color: 'secondary.main', cursor: 'pointer', fontSize: '100px' }} />}
+        { user && user.brutes && user.id === brute.userId && user.brutes.length > 1 && brute && <IconFab sizeFab="medium" onclick={() => switchBrute(-1)} sxFab={{ position: 'absolute', backgroundColor: 'primary.main', left: '25px', top: '50%', cursor: 'pointer', margin: 'auto', }}><NavigateBeforeIcon sx={{ color: 'secondary.main', cursor: 'pointer', margin: 'auto' }} /></IconFab>}
         <Box display="flex" zIndex={1}>
           {/* BRUTE NAME + SOCIALS */}
           <CellSocials
@@ -308,7 +308,7 @@ const CellView = () => {
             </Box>
           </Box>
         </Paper>
-        { user && user.brutes && user.brutes.length > 1 && brute && <NavigateNextIcon onClick={() => switchBrute(1)} sx={{ position: 'absolute', right: '0px', top: '50%', color: 'secondary.main', cursor: 'pointer', fontSize: '100px' }} />}
+        { user && user.brutes && user.brutes.length > 1 && brute && user.id === brute.userId && <IconFab sizeFab="medium" onclick={() => switchBrute(1)} sxFab={{ position: 'absolute', backgroundColor: 'primary.main', right: '25px', top: '50%', cursor: 'pointer', margin: 'auto', }}><NavigateNextIcon sx={{ color: 'secondary.main', cursor: 'pointer', margin: 'auto' }} /></IconFab>}
       </Page>
 
     ));
