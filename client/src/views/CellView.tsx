@@ -67,7 +67,7 @@ const CellView = () => {
   }, [Alert, Confirm, brute, navigate, t, updateData]);
 
   const switchBrute = useCallback((side : number) => {
-    if (!user || !brute || !user.brutes) return;
+    if (!user || !brute || !user.brutes || !ownsBrute) return;
     const currentBruteIndex = user.brutes.findIndex((bruteTemp) => bruteTemp.id === brute.id);
     if (currentBruteIndex < 0) return;
     let newBrute = user.brutes[(currentBruteIndex + side) % user.brutes.length];
@@ -76,7 +76,7 @@ const CellView = () => {
     }
     if (!newBrute) return;
     navigate(`/${newBrute.name}/cell`);
-  }, [brute, navigate, user]);
+  }, [brute, navigate, ownsBrute, user]);
 
   // Handle swipe
   const handleKey = (event: KeyboardEvent) => {
@@ -124,7 +124,7 @@ const CellView = () => {
 
   useEffect(
     () => {
-      if (!user || !brute || user.id !== brute.userId) return () => {};
+      if (!ownsBrute) return () => {};
       let touchstartX = 0;
       let touchendX = 0;
 
@@ -152,15 +152,15 @@ const CellView = () => {
       };
     },
 
-    [brute, navigate, switchBrute, user]
+    [brute, navigate, ownsBrute, switchBrute, user]
   );
 
-  const ArrowPrevious = (<Fab size={smallScreen ? 'small' : 'medium'} onClick={() => switchBrute(-1)} sx={{ position: 'absolute', backgroundColor: 'primary.main', left: '25px', top: '50%', cursor: 'pointer', margin: 'auto', }}><NavigateBeforeIcon sx={{ color: 'secondary.main', cursor: 'pointer', margin: 'auto' }} /></Fab>);
-  const ArrowNext = (<Fab size={smallScreen ? 'small' : 'medium'} onClick={() => switchBrute(1)} sx={{ position: 'absolute', backgroundColor: 'primary.main', right: '25px', top: '50%', cursor: 'pointer', margin: 'auto', }}> <NavigateNextIcon sx={{ color: 'secondary.main', cursor: 'pointer', margin: 'auto' }} /></Fab>);
+  const previousBruteArrow = (ownsBrute && <Fab size={smallScreen ? 'small' : 'medium'} onClick={() => switchBrute(-1)} sx={{ position: 'absolute', backgroundColor: 'primary.main', left: '25px', top: '50%', cursor: 'pointer', margin: 'auto', }}><NavigateBeforeIcon sx={{ color: 'secondary.main', cursor: 'pointer', margin: 'auto' }} /></Fab>);
+  const nextBruteArrow = (ownsBrute && <Fab size={smallScreen ? 'small' : 'medium'} onClick={() => switchBrute(1)} sx={{ position: 'absolute', backgroundColor: 'primary.main', right: '25px', top: '50%', cursor: 'pointer', margin: 'auto', }}> <NavigateNextIcon sx={{ color: 'secondary.main', cursor: 'pointer', margin: 'auto' }} /></Fab>);
   return brute && (smallScreen
     ? (
       <>
-        { ownsBrute && ArrowPrevious}
+        { previousBruteArrow}
         <CellMobileView
           ad={ad}
           logs={logs}
@@ -171,13 +171,13 @@ const CellView = () => {
           confirmReset={confirmReset}
 
         />
-        { ownsBrute && ArrowNext }
+        { nextBruteArrow }
       </>
     )
     : (
 
       <Page autoFocus tabIndex={-1} onKeyDown={(event) => handleKey(event)} title={`${brute.name} ${t('MyBrute')}`} headerUrl={`/${brute.name}/cell`}>
-        { ownsBrute && ArrowPrevious }
+        { previousBruteArrow }
         <Box display="flex" zIndex={1}>
           {/* BRUTE NAME + SOCIALS */}
           <CellSocials
@@ -308,7 +308,7 @@ const CellView = () => {
             </Box>
           </Box>
         </Paper>
-        { ownsBrute && ArrowNext}
+        { nextBruteArrow}
       </Page>
 
     ));
