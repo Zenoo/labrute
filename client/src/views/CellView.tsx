@@ -4,7 +4,7 @@ import { History } from '@mui/icons-material';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { Box, Fab, Paper, Tooltip, useMediaQuery } from '@mui/material';
-import React, { KeyboardEvent, useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import BoxBg from '../components/BoxBg';
@@ -66,27 +66,21 @@ const CellView = () => {
     });
   }, [Alert, Confirm, brute, navigate, t, updateData]);
 
-  const switchBrute = useCallback((side : number) => {
+  const switchBrute = useCallback((side: number) => {
     if (!user || !brute || !user.brutes || !ownsBrute) return;
+
     const currentBruteIndex = user.brutes.findIndex((bruteTemp) => bruteTemp.id === brute.id);
     if (currentBruteIndex < 0) return;
+
     let newBrute = user.brutes[(currentBruteIndex + side) % user.brutes.length];
     if (currentBruteIndex === 0 && side === -1) {
       newBrute = user.brutes[user.brutes.length - 1];
     }
     if (!newBrute) return;
+
     navigate(`/${newBrute.name}/cell`);
   }, [brute, navigate, ownsBrute, user]);
 
-  // Handle swipe
-  const handleKey = (event: KeyboardEvent) => {
-    if (event.key === 'ArrowLeft') {
-      switchBrute(-1);
-    }
-    if (event.key === 'ArrowRight') {
-      switchBrute(1);
-    }
-  };
   // Reset brute
   const confirmReset = useCallback(() => {
     if (!brute) return;
@@ -122,45 +116,92 @@ const CellView = () => {
     });
   }, [Alert, Confirm, brute, t]);
 
-  useEffect(
-    () => {
-      if (!ownsBrute) return () => {};
-      let touchstartX = 0;
-      let touchendX = 0;
+  // Handle keys
+  useEffect(() => {
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === 'ArrowLeft') {
+        switchBrute(-1);
+      }
+      if (event.key === 'ArrowRight') {
+        switchBrute(1);
+      }
+    };
+    document.addEventListener('keydown', handleKey);
 
-      const checkSwipe = () => {
-        if (touchendX > touchstartX && touchendX - touchstartX > 120) {
-          switchBrute(-1);
-        }
-        if (touchendX < touchstartX && touchstartX - touchendX > 120) {
-          switchBrute(1);
-        }
-      };
-      const handlerStart = (e : TouchEvent) => {
-        touchstartX = e.changedTouches[0].screenX;
-      };
-      const handlerEnd = (e : TouchEvent) => {
-        touchendX = e.changedTouches[0].screenX;
-        checkSwipe();
-      };
-      document.addEventListener('touchstart', handlerStart);
-      document.addEventListener('touchend', handlerEnd);
+    return () => {
+      document.removeEventListener('keydown', handleKey);
+    };
+  }, [switchBrute]);
 
-      return () => {
-        document.removeEventListener('touchstart', handlerStart);
-        document.removeEventListener('touchend', handlerEnd);
-      };
-    },
+  // Handle swipe
+  useEffect(() => {
+    if (!ownsBrute) return () => {};
+    let touchstartX = 0;
+    let touchendX = 0;
 
-    [brute, navigate, ownsBrute, switchBrute, user]
+    const checkSwipe = () => {
+      if (touchendX > touchstartX && touchendX - touchstartX > 120) {
+        switchBrute(-1);
+      }
+      if (touchendX < touchstartX && touchstartX - touchendX > 120) {
+        switchBrute(1);
+      }
+    };
+    const handlerStart = (e : TouchEvent) => {
+      touchstartX = e.changedTouches[0].screenX;
+    };
+    const handlerEnd = (e : TouchEvent) => {
+      touchendX = e.changedTouches[0].screenX;
+      checkSwipe();
+    };
+    document.addEventListener('touchstart', handlerStart);
+    document.addEventListener('touchend', handlerEnd);
+
+    return () => {
+      document.removeEventListener('touchstart', handlerStart);
+      document.removeEventListener('touchend', handlerEnd);
+    };
+  }, [brute, navigate, ownsBrute, switchBrute]);
+
+  const previousBruteArrow = ownsBrute && (
+    <Tooltip title={t('previousBrute')}>
+      <Fab
+        size="small"
+        onClick={() => switchBrute(-1)}
+        color="primary"
+        sx={{
+          position: 'fixed',
+          left: 8,
+          top: '50%',
+          transform: 'translateY(-50%)',
+        }}
+      >
+        <NavigateBeforeIcon sx={{ color: 'secondary.main', cursor: 'pointer', m: 'auto' }} />
+      </Fab>
+    </Tooltip>
+  );
+  const nextBruteArrow = ownsBrute && (
+    <Tooltip title={t('nextBrute')}>
+      <Fab
+        size="small"
+        onClick={() => switchBrute(1)}
+        color="primary"
+        sx={{
+          position: 'fixed',
+          right: 8,
+          top: '50%',
+          transform: 'translateY(-50%)',
+        }}
+      >
+        <NavigateNextIcon sx={{ color: 'secondary.main', cursor: 'pointer', m: 'auto' }} />
+      </Fab>
+    </Tooltip>
   );
 
-  const previousBruteArrow = (ownsBrute && <Fab size={smallScreen ? 'small' : 'medium'} onClick={() => switchBrute(-1)} sx={{ position: 'absolute', backgroundColor: 'primary.main', left: '25px', top: '50%', cursor: 'pointer', margin: 'auto', }}><NavigateBeforeIcon sx={{ color: 'secondary.main', cursor: 'pointer', margin: 'auto' }} /></Fab>);
-  const nextBruteArrow = (ownsBrute && <Fab size={smallScreen ? 'small' : 'medium'} onClick={() => switchBrute(1)} sx={{ position: 'absolute', backgroundColor: 'primary.main', right: '25px', top: '50%', cursor: 'pointer', margin: 'auto', }}> <NavigateNextIcon sx={{ color: 'secondary.main', cursor: 'pointer', margin: 'auto' }} /></Fab>);
   return brute && (smallScreen
     ? (
       <>
-        { previousBruteArrow}
+        {previousBruteArrow}
         <CellMobileView
           ad={ad}
           logs={logs}
@@ -169,15 +210,13 @@ const CellView = () => {
           confirmReport={confirmReport}
           confirmSacrifice={confirmSacrifice}
           confirmReset={confirmReset}
-
         />
-        { nextBruteArrow }
+        {nextBruteArrow}
       </>
     )
     : (
-
-      <Page autoFocus tabIndex={-1} onKeyDown={(event) => handleKey(event)} title={`${brute.name} ${t('MyBrute')}`} headerUrl={`/${brute.name}/cell`}>
-        { previousBruteArrow }
+      <Page title={`${brute.name} ${t('MyBrute')}`} headerUrl={`/${brute.name}/cell`}>
+        {previousBruteArrow}
         <Box display="flex" zIndex={1}>
           {/* BRUTE NAME + SOCIALS */}
           <CellSocials
@@ -308,9 +347,8 @@ const CellView = () => {
             </Box>
           </Box>
         </Paper>
-        { nextBruteArrow}
+        {nextBruteArrow}
       </Page>
-
     ));
 };
 
