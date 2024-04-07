@@ -346,6 +346,8 @@
   "invalidName": "Invalid name. Accepted characters are a-z, A-Z, 0-9, '_' and '-'. Must be between 3 and 16 characters long.",
   "nameUnavailable": "Name unavailable",
   "pleaseLogin": "Please login before creating a Brute",
+  "previousBrute": "Previous Brute",
+  "nextBrute": "Next Brute",
   "hall": "Hall",
   "userProfile": "{{user}}'s profile",
   "newBrute": "New Brute",
