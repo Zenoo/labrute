@@ -89,7 +89,7 @@ export const ConfirmProvider = ({ children }: ConfirmProviderProps) => {
           <Button
             onClick={cancel}
             variant="contained"
-            sx={{ color: 'error.main' }}
+            sx={{ color: 'text.secondary' }}
           >
             {t('cancel')}
           </Button>
@@ -97,7 +97,7 @@ export const ConfirmProvider = ({ children }: ConfirmProviderProps) => {
             onClick={accept}
             autoFocus
             variant="contained"
-            sx={{ color: 'success.main' }}
+            sx={{ color: 'error.main' }}
           >
             {t('continue')}
           </Button>
