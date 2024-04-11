@@ -346,6 +346,8 @@
   "invalidName": "Nome inválido. Os caracteres aceitos são a-z, AZ, 0-9, '_' e '-'. Deve ter entre 3 e 16 caracteres.",
   "nameUnavailable": "Nome indisponível",
   "pleaseLogin": "Faça login antes de criar um Bruto",
+  "previousBrute": "Previous Brute",
+  "nextBrute": "Next Brute",
   "hall": "Salão",
   "userProfile": "{{user}}'s profile",
   "newBrute": "Novo Bruto",

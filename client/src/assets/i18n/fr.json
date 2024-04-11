@@ -346,6 +346,8 @@
   "invalidName": "Nom invalide. Les caractères autorisés sont a-z, A-Z, 0-9, _ et -. Il doit faire entre 3 et 16 caractères.",
   "nameUnavailable": "Nom indisponible",
   "pleaseLogin": "Veuillez vous connecter pour créer une brute",
+  "previousBrute": "Brute précédente",
+  "nextBrute": "Brute suivante",
   "hall": "Hall",
   "userProfile": "Profil de {{user}}",
   "newBrute": "Nouvelle brute",
