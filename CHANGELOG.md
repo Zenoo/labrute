@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.49.12](https://github.com/Zenoo/labrute/compare/labrute-v2.49.11...labrute-v2.49.12) (2024-04-12)
+
+
+### Bug Fixes
+
+* Achievement for pets killed ([9565e52](https://github.com/Zenoo/labrute/commit/9565e52eb50e84d4d2f4a0998861ed56eb318d90))
+* Confirm dialog button colors ([3ffe360](https://github.com/Zenoo/labrute/commit/3ffe3608cd8a12ab4e35ca8366938d9c76a88e10))
+* Default fight speed to x2 ([495be99](https://github.com/Zenoo/labrute/commit/495be99a4544b886659e6af60d3fbf54566c107c))
+* Display locked skills on hover ([2ac5c05](https://github.com/Zenoo/labrute/commit/2ac5c053b87da0d67b04c63dee2c89d3995a0be8))
+* Don't attack own hypnotised pets ([ff47448](https://github.com/Zenoo/labrute/commit/ff47448f88c6c9ed6e2ca6765dad675dd4dc976a))
+* Hypnotized pets targets ([137c1da](https://github.com/Zenoo/labrute/commit/137c1da1f73b8a3f19fec72d10f1240187f2c659))
+* Log level up error ([608b799](https://github.com/Zenoo/labrute/commit/608b799799ca05540e633407b316bb160a47ddba))
+* Max stack on Array#push ([5068ad6](https://github.com/Zenoo/labrute/commit/5068ad645914aea0b2ec58035b423e859c068ee2))
+* No achievements for bots ([b9caa31](https://github.com/Zenoo/labrute/commit/b9caa31543ea5c80bff7fcf4c38915f914178941))
+* Only unlock dog achievements per dog per same path ([0765169](https://github.com/Zenoo/labrute/commit/0765169f6aca5bf960cec9b6e9037db43a783e0a))
+* Rename panther to wolf. Fixes [#600](https://github.com/Zenoo/labrute/issues/600) ([401b736](https://github.com/Zenoo/labrute/commit/401b736e7958407f44d51e4f8aaddb107611db9e))
+* Wrong brute in glboal tournament tooltip. Fixes [#592](https://github.com/Zenoo/labrute/issues/592) ([1fcae16](https://github.com/Zenoo/labrute/commit/1fcae16dd76ec39dcca5e1d421d563eeab669da4))
+
 ## [2.49.11](https://github.com/Zenoo/labrute/compare/labrute-v2.49.10...labrute-v2.49.11) (2024-03-19)
 
 
