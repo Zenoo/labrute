@@ -545,7 +545,7 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
   // For the global tournament, tournamentStep.step represents the round number
   let round = 1;
   let roundBrutes = [...shuffledBrutes];
-  const byes: typeof brutes = [];
+  let byes: typeof brutes = [];
 
   // Handle byes for first round (power of 2)
   if (roundBrutes.length !== 2 ** Math.floor(Math.log2(roundBrutes.length))) {
@@ -553,13 +553,13 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
     const byesCount = 2 ** (Math.floor(Math.log2(roundBrutes.length)) + 1) - roundBrutes.length;
 
     // Add byes
-    byes.push(...roundBrutes.splice(roundBrutes.length - byesCount, byesCount));
+    byes = [...roundBrutes.splice(roundBrutes.length - byesCount, byesCount)];
   }
 
   // Create tournament steps
   while (roundBrutes.length > 1) {
     LOGGER.log(`Round ${round}`);
-    const nextBrutes: typeof brutes = [];
+    let nextBrutes: typeof brutes = [];
 
     for (let i = 0; i < roundBrutes.length - 1; i += 2) {
       const brute1 = await prisma.brute.findUnique({
@@ -650,7 +650,7 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
 
     // Add byes to next round
     if (byes.length) {
-      nextBrutes.push(...byes);
+      nextBrutes = [...nextBrutes, ...byes];
       byes.length = 0;
     }
 
