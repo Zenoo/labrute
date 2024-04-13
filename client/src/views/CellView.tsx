@@ -137,23 +137,33 @@ const CellView = () => {
   useEffect(() => {
     if (!ownsBrute) return () => {};
     let touchstartX = 0;
+    let touchstartY = 0;
     let touchendX = 0;
+    let touchendY = 0;
 
     const checkSwipe = () => {
-      if (touchendX > touchstartX && touchendX - touchstartX > 120) {
+      const deltaX = touchendX - touchstartX;
+      const deltaY = touchendY - touchstartY;
+      if (Math.abs(deltaY) > Math.abs(deltaX)) return; // Ignore swipe if Y is more important than X
+      if (deltaX > 120) {
         switchBrute(-1);
       }
-      if (touchendX < touchstartX && touchstartX - touchendX > 120) {
+      if (deltaX < -120) {
         switchBrute(1);
       }
     };
-    const handlerStart = (e : TouchEvent) => {
+
+    const handlerStart = (e: TouchEvent) => {
       touchstartX = e.changedTouches[0].screenX;
+      touchstartY = e.changedTouches[0].screenY;
     };
-    const handlerEnd = (e : TouchEvent) => {
+
+    const handlerEnd = (e: TouchEvent) => {
       touchendX = e.changedTouches[0].screenX;
+      touchendY = e.changedTouches[0].screenY;
       checkSwipe();
     };
+
     document.addEventListener('touchstart', handlerStart);
     document.addEventListener('touchend', handlerEnd);
 
