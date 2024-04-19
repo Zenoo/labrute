@@ -466,7 +466,7 @@ const activateSuper = (
       if (!opponent.activeWeapon) return false;
 
       // 20% chance to steal
-      if (randomBetween(0, 4) === 0) {
+      if (randomBetween(1, 5) === 1) {
         // Remove own weapon
         if (fighter.activeWeapon) {
           // Add trash step
@@ -591,7 +591,7 @@ const activateSuper = (
     case 'hammer': {
       // Only 20% to use the skill if fighter has a weapon
       if (fighter.activeWeapon) {
-        if (randomBetween(0, 4) === 0) {
+        if (randomBetween(1, 5) === 1) {
           // Add trash step
           fightData.steps.push({
             action: 'trash',
@@ -1012,14 +1012,14 @@ const breakShield = (fighter: DetailedFighter, opponent: DetailedFighter) => {
   // Can't break someone's shield if they are not holding a shield >.>
   if (!opponent.shield) return false;
 
-  return getFighterStat(fighter, 'disarm') * 100 > randomBetween(0, 300);
+  return getFighterStat(fighter, 'disarm') * 100 >= randomBetween(0, 300);
 };
 
 const disarm = (fighter: DetailedFighter, opponent: DetailedFighter) => {
   // Can't disarm someone if they are not holding a weapon >.>
   if (!opponent.activeWeapon) return false;
 
-  return getFighterStat(fighter, 'disarm') * 100 > randomBetween(0, 100);
+  return getFighterStat(fighter, 'disarm') * 100 >= randomBetween(0, 100);
 };
 
 const disarmAttacker = (fighter: DetailedFighter, opponent: DetailedFighter) => {

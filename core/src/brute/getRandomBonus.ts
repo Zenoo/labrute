@@ -27,12 +27,12 @@ const preventSomeBonuses = (
       case 'panther':
         // Allow for both panther and bear at a 1/1000 chance
         preventPerk = brute.pets.includes('panther')
-          || (randomBetween(0, 1000) > 0 ? brute.pets.includes('bear') : false);
+          || (randomBetween(1, 1000) > 1 ? brute.pets.includes('bear') : false);
         break;
       case 'bear':
         // Allow for both panther and bear at a 1/1000 chance
         preventPerk = brute.pets.includes('bear')
-          || (randomBetween(0, 1000) > 0 ? brute.pets.includes('panther') : false);
+          || (randomBetween(1, 1000) > 1 ? brute.pets.includes('panther') : false);
         break;
       default:
         break;
@@ -55,23 +55,23 @@ const preventSomeBonuses = (
           break;
         case 1:
           // 5% chance of getting a second booster
-          preventPerk = randomBetween(0, 100) < 95;
+          preventPerk = randomBetween(1, 100) < 95;
           break;
         case 2:
           // 2% chance of getting a third booster
-          preventPerk = randomBetween(0, 100) < 98;
+          preventPerk = randomBetween(1, 100) < 98;
           break;
         case 3:
           // 0.1% chance of getting a fourth booster
-          preventPerk = randomBetween(0, 1000) < 999;
+          preventPerk = randomBetween(1, 1000) < 999;
           break;
         case 4:
           // 0.1% chance of getting a fifth booster
-          preventPerk = randomBetween(0, 1000) < 999;
+          preventPerk = randomBetween(1, 1000) < 999;
           break;
         case 5:
           // 0.1% chance of getting a sixth booster
-          preventPerk = randomBetween(0, 1000) < 999;
+          preventPerk = randomBetween(1, 1000) < 999;
           break;
         default:
           preventPerk = false;
