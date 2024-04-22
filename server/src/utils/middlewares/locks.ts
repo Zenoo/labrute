@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import sendError from '../sendError.js';
 
 interface Locks {
-  [key: string]: boolean
+  [key: string]: boolean | undefined
 }
 
 const locks: Locks = {};
@@ -14,15 +14,13 @@ export default function lockMiddleware(req: Request, res: Response, next: NextFu
   const { headers: { authorization } } = req;
 
   if (authorization) {
-    const [id, token] = Buffer.from(authorization.split(' ')[1], 'base64')
-      .toString()
-      .split(':');
+    const [id] = Buffer.from(authorization.split(' ')[1], 'base64').toString().split(':');
 
-    if (!id || !token || id === 'null' || token === 'null') {
+    if (!id || id === 'null') {
       return sendError(res, new ExpectedError('Invalid authorization header content'));
     }
 
-    const key: string = `${method}:${path}:${id}:${token}`;
+    const key: string = `${method}:${path}:${id}`;
 
     if (locks[key]) {
       return sendError(res, new ExpectedError('Too many requests'));
@@ -34,5 +32,6 @@ export default function lockMiddleware(req: Request, res: Response, next: NextFu
       delete locks[key];
     });
   }
-  next();
+
+  return next();
 }
