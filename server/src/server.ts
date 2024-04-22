@@ -9,6 +9,7 @@ import initRoutes from './routes.js';
 import Env from './utils/Env.js';
 import startJob from './workers/startJob.js';
 import { GLOBAL, ServerContext } from './context.js';
+import lockMiddleware from './utils/middlewares/locks.js';
 
 function main(cx: ServerContext) {
   cx.logger.info(`Server started (v${Version})`);
@@ -22,6 +23,7 @@ function main(cx: ServerContext) {
       extended: true,
     }),
   );
+  app.use(lockMiddleware);
 
   app.listen(port, () => {
     cx.logger.info('Server listening');
