@@ -8,6 +8,7 @@ import getOpponents from '../utils/brute/getOpponents.js';
 import generateFight from '../utils/fight/generateFight.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
+import { lock, unlock } from '../utils/lock.js';
 
 const Fights = {
   get: (prisma: PrismaClient) => async (req: Request, res: Response) => {
@@ -64,6 +65,7 @@ const Fights = {
   ) => {
     try {
       const user = await auth(prisma, req);
+      lock(user);
 
       if (!req.body.brute1 || !req.body.brute2) {
         throw new ExpectedError(translate('missingParameters', user));
@@ -235,6 +237,8 @@ const Fights = {
 
       // Send fight id to client
       res.send({ id: fightId });
+
+      unlock(user);
     } catch (error) {
       sendError(res, error);
     }

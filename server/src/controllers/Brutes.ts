@@ -41,6 +41,7 @@ import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
 import { increaseAchievement } from './Achievements.js';
 import { LOGGER } from '../context.js';
+import { lock, unlock } from '../utils/lock.js';
 
 const Brutes = {
   getForVersus: (prisma: PrismaClient) => async (
@@ -185,6 +186,7 @@ const Brutes = {
   ) => {
     try {
       const user = await auth(prisma, req);
+      lock(user);
 
       // Check name length
       if (!isNameValid(req.body.name)) {
@@ -311,6 +313,8 @@ const Brutes = {
       await checkLevelUpAchievements(prisma, brute, destinyChoice);
 
       res.send({ brute, goldLost, newLimit });
+
+      unlock(user);
     } catch (error) {
       sendError(res, error);
     }
@@ -318,6 +322,7 @@ const Brutes = {
   getLevelUpChoices: (prisma: PrismaClient) => async (req: Request, res: Response) => {
     try {
       const user = await auth(prisma, req);
+      lock(user);
 
       // Get brute
       const brute = user.brutes.find((b) => b.name === req.params.name);
@@ -383,6 +388,7 @@ const Brutes = {
   ) => {
     try {
       const user = await auth(prisma, req);
+      lock(user);
 
       // Get brute
       const brute = user.brutes.find((b) => b.name === req.params.name);
@@ -439,10 +445,6 @@ const Brutes = {
 
       if (!freshBrute) {
         throw new Error(translate('bruteNotFound', user));
-      }
-
-      if (freshBrute.xp !== brute.xp) {
-        throw new ExpectedError(translate('slowDown', user));
       }
 
       // Update brute
@@ -509,6 +511,7 @@ const Brutes = {
       }
 
       res.send(updatedBrute);
+      unlock(user);
     } catch (error) {
       sendError(res, error);
     }
@@ -911,6 +914,7 @@ const Brutes = {
       const { params: { name } } = req;
 
       const user = await auth(prisma, req);
+      lock(user);
 
       if (!name) {
         throw new Error(translate('missingName', user));
@@ -1114,6 +1118,7 @@ const Brutes = {
       res.send({
         success: true,
       });
+      unlock(user);
     } catch (error) {
       sendError(res, error);
     }
