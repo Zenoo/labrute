@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.49.13](https://github.com/Zenoo/labrute/compare/labrute-v2.49.12...labrute-v2.49.13) (2024-04-23)
+
+
+### Bug Fixes
+
+* Cell swipe sensitivity ([f4c9eeb](https://github.com/Zenoo/labrute/commit/f4c9eeb5d25de969bda3a96168247ddf0f1deb43))
+* Disarm not working 1/101 of the time ([fd02682](https://github.com/Zenoo/labrute/commit/fd0268209ba1236095e1c22fa5f764ca617c42f7))
+* prevent race condition ([#623](https://github.com/Zenoo/labrute/issues/623)) ([4673b62](https://github.com/Zenoo/labrute/commit/4673b6209318d3ed49de727d4ce5da793eb7d2a0))
+
 ## [2.49.12](https://github.com/Zenoo/labrute/compare/labrute-v2.49.11...labrute-v2.49.12) (2024-04-12)
 
 
