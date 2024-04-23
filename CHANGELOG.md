@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.49.14](https://github.com/Zenoo/labrute/compare/labrute-v2.49.13...labrute-v2.49.14) (2024-04-23)
+
+
+### Bug Fixes
+
+* Hypnotised pet wrong targets. Fixes [#619](https://github.com/Zenoo/labrute/issues/619) ([81da92c](https://github.com/Zenoo/labrute/commit/81da92cfa94483afa6c45d5dfe5868077d4d0dcb))
+* Tournament history perfs. Fixes [#617](https://github.com/Zenoo/labrute/issues/617) ([3669999](https://github.com/Zenoo/labrute/commit/3669999174139c036bd06ace75c75cb31f24c85e))
+
 ## [2.49.13](https://github.com/Zenoo/labrute/compare/labrute-v2.49.12...labrute-v2.49.13) (2024-04-23)
 
 
