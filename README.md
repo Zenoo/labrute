@@ -18,13 +18,13 @@
 
 - Setup your local Postgres databases (labrute + etwin)
 
-- Make sure to initialize your etwin database by running `yarn etwin db create`
-
 - Copy `.env.sample` to `.env` and adapt the variables
 
-- Copy `etwin.toml.example` to `etwin.toml` and adapt the variables
+- Optional: Create an `eternaltwin.local.toml` config file for Eternaltwin. You don't need it to start LaBrute, but it may be useful for more advanced usage.
 
 - Install dependencies: `yarn install` (This should also setup your database from the `schema.prisma` file and the migrations)
+
+- Make sure to initialize your etwin database by running `yarn eternaltwin db create`
 
 - Start the server, client and etwin local server with `yarn dev`
 

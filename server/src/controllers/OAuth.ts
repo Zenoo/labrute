@@ -1,17 +1,17 @@
-import { AuthType } from '@eternal-twin/core/auth/auth-type';
-import { Url } from '@eternal-twin/core/core/url';
-import { HttpEtwinClient } from '@eternal-twin/etwin-client-http';
-import { RfcOauthClient } from '@eternal-twin/oauth-client-http/rfc-oauth-client';
+import { AuthType } from '@eternaltwin/core/auth/auth-type';
+import { EternaltwinNodeClient } from '@eternaltwin/client-node';
+import { RfcOauthClient } from '@eternaltwin/oauth-client-http/rfc-oauth-client';
 import { PrismaClient } from '@labrute/prisma';
 import { Request, Response } from 'express';
 import { ExpectedError } from '@labrute/core';
+import urlJoin from 'url-join';
 import Env from '../utils/Env.js';
 import sendError from '../utils/sendError.js';
 
 const oauthClient = new RfcOauthClient({
-  authorizationEndpoint: new Url(`${Env.ETWIN_URL}oauth/authorize`),
-  tokenEndpoint: new Url(`${Env.ETWIN_URL}oauth/token`),
-  callbackEndpoint: new Url(`${Env.SELF_URL}/oauth/callback`),
+  authorizationEndpoint: new URL(urlJoin(Env.ETWIN_URL, 'oauth/authorize')),
+  tokenEndpoint: new URL(urlJoin(Env.ETWIN_URL, 'oauth/token')),
+  callbackEndpoint: new URL(urlJoin(Env.SELF_URL, 'oauth/callback')),
   clientId: Env.ETWIN_CLIENT_ID,
   clientSecret: Env.ETWIN_CLIENT_SECRET,
 });
@@ -36,8 +36,8 @@ const OAuth = {
       const token = await oauthClient.getAccessToken(req.query.code);
 
       // ETWin User
-      const etwinClient = new HttpEtwinClient(new URL(Env.ETWIN_URL));
-      const self = await etwinClient.getAuthSelf(token.accessToken);
+      const etwinClient = new EternaltwinNodeClient(new URL(Env.ETWIN_URL));
+      const self = await etwinClient.getAuthSelf({auth: token.accessToken});
 
       if (self.type !== AuthType.AccessToken) {
         throw new Error('Invalid auth type');

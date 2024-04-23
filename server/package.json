@@ -24,8 +24,9 @@
     "seed": "node --loader ts-node/esm src/seed.ts"
   },
   "dependencies": {
-    "@eternal-twin/core": "^0.10.3",
-    "@eternal-twin/etwin-client-http": "^0.10.3",
+    "@eternaltwin/client-node": "^0.14.1",
+    "@eternaltwin/core": "^0.14.0",
+    "@eternaltwin/oauth-client-http": "^0.14.0",
     "@labrute/core": "workspace:*",
     "@labrute/prisma": "workspace:*",
     "@prisma/client": "^5.10.2",
@@ -43,6 +44,7 @@
     "nodemailer": "^6.9.9",
     "spritesmith": "^3.4.0",
     "unique-names-generator": "^4.7.1",
+    "url-join": "^5.0.0",
     "vinyl": "^3.0.0"
   },
   "devDependencies": {

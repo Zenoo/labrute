@@ -77,4 +77,4 @@ lib/
 
 *.tsbuildinfo
 
-etwin.toml
+*.local.toml

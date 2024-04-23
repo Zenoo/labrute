@@ -11,9 +11,10 @@
     "compile": "tsc -b tsconfig.build.json",
     "front": "cd ./client && yarn start",
     "back": "cd ./server && yarn start:watch",
-    "etwin": "etwin",
+    "eternaltwin": "eternaltwin",
+    "eternaltwin:start": "eternaltwin start",
     "start": "cd ./server && yarn start",
-    "dev": "concurrently --prefix \"[{name}]\" --names \"DB,SERVER,CLIENT,ETWIN\" -c \"bgMagenta.bold,bgBlue.bold,bgGreen.bold,bgYellow.bold\" \"yarn run studio\" \"yarn run back\" \"yarn run front\" \"yarn run etwin\"",
+    "dev": "concurrently --prefix \"[{name}]\" --names \"DB,SERVER,CLIENT,ETWIN\" -c \"bgMagenta.bold,bgBlue.bold,bgGreen.bold,bgYellow.bold\" \"yarn run studio\" \"yarn run back\" \"yarn run front\" \"yarn run eternaltwin:start\"",
     "build": "yarn compile && yarn build:client",
     "build:client": "cd ./client && yarn build",
     "db:migrate:manual": "cd ./server && yarn db:migrate:manual",
@@ -33,6 +34,7 @@
     "run:fixErroredBonuses": "cd server && yarn run:fixErroredBonuses"
   },
   "devDependencies": {
+    "@eternaltwin/cli": "^0.14.2",
     "@types/node": "^18.11.15",
     "concurrently": "^7.6.0",
     "rimraf": "^3.0.2",
@@ -46,9 +48,6 @@
       "./prisma",
       "./server"
     ]
-  },
-  "dependencies": {
-    "@eternal-twin/cli": "^0.10.3"
   },
   "packageManager": "yarn@4.0.2"
 }

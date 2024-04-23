@@ -26,7 +26,7 @@ function main(cx: ServerContext) {
   app.use(lockMiddleware);
 
   app.listen(port, () => {
-    cx.logger.info('Server listening');
+    cx.logger.info(`Server listening on port ${port}`);
 
     // Trigger daily job
     dailyJob(cx.prisma)().catch((error: Error) => {
