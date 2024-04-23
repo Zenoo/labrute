@@ -365,7 +365,10 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
 
         // Create fight
         const fight = await prisma.fight.create({
-          data: lastFight,
+          data: {
+            ...lastFight,
+            tournament: { connect: { id: tournament.id } },
+          },
           select: { id: true },
         });
 
@@ -625,7 +628,10 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
 
       // Create fight
       const fight = await prisma.fight.create({
-        data: generatedFight,
+        data: {
+          ...generatedFight,
+          tournament: { connect: { id: tournament.id } },
+        },
         select: { id: true },
       });
 

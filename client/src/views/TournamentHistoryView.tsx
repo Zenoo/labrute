@@ -11,15 +11,6 @@ import useStateAsync from '../hooks/useStateAsync';
 import Server from '../utils/Server';
 import Loader from '../components/Loader';
 
-const DAILY_ROUNDS = [
-  ...Array<number>(32).fill(1),
-  ...Array<number>(16).fill(2),
-  ...Array<number>(8).fill(3),
-  ...Array<number>(4).fill(4),
-  ...Array<number>(2).fill(5),
-  6
-];
-
 const TournamentHistoryView = () => {
   const { t } = useTranslation();
   const { bruteName } = useParams();
@@ -65,22 +56,8 @@ const TournamentHistoryView = () => {
               </TableHead>
               <TableBody>
                 {tournaments ? tournaments.map((tournament) => {
-                  let position = 0;
                   const tournamentDate = moment.utc(tournament.date);
-
-                  if (!tournament.steps.length) {
-                    position = 1;
-                  } else if (tournament.type === TournamentType.GLOBAL) {
-                    position = tournament.steps[0].step === tournament.rounds
-                      ? 2
-                      : 2 ** (tournament.rounds - tournament.steps[0].step + 1);
-                  } else {
-                    position = DAILY_ROUNDS[tournament.steps[0].step - 1] === tournament.rounds
-                      ? 2
-                      : 2 ** (tournament.rounds - DAILY_ROUNDS[tournament.steps[0].step - 1] + 1);
-                  }
-
-                  const lastDigit = position % 10;
+                  const lastDigit = tournament.place % 10;
 
                   return (
                     <TableRow
@@ -107,7 +84,7 @@ const TournamentHistoryView = () => {
                       </TableCell>
                       <TableCell align="right">
                         <Text>
-                          {position}{t(`tournament.result.finishingWith.${[1, 2, 3].includes(lastDigit) ? (lastDigit as 1 | 2 | 3) : 'other'}`)}
+                          {tournament.place}{t(`tournament.result.finishingWith.${[1, 2, 3].includes(lastDigit) ? (lastDigit as 1 | 2 | 3) : 'other'}`)}
                         </Text>
                       </TableCell>
                     </TableRow>

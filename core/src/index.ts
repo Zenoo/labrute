@@ -128,7 +128,7 @@ export type TournamentHistoryResponse = (Pick<
   'type' |
   'rounds'
 > & {
-  steps: Pick<TournamentStep, 'step'>[],
+  place: number,
 })[];
 
 export type ClanListResponse = (Clan & {

@@ -3,7 +3,8 @@ import {
   TournamentHistoryResponse, TournamentsGetGlobalResponse,
 } from '@labrute/core';
 import {
-  PrismaClient, Tournament, TournamentStep, TournamentType,
+  PrismaClient,
+  TournamentType,
 } from '@labrute/prisma';
 import { Request, Response } from 'express';
 import moment from 'moment';
@@ -523,35 +524,63 @@ const Tournaments = {
         throw new ExpectedError('Brute not found');
       }
 
-      const tournamentsWithSteps: (Pick<Tournament, 'id' | 'date' | 'type' | 'rounds'> & Pick<TournamentStep, 'step'>)[] = await prisma.$queryRaw`
-        SELECT t.id, t.date, t.type, t.rounds, ts.step
-        FROM "Tournament" t
-        LEFT JOIN "TournamentStep" ts ON ts."tournamentId" = t.id
-        WHERE EXISTS (
-          SELECT 1
-          FROM "_BruteToTournament"
-          WHERE "_BruteToTournament"."B" = t.id
-          AND "_BruteToTournament"."A" = ${brute.id}
-        )
-        AND t.date < NOW()
-        AND ts."fightId" IN (
-          SELECT "id"
-          FROM "Fight"
-          WHERE ("brute1Id" = ${brute.id} OR "brute2Id" = ${brute.id})
-          AND "loser" = ${brute.name}
-        )
-        ORDER BY t.date DESC
-        LIMIT 100;
-      `;
+      // Get the last 100 tournaments for this brute
+      const tournaments = await prisma.tournament.findMany({
+        where: {
+          date: { lt: new Date() },
+          participants: {
+            some: {
+              id: brute.id,
+            },
+          },
+        },
+        orderBy: {
+          date: 'desc',
+        },
+        take: 100,
+        select: {
+          id: true,
+          date: true,
+          type: true,
+          rounds: true,
+        },
+      });
 
-      const fullTournaments: TournamentHistoryResponse = tournamentsWithSteps.map((tournament) => ({
+      // Initialize as last place
+      const tournamentsWithPlace: (typeof tournaments[number] & {
+        place: number;
+      })[] = tournaments.map((tournament) => ({
         ...tournament,
-        steps: [
-          { step: tournament.step },
-        ],
+        place: 2 ** tournament.rounds - 1,
       }));
 
-      res.send(fullTournaments);
+      // Get the count of fights won for the brute for each tournament
+      const fightsWon = await prisma.fight.groupBy({
+        by: ['tournamentId'],
+        where: {
+          tournamentId: {
+            in: tournaments.map((t) => t.id),
+          },
+          OR: [
+            { brute1Id: brute.id },
+            { brute2Id: brute.id },
+          ],
+          winner: brute.name,
+        },
+        _count: true,
+      });
+
+      // Update the place for each tournament
+      tournamentsWithPlace.forEach((tournament) => {
+        const fights = fightsWon.find((f) => f.tournamentId === tournament.id);
+
+        if (fights) {
+          // eslint-disable-next-line no-param-reassign, no-underscore-dangle
+          tournament.place = Math.round(tournament.place / (2 ** fights._count));
+        }
+      });
+
+      res.send(tournamentsWithPlace);
     } catch (error) {
       sendError(res, error);
     }
