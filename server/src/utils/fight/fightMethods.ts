@@ -200,14 +200,12 @@ export const getOpponents = (
   // Fighter is a pet/backup
   if (fighter.master) {
     opponents = opponents.filter((f) => (f.master
-      ? (f.hypnotised ? f.master === fighter.master : f.master !== fighter.master)
+      ? f.master !== fighter.master
       : f.id !== fighter.master));
   } else {
     // Fighter is a real brute
     opponents = opponents.filter((f) => (f.master
-      ? f.hypnotised
-        ? f.master === fighter.id
-        : f.master !== fighter.id
+      ? f.master !== fighter.id
       : f.id !== fighter.id));
   }
 
@@ -1221,14 +1219,10 @@ export const checkDeaths = (
           throw new Error('Pet without master');
         }
 
-        if (fighter.hypnotised) {
-          updateStats(stats, master, 'petsKilled', 1);
-        } else {
-          const opponent = fightData.fighters.find((f) => f.id !== master && !f.master);
+        const opponent = fightData.fighters.find((f) => f.id !== master && !f.master);
 
-          if (opponent) {
-            updateStats(stats, opponent.id, 'petsKilled', 1);
-          }
+        if (opponent) {
+          updateStats(stats, opponent.id, 'petsKilled', 1);
         }
       }
 
