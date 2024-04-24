@@ -33,6 +33,9 @@ export default async function lockMiddleware(req: Request, res: Response, next: 
     const key = `${method}:${path}:${id}`;
 
     if (locks[key]) {
+      if (locks[key].count >= 5) {
+        return sendError(res, new ExpectedError('Too many requests'));
+      }
       locks[key].count++;
       await new Promise((resolve) => { setTimeout(resolve, locks[key].count * 5000); });
       return next();
