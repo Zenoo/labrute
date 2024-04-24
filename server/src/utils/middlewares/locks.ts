@@ -28,6 +28,10 @@ export default function lockMiddleware(req: Request, res: Response, next: NextFu
 
     locks[key] = true;
 
+    setTimeout(() => {
+      delete locks[key];
+    }, 60000);
+
     res.on('finish', () => {
       delete locks[key];
     });
