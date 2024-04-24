@@ -3,10 +3,17 @@ import { Request, Response, NextFunction } from 'express';
 import sendError from '../sendError.js';
 
 interface Locks {
-  [key: string]: boolean | undefined
+  [key: string]: NodeJS.Timeout | undefined
 }
 
 const locks: Locks = {};
+
+function deleteLock(key: string) {
+  if (locks[key]) {
+    clearTimeout(locks[key]);
+    delete locks[key];
+  }
+}
 
 export default function lockMiddleware(req: Request, res: Response, next: NextFunction) {
   const { method, path } = req;
@@ -26,18 +33,24 @@ export default function lockMiddleware(req: Request, res: Response, next: NextFu
       return sendError(res, new ExpectedError('Too many requests'));
     }
 
-    locks[key] = true;
-
-    setTimeout(() => {
-      delete locks[key];
-    }, 60000);
+    locks[key] = setTimeout(() => {
+      deleteLock(key);
+    }, 10000);
 
     res.on('finish', () => {
       delete locks[key];
     });
 
     res.on('close', () => {
-      delete locks[key];
+      deleteLock(key);
+    });
+
+    res.on('error', () => {
+      deleteLock(key);
+    });
+
+    res.on('finish', () => {
+      deleteLock(key);
     });
   }
 
