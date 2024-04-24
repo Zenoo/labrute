@@ -3,22 +3,19 @@ import { Request, Response, NextFunction } from 'express';
 import sendError from '../sendError.js';
 
 interface Locks {
-  [key: string]: {
-    timeout: NodeJS.Timeout,
-    count: 0
-  }
+  [key: string]: NodeJS.Timeout | undefined
 }
 
 const locks: Locks = {};
 
 function deleteLock(key: string) {
   if (locks[key]) {
-    clearTimeout(locks[key].timeout);
+    clearTimeout(locks[key]);
     delete locks[key];
   }
 }
 
-export default async function lockMiddleware(req: Request, res: Response, next: NextFunction) {
+export default function lockMiddleware(req: Request, res: Response, next: NextFunction) {
   const { method, path } = req;
 
   const { headers: { authorization } } = req;
@@ -33,22 +30,18 @@ export default async function lockMiddleware(req: Request, res: Response, next: 
     const key = `${method}:${path}:${id}`;
 
     if (locks[key]) {
-      if (locks[key].count >= 5) {
-        return sendError(res, new ExpectedError('Too many requests'));
-      }
-      locks[key].count++;
-      await new Promise((resolve) => { setTimeout(resolve, locks[key].count * 5000); });
-      return next();
+      return sendError(res, new ExpectedError('Too many requests'));
     }
 
-    locks[key] = {
-      timeout: setTimeout(() => {
-        deleteLock(key);
-      }, 10000),
-      count: 0,
-    };
+    locks[key] = setTimeout(() => {
+      deleteLock(key);
+    }, 10000);
 
     res.on('close', () => {
+      deleteLock(key);
+    });
+
+    res.on('error', () => {
       deleteLock(key);
     });
 
