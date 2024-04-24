@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.49.15](https://github.com/Zenoo/labrute/compare/labrute-v2.49.14...labrute-v2.49.15) (2024-04-24)
+
+
+### Bug Fixes
+
+* Timeout locks after 60secs ([6abb604](https://github.com/Zenoo/labrute/commit/6abb604a1d22acb4045db99187aaeae1e0edd10c))
+
 ## [2.49.14](https://github.com/Zenoo/labrute/compare/labrute-v2.49.13...labrute-v2.49.14) (2024-04-23)
 
 
