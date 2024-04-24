@@ -32,7 +32,7 @@ export default function lockMiddleware(req: Request, res: Response, next: NextFu
       delete locks[key];
     }, 60000);
 
-    res.on('finish', () => {
+    res.on('close', () => {
       delete locks[key];
     });
   }
