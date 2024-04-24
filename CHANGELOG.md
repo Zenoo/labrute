@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.49.17](https://github.com/Zenoo/labrute/compare/labrute-v2.49.16...labrute-v2.49.17) (2024-04-24)
+
+
+### Bug Fixes
+
+* Listen to both unlock events ([b61a05b](https://github.com/Zenoo/labrute/commit/b61a05b5f62a9c25f8f077fc07ce955d017c2c04))
+
 ## [2.49.16](https://github.com/Zenoo/labrute/compare/labrute-v2.49.15...labrute-v2.49.16) (2024-04-24)
 
 
