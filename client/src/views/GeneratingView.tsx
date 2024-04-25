@@ -30,7 +30,7 @@ const GeneratingView = () => {
   }, [serverState]);
 
   return (
-    <Page title={t('MyBrute')} headerUrl="/" checkServer={false}>
+    <Page title={t('MyBrute')} headerUrl="/">
       <Paper sx={{
         mx: 4,
         display: 'flex',

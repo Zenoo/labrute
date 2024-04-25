@@ -1,4 +1,5 @@
 import { getFightsLeft, getGoldNeededForNewBrute, Version } from '@labrute/core';
+import { Lang } from '@labrute/prisma';
 import { AccountCircle, Add, AdminPanelSettings, DoNotDisturb, Login, Logout, MilitaryTech, MoreHoriz } from '@mui/icons-material';
 import { AlertTitle, Badge, Box, BoxProps, CircularProgress, Fab, Link, Alert as MuiAlert, SpeedDial, SpeedDialAction, Tooltip } from '@mui/material';
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
@@ -9,21 +10,18 @@ import { useNavigate } from 'react-router';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import { useLanguage } from '../hooks/useLanguage';
-import useStateAsync from '../hooks/useStateAsync';
 import ads, { AdName } from '../utils/ads';
 import catchError from '../utils/catchError';
 import Fetch from '../utils/Fetch';
 import Server from '../utils/Server';
+import BruteRender from './Brute/Body/BruteRender';
 import Header from './Header';
 import Text from './Text';
-import { Lang } from '@labrute/prisma';
-import BruteRender from './Brute/Body/BruteRender';
 
 interface Props extends BoxProps {
   title: string,
   headerUrl?: string,
   children: React.ReactNode;
-  checkServer?: boolean;
   sx?: BoxProps['sx'];
 }
 
@@ -31,7 +29,6 @@ const Page = ({
   title,
   headerUrl,
   children,
-  checkServer = true,
   sx,
   ...rest
 }: Props) => {
@@ -40,9 +37,6 @@ const Page = ({
   const { authing, user, signout, signin, updateData } = useAuth();
   const navigate = useNavigate();
   const { language, setLanguage } = useLanguage();
-
-  // Check if server is ready
-  const { data: serverState } = useStateAsync(null, Server.isReady, undefined);
 
   // Speed dial state
   const [open, setOpen] = useState(false);
@@ -56,15 +50,6 @@ const Page = ({
       signin();
     }
   }, [authing, signin, user]);
-
-  // Redirect to waiting page if server is not ready
-  useEffect(() => {
-    if (serverState === null) return;
-
-    if (checkServer && !serverState.ready) {
-      navigate('/generating-tournaments');
-    }
-  }, [checkServer, navigate, serverState]);
 
   // Open speed dial
   const openSpeedDial = useCallback(() => {

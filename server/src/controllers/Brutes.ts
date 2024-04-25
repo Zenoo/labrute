@@ -451,7 +451,7 @@ const Brutes = {
         data: {
           ...updatedBruteData,
           destinyPath: { push: req.body.choice },
-          xp: { decrement: xpNeeded },
+          xp: freshBrute.xp - xpNeeded,
         },
       });
 

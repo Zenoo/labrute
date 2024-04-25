@@ -184,3 +184,8 @@ export type AchievementGetRankingsResponse = {
   brute: Pick<Brute, 'name' | 'id'> | null,
   count: number,
 }[];
+
+export type AchievementsGetResponse = {
+  name: AchievementName,
+  count: number,
+}[];

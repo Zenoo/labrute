@@ -1,6 +1,7 @@
 import {
   AchievementData,
   AchievementGetRankingsResponse,
+  AchievementsGetResponse,
   BaseTitleRequirements, ExpectedError, RaretyOrder,
 } from '@labrute/core';
 import { AchievementName, PrismaClient } from '@labrute/prisma';
@@ -92,7 +93,7 @@ export const increaseAchievement = async (
 const Achievements = {
   getForUser: (prisma: PrismaClient) => async (
     req: Request<never, unknown, { userId: string }>,
-    res: Response,
+    res: Response<AchievementsGetResponse>,
   ) => {
     try {
       if (!req.body.userId) throw new ExpectedError('Missing user id');
@@ -141,7 +142,10 @@ const Achievements = {
       sendError(res, error);
     }
   },
-  getForBrute: (prisma: PrismaClient) => async (req: Request, res: Response) => {
+  getForBrute: (prisma: PrismaClient) => async (
+    req: Request,
+    res: Response<AchievementsGetResponse>,
+  ) => {
     try {
       if (!req.params.name) throw new ExpectedError('Missing brute name');
 

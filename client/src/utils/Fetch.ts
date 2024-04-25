@@ -8,6 +8,7 @@ type HeadersType = {
 export type ErrorType = string | {
   message: string;
   statusText: string;
+  status: number;
 };
 
 const Fetch = <ReturnType>(url: string, data = {}, method = 'GET', additionalURLParams = {}): Promise<ReturnType> => {
@@ -58,9 +59,14 @@ const Fetch = <ReturnType>(url: string, data = {}, method = 'GET', additionalURL
           }
         } else {
           response.text().then((text) => {
+            if (response.status === 999) {
+              window.location.href = '/generating-tournaments';
+            }
+
             reject({
               message: text,
               statusText: response.statusText,
+              status: response.status
             });
           }).catch((err) => {
             reject(err);

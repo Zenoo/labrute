@@ -1,18 +1,17 @@
-import { AchievementData, TitleRequirements, formatLargeNumber } from '@labrute/core';
-import { Achievement } from '@labrute/prisma';
+import { AchievementData, AchievementsGetResponse, TitleRequirements, formatLargeNumber } from '@labrute/core';
 import { QuestionMark } from '@mui/icons-material';
 import { Box, Grid, List, ListItem, ListItemText, ListSubheader, Paper, Tooltip, useTheme } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
+import FantasyButton from '../components/FantasyButton';
+import Link from '../components/Link';
 import Page from '../components/Page';
 import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
-import FantasyButton from '../components/FantasyButton';
-import Link from '../components/Link';
 
 const AchievementsView = () => {
   const { t } = useTranslation();
@@ -21,7 +20,7 @@ const AchievementsView = () => {
   const { user } = useAuth();
   const Alert = useAlert();
 
-  const [achievements, setAchievements] = useState<Achievement[]>([]);
+  const [achievements, setAchievements] = useState<AchievementsGetResponse>([]);
 
   // Fetch achievements
   useEffect(() => {
@@ -77,7 +76,7 @@ const AchievementsView = () => {
               >
                 {achievements.map((achievement) => (
                   <Tooltip
-                    key={achievement.id}
+                    key={achievement.name}
                     title={(
                       <>
                         <Text bold h6>
@@ -239,7 +238,7 @@ const AchievementsView = () => {
                       )}
                     >
                       {availableTitles.map((titleCount, i) => (
-                        <Tooltip key={titleCount} title={`${t(`achievements.${achievement.name}`)} x ${titleCount}`}>
+                        <Tooltip key={`${achievement.name}x${titleCount}`} title={`${t(`achievements.${achievement.name}`)} x ${titleCount}`}>
                           <ListItem sx={{
                             py: 0,
                             '&:not(:last-child)': {
