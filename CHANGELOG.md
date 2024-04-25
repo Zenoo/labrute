@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.50.0](https://github.com/Zenoo/labrute/compare/labrute-v2.49.18...labrute-v2.50.0) (2024-04-25)
+
+
+### Features
+
+* Update to Eternaltwin 0.14 ([f30b71b](https://github.com/Zenoo/labrute/commit/f30b71b3f5584628a7882fef907aebeb3f323758))
+
+
+### Bug Fixes
+
+* Reduce network requests. Fixes [#624](https://github.com/Zenoo/labrute/issues/624) ([607cc3f](https://github.com/Zenoo/labrute/commit/607cc3fbcba5110128a625b28539325e1c4785cd))
+
 ## [2.49.18](https://github.com/Zenoo/labrute/compare/labrute-v2.49.17...labrute-v2.49.18) (2024-04-24)
 
 
