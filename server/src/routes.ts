@@ -19,12 +19,12 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
   }));
 
   // Server state
-  app.get('/api/is-ready', async (
+  app.get('/api/is-ready', (
     req: Request,
     res: Response<ServerReadyResponse>,
   ) => {
     res.status(200).send({
-      ready: await ServerState.isReady(prisma),
+      ready: ServerState.isReady(),
     });
   });
 

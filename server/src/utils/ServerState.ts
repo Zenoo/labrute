@@ -1,40 +1,15 @@
 import { PrismaClient } from '@labrute/prisma';
 import { LOGGER } from '../context.js';
 
-const setReady = async (prisma: PrismaClient, ready: boolean) => {
+let serverReady = true;
+
+const setReady = (ready: boolean) => {
   LOGGER.log(`Updating server state to ${ready ? 'release' : 'hold'} traffic`);
 
-  await prisma.serverState.upsert({
-    where: { id: 1 },
-    update: {
-      ready,
-    },
-    create: {
-      ready,
-    },
-  });
+  serverReady = ready;
 };
 
-const isReady = async (prisma: PrismaClient) => {
-  const serverState = await prisma.serverState.findFirst({
-    where: { id: 1 },
-    select: { ready: true },
-  });
-
-  if (!serverState) {
-    // Create the server state if it doesn't exist
-    await prisma.serverState.create({
-      data: {
-        id: 1,
-        ready: true,
-      },
-    });
-
-    return true;
-  }
-
-  return serverState.ready;
-};
+const isReady = () => serverReady;
 
 const setGlobalTournamentValid = async (prisma: PrismaClient, valid: boolean) => {
   await prisma.serverState.upsert({

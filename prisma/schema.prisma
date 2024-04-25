@@ -532,7 +532,6 @@ model BruteReport {
 // SERVER STATE
 model ServerState {
   id                    Int     @id @default(autoincrement())
-  ready                 Boolean @default(true)
   globalTournamentValid Boolean @default(true)
 }
 

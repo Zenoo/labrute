@@ -304,7 +304,6 @@ exports.Prisma.BruteReportScalarFieldEnum = {
 
 exports.Prisma.ServerStateScalarFieldEnum = {
   id: 'id',
-  ready: 'ready',
   globalTournamentValid: 'globalTournamentValid'
 };
 

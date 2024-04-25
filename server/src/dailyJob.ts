@@ -869,7 +869,7 @@ const dailyJob = (prisma: PrismaClient) => async () => {
   try {
     if (process.env.NODE_ENV === 'production' || GENERATE_TOURNAMENTS_IN_DEV) {
       // Update server state to hold traffic
-      await ServerState.setReady(prisma, false);
+      ServerState.setReady(false);
 
       // Handle daily tournaments
       const dailyXpGains = await handleDailyTournaments(prisma);
@@ -881,7 +881,7 @@ const dailyJob = (prisma: PrismaClient) => async () => {
       await storeXpGains(prisma, dailyXpGains, globalXpGains);
 
       // Update server state to release traffic
-      await ServerState.setReady(prisma, true);
+      ServerState.setReady(true);
     }
 
     // Grant beta achievement to all brutes who don't have it yet
@@ -907,7 +907,7 @@ const dailyJob = (prisma: PrismaClient) => async () => {
     await deleteMisformattedTournaments(prisma);
 
     // Update server state to release traffic
-    await ServerState.setReady(prisma, true);
+    ServerState.setReady(true);
   }
 };
 

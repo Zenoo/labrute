@@ -19839,19 +19839,16 @@ export namespace Prisma {
 
   export type ServerStateMinAggregateOutputType = {
     id: number | null
-    ready: boolean | null
     globalTournamentValid: boolean | null
   }
 
   export type ServerStateMaxAggregateOutputType = {
     id: number | null
-    ready: boolean | null
     globalTournamentValid: boolean | null
   }
 
   export type ServerStateCountAggregateOutputType = {
     id: number
-    ready: number
     globalTournamentValid: number
     _all: number
   }
@@ -19867,19 +19864,16 @@ export namespace Prisma {
 
   export type ServerStateMinAggregateInputType = {
     id?: true
-    ready?: true
     globalTournamentValid?: true
   }
 
   export type ServerStateMaxAggregateInputType = {
     id?: true
-    ready?: true
     globalTournamentValid?: true
   }
 
   export type ServerStateCountAggregateInputType = {
     id?: true
-    ready?: true
     globalTournamentValid?: true
     _all?: true
   }
@@ -19972,7 +19966,6 @@ export namespace Prisma {
 
   export type ServerStateGroupByOutputType = {
     id: number
-    ready: boolean
     globalTournamentValid: boolean
     _count: ServerStateCountAggregateOutputType | null
     _avg: ServerStateAvgAggregateOutputType | null
@@ -19997,13 +19990,11 @@ export namespace Prisma {
 
   export type ServerStateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    ready?: boolean
     globalTournamentValid?: boolean
   }, ExtArgs["result"]["serverState"]>
 
   export type ServerStateSelectScalar = {
     id?: boolean
-    ready?: boolean
     globalTournamentValid?: boolean
   }
 
@@ -20013,7 +20004,6 @@ export namespace Prisma {
     objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      ready: boolean
       globalTournamentValid: boolean
     }, ExtArgs["result"]["serverState"]>
     composites: {}
@@ -20410,7 +20400,6 @@ export namespace Prisma {
    */ 
   interface ServerStateFieldRefs {
     readonly id: FieldRef<"ServerState", 'Int'>
-    readonly ready: FieldRef<"ServerState", 'Boolean'>
     readonly globalTournamentValid: FieldRef<"ServerState", 'Boolean'>
   }
     
@@ -26799,7 +26788,6 @@ export namespace Prisma {
 
   export const ServerStateScalarFieldEnum: {
     id: 'id',
-    ready: 'ready',
     globalTournamentValid: 'globalTournamentValid'
   };
 
@@ -28493,13 +28481,11 @@ export namespace Prisma {
     OR?: ServerStateWhereInput[]
     NOT?: ServerStateWhereInput | ServerStateWhereInput[]
     id?: IntFilter<"ServerState"> | number
-    ready?: BoolFilter<"ServerState"> | boolean
     globalTournamentValid?: BoolFilter<"ServerState"> | boolean
   }
 
   export type ServerStateOrderByWithRelationInput = {
     id?: SortOrder
-    ready?: SortOrder
     globalTournamentValid?: SortOrder
   }
 
@@ -28508,13 +28494,11 @@ export namespace Prisma {
     AND?: ServerStateWhereInput | ServerStateWhereInput[]
     OR?: ServerStateWhereInput[]
     NOT?: ServerStateWhereInput | ServerStateWhereInput[]
-    ready?: BoolFilter<"ServerState"> | boolean
     globalTournamentValid?: BoolFilter<"ServerState"> | boolean
   }, "id">
 
   export type ServerStateOrderByWithAggregationInput = {
     id?: SortOrder
-    ready?: SortOrder
     globalTournamentValid?: SortOrder
     _count?: ServerStateCountOrderByAggregateInput
     _avg?: ServerStateAvgOrderByAggregateInput
@@ -28528,7 +28512,6 @@ export namespace Prisma {
     OR?: ServerStateScalarWhereWithAggregatesInput[]
     NOT?: ServerStateScalarWhereWithAggregatesInput | ServerStateScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"ServerState"> | number
-    ready?: BoolWithAggregatesFilter<"ServerState"> | boolean
     globalTournamentValid?: BoolWithAggregatesFilter<"ServerState"> | boolean
   }
 
@@ -30276,41 +30259,34 @@ export namespace Prisma {
   }
 
   export type ServerStateCreateInput = {
-    ready?: boolean
     globalTournamentValid?: boolean
   }
 
   export type ServerStateUncheckedCreateInput = {
     id?: number
-    ready?: boolean
     globalTournamentValid?: boolean
   }
 
   export type ServerStateUpdateInput = {
-    ready?: BoolFieldUpdateOperationsInput | boolean
     globalTournamentValid?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ServerStateUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    ready?: BoolFieldUpdateOperationsInput | boolean
     globalTournamentValid?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ServerStateCreateManyInput = {
     id?: number
-    ready?: boolean
     globalTournamentValid?: boolean
   }
 
   export type ServerStateUpdateManyMutationInput = {
-    ready?: BoolFieldUpdateOperationsInput | boolean
     globalTournamentValid?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ServerStateUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    ready?: BoolFieldUpdateOperationsInput | boolean
     globalTournamentValid?: BoolFieldUpdateOperationsInput | boolean
   }
 
@@ -32171,7 +32147,6 @@ export namespace Prisma {
 
   export type ServerStateCountOrderByAggregateInput = {
     id?: SortOrder
-    ready?: SortOrder
     globalTournamentValid?: SortOrder
   }
 
@@ -32181,13 +32156,11 @@ export namespace Prisma {
 
   export type ServerStateMaxOrderByAggregateInput = {
     id?: SortOrder
-    ready?: SortOrder
     globalTournamentValid?: SortOrder
   }
 
   export type ServerStateMinOrderByAggregateInput = {
     id?: SortOrder
-    ready?: SortOrder
     globalTournamentValid?: SortOrder
   }
 
