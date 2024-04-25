@@ -15,6 +15,7 @@ import { useConfirm } from '../../hooks/useConfirm';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
 import BruteRender from '../../components/Brute/Body/BruteRender';
+import { useBrute } from '../../hooks/useBrute';
 
 const ClanView = () => {
   const { t } = useTranslation();
@@ -23,6 +24,7 @@ const ClanView = () => {
   const { user, updateData } = useAuth();
   const navigate = useNavigate();
   const Confirm = useConfirm();
+  const { updateBrute } = useBrute();
 
   const [clan, setClan] = useState<ClanGetResponse | null>(null);
 
@@ -192,6 +194,8 @@ const ClanView = () => {
           } : b)),
         }) : null));
 
+        updateBrute((b) => (b ? { ...b, clanId: null } : null));
+
         // Redirect to cell
         navigate(`/${brute.name}/cell`);
       }).catch(catchError(Alert));
@@ -223,6 +227,12 @@ const ClanView = () => {
         lastFight: new Date(),
       } : b)),
     }) : null));
+
+    updateBrute((b) => (b ? {
+      ...b,
+      fightsLeft: getFightsLeft(b) - 1,
+      lastFight: new Date(),
+    } : null));
   };
 
   return clan && (

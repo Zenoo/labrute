@@ -9,6 +9,7 @@ import { useAlert } from '../../hooks/useAlert';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
 import { useAuth } from '../../hooks/useAuth';
+import { useBrute } from '../../hooks/useBrute';
 
 const ClanCreateView = () => {
   const { t } = useTranslation();
@@ -18,6 +19,7 @@ const ClanCreateView = () => {
   const Alert = useAlert();
   const navigate = useNavigate();
   const { updateData } = useAuth();
+  const { updateBrute } = useBrute();
 
   const [name, setName] = React.useState('');
 
@@ -44,6 +46,8 @@ const ClanCreateView = () => {
           : brute
         )),
       }) : null));
+
+      updateBrute((b) => (b ? { ...b, clan, clanId: clan.id } : null));
       navigate(`/${bruteName}/cell`);
     }).catch(catchError(Alert));
   };

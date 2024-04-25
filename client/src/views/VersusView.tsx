@@ -22,7 +22,7 @@ const VersusView = () => {
   const navigate = useNavigate();
   const Alert = useAlert();
   const { user, updateData } = useAuth();
-  const { brute } = useBrute();
+  const { brute, updateBrute } = useBrute();
   const smallScreen = useMediaQuery('(max-width: 935px)');
 
   // Prevent multi click
@@ -76,10 +76,16 @@ const VersusView = () => {
           lastFight: new Date(),
         } : b)),
       }) : null));
+
+      updateBrute((data) => (data ? ({
+        ...data,
+        fightsLeft,
+        lastFight: new Date(),
+      }) : null));
     }
 
     setFighting(false);
-  }, [Alert, brute, fighting, navigate, opponent, updateData]);
+  }, [Alert, brute, fighting, navigate, opponent, updateBrute, updateData]);
 
   if (brute && opponent && smallScreen) {
     return <VersusMobileView brute={brute} opponent={opponent} startFight={startFight} />;

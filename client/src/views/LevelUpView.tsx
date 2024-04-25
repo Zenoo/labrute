@@ -15,6 +15,7 @@ import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
+import { useBrute } from '../hooks/useBrute';
 
 const LevelUpView = () => {
   const { t } = useTranslation();
@@ -23,6 +24,7 @@ const LevelUpView = () => {
   const navigate = useNavigate();
   const Alert = useAlert();
   const smallScreen = useMediaQuery('(max-width: 638px)');
+  const { updateBrute } = useBrute();
 
   const [brute, setBrute] = useState<BruteWithBodyColors | null>(null);
   const [choices, setChoices] = useState<[DestinyChoice, DestinyChoice] | null>(null);
@@ -67,8 +69,11 @@ const LevelUpView = () => {
       brutes: data.brutes.map((b) => (b.name === brute.name ? ({ ...b, ...newBrute }) : b)),
     }) : null));
 
+    // Update brute data
+    updateBrute((data) => (data ? ({ ...data, ...newBrute }) : null));
+
     navigate(`/${brute.name}/cell`);
-  }, [Alert, brute, choices, navigate, updateData]);
+  }, [Alert, brute, choices, navigate, updateBrute, updateData]);
 
   return brute && (
     <Page title={`${t('MyBrute')}. ${t('newLevelFor')} ${brute.name || ''}`} headerUrl={`/${brute.name}/cell`}>
