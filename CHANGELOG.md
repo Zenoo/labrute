@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.50.1](https://github.com/Zenoo/labrute/compare/labrute-v2.50.0...labrute-v2.50.1) (2024-04-25)
+
+
+### Bug Fixes
+
+* Store server ready state in memory. Fixes [#634](https://github.com/Zenoo/labrute/issues/634) ([c5cd530](https://github.com/Zenoo/labrute/commit/c5cd5304a3f9db381e34857a195ac7285f14be9c))
+
 ## [2.50.0](https://github.com/Zenoo/labrute/compare/labrute-v2.49.18...labrute-v2.50.0) (2024-04-25)
 
 
