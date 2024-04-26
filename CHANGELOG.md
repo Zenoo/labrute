@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.50.3](https://github.com/Zenoo/labrute/compare/labrute-v2.50.2...labrute-v2.50.3) (2024-04-26)
+
+
+### Bug Fixes
+
+* Update xp after fights ([229dbc9](https://github.com/Zenoo/labrute/commit/229dbc93e261a45e6a7e0a07c037ea9e9ed767a9))
+
 ## [2.50.2](https://github.com/Zenoo/labrute/compare/labrute-v2.50.1...labrute-v2.50.2) (2024-04-25)
 
 
