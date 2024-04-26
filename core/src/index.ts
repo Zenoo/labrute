@@ -1,4 +1,4 @@
-import { Achievement, AchievementName, BossName, Brute, BruteBody, BruteColors, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, Fight, Lang, Prisma, Tournament, TournamentStep, User } from '@labrute/prisma';
+import { Achievement, AchievementName, Brute, BruteBody, BruteColors, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, Fight, Lang, Prisma, Tournament, TournamentStep, User } from '@labrute/prisma';
 import Version from './Version';
 import applySkillModifiers from './brute/applySkillModifiers';
 import availableBodyParts from './brute/availableBodyParts';
@@ -16,6 +16,7 @@ import getRandomBody from './brute/getRandomBody';
 import getRandomBonus from './brute/getRandomBonus';
 import getRandomColors from './brute/getRandomColors';
 import getXPNeeded from './brute/getXPNeeded';
+import { isNameValid } from './brute/isNameValid';
 import skills from './brute/skills';
 import updateBruteData from './brute/updateBruteData';
 import weapons from './brute/weapons';
@@ -28,7 +29,6 @@ import pad from './utils/pad';
 import promiseBatch from './utils/promiseBatch';
 import randomBetween from './utils/randomBetween';
 import weightedRandom from './utils/weightedRandom';
-import { isNameValid } from './brute/isNameValid';
 
 export * from './Achievements';
 export * from './Titles';
@@ -46,10 +46,9 @@ export {
   getMaxFightsPerDay,
   getRandomBody,
   getRandomBonus,
-  getRandomColors, getXPNeeded, hexToRgba,
-  pad, promiseBatch, randomBetween, skills,
+  getRandomColors, getXPNeeded, hexToRgba, isNameValid, pad, promiseBatch, randomBetween, skills,
   updateBruteData, weapons,
-  weightedRandom, isNameValid,
+  weightedRandom
 };
 
 export const DEFAULT_LANGUAGE = Lang.en;
