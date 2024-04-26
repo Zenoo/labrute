@@ -1,4 +1,4 @@
-import { Achievement, AchievementName, Brute, BruteBody, BruteColors, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, Fight, Lang, Prisma, Tournament, TournamentStep, User } from '@labrute/prisma';
+import { Achievement, AchievementName, BossName, Brute, BruteBody, BruteColors, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, Fight, Lang, Prisma, Tournament, TournamentStep, User } from '@labrute/prisma';
 import Version from './Version';
 import applySkillModifiers from './brute/applySkillModifiers';
 import availableBodyParts from './brute/availableBodyParts';
@@ -189,3 +189,13 @@ export type AchievementsGetResponse = {
   name: AchievementName,
   count: number,
 }[];
+
+export type FightCreateResponse = {
+  id: number,
+  fightsLeft: number,
+  xpWon: number,
+  victories: number,
+};
+export type ClanChallengeBossResponse = {
+  id: number,
+};

@@ -1,4 +1,5 @@
 import {
+  ClanChallengeBossResponse,
   ClanCreateResponse, ClanGetResponse, ClanGetThreadResponse,
   ClanGetThreadsResponse, ClanListResponse, ExpectedError, bosses, getFightsLeft, randomBetween,
 } from '@labrute/core';
@@ -882,7 +883,7 @@ const Clans = {
     req: Request<
       { brute: string, id: string }
     >,
-    res: Response,
+    res: Response<ClanChallengeBossResponse>,
   ) => {
     try {
       const user = await auth(prisma, req);
@@ -980,7 +981,9 @@ const Clans = {
       });
 
       // Send fight id to client
-      res.status(200).send({ id: fightId });
+      res.status(200).send({
+        id: fightId,
+      });
     } catch (error) {
       sendError(res, error);
     }

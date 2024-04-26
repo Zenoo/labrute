@@ -1,4 +1,4 @@
-import { AchievementGetRankingsResponse, AchievementsGetResponse, AdminPanelBrute, BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, BruteWithBodyColors, ClanCreateResponse, ClanGetResponse, ClanGetThreadResponse, ClanGetThreadsResponse, ClanListResponse, FullTournament, HookBrute, ServerReadyResponse, TournamentHistoryResponse, TournamentsGetGlobalResponse, UserGetAdminResponse, UserGetProfileResponse, UsersAdminUpdateRequest, UserWithBrutesBodyColor } from '@labrute/core';
+import { AchievementGetRankingsResponse, AchievementsGetResponse, AdminPanelBrute, BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, BruteWithBodyColors, ClanChallengeBossResponse, ClanCreateResponse, ClanGetResponse, ClanGetThreadResponse, ClanGetThreadsResponse, ClanListResponse, FightCreateResponse, FullTournament, HookBrute, ServerReadyResponse, TournamentHistoryResponse, TournamentsGetGlobalResponse, UserGetAdminResponse, UserGetProfileResponse, UsersAdminUpdateRequest, UserWithBrutesBodyColor } from '@labrute/core';
 import { Brute, BruteReportReason, BruteReportStatus, DestinyChoice, DestinyChoiceSide, Fight, Gender, Lang, Log, Prisma } from '@labrute/prisma';
 import Fetch from './Fetch';
 
@@ -65,7 +65,7 @@ const Server = {
   },
   Fight: {
     get: (name: string, id: number) => Fetch<Fight>(`/api/fight/${name}/${id}`),
-    create: (brute1: string, brute2: string) => Fetch<{ id: number }>('/api/fight/create', { brute1, brute2 }, 'POST'),
+    create: (brute1: string, brute2: string) => Fetch<FightCreateResponse>('/api/fight/create', { brute1, brute2 }, 'POST'),
   },
   Tournament: {
     getDaily: ({
@@ -122,7 +122,7 @@ const Server = {
     pinThread: (brute: string, id: number, threadId: number) => Fetch<never>(`/api/brute/${brute}/clan/${id}/thread/${threadId}/pin`),
     unpinThread: (brute: string, id: number, threadId: number) => Fetch<never>(`/api/brute/${brute}/clan/${id}/thread/${threadId}/unpin`),
     getThread: (brute: string, id: number, threadId: number, page: number) => Fetch<ClanGetThreadResponse>(`/api/brute/${brute}/clan/${id}/thread/${threadId}`, { page }),
-    challengeBoss: (brute: string, id: number) => Fetch<{ id: number }>(`/api/brute/${brute}/clan/${id}/challenge-boss`),
+    challengeBoss: (brute: string, id: number) => Fetch<ClanChallengeBossResponse>(`/api/brute/${brute}/clan/${id}/challenge-boss`),
   }
 };
 

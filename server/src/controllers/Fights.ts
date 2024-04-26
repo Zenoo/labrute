@@ -1,4 +1,6 @@
-import { ExpectedError, GLOBAL_TOURNAMENT_START_HOUR, getFightsLeft } from '@labrute/core';
+import {
+  ExpectedError, FightCreateResponse, GLOBAL_TOURNAMENT_START_HOUR, getFightsLeft,
+} from '@labrute/core';
 import { Prisma, PrismaClient, TournamentType } from '@labrute/prisma';
 import { Request, Response } from 'express';
 import moment from 'moment';
@@ -60,7 +62,7 @@ const Fights = {
   },
   create: (prisma: PrismaClient) => async (
     req: Request<never, unknown, { brute1: string, brute2: string }>,
-    res: Response,
+    res: Response<FightCreateResponse>,
   ) => {
     try {
       const user = await auth(prisma, req);
@@ -234,7 +236,12 @@ const Fights = {
       }
 
       // Send fight id to client
-      res.send({ id: fightId });
+      res.send({
+        id: fightId,
+        xpWon: arenaFight ? xpGained : 0,
+        fightsLeft: getFightsLeft(brute1) - 1,
+        victories: arenaFight ? generatedFight.winner === brute1.name ? 1 : 0 : 0,
+      });
     } catch (error) {
       sendError(res, error);
     }
