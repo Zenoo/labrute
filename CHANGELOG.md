@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.50.4](https://github.com/Zenoo/labrute/compare/labrute-v2.50.3...labrute-v2.50.4) (2024-04-26)
+
+
+### Bug Fixes
+
+* Unused dep ([16d5232](https://github.com/Zenoo/labrute/commit/16d5232c4b4681d348b29ac614b88cb017478c9e))
+
 ## [2.50.3](https://github.com/Zenoo/labrute/compare/labrute-v2.50.2...labrute-v2.50.3) (2024-04-26)
 
 
