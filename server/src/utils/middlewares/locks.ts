@@ -27,7 +27,7 @@ export default function lockMiddleware(req: Request, res: Response, next: NextFu
       return sendError(res, new ExpectedError('Invalid authorization header content'));
     }
 
-    const key = `${method}:${path}:${id}`;
+    const key = `${method}:${path.toLowerCase().replace(/\//g, '')}:${id}`;
 
     if (locks[key]) {
       return sendError(res, new ExpectedError('Too many requests'));
