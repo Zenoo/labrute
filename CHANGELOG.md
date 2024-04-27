@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.50.5](https://github.com/Zenoo/labrute/compare/labrute-v2.50.4...labrute-v2.50.5) (2024-04-27)
+
+
+### Bug Fixes
+
+* middleware bypass ([#640](https://github.com/Zenoo/labrute/issues/640)) ([e6e8948](https://github.com/Zenoo/labrute/commit/e6e8948d94ac20d79262d99a8b177e215183d841))
+
 ## [2.50.4](https://github.com/Zenoo/labrute/compare/labrute-v2.50.3...labrute-v2.50.4) (2024-04-26)
 
 
