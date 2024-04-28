@@ -22,7 +22,7 @@ const generateFight = async (
   isTournamentFinal: boolean,
   boss?: Boss,
   bossHP?: number,
-  clanId?: number,
+  clanId?: string,
 ) => {
   if (brute1.id === brute2?.id) {
     throw new ExpectedError('Attempted to created a fight between the same brutes');

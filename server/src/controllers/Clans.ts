@@ -11,6 +11,7 @@ import updateClanPoints from '../utils/clan/updateClanPoints.js';
 import generateFight from '../utils/fight/generateFight.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
+import isUuid from '../utils/uuid.js';
 
 const Clans = {
   list: (prisma: PrismaClient) => async (
@@ -33,7 +34,7 @@ const Clans = {
       }
 
       let clans: (Clan & {
-        'brutesId': number[],
+        'brutesId': string[],
         'masterName': string,
       })[] = [];
 
@@ -73,7 +74,7 @@ const Clans = {
         master: {
           name: clan.masterName,
         },
-        brutes: clan.brutesId.map((id: number) => ({ id })),
+        brutes: clan.brutesId.map((id: string) => ({ id })),
       })));
     } catch (error) {
       sendError(res, error);
@@ -159,11 +160,11 @@ const Clans = {
     res: Response<ClanGetResponse>,
   ) => {
     try {
-      if (!req.params.id || Number.isNaN(+req.params.id)) {
+      if (!req.params.id || !isUuid(req.params.id)) {
         throw new ExpectedError('Missing clan id');
       }
 
-      const id = +req.params.id;
+      const { id } = req.params;
 
       const clan = await prisma.clan.findFirst({
         where: { id },
@@ -207,11 +208,11 @@ const Clans = {
     try {
       const user = await auth(prisma, req);
 
-      if (!req.params.id || Number.isNaN(+req.params.id)) {
+      if (!req.params.id || !isUuid(req.params.id)) {
         throw new ExpectedError(translate('missingClanId', user));
       }
 
-      const id = +req.params.id;
+      const { id } = req.params;
 
       const clan = await prisma.clan.findFirst({
         where: { id },
@@ -267,11 +268,11 @@ const Clans = {
     try {
       const user = await auth(prisma, req);
 
-      if (!req.params.id || Number.isNaN(+req.params.id)) {
+      if (!req.params.id || !isUuid(req.params.id)) {
         throw new ExpectedError(translate('missingClanId', user));
       }
 
-      const id = +req.params.id;
+      const { id } = req.params;
 
       const clan = await prisma.clan.findFirst({
         where: { id },
@@ -316,11 +317,11 @@ const Clans = {
     try {
       const user = await auth(prisma, req);
 
-      if (!req.params.id || Number.isNaN(+req.params.id)) {
+      if (!req.params.id || !isUuid(req.params.id)) {
         throw new ExpectedError(translate('missingClanId', user));
       }
 
-      const id = +req.params.id;
+      const { id } = req.params;
 
       const clan = await prisma.clan.findFirst({
         where: { id },
@@ -399,11 +400,11 @@ const Clans = {
     try {
       const user = await auth(prisma, req);
 
-      if (!req.params.id || Number.isNaN(+req.params.id)) {
+      if (!req.params.id || !isUuid(req.params.id)) {
         throw new ExpectedError(translate('missingClanId', user));
       }
 
-      const id = +req.params.id;
+      const { id } = req.params;
 
       const clan = await prisma.clan.findFirst({
         where: { id },
@@ -452,11 +453,11 @@ const Clans = {
     try {
       const user = await auth(prisma, req);
 
-      if (!req.params.id || Number.isNaN(+req.params.id)) {
+      if (!req.params.id || !isUuid(req.params.id)) {
         throw new ExpectedError(translate('missingClanId', user));
       }
 
-      const id = +req.params.id;
+      const { id } = req.params;
 
       const clan = await prisma.clan.findFirst({
         where: { id },
@@ -513,11 +514,11 @@ const Clans = {
     try {
       const user = await auth(prisma, req);
 
-      if (!req.params.id || Number.isNaN(+req.params.id)) {
+      if (!req.params.id || !isUuid(req.params.id)) {
         throw new ExpectedError(translate('missingClanId', user));
       }
 
-      const id = +req.params.id;
+      const { id } = req.params;
 
       const clan = await prisma.clan.findFirst({
         where: { id },
@@ -584,7 +585,7 @@ const Clans = {
     try {
       const user = await auth(prisma, req);
 
-      if (!req.params.id || Number.isNaN(+req.params.id)) {
+      if (!req.params.id || !isUuid(req.params.id)) {
         throw new ExpectedError(translate('missingClanId', user));
       }
 
@@ -593,7 +594,7 @@ const Clans = {
         throw new ExpectedError(translate('bruteNotFound', user));
       }
 
-      const id = +req.params.id;
+      const { id } = req.params;
 
       // Check if the brute is in the clan
       if (brute.clanId !== id) {
@@ -648,7 +649,7 @@ const Clans = {
     try {
       const user = await auth(prisma, req);
 
-      if (!req.params.id || Number.isNaN(+req.params.id)) {
+      if (!req.params.id || !isUuid(req.params.id)) {
         throw new ExpectedError(translate('missingClanId', user));
       }
 
@@ -656,7 +657,7 @@ const Clans = {
         throw new ExpectedError(translate('missingParameters', user));
       }
 
-      const id = +req.params.id;
+      const { id } = req.params;
 
       const brute = user.brutes.find((b) => b.name === req.params.brute);
 
@@ -700,7 +701,7 @@ const Clans = {
     try {
       const user = await auth(prisma, req);
 
-      if (!req.params.id || Number.isNaN(+req.params.id)) {
+      if (!req.params.id || !isUuid(req.params.id)) {
         throw new ExpectedError(translate('missingId', user));
       }
 
@@ -708,7 +709,7 @@ const Clans = {
         throw new ExpectedError(translate('missingParameters', user));
       }
 
-      const id = +req.params.id;
+      const { id } = req.params;
 
       const brute = user.brutes.find((b) => b.name === req.params.brute);
 
@@ -764,14 +765,14 @@ const Clans = {
       const user = await auth(prisma, req);
 
       if (!req.params.id
-        || Number.isNaN(+req.params.id)
+        || !isUuid(req.params.id)
         || !req.params.threadId
-        || Number.isNaN(+req.params.threadId)) {
+        || !isUuid(req.params.id)) {
         throw new ExpectedError(translate('missingId', user));
       }
 
-      const id = +req.params.id;
-      const threadId = +req.params.threadId;
+      const { id } = req.params;
+      const { threadId } = req.params;
 
       const brute = user.brutes.find((b) => b.name === req.params.brute);
 
@@ -830,14 +831,14 @@ const Clans = {
       const user = await auth(prisma, req);
 
       if (!req.params.id
-        || Number.isNaN(+req.params.id)
+        || !isUuid(req.params.id)
         || !req.params.threadId
-        || Number.isNaN(+req.params.threadId)) {
+        || !isUuid(req.params.id)) {
         throw new ExpectedError(translate('missingId', user));
       }
 
-      const id = +req.params.id;
-      const threadId = +req.params.threadId;
+      const { id } = req.params;
+      const { threadId } = req.params;
 
       const brute = user.brutes.find((b) => b.name === req.params.brute);
 
@@ -888,7 +889,7 @@ const Clans = {
     try {
       const user = await auth(prisma, req);
 
-      if (!req.params.id || Number.isNaN(+req.params.id)) {
+      if (!req.params.id || !isUuid(req.params.id)) {
         throw new ExpectedError(translate('missingId', user));
       }
 
@@ -902,7 +903,7 @@ const Clans = {
         throw new ExpectedError(translate('noFightsLeft', user));
       }
 
-      const id = +req.params.id;
+      const { id } = req.params;
 
       // Check if the brute is in the clan
       if (brute.clanId !== id) {
@@ -996,14 +997,14 @@ const Clans = {
       const user = await auth(prisma, req);
 
       if (!req.params.id
-        || Number.isNaN(+req.params.id)
+        || !isUuid(req.params.id)
         || !req.params.threadId
-        || Number.isNaN(+req.params.threadId)) {
+        || !isUuid(req.params.id)) {
         throw new ExpectedError(translate('missingId', user));
       }
 
-      const id = +req.params.id;
-      const threadId = +req.params.threadId;
+      const { id } = req.params;
+      const { threadId } = req.params;
 
       const brute = user.brutes.find((b) => b.name === req.params.brute);
 
@@ -1057,14 +1058,14 @@ const Clans = {
       const user = await auth(prisma, req);
 
       if (!req.params.id
-        || Number.isNaN(+req.params.id)
+        || !isUuid(req.params.id)
         || !req.params.threadId
-        || Number.isNaN(+req.params.threadId)) {
+        || !isUuid(req.params.id)) {
         throw new ExpectedError(translate('missingId', user));
       }
 
-      const id = +req.params.id;
-      const threadId = +req.params.threadId;
+      const { id } = req.params;
+      const { threadId } = req.params;
 
       const brute = user.brutes.find((b) => b.name === req.params.brute);
 
@@ -1117,11 +1118,11 @@ const Clans = {
     try {
       const user = await auth(prisma, req);
 
-      if (!req.params.id || Number.isNaN(+req.params.id)) {
+      if (!req.params.id || !isUuid(req.params.id)) {
         throw new ExpectedError(translate('missingClanId', user));
       }
 
-      const id = +req.params.id;
+      const { id } = req.params;
 
       const clan = await prisma.clan.findFirst({
         where: { id },

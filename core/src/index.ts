@@ -140,7 +140,7 @@ export type ClanGetResponse = Clan & {
   joinRequests: BruteWithBodyColors[],
 };
 export type ClanGetThreadsResponse = {
-  masterId: number,
+  masterId: string,
   threads: (ClanThread & {
     creator: Pick<Brute, 'id' | 'name'>,
     posts: (Pick<ClanPost, 'date'> & {
@@ -190,11 +190,11 @@ export type AchievementsGetResponse = {
 }[];
 
 export type FightCreateResponse = {
-  id: number,
+  id: string,
   fightsLeft: number,
   xpWon: number,
   victories: number,
 };
 export type ClanChallengeBossResponse = {
-  id: number,
+  id: string,
 };

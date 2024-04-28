@@ -39,7 +39,7 @@ const ClanView = () => {
   useEffect(() => {
     if (!id) return;
 
-    Server.Clan.get(+id).then((data) => {
+    Server.Clan.get(id).then((data) => {
       setClan(data);
     }).catch(catchError(Alert));
   }, [id, Alert]);

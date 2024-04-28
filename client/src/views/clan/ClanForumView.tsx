@@ -22,7 +22,7 @@ const ClanForumView = () => {
   useEffect(() => {
     if (!bruteName || !id) return;
 
-    Server.Clan.getThreads({ brute: bruteName, id: +id }).then(setData).catch(catchError(Alert));
+    Server.Clan.getThreads({ brute: bruteName, id }).then(setData).catch(catchError(Alert));
   }, [Alert, bruteName, id]);
 
   return (

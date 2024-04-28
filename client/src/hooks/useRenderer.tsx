@@ -14,12 +14,12 @@ type RenderMethod = (brute: BruteData) => void;
 
 type RenderCallback = (content: string) => void;
 
-type OnRenderMethod = (id: number, callback: RenderCallback) => void;
+type OnRenderMethod = (id: number | string, callback: RenderCallback) => void;
 
 export interface RendererContextInterface {
   render: RenderMethod;
   onRender: OnRenderMethod;
-  resetCache: (id: number) => void;
+  resetCache: (id: number | string) => void;
 }
 
 const RendererContext = React.createContext<RendererContextInterface>({
@@ -48,7 +48,7 @@ type RendererInstance = {
 };
 
 type Cache = {
-  id: number;
+  id: number | string;
   content: string;
 }[];
 
@@ -56,14 +56,19 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
   const [queue, setQueue] = useState<BruteData[]>([]);
   const [renderers, setRenderers] = useState<RendererInstance[]>([]);
   const [cache, setCache] = useState<Cache>([]);
-  const [callbacks, setCallbacks] = useState<Record<number, RenderCallback[]>>({});
+  const [callbacks, setCallbacks] = useState<
+    Record<number | string, RenderCallback[]>
+  >({});
 
   const render: RenderMethod = (brute) => {
     setQueue((prev) => [...prev, brute]);
   };
 
   const onRender: OnRenderMethod = (id, callback) => {
-    setCallbacks((prev) => ({ ...prev, [id]: [...(prev[id] || []), callback] }));
+    setCallbacks((prev) => ({
+      ...prev,
+      [id]: [...(prev[id] || []), callback],
+    }));
   };
 
   // Process queue
@@ -126,13 +131,7 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
     freeRenderer.busy = true;
 
     // Render
-    const display = new BruteDisplay(
-      request.gender,
-      colors,
-      body,
-      'left',
-      1,
-    );
+    const display = new BruteDisplay(request.gender, colors, body, 'left', 1);
 
     display.onLoad(() => {
       if (!freeRenderer) return;
@@ -143,7 +142,7 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
 
       const content = (freeRenderer.renderer.plugins.extract as Extract).image(
         display.container,
-        'image/webp',
+        'image/webp'
       );
 
       // Destroy display
@@ -169,15 +168,18 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
     });
   }, [queue, renderers, cache, callbacks]);
 
-  const resetCache = (id: number) => {
+  const resetCache = (id: number | string) => {
     setCache((prev) => prev.filter((c) => c.id !== id));
   };
 
-  const methods = useMemo(() => ({
-    render,
-    onRender,
-    resetCache,
-  }), []);
+  const methods = useMemo(
+    () => ({
+      render,
+      onRender,
+      resetCache,
+    }),
+    []
+  );
 
   return (
     <RendererContext.Provider value={methods}>

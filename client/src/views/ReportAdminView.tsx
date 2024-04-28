@@ -35,7 +35,7 @@ const ReportAdminView = () => {
   }, []);
 
   // Accept report
-  const acceptReport = useCallback((reportId: number) => () => {
+  const acceptReport = useCallback((reportId: string) => () => {
     Server.BruteReport.accept(reportId).then(() => {
       setReports((r) => r.filter((report) => report.id !== reportId));
 
@@ -44,7 +44,7 @@ const ReportAdminView = () => {
   }, [Alert]);
 
   // Reject report
-  const rejectReport = useCallback((reportId: number) => () => {
+  const rejectReport = useCallback((reportId: string) => () => {
     Server.BruteReport.reject(reportId).then(() => {
       setReports((r) => r.filter((report) => report.id !== reportId));
 

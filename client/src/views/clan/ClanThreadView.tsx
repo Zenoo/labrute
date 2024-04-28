@@ -31,7 +31,7 @@ const ClanThreadView = () => {
   useEffect(() => {
     if (!bruteName || !id || !tid) return;
 
-    Server.Clan.getThread(bruteName, +id, +tid, page)
+    Server.Clan.getThread(bruteName, id, tid, page)
       .then(setThread)
       .catch(catchError(Alert));
   }, [Alert, bruteName, id, page, tid]);
@@ -43,7 +43,7 @@ const ClanThreadView = () => {
     if (!bruteName || !id || !tid) return;
 
     Confirm.open(t('lockThread'), t('confirmLockThread'), () => {
-      Server.Clan.lockThread(bruteName, +id, +tid).then(() => {
+      Server.Clan.lockThread(bruteName, id, tid).then(() => {
         Alert.open('success', t('threadLocked'));
 
         // Go to forum
@@ -58,7 +58,7 @@ const ClanThreadView = () => {
 
     if (!bruteName || !id || !tid) return;
 
-    Server.Clan.pinThread(bruteName, +id, +tid).then(() => {
+    Server.Clan.pinThread(bruteName, id, tid).then(() => {
       Alert.open('success', t('threadPinned'));
 
       // Go to forum
@@ -72,7 +72,7 @@ const ClanThreadView = () => {
 
     if (!bruteName || !id || !tid) return;
 
-    Server.Clan.unpinThread(bruteName, +id, +tid).then(() => {
+    Server.Clan.unpinThread(bruteName, id, tid).then(() => {
       Alert.open('success', t('threadUnpinned'));
 
       // Go to forum

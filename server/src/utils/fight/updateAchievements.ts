@@ -7,8 +7,7 @@ const updateAchievements = async (
   store: AchievementsStore,
   isTournamentFight: boolean,
 ) => {
-  for (const [_bruteId, bruteStore] of Object.entries(store)) {
-    const bruteId = +_bruteId;
+  for (const [bruteId, bruteStore] of Object.entries(store)) {
     for (const [_name, count] of Object.entries(bruteStore.achievements)) {
       const name = _name as AchievementName;
       const isTournamentRelated = TournamentAchievements.includes(name);

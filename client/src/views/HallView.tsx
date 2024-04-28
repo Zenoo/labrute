@@ -50,7 +50,7 @@ const HallView = () => {
         brutes: data.brutes.map((b) => (b.name === brute.name ? {
           ...b, favorite: !wasFavorite,
         } : b)).sort((a, b) => (a.favorite === b.favorite
-          ? (a.id - b.id)
+          ? (a.id.localeCompare(b.id))
           : a.favorite ? -1 : 1)),
       }) : null));
     }).catch(catchError(Alert));

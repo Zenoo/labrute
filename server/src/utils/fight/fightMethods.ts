@@ -8,7 +8,7 @@ import {
 } from '@labrute/core';
 import getDamage from './getDamage.js';
 
-export type Stats = Record<number, {
+export type Stats = Record<string, {
   userId: string | null;
   skillsUsed?: number;
   weaponsStolen?: number;
@@ -66,15 +66,15 @@ const getFighterStat = (
   return total;
 };
 
-const resetOthersStats = (stats: Stats, excludedFighter: number, stat: keyof Omit<Stats[number], 'userId'>) => {
+const resetOthersStats = (stats: Stats, excludedFighter: string, stat: keyof Omit<Stats[number], 'userId'>) => {
   for (const [bruteId, bruteStats] of Object.entries(stats)) {
-    if (+bruteId !== excludedFighter) {
+    if (bruteId !== excludedFighter) {
       bruteStats[stat] = 0;
     }
   }
 };
 
-const updateStats = (stats: Stats, bruteId: number, stat: keyof Omit<Stats[number], 'userId'>, value: number, masterId?: number) => {
+const updateStats = (stats: Stats, bruteId: string, stat: keyof Omit<Stats[number], 'userId'>, value: number, masterId?: string | number) => {
   // Special case for hits, add to otherTeamMembersHits if not master
   if (stat === 'hits' && masterId) {
     const master = stats[masterId];
@@ -101,8 +101,7 @@ const checkAchievements = (
   stats: Stats,
   achievements: AchievementsStore,
 ) => {
-  for (const [_bruteId, stat] of Object.entries(stats)) {
-    const bruteId = +_bruteId;
+  for (const [bruteId, stat] of Object.entries(stats)) {
     const achievement = achievements[bruteId];
 
     if (!achievement) {
@@ -347,7 +346,7 @@ const registerHit = (
   sourceName?: 'hammer' | 'flashFlood' | 'poison' | 'bomb',
   flashFloodWeapon?: Weapon,
 ) => {
-  const actualDamage: Record<number, number> = opponents.reduce((acc, opponent) => ({
+  const actualDamage: Record<string, number> = opponents.reduce((acc, opponent) => ({
     ...acc,
     [opponent.id]: damage,
   }), {});

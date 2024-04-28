@@ -214,7 +214,7 @@ const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
         }
 
         fighters.push({
-          id: 0,
+          id: '',
           name: petName,
           rank: 0,
           level: 0,
@@ -340,7 +340,7 @@ const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
     // Boss
     if (team.boss) {
       fighters.push({
-        id: 0,
+        id: '',
         name: team.boss.name,
         rank: 0,
         level: 0,
