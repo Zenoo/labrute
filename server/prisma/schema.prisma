@@ -495,9 +495,9 @@ enum AchievementName {
 model Achievement {
   id      String          @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   name    AchievementName
+  count   Int             @default(0)
   brute   Brute?          @relation(fields: [bruteId], references: [id])
   bruteId String?         @db.Uuid
-  count   Int             @default(0)
   user    User?           @relation(fields: [userId], references: [id])
   userId  String?         @db.Uuid
 
