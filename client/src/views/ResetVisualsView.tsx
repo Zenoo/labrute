@@ -121,10 +121,7 @@ const ResetVisualsView = () => {
 
   return (
     brute && (
-      <Page
-        title={`${brute.name || ''} ${t('MyBrute')}`}
-        headerUrl={`/${brute.name}/cell`}
-      >
+      <Page title={`${brute.name || ''} ${t('MyBrute')}`} headerUrl={`/${brute.name}/cell`}>
         <Paper
           sx={{
             mx: 4,
@@ -139,9 +136,8 @@ const ResetVisualsView = () => {
           </Text>
         </Paper>
         <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
-          <Text bold center>
-            {t('resetVisualsDescription')}
-          </Text>
+          <Text bold center>{t('resetVisualsDescription')}</Text>
+
           <Box
             sx={{
               mx: 'auto',
@@ -193,9 +189,7 @@ const ResetVisualsView = () => {
           </Box>
           {/* VALIDATION */}
           <Box sx={{ textAlign: 'center' }}>
-            <FantasyButton onClick={resetVisuals}>
-              {t('validate')}
-            </FantasyButton>
+            <FantasyButton onClick={resetVisuals}>{t('validate')}</FantasyButton>
           </Box>
         </Paper>
       </Page>

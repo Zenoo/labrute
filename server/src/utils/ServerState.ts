@@ -11,15 +11,18 @@ const setReady = (ready: boolean) => {
 const isReady = () => serverReady;
 
 const setGlobalTournamentValid = async (prisma: PrismaClient, valid: boolean) => {
-  await prisma.serverState.upsert({
-    where: { id: '' },
-    update: {
+  const serverState = await prisma.serverState.findFirst({
+    where: {
       globalTournamentValid: valid,
     },
-    create: {
-      globalTournamentValid: valid,
-    },
+
   });
+  if (!serverState) {
+    await prisma.serverState.create({
+      data: { globalTournamentValid: valid },
+
+    });
+  }
 };
 
 const isGlobalTournamentValid = async (prisma: PrismaClient) => {

@@ -68,8 +68,8 @@ model BruteBody {
 
 model BruteColors {
   id      String @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  bruteId String @unique @db.Uuid
   brute   Brute  @relation(fields: [bruteId], references: [id])
+  bruteId String @unique @db.Uuid
   col0    String @default("#eaaca6") @db.VarChar(7) // Skin
   col0a   String @default("#eaaca6") @db.VarChar(7) // Face
   col0c   String @default("#eaaca6") @db.VarChar(7) // Ear
@@ -254,8 +254,8 @@ model Fight {
   brute2Id       String?          @db.Uuid
   winner         String           @db.VarChar(255)
   loser          String           @db.VarChar(255)
-  steps          String
-  fighters       String
+  steps          String           @db.Text
+  fighters       String           @db.Text
   logs           Log[]
   tournament     Tournament?      @relation(fields: [tournamentId], references: [id])
   tournamentId   String?
@@ -344,8 +344,8 @@ model TournamentStep {
   tournament   Tournament @relation(fields: [tournamentId], references: [id])
   tournamentId String     @db.Uuid
   step         Int
-  fightId      String     @db.Uuid
   fight        Fight      @relation(fields: [fightId], references: [id])
+  fightId      String     @db.Uuid
 
   @@index([tournamentId, step])
 }
@@ -498,8 +498,8 @@ model Achievement {
   brute   Brute?          @relation(fields: [bruteId], references: [id])
   bruteId String?         @db.Uuid
   count   Int             @default(0)
-  userId  String?         @db.Uuid
   user    User?           @relation(fields: [userId], references: [id])
+  userId  String?         @db.Uuid
 
   @@unique([name, bruteId])
 }
