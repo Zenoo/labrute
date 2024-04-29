@@ -258,7 +258,7 @@ model Fight {
   fighters       String           @db.Text
   logs           Log[]
   tournament     Tournament?      @relation(fields: [tournamentId], references: [id])
-  tournamentId   String?
+  tournamentId   String?          @db.Uuid
   TournamentStep TournamentStep[]
 
   @@index([tournamentId, winner, brute1Id, brute2Id])
@@ -582,8 +582,8 @@ model ClanThread {
   pinned    Boolean    @default(false)
   postCount Int        @default(1)
   posts     ClanPost[]
-  createdAt DateTime   @default(now()) @db.Timestamp(6)
-  updatedAt DateTime   @default(now()) @db.Timestamp(6)
+  createdAt DateTime   @default(now()) @db.Timestamp()
+  updatedAt DateTime   @default(now()) @db.Timestamp()
 }
 
 model ClanPost {
@@ -592,8 +592,8 @@ model ClanPost {
   threadId String     @db.Uuid
   author   Brute      @relation(fields: [authorId], references: [id])
   authorId String     @db.Uuid
-  date     DateTime   @default(now()) @db.Timestamp(6)
-  message  String
+  date     DateTime   @default(now()) @db.Timestamp()
+  message  String     @db.Text
 }
 
 // Inventory

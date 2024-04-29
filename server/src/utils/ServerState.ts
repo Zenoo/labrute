@@ -22,6 +22,12 @@ const setGlobalTournamentValid = async (prisma: PrismaClient, valid: boolean) =>
       data: { globalTournamentValid: valid },
 
     });
+  } else {
+    await prisma.serverState.update({
+      where: { id: serverState.id },
+      data: { globalTournamentValid: valid },
+
+    });
   }
 };
 

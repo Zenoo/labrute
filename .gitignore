@@ -9,10 +9,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Etwin local files
-etwin.local.toml
-etwin.toml
-
 # Runtime data
 pids
 *.pid
