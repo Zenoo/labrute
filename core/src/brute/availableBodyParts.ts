@@ -1,6 +1,9 @@
 import { BruteBody } from '@labrute/prisma';
 
-const availableBodyParts: { male: Omit<BruteBody, 'id' | 'bruteId'>, female: Omit<BruteBody, 'id' | 'bruteId'> } = {
+const availableBodyParts: {
+  male: Omit<BruteBody, 'id' | 'bruteId'>;
+  female: Omit<BruteBody, 'id' | 'bruteId'>;
+} = {
   male: {
     p2: 7,
     p3: 11,

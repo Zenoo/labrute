@@ -154,7 +154,7 @@ const generateMissingBodyColors = async (prisma: PrismaClient) => {
 
 const handleDailyTournaments = async (prisma: PrismaClient) => {
   // Keep track of XP gains
-  const xpGains: Record<number, number> = {};
+  const xpGains: Record<string, number> = {};
 
   const today = moment.utc().startOf('day');
   const tomorrow = moment.utc(today).add(1, 'day');
@@ -425,7 +425,7 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
       },
     });
     const loserBrute = await prisma.brute.findUnique({
-      where: { id: loser.id },
+      where: { id: loser.id as string },
       select: { id: true, ranking: true },
     });
 
@@ -482,7 +482,7 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
 
 const handleGlobalTournament = async (prisma: PrismaClient) => {
   // Keep track of XP gains
-  const xpGains: Record<number, number> = {};
+  const xpGains: Record<string, number> = {};
 
   const today = moment.utc().startOf('day');
 
@@ -732,7 +732,7 @@ const storeXpGains = async (
   // Store XP gains
   await prisma.tournamentXp.createMany({
     data: Object.entries(xpGains).map(([bruteId, xp]) => ({
-      bruteId: +bruteId,
+      bruteId,
       date: today,
       xp,
     })),
@@ -741,7 +741,7 @@ const storeXpGains = async (
   // Create XP gains logs for tomorrow
   await prisma.log.createMany({
     data: Object.entries(xpGains).map(([bruteId, xp]) => ({
-      currentBruteId: +bruteId,
+      currentBruteId: bruteId,
       type: LogType.tournamentXp,
       xp,
       date: tomorrow,

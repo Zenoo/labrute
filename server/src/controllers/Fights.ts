@@ -10,6 +10,7 @@ import getOpponents from '../utils/brute/getOpponents.js';
 import generateFight from '../utils/fight/generateFight.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
+import isUuid from '../utils/uuid.js';
 
 const Fights = {
   get: (prisma: PrismaClient) => async (req: Request, res: Response) => {
@@ -18,14 +19,14 @@ const Fights = {
         throw new ExpectedError('Missing parameters');
       }
 
-      if (Number.isNaN(+req.params.id)) {
+      if (!isUuid(req.params.id)) {
         throw new ExpectedError('Invalid parameters');
       }
 
       // Get fight
       const fight = await prisma.fight.findFirst({
         where: {
-          id: +req.params.id,
+          id: req.params.id,
           OR: [
             { brute1: { name: req.params.name } },
             { brute2: { name: req.params.name } },

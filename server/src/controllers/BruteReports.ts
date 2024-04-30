@@ -162,7 +162,7 @@ const BruteReports = {
 
       const report = await prisma.bruteReport.findFirst({
         where: {
-          id: +req.params.id,
+          id: req.params.id,
         },
         include: {
           brute: {
@@ -240,7 +240,7 @@ const BruteReports = {
 
       const report = await prisma.bruteReport.findFirst({
         where: {
-          id: +req.params.id,
+          id: req.params.id,
         },
       });
 

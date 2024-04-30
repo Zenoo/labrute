@@ -22,7 +22,7 @@ const AdminView = () => {
   const { user } = useAuth();
 
   const [bruteName, setBruteName] = React.useState('');
-  const [bruteId, setBruteId] = React.useState(0);
+  const [bruteId, setBruteId] = React.useState('');
   const [brute, setBrute] = React.useState<AdminPanelBrute | null>(null);
   const [globalTournamentValid, setGlobalTournamentValid] = React.useState(true);
 
@@ -33,7 +33,7 @@ const AdminView = () => {
 
   // Change bruteId
   const changeBruteId = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setBruteId(+e.target.value);
+    setBruteId(e.target.value);
   }, []);
 
   // Delete daily tournaments
@@ -503,7 +503,7 @@ const AdminView = () => {
                       onChange={(event) => {
                         setBrute((b) => (b ? ({
                           ...b,
-                          masterId: +event.target.value || null,
+                          masterId: event.target.value || null,
                         }) : null));
                       }}
                       fullWidth
@@ -529,7 +529,7 @@ const AdminView = () => {
                       onChange={(event) => {
                         setBrute((b) => (b ? ({
                           ...b,
-                          clanId: +event.target.value || null,
+                          clanId: event.target.value || null,
                         }) : null));
                       }}
                       fullWidth

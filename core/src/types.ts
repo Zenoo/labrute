@@ -1,4 +1,21 @@
-import { Achievement, Brute, BruteBody, BruteColors, BruteInventoryItem, BruteReport, Clan, DestinyChoice, DestinyChoiceSide, Fight, Gender, SkillName, Tournament, TournamentStep, User, WeaponName } from '@labrute/prisma';
+import {
+  Achievement,
+  Brute,
+  BruteBody,
+  BruteColors,
+  BruteInventoryItem,
+  BruteReport,
+  Clan,
+  DestinyChoice,
+  DestinyChoiceSide,
+  Fight,
+  Gender,
+  SkillName,
+  Tournament,
+  TournamentStep,
+  User,
+  WeaponName,
+} from '@labrute/prisma';
 import { Skill } from './brute/skills';
 import { Weapon, WeaponAnimation } from './brute/weapons';
 import { BruteRanking } from './constants';
@@ -8,8 +25,17 @@ export interface AnimatedWeapon {
   animation: WeaponAnimation;
 }
 
-export type SuperName = 'thief' | 'fierceBrute' | 'tragicPotion'
-  | 'net' | 'bomb' | 'hammer' | 'cryOfTheDamned' | 'hypnosis' | 'flashFlood' | 'tamer';
+export type SuperName =
+  | 'thief'
+  | 'fierceBrute'
+  | 'tragicPotion'
+  | 'net'
+  | 'bomb'
+  | 'hammer'
+  | 'cryOfTheDamned'
+  | 'hypnosis'
+  | 'flashFlood'
+  | 'tamer';
 
 export interface Stat {
   stat: number;
@@ -19,101 +45,101 @@ export interface Stat {
 
 export interface DetailedFighter {
   // Metadata
-  id: number;
+  id: string;
   name: string;
   gender?: Gender;
   rank: BruteRanking;
   level: number;
   data?: {
-    gender: Gender,
-    body: BruteBody,
-    colors: BruteColors,
-  }
+    gender: Gender;
+    body: BruteBody;
+    colors: BruteColors;
+  };
   type: 'brute' | 'pet' | 'boss';
   // Follower/Backup variables
-  master?: number;
+  master?: string;
   arrivesAtInitiative?: number;
   leavesAtInitiative?: number;
   // Pet variables
   eaten?: boolean;
   // Raw stats
   maxHp: number;
-  hp: number,
-  strength: number,
-  agility: number,
-  speed: number,
+  hp: number;
+  strength: number;
+  agility: number;
+  speed: number;
   // Initiative
-  initiative: number, // Lower attacks next
-  tempo: number, // Lower is better
+  initiative: number; // Lower attacks next
+  tempo: number; // Lower is better
   // hit stats
-  baseDamage: number,
-  counter: number,
-  autoReversalOnBlock: boolean,
-  reversal: number,
-  combo: number,
-  block: number,
-  accuracy: number,
-  armor: number,
-  disarm: number,
-  evasion: number,
+  baseDamage: number;
+  counter: number;
+  autoReversalOnBlock: boolean;
+  reversal: number;
+  combo: number;
+  block: number;
+  accuracy: number;
+  armor: number;
+  disarm: number;
+  evasion: number;
   // Passives
   // Destroys one enemy's weapon per hit
-  sabotage: boolean,
+  sabotage: boolean;
   // tempo -25% for heavy weapons
-  bodybuilder: boolean,
+  bodybuilder: boolean;
   // Survive with 1 HP on first death
-  survival: boolean,
+  survival: boolean;
   // First hit of the fight is evaded
-  balletShoes: boolean,
+  balletShoes: boolean;
   // 70% chance of re-attacking on misses (evasion or block)
-  determination: boolean,
-  retryAttack: boolean,
+  determination: boolean;
+  retryAttack: boolean;
   // 30% chance of disarming when being hit
-  ironHead: boolean,
+  ironHead: boolean;
   // Max 20% max HP per hit
-  resistant: boolean,
+  resistant: boolean;
   // tempo +100%
-  monk: boolean,
+  monk: boolean;
   // Available skills
-  skills: Skill[],
+  skills: Skill[];
   // Available weapons
-  weapons: Weapon[],
+  weapons: Weapon[];
   // Shield state
-  shield: boolean,
+  shield: boolean;
   // Active skills
-  activeSkills: Skill[],
+  activeSkills: Skill[];
   // Active weapon
-  activeWeapon: Weapon | null,
-  keepWeaponChance: number,
+  activeWeapon: Weapon | null;
+  keepWeaponChance: number;
   // Pre fight sabotage
-  saboteur: boolean,
-  sabotagedWeapon: Weapon | null,
+  saboteur: boolean;
+  sabotagedWeapon: Weapon | null;
   // Status effects
-  poisoned: boolean,
-  trapped: boolean,
+  poisoned: boolean;
+  trapped: boolean;
   hypnotised?: boolean;
   // Reduce some weapons damage by 25%
-  damagedWeapons: WeaponName[],
+  damagedWeapons: WeaponName[];
 }
 
 export interface Fighter {
-  id: number;
+  id: string;
   name: string;
   gender?: Gender;
   rank: BruteRanking;
   level: number;
-  strength: number,
-  agility: number,
-  speed: number,
+  strength: number;
+  agility: number;
+  speed: number;
   data?: {
-    gender: Gender,
-    body: BruteBody,
-    colors: BruteColors,
+    gender: Gender;
+    body: BruteBody;
+    colors: BruteColors;
   };
   type: 'brute' | 'pet' | 'boss';
-  master?: number;
+  master?: string;
   maxHp: number;
-  hp: number,
+  hp: number;
   weapons: AnimatedWeapon[];
   skills: SkillName[];
   shield: boolean;
@@ -122,7 +148,7 @@ export interface Fighter {
 export interface StepFighter {
   name: string;
   type: 'brute' | 'pet' | 'boss';
-  master?: number;
+  master?: number | string;
   hypnotised?: boolean;
 }
 
@@ -302,12 +328,35 @@ export interface SpyStep {
   received: WeaponName[];
 }
 
-export type FightStep = SaboteurStep | LeaveStep | ArriveStep
-  | TrashStep | StealStep | TrapStep | HealStep | ResistStep
-  | SurviveStep | HitStep | BombStep | HypnotiseStep | MoveStep | EatStep
-  | MoveBackStep | EquipStep | AttemptHitStep | BlockStep | EvadeStep
-  | SabotageStep | DisarmStep | DeathStep | ThrowStep | EndStep
-  | CounterStep | SkillActivateStep | SkillExpireStep | SpyStep;
+export type FightStep =
+  | SaboteurStep
+  | LeaveStep
+  | ArriveStep
+  | TrashStep
+  | StealStep
+  | TrapStep
+  | HealStep
+  | ResistStep
+  | SurviveStep
+  | HitStep
+  | BombStep
+  | HypnotiseStep
+  | MoveStep
+  | EatStep
+  | MoveBackStep
+  | EquipStep
+  | AttemptHitStep
+  | BlockStep
+  | EvadeStep
+  | SabotageStep
+  | DisarmStep
+  | DeathStep
+  | ThrowStep
+  | EndStep
+  | CounterStep
+  | SkillActivateStep
+  | SkillExpireStep
+  | SpyStep;
 
 export interface DetailedFight {
   brute_1: string;
@@ -319,14 +368,19 @@ export interface DetailedFight {
     initiative: number;
     winner: StepFighter | null;
     loser: StepFighter | null;
-  }
+  };
 }
 
-export type AnimationModel = 'bear' | 'dog' | 'panther' | 'male-brute' | 'female-brute';
+export type AnimationModel =
+  | 'bear'
+  | 'dog'
+  | 'panther'
+  | 'male-brute'
+  | 'female-brute';
 
 export interface FrameProps {
-  colors: Omit<BruteColors, 'id' | 'bruteId'>,
-  body: Omit<BruteBody, 'id' | 'bruteId'>,
+  colors: Omit<BruteColors, 'id' | 'bruteId'>;
+  body: Omit<BruteBody, 'id' | 'bruteId'>;
 }
 
 export interface DestinyBranch extends DestinyChoice {
@@ -386,11 +440,11 @@ export type FightWithBrutes = Fight & {
 // Brute report
 export type BruteReportWithNames = BruteReport & {
   brute: {
-    id: number;
+    id: string;
     name: string;
-  },
+  };
   users: {
     id: string;
     name: string;
-  }[],
+  }[];
 };

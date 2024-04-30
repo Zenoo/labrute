@@ -532,7 +532,7 @@ export const AchievementData: Record<
   },
 };
 
-export type AchievementsStore = Record<number, {
+export type AchievementsStore = Record<string, {
   userId: string | null;
   achievements: Partial<Record<AchievementName, number>>;
 }>;
@@ -541,9 +541,9 @@ export const updateAchievement = (
   store: AchievementsStore,
   name: AchievementName,
   count: number,
-  bruteId: number,
+  bruteId: string,
 ) => {
-  if (bruteId === 0) return;
+  if (bruteId === '') return;
 
   const current = store[bruteId];
 

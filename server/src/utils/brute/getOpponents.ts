@@ -16,7 +16,7 @@ const getOpponents = async (
     select: { id: true },
   }).then((brutes) => brutes.map((b) => b.id));
 
-  const randomlySelectedBruteIds: number[] = [];
+  const randomlySelectedBruteIds: string[] = [];
 
   // Select all if less or equal to ARENA_OPPONENTS_COUNT
   if (bruteIds.length <= ARENA_OPPONENTS_COUNT) {
@@ -76,7 +76,7 @@ const getOpponents = async (
       select: { id: true },
     }).then((brutes) => brutes.map((b) => b.id));
 
-    const additionalRandomlySelectedBruteIds: number[] = [];
+    const additionalRandomlySelectedBruteIds: string[] = [];
 
     // Select all if less or equal to ARENA_OPPONENTS_COUNT
     if (additionalBruteIds.length <= ARENA_OPPONENTS_COUNT - opponents.length) {

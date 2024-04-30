@@ -35,7 +35,7 @@ const FightView = () => {
       return cleanup;
     }
 
-    Server.Fight.get(bruteName, +fightId).then((result) => {
+    Server.Fight.get(bruteName, fightId).then((result) => {
       if (isSubscribed) {
         setFight(result);
       }

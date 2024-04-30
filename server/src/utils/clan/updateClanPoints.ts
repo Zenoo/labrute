@@ -3,7 +3,7 @@ import { Brute, PrismaClient } from '@labrute/prisma';
 
 const updateClanPoints = async (
   prisma: PrismaClient,
-  clanId: number,
+  clanId: string,
   operation: 'add' | 'remove',
   brute: Pick<Brute, 'level' | 'ranking'>,
   previousBrute?: Pick<Brute, 'level' | 'ranking'>,
