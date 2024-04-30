@@ -14,6 +14,7 @@ import Server from '../utils/Server';
 import catchError from '../utils/catchError';
 import { useAlert } from '../hooks/useAlert';
 import BruteRender from '../components/Brute/Body/BruteRender';
+import moment from 'moment';
 
 const HallView = () => {
   const { t } = useTranslation();
@@ -50,7 +51,7 @@ const HallView = () => {
         brutes: data.brutes.map((b) => (b.name === brute.name ? {
           ...b, favorite: !wasFavorite,
         } : b)).sort((a, b) => (a.favorite === b.favorite
-          ? a.createdAt.getTime() - b.createdAt.getTime()
+          ? moment.utc(a.createdAt).second() - moment.utc(b.createdAt).second()
           : a.favorite ? -1 : 1)),
       }) : null));
     }).catch(catchError(Alert));
