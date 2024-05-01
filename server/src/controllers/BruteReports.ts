@@ -3,7 +3,7 @@ import {
   ExpectedError,
 } from '@labrute/core';
 import { BruteReportReason, BruteReportStatus, PrismaClient } from '@labrute/prisma';
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import { LOGGER } from '../context.js';
 import auth from '../utils/auth.js';
 import updateClanPoints from '../utils/clan/updateClanPoints.js';

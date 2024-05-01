@@ -1,17 +1,17 @@
 import { PrismaClient } from '@labrute/prisma';
 import { isMainThread } from 'node:worker_threads';
+import { Config, loadConfig } from './config.js';
 import { CONSOLE } from './logger/console.js';
 import { DiscordLogHandler } from './logger/discord.js';
 import { Logger } from './logger/index.js';
 import { PARENT_PORT } from './logger/parent-port.js';
 import { DiscordClient, NetworkDiscordClient, NOOP_DISCORD_CLIENT } from './utils/DiscordUtils.js';
 import { ASYNC_DISPOSE } from './utils/dispose.js';
-import Env from './utils/Env.js';
 
 const DEBUG_QUERIES = false;
 
 export class ServerContext {
-  public readonly selfUrl: URL;
+  public readonly config: Config;
 
   public readonly discord: DiscordClient;
 
@@ -19,23 +19,17 @@ export class ServerContext {
 
   public readonly prisma: PrismaClient;
 
-  public constructor() {
-    const selfUrl = new URL(Env.SELF_URL);
+  public constructor(config: Config) {
     const fallbackLogger: Logger = new Logger([isMainThread ? CONSOLE : PARENT_PORT]);
 
     let discord: DiscordClient;
-    if (
-      typeof Env.DISCORD_WEBHOOK_ID === 'string'
-      && typeof Env.DISCORD_WEBHOOK_TOKEN === 'string'
-      && typeof Env.DISCORD_LOGS_WEBHOOK_ID === 'string'
-      && typeof Env.DISCORD_LOGS_WEBHOOK_TOKEN === 'string'
-    ) {
+    if (config.discordNotifications !== null && config.discordLogs !== null) {
       discord = new NetworkDiscordClient({
-        tournamentWebhookId: Env.DISCORD_WEBHOOK_ID,
-        tournamentWebhookToken: Env.DISCORD_WEBHOOK_TOKEN,
-        logWebhookId: Env.DISCORD_LOGS_WEBHOOK_ID,
-        logWebhookToken: Env.DISCORD_LOGS_WEBHOOK_TOKEN,
-        server: selfUrl,
+        tournamentWebhookId: config.discordNotifications.webhookId,
+        tournamentWebhookToken: config.discordNotifications.webhookToken,
+        logWebhookId: config.discordLogs.webhookId,
+        logWebhookToken: config.discordLogs.webhookToken,
+        server: config.selfUrl,
         logger: fallbackLogger,
       });
     } else {
@@ -81,7 +75,7 @@ export class ServerContext {
       });
     }
 
-    this.selfUrl = selfUrl;
+    this.config = config;
     this.discord = discord;
     this.logger = logger;
     this.prisma = prisma;
@@ -98,6 +92,7 @@ export class ServerContext {
   }
 }
 
-export const GLOBAL: ServerContext = new ServerContext();
+const config = loadConfig();
+export const GLOBAL: ServerContext = new ServerContext(config);
 export const LOGGER: Logger = GLOBAL.logger;
 export const DISCORD: DiscordClient = GLOBAL.discord;

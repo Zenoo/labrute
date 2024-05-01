@@ -2,7 +2,7 @@ import {
   ExpectedError, FightCreateResponse, GLOBAL_TOURNAMENT_START_HOUR, getFightsLeft,
 } from '@labrute/core';
 import { Prisma, PrismaClient, TournamentType } from '@labrute/prisma';
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import moment from 'moment';
 import { DISCORD, LOGGER } from '../context.js';
 import auth from '../utils/auth.js';

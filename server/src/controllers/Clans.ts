@@ -4,7 +4,7 @@ import {
   ClanGetThreadsResponse, ClanListResponse, ExpectedError, bosses, getFightsLeft, randomBetween,
 } from '@labrute/core';
 import { Clan, Prisma, PrismaClient } from '@labrute/prisma';
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import { DISCORD, LOGGER } from '../context.js';
 import auth from '../utils/auth.js';
 import updateClanPoints from '../utils/clan/updateClanPoints.js';

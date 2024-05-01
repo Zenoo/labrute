@@ -17,11 +17,11 @@ exports.$Enums = {}
 
 /**
  * Prisma Client JS version: 5.10.2
- * Query Engine version: 473ed3124229e22d881cb7addf559799debae1ab
+ * Query Engine version: 5a9203d0590c951969e85a7d07215503f4672eb9
  */
 Prisma.prismaVersion = {
   client: "5.10.2",
-  engine: "473ed3124229e22d881cb7addf559799debae1ab"
+  engine: "5a9203d0590c951969e85a7d07215503f4672eb9"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -282,8 +282,8 @@ exports.Prisma.TournamentXpScalarFieldEnum = {
 exports.Prisma.AchievementScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  bruteId: 'bruteId',
   count: 'count',
+  bruteId: 'bruteId',
   userId: 'userId'
 };
 

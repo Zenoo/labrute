@@ -6,7 +6,7 @@ import {
   PrismaClient,
   TournamentType,
 } from '@labrute/prisma';
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import moment from 'moment';
 import ServerState from '../utils/ServerState.js';
 import auth from '../utils/auth.js';

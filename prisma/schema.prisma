@@ -4,7 +4,7 @@
 generator client {
   provider        = "prisma-client-js"
   output          = "../../prisma"
-  previewFeatures = ["nativeDistinct", "relationJoins"]
+  previewFeatures = ["nativeDistinct", "relationJoins", "tracing"]
   binaryTargets   = ["native", "debian-openssl-3.0.x", "debian-openssl-1.1.x"]
 }
 
@@ -68,8 +68,8 @@ model BruteBody {
 
 model BruteColors {
   id      String @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  bruteId String @unique @db.Uuid
   brute   Brute  @relation(fields: [bruteId], references: [id])
+  bruteId String @unique @db.Uuid
   col0    String @default("#eaaca6") @db.VarChar(7) // Skin
   col0a   String @default("#eaaca6") @db.VarChar(7) // Face
   col0c   String @default("#eaaca6") @db.VarChar(7) // Ear
@@ -254,11 +254,11 @@ model Fight {
   brute2Id       String?          @db.Uuid
   winner         String           @db.VarChar(255)
   loser          String           @db.VarChar(255)
-  steps          String
-  fighters       String
+  steps          String           @db.Text
+  fighters       String           @db.Text
   logs           Log[]
   tournament     Tournament?      @relation(fields: [tournamentId], references: [id])
-  tournamentId   String?
+  tournamentId   String?          @db.Uuid
   TournamentStep TournamentStep[]
 
   @@index([tournamentId, winner, brute1Id, brute2Id])
@@ -334,11 +334,7 @@ model Tournament {
   participants Brute[]
   rounds       Int
   fights       Fight[]
-  <<<<<<< Updated upstream
-  =======
   steps        TournamentStep[]
-
-  >>>>>>> Stashed changes
 
   @@index([type, date])
 }
@@ -348,8 +344,8 @@ model TournamentStep {
   tournament   Tournament @relation(fields: [tournamentId], references: [id])
   tournamentId String     @db.Uuid
   step         Int
-  fightId      String     @db.Uuid
   fight        Fight      @relation(fields: [fightId], references: [id])
+  fightId      String     @db.Uuid
 
   @@index([tournamentId, step])
 }
@@ -499,11 +495,11 @@ enum AchievementName {
 model Achievement {
   id      String          @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   name    AchievementName
+  count   Int             @default(0)
   brute   Brute?          @relation(fields: [bruteId], references: [id])
   bruteId String?         @db.Uuid
-  count   Int             @default(0)
-  userId  String?         @db.Uuid
   user    User?           @relation(fields: [userId], references: [id])
+  userId  String?         @db.Uuid
 
   @@unique([name, bruteId])
 }
@@ -539,11 +535,7 @@ model BruteReport {
 
 // SERVER STATE
 model ServerState {
-  <<<<<<< Updated upstream
-  id                    Int     @id @default(autoincrement())
-  =======
   id                    String  @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  >>>>>>> Stashed changes
   globalTournamentValid Boolean @default(true)
 }
 
@@ -590,8 +582,8 @@ model ClanThread {
   pinned    Boolean    @default(false)
   postCount Int        @default(1)
   posts     ClanPost[]
-  createdAt DateTime   @default(now()) @db.Timestamp(6)
-  updatedAt DateTime   @default(now()) @db.Timestamp(6)
+  createdAt DateTime   @default(now()) @db.Timestamp()
+  updatedAt DateTime   @default(now()) @db.Timestamp()
 }
 
 model ClanPost {
@@ -600,8 +592,8 @@ model ClanPost {
   threadId String     @db.Uuid
   author   Brute      @relation(fields: [authorId], references: [id])
   authorId String     @db.Uuid
-  date     DateTime   @default(now()) @db.Timestamp(6)
-  message  String
+  date     DateTime   @default(now()) @db.Timestamp()
+  message  String     @db.Text
 }
 
 // Inventory
