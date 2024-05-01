@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { PrismaClient } from '@labrute/prisma';
-import { Express, Request, Response } from 'express';
+import type { Express, Request, Response } from 'express';
 import { ServerReadyResponse } from '@labrute/core';
 import Brutes from './controllers/Brutes.js';
 import Fights from './controllers/Fights.js';
@@ -12,8 +12,9 @@ import Achievements from './controllers/Achievements.js';
 import ServerState from './utils/ServerState.js';
 import BruteReports from './controllers/BruteReports.js';
 import Clans from './controllers/Clans.js';
+import { Config } from './config.js';
 
-const initRoutes = (app: Express, prisma: PrismaClient) => {
+export default function initRoutes(app: Express, config: Config, prisma: PrismaClient) {
   app.get('/api', (req: Request, res: Response) => res.status(200).send({
     message: 'server is running!',
   }));
@@ -29,8 +30,9 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
   });
 
   // OAuth
-  app.get('/api/oauth/redirect', OAuth.redirect);
-  app.get('/api/oauth/token', OAuth.token(prisma));
+  const oauth = new OAuth(config, prisma);
+  app.get('/api/oauth/redirect', oauth.redirect.bind(oauth));
+  app.get('/api/oauth/token', oauth.token.bind(oauth));
 
   // User
   app.post('/api/user/authenticate', Users.authenticate(prisma));
@@ -115,6 +117,4 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
   app.get('/api/brute/:brute/clan/:id/thread/:threadId/unpin', Clans.unpinThread(prisma));
   app.get('/api/brute/:brute/clan/:id/thread/:threadId', Clans.getThread(prisma));
   app.get('/api/brute/:brute/clan/:id/challenge-boss', Clans.challengeBoss(prisma));
-};
-
-export default initRoutes;
+}

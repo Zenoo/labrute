@@ -1,6 +1,6 @@
 import { ExpectedError } from '@labrute/core';
 import { Prisma } from '@labrute/prisma';
-import { Response } from 'express';
+import type { Response } from 'express';
 import { DISCORD } from '../context.js';
 
 const sendError = (res: Response, error: unknown) => {

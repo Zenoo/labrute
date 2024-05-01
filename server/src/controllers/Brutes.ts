@@ -29,7 +29,7 @@ import {
   DestinyChoiceSide, DestinyChoiceType, Gender,
   InventoryItemType, LogType, Prisma, PrismaClient, TournamentType,
 } from '@labrute/prisma';
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import moment from 'moment';
 import auth from '../utils/auth.js';
 import checkBody from '../utils/brute/checkBody.js';

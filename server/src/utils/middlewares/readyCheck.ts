@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import type { NextFunction, Request, Response } from 'express';
 import ServerState from '../ServerState.js';
 
 export const readyCheck = (req: Request, res: Response, next: NextFunction) => {

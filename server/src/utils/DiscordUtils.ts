@@ -2,7 +2,7 @@
 import { pad } from '@labrute/core';
 import { Brute, Tournament } from '@labrute/prisma';
 import { EmbedBuilder, WebhookClient } from 'discord.js';
-import { Response } from 'express';
+import type { Response } from 'express';
 import moment from 'moment';
 import { Logger } from '../logger/index.js';
 

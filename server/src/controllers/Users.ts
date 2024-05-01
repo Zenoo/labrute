@@ -6,7 +6,7 @@ import {
   Achievement, Lang,
   PrismaClient,
 } from '@labrute/prisma';
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import { DISCORD } from '../context.js';
 import dailyJob from '../dailyJob.js';
 import auth from '../utils/auth.js';

@@ -1,6 +1,6 @@
 import { ExpectedError } from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import sendError from '../utils/sendError.js';
 
 const Logs = {

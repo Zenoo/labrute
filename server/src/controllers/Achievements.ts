@@ -5,7 +5,7 @@ import {
   BaseTitleRequirements, ExpectedError, RaretyOrder,
 } from '@labrute/core';
 import { AchievementName, PrismaClient } from '@labrute/prisma';
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import sendError from '../utils/sendError.js';
 
 export const increaseAchievement = async (

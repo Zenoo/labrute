@@ -1,6 +1,6 @@
 import { ExpectedError } from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
-import { Request } from 'express';
+import type { Request } from 'express';
 
 const auth = async (prisma: PrismaClient, request: Request) => {
   const { headers: { authorization } } = request;
