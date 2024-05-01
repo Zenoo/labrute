@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.51.0](https://github.com/Zenoo/labrute/compare/labrute-v2.50.5...labrute-v2.51.0) (2024-05-01)
+
+
+### Features
+
+* OpenTelemetry ([2b68cbe](https://github.com/Zenoo/labrute/commit/2b68cbede5506ba57ddd75a1249427c25f8b7026))
+
 ## [2.50.5](https://github.com/Zenoo/labrute/compare/labrute-v2.50.4...labrute-v2.50.5) (2024-04-27)
 
 
