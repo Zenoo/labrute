@@ -123,7 +123,7 @@ export function readSelfUrl(envSelfUrl: string | undefined): URL {
   if (typeof envSelfUrl === 'string') {
     try {
       const selfUrl = new URL(envSelfUrl);
-      if (selfUrl.protocol === 'http' || selfUrl.protocol === 'https') {
+      if (selfUrl.protocol === 'http:' || selfUrl.protocol === 'https:') {
         return selfUrl;
       }
     } catch {
