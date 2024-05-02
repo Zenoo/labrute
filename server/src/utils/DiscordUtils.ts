@@ -122,9 +122,9 @@ ${error.stack}
         // Request method
         { name: 'Method', value: res.req.method, inline: true },
         // Response status code
-        { name: 'Status code', value: res.statusCode.toString(), inline: true },
+        { name: 'Status code', value: (res.statusCode || 0).toString(), inline: true },
         // Response status message
-        { name: 'Status', value: res.statusMessage, inline: true },
+        { name: 'Status', value: res.statusMessage || '', inline: true },
       );
 
       // Request params
