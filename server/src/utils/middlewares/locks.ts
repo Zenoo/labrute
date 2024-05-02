@@ -2,16 +2,12 @@ import { ExpectedError } from '@labrute/core';
 import type { Request, Response, NextFunction } from 'express';
 import sendError from '../sendError.js';
 
-interface Locks {
-  [key: string]: NodeJS.Timeout | undefined
-}
-
-const locks: Locks = {};
+const locks = new Map<string, NodeJS.Timeout>();
 
 function deleteLock(key: string) {
-  if (locks[key]) {
-    clearTimeout(locks[key]);
-    delete locks[key];
+  if (locks.has(key)) {
+    clearTimeout(locks.get(key));
+    locks.delete(key);
   }
 }
 
@@ -29,13 +25,13 @@ export default function lockMiddleware(req: Request, res: Response, next: NextFu
 
     const key = `${method}:${path.toLowerCase().replace(/\//g, '')}:${id}`;
 
-    if (locks[key]) {
+    if (locks.has(key)) {
       return sendError(res, new ExpectedError('Too many requests'));
     }
 
-    locks[key] = setTimeout(() => {
+    locks.set(key, setTimeout(() => {
       deleteLock(key);
-    }, 10000);
+    }, 10000));
 
     res.on('close', () => {
       deleteLock(key);

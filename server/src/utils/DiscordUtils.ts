@@ -133,7 +133,7 @@ ${error.stack}
           name: 'Params',
           value: `\`\`\`json
   ${JSON.stringify(res.req.params)}
-  \`\`\``,
+  \`\`\``.substring(0, 1024),
         });
       }
 
@@ -143,7 +143,7 @@ ${error.stack}
           name: 'Body',
           value: `\`\`\`json
   ${JSON.stringify(res.req.body)}
-  \`\`\``,
+  \`\`\``.substring(0, 1024),
         });
       }
     }
