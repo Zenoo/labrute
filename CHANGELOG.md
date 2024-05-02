@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.51.1](https://github.com/Zenoo/labrute/compare/labrute-v2.51.0...labrute-v2.51.1) (2024-05-02)
+
+
+### Bug Fixes
+
+* Config url protocol ([da59b1e](https://github.com/Zenoo/labrute/commit/da59b1e9d1796b4929fdc171672ba98815128171))
+* Optimize data loaded on auth ([f2b3a6b](https://github.com/Zenoo/labrute/commit/f2b3a6ba9c4bdaa36491ac1d3af60b1602e3b37a))
+* remove `Env` import from server scripts ([babde81](https://github.com/Zenoo/labrute/commit/babde81738c4d0cd6342488c9ba6b8c741146a0e))
+
 ## [2.51.0](https://github.com/Zenoo/labrute/compare/labrute-v2.50.5...labrute-v2.51.0) (2024-05-01)
 
 
