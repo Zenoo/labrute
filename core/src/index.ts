@@ -8,7 +8,7 @@ import colors from './brute/colors';
 import createRandomBruteStats from './brute/createRandomBruteStats';
 import getBruteGoldValue from './brute/getBruteGoldValue';
 import getFightsLeft from './brute/getFightsLeft';
-import getGoldNeededForNewBrute from './brute/getGoldNeededForNewBrute';
+import { getGoldNeededForNewBrute } from './brute/getGoldNeededForNewBrute';
 import getHP from './brute/getHP';
 import getLevelUpChoices from './brute/getLevelUpChoices';
 import getMaxFightsPerDay from './brute/getMaxFightsPerDay';

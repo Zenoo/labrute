@@ -6,7 +6,7 @@ import { LOGGER } from '../../context.js';
 const isValid = (value: string | undefined, array: string[]) => typeof value === 'undefined' || array.includes(value);
 
 const checkColors = (
-  user: User,
+  user: Pick<User, 'id' | 'lang'>,
   gender: Gender,
   inputs: Prisma.BruteColorsCreateWithoutBruteInput,
 ) => {
@@ -27,13 +27,13 @@ const checkColors = (
     || !isValid(inputs.col4a, colors[gender].clothing)
     || !isValid(inputs.col4b, colors[gender].clothing)
   ) {
-    LOGGER.log(`User ${user.name} tried to create a brute with invalid colors or body.`);
+    LOGGER.log(`User ${user.id} tried to create a brute with invalid colors or body.`);
     throw new ExpectedError(translate('invalidCreation', user));
   }
 
   // col0, col0a, col0c must be the same
   if (inputs.col0 !== inputs.col0a || inputs.col0 !== inputs.col0c) {
-    LOGGER.log(`User ${user.name} tried to create a brute with invalid colors or body.`);
+    LOGGER.log(`User ${user.id} tried to create a brute with invalid colors or body.`);
     throw new ExpectedError(translate('invalidCreation', user));
   }
 
@@ -42,7 +42,7 @@ const checkColors = (
     || inputs.col1 !== inputs.col1b
     || inputs.col1 !== inputs.col1c
     || inputs.col1 !== inputs.col1d) {
-    LOGGER.log(`User ${user.name} tried to create a brute with invalid colors or body.`);
+    LOGGER.log(`User ${user.id} tried to create a brute with invalid colors or body.`);
     throw new ExpectedError(translate('invalidCreation', user));
   }
 };

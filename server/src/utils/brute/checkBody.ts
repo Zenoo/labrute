@@ -9,7 +9,7 @@ const checkBodyPart = (
 ) => typeof value === 'undefined' || (value >= 0 && value <= expected);
 
 const checkBody = (
-  user: User,
+  user: Pick<User, 'id' | 'lang'>,
   gender: Gender,
   inputs: Prisma.BruteBodyCreateWithoutBruteInput,
 ) => {
@@ -25,7 +25,7 @@ const checkBody = (
     || !checkBodyPart(inputs.p7b, availableBodyParts[gender].p7b)
     || !checkBodyPart(inputs.p5, availableBodyParts[gender].p5)
   ) {
-    LOGGER.log(`User ${user.name} tried to create a brute with invalid colors or body.`);
+    LOGGER.log(`User ${user.id} tried to create a brute with invalid colors or body.`);
     throw new ExpectedError(translate('invalidCreation', user));
   }
 };

@@ -287,6 +287,7 @@ model Log {
   fight          Fight?   @relation(fields: [fightId], references: [id])
   fightId        Int?
   xp             Int?
+  @@index([currentBruteId, date])
 }
 
 // LEVEL UP

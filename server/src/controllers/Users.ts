@@ -1,6 +1,6 @@
 import {
   AchievementData, ExpectedError, RaretyOrder,
-  UserGetAdminResponse, UserGetProfileResponse, UsersAdminUpdateRequest,
+  UserGetAdminResponse, UserGetProfileResponse, UserWithBrutesBodyColor, UsersAdminUpdateRequest,
 } from '@labrute/core';
 import {
   Achievement, Lang,
@@ -21,10 +21,15 @@ const Users = {
     res: Response<UserGetAdminResponse>,
   ) => {
     try {
-      const admin = await auth(prisma, req);
+      const authed = await auth(prisma, req);
 
-      if (!admin.admin) {
-        throw new Error(translate('unauthorized', admin));
+      const admin = await prisma.user.findFirst({
+        where: { id: authed.id },
+        select: { admin: true },
+      });
+
+      if (!admin?.admin) {
+        throw new Error(translate('unauthorized', authed));
       }
 
       const user = await prisma.user.findFirst({
@@ -42,7 +47,7 @@ const Users = {
       });
 
       if (!user) {
-        throw new ExpectedError(translate('userNotFound', admin));
+        throw new ExpectedError(translate('userNotFound', authed));
       }
 
       // Merge achievements with same name
@@ -72,9 +77,31 @@ const Users = {
       sendError(res, error);
     }
   },
-  authenticate: (prisma: PrismaClient) => async (req: Request, res: Response) => {
+  authenticate: (prisma: PrismaClient) => async (
+    req: Request,
+    res: Response<UserWithBrutesBodyColor>,
+  ) => {
     try {
-      const user = await auth(prisma, req);
+      const { id } = await auth(prisma, req);
+
+      const user = await prisma.user.findFirst({
+        where: { id },
+        include: {
+          brutes: {
+            where: {
+              deletedAt: null,
+            },
+            include: {
+              body: true,
+              colors: true,
+            },
+          },
+        },
+      });
+
+      if (!user) {
+        throw new Error('User not found');
+      }
 
       res.send(user);
     } catch (error) {
@@ -83,10 +110,15 @@ const Users = {
   },
   runDailyJob: (prisma: PrismaClient) => async (req: Request, res: Response) => {
     try {
-      const user = await auth(prisma, req);
+      const authed = await auth(prisma, req);
 
-      if (!user.admin) {
-        throw new Error(translate('unauthorized', user));
+      const user = await prisma.user.findFirst({
+        where: { id: authed.id },
+        select: { admin: true },
+      });
+
+      if (!user?.admin) {
+        throw new Error(translate('unauthorized', authed));
       }
 
       await dailyJob(prisma)().catch((error: Error) => {
@@ -183,14 +215,19 @@ const Users = {
     try {
       const { params: { id } } = req;
 
-      const admin = await auth(prisma, req);
+      const authed = await auth(prisma, req);
 
-      if (!admin.admin) {
-        throw new ExpectedError(translate('unauthorized', admin));
+      const admin = await prisma.user.findFirst({
+        where: { id: authed.id },
+        select: { admin: true },
+      });
+
+      if (!admin?.admin) {
+        throw new ExpectedError(translate('unauthorized', authed));
       }
 
       if (!id) {
-        throw new ExpectedError(translate('noIDProvided', admin));
+        throw new ExpectedError(translate('noIDProvided', authed));
       }
 
       const user = await prisma.user.findFirst({
@@ -200,7 +237,7 @@ const Users = {
       });
 
       if (!user) {
-        throw new Error(translate('userNotFound', admin));
+        throw new Error(translate('userNotFound', authed));
       }
 
       // Update the user

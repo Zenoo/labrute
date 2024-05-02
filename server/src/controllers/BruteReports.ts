@@ -16,11 +16,16 @@ const BruteReports = {
     res: Response<BruteReportsListResponse>,
   ) => {
     try {
-      const user = await auth(prisma, req);
+      const authed = await auth(prisma, req);
+
+      const user = await prisma.user.findFirst({
+        where: { id: authed.id },
+        select: { admin: true },
+      });
 
       // Admin only
-      if (!user.admin) {
-        throw new ExpectedError(translate('unauthorized', user));
+      if (!user?.admin) {
+        throw new ExpectedError(translate('unauthorized', authed));
       }
 
       // Get reports
@@ -139,7 +144,7 @@ const BruteReports = {
         });
       }
 
-      LOGGER.log(`New report for ${brute.name} by ${user.name}`);
+      LOGGER.log(`New report for ${brute.name} by ${user.id}`);
 
       res.status(200).send({
         success: true,
@@ -153,11 +158,16 @@ const BruteReports = {
     res: Response,
   ) => {
     try {
-      const user = await auth(prisma, req);
+      const authed = await auth(prisma, req);
+
+      const user = await prisma.user.findFirst({
+        where: { id: authed.id },
+        select: { admin: true },
+      });
 
       // Admin only
-      if (!user.admin) {
-        throw new ExpectedError(translate('unauthorized', user));
+      if (!user?.admin) {
+        throw new ExpectedError(translate('unauthorized', authed));
       }
 
       const report = await prisma.bruteReport.findFirst({
@@ -178,7 +188,7 @@ const BruteReports = {
       });
 
       if (!report) {
-        throw new ExpectedError(translate('reportNotFound', user));
+        throw new ExpectedError(translate('reportNotFound', authed));
       }
 
       await prisma.bruteReport.update({
@@ -231,11 +241,16 @@ const BruteReports = {
     res: Response,
   ) => {
     try {
-      const user = await auth(prisma, req);
+      const authed = await auth(prisma, req);
+
+      const user = await prisma.user.findFirst({
+        where: { id: authed.id },
+        select: { admin: true },
+      });
 
       // Admin only
-      if (!user.admin) {
-        throw new ExpectedError(translate('unauthorized', user));
+      if (!user?.admin) {
+        throw new ExpectedError(translate('unauthorized', authed));
       }
 
       const report = await prisma.bruteReport.findFirst({
@@ -245,7 +260,7 @@ const BruteReports = {
       });
 
       if (!report) {
-        throw new ExpectedError(translate('reportNotFound', user));
+        throw new ExpectedError(translate('reportNotFound', authed));
       }
 
       await prisma.bruteReport.update({

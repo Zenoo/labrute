@@ -15,7 +15,7 @@ export function main(cx: ServerContext) {
   cx.logger.info(`Server started (v${Version})`);
 
   const app = express();
-  const port: number = cx.config.port;
+  const { port } = cx.config;
 
   app.use(bodyParser.json());
   app.use(

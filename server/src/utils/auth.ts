@@ -24,18 +24,9 @@ const auth = async (prisma: PrismaClient, request: Request) => {
       id,
       connexionToken: token,
     },
-    include: {
-      brutes: {
-        where: { deletedAt: null },
-        include: {
-          body: true,
-          colors: true,
-        },
-        orderBy: [
-          { favorite: 'desc' },
-          { id: 'asc' },
-        ],
-      },
+    select: {
+      id: true,
+      lang: true,
     },
   });
 

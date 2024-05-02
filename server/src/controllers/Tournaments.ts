@@ -73,7 +73,17 @@ const Tournaments = {
       }
 
       // Get brute
-      const brute = user.brutes.find((b) => b.name === req.params.name);
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name: req.params.name,
+          deletedAt: null,
+          userId: user.id,
+        },
+        select: {
+          id: true,
+          canRankUpSince: true,
+        },
+      });
 
       if (!brute) {
         throw new ExpectedError(translate('bruteNotFound', user));
@@ -113,7 +123,18 @@ const Tournaments = {
       }
 
       // Get brute
-      const brute = user.brutes.find((b) => b.name === req.params.name);
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name: req.params.name,
+          deletedAt: null,
+          userId: user.id,
+        },
+        select: {
+          id: true,
+          currentTournamentDate: true,
+          currentTournamentStepWatched: true,
+        },
+      });
 
       if (!brute) {
         throw new ExpectedError(translate('bruteNotFound', user));
@@ -195,7 +216,17 @@ const Tournaments = {
       }
 
       // Get brute
-      const brute = user.brutes.find((b) => b.name === req.params.name);
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name: req.params.name,
+          deletedAt: null,
+          userId: user.id,
+        },
+        select: {
+          id: true,
+          currentTournamentDate: true,
+        },
+      });
 
       if (!brute) {
         throw new ExpectedError(translate('bruteNotFound', user));
@@ -383,10 +414,15 @@ const Tournaments = {
   },
   deleteDaily: (prisma: PrismaClient) => async (req: Request, res: Response) => {
     try {
-      const user = await auth(prisma, req);
+      const authed = await auth(prisma, req);
 
-      if (!user.admin) {
-        throw new ExpectedError(translate('unauthorized', user));
+      const user = await prisma.user.findFirst({
+        where: { id: authed.id },
+        select: { admin: true },
+      });
+
+      if (!user?.admin) {
+        throw new ExpectedError(translate('unauthorized', authed));
       }
 
       // Get tournament step ids
@@ -439,10 +475,15 @@ const Tournaments = {
   },
   deleteGlobal: (prisma: PrismaClient) => async (req: Request, res: Response) => {
     try {
-      const user = await auth(prisma, req);
+      const authed = await auth(prisma, req);
 
-      if (!user.admin) {
-        throw new ExpectedError(translate('unauthorized', user));
+      const user = await prisma.user.findFirst({
+        where: { id: authed.id },
+        select: { admin: true },
+      });
+
+      if (!user?.admin) {
+        throw new ExpectedError(translate('unauthorized', authed));
       }
 
       // Get tournament step ids
@@ -590,10 +631,15 @@ const Tournaments = {
     res: Response,
   ) => {
     try {
-      const user = await auth(prisma, req);
+      const authed = await auth(prisma, req);
 
-      if (!user.admin) {
-        throw new ExpectedError(translate('unauthorized', user));
+      const user = await prisma.user.findFirst({
+        where: { id: authed.id },
+        select: { admin: true },
+      });
+
+      if (!user?.admin) {
+        throw new ExpectedError(translate('unauthorized', authed));
       }
 
       const isValid = await ServerState.isGlobalTournamentValid(prisma);

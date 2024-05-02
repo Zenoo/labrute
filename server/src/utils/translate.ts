@@ -3,7 +3,7 @@ import { t } from 'i18next';
 
 const translate = (
   key: string,
-  user?: User,
+  user?: Pick<User, 'lang'> | null,
   options?: Record<string, unknown>,
 ) => t(key, { lng: user?.lang, ...options });
 
