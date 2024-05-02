@@ -1,4 +1,4 @@
-import { Achievement, AchievementName, Brute, BruteBody, BruteColors, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, Fight, Lang, Prisma, Tournament, TournamentStep, User } from '@labrute/prisma';
+import { Achievement, AchievementName, Brute, BruteBody, BruteColors, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, DestinyChoice, Fight, Lang, Prisma, Tournament, TournamentStep, User } from '@labrute/prisma';
 import Version from './Version';
 import applySkillModifiers from './brute/applySkillModifiers';
 import availableBodyParts from './brute/availableBodyParts';
@@ -97,6 +97,9 @@ export type BrutesCreateResponse = {
   brute: BruteWithBodyColors,
   goldLost: number,
   newLimit: number,
+};
+export type BrutesGetLevelUpChoicesResponse = {
+  choices: [DestinyChoice, DestinyChoice],
 };
 
 export type ServerReadyResponse = {

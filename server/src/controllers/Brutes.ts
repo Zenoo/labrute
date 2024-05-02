@@ -7,6 +7,7 @@ import {
   BrutesCreateResponse,
   BrutesExistsResponse, BrutesGetDestinyResponse,
   BrutesGetFightsLeftResponse, BrutesGetForRankResponse,
+  BrutesGetLevelUpChoicesResponse,
   BrutesGetOpponentsResponse,
   BrutesGetRankingResponse,
   DestinyBranch, ExpectedError,
@@ -338,7 +339,10 @@ const Brutes = {
       sendError(res, error);
     }
   },
-  getLevelUpChoices: (prisma: PrismaClient) => async (req: Request, res: Response) => {
+  getLevelUpChoices: (prisma: PrismaClient) => async (
+    req: Request,
+    res: Response<BrutesGetLevelUpChoicesResponse>,
+  ) => {
     try {
       const authed = await auth(prisma, req);
 
@@ -409,7 +413,6 @@ const Brutes = {
       }
 
       res.send({
-        brute,
         choices: [firstDestinyChoice, secondDestinyChoice],
       });
     } catch (error) {
