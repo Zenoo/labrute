@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.51.2](https://github.com/Zenoo/labrute/compare/labrute-v2.51.1...labrute-v2.51.2) (2024-05-02)
+
+
+### Bug Fixes
+
+* Use map in locks + Discord crash fix. Fixes [#647](https://github.com/Zenoo/labrute/issues/647) ([baba38d](https://github.com/Zenoo/labrute/commit/baba38da9ec38d1af2e4436053c36cbaad6ea792))
+
 ## [2.51.1](https://github.com/Zenoo/labrute/compare/labrute-v2.51.0...labrute-v2.51.1) (2024-05-02)
 
 
