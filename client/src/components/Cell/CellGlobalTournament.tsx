@@ -1,4 +1,4 @@
-import { Fighter, GLOBAL_TOURNAMENT_START_HOUR, TournamentsGetGlobalResponse } from '@labrute/core';
+import { Fighter, GLOBAL_TOURNAMENT_START_HOUR, TournamentsGetGlobalResponse, TournamentsGetGlobalStep } from '@labrute/core';
 import { Close } from '@mui/icons-material';
 import { Box, Paper, PaperProps, useTheme } from '@mui/material';
 import moment from 'moment';
@@ -53,7 +53,11 @@ const CellGlobalTournament = ({
     setData(null);
     Server.Tournament.getGlobal({ name: bruteName, date: (date || now).format('YYYY-MM-DD') }).then((d) => {
       if (isSubscribed) {
-        setData(d);
+        if (d.tournament) {
+          setData(d);
+        } else {
+          setData(null);
+        }
       }
     }).catch(() => {
       if (isSubscribed) {
@@ -66,7 +70,7 @@ const CellGlobalTournament = ({
 
   const lostRound = useMemo(
     () => (bruteName && data
-      ? data.tournament.steps.find((step) => step.fight.winner !== bruteName)
+      ? data.tournament?.steps.find((step) => step.fight.winner !== bruteName)
       || data.lastRounds.find((step) => (step.fight.brute1Id === brute?.id
         || step.fight.brute2Id === brute?.id)
         && step.fight.winner !== bruteName)
@@ -76,7 +80,7 @@ const CellGlobalTournament = ({
 
   // Last fights renderer
   const renderFight = (
-    step: TournamentsGetGlobalResponse['tournament']['steps'][number],
+    step: TournamentsGetGlobalStep,
     finals = false,
   ) => {
     if (!bruteName) return null;
@@ -228,7 +232,7 @@ const CellGlobalTournament = ({
     </Box>
   );
 
-  return bruteName ? data && data?.lastRounds.length < 8 && (
+  return bruteName ? data && data.tournament && data?.lastRounds.length < 8 && (
     <Paper
       sx={{
         bgcolor: 'background.paperDark',
@@ -251,12 +255,12 @@ const CellGlobalTournament = ({
       >
         {/* Rounds */}
         {Array.from({ length: data.tournament.rounds - 3 }).map((_, i) => {
-          const step = data.tournament.steps.find((s) => s.step === i + 1);
+          const step = data.tournament?.steps.find((s) => s.step === i + 1);
 
           // Free bye
           if (!step) {
             // Check if brute lost a fight before
-            const lost = data.tournament.steps
+            const lost = data.tournament?.steps
               .some((s) => s.step < i + 1 && s.fight.winner !== bruteName);
 
             if (lost) {

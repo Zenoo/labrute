@@ -95,6 +95,10 @@ const Users = {
               body: true,
               colors: true,
             },
+            orderBy: [
+              { favorite: 'desc' },
+              { createdAt: 'asc' },
+            ],
           },
         },
       });

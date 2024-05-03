@@ -295,7 +295,13 @@ const Tournaments = {
       });
 
       if (!tournament) {
-        throw new ExpectedError('Tournament not found');
+        res.send({
+          tournament: null,
+          done: true,
+          lastRounds: [],
+          nextOpponent: null,
+        });
+        return;
       }
 
       const now = moment.utc();

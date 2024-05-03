@@ -78,13 +78,13 @@ export type BrutesExistsResponse = {
   name: string,
 };
 
-type TournamentsGetGlobalStep = Pick<TournamentStep, 'id' | 'step' | 'fightId'> & {
+export type TournamentsGetGlobalStep = Pick<TournamentStep, 'id' | 'step' | 'fightId'> & {
   fight: Pick<Fight, 'winner' | 'fighters' | 'brute1Id' | 'brute2Id'>,
 };
 export type TournamentsGetGlobalResponse = {
-  tournament: Pick<Tournament, 'id' | 'rounds'> & {
+  tournament: (Pick<Tournament, 'id' | 'rounds'> & {
     steps: TournamentsGetGlobalStep[];
-  },
+  }) | null,
   lastRounds: TournamentsGetGlobalStep[],
   done: boolean,
   nextOpponent: string | null,
