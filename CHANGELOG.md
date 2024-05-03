@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.51.3](https://github.com/Zenoo/labrute/compare/labrute-v2.51.2...labrute-v2.51.3) (2024-05-03)
+
+
+### Bug Fixes
+
+* Discord crash ([5a12e1d](https://github.com/Zenoo/labrute/commit/5a12e1d87404b6192a4054d6aff90b1217e3416d))
+* Error on levelup ([582ed1b](https://github.com/Zenoo/labrute/commit/582ed1b953c12ce8ea1844fc8f00d8b34096425f))
+* Stop throwing an error when no global tournament is found ([f03dad6](https://github.com/Zenoo/labrute/commit/f03dad67e1308579869c310e07689d81a82b86d7))
+
 ## [2.51.2](https://github.com/Zenoo/labrute/compare/labrute-v2.51.1...labrute-v2.51.2) (2024-05-02)
 
 
