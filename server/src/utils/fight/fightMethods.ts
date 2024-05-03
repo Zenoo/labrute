@@ -1010,14 +1010,14 @@ const breakShield = (fighter: DetailedFighter, opponent: DetailedFighter) => {
   // Can't break someone's shield if they are not holding a shield >.>
   if (!opponent.shield) return false;
 
-  return getFighterStat(fighter, 'disarm') * 100 >= randomBetween(0, 300);
+  return getFighterStat(fighter, 'disarm') * 100 >= randomBetween(1, 300);
 };
 
 const disarm = (fighter: DetailedFighter, opponent: DetailedFighter) => {
   // Can't disarm someone if they are not holding a weapon >.>
   if (!opponent.activeWeapon) return false;
 
-  return getFighterStat(fighter, 'disarm') * 100 >= randomBetween(0, 100);
+  return getFighterStat(fighter, 'disarm') * 100 >= randomBetween(1, 100);
 };
 
 const disarmAttacker = (fighter: DetailedFighter, opponent: DetailedFighter) => {
