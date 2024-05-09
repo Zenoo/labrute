@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.52.0](https://github.com/Zenoo/labrute/compare/labrute-v2.51.3...labrute-v2.52.0) (2024-05-09)
+
+
+### Features
+
+* DinoRPG integration. Fixes [#655](https://github.com/Zenoo/labrute/issues/655) ([e9ea5e4](https://github.com/Zenoo/labrute/commit/e9ea5e4adda1b21e506540a2279a810d4117c46c))
+* Multiple tournament wins needed to rank up. Fixes [#596](https://github.com/Zenoo/labrute/issues/596) ([029cb82](https://github.com/Zenoo/labrute/commit/029cb827e7bba17ff735dc612c681b961692b695))
+* Reduce fight data size. Fixes [#654](https://github.com/Zenoo/labrute/issues/654) ([2f85eaf](https://github.com/Zenoo/labrute/commit/2f85eaf61b1457e52161efbbbbcb2f4cc6b12447))
+* Store brute body and colors as strings. Fixes [#611](https://github.com/Zenoo/labrute/issues/611) ([df5f02d](https://github.com/Zenoo/labrute/commit/df5f02de14d62372dd25b640f1b133ffe0aa912a))
+
+
+### Bug Fixes
+
+* Don't disarm if 0% chances ([f678350](https://github.com/Zenoo/labrute/commit/f678350f1d6ff0015ce756879280e2f29f1e76cf))
+
 ## [2.51.3](https://github.com/Zenoo/labrute/compare/labrute-v2.51.2...labrute-v2.51.3) (2024-05-03)
 
 
