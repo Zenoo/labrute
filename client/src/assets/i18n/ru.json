@@ -86,7 +86,7 @@
   "clanNameLength": "Название клана должно быть длиной от 3 до 50 букв.",
   "clanCreated": "Ваш клан был создан.",
   "brutes": "Бруталы",
-  "externalRewards": "External rewards",
+  "externalRewards": "Внешние вознаграждения",
   "askToJoin": "Подать заявку",
   "confirmJoin": "Вы действительно желаете вступить в этот клан?",
   "requestSent": "Ваша заявка отправлена.",
@@ -379,7 +379,7 @@
   "comeBackInOneHour": "Возвращайтесь через час для следующей битвы.",
   "setAsWatched": "Пометить просмотренным",
   "rankUp": "Новое звание",
-  "tournamentVictoriesUntilRankUp": "You need {{value}} daily tournament victories to rank up.",
+  "tournamentVictoriesUntilRankUp": "Чтобы получить новое звание, нужно одержать {{value}} побед в ежедневных турнирах.",
   "rankUpConfirm": "Вы действительно желаете получить новое звание? Уровень вашего Брутала будет сброшен на 1, сохраняя судьбу.",
   "finals": "Финал",
   "semiFinals": "Полуфинал",
@@ -1245,5 +1245,5 @@
   "achievementRankings": "Рейтинг достижений",
   "achievement": "Достижение",
   "byUser": "По пользователям",
-  "dinoRpgRewardsSuccess": "Congratz! You gained an extra fight for each of your brutes."
+  "dinoRpgRewardsSuccess": "Поздравляем! Каждый из ваших Бруталов получил дополнительную битву."
 }
