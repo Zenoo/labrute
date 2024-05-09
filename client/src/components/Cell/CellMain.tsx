@@ -1,6 +1,6 @@
-import { BruteRanking, getFightsLeft, getMaxFightsPerDay, getXPNeeded } from '@labrute/core';
+import { BruteRanking, getFightsLeft, getMaxFightsPerDay, getWinsNeededToRankUp, getXPNeeded } from '@labrute/core';
 import { InventoryItemType, Lang } from '@labrute/prisma';
-import { Box, BoxProps, Stack } from '@mui/material';
+import { Box, BoxProps, Stack, Tooltip } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -77,6 +77,29 @@ const CellMain = ({
         </Box>
       </Box>
       <BruteBodyAndStats brute={brute} sx={{ mb: 1 }} />
+      {/* Tournament wins until rank up */}
+      {(!brute.tournaments.length || brute.currentTournamentStepWatched === 6) && (
+        <Tooltip title={t('tournamentVictoriesUntilRankUp', { value: getWinsNeededToRankUp(brute) })}>
+          <Box textAlign="center">
+            <Box component="img" src="/images/ranking.png" alt="Tournament victories until rank up" sx={{ width: 22, mr: 1 }} />
+            {new Array(getWinsNeededToRankUp(brute)).fill(0).map((_, i) => (
+              <Box
+                // eslint-disable-next-line react/no-array-index-key
+                key={i}
+                sx={{
+                  height: 20,
+                  width: 12,
+                  mr: 0.25,
+                  display: 'inline-block',
+                  border: '2px solid',
+                  borderColor: 'secondary.main',
+                  bgcolor: brute.tournamentWins > i ? 'success.light' : 'transparent',
+                }}
+              />
+            ))}
+          </Box>
+        </Tooltip>
+      )}
 
       {/* Rank up */}
       {owner && brute.canRankUpSince && brute.ranking > 0 && (!moment.utc(brute.canRankUpSince).isSame(moment.utc(), 'day') || brute.currentTournamentStepWatched === 6) && (

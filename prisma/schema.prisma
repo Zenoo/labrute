@@ -227,6 +227,7 @@ model Brute {
   inventory                    BruteInventoryItem[]
   tournamentAchievements       TournamentAchievement[]
   tournamentXps                TournamentXp[]
+  tournamentWins               Int                     @default(0)
 }
 
 // FIGHTS

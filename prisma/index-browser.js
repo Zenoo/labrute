@@ -168,7 +168,8 @@ exports.Prisma.BruteScalarFieldEnum = {
   opponentsGeneratedAt: 'opponentsGeneratedAt',
   canRankUpSince: 'canRankUpSince',
   favorite: 'favorite',
-  wantToJoinClanId: 'wantToJoinClanId'
+  wantToJoinClanId: 'wantToJoinClanId',
+  tournamentWins: 'tournamentWins'
 };
 
 exports.Prisma.FightScalarFieldEnum = {

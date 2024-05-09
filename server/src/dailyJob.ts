@@ -1,6 +1,7 @@
 /* eslint-disable no-await-in-loop */
 import {
   Fighter,
+  getWinsNeededToRankUp,
 } from '@labrute/core';
 import {
   LogType, Prisma, PrismaClient, TournamentType,
@@ -382,6 +383,7 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
         userId: true,
         ranking: true,
         canRankUpSince: true,
+        tournamentWins: true,
       },
     });
     const loserBrute = await prisma.brute.findUnique({
@@ -405,8 +407,15 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
         select: { id: true },
       });
 
-      // Allow rank up for winner if opponent wasn't lower rank
-      if (!winnerBrute.canRankUpSince && winnerBrute.ranking >= loserBrute.ranking) {
+      // Add 1 tournament win to winner brute
+      await prisma.brute.update({
+        where: { id: winnerBrute.id },
+        data: { tournamentWins: winnerBrute.tournamentWins + 1 },
+        select: { id: true },
+      });
+
+      // Allow rank up for winner if brute has enough wins
+      if (!winnerBrute.canRankUpSince && (winnerBrute.tournamentWins + 1) >= getWinsNeededToRankUp(winnerBrute)) {
         await prisma.brute.update({
           where: { id: winnerBrute.id },
           data: { canRankUpSince: new Date() },
