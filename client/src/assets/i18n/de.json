@@ -86,7 +86,7 @@
   "clanNameLength": "Der Name deines Klans muss zwischen 3 und 50 Zeichen lang sein.",
   "clanCreated": "Dein Klan wurde gegründet.",
   "brutes": "Brutalos",
-  "externalRewards": "External rewards",
+  "externalRewards": "Externe Belohnungen",
   "askToJoin": "Beitritt anfragen",
   "confirmJoin": "Möchtest du wirklich diesem Klan beitreten?",
   "requestSent": "Deine Anfrage wurde gesendet.",
@@ -379,7 +379,7 @@
   "comeBackInOneHour": "Komm für den nächsten Kampf in einer Stunde wieder.",
   "setAsWatched": "Als angesehen setzen",
   "rankUp": "Rangaufstieg",
-  "tournamentVictoriesUntilRankUp": "You need {{value}} daily tournament victories to rank up.",
+  "tournamentVictoriesUntilRankUp": "Du benötigst {{value}} Siege in täglichen Turnieren, um im Rang aufzusteigen.",
   "rankUpConfirm": "Willst du wirklich im Rang aufsteigen? Dein Brutalo wird samt Schicksal auf Stufe 1 zurückgesetzt.",
   "finals": "Finale",
   "semiFinals": "Halbfinale",
@@ -1245,5 +1245,5 @@
   "achievementRankings": "Erfolgsrangliste",
   "achievement": "Erfolg",
   "byUser": "Nach Nutzer",
-  "dinoRpgRewardsSuccess": "Congratz! You gained an extra fight for each of your brutes."
+  "dinoRpgRewardsSuccess": "Glückwunsch! Deine Brutalos haben je einen zusätzlichen Kampf erhalten."
 }
