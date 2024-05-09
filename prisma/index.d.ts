@@ -19,16 +19,6 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
- * Model BruteBody
- * 
- */
-export type BruteBody = $Result.DefaultSelection<Prisma.$BruteBodyPayload>
-/**
- * Model BruteColors
- * 
- */
-export type BruteColors = $Result.DefaultSelection<Prisma.$BruteColorsPayload>
-/**
  * Model Brute
  * 
  */
@@ -628,26 +618,6 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs>;
-
-  /**
-   * `prisma.bruteBody`: Exposes CRUD operations for the **BruteBody** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more BruteBodies
-    * const bruteBodies = await prisma.bruteBody.findMany()
-    * ```
-    */
-  get bruteBody(): Prisma.BruteBodyDelegate<ExtArgs>;
-
-  /**
-   * `prisma.bruteColors`: Exposes CRUD operations for the **BruteColors** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more BruteColors
-    * const bruteColors = await prisma.bruteColors.findMany()
-    * ```
-    */
-  get bruteColors(): Prisma.BruteColorsDelegate<ExtArgs>;
 
   /**
    * `prisma.brute`: Exposes CRUD operations for the **Brute** model.
@@ -1309,8 +1279,6 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
-    BruteBody: 'BruteBody',
-    BruteColors: 'BruteColors',
     Brute: 'Brute',
     Fight: 'Fight',
     Log: 'Log',
@@ -1346,7 +1314,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'user' | 'bruteBody' | 'bruteColors' | 'brute' | 'fight' | 'log' | 'destinyChoice' | 'tournament' | 'tournamentStep' | 'tournamentAchievement' | 'tournamentGold' | 'tournamentXp' | 'achievement' | 'title' | 'bruteReport' | 'serverState' | 'bannedWord' | 'workerJob' | 'clan' | 'clanThread' | 'clanPost' | 'bruteInventoryItem'
+      modelProps: 'user' | 'brute' | 'fight' | 'log' | 'destinyChoice' | 'tournament' | 'tournamentStep' | 'tournamentAchievement' | 'tournamentGold' | 'tournamentXp' | 'achievement' | 'title' | 'bruteReport' | 'serverState' | 'bannedWord' | 'workerJob' | 'clan' | 'clanThread' | 'clanPost' | 'bruteInventoryItem'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -1413,138 +1381,6 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>,
             result: $Utils.Optional<UserCountAggregateOutputType> | number
-          }
-        }
-      }
-      BruteBody: {
-        payload: Prisma.$BruteBodyPayload<ExtArgs>
-        fields: Prisma.BruteBodyFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.BruteBodyFindUniqueArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$BruteBodyPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.BruteBodyFindUniqueOrThrowArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$BruteBodyPayload>
-          }
-          findFirst: {
-            args: Prisma.BruteBodyFindFirstArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$BruteBodyPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.BruteBodyFindFirstOrThrowArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$BruteBodyPayload>
-          }
-          findMany: {
-            args: Prisma.BruteBodyFindManyArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$BruteBodyPayload>[]
-          }
-          create: {
-            args: Prisma.BruteBodyCreateArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$BruteBodyPayload>
-          }
-          createMany: {
-            args: Prisma.BruteBodyCreateManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
-          }
-          delete: {
-            args: Prisma.BruteBodyDeleteArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$BruteBodyPayload>
-          }
-          update: {
-            args: Prisma.BruteBodyUpdateArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$BruteBodyPayload>
-          }
-          deleteMany: {
-            args: Prisma.BruteBodyDeleteManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
-          }
-          updateMany: {
-            args: Prisma.BruteBodyUpdateManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
-          }
-          upsert: {
-            args: Prisma.BruteBodyUpsertArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$BruteBodyPayload>
-          }
-          aggregate: {
-            args: Prisma.BruteBodyAggregateArgs<ExtArgs>,
-            result: $Utils.Optional<AggregateBruteBody>
-          }
-          groupBy: {
-            args: Prisma.BruteBodyGroupByArgs<ExtArgs>,
-            result: $Utils.Optional<BruteBodyGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.BruteBodyCountArgs<ExtArgs>,
-            result: $Utils.Optional<BruteBodyCountAggregateOutputType> | number
-          }
-        }
-      }
-      BruteColors: {
-        payload: Prisma.$BruteColorsPayload<ExtArgs>
-        fields: Prisma.BruteColorsFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.BruteColorsFindUniqueArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$BruteColorsPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.BruteColorsFindUniqueOrThrowArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$BruteColorsPayload>
-          }
-          findFirst: {
-            args: Prisma.BruteColorsFindFirstArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$BruteColorsPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.BruteColorsFindFirstOrThrowArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$BruteColorsPayload>
-          }
-          findMany: {
-            args: Prisma.BruteColorsFindManyArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$BruteColorsPayload>[]
-          }
-          create: {
-            args: Prisma.BruteColorsCreateArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$BruteColorsPayload>
-          }
-          createMany: {
-            args: Prisma.BruteColorsCreateManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
-          }
-          delete: {
-            args: Prisma.BruteColorsDeleteArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$BruteColorsPayload>
-          }
-          update: {
-            args: Prisma.BruteColorsUpdateArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$BruteColorsPayload>
-          }
-          deleteMany: {
-            args: Prisma.BruteColorsDeleteManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
-          }
-          updateMany: {
-            args: Prisma.BruteColorsUpdateManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
-          }
-          upsert: {
-            args: Prisma.BruteColorsUpsertArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$BruteColorsPayload>
-          }
-          aggregate: {
-            args: Prisma.BruteColorsAggregateArgs<ExtArgs>,
-            result: $Utils.Optional<AggregateBruteColors>
-          }
-          groupBy: {
-            args: Prisma.BruteColorsGroupByArgs<ExtArgs>,
-            result: $Utils.Optional<BruteColorsGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.BruteColorsCountArgs<ExtArgs>,
-            result: $Utils.Optional<BruteColorsCountAggregateOutputType> | number
           }
         }
       }
@@ -4588,2211 +4424,6 @@ export namespace Prisma {
 
 
   /**
-   * Model BruteBody
-   */
-
-  export type AggregateBruteBody = {
-    _count: BruteBodyCountAggregateOutputType | null
-    _avg: BruteBodyAvgAggregateOutputType | null
-    _sum: BruteBodySumAggregateOutputType | null
-    _min: BruteBodyMinAggregateOutputType | null
-    _max: BruteBodyMaxAggregateOutputType | null
-  }
-
-  export type BruteBodyAvgAggregateOutputType = {
-    id: number | null
-    bruteId: number | null
-    p2: number | null
-    p3: number | null
-    p4: number | null
-    p7: number | null
-    p1: number | null
-    p1a: number | null
-    p1b: number | null
-    p6: number | null
-    p8: number | null
-    p7b: number | null
-    p5: number | null
-  }
-
-  export type BruteBodySumAggregateOutputType = {
-    id: number | null
-    bruteId: number | null
-    p2: number | null
-    p3: number | null
-    p4: number | null
-    p7: number | null
-    p1: number | null
-    p1a: number | null
-    p1b: number | null
-    p6: number | null
-    p8: number | null
-    p7b: number | null
-    p5: number | null
-  }
-
-  export type BruteBodyMinAggregateOutputType = {
-    id: number | null
-    bruteId: number | null
-    p2: number | null
-    p3: number | null
-    p4: number | null
-    p7: number | null
-    p1: number | null
-    p1a: number | null
-    p1b: number | null
-    p6: number | null
-    p8: number | null
-    p7b: number | null
-    p5: number | null
-  }
-
-  export type BruteBodyMaxAggregateOutputType = {
-    id: number | null
-    bruteId: number | null
-    p2: number | null
-    p3: number | null
-    p4: number | null
-    p7: number | null
-    p1: number | null
-    p1a: number | null
-    p1b: number | null
-    p6: number | null
-    p8: number | null
-    p7b: number | null
-    p5: number | null
-  }
-
-  export type BruteBodyCountAggregateOutputType = {
-    id: number
-    bruteId: number
-    p2: number
-    p3: number
-    p4: number
-    p7: number
-    p1: number
-    p1a: number
-    p1b: number
-    p6: number
-    p8: number
-    p7b: number
-    p5: number
-    _all: number
-  }
-
-
-  export type BruteBodyAvgAggregateInputType = {
-    id?: true
-    bruteId?: true
-    p2?: true
-    p3?: true
-    p4?: true
-    p7?: true
-    p1?: true
-    p1a?: true
-    p1b?: true
-    p6?: true
-    p8?: true
-    p7b?: true
-    p5?: true
-  }
-
-  export type BruteBodySumAggregateInputType = {
-    id?: true
-    bruteId?: true
-    p2?: true
-    p3?: true
-    p4?: true
-    p7?: true
-    p1?: true
-    p1a?: true
-    p1b?: true
-    p6?: true
-    p8?: true
-    p7b?: true
-    p5?: true
-  }
-
-  export type BruteBodyMinAggregateInputType = {
-    id?: true
-    bruteId?: true
-    p2?: true
-    p3?: true
-    p4?: true
-    p7?: true
-    p1?: true
-    p1a?: true
-    p1b?: true
-    p6?: true
-    p8?: true
-    p7b?: true
-    p5?: true
-  }
-
-  export type BruteBodyMaxAggregateInputType = {
-    id?: true
-    bruteId?: true
-    p2?: true
-    p3?: true
-    p4?: true
-    p7?: true
-    p1?: true
-    p1a?: true
-    p1b?: true
-    p6?: true
-    p8?: true
-    p7b?: true
-    p5?: true
-  }
-
-  export type BruteBodyCountAggregateInputType = {
-    id?: true
-    bruteId?: true
-    p2?: true
-    p3?: true
-    p4?: true
-    p7?: true
-    p1?: true
-    p1a?: true
-    p1b?: true
-    p6?: true
-    p8?: true
-    p7b?: true
-    p5?: true
-    _all?: true
-  }
-
-  export type BruteBodyAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which BruteBody to aggregate.
-     */
-    where?: BruteBodyWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of BruteBodies to fetch.
-     */
-    orderBy?: BruteBodyOrderByWithRelationInput | BruteBodyOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: BruteBodyWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` BruteBodies from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` BruteBodies.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned BruteBodies
-    **/
-    _count?: true | BruteBodyCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: BruteBodyAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: BruteBodySumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: BruteBodyMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: BruteBodyMaxAggregateInputType
-  }
-
-  export type GetBruteBodyAggregateType<T extends BruteBodyAggregateArgs> = {
-        [P in keyof T & keyof AggregateBruteBody]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateBruteBody[P]>
-      : GetScalarType<T[P], AggregateBruteBody[P]>
-  }
-
-
-
-
-  export type BruteBodyGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: BruteBodyWhereInput
-    orderBy?: BruteBodyOrderByWithAggregationInput | BruteBodyOrderByWithAggregationInput[]
-    by: BruteBodyScalarFieldEnum[] | BruteBodyScalarFieldEnum
-    having?: BruteBodyScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: BruteBodyCountAggregateInputType | true
-    _avg?: BruteBodyAvgAggregateInputType
-    _sum?: BruteBodySumAggregateInputType
-    _min?: BruteBodyMinAggregateInputType
-    _max?: BruteBodyMaxAggregateInputType
-  }
-
-  export type BruteBodyGroupByOutputType = {
-    id: number
-    bruteId: number
-    p2: number
-    p3: number
-    p4: number
-    p7: number
-    p1: number
-    p1a: number
-    p1b: number
-    p6: number
-    p8: number
-    p7b: number
-    p5: number
-    _count: BruteBodyCountAggregateOutputType | null
-    _avg: BruteBodyAvgAggregateOutputType | null
-    _sum: BruteBodySumAggregateOutputType | null
-    _min: BruteBodyMinAggregateOutputType | null
-    _max: BruteBodyMaxAggregateOutputType | null
-  }
-
-  type GetBruteBodyGroupByPayload<T extends BruteBodyGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<BruteBodyGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof BruteBodyGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], BruteBodyGroupByOutputType[P]>
-            : GetScalarType<T[P], BruteBodyGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type BruteBodySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    bruteId?: boolean
-    p2?: boolean
-    p3?: boolean
-    p4?: boolean
-    p7?: boolean
-    p1?: boolean
-    p1a?: boolean
-    p1b?: boolean
-    p6?: boolean
-    p8?: boolean
-    p7b?: boolean
-    p5?: boolean
-    brute?: boolean | BruteDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["bruteBody"]>
-
-  export type BruteBodySelectScalar = {
-    id?: boolean
-    bruteId?: boolean
-    p2?: boolean
-    p3?: boolean
-    p4?: boolean
-    p7?: boolean
-    p1?: boolean
-    p1a?: boolean
-    p1b?: boolean
-    p6?: boolean
-    p8?: boolean
-    p7b?: boolean
-    p5?: boolean
-  }
-
-  export type BruteBodyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    brute?: boolean | BruteDefaultArgs<ExtArgs>
-  }
-
-
-  export type $BruteBodyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "BruteBody"
-    objects: {
-      brute: Prisma.$BrutePayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: number
-      bruteId: number
-      p2: number
-      p3: number
-      p4: number
-      p7: number
-      p1: number
-      p1a: number
-      p1b: number
-      p6: number
-      p8: number
-      p7b: number
-      p5: number
-    }, ExtArgs["result"]["bruteBody"]>
-    composites: {}
-  }
-
-
-  type BruteBodyGetPayload<S extends boolean | null | undefined | BruteBodyDefaultArgs> = $Result.GetResult<Prisma.$BruteBodyPayload, S>
-
-  type BruteBodyCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<BruteBodyFindManyArgs, 'select' | 'include' | 'distinct' | 'relationLoadStrategy'> & {
-      select?: BruteBodyCountAggregateInputType | true
-    }
-
-  export interface BruteBodyDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BruteBody'], meta: { name: 'BruteBody' } }
-    /**
-     * Find zero or one BruteBody that matches the filter.
-     * @param {BruteBodyFindUniqueArgs} args - Arguments to find a BruteBody
-     * @example
-     * // Get one BruteBody
-     * const bruteBody = await prisma.bruteBody.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findUnique<T extends BruteBodyFindUniqueArgs<ExtArgs>>(
-      args: SelectSubset<T, BruteBodyFindUniqueArgs<ExtArgs>>
-    ): Prisma__BruteBodyClient<$Result.GetResult<Prisma.$BruteBodyPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
-
-    /**
-     * Find one BruteBody that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
-     * @param {BruteBodyFindUniqueOrThrowArgs} args - Arguments to find a BruteBody
-     * @example
-     * // Get one BruteBody
-     * const bruteBody = await prisma.bruteBody.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findUniqueOrThrow<T extends BruteBodyFindUniqueOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, BruteBodyFindUniqueOrThrowArgs<ExtArgs>>
-    ): Prisma__BruteBodyClient<$Result.GetResult<Prisma.$BruteBodyPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
-
-    /**
-     * Find the first BruteBody that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BruteBodyFindFirstArgs} args - Arguments to find a BruteBody
-     * @example
-     * // Get one BruteBody
-     * const bruteBody = await prisma.bruteBody.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findFirst<T extends BruteBodyFindFirstArgs<ExtArgs>>(
-      args?: SelectSubset<T, BruteBodyFindFirstArgs<ExtArgs>>
-    ): Prisma__BruteBodyClient<$Result.GetResult<Prisma.$BruteBodyPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
-
-    /**
-     * Find the first BruteBody that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BruteBodyFindFirstOrThrowArgs} args - Arguments to find a BruteBody
-     * @example
-     * // Get one BruteBody
-     * const bruteBody = await prisma.bruteBody.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findFirstOrThrow<T extends BruteBodyFindFirstOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, BruteBodyFindFirstOrThrowArgs<ExtArgs>>
-    ): Prisma__BruteBodyClient<$Result.GetResult<Prisma.$BruteBodyPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
-
-    /**
-     * Find zero or more BruteBodies that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BruteBodyFindManyArgs=} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all BruteBodies
-     * const bruteBodies = await prisma.bruteBody.findMany()
-     * 
-     * // Get first 10 BruteBodies
-     * const bruteBodies = await prisma.bruteBody.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const bruteBodyWithIdOnly = await prisma.bruteBody.findMany({ select: { id: true } })
-     * 
-    **/
-    findMany<T extends BruteBodyFindManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, BruteBodyFindManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BruteBodyPayload<ExtArgs>, T, 'findMany'>>
-
-    /**
-     * Create a BruteBody.
-     * @param {BruteBodyCreateArgs} args - Arguments to create a BruteBody.
-     * @example
-     * // Create one BruteBody
-     * const BruteBody = await prisma.bruteBody.create({
-     *   data: {
-     *     // ... data to create a BruteBody
-     *   }
-     * })
-     * 
-    **/
-    create<T extends BruteBodyCreateArgs<ExtArgs>>(
-      args: SelectSubset<T, BruteBodyCreateArgs<ExtArgs>>
-    ): Prisma__BruteBodyClient<$Result.GetResult<Prisma.$BruteBodyPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
-
-    /**
-     * Create many BruteBodies.
-     *     @param {BruteBodyCreateManyArgs} args - Arguments to create many BruteBodies.
-     *     @example
-     *     // Create many BruteBodies
-     *     const bruteBody = await prisma.bruteBody.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
-     *     
-    **/
-    createMany<T extends BruteBodyCreateManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, BruteBodyCreateManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a BruteBody.
-     * @param {BruteBodyDeleteArgs} args - Arguments to delete one BruteBody.
-     * @example
-     * // Delete one BruteBody
-     * const BruteBody = await prisma.bruteBody.delete({
-     *   where: {
-     *     // ... filter to delete one BruteBody
-     *   }
-     * })
-     * 
-    **/
-    delete<T extends BruteBodyDeleteArgs<ExtArgs>>(
-      args: SelectSubset<T, BruteBodyDeleteArgs<ExtArgs>>
-    ): Prisma__BruteBodyClient<$Result.GetResult<Prisma.$BruteBodyPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
-
-    /**
-     * Update one BruteBody.
-     * @param {BruteBodyUpdateArgs} args - Arguments to update one BruteBody.
-     * @example
-     * // Update one BruteBody
-     * const bruteBody = await prisma.bruteBody.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
-    update<T extends BruteBodyUpdateArgs<ExtArgs>>(
-      args: SelectSubset<T, BruteBodyUpdateArgs<ExtArgs>>
-    ): Prisma__BruteBodyClient<$Result.GetResult<Prisma.$BruteBodyPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
-
-    /**
-     * Delete zero or more BruteBodies.
-     * @param {BruteBodyDeleteManyArgs} args - Arguments to filter BruteBodies to delete.
-     * @example
-     * // Delete a few BruteBodies
-     * const { count } = await prisma.bruteBody.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-    **/
-    deleteMany<T extends BruteBodyDeleteManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, BruteBodyDeleteManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more BruteBodies.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BruteBodyUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many BruteBodies
-     * const bruteBody = await prisma.bruteBody.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
-    updateMany<T extends BruteBodyUpdateManyArgs<ExtArgs>>(
-      args: SelectSubset<T, BruteBodyUpdateManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one BruteBody.
-     * @param {BruteBodyUpsertArgs} args - Arguments to update or create a BruteBody.
-     * @example
-     * // Update or create a BruteBody
-     * const bruteBody = await prisma.bruteBody.upsert({
-     *   create: {
-     *     // ... data to create a BruteBody
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the BruteBody we want to update
-     *   }
-     * })
-    **/
-    upsert<T extends BruteBodyUpsertArgs<ExtArgs>>(
-      args: SelectSubset<T, BruteBodyUpsertArgs<ExtArgs>>
-    ): Prisma__BruteBodyClient<$Result.GetResult<Prisma.$BruteBodyPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
-
-    /**
-     * Count the number of BruteBodies.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BruteBodyCountArgs} args - Arguments to filter BruteBodies to count.
-     * @example
-     * // Count the number of BruteBodies
-     * const count = await prisma.bruteBody.count({
-     *   where: {
-     *     // ... the filter for the BruteBodies we want to count
-     *   }
-     * })
-    **/
-    count<T extends BruteBodyCountArgs>(
-      args?: Subset<T, BruteBodyCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], BruteBodyCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a BruteBody.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BruteBodyAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends BruteBodyAggregateArgs>(args: Subset<T, BruteBodyAggregateArgs>): Prisma.PrismaPromise<GetBruteBodyAggregateType<T>>
-
-    /**
-     * Group by BruteBody.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BruteBodyGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends BruteBodyGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: BruteBodyGroupByArgs['orderBy'] }
-        : { orderBy?: BruteBodyGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, BruteBodyGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBruteBodyGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the BruteBody model
-   */
-  readonly fields: BruteBodyFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for BruteBody.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__BruteBodyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: 'PrismaPromise';
-
-    brute<T extends BruteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BruteDefaultArgs<ExtArgs>>): Prisma__BruteClient<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
-
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
-  }
-
-
-
-  /**
-   * Fields of the BruteBody model
-   */ 
-  interface BruteBodyFieldRefs {
-    readonly id: FieldRef<"BruteBody", 'Int'>
-    readonly bruteId: FieldRef<"BruteBody", 'Int'>
-    readonly p2: FieldRef<"BruteBody", 'Int'>
-    readonly p3: FieldRef<"BruteBody", 'Int'>
-    readonly p4: FieldRef<"BruteBody", 'Int'>
-    readonly p7: FieldRef<"BruteBody", 'Int'>
-    readonly p1: FieldRef<"BruteBody", 'Int'>
-    readonly p1a: FieldRef<"BruteBody", 'Int'>
-    readonly p1b: FieldRef<"BruteBody", 'Int'>
-    readonly p6: FieldRef<"BruteBody", 'Int'>
-    readonly p8: FieldRef<"BruteBody", 'Int'>
-    readonly p7b: FieldRef<"BruteBody", 'Int'>
-    readonly p5: FieldRef<"BruteBody", 'Int'>
-  }
-    
-
-  // Custom InputTypes
-
-  /**
-   * BruteBody findUnique
-   */
-  export type BruteBodyFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteBody
-     */
-    select?: BruteBodySelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteBodyInclude<ExtArgs> | null
-    /**
-     * Filter, which BruteBody to fetch.
-     */
-    where: BruteBodyWhereUniqueInput
-    relationLoadStrategy?: RelationLoadStrategy
-  }
-
-
-  /**
-   * BruteBody findUniqueOrThrow
-   */
-  export type BruteBodyFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteBody
-     */
-    select?: BruteBodySelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteBodyInclude<ExtArgs> | null
-    /**
-     * Filter, which BruteBody to fetch.
-     */
-    where: BruteBodyWhereUniqueInput
-    relationLoadStrategy?: RelationLoadStrategy
-  }
-
-
-  /**
-   * BruteBody findFirst
-   */
-  export type BruteBodyFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteBody
-     */
-    select?: BruteBodySelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteBodyInclude<ExtArgs> | null
-    /**
-     * Filter, which BruteBody to fetch.
-     */
-    where?: BruteBodyWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of BruteBodies to fetch.
-     */
-    orderBy?: BruteBodyOrderByWithRelationInput | BruteBodyOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for BruteBodies.
-     */
-    cursor?: BruteBodyWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` BruteBodies from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` BruteBodies.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of BruteBodies.
-     */
-    distinct?: BruteBodyScalarFieldEnum | BruteBodyScalarFieldEnum[]
-    relationLoadStrategy?: RelationLoadStrategy
-  }
-
-
-  /**
-   * BruteBody findFirstOrThrow
-   */
-  export type BruteBodyFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteBody
-     */
-    select?: BruteBodySelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteBodyInclude<ExtArgs> | null
-    /**
-     * Filter, which BruteBody to fetch.
-     */
-    where?: BruteBodyWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of BruteBodies to fetch.
-     */
-    orderBy?: BruteBodyOrderByWithRelationInput | BruteBodyOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for BruteBodies.
-     */
-    cursor?: BruteBodyWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` BruteBodies from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` BruteBodies.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of BruteBodies.
-     */
-    distinct?: BruteBodyScalarFieldEnum | BruteBodyScalarFieldEnum[]
-    relationLoadStrategy?: RelationLoadStrategy
-  }
-
-
-  /**
-   * BruteBody findMany
-   */
-  export type BruteBodyFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteBody
-     */
-    select?: BruteBodySelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteBodyInclude<ExtArgs> | null
-    /**
-     * Filter, which BruteBodies to fetch.
-     */
-    where?: BruteBodyWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of BruteBodies to fetch.
-     */
-    orderBy?: BruteBodyOrderByWithRelationInput | BruteBodyOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing BruteBodies.
-     */
-    cursor?: BruteBodyWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` BruteBodies from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` BruteBodies.
-     */
-    skip?: number
-    distinct?: BruteBodyScalarFieldEnum | BruteBodyScalarFieldEnum[]
-    relationLoadStrategy?: RelationLoadStrategy
-  }
-
-
-  /**
-   * BruteBody create
-   */
-  export type BruteBodyCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteBody
-     */
-    select?: BruteBodySelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteBodyInclude<ExtArgs> | null
-    /**
-     * The data needed to create a BruteBody.
-     */
-    data: XOR<BruteBodyCreateInput, BruteBodyUncheckedCreateInput>
-    relationLoadStrategy?: RelationLoadStrategy
-  }
-
-
-  /**
-   * BruteBody createMany
-   */
-  export type BruteBodyCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many BruteBodies.
-     */
-    data: BruteBodyCreateManyInput | BruteBodyCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-
-  /**
-   * BruteBody update
-   */
-  export type BruteBodyUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteBody
-     */
-    select?: BruteBodySelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteBodyInclude<ExtArgs> | null
-    /**
-     * The data needed to update a BruteBody.
-     */
-    data: XOR<BruteBodyUpdateInput, BruteBodyUncheckedUpdateInput>
-    /**
-     * Choose, which BruteBody to update.
-     */
-    where: BruteBodyWhereUniqueInput
-    relationLoadStrategy?: RelationLoadStrategy
-  }
-
-
-  /**
-   * BruteBody updateMany
-   */
-  export type BruteBodyUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update BruteBodies.
-     */
-    data: XOR<BruteBodyUpdateManyMutationInput, BruteBodyUncheckedUpdateManyInput>
-    /**
-     * Filter which BruteBodies to update
-     */
-    where?: BruteBodyWhereInput
-  }
-
-
-  /**
-   * BruteBody upsert
-   */
-  export type BruteBodyUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteBody
-     */
-    select?: BruteBodySelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteBodyInclude<ExtArgs> | null
-    /**
-     * The filter to search for the BruteBody to update in case it exists.
-     */
-    where: BruteBodyWhereUniqueInput
-    /**
-     * In case the BruteBody found by the `where` argument doesn't exist, create a new BruteBody with this data.
-     */
-    create: XOR<BruteBodyCreateInput, BruteBodyUncheckedCreateInput>
-    /**
-     * In case the BruteBody was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<BruteBodyUpdateInput, BruteBodyUncheckedUpdateInput>
-    relationLoadStrategy?: RelationLoadStrategy
-  }
-
-
-  /**
-   * BruteBody delete
-   */
-  export type BruteBodyDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteBody
-     */
-    select?: BruteBodySelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteBodyInclude<ExtArgs> | null
-    /**
-     * Filter which BruteBody to delete.
-     */
-    where: BruteBodyWhereUniqueInput
-    relationLoadStrategy?: RelationLoadStrategy
-  }
-
-
-  /**
-   * BruteBody deleteMany
-   */
-  export type BruteBodyDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which BruteBodies to delete
-     */
-    where?: BruteBodyWhereInput
-  }
-
-
-  /**
-   * BruteBody without action
-   */
-  export type BruteBodyDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteBody
-     */
-    select?: BruteBodySelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteBodyInclude<ExtArgs> | null
-  }
-
-
-
-  /**
-   * Model BruteColors
-   */
-
-  export type AggregateBruteColors = {
-    _count: BruteColorsCountAggregateOutputType | null
-    _avg: BruteColorsAvgAggregateOutputType | null
-    _sum: BruteColorsSumAggregateOutputType | null
-    _min: BruteColorsMinAggregateOutputType | null
-    _max: BruteColorsMaxAggregateOutputType | null
-  }
-
-  export type BruteColorsAvgAggregateOutputType = {
-    id: number | null
-    bruteId: number | null
-  }
-
-  export type BruteColorsSumAggregateOutputType = {
-    id: number | null
-    bruteId: number | null
-  }
-
-  export type BruteColorsMinAggregateOutputType = {
-    id: number | null
-    bruteId: number | null
-    col0: string | null
-    col0a: string | null
-    col0c: string | null
-    col1: string | null
-    col1a: string | null
-    col1b: string | null
-    col1c: string | null
-    col1d: string | null
-    col3: string | null
-    col2: string | null
-    col2b: string | null
-    col3b: string | null
-    col2a: string | null
-    col4: string | null
-    col4a: string | null
-    col4b: string | null
-  }
-
-  export type BruteColorsMaxAggregateOutputType = {
-    id: number | null
-    bruteId: number | null
-    col0: string | null
-    col0a: string | null
-    col0c: string | null
-    col1: string | null
-    col1a: string | null
-    col1b: string | null
-    col1c: string | null
-    col1d: string | null
-    col3: string | null
-    col2: string | null
-    col2b: string | null
-    col3b: string | null
-    col2a: string | null
-    col4: string | null
-    col4a: string | null
-    col4b: string | null
-  }
-
-  export type BruteColorsCountAggregateOutputType = {
-    id: number
-    bruteId: number
-    col0: number
-    col0a: number
-    col0c: number
-    col1: number
-    col1a: number
-    col1b: number
-    col1c: number
-    col1d: number
-    col3: number
-    col2: number
-    col2b: number
-    col3b: number
-    col2a: number
-    col4: number
-    col4a: number
-    col4b: number
-    _all: number
-  }
-
-
-  export type BruteColorsAvgAggregateInputType = {
-    id?: true
-    bruteId?: true
-  }
-
-  export type BruteColorsSumAggregateInputType = {
-    id?: true
-    bruteId?: true
-  }
-
-  export type BruteColorsMinAggregateInputType = {
-    id?: true
-    bruteId?: true
-    col0?: true
-    col0a?: true
-    col0c?: true
-    col1?: true
-    col1a?: true
-    col1b?: true
-    col1c?: true
-    col1d?: true
-    col3?: true
-    col2?: true
-    col2b?: true
-    col3b?: true
-    col2a?: true
-    col4?: true
-    col4a?: true
-    col4b?: true
-  }
-
-  export type BruteColorsMaxAggregateInputType = {
-    id?: true
-    bruteId?: true
-    col0?: true
-    col0a?: true
-    col0c?: true
-    col1?: true
-    col1a?: true
-    col1b?: true
-    col1c?: true
-    col1d?: true
-    col3?: true
-    col2?: true
-    col2b?: true
-    col3b?: true
-    col2a?: true
-    col4?: true
-    col4a?: true
-    col4b?: true
-  }
-
-  export type BruteColorsCountAggregateInputType = {
-    id?: true
-    bruteId?: true
-    col0?: true
-    col0a?: true
-    col0c?: true
-    col1?: true
-    col1a?: true
-    col1b?: true
-    col1c?: true
-    col1d?: true
-    col3?: true
-    col2?: true
-    col2b?: true
-    col3b?: true
-    col2a?: true
-    col4?: true
-    col4a?: true
-    col4b?: true
-    _all?: true
-  }
-
-  export type BruteColorsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which BruteColors to aggregate.
-     */
-    where?: BruteColorsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of BruteColors to fetch.
-     */
-    orderBy?: BruteColorsOrderByWithRelationInput | BruteColorsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: BruteColorsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` BruteColors from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` BruteColors.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned BruteColors
-    **/
-    _count?: true | BruteColorsCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: BruteColorsAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: BruteColorsSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: BruteColorsMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: BruteColorsMaxAggregateInputType
-  }
-
-  export type GetBruteColorsAggregateType<T extends BruteColorsAggregateArgs> = {
-        [P in keyof T & keyof AggregateBruteColors]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateBruteColors[P]>
-      : GetScalarType<T[P], AggregateBruteColors[P]>
-  }
-
-
-
-
-  export type BruteColorsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: BruteColorsWhereInput
-    orderBy?: BruteColorsOrderByWithAggregationInput | BruteColorsOrderByWithAggregationInput[]
-    by: BruteColorsScalarFieldEnum[] | BruteColorsScalarFieldEnum
-    having?: BruteColorsScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: BruteColorsCountAggregateInputType | true
-    _avg?: BruteColorsAvgAggregateInputType
-    _sum?: BruteColorsSumAggregateInputType
-    _min?: BruteColorsMinAggregateInputType
-    _max?: BruteColorsMaxAggregateInputType
-  }
-
-  export type BruteColorsGroupByOutputType = {
-    id: number
-    bruteId: number
-    col0: string
-    col0a: string
-    col0c: string
-    col1: string
-    col1a: string
-    col1b: string
-    col1c: string
-    col1d: string
-    col3: string
-    col2: string
-    col2b: string
-    col3b: string
-    col2a: string
-    col4: string
-    col4a: string
-    col4b: string
-    _count: BruteColorsCountAggregateOutputType | null
-    _avg: BruteColorsAvgAggregateOutputType | null
-    _sum: BruteColorsSumAggregateOutputType | null
-    _min: BruteColorsMinAggregateOutputType | null
-    _max: BruteColorsMaxAggregateOutputType | null
-  }
-
-  type GetBruteColorsGroupByPayload<T extends BruteColorsGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<BruteColorsGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof BruteColorsGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], BruteColorsGroupByOutputType[P]>
-            : GetScalarType<T[P], BruteColorsGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type BruteColorsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    bruteId?: boolean
-    col0?: boolean
-    col0a?: boolean
-    col0c?: boolean
-    col1?: boolean
-    col1a?: boolean
-    col1b?: boolean
-    col1c?: boolean
-    col1d?: boolean
-    col3?: boolean
-    col2?: boolean
-    col2b?: boolean
-    col3b?: boolean
-    col2a?: boolean
-    col4?: boolean
-    col4a?: boolean
-    col4b?: boolean
-    brute?: boolean | BruteDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["bruteColors"]>
-
-  export type BruteColorsSelectScalar = {
-    id?: boolean
-    bruteId?: boolean
-    col0?: boolean
-    col0a?: boolean
-    col0c?: boolean
-    col1?: boolean
-    col1a?: boolean
-    col1b?: boolean
-    col1c?: boolean
-    col1d?: boolean
-    col3?: boolean
-    col2?: boolean
-    col2b?: boolean
-    col3b?: boolean
-    col2a?: boolean
-    col4?: boolean
-    col4a?: boolean
-    col4b?: boolean
-  }
-
-  export type BruteColorsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    brute?: boolean | BruteDefaultArgs<ExtArgs>
-  }
-
-
-  export type $BruteColorsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "BruteColors"
-    objects: {
-      brute: Prisma.$BrutePayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: number
-      bruteId: number
-      col0: string
-      col0a: string
-      col0c: string
-      col1: string
-      col1a: string
-      col1b: string
-      col1c: string
-      col1d: string
-      col3: string
-      col2: string
-      col2b: string
-      col3b: string
-      col2a: string
-      col4: string
-      col4a: string
-      col4b: string
-    }, ExtArgs["result"]["bruteColors"]>
-    composites: {}
-  }
-
-
-  type BruteColorsGetPayload<S extends boolean | null | undefined | BruteColorsDefaultArgs> = $Result.GetResult<Prisma.$BruteColorsPayload, S>
-
-  type BruteColorsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<BruteColorsFindManyArgs, 'select' | 'include' | 'distinct' | 'relationLoadStrategy'> & {
-      select?: BruteColorsCountAggregateInputType | true
-    }
-
-  export interface BruteColorsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BruteColors'], meta: { name: 'BruteColors' } }
-    /**
-     * Find zero or one BruteColors that matches the filter.
-     * @param {BruteColorsFindUniqueArgs} args - Arguments to find a BruteColors
-     * @example
-     * // Get one BruteColors
-     * const bruteColors = await prisma.bruteColors.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findUnique<T extends BruteColorsFindUniqueArgs<ExtArgs>>(
-      args: SelectSubset<T, BruteColorsFindUniqueArgs<ExtArgs>>
-    ): Prisma__BruteColorsClient<$Result.GetResult<Prisma.$BruteColorsPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
-
-    /**
-     * Find one BruteColors that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
-     * @param {BruteColorsFindUniqueOrThrowArgs} args - Arguments to find a BruteColors
-     * @example
-     * // Get one BruteColors
-     * const bruteColors = await prisma.bruteColors.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findUniqueOrThrow<T extends BruteColorsFindUniqueOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, BruteColorsFindUniqueOrThrowArgs<ExtArgs>>
-    ): Prisma__BruteColorsClient<$Result.GetResult<Prisma.$BruteColorsPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
-
-    /**
-     * Find the first BruteColors that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BruteColorsFindFirstArgs} args - Arguments to find a BruteColors
-     * @example
-     * // Get one BruteColors
-     * const bruteColors = await prisma.bruteColors.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findFirst<T extends BruteColorsFindFirstArgs<ExtArgs>>(
-      args?: SelectSubset<T, BruteColorsFindFirstArgs<ExtArgs>>
-    ): Prisma__BruteColorsClient<$Result.GetResult<Prisma.$BruteColorsPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
-
-    /**
-     * Find the first BruteColors that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BruteColorsFindFirstOrThrowArgs} args - Arguments to find a BruteColors
-     * @example
-     * // Get one BruteColors
-     * const bruteColors = await prisma.bruteColors.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findFirstOrThrow<T extends BruteColorsFindFirstOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, BruteColorsFindFirstOrThrowArgs<ExtArgs>>
-    ): Prisma__BruteColorsClient<$Result.GetResult<Prisma.$BruteColorsPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
-
-    /**
-     * Find zero or more BruteColors that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BruteColorsFindManyArgs=} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all BruteColors
-     * const bruteColors = await prisma.bruteColors.findMany()
-     * 
-     * // Get first 10 BruteColors
-     * const bruteColors = await prisma.bruteColors.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const bruteColorsWithIdOnly = await prisma.bruteColors.findMany({ select: { id: true } })
-     * 
-    **/
-    findMany<T extends BruteColorsFindManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, BruteColorsFindManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BruteColorsPayload<ExtArgs>, T, 'findMany'>>
-
-    /**
-     * Create a BruteColors.
-     * @param {BruteColorsCreateArgs} args - Arguments to create a BruteColors.
-     * @example
-     * // Create one BruteColors
-     * const BruteColors = await prisma.bruteColors.create({
-     *   data: {
-     *     // ... data to create a BruteColors
-     *   }
-     * })
-     * 
-    **/
-    create<T extends BruteColorsCreateArgs<ExtArgs>>(
-      args: SelectSubset<T, BruteColorsCreateArgs<ExtArgs>>
-    ): Prisma__BruteColorsClient<$Result.GetResult<Prisma.$BruteColorsPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
-
-    /**
-     * Create many BruteColors.
-     *     @param {BruteColorsCreateManyArgs} args - Arguments to create many BruteColors.
-     *     @example
-     *     // Create many BruteColors
-     *     const bruteColors = await prisma.bruteColors.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
-     *     
-    **/
-    createMany<T extends BruteColorsCreateManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, BruteColorsCreateManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a BruteColors.
-     * @param {BruteColorsDeleteArgs} args - Arguments to delete one BruteColors.
-     * @example
-     * // Delete one BruteColors
-     * const BruteColors = await prisma.bruteColors.delete({
-     *   where: {
-     *     // ... filter to delete one BruteColors
-     *   }
-     * })
-     * 
-    **/
-    delete<T extends BruteColorsDeleteArgs<ExtArgs>>(
-      args: SelectSubset<T, BruteColorsDeleteArgs<ExtArgs>>
-    ): Prisma__BruteColorsClient<$Result.GetResult<Prisma.$BruteColorsPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
-
-    /**
-     * Update one BruteColors.
-     * @param {BruteColorsUpdateArgs} args - Arguments to update one BruteColors.
-     * @example
-     * // Update one BruteColors
-     * const bruteColors = await prisma.bruteColors.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
-    update<T extends BruteColorsUpdateArgs<ExtArgs>>(
-      args: SelectSubset<T, BruteColorsUpdateArgs<ExtArgs>>
-    ): Prisma__BruteColorsClient<$Result.GetResult<Prisma.$BruteColorsPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
-
-    /**
-     * Delete zero or more BruteColors.
-     * @param {BruteColorsDeleteManyArgs} args - Arguments to filter BruteColors to delete.
-     * @example
-     * // Delete a few BruteColors
-     * const { count } = await prisma.bruteColors.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-    **/
-    deleteMany<T extends BruteColorsDeleteManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, BruteColorsDeleteManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more BruteColors.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BruteColorsUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many BruteColors
-     * const bruteColors = await prisma.bruteColors.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
-    updateMany<T extends BruteColorsUpdateManyArgs<ExtArgs>>(
-      args: SelectSubset<T, BruteColorsUpdateManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one BruteColors.
-     * @param {BruteColorsUpsertArgs} args - Arguments to update or create a BruteColors.
-     * @example
-     * // Update or create a BruteColors
-     * const bruteColors = await prisma.bruteColors.upsert({
-     *   create: {
-     *     // ... data to create a BruteColors
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the BruteColors we want to update
-     *   }
-     * })
-    **/
-    upsert<T extends BruteColorsUpsertArgs<ExtArgs>>(
-      args: SelectSubset<T, BruteColorsUpsertArgs<ExtArgs>>
-    ): Prisma__BruteColorsClient<$Result.GetResult<Prisma.$BruteColorsPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
-
-    /**
-     * Count the number of BruteColors.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BruteColorsCountArgs} args - Arguments to filter BruteColors to count.
-     * @example
-     * // Count the number of BruteColors
-     * const count = await prisma.bruteColors.count({
-     *   where: {
-     *     // ... the filter for the BruteColors we want to count
-     *   }
-     * })
-    **/
-    count<T extends BruteColorsCountArgs>(
-      args?: Subset<T, BruteColorsCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], BruteColorsCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a BruteColors.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BruteColorsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends BruteColorsAggregateArgs>(args: Subset<T, BruteColorsAggregateArgs>): Prisma.PrismaPromise<GetBruteColorsAggregateType<T>>
-
-    /**
-     * Group by BruteColors.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BruteColorsGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends BruteColorsGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: BruteColorsGroupByArgs['orderBy'] }
-        : { orderBy?: BruteColorsGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, BruteColorsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBruteColorsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the BruteColors model
-   */
-  readonly fields: BruteColorsFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for BruteColors.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__BruteColorsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: 'PrismaPromise';
-
-    brute<T extends BruteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BruteDefaultArgs<ExtArgs>>): Prisma__BruteClient<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
-
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
-  }
-
-
-
-  /**
-   * Fields of the BruteColors model
-   */ 
-  interface BruteColorsFieldRefs {
-    readonly id: FieldRef<"BruteColors", 'Int'>
-    readonly bruteId: FieldRef<"BruteColors", 'Int'>
-    readonly col0: FieldRef<"BruteColors", 'String'>
-    readonly col0a: FieldRef<"BruteColors", 'String'>
-    readonly col0c: FieldRef<"BruteColors", 'String'>
-    readonly col1: FieldRef<"BruteColors", 'String'>
-    readonly col1a: FieldRef<"BruteColors", 'String'>
-    readonly col1b: FieldRef<"BruteColors", 'String'>
-    readonly col1c: FieldRef<"BruteColors", 'String'>
-    readonly col1d: FieldRef<"BruteColors", 'String'>
-    readonly col3: FieldRef<"BruteColors", 'String'>
-    readonly col2: FieldRef<"BruteColors", 'String'>
-    readonly col2b: FieldRef<"BruteColors", 'String'>
-    readonly col3b: FieldRef<"BruteColors", 'String'>
-    readonly col2a: FieldRef<"BruteColors", 'String'>
-    readonly col4: FieldRef<"BruteColors", 'String'>
-    readonly col4a: FieldRef<"BruteColors", 'String'>
-    readonly col4b: FieldRef<"BruteColors", 'String'>
-  }
-    
-
-  // Custom InputTypes
-
-  /**
-   * BruteColors findUnique
-   */
-  export type BruteColorsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteColors
-     */
-    select?: BruteColorsSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteColorsInclude<ExtArgs> | null
-    /**
-     * Filter, which BruteColors to fetch.
-     */
-    where: BruteColorsWhereUniqueInput
-    relationLoadStrategy?: RelationLoadStrategy
-  }
-
-
-  /**
-   * BruteColors findUniqueOrThrow
-   */
-  export type BruteColorsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteColors
-     */
-    select?: BruteColorsSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteColorsInclude<ExtArgs> | null
-    /**
-     * Filter, which BruteColors to fetch.
-     */
-    where: BruteColorsWhereUniqueInput
-    relationLoadStrategy?: RelationLoadStrategy
-  }
-
-
-  /**
-   * BruteColors findFirst
-   */
-  export type BruteColorsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteColors
-     */
-    select?: BruteColorsSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteColorsInclude<ExtArgs> | null
-    /**
-     * Filter, which BruteColors to fetch.
-     */
-    where?: BruteColorsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of BruteColors to fetch.
-     */
-    orderBy?: BruteColorsOrderByWithRelationInput | BruteColorsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for BruteColors.
-     */
-    cursor?: BruteColorsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` BruteColors from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` BruteColors.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of BruteColors.
-     */
-    distinct?: BruteColorsScalarFieldEnum | BruteColorsScalarFieldEnum[]
-    relationLoadStrategy?: RelationLoadStrategy
-  }
-
-
-  /**
-   * BruteColors findFirstOrThrow
-   */
-  export type BruteColorsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteColors
-     */
-    select?: BruteColorsSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteColorsInclude<ExtArgs> | null
-    /**
-     * Filter, which BruteColors to fetch.
-     */
-    where?: BruteColorsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of BruteColors to fetch.
-     */
-    orderBy?: BruteColorsOrderByWithRelationInput | BruteColorsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for BruteColors.
-     */
-    cursor?: BruteColorsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` BruteColors from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` BruteColors.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of BruteColors.
-     */
-    distinct?: BruteColorsScalarFieldEnum | BruteColorsScalarFieldEnum[]
-    relationLoadStrategy?: RelationLoadStrategy
-  }
-
-
-  /**
-   * BruteColors findMany
-   */
-  export type BruteColorsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteColors
-     */
-    select?: BruteColorsSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteColorsInclude<ExtArgs> | null
-    /**
-     * Filter, which BruteColors to fetch.
-     */
-    where?: BruteColorsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of BruteColors to fetch.
-     */
-    orderBy?: BruteColorsOrderByWithRelationInput | BruteColorsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing BruteColors.
-     */
-    cursor?: BruteColorsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` BruteColors from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` BruteColors.
-     */
-    skip?: number
-    distinct?: BruteColorsScalarFieldEnum | BruteColorsScalarFieldEnum[]
-    relationLoadStrategy?: RelationLoadStrategy
-  }
-
-
-  /**
-   * BruteColors create
-   */
-  export type BruteColorsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteColors
-     */
-    select?: BruteColorsSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteColorsInclude<ExtArgs> | null
-    /**
-     * The data needed to create a BruteColors.
-     */
-    data: XOR<BruteColorsCreateInput, BruteColorsUncheckedCreateInput>
-    relationLoadStrategy?: RelationLoadStrategy
-  }
-
-
-  /**
-   * BruteColors createMany
-   */
-  export type BruteColorsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many BruteColors.
-     */
-    data: BruteColorsCreateManyInput | BruteColorsCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-
-  /**
-   * BruteColors update
-   */
-  export type BruteColorsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteColors
-     */
-    select?: BruteColorsSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteColorsInclude<ExtArgs> | null
-    /**
-     * The data needed to update a BruteColors.
-     */
-    data: XOR<BruteColorsUpdateInput, BruteColorsUncheckedUpdateInput>
-    /**
-     * Choose, which BruteColors to update.
-     */
-    where: BruteColorsWhereUniqueInput
-    relationLoadStrategy?: RelationLoadStrategy
-  }
-
-
-  /**
-   * BruteColors updateMany
-   */
-  export type BruteColorsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update BruteColors.
-     */
-    data: XOR<BruteColorsUpdateManyMutationInput, BruteColorsUncheckedUpdateManyInput>
-    /**
-     * Filter which BruteColors to update
-     */
-    where?: BruteColorsWhereInput
-  }
-
-
-  /**
-   * BruteColors upsert
-   */
-  export type BruteColorsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteColors
-     */
-    select?: BruteColorsSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteColorsInclude<ExtArgs> | null
-    /**
-     * The filter to search for the BruteColors to update in case it exists.
-     */
-    where: BruteColorsWhereUniqueInput
-    /**
-     * In case the BruteColors found by the `where` argument doesn't exist, create a new BruteColors with this data.
-     */
-    create: XOR<BruteColorsCreateInput, BruteColorsUncheckedCreateInput>
-    /**
-     * In case the BruteColors was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<BruteColorsUpdateInput, BruteColorsUncheckedUpdateInput>
-    relationLoadStrategy?: RelationLoadStrategy
-  }
-
-
-  /**
-   * BruteColors delete
-   */
-  export type BruteColorsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteColors
-     */
-    select?: BruteColorsSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteColorsInclude<ExtArgs> | null
-    /**
-     * Filter which BruteColors to delete.
-     */
-    where: BruteColorsWhereUniqueInput
-    relationLoadStrategy?: RelationLoadStrategy
-  }
-
-
-  /**
-   * BruteColors deleteMany
-   */
-  export type BruteColorsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which BruteColors to delete
-     */
-    where?: BruteColorsWhereInput
-  }
-
-
-  /**
-   * BruteColors without action
-   */
-  export type BruteColorsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteColors
-     */
-    select?: BruteColorsSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteColorsInclude<ExtArgs> | null
-  }
-
-
-
-  /**
    * Model Brute
    */
 
@@ -6881,6 +4512,8 @@ export namespace Prisma {
     ranking: number | null
     gender: $Enums.Gender | null
     userId: string | null
+    body: string | null
+    colors: string | null
     masterId: number | null
     pupilsCount: number | null
     clanId: number | null
@@ -6920,6 +4553,8 @@ export namespace Prisma {
     ranking: number | null
     gender: $Enums.Gender | null
     userId: string | null
+    body: string | null
+    colors: string | null
     masterId: number | null
     pupilsCount: number | null
     clanId: number | null
@@ -6961,6 +4596,8 @@ export namespace Prisma {
     ranking: number
     gender: number
     userId: number
+    body: number
+    colors: number
     weapons: number
     skills: number
     pets: number
@@ -7059,6 +4696,8 @@ export namespace Prisma {
     ranking?: true
     gender?: true
     userId?: true
+    body?: true
+    colors?: true
     masterId?: true
     pupilsCount?: true
     clanId?: true
@@ -7098,6 +4737,8 @@ export namespace Prisma {
     ranking?: true
     gender?: true
     userId?: true
+    body?: true
+    colors?: true
     masterId?: true
     pupilsCount?: true
     clanId?: true
@@ -7139,6 +4780,8 @@ export namespace Prisma {
     ranking?: true
     gender?: true
     userId?: true
+    body?: true
+    colors?: true
     weapons?: true
     skills?: true
     pets?: true
@@ -7270,6 +4913,8 @@ export namespace Prisma {
     ranking: number
     gender: $Enums.Gender
     userId: string | null
+    body: string
+    colors: string
     weapons: $Enums.WeaponName[]
     skills: $Enums.SkillName[]
     pets: $Enums.PetName[]
@@ -7333,6 +4978,8 @@ export namespace Prisma {
     ranking?: boolean
     gender?: boolean
     userId?: boolean
+    body?: boolean
+    colors?: boolean
     weapons?: boolean
     skills?: boolean
     pets?: boolean
@@ -7351,8 +4998,6 @@ export namespace Prisma {
     favorite?: boolean
     wantToJoinClanId?: boolean
     user?: boolean | Brute$userArgs<ExtArgs>
-    body?: boolean | Brute$bodyArgs<ExtArgs>
-    colors?: boolean | Brute$colorsArgs<ExtArgs>
     master?: boolean | Brute$masterArgs<ExtArgs>
     pupils?: boolean | Brute$pupilsArgs<ExtArgs>
     clan?: boolean | Brute$clanArgs<ExtArgs>
@@ -7401,6 +5046,8 @@ export namespace Prisma {
     ranking?: boolean
     gender?: boolean
     userId?: boolean
+    body?: boolean
+    colors?: boolean
     weapons?: boolean
     skills?: boolean
     pets?: boolean
@@ -7422,8 +5069,6 @@ export namespace Prisma {
 
   export type BruteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | Brute$userArgs<ExtArgs>
-    body?: boolean | Brute$bodyArgs<ExtArgs>
-    colors?: boolean | Brute$colorsArgs<ExtArgs>
     master?: boolean | Brute$masterArgs<ExtArgs>
     pupils?: boolean | Brute$pupilsArgs<ExtArgs>
     clan?: boolean | Brute$clanArgs<ExtArgs>
@@ -7452,8 +5097,6 @@ export namespace Prisma {
     name: "Brute"
     objects: {
       user: Prisma.$UserPayload<ExtArgs> | null
-      body: Prisma.$BruteBodyPayload<ExtArgs> | null
-      colors: Prisma.$BruteColorsPayload<ExtArgs> | null
       master: Prisma.$BrutePayload<ExtArgs> | null
       pupils: Prisma.$BrutePayload<ExtArgs>[]
       clan: Prisma.$ClanPayload<ExtArgs> | null
@@ -7500,6 +5143,8 @@ export namespace Prisma {
       ranking: number
       gender: $Enums.Gender
       userId: string | null
+      body: string
+      colors: string
       weapons: $Enums.WeaponName[]
       skills: $Enums.SkillName[]
       pets: $Enums.PetName[]
@@ -7884,10 +5529,6 @@ export namespace Prisma {
 
     user<T extends Brute$userArgs<ExtArgs> = {}>(args?: Subset<T, Brute$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
-    body<T extends Brute$bodyArgs<ExtArgs> = {}>(args?: Subset<T, Brute$bodyArgs<ExtArgs>>): Prisma__BruteBodyClient<$Result.GetResult<Prisma.$BruteBodyPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
-
-    colors<T extends Brute$colorsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$colorsArgs<ExtArgs>>): Prisma__BruteColorsClient<$Result.GetResult<Prisma.$BruteColorsPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
-
     master<T extends Brute$masterArgs<ExtArgs> = {}>(args?: Subset<T, Brute$masterArgs<ExtArgs>>): Prisma__BruteClient<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
     pupils<T extends Brute$pupilsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$pupilsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, 'findMany'> | Null>;
@@ -7980,6 +5621,8 @@ export namespace Prisma {
     readonly ranking: FieldRef<"Brute", 'Int'>
     readonly gender: FieldRef<"Brute", 'Gender'>
     readonly userId: FieldRef<"Brute", 'String'>
+    readonly body: FieldRef<"Brute", 'String'>
+    readonly colors: FieldRef<"Brute", 'String'>
     readonly weapons: FieldRef<"Brute", 'WeaponName[]'>
     readonly skills: FieldRef<"Brute", 'SkillName[]'>
     readonly pets: FieldRef<"Brute", 'PetName[]'>
@@ -8330,38 +5973,6 @@ export namespace Prisma {
      */
     include?: UserInclude<ExtArgs> | null
     where?: UserWhereInput
-  }
-
-
-  /**
-   * Brute.body
-   */
-  export type Brute$bodyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteBody
-     */
-    select?: BruteBodySelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteBodyInclude<ExtArgs> | null
-    where?: BruteBodyWhereInput
-  }
-
-
-  /**
-   * Brute.colors
-   */
-  export type Brute$colorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BruteColors
-     */
-    select?: BruteColorsSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: BruteColorsInclude<ExtArgs> | null
-    where?: BruteColorsWhereInput
   }
 
 
@@ -26567,49 +24178,6 @@ export namespace Prisma {
   export type RelationLoadStrategy = (typeof RelationLoadStrategy)[keyof typeof RelationLoadStrategy]
 
 
-  export const BruteBodyScalarFieldEnum: {
-    id: 'id',
-    bruteId: 'bruteId',
-    p2: 'p2',
-    p3: 'p3',
-    p4: 'p4',
-    p7: 'p7',
-    p1: 'p1',
-    p1a: 'p1a',
-    p1b: 'p1b',
-    p6: 'p6',
-    p8: 'p8',
-    p7b: 'p7b',
-    p5: 'p5'
-  };
-
-  export type BruteBodyScalarFieldEnum = (typeof BruteBodyScalarFieldEnum)[keyof typeof BruteBodyScalarFieldEnum]
-
-
-  export const BruteColorsScalarFieldEnum: {
-    id: 'id',
-    bruteId: 'bruteId',
-    col0: 'col0',
-    col0a: 'col0a',
-    col0c: 'col0c',
-    col1: 'col1',
-    col1a: 'col1a',
-    col1b: 'col1b',
-    col1c: 'col1c',
-    col1d: 'col1d',
-    col3: 'col3',
-    col2: 'col2',
-    col2b: 'col2b',
-    col3b: 'col3b',
-    col2a: 'col2a',
-    col4: 'col4',
-    col4a: 'col4a',
-    col4b: 'col4b'
-  };
-
-  export type BruteColorsScalarFieldEnum = (typeof BruteColorsScalarFieldEnum)[keyof typeof BruteColorsScalarFieldEnum]
-
-
   export const BruteScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -26635,6 +24203,8 @@ export namespace Prisma {
     ranking: 'ranking',
     gender: 'gender',
     userId: 'userId',
+    body: 'body',
+    colors: 'colors',
     weapons: 'weapons',
     skills: 'skills',
     pets: 'pets',
@@ -27256,225 +24826,6 @@ export namespace Prisma {
     backgroundMusic?: BoolWithAggregatesFilter<"User"> | boolean
   }
 
-  export type BruteBodyWhereInput = {
-    AND?: BruteBodyWhereInput | BruteBodyWhereInput[]
-    OR?: BruteBodyWhereInput[]
-    NOT?: BruteBodyWhereInput | BruteBodyWhereInput[]
-    id?: IntFilter<"BruteBody"> | number
-    bruteId?: IntFilter<"BruteBody"> | number
-    p2?: IntFilter<"BruteBody"> | number
-    p3?: IntFilter<"BruteBody"> | number
-    p4?: IntFilter<"BruteBody"> | number
-    p7?: IntFilter<"BruteBody"> | number
-    p1?: IntFilter<"BruteBody"> | number
-    p1a?: IntFilter<"BruteBody"> | number
-    p1b?: IntFilter<"BruteBody"> | number
-    p6?: IntFilter<"BruteBody"> | number
-    p8?: IntFilter<"BruteBody"> | number
-    p7b?: IntFilter<"BruteBody"> | number
-    p5?: IntFilter<"BruteBody"> | number
-    brute?: XOR<BruteRelationFilter, BruteWhereInput>
-  }
-
-  export type BruteBodyOrderByWithRelationInput = {
-    id?: SortOrder
-    bruteId?: SortOrder
-    p2?: SortOrder
-    p3?: SortOrder
-    p4?: SortOrder
-    p7?: SortOrder
-    p1?: SortOrder
-    p1a?: SortOrder
-    p1b?: SortOrder
-    p6?: SortOrder
-    p8?: SortOrder
-    p7b?: SortOrder
-    p5?: SortOrder
-    brute?: BruteOrderByWithRelationInput
-  }
-
-  export type BruteBodyWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    bruteId?: number
-    AND?: BruteBodyWhereInput | BruteBodyWhereInput[]
-    OR?: BruteBodyWhereInput[]
-    NOT?: BruteBodyWhereInput | BruteBodyWhereInput[]
-    p2?: IntFilter<"BruteBody"> | number
-    p3?: IntFilter<"BruteBody"> | number
-    p4?: IntFilter<"BruteBody"> | number
-    p7?: IntFilter<"BruteBody"> | number
-    p1?: IntFilter<"BruteBody"> | number
-    p1a?: IntFilter<"BruteBody"> | number
-    p1b?: IntFilter<"BruteBody"> | number
-    p6?: IntFilter<"BruteBody"> | number
-    p8?: IntFilter<"BruteBody"> | number
-    p7b?: IntFilter<"BruteBody"> | number
-    p5?: IntFilter<"BruteBody"> | number
-    brute?: XOR<BruteRelationFilter, BruteWhereInput>
-  }, "id" | "bruteId">
-
-  export type BruteBodyOrderByWithAggregationInput = {
-    id?: SortOrder
-    bruteId?: SortOrder
-    p2?: SortOrder
-    p3?: SortOrder
-    p4?: SortOrder
-    p7?: SortOrder
-    p1?: SortOrder
-    p1a?: SortOrder
-    p1b?: SortOrder
-    p6?: SortOrder
-    p8?: SortOrder
-    p7b?: SortOrder
-    p5?: SortOrder
-    _count?: BruteBodyCountOrderByAggregateInput
-    _avg?: BruteBodyAvgOrderByAggregateInput
-    _max?: BruteBodyMaxOrderByAggregateInput
-    _min?: BruteBodyMinOrderByAggregateInput
-    _sum?: BruteBodySumOrderByAggregateInput
-  }
-
-  export type BruteBodyScalarWhereWithAggregatesInput = {
-    AND?: BruteBodyScalarWhereWithAggregatesInput | BruteBodyScalarWhereWithAggregatesInput[]
-    OR?: BruteBodyScalarWhereWithAggregatesInput[]
-    NOT?: BruteBodyScalarWhereWithAggregatesInput | BruteBodyScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"BruteBody"> | number
-    bruteId?: IntWithAggregatesFilter<"BruteBody"> | number
-    p2?: IntWithAggregatesFilter<"BruteBody"> | number
-    p3?: IntWithAggregatesFilter<"BruteBody"> | number
-    p4?: IntWithAggregatesFilter<"BruteBody"> | number
-    p7?: IntWithAggregatesFilter<"BruteBody"> | number
-    p1?: IntWithAggregatesFilter<"BruteBody"> | number
-    p1a?: IntWithAggregatesFilter<"BruteBody"> | number
-    p1b?: IntWithAggregatesFilter<"BruteBody"> | number
-    p6?: IntWithAggregatesFilter<"BruteBody"> | number
-    p8?: IntWithAggregatesFilter<"BruteBody"> | number
-    p7b?: IntWithAggregatesFilter<"BruteBody"> | number
-    p5?: IntWithAggregatesFilter<"BruteBody"> | number
-  }
-
-  export type BruteColorsWhereInput = {
-    AND?: BruteColorsWhereInput | BruteColorsWhereInput[]
-    OR?: BruteColorsWhereInput[]
-    NOT?: BruteColorsWhereInput | BruteColorsWhereInput[]
-    id?: IntFilter<"BruteColors"> | number
-    bruteId?: IntFilter<"BruteColors"> | number
-    col0?: StringFilter<"BruteColors"> | string
-    col0a?: StringFilter<"BruteColors"> | string
-    col0c?: StringFilter<"BruteColors"> | string
-    col1?: StringFilter<"BruteColors"> | string
-    col1a?: StringFilter<"BruteColors"> | string
-    col1b?: StringFilter<"BruteColors"> | string
-    col1c?: StringFilter<"BruteColors"> | string
-    col1d?: StringFilter<"BruteColors"> | string
-    col3?: StringFilter<"BruteColors"> | string
-    col2?: StringFilter<"BruteColors"> | string
-    col2b?: StringFilter<"BruteColors"> | string
-    col3b?: StringFilter<"BruteColors"> | string
-    col2a?: StringFilter<"BruteColors"> | string
-    col4?: StringFilter<"BruteColors"> | string
-    col4a?: StringFilter<"BruteColors"> | string
-    col4b?: StringFilter<"BruteColors"> | string
-    brute?: XOR<BruteRelationFilter, BruteWhereInput>
-  }
-
-  export type BruteColorsOrderByWithRelationInput = {
-    id?: SortOrder
-    bruteId?: SortOrder
-    col0?: SortOrder
-    col0a?: SortOrder
-    col0c?: SortOrder
-    col1?: SortOrder
-    col1a?: SortOrder
-    col1b?: SortOrder
-    col1c?: SortOrder
-    col1d?: SortOrder
-    col3?: SortOrder
-    col2?: SortOrder
-    col2b?: SortOrder
-    col3b?: SortOrder
-    col2a?: SortOrder
-    col4?: SortOrder
-    col4a?: SortOrder
-    col4b?: SortOrder
-    brute?: BruteOrderByWithRelationInput
-  }
-
-  export type BruteColorsWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    bruteId?: number
-    AND?: BruteColorsWhereInput | BruteColorsWhereInput[]
-    OR?: BruteColorsWhereInput[]
-    NOT?: BruteColorsWhereInput | BruteColorsWhereInput[]
-    col0?: StringFilter<"BruteColors"> | string
-    col0a?: StringFilter<"BruteColors"> | string
-    col0c?: StringFilter<"BruteColors"> | string
-    col1?: StringFilter<"BruteColors"> | string
-    col1a?: StringFilter<"BruteColors"> | string
-    col1b?: StringFilter<"BruteColors"> | string
-    col1c?: StringFilter<"BruteColors"> | string
-    col1d?: StringFilter<"BruteColors"> | string
-    col3?: StringFilter<"BruteColors"> | string
-    col2?: StringFilter<"BruteColors"> | string
-    col2b?: StringFilter<"BruteColors"> | string
-    col3b?: StringFilter<"BruteColors"> | string
-    col2a?: StringFilter<"BruteColors"> | string
-    col4?: StringFilter<"BruteColors"> | string
-    col4a?: StringFilter<"BruteColors"> | string
-    col4b?: StringFilter<"BruteColors"> | string
-    brute?: XOR<BruteRelationFilter, BruteWhereInput>
-  }, "id" | "bruteId">
-
-  export type BruteColorsOrderByWithAggregationInput = {
-    id?: SortOrder
-    bruteId?: SortOrder
-    col0?: SortOrder
-    col0a?: SortOrder
-    col0c?: SortOrder
-    col1?: SortOrder
-    col1a?: SortOrder
-    col1b?: SortOrder
-    col1c?: SortOrder
-    col1d?: SortOrder
-    col3?: SortOrder
-    col2?: SortOrder
-    col2b?: SortOrder
-    col3b?: SortOrder
-    col2a?: SortOrder
-    col4?: SortOrder
-    col4a?: SortOrder
-    col4b?: SortOrder
-    _count?: BruteColorsCountOrderByAggregateInput
-    _avg?: BruteColorsAvgOrderByAggregateInput
-    _max?: BruteColorsMaxOrderByAggregateInput
-    _min?: BruteColorsMinOrderByAggregateInput
-    _sum?: BruteColorsSumOrderByAggregateInput
-  }
-
-  export type BruteColorsScalarWhereWithAggregatesInput = {
-    AND?: BruteColorsScalarWhereWithAggregatesInput | BruteColorsScalarWhereWithAggregatesInput[]
-    OR?: BruteColorsScalarWhereWithAggregatesInput[]
-    NOT?: BruteColorsScalarWhereWithAggregatesInput | BruteColorsScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"BruteColors"> | number
-    bruteId?: IntWithAggregatesFilter<"BruteColors"> | number
-    col0?: StringWithAggregatesFilter<"BruteColors"> | string
-    col0a?: StringWithAggregatesFilter<"BruteColors"> | string
-    col0c?: StringWithAggregatesFilter<"BruteColors"> | string
-    col1?: StringWithAggregatesFilter<"BruteColors"> | string
-    col1a?: StringWithAggregatesFilter<"BruteColors"> | string
-    col1b?: StringWithAggregatesFilter<"BruteColors"> | string
-    col1c?: StringWithAggregatesFilter<"BruteColors"> | string
-    col1d?: StringWithAggregatesFilter<"BruteColors"> | string
-    col3?: StringWithAggregatesFilter<"BruteColors"> | string
-    col2?: StringWithAggregatesFilter<"BruteColors"> | string
-    col2b?: StringWithAggregatesFilter<"BruteColors"> | string
-    col3b?: StringWithAggregatesFilter<"BruteColors"> | string
-    col2a?: StringWithAggregatesFilter<"BruteColors"> | string
-    col4?: StringWithAggregatesFilter<"BruteColors"> | string
-    col4a?: StringWithAggregatesFilter<"BruteColors"> | string
-    col4b?: StringWithAggregatesFilter<"BruteColors"> | string
-  }
-
   export type BruteWhereInput = {
     AND?: BruteWhereInput | BruteWhereInput[]
     OR?: BruteWhereInput[]
@@ -27503,6 +24854,8 @@ export namespace Prisma {
     ranking?: IntFilter<"Brute"> | number
     gender?: EnumGenderFilter<"Brute"> | $Enums.Gender
     userId?: UuidNullableFilter<"Brute"> | string | null
+    body?: StringFilter<"Brute"> | string
+    colors?: StringFilter<"Brute"> | string
     weapons?: EnumWeaponNameNullableListFilter<"Brute">
     skills?: EnumSkillNameNullableListFilter<"Brute">
     pets?: EnumPetNameNullableListFilter<"Brute">
@@ -27521,8 +24874,6 @@ export namespace Prisma {
     favorite?: BoolFilter<"Brute"> | boolean
     wantToJoinClanId?: IntNullableFilter<"Brute"> | number | null
     user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
-    body?: XOR<BruteBodyNullableRelationFilter, BruteBodyWhereInput> | null
-    colors?: XOR<BruteColorsNullableRelationFilter, BruteColorsWhereInput> | null
     master?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
     pupils?: BruteListRelationFilter
     clan?: XOR<ClanNullableRelationFilter, ClanWhereInput> | null
@@ -27570,6 +24921,8 @@ export namespace Prisma {
     ranking?: SortOrder
     gender?: SortOrder
     userId?: SortOrderInput | SortOrder
+    body?: SortOrder
+    colors?: SortOrder
     weapons?: SortOrder
     skills?: SortOrder
     pets?: SortOrder
@@ -27588,8 +24941,6 @@ export namespace Prisma {
     favorite?: SortOrder
     wantToJoinClanId?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
-    body?: BruteBodyOrderByWithRelationInput
-    colors?: BruteColorsOrderByWithRelationInput
     master?: BruteOrderByWithRelationInput
     pupils?: BruteOrderByRelationAggregateInput
     clan?: ClanOrderByWithRelationInput
@@ -27640,6 +24991,8 @@ export namespace Prisma {
     ranking?: IntFilter<"Brute"> | number
     gender?: EnumGenderFilter<"Brute"> | $Enums.Gender
     userId?: UuidNullableFilter<"Brute"> | string | null
+    body?: StringFilter<"Brute"> | string
+    colors?: StringFilter<"Brute"> | string
     weapons?: EnumWeaponNameNullableListFilter<"Brute">
     skills?: EnumSkillNameNullableListFilter<"Brute">
     pets?: EnumPetNameNullableListFilter<"Brute">
@@ -27658,8 +25011,6 @@ export namespace Prisma {
     favorite?: BoolFilter<"Brute"> | boolean
     wantToJoinClanId?: IntNullableFilter<"Brute"> | number | null
     user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
-    body?: XOR<BruteBodyNullableRelationFilter, BruteBodyWhereInput> | null
-    colors?: XOR<BruteColorsNullableRelationFilter, BruteColorsWhereInput> | null
     master?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
     pupils?: BruteListRelationFilter
     clan?: XOR<ClanNullableRelationFilter, ClanWhereInput> | null
@@ -27707,6 +25058,8 @@ export namespace Prisma {
     ranking?: SortOrder
     gender?: SortOrder
     userId?: SortOrderInput | SortOrder
+    body?: SortOrder
+    colors?: SortOrder
     weapons?: SortOrder
     skills?: SortOrder
     pets?: SortOrder
@@ -27759,6 +25112,8 @@ export namespace Prisma {
     ranking?: IntWithAggregatesFilter<"Brute"> | number
     gender?: EnumGenderWithAggregatesFilter<"Brute"> | $Enums.Gender
     userId?: UuidNullableWithAggregatesFilter<"Brute"> | string | null
+    body?: StringWithAggregatesFilter<"Brute"> | string
+    colors?: StringWithAggregatesFilter<"Brute"> | string
     weapons?: EnumWeaponNameNullableListFilter<"Brute">
     skills?: EnumSkillNameNullableListFilter<"Brute">
     pets?: EnumPetNameNullableListFilter<"Brute">
@@ -28977,257 +26332,6 @@ export namespace Prisma {
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
   }
 
-  export type BruteBodyCreateInput = {
-    p2?: number
-    p3?: number
-    p4?: number
-    p7?: number
-    p1?: number
-    p1a?: number
-    p1b?: number
-    p6?: number
-    p8?: number
-    p7b?: number
-    p5?: number
-    brute: BruteCreateNestedOneWithoutBodyInput
-  }
-
-  export type BruteBodyUncheckedCreateInput = {
-    id?: number
-    bruteId: number
-    p2?: number
-    p3?: number
-    p4?: number
-    p7?: number
-    p1?: number
-    p1a?: number
-    p1b?: number
-    p6?: number
-    p8?: number
-    p7b?: number
-    p5?: number
-  }
-
-  export type BruteBodyUpdateInput = {
-    p2?: IntFieldUpdateOperationsInput | number
-    p3?: IntFieldUpdateOperationsInput | number
-    p4?: IntFieldUpdateOperationsInput | number
-    p7?: IntFieldUpdateOperationsInput | number
-    p1?: IntFieldUpdateOperationsInput | number
-    p1a?: IntFieldUpdateOperationsInput | number
-    p1b?: IntFieldUpdateOperationsInput | number
-    p6?: IntFieldUpdateOperationsInput | number
-    p8?: IntFieldUpdateOperationsInput | number
-    p7b?: IntFieldUpdateOperationsInput | number
-    p5?: IntFieldUpdateOperationsInput | number
-    brute?: BruteUpdateOneRequiredWithoutBodyNestedInput
-  }
-
-  export type BruteBodyUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    bruteId?: IntFieldUpdateOperationsInput | number
-    p2?: IntFieldUpdateOperationsInput | number
-    p3?: IntFieldUpdateOperationsInput | number
-    p4?: IntFieldUpdateOperationsInput | number
-    p7?: IntFieldUpdateOperationsInput | number
-    p1?: IntFieldUpdateOperationsInput | number
-    p1a?: IntFieldUpdateOperationsInput | number
-    p1b?: IntFieldUpdateOperationsInput | number
-    p6?: IntFieldUpdateOperationsInput | number
-    p8?: IntFieldUpdateOperationsInput | number
-    p7b?: IntFieldUpdateOperationsInput | number
-    p5?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type BruteBodyCreateManyInput = {
-    id?: number
-    bruteId: number
-    p2?: number
-    p3?: number
-    p4?: number
-    p7?: number
-    p1?: number
-    p1a?: number
-    p1b?: number
-    p6?: number
-    p8?: number
-    p7b?: number
-    p5?: number
-  }
-
-  export type BruteBodyUpdateManyMutationInput = {
-    p2?: IntFieldUpdateOperationsInput | number
-    p3?: IntFieldUpdateOperationsInput | number
-    p4?: IntFieldUpdateOperationsInput | number
-    p7?: IntFieldUpdateOperationsInput | number
-    p1?: IntFieldUpdateOperationsInput | number
-    p1a?: IntFieldUpdateOperationsInput | number
-    p1b?: IntFieldUpdateOperationsInput | number
-    p6?: IntFieldUpdateOperationsInput | number
-    p8?: IntFieldUpdateOperationsInput | number
-    p7b?: IntFieldUpdateOperationsInput | number
-    p5?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type BruteBodyUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    bruteId?: IntFieldUpdateOperationsInput | number
-    p2?: IntFieldUpdateOperationsInput | number
-    p3?: IntFieldUpdateOperationsInput | number
-    p4?: IntFieldUpdateOperationsInput | number
-    p7?: IntFieldUpdateOperationsInput | number
-    p1?: IntFieldUpdateOperationsInput | number
-    p1a?: IntFieldUpdateOperationsInput | number
-    p1b?: IntFieldUpdateOperationsInput | number
-    p6?: IntFieldUpdateOperationsInput | number
-    p8?: IntFieldUpdateOperationsInput | number
-    p7b?: IntFieldUpdateOperationsInput | number
-    p5?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type BruteColorsCreateInput = {
-    col0?: string
-    col0a?: string
-    col0c?: string
-    col1?: string
-    col1a?: string
-    col1b?: string
-    col1c?: string
-    col1d?: string
-    col3?: string
-    col2?: string
-    col2b?: string
-    col3b?: string
-    col2a?: string
-    col4?: string
-    col4a?: string
-    col4b?: string
-    brute: BruteCreateNestedOneWithoutColorsInput
-  }
-
-  export type BruteColorsUncheckedCreateInput = {
-    id?: number
-    bruteId: number
-    col0?: string
-    col0a?: string
-    col0c?: string
-    col1?: string
-    col1a?: string
-    col1b?: string
-    col1c?: string
-    col1d?: string
-    col3?: string
-    col2?: string
-    col2b?: string
-    col3b?: string
-    col2a?: string
-    col4?: string
-    col4a?: string
-    col4b?: string
-  }
-
-  export type BruteColorsUpdateInput = {
-    col0?: StringFieldUpdateOperationsInput | string
-    col0a?: StringFieldUpdateOperationsInput | string
-    col0c?: StringFieldUpdateOperationsInput | string
-    col1?: StringFieldUpdateOperationsInput | string
-    col1a?: StringFieldUpdateOperationsInput | string
-    col1b?: StringFieldUpdateOperationsInput | string
-    col1c?: StringFieldUpdateOperationsInput | string
-    col1d?: StringFieldUpdateOperationsInput | string
-    col3?: StringFieldUpdateOperationsInput | string
-    col2?: StringFieldUpdateOperationsInput | string
-    col2b?: StringFieldUpdateOperationsInput | string
-    col3b?: StringFieldUpdateOperationsInput | string
-    col2a?: StringFieldUpdateOperationsInput | string
-    col4?: StringFieldUpdateOperationsInput | string
-    col4a?: StringFieldUpdateOperationsInput | string
-    col4b?: StringFieldUpdateOperationsInput | string
-    brute?: BruteUpdateOneRequiredWithoutColorsNestedInput
-  }
-
-  export type BruteColorsUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    bruteId?: IntFieldUpdateOperationsInput | number
-    col0?: StringFieldUpdateOperationsInput | string
-    col0a?: StringFieldUpdateOperationsInput | string
-    col0c?: StringFieldUpdateOperationsInput | string
-    col1?: StringFieldUpdateOperationsInput | string
-    col1a?: StringFieldUpdateOperationsInput | string
-    col1b?: StringFieldUpdateOperationsInput | string
-    col1c?: StringFieldUpdateOperationsInput | string
-    col1d?: StringFieldUpdateOperationsInput | string
-    col3?: StringFieldUpdateOperationsInput | string
-    col2?: StringFieldUpdateOperationsInput | string
-    col2b?: StringFieldUpdateOperationsInput | string
-    col3b?: StringFieldUpdateOperationsInput | string
-    col2a?: StringFieldUpdateOperationsInput | string
-    col4?: StringFieldUpdateOperationsInput | string
-    col4a?: StringFieldUpdateOperationsInput | string
-    col4b?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type BruteColorsCreateManyInput = {
-    id?: number
-    bruteId: number
-    col0?: string
-    col0a?: string
-    col0c?: string
-    col1?: string
-    col1a?: string
-    col1b?: string
-    col1c?: string
-    col1d?: string
-    col3?: string
-    col2?: string
-    col2b?: string
-    col3b?: string
-    col2a?: string
-    col4?: string
-    col4a?: string
-    col4b?: string
-  }
-
-  export type BruteColorsUpdateManyMutationInput = {
-    col0?: StringFieldUpdateOperationsInput | string
-    col0a?: StringFieldUpdateOperationsInput | string
-    col0c?: StringFieldUpdateOperationsInput | string
-    col1?: StringFieldUpdateOperationsInput | string
-    col1a?: StringFieldUpdateOperationsInput | string
-    col1b?: StringFieldUpdateOperationsInput | string
-    col1c?: StringFieldUpdateOperationsInput | string
-    col1d?: StringFieldUpdateOperationsInput | string
-    col3?: StringFieldUpdateOperationsInput | string
-    col2?: StringFieldUpdateOperationsInput | string
-    col2b?: StringFieldUpdateOperationsInput | string
-    col3b?: StringFieldUpdateOperationsInput | string
-    col2a?: StringFieldUpdateOperationsInput | string
-    col4?: StringFieldUpdateOperationsInput | string
-    col4a?: StringFieldUpdateOperationsInput | string
-    col4b?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type BruteColorsUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    bruteId?: IntFieldUpdateOperationsInput | number
-    col0?: StringFieldUpdateOperationsInput | string
-    col0a?: StringFieldUpdateOperationsInput | string
-    col0c?: StringFieldUpdateOperationsInput | string
-    col1?: StringFieldUpdateOperationsInput | string
-    col1a?: StringFieldUpdateOperationsInput | string
-    col1b?: StringFieldUpdateOperationsInput | string
-    col1c?: StringFieldUpdateOperationsInput | string
-    col1d?: StringFieldUpdateOperationsInput | string
-    col3?: StringFieldUpdateOperationsInput | string
-    col2?: StringFieldUpdateOperationsInput | string
-    col2b?: StringFieldUpdateOperationsInput | string
-    col3b?: StringFieldUpdateOperationsInput | string
-    col2a?: StringFieldUpdateOperationsInput | string
-    col4?: StringFieldUpdateOperationsInput | string
-    col4a?: StringFieldUpdateOperationsInput | string
-    col4b?: StringFieldUpdateOperationsInput | string
-  }
-
   export type BruteCreateInput = {
     name: string
     deletedAt?: Date | string | null
@@ -29251,6 +26355,8 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: $Enums.Gender
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -29266,8 +26372,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     user?: UserCreateNestedOneWithoutBrutesInput
-    body?: BruteBodyCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsCreateNestedOneWithoutBruteInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
     clan?: ClanCreateNestedOneWithoutBrutesInput
@@ -29315,6 +26419,8 @@ export namespace Prisma {
     ranking?: number
     gender: $Enums.Gender
     userId?: string | null
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -29332,8 +26438,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     wantToJoinClanId?: number | null
-    body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
@@ -29376,6 +26480,8 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -29391,8 +26497,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneWithoutBrutesNestedInput
-    body?: BruteBodyUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUpdateOneWithoutBruteNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
     clan?: ClanUpdateOneWithoutBrutesNestedInput
@@ -29440,6 +26544,8 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -29457,8 +26563,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
-    body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
@@ -29503,6 +26607,8 @@ export namespace Prisma {
     ranking?: number
     gender: $Enums.Gender
     userId?: string | null
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -29545,6 +26651,8 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -29586,6 +26694,8 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -30826,164 +27936,6 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type BruteRelationFilter = {
-    is?: BruteWhereInput
-    isNot?: BruteWhereInput
-  }
-
-  export type BruteBodyCountOrderByAggregateInput = {
-    id?: SortOrder
-    bruteId?: SortOrder
-    p2?: SortOrder
-    p3?: SortOrder
-    p4?: SortOrder
-    p7?: SortOrder
-    p1?: SortOrder
-    p1a?: SortOrder
-    p1b?: SortOrder
-    p6?: SortOrder
-    p8?: SortOrder
-    p7b?: SortOrder
-    p5?: SortOrder
-  }
-
-  export type BruteBodyAvgOrderByAggregateInput = {
-    id?: SortOrder
-    bruteId?: SortOrder
-    p2?: SortOrder
-    p3?: SortOrder
-    p4?: SortOrder
-    p7?: SortOrder
-    p1?: SortOrder
-    p1a?: SortOrder
-    p1b?: SortOrder
-    p6?: SortOrder
-    p8?: SortOrder
-    p7b?: SortOrder
-    p5?: SortOrder
-  }
-
-  export type BruteBodyMaxOrderByAggregateInput = {
-    id?: SortOrder
-    bruteId?: SortOrder
-    p2?: SortOrder
-    p3?: SortOrder
-    p4?: SortOrder
-    p7?: SortOrder
-    p1?: SortOrder
-    p1a?: SortOrder
-    p1b?: SortOrder
-    p6?: SortOrder
-    p8?: SortOrder
-    p7b?: SortOrder
-    p5?: SortOrder
-  }
-
-  export type BruteBodyMinOrderByAggregateInput = {
-    id?: SortOrder
-    bruteId?: SortOrder
-    p2?: SortOrder
-    p3?: SortOrder
-    p4?: SortOrder
-    p7?: SortOrder
-    p1?: SortOrder
-    p1a?: SortOrder
-    p1b?: SortOrder
-    p6?: SortOrder
-    p8?: SortOrder
-    p7b?: SortOrder
-    p5?: SortOrder
-  }
-
-  export type BruteBodySumOrderByAggregateInput = {
-    id?: SortOrder
-    bruteId?: SortOrder
-    p2?: SortOrder
-    p3?: SortOrder
-    p4?: SortOrder
-    p7?: SortOrder
-    p1?: SortOrder
-    p1a?: SortOrder
-    p1b?: SortOrder
-    p6?: SortOrder
-    p8?: SortOrder
-    p7b?: SortOrder
-    p5?: SortOrder
-  }
-
-  export type BruteColorsCountOrderByAggregateInput = {
-    id?: SortOrder
-    bruteId?: SortOrder
-    col0?: SortOrder
-    col0a?: SortOrder
-    col0c?: SortOrder
-    col1?: SortOrder
-    col1a?: SortOrder
-    col1b?: SortOrder
-    col1c?: SortOrder
-    col1d?: SortOrder
-    col3?: SortOrder
-    col2?: SortOrder
-    col2b?: SortOrder
-    col3b?: SortOrder
-    col2a?: SortOrder
-    col4?: SortOrder
-    col4a?: SortOrder
-    col4b?: SortOrder
-  }
-
-  export type BruteColorsAvgOrderByAggregateInput = {
-    id?: SortOrder
-    bruteId?: SortOrder
-  }
-
-  export type BruteColorsMaxOrderByAggregateInput = {
-    id?: SortOrder
-    bruteId?: SortOrder
-    col0?: SortOrder
-    col0a?: SortOrder
-    col0c?: SortOrder
-    col1?: SortOrder
-    col1a?: SortOrder
-    col1b?: SortOrder
-    col1c?: SortOrder
-    col1d?: SortOrder
-    col3?: SortOrder
-    col2?: SortOrder
-    col2b?: SortOrder
-    col3b?: SortOrder
-    col2a?: SortOrder
-    col4?: SortOrder
-    col4a?: SortOrder
-    col4b?: SortOrder
-  }
-
-  export type BruteColorsMinOrderByAggregateInput = {
-    id?: SortOrder
-    bruteId?: SortOrder
-    col0?: SortOrder
-    col0a?: SortOrder
-    col0c?: SortOrder
-    col1?: SortOrder
-    col1a?: SortOrder
-    col1b?: SortOrder
-    col1c?: SortOrder
-    col1d?: SortOrder
-    col3?: SortOrder
-    col2?: SortOrder
-    col2b?: SortOrder
-    col3b?: SortOrder
-    col2a?: SortOrder
-    col4?: SortOrder
-    col4a?: SortOrder
-    col4b?: SortOrder
-  }
-
-  export type BruteColorsSumOrderByAggregateInput = {
-    id?: SortOrder
-    bruteId?: SortOrder
-  }
-
   export type DateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -31082,16 +28034,6 @@ export namespace Prisma {
   export type UserNullableRelationFilter = {
     is?: UserWhereInput | null
     isNot?: UserWhereInput | null
-  }
-
-  export type BruteBodyNullableRelationFilter = {
-    is?: BruteBodyWhereInput | null
-    isNot?: BruteBodyWhereInput | null
-  }
-
-  export type BruteColorsNullableRelationFilter = {
-    is?: BruteColorsWhereInput | null
-    isNot?: BruteColorsWhereInput | null
   }
 
   export type BruteNullableRelationFilter = {
@@ -31234,6 +28176,8 @@ export namespace Prisma {
     ranking?: SortOrder
     gender?: SortOrder
     userId?: SortOrder
+    body?: SortOrder
+    colors?: SortOrder
     weapons?: SortOrder
     skills?: SortOrder
     pets?: SortOrder
@@ -31303,6 +28247,8 @@ export namespace Prisma {
     ranking?: SortOrder
     gender?: SortOrder
     userId?: SortOrder
+    body?: SortOrder
+    colors?: SortOrder
     masterId?: SortOrder
     pupilsCount?: SortOrder
     clanId?: SortOrder
@@ -31342,6 +28288,8 @@ export namespace Prisma {
     ranking?: SortOrder
     gender?: SortOrder
     userId?: SortOrder
+    body?: SortOrder
+    colors?: SortOrder
     masterId?: SortOrder
     pupilsCount?: SortOrder
     clanId?: SortOrder
@@ -31468,6 +28416,11 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type BruteRelationFilter = {
+    is?: BruteWhereInput
+    isNot?: BruteWhereInput
   }
 
   export type TournamentNullableRelationFilter = {
@@ -32615,34 +29568,6 @@ export namespace Prisma {
     deleteMany?: TournamentGoldScalarWhereInput | TournamentGoldScalarWhereInput[]
   }
 
-  export type BruteCreateNestedOneWithoutBodyInput = {
-    create?: XOR<BruteCreateWithoutBodyInput, BruteUncheckedCreateWithoutBodyInput>
-    connectOrCreate?: BruteCreateOrConnectWithoutBodyInput
-    connect?: BruteWhereUniqueInput
-  }
-
-  export type BruteUpdateOneRequiredWithoutBodyNestedInput = {
-    create?: XOR<BruteCreateWithoutBodyInput, BruteUncheckedCreateWithoutBodyInput>
-    connectOrCreate?: BruteCreateOrConnectWithoutBodyInput
-    upsert?: BruteUpsertWithoutBodyInput
-    connect?: BruteWhereUniqueInput
-    update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutBodyInput, BruteUpdateWithoutBodyInput>, BruteUncheckedUpdateWithoutBodyInput>
-  }
-
-  export type BruteCreateNestedOneWithoutColorsInput = {
-    create?: XOR<BruteCreateWithoutColorsInput, BruteUncheckedCreateWithoutColorsInput>
-    connectOrCreate?: BruteCreateOrConnectWithoutColorsInput
-    connect?: BruteWhereUniqueInput
-  }
-
-  export type BruteUpdateOneRequiredWithoutColorsNestedInput = {
-    create?: XOR<BruteCreateWithoutColorsInput, BruteUncheckedCreateWithoutColorsInput>
-    connectOrCreate?: BruteCreateOrConnectWithoutColorsInput
-    upsert?: BruteUpsertWithoutColorsInput
-    connect?: BruteWhereUniqueInput
-    update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutColorsInput, BruteUpdateWithoutColorsInput>, BruteUncheckedUpdateWithoutColorsInput>
-  }
-
   export type BruteCreatedestinyPathInput = {
     set: $Enums.DestinyChoiceSide[]
   }
@@ -32667,18 +29592,6 @@ export namespace Prisma {
     create?: XOR<UserCreateWithoutBrutesInput, UserUncheckedCreateWithoutBrutesInput>
     connectOrCreate?: UserCreateOrConnectWithoutBrutesInput
     connect?: UserWhereUniqueInput
-  }
-
-  export type BruteBodyCreateNestedOneWithoutBruteInput = {
-    create?: XOR<BruteBodyCreateWithoutBruteInput, BruteBodyUncheckedCreateWithoutBruteInput>
-    connectOrCreate?: BruteBodyCreateOrConnectWithoutBruteInput
-    connect?: BruteBodyWhereUniqueInput
-  }
-
-  export type BruteColorsCreateNestedOneWithoutBruteInput = {
-    create?: XOR<BruteColorsCreateWithoutBruteInput, BruteColorsUncheckedCreateWithoutBruteInput>
-    connectOrCreate?: BruteColorsCreateOrConnectWithoutBruteInput
-    connect?: BruteColorsWhereUniqueInput
   }
 
   export type BruteCreateNestedOneWithoutPupilsInput = {
@@ -32811,18 +29724,6 @@ export namespace Prisma {
     connectOrCreate?: TournamentXpCreateOrConnectWithoutBruteInput | TournamentXpCreateOrConnectWithoutBruteInput[]
     createMany?: TournamentXpCreateManyBruteInputEnvelope
     connect?: TournamentXpWhereUniqueInput | TournamentXpWhereUniqueInput[]
-  }
-
-  export type BruteBodyUncheckedCreateNestedOneWithoutBruteInput = {
-    create?: XOR<BruteBodyCreateWithoutBruteInput, BruteBodyUncheckedCreateWithoutBruteInput>
-    connectOrCreate?: BruteBodyCreateOrConnectWithoutBruteInput
-    connect?: BruteBodyWhereUniqueInput
-  }
-
-  export type BruteColorsUncheckedCreateNestedOneWithoutBruteInput = {
-    create?: XOR<BruteColorsCreateWithoutBruteInput, BruteColorsUncheckedCreateWithoutBruteInput>
-    connectOrCreate?: BruteColorsCreateOrConnectWithoutBruteInput
-    connect?: BruteColorsWhereUniqueInput
   }
 
   export type BruteUncheckedCreateNestedManyWithoutMasterInput = {
@@ -33000,26 +29901,6 @@ export namespace Prisma {
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutBrutesInput, UserUpdateWithoutBrutesInput>, UserUncheckedUpdateWithoutBrutesInput>
-  }
-
-  export type BruteBodyUpdateOneWithoutBruteNestedInput = {
-    create?: XOR<BruteBodyCreateWithoutBruteInput, BruteBodyUncheckedCreateWithoutBruteInput>
-    connectOrCreate?: BruteBodyCreateOrConnectWithoutBruteInput
-    upsert?: BruteBodyUpsertWithoutBruteInput
-    disconnect?: BruteBodyWhereInput | boolean
-    delete?: BruteBodyWhereInput | boolean
-    connect?: BruteBodyWhereUniqueInput
-    update?: XOR<XOR<BruteBodyUpdateToOneWithWhereWithoutBruteInput, BruteBodyUpdateWithoutBruteInput>, BruteBodyUncheckedUpdateWithoutBruteInput>
-  }
-
-  export type BruteColorsUpdateOneWithoutBruteNestedInput = {
-    create?: XOR<BruteColorsCreateWithoutBruteInput, BruteColorsUncheckedCreateWithoutBruteInput>
-    connectOrCreate?: BruteColorsCreateOrConnectWithoutBruteInput
-    upsert?: BruteColorsUpsertWithoutBruteInput
-    disconnect?: BruteColorsWhereInput | boolean
-    delete?: BruteColorsWhereInput | boolean
-    connect?: BruteColorsWhereUniqueInput
-    update?: XOR<XOR<BruteColorsUpdateToOneWithWhereWithoutBruteInput, BruteColorsUpdateWithoutBruteInput>, BruteColorsUncheckedUpdateWithoutBruteInput>
   }
 
   export type BruteUpdateOneWithoutPupilsNestedInput = {
@@ -33284,26 +30165,6 @@ export namespace Prisma {
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
-  }
-
-  export type BruteBodyUncheckedUpdateOneWithoutBruteNestedInput = {
-    create?: XOR<BruteBodyCreateWithoutBruteInput, BruteBodyUncheckedCreateWithoutBruteInput>
-    connectOrCreate?: BruteBodyCreateOrConnectWithoutBruteInput
-    upsert?: BruteBodyUpsertWithoutBruteInput
-    disconnect?: BruteBodyWhereInput | boolean
-    delete?: BruteBodyWhereInput | boolean
-    connect?: BruteBodyWhereUniqueInput
-    update?: XOR<XOR<BruteBodyUpdateToOneWithWhereWithoutBruteInput, BruteBodyUpdateWithoutBruteInput>, BruteBodyUncheckedUpdateWithoutBruteInput>
-  }
-
-  export type BruteColorsUncheckedUpdateOneWithoutBruteNestedInput = {
-    create?: XOR<BruteColorsCreateWithoutBruteInput, BruteColorsUncheckedCreateWithoutBruteInput>
-    connectOrCreate?: BruteColorsCreateOrConnectWithoutBruteInput
-    upsert?: BruteColorsUpsertWithoutBruteInput
-    disconnect?: BruteColorsWhereInput | boolean
-    delete?: BruteColorsWhereInput | boolean
-    connect?: BruteColorsWhereUniqueInput
-    update?: XOR<XOR<BruteColorsUpdateToOneWithWhereWithoutBruteInput, BruteColorsUpdateWithoutBruteInput>, BruteColorsUncheckedUpdateWithoutBruteInput>
   }
 
   export type BruteUncheckedUpdateManyWithoutMasterNestedInput = {
@@ -34861,6 +31722,8 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: $Enums.Gender
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -34875,8 +31738,6 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    body?: BruteBodyCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsCreateNestedOneWithoutBruteInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
     clan?: ClanCreateNestedOneWithoutBrutesInput
@@ -34923,6 +31784,8 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: $Enums.Gender
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -34940,8 +31803,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     wantToJoinClanId?: number | null
-    body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
@@ -35081,6 +31942,8 @@ export namespace Prisma {
     ranking?: IntFilter<"Brute"> | number
     gender?: EnumGenderFilter<"Brute"> | $Enums.Gender
     userId?: UuidNullableFilter<"Brute"> | string | null
+    body?: StringFilter<"Brute"> | string
+    colors?: StringFilter<"Brute"> | string
     weapons?: EnumWeaponNameNullableListFilter<"Brute">
     skills?: EnumSkillNameNullableListFilter<"Brute">
     pets?: EnumPetNameNullableListFilter<"Brute">
@@ -35181,530 +32044,6 @@ export namespace Prisma {
     gold?: IntFilter<"TournamentGold"> | number
   }
 
-  export type BruteCreateWithoutBodyInput = {
-    name: string
-    deletedAt?: Date | string | null
-    createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
-    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
-    level?: number
-    xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
-    strengthStat?: number
-    strengthModifier?: number
-    strengthValue?: number
-    agilityStat?: number
-    agilityModifier?: number
-    agilityValue?: number
-    speedStat?: number
-    speedModifier?: number
-    speedValue?: number
-    ranking?: number
-    gender: $Enums.Gender
-    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
-    skills?: BruteCreateskillsInput | $Enums.SkillName[]
-    pets?: BruteCreatepetsInput | $Enums.PetName[]
-    pupilsCount?: number
-    registeredForTournament?: boolean
-    nextTournamentDate?: Date | string | null
-    currentTournamentDate?: Date | string | null
-    currentTournamentStepWatched?: number | null
-    lastFight?: Date | string | null
-    fightsLeft?: number
-    victories?: number
-    opponentsGeneratedAt?: Date | string | null
-    canRankUpSince?: Date | string | null
-    favorite?: boolean
-    user?: UserCreateNestedOneWithoutBrutesInput
-    colors?: BruteColorsCreateNestedOneWithoutBruteInput
-    master?: BruteCreateNestedOneWithoutPupilsInput
-    pupils?: BruteCreateNestedManyWithoutMasterInput
-    clan?: ClanCreateNestedOneWithoutBrutesInput
-    fights?: FightCreateNestedManyWithoutBrute1Input
-    fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
-    logs?: LogCreateNestedManyWithoutCurrentBruteInput
-    destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
-    tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
-    opponents?: BruteCreateNestedManyWithoutOpponentOfInput
-    opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
-    achievements?: AchievementCreateNestedManyWithoutBruteInput
-    reports?: BruteReportCreateNestedManyWithoutBruteInput
-    titles?: TitleCreateNestedManyWithoutBrutesInput
-    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
-    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
-    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
-    threads?: ClanThreadCreateNestedManyWithoutCreatorInput
-    inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
-    tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
-    tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
-  }
-
-  export type BruteUncheckedCreateWithoutBodyInput = {
-    id?: number
-    name: string
-    deletedAt?: Date | string | null
-    createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
-    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
-    level?: number
-    xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
-    strengthStat?: number
-    strengthModifier?: number
-    strengthValue?: number
-    agilityStat?: number
-    agilityModifier?: number
-    agilityValue?: number
-    speedStat?: number
-    speedModifier?: number
-    speedValue?: number
-    ranking?: number
-    gender: $Enums.Gender
-    userId?: string | null
-    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
-    skills?: BruteCreateskillsInput | $Enums.SkillName[]
-    pets?: BruteCreatepetsInput | $Enums.PetName[]
-    masterId?: number | null
-    pupilsCount?: number
-    clanId?: number | null
-    registeredForTournament?: boolean
-    nextTournamentDate?: Date | string | null
-    currentTournamentDate?: Date | string | null
-    currentTournamentStepWatched?: number | null
-    lastFight?: Date | string | null
-    fightsLeft?: number
-    victories?: number
-    opponentsGeneratedAt?: Date | string | null
-    canRankUpSince?: Date | string | null
-    favorite?: boolean
-    wantToJoinClanId?: number | null
-    colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
-    pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
-    fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
-    fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
-    logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
-    destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
-    tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
-    opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
-    opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
-    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
-    reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
-    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
-    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
-    threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
-    inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
-    tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
-    tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
-  }
-
-  export type BruteCreateOrConnectWithoutBodyInput = {
-    where: BruteWhereUniqueInput
-    create: XOR<BruteCreateWithoutBodyInput, BruteUncheckedCreateWithoutBodyInput>
-  }
-
-  export type BruteUpsertWithoutBodyInput = {
-    update: XOR<BruteUpdateWithoutBodyInput, BruteUncheckedUpdateWithoutBodyInput>
-    create: XOR<BruteCreateWithoutBodyInput, BruteUncheckedCreateWithoutBodyInput>
-    where?: BruteWhereInput
-  }
-
-  export type BruteUpdateToOneWithWhereWithoutBodyInput = {
-    where?: BruteWhereInput
-    data: XOR<BruteUpdateWithoutBodyInput, BruteUncheckedUpdateWithoutBodyInput>
-  }
-
-  export type BruteUpdateWithoutBodyInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
-    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
-    level?: IntFieldUpdateOperationsInput | number
-    xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
-    strengthStat?: IntFieldUpdateOperationsInput | number
-    strengthModifier?: FloatFieldUpdateOperationsInput | number
-    strengthValue?: IntFieldUpdateOperationsInput | number
-    agilityStat?: IntFieldUpdateOperationsInput | number
-    agilityModifier?: FloatFieldUpdateOperationsInput | number
-    agilityValue?: IntFieldUpdateOperationsInput | number
-    speedStat?: IntFieldUpdateOperationsInput | number
-    speedModifier?: FloatFieldUpdateOperationsInput | number
-    speedValue?: IntFieldUpdateOperationsInput | number
-    ranking?: IntFieldUpdateOperationsInput | number
-    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
-    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
-    pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    pupilsCount?: IntFieldUpdateOperationsInput | number
-    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
-    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
-    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    fightsLeft?: IntFieldUpdateOperationsInput | number
-    victories?: IntFieldUpdateOperationsInput | number
-    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    favorite?: BoolFieldUpdateOperationsInput | boolean
-    user?: UserUpdateOneWithoutBrutesNestedInput
-    colors?: BruteColorsUpdateOneWithoutBruteNestedInput
-    master?: BruteUpdateOneWithoutPupilsNestedInput
-    pupils?: BruteUpdateManyWithoutMasterNestedInput
-    clan?: ClanUpdateOneWithoutBrutesNestedInput
-    fights?: FightUpdateManyWithoutBrute1NestedInput
-    fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
-    logs?: LogUpdateManyWithoutCurrentBruteNestedInput
-    destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
-    tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
-    opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
-    opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
-    achievements?: AchievementUpdateManyWithoutBruteNestedInput
-    reports?: BruteReportUpdateManyWithoutBruteNestedInput
-    titles?: TitleUpdateManyWithoutBrutesNestedInput
-    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
-    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
-    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
-    threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
-    inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
-    tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
-    tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
-  }
-
-  export type BruteUncheckedUpdateWithoutBodyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
-    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
-    level?: IntFieldUpdateOperationsInput | number
-    xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
-    strengthStat?: IntFieldUpdateOperationsInput | number
-    strengthModifier?: FloatFieldUpdateOperationsInput | number
-    strengthValue?: IntFieldUpdateOperationsInput | number
-    agilityStat?: IntFieldUpdateOperationsInput | number
-    agilityModifier?: FloatFieldUpdateOperationsInput | number
-    agilityValue?: IntFieldUpdateOperationsInput | number
-    speedStat?: IntFieldUpdateOperationsInput | number
-    speedModifier?: FloatFieldUpdateOperationsInput | number
-    speedValue?: IntFieldUpdateOperationsInput | number
-    ranking?: IntFieldUpdateOperationsInput | number
-    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
-    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
-    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
-    pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
-    pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
-    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
-    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
-    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    fightsLeft?: IntFieldUpdateOperationsInput | number
-    victories?: IntFieldUpdateOperationsInput | number
-    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
-    colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
-    pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
-    fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
-    fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
-    logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
-    destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
-    tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
-    opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
-    opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
-    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
-    reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
-    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
-    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
-    threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
-    inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
-    tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
-    tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
-  }
-
-  export type BruteCreateWithoutColorsInput = {
-    name: string
-    deletedAt?: Date | string | null
-    createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
-    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
-    level?: number
-    xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
-    strengthStat?: number
-    strengthModifier?: number
-    strengthValue?: number
-    agilityStat?: number
-    agilityModifier?: number
-    agilityValue?: number
-    speedStat?: number
-    speedModifier?: number
-    speedValue?: number
-    ranking?: number
-    gender: $Enums.Gender
-    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
-    skills?: BruteCreateskillsInput | $Enums.SkillName[]
-    pets?: BruteCreatepetsInput | $Enums.PetName[]
-    pupilsCount?: number
-    registeredForTournament?: boolean
-    nextTournamentDate?: Date | string | null
-    currentTournamentDate?: Date | string | null
-    currentTournamentStepWatched?: number | null
-    lastFight?: Date | string | null
-    fightsLeft?: number
-    victories?: number
-    opponentsGeneratedAt?: Date | string | null
-    canRankUpSince?: Date | string | null
-    favorite?: boolean
-    user?: UserCreateNestedOneWithoutBrutesInput
-    body?: BruteBodyCreateNestedOneWithoutBruteInput
-    master?: BruteCreateNestedOneWithoutPupilsInput
-    pupils?: BruteCreateNestedManyWithoutMasterInput
-    clan?: ClanCreateNestedOneWithoutBrutesInput
-    fights?: FightCreateNestedManyWithoutBrute1Input
-    fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
-    logs?: LogCreateNestedManyWithoutCurrentBruteInput
-    destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
-    tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
-    opponents?: BruteCreateNestedManyWithoutOpponentOfInput
-    opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
-    achievements?: AchievementCreateNestedManyWithoutBruteInput
-    reports?: BruteReportCreateNestedManyWithoutBruteInput
-    titles?: TitleCreateNestedManyWithoutBrutesInput
-    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
-    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
-    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
-    threads?: ClanThreadCreateNestedManyWithoutCreatorInput
-    inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
-    tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
-    tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
-  }
-
-  export type BruteUncheckedCreateWithoutColorsInput = {
-    id?: number
-    name: string
-    deletedAt?: Date | string | null
-    createdAt?: Date | string
-    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
-    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
-    level?: number
-    xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
-    strengthStat?: number
-    strengthModifier?: number
-    strengthValue?: number
-    agilityStat?: number
-    agilityModifier?: number
-    agilityValue?: number
-    speedStat?: number
-    speedModifier?: number
-    speedValue?: number
-    ranking?: number
-    gender: $Enums.Gender
-    userId?: string | null
-    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
-    skills?: BruteCreateskillsInput | $Enums.SkillName[]
-    pets?: BruteCreatepetsInput | $Enums.PetName[]
-    masterId?: number | null
-    pupilsCount?: number
-    clanId?: number | null
-    registeredForTournament?: boolean
-    nextTournamentDate?: Date | string | null
-    currentTournamentDate?: Date | string | null
-    currentTournamentStepWatched?: number | null
-    lastFight?: Date | string | null
-    fightsLeft?: number
-    victories?: number
-    opponentsGeneratedAt?: Date | string | null
-    canRankUpSince?: Date | string | null
-    favorite?: boolean
-    wantToJoinClanId?: number | null
-    body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
-    pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
-    fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
-    fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
-    logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
-    destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
-    tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
-    opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
-    opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
-    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
-    reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
-    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
-    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
-    threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
-    inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
-    tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
-    tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
-  }
-
-  export type BruteCreateOrConnectWithoutColorsInput = {
-    where: BruteWhereUniqueInput
-    create: XOR<BruteCreateWithoutColorsInput, BruteUncheckedCreateWithoutColorsInput>
-  }
-
-  export type BruteUpsertWithoutColorsInput = {
-    update: XOR<BruteUpdateWithoutColorsInput, BruteUncheckedUpdateWithoutColorsInput>
-    create: XOR<BruteCreateWithoutColorsInput, BruteUncheckedCreateWithoutColorsInput>
-    where?: BruteWhereInput
-  }
-
-  export type BruteUpdateToOneWithWhereWithoutColorsInput = {
-    where?: BruteWhereInput
-    data: XOR<BruteUpdateWithoutColorsInput, BruteUncheckedUpdateWithoutColorsInput>
-  }
-
-  export type BruteUpdateWithoutColorsInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
-    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
-    level?: IntFieldUpdateOperationsInput | number
-    xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
-    strengthStat?: IntFieldUpdateOperationsInput | number
-    strengthModifier?: FloatFieldUpdateOperationsInput | number
-    strengthValue?: IntFieldUpdateOperationsInput | number
-    agilityStat?: IntFieldUpdateOperationsInput | number
-    agilityModifier?: FloatFieldUpdateOperationsInput | number
-    agilityValue?: IntFieldUpdateOperationsInput | number
-    speedStat?: IntFieldUpdateOperationsInput | number
-    speedModifier?: FloatFieldUpdateOperationsInput | number
-    speedValue?: IntFieldUpdateOperationsInput | number
-    ranking?: IntFieldUpdateOperationsInput | number
-    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
-    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
-    pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    pupilsCount?: IntFieldUpdateOperationsInput | number
-    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
-    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
-    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    fightsLeft?: IntFieldUpdateOperationsInput | number
-    victories?: IntFieldUpdateOperationsInput | number
-    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    favorite?: BoolFieldUpdateOperationsInput | boolean
-    user?: UserUpdateOneWithoutBrutesNestedInput
-    body?: BruteBodyUpdateOneWithoutBruteNestedInput
-    master?: BruteUpdateOneWithoutPupilsNestedInput
-    pupils?: BruteUpdateManyWithoutMasterNestedInput
-    clan?: ClanUpdateOneWithoutBrutesNestedInput
-    fights?: FightUpdateManyWithoutBrute1NestedInput
-    fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
-    logs?: LogUpdateManyWithoutCurrentBruteNestedInput
-    destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
-    tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
-    opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
-    opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
-    achievements?: AchievementUpdateManyWithoutBruteNestedInput
-    reports?: BruteReportUpdateManyWithoutBruteNestedInput
-    titles?: TitleUpdateManyWithoutBrutesNestedInput
-    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
-    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
-    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
-    threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
-    inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
-    tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
-    tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
-  }
-
-  export type BruteUncheckedUpdateWithoutColorsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
-    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
-    level?: IntFieldUpdateOperationsInput | number
-    xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
-    strengthStat?: IntFieldUpdateOperationsInput | number
-    strengthModifier?: FloatFieldUpdateOperationsInput | number
-    strengthValue?: IntFieldUpdateOperationsInput | number
-    agilityStat?: IntFieldUpdateOperationsInput | number
-    agilityModifier?: FloatFieldUpdateOperationsInput | number
-    agilityValue?: IntFieldUpdateOperationsInput | number
-    speedStat?: IntFieldUpdateOperationsInput | number
-    speedModifier?: FloatFieldUpdateOperationsInput | number
-    speedValue?: IntFieldUpdateOperationsInput | number
-    ranking?: IntFieldUpdateOperationsInput | number
-    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
-    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
-    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
-    pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
-    pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
-    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
-    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
-    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    fightsLeft?: IntFieldUpdateOperationsInput | number
-    victories?: IntFieldUpdateOperationsInput | number
-    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
-    body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
-    pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
-    fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
-    fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
-    logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
-    destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
-    tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
-    opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
-    opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
-    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
-    reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
-    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
-    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
-    threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
-    inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
-    tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
-    tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
-  }
-
   export type UserCreateWithoutBrutesInput = {
     id: string
     lang?: $Enums.Lang
@@ -35742,84 +32081,6 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutBrutesInput, UserUncheckedCreateWithoutBrutesInput>
   }
 
-  export type BruteBodyCreateWithoutBruteInput = {
-    p2?: number
-    p3?: number
-    p4?: number
-    p7?: number
-    p1?: number
-    p1a?: number
-    p1b?: number
-    p6?: number
-    p8?: number
-    p7b?: number
-    p5?: number
-  }
-
-  export type BruteBodyUncheckedCreateWithoutBruteInput = {
-    id?: number
-    p2?: number
-    p3?: number
-    p4?: number
-    p7?: number
-    p1?: number
-    p1a?: number
-    p1b?: number
-    p6?: number
-    p8?: number
-    p7b?: number
-    p5?: number
-  }
-
-  export type BruteBodyCreateOrConnectWithoutBruteInput = {
-    where: BruteBodyWhereUniqueInput
-    create: XOR<BruteBodyCreateWithoutBruteInput, BruteBodyUncheckedCreateWithoutBruteInput>
-  }
-
-  export type BruteColorsCreateWithoutBruteInput = {
-    col0?: string
-    col0a?: string
-    col0c?: string
-    col1?: string
-    col1a?: string
-    col1b?: string
-    col1c?: string
-    col1d?: string
-    col3?: string
-    col2?: string
-    col2b?: string
-    col3b?: string
-    col2a?: string
-    col4?: string
-    col4a?: string
-    col4b?: string
-  }
-
-  export type BruteColorsUncheckedCreateWithoutBruteInput = {
-    id?: number
-    col0?: string
-    col0a?: string
-    col0c?: string
-    col1?: string
-    col1a?: string
-    col1b?: string
-    col1c?: string
-    col1d?: string
-    col3?: string
-    col2?: string
-    col2b?: string
-    col3b?: string
-    col2a?: string
-    col4?: string
-    col4a?: string
-    col4b?: string
-  }
-
-  export type BruteColorsCreateOrConnectWithoutBruteInput = {
-    where: BruteColorsWhereUniqueInput
-    create: XOR<BruteColorsCreateWithoutBruteInput, BruteColorsUncheckedCreateWithoutBruteInput>
-  }
-
   export type BruteCreateWithoutPupilsInput = {
     name: string
     deletedAt?: Date | string | null
@@ -35843,6 +32104,8 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: $Enums.Gender
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -35858,8 +32121,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     user?: UserCreateNestedOneWithoutBrutesInput
-    body?: BruteBodyCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsCreateNestedOneWithoutBruteInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     clan?: ClanCreateNestedOneWithoutBrutesInput
     fights?: FightCreateNestedManyWithoutBrute1Input
@@ -35906,6 +32167,8 @@ export namespace Prisma {
     ranking?: number
     gender: $Enums.Gender
     userId?: string | null
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -35923,8 +32186,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     wantToJoinClanId?: number | null
-    body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
     logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
@@ -35971,6 +32232,8 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: $Enums.Gender
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -35986,8 +32249,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     user?: UserCreateNestedOneWithoutBrutesInput
-    body?: BruteBodyCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsCreateNestedOneWithoutBruteInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
     clan?: ClanCreateNestedOneWithoutBrutesInput
     fights?: FightCreateNestedManyWithoutBrute1Input
@@ -36034,6 +32295,8 @@ export namespace Prisma {
     ranking?: number
     gender: $Enums.Gender
     userId?: string | null
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -36050,8 +32313,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     wantToJoinClanId?: number | null
-    body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
@@ -36288,6 +32549,8 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: $Enums.Gender
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -36303,8 +32566,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     user?: UserCreateNestedOneWithoutBrutesInput
-    body?: BruteBodyCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsCreateNestedOneWithoutBruteInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
     clan?: ClanCreateNestedOneWithoutBrutesInput
@@ -36351,6 +32612,8 @@ export namespace Prisma {
     ranking?: number
     gender: $Enums.Gender
     userId?: string | null
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -36368,8 +32631,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     wantToJoinClanId?: number | null
-    body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
@@ -36416,6 +32677,8 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: $Enums.Gender
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -36431,8 +32694,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     user?: UserCreateNestedOneWithoutBrutesInput
-    body?: BruteBodyCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsCreateNestedOneWithoutBruteInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
     clan?: ClanCreateNestedOneWithoutBrutesInput
@@ -36479,6 +32740,8 @@ export namespace Prisma {
     ranking?: number
     gender: $Enums.Gender
     userId?: string | null
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -36496,8 +32759,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     wantToJoinClanId?: number | null
-    body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
@@ -36807,96 +33068,6 @@ export namespace Prisma {
     tournamentGolds?: TournamentGoldUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type BruteBodyUpsertWithoutBruteInput = {
-    update: XOR<BruteBodyUpdateWithoutBruteInput, BruteBodyUncheckedUpdateWithoutBruteInput>
-    create: XOR<BruteBodyCreateWithoutBruteInput, BruteBodyUncheckedCreateWithoutBruteInput>
-    where?: BruteBodyWhereInput
-  }
-
-  export type BruteBodyUpdateToOneWithWhereWithoutBruteInput = {
-    where?: BruteBodyWhereInput
-    data: XOR<BruteBodyUpdateWithoutBruteInput, BruteBodyUncheckedUpdateWithoutBruteInput>
-  }
-
-  export type BruteBodyUpdateWithoutBruteInput = {
-    p2?: IntFieldUpdateOperationsInput | number
-    p3?: IntFieldUpdateOperationsInput | number
-    p4?: IntFieldUpdateOperationsInput | number
-    p7?: IntFieldUpdateOperationsInput | number
-    p1?: IntFieldUpdateOperationsInput | number
-    p1a?: IntFieldUpdateOperationsInput | number
-    p1b?: IntFieldUpdateOperationsInput | number
-    p6?: IntFieldUpdateOperationsInput | number
-    p8?: IntFieldUpdateOperationsInput | number
-    p7b?: IntFieldUpdateOperationsInput | number
-    p5?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type BruteBodyUncheckedUpdateWithoutBruteInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    p2?: IntFieldUpdateOperationsInput | number
-    p3?: IntFieldUpdateOperationsInput | number
-    p4?: IntFieldUpdateOperationsInput | number
-    p7?: IntFieldUpdateOperationsInput | number
-    p1?: IntFieldUpdateOperationsInput | number
-    p1a?: IntFieldUpdateOperationsInput | number
-    p1b?: IntFieldUpdateOperationsInput | number
-    p6?: IntFieldUpdateOperationsInput | number
-    p8?: IntFieldUpdateOperationsInput | number
-    p7b?: IntFieldUpdateOperationsInput | number
-    p5?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type BruteColorsUpsertWithoutBruteInput = {
-    update: XOR<BruteColorsUpdateWithoutBruteInput, BruteColorsUncheckedUpdateWithoutBruteInput>
-    create: XOR<BruteColorsCreateWithoutBruteInput, BruteColorsUncheckedCreateWithoutBruteInput>
-    where?: BruteColorsWhereInput
-  }
-
-  export type BruteColorsUpdateToOneWithWhereWithoutBruteInput = {
-    where?: BruteColorsWhereInput
-    data: XOR<BruteColorsUpdateWithoutBruteInput, BruteColorsUncheckedUpdateWithoutBruteInput>
-  }
-
-  export type BruteColorsUpdateWithoutBruteInput = {
-    col0?: StringFieldUpdateOperationsInput | string
-    col0a?: StringFieldUpdateOperationsInput | string
-    col0c?: StringFieldUpdateOperationsInput | string
-    col1?: StringFieldUpdateOperationsInput | string
-    col1a?: StringFieldUpdateOperationsInput | string
-    col1b?: StringFieldUpdateOperationsInput | string
-    col1c?: StringFieldUpdateOperationsInput | string
-    col1d?: StringFieldUpdateOperationsInput | string
-    col3?: StringFieldUpdateOperationsInput | string
-    col2?: StringFieldUpdateOperationsInput | string
-    col2b?: StringFieldUpdateOperationsInput | string
-    col3b?: StringFieldUpdateOperationsInput | string
-    col2a?: StringFieldUpdateOperationsInput | string
-    col4?: StringFieldUpdateOperationsInput | string
-    col4a?: StringFieldUpdateOperationsInput | string
-    col4b?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type BruteColorsUncheckedUpdateWithoutBruteInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    col0?: StringFieldUpdateOperationsInput | string
-    col0a?: StringFieldUpdateOperationsInput | string
-    col0c?: StringFieldUpdateOperationsInput | string
-    col1?: StringFieldUpdateOperationsInput | string
-    col1a?: StringFieldUpdateOperationsInput | string
-    col1b?: StringFieldUpdateOperationsInput | string
-    col1c?: StringFieldUpdateOperationsInput | string
-    col1d?: StringFieldUpdateOperationsInput | string
-    col3?: StringFieldUpdateOperationsInput | string
-    col2?: StringFieldUpdateOperationsInput | string
-    col2b?: StringFieldUpdateOperationsInput | string
-    col3b?: StringFieldUpdateOperationsInput | string
-    col2a?: StringFieldUpdateOperationsInput | string
-    col4?: StringFieldUpdateOperationsInput | string
-    col4a?: StringFieldUpdateOperationsInput | string
-    col4b?: StringFieldUpdateOperationsInput | string
-  }
-
   export type BruteUpsertWithoutPupilsInput = {
     update: XOR<BruteUpdateWithoutPupilsInput, BruteUncheckedUpdateWithoutPupilsInput>
     create: XOR<BruteCreateWithoutPupilsInput, BruteUncheckedCreateWithoutPupilsInput>
@@ -36931,6 +33102,8 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -36946,8 +33119,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneWithoutBrutesNestedInput
-    body?: BruteBodyUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUpdateOneWithoutBruteNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     clan?: ClanUpdateOneWithoutBrutesNestedInput
     fights?: FightUpdateManyWithoutBrute1NestedInput
@@ -36994,6 +33165,8 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -37011,8 +33184,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
-    body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
     logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
@@ -37534,6 +33705,8 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: $Enums.Gender
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -37549,8 +33722,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     user?: UserCreateNestedOneWithoutBrutesInput
-    body?: BruteBodyCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsCreateNestedOneWithoutBruteInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
     clan?: ClanCreateNestedOneWithoutBrutesInput
@@ -37597,6 +33768,8 @@ export namespace Prisma {
     ranking?: number
     gender: $Enums.Gender
     userId?: string | null
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -37614,8 +33787,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     wantToJoinClanId?: number | null
-    body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
     logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
@@ -37662,6 +33833,8 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: $Enums.Gender
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -37677,8 +33850,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     user?: UserCreateNestedOneWithoutBrutesInput
-    body?: BruteBodyCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsCreateNestedOneWithoutBruteInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
     clan?: ClanCreateNestedOneWithoutBrutesInput
@@ -37725,6 +33896,8 @@ export namespace Prisma {
     ranking?: number
     gender: $Enums.Gender
     userId?: string | null
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -37742,8 +33915,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     wantToJoinClanId?: number | null
-    body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
     logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
@@ -37873,6 +34044,8 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -37888,8 +34061,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneWithoutBrutesNestedInput
-    body?: BruteBodyUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUpdateOneWithoutBruteNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
     clan?: ClanUpdateOneWithoutBrutesNestedInput
@@ -37936,6 +34107,8 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -37953,8 +34126,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
-    body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
     logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
@@ -38007,6 +34178,8 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -38022,8 +34195,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneWithoutBrutesNestedInput
-    body?: BruteBodyUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUpdateOneWithoutBruteNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
     clan?: ClanUpdateOneWithoutBrutesNestedInput
@@ -38070,6 +34241,8 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -38087,8 +34260,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
-    body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
     logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
@@ -38200,6 +34371,8 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: $Enums.Gender
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -38215,8 +34388,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     user?: UserCreateNestedOneWithoutBrutesInput
-    body?: BruteBodyCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsCreateNestedOneWithoutBruteInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
     clan?: ClanCreateNestedOneWithoutBrutesInput
@@ -38263,6 +34434,8 @@ export namespace Prisma {
     ranking?: number
     gender: $Enums.Gender
     userId?: string | null
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -38280,8 +34453,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     wantToJoinClanId?: number | null
-    body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
@@ -38369,6 +34540,8 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -38384,8 +34557,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneWithoutBrutesNestedInput
-    body?: BruteBodyUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUpdateOneWithoutBruteNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
     clan?: ClanUpdateOneWithoutBrutesNestedInput
@@ -38432,6 +34603,8 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -38449,8 +34622,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
-    body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
@@ -38528,6 +34699,8 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: $Enums.Gender
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -38543,8 +34716,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     user?: UserCreateNestedOneWithoutBrutesInput
-    body?: BruteBodyCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsCreateNestedOneWithoutBruteInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
     clan?: ClanCreateNestedOneWithoutBrutesInput
@@ -38591,6 +34762,8 @@ export namespace Prisma {
     ranking?: number
     gender: $Enums.Gender
     userId?: string | null
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -38608,8 +34781,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     wantToJoinClanId?: number | null
-    body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
@@ -38667,6 +34838,8 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -38682,8 +34855,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneWithoutBrutesNestedInput
-    body?: BruteBodyUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUpdateOneWithoutBruteNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
     clan?: ClanUpdateOneWithoutBrutesNestedInput
@@ -38730,6 +34901,8 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -38747,8 +34920,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
-    body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
@@ -38790,6 +34961,8 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: $Enums.Gender
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -38805,8 +34978,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     user?: UserCreateNestedOneWithoutBrutesInput
-    body?: BruteBodyCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsCreateNestedOneWithoutBruteInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
     clan?: ClanCreateNestedOneWithoutBrutesInput
@@ -38853,6 +35024,8 @@ export namespace Prisma {
     ranking?: number
     gender: $Enums.Gender
     userId?: string | null
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -38870,8 +35043,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     wantToJoinClanId?: number | null
-    body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
@@ -39138,6 +35309,8 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: $Enums.Gender
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -39153,8 +35326,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     user?: UserCreateNestedOneWithoutBrutesInput
-    body?: BruteBodyCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsCreateNestedOneWithoutBruteInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
     clan?: ClanCreateNestedOneWithoutBrutesInput
@@ -39201,6 +35372,8 @@ export namespace Prisma {
     ranking?: number
     gender: $Enums.Gender
     userId?: string | null
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -39218,8 +35391,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     wantToJoinClanId?: number | null
-    body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
@@ -39277,6 +35448,8 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -39292,8 +35465,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneWithoutBrutesNestedInput
-    body?: BruteBodyUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUpdateOneWithoutBruteNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
     clan?: ClanUpdateOneWithoutBrutesNestedInput
@@ -39340,6 +35511,8 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -39357,8 +35530,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
-    body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
@@ -39480,6 +35651,8 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: $Enums.Gender
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -39495,8 +35668,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     user?: UserCreateNestedOneWithoutBrutesInput
-    body?: BruteBodyCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsCreateNestedOneWithoutBruteInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
     clan?: ClanCreateNestedOneWithoutBrutesInput
@@ -39543,6 +35714,8 @@ export namespace Prisma {
     ranking?: number
     gender: $Enums.Gender
     userId?: string | null
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -39560,8 +35733,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     wantToJoinClanId?: number | null
-    body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
@@ -39619,6 +35790,8 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -39634,8 +35807,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneWithoutBrutesNestedInput
-    body?: BruteBodyUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUpdateOneWithoutBruteNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
     clan?: ClanUpdateOneWithoutBrutesNestedInput
@@ -39682,6 +35853,8 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -39699,8 +35872,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
-    body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
@@ -39742,6 +35913,8 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: $Enums.Gender
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -39757,8 +35930,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     user?: UserCreateNestedOneWithoutBrutesInput
-    body?: BruteBodyCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsCreateNestedOneWithoutBruteInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
     clan?: ClanCreateNestedOneWithoutBrutesInput
@@ -39805,6 +35976,8 @@ export namespace Prisma {
     ranking?: number
     gender: $Enums.Gender
     userId?: string | null
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -39822,8 +35995,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     wantToJoinClanId?: number | null
-    body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
@@ -39918,6 +36089,8 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -39933,8 +36106,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneWithoutBrutesNestedInput
-    body?: BruteBodyUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUpdateOneWithoutBruteNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
     clan?: ClanUpdateOneWithoutBrutesNestedInput
@@ -39981,6 +36152,8 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -39998,8 +36171,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
-    body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
@@ -40084,6 +36255,8 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: $Enums.Gender
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -40099,8 +36272,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     user?: UserCreateNestedOneWithoutBrutesInput
-    body?: BruteBodyCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsCreateNestedOneWithoutBruteInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
     clan?: ClanCreateNestedOneWithoutBrutesInput
@@ -40147,6 +36318,8 @@ export namespace Prisma {
     ranking?: number
     gender: $Enums.Gender
     userId?: string | null
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -40164,8 +36337,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     wantToJoinClanId?: number | null
-    body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
@@ -40228,6 +36399,8 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: $Enums.Gender
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -40243,8 +36416,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     user?: UserCreateNestedOneWithoutBrutesInput
-    body?: BruteBodyCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsCreateNestedOneWithoutBruteInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
     clan?: ClanCreateNestedOneWithoutBrutesInput
@@ -40291,6 +36462,8 @@ export namespace Prisma {
     ranking?: number
     gender: $Enums.Gender
     userId?: string | null
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -40308,8 +36481,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     wantToJoinClanId?: number | null
-    body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
@@ -40404,6 +36575,8 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -40419,8 +36592,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneWithoutBrutesNestedInput
-    body?: BruteBodyUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUpdateOneWithoutBruteNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
     clan?: ClanUpdateOneWithoutBrutesNestedInput
@@ -40467,6 +36638,8 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -40484,8 +36657,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
-    body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
@@ -40559,6 +36730,8 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: $Enums.Gender
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -40574,8 +36747,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     user?: UserCreateNestedOneWithoutBrutesInput
-    body?: BruteBodyCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsCreateNestedOneWithoutBruteInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
     clan?: ClanCreateNestedOneWithoutBrutesInput
@@ -40622,6 +36793,8 @@ export namespace Prisma {
     ranking?: number
     gender: $Enums.Gender
     userId?: string | null
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -40639,8 +36812,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     wantToJoinClanId?: number | null
-    body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
@@ -40687,6 +36858,8 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: $Enums.Gender
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -40702,8 +36875,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     user?: UserCreateNestedOneWithoutBrutesInput
-    body?: BruteBodyCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsCreateNestedOneWithoutBruteInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
     fights?: FightCreateNestedManyWithoutBrute1Input
@@ -40750,6 +36921,8 @@ export namespace Prisma {
     ranking?: number
     gender: $Enums.Gender
     userId?: string | null
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -40766,8 +36939,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     wantToJoinClanId?: number | null
-    body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
@@ -40820,6 +36991,8 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: $Enums.Gender
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -40835,8 +37008,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     user?: UserCreateNestedOneWithoutBrutesInput
-    body?: BruteBodyCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsCreateNestedOneWithoutBruteInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
     clan?: ClanCreateNestedOneWithoutBrutesInput
@@ -40883,6 +37054,8 @@ export namespace Prisma {
     ranking?: number
     gender: $Enums.Gender
     userId?: string | null
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -40899,8 +37072,6 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
@@ -40997,6 +37168,8 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -41012,8 +37185,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneWithoutBrutesNestedInput
-    body?: BruteBodyUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUpdateOneWithoutBruteNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
     clan?: ClanUpdateOneWithoutBrutesNestedInput
@@ -41060,6 +37231,8 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -41077,8 +37250,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
-    body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
@@ -41196,6 +37367,8 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: $Enums.Gender
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -41211,8 +37384,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     user?: UserCreateNestedOneWithoutBrutesInput
-    body?: BruteBodyCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsCreateNestedOneWithoutBruteInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
     clan?: ClanCreateNestedOneWithoutBrutesInput
@@ -41259,6 +37430,8 @@ export namespace Prisma {
     ranking?: number
     gender: $Enums.Gender
     userId?: string | null
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -41276,8 +37449,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     wantToJoinClanId?: number | null
-    body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
@@ -41392,6 +37563,8 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -41407,8 +37580,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneWithoutBrutesNestedInput
-    body?: BruteBodyUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUpdateOneWithoutBruteNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
     clan?: ClanUpdateOneWithoutBrutesNestedInput
@@ -41455,6 +37626,8 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -41472,8 +37645,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
-    body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
@@ -41559,6 +37730,8 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: $Enums.Gender
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -41574,8 +37747,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     user?: UserCreateNestedOneWithoutBrutesInput
-    body?: BruteBodyCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsCreateNestedOneWithoutBruteInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
     clan?: ClanCreateNestedOneWithoutBrutesInput
@@ -41622,6 +37793,8 @@ export namespace Prisma {
     ranking?: number
     gender: $Enums.Gender
     userId?: string | null
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -41639,8 +37812,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     wantToJoinClanId?: number | null
-    body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
@@ -41732,6 +37903,8 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -41747,8 +37920,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneWithoutBrutesNestedInput
-    body?: BruteBodyUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUpdateOneWithoutBruteNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
     clan?: ClanUpdateOneWithoutBrutesNestedInput
@@ -41795,6 +37966,8 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -41812,8 +37985,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
-    body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
@@ -41855,6 +38026,8 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: $Enums.Gender
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -41870,8 +38043,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     user?: UserCreateNestedOneWithoutBrutesInput
-    body?: BruteBodyCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsCreateNestedOneWithoutBruteInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
     clan?: ClanCreateNestedOneWithoutBrutesInput
@@ -41918,6 +38089,8 @@ export namespace Prisma {
     ranking?: number
     gender: $Enums.Gender
     userId?: string | null
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -41935,8 +38108,6 @@ export namespace Prisma {
     canRankUpSince?: Date | string | null
     favorite?: boolean
     wantToJoinClanId?: number | null
-    body?: BruteBodyUncheckedCreateNestedOneWithoutBruteInput
-    colors?: BruteColorsUncheckedCreateNestedOneWithoutBruteInput
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
@@ -41994,6 +38165,8 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -42009,8 +38182,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneWithoutBrutesNestedInput
-    body?: BruteBodyUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUpdateOneWithoutBruteNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
     clan?: ClanUpdateOneWithoutBrutesNestedInput
@@ -42057,6 +38228,8 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -42074,8 +38247,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
-    body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
@@ -42118,6 +38289,8 @@ export namespace Prisma {
     speedValue?: number
     ranking?: number
     gender: $Enums.Gender
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -42173,6 +38346,8 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -42187,8 +38362,6 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    body?: BruteBodyUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUpdateOneWithoutBruteNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
     clan?: ClanUpdateOneWithoutBrutesNestedInput
@@ -42235,6 +38408,8 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -42252,8 +38427,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
-    body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
@@ -42297,6 +38470,8 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -42404,6 +38579,8 @@ export namespace Prisma {
     ranking?: number
     gender: $Enums.Gender
     userId?: string | null
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -42542,6 +38719,8 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -42557,8 +38736,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneWithoutBrutesNestedInput
-    body?: BruteBodyUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUpdateOneWithoutBruteNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
     clan?: ClanUpdateOneWithoutBrutesNestedInput
     fights?: FightUpdateManyWithoutBrute1NestedInput
@@ -42605,6 +38782,8 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -42621,8 +38800,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
-    body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
@@ -42667,6 +38844,8 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -42871,6 +39050,8 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -42886,8 +39067,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneWithoutBrutesNestedInput
-    body?: BruteBodyUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUpdateOneWithoutBruteNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
     clan?: ClanUpdateOneWithoutBrutesNestedInput
@@ -42934,6 +39113,8 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -42951,8 +39132,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
-    body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
@@ -42996,6 +39175,8 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -43038,6 +39219,8 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -43053,8 +39236,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneWithoutBrutesNestedInput
-    body?: BruteBodyUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUpdateOneWithoutBruteNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
     clan?: ClanUpdateOneWithoutBrutesNestedInput
@@ -43101,6 +39282,8 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -43118,8 +39301,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
-    body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
@@ -43163,6 +39344,8 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -43454,6 +39637,8 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -43469,8 +39654,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneWithoutBrutesNestedInput
-    body?: BruteBodyUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUpdateOneWithoutBruteNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
     clan?: ClanUpdateOneWithoutBrutesNestedInput
@@ -43517,6 +39700,8 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -43534,8 +39719,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
-    body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
@@ -43579,6 +39762,8 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -43674,6 +39859,8 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -43689,8 +39876,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneWithoutBrutesNestedInput
-    body?: BruteBodyUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUpdateOneWithoutBruteNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
     clan?: ClanUpdateOneWithoutBrutesNestedInput
@@ -43737,6 +39922,8 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -43754,8 +39941,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
-    body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
@@ -43799,6 +39984,8 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -43888,6 +40075,8 @@ export namespace Prisma {
     ranking?: number
     gender: $Enums.Gender
     userId?: string | null
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -43931,6 +40120,8 @@ export namespace Prisma {
     ranking?: number
     gender: $Enums.Gender
     userId?: string | null
+    body?: string
+    colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
@@ -43983,6 +40174,8 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -43998,8 +40191,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneWithoutBrutesNestedInput
-    body?: BruteBodyUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUpdateOneWithoutBruteNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
     fights?: FightUpdateManyWithoutBrute1NestedInput
@@ -44046,6 +40237,8 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -44062,8 +40255,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
-    body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
@@ -44108,6 +40299,8 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -44149,6 +40342,8 @@ export namespace Prisma {
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -44164,8 +40359,6 @@ export namespace Prisma {
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneWithoutBrutesNestedInput
-    body?: BruteBodyUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUpdateOneWithoutBruteNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
     clan?: ClanUpdateOneWithoutBrutesNestedInput
@@ -44212,6 +40405,8 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -44228,8 +40423,6 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    body?: BruteBodyUncheckedUpdateOneWithoutBruteNestedInput
-    colors?: BruteColorsUncheckedUpdateOneWithoutBruteNestedInput
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
@@ -44274,6 +40467,8 @@ export namespace Prisma {
     ranking?: IntFieldUpdateOperationsInput | number
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
@@ -44394,14 +40589,6 @@ export namespace Prisma {
      * @deprecated Use UserDefaultArgs instead
      */
     export type UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use BruteBodyDefaultArgs instead
-     */
-    export type BruteBodyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BruteBodyDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use BruteColorsDefaultArgs instead
-     */
-    export type BruteColorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BruteColorsDefaultArgs<ExtArgs>
     /**
      * @deprecated Use BruteDefaultArgs instead
      */

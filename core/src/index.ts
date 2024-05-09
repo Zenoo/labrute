@@ -1,10 +1,9 @@
-import { Achievement, AchievementName, Brute, BruteBody, BruteColors, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, DestinyChoice, Fight, Lang, Prisma, Tournament, TournamentStep, User } from '@labrute/prisma';
+import { Achievement, AchievementName, Brute, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, DestinyChoice, Fight, Lang, Prisma, Tournament, TournamentStep, User } from '@labrute/prisma';
 import Version from './Version';
 import applySkillModifiers from './brute/applySkillModifiers';
 import availableBodyParts from './brute/availableBodyParts';
 import bosses, { Boss } from './brute/bosses';
 import canLevelUp from './brute/canLevelUp';
-import colors from './brute/colors';
 import createRandomBruteStats from './brute/createRandomBruteStats';
 import getBruteGoldValue from './brute/getBruteGoldValue';
 import getFightsLeft from './brute/getFightsLeft';
@@ -20,7 +19,7 @@ import { isNameValid } from './brute/isNameValid';
 import skills from './brute/skills';
 import updateBruteData from './brute/updateBruteData';
 import weapons from './brute/weapons';
-import { BruteReportWithNames, BruteWithBodyColors, DestinyBranch } from './types';
+import { BruteReportWithNames, DestinyBranch } from './types';
 import ExpectedError from './utils/ExpectedError';
 import adjustColor from './utils/adjustColor';
 import formatLargeNumber from './utils/formatLargeNumber';
@@ -37,9 +36,11 @@ export * from './brute/skills';
 export * from './brute/weapons';
 export * from './constants';
 export * from './types';
+export * from './brute/parsers';
+export * from './brute/colors';
 export {
   Boss, ExpectedError, Version, adjustColor, applySkillModifiers,
-  availableBodyParts, bosses, canLevelUp, colors,
+  availableBodyParts, bosses, canLevelUp,
   createRandomBruteStats, formatLargeNumber, getBruteGoldValue,
   getFightsLeft, getGoldNeededForNewBrute, getHP,
   getLevelUpChoices,
@@ -59,18 +60,15 @@ export type PrismaInclude = {
 
 // Server return types
 export type BrutesGetForRankResponse = {
-  topBrutes: BruteWithBodyColors[],
-  nearbyBrutes: BruteWithBodyColors[],
+  topBrutes: Brute[],
+  nearbyBrutes: Brute[],
   position: number,
   total: number,
 };
 export type BrutesGetRankingResponse = {
   ranking: number,
 };
-export type BrutesGetOpponentsResponse = (Pick<Brute, 'id' | 'name' | 'gender' | 'level' | 'deletedAt' | 'hp' | 'strengthValue' | 'agilityValue' | 'speedValue'> & {
-  body: BruteBody | null,
-  colors: BruteColors | null,
-})[];
+export type BrutesGetOpponentsResponse = Pick<Brute, 'id' | 'name' | 'gender' | 'level' | 'deletedAt' | 'hp' | 'strengthValue' | 'agilityValue' | 'speedValue' | 'body' | 'colors'>[];
 export type BrutesExistsResponse = {
   exists: false
 } | {
@@ -94,7 +92,7 @@ export type BrutesGetFightsLeftResponse = {
   fightsLeft: number,
 };
 export type BrutesCreateResponse = {
-  brute: BruteWithBodyColors,
+  brute: Brute,
   goldLost: number,
   newLimit: number,
 };
@@ -139,8 +137,8 @@ export type ClanListResponse = (Clan & {
 })[];
 export type ClanCreateResponse = Pick<Clan, 'id' | 'name'>;
 export type ClanGetResponse = Clan & {
-  brutes: BruteWithBodyColors[],
-  joinRequests: BruteWithBodyColors[],
+  brutes: Brute[],
+  joinRequests: Brute[],
 };
 export type ClanGetThreadsResponse = {
   masterId: number,
@@ -153,7 +151,7 @@ export type ClanGetThreadsResponse = {
 };
 export type ClanGetThreadResponse = ClanThread & {
   posts: (ClanPost & {
-    author: BruteWithBodyColors,
+    author: Brute,
   })[],
   clan: Pick<Clan, 'masterId' | 'name'>,
 };
@@ -162,7 +160,7 @@ export type UserGetAdminResponse = User & {
   achievements: Pick<Achievement, 'name' | 'count'>[],
 };
 export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang'> & {
-  brutes: (Pick<
+  brutes: Pick<
     Brute,
     'id' |
     'name' |
@@ -172,11 +170,10 @@ export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang'>
     'agilityValue' |
     'speedValue' |
     'hp' |
-    'ranking'
-  > & {
-    body: BruteBody | null,
-    colors: BruteColors | null,
-  })[],
+    'ranking' |
+    'body' |
+    'colors'
+  >[],
   achievements: Pick<Achievement, 'name' | 'count'>[],
 };
 

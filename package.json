@@ -23,7 +23,6 @@
     "db:seed": "cd ./server && yarn db:seed",
     "db:reset": "cd ./server && yarn db:reset",
     "postinstall": "bash ./postInstall.sh",
-    "animation:import": "ts-node importAnimation.ts",
     "studio": "cd ./server && yarn studio",
     "audit": "yarn npm audit --recursive --all --environment production",
     "add:client": "yarn workspace @labrute/client add",

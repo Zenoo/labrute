@@ -1,13 +1,10 @@
-import { Brute, BruteBody, BruteColors, Gender } from '@labrute/prisma';
+import { Brute, Gender } from '@labrute/prisma';
 import { Box, BoxProps } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useRenderer } from '../../../hooks/useRenderer';
 
 interface BruteRenderProps extends BoxProps {
-  brute: Pick<Brute, 'id' | 'gender' | 'name'> & {
-    body: Omit<BruteBody, 'id' | 'bruteId'> | null;
-    colors: Omit<BruteColors, 'id' | 'bruteId'> | null;
-  };
+  brute: Pick<Brute, 'id' | 'gender' | 'name' | 'body' | 'colors'>;
   looking?: 'left' | 'right';
   x?: number;
   y?: number;
@@ -30,13 +27,18 @@ const BruteRender = ({
 
     renderer.onRender(brute.id, (content) => {
       setSrc(content);
-      console.log(brute.name, Object.entries(brute.body || {}).filter(([key]) => key.startsWith('p')).map(([key, value]) => `${key}:${value}`).join(','));
+      console.log(brute.name, brute.body);
     });
 
     renderer.render(brute);
   }, [brute, renderer]);
 
-  const { p3, p7 } = brute.body || { p3: undefined, p7: undefined };
+  const parts = {
+    p3: parseInt(brute.body[4], 16),
+    p7: parseInt(brute.body[8], 16),
+  };
+
+  const { p3, p7 } = parts;
   const shift = { x: 0, y: 0 };
   let width = 100;
 

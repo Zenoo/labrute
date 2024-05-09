@@ -1,14 +1,11 @@
-import { Brute, BruteBody, BruteColors } from '@labrute/prisma';
+import { Brute } from '@labrute/prisma';
 import { Extract, Renderer } from 'pixi.js';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import BruteDisplay from '../utils/BruteDisplay';
 
 const MAX_RENDERERS = 3;
 
-type BruteData = Pick<Brute, 'id' | 'gender'> & {
-  body: Omit<BruteBody, 'id' | 'bruteId'> | null;
-  colors: Omit<BruteColors, 'id' | 'bruteId'> | null;
-};
+type BruteData = Pick<Brute, 'id' | 'gender' | 'body' | 'colors'>;
 
 type RenderMethod = (brute: BruteData) => void;
 

@@ -1,6 +1,31 @@
-import { BruteBody } from '@labrute/prisma';
-
-const availableBodyParts: { male: Omit<BruteBody, 'id' | 'bruteId'>, female: Omit<BruteBody, 'id' | 'bruteId'> } = {
+const availableBodyParts: {
+  male: {
+    p2: number;
+    p3: number;
+    p4: number;
+    p7: number;
+    p1: number;
+    p1a: number;
+    p1b: number;
+    p6: number;
+    p8: number;
+    p7b: number;
+    p5: number
+  },
+  female: {
+    p2: number;
+    p3: number;
+    p4: number;
+    p7: number;
+    p1: number;
+    p1a: number;
+    p1b: number;
+    p6: number;
+    p8: number;
+    p7b: number;
+    p5: number
+  }
+} = {
   male: {
     p2: 7,
     p3: 11,
@@ -27,6 +52,6 @@ const availableBodyParts: { male: Omit<BruteBody, 'id' | 'bruteId'>, female: Omi
     p7b: 2,
     p5: 1,
   },
-} as const;
+};
 
 export default availableBodyParts;

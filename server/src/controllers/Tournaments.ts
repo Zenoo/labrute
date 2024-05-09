@@ -36,18 +36,8 @@ const Tournaments = {
             include: {
               fight: {
                 include: {
-                  brute1: {
-                    include: {
-                      body: true,
-                      colors: true,
-                    },
-                  },
-                  brute2: {
-                    include: {
-                      body: true,
-                      colors: true,
-                    },
-                  },
+                  brute1: true,
+                  brute2: true,
                 },
               },
             },

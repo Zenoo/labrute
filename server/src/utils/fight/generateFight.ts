@@ -1,9 +1,9 @@
 import {
   AchievementsStore,
   Boss,
-  BruteWithBodyColors, DetailedFight, ExpectedError, Fighter, bosses, randomBetween,
+  DetailedFight, ExpectedError, Fighter, bosses, randomBetween,
 } from '@labrute/core';
-import { Prisma, PrismaClient } from '@labrute/prisma';
+import { Brute, Prisma, PrismaClient } from '@labrute/prisma';
 import applySpy from './applySpy.js';
 import {
   Stats,
@@ -15,8 +15,8 @@ import updateAchievements from './updateAchievements.js';
 
 const generateFight = async (
   prisma: PrismaClient,
-  brute1: BruteWithBodyColors,
-  brute2: BruteWithBodyColors | null,
+  brute1: Brute,
+  brute2: Brute | null,
   allowBackup: boolean,
   achievementsActive: boolean,
   isTournamentFinal: boolean,
@@ -66,10 +66,6 @@ const generateFight = async (
       userId: brute1.userId,
       deletedAt: null,
     },
-    include: {
-      body: true,
-      colors: true,
-    },
   }) : [];
   const brute2Backups = (brute2 && allowBackup) ? await prisma.brute.findMany({
     where: {
@@ -77,10 +73,6 @@ const generateFight = async (
       level: { lt: brute2.level },
       userId: brute2.userId,
       deletedAt: null,
-    },
-    include: {
-      body: true,
-      colors: true,
     },
   }) : [];
 
@@ -236,7 +228,6 @@ const generateFight = async (
     agility: fighter.agility,
     strength: fighter.strength,
     speed: fighter.speed,
-    data: fighter.data,
     type: fighter.type,
     master: fighter.master,
     maxHp: fighter.maxHp,

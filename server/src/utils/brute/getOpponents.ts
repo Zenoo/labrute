@@ -1,4 +1,4 @@
-import { ARENA_OPPONENTS_COUNT, ARENA_OPPONENTS_MAX_GAP, BruteWithBodyColors } from '@labrute/core';
+import { ARENA_OPPONENTS_COUNT, ARENA_OPPONENTS_MAX_GAP } from '@labrute/core';
 import { Brute, PrismaClient } from '@labrute/prisma';
 
 const getOpponents = async (
@@ -92,7 +92,7 @@ const getOpponents = async (
       }
     }
 
-    const additionalOpponents: BruteWithBodyColors[] = [];
+    const additionalOpponents: Brute[] = [];
     for (let i = 0; i < additionalRandomlySelectedBruteIds.length; i++) {
       const id = additionalRandomlySelectedBruteIds[i];
 
@@ -102,7 +102,6 @@ const getOpponents = async (
           ...additionalBruteSearch,
           id,
         },
-        include: { body: true, colors: true },
       });
 
       if (opponent) {

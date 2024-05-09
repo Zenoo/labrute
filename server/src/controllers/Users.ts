@@ -91,10 +91,6 @@ const Users = {
             where: {
               deletedAt: null,
             },
-            include: {
-              body: true,
-              colors: true,
-            },
             orderBy: [
               { favorite: 'desc' },
               { createdAt: 'asc' },

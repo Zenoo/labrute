@@ -5,9 +5,9 @@ import { PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import { ExpectedError } from '@labrute/core';
 import urlJoin from 'url-join';
+import { trace } from '@opentelemetry/api';
 import sendError from '../utils/sendError.js';
 import { Config } from '../config.js';
-import {trace} from "@opentelemetry/api";
 
 export default class OAuth {
   #oauthClient: RfcOauthClient;
@@ -90,7 +90,6 @@ export default class OAuth {
         include: {
           brutes: {
             where: { deletedAt: null },
-            include: { body: true, colors: true },
           },
         },
       });

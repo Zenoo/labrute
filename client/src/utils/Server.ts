@@ -1,4 +1,4 @@
-import { AchievementGetRankingsResponse, AchievementsGetResponse, AdminPanelBrute, BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetLevelUpChoicesResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, BruteWithBodyColors, ClanChallengeBossResponse, ClanCreateResponse, ClanGetResponse, ClanGetThreadResponse, ClanGetThreadsResponse, ClanListResponse, FightCreateResponse, FullTournament, HookBrute, ServerReadyResponse, TournamentHistoryResponse, TournamentsGetGlobalResponse, UserGetAdminResponse, UserGetProfileResponse, UsersAdminUpdateRequest, UserWithBrutesBodyColor } from '@labrute/core';
+import { AchievementGetRankingsResponse, AchievementsGetResponse, AdminPanelBrute, BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetLevelUpChoicesResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, ClanChallengeBossResponse, ClanCreateResponse, ClanGetResponse, ClanGetThreadResponse, ClanGetThreadsResponse, ClanListResponse, FightCreateResponse, FullTournament, HookBrute, ServerReadyResponse, TournamentHistoryResponse, TournamentsGetGlobalResponse, UserGetAdminResponse, UserGetProfileResponse, UsersAdminUpdateRequest, UserWithBrutesBodyColor } from '@labrute/core';
 import { Brute, BruteReportReason, BruteReportStatus, DestinyChoiceSide, Fight, Gender, Lang, Log, Prisma } from '@labrute/prisma';
 import Fetch from './Fetch';
 
@@ -20,14 +20,14 @@ const Server = {
   Brute: {
     getForHook: (name: string) => Fetch<HookBrute>(`/api/brute/${name}/for-hook`),
     getForAdmin: (name: string) => Fetch<AdminPanelBrute>(`/api/brute/${name}/for-admin`),
-    getForVersus: (name: string) => Fetch<BruteWithBodyColors>(`/api/brute/${name}/for-versus`),
+    getForVersus: (name: string) => Fetch<Brute>(`/api/brute/${name}/for-versus`),
     isNameAvailable: (name: string) => Fetch<boolean>(`/api/brute/${name}/available`),
     create: (
       name: string,
       user: string,
       gender: Gender,
-      body: Prisma.BruteBodyCreateWithoutBruteInput,
-      colors: Prisma.BruteColorsCreateWithoutBruteInput,
+      body: string,
+      colors: string,
       master: string | null,
     ) => Fetch<BrutesCreateResponse>('/api/brute/create', {
       name,
@@ -54,7 +54,7 @@ const Server = {
     restore: (id: number) => Fetch<never>(`/api/brute/${id}/restore`),
     favorite: (name: string) => Fetch<never>(`/api/brute/${name}/favorite`),
     reset: (name: string) => Fetch<HookBrute>(`/api/brute/${name}/reset`),
-    resetVisuals: (name: string, body: Prisma.BruteBodyCreateWithoutBruteInput, colors: Prisma.BruteColorsCreateWithoutBruteInput) => Fetch<never>(`/api/brute/${name}/reset-visuals`, { body, colors }, 'POST'),
+    resetVisuals: (name: string, body: string, colors: string) => Fetch<never>(`/api/brute/${name}/reset-visuals`, { body, colors }, 'POST'),
     giveFreeVisualReset: (name: string) => Fetch<never>(`/api/brute/${name}/give-free-visual-reset`),
   },
   Log: {

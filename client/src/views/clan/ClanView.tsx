@@ -1,4 +1,4 @@
-import { BruteRanking, BruteWithBodyColors, ClanGetResponse, bosses, getFightsLeft } from '@labrute/core';
+import { BruteRanking, ClanGetResponse, bosses, getFightsLeft } from '@labrute/core';
 import { HighlightOff, PlayCircleOutline } from '@mui/icons-material';
 import { Box, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip } from '@mui/material';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -16,6 +16,7 @@ import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
 import BruteRender from '../../components/Brute/Body/BruteRender';
 import { useBrute } from '../../hooks/useBrute';
+import { Brute } from '@labrute/prisma';
 
 const ClanView = () => {
   const { t } = useTranslation();
@@ -88,7 +89,7 @@ const ClanView = () => {
   };
 
   // Accept join request
-  const acceptJoin = (requester: BruteWithBodyColors) => () => {
+  const acceptJoin = (requester: Brute) => () => {
     if (!user || !clan) return;
 
     Confirm.open(t('acceptJoinRequest'), t('confirmAcceptRequest'), () => {
@@ -116,7 +117,7 @@ const ClanView = () => {
   };
 
   // Reject join request
-  const rejectJoin = (requester: BruteWithBodyColors) => () => {
+  const rejectJoin = (requester: Brute) => () => {
     if (!clan) return;
 
     Confirm.open(t('rejectJoinRequest'), t('confirmRejectRequest'), () => {
@@ -133,7 +134,7 @@ const ClanView = () => {
   };
 
   // Remove brute from clan
-  const removeFromClan = (clanBrute: BruteWithBodyColors) => (e: React.MouseEvent) => {
+  const removeFromClan = (clanBrute: Brute) => (e: React.MouseEvent) => {
     e.stopPropagation();
 
     if (!clan) return;
@@ -152,7 +153,7 @@ const ClanView = () => {
   };
 
   // Set as clan master
-  const setMaster = (clanBrute: BruteWithBodyColors) => (e: React.MouseEvent) => {
+  const setMaster = (clanBrute: Brute) => (e: React.MouseEvent) => {
     e.stopPropagation();
 
     if (!clan) return;

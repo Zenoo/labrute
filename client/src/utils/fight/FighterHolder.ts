@@ -1,5 +1,5 @@
 /* eslint-disable no-continue */
-import { Animation, Fighter, bosses } from '@labrute/core';
+import { Animation, Fighter, bosses, readColorString, readBodyString } from '@labrute/core';
 import { BossName, Gender, SkillName, WeaponName } from '@labrute/prisma';
 import { AdjustmentFilter } from '@pixi/filter-adjustment';
 import { FramePart, Symbol as LaBruteSymbol, Svg, Symbol475, Symbol476, Symbol478, Symbol479, Symbol488, Symbol489, Symbol490, Symbol491, Symbol493, Symbol494, Symbol495, Symbol496, Symbol497, Symbol498, Symbol503, Symbol505, Symbol506, Symbol507, Symbol508, Symbol509, Symbol510, Symbol513, Symbol516, Symbol517, Symbol541, Symbol542, Symbol543, Symbol544, Symbol545, Symbol546, Symbol846, Symbol847, Symbol848, Symbol849, Symbol851, Symbol854, Symbol855, Symbol856, Symbol857, Symbol858, Symbol859, Symbol860, Symbol861, Symbol863, Symbol864, Symbol865, Symbol866, Symbol867, Symbol868, Symbol869, Symbol870, Symbol871, Symbol875, Symbol876, Symbol877, Symbol878, Symbol879, Symbol880, Symbol894, Symbol903, Symbol904, Symbol905, Symbol906, Symbol907, Symbol910, Symbol911, Symbol912, Symbol913, Symbol935, Symbol936, Symbol937, Symbol938, Symbol939, Symbol940, Symbol941, Symbol942, Symbol943, Symbol944 } from 'labrute-fla-parser';
@@ -491,69 +491,10 @@ export default class FighterHolder {
     this.shield = fighter.shield;
     this.weapon = null;
     this.skills = fighter.skills;
-    this.#colors = {
-      ...fighter.data?.colors,
-      id: '',
-      bruteId: '',
-    };
-    this.#parts = {
-      ...fighter.data?.body,
-      id: 0,
-      bruteId: 0,
-    };
+    this.#colors = readColorString(fighter.gender || Gender.male, fighter.colors || '0'.repeat(32));
+    this.#parts = readBodyString(fighter.body || '0'.repeat(11));
     this.team = team;
     this.speed = speed;
-
-    // Fail safe for old fights without the new colors and parts
-    if (this.type === 'brute' && !this.#colors.col0) {
-      const oldColors = fighter.data?.colors as unknown as Record<string, string>;
-      this.#colors.col0 = oldColors.skinColor;
-      this.#colors.col0a = oldColors.skinColor;
-      this.#colors.col0c = oldColors.skinColor;
-      this.#colors.col1 = oldColors.hairColor;
-      this.#colors.col1a = oldColors.hairColor;
-      this.#colors.col1b = oldColors.hairColor;
-      this.#colors.col1c = oldColors.hairColor;
-      this.#colors.col1d = oldColors.hairColor;
-      this.#colors.col3 = oldColors.primaryColor;
-      this.#colors.col2 = oldColors.secondaryColor;
-      this.#colors.col2b = oldColors.accentColor;
-      this.#colors.col3b = oldColors.accentColor;
-      this.#colors.col2a = oldColors.accentColor;
-      this.#colors.col4 = oldColors.accentColor;
-      this.#colors.col4a = oldColors.accentColor;
-      this.#colors.col4b = '#0000ff';
-
-      this.#parts.p2 = 0;
-      this.#parts.p3 = 0;
-      this.#parts.p4 = 0;
-      this.#parts.p7 = 0;
-      this.#parts.p1 = 0;
-      this.#parts.p1a = 0;
-      this.#parts.p1b = 0;
-      this.#parts.p6 = 0;
-      this.#parts.p8 = 0;
-      this.#parts.p7b = 0;
-      this.#parts.p5 = 0;
-
-      // Adapt female hair
-      if (fighter.gender === Gender.female) {
-        const oldParts = fighter.data?.body as unknown as Record<string, number>;
-        switch (oldParts.longHair) {
-          case 1:
-            this.#parts.p3 = 0;
-            break;
-          case 2:
-            this.#parts.p3 = 4;
-            break;
-          case 3:
-            this.#parts.p3 = 7;
-            break;
-          default:
-            this.#parts.p3 = 0;
-        }
-      }
-    }
 
     // Get animation type
     if (this.type === 'brute') {

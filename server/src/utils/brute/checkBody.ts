@@ -1,18 +1,33 @@
 import { ExpectedError, availableBodyParts } from '@labrute/core';
-import { Gender, Prisma, User } from '@labrute/prisma';
+import { Gender, User } from '@labrute/prisma';
 import translate from '../translate.js';
 import { LOGGER } from '../../context.js';
 
 const checkBodyPart = (
-  value: number | undefined,
+  value: number,
   expected: number,
-) => typeof value === 'undefined' || (value >= 0 && value <= expected);
+) => value >= 0 && value <= expected;
 
 const checkBody = (
   user: Pick<User, 'id' | 'lang'>,
   gender: Gender,
-  inputs: Prisma.BruteBodyCreateWithoutBruteInput,
+  bodyString: string,
 ) => {
+  // Convert every char from hex to number
+  const inputs = {
+    p1: parseInt(bodyString[0], 16),
+    p1a: parseInt(bodyString[1], 16),
+    p1b: parseInt(bodyString[2], 16),
+    p2: parseInt(bodyString[3], 16),
+    p3: parseInt(bodyString[4], 16),
+    p4: parseInt(bodyString[5], 16),
+    p5: parseInt(bodyString[6], 16),
+    p6: parseInt(bodyString[7], 16),
+    p7: parseInt(bodyString[8], 16),
+    p7b: parseInt(bodyString[9], 16),
+    p8: parseInt(bodyString[10], 16),
+  };
+
   if (!checkBodyPart(inputs.p2, availableBodyParts[gender].p2)
     || !checkBodyPart(inputs.p3, availableBodyParts[gender].p3)
     || !checkBodyPart(inputs.p4, availableBodyParts[gender].p4)

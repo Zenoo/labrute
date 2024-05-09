@@ -1,5 +1,6 @@
 /* eslint-disable no-continue */
-import { BruteBody, BruteColors, Gender } from '@labrute/prisma';
+import { BruteBodyPart, readBodyString, readColorString } from '@labrute/core';
+import { Gender } from '@labrute/prisma';
 import { FramePart, Symbol as LaBruteSymbol, Svg, Symbol460, Symbol752 } from 'labrute-static-fla-parser';
 import * as PIXI from 'pixi.js';
 import { Filter, Matrix, Texture } from 'pixi.js';
@@ -27,16 +28,32 @@ void main(void){
 }
 `;
 
-type Colors = keyof Omit<BruteColors, 'id' | 'bruteId'>;
-type Parts = keyof Omit<BruteBody, 'id' | 'bruteId'>;
+type Colors = {
+  col0: string;
+  col0a: string;
+  col0c: string;
+  col1: string;
+  col1a: string;
+  col1b: string;
+  col1c: string;
+  col1d: string;
+  col2: string;
+  col2a: string;
+  col2b: string;
+  col3: string;
+  col3b: string;
+  col4: string;
+  col4a: string;
+  col4b: string;
+};
 
 export default class BruteDisplay {
   // Setup data
   gender: 'male' | 'female';
 
-  #colors: Omit<BruteColors, 'id' | 'bruteId'>;
+  #colors: Colors;
 
-  #parts: Omit<BruteBody, 'id' | 'bruteId'>;
+  #parts: Record<BruteBodyPart, number>;
 
   readonly #looking: 'left' | 'right';
 
@@ -55,15 +72,15 @@ export default class BruteDisplay {
 
   constructor(
     gender: Gender,
-    colors: Omit<BruteColors, 'id' | 'bruteId'>,
-    parts: Omit<BruteBody, 'id' | 'bruteId'>,
+    colors: string,
+    parts: string,
     looking: 'left' | 'right' = 'left',
     scale = 1,
   ) {
+    this.#colors = readColorString(gender, colors);
+    this.#parts = readBodyString(parts);
     this.#looking = looking;
     this.gender = gender;
-    this.#colors = colors;
-    this.#parts = parts;
     this.#scale = scale;
     this.container = new PIXI.Container();
     this.container.sortableChildren = true;
@@ -125,8 +142,8 @@ export default class BruteDisplay {
 
   updateBrute(
     gender: Gender,
-    colors: Omit<BruteColors, 'id' | 'bruteId'>,
-    parts: Omit<BruteBody, 'id' | 'bruteId'>,
+    colors: Colors,
+    parts: Record<BruteBodyPart, number>,
   ) {
     this.gender = gender;
     this.#colors = colors;
@@ -189,7 +206,7 @@ export default class BruteDisplay {
         // If symbol has partIdx
         if (symbol.partIdx) {
           // Load only the corresponding frame
-          const partValue = this.#parts[symbol.partIdx.substring(1) as Parts];
+          const partValue = this.#parts[symbol.partIdx.substring(1) as BruteBodyPart];
 
           if (partValue === undefined) {
             throw new Error(`Part ${symbol.partIdx} not found in fighter config`);
@@ -291,7 +308,7 @@ export default class BruteDisplay {
 
       // Apply color
       if (colorIdx) {
-        const color = this.#colors[colorIdx.substring(1) as Colors];
+        const color = this.#colors[colorIdx.substring(1) as keyof Colors];
         if (!color) {
           throw new Error(`Color ${colorIdx} not found`);
         }
@@ -317,7 +334,7 @@ export default class BruteDisplay {
 
       // If symbol has partIdx, only load the corresponding frame
       if (symbol.partIdx) {
-        const partValue = this.#parts[symbol.partIdx.substring(1) as Parts];
+        const partValue = this.#parts[symbol.partIdx.substring(1) as BruteBodyPart];
 
         if (partValue === undefined) {
           throw new Error(`Part ${symbol.partIdx} not found in fighter config`);

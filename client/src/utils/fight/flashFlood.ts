@@ -95,7 +95,7 @@ const flashFlood = async (
     y: end.y,
   }).then(() => {
     // Get hit animation (random for male brute)
-    const animation: 'hit' | 'hit-0' | 'hit-1' | 'hit-2' = target.type === 'brute' && target.data?.gender === 'male'
+    const animation: 'hit' | 'hit-0' | 'hit-1' | 'hit-2' = target.type === 'brute' && target.gender === 'male'
       ? `hit-${randomBetween(0, 2) as 0 | 1 | 2}`
       : 'hit';
 

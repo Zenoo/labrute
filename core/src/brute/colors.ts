@@ -9,9 +9,10 @@ interface ColorsType {
     hair: string[];
     clothing: string[];
   },
+  special: string[];
 }
 
-const colors: ColorsType = {
+export const colors: ColorsType = {
   male: {
     skin: [
       '#996600',
@@ -91,14 +92,15 @@ const colors: ColorsType = {
       '#b85f1d',
       '#97cbff',
       '#8ba3d7',
-      '#d5eaff',
       '#df7e37',
+      '#d5eaff',
       '#ffaa1e',
       '#cbff97',
       '#ffcc79',
       '#fff2df',
     ],
   },
+  special: [
+    '#000000',
+  ],
 };
-
-export default colors;

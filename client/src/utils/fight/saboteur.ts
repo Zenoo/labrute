@@ -28,7 +28,7 @@ const saboteur = async (
     throw new Error('Brute not found');
   }
 
-  const animation = brute.data?.gender === 'male'
+  const animation = brute.gender === 'male'
     ? `hit-${randomBetween(0, 2) as 0 | 1 | 2}` as const
     : 'hit' as const;
 

@@ -1,4 +1,4 @@
-import { Achievement, Brute, BruteBody, BruteColors, BruteInventoryItem, BruteReport, Clan, DestinyChoice, DestinyChoiceSide, Fight, Gender, SkillName, Tournament, TournamentStep, User, WeaponName } from '@labrute/prisma';
+import { Achievement, Brute, BruteInventoryItem, BruteReport, Clan, DestinyChoice, DestinyChoiceSide, Fight, Gender, SkillName, Tournament, TournamentStep, User, WeaponName } from '@labrute/prisma';
 import { Skill } from './brute/skills';
 import { Weapon, WeaponAnimation } from './brute/weapons';
 import { BruteRanking } from './constants';
@@ -17,18 +17,18 @@ export interface Stat {
   value: number;
 }
 
+export type BruteBodyPart = 'p1' | 'p1a' | 'p1b' | 'p2' | 'p3' | 'p4' | 'p5' | 'p6' | 'p7' | 'p7b' | 'p8';
+export type BruteColor = 'col0' | 'col0a' | 'col0c' | 'col1' | 'col1a' | 'col1b' | 'col1c' | 'col1d' | 'col2' | 'col2a' | 'col2b' | 'col3' | 'col3b' | 'col4' | 'col4a' | 'col4b';
+
 export interface DetailedFighter {
   // Metadata
   id: number;
   name: string;
   gender?: Gender;
+  body?: string;
+  colors?: string;
   rank: BruteRanking;
   level: number;
-  data?: {
-    gender: Gender,
-    body: BruteBody,
-    colors: BruteColors,
-  }
   type: 'brute' | 'pet' | 'boss';
   // Follower/Backup variables
   master?: number;
@@ -100,16 +100,13 @@ export interface Fighter {
   id: number;
   name: string;
   gender?: Gender;
+  body?: string;
+  colors?: string;
   rank: BruteRanking;
   level: number;
   strength: number,
   agility: number,
   speed: number,
-  data?: {
-    gender: Gender,
-    body: BruteBody,
-    colors: BruteColors,
-  };
   type: 'brute' | 'pet' | 'boss';
   master?: number;
   maxHp: number;
@@ -324,11 +321,6 @@ export interface DetailedFight {
 
 export type AnimationModel = 'bear' | 'dog' | 'panther' | 'male-brute' | 'female-brute';
 
-export interface FrameProps {
-  colors: Omit<BruteColors, 'id' | 'bruteId'>,
-  body: Omit<BruteBody, 'id' | 'bruteId'>,
-}
-
 export interface DestinyBranch extends DestinyChoice {
   current: boolean;
   [DestinyChoiceSide.LEFT]: DestinyBranch | null;
@@ -342,35 +334,29 @@ export type UserWithBrutes = User & {
   brutes: Brute[];
 };
 export type UserWithBrutesBodyColor = User & {
-  brutes: BruteWithBodyColors[];
+  brutes: Brute[];
 };
 export type UserWithAchievements = User & {
   achievements: Achievement[];
 };
 
 // Brute
-export type BruteWithBodyColors = Brute & {
-  body: BruteBody | null;
-  colors: BruteColors | null;
-};
 export type HookBrute = Brute & {
   master: Pick<Brute, 'id' | 'name'> | null;
-  body: BruteBody | null;
-  colors: BruteColors | null;
   clan: Pick<Clan, 'id' | 'name'> | null;
   user: Pick<User, 'id' | 'name'> | null;
   tournaments: Tournament[];
   inventory: BruteInventoryItem[];
 };
-export type AdminPanelBrute = BruteWithBodyColors & {
+export type AdminPanelBrute = Brute & {
   user: User | null;
 };
 
 // Tournament
 export type FullTournamentStep = TournamentStep & {
   fight: Fight & {
-    brute1: BruteWithBodyColors;
-    brute2: BruteWithBodyColors | null;
+    brute1: Brute;
+    brute2: Brute | null;
   };
 };
 export type FullTournament = Tournament & {

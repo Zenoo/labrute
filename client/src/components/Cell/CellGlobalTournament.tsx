@@ -21,8 +21,8 @@ const fighterToBrute = (fighter: Fighter) => ({
   strengthValue: fighter.strength,
   agilityValue: fighter.agility,
   speedValue: fighter.speed,
-  body: fighter.data?.body || null,
-  colors: fighter.data?.colors || null,
+  body: fighter.body || '0'.repeat(11),
+  colors: fighter.colors || '0'.repeat(32),
 });
 
 interface CellGlobalTournamentProps extends PaperProps {

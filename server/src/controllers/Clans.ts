@@ -182,20 +182,12 @@ const Clans = {
         where: { id },
         include: {
           brutes: {
-            include: {
-              body: true,
-              colors: true,
-            },
             orderBy: [
               { ranking: 'asc' },
               { level: 'desc' },
             ],
           },
           joinRequests: {
-            include: {
-              body: true,
-              colors: true,
-            },
             orderBy: [
               { ranking: 'asc' },
               { level: 'desc' },
@@ -956,9 +948,7 @@ const Clans = {
             skip: (+req.query.page - 1) * 10,
             orderBy: { date: 'asc' },
             include: {
-              author: {
-                include: { body: true, colors: true },
-              },
+              author: true,
             },
           },
           clan: { select: { masterId: true, name: true } },
@@ -992,10 +982,6 @@ const Clans = {
           name: req.params.brute,
           deletedAt: null,
           userId: user.id,
-        },
-        include: {
-          body: true,
-          colors: true,
         },
       });
 

@@ -1,5 +1,5 @@
 import { getRandomBody, getRandomColors } from '@labrute/core';
-import { BruteBody, BruteColors, InventoryItemType } from '@labrute/prisma';
+import { InventoryItemType } from '@labrute/prisma';
 import { Box, Paper, Tooltip } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -26,43 +26,43 @@ const ResetVisualsView = () => {
   const Confirm = useConfirm();
   const { resetCache } = useRenderer();
 
-  const [bodyParts, setBodyParts] = useState<Omit<BruteBody, 'id' | 'bruteId'> | null>(
+  const [body, setBody] = useState<string | null>(
     null
   );
-  const [bodyColors, setBodyColors] = useState<Omit<BruteColors, 'id' | 'bruteId'> | null>(
+  const [colors, setColors] = useState<string | null>(
     null
   );
 
   // Update visuals on brute load
   useEffect(() => {
-    if (!brute || bodyParts || bodyColors) return;
+    if (!brute || body || colors) return;
 
-    setBodyParts(getRandomBody(brute.gender));
-    setBodyColors(getRandomColors(brute.gender));
-  }, [bodyColors, bodyParts, brute]);
+    setBody(getRandomBody(brute.gender));
+    setColors(getRandomColors(brute.gender));
+  }, [colors, body, brute]);
 
   // Change appearance
   const changeAppearance = () => {
     if (!brute) return;
 
-    setBodyParts(getRandomBody(brute.gender));
-    setBodyColors(getRandomColors(brute.gender));
+    setBody(getRandomBody(brute.gender));
+    setColors(getRandomColors(brute.gender));
   };
 
   // Change colors
   const changeColors = () => {
     if (!brute) return;
 
-    setBodyColors(getRandomColors(brute.gender));
+    setColors(getRandomColors(brute.gender));
   };
 
   // Reset visuals
   const resetVisuals = () => {
-    if (!brute || !bodyParts || !bodyColors) return;
+    if (!brute || !body || !colors) return;
 
     Confirm.open(t('resetVisuals'), t('resetVisualsConfirm'), () => {
       // Update brute visuals
-      Server.Brute.resetVisuals(brute.name, bodyParts, bodyColors).then(() => {
+      Server.Brute.resetVisuals(brute.name, body, colors).then(() => {
         Alert.open('success', t('resetVisualsSuccess'));
 
         // Update brute visuals
@@ -72,14 +72,8 @@ const ResetVisualsView = () => {
             ...i,
             count: i.count - 1,
           }) : i)),
-          body: {
-            ...(b.body || { id: 0, bruteId: 0 }),
-            ...bodyParts,
-          },
-          colors: {
-            ...(b.colors || { id: 0, bruteId: 0 }),
-            ...bodyColors,
-          },
+          body,
+          colors,
         }) : null));
 
         // Update user data
@@ -87,14 +81,8 @@ const ResetVisualsView = () => {
           ...data,
           brutes: data.brutes.map((b) => (b.name === brute.name ? ({
             ...b,
-            body: {
-              ...(b.body || { id: 0, bruteId: 0 }),
-              ...bodyParts,
-            },
-            colors: {
-              ...(b.colors || { id: 0, bruteId: 0 }),
-              ...bodyColors,
-            },
+            body,
+            colors,
           }) : b)),
         }) : null));
 
@@ -130,8 +118,8 @@ const ResetVisualsView = () => {
             brute={{
               id: 0,
               name: brute.name,
-              body: bodyParts,
-              colors: bodyColors,
+              body: body || '0'.repeat(11),
+              colors: colors || '0'.repeat(32),
               gender: brute.gender,
             }}
           />

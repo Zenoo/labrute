@@ -201,11 +201,6 @@ const setupFight: (
 
   // First brute bust
   const brute1BustImg = await new Promise<HTMLImageElement | null>((resolve) => {
-    if (!brute1.data) {
-      resolve(null);
-      return;
-    }
-
     renderer.onRender(brute1.id, (content) => {
       const img = document.createElement('img');
       img.src = content;
@@ -215,8 +210,8 @@ const setupFight: (
     renderer.render({
       ...brute1,
       gender: brute1.gender || Gender.male,
-      body: brute1.data.body,
-      colors: brute1.data.colors,
+      body: brute1.body || '0'.repeat(11),
+      colors: brute1.colors || '0'.repeat(32),
     });
   });
 
@@ -313,11 +308,6 @@ const setupFight: (
 
     // First brute bust
     const brute2BustImg = await new Promise<HTMLImageElement | null>((resolve) => {
-      if (!brute2?.data) {
-        resolve(null);
-        return;
-      }
-
       renderer.onRender(brute2.id, (content) => {
         const img = document.createElement('img');
         img.src = content;
@@ -327,8 +317,8 @@ const setupFight: (
       renderer.render({
         ...brute2,
         gender: brute2.gender || Gender.male,
-        body: brute2.data.body,
-        colors: brute2.data.colors,
+        body: brute2.body || '0'.repeat(11),
+        colors: brute2.colors || '0'.repeat(32),
       });
     });
 

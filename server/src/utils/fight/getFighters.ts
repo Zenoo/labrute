@@ -2,18 +2,19 @@
 import {
   BARE_HANDS_DAMAGE,
   BruteRanking,
-  BruteWithBodyColors, DetailedFighter, getPetStat,
+  DetailedFighter, getPetStat,
   pets, randomBetween, SHIELD_BLOCK_ODDS, skills, weapons,
 } from '@labrute/core';
 import { Boss } from '@labrute/core/src/brute/bosses.js';
+import { Brute } from '@labrute/prisma';
 
 interface Team {
-  brute: BruteWithBodyColors | null;
-  backup: BruteWithBodyColors | null;
+  brute: Brute | null;
+  backup: Brute | null;
   boss?: Boss
 }
 
-const handleSkills = (brute: BruteWithBodyColors, fighter: DetailedFighter) => {
+const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
   /* INITIATIVE */
 
   // -2 initiative for `firstStrike`
@@ -137,6 +138,7 @@ const handleSkills = (brute: BruteWithBodyColors, fighter: DetailedFighter) => {
 const getTempo = (speed: number) => 0.10 + (20 / (10 + (speed * 1.5))) * 0.90;
 
 const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
+  let spawnedPets = 0;
   const fighters: DetailedFighter[] = [];
   [team1, team2].forEach((team) => {
     const { brute } = team;
@@ -150,15 +152,12 @@ const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
       const fighter: DetailedFighter = {
         id: brute.id,
         name: brute.name,
+        // Add minimal visual data to still be able to display the fight if the brute was deleted
         gender: brute.gender,
+        colors: brute.colors,
+        body: brute.body,
         rank: brute.ranking as BruteRanking,
         level: brute.level,
-        // Add minimal visual data to still be able to display the fight if the brute was deleted
-        data: {
-          gender: brute.gender,
-          colors: brute.colors,
-          body: brute.body,
-        },
         type: 'brute' as const,
         maxHp: brute.hp,
         hp: brute.hp,
@@ -213,8 +212,10 @@ const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
           throw new Error(`Pet ${petName} not found`);
         }
 
+        spawnedPets++;
+
         fighters.push({
-          id: 0,
+          id: -spawnedPets,
           name: petName,
           rank: 0,
           level: 0,
@@ -271,18 +272,17 @@ const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
         // Arrives at a random time
         const arrivesAt = randomBetween(1, 500) / 100;
 
+        spawnedPets++;
+
         const backupFighter: DetailedFighter = {
-          id: backup.id,
+          id: -spawnedPets,
           name: backup.name,
+          // Add minimal visual data to still be able to display the fight if the brute was deleted
           gender: backup.gender,
+          colors: backup.colors,
+          body: backup.body,
           rank: backup.ranking as BruteRanking,
           level: backup.level,
-          // Add minimal visual data to still be able to display the fight if the brute was deleted
-          data: {
-            gender: backup.gender,
-            colors: backup.colors,
-            body: backup.body,
-          },
           type: 'brute' as const,
           master: brute.id,
           arrivesAtInitiative: arrivesAt,
@@ -339,8 +339,10 @@ const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
 
     // Boss
     if (team.boss) {
+      spawnedPets++;
+
       fighters.push({
-        id: 0,
+        id: -spawnedPets,
         name: team.boss.name,
         rank: 0,
         level: 0,

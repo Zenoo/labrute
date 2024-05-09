@@ -1,6 +1,6 @@
 /* eslint-disable no-await-in-loop */
 import {
-  Fighter, getRandomBody, getRandomColors,
+  Fighter,
 } from '@labrute/core';
 import {
   LogType, Prisma, PrismaClient, TournamentType,
@@ -116,38 +116,6 @@ const deleteMisformattedTournaments = async (prisma: PrismaClient) => {
           in: misformattedTournaments.map((tournament) => tournament.id),
         },
       },
-    });
-  }
-};
-
-const generateMissingBodyColors = async (prisma: PrismaClient) => {
-  const brutesWithoutBodyColors = await prisma.brute.findMany({
-    where: {
-      deletedAt: null,
-      OR: [
-        { body: null },
-        { colors: null },
-      ],
-    },
-    select: { id: true, gender: true },
-  });
-
-  if (!brutesWithoutBodyColors.length) {
-    return;
-  }
-
-  LOGGER.log(`${brutesWithoutBodyColors.length} brutes without body or colors`);
-
-  for (const brute of brutesWithoutBodyColors) {
-    await prisma.brute.update({
-      where: {
-        id: brute.id,
-      },
-      data: {
-        body: { create: getRandomBody(brute.gender) },
-        colors: { create: getRandomColors(brute.gender) },
-      },
-      select: { id: true },
     });
   }
 };
@@ -310,17 +278,9 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
       for (let i = 0; i < roundBrutes.length - 1; i += 2) {
         const brute1 = await prisma.brute.findUnique({
           where: { id: roundBrutes[i].id },
-          include: {
-            body: true,
-            colors: true,
-          },
         });
         const brute2 = await prisma.brute.findUnique({
           where: { id: roundBrutes[i + 1].id },
-          include: {
-            body: true,
-            colors: true,
-          },
         });
 
         if (!brute1 || !brute2) {
@@ -567,17 +527,9 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
     for (let i = 0; i < roundBrutes.length - 1; i += 2) {
       const brute1 = await prisma.brute.findUnique({
         where: { id: roundBrutes[i].id },
-        include: {
-          body: true,
-          colors: true,
-        },
       });
       const brute2 = await prisma.brute.findUnique({
         where: { id: roundBrutes[i + 1].id },
-        include: {
-          body: true,
-          colors: true,
-        },
       });
 
       if (!brute1 || !brute2) {
@@ -770,7 +722,7 @@ const handleXpGains = async (prisma: PrismaClient) => {
   await prisma.$transaction([
     // Update brutes XP
     prisma.$executeRaw`
-      UPDATE "Brute" b 
+      UPDATE "Brute" b
       SET xp = b.xp + txp.xp
       FROM (
           SELECT SUM(xp) xp, "bruteId"
@@ -842,7 +794,7 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
     }),
     // Add Gold to users
     prisma.$executeRaw`
-      UPDATE "User" u 
+      UPDATE "User" u
       SET gold = u.gold + tg.gold
       FROM (
           SELECT SUM(gold) gold, "userId"
@@ -889,9 +841,6 @@ const dailyJob = (prisma: PrismaClient) => async () => {
 
     // Grant bug achievements to all admins who don't have it yet
     await grantBugAchievement(prisma);
-
-    // Generate missing body and colors
-    await generateMissingBodyColors(prisma);
 
     // Handle XP won the previous day
     await handleXpGains(prisma);

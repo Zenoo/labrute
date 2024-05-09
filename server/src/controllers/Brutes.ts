@@ -3,7 +3,6 @@ import {
   ARENA_OPPONENTS_MAX_GAP,
   AdminPanelBrute,
   BruteRestoreResponse,
-  BruteWithBodyColors,
   BrutesCreateResponse,
   BrutesExistsResponse, BrutesGetDestinyResponse,
   BrutesGetFightsLeftResponse, BrutesGetForRankResponse,
@@ -48,17 +47,13 @@ const Brutes = {
     req: Request<{
       name: string
     }>,
-    res: Response<BruteWithBodyColors>,
+    res: Response<Brute>,
   ) => {
     try {
       const brute = await prisma.brute.findFirst({
         where: {
           name: req.params.name,
           deletedAt: null,
-        },
-        include: {
-          body: true,
-          colors: true,
         },
       });
 
@@ -90,8 +85,6 @@ const Brutes = {
               name: true,
             },
           },
-          body: true,
-          colors: true,
           clan: {
             select: {
               id: true,
@@ -147,8 +140,6 @@ const Brutes = {
           deletedAt: null,
         },
         include: {
-          body: true,
-          colors: true,
           user: true,
         },
       });
@@ -183,8 +174,8 @@ const Brutes = {
       name: string,
       user: string,
       gender: Gender,
-      body: Prisma.BruteBodyCreateWithoutBruteInput,
-      colors: Prisma.BruteColorsCreateWithoutBruteInput,
+      body: string,
+      colors: string,
       master: string | null,
     }>,
     res: Response<BrutesCreateResponse>,
@@ -283,11 +274,10 @@ const Brutes = {
           ...createRandomBruteStats(),
           gender: req.body.gender,
           user: { connect: { id: user.id } },
-          body: { create: req.body.body },
-          colors: { create: req.body.colors },
+          body: req.body.body,
+          colors: req.body.colors,
           master: master ? { connect: { id: master.id } } : undefined,
         },
-        include: { body: true, colors: true },
       });
 
       // Get first bonus type
@@ -785,7 +775,6 @@ const Brutes = {
           { xp: 'desc' },
         ],
         take: 15,
-        include: { body: true, colors: true },
       });
 
       // Get total brutes of the same rank
@@ -812,7 +801,6 @@ const Brutes = {
             ranking: rank,
             deletedAt: null,
           },
-          include: { body: true, colors: true },
         });
 
         // Don't rank bot brutes
@@ -848,7 +836,6 @@ const Brutes = {
               { xp: 'asc' },
             ],
             take: 2,
-            include: { body: true, colors: true },
           });
 
           const nearbyLowerBrutes = await prisma.brute.findMany({
@@ -867,7 +854,6 @@ const Brutes = {
               { xp: 'desc' },
             ],
             take: 2,
-            include: { body: true, colors: true },
           });
 
           result.nearbyBrutes = [
@@ -1489,7 +1475,7 @@ const Brutes = {
   },
   reset: (prisma: PrismaClient) => async (
     req: Request<{ name: string }>,
-    res: Response<BruteWithBodyColors>,
+    res: Response<Brute>,
   ) => {
     try {
       const authed = await auth(prisma, req);
@@ -1502,8 +1488,6 @@ const Brutes = {
           userId: authed.id,
         },
         include: {
-          body: true,
-          colors: true,
           user: {
             select: {
               gold: true,
@@ -1573,8 +1557,6 @@ const Brutes = {
               name: true,
             },
           },
-          body: true,
-          colors: true,
           clan: {
             select: {
               id: true,
@@ -1734,8 +1716,8 @@ const Brutes = {
     req: Request<{
       name: string,
     }, unknown, {
-      body: Prisma.BruteBodyCreateWithoutBruteInput,
-      colors: Prisma.BruteColorsCreateWithoutBruteInput,
+      body: string,
+      colors: string,
     }>,
     res: Response,
   ) => {
@@ -1776,22 +1758,13 @@ const Brutes = {
       // Check body validity
       checkBody(user, brute.gender, req.body.body);
 
-      // Update the brute body
-      await prisma.bruteBody.update({
-        where: { bruteId: brute.id },
+      // Update the brute body and colors
+      await prisma.brute.update({
+        where: { id: brute.id },
         data: {
-          ...req.body.body,
+          body: req.body.body,
+          colors: req.body.colors,
         },
-        select: { id: true },
-      });
-
-      // Update the brute colors
-      await prisma.bruteColors.update({
-        where: { bruteId: brute.id },
-        data: {
-          ...req.body.colors,
-        },
-        select: { id: true },
       });
 
       // Update the brute inventory

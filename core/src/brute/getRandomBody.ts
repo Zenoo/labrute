@@ -1,8 +1,9 @@
 import { Gender } from '@labrute/prisma';
 import randomBetween from '../utils/randomBetween';
 import availableBodyParts from './availableBodyParts';
+import { generateBodyString } from './parsers';
 
-const getRandomBody = (gender: Gender) => ({
+const getRandomBody = (gender: Gender) => generateBodyString({
   p2: randomBetween(0, availableBodyParts[gender].p2),
   p3: randomBetween(0, availableBodyParts[gender].p3),
   p4: randomBetween(0, availableBodyParts[gender].p4),

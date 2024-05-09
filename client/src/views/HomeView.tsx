@@ -1,5 +1,5 @@
 import { getRandomBody, getRandomColors, isNameValid, UserWithBrutesBodyColor } from '@labrute/core';
-import { BruteBody, BruteColors, Gender } from '@labrute/prisma';
+import { Gender } from '@labrute/prisma';
 import { Box, Link, Tooltip, useMediaQuery } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
@@ -84,16 +84,12 @@ const HomeView = () => {
   /* CHARACTER CREATOR */
   const [creationStarted, setCreationStarted] = useState(false);
   const [gender, setGender] = useState<Gender>(Gender.female);
-  const [bodyParts, setBodyParts] = useState<Omit<BruteBody, 'id' | 'bruteId'>>(
-    getRandomBody(gender),
-  );
-  const [bodyColors, setBodyColors] = useState<Omit<BruteColors, 'id' | 'bruteId'>>(
-    getRandomColors(gender),
-  );
+  const [body, setBody] = useState(getRandomBody(gender));
+  const [colors, setColors] = useState(getRandomColors(gender));
 
   // Colors randomizer
   const randomizeColors = useCallback((currentGender: Gender) => {
-    setBodyColors(getRandomColors(currentGender));
+    setColors(getRandomColors(currentGender));
   }, []);
 
   // Body parts randomizer
@@ -101,7 +97,7 @@ const HomeView = () => {
     const newGender = gender === 'male' ? 'female' : 'male';
     setGender(newGender);
 
-    setBodyParts(getRandomBody(newGender));
+    setBody(getRandomBody(newGender));
 
     randomizeColors(newGender);
   }, [gender, randomizeColors]);
@@ -166,8 +162,8 @@ const HomeView = () => {
       name,
       user.id,
       gender,
-      bodyParts,
-      bodyColors,
+      body,
+      colors,
       referer
     ).catch(catchError(Alert));
 
@@ -184,7 +180,7 @@ const HomeView = () => {
       // Redirect to brute page
       navigate(`/${name}/cell`);
     }
-  }, [Alert, bodyColors, bodyParts, gender, name, navigate, t, updateData, user]);
+  }, [Alert, colors, body, gender, name, navigate, t, updateData, user]);
 
   // Login
   const login = useCallback(() => {
@@ -205,8 +201,8 @@ const HomeView = () => {
           brute={{
             id: 0,
             name: '',
-            body: bodyParts,
-            colors: bodyColors,
+            body,
+            colors,
             gender,
           }}
         />

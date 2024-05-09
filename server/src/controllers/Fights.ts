@@ -79,8 +79,6 @@ const Fights = {
           userId: user.id,
         },
         include: {
-          body: true,
-          colors: true,
           opponents: {
             select: { name: true },
           },
@@ -94,10 +92,6 @@ const Fights = {
         where: {
           name: req.body.brute2,
           deletedAt: null,
-        },
-        include: {
-          body: true,
-          colors: true,
         },
       });
       if (!brute2) {

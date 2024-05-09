@@ -125,43 +125,6 @@ exports.Prisma.RelationLoadStrategy = {
   join: 'join'
 };
 
-exports.Prisma.BruteBodyScalarFieldEnum = {
-  id: 'id',
-  bruteId: 'bruteId',
-  p2: 'p2',
-  p3: 'p3',
-  p4: 'p4',
-  p7: 'p7',
-  p1: 'p1',
-  p1a: 'p1a',
-  p1b: 'p1b',
-  p6: 'p6',
-  p8: 'p8',
-  p7b: 'p7b',
-  p5: 'p5'
-};
-
-exports.Prisma.BruteColorsScalarFieldEnum = {
-  id: 'id',
-  bruteId: 'bruteId',
-  col0: 'col0',
-  col0a: 'col0a',
-  col0c: 'col0c',
-  col1: 'col1',
-  col1a: 'col1a',
-  col1b: 'col1b',
-  col1c: 'col1c',
-  col1d: 'col1d',
-  col3: 'col3',
-  col2: 'col2',
-  col2b: 'col2b',
-  col3b: 'col3b',
-  col2a: 'col2a',
-  col4: 'col4',
-  col4a: 'col4a',
-  col4b: 'col4b'
-};
-
 exports.Prisma.BruteScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -187,6 +150,8 @@ exports.Prisma.BruteScalarFieldEnum = {
   ranking: 'ranking',
   gender: 'gender',
   userId: 'userId',
+  body: 'body',
+  colors: 'colors',
   weapons: 'weapons',
   skills: 'skills',
   pets: 'pets',
@@ -634,8 +599,6 @@ exports.InventoryItemType = exports.$Enums.InventoryItemType = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  BruteBody: 'BruteBody',
-  BruteColors: 'BruteColors',
   Brute: 'Brute',
   Fight: 'Fight',
   Log: 'Log',

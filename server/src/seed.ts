@@ -30,12 +30,8 @@ const generateBrute = (
   let data = {
     name,
     gender,
-    body: {
-      create: getRandomBody(gender),
-    },
-    colors: {
-      create: getRandomColors(gender),
-    },
+    body: getRandomBody(gender),
+    colors: getRandomColors(gender),
     victories: 0,
     pupilsCount: 0,
     lastFight: moment.utc().toDate(),
@@ -100,14 +96,9 @@ async function main(cx: ServerContext) {
 
     nicks.push(generatedName);
 
-    const brute = await cx.prisma.brute.create({
+    await cx.prisma.brute.create({
       data: generateBrute(Math.floor(i / (ARENA_OPPONENTS_COUNT / 2)) + 1, generatedName),
-      include: { body: true, colors: true },
     });
-
-    if (!brute.body || !brute.colors) {
-      throw new Error('Brute body or colors missing');
-    }
   }
 }
 
