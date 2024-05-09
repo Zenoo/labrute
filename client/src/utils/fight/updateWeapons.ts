@@ -37,7 +37,7 @@ const updateWeapons = (
 
     brute.weapons.push(weapon);
   } else if (action === 'remove') {
-    if (!weapon) {
+    if (typeof weapon === 'undefined') {
       throw new Error('Weapon not found');
     }
 
