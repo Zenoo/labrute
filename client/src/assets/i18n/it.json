@@ -86,6 +86,7 @@
   "clanNameLength": "The name of your clan must be between 3 and 50 characters long.",
   "clanCreated": "Your clan has been created.",
   "brutes": "Brutes",
+  "externalRewards": "External rewards",
   "askToJoin": "Ask to join",
   "confirmJoin": "Do you really want to join this clan ?",
   "requestSent": "Your request has been sent.",
@@ -378,6 +379,7 @@
   "comeBackInOneHour": "Come back in one hour for the next fight.",
   "setAsWatched": "Set as watched",
   "rankUp": "Rank up",
+  "tournamentVictoriesUntilRankUp": "You need {{value}} daily tournament victories to rank up.",
   "rankUpConfirm": "Do you really want to rank up? Your brute will return to level 1 with the same destiny.",
   "finals": "Finals",
   "semiFinals": "Semi-finals",
@@ -1242,5 +1244,6 @@
   "tournament.result.finishingWith.other": "th",
   "achievementRankings": "Achievement rankings",
   "achievement": "Achievement",
-  "byUser": "By user"
+  "byUser": "By user",
+  "dinoRpgRewardsSuccess": "Congratz! You gained an extra fight for each of your brutes."
 }
