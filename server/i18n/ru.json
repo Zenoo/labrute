@@ -58,5 +58,7 @@
   "masterCannotLeave": "Лидер не может покинуть клан, пока в нём находятся другие члены",
   "threadNotFound": "Тема не найдена",
   "notYourClan": "Это не ваш клан",
-  "invalidName": "Недопустимое имя. Доступные символы: a-z, A-Z, 0-9, «_» и «-». Длиной от 3 до 16 символов."
+  "invalidName": "Недопустимое имя. Доступные символы: a-z, A-Z, 0-9, «_» и «-». Длиной от 3 до 16 символов.",
+  "alreadyClaimed": "You already claimed this reward",
+  "needToUseEveryAction": "You need to use every action on your Dinoz to be able to claim this reward"
 }
