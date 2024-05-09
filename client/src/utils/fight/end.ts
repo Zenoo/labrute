@@ -6,7 +6,7 @@ const end = (
   fighters: AnimationFighter[],
   step: EndStep,
 ) => {
-  const winner = findFighter(fighters, step.winner);
+  const winner = findFighter(fighters, step.w);
   if (!winner) {
     throw new Error('Fighter not found');
   }

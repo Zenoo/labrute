@@ -43,6 +43,7 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   app.post('/api/user/toggle-background-music', Users.toggleBackgroundMusic(prisma));
   app.post('/api/user/:id/admin-update', Users.adminUpdate(prisma));
   app.get('/api/user/:userId/profile', Users.getProfile(prisma));
+  app.get('/api/user/:userId/done', Users.isDoneForToday(prisma));
 
   // Brute
   app.get('/api/brute/:name/for-versus', Brutes.getForVersus(prisma));

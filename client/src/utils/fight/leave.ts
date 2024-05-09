@@ -11,7 +11,7 @@ const leave = async (
   step: LeaveStep,
   speed: React.MutableRefObject<number>,
 ) => {
-  const fighter = findFighter(fighters, step.fighter);
+  const fighter = findFighter(fighters, step.f);
   if (!fighter) {
     throw new Error('Fighter not found');
   }

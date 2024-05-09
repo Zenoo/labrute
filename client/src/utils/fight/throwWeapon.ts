@@ -1,5 +1,5 @@
 /* eslint-disable no-void */
-import { FIGHTER_HEIGHT, FIGHTER_WIDTH, ThrowStep } from '@labrute/core';
+import { FIGHTER_HEIGHT, FIGHTER_WIDTH, ThrowStep, WeaponById } from '@labrute/core';
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
 import { Application, Sprite } from 'pixi.js';
@@ -21,13 +21,13 @@ const throwWeapon = async (
     throw new Error('Spritesheet not found');
   }
 
-  const fighter = findFighter(fighters, step.fighter);
+  const fighter = findFighter(fighters, step.f);
   if (!fighter) {
     throw new Error('Fighter not found');
   }
 
-  const opponent = findFighter(fighters, step.opponent);
-  if (!opponent) {
+  const target = findFighter(fighters, step.t);
+  if (!target) {
     throw new Error('Opponent not found');
   }
 
@@ -40,7 +40,7 @@ const throwWeapon = async (
   await prepareEnded;
 
   // Remove weapon from brute if needed
-  if (!step.keep) {
+  if (!step.k) {
     fighter.animation.weapon = null;
   }
 
@@ -48,7 +48,7 @@ const throwWeapon = async (
   fighter.animation.setAnimation('throw');
 
   // Create thrown weapon sprite
-  const thrownWeapon = new Sprite(spritesheet.textures[`${step.weapon}.png`]);
+  const thrownWeapon = new Sprite(spritesheet.textures[`${WeaponById[step.w]}.png`]);
 
   // Anchor to left center
   thrownWeapon.anchor.set(0, 0.5);
@@ -63,10 +63,10 @@ const throwWeapon = async (
 
   // Get end position
   const end = {
-    x: opponent.animation.team === 'left'
-      ? opponent.animation.container.x + FIGHTER_WIDTH[getFighterType(opponent)]
-      : opponent.animation.container.x,
-    y: opponent.animation.container.y - FIGHTER_HEIGHT[getFighterType(opponent)] * 0.5,
+    x: target.animation.team === 'left'
+      ? target.animation.container.x + FIGHTER_WIDTH[getFighterType(target)]
+      : target.animation.container.x,
+    y: target.animation.container.y - FIGHTER_HEIGHT[getFighterType(target)] * 0.5,
   };
 
   // Set position

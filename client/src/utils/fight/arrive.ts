@@ -22,7 +22,7 @@ const arrive = async (
     throw new Error('Spritesheet not found');
   }
 
-  const fighter = findFighter(fighters, step.fighter);
+  const fighter = findFighter(fighters, step.f);
 
   if (!fighter) {
     throw new Error('Fighter not found');

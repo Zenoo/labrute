@@ -1,7 +1,7 @@
 /* eslint-disable no-void */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-await-in-loop */
-import { Fighter, FightStep, randomBetween } from '@labrute/core';
+import { Fighter, FightStep, randomBetween, StepType } from '@labrute/core';
 import { Fight, Gender } from '@labrute/prisma';
 import { Theme } from '@mui/material';
 import { ColorOverlayFilter } from '@pixi/filter-color-overlay';
@@ -453,125 +453,125 @@ const setupFight: (
   for (let i = 0; i < steps.length; i++) {
     const { [i]: step } = steps;
 
-    switch (step.action) {
-      case 'moveTo': {
+    switch (step.a) {
+      case StepType.Move: {
         await moveTo(app, fighters, step, speed);
         break;
       }
-      case 'moveBack': {
+      case StepType.MoveBack: {
         await moveBack(app, fighters, step, speed);
         break;
       }
-      case 'arrive': {
+      case StepType.Arrive: {
         await arrive(app, fighters, step, speed);
         break;
       }
-      case 'leave': {
+      case StepType.Leave: {
         await leave(app, fighters, step, speed);
         break;
       }
-      case 'attemptHit': {
+      case StepType.AttemptHit: {
         await attemptHit(app, fighters, step, speed);
         break;
       }
-      case 'hit':
-      case 'poison': {
+      case StepType.Hit:
+      case StepType.Poison: {
         await hit(app, fighters, step, speed);
         break;
       }
-      case 'flashFlood': {
+      case StepType.FlashFlood: {
         await flashFlood(app, fighters, step, speed);
         break;
       }
-      case 'hammer': {
+      case StepType.Hammer: {
         await hammer(app, fighters, step, speed);
         break;
       }
-      case 'death': {
+      case StepType.Death: {
         death(fighters, step);
         break;
       }
-      case 'evade': {
+      case StepType.Evade: {
         await evade(fighters, step, speed);
         break;
       }
-      case 'saboteur': {
+      case StepType.Saboteur: {
         await saboteur(app, fighters, step, speed);
         break;
       }
-      case 'disarm': {
+      case StepType.Disarm: {
         disarm(app, fighters, step, speed);
         break;
       }
-      case 'steal': {
+      case StepType.Steal: {
         await steal(app, fighters, step, speed);
         break;
       }
-      case 'throw': {
+      case StepType.Throw: {
         await throwWeapon(app, fighters, step, speed);
         break;
       }
-      case 'trash': {
+      case StepType.Trash: {
         await trash(app, fighters, step, speed);
         break;
       }
-      case 'eat': {
+      case StepType.Eat: {
         await eat(app, fighters, step, speed);
         break;
       }
-      case 'heal': {
+      case StepType.Heal: {
         await heal(app, fighters, step, speed);
         break;
       }
-      case 'survive': {
+      case StepType.Survive: {
         survive(app, fighters, step, speed);
         break;
       }
-      case 'trap': {
+      case StepType.Trap: {
         await trap(app, fighters, step, speed);
         break;
       }
-      case 'block': {
+      case StepType.Block: {
         await block(app, fighters, step, speed);
         break;
       }
-      case 'skillActivate': {
+      case StepType.SkillActivate: {
         await skillActivate(app, fighters, step, speed);
         break;
       }
-      case 'skillExpire': {
+      case StepType.SkillExpire: {
         await skillExpire(app, fighters, step, speed);
         break;
       }
-      case 'end': {
+      case StepType.End: {
         end(fighters, step);
         break;
       }
-      case 'hypnotise': {
+      case StepType.Hypnotise: {
         await hypnotise(app, fighters, step, speed);
         break;
       }
-      case 'equip': {
+      case StepType.Equip: {
         await equip(app, fighters, step, speed);
         break;
       }
-      case 'sabotage': {
+      case StepType.Sabotage: {
         sabotage(app, fighters, step);
         break;
       }
-      case 'resist': {
+      case StepType.Resist: {
         resist(app, fighters, step, steps[i + 1], speed);
         break;
       }
-      case 'bomb': {
+      case StepType.Bomb: {
         await bomb(app, fighters, step, speed);
         break;
       }
-      case 'spy': {
+      case StepType.Spy: {
         await spy(app, fighters, step, speed);
         break;
       }
-      case 'counter': {
+      case StepType.Counter: {
         // Do nothing for now
         break;
       }

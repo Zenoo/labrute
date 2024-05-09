@@ -22,11 +22,11 @@ const trap = async (
     throw new Error('Spritesheet not found');
   }
 
-  const brute = findFighter(fighters, step.brute);
+  const brute = findFighter(fighters, step.b);
   if (!brute) {
     throw new Error('Brute not found');
   }
-  const target = findFighter(fighters, step.target);
+  const target = findFighter(fighters, step.t);
   if (!target) {
     throw new Error('Target not found');
   }

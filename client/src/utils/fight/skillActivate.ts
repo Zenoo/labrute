@@ -1,5 +1,5 @@
 /* eslint-disable no-void */
-import { FIGHTER_HEIGHT, FIGHTER_WIDTH, SkillActivateStep } from '@labrute/core';
+import { FIGHTER_HEIGHT, FIGHTER_WIDTH, SkillActivateStep, SkillById, SkillId } from '@labrute/core';
 import { AnimatedSprite, Application } from 'pixi.js';
 
 import { OutlineFilter } from '@pixi/filter-outline';
@@ -22,26 +22,26 @@ const skillActivate = async (
     throw new Error('Spritesheet not found');
   }
 
-  const brute = findFighter(fighters, step.brute);
+  const brute = findFighter(fighters, step.b);
   if (!brute) {
     throw new Error('Brute not found');
   }
 
   // Play skill SFX
-  if (['cryOfTheDamned', 'fierceBrute'].includes(step.skill)) {
-    void sound.play(`skills/${step.skill}`, {
+  if ([SkillId.cryOfTheDamned, SkillId.fierceBrute].includes(step.s)) {
+    void sound.play(`skills/${SkillById[step.s]}`, {
       speed: speed.current,
     });
   }
 
-  if (['fierceBrute', 'cryOfTheDamned', 'hammer'].includes(step.skill)) {
+  if ([SkillId.cryOfTheDamned, SkillId.fierceBrute, SkillId.hammer].includes(step.s)) {
     const animationEnded = brute.animation.waitForEvent('strengthen:end');
 
     // Set animation to `strenghten`
     brute.animation.setAnimation('strengthen');
 
     // Add filter
-    if (step.skill === 'fierceBrute') {
+    if (step.s === SkillId.fierceBrute) {
       if (!brute.animation.container.filters) {
         brute.animation.container.filters = [];
       }
@@ -63,7 +63,7 @@ const skillActivate = async (
       });
     }));
 
-    if (step.skill === 'cryOfTheDamned') {
+    if (step.s === SkillId.cryOfTheDamned) {
       // Create 3 cries
       for (let i = 0; i < 3; i++) {
         const cry = new AnimatedSprite(spritesheet.animations.cry);
@@ -111,7 +111,7 @@ const skillActivate = async (
   }
 
   // Flash flood
-  if (step.skill === 'flashFlood') {
+  if (step.s === SkillId.flashFlood) {
     // Set brute animation to `evade`
     brute.animation.setAnimation('evade');
 

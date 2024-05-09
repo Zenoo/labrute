@@ -1,4 +1,4 @@
-import { DisarmStep, FIGHTER_HEIGHT, FIGHTER_WIDTH } from '@labrute/core';
+import { DisarmStep, FIGHTER_HEIGHT, FIGHTER_WIDTH, WeaponById } from '@labrute/core';
 import { Application, Sprite } from 'pixi.js';
 
 import findFighter, { AnimationFighter } from './findFighter';
@@ -20,16 +20,16 @@ const disarm = (
     throw new Error('Spritesheet not found');
   }
 
-  const opponent = findFighter(fighters, step.opponent);
-  if (!opponent) {
-    throw new Error('Opponent not found');
+  const target = findFighter(fighters, step.t);
+  if (!target) {
+    throw new Error('Target not found');
   }
 
   // Remove weapon from opponent
-  opponent.animation.weapon = null;
+  target.animation.weapon = null;
 
   // Create weapon sprite
-  const weapon = new Sprite(spritesheet.textures[`${step.weapon}.png`]);
+  const weapon = new Sprite(spritesheet.textures[`${WeaponById[step.w]}.png`]);
   weapon.filters = [new BevelFilter()];
   weapon.zIndex = 1;
 
@@ -38,14 +38,14 @@ const disarm = (
 
   // Set position
   weapon.position.set(
-    opponent.animation.team === 'left'
-      ? opponent.animation.container.x + FIGHTER_WIDTH.brute / 4
-      : opponent.animation.container.x + FIGHTER_WIDTH.brute * 0.75,
-    opponent.animation.container.y - FIGHTER_HEIGHT.brute * 0.5,
+    target.animation.team === 'left'
+      ? target.animation.container.x + FIGHTER_WIDTH.brute / 4
+      : target.animation.container.x + FIGHTER_WIDTH.brute * 0.75,
+    target.animation.container.y - FIGHTER_HEIGHT.brute * 0.5,
   );
 
   // Set angle
-  weapon.angle = opponent.animation.team === 'left' ? -110 : 70;
+  weapon.angle = target.animation.team === 'left' ? -110 : 70;
 
   // Add to stage
   app.stage.addChild(weapon);
@@ -56,11 +56,11 @@ const disarm = (
     duration: 0.3 / speed.current,
     ease: Easing.linear,
   }, {
-    x: opponent.animation.team === 'left'
+    x: target.animation.team === 'left'
       ? weapon.x - 20
       : weapon.x + 20,
     y: weapon.y + 50,
-    angle: opponent.animation.team === 'left' ? -180 : 0,
+    angle: target.animation.team === 'left' ? -180 : 0,
   }).then(() => {
     // Wait a bit
     setTimeout(() => {

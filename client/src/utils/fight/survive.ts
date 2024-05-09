@@ -10,7 +10,7 @@ const survive = (
   step: SurviveStep,
   speed: React.MutableRefObject<number>,
 ) => {
-  const brute = findFighter(fighters, step.brute);
+  const brute = findFighter(fighters, step.b);
   if (!brute) {
     throw new Error('Brute not found');
   }

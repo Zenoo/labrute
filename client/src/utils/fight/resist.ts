@@ -1,4 +1,4 @@
-import { FightStep, ResistStep } from '@labrute/core';
+import { FightStep, ResistStep, StepType } from '@labrute/core';
 import { OutlineFilter } from '@pixi/filter-outline';
 import { Application } from 'pixi.js';
 
@@ -11,7 +11,7 @@ const resist = (
   nextStep: FightStep,
   speed: React.MutableRefObject<number>,
 ) => {
-  const brute = findFighter(fighters, step.brute);
+  const brute = findFighter(fighters, step.b);
   if (!brute) {
     throw new Error('Brute not found');
   }
@@ -25,7 +25,7 @@ const resist = (
     ];
 
     // Remove the outline filter after 0.2 second (more for hammer)
-    const duration = (nextStep.action === 'hammer' ? 800 : 200) / speed.current;
+    const duration = (nextStep.a === StepType.Hammer ? 800 : 200) / speed.current;
 
     setTimeout(() => {
       brute.animation.container.filters = brute.animation.container.filters

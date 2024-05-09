@@ -9,20 +9,18 @@ import findFighter, { AnimationFighter } from './findFighter';
 import stagger from './stagger';
 import updateHp from './updateHp';
 
-const getBombDamage = (damage: BombStep['damage'], target: AnimationFighter) => {
+const getBombDamage = (damage: BombStep['d'], target: AnimationFighter) => {
   if (typeof damage === 'number') {
     return damage;
   }
 
-  const targetDamage = damage.find((d) => d.name === target.name
-    && d.type === target.type
-    && d.master === target.master);
+  const targetDamage = damage[target.id];
 
   if (!targetDamage) {
     throw new Error('Target damage not found');
   }
 
-  return targetDamage.damage;
+  return targetDamage;
 };
 
 const bomb = async (
@@ -40,7 +38,7 @@ const bomb = async (
     throw new Error('Spritesheet not found');
   }
 
-  const fighter = findFighter(fighters, step.fighter);
+  const fighter = findFighter(fighters, step.f);
   if (!fighter) {
     throw new Error('Fighter not found');
   }
@@ -141,7 +139,7 @@ const bomb = async (
   });
 
   // Get targets
-  const targets = step.targets.map((t) => {
+  const targets = step.t.map((t) => {
     const target = findFighter(fighters, t);
 
     if (!target) {
@@ -157,7 +155,7 @@ const bomb = async (
     const { [i]: target } = targets;
 
     // Get damage
-    const damage = getBombDamage(step.damage, target);
+    const damage = getBombDamage(step.d, target);
 
     // Get hit animation (random for male brute)
     const animation: 'hit' | 'hit-0' | 'hit-1' | 'hit-2' = target.type === 'brute' && target.gender === 'male'

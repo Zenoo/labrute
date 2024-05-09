@@ -1,4 +1,4 @@
-import { Fighter, FightStep } from '@labrute/core';
+import { Fighter, FightStep, StepType } from '@labrute/core';
 import { Fight } from '@labrute/prisma';
 import { FastForward, FastRewind, MusicNote, MusicOff, Pause, PlayArrow, Rtt, VolumeOff, VolumeUp } from '@mui/icons-material';
 import { Box, IconButton, Stack, Tooltip, useMediaQuery, useTheme } from '@mui/material';
@@ -300,10 +300,11 @@ const FightComponent = ({
               textAlign: 'left',
             }}
             >
-              {fightSteps?.filter((step) => !['moveTo', 'moveBack'].includes(step.action)).map((step, i) => (
-                // eslint-disable-next-line react/no-array-index-key
-                <Text key={i}>{translateFightStep(step, t)}</Text>
-              ))}
+              {fightSteps?.filter((step) => ![StepType.Move, StepType.MoveBack].includes(step.a))
+                .map((step, i) => (
+                  // eslint-disable-next-line react/no-array-index-key
+                  <Text key={i}>{translateFightStep(fighters || [], step, t)}</Text>
+                ))}
             </Box>
           )}
           <Stack

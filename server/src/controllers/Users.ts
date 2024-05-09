@@ -1,6 +1,7 @@
 import {
   AchievementData, ExpectedError, RaretyOrder,
   UserGetAdminResponse, UserGetProfileResponse, UserWithBrutesBodyColor, UsersAdminUpdateRequest,
+  getFightsLeft,
 } from '@labrute/core';
 import {
   Achievement, Lang,
@@ -390,6 +391,34 @@ const Users = {
         ...user,
         achievements: mergedAchievements,
       });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  isDoneForToday: (prisma: PrismaClient) => async (
+    req: Request<{ userId: string }>,
+    res: Response<boolean>,
+  ) => {
+    try {
+      if (!req.params.userId) {
+        throw new ExpectedError('No user ID provided');
+      }
+
+      const brutes = await prisma.brute.findMany({
+        where: {
+          userId: req.params.userId,
+          deletedAt: null,
+        },
+        select: {
+          lastFight: true,
+          fightsLeft: true,
+          skills: true,
+        },
+      });
+
+      const isDoneForToday = brutes.every((brute) => getFightsLeft(brute) === 0);
+
+      res.send(isDoneForToday);
     } catch (error) {
       sendError(res, error);
     }

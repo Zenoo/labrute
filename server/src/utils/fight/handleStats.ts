@@ -1,19 +1,20 @@
 import { AchievementsStore, DetailedFight } from '@labrute/core';
+import { SkillName } from '@labrute/prisma';
 import { Stats } from './fightMethods.js';
 
 const handleStats = (
-  fightData: DetailedFight['data'],
+  fightData: DetailedFight,
   stats: Stats,
   achievements: AchievementsStore,
   isTournamentFight: boolean,
   isTournamentFinal: boolean,
 ) => {
-  const winner = fightData.fighters.find((f) => !f.master && f.name === fightData.winner?.name);
+  const winner = fightData.fighters.find((f) => f.id === fightData.winner);
   if (!winner) {
     throw new Error('Winner not found');
   }
 
-  const loser = fightData.fighters.find((f) => !f.master && f.name !== fightData.winner?.name);
+  const loser = fightData.fighters.find((f) => f.id === fightData.loser);
   if (!loser) {
     throw new Error('Loser not found');
   }
@@ -45,7 +46,9 @@ const handleStats = (
     }
 
     // Win with 1hp
-    if (bruteId === winner.id && winner.hp === 1 && !winner.skills.find((s) => s.name === 'survival')) {
+    if (bruteId === winner.id
+      && winner.hp === 1
+      && !winner.skills.find((s) => s.name === SkillName.survival)) {
       achievement.achievements.winWith1HP = 1;
     }
 

@@ -21,7 +21,7 @@ const hypnotise = async (
     throw new Error('Spritesheet not found');
   }
 
-  const brute = findFighter(fighters, step.brute);
+  const brute = findFighter(fighters, step.b);
   if (!brute) {
     throw new Error('Brute not found');
   }
@@ -81,13 +81,9 @@ const hypnotise = async (
   // Destroy wave
   wave.destroy();
 
-  if (!step.pets) {
-    return;
-  }
-
   // Move each pet to other team
   const animationsDone = [];
-  for (const stepPet of step.pets) {
+  for (const stepPet of step.p) {
     // Get random position
     const { x, y } = getRandomPosition(fighters, brute.animation.team);
 

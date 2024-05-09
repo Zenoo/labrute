@@ -1,13 +1,13 @@
 import {
   AchievementsStore,
   Boss,
-  DetailedFight, ExpectedError, Fighter, bosses, randomBetween,
+  DetailedFight, ExpectedError, Fighter, SkillByName, StepType, WeaponByName, bosses, randomBetween,
 } from '@labrute/core';
 import { Brute, Prisma, PrismaClient } from '@labrute/prisma';
 import applySpy from './applySpy.js';
 import {
   Stats,
-  checkDeaths, getOpponents, orderFighters, playFighterTurn, saboteur, stepFighter,
+  checkDeaths, getOpponents, orderFighters, playFighterTurn, saboteur,
 } from './fightMethods.js';
 import getFighters from './getFighters.js';
 import handleStats from './handleStats.js';
@@ -113,7 +113,7 @@ const generateFight = async (
       return fighter;
     });
 
-  const fightData: DetailedFight['data'] = {
+  const fightData: DetailedFight = {
     fighters: fightDataFighters,
     initialFighters: fightDataInitialFighters,
     steps: [],
@@ -126,7 +126,7 @@ const generateFight = async (
   if (brute2 && !boss) {
     [brute1, brute2].forEach((brute) => {
       if (brute.skills.includes('chef')) {
-        const fighter = fightData.fighters.find(({ type, name }) => type === 'brute' && name === brute.name);
+        const fighter = fightData.fighters.find(({ id }) => id === brute.id);
 
         if (!fighter) {
           throw new Error('Fighter 1 not found');
@@ -149,8 +149,8 @@ const generateFight = async (
   // Add arrive step for all fighters
   [...mainFighters, ...petFighters].forEach((fighter) => {
     fightData.steps.push({
-      action: 'arrive',
-      fighter: stepFighter(fighter),
+      a: StepType.Arrive,
+      f: fighter.id,
     });
   });
 
@@ -197,10 +197,8 @@ const generateFight = async (
     throw new Error('Fight not finished');
   }
 
-  const { loser } = fightData;
-
   // Get winner
-  const winner = fightData.fighters.find((fighter) => fighter.name !== loser.name
+  const winner = fightData.fighters.find((fighter) => fighter.id !== fightData.loser
     && (fighter.type === 'brute' || fighter.type === 'boss')
     && !fighter.master);
 
@@ -208,14 +206,21 @@ const generateFight = async (
     throw new Error('No winner found');
   }
 
+  // Get loser
+  const loser = fightData.fighters.find((fighter) => fighter.id === fightData.loser);
+
+  if (!loser) {
+    throw new Error('No loser found');
+  }
+
   // Set fight winner and loser
-  fightData.winner = stepFighter(winner);
+  fightData.winner = winner.id;
 
   // Add end step
   fightData.steps.push({
-    action: 'end',
-    winner: fightData.winner,
-    loser: fightData.loser,
+    a: StepType.End,
+    w: fightData.winner,
+    l: fightData.loser,
   });
 
   // Reduce the size of the fighters data
@@ -223,6 +228,8 @@ const generateFight = async (
     id: fighter.id,
     name: fighter.name,
     gender: fighter.gender,
+    body: fighter.body,
+    colors: fighter.colors,
     rank: fighter.rank,
     level: fighter.level,
     agility: fighter.agility,
@@ -232,11 +239,8 @@ const generateFight = async (
     master: fighter.master,
     maxHp: fighter.maxHp,
     hp: fighter.hp,
-    weapons: fighter.weapons.map((weapon) => ({
-      name: weapon.name,
-      animation: weapon.animation,
-    })),
-    skills: fighter.skills.map((skill) => skill.name),
+    weapons: fighter.weapons.map((weapon) => WeaponByName[weapon.name]),
+    skills: fighter.skills.map((skill) => SkillByName[skill.name]),
     shield: fighter.shield,
   }));
 
@@ -254,7 +258,8 @@ const generateFight = async (
 
   if (boss) {
     // Update clan limit and boss if boss slain
-    if (loser.type === 'boss') {
+    const bossFighter = fighters.find((fighter) => fighter.type === 'boss');
+    if (bossFighter && loser.id === bossFighter.id) {
       await prisma.clan.update({
         where: { id: clanId },
         data: {

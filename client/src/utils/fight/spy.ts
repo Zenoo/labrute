@@ -1,9 +1,8 @@
-import { SpyStep, randomBetween } from '@labrute/core';
+import { SpyStep, WeaponId, randomBetween } from '@labrute/core';
 import { Application } from 'pixi.js';
 
 import { Easing, Tweener } from 'pixi-tweener';
 import findFighter, { AnimationFighter } from './findFighter';
-import { WeaponName } from '@labrute/prisma';
 
 const spy = async (
   app: Application,
@@ -11,51 +10,76 @@ const spy = async (
   step: SpyStep,
   speed: React.MutableRefObject<number>,
 ) => {
-  const brute = findFighter(fighters, step.brute);
+  const brute = findFighter(fighters, step.b);
   if (!brute) {
     throw new Error('Brute not found');
   }
 
-  const opponent = findFighter(fighters, step.opponent);
+  const opponent = findFighter(fighters, step.t);
   if (!opponent) {
     throw new Error('Opponent not found');
   }
 
-  // Old versions didn't have sent/received weapons
-  // apply all weapons to brute and opponent
-  if (!step.sent) {
-    // eslint-disable-next-line no-param-reassign
-    step.sent = brute.weapons.map((weapon) => weapon.name);
-  }
-  if (!step.received) {
-    // eslint-disable-next-line no-param-reassign
-    step.received = opponent.weapons.map((weapon) => weapon.name);
-  }
-
   const animations: Promise<unknown>[] = [];
 
-  // Get final brute weapons
-  const finalBruteWeapons = [...brute.weapons]
-    .filter((weapon) => !step.sent.includes(weapon.name))
-    .concat(opponent.weapons.filter((weapon) => step.received.includes(weapon.name)))
-    .sort((a, b) => a.name.localeCompare(b.name));
-  const finalBruteWeaponIllustrations = [...brute.weaponsIllustrations]
-    .filter((weapon) => !step.sent.includes(weapon.name as WeaponName))
-    .concat(opponent.weaponsIllustrations
-      .filter((weapon) => step.received.includes(weapon.name as WeaponName)))
-    .sort((a, b) => a.name.localeCompare(b.name));
-  const finalOpponentWeapons = [...opponent.weapons]
-    .filter((weapon) => !step.received.includes(weapon.name))
-    .concat(brute.weapons.filter((weapon) => step.sent.includes(weapon.name)))
-    .sort((a, b) => a.name.localeCompare(b.name));
-  const finalOpponentWeaponIllustrations = [...opponent.weaponsIllustrations]
-    .filter((weapon) => !step.received.includes(weapon.name as WeaponName))
-    .concat(brute.weaponsIllustrations
-      .filter((weapon) => step.sent.includes(weapon.name as WeaponName)))
-    .sort((a, b) => a.name.localeCompare(b.name));
+  // Give brute weapons to opponent
+  for (const weaponToSwap of step.s) {
+    const index = brute.weapons.findIndex((weapon) => weapon === weaponToSwap);
+    if (index === -1) {
+      throw new Error('Weapon not found');
+    }
+
+    // Remove weapon from brute
+    brute.weapons.splice(index, 1);
+
+    const illustrationIndex = brute.weaponsIllustrations
+      .findIndex((weapon) => (+weapon.name as WeaponId) === weaponToSwap);
+
+    if (illustrationIndex === -1) {
+      throw new Error('Weapon illustration not found');
+    }
+
+    // Remove weapon illustration from brute
+    const [weaponIllustration] = brute.weaponsIllustrations.splice(illustrationIndex, 1);
+
+    // Add weapon to opponent
+    opponent.weapons.push(weaponToSwap);
+    opponent.weaponsIllustrations.push(weaponIllustration);
+  }
+
+  // Give opponent weapons to brute
+  for (const weaponToSwap of step.r) {
+    const index = opponent.weapons.findIndex((weapon) => weapon === weaponToSwap);
+    if (index === -1) {
+      throw new Error('Weapon not found');
+    }
+
+    // Remove weapon from opponent
+    opponent.weapons.splice(index, 1);
+
+    const illustrationIndex = opponent.weaponsIllustrations
+      .findIndex((weapon) => (+weapon.name as WeaponId) === weaponToSwap);
+
+    if (illustrationIndex === -1) {
+      throw new Error('Weapon illustration not found');
+    }
+
+    // Remove weapon illustration from opponent
+    const [weaponIllustration] = opponent.weaponsIllustrations.splice(illustrationIndex, 1);
+
+    // Add weapon to brute
+    brute.weapons.push(weaponToSwap);
+    brute.weaponsIllustrations.push(weaponIllustration);
+  }
+
+  // Sort weapons
+  brute.weapons.sort((a, b) => a - b);
+  opponent.weapons.sort((a, b) => a - b);
+  brute.weaponsIllustrations.sort((a, b) => +a.name - +b.name);
+  opponent.weaponsIllustrations.sort((a, b) => +a.name - +b.name);
 
   // Swap weapon illustrations
-  [finalBruteWeaponIllustrations, finalOpponentWeaponIllustrations]
+  [brute.weaponsIllustrations, opponent.weaponsIllustrations]
     .forEach((weaponsIllustrations, index) => {
       const fighter = index === 0 ? opponent : brute;
 
@@ -106,12 +130,6 @@ const spy = async (
 
   // Wait for animations to complete
   await Promise.all(animations);
-
-  // Swap weapons
-  brute.weapons = finalBruteWeapons;
-  opponent.weapons = finalOpponentWeapons;
-  brute.weaponsIllustrations = finalBruteWeaponIllustrations;
-  opponent.weaponsIllustrations = finalOpponentWeaponIllustrations;
 };
 
 export default spy;

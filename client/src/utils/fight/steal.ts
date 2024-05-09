@@ -1,5 +1,5 @@
 /* eslint-disable no-void */
-import { FIGHTER_HEIGHT, StealStep } from '@labrute/core';
+import { FIGHTER_HEIGHT, StealStep, WeaponById } from '@labrute/core';
 
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
@@ -13,11 +13,11 @@ const steal = async (
   step: StealStep,
   speed: React.MutableRefObject<number>,
 ) => {
-  const brute = findFighter(fighters, step.brute);
+  const brute = findFighter(fighters, step.b);
   if (!brute) {
     throw new Error('Brute not found');
   }
-  const target = findFighter(fighters, step.target);
+  const target = findFighter(fighters, step.t);
   if (!target) {
     throw new Error('Target not found');
   }
@@ -53,7 +53,7 @@ const steal = async (
   target.animation.weapon = null;
 
   // Update brute weapons
-  brute.animation.weapon = step.name;
+  brute.animation.weapon = WeaponById[step.w];
 
   // Restore scale
   brute.animation.container.scale.x *= -1;

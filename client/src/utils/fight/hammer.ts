@@ -15,12 +15,12 @@ const hammer = async (
   step: HitStep,
   speed: React.MutableRefObject<number>,
 ) => {
-  const fighter = findFighter(fighters, step.fighter);
+  const fighter = findFighter(fighters, step.f);
   if (!fighter) {
     throw new Error('Fighter not found');
   }
 
-  const target = findFighter(fighters, step.target);
+  const target = findFighter(fighters, step.t);
   if (!target) {
     throw new Error('Target not found');
   }
@@ -69,11 +69,11 @@ const hammer = async (
   // Wait for both animations to finish
   await Promise.all(dropAnimations);
 
-  displayDamage(app, target, step.damage, speed);
+  displayDamage(app, target, step.d, speed);
 
   // Update HP bar
   if (target.hpBar) {
-    updateHp(target, -step.damage, speed);
+    updateHp(target, -step.d, speed);
   }
 
   // Set target animation to `idle`

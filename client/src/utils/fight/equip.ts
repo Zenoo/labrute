@@ -1,5 +1,5 @@
 /* eslint-disable no-void */
-import { EquipStep } from '@labrute/core';
+import { EquipStep, WeaponById } from '@labrute/core';
 
 import { sound } from '@pixi/sound';
 import { Application } from 'pixi.js';
@@ -12,7 +12,7 @@ const equip = async (
   step: EquipStep,
   speed: React.MutableRefObject<number>,
 ) => {
-  const brute = findFighter(fighters, step.brute);
+  const brute = findFighter(fighters, step.b);
   if (!brute) {
     throw new Error('Brute not found');
   }
@@ -23,10 +23,10 @@ const equip = async (
   brute.animation.setAnimation('equip');
 
   // Update available weapons
-  updateWeapons(app, brute, step.name, 'remove');
+  updateWeapons(app, brute, step.w, 'remove');
 
   // Update active weapon
-  brute.animation.weapon = step.name;
+  brute.animation.weapon = WeaponById[step.w];
 
   // Play equip SFX
   void sound.play('equip', {

@@ -1,189 +1,206 @@
 import { TFunction } from 'react-i18next';
-import { FightStep, StepFighter } from '@labrute/core';
-import { PetName } from '@labrute/prisma';
+import { FightStep, Fighter, SkillById, StepType, WeaponById } from '@labrute/core';
+import { BossName, PetName } from '@labrute/prisma';
 
-const getFighterName = (fighter: StepFighter, t: TFunction) => (fighter.type === 'brute'
-  ? fighter.name
-  : t(fighter.name as PetName));
+const getFighterName = (
+  fighters: Fighter[],
+  fighterId: number,
+  t: TFunction
+) => {
+  const fighter = fighters.find((f) => f.id === fighterId);
+  if (!fighter) {
+    return '';
+  }
 
-const translateFightStep = (fightStep: FightStep, t: TFunction) => {
-  switch (fightStep.action) {
-    case 'saboteur':
-      return t(`fight.step.${fightStep.action}`, {
-        weapon: t(fightStep.weapon),
+  if (fighter.type === 'brute') {
+    return fighter.name;
+  }
+
+  return t(fighter.name as PetName | BossName);
+};
+
+const translateFightStep = (
+  fighters: Fighter[],
+  step: FightStep,
+  t: TFunction
+) => {
+  switch (step.a) {
+    case StepType.Saboteur:
+      return t('fight.step.saboteur', {
+        weapon: t(WeaponById[step.w]),
       });
-    case 'leave':
-      return t(`fight.step.${fightStep.action}`, {
-        name: getFighterName(fightStep.fighter, t),
+    case StepType.Leave:
+      return t('fight.step.leave', {
+        name: getFighterName(fighters, step.f, t),
       });
-    case 'arrive':
-      return t(`fight.step.${fightStep.action}`, {
-        name: getFighterName(fightStep.fighter, t),
+    case StepType.Arrive:
+      return t('fight.step.arrive', {
+        name: getFighterName(fighters, step.f, t),
       });
-    case 'trash':
-      return t(`fight.step.${fightStep.action}`, {
-        brute: fightStep.brute.name,
-        name: t(fightStep.name),
+    case StepType.Trash:
+      return t('fight.step.trash', {
+        brute: getFighterName(fighters, step.b, t),
+        name: t(WeaponById[step.w]),
       });
-    case 'steal':
-      return t(`fight.step.${fightStep.action}`, {
-        brute: getFighterName(fightStep.brute, t),
-        name: t(fightStep.name),
-        target: getFighterName(fightStep.target, t),
+    case StepType.Steal:
+      return t('fight.step.steal', {
+        brute: getFighterName(fighters, step.b, t),
+        name: t(WeaponById[step.w]),
+        target: getFighterName(fighters, step.t, t),
       });
-    case 'trap':
-      return t(`fight.step.${fightStep.action}`, {
-        brute: getFighterName(fightStep.brute, t),
-        target: getFighterName(fightStep.target, t),
+    case StepType.Trap:
+      return t('fight.step.trap', {
+        brute: getFighterName(fighters, step.b, t),
+        target: getFighterName(fighters, step.t, t),
       });
-    case 'heal':
-      return t(`fight.step.${fightStep.action}`, {
-        brute: getFighterName(fightStep.brute, t),
-        amount: fightStep.amount,
+    case StepType.Heal:
+      return t('fight.step.heal', {
+        brute: getFighterName(fighters, step.b, t),
+        amount: step.h,
       });
-    case 'resist':
-      return t(`fight.step.${fightStep.action}`, {
-        brute: getFighterName(fightStep.brute, t),
+    case StepType.Resist:
+      return t('fight.step.resist', {
+        brute: getFighterName(fighters, step.b, t),
       });
-    case 'survive':
-      return t(`fight.step.${fightStep.action}`, {
-        brute: getFighterName(fightStep.brute, t),
+    case StepType.Survive:
+      return t('fight.step.survive', {
+        brute: getFighterName(fighters, step.b, t),
       });
-    case 'hit': {
+    case StepType.Hit: {
       const data = {
-        fighter: getFighterName(fightStep.fighter, t),
-        damage: fightStep.damage,
-        target: getFighterName(fightStep.target, t),
+        fighter: getFighterName(fighters, step.f, t),
+        damage: step.d,
+        target: getFighterName(fighters, step.t, t),
       };
-      if (fightStep.weapon) {
+      if (step.w) {
         return t('fight.step.hitWith', {
           ...data,
-          weapon: t(fightStep.weapon),
+          weapon: t(WeaponById[step.w]),
         });
       }
       return t('fight.step.hit', data);
     }
-    case 'hammer':
-      return t(`fight.step.${fightStep.action}`, {
-        brute: getFighterName(fightStep.fighter, t),
-        damage: fightStep.damage,
-        target: getFighterName(fightStep.target, t),
+    case StepType.Hammer:
+      return t('fight.step.hammer', {
+        brute: getFighterName(fighters, step.f, t),
+        damage: step.d,
+        target: getFighterName(fighters, step.t, t),
       });
-    case 'bomb':
-      return t(`fight.step.${fightStep.action}`, {
-        fighter: getFighterName(fightStep.fighter, t),
-        damage: typeof fightStep.damage === 'number' ? fightStep.damage : fightStep.damage.map((d) => d.damage).join(', '),
+    case StepType.Bomb:
+      return t('fight.step.bomb', {
+        fighter: getFighterName(fighters, step.f, t),
+        damage: Object.values(step.d).join(', '),
       });
-    case 'flashFlood':
-      if (fightStep.weapon) {
-        return t(`fight.step.${fightStep.action}`, {
-          brute: getFighterName(fightStep.fighter, t),
-          damage: fightStep.damage,
-          target: getFighterName(fightStep.target, t),
-          weapon: t(fightStep.weapon),
+    case StepType.FlashFlood:
+      if (step.w) {
+        return t('fight.step.flashFlood', {
+          brute: getFighterName(fighters, step.f, t),
+          damage: step.d,
+          target: getFighterName(fighters, step.t, t),
+          weapon: t(WeaponById[step.w]),
         });
       }
       return '';
-    case 'poison':
-      return t(`fight.step.${fightStep.action}`, {
-        brute: getFighterName(fightStep.fighter, t),
-        damage: fightStep.damage,
-        target: getFighterName(fightStep.target, t),
+    case StepType.Poison:
+      return t('fight.step.poison', {
+        brute: getFighterName(fighters, step.f, t),
+        damage: step.d,
+        target: getFighterName(fighters, step.t, t),
       });
-    case 'hypnotise':
-      return t(`fight.step.${fightStep.action}`, {
-        brute: getFighterName(fightStep.brute, t),
+    case StepType.Hypnotise:
+      return t('fight.step.hypnotise', {
+        brute: getFighterName(fighters, step.b, t),
       });
-    case 'moveTo':
-      return t(`fight.step.${fightStep.action}`, {
-        fighter: getFighterName(fightStep.fighter, t),
-        target: getFighterName(fightStep.target, t),
+    case StepType.Move:
+      return t('fight.step.moveTo', {
+        fighter: getFighterName(fighters, step.f, t),
+        target: getFighterName(fighters, step.t, t),
       });
-    case 'eat':
-      return t(`fight.step.${fightStep.action}`, {
-        brute: getFighterName(fightStep.brute, t),
-        target: getFighterName(fightStep.target, t),
-        heal: fightStep.heal,
+    case StepType.Eat:
+      return t('fight.step.eat', {
+        brute: getFighterName(fighters, step.b, t),
+        target: getFighterName(fighters, step.t, t),
+        heal: step.h,
       });
-    case 'moveBack':
-      return t(`fight.step.${fightStep.action}`, {
-        fighter: getFighterName(fightStep.fighter, t),
+    case StepType.MoveBack:
+      return t('fight.step.moveBack', {
+        fighter: getFighterName(fighters, step.f, t),
       });
-    case 'equip':
-      return t(`fight.step.${fightStep.action}`, {
-        brute: getFighterName(fightStep.brute, t),
-        name: t(fightStep.name),
+    case StepType.Equip:
+      return t('fight.step.equip', {
+        brute: getFighterName(fighters, step.b, t),
+        name: t(WeaponById[step.w]),
       });
-    case 'attemptHit': {
-      let text = t(`fight.step.${fightStep.action}`, {
-        fighter: getFighterName(fightStep.fighter, t),
-        target: getFighterName(fightStep.target, t),
+    case StepType.AttemptHit: {
+      let text = t('fight.step.attemptHit', {
+        fighter: getFighterName(fighters, step.f, t),
+        target: getFighterName(fighters, step.t, t),
       });
 
-      if (fightStep.brokeShield) {
+      if (step.b) {
         text += ' ';
         text += t('fight.step.break', {
-          fighter: getFighterName(fightStep.fighter, t),
-          opponent: getFighterName(fightStep.target, t),
+          fighter: getFighterName(fighters, step.f, t),
+          opponent: getFighterName(fighters, step.t, t),
         });
       }
 
       return text;
     }
-    case 'block':
-      return t(`fight.step.${fightStep.action}`, {
-        fighter: getFighterName(fightStep.fighter, t),
+    case StepType.Block:
+      return t('fight.step.block', {
+        fighter: getFighterName(fighters, step.f, t),
       });
-    case 'evade':
-      return t(`fight.step.${fightStep.action}`, {
-        fighter: getFighterName(fightStep.fighter, t),
+    case StepType.Evade:
+      return t('fight.step.evade', {
+        fighter: getFighterName(fighters, step.f, t),
       });
-    case 'sabotage':
-      return t(`fight.step.${fightStep.action}`, {
-        fighter: getFighterName(fightStep.fighter, t),
-        opponent: getFighterName(fightStep.opponent, t),
-        weapon: t(fightStep.weapon),
+    case StepType.Sabotage:
+      return t('fight.step.sabotage', {
+        fighter: getFighterName(fighters, step.f, t),
+        opponent: getFighterName(fighters, step.t, t),
+        weapon: t(WeaponById[step.w]),
       });
-    case 'disarm':
-      return t(`fight.step.${fightStep.action}`, {
-        fighter: getFighterName(fightStep.fighter, t),
-        opponent: getFighterName(fightStep.opponent, t),
-        weapon: t(fightStep.weapon),
+    case StepType.Disarm:
+      return t('fight.step.disarm', {
+        fighter: getFighterName(fighters, step.f, t),
+        opponent: getFighterName(fighters, step.t, t),
+        weapon: t(WeaponById[step.w]),
       });
-    case 'death':
-      return t(`fight.step.${fightStep.action}`, {
-        fighter: getFighterName(fightStep.fighter, t),
+    case StepType.Death:
+      return t('fight.step.death', {
+        fighter: getFighterName(fighters, step.f, t),
       });
-    case 'throw':
-      return t(`fight.step.${fightStep.action}`, {
-        fighter: getFighterName(fightStep.fighter, t),
-        opponent: getFighterName(fightStep.opponent, t),
-        weapon: t(fightStep.weapon),
+    case StepType.Throw:
+      return t('fight.step.throw', {
+        fighter: getFighterName(fighters, step.f, t),
+        opponent: getFighterName(fighters, step.t, t),
+        weapon: t(WeaponById[step.w]),
       });
-    case 'end':
-      return t(`fight.step.${fightStep.action}`, {
-        winner: getFighterName(fightStep.winner, t),
-        loser: getFighterName(fightStep.loser, t),
+    case StepType.End:
+      return t('fight.step.end', {
+        winner: getFighterName(fighters, step.w, t),
+        loser: getFighterName(fighters, step.l, t),
       });
-    case 'counter':
-      return t(`fight.step.${fightStep.action}`, {
-        fighter: getFighterName(fightStep.fighter, t),
-        opponent: getFighterName(fightStep.opponent, t),
+    case StepType.Counter:
+      return t('fight.step.counter', {
+        fighter: getFighterName(fighters, step.f, t),
+        opponent: getFighterName(fighters, step.t, t),
       });
-    case 'skillExpire':
-      return t(`fight.step.${fightStep.action}`, {
-        brute: getFighterName(fightStep.brute, t),
-        skill: t(fightStep.skill),
+    case StepType.SkillExpire:
+      return t('fight.step.skillExpire', {
+        brute: getFighterName(fighters, step.b, t),
+        skill: t(SkillById[step.s]),
       });
-    case 'skillActivate':
-      return t(`fight.step.${fightStep.action}`, {
-        brute: getFighterName(fightStep.brute, t),
-        skill: t(fightStep.skill),
+    case StepType.SkillActivate:
+      return t('fight.step.skillActivate', {
+        brute: getFighterName(fighters, step.b, t),
+        skill: t(SkillById[step.s]),
       });
-    case 'spy':
-      return t(`fight.step.${fightStep.action}`, {
-        brute: getFighterName(fightStep.brute, t),
-        opponent: getFighterName(fightStep.opponent, t),
+    case StepType.Spy:
+      return t('fight.step.spy', {
+        brute: getFighterName(fighters, step.b, t),
+        opponent: getFighterName(fighters, step.t, t),
       });
     default:
       return '';

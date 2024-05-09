@@ -1,6 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { weapons } from '@labrute/core';
-import { WeaponName } from '@labrute/prisma';
+import { WeaponById, WeaponId } from '@labrute/core';
 import { OutlineFilter } from '@pixi/filter-outline';
 import * as PIXI from 'pixi.js';
 import { Application, Sprite } from 'pixi.js';
@@ -9,7 +8,7 @@ import { AnimationFighter } from './findFighter';
 const updateWeapons = (
   app: Application,
   brute: AnimationFighter,
-  weapon?: string,
+  weapon?: WeaponId,
   action?: 'add' | 'remove',
 ) => {
   if (!app.loader) {
@@ -35,17 +34,15 @@ const updateWeapons = (
     if (!weapon) {
       throw new Error('Weapon not found');
     }
-    brute.weapons.push({
-      name: weapon as WeaponName,
-      animation: weapons.find((w) => w.name === weapon)?.animation || 'fist',
-    });
+
+    brute.weapons.push(weapon);
   } else if (action === 'remove') {
     if (!weapon) {
       throw new Error('Weapon not found');
     }
 
     // Remove only one weapon
-    const index = brute.weapons.findIndex((w) => w.name === weapon);
+    const index = brute.weapons.findIndex((w) => w === weapon);
     if (index !== -1) {
       brute.weapons.splice(index, 1);
     }
@@ -55,11 +52,11 @@ const updateWeapons = (
   if (!brute.master) {
     // Generate new list
     brute.weapons.forEach((w, index) => {
-      const texture = spritesheet.textures[`weapons/${w.name}.png`];
+      const texture = spritesheet.textures[`weapons/${WeaponById[w]}.png`];
       texture.baseTexture.scaleMode = PIXI.SCALE_MODES.LINEAR;
 
       const sprite = new Sprite(texture);
-      sprite.name = w.name;
+      sprite.name = w.toString();
 
       if (brute.animation.team === 'left') {
         sprite.x = (index % 9) * 20 + 60;

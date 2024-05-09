@@ -1,4 +1,4 @@
-import { Fighter, StepFighter } from '@labrute/core';
+import { Fighter } from '@labrute/core';
 import * as PIXI from 'pixi.js';
 import FighterHolder from './FighterHolder';
 
@@ -14,10 +14,7 @@ export interface AnimationFighter extends Omit<Fighter, 'shield'> {
 
 const findFighter = (
   fighters: AnimationFighter[],
-  stepFighter?: StepFighter,
-) => (stepFighter ? fighters.find((f) => f.name === stepFighter.name
-  && f.type === stepFighter.type
-  && f.hypnotised === stepFighter.hypnotised
-  && f.master === stepFighter.master) : undefined);
+  stepFighter?: number,
+) => (stepFighter ? fighters.find((f) => f.id === stepFighter) : undefined);
 
 export default findFighter;

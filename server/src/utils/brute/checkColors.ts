@@ -4,7 +4,11 @@ import translate from '../translate.js';
 import { LOGGER } from '../../context.js';
 
 const isValid = (value: number, array: string[]) => value >= 0 && value < array.length;
-const isValidWithSpecials = (value: number, array: string[]) => value >= 0 && (value < array.length || (value < 100 && value > (99 - colors.special.length)));
+
+const isValidWithSpecials = (
+  value: number,
+  array: string[],
+) => value >= 0 && (value < array.length || (value < 100 && value > (99 - colors.special.length)));
 
 const checkColors = (
   user: Pick<User, 'id' | 'lang'>,
