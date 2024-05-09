@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.52.1](https://github.com/Zenoo/labrute/compare/labrute-v2.52.0...labrute-v2.52.1) (2024-05-09)
+
+
+### Bug Fixes
+
+* Fight stops when using a fan ([8d70c84](https://github.com/Zenoo/labrute/commit/8d70c846030f67fcedaa35e72185087a8636af84))
+
 ## [2.52.0](https://github.com/Zenoo/labrute/compare/labrute-v2.51.3...labrute-v2.52.0) (2024-05-09)
 
 
