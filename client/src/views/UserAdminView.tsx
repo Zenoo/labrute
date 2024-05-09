@@ -41,6 +41,7 @@ const UserAdminView = () => {
         gold: u.gold,
         fightSpeed: u.fightSpeed,
         backgroundMusic: u.backgroundMusic,
+        dinorpgDone: u.dinorpgDone,
       });
       setAchievements(u.achievements);
       // Map to new array to avoid reference

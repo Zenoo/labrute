@@ -117,7 +117,8 @@ exports.Prisma.UserScalarFieldEnum = {
   bruteLimit: 'bruteLimit',
   gold: 'gold',
   fightSpeed: 'fightSpeed',
-  backgroundMusic: 'backgroundMusic'
+  backgroundMusic: 'backgroundMusic',
+  dinorpgDone: 'dinorpgDone'
 };
 
 exports.Prisma.RelationLoadStrategy = {

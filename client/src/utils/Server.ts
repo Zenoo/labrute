@@ -16,6 +16,7 @@ const Server = {
     toggleBackgroundMusic: (backgroundMusic: boolean) => Fetch<never>('/api/user/toggle-background-music', { backgroundMusic }, 'POST'),
     adminUpdate: (id: string, data: UsersAdminUpdateRequest) => Fetch<never>(`/api/user/${id}/admin-update`, data, 'POST'),
     getProfile: (id: string) => Fetch<UserGetProfileResponse>(`/api/user/${id}/profile`),
+    getDinoRpgRewards: () => Fetch<never>('/api/user/get-dinorpg-reward'),
   },
   Brute: {
     getForHook: (name: string) => Fetch<HookBrute>(`/api/brute/${name}/for-hook`),

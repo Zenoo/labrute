@@ -33,6 +33,7 @@ model User {
   gold            Int              @default(0)
   fightSpeed      Int              @default(1)
   backgroundMusic Boolean          @default(true)
+  dinorpgDone     DateTime?        @db.Date
   brutes          Brute[]
   achievements    Achievement[]
   reports         BruteReport[]

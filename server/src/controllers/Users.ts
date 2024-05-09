@@ -8,6 +8,8 @@ import {
   PrismaClient,
 } from '@labrute/prisma';
 import type { Request, Response } from 'express';
+import moment from 'moment';
+import fetch from 'node-fetch';
 import { DISCORD } from '../context.js';
 import dailyJob from '../dailyJob.js';
 import auth from '../utils/auth.js';
@@ -419,6 +421,67 @@ const Users = {
       const isDoneForToday = brutes.every((brute) => getFightsLeft(brute) === 0);
 
       res.send(isDoneForToday);
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  getDinoRpgRewards: (prisma: PrismaClient) => async (
+    req: Request,
+    res: Response,
+  ) => {
+    try {
+      const authed = await auth(prisma, req);
+
+      const user = await prisma.user.findFirst({
+        where: { id: authed.id },
+        select: {
+          dinorpgDone: true,
+        },
+      });
+
+      if (!user) {
+        throw new Error('User not found');
+      }
+
+      if (user.dinorpgDone && moment.utc().isSame(moment.utc(user.dinorpgDone), 'day')) {
+        throw new ExpectedError(translate('alreadyClaimed', authed));
+      }
+
+      let dinoRpgDone = false;
+
+      const dinoRpgResponse = await fetch(`https://dinorpg.eternaltwin.org/api/v1/eternaltwin/${authed.id}`);
+      const data = await dinoRpgResponse.text();
+
+      dinoRpgDone = data === 'true';
+
+      if (data !== 'true' && data !== 'false') {
+        throw new Error(data);
+      }
+
+      if (!dinoRpgDone) {
+        throw new ExpectedError(translate('needToUseEveryAction', authed));
+      }
+
+      await prisma.user.update({
+        where: { id: authed.id },
+        data: {
+          dinorpgDone: new Date(),
+          brutes: {
+            updateMany: {
+              where: { deletedAt: null },
+              data: {
+                fightsLeft: {
+                  increment: 1,
+                },
+              },
+            },
+          },
+        },
+      });
+
+      res.send({
+        success: true,
+      });
     } catch (error) {
       sendError(res, error);
     }

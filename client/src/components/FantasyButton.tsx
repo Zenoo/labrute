@@ -9,6 +9,7 @@ interface FantasyButtonProps extends BoxProps {
   | 'error'
   | 'info'
   | 'warning';
+  disabled?: boolean;
 }
 
 /**
@@ -17,6 +18,7 @@ interface FantasyButtonProps extends BoxProps {
 const FantasyButton = React.forwardRef<HTMLDivElement, FantasyButtonProps>(({
   children,
   color = 'primary',
+  disabled,
   sx,
   ...rest
 }: FantasyButtonProps, ref) => {
@@ -34,7 +36,7 @@ const FantasyButton = React.forwardRef<HTMLDivElement, FantasyButtonProps>(({
         sx={{
           position: 'relative',
           display: 'inline-block',
-          cursor: 'pointer',
+          cursor: disabled ? 'not-allowed' : 'pointer',
           outline: 'none',
           verticalAlign: 'middle',
           textDecoration: 'none',

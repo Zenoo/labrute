@@ -415,7 +415,8 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
       });
 
       // Allow rank up for winner if brute has enough wins
-      if (!winnerBrute.canRankUpSince && (winnerBrute.tournamentWins + 1) >= getWinsNeededToRankUp(winnerBrute)) {
+      if (!winnerBrute.canRankUpSince
+        && (winnerBrute.tournamentWins + 1) >= getWinsNeededToRankUp(winnerBrute)) {
         await prisma.brute.update({
           where: { id: winnerBrute.id },
           data: { canRankUpSince: new Date() },

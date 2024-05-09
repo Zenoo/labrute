@@ -3333,6 +3333,7 @@ export namespace Prisma {
     gold: number | null
     fightSpeed: number | null
     backgroundMusic: boolean | null
+    dinorpgDone: Date | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -3346,6 +3347,7 @@ export namespace Prisma {
     gold: number | null
     fightSpeed: number | null
     backgroundMusic: boolean | null
+    dinorpgDone: Date | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -3359,6 +3361,7 @@ export namespace Prisma {
     gold: number
     fightSpeed: number
     backgroundMusic: number
+    dinorpgDone: number
     _all: number
   }
 
@@ -3386,6 +3389,7 @@ export namespace Prisma {
     gold?: true
     fightSpeed?: true
     backgroundMusic?: true
+    dinorpgDone?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -3399,6 +3403,7 @@ export namespace Prisma {
     gold?: true
     fightSpeed?: true
     backgroundMusic?: true
+    dinorpgDone?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -3412,6 +3417,7 @@ export namespace Prisma {
     gold?: true
     fightSpeed?: true
     backgroundMusic?: true
+    dinorpgDone?: true
     _all?: true
   }
 
@@ -3512,6 +3518,7 @@ export namespace Prisma {
     gold: number
     fightSpeed: number
     backgroundMusic: boolean
+    dinorpgDone: Date | null
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -3544,6 +3551,7 @@ export namespace Prisma {
     gold?: boolean
     fightSpeed?: boolean
     backgroundMusic?: boolean
+    dinorpgDone?: boolean
     brutes?: boolean | User$brutesArgs<ExtArgs>
     achievements?: boolean | User$achievementsArgs<ExtArgs>
     reports?: boolean | User$reportsArgs<ExtArgs>
@@ -3562,6 +3570,7 @@ export namespace Prisma {
     gold?: boolean
     fightSpeed?: boolean
     backgroundMusic?: boolean
+    dinorpgDone?: boolean
   }
 
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3592,6 +3601,7 @@ export namespace Prisma {
       gold: number
       fightSpeed: number
       backgroundMusic: boolean
+      dinorpgDone: Date | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -4003,6 +4013,7 @@ export namespace Prisma {
     readonly gold: FieldRef<"User", 'Int'>
     readonly fightSpeed: FieldRef<"User", 'Int'>
     readonly backgroundMusic: FieldRef<"User", 'Boolean'>
+    readonly dinorpgDone: FieldRef<"User", 'DateTime'>
   }
     
 
@@ -24179,7 +24190,8 @@ export namespace Prisma {
     bruteLimit: 'bruteLimit',
     gold: 'gold',
     fightSpeed: 'fightSpeed',
-    backgroundMusic: 'backgroundMusic'
+    backgroundMusic: 'backgroundMusic',
+    dinorpgDone: 'dinorpgDone'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -24765,6 +24777,7 @@ export namespace Prisma {
     gold?: IntFilter<"User"> | number
     fightSpeed?: IntFilter<"User"> | number
     backgroundMusic?: BoolFilter<"User"> | boolean
+    dinorpgDone?: DateTimeNullableFilter<"User"> | Date | string | null
     brutes?: BruteListRelationFilter
     achievements?: AchievementListRelationFilter
     reports?: BruteReportListRelationFilter
@@ -24782,6 +24795,7 @@ export namespace Prisma {
     gold?: SortOrder
     fightSpeed?: SortOrder
     backgroundMusic?: SortOrder
+    dinorpgDone?: SortOrderInput | SortOrder
     brutes?: BruteOrderByRelationAggregateInput
     achievements?: AchievementOrderByRelationAggregateInput
     reports?: BruteReportOrderByRelationAggregateInput
@@ -24802,6 +24816,7 @@ export namespace Prisma {
     gold?: IntFilter<"User"> | number
     fightSpeed?: IntFilter<"User"> | number
     backgroundMusic?: BoolFilter<"User"> | boolean
+    dinorpgDone?: DateTimeNullableFilter<"User"> | Date | string | null
     brutes?: BruteListRelationFilter
     achievements?: AchievementListRelationFilter
     reports?: BruteReportListRelationFilter
@@ -24819,6 +24834,7 @@ export namespace Prisma {
     gold?: SortOrder
     fightSpeed?: SortOrder
     backgroundMusic?: SortOrder
+    dinorpgDone?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -24840,6 +24856,7 @@ export namespace Prisma {
     gold?: IntWithAggregatesFilter<"User"> | number
     fightSpeed?: IntWithAggregatesFilter<"User"> | number
     backgroundMusic?: BoolWithAggregatesFilter<"User"> | boolean
+    dinorpgDone?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   }
 
   export type BruteWhereInput = {
@@ -26257,6 +26274,7 @@ export namespace Prisma {
     gold?: number
     fightSpeed?: number
     backgroundMusic?: boolean
+    dinorpgDone?: Date | string | null
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -26274,6 +26292,7 @@ export namespace Prisma {
     gold?: number
     fightSpeed?: number
     backgroundMusic?: boolean
+    dinorpgDone?: Date | string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -26291,6 +26310,7 @@ export namespace Prisma {
     gold?: IntFieldUpdateOperationsInput | number
     fightSpeed?: IntFieldUpdateOperationsInput | number
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
+    dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -26308,6 +26328,7 @@ export namespace Prisma {
     gold?: IntFieldUpdateOperationsInput | number
     fightSpeed?: IntFieldUpdateOperationsInput | number
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
+    dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -26325,6 +26346,7 @@ export namespace Prisma {
     gold?: number
     fightSpeed?: number
     backgroundMusic?: boolean
+    dinorpgDone?: Date | string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -26338,6 +26360,7 @@ export namespace Prisma {
     gold?: IntFieldUpdateOperationsInput | number
     fightSpeed?: IntFieldUpdateOperationsInput | number
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
+    dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -26351,6 +26374,7 @@ export namespace Prisma {
     gold?: IntFieldUpdateOperationsInput | number
     fightSpeed?: IntFieldUpdateOperationsInput | number
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
+    dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type BruteCreateInput = {
@@ -27806,6 +27830,17 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type BruteListRelationFilter = {
     every?: BruteWhereInput
     some?: BruteWhereInput
@@ -27828,6 +27863,11 @@ export namespace Prisma {
     every?: TournamentGoldWhereInput
     some?: TournamentGoldWhereInput
     none?: TournamentGoldWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type BruteOrderByRelationAggregateInput = {
@@ -27857,6 +27897,7 @@ export namespace Prisma {
     gold?: SortOrder
     fightSpeed?: SortOrder
     backgroundMusic?: SortOrder
+    dinorpgDone?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
@@ -27876,6 +27917,7 @@ export namespace Prisma {
     gold?: SortOrder
     fightSpeed?: SortOrder
     backgroundMusic?: SortOrder
+    dinorpgDone?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -27889,6 +27931,7 @@ export namespace Prisma {
     gold?: SortOrder
     fightSpeed?: SortOrder
     backgroundMusic?: SortOrder
+    dinorpgDone?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
@@ -27964,7 +28007,7 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
     notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -27972,7 +28015,10 @@ export namespace Prisma {
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -28132,11 +28178,6 @@ export namespace Prisma {
     every?: TournamentXpWhereInput
     some?: TournamentXpWhereInput
     none?: TournamentXpWhereInput
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
   }
 
   export type FightOrderByRelationAggregateInput = {
@@ -28364,20 +28405,6 @@ export namespace Prisma {
     victories?: SortOrder
     wantToJoinClanId?: SortOrder
     tournamentWins?: SortOrder
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -29491,6 +29518,10 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
   export type BruteUpdateManyWithoutUserNestedInput = {
     create?: XOR<BruteCreateWithoutUserInput, BruteUncheckedCreateWithoutUserInput> | BruteCreateWithoutUserInput[] | BruteUncheckedCreateWithoutUserInput[]
     connectOrCreate?: BruteCreateOrConnectWithoutUserInput | BruteCreateOrConnectWithoutUserInput[]
@@ -29871,10 +29902,6 @@ export namespace Prisma {
     connectOrCreate?: TournamentXpCreateOrConnectWithoutBruteInput | TournamentXpCreateOrConnectWithoutBruteInput[]
     createMany?: TournamentXpCreateManyBruteInputEnvelope
     connect?: TournamentXpWhereUniqueInput | TournamentXpWhereUniqueInput[]
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -31275,6 +31302,17 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedUuidWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -31351,7 +31389,7 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
     notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -31359,7 +31397,21 @@ export namespace Prisma {
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -31389,31 +31441,6 @@ export namespace Prisma {
     gt?: string | StringFieldRefInput<$PrismaModel>
     gte?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedUuidNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -32091,6 +32118,7 @@ export namespace Prisma {
     gold?: number
     fightSpeed?: number
     backgroundMusic?: boolean
+    dinorpgDone?: Date | string | null
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
     tournamentGolds?: TournamentGoldCreateNestedManyWithoutUserInput
@@ -32107,6 +32135,7 @@ export namespace Prisma {
     gold?: number
     fightSpeed?: number
     backgroundMusic?: boolean
+    dinorpgDone?: Date | string | null
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
     tournamentGolds?: TournamentGoldUncheckedCreateNestedManyWithoutUserInput
@@ -33091,6 +33120,7 @@ export namespace Prisma {
     gold?: IntFieldUpdateOperationsInput | number
     fightSpeed?: IntFieldUpdateOperationsInput | number
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
+    dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
     tournamentGolds?: TournamentGoldUpdateManyWithoutUserNestedInput
@@ -33107,6 +33137,7 @@ export namespace Prisma {
     gold?: IntFieldUpdateOperationsInput | number
     fightSpeed?: IntFieldUpdateOperationsInput | number
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
+    dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
     tournamentGolds?: TournamentGoldUncheckedUpdateManyWithoutUserNestedInput
@@ -35627,6 +35658,7 @@ export namespace Prisma {
     gold?: number
     fightSpeed?: number
     backgroundMusic?: boolean
+    dinorpgDone?: Date | string | null
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -35643,6 +35675,7 @@ export namespace Prisma {
     gold?: number
     fightSpeed?: number
     backgroundMusic?: boolean
+    dinorpgDone?: Date | string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -35675,6 +35708,7 @@ export namespace Prisma {
     gold?: IntFieldUpdateOperationsInput | number
     fightSpeed?: IntFieldUpdateOperationsInput | number
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
+    dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -35691,6 +35725,7 @@ export namespace Prisma {
     gold?: IntFieldUpdateOperationsInput | number
     fightSpeed?: IntFieldUpdateOperationsInput | number
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
+    dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -36103,6 +36138,7 @@ export namespace Prisma {
     gold?: number
     fightSpeed?: number
     backgroundMusic?: boolean
+    dinorpgDone?: Date | string | null
     brutes?: BruteCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
     tournamentGolds?: TournamentGoldCreateNestedManyWithoutUserInput
@@ -36119,6 +36155,7 @@ export namespace Prisma {
     gold?: number
     fightSpeed?: number
     backgroundMusic?: boolean
+    dinorpgDone?: Date | string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
     tournamentGolds?: TournamentGoldUncheckedCreateNestedManyWithoutUserInput
@@ -36287,6 +36324,7 @@ export namespace Prisma {
     gold?: IntFieldUpdateOperationsInput | number
     fightSpeed?: IntFieldUpdateOperationsInput | number
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
+    dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     brutes?: BruteUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
     tournamentGolds?: TournamentGoldUpdateManyWithoutUserNestedInput
@@ -36303,6 +36341,7 @@ export namespace Prisma {
     gold?: IntFieldUpdateOperationsInput | number
     fightSpeed?: IntFieldUpdateOperationsInput | number
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
+    dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
     tournamentGolds?: TournamentGoldUncheckedUpdateManyWithoutUserNestedInput
@@ -36595,6 +36634,7 @@ export namespace Prisma {
     gold?: number
     fightSpeed?: number
     backgroundMusic?: boolean
+    dinorpgDone?: Date | string | null
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     tournamentGolds?: TournamentGoldCreateNestedManyWithoutUserInput
@@ -36611,6 +36651,7 @@ export namespace Prisma {
     gold?: number
     fightSpeed?: number
     backgroundMusic?: boolean
+    dinorpgDone?: Date | string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     tournamentGolds?: TournamentGoldUncheckedCreateNestedManyWithoutUserInput
@@ -36787,6 +36828,7 @@ export namespace Prisma {
     gold?: IntFilter<"User"> | number
     fightSpeed?: IntFilter<"User"> | number
     backgroundMusic?: BoolFilter<"User"> | boolean
+    dinorpgDone?: DateTimeNullableFilter<"User"> | Date | string | null
   }
 
   export type BruteCreateWithoutMasterOfClanInput = {
@@ -40138,6 +40180,7 @@ export namespace Prisma {
     gold?: IntFieldUpdateOperationsInput | number
     fightSpeed?: IntFieldUpdateOperationsInput | number
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
+    dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     tournamentGolds?: TournamentGoldUpdateManyWithoutUserNestedInput
@@ -40154,6 +40197,7 @@ export namespace Prisma {
     gold?: IntFieldUpdateOperationsInput | number
     fightSpeed?: IntFieldUpdateOperationsInput | number
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
+    dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     tournamentGolds?: TournamentGoldUncheckedUpdateManyWithoutUserNestedInput
@@ -40170,6 +40214,7 @@ export namespace Prisma {
     gold?: IntFieldUpdateOperationsInput | number
     fightSpeed?: IntFieldUpdateOperationsInput | number
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
+    dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type BruteCreateManyClanInput = {
