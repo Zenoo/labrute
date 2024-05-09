@@ -59,6 +59,6 @@
   "threadNotFound": "Thema nicht gefunden",
   "notYourClan": "Das ist nicht dein Klan",
   "invalidName": "Ungültiger Name. Akzeptable Zeichen sind a-z, A-Z, 0-9, '_' und '-'. Muss zwischen 3 und 16 Zeichen enthalten.",
-  "alreadyClaimed": "You already claimed this reward",
-  "needToUseEveryAction": "You need to use every action on your Dinoz to be able to claim this reward"
+  "alreadyClaimed": "Du hast diese Belohnung bereits erhalten",
+  "needToUseEveryAction": "Du musst alle Aktionen deiner Dinoz verbrauchen, um diese Belohnung zu erhalten"
 }
