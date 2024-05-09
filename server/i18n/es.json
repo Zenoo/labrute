@@ -58,5 +58,7 @@
   "masterCannotLeave": "El maestro no puede dejar un clan que tiene miembros",
   "threadNotFound": "Hilo no encontrado",
   "notYourClan": "Este no es tu clan",
-  "invalidName": "Nombre inválido. Los caracteres permitidos son a-z, A-Z, 0-9, '_' y '-'. Debe tener una longitud entre 3 y 16 caracteres."
+  "invalidName": "Nombre inválido. Los caracteres permitidos son a-z, A-Z, 0-9, '_' y '-'. Debe tener una longitud entre 3 y 16 caracteres.",
+  "alreadyClaimed": "You already claimed this reward",
+  "needToUseEveryAction": "You need to use every action on your Dinoz to be able to claim this reward"
 }
