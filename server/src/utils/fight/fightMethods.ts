@@ -8,6 +8,7 @@ import {
   randomBetween, SHIELD_BLOCK_ODDS, Skill, SkillByName, StepType, updateAchievement, Weapon,
   WeaponByName,
 } from '@labrute/core';
+import { PetName } from '@labrute/prisma';
 import getDamage from './getDamage.js';
 
 export type Stats = Record<number, {
@@ -331,9 +332,21 @@ const registerHit = (
   sourceName?: 'hammer' | 'flashFlood' | 'poison' | 'bomb',
   flashFloodWeapon?: Weapon,
 ) => {
+  const bombDamageRangeOnPets: Record<PetName, [number, number]> = {
+    [PetName.dog1]: [90, 150],
+    [PetName.dog2]: [90, 150],
+    [PetName.dog3]: [90, 150],
+    [PetName.panther]: [40, 80],
+    [PetName.bear]: [15, 30],
+  };
+
   const actualDamage: Record<number, number> = opponents.reduce((acc, opponent) => ({
     ...acc,
-    [opponent.id]: damage,
+    [opponent.id]: (sourceName === 'bomb' && opponent.type === 'pet')
+      ? Math.round(
+        randomBetween(...bombDamageRangeOnPets[opponent.name as PetName]) * opponent.maxHp,
+      ) / 100
+      : damage,
   }), {});
 
   opponents.forEach((opponent) => {
