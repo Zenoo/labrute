@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.52.3](https://github.com/Zenoo/labrute/compare/labrute-v2.52.2...labrute-v2.52.3) (2024-05-10)
+
+
+### Bug Fixes
+
+* Bomb damage as a % of pet max HP. Fixes [#569](https://github.com/Zenoo/labrute/issues/569) ([7683551](https://github.com/Zenoo/labrute/commit/76835517b23111ef67db12b99b06267f916c3359))
+* Bomb damage typo ([a11f954](https://github.com/Zenoo/labrute/commit/a11f954327dea7a701fc316d72fbfc077ea46be4))
+* Fan not being used in fights ([955b985](https://github.com/Zenoo/labrute/commit/955b98518ba5bd87804c8b9907a0e6a4e7482410))
+* Give tournament wins for brute who could already rank up ([4bce5d8](https://github.com/Zenoo/labrute/commit/4bce5d8e2627012d60aa322f8d82b2bc66e1fd35))
+* Limit global tournament to brute that played on the previous day. Fixes [#657](https://github.com/Zenoo/labrute/issues/657) ([923d136](https://github.com/Zenoo/labrute/commit/923d136f2ff6072b94d35ea51b79db3e34f9cac6))
+* Renamed weapon tempo to speed for a better understading. Fixes [#583](https://github.com/Zenoo/labrute/issues/583) ([3a39098](https://github.com/Zenoo/labrute/commit/3a3909818864e200a485019e65153c4202281bdb))
+* Weapon use chance as a %. Fixes [#584](https://github.com/Zenoo/labrute/issues/584) ([ada3021](https://github.com/Zenoo/labrute/commit/ada302132066a881efc769c3a241e60ce71e754e))
+
 ## [2.52.2](https://github.com/Zenoo/labrute/compare/labrute-v2.52.1...labrute-v2.52.2) (2024-05-10)
 
 
