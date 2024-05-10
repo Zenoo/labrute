@@ -455,6 +455,10 @@ const Users = {
       dinoRpgDone = data === 'true';
 
       if (data !== 'true' && data !== 'false') {
+        if (data.includes('doesn\'t exist.')) {
+          throw new ExpectedError(translate('noDinoRpgAccount', authed));
+        }
+
         throw new Error(data);
       }
 
