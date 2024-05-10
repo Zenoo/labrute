@@ -61,5 +61,5 @@
   "invalidName": "Ungültiger Name. Akzeptable Zeichen sind a-z, A-Z, 0-9, '_' und '-'. Muss zwischen 3 und 16 Zeichen enthalten.",
   "alreadyClaimed": "Du hast diese Belohnung bereits erhalten",
   "needToUseEveryAction": "Du musst alle Aktionen deiner Dinoz verbrauchen, um diese Belohnung zu erhalten",
-  "noDinoRpgAccount": "You don't have a DinoRPG account linked to your EternalTwin account."
+  "noDinoRpgAccount": "Mit deinem EternalTwin-Account ist kein Dino-RPG-Account verknüpft."
 }
