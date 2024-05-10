@@ -86,7 +86,7 @@
   "clanNameLength": "El nombre de tu clan debe tener entre 3 y 50 caracteres.",
   "clanCreated": "Tu clan ha sido creado.",
   "brutes": "Brutos",
-  "externalRewards": "External rewards",
+  "externalRewards": "Recompensas externas",
   "askToJoin": "Solicitar unirse",
   "confirmJoin": "¿Quieres unirte a este clan?",
   "requestSent": "Se ha enviado tu solicitud.",
@@ -379,7 +379,7 @@
   "comeBackInOneHour": "Vuelve dentro de una hora para la siguiente pelea.",
   "setAsWatched": "Marcar como visto",
   "rankUp": "Subir de rango",
-  "tournamentVictoriesUntilRankUp": "You need {{value}} daily tournament victories to rank up.",
+  "tournamentVictoriesUntilRankUp": "Necesitas {{value}} victorias diarias de torneo para subir de rango.",
   "rankUpConfirm": "Seguro que quieres subir de rango? Tu Bruto volverá a nivel 1 con el mismo destino.",
   "finals": "Final",
   "semiFinals": "Semifinales",
@@ -1245,5 +1245,5 @@
   "achievementRankings": "Clasificación de Logros",
   "achievement": "Logro",
   "byUser": "Por usuario",
-  "dinoRpgRewardsSuccess": "Congratz! You gained an extra fight for each of your brutes."
+  "dinoRpgRewardsSuccess": "¡Enhorabuena! Has ganado una pelea extra por cada uno de tus brutos."
 }
