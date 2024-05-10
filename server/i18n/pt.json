@@ -60,5 +60,6 @@
   "notYourClan": "Este não é o seu clã",
   "invalidName": "Invalid name. Accepted characters are a-z, A-Z, 0-9, '_' and '-'. Must be between 3 and 16 characters long.",
   "alreadyClaimed": "You already claimed this reward",
-  "needToUseEveryAction": "You need to use every action on your Dinoz to be able to claim this reward"
+  "needToUseEveryAction": "You need to use every action on your Dinoz to be able to claim this reward",
+  "noDinoRpgAccount": "You don't have a DinoRPG account linked to your EternalTwin account."
 }
