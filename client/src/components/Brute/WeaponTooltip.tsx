@@ -1,4 +1,4 @@
-import { BARE_HANDS_DAMAGE, BASE_FIGHTER_STATS, PERKS_TOTAL_ODDS, Weapon, WeaponTypeColor } from '@labrute/core';
+import { BARE_HANDS_DAMAGE, BASE_FIGHTER_STATS, NO_WEAPON_TOSS, PERKS_TOTAL_ODDS, Weapon, WeaponTypeColor } from '@labrute/core';
 import { Box, Tooltip, TooltipProps } from '@mui/material';
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -90,7 +90,7 @@ const WeaponTooltip = ({
               {t('drawChance')}:
               {' '}
               <Box component="span" sx={{ opacity: 0.7 }}>
-                {weapon.toss}
+                {Math.round((weapon.toss / (NO_WEAPON_TOSS + weapon.toss)) * 100)}%
               </Box>
             </Text>
           )}

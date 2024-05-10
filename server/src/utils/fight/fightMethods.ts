@@ -4,6 +4,7 @@ import {
   AttemptHitStep,
   BASE_FIGHTER_STATS,
   DetailedFight, DetailedFighter, FighterStat, LeaveStep,
+  NO_WEAPON_TOSS,
   randomBetween, SHIELD_BLOCK_ODDS, Skill, SkillByName, StepType, updateAchievement, Weapon,
   WeaponByName,
 } from '@labrute/core';
@@ -304,7 +305,6 @@ const randomlyGetSuper = (fightData: DetailedFight, brute: DetailedFighter) => {
 const randomlyDrawWeapon = (weapons: Weapon[]) => {
   if (!weapons.length) return null;
 
-  const NO_WEAPON_TOSS = 10;
   const randomWeapon = randomBetween(
     0,
     weapons.reduce((acc, weapon) => acc + (weapon.toss || 0), 0) + NO_WEAPON_TOSS,
