@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.52.2](https://github.com/Zenoo/labrute/compare/labrute-v2.52.1...labrute-v2.52.2) (2024-05-10)
+
+
+### Bug Fixes
+
+* DinoRPG integration ([f403ab0](https://github.com/Zenoo/labrute/commit/f403ab0a924e4191453ed81d685269816f90a241))
+
 ## [2.52.1](https://github.com/Zenoo/labrute/compare/labrute-v2.52.0...labrute-v2.52.1) (2024-05-09)
 
 
