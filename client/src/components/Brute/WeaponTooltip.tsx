@@ -70,10 +70,13 @@ const WeaponTooltip = ({
           )}
           {/* INTERVAL */}
           <Text typo="Blocky">
-            {t('interval')}:
+            {t('speed')}:
             {' '}
             <Box component="span" sx={{ opacity: 0.7 }}>
-              {Math.round((weapon ? weapon.tempo : BASE_FIGHTER_STATS.tempo) * 100)}
+              {Math.round(
+                (BASE_FIGHTER_STATS.tempo
+                / (weapon ? weapon.tempo : BASE_FIGHTER_STATS.tempo)) * 100
+              )}%
             </Box>
           </Text>
           {/* DAMAGE */}
