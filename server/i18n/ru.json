@@ -61,5 +61,5 @@
   "invalidName": "Недопустимое имя. Доступные символы: a-z, A-Z, 0-9, «_» и «-». Длиной от 3 до 16 символов.",
   "alreadyClaimed": "Вы уже получили эту награду",
   "needToUseEveryAction": "Вам нужно использовать все действия ваших Диносов, чтобы получить эту награду",
-  "noDinoRpgAccount": "You don't have a DinoRPG account linked to your EternalTwin account."
+  "noDinoRpgAccount": "К вашей учётной записи «EternalTwin» не привязана учётная запись игры «Dino-RPG»."
 }
