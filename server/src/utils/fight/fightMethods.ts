@@ -344,8 +344,10 @@ const registerHit = (
     ...acc,
     [opponent.id]: (sourceName === 'bomb' && opponent.type === 'pet')
       ? Math.round(
-        randomBetween(...bombDamageRangeOnPets[opponent.name as PetName]) * opponent.maxHp,
-      ) / 100
+        ((randomBetween(
+          ...bombDamageRangeOnPets[opponent.name as PetName],
+        ) / 100) * opponent.maxHp),
+      )
       : damage,
   }), {});
 
