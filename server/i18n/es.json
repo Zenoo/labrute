@@ -60,5 +60,6 @@
   "notYourClan": "Este no es tu clan",
   "invalidName": "Nombre inválido. Los caracteres permitidos son a-z, A-Z, 0-9, '_' y '-'. Debe tener una longitud entre 3 y 16 caracteres.",
   "alreadyClaimed": "Ya has reclamado esta recompensa",
-  "needToUseEveryAction": "Necesitas usar cada acción en tus Dinoz para poder reclamar esta recompensa"
+  "needToUseEveryAction": "Necesitas usar cada acción en tus Dinoz para poder reclamar esta recompensa",
+  "noDinoRpgAccount": "You don't have a DinoRPG account linked to your EternalTwin account."
 }
