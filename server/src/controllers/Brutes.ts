@@ -188,6 +188,10 @@ const Brutes = {
         throw new ExpectedError(translate('invalidName', authed));
       }
 
+      if (typeof req.body.colors !== 'string' || typeof req.body.body !== 'string') {
+        throw new ExpectedError('Invalid body or colors');
+      }
+
       // Check colors validity
       checkColors(authed, req.body.gender, req.body.colors);
 

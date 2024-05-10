@@ -17,8 +17,6 @@ import FantasyButton from '../components/FantasyButton';
 import { useAuth } from '../hooks/useAuth';
 import moment from 'moment';
 
-const ENABLE_DINO_RPG_REWARDS = false;
-
 const UserView = () => {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -282,7 +280,7 @@ const UserView = () => {
               </Grid>
             </Grid>
             {/* REWARDS */}
-            {ENABLE_DINO_RPG_REWARDS && user.id === authedUser?.id && (
+            {user.id === authedUser?.id && (
               <>
                 <Text bold center smallCaps h4 sx={{ mt: 2, ml: 1 }}>{t('externalRewards')}</Text>
                 <Box sx={{ display: 'flex', justifyContent: 'center' }}>
