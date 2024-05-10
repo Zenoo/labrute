@@ -471,10 +471,13 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
   // Set tournament as invalid until it's finished
   await ServerState.setGlobalTournamentValid(prisma, false);
 
-  // Get all real brutes
+  // Get all real brutes that played previous day
   const brutes = await prisma.brute.findMany({
     where: {
       deletedAt: null,
+      lastFight: {
+        gte: moment.utc().subtract(1, 'day').toDate(),
+      },
       user: {
         isNot: null,
       },
