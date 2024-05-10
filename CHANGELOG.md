@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.52.4](https://github.com/Zenoo/labrute/compare/labrute-v2.52.3...labrute-v2.52.4) (2024-05-10)
+
+
+### Bug Fixes
+
+* Configurable drpg endpoint ([5e675ed](https://github.com/Zenoo/labrute/commit/5e675ed585dd632c4c447f38e0c47797a7d336dd))
+* Silence no drpg account error ([38e11f0](https://github.com/Zenoo/labrute/commit/38e11f090a7e6e6bf3040d4049d11b211e20a56b))
+
 ## [2.52.3](https://github.com/Zenoo/labrute/compare/labrute-v2.52.2...labrute-v2.52.3) (2024-05-10)
 
 
