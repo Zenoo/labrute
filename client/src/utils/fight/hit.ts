@@ -50,7 +50,7 @@ const hit = async (
     void sound.play('hit/poison', {
       speed: speed.current,
     });
-  } else if (step.w) {
+  } else if (typeof step.w !== 'undefined') {
     // Weapon SFX
     void sound.play(`hitting/${WEAPONS_SFX[WeaponById[step.w]][randomBetween(0, WEAPONS_SFX[WeaponById[step.w]].length - 1)]}`, {
       speed: speed.current,

@@ -72,7 +72,7 @@ const translateFightStep = (
         damage: step.d,
         target: getFighterName(fighters, step.t, t),
       };
-      if (step.w) {
+      if (typeof step.w !== 'undefined') {
         return t('fight.step.hitWith', {
           ...data,
           weapon: t(WeaponById[step.w]),
@@ -92,7 +92,7 @@ const translateFightStep = (
         damage: Object.values(step.d).join(', '),
       });
     case StepType.FlashFlood:
-      if (step.w) {
+      if (typeof step.w !== 'undefined') {
         return t('fight.step.flashFlood', {
           brute: getFighterName(fighters, step.f, t),
           damage: step.d,

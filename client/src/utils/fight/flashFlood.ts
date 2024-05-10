@@ -39,7 +39,7 @@ const flashFlood = async (
   // Set animation to `throw`
   fighter.animation.setAnimation('throw');
 
-  const weapon = step.w ? WeaponById[step.w] : WeaponName.lance;
+  const weapon = typeof step.w !== 'undefined' ? WeaponById[step.w] : WeaponName.lance;
 
   // Update current weapon
   fighter.animation.weapon = weapon;
