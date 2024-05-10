@@ -93,6 +93,11 @@ export interface Config {
    * Configuration for the Discord client used for logs (optional).
    */
   readonly discordLogs: DiscordConfig | null;
+
+  /**
+   * Absolute URL to the DinoRPG website.
+   */
+  readonly dinoRpgUrl: string;
 }
 
 /**
@@ -139,15 +144,15 @@ export function readSelfUrl(envSelfUrl: string | undefined): URL {
 export function readConfig(env: Record<string, string | undefined>): Config {
   dotenv.config();
 
-  const isProduction: boolean = env.NODE_ENV === 'production';
+  const isProduction = env.NODE_ENV === 'production';
   const port = readPort(env.PORT);
   const selfUrl = readSelfUrl(env.SELF_URL);
 
-  const eternaltwinUrl: string = env.ETERNALTWIN_URL ?? env.ETWIN_URL ?? 'http://localhost:50320/';
-  const eternaltwinClientRef: string = env.ETERNALTWIN_CLIENT_REF ?? env.ETWIN_CLIENT_ID ?? 'brute_dev@clients';
-  const eternaltwinSecret: string = env.ETERNALTWIN_SECRET ?? env.ETWIN_CLIENT_SECRET ?? 'dev';
-  const eternaltwinApp: string = env.ETERNALTWIN_APP ?? 'brute';
-  const eternaltwinChannel: string = env.ETERNALTWIN_CHANNEL ?? 'dev';
+  const eternaltwinUrl = env.ETERNALTWIN_URL ?? env.ETWIN_URL ?? 'http://localhost:50320/';
+  const eternaltwinClientRef = env.ETERNALTWIN_CLIENT_REF ?? env.ETWIN_CLIENT_ID ?? 'brute_dev@clients';
+  const eternaltwinSecret = env.ETERNALTWIN_SECRET ?? env.ETWIN_CLIENT_SECRET ?? 'dev';
+  const eternaltwinApp = env.ETERNALTWIN_APP ?? 'brute';
+  const eternaltwinChannel = env.ETERNALTWIN_CHANNEL ?? 'dev';
 
   const eternaltwin: EternaltwinConfig = {
     url: eternaltwinUrl,
@@ -177,6 +182,8 @@ export function readConfig(env: Record<string, string | undefined>): Config {
     };
   }
 
+  const dinoRpgUrl = env.DINORPG_URL ?? 'https://dinorpg.eternaltwin.org';
+
   return {
     isProduction,
     port,
@@ -184,6 +191,7 @@ export function readConfig(env: Record<string, string | undefined>): Config {
     eternaltwin,
     discordNotifications,
     discordLogs,
+    dinoRpgUrl,
   };
 }
 

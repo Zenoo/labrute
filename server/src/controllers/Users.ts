@@ -10,7 +10,7 @@ import {
 import type { Request, Response } from 'express';
 import moment from 'moment';
 import fetch from 'node-fetch';
-import { DISCORD } from '../context.js';
+import { DISCORD, GLOBAL } from '../context.js';
 import dailyJob from '../dailyJob.js';
 import auth from '../utils/auth.js';
 import sendError from '../utils/sendError.js';
@@ -449,7 +449,7 @@ const Users = {
 
       let dinoRpgDone = false;
 
-      const dinoRpgResponse = await fetch(`https://dinorpg.eternaltwin.org/api/v1/eternaltwin/${authed.id}`);
+      const dinoRpgResponse = await fetch(`${GLOBAL.config.dinoRpgUrl}/api/v1/eternaltwin/${authed.id}`);
       const data = await dinoRpgResponse.text();
 
       dinoRpgDone = data === 'true';
