@@ -60,5 +60,6 @@
   "notYourClan": "Ce n'est pas votre clan",
   "invalidName": "Nom invalide. Les caractères autorisés sont a-z, A-Z, 0-9, _ et -. Il doit faire entre 3 et 16 caractères.",
   "alreadyClaimed": "Vous avez déjà reçu cette récompense",
-  "needToUseEveryAction": "Vous devez utiliser toutes les actions sur vos Dinoz pour pouvoir recevoir cette récompense"
+  "needToUseEveryAction": "Vous devez utiliser toutes les actions sur vos Dinoz pour pouvoir recevoir cette récompense",
+  "noDinoRpgAccount": "Vous n'avez pas de compte DinoRPG lié à votre compte EternalTwin."
 }
