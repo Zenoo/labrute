@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.52.5](https://github.com/Zenoo/labrute/compare/labrute-v2.52.4...labrute-v2.52.5) (2024-05-11)
+
+
+### Bug Fixes
+
+* Bonus fights not applied to brutes who didn't fight today ([f7394a3](https://github.com/Zenoo/labrute/commit/f7394a3a9f7d62bbbc783d82f16d8ace4e3b4814))
+* Wrong translations server side ([a1eed80](https://github.com/Zenoo/labrute/commit/a1eed80d89916ad95d86d3bbddbfb76ef906520c))
+
 ## [2.52.4](https://github.com/Zenoo/labrute/compare/labrute-v2.52.3...labrute-v2.52.4) (2024-05-10)
 
 
