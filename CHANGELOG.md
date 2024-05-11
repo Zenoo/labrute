@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.52.6](https://github.com/Zenoo/labrute/compare/labrute-v2.52.5...labrute-v2.52.6) (2024-05-11)
+
+
+### Bug Fixes
+
+* Tournament wins reset on rank up + display wins on non owned brutes ([d15ce07](https://github.com/Zenoo/labrute/commit/d15ce07689c2f8a675aa5c04f08e6b7261727e06))
+
 ## [2.52.5](https://github.com/Zenoo/labrute/compare/labrute-v2.52.4...labrute-v2.52.5) (2024-05-11)
 
 
