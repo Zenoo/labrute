@@ -78,7 +78,7 @@ const CellMain = ({
       </Box>
       <BruteBodyAndStats brute={brute} sx={{ mb: 1 }} />
       {/* Tournament wins until rank up */}
-      {(!brute.tournaments.length || brute.currentTournamentStepWatched === 6) && (
+      {(!owner || (!brute.tournaments.length || brute.currentTournamentStepWatched === 6)) && (
         <Tooltip title={t('tournamentVictoriesUntilRankUp', { value: getWinsNeededToRankUp(brute) })}>
           <Box textAlign="center">
             <Box component="img" src="/images/ranking.png" alt="Tournament victories until rank up" sx={{ width: 22, mr: 1 }} />

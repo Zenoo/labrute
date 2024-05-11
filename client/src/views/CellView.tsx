@@ -39,13 +39,11 @@ const CellView = () => {
   const smallScreen = useMediaQuery('(max-width: 938px)');
   const { language } = useLanguage();
   const navigate = useNavigate();
-  const { brute, updateBrute } = useBrute();
+  const { brute, updateBrute, owner } = useBrute();
   const Confirm = useConfirm();
   const Alert = useAlert();
-  const { authing, user, updateData } = useAuth();
+  const { user, updateData } = useAuth();
   const { data: logs } = useStateAsync([], Server.Log.list, bruteName || '');
-  const ownsBrute = useMemo(() => (authing
-    || !!(brute && user && brute.userId === user.id)), [authing, brute, user]);
 
   // Sacrifice brute
   const confirmSacrifice = useCallback(() => {
@@ -67,7 +65,7 @@ const CellView = () => {
   }, [Alert, Confirm, brute, navigate, t, updateData]);
 
   const switchBrute = useCallback((side: number) => {
-    if (!user || !brute || !user.brutes || !ownsBrute) return;
+    if (!user || !brute || !user.brutes || !owner) return;
 
     const currentBruteIndex = user.brutes.findIndex((bruteTemp) => bruteTemp.id === brute.id);
     if (currentBruteIndex < 0) return;
@@ -79,7 +77,7 @@ const CellView = () => {
     if (!newBrute) return;
 
     navigate(`/${newBrute.name}/cell`);
-  }, [brute, navigate, ownsBrute, user]);
+  }, [brute, navigate, owner, user]);
 
   // Reset brute
   const confirmReset = useCallback(() => {
@@ -135,7 +133,7 @@ const CellView = () => {
 
   // Handle swipe
   useEffect(() => {
-    if (!ownsBrute) return () => {};
+    if (!owner) return () => {};
     let touchstartX = 0;
     let touchstartY = 0;
     let touchendX = 0;
@@ -171,9 +169,9 @@ const CellView = () => {
       document.removeEventListener('touchstart', handlerStart);
       document.removeEventListener('touchend', handlerEnd);
     };
-  }, [brute, navigate, ownsBrute, switchBrute]);
+  }, [brute, navigate, owner, switchBrute]);
 
-  const previousBruteArrow = ownsBrute && (
+  const previousBruteArrow = owner && (
     <Tooltip title={t('previousBrute')}>
       <Fab
         size="small"
@@ -190,7 +188,7 @@ const CellView = () => {
       </Fab>
     </Tooltip>
   );
-  const nextBruteArrow = ownsBrute && (
+  const nextBruteArrow = owner && (
     <Tooltip title={t('nextBrute')}>
       <Fab
         size="small"
@@ -216,7 +214,6 @@ const CellView = () => {
           ad={ad}
           logs={logs}
           language={language}
-          ownsBrute={ownsBrute}
           confirmReport={confirmReport}
           confirmSacrifice={confirmSacrifice}
           confirmReset={confirmReset}
@@ -311,7 +308,7 @@ const CellView = () => {
               </Tooltip>
 
               {/* CLAN */}
-              {(ownsBrute || !!brute.clanId) && (
+              {(owner || !!brute.clanId) && (
                 <CellClan brute={brute} sx={{ ml: 4 }} />
               )}
               {/* ADVERT */}

@@ -1042,6 +1042,7 @@ const Brutes = {
           // Rank up
           ranking: userBrute.ranking - 1,
           canRankUpSince: null,
+          tournamentWins: 0,
           // Store previous destiny
           previousDestinyPath: userBrute.destinyPath,
           // Reset destiny
