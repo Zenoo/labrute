@@ -466,13 +466,19 @@ const Users = {
         throw new ExpectedError(translate('needToUseEveryAction', authed));
       }
 
+      // Update brutes who already fought today (+1 fight left)
       await prisma.user.update({
         where: { id: authed.id },
         data: {
           dinorpgDone: new Date(),
           brutes: {
             updateMany: {
-              where: { deletedAt: null },
+              where: {
+                deletedAt: null,
+                lastFight: {
+                  gte: new Date(),
+                },
+              },
               data: {
                 fightsLeft: {
                   increment: 1,
@@ -482,6 +488,38 @@ const Users = {
           },
         },
       });
+
+      // Get brutes who didn't fight today
+      const brutes = await prisma.brute.findMany({
+        where: {
+          userId: authed.id,
+          deletedAt: null,
+          lastFight: {
+            lt: new Date(),
+          },
+        },
+        select: {
+          id: true,
+          skills: true,
+          lastFight: true,
+          fightsLeft: true,
+        },
+      });
+
+      for (const brute of brutes) {
+        const fightsLeft = getFightsLeft(brute) + 1;
+
+        // eslint-disable-next-line no-await-in-loop
+        await prisma.brute.update({
+          where: {
+            id: brute.id,
+          },
+          data: {
+            fightsLeft,
+            lastFight: new Date(),
+          },
+        });
+      }
 
       res.send({
         success: true,

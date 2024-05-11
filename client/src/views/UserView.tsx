@@ -1,4 +1,4 @@
-import { AchievementData, FightStat, TitleRequirements, UserGetProfileResponse, formatLargeNumber } from '@labrute/core';
+import { AchievementData, FightStat, TitleRequirements, UserGetProfileResponse, formatLargeNumber, getFightsLeft } from '@labrute/core';
 import { Check, QuestionMark } from '@mui/icons-material';
 import { Box, Grid, List, ListItem, ListItemText, ListSubheader, Paper, Tooltip, useTheme } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -48,7 +48,8 @@ const UserView = () => {
         dinorpgDone: new Date(),
         brutes: data.brutes.map((brute) => ({
           ...brute,
-          fightsLeft: brute.fightsLeft + 1,
+          fightsLeft: getFightsLeft(brute) + 1,
+          lastFight: new Date(),
         })),
       }) : null));
     }).catch(catchError(Alert));
