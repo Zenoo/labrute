@@ -1,6 +1,6 @@
 import { getRandomBody, getRandomColors, isNameValid, UserWithBrutesBodyColor } from '@labrute/core';
 import { Gender } from '@labrute/prisma';
-import { Box, Link, Tooltip, useMediaQuery } from '@mui/material';
+import { Box, Link, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -32,6 +32,7 @@ const HomeView = () => {
   const { authing, setAuthing, updateData, user } = useAuth();
   const navigate = useNavigate();
   const { language, setLanguage } = useLanguage();
+  const { palette: { mode } } = useTheme();
 
   // On login error
   useEffect(() => {
@@ -322,7 +323,7 @@ const HomeView = () => {
           </BoxBg>
           {/* RIGHT SIDE */}
           <BoxBg
-            src="/images/main-bg.gif"
+            src={`/images/${mode === 'dark' ? 'dark/' : ''}main-bg.gif`}
             sx={{ width: 640, height: 454 }}
           >
             {/* FIRST TEXT */}
