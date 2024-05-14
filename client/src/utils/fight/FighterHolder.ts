@@ -968,10 +968,14 @@ export default class FighterHolder {
         }
 
         // Get corresponding container
+        const sameParts = symbolContainer.children.filter(
+          (child) => child instanceof PIXI.Container
+            && child.name === framePart.name
+        ).length;
         const framePartContainer = symbolContainer.children
           .filter(
             (child) => child instanceof PIXI.Container && child.name === framePart.name
-          )[usedContainers[framePart.name] ?? 0] as PIXI.Container | undefined;
+          )[sameParts - (usedContainers[framePart.name] ?? 0) - 1] as PIXI.Container | undefined;
 
         if (!framePartContainer) {
           throw new Error(`Container ${framePart.name} not found`);
