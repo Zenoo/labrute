@@ -120,28 +120,14 @@ declare module '@mui/material/Typography' {
 
 const { palette } = createTheme();
 
-const border = {
-  shadow: '#bc7b4a',
-  outer: '#725254',
-  main: '#f6ee90',
-  inner: '#dec37f'
-};
-
-const button = {
-  shadow: {
-    main: '#ce8b45',
-    hover: '#be803f'
-  }
-};
-
-const logs = {
+const logColors = {
   success: {
-    main: '#a9d346',
-    light: '#c9e57f',
+    main: '',
+    light: '',
   },
   error: {
-    main: '#ff8889',
-    light: '#fea3a3',
+    main: '',
+    light: '',
   },
 };
 
@@ -153,28 +139,20 @@ const achievements = {
   legendary: palette.augmentColor({ color: { main: '#ffcd00' } }),
 };
 
-const defaultTheme: ThemeOptions = {
+type ThemeGeneratorOptions = {
+  border: TypeBorder;
+};
+
+export const defaultTheme: (option: ThemeGeneratorOptions) => ThemeOptions = ({
+  border
+}) => ({
   palette: {
-    primary: {
-      main: '#dbbf95',
-    },
-    secondary: {
-      main: '#733d2c',
-    },
     transition: { // Custom
       time: '0.5s',
     },
     scrollbar: { // Custom
       main: 'rgba(0,0,0,.3)',
       hover: 'rgba(0,0,0,.5)',
-    },
-    background: {
-      default: 'rgb(235,173,112)',
-      light: 'rgba(247,225,183,1)',
-      paper: '#fbf2af',
-      paperLight: '#fbf7c0',
-      paperDark: '#F8ED8F',
-      paperAccent: '#fffcb0',
     },
     heat: [
       null,
@@ -217,8 +195,7 @@ const defaultTheme: ThemeOptions = {
       dark: '#ff7100',
     },
     border,
-    button,
-    logs,
+    logs: logColors,
     achievements,
   },
   typography,
@@ -319,6 +296,4 @@ const defaultTheme: ThemeOptions = {
       }
     }
   },
-};
-
-export default defaultTheme;
+});

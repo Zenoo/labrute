@@ -5,7 +5,6 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import FantasyButton from '../components/FantasyButton';
-import Link from '../components/Link';
 import Page from '../components/Page';
 import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
@@ -41,16 +40,15 @@ const AchievementsView = () => {
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('achievements')}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
-        <Link to="/achievements/rankings">
-          <FantasyButton
-            color="secondary"
-            sx={{
-              mb: 1,
-            }}
-          >
-            {t('ranking')}
-          </FantasyButton>
-        </Link>
+        <FantasyButton
+          color="secondary"
+          to="/achievements/rankings"
+          sx={{
+            mb: 1,
+          }}
+        >
+          {t('ranking')}
+        </FantasyButton>
         <Grid container spacing={1}>
           <Grid item xs={12} md={6}>
             <Paper
@@ -243,6 +241,7 @@ const AchievementsView = () => {
                             py: 0,
                             '&:not(:last-child)': {
                               borderBottom: '1px dashed',
+                              borderBottomColor: theme.palette.border.shadow,
                             },
                           }}
                           >

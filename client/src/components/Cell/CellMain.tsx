@@ -130,24 +130,9 @@ const CellMain = ({
           <Text color="error">{t('newFightsTomorrow', { amount: getMaxFightsPerDay(brute) })}</Text>
         </Box>
       ) : (
-        <Link to={`/${brute.name}/level-up`}>
-          <StyledButton
-            image="/images/button.gif"
-            imageHover="/images/button-hover.gif"
-            shadow={false}
-            contrast={false}
-            shift="8px"
-            sx={{
-              fontVariant: 'small-caps',
-              m: '0 auto',
-              mt: 2,
-              height: 56,
-              width: 246,
-            }}
-          >
-            {t('levelUp')}
-          </StyledButton>
-        </Link>
+        <FantasyButton color="success" to={`/${brute.name}/level-up`}>
+          {t('levelUp')}
+        </FantasyButton>
       ))}
       {/* TOURNAMENT */}
       {!smallScreen && (
@@ -188,16 +173,15 @@ const CellMain = ({
       )}
       {/* RESET VISUALS */}
       {owner && canResetVisuals && (
-        <Link to={`/${brute.name}/reset-visuals`}>
-          <FantasyButton
-            color="secondary"
-            sx={{
-              mt: 2,
-            }}
-          >
-            {t('resetVisuals')}
-          </FantasyButton>
-        </Link>
+        <FantasyButton
+          color="secondary"
+          to={`/${brute.name}/reset-visuals`}
+          sx={{
+            mt: 2,
+          }}
+        >
+          {t('resetVisuals')}
+        </FantasyButton>
       )}
     </Box>
   );

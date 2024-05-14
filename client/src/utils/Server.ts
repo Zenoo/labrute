@@ -9,7 +9,7 @@ const Server = {
       login,
       token
     }, 'POST'),
-    getForAdmin: (name: string) => Fetch<UserGetAdminResponse>(`/api/user/${name}/admin`),
+    getForAdmin: (id: string) => Fetch<UserGetAdminResponse>(`/api/user/${id}/admin`),
     runDailyJob: () => Fetch<never>('/api/run-daily-job'),
     changeLanguage: (lang: Lang) => Fetch<never>('/api/user/change-language', { lang }, 'POST'),
     changeFightSpeed: (fightSpeed: number) => Fetch<never>('/api/user/change-fight-speed', { fightSpeed }, 'POST'),

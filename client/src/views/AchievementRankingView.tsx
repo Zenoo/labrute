@@ -137,6 +137,7 @@ const AchievementRankingView = () => {
                           bgcolor: 'background.paper',
                           '&:not(:last-child)': {
                             borderBottom: '1px dashed',
+                            borderBottomColor: theme.palette.border.shadow,
                           },
                         }}
                       >

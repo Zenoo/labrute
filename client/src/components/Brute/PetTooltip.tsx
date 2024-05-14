@@ -1,12 +1,16 @@
 import { PERKS_TOTAL_ODDS, Pet, getPetStat } from '@labrute/core';
-import { Box, Tooltip, TooltipProps } from '@mui/material';
-import React from 'react';
+import { Box, Tooltip, TooltipProps, useTheme } from '@mui/material';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useBrute } from '../../hooks/useBrute';
 import StatColor from '../../utils/StatColor';
 import Text from '../Text';
 
-const textShadow = '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000';
+const textShadowBase = '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000';
+const textProps = {
+  fontSize: 12,
+  lineHeight: 1.2,
+} as const;
 
 export interface PetTooltipProps extends Omit<TooltipProps, 'title'> {
   pet?: Pet;
@@ -19,6 +23,9 @@ const PetTooltip = ({
 }: PetTooltipProps) => {
   const { t } = useTranslation();
   const { brute } = useBrute();
+  const theme = useTheme();
+
+  const textShadow = useMemo(() => (theme.palette.mode === 'dark' ? textShadowBase : undefined), [theme.palette.mode]);
 
   return (
     <Tooltip
@@ -27,75 +34,75 @@ const PetTooltip = ({
         <>
           <Box sx={{ textAlign: 'center', my: 0.5 }}>
             {/* NAME */}
-            <Text typo="Blocky" sx={{ fontSize: 13 }}>{t(pet.name)}</Text>
+            <Text bold h5>{t(pet.name)}</Text>
           </Box>
           {/* ODDS */}
-          <Text typo="Blocky">
+          <Text {...textProps}>
             {t('odds')}:
             {' '}
-            <Box component="span" sx={{ opacity: 0.7 }}>
+            <Text component="span" bold sx={{ opacity: 0.7 }} {...textProps}>
               {((pet.odds / PERKS_TOTAL_ODDS) * 100).toFixed(2)}%
-            </Box>
+            </Text>
           </Text>
           {/* ENDURANCE MALUS */}
-          <Text typo="Blocky">
+          <Text {...textProps}>
             {t('enduranceMalus')}:
             {' '}
-            <Box component="span" sx={{ color: StatColor.endurance, textShadow }}>
+            <Text component="span" bold sx={{ color: StatColor.endurance, textShadow }} {...textProps}>
               {pet.enduranceMalus}
-            </Box>
+            </Text>
           </Text>
           {/* INITIATIVE */}
-          <Text typo="Blocky">
+          <Text {...textProps}>
             {t('initiative')}:
             {' '}
-            <Box component="span" sx={{ color: StatColor.initiative, textShadow }}>
+            <Text component="span" bold sx={{ color: StatColor.initiative, textShadow }} {...textProps}>
               {pet.initiative}
-            </Box>
+            </Text>
           </Text>
           {/* STRENGTH */}
-          <Text typo="Blocky">
+          <Text {...textProps}>
             {t('strength')}:
             {' '}
-            <Box component="span" sx={{ color: StatColor.strength, textShadow }}>
+            <Text component="span" bold sx={{ color: StatColor.strength, textShadow }} {...textProps}>
               {getPetStat(brute, pet, 'strength')}
-            </Box>
+            </Text>
           </Text>
           {/* AGILITY */}
-          <Text typo="Blocky">
+          <Text {...textProps}>
             {t('agility')}:
             {' '}
-            <Box component="span" sx={{ color: StatColor.agility, textShadow }}>
+            <Text component="span" bold sx={{ color: StatColor.agility, textShadow }} {...textProps}>
               {getPetStat(brute, pet, 'agility')}
-            </Box>
+            </Text>
           </Text>
           {/* SPEED */}
-          <Text typo="Blocky">
+          <Text {...textProps}>
             {t('speed')}:
             {' '}
-            <Box component="span" sx={{ color: StatColor.speed, textShadow }}>
+            <Text component="span" bold sx={{ color: StatColor.speed, textShadow }} {...textProps}>
               {getPetStat(brute, pet, 'speed')}
-            </Box>
+            </Text>
           </Text>
           {/* HP */}
-          <Text typo="Blocky">
+          <Text {...textProps}>
             {t('HP')}:
             {' '}
-            <Box component="span" sx={{ color: StatColor.endurance, textShadow }}>
+            <Text component="span" bold sx={{ color: StatColor.endurance, textShadow }} {...textProps}>
               {getPetStat(brute, pet, 'hp')}
-            </Box>
+            </Text>
           </Text>
           {/* DAMAGE */}
-          <Text typo="Blocky">
+          <Text {...textProps}>
             {t('damage')}:
             {' '}
-            <Box component="span" sx={{ color: StatColor.damage, textShadow }}>
+            <Text component="span" bold sx={{ color: StatColor.damage, textShadow }} {...textProps}>
               {pet.damage}
-            </Box>
+            </Text>
           </Text>
           {/* EVASION */}
           {!!pet.evasion && (
-            <Text typo="Blocky" sx={{ color: StatColor.evasion, textShadow }}>
+            <Text bold sx={{ color: StatColor.evasion, textShadow }} {...textProps}>
               {pet.evasion > 0 && '+'}
               {Math.round(pet.evasion * 100)}
               % {t('evasion')}
@@ -103,7 +110,7 @@ const PetTooltip = ({
           )}
           {/* ACCURACY */}
           {!!pet.accuracy && (
-            <Text typo="Blocky" sx={{ color: StatColor.accuracy, textShadow }}>
+            <Text bold sx={{ color: StatColor.accuracy, textShadow }} {...textProps}>
               {pet.accuracy > 0 && '+'}
               {Math.round(pet.accuracy * 100)}
               % {t('accuracy')}
@@ -111,7 +118,7 @@ const PetTooltip = ({
           )}
           {/* DISARM */}
           {!!pet.disarm && (
-            <Text typo="Blocky" sx={{ color: StatColor.disarm, textShadow }}>
+            <Text bold sx={{ color: StatColor.disarm, textShadow }} {...textProps}>
               {pet.disarm > 0 && '+'}
               {Math.round(pet.disarm * 100)}
               % {t('disarm')}
@@ -119,7 +126,7 @@ const PetTooltip = ({
           )}
           {/* COMBO */}
           {!!pet.combo && (
-            <Text typo="Blocky" sx={{ color: StatColor.combo, textShadow }}>
+            <Text bold sx={{ color: StatColor.combo, textShadow }} {...textProps}>
               {pet.combo > 0 && '+'}
               {Math.round(pet.combo * 100)}
               % {t('combo')}
@@ -131,10 +138,6 @@ const PetTooltip = ({
         tooltip: {
           sx: {
             minHeight: 68,
-            bgcolor: 'secondary.main',
-            color: 'secondary.contrastText',
-            border: 2,
-            borderColor: 'primary.main',
           }
         },
         popper: { sx: { width: 250 } },

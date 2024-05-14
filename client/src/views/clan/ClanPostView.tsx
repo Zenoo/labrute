@@ -1,5 +1,5 @@
-import { Box, Paper } from '@mui/material';
-import React, { useState } from 'react';
+import { Box, Paper, useTheme } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import Link from '../../components/Link';
@@ -18,6 +18,7 @@ const ClanPostView = () => {
   const { bruteName, id, tid } = useParams();
   const Alert = useAlert();
   const navigate = useNavigate();
+  const { palette: { mode } } = useTheme();
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -57,6 +58,21 @@ const ClanPostView = () => {
       }).catch(catchError(Alert));
     }
   };
+
+  useEffect(() => {
+    if (mode !== 'dark') return () => {};
+
+    const { head } = document;
+    const link = document.createElement('link');
+
+    link.type = 'text/css';
+    link.rel = 'stylesheet';
+    link.href = '/css/ckeditor-dark.css';
+
+    head.appendChild(link);
+
+    return () => { head.removeChild(link); };
+  }, [mode]);
 
   return (
     <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/cell`}>

@@ -7,7 +7,6 @@ import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import BruteRender from '../components/Brute/Body/BruteRender';
 import FantasyButton from '../components/FantasyButton';
-import Link from '../components/Link';
 import Page from '../components/Page';
 import StyledInput from '../components/StyledInput';
 import Text from '../components/Text';
@@ -139,12 +138,8 @@ const AdminView = () => {
               <FantasyButton color="error" onClick={deleteDailyTournaments}>DELETE DAILY TOURNAMENTS</FantasyButton>
               <FantasyButton color="error" onClick={deleteGlobalTournament}>DELETE GLOBAL TOURNAMENT</FantasyButton>
               <FantasyButton color="warning" onClick={runDailyJob}>RUN DAILY JOB</FantasyButton>
-              <Link to="/admin-panel/user">
-                <FantasyButton color="secondary">USER ADMIN</FantasyButton>
-              </Link>
-              <Link to="/admin-panel/report">
-                <FantasyButton color="primary">REPORTS</FantasyButton>
-              </Link>
+              <FantasyButton color="secondary" to="/admin-panel/user">USER ADMIN</FantasyButton>
+              <FantasyButton color="primary" to="/admin-panel/report">REPORTS</FantasyButton>
             </Stack>
             <Divider />
             <Text bold h3 smallCaps color="secondary">{t('brute')}</Text>
@@ -158,7 +153,7 @@ const AdminView = () => {
                 <Box width={100}>
                   <BruteRender brute={brute} />
                 </Box>
-                <FantasyButton onClick={giveFreeVisualReset}>Give free visual reset</FantasyButton>
+                <FantasyButton color="warning" onClick={giveFreeVisualReset}>Give free visual reset</FantasyButton>
                 <Grid container spacing={1}>
                   <Grid item xs={6} sm={3}>
                     <StyledInput
@@ -669,7 +664,7 @@ const AdminView = () => {
                     />
                   </Grid>
                 </Grid>
-                <FantasyButton onClick={saveBrute}>Save</FantasyButton>
+                <FantasyButton color="success" onClick={saveBrute}>Save</FantasyButton>
               </>
             )}
             <Divider />
@@ -680,7 +675,7 @@ const AdminView = () => {
                 value={bruteId}
                 sx={{ mr: 2 }}
               />
-              <FantasyButton onClick={restoreBrute}>Restore</FantasyButton>
+              <FantasyButton color="success" onClick={restoreBrute}>Restore</FantasyButton>
             </Box>
           </Stack>
         ) : (

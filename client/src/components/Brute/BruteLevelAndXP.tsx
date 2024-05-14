@@ -28,7 +28,7 @@ const BruteLevelAndXP = ({
       <Text bold h3 smallCaps color="secondary" {...textProps}>{t('level')} {brute.level}</Text>
       {/* LEVEL BAR */}
       <Tooltip title={`${limitedXP} / ${xpNeededForNextLevel}`}>
-        <Box sx={{ bgcolor: 'secondary.main', p: '2px', width: 120 }}>
+        <Box sx={{ bgcolor: 'divider', p: '2px', width: 120 }}>
           <Box sx={{
             bgcolor: 'level',
             height: 3,

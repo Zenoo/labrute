@@ -37,6 +37,9 @@ const defaultTypography = {
   handwritten: {
     fontFamily: '"Handwritten", cursive',
   },
+  LaBrute: {
+    fontFamily: 'LaBrute',
+  },
   Pixelized: {
     fontFamily: 'Pixelized',
   },

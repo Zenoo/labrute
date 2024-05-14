@@ -139,12 +139,10 @@ const CellMobileView = ({
         </Paper>
       )}
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-        <Link to={`/${brute.name}/tournaments`}>
-          <FantasyButton color="secondary" sx={{ m: 1 }}>
-            <History sx={{ verticalAlign: 'middle', mr: 1 }} />
-            {t('tournaments')}
-          </FantasyButton>
-        </Link>
+        <FantasyButton to={`/${brute.name}/tournaments`} color="secondary" sx={{ m: 1 }}>
+          <History sx={{ verticalAlign: 'middle', mr: 1 }} />
+          {t('tournaments')}
+        </FantasyButton>
       </Box>
       {/* BRUTE SACRIFICE */}
       {owner

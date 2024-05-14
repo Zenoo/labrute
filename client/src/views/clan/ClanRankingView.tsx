@@ -134,14 +134,10 @@ const ClanRankingView = () => {
                 </Table>
                 <Box sx={{ display: 'flex', justifyContent: 'space-around', mt: 1 }}>
                   {page > 1 && (
-                    <Link onClick={changePage(-1)} href="#">
-                      <FantasyButton>{t('previous')}</FantasyButton>
-                    </Link>
+                    <FantasyButton color="primary" onClick={changePage(-1)}>{t('previous')}</FantasyButton>
                   )}
                   {clans?.length === 15 && (
-                    <Link onClick={changePage(1)} href="#">
-                      <FantasyButton>{t('next')}</FantasyButton>
-                    </Link>
+                    <FantasyButton color="primary" onClick={changePage(1)}>{t('next')}</FantasyButton>
                   )}
                 </Box>
               </Grid>

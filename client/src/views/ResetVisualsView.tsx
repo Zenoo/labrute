@@ -158,7 +158,7 @@ const ResetVisualsView = () => {
         </Box>
         {/* VALIDATION */}
         <Box sx={{ textAlign: 'center' }}>
-          <FantasyButton onClick={resetVisuals}>{t('validate')}</FantasyButton>
+          <FantasyButton color="success" onClick={resetVisuals}>{t('validate')}</FantasyButton>
         </Box>
       </Paper>
     </Page>

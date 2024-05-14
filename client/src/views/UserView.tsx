@@ -258,6 +258,7 @@ const UserView = () => {
                                 py: 0,
                                 '&:not(:last-child)': {
                                   borderBottom: '1px dashed',
+                                  borderBottomColor: theme.palette.border.shadow,
                                 },
                               }}
                               >

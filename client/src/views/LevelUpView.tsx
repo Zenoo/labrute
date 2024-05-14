@@ -1,6 +1,6 @@
 import { BrutesGetLevelUpChoicesResponse, getXPNeeded, skills, weapons } from '@labrute/core';
 import { BruteStat, DestinyChoiceSide, PetName, SkillName, WeaponName } from '@labrute/prisma';
-import { Box, Alert as MuiAlert, Paper, useMediaQuery } from '@mui/material';
+import { Box, Alert as MuiAlert, Paper, useMediaQuery, useTheme } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -25,6 +25,7 @@ const LevelUpView = () => {
   const Alert = useAlert();
   const smallScreen = useMediaQuery('(max-width: 638px)');
   const { brute, updateBrute } = useBrute();
+  const theme = useTheme();
 
   const [choices, setChoices] = useState<BrutesGetLevelUpChoicesResponse['choices'] | null>(null);
 
@@ -109,7 +110,7 @@ const LevelUpView = () => {
           {!smallScreen && (
             <Box
               component="img"
-              src="/images/level-up/arrows.png"
+              src={`/images/level-up/arrows${theme.palette.mode === 'dark' ? '-dark' : ''}.webp`}
               sx={{ mt: -3, zIndex: 1, position: 'relative' }}
             />
           )}

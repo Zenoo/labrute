@@ -39,6 +39,8 @@ export * from './types';
 export * from './brute/parsers';
 export * from './brute/colors';
 export * from './brute/getWinsNeededToRankUp';
+export * from './brute/getRandomStartingStats';
+export * from './utils/isUuid';
 export {
   Boss, ExpectedError, Version, adjustColor, applySkillModifiers,
   availableBodyParts, bosses, canLevelUp,

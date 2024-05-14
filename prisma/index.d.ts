@@ -24,6 +24,11 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  */
 export type Brute = $Result.DefaultSelection<Prisma.$BrutePayload>
 /**
+ * Model BruteStartingStats
+ * 
+ */
+export type BruteStartingStats = $Result.DefaultSelection<Prisma.$BruteStartingStatsPayload>
+/**
  * Model Fight
  * 
  */
@@ -630,6 +635,16 @@ export class PrismaClient<
   get brute(): Prisma.BruteDelegate<ExtArgs>;
 
   /**
+   * `prisma.bruteStartingStats`: Exposes CRUD operations for the **BruteStartingStats** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BruteStartingStats
+    * const bruteStartingStats = await prisma.bruteStartingStats.findMany()
+    * ```
+    */
+  get bruteStartingStats(): Prisma.BruteStartingStatsDelegate<ExtArgs>;
+
+  /**
    * `prisma.fight`: Exposes CRUD operations for the **Fight** model.
     * Example usage:
     * ```ts
@@ -865,8 +880,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 5.10.2
-   * Query Engine version: 5a9203d0590c951969e85a7d07215503f4672eb9
+   * Prisma Client JS version: 5.13.0
+   * Query Engine version: b9a39a7ee606c28e3455d0fd60e78c3ba82b1a2b
    */
   export type PrismaVersion = {
     client: string
@@ -993,6 +1008,11 @@ export namespace Prisma {
     include: any
   }
 
+  type SelectAndOmit = {
+    select: any
+    omit: any
+  }
+
   /**
    * Get the type of the value, that the Promise holds.
    */
@@ -1041,7 +1061,9 @@ export namespace Prisma {
   } &
     (T extends SelectAndInclude
       ? 'Please either choose `select` or `include`.'
-      : {})
+      : T extends SelectAndOmit
+        ? 'Please either choose `select` or `omit`.'
+        : {})
 
   /**
    * Subset + Intersection
@@ -1280,6 +1302,7 @@ export namespace Prisma {
   export const ModelName: {
     User: 'User',
     Brute: 'Brute',
+    BruteStartingStats: 'BruteStartingStats',
     Fight: 'Fight',
     Log: 'Log',
     DestinyChoice: 'DestinyChoice',
@@ -1314,7 +1337,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'user' | 'brute' | 'fight' | 'log' | 'destinyChoice' | 'tournament' | 'tournamentStep' | 'tournamentAchievement' | 'tournamentGold' | 'tournamentXp' | 'achievement' | 'title' | 'bruteReport' | 'serverState' | 'bannedWord' | 'workerJob' | 'clan' | 'clanThread' | 'clanPost' | 'bruteInventoryItem'
+      modelProps: 'user' | 'brute' | 'bruteStartingStats' | 'fight' | 'log' | 'destinyChoice' | 'tournament' | 'tournamentStep' | 'tournamentAchievement' | 'tournamentGold' | 'tournamentXp' | 'achievement' | 'title' | 'bruteReport' | 'serverState' | 'bannedWord' | 'workerJob' | 'clan' | 'clanThread' | 'clanPost' | 'bruteInventoryItem'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -1447,6 +1470,72 @@ export namespace Prisma {
           count: {
             args: Prisma.BruteCountArgs<ExtArgs>,
             result: $Utils.Optional<BruteCountAggregateOutputType> | number
+          }
+        }
+      }
+      BruteStartingStats: {
+        payload: Prisma.$BruteStartingStatsPayload<ExtArgs>
+        fields: Prisma.BruteStartingStatsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BruteStartingStatsFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BruteStartingStatsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BruteStartingStatsFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BruteStartingStatsPayload>
+          }
+          findFirst: {
+            args: Prisma.BruteStartingStatsFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BruteStartingStatsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BruteStartingStatsFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BruteStartingStatsPayload>
+          }
+          findMany: {
+            args: Prisma.BruteStartingStatsFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BruteStartingStatsPayload>[]
+          }
+          create: {
+            args: Prisma.BruteStartingStatsCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BruteStartingStatsPayload>
+          }
+          createMany: {
+            args: Prisma.BruteStartingStatsCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.BruteStartingStatsDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BruteStartingStatsPayload>
+          }
+          update: {
+            args: Prisma.BruteStartingStatsUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BruteStartingStatsPayload>
+          }
+          deleteMany: {
+            args: Prisma.BruteStartingStatsDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BruteStartingStatsUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.BruteStartingStatsUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BruteStartingStatsPayload>
+          }
+          aggregate: {
+            args: Prisma.BruteStartingStatsAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateBruteStartingStats>
+          }
+          groupBy: {
+            args: Prisma.BruteStartingStatsGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<BruteStartingStatsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BruteStartingStatsCountArgs<ExtArgs>,
+            result: $Utils.Optional<BruteStartingStatsCountAggregateOutputType> | number
           }
         }
       }
@@ -2811,7 +2900,6 @@ export namespace Prisma {
   }
 
   // Custom InputTypes
-
   /**
    * UserCountOutputType without action
    */
@@ -2822,14 +2910,12 @@ export namespace Prisma {
     select?: UserCountOutputTypeSelect<ExtArgs> | null
   }
 
-
   /**
    * UserCountOutputType without action
    */
   export type UserCountOutputTypeCountBrutesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BruteWhereInput
   }
-
 
   /**
    * UserCountOutputType without action
@@ -2838,7 +2924,6 @@ export namespace Prisma {
     where?: AchievementWhereInput
   }
 
-
   /**
    * UserCountOutputType without action
    */
@@ -2846,14 +2931,12 @@ export namespace Prisma {
     where?: BruteReportWhereInput
   }
 
-
   /**
    * UserCountOutputType without action
    */
   export type UserCountOutputTypeCountTournamentGoldsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TournamentGoldWhereInput
   }
-
 
 
   /**
@@ -2899,7 +2982,6 @@ export namespace Prisma {
   }
 
   // Custom InputTypes
-
   /**
    * BruteCountOutputType without action
    */
@@ -2910,14 +2992,12 @@ export namespace Prisma {
     select?: BruteCountOutputTypeSelect<ExtArgs> | null
   }
 
-
   /**
    * BruteCountOutputType without action
    */
   export type BruteCountOutputTypeCountPupilsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BruteWhereInput
   }
-
 
   /**
    * BruteCountOutputType without action
@@ -2926,14 +3006,12 @@ export namespace Prisma {
     where?: FightWhereInput
   }
 
-
   /**
    * BruteCountOutputType without action
    */
   export type BruteCountOutputTypeCountFightsAsAdversaryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: FightWhereInput
   }
-
 
   /**
    * BruteCountOutputType without action
@@ -2942,14 +3020,12 @@ export namespace Prisma {
     where?: LogWhereInput
   }
 
-
   /**
    * BruteCountOutputType without action
    */
   export type BruteCountOutputTypeCountDestinyChoicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DestinyChoiceWhereInput
   }
-
 
   /**
    * BruteCountOutputType without action
@@ -2958,14 +3034,12 @@ export namespace Prisma {
     where?: TournamentWhereInput
   }
 
-
   /**
    * BruteCountOutputType without action
    */
   export type BruteCountOutputTypeCountOpponentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BruteWhereInput
   }
-
 
   /**
    * BruteCountOutputType without action
@@ -2974,14 +3048,12 @@ export namespace Prisma {
     where?: BruteWhereInput
   }
 
-
   /**
    * BruteCountOutputType without action
    */
   export type BruteCountOutputTypeCountAchievementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AchievementWhereInput
   }
-
 
   /**
    * BruteCountOutputType without action
@@ -2990,14 +3062,12 @@ export namespace Prisma {
     where?: BruteReportWhereInput
   }
 
-
   /**
    * BruteCountOutputType without action
    */
   export type BruteCountOutputTypeCountTitlesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TitleWhereInput
   }
-
 
   /**
    * BruteCountOutputType without action
@@ -3006,14 +3076,12 @@ export namespace Prisma {
     where?: ClanPostWhereInput
   }
 
-
   /**
    * BruteCountOutputType without action
    */
   export type BruteCountOutputTypeCountThreadsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ClanThreadWhereInput
   }
-
 
   /**
    * BruteCountOutputType without action
@@ -3022,7 +3090,6 @@ export namespace Prisma {
     where?: BruteInventoryItemWhereInput
   }
 
-
   /**
    * BruteCountOutputType without action
    */
@@ -3030,14 +3097,12 @@ export namespace Prisma {
     where?: TournamentAchievementWhereInput
   }
 
-
   /**
    * BruteCountOutputType without action
    */
   export type BruteCountOutputTypeCountTournamentXpsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TournamentXpWhereInput
   }
-
 
 
   /**
@@ -3055,7 +3120,6 @@ export namespace Prisma {
   }
 
   // Custom InputTypes
-
   /**
    * FightCountOutputType without action
    */
@@ -3066,7 +3130,6 @@ export namespace Prisma {
     select?: FightCountOutputTypeSelect<ExtArgs> | null
   }
 
-
   /**
    * FightCountOutputType without action
    */
@@ -3074,14 +3137,12 @@ export namespace Prisma {
     where?: LogWhereInput
   }
 
-
   /**
    * FightCountOutputType without action
    */
   export type FightCountOutputTypeCountTournamentStepArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TournamentStepWhereInput
   }
-
 
 
   /**
@@ -3101,7 +3162,6 @@ export namespace Prisma {
   }
 
   // Custom InputTypes
-
   /**
    * TournamentCountOutputType without action
    */
@@ -3112,14 +3172,12 @@ export namespace Prisma {
     select?: TournamentCountOutputTypeSelect<ExtArgs> | null
   }
 
-
   /**
    * TournamentCountOutputType without action
    */
   export type TournamentCountOutputTypeCountParticipantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BruteWhereInput
   }
-
 
   /**
    * TournamentCountOutputType without action
@@ -3128,14 +3186,12 @@ export namespace Prisma {
     where?: TournamentStepWhereInput
   }
 
-
   /**
    * TournamentCountOutputType without action
    */
   export type TournamentCountOutputTypeCountFightsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: FightWhereInput
   }
-
 
 
   /**
@@ -3151,7 +3207,6 @@ export namespace Prisma {
   }
 
   // Custom InputTypes
-
   /**
    * TitleCountOutputType without action
    */
@@ -3162,14 +3217,12 @@ export namespace Prisma {
     select?: TitleCountOutputTypeSelect<ExtArgs> | null
   }
 
-
   /**
    * TitleCountOutputType without action
    */
   export type TitleCountOutputTypeCountBrutesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BruteWhereInput
   }
-
 
 
   /**
@@ -3185,7 +3238,6 @@ export namespace Prisma {
   }
 
   // Custom InputTypes
-
   /**
    * BruteReportCountOutputType without action
    */
@@ -3196,14 +3248,12 @@ export namespace Prisma {
     select?: BruteReportCountOutputTypeSelect<ExtArgs> | null
   }
 
-
   /**
    * BruteReportCountOutputType without action
    */
   export type BruteReportCountOutputTypeCountUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserWhereInput
   }
-
 
 
   /**
@@ -3223,7 +3273,6 @@ export namespace Prisma {
   }
 
   // Custom InputTypes
-
   /**
    * ClanCountOutputType without action
    */
@@ -3234,14 +3283,12 @@ export namespace Prisma {
     select?: ClanCountOutputTypeSelect<ExtArgs> | null
   }
 
-
   /**
    * ClanCountOutputType without action
    */
   export type ClanCountOutputTypeCountBrutesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BruteWhereInput
   }
-
 
   /**
    * ClanCountOutputType without action
@@ -3250,14 +3297,12 @@ export namespace Prisma {
     where?: BruteWhereInput
   }
 
-
   /**
    * ClanCountOutputType without action
    */
   export type ClanCountOutputTypeCountThreadsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ClanThreadWhereInput
   }
-
 
 
   /**
@@ -3273,7 +3318,6 @@ export namespace Prisma {
   }
 
   // Custom InputTypes
-
   /**
    * ClanThreadCountOutputType without action
    */
@@ -3284,14 +3328,12 @@ export namespace Prisma {
     select?: ClanThreadCountOutputTypeSelect<ExtArgs> | null
   }
 
-
   /**
    * ClanThreadCountOutputType without action
    */
   export type ClanThreadCountOutputTypeCountPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ClanPostWhereInput
   }
-
 
 
   /**
@@ -3573,6 +3615,9 @@ export namespace Prisma {
     dinorpgDone?: boolean
   }
 
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "admin" | "moderator" | "connexionToken" | "bruteLimit" | "gold" | "fightSpeed" | "backgroundMusic" | "dinorpgDone", ExtArgs["result"]["user"]>
+
+
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brutes?: boolean | User$brutesArgs<ExtArgs>
     achievements?: boolean | User$achievementsArgs<ExtArgs>
@@ -3610,7 +3655,7 @@ export namespace Prisma {
   type UserGetPayload<S extends boolean | null | undefined | UserDefaultArgs> = $Result.GetResult<Prisma.$UserPayload, S>
 
   type UserCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<UserFindManyArgs, 'select' | 'include' | 'distinct' | 'relationLoadStrategy'> & {
+    Omit<UserFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: UserCountAggregateInputType | true
     }
 
@@ -4018,7 +4063,6 @@ export namespace Prisma {
     
 
   // Custom InputTypes
-
   /**
    * User findUnique
    */
@@ -4028,7 +4072,11 @@ export namespace Prisma {
      */
     select?: UserSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
     /**
@@ -4037,7 +4085,6 @@ export namespace Prisma {
     where: UserWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * User findUniqueOrThrow
@@ -4048,7 +4095,11 @@ export namespace Prisma {
      */
     select?: UserSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
     /**
@@ -4057,7 +4108,6 @@ export namespace Prisma {
     where: UserWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * User findFirst
@@ -4068,7 +4118,11 @@ export namespace Prisma {
      */
     select?: UserSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
     /**
@@ -4107,7 +4161,6 @@ export namespace Prisma {
     distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * User findFirstOrThrow
@@ -4118,7 +4171,11 @@ export namespace Prisma {
      */
     select?: UserSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
     /**
@@ -4158,7 +4215,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * User findMany
    */
@@ -4168,7 +4224,11 @@ export namespace Prisma {
      */
     select?: UserSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
     /**
@@ -4203,7 +4263,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * User create
    */
@@ -4213,7 +4272,11 @@ export namespace Prisma {
      */
     select?: UserSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
     /**
@@ -4222,7 +4285,6 @@ export namespace Prisma {
     data: XOR<UserCreateInput, UserUncheckedCreateInput>
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * User createMany
@@ -4235,7 +4297,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-
   /**
    * User update
    */
@@ -4245,7 +4306,11 @@ export namespace Prisma {
      */
     select?: UserSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
     /**
@@ -4258,7 +4323,6 @@ export namespace Prisma {
     where: UserWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * User updateMany
@@ -4274,7 +4338,6 @@ export namespace Prisma {
     where?: UserWhereInput
   }
 
-
   /**
    * User upsert
    */
@@ -4284,7 +4347,11 @@ export namespace Prisma {
      */
     select?: UserSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
     /**
@@ -4302,7 +4369,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * User delete
    */
@@ -4312,7 +4378,11 @@ export namespace Prisma {
      */
     select?: UserSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
     /**
@@ -4321,7 +4391,6 @@ export namespace Prisma {
     where: UserWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * User deleteMany
@@ -4333,7 +4402,6 @@ export namespace Prisma {
     where?: UserWhereInput
   }
 
-
   /**
    * User.brutes
    */
@@ -4343,7 +4411,11 @@ export namespace Prisma {
      */
     select?: BruteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Brute
+     */
+    omit?: BruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteInclude<ExtArgs> | null
     where?: BruteWhereInput
@@ -4354,7 +4426,6 @@ export namespace Prisma {
     distinct?: BruteScalarFieldEnum | BruteScalarFieldEnum[]
   }
 
-
   /**
    * User.achievements
    */
@@ -4364,7 +4435,11 @@ export namespace Prisma {
      */
     select?: AchievementSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: AchievementInclude<ExtArgs> | null
     where?: AchievementWhereInput
@@ -4375,7 +4450,6 @@ export namespace Prisma {
     distinct?: AchievementScalarFieldEnum | AchievementScalarFieldEnum[]
   }
 
-
   /**
    * User.reports
    */
@@ -4385,7 +4459,11 @@ export namespace Prisma {
      */
     select?: BruteReportSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the BruteReport
+     */
+    omit?: BruteReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteReportInclude<ExtArgs> | null
     where?: BruteReportWhereInput
@@ -4396,7 +4474,6 @@ export namespace Prisma {
     distinct?: BruteReportScalarFieldEnum | BruteReportScalarFieldEnum[]
   }
 
-
   /**
    * User.tournamentGolds
    */
@@ -4406,7 +4483,11 @@ export namespace Prisma {
      */
     select?: TournamentGoldSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentGold
+     */
+    omit?: TournamentGoldOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentGoldInclude<ExtArgs> | null
     where?: TournamentGoldWhereInput
@@ -4417,7 +4498,6 @@ export namespace Prisma {
     distinct?: TournamentGoldScalarFieldEnum | TournamentGoldScalarFieldEnum[]
   }
 
-
   /**
    * User without action
    */
@@ -4427,11 +4507,14 @@ export namespace Prisma {
      */
     select?: UserSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
   }
-
 
 
   /**
@@ -5041,6 +5124,7 @@ export namespace Prisma {
     inventory?: boolean | Brute$inventoryArgs<ExtArgs>
     tournamentAchievements?: boolean | Brute$tournamentAchievementsArgs<ExtArgs>
     tournamentXps?: boolean | Brute$tournamentXpsArgs<ExtArgs>
+    startingStats?: boolean | Brute$startingStatsArgs<ExtArgs>
     _count?: boolean | BruteCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["brute"]>
 
@@ -5091,6 +5175,9 @@ export namespace Prisma {
     tournamentWins?: boolean
   }
 
+  export type BruteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "deletedAt" | "createdAt" | "destinyPath" | "previousDestinyPath" | "level" | "xp" | "hp" | "enduranceStat" | "enduranceModifier" | "enduranceValue" | "strengthStat" | "strengthModifier" | "strengthValue" | "agilityStat" | "agilityModifier" | "agilityValue" | "speedStat" | "speedModifier" | "speedValue" | "ranking" | "gender" | "userId" | "body" | "colors" | "weapons" | "skills" | "pets" | "masterId" | "pupilsCount" | "clanId" | "registeredForTournament" | "nextTournamentDate" | "currentTournamentDate" | "currentTournamentStepWatched" | "lastFight" | "fightsLeft" | "victories" | "opponentsGeneratedAt" | "canRankUpSince" | "favorite" | "wantToJoinClanId" | "tournamentWins", ExtArgs["result"]["brute"]>
+
+
   export type BruteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | Brute$userArgs<ExtArgs>
     master?: boolean | Brute$masterArgs<ExtArgs>
@@ -5113,6 +5200,7 @@ export namespace Prisma {
     inventory?: boolean | Brute$inventoryArgs<ExtArgs>
     tournamentAchievements?: boolean | Brute$tournamentAchievementsArgs<ExtArgs>
     tournamentXps?: boolean | Brute$tournamentXpsArgs<ExtArgs>
+    startingStats?: boolean | Brute$startingStatsArgs<ExtArgs>
     _count?: boolean | BruteCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -5141,6 +5229,7 @@ export namespace Prisma {
       inventory: Prisma.$BruteInventoryItemPayload<ExtArgs>[]
       tournamentAchievements: Prisma.$TournamentAchievementPayload<ExtArgs>[]
       tournamentXps: Prisma.$TournamentXpPayload<ExtArgs>[]
+      startingStats: Prisma.$BruteStartingStatsPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -5195,7 +5284,7 @@ export namespace Prisma {
   type BruteGetPayload<S extends boolean | null | undefined | BruteDefaultArgs> = $Result.GetResult<Prisma.$BrutePayload, S>
 
   type BruteCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<BruteFindManyArgs, 'select' | 'include' | 'distinct' | 'relationLoadStrategy'> & {
+    Omit<BruteFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: BruteCountAggregateInputType | true
     }
 
@@ -5594,6 +5683,8 @@ export namespace Prisma {
 
     tournamentXps<T extends Brute$tournamentXpsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$tournamentXpsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TournamentXpPayload<ExtArgs>, T, 'findMany'> | Null>;
 
+    startingStats<T extends Brute$startingStatsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$startingStatsArgs<ExtArgs>>): Prisma__BruteStartingStatsClient<$Result.GetResult<Prisma.$BruteStartingStatsPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5670,7 +5761,6 @@ export namespace Prisma {
     
 
   // Custom InputTypes
-
   /**
    * Brute findUnique
    */
@@ -5680,7 +5770,11 @@ export namespace Prisma {
      */
     select?: BruteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Brute
+     */
+    omit?: BruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteInclude<ExtArgs> | null
     /**
@@ -5689,7 +5783,6 @@ export namespace Prisma {
     where: BruteWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Brute findUniqueOrThrow
@@ -5700,7 +5793,11 @@ export namespace Prisma {
      */
     select?: BruteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Brute
+     */
+    omit?: BruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteInclude<ExtArgs> | null
     /**
@@ -5709,7 +5806,6 @@ export namespace Prisma {
     where: BruteWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Brute findFirst
@@ -5720,7 +5816,11 @@ export namespace Prisma {
      */
     select?: BruteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Brute
+     */
+    omit?: BruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteInclude<ExtArgs> | null
     /**
@@ -5759,7 +5859,6 @@ export namespace Prisma {
     distinct?: BruteScalarFieldEnum | BruteScalarFieldEnum[]
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Brute findFirstOrThrow
@@ -5770,7 +5869,11 @@ export namespace Prisma {
      */
     select?: BruteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Brute
+     */
+    omit?: BruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteInclude<ExtArgs> | null
     /**
@@ -5810,7 +5913,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * Brute findMany
    */
@@ -5820,7 +5922,11 @@ export namespace Prisma {
      */
     select?: BruteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Brute
+     */
+    omit?: BruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteInclude<ExtArgs> | null
     /**
@@ -5855,7 +5961,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * Brute create
    */
@@ -5865,7 +5970,11 @@ export namespace Prisma {
      */
     select?: BruteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Brute
+     */
+    omit?: BruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteInclude<ExtArgs> | null
     /**
@@ -5874,7 +5983,6 @@ export namespace Prisma {
     data: XOR<BruteCreateInput, BruteUncheckedCreateInput>
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Brute createMany
@@ -5887,7 +5995,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-
   /**
    * Brute update
    */
@@ -5897,7 +6004,11 @@ export namespace Prisma {
      */
     select?: BruteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Brute
+     */
+    omit?: BruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteInclude<ExtArgs> | null
     /**
@@ -5910,7 +6021,6 @@ export namespace Prisma {
     where: BruteWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Brute updateMany
@@ -5926,7 +6036,6 @@ export namespace Prisma {
     where?: BruteWhereInput
   }
 
-
   /**
    * Brute upsert
    */
@@ -5936,7 +6045,11 @@ export namespace Prisma {
      */
     select?: BruteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Brute
+     */
+    omit?: BruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteInclude<ExtArgs> | null
     /**
@@ -5954,7 +6067,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * Brute delete
    */
@@ -5964,7 +6076,11 @@ export namespace Prisma {
      */
     select?: BruteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Brute
+     */
+    omit?: BruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteInclude<ExtArgs> | null
     /**
@@ -5973,7 +6089,6 @@ export namespace Prisma {
     where: BruteWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Brute deleteMany
@@ -5985,7 +6100,6 @@ export namespace Prisma {
     where?: BruteWhereInput
   }
 
-
   /**
    * Brute.user
    */
@@ -5995,12 +6109,15 @@ export namespace Prisma {
      */
     select?: UserSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
     where?: UserWhereInput
   }
-
 
   /**
    * Brute.master
@@ -6011,12 +6128,15 @@ export namespace Prisma {
      */
     select?: BruteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Brute
+     */
+    omit?: BruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteInclude<ExtArgs> | null
     where?: BruteWhereInput
   }
-
 
   /**
    * Brute.pupils
@@ -6027,7 +6147,11 @@ export namespace Prisma {
      */
     select?: BruteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Brute
+     */
+    omit?: BruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteInclude<ExtArgs> | null
     where?: BruteWhereInput
@@ -6037,7 +6161,6 @@ export namespace Prisma {
     skip?: number
     distinct?: BruteScalarFieldEnum | BruteScalarFieldEnum[]
   }
-
 
   /**
    * Brute.clan
@@ -6048,12 +6171,15 @@ export namespace Prisma {
      */
     select?: ClanSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Clan
+     */
+    omit?: ClanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanInclude<ExtArgs> | null
     where?: ClanWhereInput
   }
-
 
   /**
    * Brute.fights
@@ -6064,7 +6190,11 @@ export namespace Prisma {
      */
     select?: FightSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Fight
+     */
+    omit?: FightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: FightInclude<ExtArgs> | null
     where?: FightWhereInput
@@ -6074,7 +6204,6 @@ export namespace Prisma {
     skip?: number
     distinct?: FightScalarFieldEnum | FightScalarFieldEnum[]
   }
-
 
   /**
    * Brute.fightsAsAdversary
@@ -6085,7 +6214,11 @@ export namespace Prisma {
      */
     select?: FightSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Fight
+     */
+    omit?: FightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: FightInclude<ExtArgs> | null
     where?: FightWhereInput
@@ -6096,7 +6229,6 @@ export namespace Prisma {
     distinct?: FightScalarFieldEnum | FightScalarFieldEnum[]
   }
 
-
   /**
    * Brute.logs
    */
@@ -6106,7 +6238,11 @@ export namespace Prisma {
      */
     select?: LogSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Log
+     */
+    omit?: LogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: LogInclude<ExtArgs> | null
     where?: LogWhereInput
@@ -6117,7 +6253,6 @@ export namespace Prisma {
     distinct?: LogScalarFieldEnum | LogScalarFieldEnum[]
   }
 
-
   /**
    * Brute.destinyChoices
    */
@@ -6127,7 +6262,11 @@ export namespace Prisma {
      */
     select?: DestinyChoiceSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the DestinyChoice
+     */
+    omit?: DestinyChoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: DestinyChoiceInclude<ExtArgs> | null
     where?: DestinyChoiceWhereInput
@@ -6138,7 +6277,6 @@ export namespace Prisma {
     distinct?: DestinyChoiceScalarFieldEnum | DestinyChoiceScalarFieldEnum[]
   }
 
-
   /**
    * Brute.tournaments
    */
@@ -6148,7 +6286,11 @@ export namespace Prisma {
      */
     select?: TournamentSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Tournament
+     */
+    omit?: TournamentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentInclude<ExtArgs> | null
     where?: TournamentWhereInput
@@ -6159,7 +6301,6 @@ export namespace Prisma {
     distinct?: TournamentScalarFieldEnum | TournamentScalarFieldEnum[]
   }
 
-
   /**
    * Brute.opponents
    */
@@ -6169,7 +6310,11 @@ export namespace Prisma {
      */
     select?: BruteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Brute
+     */
+    omit?: BruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteInclude<ExtArgs> | null
     where?: BruteWhereInput
@@ -6179,7 +6324,6 @@ export namespace Prisma {
     skip?: number
     distinct?: BruteScalarFieldEnum | BruteScalarFieldEnum[]
   }
-
 
   /**
    * Brute.opponentOf
@@ -6190,7 +6334,11 @@ export namespace Prisma {
      */
     select?: BruteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Brute
+     */
+    omit?: BruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteInclude<ExtArgs> | null
     where?: BruteWhereInput
@@ -6201,7 +6349,6 @@ export namespace Prisma {
     distinct?: BruteScalarFieldEnum | BruteScalarFieldEnum[]
   }
 
-
   /**
    * Brute.achievements
    */
@@ -6211,7 +6358,11 @@ export namespace Prisma {
      */
     select?: AchievementSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: AchievementInclude<ExtArgs> | null
     where?: AchievementWhereInput
@@ -6222,7 +6373,6 @@ export namespace Prisma {
     distinct?: AchievementScalarFieldEnum | AchievementScalarFieldEnum[]
   }
 
-
   /**
    * Brute.reports
    */
@@ -6232,7 +6382,11 @@ export namespace Prisma {
      */
     select?: BruteReportSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the BruteReport
+     */
+    omit?: BruteReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteReportInclude<ExtArgs> | null
     where?: BruteReportWhereInput
@@ -6243,7 +6397,6 @@ export namespace Prisma {
     distinct?: BruteReportScalarFieldEnum | BruteReportScalarFieldEnum[]
   }
 
-
   /**
    * Brute.titles
    */
@@ -6253,7 +6406,11 @@ export namespace Prisma {
      */
     select?: TitleSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Title
+     */
+    omit?: TitleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TitleInclude<ExtArgs> | null
     where?: TitleWhereInput
@@ -6264,7 +6421,6 @@ export namespace Prisma {
     distinct?: TitleScalarFieldEnum | TitleScalarFieldEnum[]
   }
 
-
   /**
    * Brute.masterOfClan
    */
@@ -6274,12 +6430,15 @@ export namespace Prisma {
      */
     select?: ClanSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Clan
+     */
+    omit?: ClanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanInclude<ExtArgs> | null
     where?: ClanWhereInput
   }
-
 
   /**
    * Brute.clanPosts
@@ -6290,7 +6449,11 @@ export namespace Prisma {
      */
     select?: ClanPostSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the ClanPost
+     */
+    omit?: ClanPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanPostInclude<ExtArgs> | null
     where?: ClanPostWhereInput
@@ -6301,7 +6464,6 @@ export namespace Prisma {
     distinct?: ClanPostScalarFieldEnum | ClanPostScalarFieldEnum[]
   }
 
-
   /**
    * Brute.wantToJoinClan
    */
@@ -6311,12 +6473,15 @@ export namespace Prisma {
      */
     select?: ClanSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Clan
+     */
+    omit?: ClanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanInclude<ExtArgs> | null
     where?: ClanWhereInput
   }
-
 
   /**
    * Brute.threads
@@ -6327,7 +6492,11 @@ export namespace Prisma {
      */
     select?: ClanThreadSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the ClanThread
+     */
+    omit?: ClanThreadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanThreadInclude<ExtArgs> | null
     where?: ClanThreadWhereInput
@@ -6338,7 +6507,6 @@ export namespace Prisma {
     distinct?: ClanThreadScalarFieldEnum | ClanThreadScalarFieldEnum[]
   }
 
-
   /**
    * Brute.inventory
    */
@@ -6348,7 +6516,11 @@ export namespace Prisma {
      */
     select?: BruteInventoryItemSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the BruteInventoryItem
+     */
+    omit?: BruteInventoryItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteInventoryItemInclude<ExtArgs> | null
     where?: BruteInventoryItemWhereInput
@@ -6359,7 +6531,6 @@ export namespace Prisma {
     distinct?: BruteInventoryItemScalarFieldEnum | BruteInventoryItemScalarFieldEnum[]
   }
 
-
   /**
    * Brute.tournamentAchievements
    */
@@ -6369,7 +6540,11 @@ export namespace Prisma {
      */
     select?: TournamentAchievementSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentAchievement
+     */
+    omit?: TournamentAchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentAchievementInclude<ExtArgs> | null
     where?: TournamentAchievementWhereInput
@@ -6380,7 +6555,6 @@ export namespace Prisma {
     distinct?: TournamentAchievementScalarFieldEnum | TournamentAchievementScalarFieldEnum[]
   }
 
-
   /**
    * Brute.tournamentXps
    */
@@ -6390,7 +6564,11 @@ export namespace Prisma {
      */
     select?: TournamentXpSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentXp
+     */
+    omit?: TournamentXpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentXpInclude<ExtArgs> | null
     where?: TournamentXpWhereInput
@@ -6401,6 +6579,24 @@ export namespace Prisma {
     distinct?: TournamentXpScalarFieldEnum | TournamentXpScalarFieldEnum[]
   }
 
+  /**
+   * Brute.startingStats
+   */
+  export type Brute$startingStatsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteStartingStats
+     */
+    select?: BruteStartingStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteStartingStats
+     */
+    omit?: BruteStartingStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteStartingStatsInclude<ExtArgs> | null
+    where?: BruteStartingStatsWhereInput
+  }
 
   /**
    * Brute without action
@@ -6411,11 +6607,1035 @@ export namespace Prisma {
      */
     select?: BruteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Brute
+     */
+    omit?: BruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteInclude<ExtArgs> | null
   }
 
+
+  /**
+   * Model BruteStartingStats
+   */
+
+  export type AggregateBruteStartingStats = {
+    _count: BruteStartingStatsCountAggregateOutputType | null
+    _avg: BruteStartingStatsAvgAggregateOutputType | null
+    _sum: BruteStartingStatsSumAggregateOutputType | null
+    _min: BruteStartingStatsMinAggregateOutputType | null
+    _max: BruteStartingStatsMaxAggregateOutputType | null
+  }
+
+  export type BruteStartingStatsAvgAggregateOutputType = {
+    id: number | null
+    endurance: number | null
+    strength: number | null
+    agility: number | null
+    speed: number | null
+    bruteId: number | null
+  }
+
+  export type BruteStartingStatsSumAggregateOutputType = {
+    id: number | null
+    endurance: number | null
+    strength: number | null
+    agility: number | null
+    speed: number | null
+    bruteId: number | null
+  }
+
+  export type BruteStartingStatsMinAggregateOutputType = {
+    id: number | null
+    endurance: number | null
+    strength: number | null
+    agility: number | null
+    speed: number | null
+    bruteId: number | null
+  }
+
+  export type BruteStartingStatsMaxAggregateOutputType = {
+    id: number | null
+    endurance: number | null
+    strength: number | null
+    agility: number | null
+    speed: number | null
+    bruteId: number | null
+  }
+
+  export type BruteStartingStatsCountAggregateOutputType = {
+    id: number
+    endurance: number
+    strength: number
+    agility: number
+    speed: number
+    bruteId: number
+    _all: number
+  }
+
+
+  export type BruteStartingStatsAvgAggregateInputType = {
+    id?: true
+    endurance?: true
+    strength?: true
+    agility?: true
+    speed?: true
+    bruteId?: true
+  }
+
+  export type BruteStartingStatsSumAggregateInputType = {
+    id?: true
+    endurance?: true
+    strength?: true
+    agility?: true
+    speed?: true
+    bruteId?: true
+  }
+
+  export type BruteStartingStatsMinAggregateInputType = {
+    id?: true
+    endurance?: true
+    strength?: true
+    agility?: true
+    speed?: true
+    bruteId?: true
+  }
+
+  export type BruteStartingStatsMaxAggregateInputType = {
+    id?: true
+    endurance?: true
+    strength?: true
+    agility?: true
+    speed?: true
+    bruteId?: true
+  }
+
+  export type BruteStartingStatsCountAggregateInputType = {
+    id?: true
+    endurance?: true
+    strength?: true
+    agility?: true
+    speed?: true
+    bruteId?: true
+    _all?: true
+  }
+
+  export type BruteStartingStatsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BruteStartingStats to aggregate.
+     */
+    where?: BruteStartingStatsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BruteStartingStats to fetch.
+     */
+    orderBy?: BruteStartingStatsOrderByWithRelationInput | BruteStartingStatsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BruteStartingStatsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BruteStartingStats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BruteStartingStats.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BruteStartingStats
+    **/
+    _count?: true | BruteStartingStatsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BruteStartingStatsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BruteStartingStatsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BruteStartingStatsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BruteStartingStatsMaxAggregateInputType
+  }
+
+  export type GetBruteStartingStatsAggregateType<T extends BruteStartingStatsAggregateArgs> = {
+        [P in keyof T & keyof AggregateBruteStartingStats]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBruteStartingStats[P]>
+      : GetScalarType<T[P], AggregateBruteStartingStats[P]>
+  }
+
+
+
+
+  export type BruteStartingStatsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BruteStartingStatsWhereInput
+    orderBy?: BruteStartingStatsOrderByWithAggregationInput | BruteStartingStatsOrderByWithAggregationInput[]
+    by: BruteStartingStatsScalarFieldEnum[] | BruteStartingStatsScalarFieldEnum
+    having?: BruteStartingStatsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BruteStartingStatsCountAggregateInputType | true
+    _avg?: BruteStartingStatsAvgAggregateInputType
+    _sum?: BruteStartingStatsSumAggregateInputType
+    _min?: BruteStartingStatsMinAggregateInputType
+    _max?: BruteStartingStatsMaxAggregateInputType
+  }
+
+  export type BruteStartingStatsGroupByOutputType = {
+    id: number
+    endurance: number
+    strength: number
+    agility: number
+    speed: number
+    bruteId: number
+    _count: BruteStartingStatsCountAggregateOutputType | null
+    _avg: BruteStartingStatsAvgAggregateOutputType | null
+    _sum: BruteStartingStatsSumAggregateOutputType | null
+    _min: BruteStartingStatsMinAggregateOutputType | null
+    _max: BruteStartingStatsMaxAggregateOutputType | null
+  }
+
+  type GetBruteStartingStatsGroupByPayload<T extends BruteStartingStatsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BruteStartingStatsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BruteStartingStatsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BruteStartingStatsGroupByOutputType[P]>
+            : GetScalarType<T[P], BruteStartingStatsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BruteStartingStatsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    endurance?: boolean
+    strength?: boolean
+    agility?: boolean
+    speed?: boolean
+    bruteId?: boolean
+    brute?: boolean | BruteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bruteStartingStats"]>
+
+  export type BruteStartingStatsSelectScalar = {
+    id?: boolean
+    endurance?: boolean
+    strength?: boolean
+    agility?: boolean
+    speed?: boolean
+    bruteId?: boolean
+  }
+
+  export type BruteStartingStatsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "endurance" | "strength" | "agility" | "speed" | "bruteId", ExtArgs["result"]["bruteStartingStats"]>
+
+
+  export type BruteStartingStatsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    brute?: boolean | BruteDefaultArgs<ExtArgs>
+  }
+
+
+  export type $BruteStartingStatsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BruteStartingStats"
+    objects: {
+      brute: Prisma.$BrutePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      endurance: number
+      strength: number
+      agility: number
+      speed: number
+      bruteId: number
+    }, ExtArgs["result"]["bruteStartingStats"]>
+    composites: {}
+  }
+
+
+  type BruteStartingStatsGetPayload<S extends boolean | null | undefined | BruteStartingStatsDefaultArgs> = $Result.GetResult<Prisma.$BruteStartingStatsPayload, S>
+
+  type BruteStartingStatsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<BruteStartingStatsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
+      select?: BruteStartingStatsCountAggregateInputType | true
+    }
+
+  export interface BruteStartingStatsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BruteStartingStats'], meta: { name: 'BruteStartingStats' } }
+    /**
+     * Find zero or one BruteStartingStats that matches the filter.
+     * @param {BruteStartingStatsFindUniqueArgs} args - Arguments to find a BruteStartingStats
+     * @example
+     * // Get one BruteStartingStats
+     * const bruteStartingStats = await prisma.bruteStartingStats.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends BruteStartingStatsFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteStartingStatsFindUniqueArgs<ExtArgs>>
+    ): Prisma__BruteStartingStatsClient<$Result.GetResult<Prisma.$BruteStartingStatsPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one BruteStartingStats that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {BruteStartingStatsFindUniqueOrThrowArgs} args - Arguments to find a BruteStartingStats
+     * @example
+     * // Get one BruteStartingStats
+     * const bruteStartingStats = await prisma.bruteStartingStats.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends BruteStartingStatsFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteStartingStatsFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__BruteStartingStatsClient<$Result.GetResult<Prisma.$BruteStartingStatsPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first BruteStartingStats that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteStartingStatsFindFirstArgs} args - Arguments to find a BruteStartingStats
+     * @example
+     * // Get one BruteStartingStats
+     * const bruteStartingStats = await prisma.bruteStartingStats.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends BruteStartingStatsFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteStartingStatsFindFirstArgs<ExtArgs>>
+    ): Prisma__BruteStartingStatsClient<$Result.GetResult<Prisma.$BruteStartingStatsPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first BruteStartingStats that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteStartingStatsFindFirstOrThrowArgs} args - Arguments to find a BruteStartingStats
+     * @example
+     * // Get one BruteStartingStats
+     * const bruteStartingStats = await prisma.bruteStartingStats.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends BruteStartingStatsFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteStartingStatsFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__BruteStartingStatsClient<$Result.GetResult<Prisma.$BruteStartingStatsPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more BruteStartingStats that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteStartingStatsFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BruteStartingStats
+     * const bruteStartingStats = await prisma.bruteStartingStats.findMany()
+     * 
+     * // Get first 10 BruteStartingStats
+     * const bruteStartingStats = await prisma.bruteStartingStats.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const bruteStartingStatsWithIdOnly = await prisma.bruteStartingStats.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends BruteStartingStatsFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteStartingStatsFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BruteStartingStatsPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a BruteStartingStats.
+     * @param {BruteStartingStatsCreateArgs} args - Arguments to create a BruteStartingStats.
+     * @example
+     * // Create one BruteStartingStats
+     * const BruteStartingStats = await prisma.bruteStartingStats.create({
+     *   data: {
+     *     // ... data to create a BruteStartingStats
+     *   }
+     * })
+     * 
+    **/
+    create<T extends BruteStartingStatsCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteStartingStatsCreateArgs<ExtArgs>>
+    ): Prisma__BruteStartingStatsClient<$Result.GetResult<Prisma.$BruteStartingStatsPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many BruteStartingStats.
+     *     @param {BruteStartingStatsCreateManyArgs} args - Arguments to create many BruteStartingStats.
+     *     @example
+     *     // Create many BruteStartingStats
+     *     const bruteStartingStats = await prisma.bruteStartingStats.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends BruteStartingStatsCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteStartingStatsCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a BruteStartingStats.
+     * @param {BruteStartingStatsDeleteArgs} args - Arguments to delete one BruteStartingStats.
+     * @example
+     * // Delete one BruteStartingStats
+     * const BruteStartingStats = await prisma.bruteStartingStats.delete({
+     *   where: {
+     *     // ... filter to delete one BruteStartingStats
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends BruteStartingStatsDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteStartingStatsDeleteArgs<ExtArgs>>
+    ): Prisma__BruteStartingStatsClient<$Result.GetResult<Prisma.$BruteStartingStatsPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one BruteStartingStats.
+     * @param {BruteStartingStatsUpdateArgs} args - Arguments to update one BruteStartingStats.
+     * @example
+     * // Update one BruteStartingStats
+     * const bruteStartingStats = await prisma.bruteStartingStats.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends BruteStartingStatsUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteStartingStatsUpdateArgs<ExtArgs>>
+    ): Prisma__BruteStartingStatsClient<$Result.GetResult<Prisma.$BruteStartingStatsPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more BruteStartingStats.
+     * @param {BruteStartingStatsDeleteManyArgs} args - Arguments to filter BruteStartingStats to delete.
+     * @example
+     * // Delete a few BruteStartingStats
+     * const { count } = await prisma.bruteStartingStats.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends BruteStartingStatsDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteStartingStatsDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BruteStartingStats.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteStartingStatsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BruteStartingStats
+     * const bruteStartingStats = await prisma.bruteStartingStats.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends BruteStartingStatsUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteStartingStatsUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one BruteStartingStats.
+     * @param {BruteStartingStatsUpsertArgs} args - Arguments to update or create a BruteStartingStats.
+     * @example
+     * // Update or create a BruteStartingStats
+     * const bruteStartingStats = await prisma.bruteStartingStats.upsert({
+     *   create: {
+     *     // ... data to create a BruteStartingStats
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BruteStartingStats we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends BruteStartingStatsUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, BruteStartingStatsUpsertArgs<ExtArgs>>
+    ): Prisma__BruteStartingStatsClient<$Result.GetResult<Prisma.$BruteStartingStatsPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of BruteStartingStats.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteStartingStatsCountArgs} args - Arguments to filter BruteStartingStats to count.
+     * @example
+     * // Count the number of BruteStartingStats
+     * const count = await prisma.bruteStartingStats.count({
+     *   where: {
+     *     // ... the filter for the BruteStartingStats we want to count
+     *   }
+     * })
+    **/
+    count<T extends BruteStartingStatsCountArgs>(
+      args?: Subset<T, BruteStartingStatsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BruteStartingStatsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BruteStartingStats.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteStartingStatsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BruteStartingStatsAggregateArgs>(args: Subset<T, BruteStartingStatsAggregateArgs>): Prisma.PrismaPromise<GetBruteStartingStatsAggregateType<T>>
+
+    /**
+     * Group by BruteStartingStats.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteStartingStatsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BruteStartingStatsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BruteStartingStatsGroupByArgs['orderBy'] }
+        : { orderBy?: BruteStartingStatsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BruteStartingStatsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBruteStartingStatsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BruteStartingStats model
+   */
+  readonly fields: BruteStartingStatsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BruteStartingStats.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BruteStartingStatsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    brute<T extends BruteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BruteDefaultArgs<ExtArgs>>): Prisma__BruteClient<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the BruteStartingStats model
+   */ 
+  interface BruteStartingStatsFieldRefs {
+    readonly id: FieldRef<"BruteStartingStats", 'Int'>
+    readonly endurance: FieldRef<"BruteStartingStats", 'Int'>
+    readonly strength: FieldRef<"BruteStartingStats", 'Int'>
+    readonly agility: FieldRef<"BruteStartingStats", 'Int'>
+    readonly speed: FieldRef<"BruteStartingStats", 'Int'>
+    readonly bruteId: FieldRef<"BruteStartingStats", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BruteStartingStats findUnique
+   */
+  export type BruteStartingStatsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteStartingStats
+     */
+    select?: BruteStartingStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteStartingStats
+     */
+    omit?: BruteStartingStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteStartingStatsInclude<ExtArgs> | null
+    /**
+     * Filter, which BruteStartingStats to fetch.
+     */
+    where: BruteStartingStatsWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BruteStartingStats findUniqueOrThrow
+   */
+  export type BruteStartingStatsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteStartingStats
+     */
+    select?: BruteStartingStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteStartingStats
+     */
+    omit?: BruteStartingStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteStartingStatsInclude<ExtArgs> | null
+    /**
+     * Filter, which BruteStartingStats to fetch.
+     */
+    where: BruteStartingStatsWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BruteStartingStats findFirst
+   */
+  export type BruteStartingStatsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteStartingStats
+     */
+    select?: BruteStartingStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteStartingStats
+     */
+    omit?: BruteStartingStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteStartingStatsInclude<ExtArgs> | null
+    /**
+     * Filter, which BruteStartingStats to fetch.
+     */
+    where?: BruteStartingStatsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BruteStartingStats to fetch.
+     */
+    orderBy?: BruteStartingStatsOrderByWithRelationInput | BruteStartingStatsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BruteStartingStats.
+     */
+    cursor?: BruteStartingStatsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BruteStartingStats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BruteStartingStats.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BruteStartingStats.
+     */
+    distinct?: BruteStartingStatsScalarFieldEnum | BruteStartingStatsScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BruteStartingStats findFirstOrThrow
+   */
+  export type BruteStartingStatsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteStartingStats
+     */
+    select?: BruteStartingStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteStartingStats
+     */
+    omit?: BruteStartingStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteStartingStatsInclude<ExtArgs> | null
+    /**
+     * Filter, which BruteStartingStats to fetch.
+     */
+    where?: BruteStartingStatsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BruteStartingStats to fetch.
+     */
+    orderBy?: BruteStartingStatsOrderByWithRelationInput | BruteStartingStatsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BruteStartingStats.
+     */
+    cursor?: BruteStartingStatsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BruteStartingStats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BruteStartingStats.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BruteStartingStats.
+     */
+    distinct?: BruteStartingStatsScalarFieldEnum | BruteStartingStatsScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BruteStartingStats findMany
+   */
+  export type BruteStartingStatsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteStartingStats
+     */
+    select?: BruteStartingStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteStartingStats
+     */
+    omit?: BruteStartingStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteStartingStatsInclude<ExtArgs> | null
+    /**
+     * Filter, which BruteStartingStats to fetch.
+     */
+    where?: BruteStartingStatsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BruteStartingStats to fetch.
+     */
+    orderBy?: BruteStartingStatsOrderByWithRelationInput | BruteStartingStatsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BruteStartingStats.
+     */
+    cursor?: BruteStartingStatsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BruteStartingStats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BruteStartingStats.
+     */
+    skip?: number
+    distinct?: BruteStartingStatsScalarFieldEnum | BruteStartingStatsScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BruteStartingStats create
+   */
+  export type BruteStartingStatsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteStartingStats
+     */
+    select?: BruteStartingStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteStartingStats
+     */
+    omit?: BruteStartingStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteStartingStatsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a BruteStartingStats.
+     */
+    data: XOR<BruteStartingStatsCreateInput, BruteStartingStatsUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BruteStartingStats createMany
+   */
+  export type BruteStartingStatsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BruteStartingStats.
+     */
+    data: BruteStartingStatsCreateManyInput | BruteStartingStatsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BruteStartingStats update
+   */
+  export type BruteStartingStatsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteStartingStats
+     */
+    select?: BruteStartingStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteStartingStats
+     */
+    omit?: BruteStartingStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteStartingStatsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a BruteStartingStats.
+     */
+    data: XOR<BruteStartingStatsUpdateInput, BruteStartingStatsUncheckedUpdateInput>
+    /**
+     * Choose, which BruteStartingStats to update.
+     */
+    where: BruteStartingStatsWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BruteStartingStats updateMany
+   */
+  export type BruteStartingStatsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BruteStartingStats.
+     */
+    data: XOR<BruteStartingStatsUpdateManyMutationInput, BruteStartingStatsUncheckedUpdateManyInput>
+    /**
+     * Filter which BruteStartingStats to update
+     */
+    where?: BruteStartingStatsWhereInput
+  }
+
+  /**
+   * BruteStartingStats upsert
+   */
+  export type BruteStartingStatsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteStartingStats
+     */
+    select?: BruteStartingStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteStartingStats
+     */
+    omit?: BruteStartingStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteStartingStatsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the BruteStartingStats to update in case it exists.
+     */
+    where: BruteStartingStatsWhereUniqueInput
+    /**
+     * In case the BruteStartingStats found by the `where` argument doesn't exist, create a new BruteStartingStats with this data.
+     */
+    create: XOR<BruteStartingStatsCreateInput, BruteStartingStatsUncheckedCreateInput>
+    /**
+     * In case the BruteStartingStats was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BruteStartingStatsUpdateInput, BruteStartingStatsUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BruteStartingStats delete
+   */
+  export type BruteStartingStatsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteStartingStats
+     */
+    select?: BruteStartingStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteStartingStats
+     */
+    omit?: BruteStartingStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteStartingStatsInclude<ExtArgs> | null
+    /**
+     * Filter which BruteStartingStats to delete.
+     */
+    where: BruteStartingStatsWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BruteStartingStats deleteMany
+   */
+  export type BruteStartingStatsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BruteStartingStats to delete
+     */
+    where?: BruteStartingStatsWhereInput
+  }
+
+  /**
+   * BruteStartingStats without action
+   */
+  export type BruteStartingStatsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteStartingStats
+     */
+    select?: BruteStartingStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteStartingStats
+     */
+    omit?: BruteStartingStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteStartingStatsInclude<ExtArgs> | null
+  }
 
 
   /**
@@ -6680,6 +7900,9 @@ export namespace Prisma {
     tournamentId?: boolean
   }
 
+  export type FightOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "brute1Id" | "brute2Id" | "winner" | "loser" | "steps" | "fighters" | "tournamentId", ExtArgs["result"]["fight"]>
+
+
   export type FightInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brute1?: boolean | BruteDefaultArgs<ExtArgs>
     brute2?: boolean | Fight$brute2Args<ExtArgs>
@@ -6717,7 +7940,7 @@ export namespace Prisma {
   type FightGetPayload<S extends boolean | null | undefined | FightDefaultArgs> = $Result.GetResult<Prisma.$FightPayload, S>
 
   type FightCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<FightFindManyArgs, 'select' | 'include' | 'distinct' | 'relationLoadStrategy'> & {
+    Omit<FightFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: FightCountAggregateInputType | true
     }
 
@@ -7125,7 +8348,6 @@ export namespace Prisma {
     
 
   // Custom InputTypes
-
   /**
    * Fight findUnique
    */
@@ -7135,7 +8357,11 @@ export namespace Prisma {
      */
     select?: FightSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Fight
+     */
+    omit?: FightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: FightInclude<ExtArgs> | null
     /**
@@ -7144,7 +8370,6 @@ export namespace Prisma {
     where: FightWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Fight findUniqueOrThrow
@@ -7155,7 +8380,11 @@ export namespace Prisma {
      */
     select?: FightSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Fight
+     */
+    omit?: FightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: FightInclude<ExtArgs> | null
     /**
@@ -7164,7 +8393,6 @@ export namespace Prisma {
     where: FightWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Fight findFirst
@@ -7175,7 +8403,11 @@ export namespace Prisma {
      */
     select?: FightSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Fight
+     */
+    omit?: FightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: FightInclude<ExtArgs> | null
     /**
@@ -7214,7 +8446,6 @@ export namespace Prisma {
     distinct?: FightScalarFieldEnum | FightScalarFieldEnum[]
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Fight findFirstOrThrow
@@ -7225,7 +8456,11 @@ export namespace Prisma {
      */
     select?: FightSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Fight
+     */
+    omit?: FightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: FightInclude<ExtArgs> | null
     /**
@@ -7265,7 +8500,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * Fight findMany
    */
@@ -7275,7 +8509,11 @@ export namespace Prisma {
      */
     select?: FightSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Fight
+     */
+    omit?: FightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: FightInclude<ExtArgs> | null
     /**
@@ -7310,7 +8548,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * Fight create
    */
@@ -7320,7 +8557,11 @@ export namespace Prisma {
      */
     select?: FightSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Fight
+     */
+    omit?: FightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: FightInclude<ExtArgs> | null
     /**
@@ -7329,7 +8570,6 @@ export namespace Prisma {
     data: XOR<FightCreateInput, FightUncheckedCreateInput>
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Fight createMany
@@ -7342,7 +8582,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-
   /**
    * Fight update
    */
@@ -7352,7 +8591,11 @@ export namespace Prisma {
      */
     select?: FightSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Fight
+     */
+    omit?: FightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: FightInclude<ExtArgs> | null
     /**
@@ -7365,7 +8608,6 @@ export namespace Prisma {
     where: FightWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Fight updateMany
@@ -7381,7 +8623,6 @@ export namespace Prisma {
     where?: FightWhereInput
   }
 
-
   /**
    * Fight upsert
    */
@@ -7391,7 +8632,11 @@ export namespace Prisma {
      */
     select?: FightSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Fight
+     */
+    omit?: FightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: FightInclude<ExtArgs> | null
     /**
@@ -7409,7 +8654,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * Fight delete
    */
@@ -7419,7 +8663,11 @@ export namespace Prisma {
      */
     select?: FightSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Fight
+     */
+    omit?: FightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: FightInclude<ExtArgs> | null
     /**
@@ -7428,7 +8676,6 @@ export namespace Prisma {
     where: FightWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Fight deleteMany
@@ -7440,7 +8687,6 @@ export namespace Prisma {
     where?: FightWhereInput
   }
 
-
   /**
    * Fight.brute2
    */
@@ -7450,12 +8696,15 @@ export namespace Prisma {
      */
     select?: BruteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Brute
+     */
+    omit?: BruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteInclude<ExtArgs> | null
     where?: BruteWhereInput
   }
-
 
   /**
    * Fight.logs
@@ -7466,7 +8715,11 @@ export namespace Prisma {
      */
     select?: LogSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Log
+     */
+    omit?: LogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: LogInclude<ExtArgs> | null
     where?: LogWhereInput
@@ -7477,7 +8730,6 @@ export namespace Prisma {
     distinct?: LogScalarFieldEnum | LogScalarFieldEnum[]
   }
 
-
   /**
    * Fight.tournament
    */
@@ -7487,12 +8739,15 @@ export namespace Prisma {
      */
     select?: TournamentSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Tournament
+     */
+    omit?: TournamentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentInclude<ExtArgs> | null
     where?: TournamentWhereInput
   }
-
 
   /**
    * Fight.TournamentStep
@@ -7503,7 +8758,11 @@ export namespace Prisma {
      */
     select?: TournamentStepSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentStep
+     */
+    omit?: TournamentStepOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentStepInclude<ExtArgs> | null
     where?: TournamentStepWhereInput
@@ -7514,7 +8773,6 @@ export namespace Prisma {
     distinct?: TournamentStepScalarFieldEnum | TournamentStepScalarFieldEnum[]
   }
 
-
   /**
    * Fight without action
    */
@@ -7524,11 +8782,14 @@ export namespace Prisma {
      */
     select?: FightSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Fight
+     */
+    omit?: FightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: FightInclude<ExtArgs> | null
   }
-
 
 
   /**
@@ -7784,6 +9045,9 @@ export namespace Prisma {
     xp?: boolean
   }
 
+  export type LogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "currentBruteId" | "type" | "level" | "brute" | "fightId" | "xp", ExtArgs["result"]["log"]>
+
+
   export type LogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     currentBrute?: boolean | BruteDefaultArgs<ExtArgs>
     fight?: boolean | Log$fightArgs<ExtArgs>
@@ -7813,7 +9077,7 @@ export namespace Prisma {
   type LogGetPayload<S extends boolean | null | undefined | LogDefaultArgs> = $Result.GetResult<Prisma.$LogPayload, S>
 
   type LogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<LogFindManyArgs, 'select' | 'include' | 'distinct' | 'relationLoadStrategy'> & {
+    Omit<LogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: LogCountAggregateInputType | true
     }
 
@@ -8214,7 +9478,6 @@ export namespace Prisma {
     
 
   // Custom InputTypes
-
   /**
    * Log findUnique
    */
@@ -8224,7 +9487,11 @@ export namespace Prisma {
      */
     select?: LogSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Log
+     */
+    omit?: LogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: LogInclude<ExtArgs> | null
     /**
@@ -8233,7 +9500,6 @@ export namespace Prisma {
     where: LogWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Log findUniqueOrThrow
@@ -8244,7 +9510,11 @@ export namespace Prisma {
      */
     select?: LogSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Log
+     */
+    omit?: LogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: LogInclude<ExtArgs> | null
     /**
@@ -8253,7 +9523,6 @@ export namespace Prisma {
     where: LogWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Log findFirst
@@ -8264,7 +9533,11 @@ export namespace Prisma {
      */
     select?: LogSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Log
+     */
+    omit?: LogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: LogInclude<ExtArgs> | null
     /**
@@ -8303,7 +9576,6 @@ export namespace Prisma {
     distinct?: LogScalarFieldEnum | LogScalarFieldEnum[]
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Log findFirstOrThrow
@@ -8314,7 +9586,11 @@ export namespace Prisma {
      */
     select?: LogSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Log
+     */
+    omit?: LogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: LogInclude<ExtArgs> | null
     /**
@@ -8354,7 +9630,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * Log findMany
    */
@@ -8364,7 +9639,11 @@ export namespace Prisma {
      */
     select?: LogSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Log
+     */
+    omit?: LogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: LogInclude<ExtArgs> | null
     /**
@@ -8399,7 +9678,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * Log create
    */
@@ -8409,7 +9687,11 @@ export namespace Prisma {
      */
     select?: LogSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Log
+     */
+    omit?: LogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: LogInclude<ExtArgs> | null
     /**
@@ -8418,7 +9700,6 @@ export namespace Prisma {
     data: XOR<LogCreateInput, LogUncheckedCreateInput>
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Log createMany
@@ -8431,7 +9712,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-
   /**
    * Log update
    */
@@ -8441,7 +9721,11 @@ export namespace Prisma {
      */
     select?: LogSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Log
+     */
+    omit?: LogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: LogInclude<ExtArgs> | null
     /**
@@ -8454,7 +9738,6 @@ export namespace Prisma {
     where: LogWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Log updateMany
@@ -8470,7 +9753,6 @@ export namespace Prisma {
     where?: LogWhereInput
   }
 
-
   /**
    * Log upsert
    */
@@ -8480,7 +9762,11 @@ export namespace Prisma {
      */
     select?: LogSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Log
+     */
+    omit?: LogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: LogInclude<ExtArgs> | null
     /**
@@ -8498,7 +9784,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * Log delete
    */
@@ -8508,7 +9793,11 @@ export namespace Prisma {
      */
     select?: LogSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Log
+     */
+    omit?: LogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: LogInclude<ExtArgs> | null
     /**
@@ -8517,7 +9806,6 @@ export namespace Prisma {
     where: LogWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Log deleteMany
@@ -8529,7 +9817,6 @@ export namespace Prisma {
     where?: LogWhereInput
   }
 
-
   /**
    * Log.fight
    */
@@ -8539,12 +9826,15 @@ export namespace Prisma {
      */
     select?: FightSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Fight
+     */
+    omit?: FightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: FightInclude<ExtArgs> | null
     where?: FightWhereInput
   }
-
 
   /**
    * Log without action
@@ -8555,11 +9845,14 @@ export namespace Prisma {
      */
     select?: LogSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Log
+     */
+    omit?: LogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: LogInclude<ExtArgs> | null
   }
-
 
 
   /**
@@ -8833,6 +10126,9 @@ export namespace Prisma {
     stat2Value?: boolean
   }
 
+  export type DestinyChoiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bruteId" | "path" | "type" | "skill" | "weapon" | "pet" | "stat1" | "stat1Value" | "stat2" | "stat2Value", ExtArgs["result"]["destinyChoice"]>
+
+
   export type DestinyChoiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brute?: boolean | BruteDefaultArgs<ExtArgs>
   }
@@ -8863,7 +10159,7 @@ export namespace Prisma {
   type DestinyChoiceGetPayload<S extends boolean | null | undefined | DestinyChoiceDefaultArgs> = $Result.GetResult<Prisma.$DestinyChoicePayload, S>
 
   type DestinyChoiceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<DestinyChoiceFindManyArgs, 'select' | 'include' | 'distinct' | 'relationLoadStrategy'> & {
+    Omit<DestinyChoiceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: DestinyChoiceCountAggregateInputType | true
     }
 
@@ -9265,7 +10561,6 @@ export namespace Prisma {
     
 
   // Custom InputTypes
-
   /**
    * DestinyChoice findUnique
    */
@@ -9275,7 +10570,11 @@ export namespace Prisma {
      */
     select?: DestinyChoiceSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the DestinyChoice
+     */
+    omit?: DestinyChoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: DestinyChoiceInclude<ExtArgs> | null
     /**
@@ -9284,7 +10583,6 @@ export namespace Prisma {
     where: DestinyChoiceWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * DestinyChoice findUniqueOrThrow
@@ -9295,7 +10593,11 @@ export namespace Prisma {
      */
     select?: DestinyChoiceSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the DestinyChoice
+     */
+    omit?: DestinyChoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: DestinyChoiceInclude<ExtArgs> | null
     /**
@@ -9304,7 +10606,6 @@ export namespace Prisma {
     where: DestinyChoiceWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * DestinyChoice findFirst
@@ -9315,7 +10616,11 @@ export namespace Prisma {
      */
     select?: DestinyChoiceSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the DestinyChoice
+     */
+    omit?: DestinyChoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: DestinyChoiceInclude<ExtArgs> | null
     /**
@@ -9354,7 +10659,6 @@ export namespace Prisma {
     distinct?: DestinyChoiceScalarFieldEnum | DestinyChoiceScalarFieldEnum[]
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * DestinyChoice findFirstOrThrow
@@ -9365,7 +10669,11 @@ export namespace Prisma {
      */
     select?: DestinyChoiceSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the DestinyChoice
+     */
+    omit?: DestinyChoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: DestinyChoiceInclude<ExtArgs> | null
     /**
@@ -9405,7 +10713,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * DestinyChoice findMany
    */
@@ -9415,7 +10722,11 @@ export namespace Prisma {
      */
     select?: DestinyChoiceSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the DestinyChoice
+     */
+    omit?: DestinyChoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: DestinyChoiceInclude<ExtArgs> | null
     /**
@@ -9450,7 +10761,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * DestinyChoice create
    */
@@ -9460,7 +10770,11 @@ export namespace Prisma {
      */
     select?: DestinyChoiceSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the DestinyChoice
+     */
+    omit?: DestinyChoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: DestinyChoiceInclude<ExtArgs> | null
     /**
@@ -9469,7 +10783,6 @@ export namespace Prisma {
     data: XOR<DestinyChoiceCreateInput, DestinyChoiceUncheckedCreateInput>
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * DestinyChoice createMany
@@ -9482,7 +10795,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-
   /**
    * DestinyChoice update
    */
@@ -9492,7 +10804,11 @@ export namespace Prisma {
      */
     select?: DestinyChoiceSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the DestinyChoice
+     */
+    omit?: DestinyChoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: DestinyChoiceInclude<ExtArgs> | null
     /**
@@ -9505,7 +10821,6 @@ export namespace Prisma {
     where: DestinyChoiceWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * DestinyChoice updateMany
@@ -9521,7 +10836,6 @@ export namespace Prisma {
     where?: DestinyChoiceWhereInput
   }
 
-
   /**
    * DestinyChoice upsert
    */
@@ -9531,7 +10845,11 @@ export namespace Prisma {
      */
     select?: DestinyChoiceSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the DestinyChoice
+     */
+    omit?: DestinyChoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: DestinyChoiceInclude<ExtArgs> | null
     /**
@@ -9549,7 +10867,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * DestinyChoice delete
    */
@@ -9559,7 +10876,11 @@ export namespace Prisma {
      */
     select?: DestinyChoiceSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the DestinyChoice
+     */
+    omit?: DestinyChoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: DestinyChoiceInclude<ExtArgs> | null
     /**
@@ -9568,7 +10889,6 @@ export namespace Prisma {
     where: DestinyChoiceWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * DestinyChoice deleteMany
@@ -9580,7 +10900,6 @@ export namespace Prisma {
     where?: DestinyChoiceWhereInput
   }
 
-
   /**
    * DestinyChoice without action
    */
@@ -9590,11 +10909,14 @@ export namespace Prisma {
      */
     select?: DestinyChoiceSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the DestinyChoice
+     */
+    omit?: DestinyChoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: DestinyChoiceInclude<ExtArgs> | null
   }
-
 
 
   /**
@@ -9804,6 +11126,9 @@ export namespace Prisma {
     rounds?: boolean
   }
 
+  export type TournamentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "type" | "rounds", ExtArgs["result"]["tournament"]>
+
+
   export type TournamentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     participants?: boolean | Tournament$participantsArgs<ExtArgs>
     steps?: boolean | Tournament$stepsArgs<ExtArgs>
@@ -9832,7 +11157,7 @@ export namespace Prisma {
   type TournamentGetPayload<S extends boolean | null | undefined | TournamentDefaultArgs> = $Result.GetResult<Prisma.$TournamentPayload, S>
 
   type TournamentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<TournamentFindManyArgs, 'select' | 'include' | 'distinct' | 'relationLoadStrategy'> & {
+    Omit<TournamentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: TournamentCountAggregateInputType | true
     }
 
@@ -10231,7 +11556,6 @@ export namespace Prisma {
     
 
   // Custom InputTypes
-
   /**
    * Tournament findUnique
    */
@@ -10241,7 +11565,11 @@ export namespace Prisma {
      */
     select?: TournamentSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Tournament
+     */
+    omit?: TournamentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentInclude<ExtArgs> | null
     /**
@@ -10250,7 +11578,6 @@ export namespace Prisma {
     where: TournamentWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Tournament findUniqueOrThrow
@@ -10261,7 +11588,11 @@ export namespace Prisma {
      */
     select?: TournamentSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Tournament
+     */
+    omit?: TournamentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentInclude<ExtArgs> | null
     /**
@@ -10270,7 +11601,6 @@ export namespace Prisma {
     where: TournamentWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Tournament findFirst
@@ -10281,7 +11611,11 @@ export namespace Prisma {
      */
     select?: TournamentSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Tournament
+     */
+    omit?: TournamentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentInclude<ExtArgs> | null
     /**
@@ -10320,7 +11654,6 @@ export namespace Prisma {
     distinct?: TournamentScalarFieldEnum | TournamentScalarFieldEnum[]
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Tournament findFirstOrThrow
@@ -10331,7 +11664,11 @@ export namespace Prisma {
      */
     select?: TournamentSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Tournament
+     */
+    omit?: TournamentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentInclude<ExtArgs> | null
     /**
@@ -10371,7 +11708,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * Tournament findMany
    */
@@ -10381,7 +11717,11 @@ export namespace Prisma {
      */
     select?: TournamentSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Tournament
+     */
+    omit?: TournamentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentInclude<ExtArgs> | null
     /**
@@ -10416,7 +11756,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * Tournament create
    */
@@ -10426,7 +11765,11 @@ export namespace Prisma {
      */
     select?: TournamentSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Tournament
+     */
+    omit?: TournamentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentInclude<ExtArgs> | null
     /**
@@ -10435,7 +11778,6 @@ export namespace Prisma {
     data: XOR<TournamentCreateInput, TournamentUncheckedCreateInput>
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Tournament createMany
@@ -10448,7 +11790,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-
   /**
    * Tournament update
    */
@@ -10458,7 +11799,11 @@ export namespace Prisma {
      */
     select?: TournamentSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Tournament
+     */
+    omit?: TournamentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentInclude<ExtArgs> | null
     /**
@@ -10471,7 +11816,6 @@ export namespace Prisma {
     where: TournamentWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Tournament updateMany
@@ -10487,7 +11831,6 @@ export namespace Prisma {
     where?: TournamentWhereInput
   }
 
-
   /**
    * Tournament upsert
    */
@@ -10497,7 +11840,11 @@ export namespace Prisma {
      */
     select?: TournamentSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Tournament
+     */
+    omit?: TournamentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentInclude<ExtArgs> | null
     /**
@@ -10515,7 +11862,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * Tournament delete
    */
@@ -10525,7 +11871,11 @@ export namespace Prisma {
      */
     select?: TournamentSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Tournament
+     */
+    omit?: TournamentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentInclude<ExtArgs> | null
     /**
@@ -10534,7 +11884,6 @@ export namespace Prisma {
     where: TournamentWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Tournament deleteMany
@@ -10546,7 +11895,6 @@ export namespace Prisma {
     where?: TournamentWhereInput
   }
 
-
   /**
    * Tournament.participants
    */
@@ -10556,7 +11904,11 @@ export namespace Prisma {
      */
     select?: BruteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Brute
+     */
+    omit?: BruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteInclude<ExtArgs> | null
     where?: BruteWhereInput
@@ -10567,7 +11919,6 @@ export namespace Prisma {
     distinct?: BruteScalarFieldEnum | BruteScalarFieldEnum[]
   }
 
-
   /**
    * Tournament.steps
    */
@@ -10577,7 +11928,11 @@ export namespace Prisma {
      */
     select?: TournamentStepSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentStep
+     */
+    omit?: TournamentStepOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentStepInclude<ExtArgs> | null
     where?: TournamentStepWhereInput
@@ -10588,7 +11943,6 @@ export namespace Prisma {
     distinct?: TournamentStepScalarFieldEnum | TournamentStepScalarFieldEnum[]
   }
 
-
   /**
    * Tournament.fights
    */
@@ -10598,7 +11952,11 @@ export namespace Prisma {
      */
     select?: FightSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Fight
+     */
+    omit?: FightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: FightInclude<ExtArgs> | null
     where?: FightWhereInput
@@ -10609,7 +11967,6 @@ export namespace Prisma {
     distinct?: FightScalarFieldEnum | FightScalarFieldEnum[]
   }
 
-
   /**
    * Tournament without action
    */
@@ -10619,11 +11976,14 @@ export namespace Prisma {
      */
     select?: TournamentSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Tournament
+     */
+    omit?: TournamentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentInclude<ExtArgs> | null
   }
-
 
 
   /**
@@ -10839,6 +12199,9 @@ export namespace Prisma {
     fightId?: boolean
   }
 
+  export type TournamentStepOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tournamentId" | "step" | "fightId", ExtArgs["result"]["tournamentStep"]>
+
+
   export type TournamentStepInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tournament?: boolean | TournamentDefaultArgs<ExtArgs>
     fight?: boolean | FightDefaultArgs<ExtArgs>
@@ -10864,7 +12227,7 @@ export namespace Prisma {
   type TournamentStepGetPayload<S extends boolean | null | undefined | TournamentStepDefaultArgs> = $Result.GetResult<Prisma.$TournamentStepPayload, S>
 
   type TournamentStepCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<TournamentStepFindManyArgs, 'select' | 'include' | 'distinct' | 'relationLoadStrategy'> & {
+    Omit<TournamentStepFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: TournamentStepCountAggregateInputType | true
     }
 
@@ -11261,7 +12624,6 @@ export namespace Prisma {
     
 
   // Custom InputTypes
-
   /**
    * TournamentStep findUnique
    */
@@ -11271,7 +12633,11 @@ export namespace Prisma {
      */
     select?: TournamentStepSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentStep
+     */
+    omit?: TournamentStepOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentStepInclude<ExtArgs> | null
     /**
@@ -11280,7 +12646,6 @@ export namespace Prisma {
     where: TournamentStepWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * TournamentStep findUniqueOrThrow
@@ -11291,7 +12656,11 @@ export namespace Prisma {
      */
     select?: TournamentStepSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentStep
+     */
+    omit?: TournamentStepOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentStepInclude<ExtArgs> | null
     /**
@@ -11300,7 +12669,6 @@ export namespace Prisma {
     where: TournamentStepWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * TournamentStep findFirst
@@ -11311,7 +12679,11 @@ export namespace Prisma {
      */
     select?: TournamentStepSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentStep
+     */
+    omit?: TournamentStepOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentStepInclude<ExtArgs> | null
     /**
@@ -11350,7 +12722,6 @@ export namespace Prisma {
     distinct?: TournamentStepScalarFieldEnum | TournamentStepScalarFieldEnum[]
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * TournamentStep findFirstOrThrow
@@ -11361,7 +12732,11 @@ export namespace Prisma {
      */
     select?: TournamentStepSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentStep
+     */
+    omit?: TournamentStepOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentStepInclude<ExtArgs> | null
     /**
@@ -11401,7 +12776,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * TournamentStep findMany
    */
@@ -11411,7 +12785,11 @@ export namespace Prisma {
      */
     select?: TournamentStepSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentStep
+     */
+    omit?: TournamentStepOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentStepInclude<ExtArgs> | null
     /**
@@ -11446,7 +12824,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * TournamentStep create
    */
@@ -11456,7 +12833,11 @@ export namespace Prisma {
      */
     select?: TournamentStepSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentStep
+     */
+    omit?: TournamentStepOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentStepInclude<ExtArgs> | null
     /**
@@ -11465,7 +12846,6 @@ export namespace Prisma {
     data: XOR<TournamentStepCreateInput, TournamentStepUncheckedCreateInput>
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * TournamentStep createMany
@@ -11478,7 +12858,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-
   /**
    * TournamentStep update
    */
@@ -11488,7 +12867,11 @@ export namespace Prisma {
      */
     select?: TournamentStepSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentStep
+     */
+    omit?: TournamentStepOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentStepInclude<ExtArgs> | null
     /**
@@ -11501,7 +12884,6 @@ export namespace Prisma {
     where: TournamentStepWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * TournamentStep updateMany
@@ -11517,7 +12899,6 @@ export namespace Prisma {
     where?: TournamentStepWhereInput
   }
 
-
   /**
    * TournamentStep upsert
    */
@@ -11527,7 +12908,11 @@ export namespace Prisma {
      */
     select?: TournamentStepSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentStep
+     */
+    omit?: TournamentStepOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentStepInclude<ExtArgs> | null
     /**
@@ -11545,7 +12930,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * TournamentStep delete
    */
@@ -11555,7 +12939,11 @@ export namespace Prisma {
      */
     select?: TournamentStepSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentStep
+     */
+    omit?: TournamentStepOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentStepInclude<ExtArgs> | null
     /**
@@ -11564,7 +12952,6 @@ export namespace Prisma {
     where: TournamentStepWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * TournamentStep deleteMany
@@ -11576,7 +12963,6 @@ export namespace Prisma {
     where?: TournamentStepWhereInput
   }
 
-
   /**
    * TournamentStep without action
    */
@@ -11586,11 +12972,14 @@ export namespace Prisma {
      */
     select?: TournamentStepSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentStep
+     */
+    omit?: TournamentStepOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentStepInclude<ExtArgs> | null
   }
-
 
 
   /**
@@ -11810,6 +13199,9 @@ export namespace Prisma {
     achievementCount?: boolean
   }
 
+  export type TournamentAchievementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "bruteId" | "achievement" | "achievementCount", ExtArgs["result"]["tournamentAchievement"]>
+
+
   export type TournamentAchievementInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brute?: boolean | BruteDefaultArgs<ExtArgs>
   }
@@ -11834,7 +13226,7 @@ export namespace Prisma {
   type TournamentAchievementGetPayload<S extends boolean | null | undefined | TournamentAchievementDefaultArgs> = $Result.GetResult<Prisma.$TournamentAchievementPayload, S>
 
   type TournamentAchievementCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<TournamentAchievementFindManyArgs, 'select' | 'include' | 'distinct' | 'relationLoadStrategy'> & {
+    Omit<TournamentAchievementFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: TournamentAchievementCountAggregateInputType | true
     }
 
@@ -12230,7 +13622,6 @@ export namespace Prisma {
     
 
   // Custom InputTypes
-
   /**
    * TournamentAchievement findUnique
    */
@@ -12240,7 +13631,11 @@ export namespace Prisma {
      */
     select?: TournamentAchievementSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentAchievement
+     */
+    omit?: TournamentAchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentAchievementInclude<ExtArgs> | null
     /**
@@ -12249,7 +13644,6 @@ export namespace Prisma {
     where: TournamentAchievementWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * TournamentAchievement findUniqueOrThrow
@@ -12260,7 +13654,11 @@ export namespace Prisma {
      */
     select?: TournamentAchievementSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentAchievement
+     */
+    omit?: TournamentAchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentAchievementInclude<ExtArgs> | null
     /**
@@ -12269,7 +13667,6 @@ export namespace Prisma {
     where: TournamentAchievementWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * TournamentAchievement findFirst
@@ -12280,7 +13677,11 @@ export namespace Prisma {
      */
     select?: TournamentAchievementSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentAchievement
+     */
+    omit?: TournamentAchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentAchievementInclude<ExtArgs> | null
     /**
@@ -12319,7 +13720,6 @@ export namespace Prisma {
     distinct?: TournamentAchievementScalarFieldEnum | TournamentAchievementScalarFieldEnum[]
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * TournamentAchievement findFirstOrThrow
@@ -12330,7 +13730,11 @@ export namespace Prisma {
      */
     select?: TournamentAchievementSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentAchievement
+     */
+    omit?: TournamentAchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentAchievementInclude<ExtArgs> | null
     /**
@@ -12370,7 +13774,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * TournamentAchievement findMany
    */
@@ -12380,7 +13783,11 @@ export namespace Prisma {
      */
     select?: TournamentAchievementSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentAchievement
+     */
+    omit?: TournamentAchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentAchievementInclude<ExtArgs> | null
     /**
@@ -12415,7 +13822,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * TournamentAchievement create
    */
@@ -12425,7 +13831,11 @@ export namespace Prisma {
      */
     select?: TournamentAchievementSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentAchievement
+     */
+    omit?: TournamentAchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentAchievementInclude<ExtArgs> | null
     /**
@@ -12434,7 +13844,6 @@ export namespace Prisma {
     data: XOR<TournamentAchievementCreateInput, TournamentAchievementUncheckedCreateInput>
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * TournamentAchievement createMany
@@ -12447,7 +13856,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-
   /**
    * TournamentAchievement update
    */
@@ -12457,7 +13865,11 @@ export namespace Prisma {
      */
     select?: TournamentAchievementSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentAchievement
+     */
+    omit?: TournamentAchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentAchievementInclude<ExtArgs> | null
     /**
@@ -12470,7 +13882,6 @@ export namespace Prisma {
     where: TournamentAchievementWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * TournamentAchievement updateMany
@@ -12486,7 +13897,6 @@ export namespace Prisma {
     where?: TournamentAchievementWhereInput
   }
 
-
   /**
    * TournamentAchievement upsert
    */
@@ -12496,7 +13906,11 @@ export namespace Prisma {
      */
     select?: TournamentAchievementSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentAchievement
+     */
+    omit?: TournamentAchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentAchievementInclude<ExtArgs> | null
     /**
@@ -12514,7 +13928,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * TournamentAchievement delete
    */
@@ -12524,7 +13937,11 @@ export namespace Prisma {
      */
     select?: TournamentAchievementSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentAchievement
+     */
+    omit?: TournamentAchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentAchievementInclude<ExtArgs> | null
     /**
@@ -12533,7 +13950,6 @@ export namespace Prisma {
     where: TournamentAchievementWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * TournamentAchievement deleteMany
@@ -12545,7 +13961,6 @@ export namespace Prisma {
     where?: TournamentAchievementWhereInput
   }
 
-
   /**
    * TournamentAchievement without action
    */
@@ -12555,11 +13970,14 @@ export namespace Prisma {
      */
     select?: TournamentAchievementSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentAchievement
+     */
+    omit?: TournamentAchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentAchievementInclude<ExtArgs> | null
   }
-
 
 
   /**
@@ -12766,6 +14184,9 @@ export namespace Prisma {
     gold?: boolean
   }
 
+  export type TournamentGoldOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "userId" | "gold", ExtArgs["result"]["tournamentGold"]>
+
+
   export type TournamentGoldInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -12789,7 +14210,7 @@ export namespace Prisma {
   type TournamentGoldGetPayload<S extends boolean | null | undefined | TournamentGoldDefaultArgs> = $Result.GetResult<Prisma.$TournamentGoldPayload, S>
 
   type TournamentGoldCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<TournamentGoldFindManyArgs, 'select' | 'include' | 'distinct' | 'relationLoadStrategy'> & {
+    Omit<TournamentGoldFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: TournamentGoldCountAggregateInputType | true
     }
 
@@ -13184,7 +14605,6 @@ export namespace Prisma {
     
 
   // Custom InputTypes
-
   /**
    * TournamentGold findUnique
    */
@@ -13194,7 +14614,11 @@ export namespace Prisma {
      */
     select?: TournamentGoldSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentGold
+     */
+    omit?: TournamentGoldOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentGoldInclude<ExtArgs> | null
     /**
@@ -13203,7 +14627,6 @@ export namespace Prisma {
     where: TournamentGoldWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * TournamentGold findUniqueOrThrow
@@ -13214,7 +14637,11 @@ export namespace Prisma {
      */
     select?: TournamentGoldSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentGold
+     */
+    omit?: TournamentGoldOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentGoldInclude<ExtArgs> | null
     /**
@@ -13223,7 +14650,6 @@ export namespace Prisma {
     where: TournamentGoldWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * TournamentGold findFirst
@@ -13234,7 +14660,11 @@ export namespace Prisma {
      */
     select?: TournamentGoldSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentGold
+     */
+    omit?: TournamentGoldOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentGoldInclude<ExtArgs> | null
     /**
@@ -13273,7 +14703,6 @@ export namespace Prisma {
     distinct?: TournamentGoldScalarFieldEnum | TournamentGoldScalarFieldEnum[]
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * TournamentGold findFirstOrThrow
@@ -13284,7 +14713,11 @@ export namespace Prisma {
      */
     select?: TournamentGoldSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentGold
+     */
+    omit?: TournamentGoldOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentGoldInclude<ExtArgs> | null
     /**
@@ -13324,7 +14757,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * TournamentGold findMany
    */
@@ -13334,7 +14766,11 @@ export namespace Prisma {
      */
     select?: TournamentGoldSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentGold
+     */
+    omit?: TournamentGoldOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentGoldInclude<ExtArgs> | null
     /**
@@ -13369,7 +14805,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * TournamentGold create
    */
@@ -13379,7 +14814,11 @@ export namespace Prisma {
      */
     select?: TournamentGoldSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentGold
+     */
+    omit?: TournamentGoldOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentGoldInclude<ExtArgs> | null
     /**
@@ -13388,7 +14827,6 @@ export namespace Prisma {
     data: XOR<TournamentGoldCreateInput, TournamentGoldUncheckedCreateInput>
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * TournamentGold createMany
@@ -13401,7 +14839,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-
   /**
    * TournamentGold update
    */
@@ -13411,7 +14848,11 @@ export namespace Prisma {
      */
     select?: TournamentGoldSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentGold
+     */
+    omit?: TournamentGoldOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentGoldInclude<ExtArgs> | null
     /**
@@ -13424,7 +14865,6 @@ export namespace Prisma {
     where: TournamentGoldWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * TournamentGold updateMany
@@ -13440,7 +14880,6 @@ export namespace Prisma {
     where?: TournamentGoldWhereInput
   }
 
-
   /**
    * TournamentGold upsert
    */
@@ -13450,7 +14889,11 @@ export namespace Prisma {
      */
     select?: TournamentGoldSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentGold
+     */
+    omit?: TournamentGoldOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentGoldInclude<ExtArgs> | null
     /**
@@ -13468,7 +14911,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * TournamentGold delete
    */
@@ -13478,7 +14920,11 @@ export namespace Prisma {
      */
     select?: TournamentGoldSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentGold
+     */
+    omit?: TournamentGoldOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentGoldInclude<ExtArgs> | null
     /**
@@ -13487,7 +14933,6 @@ export namespace Prisma {
     where: TournamentGoldWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * TournamentGold deleteMany
@@ -13499,7 +14944,6 @@ export namespace Prisma {
     where?: TournamentGoldWhereInput
   }
 
-
   /**
    * TournamentGold without action
    */
@@ -13509,11 +14953,14 @@ export namespace Prisma {
      */
     select?: TournamentGoldSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentGold
+     */
+    omit?: TournamentGoldOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentGoldInclude<ExtArgs> | null
   }
-
 
 
   /**
@@ -13724,6 +15171,9 @@ export namespace Prisma {
     xp?: boolean
   }
 
+  export type TournamentXpOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "bruteId" | "xp", ExtArgs["result"]["tournamentXp"]>
+
+
   export type TournamentXpInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brute?: boolean | BruteDefaultArgs<ExtArgs>
   }
@@ -13747,7 +15197,7 @@ export namespace Prisma {
   type TournamentXpGetPayload<S extends boolean | null | undefined | TournamentXpDefaultArgs> = $Result.GetResult<Prisma.$TournamentXpPayload, S>
 
   type TournamentXpCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<TournamentXpFindManyArgs, 'select' | 'include' | 'distinct' | 'relationLoadStrategy'> & {
+    Omit<TournamentXpFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: TournamentXpCountAggregateInputType | true
     }
 
@@ -14142,7 +15592,6 @@ export namespace Prisma {
     
 
   // Custom InputTypes
-
   /**
    * TournamentXp findUnique
    */
@@ -14152,7 +15601,11 @@ export namespace Prisma {
      */
     select?: TournamentXpSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentXp
+     */
+    omit?: TournamentXpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentXpInclude<ExtArgs> | null
     /**
@@ -14161,7 +15614,6 @@ export namespace Prisma {
     where: TournamentXpWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * TournamentXp findUniqueOrThrow
@@ -14172,7 +15624,11 @@ export namespace Prisma {
      */
     select?: TournamentXpSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentXp
+     */
+    omit?: TournamentXpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentXpInclude<ExtArgs> | null
     /**
@@ -14181,7 +15637,6 @@ export namespace Prisma {
     where: TournamentXpWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * TournamentXp findFirst
@@ -14192,7 +15647,11 @@ export namespace Prisma {
      */
     select?: TournamentXpSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentXp
+     */
+    omit?: TournamentXpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentXpInclude<ExtArgs> | null
     /**
@@ -14231,7 +15690,6 @@ export namespace Prisma {
     distinct?: TournamentXpScalarFieldEnum | TournamentXpScalarFieldEnum[]
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * TournamentXp findFirstOrThrow
@@ -14242,7 +15700,11 @@ export namespace Prisma {
      */
     select?: TournamentXpSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentXp
+     */
+    omit?: TournamentXpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentXpInclude<ExtArgs> | null
     /**
@@ -14282,7 +15744,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * TournamentXp findMany
    */
@@ -14292,7 +15753,11 @@ export namespace Prisma {
      */
     select?: TournamentXpSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentXp
+     */
+    omit?: TournamentXpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentXpInclude<ExtArgs> | null
     /**
@@ -14327,7 +15792,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * TournamentXp create
    */
@@ -14337,7 +15801,11 @@ export namespace Prisma {
      */
     select?: TournamentXpSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentXp
+     */
+    omit?: TournamentXpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentXpInclude<ExtArgs> | null
     /**
@@ -14346,7 +15814,6 @@ export namespace Prisma {
     data: XOR<TournamentXpCreateInput, TournamentXpUncheckedCreateInput>
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * TournamentXp createMany
@@ -14359,7 +15826,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-
   /**
    * TournamentXp update
    */
@@ -14369,7 +15835,11 @@ export namespace Prisma {
      */
     select?: TournamentXpSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentXp
+     */
+    omit?: TournamentXpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentXpInclude<ExtArgs> | null
     /**
@@ -14382,7 +15852,6 @@ export namespace Prisma {
     where: TournamentXpWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * TournamentXp updateMany
@@ -14398,7 +15867,6 @@ export namespace Prisma {
     where?: TournamentXpWhereInput
   }
 
-
   /**
    * TournamentXp upsert
    */
@@ -14408,7 +15876,11 @@ export namespace Prisma {
      */
     select?: TournamentXpSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentXp
+     */
+    omit?: TournamentXpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentXpInclude<ExtArgs> | null
     /**
@@ -14426,7 +15898,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * TournamentXp delete
    */
@@ -14436,7 +15907,11 @@ export namespace Prisma {
      */
     select?: TournamentXpSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentXp
+     */
+    omit?: TournamentXpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentXpInclude<ExtArgs> | null
     /**
@@ -14445,7 +15920,6 @@ export namespace Prisma {
     where: TournamentXpWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * TournamentXp deleteMany
@@ -14457,7 +15931,6 @@ export namespace Prisma {
     where?: TournamentXpWhereInput
   }
 
-
   /**
    * TournamentXp without action
    */
@@ -14467,11 +15940,14 @@ export namespace Prisma {
      */
     select?: TournamentXpSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the TournamentXp
+     */
+    omit?: TournamentXpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TournamentXpInclude<ExtArgs> | null
   }
-
 
 
   /**
@@ -14692,6 +16168,9 @@ export namespace Prisma {
     userId?: boolean
   }
 
+  export type AchievementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "count" | "bruteId" | "userId", ExtArgs["result"]["achievement"]>
+
+
   export type AchievementInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brute?: boolean | Achievement$bruteArgs<ExtArgs>
     user?: boolean | Achievement$userArgs<ExtArgs>
@@ -14718,7 +16197,7 @@ export namespace Prisma {
   type AchievementGetPayload<S extends boolean | null | undefined | AchievementDefaultArgs> = $Result.GetResult<Prisma.$AchievementPayload, S>
 
   type AchievementCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<AchievementFindManyArgs, 'select' | 'include' | 'distinct' | 'relationLoadStrategy'> & {
+    Omit<AchievementFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: AchievementCountAggregateInputType | true
     }
 
@@ -15116,7 +16595,6 @@ export namespace Prisma {
     
 
   // Custom InputTypes
-
   /**
    * Achievement findUnique
    */
@@ -15126,7 +16604,11 @@ export namespace Prisma {
      */
     select?: AchievementSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: AchievementInclude<ExtArgs> | null
     /**
@@ -15135,7 +16617,6 @@ export namespace Prisma {
     where: AchievementWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Achievement findUniqueOrThrow
@@ -15146,7 +16627,11 @@ export namespace Prisma {
      */
     select?: AchievementSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: AchievementInclude<ExtArgs> | null
     /**
@@ -15155,7 +16640,6 @@ export namespace Prisma {
     where: AchievementWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Achievement findFirst
@@ -15166,7 +16650,11 @@ export namespace Prisma {
      */
     select?: AchievementSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: AchievementInclude<ExtArgs> | null
     /**
@@ -15205,7 +16693,6 @@ export namespace Prisma {
     distinct?: AchievementScalarFieldEnum | AchievementScalarFieldEnum[]
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Achievement findFirstOrThrow
@@ -15216,7 +16703,11 @@ export namespace Prisma {
      */
     select?: AchievementSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: AchievementInclude<ExtArgs> | null
     /**
@@ -15256,7 +16747,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * Achievement findMany
    */
@@ -15266,7 +16756,11 @@ export namespace Prisma {
      */
     select?: AchievementSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: AchievementInclude<ExtArgs> | null
     /**
@@ -15301,7 +16795,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * Achievement create
    */
@@ -15311,7 +16804,11 @@ export namespace Prisma {
      */
     select?: AchievementSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: AchievementInclude<ExtArgs> | null
     /**
@@ -15320,7 +16817,6 @@ export namespace Prisma {
     data: XOR<AchievementCreateInput, AchievementUncheckedCreateInput>
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Achievement createMany
@@ -15333,7 +16829,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-
   /**
    * Achievement update
    */
@@ -15343,7 +16838,11 @@ export namespace Prisma {
      */
     select?: AchievementSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: AchievementInclude<ExtArgs> | null
     /**
@@ -15356,7 +16855,6 @@ export namespace Prisma {
     where: AchievementWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Achievement updateMany
@@ -15372,7 +16870,6 @@ export namespace Prisma {
     where?: AchievementWhereInput
   }
 
-
   /**
    * Achievement upsert
    */
@@ -15382,7 +16879,11 @@ export namespace Prisma {
      */
     select?: AchievementSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: AchievementInclude<ExtArgs> | null
     /**
@@ -15400,7 +16901,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * Achievement delete
    */
@@ -15410,7 +16910,11 @@ export namespace Prisma {
      */
     select?: AchievementSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: AchievementInclude<ExtArgs> | null
     /**
@@ -15419,7 +16923,6 @@ export namespace Prisma {
     where: AchievementWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Achievement deleteMany
@@ -15431,7 +16934,6 @@ export namespace Prisma {
     where?: AchievementWhereInput
   }
 
-
   /**
    * Achievement.brute
    */
@@ -15441,12 +16943,15 @@ export namespace Prisma {
      */
     select?: BruteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Brute
+     */
+    omit?: BruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteInclude<ExtArgs> | null
     where?: BruteWhereInput
   }
-
 
   /**
    * Achievement.user
@@ -15457,12 +16962,15 @@ export namespace Prisma {
      */
     select?: UserSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
     where?: UserWhereInput
   }
-
 
   /**
    * Achievement without action
@@ -15473,11 +16981,14 @@ export namespace Prisma {
      */
     select?: AchievementSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: AchievementInclude<ExtArgs> | null
   }
-
 
 
   /**
@@ -15676,6 +17187,9 @@ export namespace Prisma {
     count?: boolean
   }
 
+  export type TitleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "count", ExtArgs["result"]["title"]>
+
+
   export type TitleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brutes?: boolean | Title$brutesArgs<ExtArgs>
     _count?: boolean | TitleCountOutputTypeDefaultArgs<ExtArgs>
@@ -15699,7 +17213,7 @@ export namespace Prisma {
   type TitleGetPayload<S extends boolean | null | undefined | TitleDefaultArgs> = $Result.GetResult<Prisma.$TitlePayload, S>
 
   type TitleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<TitleFindManyArgs, 'select' | 'include' | 'distinct' | 'relationLoadStrategy'> & {
+    Omit<TitleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: TitleCountAggregateInputType | true
     }
 
@@ -16093,7 +17607,6 @@ export namespace Prisma {
     
 
   // Custom InputTypes
-
   /**
    * Title findUnique
    */
@@ -16103,7 +17616,11 @@ export namespace Prisma {
      */
     select?: TitleSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Title
+     */
+    omit?: TitleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TitleInclude<ExtArgs> | null
     /**
@@ -16112,7 +17629,6 @@ export namespace Prisma {
     where: TitleWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Title findUniqueOrThrow
@@ -16123,7 +17639,11 @@ export namespace Prisma {
      */
     select?: TitleSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Title
+     */
+    omit?: TitleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TitleInclude<ExtArgs> | null
     /**
@@ -16132,7 +17652,6 @@ export namespace Prisma {
     where: TitleWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Title findFirst
@@ -16143,7 +17662,11 @@ export namespace Prisma {
      */
     select?: TitleSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Title
+     */
+    omit?: TitleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TitleInclude<ExtArgs> | null
     /**
@@ -16182,7 +17705,6 @@ export namespace Prisma {
     distinct?: TitleScalarFieldEnum | TitleScalarFieldEnum[]
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Title findFirstOrThrow
@@ -16193,7 +17715,11 @@ export namespace Prisma {
      */
     select?: TitleSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Title
+     */
+    omit?: TitleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TitleInclude<ExtArgs> | null
     /**
@@ -16233,7 +17759,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * Title findMany
    */
@@ -16243,7 +17768,11 @@ export namespace Prisma {
      */
     select?: TitleSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Title
+     */
+    omit?: TitleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TitleInclude<ExtArgs> | null
     /**
@@ -16278,7 +17807,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * Title create
    */
@@ -16288,7 +17816,11 @@ export namespace Prisma {
      */
     select?: TitleSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Title
+     */
+    omit?: TitleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TitleInclude<ExtArgs> | null
     /**
@@ -16297,7 +17829,6 @@ export namespace Prisma {
     data: XOR<TitleCreateInput, TitleUncheckedCreateInput>
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Title createMany
@@ -16310,7 +17841,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-
   /**
    * Title update
    */
@@ -16320,7 +17850,11 @@ export namespace Prisma {
      */
     select?: TitleSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Title
+     */
+    omit?: TitleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TitleInclude<ExtArgs> | null
     /**
@@ -16333,7 +17867,6 @@ export namespace Prisma {
     where: TitleWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Title updateMany
@@ -16349,7 +17882,6 @@ export namespace Prisma {
     where?: TitleWhereInput
   }
 
-
   /**
    * Title upsert
    */
@@ -16359,7 +17891,11 @@ export namespace Prisma {
      */
     select?: TitleSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Title
+     */
+    omit?: TitleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TitleInclude<ExtArgs> | null
     /**
@@ -16377,7 +17913,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * Title delete
    */
@@ -16387,7 +17922,11 @@ export namespace Prisma {
      */
     select?: TitleSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Title
+     */
+    omit?: TitleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TitleInclude<ExtArgs> | null
     /**
@@ -16396,7 +17935,6 @@ export namespace Prisma {
     where: TitleWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Title deleteMany
@@ -16408,7 +17946,6 @@ export namespace Prisma {
     where?: TitleWhereInput
   }
 
-
   /**
    * Title.brutes
    */
@@ -16418,7 +17955,11 @@ export namespace Prisma {
      */
     select?: BruteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Brute
+     */
+    omit?: BruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteInclude<ExtArgs> | null
     where?: BruteWhereInput
@@ -16429,7 +17970,6 @@ export namespace Prisma {
     distinct?: BruteScalarFieldEnum | BruteScalarFieldEnum[]
   }
 
-
   /**
    * Title without action
    */
@@ -16439,11 +17979,14 @@ export namespace Prisma {
      */
     select?: TitleSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Title
+     */
+    omit?: TitleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: TitleInclude<ExtArgs> | null
   }
-
 
 
   /**
@@ -16674,6 +18217,9 @@ export namespace Prisma {
     status?: boolean
   }
 
+  export type BruteReportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bruteId" | "reason" | "count" | "date" | "status", ExtArgs["result"]["bruteReport"]>
+
+
   export type BruteReportInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brute?: boolean | BruteDefaultArgs<ExtArgs>
     users?: boolean | BruteReport$usersArgs<ExtArgs>
@@ -16702,7 +18248,7 @@ export namespace Prisma {
   type BruteReportGetPayload<S extends boolean | null | undefined | BruteReportDefaultArgs> = $Result.GetResult<Prisma.$BruteReportPayload, S>
 
   type BruteReportCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<BruteReportFindManyArgs, 'select' | 'include' | 'distinct' | 'relationLoadStrategy'> & {
+    Omit<BruteReportFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: BruteReportCountAggregateInputType | true
     }
 
@@ -17101,7 +18647,6 @@ export namespace Prisma {
     
 
   // Custom InputTypes
-
   /**
    * BruteReport findUnique
    */
@@ -17111,7 +18656,11 @@ export namespace Prisma {
      */
     select?: BruteReportSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the BruteReport
+     */
+    omit?: BruteReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteReportInclude<ExtArgs> | null
     /**
@@ -17120,7 +18669,6 @@ export namespace Prisma {
     where: BruteReportWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * BruteReport findUniqueOrThrow
@@ -17131,7 +18679,11 @@ export namespace Prisma {
      */
     select?: BruteReportSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the BruteReport
+     */
+    omit?: BruteReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteReportInclude<ExtArgs> | null
     /**
@@ -17140,7 +18692,6 @@ export namespace Prisma {
     where: BruteReportWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * BruteReport findFirst
@@ -17151,7 +18702,11 @@ export namespace Prisma {
      */
     select?: BruteReportSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the BruteReport
+     */
+    omit?: BruteReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteReportInclude<ExtArgs> | null
     /**
@@ -17190,7 +18745,6 @@ export namespace Prisma {
     distinct?: BruteReportScalarFieldEnum | BruteReportScalarFieldEnum[]
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * BruteReport findFirstOrThrow
@@ -17201,7 +18755,11 @@ export namespace Prisma {
      */
     select?: BruteReportSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the BruteReport
+     */
+    omit?: BruteReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteReportInclude<ExtArgs> | null
     /**
@@ -17241,7 +18799,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * BruteReport findMany
    */
@@ -17251,7 +18808,11 @@ export namespace Prisma {
      */
     select?: BruteReportSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the BruteReport
+     */
+    omit?: BruteReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteReportInclude<ExtArgs> | null
     /**
@@ -17286,7 +18847,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * BruteReport create
    */
@@ -17296,7 +18856,11 @@ export namespace Prisma {
      */
     select?: BruteReportSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the BruteReport
+     */
+    omit?: BruteReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteReportInclude<ExtArgs> | null
     /**
@@ -17305,7 +18869,6 @@ export namespace Prisma {
     data: XOR<BruteReportCreateInput, BruteReportUncheckedCreateInput>
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * BruteReport createMany
@@ -17318,7 +18881,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-
   /**
    * BruteReport update
    */
@@ -17328,7 +18890,11 @@ export namespace Prisma {
      */
     select?: BruteReportSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the BruteReport
+     */
+    omit?: BruteReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteReportInclude<ExtArgs> | null
     /**
@@ -17341,7 +18907,6 @@ export namespace Prisma {
     where: BruteReportWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * BruteReport updateMany
@@ -17357,7 +18922,6 @@ export namespace Prisma {
     where?: BruteReportWhereInput
   }
 
-
   /**
    * BruteReport upsert
    */
@@ -17367,7 +18931,11 @@ export namespace Prisma {
      */
     select?: BruteReportSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the BruteReport
+     */
+    omit?: BruteReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteReportInclude<ExtArgs> | null
     /**
@@ -17385,7 +18953,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * BruteReport delete
    */
@@ -17395,7 +18962,11 @@ export namespace Prisma {
      */
     select?: BruteReportSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the BruteReport
+     */
+    omit?: BruteReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteReportInclude<ExtArgs> | null
     /**
@@ -17404,7 +18975,6 @@ export namespace Prisma {
     where: BruteReportWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * BruteReport deleteMany
@@ -17416,7 +18986,6 @@ export namespace Prisma {
     where?: BruteReportWhereInput
   }
 
-
   /**
    * BruteReport.users
    */
@@ -17426,7 +18995,11 @@ export namespace Prisma {
      */
     select?: UserSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
     where?: UserWhereInput
@@ -17437,7 +19010,6 @@ export namespace Prisma {
     distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
   }
 
-
   /**
    * BruteReport without action
    */
@@ -17447,11 +19019,14 @@ export namespace Prisma {
      */
     select?: BruteReportSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the BruteReport
+     */
+    omit?: BruteReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteReportInclude<ExtArgs> | null
   }
-
 
 
   /**
@@ -17635,6 +19210,9 @@ export namespace Prisma {
     globalTournamentValid?: boolean
   }
 
+  export type ServerStateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "globalTournamentValid", ExtArgs["result"]["serverState"]>
+
+
 
   export type $ServerStatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "ServerState"
@@ -17650,7 +19228,7 @@ export namespace Prisma {
   type ServerStateGetPayload<S extends boolean | null | undefined | ServerStateDefaultArgs> = $Result.GetResult<Prisma.$ServerStatePayload, S>
 
   type ServerStateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<ServerStateFindManyArgs, 'select' | 'include' | 'distinct' | 'relationLoadStrategy'> & {
+    Omit<ServerStateFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: ServerStateCountAggregateInputType | true
     }
 
@@ -18042,7 +19620,6 @@ export namespace Prisma {
     
 
   // Custom InputTypes
-
   /**
    * ServerState findUnique
    */
@@ -18052,12 +19629,15 @@ export namespace Prisma {
      */
     select?: ServerStateSelect<ExtArgs> | null
     /**
+     * Omit specific fields from the ServerState
+     */
+    omit?: ServerStateOmit<ExtArgs> | null
+    /**
      * Filter, which ServerState to fetch.
      */
     where: ServerStateWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * ServerState findUniqueOrThrow
@@ -18068,12 +19648,15 @@ export namespace Prisma {
      */
     select?: ServerStateSelect<ExtArgs> | null
     /**
+     * Omit specific fields from the ServerState
+     */
+    omit?: ServerStateOmit<ExtArgs> | null
+    /**
      * Filter, which ServerState to fetch.
      */
     where: ServerStateWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * ServerState findFirst
@@ -18084,6 +19667,10 @@ export namespace Prisma {
      */
     select?: ServerStateSelect<ExtArgs> | null
     /**
+     * Omit specific fields from the ServerState
+     */
+    omit?: ServerStateOmit<ExtArgs> | null
+    /**
      * Filter, which ServerState to fetch.
      */
     where?: ServerStateWhereInput
@@ -18119,7 +19706,6 @@ export namespace Prisma {
     distinct?: ServerStateScalarFieldEnum | ServerStateScalarFieldEnum[]
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * ServerState findFirstOrThrow
@@ -18130,6 +19716,10 @@ export namespace Prisma {
      */
     select?: ServerStateSelect<ExtArgs> | null
     /**
+     * Omit specific fields from the ServerState
+     */
+    omit?: ServerStateOmit<ExtArgs> | null
+    /**
      * Filter, which ServerState to fetch.
      */
     where?: ServerStateWhereInput
@@ -18166,7 +19756,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * ServerState findMany
    */
@@ -18175,6 +19764,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the ServerState
      */
     select?: ServerStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ServerState
+     */
+    omit?: ServerStateOmit<ExtArgs> | null
     /**
      * Filter, which ServerStates to fetch.
      */
@@ -18207,7 +19800,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * ServerState create
    */
@@ -18217,12 +19809,15 @@ export namespace Prisma {
      */
     select?: ServerStateSelect<ExtArgs> | null
     /**
+     * Omit specific fields from the ServerState
+     */
+    omit?: ServerStateOmit<ExtArgs> | null
+    /**
      * The data needed to create a ServerState.
      */
     data?: XOR<ServerStateCreateInput, ServerStateUncheckedCreateInput>
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * ServerState createMany
@@ -18235,7 +19830,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-
   /**
    * ServerState update
    */
@@ -18244,6 +19838,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the ServerState
      */
     select?: ServerStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ServerState
+     */
+    omit?: ServerStateOmit<ExtArgs> | null
     /**
      * The data needed to update a ServerState.
      */
@@ -18254,7 +19852,6 @@ export namespace Prisma {
     where: ServerStateWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * ServerState updateMany
@@ -18270,7 +19867,6 @@ export namespace Prisma {
     where?: ServerStateWhereInput
   }
 
-
   /**
    * ServerState upsert
    */
@@ -18279,6 +19875,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the ServerState
      */
     select?: ServerStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ServerState
+     */
+    omit?: ServerStateOmit<ExtArgs> | null
     /**
      * The filter to search for the ServerState to update in case it exists.
      */
@@ -18294,7 +19894,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * ServerState delete
    */
@@ -18304,12 +19903,15 @@ export namespace Prisma {
      */
     select?: ServerStateSelect<ExtArgs> | null
     /**
+     * Omit specific fields from the ServerState
+     */
+    omit?: ServerStateOmit<ExtArgs> | null
+    /**
      * Filter which ServerState to delete.
      */
     where: ServerStateWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * ServerState deleteMany
@@ -18321,7 +19923,6 @@ export namespace Prisma {
     where?: ServerStateWhereInput
   }
 
-
   /**
    * ServerState without action
    */
@@ -18330,8 +19931,11 @@ export namespace Prisma {
      * Select specific fields to fetch from the ServerState
      */
     select?: ServerStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ServerState
+     */
+    omit?: ServerStateOmit<ExtArgs> | null
   }
-
 
 
   /**
@@ -18515,6 +20119,9 @@ export namespace Prisma {
     word?: boolean
   }
 
+  export type BannedWordOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "word", ExtArgs["result"]["bannedWord"]>
+
+
 
   export type $BannedWordPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "BannedWord"
@@ -18530,7 +20137,7 @@ export namespace Prisma {
   type BannedWordGetPayload<S extends boolean | null | undefined | BannedWordDefaultArgs> = $Result.GetResult<Prisma.$BannedWordPayload, S>
 
   type BannedWordCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<BannedWordFindManyArgs, 'select' | 'include' | 'distinct' | 'relationLoadStrategy'> & {
+    Omit<BannedWordFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: BannedWordCountAggregateInputType | true
     }
 
@@ -18922,7 +20529,6 @@ export namespace Prisma {
     
 
   // Custom InputTypes
-
   /**
    * BannedWord findUnique
    */
@@ -18932,12 +20538,15 @@ export namespace Prisma {
      */
     select?: BannedWordSelect<ExtArgs> | null
     /**
+     * Omit specific fields from the BannedWord
+     */
+    omit?: BannedWordOmit<ExtArgs> | null
+    /**
      * Filter, which BannedWord to fetch.
      */
     where: BannedWordWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * BannedWord findUniqueOrThrow
@@ -18948,12 +20557,15 @@ export namespace Prisma {
      */
     select?: BannedWordSelect<ExtArgs> | null
     /**
+     * Omit specific fields from the BannedWord
+     */
+    omit?: BannedWordOmit<ExtArgs> | null
+    /**
      * Filter, which BannedWord to fetch.
      */
     where: BannedWordWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * BannedWord findFirst
@@ -18964,6 +20576,10 @@ export namespace Prisma {
      */
     select?: BannedWordSelect<ExtArgs> | null
     /**
+     * Omit specific fields from the BannedWord
+     */
+    omit?: BannedWordOmit<ExtArgs> | null
+    /**
      * Filter, which BannedWord to fetch.
      */
     where?: BannedWordWhereInput
@@ -18999,7 +20615,6 @@ export namespace Prisma {
     distinct?: BannedWordScalarFieldEnum | BannedWordScalarFieldEnum[]
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * BannedWord findFirstOrThrow
@@ -19010,6 +20625,10 @@ export namespace Prisma {
      */
     select?: BannedWordSelect<ExtArgs> | null
     /**
+     * Omit specific fields from the BannedWord
+     */
+    omit?: BannedWordOmit<ExtArgs> | null
+    /**
      * Filter, which BannedWord to fetch.
      */
     where?: BannedWordWhereInput
@@ -19046,7 +20665,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * BannedWord findMany
    */
@@ -19055,6 +20673,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the BannedWord
      */
     select?: BannedWordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannedWord
+     */
+    omit?: BannedWordOmit<ExtArgs> | null
     /**
      * Filter, which BannedWords to fetch.
      */
@@ -19087,7 +20709,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * BannedWord create
    */
@@ -19097,12 +20718,15 @@ export namespace Prisma {
      */
     select?: BannedWordSelect<ExtArgs> | null
     /**
+     * Omit specific fields from the BannedWord
+     */
+    omit?: BannedWordOmit<ExtArgs> | null
+    /**
      * The data needed to create a BannedWord.
      */
     data: XOR<BannedWordCreateInput, BannedWordUncheckedCreateInput>
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * BannedWord createMany
@@ -19115,7 +20739,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-
   /**
    * BannedWord update
    */
@@ -19124,6 +20747,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the BannedWord
      */
     select?: BannedWordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannedWord
+     */
+    omit?: BannedWordOmit<ExtArgs> | null
     /**
      * The data needed to update a BannedWord.
      */
@@ -19134,7 +20761,6 @@ export namespace Prisma {
     where: BannedWordWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * BannedWord updateMany
@@ -19150,7 +20776,6 @@ export namespace Prisma {
     where?: BannedWordWhereInput
   }
 
-
   /**
    * BannedWord upsert
    */
@@ -19159,6 +20784,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the BannedWord
      */
     select?: BannedWordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannedWord
+     */
+    omit?: BannedWordOmit<ExtArgs> | null
     /**
      * The filter to search for the BannedWord to update in case it exists.
      */
@@ -19174,7 +20803,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * BannedWord delete
    */
@@ -19184,12 +20812,15 @@ export namespace Prisma {
      */
     select?: BannedWordSelect<ExtArgs> | null
     /**
+     * Omit specific fields from the BannedWord
+     */
+    omit?: BannedWordOmit<ExtArgs> | null
+    /**
      * Filter which BannedWord to delete.
      */
     where: BannedWordWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * BannedWord deleteMany
@@ -19201,7 +20832,6 @@ export namespace Prisma {
     where?: BannedWordWhereInput
   }
 
-
   /**
    * BannedWord without action
    */
@@ -19210,8 +20840,11 @@ export namespace Prisma {
      * Select specific fields to fetch from the BannedWord
      */
     select?: BannedWordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannedWord
+     */
+    omit?: BannedWordOmit<ExtArgs> | null
   }
-
 
 
   /**
@@ -19404,6 +21037,9 @@ export namespace Prisma {
     payload?: boolean
   }
 
+  export type WorkerJobOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "worker" | "payload", ExtArgs["result"]["workerJob"]>
+
+
 
   export type $WorkerJobPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "WorkerJob"
@@ -19420,7 +21056,7 @@ export namespace Prisma {
   type WorkerJobGetPayload<S extends boolean | null | undefined | WorkerJobDefaultArgs> = $Result.GetResult<Prisma.$WorkerJobPayload, S>
 
   type WorkerJobCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<WorkerJobFindManyArgs, 'select' | 'include' | 'distinct' | 'relationLoadStrategy'> & {
+    Omit<WorkerJobFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: WorkerJobCountAggregateInputType | true
     }
 
@@ -19813,7 +21449,6 @@ export namespace Prisma {
     
 
   // Custom InputTypes
-
   /**
    * WorkerJob findUnique
    */
@@ -19823,12 +21458,15 @@ export namespace Prisma {
      */
     select?: WorkerJobSelect<ExtArgs> | null
     /**
+     * Omit specific fields from the WorkerJob
+     */
+    omit?: WorkerJobOmit<ExtArgs> | null
+    /**
      * Filter, which WorkerJob to fetch.
      */
     where: WorkerJobWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * WorkerJob findUniqueOrThrow
@@ -19839,12 +21477,15 @@ export namespace Prisma {
      */
     select?: WorkerJobSelect<ExtArgs> | null
     /**
+     * Omit specific fields from the WorkerJob
+     */
+    omit?: WorkerJobOmit<ExtArgs> | null
+    /**
      * Filter, which WorkerJob to fetch.
      */
     where: WorkerJobWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * WorkerJob findFirst
@@ -19855,6 +21496,10 @@ export namespace Prisma {
      */
     select?: WorkerJobSelect<ExtArgs> | null
     /**
+     * Omit specific fields from the WorkerJob
+     */
+    omit?: WorkerJobOmit<ExtArgs> | null
+    /**
      * Filter, which WorkerJob to fetch.
      */
     where?: WorkerJobWhereInput
@@ -19890,7 +21535,6 @@ export namespace Prisma {
     distinct?: WorkerJobScalarFieldEnum | WorkerJobScalarFieldEnum[]
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * WorkerJob findFirstOrThrow
@@ -19901,6 +21545,10 @@ export namespace Prisma {
      */
     select?: WorkerJobSelect<ExtArgs> | null
     /**
+     * Omit specific fields from the WorkerJob
+     */
+    omit?: WorkerJobOmit<ExtArgs> | null
+    /**
      * Filter, which WorkerJob to fetch.
      */
     where?: WorkerJobWhereInput
@@ -19937,7 +21585,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * WorkerJob findMany
    */
@@ -19946,6 +21593,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the WorkerJob
      */
     select?: WorkerJobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorkerJob
+     */
+    omit?: WorkerJobOmit<ExtArgs> | null
     /**
      * Filter, which WorkerJobs to fetch.
      */
@@ -19978,7 +21629,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * WorkerJob create
    */
@@ -19988,12 +21638,15 @@ export namespace Prisma {
      */
     select?: WorkerJobSelect<ExtArgs> | null
     /**
+     * Omit specific fields from the WorkerJob
+     */
+    omit?: WorkerJobOmit<ExtArgs> | null
+    /**
      * The data needed to create a WorkerJob.
      */
     data: XOR<WorkerJobCreateInput, WorkerJobUncheckedCreateInput>
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * WorkerJob createMany
@@ -20006,7 +21659,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-
   /**
    * WorkerJob update
    */
@@ -20015,6 +21667,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the WorkerJob
      */
     select?: WorkerJobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorkerJob
+     */
+    omit?: WorkerJobOmit<ExtArgs> | null
     /**
      * The data needed to update a WorkerJob.
      */
@@ -20025,7 +21681,6 @@ export namespace Prisma {
     where: WorkerJobWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * WorkerJob updateMany
@@ -20041,7 +21696,6 @@ export namespace Prisma {
     where?: WorkerJobWhereInput
   }
 
-
   /**
    * WorkerJob upsert
    */
@@ -20050,6 +21704,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the WorkerJob
      */
     select?: WorkerJobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorkerJob
+     */
+    omit?: WorkerJobOmit<ExtArgs> | null
     /**
      * The filter to search for the WorkerJob to update in case it exists.
      */
@@ -20065,7 +21723,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * WorkerJob delete
    */
@@ -20075,12 +21732,15 @@ export namespace Prisma {
      */
     select?: WorkerJobSelect<ExtArgs> | null
     /**
+     * Omit specific fields from the WorkerJob
+     */
+    omit?: WorkerJobOmit<ExtArgs> | null
+    /**
      * Filter which WorkerJob to delete.
      */
     where: WorkerJobWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * WorkerJob deleteMany
@@ -20092,7 +21752,6 @@ export namespace Prisma {
     where?: WorkerJobWhereInput
   }
 
-
   /**
    * WorkerJob without action
    */
@@ -20101,8 +21760,11 @@ export namespace Prisma {
      * Select specific fields to fetch from the WorkerJob
      */
     select?: WorkerJobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorkerJob
+     */
+    omit?: WorkerJobOmit<ExtArgs> | null
   }
-
 
 
   /**
@@ -20352,6 +22014,9 @@ export namespace Prisma {
     masterId?: boolean
   }
 
+  export type ClanOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "limit" | "points" | "boss" | "damageOnBoss" | "masterId", ExtArgs["result"]["clan"]>
+
+
   export type ClanInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     master?: boolean | BruteDefaultArgs<ExtArgs>
     brutes?: boolean | Clan$brutesArgs<ExtArgs>
@@ -20385,7 +22050,7 @@ export namespace Prisma {
   type ClanGetPayload<S extends boolean | null | undefined | ClanDefaultArgs> = $Result.GetResult<Prisma.$ClanPayload, S>
 
   type ClanCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<ClanFindManyArgs, 'select' | 'include' | 'distinct' | 'relationLoadStrategy'> & {
+    Omit<ClanFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: ClanCountAggregateInputType | true
     }
 
@@ -20789,7 +22454,6 @@ export namespace Prisma {
     
 
   // Custom InputTypes
-
   /**
    * Clan findUnique
    */
@@ -20799,7 +22463,11 @@ export namespace Prisma {
      */
     select?: ClanSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Clan
+     */
+    omit?: ClanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanInclude<ExtArgs> | null
     /**
@@ -20808,7 +22476,6 @@ export namespace Prisma {
     where: ClanWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Clan findUniqueOrThrow
@@ -20819,7 +22486,11 @@ export namespace Prisma {
      */
     select?: ClanSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Clan
+     */
+    omit?: ClanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanInclude<ExtArgs> | null
     /**
@@ -20828,7 +22499,6 @@ export namespace Prisma {
     where: ClanWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Clan findFirst
@@ -20839,7 +22509,11 @@ export namespace Prisma {
      */
     select?: ClanSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Clan
+     */
+    omit?: ClanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanInclude<ExtArgs> | null
     /**
@@ -20878,7 +22552,6 @@ export namespace Prisma {
     distinct?: ClanScalarFieldEnum | ClanScalarFieldEnum[]
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Clan findFirstOrThrow
@@ -20889,7 +22562,11 @@ export namespace Prisma {
      */
     select?: ClanSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Clan
+     */
+    omit?: ClanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanInclude<ExtArgs> | null
     /**
@@ -20929,7 +22606,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * Clan findMany
    */
@@ -20939,7 +22615,11 @@ export namespace Prisma {
      */
     select?: ClanSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Clan
+     */
+    omit?: ClanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanInclude<ExtArgs> | null
     /**
@@ -20974,7 +22654,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * Clan create
    */
@@ -20984,7 +22663,11 @@ export namespace Prisma {
      */
     select?: ClanSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Clan
+     */
+    omit?: ClanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanInclude<ExtArgs> | null
     /**
@@ -20993,7 +22676,6 @@ export namespace Prisma {
     data: XOR<ClanCreateInput, ClanUncheckedCreateInput>
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Clan createMany
@@ -21006,7 +22688,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-
   /**
    * Clan update
    */
@@ -21016,7 +22697,11 @@ export namespace Prisma {
      */
     select?: ClanSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Clan
+     */
+    omit?: ClanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanInclude<ExtArgs> | null
     /**
@@ -21029,7 +22714,6 @@ export namespace Prisma {
     where: ClanWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Clan updateMany
@@ -21045,7 +22729,6 @@ export namespace Prisma {
     where?: ClanWhereInput
   }
 
-
   /**
    * Clan upsert
    */
@@ -21055,7 +22738,11 @@ export namespace Prisma {
      */
     select?: ClanSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Clan
+     */
+    omit?: ClanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanInclude<ExtArgs> | null
     /**
@@ -21073,7 +22760,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * Clan delete
    */
@@ -21083,7 +22769,11 @@ export namespace Prisma {
      */
     select?: ClanSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Clan
+     */
+    omit?: ClanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanInclude<ExtArgs> | null
     /**
@@ -21092,7 +22782,6 @@ export namespace Prisma {
     where: ClanWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * Clan deleteMany
@@ -21104,7 +22793,6 @@ export namespace Prisma {
     where?: ClanWhereInput
   }
 
-
   /**
    * Clan.brutes
    */
@@ -21114,7 +22802,11 @@ export namespace Prisma {
      */
     select?: BruteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Brute
+     */
+    omit?: BruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteInclude<ExtArgs> | null
     where?: BruteWhereInput
@@ -21124,7 +22816,6 @@ export namespace Prisma {
     skip?: number
     distinct?: BruteScalarFieldEnum | BruteScalarFieldEnum[]
   }
-
 
   /**
    * Clan.joinRequests
@@ -21135,7 +22826,11 @@ export namespace Prisma {
      */
     select?: BruteSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Brute
+     */
+    omit?: BruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteInclude<ExtArgs> | null
     where?: BruteWhereInput
@@ -21146,7 +22841,6 @@ export namespace Prisma {
     distinct?: BruteScalarFieldEnum | BruteScalarFieldEnum[]
   }
 
-
   /**
    * Clan.threads
    */
@@ -21156,7 +22850,11 @@ export namespace Prisma {
      */
     select?: ClanThreadSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the ClanThread
+     */
+    omit?: ClanThreadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanThreadInclude<ExtArgs> | null
     where?: ClanThreadWhereInput
@@ -21167,7 +22865,6 @@ export namespace Prisma {
     distinct?: ClanThreadScalarFieldEnum | ClanThreadScalarFieldEnum[]
   }
 
-
   /**
    * Clan without action
    */
@@ -21177,11 +22874,14 @@ export namespace Prisma {
      */
     select?: ClanSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the Clan
+     */
+    omit?: ClanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanInclude<ExtArgs> | null
   }
-
 
 
   /**
@@ -21444,6 +23144,9 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
+  export type ClanThreadOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "clanId" | "creatorId" | "title" | "locked" | "pinned" | "postCount" | "createdAt" | "updatedAt", ExtArgs["result"]["clanThread"]>
+
+
   export type ClanThreadInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     clan?: boolean | ClanDefaultArgs<ExtArgs>
     creator?: boolean | BruteDefaultArgs<ExtArgs>
@@ -21477,7 +23180,7 @@ export namespace Prisma {
   type ClanThreadGetPayload<S extends boolean | null | undefined | ClanThreadDefaultArgs> = $Result.GetResult<Prisma.$ClanThreadPayload, S>
 
   type ClanThreadCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<ClanThreadFindManyArgs, 'select' | 'include' | 'distinct' | 'relationLoadStrategy'> & {
+    Omit<ClanThreadFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: ClanThreadCountAggregateInputType | true
     }
 
@@ -21881,7 +23584,6 @@ export namespace Prisma {
     
 
   // Custom InputTypes
-
   /**
    * ClanThread findUnique
    */
@@ -21891,7 +23593,11 @@ export namespace Prisma {
      */
     select?: ClanThreadSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the ClanThread
+     */
+    omit?: ClanThreadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanThreadInclude<ExtArgs> | null
     /**
@@ -21900,7 +23606,6 @@ export namespace Prisma {
     where: ClanThreadWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * ClanThread findUniqueOrThrow
@@ -21911,7 +23616,11 @@ export namespace Prisma {
      */
     select?: ClanThreadSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the ClanThread
+     */
+    omit?: ClanThreadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanThreadInclude<ExtArgs> | null
     /**
@@ -21920,7 +23629,6 @@ export namespace Prisma {
     where: ClanThreadWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * ClanThread findFirst
@@ -21931,7 +23639,11 @@ export namespace Prisma {
      */
     select?: ClanThreadSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the ClanThread
+     */
+    omit?: ClanThreadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanThreadInclude<ExtArgs> | null
     /**
@@ -21970,7 +23682,6 @@ export namespace Prisma {
     distinct?: ClanThreadScalarFieldEnum | ClanThreadScalarFieldEnum[]
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * ClanThread findFirstOrThrow
@@ -21981,7 +23692,11 @@ export namespace Prisma {
      */
     select?: ClanThreadSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the ClanThread
+     */
+    omit?: ClanThreadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanThreadInclude<ExtArgs> | null
     /**
@@ -22021,7 +23736,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * ClanThread findMany
    */
@@ -22031,7 +23745,11 @@ export namespace Prisma {
      */
     select?: ClanThreadSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the ClanThread
+     */
+    omit?: ClanThreadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanThreadInclude<ExtArgs> | null
     /**
@@ -22066,7 +23784,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * ClanThread create
    */
@@ -22076,7 +23793,11 @@ export namespace Prisma {
      */
     select?: ClanThreadSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the ClanThread
+     */
+    omit?: ClanThreadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanThreadInclude<ExtArgs> | null
     /**
@@ -22085,7 +23806,6 @@ export namespace Prisma {
     data: XOR<ClanThreadCreateInput, ClanThreadUncheckedCreateInput>
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * ClanThread createMany
@@ -22098,7 +23818,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-
   /**
    * ClanThread update
    */
@@ -22108,7 +23827,11 @@ export namespace Prisma {
      */
     select?: ClanThreadSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the ClanThread
+     */
+    omit?: ClanThreadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanThreadInclude<ExtArgs> | null
     /**
@@ -22121,7 +23844,6 @@ export namespace Prisma {
     where: ClanThreadWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * ClanThread updateMany
@@ -22137,7 +23859,6 @@ export namespace Prisma {
     where?: ClanThreadWhereInput
   }
 
-
   /**
    * ClanThread upsert
    */
@@ -22147,7 +23868,11 @@ export namespace Prisma {
      */
     select?: ClanThreadSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the ClanThread
+     */
+    omit?: ClanThreadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanThreadInclude<ExtArgs> | null
     /**
@@ -22165,7 +23890,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * ClanThread delete
    */
@@ -22175,7 +23899,11 @@ export namespace Prisma {
      */
     select?: ClanThreadSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the ClanThread
+     */
+    omit?: ClanThreadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanThreadInclude<ExtArgs> | null
     /**
@@ -22184,7 +23912,6 @@ export namespace Prisma {
     where: ClanThreadWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * ClanThread deleteMany
@@ -22196,7 +23923,6 @@ export namespace Prisma {
     where?: ClanThreadWhereInput
   }
 
-
   /**
    * ClanThread.posts
    */
@@ -22206,7 +23932,11 @@ export namespace Prisma {
      */
     select?: ClanPostSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the ClanPost
+     */
+    omit?: ClanPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanPostInclude<ExtArgs> | null
     where?: ClanPostWhereInput
@@ -22217,7 +23947,6 @@ export namespace Prisma {
     distinct?: ClanPostScalarFieldEnum | ClanPostScalarFieldEnum[]
   }
 
-
   /**
    * ClanThread without action
    */
@@ -22227,11 +23956,14 @@ export namespace Prisma {
      */
     select?: ClanThreadSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the ClanThread
+     */
+    omit?: ClanThreadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanThreadInclude<ExtArgs> | null
   }
-
 
 
   /**
@@ -22452,6 +24184,9 @@ export namespace Prisma {
     message?: boolean
   }
 
+  export type ClanPostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "threadId" | "authorId" | "date" | "message", ExtArgs["result"]["clanPost"]>
+
+
   export type ClanPostInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     thread?: boolean | ClanThreadDefaultArgs<ExtArgs>
     author?: boolean | BruteDefaultArgs<ExtArgs>
@@ -22478,7 +24213,7 @@ export namespace Prisma {
   type ClanPostGetPayload<S extends boolean | null | undefined | ClanPostDefaultArgs> = $Result.GetResult<Prisma.$ClanPostPayload, S>
 
   type ClanPostCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<ClanPostFindManyArgs, 'select' | 'include' | 'distinct' | 'relationLoadStrategy'> & {
+    Omit<ClanPostFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: ClanPostCountAggregateInputType | true
     }
 
@@ -22876,7 +24611,6 @@ export namespace Prisma {
     
 
   // Custom InputTypes
-
   /**
    * ClanPost findUnique
    */
@@ -22886,7 +24620,11 @@ export namespace Prisma {
      */
     select?: ClanPostSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the ClanPost
+     */
+    omit?: ClanPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanPostInclude<ExtArgs> | null
     /**
@@ -22895,7 +24633,6 @@ export namespace Prisma {
     where: ClanPostWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * ClanPost findUniqueOrThrow
@@ -22906,7 +24643,11 @@ export namespace Prisma {
      */
     select?: ClanPostSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the ClanPost
+     */
+    omit?: ClanPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanPostInclude<ExtArgs> | null
     /**
@@ -22915,7 +24656,6 @@ export namespace Prisma {
     where: ClanPostWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * ClanPost findFirst
@@ -22926,7 +24666,11 @@ export namespace Prisma {
      */
     select?: ClanPostSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the ClanPost
+     */
+    omit?: ClanPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanPostInclude<ExtArgs> | null
     /**
@@ -22965,7 +24709,6 @@ export namespace Prisma {
     distinct?: ClanPostScalarFieldEnum | ClanPostScalarFieldEnum[]
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * ClanPost findFirstOrThrow
@@ -22976,7 +24719,11 @@ export namespace Prisma {
      */
     select?: ClanPostSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the ClanPost
+     */
+    omit?: ClanPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanPostInclude<ExtArgs> | null
     /**
@@ -23016,7 +24763,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * ClanPost findMany
    */
@@ -23026,7 +24772,11 @@ export namespace Prisma {
      */
     select?: ClanPostSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the ClanPost
+     */
+    omit?: ClanPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanPostInclude<ExtArgs> | null
     /**
@@ -23061,7 +24811,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * ClanPost create
    */
@@ -23071,7 +24820,11 @@ export namespace Prisma {
      */
     select?: ClanPostSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the ClanPost
+     */
+    omit?: ClanPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanPostInclude<ExtArgs> | null
     /**
@@ -23080,7 +24833,6 @@ export namespace Prisma {
     data: XOR<ClanPostCreateInput, ClanPostUncheckedCreateInput>
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * ClanPost createMany
@@ -23093,7 +24845,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-
   /**
    * ClanPost update
    */
@@ -23103,7 +24854,11 @@ export namespace Prisma {
      */
     select?: ClanPostSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the ClanPost
+     */
+    omit?: ClanPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanPostInclude<ExtArgs> | null
     /**
@@ -23116,7 +24871,6 @@ export namespace Prisma {
     where: ClanPostWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * ClanPost updateMany
@@ -23132,7 +24886,6 @@ export namespace Prisma {
     where?: ClanPostWhereInput
   }
 
-
   /**
    * ClanPost upsert
    */
@@ -23142,7 +24895,11 @@ export namespace Prisma {
      */
     select?: ClanPostSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the ClanPost
+     */
+    omit?: ClanPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanPostInclude<ExtArgs> | null
     /**
@@ -23160,7 +24917,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * ClanPost delete
    */
@@ -23170,7 +24926,11 @@ export namespace Prisma {
      */
     select?: ClanPostSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the ClanPost
+     */
+    omit?: ClanPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanPostInclude<ExtArgs> | null
     /**
@@ -23179,7 +24939,6 @@ export namespace Prisma {
     where: ClanPostWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * ClanPost deleteMany
@@ -23191,7 +24950,6 @@ export namespace Prisma {
     where?: ClanPostWhereInput
   }
 
-
   /**
    * ClanPost without action
    */
@@ -23201,11 +24959,14 @@ export namespace Prisma {
      */
     select?: ClanPostSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the ClanPost
+     */
+    omit?: ClanPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: ClanPostInclude<ExtArgs> | null
   }
-
 
 
   /**
@@ -23416,6 +25177,9 @@ export namespace Prisma {
     bruteId?: boolean
   }
 
+  export type BruteInventoryItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "count" | "bruteId", ExtArgs["result"]["bruteInventoryItem"]>
+
+
   export type BruteInventoryItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brute?: boolean | BruteDefaultArgs<ExtArgs>
   }
@@ -23439,7 +25203,7 @@ export namespace Prisma {
   type BruteInventoryItemGetPayload<S extends boolean | null | undefined | BruteInventoryItemDefaultArgs> = $Result.GetResult<Prisma.$BruteInventoryItemPayload, S>
 
   type BruteInventoryItemCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<BruteInventoryItemFindManyArgs, 'select' | 'include' | 'distinct' | 'relationLoadStrategy'> & {
+    Omit<BruteInventoryItemFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: BruteInventoryItemCountAggregateInputType | true
     }
 
@@ -23834,7 +25598,6 @@ export namespace Prisma {
     
 
   // Custom InputTypes
-
   /**
    * BruteInventoryItem findUnique
    */
@@ -23844,7 +25607,11 @@ export namespace Prisma {
      */
     select?: BruteInventoryItemSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the BruteInventoryItem
+     */
+    omit?: BruteInventoryItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteInventoryItemInclude<ExtArgs> | null
     /**
@@ -23853,7 +25620,6 @@ export namespace Prisma {
     where: BruteInventoryItemWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * BruteInventoryItem findUniqueOrThrow
@@ -23864,7 +25630,11 @@ export namespace Prisma {
      */
     select?: BruteInventoryItemSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the BruteInventoryItem
+     */
+    omit?: BruteInventoryItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteInventoryItemInclude<ExtArgs> | null
     /**
@@ -23873,7 +25643,6 @@ export namespace Prisma {
     where: BruteInventoryItemWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * BruteInventoryItem findFirst
@@ -23884,7 +25653,11 @@ export namespace Prisma {
      */
     select?: BruteInventoryItemSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the BruteInventoryItem
+     */
+    omit?: BruteInventoryItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteInventoryItemInclude<ExtArgs> | null
     /**
@@ -23923,7 +25696,6 @@ export namespace Prisma {
     distinct?: BruteInventoryItemScalarFieldEnum | BruteInventoryItemScalarFieldEnum[]
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * BruteInventoryItem findFirstOrThrow
@@ -23934,7 +25706,11 @@ export namespace Prisma {
      */
     select?: BruteInventoryItemSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the BruteInventoryItem
+     */
+    omit?: BruteInventoryItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteInventoryItemInclude<ExtArgs> | null
     /**
@@ -23974,7 +25750,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * BruteInventoryItem findMany
    */
@@ -23984,7 +25759,11 @@ export namespace Prisma {
      */
     select?: BruteInventoryItemSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the BruteInventoryItem
+     */
+    omit?: BruteInventoryItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteInventoryItemInclude<ExtArgs> | null
     /**
@@ -24019,7 +25798,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * BruteInventoryItem create
    */
@@ -24029,7 +25807,11 @@ export namespace Prisma {
      */
     select?: BruteInventoryItemSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the BruteInventoryItem
+     */
+    omit?: BruteInventoryItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteInventoryItemInclude<ExtArgs> | null
     /**
@@ -24038,7 +25820,6 @@ export namespace Prisma {
     data: XOR<BruteInventoryItemCreateInput, BruteInventoryItemUncheckedCreateInput>
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * BruteInventoryItem createMany
@@ -24051,7 +25832,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-
   /**
    * BruteInventoryItem update
    */
@@ -24061,7 +25841,11 @@ export namespace Prisma {
      */
     select?: BruteInventoryItemSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the BruteInventoryItem
+     */
+    omit?: BruteInventoryItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteInventoryItemInclude<ExtArgs> | null
     /**
@@ -24074,7 +25858,6 @@ export namespace Prisma {
     where: BruteInventoryItemWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * BruteInventoryItem updateMany
@@ -24090,7 +25873,6 @@ export namespace Prisma {
     where?: BruteInventoryItemWhereInput
   }
 
-
   /**
    * BruteInventoryItem upsert
    */
@@ -24100,7 +25882,11 @@ export namespace Prisma {
      */
     select?: BruteInventoryItemSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the BruteInventoryItem
+     */
+    omit?: BruteInventoryItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteInventoryItemInclude<ExtArgs> | null
     /**
@@ -24118,7 +25904,6 @@ export namespace Prisma {
     relationLoadStrategy?: RelationLoadStrategy
   }
 
-
   /**
    * BruteInventoryItem delete
    */
@@ -24128,7 +25913,11 @@ export namespace Prisma {
      */
     select?: BruteInventoryItemSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the BruteInventoryItem
+     */
+    omit?: BruteInventoryItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteInventoryItemInclude<ExtArgs> | null
     /**
@@ -24137,7 +25926,6 @@ export namespace Prisma {
     where: BruteInventoryItemWhereUniqueInput
     relationLoadStrategy?: RelationLoadStrategy
   }
-
 
   /**
    * BruteInventoryItem deleteMany
@@ -24149,7 +25937,6 @@ export namespace Prisma {
     where?: BruteInventoryItemWhereInput
   }
 
-
   /**
    * BruteInventoryItem without action
    */
@@ -24159,11 +25946,14 @@ export namespace Prisma {
      */
     select?: BruteInventoryItemSelect<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well.
+     * Omit specific fields from the BruteInventoryItem
+     */
+    omit?: BruteInventoryItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
      */
     include?: BruteInventoryItemInclude<ExtArgs> | null
   }
-
 
 
   /**
@@ -24253,6 +26043,18 @@ export namespace Prisma {
   };
 
   export type BruteScalarFieldEnum = (typeof BruteScalarFieldEnum)[keyof typeof BruteScalarFieldEnum]
+
+
+  export const BruteStartingStatsScalarFieldEnum: {
+    id: 'id',
+    endurance: 'endurance',
+    strength: 'strength',
+    agility: 'agility',
+    speed: 'speed',
+    bruteId: 'bruteId'
+  };
+
+  export type BruteStartingStatsScalarFieldEnum = (typeof BruteStartingStatsScalarFieldEnum)[keyof typeof BruteStartingStatsScalarFieldEnum]
 
 
   export const FightScalarFieldEnum: {
@@ -24928,6 +26730,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemListRelationFilter
     tournamentAchievements?: TournamentAchievementListRelationFilter
     tournamentXps?: TournamentXpListRelationFilter
+    startingStats?: XOR<BruteStartingStatsNullableRelationFilter, BruteStartingStatsWhereInput> | null
   }
 
   export type BruteOrderByWithRelationInput = {
@@ -24996,6 +26799,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemOrderByRelationAggregateInput
     tournamentAchievements?: TournamentAchievementOrderByRelationAggregateInput
     tournamentXps?: TournamentXpOrderByRelationAggregateInput
+    startingStats?: BruteStartingStatsOrderByWithRelationInput
   }
 
   export type BruteWhereUniqueInput = Prisma.AtLeast<{
@@ -25067,6 +26871,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemListRelationFilter
     tournamentAchievements?: TournamentAchievementListRelationFilter
     tournamentXps?: TournamentXpListRelationFilter
+    startingStats?: XOR<BruteStartingStatsNullableRelationFilter, BruteStartingStatsWhereInput> | null
   }, "id">
 
   export type BruteOrderByWithAggregationInput = {
@@ -25169,6 +26974,68 @@ export namespace Prisma {
     favorite?: BoolWithAggregatesFilter<"Brute"> | boolean
     wantToJoinClanId?: IntNullableWithAggregatesFilter<"Brute"> | number | null
     tournamentWins?: IntWithAggregatesFilter<"Brute"> | number
+  }
+
+  export type BruteStartingStatsWhereInput = {
+    AND?: BruteStartingStatsWhereInput | BruteStartingStatsWhereInput[]
+    OR?: BruteStartingStatsWhereInput[]
+    NOT?: BruteStartingStatsWhereInput | BruteStartingStatsWhereInput[]
+    id?: IntFilter<"BruteStartingStats"> | number
+    endurance?: IntFilter<"BruteStartingStats"> | number
+    strength?: IntFilter<"BruteStartingStats"> | number
+    agility?: IntFilter<"BruteStartingStats"> | number
+    speed?: IntFilter<"BruteStartingStats"> | number
+    bruteId?: IntFilter<"BruteStartingStats"> | number
+    brute?: XOR<BruteRelationFilter, BruteWhereInput>
+  }
+
+  export type BruteStartingStatsOrderByWithRelationInput = {
+    id?: SortOrder
+    endurance?: SortOrder
+    strength?: SortOrder
+    agility?: SortOrder
+    speed?: SortOrder
+    bruteId?: SortOrder
+    brute?: BruteOrderByWithRelationInput
+  }
+
+  export type BruteStartingStatsWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    bruteId?: number
+    AND?: BruteStartingStatsWhereInput | BruteStartingStatsWhereInput[]
+    OR?: BruteStartingStatsWhereInput[]
+    NOT?: BruteStartingStatsWhereInput | BruteStartingStatsWhereInput[]
+    endurance?: IntFilter<"BruteStartingStats"> | number
+    strength?: IntFilter<"BruteStartingStats"> | number
+    agility?: IntFilter<"BruteStartingStats"> | number
+    speed?: IntFilter<"BruteStartingStats"> | number
+    brute?: XOR<BruteRelationFilter, BruteWhereInput>
+  }, "id" | "bruteId">
+
+  export type BruteStartingStatsOrderByWithAggregationInput = {
+    id?: SortOrder
+    endurance?: SortOrder
+    strength?: SortOrder
+    agility?: SortOrder
+    speed?: SortOrder
+    bruteId?: SortOrder
+    _count?: BruteStartingStatsCountOrderByAggregateInput
+    _avg?: BruteStartingStatsAvgOrderByAggregateInput
+    _max?: BruteStartingStatsMaxOrderByAggregateInput
+    _min?: BruteStartingStatsMinOrderByAggregateInput
+    _sum?: BruteStartingStatsSumOrderByAggregateInput
+  }
+
+  export type BruteStartingStatsScalarWhereWithAggregatesInput = {
+    AND?: BruteStartingStatsScalarWhereWithAggregatesInput | BruteStartingStatsScalarWhereWithAggregatesInput[]
+    OR?: BruteStartingStatsScalarWhereWithAggregatesInput[]
+    NOT?: BruteStartingStatsScalarWhereWithAggregatesInput | BruteStartingStatsScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"BruteStartingStats"> | number
+    endurance?: IntWithAggregatesFilter<"BruteStartingStats"> | number
+    strength?: IntWithAggregatesFilter<"BruteStartingStats"> | number
+    agility?: IntWithAggregatesFilter<"BruteStartingStats"> | number
+    speed?: IntWithAggregatesFilter<"BruteStartingStats"> | number
+    bruteId?: IntWithAggregatesFilter<"BruteStartingStats"> | number
   }
 
   export type FightWhereInput = {
@@ -26438,6 +28305,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateInput = {
@@ -26502,6 +28370,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUpdateInput = {
@@ -26565,6 +28434,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateInput = {
@@ -26629,6 +28499,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteCreateManyInput = {
@@ -26765,6 +28636,65 @@ export namespace Prisma {
     favorite?: BoolFieldUpdateOperationsInput | boolean
     wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
     tournamentWins?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type BruteStartingStatsCreateInput = {
+    endurance?: number
+    strength?: number
+    agility?: number
+    speed?: number
+    brute: BruteCreateNestedOneWithoutStartingStatsInput
+  }
+
+  export type BruteStartingStatsUncheckedCreateInput = {
+    id?: number
+    endurance?: number
+    strength?: number
+    agility?: number
+    speed?: number
+    bruteId: number
+  }
+
+  export type BruteStartingStatsUpdateInput = {
+    endurance?: IntFieldUpdateOperationsInput | number
+    strength?: IntFieldUpdateOperationsInput | number
+    agility?: IntFieldUpdateOperationsInput | number
+    speed?: IntFieldUpdateOperationsInput | number
+    brute?: BruteUpdateOneRequiredWithoutStartingStatsNestedInput
+  }
+
+  export type BruteStartingStatsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    endurance?: IntFieldUpdateOperationsInput | number
+    strength?: IntFieldUpdateOperationsInput | number
+    agility?: IntFieldUpdateOperationsInput | number
+    speed?: IntFieldUpdateOperationsInput | number
+    bruteId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type BruteStartingStatsCreateManyInput = {
+    id?: number
+    endurance?: number
+    strength?: number
+    agility?: number
+    speed?: number
+    bruteId: number
+  }
+
+  export type BruteStartingStatsUpdateManyMutationInput = {
+    endurance?: IntFieldUpdateOperationsInput | number
+    strength?: IntFieldUpdateOperationsInput | number
+    agility?: IntFieldUpdateOperationsInput | number
+    speed?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type BruteStartingStatsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    endurance?: IntFieldUpdateOperationsInput | number
+    strength?: IntFieldUpdateOperationsInput | number
+    agility?: IntFieldUpdateOperationsInput | number
+    speed?: IntFieldUpdateOperationsInput | number
+    bruteId?: IntFieldUpdateOperationsInput | number
   }
 
   export type FightCreateInput = {
@@ -28180,6 +30110,11 @@ export namespace Prisma {
     none?: TournamentXpWhereInput
   }
 
+  export type BruteStartingStatsNullableRelationFilter = {
+    is?: BruteStartingStatsWhereInput | null
+    isNot?: BruteStartingStatsWhereInput | null
+  }
+
   export type FightOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -28481,6 +30416,51 @@ export namespace Prisma {
   export type BruteRelationFilter = {
     is?: BruteWhereInput
     isNot?: BruteWhereInput
+  }
+
+  export type BruteStartingStatsCountOrderByAggregateInput = {
+    id?: SortOrder
+    endurance?: SortOrder
+    strength?: SortOrder
+    agility?: SortOrder
+    speed?: SortOrder
+    bruteId?: SortOrder
+  }
+
+  export type BruteStartingStatsAvgOrderByAggregateInput = {
+    id?: SortOrder
+    endurance?: SortOrder
+    strength?: SortOrder
+    agility?: SortOrder
+    speed?: SortOrder
+    bruteId?: SortOrder
+  }
+
+  export type BruteStartingStatsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    endurance?: SortOrder
+    strength?: SortOrder
+    agility?: SortOrder
+    speed?: SortOrder
+    bruteId?: SortOrder
+  }
+
+  export type BruteStartingStatsMinOrderByAggregateInput = {
+    id?: SortOrder
+    endurance?: SortOrder
+    strength?: SortOrder
+    agility?: SortOrder
+    speed?: SortOrder
+    bruteId?: SortOrder
+  }
+
+  export type BruteStartingStatsSumOrderByAggregateInput = {
+    id?: SortOrder
+    endurance?: SortOrder
+    strength?: SortOrder
+    agility?: SortOrder
+    speed?: SortOrder
+    bruteId?: SortOrder
   }
 
   export type TournamentNullableRelationFilter = {
@@ -29790,6 +31770,12 @@ export namespace Prisma {
     connect?: TournamentXpWhereUniqueInput | TournamentXpWhereUniqueInput[]
   }
 
+  export type BruteStartingStatsCreateNestedOneWithoutBruteInput = {
+    create?: XOR<BruteStartingStatsCreateWithoutBruteInput, BruteStartingStatsUncheckedCreateWithoutBruteInput>
+    connectOrCreate?: BruteStartingStatsCreateOrConnectWithoutBruteInput
+    connect?: BruteStartingStatsWhereUniqueInput
+  }
+
   export type BruteUncheckedCreateNestedManyWithoutMasterInput = {
     create?: XOR<BruteCreateWithoutMasterInput, BruteUncheckedCreateWithoutMasterInput> | BruteCreateWithoutMasterInput[] | BruteUncheckedCreateWithoutMasterInput[]
     connectOrCreate?: BruteCreateOrConnectWithoutMasterInput | BruteCreateOrConnectWithoutMasterInput[]
@@ -29902,6 +31888,12 @@ export namespace Prisma {
     connectOrCreate?: TournamentXpCreateOrConnectWithoutBruteInput | TournamentXpCreateOrConnectWithoutBruteInput[]
     createMany?: TournamentXpCreateManyBruteInputEnvelope
     connect?: TournamentXpWhereUniqueInput | TournamentXpWhereUniqueInput[]
+  }
+
+  export type BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput = {
+    create?: XOR<BruteStartingStatsCreateWithoutBruteInput, BruteStartingStatsUncheckedCreateWithoutBruteInput>
+    connectOrCreate?: BruteStartingStatsCreateOrConnectWithoutBruteInput
+    connect?: BruteStartingStatsWhereUniqueInput
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -30223,6 +32215,16 @@ export namespace Prisma {
     deleteMany?: TournamentXpScalarWhereInput | TournamentXpScalarWhereInput[]
   }
 
+  export type BruteStartingStatsUpdateOneWithoutBruteNestedInput = {
+    create?: XOR<BruteStartingStatsCreateWithoutBruteInput, BruteStartingStatsUncheckedCreateWithoutBruteInput>
+    connectOrCreate?: BruteStartingStatsCreateOrConnectWithoutBruteInput
+    upsert?: BruteStartingStatsUpsertWithoutBruteInput
+    disconnect?: BruteStartingStatsWhereInput | boolean
+    delete?: BruteStartingStatsWhereInput | boolean
+    connect?: BruteStartingStatsWhereUniqueInput
+    update?: XOR<XOR<BruteStartingStatsUpdateToOneWithWhereWithoutBruteInput, BruteStartingStatsUpdateWithoutBruteInput>, BruteStartingStatsUncheckedUpdateWithoutBruteInput>
+  }
+
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
   }
@@ -30455,6 +32457,30 @@ export namespace Prisma {
     update?: TournamentXpUpdateWithWhereUniqueWithoutBruteInput | TournamentXpUpdateWithWhereUniqueWithoutBruteInput[]
     updateMany?: TournamentXpUpdateManyWithWhereWithoutBruteInput | TournamentXpUpdateManyWithWhereWithoutBruteInput[]
     deleteMany?: TournamentXpScalarWhereInput | TournamentXpScalarWhereInput[]
+  }
+
+  export type BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput = {
+    create?: XOR<BruteStartingStatsCreateWithoutBruteInput, BruteStartingStatsUncheckedCreateWithoutBruteInput>
+    connectOrCreate?: BruteStartingStatsCreateOrConnectWithoutBruteInput
+    upsert?: BruteStartingStatsUpsertWithoutBruteInput
+    disconnect?: BruteStartingStatsWhereInput | boolean
+    delete?: BruteStartingStatsWhereInput | boolean
+    connect?: BruteStartingStatsWhereUniqueInput
+    update?: XOR<XOR<BruteStartingStatsUpdateToOneWithWhereWithoutBruteInput, BruteStartingStatsUpdateWithoutBruteInput>, BruteStartingStatsUncheckedUpdateWithoutBruteInput>
+  }
+
+  export type BruteCreateNestedOneWithoutStartingStatsInput = {
+    create?: XOR<BruteCreateWithoutStartingStatsInput, BruteUncheckedCreateWithoutStartingStatsInput>
+    connectOrCreate?: BruteCreateOrConnectWithoutStartingStatsInput
+    connect?: BruteWhereUniqueInput
+  }
+
+  export type BruteUpdateOneRequiredWithoutStartingStatsNestedInput = {
+    create?: XOR<BruteCreateWithoutStartingStatsInput, BruteUncheckedCreateWithoutStartingStatsInput>
+    connectOrCreate?: BruteCreateOrConnectWithoutStartingStatsInput
+    upsert?: BruteUpsertWithoutStartingStatsInput
+    connect?: BruteWhereUniqueInput
+    update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutStartingStatsInput, BruteUpdateWithoutStartingStatsInput>, BruteUncheckedUpdateWithoutStartingStatsInput>
   }
 
   export type BruteCreateNestedOneWithoutFightsInput = {
@@ -31819,6 +33845,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutUserInput = {
@@ -31882,6 +33909,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutUserInput = {
@@ -32206,6 +34234,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutPupilsInput = {
@@ -32269,6 +34298,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutPupilsInput = {
@@ -32336,6 +34366,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutMasterInput = {
@@ -32399,6 +34430,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutMasterInput = {
@@ -32655,6 +34687,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutOpponentOfInput = {
@@ -32718,6 +34751,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutOpponentOfInput = {
@@ -32785,6 +34819,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutOpponentsInput = {
@@ -32848,6 +34883,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutOpponentsInput = {
@@ -33098,6 +35134,26 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type BruteStartingStatsCreateWithoutBruteInput = {
+    endurance?: number
+    strength?: number
+    agility?: number
+    speed?: number
+  }
+
+  export type BruteStartingStatsUncheckedCreateWithoutBruteInput = {
+    id?: number
+    endurance?: number
+    strength?: number
+    agility?: number
+    speed?: number
+  }
+
+  export type BruteStartingStatsCreateOrConnectWithoutBruteInput = {
+    where: BruteStartingStatsWhereUniqueInput
+    create: XOR<BruteStartingStatsCreateWithoutBruteInput, BruteStartingStatsUncheckedCreateWithoutBruteInput>
+  }
+
   export type UserUpsertWithoutBrutesInput = {
     update: XOR<UserUpdateWithoutBrutesInput, UserUncheckedUpdateWithoutBrutesInput>
     create: XOR<UserCreateWithoutBrutesInput, UserUncheckedCreateWithoutBrutesInput>
@@ -33214,6 +35270,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutPupilsInput = {
@@ -33277,6 +35334,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUpsertWithWhereUniqueWithoutMasterInput = {
@@ -33759,6 +35817,302 @@ export namespace Prisma {
     xp?: IntFilter<"TournamentXp"> | number
   }
 
+  export type BruteStartingStatsUpsertWithoutBruteInput = {
+    update: XOR<BruteStartingStatsUpdateWithoutBruteInput, BruteStartingStatsUncheckedUpdateWithoutBruteInput>
+    create: XOR<BruteStartingStatsCreateWithoutBruteInput, BruteStartingStatsUncheckedCreateWithoutBruteInput>
+    where?: BruteStartingStatsWhereInput
+  }
+
+  export type BruteStartingStatsUpdateToOneWithWhereWithoutBruteInput = {
+    where?: BruteStartingStatsWhereInput
+    data: XOR<BruteStartingStatsUpdateWithoutBruteInput, BruteStartingStatsUncheckedUpdateWithoutBruteInput>
+  }
+
+  export type BruteStartingStatsUpdateWithoutBruteInput = {
+    endurance?: IntFieldUpdateOperationsInput | number
+    strength?: IntFieldUpdateOperationsInput | number
+    agility?: IntFieldUpdateOperationsInput | number
+    speed?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type BruteStartingStatsUncheckedUpdateWithoutBruteInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    endurance?: IntFieldUpdateOperationsInput | number
+    strength?: IntFieldUpdateOperationsInput | number
+    agility?: IntFieldUpdateOperationsInput | number
+    speed?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type BruteCreateWithoutStartingStatsInput = {
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hp?: number
+    enduranceStat?: number
+    enduranceModifier?: number
+    enduranceValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    gender: $Enums.Gender
+    body?: string
+    colors?: string
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    pupilsCount?: number
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    tournamentWins?: number
+    user?: UserCreateNestedOneWithoutBrutesInput
+    master?: BruteCreateNestedOneWithoutPupilsInput
+    pupils?: BruteCreateNestedManyWithoutMasterInput
+    clan?: ClanCreateNestedOneWithoutBrutesInput
+    fights?: FightCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
+    logs?: LogCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
+    tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementCreateNestedManyWithoutBruteInput
+    reports?: BruteReportCreateNestedManyWithoutBruteInput
+    titles?: TitleCreateNestedManyWithoutBrutesInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
+    threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
+    tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
+    tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+  }
+
+  export type BruteUncheckedCreateWithoutStartingStatsInput = {
+    id?: number
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hp?: number
+    enduranceStat?: number
+    enduranceModifier?: number
+    enduranceValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    gender: $Enums.Gender
+    userId?: string | null
+    body?: string
+    colors?: string
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    masterId?: number | null
+    pupilsCount?: number
+    clanId?: number | null
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    wantToJoinClanId?: number | null
+    tournamentWins?: number
+    pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
+    fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
+    logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
+    tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
+    reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
+    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
+    tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
+    tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+  }
+
+  export type BruteCreateOrConnectWithoutStartingStatsInput = {
+    where: BruteWhereUniqueInput
+    create: XOR<BruteCreateWithoutStartingStatsInput, BruteUncheckedCreateWithoutStartingStatsInput>
+  }
+
+  export type BruteUpsertWithoutStartingStatsInput = {
+    update: XOR<BruteUpdateWithoutStartingStatsInput, BruteUncheckedUpdateWithoutStartingStatsInput>
+    create: XOR<BruteCreateWithoutStartingStatsInput, BruteUncheckedCreateWithoutStartingStatsInput>
+    where?: BruteWhereInput
+  }
+
+  export type BruteUpdateToOneWithWhereWithoutStartingStatsInput = {
+    where?: BruteWhereInput
+    data: XOR<BruteUpdateWithoutStartingStatsInput, BruteUncheckedUpdateWithoutStartingStatsInput>
+  }
+
+  export type BruteUpdateWithoutStartingStatsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    tournamentWins?: IntFieldUpdateOperationsInput | number
+    user?: UserUpdateOneWithoutBrutesNestedInput
+    master?: BruteUpdateOneWithoutPupilsNestedInput
+    pupils?: BruteUpdateManyWithoutMasterNestedInput
+    clan?: ClanUpdateOneWithoutBrutesNestedInput
+    fights?: FightUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
+    logs?: LogUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
+    tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUpdateManyWithoutBruteNestedInput
+    reports?: BruteReportUpdateManyWithoutBruteNestedInput
+    titles?: TitleUpdateManyWithoutBrutesNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
+    tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
+    tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+  }
+
+  export type BruteUncheckedUpdateWithoutStartingStatsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    tournamentWins?: IntFieldUpdateOperationsInput | number
+    pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
+    fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
+    logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
+    tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
+    reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
+    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
+    tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
+    tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+  }
+
   export type BruteCreateWithoutFightsInput = {
     name: string
     deletedAt?: Date | string | null
@@ -33819,6 +36173,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutFightsInput = {
@@ -33882,6 +36237,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutFightsInput = {
@@ -33949,6 +36305,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutFightsAsAdversaryInput = {
@@ -34012,6 +36369,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutFightsAsAdversaryInput = {
@@ -34162,6 +36520,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutFightsInput = {
@@ -34225,6 +36584,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUpsertWithoutFightsAsAdversaryInput = {
@@ -34298,6 +36658,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutFightsAsAdversaryInput = {
@@ -34361,6 +36722,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type LogUpsertWithWhereUniqueWithoutFightInput = {
@@ -34493,6 +36855,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutLogsInput = {
@@ -34556,6 +36919,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutLogsInput = {
@@ -34664,6 +37028,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutLogsInput = {
@@ -34727,6 +37092,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type FightUpsertWithoutLogsInput = {
@@ -34825,6 +37191,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutDestinyChoicesInput = {
@@ -34888,6 +37255,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutDestinyChoicesInput = {
@@ -34966,6 +37334,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutDestinyChoicesInput = {
@@ -35029,6 +37398,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteCreateWithoutTournamentsInput = {
@@ -35091,6 +37461,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutTournamentsInput = {
@@ -35154,6 +37525,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutTournamentsInput = {
@@ -35441,6 +37813,7 @@ export namespace Prisma {
     threads?: ClanThreadCreateNestedManyWithoutCreatorInput
     inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutTournamentAchievementsInput = {
@@ -35504,6 +37877,7 @@ export namespace Prisma {
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
     inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutTournamentAchievementsInput = {
@@ -35582,6 +37956,7 @@ export namespace Prisma {
     threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
     inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutTournamentAchievementsInput = {
@@ -35645,6 +38020,7 @@ export namespace Prisma {
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
     inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type UserCreateWithoutTournamentGoldsInput = {
@@ -35791,6 +38167,7 @@ export namespace Prisma {
     threads?: ClanThreadCreateNestedManyWithoutCreatorInput
     inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutTournamentXpsInput = {
@@ -35854,6 +38231,7 @@ export namespace Prisma {
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
     inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutTournamentXpsInput = {
@@ -35932,6 +38310,7 @@ export namespace Prisma {
     threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
     inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutTournamentXpsInput = {
@@ -35995,6 +38374,7 @@ export namespace Prisma {
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
     inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteCreateWithoutAchievementsInput = {
@@ -36057,6 +38437,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutAchievementsInput = {
@@ -36120,6 +38501,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutAchievementsInput = {
@@ -36237,6 +38619,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutAchievementsInput = {
@@ -36300,6 +38683,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type UserUpsertWithoutAchievementsInput = {
@@ -36407,6 +38791,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutTitlesInput = {
@@ -36470,6 +38855,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutTitlesInput = {
@@ -36553,6 +38939,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutReportsInput = {
@@ -36616,6 +39003,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutReportsInput = {
@@ -36733,6 +39121,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutReportsInput = {
@@ -36796,6 +39185,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type UserUpsertWithWhereUniqueWithoutReportsInput = {
@@ -36891,6 +39281,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutMasterOfClanInput = {
@@ -36954,6 +39345,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutMasterOfClanInput = {
@@ -37021,6 +39413,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutClanInput = {
@@ -37084,6 +39477,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutClanInput = {
@@ -37156,6 +39550,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutWantToJoinClanInput = {
@@ -37219,6 +39614,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutWantToJoinClanInput = {
@@ -37335,6 +39731,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutMasterOfClanInput = {
@@ -37398,6 +39795,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUpsertWithWhereUniqueWithoutClanInput = {
@@ -37536,6 +39934,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutThreadsInput = {
@@ -37599,6 +39998,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutThreadsInput = {
@@ -37734,6 +40134,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutThreadsInput = {
@@ -37797,6 +40198,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type ClanPostUpsertWithWhereUniqueWithoutThreadInput = {
@@ -37903,6 +40305,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutClanPostsInput = {
@@ -37966,6 +40369,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutClanPostsInput = {
@@ -38078,6 +40482,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutClanPostsInput = {
@@ -38141,6 +40546,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteCreateWithoutInventoryInput = {
@@ -38203,6 +40609,7 @@ export namespace Prisma {
     threads?: ClanThreadCreateNestedManyWithoutCreatorInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutInventoryInput = {
@@ -38266,6 +40673,7 @@ export namespace Prisma {
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutInventoryInput = {
@@ -38344,6 +40752,7 @@ export namespace Prisma {
     threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutInventoryInput = {
@@ -38407,6 +40816,7 @@ export namespace Prisma {
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteCreateManyUserInput = {
@@ -38528,6 +40938,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutUserInput = {
@@ -38591,6 +41002,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutUserInput = {
@@ -38905,6 +41317,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutMasterInput = {
@@ -38968,6 +41381,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutMasterInput = {
@@ -39239,6 +41653,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutOpponentOfInput = {
@@ -39302,6 +41717,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutOpponentOfInput = {
@@ -39411,6 +41827,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutOpponentsInput = {
@@ -39474,6 +41891,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutOpponentsInput = {
@@ -39832,6 +42250,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutTournamentsInput = {
@@ -39895,6 +42314,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutTournamentsInput = {
@@ -40057,6 +42477,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutTitlesInput = {
@@ -40120,6 +42541,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutTitlesInput = {
@@ -40380,6 +42802,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutClanInput = {
@@ -40443,6 +42866,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutClanInput = {
@@ -40551,6 +42975,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutWantToJoinClanInput = {
@@ -40614,6 +43039,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutWantToJoinClanInput = {
@@ -40768,6 +43194,10 @@ export namespace Prisma {
      * @deprecated Use BruteDefaultArgs instead
      */
     export type BruteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BruteDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use BruteStartingStatsDefaultArgs instead
+     */
+    export type BruteStartingStatsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BruteStartingStatsDefaultArgs<ExtArgs>
     /**
      * @deprecated Use FightDefaultArgs instead
      */

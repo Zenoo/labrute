@@ -20,6 +20,7 @@ import {
   getGoldNeededForNewBrute,
   getLevelUpChoices,
   getMaxFightsPerDay,
+  getRandomStartingStats,
   getXPNeeded,
   isNameValid,
   randomBetween, updateBruteData,
@@ -271,16 +272,29 @@ const Brutes = {
         select: { id: true },
       }) : undefined;
 
+      const startingStats = getRandomStartingStats();
+
       // Create brute
       const brute = await prisma.brute.create({
         data: {
           name: req.body.name,
-          ...createRandomBruteStats(),
+          ...createRandomBruteStats(startingStats),
           gender: req.body.gender,
           user: { connect: { id: user.id } },
           body: req.body.body,
           colors: req.body.colors,
           master: master ? { connect: { id: master.id } } : undefined,
+        },
+      });
+
+      // Store starting stats
+      await prisma.bruteStartingStats.create({
+        data: {
+          bruteId: brute.id,
+          endurance: startingStats.endurance,
+          strength: startingStats.strength,
+          agility: startingStats.agility,
+          speed: startingStats.speed,
         },
       });
 
@@ -1024,8 +1038,31 @@ const Brutes = {
         throw new Error(translate('noFirstBonus', authed));
       }
 
+      // Get base stats
+      let baseStats = await prisma.bruteStartingStats.findFirst({
+        where: { bruteId: userBrute.id },
+        omit: { id: true, bruteId: true },
+      });
+
+      if (!baseStats) {
+        const newBaseStats = getRandomStartingStats();
+        baseStats = newBaseStats;
+
+        // Store starting stats
+        await prisma.bruteStartingStats.create({
+          data: {
+            bruteId: userBrute.id,
+            endurance: newBaseStats.endurance,
+            strength: newBaseStats.strength,
+            agility: newBaseStats.agility,
+            speed: newBaseStats.speed,
+          },
+        });
+      }
+
       // Random stats
       const stats = createRandomBruteStats(
+        baseStats,
         firstBonus.type,
         firstBonus.type === DestinyChoiceType.pet
           ? firstBonus.pet
@@ -1531,8 +1568,31 @@ const Brutes = {
         select: { id: true },
       });
 
+      // Get base stats
+      let baseStats = await prisma.bruteStartingStats.findFirst({
+        where: { bruteId: brute.id },
+        omit: { id: true, bruteId: true },
+      });
+
+      if (!baseStats) {
+        const newBaseStats = getRandomStartingStats();
+        baseStats = newBaseStats;
+
+        // Store starting stats
+        await prisma.bruteStartingStats.create({
+          data: {
+            bruteId: brute.id,
+            endurance: newBaseStats.endurance,
+            strength: newBaseStats.strength,
+            agility: newBaseStats.agility,
+            speed: newBaseStats.speed,
+          },
+        });
+      }
+
       // Random stats
       const stats = createRandomBruteStats(
+        baseStats,
         firstBonus.type,
         firstBonus.type === DestinyChoiceType.pet
           ? firstBonus.pet

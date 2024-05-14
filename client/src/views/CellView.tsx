@@ -334,20 +334,18 @@ const CellView = () => {
               <Box sx={{ ml: 2, mt: 1 }}>
                 {logs.map((log) => <CellLog key={log.id} log={log} />)}
               </Box>
-              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                <Link to={`/${brute.name}/tournaments`}>
-                  <FantasyButton color="secondary" sx={{ m: 1 }}>
-                    <History sx={{ verticalAlign: 'middle', mr: 1 }} />
-                    {t('tournaments')}
-                  </FantasyButton>
-                </Link>
+              <Box sx={{ display: 'flex', ml: 2, justifyContent: 'center' }}>
+                <FantasyButton color="secondary" to={`/${brute.name}/tournaments`} sx={{ m: 1 }}>
+                  <History sx={{ verticalAlign: 'middle', mr: 1 }} />
+                  {t('tournaments')}
+                </FantasyButton>
               </Box>
               <Text
                 smallCaps
                 subtitle2
                 center
                 onClick={confirmReport}
-                sx={{ cursor: 'pointer' }}
+                sx={{ cursor: 'pointer', ml: 2 }}
               >
                 {t('report')}
               </Text>

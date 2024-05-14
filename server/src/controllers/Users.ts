@@ -2,6 +2,7 @@ import {
   AchievementData, ExpectedError, RaretyOrder,
   UserGetAdminResponse, UserGetProfileResponse, UserWithBrutesBodyColor, UsersAdminUpdateRequest,
   getFightsLeft,
+  isUuid,
 } from '@labrute/core';
 import {
   Achievement, Lang,
@@ -19,7 +20,7 @@ import translate from '../utils/translate.js';
 const Users = {
   get: (prisma: PrismaClient) => async (
     req: Request<{
-      name: string
+      id: string
     }>,
     res: Response<UserGetAdminResponse>,
   ) => {
@@ -35,9 +36,13 @@ const Users = {
         throw new Error(translate('unauthorized', authed));
       }
 
+      if (!isUuid(req.params.id)) {
+        throw new Error(translate('invalidParameters', authed));
+      }
+
       const user = await prisma.user.findFirst({
         where: {
-          name: req.params.name,
+          id: req.params.id,
         },
         include: {
           achievements: {

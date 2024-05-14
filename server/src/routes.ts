@@ -37,7 +37,7 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   // User
   app.post('/api/user/authenticate', Users.authenticate(prisma));
   app.get('/api/user/get-dinorpg-reward', Users.getDinoRpgRewards(prisma));
-  app.get('/api/user/:name/admin', Users.get(prisma));
+  app.get('/api/user/:id/admin', Users.get(prisma));
   app.get('/api/run-daily-job', Users.runDailyJob(prisma));
   app.post('/api/user/change-language', Users.changeLanguage(prisma));
   app.post('/api/user/change-fight-speed', Users.changeFightSpeed(prisma));

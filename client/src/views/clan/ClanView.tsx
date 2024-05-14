@@ -195,7 +195,7 @@ const ClanView = () => {
           } : b)),
         }) : null));
 
-        updateBrute((b) => (b ? { ...b, clanId: null } : null));
+        updateBrute((b) => (b ? { ...b, clanId: null, clan: null } : null));
 
         // Redirect to cell
         navigate(`/${brute.name}/cell`);

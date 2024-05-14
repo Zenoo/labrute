@@ -4,7 +4,7 @@
 generator client {
   provider        = "prisma-client-js"
   output          = "../../prisma"
-  previewFeatures = ["nativeDistinct", "relationJoins", "tracing"]
+  previewFeatures = ["nativeDistinct", "relationJoins", "tracing", "omitApi"]
   binaryTargets   = ["native", "debian-openssl-3.0.x", "debian-openssl-1.1.x"]
 }
 
@@ -229,6 +229,17 @@ model Brute {
   tournamentAchievements       TournamentAchievement[]
   tournamentXps                TournamentXp[]
   tournamentWins               Int                     @default(0)
+  startingStats                BruteStartingStats?
+}
+
+model BruteStartingStats {
+  id        Int   @id @default(autoincrement())
+  endurance Int   @default(2)
+  strength  Int   @default(3)
+  agility   Int   @default(3)
+  speed     Int   @default(3)
+  brute     Brute @relation(fields: [bruteId], references: [id])
+  bruteId   Int   @unique
 }
 
 // FIGHTS

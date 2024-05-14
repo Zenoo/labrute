@@ -66,7 +66,6 @@ const routes: RouteObject[] = [
           { path: 'reset-visuals', element: <ResetVisualsView /> },
           {
             path: 'clan',
-            element: <ProvideBrute />,
             children: [
               { path: 'ranking', element: <ClanRankingView /> },
               { path: 'create', element: <ClanCreateView /> },
