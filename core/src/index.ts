@@ -1,4 +1,4 @@
-import { Achievement, AchievementName, Brute, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, DestinyChoice, Fight, Lang, Prisma, Tournament, TournamentStep, User } from '@labrute/prisma';
+import { Achievement, AchievementName, Brute, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, DestinyChoice, Fight, Lang, Prisma, Tournament, User } from '@labrute/prisma';
 import Version from './Version';
 import applySkillModifiers from './brute/applySkillModifiers';
 import availableBodyParts from './brute/availableBodyParts';
@@ -79,14 +79,18 @@ export type BrutesExistsResponse = {
   name: string,
 };
 
-export type TournamentsGetGlobalStep = Pick<TournamentStep, 'id' | 'step' | 'fightId'> & {
-  fight: Pick<Fight, 'winner' | 'fighters' | 'brute1Id' | 'brute2Id'>,
+export type TournamentsGetDailyResponse = Tournament & {
+  fights: (Pick<Fight, 'id' | 'winner' | 'loser' | 'tournamentStep' | 'fighters'> & {
+    brute1: Brute,
+    brute2: Brute | null,
+  })[]
 };
+export type TournamentsGetGlobalFight = Pick<Fight, 'id' | 'winner' | 'fighters' | 'brute1Id' | 'brute2Id' | 'tournamentStep'>;
 export type TournamentsGetGlobalResponse = {
   tournament: (Pick<Tournament, 'id' | 'rounds'> & {
-    steps: TournamentsGetGlobalStep[];
+    fights: TournamentsGetGlobalFight[];
   }) | null,
-  lastRounds: TournamentsGetGlobalStep[],
+  lastRounds: TournamentsGetGlobalFight[],
   done: boolean,
   nextOpponent: string | null,
 };

@@ -1,4 +1,4 @@
-import { Fighter, GLOBAL_TOURNAMENT_START_HOUR, TournamentsGetGlobalResponse, TournamentsGetGlobalStep } from '@labrute/core';
+import { Fighter, GLOBAL_TOURNAMENT_START_HOUR, TournamentsGetGlobalFight, TournamentsGetGlobalResponse } from '@labrute/core';
 import { Close } from '@mui/icons-material';
 import { Box, Paper, PaperProps, useTheme } from '@mui/material';
 import moment from 'moment';
@@ -70,39 +70,39 @@ const CellGlobalTournament = ({
 
   const lostRound = useMemo(
     () => (bruteName && data
-      ? data.tournament?.steps.find((step) => step.fight.winner !== bruteName)
-      || data.lastRounds.find((step) => (step.fight.brute1Id === brute?.id
-        || step.fight.brute2Id === brute?.id)
-        && step.fight.winner !== bruteName)
+      ? data.tournament?.fights.find((fight) => fight.winner !== bruteName)
+      || data.lastRounds.find((fight) => (fight.brute1Id === brute?.id
+        || fight.brute2Id === brute?.id)
+        && fight.winner !== bruteName)
       : null),
     [brute?.id, bruteName, data],
   );
 
   // Last fights renderer
   const renderFight = (
-    step: TournamentsGetGlobalStep,
+    fight: TournamentsGetGlobalFight,
     finals = false,
   ) => {
     if (!bruteName) return null;
 
-    const bruteInFight = step.fight.brute1Id === brute?.id
-      || step.fight.brute2Id === brute?.id;
-    const won = bruteInFight && step.fight.winner === bruteName;
+    const bruteInFight = fight.brute1Id === brute?.id
+      || fight.brute2Id === brute?.id;
+    const won = bruteInFight && fight.winner === bruteName;
 
-    const fighters = JSON.parse(step.fight.fighters) as Fighter[];
+    const fighters = JSON.parse(fight.fighters) as Fighter[];
 
     const fighter1 = fighters
-      .find((fighter) => fighter.type === 'brute' && fighter.id === step.fight.brute1Id);
+      .find((fighter) => fighter.type === 'brute' && fighter.id === fight.brute1Id);
     const fighter2 = fighters
-      .find((fighter) => fighter.type === 'brute' && fighter.id === step.fight.brute2Id);
+      .find((fighter) => fighter.type === 'brute' && fighter.id === fight.brute2Id);
 
     if (!fighter1) return null;
     if (!fighter2) return null;
 
     return (
       <Link
-        to={`/${fighter1.name}/fight/${step.fightId}`}
-        key={step.id}
+        to={`/${fighter1.name}/fight/${fight.id}`}
+        key={fight.id}
         sx={{
           display: 'inline-flex',
           alignItems: 'center',
@@ -135,7 +135,7 @@ const CellGlobalTournament = ({
               looking="right"
               y={-3}
             />
-            {step.fight.winner === fighter2.name && (
+            {fight.winner === fighter2.name && (
               <Close
                 color="error"
                 sx={{
@@ -170,7 +170,7 @@ const CellGlobalTournament = ({
               looking="left"
               y={-3}
             />
-            {step.fight.winner === fighter1.name && (
+            {fight.winner === fighter1.name && (
               <Close
                 color="error"
                 sx={{
@@ -203,7 +203,7 @@ const CellGlobalTournament = ({
     >
       <Text bold color="text.disabled">
         {t('eliminatedBy', {
-          value: lostRound.fight.winner
+          value: lostRound.winner
         })}
       </Text>
     </Box>
@@ -255,13 +255,13 @@ const CellGlobalTournament = ({
       >
         {/* Rounds */}
         {Array.from({ length: data.tournament.rounds - 3 }).map((_, i) => {
-          const step = data.tournament?.steps.find((s) => s.step === i + 1);
+          const fight = data.tournament?.fights.find((f) => f.tournamentStep === i + 1);
 
           // Free bye
-          if (!step) {
+          if (!fight) {
             // Check if brute lost a fight before
-            const lost = data.tournament?.steps
-              .some((s) => s.step < i + 1 && s.fight.winner !== bruteName);
+            const lost = data.tournament?.fights
+              .some((f) => f.tournamentStep < i + 1 && f.winner !== bruteName);
 
             if (lost) {
               return null;
@@ -295,17 +295,17 @@ const CellGlobalTournament = ({
             );
           }
 
-          const fighters = JSON.parse(step.fight.fighters) as Fighter[];
+          const fighters = JSON.parse(fight.fighters) as Fighter[];
           const fighter1 = fighters
-            .find((fighter) => fighter.type === 'brute' && fighter.id === step.fight.brute1Id);
+            .find((fighter) => fighter.type === 'brute' && fighter.id === fight.brute1Id);
           const fighter2 = fighters
-            .find((fighter) => fighter.type === 'brute' && fighter.id === step.fight.brute2Id);
+            .find((fighter) => fighter.type === 'brute' && fighter.id === fight.brute2Id);
 
           if (!fighter1) return null;
           if (!fighter2) return null;
 
-          const won = step.fight.winner === bruteName;
-          const opponent = brute?.id === step.fight.brute1Id
+          const won = fight.winner === bruteName;
+          const opponent = brute?.id === fight.brute1Id
             ? fighter2.name
             : fighter1.name;
 
@@ -313,10 +313,10 @@ const CellGlobalTournament = ({
           return (
             <BruteTooltip
               fighter={bruteName === fighter2.name ? fighter1 : fighter2}
-              key={step.id}
+              key={fight.id}
             >
               <Link
-                to={`/${bruteName}/fight/${step.fightId}`}
+                to={`/${bruteName}/fight/${fight.id}`}
                 sx={{
                   display: 'flex',
                   px: 0.5,
@@ -336,11 +336,11 @@ const CellGlobalTournament = ({
                   color={won ? 'success.main' : 'error'}
                   sx={{ width: 30 }}
                 >
-                  {step.step + GLOBAL_TOURNAMENT_START_HOUR - 1}h
+                  {fight.tournamentStep + GLOBAL_TOURNAMENT_START_HOUR - 1}h
                 </Text>
                 <Box
                   component="img"
-                  src={`/images/log/${won ? 'win' : 'lose'}.png`}
+                  src={`/images/log/${won ? 'win' : 'lose'}.webp`}
                   sx={{ width: 20, height: 20, mr: 0.5 }}
                 />
                 <Text
@@ -356,7 +356,7 @@ const CellGlobalTournament = ({
           );
         })}
         {/* Lost marker */}
-        {lostRound && lostRound.step <= data.tournament.rounds - 3 && renderLostMarker()}
+        {lostRound && lostRound.tournamentStep <= data.tournament.rounds - 3 && renderLostMarker()}
         {/* Next opponent */}
         {data.nextOpponent && data.lastRounds.length === 0 && renderNextOpponent()}
         {/* Last rounds */}
@@ -376,13 +376,15 @@ const CellGlobalTournament = ({
               }
             }}
             >
-              <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[0].step + GLOBAL_TOURNAMENT_START_HOUR - 1}h {t('quarterFinals')}</Text>
+              <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[0].tournamentStep + GLOBAL_TOURNAMENT_START_HOUR - 1}h {t('quarterFinals')}</Text>
               {data.lastRounds
-                .filter((step) => step.step === data.lastRounds[0].step)
-                .map((step) => renderFight(step))}
+                .filter((fight) => fight.tournamentStep === data.lastRounds[0].tournamentStep)
+                .map((fight) => renderFight(fight))}
             </Box>
             {/* Lost marker */}
-            {lostRound && lostRound.step === data.lastRounds[0].step && renderLostMarker()}
+            {lostRound
+              && lostRound.tournamentStep === data.lastRounds[0].tournamentStep
+              && renderLostMarker()}
             {/* Next opponent */}
             {data.nextOpponent && data.lastRounds.length === 4 && renderNextOpponent()}
           </>
@@ -403,19 +405,23 @@ const CellGlobalTournament = ({
               }
             }}
             >
-              <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[0].step + GLOBAL_TOURNAMENT_START_HOUR}h {t('semiFinals')}</Text>
+              <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[0].tournamentStep + GLOBAL_TOURNAMENT_START_HOUR}h {t('semiFinals')}</Text>
               {data.lastRounds
-                .filter((step) => step.step === data.lastRounds[0].step + 1)
+                .filter((fight) => fight.tournamentStep === data.lastRounds[0].tournamentStep + 1)
                 .map((step) => renderFight(step))}
             </Box>
             {/* Lost marker */}
-            {lostRound && lostRound.step === data.lastRounds[0].step + 1 && renderLostMarker()}
+            {lostRound
+              && lostRound.tournamentStep === data.lastRounds[0].tournamentStep + 1
+              && renderLostMarker()}
             {/* Next opponent */}
             {data.nextOpponent && data.lastRounds.length > 4 && renderNextOpponent()}
           </>
         )}
         {/* Final */}
-        {data.lastRounds.find((step) => step.step === data.lastRounds[0].step + 2) && (
+        {data.lastRounds.find(
+          (fight) => fight.tournamentStep === data.lastRounds[0].tournamentStep + 2
+        ) && (
           <>
             <Box sx={{
               display: 'flex',
@@ -430,11 +436,13 @@ const CellGlobalTournament = ({
               }
             }}
             >
-              <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[data.lastRounds.length - 1].step + GLOBAL_TOURNAMENT_START_HOUR - 1}h {t('finals')}</Text>
+              <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[data.lastRounds.length - 1].tournamentStep + GLOBAL_TOURNAMENT_START_HOUR - 1}h {t('finals')}</Text>
               {renderFight(data.lastRounds[data.lastRounds.length - 1], true)}
             </Box>
             {/* Lost marker */}
-            {lostRound && lostRound.step === data.lastRounds[0].step + 2 && renderLostMarker()}
+            {lostRound
+              && lostRound.tournamentStep === data.lastRounds[0].tournamentStep + 2
+              && renderLostMarker()}
           </>
         )}
         {/* Tournament done ? */}

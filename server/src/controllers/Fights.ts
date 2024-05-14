@@ -38,20 +38,18 @@ const Fights = {
       }
 
       // Limit viewing if the fight is from a global tournament round not yet reached
-      const tournamentStep = await prisma.tournamentStep.findFirst({
+      const tournament = await prisma.tournament.findFirst({
         where: {
-          tournament: {
-            type: TournamentType.GLOBAL,
-            date: { gte: new Date() },
-          },
-          fightId: fight.id,
+          type: TournamentType.GLOBAL,
+          date: { gte: new Date() },
+          fights: { some: { id: fight.id } },
         },
       });
 
       const now = moment.utc();
       const hour = now.hour();
 
-      if (tournamentStep && tournamentStep.step > hour - GLOBAL_TOURNAMENT_START_HOUR + 1) {
+      if (tournament && fight.tournamentStep > hour - GLOBAL_TOURNAMENT_START_HOUR + 1) {
         throw new ExpectedError('Fight unavailable for now');
       } else {
         res.send(fight);

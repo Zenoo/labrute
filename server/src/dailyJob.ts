@@ -93,17 +93,17 @@ const deleteMisformattedTournaments = async (prisma: PrismaClient) => {
     },
     select: {
       id: true,
-      steps: { select: { id: true } },
+      fights: { select: { id: true } },
     },
   });
 
   // Delete misformatted tournaments
   const misformattedTournaments = tournamentsAlreadyCreated.filter(
-    (tournament) => tournament.steps.length !== 63,
+    (tournament) => tournament.fights.length !== 63,
   );
 
   if (misformattedTournaments.length) {
-    await prisma.tournamentStep.deleteMany({
+    await prisma.fight.deleteMany({
       where: {
         tournamentId: {
           in: misformattedTournaments.map((tournament) => tournament.id),
@@ -325,9 +325,10 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
         lastFight = generatedFight;
 
         // Create fight
-        const fight = await prisma.fight.create({
+        await prisma.fight.create({
           data: {
             ...lastFight,
+            tournamentStep: step,
             tournament: { connect: { id: tournament.id } },
           },
           select: { id: true },
@@ -338,16 +339,6 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
 
         // Add winner to next round
         winners.push(winnerId === roundBrutes[i].id ? roundBrutes[i] : roundBrutes[i + 1]);
-
-        // Create tournament step
-        await prisma.tournamentStep.create({
-          data: {
-            tournament: { connect: { id: tournament.id } },
-            step,
-            fight: { connect: fight },
-          },
-          select: { id: true },
-        });
 
         // Store XP for winner
         xpGains[winnerId] = (xpGains[winnerId] || 0) + 1;
@@ -518,7 +509,7 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
     });
   }
 
-  // For the global tournament, tournamentStep.step represents the round number
+  // For the global tournament, fight.tournamentStep represents the round number
   let round = 1;
   let roundBrutes = [...shuffledBrutes];
   let byes: typeof brutes = [];
@@ -592,9 +583,10 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
       }
 
       // Create fight
-      const fight = await prisma.fight.create({
+      await prisma.fight.create({
         data: {
           ...generatedFight,
+          tournamentStep: round,
           tournament: { connect: { id: tournament.id } },
         },
         select: { id: true },
@@ -602,16 +594,6 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
 
       // Add winner to next round
       nextBrutes.push(brute1.name === generatedFight.winner ? brute1 : brute2);
-
-      // Create tournament step
-      await prisma.tournamentStep.create({
-        data: {
-          tournament: { connect: { id: tournament.id } },
-          step: round,
-          fight: { connect: fight },
-        },
-        select: { id: true },
-      });
 
       const winnerId = brute1.name === generatedFight.winner ? brute1.id : brute2.id;
 

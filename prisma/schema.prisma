@@ -249,20 +249,20 @@ enum FighterType {
 }
 
 model Fight {
-  id             Int              @id @default(autoincrement())
-  date           DateTime         @default(now()) @db.Date
-  brute1         Brute            @relation(fields: [brute1Id], references: [id])
+  id             Int         @id @default(autoincrement())
+  date           DateTime    @default(now()) @db.Date
+  brute1         Brute       @relation(fields: [brute1Id], references: [id])
   brute1Id       Int
-  brute2         Brute?           @relation("Adversary", fields: [brute2Id], references: [id])
+  brute2         Brute?      @relation("Adversary", fields: [brute2Id], references: [id])
   brute2Id       Int?
-  winner         String           @db.VarChar(255)
-  loser          String           @db.VarChar(255)
-  steps          String           @db.Text
-  fighters       String           @db.Text
+  winner         String      @db.VarChar(255)
+  loser          String      @db.VarChar(255)
+  steps          String      @db.Text
+  fighters       String      @db.Text
   logs           Log[]
-  tournament     Tournament?      @relation(fields: [tournamentId], references: [id])
+  tournament     Tournament? @relation(fields: [tournamentId], references: [id])
   tournamentId   Int?
-  TournamentStep TournamentStep[]
+  tournamentStep Int         @default(0)
 
   @@index([tournamentId, winner, brute1Id, brute2Id])
 }
@@ -333,26 +333,14 @@ enum TournamentType {
 }
 
 model Tournament {
-  id           Int              @id @default(autoincrement())
-  date         DateTime         @db.Date
-  type         TournamentType   @default(DAILY)
+  id           Int            @id @default(autoincrement())
+  date         DateTime       @db.Date
+  type         TournamentType @default(DAILY)
   participants Brute[]
-  steps        TournamentStep[]
   rounds       Int
   fights       Fight[]
 
   @@index([type, date])
-}
-
-model TournamentStep {
-  id           Int        @id @default(autoincrement())
-  tournament   Tournament @relation(fields: [tournamentId], references: [id])
-  tournamentId Int
-  step         Int
-  fight        Fight      @relation(fields: [fightId], references: [id])
-  fightId      Int
-
-  @@index([tournamentId, step])
 }
 
 model TournamentAchievement {

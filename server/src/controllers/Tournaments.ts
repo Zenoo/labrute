@@ -1,6 +1,6 @@
 import {
   ExpectedError, GLOBAL_TOURNAMENT_START_HOUR,
-  TournamentHistoryResponse, TournamentsGetGlobalResponse,
+  TournamentHistoryResponse, TournamentsGetDailyResponse, TournamentsGetGlobalResponse,
 } from '@labrute/core';
 import {
   PrismaClient,
@@ -14,7 +14,10 @@ import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
 
 const Tournaments = {
-  getDaily: (prisma: PrismaClient) => async (req: Request, res: Response) => {
+  getDaily: (prisma: PrismaClient) => async (
+    req: Request,
+    res: Response<TournamentsGetDailyResponse>,
+  ) => {
     try {
       if (!req.params.name || !req.params.date) {
         throw new Error('Invalid parameters');
@@ -32,14 +35,15 @@ const Tournaments = {
           },
         },
         include: {
-          steps: {
-            include: {
-              fight: {
-                include: {
-                  brute1: true,
-                  brute2: true,
-                },
-              },
+          fights: {
+            select: {
+              id: true,
+              brute1: true,
+              brute2: true,
+              winner: true,
+              loser: true,
+              tournamentStep: true,
+              fighters: true,
             },
           },
         },
@@ -140,7 +144,15 @@ const Tournaments = {
             },
           },
         },
-        include: { steps: { include: { fight: true } } },
+        select: {
+          fights: {
+            select: {
+              tournamentStep: true,
+              brute1Id: true,
+              brute2Id: true,
+            },
+          },
+        },
       });
 
       if (!tournament) {
@@ -154,9 +166,9 @@ const Tournaments = {
         : brute.currentTournamentStepWatched || 0;
 
       // If brute was eliminated, set tournament as fully watched
-      if (!tournament.steps
-        .find((step) => step.step >= steps[stepWatched + 1]
-          && (step.fight.brute1Id === brute.id || step.fight.brute2Id === brute.id))) {
+      if (!tournament.fights
+        .find((fight) => fight.tournamentStep >= steps[stepWatched + 1]
+          && (fight.brute1Id === brute.id || fight.brute2Id === brute.id))) {
         await prisma.brute.update({
           where: {
             id: brute.id,
@@ -297,64 +309,52 @@ const Tournaments = {
       const now = moment.utc();
       const hour = now.hour();
 
-      // Get brute steps (round 1 at 11h, round 2 at 12h, etc...)
-      const steps = await prisma.tournamentStep.findMany({
+      // Get brute fights (round 1 at 11h, round 2 at 12h, etc...)
+      const fights = await prisma.fight.findMany({
         where: {
           tournamentId: tournament.id,
-          step: {
+          tournamentStep: {
             // Only limit if same day
             lte: now.isSame(date, 'day') ? hour - GLOBAL_TOURNAMENT_START_HOUR + 1 : undefined,
           },
-          fight: {
-            OR: [
-              { brute1Id: brute.id },
-              { brute2Id: brute.id },
-            ],
-          },
+          OR: [
+            { brute1Id: brute.id },
+            { brute2Id: brute.id },
+          ],
         },
         orderBy: {
-          step: 'asc',
+          tournamentStep: 'asc',
         },
         select: {
           id: true,
-          step: true,
-          fightId: true,
-          fight: {
-            select: {
-              winner: true,
-              fighters: true,
-              brute1Id: true,
-              brute2Id: true,
-            },
-          },
+          tournamentStep: true,
+          winner: true,
+          fighters: true,
+          brute1Id: true,
+          brute2Id: true,
         },
       });
 
       // Get last rounds
-      const lastRounds = await prisma.tournamentStep.findMany({
+      const lastRounds = await prisma.fight.findMany({
         where: {
           tournamentId: tournament.id,
-          step: {
+          tournamentStep: {
             gte: tournament.rounds - 2,
             // Only limit if same day
             lte: now.isSame(date, 'day') ? hour - GLOBAL_TOURNAMENT_START_HOUR + 1 : undefined,
           },
         },
         orderBy: {
-          step: 'asc',
+          tournamentStep: 'asc',
         },
         select: {
           id: true,
-          step: true,
-          fightId: true,
-          fight: {
-            select: {
-              winner: true,
-              fighters: true,
-              brute1Id: true,
-              brute2Id: true,
-            },
-          },
+          tournamentStep: true,
+          winner: true,
+          fighters: true,
+          brute1Id: true,
+          brute2Id: true,
         },
       });
 
@@ -365,27 +365,21 @@ const Tournaments = {
       // Get next opponent if exists
       let nextFight;
       if (!tournamentEnded) {
-        nextFight = await prisma.tournamentStep.findFirst({
+        nextFight = await prisma.fight.findFirst({
           where: {
             tournamentId: tournament.id,
-            step: hour - GLOBAL_TOURNAMENT_START_HOUR + 2,
-            fight: {
-              OR: [
-                { brute1Id: brute.id },
-                { brute2Id: brute.id },
-              ],
-            },
+            tournamentStep: hour - GLOBAL_TOURNAMENT_START_HOUR + 2,
+            OR: [
+              { brute1Id: brute.id },
+              { brute2Id: brute.id },
+            ],
           },
-          include: {
-            fight: {
-              include: {
-                brute1: {
-                  select: { name: true },
-                },
-                brute2: {
-                  select: { name: true },
-                },
-              },
+          select: {
+            brute1: {
+              select: { name: true },
+            },
+            brute2: {
+              select: { name: true },
             },
           },
         });
@@ -394,14 +388,14 @@ const Tournaments = {
       res.send({
         tournament: {
           ...tournament,
-          steps,
+          fights,
         },
         lastRounds,
         done: tournamentEnded,
         nextOpponent: nextFight
-          ? nextFight.fight.brute1.name === brute.name
-            ? nextFight.fight.brute2?.name || ''
-            : nextFight?.fight.brute1.name
+          ? nextFight.brute1.name === brute.name
+            ? nextFight.brute2?.name || ''
+            : nextFight.brute1.name
           : null,
       });
     } catch (error) {
@@ -421,46 +415,31 @@ const Tournaments = {
         throw new ExpectedError(translate('unauthorized', authed));
       }
 
-      // Get tournament step ids
-      const tournamentSteps = await prisma.tournamentStep.findMany({
-        where: {
-          tournament: {
-            type: TournamentType.DAILY,
-            date: {
-              gte: moment.utc().startOf('day').toDate(),
-              lte: moment.utc().endOf('day').toDate(),
-            },
-          },
-        },
-        select: {
-          id: true,
-        },
-      });
-
-      // Delete all daily tournaments steps
-      await prisma.tournamentStep.deleteMany({
-        where: {
-          id: { in: tournamentSteps.map((ts) => ts.id) },
-        },
-      });
-
-      // Delete all fights from daily tournaments steps
-      await prisma.fight.deleteMany({
-        where: {
-          TournamentStep: {
-            some: { id: { in: tournamentSteps.map((ts) => ts.id) } },
-          },
-        },
-      });
-
-      // Delete all daily tournaments
-      await prisma.tournament.deleteMany({
+      // Get tournament IDs
+      const tournaments = await prisma.tournament.findMany({
         where: {
           type: TournamentType.DAILY,
           date: {
             gte: moment.utc().startOf('day').toDate(),
             lte: moment.utc().endOf('day').toDate(),
           },
+        },
+        select: { id: true },
+      });
+
+      const tournamentIds = tournaments.map((t) => t.id);
+
+      // Delete all fights from daily tournaments
+      await prisma.fight.deleteMany({
+        where: {
+          tournamentId: { in: tournamentIds },
+        },
+      });
+
+      // Delete all daily tournaments
+      await prisma.tournament.deleteMany({
+        where: {
+          id: { in: tournamentIds },
         },
       });
 
@@ -482,56 +461,33 @@ const Tournaments = {
         throw new ExpectedError(translate('unauthorized', authed));
       }
 
-      // Get tournament step ids
-      const tournamentSteps = await prisma.tournamentStep.findMany({
-        where: {
-          tournament: {
-            type: TournamentType.GLOBAL,
-            date: {
-              gte: moment.utc().startOf('day').toDate(),
-              lte: moment.utc().endOf('day').toDate(),
-            },
-          },
-        },
-        select: {
-          id: true,
-        },
-      });
-
-      // Separate by chunks of 10k
-      const chunks = [];
-      for (let i = 0; i < tournamentSteps.length; i += 10000) {
-        chunks.push(tournamentSteps.slice(i, i + 10000));
-      }
-
-      for (const chunk of chunks) {
-        // Delete all global tournaments steps
-        // eslint-disable-next-line no-await-in-loop
-        await prisma.tournamentStep.deleteMany({
-          where: {
-            id: { in: chunk.map((ts) => ts.id) },
-          },
-        });
-
-        // Delete all fights from global tournaments steps
-        // eslint-disable-next-line no-await-in-loop
-        await prisma.fight.deleteMany({
-          where: {
-            TournamentStep: {
-              some: { id: { in: chunk.map((ts) => ts.id) } },
-            },
-          },
-        });
-      }
-
-      // Delete global tournament
-      await prisma.tournament.deleteMany({
+      // Get tournament ID
+      const tournament = await prisma.tournament.findFirst({
         where: {
           type: TournamentType.GLOBAL,
           date: {
             gte: moment.utc().startOf('day').toDate(),
             lte: moment.utc().endOf('day').toDate(),
           },
+        },
+        select: { id: true },
+      });
+
+      if (!tournament) {
+        throw new ExpectedError(translate('tournamentNotFound', authed));
+      }
+
+      // Delete all fights from global tournament
+      await prisma.fight.deleteMany({
+        where: {
+          tournamentId: tournament.id,
+        },
+      });
+
+      // Delete global tournament
+      await prisma.tournament.deleteMany({
+        where: {
+          id: tournament.id,
         },
       });
 
@@ -588,12 +544,11 @@ const Tournaments = {
         place: number;
       })[] = tournaments.map((tournament) => ({
         ...tournament,
-        place: 2 ** tournament.rounds - 1,
+        place: 2 ** tournament.rounds,
       }));
 
       // Get the count of fights won for the brute for each tournament
-      const fightsWon = await prisma.fight.groupBy({
-        by: ['tournamentId'],
+      const fightsWon = await prisma.fight.findMany({
         where: {
           tournamentId: {
             in: tournaments.map((t) => t.id),
@@ -604,16 +559,24 @@ const Tournaments = {
           ],
           winner: brute.name,
         },
-        _count: true,
+        select: {
+          tournamentId: true,
+          tournamentStep: true,
+        },
       });
 
       // Update the place for each tournament
       tournamentsWithPlace.forEach((tournament) => {
-        const fights = fightsWon.find((f) => f.tournamentId === tournament.id);
+        const fights = fightsWon
+          .filter((f) => f.tournamentId === tournament.id)
+          .sort((a, b) => a.tournamentStep - b.tournamentStep);
 
-        if (fights) {
+        if (fights.length) {
+          // Take bye into account
+          const fightsWithBye = fights[0].tournamentStep !== 1 ? fights.length + 1 : fights.length;
+
           // eslint-disable-next-line no-param-reassign, no-underscore-dangle
-          tournament.place = Math.round(tournament.place / (2 ** fights._count));
+          tournament.place = 2 ** (tournament.rounds - fightsWithBye);
         }
       });
 

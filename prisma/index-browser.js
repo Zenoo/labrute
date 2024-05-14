@@ -203,7 +203,8 @@ exports.Prisma.FightScalarFieldEnum = {
   loser: 'loser',
   steps: 'steps',
   fighters: 'fighters',
-  tournamentId: 'tournamentId'
+  tournamentId: 'tournamentId',
+  tournamentStep: 'tournamentStep'
 };
 
 exports.Prisma.LogScalarFieldEnum = {
@@ -236,13 +237,6 @@ exports.Prisma.TournamentScalarFieldEnum = {
   date: 'date',
   type: 'type',
   rounds: 'rounds'
-};
-
-exports.Prisma.TournamentStepScalarFieldEnum = {
-  id: 'id',
-  tournamentId: 'tournamentId',
-  step: 'step',
-  fightId: 'fightId'
 };
 
 exports.Prisma.TournamentAchievementScalarFieldEnum = {
@@ -628,7 +622,6 @@ exports.Prisma.ModelName = {
   Log: 'Log',
   DestinyChoice: 'DestinyChoice',
   Tournament: 'Tournament',
-  TournamentStep: 'TournamentStep',
   TournamentAchievement: 'TournamentAchievement',
   TournamentGold: 'TournamentGold',
   TournamentXp: 'TournamentXp',
