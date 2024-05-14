@@ -708,6 +708,10 @@ const activateSuper = (
     case 'hypnosis': {
       // Get main opponent
       const opponent = getMainOpponent(fightData, fighter);
+
+      // Get main fighter
+      const mainFighter = getMainOpponent(fightData, opponent);
+
       // Get opponent's non trapped pets
       const opponentPets = fightData.fighters.filter((f) => f.type === 'pet'
         && f.master === opponent.id
@@ -723,7 +727,7 @@ const activateSuper = (
         hypnotisedPets.push(pet.id);
 
         // Change pet owner
-        pet.master = fighter.id;
+        pet.master = mainFighter.id;
         pet.hypnotised = true;
       }
 
