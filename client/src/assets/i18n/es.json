@@ -35,6 +35,8 @@
   "ePopotamo.desc": "ePopotamo: ¡El relajante juego de palabras jugable en cualquier situación!",
   "connect": "Conectar",
   "serverTime": "Hora del servidor",
+  "lightMode": "Light mode",
+  "darkMode": "Dark mode",
   "betaTitle": "Versión beta",
   "betaDescription": "Este juego está todavía en beta. Hay cambios a menudo y puede que haya bugs. Si encuentras alguno, por favor repórtalo en nuestro",
   "discord": "Discord",
