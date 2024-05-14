@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.53.0](https://github.com/Zenoo/labrute/compare/labrute-v2.52.6...labrute-v2.53.0) (2024-05-14)
+
+
+### Features
+
+* Dark mode (hidden for now) [#604](https://github.com/Zenoo/labrute/issues/604) + Store base brute stats. Fixes [#666](https://github.com/Zenoo/labrute/issues/666) ([742edf3](https://github.com/Zenoo/labrute/commit/742edf339742b14bae7edb402e69f75f9ac11d19))
+
+
+### Bug Fixes
+
+* Brute too big ([81bef31](https://github.com/Zenoo/labrute/commit/81bef31572ca0e57ab67e98d92e8daa8b3d2105e))
+* Missing name in creation request ([edd709e](https://github.com/Zenoo/labrute/commit/edd709ef31f1862ef0299f213dd93e56fd689b62))
+* Pigtails display issue in fights. Fixes [#669](https://github.com/Zenoo/labrute/issues/669) ([dc6c70d](https://github.com/Zenoo/labrute/commit/dc6c70d7a536620bb4b4a7d3e6975255f5e77e01))
+* Tournament history. Fixes [#670](https://github.com/Zenoo/labrute/issues/670) ([d97f9f5](https://github.com/Zenoo/labrute/commit/d97f9f50d62c7dbdd25cb238dd629b5ce3082ab1))
+* Wrong target for pets hypnotized by backups. Fixes [#667](https://github.com/Zenoo/labrute/issues/667) ([57dfdfd](https://github.com/Zenoo/labrute/commit/57dfdfde260091db554d3b92fa4e46e6d8b215cf))
+
 ## [2.52.6](https://github.com/Zenoo/labrute/compare/labrute-v2.52.5...labrute-v2.52.6) (2024-05-11)
 
 
