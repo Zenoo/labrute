@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.53.2](https://github.com/Zenoo/labrute/compare/labrute-v2.53.1...labrute-v2.53.2) (2024-05-15)
+
+
+### Bug Fixes
+
+* Don't add the starting bonuses twice ([940174f](https://github.com/Zenoo/labrute/commit/940174fddf5748968c6bd3117035ccc46b38900d))
+* Limit clan leave request to own brutes ([fd7af94](https://github.com/Zenoo/labrute/commit/fd7af94a626ea66bb951cab06f161cfac1db841d))
+* stats from skills not applied at level 1 ([216d914](https://github.com/Zenoo/labrute/commit/216d9145b3d847b0a836abf18a6a4a6b68059fbd))
+
 ## [2.53.1](https://github.com/Zenoo/labrute/compare/labrute-v2.53.0...labrute-v2.53.1) (2024-05-15)
 
 
