@@ -578,6 +578,7 @@ const Clans = {
 
       const brute = await prisma.brute.findFirst({
         where: {
+          userId: user.id,
           name: req.params.brute,
           deletedAt: null,
         },
