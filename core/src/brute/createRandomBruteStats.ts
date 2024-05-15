@@ -70,10 +70,10 @@ const createRandomBruteStats = (
   // Starting stats
   const startingStats = baseStats || getRandomStartingStats();
 
-  brute.enduranceStat = startingStats.endurance;
-  brute.strengthStat = startingStats.strength;
-  brute.agilityStat = startingStats.agility;
-  brute.speedStat = startingStats.speed;
+  brute.enduranceStat += startingStats.endurance;
+  brute.strengthStat += startingStats.strength;
+  brute.agilityStat += startingStats.agility;
+  brute.speedStat += startingStats.speed;
 
   // Take into account the endurance malus from the pet
   if (perk.type === DestinyChoiceType.pet) {
