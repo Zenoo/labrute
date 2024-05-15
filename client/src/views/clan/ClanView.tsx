@@ -387,7 +387,7 @@ const ClanView = () => {
                   <Text component="span" bold color="secondary"> {clanBrute.level}</Text>
                 </Text>
                 <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
-                  <Box component="img" src={`/images/rankings/lvl_${clanBrute.ranking}.png`} sx={{ mr: 1 }} />
+                  <Box component="img" src={`/images/rankings/lvl_${clanBrute.ranking}.webp`} sx={{ mr: 1 }} />
                   <Text bold color="text.primary" sx={{ lineHeight: 1 }}>{t(`lvl_${clanBrute.ranking as BruteRanking}`)}</Text>
                 </Box>
                 <Box sx={{
@@ -445,7 +445,7 @@ const ClanView = () => {
                     key={requester.id}
                   >
                     <TableCell component="th" scope="row">
-                      <Box component="img" src={`/images/rankings/lvl_${requester.ranking}.png`} sx={{ width: 20 }} />
+                      <Box component="img" src={`/images/rankings/lvl_${requester.ranking}.webp`} sx={{ width: 20 }} />
                     </TableCell>
                     <TableCell sx={{ overflow: 'hidden' }}>
                       <Box sx={{ display: 'flex', alignItems: 'center' }}>

@@ -348,7 +348,7 @@ const UserView = () => {
                       <Text component="span" bold color="secondary"> {brute.level}</Text>
                       <Box
                         component="img"
-                        src={`/images/rankings/lvl_${brute.ranking}.png`}
+                        src={`/images/rankings/lvl_${brute.ranking}.webp`}
                         sx={{
                           verticalAlign: 'middle',
                           height: 16,

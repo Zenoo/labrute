@@ -72,7 +72,7 @@ const CellMain = ({
         <BruteLevelAndXP brute={brute} sx={{ pl: 1 }} />
         {/* RANKING */}
         <Box sx={{ width: 140, display: 'flex', flexDirection: 'row' }}>
-          <Box component="img" src={`/images/rankings/lvl_${brute.ranking}.png`} />
+          <Box component="img" src={`/images/rankings/lvl_${brute.ranking}.webp`} />
           <Text bold color="secondary" sx={{ pl: 0.5 }}>{t(`lvl_${brute.ranking as BruteRanking}`)}</Text>
         </Box>
       </Box>

@@ -86,7 +86,7 @@ const RankingView = () => {
                 >
                   <Box
                     component="img"
-                    src={`/images/rankings/lvl_${bruteRanking}.png`}
+                    src={`/images/rankings/lvl_${bruteRanking}.webp`}
                     sx={{ height: 38, width: 38 }}
                   />
                 </StyledButton>

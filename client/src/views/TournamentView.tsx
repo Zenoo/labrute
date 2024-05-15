@@ -298,7 +298,7 @@ const TournamentView = () => {
                             {/* Rank */}
                             <Box
                               component="img"
-                              src={`/images/rankings/lvl_${fighters.find((f) => f.id === fight.brute1.id)?.rank || fight.brute1.ranking}.png`}
+                              src={`/images/rankings/lvl_${fighters.find((f) => f.id === fight.brute1.id)?.rank || fight.brute1.ranking}.webp`}
                               sx={{
                                 position: 'absolute',
                                 bottom: scale(-6, index),
@@ -352,7 +352,7 @@ const TournamentView = () => {
                               {/* Rank */}
                               <Box
                                 component="img"
-                                src={`/images/rankings/lvl_${fighters.find((f) => f.id === fight.brute2?.id)?.rank || fight.brute2.ranking}.png`}
+                                src={`/images/rankings/lvl_${fighters.find((f) => f.id === fight.brute2?.id)?.rank || fight.brute2.ranking}.webp`}
                                 sx={{
                                   position: 'absolute',
                                   bottom: scale(-6, index),
