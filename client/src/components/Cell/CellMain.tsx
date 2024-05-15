@@ -103,7 +103,7 @@ const CellMain = ({
 
       {/* Rank up */}
       {owner && brute.canRankUpSince && brute.ranking > 0 && (!moment.utc(brute.canRankUpSince).isSame(moment.utc(), 'day') || brute.currentTournamentStepWatched === 6) && (
-        <FantasyButton color="success" onClick={rankUp} sx={{ mb: 1 }}>
+        <FantasyButton color="warning" onClick={rankUp} sx={{ mb: 1 }}>
           {t('rankUp')}
         </FantasyButton>
       )}
