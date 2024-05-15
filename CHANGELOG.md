@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.53.1](https://github.com/Zenoo/labrute/compare/labrute-v2.53.0...labrute-v2.53.1) (2024-05-15)
+
+
+### Bug Fixes
+
+* Broken ranking images ([3b95d62](https://github.com/Zenoo/labrute/commit/3b95d62b7b1e191d48e91aebdb3289eab49f64a1))
+* Home main bg dark. [#604](https://github.com/Zenoo/labrute/issues/604) ([2b7df18](https://github.com/Zenoo/labrute/commit/2b7df182250fed37d76abe17b3ddf80da4d69b95))
+* Rank up button color ([ccf63e3](https://github.com/Zenoo/labrute/commit/ccf63e3cb966e10c0185fc56fe99768602db4fba))
+* Typo ([047c708](https://github.com/Zenoo/labrute/commit/047c708693b7a6175213fbf4dd89587fb28faeac))
+
 ## [2.53.0](https://github.com/Zenoo/labrute/compare/labrute-v2.52.6...labrute-v2.53.0) (2024-05-14)
 
 
