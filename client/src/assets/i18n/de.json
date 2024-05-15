@@ -264,7 +264,7 @@
   "spy.desc": "Du bist zum Meister der Irreführung geworden. Deine Gegner werden nicht den leisesten Schimmer haben, „was“ sie erwischt hat.",
   "spy.effect": "Tausche die gegnerischen Waffen gegen eine leicht beschädigte eigene Version (-25% Gegner Waffenschaden)",
   "saboteur": "Saboteur",
-  "saboteur.desc": "From foam hammers to plastic swords, you're the fake weapon king! Your opponents won't notice until it's too late.",
+  "saboteur.desc": "Von Schwammhämmern bis zu Plastikschwertern: du bist der König der Waffen-Attrappen! Bis deine Gegner das merken, ist es für sie bereits zu spät.",
   "saboteur.effect": "Zerstört vor dem Kampf eine der gegnerischen Waffen (-100 Initiative des Gegners, falls diese gezogen wird)",
   "backup": "Verstärkung",
   "backup.desc": "Im Freundeskreis wird stets alles geteilt. Gut dass du gelernt hast, Schläge auszuteilen, damit die Gegner deiner Kollegen auch was davon haben.",
