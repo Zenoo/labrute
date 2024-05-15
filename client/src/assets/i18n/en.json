@@ -264,7 +264,7 @@
   "spy.desc": "You've become a master in the art of misdirection. Your opponents will never know \"what\" hit them.",
   "spy.effect": "Swap a slightly damaged version of some of your weapons with your opponent's (Opponent -25% weapon damage)",
   "saboteur": "Saboteur",
-  "saboteur.desc": "From foam hammers to plastic swords, you're fake weapon king! Your opponents won't notice until it's too late.",
+  "saboteur.desc": "From foam hammers to plastic swords, you're the fake weapon king! Your opponents won't notice until it's too late.",
   "saboteur.effect": "Destroy one of your opponent's weapon (opponent initiative -100 when used)",
   "backup": "Backup",
   "backup.desc": "Friendship is all about sharing. Luckily for you, you've learnt to share your blows with your opponents so that they can have some too!",
