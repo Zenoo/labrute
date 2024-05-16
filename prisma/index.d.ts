@@ -865,8 +865,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 5.13.0
-   * Query Engine version: b9a39a7ee606c28e3455d0fd60e78c3ba82b1a2b
+   * Prisma Client JS version: 5.14.0
+   * Query Engine version: e9771e62de70f79a5e1c604a2d7c8e2a0a874b48
    */
   export type PrismaVersion = {
     client: string
@@ -1357,6 +1357,10 @@ export namespace Prisma {
             args: Prisma.UserCreateManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
           }
+          createManyAndReturn: {
+            args: Prisma.UserCreateManyAndReturnArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>[]
+          }
           delete: {
             args: Prisma.UserDeleteArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$UserPayload>
@@ -1422,6 +1426,10 @@ export namespace Prisma {
           createMany: {
             args: Prisma.BruteCreateManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BruteCreateManyAndReturnArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BrutePayload>[]
           }
           delete: {
             args: Prisma.BruteDeleteArgs<ExtArgs>,
@@ -1489,6 +1497,10 @@ export namespace Prisma {
             args: Prisma.BruteStartingStatsCreateManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
           }
+          createManyAndReturn: {
+            args: Prisma.BruteStartingStatsCreateManyAndReturnArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BruteStartingStatsPayload>[]
+          }
           delete: {
             args: Prisma.BruteStartingStatsDeleteArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$BruteStartingStatsPayload>
@@ -1554,6 +1566,10 @@ export namespace Prisma {
           createMany: {
             args: Prisma.FightCreateManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.FightCreateManyAndReturnArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$FightPayload>[]
           }
           delete: {
             args: Prisma.FightDeleteArgs<ExtArgs>,
@@ -1621,6 +1637,10 @@ export namespace Prisma {
             args: Prisma.LogCreateManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
           }
+          createManyAndReturn: {
+            args: Prisma.LogCreateManyAndReturnArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$LogPayload>[]
+          }
           delete: {
             args: Prisma.LogDeleteArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$LogPayload>
@@ -1686,6 +1706,10 @@ export namespace Prisma {
           createMany: {
             args: Prisma.DestinyChoiceCreateManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DestinyChoiceCreateManyAndReturnArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$DestinyChoicePayload>[]
           }
           delete: {
             args: Prisma.DestinyChoiceDeleteArgs<ExtArgs>,
@@ -1753,6 +1777,10 @@ export namespace Prisma {
             args: Prisma.TournamentCreateManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
           }
+          createManyAndReturn: {
+            args: Prisma.TournamentCreateManyAndReturnArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$TournamentPayload>[]
+          }
           delete: {
             args: Prisma.TournamentDeleteArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$TournamentPayload>
@@ -1818,6 +1846,10 @@ export namespace Prisma {
           createMany: {
             args: Prisma.TournamentAchievementCreateManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TournamentAchievementCreateManyAndReturnArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$TournamentAchievementPayload>[]
           }
           delete: {
             args: Prisma.TournamentAchievementDeleteArgs<ExtArgs>,
@@ -1885,6 +1917,10 @@ export namespace Prisma {
             args: Prisma.TournamentGoldCreateManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
           }
+          createManyAndReturn: {
+            args: Prisma.TournamentGoldCreateManyAndReturnArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$TournamentGoldPayload>[]
+          }
           delete: {
             args: Prisma.TournamentGoldDeleteArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$TournamentGoldPayload>
@@ -1950,6 +1986,10 @@ export namespace Prisma {
           createMany: {
             args: Prisma.TournamentXpCreateManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TournamentXpCreateManyAndReturnArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$TournamentXpPayload>[]
           }
           delete: {
             args: Prisma.TournamentXpDeleteArgs<ExtArgs>,
@@ -2017,6 +2057,10 @@ export namespace Prisma {
             args: Prisma.AchievementCreateManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
           }
+          createManyAndReturn: {
+            args: Prisma.AchievementCreateManyAndReturnArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$AchievementPayload>[]
+          }
           delete: {
             args: Prisma.AchievementDeleteArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$AchievementPayload>
@@ -2082,6 +2126,10 @@ export namespace Prisma {
           createMany: {
             args: Prisma.TitleCreateManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TitleCreateManyAndReturnArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$TitlePayload>[]
           }
           delete: {
             args: Prisma.TitleDeleteArgs<ExtArgs>,
@@ -2149,6 +2197,10 @@ export namespace Prisma {
             args: Prisma.BruteReportCreateManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
           }
+          createManyAndReturn: {
+            args: Prisma.BruteReportCreateManyAndReturnArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BruteReportPayload>[]
+          }
           delete: {
             args: Prisma.BruteReportDeleteArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$BruteReportPayload>
@@ -2214,6 +2266,10 @@ export namespace Prisma {
           createMany: {
             args: Prisma.ServerStateCreateManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ServerStateCreateManyAndReturnArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ServerStatePayload>[]
           }
           delete: {
             args: Prisma.ServerStateDeleteArgs<ExtArgs>,
@@ -2281,6 +2337,10 @@ export namespace Prisma {
             args: Prisma.BannedWordCreateManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
           }
+          createManyAndReturn: {
+            args: Prisma.BannedWordCreateManyAndReturnArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BannedWordPayload>[]
+          }
           delete: {
             args: Prisma.BannedWordDeleteArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$BannedWordPayload>
@@ -2346,6 +2406,10 @@ export namespace Prisma {
           createMany: {
             args: Prisma.WorkerJobCreateManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.WorkerJobCreateManyAndReturnArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$WorkerJobPayload>[]
           }
           delete: {
             args: Prisma.WorkerJobDeleteArgs<ExtArgs>,
@@ -2413,6 +2477,10 @@ export namespace Prisma {
             args: Prisma.ClanCreateManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
           }
+          createManyAndReturn: {
+            args: Prisma.ClanCreateManyAndReturnArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ClanPayload>[]
+          }
           delete: {
             args: Prisma.ClanDeleteArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$ClanPayload>
@@ -2478,6 +2546,10 @@ export namespace Prisma {
           createMany: {
             args: Prisma.ClanThreadCreateManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ClanThreadCreateManyAndReturnArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ClanThreadPayload>[]
           }
           delete: {
             args: Prisma.ClanThreadDeleteArgs<ExtArgs>,
@@ -2545,6 +2617,10 @@ export namespace Prisma {
             args: Prisma.ClanPostCreateManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
           }
+          createManyAndReturn: {
+            args: Prisma.ClanPostCreateManyAndReturnArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ClanPostPayload>[]
+          }
           delete: {
             args: Prisma.ClanPostDeleteArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$ClanPostPayload>
@@ -2610,6 +2686,10 @@ export namespace Prisma {
           createMany: {
             args: Prisma.BruteInventoryItemCreateManyArgs<ExtArgs>,
             result: Prisma.BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BruteInventoryItemCreateManyAndReturnArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BruteInventoryItemPayload>[]
           }
           delete: {
             args: Prisma.BruteInventoryItemDeleteArgs<ExtArgs>,
@@ -2750,6 +2830,7 @@ export namespace Prisma {
     | 'findFirstOrThrow'
     | 'create'
     | 'createMany'
+    | 'createManyAndReturn'
     | 'update'
     | 'updateMany'
     | 'upsert'
@@ -3577,8 +3658,8 @@ export namespace Prisma {
     ): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
-     * Find one User that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
+     * Find one User that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
      * @param {UserFindUniqueOrThrowArgs} args - Arguments to find a User
      * @example
      * // Get one User
@@ -3631,7 +3712,7 @@ export namespace Prisma {
      * Find zero or more Users that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {UserFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
      * // Get all Users
      * const users = await prisma.user.findMany()
@@ -3665,19 +3746,45 @@ export namespace Prisma {
 
     /**
      * Create many Users.
-     *     @param {UserCreateManyArgs} args - Arguments to create many Users.
-     *     @example
-     *     // Create many Users
-     *     const user = await prisma.user.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
+     * @param {UserCreateManyArgs} args - Arguments to create many Users.
+     * @example
+     * // Create many Users
+     * const user = await prisma.user.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
      *     
     **/
     createMany<T extends UserCreateManyArgs<ExtArgs>>(
       args?: SelectSubset<T, UserCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Users and returns the data saved in the database.
+     * @param {UserCreateManyAndReturnArgs} args - Arguments to create many Users.
+     * @example
+     * // Create many Users
+     * const user = await prisma.user.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Users and only return the `id`
+     * const userWithIdOnly = await prisma.user.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+    **/
+    createManyAndReturn<T extends UserCreateManyAndReturnArgs<ExtArgs>>(
+      args?: SelectSubset<T, UserCreateManyAndReturnArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'createManyAndReturn'>>
 
     /**
      * Delete a User.
@@ -4198,6 +4305,29 @@ export namespace Prisma {
   }
 
   /**
+   * User createManyAndReturn
+   */
+  export type UserCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * The data used to create many Users.
+     */
+    data: UserCreateManyInput | UserCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
    * User update
    */
   export type UserUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4451,6 +4581,7 @@ export namespace Prisma {
     pupilsCount: number | null
     clanId: number | null
     currentTournamentStepWatched: number | null
+    globalTournamentRoundWatched: number | null
     fightsLeft: number | null
     victories: number | null
     wantToJoinClanId: number | null
@@ -4479,6 +4610,7 @@ export namespace Prisma {
     pupilsCount: number | null
     clanId: number | null
     currentTournamentStepWatched: number | null
+    globalTournamentRoundWatched: number | null
     fightsLeft: number | null
     victories: number | null
     wantToJoinClanId: number | null
@@ -4517,6 +4649,8 @@ export namespace Prisma {
     nextTournamentDate: Date | null
     currentTournamentDate: Date | null
     currentTournamentStepWatched: number | null
+    globalTournamentWatchedDate: Date | null
+    globalTournamentRoundWatched: number | null
     lastFight: Date | null
     fightsLeft: number | null
     victories: number | null
@@ -4559,6 +4693,8 @@ export namespace Prisma {
     nextTournamentDate: Date | null
     currentTournamentDate: Date | null
     currentTournamentStepWatched: number | null
+    globalTournamentWatchedDate: Date | null
+    globalTournamentRoundWatched: number | null
     lastFight: Date | null
     fightsLeft: number | null
     victories: number | null
@@ -4606,6 +4742,8 @@ export namespace Prisma {
     nextTournamentDate: number
     currentTournamentDate: number
     currentTournamentStepWatched: number
+    globalTournamentWatchedDate: number
+    globalTournamentRoundWatched: number
     lastFight: number
     fightsLeft: number
     victories: number
@@ -4640,6 +4778,7 @@ export namespace Prisma {
     pupilsCount?: true
     clanId?: true
     currentTournamentStepWatched?: true
+    globalTournamentRoundWatched?: true
     fightsLeft?: true
     victories?: true
     wantToJoinClanId?: true
@@ -4668,6 +4807,7 @@ export namespace Prisma {
     pupilsCount?: true
     clanId?: true
     currentTournamentStepWatched?: true
+    globalTournamentRoundWatched?: true
     fightsLeft?: true
     victories?: true
     wantToJoinClanId?: true
@@ -4706,6 +4846,8 @@ export namespace Prisma {
     nextTournamentDate?: true
     currentTournamentDate?: true
     currentTournamentStepWatched?: true
+    globalTournamentWatchedDate?: true
+    globalTournamentRoundWatched?: true
     lastFight?: true
     fightsLeft?: true
     victories?: true
@@ -4748,6 +4890,8 @@ export namespace Prisma {
     nextTournamentDate?: true
     currentTournamentDate?: true
     currentTournamentStepWatched?: true
+    globalTournamentWatchedDate?: true
+    globalTournamentRoundWatched?: true
     lastFight?: true
     fightsLeft?: true
     victories?: true
@@ -4795,6 +4939,8 @@ export namespace Prisma {
     nextTournamentDate?: true
     currentTournamentDate?: true
     currentTournamentStepWatched?: true
+    globalTournamentWatchedDate?: true
+    globalTournamentRoundWatched?: true
     lastFight?: true
     fightsLeft?: true
     victories?: true
@@ -4929,6 +5075,8 @@ export namespace Prisma {
     nextTournamentDate: Date | null
     currentTournamentDate: Date | null
     currentTournamentStepWatched: number | null
+    globalTournamentWatchedDate: Date | null
+    globalTournamentRoundWatched: number | null
     lastFight: Date | null
     fightsLeft: number
     victories: number
@@ -4995,6 +5143,8 @@ export namespace Prisma {
     nextTournamentDate?: boolean
     currentTournamentDate?: boolean
     currentTournamentStepWatched?: boolean
+    globalTournamentWatchedDate?: boolean
+    globalTournamentRoundWatched?: boolean
     lastFight?: boolean
     fightsLeft?: boolean
     victories?: boolean
@@ -5065,6 +5215,8 @@ export namespace Prisma {
     nextTournamentDate?: boolean
     currentTournamentDate?: boolean
     currentTournamentStepWatched?: boolean
+    globalTournamentWatchedDate?: boolean
+    globalTournamentRoundWatched?: boolean
     lastFight?: boolean
     fightsLeft?: boolean
     victories?: boolean
@@ -5075,7 +5227,7 @@ export namespace Prisma {
     tournamentWins?: boolean
   }
 
-  export type BruteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "deletedAt" | "createdAt" | "destinyPath" | "previousDestinyPath" | "level" | "xp" | "hp" | "enduranceStat" | "enduranceModifier" | "enduranceValue" | "strengthStat" | "strengthModifier" | "strengthValue" | "agilityStat" | "agilityModifier" | "agilityValue" | "speedStat" | "speedModifier" | "speedValue" | "ranking" | "gender" | "userId" | "body" | "colors" | "weapons" | "skills" | "pets" | "masterId" | "pupilsCount" | "clanId" | "registeredForTournament" | "nextTournamentDate" | "currentTournamentDate" | "currentTournamentStepWatched" | "lastFight" | "fightsLeft" | "victories" | "opponentsGeneratedAt" | "canRankUpSince" | "favorite" | "wantToJoinClanId" | "tournamentWins", ExtArgs["result"]["brute"]>
+  export type BruteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "deletedAt" | "createdAt" | "destinyPath" | "previousDestinyPath" | "level" | "xp" | "hp" | "enduranceStat" | "enduranceModifier" | "enduranceValue" | "strengthStat" | "strengthModifier" | "strengthValue" | "agilityStat" | "agilityModifier" | "agilityValue" | "speedStat" | "speedModifier" | "speedValue" | "ranking" | "gender" | "userId" | "body" | "colors" | "weapons" | "skills" | "pets" | "masterId" | "pupilsCount" | "clanId" | "registeredForTournament" | "nextTournamentDate" | "currentTournamentDate" | "currentTournamentStepWatched" | "globalTournamentWatchedDate" | "globalTournamentRoundWatched" | "lastFight" | "fightsLeft" | "victories" | "opponentsGeneratedAt" | "canRankUpSince" | "favorite" | "wantToJoinClanId" | "tournamentWins", ExtArgs["result"]["brute"]>
 
 
   export type BruteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5168,6 +5320,8 @@ export namespace Prisma {
       nextTournamentDate: Date | null
       currentTournamentDate: Date | null
       currentTournamentStepWatched: number | null
+      globalTournamentWatchedDate: Date | null
+      globalTournamentRoundWatched: number | null
       lastFight: Date | null
       fightsLeft: number
       victories: number
@@ -5206,8 +5360,8 @@ export namespace Prisma {
     ): Prisma__BruteClient<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
-     * Find one Brute that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
+     * Find one Brute that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
      * @param {BruteFindUniqueOrThrowArgs} args - Arguments to find a Brute
      * @example
      * // Get one Brute
@@ -5260,7 +5414,7 @@ export namespace Prisma {
      * Find zero or more Brutes that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {BruteFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {BruteFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
      * // Get all Brutes
      * const brutes = await prisma.brute.findMany()
@@ -5294,19 +5448,45 @@ export namespace Prisma {
 
     /**
      * Create many Brutes.
-     *     @param {BruteCreateManyArgs} args - Arguments to create many Brutes.
-     *     @example
-     *     // Create many Brutes
-     *     const brute = await prisma.brute.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
+     * @param {BruteCreateManyArgs} args - Arguments to create many Brutes.
+     * @example
+     * // Create many Brutes
+     * const brute = await prisma.brute.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
      *     
     **/
     createMany<T extends BruteCreateManyArgs<ExtArgs>>(
       args?: SelectSubset<T, BruteCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Brutes and returns the data saved in the database.
+     * @param {BruteCreateManyAndReturnArgs} args - Arguments to create many Brutes.
+     * @example
+     * // Create many Brutes
+     * const brute = await prisma.brute.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Brutes and only return the `id`
+     * const bruteWithIdOnly = await prisma.brute.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+    **/
+    createManyAndReturn<T extends BruteCreateManyAndReturnArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteCreateManyAndReturnArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, 'createManyAndReturn'>>
 
     /**
      * Delete a Brute.
@@ -5649,6 +5829,8 @@ export namespace Prisma {
     readonly nextTournamentDate: FieldRef<"Brute", 'DateTime'>
     readonly currentTournamentDate: FieldRef<"Brute", 'DateTime'>
     readonly currentTournamentStepWatched: FieldRef<"Brute", 'Int'>
+    readonly globalTournamentWatchedDate: FieldRef<"Brute", 'DateTime'>
+    readonly globalTournamentRoundWatched: FieldRef<"Brute", 'Int'>
     readonly lastFight: FieldRef<"Brute", 'DateTime'>
     readonly fightsLeft: FieldRef<"Brute", 'Int'>
     readonly victories: FieldRef<"Brute", 'Int'>
@@ -5888,6 +6070,29 @@ export namespace Prisma {
    * Brute createMany
    */
   export type BruteCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Brutes.
+     */
+    data: BruteCreateManyInput | BruteCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Brute createManyAndReturn
+   */
+  export type BruteCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Brute
+     */
+    select?: BruteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Brute
+     */
+    omit?: BruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteInclude<ExtArgs> | null
     /**
      * The data used to create many Brutes.
      */
@@ -6805,8 +7010,8 @@ export namespace Prisma {
     ): Prisma__BruteStartingStatsClient<$Result.GetResult<Prisma.$BruteStartingStatsPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
-     * Find one BruteStartingStats that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
+     * Find one BruteStartingStats that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
      * @param {BruteStartingStatsFindUniqueOrThrowArgs} args - Arguments to find a BruteStartingStats
      * @example
      * // Get one BruteStartingStats
@@ -6859,7 +7064,7 @@ export namespace Prisma {
      * Find zero or more BruteStartingStats that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {BruteStartingStatsFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {BruteStartingStatsFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
      * // Get all BruteStartingStats
      * const bruteStartingStats = await prisma.bruteStartingStats.findMany()
@@ -6893,19 +7098,45 @@ export namespace Prisma {
 
     /**
      * Create many BruteStartingStats.
-     *     @param {BruteStartingStatsCreateManyArgs} args - Arguments to create many BruteStartingStats.
-     *     @example
-     *     // Create many BruteStartingStats
-     *     const bruteStartingStats = await prisma.bruteStartingStats.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
+     * @param {BruteStartingStatsCreateManyArgs} args - Arguments to create many BruteStartingStats.
+     * @example
+     * // Create many BruteStartingStats
+     * const bruteStartingStats = await prisma.bruteStartingStats.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
      *     
     **/
     createMany<T extends BruteStartingStatsCreateManyArgs<ExtArgs>>(
       args?: SelectSubset<T, BruteStartingStatsCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BruteStartingStats and returns the data saved in the database.
+     * @param {BruteStartingStatsCreateManyAndReturnArgs} args - Arguments to create many BruteStartingStats.
+     * @example
+     * // Create many BruteStartingStats
+     * const bruteStartingStats = await prisma.bruteStartingStats.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BruteStartingStats and only return the `id`
+     * const bruteStartingStatsWithIdOnly = await prisma.bruteStartingStats.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+    **/
+    createManyAndReturn<T extends BruteStartingStatsCreateManyAndReturnArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteStartingStatsCreateManyAndReturnArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BruteStartingStatsPayload<ExtArgs>, T, 'createManyAndReturn'>>
 
     /**
      * Delete a BruteStartingStats.
@@ -7415,6 +7646,29 @@ export namespace Prisma {
   }
 
   /**
+   * BruteStartingStats createManyAndReturn
+   */
+  export type BruteStartingStatsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteStartingStats
+     */
+    select?: BruteStartingStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteStartingStats
+     */
+    omit?: BruteStartingStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteStartingStatsInclude<ExtArgs> | null
+    /**
+     * The data used to create many BruteStartingStats.
+     */
+    data: BruteStartingStatsCreateManyInput | BruteStartingStatsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
    * BruteStartingStats update
    */
   export type BruteStartingStatsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7873,8 +8127,8 @@ export namespace Prisma {
     ): Prisma__FightClient<$Result.GetResult<Prisma.$FightPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
-     * Find one Fight that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
+     * Find one Fight that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
      * @param {FightFindUniqueOrThrowArgs} args - Arguments to find a Fight
      * @example
      * // Get one Fight
@@ -7927,7 +8181,7 @@ export namespace Prisma {
      * Find zero or more Fights that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {FightFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {FightFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
      * // Get all Fights
      * const fights = await prisma.fight.findMany()
@@ -7961,19 +8215,45 @@ export namespace Prisma {
 
     /**
      * Create many Fights.
-     *     @param {FightCreateManyArgs} args - Arguments to create many Fights.
-     *     @example
-     *     // Create many Fights
-     *     const fight = await prisma.fight.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
+     * @param {FightCreateManyArgs} args - Arguments to create many Fights.
+     * @example
+     * // Create many Fights
+     * const fight = await prisma.fight.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
      *     
     **/
     createMany<T extends FightCreateManyArgs<ExtArgs>>(
       args?: SelectSubset<T, FightCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Fights and returns the data saved in the database.
+     * @param {FightCreateManyAndReturnArgs} args - Arguments to create many Fights.
+     * @example
+     * // Create many Fights
+     * const fight = await prisma.fight.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Fights and only return the `id`
+     * const fightWithIdOnly = await prisma.fight.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+    **/
+    createManyAndReturn<T extends FightCreateManyAndReturnArgs<ExtArgs>>(
+      args?: SelectSubset<T, FightCreateManyAndReturnArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FightPayload<ExtArgs>, T, 'createManyAndReturn'>>
 
     /**
      * Delete a Fight.
@@ -8493,6 +8773,29 @@ export namespace Prisma {
   }
 
   /**
+   * Fight createManyAndReturn
+   */
+  export type FightCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Fight
+     */
+    select?: FightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Fight
+     */
+    omit?: FightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FightInclude<ExtArgs> | null
+    /**
+     * The data used to create many Fights.
+     */
+    data: FightCreateManyInput | FightCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
    * Fight update
    */
   export type FightUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8985,8 +9288,8 @@ export namespace Prisma {
     ): Prisma__LogClient<$Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
-     * Find one Log that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
+     * Find one Log that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
      * @param {LogFindUniqueOrThrowArgs} args - Arguments to find a Log
      * @example
      * // Get one Log
@@ -9039,7 +9342,7 @@ export namespace Prisma {
      * Find zero or more Logs that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {LogFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {LogFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
      * // Get all Logs
      * const logs = await prisma.log.findMany()
@@ -9073,19 +9376,45 @@ export namespace Prisma {
 
     /**
      * Create many Logs.
-     *     @param {LogCreateManyArgs} args - Arguments to create many Logs.
-     *     @example
-     *     // Create many Logs
-     *     const log = await prisma.log.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
+     * @param {LogCreateManyArgs} args - Arguments to create many Logs.
+     * @example
+     * // Create many Logs
+     * const log = await prisma.log.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
      *     
     **/
     createMany<T extends LogCreateManyArgs<ExtArgs>>(
       args?: SelectSubset<T, LogCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Logs and returns the data saved in the database.
+     * @param {LogCreateManyAndReturnArgs} args - Arguments to create many Logs.
+     * @example
+     * // Create many Logs
+     * const log = await prisma.log.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Logs and only return the `id`
+     * const logWithIdOnly = await prisma.log.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+    **/
+    createManyAndReturn<T extends LogCreateManyAndReturnArgs<ExtArgs>>(
+      args?: SelectSubset<T, LogCreateManyAndReturnArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, 'createManyAndReturn'>>
 
     /**
      * Delete a Log.
@@ -9599,6 +9928,29 @@ export namespace Prisma {
   }
 
   /**
+   * Log createManyAndReturn
+   */
+  export type LogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Log
+     */
+    select?: LogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Log
+     */
+    omit?: LogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LogInclude<ExtArgs> | null
+    /**
+     * The data used to create many Logs.
+     */
+    data: LogCreateManyInput | LogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
    * Log update
    */
   export type LogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10067,8 +10419,8 @@ export namespace Prisma {
     ): Prisma__DestinyChoiceClient<$Result.GetResult<Prisma.$DestinyChoicePayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
-     * Find one DestinyChoice that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
+     * Find one DestinyChoice that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
      * @param {DestinyChoiceFindUniqueOrThrowArgs} args - Arguments to find a DestinyChoice
      * @example
      * // Get one DestinyChoice
@@ -10121,7 +10473,7 @@ export namespace Prisma {
      * Find zero or more DestinyChoices that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {DestinyChoiceFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {DestinyChoiceFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
      * // Get all DestinyChoices
      * const destinyChoices = await prisma.destinyChoice.findMany()
@@ -10155,19 +10507,45 @@ export namespace Prisma {
 
     /**
      * Create many DestinyChoices.
-     *     @param {DestinyChoiceCreateManyArgs} args - Arguments to create many DestinyChoices.
-     *     @example
-     *     // Create many DestinyChoices
-     *     const destinyChoice = await prisma.destinyChoice.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
+     * @param {DestinyChoiceCreateManyArgs} args - Arguments to create many DestinyChoices.
+     * @example
+     * // Create many DestinyChoices
+     * const destinyChoice = await prisma.destinyChoice.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
      *     
     **/
     createMany<T extends DestinyChoiceCreateManyArgs<ExtArgs>>(
       args?: SelectSubset<T, DestinyChoiceCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DestinyChoices and returns the data saved in the database.
+     * @param {DestinyChoiceCreateManyAndReturnArgs} args - Arguments to create many DestinyChoices.
+     * @example
+     * // Create many DestinyChoices
+     * const destinyChoice = await prisma.destinyChoice.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DestinyChoices and only return the `id`
+     * const destinyChoiceWithIdOnly = await prisma.destinyChoice.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+    **/
+    createManyAndReturn<T extends DestinyChoiceCreateManyAndReturnArgs<ExtArgs>>(
+      args?: SelectSubset<T, DestinyChoiceCreateManyAndReturnArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DestinyChoicePayload<ExtArgs>, T, 'createManyAndReturn'>>
 
     /**
      * Delete a DestinyChoice.
@@ -10682,6 +11060,29 @@ export namespace Prisma {
   }
 
   /**
+   * DestinyChoice createManyAndReturn
+   */
+  export type DestinyChoiceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DestinyChoice
+     */
+    select?: DestinyChoiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DestinyChoice
+     */
+    omit?: DestinyChoiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DestinyChoiceInclude<ExtArgs> | null
+    /**
+     * The data used to create many DestinyChoices.
+     */
+    data: DestinyChoiceCreateManyInput | DestinyChoiceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
    * DestinyChoice update
    */
   export type DestinyChoiceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11062,8 +11463,8 @@ export namespace Prisma {
     ): Prisma__TournamentClient<$Result.GetResult<Prisma.$TournamentPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
-     * Find one Tournament that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
+     * Find one Tournament that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
      * @param {TournamentFindUniqueOrThrowArgs} args - Arguments to find a Tournament
      * @example
      * // Get one Tournament
@@ -11116,7 +11517,7 @@ export namespace Prisma {
      * Find zero or more Tournaments that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TournamentFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {TournamentFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
      * // Get all Tournaments
      * const tournaments = await prisma.tournament.findMany()
@@ -11150,19 +11551,45 @@ export namespace Prisma {
 
     /**
      * Create many Tournaments.
-     *     @param {TournamentCreateManyArgs} args - Arguments to create many Tournaments.
-     *     @example
-     *     // Create many Tournaments
-     *     const tournament = await prisma.tournament.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
+     * @param {TournamentCreateManyArgs} args - Arguments to create many Tournaments.
+     * @example
+     * // Create many Tournaments
+     * const tournament = await prisma.tournament.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
      *     
     **/
     createMany<T extends TournamentCreateManyArgs<ExtArgs>>(
       args?: SelectSubset<T, TournamentCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Tournaments and returns the data saved in the database.
+     * @param {TournamentCreateManyAndReturnArgs} args - Arguments to create many Tournaments.
+     * @example
+     * // Create many Tournaments
+     * const tournament = await prisma.tournament.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Tournaments and only return the `id`
+     * const tournamentWithIdOnly = await prisma.tournament.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+    **/
+    createManyAndReturn<T extends TournamentCreateManyAndReturnArgs<ExtArgs>>(
+      args?: SelectSubset<T, TournamentCreateManyAndReturnArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TournamentPayload<ExtArgs>, T, 'createManyAndReturn'>>
 
     /**
      * Delete a Tournament.
@@ -11672,6 +12099,29 @@ export namespace Prisma {
   }
 
   /**
+   * Tournament createManyAndReturn
+   */
+  export type TournamentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tournament
+     */
+    select?: TournamentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tournament
+     */
+    omit?: TournamentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TournamentInclude<ExtArgs> | null
+    /**
+     * The data used to create many Tournaments.
+     */
+    data: TournamentCreateManyInput | TournamentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
    * Tournament update
    */
   export type TournamentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12109,8 +12559,8 @@ export namespace Prisma {
     ): Prisma__TournamentAchievementClient<$Result.GetResult<Prisma.$TournamentAchievementPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
-     * Find one TournamentAchievement that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
+     * Find one TournamentAchievement that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
      * @param {TournamentAchievementFindUniqueOrThrowArgs} args - Arguments to find a TournamentAchievement
      * @example
      * // Get one TournamentAchievement
@@ -12163,7 +12613,7 @@ export namespace Prisma {
      * Find zero or more TournamentAchievements that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TournamentAchievementFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {TournamentAchievementFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
      * // Get all TournamentAchievements
      * const tournamentAchievements = await prisma.tournamentAchievement.findMany()
@@ -12197,19 +12647,45 @@ export namespace Prisma {
 
     /**
      * Create many TournamentAchievements.
-     *     @param {TournamentAchievementCreateManyArgs} args - Arguments to create many TournamentAchievements.
-     *     @example
-     *     // Create many TournamentAchievements
-     *     const tournamentAchievement = await prisma.tournamentAchievement.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
+     * @param {TournamentAchievementCreateManyArgs} args - Arguments to create many TournamentAchievements.
+     * @example
+     * // Create many TournamentAchievements
+     * const tournamentAchievement = await prisma.tournamentAchievement.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
      *     
     **/
     createMany<T extends TournamentAchievementCreateManyArgs<ExtArgs>>(
       args?: SelectSubset<T, TournamentAchievementCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TournamentAchievements and returns the data saved in the database.
+     * @param {TournamentAchievementCreateManyAndReturnArgs} args - Arguments to create many TournamentAchievements.
+     * @example
+     * // Create many TournamentAchievements
+     * const tournamentAchievement = await prisma.tournamentAchievement.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TournamentAchievements and only return the `id`
+     * const tournamentAchievementWithIdOnly = await prisma.tournamentAchievement.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+    **/
+    createManyAndReturn<T extends TournamentAchievementCreateManyAndReturnArgs<ExtArgs>>(
+      args?: SelectSubset<T, TournamentAchievementCreateManyAndReturnArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TournamentAchievementPayload<ExtArgs>, T, 'createManyAndReturn'>>
 
     /**
      * Delete a TournamentAchievement.
@@ -12718,6 +13194,29 @@ export namespace Prisma {
   }
 
   /**
+   * TournamentAchievement createManyAndReturn
+   */
+  export type TournamentAchievementCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TournamentAchievement
+     */
+    select?: TournamentAchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TournamentAchievement
+     */
+    omit?: TournamentAchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TournamentAchievementInclude<ExtArgs> | null
+    /**
+     * The data used to create many TournamentAchievements.
+     */
+    data: TournamentAchievementCreateManyInput | TournamentAchievementCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
    * TournamentAchievement update
    */
   export type TournamentAchievementUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -13093,8 +13592,8 @@ export namespace Prisma {
     ): Prisma__TournamentGoldClient<$Result.GetResult<Prisma.$TournamentGoldPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
-     * Find one TournamentGold that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
+     * Find one TournamentGold that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
      * @param {TournamentGoldFindUniqueOrThrowArgs} args - Arguments to find a TournamentGold
      * @example
      * // Get one TournamentGold
@@ -13147,7 +13646,7 @@ export namespace Prisma {
      * Find zero or more TournamentGolds that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TournamentGoldFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {TournamentGoldFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
      * // Get all TournamentGolds
      * const tournamentGolds = await prisma.tournamentGold.findMany()
@@ -13181,19 +13680,45 @@ export namespace Prisma {
 
     /**
      * Create many TournamentGolds.
-     *     @param {TournamentGoldCreateManyArgs} args - Arguments to create many TournamentGolds.
-     *     @example
-     *     // Create many TournamentGolds
-     *     const tournamentGold = await prisma.tournamentGold.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
+     * @param {TournamentGoldCreateManyArgs} args - Arguments to create many TournamentGolds.
+     * @example
+     * // Create many TournamentGolds
+     * const tournamentGold = await prisma.tournamentGold.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
      *     
     **/
     createMany<T extends TournamentGoldCreateManyArgs<ExtArgs>>(
       args?: SelectSubset<T, TournamentGoldCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TournamentGolds and returns the data saved in the database.
+     * @param {TournamentGoldCreateManyAndReturnArgs} args - Arguments to create many TournamentGolds.
+     * @example
+     * // Create many TournamentGolds
+     * const tournamentGold = await prisma.tournamentGold.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TournamentGolds and only return the `id`
+     * const tournamentGoldWithIdOnly = await prisma.tournamentGold.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+    **/
+    createManyAndReturn<T extends TournamentGoldCreateManyAndReturnArgs<ExtArgs>>(
+      args?: SelectSubset<T, TournamentGoldCreateManyAndReturnArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TournamentGoldPayload<ExtArgs>, T, 'createManyAndReturn'>>
 
     /**
      * Delete a TournamentGold.
@@ -13701,6 +14226,29 @@ export namespace Prisma {
   }
 
   /**
+   * TournamentGold createManyAndReturn
+   */
+  export type TournamentGoldCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TournamentGold
+     */
+    select?: TournamentGoldSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TournamentGold
+     */
+    omit?: TournamentGoldOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TournamentGoldInclude<ExtArgs> | null
+    /**
+     * The data used to create many TournamentGolds.
+     */
+    data: TournamentGoldCreateManyInput | TournamentGoldCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
    * TournamentGold update
    */
   export type TournamentGoldUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -14080,8 +14628,8 @@ export namespace Prisma {
     ): Prisma__TournamentXpClient<$Result.GetResult<Prisma.$TournamentXpPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
-     * Find one TournamentXp that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
+     * Find one TournamentXp that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
      * @param {TournamentXpFindUniqueOrThrowArgs} args - Arguments to find a TournamentXp
      * @example
      * // Get one TournamentXp
@@ -14134,7 +14682,7 @@ export namespace Prisma {
      * Find zero or more TournamentXps that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TournamentXpFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {TournamentXpFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
      * // Get all TournamentXps
      * const tournamentXps = await prisma.tournamentXp.findMany()
@@ -14168,19 +14716,45 @@ export namespace Prisma {
 
     /**
      * Create many TournamentXps.
-     *     @param {TournamentXpCreateManyArgs} args - Arguments to create many TournamentXps.
-     *     @example
-     *     // Create many TournamentXps
-     *     const tournamentXp = await prisma.tournamentXp.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
+     * @param {TournamentXpCreateManyArgs} args - Arguments to create many TournamentXps.
+     * @example
+     * // Create many TournamentXps
+     * const tournamentXp = await prisma.tournamentXp.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
      *     
     **/
     createMany<T extends TournamentXpCreateManyArgs<ExtArgs>>(
       args?: SelectSubset<T, TournamentXpCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TournamentXps and returns the data saved in the database.
+     * @param {TournamentXpCreateManyAndReturnArgs} args - Arguments to create many TournamentXps.
+     * @example
+     * // Create many TournamentXps
+     * const tournamentXp = await prisma.tournamentXp.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TournamentXps and only return the `id`
+     * const tournamentXpWithIdOnly = await prisma.tournamentXp.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+    **/
+    createManyAndReturn<T extends TournamentXpCreateManyAndReturnArgs<ExtArgs>>(
+      args?: SelectSubset<T, TournamentXpCreateManyAndReturnArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TournamentXpPayload<ExtArgs>, T, 'createManyAndReturn'>>
 
     /**
      * Delete a TournamentXp.
@@ -14688,6 +15262,29 @@ export namespace Prisma {
   }
 
   /**
+   * TournamentXp createManyAndReturn
+   */
+  export type TournamentXpCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TournamentXp
+     */
+    select?: TournamentXpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TournamentXp
+     */
+    omit?: TournamentXpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TournamentXpInclude<ExtArgs> | null
+    /**
+     * The data used to create many TournamentXps.
+     */
+    data: TournamentXpCreateManyInput | TournamentXpCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
    * TournamentXp update
    */
   export type TournamentXpUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -15080,8 +15677,8 @@ export namespace Prisma {
     ): Prisma__AchievementClient<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
-     * Find one Achievement that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
+     * Find one Achievement that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
      * @param {AchievementFindUniqueOrThrowArgs} args - Arguments to find a Achievement
      * @example
      * // Get one Achievement
@@ -15134,7 +15731,7 @@ export namespace Prisma {
      * Find zero or more Achievements that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {AchievementFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {AchievementFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
      * // Get all Achievements
      * const achievements = await prisma.achievement.findMany()
@@ -15168,19 +15765,45 @@ export namespace Prisma {
 
     /**
      * Create many Achievements.
-     *     @param {AchievementCreateManyArgs} args - Arguments to create many Achievements.
-     *     @example
-     *     // Create many Achievements
-     *     const achievement = await prisma.achievement.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
+     * @param {AchievementCreateManyArgs} args - Arguments to create many Achievements.
+     * @example
+     * // Create many Achievements
+     * const achievement = await prisma.achievement.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
      *     
     **/
     createMany<T extends AchievementCreateManyArgs<ExtArgs>>(
       args?: SelectSubset<T, AchievementCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Achievements and returns the data saved in the database.
+     * @param {AchievementCreateManyAndReturnArgs} args - Arguments to create many Achievements.
+     * @example
+     * // Create many Achievements
+     * const achievement = await prisma.achievement.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Achievements and only return the `id`
+     * const achievementWithIdOnly = await prisma.achievement.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+    **/
+    createManyAndReturn<T extends AchievementCreateManyAndReturnArgs<ExtArgs>>(
+      args?: SelectSubset<T, AchievementCreateManyAndReturnArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, 'createManyAndReturn'>>
 
     /**
      * Delete a Achievement.
@@ -15691,6 +16314,29 @@ export namespace Prisma {
   }
 
   /**
+   * Achievement createManyAndReturn
+   */
+  export type AchievementCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Achievement
+     */
+    select?: AchievementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Achievement
+     */
+    omit?: AchievementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AchievementInclude<ExtArgs> | null
+    /**
+     * The data used to create many Achievements.
+     */
+    data: AchievementCreateManyInput | AchievementCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
    * Achievement update
    */
   export type AchievementUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -16096,8 +16742,8 @@ export namespace Prisma {
     ): Prisma__TitleClient<$Result.GetResult<Prisma.$TitlePayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
-     * Find one Title that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
+     * Find one Title that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
      * @param {TitleFindUniqueOrThrowArgs} args - Arguments to find a Title
      * @example
      * // Get one Title
@@ -16150,7 +16796,7 @@ export namespace Prisma {
      * Find zero or more Titles that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TitleFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {TitleFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
      * // Get all Titles
      * const titles = await prisma.title.findMany()
@@ -16184,19 +16830,45 @@ export namespace Prisma {
 
     /**
      * Create many Titles.
-     *     @param {TitleCreateManyArgs} args - Arguments to create many Titles.
-     *     @example
-     *     // Create many Titles
-     *     const title = await prisma.title.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
+     * @param {TitleCreateManyArgs} args - Arguments to create many Titles.
+     * @example
+     * // Create many Titles
+     * const title = await prisma.title.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
      *     
     **/
     createMany<T extends TitleCreateManyArgs<ExtArgs>>(
       args?: SelectSubset<T, TitleCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Titles and returns the data saved in the database.
+     * @param {TitleCreateManyAndReturnArgs} args - Arguments to create many Titles.
+     * @example
+     * // Create many Titles
+     * const title = await prisma.title.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Titles and only return the `id`
+     * const titleWithIdOnly = await prisma.title.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+    **/
+    createManyAndReturn<T extends TitleCreateManyAndReturnArgs<ExtArgs>>(
+      args?: SelectSubset<T, TitleCreateManyAndReturnArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TitlePayload<ExtArgs>, T, 'createManyAndReturn'>>
 
     /**
      * Delete a Title.
@@ -16703,6 +17375,29 @@ export namespace Prisma {
   }
 
   /**
+   * Title createManyAndReturn
+   */
+  export type TitleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Title
+     */
+    select?: TitleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Title
+     */
+    omit?: TitleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TitleInclude<ExtArgs> | null
+    /**
+     * The data used to create many Titles.
+     */
+    data: TitleCreateManyInput | TitleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
    * Title update
    */
   export type TitleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -17131,8 +17826,8 @@ export namespace Prisma {
     ): Prisma__BruteReportClient<$Result.GetResult<Prisma.$BruteReportPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
-     * Find one BruteReport that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
+     * Find one BruteReport that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
      * @param {BruteReportFindUniqueOrThrowArgs} args - Arguments to find a BruteReport
      * @example
      * // Get one BruteReport
@@ -17185,7 +17880,7 @@ export namespace Prisma {
      * Find zero or more BruteReports that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {BruteReportFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {BruteReportFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
      * // Get all BruteReports
      * const bruteReports = await prisma.bruteReport.findMany()
@@ -17219,19 +17914,45 @@ export namespace Prisma {
 
     /**
      * Create many BruteReports.
-     *     @param {BruteReportCreateManyArgs} args - Arguments to create many BruteReports.
-     *     @example
-     *     // Create many BruteReports
-     *     const bruteReport = await prisma.bruteReport.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
+     * @param {BruteReportCreateManyArgs} args - Arguments to create many BruteReports.
+     * @example
+     * // Create many BruteReports
+     * const bruteReport = await prisma.bruteReport.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
      *     
     **/
     createMany<T extends BruteReportCreateManyArgs<ExtArgs>>(
       args?: SelectSubset<T, BruteReportCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BruteReports and returns the data saved in the database.
+     * @param {BruteReportCreateManyAndReturnArgs} args - Arguments to create many BruteReports.
+     * @example
+     * // Create many BruteReports
+     * const bruteReport = await prisma.bruteReport.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BruteReports and only return the `id`
+     * const bruteReportWithIdOnly = await prisma.bruteReport.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+    **/
+    createManyAndReturn<T extends BruteReportCreateManyAndReturnArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteReportCreateManyAndReturnArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BruteReportPayload<ExtArgs>, T, 'createManyAndReturn'>>
 
     /**
      * Delete a BruteReport.
@@ -17743,6 +18464,29 @@ export namespace Prisma {
   }
 
   /**
+   * BruteReport createManyAndReturn
+   */
+  export type BruteReportCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteReport
+     */
+    select?: BruteReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteReport
+     */
+    omit?: BruteReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteReportInclude<ExtArgs> | null
+    /**
+     * The data used to create many BruteReports.
+     */
+    data: BruteReportCreateManyInput | BruteReportCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
    * BruteReport update
    */
   export type BruteReportUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -18111,8 +18855,8 @@ export namespace Prisma {
     ): Prisma__ServerStateClient<$Result.GetResult<Prisma.$ServerStatePayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
-     * Find one ServerState that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
+     * Find one ServerState that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
      * @param {ServerStateFindUniqueOrThrowArgs} args - Arguments to find a ServerState
      * @example
      * // Get one ServerState
@@ -18165,7 +18909,7 @@ export namespace Prisma {
      * Find zero or more ServerStates that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ServerStateFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {ServerStateFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
      * // Get all ServerStates
      * const serverStates = await prisma.serverState.findMany()
@@ -18199,19 +18943,45 @@ export namespace Prisma {
 
     /**
      * Create many ServerStates.
-     *     @param {ServerStateCreateManyArgs} args - Arguments to create many ServerStates.
-     *     @example
-     *     // Create many ServerStates
-     *     const serverState = await prisma.serverState.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
+     * @param {ServerStateCreateManyArgs} args - Arguments to create many ServerStates.
+     * @example
+     * // Create many ServerStates
+     * const serverState = await prisma.serverState.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
      *     
     **/
     createMany<T extends ServerStateCreateManyArgs<ExtArgs>>(
       args?: SelectSubset<T, ServerStateCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ServerStates and returns the data saved in the database.
+     * @param {ServerStateCreateManyAndReturnArgs} args - Arguments to create many ServerStates.
+     * @example
+     * // Create many ServerStates
+     * const serverState = await prisma.serverState.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ServerStates and only return the `id`
+     * const serverStateWithIdOnly = await prisma.serverState.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+    **/
+    createManyAndReturn<T extends ServerStateCreateManyAndReturnArgs<ExtArgs>>(
+      args?: SelectSubset<T, ServerStateCreateManyAndReturnArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServerStatePayload<ExtArgs>, T, 'createManyAndReturn'>>
 
     /**
      * Delete a ServerState.
@@ -18692,6 +19462,25 @@ export namespace Prisma {
   }
 
   /**
+   * ServerState createManyAndReturn
+   */
+  export type ServerStateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServerState
+     */
+    select?: ServerStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ServerState
+     */
+    omit?: ServerStateOmit<ExtArgs> | null
+    /**
+     * The data used to create many ServerStates.
+     */
+    data: ServerStateCreateManyInput | ServerStateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
    * ServerState update
    */
   export type ServerStateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -19020,8 +19809,8 @@ export namespace Prisma {
     ): Prisma__BannedWordClient<$Result.GetResult<Prisma.$BannedWordPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
-     * Find one BannedWord that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
+     * Find one BannedWord that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
      * @param {BannedWordFindUniqueOrThrowArgs} args - Arguments to find a BannedWord
      * @example
      * // Get one BannedWord
@@ -19074,7 +19863,7 @@ export namespace Prisma {
      * Find zero or more BannedWords that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {BannedWordFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {BannedWordFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
      * // Get all BannedWords
      * const bannedWords = await prisma.bannedWord.findMany()
@@ -19108,19 +19897,45 @@ export namespace Prisma {
 
     /**
      * Create many BannedWords.
-     *     @param {BannedWordCreateManyArgs} args - Arguments to create many BannedWords.
-     *     @example
-     *     // Create many BannedWords
-     *     const bannedWord = await prisma.bannedWord.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
+     * @param {BannedWordCreateManyArgs} args - Arguments to create many BannedWords.
+     * @example
+     * // Create many BannedWords
+     * const bannedWord = await prisma.bannedWord.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
      *     
     **/
     createMany<T extends BannedWordCreateManyArgs<ExtArgs>>(
       args?: SelectSubset<T, BannedWordCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BannedWords and returns the data saved in the database.
+     * @param {BannedWordCreateManyAndReturnArgs} args - Arguments to create many BannedWords.
+     * @example
+     * // Create many BannedWords
+     * const bannedWord = await prisma.bannedWord.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BannedWords and only return the `id`
+     * const bannedWordWithIdOnly = await prisma.bannedWord.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+    **/
+    createManyAndReturn<T extends BannedWordCreateManyAndReturnArgs<ExtArgs>>(
+      args?: SelectSubset<T, BannedWordCreateManyAndReturnArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BannedWordPayload<ExtArgs>, T, 'createManyAndReturn'>>
 
     /**
      * Delete a BannedWord.
@@ -19601,6 +20416,25 @@ export namespace Prisma {
   }
 
   /**
+   * BannedWord createManyAndReturn
+   */
+  export type BannedWordCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedWord
+     */
+    select?: BannedWordSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannedWord
+     */
+    omit?: BannedWordOmit<ExtArgs> | null
+    /**
+     * The data used to create many BannedWords.
+     */
+    data: BannedWordCreateManyInput | BannedWordCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
    * BannedWord update
    */
   export type BannedWordUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -19939,8 +20773,8 @@ export namespace Prisma {
     ): Prisma__WorkerJobClient<$Result.GetResult<Prisma.$WorkerJobPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
-     * Find one WorkerJob that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
+     * Find one WorkerJob that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
      * @param {WorkerJobFindUniqueOrThrowArgs} args - Arguments to find a WorkerJob
      * @example
      * // Get one WorkerJob
@@ -19993,7 +20827,7 @@ export namespace Prisma {
      * Find zero or more WorkerJobs that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {WorkerJobFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {WorkerJobFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
      * // Get all WorkerJobs
      * const workerJobs = await prisma.workerJob.findMany()
@@ -20027,19 +20861,45 @@ export namespace Prisma {
 
     /**
      * Create many WorkerJobs.
-     *     @param {WorkerJobCreateManyArgs} args - Arguments to create many WorkerJobs.
-     *     @example
-     *     // Create many WorkerJobs
-     *     const workerJob = await prisma.workerJob.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
+     * @param {WorkerJobCreateManyArgs} args - Arguments to create many WorkerJobs.
+     * @example
+     * // Create many WorkerJobs
+     * const workerJob = await prisma.workerJob.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
      *     
     **/
     createMany<T extends WorkerJobCreateManyArgs<ExtArgs>>(
       args?: SelectSubset<T, WorkerJobCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many WorkerJobs and returns the data saved in the database.
+     * @param {WorkerJobCreateManyAndReturnArgs} args - Arguments to create many WorkerJobs.
+     * @example
+     * // Create many WorkerJobs
+     * const workerJob = await prisma.workerJob.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many WorkerJobs and only return the `id`
+     * const workerJobWithIdOnly = await prisma.workerJob.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+    **/
+    createManyAndReturn<T extends WorkerJobCreateManyAndReturnArgs<ExtArgs>>(
+      args?: SelectSubset<T, WorkerJobCreateManyAndReturnArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkerJobPayload<ExtArgs>, T, 'createManyAndReturn'>>
 
     /**
      * Delete a WorkerJob.
@@ -20521,6 +21381,25 @@ export namespace Prisma {
   }
 
   /**
+   * WorkerJob createManyAndReturn
+   */
+  export type WorkerJobCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorkerJob
+     */
+    select?: WorkerJobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorkerJob
+     */
+    omit?: WorkerJobOmit<ExtArgs> | null
+    /**
+     * The data used to create many WorkerJobs.
+     */
+    data: WorkerJobCreateManyInput | WorkerJobCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
    * WorkerJob update
    */
   export type WorkerJobUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -20933,8 +21812,8 @@ export namespace Prisma {
     ): Prisma__ClanClient<$Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
-     * Find one Clan that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
+     * Find one Clan that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
      * @param {ClanFindUniqueOrThrowArgs} args - Arguments to find a Clan
      * @example
      * // Get one Clan
@@ -20987,7 +21866,7 @@ export namespace Prisma {
      * Find zero or more Clans that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ClanFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {ClanFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
      * // Get all Clans
      * const clans = await prisma.clan.findMany()
@@ -21021,19 +21900,45 @@ export namespace Prisma {
 
     /**
      * Create many Clans.
-     *     @param {ClanCreateManyArgs} args - Arguments to create many Clans.
-     *     @example
-     *     // Create many Clans
-     *     const clan = await prisma.clan.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
+     * @param {ClanCreateManyArgs} args - Arguments to create many Clans.
+     * @example
+     * // Create many Clans
+     * const clan = await prisma.clan.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
      *     
     **/
     createMany<T extends ClanCreateManyArgs<ExtArgs>>(
       args?: SelectSubset<T, ClanCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Clans and returns the data saved in the database.
+     * @param {ClanCreateManyAndReturnArgs} args - Arguments to create many Clans.
+     * @example
+     * // Create many Clans
+     * const clan = await prisma.clan.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Clans and only return the `id`
+     * const clanWithIdOnly = await prisma.clan.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+    **/
+    createManyAndReturn<T extends ClanCreateManyAndReturnArgs<ExtArgs>>(
+      args?: SelectSubset<T, ClanCreateManyAndReturnArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, 'createManyAndReturn'>>
 
     /**
      * Delete a Clan.
@@ -21542,6 +22447,29 @@ export namespace Prisma {
    * Clan createMany
    */
   export type ClanCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Clans.
+     */
+    data: ClanCreateManyInput | ClanCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Clan createManyAndReturn
+   */
+  export type ClanCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Clan
+     */
+    select?: ClanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Clan
+     */
+    omit?: ClanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClanInclude<ExtArgs> | null
     /**
      * The data used to create many Clans.
      */
@@ -22063,8 +22991,8 @@ export namespace Prisma {
     ): Prisma__ClanThreadClient<$Result.GetResult<Prisma.$ClanThreadPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
-     * Find one ClanThread that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
+     * Find one ClanThread that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
      * @param {ClanThreadFindUniqueOrThrowArgs} args - Arguments to find a ClanThread
      * @example
      * // Get one ClanThread
@@ -22117,7 +23045,7 @@ export namespace Prisma {
      * Find zero or more ClanThreads that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ClanThreadFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {ClanThreadFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
      * // Get all ClanThreads
      * const clanThreads = await prisma.clanThread.findMany()
@@ -22151,19 +23079,45 @@ export namespace Prisma {
 
     /**
      * Create many ClanThreads.
-     *     @param {ClanThreadCreateManyArgs} args - Arguments to create many ClanThreads.
-     *     @example
-     *     // Create many ClanThreads
-     *     const clanThread = await prisma.clanThread.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
+     * @param {ClanThreadCreateManyArgs} args - Arguments to create many ClanThreads.
+     * @example
+     * // Create many ClanThreads
+     * const clanThread = await prisma.clanThread.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
      *     
     **/
     createMany<T extends ClanThreadCreateManyArgs<ExtArgs>>(
       args?: SelectSubset<T, ClanThreadCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ClanThreads and returns the data saved in the database.
+     * @param {ClanThreadCreateManyAndReturnArgs} args - Arguments to create many ClanThreads.
+     * @example
+     * // Create many ClanThreads
+     * const clanThread = await prisma.clanThread.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ClanThreads and only return the `id`
+     * const clanThreadWithIdOnly = await prisma.clanThread.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+    **/
+    createManyAndReturn<T extends ClanThreadCreateManyAndReturnArgs<ExtArgs>>(
+      args?: SelectSubset<T, ClanThreadCreateManyAndReturnArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClanThreadPayload<ExtArgs>, T, 'createManyAndReturn'>>
 
     /**
      * Delete a ClanThread.
@@ -22680,6 +23634,29 @@ export namespace Prisma {
   }
 
   /**
+   * ClanThread createManyAndReturn
+   */
+  export type ClanThreadCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClanThread
+     */
+    select?: ClanThreadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClanThread
+     */
+    omit?: ClanThreadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClanThreadInclude<ExtArgs> | null
+    /**
+     * The data used to create many ClanThreads.
+     */
+    data: ClanThreadCreateManyInput | ClanThreadCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
    * ClanThread update
    */
   export type ClanThreadUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -23096,8 +24073,8 @@ export namespace Prisma {
     ): Prisma__ClanPostClient<$Result.GetResult<Prisma.$ClanPostPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
-     * Find one ClanPost that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
+     * Find one ClanPost that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
      * @param {ClanPostFindUniqueOrThrowArgs} args - Arguments to find a ClanPost
      * @example
      * // Get one ClanPost
@@ -23150,7 +24127,7 @@ export namespace Prisma {
      * Find zero or more ClanPosts that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ClanPostFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {ClanPostFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
      * // Get all ClanPosts
      * const clanPosts = await prisma.clanPost.findMany()
@@ -23184,19 +24161,45 @@ export namespace Prisma {
 
     /**
      * Create many ClanPosts.
-     *     @param {ClanPostCreateManyArgs} args - Arguments to create many ClanPosts.
-     *     @example
-     *     // Create many ClanPosts
-     *     const clanPost = await prisma.clanPost.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
+     * @param {ClanPostCreateManyArgs} args - Arguments to create many ClanPosts.
+     * @example
+     * // Create many ClanPosts
+     * const clanPost = await prisma.clanPost.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
      *     
     **/
     createMany<T extends ClanPostCreateManyArgs<ExtArgs>>(
       args?: SelectSubset<T, ClanPostCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ClanPosts and returns the data saved in the database.
+     * @param {ClanPostCreateManyAndReturnArgs} args - Arguments to create many ClanPosts.
+     * @example
+     * // Create many ClanPosts
+     * const clanPost = await prisma.clanPost.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ClanPosts and only return the `id`
+     * const clanPostWithIdOnly = await prisma.clanPost.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+    **/
+    createManyAndReturn<T extends ClanPostCreateManyAndReturnArgs<ExtArgs>>(
+      args?: SelectSubset<T, ClanPostCreateManyAndReturnArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClanPostPayload<ExtArgs>, T, 'createManyAndReturn'>>
 
     /**
      * Delete a ClanPost.
@@ -23707,6 +24710,29 @@ export namespace Prisma {
   }
 
   /**
+   * ClanPost createManyAndReturn
+   */
+  export type ClanPostCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClanPost
+     */
+    select?: ClanPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClanPost
+     */
+    omit?: ClanPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClanPostInclude<ExtArgs> | null
+    /**
+     * The data used to create many ClanPosts.
+     */
+    data: ClanPostCreateManyInput | ClanPostCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
    * ClanPost update
    */
   export type ClanPostUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -24086,8 +25112,8 @@ export namespace Prisma {
     ): Prisma__BruteInventoryItemClient<$Result.GetResult<Prisma.$BruteInventoryItemPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
 
     /**
-     * Find one BruteInventoryItem that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
+     * Find one BruteInventoryItem that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
      * @param {BruteInventoryItemFindUniqueOrThrowArgs} args - Arguments to find a BruteInventoryItem
      * @example
      * // Get one BruteInventoryItem
@@ -24140,7 +25166,7 @@ export namespace Prisma {
      * Find zero or more BruteInventoryItems that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {BruteInventoryItemFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @param {BruteInventoryItemFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
      * // Get all BruteInventoryItems
      * const bruteInventoryItems = await prisma.bruteInventoryItem.findMany()
@@ -24174,19 +25200,45 @@ export namespace Prisma {
 
     /**
      * Create many BruteInventoryItems.
-     *     @param {BruteInventoryItemCreateManyArgs} args - Arguments to create many BruteInventoryItems.
-     *     @example
-     *     // Create many BruteInventoryItems
-     *     const bruteInventoryItem = await prisma.bruteInventoryItem.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
+     * @param {BruteInventoryItemCreateManyArgs} args - Arguments to create many BruteInventoryItems.
+     * @example
+     * // Create many BruteInventoryItems
+     * const bruteInventoryItem = await prisma.bruteInventoryItem.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
      *     
     **/
     createMany<T extends BruteInventoryItemCreateManyArgs<ExtArgs>>(
       args?: SelectSubset<T, BruteInventoryItemCreateManyArgs<ExtArgs>>
     ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BruteInventoryItems and returns the data saved in the database.
+     * @param {BruteInventoryItemCreateManyAndReturnArgs} args - Arguments to create many BruteInventoryItems.
+     * @example
+     * // Create many BruteInventoryItems
+     * const bruteInventoryItem = await prisma.bruteInventoryItem.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BruteInventoryItems and only return the `id`
+     * const bruteInventoryItemWithIdOnly = await prisma.bruteInventoryItem.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+    **/
+    createManyAndReturn<T extends BruteInventoryItemCreateManyAndReturnArgs<ExtArgs>>(
+      args?: SelectSubset<T, BruteInventoryItemCreateManyAndReturnArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BruteInventoryItemPayload<ExtArgs>, T, 'createManyAndReturn'>>
 
     /**
      * Delete a BruteInventoryItem.
@@ -24694,6 +25746,29 @@ export namespace Prisma {
   }
 
   /**
+   * BruteInventoryItem createManyAndReturn
+   */
+  export type BruteInventoryItemCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteInventoryItem
+     */
+    select?: BruteInventoryItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteInventoryItem
+     */
+    omit?: BruteInventoryItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteInventoryItemInclude<ExtArgs> | null
+    /**
+     * The data used to create many BruteInventoryItems.
+     */
+    data: BruteInventoryItemCreateManyInput | BruteInventoryItemCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
    * BruteInventoryItem update
    */
   export type BruteInventoryItemUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -24893,6 +25968,8 @@ export namespace Prisma {
     nextTournamentDate: 'nextTournamentDate',
     currentTournamentDate: 'currentTournamentDate',
     currentTournamentStepWatched: 'currentTournamentStepWatched',
+    globalTournamentWatchedDate: 'globalTournamentWatchedDate',
+    globalTournamentRoundWatched: 'globalTournamentRoundWatched',
     lastFight: 'lastFight',
     fightsLeft: 'fightsLeft',
     victories: 'victories',
@@ -25553,6 +26630,8 @@ export namespace Prisma {
     nextTournamentDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
     currentTournamentDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
     currentTournamentStepWatched?: IntNullableFilter<"Brute"> | number | null
+    globalTournamentWatchedDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
+    globalTournamentRoundWatched?: IntNullableFilter<"Brute"> | number | null
     lastFight?: DateTimeNullableFilter<"Brute"> | Date | string | null
     fightsLeft?: IntFilter<"Brute"> | number
     victories?: IntFilter<"Brute"> | number
@@ -25622,6 +26701,8 @@ export namespace Prisma {
     nextTournamentDate?: SortOrderInput | SortOrder
     currentTournamentDate?: SortOrderInput | SortOrder
     currentTournamentStepWatched?: SortOrderInput | SortOrder
+    globalTournamentWatchedDate?: SortOrderInput | SortOrder
+    globalTournamentRoundWatched?: SortOrderInput | SortOrder
     lastFight?: SortOrderInput | SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
@@ -25694,6 +26775,8 @@ export namespace Prisma {
     nextTournamentDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
     currentTournamentDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
     currentTournamentStepWatched?: IntNullableFilter<"Brute"> | number | null
+    globalTournamentWatchedDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
+    globalTournamentRoundWatched?: IntNullableFilter<"Brute"> | number | null
     lastFight?: DateTimeNullableFilter<"Brute"> | Date | string | null
     fightsLeft?: IntFilter<"Brute"> | number
     victories?: IntFilter<"Brute"> | number
@@ -25763,6 +26846,8 @@ export namespace Prisma {
     nextTournamentDate?: SortOrderInput | SortOrder
     currentTournamentDate?: SortOrderInput | SortOrder
     currentTournamentStepWatched?: SortOrderInput | SortOrder
+    globalTournamentWatchedDate?: SortOrderInput | SortOrder
+    globalTournamentRoundWatched?: SortOrderInput | SortOrder
     lastFight?: SortOrderInput | SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
@@ -25818,6 +26903,8 @@ export namespace Prisma {
     nextTournamentDate?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
     currentTournamentDate?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
     currentTournamentStepWatched?: IntNullableWithAggregatesFilter<"Brute"> | number | null
+    globalTournamentWatchedDate?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
+    globalTournamentRoundWatched?: IntNullableWithAggregatesFilter<"Brute"> | number | null
     lastFight?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
     fightsLeft?: IntWithAggregatesFilter<"Brute"> | number
     victories?: IntWithAggregatesFilter<"Brute"> | number
@@ -27073,6 +28160,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -27141,6 +28230,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -27202,6 +28293,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -27270,6 +28363,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -27335,6 +28430,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -27378,6 +28475,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -27424,6 +28523,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -28943,6 +30044,8 @@ export namespace Prisma {
     nextTournamentDate?: SortOrder
     currentTournamentDate?: SortOrder
     currentTournamentStepWatched?: SortOrder
+    globalTournamentWatchedDate?: SortOrder
+    globalTournamentRoundWatched?: SortOrder
     lastFight?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
@@ -28975,6 +30078,7 @@ export namespace Prisma {
     pupilsCount?: SortOrder
     clanId?: SortOrder
     currentTournamentStepWatched?: SortOrder
+    globalTournamentRoundWatched?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
     wantToJoinClanId?: SortOrder
@@ -29013,6 +30117,8 @@ export namespace Prisma {
     nextTournamentDate?: SortOrder
     currentTournamentDate?: SortOrder
     currentTournamentStepWatched?: SortOrder
+    globalTournamentWatchedDate?: SortOrder
+    globalTournamentRoundWatched?: SortOrder
     lastFight?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
@@ -29055,6 +30161,8 @@ export namespace Prisma {
     nextTournamentDate?: SortOrder
     currentTournamentDate?: SortOrder
     currentTournamentStepWatched?: SortOrder
+    globalTournamentWatchedDate?: SortOrder
+    globalTournamentRoundWatched?: SortOrder
     lastFight?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
@@ -29087,6 +30195,7 @@ export namespace Prisma {
     pupilsCount?: SortOrder
     clanId?: SortOrder
     currentTournamentStepWatched?: SortOrder
+    globalTournamentRoundWatched?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
     wantToJoinClanId?: SortOrder
@@ -32407,6 +33516,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -32473,6 +33584,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -32633,6 +33746,8 @@ export namespace Prisma {
     nextTournamentDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
     currentTournamentDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
     currentTournamentStepWatched?: IntNullableFilter<"Brute"> | number | null
+    globalTournamentWatchedDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
+    globalTournamentRoundWatched?: IntNullableFilter<"Brute"> | number | null
     lastFight?: DateTimeNullableFilter<"Brute"> | Date | string | null
     fightsLeft?: IntFilter<"Brute"> | number
     victories?: IntFilter<"Brute"> | number
@@ -32796,6 +33911,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -32863,6 +33980,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -32928,6 +34047,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -32994,6 +34115,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -33247,6 +34370,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -33314,6 +34439,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -33379,6 +34506,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -33446,6 +34575,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -33830,6 +34961,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -33897,6 +35030,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -34464,6 +35599,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -34531,6 +35668,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -34607,6 +35746,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -34674,6 +35815,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -34734,6 +35877,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -34801,6 +35946,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -34866,6 +36013,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -34933,6 +36082,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -35058,6 +36209,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -35125,6 +36278,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -35196,6 +36351,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -35263,6 +36420,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -35365,6 +36524,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -35432,6 +36593,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -35538,6 +36701,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -35605,6 +36770,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -35701,6 +36868,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -35768,6 +36937,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -35844,6 +37015,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -35911,6 +37084,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -35971,6 +37146,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -36038,6 +37215,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -36170,6 +37349,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -36237,6 +37418,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -36313,6 +37496,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -36380,6 +37565,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -36524,6 +37711,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -36591,6 +37780,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -36667,6 +37858,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -36734,6 +37927,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -36794,6 +37989,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -36861,6 +38058,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -36976,6 +38175,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -37043,6 +38244,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -37148,6 +38351,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -37215,6 +38420,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -37296,6 +38503,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -37363,6 +38572,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -37478,6 +38689,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -37545,6 +38758,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -37638,6 +38853,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -37705,6 +38922,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -37770,6 +38989,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -37836,6 +39057,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -37907,6 +39130,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -37974,6 +39199,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -38088,6 +39315,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -38155,6 +39384,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -38291,6 +39522,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -38358,6 +39591,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -38491,6 +39726,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -38558,6 +39795,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -38662,6 +39901,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -38729,6 +39970,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -38839,6 +40082,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -38906,6 +40151,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -38966,6 +40213,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -39033,6 +40282,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -39109,6 +40360,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -39176,6 +40429,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -39239,6 +40494,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -39295,6 +40552,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -39361,6 +40620,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -39425,6 +40686,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -39534,6 +40797,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -39676,6 +40941,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -39742,6 +41009,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -39806,6 +41075,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -40012,6 +41283,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -40079,6 +41352,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -40143,6 +41418,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -40186,6 +41463,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -40253,6 +41532,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -40317,6 +41598,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -40581,6 +41864,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -40648,6 +41933,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -40712,6 +41999,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -40792,6 +42081,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -40859,6 +42150,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -40923,6 +42216,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -41017,6 +42312,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -41064,6 +42361,8 @@ export namespace Prisma {
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
     currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -41117,6 +42416,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -41183,6 +42484,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -41247,6 +42550,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -41290,6 +42595,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -41357,6 +42664,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -41421,6 +42730,8 @@ export namespace Prisma {
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number

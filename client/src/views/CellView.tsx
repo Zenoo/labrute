@@ -182,6 +182,7 @@ const CellView = () => {
           left: 8,
           top: '50%',
           transform: 'translateY(-50%)',
+          zIndex: 100,
         }}
       >
         <NavigateBeforeIcon sx={{ color: 'secondary.main', cursor: 'pointer', m: 'auto' }} />
@@ -199,6 +200,7 @@ const CellView = () => {
           right: 8,
           top: '50%',
           transform: 'translateY(-50%)',
+          zIndex: 100,
         }}
       >
         <NavigateNextIcon sx={{ color: 'secondary.main', cursor: 'pointer', m: 'auto' }} />

@@ -93,7 +93,9 @@ export type TournamentsGetGlobalResponse = {
   lastRounds: TournamentsGetGlobalFight[],
   done: boolean,
   nextOpponent: string | null,
+  nextRound?: number,
 };
+export type TournementsUpdateGlobalRoundWatchedResponse = Pick<Brute, 'globalTournamentRoundWatched' | 'globalTournamentWatchedDate'>;
 export type BrutesGetDestinyResponse = DestinyBranch;
 export type BrutesGetFightsLeftResponse = {
   fightsLeft: number,

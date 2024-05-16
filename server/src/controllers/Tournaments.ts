@@ -1,6 +1,7 @@
 import {
   ExpectedError, GLOBAL_TOURNAMENT_START_HOUR,
   TournamentHistoryResponse, TournamentsGetDailyResponse, TournamentsGetGlobalResponse,
+  TournementsUpdateGlobalRoundWatchedResponse,
 } from '@labrute/core';
 import {
   PrismaClient,
@@ -375,6 +376,7 @@ const Tournaments = {
             ],
           },
           select: {
+            tournamentStep: true,
             brute1: {
               select: { name: true },
             },
@@ -397,6 +399,7 @@ const Tournaments = {
             ? nextFight.brute2?.name || ''
             : nextFight.brute1.name
           : null,
+        nextRound: nextFight?.tournamentStep,
       });
     } catch (error) {
       sendError(res, error);
@@ -604,6 +607,83 @@ const Tournaments = {
       const isValid = await ServerState.isGlobalTournamentValid(prisma);
 
       res.send({ isValid });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  updateGlobalRoundWatched: (prisma: PrismaClient) => async (
+    req: Request<{ name: string, fight: string }>,
+    res: Response<TournementsUpdateGlobalRoundWatchedResponse>,
+  ) => {
+    try {
+      const user = await auth(prisma, req);
+
+      if (!req.params.name) {
+        throw new Error(translate('missingParameters', user));
+      }
+
+      // Get brute
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name: req.params.name,
+          deletedAt: null,
+          userId: user.id,
+        },
+        select: {
+          id: true,
+          globalTournamentRoundWatched: true,
+          globalTournamentWatchedDate: true,
+          name: true,
+        },
+      });
+
+      if (!brute) {
+        throw new ExpectedError(translate('bruteNotFound', user));
+      }
+
+      // Get fight
+      const fight = await prisma.fight.findFirst({
+        where: {
+          id: +req.params.fight,
+        },
+        select: {
+          loser: true,
+        },
+      });
+
+      if (!fight) {
+        throw new ExpectedError(translate('fightNotFound', user));
+      }
+
+      const now = moment.utc();
+      let roundWatched = 0;
+      if (now.isSame(moment.utc(brute.globalTournamentWatchedDate), 'day')) {
+        roundWatched = brute.globalTournamentRoundWatched || 0;
+      }
+
+      roundWatched++;
+
+      // Skip to last round if brute lost
+      if (fight.loser === brute.name) {
+        roundWatched = 999;
+      }
+
+      // Update brute watched tournament step
+      await prisma.brute.update({
+        where: {
+          id: brute.id,
+        },
+        data: {
+          globalTournamentRoundWatched: roundWatched,
+          globalTournamentWatchedDate: now.toDate(),
+        },
+        select: { id: true },
+      });
+
+      res.send({
+        globalTournamentRoundWatched: roundWatched,
+        globalTournamentWatchedDate: now.toDate(),
+      });
     } catch (error) {
       sendError(res, error);
     }

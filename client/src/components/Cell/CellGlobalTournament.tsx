@@ -11,6 +11,9 @@ import BruteTooltip from '../Brute/BruteTooltip';
 import Link from '../Link';
 import Text from '../Text';
 import { Gender } from '@labrute/prisma';
+import catchError from '../../utils/catchError';
+import { useAlert } from '../../hooks/useAlert';
+import { useNavigate } from 'react-router';
 
 const fighterToBrute = (fighter: Fighter) => ({
   id: fighter.id,
@@ -37,13 +40,28 @@ const CellGlobalTournament = ({
   ...rest
 }: CellGlobalTournamentProps) => {
   const { t } = useTranslation();
-  const { brute } = useBrute();
+  const { brute, owner, updateBrute } = useBrute();
   const theme = useTheme();
+  const Alert = useAlert();
+  const navigate = useNavigate();
 
   const now = useMemo(() => moment.utc(), []);
   const bruteName = useMemo(() => name || brute?.name || '', [brute, name]);
 
   const [data, setData] = useState<TournamentsGetGlobalResponse | null>(null);
+
+  const watchingRound = useMemo(() => (date
+    ? 999
+    : moment.utc().isSame(brute?.globalTournamentWatchedDate || new Date(), 'day')
+      ? (brute?.globalTournamentRoundWatched || 0) + 1
+      : 1), [brute, date]);
+
+  const lastCommonRound = useMemo(() => {
+    if (!brute || !data?.tournament) return 0;
+
+    return data.tournament.fights
+      .reduce((round, fight) => (fight.tournamentStep > round ? fight.tournamentStep : round), 0);
+  }, [brute, data]);
 
   // Get data
   useEffect(() => {
@@ -78,6 +96,28 @@ const CellGlobalTournament = ({
     [brute?.id, bruteName, data],
   );
 
+  // Watch fight
+  const watchFight = (
+    currentBrute: string,
+    round: number,
+    fightId: number,
+    skipUpdate?: boolean
+  ) => () => {
+    if (owner && !skipUpdate && round >= watchingRound) {
+      Server.Tournament.updateGlobalRoundWatched(currentBrute, fightId).then((d) => {
+        updateBrute((b) => (b ? ({
+          ...b,
+          globalTournamentRoundWatched: d.globalTournamentRoundWatched,
+          globalTournamentWatchedDate: d.globalTournamentWatchedDate,
+        }) : b));
+
+        navigate(`/${currentBrute}/fight/${fightId}`);
+      }).catch(catchError(Alert));
+    } else {
+      navigate(`/${currentBrute}/fight/${fightId}`);
+    }
+  };
+
   // Last fights renderer
   const renderFight = (
     fight: TournamentsGetGlobalFight,
@@ -99,18 +139,28 @@ const CellGlobalTournament = ({
     if (!fighter1) return null;
     if (!fighter2) return null;
 
+    const ownFight = bruteName === fighter1.name || bruteName === fighter2.name;
+
     return (
-      <Link
-        to={`/${fighter1.name}/fight/${fight.id}`}
+      <Box
+        onClick={watchFight(
+          ownFight ? bruteName : fighter1.name,
+          fight.tournamentStep,
+          fight.id,
+          !ownFight
+        )}
         key={fight.id}
         sx={{
           display: 'inline-flex',
           alignItems: 'center',
           justifyContent: 'center',
+          cursor: 'pointer',
           bgcolor: bruteInFight
-            ? won
-              ? 'logs.success.light'
-              : 'logs.error.light'
+            ? watchingRound > fight.tournamentStep
+              ? won
+                ? 'logs.success.light'
+                : 'logs.error.light'
+              : 'warning.light'
             : 'background.paperDark',
           border: '1px solid',
           borderColor: theme.palette.border.shadow,
@@ -135,18 +185,20 @@ const CellGlobalTournament = ({
               looking="right"
               y={-3}
             />
-            {fight.winner === fighter2.name && (
-              <Close
-                color="error"
-                sx={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: 1,
-                  height: 1,
-                }}
-              />
-            )}
+            {(!ownFight || watchingRound > fight.tournamentStep)
+              && fight.winner === fighter2.name
+              && (
+                <Close
+                  color="error"
+                  sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: 1,
+                    height: 1,
+                  }}
+                />
+              )}
           </Box>
         </BruteTooltip>
         <Box
@@ -170,21 +222,23 @@ const CellGlobalTournament = ({
               looking="left"
               y={-3}
             />
-            {fight.winner === fighter1.name && (
-              <Close
-                color="error"
-                sx={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: 1,
-                  height: 1,
-                }}
-              />
-            )}
+            {(!ownFight || watchingRound > fight.tournamentStep)
+              && fight.winner === fighter1.name
+              && (
+                <Close
+                  color="error"
+                  sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: 1,
+                    height: 1,
+                  }}
+                />
+              )}
           </Box>
         </BruteTooltip>
-      </Link>
+      </Box>
     );
   };
 
@@ -309,6 +363,52 @@ const CellGlobalTournament = ({
             ? fighter2.name
             : fighter1.name;
 
+          // Hide unwatched fights
+          if (owner && (watchingRound === i + 1) && !date) {
+            return (
+              <BruteTooltip
+                fighter={bruteName === fighter2.name ? fighter1 : fighter2}
+                key={fight.id}
+              >
+                <Box
+                  onClick={watchFight(bruteName, i + 1, fight.id)}
+                  sx={{
+                    display: 'flex',
+                    px: 0.5,
+                    py: 0.25,
+                    cursor: 'pointer',
+                    bgcolor: 'logs.warning.light',
+                    borderBottom: '1px solid',
+                    borderBottomColor: theme.palette.border.shadow,
+                    '&:last-child': {
+                      borderBottom: 'none',
+                    }
+                  }}
+                >
+                  <Text
+                    bold
+                    color="warning.main"
+                    sx={{ width: 30 }}
+                  >
+                    {fight.tournamentStep + GLOBAL_TOURNAMENT_START_HOUR - 1}h
+                  </Text>
+                  <Text
+                    bold
+                    color="warning.main"
+                    sx={{ ml: 2.5 }}
+                  >
+                    {t('log.fight', { value: opponent })}
+                  </Text>
+                </Box>
+              </BruteTooltip>
+            );
+          }
+
+          // Hide fights after unwatched fights
+          if (owner && watchingRound < i + 1) {
+            return null;
+          }
+
           // Normal fight
           return (
             <BruteTooltip
@@ -356,77 +456,122 @@ const CellGlobalTournament = ({
           );
         })}
         {/* Lost marker */}
-        {lostRound && lostRound.tournamentStep <= data.tournament.rounds - 3 && renderLostMarker()}
+        {lostRound
+          && lostRound.tournamentStep <= data.tournament.rounds - 3
+          && (!owner || watchingRound > lostRound.tournamentStep)
+          && renderLostMarker()}
         {/* Next opponent */}
-        {data.nextOpponent && data.lastRounds.length === 0 && renderNextOpponent()}
+        {data.nextOpponent
+          && data.nextRound
+          && data.lastRounds.length === 0
+          && (!owner || watchingRound >= data.nextRound)
+          && renderNextOpponent()}
         {/* Last rounds */}
         {/* Quarter-final */}
-        {data.lastRounds.length > 0 && (
-          <>
-            <Box sx={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-              px: 0.5,
-              py: 0.25,
-              borderBottom: '1px solid',
-              borderBottomColor: theme.palette.border.shadow,
-              '&:last-child': {
-                borderBottom: 'none',
-              }
-            }}
-            >
-              <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[0].tournamentStep + GLOBAL_TOURNAMENT_START_HOUR - 1}h {t('quarterFinals')}</Text>
-              {data.lastRounds
-                .filter((fight) => fight.tournamentStep === data.lastRounds[0].tournamentStep)
-                .map((fight) => renderFight(fight))}
-            </Box>
-            {/* Lost marker */}
-            {lostRound
-              && lostRound.tournamentStep === data.lastRounds[0].tournamentStep
-              && renderLostMarker()}
-            {/* Next opponent */}
-            {data.nextOpponent && data.lastRounds.length === 4 && renderNextOpponent()}
-          </>
-        )}
+        {data.lastRounds.length > 0
+          && (!owner || watchingRound >= data.lastRounds[0].tournamentStep)
+          && (
+            <>
+              <Box sx={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+                px: 0.5,
+                py: 0.25,
+                borderBottom: '1px solid',
+                borderBottomColor: theme.palette.border.shadow,
+                '&:last-child': {
+                  borderBottom: 'none',
+                }
+              }}
+              >
+                <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[0].tournamentStep + GLOBAL_TOURNAMENT_START_HOUR - 1}h {t('quarterFinals')}</Text>
+                {data.lastRounds
+                  .filter((fight) => fight.tournamentStep === data.lastRounds[0].tournamentStep)
+                  .map((fight) => renderFight(fight))}
+              </Box>
+              {/* Lost marker */}
+              {lostRound
+                && lostRound.tournamentStep === data.lastRounds[0].tournamentStep
+                && (!owner || watchingRound > data.lastRounds[0].tournamentStep)
+                && renderLostMarker()}
+              {/* Next opponent */}
+              {data.nextOpponent
+                && data.lastRounds.length === 4
+                && (!owner || watchingRound >= data.lastRounds[0].tournamentStep)
+                && renderNextOpponent()}
+            </>
+          )}
         {/* Semi-final */}
-        {data.lastRounds.length > 4 && (
-          <>
-            <Box sx={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-              px: 0.5,
-              py: 0.25,
-              borderBottom: '1px solid',
-              borderBottomColor: theme.palette.border.shadow,
-              '&:last-child': {
-                borderBottom: 'none',
-              }
-            }}
-            >
-              <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[0].tournamentStep + GLOBAL_TOURNAMENT_START_HOUR}h {t('semiFinals')}</Text>
-              {data.lastRounds
-                .filter((fight) => fight.tournamentStep === data.lastRounds[0].tournamentStep + 1)
-                .map((step) => renderFight(step))}
-            </Box>
-            {/* Lost marker */}
-            {lostRound
-              && lostRound.tournamentStep === data.lastRounds[0].tournamentStep + 1
-              && renderLostMarker()}
-            {/* Next opponent */}
-            {data.nextOpponent && data.lastRounds.length > 4 && renderNextOpponent()}
-          </>
-        )}
+        {data.lastRounds.length > 4
+          && (!owner || watchingRound >= data.lastRounds[0].tournamentStep + 1)
+          && (
+            <>
+              <Box sx={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+                px: 0.5,
+                py: 0.25,
+                borderBottom: '1px solid',
+                borderBottomColor: theme.palette.border.shadow,
+                '&:last-child': {
+                  borderBottom: 'none',
+                }
+              }}
+              >
+                <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[0].tournamentStep + GLOBAL_TOURNAMENT_START_HOUR}h {t('semiFinals')}</Text>
+                {data.lastRounds
+                  .filter((fight) => fight.tournamentStep === data.lastRounds[0].tournamentStep + 1)
+                  .map((step) => renderFight(step))}
+              </Box>
+              {/* Lost marker */}
+              {lostRound
+                && lostRound.tournamentStep === data.lastRounds[0].tournamentStep + 1
+                && (!owner || watchingRound > (data.lastRounds[0].tournamentStep + 1))
+                && renderLostMarker()}
+              {/* Next opponent */}
+              {data.nextOpponent
+                && data.lastRounds.length === 6
+                && (!owner || watchingRound > (data.lastRounds[0].tournamentStep + 1))
+                && renderNextOpponent()}
+            </>
+          )}
         {/* Final */}
         {data.lastRounds.find(
           (fight) => fight.tournamentStep === data.lastRounds[0].tournamentStep + 2
-        ) && (
-          <>
+        )
+          && (!owner || watchingRound >= data.lastRounds[0].tournamentStep + 2)
+          && (
+            <>
+              <Box sx={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+                px: 0.5,
+                py: 0.25,
+                borderBottom: '1px solid',
+                borderBottomColor: theme.palette.border.shadow,
+                '&:last-child': {
+                  borderBottom: 'none',
+                }
+              }}
+              >
+                <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[data.lastRounds.length - 1].tournamentStep + GLOBAL_TOURNAMENT_START_HOUR - 1}h {t('finals')}</Text>
+                {renderFight(data.lastRounds[data.lastRounds.length - 1], true)}
+              </Box>
+              {/* Lost marker */}
+              {lostRound
+                && lostRound.tournamentStep === data.lastRounds[0].tournamentStep + 2
+                && (!owner || watchingRound > (data.lastRounds[0].tournamentStep + 2))
+                && renderLostMarker()}
+            </>
+          )}
+        {/* Tournament done ? */}
+        {!data.done
+          && (!owner || watchingRound > lastCommonRound)
+          && (
             <Box sx={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
               px: 0.5,
               py: 0.25,
               borderBottom: '1px solid',
@@ -436,30 +581,9 @@ const CellGlobalTournament = ({
               }
             }}
             >
-              <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[data.lastRounds.length - 1].tournamentStep + GLOBAL_TOURNAMENT_START_HOUR - 1}h {t('finals')}</Text>
-              {renderFight(data.lastRounds[data.lastRounds.length - 1], true)}
+              <Text bold color="text.disabled">{t('comeBackInOneHour')} ...</Text>
             </Box>
-            {/* Lost marker */}
-            {lostRound
-              && lostRound.tournamentStep === data.lastRounds[0].tournamentStep + 2
-              && renderLostMarker()}
-          </>
-        )}
-        {/* Tournament done ? */}
-        {!data.done && (
-          <Box sx={{
-            px: 0.5,
-            py: 0.25,
-            borderBottom: '1px solid',
-            borderBottomColor: theme.palette.border.shadow,
-            '&:last-child': {
-              borderBottom: 'none',
-            }
-          }}
-          >
-            <Text bold color="text.disabled">{t('comeBackInOneHour')} ...</Text>
-          </Box>
-        )}
+          )}
       </Box>
     </Paper>
   ) : null;

@@ -82,6 +82,7 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   app.get('/api/tournament/:name/register', Tournaments.registerDaily(prisma));
   app.get('/api/tournament/:name/history', Tournaments.getHistory(prisma));
   app.get('/api/tournament/:name/update-step-watched', Tournaments.updateStepWatched(prisma));
+  app.get('/api/tournament/:name/update-global-round-watched/:fight', Tournaments.updateGlobalRoundWatched(prisma));
   app.get('/api/tournament/:name/set-daily-watched', Tournaments.setDailyWatched(prisma));
   app.get('/api/tournament/global/:name/:date', Tournaments.getGlobal(prisma));
   app.get('/api/tournament/:name/:date', Tournaments.getDaily(prisma));

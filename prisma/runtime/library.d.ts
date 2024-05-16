@@ -780,6 +780,7 @@ export declare namespace DMMF {
         findMany?: string | null;
         create?: string | null;
         createMany?: string | null;
+        createManyAndReturn?: string | null;
         update?: string | null;
         updateMany?: string | null;
         upsert?: string | null;
@@ -799,6 +800,7 @@ export declare namespace DMMF {
         findMany = "findMany",
         create = "create",
         createMany = "createMany",
+        createManyAndReturn = "createManyAndReturn",
         update = "update",
         updateMany = "updateMany",
         upsert = "upsert",
@@ -1443,7 +1445,7 @@ export declare function getPrismaClient(config: GetPrismaClientConfig): {
          */
         _transactionWithArray({ promises, options, }: {
             promises: Array<PrismaPromise_2<any>>;
-            options?: BatchTransactionOptions | undefined;
+            options?: BatchTransactionOptions;
         }): Promise<any>;
         /**
          * Perform a long-running transaction
@@ -1453,7 +1455,7 @@ export declare function getPrismaClient(config: GetPrismaClientConfig): {
          */
         _transactionWithCallback({ callback, options, }: {
             callback: (client: Client) => Promise<unknown>;
-            options?: Options | undefined;
+            options?: Options;
         }): Promise<unknown>;
         _createItxClient(transaction: PrismaPromiseInteractiveTransaction): Client;
         /**
@@ -1569,6 +1571,7 @@ export declare type GetResult<P extends OperationPayload, A, O extends Operation
     findMany: GetFindResult<P, A>[];
     create: GetFindResult<P, A>;
     createMany: GetBatchResult;
+    createManyAndReturn: GetFindResult<P, A>[];
     update: GetFindResult<P, A>;
     updateMany: GetBatchResult;
     upsert: GetFindResult<P, A>;
@@ -1780,7 +1783,7 @@ declare type JsonQuery = {
     query: JsonFieldSelection;
 };
 
-declare type JsonQueryAction = 'findUnique' | 'findUniqueOrThrow' | 'findFirst' | 'findFirstOrThrow' | 'findMany' | 'createOne' | 'createMany' | 'updateOne' | 'updateMany' | 'deleteOne' | 'deleteMany' | 'upsertOne' | 'aggregate' | 'groupBy' | 'executeRaw' | 'queryRaw' | 'runCommandRaw' | 'findRaw' | 'aggregateRaw';
+declare type JsonQueryAction = 'findUnique' | 'findUniqueOrThrow' | 'findFirst' | 'findFirstOrThrow' | 'findMany' | 'createOne' | 'createMany' | 'createManyAndReturn' | 'updateOne' | 'updateMany' | 'deleteOne' | 'deleteMany' | 'upsertOne' | 'aggregate' | 'groupBy' | 'executeRaw' | 'queryRaw' | 'runCommandRaw' | 'findRaw' | 'aggregateRaw';
 
 declare type JsonSelectionSet = {
     $scalars?: boolean;
@@ -2090,7 +2093,7 @@ declare type Omit_2<T, K extends string | number | symbol> = {
 };
 export { Omit_2 as Omit }
 
-export declare type Operation = 'findFirst' | 'findFirstOrThrow' | 'findUnique' | 'findUniqueOrThrow' | 'findMany' | 'create' | 'createMany' | 'update' | 'updateMany' | 'upsert' | 'delete' | 'deleteMany' | 'aggregate' | 'count' | 'groupBy' | '$queryRaw' | '$executeRaw' | '$queryRawUnsafe' | '$executeRawUnsafe' | 'findRaw' | 'aggregateRaw' | '$runCommandRaw';
+export declare type Operation = 'findFirst' | 'findFirstOrThrow' | 'findUnique' | 'findUniqueOrThrow' | 'findMany' | 'create' | 'createMany' | 'createManyAndReturn' | 'update' | 'updateMany' | 'upsert' | 'delete' | 'deleteMany' | 'aggregate' | 'count' | 'groupBy' | '$queryRaw' | '$executeRaw' | '$queryRawUnsafe' | '$executeRawUnsafe' | 'findRaw' | 'aggregateRaw' | '$runCommandRaw';
 
 export declare type OperationPayload = {
     scalars: {
@@ -2955,12 +2958,13 @@ export declare class Sql {
     readonly values: Value[];
     readonly strings: string[];
     constructor(rawStrings: readonly string[], rawValues: readonly RawValue[]);
-    get text(): string;
     get sql(): string;
     get statement(): string;
+    get text(): string;
     inspect(): {
-        text: string;
         sql: string;
+        statement: string;
+        text: string;
         values: unknown[];
     };
 }

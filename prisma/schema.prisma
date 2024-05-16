@@ -204,6 +204,8 @@ model Brute {
   nextTournamentDate           DateTime?               @db.Date
   currentTournamentDate        DateTime?               @db.Date
   currentTournamentStepWatched Int?                    @default(0)
+  globalTournamentWatchedDate  DateTime?               @db.Date
+  globalTournamentRoundWatched Int?
   lastFight                    DateTime?               @db.Date
   fightsLeft                   Int                     @default(6)
   victories                    Int                     @default(0)
