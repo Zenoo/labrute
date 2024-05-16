@@ -131,6 +131,8 @@
   "last": "Último",
   "noFightsLeft": "Você não tem mais brigas hoje.",
   "challengeBoss": "Desafie o chefe",
+  "showDamage": "Show damage details",
+  "hideDamage": "Hide damage details",
   "boss": "Chefe",
   "pinThread": "Fixar tópico",
   "unpinThread": "Desafixar tópico",
