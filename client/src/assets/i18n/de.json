@@ -131,6 +131,8 @@
   "last": "Letzte",
   "noFightsLeft": "Dir verbleiben heute keine Kämpfe.",
   "challengeBoss": "Endgegner herausfordern",
+  "showDamage": "Show damage details",
+  "hideDamage": "Hide damage details",
   "boss": "Endgegner",
   "pinThread": "Thema anheften",
   "unpinThread": "Thema abheften",
