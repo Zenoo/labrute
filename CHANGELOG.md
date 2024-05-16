@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.54.0](https://github.com/Zenoo/labrute/compare/labrute-v2.53.2...labrute-v2.54.0) (2024-05-16)
+
+
+### Features
+
+* Display damage dealt to boss by brute + display clan master first. Fixes [#476](https://github.com/Zenoo/labrute/issues/476) ([370dd99](https://github.com/Zenoo/labrute/commit/370dd99ce9e9e463c131cac8c72bb0db2b5cc086))
+* Display unowned weapons. Fixes [#675](https://github.com/Zenoo/labrute/issues/675) ([17b21c8](https://github.com/Zenoo/labrute/commit/17b21c80d231d8d96e5e81de6945c72787955045))
+* Hide global tournament fights until watched. Fixes [#628](https://github.com/Zenoo/labrute/issues/628) ([4ed1a61](https://github.com/Zenoo/labrute/commit/4ed1a614252a11895fed8baccb37bf4eef99d218))
+* XP and gold gains after boss slain. Fixes [#482](https://github.com/Zenoo/labrute/issues/482) ([91e486e](https://github.com/Zenoo/labrute/commit/91e486e85518b3b8abef40e0f16567a97da0d1d4))
+
+
+### Bug Fixes
+
+* Improve achievement description visibility. Fixes [#599](https://github.com/Zenoo/labrute/issues/599) ([0f7d333](https://github.com/Zenoo/labrute/commit/0f7d333b6f8f890dd5d8c6af70796bb47b85c5bb))
+* Limit clan size to 50, bosses give +5 on defeat. Fixes [#621](https://github.com/Zenoo/labrute/issues/621) ([990cdea](https://github.com/Zenoo/labrute/commit/990cdea948bf1c7b6e52c267ac6988ad35a10bb8))
+
 ## [2.53.2](https://github.com/Zenoo/labrute/compare/labrute-v2.53.1...labrute-v2.53.2) (2024-05-15)
 
 
