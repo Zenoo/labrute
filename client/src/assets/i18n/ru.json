@@ -131,6 +131,8 @@
   "last": "Последняя",
   "noFightsLeft": "У вас на сегодня не осталось битв.",
   "challengeBoss": "Бросить вызов боссу",
+  "showDamage": "Show damage details",
+  "hideDamage": "Hide damage details",
   "boss": "Босс",
   "pinThread": "Закрепить тему",
   "unpinThread": "Открепить тему",
