@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.54.2](https://github.com/Zenoo/labrute/compare/labrute-v2.54.1...labrute-v2.54.2) (2024-05-16)
+
+
+### Bug Fixes
+
+* Skip byes for global tournament watch counter ([267aeee](https://github.com/Zenoo/labrute/commit/267aeeee20bbeafed2f94132e7d49d60a4ad65be))
+
 ## [2.54.1](https://github.com/Zenoo/labrute/compare/labrute-v2.54.0...labrute-v2.54.1) (2024-05-16)
 
 
