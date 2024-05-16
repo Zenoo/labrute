@@ -51,7 +51,7 @@
   "log.lvl": "Dein Brutalo hat einen neuen Rang erreicht:",
   "log.tournament": "Der Wettkampf am {{date}} wurde abgesagt. Probier es später noch einmal!",
   "log.tournamentXp": "Gestrige Wettkämpfe",
-  "log.fight": "Your Brute has fought {{value}}.",
+  "log.fight": "Dein Brutalo hat gegen {{value}} gekämpft.",
   "lvl_0": "Brutale Legende",
   "lvl_1": "Der Chaoszahnarzt",
   "lvl_2": "Satans Bizeps",
