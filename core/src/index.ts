@@ -209,4 +209,6 @@ export type FightCreateResponse = {
 };
 export type ClanChallengeBossResponse = {
   id: number,
+  xp?: number,
+  gold?: number,
 };

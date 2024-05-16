@@ -303,7 +303,7 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
           }
 
           try {
-            generatedFight = await generateFight(
+            const newGeneratedFight = await generateFight(
               prisma,
               brute1,
               brute2,
@@ -311,6 +311,7 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
               true,
               roundBrutes.length === 2,
             );
+            generatedFight = newGeneratedFight.data;
           } catch (error: unknown) {
             if (!(error instanceof Error)) {
               throw error;
@@ -563,7 +564,7 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
         }
 
         try {
-          generatedFight = await generateFight(
+          const newGeneratedFight = await generateFight(
             prisma,
             brute1,
             brute2,
@@ -571,6 +572,7 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
             true,
             roundBrutes.length === 2,
           );
+          generatedFight = newGeneratedFight.data;
         } catch (error: unknown) {
           if (!(error instanceof Error)) {
             throw error;

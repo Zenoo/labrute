@@ -217,24 +217,41 @@ const ClanView = () => {
     }
 
     Server.Clan.challengeBoss(brute.name, clan.id).then((fight) => {
-      navigate(`/${brute.name}/fight/${fight.id}`);
-    }).catch(catchError(Alert));
+      // Update fights left
+      updateData((data) => (data ? ({
+        ...data,
+        brutes: data.brutes.map((b) => (b.name === brute.name ? {
+          ...b,
+          fightsLeft: getFightsLeft(b) - 1,
+          lastFight: new Date(),
+        } : b)),
+      }) : null));
 
-    // Update fights left
-    updateData((data) => (data ? ({
-      ...data,
-      brutes: data.brutes.map((b) => (b.name === brute.name ? {
+      updateBrute((b) => (b ? {
         ...b,
         fightsLeft: getFightsLeft(b) - 1,
         lastFight: new Date(),
-      } : b)),
-    }) : null));
+      } : null));
 
-    updateBrute((b) => (b ? {
-      ...b,
-      fightsLeft: getFightsLeft(b) - 1,
-      lastFight: new Date(),
-    } : null));
+      // Boss gains
+      if (fight.xp) {
+        updateBrute((b) => (b ? {
+          ...b,
+          xp: b.xp + (fight.xp || 0),
+        } : null));
+
+        updateData((data) => (data ? ({
+          ...data,
+          gold: data.gold + (fight.gold || 0),
+          brutes: data.brutes.map((b) => (b.clanId === clan.id ? {
+            ...b,
+            xp: b.xp + (fight.xp || 0),
+          } : b)),
+        }) : null));
+      }
+
+      navigate(`/${brute.name}/fight/${fight.id}`);
+    }).catch(catchError(Alert));
   };
 
   return clan && (

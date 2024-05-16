@@ -1,5 +1,7 @@
 import {
   AchievementsStore,
+  BOSS_GOLD_REWARD,
+  BOSS_XP_REWARD,
   Boss,
   CLAN_SIZE_LIMIT,
   DetailedFight, ExpectedError, Fighter, SkillByName, StepType, WeaponByName, bosses, randomBetween,
@@ -14,6 +16,14 @@ import getFighters from './getFighters.js';
 import handleStats from './handleStats.js';
 import updateAchievements from './updateAchievements.js';
 
+type GenerateFightResult = {
+  data: Prisma.FightCreateInput;
+  boss?: {
+    xp: number;
+    gold: number;
+  }
+};
+
 const generateFight = async (
   prisma: PrismaClient,
   brute1: Brute,
@@ -24,7 +34,7 @@ const generateFight = async (
   boss?: Boss,
   bossHP?: number,
   clanId?: number,
-) => {
+): Promise<GenerateFightResult> => {
   if (brute1.id === brute2?.id) {
     throw new ExpectedError('Attempted to created a fight between the same brutes');
   }
@@ -245,16 +255,18 @@ const generateFight = async (
     shield: fighter.shield,
   }));
 
-  const data: Prisma.FightCreateInput = {
-    brute1: { connect: { id: brute1.id } },
-    winner: winner.name,
-    loser: loser.name,
-    steps: JSON.stringify(fightData.steps),
-    fighters: JSON.stringify(fighters),
+  const result: GenerateFightResult = {
+    data: {
+      brute1: { connect: { id: brute1.id } },
+      winner: winner.name,
+      loser: loser.name,
+      steps: JSON.stringify(fightData.steps),
+      fighters: JSON.stringify(fighters),
+    },
   };
 
   if (brute2) {
-    data.brute2 = { connect: { id: brute2.id } };
+    result.data.brute2 = { connect: { id: brute2.id } };
   }
 
   if (boss) {
@@ -263,24 +275,62 @@ const generateFight = async (
     if (bossFighter && loser.id === bossFighter.id) {
       const clan = await prisma.clan.findUnique({
         where: { id: clanId },
-        select: { limit: true },
+        select: {
+          limit: true,
+          brutes: {
+            select: {
+              id: true,
+              userId: true,
+            },
+          },
+        },
       });
 
       if (!clan) {
         throw new Error('Clan not found');
       }
 
+      const xpGains = Math.floor(BOSS_XP_REWARD / clan.brutes.length);
+
       await prisma.clan.update({
         where: { id: clanId },
         data: {
+          // Set new boss
           boss: bosses[randomBetween(0, bosses.length - 1)].name,
           damageOnBoss: 0,
+          // Increase clan limit
           limit: Math.min(CLAN_SIZE_LIMIT, clan.limit + 5),
+          // Reset boss damages
           bossDamages: {
             deleteMany: {},
           },
+          // Give XP to all brutes
+          brutes: {
+            updateMany: {
+              where: { id: { in: clan.brutes.map((brute) => brute.id) } },
+              data: {
+                xp: { increment: xpGains },
+              },
+            },
+          },
         },
       });
+
+      // Give gold to users
+      const uniqueUser = Array.from(new Set(clan.brutes.map((brute) => brute.userId || '')));
+      const goldGains = Math.floor(BOSS_GOLD_REWARD / uniqueUser.length);
+
+      await prisma.user.updateMany({
+        where: { id: { in: uniqueUser } },
+        data: {
+          gold: { increment: goldGains },
+        },
+      });
+
+      result.boss = {
+        xp: xpGains,
+        gold: goldGains,
+      };
     } else {
       // Update damage on boss + store it
       const initialBoss = fightDataInitialFighters.find((fighter) => fighter.type === 'boss');
@@ -321,7 +371,7 @@ const generateFight = async (
     await updateAchievements(prisma, achievements, isTournamentFight);
   }
 
-  return data;
+  return result;
 };
 
 export default generateFight;

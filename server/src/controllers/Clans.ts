@@ -1063,13 +1063,15 @@ const Clans = {
       let generatedFight: Prisma.FightCreateInput | null = null;
       let expectedError: ExpectedError | null = null;
       let retry = 0;
+      let bossXpGains = 0;
+      let bossGoldGains = 0;
 
       while (!generatedFight && !expectedError && retry < 10) {
         try {
           retry += 1;
 
           // eslint-disable-next-line no-await-in-loop
-          generatedFight = await generateFight(
+          const newGeneratedFight = await generateFight(
             prisma,
             brute,
             null,
@@ -1080,6 +1082,11 @@ const Clans = {
             boss.hp - clan.damageOnBoss,
             clan.id,
           );
+          generatedFight = newGeneratedFight.data;
+          if (newGeneratedFight.boss) {
+            bossXpGains = newGeneratedFight.boss.xp;
+            bossGoldGains = newGeneratedFight.boss.gold;
+          }
         } catch (error: unknown) {
           if (!(error instanceof Error)) {
             throw error;
@@ -1106,6 +1113,8 @@ const Clans = {
       // Send fight id to client
       res.status(200).send({
         id: fightId,
+        xp: bossXpGains,
+        gold: bossGoldGains,
       });
     } catch (error) {
       sendError(res, error);
