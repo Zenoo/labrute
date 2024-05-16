@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.54.1](https://github.com/Zenoo/labrute/compare/labrute-v2.54.0...labrute-v2.54.1) (2024-05-16)
+
+
+### Bug Fixes
+
+* Non unique clan on boss damages ([c49595c](https://github.com/Zenoo/labrute/commit/c49595c3446b67673048bc107857555f2650371d))
+
 ## [2.54.0](https://github.com/Zenoo/labrute/compare/labrute-v2.53.2...labrute-v2.54.0) (2024-05-16)
 
 
