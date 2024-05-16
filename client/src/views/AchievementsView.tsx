@@ -89,7 +89,7 @@ const AchievementsView = () => {
                         >
                           {t(AchievementData[achievement.name].rarety)}
                         </Text>
-                        <Text sx={{ fontStyle: 'italic', color: 'text.secondary' }}>{t(`achievements.${achievement.name}.description`)}</Text>
+                        <Text sx={{ fontStyle: 'italic', color: 'achievements.common.main' }}>{t(`achievements.${achievement.name}.description`)}</Text>
                         {AchievementData[achievement.name].onePerFight && (
                           <Text subtitle2 sx={{ color: 'achievements.common.main' }}>
                             {t('maxPerFight')}:{' '}
