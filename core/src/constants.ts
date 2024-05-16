@@ -80,3 +80,5 @@ export type FighterStat = keyof typeof BASE_FIGHTER_STATS;
 export const BARE_HANDS_DAMAGE = 5;
 
 export const RESET_PRICE = 100;
+
+export const CLAN_SIZE_LIMIT = 50;

@@ -1,6 +1,7 @@
 import {
   AchievementsStore,
   Boss,
+  CLAN_SIZE_LIMIT,
   DetailedFight, ExpectedError, Fighter, SkillByName, StepType, WeaponByName, bosses, randomBetween,
 } from '@labrute/core';
 import { Brute, Prisma, PrismaClient } from '@labrute/prisma';
@@ -260,12 +261,21 @@ const generateFight = async (
     // Update clan limit and boss if boss slain
     const bossFighter = fighters.find((fighter) => fighter.type === 'boss');
     if (bossFighter && loser.id === bossFighter.id) {
+      const clan = await prisma.clan.findUnique({
+        where: { id: clanId },
+        select: { limit: true },
+      });
+
+      if (!clan) {
+        throw new Error('Clan not found');
+      }
+
       await prisma.clan.update({
         where: { id: clanId },
         data: {
           boss: bosses[randomBetween(0, bosses.length - 1)].name,
           damageOnBoss: 0,
-          limit: { increment: 10 },
+          limit: Math.min(CLAN_SIZE_LIMIT, clan.limit + 5),
         },
       });
     } else {
