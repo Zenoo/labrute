@@ -131,6 +131,8 @@
   "last": "Dernier",
   "noFightsLeft": "Vous n'avez plus de combats aujourd'hui.",
   "challengeBoss": "Affronter le boss",
+  "showDamage": "Show damage details",
+  "hideDamage": "Hide damage details",
   "boss": "Boss",
   "pinThread": "Épingler le sujet",
   "unpinThread": "Désépingler le sujet",
