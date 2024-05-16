@@ -52,9 +52,9 @@ const CellGlobalTournament = ({
 
   const watchingRound = useMemo(() => (date
     ? 999
-    : moment.utc().isSame(brute?.globalTournamentWatchedDate || new Date(), 'day')
+    : moment.utc().isSame(brute?.globalTournamentWatchedDate, 'day')
       ? (brute?.globalTournamentRoundWatched || 0) + 1
-      : 1), [brute, date]);
+      : data?.tournament?.fights.find((f) => f.tournamentStep === 1) ? 1 : 2), [brute, date, data]);
 
   const lastCommonRound = useMemo(() => {
     if (!brute || !data?.tournament) return 0;
