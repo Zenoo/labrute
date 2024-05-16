@@ -29193,14 +29193,14 @@ export namespace Prisma {
   export type BossDamageWhereUniqueInput = Prisma.AtLeast<{
     id?: number
     bruteId?: number
-    clanId?: number
     AND?: BossDamageWhereInput | BossDamageWhereInput[]
     OR?: BossDamageWhereInput[]
     NOT?: BossDamageWhereInput | BossDamageWhereInput[]
+    clanId?: IntFilter<"BossDamage"> | number
     damage?: IntFilter<"BossDamage"> | number
     brute?: XOR<BruteRelationFilter, BruteWhereInput>
     clan?: XOR<ClanRelationFilter, ClanWhereInput>
-  }, "id" | "bruteId" | "clanId">
+  }, "id" | "bruteId">
 
   export type BossDamageOrderByWithAggregationInput = {
     id?: SortOrder
