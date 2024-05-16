@@ -5,6 +5,41 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { useBrute } from '../../hooks/useBrute';
 import WeaponTooltip from '../Brute/WeaponTooltip';
 
+const weaponSvgProps: Record<WeaponName, {
+  id: string;
+  height: string;
+  transform: string;
+  width: string;
+  xlinkHref: string;
+}> = {
+  [WeaponName.fan]: { id: '_w10', height: '43.15', transform: 'matrix(0.7269, 0.0, 0.0, 0.7269, 25.335, 19.3693)', width: '48.65', xlinkHref: '#sprite18' },
+  [WeaponName.keyboard]: { id: '_w25', height: '13.35', transform: 'matrix(1.7112, -0.2186, 0.2186, 1.7112, 22.7598, 134.7653)', width: '33.3', xlinkHref: '#sprite51' },
+  [WeaponName.knife]: { id: '_w1', height: '8.1', transform: 'matrix(0.7269, 0.0, 0.0, 0.7269, 38.091, 4.4059)', width: '55.6', xlinkHref: '#sprite3' },
+  [WeaponName.leek]: { id: '_w19', height: '61.95', transform: 'matrix(0.9007, 0.0, 0.0, 0.9007, 142.5953, 87.5244)', width: '44.2', xlinkHref: '#sprite31' },
+  [WeaponName.mug]: { id: '_w20', height: '24.5', transform: 'matrix(0.9007, 0.0, 0.0, 0.9007, 238.6467, 59.0669)', width: '25.15', xlinkHref: '#sprite32' },
+  [WeaponName.sai]: { id: '_w18', height: '26.2', transform: 'matrix(1.0, 0.0, 0.0, 1.0, 195.0, 173.45)', width: '60.6', xlinkHref: '#sprite49' },
+  [WeaponName.racquet]: { id: '_w27', height: '40.0', transform: 'matrix(1.0, 0.0, 0.0, 1.0, 92.2, 123.2)', width: '69.3', xlinkHref: '#sprite45' },
+  [WeaponName.axe]: { id: '_w8', height: '43.15', transform: 'matrix(0.0, 0.7269, -0.7269, 0.0, 249.2428, 1.416)', width: '71.75', xlinkHref: '#sprite14' },
+  [WeaponName.bumps]: { id: '_w13', height: '39.05', transform: 'matrix(0.1616, -0.8678, 0.8678, 0.1616, 171.0511, 79.6175)', width: '83.45', xlinkHref: '#sprite21' },
+  [WeaponName.flail]: { id: '_w16', height: '56.45', transform: 'matrix(0.8995, 0.036, -0.036, 0.8995, 100.7669, 78.2476)', width: '59.2', xlinkHref: '#sprite27' },
+  [WeaponName.fryingPan]: { id: '_w21', height: '42.05', transform: 'matrix(-0.279, 1.0412, -1.0412, -0.279, 299.6064, 120.4467)', width: '70.4', xlinkHref: '#sprite34' },
+  [WeaponName.hatchet]: { id: '_w6', height: '45.1', transform: 'matrix(0.7269, 0.0, 0.0, 0.7269, 123.1949, 10.7539)', width: '77.15', xlinkHref: '#sprite10' },
+  [WeaponName.mammothBone]: { id: '_w15', height: '27.35', transform: 'matrix(-0.5487, 0.7138, -0.7138, -0.5487, 300.3664, 67.016)', width: '74.05', xlinkHref: '#sprite25' },
+  [WeaponName.morningStar]: { id: '_w14', height: '87.5', transform: 'matrix(0.3003, -0.8478, 0.8478, 0.3003, 14.9775, 93.1636)', width: '42.2', xlinkHref: '#sprite23' },
+  [WeaponName.trombone]: { id: '_w24', height: '57.0', transform: 'matrix(1.451, 0.0, 0.0, 1.5608, 204.7837, 76.2753)', width: '26.3', xlinkHref: '#sprite44' },
+  [WeaponName.baton]: { id: '_w4', height: '4.6', transform: 'matrix(0.7269, 0.0, 0.0, 0.7269, 124.7055, 2.028)', width: '116.55', xlinkHref: '#sprite8' },
+  [WeaponName.halbard]: { id: '_w23', height: '34.0', transform: 'matrix(-0.8949, -0.0958, 0.0958, -0.8949, 191.4224, 209.3746)', width: '204.7', xlinkHref: '#sprite42' },
+  [WeaponName.lance]: { id: '_w3', height: '163.3', transform: 'matrix(0.7269, 0.0, 0.0, 0.7269, 7.3798, 4.886)', width: '14.8', xlinkHref: '#sprite6' },
+  [WeaponName.trident]: { id: '_w5', height: '40.4', transform: 'matrix(-0.4643, -0.4643, 0.4643, -0.4643, 193.6863, 134.9724)', width: '176.35', xlinkHref: '#sprite9' },
+  [WeaponName.whip]: { id: '_w17', height: '31.7', transform: 'matrix(0.2331, -0.87, 0.87, 0.2331, 250.3412, 51.5226)', width: '62.5', xlinkHref: '#sprite29' },
+  [WeaponName.noodleBowl]: { id: '_w26', height: '27.0', transform: 'matrix(1.0, 0.0, 0.0, 1.0, 169.65, 145.15)', width: '36.2', xlinkHref: '#sprite47' },
+  [WeaponName.piopio]: { id: '_w22', height: '24.85', transform: 'matrix(-0.4374, -0.7859, 0.7859, -0.4374, 91.6181, 90.0935)', width: '23.55', xlinkHref: '#sprite36' },
+  [WeaponName.shuriken]: { id: '_w11', height: '15.35', transform: 'matrix(1.7143, 0.0, 0.0, 1.7143, 152.0914, 49.0489)', width: '17.1', xlinkHref: '#sprite19' },
+  [WeaponName.sword]: { id: '_w9', height: '22.5', transform: 'matrix(0.7269, 0.0, 0.0, 0.7269, 22.7385, 105.4265)', width: '122.05', xlinkHref: '#sprite16' },
+  [WeaponName.scimitar]: { id: '_w7', height: '22.9', transform: 'matrix(0.514, -0.514, 0.514, 0.514, 61.7086, 72.2334)', width: '101.15', xlinkHref: '#sprite12' },
+  [WeaponName.broadsword]: { id: '_w2', height: '41.3', transform: 'matrix(0.5771, -0.4402, 0.4402, 0.5771, 56.7885, 26.853)', width: '81.15', xlinkHref: '#sprite4' },
+};
+
 const CellWeapons = (props: BoxProps) => {
   const { brute } = useBrute();
   const [hoveredWeapon, setHoveredWeapon] = useState<WeaponName | 'bare-hands' | null>(null);
@@ -17,34 +52,10 @@ const CellWeapons = (props: BoxProps) => {
     setHoveredWeapon(null);
   }, []);
 
-  const weaponSVGs = useMemo(() => ({
-    fan: <use onMouseEnter={hoverWeapon('fan')} onMouseLeave={leaveWeapon} key="fan" height="43.15" id="_w10" transform="matrix(0.7269, 0.0, 0.0, 0.7269, 25.335, 19.3693)" width="48.65" xlinkHref="#sprite18" />,
-    keyboard: <use onMouseEnter={hoverWeapon('keyboard')} onMouseLeave={leaveWeapon} key="keyboard" height="13.35" id="_w25" transform="matrix(1.7112, -0.2186, 0.2186, 1.7112, 22.7598, 134.7653)" width="33.3" xlinkHref="#sprite51" />,
-    knife: <use onMouseEnter={hoverWeapon('knife')} onMouseLeave={leaveWeapon} key="knife" height="8.1" id="_w1" transform="matrix(0.7269, 0.0, 0.0, 0.7269, 38.091, 4.4059)" width="55.6" xlinkHref="#sprite3" />,
-    leek: <use onMouseEnter={hoverWeapon('leek')} onMouseLeave={leaveWeapon} key="leek" height="61.95" id="_w19" transform="matrix(0.9007, 0.0, 0.0, 0.9007, 142.5953, 87.5244)" width="44.2" xlinkHref="#sprite31" />,
-    mug: <use onMouseEnter={hoverWeapon('mug')} onMouseLeave={leaveWeapon} key="mug" height="24.5" id="_w20" transform="matrix(0.9007, 0.0, 0.0, 0.9007, 238.6467, 59.0669)" width="25.15" xlinkHref="#sprite32" />,
-    sai: <use onMouseEnter={hoverWeapon('sai')} onMouseLeave={leaveWeapon} key="sai" height="26.2" id="_w18" transform="matrix(1.0, 0.0, 0.0, 1.0, 195.0, 173.45)" width="60.6" xlinkHref="#sprite49" />,
-    racquet: <use onMouseEnter={hoverWeapon('racquet')} onMouseLeave={leaveWeapon} key="racquet" height="40.0" id="_w27" transform="matrix(1.0, 0.0, 0.0, 1.0, 92.2, 123.2)" width="69.3" xlinkHref="#sprite45" />,
-    axe: <use onMouseEnter={hoverWeapon('axe')} onMouseLeave={leaveWeapon} key="axe" height="43.15" id="_w8" transform="matrix(0.0, 0.7269, -0.7269, 0.0, 249.2428, 1.416)" width="71.75" xlinkHref="#sprite14" />,
-    bumps: <use onMouseEnter={hoverWeapon('bumps')} onMouseLeave={leaveWeapon} key="bumps" height="39.05" id="_w13" transform="matrix(0.1616, -0.8678, 0.8678, 0.1616, 171.0511, 79.6175)" width="83.45" xlinkHref="#sprite21" />,
-    flail: <use onMouseEnter={hoverWeapon('flail')} onMouseLeave={leaveWeapon} key="flail" height="56.45" id="_w16" transform="matrix(0.8995, 0.036, -0.036, 0.8995, 100.7669, 78.2476)" width="59.2" xlinkHref="#sprite27" />,
-    fryingPan: <use onMouseEnter={hoverWeapon('fryingPan')} onMouseLeave={leaveWeapon} key="fryingPan" height="42.05" id="_w21" transform="matrix(-0.279, 1.0412, -1.0412, -0.279, 299.6064, 120.4467)" width="70.4" xlinkHref="#sprite34" />,
-    hatchet: <use onMouseEnter={hoverWeapon('hatchet')} onMouseLeave={leaveWeapon} key="hatchet" height="45.1" id="_w6" transform="matrix(0.7269, 0.0, 0.0, 0.7269, 123.1949, 10.7539)" width="77.15" xlinkHref="#sprite10" />,
-    mammothBone: <use onMouseEnter={hoverWeapon('mammothBone')} onMouseLeave={leaveWeapon} key="mammothBone" height="27.35" id="_w15" transform="matrix(-0.5487, 0.7138, -0.7138, -0.5487, 300.3664, 67.016)" width="74.05" xlinkHref="#sprite25" />,
-    morningStar: <use onMouseEnter={hoverWeapon('morningStar')} onMouseLeave={leaveWeapon} key="morningStar" height="87.5" id="_w14" transform="matrix(0.3003, -0.8478, 0.8478, 0.3003, 14.9775, 93.1636)" width="42.2" xlinkHref="#sprite23" />,
-    trombone: <use onMouseEnter={hoverWeapon('trombone')} onMouseLeave={leaveWeapon} key="trombone" height="57.0" id="_w24" transform="matrix(1.451, 0.0, 0.0, 1.5608, 204.7837, 76.2753)" width="26.3" xlinkHref="#sprite44" />,
-    baton: <use onMouseEnter={hoverWeapon('baton')} onMouseLeave={leaveWeapon} key="baton" height="4.6" id="_w4" transform="matrix(0.7269, 0.0, 0.0, 0.7269, 124.7055, 2.028)" width="116.55" xlinkHref="#sprite8" />,
-    halbard: <use onMouseEnter={hoverWeapon('halbard')} onMouseLeave={leaveWeapon} key="halbard" height="34.0" id="_w23" transform="matrix(-0.8949, -0.0958, 0.0958, -0.8949, 191.4224, 209.3746)" width="204.7" xlinkHref="#sprite42" />,
-    lance: <use onMouseEnter={hoverWeapon('lance')} onMouseLeave={leaveWeapon} key="lance" height="163.3" id="_w3" transform="matrix(0.7269, 0.0, 0.0, 0.7269, 7.3798, 4.886)" width="14.8" xlinkHref="#sprite6" />,
-    trident: <use onMouseEnter={hoverWeapon('trident')} onMouseLeave={leaveWeapon} key="trident" height="40.4" id="_w5" transform="matrix(-0.4643, -0.4643, 0.4643, -0.4643, 193.6863, 134.9724)" width="176.35" xlinkHref="#sprite9" />,
-    whip: <use onMouseEnter={hoverWeapon('whip')} onMouseLeave={leaveWeapon} key="whip" height="31.7" id="_w17" transform="matrix(0.2331, -0.87, 0.87, 0.2331, 250.3412, 51.5226)" width="62.5" xlinkHref="#sprite29" />,
-    noodleBowl: <use onMouseEnter={hoverWeapon('noodleBowl')} onMouseLeave={leaveWeapon} key="noodleBowl" height="27.0" id="_w26" transform="matrix(1.0, 0.0, 0.0, 1.0, 169.65, 145.15)" width="36.2" xlinkHref="#sprite47" />,
-    piopio: <use onMouseEnter={hoverWeapon('piopio')} onMouseLeave={leaveWeapon} key="piopio" height="24.85" id="_w22" transform="matrix(-0.4374, -0.7859, 0.7859, -0.4374, 91.6181, 90.0935)" width="23.55" xlinkHref="#sprite36" />,
-    shuriken: <use onMouseEnter={hoverWeapon('shuriken')} onMouseLeave={leaveWeapon} key="shuriken" height="15.35" id="_w11" transform="matrix(1.7143, 0.0, 0.0, 1.7143, 152.0914, 49.0489)" width="17.1" xlinkHref="#sprite19" />,
-    sword: <use onMouseEnter={hoverWeapon('sword')} onMouseLeave={leaveWeapon} key="sword" height="22.5" id="_w9" transform="matrix(0.7269, 0.0, 0.0, 0.7269, 22.7385, 105.4265)" width="122.05" xlinkHref="#sprite16" />,
-    scimitar: <use onMouseEnter={hoverWeapon('scimitar')} onMouseLeave={leaveWeapon} key="scimitar" height="22.9" id="_w7" transform="matrix(0.514, -0.514, 0.514, 0.514, 61.7086, 72.2334)" width="101.15" xlinkHref="#sprite12" />,
-    broadsword: <use onMouseEnter={hoverWeapon('broadsword')} onMouseLeave={leaveWeapon} key="broadsword" height="41.3" id="_w2" transform="matrix(0.5771, -0.4402, 0.4402, 0.5771, 56.7885, 26.853)" width="81.15" xlinkHref="#sprite4" />,
-  }), [hoverWeapon, leaveWeapon]);
+  const unownedWeapons = useMemo(() => {
+    const bruteWeapons = brute?.weapons || [];
+    return detailedWeapons.filter((w) => !bruteWeapons.includes(w.name)).map((w) => w.name);
+  }, [brute]);
 
   return brute && (
     <WeaponTooltip
@@ -87,7 +98,31 @@ const CellWeapons = (props: BoxProps) => {
         >
           <use height="198.65" transform="matrix(1.0, 0.0, 0.0, 1.0, -3.8, 3.4)" width="303.95" xlinkHref="#shape2" />
           <use height="30" onMouseEnter={hoverWeapon('bare-hands')} onMouseLeave={leaveWeapon} transform="matrix(0.25, 0, 0, 0.25, 2.2, 178)" width="30" xlinkHref="#bare-hands" />
-          {brute.weapons.map((weapon) => weaponSVGs[weapon])}
+          {brute.weapons.map((weapon) => (
+            <use
+              key={weapon}
+              id={weaponSvgProps[weapon].id}
+              height={weaponSvgProps[weapon].height}
+              transform={weaponSvgProps[weapon].transform}
+              width={weaponSvgProps[weapon].width}
+              xlinkHref={weaponSvgProps[weapon].xlinkHref}
+              onMouseEnter={hoverWeapon(weapon)}
+              onMouseLeave={leaveWeapon}
+            />
+          ))}
+          {unownedWeapons.map((weapon) => (
+            <use
+              key={weapon}
+              id={weaponSvgProps[weapon].id}
+              height={weaponSvgProps[weapon].height}
+              transform={weaponSvgProps[weapon].transform}
+              width={weaponSvgProps[weapon].width}
+              xlinkHref={weaponSvgProps[weapon].xlinkHref}
+              onMouseEnter={hoverWeapon(weapon)}
+              onMouseLeave={leaveWeapon}
+              opacity="0.2"
+            />
+          ))}
         </g>
         <defs>
           <g id="sprite0" transform="matrix(1.0, 0.0, 0.0, 1.0, 155.45, 104.95)">
