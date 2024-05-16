@@ -28,6 +28,7 @@ const ClanView = () => {
   const { updateBrute } = useBrute();
 
   const [clan, setClan] = useState<ClanGetResponse | null>(null);
+  const [damageDisplayed, setDamageDisplayed] = useState(false);
 
   const brute = useMemo(
     () => (user ? user.brutes.find((b) => b.name === bruteName) : null),
@@ -294,6 +295,7 @@ const ClanView = () => {
                   justifyContent: 'flex-end',
                   bgcolor: 'secondary.main',
                   p: '2px',
+                  mx: 'auto',
                   width: 120,
                 }}
                 >
@@ -305,6 +307,62 @@ const ClanView = () => {
                   />
                 </Box>
               </Tooltip>
+              {!!clan.damageOnBoss && (
+                <>
+                  <Text
+                    smallCaps
+                    subtitle2
+                    center
+                    onClick={() => setDamageDisplayed((prev) => !prev)}
+                    sx={{ cursor: 'pointer' }}
+                  >
+                    {damageDisplayed ? t('hideDamage') : t('showDamage')}
+                  </Text>
+                  {damageDisplayed && (
+                    <Table sx={{
+                      maxWidth: 1,
+                      '& th': {
+                        bgcolor: 'secondary.main',
+                        color: 'secondary.contrastText',
+                        py: 0.5,
+                        px: 1,
+                        fontWeight: 'bold',
+                        border: '1px solid',
+                        borderColor: 'background.default',
+                      },
+                      '& td': {
+                        bgcolor: 'background.paperDark',
+                        py: 0.5,
+                        px: 1,
+                        border: '1px solid',
+                        borderColor: 'background.default',
+                      },
+                    }}
+                    >
+                      <TableHead>
+                        <TableRow>
+                          <TableCell />
+                          <TableCell>{t('brute')}</TableCell>
+                          <TableCell align="right">{t('damage')}</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {clan.bossDamages.map((damages, index) => (
+                          <TableRow key={damages.brute.id}>
+                            <TableCell component="th" scope="row">
+                              {index + 1}
+                            </TableCell>
+                            <TableCell>
+                              {damages.brute.name}
+                            </TableCell>
+                            <TableCell align="right">{damages.damage}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  )}
+                </>
+              )}
             </Box>
           </Box>
         )}

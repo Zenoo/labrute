@@ -1,4 +1,4 @@
-import { Achievement, AchievementName, Brute, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, DestinyChoice, Fight, Lang, Prisma, Tournament, User } from '@labrute/prisma';
+import { Achievement, AchievementName, BossDamage, Brute, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, DestinyChoice, Fight, Lang, Prisma, Tournament, User } from '@labrute/prisma';
 import Version from './Version';
 import applySkillModifiers from './brute/applySkillModifiers';
 import availableBodyParts from './brute/availableBodyParts';
@@ -148,6 +148,9 @@ export type ClanCreateResponse = Pick<Clan, 'id' | 'name'>;
 export type ClanGetResponse = Clan & {
   brutes: Brute[],
   joinRequests: Brute[],
+  bossDamages: (Pick<BossDamage, 'damage'> & {
+    brute: Pick<Brute, 'id' | 'name'>,
+  })[],
 };
 export type ClanGetThreadsResponse = {
   masterId: number,

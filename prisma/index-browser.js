@@ -332,6 +332,13 @@ exports.Prisma.ClanPostScalarFieldEnum = {
   message: 'message'
 };
 
+exports.Prisma.BossDamageScalarFieldEnum = {
+  id: 'id',
+  bruteId: 'bruteId',
+  clanId: 'clanId',
+  damage: 'damage'
+};
+
 exports.Prisma.BruteInventoryItemScalarFieldEnum = {
   id: 'id',
   type: 'type',
@@ -636,6 +643,7 @@ exports.Prisma.ModelName = {
   Clan: 'Clan',
   ClanThread: 'ClanThread',
   ClanPost: 'ClanPost',
+  BossDamage: 'BossDamage',
   BruteInventoryItem: 'BruteInventoryItem'
 };
 

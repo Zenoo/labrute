@@ -193,11 +193,26 @@ const Clans = {
               { level: 'desc' },
             ],
           },
+          bossDamages: {
+            select: {
+              brute: { select: { id: true, name: true } },
+              damage: true,
+            },
+            orderBy: { damage: 'desc' },
+          },
         },
       });
 
       if (!clan) {
         throw new ExpectedError(translate('clanNotFound'));
+      }
+
+      // Reorder brutes to have the master first
+      const masterIndex = clan.brutes.findIndex((b) => b.id === clan.masterId);
+
+      if (masterIndex !== -1) {
+        const master = clan.brutes.splice(masterIndex, 1);
+        clan.brutes.unshift(master[0]);
       }
 
       res.status(200).send(clan);
@@ -539,7 +554,12 @@ const Clans = {
       // Update clan
       await prisma.clan.update({
         where: { id },
-        data: { brutes: { disconnect: { id: brute.id } } },
+        data: {
+          brutes: { disconnect: { id: brute.id } },
+          bossDamages: {
+            delete: { bruteId: brute.id },
+          },
+        },
       });
 
       // Update clan points
@@ -611,13 +631,23 @@ const Clans = {
           where: { clanId: clan.id },
         });
 
+        // Delete boss damages
+        await prisma.bossDamage.deleteMany({
+          where: { clanId: clan.id },
+        });
+
         // Delete clan
         await prisma.clan.delete({ where: { id: clan.id } });
       } else {
         // Update clan
         await prisma.clan.update({
           where: { id },
-          data: { brutes: { disconnect: { id: brute.id } } },
+          data: {
+            brutes: { disconnect: { id: brute.id } },
+            bossDamages: {
+              delete: { bruteId: brute.id },
+            },
+          },
         });
 
         // Update clan points

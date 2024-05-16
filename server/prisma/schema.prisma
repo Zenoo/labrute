@@ -232,6 +232,7 @@ model Brute {
   tournamentXps                TournamentXp[]
   tournamentWins               Int                     @default(0)
   startingStats                BruteStartingStats?
+  damageOnBoss                 BossDamage?
 }
 
 model BruteStartingStats {
@@ -563,6 +564,7 @@ model Clan {
   brutes       Brute[]
   joinRequests Brute[]      @relation("JoinRequests")
   threads      ClanThread[]
+  bossDamages  BossDamage[]
 
   @@index([name, points])
 }
@@ -590,6 +592,15 @@ model ClanPost {
   authorId Int
   date     DateTime   @default(now()) @db.Timestamp()
   message  String     @db.Text
+}
+
+model BossDamage {
+  id      Int   @id @default(autoincrement())
+  brute   Brute @relation(fields: [bruteId], references: [id])
+  bruteId Int   @unique
+  clan    Clan  @relation(fields: [clanId], references: [id])
+  clanId  Int   @unique
+  damage  Int
 }
 
 // Inventory

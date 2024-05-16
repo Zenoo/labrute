@@ -109,6 +109,11 @@ export type ClanThread = $Result.DefaultSelection<Prisma.$ClanThreadPayload>
  */
 export type ClanPost = $Result.DefaultSelection<Prisma.$ClanPostPayload>
 /**
+ * Model BossDamage
+ * 
+ */
+export type BossDamage = $Result.DefaultSelection<Prisma.$BossDamagePayload>
+/**
  * Model BruteInventoryItem
  * 
  */
@@ -800,6 +805,16 @@ export class PrismaClient<
   get clanPost(): Prisma.ClanPostDelegate<ExtArgs>;
 
   /**
+   * `prisma.bossDamage`: Exposes CRUD operations for the **BossDamage** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BossDamages
+    * const bossDamages = await prisma.bossDamage.findMany()
+    * ```
+    */
+  get bossDamage(): Prisma.BossDamageDelegate<ExtArgs>;
+
+  /**
    * `prisma.bruteInventoryItem`: Exposes CRUD operations for the **BruteInventoryItem** model.
     * Example usage:
     * ```ts
@@ -1304,6 +1319,7 @@ export namespace Prisma {
     Clan: 'Clan',
     ClanThread: 'ClanThread',
     ClanPost: 'ClanPost',
+    BossDamage: 'BossDamage',
     BruteInventoryItem: 'BruteInventoryItem'
   };
 
@@ -1321,7 +1337,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'user' | 'brute' | 'bruteStartingStats' | 'fight' | 'log' | 'destinyChoice' | 'tournament' | 'tournamentAchievement' | 'tournamentGold' | 'tournamentXp' | 'achievement' | 'title' | 'bruteReport' | 'serverState' | 'bannedWord' | 'workerJob' | 'clan' | 'clanThread' | 'clanPost' | 'bruteInventoryItem'
+      modelProps: 'user' | 'brute' | 'bruteStartingStats' | 'fight' | 'log' | 'destinyChoice' | 'tournament' | 'tournamentAchievement' | 'tournamentGold' | 'tournamentXp' | 'achievement' | 'title' | 'bruteReport' | 'serverState' | 'bannedWord' | 'workerJob' | 'clan' | 'clanThread' | 'clanPost' | 'bossDamage' | 'bruteInventoryItem'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -2655,6 +2671,76 @@ export namespace Prisma {
           }
         }
       }
+      BossDamage: {
+        payload: Prisma.$BossDamagePayload<ExtArgs>
+        fields: Prisma.BossDamageFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BossDamageFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BossDamagePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BossDamageFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BossDamagePayload>
+          }
+          findFirst: {
+            args: Prisma.BossDamageFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BossDamagePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BossDamageFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BossDamagePayload>
+          }
+          findMany: {
+            args: Prisma.BossDamageFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BossDamagePayload>[]
+          }
+          create: {
+            args: Prisma.BossDamageCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BossDamagePayload>
+          }
+          createMany: {
+            args: Prisma.BossDamageCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BossDamageCreateManyAndReturnArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BossDamagePayload>[]
+          }
+          delete: {
+            args: Prisma.BossDamageDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BossDamagePayload>
+          }
+          update: {
+            args: Prisma.BossDamageUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BossDamagePayload>
+          }
+          deleteMany: {
+            args: Prisma.BossDamageDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BossDamageUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.BossDamageUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BossDamagePayload>
+          }
+          aggregate: {
+            args: Prisma.BossDamageAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateBossDamage>
+          }
+          groupBy: {
+            args: Prisma.BossDamageGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<BossDamageGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BossDamageCountArgs<ExtArgs>,
+            result: $Utils.Optional<BossDamageCountAggregateOutputType> | number
+          }
+        }
+      }
       BruteInventoryItem: {
         payload: Prisma.$BruteInventoryItemPayload<ExtArgs>
         fields: Prisma.BruteInventoryItemFieldRefs
@@ -3245,12 +3331,14 @@ export namespace Prisma {
     brutes: number
     joinRequests: number
     threads: number
+    bossDamages: number
   }
 
   export type ClanCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brutes?: boolean | ClanCountOutputTypeCountBrutesArgs
     joinRequests?: boolean | ClanCountOutputTypeCountJoinRequestsArgs
     threads?: boolean | ClanCountOutputTypeCountThreadsArgs
+    bossDamages?: boolean | ClanCountOutputTypeCountBossDamagesArgs
   }
 
   // Custom InputTypes
@@ -3283,6 +3371,13 @@ export namespace Prisma {
    */
   export type ClanCountOutputTypeCountThreadsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ClanThreadWhereInput
+  }
+
+  /**
+   * ClanCountOutputType without action
+   */
+  export type ClanCountOutputTypeCountBossDamagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BossDamageWhereInput
   }
 
 
@@ -5175,6 +5270,7 @@ export namespace Prisma {
     tournamentAchievements?: boolean | Brute$tournamentAchievementsArgs<ExtArgs>
     tournamentXps?: boolean | Brute$tournamentXpsArgs<ExtArgs>
     startingStats?: boolean | Brute$startingStatsArgs<ExtArgs>
+    damageOnBoss?: boolean | Brute$damageOnBossArgs<ExtArgs>
     _count?: boolean | BruteCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["brute"]>
 
@@ -5253,6 +5349,7 @@ export namespace Prisma {
     tournamentAchievements?: boolean | Brute$tournamentAchievementsArgs<ExtArgs>
     tournamentXps?: boolean | Brute$tournamentXpsArgs<ExtArgs>
     startingStats?: boolean | Brute$startingStatsArgs<ExtArgs>
+    damageOnBoss?: boolean | Brute$damageOnBossArgs<ExtArgs>
     _count?: boolean | BruteCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -5282,6 +5379,7 @@ export namespace Prisma {
       tournamentAchievements: Prisma.$TournamentAchievementPayload<ExtArgs>[]
       tournamentXps: Prisma.$TournamentXpPayload<ExtArgs>[]
       startingStats: Prisma.$BruteStartingStatsPayload<ExtArgs> | null
+      damageOnBoss: Prisma.$BossDamagePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -5764,6 +5862,8 @@ export namespace Prisma {
     tournamentXps<T extends Brute$tournamentXpsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$tournamentXpsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TournamentXpPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     startingStats<T extends Brute$startingStatsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$startingStatsArgs<ExtArgs>>): Prisma__BruteStartingStatsClient<$Result.GetResult<Prisma.$BruteStartingStatsPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
+    damageOnBoss<T extends Brute$damageOnBossArgs<ExtArgs> = {}>(args?: Subset<T, Brute$damageOnBossArgs<ExtArgs>>): Prisma__BossDamageClient<$Result.GetResult<Prisma.$BossDamagePayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -6701,6 +6801,25 @@ export namespace Prisma {
      */
     include?: BruteStartingStatsInclude<ExtArgs> | null
     where?: BruteStartingStatsWhereInput
+  }
+
+  /**
+   * Brute.damageOnBoss
+   */
+  export type Brute$damageOnBossArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BossDamage
+     */
+    select?: BossDamageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BossDamage
+     */
+    omit?: BossDamageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BossDamageInclude<ExtArgs> | null
+    where?: BossDamageWhereInput
   }
 
   /**
@@ -21741,6 +21860,7 @@ export namespace Prisma {
     brutes?: boolean | Clan$brutesArgs<ExtArgs>
     joinRequests?: boolean | Clan$joinRequestsArgs<ExtArgs>
     threads?: boolean | Clan$threadsArgs<ExtArgs>
+    bossDamages?: boolean | Clan$bossDamagesArgs<ExtArgs>
     _count?: boolean | ClanCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["clan"]>
 
@@ -21762,6 +21882,7 @@ export namespace Prisma {
     brutes?: boolean | Clan$brutesArgs<ExtArgs>
     joinRequests?: boolean | Clan$joinRequestsArgs<ExtArgs>
     threads?: boolean | Clan$threadsArgs<ExtArgs>
+    bossDamages?: boolean | Clan$bossDamagesArgs<ExtArgs>
     _count?: boolean | ClanCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -21773,6 +21894,7 @@ export namespace Prisma {
       brutes: Prisma.$BrutePayload<ExtArgs>[]
       joinRequests: Prisma.$BrutePayload<ExtArgs>[]
       threads: Prisma.$ClanThreadPayload<ExtArgs>[]
+      bossDamages: Prisma.$BossDamagePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -22180,6 +22302,8 @@ export namespace Prisma {
     joinRequests<T extends Clan$joinRequestsArgs<ExtArgs> = {}>(args?: Subset<T, Clan$joinRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, 'findMany'> | Null>;
 
     threads<T extends Clan$threadsArgs<ExtArgs> = {}>(args?: Subset<T, Clan$threadsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClanThreadPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    bossDamages<T extends Clan$bossDamagesArgs<ExtArgs> = {}>(args?: Subset<T, Clan$bossDamagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BossDamagePayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -22652,6 +22776,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ClanThreadScalarFieldEnum | ClanThreadScalarFieldEnum[]
+  }
+
+  /**
+   * Clan.bossDamages
+   */
+  export type Clan$bossDamagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BossDamage
+     */
+    select?: BossDamageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BossDamage
+     */
+    omit?: BossDamageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BossDamageInclude<ExtArgs> | null
+    where?: BossDamageWhereInput
+    orderBy?: BossDamageOrderByWithRelationInput | BossDamageOrderByWithRelationInput[]
+    cursor?: BossDamageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BossDamageScalarFieldEnum | BossDamageScalarFieldEnum[]
   }
 
   /**
@@ -24857,6 +25005,1051 @@ export namespace Prisma {
 
 
   /**
+   * Model BossDamage
+   */
+
+  export type AggregateBossDamage = {
+    _count: BossDamageCountAggregateOutputType | null
+    _avg: BossDamageAvgAggregateOutputType | null
+    _sum: BossDamageSumAggregateOutputType | null
+    _min: BossDamageMinAggregateOutputType | null
+    _max: BossDamageMaxAggregateOutputType | null
+  }
+
+  export type BossDamageAvgAggregateOutputType = {
+    id: number | null
+    bruteId: number | null
+    clanId: number | null
+    damage: number | null
+  }
+
+  export type BossDamageSumAggregateOutputType = {
+    id: number | null
+    bruteId: number | null
+    clanId: number | null
+    damage: number | null
+  }
+
+  export type BossDamageMinAggregateOutputType = {
+    id: number | null
+    bruteId: number | null
+    clanId: number | null
+    damage: number | null
+  }
+
+  export type BossDamageMaxAggregateOutputType = {
+    id: number | null
+    bruteId: number | null
+    clanId: number | null
+    damage: number | null
+  }
+
+  export type BossDamageCountAggregateOutputType = {
+    id: number
+    bruteId: number
+    clanId: number
+    damage: number
+    _all: number
+  }
+
+
+  export type BossDamageAvgAggregateInputType = {
+    id?: true
+    bruteId?: true
+    clanId?: true
+    damage?: true
+  }
+
+  export type BossDamageSumAggregateInputType = {
+    id?: true
+    bruteId?: true
+    clanId?: true
+    damage?: true
+  }
+
+  export type BossDamageMinAggregateInputType = {
+    id?: true
+    bruteId?: true
+    clanId?: true
+    damage?: true
+  }
+
+  export type BossDamageMaxAggregateInputType = {
+    id?: true
+    bruteId?: true
+    clanId?: true
+    damage?: true
+  }
+
+  export type BossDamageCountAggregateInputType = {
+    id?: true
+    bruteId?: true
+    clanId?: true
+    damage?: true
+    _all?: true
+  }
+
+  export type BossDamageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BossDamage to aggregate.
+     */
+    where?: BossDamageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BossDamages to fetch.
+     */
+    orderBy?: BossDamageOrderByWithRelationInput | BossDamageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BossDamageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BossDamages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BossDamages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BossDamages
+    **/
+    _count?: true | BossDamageCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BossDamageAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BossDamageSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BossDamageMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BossDamageMaxAggregateInputType
+  }
+
+  export type GetBossDamageAggregateType<T extends BossDamageAggregateArgs> = {
+        [P in keyof T & keyof AggregateBossDamage]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBossDamage[P]>
+      : GetScalarType<T[P], AggregateBossDamage[P]>
+  }
+
+
+
+
+  export type BossDamageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BossDamageWhereInput
+    orderBy?: BossDamageOrderByWithAggregationInput | BossDamageOrderByWithAggregationInput[]
+    by: BossDamageScalarFieldEnum[] | BossDamageScalarFieldEnum
+    having?: BossDamageScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BossDamageCountAggregateInputType | true
+    _avg?: BossDamageAvgAggregateInputType
+    _sum?: BossDamageSumAggregateInputType
+    _min?: BossDamageMinAggregateInputType
+    _max?: BossDamageMaxAggregateInputType
+  }
+
+  export type BossDamageGroupByOutputType = {
+    id: number
+    bruteId: number
+    clanId: number
+    damage: number
+    _count: BossDamageCountAggregateOutputType | null
+    _avg: BossDamageAvgAggregateOutputType | null
+    _sum: BossDamageSumAggregateOutputType | null
+    _min: BossDamageMinAggregateOutputType | null
+    _max: BossDamageMaxAggregateOutputType | null
+  }
+
+  type GetBossDamageGroupByPayload<T extends BossDamageGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BossDamageGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BossDamageGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BossDamageGroupByOutputType[P]>
+            : GetScalarType<T[P], BossDamageGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BossDamageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    bruteId?: boolean
+    clanId?: boolean
+    damage?: boolean
+    brute?: boolean | BruteDefaultArgs<ExtArgs>
+    clan?: boolean | ClanDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bossDamage"]>
+
+  export type BossDamageSelectScalar = {
+    id?: boolean
+    bruteId?: boolean
+    clanId?: boolean
+    damage?: boolean
+  }
+
+  export type BossDamageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bruteId" | "clanId" | "damage", ExtArgs["result"]["bossDamage"]>
+
+
+  export type BossDamageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    brute?: boolean | BruteDefaultArgs<ExtArgs>
+    clan?: boolean | ClanDefaultArgs<ExtArgs>
+  }
+
+
+  export type $BossDamagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BossDamage"
+    objects: {
+      brute: Prisma.$BrutePayload<ExtArgs>
+      clan: Prisma.$ClanPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      bruteId: number
+      clanId: number
+      damage: number
+    }, ExtArgs["result"]["bossDamage"]>
+    composites: {}
+  }
+
+
+  type BossDamageGetPayload<S extends boolean | null | undefined | BossDamageDefaultArgs> = $Result.GetResult<Prisma.$BossDamagePayload, S>
+
+  type BossDamageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<BossDamageFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
+      select?: BossDamageCountAggregateInputType | true
+    }
+
+  export interface BossDamageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BossDamage'], meta: { name: 'BossDamage' } }
+    /**
+     * Find zero or one BossDamage that matches the filter.
+     * @param {BossDamageFindUniqueArgs} args - Arguments to find a BossDamage
+     * @example
+     * // Get one BossDamage
+     * const bossDamage = await prisma.bossDamage.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends BossDamageFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, BossDamageFindUniqueArgs<ExtArgs>>
+    ): Prisma__BossDamageClient<$Result.GetResult<Prisma.$BossDamagePayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one BossDamage that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {BossDamageFindUniqueOrThrowArgs} args - Arguments to find a BossDamage
+     * @example
+     * // Get one BossDamage
+     * const bossDamage = await prisma.bossDamage.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends BossDamageFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, BossDamageFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__BossDamageClient<$Result.GetResult<Prisma.$BossDamagePayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first BossDamage that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BossDamageFindFirstArgs} args - Arguments to find a BossDamage
+     * @example
+     * // Get one BossDamage
+     * const bossDamage = await prisma.bossDamage.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends BossDamageFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, BossDamageFindFirstArgs<ExtArgs>>
+    ): Prisma__BossDamageClient<$Result.GetResult<Prisma.$BossDamagePayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first BossDamage that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BossDamageFindFirstOrThrowArgs} args - Arguments to find a BossDamage
+     * @example
+     * // Get one BossDamage
+     * const bossDamage = await prisma.bossDamage.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends BossDamageFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, BossDamageFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__BossDamageClient<$Result.GetResult<Prisma.$BossDamagePayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more BossDamages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BossDamageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BossDamages
+     * const bossDamages = await prisma.bossDamage.findMany()
+     * 
+     * // Get first 10 BossDamages
+     * const bossDamages = await prisma.bossDamage.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const bossDamageWithIdOnly = await prisma.bossDamage.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends BossDamageFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BossDamageFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BossDamagePayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a BossDamage.
+     * @param {BossDamageCreateArgs} args - Arguments to create a BossDamage.
+     * @example
+     * // Create one BossDamage
+     * const BossDamage = await prisma.bossDamage.create({
+     *   data: {
+     *     // ... data to create a BossDamage
+     *   }
+     * })
+     * 
+    **/
+    create<T extends BossDamageCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, BossDamageCreateArgs<ExtArgs>>
+    ): Prisma__BossDamageClient<$Result.GetResult<Prisma.$BossDamagePayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many BossDamages.
+     * @param {BossDamageCreateManyArgs} args - Arguments to create many BossDamages.
+     * @example
+     * // Create many BossDamages
+     * const bossDamage = await prisma.bossDamage.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+    **/
+    createMany<T extends BossDamageCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BossDamageCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BossDamages and returns the data saved in the database.
+     * @param {BossDamageCreateManyAndReturnArgs} args - Arguments to create many BossDamages.
+     * @example
+     * // Create many BossDamages
+     * const bossDamage = await prisma.bossDamage.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BossDamages and only return the `id`
+     * const bossDamageWithIdOnly = await prisma.bossDamage.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+    **/
+    createManyAndReturn<T extends BossDamageCreateManyAndReturnArgs<ExtArgs>>(
+      args?: SelectSubset<T, BossDamageCreateManyAndReturnArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BossDamagePayload<ExtArgs>, T, 'createManyAndReturn'>>
+
+    /**
+     * Delete a BossDamage.
+     * @param {BossDamageDeleteArgs} args - Arguments to delete one BossDamage.
+     * @example
+     * // Delete one BossDamage
+     * const BossDamage = await prisma.bossDamage.delete({
+     *   where: {
+     *     // ... filter to delete one BossDamage
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends BossDamageDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, BossDamageDeleteArgs<ExtArgs>>
+    ): Prisma__BossDamageClient<$Result.GetResult<Prisma.$BossDamagePayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one BossDamage.
+     * @param {BossDamageUpdateArgs} args - Arguments to update one BossDamage.
+     * @example
+     * // Update one BossDamage
+     * const bossDamage = await prisma.bossDamage.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends BossDamageUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, BossDamageUpdateArgs<ExtArgs>>
+    ): Prisma__BossDamageClient<$Result.GetResult<Prisma.$BossDamagePayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more BossDamages.
+     * @param {BossDamageDeleteManyArgs} args - Arguments to filter BossDamages to delete.
+     * @example
+     * // Delete a few BossDamages
+     * const { count } = await prisma.bossDamage.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends BossDamageDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BossDamageDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BossDamages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BossDamageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BossDamages
+     * const bossDamage = await prisma.bossDamage.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends BossDamageUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, BossDamageUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one BossDamage.
+     * @param {BossDamageUpsertArgs} args - Arguments to update or create a BossDamage.
+     * @example
+     * // Update or create a BossDamage
+     * const bossDamage = await prisma.bossDamage.upsert({
+     *   create: {
+     *     // ... data to create a BossDamage
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BossDamage we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends BossDamageUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, BossDamageUpsertArgs<ExtArgs>>
+    ): Prisma__BossDamageClient<$Result.GetResult<Prisma.$BossDamagePayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of BossDamages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BossDamageCountArgs} args - Arguments to filter BossDamages to count.
+     * @example
+     * // Count the number of BossDamages
+     * const count = await prisma.bossDamage.count({
+     *   where: {
+     *     // ... the filter for the BossDamages we want to count
+     *   }
+     * })
+    **/
+    count<T extends BossDamageCountArgs>(
+      args?: Subset<T, BossDamageCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BossDamageCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BossDamage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BossDamageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BossDamageAggregateArgs>(args: Subset<T, BossDamageAggregateArgs>): Prisma.PrismaPromise<GetBossDamageAggregateType<T>>
+
+    /**
+     * Group by BossDamage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BossDamageGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BossDamageGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BossDamageGroupByArgs['orderBy'] }
+        : { orderBy?: BossDamageGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BossDamageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBossDamageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BossDamage model
+   */
+  readonly fields: BossDamageFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BossDamage.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BossDamageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    brute<T extends BruteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BruteDefaultArgs<ExtArgs>>): Prisma__BruteClient<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    clan<T extends ClanDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ClanDefaultArgs<ExtArgs>>): Prisma__ClanClient<$Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the BossDamage model
+   */ 
+  interface BossDamageFieldRefs {
+    readonly id: FieldRef<"BossDamage", 'Int'>
+    readonly bruteId: FieldRef<"BossDamage", 'Int'>
+    readonly clanId: FieldRef<"BossDamage", 'Int'>
+    readonly damage: FieldRef<"BossDamage", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BossDamage findUnique
+   */
+  export type BossDamageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BossDamage
+     */
+    select?: BossDamageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BossDamage
+     */
+    omit?: BossDamageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BossDamageInclude<ExtArgs> | null
+    /**
+     * Filter, which BossDamage to fetch.
+     */
+    where: BossDamageWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BossDamage findUniqueOrThrow
+   */
+  export type BossDamageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BossDamage
+     */
+    select?: BossDamageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BossDamage
+     */
+    omit?: BossDamageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BossDamageInclude<ExtArgs> | null
+    /**
+     * Filter, which BossDamage to fetch.
+     */
+    where: BossDamageWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BossDamage findFirst
+   */
+  export type BossDamageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BossDamage
+     */
+    select?: BossDamageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BossDamage
+     */
+    omit?: BossDamageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BossDamageInclude<ExtArgs> | null
+    /**
+     * Filter, which BossDamage to fetch.
+     */
+    where?: BossDamageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BossDamages to fetch.
+     */
+    orderBy?: BossDamageOrderByWithRelationInput | BossDamageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BossDamages.
+     */
+    cursor?: BossDamageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BossDamages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BossDamages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BossDamages.
+     */
+    distinct?: BossDamageScalarFieldEnum | BossDamageScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BossDamage findFirstOrThrow
+   */
+  export type BossDamageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BossDamage
+     */
+    select?: BossDamageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BossDamage
+     */
+    omit?: BossDamageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BossDamageInclude<ExtArgs> | null
+    /**
+     * Filter, which BossDamage to fetch.
+     */
+    where?: BossDamageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BossDamages to fetch.
+     */
+    orderBy?: BossDamageOrderByWithRelationInput | BossDamageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BossDamages.
+     */
+    cursor?: BossDamageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BossDamages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BossDamages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BossDamages.
+     */
+    distinct?: BossDamageScalarFieldEnum | BossDamageScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BossDamage findMany
+   */
+  export type BossDamageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BossDamage
+     */
+    select?: BossDamageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BossDamage
+     */
+    omit?: BossDamageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BossDamageInclude<ExtArgs> | null
+    /**
+     * Filter, which BossDamages to fetch.
+     */
+    where?: BossDamageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BossDamages to fetch.
+     */
+    orderBy?: BossDamageOrderByWithRelationInput | BossDamageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BossDamages.
+     */
+    cursor?: BossDamageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BossDamages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BossDamages.
+     */
+    skip?: number
+    distinct?: BossDamageScalarFieldEnum | BossDamageScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BossDamage create
+   */
+  export type BossDamageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BossDamage
+     */
+    select?: BossDamageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BossDamage
+     */
+    omit?: BossDamageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BossDamageInclude<ExtArgs> | null
+    /**
+     * The data needed to create a BossDamage.
+     */
+    data: XOR<BossDamageCreateInput, BossDamageUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BossDamage createMany
+   */
+  export type BossDamageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BossDamages.
+     */
+    data: BossDamageCreateManyInput | BossDamageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BossDamage createManyAndReturn
+   */
+  export type BossDamageCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BossDamage
+     */
+    select?: BossDamageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BossDamage
+     */
+    omit?: BossDamageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BossDamageInclude<ExtArgs> | null
+    /**
+     * The data used to create many BossDamages.
+     */
+    data: BossDamageCreateManyInput | BossDamageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BossDamage update
+   */
+  export type BossDamageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BossDamage
+     */
+    select?: BossDamageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BossDamage
+     */
+    omit?: BossDamageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BossDamageInclude<ExtArgs> | null
+    /**
+     * The data needed to update a BossDamage.
+     */
+    data: XOR<BossDamageUpdateInput, BossDamageUncheckedUpdateInput>
+    /**
+     * Choose, which BossDamage to update.
+     */
+    where: BossDamageWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BossDamage updateMany
+   */
+  export type BossDamageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BossDamages.
+     */
+    data: XOR<BossDamageUpdateManyMutationInput, BossDamageUncheckedUpdateManyInput>
+    /**
+     * Filter which BossDamages to update
+     */
+    where?: BossDamageWhereInput
+  }
+
+  /**
+   * BossDamage upsert
+   */
+  export type BossDamageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BossDamage
+     */
+    select?: BossDamageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BossDamage
+     */
+    omit?: BossDamageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BossDamageInclude<ExtArgs> | null
+    /**
+     * The filter to search for the BossDamage to update in case it exists.
+     */
+    where: BossDamageWhereUniqueInput
+    /**
+     * In case the BossDamage found by the `where` argument doesn't exist, create a new BossDamage with this data.
+     */
+    create: XOR<BossDamageCreateInput, BossDamageUncheckedCreateInput>
+    /**
+     * In case the BossDamage was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BossDamageUpdateInput, BossDamageUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BossDamage delete
+   */
+  export type BossDamageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BossDamage
+     */
+    select?: BossDamageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BossDamage
+     */
+    omit?: BossDamageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BossDamageInclude<ExtArgs> | null
+    /**
+     * Filter which BossDamage to delete.
+     */
+    where: BossDamageWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BossDamage deleteMany
+   */
+  export type BossDamageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BossDamages to delete
+     */
+    where?: BossDamageWhereInput
+  }
+
+  /**
+   * BossDamage without action
+   */
+  export type BossDamageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BossDamage
+     */
+    select?: BossDamageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BossDamage
+     */
+    omit?: BossDamageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BossDamageInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model BruteInventoryItem
    */
 
@@ -26179,6 +27372,16 @@ export namespace Prisma {
   export type ClanPostScalarFieldEnum = (typeof ClanPostScalarFieldEnum)[keyof typeof ClanPostScalarFieldEnum]
 
 
+  export const BossDamageScalarFieldEnum: {
+    id: 'id',
+    bruteId: 'bruteId',
+    clanId: 'clanId',
+    damage: 'damage'
+  };
+
+  export type BossDamageScalarFieldEnum = (typeof BossDamageScalarFieldEnum)[keyof typeof BossDamageScalarFieldEnum]
+
+
   export const BruteInventoryItemScalarFieldEnum: {
     id: 'id',
     type: 'type',
@@ -26662,6 +27865,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementListRelationFilter
     tournamentXps?: TournamentXpListRelationFilter
     startingStats?: XOR<BruteStartingStatsNullableRelationFilter, BruteStartingStatsWhereInput> | null
+    damageOnBoss?: XOR<BossDamageNullableRelationFilter, BossDamageWhereInput> | null
   }
 
   export type BruteOrderByWithRelationInput = {
@@ -26733,6 +27937,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementOrderByRelationAggregateInput
     tournamentXps?: TournamentXpOrderByRelationAggregateInput
     startingStats?: BruteStartingStatsOrderByWithRelationInput
+    damageOnBoss?: BossDamageOrderByWithRelationInput
   }
 
   export type BruteWhereUniqueInput = Prisma.AtLeast<{
@@ -26807,6 +28012,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementListRelationFilter
     tournamentXps?: TournamentXpListRelationFilter
     startingStats?: XOR<BruteStartingStatsNullableRelationFilter, BruteStartingStatsWhereInput> | null
+    damageOnBoss?: XOR<BossDamageNullableRelationFilter, BossDamageWhereInput> | null
   }, "id">
 
   export type BruteOrderByWithAggregationInput = {
@@ -27756,6 +28962,7 @@ export namespace Prisma {
     brutes?: BruteListRelationFilter
     joinRequests?: BruteListRelationFilter
     threads?: ClanThreadListRelationFilter
+    bossDamages?: BossDamageListRelationFilter
   }
 
   export type ClanOrderByWithRelationInput = {
@@ -27770,6 +28977,7 @@ export namespace Prisma {
     brutes?: BruteOrderByRelationAggregateInput
     joinRequests?: BruteOrderByRelationAggregateInput
     threads?: ClanThreadOrderByRelationAggregateInput
+    bossDamages?: BossDamageOrderByRelationAggregateInput
   }
 
   export type ClanWhereUniqueInput = Prisma.AtLeast<{
@@ -27787,6 +28995,7 @@ export namespace Prisma {
     brutes?: BruteListRelationFilter
     joinRequests?: BruteListRelationFilter
     threads?: ClanThreadListRelationFilter
+    bossDamages?: BossDamageListRelationFilter
   }, "id" | "name" | "masterId">
 
   export type ClanOrderByWithAggregationInput = {
@@ -27958,6 +29167,61 @@ export namespace Prisma {
     authorId?: IntWithAggregatesFilter<"ClanPost"> | number
     date?: DateTimeWithAggregatesFilter<"ClanPost"> | Date | string
     message?: StringWithAggregatesFilter<"ClanPost"> | string
+  }
+
+  export type BossDamageWhereInput = {
+    AND?: BossDamageWhereInput | BossDamageWhereInput[]
+    OR?: BossDamageWhereInput[]
+    NOT?: BossDamageWhereInput | BossDamageWhereInput[]
+    id?: IntFilter<"BossDamage"> | number
+    bruteId?: IntFilter<"BossDamage"> | number
+    clanId?: IntFilter<"BossDamage"> | number
+    damage?: IntFilter<"BossDamage"> | number
+    brute?: XOR<BruteRelationFilter, BruteWhereInput>
+    clan?: XOR<ClanRelationFilter, ClanWhereInput>
+  }
+
+  export type BossDamageOrderByWithRelationInput = {
+    id?: SortOrder
+    bruteId?: SortOrder
+    clanId?: SortOrder
+    damage?: SortOrder
+    brute?: BruteOrderByWithRelationInput
+    clan?: ClanOrderByWithRelationInput
+  }
+
+  export type BossDamageWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    bruteId?: number
+    clanId?: number
+    AND?: BossDamageWhereInput | BossDamageWhereInput[]
+    OR?: BossDamageWhereInput[]
+    NOT?: BossDamageWhereInput | BossDamageWhereInput[]
+    damage?: IntFilter<"BossDamage"> | number
+    brute?: XOR<BruteRelationFilter, BruteWhereInput>
+    clan?: XOR<ClanRelationFilter, ClanWhereInput>
+  }, "id" | "bruteId" | "clanId">
+
+  export type BossDamageOrderByWithAggregationInput = {
+    id?: SortOrder
+    bruteId?: SortOrder
+    clanId?: SortOrder
+    damage?: SortOrder
+    _count?: BossDamageCountOrderByAggregateInput
+    _avg?: BossDamageAvgOrderByAggregateInput
+    _max?: BossDamageMaxOrderByAggregateInput
+    _min?: BossDamageMinOrderByAggregateInput
+    _sum?: BossDamageSumOrderByAggregateInput
+  }
+
+  export type BossDamageScalarWhereWithAggregatesInput = {
+    AND?: BossDamageScalarWhereWithAggregatesInput | BossDamageScalarWhereWithAggregatesInput[]
+    OR?: BossDamageScalarWhereWithAggregatesInput[]
+    NOT?: BossDamageScalarWhereWithAggregatesInput | BossDamageScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"BossDamage"> | number
+    bruteId?: IntWithAggregatesFilter<"BossDamage"> | number
+    clanId?: IntWithAggregatesFilter<"BossDamage"> | number
+    damage?: IntWithAggregatesFilter<"BossDamage"> | number
   }
 
   export type BruteInventoryItemWhereInput = {
@@ -28191,6 +29455,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateInput = {
@@ -28258,6 +29523,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUpdateInput = {
@@ -28324,6 +29590,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateInput = {
@@ -28391,6 +29658,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteCreateManyInput = {
@@ -29315,6 +30583,7 @@ export namespace Prisma {
     brutes?: BruteCreateNestedManyWithoutClanInput
     joinRequests?: BruteCreateNestedManyWithoutWantToJoinClanInput
     threads?: ClanThreadCreateNestedManyWithoutClanInput
+    bossDamages?: BossDamageCreateNestedManyWithoutClanInput
   }
 
   export type ClanUncheckedCreateInput = {
@@ -29328,6 +30597,7 @@ export namespace Prisma {
     brutes?: BruteUncheckedCreateNestedManyWithoutClanInput
     joinRequests?: BruteUncheckedCreateNestedManyWithoutWantToJoinClanInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutClanInput
+    bossDamages?: BossDamageUncheckedCreateNestedManyWithoutClanInput
   }
 
   export type ClanUpdateInput = {
@@ -29340,6 +30610,7 @@ export namespace Prisma {
     brutes?: BruteUpdateManyWithoutClanNestedInput
     joinRequests?: BruteUpdateManyWithoutWantToJoinClanNestedInput
     threads?: ClanThreadUpdateManyWithoutClanNestedInput
+    bossDamages?: BossDamageUpdateManyWithoutClanNestedInput
   }
 
   export type ClanUncheckedUpdateInput = {
@@ -29353,6 +30624,7 @@ export namespace Prisma {
     brutes?: BruteUncheckedUpdateManyWithoutClanNestedInput
     joinRequests?: BruteUncheckedUpdateManyWithoutWantToJoinClanNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutClanNestedInput
+    bossDamages?: BossDamageUncheckedUpdateManyWithoutClanNestedInput
   }
 
   export type ClanCreateManyInput = {
@@ -29515,6 +30787,50 @@ export namespace Prisma {
     authorId?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     message?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type BossDamageCreateInput = {
+    damage: number
+    brute: BruteCreateNestedOneWithoutDamageOnBossInput
+    clan: ClanCreateNestedOneWithoutBossDamagesInput
+  }
+
+  export type BossDamageUncheckedCreateInput = {
+    id?: number
+    bruteId: number
+    clanId: number
+    damage: number
+  }
+
+  export type BossDamageUpdateInput = {
+    damage?: IntFieldUpdateOperationsInput | number
+    brute?: BruteUpdateOneRequiredWithoutDamageOnBossNestedInput
+    clan?: ClanUpdateOneRequiredWithoutBossDamagesNestedInput
+  }
+
+  export type BossDamageUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    bruteId?: IntFieldUpdateOperationsInput | number
+    clanId?: IntFieldUpdateOperationsInput | number
+    damage?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type BossDamageCreateManyInput = {
+    id?: number
+    bruteId: number
+    clanId: number
+    damage: number
+  }
+
+  export type BossDamageUpdateManyMutationInput = {
+    damage?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type BossDamageUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    bruteId?: IntFieldUpdateOperationsInput | number
+    clanId?: IntFieldUpdateOperationsInput | number
+    damage?: IntFieldUpdateOperationsInput | number
   }
 
   export type BruteInventoryItemCreateInput = {
@@ -29965,6 +31281,11 @@ export namespace Prisma {
   export type BruteStartingStatsNullableRelationFilter = {
     is?: BruteStartingStatsWhereInput | null
     isNot?: BruteStartingStatsWhereInput | null
+  }
+
+  export type BossDamageNullableRelationFilter = {
+    is?: BossDamageWhereInput | null
+    isNot?: BossDamageWhereInput | null
   }
 
   export type FightOrderByRelationAggregateInput = {
@@ -31027,6 +32348,16 @@ export namespace Prisma {
     not?: NestedEnumBossNameFilter<$PrismaModel> | $Enums.BossName
   }
 
+  export type BossDamageListRelationFilter = {
+    every?: BossDamageWhereInput
+    some?: BossDamageWhereInput
+    none?: BossDamageWhereInput
+  }
+
+  export type BossDamageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type ClanCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -31177,6 +32508,41 @@ export namespace Prisma {
     id?: SortOrder
     threadId?: SortOrder
     authorId?: SortOrder
+  }
+
+  export type BossDamageCountOrderByAggregateInput = {
+    id?: SortOrder
+    bruteId?: SortOrder
+    clanId?: SortOrder
+    damage?: SortOrder
+  }
+
+  export type BossDamageAvgOrderByAggregateInput = {
+    id?: SortOrder
+    bruteId?: SortOrder
+    clanId?: SortOrder
+    damage?: SortOrder
+  }
+
+  export type BossDamageMaxOrderByAggregateInput = {
+    id?: SortOrder
+    bruteId?: SortOrder
+    clanId?: SortOrder
+    damage?: SortOrder
+  }
+
+  export type BossDamageMinOrderByAggregateInput = {
+    id?: SortOrder
+    bruteId?: SortOrder
+    clanId?: SortOrder
+    damage?: SortOrder
+  }
+
+  export type BossDamageSumOrderByAggregateInput = {
+    id?: SortOrder
+    bruteId?: SortOrder
+    clanId?: SortOrder
+    damage?: SortOrder
   }
 
   export type EnumInventoryItemTypeFilter<$PrismaModel = never> = {
@@ -31586,6 +32952,12 @@ export namespace Prisma {
     connect?: BruteStartingStatsWhereUniqueInput
   }
 
+  export type BossDamageCreateNestedOneWithoutBruteInput = {
+    create?: XOR<BossDamageCreateWithoutBruteInput, BossDamageUncheckedCreateWithoutBruteInput>
+    connectOrCreate?: BossDamageCreateOrConnectWithoutBruteInput
+    connect?: BossDamageWhereUniqueInput
+  }
+
   export type BruteUncheckedCreateNestedManyWithoutMasterInput = {
     create?: XOR<BruteCreateWithoutMasterInput, BruteUncheckedCreateWithoutMasterInput> | BruteCreateWithoutMasterInput[] | BruteUncheckedCreateWithoutMasterInput[]
     connectOrCreate?: BruteCreateOrConnectWithoutMasterInput | BruteCreateOrConnectWithoutMasterInput[]
@@ -31704,6 +33076,12 @@ export namespace Prisma {
     create?: XOR<BruteStartingStatsCreateWithoutBruteInput, BruteStartingStatsUncheckedCreateWithoutBruteInput>
     connectOrCreate?: BruteStartingStatsCreateOrConnectWithoutBruteInput
     connect?: BruteStartingStatsWhereUniqueInput
+  }
+
+  export type BossDamageUncheckedCreateNestedOneWithoutBruteInput = {
+    create?: XOR<BossDamageCreateWithoutBruteInput, BossDamageUncheckedCreateWithoutBruteInput>
+    connectOrCreate?: BossDamageCreateOrConnectWithoutBruteInput
+    connect?: BossDamageWhereUniqueInput
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -32035,6 +33413,16 @@ export namespace Prisma {
     update?: XOR<XOR<BruteStartingStatsUpdateToOneWithWhereWithoutBruteInput, BruteStartingStatsUpdateWithoutBruteInput>, BruteStartingStatsUncheckedUpdateWithoutBruteInput>
   }
 
+  export type BossDamageUpdateOneWithoutBruteNestedInput = {
+    create?: XOR<BossDamageCreateWithoutBruteInput, BossDamageUncheckedCreateWithoutBruteInput>
+    connectOrCreate?: BossDamageCreateOrConnectWithoutBruteInput
+    upsert?: BossDamageUpsertWithoutBruteInput
+    disconnect?: BossDamageWhereInput | boolean
+    delete?: BossDamageWhereInput | boolean
+    connect?: BossDamageWhereUniqueInput
+    update?: XOR<XOR<BossDamageUpdateToOneWithWhereWithoutBruteInput, BossDamageUpdateWithoutBruteInput>, BossDamageUncheckedUpdateWithoutBruteInput>
+  }
+
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
   }
@@ -32277,6 +33665,16 @@ export namespace Prisma {
     delete?: BruteStartingStatsWhereInput | boolean
     connect?: BruteStartingStatsWhereUniqueInput
     update?: XOR<XOR<BruteStartingStatsUpdateToOneWithWhereWithoutBruteInput, BruteStartingStatsUpdateWithoutBruteInput>, BruteStartingStatsUncheckedUpdateWithoutBruteInput>
+  }
+
+  export type BossDamageUncheckedUpdateOneWithoutBruteNestedInput = {
+    create?: XOR<BossDamageCreateWithoutBruteInput, BossDamageUncheckedCreateWithoutBruteInput>
+    connectOrCreate?: BossDamageCreateOrConnectWithoutBruteInput
+    upsert?: BossDamageUpsertWithoutBruteInput
+    disconnect?: BossDamageWhereInput | boolean
+    delete?: BossDamageWhereInput | boolean
+    connect?: BossDamageWhereUniqueInput
+    update?: XOR<XOR<BossDamageUpdateToOneWithWhereWithoutBruteInput, BossDamageUpdateWithoutBruteInput>, BossDamageUncheckedUpdateWithoutBruteInput>
   }
 
   export type BruteCreateNestedOneWithoutStartingStatsInput = {
@@ -32745,6 +34143,13 @@ export namespace Prisma {
     connect?: ClanThreadWhereUniqueInput | ClanThreadWhereUniqueInput[]
   }
 
+  export type BossDamageCreateNestedManyWithoutClanInput = {
+    create?: XOR<BossDamageCreateWithoutClanInput, BossDamageUncheckedCreateWithoutClanInput> | BossDamageCreateWithoutClanInput[] | BossDamageUncheckedCreateWithoutClanInput[]
+    connectOrCreate?: BossDamageCreateOrConnectWithoutClanInput | BossDamageCreateOrConnectWithoutClanInput[]
+    createMany?: BossDamageCreateManyClanInputEnvelope
+    connect?: BossDamageWhereUniqueInput | BossDamageWhereUniqueInput[]
+  }
+
   export type BruteUncheckedCreateNestedManyWithoutClanInput = {
     create?: XOR<BruteCreateWithoutClanInput, BruteUncheckedCreateWithoutClanInput> | BruteCreateWithoutClanInput[] | BruteUncheckedCreateWithoutClanInput[]
     connectOrCreate?: BruteCreateOrConnectWithoutClanInput | BruteCreateOrConnectWithoutClanInput[]
@@ -32764,6 +34169,13 @@ export namespace Prisma {
     connectOrCreate?: ClanThreadCreateOrConnectWithoutClanInput | ClanThreadCreateOrConnectWithoutClanInput[]
     createMany?: ClanThreadCreateManyClanInputEnvelope
     connect?: ClanThreadWhereUniqueInput | ClanThreadWhereUniqueInput[]
+  }
+
+  export type BossDamageUncheckedCreateNestedManyWithoutClanInput = {
+    create?: XOR<BossDamageCreateWithoutClanInput, BossDamageUncheckedCreateWithoutClanInput> | BossDamageCreateWithoutClanInput[] | BossDamageUncheckedCreateWithoutClanInput[]
+    connectOrCreate?: BossDamageCreateOrConnectWithoutClanInput | BossDamageCreateOrConnectWithoutClanInput[]
+    createMany?: BossDamageCreateManyClanInputEnvelope
+    connect?: BossDamageWhereUniqueInput | BossDamageWhereUniqueInput[]
   }
 
   export type EnumBossNameFieldUpdateOperationsInput = {
@@ -32820,6 +34232,20 @@ export namespace Prisma {
     deleteMany?: ClanThreadScalarWhereInput | ClanThreadScalarWhereInput[]
   }
 
+  export type BossDamageUpdateManyWithoutClanNestedInput = {
+    create?: XOR<BossDamageCreateWithoutClanInput, BossDamageUncheckedCreateWithoutClanInput> | BossDamageCreateWithoutClanInput[] | BossDamageUncheckedCreateWithoutClanInput[]
+    connectOrCreate?: BossDamageCreateOrConnectWithoutClanInput | BossDamageCreateOrConnectWithoutClanInput[]
+    upsert?: BossDamageUpsertWithWhereUniqueWithoutClanInput | BossDamageUpsertWithWhereUniqueWithoutClanInput[]
+    createMany?: BossDamageCreateManyClanInputEnvelope
+    set?: BossDamageWhereUniqueInput | BossDamageWhereUniqueInput[]
+    disconnect?: BossDamageWhereUniqueInput | BossDamageWhereUniqueInput[]
+    delete?: BossDamageWhereUniqueInput | BossDamageWhereUniqueInput[]
+    connect?: BossDamageWhereUniqueInput | BossDamageWhereUniqueInput[]
+    update?: BossDamageUpdateWithWhereUniqueWithoutClanInput | BossDamageUpdateWithWhereUniqueWithoutClanInput[]
+    updateMany?: BossDamageUpdateManyWithWhereWithoutClanInput | BossDamageUpdateManyWithWhereWithoutClanInput[]
+    deleteMany?: BossDamageScalarWhereInput | BossDamageScalarWhereInput[]
+  }
+
   export type BruteUncheckedUpdateManyWithoutClanNestedInput = {
     create?: XOR<BruteCreateWithoutClanInput, BruteUncheckedCreateWithoutClanInput> | BruteCreateWithoutClanInput[] | BruteUncheckedCreateWithoutClanInput[]
     connectOrCreate?: BruteCreateOrConnectWithoutClanInput | BruteCreateOrConnectWithoutClanInput[]
@@ -32860,6 +34286,20 @@ export namespace Prisma {
     update?: ClanThreadUpdateWithWhereUniqueWithoutClanInput | ClanThreadUpdateWithWhereUniqueWithoutClanInput[]
     updateMany?: ClanThreadUpdateManyWithWhereWithoutClanInput | ClanThreadUpdateManyWithWhereWithoutClanInput[]
     deleteMany?: ClanThreadScalarWhereInput | ClanThreadScalarWhereInput[]
+  }
+
+  export type BossDamageUncheckedUpdateManyWithoutClanNestedInput = {
+    create?: XOR<BossDamageCreateWithoutClanInput, BossDamageUncheckedCreateWithoutClanInput> | BossDamageCreateWithoutClanInput[] | BossDamageUncheckedCreateWithoutClanInput[]
+    connectOrCreate?: BossDamageCreateOrConnectWithoutClanInput | BossDamageCreateOrConnectWithoutClanInput[]
+    upsert?: BossDamageUpsertWithWhereUniqueWithoutClanInput | BossDamageUpsertWithWhereUniqueWithoutClanInput[]
+    createMany?: BossDamageCreateManyClanInputEnvelope
+    set?: BossDamageWhereUniqueInput | BossDamageWhereUniqueInput[]
+    disconnect?: BossDamageWhereUniqueInput | BossDamageWhereUniqueInput[]
+    delete?: BossDamageWhereUniqueInput | BossDamageWhereUniqueInput[]
+    connect?: BossDamageWhereUniqueInput | BossDamageWhereUniqueInput[]
+    update?: BossDamageUpdateWithWhereUniqueWithoutClanInput | BossDamageUpdateWithWhereUniqueWithoutClanInput[]
+    updateMany?: BossDamageUpdateManyWithWhereWithoutClanInput | BossDamageUpdateManyWithWhereWithoutClanInput[]
+    deleteMany?: BossDamageScalarWhereInput | BossDamageScalarWhereInput[]
   }
 
   export type ClanCreateNestedOneWithoutThreadsInput = {
@@ -32958,6 +34398,34 @@ export namespace Prisma {
     upsert?: BruteUpsertWithoutClanPostsInput
     connect?: BruteWhereUniqueInput
     update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutClanPostsInput, BruteUpdateWithoutClanPostsInput>, BruteUncheckedUpdateWithoutClanPostsInput>
+  }
+
+  export type BruteCreateNestedOneWithoutDamageOnBossInput = {
+    create?: XOR<BruteCreateWithoutDamageOnBossInput, BruteUncheckedCreateWithoutDamageOnBossInput>
+    connectOrCreate?: BruteCreateOrConnectWithoutDamageOnBossInput
+    connect?: BruteWhereUniqueInput
+  }
+
+  export type ClanCreateNestedOneWithoutBossDamagesInput = {
+    create?: XOR<ClanCreateWithoutBossDamagesInput, ClanUncheckedCreateWithoutBossDamagesInput>
+    connectOrCreate?: ClanCreateOrConnectWithoutBossDamagesInput
+    connect?: ClanWhereUniqueInput
+  }
+
+  export type BruteUpdateOneRequiredWithoutDamageOnBossNestedInput = {
+    create?: XOR<BruteCreateWithoutDamageOnBossInput, BruteUncheckedCreateWithoutDamageOnBossInput>
+    connectOrCreate?: BruteCreateOrConnectWithoutDamageOnBossInput
+    upsert?: BruteUpsertWithoutDamageOnBossInput
+    connect?: BruteWhereUniqueInput
+    update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutDamageOnBossInput, BruteUpdateWithoutDamageOnBossInput>, BruteUncheckedUpdateWithoutDamageOnBossInput>
+  }
+
+  export type ClanUpdateOneRequiredWithoutBossDamagesNestedInput = {
+    create?: XOR<ClanCreateWithoutBossDamagesInput, ClanUncheckedCreateWithoutBossDamagesInput>
+    connectOrCreate?: ClanCreateOrConnectWithoutBossDamagesInput
+    upsert?: ClanUpsertWithoutBossDamagesInput
+    connect?: ClanWhereUniqueInput
+    update?: XOR<XOR<ClanUpdateToOneWithWhereWithoutBossDamagesInput, ClanUpdateWithoutBossDamagesInput>, ClanUncheckedUpdateWithoutBossDamagesInput>
   }
 
   export type BruteCreateNestedOneWithoutInventoryInput = {
@@ -33546,6 +35014,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutUserInput = {
@@ -33612,6 +35081,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutUserInput = {
@@ -33941,6 +35411,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutPupilsInput = {
@@ -34007,6 +35478,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutPupilsInput = {
@@ -34077,6 +35549,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutMasterInput = {
@@ -34143,6 +35616,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutMasterInput = {
@@ -34164,6 +35638,7 @@ export namespace Prisma {
     master: BruteCreateNestedOneWithoutMasterOfClanInput
     joinRequests?: BruteCreateNestedManyWithoutWantToJoinClanInput
     threads?: ClanThreadCreateNestedManyWithoutClanInput
+    bossDamages?: BossDamageCreateNestedManyWithoutClanInput
   }
 
   export type ClanUncheckedCreateWithoutBrutesInput = {
@@ -34176,6 +35651,7 @@ export namespace Prisma {
     masterId: number
     joinRequests?: BruteUncheckedCreateNestedManyWithoutWantToJoinClanInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutClanInput
+    bossDamages?: BossDamageUncheckedCreateNestedManyWithoutClanInput
   }
 
   export type ClanCreateOrConnectWithoutBrutesInput = {
@@ -34400,6 +35876,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutOpponentOfInput = {
@@ -34466,6 +35943,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutOpponentOfInput = {
@@ -34536,6 +36014,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutOpponentsInput = {
@@ -34602,6 +36081,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutOpponentsInput = {
@@ -34684,6 +36164,7 @@ export namespace Prisma {
     brutes?: BruteCreateNestedManyWithoutClanInput
     joinRequests?: BruteCreateNestedManyWithoutWantToJoinClanInput
     threads?: ClanThreadCreateNestedManyWithoutClanInput
+    bossDamages?: BossDamageCreateNestedManyWithoutClanInput
   }
 
   export type ClanUncheckedCreateWithoutMasterInput = {
@@ -34696,6 +36177,7 @@ export namespace Prisma {
     brutes?: BruteUncheckedCreateNestedManyWithoutClanInput
     joinRequests?: BruteUncheckedCreateNestedManyWithoutWantToJoinClanInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutClanInput
+    bossDamages?: BossDamageUncheckedCreateNestedManyWithoutClanInput
   }
 
   export type ClanCreateOrConnectWithoutMasterInput = {
@@ -34735,6 +36217,7 @@ export namespace Prisma {
     master: BruteCreateNestedOneWithoutMasterOfClanInput
     brutes?: BruteCreateNestedManyWithoutClanInput
     threads?: ClanThreadCreateNestedManyWithoutClanInput
+    bossDamages?: BossDamageCreateNestedManyWithoutClanInput
   }
 
   export type ClanUncheckedCreateWithoutJoinRequestsInput = {
@@ -34747,6 +36230,7 @@ export namespace Prisma {
     masterId: number
     brutes?: BruteUncheckedCreateNestedManyWithoutClanInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutClanInput
+    bossDamages?: BossDamageUncheckedCreateNestedManyWithoutClanInput
   }
 
   export type ClanCreateOrConnectWithoutJoinRequestsInput = {
@@ -34872,6 +36356,22 @@ export namespace Prisma {
     create: XOR<BruteStartingStatsCreateWithoutBruteInput, BruteStartingStatsUncheckedCreateWithoutBruteInput>
   }
 
+  export type BossDamageCreateWithoutBruteInput = {
+    damage: number
+    clan: ClanCreateNestedOneWithoutBossDamagesInput
+  }
+
+  export type BossDamageUncheckedCreateWithoutBruteInput = {
+    id?: number
+    clanId: number
+    damage: number
+  }
+
+  export type BossDamageCreateOrConnectWithoutBruteInput = {
+    where: BossDamageWhereUniqueInput
+    create: XOR<BossDamageCreateWithoutBruteInput, BossDamageUncheckedCreateWithoutBruteInput>
+  }
+
   export type UserUpsertWithoutBrutesInput = {
     update: XOR<UserUpdateWithoutBrutesInput, UserUncheckedUpdateWithoutBrutesInput>
     create: XOR<UserCreateWithoutBrutesInput, UserUncheckedCreateWithoutBrutesInput>
@@ -34991,6 +36491,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutPupilsInput = {
@@ -35057,6 +36558,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUpsertWithWhereUniqueWithoutMasterInput = {
@@ -35095,6 +36597,7 @@ export namespace Prisma {
     master?: BruteUpdateOneRequiredWithoutMasterOfClanNestedInput
     joinRequests?: BruteUpdateManyWithoutWantToJoinClanNestedInput
     threads?: ClanThreadUpdateManyWithoutClanNestedInput
+    bossDamages?: BossDamageUpdateManyWithoutClanNestedInput
   }
 
   export type ClanUncheckedUpdateWithoutBrutesInput = {
@@ -35107,6 +36610,7 @@ export namespace Prisma {
     masterId?: IntFieldUpdateOperationsInput | number
     joinRequests?: BruteUncheckedUpdateManyWithoutWantToJoinClanNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutClanNestedInput
+    bossDamages?: BossDamageUncheckedUpdateManyWithoutClanNestedInput
   }
 
   export type FightUpsertWithWhereUniqueWithoutBrute1Input = {
@@ -35355,6 +36859,7 @@ export namespace Prisma {
     brutes?: BruteUpdateManyWithoutClanNestedInput
     joinRequests?: BruteUpdateManyWithoutWantToJoinClanNestedInput
     threads?: ClanThreadUpdateManyWithoutClanNestedInput
+    bossDamages?: BossDamageUpdateManyWithoutClanNestedInput
   }
 
   export type ClanUncheckedUpdateWithoutMasterInput = {
@@ -35367,6 +36872,7 @@ export namespace Prisma {
     brutes?: BruteUncheckedUpdateManyWithoutClanNestedInput
     joinRequests?: BruteUncheckedUpdateManyWithoutWantToJoinClanNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutClanNestedInput
+    bossDamages?: BossDamageUncheckedUpdateManyWithoutClanNestedInput
   }
 
   export type ClanPostUpsertWithWhereUniqueWithoutAuthorInput = {
@@ -35416,6 +36922,7 @@ export namespace Prisma {
     master?: BruteUpdateOneRequiredWithoutMasterOfClanNestedInput
     brutes?: BruteUpdateManyWithoutClanNestedInput
     threads?: ClanThreadUpdateManyWithoutClanNestedInput
+    bossDamages?: BossDamageUpdateManyWithoutClanNestedInput
   }
 
   export type ClanUncheckedUpdateWithoutJoinRequestsInput = {
@@ -35428,6 +36935,7 @@ export namespace Prisma {
     masterId?: IntFieldUpdateOperationsInput | number
     brutes?: BruteUncheckedUpdateManyWithoutClanNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutClanNestedInput
+    bossDamages?: BossDamageUncheckedUpdateManyWithoutClanNestedInput
   }
 
   export type ClanThreadUpsertWithWhereUniqueWithoutCreatorInput = {
@@ -35566,6 +37074,28 @@ export namespace Prisma {
     speed?: IntFieldUpdateOperationsInput | number
   }
 
+  export type BossDamageUpsertWithoutBruteInput = {
+    update: XOR<BossDamageUpdateWithoutBruteInput, BossDamageUncheckedUpdateWithoutBruteInput>
+    create: XOR<BossDamageCreateWithoutBruteInput, BossDamageUncheckedCreateWithoutBruteInput>
+    where?: BossDamageWhereInput
+  }
+
+  export type BossDamageUpdateToOneWithWhereWithoutBruteInput = {
+    where?: BossDamageWhereInput
+    data: XOR<BossDamageUpdateWithoutBruteInput, BossDamageUncheckedUpdateWithoutBruteInput>
+  }
+
+  export type BossDamageUpdateWithoutBruteInput = {
+    damage?: IntFieldUpdateOperationsInput | number
+    clan?: ClanUpdateOneRequiredWithoutBossDamagesNestedInput
+  }
+
+  export type BossDamageUncheckedUpdateWithoutBruteInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    clanId?: IntFieldUpdateOperationsInput | number
+    damage?: IntFieldUpdateOperationsInput | number
+  }
+
   export type BruteCreateWithoutStartingStatsInput = {
     name: string
     deletedAt?: Date | string | null
@@ -35629,6 +37159,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    damageOnBoss?: BossDamageCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutStartingStatsInput = {
@@ -35695,6 +37226,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    damageOnBoss?: BossDamageUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutStartingStatsInput = {
@@ -35776,6 +37308,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutStartingStatsInput = {
@@ -35842,6 +37375,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteCreateWithoutFightsInput = {
@@ -35907,6 +37441,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutFightsInput = {
@@ -35973,6 +37508,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutFightsInput = {
@@ -36043,6 +37579,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutFightsAsAdversaryInput = {
@@ -36109,6 +37646,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutFightsAsAdversaryInput = {
@@ -36239,6 +37777,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutFightsInput = {
@@ -36305,6 +37844,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUpsertWithoutFightsAsAdversaryInput = {
@@ -36381,6 +37921,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutFightsAsAdversaryInput = {
@@ -36447,6 +37988,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type LogUpsertWithWhereUniqueWithoutFightInput = {
@@ -36554,6 +38096,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutLogsInput = {
@@ -36620,6 +38163,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutLogsInput = {
@@ -36731,6 +38275,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutLogsInput = {
@@ -36797,6 +38342,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type FightUpsertWithoutLogsInput = {
@@ -36898,6 +38444,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutDestinyChoicesInput = {
@@ -36964,6 +38511,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutDestinyChoicesInput = {
@@ -37045,6 +38593,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutDestinyChoicesInput = {
@@ -37111,6 +38660,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteCreateWithoutTournamentsInput = {
@@ -37176,6 +38726,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutTournamentsInput = {
@@ -37242,6 +38793,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutTournamentsInput = {
@@ -37379,6 +38931,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutTournamentAchievementsInput = {
@@ -37445,6 +38998,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutTournamentAchievementsInput = {
@@ -37526,6 +39080,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutTournamentAchievementsInput = {
@@ -37592,6 +39147,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type UserCreateWithoutTournamentGoldsInput = {
@@ -37741,6 +39297,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutTournamentXpsInput = {
@@ -37807,6 +39364,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutTournamentXpsInput = {
@@ -37888,6 +39446,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutTournamentXpsInput = {
@@ -37954,6 +39513,7 @@ export namespace Prisma {
     inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteCreateWithoutAchievementsInput = {
@@ -38019,6 +39579,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutAchievementsInput = {
@@ -38085,6 +39646,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutAchievementsInput = {
@@ -38205,6 +39767,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutAchievementsInput = {
@@ -38271,6 +39834,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type UserUpsertWithoutAchievementsInput = {
@@ -38381,6 +39945,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutTitlesInput = {
@@ -38447,6 +40012,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutTitlesInput = {
@@ -38533,6 +40099,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutReportsInput = {
@@ -38599,6 +40166,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutReportsInput = {
@@ -38719,6 +40287,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutReportsInput = {
@@ -38785,6 +40354,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type UserUpsertWithWhereUniqueWithoutReportsInput = {
@@ -38883,6 +40453,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutMasterOfClanInput = {
@@ -38949,6 +40520,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutMasterOfClanInput = {
@@ -39019,6 +40591,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutClanInput = {
@@ -39085,6 +40658,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutClanInput = {
@@ -39160,6 +40734,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutWantToJoinClanInput = {
@@ -39226,6 +40801,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutWantToJoinClanInput = {
@@ -39268,6 +40844,27 @@ export namespace Prisma {
 
   export type ClanThreadCreateManyClanInputEnvelope = {
     data: ClanThreadCreateManyClanInput | ClanThreadCreateManyClanInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BossDamageCreateWithoutClanInput = {
+    damage: number
+    brute: BruteCreateNestedOneWithoutDamageOnBossInput
+  }
+
+  export type BossDamageUncheckedCreateWithoutClanInput = {
+    id?: number
+    bruteId: number
+    damage: number
+  }
+
+  export type BossDamageCreateOrConnectWithoutClanInput = {
+    where: BossDamageWhereUniqueInput
+    create: XOR<BossDamageCreateWithoutClanInput, BossDamageUncheckedCreateWithoutClanInput>
+  }
+
+  export type BossDamageCreateManyClanInputEnvelope = {
+    data: BossDamageCreateManyClanInput | BossDamageCreateManyClanInput[]
     skipDuplicates?: boolean
   }
 
@@ -39345,6 +40942,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutMasterOfClanInput = {
@@ -39411,6 +41009,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUpsertWithWhereUniqueWithoutClanInput = {
@@ -39461,6 +41060,32 @@ export namespace Prisma {
     data: XOR<ClanThreadUpdateManyMutationInput, ClanThreadUncheckedUpdateManyWithoutClanInput>
   }
 
+  export type BossDamageUpsertWithWhereUniqueWithoutClanInput = {
+    where: BossDamageWhereUniqueInput
+    update: XOR<BossDamageUpdateWithoutClanInput, BossDamageUncheckedUpdateWithoutClanInput>
+    create: XOR<BossDamageCreateWithoutClanInput, BossDamageUncheckedCreateWithoutClanInput>
+  }
+
+  export type BossDamageUpdateWithWhereUniqueWithoutClanInput = {
+    where: BossDamageWhereUniqueInput
+    data: XOR<BossDamageUpdateWithoutClanInput, BossDamageUncheckedUpdateWithoutClanInput>
+  }
+
+  export type BossDamageUpdateManyWithWhereWithoutClanInput = {
+    where: BossDamageScalarWhereInput
+    data: XOR<BossDamageUpdateManyMutationInput, BossDamageUncheckedUpdateManyWithoutClanInput>
+  }
+
+  export type BossDamageScalarWhereInput = {
+    AND?: BossDamageScalarWhereInput | BossDamageScalarWhereInput[]
+    OR?: BossDamageScalarWhereInput[]
+    NOT?: BossDamageScalarWhereInput | BossDamageScalarWhereInput[]
+    id?: IntFilter<"BossDamage"> | number
+    bruteId?: IntFilter<"BossDamage"> | number
+    clanId?: IntFilter<"BossDamage"> | number
+    damage?: IntFilter<"BossDamage"> | number
+  }
+
   export type ClanCreateWithoutThreadsInput = {
     name: string
     limit?: number
@@ -39470,6 +41095,7 @@ export namespace Prisma {
     master: BruteCreateNestedOneWithoutMasterOfClanInput
     brutes?: BruteCreateNestedManyWithoutClanInput
     joinRequests?: BruteCreateNestedManyWithoutWantToJoinClanInput
+    bossDamages?: BossDamageCreateNestedManyWithoutClanInput
   }
 
   export type ClanUncheckedCreateWithoutThreadsInput = {
@@ -39482,6 +41108,7 @@ export namespace Prisma {
     masterId: number
     brutes?: BruteUncheckedCreateNestedManyWithoutClanInput
     joinRequests?: BruteUncheckedCreateNestedManyWithoutWantToJoinClanInput
+    bossDamages?: BossDamageUncheckedCreateNestedManyWithoutClanInput
   }
 
   export type ClanCreateOrConnectWithoutThreadsInput = {
@@ -39552,6 +41179,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutThreadsInput = {
@@ -39618,6 +41246,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutThreadsInput = {
@@ -39668,6 +41297,7 @@ export namespace Prisma {
     master?: BruteUpdateOneRequiredWithoutMasterOfClanNestedInput
     brutes?: BruteUpdateManyWithoutClanNestedInput
     joinRequests?: BruteUpdateManyWithoutWantToJoinClanNestedInput
+    bossDamages?: BossDamageUpdateManyWithoutClanNestedInput
   }
 
   export type ClanUncheckedUpdateWithoutThreadsInput = {
@@ -39680,6 +41310,7 @@ export namespace Prisma {
     masterId?: IntFieldUpdateOperationsInput | number
     brutes?: BruteUncheckedUpdateManyWithoutClanNestedInput
     joinRequests?: BruteUncheckedUpdateManyWithoutWantToJoinClanNestedInput
+    bossDamages?: BossDamageUncheckedUpdateManyWithoutClanNestedInput
   }
 
   export type BruteUpsertWithoutThreadsInput = {
@@ -39756,6 +41387,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutThreadsInput = {
@@ -39822,6 +41454,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type ClanPostUpsertWithWhereUniqueWithoutThreadInput = {
@@ -39931,6 +41564,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutClanPostsInput = {
@@ -39997,6 +41631,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutClanPostsInput = {
@@ -40112,6 +41747,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutClanPostsInput = {
@@ -40178,6 +41814,355 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUncheckedUpdateOneWithoutBruteNestedInput
+  }
+
+  export type BruteCreateWithoutDamageOnBossInput = {
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hp?: number
+    enduranceStat?: number
+    enduranceModifier?: number
+    enduranceValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    gender: $Enums.Gender
+    body?: string
+    colors?: string
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    pupilsCount?: number
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    tournamentWins?: number
+    user?: UserCreateNestedOneWithoutBrutesInput
+    master?: BruteCreateNestedOneWithoutPupilsInput
+    pupils?: BruteCreateNestedManyWithoutMasterInput
+    clan?: ClanCreateNestedOneWithoutBrutesInput
+    fights?: FightCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
+    logs?: LogCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
+    tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementCreateNestedManyWithoutBruteInput
+    reports?: BruteReportCreateNestedManyWithoutBruteInput
+    titles?: TitleCreateNestedManyWithoutBrutesInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
+    threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemCreateNestedManyWithoutBruteInput
+    tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
+    tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+  }
+
+  export type BruteUncheckedCreateWithoutDamageOnBossInput = {
+    id?: number
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hp?: number
+    enduranceStat?: number
+    enduranceModifier?: number
+    enduranceValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    gender: $Enums.Gender
+    userId?: string | null
+    body?: string
+    colors?: string
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    masterId?: number | null
+    pupilsCount?: number
+    clanId?: number | null
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    wantToJoinClanId?: number | null
+    tournamentWins?: number
+    pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
+    fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
+    logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
+    tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
+    reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
+    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: BruteInventoryItemUncheckedCreateNestedManyWithoutBruteInput
+    tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
+    tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+  }
+
+  export type BruteCreateOrConnectWithoutDamageOnBossInput = {
+    where: BruteWhereUniqueInput
+    create: XOR<BruteCreateWithoutDamageOnBossInput, BruteUncheckedCreateWithoutDamageOnBossInput>
+  }
+
+  export type ClanCreateWithoutBossDamagesInput = {
+    name: string
+    limit?: number
+    points?: number
+    boss?: $Enums.BossName
+    damageOnBoss?: number
+    master: BruteCreateNestedOneWithoutMasterOfClanInput
+    brutes?: BruteCreateNestedManyWithoutClanInput
+    joinRequests?: BruteCreateNestedManyWithoutWantToJoinClanInput
+    threads?: ClanThreadCreateNestedManyWithoutClanInput
+  }
+
+  export type ClanUncheckedCreateWithoutBossDamagesInput = {
+    id?: number
+    name: string
+    limit?: number
+    points?: number
+    boss?: $Enums.BossName
+    damageOnBoss?: number
+    masterId: number
+    brutes?: BruteUncheckedCreateNestedManyWithoutClanInput
+    joinRequests?: BruteUncheckedCreateNestedManyWithoutWantToJoinClanInput
+    threads?: ClanThreadUncheckedCreateNestedManyWithoutClanInput
+  }
+
+  export type ClanCreateOrConnectWithoutBossDamagesInput = {
+    where: ClanWhereUniqueInput
+    create: XOR<ClanCreateWithoutBossDamagesInput, ClanUncheckedCreateWithoutBossDamagesInput>
+  }
+
+  export type BruteUpsertWithoutDamageOnBossInput = {
+    update: XOR<BruteUpdateWithoutDamageOnBossInput, BruteUncheckedUpdateWithoutDamageOnBossInput>
+    create: XOR<BruteCreateWithoutDamageOnBossInput, BruteUncheckedCreateWithoutDamageOnBossInput>
+    where?: BruteWhereInput
+  }
+
+  export type BruteUpdateToOneWithWhereWithoutDamageOnBossInput = {
+    where?: BruteWhereInput
+    data: XOR<BruteUpdateWithoutDamageOnBossInput, BruteUncheckedUpdateWithoutDamageOnBossInput>
+  }
+
+  export type BruteUpdateWithoutDamageOnBossInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    tournamentWins?: IntFieldUpdateOperationsInput | number
+    user?: UserUpdateOneWithoutBrutesNestedInput
+    master?: BruteUpdateOneWithoutPupilsNestedInput
+    pupils?: BruteUpdateManyWithoutMasterNestedInput
+    clan?: ClanUpdateOneWithoutBrutesNestedInput
+    fights?: FightUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
+    logs?: LogUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
+    tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUpdateManyWithoutBruteNestedInput
+    reports?: BruteReportUpdateManyWithoutBruteNestedInput
+    titles?: TitleUpdateManyWithoutBrutesNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUpdateManyWithoutBruteNestedInput
+    tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
+    tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+  }
+
+  export type BruteUncheckedUpdateWithoutDamageOnBossInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    tournamentWins?: IntFieldUpdateOperationsInput | number
+    pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
+    fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
+    logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
+    tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
+    reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
+    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: BruteInventoryItemUncheckedUpdateManyWithoutBruteNestedInput
+    tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
+    tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+  }
+
+  export type ClanUpsertWithoutBossDamagesInput = {
+    update: XOR<ClanUpdateWithoutBossDamagesInput, ClanUncheckedUpdateWithoutBossDamagesInput>
+    create: XOR<ClanCreateWithoutBossDamagesInput, ClanUncheckedCreateWithoutBossDamagesInput>
+    where?: ClanWhereInput
+  }
+
+  export type ClanUpdateToOneWithWhereWithoutBossDamagesInput = {
+    where?: ClanWhereInput
+    data: XOR<ClanUpdateWithoutBossDamagesInput, ClanUncheckedUpdateWithoutBossDamagesInput>
+  }
+
+  export type ClanUpdateWithoutBossDamagesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    limit?: IntFieldUpdateOperationsInput | number
+    points?: IntFieldUpdateOperationsInput | number
+    boss?: EnumBossNameFieldUpdateOperationsInput | $Enums.BossName
+    damageOnBoss?: IntFieldUpdateOperationsInput | number
+    master?: BruteUpdateOneRequiredWithoutMasterOfClanNestedInput
+    brutes?: BruteUpdateManyWithoutClanNestedInput
+    joinRequests?: BruteUpdateManyWithoutWantToJoinClanNestedInput
+    threads?: ClanThreadUpdateManyWithoutClanNestedInput
+  }
+
+  export type ClanUncheckedUpdateWithoutBossDamagesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    limit?: IntFieldUpdateOperationsInput | number
+    points?: IntFieldUpdateOperationsInput | number
+    boss?: EnumBossNameFieldUpdateOperationsInput | $Enums.BossName
+    damageOnBoss?: IntFieldUpdateOperationsInput | number
+    masterId?: IntFieldUpdateOperationsInput | number
+    brutes?: BruteUncheckedUpdateManyWithoutClanNestedInput
+    joinRequests?: BruteUncheckedUpdateManyWithoutWantToJoinClanNestedInput
+    threads?: ClanThreadUncheckedUpdateManyWithoutClanNestedInput
   }
 
   export type BruteCreateWithoutInventoryInput = {
@@ -40243,6 +42228,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageCreateNestedOneWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutInventoryInput = {
@@ -40309,6 +42295,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBoss?: BossDamageUncheckedCreateNestedOneWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutInventoryInput = {
@@ -40390,6 +42377,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutInventoryInput = {
@@ -40456,6 +42444,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteCreateManyUserInput = {
@@ -40582,6 +42571,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutUserInput = {
@@ -40648,6 +42638,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutUserInput = {
@@ -40971,6 +42962,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutMasterInput = {
@@ -41037,6 +43029,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutMasterInput = {
@@ -41313,6 +43306,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutOpponentOfInput = {
@@ -41379,6 +43373,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutOpponentOfInput = {
@@ -41493,6 +43488,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutOpponentsInput = {
@@ -41559,6 +43555,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutOpponentsInput = {
@@ -41894,6 +43891,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutTournamentsInput = {
@@ -41960,6 +43958,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutTournamentsInput = {
@@ -42111,6 +44110,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutTitlesInput = {
@@ -42177,6 +44177,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutTitlesInput = {
@@ -42383,6 +44384,12 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type BossDamageCreateManyClanInput = {
+    id?: number
+    bruteId: number
+    damage: number
+  }
+
   export type BruteUpdateWithoutClanInput = {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -42446,6 +44453,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutClanInput = {
@@ -42512,6 +44520,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutClanInput = {
@@ -42625,6 +44634,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutWantToJoinClanInput = {
@@ -42691,6 +44701,7 @@ export namespace Prisma {
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBoss?: BossDamageUncheckedUpdateOneWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutWantToJoinClanInput = {
@@ -42773,6 +44784,23 @@ export namespace Prisma {
     postCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BossDamageUpdateWithoutClanInput = {
+    damage?: IntFieldUpdateOperationsInput | number
+    brute?: BruteUpdateOneRequiredWithoutDamageOnBossNestedInput
+  }
+
+  export type BossDamageUncheckedUpdateWithoutClanInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    bruteId?: IntFieldUpdateOperationsInput | number
+    damage?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type BossDamageUncheckedUpdateManyWithoutClanInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    bruteId?: IntFieldUpdateOperationsInput | number
+    damage?: IntFieldUpdateOperationsInput | number
   }
 
   export type ClanPostCreateManyThreadInput = {
@@ -42915,6 +44943,10 @@ export namespace Prisma {
      * @deprecated Use ClanPostDefaultArgs instead
      */
     export type ClanPostArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ClanPostDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use BossDamageDefaultArgs instead
+     */
+    export type BossDamageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BossDamageDefaultArgs<ExtArgs>
     /**
      * @deprecated Use BruteInventoryItemDefaultArgs instead
      */

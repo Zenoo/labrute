@@ -276,21 +276,38 @@ const generateFight = async (
           boss: bosses[randomBetween(0, bosses.length - 1)].name,
           damageOnBoss: 0,
           limit: Math.min(CLAN_SIZE_LIMIT, clan.limit + 5),
+          bossDamages: {
+            deleteMany: {},
+          },
         },
       });
     } else {
-      // Update damage on boss
+      // Update damage on boss + store it
       const initialBoss = fightDataInitialFighters.find((fighter) => fighter.type === 'boss');
       const finalBoss = fightData.fighters.find((fighter) => fighter.type === 'boss');
       if (!initialBoss || !finalBoss) {
         throw new Error('Boss not found');
       }
+      if (!clanId) {
+        throw new Error('Clan ID not found');
+      }
+
       const damage = initialBoss.hp - finalBoss.hp;
 
       await prisma.clan.update({
         where: { id: clanId },
         data: {
           damageOnBoss: { increment: damage },
+          bossDamages: {
+            upsert: {
+              where: { bruteId: winner.type === 'brute' ? winner.id : loser.id },
+              update: { damage: { increment: damage } },
+              create: {
+                damage,
+                bruteId: winner.type === 'brute' ? winner.id : loser.id,
+              },
+            },
+          },
         },
       });
     }
