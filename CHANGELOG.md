@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.54.6](https://github.com/Zenoo/labrute/compare/labrute-v2.54.5...labrute-v2.54.6) (2024-05-17)
+
+
+### Bug Fixes
+
+* Double watch needed for global tournament progression on byes ([df65f0b](https://github.com/Zenoo/labrute/commit/df65f0b7d205303eeef1804ea655f07b34d72a1f))
+* Increase boss difficulty ([c1a9a03](https://github.com/Zenoo/labrute/commit/c1a9a0352dc546e54731a24d7b93b108446c97e6))
+* Option to skip watching global fights ([4e008b8](https://github.com/Zenoo/labrute/commit/4e008b841636e9073c661e911cf12a49dc6ab02b))
+
 ## [2.54.5](https://github.com/Zenoo/labrute/compare/labrute-v2.54.4...labrute-v2.54.5) (2024-05-17)
 
 
