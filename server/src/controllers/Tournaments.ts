@@ -575,8 +575,12 @@ const Tournaments = {
           .sort((a, b) => a.tournamentStep - b.tournamentStep);
 
         if (fights.length) {
-          // Take bye into account
-          const fightsWithBye = fights[0].tournamentStep !== 1 ? fights.length + 1 : fights.length;
+          // Take bye into account for global tournaments
+          const fightsWithBye = tournament.type === TournamentType.GLOBAL
+            ? fights[0].tournamentStep !== 1
+              ? fights.length + 1
+              : fights.length
+            : fights.length;
 
           // eslint-disable-next-line no-param-reassign, no-underscore-dangle
           tournament.place = 2 ** (tournament.rounds - fightsWithBye);
