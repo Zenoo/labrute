@@ -221,7 +221,7 @@ const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
           level: 0,
           type: 'pet' as const,
           master: brute.id,
-          maxHp: pet.hp,
+          maxHp: getPetStat(brute, pet, 'hp'),
           hp: getPetStat(brute, pet, 'hp'),
           strength: getPetStat(brute, pet, 'strength'),
           agility: getPetStat(brute, pet, 'agility'),
