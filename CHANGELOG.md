@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.54.5](https://github.com/Zenoo/labrute/compare/labrute-v2.54.4...labrute-v2.54.5) (2024-05-17)
+
+
+### Bug Fixes
+
+* Tournament history wrong place on daily ([4825dbe](https://github.com/Zenoo/labrute/commit/4825dbe2a18f5aa1e043625d01c59011c66e24ce))
+
 ## [2.54.4](https://github.com/Zenoo/labrute/compare/labrute-v2.54.3...labrute-v2.54.4) (2024-05-17)
 
 
