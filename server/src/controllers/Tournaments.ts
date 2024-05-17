@@ -652,6 +652,7 @@ const Tournaments = {
         },
         select: {
           loser: true,
+          tournamentStep: true,
         },
       });
 
@@ -660,12 +661,7 @@ const Tournaments = {
       }
 
       const now = moment.utc();
-      let roundWatched = 0;
-      if (now.isSame(moment.utc(brute.globalTournamentWatchedDate), 'day')) {
-        roundWatched = brute.globalTournamentRoundWatched || 0;
-      }
-
-      roundWatched++;
+      let roundWatched = fight.tournamentStep;
 
       // Skip to last round if brute lost
       if (fight.loser === brute.name) {
