@@ -62,7 +62,11 @@ const getFighterStat = (
     if (fighter.activeWeapon) {
       total += fighter.activeWeapon[stat];
     } else {
-      total += fighter.type === 'brute' ? BASE_FIGHTER_STATS[stat] : 0;
+      total += fighter.type === 'brute'
+        ? BASE_FIGHTER_STATS[stat]
+        : fighter.type === 'boss'
+          ? fighter[stat]
+          : 0;
     }
   }
 
@@ -891,8 +895,8 @@ const counterAttack = (fighter: DetailedFighter, opponent: DetailedFighter) => {
   const valueToBeat = (
     opponent.counter * 10
     + (
-      (opponent.activeWeapon?.reach || 0)
-      - (fighter.activeWeapon?.reach || 0)
+      (opponent.reach + (opponent.activeWeapon?.reach || 0))
+      - (fighter.reach + (fighter.activeWeapon?.reach || 0))
     )
   ) * 0.1;
 

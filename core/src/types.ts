@@ -56,6 +56,7 @@ export interface DetailedFighter {
   armor: number,
   disarm: number,
   evasion: number,
+  reach: number,
   // Passives
   // Destroys one enemy's weapon per hit
   sabotage: boolean,
