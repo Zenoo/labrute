@@ -118,6 +118,19 @@ const CellGlobalTournament = ({
     }
   };
 
+  // Skip watching fights
+  const skipWatching = () => {
+    if (owner) {
+      Server.Tournament.skipWatchingGlobal(bruteName).then(() => {
+        updateBrute((b) => (b ? ({
+          ...b,
+          globalTournamentRoundWatched: 999,
+          globalTournamentWatchedDate: new Date(),
+        }) : b));
+      }).catch(catchError(Alert));
+    }
+  };
+
   // Last fights renderer
   const renderFight = (
     fight: TournamentsGetGlobalFight,
@@ -584,6 +597,24 @@ const CellGlobalTournament = ({
               <Text bold color="text.disabled">{t('comeBackInOneHour')} ...</Text>
             </Box>
           )}
+        {/* Skip watching fights */}
+        {owner && watchingRound <= data.tournament.rounds && (
+          <Box
+            onClick={skipWatching}
+            sx={{
+              px: 0.5,
+              py: 0.25,
+              borderBottom: '1px solid',
+              cursor: 'pointer',
+              borderBottomColor: theme.palette.border.shadow,
+              '&:last-child': {
+                borderBottom: 'none',
+              }
+            }}
+          >
+            <Text smallCaps subtitle2 center>{t('setAsWatched')}</Text>
+          </Box>
+        )}
       </Box>
     </Paper>
   ) : null;

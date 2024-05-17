@@ -688,6 +688,52 @@ const Tournaments = {
       sendError(res, error);
     }
   },
+  skipWatchingGlobal: (prisma: PrismaClient) => async (
+    req: Request<{ name: string }>,
+    res: Response,
+  ) => {
+    try {
+      const user = await auth(prisma, req);
+
+      if (!req.params.name) {
+        throw new Error(translate('missingParameters', user));
+      }
+
+      // Get brute
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name: req.params.name,
+          deletedAt: null,
+          userId: user.id,
+        },
+        select: {
+          id: true,
+        },
+      });
+
+      if (!brute) {
+        throw new ExpectedError(translate('bruteNotFound', user));
+      }
+
+      // Update brute watched tournament step
+      await prisma.brute.update({
+        where: {
+          id: brute.id,
+        },
+        data: {
+          globalTournamentRoundWatched: 999,
+          globalTournamentWatchedDate: new Date(),
+        },
+        select: { id: true },
+      });
+
+      res.send({
+        success: true,
+      });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
 };
 
 export default Tournaments;
