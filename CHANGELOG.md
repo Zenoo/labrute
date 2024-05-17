@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.54.4](https://github.com/Zenoo/labrute/compare/labrute-v2.54.3...labrute-v2.54.4) (2024-05-17)
+
+
+### Bug Fixes
+
+* pet max HP not scaling ([8167019](https://github.com/Zenoo/labrute/commit/8167019b14d7210fe08b89dc33740dda5e970146))
+
 ## [2.54.3](https://github.com/Zenoo/labrute/compare/labrute-v2.54.2...labrute-v2.54.3) (2024-05-16)
 
 
