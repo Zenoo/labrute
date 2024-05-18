@@ -273,7 +273,21 @@ const CellView = () => {
             <Box sx={{ display: 'flex', flexGrow: 1 }}>
               <Box sx={{ width: 315 }}>
                 {/* WEAPONS */}
-                <Text bold center>{t('weaponsBonuses')}</Text>
+                <Text bold center sx={{ mb: 0.5 }}>
+                  <Tooltip title={t('inventory')}>
+                    <Box
+                      component="img"
+                      src="/images/inventory.png"
+                      sx={{
+                        width: 22,
+                        verticalAlign: 'middle',
+                        mr: 0.5,
+                        cursor: 'pointer',
+                      }}
+                    />
+                  </Tooltip>
+                  {t('weaponsBonuses')}
+                </Text>
                 <CellWeapons />
                 {/* SKILLS */}
                 <CellSkills />

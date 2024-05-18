@@ -232,7 +232,7 @@ model Brute {
   tournamentXps                TournamentXp[]
   tournamentWins               Int                     @default(0)
   startingStats                BruteStartingStats?
-  damageOnBoss                 BossDamage?
+  damageOnBosses               BossDamage[]
 }
 
 model BruteStartingStats {
@@ -281,6 +281,7 @@ enum LogType {
   survive
   tournament
   tournamentXp
+  bossDefeat
 }
 
 model Log {
@@ -294,6 +295,7 @@ model Log {
   fight          Fight?   @relation(fields: [fightId], references: [id])
   fightId        Int?
   xp             Int?
+  gold           Int?
 
   @@index([currentBruteId, date])
 }
@@ -597,10 +599,11 @@ model ClanPost {
 model BossDamage {
   id      Int   @id @default(autoincrement())
   brute   Brute @relation(fields: [bruteId], references: [id])
-  bruteId Int   @unique
+  bruteId Int
   clan    Clan  @relation(fields: [clanId], references: [id])
   clanId  Int
   damage  Int
+  @@unique([bruteId, clanId])
   @@index([clanId])
 }
 
@@ -617,4 +620,5 @@ model BruteInventoryItem {
   bruteId Int
 
   @@unique([type, bruteId])
+  @@index([bruteId])
 }

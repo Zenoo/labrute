@@ -6,7 +6,9 @@ import {
   CLAN_SIZE_LIMIT,
   DetailedFight, ExpectedError, Fighter, SkillByName, StepType, WeaponByName, bosses, randomBetween,
 } from '@labrute/core';
-import { Brute, Prisma, PrismaClient } from '@labrute/prisma';
+import {
+  Brute, LogType, Prisma, PrismaClient,
+} from '@labrute/prisma';
 import applySpy from './applySpy.js';
 import {
   Stats,
@@ -327,6 +329,16 @@ const generateFight = async (
         },
       });
 
+      // Add log
+      await prisma.log.createMany({
+        data: clan.brutes.map((brute) => ({
+          type: LogType.bossDefeat,
+          xp: xpGains,
+          gold: goldGains,
+          currentBruteId: brute.id,
+        })),
+      });
+
       result.boss = {
         xp: xpGains,
         gold: goldGains,
@@ -350,7 +362,12 @@ const generateFight = async (
           damageOnBoss: { increment: damage },
           bossDamages: {
             upsert: {
-              where: { bruteId: winner.type === 'brute' ? winner.id : loser.id },
+              where: {
+                bruteId_clanId: {
+                  bruteId: winner.type === 'brute' ? winner.id : loser.id,
+                  clanId,
+                },
+              },
               update: { damage: { increment: damage } },
               create: {
                 damage,

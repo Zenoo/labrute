@@ -74,7 +74,21 @@ const CellMobileView = ({
         <Grid item xs={12} sm={6} order={isXs ? 3 : 0} sx={{ textAlign: 'center', px: 1, alignSelf: 'center' }}>
           <Box sx={{ mx: 1 }}>
             {/* WEAPONS */}
-            <Text bold>{t('weaponsBonuses')}</Text>
+            <Text bold center sx={{ mb: 0.5 }}>
+              <Tooltip title={t('inventory')}>
+                <Box
+                  component="img"
+                  src="/images/inventory.png"
+                  sx={{
+                    width: 22,
+                    verticalAlign: 'middle',
+                    mr: 0.5,
+                    cursor: 'pointer',
+                  }}
+                />
+              </Tooltip>
+              {t('weaponsBonuses')}
+            </Text>
             <CellWeapons sx={{ width: 1 }} />
             {/* SKILLS */}
             <CellSkills />

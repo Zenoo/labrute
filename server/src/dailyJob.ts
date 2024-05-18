@@ -12,7 +12,7 @@ import ServerState from './utils/ServerState.js';
 import generateFight from './utils/fight/generateFight.js';
 import shuffle from './utils/shuffle.js';
 
-const GENERATE_TOURNAMENTS_IN_DEV = false;
+const GENERATE_TOURNAMENTS_IN_DEV = true;
 
 const grantBetaAchievement = async (prisma: PrismaClient) => {
   // Grant beta achievement to all brutes who don't have it yet
@@ -122,8 +122,8 @@ const deleteMisformattedTournaments = async (prisma: PrismaClient) => {
 };
 
 const handleDailyTournaments = async (prisma: PrismaClient) => {
-  // Keep track of XP gains
-  const xpGains: Record<number, number> = {};
+  // Keep track of gains (xp, gold)
+  const gains: Record<number, [number, number]> = {};
 
   const today = moment.utc().startOf('day');
   const tomorrow = moment.utc(today).add(1, 'day');
@@ -159,7 +159,7 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
 
   // All brutes are assigned, do nothing
   if (registeredBrutes.length === 0) {
-    return xpGains;
+    return gains;
   }
 
   // Shuffle brutes
@@ -342,7 +342,10 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
         winners.push(winnerId === roundBrutes[i].id ? roundBrutes[i] : roundBrutes[i + 1]);
 
         // Store XP for winner
-        xpGains[winnerId] = (xpGains[winnerId] || 0) + 1;
+        if (!gains[winnerId]) {
+          gains[winnerId] = [0, 0];
+        }
+        gains[winnerId][0] += 1;
 
         step++;
       }
@@ -399,6 +402,12 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
         select: { id: true },
       });
 
+      // Store gains
+      if (!gains[winnerBrute.id]) {
+        gains[winnerBrute.id] = [0, 0];
+      }
+      gains[winnerBrute.id][1] += 100;
+
       // Add 1 tournament win to winner brute
       await prisma.brute.update({
         where: { id: winnerBrute.id },
@@ -439,12 +448,12 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
 
   LOGGER.log(`${tournamentsToCreate} daily tournaments created`);
 
-  return xpGains;
+  return gains;
 };
 
 const handleGlobalTournament = async (prisma: PrismaClient) => {
-  // Keep track of XP gains
-  const xpGains: Record<number, number> = {};
+  // Keep track of gains
+  const gains: Record<number, [number, number]> = {};
 
   const today = moment.utc().startOf('day');
 
@@ -457,7 +466,7 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
   });
 
   if (globalTournament) {
-    return xpGains;
+    return gains;
   }
 
   // Set tournament as invalid until it's finished
@@ -600,7 +609,10 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
       const winnerId = brute1.name === generatedFight.winner ? brute1.id : brute2.id;
 
       // Store XP for winner
-      xpGains[winnerId] = (xpGains[winnerId] || 0) + 1;
+      if (!gains[winnerId]) {
+        gains[winnerId] = [0, 0];
+      }
+      gains[winnerId][0] += 1;
     }
 
     // Add byes to next round
@@ -638,6 +650,12 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
     select: { id: true },
   });
 
+  // Store gains
+  if (!gains[roundBrutes[0].id]) {
+    gains[roundBrutes[0].id] = [0, 0];
+  }
+  gains[roundBrutes[0].id][1] += 150;
+
   // Update tournament with rounds
   await prisma.tournament.update({
     where: { id: tournament.id },
@@ -650,29 +668,39 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
 
   LOGGER.log('Global tournament created');
 
-  return xpGains;
+  return gains;
 };
 
-const storeXpGains = async (
+const storeGains = async (
   prisma: PrismaClient,
-  dailyXpGains: Record<number, number>,
-  globalXpGains: Record<number, number>,
+  dailyGains: Record<number, [number, number]>,
+  globalGains: Record<number, [number, number]>,
 ) => {
-  const now = moment.utc().valueOf();
-
-  if (!Object.keys(dailyXpGains).length && !Object.keys(globalXpGains).length) {
+  if (!Object.keys(dailyGains).length && !Object.keys(globalGains).length) {
     return;
   }
 
-  // Add XP gains together
-  const xpGains: Record<number, number> = {};
+  const now = moment.utc().valueOf();
 
-  for (const [bruteId, xp] of Object.entries(dailyXpGains)) {
-    xpGains[+bruteId] = (xpGains[+bruteId] || 0) + xp;
+  // Add gains together
+  const gains: Record<number, [number, number]> = {};
+
+  for (const [bruteIdString, currentGains] of Object.entries(dailyGains)) {
+    const bruteId = +bruteIdString;
+    if (!gains[bruteId]) {
+      gains[bruteId] = [0, 0];
+    }
+    gains[bruteId][0] += currentGains[0];
+    gains[bruteId][1] += currentGains[1];
   }
 
-  for (const [bruteId, xp] of Object.entries(globalXpGains)) {
-    xpGains[+bruteId] = (xpGains[+bruteId] || 0) + xp;
+  for (const [bruteIdString, currentGains] of Object.entries(globalGains)) {
+    const bruteId = +bruteIdString;
+    if (!gains[bruteId]) {
+      gains[bruteId] = [0, 0];
+    }
+    gains[bruteId][0] += currentGains[0];
+    gains[bruteId][1] += currentGains[1];
   }
 
   const today = moment.utc().startOf('day').toDate();
@@ -680,7 +708,7 @@ const storeXpGains = async (
 
   // Store XP gains
   await prisma.tournamentXp.createMany({
-    data: Object.entries(xpGains).map(([bruteId, xp]) => ({
+    data: Object.entries(gains).map(([bruteId, [xp]]) => ({
       bruteId: +bruteId,
       date: today,
       xp,
@@ -689,15 +717,16 @@ const storeXpGains = async (
 
   // Create XP gains logs for tomorrow
   await prisma.log.createMany({
-    data: Object.entries(xpGains).map(([bruteId, xp]) => ({
+    data: Object.entries(gains).map(([bruteId, [xp, gold]]) => ({
       currentBruteId: +bruteId,
       type: LogType.tournamentXp,
       xp,
+      gold,
       date: tomorrow,
     })),
   });
 
-  LOGGER.log(`${moment.utc().valueOf() - now}ms to store ${Object.keys(xpGains).length} xp gains`);
+  LOGGER.log(`${moment.utc().valueOf() - now}ms to store ${Object.keys(gains).length} xp gains`);
 };
 
 const handleXpGains = async (prisma: PrismaClient) => {
@@ -821,13 +850,13 @@ const dailyJob = (prisma: PrismaClient) => async () => {
       ServerState.setReady(false);
 
       // Handle daily tournaments
-      const dailyXpGains = await handleDailyTournaments(prisma);
+      const dailyGains = await handleDailyTournaments(prisma);
 
       // Handle global tournament
-      const globalXpGains = await handleGlobalTournament(prisma);
+      const globalGains = await handleGlobalTournament(prisma);
 
-      // Store XP gains
-      await storeXpGains(prisma, dailyXpGains, globalXpGains);
+      // Store gains
+      await storeGains(prisma, dailyGains, globalGains);
 
       // Update server state to release traffic
       ServerState.setReady(true);

@@ -50,13 +50,15 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
       >
         <Box
           component="img"
-          src={`/images/${log.type === LogType.survive
-            ? 'log/win'
-            : log.type === LogType.lvl
-              ? `rankings/lvl_${log.level || BruteRankings[0]}`
-              : log.type === LogType.tournament
-                ? 'log/lose'
-                : log.type === LogType.tournamentXp ? 'log/childup' : `log/${log.type}`}.webp`}
+          src={`/images/${log.type === LogType.bossDefeat
+            ? 'rankings/lvl_0'
+            : log.type === LogType.survive
+              ? 'log/win'
+              : log.type === LogType.lvl
+                ? `rankings/lvl_${log.level || BruteRankings[0]}`
+                : log.type === LogType.tournament
+                  ? 'log/lose'
+                  : log.type === LogType.tournamentXp ? 'log/childup' : `log/${log.type}`}.webp`}
           sx={{
             filter: `drop-shadow(3px 3px ${negativeLogs.includes(log.type) ? theme.palette.error.main : theme.palette.success.main})`,
           }}
@@ -100,14 +102,18 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
                   : t(`log.${log.type}`, { value: log.brute })}
             </Text>
           )}
-        {!!log.xp && (
+        {(!!log.xp || !!log.gold) && (
           <Text
             color={negativeLogs.includes(log.type) ? 'error.main' : 'success.main'}
             sx={{
               fontSize: 10,
             }}
           >
-            {t(log.xp === 1 ? 'log.xp' : 'log.xps', { xp: log.xp })}
+            {log.xp
+              ? log.gold
+                ? t('log.xpAndGold', { xp: log.xp, gold: log.gold })
+                : t(log.xp === 1 ? 'log.xp' : 'log.xps', { xp: log.xp })
+              : t('log.gold', { gold: log.gold })}
           </Text>
         )}
       </Box>
