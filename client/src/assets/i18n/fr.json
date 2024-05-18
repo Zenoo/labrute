@@ -68,6 +68,7 @@
   "log.xps": "{{xp}} points d'expérience gagnés.",
   "log.gold": "{{gold}} gold gained.",
   "log.xpAndGold": "{{xp}} XP + {{gold}} gold gained.",
+  "log.itemAndGold": "{{count}}x {{item}}, {{gold}} gold gained.",
   "log.bossDefeat": "You have defeated the boss!",
   "seeFight": "Cliquez ici pour revoir le combat",
   "master": "Maitre",
@@ -1254,5 +1255,9 @@
   "achievementRankings": "Classement des succès",
   "achievement": "Succès",
   "byUser": "Par utilisateur",
-  "dinoRpgRewardsSuccess": "Félicitations ! Vous avez gagné un combat supplémentaire pour chacune de vos brutes."
+  "dinoRpgRewardsSuccess": "Félicitations ! Vous avez gagné un combat supplémentaire pour chacune de vos brutes.",
+  "inventory.desc": "Here you can see all the items you accumulated. Use them wisely!",
+  "inventory.item.visualReset": "Visual reset",
+  "inventory.item.bossTicket": "Boss ticket",
+  "inventory.itemNotImplemented": "This item is not implemented yet."
 }
