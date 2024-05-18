@@ -164,10 +164,19 @@ const ClanView = () => {
         Alert.open('success', t('clanMasterChanged'));
 
         // Update clan
-        setClan((prevClan) => (prevClan ? ({
-          ...prevClan,
-          masterId: clanBrute.id,
-        }) : null));
+        setClan((prevClan) => {
+          if (!prevClan) return null;
+
+          // Set new master as first in the list
+          const newBrutes = prevClan.brutes.filter((br) => br.id !== clanBrute.id);
+          newBrutes.unshift(clanBrute);
+
+          return {
+            ...prevClan,
+            masterId: clanBrute.id,
+            brutes: newBrutes,
+          };
+        });
       }).catch(catchError(Alert));
     });
   };

@@ -41,7 +41,8 @@ export interface DiscordClient {
 }
 
 export const NOOP_DISCORD_CLIENT: DiscordClient = {
-  sendError() {
+  sendError(error) {
+    console.error(error);
   },
   sendTournamentNotification() {
   },
