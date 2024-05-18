@@ -66,9 +66,9 @@
   "lvl_11": "Padawan",
   "log.xp": "{{xp}} punto de experiencia ganado.",
   "log.xps": "{{xp}} puntos de experiencia ganados.",
-  "log.gold": "{{gold}} gold gained.",
-  "log.xpAndGold": "{{xp}} XP + {{gold}} gold gained.",
-  "log.itemAndGold": "{{count}}x {{item}}, {{gold}} gold gained.",
+  "log.gold": "{{gold}} de oro ganado.",
+  "log.xpAndGold": "{{xp}} XP + {{gold}} de oro ganado.",
+  "log.itemAndGold": "{{count}}x {{item}}, {{gold}} de oro ganado.",
   "log.bossDefeat": "You have defeated the boss!",
   "seeFight": "Haz click aquí para ver el combate",
   "master": "Maestro",
@@ -1256,8 +1256,8 @@
   "achievement": "Logro",
   "byUser": "Por usuario",
   "dinoRpgRewardsSuccess": "¡Enhorabuena! Has ganado una pelea extra por cada uno de tus brutos.",
-  "inventory.desc": "Here you can see all the items you accumulated. Use them wisely!",
-  "inventory.item.visualReset": "Visual reset",
-  "inventory.item.bossTicket": "Boss ticket",
-  "inventory.itemNotImplemented": "This item is not implemented yet."
+  "inventory.desc": "Aquí puedes ver todos los objetos conseguidos. ¡Úsalos sabiamente!",
+  "inventory.item.visualReset": "Reinicio visual",
+  "inventory.item.bossTicket": "Ticket de jefe",
+  "inventory.itemNotImplemented": "Este objeto aún no se ha implementado."
 }
