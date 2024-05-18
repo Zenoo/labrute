@@ -1,5 +1,5 @@
 import { BruteRanking, getFightsLeft, getMaxFightsPerDay, getWinsNeededToRankUp, getXPNeeded } from '@labrute/core';
-import { InventoryItemType, Lang } from '@labrute/prisma';
+import { Lang } from '@labrute/prisma';
 import { Box, BoxProps, Stack, Tooltip } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useMemo } from 'react';
@@ -44,12 +44,6 @@ const CellMain = ({
 
   const fightsLeft = useMemo(
     () => (brute ? getFightsLeft(brute) : 0),
-    [brute],
-  );
-
-  const canResetVisuals = useMemo(
-    () => (brute ? brute.inventory
-      .some((item) => item.type === InventoryItemType.visualReset && item.count > 0) : false),
     [brute],
   );
 
@@ -169,18 +163,6 @@ const CellMain = ({
           }}
         >
           {t('reset')}
-        </FantasyButton>
-      )}
-      {/* RESET VISUALS */}
-      {owner && canResetVisuals && (
-        <FantasyButton
-          color="secondary"
-          to={`/${brute.name}/reset-visuals`}
-          sx={{
-            mt: 2,
-          }}
-        >
-          {t('resetVisuals')}
         </FantasyButton>
       )}
     </Box>

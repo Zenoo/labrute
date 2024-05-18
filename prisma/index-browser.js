@@ -622,7 +622,8 @@ exports.BossName = exports.$Enums.BossName = {
 };
 
 exports.InventoryItemType = exports.$Enums.InventoryItemType = {
-  visualReset: 'visualReset'
+  visualReset: 'visualReset',
+  bossTicket: 'bossTicket'
 };
 
 exports.Prisma.ModelName = {

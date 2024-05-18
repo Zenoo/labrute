@@ -16,7 +16,7 @@ import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
 import BruteRender from '../../components/Brute/Body/BruteRender';
 import { useBrute } from '../../hooks/useBrute';
-import { Brute } from '@labrute/prisma';
+import { Brute, InventoryItemType } from '@labrute/prisma';
 
 const ClanView = () => {
   const { t } = useTranslation();
@@ -236,11 +236,26 @@ const ClanView = () => {
         } : b)),
       }) : null));
 
-      updateBrute((b) => (b ? {
-        ...b,
-        fightsLeft: getFightsLeft(b) - 1,
-        lastFight: new Date(),
-      } : null));
+      updateBrute((b) => {
+        if (!b) return null;
+
+        // Add 1x BossTicket to inventory
+        const bossTicket = b.inventory.find((i) => i.type === InventoryItemType.bossTicket);
+        if (bossTicket) {
+          bossTicket.count += 1;
+        } else {
+          b.inventory.push({
+            type: InventoryItemType.bossTicket,
+            count: 1,
+          });
+        }
+
+        return {
+          ...b,
+          fightsLeft: getFightsLeft(b) - 1,
+          lastFight: new Date(),
+        };
+      });
 
       // Boss gains
       if (fight.xp) {

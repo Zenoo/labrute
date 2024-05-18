@@ -1,5 +1,5 @@
 import { BruteRankings } from '@labrute/core';
-import { Log, LogType } from '@labrute/prisma';
+import { InventoryItemType, Log, LogType } from '@labrute/prisma';
 import { Box, Paper, PaperProps, Tooltip, useTheme } from '@mui/material';
 import moment from 'moment';
 import React from 'react';
@@ -113,7 +113,9 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
               ? log.gold
                 ? t('log.xpAndGold', { xp: log.xp, gold: log.gold })
                 : t(log.xp === 1 ? 'log.xp' : 'log.xps', { xp: log.xp })
-              : t('log.gold', { gold: log.gold })}
+              : log.type === LogType.bossDefeat
+                ? t('log.itemAndGold', { count: 1, item: t(`inventory.item.${InventoryItemType.bossTicket}`), gold: log.gold })
+                : t('log.gold', { gold: log.gold })}
           </Text>
         )}
       </Box>

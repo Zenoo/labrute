@@ -104,7 +104,12 @@ const Brutes = {
               date: moment.utc().startOf('day').toDate(),
             },
           },
-          inventory: true,
+          inventory: {
+            select: {
+              type: true,
+              count: true,
+            },
+          },
         },
       });
 

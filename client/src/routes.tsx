@@ -30,6 +30,7 @@ import GlobalTournamentView from './views/GlobalTournamentView';
 import ResetVisualsView from './views/ResetVisualsView';
 import UserView from './views/UserView';
 import AchievementRankingView from './views/AchievementRankingView';
+import { InventoryView } from './views/InventoryView';
 
 const routes: RouteObject[] = [
   {
@@ -54,6 +55,7 @@ const routes: RouteObject[] = [
           { path: 'cell', element: <CellView /> },
           { path: 'level-up', element: <LevelUpView /> },
           { path: 'arena', element: <ArenaView /> },
+          { path: 'inventory', element: <InventoryView /> },
           { path: 'versus/:opponentName', element: <VersusView /> },
           { path: 'fight/:fightId', element: <FightView /> },
           { path: 'tournament/global/:date', element: <GlobalTournamentView /> },

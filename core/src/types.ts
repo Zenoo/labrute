@@ -462,7 +462,7 @@ export type HookBrute = Brute & {
   clan: Pick<Clan, 'id' | 'name'> | null;
   user: Pick<User, 'id' | 'name'> | null;
   tournaments: Tournament[];
-  inventory: BruteInventoryItem[];
+  inventory: Pick<BruteInventoryItem, 'type' | 'count'>[];
 };
 export type AdminPanelBrute = Brute & {
   user: User | null;

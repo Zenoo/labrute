@@ -1,13 +1,12 @@
 import {
   AchievementsStore,
   BOSS_GOLD_REWARD,
-  BOSS_XP_REWARD,
   Boss,
   CLAN_SIZE_LIMIT,
   DetailedFight, ExpectedError, Fighter, SkillByName, StepType, WeaponByName, bosses, randomBetween,
 } from '@labrute/core';
 import {
-  Brute, LogType, Prisma, PrismaClient,
+  Brute, InventoryItemType, LogType, Prisma, PrismaClient,
 } from '@labrute/prisma';
 import applySpy from './applySpy.js';
 import {
@@ -308,8 +307,42 @@ const generateFight = async (
         bruteIds.add(damage.brute.id);
       });
 
-      const xpGains = Math.floor(BOSS_XP_REWARD / bruteIds.size);
+      // Get brutes that already have a BossTicket
+      const brutesWithTicket = await prisma.bruteInventoryItem.findMany({
+        where: {
+          bruteId: { in: Array.from(bruteIds) },
+          type: InventoryItemType.bossTicket,
+        },
+        select: {
+          bruteId: true,
+        },
+      });
 
+      // Add 1x BossTicket to those brutes
+      await prisma.bruteInventoryItem.updateMany({
+        where: {
+          bruteId: { in: brutesWithTicket.map((brute) => brute.bruteId) },
+          type: InventoryItemType.bossTicket,
+        },
+        data: {
+          count: { increment: 1 },
+        },
+      });
+
+      // Get brutes that don't have a BossTicket
+      const brutesWithoutTicket = Array.from(bruteIds)
+        .filter((bruteId) => !brutesWithTicket.find((brute) => brute.bruteId === bruteId));
+
+      // Add 1x BossTicket to those brutes
+      await prisma.bruteInventoryItem.createMany({
+        data: brutesWithoutTicket.map((bruteId) => ({
+          bruteId,
+          type: InventoryItemType.bossTicket,
+          count: 1,
+        })),
+      });
+
+      // Update clan
       await prisma.clan.update({
         where: { id: clanId },
         data: {
@@ -322,14 +355,6 @@ const generateFight = async (
           bossDamages: {
             deleteMany: {},
           },
-        },
-      });
-
-      // Give XP to all brutes
-      await prisma.brute.updateMany({
-        where: { id: { in: Array.from(bruteIds) } },
-        data: {
-          xp: { increment: xpGains },
         },
       });
 
@@ -351,14 +376,13 @@ const generateFight = async (
       await prisma.log.createMany({
         data: Array.from(bruteIds).map((bruteId) => ({
           type: LogType.bossDefeat,
-          xp: xpGains,
           gold: goldGains,
           currentBruteId: bruteId,
         })),
       });
 
       result.boss = {
-        xp: xpGains,
+        xp: 0,
         gold: goldGains,
       };
     } else {

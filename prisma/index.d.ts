@@ -426,7 +426,8 @@ export type BossName = (typeof BossName)[keyof typeof BossName]
 
 
 export const InventoryItemType: {
-  visualReset: 'visualReset'
+  visualReset: 'visualReset',
+  bossTicket: 'bossTicket'
 };
 
 export type InventoryItemType = (typeof InventoryItemType)[keyof typeof InventoryItemType]

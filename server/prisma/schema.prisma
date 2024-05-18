@@ -610,6 +610,7 @@ model BossDamage {
 // Inventory
 enum InventoryItemType {
   visualReset
+  bossTicket
 }
 
 model BruteInventoryItem {

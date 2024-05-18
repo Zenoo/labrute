@@ -76,16 +76,17 @@ const CellMobileView = ({
             {/* WEAPONS */}
             <Text bold center sx={{ mb: 0.5 }}>
               <Tooltip title={t('inventory')}>
-                <Box
-                  component="img"
-                  src="/images/inventory.png"
-                  sx={{
-                    width: 22,
-                    verticalAlign: 'middle',
-                    mr: 0.5,
-                    cursor: 'pointer',
-                  }}
-                />
+                <Link to={`/${brute.name}/inventory`}>
+                  <Box
+                    component="img"
+                    src="/images/inventory.png"
+                    sx={{
+                      width: 22,
+                      verticalAlign: 'middle',
+                      mr: 0.5,
+                    }}
+                  />
+                </Link>
               </Tooltip>
               {t('weaponsBonuses')}
             </Text>
