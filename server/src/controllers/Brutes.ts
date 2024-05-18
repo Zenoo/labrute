@@ -492,7 +492,7 @@ const Brutes = {
       });
 
       if (!destinyChoice) {
-        throw new Error(translate('destinyChoiceNotFound', authed));
+        throw new ExpectedError(translate('destinyChoiceNotFound', authed));
       }
 
       // Update brute data

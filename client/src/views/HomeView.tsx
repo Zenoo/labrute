@@ -229,7 +229,7 @@ const HomeView = () => {
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
           {/* CHARACTER CREATION */}
           <BoxBg
-            src="/images/creation/bg.png"
+            src={`/images${mode === 'dark' ? '/dark' : ''}/creation/bg.png`}
             sx={{
               width: 290,
               height: 454,
@@ -294,7 +294,7 @@ const HomeView = () => {
               {/* VISUAL NOISE */}
               <Box
                 component="img"
-                src="/images/creation/broken.png"
+                src={`/images${mode === 'dark' ? '/dark' : ''}/creation/broken.png`}
                 alt="Crack"
                 sx={{ mt: -0.25, ml: 16 }}
               />
