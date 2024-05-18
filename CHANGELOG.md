@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.55.0](https://github.com/Zenoo/labrute/compare/labrute-v2.54.6...labrute-v2.55.0) (2024-05-18)
+
+
+### Features
+
+* Inventory + boss rewards a boxx ticket instead of XP. Fixes [#689](https://github.com/Zenoo/labrute/issues/689) ([727e870](https://github.com/Zenoo/labrute/commit/727e870d44974e2a8700ee21b7e2b555354fc757))
+
+
+### Bug Fixes
+
+* Alert for non implemented items ([2728635](https://github.com/Zenoo/labrute/commit/27286352d40e7d9b6aead547329d1e04910669a5))
+* Boss defeat log. Fixes [#688](https://github.com/Zenoo/labrute/issues/688) ([71395e4](https://github.com/Zenoo/labrute/commit/71395e40aaecbc4f997362e402a0c86c9351e615))
+* Keep track of boss damage even when outside the clan. Fixes [#687](https://github.com/Zenoo/labrute/issues/687) ([4cc335b](https://github.com/Zenoo/labrute/commit/4cc335b788e197d89d05091fef42642a49ceb38d))
+* Reorder clan brutes after master change ([246f4b6](https://github.com/Zenoo/labrute/commit/246f4b6ac55ed3ad88bf7ec721171566f69e7ff6))
+
 ## [2.54.6](https://github.com/Zenoo/labrute/compare/labrute-v2.54.5...labrute-v2.54.6) (2024-05-17)
 
 
