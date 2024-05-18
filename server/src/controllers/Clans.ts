@@ -551,11 +551,6 @@ const Clans = {
         throw new ExpectedError(translate('bruteNotInClan', user));
       }
 
-      // Delete boss damages
-      await prisma.bossDamage.deleteMany({
-        where: { bruteId: brute.id },
-      });
-
       // Update clan
       await prisma.clan.update({
         where: { id },
@@ -641,11 +636,6 @@ const Clans = {
         // Delete clan
         await prisma.clan.delete({ where: { id: clan.id } });
       } else {
-        // Delete boss damages
-        await prisma.bossDamage.deleteMany({
-          where: { bruteId: brute.id },
-        });
-
         // Update clan
         await prisma.clan.update({
           where: { id },

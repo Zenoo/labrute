@@ -285,6 +285,16 @@ const generateFight = async (
               userId: true,
             },
           },
+          bossDamages: {
+            select: {
+              brute: {
+                select: {
+                  id: true,
+                  userId: true,
+                },
+              },
+            },
+          },
         },
       });
 
@@ -292,7 +302,13 @@ const generateFight = async (
         throw new Error('Clan not found');
       }
 
-      const xpGains = Math.floor(BOSS_XP_REWARD / clan.brutes.length);
+      // Combine all bruteIds
+      const bruteIds = new Set(clan.brutes.map((brute) => brute.id));
+      clan.bossDamages.forEach((damage) => {
+        bruteIds.add(damage.brute.id);
+      });
+
+      const xpGains = Math.floor(BOSS_XP_REWARD / bruteIds.size);
 
       await prisma.clan.update({
         where: { id: clanId },
@@ -306,24 +322,26 @@ const generateFight = async (
           bossDamages: {
             deleteMany: {},
           },
-          // Give XP to all brutes
-          brutes: {
-            updateMany: {
-              where: { id: { in: clan.brutes.map((brute) => brute.id) } },
-              data: {
-                xp: { increment: xpGains },
-              },
-            },
-          },
+        },
+      });
+
+      // Give XP to all brutes
+      await prisma.brute.updateMany({
+        where: { id: { in: Array.from(bruteIds) } },
+        data: {
+          xp: { increment: xpGains },
         },
       });
 
       // Give gold to users
-      const uniqueUser = Array.from(new Set(clan.brutes.map((brute) => brute.userId || '')));
-      const goldGains = Math.floor(BOSS_GOLD_REWARD / uniqueUser.length);
+      const userIds = new Set(clan.brutes.map((brute) => brute.userId || ''));
+      clan.bossDamages.forEach((damage) => {
+        userIds.add(damage.brute.userId || '');
+      });
+      const goldGains = Math.floor(BOSS_GOLD_REWARD / userIds.size);
 
       await prisma.user.updateMany({
-        where: { id: { in: uniqueUser } },
+        where: { id: { in: Array.from(userIds) } },
         data: {
           gold: { increment: goldGains },
         },
@@ -331,11 +349,11 @@ const generateFight = async (
 
       // Add log
       await prisma.log.createMany({
-        data: clan.brutes.map((brute) => ({
+        data: Array.from(bruteIds).map((bruteId) => ({
           type: LogType.bossDefeat,
           xp: xpGains,
           gold: goldGains,
-          currentBruteId: brute.id,
+          currentBruteId: bruteId,
         })),
       });
 
