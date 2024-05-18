@@ -1258,5 +1258,6 @@
   "dinoRpgRewardsSuccess": "Congratz! You gained an extra fight for each of your brutes.",
   "inventory.desc": "Here you can see all the items you accumulated. Use them wisely!",
   "inventory.item.visualReset": "Visual reset",
-  "inventory.item.bossTicket": "Boss ticket"
+  "inventory.item.bossTicket": "Boss ticket",
+  "inventory.itemNotImplemented": "This item is not implemented yet."
 }

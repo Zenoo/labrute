@@ -11,6 +11,7 @@ import Page from '../components/Page';
 import StyledButton from '../components/StyledButton';
 import Text from '../components/Text';
 import { useBrute } from '../hooks/useBrute';
+import { useAlert } from '../hooks/useAlert';
 
 const itemImage: Record<InventoryItemType, string> = {
   [InventoryItemType.visualReset]: '/images/inventory/color-reset.svg',
@@ -23,6 +24,7 @@ export const InventoryView = () => {
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
   const { brute } = useBrute();
   const navigate = useNavigate();
+  const Alert = useAlert();
 
   const triggerItem = useCallback((item: HookBrute['inventory'][number]) => () => {
     if (!brute) return;
@@ -34,11 +36,11 @@ export const InventoryView = () => {
         break;
       }
       default: {
-        console.error('Unknown item type', item);
+        Alert.open('info', t('inventory.itemNotImplemented'));
         break;
       }
     }
-  }, [brute, navigate]);
+  }, [brute, navigate, Alert, t]);
 
   return brute && (
     <Page title={`${brute.name || ''} ${t('MyBrute')}`} headerUrl={`/${brute.name}/cell`}>
