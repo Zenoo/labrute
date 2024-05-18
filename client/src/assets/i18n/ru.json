@@ -68,7 +68,7 @@
   "log.xps": "Получено {{xp}} очка опыта.",
   "log.gold": "Получено {{gold}} золота.",
   "log.xpAndGold": "Получено {{xp}} опыта и {{gold}} золота.",
-  "log.itemAndGold": "{{count}}x {{item}}, {{gold}} gold gained.",
+  "log.itemAndGold": "Получено: {{count}}x {{item}} и {{gold}} золота.",
   "log.bossDefeat": "Вы победили Босса!",
   "seeFight": "Жмите сюда, чтобы посмотреть битву",
   "master": "Лидер",
@@ -1256,8 +1256,8 @@
   "achievement": "Достижение",
   "byUser": "По пользователям",
   "dinoRpgRewardsSuccess": "Поздравляем! Каждый из ваших Бруталов получил дополнительную битву.",
-  "inventory.desc": "Here you can see all the items you accumulated. Use them wisely!",
-  "inventory.item.visualReset": "Visual reset",
-  "inventory.item.bossTicket": "Boss ticket",
-  "inventory.itemNotImplemented": "This item is not implemented yet."
+  "inventory.desc": "Здесь вы видите все предметы, которые вы собрали. Пользуйтесь с умом!",
+  "inventory.item.visualReset": "Сброс внешности",
+  "inventory.item.bossTicket": "Боссовый билет",
+  "inventory.itemNotImplemented": "Этот предмет ещё не встроен."
 }
