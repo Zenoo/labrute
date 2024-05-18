@@ -66,12 +66,17 @@
   "lvl_11": "Padawan",
   "log.xp": "{{xp}} punto de experiencia ganado.",
   "log.xps": "{{xp}} puntos de experiencia ganados.",
+  "log.gold": "{{gold}} gold gained.",
+  "log.xpAndGold": "{{xp}} XP + {{gold}} gold gained.",
+  "log.itemAndGold": "{{count}}x {{item}}, {{gold}} gold gained.",
+  "log.bossDefeat": "You have defeated the boss!",
   "seeFight": "Haz click aquí para ver el combate",
   "master": "Maestro",
   "ranking": "Clasificación",
   "victories": "Victorias",
   "pupils": "Alumnos",
   "weaponsBonuses": "Armas y bonus disponibles en combate",
+  "inventory": "Inventory",
   "refLink": "Pásale esta dirección a tus amigos o ponla en tu blog. ¡Esto te permitirá reclutar alumnos y ganar experiencia!",
   "clan": "Clan",
   "joinAClan": "¡Únete a un clan!",
@@ -1250,5 +1255,9 @@
   "achievementRankings": "Clasificación de Logros",
   "achievement": "Logro",
   "byUser": "Por usuario",
-  "dinoRpgRewardsSuccess": "¡Enhorabuena! Has ganado una pelea extra por cada uno de tus brutos."
+  "dinoRpgRewardsSuccess": "¡Enhorabuena! Has ganado una pelea extra por cada uno de tus brutos.",
+  "inventory.desc": "Here you can see all the items you accumulated. Use them wisely!",
+  "inventory.item.visualReset": "Visual reset",
+  "inventory.item.bossTicket": "Boss ticket",
+  "inventory.itemNotImplemented": "This item is not implemented yet."
 }

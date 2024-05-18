@@ -66,12 +66,17 @@
   "lvl_11": "Падаван",
   "log.xp": "Получено {{xp}} очко опыта.",
   "log.xps": "Получено {{xp}} очка опыта.",
+  "log.gold": "Получено {{gold}} золота.",
+  "log.xpAndGold": "Получено {{xp}} опыта и {{gold}} золота.",
+  "log.itemAndGold": "{{count}}x {{item}}, {{gold}} gold gained.",
+  "log.bossDefeat": "Вы победили Босса!",
   "seeFight": "Жмите сюда, чтобы посмотреть битву",
   "master": "Лидер",
   "ranking": "Рейтинг",
   "victories": "Победы",
   "pupils": "Ученики",
   "weaponsBonuses": "Оружие и бонусы, доступные в бою",
+  "inventory": "Инвентарь",
   "refLink": "Дайте этот адрес вашим друзьям или опубликуйте его в своем блоге. Это позволит вам набирать учеников и получать опыт!",
   "clan": "Клан",
   "joinAClan": "Вступить в клан!",
@@ -1250,5 +1255,9 @@
   "achievementRankings": "Рейтинг достижений",
   "achievement": "Достижение",
   "byUser": "По пользователям",
-  "dinoRpgRewardsSuccess": "Поздравляем! Каждый из ваших Бруталов получил дополнительную битву."
+  "dinoRpgRewardsSuccess": "Поздравляем! Каждый из ваших Бруталов получил дополнительную битву.",
+  "inventory.desc": "Here you can see all the items you accumulated. Use them wisely!",
+  "inventory.item.visualReset": "Visual reset",
+  "inventory.item.bossTicket": "Boss ticket",
+  "inventory.itemNotImplemented": "This item is not implemented yet."
 }

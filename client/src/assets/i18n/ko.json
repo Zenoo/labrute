@@ -66,12 +66,17 @@
   "lvl_11": "Padawan",
   "log.xp": "{{xp}} 획득한 경험치",
   "log.xps": "{{xp}} 획득한 경험치",
+  "log.gold": "{{gold}} gold gained.",
+  "log.xpAndGold": "{{xp}} XP + {{gold}} gold gained.",
+  "log.itemAndGold": "{{count}}x {{item}}, {{gold}} gold gained.",
+  "log.bossDefeat": "You have defeated the boss!",
   "seeFight": "Click here to see the fight",
   "master": "Master",
   "ranking": "순위",
   "victories": "승리",
   "pupils": "눈동자",
   "weaponsBonuses": "Weapons and bonuses available in combat",
+  "inventory": "Inventory",
   "refLink": "Give this web address to your friends or publish it in your blog. This will permit you to recruit pupils and access exclusive content.",
   "clan": "클랜",
   "joinAClan": "클랜에 가입하다!",
@@ -1250,5 +1255,9 @@
   "achievementRankings": "Achievement rankings",
   "achievement": "Achievement",
   "byUser": "By user",
-  "dinoRpgRewardsSuccess": "Congratz! You gained an extra fight for each of your brutes."
+  "dinoRpgRewardsSuccess": "Congratz! You gained an extra fight for each of your brutes.",
+  "inventory.desc": "Here you can see all the items you accumulated. Use them wisely!",
+  "inventory.item.visualReset": "Visual reset",
+  "inventory.item.bossTicket": "Boss ticket",
+  "inventory.itemNotImplemented": "This item is not implemented yet."
 }
