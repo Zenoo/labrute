@@ -1259,5 +1259,9 @@
   "inventory.desc": "Здесь вы видите все предметы, которые вы собрали. Пользуйтесь с умом!",
   "inventory.item.visualReset": "Сброс внешности",
   "inventory.item.bossTicket": "Боссовый билет",
-  "inventory.itemNotImplemented": "Этот предмет ещё не встроен."
+  "inventory.item.nameChange": "Name change",
+  "inventory.itemNotImplemented": "Этот предмет ещё не встроен.",
+  "taggedForDeletion": "Your brute will be deleted in {{days}} days.",
+  "deletionReason.DUPLICATE_NAME": "Your brute has the same name as another brute. Use the item in your inventory to change it and avoid deletion.",
+  "nameChangeConfirm": "Are you sure you want to change your brute's name to {{name}}?"
 }
