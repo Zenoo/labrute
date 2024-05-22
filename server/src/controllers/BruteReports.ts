@@ -3,7 +3,7 @@ import {
   BruteReportsListRequest, BruteReportsListResponse, BruteReportsSendRequest,
   ExpectedError,
 } from '@labrute/core';
-import { BruteReportReason, BruteReportStatus, PrismaClient } from '@labrute/prisma';
+import { BruteReportReason, BruteReportStatus, InventoryItemType, PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import moment from 'moment';
 import { LOGGER } from '../context.js';
@@ -191,6 +191,16 @@ const BruteReports = {
               clanId: true,
               level: true,
               ranking: true,
+              inventory: {
+                select: {
+                  id: true,
+                  type: true,
+                  count: true,
+                },
+                where: {
+                  type: InventoryItemType.nameChange,
+                },
+              },
             },
           },
         },
@@ -226,6 +236,23 @@ const BruteReports = {
         data: {
           willBeDeletedAt: moment.utc().add(3, 'day').toDate(),
           deletionReason: BruteDeletionReason.INNAPROPRIATE_NAME,
+        },
+        select: { id: true },
+      });
+
+      // Add 1 free name change
+      await prisma.bruteInventoryItem.upsert({
+        where: {
+          id: report.brute.inventory[0].id,
+        },
+        create: {
+          type: InventoryItemType.nameChange,
+          bruteId: report.brute.id,
+        },
+        update: {
+          count: {
+            increment: 1,
+          },
         },
         select: { id: true },
       });
