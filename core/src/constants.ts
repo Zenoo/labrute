@@ -84,3 +84,8 @@ export const RESET_PRICE = 100;
 export const CLAN_SIZE_LIMIT = 50;
 export const BOSS_XP_REWARD = 500;
 export const BOSS_GOLD_REWARD = 500;
+
+export enum BruteDeletionReason {
+  DUPLICATE_NAME = 'DUPLICATE_NAME',
+  INNAPROPRIATE_NAME = 'INNAPROPRIATE_NAME',
+}

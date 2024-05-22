@@ -427,7 +427,8 @@ export type BossName = (typeof BossName)[keyof typeof BossName]
 
 export const InventoryItemType: {
   visualReset: 'visualReset',
-  bossTicket: 'bossTicket'
+  bossTicket: 'bossTicket',
+  nameChange: 'nameChange'
 };
 
 export type InventoryItemType = (typeof InventoryItemType)[keyof typeof InventoryItemType]
@@ -4728,6 +4729,8 @@ export namespace Prisma {
     name: string | null
     deletedAt: Date | null
     createdAt: Date | null
+    willBeDeletedAt: Date | null
+    deletionReason: string | null
     level: number | null
     xp: number | null
     hp: number | null
@@ -4772,6 +4775,8 @@ export namespace Prisma {
     name: string | null
     deletedAt: Date | null
     createdAt: Date | null
+    willBeDeletedAt: Date | null
+    deletionReason: string | null
     level: number | null
     xp: number | null
     hp: number | null
@@ -4816,6 +4821,8 @@ export namespace Prisma {
     name: number
     deletedAt: number
     createdAt: number
+    willBeDeletedAt: number
+    deletionReason: number
     destinyPath: number
     previousDestinyPath: number
     level: number
@@ -4925,6 +4932,8 @@ export namespace Prisma {
     name?: true
     deletedAt?: true
     createdAt?: true
+    willBeDeletedAt?: true
+    deletionReason?: true
     level?: true
     xp?: true
     hp?: true
@@ -4969,6 +4978,8 @@ export namespace Prisma {
     name?: true
     deletedAt?: true
     createdAt?: true
+    willBeDeletedAt?: true
+    deletionReason?: true
     level?: true
     xp?: true
     hp?: true
@@ -5013,6 +5024,8 @@ export namespace Prisma {
     name?: true
     deletedAt?: true
     createdAt?: true
+    willBeDeletedAt?: true
+    deletionReason?: true
     destinyPath?: true
     previousDestinyPath?: true
     level?: true
@@ -5149,6 +5162,8 @@ export namespace Prisma {
     name: string
     deletedAt: Date | null
     createdAt: Date
+    willBeDeletedAt: Date | null
+    deletionReason: string | null
     destinyPath: $Enums.DestinyChoiceSide[]
     previousDestinyPath: $Enums.DestinyChoiceSide[]
     level: number
@@ -5217,6 +5232,8 @@ export namespace Prisma {
     name?: boolean
     deletedAt?: boolean
     createdAt?: boolean
+    willBeDeletedAt?: boolean
+    deletionReason?: boolean
     destinyPath?: boolean
     previousDestinyPath?: boolean
     level?: boolean
@@ -5290,6 +5307,8 @@ export namespace Prisma {
     name?: boolean
     deletedAt?: boolean
     createdAt?: boolean
+    willBeDeletedAt?: boolean
+    deletionReason?: boolean
     destinyPath?: boolean
     previousDestinyPath?: boolean
     level?: boolean
@@ -5334,7 +5353,7 @@ export namespace Prisma {
     tournamentWins?: boolean
   }
 
-  export type BruteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "deletedAt" | "createdAt" | "destinyPath" | "previousDestinyPath" | "level" | "xp" | "hp" | "enduranceStat" | "enduranceModifier" | "enduranceValue" | "strengthStat" | "strengthModifier" | "strengthValue" | "agilityStat" | "agilityModifier" | "agilityValue" | "speedStat" | "speedModifier" | "speedValue" | "ranking" | "gender" | "userId" | "body" | "colors" | "weapons" | "skills" | "pets" | "masterId" | "pupilsCount" | "clanId" | "registeredForTournament" | "nextTournamentDate" | "currentTournamentDate" | "currentTournamentStepWatched" | "globalTournamentWatchedDate" | "globalTournamentRoundWatched" | "lastFight" | "fightsLeft" | "victories" | "opponentsGeneratedAt" | "canRankUpSince" | "favorite" | "wantToJoinClanId" | "tournamentWins", ExtArgs["result"]["brute"]>
+  export type BruteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "deletedAt" | "createdAt" | "willBeDeletedAt" | "deletionReason" | "destinyPath" | "previousDestinyPath" | "level" | "xp" | "hp" | "enduranceStat" | "enduranceModifier" | "enduranceValue" | "strengthStat" | "strengthModifier" | "strengthValue" | "agilityStat" | "agilityModifier" | "agilityValue" | "speedStat" | "speedModifier" | "speedValue" | "ranking" | "gender" | "userId" | "body" | "colors" | "weapons" | "skills" | "pets" | "masterId" | "pupilsCount" | "clanId" | "registeredForTournament" | "nextTournamentDate" | "currentTournamentDate" | "currentTournamentStepWatched" | "globalTournamentWatchedDate" | "globalTournamentRoundWatched" | "lastFight" | "fightsLeft" | "victories" | "opponentsGeneratedAt" | "canRankUpSince" | "favorite" | "wantToJoinClanId" | "tournamentWins", ExtArgs["result"]["brute"]>
 
 
   export type BruteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5397,6 +5416,8 @@ export namespace Prisma {
       name: string
       deletedAt: Date | null
       createdAt: Date
+      willBeDeletedAt: Date | null
+      deletionReason: string | null
       destinyPath: $Enums.DestinyChoiceSide[]
       previousDestinyPath: $Enums.DestinyChoiceSide[]
       level: number
@@ -5908,6 +5929,8 @@ export namespace Prisma {
     readonly name: FieldRef<"Brute", 'String'>
     readonly deletedAt: FieldRef<"Brute", 'DateTime'>
     readonly createdAt: FieldRef<"Brute", 'DateTime'>
+    readonly willBeDeletedAt: FieldRef<"Brute", 'DateTime'>
+    readonly deletionReason: FieldRef<"Brute", 'String'>
     readonly destinyPath: FieldRef<"Brute", 'DestinyChoiceSide[]'>
     readonly previousDestinyPath: FieldRef<"Brute", 'DestinyChoiceSide[]'>
     readonly level: FieldRef<"Brute", 'Int'>
@@ -27160,6 +27183,8 @@ export namespace Prisma {
     name: 'name',
     deletedAt: 'deletedAt',
     createdAt: 'createdAt',
+    willBeDeletedAt: 'willBeDeletedAt',
+    deletionReason: 'deletionReason',
     destinyPath: 'destinyPath',
     previousDestinyPath: 'previousDestinyPath',
     level: 'level',
@@ -27833,6 +27858,8 @@ export namespace Prisma {
     name?: StringFilter<"Brute"> | string
     deletedAt?: DateTimeNullableFilter<"Brute"> | Date | string | null
     createdAt?: DateTimeFilter<"Brute"> | Date | string
+    willBeDeletedAt?: DateTimeNullableFilter<"Brute"> | Date | string | null
+    deletionReason?: StringNullableFilter<"Brute"> | string | null
     destinyPath?: EnumDestinyChoiceSideNullableListFilter<"Brute">
     previousDestinyPath?: EnumDestinyChoiceSideNullableListFilter<"Brute">
     level?: IntFilter<"Brute"> | number
@@ -27905,6 +27932,8 @@ export namespace Prisma {
     name?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    willBeDeletedAt?: SortOrderInput | SortOrder
+    deletionReason?: SortOrderInput | SortOrder
     destinyPath?: SortOrder
     previousDestinyPath?: SortOrder
     level?: SortOrder
@@ -27980,6 +28009,8 @@ export namespace Prisma {
     name?: StringFilter<"Brute"> | string
     deletedAt?: DateTimeNullableFilter<"Brute"> | Date | string | null
     createdAt?: DateTimeFilter<"Brute"> | Date | string
+    willBeDeletedAt?: DateTimeNullableFilter<"Brute"> | Date | string | null
+    deletionReason?: StringNullableFilter<"Brute"> | string | null
     destinyPath?: EnumDestinyChoiceSideNullableListFilter<"Brute">
     previousDestinyPath?: EnumDestinyChoiceSideNullableListFilter<"Brute">
     level?: IntFilter<"Brute"> | number
@@ -28052,6 +28083,8 @@ export namespace Prisma {
     name?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    willBeDeletedAt?: SortOrderInput | SortOrder
+    deletionReason?: SortOrderInput | SortOrder
     destinyPath?: SortOrder
     previousDestinyPath?: SortOrder
     level?: SortOrder
@@ -28109,6 +28142,8 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Brute"> | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Brute"> | Date | string
+    willBeDeletedAt?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
+    deletionReason?: StringNullableWithAggregatesFilter<"Brute"> | string | null
     destinyPath?: EnumDestinyChoiceSideNullableListFilter<"Brute">
     previousDestinyPath?: EnumDestinyChoiceSideNullableListFilter<"Brute">
     level?: IntWithAggregatesFilter<"Brute"> | number
@@ -29433,6 +29468,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -29501,6 +29538,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -29568,6 +29607,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -29636,6 +29677,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -29704,6 +29747,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -29752,6 +29797,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -29797,6 +29844,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -31175,6 +31224,21 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type EnumDestinyChoiceSideNullableListFilter<$PrismaModel = never> = {
     equals?: $Enums.DestinyChoiceSide[] | ListEnumDestinyChoiceSideFieldRefInput<$PrismaModel> | null
     has?: $Enums.DestinyChoiceSide | EnumDestinyChoiceSideFieldRefInput<$PrismaModel> | null
@@ -31383,6 +31447,8 @@ export namespace Prisma {
     name?: SortOrder
     deletedAt?: SortOrder
     createdAt?: SortOrder
+    willBeDeletedAt?: SortOrder
+    deletionReason?: SortOrder
     destinyPath?: SortOrder
     previousDestinyPath?: SortOrder
     level?: SortOrder
@@ -31461,6 +31527,8 @@ export namespace Prisma {
     name?: SortOrder
     deletedAt?: SortOrder
     createdAt?: SortOrder
+    willBeDeletedAt?: SortOrder
+    deletionReason?: SortOrder
     level?: SortOrder
     xp?: SortOrder
     hp?: SortOrder
@@ -31505,6 +31573,8 @@ export namespace Prisma {
     name?: SortOrder
     deletedAt?: SortOrder
     createdAt?: SortOrder
+    willBeDeletedAt?: SortOrder
+    deletionReason?: SortOrder
     level?: SortOrder
     xp?: SortOrder
     hp?: SortOrder
@@ -31585,6 +31655,24 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type FloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -31761,21 +31849,6 @@ export namespace Prisma {
     not?: NestedEnumLogTypeFilter<$PrismaModel> | $Enums.LogType
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type FightNullableRelationFilter = {
     is?: FightWhereInput | null
     isNot?: FightWhereInput | null
@@ -31843,24 +31916,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumLogTypeFilter<$PrismaModel>
     _max?: NestedEnumLogTypeFilter<$PrismaModel>
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type EnumDestinyChoiceTypeFilter<$PrismaModel = never> = {
@@ -33140,6 +33195,10 @@ export namespace Prisma {
     set?: Date | string
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type BruteUpdatedestinyPathInput = {
     set?: $Enums.DestinyChoiceSide[]
     push?: $Enums.DestinyChoiceSide | $Enums.DestinyChoiceSide[]
@@ -33477,10 +33536,6 @@ export namespace Prisma {
     update?: BossDamageUpdateWithWhereUniqueWithoutBruteInput | BossDamageUpdateWithWhereUniqueWithoutBruteInput[]
     updateMany?: BossDamageUpdateManyWithWhereWithoutBruteInput | BossDamageUpdateManyWithWhereWithoutBruteInput[]
     deleteMany?: BossDamageScalarWhereInput | BossDamageScalarWhereInput[]
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type BruteUncheckedUpdateManyWithoutMasterNestedInput = {
@@ -34677,6 +34732,20 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type NestedEnumGenderFilter<$PrismaModel = never> = {
     equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel>
     in?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel>
@@ -34707,6 +34776,23 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -34747,20 +34833,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -34805,23 +34877,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumLogTypeFilter<$PrismaModel>
     _max?: NestedEnumLogTypeFilter<$PrismaModel>
-  }
-
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumDestinyChoiceTypeFilter<$PrismaModel = never> = {
@@ -35015,6 +35070,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -35082,6 +35139,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -35244,6 +35303,8 @@ export namespace Prisma {
     name?: StringFilter<"Brute"> | string
     deletedAt?: DateTimeNullableFilter<"Brute"> | Date | string | null
     createdAt?: DateTimeFilter<"Brute"> | Date | string
+    willBeDeletedAt?: DateTimeNullableFilter<"Brute"> | Date | string | null
+    deletionReason?: StringNullableFilter<"Brute"> | string | null
     destinyPath?: EnumDestinyChoiceSideNullableListFilter<"Brute">
     previousDestinyPath?: EnumDestinyChoiceSideNullableListFilter<"Brute">
     level?: IntFilter<"Brute"> | number
@@ -35412,6 +35473,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -35479,6 +35542,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -35550,6 +35615,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -35617,6 +35684,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -35879,6 +35948,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -35946,6 +36017,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -36017,6 +36090,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -36084,6 +36159,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -36499,6 +36576,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -36566,6 +36645,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -37172,6 +37253,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -37239,6 +37322,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -37321,6 +37406,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -37388,6 +37475,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -37454,6 +37543,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -37521,6 +37612,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -37592,6 +37685,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -37659,6 +37754,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -37792,6 +37889,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -37859,6 +37958,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -37936,6 +38037,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -38003,6 +38106,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -38111,6 +38216,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -38178,6 +38285,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -38290,6 +38399,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -38357,6 +38468,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -38459,6 +38572,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -38526,6 +38641,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -38608,6 +38725,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -38675,6 +38794,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -38741,6 +38862,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -38808,6 +38931,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -38946,6 +39071,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -39013,6 +39140,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -39095,6 +39224,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -39162,6 +39293,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -39312,6 +39445,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -39379,6 +39514,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -39461,6 +39598,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -39528,6 +39667,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -39594,6 +39735,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -39661,6 +39804,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -39782,6 +39927,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -39849,6 +39996,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -39960,6 +40109,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -40027,6 +40178,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -40114,6 +40267,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -40181,6 +40336,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -40302,6 +40459,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -40369,6 +40528,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -40468,6 +40629,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -40535,6 +40698,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -40606,6 +40771,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -40673,6 +40840,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -40749,6 +40918,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -40816,6 +40987,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -40957,6 +41130,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -41024,6 +41199,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -41184,6 +41361,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -41251,6 +41430,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -41392,6 +41573,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -41459,6 +41642,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -41569,6 +41754,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -41636,6 +41823,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -41752,6 +41941,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -41819,6 +42010,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -41885,6 +42078,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -41952,6 +42147,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -42064,6 +42261,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -42131,6 +42330,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -42233,6 +42434,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -42300,6 +42503,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -42382,6 +42587,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -42449,6 +42656,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -42516,6 +42725,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -42576,6 +42787,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -42643,6 +42856,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -42710,6 +42925,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -42821,6 +43038,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -42974,6 +43193,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -43041,6 +43262,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -43108,6 +43331,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -43321,6 +43546,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -43388,6 +43615,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -43455,6 +43684,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -43503,6 +43734,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -43570,6 +43803,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -43637,6 +43872,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -43927,6 +44164,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -43994,6 +44233,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -44061,6 +44302,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -44146,6 +44389,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -44213,6 +44458,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -44280,6 +44527,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -44377,6 +44626,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -44425,6 +44676,8 @@ export namespace Prisma {
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
     destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
@@ -44489,6 +44742,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -44556,6 +44811,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -44623,6 +44880,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -44670,6 +44929,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -44737,6 +44998,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
@@ -44804,6 +45067,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
     destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number

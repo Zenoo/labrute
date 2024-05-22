@@ -143,6 +143,8 @@ exports.Prisma.BruteScalarFieldEnum = {
   name: 'name',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
+  willBeDeletedAt: 'willBeDeletedAt',
+  deletionReason: 'deletionReason',
   destinyPath: 'destinyPath',
   previousDestinyPath: 'previousDestinyPath',
   level: 'level',
@@ -623,7 +625,8 @@ exports.BossName = exports.$Enums.BossName = {
 
 exports.InventoryItemType = exports.$Enums.InventoryItemType = {
   visualReset: 'visualReset',
-  bossTicket: 'bossTicket'
+  bossTicket: 'bossTicket',
+  nameChange: 'nameChange'
 };
 
 exports.Prisma.ModelName = {

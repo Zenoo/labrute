@@ -1,6 +1,6 @@
 import { BruteRanking, getFightsLeft, getMaxFightsPerDay, getWinsNeededToRankUp, getXPNeeded } from '@labrute/core';
 import { Lang } from '@labrute/prisma';
-import { Box, BoxProps, Stack, Tooltip } from '@mui/material';
+import { Alert as MuiAlert, Box, BoxProps, Stack, Tooltip, AlertTitle } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -61,6 +61,16 @@ const CellMain = ({
 
   return brute && (
     <Box {...rest}>
+      {/* DELETION ALERT */}
+      {owner && brute.willBeDeletedAt && (
+        <MuiAlert
+          severity="error"
+          variant="filled"
+        >
+          <AlertTitle>{t('taggedForDeletion', { days: moment.utc(brute.willBeDeletedAt).diff(moment.utc(), 'days') })}</AlertTitle>
+          {t(`deletionReason.${brute.deletionReason}`)}
+        </MuiAlert>
+      )}
       <Box display="flex" justifyContent="space-between" alignItems="flex-start" sx={{ mb: 2 }}>
         {/* LEVEL + XP */}
         <BruteLevelAndXP brute={brute} sx={{ pl: 1 }} />

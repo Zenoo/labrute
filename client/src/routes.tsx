@@ -31,6 +31,7 @@ import ResetVisualsView from './views/ResetVisualsView';
 import UserView from './views/UserView';
 import AchievementRankingView from './views/AchievementRankingView';
 import { InventoryView } from './views/InventoryView';
+import NameChangeView from './views/NameChangeView';
 
 const routes: RouteObject[] = [
   {
@@ -66,6 +67,7 @@ const routes: RouteObject[] = [
           { path: 'tournaments', element: <TournamentHistoryView /> },
           { path: 'achievements', element: <AchievementsView /> },
           { path: 'reset-visuals', element: <ResetVisualsView /> },
+          { path: 'change-name', element: <NameChangeView /> },
           {
             path: 'clan',
             children: [

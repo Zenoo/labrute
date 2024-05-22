@@ -69,6 +69,7 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   app.get('/api/brute/:name/reset', Brutes.reset(prisma));
   app.post('/api/brute/:name/reset-visuals', Brutes.resetVisuals(prisma));
   app.get('/api/brute/:name/give-free-visual-reset', Brutes.giveFreeVisualReset(prisma));
+  app.get('/api/brute/:name/change-name/:newName', Brutes.changeName(prisma));
 
   // Log
   app.get('/api/log/list/:name', Logs.list(prisma));

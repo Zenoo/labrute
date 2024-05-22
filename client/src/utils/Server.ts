@@ -57,6 +57,7 @@ const Server = {
     reset: (name: string) => Fetch<HookBrute>(`/api/brute/${name}/reset`),
     resetVisuals: (name: string, body: string, colors: string) => Fetch<never>(`/api/brute/${name}/reset-visuals`, { body, colors }, 'POST'),
     giveFreeVisualReset: (name: string) => Fetch<never>(`/api/brute/${name}/give-free-visual-reset`),
+    changeName: (name: string, newName: string) => Fetch<never>(`/api/brute/${name}/change-name/${newName}`),
   },
   Log: {
     list: (brute: string) => Fetch<(Log & { currentBrute: { name: string } })[]>(`/api/log/list/${brute}`),

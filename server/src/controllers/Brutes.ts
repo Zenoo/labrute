@@ -2,6 +2,7 @@ import {
   ARENA_OPPONENTS_COUNT,
   ARENA_OPPONENTS_MAX_GAP,
   AdminPanelBrute,
+  BruteDeletionReason,
   BruteRestoreResponse,
   BrutesCreateResponse,
   BrutesExistsResponse, BrutesGetDestinyResponse,
@@ -217,7 +218,10 @@ const Brutes = {
       // Check if name is available
       const count = await prisma.brute.count({
         where: {
-          name: req.body.name,
+          name: {
+            equals: req.body.name,
+            mode: 'insensitive',
+          },
           deletedAt: null,
         },
       });
@@ -1917,6 +1921,78 @@ const Brutes = {
           count: {
             increment: 1,
           },
+        },
+      });
+
+      res.send({ success: true });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  changeName: (prisma: PrismaClient) => async (
+    req: Request<{ name: string, newName: string }>,
+    res: Response,
+  ) => {
+    try {
+      const { params: { name, newName } } = req;
+
+      const authed = await auth(prisma, req);
+
+      // Check name length
+      if (!isNameValid(newName)) {
+        throw new ExpectedError(translate('invalidName', authed));
+      }
+
+      // Check name for banned words
+      const banned: { count: bigint }[] = await prisma.$queryRaw`SELECT COUNT(*) FROM "BannedWord" WHERE ${newName.toLowerCase()} LIKE CONCAT('%', word, '%')`;
+
+      if (typeof banned?.[0]?.count !== 'bigint') {
+        throw new Error('Error while checking banned words');
+      }
+      if (banned[0].count > 0) {
+        throw new ExpectedError(translate('nameContainsBannedWord', authed));
+      }
+
+      // Check if name is available
+      const count = await prisma.brute.count({
+        where: {
+          name: {
+            equals: newName,
+            mode: 'insensitive',
+          },
+          deletedAt: null,
+        },
+      });
+
+      if (count > 0) {
+        throw new ExpectedError(translate('nameAlreadyTaken', authed));
+      }
+
+      // Get brute
+      const brute = await prisma.brute.findFirst({
+        where: {
+          userId: authed.id,
+          name,
+          deletedAt: null,
+        },
+        select: { id: true, deletionReason: true },
+      });
+
+      if (!brute) {
+        throw new ExpectedError(translate('bruteNotFound', authed));
+      }
+
+      // Update brute name
+      await prisma.brute.update({
+        where: { id: brute.id },
+        data: {
+          name: newName,
+          deletionReason: brute.deletionReason === BruteDeletionReason.DUPLICATE_NAME
+            ? null
+            : undefined,
+          willBeDeletedAt: brute.deletionReason === BruteDeletionReason.DUPLICATE_NAME
+            ? null
+            : undefined,
         },
       });
 

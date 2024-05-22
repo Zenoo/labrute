@@ -1,6 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import StyledInput from '../components/StyledInput';
 
 interface ConfirmContextInterface {
   open: (title: string, content: string, onAccept?: () => void, onCancel?: () => void) => void;
@@ -24,8 +25,9 @@ interface ConfirmProviderProps {
 interface ConfirmParams {
   title: string;
   content: string;
-  onAccept?: () => void;
+  onAccept?: (input?: string) => void;
   onCancel?: () => void;
+  inputName?: string;
 }
 
 export const ConfirmProvider = ({ children }: ConfirmProviderProps) => {
@@ -36,12 +38,15 @@ export const ConfirmProvider = ({ children }: ConfirmProviderProps) => {
     title: '',
     content: ''
   });
+  const [input, setInput] = useState('');
 
   // Accept action
   const accept = useCallback(() => {
+    if (params.inputName && !input) return;
+
     setOpen(false);
-    if (params.onAccept) params.onAccept();
-  }, [params]);
+    if (params.onAccept) params.onAccept(input);
+  }, [params, input]);
 
   // Cancel action
   const cancel = useCallback(() => {
@@ -53,15 +58,18 @@ export const ConfirmProvider = ({ children }: ConfirmProviderProps) => {
   const handleOpen = useCallback((
     title: string,
     content: string,
-    onAccept?: () => void,
-    onCancel?: () => void
+    onAccept?: (userInput?: string) => void,
+    onCancel?: () => void,
+    inputName?: string,
   ) => {
     setParams({
       title,
       content,
       onAccept,
       onCancel,
+      inputName,
     });
+    setInput('');
     setOpen(true);
   }, []);
 
@@ -84,6 +92,14 @@ export const ConfirmProvider = ({ children }: ConfirmProviderProps) => {
         <DialogTitle>{params.title}</DialogTitle>
         <DialogContent>
           <DialogContentText>{params.content}</DialogContentText>
+          {params.inputName && (
+            <StyledInput
+              onChange={(e) => setInput(e.target.value)}
+              value={input}
+              placeholder={t(params.inputName)}
+              sx={{ mr: 2 }}
+            />
+          )}
         </DialogContent>
         <DialogActions>
           <Button

@@ -110,7 +110,7 @@ const LevelUpView = () => {
           {!smallScreen && (
             <Box
               component="img"
-              src={`/images/level-up/arrows${theme.palette.mode === 'dark' ? '-dark' : ''}.webp`}
+              src={`/images${theme.palette.mode === 'dark' ? '/dark' : ''}/level-up/arrows.webp`}
               sx={{ mt: -3, zIndex: 1, position: 'relative' }}
             />
           )}

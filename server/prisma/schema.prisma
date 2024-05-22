@@ -139,6 +139,8 @@ model Brute {
   name                         String                  @db.VarChar(255)
   deletedAt                    DateTime?               @db.Timestamptz()
   createdAt                    DateTime                @default(now()) @db.Timestamptz()
+  willBeDeletedAt              DateTime?               @db.Date
+  deletionReason               String?
   destinyPath                  DestinyChoiceSide[]     @default([])
   previousDestinyPath          DestinyChoiceSide[]     @default([])
   level                        Int                     @default(1)
@@ -540,6 +542,8 @@ model ServerState {
 model BannedWord {
   id   Int    @id @default(autoincrement())
   word String @db.VarChar(255)
+
+  @@index([word])
 }
 
 model WorkerJob {
@@ -603,6 +607,7 @@ model BossDamage {
   clan    Clan  @relation(fields: [clanId], references: [id])
   clanId  Int
   damage  Int
+
   @@unique([bruteId, clanId])
   @@index([clanId])
 }
@@ -611,6 +616,7 @@ model BossDamage {
 enum InventoryItemType {
   visualReset
   bossTicket
+  nameChange
 }
 
 model BruteInventoryItem {

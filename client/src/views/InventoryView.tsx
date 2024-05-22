@@ -16,6 +16,7 @@ import { useBrute } from '../hooks/useBrute';
 const itemImage: Record<InventoryItemType, string> = {
   [InventoryItemType.visualReset]: '/images/inventory/color-reset.svg',
   [InventoryItemType.bossTicket]: '/images/rankings/lvl_0.webp',
+  [InventoryItemType.nameChange]: '/images/weapons/keyboard.png',
 };
 
 export const InventoryView = () => {
@@ -33,6 +34,11 @@ export const InventoryView = () => {
       case InventoryItemType.visualReset: {
         // Reset visuals
         navigate(`/${brute.name}/reset-visuals`);
+        break;
+      }
+      case InventoryItemType.nameChange: {
+        // Change name
+        navigate(`/${brute.name}/change-name`);
         break;
       }
       default: {

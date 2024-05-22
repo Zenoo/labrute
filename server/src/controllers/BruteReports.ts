@@ -1,12 +1,13 @@
 import {
+  BruteDeletionReason,
   BruteReportsListRequest, BruteReportsListResponse, BruteReportsSendRequest,
   ExpectedError,
 } from '@labrute/core';
 import { BruteReportReason, BruteReportStatus, PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
+import moment from 'moment';
 import { LOGGER } from '../context.js';
 import auth from '../utils/auth.js';
-import updateClanPoints from '../utils/clan/updateClanPoints.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
 
@@ -80,10 +81,18 @@ const BruteReports = {
           name,
           deletedAt: null,
         },
+        select: { id: true, name: true, deletionReason: true },
       });
 
       if (!brute) {
         throw new ExpectedError(translate('bruteNotFound', user));
+      }
+
+      if (brute.deletionReason) {
+        res.status(200).send({
+          success: true,
+        });
+        return;
       }
 
       // Check if an existing report exists
@@ -209,25 +218,17 @@ const BruteReports = {
         select: { id: true },
       });
 
-      // Delete brute
+      // Tag brute for deletion
       await prisma.brute.update({
         where: {
           id: report.bruteId,
         },
         data: {
-          deletedAt: new Date(),
-          // Remove from clan
-          clanId: null,
-          // Delete join requests
-          wantToJoinClanId: null,
+          willBeDeletedAt: moment.utc().add(3, 'day').toDate(),
+          deletionReason: BruteDeletionReason.INNAPROPRIATE_NAME,
         },
         select: { id: true },
       });
-
-      // Update clan points
-      if (report.brute.clanId) {
-        await updateClanPoints(prisma, report.brute.clanId, 'remove', report.brute);
-      }
 
       res.status(200).send({
         success: true,

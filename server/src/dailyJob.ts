@@ -1,9 +1,11 @@
 /* eslint-disable no-await-in-loop */
 import {
+  BruteDeletionReason,
   Fighter,
   getWinsNeededToRankUp,
 } from '@labrute/core';
 import {
+  InventoryItemType,
   LogType, Prisma, PrismaClient, TournamentType,
 } from '@labrute/prisma';
 import moment from 'moment';
@@ -11,6 +13,7 @@ import { DISCORD, LOGGER } from './context.js';
 import ServerState from './utils/ServerState.js';
 import generateFight from './utils/fight/generateFight.js';
 import shuffle from './utils/shuffle.js';
+import updateClanPoints from './utils/clan/updateClanPoints.js';
 
 const GENERATE_TOURNAMENTS_IN_DEV = false;
 
@@ -843,6 +846,128 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
   LOGGER.log(`${moment.utc().valueOf() - now}ms to handle ${achievementCount} achievements and ${goldCount} gold earnings`);
 };
 
+const checkNameDuplicates = async (prisma: PrismaClient) => {
+  // Get all brutes with duplicate names (grouped by name) (case insensitive)
+  // not yet tagged for deletion
+  const duplicates: {
+    name: string;
+    count: number;
+    ids: number[];
+  }[] = await prisma.$queryRaw`
+    SELECT LOWER(name) name, COUNT(*) count, ARRAY_AGG(id ORDER BY "createdAt") ids
+    FROM "Brute"
+    WHERE "deletedAt" IS NULL
+    AND "willBeDeletedAt" IS NULL
+    GROUP BY LOWER(name)
+    HAVING COUNT(*) > 1;
+  `;
+
+  if (!duplicates.length) {
+    return;
+  }
+
+  // Get all brute ids (ignore first items)
+  const bruteIds = duplicates.flatMap((duplicate) => duplicate.ids.slice(1));
+
+  // Tag duplicates for deletion
+  await prisma.brute.updateMany({
+    where: {
+      id: {
+        in: bruteIds,
+      },
+    },
+    data: {
+      willBeDeletedAt: moment.utc().add(7, 'day').toDate(),
+      deletionReason: BruteDeletionReason.DUPLICATE_NAME,
+    },
+  });
+
+  // Get brutes that already have the name change item
+  const bruteIdsWithItem = await prisma.bruteInventoryItem.findMany({
+    where: {
+      type: InventoryItemType.nameChange,
+      bruteId: {
+        in: bruteIds,
+      },
+    },
+    select: { bruteId: true },
+  });
+
+  // Add 1x name change item to those brutes
+  await prisma.bruteInventoryItem.updateMany({
+    where: {
+      bruteId: { in: bruteIdsWithItem.map((item) => item.bruteId) },
+      type: InventoryItemType.nameChange,
+    },
+    data: {
+      count: { increment: 1 },
+    },
+  });
+
+  // Get brutes that don't have the name change item
+  const bruteIdsWithoutItem = bruteIds.filter(
+    (id) => !bruteIdsWithItem.some((item) => item.bruteId === id),
+  );
+
+  // Add 1x name change item to those brutes
+  await prisma.bruteInventoryItem.createMany({
+    data: bruteIdsWithoutItem.map((id) => ({
+      bruteId: id,
+      type: InventoryItemType.nameChange,
+      count: 1,
+    })),
+  });
+
+  LOGGER.log(`Tagged ${bruteIds.length} brutes for deletion due to duplicate names`);
+};
+
+const deleteBrutes = async (prisma: PrismaClient) => {
+  // Get all brutes tagged for deletion
+  const brutes = await prisma.brute.findMany({
+    where: {
+      willBeDeletedAt: {
+        lte: new Date(),
+      },
+    },
+    select: {
+      id: true,
+      clanId: true,
+      level: true,
+      ranking: true,
+    },
+  });
+
+  if (!brutes.length) {
+    return;
+  }
+
+  // Delete brutes
+  await prisma.brute.updateMany({
+    where: {
+      id: {
+        in: brutes.map((brute) => brute.id),
+      },
+    },
+    data: {
+      deletedAt: new Date(),
+      willBeDeletedAt: null,
+      // Remove from clan
+      clanId: null,
+      // Delete join requests
+      wantToJoinClanId: null,
+    },
+  });
+
+  // Update clan points
+  for (const brute of brutes) {
+    if (brute.clanId) {
+      await updateClanPoints(prisma, brute.clanId, 'remove', brute);
+    }
+  }
+
+  LOGGER.log(`Deleted ${brutes.length} brutes tagged for deletion`);
+};
+
 const dailyJob = (prisma: PrismaClient) => async () => {
   try {
     if (process.env.NODE_ENV === 'production' || GENERATE_TOURNAMENTS_IN_DEV) {
@@ -873,6 +998,12 @@ const dailyJob = (prisma: PrismaClient) => async () => {
 
     // Handle tournament earnings from the previous day
     await handleTournamentEarnings(prisma);
+
+    // Check name duplicates
+    await checkNameDuplicates(prisma);
+
+    // Delete brutes tagged for deletion
+    await deleteBrutes(prisma);
   } catch (error: unknown) {
     if (!(error instanceof Error)) {
       throw error;
