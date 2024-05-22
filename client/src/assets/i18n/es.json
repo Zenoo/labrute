@@ -1263,6 +1263,6 @@
   "inventory.itemNotImplemented": "Este objeto aún no se ha implementado.",
   "taggedForDeletion": "Tu bruto será eliminado en {{days}} días.",
   "deletionReason.DUPLICATE_NAME": "Tu bruto tiene el mismo nombre que otro bruto. Usa el objeto de tu inventario para cambiarlo y evitar que tu bruto sea eliminado.",
-  "deletionReason.INNAPROPRIATE_NAME": "Your brute has an inappropriate name. Use the item in your inventory to change it and avoid deletion.",
+  "deletionReason.INNAPROPRIATE_NAME": "El nombre de tu bruto es inapropiado. Usa el objeto de tu inventario para cambiarlo y evitar que tu bruto sea eliminado.",
   "nameChangeConfirm": "¿Estás seguro de que quieres cambiar el nombre de tu bruto a {{name}}?"
 }
