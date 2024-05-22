@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.56.1](https://github.com/Zenoo/labrute/compare/labrute-v2.56.0...labrute-v2.56.1) (2024-05-22)
+
+
+### Bug Fixes
+
+* Add 1 free name change on reports ([2e92444](https://github.com/Zenoo/labrute/commit/2e92444c6fc60ae9474e9dabe81b3964773a7ef8))
+* Remove name change on use ([987f430](https://github.com/Zenoo/labrute/commit/987f430fe006ac9854a4c02b3f9393b1bc5065a2))
+
 ## [2.56.0](https://github.com/Zenoo/labrute/compare/labrute-v2.55.0...labrute-v2.56.0) (2024-05-22)
 
 
