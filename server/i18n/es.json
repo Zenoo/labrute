@@ -61,5 +61,6 @@
   "invalidName": "Nombre inválido. Los caracteres permitidos son a-z, A-Z, 0-9, '_' y '-'. Debe tener una longitud entre 3 y 16 caracteres.",
   "alreadyClaimed": "Ya has reclamado esta recompensa",
   "needToUseEveryAction": "Necesitas usar cada acción en tus Dinoz para poder reclamar esta recompensa",
-  "noDinoRpgAccount": "No tienes una cuenta DinoRPG vinculada a tu cuenta de EternalTwin."
+  "noDinoRpgAccount": "No tienes una cuenta DinoRPG vinculada a tu cuenta de EternalTwin.",
+  "noNameChange": "You cannot change your name"
 }
