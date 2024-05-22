@@ -1975,26 +1975,62 @@ const Brutes = {
           name,
           deletedAt: null,
         },
-        select: { id: true, deletionReason: true },
+        select: {
+          id: true,
+          deletionReason: true,
+          inventory: {
+            where: {
+              type: InventoryItemType.nameChange,
+            },
+            select: {
+              count: true,
+              id: true,
+            },
+          },
+        },
       });
 
       if (!brute) {
         throw new ExpectedError(translate('bruteNotFound', authed));
       }
 
+      if (brute.inventory.length === 0 || brute.inventory[0].count < 1) {
+        throw new ExpectedError(translate('noNameChange', authed));
+      }
+
+      const data: Prisma.BruteUpdateInput = {
+        name: newName,
+      };
+
+      if (brute.deletionReason && [
+        BruteDeletionReason.DUPLICATE_NAME,
+        BruteDeletionReason.INNAPROPRIATE_NAME,
+      ].includes(brute.deletionReason as BruteDeletionReason)) {
+        data.deletionReason = null;
+        data.willBeDeletedAt = null;
+      }
+
       // Update brute name
       await prisma.brute.update({
         where: { id: brute.id },
-        data: {
-          name: newName,
-          deletionReason: brute.deletionReason === BruteDeletionReason.DUPLICATE_NAME
-            ? null
-            : undefined,
-          willBeDeletedAt: brute.deletionReason === BruteDeletionReason.DUPLICATE_NAME
-            ? null
-            : undefined,
-        },
+        data,
       });
+
+      // Remove name change item
+      if (brute.inventory[0].count === 1) {
+        await prisma.bruteInventoryItem.delete({
+          where: { id: brute.inventory[0].id },
+        });
+      } else {
+        await prisma.bruteInventoryItem.update({
+          where: { id: brute.inventory[0].id },
+          data: {
+            count: {
+              decrement: 1,
+            },
+          },
+        });
+      }
 
       res.send({ success: true });
     } catch (error) {

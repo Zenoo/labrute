@@ -3,7 +3,9 @@ import {
   BruteReportsListRequest, BruteReportsListResponse, BruteReportsSendRequest,
   ExpectedError,
 } from '@labrute/core';
-import { BruteReportReason, BruteReportStatus, InventoryItemType, PrismaClient } from '@labrute/prisma';
+import {
+  BruteReportReason, BruteReportStatus, InventoryItemType, PrismaClient,
+} from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import moment from 'moment';
 import { LOGGER } from '../context.js';
