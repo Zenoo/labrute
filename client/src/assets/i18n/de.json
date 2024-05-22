@@ -1259,5 +1259,9 @@
   "inventory.desc": "Hier kannst du dir alle Gegenstände ansehen, die du gesammelt hast. Nutze sie weise!",
   "inventory.item.visualReset": "Aussehen zurücksetzen",
   "inventory.item.bossTicket": "Boss-Gutschein",
-  "inventory.itemNotImplemented": "Dieser Gegenstand ist noch nicht implementiert."
+  "inventory.item.nameChange": "Name change",
+  "inventory.itemNotImplemented": "Dieser Gegenstand ist noch nicht implementiert.",
+  "taggedForDeletion": "Your brute will be deleted in {{days}} days.",
+  "deletionReason.DUPLICATE_NAME": "Your brute has the same name as another brute. Use the item in your inventory to change it and avoid deletion.",
+  "nameChangeConfirm": "Are you sure you want to change your brute's name to {{name}}?"
 }
