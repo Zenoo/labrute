@@ -1259,5 +1259,9 @@
   "inventory.desc": "Ici vous pouvez voir tous les objets que vous avez accumulés. Utilisez-les judicieusement !",
   "inventory.item.visualReset": "Changement d'apparence",
   "inventory.item.bossTicket": "Ticket Boss",
-  "inventory.itemNotImplemented": "Cet objet n'est pas encore implémenté."
+  "inventory.item.nameChange": "Name change",
+  "inventory.itemNotImplemented": "Cet objet n'est pas encore implémenté.",
+  "taggedForDeletion": "Your brute will be deleted in {{days}} days.",
+  "deletionReason.DUPLICATE_NAME": "Your brute has the same name as another brute. Use the item in your inventory to change it and avoid deletion.",
+  "nameChangeConfirm": "Are you sure you want to change your brute's name to {{name}}?"
 }
