@@ -21,7 +21,7 @@ const ResetVisualsView = () => {
   const { t } = useTranslation();
   const Alert = useAlert();
   const navigate = useNavigate();
-  const { brute, updateBrute } = useBrute();
+  const { brute, updateBrute, owner } = useBrute();
   const { updateData } = useAuth();
   const Confirm = useConfirm();
   const { resetCache } = useRenderer();
@@ -108,58 +108,62 @@ const ResetVisualsView = () => {
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('resetVisuals')}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
-        <Text bold center>{t('resetVisualsDescription')}</Text>
-        <Box sx={{
-          mx: 'auto',
-          width: 70,
-        }}
-        >
-          <BruteRender
-            brute={{
-              id: 0,
-              name: brute.name,
-              body: body || '0'.repeat(11),
-              colors: colors || '0'.repeat(32),
-              gender: brute.gender,
+        {owner && (
+          <>
+            <Text bold center>{t('resetVisualsDescription')}</Text>
+            <Box sx={{
+              mx: 'auto',
+              width: 70,
             }}
-          />
-        </Box>
-        {/* CUSTOMIZATION BUTTONS */}
-        <Box sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          gap: 2,
-          mt: -7,
-          mb: 1,
-        }}
-        >
-          <Tooltip title={t('changeAppearance')}>
-            <StyledButton
-              onClick={changeAppearance}
-              image="/images/creation/bodyType.svg"
-              swapImage={false}
-              sx={{
-                width: 89,
-                height: 89,
-              }}
-            />
-          </Tooltip>
-          <Tooltip title={t('changeColors')}>
-            <StyledButton
-              onClick={changeColors}
-              image="/images/creation/color.svg"
-              swapImage={false}
-              sx={{
-                width: 89,
-                height: 89,
-              }}
-            />
-          </Tooltip>
-        </Box>
-        {/* VALIDATION */}
-        <Box sx={{ textAlign: 'center' }}>
-          <FantasyButton color="success" onClick={resetVisuals}>{t('validate')}</FantasyButton>
-        </Box>
+            >
+              <BruteRender
+                brute={{
+                  id: 0,
+                  name: brute.name,
+                  body: body || '0'.repeat(11),
+                  colors: colors || '0'.repeat(32),
+                  gender: brute.gender,
+                }}
+              />
+            </Box>
+            {/* CUSTOMIZATION BUTTONS */}
+            <Box sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              gap: 2,
+              mt: -7,
+              mb: 1,
+            }}
+            >
+              <Tooltip title={t('changeAppearance')}>
+                <StyledButton
+                  onClick={changeAppearance}
+                  image="/images/creation/bodyType.svg"
+                  swapImage={false}
+                  sx={{
+                    width: 89,
+                    height: 89,
+                  }}
+                />
+              </Tooltip>
+              <Tooltip title={t('changeColors')}>
+                <StyledButton
+                  onClick={changeColors}
+                  image="/images/creation/color.svg"
+                  swapImage={false}
+                  sx={{
+                    width: 89,
+                    height: 89,
+                  }}
+                />
+              </Tooltip>
+            </Box>
+            {/* VALIDATION */}
+            <Box sx={{ textAlign: 'center' }}>
+              <FantasyButton color="success" onClick={resetVisuals}>{t('validate')}</FantasyButton>
+            </Box>
+          </>
+        )}
       </Paper>
     </Page>
   );
