@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.56.0](https://github.com/Zenoo/labrute/compare/labrute-v2.55.0...labrute-v2.56.0) (2024-05-22)
+
+
+### Features
+
+* Name change. Duplicate names deletion. Reports deletion grace period. Fixes [#697](https://github.com/Zenoo/labrute/issues/697). ([b9b80e2](https://github.com/Zenoo/labrute/commit/b9b80e2a9886694d2babe9be25d412477cc208a3))
+
+
+### Bug Fixes
+
+* Dark mode assets. [#604](https://github.com/Zenoo/labrute/issues/604) ([56ad1ff](https://github.com/Zenoo/labrute/commit/56ad1ff9545e152fcbaaef927b807cdd71bc867d))
+* Limit inventory to owner. Fixes [#695](https://github.com/Zenoo/labrute/issues/695) ([1c3fb43](https://github.com/Zenoo/labrute/commit/1c3fb4324bda03e6484441ec8298cf7a203ec334))
+* New dark mode assets. [#604](https://github.com/Zenoo/labrute/issues/604) ([4611747](https://github.com/Zenoo/labrute/commit/46117473dae86b997838202ea9cf666b2fd75875))
+
 ## [2.55.0](https://github.com/Zenoo/labrute/compare/labrute-v2.54.6...labrute-v2.55.0) (2024-05-18)
 
 
