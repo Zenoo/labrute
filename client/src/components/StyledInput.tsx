@@ -1,40 +1,46 @@
-import { Box, TextField, TextFieldProps } from '@mui/material';
+import { Box, TextField, TextFieldProps, useTheme } from '@mui/material';
 import React from 'react';
 
 /**
  * StyledButton component
  */
-const StyledInput = ({ sx, ...rest }: TextFieldProps) => (
-  <Box
-    sx={{
-      position: 'relative',
-      textAlign: 'center',
-      width: 204,
-      ...sx
-    }}
-  >
+const StyledInput = ({ sx, ...rest }: TextFieldProps) => {
+  const { palette: { mode } } = useTheme();
+
+  return (
     <Box
-      component="img"
-      src="/images/creation/input.svg"
       sx={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        zIndex: 1,
-        filter: 'drop-shadow(4px 4px 0px rgba(0, 0, 0, 0.2))',
-      }}
-    />
-    <TextField
-      fullWidth
-      sx={{
-        px: 1,
         position: 'relative',
-        zIndex: 2,
+        textAlign: 'center',
+        width: 204,
         ...sx
       }}
-      {...rest}
-    />
-  </Box>
-);
+    >
+      <Box
+        component="img"
+        src={`/images${mode === 'dark' ? '/dark' : ''}/creation/input.svg`}
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          zIndex: 1,
+          filter: 'drop-shadow(4px 4px 0px rgba(0, 0, 0, 0.2))',
+          width: 204,
+          height: 50
+        }}
+      />
+      <TextField
+        fullWidth
+        sx={{
+          px: 1,
+          position: 'relative',
+          zIndex: 2,
+          ...sx
+        }}
+        {...rest}
+      />
+    </Box>
+  );
+};
 
 export default StyledInput;

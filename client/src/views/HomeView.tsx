@@ -276,6 +276,7 @@ const HomeView = () => {
                     sx={{
                       width: 89,
                       height: 89,
+                      backgroundSize: '100%'
                     }}
                   />
                 </Tooltip>
@@ -287,6 +288,7 @@ const HomeView = () => {
                     sx={{
                       width: 89,
                       height: 89,
+                      backgroundSize: '100%'
                     }}
                   />
                 </Tooltip>
