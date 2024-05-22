@@ -1259,9 +1259,10 @@
   "inventory.desc": "Aquí puedes ver todos los objetos conseguidos. ¡Úsalos sabiamente!",
   "inventory.item.visualReset": "Reinicio visual",
   "inventory.item.bossTicket": "Ticket de jefe",
-  "inventory.item.nameChange": "Name change",
+  "inventory.item.nameChange": "Cambio de nombre",
   "inventory.itemNotImplemented": "Este objeto aún no se ha implementado.",
-  "taggedForDeletion": "Your brute will be deleted in {{days}} days.",
-  "deletionReason.DUPLICATE_NAME": "Your brute has the same name as another brute. Use the item in your inventory to change it and avoid deletion.",
-  "nameChangeConfirm": "Are you sure you want to change your brute's name to {{name}}?"
+  "taggedForDeletion": "Tu bruto será eliminado en {{days}} días.",
+  "deletionReason.DUPLICATE_NAME": "Tu bruto tiene el mismo nombre que otro bruto. Usa el objeto de tu inventario para cambiarlo y evitar que tu bruto sea eliminado.",
+  "deletionReason.INNAPROPRIATE_NAME": "Your brute has an inappropriate name. Use the item in your inventory to change it and avoid deletion.",
+  "nameChangeConfirm": "¿Estás seguro de que quieres cambiar el nombre de tu bruto a {{name}}?"
 }
