@@ -1259,9 +1259,10 @@
   "inventory.desc": "Hier kannst du dir alle Gegenstände ansehen, die du gesammelt hast. Nutze sie weise!",
   "inventory.item.visualReset": "Aussehen zurücksetzen",
   "inventory.item.bossTicket": "Boss-Gutschein",
-  "inventory.item.nameChange": "Name change",
+  "inventory.item.nameChange": "Namensänderung",
   "inventory.itemNotImplemented": "Dieser Gegenstand ist noch nicht implementiert.",
-  "taggedForDeletion": "Your brute will be deleted in {{days}} days.",
-  "deletionReason.DUPLICATE_NAME": "Your brute has the same name as another brute. Use the item in your inventory to change it and avoid deletion.",
-  "nameChangeConfirm": "Are you sure you want to change your brute's name to {{name}}?"
+  "taggedForDeletion": "Dein Brutalo wird in {{days}} Tag(en) gelöscht.",
+  "deletionReason.DUPLICATE_NAME": "Dein Brutalo hat mit einem anderen Brutalo den gleichen Namen. Nutze den Gegenstand in deinem Inventar und ändere diesen, um eine Löschung zu vermeiden.",
+  "deletionReason.INNAPROPRIATE_NAME": "Dein Brutalo hat einen unangemessenen Namen. Nutze den Gegenstand in deinem Inventar und ändere diesen, um eine Löschung zu vermeiden.",
+  "nameChangeConfirm": "Bist du sicher, dass du den Namen deines Brutalos auf {{name}} ändern möchtest?"
 }

@@ -1263,5 +1263,6 @@
   "inventory.itemNotImplemented": "This item is not implemented yet.",
   "taggedForDeletion": "Your brute will be deleted in {{days}} days.",
   "deletionReason.DUPLICATE_NAME": "Your brute has the same name as another brute. Use the item in your inventory to change it and avoid deletion.",
+  "deletionReason.INNAPROPRIATE_NAME": "Your brute has an inappropriate name. Use the item in your inventory to change it and avoid deletion.",
   "nameChangeConfirm": "Are you sure you want to change your brute's name to {{name}}?"
 }
