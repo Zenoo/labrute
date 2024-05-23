@@ -1,11 +1,9 @@
 import { SpyStep, WeaponId, randomBetween } from '@labrute/core';
-import { Application } from 'pixi.js';
 
 import { Easing, Tweener } from 'pixi-tweener';
 import findFighter, { AnimationFighter } from './findFighter';
 
 const spy = async (
-  app: Application,
   fighters: AnimationFighter[],
   step: SpyStep,
   speed: React.MutableRefObject<number>,

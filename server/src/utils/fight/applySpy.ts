@@ -33,12 +33,25 @@ const applySpy = (
     });
 
     // Swap weapons
-    opponent.weapons = opponent.weapons
-      .filter((weapon) => !opponentWeaponsToSwap.includes(weapon))
-      .concat(bruteWeaponsToSwap);
-    brute.weapons = brute.weapons
-      .filter((weapon) => !bruteWeaponsToSwap.includes(weapon))
-      .concat(opponentWeaponsToSwap);
+    for (const weaponToSwap of bruteWeaponsToSwap) {
+      const index = brute.weapons.findIndex((weapon) => weapon.name === weaponToSwap.name);
+      if (index === -1) {
+        throw new Error('Weapon not found');
+      }
+
+      brute.weapons.splice(index, 1);
+      opponent.weapons.push(weaponToSwap);
+    }
+
+    for (const weaponToSwap of opponentWeaponsToSwap) {
+      const index = opponent.weapons.findIndex((weapon) => weapon.name === weaponToSwap.name);
+      if (index === -1) {
+        throw new Error('Weapon not found');
+      }
+
+      opponent.weapons.splice(index, 1);
+      brute.weapons.push(weaponToSwap);
+    }
 
     // Add own weapons to opponent damaged weapons
     opponent.damagedWeapons.push(...bruteWeaponsToSwap.map((weapon) => weapon.name));

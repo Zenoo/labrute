@@ -31,7 +31,7 @@ model User {
   connexionToken  String           @db.Uuid
   bruteLimit      Int              @default(3)
   gold            Int              @default(0)
-  fightSpeed      Int              @default(1)
+  fightSpeed      Int              @default(2)
   backgroundMusic Boolean          @default(true)
   dinorpgDone     DateTime?        @db.Date
   brutes          Brute[]

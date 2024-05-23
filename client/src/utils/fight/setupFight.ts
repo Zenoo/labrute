@@ -577,7 +577,7 @@ const setupFight: (
         break;
       }
       case StepType.Spy: {
-        await spy(app, fighters, step, speed);
+        await spy(fighters, step, speed);
         break;
       }
       case StepType.Counter: {
