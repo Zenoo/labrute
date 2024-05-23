@@ -5,7 +5,8 @@ import {
   BASE_FIGHTER_STATS,
   DetailedFight, DetailedFighter, FighterStat, LeaveStep,
   NO_WEAPON_TOSS,
-  randomBetween, randomItem, SHIELD_BLOCK_ODDS, Skill, SkillByName, StepType, updateAchievement, Weapon,
+  randomBetween, randomItem, SHIELD_BLOCK_ODDS, Skill,
+  SkillByName, StepType, updateAchievement, Weapon,
   WeaponByName,
 } from '@labrute/core';
 import { PetName } from '@labrute/prisma';
@@ -245,14 +246,11 @@ const getRandomOpponent = (
     opponents = opponents.filter((f) => !f.trapped);
   }
 
-  const random = randomBetween(0, opponents.length - 1);
-  const randomOpponent = opponents[random];
-
-  if (!randomOpponent) {
-    throw new Error('No random opponent found');
+  if (!opponents.length) {
+    return null;
   }
 
-  return randomOpponent;
+  return randomItem(opponents);
 };
 
 const randomlyGetSuper = (fightData: DetailedFight, brute: DetailedFighter) => {
@@ -483,6 +481,10 @@ const activateSuper = (
       // Choose brute opponent
       const opponent = getRandomOpponent(fightData, fighter, true);
 
+      if (!opponent) {
+        return false;
+      }
+
       // Abort if no weapon
       if (!opponent.activeWeapon) return false;
 
@@ -574,6 +576,10 @@ const activateSuper = (
       if (!opponent) {
         // Choose brute opponent if no pet
         opponent = getRandomOpponent(fightData, fighter, true, false, true);
+
+        if (!opponent) {
+          return false;
+        }
       }
 
       // Set opponent's trapped status
@@ -628,6 +634,10 @@ const activateSuper = (
 
       // Choose opponent
       const opponent = getRandomOpponent(fightData, fighter, true);
+
+      if (!opponent) {
+        return false;
+      }
 
       // Add to active skills
       fighter.activeSkills.push(skill);
@@ -757,6 +767,10 @@ const activateSuper = (
     case 'flashFlood': {
       // Choose opponent
       const opponent = getRandomOpponent(fightData, fighter, true);
+
+      if (!opponent) {
+        return false;
+      }
 
       // Shuffle weapons
       const shuffledWeapons = [...fighter.weapons].sort(() => Math.random() - 0.5);
@@ -1427,6 +1441,10 @@ export const playFighterTurn = (
 
   // Get opponent
   const opponent = getRandomOpponent(fightData, fighter);
+
+  if (!opponent) {
+    return;
+  }
 
   // Melee attack
   if (attackType === 'melee') {
