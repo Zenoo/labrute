@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.56.4](https://github.com/Zenoo/labrute/compare/labrute-v2.56.3...labrute-v2.56.4) (2024-05-23)
+
+
+### Bug Fixes
+
+* Missing opponent ([1966a65](https://github.com/Zenoo/labrute/commit/1966a65f61ea50a49780be640a9b0b01213d220a))
+
 ## [2.56.3](https://github.com/Zenoo/labrute/compare/labrute-v2.56.2...labrute-v2.56.3) (2024-05-23)
 
 
