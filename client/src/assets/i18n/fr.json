@@ -1263,6 +1263,6 @@
   "inventory.itemNotImplemented": "Cet objet n'est pas encore implémenté.",
   "taggedForDeletion": "Votre brute sera supprimée dans {{days}} jours.",
   "deletionReason.DUPLICATE_NAME": "Votre brute a le même nom qu'une autre brute. Utilisez l'objet dans votre inventaire pour le modifier et éviter la suppression.",
-  "deletionReason.INNAPROPRIATE_NAME": "Your brute has an inappropriate name. Use the item in your inventory to change it and avoid deletion.",
+  "deletionReason.INNAPROPRIATE_NAME": "Votre brute a un nom inapproprié. Utilisez l'objet dans votre inventaire pour le modifier et éviter la suppression.",
   "nameChangeConfirm": "Êtes-vous sûr de vouloir changer le nom de votre brute en {{name}}?"
 }
