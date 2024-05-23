@@ -15,7 +15,7 @@ const hypnotise = async (
   if (!app.loader) {
     return;
   }
-  const { loader: { resources: { '/images/game/misc.json': { spritesheet } } } } = app;
+  const spritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
 
   if (!spritesheet) {
     throw new Error('Spritesheet not found');
@@ -49,7 +49,7 @@ const hypnotise = async (
   }));
 
   // Create wave sprite
-  const wave = new AnimatedSprite(spritesheet.animations.wave);
+  const wave = new AnimatedSprite(spritesheet.animations.wave || []);
   wave.animationSpeed = speed.current;
   wave.loop = true;
 

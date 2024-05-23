@@ -665,14 +665,14 @@ export default class FighterHolder {
   #triggerEvents = (event: string) => {
     // Trigger events
     if (this.events[event]) {
-      for (const callback of this.events[event]) {
+      for (const callback of this.events[event] ?? []) {
         callback(event);
       }
     }
 
     // Trigger once events
     if (this.onceEvents[event]) {
-      for (const callback of this.onceEvents[event]) {
+      for (const callback of this.onceEvents[event] ?? []) {
         callback(event);
       }
       delete this.onceEvents[event];
@@ -945,6 +945,10 @@ export default class FighterHolder {
       for (let i = 0; i < frameParts.length; i++) {
         const framePart = frameParts[i];
 
+        if (!framePart) {
+          throw new Error(`Part ${i} not found in frame ${frameToLoad}`);
+        }
+
         // Count identic symbols already used
         const identicSymbolsCount = usedSymbols.filter((s) => s === framePart.name).length;
 
@@ -1054,7 +1058,7 @@ export default class FighterHolder {
       this.onceEvents[event] = [];
     }
 
-    this.onceEvents[event].push(callback);
+    (this.onceEvents[event] ?? []).push(callback);
   };
 
   on = (event: string, callback: (e: string) => void) => {
@@ -1062,7 +1066,7 @@ export default class FighterHolder {
       this.events[event] = [];
     }
 
-    this.events[event].push(callback);
+    (this.events[event] ?? []).push(callback);
   };
 
   play = () => {

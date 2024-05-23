@@ -158,7 +158,7 @@ ${error.stack}
     const embed = new EmbedBuilder()
       .setColor(0xebad70)
       .setTitle(formatEmbedTitle('New tournament created!'))
-      .setURL(`${this.#server}${brutes[0].name}/tournament/${moment.utc(tournament.date).format('YYYY-MM-DD')}`)
+      .setURL(`${this.#server}${brutes[0]?.name}/tournament/${moment.utc(tournament.date).format('YYYY-MM-DD')}`)
       .setAuthor({
         name: 'LaBrute',
         iconURL: `${this.#server}/favicon.png`,

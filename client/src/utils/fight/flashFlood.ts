@@ -21,7 +21,7 @@ const flashFlood = async (
   if (!app.loader) {
     return;
   }
-  const { loader: { resources: { '/images/game/thrown-weapons.json': { spritesheet } } } } = app;
+  const spritesheet = app.loader.resources['/images/game/thrown-weapons.json']?.spritesheet;
 
   if (!spritesheet) {
     throw new Error('Spritesheet not found');

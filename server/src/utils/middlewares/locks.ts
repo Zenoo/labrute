@@ -17,7 +17,7 @@ export default function lockMiddleware(req: Request, res: Response, next: NextFu
   const { headers: { authorization } } = req;
 
   if (authorization) {
-    const [id] = Buffer.from(authorization.split(' ')[1], 'base64').toString().split(':');
+    const [id] = Buffer.from(authorization.split(' ')[1] || '', 'base64').toString().split(':');
 
     if (!id || id === 'null') {
       return sendError(res, new ExpectedError('Invalid authorization header content'));

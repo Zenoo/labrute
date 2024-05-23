@@ -168,7 +168,7 @@ const Tournaments = {
 
       // If brute was eliminated, set tournament as fully watched
       if (!tournament.fights
-        .find((fight) => fight.tournamentStep >= steps[stepWatched + 1]
+        .find((fight) => fight.tournamentStep >= (steps[stepWatched + 1] || 63)
           && (fight.brute1Id === brute.id || fight.brute2Id === brute.id))) {
         await prisma.brute.update({
           where: {
@@ -574,10 +574,11 @@ const Tournaments = {
           .filter((f) => f.tournamentId === tournament.id)
           .sort((a, b) => a.tournamentStep - b.tournamentStep);
 
-        if (fights.length) {
+        const firstFight = fights[0];
+        if (firstFight) {
           // Take bye into account for global tournaments
           const fightsWithBye = tournament.type === TournamentType.GLOBAL
-            ? fights[0].tournamentStep !== 1
+            ? firstFight.tournamentStep !== 1
               ? fights.length + 1
               : fights.length
             : fights.length;

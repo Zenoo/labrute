@@ -1,3 +1,4 @@
+import { randomItem } from '@labrute/core';
 import { Lang } from '@labrute/prisma';
 
 export type AdName = 'myHordes' | 'eMush' | 'eternalDinoRPG' | 'neoparc' | 'eternalfest' | 'eternalKingdom' | 'directquiz' | 'ePopotamo';
@@ -123,7 +124,7 @@ const getAd = (adName: AdName, language: Lang) => {
     throw new Error(`No illustration for ad ${adName}`);
   }
 
-  const illustration = illustrations[Math.floor(Math.random() * illustrations.length)];
+  const illustration = randomItem(illustrations);
 
   const result = {
     name: adName,
@@ -154,7 +155,7 @@ export const getRandomAd = (language: Lang, exclude?: AdName) => {
     throw new Error('No ad left');
   }
 
-  const adName = adNames[Math.floor(Math.random() * adNames.length)];
+  const adName = randomItem(adNames);
 
   return getAd(adName, language);
 };

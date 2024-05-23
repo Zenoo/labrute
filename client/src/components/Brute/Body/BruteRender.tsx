@@ -34,8 +34,8 @@ const BruteRender = ({
   }, [brute, renderer]);
 
   const parts = {
-    p3: parseInt(brute.body[4], 16),
-    p7: parseInt(brute.body[8], 16),
+    p3: parseInt(brute.body[4] || '0', 16),
+    p7: parseInt(brute.body[8] || '0', 16),
   };
 
   const { p3, p7 } = parts;

@@ -42,6 +42,10 @@ const spy = async (
     // Remove weapon illustration from brute
     const [weaponIllustration] = brute.weaponsIllustrations.splice(illustrationIndex, 1);
 
+    if (!weaponIllustration) {
+      throw new Error('Weapon illustration not found');
+    }
+
     // Add weapon to opponent
     opponent.weapons.push(weaponToSwap);
     opponent.weaponsIllustrations.push(weaponIllustration);
@@ -66,6 +70,10 @@ const spy = async (
 
     // Remove weapon illustration from opponent
     const [weaponIllustration] = opponent.weaponsIllustrations.splice(illustrationIndex, 1);
+
+    if (!weaponIllustration) {
+      throw new Error('Weapon illustration not found');
+    }
 
     // Add weapon to brute
     brute.weapons.push(weaponToSwap);

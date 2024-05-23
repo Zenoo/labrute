@@ -152,13 +152,13 @@ const CellView = () => {
     };
 
     const handlerStart = (e: TouchEvent) => {
-      touchstartX = e.changedTouches[0].screenX;
-      touchstartY = e.changedTouches[0].screenY;
+      touchstartX = e.changedTouches[0]?.screenX ?? touchstartX;
+      touchstartY = e.changedTouches[0]?.screenY ?? touchstartY;
     };
 
     const handlerEnd = (e: TouchEvent) => {
-      touchendX = e.changedTouches[0].screenX;
-      touchendY = e.changedTouches[0].screenY;
+      touchendX = e.changedTouches[0]?.screenX ?? touchendX;
+      touchendY = e.changedTouches[0]?.screenY ?? touchendY;
       checkSwipe();
     };
 

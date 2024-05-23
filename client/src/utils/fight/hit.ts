@@ -21,7 +21,7 @@ const hit = async (
   if (!app.loader) {
     return;
   }
-  const { loader: { resources: { '/images/game/misc.json': { spritesheet } } } } = app;
+  const spritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
 
   if (!spritesheet) {
     throw new Error('Spritesheet not found');
@@ -87,7 +87,7 @@ const hit = async (
 
   // Create hit VFX
   if (vfx) {
-    const hitVfx = new AnimatedSprite(spritesheet.animations[vfx]);
+    const hitVfx = new AnimatedSprite(spritesheet.animations[vfx] || []);
     hitVfx.zIndex = 1000;
     hitVfx.animationSpeed = speed.current / 4;
     hitVfx.loop = false;

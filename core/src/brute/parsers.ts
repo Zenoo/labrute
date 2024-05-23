@@ -4,17 +4,17 @@ import { colors } from './colors';
 import pad from '../utils/pad';
 
 export const readBodyString = (bodyString: string): Record<BruteBodyPart, number> => ({
-  p1: parseInt(bodyString[0], 16),
-  p1a: parseInt(bodyString[1], 16),
-  p1b: parseInt(bodyString[2], 16),
-  p2: parseInt(bodyString[3], 16),
-  p3: parseInt(bodyString[4], 16),
-  p4: parseInt(bodyString[5], 16),
-  p5: parseInt(bodyString[6], 16),
-  p6: parseInt(bodyString[7], 16),
-  p7: parseInt(bodyString[8], 16),
-  p7b: parseInt(bodyString[9], 16),
-  p8: parseInt(bodyString[10], 16),
+  p1: parseInt(bodyString[0] || '0', 16),
+  p1a: parseInt(bodyString[1] || '0', 16),
+  p1b: parseInt(bodyString[2] || '0', 16),
+  p2: parseInt(bodyString[3] || '0', 16),
+  p3: parseInt(bodyString[4] || '0', 16),
+  p4: parseInt(bodyString[5] || '0', 16),
+  p5: parseInt(bodyString[6] || '0', 16),
+  p6: parseInt(bodyString[7] || '0', 16),
+  p7: parseInt(bodyString[8] || '0', 16),
+  p7b: parseInt(bodyString[9] || '0', 16),
+  p8: parseInt(bodyString[10] || '0', 16),
 });
 
 export const generateBodyString = (body: Record<BruteBodyPart, number>): string => [
@@ -41,7 +41,8 @@ export const getColor = (gender: Gender, part: BruteColor, color: number) => {
   else if (hairParts.includes(part)) colorArray = colors[gender].hair;
   else if (clothingParts.includes(part)) colorArray = colors[gender].clothing;
 
-  if (colorArray[color]) return colorArray[color];
+  const normalColor = colorArray[color];
+  if (normalColor) return normalColor;
 
   return colors.special[99 - color] || '#ffffff';
 };

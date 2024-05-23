@@ -24,7 +24,7 @@ import {
   getRandomStartingStats,
   getXPNeeded,
   isNameValid,
-  randomBetween, updateBruteData,
+  randomItem, updateBruteData,
 } from '@labrute/core';
 import {
   Brute,
@@ -33,6 +33,7 @@ import {
 } from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import moment from 'moment';
+import { LOGGER } from '../context.js';
 import auth from '../utils/auth.js';
 import checkBody from '../utils/brute/checkBody.js';
 import checkColors from '../utils/brute/checkColors.js';
@@ -42,7 +43,6 @@ import updateClanPoints from '../utils/clan/updateClanPoints.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
 import { increaseAchievement } from './Achievements.js';
-import { LOGGER } from '../context.js';
 
 const Brutes = {
   getForVersus: (prisma: PrismaClient) => async (
@@ -1194,11 +1194,11 @@ const Brutes = {
 
           if (lowerBruteIds.length > 0) {
             // Select a random lower level opponent
-            newOpponentId = lowerBruteIds[randomBetween(0, lowerBruteIds.length - 1)];
+            newOpponentId = randomItem(lowerBruteIds);
           }
         } else {
           // Select a new random opponent
-          newOpponentId = bruteIds[randomBetween(0, bruteIds.length - 1)];
+          newOpponentId = randomItem(bruteIds);
         }
 
         if (newOpponentId) {
@@ -1735,11 +1735,11 @@ const Brutes = {
 
           if (lowerBruteIds.length > 0) {
             // Select a random lower level opponent
-            newOpponentId = lowerBruteIds[randomBetween(0, lowerBruteIds.length - 1)];
+            newOpponentId = randomItem(lowerBruteIds);
           }
         } else {
           // Select a new random opponent
-          newOpponentId = bruteIds[randomBetween(0, bruteIds.length - 1)];
+          newOpponentId = randomItem(bruteIds);
         }
 
         if (newOpponentId) {
@@ -1994,7 +1994,9 @@ const Brutes = {
         throw new ExpectedError(translate('bruteNotFound', authed));
       }
 
-      if (brute.inventory.length === 0 || brute.inventory[0].count < 1) {
+      const nameChangeItem = brute.inventory[0];
+
+      if (!nameChangeItem || nameChangeItem.count < 1) {
         throw new ExpectedError(translate('noNameChange', authed));
       }
 
@@ -2017,13 +2019,13 @@ const Brutes = {
       });
 
       // Remove name change item
-      if (brute.inventory[0].count === 1) {
+      if (nameChangeItem.count === 1) {
         await prisma.bruteInventoryItem.delete({
-          where: { id: brute.inventory[0].id },
+          where: { id: nameChangeItem.id },
         });
       } else {
         await prisma.bruteInventoryItem.update({
-          where: { id: brute.inventory[0].id },
+          where: { id: nameChangeItem.id },
           data: {
             count: {
               decrement: 1,

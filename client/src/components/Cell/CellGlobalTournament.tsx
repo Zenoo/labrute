@@ -63,6 +63,8 @@ const CellGlobalTournament = ({
       .reduce((round, fight) => (fight.tournamentStep > round ? fight.tournamentStep : round), 0);
   }, [brute, data]);
 
+  const lastRoundsFirstStep = data?.lastRounds[0]?.tournamentStep ?? 0;
+
   // Get data
   useEffect(() => {
     let isSubscribed = true;
@@ -133,10 +135,10 @@ const CellGlobalTournament = ({
 
   // Last fights renderer
   const renderFight = (
-    fight: TournamentsGetGlobalFight,
+    fight: TournamentsGetGlobalFight | undefined,
     finals = false,
   ) => {
-    if (!bruteName) return null;
+    if (!bruteName || !fight) return null;
 
     const bruteInFight = fight.brute1Id === brute?.id
       || fight.brute2Id === brute?.id;
@@ -482,7 +484,7 @@ const CellGlobalTournament = ({
         {/* Last rounds */}
         {/* Quarter-final */}
         {data.lastRounds.length > 0
-          && (!owner || watchingRound >= data.lastRounds[0].tournamentStep)
+          && (!owner || watchingRound >= lastRoundsFirstStep)
           && (
             <>
               <Box sx={{
@@ -498,26 +500,26 @@ const CellGlobalTournament = ({
                 }
               }}
               >
-                <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[0].tournamentStep + GLOBAL_TOURNAMENT_START_HOUR - 1}h {t('quarterFinals')}</Text>
+                <Text bold sx={{ flexBasis: '100%' }}>{lastRoundsFirstStep + GLOBAL_TOURNAMENT_START_HOUR - 1}h {t('quarterFinals')}</Text>
                 {data.lastRounds
-                  .filter((fight) => fight.tournamentStep === data.lastRounds[0].tournamentStep)
+                  .filter((fight) => fight.tournamentStep === lastRoundsFirstStep)
                   .map((fight) => renderFight(fight))}
               </Box>
               {/* Lost marker */}
               {lostRound
-                && lostRound.tournamentStep === data.lastRounds[0].tournamentStep
-                && (!owner || watchingRound > data.lastRounds[0].tournamentStep)
+                && lostRound.tournamentStep === lastRoundsFirstStep
+                && (!owner || watchingRound > lastRoundsFirstStep)
                 && renderLostMarker()}
               {/* Next opponent */}
               {data.nextOpponent
                 && data.lastRounds.length === 4
-                && (!owner || watchingRound >= data.lastRounds[0].tournamentStep)
+                && (!owner || watchingRound >= lastRoundsFirstStep)
                 && renderNextOpponent()}
             </>
           )}
         {/* Semi-final */}
         {data.lastRounds.length > 4
-          && (!owner || watchingRound >= data.lastRounds[0].tournamentStep + 1)
+          && (!owner || watchingRound >= lastRoundsFirstStep + 1)
           && (
             <>
               <Box sx={{
@@ -533,28 +535,28 @@ const CellGlobalTournament = ({
                 }
               }}
               >
-                <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[0].tournamentStep + GLOBAL_TOURNAMENT_START_HOUR}h {t('semiFinals')}</Text>
+                <Text bold sx={{ flexBasis: '100%' }}>{lastRoundsFirstStep + GLOBAL_TOURNAMENT_START_HOUR}h {t('semiFinals')}</Text>
                 {data.lastRounds
-                  .filter((fight) => fight.tournamentStep === data.lastRounds[0].tournamentStep + 1)
+                  .filter((fight) => fight.tournamentStep === lastRoundsFirstStep + 1)
                   .map((step) => renderFight(step))}
               </Box>
               {/* Lost marker */}
               {lostRound
-                && lostRound.tournamentStep === data.lastRounds[0].tournamentStep + 1
-                && (!owner || watchingRound > (data.lastRounds[0].tournamentStep + 1))
+                && lostRound.tournamentStep === lastRoundsFirstStep + 1
+                && (!owner || watchingRound > (lastRoundsFirstStep + 1))
                 && renderLostMarker()}
               {/* Next opponent */}
               {data.nextOpponent
                 && data.lastRounds.length === 6
-                && (!owner || watchingRound > (data.lastRounds[0].tournamentStep + 1))
+                && (!owner || watchingRound > (lastRoundsFirstStep + 1))
                 && renderNextOpponent()}
             </>
           )}
         {/* Final */}
         {data.lastRounds.find(
-          (fight) => fight.tournamentStep === data.lastRounds[0].tournamentStep + 2
+          (fight) => fight.tournamentStep === lastRoundsFirstStep + 2
         )
-          && (!owner || watchingRound >= data.lastRounds[0].tournamentStep + 2)
+          && (!owner || watchingRound >= lastRoundsFirstStep + 2)
           && (
             <>
               <Box sx={{
@@ -570,13 +572,13 @@ const CellGlobalTournament = ({
                 }
               }}
               >
-                <Text bold sx={{ flexBasis: '100%' }}>{data.lastRounds[data.lastRounds.length - 1].tournamentStep + GLOBAL_TOURNAMENT_START_HOUR - 1}h {t('finals')}</Text>
+                <Text bold sx={{ flexBasis: '100%' }}>{(data.lastRounds[data.lastRounds.length - 1]?.tournamentStep ?? 0) + GLOBAL_TOURNAMENT_START_HOUR - 1}h {t('finals')}</Text>
                 {renderFight(data.lastRounds[data.lastRounds.length - 1], true)}
               </Box>
               {/* Lost marker */}
               {lostRound
-                && lostRound.tournamentStep === data.lastRounds[0].tournamentStep + 2
-                && (!owner || watchingRound > (data.lastRounds[0].tournamentStep + 2))
+                && lostRound.tournamentStep === lastRoundsFirstStep + 2
+                && (!owner || watchingRound > (lastRoundsFirstStep + 2))
                 && renderLostMarker()}
             </>
           )}

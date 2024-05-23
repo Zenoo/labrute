@@ -2,6 +2,7 @@ import {
   ClanChallengeBossResponse,
   ClanCreateResponse, ClanGetResponse, ClanGetThreadResponse,
   ClanGetThreadsResponse, ClanListResponse, ExpectedError, bosses, getFightsLeft, randomBetween,
+  randomItem,
 } from '@labrute/core';
 import { Clan, Prisma, PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
@@ -148,7 +149,7 @@ const Clans = {
           name: clanName,
           master: { connect: { id: brute.id } },
           brutes: { connect: { id: brute.id } },
-          boss: bosses[randomBetween(0, bosses.length - 1)].name,
+          boss: randomItem(bosses).name,
         },
         select: { id: true, name: true },
       });
@@ -211,8 +212,10 @@ const Clans = {
       const masterIndex = clan.brutes.findIndex((b) => b.id === clan.masterId);
 
       if (masterIndex !== -1) {
-        const master = clan.brutes.splice(masterIndex, 1);
-        clan.brutes.unshift(master[0]);
+        const [master] = clan.brutes.splice(masterIndex, 1);
+        if (master) {
+          clan.brutes.unshift(master);
+        }
       }
 
       res.status(200).send(clan);

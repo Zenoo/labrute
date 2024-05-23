@@ -176,11 +176,15 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
     .map((_, index) => shuffledBrutes.slice(index * 64, index * 64 + 64));
 
   // Fill last group with generated brutes
-  if (tournaments.length && tournaments[tournaments.length - 1].length) {
+  if (tournaments.length && tournaments[tournaments.length - 1]?.length) {
     const lastTournament = tournaments[tournaments.length - 1];
 
+    if (!lastTournament) {
+      throw new Error('No last tournament');
+    }
+
     const highestLevelBrute = lastTournament
-      .sort((a, b) => a.level - b.level)[lastTournament.length - 1].level;
+      .sort((a, b) => a.level - b.level)[lastTournament.length - 1]?.level;
 
     // Get generated brutes at level lower or equal to highest level brute
     let generatedBrutes = await prisma.brute.findMany({
@@ -280,11 +284,17 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
     let lastFight: Prisma.FightCreateInput | null = null;
     while (roundBrutes.length > 1) {
       for (let i = 0; i < roundBrutes.length - 1; i += 2) {
+        const roundBrute1 = roundBrutes[i];
+        const roundBrute2 = roundBrutes[i + 1];
+
+        if (!roundBrute1 || !roundBrute2) {
+          throw new Error(`Brute not found: ${roundBrute1?.id || roundBrute2?.id}`);
+        }
         const brute1 = await prisma.brute.findUnique({
-          where: { id: roundBrutes[i].id },
+          where: { id: roundBrute1.id },
         });
         const brute2 = await prisma.brute.findUnique({
-          where: { id: roundBrutes[i + 1].id },
+          where: { id: roundBrute2.id },
         });
 
         if (!brute1 || !brute2) {
@@ -342,13 +352,15 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
         const winnerId = lastFight.winner === brute1.name ? brute1.id : brute2.id;
 
         // Add winner to next round
-        winners.push(winnerId === roundBrutes[i].id ? roundBrutes[i] : roundBrutes[i + 1]);
+        winners.push(winnerId === roundBrute1.id ? roundBrute1 : roundBrute2);
 
         // Store XP for winner
-        if (!gains[winnerId]) {
-          gains[winnerId] = [0, 0];
+        const winnerGains = gains[winnerId];
+        if (!winnerGains) {
+          gains[winnerId] = [1, 0];
+        } else {
+          winnerGains[0] += 1;
         }
-        gains[winnerId][0] += 1;
 
         step++;
       }
@@ -406,10 +418,12 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
       });
 
       // Store gains
-      if (!gains[winnerBrute.id]) {
-        gains[winnerBrute.id] = [0, 0];
+      const winnerGains = gains[winnerBrute.id];
+      if (!winnerGains) {
+        gains[winnerBrute.id] = [0, 100];
+      } else {
+        winnerGains[1] += 100;
       }
-      gains[winnerBrute.id][1] += 100;
 
       // Add 1 tournament win to winner brute
       await prisma.brute.update({
@@ -542,11 +556,17 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
     let nextBrutes: typeof brutes = [];
 
     for (let i = 0; i < roundBrutes.length - 1; i += 2) {
+      const roundBrute1 = roundBrutes[i];
+      const roundBrute2 = roundBrutes[i + 1];
+
+      if (!roundBrute1 || !roundBrute2) {
+        throw new Error(`Brute not found: ${roundBrute1?.id || roundBrute2?.id}`);
+      }
       const brute1 = await prisma.brute.findUnique({
-        where: { id: roundBrutes[i].id },
+        where: { id: roundBrute1.id },
       });
       const brute2 = await prisma.brute.findUnique({
-        where: { id: roundBrutes[i + 1].id },
+        where: { id: roundBrute2.id },
       });
 
       if (!brute1 || !brute2) {
@@ -612,10 +632,12 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
       const winnerId = brute1.name === generatedFight.winner ? brute1.id : brute2.id;
 
       // Store XP for winner
-      if (!gains[winnerId]) {
-        gains[winnerId] = [0, 0];
+      const winnerGains = gains[winnerId];
+      if (!winnerGains) {
+        gains[winnerId] = [1, 0];
+      } else {
+        winnerGains[0] += 1;
       }
-      gains[winnerId][0] += 1;
     }
 
     // Add byes to next round
@@ -634,8 +656,14 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
   }
 
   // Get winner user
+  const winnerBrute = roundBrutes[0];
+
+  if (!winnerBrute) {
+    throw new Error('Winner brute not found');
+  }
+
   const winnerUser = await prisma.user.findFirst({
-    where: { brutes: { some: { id: roundBrutes[0].id } } },
+    where: { brutes: { some: { id: winnerBrute.id } } },
     select: { id: true },
   });
 
@@ -654,10 +682,12 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
   });
 
   // Store gains
-  if (!gains[roundBrutes[0].id]) {
-    gains[roundBrutes[0].id] = [0, 0];
+  const winnerGains = gains[winnerBrute.id];
+  if (!winnerGains) {
+    gains[winnerBrute.id] = [0, 150];
+  } else {
+    winnerGains[1] += 150;
   }
-  gains[roundBrutes[0].id][1] += 150;
 
   // Update tournament with rounds
   await prisma.tournament.update({
@@ -690,20 +720,24 @@ const storeGains = async (
 
   for (const [bruteIdString, currentGains] of Object.entries(dailyGains)) {
     const bruteId = +bruteIdString;
-    if (!gains[bruteId]) {
-      gains[bruteId] = [0, 0];
+    const bruteGains = gains[bruteId];
+    if (!bruteGains) {
+      gains[bruteId] = [currentGains[0], currentGains[1]];
+    } else {
+      bruteGains[0] += currentGains[0];
+      bruteGains[1] += currentGains[1];
     }
-    gains[bruteId][0] += currentGains[0];
-    gains[bruteId][1] += currentGains[1];
   }
 
   for (const [bruteIdString, currentGains] of Object.entries(globalGains)) {
     const bruteId = +bruteIdString;
-    if (!gains[bruteId]) {
-      gains[bruteId] = [0, 0];
+    const bruteGains = gains[bruteId];
+    if (!bruteGains) {
+      gains[bruteId] = [currentGains[0], currentGains[1]];
+    } else {
+      bruteGains[0] += currentGains[0];
+      bruteGains[1] += currentGains[1];
     }
-    gains[bruteId][0] += currentGains[0];
-    gains[bruteId][1] += currentGains[1];
   }
 
   const today = moment.utc().startOf('day').toDate();

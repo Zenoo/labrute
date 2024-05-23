@@ -64,7 +64,13 @@ const createRandomBruteStats = (
 
   // Stats boosters
   if (perk.type === 'skill') {
-    brute = applySkillModifiers(brute, brute.skills[0]);
+    const skill = brute.skills[0];
+
+    if (!skill) {
+      throw new Error('Skill not found');
+    }
+
+    brute = applySkillModifiers(brute, skill);
   }
 
   // Starting stats

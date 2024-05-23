@@ -14,7 +14,7 @@ const updateWeapons = (
   if (!app.loader) {
     return;
   }
-  const { loader: { resources: { '/images/game/misc.json': { spritesheet } } } } = app;
+  const spritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
 
   if (!spritesheet) {
     throw new Error('Spritesheet not found');
@@ -53,6 +53,11 @@ const updateWeapons = (
     // Generate new list
     brute.weapons.forEach((w, index) => {
       const texture = spritesheet.textures[`weapons/${WeaponById[w]}.png`];
+
+      if (!texture) {
+        throw new Error('Texture not found');
+      }
+
       texture.baseTexture.scaleMode = PIXI.SCALE_MODES.LINEAR;
 
       const sprite = new Sprite(texture);

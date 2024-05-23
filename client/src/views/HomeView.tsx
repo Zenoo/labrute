@@ -61,7 +61,7 @@ const HomeView = () => {
 
         // Redirect to first brute if exists
         if (response.brutes.length) {
-          window.location.href = `/${response.brutes[0].name}/cell`;
+          window.location.href = `/${response.brutes[0]?.name}/cell`;
         }
       }).catch(catchError(Alert)).finally(() => {
         // Remove code/state from url and set url to '/'

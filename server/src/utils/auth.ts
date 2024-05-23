@@ -12,7 +12,7 @@ const auth = async (prisma: PrismaClient, request: Request) => {
     throw new ExpectedError('Invalid authorization header');
   }
 
-  const [id, token] = Buffer.from(authorization.split(' ')[1], 'base64')
+  const [id, token] = Buffer.from(authorization.split(' ')[1] || '', 'base64')
     .toString().split(':');
 
   if (!id || !token || id === 'null' || token === 'null') {

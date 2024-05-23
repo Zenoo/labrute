@@ -30,7 +30,7 @@ const RankingView = () => {
   const rankingSelected = useMemo(() => (typeof ranking !== 'undefined'
     ? ranking
     : (rankings && rankings.topBrutes.length
-      ? rankings.topBrutes[0].ranking
+      ? rankings.topBrutes[0]?.ranking
       : undefined)), [ranking, rankings]);
 
   const bruteRow = (brute: Brute, index: number) => (
@@ -62,7 +62,7 @@ const RankingView = () => {
   return rankings && (
     <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/cell`}>
       <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('ranking')} {t(`lvl_${(rankings.topBrutes.length ? rankings.topBrutes[0].ranking : ranking) as BruteRanking}`)}</Text>
+        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('ranking')} {t(`lvl_${(rankings.topBrutes.length ? rankings.topBrutes[0]?.ranking : ranking) as BruteRanking}`)}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         <Box sx={{

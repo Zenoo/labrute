@@ -65,10 +65,8 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
 
   // Process queue
   useEffect(() => {
-    if (!queue.length) return;
-
-    // Check cache first
-    const [request] = queue;
+    const request = queue[0];
+    if (!request) return;
 
     const { body, colors } = request;
     if (!body || !colors) {
@@ -82,7 +80,7 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
 
       // Callback
       if (callbacks[request.id]) {
-        for (const callback of callbacks[request.id]) {
+        for (const callback of callbacks[request.id] ?? []) {
           callback(cached.content);
         }
 
@@ -153,7 +151,7 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
 
       // Callback
       if (callbacks[request.id]) {
-        for (const callback of callbacks[request.id]) {
+        for (const callback of callbacks[request.id] ?? []) {
           callback(content.src);
         }
 

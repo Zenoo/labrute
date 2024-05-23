@@ -1,7 +1,7 @@
 /* eslint-disable no-void */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-await-in-loop */
-import { Fighter, FightStep, randomBetween, StepType } from '@labrute/core';
+import { Fighter, FightStep, randomBetween, randomItem, StepType } from '@labrute/core';
 import { Fight, Gender } from '@labrute/prisma';
 import { Theme } from '@mui/material';
 import { ColorOverlayFilter } from '@pixi/filter-color-overlay';
@@ -46,7 +46,7 @@ import trash from './trash';
 import updateWeapons from './updateWeapons';
 import { RendererContextInterface } from '../../hooks/useRenderer';
 
-const backgrounds = [
+const backgrounds: string[] = [
   'background/1.jpg',
   'background/2.jpg',
   'background/3.png',
@@ -89,7 +89,7 @@ const setupFight: (
   }
 
   // Spritesheet
-  const { '/images/game/misc.json': { spritesheet: miscSheet } } = resources;
+  const miscSheet = resources['/images/game/misc.json']?.spritesheet;
 
   if (!miscSheet) {
     throw new Error('Misc spritesheet not found');
@@ -109,7 +109,7 @@ const setupFight: (
 
   // Add background
   const background = new PIXI.Sprite(miscSheet.textures[
-    backgrounds[randomBetween(0, backgrounds.length - 1)]
+    randomItem(backgrounds)
   ]);
   background.zIndex = -1;
 
@@ -453,6 +453,10 @@ const setupFight: (
   for (let i = 0; i < steps.length; i++) {
     const { [i]: step } = steps;
 
+    if (!step) {
+      continue;
+    }
+
     switch (step.a) {
       case StepType.Move: {
         await moveTo(app, fighters, step, speed);
@@ -560,7 +564,12 @@ const setupFight: (
         break;
       }
       case StepType.Resist: {
-        resist(app, fighters, step, steps[i + 1], speed);
+        const nextStep = steps[i + 1];
+
+        if (!nextStep) {
+          throw new Error('Next step not found');
+        }
+        resist(app, fighters, step, nextStep, speed);
         break;
       }
       case StepType.Bomb: {
@@ -591,7 +600,7 @@ const setupFight: (
   const loser = fighters.find((fighter) => !fighter.master && ((fighter.type === 'brute' && fighter.name !== fight.winner) || fighter.type === 'boss'));
 
   // Display dead icon animation on the UI
-  const deadIcon = new AnimatedSprite(miscSheet.animations.dead);
+  const deadIcon = new AnimatedSprite(miscSheet.animations.dead || []);
   deadIcon.filters = [new OutlineFilter()];
   deadIcon.loop = false;
   deadIcon.animationSpeed = 0.5;
@@ -638,7 +647,7 @@ const setupFight: (
 
   // Make 50 petals fall on the winner
   for (let i = 0; i < 50; i++) {
-    const petal = new PIXI.AnimatedSprite(miscSheet.animations.petals);
+    const petal = new PIXI.AnimatedSprite(miscSheet.animations.petals || []);
     petal.filters = [new ColorOverlayFilter(
       // Random color
       Math.random() * 0xffffff,

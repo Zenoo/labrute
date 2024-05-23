@@ -43,8 +43,8 @@ const CellStats = ({
                   } } } = theme;
 
                   return value % 10 >= excess
-                    ? excessColor
-                    : baseColor;
+                    ? excessColor ?? null
+                    : baseColor ?? null;
                 },
               }}
             />

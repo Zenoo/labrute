@@ -4,6 +4,7 @@ import {
   Boss,
   CLAN_SIZE_LIMIT,
   DetailedFight, ExpectedError, Fighter, SkillByName, StepType, WeaponByName, bosses, randomBetween,
+  randomItem,
 } from '@labrute/core';
 import {
   Brute, InventoryItemType, LogType, Prisma, PrismaClient,
@@ -89,10 +90,10 @@ const generateFight = async (
   }) : [];
 
   const brute1Backup = brute1Backups.length
-    ? brute1Backups[randomBetween(0, brute1Backups.length - 1)]
+    ? randomItem(brute1Backups)
     : null;
   const brute2Backup = brute2Backups.length
-    ? brute2Backups[randomBetween(0, brute2Backups.length - 1)]
+    ? randomItem(brute2Backups)
     : null;
 
   // Global fight data
@@ -153,8 +154,10 @@ const generateFight = async (
 
   const mainFighters = fightData.fighters.filter(({ master }) => !master);
   const petFighters = fightData.fighters.filter(({ type }) => type === 'pet');
+  const firstMainFighter = mainFighters[0];
+  const secondMainFighter = mainFighters[1];
 
-  if (mainFighters.length !== 2) {
+  if (!firstMainFighter || !secondMainFighter) {
     throw new Error('Invalid number of fighters');
   }
 
@@ -167,8 +170,8 @@ const generateFight = async (
   });
 
   // Add spy steps
-  applySpy(fightData, mainFighters[0], mainFighters[1]);
-  applySpy(fightData, mainFighters[1], mainFighters[0]);
+  applySpy(fightData, firstMainFighter, secondMainFighter);
+  applySpy(fightData, secondMainFighter, firstMainFighter);
 
   // Pre-fight saboteur
   saboteur(fightData, achievements);
@@ -177,7 +180,8 @@ const generateFight = async (
 
   // Fight loop
   while (!fightData.loser) {
-    if (!fightData.fighters.length) {
+    const firstFighter = fightData.fighters[0];
+    if (!firstFighter) {
       // No fighters left
       break;
     }
@@ -186,7 +190,7 @@ const generateFight = async (
     orderFighters(fightData);
 
     // Set current initiative to first fighter
-    fightData.initiative = fightData.fighters[0].initiative;
+    fightData.initiative = firstFighter.initiative;
 
     // Poison fighters if turn > 100
     if (turn > 1000) {
@@ -347,7 +351,7 @@ const generateFight = async (
         where: { id: clanId },
         data: {
           // Set new boss
-          boss: bosses[randomBetween(0, bosses.length - 1)].name,
+          boss: randomItem(bosses).name,
           damageOnBoss: 0,
           // Increase clan limit
           limit: Math.min(CLAN_SIZE_LIMIT, clan.limit + 5),

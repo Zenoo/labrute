@@ -352,6 +352,10 @@ export default class BruteDisplay {
       for (let i = 0; i < frameParts.length; i++) {
         const framePart = frameParts[i];
 
+        if (!framePart) {
+          throw new Error(`Part not found in symbol ${symbol.name}`);
+        }
+
         // Count identic symbols already used
         const identicSymbolsCount = usedSymbols.filter((s) => s === framePart.name).length;
 

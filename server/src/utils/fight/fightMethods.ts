@@ -5,7 +5,7 @@ import {
   BASE_FIGHTER_STATS,
   DetailedFight, DetailedFighter, FighterStat, LeaveStep,
   NO_WEAPON_TOSS,
-  randomBetween, SHIELD_BLOCK_ODDS, Skill, SkillByName, StepType, updateAchievement, Weapon,
+  randomBetween, randomItem, SHIELD_BLOCK_ODDS, Skill, SkillByName, StepType, updateAchievement, Weapon,
   WeaponByName,
 } from '@labrute/core';
 import { PetName } from '@labrute/prisma';
@@ -170,7 +170,7 @@ export const saboteur = (fightData: DetailedFight, achievements: AchievementsSto
       const opponent = getMainOpponent(fightData, brute);
 
       if (opponent && opponent.weapons.length > 0) {
-        const sabotagedWeapon = opponent.weapons[randomBetween(0, opponent.weapons.length - 1)];
+        const sabotagedWeapon = randomItem(opponent.weapons);
         opponent.sabotagedWeapon = sabotagedWeapon;
 
         updateAchievement(achievements, 'saboteur', 1, brute.id);
@@ -246,8 +246,13 @@ const getRandomOpponent = (
   }
 
   const random = randomBetween(0, opponents.length - 1);
+  const randomOpponent = opponents[random];
 
-  return opponents[random];
+  if (!randomOpponent) {
+    throw new Error('No random opponent found');
+  }
+
+  return randomOpponent;
 };
 
 const randomlyGetSuper = (fightData: DetailedFight, brute: DetailedFighter) => {
@@ -298,7 +303,7 @@ const randomlyGetSuper = (fightData: DetailedFight, brute: DetailedFighter) => {
 
   let toss = 0;
   for (let i = 0; i < supers.length; i += 1) {
-    toss += supers[i].toss || 0;
+    toss += supers[i]?.toss || 0;
     if (randomSuper < toss) {
       return supers[i];
     }
@@ -317,7 +322,7 @@ const randomlyDrawWeapon = (weapons: Weapon[]) => {
 
   let toss = 0;
   for (let i = 0; i < weapons.length; i += 1) {
-    toss += weapons[i].toss || 0;
+    toss += weapons[i]?.toss || 0;
     if (randomWeapon < toss) {
       return weapons[i];
     }
@@ -366,7 +371,7 @@ const registerHit = (
       // Max damage to 20% of opponent's health if `resistant`
       actualDamage[opponent.id] = Math.min(damage, Math.floor(opponent.maxHp * 0.2));
 
-      if (actualDamage[opponent.id] < damage) {
+      if ((actualDamage[opponent.id] ?? damage) < damage) {
         // Add resist step
         fightData.steps.push({
           a: StepType.Resist,
@@ -375,11 +380,13 @@ const registerHit = (
       }
     }
 
+    const opponentDamage = actualDamage[opponent.id] ?? damage;
+
     // Reduce backup leave time instead of reducing hp
     if (opponent.leavesAtInitiative) {
-      opponent.leavesAtInitiative -= actualDamage[opponent.id] * 0.05;
+      opponent.leavesAtInitiative -= opponentDamage * 0.05;
     } else {
-      opponent.hp -= actualDamage[opponent.id];
+      opponent.hp -= opponentDamage;
     }
   });
 
@@ -390,7 +397,7 @@ const registerHit = (
       f: fighter.id,
       t: opponents.map((opponent) => opponent.id),
       d: opponents.reduce((acc, curr) => {
-        acc[curr.id] = actualDamage[curr.id];
+        acc[curr.id] = actualDamage[curr.id] ?? damage;
         return acc;
       }, {} as Record<number, number>),
     });
@@ -413,7 +420,7 @@ const registerHit = (
             ? WeaponByName[flashFloodWeapon.name]
             : undefined)
           : fighter.activeWeapon ? WeaponByName[fighter.activeWeapon.name] : undefined,
-        d: actualDamage[opponent.id],
+        d: actualDamage[opponent.id] ?? damage,
       });
     });
   }
@@ -465,6 +472,10 @@ const activateSuper = (
 
   // Get current fighter
   const fighter = fightData.fighters[0];
+
+  if (!fighter) {
+    throw new Error('No fighter found');
+  }
 
   switch (skill.name) {
     // Steal opponent's weapon if he has one
@@ -673,9 +684,7 @@ const activateSuper = (
       // Keep track of fear steps
       const fearSteps: LeaveStep[] = [];
 
-      for (let i = 0; i < opponentPets.length; i++) {
-        const pet = opponentPets[i];
-
+      for (const pet of opponentPets) {
         // 50% chance to fear the pet
         if (randomBetween(0, 1) === 0) {
           fearSteps.push({
@@ -725,9 +734,7 @@ const activateSuper = (
       // Keep track of hypnotised pets
       const hypnotisedPets: number[] = [];
 
-      for (let i = 0; i < opponentPets.length; i++) {
-        const pet = opponentPets[i];
-
+      for (const pet of opponentPets) {
         hypnotisedPets.push(pet.id);
 
         // Change pet owner
@@ -804,11 +811,13 @@ const activateSuper = (
       // Get non eaten dead pets
       const deadPets = fightData.fighters.filter((f) => f.type === 'pet' && f.hp <= 0 && !f.eaten);
 
+      if (deadPets.length === 0) return false;
+
       // Abort if less than 20 HP lost or if no pet is dead
       if (fighter.hp > fighter.maxHp - 20 || !deadPets.length) return false;
 
       // Get random dead pet
-      const pet = deadPets[randomBetween(0, deadPets.length - 1)];
+      const pet = randomItem(deadPets);
 
       let healPercentage = 0;
       switch (pet.name) {
@@ -907,6 +916,10 @@ const counterAttack = (fighter: DetailedFighter, opponent: DetailedFighter) => {
 const drawWeapon = (fightData: DetailedFight): boolean => {
   // Get current fighter
   const fighter = fightData.fighters[0];
+
+  if (!fighter) {
+    throw new Error('No fighter found');
+  }
 
   // Don't always draw a weapon if the fighter is already holding a weapon
   if (fighter.activeWeapon && randomBetween(0, fighter.weapons.length * 2) === 0) return false;
@@ -1144,6 +1157,10 @@ const attack = (
       // Remove a random weapon
       const weapon = opponent.weapons.splice(randomBetween(0, opponent.weapons.length - 1), 1)[0];
 
+      if (!weapon) {
+        throw new Error('No weapon found');
+      }
+
       // Add sabotage step
       fightData.steps.push({
         a: StepType.Sabotage,
@@ -1214,9 +1231,7 @@ export const checkDeaths = (
   fightData: DetailedFight,
   stats: Stats,
 ) => {
-  for (let i = 0; i < fightData.fighters.length; i++) {
-    const fighter = fightData.fighters[i];
-
+  for (const fighter of fightData.fighters) {
     // Only add death step if fighter is dead and hasn't died yet
     if (fighter.hp <= 0 && fightData.steps.filter((step) => step.a === StepType.Death
       && step.f === fighter.id).length === 0) {
@@ -1349,6 +1364,10 @@ export const playFighterTurn = (
   achievements: AchievementsStore,
 ) => {
   const fighter = fightData.fighters[0];
+
+  if (!fighter) {
+    throw new Error('No fighter found');
+  }
 
   // Reset throw counter
   resetOthersStats(stats, fighter.id, 'consecutiveThrows');

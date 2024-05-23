@@ -13,7 +13,7 @@ import Text from '../../components/Text';
 import { useAuth } from '../../hooks/useAuth';
 import BruteRender from '../../components/Brute/Body/BruteRender';
 
-const rounds = [
+const rounds: [number, number][] = [
   [-1, 32],
   [32, 48],
   [48, 56],
