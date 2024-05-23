@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.56.2](https://github.com/Zenoo/labrute/compare/labrute-v2.56.1...labrute-v2.56.2) (2024-05-23)
+
+
+### Bug Fixes
+
+* Error when accepting a report ([80dcb11](https://github.com/Zenoo/labrute/commit/80dcb11e50bdabf474b0aa76f310ab4e8c674748))
+
 ## [2.56.1](https://github.com/Zenoo/labrute/compare/labrute-v2.56.0...labrute-v2.56.1) (2024-05-22)
 
 
