@@ -1,7 +1,7 @@
 /* eslint-disable no-void */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-await-in-loop */
-import { Fighter, FightStep, randomBetween, randomItem, StepType } from '@labrute/core';
+import { Fighter, FightStep, randomItem, StepType } from '@labrute/core';
 import { Fight, Gender } from '@labrute/prisma';
 import { Theme } from '@mui/material';
 import { ColorOverlayFilter } from '@pixi/filter-color-overlay';
@@ -12,6 +12,7 @@ import { TFunction } from 'i18next';
 import { Easing, Tweener } from 'pixi-tweener';
 import * as PIXI from 'pixi.js';
 import { AnimatedSprite, BaseTexture, Texture } from 'pixi.js';
+import { RendererContextInterface } from '../../hooks/useRenderer';
 import arrive from './arrive';
 import attemptHit from './attemptHit';
 import block from './block';
@@ -44,7 +45,6 @@ import throwWeapon from './throwWeapon';
 import trap from './trap';
 import trash from './trash';
 import updateWeapons from './updateWeapons';
-import { RendererContextInterface } from '../../hooks/useRenderer';
 
 const backgrounds: string[] = [
   'background/1.jpg',
@@ -454,7 +454,7 @@ const setupFight: (
     const { [i]: step } = steps;
 
     if (!step) {
-      continue;
+      throw new Error('Step not found');
     }
 
     switch (step.a) {

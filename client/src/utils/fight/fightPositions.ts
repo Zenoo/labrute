@@ -1,5 +1,5 @@
+import { randomItem } from '@labrute/core';
 import { AnimationFighter } from './findFighter';
-import { randomBetween, randomItem } from '@labrute/core';
 
 const leftPositions = [
   { x: 60, y: 200 },
