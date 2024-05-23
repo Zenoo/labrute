@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.56.3](https://github.com/Zenoo/labrute/compare/labrute-v2.56.2...labrute-v2.56.3) (2024-05-23)
+
+
+### Bug Fixes
+
+* Code safety checks ([fc03fb2](https://github.com/Zenoo/labrute/commit/fc03fb2cbb597911fbb00e2bb3e517eef24ab4b2))
+* Spy weapon swaps for duplicate weapons ([6b68299](https://github.com/Zenoo/labrute/commit/6b68299856673f1087b77b6c79dbfa6e3e41b976))
+* Unused deps ([6c1ad6a](https://github.com/Zenoo/labrute/commit/6c1ad6ad26a0900f4600e0970c242d88103167ee))
+
 ## [2.56.2](https://github.com/Zenoo/labrute/compare/labrute-v2.56.1...labrute-v2.56.2) (2024-05-23)
 
 
