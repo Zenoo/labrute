@@ -245,7 +245,7 @@ const BruteReports = {
       // Add 1 free name change
       await prisma.bruteInventoryItem.upsert({
         where: {
-          id: report.brute.inventory[0].id,
+          id: report.brute.inventory[0]?.id || -1,
         },
         create: {
           type: InventoryItemType.nameChange,
