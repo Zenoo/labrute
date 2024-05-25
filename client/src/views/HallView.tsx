@@ -1,4 +1,4 @@
-import { BruteWithBodyColors, FightStat, MAX_FAVORITE_BRUTES, getFightsLeft } from '@labrute/core';
+import { FightStat, MAX_FAVORITE_BRUTES, getFightsLeft } from '@labrute/core';
 import { Check, CrisisAlert, Stars } from '@mui/icons-material';
 import { Box, Paper, Tooltip } from '@mui/material';
 import React, { useCallback, useMemo } from 'react';
@@ -15,6 +15,7 @@ import catchError from '../utils/catchError';
 import { useAlert } from '../hooks/useAlert';
 import BruteRender from '../components/Brute/Body/BruteRender';
 import moment from 'moment';
+import { Brute } from '@labrute/prisma';
 
 const HallView = () => {
   const { t } = useTranslation();
@@ -31,7 +32,7 @@ const HallView = () => {
   }, [navigate]);
 
   // Toggle favorite
-  const toggleFavorite = useCallback((brute: BruteWithBodyColors) => (e: React.MouseEvent) => {
+  const toggleFavorite = useCallback((brute: Brute) => (e: React.MouseEvent) => {
     e.stopPropagation();
 
     if (!user) return;

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { PrismaClient } from '@labrute/prisma';
-import { Express, Request, Response } from 'express';
+import type { Express, Request, Response } from 'express';
 import { ServerReadyResponse } from '@labrute/core';
 import Brutes from './controllers/Brutes.js';
 import Fights from './controllers/Fights.js';
@@ -12,8 +12,9 @@ import Achievements from './controllers/Achievements.js';
 import ServerState from './utils/ServerState.js';
 import BruteReports from './controllers/BruteReports.js';
 import Clans from './controllers/Clans.js';
+import { Config } from './config.js';
 
-const initRoutes = (app: Express, prisma: PrismaClient) => {
+export default function initRoutes(app: Express, config: Config, prisma: PrismaClient) {
   app.get('/api', (req: Request, res: Response) => res.status(200).send({
     message: 'server is running!',
   }));
@@ -29,18 +30,21 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
   });
 
   // OAuth
-  app.get('/api/oauth/redirect', OAuth.redirect);
-  app.get('/api/oauth/token', OAuth.token(prisma));
+  const oauth = new OAuth(config, prisma);
+  app.get('/api/oauth/redirect', oauth.redirect.bind(oauth));
+  app.get('/api/oauth/token', oauth.token.bind(oauth));
 
   // User
   app.post('/api/user/authenticate', Users.authenticate(prisma));
-  app.get('/api/user/:name/admin', Users.get(prisma));
+  app.get('/api/user/get-dinorpg-reward', Users.getDinoRpgRewards(prisma));
+  app.get('/api/user/:id/admin', Users.get(prisma));
   app.get('/api/run-daily-job', Users.runDailyJob(prisma));
   app.post('/api/user/change-language', Users.changeLanguage(prisma));
   app.post('/api/user/change-fight-speed', Users.changeFightSpeed(prisma));
   app.post('/api/user/toggle-background-music', Users.toggleBackgroundMusic(prisma));
   app.post('/api/user/:id/admin-update', Users.adminUpdate(prisma));
   app.get('/api/user/:userId/profile', Users.getProfile(prisma));
+  app.get('/api/user/:userId/done', Users.isDoneForToday(prisma));
 
   // Brute
   app.get('/api/brute/:name/for-versus', Brutes.getForVersus(prisma));
@@ -65,6 +69,7 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
   app.get('/api/brute/:name/reset', Brutes.reset(prisma));
   app.post('/api/brute/:name/reset-visuals', Brutes.resetVisuals(prisma));
   app.get('/api/brute/:name/give-free-visual-reset', Brutes.giveFreeVisualReset(prisma));
+  app.get('/api/brute/:name/change-name/:newName', Brutes.changeName(prisma));
 
   // Log
   app.get('/api/log/list/:name', Logs.list(prisma));
@@ -78,6 +83,8 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
   app.get('/api/tournament/:name/register', Tournaments.registerDaily(prisma));
   app.get('/api/tournament/:name/history', Tournaments.getHistory(prisma));
   app.get('/api/tournament/:name/update-step-watched', Tournaments.updateStepWatched(prisma));
+  app.get('/api/tournament/:name/update-global-round-watched/:fight', Tournaments.updateGlobalRoundWatched(prisma));
+  app.get('/api/tournament/:name/skip-watching-global', Tournaments.skipWatchingGlobal(prisma));
   app.get('/api/tournament/:name/set-daily-watched', Tournaments.setDailyWatched(prisma));
   app.get('/api/tournament/global/:name/:date', Tournaments.getGlobal(prisma));
   app.get('/api/tournament/:name/:date', Tournaments.getDaily(prisma));
@@ -115,6 +122,4 @@ const initRoutes = (app: Express, prisma: PrismaClient) => {
   app.get('/api/brute/:brute/clan/:id/thread/:threadId/unpin', Clans.unpinThread(prisma));
   app.get('/api/brute/:brute/clan/:id/thread/:threadId', Clans.getThread(prisma));
   app.get('/api/brute/:brute/clan/:id/challenge-boss', Clans.challengeBoss(prisma));
-};
-
-export default initRoutes;
+}

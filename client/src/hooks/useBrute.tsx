@@ -33,7 +33,7 @@ export const BruteProvider = ({ children }: BruteProviderProps) => {
 
   // Owner?
   const owner = useMemo(() => !!(user && brute
-    && user.brutes.find((b) => b.name === brute.name)), [user, brute]);
+    && brute.userId === user.id), [user, brute]);
 
   const updateBrute = useCallback((data: React.SetStateAction<
     HookBrute | null

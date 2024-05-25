@@ -1,4 +1,4 @@
-import { Fighter, FightWithBrutes } from '@labrute/core';
+import { Fighter, TournamentsGetDailyResponse } from '@labrute/core';
 import { Close } from '@mui/icons-material';
 import { Box, Paper, useMediaQuery } from '@mui/material';
 import moment from 'moment';
@@ -51,14 +51,14 @@ const TournamentView = () => {
   const ownsBrute = useMemo(() => (authing
     || !!(brute && user && brute.userId === user.id)), [authing, brute, user]);
 
-  const winnerStep = useMemo(
-    () => tournament?.steps.find((step) => step.step === 63),
+  const winnerFight = useMemo(
+    () => tournament?.fights.find((fight) => fight.tournamentStep === 63),
     [tournament],
   );
 
-  const winnerStepFighters = useMemo(() => (winnerStep
-    ? JSON.parse(winnerStep.fight.fighters) as Fighter[]
-    : undefined), [winnerStep]);
+  const winnerStepFighters = useMemo(() => (winnerFight
+    ? JSON.parse(winnerFight.fighters) as Fighter[]
+    : undefined), [winnerFight]);
 
   const [display, setDisplay] = React.useState(false);
 
@@ -70,44 +70,62 @@ const TournamentView = () => {
 
   const rounds = useMemo(() => {
     if (!tournament) return [];
-    const result: typeof tournament.steps[] = [];
+    const result: typeof tournament.fights[] = [];
 
     // First round
-    result[0] = tournament.steps.filter((step) => step.step <= 16);
-    result[10] = tournament.steps.filter((step) => step.step > 16 && step.step <= 32);
+    result[0] = tournament.fights.filter((fight) => fight.tournamentStep <= 16);
+    result[10] = tournament.fights.filter(
+      (fight) => fight.tournamentStep > 16 && fight.tournamentStep <= 32
+    );
 
     // Second round
-    result[1] = tournament.steps.filter((step) => step.step > 32 && step.step <= 40);
-    result[9] = tournament.steps.filter((step) => step.step > 40 && step.step <= 48);
+    result[1] = tournament.fights.filter(
+      (fight) => fight.tournamentStep > 32 && fight.tournamentStep <= 40
+    );
+    result[9] = tournament.fights.filter(
+      (fight) => fight.tournamentStep > 40 && fight.tournamentStep <= 48
+    );
 
     // Third round
-    result[2] = tournament.steps.filter((step) => step.step > 48 && step.step <= 52);
-    result[8] = tournament.steps.filter((step) => step.step > 52 && step.step <= 56);
+    result[2] = tournament.fights.filter(
+      (fight) => fight.tournamentStep > 48 && fight.tournamentStep <= 52
+    );
+    result[8] = tournament.fights.filter(
+      (fight) => fight.tournamentStep > 52 && fight.tournamentStep <= 56
+    );
 
     // Fourth round
-    result[3] = tournament.steps.filter((step) => step.step > 56 && step.step <= 58);
-    result[7] = tournament.steps.filter((step) => step.step > 58 && step.step <= 60);
+    result[3] = tournament.fights.filter(
+      (fight) => fight.tournamentStep > 56 && fight.tournamentStep <= 58
+    );
+    result[7] = tournament.fights.filter(
+      (fight) => fight.tournamentStep > 58 && fight.tournamentStep <= 60
+    );
 
     // Fifth round
-    result[4] = tournament.steps.filter((step) => step.step > 60 && step.step <= 61);
-    result[6] = tournament.steps.filter((step) => step.step > 61 && step.step <= 62);
+    result[4] = tournament.fights.filter(
+      (fight) => fight.tournamentStep > 60 && fight.tournamentStep <= 61
+    );
+    result[6] = tournament.fights.filter(
+      (fight) => fight.tournamentStep > 61 && fight.tournamentStep <= 62
+    );
 
     // Sixth round
-    result[5] = tournament.steps.filter((step) => step.step === 63);
+    result[5] = tournament.fights.filter((fight) => fight.tournamentStep === 63);
 
     // Order every round by step low to high
-    result.forEach((round) => round.sort((a, b) => a.step - b.step));
+    result.forEach((round) => round.sort((a, b) => a.tournamentStep - b.tournamentStep));
 
     return result;
   }, [tournament]);
 
-  const goToFight = useCallback((fight: FightWithBrutes, newStep: number) => () => {
+  const goToFight = useCallback((fight: TournamentsGetDailyResponse['fights'][number], newStep: number) => () => {
     if (!brute) return;
 
     navigate(`/${fight.brute1.name}/fight/${fight.id}`);
 
     if (!ownsBrute) return;
-    if (fight.brute1Id !== brute.id && fight.brute2Id !== brute.id) return;
+    if (fight.brute1.id !== brute.id && fight.brute2?.id !== brute.id) return;
     if (brute.currentTournamentDate && moment.utc(brute.currentTournamentDate).isSame(moment.utc(), 'day')) {
       if (newStep <= (brute.currentTournamentStepWatched || 0)) return;
     }
@@ -133,8 +151,8 @@ const TournamentView = () => {
       <TournamentMobileView
         bruteName={bruteName}
         tournament={tournament}
-        winnerStep={winnerStep}
-        winnerStepFighters={winnerStepFighters}
+        winnerFight={winnerFight}
+        winnerFightFighters={winnerStepFighters}
         ownsBrute={ownsBrute}
         stepWatched={stepWatched}
         brute={brute}
@@ -226,16 +244,16 @@ const TournamentView = () => {
                                     : '0px',
                   }}
                 >
-                  {round.map((step) => {
-                    const fighters = JSON.parse(step.fight.fighters) as Fighter[];
+                  {round.map((fight) => {
+                    const fighters = JSON.parse(fight.fighters) as Fighter[];
 
                     return (
                       // Fight button
                       <StyledButton
-                        key={step.id}
-                        onClick={goToFight(step.fight, index < 6 ? index + 1 : 10 - index + 1)}
-                        shadowColor={(bruteName === step.fight.brute1.name
-                          || bruteName === step.fight.brute2?.name)
+                        key={fight.id}
+                        onClick={goToFight(fight, index < 6 ? index + 1 : 10 - index + 1)}
+                        shadowColor={(bruteName === fight.brute1.name
+                          || bruteName === fight.brute2?.name)
                           ? 'rgba(255, 0, 0, 0.6)'
                           : undefined}
                         sx={{
@@ -250,8 +268,8 @@ const TournamentView = () => {
                       >
                         {/* Left fighter */}
                         <BruteTooltip
-                          fighter={fighters.find((fighter) => fighter.type === 'brute' && fighter.name === step.fight.brute1.name)}
-                          brute={step.fight.brute1}
+                          fighter={fighters.find((fighter) => fighter.type === 'brute' && fighter.name === fight.brute1.name)}
+                          brute={fight.brute1}
                         >
                           <Box sx={{
                             position: 'relative',
@@ -260,10 +278,10 @@ const TournamentView = () => {
                             mr: 1,
                           }}
                           >
-                            <BruteRender brute={step.fight.brute1} />
+                            <BruteRender brute={fight.brute1} />
                             {/* Lost indicator */}
                             {shouldResultDisplay
-                              && step.fight.winner === step.fight.brute2?.name
+                              && fight.winner === fight.brute2?.name
                               && (
                                 <Close
                                   color="error"
@@ -280,7 +298,7 @@ const TournamentView = () => {
                             {/* Rank */}
                             <Box
                               component="img"
-                              src={`/images/rankings/lvl_${fighters.find((f) => f.id === step.fight.brute1Id)?.rank || step.fight.brute1.ranking}.png`}
+                              src={`/images/rankings/lvl_${fighters.find((f) => f.id === fight.brute1.id)?.rank || fight.brute1.ranking}.webp`}
                               sx={{
                                 position: 'absolute',
                                 bottom: scale(-6, index),
@@ -300,10 +318,10 @@ const TournamentView = () => {
                           }}
                         />
                         {/* RIGHT FIGHTER */}
-                        {step.fight.brute2 && (
+                        {fight.brute2 && (
                           <BruteTooltip
-                            fighter={fighters.find((fighter) => fighter.type === 'brute' && fighter.name === step.fight?.brute2?.name)}
-                            brute={step.fight.brute2}
+                            fighter={fighters.find((fighter) => fighter.type === 'brute' && fighter.name === fight?.brute2?.name)}
+                            brute={fight.brute2}
                           >
                             <Box sx={{
                               position: 'relative',
@@ -313,12 +331,12 @@ const TournamentView = () => {
                             }}
                             >
                               <BruteRender
-                                brute={step.fight.brute2}
+                                brute={fight.brute2}
                                 looking="left"
                               />
                               {/* Lost indicator */}
                               {shouldResultDisplay
-                                && step.fight.winner === step.fight.brute1.name
+                                && fight.winner === fight.brute1.name
                                 && (
                                   <Close
                                     color="error"
@@ -334,7 +352,7 @@ const TournamentView = () => {
                               {/* Rank */}
                               <Box
                                 component="img"
-                                src={`/images/rankings/lvl_${fighters.find((f) => f.id === step.fight.brute2Id)?.rank || step.fight.brute2.ranking}.png`}
+                                src={`/images/rankings/lvl_${fighters.find((f) => f.id === fight.brute2?.id)?.rank || fight.brute2.ranking}.webp`}
                                 sx={{
                                   position: 'absolute',
                                   bottom: scale(-6, index),
@@ -356,25 +374,25 @@ const TournamentView = () => {
           </Box>
           {/* Tournament winner */}
           {display
-            && winnerStep?.fight.brute2
+            && winnerFight?.brute2
             && winnerStepFighters
             && (!authing && brute)
             && (!ownsBrute || (ownsBrute && stepWatched > 5))
             && (
               <BruteTooltip
-                fighter={winnerStep.fight.winner === winnerStep.fight.brute1.name
+                fighter={winnerFight.winner === winnerFight.brute1.name
                   ? winnerStepFighters
-                    .find((fighter) => fighter.type === 'brute' && fighter.name === winnerStep.fight.brute1.name)
+                    .find((fighter) => fighter.type === 'brute' && fighter.name === winnerFight.brute1.name)
                   : winnerStepFighters
-                    .find((fighter) => fighter.type === 'brute' && fighter.name === winnerStep.fight.brute2?.name)}
-                brute={winnerStep.fight.winner === winnerStep.fight.brute1.name
-                  ? winnerStep.fight.brute1
-                  : winnerStep.fight.brute2}
+                    .find((fighter) => fighter.type === 'brute' && fighter.name === winnerFight.brute2?.name)}
+                brute={winnerFight.winner === winnerFight.brute1.name
+                  ? winnerFight.brute1
+                  : winnerFight.brute2}
               >
                 <BruteRender
-                  brute={winnerStep.fight.winner === winnerStep.fight.brute1.name
-                    ? winnerStep.fight.brute1
-                    : winnerStep?.fight.brute2}
+                  brute={winnerFight.winner === winnerFight.brute1.name
+                    ? winnerFight.brute1
+                    : winnerFight?.brute2}
                   sx={{
                     position: 'absolute',
                     bottom: 0,

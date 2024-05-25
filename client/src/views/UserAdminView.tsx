@@ -16,20 +16,20 @@ const UserAdminView = () => {
   const { t } = useTranslation();
   const Alert = useAlert();
 
-  const [userName, setUserName] = React.useState('');
+  const [userId, setUserId] = React.useState('');
   const [user, setUser] = React.useState<Omit<UserGetAdminResponse, 'achievements'> | null>(null);
   const [achievements, setAchievements] = React.useState<UserGetAdminResponse['achievements']>([]);
   const [initialAchievements, setInitialAchievements] = React.useState<UserGetAdminResponse['achievements']>([]);
   const { user: admin } = useAuth();
 
-  // Change user name
-  const changeUserName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserName(e.target.value);
+  // Change user id
+  const changeUserId = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserId(e.target.value);
   }, []);
 
   // Fetch user
   const updateUser = useCallback(() => {
-    Server.User.getForAdmin(userName).then((u) => {
+    Server.User.getForAdmin(userId).then((u) => {
       setUser({
         id: u.id,
         lang: u.lang,
@@ -41,23 +41,24 @@ const UserAdminView = () => {
         gold: u.gold,
         fightSpeed: u.fightSpeed,
         backgroundMusic: u.backgroundMusic,
+        dinorpgDone: u.dinorpgDone,
       });
       setAchievements(u.achievements);
       // Map to new array to avoid reference
       setInitialAchievements(u.achievements.map((a) => ({ ...a })));
     }).catch(catchError(Alert));
-  }, [Alert, userName]);
+  }, [Alert, userId]);
 
-  // Trigger user fetch when userName changes (debounced for 1s)
+  // Trigger user fetch when userId changes (debounced for 1s)
   useEffect(() => {
-    if (!userName) return undefined;
+    if (!userId) return undefined;
 
     const timeout = setTimeout(() => {
       updateUser();
     }, 1000);
 
     return () => clearTimeout(timeout);
-  }, [userName, updateUser]);
+  }, [userId, updateUser]);
 
   // Save user
   const saveUser = useCallback(() => {
@@ -85,7 +86,7 @@ const UserAdminView = () => {
   }, [Alert, achievements, initialAchievements, user]);
 
   return (
-    <Page title={`${userName || ''} ${t('MyBrute')}`} headerUrl="/">
+    <Page title={`${userId || ''} ${t('MyBrute')}`} headerUrl="/">
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten">{t('adminPanel')}</Text>
       </Paper>
@@ -94,8 +95,8 @@ const UserAdminView = () => {
           <Stack spacing={2}>
             <Text bold h3 smallCaps color="secondary">User</Text>
             <StyledInput
-              onChange={changeUserName}
-              value={userName}
+              onChange={changeUserId}
+              value={userId}
             />
             {user && (
               <>
@@ -238,7 +239,7 @@ const UserAdminView = () => {
                     </Grid>
                   ))}
                 </Grid>
-                <FantasyButton onClick={saveUser}>Save</FantasyButton>
+                <FantasyButton color="success" onClick={saveUser}>Save</FantasyButton>
               </>
             )}
           </Stack>

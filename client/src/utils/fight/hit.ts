@@ -1,5 +1,5 @@
 /* eslint-disable no-void */
-import { FIGHTER_HIT_ANCHOR, HitStep, WEAPONS_SFX, randomBetween } from '@labrute/core';
+import { FIGHTER_HIT_ANCHOR, HitStep, StepType, WEAPONS_SFX, WeaponById, randomBetween } from '@labrute/core';
 import { OutlineFilter } from '@pixi/filter-outline';
 import { sound } from '@pixi/sound';
 import { AnimatedSprite, Application } from 'pixi.js';
@@ -21,23 +21,23 @@ const hit = async (
   if (!app.loader) {
     return;
   }
-  const { loader: { resources: { '/images/game/misc.json': { spritesheet } } } } = app;
+  const spritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
 
   if (!spritesheet) {
     throw new Error('Spritesheet not found');
   }
 
-  const fighter = findFighter(fighters, step.fighter);
+  const fighter = findFighter(fighters, step.f);
   if (!fighter) {
     throw new Error('Fighter not found');
   }
-  const target = findFighter(fighters, step.target);
+  const target = findFighter(fighters, step.t);
   if (!target) {
     throw new Error('Target not found');
   }
 
   // Get hit animation (random for male brute)
-  const animation: 'hit' | 'hit-0' | 'hit-1' | 'hit-2' = target.type === 'brute' && target.data?.gender === 'male'
+  const animation: 'hit' | 'hit-0' | 'hit-1' | 'hit-2' = target.type === 'brute' && target.gender === 'male'
     ? `hit-${randomBetween(0, 2) as 0 | 1 | 2}`
     : 'hit';
 
@@ -45,24 +45,17 @@ const hit = async (
   target.animation.setAnimation(animation);
 
   // Play hitting SFX
-  if (step.action === 'poison') {
+  if (step.a === StepType.Poison) {
     // Poison SFX
     void sound.play('hit/poison', {
       speed: speed.current,
     });
-  } else if (step.weapon) {
-    // Skill SFX
-    if (['thief', 'fierceBrute', 'tragicPotion', 'net', 'bomb', 'hammer', 'cryOfTheDamned', 'hypnosis', 'tamer'].includes(step.weapon)) {
-      void sound.play(`skills/${step.weapon}`, {
-        speed: speed.current,
-      });
-    } else {
-      // Weapon SFX
-      void sound.play(`hitting/${WEAPONS_SFX[step.weapon][randomBetween(0, WEAPONS_SFX[step.weapon].length - 1)]}`, {
-        speed: speed.current,
-      });
-    }
-  } else if (step.fighter.type === 'pet') {
+  } else if (typeof step.w !== 'undefined') {
+    // Weapon SFX
+    void sound.play(`hitting/${WEAPONS_SFX[WeaponById[step.w]][randomBetween(0, WEAPONS_SFX[WeaponById[step.w]].length - 1)]}`, {
+      speed: speed.current,
+    });
+  } else if (fighter.type === 'pet') {
     // Sword SFX for pets
     void sound.play('hitting/sword', {
       speed: speed.current,
@@ -75,17 +68,17 @@ const hit = async (
   }
 
   // Play hit SFX
-  if (step.target.type === 'pet') {
+  if (target.type === 'pet') {
     // Remove numbers from pet name
-    void sound.play(`hit/${step.target.name.replace(/\d/g, '')}`, {
+    void sound.play(`hit/${target.name.replace(/\d/g, '')}`, {
       speed: speed.current,
     });
   }
 
   let vfx = null;
 
-  if (step.action !== 'poison') {
-    if (step.fighter.type === 'pet') {
+  if (step.a !== StepType.Poison) {
+    if (fighter.type === 'pet') {
       vfx = 'blood';
     } else {
       vfx = HIT_VFX[randomBetween(0, HIT_VFX.length - 1)];
@@ -94,7 +87,7 @@ const hit = async (
 
   // Create hit VFX
   if (vfx) {
-    const hitVfx = new AnimatedSprite(spritesheet.animations[vfx]);
+    const hitVfx = new AnimatedSprite(spritesheet.animations[vfx] || []);
     hitVfx.zIndex = 1000;
     hitVfx.animationSpeed = speed.current / 4;
     hitVfx.loop = false;
@@ -119,7 +112,7 @@ const hit = async (
 
   // Add poison filter if damage is poison
   let poisonFilter: OutlineFilter | null = null;
-  if (step.action === 'poison') {
+  if (step.a === StepType.Poison) {
     poisonFilter = new OutlineFilter(1, 0x006400);
     target.animation.container.filters = [
       ...target.animation.container.filters || [],
@@ -127,18 +120,18 @@ const hit = async (
     ];
   }
 
-  displayDamage(app, target, step.damage, speed);
+  displayDamage(app, target, step.d, speed);
 
   // Update HP bar
   if (target.hpBar) {
-    updateHp(target, -step.damage, speed);
+    updateHp(target, -step.d, speed);
   }
 
   // Stagger
   await stagger(target, speed);
 
   // Remove poison filter
-  if (step.action === 'poison') {
+  if (step.a === StepType.Poison) {
     target.animation.container.filters = target.animation.container.filters?.filter(
       (filter) => filter !== poisonFilter,
     ) || [];

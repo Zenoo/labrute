@@ -1,23 +1,6 @@
-import {
-  Achievement,
-  Brute,
-  BruteBody,
-  BruteColors,
-  BruteInventoryItem,
-  BruteReport,
-  Clan,
-  DestinyChoice,
-  DestinyChoiceSide,
-  Fight,
-  Gender,
-  SkillName,
-  Tournament,
-  TournamentStep,
-  User,
-  WeaponName,
-} from '@labrute/prisma';
-import { Skill } from './brute/skills';
-import { Weapon, WeaponAnimation } from './brute/weapons';
+import { Achievement, Brute, BruteInventoryItem, BruteReport, Clan, DestinyChoice, DestinyChoiceSide, Gender, Tournament, User, WeaponName } from '@labrute/prisma';
+import { Skill, SkillId } from './brute/skills';
+import { Weapon, WeaponAnimation, WeaponId } from './brute/weapons';
 import { BruteRanking } from './constants';
 
 export interface AnimatedWeapon {
@@ -43,18 +26,18 @@ export interface Stat {
   value: number;
 }
 
+export type BruteBodyPart = 'p1' | 'p1a' | 'p1b' | 'p2' | 'p3' | 'p4' | 'p5' | 'p6' | 'p7' | 'p7b' | 'p8';
+export type BruteColor = 'col0' | 'col0a' | 'col0c' | 'col1' | 'col1a' | 'col1b' | 'col1c' | 'col1d' | 'col2' | 'col2a' | 'col2b' | 'col3' | 'col3b' | 'col4' | 'col4a' | 'col4b';
+
 export interface DetailedFighter {
   // Metadata
   id: string;
   name: string;
   gender?: Gender;
+  body?: string;
+  colors?: string;
   rank: BruteRanking;
   level: number;
-  data?: {
-    gender: Gender;
-    body: BruteBody;
-    colors: BruteColors;
-  };
   type: 'brute' | 'pet' | 'boss';
   // Follower/Backup variables
   master?: string;
@@ -72,16 +55,17 @@ export interface DetailedFighter {
   initiative: number; // Lower attacks next
   tempo: number; // Lower is better
   // hit stats
-  baseDamage: number;
-  counter: number;
-  autoReversalOnBlock: boolean;
-  reversal: number;
-  combo: number;
-  block: number;
-  accuracy: number;
-  armor: number;
-  disarm: number;
-  evasion: number;
+  baseDamage: number,
+  counter: number,
+  autoReversalOnBlock: boolean,
+  reversal: number,
+  combo: number,
+  block: number,
+  accuracy: number,
+  armor: number,
+  disarm: number,
+  evasion: number,
+  reach: number,
   // Passives
   // Destroys one enemy's weapon per hit
   sabotage: boolean;
@@ -126,206 +110,322 @@ export interface Fighter {
   id: string;
   name: string;
   gender?: Gender;
+  body?: string;
+  colors?: string;
   rank: BruteRanking;
   level: number;
-  strength: number;
-  agility: number;
-  speed: number;
-  data?: {
-    gender: Gender;
-    body: BruteBody;
-    colors: BruteColors;
-  };
+  strength: number,
+  agility: number,
+  speed: number,
   type: 'brute' | 'pet' | 'boss';
   master?: string;
   maxHp: number;
-  hp: number;
-  weapons: AnimatedWeapon[];
-  skills: SkillName[];
+  hp: number,
+  weapons: WeaponId[];
+  skills: SkillId[];
   shield: boolean;
 }
 
-export interface StepFighter {
-  name: string;
-  type: 'brute' | 'pet' | 'boss';
-  master?: number | string;
-  hypnotised?: boolean;
+export enum StepType {
+  Saboteur,
+  Leave,
+  Arrive,
+  Trash,
+  Steal,
+  Trap,
+  Heal,
+  Resist,
+  Survive,
+  Hit,
+  FlashFlood,
+  Hammer,
+  Poison,
+  Bomb,
+  Hypnotise,
+  Move,
+  Eat,
+  MoveBack,
+  Equip,
+  AttemptHit,
+  Block,
+  Evade,
+  Sabotage,
+  Disarm,
+  Death,
+  Throw,
+  End,
+  Counter,
+  SkillActivate,
+  SkillExpire,
+  Spy,
 }
 
 export interface SaboteurStep {
-  action: 'saboteur';
-  brute: StepFighter;
-  weapon: WeaponName;
+  /** Action */
+  a: StepType.Saboteur;
+  /** Brute ID */
+  b: number;
+  /** Weapon ID */
+  w: WeaponId;
 }
 
 export interface LeaveStep {
-  action: 'leave';
-  fighter: StepFighter;
+  /** Action */
+  a: StepType.Leave;
+  /** Fighter ID */
+  f: number;
 }
 
 export interface ArriveStep {
-  action: 'arrive';
-  fighter: StepFighter;
+  /** Action */
+  a: StepType.Arrive;
+  /** Fighter ID */
+  f: number;
 }
 
 export interface TrashStep {
-  action: 'trash';
-  brute: StepFighter;
-  name: WeaponName;
+  /** Action */
+  a: StepType.Trash;
+  /** Brute ID */
+  b: number;
+  /** Weapon ID */
+  w: WeaponId;
 }
 
 export interface StealStep {
-  action: 'steal';
-  brute: StepFighter;
-  name: WeaponName;
-  target: StepFighter;
+  /** Action */
+  a: StepType.Steal;
+  /** Brute ID */
+  b: number;
+  /** Weapon ID */
+  w: WeaponId;
+  /** Target ID */
+  t: number;
 }
 
 export interface TrapStep {
-  action: 'trap';
-  brute: StepFighter;
-  target: StepFighter;
+  /** Action */
+  a: StepType.Trap;
+  /** Brute ID */
+  b: number;
+  /** Target ID */
+  t: number;
 }
 
 export interface HealStep {
-  action: 'heal';
-  brute: StepFighter;
-  amount: number;
-  poisonHeal?: boolean;
+  /** Action */
+  a: StepType.Heal;
+  /** Brute ID */
+  b: number;
+  /** Amount healed */
+  h: number;
+  /** Cured poison? */
+  c?: 1 | 0;
 }
 
 export interface ResistStep {
-  action: 'resist';
-  brute: StepFighter;
+  /** Action */
+  a: StepType.Resist;
+  /** Brute ID */
+  b: number;
 }
 
 export interface SurviveStep {
-  action: 'survive';
-  brute: StepFighter;
+  /** Action */
+  a: StepType.Survive;
+  /** Brute ID */
+  b: number;
 }
 
 export interface HitStep {
-  action: 'hit' | 'flashFlood' | 'hammer' | 'poison';
-  fighter: StepFighter;
-  target: StepFighter;
-  weapon: WeaponName | null;
-  damage: number;
+  /** Action */
+  a: StepType.Hit | StepType.FlashFlood | StepType.Hammer | StepType.Poison;
+  /** Fighter ID */
+  f: number;
+  /** Target ID */
+  t: number;
+  /** Weapon ID */
+  w?: WeaponId;
+  /** Damage */
+  d: number;
 }
 
 export interface BombStep {
-  action: 'bomb';
-  fighter: StepFighter;
-  targets: StepFighter[];
-  damage: (StepFighter & { damage: number })[];
+  /** Action */
+  a: StepType.Bomb;
+  /** Fighter ID */
+  f: number;
+  /** Targets IDs */
+  t: number[];
+  /** Damage dealt per fighter ID */
+  d: Record<number, number | undefined>;
 }
 
 export interface HypnotiseStep {
-  action: 'hypnotise';
-  brute: StepFighter;
-  pets: StepFighter[];
+  /** Action */
+  a: StepType.Hypnotise;
+  /** Brute ID */
+  b: number;
+  /** Pets hypnotized IDs */
+  p: number[];
 }
 
 export interface MoveStep {
-  action: 'moveTo';
-  fighter: StepFighter;
-  target: StepFighter;
-  sameSpace?: boolean;
-  countered?: boolean;
+  /** Action */
+  a: StepType.Move;
+  /** Fighter ID */
+  f: number;
+  /** Target ID */
+  t: number;
+  /** Should occupy the same visual space? */
+  s?: 1 | 0;
+  /** Got countered? */
+  c?: 1 | 0;
 }
 
 export interface EatStep {
-  action: 'eat';
-  brute: StepFighter;
-  target: StepFighter;
-  heal: number;
+  /** Action */
+  a: StepType.Eat;
+  /** Brute ID */
+  b: number;
+  /** Target ID */
+  t: number;
+  /** HP healed */
+  h: number;
 }
 
 export interface MoveBackStep {
-  action: 'moveBack';
-  fighter: StepFighter;
+  /** Action */
+  a: StepType.MoveBack;
+  /** Fighter ID */
+  f: number;
 }
 
 export interface EquipStep {
-  action: 'equip';
-  brute: StepFighter;
-  name: WeaponName;
+  /** Action */
+  a: StepType.Equip;
+  /** Brute ID */
+  b: number;
+  /** Weapon ID */
+  w: WeaponId;
 }
 
 export interface AttemptHitStep {
-  action: 'attemptHit';
-  fighter: StepFighter;
-  target: StepFighter;
-  weapon: WeaponName | null;
-  brokeShield?: boolean;
+  /** Action */
+  a: StepType.AttemptHit;
+  /** Fighter ID */
+  f: number;
+  /** Target ID */
+  t: number;
+  /** Weapon ID */
+  w?: WeaponId;
+  /** Broke shield? */
+  b?: 1 | 0;
 }
 
 export interface BlockStep {
-  action: 'block';
-  fighter: StepFighter;
+  /** Action */
+  a: StepType.Block;
+  /** Fighter ID */
+  f: number;
 }
 
 export interface EvadeStep {
-  action: 'evade';
-  fighter: StepFighter;
+  /** Action */
+  a: StepType.Evade;
+  /** Fighter ID */
+  f: number;
 }
 
 export interface SabotageStep {
-  action: 'sabotage';
-  fighter: StepFighter;
-  opponent: StepFighter;
-  weapon: WeaponName;
+  /** Action */
+  a: StepType.Sabotage;
+  /** Fighter ID */
+  f: number;
+  /** Target ID */
+  t: number;
+  /** Weapon ID */
+  w: WeaponId;
 }
 
 export interface DisarmStep {
-  action: 'disarm';
-  fighter: StepFighter;
-  opponent: StepFighter;
-  weapon: WeaponName;
+  /** Action */
+  a: StepType.Disarm;
+  /** Fighter ID */
+  f: number;
+  /** Target ID */
+  t: number;
+  /** Weapon ID */
+  w: WeaponId;
 }
 
 export interface DeathStep {
-  action: 'death';
-  fighter: StepFighter;
+  /** Action */
+  a: StepType.Death;
+  /** Fighter ID */
+  f: number;
 }
 
 export interface ThrowStep {
-  action: 'throw';
-  fighter: StepFighter;
-  opponent: StepFighter;
-  weapon: WeaponName;
-  keep: boolean;
+  /** Action */
+  a: StepType.Throw;
+  /** Fighter ID */
+  f: number;
+  /** Target ID */
+  t: number;
+  /** Weapon ID */
+  w: WeaponId;
+  /** Should keep the weapon? */
+  k?: 1 | 0;
 }
 
 export interface EndStep {
-  action: 'end';
-  winner: StepFighter;
-  loser: StepFighter;
+  /** Action */
+  a: StepType.End;
+  /** Winner ID */
+  w: number;
+  /** Loser ID */
+  l: number;
 }
 
 export interface CounterStep {
-  action: 'counter';
-  fighter: StepFighter;
-  opponent: StepFighter;
+  /** Action */
+  a: StepType.Counter;
+  /** Fighter ID */
+  f: number;
+  /** Target ID */
+  t: number;
 }
 
 export interface SkillActivateStep {
-  action: 'skillActivate';
-  brute: StepFighter;
-  skill: SkillName;
+  /** Action */
+  a: StepType.SkillActivate;
+  /** Brute ID */
+  b: number;
+  /** Skill ID */
+  s: SkillId;
 }
 
 export interface SkillExpireStep {
-  action: 'skillExpire';
-  brute: StepFighter;
-  skill: SkillName;
+  /** Action */
+  a: StepType.SkillExpire;
+  /** Brute ID */
+  b: number;
+  /** Skill ID */
+  s: SkillId;
 }
 
 export interface SpyStep {
-  action: 'spy';
-  brute: StepFighter;
-  opponent: StepFighter;
-  sent: WeaponName[];
-  received: WeaponName[];
+  /** Action */
+  a: StepType.Spy;
+  /** Brute ID */
+  b: number;
+  /** Target ID */
+  t: number;
+  /** Weapon IDs sent */
+  s: WeaponId[];
+  /** Weapon IDs received */
+  r: WeaponId[];
 }
 
 export type FightStep =
@@ -359,16 +459,12 @@ export type FightStep =
   | SpyStep;
 
 export interface DetailedFight {
-  brute_1: string;
-  brute_2: string;
-  data: {
-    fighters: DetailedFighter[];
-    initialFighters: DetailedFighter[];
-    steps: FightStep[];
-    initiative: number;
-    winner: StepFighter | null;
-    loser: StepFighter | null;
-  };
+  fighters: DetailedFighter[];
+  initialFighters: DetailedFighter[];
+  steps: FightStep[];
+  initiative: number;
+  winner: number | null;
+  loser: number | null;
 }
 
 export type AnimationModel =
@@ -377,11 +473,6 @@ export type AnimationModel =
   | 'panther'
   | 'male-brute'
   | 'female-brute';
-
-export interface FrameProps {
-  colors: Omit<BruteColors, 'id' | 'bruteId'>;
-  body: Omit<BruteBody, 'id' | 'bruteId'>;
-}
 
 export interface DestinyBranch extends DestinyChoice {
   current: boolean;
@@ -396,45 +487,22 @@ export type UserWithBrutes = User & {
   brutes: Brute[];
 };
 export type UserWithBrutesBodyColor = User & {
-  brutes: BruteWithBodyColors[];
+  brutes: Brute[];
 };
 export type UserWithAchievements = User & {
   achievements: Achievement[];
 };
 
 // Brute
-export type BruteWithBodyColors = Brute & {
-  body: BruteBody | null;
-  colors: BruteColors | null;
-};
 export type HookBrute = Brute & {
   master: Pick<Brute, 'id' | 'name'> | null;
-  body: BruteBody | null;
-  colors: BruteColors | null;
   clan: Pick<Clan, 'id' | 'name'> | null;
   user: Pick<User, 'id' | 'name'> | null;
   tournaments: Tournament[];
-  inventory: BruteInventoryItem[];
+  inventory: Pick<BruteInventoryItem, 'type' | 'count'>[];
 };
-export type AdminPanelBrute = BruteWithBodyColors & {
+export type AdminPanelBrute = Brute & {
   user: User | null;
-};
-
-// Tournament
-export type FullTournamentStep = TournamentStep & {
-  fight: Fight & {
-    brute1: BruteWithBodyColors;
-    brute2: BruteWithBodyColors | null;
-  };
-};
-export type FullTournament = Tournament & {
-  steps: FullTournamentStep[];
-};
-
-// Fight
-export type FightWithBrutes = Fight & {
-  brute1: Brute;
-  brute2: Brute | null;
 };
 
 // Brute report
@@ -446,5 +514,5 @@ export type BruteReportWithNames = BruteReport & {
   users: {
     id: string;
     name: string;
-  }[];
+  }[],
 };

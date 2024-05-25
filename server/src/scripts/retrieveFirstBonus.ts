@@ -4,7 +4,6 @@ import { getRandomBonus } from '@labrute/core';
 import {
   DestinyChoiceType, PetName, SkillName, WeaponName,
 } from '@labrute/prisma';
-import '../utils/Env.js';
 import { GLOBAL, ServerContext } from '../context.js';
 
 async function main(cx: ServerContext) {

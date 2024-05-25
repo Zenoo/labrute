@@ -1,12 +1,16 @@
 import { DestinyChoiceType, PetName, SkillName, WeaponName } from '@labrute/prisma';
-import { BruteRankings, BRUTE_STARTING_POINTS } from '../constants';
-import randomBetween from '../utils/randomBetween';
+import { BruteRankings } from '../constants';
 import applySkillModifiers from './applySkillModifiers';
 import getHP from './getHP';
 import getRandomBonus from './getRandomBonus';
+import { getRandomStartingStats } from './getRandomStartingStats';
 import { pets } from './pets';
 
-const createRandomBruteStats = (perkType?: DestinyChoiceType, perkName?: string | null) => {
+const createRandomBruteStats = (
+  baseStats?: { endurance: number, strength: number, agility: number, speed: number } | null,
+  perkType?: DestinyChoiceType,
+  perkName?: string | null,
+) => {
   let brute = {
     level: 1,
     xp: 0,
@@ -28,9 +32,6 @@ const createRandomBruteStats = (perkType?: DestinyChoiceType, perkName?: string 
     ranking: BruteRankings[0],
     weapons: [] as WeaponName[],
   };
-
-  // Starting budget
-  let availablePoints = BRUTE_STARTING_POINTS;
 
   let perk: { type: DestinyChoiceType, name: PetName | SkillName | WeaponName } | null = null;
 
@@ -63,13 +64,22 @@ const createRandomBruteStats = (perkType?: DestinyChoiceType, perkName?: string 
 
   // Stats boosters
   if (perk.type === 'skill') {
-    brute = applySkillModifiers(brute, brute.skills[0]);
+    const skill = brute.skills[0];
+
+    if (!skill) {
+      throw new Error('Skill not found');
+    }
+
+    brute = applySkillModifiers(brute, skill);
   }
 
-  // Enrudance (2 to 5)
-  const endurancePoints = randomBetween(2, 5);
-  brute.enduranceStat += endurancePoints;
-  availablePoints -= endurancePoints;
+  // Starting stats
+  const startingStats = baseStats || getRandomStartingStats();
+
+  brute.enduranceStat += startingStats.endurance;
+  brute.strengthStat += startingStats.strength;
+  brute.agilityStat += startingStats.agility;
+  brute.speedStat += startingStats.speed;
 
   // Take into account the endurance malus from the pet
   if (perk.type === DestinyChoiceType.pet) {
@@ -82,19 +92,6 @@ const createRandomBruteStats = (perkType?: DestinyChoiceType, perkName?: string 
     // Can go into negatives
     brute.enduranceStat -= pet.enduranceMalus;
   }
-
-  // Strength (2 to 5)
-  const strengthPoints = Math.min(randomBetween(2, 5), availablePoints - 2 * 2);
-  brute.strengthStat += strengthPoints;
-  availablePoints -= strengthPoints;
-
-  // Agility (2 to 5)
-  const agilityPoints = Math.min(randomBetween(2, 5), availablePoints - 2 * 1);
-  brute.agilityStat += agilityPoints;
-  availablePoints -= agilityPoints;
-
-  // Speed (2 to 5)
-  brute.speedStat += availablePoints;
 
   // Final stat values
   brute.enduranceValue = Math.floor(

@@ -2,7 +2,6 @@ import { Home } from '@mui/icons-material';
 import { Box, Paper } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import FantasyButton from '../components/FantasyButton';
 import Page from '../components/Page';
 import Text from '../components/Text';
@@ -25,12 +24,10 @@ const BruteNotFoundView = () => {
           <Text h4 color="secondary" bold sx={{ mb: 2 }}>
             {t('bruteNotFound.subtitle')}
           </Text>
-          <Link to="/">
-            <FantasyButton color="secondary">
-              <Home sx={{ verticalAlign: 'middle', mr: 1 }} />
-              {t('home')}
-            </FantasyButton>
-          </Link>
+          <FantasyButton color="secondary" to="/">
+            <Home sx={{ verticalAlign: 'middle', mr: 1 }} />
+            {t('home')}
+          </FantasyButton>
         </Box>
       </Paper>
     </Page>

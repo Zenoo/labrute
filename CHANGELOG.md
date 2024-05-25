@@ -2,6 +2,265 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.56.4](https://github.com/Zenoo/labrute/compare/labrute-v2.56.3...labrute-v2.56.4) (2024-05-23)
+
+
+### Bug Fixes
+
+* Missing opponent ([1966a65](https://github.com/Zenoo/labrute/commit/1966a65f61ea50a49780be640a9b0b01213d220a))
+
+## [2.56.3](https://github.com/Zenoo/labrute/compare/labrute-v2.56.2...labrute-v2.56.3) (2024-05-23)
+
+
+### Bug Fixes
+
+* Code safety checks ([fc03fb2](https://github.com/Zenoo/labrute/commit/fc03fb2cbb597911fbb00e2bb3e517eef24ab4b2))
+* Spy weapon swaps for duplicate weapons ([6b68299](https://github.com/Zenoo/labrute/commit/6b68299856673f1087b77b6c79dbfa6e3e41b976))
+* Unused deps ([6c1ad6a](https://github.com/Zenoo/labrute/commit/6c1ad6ad26a0900f4600e0970c242d88103167ee))
+
+## [2.56.2](https://github.com/Zenoo/labrute/compare/labrute-v2.56.1...labrute-v2.56.2) (2024-05-23)
+
+
+### Bug Fixes
+
+* Error when accepting a report ([80dcb11](https://github.com/Zenoo/labrute/commit/80dcb11e50bdabf474b0aa76f310ab4e8c674748))
+
+## [2.56.1](https://github.com/Zenoo/labrute/compare/labrute-v2.56.0...labrute-v2.56.1) (2024-05-22)
+
+
+### Bug Fixes
+
+* Add 1 free name change on reports ([2e92444](https://github.com/Zenoo/labrute/commit/2e92444c6fc60ae9474e9dabe81b3964773a7ef8))
+* Remove name change on use ([987f430](https://github.com/Zenoo/labrute/commit/987f430fe006ac9854a4c02b3f9393b1bc5065a2))
+
+## [2.56.0](https://github.com/Zenoo/labrute/compare/labrute-v2.55.0...labrute-v2.56.0) (2024-05-22)
+
+
+### Features
+
+* Name change. Duplicate names deletion. Reports deletion grace period. Fixes [#697](https://github.com/Zenoo/labrute/issues/697). ([b9b80e2](https://github.com/Zenoo/labrute/commit/b9b80e2a9886694d2babe9be25d412477cc208a3))
+
+
+### Bug Fixes
+
+* Dark mode assets. [#604](https://github.com/Zenoo/labrute/issues/604) ([56ad1ff](https://github.com/Zenoo/labrute/commit/56ad1ff9545e152fcbaaef927b807cdd71bc867d))
+* Limit inventory to owner. Fixes [#695](https://github.com/Zenoo/labrute/issues/695) ([1c3fb43](https://github.com/Zenoo/labrute/commit/1c3fb4324bda03e6484441ec8298cf7a203ec334))
+* New dark mode assets. [#604](https://github.com/Zenoo/labrute/issues/604) ([4611747](https://github.com/Zenoo/labrute/commit/46117473dae86b997838202ea9cf666b2fd75875))
+
+## [2.55.0](https://github.com/Zenoo/labrute/compare/labrute-v2.54.6...labrute-v2.55.0) (2024-05-18)
+
+
+### Features
+
+* Inventory + boss rewards a boxx ticket instead of XP. Fixes [#689](https://github.com/Zenoo/labrute/issues/689) ([727e870](https://github.com/Zenoo/labrute/commit/727e870d44974e2a8700ee21b7e2b555354fc757))
+
+
+### Bug Fixes
+
+* Alert for non implemented items ([2728635](https://github.com/Zenoo/labrute/commit/27286352d40e7d9b6aead547329d1e04910669a5))
+* Boss defeat log. Fixes [#688](https://github.com/Zenoo/labrute/issues/688) ([71395e4](https://github.com/Zenoo/labrute/commit/71395e40aaecbc4f997362e402a0c86c9351e615))
+* Keep track of boss damage even when outside the clan. Fixes [#687](https://github.com/Zenoo/labrute/issues/687) ([4cc335b](https://github.com/Zenoo/labrute/commit/4cc335b788e197d89d05091fef42642a49ceb38d))
+* Reorder clan brutes after master change ([246f4b6](https://github.com/Zenoo/labrute/commit/246f4b6ac55ed3ad88bf7ec721171566f69e7ff6))
+
+## [2.54.6](https://github.com/Zenoo/labrute/compare/labrute-v2.54.5...labrute-v2.54.6) (2024-05-17)
+
+
+### Bug Fixes
+
+* Double watch needed for global tournament progression on byes ([df65f0b](https://github.com/Zenoo/labrute/commit/df65f0b7d205303eeef1804ea655f07b34d72a1f))
+* Increase boss difficulty ([c1a9a03](https://github.com/Zenoo/labrute/commit/c1a9a0352dc546e54731a24d7b93b108446c97e6))
+* Option to skip watching global fights ([4e008b8](https://github.com/Zenoo/labrute/commit/4e008b841636e9073c661e911cf12a49dc6ab02b))
+
+## [2.54.5](https://github.com/Zenoo/labrute/compare/labrute-v2.54.4...labrute-v2.54.5) (2024-05-17)
+
+
+### Bug Fixes
+
+* Tournament history wrong place on daily ([4825dbe](https://github.com/Zenoo/labrute/commit/4825dbe2a18f5aa1e043625d01c59011c66e24ce))
+
+## [2.54.4](https://github.com/Zenoo/labrute/compare/labrute-v2.54.3...labrute-v2.54.4) (2024-05-17)
+
+
+### Bug Fixes
+
+* pet max HP not scaling ([8167019](https://github.com/Zenoo/labrute/commit/8167019b14d7210fe08b89dc33740dda5e970146))
+
+## [2.54.3](https://github.com/Zenoo/labrute/compare/labrute-v2.54.2...labrute-v2.54.3) (2024-05-16)
+
+
+### Bug Fixes
+
+* Error when leaving clan ([b4c2cb0](https://github.com/Zenoo/labrute/commit/b4c2cb0ed7eb3e1e59ad2e1e582867841ef466d8))
+
+## [2.54.2](https://github.com/Zenoo/labrute/compare/labrute-v2.54.1...labrute-v2.54.2) (2024-05-16)
+
+
+### Bug Fixes
+
+* Skip byes for global tournament watch counter ([267aeee](https://github.com/Zenoo/labrute/commit/267aeeee20bbeafed2f94132e7d49d60a4ad65be))
+
+## [2.54.1](https://github.com/Zenoo/labrute/compare/labrute-v2.54.0...labrute-v2.54.1) (2024-05-16)
+
+
+### Bug Fixes
+
+* Non unique clan on boss damages ([c49595c](https://github.com/Zenoo/labrute/commit/c49595c3446b67673048bc107857555f2650371d))
+
+## [2.54.0](https://github.com/Zenoo/labrute/compare/labrute-v2.53.2...labrute-v2.54.0) (2024-05-16)
+
+
+### Features
+
+* Display damage dealt to boss by brute + display clan master first. Fixes [#476](https://github.com/Zenoo/labrute/issues/476) ([370dd99](https://github.com/Zenoo/labrute/commit/370dd99ce9e9e463c131cac8c72bb0db2b5cc086))
+* Display unowned weapons. Fixes [#675](https://github.com/Zenoo/labrute/issues/675) ([17b21c8](https://github.com/Zenoo/labrute/commit/17b21c80d231d8d96e5e81de6945c72787955045))
+* Hide global tournament fights until watched. Fixes [#628](https://github.com/Zenoo/labrute/issues/628) ([4ed1a61](https://github.com/Zenoo/labrute/commit/4ed1a614252a11895fed8baccb37bf4eef99d218))
+* XP and gold gains after boss slain. Fixes [#482](https://github.com/Zenoo/labrute/issues/482) ([91e486e](https://github.com/Zenoo/labrute/commit/91e486e85518b3b8abef40e0f16567a97da0d1d4))
+
+
+### Bug Fixes
+
+* Improve achievement description visibility. Fixes [#599](https://github.com/Zenoo/labrute/issues/599) ([0f7d333](https://github.com/Zenoo/labrute/commit/0f7d333b6f8f890dd5d8c6af70796bb47b85c5bb))
+* Limit clan size to 50, bosses give +5 on defeat. Fixes [#621](https://github.com/Zenoo/labrute/issues/621) ([990cdea](https://github.com/Zenoo/labrute/commit/990cdea948bf1c7b6e52c267ac6988ad35a10bb8))
+
+## [2.53.2](https://github.com/Zenoo/labrute/compare/labrute-v2.53.1...labrute-v2.53.2) (2024-05-15)
+
+
+### Bug Fixes
+
+* Don't add the starting bonuses twice ([940174f](https://github.com/Zenoo/labrute/commit/940174fddf5748968c6bd3117035ccc46b38900d))
+* Limit clan leave request to own brutes ([fd7af94](https://github.com/Zenoo/labrute/commit/fd7af94a626ea66bb951cab06f161cfac1db841d))
+* stats from skills not applied at level 1 ([216d914](https://github.com/Zenoo/labrute/commit/216d9145b3d847b0a836abf18a6a4a6b68059fbd))
+
+## [2.53.1](https://github.com/Zenoo/labrute/compare/labrute-v2.53.0...labrute-v2.53.1) (2024-05-15)
+
+
+### Bug Fixes
+
+* Broken ranking images ([3b95d62](https://github.com/Zenoo/labrute/commit/3b95d62b7b1e191d48e91aebdb3289eab49f64a1))
+* Home main bg dark. [#604](https://github.com/Zenoo/labrute/issues/604) ([2b7df18](https://github.com/Zenoo/labrute/commit/2b7df182250fed37d76abe17b3ddf80da4d69b95))
+* Rank up button color ([ccf63e3](https://github.com/Zenoo/labrute/commit/ccf63e3cb966e10c0185fc56fe99768602db4fba))
+* Typo ([047c708](https://github.com/Zenoo/labrute/commit/047c708693b7a6175213fbf4dd89587fb28faeac))
+
+## [2.53.0](https://github.com/Zenoo/labrute/compare/labrute-v2.52.6...labrute-v2.53.0) (2024-05-14)
+
+
+### Features
+
+* Dark mode (hidden for now) [#604](https://github.com/Zenoo/labrute/issues/604) + Store base brute stats. Fixes [#666](https://github.com/Zenoo/labrute/issues/666) ([742edf3](https://github.com/Zenoo/labrute/commit/742edf339742b14bae7edb402e69f75f9ac11d19))
+
+
+### Bug Fixes
+
+* Brute too big ([81bef31](https://github.com/Zenoo/labrute/commit/81bef31572ca0e57ab67e98d92e8daa8b3d2105e))
+* Missing name in creation request ([edd709e](https://github.com/Zenoo/labrute/commit/edd709ef31f1862ef0299f213dd93e56fd689b62))
+* Pigtails display issue in fights. Fixes [#669](https://github.com/Zenoo/labrute/issues/669) ([dc6c70d](https://github.com/Zenoo/labrute/commit/dc6c70d7a536620bb4b4a7d3e6975255f5e77e01))
+* Tournament history. Fixes [#670](https://github.com/Zenoo/labrute/issues/670) ([d97f9f5](https://github.com/Zenoo/labrute/commit/d97f9f50d62c7dbdd25cb238dd629b5ce3082ab1))
+* Wrong target for pets hypnotized by backups. Fixes [#667](https://github.com/Zenoo/labrute/issues/667) ([57dfdfd](https://github.com/Zenoo/labrute/commit/57dfdfde260091db554d3b92fa4e46e6d8b215cf))
+
+## [2.52.6](https://github.com/Zenoo/labrute/compare/labrute-v2.52.5...labrute-v2.52.6) (2024-05-11)
+
+
+### Bug Fixes
+
+* Tournament wins reset on rank up + display wins on non owned brutes ([d15ce07](https://github.com/Zenoo/labrute/commit/d15ce07689c2f8a675aa5c04f08e6b7261727e06))
+
+## [2.52.5](https://github.com/Zenoo/labrute/compare/labrute-v2.52.4...labrute-v2.52.5) (2024-05-11)
+
+
+### Bug Fixes
+
+* Bonus fights not applied to brutes who didn't fight today ([f7394a3](https://github.com/Zenoo/labrute/commit/f7394a3a9f7d62bbbc783d82f16d8ace4e3b4814))
+* Wrong translations server side ([a1eed80](https://github.com/Zenoo/labrute/commit/a1eed80d89916ad95d86d3bbddbfb76ef906520c))
+
+## [2.52.4](https://github.com/Zenoo/labrute/compare/labrute-v2.52.3...labrute-v2.52.4) (2024-05-10)
+
+
+### Bug Fixes
+
+* Configurable drpg endpoint ([5e675ed](https://github.com/Zenoo/labrute/commit/5e675ed585dd632c4c447f38e0c47797a7d336dd))
+* Silence no drpg account error ([38e11f0](https://github.com/Zenoo/labrute/commit/38e11f090a7e6e6bf3040d4049d11b211e20a56b))
+
+## [2.52.3](https://github.com/Zenoo/labrute/compare/labrute-v2.52.2...labrute-v2.52.3) (2024-05-10)
+
+
+### Bug Fixes
+
+* Bomb damage as a % of pet max HP. Fixes [#569](https://github.com/Zenoo/labrute/issues/569) ([7683551](https://github.com/Zenoo/labrute/commit/76835517b23111ef67db12b99b06267f916c3359))
+* Bomb damage typo ([a11f954](https://github.com/Zenoo/labrute/commit/a11f954327dea7a701fc316d72fbfc077ea46be4))
+* Fan not being used in fights ([955b985](https://github.com/Zenoo/labrute/commit/955b98518ba5bd87804c8b9907a0e6a4e7482410))
+* Give tournament wins for brute who could already rank up ([4bce5d8](https://github.com/Zenoo/labrute/commit/4bce5d8e2627012d60aa322f8d82b2bc66e1fd35))
+* Limit global tournament to brute that played on the previous day. Fixes [#657](https://github.com/Zenoo/labrute/issues/657) ([923d136](https://github.com/Zenoo/labrute/commit/923d136f2ff6072b94d35ea51b79db3e34f9cac6))
+* Renamed weapon tempo to speed for a better understading. Fixes [#583](https://github.com/Zenoo/labrute/issues/583) ([3a39098](https://github.com/Zenoo/labrute/commit/3a3909818864e200a485019e65153c4202281bdb))
+* Weapon use chance as a %. Fixes [#584](https://github.com/Zenoo/labrute/issues/584) ([ada3021](https://github.com/Zenoo/labrute/commit/ada302132066a881efc769c3a241e60ce71e754e))
+
+## [2.52.2](https://github.com/Zenoo/labrute/compare/labrute-v2.52.1...labrute-v2.52.2) (2024-05-10)
+
+
+### Bug Fixes
+
+* DinoRPG integration ([f403ab0](https://github.com/Zenoo/labrute/commit/f403ab0a924e4191453ed81d685269816f90a241))
+
+## [2.52.1](https://github.com/Zenoo/labrute/compare/labrute-v2.52.0...labrute-v2.52.1) (2024-05-09)
+
+
+### Bug Fixes
+
+* Fight stops when using a fan ([8d70c84](https://github.com/Zenoo/labrute/commit/8d70c846030f67fcedaa35e72185087a8636af84))
+
+## [2.52.0](https://github.com/Zenoo/labrute/compare/labrute-v2.51.3...labrute-v2.52.0) (2024-05-09)
+
+
+### Features
+
+* DinoRPG integration. Fixes [#655](https://github.com/Zenoo/labrute/issues/655) ([e9ea5e4](https://github.com/Zenoo/labrute/commit/e9ea5e4adda1b21e506540a2279a810d4117c46c))
+* Multiple tournament wins needed to rank up. Fixes [#596](https://github.com/Zenoo/labrute/issues/596) ([029cb82](https://github.com/Zenoo/labrute/commit/029cb827e7bba17ff735dc612c681b961692b695))
+* Reduce fight data size. Fixes [#654](https://github.com/Zenoo/labrute/issues/654) ([2f85eaf](https://github.com/Zenoo/labrute/commit/2f85eaf61b1457e52161efbbbbcb2f4cc6b12447))
+* Store brute body and colors as strings. Fixes [#611](https://github.com/Zenoo/labrute/issues/611) ([df5f02d](https://github.com/Zenoo/labrute/commit/df5f02de14d62372dd25b640f1b133ffe0aa912a))
+
+
+### Bug Fixes
+
+* Don't disarm if 0% chances ([f678350](https://github.com/Zenoo/labrute/commit/f678350f1d6ff0015ce756879280e2f29f1e76cf))
+
+## [2.51.3](https://github.com/Zenoo/labrute/compare/labrute-v2.51.2...labrute-v2.51.3) (2024-05-03)
+
+
+### Bug Fixes
+
+* Discord crash ([5a12e1d](https://github.com/Zenoo/labrute/commit/5a12e1d87404b6192a4054d6aff90b1217e3416d))
+* Error on levelup ([582ed1b](https://github.com/Zenoo/labrute/commit/582ed1b953c12ce8ea1844fc8f00d8b34096425f))
+* Stop throwing an error when no global tournament is found ([f03dad6](https://github.com/Zenoo/labrute/commit/f03dad67e1308579869c310e07689d81a82b86d7))
+
+## [2.51.2](https://github.com/Zenoo/labrute/compare/labrute-v2.51.1...labrute-v2.51.2) (2024-05-02)
+
+
+### Bug Fixes
+
+* Use map in locks + Discord crash fix. Fixes [#647](https://github.com/Zenoo/labrute/issues/647) ([baba38d](https://github.com/Zenoo/labrute/commit/baba38da9ec38d1af2e4436053c36cbaad6ea792))
+
+## [2.51.1](https://github.com/Zenoo/labrute/compare/labrute-v2.51.0...labrute-v2.51.1) (2024-05-02)
+
+
+### Bug Fixes
+
+* Config url protocol ([da59b1e](https://github.com/Zenoo/labrute/commit/da59b1e9d1796b4929fdc171672ba98815128171))
+* Optimize data loaded on auth ([f2b3a6b](https://github.com/Zenoo/labrute/commit/f2b3a6ba9c4bdaa36491ac1d3af60b1602e3b37a))
+* remove `Env` import from server scripts ([babde81](https://github.com/Zenoo/labrute/commit/babde81738c4d0cd6342488c9ba6b8c741146a0e))
+
+## [2.51.0](https://github.com/Zenoo/labrute/compare/labrute-v2.50.5...labrute-v2.51.0) (2024-05-01)
+
+
+### Features
+
+* OpenTelemetry ([2b68cbe](https://github.com/Zenoo/labrute/commit/2b68cbede5506ba57ddd75a1249427c25f8b7026))
+
+## [2.50.5](https://github.com/Zenoo/labrute/compare/labrute-v2.50.4...labrute-v2.50.5) (2024-04-27)
+
+
+### Bug Fixes
+
+* middleware bypass ([#640](https://github.com/Zenoo/labrute/issues/640)) ([e6e8948](https://github.com/Zenoo/labrute/commit/e6e8948d94ac20d79262d99a8b177e215183d841))
+
 ## [2.50.4](https://github.com/Zenoo/labrute/compare/labrute-v2.50.3...labrute-v2.50.4) (2024-04-26)
 
 

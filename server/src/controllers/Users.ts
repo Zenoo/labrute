@@ -1,13 +1,17 @@
 import {
   AchievementData, ExpectedError, RaretyOrder,
-  UserGetAdminResponse, UserGetProfileResponse, UsersAdminUpdateRequest,
+  UserGetAdminResponse, UserGetProfileResponse, UserWithBrutesBodyColor, UsersAdminUpdateRequest,
+  getFightsLeft,
+  isUuid,
 } from '@labrute/core';
 import {
   Achievement, Lang,
   PrismaClient,
 } from '@labrute/prisma';
-import { Request, Response } from 'express';
-import { DISCORD } from '../context.js';
+import type { Request, Response } from 'express';
+import moment from 'moment';
+import fetch from 'node-fetch';
+import { DISCORD, GLOBAL } from '../context.js';
 import dailyJob from '../dailyJob.js';
 import auth from '../utils/auth.js';
 import sendError from '../utils/sendError.js';
@@ -16,20 +20,29 @@ import translate from '../utils/translate.js';
 const Users = {
   get: (prisma: PrismaClient) => async (
     req: Request<{
-      name: string
+      id: string
     }>,
     res: Response<UserGetAdminResponse>,
   ) => {
     try {
-      const admin = await auth(prisma, req);
+      const authed = await auth(prisma, req);
 
-      if (!admin.admin) {
-        throw new Error(translate('unauthorized', admin));
+      const admin = await prisma.user.findFirst({
+        where: { id: authed.id },
+        select: { admin: true },
+      });
+
+      if (!admin?.admin) {
+        throw new Error(translate('unauthorized', authed));
+      }
+
+      if (!isUuid(req.params.id)) {
+        throw new Error(translate('invalidParameters', authed));
       }
 
       const user = await prisma.user.findFirst({
         where: {
-          name: req.params.name,
+          id: req.params.id,
         },
         include: {
           achievements: {
@@ -42,7 +55,7 @@ const Users = {
       });
 
       if (!user) {
-        throw new ExpectedError(translate('userNotFound', admin));
+        throw new ExpectedError(translate('userNotFound', authed));
       }
 
       // Merge achievements with same name
@@ -72,9 +85,31 @@ const Users = {
       sendError(res, error);
     }
   },
-  authenticate: (prisma: PrismaClient) => async (req: Request, res: Response) => {
+  authenticate: (prisma: PrismaClient) => async (
+    req: Request,
+    res: Response<UserWithBrutesBodyColor>,
+  ) => {
     try {
-      const user = await auth(prisma, req);
+      const { id } = await auth(prisma, req);
+
+      const user = await prisma.user.findFirst({
+        where: { id },
+        include: {
+          brutes: {
+            where: {
+              deletedAt: null,
+            },
+            orderBy: [
+              { favorite: 'desc' },
+              { createdAt: 'asc' },
+            ],
+          },
+        },
+      });
+
+      if (!user) {
+        throw new Error('User not found');
+      }
 
       res.send(user);
     } catch (error) {
@@ -83,10 +118,15 @@ const Users = {
   },
   runDailyJob: (prisma: PrismaClient) => async (req: Request, res: Response) => {
     try {
-      const user = await auth(prisma, req);
+      const authed = await auth(prisma, req);
 
-      if (!user.admin) {
-        throw new Error(translate('unauthorized', user));
+      const user = await prisma.user.findFirst({
+        where: { id: authed.id },
+        select: { admin: true },
+      });
+
+      if (!user?.admin) {
+        throw new Error(translate('unauthorized', authed));
       }
 
       await dailyJob(prisma)().catch((error: Error) => {
@@ -183,14 +223,19 @@ const Users = {
     try {
       const { params: { id } } = req;
 
-      const admin = await auth(prisma, req);
+      const authed = await auth(prisma, req);
 
-      if (!admin.admin) {
-        throw new ExpectedError(translate('unauthorized', admin));
+      const admin = await prisma.user.findFirst({
+        where: { id: authed.id },
+        select: { admin: true },
+      });
+
+      if (!admin?.admin) {
+        throw new ExpectedError(translate('unauthorized', authed));
       }
 
       if (!id) {
-        throw new ExpectedError(translate('noIDProvided', admin));
+        throw new ExpectedError(translate('noIDProvided', authed));
       }
 
       const user = await prisma.user.findFirst({
@@ -200,7 +245,7 @@ const Users = {
       });
 
       if (!user) {
-        throw new Error(translate('userNotFound', admin));
+        throw new Error(translate('userNotFound', authed));
       }
 
       // Update the user
@@ -352,6 +397,137 @@ const Users = {
       res.send({
         ...user,
         achievements: mergedAchievements,
+      });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  isDoneForToday: (prisma: PrismaClient) => async (
+    req: Request<{ userId: string }>,
+    res: Response<boolean>,
+  ) => {
+    try {
+      if (!req.params.userId) {
+        throw new ExpectedError('No user ID provided');
+      }
+
+      const brutes = await prisma.brute.findMany({
+        where: {
+          userId: req.params.userId,
+          deletedAt: null,
+        },
+        select: {
+          lastFight: true,
+          fightsLeft: true,
+          skills: true,
+        },
+      });
+
+      const isDoneForToday = brutes.every((brute) => getFightsLeft(brute) === 0);
+
+      res.send(isDoneForToday);
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  getDinoRpgRewards: (prisma: PrismaClient) => async (
+    req: Request,
+    res: Response,
+  ) => {
+    try {
+      const authed = await auth(prisma, req);
+
+      const user = await prisma.user.findFirst({
+        where: { id: authed.id },
+        select: {
+          dinorpgDone: true,
+        },
+      });
+
+      if (!user) {
+        throw new Error('User not found');
+      }
+
+      if (user.dinorpgDone && moment.utc().isSame(moment.utc(user.dinorpgDone), 'day')) {
+        throw new ExpectedError(translate('alreadyClaimed', authed));
+      }
+
+      let dinoRpgDone = false;
+
+      const dinoRpgResponse = await fetch(`${GLOBAL.config.dinoRpgUrl}/api/v1/eternaltwin/${authed.id}`);
+      const data = await dinoRpgResponse.text();
+
+      dinoRpgDone = data === 'true';
+
+      if (data !== 'true' && data !== 'false') {
+        if (data.includes('doesn\'t exist.')) {
+          throw new ExpectedError(translate('noDinoRpgAccount', authed));
+        }
+
+        throw new Error(data);
+      }
+
+      if (!dinoRpgDone) {
+        throw new ExpectedError(translate('needToUseEveryAction', authed));
+      }
+
+      // Update brutes who already fought today (+1 fight left)
+      await prisma.user.update({
+        where: { id: authed.id },
+        data: {
+          dinorpgDone: new Date(),
+          brutes: {
+            updateMany: {
+              where: {
+                deletedAt: null,
+                lastFight: {
+                  gte: new Date(),
+                },
+              },
+              data: {
+                fightsLeft: {
+                  increment: 1,
+                },
+              },
+            },
+          },
+        },
+      });
+
+      // Get brutes who didn't fight today
+      const brutes = await prisma.brute.findMany({
+        where: {
+          userId: authed.id,
+          deletedAt: null,
+          lastFight: {
+            lt: new Date(),
+          },
+        },
+        select: {
+          id: true,
+          skills: true,
+          lastFight: true,
+          fightsLeft: true,
+        },
+      });
+
+      for (const brute of brutes) {
+        const fightsLeft = getFightsLeft(brute) + 1;
+
+        // eslint-disable-next-line no-await-in-loop
+        await prisma.brute.update({
+          where: {
+            id: brute.id,
+          },
+          data: {
+            fightsLeft,
+            lastFight: new Date(),
+          },
+        });
+      }
+
+      res.send({
+        success: true,
       });
     } catch (error) {
       sendError(res, error);

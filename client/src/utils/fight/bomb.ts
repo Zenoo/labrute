@@ -9,20 +9,18 @@ import findFighter, { AnimationFighter } from './findFighter';
 import stagger from './stagger';
 import updateHp from './updateHp';
 
-const getBombDamage = (damage: BombStep['damage'], target: AnimationFighter) => {
+const getBombDamage = (damage: BombStep['d'], target: AnimationFighter) => {
   if (typeof damage === 'number') {
     return damage;
   }
 
-  const targetDamage = damage.find((d) => d.name === target.name
-    && d.type === target.type
-    && d.master === target.master);
+  const targetDamage = damage[target.id];
 
   if (!targetDamage) {
     throw new Error('Target damage not found');
   }
 
-  return targetDamage.damage;
+  return targetDamage;
 };
 
 const bomb = async (
@@ -34,13 +32,13 @@ const bomb = async (
   if (!app.loader) {
     return;
   }
-  const { loader: { resources: { '/images/game/misc.json': { spritesheet } } } } = app;
+  const spritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
 
   if (!spritesheet) {
     throw new Error('Spritesheet not found');
   }
 
-  const fighter = findFighter(fighters, step.fighter);
+  const fighter = findFighter(fighters, step.f);
   if (!fighter) {
     throw new Error('Fighter not found');
   }
@@ -54,7 +52,7 @@ const bomb = async (
   });
 
   // Create bomb sprite
-  const bombSprite = new AnimatedSprite(spritesheet.animations.bomb);
+  const bombSprite = new AnimatedSprite(spritesheet.animations.bomb || []);
   bombSprite.animationSpeed = speed.current / 2;
   bombSprite.loop = true;
 
@@ -113,7 +111,7 @@ const bomb = async (
   bombSprite.destroy();
 
   // Create explosion sprite
-  const explosionSprite = new AnimatedSprite(spritesheet.animations.explosion);
+  const explosionSprite = new AnimatedSprite(spritesheet.animations.explosion || []);
   explosionSprite.animationSpeed = speed.current;
   explosionSprite.loop = false;
 
@@ -141,7 +139,7 @@ const bomb = async (
   });
 
   // Get targets
-  const targets = step.targets.map((t) => {
+  const targets = step.t.map((t) => {
     const target = findFighter(fighters, t);
 
     if (!target) {
@@ -153,14 +151,12 @@ const bomb = async (
 
   const staggers = [];
 
-  for (let i = 0; i < targets.length; i++) {
-    const { [i]: target } = targets;
-
+  for (const target of targets) {
     // Get damage
-    const damage = getBombDamage(step.damage, target);
+    const damage = getBombDamage(step.d, target);
 
     // Get hit animation (random for male brute)
-    const animation: 'hit' | 'hit-0' | 'hit-1' | 'hit-2' = target.type === 'brute' && target.data?.gender === 'male'
+    const animation: 'hit' | 'hit-0' | 'hit-1' | 'hit-2' = target.type === 'brute' && target.gender === 'male'
       ? `hit-${randomBetween(0, 2) as 0 | 1 | 2}`
       : 'hit';
 

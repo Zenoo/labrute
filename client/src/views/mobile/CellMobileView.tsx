@@ -24,7 +24,6 @@ export interface CellMobileViewProps {
   ad: AdResult;
   logs: (Log & { currentBrute: { name: string } })[];
   language: Lang;
-  ownsBrute: boolean;
   confirmReport: () => void;
   confirmSacrifice: () => void;
   confirmReset: () => void;
@@ -34,7 +33,6 @@ const CellMobileView = ({
   ad,
   logs,
   language,
-  ownsBrute,
   confirmReport,
   confirmSacrifice,
   confirmReset,
@@ -68,7 +66,7 @@ const CellMobileView = ({
             <Tooltip title={t('refLink')}>
               <Text bold center>{`${window.location.origin}?ref=${brute.name}`}</Text>
             </Tooltip>
-            {(ownsBrute || !!brute.clanId) && (
+            {(owner || !!brute.clanId) && (
               <CellClan brute={brute} />
             )}
           </Paper>
@@ -76,7 +74,22 @@ const CellMobileView = ({
         <Grid item xs={12} sm={6} order={isXs ? 3 : 0} sx={{ textAlign: 'center', px: 1, alignSelf: 'center' }}>
           <Box sx={{ mx: 1 }}>
             {/* WEAPONS */}
-            <Text bold>{t('weaponsBonuses')}</Text>
+            <Text bold center sx={{ mb: 0.5 }}>
+              <Tooltip title={t('inventory')}>
+                <Link to={`/${brute.name}/inventory`}>
+                  <Box
+                    component="img"
+                    src="/images/inventory.png"
+                    sx={{
+                      width: 22,
+                      verticalAlign: 'middle',
+                      mr: 0.5,
+                    }}
+                  />
+                </Link>
+              </Tooltip>
+              {t('weaponsBonuses')}
+            </Text>
             <CellWeapons sx={{ width: 1 }} />
             {/* SKILLS */}
             <CellSkills />
@@ -141,12 +154,10 @@ const CellMobileView = ({
         </Paper>
       )}
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-        <Link to={`/${brute.name}/tournaments`}>
-          <FantasyButton color="secondary" sx={{ m: 1 }}>
-            <History sx={{ verticalAlign: 'middle', mr: 1 }} />
-            {t('tournaments')}
-          </FantasyButton>
-        </Link>
+        <FantasyButton to={`/${brute.name}/tournaments`} color="secondary" sx={{ m: 1 }}>
+          <History sx={{ verticalAlign: 'middle', mr: 1 }} />
+          {t('tournaments')}
+        </FantasyButton>
       </Box>
       {/* BRUTE SACRIFICE */}
       {owner

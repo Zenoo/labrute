@@ -15,12 +15,12 @@ const eat = async (
   step: EatStep,
   speed: React.MutableRefObject<number>,
 ) => {
-  const brute = findFighter(fighters, step.brute);
+  const brute = findFighter(fighters, step.b);
   if (!brute) {
     throw new Error('Brute not found');
   }
 
-  const pet = findFighter(fighters, step.target);
+  const pet = findFighter(fighters, step.t);
   if (!pet) {
     throw new Error('Pet not found');
   }
@@ -46,7 +46,7 @@ const eat = async (
   });
 
   // Display floating and fading green heal text
-  const healText = new Text(`+${step.heal}`, {
+  const healText = new Text(`+${step.h}`, {
     fontFamily: 'GameFont', fontSize: 20, fill: 0x00ff00,
   });
   healText.anchor.set(0.5);
@@ -71,7 +71,7 @@ const eat = async (
   await animationEnded;
 
   // Heal brute
-  updateHp(brute, step.heal, speed);
+  updateHp(brute, step.h, speed);
 };
 
 export default eat;

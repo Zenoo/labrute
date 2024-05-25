@@ -1,14 +1,13 @@
-import { Achievement, AchievementName, Brute, BruteBody, BruteColors, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, Fight, Lang, Prisma, Tournament, TournamentStep, User } from '@labrute/prisma';
+import { Achievement, AchievementName, BossDamage, Brute, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, DestinyChoice, Fight, Lang, Prisma, Tournament, User } from '@labrute/prisma';
 import Version from './Version';
 import applySkillModifiers from './brute/applySkillModifiers';
 import availableBodyParts from './brute/availableBodyParts';
 import bosses, { Boss } from './brute/bosses';
 import canLevelUp from './brute/canLevelUp';
-import colors from './brute/colors';
 import createRandomBruteStats from './brute/createRandomBruteStats';
 import getBruteGoldValue from './brute/getBruteGoldValue';
 import getFightsLeft from './brute/getFightsLeft';
-import getGoldNeededForNewBrute from './brute/getGoldNeededForNewBrute';
+import { getGoldNeededForNewBrute } from './brute/getGoldNeededForNewBrute';
 import getHP from './brute/getHP';
 import getLevelUpChoices from './brute/getLevelUpChoices';
 import getMaxFightsPerDay from './brute/getMaxFightsPerDay';
@@ -20,7 +19,7 @@ import { isNameValid } from './brute/isNameValid';
 import skills from './brute/skills';
 import updateBruteData from './brute/updateBruteData';
 import weapons from './brute/weapons';
-import { BruteReportWithNames, BruteWithBodyColors, DestinyBranch } from './types';
+import { BruteReportWithNames, DestinyBranch } from './types';
 import ExpectedError from './utils/ExpectedError';
 import adjustColor from './utils/adjustColor';
 import formatLargeNumber from './utils/formatLargeNumber';
@@ -37,9 +36,15 @@ export * from './brute/skills';
 export * from './brute/weapons';
 export * from './constants';
 export * from './types';
+export * from './brute/parsers';
+export * from './brute/colors';
+export * from './brute/getWinsNeededToRankUp';
+export * from './brute/getRandomStartingStats';
+export * from './utils/isUuid';
+export * from './utils/randomItem';
 export {
   Boss, ExpectedError, Version, adjustColor, applySkillModifiers,
-  availableBodyParts, bosses, canLevelUp, colors,
+  availableBodyParts, bosses, canLevelUp,
   createRandomBruteStats, formatLargeNumber, getBruteGoldValue,
   getFightsLeft, getGoldNeededForNewBrute, getHP,
   getLevelUpChoices,
@@ -59,18 +64,15 @@ export type PrismaInclude = {
 
 // Server return types
 export type BrutesGetForRankResponse = {
-  topBrutes: BruteWithBodyColors[],
-  nearbyBrutes: BruteWithBodyColors[],
+  topBrutes: Brute[],
+  nearbyBrutes: Brute[],
   position: number,
   total: number,
 };
 export type BrutesGetRankingResponse = {
   ranking: number,
 };
-export type BrutesGetOpponentsResponse = (Pick<Brute, 'id' | 'name' | 'gender' | 'level' | 'deletedAt' | 'hp' | 'strengthValue' | 'agilityValue' | 'speedValue'> & {
-  body: BruteBody | null,
-  colors: BruteColors | null,
-})[];
+export type BrutesGetOpponentsResponse = Pick<Brute, 'id' | 'name' | 'gender' | 'level' | 'deletedAt' | 'hp' | 'strengthValue' | 'agilityValue' | 'speedValue' | 'body' | 'colors'>[];
 export type BrutesExistsResponse = {
   exists: false
 } | {
@@ -78,25 +80,34 @@ export type BrutesExistsResponse = {
   name: string,
 };
 
-type TournamentsGetGlobalStep = Pick<TournamentStep, 'id' | 'step' | 'fightId'> & {
-  fight: Pick<Fight, 'winner' | 'fighters' | 'brute1Id' | 'brute2Id'>,
+export type TournamentsGetDailyResponse = Tournament & {
+  fights: (Pick<Fight, 'id' | 'winner' | 'loser' | 'tournamentStep' | 'fighters'> & {
+    brute1: Brute,
+    brute2: Brute | null,
+  })[]
 };
+export type TournamentsGetGlobalFight = Pick<Fight, 'id' | 'winner' | 'fighters' | 'brute1Id' | 'brute2Id' | 'tournamentStep'>;
 export type TournamentsGetGlobalResponse = {
-  tournament: Pick<Tournament, 'id' | 'rounds'> & {
-    steps: TournamentsGetGlobalStep[];
-  },
-  lastRounds: TournamentsGetGlobalStep[],
+  tournament: (Pick<Tournament, 'id' | 'rounds'> & {
+    fights: TournamentsGetGlobalFight[];
+  }) | null,
+  lastRounds: TournamentsGetGlobalFight[],
   done: boolean,
   nextOpponent: string | null,
+  nextRound?: number,
 };
+export type TournementsUpdateGlobalRoundWatchedResponse = Pick<Brute, 'globalTournamentRoundWatched' | 'globalTournamentWatchedDate'>;
 export type BrutesGetDestinyResponse = DestinyBranch;
 export type BrutesGetFightsLeftResponse = {
   fightsLeft: number,
 };
 export type BrutesCreateResponse = {
-  brute: BruteWithBodyColors,
+  brute: Brute,
   goldLost: number,
   newLimit: number,
+};
+export type BrutesGetLevelUpChoicesResponse = {
+  choices: [DestinyChoice, DestinyChoice],
 };
 
 export type ServerReadyResponse = {
@@ -136,8 +147,11 @@ export type ClanListResponse = (Clan & {
 })[];
 export type ClanCreateResponse = Pick<Clan, 'id' | 'name'>;
 export type ClanGetResponse = Clan & {
-  brutes: BruteWithBodyColors[],
-  joinRequests: BruteWithBodyColors[],
+  brutes: Brute[],
+  joinRequests: Brute[],
+  bossDamages: (Pick<BossDamage, 'damage'> & {
+    brute: Pick<Brute, 'id' | 'name'>,
+  })[],
 };
 export type ClanGetThreadsResponse = {
   masterId: string,
@@ -150,7 +164,7 @@ export type ClanGetThreadsResponse = {
 };
 export type ClanGetThreadResponse = ClanThread & {
   posts: (ClanPost & {
-    author: BruteWithBodyColors,
+    author: Brute,
   })[],
   clan: Pick<Clan, 'masterId' | 'name'>,
 };
@@ -159,7 +173,7 @@ export type UserGetAdminResponse = User & {
   achievements: Pick<Achievement, 'name' | 'count'>[],
 };
 export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang'> & {
-  brutes: (Pick<
+  brutes: Pick<
     Brute,
     'id' |
     'name' |
@@ -169,11 +183,10 @@ export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang'>
     'agilityValue' |
     'speedValue' |
     'hp' |
-    'ranking'
-  > & {
-    body: BruteBody | null,
-    colors: BruteColors | null,
-  })[],
+    'ranking' |
+    'body' |
+    'colors'
+  >[],
   achievements: Pick<Achievement, 'name' | 'count'>[],
 };
 
@@ -197,4 +210,6 @@ export type FightCreateResponse = {
 };
 export type ClanChallengeBossResponse = {
   id: string,
+  xp?: number,
+  gold?: number,
 };

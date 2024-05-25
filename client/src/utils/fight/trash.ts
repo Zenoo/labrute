@@ -1,5 +1,5 @@
 /* eslint-disable no-void */
-import { FIGHTER_HEIGHT, FIGHTER_WIDTH, TrashStep } from '@labrute/core';
+import { FIGHTER_HEIGHT, FIGHTER_WIDTH, TrashStep, WeaponById } from '@labrute/core';
 import { Application, Sprite } from 'pixi.js';
 
 import { BevelFilter } from '@pixi/filter-bevel';
@@ -16,13 +16,13 @@ const trash = async (
   if (!app.loader) {
     return;
   }
-  const { loader: { resources: { '/images/game/thrown-weapons.json': { spritesheet } } } } = app;
+  const spritesheet = app.loader.resources['/images/game/thrown-weapons.json']?.spritesheet;
 
   if (!spritesheet) {
     throw new Error('Spritesheet not found');
   }
 
-  const brute = findFighter(fighters, step.brute);
+  const brute = findFighter(fighters, step.b);
   if (!brute) {
     throw new Error('Brute not found');
   }
@@ -32,7 +32,7 @@ const trash = async (
   // Listen for `trash:trashed` event
   brute.animation.once('trash:trashed', () => {
     // Create trashed weapon sprite
-    const trashedWeapon = new Sprite(spritesheet.textures[`${step.name}.png`]);
+    const trashedWeapon = new Sprite(spritesheet.textures[`${WeaponById[step.w]}.png`]);
     trashedWeapon.filters = [new BevelFilter()];
     trashedWeapon.zIndex = 1;
 

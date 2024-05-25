@@ -1,8 +1,8 @@
 import { getFightsLeft, getGoldNeededForNewBrute, Version } from '@labrute/core';
 import { Lang } from '@labrute/prisma';
-import { AccountCircle, Add, AdminPanelSettings, DoNotDisturb, Login, Logout, MilitaryTech, MoreHoriz } from '@mui/icons-material';
-import { AlertTitle, Badge, Box, BoxProps, CircularProgress, Fab, Link, Alert as MuiAlert, SpeedDial, SpeedDialAction, Tooltip } from '@mui/material';
-import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
+import { AccountCircle, Add, AdminPanelSettings, Brightness4, Brightness7, DoNotDisturb, Login, Logout, MilitaryTech, MoreHoriz } from '@mui/icons-material';
+import { AlertTitle, Badge, Box, BoxProps, CircularProgress, Fab, Link, Alert as MuiAlert, SpeedDial, SpeedDialAction, Tooltip, useTheme } from '@mui/material';
+import React, { Fragment, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import { useLanguage } from '../hooks/useLanguage';
+import { ColorModeContext } from '../theme/ColorModeContext';
 import ads, { AdName } from '../utils/ads';
 import catchError from '../utils/catchError';
 import Fetch from '../utils/Fetch';
@@ -17,6 +18,8 @@ import Server from '../utils/Server';
 import BruteRender from './Brute/Body/BruteRender';
 import Header from './Header';
 import Text from './Text';
+
+const ENABLE_THEME_TOGGLE = false;
 
 interface Props extends BoxProps {
   title: string,
@@ -37,6 +40,8 @@ const Page = ({
   const { authing, user, signout, signin, updateData } = useAuth();
   const navigate = useNavigate();
   const { language, setLanguage } = useLanguage();
+  const theme = useTheme();
+  const colorMode = useContext(ColorModeContext);
 
   // Speed dial state
   const [open, setOpen] = useState(false);
@@ -114,6 +119,8 @@ const Page = ({
     setOpen(false);
     navigate('/hall');
   }, [navigate]);
+
+  const ColorModeIcon = theme.palette.mode === 'dark' ? Brightness7 : Brightness4;
 
   return (
     <Box
@@ -258,6 +265,15 @@ const Page = ({
               />
             </Tooltip>
           ))}
+          {/* LIGHT/DARK MODE */}
+          {ENABLE_THEME_TOGGLE && (
+            <Tooltip title={theme.palette.mode === 'dark' ? t('lightMode') : t('darkMode')}>
+              <ColorModeIcon
+                onClick={colorMode.toggleColorMode}
+                sx={{ cursor: 'pointer', fontSize: 14, ml: 1 }}
+              />
+            </Tooltip>
+          )}
           {/* ADMIN PANEL */}
           {user && user.admin && (
             <Tooltip title={t('adminPanel')}>

@@ -1,4 +1,3 @@
-import { BruteWithBodyColors } from '@labrute/core';
 import { Box, Grid, Paper } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -6,10 +5,11 @@ import BruteRender from '../../components/Brute/Body/BruteRender';
 import Page from '../../components/Page';
 import StyledButton from '../../components/StyledButton';
 import Text from '../../components/Text';
+import { Brute } from '@labrute/prisma';
 
 export interface VersusMobileViewProps {
-  brute: BruteWithBodyColors;
-  opponent: BruteWithBodyColors;
+  brute: Brute;
+  opponent: Brute;
   startFight: () => void;
 }
 

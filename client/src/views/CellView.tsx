@@ -39,13 +39,11 @@ const CellView = () => {
   const smallScreen = useMediaQuery('(max-width: 938px)');
   const { language } = useLanguage();
   const navigate = useNavigate();
-  const { brute, updateBrute } = useBrute();
+  const { brute, updateBrute, owner } = useBrute();
   const Confirm = useConfirm();
   const Alert = useAlert();
-  const { authing, user, updateData } = useAuth();
+  const { user, updateData } = useAuth();
   const { data: logs } = useStateAsync([], Server.Log.list, bruteName || '');
-  const ownsBrute = useMemo(() => (authing
-    || !!(brute && user && brute.userId === user.id)), [authing, brute, user]);
 
   // Sacrifice brute
   const confirmSacrifice = useCallback(() => {
@@ -67,7 +65,7 @@ const CellView = () => {
   }, [Alert, Confirm, brute, navigate, t, updateData]);
 
   const switchBrute = useCallback((side: number) => {
-    if (!user || !brute || !user.brutes || !ownsBrute) return;
+    if (!user || !brute || !user.brutes || !owner) return;
 
     const currentBruteIndex = user.brutes.findIndex((bruteTemp) => bruteTemp.id === brute.id);
     if (currentBruteIndex < 0) return;
@@ -79,7 +77,7 @@ const CellView = () => {
     if (!newBrute) return;
 
     navigate(`/${newBrute.name}/cell`);
-  }, [brute, navigate, ownsBrute, user]);
+  }, [brute, navigate, owner, user]);
 
   // Reset brute
   const confirmReset = useCallback(() => {
@@ -135,7 +133,7 @@ const CellView = () => {
 
   // Handle swipe
   useEffect(() => {
-    if (!ownsBrute) return () => {};
+    if (!owner) return () => {};
     let touchstartX = 0;
     let touchstartY = 0;
     let touchendX = 0;
@@ -154,13 +152,13 @@ const CellView = () => {
     };
 
     const handlerStart = (e: TouchEvent) => {
-      touchstartX = e.changedTouches[0].screenX;
-      touchstartY = e.changedTouches[0].screenY;
+      touchstartX = e.changedTouches[0]?.screenX ?? touchstartX;
+      touchstartY = e.changedTouches[0]?.screenY ?? touchstartY;
     };
 
     const handlerEnd = (e: TouchEvent) => {
-      touchendX = e.changedTouches[0].screenX;
-      touchendY = e.changedTouches[0].screenY;
+      touchendX = e.changedTouches[0]?.screenX ?? touchendX;
+      touchendY = e.changedTouches[0]?.screenY ?? touchendY;
       checkSwipe();
     };
 
@@ -171,9 +169,9 @@ const CellView = () => {
       document.removeEventListener('touchstart', handlerStart);
       document.removeEventListener('touchend', handlerEnd);
     };
-  }, [brute, navigate, ownsBrute, switchBrute]);
+  }, [brute, navigate, owner, switchBrute]);
 
-  const previousBruteArrow = ownsBrute && (
+  const previousBruteArrow = owner && (
     <Tooltip title={t('previousBrute')}>
       <Fab
         size="small"
@@ -184,13 +182,14 @@ const CellView = () => {
           left: 8,
           top: '50%',
           transform: 'translateY(-50%)',
+          zIndex: 100,
         }}
       >
         <NavigateBeforeIcon sx={{ color: 'secondary.main', cursor: 'pointer', m: 'auto' }} />
       </Fab>
     </Tooltip>
   );
-  const nextBruteArrow = ownsBrute && (
+  const nextBruteArrow = owner && (
     <Tooltip title={t('nextBrute')}>
       <Fab
         size="small"
@@ -201,6 +200,7 @@ const CellView = () => {
           right: 8,
           top: '50%',
           transform: 'translateY(-50%)',
+          zIndex: 100,
         }}
       >
         <NavigateNextIcon sx={{ color: 'secondary.main', cursor: 'pointer', m: 'auto' }} />
@@ -216,7 +216,6 @@ const CellView = () => {
           ad={ad}
           logs={logs}
           language={language}
-          ownsBrute={ownsBrute}
           confirmReport={confirmReport}
           confirmSacrifice={confirmSacrifice}
           confirmReset={confirmReset}
@@ -273,8 +272,26 @@ const CellView = () => {
           <Box display="flex">
             <Box sx={{ display: 'flex', flexGrow: 1 }}>
               <Box sx={{ width: 315 }}>
+                <Text bold center sx={{ mb: 0.5 }}>
+                  {/* INVENTORY */}
+                  {owner && (
+                    <Tooltip title={t('inventory')}>
+                      <Link to={`/${brute.name}/inventory`}>
+                        <Box
+                          component="img"
+                          src="/images/inventory.png"
+                          sx={{
+                            width: 22,
+                            verticalAlign: 'middle',
+                            mr: 0.5,
+                          }}
+                        />
+                      </Link>
+                    </Tooltip>
+                  )}
+                  {t('weaponsBonuses')}
+                </Text>
                 {/* WEAPONS */}
-                <Text bold center>{t('weaponsBonuses')}</Text>
                 <CellWeapons />
                 {/* SKILLS */}
                 <CellSkills />
@@ -311,7 +328,7 @@ const CellView = () => {
               </Tooltip>
 
               {/* CLAN */}
-              {(ownsBrute || !!brute.clanId) && (
+              {(owner || !!brute.clanId) && (
                 <CellClan brute={brute} sx={{ ml: 4 }} />
               )}
               {/* ADVERT */}
@@ -337,20 +354,18 @@ const CellView = () => {
               <Box sx={{ ml: 2, mt: 1 }}>
                 {logs.map((log) => <CellLog key={log.id} log={log} />)}
               </Box>
-              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                <Link to={`/${brute.name}/tournaments`}>
-                  <FantasyButton color="secondary" sx={{ m: 1 }}>
-                    <History sx={{ verticalAlign: 'middle', mr: 1 }} />
-                    {t('tournaments')}
-                  </FantasyButton>
-                </Link>
+              <Box sx={{ display: 'flex', ml: 2, justifyContent: 'center' }}>
+                <FantasyButton color="secondary" to={`/${brute.name}/tournaments`} sx={{ m: 1 }}>
+                  <History sx={{ verticalAlign: 'middle', mr: 1 }} />
+                  {t('tournaments')}
+                </FantasyButton>
               </Box>
               <Text
                 smallCaps
                 subtitle2
                 center
                 onClick={confirmReport}
-                sx={{ cursor: 'pointer' }}
+                sx={{ cursor: 'pointer', ml: 2 }}
               >
                 {t('report')}
               </Text>

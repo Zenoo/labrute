@@ -1,5 +1,5 @@
 /* eslint-disable no-void */
-import { FIGHTER_HEIGHT, FIGHTER_WIDTH, HitStep, randomBetween } from '@labrute/core';
+import { FIGHTER_HEIGHT, FIGHTER_WIDTH, HitStep, WeaponById, randomBetween } from '@labrute/core';
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
 import { Application, Sprite } from 'pixi.js';
@@ -10,6 +10,7 @@ import getFighterType from './getFighterType';
 import stagger from './stagger';
 import updateHp from './updateHp';
 import updateWeapons from './updateWeapons';
+import { WeaponName } from '@labrute/prisma';
 
 const flashFlood = async (
   app: Application,
@@ -20,17 +21,17 @@ const flashFlood = async (
   if (!app.loader) {
     return;
   }
-  const { loader: { resources: { '/images/game/thrown-weapons.json': { spritesheet } } } } = app;
+  const spritesheet = app.loader.resources['/images/game/thrown-weapons.json']?.spritesheet;
 
   if (!spritesheet) {
     throw new Error('Spritesheet not found');
   }
 
-  const fighter = findFighter(fighters, step.fighter);
+  const fighter = findFighter(fighters, step.f);
   if (!fighter) {
     throw new Error('Fighter not found');
   }
-  const target = findFighter(fighters, step.target);
+  const target = findFighter(fighters, step.t);
   if (!target) {
     throw new Error('Target not found');
   }
@@ -38,7 +39,7 @@ const flashFlood = async (
   // Set animation to `throw`
   fighter.animation.setAnimation('throw');
 
-  const weapon = step.weapon || 'lance';
+  const weapon = typeof step.w !== 'undefined' ? WeaponById[step.w] : WeaponName.lance;
 
   // Update current weapon
   fighter.animation.weapon = weapon;
@@ -78,7 +79,7 @@ const flashFlood = async (
   app.stage.addChild(thrownWeapon);
 
   // Remove weapon from arsenal
-  updateWeapons(app, fighter, weapon, 'remove');
+  updateWeapons(app, fighter, step.w, 'remove');
 
   // Play throw SFX
   void sound.play('skills/flashFlood', {
@@ -95,7 +96,7 @@ const flashFlood = async (
     y: end.y,
   }).then(() => {
     // Get hit animation (random for male brute)
-    const animation: 'hit' | 'hit-0' | 'hit-1' | 'hit-2' = target.type === 'brute' && target.data?.gender === 'male'
+    const animation: 'hit' | 'hit-0' | 'hit-1' | 'hit-2' = target.type === 'brute' && target.gender === 'male'
       ? `hit-${randomBetween(0, 2) as 0 | 1 | 2}`
       : 'hit';
 
@@ -107,11 +108,11 @@ const flashFlood = async (
     thrownWeapon.destroy();
     fighter.animation.weapon = null;
 
-    displayDamage(app, target, step.damage, speed);
+    displayDamage(app, target, step.d, speed);
 
     // Update HP bar
     if (target.hpBar) {
-      updateHp(target, -step.damage, speed);
+      updateHp(target, -step.d, speed);
     }
 
     // Stagger

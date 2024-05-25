@@ -1,29 +1,42 @@
 import {
   AchievementsStore,
+  BOSS_GOLD_REWARD,
   Boss,
-  BruteWithBodyColors, DetailedFight, ExpectedError, Fighter, bosses, randomBetween,
+  CLAN_SIZE_LIMIT,
+  DetailedFight, ExpectedError, Fighter, SkillByName, StepType, WeaponByName, bosses, randomBetween,
+  randomItem,
 } from '@labrute/core';
-import { Prisma, PrismaClient } from '@labrute/prisma';
+import {
+  Brute, InventoryItemType, LogType, Prisma, PrismaClient,
+} from '@labrute/prisma';
 import applySpy from './applySpy.js';
 import {
   Stats,
-  checkDeaths, getOpponents, orderFighters, playFighterTurn, saboteur, stepFighter,
+  checkDeaths, getOpponents, orderFighters, playFighterTurn, saboteur,
 } from './fightMethods.js';
 import getFighters from './getFighters.js';
 import handleStats from './handleStats.js';
 import updateAchievements from './updateAchievements.js';
 
+type GenerateFightResult = {
+  data: Prisma.FightCreateInput;
+  boss?: {
+    xp: number;
+    gold: number;
+  }
+};
+
 const generateFight = async (
   prisma: PrismaClient,
-  brute1: BruteWithBodyColors,
-  brute2: BruteWithBodyColors | null,
+  brute1: Brute,
+  brute2: Brute | null,
   allowBackup: boolean,
   achievementsActive: boolean,
   isTournamentFinal: boolean,
   boss?: Boss,
   bossHP?: number,
-  clanId?: string,
-) => {
+  clanId?: number,
+): Promise<GenerateFightResult> => {
   if (brute1.id === brute2?.id) {
     throw new ExpectedError('Attempted to created a fight between the same brutes');
   }
@@ -66,10 +79,6 @@ const generateFight = async (
       userId: brute1.userId,
       deletedAt: null,
     },
-    include: {
-      body: true,
-      colors: true,
-    },
   }) : [];
   const brute2Backups = (brute2 && allowBackup) ? await prisma.brute.findMany({
     where: {
@@ -78,17 +87,13 @@ const generateFight = async (
       userId: brute2.userId,
       deletedAt: null,
     },
-    include: {
-      body: true,
-      colors: true,
-    },
   }) : [];
 
   const brute1Backup = brute1Backups.length
-    ? brute1Backups[randomBetween(0, brute1Backups.length - 1)]
+    ? randomItem(brute1Backups)
     : null;
   const brute2Backup = brute2Backups.length
-    ? brute2Backups[randomBetween(0, brute2Backups.length - 1)]
+    ? randomItem(brute2Backups)
     : null;
 
   // Global fight data
@@ -121,7 +126,7 @@ const generateFight = async (
       return fighter;
     });
 
-  const fightData: DetailedFight['data'] = {
+  const fightData: DetailedFight = {
     fighters: fightDataFighters,
     initialFighters: fightDataInitialFighters,
     steps: [],
@@ -134,7 +139,7 @@ const generateFight = async (
   if (brute2 && !boss) {
     [brute1, brute2].forEach((brute) => {
       if (brute.skills.includes('chef')) {
-        const fighter = fightData.fighters.find(({ type, name }) => type === 'brute' && name === brute.name);
+        const fighter = fightData.fighters.find(({ id }) => id === brute.id);
 
         if (!fighter) {
           throw new Error('Fighter 1 not found');
@@ -149,22 +154,24 @@ const generateFight = async (
 
   const mainFighters = fightData.fighters.filter(({ master }) => !master);
   const petFighters = fightData.fighters.filter(({ type }) => type === 'pet');
+  const firstMainFighter = mainFighters[0];
+  const secondMainFighter = mainFighters[1];
 
-  if (mainFighters.length !== 2) {
+  if (!firstMainFighter || !secondMainFighter) {
     throw new Error('Invalid number of fighters');
   }
 
   // Add arrive step for all fighters
   [...mainFighters, ...petFighters].forEach((fighter) => {
     fightData.steps.push({
-      action: 'arrive',
-      fighter: stepFighter(fighter),
+      a: StepType.Arrive,
+      f: fighter.id,
     });
   });
 
   // Add spy steps
-  applySpy(fightData, mainFighters[0], mainFighters[1]);
-  applySpy(fightData, mainFighters[1], mainFighters[0]);
+  applySpy(fightData, firstMainFighter, secondMainFighter);
+  applySpy(fightData, secondMainFighter, firstMainFighter);
 
   // Pre-fight saboteur
   saboteur(fightData, achievements);
@@ -173,7 +180,8 @@ const generateFight = async (
 
   // Fight loop
   while (!fightData.loser) {
-    if (!fightData.fighters.length) {
+    const firstFighter = fightData.fighters[0];
+    if (!firstFighter) {
       // No fighters left
       break;
     }
@@ -182,7 +190,7 @@ const generateFight = async (
     orderFighters(fightData);
 
     // Set current initiative to first fighter
-    fightData.initiative = fightData.fighters[0].initiative;
+    fightData.initiative = firstFighter.initiative;
 
     // Poison fighters if turn > 100
     if (turn > 1000) {
@@ -205,10 +213,8 @@ const generateFight = async (
     throw new Error('Fight not finished');
   }
 
-  const { loser } = fightData;
-
   // Get winner
-  const winner = fightData.fighters.find((fighter) => fighter.name !== loser.name
+  const winner = fightData.fighters.find((fighter) => fighter.id !== fightData.loser
     && (fighter.type === 'brute' || fighter.type === 'boss')
     && !fighter.master);
 
@@ -216,14 +222,21 @@ const generateFight = async (
     throw new Error('No winner found');
   }
 
+  // Get loser
+  const loser = fightData.fighters.find((fighter) => fighter.id === fightData.loser);
+
+  if (!loser) {
+    throw new Error('No loser found');
+  }
+
   // Set fight winner and loser
-  fightData.winner = stepFighter(winner);
+  fightData.winner = winner.id;
 
   // Add end step
   fightData.steps.push({
-    action: 'end',
-    winner: fightData.winner,
-    loser: fightData.loser,
+    a: StepType.End,
+    w: fightData.winner,
+    l: fightData.loser,
   });
 
   // Reduce the size of the fighters data
@@ -231,60 +244,183 @@ const generateFight = async (
     id: fighter.id,
     name: fighter.name,
     gender: fighter.gender,
+    body: fighter.body,
+    colors: fighter.colors,
     rank: fighter.rank,
     level: fighter.level,
     agility: fighter.agility,
     strength: fighter.strength,
     speed: fighter.speed,
-    data: fighter.data,
     type: fighter.type,
     master: fighter.master,
     maxHp: fighter.maxHp,
     hp: fighter.hp,
-    weapons: fighter.weapons.map((weapon) => ({
-      name: weapon.name,
-      animation: weapon.animation,
-    })),
-    skills: fighter.skills.map((skill) => skill.name),
+    weapons: fighter.weapons.map((weapon) => WeaponByName[weapon.name]),
+    skills: fighter.skills.map((skill) => SkillByName[skill.name]),
     shield: fighter.shield,
   }));
 
-  const data: Prisma.FightCreateInput = {
-    brute1: { connect: { id: brute1.id } },
-    winner: winner.name,
-    loser: loser.name,
-    steps: JSON.stringify(fightData.steps),
-    fighters: JSON.stringify(fighters),
+  const result: GenerateFightResult = {
+    data: {
+      brute1: { connect: { id: brute1.id } },
+      winner: winner.name,
+      loser: loser.name,
+      steps: JSON.stringify(fightData.steps),
+      fighters: JSON.stringify(fighters),
+    },
   };
 
   if (brute2) {
-    data.brute2 = { connect: { id: brute2.id } };
+    result.data.brute2 = { connect: { id: brute2.id } };
   }
 
   if (boss) {
     // Update clan limit and boss if boss slain
-    if (loser.type === 'boss') {
+    const bossFighter = fighters.find((fighter) => fighter.type === 'boss');
+    if (bossFighter && loser.id === bossFighter.id) {
+      const clan = await prisma.clan.findUnique({
+        where: { id: clanId },
+        select: {
+          limit: true,
+          brutes: {
+            select: {
+              id: true,
+              userId: true,
+            },
+          },
+          bossDamages: {
+            select: {
+              brute: {
+                select: {
+                  id: true,
+                  userId: true,
+                },
+              },
+            },
+          },
+        },
+      });
+
+      if (!clan) {
+        throw new Error('Clan not found');
+      }
+
+      // Combine all bruteIds
+      const bruteIds = new Set(clan.brutes.map((brute) => brute.id));
+      clan.bossDamages.forEach((damage) => {
+        bruteIds.add(damage.brute.id);
+      });
+
+      // Get brutes that already have a BossTicket
+      const brutesWithTicket = await prisma.bruteInventoryItem.findMany({
+        where: {
+          bruteId: { in: Array.from(bruteIds) },
+          type: InventoryItemType.bossTicket,
+        },
+        select: {
+          bruteId: true,
+        },
+      });
+
+      // Add 1x BossTicket to those brutes
+      await prisma.bruteInventoryItem.updateMany({
+        where: {
+          bruteId: { in: brutesWithTicket.map((brute) => brute.bruteId) },
+          type: InventoryItemType.bossTicket,
+        },
+        data: {
+          count: { increment: 1 },
+        },
+      });
+
+      // Get brutes that don't have a BossTicket
+      const brutesWithoutTicket = Array.from(bruteIds)
+        .filter((bruteId) => !brutesWithTicket.find((brute) => brute.bruteId === bruteId));
+
+      // Add 1x BossTicket to those brutes
+      await prisma.bruteInventoryItem.createMany({
+        data: brutesWithoutTicket.map((bruteId) => ({
+          bruteId,
+          type: InventoryItemType.bossTicket,
+          count: 1,
+        })),
+      });
+
+      // Update clan
       await prisma.clan.update({
         where: { id: clanId },
         data: {
-          boss: bosses[randomBetween(0, bosses.length - 1)].name,
+          // Set new boss
+          boss: randomItem(bosses).name,
           damageOnBoss: 0,
-          limit: { increment: 10 },
+          // Increase clan limit
+          limit: Math.min(CLAN_SIZE_LIMIT, clan.limit + 5),
+          // Reset boss damages
+          bossDamages: {
+            deleteMany: {},
+          },
         },
       });
+
+      // Give gold to users
+      const userIds = new Set(clan.brutes.map((brute) => brute.userId || ''));
+      clan.bossDamages.forEach((damage) => {
+        userIds.add(damage.brute.userId || '');
+      });
+      const goldGains = Math.floor(BOSS_GOLD_REWARD / userIds.size);
+
+      await prisma.user.updateMany({
+        where: { id: { in: Array.from(userIds) } },
+        data: {
+          gold: { increment: goldGains },
+        },
+      });
+
+      // Add log
+      await prisma.log.createMany({
+        data: Array.from(bruteIds).map((bruteId) => ({
+          type: LogType.bossDefeat,
+          gold: goldGains,
+          currentBruteId: bruteId,
+        })),
+      });
+
+      result.boss = {
+        xp: 0,
+        gold: goldGains,
+      };
     } else {
-      // Update damage on boss
+      // Update damage on boss + store it
       const initialBoss = fightDataInitialFighters.find((fighter) => fighter.type === 'boss');
       const finalBoss = fightData.fighters.find((fighter) => fighter.type === 'boss');
       if (!initialBoss || !finalBoss) {
         throw new Error('Boss not found');
       }
+      if (!clanId) {
+        throw new Error('Clan ID not found');
+      }
+
       const damage = initialBoss.hp - finalBoss.hp;
 
       await prisma.clan.update({
         where: { id: clanId },
         data: {
           damageOnBoss: { increment: damage },
+          bossDamages: {
+            upsert: {
+              where: {
+                bruteId_clanId: {
+                  bruteId: winner.type === 'brute' ? winner.id : loser.id,
+                  clanId,
+                },
+              },
+              update: { damage: { increment: damage } },
+              create: {
+                damage,
+                bruteId: winner.type === 'brute' ? winner.id : loser.id,
+              },
+            },
+          },
         },
       });
     }
@@ -298,7 +434,7 @@ const generateFight = async (
     await updateAchievements(prisma, achievements, isTournamentFight);
   }
 
-  return data;
+  return result;
 };
 
 export default generateFight;

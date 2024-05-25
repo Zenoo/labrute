@@ -1,5 +1,5 @@
-import { AdminPanelBrute, availableBodyParts } from '@labrute/core';
-import { BruteBody, BruteColors, DestinyChoiceSide, Gender, PetName, SkillName, WeaponName } from '@labrute/prisma';
+import { AdminPanelBrute } from '@labrute/core';
+import { DestinyChoiceSide, Gender, PetName, SkillName, WeaponName } from '@labrute/prisma';
 import { Box, Checkbox, Divider, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Alert as MuiAlert, Paper, Select, Stack } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
 import moment from 'moment';
@@ -7,7 +7,6 @@ import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import BruteRender from '../components/Brute/Body/BruteRender';
 import FantasyButton from '../components/FantasyButton';
-import Link from '../components/Link';
 import Page from '../components/Page';
 import StyledInput from '../components/StyledInput';
 import Text from '../components/Text';
@@ -91,18 +90,6 @@ const AdminView = () => {
       user: undefined,
     };
 
-    const body = {
-      ...brute.body,
-      id: undefined,
-      bruteId: undefined,
-    };
-
-    const colors = {
-      ...brute.colors,
-      id: undefined,
-      bruteId: undefined,
-    };
-
     Server.Brute.adminUpdate(bruteName, {
       ...bruteData,
       destinyPath: {
@@ -111,12 +98,6 @@ const AdminView = () => {
       userId: brute.userId || null,
       masterId: brute.masterId || null,
       clanId: brute.clanId || null,
-      body: {
-        update: body,
-      },
-      colors: {
-        update: colors,
-      },
     }).then(() => {
       Alert.open('success', 'Brute saved');
     }).catch(catchError(Alert));
@@ -157,12 +138,8 @@ const AdminView = () => {
               <FantasyButton color="error" onClick={deleteDailyTournaments}>DELETE DAILY TOURNAMENTS</FantasyButton>
               <FantasyButton color="error" onClick={deleteGlobalTournament}>DELETE GLOBAL TOURNAMENT</FantasyButton>
               <FantasyButton color="warning" onClick={runDailyJob}>RUN DAILY JOB</FantasyButton>
-              <Link to="/admin-panel/user">
-                <FantasyButton color="secondary">USER ADMIN</FantasyButton>
-              </Link>
-              <Link to="/admin-panel/report">
-                <FantasyButton color="primary">REPORTS</FantasyButton>
-              </Link>
+              <FantasyButton color="secondary" to="/admin-panel/user">USER ADMIN</FantasyButton>
+              <FantasyButton color="primary" to="/admin-panel/report">REPORTS</FantasyButton>
             </Stack>
             <Divider />
             <Text bold h3 smallCaps color="secondary">{t('brute')}</Text>
@@ -176,7 +153,7 @@ const AdminView = () => {
                 <Box width={100}>
                   <BruteRender brute={brute} />
                 </Box>
-                <FantasyButton onClick={giveFreeVisualReset}>Give free visual reset</FantasyButton>
+                <FantasyButton color="warning" onClick={giveFreeVisualReset}>Give free visual reset</FantasyButton>
                 <Grid container spacing={1}>
                   <Grid item xs={6} sm={3}>
                     <StyledInput
@@ -660,55 +637,34 @@ const AdminView = () => {
                       }}
                     />
                   </Grid>
-                  {(Object.keys(availableBodyParts[brute.gender]) as unknown as (
-                    keyof typeof availableBodyParts.male
-                  )[]).map((bodyPart) => (
-                    <Grid item xs={6} sm={3} key={bodyPart}>
-                      <FormControl fullWidth>
-                        <InputLabel>{bodyPart}</InputLabel>
-                        <Select
-                          value={brute.body?.[bodyPart]}
-                          label={bodyPart}
-                          onChange={(event) => {
-                            setBrute((b) => (b ? ({
-                              ...b,
-                              body: {
-                                ...b.body as BruteBody,
-                                [bodyPart]: +event.target.value,
-                              }
-                            }) : null));
-                          }}
-                        >
-                          {[...Array(availableBodyParts[brute.gender][bodyPart] + 1).keys()]
-                            .map((part) => (
-                              <MenuItem key={part} value={part}>
-                                {part}
-                              </MenuItem>
-                            ))}
-                        </Select>
-                      </FormControl>
-                    </Grid>
-                  ))}
-                  {(['col0', 'col0a', 'col0c', 'col1', 'col1a', 'col1b', 'col1c', 'col1d', 'col3', 'col2', 'col2b', 'col3b', 'col2a', 'col4', 'col4a', 'col4b'] as const).map((color) => (
-                    <Grid item xs={6} sm={3} key={color}>
-                      <StyledInput
-                        label={color}
-                        value={brute.colors?.[color]}
-                        onChange={(event) => {
-                          setBrute((b) => (b ? ({
-                            ...b,
-                            colors: {
-                              ...b.colors as BruteColors,
-                              [color]: event.target.value,
-                            }
-                          }) : null));
-                        }}
-                        fullWidth
-                      />
-                    </Grid>
-                  ))}
+                  <Grid item xs={6} sm={3}>
+                    <StyledInput
+                      label="Body"
+                      value={brute.body}
+                      onChange={(event) => {
+                        setBrute((b) => (b ? ({
+                          ...b,
+                          body: event.target.value,
+                        }) : null));
+                      }}
+                      fullWidth
+                    />
+                  </Grid>
+                  <Grid item xs={6} sm={3}>
+                    <StyledInput
+                      label="Colors"
+                      value={brute.colors}
+                      onChange={(event) => {
+                        setBrute((b) => (b ? ({
+                          ...b,
+                          colors: event.target.value,
+                        }) : null));
+                      }}
+                      fullWidth
+                    />
+                  </Grid>
                 </Grid>
-                <FantasyButton onClick={saveBrute}>Save</FantasyButton>
+                <FantasyButton color="success" onClick={saveBrute}>Save</FantasyButton>
               </>
             )}
             <Divider />
@@ -719,7 +675,7 @@ const AdminView = () => {
                 value={bruteId}
                 sx={{ mr: 2 }}
               />
-              <FantasyButton onClick={restoreBrute}>Restore</FantasyButton>
+              <FantasyButton color="success" onClick={restoreBrute}>Restore</FantasyButton>
             </Box>
           </Stack>
         ) : (

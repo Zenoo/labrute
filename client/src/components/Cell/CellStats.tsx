@@ -20,7 +20,7 @@ const CellStats = ({
   return (
     <Box>
       <Box>
-        <Box component="img" src={`/images/${stat}.gif`} sx={{ mr: 0.5, width: 11 }} alt={stat} />
+        <Box component="img" src={`/images/${stat}.webp`} sx={{ mr: 0.5, width: 11 }} alt={stat} />
         <Text bold component="span" sx={{ color: StatColor[stat] }}>{t(stat)} : {value}</Text>
       </Box>
       <Tooltip title={`${t(stat)} : ${value}`}>
@@ -34,7 +34,7 @@ const CellStats = ({
                 mr: 0.25,
                 display: 'inline-block',
                 border: '2px solid',
-                borderColor: 'secondary.main',
+                borderColor: 'divider',
                 bgcolor: (theme) => {
                   const statDividedByTen = Math.floor(value / 10);
                   const { palette: { heat: {
@@ -43,8 +43,8 @@ const CellStats = ({
                   } } } = theme;
 
                   return value % 10 >= excess
-                    ? excessColor
-                    : baseColor;
+                    ? excessColor ?? null
+                    : baseColor ?? null;
                 },
               }}
             />

@@ -1,5 +1,5 @@
 import { getRandomBody, getRandomColors } from '@labrute/core';
-import { BruteBody, BruteColors, InventoryItemType } from '@labrute/prisma';
+import { InventoryItemType } from '@labrute/prisma';
 import { Box, Paper, Tooltip } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -21,179 +21,152 @@ const ResetVisualsView = () => {
   const { t } = useTranslation();
   const Alert = useAlert();
   const navigate = useNavigate();
-  const { brute, updateBrute } = useBrute();
+  const { brute, updateBrute, owner } = useBrute();
   const { updateData } = useAuth();
   const Confirm = useConfirm();
   const { resetCache } = useRenderer();
 
-  const [bodyParts, setBodyParts] = useState<Omit<
-    BruteBody,
-    'id' | 'bruteId'
-  > | null>(null);
-  const [bodyColors, setBodyColors] = useState<Omit<
-    BruteColors,
-    'id' | 'bruteId'
-  > | null>(null);
+  const [body, setBody] = useState<string | null>(
+    null
+  );
+  const [colors, setColors] = useState<string | null>(
+    null
+  );
 
   // Update visuals on brute load
   useEffect(() => {
-    if (!brute || bodyParts || bodyColors) return;
+    if (!brute || body || colors) return;
 
-    setBodyParts(getRandomBody(brute.gender));
-    setBodyColors(getRandomColors(brute.gender));
-  }, [bodyColors, bodyParts, brute]);
+    setBody(getRandomBody(brute.gender));
+    setColors(getRandomColors(brute.gender));
+  }, [colors, body, brute]);
 
   // Change appearance
   const changeAppearance = () => {
     if (!brute) return;
 
-    setBodyParts(getRandomBody(brute.gender));
-    setBodyColors(getRandomColors(brute.gender));
+    setBody(getRandomBody(brute.gender));
+    setColors(getRandomColors(brute.gender));
   };
 
   // Change colors
   const changeColors = () => {
     if (!brute) return;
 
-    setBodyColors(getRandomColors(brute.gender));
+    setColors(getRandomColors(brute.gender));
   };
 
   // Reset visuals
   const resetVisuals = () => {
-    if (!brute || !bodyParts || !bodyColors) return;
+    if (!brute || !body || !colors) return;
 
     Confirm.open(t('resetVisuals'), t('resetVisualsConfirm'), () => {
       // Update brute visuals
-      Server.Brute.resetVisuals(brute.name, bodyParts, bodyColors)
-        .then(() => {
-          Alert.open('success', t('resetVisualsSuccess'));
+      Server.Brute.resetVisuals(brute.name, body, colors).then(() => {
+        Alert.open('success', t('resetVisualsSuccess'));
 
-          // Update brute visuals
-          updateBrute((b) => (b
-            ? {
-              ...b,
-              inventory: b.inventory.map((i) => (i.type === InventoryItemType.visualReset
-                ? {
-                  ...i,
-                  count: i.count - 1,
-                }
-                : i)),
-              body: {
-                ...(b.body || { id: '', bruteId: '' }),
-                ...bodyParts,
-              },
-              colors: {
-                ...(b.colors || { id: '0', bruteId: '' }),
-                ...bodyColors,
-              },
-            }
-            : null));
+        // Update brute visuals
+        updateBrute((b) => (b ? ({
+          ...b,
+          inventory: b.inventory.map((i) => (i.type === InventoryItemType.visualReset ? ({
+            ...i,
+            count: i.count - 1,
+          }) : i)),
+          body,
+          colors,
+        }) : null));
 
-          // Update user data
-          updateData((data) => (data
-            ? {
-              ...data,
-              brutes: data.brutes.map((b) => (b.name === brute.name
-                ? {
-                  ...b,
-                  body: {
-                    ...(b.body || { id: '', bruteId: '' }),
-                    ...bodyParts,
-                  },
-                  colors: {
-                    ...(b.colors || { id: '', bruteId: '' }),
-                    ...bodyColors,
-                  },
-                }
-                : b)),
-            }
-            : null));
+        // Update user data
+        updateData((data) => (data ? ({
+          ...data,
+          brutes: data.brutes.map((b) => (b.name === brute.name ? ({
+            ...b,
+            body,
+            colors,
+          }) : b)),
+        }) : null));
 
-          // Reset cache
-          resetCache(brute.id);
+        // Reset cache
+        resetCache(brute.id);
 
-          // Go to cell
-          navigate(`/${brute.name}/cell`);
-        })
+        // Go to cell
+        navigate(`/${brute.name}/cell`);
+      })
         .catch(catchError(Alert));
     });
   };
 
-  return (
-    brute && (
-      <Page title={`${brute.name || ''} ${t('MyBrute')}`} headerUrl={`/${brute.name}/cell`}>
-        <Paper
-          sx={{
-            mx: 4,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-          }}
-        >
-          <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>
-            {t('resetVisuals')}
-          </Text>
-        </Paper>
-        <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
-          <Text bold center>{t('resetVisualsDescription')}</Text>
-
-          <Box
-            sx={{
+  return brute && (
+    <Page title={`${brute.name || ''} ${t('MyBrute')}`} headerUrl={`/${brute.name}/cell`}>
+      <Paper sx={{
+        mx: 4,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+      }}
+      >
+        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('resetVisuals')}</Text>
+      </Paper>
+      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+        {owner && (
+          <>
+            <Text bold center>{t('resetVisualsDescription')}</Text>
+            <Box sx={{
               mx: 'auto',
               width: 70,
             }}
-          >
-            <BruteRender
-              brute={{
-                id: '',
-                name: brute.name,
-                body: bodyParts,
-                colors: bodyColors,
-                gender: brute.gender,
-              }}
-            />
-          </Box>
-          {/* CUSTOMIZATION BUTTONS */}
-          <Box
-            sx={{
+            >
+              <BruteRender
+                brute={{
+                  id: '',
+                  name: brute.name,
+                  body: body || '0'.repeat(11),
+                  colors: colors || '0'.repeat(32),
+                  gender: brute.gender,
+                }}
+              />
+            </Box>
+            {/* CUSTOMIZATION BUTTONS */}
+            <Box sx={{
               display: 'flex',
               justifyContent: 'center',
               gap: 2,
               mt: -7,
               mb: 1,
             }}
-          >
-            <Tooltip title={t('changeAppearance')}>
-              <StyledButton
-                onClick={changeAppearance}
-                image="/images/creation/bodyType.svg"
-                swapImage={false}
-                sx={{
-                  width: 89,
-                  height: 89,
-                }}
-              />
-            </Tooltip>
-            <Tooltip title={t('changeColors')}>
-              <StyledButton
-                onClick={changeColors}
-                image="/images/creation/color.svg"
-                swapImage={false}
-                sx={{
-                  width: 89,
-                  height: 89,
-                }}
-              />
-            </Tooltip>
-          </Box>
-          {/* VALIDATION */}
-          <Box sx={{ textAlign: 'center' }}>
-            <FantasyButton onClick={resetVisuals}>{t('validate')}</FantasyButton>
-          </Box>
-        </Paper>
-      </Page>
-    )
+            >
+              <Tooltip title={t('changeAppearance')}>
+                <StyledButton
+                  onClick={changeAppearance}
+                  image="/images/creation/bodyType.svg"
+                  swapImage={false}
+                  sx={{
+                    width: 89,
+                    height: 89,
+                  }}
+                />
+              </Tooltip>
+              <Tooltip title={t('changeColors')}>
+                <StyledButton
+                  onClick={changeColors}
+                  image="/images/creation/color.svg"
+                  swapImage={false}
+                  sx={{
+                    width: 89,
+                    height: 89,
+                  }}
+                />
+              </Tooltip>
+            </Box>
+            {/* VALIDATION */}
+            <Box sx={{ textAlign: 'center' }}>
+              <FantasyButton color="success" onClick={resetVisuals}>{t('validate')}</FantasyButton>
+            </Box>
+          </>
+        )}
+      </Paper>
+    </Page>
   );
 };
 

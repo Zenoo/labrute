@@ -1,6 +1,147 @@
 import { SkillName } from '@labrute/prisma';
 import { WeaponType } from './weapons';
 
+export enum SkillId {
+  herculeanStrength,
+  felineAgility,
+  lightningBolt,
+  vitality,
+  immortality,
+  reconnaissance,
+  weaponsMaster,
+  martialArts,
+  sixthSense,
+  hostility,
+  fistsOfFury,
+  shield,
+  armor,
+  toughenedSkin,
+  untouchable,
+  sabotage,
+  shock,
+  bodybuilder,
+  relentless,
+  survival,
+  leadSkeleton,
+  balletShoes,
+  determination,
+  firstStrike,
+  resistant,
+  counterAttack,
+  ironHead,
+  thief,
+  fierceBrute,
+  tragicPotion,
+  net,
+  bomb,
+  hammer,
+  cryOfTheDamned,
+  hypnosis,
+  flashFlood,
+  tamer,
+  regeneration,
+  chef,
+  spy,
+  saboteur,
+  backup,
+  hideaway,
+  monk,
+}
+
+export const SkillByName: Record<SkillName, SkillId> = {
+  [SkillName.herculeanStrength]: SkillId.herculeanStrength,
+  [SkillName.felineAgility]: SkillId.felineAgility,
+  [SkillName.lightningBolt]: SkillId.lightningBolt,
+  [SkillName.vitality]: SkillId.vitality,
+  [SkillName.immortality]: SkillId.immortality,
+  [SkillName.reconnaissance]: SkillId.reconnaissance,
+  [SkillName.weaponsMaster]: SkillId.weaponsMaster,
+  [SkillName.martialArts]: SkillId.martialArts,
+  [SkillName.sixthSense]: SkillId.sixthSense,
+  [SkillName.hostility]: SkillId.hostility,
+  [SkillName.fistsOfFury]: SkillId.fistsOfFury,
+  [SkillName.shield]: SkillId.shield,
+  [SkillName.armor]: SkillId.armor,
+  [SkillName.toughenedSkin]: SkillId.toughenedSkin,
+  [SkillName.untouchable]: SkillId.untouchable,
+  [SkillName.sabotage]: SkillId.sabotage,
+  [SkillName.shock]: SkillId.shock,
+  [SkillName.bodybuilder]: SkillId.bodybuilder,
+  [SkillName.relentless]: SkillId.relentless,
+  [SkillName.survival]: SkillId.survival,
+  [SkillName.leadSkeleton]: SkillId.leadSkeleton,
+  [SkillName.balletShoes]: SkillId.balletShoes,
+  [SkillName.determination]: SkillId.determination,
+  [SkillName.firstStrike]: SkillId.firstStrike,
+  [SkillName.resistant]: SkillId.resistant,
+  [SkillName.counterAttack]: SkillId.counterAttack,
+  [SkillName.ironHead]: SkillId.ironHead,
+  [SkillName.thief]: SkillId.thief,
+  [SkillName.fierceBrute]: SkillId.fierceBrute,
+  [SkillName.tragicPotion]: SkillId.tragicPotion,
+  [SkillName.net]: SkillId.net,
+  [SkillName.bomb]: SkillId.bomb,
+  [SkillName.hammer]: SkillId.hammer,
+  [SkillName.cryOfTheDamned]: SkillId.cryOfTheDamned,
+  [SkillName.hypnosis]: SkillId.hypnosis,
+  [SkillName.flashFlood]: SkillId.flashFlood,
+  [SkillName.tamer]: SkillId.tamer,
+  [SkillName.regeneration]: SkillId.regeneration,
+  [SkillName.chef]: SkillId.chef,
+  [SkillName.spy]: SkillId.spy,
+  [SkillName.saboteur]: SkillId.saboteur,
+  [SkillName.backup]: SkillId.backup,
+  [SkillName.hideaway]: SkillId.hideaway,
+  [SkillName.monk]: SkillId.monk,
+};
+
+export const SkillById: Record<SkillId, SkillName> = {
+  [SkillId.herculeanStrength]: SkillName.herculeanStrength,
+  [SkillId.felineAgility]: SkillName.felineAgility,
+  [SkillId.lightningBolt]: SkillName.lightningBolt,
+  [SkillId.vitality]: SkillName.vitality,
+  [SkillId.immortality]: SkillName.immortality,
+  [SkillId.reconnaissance]: SkillName.reconnaissance,
+  [SkillId.weaponsMaster]: SkillName.weaponsMaster,
+  [SkillId.martialArts]: SkillName.martialArts,
+  [SkillId.sixthSense]: SkillName.sixthSense,
+  [SkillId.hostility]: SkillName.hostility,
+  [SkillId.fistsOfFury]: SkillName.fistsOfFury,
+  [SkillId.shield]: SkillName.shield,
+  [SkillId.armor]: SkillName.armor,
+  [SkillId.toughenedSkin]: SkillName.toughenedSkin,
+  [SkillId.untouchable]: SkillName.untouchable,
+  [SkillId.sabotage]: SkillName.sabotage,
+  [SkillId.shock]: SkillName.shock,
+  [SkillId.bodybuilder]: SkillName.bodybuilder,
+  [SkillId.relentless]: SkillName.relentless,
+  [SkillId.survival]: SkillName.survival,
+  [SkillId.leadSkeleton]: SkillName.leadSkeleton,
+  [SkillId.balletShoes]: SkillName.balletShoes,
+  [SkillId.determination]: SkillName.determination,
+  [SkillId.firstStrike]: SkillName.firstStrike,
+  [SkillId.resistant]: SkillName.resistant,
+  [SkillId.counterAttack]: SkillName.counterAttack,
+  [SkillId.ironHead]: SkillName.ironHead,
+  [SkillId.thief]: SkillName.thief,
+  [SkillId.fierceBrute]: SkillName.fierceBrute,
+  [SkillId.tragicPotion]: SkillName.tragicPotion,
+  [SkillId.net]: SkillName.net,
+  [SkillId.bomb]: SkillName.bomb,
+  [SkillId.hammer]: SkillName.hammer,
+  [SkillId.cryOfTheDamned]: SkillName.cryOfTheDamned,
+  [SkillId.hypnosis]: SkillName.hypnosis,
+  [SkillId.flashFlood]: SkillName.flashFlood,
+  [SkillId.tamer]: SkillName.tamer,
+  [SkillId.regeneration]: SkillName.regeneration,
+  [SkillId.chef]: SkillName.chef,
+  [SkillId.spy]: SkillName.spy,
+  [SkillId.saboteur]: SkillName.saboteur,
+  [SkillId.backup]: SkillName.backup,
+  [SkillId.hideaway]: SkillName.hideaway,
+  [SkillId.monk]: SkillName.monk,
+};
+
 export const FightStat = {
   REVERSAL: 'reversal',
   COUNTER: 'counter',
@@ -283,101 +424,101 @@ const skills: Skill[] = [
 
 export const SKILLS_TOTAL_ODDS = skills.reduce((acc, skill) => acc + skill.odds, 0);
 
-export const SkillModifiers: Record<string, SkillModifier[]> = {
-  herculeanStrength: [
+export const SkillModifiers: Record<SkillName, SkillModifier[]> = {
+  [SkillName.herculeanStrength]: [
     { stat: FightStat.STRENGTH, value: 3 },
     { stat: FightStat.STRENGTH, value: 50, percent: true },
   ],
-  felineAgility: [
+  [SkillName.felineAgility]: [
     { stat: FightStat.AGILITY, value: 3 },
     { stat: FightStat.AGILITY, value: 50, percent: true },
   ],
-  lightningBolt: [
+  [SkillName.lightningBolt]: [
     { stat: FightStat.SPEED, value: 3 },
     { stat: FightStat.SPEED, value: 50, percent: true },
   ],
-  vitality: [
+  [SkillName.vitality]: [
     { stat: FightStat.ENDURANCE, value: 3 },
     { stat: FightStat.ENDURANCE, value: 50, percent: true },
   ],
-  immortality: [
+  [SkillName.immortality]: [
     { stat: FightStat.ENDURANCE, value: 250, percent: true },
     { stat: FightStat.STRENGTH, value: -25, percent: true },
     { stat: FightStat.AGILITY, value: -25, percent: true },
     { stat: FightStat.SPEED, value: -25, percent: true },
   ],
-  weaponsMaster: [
+  [SkillName.weaponsMaster]: [
     { stat: FightStat.DAMAGE, weaponType: WeaponType.SHARP, value: 50, percent: true },
   ],
-  martialArts: [
+  [SkillName.martialArts]: [
     { stat: FightStat.DAMAGE, weaponType: null, value: 100, percent: true },
   ],
-  sixthSense: [
+  [SkillName.sixthSense]: [
     { stat: FightStat.COUNTER, value: 10, percent: true },
   ],
-  hostility: [
+  [SkillName.hostility]: [
     { stat: FightStat.REVERSAL, value: 30, percent: true },
   ],
-  fistsOfFury: [
+  [SkillName.fistsOfFury]: [
     { stat: FightStat.COMBO, value: 20, percent: true },
   ],
-  shield: [
+  [SkillName.shield]: [
     { stat: FightStat.BLOCK, value: 45, percent: true },
   ],
-  armor: [
+  [SkillName.armor]: [
     { stat: FightStat.ARMOR, value: 5 },
     { stat: FightStat.SPEED, value: -10, percent: true },
   ],
-  toughenedSkin: [
+  [SkillName.toughenedSkin]: [
     { stat: FightStat.ARMOR, value: 2 },
   ],
-  untouchable: [
+  [SkillName.untouchable]: [
     { stat: FightStat.EVASION, value: 30, percent: true },
   ],
-  sabotage: [],
-  shock: [
+  [SkillName.sabotage]: [],
+  [SkillName.shock]: [
     { stat: FightStat.DISARM, value: 50, percent: true },
   ],
-  bodybuilder: [
+  [SkillName.bodybuilder]: [
     { stat: FightStat.INTERVAL, weaponType: WeaponType.HEAVY, value: -25, percent: true },
   ],
-  relentless: [
+  [SkillName.relentless]: [
     { stat: FightStat.ACCURACY, value: 30, percent: true },
   ],
-  survival: [],
-  leadSkeleton: [],
-  balletShoes: [],
-  determination: [],
-  firstStrike: [
+  [SkillName.survival]: [],
+  [SkillName.leadSkeleton]: [],
+  [SkillName.balletShoes]: [],
+  [SkillName.determination]: [],
+  [SkillName.firstStrike]: [
     { stat: FightStat.INITIATIVE, value: 200 },
   ],
-  resistant: [],
-  reconnaissance: [
+  [SkillName.resistant]: [],
+  [SkillName.reconnaissance]: [
     { stat: FightStat.INITIATIVE, value: -200 },
     { stat: FightStat.SPEED, value: 5 },
     { stat: FightStat.SPEED, value: 150, percent: true },
   ],
-  counterAttack: [
+  [SkillName.counterAttack]: [
     { stat: FightStat.BLOCK, value: 10, percent: true },
   ],
-  ironHead: [],
-  thief: [],
-  fierceBrute: [],
-  tragicPotion: [],
-  net: [],
-  bomb: [],
-  hammer: [],
-  cryOfTheDamned: [],
-  hypnosis: [],
-  flashFlood: [],
-  tamer: [],
-  regeneration: [],
-  chef: [],
-  spy: [],
-  saboteur: [],
-  backup: [],
-  hideaway: [],
-  monk: [
+  [SkillName.ironHead]: [],
+  [SkillName.thief]: [],
+  [SkillName.fierceBrute]: [],
+  [SkillName.tragicPotion]: [],
+  [SkillName.net]: [],
+  [SkillName.bomb]: [],
+  [SkillName.hammer]: [],
+  [SkillName.cryOfTheDamned]: [],
+  [SkillName.hypnosis]: [],
+  [SkillName.flashFlood]: [],
+  [SkillName.tamer]: [],
+  [SkillName.regeneration]: [],
+  [SkillName.chef]: [],
+  [SkillName.spy]: [],
+  [SkillName.saboteur]: [],
+  [SkillName.backup]: [],
+  [SkillName.hideaway]: [],
+  [SkillName.monk]: [
     { stat: FightStat.COUNTER, value: 40, percent: true },
     { stat: FightStat.INITIATIVE, value: -200 },
     { stat: FightStat.INTERVAL, value: 100, percent: true },

@@ -7,9 +7,9 @@ import { increaseAchievement } from '../../controllers/Achievements.js';
 
 const checkLevelUpAchievements = async (
   prisma: PrismaClient,
-  _brute: Brute,
-  destinyChoice: DestinyChoice,
-  oldBrute?: Brute,
+  _brute: Pick<Brute, 'id' | 'level' | 'userId' | 'pets' | 'skills' | 'weapons' | 'agilityValue' | 'speedValue' | 'strengthValue' | 'hp'>,
+  destinyChoice: Pick<DestinyChoice, 'pet' | 'skill' | 'weapon'>,
+  oldBrute?: Pick<Brute, 'weapons' | 'agilityValue' | 'speedValue' | 'strengthValue' | 'hp'>,
 ) => {
   const { userId } = _brute;
 

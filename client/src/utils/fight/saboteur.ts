@@ -1,5 +1,5 @@
 /* eslint-disable no-void */
-import { FIGHTER_HEIGHT, randomBetween, SaboteurStep } from '@labrute/core';
+import { FIGHTER_HEIGHT, randomBetween, SaboteurStep, WeaponById } from '@labrute/core';
 import { Application, Sprite } from 'pixi.js';
 
 import { BevelFilter } from '@pixi/filter-bevel';
@@ -17,18 +17,18 @@ const saboteur = async (
   if (!app.loader) {
     return;
   }
-  const { loader: { resources: { '/images/game/thrown-weapons.json': { spritesheet } } } } = app;
+  const spritesheet = app.loader.resources['/images/game/thrown-weapons.json']?.spritesheet;
 
   if (!spritesheet) {
     throw new Error('Spritesheet not found');
   }
 
-  const brute = findFighter(fighters, step.brute);
+  const brute = findFighter(fighters, step.b);
   if (!brute) {
     throw new Error('Brute not found');
   }
 
-  const animation = brute.data?.gender === 'male'
+  const animation = brute.gender === 'male'
     ? `hit-${randomBetween(0, 2) as 0 | 1 | 2}` as const
     : 'hit' as const;
 
@@ -52,7 +52,7 @@ const saboteur = async (
   brute.animation.weapon = null;
 
   // Create weapon sprite
-  const weapon = new Sprite(spritesheet.textures[`${step.weapon}.png`]);
+  const weapon = new Sprite(spritesheet.textures[`${WeaponById[step.w]}.png`]);
   weapon.filters = [new BevelFilter()];
   weapon.zIndex = 1;
 

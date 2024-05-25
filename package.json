@@ -1,6 +1,6 @@
 {
   "name": "labrute",
-  "version": "2.50.4",
+  "version": "2.56.4",
   "private": true,
   "engines": {
     "npm": ">=8.1.2",
@@ -23,7 +23,6 @@
     "db:seed": "cd ./server && yarn db:seed",
     "db:reset": "cd ./server && yarn db:reset",
     "postinstall": "bash ./postInstall.sh",
-    "animation:import": "ts-node importAnimation.ts",
     "studio": "cd ./server && yarn studio",
     "audit": "yarn npm audit --recursive --all --environment production",
     "add:client": "yarn workspace @labrute/client add",
@@ -34,7 +33,7 @@
     "run:fixErroredBonuses": "cd server && yarn run:fixErroredBonuses"
   },
   "devDependencies": {
-    "@eternaltwin/cli": "^0.14.2",
+    "@eternaltwin/cli": "^0.14.3",
     "@types/node": "^18.11.15",
     "concurrently": "^7.6.0",
     "rimraf": "^3.0.2",

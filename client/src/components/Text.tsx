@@ -19,6 +19,7 @@ export interface TextProps extends TypographyProps {
   overline?: boolean;
   inherit?: boolean;
   bold?: boolean;
+  italic?: boolean;
   smallCaps?: boolean;
   upperCase?: boolean;
   center?: boolean;
@@ -43,6 +44,7 @@ const Text = forwardRef<HTMLElement, TextProps>(({
   overline = false,
   inherit = false,
   bold = false,
+  italic = false,
   smallCaps = false,
   upperCase = false,
   center = false,
@@ -73,6 +75,7 @@ const Text = forwardRef<HTMLElement, TextProps>(({
       textTransform: upperCase ? 'uppercase' : undefined,
       typography: typo,
       textAlign: center ? 'center' : undefined,
+      fontStyle: italic ? 'italic' : undefined,
       ...sx,
     }}
     {...rest}

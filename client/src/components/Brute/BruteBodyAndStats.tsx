@@ -1,4 +1,3 @@
-import { BruteWithBodyColors } from '@labrute/core';
 import { Box, BoxProps, Stack } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -7,9 +6,10 @@ import CellStats from '../Cell/CellStats';
 import Text from '../Text';
 import BruteRender from './Body/BruteRender';
 import BruteHP from './BruteHP';
+import { Brute } from '@labrute/prisma';
 
 interface BruteBodyAndStatsProps extends BoxProps {
-  brute: BruteWithBodyColors;
+  brute: Brute;
   isMd?: boolean;
 }
 

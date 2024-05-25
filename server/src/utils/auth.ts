@@ -1,6 +1,6 @@
 import { ExpectedError } from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
-import { Request } from 'express';
+import type { Request } from 'express';
 
 const auth = async (prisma: PrismaClient, request: Request) => {
   const { headers: { authorization } } = request;
@@ -12,7 +12,7 @@ const auth = async (prisma: PrismaClient, request: Request) => {
     throw new ExpectedError('Invalid authorization header');
   }
 
-  const [id, token] = Buffer.from(authorization.split(' ')[1], 'base64')
+  const [id, token] = Buffer.from(authorization.split(' ')[1] || '', 'base64')
     .toString().split(':');
 
   if (!id || !token || id === 'null' || token === 'null') {
@@ -24,18 +24,9 @@ const auth = async (prisma: PrismaClient, request: Request) => {
       id,
       connexionToken: token,
     },
-    include: {
-      brutes: {
-        where: { deletedAt: null },
-        include: {
-          body: true,
-          colors: true,
-        },
-        orderBy: [
-          { favorite: 'desc' },
-          { id: 'asc' },
-        ],
-      },
+    select: {
+      id: true,
+      lang: true,
     },
   });
 

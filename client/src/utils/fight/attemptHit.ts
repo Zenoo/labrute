@@ -1,4 +1,4 @@
-import { AttemptHitStep, FIGHTER_HEIGHT, FIGHTER_WIDTH, weapons } from '@labrute/core';
+import { AttemptHitStep, FIGHTER_HEIGHT, FIGHTER_WIDTH, WeaponById, weapons } from '@labrute/core';
 
 import { BevelFilter } from '@pixi/filter-bevel';
 import { Easing, Tweener } from 'pixi-tweener';
@@ -14,25 +14,25 @@ const attemptHit = async (
   if (!app.loader) {
     return;
   }
-  const { loader: { resources: { '/images/game/misc.json': { spritesheet } } } } = app;
+  const spritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
 
   if (!spritesheet) {
     throw new Error('Spritesheet not found');
   }
 
-  const fighter = findFighter(fighters, step.fighter);
+  const fighter = findFighter(fighters, step.f);
   if (!fighter) {
     throw new Error('Fighter not found');
   }
 
-  const target = findFighter(fighters, step.target);
+  const target = findFighter(fighters, step.t);
   if (!target) {
     throw new Error('Target not found');
   }
 
   // Custom animation for brutes
-  const animation = step.fighter.type === 'brute'
-    ? weapons.find((w) => w.name === step.weapon)?.animation || 'fist'
+  const animation = fighter.type === 'brute'
+    ? typeof step.w !== 'undefined' ? weapons.find((w) => (typeof step.w !== 'undefined' ? w.name === WeaponById[step.w] : false))?.animation || 'fist' : 'fist'
     : 'attack';
 
   const hitTriggered = fighter.animation.waitForEvent(`${animation}:hit`);
@@ -50,7 +50,7 @@ const attemptHit = async (
   }).catch(console.error);
 
   // Handle shield breaking
-  if (step.brokeShield) {
+  if (step.b) {
     target.animation.shield = false;
 
     // Create trashed shield sprite

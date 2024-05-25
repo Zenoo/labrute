@@ -1,4 +1,4 @@
-import { Box, BoxProps } from '@mui/material';
+import { Box, BoxProps, useTheme } from '@mui/material';
 import React, { useCallback } from 'react';
 
 export interface StyledButtonProps extends Omit<BoxProps, 'translate'> {
@@ -29,6 +29,11 @@ const StyledButton = React.forwardRef<HTMLDivElement, StyledButtonProps>(({
   sx,
   ...rest
 }: StyledButtonProps, ref) => {
+  const { palette: { mode } } = useTheme();
+
+  const themedImage = mode === 'dark' ? image.replace('/images/', '/images/dark/') : image;
+  const themedImageHover = mode === 'dark' ? imageHover.replace('/images/', '/images/dark/') : imageHover;
+
   // Controlled hover state
   const [hover, setHover] = React.useState(false);
 
@@ -55,8 +60,9 @@ const StyledButton = React.forwardRef<HTMLDivElement, StyledButtonProps>(({
         pt: hover ? 0 : shift,
         pb: shift,
         cursor: 'pointer',
-        backgroundImage: `url('${swapImage ? hover ? imageHover : image : image}')`,
+        backgroundImage: `url('${swapImage ? hover ? themedImageHover : themedImage : themedImage}')`,
         backgroundRepeat: 'no-repeat',
+        backgroundSize: '100%',
         filter: `${shadow ? `drop-shadow(4px 4px 0px ${shadowColor})` : ''} ${contrast && hover ? 'contrast(90%)' : ''}`,
         fontVariant: 'small-caps',
         fontWeight: 'bold',

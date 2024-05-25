@@ -1,10 +1,11 @@
 /* eslint-disable no-param-reassign */
-import { DetailedFight, DetailedFighter } from '@labrute/core';
+import {
+  DetailedFight, DetailedFighter, StepType, WeaponByName,
+} from '@labrute/core';
 import shuffle from '../shuffle.js';
-import { stepFighter } from './fightMethods.js';
 
 const applySpy = (
-  fightData: DetailedFight['data'],
+  fightData: DetailedFight,
   brute: DetailedFighter,
   opponent: DetailedFighter,
 ) => {
@@ -24,20 +25,33 @@ const applySpy = (
       .slice(0, weaponsToSwap);
 
     fightData.steps.push({
-      action: 'spy',
-      brute: stepFighter(brute),
-      opponent: stepFighter(opponent),
-      sent: bruteWeaponsToSwap.map((weapon) => weapon.name),
-      received: opponentWeaponsToSwap.map((weapon) => weapon.name),
+      a: StepType.Spy,
+      b: brute.id,
+      t: opponent.id,
+      s: bruteWeaponsToSwap.map((weapon) => WeaponByName[weapon.name]),
+      r: opponentWeaponsToSwap.map((weapon) => WeaponByName[weapon.name]),
     });
 
     // Swap weapons
-    opponent.weapons = opponent.weapons
-      .filter((weapon) => !opponentWeaponsToSwap.includes(weapon))
-      .concat(bruteWeaponsToSwap);
-    brute.weapons = brute.weapons
-      .filter((weapon) => !bruteWeaponsToSwap.includes(weapon))
-      .concat(opponentWeaponsToSwap);
+    for (const weaponToSwap of bruteWeaponsToSwap) {
+      const index = brute.weapons.findIndex((weapon) => weapon.name === weaponToSwap.name);
+      if (index === -1) {
+        throw new Error('Weapon not found');
+      }
+
+      brute.weapons.splice(index, 1);
+      opponent.weapons.push(weaponToSwap);
+    }
+
+    for (const weaponToSwap of opponentWeaponsToSwap) {
+      const index = opponent.weapons.findIndex((weapon) => weapon.name === weaponToSwap.name);
+      if (index === -1) {
+        throw new Error('Weapon not found');
+      }
+
+      opponent.weapons.splice(index, 1);
+      brute.weapons.push(weaponToSwap);
+    }
 
     // Add own weapons to opponent damaged weapons
     opponent.damagedWeapons.push(...bruteWeaponsToSwap.map((weapon) => weapon.name));

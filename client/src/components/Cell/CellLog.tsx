@@ -1,6 +1,6 @@
 import { BruteRankings } from '@labrute/core';
-import { Log, LogType } from '@labrute/prisma';
-import { Box, Paper, PaperProps, Tooltip } from '@mui/material';
+import { InventoryItemType, Log, LogType } from '@labrute/prisma';
+import { Box, Paper, PaperProps, Tooltip, useTheme } from '@mui/material';
 import moment from 'moment';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -17,6 +17,7 @@ const negativeLogs: LogType[] = [LogType.lose, LogType.tournament];
 
 const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
   const { t } = useTranslation();
+  const theme = useTheme();
 
   return (
     <Paper
@@ -49,13 +50,18 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
       >
         <Box
           component="img"
-          src={`/images/${log.type === LogType.survive
-            ? 'log/win'
-            : log.type === LogType.lvl
-              ? `rankings/lvl_${log.level || BruteRankings[0]}`
-              : log.type === LogType.tournament
-                ? 'log/lose'
-                : log.type === LogType.tournamentXp ? 'log/childup' : `log/${log.type}`}.png`}
+          src={`/images/${log.type === LogType.bossDefeat
+            ? 'rankings/lvl_0'
+            : log.type === LogType.survive
+              ? 'log/win'
+              : log.type === LogType.lvl
+                ? `rankings/lvl_${log.level || BruteRankings[0]}`
+                : log.type === LogType.tournament
+                  ? 'log/lose'
+                  : log.type === LogType.tournamentXp ? 'log/childup' : `log/${log.type}`}.webp`}
+          sx={{
+            filter: `drop-shadow(3px 3px ${negativeLogs.includes(log.type) ? theme.palette.error.main : theme.palette.success.main})`,
+          }}
         />
       </Box>
       <Box
@@ -74,10 +80,10 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
                   textDecoration: 'none',
                   '&:hover': {
                     textDecoration: 'underline',
-                    textDecorationColor: (theme) => (log.type === LogType.lose
+                    textDecorationColor: log.type === LogType.lose
                       ? theme.palette.error.main
                       : theme.palette.success.main
-                    ),
+                    ,
                   },
                 }}
               >
@@ -96,14 +102,20 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
                   : t(`log.${log.type}`, { value: log.brute })}
             </Text>
           )}
-        {!!log.xp && (
+        {(!!log.xp || !!log.gold) && (
           <Text
             color={negativeLogs.includes(log.type) ? 'error.main' : 'success.main'}
             sx={{
               fontSize: 10,
             }}
           >
-            {t(log.xp === 1 ? 'log.xp' : 'log.xps', { xp: log.xp })}
+            {log.xp
+              ? log.gold
+                ? t('log.xpAndGold', { xp: log.xp, gold: log.gold })
+                : t(log.xp === 1 ? 'log.xp' : 'log.xps', { xp: log.xp })
+              : log.type === LogType.bossDefeat
+                ? t('log.itemAndGold', { count: 1, item: t(`inventory.item.${InventoryItemType.bossTicket}`), gold: log.gold })
+                : t('log.gold', { gold: log.gold })}
           </Text>
         )}
       </Box>

@@ -2,9 +2,10 @@ import {
   ClanChallengeBossResponse,
   ClanCreateResponse, ClanGetResponse, ClanGetThreadResponse,
   ClanGetThreadsResponse, ClanListResponse, ExpectedError, bosses, getFightsLeft, randomBetween,
+  randomItem,
 } from '@labrute/core';
 import { Clan, Prisma, PrismaClient } from '@labrute/prisma';
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import { DISCORD, LOGGER } from '../context.js';
 import auth from '../utils/auth.js';
 import updateClanPoints from '../utils/clan/updateClanPoints.js';
@@ -91,7 +92,20 @@ const Clans = {
         throw new ExpectedError(translate('missingParameters', user));
       }
 
-      const brute = user.brutes.find((b) => b.name === req.params.brute);
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name: req.params.brute,
+          deletedAt: null,
+          userId: user.id,
+        },
+        select: {
+          id: true,
+          clanId: true,
+          level: true,
+          ranking: true,
+        },
+      });
+
       if (!brute) {
         throw new ExpectedError(translate('bruteNotFound', user));
       }
@@ -136,7 +150,7 @@ const Clans = {
           name: clanName,
           master: { connect: { id: brute.id } },
           brutes: { connect: { id: brute.id } },
-          boss: bosses[randomBetween(0, bosses.length - 1)].name,
+          boss: randomItem(bosses).name,
         },
         select: { id: true, name: true },
       });
@@ -170,30 +184,39 @@ const Clans = {
         where: { id },
         include: {
           brutes: {
-            include: {
-              body: true,
-              colors: true,
-            },
             orderBy: [
               { ranking: 'asc' },
               { level: 'desc' },
             ],
           },
           joinRequests: {
-            include: {
-              body: true,
-              colors: true,
-            },
             orderBy: [
               { ranking: 'asc' },
               { level: 'desc' },
             ],
+          },
+          bossDamages: {
+            select: {
+              brute: { select: { id: true, name: true } },
+              damage: true,
+            },
+            orderBy: { damage: 'desc' },
           },
         },
       });
 
       if (!clan) {
         throw new ExpectedError(translate('clanNotFound'));
+      }
+
+      // Reorder brutes to have the master first
+      const masterIndex = clan.brutes.findIndex((b) => b.id === clan.masterId);
+
+      if (masterIndex !== -1) {
+        const [master] = clan.brutes.splice(masterIndex, 1);
+        if (master) {
+          clan.brutes.unshift(master);
+        }
       }
 
       res.status(200).send(clan);
@@ -228,7 +251,14 @@ const Clans = {
         throw new ExpectedError(translate('clanNotFound', user));
       }
 
-      const brute = user.brutes.find((b) => b.name === req.params.brute);
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name: req.params.brute,
+          deletedAt: null,
+          userId: user.id,
+        },
+        select: { id: true, clanId: true },
+      });
       if (!brute) {
         throw new ExpectedError(translate('bruteNotFound', user));
       }
@@ -287,7 +317,15 @@ const Clans = {
         throw new ExpectedError(translate('clanNotFound', user));
       }
 
-      const brute = user.brutes.find((b) => b.name === req.params.brute);
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name: req.params.brute,
+          deletedAt: null,
+          userId: user.id,
+        },
+        select: { id: true },
+      });
+
       if (!brute) {
         throw new ExpectedError(translate('bruteNotFound', user));
       }
@@ -338,8 +376,16 @@ const Clans = {
         throw new ExpectedError(translate('clanNotFound', user));
       }
 
+      const userBrutes = await prisma.brute.findMany({
+        where: {
+          userId: user.id,
+          deletedAt: null,
+        },
+        select: { id: true },
+      });
+
       // Check if one of the user brutes is the clan master
-      if (!user.brutes.some((b) => b.id === clan.masterId)) {
+      if (!userBrutes.some((b) => b.id === clan.masterId)) {
         throw new ExpectedError(translate('unauthorized', user));
       }
 
@@ -419,8 +465,16 @@ const Clans = {
         throw new ExpectedError(translate('clanNotFound', user));
       }
 
+      const userBrutes = await prisma.brute.findMany({
+        where: {
+          userId: user.id,
+          deletedAt: null,
+        },
+        select: { id: true },
+      });
+
       // Check if one of the user brutes is the clan master
-      if (!user.brutes.some((b) => b.id === clan.masterId)) {
+      if (!userBrutes.some((b) => b.id === clan.masterId)) {
         throw new ExpectedError(translate('unauthorized', user));
       }
 
@@ -472,8 +526,16 @@ const Clans = {
         throw new ExpectedError(translate('clanNotFound', user));
       }
 
+      const userBrutes = await prisma.brute.findMany({
+        where: {
+          userId: user.id,
+          deletedAt: null,
+        },
+        select: { id: true },
+      });
+
       // Check if one of the user brutes is the clan master
-      if (!user.brutes.some((b) => b.id === clan.masterId)) {
+      if (!userBrutes.some((b) => b.id === clan.masterId)) {
         throw new ExpectedError(translate('unauthorized', user));
       }
 
@@ -496,7 +558,9 @@ const Clans = {
       // Update clan
       await prisma.clan.update({
         where: { id },
-        data: { brutes: { disconnect: { id: brute.id } } },
+        data: {
+          brutes: { disconnect: { id: brute.id } },
+        },
       });
 
       // Update clan points
@@ -533,7 +597,15 @@ const Clans = {
         throw new ExpectedError(translate('clanNotFound', user));
       }
 
-      const brute = user.brutes.find((b) => b.name === req.params.brute);
+      const brute = await prisma.brute.findFirst({
+        where: {
+          userId: user.id,
+          name: req.params.brute,
+          deletedAt: null,
+        },
+        select: { id: true, level: true, ranking: true },
+      });
+
       if (!brute) {
         throw new ExpectedError(translate('bruteNotFound', user));
       }
@@ -560,13 +632,20 @@ const Clans = {
           where: { clanId: clan.id },
         });
 
+        // Delete boss damages
+        await prisma.bossDamage.deleteMany({
+          where: { clanId: clan.id },
+        });
+
         // Delete clan
         await prisma.clan.delete({ where: { id: clan.id } });
       } else {
         // Update clan
         await prisma.clan.update({
           where: { id },
-          data: { brutes: { disconnect: { id: brute.id } } },
+          data: {
+            brutes: { disconnect: { id: brute.id } },
+          },
         });
 
         // Update clan points
@@ -589,7 +668,15 @@ const Clans = {
         throw new ExpectedError(translate('missingClanId', user));
       }
 
-      const brute = user.brutes.find((b) => b.name === req.params.brute);
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name: req.params.brute,
+          deletedAt: null,
+          userId: user.id,
+        },
+        select: { id: true, clanId: true },
+      });
+
       if (!brute) {
         throw new ExpectedError(translate('bruteNotFound', user));
       }
@@ -659,7 +746,14 @@ const Clans = {
 
       const { id } = req.params;
 
-      const brute = user.brutes.find((b) => b.name === req.params.brute);
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name: req.params.brute,
+          deletedAt: null,
+          userId: user.id,
+        },
+        select: { id: true, clanId: true },
+      });
 
       if (!brute) {
         throw new ExpectedError(translate('bruteNotFound', user));
@@ -711,7 +805,14 @@ const Clans = {
 
       const { id } = req.params;
 
-      const brute = user.brutes.find((b) => b.name === req.params.brute);
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name: req.params.brute,
+          deletedAt: null,
+          userId: user.id,
+        },
+        select: { id: true, clanId: true },
+      });
 
       if (!brute) {
         throw new ExpectedError(translate('bruteNotFound', user));
@@ -774,7 +875,14 @@ const Clans = {
       const { id } = req.params;
       const { threadId } = req.params;
 
-      const brute = user.brutes.find((b) => b.name === req.params.brute);
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name: req.params.brute,
+          deletedAt: null,
+          userId: user.id,
+        },
+        select: { id: true },
+      });
 
       if (!brute) {
         throw new ExpectedError(translate('bruteNotFound', user));
@@ -840,7 +948,14 @@ const Clans = {
       const { id } = req.params;
       const { threadId } = req.params;
 
-      const brute = user.brutes.find((b) => b.name === req.params.brute);
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name: req.params.brute,
+          deletedAt: null,
+          userId: user.id,
+        },
+        select: { id: true, clanId: true },
+      });
 
       if (!brute) {
         throw new ExpectedError(translate('bruteNotFound', user));
@@ -862,9 +977,7 @@ const Clans = {
             skip: (+req.query.page - 1) * 10,
             orderBy: { date: 'asc' },
             include: {
-              author: {
-                include: { body: true, colors: true },
-              },
+              author: true,
             },
           },
           clan: { select: { masterId: true, name: true } },
@@ -893,7 +1006,14 @@ const Clans = {
         throw new ExpectedError(translate('missingId', user));
       }
 
-      const brute = user.brutes.find((b) => b.name === req.params.brute);
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name: req.params.brute,
+          deletedAt: null,
+          userId: user.id,
+        },
+      });
+
       if (!brute) {
         throw new ExpectedError(translate('bruteNotFound', user));
       }
@@ -941,13 +1061,15 @@ const Clans = {
       let generatedFight: Prisma.FightCreateInput | null = null;
       let expectedError: ExpectedError | null = null;
       let retry = 0;
+      let bossXpGains = 0;
+      let bossGoldGains = 0;
 
       while (!generatedFight && !expectedError && retry < 10) {
         try {
           retry += 1;
 
           // eslint-disable-next-line no-await-in-loop
-          generatedFight = await generateFight(
+          const newGeneratedFight = await generateFight(
             prisma,
             brute,
             null,
@@ -958,6 +1080,11 @@ const Clans = {
             boss.hp - clan.damageOnBoss,
             clan.id,
           );
+          generatedFight = newGeneratedFight.data;
+          if (newGeneratedFight.boss) {
+            bossXpGains = newGeneratedFight.boss.xp;
+            bossGoldGains = newGeneratedFight.boss.gold;
+          }
         } catch (error: unknown) {
           if (!(error instanceof Error)) {
             throw error;
@@ -984,6 +1111,8 @@ const Clans = {
       // Send fight id to client
       res.status(200).send({
         id: fightId,
+        xp: bossXpGains,
+        gold: bossGoldGains,
       });
     } catch (error) {
       sendError(res, error);
@@ -1006,7 +1135,14 @@ const Clans = {
       const { id } = req.params;
       const { threadId } = req.params;
 
-      const brute = user.brutes.find((b) => b.name === req.params.brute);
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name: req.params.brute,
+          deletedAt: null,
+          userId: user.id,
+        },
+        select: { id: true },
+      });
 
       if (!brute) {
         throw new ExpectedError(translate('bruteNotFound', user));
@@ -1067,7 +1203,14 @@ const Clans = {
       const { id } = req.params;
       const { threadId } = req.params;
 
-      const brute = user.brutes.find((b) => b.name === req.params.brute);
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name: req.params.brute,
+          deletedAt: null,
+          userId: user.id,
+        },
+        select: { id: true },
+      });
 
       if (!brute) {
         throw new ExpectedError(translate('bruteNotFound', user));
@@ -1137,8 +1280,16 @@ const Clans = {
         throw new ExpectedError(translate('clanNotFound', user));
       }
 
+      const userBrutes = await prisma.brute.findMany({
+        where: {
+          userId: user.id,
+          deletedAt: null,
+        },
+        select: { id: true },
+      });
+
       // Check if one of the user brutes is the clan master
-      if (!user.brutes.some((b) => b.id === clan.masterId)) {
+      if (!userBrutes.some((b) => b.id === clan.masterId)) {
         throw new ExpectedError(translate('unauthorized', user));
       }
 

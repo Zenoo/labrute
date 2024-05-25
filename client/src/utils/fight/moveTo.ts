@@ -12,11 +12,11 @@ const moveTo = async (
   step: MoveStep,
   speed: React.MutableRefObject<number>,
 ) => {
-  const fighter = findFighter(fighters, step.fighter);
+  const fighter = findFighter(fighters, step.f);
   if (!fighter) {
     throw new Error('Fighter not found');
   }
-  const target = findFighter(fighters, step.target);
+  const target = findFighter(fighters, step.t);
   if (!target) {
     throw new Error('Target not found');
   }
@@ -36,12 +36,12 @@ const moveTo = async (
   let modifier = 0;
 
   // Same space
-  if (step.sameSpace) {
+  if (step.s) {
     modifier = 20;
   }
 
   // Weapon reach
-  if (!step.sameSpace) {
+  if (!step.s) {
     // Adjust for fighter width
     let width = FIGHTER_WIDTH[getFighterType(fighter)];
     if (fighter.type === 'boss') {
@@ -52,7 +52,7 @@ const moveTo = async (
     let reach = 0;
 
     // Countered, take opponent weapon reach into account
-    if (step.countered) {
+    if (step.c) {
       reach = weapons.find((w) => w.name === target.animation.weapon)?.reach || 0;
     } else {
       // Take fighter weapon reach into account

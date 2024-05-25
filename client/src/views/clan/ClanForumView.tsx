@@ -85,7 +85,7 @@ const ClanForumView = () => {
                 {data.threads.map((thread, i) => (
                   <Fragment key={thread.id}>
                     {/* Insert data row between threads with different dates */}
-                    {(!data.threads[i - 1] || moment.utc(thread.updatedAt).format('DD/MM/YYYY') !== moment.utc(data.threads[i - 1].updatedAt).format('DD/MM/YYYY')) && (
+                    {(!data.threads[i - 1] || moment.utc(thread.updatedAt).format('DD/MM/YYYY') !== moment.utc(data.threads[i - 1]?.updatedAt).format('DD/MM/YYYY')) && (
                       <TableRow>
                         <TableCell component="th" colSpan={4} sx={{ textAlign: 'center' }}>
                           <Text bold>{moment.utc(thread.updatedAt).format('D MMMM YYYY')}</Text>
@@ -122,7 +122,7 @@ const ClanForumView = () => {
                         </Box>
                       </TableCell>
                       <TableCell>{thread.postCount}</TableCell>
-                      <TableCell align="right">{thread.posts[0].author.name}, {moment.utc(thread.updatedAt).format('HH:mm')}</TableCell>
+                      <TableCell align="right">{thread.posts[0]?.author.name}, {moment.utc(thread.updatedAt).format('HH:mm')}</TableCell>
                     </TableRow>
                   </Fragment>
                 ))}

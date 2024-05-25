@@ -1,4 +1,10 @@
 @font-face {
+  font-family: LaBrute;
+  src: url(./assets/fonts/labrute.ttf) format("ttf"),
+    url(./assets/fonts/labrute.woff) format("woff");
+}
+
+@font-face {
   font-family: Pixelized;
   src: url(./assets/fonts/BarcadeBrawlRegular.ttf) format("ttf"),
     url(./assets/fonts/BarcadeBrawlRegular.woff) format("woff");

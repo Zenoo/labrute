@@ -140,7 +140,7 @@ const ClanThreadView = () => {
                 }}
                 >
                   <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <Box component="img" src={`/images/rankings/lvl_${post.author.ranking}.png`} sx={{ mr: 1, width: 20 }} />
+                    <Box component="img" src={`/images/rankings/lvl_${post.author.ranking}.webp`} sx={{ mr: 1, width: 20 }} />
                     <Link to={`/${post.author.name}/cell`}>
                       <Text bold color="primary">{post.author.name}</Text>
                     </Link>

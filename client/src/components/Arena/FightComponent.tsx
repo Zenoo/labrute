@@ -1,4 +1,4 @@
-import { Fighter, FightStep } from '@labrute/core';
+import { Fighter, FightStep, StepType } from '@labrute/core';
 import { Fight } from '@labrute/prisma';
 import { FastForward, FastRewind, MusicNote, MusicOff, Pause, PlayArrow, Rtt, VolumeOff, VolumeUp } from '@mui/icons-material';
 import { Box, IconButton, Stack, Tooltip, useMediaQuery, useTheme } from '@mui/material';
@@ -17,6 +17,62 @@ import BruteTooltip from '../Brute/BruteTooltip';
 import Link from '../Link';
 import Text from '../Text';
 import { useRenderer } from '../../hooks/useRenderer';
+
+const sounds = [
+  'background.mp3',
+  'arrive.mp3',
+  'loose.wav',
+  'win.wav',
+  'equip.mp3',
+  'hit/bear.wav',
+  'hit/dog.wav',
+  'hit/panther.wav',
+  'hit/block.wav',
+  'hit/evade.mp3',
+  'hit/poison.mp3',
+  'hitting/blunt1.wav',
+  'hitting/blunt2.wav',
+  'hitting/blunt3.wav',
+  'hitting/blunt4.wav',
+  'hitting/blunt5.wav',
+  'hitting/blunt6.wav',
+  'hitting/blunt7.wav',
+  'hitting/blunt8.wav',
+  'hitting/fist1.wav',
+  'hitting/fist2.wav',
+  'hitting/fist3.wav',
+  'hitting/fryingPan.wav',
+  'hitting/lance1.wav',
+  'hitting/lance2.wav',
+  'hitting/piopio.wav',
+  'hitting/sharp1.wav',
+  'hitting/sharp2.wav',
+  'hitting/sharp3.wav',
+  'hitting/sharp4.wav',
+  'hitting/sharp5.wav',
+  'hitting/sharp6.wav',
+  'hitting/sharp7.wav',
+  'hitting/sharp8.wav',
+  'hitting/sharp9.wav',
+  'hitting/sword.wav',
+  'hitting/trombone1.wav',
+  'hitting/trombone2.wav',
+  'hitting/whip.wav',
+  'move/bear.wav',
+  'move/dog.wav',
+  'move/panther.wav',
+  'skills/bomb.wav',
+  'skills/cryOfTheDamned.wav',
+  'skills/fierceBrute.wav',
+  'skills/flashFlood.wav',
+  'skills/hammer.wav',
+  'skills/hypnosis.wav',
+  'skills/net.wav',
+  'skills/saboteur.mp3',
+  'skills/tamer.mp3',
+  'skills/thief.wav',
+  'skills/tragicPotion.wav',
+];
 
 export interface FightComponentProps {
   fight: Fight | null;
@@ -111,64 +167,8 @@ const FightComponent = ({
       .add('/images/game/thrown-weapons.json')
       .add('/images/game/misc.json');
 
-    const sounds = [
-      'background.mp3',
-      'arrive.mp3',
-      'loose.wav',
-      'win.wav',
-      'equip.mp3',
-      'hit/bear.wav',
-      'hit/dog.wav',
-      'hit/panther.wav',
-      'hit/block.wav',
-      'hit/evade.mp3',
-      'hit/poison.mp3',
-      'hitting/blunt1.wav',
-      'hitting/blunt2.wav',
-      'hitting/blunt3.wav',
-      'hitting/blunt4.wav',
-      'hitting/blunt5.wav',
-      'hitting/blunt6.wav',
-      'hitting/blunt7.wav',
-      'hitting/blunt8.wav',
-      'hitting/fist1.wav',
-      'hitting/fist2.wav',
-      'hitting/fist3.wav',
-      'hitting/fryingPan.wav',
-      'hitting/lance1.wav',
-      'hitting/lance2.wav',
-      'hitting/piopio.wav',
-      'hitting/sharp1.wav',
-      'hitting/sharp2.wav',
-      'hitting/sharp3.wav',
-      'hitting/sharp4.wav',
-      'hitting/sharp5.wav',
-      'hitting/sharp6.wav',
-      'hitting/sharp7.wav',
-      'hitting/sharp8.wav',
-      'hitting/sharp9.wav',
-      'hitting/sword.wav',
-      'hitting/trombone1.wav',
-      'hitting/trombone2.wav',
-      'hitting/whip.wav',
-      'move/bear.wav',
-      'move/dog.wav',
-      'move/panther.wav',
-      'skills/bomb.wav',
-      'skills/cryOfTheDamned.wav',
-      'skills/fierceBrute.wav',
-      'skills/flashFlood.wav',
-      'skills/hammer.wav',
-      'skills/hypnosis.wav',
-      'skills/net.wav',
-      'skills/saboteur.mp3',
-      'skills/tamer.mp3',
-      'skills/thief.wav',
-      'skills/tragicPotion.wav',
-    ];
-
     sounds.forEach((soundName) => {
-      sound.add(soundName.split('.')[0], `/sfx/${soundName}`);
+      sound.add(soundName.split('.')[0] || '', `/sfx/${soundName}`);
     });
 
     // Mute all sounds
@@ -300,10 +300,11 @@ const FightComponent = ({
               textAlign: 'left',
             }}
             >
-              {fightSteps?.filter((step) => !['moveTo', 'moveBack'].includes(step.action)).map((step, i) => (
-                // eslint-disable-next-line react/no-array-index-key
-                <Text key={i}>{translateFightStep(step, t)}</Text>
-              ))}
+              {fightSteps?.filter((step) => ![StepType.Move, StepType.MoveBack].includes(step.a))
+                .map((step, i) => (
+                  // eslint-disable-next-line react/no-array-index-key
+                  <Text key={i}>{translateFightStep(fighters || [], step, t)}</Text>
+                ))}
             </Box>
           )}
           <Stack

@@ -1,7 +1,7 @@
 import { pad } from '@labrute/core';
-import { Box, BoxProps, Link } from '@mui/material';
+import { Box, BoxProps, Link, useTheme } from '@mui/material';
 import moment from 'moment';
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 import { useLanguage } from '../hooks/useLanguage';
@@ -17,7 +17,9 @@ const Header = ({
 }: HeaderProps) => {
   const { t } = useTranslation();
   const { language } = useLanguage();
-  const [time, setTime] = React.useState(moment.utc());
+  const theme = useTheme();
+
+  const [time, setTime] = useState(moment.utc());
 
   // Randomized left art
   const leftArt = useMemo(() => Math.floor(Math.random() * (11 - 1 + 1) + 1), []);
@@ -60,8 +62,11 @@ const Header = ({
       <Link component={RouterLink} to={url || '/'}>
         <Box
           component="img"
-          src={`/images/${language}/header/head.png`}
-          sx={{ width: 1 }}
+          src={`/images/${language}/header/head${theme.palette.mode === 'dark' ? '-dark' : ''}.webp`}
+          sx={{
+            width: 1,
+            filter: `drop-shadow(3px 3px ${theme.palette.border.shadow})`,
+          }}
         />
       </Link>
       <Box

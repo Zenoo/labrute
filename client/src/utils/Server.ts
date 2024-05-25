@@ -1,5 +1,5 @@
-import { AchievementGetRankingsResponse, AchievementsGetResponse, AdminPanelBrute, BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, BruteWithBodyColors, ClanChallengeBossResponse, ClanCreateResponse, ClanGetResponse, ClanGetThreadResponse, ClanGetThreadsResponse, ClanListResponse, FightCreateResponse, FullTournament, HookBrute, ServerReadyResponse, TournamentHistoryResponse, TournamentsGetGlobalResponse, UserGetAdminResponse, UserGetProfileResponse, UsersAdminUpdateRequest, UserWithBrutesBodyColor } from '@labrute/core';
-import { Brute, BruteReportReason, BruteReportStatus, DestinyChoice, DestinyChoiceSide, Fight, Gender, Lang, Log, Prisma } from '@labrute/prisma';
+import { AchievementGetRankingsResponse, AchievementsGetResponse, AdminPanelBrute, BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetLevelUpChoicesResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, ClanChallengeBossResponse, ClanCreateResponse, ClanGetResponse, ClanGetThreadResponse, ClanGetThreadsResponse, ClanListResponse, FightCreateResponse, HookBrute, ServerReadyResponse, TournamentHistoryResponse, TournamentsGetDailyResponse, TournamentsGetGlobalResponse, TournementsUpdateGlobalRoundWatchedResponse, UserGetAdminResponse, UserGetProfileResponse, UsersAdminUpdateRequest, UserWithBrutesBodyColor } from '@labrute/core';
+import { Brute, BruteReportReason, BruteReportStatus, DestinyChoiceSide, Fight, Gender, Lang, Log, Prisma } from '@labrute/prisma';
 import Fetch from './Fetch';
 
 const Server = {
@@ -9,25 +9,26 @@ const Server = {
       login,
       token
     }, 'POST'),
-    getForAdmin: (name: string) => Fetch<UserGetAdminResponse>(`/api/user/${name}/admin`),
+    getForAdmin: (id: string) => Fetch<UserGetAdminResponse>(`/api/user/${id}/admin`),
     runDailyJob: () => Fetch<never>('/api/run-daily-job'),
     changeLanguage: (lang: Lang) => Fetch<never>('/api/user/change-language', { lang }, 'POST'),
     changeFightSpeed: (fightSpeed: number) => Fetch<never>('/api/user/change-fight-speed', { fightSpeed }, 'POST'),
     toggleBackgroundMusic: (backgroundMusic: boolean) => Fetch<never>('/api/user/toggle-background-music', { backgroundMusic }, 'POST'),
     adminUpdate: (id: string, data: UsersAdminUpdateRequest) => Fetch<never>(`/api/user/${id}/admin-update`, data, 'POST'),
     getProfile: (id: string) => Fetch<UserGetProfileResponse>(`/api/user/${id}/profile`),
+    getDinoRpgRewards: () => Fetch<never>('/api/user/get-dinorpg-reward'),
   },
   Brute: {
     getForHook: (name: string) => Fetch<HookBrute>(`/api/brute/${name}/for-hook`),
     getForAdmin: (name: string) => Fetch<AdminPanelBrute>(`/api/brute/${name}/for-admin`),
-    getForVersus: (name: string) => Fetch<BruteWithBodyColors>(`/api/brute/${name}/for-versus`),
+    getForVersus: (name: string) => Fetch<Brute>(`/api/brute/${name}/for-versus`),
     isNameAvailable: (name: string) => Fetch<boolean>(`/api/brute/${name}/available`),
     create: (
       name: string,
       user: string,
       gender: Gender,
-      body: Prisma.BruteBodyCreateWithoutBruteInput,
-      colors: Prisma.BruteColorsCreateWithoutBruteInput,
+      body: string,
+      colors: string,
       master: string | null,
     ) => Fetch<BrutesCreateResponse>('/api/brute/create', {
       name,
@@ -37,10 +38,7 @@ const Server = {
       colors,
       master,
     }, 'POST'),
-    getLevelUpChoices: (name: string) => Fetch<{
-      brute: BruteWithBodyColors,
-      choices: [DestinyChoice, DestinyChoice],
-    }>(`/api/brute/${name}/level-up-choices`),
+    getLevelUpChoices: (name: string) => Fetch<BrutesGetLevelUpChoicesResponse>(`/api/brute/${name}/level-up-choices`),
     levelUp: (
       name: string,
       choice: DestinyChoiceSide,
@@ -57,8 +55,9 @@ const Server = {
     restore: (id: string) => Fetch<never>(`/api/brute/${id}/restore`),
     favorite: (name: string) => Fetch<never>(`/api/brute/${name}/favorite`),
     reset: (name: string) => Fetch<HookBrute>(`/api/brute/${name}/reset`),
-    resetVisuals: (name: string, body: Prisma.BruteBodyCreateWithoutBruteInput, colors: Prisma.BruteColorsCreateWithoutBruteInput) => Fetch<never>(`/api/brute/${name}/reset-visuals`, { body, colors }, 'POST'),
+    resetVisuals: (name: string, body: string, colors: string) => Fetch<never>(`/api/brute/${name}/reset-visuals`, { body, colors }, 'POST'),
     giveFreeVisualReset: (name: string) => Fetch<never>(`/api/brute/${name}/give-free-visual-reset`),
+    changeName: (name: string, newName: string) => Fetch<never>(`/api/brute/${name}/change-name/${newName}`),
   },
   Log: {
     list: (brute: string) => Fetch<(Log & { currentBrute: { name: string } })[]>(`/api/log/list/${brute}`),
@@ -71,9 +70,11 @@ const Server = {
     getDaily: ({
       name,
       date,
-    }: { name: string, date: string }) => Fetch<FullTournament>(`/api/tournament/${name}/${date}`),
+    }: { name: string, date: string }) => Fetch<TournamentsGetDailyResponse>(`/api/tournament/${name}/${date}`),
     registerDaily: (name: string) => Fetch<never>(`/api/tournament/${name}/register`),
     updateStepWatched: (name: string) => Fetch<never>(`/api/tournament/${name}/update-step-watched`),
+    updateGlobalRoundWatched: (name: string, fight: number) => Fetch<TournementsUpdateGlobalRoundWatchedResponse>(`/api/tournament/${name}/update-global-round-watched/${fight}`),
+    skipWatchingGlobal: (name: string) => Fetch<never>(`/api/tournament/${name}/skip-watching-global`),
     setDailyWatched: (name: string) => Fetch<never>(`/api/tournament/${name}/set-daily-watched`),
     getGlobal: ({
       name,

@@ -1,4 +1,4 @@
-import { FightStat, Fighter, skills } from '@labrute/core';
+import { FightStat, Fighter, SkillById, skills } from '@labrute/core';
 import { Brute } from '@labrute/prisma';
 import { Box, SxProps, Tooltip, TooltipProps } from '@mui/material';
 import React from 'react';
@@ -78,11 +78,11 @@ const BruteTooltip = ({
             <>
               <Text sx={{ fontSize: 12, lineHeight: 1.2 }}>
                 <Text component="span" bold sx={{ lineHeight: 1.2 }}>{t('supers')}: </Text>
-                {fighter.skills.filter((s) => skills.find((_s) => _s.name === s)?.type === 'super').map((s) => t(s)).join(', ')}
+                {fighter.skills.filter((s) => skills.find((_s) => _s.name === SkillById[s])?.type === 'super').map((s) => t(SkillById[s])).join(', ')}
               </Text>
               <Text sx={{ fontSize: 12, lineHeight: 1.2 }}>
                 <Text component="span" bold sx={{ lineHeight: 1.2 }}>{t('skills')}: </Text>
-                {fighter.skills.filter((s) => skills.find((_s) => _s.name === s)?.type !== 'super').map((s) => t(s)).join(', ')}
+                {fighter.skills.filter((s) => skills.find((_s) => _s.name === SkillById[s])?.type !== 'super').map((s) => t(SkillById[s])).join(', ')}
               </Text>
             </>
           )}

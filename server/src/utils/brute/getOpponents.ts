@@ -1,4 +1,4 @@
-import { ARENA_OPPONENTS_COUNT, ARENA_OPPONENTS_MAX_GAP, BruteWithBodyColors } from '@labrute/core';
+import { ARENA_OPPONENTS_COUNT, ARENA_OPPONENTS_MAX_GAP } from '@labrute/core';
 import { Brute, PrismaClient } from '@labrute/prisma';
 
 const getOpponents = async (
@@ -25,21 +25,25 @@ const getOpponents = async (
     // Select ARENA_OPPONENTS_COUNT random ids
     while (randomlySelectedBruteIds.length < ARENA_OPPONENTS_COUNT) {
       const randomIndex = Math.floor(Math.random() * bruteIds.length);
-      if (!randomlySelectedBruteIds.includes(bruteIds[randomIndex])) {
-        randomlySelectedBruteIds.push(bruteIds[randomIndex]);
+      const randomId = bruteIds[randomIndex];
+
+      if (!randomId) {
+        throw new Error('No random id found');
+      }
+
+      if (!randomlySelectedBruteIds.includes(randomId)) {
+        randomlySelectedBruteIds.push(randomId);
       }
     }
   }
 
   const opponents = [];
-  for (let i = 0; i < randomlySelectedBruteIds.length; i++) {
-    const id = randomlySelectedBruteIds[i];
-
+  for (const bruteId of randomlySelectedBruteIds) {
     // eslint-disable-next-line no-await-in-loop
     const opponent = await prisma.brute.findFirst({
       where: {
         ...bruteSearch,
-        id,
+        id: bruteId,
       },
       select: {
         id: true,
@@ -86,23 +90,25 @@ const getOpponents = async (
       while (additionalRandomlySelectedBruteIds
         .length < ARENA_OPPONENTS_COUNT - opponents.length) {
         const randomIndex = Math.floor(Math.random() * additionalBruteIds.length);
-        if (!additionalRandomlySelectedBruteIds.includes(additionalBruteIds[randomIndex])) {
-          additionalRandomlySelectedBruteIds.push(additionalBruteIds[randomIndex]);
+        const randomId = additionalBruteIds[randomIndex];
+
+        if (!randomId) {
+          throw new Error('No random id found');
+        }
+        if (!additionalRandomlySelectedBruteIds.includes(randomId)) {
+          additionalRandomlySelectedBruteIds.push(randomId);
         }
       }
     }
 
-    const additionalOpponents: BruteWithBodyColors[] = [];
-    for (let i = 0; i < additionalRandomlySelectedBruteIds.length; i++) {
-      const id = additionalRandomlySelectedBruteIds[i];
-
+    const additionalOpponents: Brute[] = [];
+    for (const bruteId of additionalRandomlySelectedBruteIds) {
       // eslint-disable-next-line no-await-in-loop
       const opponent = await prisma.brute.findFirst({
         where: {
           ...additionalBruteSearch,
-          id,
+          id: bruteId,
         },
-        include: { body: true, colors: true },
       });
 
       if (opponent) {

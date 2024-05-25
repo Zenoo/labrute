@@ -1,12 +1,15 @@
 import {
+  BruteDeletionReason,
   BruteReportsListRequest, BruteReportsListResponse, BruteReportsSendRequest,
   ExpectedError,
 } from '@labrute/core';
-import { BruteReportReason, BruteReportStatus, PrismaClient } from '@labrute/prisma';
-import { Request, Response } from 'express';
+import {
+  BruteReportReason, BruteReportStatus, InventoryItemType, PrismaClient,
+} from '@labrute/prisma';
+import type { Request, Response } from 'express';
+import moment from 'moment';
 import { LOGGER } from '../context.js';
 import auth from '../utils/auth.js';
-import updateClanPoints from '../utils/clan/updateClanPoints.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
 
@@ -16,11 +19,16 @@ const BruteReports = {
     res: Response<BruteReportsListResponse>,
   ) => {
     try {
-      const user = await auth(prisma, req);
+      const authed = await auth(prisma, req);
+
+      const user = await prisma.user.findFirst({
+        where: { id: authed.id },
+        select: { admin: true },
+      });
 
       // Admin only
-      if (!user.admin) {
-        throw new ExpectedError(translate('unauthorized', user));
+      if (!user?.admin) {
+        throw new ExpectedError(translate('unauthorized', authed));
       }
 
       // Get reports
@@ -75,10 +83,18 @@ const BruteReports = {
           name,
           deletedAt: null,
         },
+        select: { id: true, name: true, deletionReason: true },
       });
 
       if (!brute) {
         throw new ExpectedError(translate('bruteNotFound', user));
+      }
+
+      if (brute.deletionReason) {
+        res.status(200).send({
+          success: true,
+        });
+        return;
       }
 
       // Check if an existing report exists
@@ -139,7 +155,7 @@ const BruteReports = {
         });
       }
 
-      LOGGER.log(`New report for ${brute.name} by ${user.name}`);
+      LOGGER.log(`New report for ${brute.name} by ${user.id}`);
 
       res.status(200).send({
         success: true,
@@ -153,11 +169,16 @@ const BruteReports = {
     res: Response,
   ) => {
     try {
-      const user = await auth(prisma, req);
+      const authed = await auth(prisma, req);
+
+      const user = await prisma.user.findFirst({
+        where: { id: authed.id },
+        select: { admin: true },
+      });
 
       // Admin only
-      if (!user.admin) {
-        throw new ExpectedError(translate('unauthorized', user));
+      if (!user?.admin) {
+        throw new ExpectedError(translate('unauthorized', authed));
       }
 
       const report = await prisma.bruteReport.findFirst({
@@ -172,13 +193,23 @@ const BruteReports = {
               clanId: true,
               level: true,
               ranking: true,
+              inventory: {
+                select: {
+                  id: true,
+                  type: true,
+                  count: true,
+                },
+                where: {
+                  type: InventoryItemType.nameChange,
+                },
+              },
             },
           },
         },
       });
 
       if (!report) {
-        throw new ExpectedError(translate('reportNotFound', user));
+        throw new ExpectedError(translate('reportNotFound', authed));
       }
 
       await prisma.bruteReport.update({
@@ -199,25 +230,34 @@ const BruteReports = {
         select: { id: true },
       });
 
-      // Delete brute
+      // Tag brute for deletion
       await prisma.brute.update({
         where: {
           id: report.bruteId,
         },
         data: {
-          deletedAt: new Date(),
-          // Remove from clan
-          clanId: null,
-          // Delete join requests
-          wantToJoinClanId: null,
+          willBeDeletedAt: moment.utc().add(3, 'day').toDate(),
+          deletionReason: BruteDeletionReason.INNAPROPRIATE_NAME,
         },
         select: { id: true },
       });
 
-      // Update clan points
-      if (report.brute.clanId) {
-        await updateClanPoints(prisma, report.brute.clanId, 'remove', report.brute);
-      }
+      // Add 1 free name change
+      await prisma.bruteInventoryItem.upsert({
+        where: {
+          id: report.brute.inventory[0]?.id || -1,
+        },
+        create: {
+          type: InventoryItemType.nameChange,
+          bruteId: report.brute.id,
+        },
+        update: {
+          count: {
+            increment: 1,
+          },
+        },
+        select: { id: true },
+      });
 
       res.status(200).send({
         success: true,
@@ -231,11 +271,16 @@ const BruteReports = {
     res: Response,
   ) => {
     try {
-      const user = await auth(prisma, req);
+      const authed = await auth(prisma, req);
+
+      const user = await prisma.user.findFirst({
+        where: { id: authed.id },
+        select: { admin: true },
+      });
 
       // Admin only
-      if (!user.admin) {
-        throw new ExpectedError(translate('unauthorized', user));
+      if (!user?.admin) {
+        throw new ExpectedError(translate('unauthorized', authed));
       }
 
       const report = await prisma.bruteReport.findFirst({
@@ -245,7 +290,7 @@ const BruteReports = {
       });
 
       if (!report) {
-        throw new ExpectedError(translate('reportNotFound', user));
+        throw new ExpectedError(translate('reportNotFound', authed));
       }
 
       await prisma.bruteReport.update({

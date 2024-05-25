@@ -1,3 +1,4 @@
+import { Lang } from '@labrute/prisma';
 import { Box, Paper, PaperProps } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useMemo } from 'react';
@@ -8,10 +9,8 @@ import { useBrute } from '../../hooks/useBrute';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
 import FantasyButton from '../FantasyButton';
-import Link from '../Link';
 import StyledButton from '../StyledButton';
 import Text from '../Text';
-import { Lang } from '@labrute/prisma';
 
 export interface CellTournamentProps extends PaperProps {
   language: Lang;
@@ -59,14 +58,13 @@ const CellTournament = ({
       {/* CURRENT TOURNAMENT */}
       {!!brute.tournaments.length && (
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-          <Link to={`/${brute.name}/tournament/${now.format('YYYY-MM-DD')}`}>
-            <FantasyButton
-              color="warning"
-              sx={{ my: 1 }}
-            >
-              {t('tournament')}
-            </FantasyButton>
-          </Link>
+          <FantasyButton
+            color="warning"
+            to={`/${brute.name}/tournament/${now.format('YYYY-MM-DD')}`}
+            sx={{ my: 1 }}
+          >
+            {t('tournament')}
+          </FantasyButton>
         </Box>
       )}
       {/* NEXT TOURNAMENT (Only displayed if you can't rank up and if you have watched your daily tournament) */}

@@ -1,14 +1,17 @@
 import { adjustColor } from '@labrute/core';
 import { Box, BoxProps, useTheme } from '@mui/material';
 import React from 'react';
+import { useNavigate } from 'react-router';
 
 interface FantasyButtonProps extends BoxProps {
-  color?: 'primary'
+  color: 'primary'
   | 'secondary'
   | 'success'
   | 'error'
   | 'info'
   | 'warning';
+  disabled?: boolean;
+  to?: string;
 }
 
 /**
@@ -17,77 +20,78 @@ interface FantasyButtonProps extends BoxProps {
 const FantasyButton = React.forwardRef<HTMLDivElement, FantasyButtonProps>(({
   children,
   color = 'primary',
+  disabled,
   sx,
+  to,
   ...rest
 }: FantasyButtonProps, ref) => {
   const theme = useTheme();
+  const navigate = useNavigate();
 
   const COLOR = theme.palette[color].main;
-  const colorLight = adjustColor(theme.palette[color].main, 10);
-  const colorDark = adjustColor(theme.palette[color].main, -10);
-  const colorDarker = adjustColor(theme.palette[color].main, -20);
+  const colorDark = adjustColor(COLOR, -30);
+  const colorDarker = adjustColor(COLOR, -60);
+
+  const handleClick = () => {
+    if (!disabled && to) {
+      navigate(to);
+    }
+  };
 
   return (
-    <Box textAlign="center">
-      <Box
-        ref={ref}
-        sx={{
-          position: 'relative',
-          display: 'inline-block',
-          cursor: 'pointer',
-          outline: 'none',
-          verticalAlign: 'middle',
-          textDecoration: 'none',
-          typography: 'Pixelized',
-          fontSize: 9,
-          fontWeight: 600,
-          letterSpacing: 1,
-          color: theme.palette[color].contrastText,
-          textTransform: 'uppercase',
-          py: 1,
-          px: 2,
-          background: colorLight,
-          border: `2px solid ${colorDarker}`,
-          borderRadius: 2,
-          transformStyle: 'preserve-3d',
-          transition: 'background 100ms cubic-bezier(0, 0, 0.58, 1), -webkit-transform 100ms cubic-bezier(0, 0, 0.58, 1)',
+    <Box
+      component="button"
+      ref={ref}
+      onClick={handleClick}
+      sx={{
+        display: 'block',
+        mx: 'auto',
+        mt: 2,
+        position: 'relative',
+        top: 0,
+        borderRadius: 1,
+        border: '1px solid',
+        borderColor: theme.palette.divider,
+        borderTopColor: colorDarker,
+        backgroundColor: COLOR,
+        color: theme.palette[color].contrastText,
+        py: 0.5,
+        px: 1,
+        cursor: disabled ? 'not-allowed' : 'pointer',
+        textTransform: 'uppercase',
+        typography: 'LaBrute',
+        fontSize: '1rem',
+        boxShadow: '2px 3px rgba(0, 0, 0, 0.3)',
+        transition: 'box-shadow 0.1s, top 0.1s, perspective 0.1s',
+        perspective: 20,
+        transformStyle: 'preserve-3d',
+        zIndex: 1,
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: -8,
+          left: '2.5%',
+          width: 0.95,
+          height: 8,
+          backgroundColor: colorDark,
+          transform: 'rotateX(20deg) translateZ(-1px)',
+          zIndex: -1,
+          transition: 'height 0.1s, top 0.1s',
+        },
+        '&:hover': {
+          top: -3,
+          boxShadow: '1px 1px rgba(0, 0, 0, 0.3)',
+          perspective: 10,
           '&::before': {
-            position: 'absolute',
-            content: '""',
-            width: '100%',
-            height: '100%',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: colorDark,
-            borderRadius: 'inherit',
-            boxShadow: `0 0 0 2px ${colorDarker}`,
-            transform: 'translate3d(0, 5px, -2px)',
-            transition: 'transform 100ms cubic-bezier(0, 0, 0.58, 1), box-shadow 100ms cubic-bezier(0, 0, 0.58, 1), -webkit-transform 100ms cubic-bezier(0, 0, 0.58, 1), -webkit-box-shadow 100ms cubic-bezier(0, 0, 0.58, 1)',
+            height: 6,
+            top: -6,
           },
-          '&:hover': {
-            background: COLOR,
-            transform: 'translate(0, 3px)',
-          },
-          '&:hover::before': {
-            boxShadow: `0 0 0 2px ${colorDarker}`,
-            transform: 'translate3d(0, 2px, -2px)',
-          },
-          '&:active': {
-            background: COLOR,
-            transform: 'translate(0, 5px)',
-          },
-          '&:active::before': {
-            boxShadow: `0 0 0 2px ${colorDarker}`,
-            transform: 'translate3d(0, 0, -2px)',
-          },
-          ...sx
-        }}
-        {...rest}
-      >
-        {children}
-      </Box>
+        },
+        ...sx
+      }}
+      {...rest}
+    >
+      {children}
     </Box>
   );
 });

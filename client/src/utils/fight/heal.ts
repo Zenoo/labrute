@@ -18,13 +18,13 @@ const heal = async (
   if (!app.loader) {
     return;
   }
-  const { loader: { resources: { '/images/game/misc.json': { spritesheet } } } } = app;
+  const spritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
 
   if (!spritesheet) {
     throw new Error('Spritesheet not found');
   }
 
-  const brute = findFighter(fighters, step.brute);
+  const brute = findFighter(fighters, step.b);
   if (!brute) {
     throw new Error('Brute not found');
   }
@@ -40,7 +40,7 @@ const heal = async (
   });
 
   // Display floating and fading green heal text
-  const healText = new Text(`+${step.amount}`, {
+  const healText = new Text(`+${step.h}`, {
     fontFamily: 'GameFont', fontSize: 20, fill: 0x00ff00,
   });
   healText.anchor.set(0.5);
@@ -62,7 +62,7 @@ const heal = async (
   }).catch(console.error);
 
   // Display floating and fading cure icon if brute was poison healed
-  if (step.poisonHeal) {
+  if (step.c) {
     const cureIcon = new Sprite(spritesheet.textures['cure.png']);
     cureIcon.anchor.set(0.5);
     cureIcon.width = 30;
@@ -88,7 +88,7 @@ const heal = async (
   await animationEnded;
 
   // Heal brute
-  updateHp(brute, step.amount, speed);
+  updateHp(brute, step.h, speed);
 
   // Set animation to `idle`
   brute.animation.setAnimation('idle');

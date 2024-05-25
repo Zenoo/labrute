@@ -14,7 +14,7 @@ const block = async (
   if (!app.loader) {
     return;
   }
-  const fighter = findFighter(fighters, step.fighter);
+  const fighter = findFighter(fighters, step.f);
   if (!fighter) {
     throw new Error('Fighter not found');
   }

@@ -2,7 +2,7 @@ import {
   ExpectedError, FightCreateResponse, GLOBAL_TOURNAMENT_START_HOUR, getFightsLeft,
 } from '@labrute/core';
 import { Prisma, PrismaClient, TournamentType } from '@labrute/prisma';
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import moment from 'moment';
 import { DISCORD, LOGGER } from '../context.js';
 import auth from '../utils/auth.js';
@@ -39,20 +39,18 @@ const Fights = {
       }
 
       // Limit viewing if the fight is from a global tournament round not yet reached
-      const tournamentStep = await prisma.tournamentStep.findFirst({
+      const tournament = await prisma.tournament.findFirst({
         where: {
-          tournament: {
-            type: TournamentType.GLOBAL,
-            date: { gte: new Date() },
-          },
-          fightId: fight.id,
+          type: TournamentType.GLOBAL,
+          date: { gte: new Date() },
+          fights: { some: { id: fight.id } },
         },
       });
 
       const now = moment.utc();
       const hour = now.hour();
 
-      if (tournamentStep && tournamentStep.step > hour - GLOBAL_TOURNAMENT_START_HOUR + 1) {
+      if (tournament && fight.tournamentStep > hour - GLOBAL_TOURNAMENT_START_HOUR + 1) {
         throw new ExpectedError('Fight unavailable for now');
       } else {
         res.send(fight);
@@ -80,8 +78,6 @@ const Fights = {
           userId: user.id,
         },
         include: {
-          body: true,
-          colors: true,
           opponents: {
             select: { name: true },
           },
@@ -95,10 +91,6 @@ const Fights = {
         where: {
           name: req.body.brute2,
           deletedAt: null,
-        },
-        include: {
-          body: true,
-          colors: true,
         },
       });
       if (!brute2) {
@@ -135,7 +127,7 @@ const Fights = {
           retry += 1;
 
           // eslint-disable-next-line no-await-in-loop
-          generatedFight = await generateFight(
+          const newGeneratedFight = await generateFight(
             prisma,
             brute1,
             brute2,
@@ -143,6 +135,7 @@ const Fights = {
             arenaFight,
             false,
           );
+          generatedFight = newGeneratedFight.data;
         } catch (error) {
           if (!(error instanceof Error)) {
             throw error;

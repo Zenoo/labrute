@@ -1,6 +1,6 @@
 import { getRandomBody, getRandomColors, isNameValid, UserWithBrutesBodyColor } from '@labrute/core';
-import { BruteBody, BruteColors, Gender } from '@labrute/prisma';
-import { Box, Link, Tooltip, useMediaQuery } from '@mui/material';
+import { Gender } from '@labrute/prisma';
+import { Box, Link, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -32,6 +32,7 @@ const HomeView = () => {
   const { authing, setAuthing, updateData, user } = useAuth();
   const navigate = useNavigate();
   const { language, setLanguage } = useLanguage();
+  const { palette: { mode } } = useTheme();
 
   // On login error
   useEffect(() => {
@@ -60,7 +61,7 @@ const HomeView = () => {
 
         // Redirect to first brute if exists
         if (response.brutes.length) {
-          window.location.href = `/${response.brutes[0].name}/cell`;
+          window.location.href = `/${response.brutes[0]?.name}/cell`;
         }
       }).catch(catchError(Alert)).finally(() => {
         // Remove code/state from url and set url to '/'
@@ -84,16 +85,12 @@ const HomeView = () => {
   /* CHARACTER CREATOR */
   const [creationStarted, setCreationStarted] = useState(false);
   const [gender, setGender] = useState<Gender>(Gender.female);
-  const [bodyParts, setBodyParts] = useState<Omit<BruteBody, 'id' | 'bruteId'>>(
-    getRandomBody(gender),
-  );
-  const [bodyColors, setBodyColors] = useState<Omit<BruteColors, 'id' | 'bruteId'>>(
-    getRandomColors(gender),
-  );
+  const [body, setBody] = useState(getRandomBody(gender));
+  const [colors, setColors] = useState(getRandomColors(gender));
 
   // Colors randomizer
   const randomizeColors = useCallback((currentGender: Gender) => {
-    setBodyColors(getRandomColors(currentGender));
+    setColors(getRandomColors(currentGender));
   }, []);
 
   // Body parts randomizer
@@ -101,7 +98,7 @@ const HomeView = () => {
     const newGender = gender === 'male' ? 'female' : 'male';
     setGender(newGender);
 
-    setBodyParts(getRandomBody(newGender));
+    setBody(getRandomBody(newGender));
 
     randomizeColors(newGender);
   }, [gender, randomizeColors]);
@@ -166,8 +163,8 @@ const HomeView = () => {
       name,
       user.id,
       gender,
-      bodyParts,
-      bodyColors,
+      body,
+      colors,
       referer
     ).catch(catchError(Alert));
 
@@ -184,7 +181,7 @@ const HomeView = () => {
       // Redirect to brute page
       navigate(`/${name}/cell`);
     }
-  }, [Alert, bodyColors, bodyParts, gender, name, navigate, t, updateData, user]);
+  }, [Alert, colors, body, gender, name, navigate, t, updateData, user]);
 
   // Login
   const login = useCallback(() => {
@@ -205,8 +202,8 @@ const HomeView = () => {
           brute={{
             id: '',
             name: '',
-            body: bodyParts,
-            colors: bodyColors,
+            body,
+            colors,
             gender,
           }}
         />
@@ -232,7 +229,7 @@ const HomeView = () => {
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
           {/* CHARACTER CREATION */}
           <BoxBg
-            src="/images/creation/bg.png"
+            src={`/images${mode === 'dark' ? '/dark' : ''}/creation/bg.png`}
             sx={{
               width: 290,
               height: 454,
@@ -279,6 +276,7 @@ const HomeView = () => {
                     sx={{
                       width: 89,
                       height: 89,
+                      backgroundSize: '100%'
                     }}
                   />
                 </Tooltip>
@@ -290,6 +288,7 @@ const HomeView = () => {
                     sx={{
                       width: 89,
                       height: 89,
+                      backgroundSize: '100%'
                     }}
                   />
                 </Tooltip>
@@ -297,7 +296,7 @@ const HomeView = () => {
               {/* VISUAL NOISE */}
               <Box
                 component="img"
-                src="/images/creation/broken.png"
+                src={`/images${mode === 'dark' ? '/dark' : ''}/creation/broken.png`}
                 alt="Crack"
                 sx={{ mt: -0.25, ml: 16 }}
               />
@@ -326,7 +325,7 @@ const HomeView = () => {
           </BoxBg>
           {/* RIGHT SIDE */}
           <BoxBg
-            src="/images/main-bg.gif"
+            src={`/images/${mode === 'dark' ? 'dark/' : ''}main-bg.gif`}
             sx={{ width: 640, height: 454 }}
           >
             {/* FIRST TEXT */}

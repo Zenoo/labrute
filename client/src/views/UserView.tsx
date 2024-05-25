@@ -1,7 +1,7 @@
-import { AchievementData, FightStat, TitleRequirements, UserGetProfileResponse, formatLargeNumber } from '@labrute/core';
-import { QuestionMark } from '@mui/icons-material';
+import { AchievementData, FightStat, TitleRequirements, UserGetProfileResponse, formatLargeNumber, getFightsLeft } from '@labrute/core';
+import { Check, QuestionMark } from '@mui/icons-material';
 import { Box, Grid, List, ListItem, ListItemText, ListSubheader, Paper, Tooltip, useTheme } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import ArenaStat from '../components/Arena/ArenaStat';
@@ -13,6 +13,9 @@ import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
+import FantasyButton from '../components/FantasyButton';
+import { useAuth } from '../hooks/useAuth';
+import moment from 'moment';
 
 const UserView = () => {
   const { t } = useTranslation();
@@ -20,6 +23,7 @@ const UserView = () => {
   const { userId } = useParams();
   const Alert = useAlert();
   const navigate = useNavigate();
+  const { user: authedUser, updateData } = useAuth();
 
   const [user, setUser] = useState<UserGetProfileResponse | null>(null);
 
@@ -33,6 +37,23 @@ const UserView = () => {
       setUser(profile);
     }).catch(catchError(Alert));
   }, [Alert, userId]);
+
+  const getDinoRpgReward = useCallback(() => {
+    if (!authedUser) return;
+
+    Server.User.getDinoRpgRewards().then(() => {
+      Alert.open('success', t('dinoRpgRewardsSuccess'));
+      updateData((data) => (data ? ({
+        ...data,
+        dinorpgDone: new Date(),
+        brutes: data.brutes.map((brute) => ({
+          ...brute,
+          fightsLeft: getFightsLeft(brute) + 1,
+          lastFight: new Date(),
+        })),
+      }) : null));
+    }).catch(catchError(Alert));
+  }, [Alert, authedUser, t, updateData]);
 
   return (
     <Page title={t('MyBrute')} headerUrl="/">
@@ -237,6 +258,7 @@ const UserView = () => {
                                 py: 0,
                                 '&:not(:last-child)': {
                                   borderBottom: '1px dashed',
+                                  borderBottomColor: theme.palette.border.shadow,
                                 },
                               }}
                               >
@@ -259,6 +281,23 @@ const UserView = () => {
                 </Paper>
               </Grid>
             </Grid>
+            {/* REWARDS */}
+            {user.id === authedUser?.id && (
+              <>
+                <Text bold center smallCaps h4 sx={{ mt: 2, ml: 1 }}>{t('externalRewards')}</Text>
+                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                  <FantasyButton
+                    onClick={getDinoRpgReward}
+                    color="success"
+                    disabled={moment.utc(authedUser.dinorpgDone).isSame(moment.utc(), 'day')}
+                    sx={{ m: 1 }}
+                  >
+                    <Check sx={{ verticalAlign: 'middle', mr: 1 }} />
+                    {t('eternalDinoRPG')}
+                  </FantasyButton>
+                </Box>
+              </>
+            )}
             {/* BRUTES */}
             <Text bold center smallCaps h4 sx={{ mt: 2, ml: 1 }}>{t('brutes')}</Text>
             <Box sx={{
@@ -309,7 +348,7 @@ const UserView = () => {
                       <Text component="span" bold color="secondary"> {brute.level}</Text>
                       <Box
                         component="img"
-                        src={`/images/rankings/lvl_${brute.ranking}.png`}
+                        src={`/images/rankings/lvl_${brute.ranking}.webp`}
                         sx={{
                           verticalAlign: 'middle',
                           height: 16,

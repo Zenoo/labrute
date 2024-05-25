@@ -103,5 +103,6 @@ module.exports = {
     "@typescript-eslint/no-use-before-define": ["error"],
     'no-plusplus': 'off',
     'no-restricted-syntax': 'off',
+    'import/prefer-default-export': 'off',
   },
 };

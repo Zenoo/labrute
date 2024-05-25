@@ -30,6 +30,8 @@ import GlobalTournamentView from './views/GlobalTournamentView';
 import ResetVisualsView from './views/ResetVisualsView';
 import UserView from './views/UserView';
 import AchievementRankingView from './views/AchievementRankingView';
+import { InventoryView } from './views/InventoryView';
+import NameChangeView from './views/NameChangeView';
 
 const routes: RouteObject[] = [
   {
@@ -54,6 +56,7 @@ const routes: RouteObject[] = [
           { path: 'cell', element: <CellView /> },
           { path: 'level-up', element: <LevelUpView /> },
           { path: 'arena', element: <ArenaView /> },
+          { path: 'inventory', element: <InventoryView /> },
           { path: 'versus/:opponentName', element: <VersusView /> },
           { path: 'fight/:fightId', element: <FightView /> },
           { path: 'tournament/global/:date', element: <GlobalTournamentView /> },
@@ -64,9 +67,9 @@ const routes: RouteObject[] = [
           { path: 'tournaments', element: <TournamentHistoryView /> },
           { path: 'achievements', element: <AchievementsView /> },
           { path: 'reset-visuals', element: <ResetVisualsView /> },
+          { path: 'change-name', element: <NameChangeView /> },
           {
             path: 'clan',
-            element: <ProvideBrute />,
             children: [
               { path: 'ranking', element: <ClanRankingView /> },
               { path: 'create', element: <ClanCreateView /> },

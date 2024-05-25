@@ -1,5 +1,5 @@
+import { randomItem } from '@labrute/core';
 import { AnimationFighter } from './findFighter';
-import { randomBetween } from '@labrute/core';
 
 const leftPositions = [
   { x: 60, y: 200 },
@@ -36,9 +36,7 @@ const getRandomPosition = (fighters: AnimationFighter[], team: 'left' | 'right')
     throw new Error('No available positions');
   }
 
-  const random = randomBetween(0, availablePositions.length - 1);
-
-  return availablePositions[random];
+  return randomItem(availablePositions);
 };
 
 export {

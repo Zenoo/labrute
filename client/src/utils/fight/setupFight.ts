@@ -1,7 +1,7 @@
 /* eslint-disable no-void */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-await-in-loop */
-import { Fighter, FightStep, randomBetween } from '@labrute/core';
+import { Fighter, FightStep, randomItem, StepType } from '@labrute/core';
 import { Fight, Gender } from '@labrute/prisma';
 import { Theme } from '@mui/material';
 import { ColorOverlayFilter } from '@pixi/filter-color-overlay';
@@ -12,6 +12,7 @@ import { TFunction } from 'i18next';
 import { Easing, Tweener } from 'pixi-tweener';
 import * as PIXI from 'pixi.js';
 import { AnimatedSprite, BaseTexture, Texture } from 'pixi.js';
+import { RendererContextInterface } from '../../hooks/useRenderer';
 import arrive from './arrive';
 import attemptHit from './attemptHit';
 import block from './block';
@@ -44,9 +45,8 @@ import throwWeapon from './throwWeapon';
 import trap from './trap';
 import trash from './trash';
 import updateWeapons from './updateWeapons';
-import { RendererContextInterface } from '../../hooks/useRenderer';
 
-const backgrounds = [
+const backgrounds: string[] = [
   'background/1.jpg',
   'background/2.jpg',
   'background/3.png',
@@ -89,7 +89,7 @@ const setupFight: (
   }
 
   // Spritesheet
-  const { '/images/game/misc.json': { spritesheet: miscSheet } } = resources;
+  const miscSheet = resources['/images/game/misc.json']?.spritesheet;
 
   if (!miscSheet) {
     throw new Error('Misc spritesheet not found');
@@ -109,7 +109,7 @@ const setupFight: (
 
   // Add background
   const background = new PIXI.Sprite(miscSheet.textures[
-    backgrounds[randomBetween(0, backgrounds.length - 1)]
+    randomItem(backgrounds)
   ]);
   background.zIndex = -1;
 
@@ -201,11 +201,6 @@ const setupFight: (
 
   // First brute bust
   const brute1BustImg = await new Promise<HTMLImageElement | null>((resolve) => {
-    if (!brute1.data) {
-      resolve(null);
-      return;
-    }
-
     renderer.onRender(brute1.id, (content) => {
       const img = document.createElement('img');
       img.src = content;
@@ -215,8 +210,8 @@ const setupFight: (
     renderer.render({
       ...brute1,
       gender: brute1.gender || Gender.male,
-      body: brute1.data.body,
-      colors: brute1.data.colors,
+      body: brute1.body || '0'.repeat(11),
+      colors: brute1.colors || '0'.repeat(32),
     });
   });
 
@@ -313,11 +308,6 @@ const setupFight: (
 
     // First brute bust
     const brute2BustImg = await new Promise<HTMLImageElement | null>((resolve) => {
-      if (!brute2?.data) {
-        resolve(null);
-        return;
-      }
-
       renderer.onRender(brute2.id, (content) => {
         const img = document.createElement('img');
         img.src = content;
@@ -327,8 +317,8 @@ const setupFight: (
       renderer.render({
         ...brute2,
         gender: brute2.gender || Gender.male,
-        body: brute2.data.body,
-        colors: brute2.data.colors,
+        body: brute2.body || '0'.repeat(11),
+        colors: brute2.colors || '0'.repeat(32),
       });
     });
 
@@ -463,125 +453,134 @@ const setupFight: (
   for (let i = 0; i < steps.length; i++) {
     const { [i]: step } = steps;
 
-    switch (step.action) {
-      case 'moveTo': {
+    if (!step) {
+      throw new Error('Step not found');
+    }
+
+    switch (step.a) {
+      case StepType.Move: {
         await moveTo(app, fighters, step, speed);
         break;
       }
-      case 'moveBack': {
+      case StepType.MoveBack: {
         await moveBack(app, fighters, step, speed);
         break;
       }
-      case 'arrive': {
+      case StepType.Arrive: {
         await arrive(app, fighters, step, speed);
         break;
       }
-      case 'leave': {
+      case StepType.Leave: {
         await leave(app, fighters, step, speed);
         break;
       }
-      case 'attemptHit': {
+      case StepType.AttemptHit: {
         await attemptHit(app, fighters, step, speed);
         break;
       }
-      case 'hit':
-      case 'poison': {
+      case StepType.Hit:
+      case StepType.Poison: {
         await hit(app, fighters, step, speed);
         break;
       }
-      case 'flashFlood': {
+      case StepType.FlashFlood: {
         await flashFlood(app, fighters, step, speed);
         break;
       }
-      case 'hammer': {
+      case StepType.Hammer: {
         await hammer(app, fighters, step, speed);
         break;
       }
-      case 'death': {
+      case StepType.Death: {
         death(fighters, step);
         break;
       }
-      case 'evade': {
+      case StepType.Evade: {
         await evade(fighters, step, speed);
         break;
       }
-      case 'saboteur': {
+      case StepType.Saboteur: {
         await saboteur(app, fighters, step, speed);
         break;
       }
-      case 'disarm': {
+      case StepType.Disarm: {
         disarm(app, fighters, step, speed);
         break;
       }
-      case 'steal': {
+      case StepType.Steal: {
         await steal(app, fighters, step, speed);
         break;
       }
-      case 'throw': {
+      case StepType.Throw: {
         await throwWeapon(app, fighters, step, speed);
         break;
       }
-      case 'trash': {
+      case StepType.Trash: {
         await trash(app, fighters, step, speed);
         break;
       }
-      case 'eat': {
+      case StepType.Eat: {
         await eat(app, fighters, step, speed);
         break;
       }
-      case 'heal': {
+      case StepType.Heal: {
         await heal(app, fighters, step, speed);
         break;
       }
-      case 'survive': {
+      case StepType.Survive: {
         survive(app, fighters, step, speed);
         break;
       }
-      case 'trap': {
+      case StepType.Trap: {
         await trap(app, fighters, step, speed);
         break;
       }
-      case 'block': {
+      case StepType.Block: {
         await block(app, fighters, step, speed);
         break;
       }
-      case 'skillActivate': {
+      case StepType.SkillActivate: {
         await skillActivate(app, fighters, step, speed);
         break;
       }
-      case 'skillExpire': {
+      case StepType.SkillExpire: {
         await skillExpire(app, fighters, step, speed);
         break;
       }
-      case 'end': {
+      case StepType.End: {
         end(fighters, step);
         break;
       }
-      case 'hypnotise': {
+      case StepType.Hypnotise: {
         await hypnotise(app, fighters, step, speed);
         break;
       }
-      case 'equip': {
+      case StepType.Equip: {
         await equip(app, fighters, step, speed);
         break;
       }
-      case 'sabotage': {
+      case StepType.Sabotage: {
         sabotage(app, fighters, step);
         break;
       }
-      case 'resist': {
-        resist(app, fighters, step, steps[i + 1], speed);
+      case StepType.Resist: {
+        const nextStep = steps[i + 1];
+
+        if (!nextStep) {
+          throw new Error('Next step not found');
+        }
+        resist(app, fighters, step, nextStep, speed);
         break;
       }
-      case 'bomb': {
+      case StepType.Bomb: {
         await bomb(app, fighters, step, speed);
         break;
       }
-      case 'spy': {
-        await spy(app, fighters, step, speed);
+      case StepType.Spy: {
+        await spy(fighters, step, speed);
         break;
       }
-      case 'counter': {
+      case StepType.Counter: {
         // Do nothing for now
         break;
       }
@@ -601,7 +600,7 @@ const setupFight: (
   const loser = fighters.find((fighter) => !fighter.master && ((fighter.type === 'brute' && fighter.name !== fight.winner) || fighter.type === 'boss'));
 
   // Display dead icon animation on the UI
-  const deadIcon = new AnimatedSprite(miscSheet.animations.dead);
+  const deadIcon = new AnimatedSprite(miscSheet.animations.dead || []);
   deadIcon.filters = [new OutlineFilter()];
   deadIcon.loop = false;
   deadIcon.animationSpeed = 0.5;
@@ -648,7 +647,7 @@ const setupFight: (
 
   // Make 50 petals fall on the winner
   for (let i = 0; i < 50; i++) {
-    const petal = new PIXI.AnimatedSprite(miscSheet.animations.petals);
+    const petal = new PIXI.AnimatedSprite(miscSheet.animations.petals || []);
     petal.filters = [new ColorOverlayFilter(
       // Random color
       Math.random() * 0xffffff,

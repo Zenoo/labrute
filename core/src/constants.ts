@@ -13,6 +13,8 @@ export const PERKS_TOTAL_ODDS = WEAPONS_TOTAL_ODDS + PETS_TOTAL_ODDS + SKILLS_TO
 
 export const SHIELD_BLOCK_ODDS = 0.45;
 
+export const NO_WEAPON_TOSS = 10;
+
 export const Animations = [
   'arrive', 'attack', 'block', 'death', 'drink', 'eat',
   'equip', 'evade', 'grab', 'grabbed', 'hit', 'hit-0', 'hit-1', 'hit-2',
@@ -78,3 +80,12 @@ export type FighterStat = keyof typeof BASE_FIGHTER_STATS;
 export const BARE_HANDS_DAMAGE = 5;
 
 export const RESET_PRICE = 100;
+
+export const CLAN_SIZE_LIMIT = 50;
+export const BOSS_XP_REWARD = 500;
+export const BOSS_GOLD_REWARD = 500;
+
+export enum BruteDeletionReason {
+  DUPLICATE_NAME = 'DUPLICATE_NAME',
+  INNAPROPRIATE_NAME = 'INNAPROPRIATE_NAME',
+}

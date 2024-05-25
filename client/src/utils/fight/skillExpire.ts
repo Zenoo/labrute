@@ -1,4 +1,4 @@
-import { SkillExpireStep } from '@labrute/core';
+import { SkillExpireStep, SkillId } from '@labrute/core';
 import { Application } from 'pixi.js';
 
 import { OutlineFilter } from '@pixi/filter-outline';
@@ -12,12 +12,12 @@ const skillExpire = async (
   step: SkillExpireStep,
   speed: React.MutableRefObject<number>,
 ) => {
-  const brute = findFighter(fighters, step.brute);
+  const brute = findFighter(fighters, step.b);
   if (!brute) {
     throw new Error('Brute not found');
   }
 
-  if (step.skill === 'fierceBrute') {
+  if (step.s === SkillId.fierceBrute) {
     // Remove Outline filter
     brute.animation.container.filters = brute.animation.container.filters?.filter(
       (filter) => !(filter instanceof OutlineFilter),
@@ -25,7 +25,7 @@ const skillExpire = async (
   }
 
   // Flash flood
-  if (step.skill === 'flashFlood') {
+  if (step.s === SkillId.flashFlood) {
     // Set brute animation to `arrive`
     brute.animation.once('arrive:start', () => {
       brute.animation.pause();

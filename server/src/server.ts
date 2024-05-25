@@ -1,4 +1,4 @@
-import express from 'express';
+import express = require('express');
 
 import { Version } from '@labrute/core';
 import bodyParser from 'body-parser';
@@ -6,17 +6,16 @@ import schedule from 'node-schedule';
 import dailyJob from './dailyJob.js';
 import './i18n.js';
 import initRoutes from './routes.js';
-import Env from './utils/Env.js';
 import startJob from './workers/startJob.js';
 import { GLOBAL, ServerContext } from './context.js';
 import lockMiddleware from './utils/middlewares/locks.js';
 import { readyCheck } from './utils/middlewares/readyCheck.js';
 
-function main(cx: ServerContext) {
+export function main(cx: ServerContext) {
   cx.logger.info(`Server started (v${Version})`);
 
   const app = express();
-  const port = Env.PORT;
+  const { port } = cx.config;
 
   app.use(bodyParser.json());
   app.use(
@@ -44,16 +43,14 @@ function main(cx: ServerContext) {
     });
   });
 
-  initRoutes(app, cx.prisma);
+  initRoutes(app, cx.config, cx.prisma);
 }
 
 /**
  * Initialize the global context, then run `main`
  */
-function mainWrapper() {
+export function mainWrapper() {
   // Note: We don't dispose the global context since the server is expected to
   // run forever
   main(GLOBAL);
 }
-
-mainWrapper();

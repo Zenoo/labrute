@@ -1,4 +1,4 @@
-import { BruteRanking, BruteWithBodyColors, ClanGetResponse, bosses, getFightsLeft } from '@labrute/core';
+import { BruteRanking, ClanGetResponse, bosses, getFightsLeft } from '@labrute/core';
 import { HighlightOff, PlayCircleOutline } from '@mui/icons-material';
 import { Box, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip } from '@mui/material';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -16,6 +16,7 @@ import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
 import BruteRender from '../../components/Brute/Body/BruteRender';
 import { useBrute } from '../../hooks/useBrute';
+import { Brute, InventoryItemType } from '@labrute/prisma';
 
 const ClanView = () => {
   const { t } = useTranslation();
@@ -27,6 +28,7 @@ const ClanView = () => {
   const { updateBrute } = useBrute();
 
   const [clan, setClan] = useState<ClanGetResponse | null>(null);
+  const [damageDisplayed, setDamageDisplayed] = useState(false);
 
   const brute = useMemo(
     () => (user ? user.brutes.find((b) => b.name === bruteName) : null),
@@ -88,7 +90,7 @@ const ClanView = () => {
   };
 
   // Accept join request
-  const acceptJoin = (requester: BruteWithBodyColors) => () => {
+  const acceptJoin = (requester: Brute) => () => {
     if (!user || !clan) return;
 
     Confirm.open(t('acceptJoinRequest'), t('confirmAcceptRequest'), () => {
@@ -116,7 +118,7 @@ const ClanView = () => {
   };
 
   // Reject join request
-  const rejectJoin = (requester: BruteWithBodyColors) => () => {
+  const rejectJoin = (requester: Brute) => () => {
     if (!clan) return;
 
     Confirm.open(t('rejectJoinRequest'), t('confirmRejectRequest'), () => {
@@ -133,7 +135,7 @@ const ClanView = () => {
   };
 
   // Remove brute from clan
-  const removeFromClan = (clanBrute: BruteWithBodyColors) => (e: React.MouseEvent) => {
+  const removeFromClan = (clanBrute: Brute) => (e: React.MouseEvent) => {
     e.stopPropagation();
 
     if (!clan) return;
@@ -152,7 +154,7 @@ const ClanView = () => {
   };
 
   // Set as clan master
-  const setMaster = (clanBrute: BruteWithBodyColors) => (e: React.MouseEvent) => {
+  const setMaster = (clanBrute: Brute) => (e: React.MouseEvent) => {
     e.stopPropagation();
 
     if (!clan) return;
@@ -162,10 +164,19 @@ const ClanView = () => {
         Alert.open('success', t('clanMasterChanged'));
 
         // Update clan
-        setClan((prevClan) => (prevClan ? ({
-          ...prevClan,
-          masterId: clanBrute.id,
-        }) : null));
+        setClan((prevClan) => {
+          if (!prevClan) return null;
+
+          // Set new master as first in the list
+          const newBrutes = prevClan.brutes.filter((br) => br.id !== clanBrute.id);
+          newBrutes.unshift(clanBrute);
+
+          return {
+            ...prevClan,
+            masterId: clanBrute.id,
+            brutes: newBrutes,
+          };
+        });
       }).catch(catchError(Alert));
     });
   };
@@ -194,7 +205,7 @@ const ClanView = () => {
           } : b)),
         }) : null));
 
-        updateBrute((b) => (b ? { ...b, clanId: null } : null));
+        updateBrute((b) => (b ? { ...b, clanId: null, clan: null } : null));
 
         // Redirect to cell
         navigate(`/${brute.name}/cell`);
@@ -215,24 +226,56 @@ const ClanView = () => {
     }
 
     Server.Clan.challengeBoss(brute.name, clan.id).then((fight) => {
+      // Update fights left
+      updateData((data) => (data ? ({
+        ...data,
+        brutes: data.brutes.map((b) => (b.name === brute.name ? {
+          ...b,
+          fightsLeft: getFightsLeft(b) - 1,
+          lastFight: new Date(),
+        } : b)),
+      }) : null));
+
+      updateBrute((b) => {
+        if (!b) return null;
+
+        // Add 1x BossTicket to inventory
+        const bossTicket = b.inventory.find((i) => i.type === InventoryItemType.bossTicket);
+        if (bossTicket) {
+          bossTicket.count += 1;
+        } else {
+          b.inventory.push({
+            type: InventoryItemType.bossTicket,
+            count: 1,
+          });
+        }
+
+        return {
+          ...b,
+          fightsLeft: getFightsLeft(b) - 1,
+          lastFight: new Date(),
+        };
+      });
+
+      // Boss gains
+      if (fight.xp) {
+        updateBrute((b) => (b ? {
+          ...b,
+          xp: b.xp + (fight.xp || 0),
+        } : null));
+
+        updateData((data) => (data ? ({
+          ...data,
+          gold: data.gold + (fight.gold || 0),
+          brutes: data.brutes.map((b) => (b.clanId === clan.id ? {
+            ...b,
+            xp: b.xp + (fight.xp || 0),
+          } : b)),
+        }) : null));
+      }
+
       navigate(`/${brute.name}/fight/${fight.id}`);
     }).catch(catchError(Alert));
-
-    // Update fights left
-    updateData((data) => (data ? ({
-      ...data,
-      brutes: data.brutes.map((b) => (b.name === brute.name ? {
-        ...b,
-        fightsLeft: getFightsLeft(b) - 1,
-        lastFight: new Date(),
-      } : b)),
-    }) : null));
-
-    updateBrute((b) => (b ? {
-      ...b,
-      fightsLeft: getFightsLeft(b) - 1,
-      lastFight: new Date(),
-    } : null));
   };
 
   return clan && (
@@ -293,6 +336,7 @@ const ClanView = () => {
                   justifyContent: 'flex-end',
                   bgcolor: 'secondary.main',
                   p: '2px',
+                  mx: 'auto',
                   width: 120,
                 }}
                 >
@@ -304,6 +348,62 @@ const ClanView = () => {
                   />
                 </Box>
               </Tooltip>
+              {!!clan.damageOnBoss && (
+                <>
+                  <Text
+                    smallCaps
+                    subtitle2
+                    center
+                    onClick={() => setDamageDisplayed((prev) => !prev)}
+                    sx={{ cursor: 'pointer' }}
+                  >
+                    {damageDisplayed ? t('hideDamage') : t('showDamage')}
+                  </Text>
+                  {damageDisplayed && (
+                    <Table sx={{
+                      maxWidth: 1,
+                      '& th': {
+                        bgcolor: 'secondary.main',
+                        color: 'secondary.contrastText',
+                        py: 0.5,
+                        px: 1,
+                        fontWeight: 'bold',
+                        border: '1px solid',
+                        borderColor: 'background.default',
+                      },
+                      '& td': {
+                        bgcolor: 'background.paperDark',
+                        py: 0.5,
+                        px: 1,
+                        border: '1px solid',
+                        borderColor: 'background.default',
+                      },
+                    }}
+                    >
+                      <TableHead>
+                        <TableRow>
+                          <TableCell />
+                          <TableCell>{t('brute')}</TableCell>
+                          <TableCell align="right">{t('damage')}</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {clan.bossDamages.map((damages, index) => (
+                          <TableRow key={damages.brute.id}>
+                            <TableCell component="th" scope="row">
+                              {index + 1}
+                            </TableCell>
+                            <TableCell>
+                              {damages.brute.name}
+                            </TableCell>
+                            <TableCell align="right">{damages.damage}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  )}
+                </>
+              )}
             </Box>
           </Box>
         )}
@@ -386,7 +486,7 @@ const ClanView = () => {
                   <Text component="span" bold color="secondary"> {clanBrute.level}</Text>
                 </Text>
                 <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
-                  <Box component="img" src={`/images/rankings/lvl_${clanBrute.ranking}.png`} sx={{ mr: 1 }} />
+                  <Box component="img" src={`/images/rankings/lvl_${clanBrute.ranking}.webp`} sx={{ mr: 1 }} />
                   <Text bold color="text.primary" sx={{ lineHeight: 1 }}>{t(`lvl_${clanBrute.ranking as BruteRanking}`)}</Text>
                 </Box>
                 <Box sx={{
@@ -444,7 +544,7 @@ const ClanView = () => {
                     key={requester.id}
                   >
                     <TableCell component="th" scope="row">
-                      <Box component="img" src={`/images/rankings/lvl_${requester.ranking}.png`} sx={{ width: 20 }} />
+                      <Box component="img" src={`/images/rankings/lvl_${requester.ranking}.webp`} sx={{ width: 20 }} />
                     </TableCell>
                     <TableCell sx={{ overflow: 'hidden' }}>
                       <Box sx={{ display: 'flex', alignItems: 'center' }}>

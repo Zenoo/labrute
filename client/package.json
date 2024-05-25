@@ -1,8 +1,8 @@
 {
   "name": "@labrute/client",
-  "version": "2.50.4",
+  "version": "2.56.4",
   "private": true,
-  "proxy": "http://localhost:9000",
+  "proxy": "http://localhost:50380",
   "scripts": {
     "start": "react-scripts start",
     "compile": "tsc --build ./tsconfig.json",

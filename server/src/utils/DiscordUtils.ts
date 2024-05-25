@@ -2,7 +2,7 @@
 import { pad } from '@labrute/core';
 import { Brute, Tournament } from '@labrute/prisma';
 import { EmbedBuilder, WebhookClient } from 'discord.js';
-import { Response } from 'express';
+import type { Response } from 'express';
 import moment from 'moment';
 import { Logger } from '../logger/index.js';
 
@@ -41,7 +41,8 @@ export interface DiscordClient {
 }
 
 export const NOOP_DISCORD_CLIENT: DiscordClient = {
-  sendError() {
+  sendError(error) {
+    console.error(error);
   },
   sendTournamentNotification() {
   },
@@ -122,9 +123,9 @@ ${error.stack}
         // Request method
         { name: 'Method', value: res.req.method, inline: true },
         // Response status code
-        { name: 'Status code', value: res.statusCode.toString(), inline: true },
+        { name: 'Status code', value: (res.statusCode || 0).toString(), inline: true },
         // Response status message
-        { name: 'Status', value: res.statusMessage, inline: true },
+        { name: 'Status', value: res.statusMessage || '', inline: true },
       );
 
       // Request params
@@ -133,7 +134,7 @@ ${error.stack}
           name: 'Params',
           value: `\`\`\`json
   ${JSON.stringify(res.req.params)}
-  \`\`\``,
+  \`\`\``.substring(0, 1024),
         });
       }
 
@@ -143,7 +144,7 @@ ${error.stack}
           name: 'Body',
           value: `\`\`\`json
   ${JSON.stringify(res.req.body)}
-  \`\`\``,
+  \`\`\``.substring(0, 1024),
         });
       }
     }
@@ -157,7 +158,7 @@ ${error.stack}
     const embed = new EmbedBuilder()
       .setColor(0xebad70)
       .setTitle(formatEmbedTitle('New tournament created!'))
-      .setURL(`${this.#server}${brutes[0].name}/tournament/${moment.utc(tournament.date).format('YYYY-MM-DD')}`)
+      .setURL(`${this.#server}${brutes[0]?.name}/tournament/${moment.utc(tournament.date).format('YYYY-MM-DD')}`)
       .setAuthor({
         name: 'LaBrute',
         iconURL: `${this.#server}/favicon.png`,

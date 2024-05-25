@@ -4,7 +4,7 @@
 generator client {
   provider        = "prisma-client-js"
   output          = "../../prisma"
-  previewFeatures = ["nativeDistinct", "relationJoins"]
+  previewFeatures = ["nativeDistinct", "relationJoins", "tracing", "omitApi"]
   binaryTargets   = ["native", "debian-openssl-3.0.x", "debian-openssl-1.1.x"]
 }
 
@@ -31,8 +31,9 @@ model User {
   connexionToken  String           @db.Uuid
   bruteLimit      Int              @default(3)
   gold            Int              @default(0)
-  fightSpeed      Int              @default(1)
+  fightSpeed      Int              @default(2)
   backgroundMusic Boolean          @default(true)
+  dinorpgDone     DateTime?        @db.Date
   brutes          Brute[]
   achievements    Achievement[]
   reports         BruteReport[]
@@ -47,45 +48,6 @@ enum DestinyChoiceSide {
 enum Gender {
   male
   female
-}
-
-model BruteBody {
-  id      String @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  brute   Brute  @relation(fields: [bruteId], references: [id])
-  bruteId String @unique @db.Uuid
-  p2      Int    @default(0) // Body size (small = 0, big = 7) (male only, 0 for females)
-  p3      Int    @default(0) // Hair [0-11] 12 = no head
-  p4      Int    @default(0) // (male) Beard [0-4] 5 = nothing / (female) Front hair [0-2] 3 = nothing
-  p7      Int    @default(0) // Main clothing [0-6] 7 = naked
-  p1      Int    @default(0) // Armor variation [0-1]
-  p1a     Int    @default(0) // [0-1] 0=belt, 1=nothing
-  p1b     Int    @default(0) // [0-1] 0=roman belt, 1=nothing
-  p6      Int    @default(0) // (male) 0=shorts, 1=trousers / (female) 0=shorts, 1=nothing
-  p8      Int    @default(0) // [0-4] Supposed to be shoes but doesn't change anything ??
-  p7b     Int    @default(0) // Shoes underside (2 = visible, others = hidden)
-  p5      Int    @default(0) // 0=Nothing, 1=Shirt.
-}
-
-model BruteColors {
-  id      String @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  brute   Brute  @relation(fields: [bruteId], references: [id])
-  bruteId String @unique @db.Uuid
-  col0    String @default("#eaaca6") @db.VarChar(7) // Skin
-  col0a   String @default("#eaaca6") @db.VarChar(7) // Face
-  col0c   String @default("#eaaca6") @db.VarChar(7) // Ear
-  col1    String @default("#ffaa1e") @db.VarChar(7) // Hair
-  col1a   String @default("#ffaa1e") @db.VarChar(7) // Hair back
-  col1b   String @default("#ffaa1e") @db.VarChar(7) // Hair back 2
-  col1c   String @default("#ffaa1e") @db.VarChar(7) // Hair front
-  col1d   String @default("#ffaa1e") @db.VarChar(7) // Eyebrows
-  col3    String @default("#bb1111") @db.VarChar(7) // Primary (includes eyes)
-  col2    String @default("#8ba3d7") @db.VarChar(7) // Secondary
-  col2b   String @default("#7a73c8") @db.VarChar(7) // Accent 1
-  col3b   String @default("#fae31f") @db.VarChar(7) // Accent 2
-  col2a   String @default("#fff9ae") @db.VarChar(7) // Accent 3
-  col4    String @default("#559399") @db.VarChar(7) // Shirt
-  col4a   String @default("#7a73c8") @db.VarChar(7) // Shoes accent ?
-  col4b   String @default("#0000ff") @db.VarChar(7) // ??
 }
 
 enum WeaponName {
@@ -177,6 +139,8 @@ model Brute {
   name                         String                  @db.VarChar(255)
   deletedAt                    DateTime?               @db.Timestamptz()
   createdAt                    DateTime                @default(now()) @db.Timestamptz()
+  willBeDeletedAt              DateTime?               @db.Date
+  deletionReason               String?
   destinyPath                  DestinyChoiceSide[]     @default([])
   previousDestinyPath          DestinyChoiceSide[]     @default([])
   level                        Int                     @default(1)
@@ -198,8 +162,37 @@ model Brute {
   gender                       Gender
   user                         User?                   @relation(fields: [userId], references: [id])
   userId                       String?                 @db.Uuid
-  body                         BruteBody?
-  colors                       BruteColors?
+  // body: Hex string [p1 p1a p1b p2 p3 p4 p5 p6 p7 p7b p8]
+  // p1: Armor variation [0-1]
+  // p1a: [0-1] 0=belt, 1=nothing
+  // p1b: [0-1] 0=roman belt, 1=nothing
+  // p2: Body size (small = 0, big = 7) (male only, 0 for females)
+  // p3: Hair [0-11] 12 = no head
+  // p4: (male) Beard [0-4] 5 = nothing / (female) Front hair [0-2] 3 = nothing
+  // p5: 0=Nothing, 1=Shirt.
+  // p6: (male) 0=shorts, 1=trousers / (female) 0=shorts, 1=nothing
+  // p7: Main clothing [0-6] 7 = naked
+  // p7b: Shoes underside (2 = visible, others = hidden)
+  // p8: [0-4] Supposed to be shoes but doesn't change anything ??
+  body                         String                  @default("00000000000") @db.VarChar(11)
+  // colors: Hex string [col0 col0a col0c col1 col1a col1b col1c col1d col2 col2a col2b col3 col3b col4 col4a col4b]
+  // col0: Skin
+  // col0a: Face
+  // col0c: Ear
+  // col1: Hair
+  // col1a: Hair back
+  // col1b: Hair back 2
+  // col1c: Hair front
+  // col1d: Eyebrows
+  // col2: Secondary
+  // col2a: Accent 3
+  // col2b: Accent 1
+  // col3: Primary (includes eyes)
+  // col3b: Accent 2
+  // col4: Shirt
+  // col4a: Shoes accent ?
+  // col4b: ??
+  colors                       String                  @default("00000000000000000000000000000000") @db.VarChar(32)
   weapons                      WeaponName[]            @default([])
   skills                       SkillName[]             @default([])
   pets                         PetName[]               @default([])
@@ -213,6 +206,8 @@ model Brute {
   nextTournamentDate           DateTime?               @db.Date
   currentTournamentDate        DateTime?               @db.Date
   currentTournamentStepWatched Int?                    @default(0)
+  globalTournamentWatchedDate  DateTime?               @db.Date
+  globalTournamentRoundWatched Int?
   lastFight                    DateTime?               @db.Date
   fightsLeft                   Int                     @default(6)
   victories                    Int                     @default(0)
@@ -237,6 +232,19 @@ model Brute {
   inventory                    BruteInventoryItem[]
   tournamentAchievements       TournamentAchievement[]
   tournamentXps                TournamentXp[]
+  tournamentWins               Int                     @default(0)
+  startingStats                BruteStartingStats?
+  damageOnBosses               BossDamage[]
+}
+
+model BruteStartingStats {
+  id        Int    @id @default(autoincrement())
+  endurance Int    @default(2)
+  strength  Int    @default(3)
+  agility   Int    @default(3)
+  speed     Int    @default(3)
+  brute     Brute  @relation(fields: [bruteId], references: [id])
+  bruteId   String @unique
 }
 
 // FIGHTS
@@ -246,20 +254,20 @@ enum FighterType {
 }
 
 model Fight {
-  id             String           @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  date           DateTime         @default(now()) @db.Date
-  brute1         Brute            @relation(fields: [brute1Id], references: [id])
-  brute1Id       String           @db.Uuid
-  brute2         Brute?           @relation("Adversary", fields: [brute2Id], references: [id])
-  brute2Id       String?          @db.Uuid
-  winner         String           @db.VarChar(255)
-  loser          String           @db.VarChar(255)
-  steps          String           @db.Text
-  fighters       String           @db.Text
+  id             String      @id @unique @db.Uuid
+  date           DateTime    @default(now()) @db.Date
+  brute1         Brute       @relation(fields: [brute1Id], references: [id])
+  brute1Id       String
+  brute2         Brute?      @relation("Adversary", fields: [brute2Id], references: [id])
+  brute2Id       String?
+  winner         String      @db.VarChar(255)
+  loser          String      @db.VarChar(255)
+  steps          String      @db.Text
+  fighters       String      @db.Text
   logs           Log[]
-  tournament     Tournament?      @relation(fields: [tournamentId], references: [id])
-  tournamentId   String?          @db.Uuid
-  TournamentStep TournamentStep[]
+  tournament     Tournament? @relation(fields: [tournamentId], references: [id])
+  tournamentId   String?
+  tournamentStep Int         @default(0)
 
   @@index([tournamentId, winner, brute1Id, brute2Id])
 }
@@ -275,6 +283,7 @@ enum LogType {
   survive
   tournament
   tournamentXp
+  bossDefeat
 }
 
 model Log {
@@ -288,6 +297,9 @@ model Log {
   fight          Fight?   @relation(fields: [fightId], references: [id])
   fightId        String?  @db.Uuid
   xp             Int?
+  gold           Int?
+
+  @@index([currentBruteId, date])
 }
 
 // LEVEL UP
@@ -328,26 +340,14 @@ enum TournamentType {
 }
 
 model Tournament {
-  id           String           @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  date         DateTime         @db.Date
-  type         TournamentType   @default(DAILY)
+  id           String         @id @unique @db.Uuid
+  date         DateTime       @db.Date
+  type         TournamentType @default(DAILY)
   participants Brute[]
   rounds       Int
   fights       Fight[]
-  steps        TournamentStep[]
 
   @@index([type, date])
-}
-
-model TournamentStep {
-  id           String     @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  tournament   Tournament @relation(fields: [tournamentId], references: [id])
-  tournamentId String     @db.Uuid
-  step         Int
-  fight        Fight      @relation(fields: [fightId], references: [id])
-  fightId      String     @db.Uuid
-
-  @@index([tournamentId, step])
 }
 
 model TournamentAchievement {
@@ -542,6 +542,8 @@ model ServerState {
 model BannedWord {
   id   String @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   word String @db.VarChar(255)
+
+  @@index([word])
 }
 
 model WorkerJob {
@@ -567,6 +569,7 @@ model Clan {
   brutes       Brute[]
   joinRequests Brute[]      @relation("JoinRequests")
   threads      ClanThread[]
+  bossDamages  BossDamage[]
 
   @@index([name, points])
 }
@@ -596,9 +599,23 @@ model ClanPost {
   message  String     @db.Text
 }
 
+model BossDamage {
+  id      String @id @unique @db.Uuid
+  brute   Brute  @relation(fields: [bruteId], references: [id])
+  bruteId String
+  clan    Clan   @relation(fields: [clanId], references: [id])
+  clanId  String
+  damage  Int
+
+  @@unique([bruteId, clanId])
+  @@index([clanId])
+}
+
 // Inventory
 enum InventoryItemType {
   visualReset
+  bossTicket
+  nameChange
 }
 
 model BruteInventoryItem {
@@ -609,4 +626,5 @@ model BruteInventoryItem {
   brute   Brute             @relation(fields: [bruteId], references: [id])
 
   @@unique([type, bruteId])
+  @@index([bruteId])
 }

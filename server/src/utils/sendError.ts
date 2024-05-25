@@ -1,6 +1,6 @@
 import { ExpectedError } from '@labrute/core';
 import { Prisma } from '@labrute/prisma';
-import { Response } from 'express';
+import type { Response } from 'express';
 import { DISCORD } from '../context.js';
 
 const sendError = (res: Response, error: unknown) => {
@@ -32,7 +32,11 @@ const sendError = (res: Response, error: unknown) => {
   }
 
   if (!(error instanceof ExpectedError)) {
-    DISCORD.sendError(error, res);
+    try {
+      DISCORD.sendError(error, res);
+    } catch (discordError) {
+      console.error(discordError);
+    }
   }
 };
 
@@ -40,6 +44,10 @@ export default sendError;
 
 export const sendWorkerError = (error: Error) => {
   if (!(error instanceof ExpectedError)) {
-    DISCORD.sendError(error);
+    try {
+      DISCORD.sendError(error);
+    } catch (discordError) {
+      console.error(discordError);
+    }
   }
 };

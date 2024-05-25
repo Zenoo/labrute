@@ -16,13 +16,13 @@ const arrive = async (
   if (!app.loader) {
     return;
   }
-  const { loader: { resources: { '/images/game/misc.json': { spritesheet } } } } = app;
+  const spritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
 
   if (!spritesheet) {
     throw new Error('Spritesheet not found');
   }
 
-  const fighter = findFighter(fighters, step.fighter);
+  const fighter = findFighter(fighters, step.f);
 
   if (!fighter) {
     throw new Error('Fighter not found');
@@ -54,7 +54,7 @@ const arrive = async (
   fighter.animation.play();
 
   // Create dust sprite
-  const dustSprite = new AnimatedSprite(spritesheet.animations.dust);
+  const dustSprite = new AnimatedSprite(spritesheet.animations.dust || []);
   dustSprite.animationSpeed = speed.current / 2;
   dustSprite.loop = false;
 

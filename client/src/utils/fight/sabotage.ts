@@ -9,13 +9,13 @@ const sabotage = (
   fighters: AnimationFighter[],
   step: SabotageStep,
 ) => {
-  const opponent = findFighter(fighters, step.opponent);
-  if (!opponent) {
+  const target = findFighter(fighters, step.t);
+  if (!target) {
     throw new Error('Opponent not found');
   }
 
   // Update weapon list
-  updateWeapons(app, opponent, step.weapon, 'remove');
+  updateWeapons(app, target, step.w, 'remove');
 };
 
 export default sabotage;

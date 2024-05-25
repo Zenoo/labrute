@@ -1,6 +1,6 @@
-import { BruteWithBodyColors, getXPNeeded, skills, weapons } from '@labrute/core';
-import { BruteStat, DestinyChoice, DestinyChoiceSide, PetName, SkillName, WeaponName } from '@labrute/prisma';
-import { Box, Alert as MuiAlert, Paper, useMediaQuery } from '@mui/material';
+import { BrutesGetLevelUpChoicesResponse, getXPNeeded, skills, weapons } from '@labrute/core';
+import { BruteStat, DestinyChoiceSide, PetName, SkillName, WeaponName } from '@labrute/prisma';
+import { Box, Alert as MuiAlert, Paper, useMediaQuery, useTheme } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -13,9 +13,9 @@ import StyledButton from '../components/StyledButton';
 import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
+import { useBrute } from '../hooks/useBrute';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
-import { useBrute } from '../hooks/useBrute';
 
 const LevelUpView = () => {
   const { t } = useTranslation();
@@ -24,24 +24,23 @@ const LevelUpView = () => {
   const navigate = useNavigate();
   const Alert = useAlert();
   const smallScreen = useMediaQuery('(max-width: 638px)');
-  const { updateBrute } = useBrute();
+  const { brute, updateBrute } = useBrute();
+  const theme = useTheme();
 
-  const [brute, setBrute] = useState<BruteWithBodyColors | null>(null);
-  const [choices, setChoices] = useState<[DestinyChoice, DestinyChoice] | null>(null);
+  const [choices, setChoices] = useState<BrutesGetLevelUpChoicesResponse['choices'] | null>(null);
 
   const samePath = brute?.previousDestinyPath.toString().startsWith(brute?.destinyPath.toString());
 
   // Fetch brute
   useEffect(() => {
     let isSubscribed = true;
-    if (bruteName) {
+    if (bruteName && brute) {
       Server.Brute.getLevelUpChoices(bruteName).then((data) => {
         if (isSubscribed) {
           // Check if the brute has enough XP
-          if (data.brute.xp < getXPNeeded(data.brute.level + 1)) {
+          if (brute.xp < getXPNeeded(brute.level + 1)) {
             navigate(`/${bruteName}/cell`);
           } else {
-            setBrute(data.brute);
             setChoices(data.choices);
           }
         }
@@ -50,7 +49,7 @@ const LevelUpView = () => {
       });
     }
     return () => { isSubscribed = false; };
-  }, [Alert, bruteName, navigate, user]);
+  }, [Alert, brute, bruteName, navigate, user]);
 
   // Trigger level up
   const levelUp = useCallback((choice: DestinyChoiceSide) => async () => {
@@ -111,7 +110,7 @@ const LevelUpView = () => {
           {!smallScreen && (
             <Box
               component="img"
-              src="/images/level-up/arrows.png"
+              src={`/images${theme.palette.mode === 'dark' ? '/dark' : ''}/level-up/arrows.webp`}
               sx={{ mt: -3, zIndex: 1, position: 'relative' }}
             />
           )}

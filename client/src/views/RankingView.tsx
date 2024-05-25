@@ -1,4 +1,4 @@
-import { BruteRanking, BruteRankings, BruteWithBodyColors } from '@labrute/core';
+import { BruteRanking, BruteRankings } from '@labrute/core';
 import { Box, Grid, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -11,6 +11,7 @@ import useStateAsync from '../hooks/useStateAsync';
 import Server from '../utils/Server';
 import Link from '../components/Link';
 import BruteRender from '../components/Brute/Body/BruteRender';
+import { Brute } from '@labrute/prisma';
 
 const RankingView = () => {
   const { t } = useTranslation();
@@ -29,10 +30,10 @@ const RankingView = () => {
   const rankingSelected = useMemo(() => (typeof ranking !== 'undefined'
     ? ranking
     : (rankings && rankings.topBrutes.length
-      ? rankings.topBrutes[0].ranking
+      ? rankings.topBrutes[0]?.ranking
       : undefined)), [ranking, rankings]);
 
-  const bruteRow = (brute: BruteWithBodyColors, index: number) => (
+  const bruteRow = (brute: Brute, index: number) => (
     <TableRow
       key={brute.id}
     >
@@ -61,7 +62,7 @@ const RankingView = () => {
   return rankings && (
     <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/cell`}>
       <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('ranking')} {t(`lvl_${(rankings.topBrutes.length ? rankings.topBrutes[0].ranking : ranking) as BruteRanking}`)}</Text>
+        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('ranking')} {t(`lvl_${(rankings.topBrutes.length ? rankings.topBrutes[0]?.ranking : ranking) as BruteRanking}`)}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         <Box sx={{
@@ -85,7 +86,7 @@ const RankingView = () => {
                 >
                   <Box
                     component="img"
-                    src={`/images/rankings/lvl_${bruteRanking}.png`}
+                    src={`/images/rankings/lvl_${bruteRanking}.webp`}
                     sx={{ height: 38, width: 38 }}
                   />
                 </StyledButton>
