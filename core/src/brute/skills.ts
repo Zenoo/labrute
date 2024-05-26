@@ -480,7 +480,7 @@ export const SkillModifiers: Record<SkillName, SkillModifier[]> = {
     { stat: FightStat.DISARM, value: 50, percent: true },
   ],
   [SkillName.bodybuilder]: [
-    { stat: FightStat.HIT_SPEED, weaponType: WeaponType.HEAVY, value: -25, percent: true },
+    { stat: FightStat.HIT_SPEED, weaponType: WeaponType.HEAVY, value: 25, percent: true },
   ],
   [SkillName.relentless]: [
     { stat: FightStat.ACCURACY, value: 30, percent: true },
@@ -521,7 +521,7 @@ export const SkillModifiers: Record<SkillName, SkillModifier[]> = {
   [SkillName.monk]: [
     { stat: FightStat.COUNTER, value: 40, percent: true },
     { stat: FightStat.INITIATIVE, value: -200 },
-    { stat: FightStat.HIT_SPEED, value: 100, percent: true },
+    { stat: FightStat.HIT_SPEED, value: -100, percent: true },
   ],
 };
 
