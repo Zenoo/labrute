@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.56.5](https://github.com/Zenoo/labrute/compare/labrute-v2.56.4...labrute-v2.56.5) (2024-05-26)
+
+
+### Bug Fixes
+
+* Rename interval to hitspeed ([f7ed140](https://github.com/Zenoo/labrute/commit/f7ed140c5b45a5f42868f033faa4545b5dff1854))
+* Revers hit speed stats ([db7b89a](https://github.com/Zenoo/labrute/commit/db7b89ab7f8c9e843d412a543696a29c5a114c6a))
+
 ## [2.56.4](https://github.com/Zenoo/labrute/compare/labrute-v2.56.3...labrute-v2.56.4) (2024-05-23)
 
 
