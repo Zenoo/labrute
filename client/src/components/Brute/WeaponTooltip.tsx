@@ -78,9 +78,9 @@ const WeaponTooltip = ({
               </Text>
             </Text>
           )}
-          {/* INTERVAL */}
+          {/* HIT SPEED */}
           <Text {...textProps}>
-            {t('speed')}:
+            {t('hitSpeed')}:
             {' '}
             <Text component="span" bold sx={{ opacity: 0.7 }} {...textProps}>
               {Math.round(
