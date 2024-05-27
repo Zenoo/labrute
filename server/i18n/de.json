@@ -62,5 +62,16 @@
   "alreadyClaimed": "Du hast diese Belohnung bereits erhalten",
   "needToUseEveryAction": "Du musst alle Aktionen deiner Dinoz verbrauchen, um diese Belohnung zu erhalten",
   "noDinoRpgAccount": "Mit deinem EternalTwin-Account ist kein Dino-RPG-Account verknüpft.",
-  "noNameChange": "Du kannst deinen Namen nicht ändern"
+  "noNameChange": "Du kannst deinen Namen nicht ändern",
+  "rank.0": "Brutal Legend",
+  "rank.1": "The Dentist of Chaos",
+  "rank.2": "Satan's Biceps",
+  "rank.3": "Sword Swallower",
+  "rank.4": "Hemogoblin",
+  "rank.5": "Berserker Soul",
+  "rank.6": "Vengeful Flame",
+  "rank.7": "Iron Fist",
+  "rank.8": "Richter Thumper",
+  "rank.9": "Sticking Plaster Ripper",
+  "rank.10": "Desert Batterer"
 }
