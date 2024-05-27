@@ -32,6 +32,7 @@ export type BruteColor = 'col0' | 'col0a' | 'col0c' | 'col1' | 'col1a' | 'col1b'
 export interface DetailedFighter {
   // Metadata
   id: string;
+  index: number;
   name: string;
   gender?: Gender;
   body?: string;

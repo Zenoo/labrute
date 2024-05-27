@@ -238,13 +238,13 @@ model Brute {
 }
 
 model BruteStartingStats {
-  id        Int    @id @default(autoincrement())
+  id        String @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   endurance Int    @default(2)
   strength  Int    @default(3)
   agility   Int    @default(3)
   speed     Int    @default(3)
   brute     Brute  @relation(fields: [bruteId], references: [id])
-  bruteId   String @unique
+  bruteId   String @unique @db.Uuid
 }
 
 // FIGHTS
@@ -254,19 +254,19 @@ enum FighterType {
 }
 
 model Fight {
-  id             String      @id @unique @db.Uuid
+  id             String      @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   date           DateTime    @default(now()) @db.Date
   brute1         Brute       @relation(fields: [brute1Id], references: [id])
-  brute1Id       String
+  brute1Id       String      @db.Uuid
   brute2         Brute?      @relation("Adversary", fields: [brute2Id], references: [id])
-  brute2Id       String?
+  brute2Id       String?     @db.Uuid
   winner         String      @db.VarChar(255)
   loser          String      @db.VarChar(255)
   steps          String      @db.Text
   fighters       String      @db.Text
   logs           Log[]
   tournament     Tournament? @relation(fields: [tournamentId], references: [id])
-  tournamentId   String?
+  tournamentId   String?     @db.Uuid
   tournamentStep Int         @default(0)
 
   @@index([tournamentId, winner, brute1Id, brute2Id])
@@ -340,7 +340,7 @@ enum TournamentType {
 }
 
 model Tournament {
-  id           String         @id @unique @db.Uuid
+  id           String         @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   date         DateTime       @db.Date
   type         TournamentType @default(DAILY)
   participants Brute[]
@@ -600,11 +600,11 @@ model ClanPost {
 }
 
 model BossDamage {
-  id      String @id @unique @db.Uuid
+  id      String @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   brute   Brute  @relation(fields: [bruteId], references: [id])
-  bruteId String
+  bruteId String @db.Uuid
   clan    Clan   @relation(fields: [clanId], references: [id])
-  clanId  String
+  clanId  String @db.Uuid
   damage  Int
 
   @@unique([bruteId, clanId])
