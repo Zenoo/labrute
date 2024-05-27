@@ -73,13 +73,5 @@
   "rank.7": "Iron Fist",
   "rank.8": "Richter Thumper",
   "rank.9": "Sticking Plaster Ripper",
-  "rank.10": "Desert Batterer",
-  "modifier.noThrows": "Sticky hands",
-  "modifier.noThrows.desc": "Who superglued those weapons ?! You can't throw your weapons anymore.",
-  "modifier.focusOpponent": "Focus",
-  "modifier.focusOpponent.desc": "You never lost a staring battle. You will always focus your main opponent.",
-  "modifier.alwaysUseSupers": "Unlimited power",
-  "modifier.alwaysUseSupers.desc": "You spent time learning those skills, it would be a shame not to use them. You will always use your available skills.",
-  "modifier.drawEveryWeapon": "Endless supplies",
-  "modifier.drawEveryWeapon.desc": "Your pullout game is extremely strong. You will always draw a weapon if one is available."
+  "rank.10": "Desert Batterer"
 }
