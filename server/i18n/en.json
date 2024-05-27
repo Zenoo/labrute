@@ -62,5 +62,16 @@
   "alreadyClaimed": "You already claimed this reward",
   "needToUseEveryAction": "You need to use every action on your Dinoz to be able to claim this reward",
   "noDinoRpgAccount": "You don't have a DinoRPG account linked to your EternalTwin account.",
-  "noNameChange": "You cannot change your name"
+  "noNameChange": "You cannot change your name",
+  "rank.0": "Brutal Legend",
+  "rank.1": "The Dentist of Chaos",
+  "rank.2": "Satan's Biceps",
+  "rank.3": "Sword Swallower",
+  "rank.4": "Hemogoblin",
+  "rank.5": "Berserker Soul",
+  "rank.6": "Vengeful Flame",
+  "rank.7": "Iron Fist",
+  "rank.8": "Richter Thumper",
+  "rank.9": "Sticking Plaster Ripper",
+  "rank.10": "Desert Batterer"
 }

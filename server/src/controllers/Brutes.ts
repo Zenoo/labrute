@@ -33,7 +33,7 @@ import {
 } from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import moment from 'moment';
-import { LOGGER } from '../context.js';
+import { DISCORD, LOGGER } from '../context.js';
 import auth from '../utils/auth.js';
 import checkBody from '../utils/brute/checkBody.js';
 import checkColors from '../utils/brute/checkColors.js';
@@ -1239,6 +1239,9 @@ const Brutes = {
       if (userBrute.clanId) {
         await updateClanPoints(prisma, userBrute.clanId, 'add', brute, userBrute);
       }
+
+      // Send notification
+      DISCORD.sendRankUpNotification(brute);
 
       res.send({
         success: true,

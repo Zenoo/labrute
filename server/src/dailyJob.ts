@@ -442,9 +442,6 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
         });
       }
     }
-
-    // Send Discord notification
-    DISCORD.sendTournamentNotification(tournament, brutes);
   }
 
   // Remove tournament registration for all processed brutes
