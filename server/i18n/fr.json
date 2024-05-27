@@ -62,5 +62,16 @@
   "alreadyClaimed": "Vous avez déjà reçu cette récompense",
   "needToUseEveryAction": "Vous devez utiliser toutes les actions sur vos Dinoz pour pouvoir recevoir cette récompense",
   "noDinoRpgAccount": "Vous n'avez pas de compte DinoRPG lié à votre compte EternalTwin.",
-  "noNameChange": "Vous ne pouvez pas changer de nom"
+  "noNameChange": "Vous ne pouvez pas changer de nom",
+  "rank.0": "Brutal Legend",
+  "rank.1": "The Dentist of Chaos",
+  "rank.2": "Satan's Biceps",
+  "rank.3": "Sword Swallower",
+  "rank.4": "Hemogoblin",
+  "rank.5": "Berserker Soul",
+  "rank.6": "Vengeful Flame",
+  "rank.7": "Iron Fist",
+  "rank.8": "Richter Thumper",
+  "rank.9": "Sticking Plaster Ripper",
+  "rank.10": "Desert Batterer"
 }
