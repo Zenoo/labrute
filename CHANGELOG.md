@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.57.0](https://github.com/Zenoo/labrute/compare/labrute-v2.56.5...labrute-v2.57.0) (2024-05-27)
+
+
+### Features
+
+* Rank up notifications. Fixes [#706](https://github.com/Zenoo/labrute/issues/706) ([deeacc8](https://github.com/Zenoo/labrute/commit/deeacc8fa0ef272b5f41b68f8a1524825ccd084e))
+
 ## [2.56.5](https://github.com/Zenoo/labrute/compare/labrute-v2.56.4...labrute-v2.56.5) (2024-05-26)
 
 
