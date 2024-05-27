@@ -62,5 +62,16 @@
   "alreadyClaimed": "Vous avez déjà reçu cette récompense",
   "needToUseEveryAction": "Vous devez utiliser toutes les actions sur vos Dinoz pour pouvoir recevoir cette récompense",
   "noDinoRpgAccount": "Vous n'avez pas de compte DinoRPG lié à votre compte EternalTwin.",
-  "noNameChange": "Vous ne pouvez pas changer de nom"
+  "noNameChange": "Vous ne pouvez pas changer de nom",
+  "rank.0": "Légende Brutale",
+  "rank.1": "Dentiste du Chaos",
+  "rank.2": "Biceps de Satan",
+  "rank.3": "Avaleur de Sabres",
+  "rank.4": "Hemogrobil",
+  "rank.5": "Âme de Berserk",
+  "rank.6": "Flamme du Vengeur",
+  "rank.7": "Poing d'acier",
+  "rank.8": "Baffe de Richter",
+  "rank.9": "Arracheur de pansements",
+  "rank.10": "Pichenette du Désert"
 }
