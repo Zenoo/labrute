@@ -253,21 +253,29 @@ enum FighterType {
   pet
 }
 
+enum FightModifier {
+  noThrows
+  focusOpponent
+  alwaysUseSupers
+  drawEveryWeapon
+}
+
 model Fight {
-  id             String      @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  date           DateTime    @default(now()) @db.Date
-  brute1         Brute       @relation(fields: [brute1Id], references: [id])
-  brute1Id       String      @db.Uuid
-  brute2         Brute?      @relation("Adversary", fields: [brute2Id], references: [id])
-  brute2Id       String?     @db.Uuid
-  winner         String      @db.VarChar(255)
-  loser          String      @db.VarChar(255)
-  steps          String      @db.Text
-  fighters       String      @db.Text
+  id             String          @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  date           DateTime        @default(now()) @db.Date
+  brute1         Brute           @relation(fields: [brute1Id], references: [id])
+  brute1Id       String          @db.Uuid
+  brute2         Brute?          @relation("Adversary", fields: [brute2Id], references: [id])
+  brute2Id       String?         @db.Uuid
+  winner         String          @db.VarChar(255)
+  loser          String          @db.VarChar(255)
+  steps          String          @db.Text
+  fighters       String          @db.Text
   logs           Log[]
-  tournament     Tournament? @relation(fields: [tournamentId], references: [id])
-  tournamentId   String?     @db.Uuid
-  tournamentStep Int         @default(0)
+  tournament     Tournament?     @relation(fields: [tournamentId], references: [id])
+  tournamentId   String?         @db.Uuid
+  tournamentStep Int             @default(0)
+  modifiers      FightModifier[] @default([])
 
   @@index([tournamentId, winner, brute1Id, brute2Id])
 }
@@ -535,8 +543,10 @@ model BruteReport {
 
 // SERVER STATE
 model ServerState {
-  id                    String  @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  globalTournamentValid Boolean @default(true)
+  id                    String          @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  globalTournamentValid Boolean         @default(true)
+  activeModifiers       FightModifier[] @default([])
+  modifiersEndAt        DateTime?       @db.Date
 }
 
 model BannedWord {

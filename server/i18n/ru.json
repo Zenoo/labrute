@@ -62,5 +62,16 @@
   "alreadyClaimed": "Вы уже получили эту награду",
   "needToUseEveryAction": "Вам нужно использовать все действия ваших Диносов, чтобы получить эту награду",
   "noDinoRpgAccount": "К вашей учётной записи «EternalTwin» не привязана учётная запись игры «Dino-RPG».",
-  "noNameChange": "Вы не можете сменить ваше имя"
+  "noNameChange": "Вы не можете сменить ваше имя",
+  "rank.0": "Brutal Legend",
+  "rank.1": "The Dentist of Chaos",
+  "rank.2": "Satan's Biceps",
+  "rank.3": "Sword Swallower",
+  "rank.4": "Hemogoblin",
+  "rank.5": "Berserker Soul",
+  "rank.6": "Vengeful Flame",
+  "rank.7": "Iron Fist",
+  "rank.8": "Richter Thumper",
+  "rank.9": "Sticking Plaster Ripper",
+  "rank.10": "Desert Batterer"
 }

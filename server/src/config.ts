@@ -85,7 +85,7 @@ export interface Config {
   readonly eternaltwin: EternaltwinConfig;
 
   /**
-   * Configuration for the Discord client used for tournament notifications (optional).
+   * Configuration for the Discord client used for notifications (optional).
    */
   readonly discordNotifications: DiscordConfig | null;
 

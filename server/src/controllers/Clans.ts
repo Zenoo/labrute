@@ -1,7 +1,7 @@
 import {
   ClanChallengeBossResponse,
   ClanCreateResponse, ClanGetResponse, ClanGetThreadResponse,
-  ClanGetThreadsResponse, ClanListResponse, ExpectedError, bosses, getFightsLeft, randomBetween,
+  ClanGetThreadsResponse, ClanListResponse, ExpectedError, bosses, getFightsLeft,
   randomItem,
 } from '@labrute/core';
 import { Clan, Prisma, PrismaClient } from '@labrute/prisma';
@@ -12,7 +12,7 @@ import updateClanPoints from '../utils/clan/updateClanPoints.js';
 import generateFight from '../utils/fight/generateFight.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
-import isUuid from '../utils/uuid.js';
+import ServerState from '../utils/ServerState.js';
 
 const Clans = {
   list: (prisma: PrismaClient) => async (
@@ -1064,6 +1064,9 @@ const Clans = {
       let bossXpGains = 0;
       let bossGoldGains = 0;
 
+      // Get current modifiers
+      const modifiers = await ServerState.getModifiers(prisma);
+
       while (!generatedFight && !expectedError && retry < 10) {
         try {
           retry += 1;
@@ -1073,6 +1076,7 @@ const Clans = {
             prisma,
             brute,
             null,
+            modifiers,
             false,
             false,
             false,

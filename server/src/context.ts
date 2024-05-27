@@ -25,8 +25,8 @@ export class ServerContext {
     let discord: DiscordClient;
     if (config.discordNotifications !== null && config.discordLogs !== null) {
       discord = new NetworkDiscordClient({
-        tournamentWebhookId: config.discordNotifications.webhookId,
-        tournamentWebhookToken: config.discordNotifications.webhookToken,
+        notificationWebhookId: config.discordNotifications.webhookId,
+        notificationWebhookToken: config.discordNotifications.webhookToken,
         logWebhookId: config.discordLogs.webhookId,
         logWebhookToken: config.discordLogs.webhookToken,
         server: config.selfUrl,

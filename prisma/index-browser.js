@@ -208,7 +208,8 @@ exports.Prisma.FightScalarFieldEnum = {
   steps: 'steps',
   fighters: 'fighters',
   tournamentId: 'tournamentId',
-  tournamentStep: 'tournamentStep'
+  tournamentStep: 'tournamentStep',
+  modifiers: 'modifiers'
 };
 
 exports.Prisma.LogScalarFieldEnum = {
@@ -291,7 +292,9 @@ exports.Prisma.BruteReportScalarFieldEnum = {
 
 exports.Prisma.ServerStateScalarFieldEnum = {
   id: 'id',
-  globalTournamentValid: 'globalTournamentValid'
+  globalTournamentValid: 'globalTournamentValid',
+  activeModifiers: 'activeModifiers',
+  modifiersEndAt: 'modifiersEndAt'
 };
 
 exports.Prisma.BannedWordScalarFieldEnum = {
@@ -464,6 +467,13 @@ exports.PetName = exports.$Enums.PetName = {
   dog3: 'dog3',
   panther: 'panther',
   bear: 'bear'
+};
+
+exports.FightModifier = exports.$Enums.FightModifier = {
+  noThrows: 'noThrows',
+  focusOpponent: 'focusOpponent',
+  alwaysUseSupers: 'alwaysUseSupers',
+  drawEveryWeapon: 'drawEveryWeapon'
 };
 
 exports.LogType = exports.$Enums.LogType = {

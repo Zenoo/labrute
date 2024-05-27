@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
-import { pad } from '@labrute/core';
-import { Brute, Tournament } from '@labrute/prisma';
+import { Brute, FightModifier } from '@labrute/prisma';
 import { EmbedBuilder, WebhookClient } from 'discord.js';
 import type { Response } from 'express';
-import moment from 'moment';
+import { pad } from '@labrute/core';
 import { Logger } from '../logger/index.js';
+import translate from './translate.js';
 
 const DEFAULT_TIMEOUT = 5000;
 // Maximum accepted length for the embed title
@@ -36,7 +36,8 @@ function formatEmbedTitle(title: string) {
 
 export interface DiscordClient {
   sendError(error: Error, res?: Response): void;
-  sendTournamentNotification(tournament: Pick<Tournament, 'date'>, brutes: Pick<Brute, 'name' | 'level'>[]): void;
+  sendRankUpNotification(brute: Pick<Brute, 'name' | 'level' | 'ranking'>): void;
+  sendModifiersNotification(modifiers: FightModifier[]): void;
   sendMessage(message: string): Promise<void>;
 }
 
@@ -44,16 +45,24 @@ export const NOOP_DISCORD_CLIENT: DiscordClient = {
   sendError(error) {
     console.error(error);
   },
-  sendTournamentNotification() {
+  sendRankUpNotification(brute) {
+    // eslint-disable-next-line no-console
+    console.log(`Rank up: ${brute.name} is now ${brute.ranking} at level ${brute.level}`);
   },
-  sendMessage() {
+  sendModifiersNotification(modifiers) {
+    // eslint-disable-next-line no-console
+    console.log(`Modifiers: ${modifiers.join(', ')}`);
+  },
+  sendMessage(message) {
+    // eslint-disable-next-line no-console
+    console.log(message);
     return Promise.resolve();
   },
 };
 
 export interface NetworkDiscordClientOptions {
-  tournamentWebhookId: string,
-  tournamentWebhookToken: string,
+  notificationWebhookId: string,
+  notificationWebhookToken: string,
   logWebhookId: string,
   logWebhookToken: string,
   timeout?: number
@@ -69,7 +78,7 @@ export class NetworkDiscordClient implements DiscordClient {
   /**
    * Client used to send tournament notifications
    */
-  readonly #tournamentClient: WebhookClient;
+  readonly #notificationClient: WebhookClient;
 
   /**
    * Client used to send logs
@@ -87,10 +96,10 @@ export class NetworkDiscordClient implements DiscordClient {
         timeout: options.timeout ?? DEFAULT_TIMEOUT,
       },
     };
-    this.#tournamentClient = new WebhookClient(
+    this.#notificationClient = new WebhookClient(
       {
-        id: options.tournamentWebhookId,
-        token: options.tournamentWebhookToken,
+        id: options.notificationWebhookId,
+        token: options.notificationWebhookToken,
       },
       clientOptions,
     );
@@ -154,33 +163,45 @@ ${error.stack}
     });
   }
 
-  public sendTournamentNotification(tournament: Pick<Tournament, 'date'>, brutes: Pick<Brute, 'name' | 'level'>[]) {
+  public sendRankUpNotification(brute: Pick<Brute, 'name' | 'level' | 'ranking'>) {
     const embed = new EmbedBuilder()
       .setColor(0xebad70)
-      .setTitle(formatEmbedTitle('New tournament created!'))
-      .setURL(`${this.#server}${brutes[0]?.name}/tournament/${moment.utc(tournament.date).format('YYYY-MM-DD')}`)
+      .setTitle(formatEmbedTitle(`${brute.name} ranked up to ${translate(`rank.${brute.ranking}`)} at level ${brute.level}`))
+      .setURL(`${this.#server}${brute.name}/cell`)
+      .setAuthor({
+        name: 'LaBrute',
+        iconURL: `${this.#server}/favicon.png`,
+        url: `${this.#server}${brute.name}/ranking`,
+      })
+      .setThumbnail(`${this.#server}/images/rankings/lvl_${brute.ranking}.webp`)
+      .setTimestamp();
+
+    this.#notificationClient.send({ embeds: [embed] }).catch((err) => {
+      this.#logger.error(`Error trying to send a message: ${err}`);
+    });
+  }
+
+  public sendModifiersNotification(modifiers: FightModifier[]) {
+    const embed = new EmbedBuilder()
+      .setColor(0xebad70)
+      .setTitle(formatEmbedTitle('Today is special !'))
+      .setURL(this.#server.toString())
       .setAuthor({
         name: 'LaBrute',
         iconURL: `${this.#server}/favicon.png`,
         url: this.#server.toString(),
       })
-      .setDescription('A new tournament has been created, come check it out! Here are some of the participants:')
+      .setDescription('Locky (or unlucky) you! Today is a special day, the following modifiers will be active:')
       .setThumbnail(`${this.#server}/images/header/right/1${pad(Math.floor(Math.random() * (11 - 1 + 1) + 1), 2)}.png`)
       .addFields(
-        ...[...brutes].sort((a, b) => b.level - a.level).slice(0, 24).map((brute) => ({
-          name: brute.name,
-          value: `Level ${brute.level}`,
-          inline: true,
+        modifiers.map((modifier) => ({
+          name: translate(`modifier.${modifier}`),
+          value: translate(`modifier.${modifier}.desc`),
         })),
-        { name: '...', value: '\u200B', inline: true },
       )
-      .setTimestamp()
-      .setFooter({
-        text: 'Beep boop, I am a bot',
-        iconURL: `${this.#server}/favicon.png`,
-      });
+      .setTimestamp();
 
-    this.#tournamentClient.send({ embeds: [embed] }).catch((err) => {
+    this.#notificationClient.send({ embeds: [embed] }).catch((err) => {
       this.#logger.error(`Error trying to send a message: ${err}`);
     });
   }

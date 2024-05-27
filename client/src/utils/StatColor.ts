@@ -10,7 +10,7 @@ const StatColor: Record<FightStat, string> = {
   [FightStat.DISARM]: '#ff70ff',
   [FightStat.COMBO]: 'orange',
   [FightStat.ARMOR]: '#000',
-  [FightStat.INTERVAL]: '#00008b',
+  [FightStat.HIT_SPEED]: '#00008b',
   [FightStat.INITIATIVE]: '#f08080',
   [FightStat.STRENGTH]: 'red',
   [FightStat.AGILITY]: '#8686ff',

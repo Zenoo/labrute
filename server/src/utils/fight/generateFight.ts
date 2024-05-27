@@ -3,11 +3,11 @@ import {
   BOSS_GOLD_REWARD,
   Boss,
   CLAN_SIZE_LIMIT,
-  DetailedFight, ExpectedError, Fighter, SkillByName, StepType, WeaponByName, bosses, randomBetween,
+  DetailedFight, ExpectedError, Fighter, SkillByName, StepType, WeaponByName, bosses,
   randomItem,
 } from '@labrute/core';
 import {
-  Brute, InventoryItemType, LogType, Prisma, PrismaClient,
+  Brute, FightModifier, InventoryItemType, LogType, Prisma, PrismaClient,
 } from '@labrute/prisma';
 import applySpy from './applySpy.js';
 import {
@@ -30,6 +30,7 @@ const generateFight = async (
   prisma: PrismaClient,
   brute1: Brute,
   brute2: Brute | null,
+  modifiers: FightModifier[],
   allowBackup: boolean,
   achievementsActive: boolean,
   isTournamentFinal: boolean,
@@ -127,6 +128,7 @@ const generateFight = async (
     });
 
   const fightData: DetailedFight = {
+    modifiers,
     fighters: fightDataFighters,
     initialFighters: fightDataInitialFighters,
     steps: [],
