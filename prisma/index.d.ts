@@ -244,6 +244,16 @@ export const PetName: {
 export type PetName = (typeof PetName)[keyof typeof PetName]
 
 
+export const FightModifier: {
+  noThrows: 'noThrows',
+  focusOpponent: 'focusOpponent',
+  alwaysUseSupers: 'alwaysUseSupers',
+  drawEveryWeapon: 'drawEveryWeapon'
+};
+
+export type FightModifier = (typeof FightModifier)[keyof typeof FightModifier]
+
+
 export const LogType: {
   win: 'win',
   lose: 'lose',
@@ -458,6 +468,10 @@ export const SkillName: typeof $Enums.SkillName
 export type PetName = $Enums.PetName
 
 export const PetName: typeof $Enums.PetName
+
+export type FightModifier = $Enums.FightModifier
+
+export const FightModifier: typeof $Enums.FightModifier
 
 export type LogType = $Enums.LogType
 
@@ -8015,6 +8029,7 @@ export namespace Prisma {
     fighters: number
     tournamentId: number
     tournamentStep: number
+    modifiers: number
     _all: number
   }
 
@@ -8072,6 +8087,7 @@ export namespace Prisma {
     fighters?: true
     tournamentId?: true
     tournamentStep?: true
+    modifiers?: true
     _all?: true
   }
 
@@ -8172,6 +8188,7 @@ export namespace Prisma {
     fighters: string
     tournamentId: number | null
     tournamentStep: number
+    modifiers: $Enums.FightModifier[]
     _count: FightCountAggregateOutputType | null
     _avg: FightAvgAggregateOutputType | null
     _sum: FightSumAggregateOutputType | null
@@ -8204,6 +8221,7 @@ export namespace Prisma {
     fighters?: boolean
     tournamentId?: boolean
     tournamentStep?: boolean
+    modifiers?: boolean
     brute1?: boolean | BruteDefaultArgs<ExtArgs>
     brute2?: boolean | Fight$brute2Args<ExtArgs>
     logs?: boolean | Fight$logsArgs<ExtArgs>
@@ -8222,9 +8240,10 @@ export namespace Prisma {
     fighters?: boolean
     tournamentId?: boolean
     tournamentStep?: boolean
+    modifiers?: boolean
   }
 
-  export type FightOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "brute1Id" | "brute2Id" | "winner" | "loser" | "steps" | "fighters" | "tournamentId" | "tournamentStep", ExtArgs["result"]["fight"]>
+  export type FightOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "brute1Id" | "brute2Id" | "winner" | "loser" | "steps" | "fighters" | "tournamentId" | "tournamentStep" | "modifiers", ExtArgs["result"]["fight"]>
 
 
   export type FightInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8255,6 +8274,7 @@ export namespace Prisma {
       fighters: string
       tournamentId: number | null
       tournamentStep: number
+      modifiers: $Enums.FightModifier[]
     }, ExtArgs["result"]["fight"]>
     composites: {}
   }
@@ -8692,6 +8712,7 @@ export namespace Prisma {
     readonly fighters: FieldRef<"Fight", 'String'>
     readonly tournamentId: FieldRef<"Fight", 'Int'>
     readonly tournamentStep: FieldRef<"Fight", 'Int'>
+    readonly modifiers: FieldRef<"Fight", 'FightModifier[]'>
   }
     
 
@@ -18830,16 +18851,20 @@ export namespace Prisma {
   export type ServerStateMinAggregateOutputType = {
     id: number | null
     globalTournamentValid: boolean | null
+    modifiersEndAt: Date | null
   }
 
   export type ServerStateMaxAggregateOutputType = {
     id: number | null
     globalTournamentValid: boolean | null
+    modifiersEndAt: Date | null
   }
 
   export type ServerStateCountAggregateOutputType = {
     id: number
     globalTournamentValid: number
+    activeModifiers: number
+    modifiersEndAt: number
     _all: number
   }
 
@@ -18855,16 +18880,20 @@ export namespace Prisma {
   export type ServerStateMinAggregateInputType = {
     id?: true
     globalTournamentValid?: true
+    modifiersEndAt?: true
   }
 
   export type ServerStateMaxAggregateInputType = {
     id?: true
     globalTournamentValid?: true
+    modifiersEndAt?: true
   }
 
   export type ServerStateCountAggregateInputType = {
     id?: true
     globalTournamentValid?: true
+    activeModifiers?: true
+    modifiersEndAt?: true
     _all?: true
   }
 
@@ -18957,6 +18986,8 @@ export namespace Prisma {
   export type ServerStateGroupByOutputType = {
     id: number
     globalTournamentValid: boolean
+    activeModifiers: $Enums.FightModifier[]
+    modifiersEndAt: Date | null
     _count: ServerStateCountAggregateOutputType | null
     _avg: ServerStateAvgAggregateOutputType | null
     _sum: ServerStateSumAggregateOutputType | null
@@ -18981,14 +19012,18 @@ export namespace Prisma {
   export type ServerStateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     globalTournamentValid?: boolean
+    activeModifiers?: boolean
+    modifiersEndAt?: boolean
   }, ExtArgs["result"]["serverState"]>
 
   export type ServerStateSelectScalar = {
     id?: boolean
     globalTournamentValid?: boolean
+    activeModifiers?: boolean
+    modifiersEndAt?: boolean
   }
 
-  export type ServerStateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "globalTournamentValid", ExtArgs["result"]["serverState"]>
+  export type ServerStateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "globalTournamentValid" | "activeModifiers" | "modifiersEndAt", ExtArgs["result"]["serverState"]>
 
 
 
@@ -18998,6 +19033,8 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       globalTournamentValid: boolean
+      activeModifiers: $Enums.FightModifier[]
+      modifiersEndAt: Date | null
     }, ExtArgs["result"]["serverState"]>
     composites: {}
   }
@@ -19420,6 +19457,8 @@ export namespace Prisma {
   interface ServerStateFieldRefs {
     readonly id: FieldRef<"ServerState", 'Int'>
     readonly globalTournamentValid: FieldRef<"ServerState", 'Boolean'>
+    readonly activeModifiers: FieldRef<"ServerState", 'FightModifier[]'>
+    readonly modifiersEndAt: FieldRef<"ServerState", 'DateTime'>
   }
     
 
@@ -27254,7 +27293,8 @@ export namespace Prisma {
     steps: 'steps',
     fighters: 'fighters',
     tournamentId: 'tournamentId',
-    tournamentStep: 'tournamentStep'
+    tournamentStep: 'tournamentStep',
+    modifiers: 'modifiers'
   };
 
   export type FightScalarFieldEnum = (typeof FightScalarFieldEnum)[keyof typeof FightScalarFieldEnum]
@@ -27367,7 +27407,9 @@ export namespace Prisma {
 
   export const ServerStateScalarFieldEnum: {
     id: 'id',
-    globalTournamentValid: 'globalTournamentValid'
+    globalTournamentValid: 'globalTournamentValid',
+    activeModifiers: 'activeModifiers',
+    modifiersEndAt: 'modifiersEndAt'
   };
 
   export type ServerStateScalarFieldEnum = (typeof ServerStateScalarFieldEnum)[keyof typeof ServerStateScalarFieldEnum]
@@ -27622,6 +27664,20 @@ export namespace Prisma {
    * Reference to a field of type 'PetName'
    */
   export type EnumPetNameFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PetName'>
+    
+
+
+  /**
+   * Reference to a field of type 'FightModifier[]'
+   */
+  export type ListEnumFightModifierFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FightModifier[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'FightModifier'
+   */
+  export type EnumFightModifierFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FightModifier'>
     
 
 
@@ -28264,6 +28320,7 @@ export namespace Prisma {
     fighters?: StringFilter<"Fight"> | string
     tournamentId?: IntNullableFilter<"Fight"> | number | null
     tournamentStep?: IntFilter<"Fight"> | number
+    modifiers?: EnumFightModifierNullableListFilter<"Fight">
     brute1?: XOR<BruteRelationFilter, BruteWhereInput>
     brute2?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
     logs?: LogListRelationFilter
@@ -28281,6 +28338,7 @@ export namespace Prisma {
     fighters?: SortOrder
     tournamentId?: SortOrderInput | SortOrder
     tournamentStep?: SortOrder
+    modifiers?: SortOrder
     brute1?: BruteOrderByWithRelationInput
     brute2?: BruteOrderByWithRelationInput
     logs?: LogOrderByRelationAggregateInput
@@ -28301,6 +28359,7 @@ export namespace Prisma {
     fighters?: StringFilter<"Fight"> | string
     tournamentId?: IntNullableFilter<"Fight"> | number | null
     tournamentStep?: IntFilter<"Fight"> | number
+    modifiers?: EnumFightModifierNullableListFilter<"Fight">
     brute1?: XOR<BruteRelationFilter, BruteWhereInput>
     brute2?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
     logs?: LogListRelationFilter
@@ -28318,6 +28377,7 @@ export namespace Prisma {
     fighters?: SortOrder
     tournamentId?: SortOrderInput | SortOrder
     tournamentStep?: SortOrder
+    modifiers?: SortOrder
     _count?: FightCountOrderByAggregateInput
     _avg?: FightAvgOrderByAggregateInput
     _max?: FightMaxOrderByAggregateInput
@@ -28339,6 +28399,7 @@ export namespace Prisma {
     fighters?: StringWithAggregatesFilter<"Fight"> | string
     tournamentId?: IntNullableWithAggregatesFilter<"Fight"> | number | null
     tournamentStep?: IntWithAggregatesFilter<"Fight"> | number
+    modifiers?: EnumFightModifierNullableListFilter<"Fight">
   }
 
   export type LogWhereInput = {
@@ -28903,11 +28964,15 @@ export namespace Prisma {
     NOT?: ServerStateWhereInput | ServerStateWhereInput[]
     id?: IntFilter<"ServerState"> | number
     globalTournamentValid?: BoolFilter<"ServerState"> | boolean
+    activeModifiers?: EnumFightModifierNullableListFilter<"ServerState">
+    modifiersEndAt?: DateTimeNullableFilter<"ServerState"> | Date | string | null
   }
 
   export type ServerStateOrderByWithRelationInput = {
     id?: SortOrder
     globalTournamentValid?: SortOrder
+    activeModifiers?: SortOrder
+    modifiersEndAt?: SortOrderInput | SortOrder
   }
 
   export type ServerStateWhereUniqueInput = Prisma.AtLeast<{
@@ -28916,11 +28981,15 @@ export namespace Prisma {
     OR?: ServerStateWhereInput[]
     NOT?: ServerStateWhereInput | ServerStateWhereInput[]
     globalTournamentValid?: BoolFilter<"ServerState"> | boolean
+    activeModifiers?: EnumFightModifierNullableListFilter<"ServerState">
+    modifiersEndAt?: DateTimeNullableFilter<"ServerState"> | Date | string | null
   }, "id">
 
   export type ServerStateOrderByWithAggregationInput = {
     id?: SortOrder
     globalTournamentValid?: SortOrder
+    activeModifiers?: SortOrder
+    modifiersEndAt?: SortOrderInput | SortOrder
     _count?: ServerStateCountOrderByAggregateInput
     _avg?: ServerStateAvgOrderByAggregateInput
     _max?: ServerStateMaxOrderByAggregateInput
@@ -28934,6 +29003,8 @@ export namespace Prisma {
     NOT?: ServerStateScalarWhereWithAggregatesInput | ServerStateScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"ServerState"> | number
     globalTournamentValid?: BoolWithAggregatesFilter<"ServerState"> | boolean
+    activeModifiers?: EnumFightModifierNullableListFilter<"ServerState">
+    modifiersEndAt?: DateTimeNullableWithAggregatesFilter<"ServerState"> | Date | string | null
   }
 
   export type BannedWordWhereInput = {
@@ -29956,6 +30027,7 @@ export namespace Prisma {
     steps: string
     fighters: string
     tournamentStep?: number
+    modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     brute1: BruteCreateNestedOneWithoutFightsInput
     brute2?: BruteCreateNestedOneWithoutFightsAsAdversaryInput
     logs?: LogCreateNestedManyWithoutFightInput
@@ -29973,6 +30045,7 @@ export namespace Prisma {
     fighters: string
     tournamentId?: number | null
     tournamentStep?: number
+    modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     logs?: LogUncheckedCreateNestedManyWithoutFightInput
   }
 
@@ -29983,6 +30056,7 @@ export namespace Prisma {
     steps?: StringFieldUpdateOperationsInput | string
     fighters?: StringFieldUpdateOperationsInput | string
     tournamentStep?: IntFieldUpdateOperationsInput | number
+    modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     brute1?: BruteUpdateOneRequiredWithoutFightsNestedInput
     brute2?: BruteUpdateOneWithoutFightsAsAdversaryNestedInput
     logs?: LogUpdateManyWithoutFightNestedInput
@@ -30000,6 +30074,7 @@ export namespace Prisma {
     fighters?: StringFieldUpdateOperationsInput | string
     tournamentId?: NullableIntFieldUpdateOperationsInput | number | null
     tournamentStep?: IntFieldUpdateOperationsInput | number
+    modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     logs?: LogUncheckedUpdateManyWithoutFightNestedInput
   }
 
@@ -30014,6 +30089,7 @@ export namespace Prisma {
     fighters: string
     tournamentId?: number | null
     tournamentStep?: number
+    modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
   }
 
   export type FightUpdateManyMutationInput = {
@@ -30023,6 +30099,7 @@ export namespace Prisma {
     steps?: StringFieldUpdateOperationsInput | string
     fighters?: StringFieldUpdateOperationsInput | string
     tournamentStep?: IntFieldUpdateOperationsInput | number
+    modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
   }
 
   export type FightUncheckedUpdateManyInput = {
@@ -30036,6 +30113,7 @@ export namespace Prisma {
     fighters?: StringFieldUpdateOperationsInput | string
     tournamentId?: NullableIntFieldUpdateOperationsInput | number | null
     tournamentStep?: IntFieldUpdateOperationsInput | number
+    modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
   }
 
   export type LogCreateInput = {
@@ -30566,34 +30644,48 @@ export namespace Prisma {
 
   export type ServerStateCreateInput = {
     globalTournamentValid?: boolean
+    activeModifiers?: ServerStateCreateactiveModifiersInput | $Enums.FightModifier[]
+    modifiersEndAt?: Date | string | null
   }
 
   export type ServerStateUncheckedCreateInput = {
     id?: number
     globalTournamentValid?: boolean
+    activeModifiers?: ServerStateCreateactiveModifiersInput | $Enums.FightModifier[]
+    modifiersEndAt?: Date | string | null
   }
 
   export type ServerStateUpdateInput = {
     globalTournamentValid?: BoolFieldUpdateOperationsInput | boolean
+    activeModifiers?: ServerStateUpdateactiveModifiersInput | $Enums.FightModifier[]
+    modifiersEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ServerStateUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     globalTournamentValid?: BoolFieldUpdateOperationsInput | boolean
+    activeModifiers?: ServerStateUpdateactiveModifiersInput | $Enums.FightModifier[]
+    modifiersEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ServerStateCreateManyInput = {
     id?: number
     globalTournamentValid?: boolean
+    activeModifiers?: ServerStateCreateactiveModifiersInput | $Enums.FightModifier[]
+    modifiersEndAt?: Date | string | null
   }
 
   export type ServerStateUpdateManyMutationInput = {
     globalTournamentValid?: BoolFieldUpdateOperationsInput | boolean
+    activeModifiers?: ServerStateUpdateactiveModifiersInput | $Enums.FightModifier[]
+    modifiersEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ServerStateUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     globalTournamentValid?: BoolFieldUpdateOperationsInput | boolean
+    activeModifiers?: ServerStateUpdateactiveModifiersInput | $Enums.FightModifier[]
+    modifiersEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type BannedWordCreateInput = {
@@ -31782,6 +31874,14 @@ export namespace Prisma {
     bruteId?: SortOrder
   }
 
+  export type EnumFightModifierNullableListFilter<$PrismaModel = never> = {
+    equals?: $Enums.FightModifier[] | ListEnumFightModifierFieldRefInput<$PrismaModel> | null
+    has?: $Enums.FightModifier | EnumFightModifierFieldRefInput<$PrismaModel> | null
+    hasEvery?: $Enums.FightModifier[] | ListEnumFightModifierFieldRefInput<$PrismaModel>
+    hasSome?: $Enums.FightModifier[] | ListEnumFightModifierFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
   export type TournamentNullableRelationFilter = {
     is?: TournamentWhereInput | null
     isNot?: TournamentWhereInput | null
@@ -31798,6 +31898,7 @@ export namespace Prisma {
     fighters?: SortOrder
     tournamentId?: SortOrder
     tournamentStep?: SortOrder
+    modifiers?: SortOrder
   }
 
   export type FightAvgOrderByAggregateInput = {
@@ -32382,6 +32483,8 @@ export namespace Prisma {
   export type ServerStateCountOrderByAggregateInput = {
     id?: SortOrder
     globalTournamentValid?: SortOrder
+    activeModifiers?: SortOrder
+    modifiersEndAt?: SortOrder
   }
 
   export type ServerStateAvgOrderByAggregateInput = {
@@ -32391,11 +32494,13 @@ export namespace Prisma {
   export type ServerStateMaxOrderByAggregateInput = {
     id?: SortOrder
     globalTournamentValid?: SortOrder
+    modifiersEndAt?: SortOrder
   }
 
   export type ServerStateMinOrderByAggregateInput = {
     id?: SortOrder
     globalTournamentValid?: SortOrder
+    modifiersEndAt?: SortOrder
   }
 
   export type ServerStateSumOrderByAggregateInput = {
@@ -33806,6 +33911,10 @@ export namespace Prisma {
     update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutStartingStatsInput, BruteUpdateWithoutStartingStatsInput>, BruteUncheckedUpdateWithoutStartingStatsInput>
   }
 
+  export type FightCreatemodifiersInput = {
+    set: $Enums.FightModifier[]
+  }
+
   export type BruteCreateNestedOneWithoutFightsInput = {
     create?: XOR<BruteCreateWithoutFightsInput, BruteUncheckedCreateWithoutFightsInput>
     connectOrCreate?: BruteCreateOrConnectWithoutFightsInput
@@ -33836,6 +33945,11 @@ export namespace Prisma {
     connectOrCreate?: LogCreateOrConnectWithoutFightInput | LogCreateOrConnectWithoutFightInput[]
     createMany?: LogCreateManyFightInputEnvelope
     connect?: LogWhereUniqueInput | LogWhereUniqueInput[]
+  }
+
+  export type FightUpdatemodifiersInput = {
+    set?: $Enums.FightModifier[]
+    push?: $Enums.FightModifier | $Enums.FightModifier[]
   }
 
   export type BruteUpdateOneRequiredWithoutFightsNestedInput = {
@@ -34229,6 +34343,15 @@ export namespace Prisma {
     update?: UserUpdateWithWhereUniqueWithoutReportsInput | UserUpdateWithWhereUniqueWithoutReportsInput[]
     updateMany?: UserUpdateManyWithWhereWithoutReportsInput | UserUpdateManyWithWhereWithoutReportsInput[]
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type ServerStateCreateactiveModifiersInput = {
+    set: $Enums.FightModifier[]
+  }
+
+  export type ServerStateUpdateactiveModifiersInput = {
+    set?: $Enums.FightModifier[]
+    push?: $Enums.FightModifier | $Enums.FightModifier[]
   }
 
   export type BruteCreateNestedOneWithoutMasterOfClanInput = {
@@ -35795,6 +35918,7 @@ export namespace Prisma {
     steps: string
     fighters: string
     tournamentStep?: number
+    modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     brute2?: BruteCreateNestedOneWithoutFightsAsAdversaryInput
     logs?: LogCreateNestedManyWithoutFightInput
     tournament?: TournamentCreateNestedOneWithoutFightsInput
@@ -35810,6 +35934,7 @@ export namespace Prisma {
     fighters: string
     tournamentId?: number | null
     tournamentStep?: number
+    modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     logs?: LogUncheckedCreateNestedManyWithoutFightInput
   }
 
@@ -35830,6 +35955,7 @@ export namespace Prisma {
     steps: string
     fighters: string
     tournamentStep?: number
+    modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     brute1: BruteCreateNestedOneWithoutFightsInput
     logs?: LogCreateNestedManyWithoutFightInput
     tournament?: TournamentCreateNestedOneWithoutFightsInput
@@ -35845,6 +35971,7 @@ export namespace Prisma {
     fighters: string
     tournamentId?: number | null
     tournamentStep?: number
+    modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     logs?: LogUncheckedCreateNestedManyWithoutFightInput
   }
 
@@ -36791,6 +36918,7 @@ export namespace Prisma {
     fighters?: StringFilter<"Fight"> | string
     tournamentId?: IntNullableFilter<"Fight"> | number | null
     tournamentStep?: IntFilter<"Fight"> | number
+    modifiers?: EnumFightModifierNullableListFilter<"Fight">
   }
 
   export type FightUpsertWithWhereUniqueWithoutBrute2Input = {
@@ -38361,6 +38489,7 @@ export namespace Prisma {
     steps: string
     fighters: string
     tournamentStep?: number
+    modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     brute1: BruteCreateNestedOneWithoutFightsInput
     brute2?: BruteCreateNestedOneWithoutFightsAsAdversaryInput
     tournament?: TournamentCreateNestedOneWithoutFightsInput
@@ -38377,6 +38506,7 @@ export namespace Prisma {
     fighters: string
     tournamentId?: number | null
     tournamentStep?: number
+    modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
   }
 
   export type FightCreateOrConnectWithoutLogsInput = {
@@ -38550,6 +38680,7 @@ export namespace Prisma {
     steps?: StringFieldUpdateOperationsInput | string
     fighters?: StringFieldUpdateOperationsInput | string
     tournamentStep?: IntFieldUpdateOperationsInput | number
+    modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     brute1?: BruteUpdateOneRequiredWithoutFightsNestedInput
     brute2?: BruteUpdateOneWithoutFightsAsAdversaryNestedInput
     tournament?: TournamentUpdateOneWithoutFightsNestedInput
@@ -38566,6 +38697,7 @@ export namespace Prisma {
     fighters?: StringFieldUpdateOperationsInput | string
     tournamentId?: NullableIntFieldUpdateOperationsInput | number | null
     tournamentStep?: IntFieldUpdateOperationsInput | number
+    modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
   }
 
   export type BruteCreateWithoutDestinyChoicesInput = {
@@ -39007,6 +39139,7 @@ export namespace Prisma {
     steps: string
     fighters: string
     tournamentStep?: number
+    modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     brute1: BruteCreateNestedOneWithoutFightsInput
     brute2?: BruteCreateNestedOneWithoutFightsAsAdversaryInput
     logs?: LogCreateNestedManyWithoutFightInput
@@ -39022,6 +39155,7 @@ export namespace Prisma {
     steps: string
     fighters: string
     tournamentStep?: number
+    modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     logs?: LogUncheckedCreateNestedManyWithoutFightInput
   }
 
@@ -43093,6 +43227,7 @@ export namespace Prisma {
     fighters: string
     tournamentId?: number | null
     tournamentStep?: number
+    modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
   }
 
   export type FightCreateManyBrute2Input = {
@@ -43105,6 +43240,7 @@ export namespace Prisma {
     fighters: string
     tournamentId?: number | null
     tournamentStep?: number
+    modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
   }
 
   export type LogCreateManyCurrentBruteInput = {
@@ -43383,6 +43519,7 @@ export namespace Prisma {
     steps?: StringFieldUpdateOperationsInput | string
     fighters?: StringFieldUpdateOperationsInput | string
     tournamentStep?: IntFieldUpdateOperationsInput | number
+    modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     brute2?: BruteUpdateOneWithoutFightsAsAdversaryNestedInput
     logs?: LogUpdateManyWithoutFightNestedInput
     tournament?: TournamentUpdateOneWithoutFightsNestedInput
@@ -43398,6 +43535,7 @@ export namespace Prisma {
     fighters?: StringFieldUpdateOperationsInput | string
     tournamentId?: NullableIntFieldUpdateOperationsInput | number | null
     tournamentStep?: IntFieldUpdateOperationsInput | number
+    modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     logs?: LogUncheckedUpdateManyWithoutFightNestedInput
   }
 
@@ -43411,6 +43549,7 @@ export namespace Prisma {
     fighters?: StringFieldUpdateOperationsInput | string
     tournamentId?: NullableIntFieldUpdateOperationsInput | number | null
     tournamentStep?: IntFieldUpdateOperationsInput | number
+    modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
   }
 
   export type FightUpdateWithoutBrute2Input = {
@@ -43420,6 +43559,7 @@ export namespace Prisma {
     steps?: StringFieldUpdateOperationsInput | string
     fighters?: StringFieldUpdateOperationsInput | string
     tournamentStep?: IntFieldUpdateOperationsInput | number
+    modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     brute1?: BruteUpdateOneRequiredWithoutFightsNestedInput
     logs?: LogUpdateManyWithoutFightNestedInput
     tournament?: TournamentUpdateOneWithoutFightsNestedInput
@@ -43435,6 +43575,7 @@ export namespace Prisma {
     fighters?: StringFieldUpdateOperationsInput | string
     tournamentId?: NullableIntFieldUpdateOperationsInput | number | null
     tournamentStep?: IntFieldUpdateOperationsInput | number
+    modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     logs?: LogUncheckedUpdateManyWithoutFightNestedInput
   }
 
@@ -43448,6 +43589,7 @@ export namespace Prisma {
     fighters?: StringFieldUpdateOperationsInput | string
     tournamentId?: NullableIntFieldUpdateOperationsInput | number | null
     tournamentStep?: IntFieldUpdateOperationsInput | number
+    modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
   }
 
   export type LogUpdateWithoutCurrentBruteInput = {
@@ -44158,6 +44300,7 @@ export namespace Prisma {
     steps: string
     fighters: string
     tournamentStep?: number
+    modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
   }
 
   export type BruteUpdateWithoutTournamentsInput = {
@@ -44355,6 +44498,7 @@ export namespace Prisma {
     steps?: StringFieldUpdateOperationsInput | string
     fighters?: StringFieldUpdateOperationsInput | string
     tournamentStep?: IntFieldUpdateOperationsInput | number
+    modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     brute1?: BruteUpdateOneRequiredWithoutFightsNestedInput
     brute2?: BruteUpdateOneWithoutFightsAsAdversaryNestedInput
     logs?: LogUpdateManyWithoutFightNestedInput
@@ -44370,6 +44514,7 @@ export namespace Prisma {
     steps?: StringFieldUpdateOperationsInput | string
     fighters?: StringFieldUpdateOperationsInput | string
     tournamentStep?: IntFieldUpdateOperationsInput | number
+    modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     logs?: LogUncheckedUpdateManyWithoutFightNestedInput
   }
 
@@ -44383,6 +44528,7 @@ export namespace Prisma {
     steps?: StringFieldUpdateOperationsInput | string
     fighters?: StringFieldUpdateOperationsInput | string
     tournamentStep?: IntFieldUpdateOperationsInput | number
+    modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
   }
 
   export type BruteUpdateWithoutTitlesInput = {

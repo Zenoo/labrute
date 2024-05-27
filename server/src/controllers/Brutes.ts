@@ -1241,7 +1241,11 @@ const Brutes = {
       }
 
       // Send notification
-      DISCORD.sendRankUpNotification(brute);
+      DISCORD.sendRankUpNotification({
+        name: brute.name,
+        ranking: brute.ranking,
+        level: userBrute.level,
+      });
 
       res.send({
         success: true,

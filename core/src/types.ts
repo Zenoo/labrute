@@ -1,4 +1,4 @@
-import { Achievement, Brute, BruteInventoryItem, BruteReport, Clan, DestinyChoice, DestinyChoiceSide, Gender, Tournament, User, WeaponName } from '@labrute/prisma';
+import { Achievement, Brute, BruteInventoryItem, BruteReport, Clan, DestinyChoice, DestinyChoiceSide, FightModifier, Gender, Tournament, User, WeaponName } from '@labrute/prisma';
 import { Skill, SkillId } from './brute/skills';
 import { Weapon, WeaponAnimation, WeaponId } from './brute/weapons';
 import { BruteRanking } from './constants';
@@ -427,6 +427,7 @@ export type FightStep = SaboteurStep | LeaveStep | ArriveStep
   | CounterStep | SkillActivateStep | SkillExpireStep | SpyStep;
 
 export interface DetailedFight {
+  modifiers: FightModifier[];
   fighters: DetailedFighter[];
   initialFighters: DetailedFighter[];
   steps: FightStep[];

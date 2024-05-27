@@ -10,6 +10,7 @@ import getOpponents from '../utils/brute/getOpponents.js';
 import generateFight from '../utils/fight/generateFight.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
+import ServerState from '../utils/ServerState.js';
 
 const Fights = {
   get: (prisma: PrismaClient) => async (req: Request, res: Response) => {
@@ -121,6 +122,9 @@ const Fights = {
       let expectedError: ExpectedError | null = null;
       let retry = 0;
 
+      // Get current modifiers
+      const modifiers = await ServerState.getModifiers(prisma);
+
       while (!generatedFight && !expectedError && retry < 10) {
         try {
           retry += 1;
@@ -130,6 +134,7 @@ const Fights = {
             prisma,
             brute1,
             brute2,
+            modifiers,
             true,
             arenaFight,
             false,

@@ -253,21 +253,29 @@ enum FighterType {
   pet
 }
 
+enum FightModifier {
+  noThrows
+  focusOpponent
+  alwaysUseSupers
+  drawEveryWeapon
+}
+
 model Fight {
-  id             Int         @id @default(autoincrement())
-  date           DateTime    @default(now()) @db.Date
-  brute1         Brute       @relation(fields: [brute1Id], references: [id])
+  id             Int             @id @default(autoincrement())
+  date           DateTime        @default(now()) @db.Date
+  brute1         Brute           @relation(fields: [brute1Id], references: [id])
   brute1Id       Int
-  brute2         Brute?      @relation("Adversary", fields: [brute2Id], references: [id])
+  brute2         Brute?          @relation("Adversary", fields: [brute2Id], references: [id])
   brute2Id       Int?
-  winner         String      @db.VarChar(255)
-  loser          String      @db.VarChar(255)
-  steps          String      @db.Text
-  fighters       String      @db.Text
+  winner         String          @db.VarChar(255)
+  loser          String          @db.VarChar(255)
+  steps          String          @db.Text
+  fighters       String          @db.Text
   logs           Log[]
-  tournament     Tournament? @relation(fields: [tournamentId], references: [id])
+  tournament     Tournament?     @relation(fields: [tournamentId], references: [id])
   tournamentId   Int?
-  tournamentStep Int         @default(0)
+  tournamentStep Int             @default(0)
+  modifiers      FightModifier[] @default([])
 
   @@index([tournamentId, winner, brute1Id, brute2Id])
 }
@@ -535,8 +543,10 @@ model BruteReport {
 
 // SERVER STATE
 model ServerState {
-  id                    Int     @id @default(autoincrement())
-  globalTournamentValid Boolean @default(true)
+  id                    Int             @id @default(autoincrement())
+  globalTournamentValid Boolean         @default(true)
+  activeModifiers       FightModifier[] @default([])
+  modifiersEndAt        DateTime?       @db.Date
 }
 
 model BannedWord {

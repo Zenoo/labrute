@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
-import { Brute } from '@labrute/prisma';
+import { Brute, FightModifier } from '@labrute/prisma';
 import { EmbedBuilder, WebhookClient } from 'discord.js';
 import type { Response } from 'express';
+import { pad } from '@labrute/core';
 import { Logger } from '../logger/index.js';
 import translate from './translate.js';
 
@@ -36,6 +37,7 @@ function formatEmbedTitle(title: string) {
 export interface DiscordClient {
   sendError(error: Error, res?: Response): void;
   sendRankUpNotification(brute: Pick<Brute, 'name' | 'level' | 'ranking'>): void;
+  sendModifiersNotification(modifiers: FightModifier[]): void;
   sendMessage(message: string): Promise<void>;
 }
 
@@ -46,6 +48,10 @@ export const NOOP_DISCORD_CLIENT: DiscordClient = {
   sendRankUpNotification(brute) {
     // eslint-disable-next-line no-console
     console.log(`Rank up: ${brute.name} is now ${brute.ranking} at level ${brute.level}`);
+  },
+  sendModifiersNotification(modifiers) {
+    // eslint-disable-next-line no-console
+    console.log(`Modifiers: ${modifiers.join(', ')}`);
   },
   sendMessage(message) {
     // eslint-disable-next-line no-console
@@ -160,7 +166,7 @@ ${error.stack}
   public sendRankUpNotification(brute: Pick<Brute, 'name' | 'level' | 'ranking'>) {
     const embed = new EmbedBuilder()
       .setColor(0xebad70)
-      .setTitle(formatEmbedTitle(`${brute.name} rankded up to ${translate(`rank.${brute.ranking}`)} at level ${brute.level}`))
+      .setTitle(formatEmbedTitle(`${brute.name} ranked up to ${translate(`rank.${brute.ranking}`)} at level ${brute.level}`))
       .setURL(`${this.#server}${brute.name}/cell`)
       .setAuthor({
         name: 'LaBrute',
@@ -168,6 +174,31 @@ ${error.stack}
         url: `${this.#server}${brute.name}/ranking`,
       })
       .setThumbnail(`${this.#server}/images/rankings/lvl_${brute.ranking}.webp`)
+      .setTimestamp();
+
+    this.#notificationClient.send({ embeds: [embed] }).catch((err) => {
+      this.#logger.error(`Error trying to send a message: ${err}`);
+    });
+  }
+
+  public sendModifiersNotification(modifiers: FightModifier[]) {
+    const embed = new EmbedBuilder()
+      .setColor(0xebad70)
+      .setTitle(formatEmbedTitle('Today is special !'))
+      .setURL(this.#server.toString())
+      .setAuthor({
+        name: 'LaBrute',
+        iconURL: `${this.#server}/favicon.png`,
+        url: this.#server.toString(),
+      })
+      .setDescription('Locky (or unlucky) you! Today is a special day, the following modifiers will be active:')
+      .setThumbnail(`${this.#server}/images/header/right/1${pad(Math.floor(Math.random() * (11 - 1 + 1) + 1), 2)}.png`)
+      .addFields(
+        modifiers.map((modifier) => ({
+          name: translate(`modifier.${modifier}`),
+          value: translate(`modifier.${modifier}.desc`),
+        })),
+      )
       .setTimestamp();
 
     this.#notificationClient.send({ embeds: [embed] }).catch((err) => {

@@ -1,4 +1,4 @@
-import { PetName } from '@labrute/prisma';
+import { FightModifier, PetName } from '@labrute/prisma';
 import { PETS_TOTAL_ODDS } from './brute/pets';
 import { SKILLS_TOTAL_ODDS } from './brute/skills';
 import { WEAPONS_TOTAL_ODDS, WeaponAnimations } from './brute/weapons';
@@ -89,3 +89,10 @@ export enum BruteDeletionReason {
   DUPLICATE_NAME = 'DUPLICATE_NAME',
   INNAPROPRIATE_NAME = 'INNAPROPRIATE_NAME',
 }
+
+export const DailyModifierRates: Record<FightModifier, number> = {
+  [FightModifier.noThrows]: 2 / 30,
+  [FightModifier.focusOpponent]: 2 / 30,
+  [FightModifier.alwaysUseSupers]: 2 / 30,
+  [FightModifier.drawEveryWeapon]: 2 / 30,
+};

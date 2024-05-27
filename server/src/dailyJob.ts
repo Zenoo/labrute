@@ -1,10 +1,12 @@
 /* eslint-disable no-await-in-loop */
 import {
   BruteDeletionReason,
+  DailyModifierRates,
   Fighter,
   getWinsNeededToRankUp,
 } from '@labrute/core';
 import {
+  FightModifier,
   InventoryItemType,
   LogType, Prisma, PrismaClient, TournamentType,
 } from '@labrute/prisma';
@@ -124,7 +126,10 @@ const deleteMisformattedTournaments = async (prisma: PrismaClient) => {
   }
 };
 
-const handleDailyTournaments = async (prisma: PrismaClient) => {
+const handleDailyTournaments = async (
+  prisma: PrismaClient,
+  modifiers: FightModifier[],
+) => {
   // Keep track of gains (xp, gold)
   const gains: Record<number, [number, number]> = {};
 
@@ -320,6 +325,7 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
               prisma,
               brute1,
               brute2,
+              modifiers,
               false,
               true,
               roundBrutes.length === 2,
@@ -465,7 +471,10 @@ const handleDailyTournaments = async (prisma: PrismaClient) => {
   return gains;
 };
 
-const handleGlobalTournament = async (prisma: PrismaClient) => {
+const handleGlobalTournament = async (
+  prisma: PrismaClient,
+  modifiers: FightModifier[],
+) => {
   // Keep track of gains
   const gains: Record<number, [number, number]> = {};
 
@@ -597,6 +606,7 @@ const handleGlobalTournament = async (prisma: PrismaClient) => {
             prisma,
             brute1,
             brute2,
+            modifiers,
             false,
             true,
             roundBrutes.length === 2,
@@ -999,17 +1009,48 @@ const deleteBrutes = async (prisma: PrismaClient) => {
   LOGGER.log(`Deleted ${brutes.length} brutes tagged for deletion`);
 };
 
+// Handle modifiers
+const handleModifiers = async (prisma: PrismaClient) => {
+  // Check if current modifiers expired
+  const modifiersExpired = await ServerState.areModifiersExpired(prisma);
+
+  if (!modifiersExpired) {
+    return ServerState.getModifiers(prisma);
+  }
+
+  // Get rolled modifiers from daily rates
+  const rolledModifiers = Object.values(FightModifier).reduce((array, modifier) => {
+    if (DailyModifierRates[modifier] > Math.random()) {
+      array.push(modifier);
+    }
+
+    return array;
+  }, [] as FightModifier[]);
+
+  // Store rolled modifiers
+  await ServerState.setModifiers(prisma, rolledModifiers);
+
+  if (rolledModifiers.length) {
+    DISCORD.sendModifiersNotification(rolledModifiers);
+  }
+
+  return rolledModifiers;
+};
+
 const dailyJob = (prisma: PrismaClient) => async () => {
   try {
+    // Roll daily modifiers
+    const modifiers = await handleModifiers(prisma);
+
     if (process.env.NODE_ENV === 'production' || GENERATE_TOURNAMENTS_IN_DEV) {
       // Update server state to hold traffic
       ServerState.setReady(false);
 
       // Handle daily tournaments
-      const dailyGains = await handleDailyTournaments(prisma);
+      const dailyGains = await handleDailyTournaments(prisma, modifiers);
 
       // Handle global tournament
-      const globalGains = await handleGlobalTournament(prisma);
+      const globalGains = await handleGlobalTournament(prisma, modifiers);
 
       // Store gains
       await storeGains(prisma, dailyGains, globalGains);

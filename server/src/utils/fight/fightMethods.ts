@@ -9,7 +9,7 @@ import {
   SkillByName, StepType, updateAchievement, Weapon,
   WeaponByName,
 } from '@labrute/core';
-import { PetName } from '@labrute/prisma';
+import { FightModifier, PetName } from '@labrute/prisma';
 import getDamage from './getDamage.js';
 
 export type Stats = Record<number, {
@@ -236,6 +236,10 @@ const getRandomOpponent = (
   petOnly?: boolean,
   nonTrappedOnly?: boolean,
 ) => {
+  if (fightData.modifiers.includes(FightModifier.focusOpponent)) {
+    return getMainOpponent(fightData, fighter);
+  }
+
   let opponents = getOpponents(fightData, fighter, bruteOnly, petOnly);
 
   // Filter out trapped pets
@@ -293,7 +297,7 @@ const randomlyGetSuper = (fightData: DetailedFight, brute: DetailedFighter) => {
 
   if (!supers.length) return null;
 
-  const NO_SUPER_TOSS = 10;
+  const NO_SUPER_TOSS = fightData.modifiers.includes(FightModifier.alwaysUseSupers) ? 0 : 10;
   const randomSuper = randomBetween(
     0,
     supers.reduce((acc, skill) => acc + (skill.toss || 0), 0) + NO_SUPER_TOSS,
@@ -310,13 +314,19 @@ const randomlyGetSuper = (fightData: DetailedFight, brute: DetailedFighter) => {
   return null;
 };
 
-const randomlyDrawWeapon = (weapons: Weapon[]) => {
+const randomlyDrawWeapon = (
+  fightData: DetailedFight,
+  weapons: Weapon[],
+) => {
   if (!weapons.length) return null;
 
-  const randomWeapon = randomBetween(
-    0,
-    weapons.reduce((acc, weapon) => acc + (weapon.toss || 0), 0) + NO_WEAPON_TOSS,
-  );
+  let totalToss = weapons.reduce((acc, weapon) => acc + (weapon.toss || 0), 0);
+
+  if (!fightData.modifiers.includes(FightModifier.drawEveryWeapon)) {
+    totalToss += NO_WEAPON_TOSS;
+  }
+
+  const randomWeapon = randomBetween(0, totalToss);
 
   let toss = 0;
   for (let i = 0; i < weapons.length; i += 1) {
@@ -935,14 +945,18 @@ const drawWeapon = (fightData: DetailedFight): boolean => {
     throw new Error('No fighter found');
   }
 
+  const drawEveryWeapon = fightData.modifiers.includes(FightModifier.drawEveryWeapon);
+
   // Don't always draw a weapon if the fighter is already holding a weapon
-  if (fighter.activeWeapon && randomBetween(0, fighter.weapons.length * 2) === 0) return false;
+  if (fighter.activeWeapon
+    && !drawEveryWeapon
+    && randomBetween(0, fighter.weapons.length * 2) === 0) return false;
 
   // Draw a weapon
-  const possibleWeapon = randomlyDrawWeapon(fighter.weapons);
+  const possibleWeapon = randomlyDrawWeapon(fightData, fighter.weapons);
 
   // Decrease `keepWeaponChance` each turn and abort until true
-  if (Math.random() < fighter.keepWeaponChance) {
+  if (!drawEveryWeapon && Math.random() < fighter.keepWeaponChance) {
     fighter.keepWeaponChance *= 0.5;
     return false;
   }
@@ -1427,7 +1441,7 @@ export const playFighterTurn = (
   }
 
   // Get attack type (more chances to throw a weapon the less damage it does)
-  const attackType = fighter.activeWeapon?.types.includes('thrown')
+  let attackType = fighter.activeWeapon?.types.includes('thrown')
     ? 'thrown'
     : fighter.activeWeapon
       ? fighter.skills.find((s) => s.name === 'hideaway')
@@ -1438,6 +1452,10 @@ export const playFighterTurn = (
         : randomBetween(0, fighter.activeWeapon.damage) === 0
           ? 'thrown' : 'melee'
       : 'melee';
+
+  if (attackType === 'thrown' && fightData.modifiers.includes(FightModifier.noThrows)) {
+    attackType = 'melee';
+  }
 
   // Get opponent
   const opponent = getRandomOpponent(fightData, fighter);
