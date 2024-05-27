@@ -77,9 +77,9 @@
   "modifier.noThrows": "Липкие руки",
   "modifier.noThrows.desc": "Кто обработал оружие суперклеем?! Теперь их больше нельзя бросать.",
   "modifier.focusOpponent": "Концентрация",
-  "modifier.focusOpponent.desc": "You never lost a staring battle. You will always focus your main opponent.",
-  "modifier.alwaysUseSupers": "Unlimited power",
-  "modifier.alwaysUseSupers.desc": "You spent time learning those skills, it would be a shame not to use them. You will always use your available skills.",
-  "modifier.drawEveryWeapon": "Endless supplies",
-  "modifier.drawEveryWeapon.desc": "Your pullout game is extremely strong. You will always draw a weapon if one is available."
+  "modifier.focusOpponent.desc": "Вы ещё никогда не проигрывали в гляделки. Ваше внимание всегда будет нацелено на главного противника.",
+  "modifier.alwaysUseSupers": "Безграничная мощь",
+  "modifier.alwaysUseSupers.desc": "У вас немало времени ушло на овладение этих навыков, и было бы жаль, ими не воспользоваться. Вы всегда будете использовать доступные умения.",
+  "modifier.drawEveryWeapon": "Бесконечные запасы",
+  "modifier.drawEveryWeapon.desc": "Вы обожаете вечно всех доставать. Вы всегда будете доставать оружие из арсенала, если оно там есть."
 }
