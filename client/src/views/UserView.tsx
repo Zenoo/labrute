@@ -1,28 +1,24 @@
-import { AchievementData, FightStat, TitleRequirements, UserGetProfileResponse, formatLargeNumber, getFightsLeft } from '@labrute/core';
+import { AchievementData, TitleRequirements, UserGetProfileResponse, formatLargeNumber, getFightsLeft } from '@labrute/core';
 import { Check, QuestionMark } from '@mui/icons-material';
 import { Box, Grid, List, ListItem, ListItemText, ListSubheader, Paper, Tooltip, useTheme } from '@mui/material';
+import moment from 'moment';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useParams } from 'react-router';
-import ArenaStat from '../components/Arena/ArenaStat';
-import BruteRender from '../components/Brute/Body/BruteRender';
-import BruteHP from '../components/Brute/BruteHP';
+import { useParams } from 'react-router';
+import BruteButton from '../components/Brute/BruteButton';
+import FantasyButton from '../components/FantasyButton';
 import Page from '../components/Page';
-import StyledButton from '../components/StyledButton';
 import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
+import { useAuth } from '../hooks/useAuth';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
-import FantasyButton from '../components/FantasyButton';
-import { useAuth } from '../hooks/useAuth';
-import moment from 'moment';
 
 const UserView = () => {
   const { t } = useTranslation();
   const theme = useTheme();
   const { userId } = useParams();
   const Alert = useAlert();
-  const navigate = useNavigate();
   const { user: authedUser, updateData } = useAuth();
 
   const [user, setUser] = useState<UserGetProfileResponse | null>(null);
@@ -308,89 +304,7 @@ const UserView = () => {
             }}
             >
               {user && user.brutes.map((brute) => (
-                <StyledButton
-                  key={brute.name}
-                  image="/images/arena/brute-bg.gif"
-                  imageHover="/images/arena/brute-bg-hover.gif"
-                  contrast={false}
-                  shadow={false}
-                  onClick={() => { navigate(`/${brute.name}/cell`); }}
-                  sx={{
-                    width: 190,
-                    height: 102,
-                    mx: 1,
-                    my: 0.5,
-                  }}
-                >
-                  <Box sx={{
-                    width: 185,
-                    height: 89,
-                    pl: 1,
-                    pt: 0.5,
-                    display: 'inline-block',
-                    textAlign: 'left',
-                    position: 'relative',
-                    overflow: 'hidden',
-                  }}
-                  >
-                    <Box sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                    }}
-                    >
-                      <Box display="flex" alignItems="center">
-                        <Text bold color="secondary" sx={{ display: 'inline' }}>{brute.name}</Text>
-                      </Box>
-                    </Box>
-                    <Text bold smallCaps color="text.primary">
-                      {t('level')}
-                      <Text component="span" bold color="secondary"> {brute.level}</Text>
-                      <Box
-                        component="img"
-                        src={`/images/rankings/lvl_${brute.ranking}.webp`}
-                        sx={{
-                          verticalAlign: 'middle',
-                          height: 16,
-                          ml: 0.5,
-                        }}
-                      />
-                    </Text>
-                    <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
-                      <BruteHP hp={brute.hp} />
-                      <Box flexGrow={1} sx={{ ml: 0.5 }}>
-                        <ArenaStat
-                          stat={FightStat.STRENGTH}
-                          value={brute.strengthValue}
-                          hideSkillText
-                        />
-                        <ArenaStat
-                          stat={FightStat.AGILITY}
-                          value={brute.agilityValue}
-                          hideSkillText
-                        />
-                        <ArenaStat
-                          stat={FightStat.SPEED}
-                          value={brute.speedValue}
-                          hideSkillText
-                        />
-                      </Box>
-                    </Box>
-                    <Box sx={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 115,
-                      width: 70,
-                      height: 1,
-                    }}
-                    >
-                      <BruteRender
-                        brute={brute}
-                        looking="left"
-                      />
-                    </Box>
-                  </Box>
-                </StyledButton>
+                <BruteButton key={brute.id} brute={brute} />
               ))}
             </Box>
           </Paper>

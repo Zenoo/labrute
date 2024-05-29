@@ -1,17 +1,13 @@
-import { BrutesGetOpponentsResponse, FightStat, getFightsLeft, getXPNeeded } from '@labrute/core';
-import { Brute } from '@labrute/prisma';
+import { BrutesGetOpponentsResponse, getFightsLeft, getXPNeeded } from '@labrute/core';
 import { Box, Button, Grid, Paper, useMediaQuery, useTheme } from '@mui/material';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
-import ArenaStat from '../components/Arena/ArenaStat';
-import BruteRender from '../components/Brute/Body/BruteRender';
 import BruteBodyAndStats from '../components/Brute/BruteBodyAndStats';
-import BruteHP from '../components/Brute/BruteHP';
+import BruteButton from '../components/Brute/BruteButton';
 import BruteLevelAndXP from '../components/Brute/BruteLevelAndXP';
 import Link from '../components/Link';
 import Page from '../components/Page';
-import StyledButton from '../components/StyledButton';
 import StyledInput from '../components/StyledInput';
 import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
@@ -61,11 +57,6 @@ const ArenaView = () => {
 
     return cleanup;
   }, [Alert, brute, fightsLeft, navigate, xpNeededForNextLevel]);
-
-  // Go to versus page
-  const goToVersus = useCallback((opponent: Pick<Brute, 'name'>) => () => {
-    navigate(`/${bruteName || ''}/versus/${opponent.name}`);
-  }, [bruteName, navigate]);
 
   const changeSearch = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
@@ -128,69 +119,10 @@ const ArenaView = () => {
             <Grid container spacing={1}>
               {opponents.map((opponent) => (
                 <Grid item key={opponent.name} xs={12} sm={6}>
-                  <StyledButton
-                    image="/images/arena/brute-bg.gif"
-                    imageHover="/images/arena/brute-bg-hover.gif"
-                    contrast={false}
-                    shadow={false}
-                    onClick={goToVersus(opponent)}
-                    sx={{
-                      width: 190,
-                      height: 102,
-                      mx: 'auto',
-                    }}
-                  >
-                    <Box sx={{
-                      width: 185,
-                      height: 89,
-                      pl: 1,
-                      pt: 0.5,
-                      display: 'inline-block',
-                      textAlign: 'left',
-                      position: 'relative',
-                      overflow: 'hidden',
-                    }}
-                    >
-                      <Text bold color="secondary">{opponent.name}</Text>
-                      <Text bold smallCaps color="text.primary">
-                        {t('level')}
-                        <Text component="span" bold color="secondary"> {opponent.level}</Text>
-                      </Text>
-                      <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
-                        <BruteHP hp={opponent.hp} />
-                        <Box flexGrow={1} sx={{ ml: 0.5 }}>
-                          <ArenaStat
-                            stat={FightStat.STRENGTH}
-                            value={opponent.strengthValue}
-                            hideSkillText
-                          />
-                          <ArenaStat
-                            stat={FightStat.AGILITY}
-                            value={opponent.agilityValue}
-                            hideSkillText
-                          />
-                          <ArenaStat
-                            stat={FightStat.SPEED}
-                            value={opponent.speedValue}
-                            hideSkillText
-                          />
-                        </Box>
-                      </Box>
-                      <Box sx={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 115,
-                        width: 70,
-                        height: 1,
-                      }}
-                      >
-                        <BruteRender
-                          brute={opponent}
-                          looking="left"
-                        />
-                      </Box>
-                    </Box>
-                  </StyledButton>
+                  <BruteButton
+                    brute={opponent}
+                    link={`/${bruteName || ''}/versus/${opponent.name}`}
+                  />
                 </Grid>
               ))}
             </Grid>

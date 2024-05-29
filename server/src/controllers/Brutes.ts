@@ -617,6 +617,7 @@ const Brutes = {
             select: {
               id: true,
               name: true,
+              ranking: true,
               level: true,
               gender: true,
               hp: true,
