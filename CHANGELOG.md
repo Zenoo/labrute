@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.58.1](https://github.com/Zenoo/labrute/compare/labrute-v2.58.0...labrute-v2.58.1) (2024-05-29)
+
+
+### Bug Fixes
+
+* Separate discord webhooks ([32a2daa](https://github.com/Zenoo/labrute/commit/32a2daa5b4781edee22ae5820e0dc54c8aa3bc26))
+
 ## [2.58.0](https://github.com/Zenoo/labrute/compare/labrute-v2.57.0...labrute-v2.58.0) (2024-05-27)
 
 
