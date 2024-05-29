@@ -154,7 +154,7 @@ const RankingView = () => {
           </Grid>
           {!isMd && (
             <Grid item xs={12} md={3} sx={{ display: 'flex', alignItems: 'center' }}>
-              <Box component="img" src="/images/arena/referee.gif" sx={{ maxWidth: 1 }} />
+              <Box component="img" src={`/images${theme.palette.mode === 'dark' ? '/dark' : ''}/arena/referee.webp`} sx={{ maxWidth: 1 }} />
             </Grid>
           )}
         </Grid>

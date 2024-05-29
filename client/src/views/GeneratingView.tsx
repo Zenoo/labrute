@@ -1,4 +1,4 @@
-import { Box, Grid, Paper } from '@mui/material';
+import { Box, Grid, Paper, useTheme } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Page from '../components/Page';
@@ -8,6 +8,7 @@ import useStateAsync from '../hooks/useStateAsync';
 
 const GeneratingView = () => {
   const { t } = useTranslation();
+  const { palette: { mode } } = useTheme();
 
   // Get server state
   const { data: serverState, reload } = useStateAsync(null, Server.isReady, undefined);
@@ -44,13 +45,13 @@ const GeneratingView = () => {
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         <Grid container spacing={1} sx={{ textAlign: 'center' }}>
           <Grid item xs={6} md={3} order={{ xs: 2, md: 1 }}>
-            <Box component="img" src="/images/arena/bear.gif" sx={{ maxWidth: 1 }} />
+            <Box component="img" src={`/images${mode === 'dark' ? '/dark' : ''}/arena/bear.webp`} sx={{ maxWidth: 1 }} />
           </Grid>
           <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }}>
             <Text bold>{t('generatingTournaments')}</Text>
           </Grid>
           <Grid item xs={6} md={3} order={3}>
-            <Box component="img" src="/images/arena/referee.gif" sx={{ maxWidth: 1 }} />
+            <Box component="img" src={`/images${mode === 'dark' ? '/dark' : ''}/arena/referee.webp`} sx={{ maxWidth: 1 }} />
           </Grid>
         </Grid>
       </Paper>

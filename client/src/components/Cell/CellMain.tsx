@@ -120,8 +120,8 @@ const CellMain = ({
                 height: 72,
                 width: 218,
               }}
-              image={`/images/${language}/cell/arena.gif`}
-              imageHover={`/images/${language}/cell/arena-hover.gif`}
+              image={`/images/${language}/cell/arena.webp`}
+              imageHover={`/images/${language}/cell/arena-hover.webp`}
               shadow={false}
               contrast={false}
             />

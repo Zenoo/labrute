@@ -19,7 +19,7 @@ import BruteRender from './Brute/Body/BruteRender';
 import Header from './Header';
 import Text from './Text';
 
-const ENABLE_THEME_TOGGLE = false;
+const ENABLE_THEME_TOGGLE = true;
 
 interface Props extends BoxProps {
   title: string,

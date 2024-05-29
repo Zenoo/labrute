@@ -111,7 +111,7 @@ const ArenaView = () => {
                 <Text bold>{t('backToCell')}</Text>
               </Link>
               {!isMd && (
-                <Box component="img" src="/images/arena/bear.gif" sx={{ maxWidth: 1 }} />
+                <Box component="img" src={`/images${theme.palette.mode === 'dark' ? '/dark' : ''}/arena/bear.webp`} sx={{ maxWidth: 1 }} />
               )}
             </Box>
           </Grid>
@@ -138,7 +138,7 @@ const ArenaView = () => {
           {!isMd && (
             <Grid item xs={12} md={2.4}>
               <Text bold>{t('selectedOpponents')}</Text>
-              <Box component="img" src="/images/arena/referee.gif" sx={{ maxWidth: 1 }} />
+              <Box component="img" src={`/images${theme.palette.mode === 'dark' ? '/dark' : ''}/arena/referee.webp`} sx={{ maxWidth: 1 }} />
             </Grid>
           )}
         </Grid>

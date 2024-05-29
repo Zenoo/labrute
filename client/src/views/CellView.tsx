@@ -3,7 +3,7 @@ import { BruteReportReason } from '@labrute/prisma';
 import { History } from '@mui/icons-material';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import { Box, Fab, Paper, Tooltip, useMediaQuery } from '@mui/material';
+import { Box, Fab, Paper, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -43,6 +43,7 @@ const CellView = () => {
   const Confirm = useConfirm();
   const Alert = useAlert();
   const { user, updateData } = useAuth();
+  const { palette: { mode } } = useTheme();
   const { data: logs } = useStateAsync([], Server.Log.list, bruteName || '');
 
   // Sacrifice brute
@@ -333,7 +334,7 @@ const CellView = () => {
               )}
               {/* ADVERT */}
               <BoxBg
-                src={`/images/${language}/cell/a-bg.gif`}
+                src={`/images${mode === 'dark' ? '/dark' : ''}/${language}/cell/a-bg.webp`}
                 sx={{
                   width: 300,
                   height: 205,

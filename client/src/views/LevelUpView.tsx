@@ -89,7 +89,7 @@ const LevelUpView = () => {
         <Box sx={{ textAlign: 'center' }}>
           {/* BRUTE */}
           <BoxBg
-            src="/images/level-up/brute-bg.gif"
+            src="/images/level-up/brute-bg.webp"
             sx={{
               display: 'flex',
               alignItems: 'center',

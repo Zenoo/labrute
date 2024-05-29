@@ -87,8 +87,8 @@ const HallView = () => {
         {user && user.brutes.map((brute) => (
           <StyledButton
             key={brute.name}
-            image="/images/arena/brute-bg.gif"
-            imageHover="/images/arena/brute-bg-hover.gif"
+            image="/images/arena/brute-bg.webp"
+            imageHover="/images/arena/brute-bg-hover.webp"
             contrast={false}
             shadow={false}
             onClick={goToCell(brute.name)}

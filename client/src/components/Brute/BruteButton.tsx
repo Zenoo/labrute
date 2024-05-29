@@ -39,8 +39,8 @@ const BruteButton = ({
   return (
     <StyledButton
       key={brute.name}
-      image="/images/arena/brute-bg.gif"
-      imageHover="/images/arena/brute-bg-hover.gif"
+      image="/images/arena/brute-bg.webp"
+      imageHover="/images/arena/brute-bg-hover.webp"
       contrast={false}
       shadow={false}
       onClick={goTo}

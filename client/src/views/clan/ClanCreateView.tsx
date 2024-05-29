@@ -61,7 +61,7 @@ const ClanCreateView = () => {
         <Grid container spacing={1}>
           {!isMd && (
             <Grid item xs={12} md={3}>
-              <Box component="img" src="/images/arena/bear.gif" sx={{ maxWidth: 1 }} />
+              <Box component="img" src={`/images${theme.palette.mode === 'dark' ? '/dark' : ''}/arena/bear.webp`} sx={{ maxWidth: 1 }} />
             </Grid>
           )}
           <Grid
@@ -85,7 +85,7 @@ const ClanCreateView = () => {
           </Grid>
           {!isMd && (
             <Grid item xs={12} md={3}>
-              <Box component="img" src="/images/arena/referee.gif" sx={{ maxWidth: 1 }} />
+              <Box component="img" src={`/images${theme.palette.mode === 'dark' ? '/dark' : ''}/arena/referee.webp`} sx={{ maxWidth: 1 }} />
             </Grid>
           )}
         </Grid>
