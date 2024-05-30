@@ -434,28 +434,28 @@ const skills: Skill[] = [
   },
   {
     name: 'vampirism',
-    odds: 1,
+    odds: 10,
     type: 'super',
     uses: 1,
     toss: 5,
   },
   {
     name: 'chaining',
-    odds: 1,
+    odds: 5,
     type: 'passive',
   },
   {
     name: 'haste',
-    odds: 1,
+    odds: 5,
     type: 'super',
     uses: 1,
     toss: 3,
   },
   {
     name: 'treat',
-    odds: 0.5,
+    odds: 20,
     type: 'super',
-    uses: 2,
+    uses: 4,
     toss: 5,
   },
 ];
