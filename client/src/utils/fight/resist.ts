@@ -2,7 +2,7 @@ import { FightStep, ResistStep, StepType } from '@labrute/core';
 import { OutlineFilter } from '@pixi/filter-outline';
 import { Application } from 'pixi.js';
 
-import findFighter, { AnimationFighter } from './findFighter';
+import findFighter, { AnimationFighter } from './utils/findFighter';
 
 const resist = (
   app: Application,

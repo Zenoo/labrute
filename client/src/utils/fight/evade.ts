@@ -2,7 +2,7 @@
 import { EvadeStep } from '@labrute/core';
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
-import findFighter, { AnimationFighter } from './findFighter';
+import findFighter, { AnimationFighter } from './utils/findFighter';
 
 const evade = async (
   fighters: AnimationFighter[],

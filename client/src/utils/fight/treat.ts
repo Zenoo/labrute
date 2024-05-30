@@ -1,17 +1,15 @@
 /* eslint-disable no-void */
-import { EatStep } from '@labrute/core';
-import { Easing, Tweener } from 'pixi-tweener';
+import { TreatStep } from '@labrute/core';
 import { Application } from 'pixi.js';
 
 import { sound } from '@pixi/sound';
-import updateHp from './updateHp';
 import { displayHeal } from './utils/displayHeal';
 import findFighter, { AnimationFighter } from './utils/findFighter';
 
-const eat = async (
+export const treat = async (
   app: Application,
   fighters: AnimationFighter[],
-  step: EatStep,
+  step: TreatStep,
   speed: React.MutableRefObject<number>,
 ) => {
   const brute = findFighter(fighters, step.b);
@@ -29,28 +27,13 @@ const eat = async (
   // Set brute animation to `eat`
   brute.animation.setAnimation('eat');
 
-  // Resize pet to 0 in 0.5s
-  Tweener.add({
-    target: pet.animation.container,
-    duration: 0.5 / speed.current,
-    ease: Easing.linear
-  }, {
-    height: 0,
-    width: 0,
-  }).catch(console.error);
-
   // Play eat SFX
   void sound.play('skills/tamer', {
     speed: speed.current,
   });
 
-  displayHeal(app, brute, step.h, speed);
+  displayHeal(app, pet, step.h, speed);
 
   // Wait for animation to complete
   await animationEnded;
-
-  // Heal brute
-  updateHp(brute, step.h, speed);
 };
-
-export default eat;

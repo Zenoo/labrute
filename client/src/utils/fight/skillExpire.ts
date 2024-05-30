@@ -3,8 +3,8 @@ import { Application } from 'pixi.js';
 
 import { OutlineFilter } from '@pixi/filter-outline';
 import { Easing, Tweener } from 'pixi-tweener';
-import { getRandomPosition } from './fightPositions';
-import findFighter, { AnimationFighter } from './findFighter';
+import { getRandomPosition } from './utils/fightPositions';
+import findFighter, { AnimationFighter } from './utils/findFighter';
 
 const skillExpire = async (
   app: Application,

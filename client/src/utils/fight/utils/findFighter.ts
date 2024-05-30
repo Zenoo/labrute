@@ -1,6 +1,6 @@
 import { Fighter } from '@labrute/core';
 import * as PIXI from 'pixi.js';
-import FighterHolder from './FighterHolder';
+import FighterHolder from '../FighterHolder';
 
 export interface AnimationFighter extends Omit<Fighter, 'shield'> {
   type: 'brute' | 'pet' | 'boss';

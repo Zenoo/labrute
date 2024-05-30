@@ -72,13 +72,25 @@ const translateFightStep = (
         damage: step.d,
         target: getFighterName(fighters, step.t, t),
       };
+      let text = '';
+
       if (typeof step.w !== 'undefined') {
-        return t('fight.step.hitWith', {
+        text += t('fight.step.hitWith', {
           ...data,
           weapon: t(WeaponById[step.w]),
         });
+      } else {
+        text += t('fight.step.hit', data);
       }
-      return t('fight.step.hit', data);
+
+      if (step.s) {
+        text += ' ';
+        text += t('fight.step.stun', {
+          brute: getFighterName(fighters, step.t, t),
+        });
+      }
+
+      return text;
     }
     case StepType.Hammer:
       return t('fight.step.hammer', {
@@ -201,6 +213,25 @@ const translateFightStep = (
       return t('fight.step.spy', {
         brute: getFighterName(fighters, step.b, t),
         opponent: getFighterName(fighters, step.t, t),
+      });
+    case StepType.Vampirism:
+      return t('fight.step.vampirism', {
+        brute: getFighterName(fighters, step.b, t),
+        opponent: getFighterName(fighters, step.t, t),
+        damage: step.d,
+        heal: step.h,
+      });
+    case StepType.Haste:
+      return t('fight.step.haste', {
+        brute: getFighterName(fighters, step.b, t),
+        opponent: getFighterName(fighters, step.t, t),
+        damage: step.d,
+      });
+    case StepType.Treat:
+      return t('fight.step.treat', {
+        brute: getFighterName(fighters, step.b, t),
+        target: getFighterName(fighters, step.t, t),
+        heal: step.h,
       });
     default:
       return '';

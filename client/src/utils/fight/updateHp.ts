@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { Tweener } from 'pixi-tweener';
-import { AnimationFighter } from './findFighter';
+import { AnimationFighter } from './utils/findFighter';
 
 const updateHp = (
   brute: AnimationFighter,

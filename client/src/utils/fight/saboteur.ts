@@ -5,7 +5,7 @@ import { Application, Sprite } from 'pixi.js';
 import { BevelFilter } from '@pixi/filter-bevel';
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
-import findFighter, { AnimationFighter } from './findFighter';
+import findFighter, { AnimationFighter } from './utils/findFighter';
 import stagger from './stagger';
 
 const saboteur = async (

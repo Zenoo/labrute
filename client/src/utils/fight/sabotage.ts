@@ -1,7 +1,7 @@
 import { SabotageStep } from '@labrute/core';
 import { Application } from 'pixi.js';
 
-import findFighter, { AnimationFighter } from './findFighter';
+import findFighter, { AnimationFighter } from './utils/findFighter';
 import updateWeapons from './updateWeapons';
 
 const sabotage = (

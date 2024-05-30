@@ -3,8 +3,8 @@ import { FIGHTER_WIDTH, MoveStep, weapons } from '@labrute/core';
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
 import { Application } from 'pixi.js';
-import findFighter, { AnimationFighter } from './findFighter';
-import getFighterType from './getFighterType';
+import findFighter, { AnimationFighter } from './utils/findFighter';
+import getFighterType from './utils/getFighterType';
 
 const moveTo = async (
   app: Application,

@@ -1,16 +1,18 @@
 /* eslint-disable no-void */
-import { FIGHTER_HEIGHT, StealStep, WeaponById } from '@labrute/core';
+import { FIGHTER_WIDTH, VampirismStep } from '@labrute/core';
 
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
 import { Application } from 'pixi.js';
 import { getRandomPosition } from './utils/fightPositions';
 import findFighter, { AnimationFighter } from './utils/findFighter';
+import { displayHeal } from './utils/displayHeal';
+import displayDamage from './utils/displayDamage';
 
-const steal = async (
+export const vampirism = async (
   app: Application,
   fighters: AnimationFighter[],
-  step: StealStep,
+  step: VampirismStep,
   speed: React.MutableRefObject<number>,
 ) => {
   const brute = findFighter(fighters, step.b);
@@ -28,8 +30,10 @@ const steal = async (
     duration: 0.25 / speed.current,
     ease: Easing.linear,
   }, {
-    x: target.animation.container.x,
-    y: target.animation.container.y - FIGHTER_HEIGHT.brute / 2,
+    x: target.animation.team === 'right'
+      ? target.animation.container.x + FIGHTER_WIDTH.brute / 2
+      : target.animation.container.x - FIGHTER_WIDTH.brute / 2,
+    y: target.animation.container.y - 1,
   });
 
   // Reverse brute
@@ -39,21 +43,18 @@ const steal = async (
   brute.animation.setAnimation('steal');
 
   // Play steal SFX
-  void sound.play('skills/thief', { speed: speed.current });
+  void sound.play('skills/tragicPotion', { speed: speed.current });
 
   const animationEnded = target.animation.waitForEvent('stolen:end');
 
   // Set target animation to `stolen`
   target.animation.setAnimation('stolen');
 
+  displayHeal(app, brute, step.h, speed);
+  displayDamage(app, target, step.d, speed);
+
   // Wait for animation to finish
   await animationEnded;
-
-  // Update target current weapon
-  target.animation.weapon = null;
-
-  // Update brute weapons
-  brute.animation.weapon = WeaponById[step.w];
 
   // Restore scale
   brute.animation.container.scale.x *= -1;
@@ -76,5 +77,3 @@ const steal = async (
   // Set brute animation to `idle`
   brute.animation.setAnimation('idle');
 };
-
-export default steal;

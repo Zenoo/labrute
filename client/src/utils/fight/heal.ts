@@ -1,13 +1,13 @@
 /* eslint-disable no-void */
 import { HealStep } from '@labrute/core';
-import { OutlineFilter } from '@pixi/filter-outline';
 import { Tweener } from 'pixi-tweener';
-import { Application, Sprite, Text } from 'pixi.js';
+import { Application, Sprite } from 'pixi.js';
 
 import { sound } from '@pixi/sound';
-import findFighter, { AnimationFighter } from './findFighter';
-import insideXBounds from './insideXBounds';
 import updateHp from './updateHp';
+import { displayHeal } from './utils/displayHeal';
+import findFighter, { AnimationFighter } from './utils/findFighter';
+import insideXBounds from './utils/insideXBounds';
 
 const heal = async (
   app: Application,
@@ -39,27 +39,7 @@ const heal = async (
     speed: speed.current,
   });
 
-  // Display floating and fading green heal text
-  const healText = new Text(`+${step.h}`, {
-    fontFamily: 'GameFont', fontSize: 20, fill: 0x00ff00,
-  });
-  healText.anchor.set(0.5);
-  healText.x = insideXBounds(brute.animation.container.x);
-  healText.y = brute.animation.container.y - brute.animation.container.height;
-  healText.zIndex = 1000;
-  healText.filters = [new OutlineFilter()];
-  app.stage.addChild(healText);
-
-  Tweener.add({
-    target: healText,
-    duration: 2 / speed.current,
-  }, {
-    y: healText.y - 100,
-    alpha: 0,
-  }).then(() => {
-    // Remove text
-    healText.destroy();
-  }).catch(console.error);
+  displayHeal(app, brute, step.h, speed);
 
   // Display floating and fading cure icon if brute was poison healed
   if (step.c) {

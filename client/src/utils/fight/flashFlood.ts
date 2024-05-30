@@ -4,9 +4,9 @@ import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
 import { Application, Sprite } from 'pixi.js';
 
-import displayDamage from './displayDamage';
-import findFighter, { AnimationFighter } from './findFighter';
-import getFighterType from './getFighterType';
+import displayDamage from './utils/displayDamage';
+import findFighter, { AnimationFighter } from './utils/findFighter';
+import getFighterType from './utils/getFighterType';
 import stagger from './stagger';
 import updateHp from './updateHp';
 import updateWeapons from './updateWeapons';

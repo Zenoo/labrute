@@ -4,8 +4,8 @@ import { Easing, Tweener } from 'pixi-tweener';
 import { AnimatedSprite, Application } from 'pixi.js';
 
 import { sound } from '@pixi/sound';
-import { getRandomPosition } from './fightPositions';
-import findFighter, { AnimationFighter } from './findFighter';
+import { getRandomPosition } from './utils/fightPositions';
+import findFighter, { AnimationFighter } from './utils/findFighter';
 
 const arrive = async (
   app: Application,

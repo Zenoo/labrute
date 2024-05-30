@@ -200,6 +200,7 @@ const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
         poisoned: false,
         trapped: false,
         damagedWeapons: [],
+        hitBy: {},
       };
 
       handleSkills(brute, fighter);
@@ -260,6 +261,7 @@ const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
           poisoned: false,
           trapped: false,
           damagedWeapons: [],
+          hitBy: {},
         });
       });
 
@@ -329,6 +331,7 @@ const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
           poisoned: false,
           trapped: false,
           damagedWeapons: [],
+          hitBy: {},
         };
 
         handleSkills(backup, backupFighter);
@@ -388,6 +391,7 @@ const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
         poisoned: false,
         trapped: false,
         damagedWeapons: [],
+        hitBy: {},
       });
     }
   });

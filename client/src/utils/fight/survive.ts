@@ -1,7 +1,7 @@
 import { SurviveStep } from '@labrute/core';
 import { Application } from 'pixi.js';
 
-import findFighter, { AnimationFighter } from './findFighter';
+import findFighter, { AnimationFighter } from './utils/findFighter';
 import updateHp from './updateHp';
 
 const survive = (

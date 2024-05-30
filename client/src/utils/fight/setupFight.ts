@@ -24,7 +24,7 @@ import end from './end';
 import equip from './equip';
 import evade from './evade';
 import FighterHolder from './FighterHolder';
-import { AnimationFighter } from './findFighter';
+import { AnimationFighter } from './utils/findFighter';
 import flashFlood from './flashFlood';
 import hammer from './hammer';
 import heal from './heal';
@@ -45,6 +45,9 @@ import throwWeapon from './throwWeapon';
 import trap from './trap';
 import trash from './trash';
 import updateWeapons from './updateWeapons';
+import { vampirism } from './vampirism';
+import { haste } from './haste';
+import { treat } from './treat';
 
 const backgrounds: string[] = [
   'background/1.jpg',
@@ -578,6 +581,18 @@ const setupFight: (
       }
       case StepType.Spy: {
         await spy(fighters, step, speed);
+        break;
+      }
+      case StepType.Vampirism: {
+        await vampirism(app, fighters, step, speed);
+        break;
+      }
+      case StepType.Haste: {
+        await haste(app, fighters, step, speed);
+        break;
+      }
+      case StepType.Treat: {
+        await treat(app, fighters, step, speed);
         break;
       }
       case StepType.Counter: {

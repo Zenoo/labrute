@@ -95,6 +95,9 @@ export interface DetailedFighter {
   hypnotised?: boolean;
   // Reduce some weapons damage by 25%
   damagedWeapons: WeaponName[],
+  // Keep track of consecutive hits for stun status
+  hitBy: Record<number, number>,
+  stunned?: boolean,
 }
 
 export interface Fighter {
@@ -149,6 +152,9 @@ export enum StepType {
   SkillActivate,
   SkillExpire,
   Spy,
+  Vampirism,
+  Haste,
+  Treat,
 }
 
 export interface SaboteurStep {
@@ -239,6 +245,8 @@ export interface HitStep {
   w?: WeaponId;
   /** Damage */
   d: number;
+  /** Stunned? */
+  s?: 1 | 0;
 }
 
 export interface BombStep {
@@ -419,12 +427,48 @@ export interface SpyStep {
   r: WeaponId[];
 }
 
+export interface VampirismStep {
+  /** Action */
+  a: StepType.Vampirism;
+  /** Brute ID */
+  b: number;
+  /** Target ID */
+  t: number;
+  /** Damage done */
+  d: number;
+  /** HP healed */
+  h: number;
+}
+
+export interface HasteStep {
+  /** Action */
+  a: StepType.Haste;
+  /** Brute ID */
+  b: number;
+  /** Target ID */
+  t: number;
+  /** Damage done */
+  d: number;
+}
+
+export interface TreatStep {
+  /** Action */
+  a: StepType.Treat;
+  /** Brute ID */
+  b: number;
+  /** Target ID */
+  t: number;
+  /** HP healed */
+  h: number;
+}
+
 export type FightStep = SaboteurStep | LeaveStep | ArriveStep
   | TrashStep | StealStep | TrapStep | HealStep | ResistStep
   | SurviveStep | HitStep | BombStep | HypnotiseStep | MoveStep | EatStep
   | MoveBackStep | EquipStep | AttemptHitStep | BlockStep | EvadeStep
   | SabotageStep | DisarmStep | DeathStep | ThrowStep | EndStep
-  | CounterStep | SkillActivateStep | SkillExpireStep | SpyStep;
+  | CounterStep | SkillActivateStep | SkillExpireStep | SpyStep
+  | VampirismStep | HasteStep | TreatStep;
 
 export interface DetailedFight {
   modifiers: FightModifier[];

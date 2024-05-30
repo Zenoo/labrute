@@ -124,6 +124,10 @@ enum SkillName {
   backup
   hideaway
   monk
+  vampirism
+  chaining
+  haste
+  treat
 }
 
 enum PetName {
