@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.59.2](https://github.com/Zenoo/labrute/compare/labrute-v2.59.1...labrute-v2.59.2) (2024-05-30)
+
+
+### Bug Fixes
+
+* Missing assets + stun only if chaining skill ([6d5feed](https://github.com/Zenoo/labrute/commit/6d5feed642e9bfaabedce062a2156ef29ffa5e04))
+
 ## [2.59.1](https://github.com/Zenoo/labrute/compare/labrute-v2.59.0...labrute-v2.59.1) (2024-05-30)
 
 
