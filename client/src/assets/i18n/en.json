@@ -475,7 +475,7 @@
   "fight.step.vampirism": "{{brute}} sucked {{opponent}}'s blood, dealing {{damage}} damage and regaining {{heal}}HP.",
   "fight.step.stun": "{{brute}} was stunned.",
   "fight.step.haste": "{{brute}} rushed past {{opponent}} and dealt {{damage}} damage.",
-  "fight.step.treat": "{{brute}} gave a treat his pet {{target}} and healed him for {{heal}}HP.",
+  "fight.step.treat": "{{brute}} gave a treat to his pet {{target}} and healed him for {{heal}}HP.",
   "fight.wonTheFight": "{{brute}} won the fight",
   "fight.play": "Play",
   "fight.pause": "Pause",
