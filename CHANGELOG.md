@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.59.0](https://github.com/Zenoo/labrute/compare/labrute-v2.58.1...labrute-v2.59.0) (2024-05-30)
+
+
+### Features
+
+* Dark mode. [#604](https://github.com/Zenoo/labrute/issues/604) ([b56ffe4](https://github.com/Zenoo/labrute/commit/b56ffe42d0c08e34cefd41b0749cc2cb9f5a9279))
+* New skills + Increase thief use rate. Fixes [#720](https://github.com/Zenoo/labrute/issues/720) ([d2b4c0c](https://github.com/Zenoo/labrute/commit/d2b4c0c5880be0b913ac065202b0c14436d317e3))
+
+
+### Bug Fixes
+
+* Dark mode assets. [#604](https://github.com/Zenoo/labrute/issues/604) ([1e7f21d](https://github.com/Zenoo/labrute/commit/1e7f21dd924edc1d2d8b687977a372a1ab4f8afc))
+* Display brutes rank in arena. Fixes [#718](https://github.com/Zenoo/labrute/issues/718) ([cebd030](https://github.com/Zenoo/labrute/commit/cebd030e9c8499aa4735b1a43491347363ad00a9))
+* Don't decrease fights counter on friendly fights. Fixes [#713](https://github.com/Zenoo/labrute/issues/713) ([2061f03](https://github.com/Zenoo/labrute/commit/2061f033be2931b6fe8359ec599e709181eb2a74))
+
 ## [2.58.1](https://github.com/Zenoo/labrute/compare/labrute-v2.58.0...labrute-v2.58.1) (2024-05-29)
 
 
