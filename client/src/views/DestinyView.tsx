@@ -1,7 +1,7 @@
 import { DestinyBranch, skills, weapons } from '@labrute/core';
 import { BruteStat, PetName, SkillName, WeaponName } from '@labrute/prisma';
 import { QuestionMark } from '@mui/icons-material';
-import { Box, Paper, SxProps } from '@mui/material';
+import { Box, Paper, SxProps, useTheme } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
@@ -87,6 +87,7 @@ const DestinyView = () => {
   const { t } = useTranslation();
   const { bruteName } = useParams();
   const { brute } = useBrute();
+  const { palette: { mode } } = useTheme();
 
   // Destiny choices
   const { data: tree } = useStateAsync(null, Server.Brute.getDestiny, bruteName || '');
@@ -99,7 +100,7 @@ const DestinyView = () => {
     >
       <Box component="aside" sx={styles.aside}>
         <BoxBg
-          src={`/images/level-up/box${branch?.current ? '-current' : ''}.png`}
+          src={`/images${mode === 'dark' ? '/dark' : ''}/level-up/box${branch?.current ? '-current' : ''}.png`}
           sx={{
             pt: 5,
             height: 129,

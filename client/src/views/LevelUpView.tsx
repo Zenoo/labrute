@@ -89,7 +89,7 @@ const LevelUpView = () => {
         <Box sx={{ textAlign: 'center' }}>
           {/* BRUTE */}
           <BoxBg
-            src="/images/level-up/brute-bg.webp"
+            src={`/images${theme.palette.mode === 'dark' ? '/dark' : ''}/level-up/brute-bg.webp`}
             sx={{
               display: 'flex',
               alignItems: 'center',
@@ -134,8 +134,8 @@ const LevelUpView = () => {
                       && i === 0)
                       || (brute.previousDestinyPath[brute.level - 1] === DestinyChoiceSide.RIGHT
                         && i === 1))
-                    ? '/images/level-up/box-current.png'
-                    : '/images/level-up/box.png'}
+                    ? `/images${theme.palette.mode === 'dark' ? '/dark' : ''}/level-up/box-current.png`
+                    : `/images${theme.palette.mode === 'dark' ? '/dark' : ''}/level-up/box.png`}
                   sx={{
                     pt: 5,
                     height: 129,
