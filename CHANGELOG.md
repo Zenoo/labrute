@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.59.3](https://github.com/Zenoo/labrute/compare/labrute-v2.59.2...labrute-v2.59.3) (2024-05-30)
+
+
+### Bug Fixes
+
+* Dark mode cell readability ([0b6fa4a](https://github.com/Zenoo/labrute/commit/0b6fa4ab38328767de5c0249780f03b33172095d))
+* Don't clear localStorage on logout ([5032dd4](https://github.com/Zenoo/labrute/commit/5032dd471eb90b90b2064b325a8126d304f34900))
+* New skills odds ([ac3e3fb](https://github.com/Zenoo/labrute/commit/ac3e3fbfc7393e7e63bd2357df92b9ef715639c8))
+
 ## [2.59.2](https://github.com/Zenoo/labrute/compare/labrute-v2.59.1...labrute-v2.59.2) (2024-05-30)
 
 
