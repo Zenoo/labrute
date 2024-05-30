@@ -1,4 +1,4 @@
-import { Box, Grid, Paper } from '@mui/material';
+import { Box, Grid, Paper, useTheme } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import BruteRender from '../../components/Brute/Body/BruteRender';
@@ -19,6 +19,7 @@ const VersusMobileView = ({
   startFight,
 }: VersusMobileViewProps) => {
   const { t } = useTranslation();
+  const { palette: { mode } } = useTheme();
 
   return (
     <Page
@@ -58,7 +59,7 @@ const VersusMobileView = ({
             <Text h5 upperCase bold color="secondary">{t('level')} {brute.level}</Text>
           </Grid>
           <Grid item xs={12} sm={2} alignSelf="center">
-            <Box component="img" src="/images/versus/vs.png" sx={{ width: 100, maxWidth: 1 }} />
+            <Box component="img" src={`/images${mode === 'dark' ? '/dark' : ''}/versus/vs.webp`} sx={{ width: 100, maxWidth: 1 }} />
           </Grid>
           <Grid item xs={12} sm={5}>
             <Box width={100} mx="auto">

@@ -1,6 +1,6 @@
 import { Fighter, TournamentsGetDailyResponse } from '@labrute/core';
 import { Close } from '@mui/icons-material';
-import { Box, Paper, useMediaQuery } from '@mui/material';
+import { Box, Paper, useMediaQuery, useTheme } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -36,6 +36,7 @@ const TournamentView = () => {
   const navigate = useNavigate();
   const smallScreen = useMediaQuery('(max-width: 935px)');
   const { brute, updateBrute } = useBrute();
+  const { palette: { mode } } = useTheme();
 
   const tournamentProps = useMemo(() => ({ name: bruteName || '', date: date || '' }), [bruteName, date]);
   const { data: tournament } = useStateAsync(null, Server.Tournament.getDaily, tournamentProps);
@@ -312,7 +313,7 @@ const TournamentView = () => {
                         {/* VS */}
                         <Box
                           component="img"
-                          src="/images/tournament/vs.svg"
+                          src={`/images${mode === 'dark' ? '/dark' : ''}/tournament/vs.webp`}
                           sx={{
                             width: scale(45, index),
                           }}

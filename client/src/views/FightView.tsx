@@ -1,5 +1,5 @@
 import { Fight } from '@labrute/prisma';
-import { Box, Link, Tooltip, useMediaQuery } from '@mui/material';
+import { Box, Link, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -21,6 +21,7 @@ const FightView = () => {
   const navigate = useNavigate();
   const smallScreen = useMediaQuery('(max-width: 935px)');
   const { language } = useLanguage();
+  const { palette: { mode } } = useTheme();
 
   // Fight data
   const [fight, setFight] = useState<Fight | null>(null);
@@ -64,7 +65,7 @@ const FightView = () => {
   return (bruteName && fightId) ? (
     <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl={`/${bruteName}/cell`}>
       <BoxBg
-        src="/images/fight/background.gif"
+        src={`/images${mode === 'dark' ? '/dark' : ''}/fight/background.webp`}
         sx={{
           width: 930,
           height: 460,

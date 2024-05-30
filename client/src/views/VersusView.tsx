@@ -1,5 +1,5 @@
 import { getXPNeeded } from '@labrute/core';
-import { Box, Grid, useMediaQuery } from '@mui/material';
+import { Box, Grid, useMediaQuery, useTheme } from '@mui/material';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -24,6 +24,7 @@ const VersusView = () => {
   const { user, updateData } = useAuth();
   const { brute, updateBrute } = useBrute();
   const smallScreen = useMediaQuery('(max-width: 935px)');
+  const { palette: { mode } } = useTheme();
 
   // Prevent multi click
   const [fighting, setFighting] = React.useState(false);
@@ -96,7 +97,7 @@ const VersusView = () => {
   return brute && opponent && (
     <Page title={`${brute.name || ''} ${t('MyBrute')}`} headerUrl={`/${brute.name}/cell`}>
       <BoxBg
-        src="/images/versus/background.gif"
+        src={`/images${mode === 'dark' ? '/dark' : ''}/versus/background.webp`}
         sx={{
           width: 881,
           maxWidth: 1,

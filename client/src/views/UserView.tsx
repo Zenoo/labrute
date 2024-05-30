@@ -13,6 +13,7 @@ import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
+import { AchievementTooltip } from '../components/AchievementTooltip';
 
 const UserView = () => {
   const { t } = useTranslation();
@@ -84,49 +85,7 @@ const UserView = () => {
                   }}
                   >
                     {user.achievements.map((achievement) => (
-                      <Tooltip
-                        key={`${user.id}-${achievement.name}`}
-                        title={(
-                          <>
-                            <Text bold h6>
-                              {t(`achievements.${achievement.name}`)} ({achievement.count})
-                            </Text>
-                            <Text
-                              sx={{
-                                color: `achievements.${AchievementData[achievement.name].rarety}.main`,
-                                fontStyle: 'italic',
-                                textTransform: 'capitalize',
-                              }}
-                            >
-                              {t(AchievementData[achievement.name].rarety)}
-                            </Text>
-                            <Text sx={{ fontStyle: 'italic', color: 'text.secondary' }}>{t(`achievements.${achievement.name}.description`)}</Text>
-                            {AchievementData[achievement.name].onePerFight && (
-                              <Text subtitle2 sx={{ color: 'achievements.common.main' }}>
-                                {t('maxPerFight')}:{' '}
-                                <Text component="span" subtitle2 bold sx={{ color: 'secondary.contrastText' }}>1</Text>
-                              </Text>
-                            )}
-                            {AchievementData[achievement.name].perBrute && (
-                              <Text subtitle2 sx={{ color: 'achievements.common.main' }}>
-                                {t('maxPerBrute')}:{' '}
-                                <Text component="span" subtitle2 bold sx={{ color: 'secondary.contrastText' }}>{AchievementData[achievement.name].perBrute}</Text>
-                              </Text>
-                            )}
-                          </>
-                        )}
-                        componentsProps={{
-                          tooltip: {
-                            sx: {
-                              bgcolor: 'secondary.main',
-                              color: 'secondary.contrastText',
-                              border: 1,
-                              borderColor: 'primary.main',
-                            }
-                          },
-                          popper: { sx: { width: 250 } },
-                        }}
-                      >
+                      <AchievementTooltip key={achievement.name} achievement={achievement}>
                         <Box
                           sx={{
                             width: 40,
@@ -148,7 +107,7 @@ const UserView = () => {
                           )}
                           <Text bold>{formatLargeNumber(achievement.count)}</Text>
                         </Box>
-                      </Tooltip>
+                      </AchievementTooltip>
                     ))}
                   </Box>
                 </Paper>
@@ -189,48 +148,7 @@ const UserView = () => {
                           dense
                           sx={{ width: 1, py: 0 }}
                           subheader={(
-                            <Tooltip
-                              title={(
-                                <>
-                                  <Text bold h6>
-                                    {t(`achievements.${achievement.name}`)} ({achievement.count})
-                                  </Text>
-                                  <Text
-                                    sx={{
-                                      color: `achievements.${AchievementData[achievement.name].rarety}.main`,
-                                      fontStyle: 'italic',
-                                      textTransform: 'capitalize',
-                                    }}
-                                  >
-                                    {t(AchievementData[achievement.name].rarety)}
-                                  </Text>
-                                  <Text sx={{ fontStyle: 'italic', color: 'text.secondary' }}>{t(`achievements.${achievement.name}.description`)}</Text>
-                                  {AchievementData[achievement.name].onePerFight && (
-                                    <Text subtitle2 sx={{ color: 'achievements.common.main' }}>
-                                      {t('maxPerFight')}:{' '}
-                                      <Text component="span" subtitle2 bold sx={{ color: 'secondary.contrastText' }}>1</Text>
-                                    </Text>
-                                  )}
-                                  {AchievementData[achievement.name].perBrute && (
-                                    <Text subtitle2 sx={{ color: 'achievements.common.main' }}>
-                                      {t('maxPerBrute')}:{' '}
-                                      <Text component="span" subtitle2 bold sx={{ color: 'secondary.contrastText' }}>{AchievementData[achievement.name].perBrute}</Text>
-                                    </Text>
-                                  )}
-                                </>
-                              )}
-                              componentsProps={{
-                                tooltip: {
-                                  sx: {
-                                    bgcolor: 'secondary.main',
-                                    color: 'secondary.contrastText',
-                                    border: 1,
-                                    borderColor: 'primary.main',
-                                  }
-                                },
-                                popper: { sx: { width: 250 } },
-                              }}
-                            >
+                            <AchievementTooltip achievement={achievement}>
                               <ListSubheader sx={{
                                 display: 'flex',
                                 alignItems: 'center',
@@ -245,7 +163,7 @@ const UserView = () => {
                                 />
                                 <Text smallCaps bold color="secondary.contrastText" sx={{ ml: 1 }}>{t(`achievements.${achievement.name}`)}</Text>
                               </ListSubheader>
-                            </Tooltip>
+                            </AchievementTooltip>
                           )}
                         >
                           {availableTitles.map((titleCount, i) => (

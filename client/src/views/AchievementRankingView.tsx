@@ -1,8 +1,9 @@
 import { AchievementData, AchievementGetRankingsResponse } from '@labrute/core';
 import { AchievementName } from '@labrute/prisma';
-import { Box, Checkbox, FormControlLabel, Grid, List, ListItem, ListItemText, ListSubheader, Paper, Tooltip, useTheme } from '@mui/material';
+import { Box, Checkbox, FormControlLabel, Grid, List, ListItem, ListItemText, ListSubheader, Paper, useTheme } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { AchievementTooltip } from '../components/AchievementTooltip';
 import Link from '../components/Link';
 import Page from '../components/Page';
 import Text from '../components/Text';
@@ -70,48 +71,7 @@ const AchievementRankingView = () => {
                     dense
                     sx={{ width: 1, py: 0 }}
                     subheader={(
-                      <Tooltip
-                        title={(
-                          <>
-                            <Text bold h6>
-                              {t(`achievements.${achievementName}`)}
-                            </Text>
-                            <Text
-                              sx={{
-                                color: `achievements.${AchievementData[achievementName].rarety}.main`,
-                                fontStyle: 'italic',
-                                textTransform: 'capitalize',
-                              }}
-                            >
-                              {t(AchievementData[achievementName].rarety)}
-                            </Text>
-                            <Text sx={{ fontStyle: 'italic', color: 'text.secondary' }}>{t(`achievements.${achievementName}.description`)}</Text>
-                            {AchievementData[achievementName].onePerFight && (
-                              <Text subtitle2 sx={{ color: 'achievements.common.main' }}>
-                                {t('maxPerFight')}:{' '}
-                                <Text component="span" subtitle2 bold sx={{ color: 'secondary.contrastText' }}>1</Text>
-                              </Text>
-                            )}
-                            {AchievementData[achievementName].perBrute && (
-                              <Text subtitle2 sx={{ color: 'achievements.common.main' }}>
-                                {t('maxPerBrute')}:{' '}
-                                <Text component="span" subtitle2 bold sx={{ color: 'secondary.contrastText' }}>{AchievementData[achievementName].perBrute}</Text>
-                              </Text>
-                            )}
-                          </>
-                        )}
-                        componentsProps={{
-                          tooltip: {
-                            sx: {
-                              bgcolor: 'secondary.main',
-                              color: 'secondary.contrastText',
-                              border: 1,
-                              borderColor: 'primary.main',
-                            }
-                          },
-                          popper: { sx: { width: 250 } },
-                        }}
-                      >
+                      <AchievementTooltip name={achievementName}>
                         <ListSubheader sx={{
                           display: 'flex',
                           alignItems: 'center',
@@ -126,7 +86,7 @@ const AchievementRankingView = () => {
                           />
                           <Text smallCaps bold color="secondary.contrastText" sx={{ ml: 1 }}>{t(`achievements.${achievementName}`)}</Text>
                         </ListSubheader>
-                      </Tooltip>
+                      </AchievementTooltip>
                     )}
                   >
                     {top3.map((ranked) => (

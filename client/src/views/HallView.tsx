@@ -1,6 +1,6 @@
 import { FightStat, MAX_FAVORITE_BRUTES, getFightsLeft } from '@labrute/core';
 import { Check, CrisisAlert, Stars } from '@mui/icons-material';
-import { Box, Paper, Tooltip } from '@mui/material';
+import { Box, Paper, Tooltip, useTheme } from '@mui/material';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -21,6 +21,7 @@ const HallView = () => {
   const navigate = useNavigate();
   const { user, updateData } = useAuth();
   const Alert = useAlert();
+  const { palette: { mode } } = useTheme();
 
   const fightsLeft = useMemo(() => user && user.brutes
     .reduce((acc, brute) => acc + getFightsLeft(brute), 0), [user]);
@@ -204,7 +205,7 @@ const HallView = () => {
                     sx={{
                       m: 0.25,
                       p: '2px',
-                      bgcolor: 'success.main',
+                      bgcolor: mode === 'dark' ? 'success.dark' : 'success.main',
                       borderRadius: '50%',
                       color: 'success.light',
                     }}

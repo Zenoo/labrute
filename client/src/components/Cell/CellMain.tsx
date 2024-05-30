@@ -96,7 +96,7 @@ const CellMain = ({
                   mr: 0.25,
                   display: 'inline-block',
                   border: '2px solid',
-                  borderColor: 'secondary.main',
+                  borderColor: 'divider',
                   bgcolor: brute.tournamentWins > i ? 'success.light' : 'transparent',
                 }}
               />
