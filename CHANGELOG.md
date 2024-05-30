@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.59.4](https://github.com/Zenoo/labrute/compare/labrute-v2.59.3...labrute-v2.59.4) (2024-05-30)
+
+
+### Bug Fixes
+
+* Missing dark assets ([36824c7](https://github.com/Zenoo/labrute/commit/36824c7d7fe5fdde4063b22841afa37a9e635f63))
+
 ## [2.59.3](https://github.com/Zenoo/labrute/compare/labrute-v2.59.2...labrute-v2.59.3) (2024-05-30)
 
 
