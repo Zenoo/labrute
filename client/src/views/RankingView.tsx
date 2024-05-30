@@ -75,8 +75,8 @@ const RankingView = () => {
             <Tooltip key={bruteRanking} title={t(`lvl_${bruteRanking}`)}>
               <RouterLink to={`/${bruteName || ''}/ranking/${bruteRanking}`}>
                 <StyledButton
-                  image={rankingSelected === bruteRanking ? '/images/rankings/button_selected.gif' : '/images/rankings/button.gif'}
-                  imageHover={rankingSelected === bruteRanking ? '/images/rankings/button_selected.gif' : '/images/rankings/button_hover.gif'}
+                  image={rankingSelected === bruteRanking ? '/images/rankings/button_selected.webp' : '/images/rankings/button.webp'}
+                  imageHover={rankingSelected === bruteRanking ? '/images/rankings/button_selected.webp' : '/images/rankings/button_hover.webp'}
                   shadow={false}
                   contrast={false}
                   sx={{

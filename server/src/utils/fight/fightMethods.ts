@@ -504,7 +504,8 @@ const registerHit = (
         fighter.hitBy[opponent.id] = 0;
 
         // Stun opponent if 3 hits in a row
-        if ((opponent.hitBy[fighter.id] || 0) === 3) {
+        if (fighter.skills.find((s) => s.name === SkillName.chaining)
+          && (opponent.hitBy[fighter.id] || 0) === 3) {
           step.s = 1;
           opponent.stunned = true;
           opponent.hitBy[fighter.id] = 0;
