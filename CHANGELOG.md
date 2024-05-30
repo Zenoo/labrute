@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.59.1](https://github.com/Zenoo/labrute/compare/labrute-v2.59.0...labrute-v2.59.1) (2024-05-30)
+
+
+### Bug Fixes
+
+* New skill icons ([90d6ba0](https://github.com/Zenoo/labrute/commit/90d6ba07e20a1a14dd51b8a5dc21b3fd706009e7))
+
 ## [2.59.0](https://github.com/Zenoo/labrute/compare/labrute-v2.58.1...labrute-v2.59.0) (2024-05-30)
 
 
