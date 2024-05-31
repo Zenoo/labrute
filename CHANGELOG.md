@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.59.7](https://github.com/Zenoo/labrute/compare/labrute-v2.59.6...labrute-v2.59.7) (2024-05-31)
+
+
+### Bug Fixes
+
+* No counter/evade/block when stunned ([c134019](https://github.com/Zenoo/labrute/commit/c134019b2e0417ef106f877d1147d95437310649))
+* Update HP bar on new skills ([5007d83](https://github.com/Zenoo/labrute/commit/5007d83b1aa0a3630a15c76cbb3cd14d06dfcf34))
+
 ## [2.59.6](https://github.com/Zenoo/labrute/compare/labrute-v2.59.5...labrute-v2.59.6) (2024-05-31)
 
 
