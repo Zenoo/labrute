@@ -475,7 +475,7 @@
   "fight.step.vampirism": "{{brute}} hat Blut von {{opponent}} abgesaugt, dabei {{damage}} Schaden zugefügt und {{heal}} LP wiederhergestellt.",
   "fight.step.stun": "{{brute}} wurde betäubt.",
   "fight.step.haste": "{{brute}} ist an {{opponent}} vorbeigestürmt und hat dabei {{damage}} Schaden zugefügt.",
-  "fight.step.treat": "{{brute}} gave a treat his pet {{target}} and healed him for {{heal}}HP.",
+  "fight.step.treat": "{{brute}} hat seinem Tierbegleiter {{target}} ein Leckerli gegeben und ihn um {{heal}} LP geheilt.",
   "fight.wonTheFight": "{{brute}} hat den Kampf gewonnen",
   "fight.play": "Abspielen",
   "fight.pause": "Pausieren",
