@@ -76,7 +76,7 @@ export const InventoryView = () => {
                   <Text bold>{t('backToCell')}</Text>
                 </Link>
                 {!isMd && (
-                  <Box component="img" src="/images/arena/bear.gif" sx={{ maxWidth: 1 }} />
+                  <Box component="img" src={`/images${theme.palette.mode === 'dark' ? '/dark' : ''}/arena/bear.webp`} sx={{ maxWidth: 1 }} />
                 )}
               </Box>
             </Grid>
@@ -85,8 +85,8 @@ export const InventoryView = () => {
                 {brute.inventory.map((item) => !!item.count && (
                   <Grid item key={item.type} xs={12} sm={6}>
                     <StyledButton
-                      image="/images/arena/brute-bg.gif"
-                      imageHover="/images/arena/brute-bg-hover.gif"
+                      image="/images/arena/brute-bg.webp"
+                      imageHover="/images/arena/brute-bg-hover.webp"
                       contrast={false}
                       shadow={false}
                       onClick={triggerItem(item)}
@@ -131,7 +131,7 @@ export const InventoryView = () => {
             {!isMd && (
               <Grid item xs={12} md={2.4}>
                 <Text bold>{t('inventory.desc')}</Text>
-                <Box component="img" src="/images/arena/referee.gif" sx={{ maxWidth: 1 }} />
+                <Box component="img" src={`/images${theme.palette.mode === 'dark' ? '/dark' : ''}/arena/referee.webp`} sx={{ maxWidth: 1 }} />
               </Grid>
             )}
           </Grid>

@@ -48,6 +48,7 @@ const getOpponents = async (
       select: {
         id: true,
         name: true,
+        ranking: true,
         gender: true,
         level: true,
         hp: true,

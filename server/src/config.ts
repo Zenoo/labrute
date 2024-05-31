@@ -95,6 +95,11 @@ export interface Config {
   readonly discordLogs: DiscordConfig | null;
 
   /**
+   * Configuration for the Discord client used for rank ups (optional).
+   */
+  readonly discordRankUps: DiscordConfig | null;
+
+  /**
    * Absolute URL to the DinoRPG website.
    */
   readonly dinoRpgUrl: string;
@@ -182,6 +187,16 @@ export function readConfig(env: Record<string, string | undefined>): Config {
     };
   }
 
+  const rawDiscordRankUpId = env.DISCORD_RANKUP_WEBHOOK_ID;
+  const rawDiscordRankUpToken = env.DISCORD_RANKUP_WEBHOOK_TOKEN;
+  let discordRankUps: DiscordConfig | null = null;
+  if (typeof rawDiscordRankUpId === 'string' && typeof rawDiscordRankUpToken === 'string') {
+    discordRankUps = {
+      webhookId: rawDiscordRankUpId,
+      webhookToken: rawDiscordRankUpToken,
+    };
+  }
+
   const dinoRpgUrl = env.DINORPG_URL ?? 'https://dinorpg.eternaltwin.org';
 
   return {
@@ -191,6 +206,7 @@ export function readConfig(env: Record<string, string | undefined>): Config {
     eternaltwin,
     discordNotifications,
     discordLogs,
+    discordRankUps,
     dinoRpgUrl,
   };
 }

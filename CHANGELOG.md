@@ -2,6 +2,88 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.59.8](https://github.com/Zenoo/labrute/compare/labrute-v2.59.7...labrute-v2.59.8) (2024-05-31)
+
+
+### Bug Fixes
+
+* Close dialogs on cell swipe ([3f56b66](https://github.com/Zenoo/labrute/commit/3f56b66f8a7b9021e5f2716088fbdd973609362c))
+* Possible button sizes ([b22acf7](https://github.com/Zenoo/labrute/commit/b22acf7e2afb022ccdc7af7b5d30bd66551f3193))
+
+## [2.59.7](https://github.com/Zenoo/labrute/compare/labrute-v2.59.6...labrute-v2.59.7) (2024-05-31)
+
+
+### Bug Fixes
+
+* No counter/evade/block when stunned ([c134019](https://github.com/Zenoo/labrute/commit/c134019b2e0417ef106f877d1147d95437310649))
+* Update HP bar on new skills ([5007d83](https://github.com/Zenoo/labrute/commit/5007d83b1aa0a3630a15c76cbb3cd14d06dfcf34))
+
+## [2.59.6](https://github.com/Zenoo/labrute/compare/labrute-v2.59.5...labrute-v2.59.6) (2024-05-31)
+
+
+### Bug Fixes
+
+* Wrong target with focus modifier ([9f3f72b](https://github.com/Zenoo/labrute/commit/9f3f72b47cefd00a6e8bccc3fc51d40416786120))
+
+## [2.59.5](https://github.com/Zenoo/labrute/compare/labrute-v2.59.4...labrute-v2.59.5) (2024-05-31)
+
+
+### Bug Fixes
+
+* Typo ([2829782](https://github.com/Zenoo/labrute/commit/2829782e54a3395da39dd667eb1ee0a8cb152bd8))
+
+## [2.59.4](https://github.com/Zenoo/labrute/compare/labrute-v2.59.3...labrute-v2.59.4) (2024-05-30)
+
+
+### Bug Fixes
+
+* Missing dark assets ([36824c7](https://github.com/Zenoo/labrute/commit/36824c7d7fe5fdde4063b22841afa37a9e635f63))
+
+## [2.59.3](https://github.com/Zenoo/labrute/compare/labrute-v2.59.2...labrute-v2.59.3) (2024-05-30)
+
+
+### Bug Fixes
+
+* Dark mode cell readability ([0b6fa4a](https://github.com/Zenoo/labrute/commit/0b6fa4ab38328767de5c0249780f03b33172095d))
+* Don't clear localStorage on logout ([5032dd4](https://github.com/Zenoo/labrute/commit/5032dd471eb90b90b2064b325a8126d304f34900))
+* New skills odds ([ac3e3fb](https://github.com/Zenoo/labrute/commit/ac3e3fbfc7393e7e63bd2357df92b9ef715639c8))
+
+## [2.59.2](https://github.com/Zenoo/labrute/compare/labrute-v2.59.1...labrute-v2.59.2) (2024-05-30)
+
+
+### Bug Fixes
+
+* Missing assets + stun only if chaining skill ([6d5feed](https://github.com/Zenoo/labrute/commit/6d5feed642e9bfaabedce062a2156ef29ffa5e04))
+
+## [2.59.1](https://github.com/Zenoo/labrute/compare/labrute-v2.59.0...labrute-v2.59.1) (2024-05-30)
+
+
+### Bug Fixes
+
+* New skill icons ([90d6ba0](https://github.com/Zenoo/labrute/commit/90d6ba07e20a1a14dd51b8a5dc21b3fd706009e7))
+
+## [2.59.0](https://github.com/Zenoo/labrute/compare/labrute-v2.58.1...labrute-v2.59.0) (2024-05-30)
+
+
+### Features
+
+* Dark mode. [#604](https://github.com/Zenoo/labrute/issues/604) ([b56ffe4](https://github.com/Zenoo/labrute/commit/b56ffe42d0c08e34cefd41b0749cc2cb9f5a9279))
+* New skills + Increase thief use rate. Fixes [#720](https://github.com/Zenoo/labrute/issues/720) ([d2b4c0c](https://github.com/Zenoo/labrute/commit/d2b4c0c5880be0b913ac065202b0c14436d317e3))
+
+
+### Bug Fixes
+
+* Dark mode assets. [#604](https://github.com/Zenoo/labrute/issues/604) ([1e7f21d](https://github.com/Zenoo/labrute/commit/1e7f21dd924edc1d2d8b687977a372a1ab4f8afc))
+* Display brutes rank in arena. Fixes [#718](https://github.com/Zenoo/labrute/issues/718) ([cebd030](https://github.com/Zenoo/labrute/commit/cebd030e9c8499aa4735b1a43491347363ad00a9))
+* Don't decrease fights counter on friendly fights. Fixes [#713](https://github.com/Zenoo/labrute/issues/713) ([2061f03](https://github.com/Zenoo/labrute/commit/2061f033be2931b6fe8359ec599e709181eb2a74))
+
+## [2.58.1](https://github.com/Zenoo/labrute/compare/labrute-v2.58.0...labrute-v2.58.1) (2024-05-29)
+
+
+### Bug Fixes
+
+* Separate discord webhooks ([32a2daa](https://github.com/Zenoo/labrute/commit/32a2daa5b4781edee22ae5820e0dc54c8aa3bc26))
+
 ## [2.58.0](https://github.com/Zenoo/labrute/compare/labrute-v2.57.0...labrute-v2.58.0) (2024-05-27)
 
 

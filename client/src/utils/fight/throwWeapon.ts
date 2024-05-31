@@ -3,8 +3,8 @@ import { FIGHTER_HEIGHT, FIGHTER_WIDTH, ThrowStep, WeaponById } from '@labrute/c
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
 import { Application, Sprite } from 'pixi.js';
-import findFighter, { AnimationFighter } from './findFighter';
-import getFighterType from './getFighterType';
+import findFighter, { AnimationFighter } from './utils/findFighter';
+import getFighterType from './utils/getFighterType';
 
 const throwWeapon = async (
   app: Application,

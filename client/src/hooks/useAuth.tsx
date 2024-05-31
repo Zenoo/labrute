@@ -59,11 +59,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           // Update language
           setLanguage(response.lang);
         }).catch(() => {
-          localStorage.clear();
+          localStorage.removeItem('user');
+          localStorage.removeItem('token');
+          localStorage.removeItem('expires');
           setAuthing(false);
         });
       } else {
-        localStorage.clear();
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+        localStorage.removeItem('expires');
         setAuthing(false);
       }
     } else {

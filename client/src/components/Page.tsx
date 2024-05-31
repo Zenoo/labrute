@@ -19,8 +19,6 @@ import BruteRender from './Brute/Body/BruteRender';
 import Header from './Header';
 import Text from './Text';
 
-const ENABLE_THEME_TOGGLE = false;
-
 interface Props extends BoxProps {
   title: string,
   headerUrl?: string,
@@ -266,14 +264,12 @@ const Page = ({
             </Tooltip>
           ))}
           {/* LIGHT/DARK MODE */}
-          {ENABLE_THEME_TOGGLE && (
-            <Tooltip title={theme.palette.mode === 'dark' ? t('lightMode') : t('darkMode')}>
-              <ColorModeIcon
-                onClick={colorMode.toggleColorMode}
-                sx={{ cursor: 'pointer', fontSize: 14, ml: 1 }}
-              />
-            </Tooltip>
-          )}
+          <Tooltip title={theme.palette.mode === 'dark' ? t('lightMode') : t('darkMode')}>
+            <ColorModeIcon
+              onClick={colorMode.toggleColorMode}
+              sx={{ cursor: 'pointer', fontSize: 14, ml: 1 }}
+            />
+          </Tooltip>
           {/* ADMIN PANEL */}
           {user && user.admin && (
             <Tooltip title={t('adminPanel')}>

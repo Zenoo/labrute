@@ -23,12 +23,16 @@ export class ServerContext {
     const fallbackLogger: Logger = new Logger([isMainThread ? CONSOLE : PARENT_PORT]);
 
     let discord: DiscordClient;
-    if (config.discordNotifications !== null && config.discordLogs !== null) {
+    if (config.discordNotifications !== null
+        && config.discordLogs !== null
+        && config.discordRankUps !== null) {
       discord = new NetworkDiscordClient({
         notificationWebhookId: config.discordNotifications.webhookId,
         notificationWebhookToken: config.discordNotifications.webhookToken,
         logWebhookId: config.discordLogs.webhookId,
         logWebhookToken: config.discordLogs.webhookToken,
+        rankUpWebhookId: config.discordRankUps.webhookId,
+        rankUpWebhookToken: config.discordRankUps.webhookToken,
         server: config.selfUrl,
         logger: fallbackLogger,
       });

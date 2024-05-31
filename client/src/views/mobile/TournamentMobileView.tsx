@@ -1,7 +1,7 @@
 import { Fighter, TournamentsGetDailyResponse } from '@labrute/core';
 import { Brute } from '@labrute/prisma';
 import { Close } from '@mui/icons-material';
-import { Box, Paper } from '@mui/material';
+import { Box, Paper, useTheme } from '@mui/material';
 import moment from 'moment';
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -49,6 +49,7 @@ const TournamentMobileView = ({
 }: Props) => {
   const { t } = useTranslation();
   const { authing } = useAuth();
+  const { palette: { mode } } = useTheme();
 
   return tournament && (
     <Page title={`${t('tournament')} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/cell`}>
@@ -161,7 +162,7 @@ const TournamentMobileView = ({
                       {/* VS */}
                       <Box
                         component="img"
-                        src="/images/tournament/vs.svg"
+                        src={`/images${mode === 'dark' ? '/dark' : ''}/tournament/vs.webp`}
                         sx={{
                           width: 40,
                         }}

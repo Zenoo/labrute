@@ -4,9 +4,9 @@ import { OutlineFilter } from '@pixi/filter-outline';
 import { sound } from '@pixi/sound';
 import { AnimatedSprite, Application } from 'pixi.js';
 
-import displayDamage from './displayDamage';
-import findFighter, { AnimationFighter } from './findFighter';
-import getFighterType from './getFighterType';
+import displayDamage from './utils/displayDamage';
+import findFighter, { AnimationFighter } from './utils/findFighter';
+import getFighterType from './utils/getFighterType';
 import stagger from './stagger';
 import updateHp from './updateHp';
 
@@ -137,8 +137,13 @@ const hit = async (
     ) || [];
   }
 
-  // Set animation to `idle`
-  target.animation.setAnimation('idle');
+  // Set animation to `death` if target is stunned
+  if (step.s) {
+    target.animation.setAnimation('death');
+  } else {
+    // Set animation to `idle`
+    target.animation.setAnimation('idle');
+  }
 };
 
 export default hit;

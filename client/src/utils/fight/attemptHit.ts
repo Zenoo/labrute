@@ -3,7 +3,7 @@ import { AttemptHitStep, FIGHTER_HEIGHT, FIGHTER_WIDTH, WeaponById, weapons } fr
 import { BevelFilter } from '@pixi/filter-bevel';
 import { Easing, Tweener } from 'pixi-tweener';
 import { Application, Sprite } from 'pixi.js';
-import findFighter, { AnimationFighter } from './findFighter';
+import findFighter, { AnimationFighter } from './utils/findFighter';
 
 const attemptHit = async (
   app: Application,

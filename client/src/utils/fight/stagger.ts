@@ -1,6 +1,6 @@
 import { Easing, Tweener } from 'pixi-tweener';
 import { Container, Sprite } from 'pixi.js';
-import { AnimationFighter } from './findFighter';
+import { AnimationFighter } from './utils/findFighter';
 
 const staggerObject = async (
   object: Container | Sprite,

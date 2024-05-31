@@ -62,7 +62,7 @@ const Header = ({
       <Link component={RouterLink} to={url || '/'}>
         <Box
           component="img"
-          src={`/images/${language}/header/head${theme.palette.mode === 'dark' ? '-dark' : ''}.webp`}
+          src={`/images${theme.palette.mode === 'dark' ? '/dark' : ''}/${language}/header/head.webp`}
           sx={{
             width: 1,
             filter: `drop-shadow(3px 3px ${theme.palette.border.shadow})`,

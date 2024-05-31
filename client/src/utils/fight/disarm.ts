@@ -1,7 +1,7 @@
 import { DisarmStep, FIGHTER_HEIGHT, FIGHTER_WIDTH, WeaponById } from '@labrute/core';
 import { Application, Sprite } from 'pixi.js';
 
-import findFighter, { AnimationFighter } from './findFighter';
+import findFighter, { AnimationFighter } from './utils/findFighter';
 import { BevelFilter } from '@pixi/filter-bevel';
 import { Easing, Tweener } from 'pixi-tweener';
 

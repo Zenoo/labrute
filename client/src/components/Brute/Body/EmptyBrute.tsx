@@ -7,7 +7,7 @@ const EmptyBrute = ({ sx, ...props }: BoxProps) => {
   return (
     <Box
       component="img"
-      src={`/images${mode === 'dark' ? '/dark' : ''}/creation/noCharacter.svg`}
+      src={`/images${mode === 'dark' ? '/dark' : ''}/creation/noCharacter.webp`}
       alt="Empty Brute"
       sx={{
         width: 65,

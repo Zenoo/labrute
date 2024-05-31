@@ -65,6 +65,8 @@ export interface NetworkDiscordClientOptions {
   notificationWebhookToken: string,
   logWebhookId: string,
   logWebhookToken: string,
+  rankUpWebhookId: string,
+  rankUpWebhookToken: string,
   timeout?: number
   logger: Logger,
   server: URL,
@@ -84,6 +86,11 @@ export class NetworkDiscordClient implements DiscordClient {
    * Client used to send logs
    */
   readonly #logClient: WebhookClient;
+
+  /**
+   * Client used to send rank up notifications
+   */
+  readonly #rankUpClient: WebhookClient;
 
   /**
    * Create a new Discord client
@@ -107,6 +114,13 @@ export class NetworkDiscordClient implements DiscordClient {
       {
         id: options.logWebhookId,
         token: options.logWebhookToken,
+      },
+      clientOptions,
+    );
+    this.#rankUpClient = new WebhookClient(
+      {
+        id: options.rankUpWebhookId,
+        token: options.rankUpWebhookToken,
       },
       clientOptions,
     );
@@ -176,7 +190,7 @@ ${error.stack}
       .setThumbnail(`${this.#server}/images/rankings/lvl_${brute.ranking}.webp`)
       .setTimestamp();
 
-    this.#notificationClient.send({ embeds: [embed] }).catch((err) => {
+    this.#rankUpClient.send({ embeds: [embed] }).catch((err) => {
       this.#logger.error(`Error trying to send a message: ${err}`);
     });
   }
@@ -191,7 +205,7 @@ ${error.stack}
         iconURL: `${this.#server}/favicon.png`,
         url: this.#server.toString(),
       })
-      .setDescription('Locky (or unlucky) you! Today is a special day, the following modifiers will be active:')
+      .setDescription('Lucky (or unlucky) you! Today is a special day, the following modifiers will be active:')
       .setThumbnail(`${this.#server}/images/header/right/1${pad(Math.floor(Math.random() * (11 - 1 + 1) + 1), 2)}.png`)
       .addFields(
         modifiers.map((modifier) => ({

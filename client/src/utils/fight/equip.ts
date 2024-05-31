@@ -3,7 +3,7 @@ import { EquipStep, WeaponById } from '@labrute/core';
 
 import { sound } from '@pixi/sound';
 import { Application } from 'pixi.js';
-import findFighter, { AnimationFighter } from './findFighter';
+import findFighter, { AnimationFighter } from './utils/findFighter';
 import updateWeapons from './updateWeapons';
 
 const equip = async (

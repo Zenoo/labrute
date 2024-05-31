@@ -227,7 +227,11 @@ export const SkillName: {
   saboteur: 'saboteur',
   backup: 'backup',
   hideaway: 'hideaway',
-  monk: 'monk'
+  monk: 'monk',
+  vampirism: 'vampirism',
+  chaining: 'chaining',
+  haste: 'haste',
+  treat: 'treat'
 };
 
 export type SkillName = (typeof SkillName)[keyof typeof SkillName]

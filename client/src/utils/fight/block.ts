@@ -3,7 +3,7 @@ import { BlockStep } from '@labrute/core';
 import { Application } from 'pixi.js';
 
 import { sound } from '@pixi/sound';
-import findFighter, { AnimationFighter } from './findFighter';
+import findFighter, { AnimationFighter } from './utils/findFighter';
 
 const block = async (
   app: Application,

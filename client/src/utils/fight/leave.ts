@@ -3,7 +3,7 @@ import { LeaveStep } from '@labrute/core';
 import { Easing, Tweener } from 'pixi-tweener';
 import { Application } from 'pixi.js';
 
-import findFighter, { AnimationFighter } from './findFighter';
+import findFighter, { AnimationFighter } from './utils/findFighter';
 
 const leave = async (
   app: Application,

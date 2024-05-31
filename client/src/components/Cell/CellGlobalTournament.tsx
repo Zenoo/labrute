@@ -218,7 +218,7 @@ const CellGlobalTournament = ({
         </BruteTooltip>
         <Box
           component="img"
-          src="/images/tournament/vs.svg"
+          src={`/images${theme.palette.mode === 'dark' ? '/dark' : ''}/versus/vs.webp`}
           sx={{
             width: finals ? 30 : 20,
           }}

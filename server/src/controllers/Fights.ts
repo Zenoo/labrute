@@ -234,11 +234,13 @@ const Fights = {
         });
       }
 
+      const fightsLeft = getFightsLeft(brute1);
+
       // Send fight id to client
       res.send({
         id: fightId,
         xpWon: arenaFight ? xpGained : 0,
-        fightsLeft: getFightsLeft(brute1) - 1,
+        fightsLeft: arenaFight ? fightsLeft - 1 : fightsLeft,
         victories: arenaFight ? generatedFight.winner === brute1.name ? 1 : 0 : 0,
       });
     } catch (error) {

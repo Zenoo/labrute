@@ -3,8 +3,8 @@ import { MoveBackStep } from '@labrute/core';
 import { Easing, Tweener } from 'pixi-tweener';
 import { Application } from 'pixi.js';
 
-import { getRandomPosition } from './fightPositions';
-import findFighter, { AnimationFighter } from './findFighter';
+import { getRandomPosition } from './utils/fightPositions';
+import findFighter, { AnimationFighter } from './utils/findFighter';
 
 const moveBack = async (
   app: Application,

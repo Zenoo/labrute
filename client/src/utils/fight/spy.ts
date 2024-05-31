@@ -1,7 +1,7 @@
 import { SpyStep, WeaponId, randomBetween } from '@labrute/core';
 
 import { Easing, Tweener } from 'pixi-tweener';
-import findFighter, { AnimationFighter } from './findFighter';
+import findFighter, { AnimationFighter } from './utils/findFighter';
 
 const spy = async (
   fighters: AnimationFighter[],

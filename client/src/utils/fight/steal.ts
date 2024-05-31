@@ -4,8 +4,8 @@ import { FIGHTER_HEIGHT, StealStep, WeaponById } from '@labrute/core';
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
 import { Application } from 'pixi.js';
-import { getRandomPosition } from './fightPositions';
-import findFighter, { AnimationFighter } from './findFighter';
+import { getRandomPosition } from './utils/fightPositions';
+import findFighter, { AnimationFighter } from './utils/findFighter';
 
 const steal = async (
   app: Application,

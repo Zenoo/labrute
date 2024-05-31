@@ -72,7 +72,7 @@ export type BrutesGetForRankResponse = {
 export type BrutesGetRankingResponse = {
   ranking: number,
 };
-export type BrutesGetOpponentsResponse = Pick<Brute, 'id' | 'name' | 'gender' | 'level' | 'deletedAt' | 'hp' | 'strengthValue' | 'agilityValue' | 'speedValue' | 'body' | 'colors'>[];
+export type BrutesGetOpponentsResponse = Pick<Brute, 'id' | 'name' | 'ranking' | 'gender' | 'level' | 'deletedAt' | 'hp' | 'strengthValue' | 'agilityValue' | 'speedValue' | 'body' | 'colors'>[];
 export type BrutesExistsResponse = {
   exists: false
 } | {

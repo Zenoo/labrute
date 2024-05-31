@@ -46,6 +46,10 @@ export enum SkillId {
   backup,
   hideaway,
   monk,
+  vampirism,
+  chaining,
+  haste,
+  treat,
 }
 
 export const SkillByName: Record<SkillName, SkillId> = {
@@ -93,6 +97,10 @@ export const SkillByName: Record<SkillName, SkillId> = {
   [SkillName.backup]: SkillId.backup,
   [SkillName.hideaway]: SkillId.hideaway,
   [SkillName.monk]: SkillId.monk,
+  [SkillName.vampirism]: SkillId.vampirism,
+  [SkillName.chaining]: SkillId.chaining,
+  [SkillName.haste]: SkillId.haste,
+  [SkillName.treat]: SkillId.treat,
 };
 
 export const SkillById: Record<SkillId, SkillName> = {
@@ -140,6 +148,10 @@ export const SkillById: Record<SkillId, SkillName> = {
   [SkillId.backup]: SkillName.backup,
   [SkillId.hideaway]: SkillName.hideaway,
   [SkillId.monk]: SkillName.monk,
+  [SkillId.vampirism]: SkillName.vampirism,
+  [SkillId.chaining]: SkillName.chaining,
+  [SkillId.haste]: SkillName.haste,
+  [SkillId.treat]: SkillName.treat,
 };
 
 export const FightStat = {
@@ -420,6 +432,32 @@ const skills: Skill[] = [
     odds: 5,
     type: 'talent',
   },
+  {
+    name: 'vampirism',
+    odds: 10,
+    type: 'super',
+    uses: 1,
+    toss: 5,
+  },
+  {
+    name: 'chaining',
+    odds: 5,
+    type: 'passive',
+  },
+  {
+    name: 'haste',
+    odds: 5,
+    type: 'super',
+    uses: 1,
+    toss: 3,
+  },
+  {
+    name: 'treat',
+    odds: 20,
+    type: 'super',
+    uses: 4,
+    toss: 5,
+  },
 ];
 
 export const SKILLS_TOTAL_ODDS = skills.reduce((acc, skill) => acc + skill.odds, 0);
@@ -523,6 +561,10 @@ export const SkillModifiers: Record<SkillName, SkillModifier[]> = {
     { stat: FightStat.INITIATIVE, value: -200 },
     { stat: FightStat.HIT_SPEED, value: -100, percent: true },
   ],
+  [SkillName.vampirism]: [],
+  [SkillName.chaining]: [],
+  [SkillName.haste]: [],
+  [SkillName.treat]: [],
 };
 
 export default skills;

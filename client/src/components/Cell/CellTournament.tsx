@@ -94,8 +94,8 @@ const CellTournament = ({
                   width: 216,
                   mx: 'auto',
                 }}
-                image={`/images/${language}/cell/tournament.gif`}
-                imageHover={`/images/${language}/cell/tournament-hover.gif`}
+                image={`/images/${language}/cell/tournament.webp`}
+                imageHover={`/images/${language}/cell/tournament-hover.webp`}
                 shadow={false}
                 contrast={false}
                 onClick={registerBrute}

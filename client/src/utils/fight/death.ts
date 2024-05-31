@@ -1,6 +1,6 @@
 import { DeathStep } from '@labrute/core';
 
-import findFighter, { AnimationFighter } from './findFighter';
+import findFighter, { AnimationFighter } from './utils/findFighter';
 
 const death = (
   fighters: AnimationFighter[],

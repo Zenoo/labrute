@@ -74,7 +74,7 @@ const CellMobileView = ({
         <Grid item xs={12} sm={6} order={isXs ? 3 : 0} sx={{ textAlign: 'center', px: 1, alignSelf: 'center' }}>
           <Box sx={{ mx: 1 }}>
             {/* WEAPONS */}
-            <Text bold center sx={{ mb: 0.5 }}>
+            <Text bold center color={theme.palette.mode === 'dark' ? 'text.primary' : undefined} sx={{ mb: 0.5 }}>
               <Tooltip title={t('inventory')}>
                 <Link to={`/${brute.name}/inventory`}>
                   <Box
@@ -108,6 +108,7 @@ const CellMobileView = ({
             subtitle2
             center
             onClick={confirmReport}
+            color={theme.palette.mode === 'dark' ? 'text.primary' : undefined}
             sx={{ cursor: 'pointer' }}
           >
             {t('report')}

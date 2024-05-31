@@ -75,8 +75,8 @@ const RankingView = () => {
             <Tooltip key={bruteRanking} title={t(`lvl_${bruteRanking}`)}>
               <RouterLink to={`/${bruteName || ''}/ranking/${bruteRanking}`}>
                 <StyledButton
-                  image={rankingSelected === bruteRanking ? '/images/rankings/button_selected.gif' : '/images/rankings/button.gif'}
-                  imageHover={rankingSelected === bruteRanking ? '/images/rankings/button_selected.gif' : '/images/rankings/button_hover.gif'}
+                  image={rankingSelected === bruteRanking ? '/images/rankings/button_selected.webp' : '/images/rankings/button.webp'}
+                  imageHover={rankingSelected === bruteRanking ? '/images/rankings/button_selected.webp' : '/images/rankings/button_hover.webp'}
                   shadow={false}
                   contrast={false}
                   sx={{
@@ -154,7 +154,7 @@ const RankingView = () => {
           </Grid>
           {!isMd && (
             <Grid item xs={12} md={3} sx={{ display: 'flex', alignItems: 'center' }}>
-              <Box component="img" src="/images/arena/referee.gif" sx={{ maxWidth: 1 }} />
+              <Box component="img" src={`/images${theme.palette.mode === 'dark' ? '/dark' : ''}/arena/referee.webp`} sx={{ maxWidth: 1 }} />
             </Grid>
           )}
         </Grid>

@@ -73,5 +73,13 @@
   "rank.7": "Poing d'acier",
   "rank.8": "Baffe de Richter",
   "rank.9": "Arracheur de pansements",
-  "rank.10": "Pichenette du Désert"
+  "rank.10": "Pichenette du Désert",
+  "modifier.noThrows": "Mains collantes",
+  "modifier.noThrows.desc": "Qui a collé ces armes ?! Vous ne pouvez plus jeter vos armes.",
+  "modifier.focusOpponent": "Concentration",
+  "modifier.focusOpponent.desc": "Vous n'avez jamais perdu une bataille de regard. Vous ciblerez toujours votre adversaire principal.",
+  "modifier.alwaysUseSupers": "Pouvoir illimité",
+  "modifier.alwaysUseSupers.desc": "Vous avez passé du temps à apprendre ces compétences, il serait dommage de ne pas les utiliser. Vous utiliserez toujours vos compétences disponibles.",
+  "modifier.drawEveryWeapon": "Ravitaillement infini",
+  "modifier.drawEveryWeapon.desc": "Vous êtes un maître de l'extraction. Vous sortirez toujours une arme si vous en avez de disponible."
 }
