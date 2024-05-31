@@ -1,4 +1,5 @@
 module.exports = {
+  ignorePatterns: ['.eslintrc.js'],
   root: true,
   'env': {
     'browser': true,
