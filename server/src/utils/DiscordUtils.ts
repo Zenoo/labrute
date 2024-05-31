@@ -205,7 +205,7 @@ ${error.stack}
         iconURL: `${this.#server}/favicon.png`,
         url: this.#server.toString(),
       })
-      .setDescription('Locky (or unlucky) you! Today is a special day, the following modifiers will be active:')
+      .setDescription('Lucky (or unlucky) you! Today is a special day, the following modifiers will be active:')
       .setThumbnail(`${this.#server}/images/header/right/1${pad(Math.floor(Math.random() * (11 - 1 + 1) + 1), 2)}.png`)
       .addFields(
         modifiers.map((modifier) => ({
