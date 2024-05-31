@@ -150,13 +150,22 @@ const checkAchievements = (
   }
 };
 
-const getMainOpponent = (fightData: DetailedFight, brute: DetailedFighter) => {
-  const mainOpponent = fightData.fighters.find(
-    (fighter) => (fighter.type === 'boss'
-      || (fighter.type === 'brute'
-        && !fighter.master && fighter.name !== brute.name))
-      && fighter.hp > 0,
-  );
+const getMainOpponent = (fightData: DetailedFight, fighter: DetailedFighter) => {
+  let mainOpponent;
+
+  if (fighter.type === 'boss') {
+    mainOpponent = fightData.fighters.find(
+      (f) => f.type === 'brute' && !f.master && f.hp > 0,
+    );
+  } else if (fighter.master) {
+    mainOpponent = fightData.fighters.find(
+      (f) => f.type === 'boss' || (f.type === 'brute' && !f.master && f.id !== fighter.master && f.hp > 0),
+    );
+  } else {
+    mainOpponent = fightData.fighters.find(
+      (f) => f.type === 'boss' || (f.type === 'brute' && !f.master && f.id !== fighter.id && f.hp > 0),
+    );
+  }
 
   if (!mainOpponent) {
     throw new Error('No main opponent found');
