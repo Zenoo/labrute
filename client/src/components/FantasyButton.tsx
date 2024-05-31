@@ -12,6 +12,7 @@ interface FantasyButtonProps extends BoxProps {
   | 'warning';
   disabled?: boolean;
   to?: string;
+  size?: 'normal' | 'large';
 }
 
 /**
@@ -23,6 +24,7 @@ const FantasyButton = React.forwardRef<HTMLDivElement, FantasyButtonProps>(({
   disabled,
   sx,
   to,
+  size = 'normal',
   ...rest
 }: FantasyButtonProps, ref) => {
   const theme = useTheme();
@@ -55,8 +57,8 @@ const FantasyButton = React.forwardRef<HTMLDivElement, FantasyButtonProps>(({
         borderTopColor: colorDarker,
         backgroundColor: COLOR,
         color: theme.palette[color].contrastText,
-        py: 0.5,
-        px: 1,
+        py: size === 'normal' ? 0.5 : 1,
+        px: size === 'normal' ? 1 : 2,
         cursor: disabled ? 'not-allowed' : 'pointer',
         textTransform: 'uppercase',
         typography: 'LaBrute',
