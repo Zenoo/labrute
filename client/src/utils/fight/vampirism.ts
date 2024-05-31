@@ -8,6 +8,7 @@ import { getRandomPosition } from './utils/fightPositions';
 import findFighter, { AnimationFighter } from './utils/findFighter';
 import { displayHeal } from './utils/displayHeal';
 import displayDamage from './utils/displayDamage';
+import updateHp from './updateHp';
 
 export const vampirism = async (
   app: Application,
@@ -52,6 +53,14 @@ export const vampirism = async (
 
   displayHeal(app, brute, step.h, speed);
   displayDamage(app, target, step.d, speed);
+
+  // Update HP bar
+  if (brute.hpBar) {
+    updateHp(brute, step.h, speed);
+  }
+  if (target.hpBar) {
+    updateHp(target, -step.d, speed);
+  }
 
   // Wait for animation to finish
   await animationEnded;

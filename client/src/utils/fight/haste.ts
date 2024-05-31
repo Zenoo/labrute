@@ -7,6 +7,8 @@ import { Easing, Tweener } from 'pixi-tweener';
 import displayDamage from './utils/displayDamage';
 import { getRandomPosition } from './utils/fightPositions';
 import findFighter, { AnimationFighter } from './utils/findFighter';
+import stagger from './stagger';
+import updateHp from './updateHp';
 
 export const haste = async (
   app: Application,
@@ -69,6 +71,13 @@ export const haste = async (
   target.animation.setAnimation(animation);
 
   displayDamage(app, target, step.d, speed);
+
+  // Update HP bar
+  if (target.hpBar) {
+    updateHp(target, -step.d, speed);
+  }
+  // Stagger
+  stagger(target, speed).catch(console.error);
 
   animationEnded.then(() => {
     // Set target animation to `idle`
