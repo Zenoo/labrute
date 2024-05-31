@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.59.6](https://github.com/Zenoo/labrute/compare/labrute-v2.59.5...labrute-v2.59.6) (2024-05-31)
+
+
+### Bug Fixes
+
+* Wrong target with focus modifier ([9f3f72b](https://github.com/Zenoo/labrute/commit/9f3f72b47cefd00a6e8bccc3fc51d40416786120))
+
 ## [2.59.5](https://github.com/Zenoo/labrute/compare/labrute-v2.59.4...labrute-v2.59.5) (2024-05-31)
 
 
