@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.59.8](https://github.com/Zenoo/labrute/compare/labrute-v2.59.7...labrute-v2.59.8) (2024-05-31)
+
+
+### Bug Fixes
+
+* Close dialogs on cell swipe ([3f56b66](https://github.com/Zenoo/labrute/commit/3f56b66f8a7b9021e5f2716088fbdd973609362c))
+* Possible button sizes ([b22acf7](https://github.com/Zenoo/labrute/commit/b22acf7e2afb022ccdc7af7b5d30bd66551f3193))
+
 ## [2.59.7](https://github.com/Zenoo/labrute/compare/labrute-v2.59.6...labrute-v2.59.7) (2024-05-31)
 
 
