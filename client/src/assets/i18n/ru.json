@@ -475,7 +475,7 @@
   "fight.step.vampirism": "{{brute}} лакомится кровью {{opponent}}, нанося {{damage}} урона и восстанавливая {{heal}} ОЗ.",
   "fight.step.stun": "{{brute}} ошеломлён.",
   "fight.step.haste": "{{brute}} пронзает {{opponent}}, нанося {{damage}} урона.",
-  "fight.step.treat": "{{brute}} gave a treat his pet {{target}} and healed him for {{heal}}HP.",
+  "fight.step.treat": "{{brute}} кормит своего питомца {{target}}, исцеляя ему {{heal}} ОЗ.",
   "fight.wonTheFight": "{{brute}} выигрывает бой",
   "fight.play": "Воспроизвести",
   "fight.pause": "Приостановить",
