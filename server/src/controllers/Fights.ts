@@ -11,6 +11,7 @@ import generateFight from '../utils/fight/generateFight.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
 import ServerState from '../utils/ServerState.js';
+import isUuid from '../utils/uuid.js';
 
 const Fights = {
   get: (prisma: PrismaClient) => async (req: Request, res: Response) => {

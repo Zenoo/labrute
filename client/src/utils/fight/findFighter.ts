@@ -15,6 +15,6 @@ export interface AnimationFighter extends Omit<Fighter, 'shield'> {
 const findFighter = (
   fighters: AnimationFighter[],
   stepFighter?: number,
-) => (stepFighter ? fighters.find((f) => f.id === stepFighter) : undefined);
+) => (stepFighter ? fighters.find((f) => f.index === stepFighter) : undefined);
 
 export default findFighter;

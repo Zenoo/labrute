@@ -73,7 +73,7 @@ const Server = {
     }: { name: string, date: string }) => Fetch<TournamentsGetDailyResponse>(`/api/tournament/${name}/${date}`),
     registerDaily: (name: string) => Fetch<never>(`/api/tournament/${name}/register`),
     updateStepWatched: (name: string) => Fetch<never>(`/api/tournament/${name}/update-step-watched`),
-    updateGlobalRoundWatched: (name: string, fight: number) => Fetch<TournementsUpdateGlobalRoundWatchedResponse>(`/api/tournament/${name}/update-global-round-watched/${fight}`),
+    updateGlobalRoundWatched: (name: string, fight: string) => Fetch<TournementsUpdateGlobalRoundWatchedResponse>(`/api/tournament/${name}/update-global-round-watched/${fight}`),
     skipWatchingGlobal: (name: string) => Fetch<never>(`/api/tournament/${name}/skip-watching-global`),
     setDailyWatched: (name: string) => Fetch<never>(`/api/tournament/${name}/set-daily-watched`),
     getGlobal: ({

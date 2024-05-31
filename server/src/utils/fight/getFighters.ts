@@ -281,9 +281,10 @@ const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
         const arrivesAt = randomBetween(1, 500) / 100;
 
         spawnedPets++;
-
+        negativeIndex--;
         const backupFighter: DetailedFighter = {
-          id: -spawnedPets,
+          id: `${-spawnedPets}`,
+          index: negativeIndex,
           name: backup.name,
           // Add minimal visual data to still be able to display the fight if the brute was deleted
           gender: backup.gender,
@@ -352,7 +353,8 @@ const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
       spawnedPets++;
 
       fighters.push({
-        id: -spawnedPets,
+        id: `${-spawnedPets}`,
+        index: positiveIndex,
         name: team.boss.name,
         rank: 0,
         level: 0,

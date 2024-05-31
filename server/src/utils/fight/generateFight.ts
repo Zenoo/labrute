@@ -36,7 +36,7 @@ const generateFight = async (
   isTournamentFinal: boolean,
   boss?: Boss,
   bossHP?: number,
-  clanId?: number,
+  clanId?: string,
 ): Promise<GenerateFightResult> => {
   if (brute1.id === brute2?.id) {
     throw new ExpectedError('Attempted to created a fight between the same brutes');
@@ -167,7 +167,7 @@ const generateFight = async (
   [...mainFighters, ...petFighters].forEach((fighter) => {
     fightData.steps.push({
       a: StepType.Arrive,
-      f: fighter.id,
+      f: fighter.index,
     });
   });
 
@@ -216,7 +216,7 @@ const generateFight = async (
   }
 
   // Get winner
-  const winner = fightData.fighters.find((fighter) => fighter.id !== fightData.loser
+  const winner = fightData.fighters.find((fighter) => fighter.index !== fightData.loser
     && (fighter.type === 'brute' || fighter.type === 'boss')
     && !fighter.master);
 
@@ -225,14 +225,14 @@ const generateFight = async (
   }
 
   // Get loser
-  const loser = fightData.fighters.find((fighter) => fighter.id === fightData.loser);
+  const loser = fightData.fighters.find((fighter) => fighter.index === fightData.loser);
 
   if (!loser) {
     throw new Error('No loser found');
   }
 
   // Set fight winner and loser
-  fightData.winner = winner.id;
+  fightData.winner = winner.index;
 
   // Add end step
   fightData.steps.push({

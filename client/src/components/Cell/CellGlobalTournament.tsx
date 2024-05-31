@@ -102,7 +102,7 @@ const CellGlobalTournament = ({
   const watchFight = (
     currentBrute: string,
     round: number,
-    fightId: number,
+    fightId: string,
     skipUpdate?: boolean
   ) => () => {
     if (owner && !skipUpdate && round >= watchingRound) {

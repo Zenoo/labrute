@@ -109,6 +109,7 @@ export interface DetailedFighter {
 
 export interface Fighter {
   id: string;
+  index?: number
   name: string;
   gender?: Gender;
   body?: string;
@@ -259,7 +260,7 @@ export interface BombStep {
   /** Targets IDs */
   t: number[];
   /** Damage dealt per fighter ID */
-  d: Record<number, number | undefined>;
+  d: Record<string, number | undefined>;
 }
 
 export interface HypnotiseStep {

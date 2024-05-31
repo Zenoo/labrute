@@ -649,7 +649,7 @@ const Tournaments = {
       // Get fight
       const fight = await prisma.fight.findFirst({
         where: {
-          id: +req.params.fight,
+          id: req.params.fight,
         },
         select: {
           loser: true,

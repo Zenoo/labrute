@@ -131,7 +131,7 @@ const handleDailyTournaments = async (
   modifiers: FightModifier[],
 ) => {
   // Keep track of gains (xp, gold)
-  const gains: Record<number, [number, number]> = {};
+  const gains: Record<string, [number, number]> = {};
 
   const today = moment.utc().startOf('day');
   const tomorrow = moment.utc(today).add(1, 'day');
@@ -476,7 +476,7 @@ const handleGlobalTournament = async (
   modifiers: FightModifier[],
 ) => {
   // Keep track of gains
-  const gains: Record<number, [number, number]> = {};
+  const gains: Record<string, [number, number]> = {};
 
   const today = moment.utc().startOf('day');
 
@@ -753,7 +753,7 @@ const storeGains = async (
   // Store XP gains
   await prisma.tournamentXp.createMany({
     data: Object.entries(gains).map(([bruteId, [xp]]) => ({
-      bruteId: +bruteId,
+      bruteId,
       date: today,
       xp,
     })),
@@ -762,7 +762,7 @@ const storeGains = async (
   // Create XP gains logs for tomorrow
   await prisma.log.createMany({
     data: Object.entries(gains).map(([bruteId, [xp, gold]]) => ({
-      currentBruteId: +bruteId,
+      currentBruteId: bruteId,
       type: LogType.tournamentXp,
       xp,
       gold,
@@ -893,7 +893,7 @@ const checkNameDuplicates = async (prisma: PrismaClient) => {
   const duplicates: {
     name: string;
     count: number;
-    ids: number[];
+    ids: string[];
   }[] = await prisma.$queryRaw`
     SELECT LOWER(name) name, COUNT(*) count, ARRAY_AGG(id ORDER BY "createdAt") ids
     FROM "Brute"
