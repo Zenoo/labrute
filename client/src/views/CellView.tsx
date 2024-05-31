@@ -77,8 +77,10 @@ const CellView = () => {
     }
     if (!newBrute) return;
 
+    Confirm.close();
+
     navigate(`/${newBrute.name}/cell`);
-  }, [brute, navigate, owner, user]);
+  }, [Confirm, brute, navigate, owner, user]);
 
   // Reset brute
   const confirmReset = useCallback(() => {

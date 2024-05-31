@@ -5,12 +5,16 @@ import StyledInput from '../components/StyledInput';
 
 interface ConfirmContextInterface {
   open: (title: string, content: string, onAccept?: () => void, onCancel?: () => void) => void;
+  close: () => void;
 }
 
 const ConfirmContext = React.createContext<ConfirmContextInterface>({
   open: () => {
     console.error('ConfirmContext.open() not implemented');
   },
+  close: () => {
+    console.error('ConfirmContext.close() not implemented');
+  }
 });
 
 export const useConfirm = () => {
@@ -80,7 +84,8 @@ export const ConfirmProvider = ({ children }: ConfirmProviderProps) => {
 
   const methods = useMemo(() => ({
     open: handleOpen,
-  }), [handleOpen]);
+    close: handleClose
+  }), [handleClose, handleOpen]);
 
   return (
     <ConfirmContext.Provider value={methods}>
