@@ -1094,6 +1094,12 @@ const counterAttack = (fighter: DetailedFighter, opponent: DetailedFighter) => {
   // No counter attack if opponent is dead
   if (opponent.hp <= 0) return false;
 
+  // No counter attack if opponent is trapped
+  if (opponent.trapped) return false;
+
+  // No counter attack if opponent is stunned
+  if (opponent.stunned) return false;
+
   const random = Math.random();
 
   const valueToBeat = (
@@ -1193,6 +1199,9 @@ const block = (fighter: DetailedFighter, opponent: DetailedFighter, ease = 1) =>
   // No block if opponent is trapped
   if (opponent.trapped) return false;
 
+  // No block if opponent is stunned
+  if (opponent.stunned) return false;
+
   // No block for pets and bosses
   if (opponent.type === 'pet' || opponent.type === 'boss') return false;
 
@@ -1207,6 +1216,9 @@ const evade = (fighter: DetailedFighter, opponent: DetailedFighter, difficulty =
 
   // No evasion if opponent is trapped
   if (opponent.trapped) return false;
+
+  // No evasion if opponent is stunned
+  if (opponent.stunned) return false;
 
   // Automatically evade if `balletShoes`
   if (opponent.balletShoes) {
