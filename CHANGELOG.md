@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.59.9](https://github.com/Zenoo/labrute/compare/labrute-v2.59.8...labrute-v2.59.9) (2024-06-01)
+
+
+### Bug Fixes
+
+* core eslint rules ([595c6ca](https://github.com/Zenoo/labrute/commit/595c6ca34bc94a95740ba5744ab0f7a8b894a2c2))
+* Display levels in destiny. Fixes [#736](https://github.com/Zenoo/labrute/issues/736) ([3f282e9](https://github.com/Zenoo/labrute/commit/3f282e93c975230c193b5411cd6ebd711e7155b1))
+* HP healed achievement. Fixes [#727](https://github.com/Zenoo/labrute/issues/727) ([516f77b](https://github.com/Zenoo/labrute/commit/516f77bf6a8fdc437cf1c1565ad759e84bbdfaff))
+* Keep modifiers in memory. Fixes [#734](https://github.com/Zenoo/labrute/issues/734) ([f168075](https://github.com/Zenoo/labrute/commit/f16807572ee1b08c56ed4f672c479d60e8c4875b))
+* Modular action count in skill descriptions ([e3878cd](https://github.com/Zenoo/labrute/commit/e3878cd3efaef6b6a76b9d97266d09e40a5291c5))
+
 ## [2.59.8](https://github.com/Zenoo/labrute/compare/labrute-v2.59.7...labrute-v2.59.8) (2024-05-31)
 
 
