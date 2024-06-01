@@ -102,13 +102,15 @@ const DestinyView = () => {
         <BoxBg
           src={`/images${mode === 'dark' ? '/dark' : ''}/level-up/box${branch?.current ? '-current' : ''}.png`}
           sx={{
-            pt: 5,
+            pt: 3.5,
             height: 129,
             width: 255,
           }}
         >
           {branch ? (
             <>
+              {/* LEVEL */}
+              <Text h6 bold smallCaps>{t('level')} {branch.level}</Text>
               {/* CHOICE HEADER */}
               <Text caption>
                 {/* +3 Skill */}
@@ -148,7 +150,7 @@ const DestinyView = () => {
               ))}
             </>
           ) : (
-            <QuestionMark sx={{ fontSize: '50px' }} />
+            <QuestionMark sx={{ pt: 2, fontSize: '50px' }} />
           )}
         </BoxBg>
       </Box>

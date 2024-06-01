@@ -1279,7 +1279,10 @@ const Brutes = {
       });
 
       // Get Destiny tree
-      const getBranchRecursive = (path: DestinyChoiceSide[]) => {
+      const getBranchRecursive = (
+        path: DestinyChoiceSide[],
+        level: number,
+      ) => {
         const destinyChoice = destinyChoices.find((c) => c.path.join(',') === path.join(','));
 
         if (!destinyChoice) {
@@ -1288,12 +1291,15 @@ const Brutes = {
 
         const branch: DestinyBranch = {
           ...destinyChoice,
+          level,
           current: brute.destinyPath.join(',').startsWith(path.join(',')),
           [DestinyChoiceSide.LEFT]: getBranchRecursive(
             [...path, DestinyChoiceSide.LEFT],
+            level + 1,
           ),
           [DestinyChoiceSide.RIGHT]: getBranchRecursive(
             [...path, DestinyChoiceSide.RIGHT],
+            level + 1,
           ),
         };
 
@@ -1309,12 +1315,15 @@ const Brutes = {
 
       const destinyTree: DestinyBranch = {
         ...firstBonus,
+        level: 1,
         current: true,
         [DestinyChoiceSide.LEFT]: getBranchRecursive(
           [DestinyChoiceSide.LEFT],
+          2,
         ) as DestinyBranch,
         [DestinyChoiceSide.RIGHT]: getBranchRecursive(
           [DestinyChoiceSide.RIGHT],
+          2,
         ) as DestinyBranch,
       };
 

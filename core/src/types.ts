@@ -483,6 +483,7 @@ export interface DetailedFight {
 export type AnimationModel = 'bear' | 'dog' | 'panther' | 'male-brute' | 'female-brute';
 
 export interface DestinyBranch extends DestinyChoice {
+  level: number;
   current: boolean;
   [DestinyChoiceSide.LEFT]: DestinyBranch | null;
   [DestinyChoiceSide.RIGHT]: DestinyBranch | null;
