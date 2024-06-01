@@ -30,6 +30,7 @@ export type Stats = Record<string, {
   petsKilled?: number;
   maxDamage?: number;
   otherTeamMembersHits?: number;
+  hpHealed?: number;
 }>;
 
 const getFighterStat = (
@@ -359,6 +360,17 @@ const randomlyDrawWeapon = (
   return null;
 };
 
+const healFighter = (
+  stats: Stats,
+  fighter: DetailedFighter,
+  amount: number,
+) => {
+  fighter.hp += amount;
+
+  // Heal stat
+  updateStats(stats, fighter.id, 'hpHealed', amount);
+};
+
 const increaseInitiative = (fighter: DetailedFighter) => {
   const random = randomBetween(0, 10);
   let tempo = getFighterStat(fighter, 'tempo')
@@ -458,7 +470,7 @@ const registerHit = (
 
     // HP healed
     const heal = Math.min(actualDamage[opponent.index] ?? damage, fighter.maxHp - fighter.hp);
-    fighter.hp += heal;
+    healFighter(stats, fighter, heal);
 
     // Add vampirism step
     fightData.steps.push({
@@ -652,8 +664,7 @@ const activateSuper = (
 
       // Limit hp to max
       hpHealed = Math.min(hpHealed, fighter.maxHp - fighter.hp);
-
-      fighter.hp += hpHealed;
+      healFighter(stats, fighter, hpHealed);
 
       if (fighter.poisoned) {
         fighter.poisoned = false;
@@ -964,7 +975,7 @@ const activateSuper = (
       );
 
       // Heal fighter
-      fighter.hp += heal;
+      healFighter(stats, fighter, heal);
 
       // Increase own initiative
       fighter.initiative += 0.15;

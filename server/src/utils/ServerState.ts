@@ -2,14 +2,16 @@ import { FightModifier, PrismaClient } from '@labrute/prisma';
 import moment from 'moment';
 import { LOGGER } from '../context.js';
 
-let serverReady = true;
+let SERVER_READY = true;
+let MODIFIERS: FightModifier[] | null = null;
 
 const setReady = (ready: boolean) => {
   LOGGER.log(`Updating server state to ${ready ? 'release' : 'hold'} traffic`);
-  serverReady = ready;
+
+  SERVER_READY = ready;
 };
 
-const isReady = () => serverReady;
+const isReady = () => SERVER_READY;
 
 const setGlobalTournamentValid = async (prisma: PrismaClient, valid: boolean) => {
   const serverState = await prisma.serverState.findFirst({
@@ -37,14 +39,20 @@ const isGlobalTournamentValid = async (prisma: PrismaClient) => {
   return serverState?.globalTournamentValid ?? false;
 };
 
-const getModifiers = async (prisma: PrismaClient): Promise<FightModifier[]> => {
+const getModifiers = async (prisma: PrismaClient) => {
+  if (MODIFIERS) {
+    return MODIFIERS;
+  }
+
   const serverState = await prisma.serverState.findFirst({
     select: {
       activeModifiers: true,
     },
   });
 
-  return serverState?.activeModifiers || [];
+  MODIFIERS = serverState?.activeModifiers || [];
+
+  return MODIFIERS;
 };
 
 const setModifiers = async (prisma: PrismaClient, modifiers: FightModifier[]) => {
@@ -70,6 +78,8 @@ const setModifiers = async (prisma: PrismaClient, modifiers: FightModifier[]) =>
       select: { id: true },
     });
   }
+
+  MODIFIERS = modifiers;
 };
 
 const areModifiersExpired = async (prisma: PrismaClient) => {

@@ -2,6 +2,7 @@ import { AchievementName } from '@labrute/prisma';
 import { AchievementData, AchievementRarety } from './Achievements';
 
 export const BaseTitleRequirements = {
+  massive: [5000, 10000, 25000, 50000, 100000],
   [AchievementRarety.common]: [250, 500, 1000, 2500, 5000],
   [AchievementRarety.uncommon]: [50, 100, 250, 500, 1000],
   [AchievementRarety.rare]: [10, 25, 50, 100, 250],
@@ -36,6 +37,7 @@ export const TitleRequirements: Record<AchievementName, number[]> = {
   hit20times: BaseTitleRequirements[AchievementData.hit20times.rarety],
   kill3pets: BaseTitleRequirements[AchievementData.kill3pets.rarety],
   maxDamage: BaseTitleRequirements[AchievementData.maxDamage.rarety],
+  hpHealed: BaseTitleRequirements.massive,
   use10skills: BaseTitleRequirements[AchievementData.use10skills.rarety],
   saboteur: BaseTitleRequirements[AchievementData.saboteur.rarety],
   dog: [3, 6, 9, 12, 15],

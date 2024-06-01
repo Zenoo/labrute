@@ -499,6 +499,7 @@ export type AnimationModel =
   | 'female-brute';
 
 export interface DestinyBranch extends DestinyChoice {
+  level: number;
   current: boolean;
   [DestinyChoiceSide.LEFT]: DestinyBranch | null;
   [DestinyChoiceSide.RIGHT]: DestinyBranch | null;

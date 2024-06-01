@@ -43,8 +43,8 @@ const SkillTooltip = ({
               {(skillModifier.stat && typeof skillModifier.weaponType !== 'undefined') && ` (${t('weapons')}: ${t(skillModifier.weaponType || 'none')})`}
             </Text>
           ))}
-          {t(`${skill.name}.effect`) !== `${skill.name}.effect` && (
-            <Text bold sx={{ fontSize: 12 }} color="error">{t(`${skill.name}.effect`)}</Text>
+          {t(`${skill.name}.effect`, { uses: skill.uses }) !== `${skill.name}.effect` && (
+            <Text bold sx={{ fontSize: 12 }} color="error">{t(`${skill.name}.effect`, { uses: skill.uses })}</Text>
           )}
           <Text subtitle1 sx={{ opacity: 0.7, fontSize: 12 }}>{t('odds')}: {((skill.odds / PERKS_TOTAL_ODDS) * 100).toFixed(2)}%</Text>
         </>
