@@ -210,7 +210,7 @@
   "survival.effect": "Resiste el primer golpe mortal de la pelea con 1HP en vez de fallecer.",
   "thief": "Ladrón",
   "thief.desc": "Esta competencia te permite pedirle prestada educadamente el arma de tu adversario y hacerte con ella independientemente de la respuesta.",
-  "thief.effect": "Action (x{{uses}}) Your brute picks up his opponent's weapon",
+  "thief.effect": "Acción (x{{uses}}) Tu bruto roba el arma de su oponente",
   "fierceBrute": "Bruto Feroz",
   "fierceBrute.desc": "Ahora eres un auténtico Bruto. ¡Incluso más que antes! Tus descargas son aún más violentas durante el combate.",
   "fierceBrute.effect": "Action (x{{uses}}) Your Brute's blows will cause double damage during the next attack.",
