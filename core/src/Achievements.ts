@@ -158,6 +158,9 @@ export const AchievementData: Record<
     rarety: AchievementRarety.common,
     max: true,
   },
+  hpHealed: {
+    rarety: AchievementRarety.common,
+  },
   use10skills: {
     rarety: AchievementRarety.rare,
     illustration: 'r_jtech.gif',

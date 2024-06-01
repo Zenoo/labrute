@@ -539,6 +539,7 @@ exports.AchievementName = exports.$Enums.AchievementName = {
   use10skills: 'use10skills',
   kill3pets: 'kill3pets',
   maxDamage: 'maxDamage',
+  hpHealed: 'hpHealed',
   saboteur: 'saboteur',
   dog: 'dog',
   panther: 'panther',

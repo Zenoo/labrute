@@ -415,6 +415,7 @@ enum AchievementName {
   use10skills
   kill3pets
   maxDamage
+  hpHealed
   // Skills use
   saboteur
   // Perks unlock

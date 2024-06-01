@@ -105,6 +105,11 @@ const handleStats = (
       achievement.achievements.kill3pets = 1;
     }
 
+    // HP healed
+    if (stat.hpHealed) {
+      achievement.achievements.hpHealed = stat.hpHealed;
+    }
+
     // Tournament achievements
     if (isTournamentFight) {
       if (isTournamentFinal) {
