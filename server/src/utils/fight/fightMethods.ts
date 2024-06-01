@@ -82,7 +82,7 @@ const resetOthersStats = (stats: Stats, excludedFighter: number, stat: keyof Omi
   }
 };
 
-const updateStats = (stats: Stats, bruteId: number, stat: keyof Omit<Stats[number], 'userId'>, value: number, masterId?: string) => {
+const updateStats = (stats: Stats, bruteId: string, stat: keyof Omit<Stats[number], 'userId'>, value: number, masterId?: string) => {
   // Special case for hits, add to otherTeamMembersHits if not master
   if (stat === 'hits' && masterId) {
     const master = stats[masterId];
@@ -541,7 +541,7 @@ const registerHit = (
   // Max damage achievement
   const maxDamage = Math.max(...Object.values(actualDamage));
   if ((stats[fighter.index]?.maxDamage || 0) < maxDamage) {
-    updateStats(stats, fighter.index, 'maxDamage', maxDamage - (stats[fighter.index]?.maxDamage || 0));
+    updateStats(stats, fighter.id, 'maxDamage', maxDamage - (stats[fighter.index]?.maxDamage || 0));
   }
 
   opponents.forEach((opponent) => {
@@ -559,7 +559,7 @@ const registerHit = (
   });
 
   // Update stats
-  updateStats(stats, fighter.index, 'hits', 1, fighter.master);
+  updateStats(stats, fighter.id, 'hits', 1, fighter.master);
 };
 
 const activateSuper = (
@@ -601,7 +601,7 @@ const activateSuper = (
         // Add trash step
         fightData.steps.push({
           a: StepType.Trash,
-          b: fighter.id,
+          b: fighter.index,
           w: WeaponByName[fighter.activeWeapon.name],
         });
 
@@ -1046,23 +1046,23 @@ const activateSuper = (
       // Add move step
       fightData.steps.push({
         a: StepType.Move,
-        f: fighter.id,
-        t: pet.id,
+        f: fighter.index,
+        t: pet.index,
         s: 1,
       });
 
       // Add treat step
       fightData.steps.push({
         a: StepType.Treat,
-        b: fighter.id,
-        t: pet.id,
+        b: fighter.index,
+        t: pet.index,
         h: heal,
       });
 
       // Add moveBack step
       fightData.steps.push({
         a: StepType.MoveBack,
-        f: fighter.id,
+        f: fighter.index,
       });
 
       // Increase own initiative
@@ -1077,7 +1077,7 @@ const activateSuper = (
   skill.uses -= 1;
 
   // Update stats
-  updateStats(stats, fighter.index, 'skillsUsed', 1);
+  updateStats(stats, fighter.id, 'skillsUsed', 1);
 
   // Remove skill if no uses left
   if (!skill.uses) {
@@ -1315,17 +1315,17 @@ const attack = (
     });
 
     // Update evasion stat
-    updateStats(stats, opponent.index, 'evades', 1);
-    updateStats(stats, opponent.index, 'consecutiveEvades', 1);
+    updateStats(stats, opponent.id, 'evades', 1);
+    updateStats(stats, opponent.id, 'consecutiveEvades', 1);
     checkAchievements(stats, achievements);
   } else {
     // Reset evasion stat
-    updateStats(stats, opponent.index, 'consecutiveEvades', 0);
+    updateStats(stats, opponent.id, 'consecutiveEvades', 0);
 
     // Check if the opponent shield broke
     if (brokeShield) {
       // Update disarm stat
-      updateStats(stats, fighter.index, 'disarms', 1);
+      updateStats(stats, fighter.id, 'disarms', 1);
 
       // Add attempt step with shield break
       attemptStep.b = 1;
@@ -1350,12 +1350,12 @@ const attack = (
       });
 
       // Update block stat
-      updateStats(stats, opponent.index, 'blocks', 1);
-      updateStats(stats, opponent.index, 'consecutiveBlocks', 1);
+      updateStats(stats, opponent.id, 'blocks', 1);
+      updateStats(stats, opponent.id, 'consecutiveBlocks', 1);
       checkAchievements(stats, achievements);
     } else {
       // Reset block stat
-      updateStats(stats, opponent.index, 'consecutiveBlocks', 0);
+      updateStats(stats, opponent.id, 'consecutiveBlocks', 0);
     }
   }
 
@@ -1394,7 +1394,7 @@ const attack = (
       opponent.activeWeapon = null;
 
       // Update disarm stat
-      updateStats(stats, fighter.index, 'disarms', 1);
+      updateStats(stats, fighter.id, 'disarms', 1);
     }
   }
 
@@ -1418,7 +1418,7 @@ const attack = (
       fighter.activeWeapon = null;
 
       // Update disarm stat
-      updateStats(stats, opponent.index, 'disarms', 1);
+      updateStats(stats, opponent.id, 'disarms', 1);
     }
   }
 
@@ -1460,7 +1460,7 @@ export const checkDeaths = (
         const opponent = fightData.fighters.find((f) => f.id !== master && !f.master);
 
         if (opponent) {
-          updateStats(stats, opponent.index, 'petsKilled', 1);
+          updateStats(stats, opponent.id, 'petsKilled', 1);
         }
       }
 
@@ -1539,14 +1539,14 @@ const startAttack = (
     // Check if the opponent reverses the attack
     if (!opponentWasTrapped && attackResult.reversed) {
       // Update reversal stat
-      updateStats(stats, opponent.index, 'consecutiveReversals', 1);
+      updateStats(stats, opponent.id, 'consecutiveReversals', 1);
       checkAchievements(stats, achievements);
 
       // Trigger fighter attack
       attack(fightData, opponent, fighter, stats, achievements);
     } else {
       // Reset reversal stat
-      updateStats(stats, opponent.index, 'consecutiveReversals', 0);
+      updateStats(stats, opponent.id, 'consecutiveReversals', 0);
     }
 
     // Achievement for combos
@@ -1659,9 +1659,9 @@ export const playFighterTurn = (
     // Check if opponent is not trapped and countered
     if (countered) {
       // Update counter stat
-      updateStats(stats, opponent.index, 'counters', 1);
-      updateStats(stats, fighter.index, 'countersTriggered', 1);
-      updateStats(stats, opponent.index, 'consecutiveCounters', 1);
+      updateStats(stats, opponent.id, 'counters', 1);
+      updateStats(stats, fighter.id, 'countersTriggered', 1);
+      updateStats(stats, opponent.id, 'consecutiveCounters', 1);
       checkAchievements(stats, achievements);
 
       // Add counter step
@@ -1675,7 +1675,7 @@ export const playFighterTurn = (
       startAttack(fightData, stats, achievements, opponent, fighter, true);
     } else {
       // Reset counter stat
-      updateStats(stats, opponent.index, 'consecutiveCounters', 0);
+      updateStats(stats, opponent.id, 'consecutiveCounters', 0);
 
       // Fighter attacks opponent
       startAttack(fightData, stats, achievements, fighter, opponent);
@@ -1722,7 +1722,7 @@ export const playFighterTurn = (
       });
 
       // Update consecutive throw stat
-      updateStats(stats, fighter.index, 'consecutiveThrows', 1);
+      updateStats(stats, fighter.id, 'consecutiveThrows', 1);
       checkAchievements(stats, achievements);
 
       // Check if opponent blocked (harder than melee)
@@ -1736,12 +1736,12 @@ export const playFighterTurn = (
         });
 
         // Update block stat
-        updateStats(stats, opponent.index, 'blocks', 1);
-        updateStats(stats, opponent.index, 'consecutiveBlocks', 1);
+        updateStats(stats, opponent.id, 'blocks', 1);
+        updateStats(stats, opponent.id, 'consecutiveBlocks', 1);
         checkAchievements(stats, achievements);
       } else {
         // Reset block stat
-        updateStats(stats, opponent.index, 'consecutiveBlocks', 0);
+        updateStats(stats, opponent.id, 'consecutiveBlocks', 0);
       }
 
       // Check if opponent evaded (harder than melee)
@@ -1755,11 +1755,11 @@ export const playFighterTurn = (
         });
 
         // Update evade stat
-        updateStats(stats, opponent.index, 'consecutiveEvades', 1);
+        updateStats(stats, opponent.id, 'consecutiveEvades', 1);
         checkAchievements(stats, achievements);
       } else {
         // Reset evade stat
-        updateStats(stats, opponent.index, 'consecutiveEvades', 0);
+        updateStats(stats, opponent.id, 'consecutiveEvades', 0);
       }
 
       // Register hit if damage was done

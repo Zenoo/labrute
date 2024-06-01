@@ -13,21 +13,18 @@ const isReady = () => serverReady;
 
 const setGlobalTournamentValid = async (prisma: PrismaClient, valid: boolean) => {
   const serverState = await prisma.serverState.findFirst({
-    where: {
-      globalTournamentValid: valid,
-    },
     select: { id: true },
   });
   if (!serverState) {
     await prisma.serverState.create({
       data: { globalTournamentValid: valid },
-
+      select: { id: true },
     });
   } else {
     await prisma.serverState.update({
       where: { id: serverState.id },
       data: { globalTournamentValid: valid },
-
+      select: { id: true },
     });
   }
 };
@@ -52,20 +49,27 @@ const getModifiers = async (prisma: PrismaClient): Promise<FightModifier[]> => {
 
 const setModifiers = async (prisma: PrismaClient, modifiers: FightModifier[]) => {
   const tomorrow = moment.utc().add(1, 'day').toDate();
-  await prisma.serverState.upsert({
-    update: {
-      activeModifiers: modifiers,
-      modifiersEndAt: tomorrow,
-    },
-    create: {
-      activeModifiers: modifiers,
-      modifiersEndAt: tomorrow,
-    },
+  const serverState = await prisma.serverState.findFirst({
     select: { id: true },
-    where: {
-      id: '',
-    },
   });
+  if (!serverState) {
+    await prisma.serverState.create({
+      data: {
+        activeModifiers: modifiers,
+        modifiersEndAt: tomorrow,
+      },
+      select: { id: true },
+    });
+  } else {
+    await prisma.serverState.update({
+      where: { id: serverState.id },
+      data: {
+        activeModifiers: modifiers,
+        modifiersEndAt: tomorrow,
+      },
+      select: { id: true },
+    });
+  }
 };
 
 const areModifiersExpired = async (prisma: PrismaClient) => {

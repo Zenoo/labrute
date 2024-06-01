@@ -140,7 +140,7 @@ const getTempo = (speed: number) => 0.10 + (20 / (10 + (speed * 1.5))) * 0.90;
 const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
   let spawnedPets = 0;
   const fighters: DetailedFighter[] = [];
-  let positiveIndex = -1;
+  let positiveIndex = 10;
   let negativeIndex = 0;
   [team1, team2].forEach((team) => {
     const { brute } = team;
@@ -404,7 +404,6 @@ const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
       });
     }
   });
-
   return fighters;
 };
 

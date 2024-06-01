@@ -244,6 +244,7 @@ const generateFight = async (
   // Reduce the size of the fighters data
   const fighters: Fighter[] = fightData.initialFighters.map((fighter) => ({
     id: fighter.id,
+    index: fighter.index,
     name: fighter.name,
     gender: fighter.gender,
     body: fighter.body,
@@ -435,7 +436,6 @@ const generateFight = async (
   if (achievementsActive) {
     await updateAchievements(prisma, achievements, isTournamentFight);
   }
-
   return result;
 };
 
