@@ -1263,7 +1263,7 @@ const Brutes = {
       const { params: { name } } = req;
 
       if (!name) {
-        throw new Error('Missing name');
+        throw new ExpectedError('Missing name');
       }
 
       const brute = await prisma.brute.findFirst({
@@ -1271,7 +1271,7 @@ const Brutes = {
       });
 
       if (!brute) {
-        throw new Error('Brute not found');
+        throw new ExpectedError('Brute not found');
       }
 
       const destinyChoices = await prisma.destinyChoice.findMany({
