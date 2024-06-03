@@ -1477,7 +1477,7 @@ export const checkDeaths = (
 
       // Set loser if fighter is a main brute or a boss
       if (fighter.type === 'boss' || (fighter.type === 'brute' && !fighter.master)) {
-        fightData.loser = fighter.index;
+        fightData.loser = fighter.id;
       }
     }
   }

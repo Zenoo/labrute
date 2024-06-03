@@ -873,8 +873,7 @@ const Clans = {
         throw new ExpectedError(translate('missingId', user));
       }
 
-      const { id } = req.params;
-      const { threadId } = req.params;
+      const { id, threadId } = req.params;
 
       const brute = await prisma.brute.findFirst({
         where: {
@@ -946,8 +945,7 @@ const Clans = {
         throw new ExpectedError(translate('missingId', user));
       }
 
-      const { id } = req.params;
-      const { threadId } = req.params;
+      const { id, threadId } = req.params;
 
       const brute = await prisma.brute.findFirst({
         where: {
@@ -1137,8 +1135,7 @@ const Clans = {
         throw new ExpectedError(translate('missingId', user));
       }
 
-      const { id } = req.params;
-      const { threadId } = req.params;
+      const { id, threadId } = req.params;
 
       const brute = await prisma.brute.findFirst({
         where: {
@@ -1205,8 +1202,7 @@ const Clans = {
         throw new ExpectedError(translate('missingId', user));
       }
 
-      const { id } = req.params;
-      const { threadId } = req.params;
+      const { id, threadId } = req.params;
 
       const brute = await prisma.brute.findFirst({
         where: {

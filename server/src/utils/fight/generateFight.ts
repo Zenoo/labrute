@@ -216,7 +216,7 @@ const generateFight = async (
   }
 
   // Get winner
-  const winner = fightData.fighters.find((fighter) => fighter.index !== fightData.loser
+  const winner = fightData.fighters.find((fighter) => fighter.id !== fightData.loser
     && (fighter.type === 'brute' || fighter.type === 'boss')
     && !fighter.master);
 
@@ -225,20 +225,20 @@ const generateFight = async (
   }
 
   // Get loser
-  const loser = fightData.fighters.find((fighter) => fighter.index === fightData.loser);
+  const loser = fightData.fighters.find((fighter) => fighter.id === fightData.loser);
 
   if (!loser) {
     throw new Error('No loser found');
   }
 
   // Set fight winner and loser
-  fightData.winner = winner.index;
+  fightData.winner = winner.id;
 
   // Add end step
   fightData.steps.push({
     a: StepType.End,
-    w: fightData.winner,
-    l: fightData.loser,
+    w: winner.index,
+    l: loser.index,
   });
 
   // Reduce the size of the fighters data

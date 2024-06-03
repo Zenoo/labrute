@@ -27,6 +27,7 @@ const BruteRender = ({
 
     renderer.onRender(brute.id, (content) => {
       setSrc(content);
+      console.log(brute.name, brute.body);
     });
 
     renderer.render(brute);

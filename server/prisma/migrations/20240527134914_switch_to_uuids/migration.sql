@@ -183,8 +183,9 @@ ALTER TABLE "_Opponents" DROP CONSTRAINT "_Opponents_B_fkey";
 ALTER TABLE "Achievement" DROP CONSTRAINT if exists "Achievement_pkey";
 ALTER TABLE "Achievement" ADD COLUMN "temp_id" INT ;
 ALTER TABLE "Achievement" ADD COLUMN "temp_bruteId" INT;
-UPDATE "Achievement" SET "temp_id" = "id";
-UPDATE "Achievement" SET "temp_bruteId" = "bruteId";
+UPDATE "Achievement"
+SET "temp_id" = "id",
+    "temp_bruteId" = "bruteId";
 ALTER TABLE "Achievement" DROP COLUMN "id";
 ALTER TABLE "Achievement" DROP COLUMN "bruteId";
 ALTER TABLE "Achievement" ADD COLUMN "id" uuid NOT NULL DEFAULT uuid_generate_v4();
@@ -204,9 +205,10 @@ ALTER TABLE "BossDamage" DROP CONSTRAINT if exists "BossDamage_pkey";
 ALTER TABLE "BossDamage" ADD COLUMN "temp_id" INT ;
 ALTER TABLE "BossDamage" ADD COLUMN "temp_clanId" INT;
 ALTER TABLE "BossDamage" ADD COLUMN "temp_bruteId" INT;
-UPDATE "BossDamage" SET "temp_id" = "id";
-UPDATE "BossDamage" SET "temp_clanId" = "clanId";
-UPDATE "BossDamage" SET "temp_bruteId" = "bruteId";
+UPDATE "BossDamage"
+SET "temp_id" = "id",
+    "temp_clanId" = "clanId",
+    "temp_bruteId" = "bruteId";
 ALTER TABLE "BossDamage" DROP COLUMN "clanId";
 ALTER TABLE "BossDamage" DROP COLUMN "bruteId";
 ALTER TABLE "BossDamage" DROP COLUMN "id";
@@ -221,10 +223,11 @@ ALTER TABLE "Brute" ADD COLUMN "temp_masterId" INT ;
 ALTER TABLE "Brute" ADD COLUMN "temp_id" INT;
 ALTER TABLE "Brute" ADD COLUMN "temp_clanId" INT ;
 ALTER TABLE "Brute" ADD COLUMN "temp_wantToJoinClanId" INT ;
-UPDATE "Brute" SET "temp_id" = "id";
-UPDATE "Brute" SET "temp_masterId" = "masterId";
-UPDATE "Brute" SET "temp_clanId" = "clanId";
-UPDATE "Brute" SET "temp_wantToJoinClanId" = "wantToJoinClanId";
+UPDATE "Brute"
+SET "temp_id" = "id",
+    "temp_masterId" = "masterId",
+    "temp_clanId" = "clanId",
+    "temp_wantToJoinClanId" = "wantToJoinClanId";
 ALTER TABLE "Brute" DROP COLUMN IF EXISTS "id";
 ALTER TABLE "Brute" ADD COLUMN "id" uuid NOT NULL DEFAULT uuid_generate_v4();
 ALTER TABLE "Brute" DROP COLUMN "masterId";
@@ -239,8 +242,9 @@ ALTER TABLE "Brute" ADD CONSTRAINT "Brute_pkey" PRIMARY KEY ("id");
 ALTER TABLE "BruteInventoryItem" DROP CONSTRAINT IF exists "BruteInventoryItem_pkey";
 ALTER TABLE "BruteInventoryItem" ADD COLUMN "temp_id" INT;
 ALTER TABLE "BruteInventoryItem" ADD COLUMN "temp_bruteId" INT;
-UPDATE "BruteInventoryItem" SET "temp_id" = "id";
-UPDATE "BruteInventoryItem" SET "temp_bruteId" = "bruteId";
+UPDATE "BruteInventoryItem"
+SET "temp_id" = "id",
+    "temp_bruteId" = "bruteId";
 ALTER TABLE "BruteInventoryItem" DROP COLUMN "id";
 ALTER TABLE "BruteInventoryItem" DROP COLUMN "bruteId";
 ALTER TABLE "BruteInventoryItem" ADD COLUMN "id" uuid NOT NULL DEFAULT uuid_generate_v4();
@@ -251,8 +255,9 @@ ALTER TABLE "BruteInventoryItem" ADD CONSTRAINT "BruteInventoryItem_pkey" PRIMAR
 ALTER TABLE "BruteReport" DROP CONSTRAINT IF exists "BruteReport_pkey";
 ALTER TABLE "BruteReport" ADD COLUMN "temp_id" INT;
 ALTER TABLE "BruteReport" ADD COLUMN "temp_bruteId" INT;
-UPDATE "BruteReport" SET "temp_id" = "id";
-UPDATE "BruteReport" SET "temp_bruteId" = "bruteId";
+UPDATE "BruteReport"
+SET "temp_id" = "id",
+    "temp_bruteId" = "bruteId";
 ALTER TABLE "BruteReport" DROP COLUMN "id";
 ALTER TABLE "BruteReport" DROP COLUMN "bruteId";
 ALTER TABLE "BruteReport" ADD COLUMN "id" uuid NOT NULL DEFAULT uuid_generate_v4();
@@ -263,8 +268,9 @@ ALTER TABLE "BruteReport" ADD CONSTRAINT "BruteReport_pkey" PRIMARY KEY ("id");
 ALTER TABLE "BruteStartingStats" DROP CONSTRAINT IF exists "BruteStartingStats_pkey";
 ALTER TABLE "BruteStartingStats" ADD COLUMN "temp_bruteId" INT;
 ALTER TABLE "BruteStartingStats" ADD COLUMN "temp_id" INT;
-UPDATE "BruteStartingStats" SET "temp_bruteId" = "bruteId";
-UPDATE "BruteStartingStats" SET "temp_id" = "id";
+UPDATE "BruteStartingStats"
+SET "temp_bruteId" = "bruteId",
+    "temp_id" = "id";
 ALTER TABLE "BruteStartingStats" DROP COLUMN "bruteId";
 ALTER TABLE "BruteStartingStats" DROP COLUMN "id";
 ALTER TABLE "BruteStartingStats" ADD COLUMN "bruteId" uuid  NOT NULL;
@@ -275,8 +281,9 @@ ALTER TABLE "BruteStartingStats" ADD CONSTRAINT "BruteStartingStats_pkey" PRIMAR
 ALTER TABLE "Clan" DROP CONSTRAINT IF exists "Clan_pkey";
 ALTER TABLE "Clan" ADD COLUMN "temp_id" INT;
 ALTER TABLE "Clan" ADD COLUMN "temp_masterId" INT;
-UPDATE "Clan" SET "temp_id" = "id";
-UPDATE "Clan" SET "temp_masterId" = "masterId";
+UPDATE "Clan"
+SET "temp_id" = "id",
+    "temp_masterId" = "masterId";
 ALTER TABLE "Clan" DROP COLUMN "id";
 ALTER TABLE "Clan" DROP COLUMN "masterId";
 ALTER TABLE "Clan" ADD COLUMN "id" uuid NOT NULL DEFAULT uuid_generate_v4();
@@ -288,9 +295,10 @@ ALTER TABLE "ClanPost" DROP CONSTRAINT IF exists "ClanPost_pkey";
 ALTER TABLE "ClanPost" ADD COLUMN "temp_id" INT;
 ALTER TABLE "ClanPost" ADD COLUMN "temp_threadId" INT;
 ALTER TABLE "ClanPost" ADD COLUMN "temp_authorId" INT;
-UPDATE "ClanPost" SET "temp_id" = "id";
-UPDATE "ClanPost" SET "temp_threadId" = "threadId";
-UPDATE "ClanPost" SET "temp_authorId" = "authorId";
+UPDATE "ClanPost"
+SET "temp_id" = "id",
+    "temp_threadId" = "threadId",
+    "temp_authorId" = "authorId";
 ALTER TABLE "ClanPost" DROP COLUMN "id";
 ALTER TABLE "ClanPost" DROP COLUMN "authorId";
 ALTER TABLE "ClanPost" DROP COLUMN "threadId";
@@ -304,9 +312,10 @@ ALTER TABLE "ClanThread" DROP CONSTRAINT IF exists "ClanThread_pkey";
 ALTER TABLE "ClanThread" ADD COLUMN "temp_id" INT;
 ALTER TABLE "ClanThread" ADD COLUMN "temp_clanId" INT;
 ALTER TABLE "ClanThread" ADD COLUMN "temp_creatorId" INT;
-UPDATE "ClanThread" SET "temp_id" = "id";
-UPDATE "ClanThread" SET "temp_clanId" = "clanId";
-UPDATE "ClanThread" SET "temp_creatorId" = "creatorId";
+UPDATE "ClanThread"
+SET "temp_id" = "id",
+    "temp_clanId" = "clanId",
+    "temp_creatorId" = "creatorId";
 ALTER TABLE "ClanThread" DROP COLUMN "id";
 ALTER TABLE "ClanThread" DROP COLUMN "clanId";
 ALTER TABLE "ClanThread" DROP COLUMN "creatorId";
@@ -319,8 +328,9 @@ ALTER TABLE "ClanThread" ADD CONSTRAINT "ClanThread_pkey" PRIMARY KEY ("id");
 ALTER TABLE "DestinyChoice" DROP CONSTRAINT IF exists "DestinyChoice_pkey";
 ALTER TABLE "DestinyChoice" ADD COLUMN "temp_id" INT;
 ALTER TABLE "DestinyChoice" ADD COLUMN "temp_bruteId" INT;
-UPDATE "DestinyChoice" SET "temp_id" = "id";
-UPDATE "DestinyChoice" SET "temp_bruteId" = "bruteId";
+UPDATE "DestinyChoice"
+SET "temp_id" = "id",
+    "temp_bruteId" = "bruteId";
 ALTER TABLE "DestinyChoice" DROP COLUMN "id";
 ALTER TABLE "DestinyChoice" DROP COLUMN "bruteId";
 ALTER TABLE "DestinyChoice" ADD COLUMN "id" uuid NOT NULL DEFAULT uuid_generate_v4();;
@@ -329,14 +339,8 @@ ALTER TABLE "DestinyChoice" ADD CONSTRAINT "DestinyChoice_pkey" PRIMARY KEY ("id
 
 -- AlterTable
 ALTER TABLE "Fight" DROP CONSTRAINT IF exists "Fight_pkey";
-ALTER TABLE "Fight" ADD COLUMN "temp_id" INT;
-ALTER TABLE "Fight" ADD COLUMN "temp_brute1Id" INT;
-ALTER TABLE "Fight" ADD COLUMN "temp_brute2Id" INT;
-ALTER TABLE "Fight" ADD COLUMN "temp_tournamentId" INT;
-UPDATE "Fight" SET "temp_id" = "id";
-UPDATE "Fight" SET "temp_brute1Id" = "brute1Id";
-UPDATE "Fight" SET "temp_brute2Id" = "brute2Id";
-UPDATE "Fight" SET "temp_tournamentId" = "tournamentId";
+TRUNCATE TABLE "Fight";
+
 ALTER TABLE "Fight" DROP COLUMN "id";
 ALTER TABLE "Fight" DROP COLUMN "brute1Id";
 ALTER TABLE "Fight" DROP COLUMN "brute2Id";
@@ -351,10 +355,9 @@ ALTER TABLE "Fight" ADD CONSTRAINT "Fight_pkey" PRIMARY KEY ("id");
 ALTER TABLE "Log" DROP CONSTRAINT IF exists "Log_pkey";
 ALTER TABLE "Log" ADD COLUMN "temp_id" INT;
 ALTER TABLE "Log" ADD COLUMN "temp_currentBruteId" INT;
-ALTER TABLE "Log" ADD COLUMN "temp_fightId" INT;
-UPDATE "Log" SET "temp_id" = "id";
-UPDATE "Log" SET "temp_currentBruteId" = "currentBruteId";
-UPDATE "Log" SET "temp_fightId" = "fightId";
+UPDATE "Log"
+SET "temp_id" = "id",
+    "temp_currentBruteId" = "currentBruteId";
 ALTER TABLE "Log" DROP COLUMN "id";
 ALTER TABLE "Log" DROP COLUMN "currentBruteId";
 ALTER TABLE "Log" DROP COLUMN "fightId";
@@ -391,8 +394,9 @@ ALTER TABLE "Tournament" ADD CONSTRAINT "Tournament_pkey" PRIMARY KEY ("id");
 ALTER TABLE "TournamentAchievement" DROP CONSTRAINT IF exists "TournamentAchievement_pkey";
 ALTER TABLE "TournamentAchievement" ADD COLUMN "temp_id" INT;
 ALTER TABLE "TournamentAchievement" ADD COLUMN "temp_bruteId" INT;
-UPDATE "TournamentAchievement" SET "temp_id" = "id";
-UPDATE "TournamentAchievement" SET "temp_bruteId" = "bruteId";
+UPDATE "TournamentAchievement"
+SET "temp_id" = "id",
+    "temp_bruteId" = "bruteId";
 ALTER TABLE "TournamentAchievement" DROP COLUMN "id";
 ALTER TABLE "TournamentAchievement" DROP COLUMN "bruteId";
 ALTER TABLE "TournamentAchievement" ADD COLUMN "id" uuid NOT NULL DEFAULT uuid_generate_v4();
@@ -411,8 +415,9 @@ ALTER TABLE "TournamentGold" ADD CONSTRAINT "TournamentGold_pkey" PRIMARY KEY ("
 ALTER TABLE "TournamentXp" DROP CONSTRAINT IF exists "TournamentXp_pkey";
 ALTER TABLE "TournamentXp" ADD COLUMN "temp_id" INT;
 ALTER TABLE "TournamentXp" ADD COLUMN "temp_bruteId" INT;
-UPDATE "TournamentXp" SET "temp_id" = "id";
-UPDATE "TournamentXp" SET "temp_bruteId" = "bruteId";
+UPDATE "TournamentXp"
+SET "temp_id" = "id",
+    "temp_bruteId" = "bruteId";
 ALTER TABLE "TournamentXp" DROP COLUMN "id";
 ALTER TABLE "TournamentXp" DROP COLUMN "bruteId";
 ALTER TABLE "TournamentXp" ADD COLUMN "id" uuid NOT NULL DEFAULT uuid_generate_v4();
@@ -434,116 +439,103 @@ ALTER TABLE "_BruteReportToUser" DROP COLUMN "A";
 ALTER TABLE "_BruteReportToUser" ADD COLUMN "A" uuid NOT NULL ;
 
 -- AlterTable
+
+
+
 ALTER TABLE "_BruteToTitle" ADD COLUMN "temp_A" INT;
-UPDATE "_BruteToTitle" SET "temp_A" = "A";
+ALTER TABLE "_BruteToTitle" ADD COLUMN "temp_B" INT;
+UPDATE "_BruteToTitle" SET "temp_A" = "A", "temp_B" = "B";
 ALTER TABLE "_BruteToTitle" DROP COLUMN "A";
 ALTER TABLE "_BruteToTitle" ADD COLUMN "A" uuid NOT NULL ;
-ALTER TABLE "_BruteToTitle" ADD COLUMN "temp_B" INT;
-UPDATE "_BruteToTitle" SET "temp_B" = "B";
 ALTER TABLE "_BruteToTitle" DROP COLUMN "B";
 ALTER TABLE "_BruteToTitle" ADD COLUMN "B" uuid NOT NULL;
 
 -- AlterTable
+
+
 ALTER TABLE "_BruteToTournament" ADD COLUMN "temp_A" INT;
-UPDATE "_BruteToTournament" SET "temp_A" = "A";
+ALTER TABLE "_BruteToTournament" ADD COLUMN "temp_B" INT;
+UPDATE "_BruteToTournament"
+SET "temp_A" = "A",
+    "temp_B" = "B";
 ALTER TABLE "_BruteToTournament" DROP COLUMN "A";
 ALTER TABLE "_BruteToTournament" ADD COLUMN "A" uuid NOT NULL ;
-ALTER TABLE "_BruteToTournament" ADD COLUMN "temp_B" INT;
-UPDATE "_BruteToTournament" SET "temp_B" = "B";
 ALTER TABLE "_BruteToTournament" DROP COLUMN "B";
 ALTER TABLE "_BruteToTournament" ADD COLUMN "B" uuid NOT NULL ;
 
 -- AlterTable
 ALTER TABLE "_Opponents" ADD COLUMN "temp_A" INT;
-UPDATE "_Opponents" SET "temp_A" = "A";
+
+
+ALTER TABLE "_Opponents" ADD COLUMN "temp_B" INT;
+UPDATE "_Opponents"
+SET "temp_A" = "A",
+    "temp_B" = "B";
 ALTER TABLE "_Opponents" DROP COLUMN "A";
 ALTER TABLE "_Opponents" ADD COLUMN "A" uuid NOT NULL ;
-ALTER TABLE "_Opponents" ADD COLUMN "temp_B" INT;
-UPDATE "_Opponents" SET "temp_B" = "B";
 ALTER TABLE "_Opponents" DROP COLUMN "B";
 ALTER TABLE "_Opponents" ADD COLUMN "B" uuid NOT NULL ;
 
 
 -- UPDATE DATAS
 UPDATE "Achievement" SET "bruteId" = "Brute"."id" FROM "Brute" WHERE "Achievement"."temp_bruteId" = "Brute"."temp_id";
-UPDATE "Brute" SET "masterId" = "id" WHERE "temp_masterId" = "temp_id";
-UPDATE "Brute" b SET "clanId" = c."id" FROM "Clan" c WHERE b."temp_clanId" = c."temp_id" AND b."temp_id" IS NOT NULL;
-UPDATE "BruteInventoryItem" bii SET "bruteId" = b."id" FROM "Brute" b WHERE bii."temp_bruteId" = b."temp_id" AND bii."temp_bruteId" IS NOT NULL;
-UPDATE "BruteReport" br SET "bruteId" = b."id" FROM "Brute" b WHERE br."temp_bruteId" = b."temp_id" AND br."temp_bruteId" IS NOT NULL;
-UPDATE "Clan" c SET "masterId" = b."id" FROM  "Brute" b WHERE c."temp_masterId" = b."temp_id" AND c."temp_masterId" IS NOT NULL;
+UPDATE "Brute" b1
+SET "masterId" = (
+    SELECT "id"
+    FROM "Brute" b2
+    WHERE b2."temp_id" = b1."temp_masterId"
+)
+WHERE EXISTS (
+    SELECT 1
+    FROM "Brute" b2
+    WHERE b2."temp_id" = b1."temp_masterId"
+);
+UPDATE "Brute" b SET "clanId" = c."id" FROM "Clan" c WHERE b."temp_clanId" = c."temp_id";
+UPDATE "BruteInventoryItem" bii SET "bruteId" = b."id" FROM "Brute" b WHERE bii."temp_bruteId" = b."temp_id";
+UPDATE "BruteReport" br SET "bruteId" = b."id" FROM "Brute" b WHERE br."temp_bruteId" = b."temp_id";
+UPDATE "Clan" c SET "masterId" = b."id" FROM  "Brute" b WHERE c."temp_masterId" = b."temp_id";
 
 UPDATE "ClanPost" cp
 SET "authorId" = b."id",
     "threadId" = ct."id"
 FROM "Brute" b, "ClanThread" ct
 WHERE b."temp_id" = cp."temp_authorId"
-  AND ct."temp_id" = cp."temp_threadId"
-  AND cp."temp_authorId" IS NOT NULL
-  AND cp."temp_threadId" IS NOT NULL;
+  AND ct."temp_id" = cp."temp_threadId";
 
 UPDATE "ClanThread" ct
 SET "clanId" = c."id" , "creatorId" = b."id"
 FROM "Clan" c ,"Brute" b
 WHERE c."temp_id" = ct."temp_clanId"
-    AND b."temp_id" = ct."temp_creatorId"
-    AND ct."temp_clanId"  IS NOT NULL
-    AND ct."temp_creatorId" IS NOT NULL;
+    AND b."temp_id" = ct."temp_creatorId";
 
 
 UPDATE "BossDamage" bd
 SET "clanId" = c."id" , "bruteId" = b."id"
 FROM "Clan" c , "Brute" b
-WHERE c."temp_id" = bd."temp_clanId" AND b."temp_id" = bd."temp_bruteId" AND bd."temp_clanId"  IS NOT NULL AND bd."temp_bruteId" IS NOT NULL;
+WHERE c."temp_id" = bd."temp_clanId" AND b."temp_id" = bd."temp_bruteId" ;
 
 
 UPDATE "BruteStartingStats" bss
 SET  "bruteId" = b."id"
 FROM  "Brute" b
-WHERE b."temp_id" = bss."temp_bruteId" AND bss."temp_bruteId" IS NOT NULL;
+WHERE b."temp_id" = bss."temp_bruteId" ;
 
-UPDATE "DestinyChoice" dc SET "bruteId" = b."id" FROM "Brute" b WHERE b."temp_id" = dc."temp_bruteId"  AND dc."temp_bruteId" IS NOT NULL;
+UPDATE "DestinyChoice" dc SET "bruteId" = b."id" FROM "Brute" b WHERE b."temp_id" = dc."temp_bruteId"  ;
 
-UPDATE "Fight" f
-SET "brute1Id" = b1."id" ,  "brute2Id" = b2."id" , "tournamentId" = t."id"
-FROM "Brute" b1, "Brute" b2, "Tournament" t
-WHERE b1."temp_id" = f."temp_brute1Id" AND b2."temp_id" = f."temp_brute2Id" AND t."temp_id" =  f."temp_tournamentId"
-    AND f."brute1Id"  IS NOT NULL
-    AND f."brute2Id"  IS NOT NULL
-    AND f."tournamentId"  IS NOT NULL;
+UPDATE "Log" l  SET "currentBruteId" = b."id" FROM "Brute" b WHERE b."temp_id" = l."temp_currentBruteId" ;
 
-UPDATE "Log" l
-SET "currentBruteId" = b."id" , "fightId" = f."id"
-FROM "Brute" b , "Fight" f
-WHERE b."temp_id" = l."temp_currentBruteId"
-    AND f."temp_id" = l."temp_fightId"
-    AND l."currentBruteId" IS NOT NULL
-    AND l."fightId" IS NOT NULL;
+UPDATE "TournamentAchievement" ta SET "bruteId" = b."id" FROM "Brute" b WHERE b."temp_id" = ta."temp_bruteId" ;
 
-UPDATE "TournamentAchievement" ta
-SET "bruteId" = b."id" FROM "Brute" b
-WHERE b."temp_id" = ta."temp_bruteId" AND ta."bruteId" IS NOT NULL;
-
-
-
-UPDATE "_BruteReportToUser" btr
-SET "A" = b."id" FROM "Brute" b WHERE b."temp_id" = btr."temp_A" AND btr."A" IS NOT NULL;
-
-UPDATE "_BruteToTitle" btt
-SET "A" = b."id" , "B" = t."id"
-FROM "Brute" b , "Title" t
-WHERE b."temp_id" = btt."temp_A" AND t."temp_id" = btt."temp_B" AND btt."A" IS NOT NULL AND btt."B" IS NOT NULL;
-
+UPDATE "_BruteReportToUser" btr SET "A" = br."id" FROM "BruteReport" br WHERE br."temp_id" = btr."temp_A" ;
 
 UPDATE "_BruteToTournament" bt
-SET "A" = b."id" , "B" = t."id" FROM "Brute" b , "Tournament" t  WHERE b."temp_id" = bt."temp_A" AND t."temp_id" = bt."temp_B" AND bt."A" IS NOT NULL AND bt."B" IS NOT NULL;
+SET "A" = b."id" , "B" = t."id" FROM "Brute" b , "Tournament" t  WHERE b."temp_id" = bt."temp_A" AND t."temp_id" = bt."temp_B" ;
 
 UPDATE "_Opponents" o
 SET "A" = b1."id" , "B" = b2."id"
 FROM "Brute" b1 , "Brute" b2
 WHERE b1."temp_id" = o."temp_A"
-  AND b2."temp_id" = o."temp_B"
-  AND o."A" IS NOT NULL
-  AND o."B" IS NOT NULL;
+  AND b2."temp_id" = o."temp_B";
 
 
 --  Delete all temp_ columns
@@ -573,13 +565,8 @@ ALTER TABLE "BruteStartingStats" DROP COLUMN "temp_bruteId" ;
 ALTER TABLE "BruteStartingStats" DROP COLUMN "temp_id" ;
 ALTER TABLE "DestinyChoice" DROP COLUMN "temp_id" ;
 ALTER TABLE "DestinyChoice" DROP COLUMN "temp_bruteId" ;
-ALTER TABLE "Fight" DROP COLUMN "temp_id" ;
-ALTER TABLE "Fight" DROP COLUMN "temp_brute1Id" ;
-ALTER TABLE "Fight" DROP COLUMN "temp_brute2Id" ;
-ALTER TABLE "Fight" DROP COLUMN "temp_tournamentId" ;
 ALTER TABLE "Log" DROP COLUMN "temp_id" ;
 ALTER TABLE "Log" DROP COLUMN "temp_currentBruteId" ;
-ALTER TABLE "Log" DROP COLUMN "temp_fightId" ;
 ALTER TABLE "ServerState" DROP COLUMN "temp_id" ;
 ALTER TABLE "Title" DROP COLUMN "temp_id" ;
 ALTER TABLE "Tournament" DROP COLUMN "temp_id" ;

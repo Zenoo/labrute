@@ -16,7 +16,7 @@ type OnRenderMethod = (id: number | string, callback: RenderCallback) => void;
 export interface RendererContextInterface {
   render: RenderMethod;
   onRender: OnRenderMethod;
-  resetCache: (id: number | string) => void;
+  resetCache: (id:string) => void;
 }
 
 const RendererContext = React.createContext<RendererContextInterface>({
@@ -163,7 +163,7 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
     });
   }, [queue, renderers, cache, callbacks]);
 
-  const resetCache = (id: number | string) => {
+  const resetCache = (id: string) => {
     setCache((prev) => prev.filter((c) => c.id !== id));
   };
 

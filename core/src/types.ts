@@ -9,7 +9,7 @@ export interface AnimatedWeapon {
 }
 
 export type SuperName =
-  | 'thief'
+  'thief'
   | 'fierceBrute'
   | 'tragicPotion'
   | 'net'
@@ -112,7 +112,7 @@ export interface DetailedFighter {
 
 export interface Fighter {
   id: string;
-  index?: number
+  index: number
   name: string;
   gender?: Gender;
   body?: string;
@@ -487,12 +487,12 @@ export interface DetailedFight {
   initialFighters: DetailedFighter[];
   steps: FightStep[];
   initiative: number;
-  winner: number | null;
-  loser: number | null;
+  winner: string | null;
+  loser: string | null;
 }
 
 export type AnimationModel =
-  | 'bear'
+   'bear'
   | 'dog'
   | 'panther'
   | 'male-brute'

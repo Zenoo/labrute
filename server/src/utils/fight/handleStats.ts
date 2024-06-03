@@ -9,12 +9,12 @@ const handleStats = (
   isTournamentFight: boolean,
   isTournamentFinal: boolean,
 ) => {
-  const winner = fightData.fighters.find((f) => f.index === fightData.winner);
+  const winner = fightData.fighters.find((f) => f.id === fightData.winner);
   if (!winner) {
     throw new Error('Winner not found');
   }
 
-  const loser = fightData.fighters.find((f) => f.index === fightData.loser);
+  const loser = fightData.fighters.find((f) => f.id === fightData.loser);
   if (!loser) {
     throw new Error('Loser not found');
   }
