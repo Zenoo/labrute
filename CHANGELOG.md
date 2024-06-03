@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.59.10](https://github.com/Zenoo/labrute/compare/labrute-v2.59.9...labrute-v2.59.10) (2024-06-03)
+
+
+### Bug Fixes
+
+* escape underscore in name checks ([f4bf2d6](https://github.com/Zenoo/labrute/commit/f4bf2d6623ec2976d4fda769a06ed332d381f6ca))
+* Silence wrong brute errors ([9538a33](https://github.com/Zenoo/labrute/commit/9538a338dba46b04410af368a30a83dc5c0823ac))
+
 ## [2.59.9](https://github.com/Zenoo/labrute/compare/labrute-v2.59.8...labrute-v2.59.9) (2024-06-01)
 
 
