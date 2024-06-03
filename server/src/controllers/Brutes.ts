@@ -219,7 +219,7 @@ const Brutes = {
       const count = await prisma.brute.count({
         where: {
           name: {
-            equals: req.body.name,
+            equals: req.body.name.replace((/_/g), '\\_'),
             mode: 'insensitive',
           },
           deletedAt: null,
