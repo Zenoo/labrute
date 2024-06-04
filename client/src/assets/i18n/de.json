@@ -1287,5 +1287,14 @@
   "taggedForDeletion": "Dein Brutalo wird in {{days}} Tag(en) gelöscht.",
   "deletionReason.DUPLICATE_NAME": "Dein Brutalo hat mit einem anderen Brutalo den gleichen Namen. Nutze den Gegenstand in deinem Inventar und ändere diesen, um eine Löschung zu vermeiden.",
   "deletionReason.INNAPROPRIATE_NAME": "Dein Brutalo hat einen unangemessenen Namen. Nutze den Gegenstand in deinem Inventar und ändere diesen, um eine Löschung zu vermeiden.",
-  "nameChangeConfirm": "Bist du sicher, dass du den Namen deines Brutalos auf {{name}} ändern möchtest?"
+  "nameChangeConfirm": "Bist du sicher, dass du den Namen deines Brutalos auf {{name}} ändern möchtest?",
+  "activeModifiers": "Active modifiers",
+  "modifier.noThrows": "Sticky hands",
+  "modifier.noThrows.desc": "Who superglued those weapons ?! You can't throw your weapons anymore.",
+  "modifier.focusOpponent": "Focus",
+  "modifier.focusOpponent.desc": "You never lost a staring battle. You will always focus your main opponent.",
+  "modifier.alwaysUseSupers": "Unlimited power",
+  "modifier.alwaysUseSupers.desc": "You spent time learning those skills, it would be a shame not to use them. You will always use your available skills.",
+  "modifier.drawEveryWeapon": "Endless supplies",
+  "modifier.drawEveryWeapon.desc": "Your pullout game is extremely strong. You will always draw a weapon if one is available."
 }
