@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.60.0](https://github.com/Zenoo/labrute/compare/labrute-v2.59.11...labrute-v2.60.0) (2024-06-04)
+
+
+### Features
+
+* Deflect on throws for some weapons. Fixes [#743](https://github.com/Zenoo/labrute/issues/743) ([ad734e7](https://github.com/Zenoo/labrute/commit/ad734e725a18bc124dae544dac81a6856486e2de))
+* Fixed fight backgrounds. Fixes [#747](https://github.com/Zenoo/labrute/issues/747) ([fca96ba](https://github.com/Zenoo/labrute/commit/fca96bad093744e974b7084bd2f7092f0f01a100))
+
+
+### Bug Fixes
+
+* Display brute ranking in fight tooltip. Fixes [#746](https://github.com/Zenoo/labrute/issues/746) ([5f6eb64](https://github.com/Zenoo/labrute/commit/5f6eb64791bb4d6145bcbf703cfc1f82e8e591ce))
+* Display brute stats on level up. Fixes [#744](https://github.com/Zenoo/labrute/issues/744) ([436e084](https://github.com/Zenoo/labrute/commit/436e08419c6aa3528c6fb3941622176117b28596))
+* Display cell link at the fight's start. Fixes [#745](https://github.com/Zenoo/labrute/issues/745) ([89664b5](https://github.com/Zenoo/labrute/commit/89664b52018abfb68b5ca96570b816e62adcc27d))
+* Round deflect damage ([3e51a26](https://github.com/Zenoo/labrute/commit/3e51a26c8a4115400cb268550c62b5c78cf31043))
+* Tournament watched step + increase damage by 50% for each deflect. FIxes [#755](https://github.com/Zenoo/labrute/issues/755) ([138236c](https://github.com/Zenoo/labrute/commit/138236c558cf9b9c53926f0256767614be78ef9f))
+
 ## [2.59.11](https://github.com/Zenoo/labrute/compare/labrute-v2.59.10...labrute-v2.59.11) (2024-06-04)
 
 
