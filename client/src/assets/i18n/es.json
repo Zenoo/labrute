@@ -357,6 +357,7 @@
   "accuracy": "Precisión",
   "disarm": "Desarme",
   "combo": "Combo",
+  "deflect": "Deflect",
   "damage": "Daño",
   "drawChance": "Probabilidad de uso",
   "reach": "Alcance",
@@ -1287,5 +1288,14 @@
   "taggedForDeletion": "Tu bruto será eliminado en {{days}} días.",
   "deletionReason.DUPLICATE_NAME": "Tu bruto tiene el mismo nombre que otro bruto. Usa el objeto de tu inventario para cambiarlo y evitar que tu bruto sea eliminado.",
   "deletionReason.INNAPROPRIATE_NAME": "El nombre de tu bruto es inapropiado. Usa el objeto de tu inventario para cambiarlo y evitar que tu bruto sea eliminado.",
-  "nameChangeConfirm": "¿Estás seguro de que quieres cambiar el nombre de tu bruto a {{name}}?"
+  "nameChangeConfirm": "¿Estás seguro de que quieres cambiar el nombre de tu bruto a {{name}}?",
+  "activeModifiers": "Modificadores activos",
+  "modifier.noThrows": "Manos pegajosas",
+  "modifier.noThrows.desc": "¿Quién ha pegado esas armas? Ya no puedes lanzar tus armas.",
+  "modifier.focusOpponent": "Enfoque",
+  "modifier.focusOpponent.desc": "Nunca has perdido duelo de miradas. Siempre atacarás a tu oponente principal.",
+  "modifier.alwaysUseSupers": "Poder ilimitado",
+  "modifier.alwaysUseSupers.desc": "Invertiste mucho tiempo mejorando tus habilidades, sería una pena no usarlas. Siempre usarás tus habilidades disponibles.",
+  "modifier.drawEveryWeapon": "Suministros inagotables",
+  "modifier.drawEveryWeapon.desc": "Tu desenfunde es extremadamente rápido. Siempre sacarás un arma si hay alguna disponible."
 }

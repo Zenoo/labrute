@@ -357,6 +357,7 @@
   "accuracy": "Genauigkeit",
   "disarm": "Entwaffnen",
   "combo": "Kombo",
+  "deflect": "Deflect",
   "damage": "Schaden",
   "drawChance": "Nutzchance",
   "reach": "Reichweite",
@@ -1287,5 +1288,14 @@
   "taggedForDeletion": "Dein Brutalo wird in {{days}} Tag(en) gelöscht.",
   "deletionReason.DUPLICATE_NAME": "Dein Brutalo hat mit einem anderen Brutalo den gleichen Namen. Nutze den Gegenstand in deinem Inventar und ändere diesen, um eine Löschung zu vermeiden.",
   "deletionReason.INNAPROPRIATE_NAME": "Dein Brutalo hat einen unangemessenen Namen. Nutze den Gegenstand in deinem Inventar und ändere diesen, um eine Löschung zu vermeiden.",
-  "nameChangeConfirm": "Bist du sicher, dass du den Namen deines Brutalos auf {{name}} ändern möchtest?"
+  "nameChangeConfirm": "Bist du sicher, dass du den Namen deines Brutalos auf {{name}} ändern möchtest?",
+  "activeModifiers": "Aktive Modifikatoren",
+  "modifier.noThrows": "Klebrige Hände",
+  "modifier.noThrows.desc": "Wer hat die Waffen mit Superkleber versehen?! Du kannst deine Waffen nicht mehr werfen.",
+  "modifier.focusOpponent": "Fokus",
+  "modifier.focusOpponent.desc": "Du hast noch nie einen Starrkampf verloren. Dein Hauptgegner wird immer dein Fokus sein.",
+  "modifier.alwaysUseSupers": "Unbegrenzte Macht",
+  "modifier.alwaysUseSupers.desc": "Die Fähigkeiten zu erlernen hat Zeit gekostet, daher wäre es schade, diese nicht auch zu verwenden. Du wirst stets verfügbare Fähigkeiten nutzen.",
+  "modifier.drawEveryWeapon": "Endlose Vorräte",
+  "modifier.drawEveryWeapon.desc": "Im Rausziehen bist du ein eiskalter Profi. Du wirst stets eine Waffe ziehen, sofern verfügbar."
 }
