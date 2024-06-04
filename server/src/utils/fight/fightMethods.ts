@@ -1290,6 +1290,21 @@ const reversal = (opponent: DetailedFighter) => {
   return random < getFighterStat(opponent, 'reversal');
 };
 
+const returnProjectile = (fighter: DetailedFighter) => {
+  // No return if dead
+  if (fighter.hp <= 0) return false;
+
+  // No return if trapped
+  if (fighter.trapped) return false;
+
+  // No return if stunned
+  if (fighter.stunned) return false;
+
+  const random = Math.random();
+
+  return random < getFighterStat(fighter, 'deflect');
+};
+
 const attack = (
   fightData: DetailedFight,
   fighter: DetailedFighter,
@@ -1723,62 +1738,90 @@ export const playFighterTurn = (
         throw new Error('Trying to throw a weapon but no weapon is active');
       }
 
-      // Get damage
-      let damage = getDamage(fighter, opponent, fighter.activeWeapon);
+      const thrownWeapon = fighter.activeWeapon;
 
-      // Add throw step
-      fightData.steps.push({
-        a: StepType.Throw,
-        f: fighter.id,
-        t: opponent.id,
-        w: WeaponByName[fighter.activeWeapon.name],
-        k: keepWeapon ? 1 : 0,
-      });
+      let returned: boolean | null = null;
+      let currentFighter = fighter;
+      let currentOpponent = opponent;
 
-      // Update consecutive throw stat
-      updateStats(stats, fighter.id, 'consecutiveThrows', 1);
-      checkAchievements(stats, achievements);
-
-      // Check if opponent blocked (harder than melee)
-      if (block(fighter, opponent, 2)) {
-        damage = 0;
-
-        // Add block step
+      while (returned === null || returned) {
+        // Add throw step
         fightData.steps.push({
-          a: StepType.Block,
-          f: opponent.id,
+          a: StepType.Throw,
+          f: currentFighter.id,
+          t: currentOpponent.id,
+          w: WeaponByName[thrownWeapon.name],
+          k: keepWeapon ? 1 : 0,
+          r: returned ? 1 : 0,
         });
 
-        // Update block stat
-        updateStats(stats, opponent.id, 'blocks', 1);
-        updateStats(stats, opponent.id, 'consecutiveBlocks', 1);
+        returned = returnProjectile(currentOpponent);
+
+        let damage = 0;
+
+        // Get damage
+        if (!returned) {
+          damage = getDamage(currentFighter, currentOpponent, thrownWeapon);
+        }
+
+        // Update consecutive throw stat
+        updateStats(stats, currentFighter.id, 'consecutiveThrows', 1);
         checkAchievements(stats, achievements);
-      } else {
-        // Reset block stat
-        updateStats(stats, opponent.id, 'consecutiveBlocks', 0);
-      }
 
-      // Check if opponent evaded (harder than melee)
-      if (damage && evade(fighter, opponent, 2)) {
-        damage = 0;
+        // Check if opponent blocked (harder than melee)
+        if (!returned && block(currentFighter, currentOpponent, 2)) {
+          damage = 0;
 
-        // Add evade step
-        fightData.steps.push({
-          a: StepType.Evade,
-          f: opponent.id,
-        });
+          // Add block step
+          fightData.steps.push({
+            a: StepType.Block,
+            f: currentOpponent.id,
+          });
 
-        // Update evade stat
-        updateStats(stats, opponent.id, 'consecutiveEvades', 1);
-        checkAchievements(stats, achievements);
-      } else {
-        // Reset evade stat
-        updateStats(stats, opponent.id, 'consecutiveEvades', 0);
-      }
+          // Update block stat
+          updateStats(stats, currentOpponent.id, 'blocks', 1);
+          updateStats(stats, currentOpponent.id, 'consecutiveBlocks', 1);
+          checkAchievements(stats, achievements);
+        } else {
+          // Reset block stat
+          updateStats(stats, currentOpponent.id, 'consecutiveBlocks', 0);
+        }
 
-      // Register hit if damage was done
-      if (damage) {
-        registerHit(fightData, stats, achievements, fighter, [opponent], damage, true);
+        // Check if opponent evaded (harder than melee)
+        if (damage && evade(currentFighter, currentOpponent, 2)) {
+          damage = 0;
+
+          // Add evade step
+          fightData.steps.push({
+            a: StepType.Evade,
+            f: currentOpponent.id,
+          });
+
+          // Update evade stat
+          updateStats(stats, currentOpponent.id, 'consecutiveEvades', 1);
+          checkAchievements(stats, achievements);
+        } else {
+          // Reset evade stat
+          updateStats(stats, currentOpponent.id, 'consecutiveEvades', 0);
+        }
+
+        // Register hit if damage was done
+        if (damage) {
+          registerHit(
+            fightData,
+            stats,
+            achievements,
+            currentFighter,
+            [currentOpponent],
+            damage,
+            true,
+          );
+        }
+
+        // Swap fighters if the weapon was returned
+        if (returned) {
+          [currentFighter, currentOpponent] = [currentOpponent, currentFighter];
+        }
       }
 
       // Remove fighter weapon

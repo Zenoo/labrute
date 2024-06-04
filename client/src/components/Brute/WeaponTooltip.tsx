@@ -173,6 +173,14 @@ const WeaponTooltip = ({
               % {t('combo')}
             </Text>
           )}
+          {/* DEFLECT */}
+          {(!!weapon?.deflect || (bareHands && !!BASE_FIGHTER_STATS.deflect)) && (
+            <Text bold sx={{ color: StatColor.deflect, textShadow }} {...textProps}>
+              {(weapon ? weapon.deflect : BASE_FIGHTER_STATS.deflect) > 0 && '+'}
+              {Math.round((weapon ? weapon.deflect : BASE_FIGHTER_STATS.deflect) * 100)}
+              % {t('deflect')}
+            </Text>
+          )}
         </>
       ) : ''}
       componentsProps={{

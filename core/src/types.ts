@@ -51,6 +51,7 @@ export interface DetailedFighter {
   autoReversalOnBlock: boolean,
   reversal: number,
   combo: number,
+  deflect: number,
   block: number,
   accuracy: number,
   armor: number,
@@ -376,6 +377,8 @@ export interface ThrowStep {
   w: WeaponId;
   /** Should keep the weapon? */
   k?: 1 | 0;
+  /** Is returning the weapon? */
+  r?: 1 | 0;
 }
 
 export interface EndStep {

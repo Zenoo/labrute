@@ -72,6 +72,7 @@ export const BASE_FIGHTER_STATS = {
   accuracy: 0,
   disarm: 0.05,
   combo: 0,
+  deflect: 0,
   tempo: 1.2,
 } as const;
 
