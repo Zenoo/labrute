@@ -7,6 +7,7 @@ import {
 import { AchievementName, PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import sendError from '../utils/sendError.js';
+import { ilike } from '../utils/ilike.js';
 
 export const increaseAchievement = async (
   prisma: PrismaClient,
@@ -154,7 +155,7 @@ const Achievements = {
         where: {
           brute: {
             deletedAt: null,
-            name: req.params.name,
+            name: ilike(req.params.name),
           },
         },
         select: {

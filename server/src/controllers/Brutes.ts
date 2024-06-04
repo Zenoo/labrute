@@ -7,6 +7,7 @@ import {
   BrutesCreateResponse,
   BrutesExistsResponse, BrutesGetDestinyResponse,
   BrutesGetFightsLeftResponse, BrutesGetForRankResponse,
+  BrutesGetForVersusResponse,
   BrutesGetLevelUpChoicesResponse,
   BrutesGetOpponentsResponse,
   BrutesGetRankingResponse,
@@ -43,19 +44,28 @@ import updateClanPoints from '../utils/clan/updateClanPoints.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
 import { increaseAchievement } from './Achievements.js';
+import { ilike } from '../utils/ilike.js';
 
 const Brutes = {
   getForVersus: (prisma: PrismaClient) => async (
     req: Request<{
       name: string
     }>,
-    res: Response<Brute>,
+    res: Response<BrutesGetForVersusResponse>,
   ) => {
     try {
       const brute = await prisma.brute.findFirst({
         where: {
-          name: req.params.name,
+          name: ilike(req.params.name),
           deletedAt: null,
+        },
+        select: {
+          id: true,
+          name: true,
+          body: true,
+          colors: true,
+          gender: true,
+          level: true,
         },
       });
 
@@ -77,7 +87,7 @@ const Brutes = {
     try {
       const brute = await prisma.brute.findFirst({
         where: {
-          name: req.params.name,
+          name: ilike(req.params.name),
           deletedAt: null,
         },
         include: {
@@ -143,7 +153,7 @@ const Brutes = {
 
       const brute = await prisma.brute.findFirst({
         where: {
-          name: req.params.name,
+          name: ilike(req.params.name),
           deletedAt: null,
         },
         include: {
@@ -166,7 +176,7 @@ const Brutes = {
 
       const count = await prisma.brute.count({
         where: {
-          name: req.params.name,
+          name: ilike(req.params.name),
           deletedAt: null,
         },
       });
@@ -218,10 +228,7 @@ const Brutes = {
       // Check if name is available
       const count = await prisma.brute.count({
         where: {
-          name: {
-            equals: req.body.name.replace((/_/g), '\\_'),
-            mode: 'insensitive',
-          },
+          name: ilike(req.body.name),
           deletedAt: null,
         },
       });
@@ -305,6 +312,7 @@ const Brutes = {
           agility: startingStats.agility,
           speed: startingStats.speed,
         },
+        select: { id: true },
       });
 
       // Get first bonus type
@@ -366,7 +374,7 @@ const Brutes = {
       // Get brute
       const brute = await prisma.brute.findFirst({
         where: {
-          name: req.params.name,
+          name: ilike(req.params.name),
           deletedAt: null,
           userId: authed.id,
         },
@@ -446,7 +454,7 @@ const Brutes = {
       // Get brute
       const brute = await prisma.brute.findFirst({
         where: {
-          name: req.params.name,
+          name: ilike(req.params.name),
           deletedAt: null,
           userId: authed.id,
         },
@@ -604,7 +612,7 @@ const Brutes = {
       // Get brute
       const brute = await prisma.brute.findFirst({
         where: {
-          name: req.params.name,
+          name: ilike(req.params.name),
           deletedAt: null,
           userId: user.id,
         },
@@ -674,7 +682,7 @@ const Brutes = {
       // Get brute
       const brute = await prisma.brute.findFirst({
         where: {
-          name: req.params.name,
+          name: ilike(req.params.name),
           deletedAt: null,
           userId: authed.id,
         },
@@ -779,7 +787,7 @@ const Brutes = {
       // Get brute rank if not provided
       if (typeof req.params.rank === 'undefined') {
         const brute = await prisma.brute.findFirst({
-          where: { name: req.params.name, deletedAt: null },
+          where: { name: ilike(req.params.name), deletedAt: null },
           select: { ranking: true },
         });
 
@@ -803,6 +811,15 @@ const Brutes = {
           { xp: 'desc' },
         ],
         take: 15,
+        select: {
+          id: true,
+          name: true,
+          body: true,
+          colors: true,
+          gender: true,
+          ranking: true,
+          level: true,
+        },
       });
 
       // Get total brutes of the same rank
@@ -825,14 +842,25 @@ const Brutes = {
       if (!topBrutes.find((b) => b.name === req.params.name)) {
         const brute = await prisma.brute.findFirst({
           where: {
-            name: req.params.name,
+            name: ilike(req.params.name),
             ranking: rank,
             deletedAt: null,
+            userId: { not: null },
+          },
+          select: {
+            id: true,
+            name: true,
+            body: true,
+            colors: true,
+            gender: true,
+            ranking: true,
+            level: true,
+            xp: true,
           },
         });
 
         // Don't rank bot brutes
-        if (brute && brute.userId) {
+        if (brute) {
           // Find the brute position in the list
           const position = await prisma.brute.count({
             where: {
@@ -864,6 +892,15 @@ const Brutes = {
               { xp: 'asc' },
             ],
             take: 2,
+            select: {
+              id: true,
+              name: true,
+              body: true,
+              colors: true,
+              gender: true,
+              ranking: true,
+              level: true,
+            },
           });
 
           const nearbyLowerBrutes = await prisma.brute.findMany({
@@ -882,6 +919,15 @@ const Brutes = {
               { xp: 'desc' },
             ],
             take: 2,
+            select: {
+              id: true,
+              name: true,
+              body: true,
+              colors: true,
+              gender: true,
+              ranking: true,
+              level: true,
+            },
           });
 
           result.nearbyBrutes = [
@@ -915,9 +961,13 @@ const Brutes = {
 
       // Get the brute ranking
       const brute = await prisma.brute.findFirst({
-        where: { name, deletedAt: null },
+        where: { name: ilike(name), deletedAt: null },
         select: {
-          ranking: true, level: true, xp: true, userId: true,
+          id: true,
+          ranking: true,
+          level: true,
+          xp: true,
+          userId: true,
         },
       });
 
@@ -940,7 +990,7 @@ const Brutes = {
         where: {
           ranking: rank,
           deletedAt: null,
-          name: { not: name },
+          id: { not: brute.id },
           userId: { not: null },
           OR: [
             { level: { gt: brute.level } },
@@ -967,24 +1017,16 @@ const Brutes = {
         throw new Error('Missing name');
       }
 
-      let brute = await prisma.brute.findFirst({
-        where: { name, deletedAt: null },
+      const brute = await prisma.brute.findFirst({
+        where: { name: ilike(name), deletedAt: null },
         select: { name: true },
       });
 
       if (!brute) {
-        // Try case insensitive
-        brute = await prisma.brute.findFirst({
-          where: { name: { equals: name, mode: 'insensitive' }, deletedAt: null },
-          select: { name: true },
+        res.send({
+          exists: false,
         });
-
-        if (!brute) {
-          res.send({
-            exists: false,
-          });
-          return;
-        }
+        return;
       }
 
       res.send({
@@ -1010,7 +1052,7 @@ const Brutes = {
 
       const userBrute = await prisma.brute.findFirst({
         where: {
-          name,
+          name: ilike(name),
           deletedAt: null,
           userId: authed.id,
         },
@@ -1067,6 +1109,7 @@ const Brutes = {
             agility: newBaseStats.agility,
             speed: newBaseStats.speed,
           },
+          select: { id: true },
         });
       }
 
@@ -1267,7 +1310,7 @@ const Brutes = {
       }
 
       const brute = await prisma.brute.findFirst({
-        where: { name, deletedAt: null },
+        where: { name: ilike(name), deletedAt: null },
       });
 
       if (!brute) {
@@ -1344,7 +1387,12 @@ const Brutes = {
       }
 
       const brute = await prisma.brute.findFirst({
-        where: { name, deletedAt: null },
+        where: { name: ilike(name), deletedAt: null },
+        select: {
+          fightsLeft: true,
+          lastFight: true,
+          skills: true,
+        },
       });
 
       if (!brute) {
@@ -1388,7 +1436,7 @@ const Brutes = {
 
       const brute = await prisma.brute.findFirst({
         where: {
-          name,
+          name: ilike(name),
           deletedAt: null,
         },
       });
@@ -1456,7 +1504,7 @@ const Brutes = {
       // Check if another brute has the same name
       const brutesWithSameName = await prisma.brute.count({
         where: {
-          name: brute.name,
+          name: ilike(brute.name),
           deletedAt: null,
         },
       });
@@ -1551,7 +1599,7 @@ const Brutes = {
       // Get brute
       const brute = await prisma.brute.findFirst({
         where: {
-          name: req.params.name,
+          name: ilike(req.params.name),
           deletedAt: null,
           userId: authed.id,
         },
@@ -1818,7 +1866,7 @@ const Brutes = {
       // Check if user owns the brute
       const brute = await prisma.brute.findFirst({
         where: {
-          name: req.params.name,
+          name: ilike(req.params.name),
           deletedAt: null,
           userId: user.id,
         },
@@ -1881,6 +1929,7 @@ const Brutes = {
               decrement: 1,
             },
           },
+          select: { id: true },
         });
       }
 
@@ -1911,7 +1960,7 @@ const Brutes = {
       // Get brute
       const brute = await prisma.brute.findFirst({
         where: {
-          name: req.params.name,
+          name: ilike(req.params.name),
           deletedAt: null,
         },
         select: { id: true },
@@ -1939,6 +1988,7 @@ const Brutes = {
             increment: 1,
           },
         },
+        select: { id: true },
       });
 
       res.send({ success: true });
@@ -1973,10 +2023,7 @@ const Brutes = {
       // Check if name is available
       const count = await prisma.brute.count({
         where: {
-          name: {
-            equals: newName,
-            mode: 'insensitive',
-          },
+          name: ilike(newName),
           deletedAt: null,
         },
       });
@@ -1989,7 +2036,7 @@ const Brutes = {
       const brute = await prisma.brute.findFirst({
         where: {
           userId: authed.id,
-          name,
+          name: ilike(name),
           deletedAt: null,
         },
         select: {
@@ -2048,6 +2095,7 @@ const Brutes = {
               decrement: 1,
             },
           },
+          select: { id: true },
         });
       }
 

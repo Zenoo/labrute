@@ -1,4 +1,4 @@
-import { AchievementGetRankingsResponse, AchievementsGetResponse, AdminPanelBrute, BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetLevelUpChoicesResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, ClanChallengeBossResponse, ClanCreateResponse, ClanGetResponse, ClanGetThreadResponse, ClanGetThreadsResponse, ClanListResponse, FightCreateResponse, HookBrute, ServerReadyResponse, TournamentHistoryResponse, TournamentsGetDailyResponse, TournamentsGetGlobalResponse, TournementsUpdateGlobalRoundWatchedResponse, UserGetAdminResponse, UserGetProfileResponse, UsersAdminUpdateRequest, UserWithBrutesBodyColor } from '@labrute/core';
+import { AchievementGetRankingsResponse, AchievementsGetResponse, AdminPanelBrute, BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetForVersusResponse, BrutesGetLevelUpChoicesResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, ClanChallengeBossResponse, ClanCreateResponse, ClanGetResponse, ClanGetThreadResponse, ClanGetThreadsResponse, ClanListResponse, FightCreateResponse, HookBrute, ServerReadyResponse, TournamentHistoryResponse, TournamentsGetDailyResponse, TournamentsGetGlobalResponse, TournementsUpdateGlobalRoundWatchedResponse, UserGetAdminResponse, UserGetProfileResponse, UsersAdminUpdateRequest, UserWithBrutesBodyColor } from '@labrute/core';
 import { Brute, BruteReportReason, BruteReportStatus, DestinyChoiceSide, Fight, Gender, Lang, Log, Prisma } from '@labrute/prisma';
 import Fetch from './Fetch';
 
@@ -21,7 +21,7 @@ const Server = {
   Brute: {
     getForHook: (name: string) => Fetch<HookBrute>(`/api/brute/${name}/for-hook`),
     getForAdmin: (name: string) => Fetch<AdminPanelBrute>(`/api/brute/${name}/for-admin`),
-    getForVersus: (name: string) => Fetch<Brute>(`/api/brute/${name}/for-versus`),
+    getForVersus: (name: string) => Fetch<BrutesGetForVersusResponse>(`/api/brute/${name}/for-versus`),
     isNameAvailable: (name: string) => Fetch<boolean>(`/api/brute/${name}/available`),
     create: (
       name: string,

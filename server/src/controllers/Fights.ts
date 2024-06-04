@@ -11,6 +11,7 @@ import generateFight from '../utils/fight/generateFight.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
 import ServerState from '../utils/ServerState.js';
+import { ilike } from '../utils/ilike.js';
 
 const Fights = {
   get: (prisma: PrismaClient) => async (req: Request, res: Response) => {
@@ -28,8 +29,8 @@ const Fights = {
         where: {
           id: +req.params.id,
           OR: [
-            { brute1: { name: req.params.name } },
-            { brute2: { name: req.params.name } },
+            { brute1: { name: ilike(req.params.name) } },
+            { brute2: { name: ilike(req.params.name) } },
           ],
         },
       });
@@ -73,7 +74,7 @@ const Fights = {
       // Get brutes
       const brute1 = await prisma.brute.findFirst({
         where: {
-          name: req.body.brute1,
+          name: ilike(req.body.brute1),
           deletedAt: null,
           userId: user.id,
         },
@@ -89,7 +90,7 @@ const Fights = {
 
       const brute2 = await prisma.brute.findFirst({
         where: {
-          name: req.body.brute2,
+          name: ilike(req.body.brute2),
           deletedAt: null,
         },
       });

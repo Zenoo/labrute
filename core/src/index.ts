@@ -64,14 +64,15 @@ export type PrismaInclude = {
 
 // Server return types
 export type BrutesGetForRankResponse = {
-  topBrutes: Brute[],
-  nearbyBrutes: Brute[],
+  topBrutes: Pick<Brute, 'id' | 'name' | 'body' | 'colors' | 'gender' | 'ranking' | 'level'>[],
+  nearbyBrutes: Pick<Brute, 'id' | 'name' | 'body' | 'colors' | 'gender' | 'ranking' | 'level'>[],
   position: number,
   total: number,
 };
 export type BrutesGetRankingResponse = {
   ranking: number,
 };
+export type BrutesGetForVersusResponse = Pick<Brute, 'id' | 'name' | 'body' | 'colors' | 'gender' | 'level'>;
 export type BrutesGetOpponentsResponse = Pick<Brute, 'id' | 'name' | 'ranking' | 'gender' | 'level' | 'deletedAt' | 'hp' | 'strengthValue' | 'agilityValue' | 'speedValue' | 'body' | 'colors'>[];
 export type BrutesExistsResponse = {
   exists: false
