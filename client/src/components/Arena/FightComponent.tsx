@@ -96,7 +96,6 @@ const FightComponent = ({
   // Fight status
   const appRef = useRef<PIXI.Application | null>(null);
   const [playing, setPlaying] = useState(true);
-  const [completed, setCompleted] = useState(false);
 
   // Fight speed
   const speedRef = useRef(localStorage.getItem('fightSpeed') === '1' ? 1 : 2);
@@ -185,7 +184,6 @@ const FightComponent = ({
       fight,
       app,
       speedRef,
-      setCompleted,
       t,
       toggleTooltip,
       renderer,
@@ -368,7 +366,7 @@ const FightComponent = ({
           </Stack>
         </Box>
       </BruteTooltip>
-      {completed && brute1 && (
+      {brute1 && (
         <Box sx={{
           ml: smallScreen ? 0 : 5,
           bgcolor: 'background.paper',

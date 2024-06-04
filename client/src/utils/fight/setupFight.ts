@@ -54,7 +54,6 @@ const setupFight: (
   fight: Fight,
   app: PIXI.Application,
   speed: React.MutableRefObject<number>,
-  setCompleted: React.Dispatch<React.SetStateAction<boolean>>,
   t: TFunction,
   toggleTooltip: (brute: Fighter, forceValue?: boolean) => void,
   renderer: RendererContextInterface,
@@ -63,7 +62,6 @@ const setupFight: (
   fight,
   app,
   speed,
-  setCompleted,
   t,
   toggleTooltip,
   renderer,
@@ -587,7 +585,6 @@ const setupFight: (
     }
   }
 
-  setCompleted(true);
   void sound.play('win');
 
   // Get winner fighter
