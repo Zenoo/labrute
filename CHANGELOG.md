@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.59.11](https://github.com/Zenoo/labrute/compare/labrute-v2.59.10...labrute-v2.59.11) (2024-06-04)
+
+
+### Bug Fixes
+
+* Display modifiers in a banner. Fixes [#749](https://github.com/Zenoo/labrute/issues/749) ([4f7346b](https://github.com/Zenoo/labrute/commit/4f7346b0031c4ccfda475253f1c8b0a647e7454a))
+* Make brute names cas insensitive across the whole site. Fixes [#637](https://github.com/Zenoo/labrute/issues/637) ([2c51bcb](https://github.com/Zenoo/labrute/commit/2c51bcbd9e3cbc5d1347e1fa9ea9842706d77d80))
+
 ## [2.59.10](https://github.com/Zenoo/labrute/compare/labrute-v2.59.9...labrute-v2.59.10) (2024-06-03)
 
 
