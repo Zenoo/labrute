@@ -3,8 +3,12 @@ import {
   BOSS_GOLD_REWARD,
   Boss,
   CLAN_SIZE_LIMIT,
-  DetailedFight, ExpectedError, Fighter, SkillByName, StepType, WeaponByName, bosses,
+  DetailedFight, ExpectedError, Fighter, SkillByName,
+  StepType, WeaponByName, bossBackground, bosses,
+  fightBackgrounds,
   randomItem,
+  tournamentBackground,
+  weightedRandom,
 } from '@labrute/core';
 import {
   Brute, FightModifier, InventoryItemType, LogType, Prisma, PrismaClient,
@@ -43,6 +47,12 @@ const generateFight = async (
   }
 
   const isTournamentFight = !allowBackup;
+
+  const background = boss
+    ? bossBackground
+    : isTournamentFight
+      ? tournamentBackground
+      : weightedRandom(fightBackgrounds);
 
   // Achievements
   const achievements: AchievementsStore = {
@@ -269,6 +279,7 @@ const generateFight = async (
       loser: loser.name,
       steps: JSON.stringify(fightData.steps),
       fighters: JSON.stringify(fighters),
+      background: background.name,
     },
   };
 

@@ -1,8 +1,13 @@
-const weightedRandom = <T extends { odds: number }, >(items: T[], totalOdds: number) => {
+const weightedRandom = <T extends { odds: number }, >(
+  items: T[]
+) => {
   const firstItem = items[0];
   if (!firstItem) {
     throw new Error('No items');
   }
+
+  // Calculate total odds
+  const totalOdds = items.reduce((acc, item) => acc + item.odds, 0);
 
   let i = 0;
   const weights: number[] = [];

@@ -280,6 +280,7 @@ model Fight {
   tournamentId   Int?
   tournamentStep Int             @default(0)
   modifiers      FightModifier[] @default([])
+  background     String          @default("1.jpg") @db.VarChar(255)
 
   @@index([tournamentId, winner, brute1Id, brute2Id])
 }
