@@ -15,7 +15,8 @@ interface BruteTooltipProps extends Omit<TooltipProps, 'title'> {
     'level' |
     'strengthValue' |
     'agilityValue' |
-    'speedValue'
+    'speedValue' |
+    'ranking'
   >;
   fighter?: Fighter | null;
   displaySkills?: boolean;
@@ -35,6 +36,7 @@ const BruteTooltip = ({
   const { t } = useTranslation();
 
   const target = fighter?.level ? fighter : brute;
+  const ranking = fighter ? fighter.rank : brute?.ranking;
 
   return (
     <Tooltip
@@ -53,6 +55,15 @@ const BruteTooltip = ({
           <Text bold smallCaps color="text.primary">
             {t('level')}
             <Text component="span" bold color="secondary"> {target.level}</Text>
+            <Box
+              component="img"
+              src={`/images/rankings/lvl_${ranking}.webp`}
+              sx={{
+                verticalAlign: 'middle',
+                height: 16,
+                ml: 0.5,
+              }}
+            />
           </Text>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <BruteHP hp={target.hp} />
