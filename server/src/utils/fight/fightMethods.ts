@@ -1765,7 +1765,7 @@ export const playFighterTurn = (
           damage = getDamage(currentFighter, currentOpponent, thrownWeapon);
 
           // Increase damage by 50% for each deflection
-          damage *= 1.5 ** timesDeflected;
+          damage = Math.floor(damage * (1.5 ** timesDeflected));
         }
 
         // Update consecutive throw stat
