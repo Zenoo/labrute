@@ -259,7 +259,7 @@ const weapons: Weapon[] = [
     accuracy: 0,
     disarm: 0,
     combo: -0.4,
-    deflect: 0,
+    deflect: 0.4,
     damage: 17,
     toss: 2,
     reach: 1,
