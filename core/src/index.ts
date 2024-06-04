@@ -1,4 +1,4 @@
-import { Achievement, AchievementName, BossDamage, Brute, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, DestinyChoice, Fight, Lang, Prisma, Tournament, User } from '@labrute/prisma';
+import { Achievement, AchievementName, BossDamage, Brute, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, DestinyChoice, Fight, FightModifier, Lang, Prisma, Tournament, User } from '@labrute/prisma';
 import Version from './Version';
 import applySkillModifiers from './brute/applySkillModifiers';
 import availableBodyParts from './brute/availableBodyParts';
@@ -19,7 +19,7 @@ import { isNameValid } from './brute/isNameValid';
 import skills from './brute/skills';
 import updateBruteData from './brute/updateBruteData';
 import weapons from './brute/weapons';
-import { BruteReportWithNames, DestinyBranch } from './types';
+import { BruteReportWithNames, DestinyBranch, UserWithBrutesBodyColor } from './types';
 import ExpectedError from './utils/ExpectedError';
 import adjustColor from './utils/adjustColor';
 import formatLargeNumber from './utils/formatLargeNumber';
@@ -120,6 +120,10 @@ export type BruteRestoreResponse = {
 export type UsersAdminUpdateRequest = {
   user: Prisma.UserUncheckedUpdateInput,
   achievements: Pick<Achievement, 'count' | 'name'>[],
+};
+export type UsersAuthenticateResponse = {
+  user: UserWithBrutesBodyColor,
+  modifiers: FightModifier[],
 };
 
 export type BruteReportsListRequest = {

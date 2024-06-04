@@ -1,11 +1,13 @@
 import { pad } from '@labrute/core';
-import { Box, BoxProps, Link, useTheme } from '@mui/material';
+import { Box, BoxProps, Link, Paper, useTheme } from '@mui/material';
 import moment from 'moment';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 import { useLanguage } from '../hooks/useLanguage';
 import Text from './Text';
+import { useAuth } from '../hooks/useAuth';
+import Marquee from 'react-fast-marquee';
 
 export interface HeaderProps extends BoxProps {
   url?: string;
@@ -18,6 +20,7 @@ const Header = ({
   const { t } = useTranslation();
   const { language } = useLanguage();
   const theme = useTheme();
+  const { modifiers } = useAuth();
 
   const [time, setTime] = useState(moment.utc());
 
@@ -83,6 +86,23 @@ const Header = ({
       <Text center bold color="secondary">
         {t('serverTime')}: {time.format('HH:mm')}
       </Text>
+      {!!modifiers.length && (
+        <Paper sx={{ mx: 1, p: 0 }}>
+          <Marquee pauseOnHover>
+            <Text bold smallCaps sx={{ mr: 0.5 }}>
+              {t('activeModifiers')}:
+            </Text>
+            {modifiers.map((modifier) => (
+              <Text key={modifier}>
+                <Text component="span" bold color="secondary" smallCaps>
+                  {t(`modifier.${modifier}`)}
+                </Text>.{' '}
+                {t(`modifier.${modifier}.desc`)}
+              </Text>
+            ))}
+          </Marquee>
+        </Paper>
+      )}
     </Box>
   );
 };
