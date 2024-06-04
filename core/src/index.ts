@@ -88,6 +88,9 @@ export type TournamentsGetDailyResponse = Tournament & {
     brute2: Brute | null,
   })[]
 };
+export type TournamentsUpdateStepWatchedResponse = {
+  step: number,
+};
 export type TournamentsGetGlobalFight = Pick<Fight, 'id' | 'winner' | 'fighters' | 'brute1Id' | 'brute2Id' | 'tournamentStep'>;
 export type TournamentsGetGlobalResponse = {
   tournament: (Pick<Tournament, 'id' | 'rounds'> & {

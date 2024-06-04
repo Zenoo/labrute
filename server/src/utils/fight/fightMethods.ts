@@ -1290,14 +1290,14 @@ const reversal = (opponent: DetailedFighter) => {
   return random < getFighterStat(opponent, 'reversal');
 };
 
-const returnProjectile = (fighter: DetailedFighter) => {
-  // No return if dead
+const deflectProjectile = (fighter: DetailedFighter) => {
+  // No deflect if dead
   if (fighter.hp <= 0) return false;
 
-  // No return if trapped
+  // No deflect if trapped
   if (fighter.trapped) return false;
 
-  // No return if stunned
+  // No deflect if stunned
   if (fighter.stunned) return false;
 
   const random = Math.random();
@@ -1740,11 +1740,12 @@ export const playFighterTurn = (
 
       const thrownWeapon = fighter.activeWeapon;
 
-      let returned: boolean | null = null;
+      let deflected: boolean | null = null;
       let currentFighter = fighter;
       let currentOpponent = opponent;
+      let timesDeflected = 0;
 
-      while (returned === null || returned) {
+      while (deflected === null || deflected) {
         // Add throw step
         fightData.steps.push({
           a: StepType.Throw,
@@ -1752,16 +1753,19 @@ export const playFighterTurn = (
           t: currentOpponent.id,
           w: WeaponByName[thrownWeapon.name],
           k: keepWeapon ? 1 : 0,
-          r: returned ? 1 : 0,
+          r: deflected ? 1 : 0,
         });
 
-        returned = returnProjectile(currentOpponent);
+        deflected = deflectProjectile(currentOpponent);
 
         let damage = 0;
 
         // Get damage
-        if (!returned) {
+        if (!deflected) {
           damage = getDamage(currentFighter, currentOpponent, thrownWeapon);
+
+          // Increase damage by 50% for each deflection
+          damage *= 1.5 ** timesDeflected;
         }
 
         // Update consecutive throw stat
@@ -1769,7 +1773,7 @@ export const playFighterTurn = (
         checkAchievements(stats, achievements);
 
         // Check if opponent blocked (harder than melee)
-        if (!returned && block(currentFighter, currentOpponent, 2)) {
+        if (!deflected && block(currentFighter, currentOpponent, 2)) {
           damage = 0;
 
           // Add block step
@@ -1819,8 +1823,9 @@ export const playFighterTurn = (
         }
 
         // Swap fighters if the weapon was returned
-        if (returned) {
+        if (deflected) {
           [currentFighter, currentOpponent] = [currentOpponent, currentFighter];
+          timesDeflected++;
         }
       }
 

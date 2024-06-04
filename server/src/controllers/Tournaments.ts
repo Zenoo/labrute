@@ -1,6 +1,7 @@
 import {
   ExpectedError, GLOBAL_TOURNAMENT_START_HOUR,
   TournamentHistoryResponse, TournamentsGetDailyResponse, TournamentsGetGlobalResponse,
+  TournamentsUpdateStepWatchedResponse,
   TournementsUpdateGlobalRoundWatchedResponse,
 } from '@labrute/core';
 import {
@@ -109,7 +110,7 @@ const Tournaments = {
   },
   updateStepWatched: (prisma: PrismaClient) => async (
     req: Request,
-    res: Response,
+    res: Response<TournamentsUpdateStepWatchedResponse>,
   ) => {
     try {
       const user = await auth(prisma, req);
@@ -166,6 +167,7 @@ const Tournaments = {
       const stepWatched = !brute.currentTournamentDate || moment.utc(brute.currentTournamentDate).isBefore(moment.utc().startOf('day'))
         ? 0
         : brute.currentTournamentStepWatched || 0;
+      let newStepWatched = stepWatched;
 
       // If brute was eliminated, set tournament as fully watched
       if (!tournament.fights
@@ -181,8 +183,10 @@ const Tournaments = {
           },
           select: { id: true },
         });
-        // First watch of the day
+
+        newStepWatched = 6;
       } else if (!brute.currentTournamentDate || moment.utc(brute.currentTournamentDate).isBefore(moment.utc().startOf('day'))) {
+        // First watch of the day
         await prisma.brute.update({
           where: {
             id: brute.id,
@@ -193,6 +197,8 @@ const Tournaments = {
           },
           select: { id: true },
         });
+
+        newStepWatched = 1;
       } else {
         // Update brute watched tournament step
         await prisma.brute.update({
@@ -206,7 +212,11 @@ const Tournaments = {
         });
       }
 
-      res.send({ success: true });
+      newStepWatched = stepWatched + 1;
+
+      res.send({
+        step: newStepWatched,
+      });
     } catch (error) {
       sendError(res, error);
     }

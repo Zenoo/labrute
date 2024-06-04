@@ -1,4 +1,4 @@
-import { AchievementGetRankingsResponse, AchievementsGetResponse, AdminPanelBrute, BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetForVersusResponse, BrutesGetLevelUpChoicesResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, ClanChallengeBossResponse, ClanCreateResponse, ClanGetResponse, ClanGetThreadResponse, ClanGetThreadsResponse, ClanListResponse, FightCreateResponse, HookBrute, ServerReadyResponse, TournamentHistoryResponse, TournamentsGetDailyResponse, TournamentsGetGlobalResponse, TournementsUpdateGlobalRoundWatchedResponse, UserGetAdminResponse, UserGetProfileResponse, UsersAdminUpdateRequest, UsersAuthenticateResponse } from '@labrute/core';
+import { AchievementGetRankingsResponse, AchievementsGetResponse, AdminPanelBrute, BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetForVersusResponse, BrutesGetLevelUpChoicesResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, ClanChallengeBossResponse, ClanCreateResponse, ClanGetResponse, ClanGetThreadResponse, ClanGetThreadsResponse, ClanListResponse, FightCreateResponse, HookBrute, ServerReadyResponse, TournamentHistoryResponse, TournamentsGetDailyResponse, TournamentsGetGlobalResponse, TournamentsUpdateStepWatchedResponse, TournementsUpdateGlobalRoundWatchedResponse, UserGetAdminResponse, UserGetProfileResponse, UsersAdminUpdateRequest, UsersAuthenticateResponse } from '@labrute/core';
 import { Brute, BruteReportReason, BruteReportStatus, DestinyChoiceSide, Fight, Gender, Lang, Log, Prisma } from '@labrute/prisma';
 import Fetch from './Fetch';
 
@@ -72,7 +72,7 @@ const Server = {
       date,
     }: { name: string, date: string }) => Fetch<TournamentsGetDailyResponse>(`/api/tournament/${name}/${date}`),
     registerDaily: (name: string) => Fetch<never>(`/api/tournament/${name}/register`),
-    updateStepWatched: (name: string) => Fetch<never>(`/api/tournament/${name}/update-step-watched`),
+    updateStepWatched: (name: string) => Fetch<TournamentsUpdateStepWatchedResponse>(`/api/tournament/${name}/update-step-watched`),
     updateGlobalRoundWatched: (name: string, fight: number) => Fetch<TournementsUpdateGlobalRoundWatchedResponse>(`/api/tournament/${name}/update-global-round-watched/${fight}`),
     skipWatchingGlobal: (name: string) => Fetch<never>(`/api/tournament/${name}/skip-watching-global`),
     setDailyWatched: (name: string) => Fetch<never>(`/api/tournament/${name}/set-daily-watched`),
