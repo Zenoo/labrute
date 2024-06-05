@@ -357,6 +357,7 @@
   "accuracy": "Précision",
   "disarm": "Désarmement",
   "combo": "Combo",
+  "deflect": "Renvoi",
   "damage": "Dégâts",
   "drawChance": "Chance d'utilisation",
   "reach": "Portée",
@@ -1287,5 +1288,14 @@
   "taggedForDeletion": "Votre brute sera supprimée dans {{days}} jours.",
   "deletionReason.DUPLICATE_NAME": "Votre brute a le même nom qu'une autre brute. Utilisez l'objet dans votre inventaire pour le modifier et éviter la suppression.",
   "deletionReason.INNAPROPRIATE_NAME": "Votre brute a un nom inapproprié. Utilisez l'objet dans votre inventaire pour le modifier et éviter la suppression.",
-  "nameChangeConfirm": "Êtes-vous sûr de vouloir changer le nom de votre brute en {{name}}?"
+  "nameChangeConfirm": "Êtes-vous sûr de vouloir changer le nom de votre brute en {{name}}?",
+  "activeModifiers": "Modificateurs actifs",
+  "modifier.noThrows": "Mains collantes",
+  "modifier.noThrows.desc": "Qui a collé ces armes ?! Vous ne pouvez plus jeter vos armes.",
+  "modifier.focusOpponent": "Concentration",
+  "modifier.focusOpponent.desc": "Vous n'avez jamais perdu une bataille de regard. Vous ciblerez toujours votre adversaire principal.",
+  "modifier.alwaysUseSupers": "Pouvoir illimité",
+  "modifier.alwaysUseSupers.desc": "Vous avez passé du temps à apprendre ces compétences, il serait dommage de ne pas les utiliser. Vous utiliserez toujours vos compétences disponibles.",
+  "modifier.drawEveryWeapon": "Ravitaillement infini",
+  "modifier.drawEveryWeapon.desc": "Vous êtes un maître de l'extraction. Vous sortirez toujours une arme si vous en avez de disponible."
 }

@@ -1,9 +1,9 @@
 import { Brute, DestinyChoiceType, PetName, SkillName, WeaponName } from '@labrute/prisma';
 import randomBetween from '../utils/randomBetween';
 import weightedRandom from '../utils/weightedRandom';
-import { pets, PETS_TOTAL_ODDS } from './pets';
-import skills, { SKILLS_TOTAL_ODDS } from './skills';
-import weapons, { limitedWeapons, MAX_LIMITED_WEAPONS, WEAPONS_TOTAL_ODDS } from './weapons';
+import { pets } from './pets';
+import skills from './skills';
+import weapons, { MAX_LIMITED_WEAPONS, limitedWeapons } from './weapons';
 
 const preventSomeBonuses = (
   brute: Pick<Brute, 'level' | 'pets' | 'skills' | 'weapons'>,
@@ -115,34 +115,32 @@ const getRandomBonus = (
     { name: 'weapon', odds: enabledWeapons.reduce((acc, weapon) => acc + weapon.odds, 0) },
   ];
 
-  const enabledPerksTotalOdds = enabledPerksOdds.reduce((acc, perk) => acc + perk.odds, 0);
-
   let perkName: null | PetName | SkillName | WeaponName = null;
   let perkType = null;
 
   // Weapon/Skill/Pet ?
-  perkType = weightedRandom(enabledPerksOdds, enabledPerksTotalOdds).name;
+  perkType = weightedRandom(enabledPerksOdds).name;
 
   // Perk name ?
   perkName = perkType === 'pet'
-    ? weightedRandom(pets, PETS_TOTAL_ODDS).name
+    ? weightedRandom(pets).name
     : perkType === 'skill'
-      ? weightedRandom(skills, SKILLS_TOTAL_ODDS).name
-      : weightedRandom(weapons, WEAPONS_TOTAL_ODDS).name;
+      ? weightedRandom(skills).name
+      : weightedRandom(weapons).name;
 
   // Prevent some perks
   let found = !preventSomeBonuses(brute, perkType, perkName);
 
   while (rerollUntilFound && !found) {
     // Reroll perk type
-    perkType = weightedRandom(enabledPerksOdds, enabledPerksTotalOdds).name;
+    perkType = weightedRandom(enabledPerksOdds).name;
 
     // Reroll perk name
     perkName = perkType === 'pet'
-      ? weightedRandom(pets, PETS_TOTAL_ODDS).name
+      ? weightedRandom(pets).name
       : perkType === 'skill'
-        ? weightedRandom(skills, SKILLS_TOTAL_ODDS).name
-        : weightedRandom(weapons, WEAPONS_TOTAL_ODDS).name;
+        ? weightedRandom(skills).name
+        : weightedRandom(weapons).name;
 
     // Prevent some perks
     found = !preventSomeBonuses(brute, perkType, perkName);

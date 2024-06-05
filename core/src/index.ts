@@ -1,4 +1,4 @@
-import { Achievement, AchievementName, BossDamage, Brute, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, DestinyChoice, Fight, Lang, Prisma, Tournament, User } from '@labrute/prisma';
+import { Achievement, AchievementName, BossDamage, Brute, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, DestinyChoice, Fight, FightModifier, Lang, Prisma, Tournament, User } from '@labrute/prisma';
 import Version from './Version';
 import applySkillModifiers from './brute/applySkillModifiers';
 import availableBodyParts from './brute/availableBodyParts';
@@ -19,7 +19,7 @@ import { isNameValid } from './brute/isNameValid';
 import skills from './brute/skills';
 import updateBruteData from './brute/updateBruteData';
 import weapons from './brute/weapons';
-import { BruteReportWithNames, DestinyBranch } from './types';
+import { BruteReportWithNames, DestinyBranch, UserWithBrutesBodyColor } from './types';
 import ExpectedError from './utils/ExpectedError';
 import adjustColor from './utils/adjustColor';
 import formatLargeNumber from './utils/formatLargeNumber';
@@ -42,6 +42,7 @@ export * from './brute/getWinsNeededToRankUp';
 export * from './brute/getRandomStartingStats';
 export * from './utils/isUuid';
 export * from './utils/randomItem';
+export * from './fight/backgrounds';
 export {
   Boss, ExpectedError, Version, adjustColor, applySkillModifiers,
   availableBodyParts, bosses, canLevelUp,
@@ -64,14 +65,15 @@ export type PrismaInclude = {
 
 // Server return types
 export type BrutesGetForRankResponse = {
-  topBrutes: Brute[],
-  nearbyBrutes: Brute[],
+  topBrutes: Pick<Brute, 'id' | 'name' | 'body' | 'colors' | 'gender' | 'ranking' | 'level'>[],
+  nearbyBrutes: Pick<Brute, 'id' | 'name' | 'body' | 'colors' | 'gender' | 'ranking' | 'level'>[],
   position: number,
   total: number,
 };
 export type BrutesGetRankingResponse = {
   ranking: number,
 };
+export type BrutesGetForVersusResponse = Pick<Brute, 'id' | 'name' | 'body' | 'colors' | 'gender' | 'level'>;
 export type BrutesGetOpponentsResponse = Pick<Brute, 'id' | 'name' | 'ranking' | 'gender' | 'level' | 'deletedAt' | 'hp' | 'strengthValue' | 'agilityValue' | 'speedValue' | 'body' | 'colors'>[];
 export type BrutesExistsResponse = {
   exists: false
@@ -85,6 +87,9 @@ export type TournamentsGetDailyResponse = Tournament & {
     brute1: Brute,
     brute2: Brute | null,
   })[]
+};
+export type TournamentsUpdateStepWatchedResponse = {
+  step: number,
 };
 export type TournamentsGetGlobalFight = Pick<Fight, 'id' | 'winner' | 'fighters' | 'brute1Id' | 'brute2Id' | 'tournamentStep'>;
 export type TournamentsGetGlobalResponse = {
@@ -119,6 +124,10 @@ export type BruteRestoreResponse = {
 export type UsersAdminUpdateRequest = {
   user: Prisma.UserUncheckedUpdateInput,
   achievements: Pick<Achievement, 'count' | 'name'>[],
+};
+export type UsersAuthenticateResponse = {
+  user: UserWithBrutesBodyColor,
+  modifiers: FightModifier[],
 };
 
 export type BruteReportsListRequest = {

@@ -594,7 +594,7 @@ export default class FighterHolder {
     this.loaded = true;
 
     // Play animation (loop on frames with PIXI ticker)
-    app.ticker.add(() => {
+    app.ticker?.add(() => {
       if (this.container.destroyed) return;
 
       // Update zIndex

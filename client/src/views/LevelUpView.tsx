@@ -1,13 +1,15 @@
 import { BrutesGetLevelUpChoicesResponse, getXPNeeded, skills, weapons } from '@labrute/core';
 import { BruteStat, DestinyChoiceSide, PetName, SkillName, WeaponName } from '@labrute/prisma';
-import { Box, Alert as MuiAlert, Paper, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Alert as MuiAlert, Paper, Stack, useMediaQuery, useTheme } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import BoxBg from '../components/BoxBg';
 import BruteRender from '../components/Brute/Body/BruteRender';
+import BruteHP from '../components/Brute/BruteHP';
 import SkillTooltip from '../components/Brute/SkillTooltip';
 import WeaponTooltip from '../components/Brute/WeaponTooltip';
+import CellStats from '../components/Cell/CellStats';
 import Page from '../components/Page';
 import StyledButton from '../components/StyledButton';
 import Text from '../components/Text';
@@ -15,6 +17,7 @@ import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import { useBrute } from '../hooks/useBrute';
 import Server from '../utils/Server';
+import StatColor from '../utils/StatColor';
 import catchError from '../utils/catchError';
 
 const LevelUpView = () => {
@@ -74,6 +77,51 @@ const LevelUpView = () => {
     navigate(`/${brute.name}/cell`);
   }, [Alert, brute, choices, navigate, updateBrute, updateData]);
 
+  const stats = brute && (
+    <>
+      {/* HP */}
+      <Box>
+        <BruteHP hp={brute.hp} />
+        <Text bold sx={{ display: 'inline-block', ml: 1, color: StatColor.endurance }}>{t('healthPoints')}</Text>
+      </Box>
+      {/* STRENGTH */}
+      <CellStats value={brute.strengthValue} stat="strength" />
+      {/* AGILITY */}
+      <CellStats value={brute.agilityValue} stat="agility" />
+      {/* SPEED */}
+      <CellStats value={brute.speedValue} stat="speed" />
+    </>
+  );
+
+  const weaponsAndSkills = brute && (
+    <>
+      {/* Weapons */}
+      <Box>
+        {brute.weapons.map((weapon) => (
+          <WeaponTooltip weapon={weapons.find((w) => w.name === weapon)} key={weapon}>
+            <Box component="img" src={`/images/game/resources/misc/weapons/${weapon}.png`} sx={{ filter: 'drop-shadow(1px 1px 1px black)' }} />
+          </WeaponTooltip>
+        ))}
+      </Box>
+      {/* Skills */}
+      <Box>
+        {brute.skills.map((skill) => (
+          <SkillTooltip skill={skills.find((s) => s.name === skill)} key={skill}>
+            <Box
+              component="img"
+              src={`/images/skills/${skill}.svg`}
+              sx={{
+                width: 16,
+                m: 0.25,
+                filter: 'drop-shadow(1px 1px 1px black)'
+              }}
+            />
+          </SkillTooltip>
+        ))}
+      </Box>
+    </>
+  );
+
   return brute && (
     <Page title={`${t('MyBrute')}. ${t('newLevelFor')} ${brute.name || ''}`} headerUrl={`/${brute.name}/cell`}>
       <MuiAlert severity="success" variant="filled">
@@ -87,25 +135,51 @@ const LevelUpView = () => {
           ! {t('chooseOneOfTheFollowingBonuses')} :
         </Text>
         <Box sx={{ textAlign: 'center' }}>
-          {/* BRUTE */}
-          <BoxBg
-            src={`/images${theme.palette.mode === 'dark' ? '/dark' : ''}/level-up/brute-bg.webp`}
+          {smallScreen && (
+            <>
+              <Stack spacing={1}>
+                {stats}
+              </Stack>
+              <Box sx={{ my: 1 }}>
+                {weaponsAndSkills}
+              </Box>
+            </>
+          )}
+          <Box
             sx={{
               display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: 182,
-              width: 201,
-              mx: 'auto',
-              mt: 1,
+              justifyContent: smallScreen ? 'center' : 'space-between',
+              mt: 1
             }}
           >
-            <Box width={60}>
-              <BruteRender
-                brute={brute}
-              />
-            </Box>
-          </BoxBg>
+            {!smallScreen && (
+              <Stack spacing={1} sx={{ width: 153 }}>
+                {stats}
+              </Stack>
+            )}
+            {/* BRUTE */}
+            <BoxBg
+              src={`/images${theme.palette.mode === 'dark' ? '/dark' : ''}/level-up/brute-bg.webp`}
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: 182,
+                width: 201,
+              }}
+            >
+              <Box width={60}>
+                <BruteRender
+                  brute={brute}
+                />
+              </Box>
+            </BoxBg>
+            {!smallScreen && (
+              <Box sx={{ width: 153 }}>
+                {weaponsAndSkills}
+              </Box>
+            )}
+          </Box>
           {/* ARROWS */}
           {!smallScreen && (
             <Box

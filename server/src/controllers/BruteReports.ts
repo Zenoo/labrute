@@ -12,6 +12,7 @@ import { LOGGER } from '../context.js';
 import auth from '../utils/auth.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
+import { ilike } from '../utils/ilike.js';
 
 const BruteReports = {
   list: (prisma: PrismaClient) => async (
@@ -80,7 +81,7 @@ const BruteReports = {
       // Get brute
       const brute = await prisma.brute.findFirst({
         where: {
-          name,
+          name: ilike(name),
           deletedAt: null,
         },
         select: { id: true, name: true, deletionReason: true },

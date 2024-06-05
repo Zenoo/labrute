@@ -132,8 +132,14 @@ const TournamentView = () => {
     }
 
     // Update watched step
-    Server.Tournament.updateStepWatched(bruteName || '').catch(console.error);
-  }, [brute, bruteName, navigate, ownsBrute]);
+    Server.Tournament.updateStepWatched(bruteName || '').then(({ step }) => {
+      updateBrute((b) => (b ? {
+        ...b,
+        currentTournamentDate: moment.utc().startOf('day').toDate(),
+        currentTournamentStepWatched: step,
+      } : null));
+    }).catch(console.error);
+  }, [brute, bruteName, navigate, ownsBrute, updateBrute]);
 
   const setWatched = useCallback(async () => {
     if (!brute) return;

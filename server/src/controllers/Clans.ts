@@ -14,6 +14,7 @@ import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
 import ServerState from '../utils/ServerState.js';
 import isUuid from '../utils/uuid.js';
+import { ilike } from '../utils/ilike.js';
 
 const Clans = {
   list: (prisma: PrismaClient) => async (
@@ -95,7 +96,7 @@ const Clans = {
 
       const brute = await prisma.brute.findFirst({
         where: {
-          name: req.params.brute,
+          name: ilike(req.params.brute),
           deletedAt: null,
           userId: user.id,
         },
@@ -129,7 +130,7 @@ const Clans = {
 
       // Check if clan name is available
       const clanExists = await prisma.clan.count({
-        where: { name: clanName },
+        where: { name: ilike(clanName) },
       });
 
       if (clanExists) {
@@ -163,6 +164,7 @@ const Clans = {
       await prisma.brute.update({
         where: { id: brute.id },
         data: { wantToJoinClanId: null },
+        select: { id: true },
       });
 
       res.status(200).send(clan);
@@ -254,7 +256,7 @@ const Clans = {
 
       const brute = await prisma.brute.findFirst({
         where: {
-          name: req.params.brute,
+          name: ilike(req.params.brute),
           deletedAt: null,
           userId: user.id,
         },
@@ -285,6 +287,7 @@ const Clans = {
       await prisma.clan.update({
         where: { id },
         data: { joinRequests: { connect: { id: brute.id } } },
+        select: { id: true },
       });
 
       res.status(200).send({ message: 'ok' });
@@ -320,7 +323,7 @@ const Clans = {
 
       const brute = await prisma.brute.findFirst({
         where: {
-          name: req.params.brute,
+          name: ilike(req.params.brute),
           deletedAt: null,
           userId: user.id,
         },
@@ -342,6 +345,7 @@ const Clans = {
       await prisma.clan.update({
         where: { id },
         data: { joinRequests: { disconnect: { id: brute.id } } },
+        select: { id: true },
       });
 
       res.status(200).send({ message: 'ok' });
@@ -392,7 +396,7 @@ const Clans = {
 
       const brute = await prisma.brute.findFirst({
         where: {
-          name: req.params.brute,
+          name: ilike(req.params.brute),
           deletedAt: null,
         },
         select: {
@@ -430,6 +434,7 @@ const Clans = {
           brutes: { connect: { id: brute.id } },
           joinRequests: { disconnect: { id: brute.id } },
         },
+        select: { id: true },
       });
 
       // Update clan points
@@ -481,7 +486,7 @@ const Clans = {
 
       const brute = await prisma.brute.findFirst({
         where: {
-          name: req.params.brute,
+          name: ilike(req.params.brute),
           wantToJoinClanId: id,
         },
         select: { id: true },
@@ -494,6 +499,7 @@ const Clans = {
       await prisma.clan.update({
         where: { id },
         data: { joinRequests: { disconnect: { id: brute.id } } },
+        select: { id: true },
       });
 
       res.status(200).send({ message: 'ok' });
@@ -542,7 +548,7 @@ const Clans = {
 
       const brute = await prisma.brute.findFirst({
         where: {
-          name: req.params.brute,
+          name: ilike(req.params.brute),
           deletedAt: null,
         },
         select: { id: true, level: true, ranking: true },
@@ -562,6 +568,7 @@ const Clans = {
         data: {
           brutes: { disconnect: { id: brute.id } },
         },
+        select: { id: true },
       });
 
       // Update clan points
@@ -601,7 +608,7 @@ const Clans = {
       const brute = await prisma.brute.findFirst({
         where: {
           userId: user.id,
-          name: req.params.brute,
+          name: ilike(req.params.brute),
           deletedAt: null,
         },
         select: { id: true, level: true, ranking: true },
@@ -647,6 +654,7 @@ const Clans = {
           data: {
             brutes: { disconnect: { id: brute.id } },
           },
+          select: { id: true },
         });
 
         // Update clan points
@@ -671,7 +679,7 @@ const Clans = {
 
       const brute = await prisma.brute.findFirst({
         where: {
-          name: req.params.brute,
+          name: ilike(req.params.brute),
           deletedAt: null,
           userId: user.id,
         },
@@ -704,7 +712,7 @@ const Clans = {
           clanId: id,
           clan: {
             brutes: {
-              some: { name: req.params.brute },
+              some: { name: ilike(req.params.brute) },
             },
           },
         },
@@ -749,7 +757,7 @@ const Clans = {
 
       const brute = await prisma.brute.findFirst({
         where: {
-          name: req.params.brute,
+          name: ilike(req.params.brute),
           deletedAt: null,
           userId: user.id,
         },
@@ -808,7 +816,7 @@ const Clans = {
 
       const brute = await prisma.brute.findFirst({
         where: {
-          name: req.params.brute,
+          name: ilike(req.params.brute),
           deletedAt: null,
           userId: user.id,
         },
@@ -852,6 +860,7 @@ const Clans = {
             increment: 1,
           },
         },
+        select: { id: true },
       });
 
       res.status(200).send(post);
@@ -877,7 +886,7 @@ const Clans = {
 
       const brute = await prisma.brute.findFirst({
         where: {
-          name: req.params.brute,
+          name: ilike(req.params.brute),
           deletedAt: null,
           userId: user.id,
         },
@@ -919,6 +928,7 @@ const Clans = {
       await prisma.clanThread.update({
         where: { id: threadId },
         data: { locked: true },
+        select: { id: true },
       });
 
       res.status(200).send({ message: 'ok' });
@@ -949,7 +959,7 @@ const Clans = {
 
       const brute = await prisma.brute.findFirst({
         where: {
-          name: req.params.brute,
+          name: ilike(req.params.brute),
           deletedAt: null,
           userId: user.id,
         },
@@ -1007,7 +1017,7 @@ const Clans = {
 
       const brute = await prisma.brute.findFirst({
         where: {
-          name: req.params.brute,
+          name: ilike(req.params.brute),
           deletedAt: null,
           userId: user.id,
         },
@@ -1139,7 +1149,7 @@ const Clans = {
 
       const brute = await prisma.brute.findFirst({
         where: {
-          name: req.params.brute,
+          name: ilike(req.params.brute),
           deletedAt: null,
           userId: user.id,
         },
@@ -1181,6 +1191,7 @@ const Clans = {
       await prisma.clanThread.update({
         where: { id: threadId },
         data: { pinned: true },
+        select: { id: true },
       });
 
       res.status(200).send({ message: 'ok' });
@@ -1206,7 +1217,7 @@ const Clans = {
 
       const brute = await prisma.brute.findFirst({
         where: {
-          name: req.params.brute,
+          name: ilike(req.params.brute),
           deletedAt: null,
           userId: user.id,
         },
@@ -1248,6 +1259,7 @@ const Clans = {
       await prisma.clanThread.update({
         where: { id: threadId },
         data: { pinned: false },
+        select: { id: true },
       });
 
       res.status(200).send({ message: 'ok' });
@@ -1296,7 +1308,7 @@ const Clans = {
 
       const brute = await prisma.brute.findFirst({
         where: {
-          name: req.params.brute,
+          name: ilike(req.params.brute),
           deletedAt: null,
         },
         select: { id: true, level: true, ranking: true },
@@ -1314,6 +1326,7 @@ const Clans = {
       await prisma.clan.update({
         where: { id },
         data: { masterId: brute.id },
+        select: { id: true },
       });
 
       res.status(200).send({ message: 'ok' });

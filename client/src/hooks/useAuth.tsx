@@ -3,9 +3,11 @@ import moment from 'moment';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 import Server from '../utils/Server';
 import { useLanguage } from './useLanguage';
+import { FightModifier } from '@labrute/prisma';
 
 interface AuthContextInterface {
   user: UserWithBrutesBodyColor | null,
+  modifiers: FightModifier[],
   authing: boolean,
   setAuthing: (authing: boolean) => void,
   signin: () => void,
@@ -15,6 +17,7 @@ interface AuthContextInterface {
 
 const AuthContext = React.createContext<AuthContextInterface>({
   user: null,
+  modifiers: [],
   authing: false,
   setAuthing: () => {
     console.error('AuthContext.setAuthing() not implemented');
@@ -39,6 +42,7 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
+  const [modifiers, setModifiers] = useState<FightModifier[]>([]);
   const [user, setUser] = useState<UserWithBrutesBodyColor | null>(null);
   const [authing, setAuthing] = useState(false);
   const { setLanguage } = useLanguage();
@@ -53,11 +57,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     if (userId && token) {
       if (expires.isAfter(moment.utc())) {
         Server.User.authenticate(userId, token).then((response) => {
-          setUser(response);
+          setUser(response.user);
+          setModifiers(response.modifiers);
           setAuthing(false);
 
           // Update language
-          setLanguage(response.lang);
+          setLanguage(response.user.lang);
         }).catch(() => {
           localStorage.removeItem('user');
           localStorage.removeItem('token');
@@ -87,12 +92,13 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const methods = useMemo(() => ({
     user,
+    modifiers,
     authing,
     setAuthing,
     signin,
     signout,
     updateData
-  }), [authing, signin, signout, updateData, user]);
+  }), [authing, modifiers, signin, signout, updateData, user]);
 
   return (
     <AuthContext.Provider value={methods}>

@@ -1,5 +1,5 @@
 /* eslint-disable no-void */
-import { FIGHTER_HEIGHT, FIGHTER_WIDTH, ThrowStep, WeaponById } from '@labrute/core';
+import { FIGHTER_HEIGHT, FIGHTER_WIDTH, ThrowStep, WeaponById, weapons } from '@labrute/core';
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
 import { Application, Sprite } from 'pixi.js';
@@ -31,21 +31,33 @@ const throwWeapon = async (
     throw new Error('Opponent not found');
   }
 
-  const prepareEnded = fighter.animation.waitForEvent('prepare-throw:end');
+  // Weapon return
+  if (step.r) {
+    // Get correct animation
+    const animation = fighter.type === 'brute'
+      ? weapons.find((w) => w.name === WeaponById[step.w])?.animation || 'fist'
+      : 'attack';
 
-  // Set animation to `prepare-throw`
-  fighter.animation.setAnimation('prepare-throw');
+    // Set animation to the correct animation
+    fighter.animation.setAnimation(animation);
+  } else {
+    // Normal throw
+    const prepareEnded = fighter.animation.waitForEvent('prepare-throw:end');
 
-  // Wait for animation to finish
-  await prepareEnded;
+    // Set animation to `prepare-throw`
+    fighter.animation.setAnimation('prepare-throw');
 
-  // Remove weapon from brute if needed
-  if (!step.k) {
-    fighter.animation.weapon = null;
+    // Wait for animation to finish
+    await prepareEnded;
+
+    // Remove weapon from brute if needed
+    if (!step.k) {
+      fighter.animation.weapon = null;
+    }
+
+    // Set animation to `throw`
+    fighter.animation.setAnimation('throw');
   }
-
-  // Set animation to `throw`
-  fighter.animation.setAnimation('throw');
 
   // Create thrown weapon sprite
   const thrownWeapon = new Sprite(spritesheet.textures[`${WeaponById[step.w]}.png`]);

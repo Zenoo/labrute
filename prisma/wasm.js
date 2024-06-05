@@ -209,7 +209,8 @@ exports.Prisma.FightScalarFieldEnum = {
   fighters: 'fighters',
   tournamentId: 'tournamentId',
   tournamentStep: 'tournamentStep',
-  modifiers: 'modifiers'
+  modifiers: 'modifiers',
+  background: 'background'
 };
 
 exports.Prisma.LogScalarFieldEnum = {

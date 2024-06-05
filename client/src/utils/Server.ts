@@ -1,11 +1,11 @@
-import { AchievementGetRankingsResponse, AchievementsGetResponse, AdminPanelBrute, BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetLevelUpChoicesResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, ClanChallengeBossResponse, ClanCreateResponse, ClanGetResponse, ClanGetThreadResponse, ClanGetThreadsResponse, ClanListResponse, FightCreateResponse, HookBrute, ServerReadyResponse, TournamentHistoryResponse, TournamentsGetDailyResponse, TournamentsGetGlobalResponse, TournementsUpdateGlobalRoundWatchedResponse, UserGetAdminResponse, UserGetProfileResponse, UsersAdminUpdateRequest, UserWithBrutesBodyColor } from '@labrute/core';
+import { AchievementGetRankingsResponse, AchievementsGetResponse, AdminPanelBrute, BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetForVersusResponse, BrutesGetLevelUpChoicesResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, ClanChallengeBossResponse, ClanCreateResponse, ClanGetResponse, ClanGetThreadResponse, ClanGetThreadsResponse, ClanListResponse, FightCreateResponse, HookBrute, ServerReadyResponse, TournamentHistoryResponse, TournamentsGetDailyResponse, TournamentsGetGlobalResponse, TournamentsUpdateStepWatchedResponse, TournementsUpdateGlobalRoundWatchedResponse, UserGetAdminResponse, UserGetProfileResponse, UsersAdminUpdateRequest, UsersAuthenticateResponse } from '@labrute/core';
 import { Brute, BruteReportReason, BruteReportStatus, DestinyChoiceSide, Fight, Gender, Lang, Log, Prisma } from '@labrute/prisma';
 import Fetch from './Fetch';
 
 const Server = {
   isReady: () => Fetch<ServerReadyResponse>('/api/is-ready'),
   User: {
-    authenticate: (login: string, token: string) => Fetch<UserWithBrutesBodyColor>('/api/user/authenticate', {
+    authenticate: (login: string, token: string) => Fetch<UsersAuthenticateResponse>('/api/user/authenticate', {
       login,
       token
     }, 'POST'),
@@ -21,7 +21,7 @@ const Server = {
   Brute: {
     getForHook: (name: string) => Fetch<HookBrute>(`/api/brute/${name}/for-hook`),
     getForAdmin: (name: string) => Fetch<AdminPanelBrute>(`/api/brute/${name}/for-admin`),
-    getForVersus: (name: string) => Fetch<Brute>(`/api/brute/${name}/for-versus`),
+    getForVersus: (name: string) => Fetch<BrutesGetForVersusResponse>(`/api/brute/${name}/for-versus`),
     isNameAvailable: (name: string) => Fetch<boolean>(`/api/brute/${name}/available`),
     create: (
       name: string,
@@ -72,8 +72,8 @@ const Server = {
       date,
     }: { name: string, date: string }) => Fetch<TournamentsGetDailyResponse>(`/api/tournament/${name}/${date}`),
     registerDaily: (name: string) => Fetch<never>(`/api/tournament/${name}/register`),
-    updateStepWatched: (name: string) => Fetch<never>(`/api/tournament/${name}/update-step-watched`),
-    updateGlobalRoundWatched: (name: string, fight: string) => Fetch<TournementsUpdateGlobalRoundWatchedResponse>(`/api/tournament/${name}/update-global-round-watched/${fight}`),
+    updateStepWatched: (name: string) => Fetch<TournamentsUpdateStepWatchedResponse>(`/api/tournament/${name}/update-step-watched`),
+    updateGlobalRoundWatched: (name: string, fight: number) => Fetch<TournementsUpdateGlobalRoundWatchedResponse>(`/api/tournament/${name}/update-global-round-watched/${fight}`),
     skipWatchingGlobal: (name: string) => Fetch<never>(`/api/tournament/${name}/skip-watching-global`),
     setDailyWatched: (name: string) => Fetch<never>(`/api/tournament/${name}/set-daily-watched`),
     getGlobal: ({

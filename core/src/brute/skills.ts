@@ -163,6 +163,7 @@ export const FightStat = {
   ACCURACY: 'accuracy',
   DISARM: 'disarm',
   COMBO: 'combo',
+  DEFLECT: 'deflect',
   ARMOR: 'armor',
   DAMAGE: 'damage',
   HIT_SPEED: 'hitSpeed',

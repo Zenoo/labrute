@@ -357,6 +357,7 @@
   "accuracy": "Precisão",
   "disarm": "Desarme",
   "combo": "Combo",
+  "deflect": "Deflect",
   "damage": "Dano",
   "drawChance": "Probabilidade de uso",
   "reach": "Alcance",
@@ -1287,5 +1288,14 @@
   "taggedForDeletion": "Your brute will be deleted in {{days}} days.",
   "deletionReason.DUPLICATE_NAME": "Your brute has the same name as another brute. Use the item in your inventory to change it and avoid deletion.",
   "deletionReason.INNAPROPRIATE_NAME": "Your brute has an inappropriate name. Use the item in your inventory to change it and avoid deletion.",
-  "nameChangeConfirm": "Are you sure you want to change your brute's name to {{name}}?"
+  "nameChangeConfirm": "Are you sure you want to change your brute's name to {{name}}?",
+  "activeModifiers": "Active modifiers",
+  "modifier.noThrows": "Sticky hands",
+  "modifier.noThrows.desc": "Who superglued those weapons ?! You can't throw your weapons anymore.",
+  "modifier.focusOpponent": "Focus",
+  "modifier.focusOpponent.desc": "You never lost a staring battle. You will always focus your main opponent.",
+  "modifier.alwaysUseSupers": "Unlimited power",
+  "modifier.alwaysUseSupers.desc": "You spent time learning those skills, it would be a shame not to use them. You will always use your available skills.",
+  "modifier.drawEveryWeapon": "Endless supplies",
+  "modifier.drawEveryWeapon.desc": "Your pullout game is extremely strong. You will always draw a weapon if one is available."
 }

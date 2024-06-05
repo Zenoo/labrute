@@ -3158,6 +3158,7 @@ __metadata:
     react: "npm:^18.2.0"
     react-device-detect: "npm:^2.2.3"
     react-dom: "npm:^18.2.0"
+    react-fast-marquee: "npm:^1.6.4"
     react-helmet-async: "npm:^1.3.0"
     react-i18next: "npm:^11.18.3"
     react-perfect-scrollbar: "npm:^1.5.8"
@@ -15272,6 +15273,16 @@ __metadata:
   version: 3.2.0
   resolution: "react-fast-compare@npm:3.2.0"
   checksum: 26ed35d425f197f04c85d572eac943d901a2713335b79483d4f3f94ee5caf97f20678f89bedd385ace9b1637890c88fc5442d732bad0871135643d9703312cd7
+  languageName: node
+  linkType: hard
+
+"react-fast-marquee@npm:^1.6.4":
+  version: 1.6.4
+  resolution: "react-fast-marquee@npm:1.6.4"
+  peerDependencies:
+    react: ">= 16.8.0 || 18.0.0"
+    react-dom: ">= 16.8.0 || 18.0.0"
+  checksum: 37f967fc060af5218e22b1bfeb118e73d84d4fb2976ea70e30ea7122eb372dc520f764351d9cb2b2242f0505d2a80a5ea111ff1ae2d8767c92e435d2d9449bd0
   languageName: node
   linkType: hard
 

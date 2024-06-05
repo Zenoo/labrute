@@ -2,6 +2,7 @@ import { ExpectedError } from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import sendError from '../utils/sendError.js';
+import { ilike } from '../utils/ilike.js';
 
 const Logs = {
   list: (prisma: PrismaClient) => async (req: Request, res: Response) => {
@@ -13,7 +14,7 @@ const Logs = {
 
       // Get brute id
       const brute = await prisma.brute.findFirst({
-        where: { name: req.params.name, deletedAt: null },
+        where: { name: ilike(req.params.name), deletedAt: null },
         select: { id: true },
       });
 

@@ -1,6 +1,8 @@
 import {
   AchievementData, ExpectedError, RaretyOrder,
-  UserGetAdminResponse, UserGetProfileResponse, UserWithBrutesBodyColor, UsersAdminUpdateRequest,
+  UserGetAdminResponse, UserGetProfileResponse,
+  UsersAdminUpdateRequest,
+  UsersAuthenticateResponse,
   getFightsLeft,
   isUuid,
 } from '@labrute/core';
@@ -13,6 +15,7 @@ import moment from 'moment';
 import fetch from 'node-fetch';
 import { DISCORD, GLOBAL } from '../context.js';
 import dailyJob from '../dailyJob.js';
+import ServerState from '../utils/ServerState.js';
 import auth from '../utils/auth.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
@@ -87,7 +90,7 @@ const Users = {
   },
   authenticate: (prisma: PrismaClient) => async (
     req: Request,
-    res: Response<UserWithBrutesBodyColor>,
+    res: Response<UsersAuthenticateResponse>,
   ) => {
     try {
       const { id } = await auth(prisma, req);
@@ -111,7 +114,10 @@ const Users = {
         throw new Error('User not found');
       }
 
-      res.send(user);
+      res.send({
+        user,
+        modifiers: await ServerState.getModifiers(prisma),
+      });
     } catch (error) {
       sendError(res, error);
     }

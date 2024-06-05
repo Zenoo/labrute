@@ -1,6 +1,7 @@
 import {
   ExpectedError, GLOBAL_TOURNAMENT_START_HOUR,
   TournamentHistoryResponse, TournamentsGetDailyResponse, TournamentsGetGlobalResponse,
+  TournamentsUpdateStepWatchedResponse,
   TournementsUpdateGlobalRoundWatchedResponse,
 } from '@labrute/core';
 import {
@@ -13,6 +14,7 @@ import ServerState from '../utils/ServerState.js';
 import auth from '../utils/auth.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
+import { ilike } from '../utils/ilike.js';
 
 const Tournaments = {
   getDaily: (prisma: PrismaClient) => async (
@@ -31,7 +33,7 @@ const Tournaments = {
           type: TournamentType.DAILY,
           participants: {
             some: {
-              name: req.params.name,
+              name: ilike(req.params.name),
             },
           },
         },
@@ -70,7 +72,7 @@ const Tournaments = {
       // Get brute
       const brute = await prisma.brute.findFirst({
         where: {
-          name: req.params.name,
+          name: ilike(req.params.name),
           deletedAt: null,
           userId: user.id,
         },
@@ -108,7 +110,7 @@ const Tournaments = {
   },
   updateStepWatched: (prisma: PrismaClient) => async (
     req: Request,
-    res: Response,
+    res: Response<TournamentsUpdateStepWatchedResponse>,
   ) => {
     try {
       const user = await auth(prisma, req);
@@ -120,7 +122,7 @@ const Tournaments = {
       // Get brute
       const brute = await prisma.brute.findFirst({
         where: {
-          name: req.params.name,
+          name: ilike(req.params.name),
           deletedAt: null,
           userId: user.id,
         },
@@ -141,7 +143,7 @@ const Tournaments = {
           date: moment.utc().startOf('day').toDate(),
           participants: {
             some: {
-              name: req.params.name,
+              name: ilike(req.params.name),
             },
           },
         },
@@ -165,6 +167,7 @@ const Tournaments = {
       const stepWatched = !brute.currentTournamentDate || moment.utc(brute.currentTournamentDate).isBefore(moment.utc().startOf('day'))
         ? 0
         : brute.currentTournamentStepWatched || 0;
+      let newStepWatched = stepWatched;
 
       // If brute was eliminated, set tournament as fully watched
       if (!tournament.fights
@@ -180,8 +183,10 @@ const Tournaments = {
           },
           select: { id: true },
         });
-        // First watch of the day
+
+        newStepWatched = 6;
       } else if (!brute.currentTournamentDate || moment.utc(brute.currentTournamentDate).isBefore(moment.utc().startOf('day'))) {
+        // First watch of the day
         await prisma.brute.update({
           where: {
             id: brute.id,
@@ -192,6 +197,8 @@ const Tournaments = {
           },
           select: { id: true },
         });
+
+        newStepWatched = 1;
       } else {
         // Update brute watched tournament step
         await prisma.brute.update({
@@ -205,7 +212,11 @@ const Tournaments = {
         });
       }
 
-      res.send({ success: true });
+      newStepWatched = stepWatched + 1;
+
+      res.send({
+        step: newStepWatched,
+      });
     } catch (error) {
       sendError(res, error);
     }
@@ -221,7 +232,7 @@ const Tournaments = {
       // Get brute
       const brute = await prisma.brute.findFirst({
         where: {
-          name: req.params.name,
+          name: ilike(req.params.name),
           deletedAt: null,
           userId: user.id,
         },
@@ -266,7 +277,7 @@ const Tournaments = {
       // Get brute
       const brute = await prisma.brute.findFirst({
         where: {
-          name: req.params.name,
+          name: ilike(req.params.name),
           deletedAt: null,
         },
         select: {
@@ -286,7 +297,7 @@ const Tournaments = {
           type: TournamentType.GLOBAL,
           participants: {
             some: {
-              name: req.params.name,
+              name: ilike(req.params.name),
               deletedAt: null,
             },
           },
@@ -510,7 +521,7 @@ const Tournaments = {
 
       const brute = await prisma.brute.findFirst({
         where: {
-          name: req.params.name,
+          name: ilike(req.params.name),
           deletedAt: null,
         },
         select: { id: true, name: true },
@@ -630,7 +641,7 @@ const Tournaments = {
       // Get brute
       const brute = await prisma.brute.findFirst({
         where: {
-          name: req.params.name,
+          name: ilike(req.params.name),
           deletedAt: null,
           userId: user.id,
         },
@@ -703,7 +714,7 @@ const Tournaments = {
       // Get brute
       const brute = await prisma.brute.findFirst({
         where: {
-          name: req.params.name,
+          name: ilike(req.params.name),
           deletedAt: null,
           userId: user.id,
         },

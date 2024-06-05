@@ -6,10 +6,11 @@ import Page from '../../components/Page';
 import StyledButton from '../../components/StyledButton';
 import Text from '../../components/Text';
 import { Brute } from '@labrute/prisma';
+import { BrutesGetForVersusResponse } from '@labrute/core';
 
 export interface VersusMobileViewProps {
   brute: Brute;
-  opponent: Brute;
+  opponent: BrutesGetForVersusResponse;
   startFight: () => void;
 }
 

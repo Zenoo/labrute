@@ -1,7 +1,7 @@
 /* eslint-disable no-void */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-await-in-loop */
-import { Fighter, FightStep, randomItem, StepType } from '@labrute/core';
+import { Fighter, FightStep, StepType } from '@labrute/core';
 import { Fight, Gender } from '@labrute/prisma';
 import { Theme } from '@mui/material';
 import { ColorOverlayFilter } from '@pixi/filter-color-overlay';
@@ -24,9 +24,9 @@ import end from './end';
 import equip from './equip';
 import evade from './evade';
 import FighterHolder from './FighterHolder';
-import { AnimationFighter } from './utils/findFighter';
 import flashFlood from './flashFlood';
 import hammer from './hammer';
+import { haste } from './haste';
 import heal from './heal';
 import hit from './hit';
 import hypnotise from './hypnotise';
@@ -44,33 +44,16 @@ import survive from './survive';
 import throwWeapon from './throwWeapon';
 import trap from './trap';
 import trash from './trash';
-import updateWeapons from './updateWeapons';
-import { vampirism } from './vampirism';
-import { haste } from './haste';
 import { treat } from './treat';
-
-const backgrounds: string[] = [
-  'background/1.jpg',
-  'background/2.jpg',
-  'background/3.png',
-  'background/4.png',
-  'background/5.png',
-  'background/6.png',
-  'background/7.png',
-  'background/8.png',
-  'background/9.png',
-  'background/10.png',
-  'background/11.png',
-  'background/12.png',
-  'background/13.png',
-];
+import updateWeapons from './updateWeapons';
+import { AnimationFighter } from './utils/findFighter';
+import { vampirism } from './vampirism';
 
 const setupFight: (
   theme: Theme,
   fight: Fight,
   app: PIXI.Application,
   speed: React.MutableRefObject<number>,
-  setCompleted: React.Dispatch<React.SetStateAction<boolean>>,
   t: TFunction,
   toggleTooltip: (brute: Fighter, forceValue?: boolean) => void,
   renderer: RendererContextInterface,
@@ -79,7 +62,6 @@ const setupFight: (
   fight,
   app,
   speed,
-  setCompleted,
   t,
   toggleTooltip,
   renderer,
@@ -111,9 +93,7 @@ const setupFight: (
   }
 
   // Add background
-  const background = new PIXI.Sprite(miscSheet.textures[
-    randomItem(backgrounds)
-  ]);
+  const background = new PIXI.Sprite(miscSheet.textures[`background/${fight.background}`]);
   background.zIndex = -1;
 
   // Fill screen
@@ -605,7 +585,6 @@ const setupFight: (
     }
   }
 
-  setCompleted(true);
   void sound.play('win');
 
   // Get winner fighter
