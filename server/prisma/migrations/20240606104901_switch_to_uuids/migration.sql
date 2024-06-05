@@ -362,7 +362,7 @@
   ALTER TABLE "Log" DROP COLUMN "currentBruteId";
   ALTER TABLE "Log" DROP COLUMN "fightId";
   ALTER TABLE "Log" ADD COLUMN "id" uuid NOT NULL DEFAULT uuid_generate_v4();
-  ALTER TABLE "Log" ADD COLUMN "currentBruteId" uuid  NOT NULL DEFAULT;
+  ALTER TABLE "Log" ADD COLUMN "currentBruteId" uuid ;
   ALTER TABLE "Log" ADD COLUMN "fightId" uuid  ;
   ALTER TABLE "Log" ADD CONSTRAINT "Log_pkey" PRIMARY KEY ("id");
 
