@@ -1808,7 +1808,7 @@ export const playFighterTurn = (
           // Add evade step
           fightData.steps.push({
             a: StepType.Evade,
-            f: currentOpponent.id,
+            f: currentOpponent.index,
           });
 
           // Update evade stat

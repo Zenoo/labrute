@@ -273,7 +273,7 @@ SET "temp_bruteId" = "bruteId",
     "temp_id" = "id";
 ALTER TABLE "BruteStartingStats" DROP COLUMN "bruteId";
 ALTER TABLE "BruteStartingStats" DROP COLUMN "id";
-ALTER TABLE "BruteStartingStats" ADD COLUMN "bruteId" uuid  NOT NULL;
+ALTER TABLE "BruteStartingStats" ADD COLUMN "bruteId" uuid  NOT NULL DEFAULT uuid_generate_v4();
 ALTER TABLE "BruteStartingStats" ADD COLUMN "id" uuid NOT NULL DEFAULT uuid_generate_v4();
 ALTER TABLE "BruteStartingStats" ADD CONSTRAINT "BruteStartingStats_pkey" PRIMARY KEY ("id");
 
