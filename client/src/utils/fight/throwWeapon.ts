@@ -35,7 +35,7 @@ const throwWeapon = async (
   if (step.r) {
     // Get correct animation
     const animation = fighter.type === 'brute'
-      ? weapons.find((w) => w.name === WeaponById[step.w])?.animation || 'fist'
+      ? weapons.find((w) => w.name === fighter.animation.weapon)?.animation || 'fist'
       : 'attack';
 
     // Set animation to the correct animation
