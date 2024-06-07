@@ -11,7 +11,7 @@ type RenderMethod = (brute: BruteData) => void;
 
 type RenderCallback = (content: string) => void;
 
-type OnRenderMethod = (id: number | string, callback: RenderCallback) => void;
+type OnRenderMethod = (id: string, callback: RenderCallback) => void;
 
 export interface RendererContextInterface {
   render: RenderMethod;
@@ -45,7 +45,7 @@ type RendererInstance = {
 };
 
 type Cache = {
-  id: number | string;
+  id: string;
   content: string;
 }[];
 
@@ -54,7 +54,7 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
   const [renderers, setRenderers] = useState<RendererInstance[]>([]);
   const [cache, setCache] = useState<Cache>([]);
   const [callbacks, setCallbacks] = useState<
-    Record<number | string, RenderCallback[]>
+    Record<string, RenderCallback[]>
   >({});
 
   const render: RenderMethod = (brute) => {

@@ -484,12 +484,8 @@
       SELECT "id"
       FROM "Brute" b2
       WHERE b2."temp_id" = b1."temp_masterId"
-  )
-  WHERE EXISTS (
-      SELECT 1
-      FROM "Brute" b2
-      WHERE b2."temp_id" = b1."temp_masterId"
-  );
+  ) WHERE "temp_masterId" IS NOT NULL;
+
   UPDATE "Brute" b SET "clanId" = c."id" FROM "Clan" c WHERE b."temp_clanId" = c."temp_id";
   UPDATE "BruteInventoryItem" bii SET "bruteId" = b."id" FROM "Brute" b WHERE bii."temp_bruteId" = b."temp_id";
   UPDATE "BruteReport" br SET "bruteId" = b."id" FROM "Brute" b WHERE br."temp_bruteId" = b."temp_id";
