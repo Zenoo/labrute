@@ -75,9 +75,9 @@ const getFighterStat = (
   return total;
 };
 
-const resetOthersStats = (stats: Stats, excludedFighter: number, stat: keyof Omit<Stats[number], 'userId'>) => {
+const resetOthersStats = (stats: Stats, excludedFighter: string, stat: keyof Omit<Stats[string], 'userId'>) => {
   for (const [bruteId, bruteStats] of Object.entries(stats)) {
-    if (+bruteId !== excludedFighter) {
+    if (bruteId !== excludedFighter) {
       bruteStats[stat] = 0;
     }
   }
@@ -553,7 +553,7 @@ const registerHit = (
   // Max damage achievement
   const maxDamage = Math.max(...Object.values(actualDamage));
   if ((stats[fighter.id]?.maxDamage || 0) < maxDamage) {
-    updateStats(stats, fighter.id, 'maxDamage', maxDamage - (stats[fighter.index]?.maxDamage || 0));
+    updateStats(stats, fighter.id, 'maxDamage', maxDamage - (stats[fighter.id]?.maxDamage || 0));
   }
 
   opponents.forEach((opponent) => {
@@ -1604,7 +1604,7 @@ export const playFighterTurn = (
   }
 
   // Reset throw counter
-  resetOthersStats(stats, fighter.index, 'consecutiveThrows');
+  resetOthersStats(stats, fighter.id, 'consecutiveThrows');
 
   // Check if backup should leave
   if (fighter.leavesAtInitiative && fighter.leavesAtInitiative <= fightData.initiative) {
@@ -1737,14 +1737,6 @@ export const playFighterTurn = (
 
       const thrownWeapon = fighter.activeWeapon;
 
-      // Add throw step
-      fightData.steps.push({
-        a: StepType.Throw,
-        f: fighter.index,
-        t: opponent.index,
-        w: WeaponByName[fighter.activeWeapon.name],
-        k: keepWeapon ? 1 : 0,
-      });
       let deflected: boolean | null = null;
       let currentFighter = fighter;
       let currentOpponent = opponent;
@@ -1777,6 +1769,29 @@ export const playFighterTurn = (
         updateStats(stats, currentFighter.id, 'consecutiveThrows', 1);
         checkAchievements(stats, achievements);
 
+        // Check if opponent blocked (harder than melee)
+        if (!deflected && block(currentFighter, currentOpponent, 2)) {
+          damage = 0;
+
+          // Add evade step
+          fightData.steps.push({
+            a: StepType.Evade,
+            f: opponent.index,
+          });
+          // Add block step
+          fightData.steps.push({
+            a: StepType.Block,
+            f: currentOpponent.index,
+          });
+
+          // Update block stat
+          updateStats(stats, currentOpponent.id, 'blocks', 1);
+          updateStats(stats, currentOpponent.id, 'consecutiveBlocks', 1);
+          checkAchievements(stats, achievements);
+        } else {
+          // Reset block stat
+          updateStats(stats, currentOpponent.id, 'consecutiveBlocks', 0);
+        }
         // Check if opponent evaded (harder than melee)
         if (damage && evade(currentFighter, currentOpponent, 2)) {
           damage = 0;
