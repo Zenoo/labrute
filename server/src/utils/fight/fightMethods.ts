@@ -1772,12 +1772,6 @@ export const playFighterTurn = (
         // Check if opponent blocked (harder than melee)
         if (!deflected && block(currentFighter, currentOpponent, 2)) {
           damage = 0;
-
-          // Add evade step
-          fightData.steps.push({
-            a: StepType.Evade,
-            f: opponent.index,
-          });
           // Add block step
           fightData.steps.push({
             a: StepType.Block,
