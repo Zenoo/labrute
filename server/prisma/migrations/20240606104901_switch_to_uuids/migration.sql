@@ -448,6 +448,10 @@ ADD CONSTRAINT "Fight_pkey" PRIMARY KEY ("id");
 
 call raise_notice ('Altered table Fight');
 
+TRUNCATE TABLE "Log";
+
+call raise_notice ('Truncated table Log');
+
 -- AlterTable
 ALTER TABLE "Log"
 DROP CONSTRAINT IF exists "Log_pkey",
