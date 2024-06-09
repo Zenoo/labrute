@@ -311,6 +311,11 @@ const randomlyGetSuper = (fightData: DetailedFight, brute: DetailedFighter) => {
     supers = supers.filter((skill) => skill.name !== SkillName.vampirism);
   }
 
+  // Filter out vampirism if no brute opponent
+  if (getOpponents(fightData, brute, true).filter((f) => f.type !== 'boss').length === 0) {
+    supers = supers.filter((skill) => skill.name !== SkillName.vampirism);
+  }
+
   // Filter out treat if no pets lost hp
   if (fightData.fighters.filter((f) => f.type === 'pet' && f.master === brute.id && f.hp < f.maxHp).length === 0) {
     supers = supers.filter((skill) => skill.name !== SkillName.treat);
