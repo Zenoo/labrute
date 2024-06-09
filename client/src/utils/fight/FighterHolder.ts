@@ -886,7 +886,6 @@ export default class FighterHolder {
           throw new Error(`Mask sprite Symbol${svgMaskedBy} not found`);
         }
 
-        symbolContainer.addChild(maskSprite);
         sprite.mask = maskSprite;
       }
 
@@ -905,8 +904,9 @@ export default class FighterHolder {
       symbolContainer.addChild(sprite);
 
       // Increment used count
-      if (this.#usedSvgs[symbol.name]) {
-        this.#usedSvgs[symbol.name]++;
+      const usedCount = this.#usedSvgs[symbol.name];
+      if (usedCount) {
+        this.#usedSvgs[symbol.name] = usedCount + 1;
       } else {
         this.#usedSvgs[symbol.name] = 1;
       }
@@ -1031,14 +1031,14 @@ export default class FighterHolder {
             throw new Error(`Mask sprite Symbol${framePart.maskedBy} not found`);
           }
 
-          framePartContainer.addChild(maskSprite);
           framePartContainer.mask = maskSprite;
         }
 
         // Apply visibility
         framePartContainer.visible = true;
-        if (usedContainers[framePart.name]) {
-          usedContainers[framePart.name]++;
+        const usedCount = usedContainers[framePart.name];
+        if (usedCount) {
+          usedContainers[framePart.name] = usedCount + 1;
         } else {
           usedContainers[framePart.name] = 1;
         }
