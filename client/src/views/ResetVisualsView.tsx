@@ -91,7 +91,8 @@ const ResetVisualsView = () => {
 
         // Go to cell
         navigate(`/${brute.name}/cell`);
-      }).catch(catchError(Alert));
+      })
+        .catch(catchError(Alert));
     });
   };
 
@@ -118,7 +119,7 @@ const ResetVisualsView = () => {
             >
               <BruteRender
                 brute={{
-                  id: 0,
+                  id: '',
                   name: brute.name,
                   body: body || '0'.repeat(11),
                   colors: colors || '0'.repeat(32),

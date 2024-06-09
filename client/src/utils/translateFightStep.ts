@@ -7,7 +7,7 @@ const getFighterName = (
   fighterId: number,
   t: TFunction
 ) => {
-  const fighter = fighters.find((f) => f.id === fighterId);
+  const fighter = fighters.find((f) => f.index === fighterId);
   if (!fighter) {
     return '';
   }

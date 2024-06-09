@@ -248,8 +248,8 @@ exports.Prisma.TournamentScalarFieldEnum = {
 
 exports.Prisma.TournamentAchievementScalarFieldEnum = {
   id: 'id',
-  date: 'date',
   bruteId: 'bruteId',
+  date: 'date',
   achievement: 'achievement',
   achievementCount: 'achievementCount'
 };

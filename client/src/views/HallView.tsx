@@ -1,20 +1,20 @@
 import { FightStat, MAX_FAVORITE_BRUTES, getFightsLeft } from '@labrute/core';
+import { Brute } from '@labrute/prisma';
 import { Check, CrisisAlert, Stars } from '@mui/icons-material';
 import { Box, Paper, Tooltip, useTheme } from '@mui/material';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import ArenaStat from '../components/Arena/ArenaStat';
+import BruteRender from '../components/Brute/Body/BruteRender';
 import BruteHP from '../components/Brute/BruteHP';
 import Page from '../components/Page';
 import StyledButton from '../components/StyledButton';
 import Text from '../components/Text';
+import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
-import { useAlert } from '../hooks/useAlert';
-import BruteRender from '../components/Brute/Body/BruteRender';
-import { Brute } from '@labrute/prisma';
 
 const HallView = () => {
   const { t } = useTranslation();
@@ -52,7 +52,7 @@ const HallView = () => {
         brutes: data.brutes.map((b) => (b.name === brute.name ? {
           ...b, favorite: !wasFavorite,
         } : b)).sort((a, b) => (a.favorite === b.favorite
-          ? (a.id - b.id)
+          ? a.createdAt.getTime() - b.createdAt.getTime()
           : a.favorite ? -1 : 1)),
       }) : null));
     }).catch(catchError(Alert));

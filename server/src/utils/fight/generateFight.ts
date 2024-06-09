@@ -40,7 +40,7 @@ const generateFight = async (
   isTournamentFinal: boolean,
   boss?: Boss,
   bossHP?: number,
-  clanId?: number,
+  clanId?: string,
 ): Promise<GenerateFightResult> => {
   if (brute1.id === brute2?.id) {
     throw new ExpectedError('Attempted to created a fight between the same brutes');
@@ -177,7 +177,7 @@ const generateFight = async (
   [...mainFighters, ...petFighters].forEach((fighter) => {
     fightData.steps.push({
       a: StepType.Arrive,
-      f: fighter.id,
+      f: fighter.index,
     });
   });
 
@@ -247,13 +247,14 @@ const generateFight = async (
   // Add end step
   fightData.steps.push({
     a: StepType.End,
-    w: fightData.winner,
-    l: fightData.loser,
+    w: winner.index,
+    l: loser.index,
   });
 
   // Reduce the size of the fighters data
   const fighters: Fighter[] = fightData.initialFighters.map((fighter) => ({
     id: fighter.id,
+    index: fighter.index,
     name: fighter.name,
     gender: fighter.gender,
     body: fighter.body,
@@ -446,7 +447,6 @@ const generateFight = async (
   if (achievementsActive) {
     await updateAchievements(prisma, achievements, isTournamentFight);
   }
-
   return result;
 };
 

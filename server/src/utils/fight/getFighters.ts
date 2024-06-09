@@ -140,6 +140,7 @@ const getTempo = (speed: number) => 0.10 + (20 / (10 + (speed * 1.5))) * 0.90;
 const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
   let spawnedPets = 0;
   const fighters: DetailedFighter[] = [];
+  let positiveIndex = 0;
   [team1, team2].forEach((team) => {
     const { brute } = team;
 
@@ -149,8 +150,10 @@ const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
       }
 
       // Brute stats
+      positiveIndex++;
       const fighter: DetailedFighter = {
         id: brute.id,
+        index: positiveIndex,
         name: brute.name,
         // Add minimal visual data to still be able to display the fight if the brute was deleted
         gender: brute.gender,
@@ -218,7 +221,8 @@ const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
         spawnedPets++;
 
         fighters.push({
-          id: -spawnedPets,
+          id: `${-spawnedPets}`,
+          index: -spawnedPets,
           name: petName,
           rank: 0,
           level: 0,
@@ -279,9 +283,9 @@ const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
         const arrivesAt = randomBetween(1, 500) / 100;
 
         spawnedPets++;
-
         const backupFighter: DetailedFighter = {
-          id: -spawnedPets,
+          id: `${-spawnedPets}`,
+          index: -spawnedPets,
           name: backup.name,
           // Add minimal visual data to still be able to display the fight if the brute was deleted
           gender: backup.gender,
@@ -347,11 +351,13 @@ const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
     }
 
     // Boss
+    positiveIndex++;
     if (team.boss) {
       spawnedPets++;
 
       fighters.push({
-        id: -spawnedPets,
+        id: `${-spawnedPets}`,
+        index: positiveIndex,
         name: team.boss.name,
         rank: 0,
         level: 0,
@@ -399,7 +405,6 @@ const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
       });
     }
   });
-
   return fighters;
 };
 

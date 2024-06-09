@@ -8,8 +8,17 @@ export interface AnimatedWeapon {
   animation: WeaponAnimation;
 }
 
-export type SuperName = 'thief' | 'fierceBrute' | 'tragicPotion'
-  | 'net' | 'bomb' | 'hammer' | 'cryOfTheDamned' | 'hypnosis' | 'flashFlood' | 'tamer';
+export type SuperName =
+  'thief'
+  | 'fierceBrute'
+  | 'tragicPotion'
+  | 'net'
+  | 'bomb'
+  | 'hammer'
+  | 'cryOfTheDamned'
+  | 'hypnosis'
+  | 'flashFlood'
+  | 'tamer';
 
 export interface Stat {
   stat: number;
@@ -22,7 +31,8 @@ export type BruteColor = 'col0' | 'col0a' | 'col0c' | 'col1' | 'col1a' | 'col1b'
 
 export interface DetailedFighter {
   // Metadata
-  id: number;
+  id: string;
+  index: number;
   name: string;
   gender?: Gender;
   body?: string;
@@ -31,20 +41,20 @@ export interface DetailedFighter {
   level: number;
   type: 'brute' | 'pet' | 'boss';
   // Follower/Backup variables
-  master?: number;
+  master?: string;
   arrivesAtInitiative?: number;
   leavesAtInitiative?: number;
   // Pet variables
   eaten?: boolean;
   // Raw stats
   maxHp: number;
-  hp: number,
-  strength: number,
-  agility: number,
-  speed: number,
+  hp: number;
+  strength: number;
+  agility: number;
+  speed: number;
   // Initiative
-  initiative: number, // Lower attacks next
-  tempo: number, // Lower is better
+  initiative: number; // Lower attacks next
+  tempo: number; // Lower is better
   // hit stats
   baseDamage: number,
   counter: number,
@@ -60,39 +70,39 @@ export interface DetailedFighter {
   reach: number,
   // Passives
   // Destroys one enemy's weapon per hit
-  sabotage: boolean,
+  sabotage: boolean;
   // tempo -25% for heavy weapons
-  bodybuilder: boolean,
+  bodybuilder: boolean;
   // Survive with 1 HP on first death
-  survival: boolean,
+  survival: boolean;
   // First hit of the fight is evaded
-  balletShoes: boolean,
+  balletShoes: boolean;
   // 70% chance of re-attacking on misses (evasion or block)
-  determination: boolean,
-  retryAttack: boolean,
+  determination: boolean;
+  retryAttack: boolean;
   // 30% chance of disarming when being hit
-  ironHead: boolean,
+  ironHead: boolean;
   // Max 20% max HP per hit
-  resistant: boolean,
+  resistant: boolean;
   // tempo +100%
-  monk: boolean,
+  monk: boolean;
   // Available skills
-  skills: Skill[],
+  skills: Skill[];
   // Available weapons
-  weapons: Weapon[],
+  weapons: Weapon[];
   // Shield state
-  shield: boolean,
+  shield: boolean;
   // Active skills
-  activeSkills: Skill[],
+  activeSkills: Skill[];
   // Active weapon
-  activeWeapon: Weapon | null,
-  keepWeaponChance: number,
+  activeWeapon: Weapon | null;
+  keepWeaponChance: number;
   // Pre fight sabotage
-  saboteur: boolean,
-  sabotagedWeapon: Weapon | null,
+  saboteur: boolean;
+  sabotagedWeapon: Weapon | null;
   // Status effects
-  poisoned: boolean,
-  trapped: boolean,
+  poisoned: boolean;
+  trapped: boolean;
   hypnotised?: boolean;
   // Reduce some weapons damage by 25%
   damagedWeapons: WeaponName[],
@@ -102,7 +112,8 @@ export interface DetailedFighter {
 }
 
 export interface Fighter {
-  id: number;
+  id: string;
+  index: number
   name: string;
   gender?: Gender;
   body?: string;
@@ -113,7 +124,7 @@ export interface Fighter {
   agility: number,
   speed: number,
   type: 'brute' | 'pet' | 'boss';
-  master?: number;
+  master?: string;
   maxHp: number;
   hp: number,
   weapons: WeaponId[];
@@ -258,7 +269,7 @@ export interface BombStep {
   /** Targets IDs */
   t: number[];
   /** Damage dealt per fighter ID */
-  d: Record<number, number | undefined>;
+  d: Record<string, number | undefined>;
 }
 
 export interface HypnotiseStep {
@@ -479,11 +490,16 @@ export interface DetailedFight {
   initialFighters: DetailedFighter[];
   steps: FightStep[];
   initiative: number;
-  winner: number | null;
-  loser: number | null;
+  winner: string | null;
+  loser: string | null;
 }
 
-export type AnimationModel = 'bear' | 'dog' | 'panther' | 'male-brute' | 'female-brute';
+export type AnimationModel =
+   'bear'
+  | 'dog'
+  | 'panther'
+  | 'male-brute'
+  | 'female-brute';
 
 export interface DestinyBranch extends DestinyChoice {
   level: number;
@@ -520,9 +536,9 @@ export type AdminPanelBrute = Brute & {
 // Brute report
 export type BruteReportWithNames = BruteReport & {
   brute: {
-    id: number;
+    id: string;
     name: string;
-  },
+  };
   users: {
     id: string;
     name: string;

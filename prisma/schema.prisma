@@ -139,7 +139,7 @@ enum PetName {
 }
 
 model Brute {
-  id                           Int                     @id @default(autoincrement())
+  id                           String                  @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   name                         String                  @db.VarChar(255)
   deletedAt                    DateTime?               @db.Timestamptz()
   createdAt                    DateTime                @default(now()) @db.Timestamptz()
@@ -201,11 +201,11 @@ model Brute {
   skills                       SkillName[]             @default([])
   pets                         PetName[]               @default([])
   master                       Brute?                  @relation("Master", fields: [masterId], references: [id])
-  masterId                     Int?
+  masterId                     String?                 @db.Uuid
   pupils                       Brute[]                 @relation("Master")
   pupilsCount                  Int                     @default(0)
   clan                         Clan?                   @relation(fields: [clanId], references: [id])
-  clanId                       Int?
+  clanId                       String?                 @db.Uuid
   registeredForTournament      Boolean                 @default(false)
   nextTournamentDate           DateTime?               @db.Date
   currentTournamentDate        DateTime?               @db.Date
@@ -231,7 +231,7 @@ model Brute {
   masterOfClan                 Clan?                   @relation("MasterOfClan")
   clanPosts                    ClanPost[]
   wantToJoinClan               Clan?                   @relation("JoinRequests", fields: [wantToJoinClanId], references: [id])
-  wantToJoinClanId             Int?
+  wantToJoinClanId             String?                 @db.Uuid
   threads                      ClanThread[]
   inventory                    BruteInventoryItem[]
   tournamentAchievements       TournamentAchievement[]
@@ -242,13 +242,13 @@ model Brute {
 }
 
 model BruteStartingStats {
-  id        Int   @id @default(autoincrement())
-  endurance Int   @default(2)
-  strength  Int   @default(3)
-  agility   Int   @default(3)
-  speed     Int   @default(3)
-  brute     Brute @relation(fields: [bruteId], references: [id])
-  bruteId   Int   @unique
+  id        String @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  endurance Int    @default(2)
+  strength  Int    @default(3)
+  agility   Int    @default(3)
+  speed     Int    @default(3)
+  brute     Brute  @relation(fields: [bruteId], references: [id])
+  bruteId   String @unique @db.Uuid
 }
 
 // FIGHTS
@@ -265,19 +265,19 @@ enum FightModifier {
 }
 
 model Fight {
-  id             Int             @id @default(autoincrement())
+  id             String          @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   date           DateTime        @default(now()) @db.Date
   brute1         Brute           @relation(fields: [brute1Id], references: [id])
-  brute1Id       Int
+  brute1Id       String          @db.Uuid
   brute2         Brute?          @relation("Adversary", fields: [brute2Id], references: [id])
-  brute2Id       Int?
+  brute2Id       String?         @db.Uuid
   winner         String          @db.VarChar(255)
   loser          String          @db.VarChar(255)
   steps          String          @db.Text
   fighters       String          @db.Text
   logs           Log[]
   tournament     Tournament?     @relation(fields: [tournamentId], references: [id])
-  tournamentId   Int?
+  tournamentId   String?         @db.Uuid
   tournamentStep Int             @default(0)
   modifiers      FightModifier[] @default([])
   background     String          @default("1.jpg") @db.VarChar(255)
@@ -300,15 +300,15 @@ enum LogType {
 }
 
 model Log {
-  id             Int      @id @default(autoincrement())
+  id             String   @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   date           DateTime @default(now()) @db.Date
   currentBrute   Brute    @relation(fields: [currentBruteId], references: [id])
-  currentBruteId Int
+  currentBruteId String   @db.Uuid
   type           LogType
   level          Int?
   brute          String?  @db.VarChar(255)
   fight          Fight?   @relation(fields: [fightId], references: [id])
-  fightId        Int?
+  fightId        String?  @db.Uuid
   xp             Int?
   gold           Int?
 
@@ -331,9 +331,9 @@ enum BruteStat {
 }
 
 model DestinyChoice {
-  id         Int                 @id @default(autoincrement())
+  id         String              @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   brute      Brute               @relation(fields: [bruteId], references: [id])
-  bruteId    Int
+  bruteId    String              @db.Uuid
   path       DestinyChoiceSide[]
   type       DestinyChoiceType
   skill      SkillName?
@@ -353,7 +353,7 @@ enum TournamentType {
 }
 
 model Tournament {
-  id           Int            @id @default(autoincrement())
+  id           String         @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   date         DateTime       @db.Date
   type         TournamentType @default(DAILY)
   participants Brute[]
@@ -364,16 +364,16 @@ model Tournament {
 }
 
 model TournamentAchievement {
-  id               Int             @id @default(autoincrement())
-  date             DateTime        @db.Date
+  id               String          @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   brute            Brute           @relation(fields: [bruteId], references: [id])
-  bruteId          Int
+  bruteId          String          @db.Uuid
+  date             DateTime        @db.Date
   achievement      AchievementName
   achievementCount Int
 }
 
 model TournamentGold {
-  id     Int      @id @default(autoincrement())
+  id     String   @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   date   DateTime @db.Date
   user   User     @relation(fields: [userId], references: [id])
   userId String   @db.Uuid
@@ -381,10 +381,10 @@ model TournamentGold {
 }
 
 model TournamentXp {
-  id      Int      @id @default(autoincrement())
+  id      String   @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   date    DateTime @db.Date
   brute   Brute    @relation(fields: [bruteId], references: [id])
-  bruteId Int
+  bruteId String   @db.Uuid
   xp      Int
 }
 
@@ -507,11 +507,11 @@ enum AchievementName {
 }
 
 model Achievement {
-  id      Int             @id @default(autoincrement())
+  id      String          @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   name    AchievementName
   count   Int             @default(0)
   brute   Brute?          @relation(fields: [bruteId], references: [id])
-  bruteId Int?
+  bruteId String?         @db.Uuid
   user    User?           @relation(fields: [userId], references: [id])
   userId  String?         @db.Uuid
 
@@ -519,7 +519,7 @@ model Achievement {
 }
 
 model Title {
-  id     Int             @id @default(autoincrement())
+  id     String          @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   name   AchievementName
   count  Int             @default(1)
   brutes Brute[]
@@ -537,9 +537,9 @@ enum BruteReportReason {
 }
 
 model BruteReport {
-  id      Int               @id @default(autoincrement())
+  id      String            @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   brute   Brute             @relation(fields: [bruteId], references: [id])
-  bruteId Int
+  bruteId String            @db.Uuid
   users   User[]
   reason  BruteReportReason @default(name)
   count   Int               @default(1)
@@ -549,40 +549,39 @@ model BruteReport {
 
 // SERVER STATE
 model ServerState {
-  id                    Int             @id @default(autoincrement())
+  id                    String          @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   globalTournamentValid Boolean         @default(true)
   activeModifiers       FightModifier[] @default([])
   modifiersEndAt        DateTime?       @db.Date
 }
 
 model BannedWord {
-  id   Int    @id @default(autoincrement())
+  id   String @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   word String @db.VarChar(255)
 
   @@index([word])
 }
 
 model WorkerJob {
-  id      Int    @id @default(autoincrement())
+  id      String @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   worker  String @db.VarChar(255)
   payload String @db.Text
 }
 
-// CLANS
 enum BossName {
   GoldClaw
   EmberFang
 }
 
 model Clan {
-  id           Int          @id @default(autoincrement())
+  id           String       @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   name         String       @unique @db.VarChar(255)
   limit        Int          @default(10)
   points       Int          @default(0)
   boss         BossName     @default(GoldClaw)
   damageOnBoss Int          @default(0)
   master       Brute        @relation("MasterOfClan", fields: [masterId], references: [id])
-  masterId     Int          @unique
+  masterId     String       @unique @db.Uuid
   brutes       Brute[]
   joinRequests Brute[]      @relation("JoinRequests")
   threads      ClanThread[]
@@ -592,11 +591,11 @@ model Clan {
 }
 
 model ClanThread {
-  id        Int        @id @default(autoincrement())
+  id        String     @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   clan      Clan       @relation(fields: [clanId], references: [id])
-  clanId    Int
+  clanId    String     @db.Uuid
   creator   Brute      @relation(fields: [creatorId], references: [id])
-  creatorId Int
+  creatorId String     @db.Uuid
   title     String     @db.VarChar(255)
   locked    Boolean    @default(false)
   pinned    Boolean    @default(false)
@@ -607,21 +606,21 @@ model ClanThread {
 }
 
 model ClanPost {
-  id       Int        @id @default(autoincrement())
+  id       String     @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   thread   ClanThread @relation(fields: [threadId], references: [id])
-  threadId Int
+  threadId String     @db.Uuid
   author   Brute      @relation(fields: [authorId], references: [id])
-  authorId Int
+  authorId String     @db.Uuid
   date     DateTime   @default(now()) @db.Timestamp()
   message  String     @db.Text
 }
 
 model BossDamage {
-  id      Int   @id @default(autoincrement())
-  brute   Brute @relation(fields: [bruteId], references: [id])
-  bruteId Int
-  clan    Clan  @relation(fields: [clanId], references: [id])
-  clanId  Int
+  id      String @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  brute   Brute  @relation(fields: [bruteId], references: [id])
+  bruteId String @db.Uuid
+  clan    Clan   @relation(fields: [clanId], references: [id])
+  clanId  String @db.Uuid
   damage  Int
 
   @@unique([bruteId, clanId])
@@ -636,11 +635,11 @@ enum InventoryItemType {
 }
 
 model BruteInventoryItem {
-  id      Int               @id @default(autoincrement())
+  id      String            @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   type    InventoryItemType
   count   Int               @default(1)
+  bruteId String            @db.Uuid
   brute   Brute             @relation(fields: [bruteId], references: [id])
-  bruteId Int
 
   @@unique([type, bruteId])
   @@index([bruteId])

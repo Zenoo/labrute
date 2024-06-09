@@ -12,7 +12,7 @@ import { ilike } from '../utils/ilike.js';
 export const increaseAchievement = async (
   prisma: PrismaClient,
   userId: string,
-  bruteId: number | null,
+  bruteId: string | null,
   name: AchievementName,
 ) => {
   const current = await prisma.achievement.findFirst({
@@ -256,7 +256,7 @@ const Achievements = {
       // Get top 3
       const top3: {
         name: AchievementName;
-        bruteId: number | null;
+        bruteId: string | null;
         count: number;
         bruteName: string | null;
       }[] = await prisma.$queryRaw`
@@ -281,7 +281,7 @@ const Achievements = {
         user: null,
         brute: {
           name: t.bruteName || '',
-          id: t.bruteId || 0,
+          id: t.bruteId || '',
         },
         count: t.count,
       })));

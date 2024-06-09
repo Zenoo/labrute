@@ -47,12 +47,12 @@ const ClanPostView = () => {
     }
 
     if (tid === '0') {
-      Server.Clan.createThread(bruteName || '', +id, title, content).then(() => {
+      Server.Clan.createThread(bruteName || '', id, title, content).then(() => {
         Alert.open('success', t('threadCreated'));
         navigate(`/${bruteName}/clan/${id}/forum`);
       }).catch(catchError(Alert));
     } else {
-      Server.Clan.createPost(bruteName || '', +tid, content).then(() => {
+      Server.Clan.createPost(bruteName || '', tid, content).then(() => {
         Alert.open('success', t('replyPosted'));
         navigate(`/${bruteName}/clan/${id}/thread/${tid}`);
       }).catch(catchError(Alert));

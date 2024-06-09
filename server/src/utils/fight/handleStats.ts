@@ -19,8 +19,7 @@ const handleStats = (
     throw new Error('Loser not found');
   }
 
-  for (const [_bruteId, stat] of Object.entries(stats)) {
-    const bruteId = +_bruteId;
+  for (const [bruteId, stat] of Object.entries(stats)) {
     const achievement = achievements[bruteId];
 
     if (!achievement) {

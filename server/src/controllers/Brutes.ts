@@ -1220,7 +1220,7 @@ const Brutes = {
           select: { id: true },
         }).then((brutes) => brutes.map((b) => b.id));
 
-        let newOpponentId: number | null = null;
+        let newOpponentId: string | null = null;
 
         if (bruteIds.length === 0) {
           // Search lower levels if no same level brutes
@@ -1489,7 +1489,7 @@ const Brutes = {
 
       const brute = await prisma.brute.findFirst({
         where: {
-          id: +id,
+          id,
           deletedAt: {
             not: null,
           },
@@ -1782,7 +1782,7 @@ const Brutes = {
           select: { id: true },
         }).then((brutes) => brutes.map((b) => b.id));
 
-        let newOpponentId: number | null = null;
+        let newOpponentId: string | null = null;
 
         if (bruteIds.length === 0) {
           // Search lower levels if no same level brutes

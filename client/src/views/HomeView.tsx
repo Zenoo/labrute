@@ -200,7 +200,7 @@ const HomeView = () => {
       {creationStarted ? (
         <BruteRender
           brute={{
-            id: 0,
+            id: '',
             name: '',
             body,
             colors,

@@ -26,8 +26,8 @@ const applySpy = (
 
     fightData.steps.push({
       a: StepType.Spy,
-      b: brute.id,
-      t: opponent.id,
+      b: brute.index,
+      t: opponent.index,
       s: bruteWeaponsToSwap.map((weapon) => WeaponByName[weapon.name]),
       r: opponentWeaponsToSwap.map((weapon) => WeaponByName[weapon.name]),
     });

@@ -184,7 +184,7 @@ const BruteReports = {
 
       const report = await prisma.bruteReport.findFirst({
         where: {
-          id: +req.params.id,
+          id: req.params.id,
         },
         include: {
           brute: {
@@ -246,7 +246,7 @@ const BruteReports = {
       // Add 1 free name change
       await prisma.bruteInventoryItem.upsert({
         where: {
-          id: report.brute.inventory[0]?.id || -1,
+          id: report.brute.inventory[0]?.id || '',
         },
         create: {
           type: InventoryItemType.nameChange,
@@ -286,7 +286,7 @@ const BruteReports = {
 
       const report = await prisma.bruteReport.findFirst({
         where: {
-          id: +req.params.id,
+          id: req.params.id,
         },
       });
 

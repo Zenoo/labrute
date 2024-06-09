@@ -4686,7 +4686,6 @@ export namespace Prisma {
   }
 
   export type BruteAvgAggregateOutputType = {
-    id: number | null
     level: number | null
     xp: number | null
     hp: number | null
@@ -4703,19 +4702,15 @@ export namespace Prisma {
     speedModifier: number | null
     speedValue: number | null
     ranking: number | null
-    masterId: number | null
     pupilsCount: number | null
-    clanId: number | null
     currentTournamentStepWatched: number | null
     globalTournamentRoundWatched: number | null
     fightsLeft: number | null
     victories: number | null
-    wantToJoinClanId: number | null
     tournamentWins: number | null
   }
 
   export type BruteSumAggregateOutputType = {
-    id: number | null
     level: number | null
     xp: number | null
     hp: number | null
@@ -4732,19 +4727,16 @@ export namespace Prisma {
     speedModifier: number | null
     speedValue: number | null
     ranking: number | null
-    masterId: number | null
     pupilsCount: number | null
-    clanId: number | null
     currentTournamentStepWatched: number | null
     globalTournamentRoundWatched: number | null
     fightsLeft: number | null
     victories: number | null
-    wantToJoinClanId: number | null
     tournamentWins: number | null
   }
 
   export type BruteMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     name: string | null
     deletedAt: Date | null
     createdAt: Date | null
@@ -4770,9 +4762,9 @@ export namespace Prisma {
     userId: string | null
     body: string | null
     colors: string | null
-    masterId: number | null
+    masterId: string | null
     pupilsCount: number | null
-    clanId: number | null
+    clanId: string | null
     registeredForTournament: boolean | null
     nextTournamentDate: Date | null
     currentTournamentDate: Date | null
@@ -4785,12 +4777,12 @@ export namespace Prisma {
     opponentsGeneratedAt: Date | null
     canRankUpSince: Date | null
     favorite: boolean | null
-    wantToJoinClanId: number | null
+    wantToJoinClanId: string | null
     tournamentWins: number | null
   }
 
   export type BruteMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     name: string | null
     deletedAt: Date | null
     createdAt: Date | null
@@ -4816,9 +4808,9 @@ export namespace Prisma {
     userId: string | null
     body: string | null
     colors: string | null
-    masterId: number | null
+    masterId: string | null
     pupilsCount: number | null
-    clanId: number | null
+    clanId: string | null
     registeredForTournament: boolean | null
     nextTournamentDate: Date | null
     currentTournamentDate: Date | null
@@ -4831,7 +4823,7 @@ export namespace Prisma {
     opponentsGeneratedAt: Date | null
     canRankUpSince: Date | null
     favorite: boolean | null
-    wantToJoinClanId: number | null
+    wantToJoinClanId: string | null
     tournamentWins: number | null
   }
 
@@ -4889,7 +4881,6 @@ export namespace Prisma {
 
 
   export type BruteAvgAggregateInputType = {
-    id?: true
     level?: true
     xp?: true
     hp?: true
@@ -4906,19 +4897,15 @@ export namespace Prisma {
     speedModifier?: true
     speedValue?: true
     ranking?: true
-    masterId?: true
     pupilsCount?: true
-    clanId?: true
     currentTournamentStepWatched?: true
     globalTournamentRoundWatched?: true
     fightsLeft?: true
     victories?: true
-    wantToJoinClanId?: true
     tournamentWins?: true
   }
 
   export type BruteSumAggregateInputType = {
-    id?: true
     level?: true
     xp?: true
     hp?: true
@@ -4935,14 +4922,11 @@ export namespace Prisma {
     speedModifier?: true
     speedValue?: true
     ranking?: true
-    masterId?: true
     pupilsCount?: true
-    clanId?: true
     currentTournamentStepWatched?: true
     globalTournamentRoundWatched?: true
     fightsLeft?: true
     victories?: true
-    wantToJoinClanId?: true
     tournamentWins?: true
   }
 
@@ -5177,7 +5161,7 @@ export namespace Prisma {
   }
 
   export type BruteGroupByOutputType = {
-    id: number
+    id: string
     name: string
     deletedAt: Date | null
     createdAt: Date
@@ -5208,9 +5192,9 @@ export namespace Prisma {
     weapons: $Enums.WeaponName[]
     skills: $Enums.SkillName[]
     pets: $Enums.PetName[]
-    masterId: number | null
+    masterId: string | null
     pupilsCount: number
-    clanId: number | null
+    clanId: string | null
     registeredForTournament: boolean
     nextTournamentDate: Date | null
     currentTournamentDate: Date | null
@@ -5223,7 +5207,7 @@ export namespace Prisma {
     opponentsGeneratedAt: Date | null
     canRankUpSince: Date | null
     favorite: boolean
-    wantToJoinClanId: number | null
+    wantToJoinClanId: string | null
     tournamentWins: number
     _count: BruteCountAggregateOutputType | null
     _avg: BruteAvgAggregateOutputType | null
@@ -5431,7 +5415,7 @@ export namespace Prisma {
       damageOnBosses: Prisma.$BossDamagePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       name: string
       deletedAt: Date | null
       createdAt: Date
@@ -5462,9 +5446,9 @@ export namespace Prisma {
       weapons: $Enums.WeaponName[]
       skills: $Enums.SkillName[]
       pets: $Enums.PetName[]
-      masterId: number | null
+      masterId: string | null
       pupilsCount: number
-      clanId: number | null
+      clanId: string | null
       registeredForTournament: boolean
       nextTournamentDate: Date | null
       currentTournamentDate: Date | null
@@ -5477,7 +5461,7 @@ export namespace Prisma {
       opponentsGeneratedAt: Date | null
       canRankUpSince: Date | null
       favorite: boolean
-      wantToJoinClanId: number | null
+      wantToJoinClanId: string | null
       tournamentWins: number
     }, ExtArgs["result"]["brute"]>
     composites: {}
@@ -5944,7 +5928,7 @@ export namespace Prisma {
    * Fields of the Brute model
    */ 
   interface BruteFieldRefs {
-    readonly id: FieldRef<"Brute", 'Int'>
+    readonly id: FieldRef<"Brute", 'String'>
     readonly name: FieldRef<"Brute", 'String'>
     readonly deletedAt: FieldRef<"Brute", 'DateTime'>
     readonly createdAt: FieldRef<"Brute", 'DateTime'>
@@ -5975,9 +5959,9 @@ export namespace Prisma {
     readonly weapons: FieldRef<"Brute", 'WeaponName[]'>
     readonly skills: FieldRef<"Brute", 'SkillName[]'>
     readonly pets: FieldRef<"Brute", 'PetName[]'>
-    readonly masterId: FieldRef<"Brute", 'Int'>
+    readonly masterId: FieldRef<"Brute", 'String'>
     readonly pupilsCount: FieldRef<"Brute", 'Int'>
-    readonly clanId: FieldRef<"Brute", 'Int'>
+    readonly clanId: FieldRef<"Brute", 'String'>
     readonly registeredForTournament: FieldRef<"Brute", 'Boolean'>
     readonly nextTournamentDate: FieldRef<"Brute", 'DateTime'>
     readonly currentTournamentDate: FieldRef<"Brute", 'DateTime'>
@@ -5990,7 +5974,7 @@ export namespace Prisma {
     readonly opponentsGeneratedAt: FieldRef<"Brute", 'DateTime'>
     readonly canRankUpSince: FieldRef<"Brute", 'DateTime'>
     readonly favorite: FieldRef<"Brute", 'Boolean'>
-    readonly wantToJoinClanId: FieldRef<"Brute", 'Int'>
+    readonly wantToJoinClanId: FieldRef<"Brute", 'String'>
     readonly tournamentWins: FieldRef<"Brute", 'Int'>
   }
     
@@ -6912,39 +6896,35 @@ export namespace Prisma {
   }
 
   export type BruteStartingStatsAvgAggregateOutputType = {
-    id: number | null
     endurance: number | null
     strength: number | null
     agility: number | null
     speed: number | null
-    bruteId: number | null
   }
 
   export type BruteStartingStatsSumAggregateOutputType = {
-    id: number | null
     endurance: number | null
     strength: number | null
     agility: number | null
     speed: number | null
-    bruteId: number | null
   }
 
   export type BruteStartingStatsMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     endurance: number | null
     strength: number | null
     agility: number | null
     speed: number | null
-    bruteId: number | null
+    bruteId: string | null
   }
 
   export type BruteStartingStatsMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     endurance: number | null
     strength: number | null
     agility: number | null
     speed: number | null
-    bruteId: number | null
+    bruteId: string | null
   }
 
   export type BruteStartingStatsCountAggregateOutputType = {
@@ -6959,21 +6939,17 @@ export namespace Prisma {
 
 
   export type BruteStartingStatsAvgAggregateInputType = {
-    id?: true
     endurance?: true
     strength?: true
     agility?: true
     speed?: true
-    bruteId?: true
   }
 
   export type BruteStartingStatsSumAggregateInputType = {
-    id?: true
     endurance?: true
     strength?: true
     agility?: true
     speed?: true
-    bruteId?: true
   }
 
   export type BruteStartingStatsMinAggregateInputType = {
@@ -7091,12 +7067,12 @@ export namespace Prisma {
   }
 
   export type BruteStartingStatsGroupByOutputType = {
-    id: number
+    id: string
     endurance: number
     strength: number
     agility: number
     speed: number
-    bruteId: number
+    bruteId: string
     _count: BruteStartingStatsCountAggregateOutputType | null
     _avg: BruteStartingStatsAvgAggregateOutputType | null
     _sum: BruteStartingStatsSumAggregateOutputType | null
@@ -7151,12 +7127,12 @@ export namespace Prisma {
       brute: Prisma.$BrutePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       endurance: number
       strength: number
       agility: number
       speed: number
-      bruteId: number
+      bruteId: string
     }, ExtArgs["result"]["bruteStartingStats"]>
     composites: {}
   }
@@ -7578,12 +7554,12 @@ export namespace Prisma {
    * Fields of the BruteStartingStats model
    */ 
   interface BruteStartingStatsFieldRefs {
-    readonly id: FieldRef<"BruteStartingStats", 'Int'>
+    readonly id: FieldRef<"BruteStartingStats", 'String'>
     readonly endurance: FieldRef<"BruteStartingStats", 'Int'>
     readonly strength: FieldRef<"BruteStartingStats", 'Int'>
     readonly agility: FieldRef<"BruteStartingStats", 'Int'>
     readonly speed: FieldRef<"BruteStartingStats", 'Int'>
-    readonly bruteId: FieldRef<"BruteStartingStats", 'Int'>
+    readonly bruteId: FieldRef<"BruteStartingStats", 'String'>
   }
     
 
@@ -7982,45 +7958,37 @@ export namespace Prisma {
   }
 
   export type FightAvgAggregateOutputType = {
-    id: number | null
-    brute1Id: number | null
-    brute2Id: number | null
-    tournamentId: number | null
     tournamentStep: number | null
   }
 
   export type FightSumAggregateOutputType = {
-    id: number | null
-    brute1Id: number | null
-    brute2Id: number | null
-    tournamentId: number | null
     tournamentStep: number | null
   }
 
   export type FightMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     date: Date | null
-    brute1Id: number | null
-    brute2Id: number | null
+    brute1Id: string | null
+    brute2Id: string | null
     winner: string | null
     loser: string | null
     steps: string | null
     fighters: string | null
-    tournamentId: number | null
+    tournamentId: string | null
     tournamentStep: number | null
     background: string | null
   }
 
   export type FightMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     date: Date | null
-    brute1Id: number | null
-    brute2Id: number | null
+    brute1Id: string | null
+    brute2Id: string | null
     winner: string | null
     loser: string | null
     steps: string | null
     fighters: string | null
-    tournamentId: number | null
+    tournamentId: string | null
     tournamentStep: number | null
     background: string | null
   }
@@ -8043,18 +8011,10 @@ export namespace Prisma {
 
 
   export type FightAvgAggregateInputType = {
-    id?: true
-    brute1Id?: true
-    brute2Id?: true
-    tournamentId?: true
     tournamentStep?: true
   }
 
   export type FightSumAggregateInputType = {
-    id?: true
-    brute1Id?: true
-    brute2Id?: true
-    tournamentId?: true
     tournamentStep?: true
   }
 
@@ -8189,15 +8149,15 @@ export namespace Prisma {
   }
 
   export type FightGroupByOutputType = {
-    id: number
+    id: string
     date: Date
-    brute1Id: number
-    brute2Id: number | null
+    brute1Id: string
+    brute2Id: string | null
     winner: string
     loser: string
     steps: string
     fighters: string
-    tournamentId: number | null
+    tournamentId: string | null
     tournamentStep: number
     modifiers: $Enums.FightModifier[]
     background: string
@@ -8278,15 +8238,15 @@ export namespace Prisma {
       tournament: Prisma.$TournamentPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       date: Date
-      brute1Id: number
-      brute2Id: number | null
+      brute1Id: string
+      brute2Id: string | null
       winner: string
       loser: string
       steps: string
       fighters: string
-      tournamentId: number | null
+      tournamentId: string | null
       tournamentStep: number
       modifiers: $Enums.FightModifier[]
       background: string
@@ -8717,15 +8677,15 @@ export namespace Prisma {
    * Fields of the Fight model
    */ 
   interface FightFieldRefs {
-    readonly id: FieldRef<"Fight", 'Int'>
+    readonly id: FieldRef<"Fight", 'String'>
     readonly date: FieldRef<"Fight", 'DateTime'>
-    readonly brute1Id: FieldRef<"Fight", 'Int'>
-    readonly brute2Id: FieldRef<"Fight", 'Int'>
+    readonly brute1Id: FieldRef<"Fight", 'String'>
+    readonly brute2Id: FieldRef<"Fight", 'String'>
     readonly winner: FieldRef<"Fight", 'String'>
     readonly loser: FieldRef<"Fight", 'String'>
     readonly steps: FieldRef<"Fight", 'String'>
     readonly fighters: FieldRef<"Fight", 'String'>
-    readonly tournamentId: FieldRef<"Fight", 'Int'>
+    readonly tournamentId: FieldRef<"Fight", 'String'>
     readonly tournamentStep: FieldRef<"Fight", 'Int'>
     readonly modifiers: FieldRef<"Fight", 'FightModifier[]'>
     readonly background: FieldRef<"Fight", 'String'>
@@ -9189,43 +9149,37 @@ export namespace Prisma {
   }
 
   export type LogAvgAggregateOutputType = {
-    id: number | null
-    currentBruteId: number | null
     level: number | null
-    fightId: number | null
     xp: number | null
     gold: number | null
   }
 
   export type LogSumAggregateOutputType = {
-    id: number | null
-    currentBruteId: number | null
     level: number | null
-    fightId: number | null
     xp: number | null
     gold: number | null
   }
 
   export type LogMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     date: Date | null
-    currentBruteId: number | null
+    currentBruteId: string | null
     type: $Enums.LogType | null
     level: number | null
     brute: string | null
-    fightId: number | null
+    fightId: string | null
     xp: number | null
     gold: number | null
   }
 
   export type LogMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     date: Date | null
-    currentBruteId: number | null
+    currentBruteId: string | null
     type: $Enums.LogType | null
     level: number | null
     brute: string | null
-    fightId: number | null
+    fightId: string | null
     xp: number | null
     gold: number | null
   }
@@ -9245,19 +9199,13 @@ export namespace Prisma {
 
 
   export type LogAvgAggregateInputType = {
-    id?: true
-    currentBruteId?: true
     level?: true
-    fightId?: true
     xp?: true
     gold?: true
   }
 
   export type LogSumAggregateInputType = {
-    id?: true
-    currentBruteId?: true
     level?: true
-    fightId?: true
     xp?: true
     gold?: true
   }
@@ -9386,13 +9334,13 @@ export namespace Prisma {
   }
 
   export type LogGroupByOutputType = {
-    id: number
+    id: string
     date: Date
-    currentBruteId: number
+    currentBruteId: string
     type: $Enums.LogType
     level: number | null
     brute: string | null
-    fightId: number | null
+    fightId: string | null
     xp: number | null
     gold: number | null
     _count: LogCountAggregateOutputType | null
@@ -9458,13 +9406,13 @@ export namespace Prisma {
       fight: Prisma.$FightPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       date: Date
-      currentBruteId: number
+      currentBruteId: string
       type: $Enums.LogType
       level: number | null
       brute: string | null
-      fightId: number | null
+      fightId: string | null
       xp: number | null
       gold: number | null
     }, ExtArgs["result"]["log"]>
@@ -9890,13 +9838,13 @@ export namespace Prisma {
    * Fields of the Log model
    */ 
   interface LogFieldRefs {
-    readonly id: FieldRef<"Log", 'Int'>
+    readonly id: FieldRef<"Log", 'String'>
     readonly date: FieldRef<"Log", 'DateTime'>
-    readonly currentBruteId: FieldRef<"Log", 'Int'>
+    readonly currentBruteId: FieldRef<"Log", 'String'>
     readonly type: FieldRef<"Log", 'LogType'>
     readonly level: FieldRef<"Log", 'Int'>
     readonly brute: FieldRef<"Log", 'String'>
-    readonly fightId: FieldRef<"Log", 'Int'>
+    readonly fightId: FieldRef<"Log", 'String'>
     readonly xp: FieldRef<"Log", 'Int'>
     readonly gold: FieldRef<"Log", 'Int'>
   }
@@ -10316,22 +10264,18 @@ export namespace Prisma {
   }
 
   export type DestinyChoiceAvgAggregateOutputType = {
-    id: number | null
-    bruteId: number | null
     stat1Value: number | null
     stat2Value: number | null
   }
 
   export type DestinyChoiceSumAggregateOutputType = {
-    id: number | null
-    bruteId: number | null
     stat1Value: number | null
     stat2Value: number | null
   }
 
   export type DestinyChoiceMinAggregateOutputType = {
-    id: number | null
-    bruteId: number | null
+    id: string | null
+    bruteId: string | null
     type: $Enums.DestinyChoiceType | null
     skill: $Enums.SkillName | null
     weapon: $Enums.WeaponName | null
@@ -10343,8 +10287,8 @@ export namespace Prisma {
   }
 
   export type DestinyChoiceMaxAggregateOutputType = {
-    id: number | null
-    bruteId: number | null
+    id: string | null
+    bruteId: string | null
     type: $Enums.DestinyChoiceType | null
     skill: $Enums.SkillName | null
     weapon: $Enums.WeaponName | null
@@ -10372,15 +10316,11 @@ export namespace Prisma {
 
 
   export type DestinyChoiceAvgAggregateInputType = {
-    id?: true
-    bruteId?: true
     stat1Value?: true
     stat2Value?: true
   }
 
   export type DestinyChoiceSumAggregateInputType = {
-    id?: true
-    bruteId?: true
     stat1Value?: true
     stat2Value?: true
   }
@@ -10513,8 +10453,8 @@ export namespace Prisma {
   }
 
   export type DestinyChoiceGroupByOutputType = {
-    id: number
-    bruteId: number
+    id: string
+    bruteId: string
     path: $Enums.DestinyChoiceSide[]
     type: $Enums.DestinyChoiceType
     skill: $Enums.SkillName | null
@@ -10588,8 +10528,8 @@ export namespace Prisma {
       brute: Prisma.$BrutePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
-      bruteId: number
+      id: string
+      bruteId: string
       path: $Enums.DestinyChoiceSide[]
       type: $Enums.DestinyChoiceType
       skill: $Enums.SkillName | null
@@ -11020,8 +10960,8 @@ export namespace Prisma {
    * Fields of the DestinyChoice model
    */ 
   interface DestinyChoiceFieldRefs {
-    readonly id: FieldRef<"DestinyChoice", 'Int'>
-    readonly bruteId: FieldRef<"DestinyChoice", 'Int'>
+    readonly id: FieldRef<"DestinyChoice", 'String'>
+    readonly bruteId: FieldRef<"DestinyChoice", 'String'>
     readonly path: FieldRef<"DestinyChoice", 'DestinyChoiceSide[]'>
     readonly type: FieldRef<"DestinyChoice", 'DestinyChoiceType'>
     readonly skill: FieldRef<"DestinyChoice", 'SkillName'>
@@ -11429,24 +11369,22 @@ export namespace Prisma {
   }
 
   export type TournamentAvgAggregateOutputType = {
-    id: number | null
     rounds: number | null
   }
 
   export type TournamentSumAggregateOutputType = {
-    id: number | null
     rounds: number | null
   }
 
   export type TournamentMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     date: Date | null
     type: $Enums.TournamentType | null
     rounds: number | null
   }
 
   export type TournamentMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     date: Date | null
     type: $Enums.TournamentType | null
     rounds: number | null
@@ -11462,12 +11400,10 @@ export namespace Prisma {
 
 
   export type TournamentAvgAggregateInputType = {
-    id?: true
     rounds?: true
   }
 
   export type TournamentSumAggregateInputType = {
-    id?: true
     rounds?: true
   }
 
@@ -11580,7 +11516,7 @@ export namespace Prisma {
   }
 
   export type TournamentGroupByOutputType = {
-    id: number
+    id: string
     date: Date
     type: $Enums.TournamentType
     rounds: number
@@ -11639,7 +11575,7 @@ export namespace Prisma {
       fights: Prisma.$FightPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       date: Date
       type: $Enums.TournamentType
       rounds: number
@@ -12066,7 +12002,7 @@ export namespace Prisma {
    * Fields of the Tournament model
    */ 
   interface TournamentFieldRefs {
-    readonly id: FieldRef<"Tournament", 'Int'>
+    readonly id: FieldRef<"Tournament", 'String'>
     readonly date: FieldRef<"Tournament", 'DateTime'>
     readonly type: FieldRef<"Tournament", 'TournamentType'>
     readonly rounds: FieldRef<"Tournament", 'Int'>
@@ -12516,37 +12452,33 @@ export namespace Prisma {
   }
 
   export type TournamentAchievementAvgAggregateOutputType = {
-    id: number | null
-    bruteId: number | null
     achievementCount: number | null
   }
 
   export type TournamentAchievementSumAggregateOutputType = {
-    id: number | null
-    bruteId: number | null
     achievementCount: number | null
   }
 
   export type TournamentAchievementMinAggregateOutputType = {
-    id: number | null
+    id: string | null
+    bruteId: string | null
     date: Date | null
-    bruteId: number | null
     achievement: $Enums.AchievementName | null
     achievementCount: number | null
   }
 
   export type TournamentAchievementMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
+    bruteId: string | null
     date: Date | null
-    bruteId: number | null
     achievement: $Enums.AchievementName | null
     achievementCount: number | null
   }
 
   export type TournamentAchievementCountAggregateOutputType = {
     id: number
-    date: number
     bruteId: number
+    date: number
     achievement: number
     achievementCount: number
     _all: number
@@ -12554,37 +12486,33 @@ export namespace Prisma {
 
 
   export type TournamentAchievementAvgAggregateInputType = {
-    id?: true
-    bruteId?: true
     achievementCount?: true
   }
 
   export type TournamentAchievementSumAggregateInputType = {
-    id?: true
-    bruteId?: true
     achievementCount?: true
   }
 
   export type TournamentAchievementMinAggregateInputType = {
     id?: true
-    date?: true
     bruteId?: true
+    date?: true
     achievement?: true
     achievementCount?: true
   }
 
   export type TournamentAchievementMaxAggregateInputType = {
     id?: true
-    date?: true
     bruteId?: true
+    date?: true
     achievement?: true
     achievementCount?: true
   }
 
   export type TournamentAchievementCountAggregateInputType = {
     id?: true
-    date?: true
     bruteId?: true
+    date?: true
     achievement?: true
     achievementCount?: true
     _all?: true
@@ -12677,9 +12605,9 @@ export namespace Prisma {
   }
 
   export type TournamentAchievementGroupByOutputType = {
-    id: number
+    id: string
+    bruteId: string
     date: Date
-    bruteId: number
     achievement: $Enums.AchievementName
     achievementCount: number
     _count: TournamentAchievementCountAggregateOutputType | null
@@ -12705,8 +12633,8 @@ export namespace Prisma {
 
   export type TournamentAchievementSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    date?: boolean
     bruteId?: boolean
+    date?: boolean
     achievement?: boolean
     achievementCount?: boolean
     brute?: boolean | BruteDefaultArgs<ExtArgs>
@@ -12714,13 +12642,13 @@ export namespace Prisma {
 
   export type TournamentAchievementSelectScalar = {
     id?: boolean
-    date?: boolean
     bruteId?: boolean
+    date?: boolean
     achievement?: boolean
     achievementCount?: boolean
   }
 
-  export type TournamentAchievementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "bruteId" | "achievement" | "achievementCount", ExtArgs["result"]["tournamentAchievement"]>
+  export type TournamentAchievementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bruteId" | "date" | "achievement" | "achievementCount", ExtArgs["result"]["tournamentAchievement"]>
 
 
   export type TournamentAchievementInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12734,9 +12662,9 @@ export namespace Prisma {
       brute: Prisma.$BrutePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
+      bruteId: string
       date: Date
-      bruteId: number
       achievement: $Enums.AchievementName
       achievementCount: number
     }, ExtArgs["result"]["tournamentAchievement"]>
@@ -13160,9 +13088,9 @@ export namespace Prisma {
    * Fields of the TournamentAchievement model
    */ 
   interface TournamentAchievementFieldRefs {
-    readonly id: FieldRef<"TournamentAchievement", 'Int'>
+    readonly id: FieldRef<"TournamentAchievement", 'String'>
+    readonly bruteId: FieldRef<"TournamentAchievement", 'String'>
     readonly date: FieldRef<"TournamentAchievement", 'DateTime'>
-    readonly bruteId: FieldRef<"TournamentAchievement", 'Int'>
     readonly achievement: FieldRef<"TournamentAchievement", 'AchievementName'>
     readonly achievementCount: FieldRef<"TournamentAchievement", 'Int'>
   }
@@ -13563,24 +13491,22 @@ export namespace Prisma {
   }
 
   export type TournamentGoldAvgAggregateOutputType = {
-    id: number | null
     gold: number | null
   }
 
   export type TournamentGoldSumAggregateOutputType = {
-    id: number | null
     gold: number | null
   }
 
   export type TournamentGoldMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     date: Date | null
     userId: string | null
     gold: number | null
   }
 
   export type TournamentGoldMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     date: Date | null
     userId: string | null
     gold: number | null
@@ -13596,12 +13522,10 @@ export namespace Prisma {
 
 
   export type TournamentGoldAvgAggregateInputType = {
-    id?: true
     gold?: true
   }
 
   export type TournamentGoldSumAggregateInputType = {
-    id?: true
     gold?: true
   }
 
@@ -13714,7 +13638,7 @@ export namespace Prisma {
   }
 
   export type TournamentGoldGroupByOutputType = {
-    id: number
+    id: string
     date: Date
     userId: string
     gold: number
@@ -13768,7 +13692,7 @@ export namespace Prisma {
       user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       date: Date
       userId: string
       gold: number
@@ -14193,7 +14117,7 @@ export namespace Prisma {
    * Fields of the TournamentGold model
    */ 
   interface TournamentGoldFieldRefs {
-    readonly id: FieldRef<"TournamentGold", 'Int'>
+    readonly id: FieldRef<"TournamentGold", 'String'>
     readonly date: FieldRef<"TournamentGold", 'DateTime'>
     readonly userId: FieldRef<"TournamentGold", 'String'>
     readonly gold: FieldRef<"TournamentGold", 'Int'>
@@ -14595,28 +14519,24 @@ export namespace Prisma {
   }
 
   export type TournamentXpAvgAggregateOutputType = {
-    id: number | null
-    bruteId: number | null
     xp: number | null
   }
 
   export type TournamentXpSumAggregateOutputType = {
-    id: number | null
-    bruteId: number | null
     xp: number | null
   }
 
   export type TournamentXpMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     date: Date | null
-    bruteId: number | null
+    bruteId: string | null
     xp: number | null
   }
 
   export type TournamentXpMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     date: Date | null
-    bruteId: number | null
+    bruteId: string | null
     xp: number | null
   }
 
@@ -14630,14 +14550,10 @@ export namespace Prisma {
 
 
   export type TournamentXpAvgAggregateInputType = {
-    id?: true
-    bruteId?: true
     xp?: true
   }
 
   export type TournamentXpSumAggregateInputType = {
-    id?: true
-    bruteId?: true
     xp?: true
   }
 
@@ -14750,9 +14666,9 @@ export namespace Prisma {
   }
 
   export type TournamentXpGroupByOutputType = {
-    id: number
+    id: string
     date: Date
-    bruteId: number
+    bruteId: string
     xp: number
     _count: TournamentXpCountAggregateOutputType | null
     _avg: TournamentXpAvgAggregateOutputType | null
@@ -14804,9 +14720,9 @@ export namespace Prisma {
       brute: Prisma.$BrutePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       date: Date
-      bruteId: number
+      bruteId: string
       xp: number
     }, ExtArgs["result"]["tournamentXp"]>
     composites: {}
@@ -15229,9 +15145,9 @@ export namespace Prisma {
    * Fields of the TournamentXp model
    */ 
   interface TournamentXpFieldRefs {
-    readonly id: FieldRef<"TournamentXp", 'Int'>
+    readonly id: FieldRef<"TournamentXp", 'String'>
     readonly date: FieldRef<"TournamentXp", 'DateTime'>
-    readonly bruteId: FieldRef<"TournamentXp", 'Int'>
+    readonly bruteId: FieldRef<"TournamentXp", 'String'>
     readonly xp: FieldRef<"TournamentXp", 'Int'>
   }
     
@@ -15631,30 +15547,26 @@ export namespace Prisma {
   }
 
   export type AchievementAvgAggregateOutputType = {
-    id: number | null
     count: number | null
-    bruteId: number | null
   }
 
   export type AchievementSumAggregateOutputType = {
-    id: number | null
     count: number | null
-    bruteId: number | null
   }
 
   export type AchievementMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     name: $Enums.AchievementName | null
     count: number | null
-    bruteId: number | null
+    bruteId: string | null
     userId: string | null
   }
 
   export type AchievementMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     name: $Enums.AchievementName | null
     count: number | null
-    bruteId: number | null
+    bruteId: string | null
     userId: string | null
   }
 
@@ -15669,15 +15581,11 @@ export namespace Prisma {
 
 
   export type AchievementAvgAggregateInputType = {
-    id?: true
     count?: true
-    bruteId?: true
   }
 
   export type AchievementSumAggregateInputType = {
-    id?: true
     count?: true
-    bruteId?: true
   }
 
   export type AchievementMinAggregateInputType = {
@@ -15792,10 +15700,10 @@ export namespace Prisma {
   }
 
   export type AchievementGroupByOutputType = {
-    id: number
+    id: string
     name: $Enums.AchievementName
     count: number
-    bruteId: number | null
+    bruteId: string | null
     userId: string | null
     _count: AchievementCountAggregateOutputType | null
     _avg: AchievementAvgAggregateOutputType | null
@@ -15852,10 +15760,10 @@ export namespace Prisma {
       user: Prisma.$UserPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       name: $Enums.AchievementName
       count: number
-      bruteId: number | null
+      bruteId: string | null
       userId: string | null
     }, ExtArgs["result"]["achievement"]>
     composites: {}
@@ -16280,10 +16188,10 @@ export namespace Prisma {
    * Fields of the Achievement model
    */ 
   interface AchievementFieldRefs {
-    readonly id: FieldRef<"Achievement", 'Int'>
+    readonly id: FieldRef<"Achievement", 'String'>
     readonly name: FieldRef<"Achievement", 'AchievementName'>
     readonly count: FieldRef<"Achievement", 'Int'>
-    readonly bruteId: FieldRef<"Achievement", 'Int'>
+    readonly bruteId: FieldRef<"Achievement", 'String'>
     readonly userId: FieldRef<"Achievement", 'String'>
   }
     
@@ -16721,23 +16629,21 @@ export namespace Prisma {
   }
 
   export type TitleAvgAggregateOutputType = {
-    id: number | null
     count: number | null
   }
 
   export type TitleSumAggregateOutputType = {
-    id: number | null
     count: number | null
   }
 
   export type TitleMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     name: $Enums.AchievementName | null
     count: number | null
   }
 
   export type TitleMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     name: $Enums.AchievementName | null
     count: number | null
   }
@@ -16751,12 +16657,10 @@ export namespace Prisma {
 
 
   export type TitleAvgAggregateInputType = {
-    id?: true
     count?: true
   }
 
   export type TitleSumAggregateInputType = {
-    id?: true
     count?: true
   }
 
@@ -16866,7 +16770,7 @@ export namespace Prisma {
   }
 
   export type TitleGroupByOutputType = {
-    id: number
+    id: string
     name: $Enums.AchievementName
     count: number
     _count: TitleCountAggregateOutputType | null
@@ -16919,7 +16823,7 @@ export namespace Prisma {
       brutes: Prisma.$BrutePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       name: $Enums.AchievementName
       count: number
     }, ExtArgs["result"]["title"]>
@@ -17343,7 +17247,7 @@ export namespace Prisma {
    * Fields of the Title model
    */ 
   interface TitleFieldRefs {
-    readonly id: FieldRef<"Title", 'Int'>
+    readonly id: FieldRef<"Title", 'String'>
     readonly name: FieldRef<"Title", 'AchievementName'>
     readonly count: FieldRef<"Title", 'Int'>
   }
@@ -17768,20 +17672,16 @@ export namespace Prisma {
   }
 
   export type BruteReportAvgAggregateOutputType = {
-    id: number | null
-    bruteId: number | null
     count: number | null
   }
 
   export type BruteReportSumAggregateOutputType = {
-    id: number | null
-    bruteId: number | null
     count: number | null
   }
 
   export type BruteReportMinAggregateOutputType = {
-    id: number | null
-    bruteId: number | null
+    id: string | null
+    bruteId: string | null
     reason: $Enums.BruteReportReason | null
     count: number | null
     date: Date | null
@@ -17789,8 +17689,8 @@ export namespace Prisma {
   }
 
   export type BruteReportMaxAggregateOutputType = {
-    id: number | null
-    bruteId: number | null
+    id: string | null
+    bruteId: string | null
     reason: $Enums.BruteReportReason | null
     count: number | null
     date: Date | null
@@ -17809,14 +17709,10 @@ export namespace Prisma {
 
 
   export type BruteReportAvgAggregateInputType = {
-    id?: true
-    bruteId?: true
     count?: true
   }
 
   export type BruteReportSumAggregateInputType = {
-    id?: true
-    bruteId?: true
     count?: true
   }
 
@@ -17935,8 +17831,8 @@ export namespace Prisma {
   }
 
   export type BruteReportGroupByOutputType = {
-    id: number
-    bruteId: number
+    id: string
+    bruteId: string
     reason: $Enums.BruteReportReason
     count: number
     date: Date
@@ -18000,8 +17896,8 @@ export namespace Prisma {
       users: Prisma.$UserPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
-      bruteId: number
+      id: string
+      bruteId: string
       reason: $Enums.BruteReportReason
       count: number
       date: Date
@@ -18429,8 +18325,8 @@ export namespace Prisma {
    * Fields of the BruteReport model
    */ 
   interface BruteReportFieldRefs {
-    readonly id: FieldRef<"BruteReport", 'Int'>
-    readonly bruteId: FieldRef<"BruteReport", 'Int'>
+    readonly id: FieldRef<"BruteReport", 'String'>
+    readonly bruteId: FieldRef<"BruteReport", 'String'>
     readonly reason: FieldRef<"BruteReport", 'BruteReportReason'>
     readonly count: FieldRef<"BruteReport", 'Int'>
     readonly date: FieldRef<"BruteReport", 'DateTime'>
@@ -18850,28 +18746,18 @@ export namespace Prisma {
 
   export type AggregateServerState = {
     _count: ServerStateCountAggregateOutputType | null
-    _avg: ServerStateAvgAggregateOutputType | null
-    _sum: ServerStateSumAggregateOutputType | null
     _min: ServerStateMinAggregateOutputType | null
     _max: ServerStateMaxAggregateOutputType | null
   }
 
-  export type ServerStateAvgAggregateOutputType = {
-    id: number | null
-  }
-
-  export type ServerStateSumAggregateOutputType = {
-    id: number | null
-  }
-
   export type ServerStateMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     globalTournamentValid: boolean | null
     modifiersEndAt: Date | null
   }
 
   export type ServerStateMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     globalTournamentValid: boolean | null
     modifiersEndAt: Date | null
   }
@@ -18884,14 +18770,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type ServerStateAvgAggregateInputType = {
-    id?: true
-  }
-
-  export type ServerStateSumAggregateInputType = {
-    id?: true
-  }
 
   export type ServerStateMinAggregateInputType = {
     id?: true
@@ -18951,18 +18829,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: ServerStateAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: ServerStateSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: ServerStateMinAggregateInputType
@@ -18993,20 +18859,16 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ServerStateCountAggregateInputType | true
-    _avg?: ServerStateAvgAggregateInputType
-    _sum?: ServerStateSumAggregateInputType
     _min?: ServerStateMinAggregateInputType
     _max?: ServerStateMaxAggregateInputType
   }
 
   export type ServerStateGroupByOutputType = {
-    id: number
+    id: string
     globalTournamentValid: boolean
     activeModifiers: $Enums.FightModifier[]
     modifiersEndAt: Date | null
     _count: ServerStateCountAggregateOutputType | null
-    _avg: ServerStateAvgAggregateOutputType | null
-    _sum: ServerStateSumAggregateOutputType | null
     _min: ServerStateMinAggregateOutputType | null
     _max: ServerStateMaxAggregateOutputType | null
   }
@@ -19047,7 +18909,7 @@ export namespace Prisma {
     name: "ServerState"
     objects: {}
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       globalTournamentValid: boolean
       activeModifiers: $Enums.FightModifier[]
       modifiersEndAt: Date | null
@@ -19471,7 +19333,7 @@ export namespace Prisma {
    * Fields of the ServerState model
    */ 
   interface ServerStateFieldRefs {
-    readonly id: FieldRef<"ServerState", 'Int'>
+    readonly id: FieldRef<"ServerState", 'String'>
     readonly globalTournamentValid: FieldRef<"ServerState", 'Boolean'>
     readonly activeModifiers: FieldRef<"ServerState", 'FightModifier[]'>
     readonly modifiersEndAt: FieldRef<"ServerState", 'DateTime'>
@@ -19822,27 +19684,17 @@ export namespace Prisma {
 
   export type AggregateBannedWord = {
     _count: BannedWordCountAggregateOutputType | null
-    _avg: BannedWordAvgAggregateOutputType | null
-    _sum: BannedWordSumAggregateOutputType | null
     _min: BannedWordMinAggregateOutputType | null
     _max: BannedWordMaxAggregateOutputType | null
   }
 
-  export type BannedWordAvgAggregateOutputType = {
-    id: number | null
-  }
-
-  export type BannedWordSumAggregateOutputType = {
-    id: number | null
-  }
-
   export type BannedWordMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     word: string | null
   }
 
   export type BannedWordMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     word: string | null
   }
 
@@ -19852,14 +19704,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type BannedWordAvgAggregateInputType = {
-    id?: true
-  }
-
-  export type BannedWordSumAggregateInputType = {
-    id?: true
-  }
 
   export type BannedWordMinAggregateInputType = {
     id?: true
@@ -19915,18 +19759,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: BannedWordAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: BannedWordSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: BannedWordMinAggregateInputType
@@ -19957,18 +19789,14 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: BannedWordCountAggregateInputType | true
-    _avg?: BannedWordAvgAggregateInputType
-    _sum?: BannedWordSumAggregateInputType
     _min?: BannedWordMinAggregateInputType
     _max?: BannedWordMaxAggregateInputType
   }
 
   export type BannedWordGroupByOutputType = {
-    id: number
+    id: string
     word: string
     _count: BannedWordCountAggregateOutputType | null
-    _avg: BannedWordAvgAggregateOutputType | null
-    _sum: BannedWordSumAggregateOutputType | null
     _min: BannedWordMinAggregateOutputType | null
     _max: BannedWordMaxAggregateOutputType | null
   }
@@ -20005,7 +19833,7 @@ export namespace Prisma {
     name: "BannedWord"
     objects: {}
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       word: string
     }, ExtArgs["result"]["bannedWord"]>
     composites: {}
@@ -20427,7 +20255,7 @@ export namespace Prisma {
    * Fields of the BannedWord model
    */ 
   interface BannedWordFieldRefs {
-    readonly id: FieldRef<"BannedWord", 'Int'>
+    readonly id: FieldRef<"BannedWord", 'String'>
     readonly word: FieldRef<"BannedWord", 'String'>
   }
     
@@ -20776,28 +20604,18 @@ export namespace Prisma {
 
   export type AggregateWorkerJob = {
     _count: WorkerJobCountAggregateOutputType | null
-    _avg: WorkerJobAvgAggregateOutputType | null
-    _sum: WorkerJobSumAggregateOutputType | null
     _min: WorkerJobMinAggregateOutputType | null
     _max: WorkerJobMaxAggregateOutputType | null
   }
 
-  export type WorkerJobAvgAggregateOutputType = {
-    id: number | null
-  }
-
-  export type WorkerJobSumAggregateOutputType = {
-    id: number | null
-  }
-
   export type WorkerJobMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     worker: string | null
     payload: string | null
   }
 
   export type WorkerJobMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     worker: string | null
     payload: string | null
   }
@@ -20809,14 +20627,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type WorkerJobAvgAggregateInputType = {
-    id?: true
-  }
-
-  export type WorkerJobSumAggregateInputType = {
-    id?: true
-  }
 
   export type WorkerJobMinAggregateInputType = {
     id?: true
@@ -20875,18 +20685,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: WorkerJobAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: WorkerJobSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: WorkerJobMinAggregateInputType
@@ -20917,19 +20715,15 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: WorkerJobCountAggregateInputType | true
-    _avg?: WorkerJobAvgAggregateInputType
-    _sum?: WorkerJobSumAggregateInputType
     _min?: WorkerJobMinAggregateInputType
     _max?: WorkerJobMaxAggregateInputType
   }
 
   export type WorkerJobGroupByOutputType = {
-    id: number
+    id: string
     worker: string
     payload: string
     _count: WorkerJobCountAggregateOutputType | null
-    _avg: WorkerJobAvgAggregateOutputType | null
-    _sum: WorkerJobSumAggregateOutputType | null
     _min: WorkerJobMinAggregateOutputType | null
     _max: WorkerJobMaxAggregateOutputType | null
   }
@@ -20968,7 +20762,7 @@ export namespace Prisma {
     name: "WorkerJob"
     objects: {}
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       worker: string
       payload: string
     }, ExtArgs["result"]["workerJob"]>
@@ -21391,7 +21185,7 @@ export namespace Prisma {
    * Fields of the WorkerJob model
    */ 
   interface WorkerJobFieldRefs {
-    readonly id: FieldRef<"WorkerJob", 'Int'>
+    readonly id: FieldRef<"WorkerJob", 'String'>
     readonly worker: FieldRef<"WorkerJob", 'String'>
     readonly payload: FieldRef<"WorkerJob", 'String'>
   }
@@ -21748,39 +21542,35 @@ export namespace Prisma {
   }
 
   export type ClanAvgAggregateOutputType = {
-    id: number | null
     limit: number | null
     points: number | null
     damageOnBoss: number | null
-    masterId: number | null
   }
 
   export type ClanSumAggregateOutputType = {
-    id: number | null
     limit: number | null
     points: number | null
     damageOnBoss: number | null
-    masterId: number | null
   }
 
   export type ClanMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     name: string | null
     limit: number | null
     points: number | null
     boss: $Enums.BossName | null
     damageOnBoss: number | null
-    masterId: number | null
+    masterId: string | null
   }
 
   export type ClanMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     name: string | null
     limit: number | null
     points: number | null
     boss: $Enums.BossName | null
     damageOnBoss: number | null
-    masterId: number | null
+    masterId: string | null
   }
 
   export type ClanCountAggregateOutputType = {
@@ -21796,19 +21586,15 @@ export namespace Prisma {
 
 
   export type ClanAvgAggregateInputType = {
-    id?: true
     limit?: true
     points?: true
     damageOnBoss?: true
-    masterId?: true
   }
 
   export type ClanSumAggregateInputType = {
-    id?: true
     limit?: true
     points?: true
     damageOnBoss?: true
-    masterId?: true
   }
 
   export type ClanMinAggregateInputType = {
@@ -21929,13 +21715,13 @@ export namespace Prisma {
   }
 
   export type ClanGroupByOutputType = {
-    id: number
+    id: string
     name: string
     limit: number
     points: number
     boss: $Enums.BossName
     damageOnBoss: number
-    masterId: number
+    masterId: string
     _count: ClanCountAggregateOutputType | null
     _avg: ClanAvgAggregateOutputType | null
     _sum: ClanSumAggregateOutputType | null
@@ -22006,13 +21792,13 @@ export namespace Prisma {
       bossDamages: Prisma.$BossDamagePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       name: string
       limit: number
       points: number
       boss: $Enums.BossName
       damageOnBoss: number
-      masterId: number
+      masterId: string
     }, ExtArgs["result"]["clan"]>
     composites: {}
   }
@@ -22442,13 +22228,13 @@ export namespace Prisma {
    * Fields of the Clan model
    */ 
   interface ClanFieldRefs {
-    readonly id: FieldRef<"Clan", 'Int'>
+    readonly id: FieldRef<"Clan", 'String'>
     readonly name: FieldRef<"Clan", 'String'>
     readonly limit: FieldRef<"Clan", 'Int'>
     readonly points: FieldRef<"Clan", 'Int'>
     readonly boss: FieldRef<"Clan", 'BossName'>
     readonly damageOnBoss: FieldRef<"Clan", 'Int'>
-    readonly masterId: FieldRef<"Clan", 'Int'>
+    readonly masterId: FieldRef<"Clan", 'String'>
   }
     
 
@@ -22943,23 +22729,17 @@ export namespace Prisma {
   }
 
   export type ClanThreadAvgAggregateOutputType = {
-    id: number | null
-    clanId: number | null
-    creatorId: number | null
     postCount: number | null
   }
 
   export type ClanThreadSumAggregateOutputType = {
-    id: number | null
-    clanId: number | null
-    creatorId: number | null
     postCount: number | null
   }
 
   export type ClanThreadMinAggregateOutputType = {
-    id: number | null
-    clanId: number | null
-    creatorId: number | null
+    id: string | null
+    clanId: string | null
+    creatorId: string | null
     title: string | null
     locked: boolean | null
     pinned: boolean | null
@@ -22969,9 +22749,9 @@ export namespace Prisma {
   }
 
   export type ClanThreadMaxAggregateOutputType = {
-    id: number | null
-    clanId: number | null
-    creatorId: number | null
+    id: string | null
+    clanId: string | null
+    creatorId: string | null
     title: string | null
     locked: boolean | null
     pinned: boolean | null
@@ -22995,16 +22775,10 @@ export namespace Prisma {
 
 
   export type ClanThreadAvgAggregateInputType = {
-    id?: true
-    clanId?: true
-    creatorId?: true
     postCount?: true
   }
 
   export type ClanThreadSumAggregateInputType = {
-    id?: true
-    clanId?: true
-    creatorId?: true
     postCount?: true
   }
 
@@ -23132,9 +22906,9 @@ export namespace Prisma {
   }
 
   export type ClanThreadGroupByOutputType = {
-    id: number
-    clanId: number
-    creatorId: number
+    id: string
+    clanId: string
+    creatorId: string
     title: string
     locked: boolean
     pinned: boolean
@@ -23209,9 +22983,9 @@ export namespace Prisma {
       posts: Prisma.$ClanPostPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
-      clanId: number
-      creatorId: number
+      id: string
+      clanId: string
+      creatorId: string
       title: string
       locked: boolean
       pinned: boolean
@@ -23643,9 +23417,9 @@ export namespace Prisma {
    * Fields of the ClanThread model
    */ 
   interface ClanThreadFieldRefs {
-    readonly id: FieldRef<"ClanThread", 'Int'>
-    readonly clanId: FieldRef<"ClanThread", 'Int'>
-    readonly creatorId: FieldRef<"ClanThread", 'Int'>
+    readonly id: FieldRef<"ClanThread", 'String'>
+    readonly clanId: FieldRef<"ClanThread", 'String'>
+    readonly creatorId: FieldRef<"ClanThread", 'String'>
     readonly title: FieldRef<"ClanThread", 'String'>
     readonly locked: FieldRef<"ClanThread", 'Boolean'>
     readonly pinned: FieldRef<"ClanThread", 'Boolean'>
@@ -24067,36 +23841,22 @@ export namespace Prisma {
 
   export type AggregateClanPost = {
     _count: ClanPostCountAggregateOutputType | null
-    _avg: ClanPostAvgAggregateOutputType | null
-    _sum: ClanPostSumAggregateOutputType | null
     _min: ClanPostMinAggregateOutputType | null
     _max: ClanPostMaxAggregateOutputType | null
   }
 
-  export type ClanPostAvgAggregateOutputType = {
-    id: number | null
-    threadId: number | null
-    authorId: number | null
-  }
-
-  export type ClanPostSumAggregateOutputType = {
-    id: number | null
-    threadId: number | null
-    authorId: number | null
-  }
-
   export type ClanPostMinAggregateOutputType = {
-    id: number | null
-    threadId: number | null
-    authorId: number | null
+    id: string | null
+    threadId: string | null
+    authorId: string | null
     date: Date | null
     message: string | null
   }
 
   export type ClanPostMaxAggregateOutputType = {
-    id: number | null
-    threadId: number | null
-    authorId: number | null
+    id: string | null
+    threadId: string | null
+    authorId: string | null
     date: Date | null
     message: string | null
   }
@@ -24110,18 +23870,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type ClanPostAvgAggregateInputType = {
-    id?: true
-    threadId?: true
-    authorId?: true
-  }
-
-  export type ClanPostSumAggregateInputType = {
-    id?: true
-    threadId?: true
-    authorId?: true
-  }
 
   export type ClanPostMinAggregateInputType = {
     id?: true
@@ -24186,18 +23934,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: ClanPostAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: ClanPostSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: ClanPostMinAggregateInputType
@@ -24228,21 +23964,17 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ClanPostCountAggregateInputType | true
-    _avg?: ClanPostAvgAggregateInputType
-    _sum?: ClanPostSumAggregateInputType
     _min?: ClanPostMinAggregateInputType
     _max?: ClanPostMaxAggregateInputType
   }
 
   export type ClanPostGroupByOutputType = {
-    id: number
-    threadId: number
-    authorId: number
+    id: string
+    threadId: string
+    authorId: string
     date: Date
     message: string
     _count: ClanPostCountAggregateOutputType | null
-    _avg: ClanPostAvgAggregateOutputType | null
-    _sum: ClanPostSumAggregateOutputType | null
     _min: ClanPostMinAggregateOutputType | null
     _max: ClanPostMaxAggregateOutputType | null
   }
@@ -24295,9 +24027,9 @@ export namespace Prisma {
       author: Prisma.$BrutePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
-      threadId: number
-      authorId: number
+      id: string
+      threadId: string
+      authorId: string
       date: Date
       message: string
     }, ExtArgs["result"]["clanPost"]>
@@ -24723,9 +24455,9 @@ export namespace Prisma {
    * Fields of the ClanPost model
    */ 
   interface ClanPostFieldRefs {
-    readonly id: FieldRef<"ClanPost", 'Int'>
-    readonly threadId: FieldRef<"ClanPost", 'Int'>
-    readonly authorId: FieldRef<"ClanPost", 'Int'>
+    readonly id: FieldRef<"ClanPost", 'String'>
+    readonly threadId: FieldRef<"ClanPost", 'String'>
+    readonly authorId: FieldRef<"ClanPost", 'String'>
     readonly date: FieldRef<"ClanPost", 'DateTime'>
     readonly message: FieldRef<"ClanPost", 'String'>
   }
@@ -25126,30 +24858,24 @@ export namespace Prisma {
   }
 
   export type BossDamageAvgAggregateOutputType = {
-    id: number | null
-    bruteId: number | null
-    clanId: number | null
     damage: number | null
   }
 
   export type BossDamageSumAggregateOutputType = {
-    id: number | null
-    bruteId: number | null
-    clanId: number | null
     damage: number | null
   }
 
   export type BossDamageMinAggregateOutputType = {
-    id: number | null
-    bruteId: number | null
-    clanId: number | null
+    id: string | null
+    bruteId: string | null
+    clanId: string | null
     damage: number | null
   }
 
   export type BossDamageMaxAggregateOutputType = {
-    id: number | null
-    bruteId: number | null
-    clanId: number | null
+    id: string | null
+    bruteId: string | null
+    clanId: string | null
     damage: number | null
   }
 
@@ -25163,16 +24889,10 @@ export namespace Prisma {
 
 
   export type BossDamageAvgAggregateInputType = {
-    id?: true
-    bruteId?: true
-    clanId?: true
     damage?: true
   }
 
   export type BossDamageSumAggregateInputType = {
-    id?: true
-    bruteId?: true
-    clanId?: true
     damage?: true
   }
 
@@ -25285,9 +25005,9 @@ export namespace Prisma {
   }
 
   export type BossDamageGroupByOutputType = {
-    id: number
-    bruteId: number
-    clanId: number
+    id: string
+    bruteId: string
+    clanId: string
     damage: number
     _count: BossDamageCountAggregateOutputType | null
     _avg: BossDamageAvgAggregateOutputType | null
@@ -25342,9 +25062,9 @@ export namespace Prisma {
       clan: Prisma.$ClanPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
-      bruteId: number
-      clanId: number
+      id: string
+      bruteId: string
+      clanId: string
       damage: number
     }, ExtArgs["result"]["bossDamage"]>
     composites: {}
@@ -25769,9 +25489,9 @@ export namespace Prisma {
    * Fields of the BossDamage model
    */ 
   interface BossDamageFieldRefs {
-    readonly id: FieldRef<"BossDamage", 'Int'>
-    readonly bruteId: FieldRef<"BossDamage", 'Int'>
-    readonly clanId: FieldRef<"BossDamage", 'Int'>
+    readonly id: FieldRef<"BossDamage", 'String'>
+    readonly bruteId: FieldRef<"BossDamage", 'String'>
+    readonly clanId: FieldRef<"BossDamage", 'String'>
     readonly damage: FieldRef<"BossDamage", 'Int'>
   }
     
@@ -26171,29 +25891,25 @@ export namespace Prisma {
   }
 
   export type BruteInventoryItemAvgAggregateOutputType = {
-    id: number | null
     count: number | null
-    bruteId: number | null
   }
 
   export type BruteInventoryItemSumAggregateOutputType = {
-    id: number | null
     count: number | null
-    bruteId: number | null
   }
 
   export type BruteInventoryItemMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     type: $Enums.InventoryItemType | null
     count: number | null
-    bruteId: number | null
+    bruteId: string | null
   }
 
   export type BruteInventoryItemMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     type: $Enums.InventoryItemType | null
     count: number | null
-    bruteId: number | null
+    bruteId: string | null
   }
 
   export type BruteInventoryItemCountAggregateOutputType = {
@@ -26206,15 +25922,11 @@ export namespace Prisma {
 
 
   export type BruteInventoryItemAvgAggregateInputType = {
-    id?: true
     count?: true
-    bruteId?: true
   }
 
   export type BruteInventoryItemSumAggregateInputType = {
-    id?: true
     count?: true
-    bruteId?: true
   }
 
   export type BruteInventoryItemMinAggregateInputType = {
@@ -26326,10 +26038,10 @@ export namespace Prisma {
   }
 
   export type BruteInventoryItemGroupByOutputType = {
-    id: number
+    id: string
     type: $Enums.InventoryItemType
     count: number
-    bruteId: number
+    bruteId: string
     _count: BruteInventoryItemCountAggregateOutputType | null
     _avg: BruteInventoryItemAvgAggregateOutputType | null
     _sum: BruteInventoryItemSumAggregateOutputType | null
@@ -26380,10 +26092,10 @@ export namespace Prisma {
       brute: Prisma.$BrutePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       type: $Enums.InventoryItemType
       count: number
-      bruteId: number
+      bruteId: string
     }, ExtArgs["result"]["bruteInventoryItem"]>
     composites: {}
   }
@@ -26805,10 +26517,10 @@ export namespace Prisma {
    * Fields of the BruteInventoryItem model
    */ 
   interface BruteInventoryItemFieldRefs {
-    readonly id: FieldRef<"BruteInventoryItem", 'Int'>
+    readonly id: FieldRef<"BruteInventoryItem", 'String'>
     readonly type: FieldRef<"BruteInventoryItem", 'InventoryItemType'>
     readonly count: FieldRef<"BruteInventoryItem", 'Int'>
-    readonly bruteId: FieldRef<"BruteInventoryItem", 'Int'>
+    readonly bruteId: FieldRef<"BruteInventoryItem", 'String'>
   }
     
 
@@ -27361,8 +27073,8 @@ export namespace Prisma {
 
   export const TournamentAchievementScalarFieldEnum: {
     id: 'id',
-    date: 'date',
     bruteId: 'bruteId',
+    date: 'date',
     achievement: 'achievement',
     achievementCount: 'achievementCount'
   };
@@ -27927,7 +27639,7 @@ export namespace Prisma {
     AND?: BruteWhereInput | BruteWhereInput[]
     OR?: BruteWhereInput[]
     NOT?: BruteWhereInput | BruteWhereInput[]
-    id?: IntFilter<"Brute"> | number
+    id?: UuidFilter<"Brute"> | string
     name?: StringFilter<"Brute"> | string
     deletedAt?: DateTimeNullableFilter<"Brute"> | Date | string | null
     createdAt?: DateTimeFilter<"Brute"> | Date | string
@@ -27958,9 +27670,9 @@ export namespace Prisma {
     weapons?: EnumWeaponNameNullableListFilter<"Brute">
     skills?: EnumSkillNameNullableListFilter<"Brute">
     pets?: EnumPetNameNullableListFilter<"Brute">
-    masterId?: IntNullableFilter<"Brute"> | number | null
+    masterId?: UuidNullableFilter<"Brute"> | string | null
     pupilsCount?: IntFilter<"Brute"> | number
-    clanId?: IntNullableFilter<"Brute"> | number | null
+    clanId?: UuidNullableFilter<"Brute"> | string | null
     registeredForTournament?: BoolFilter<"Brute"> | boolean
     nextTournamentDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
     currentTournamentDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
@@ -27973,7 +27685,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: DateTimeNullableFilter<"Brute"> | Date | string | null
     canRankUpSince?: DateTimeNullableFilter<"Brute"> | Date | string | null
     favorite?: BoolFilter<"Brute"> | boolean
-    wantToJoinClanId?: IntNullableFilter<"Brute"> | number | null
+    wantToJoinClanId?: UuidNullableFilter<"Brute"> | string | null
     tournamentWins?: IntFilter<"Brute"> | number
     user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
     master?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
@@ -28075,7 +27787,7 @@ export namespace Prisma {
   }
 
   export type BruteWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: BruteWhereInput | BruteWhereInput[]
     OR?: BruteWhereInput[]
     NOT?: BruteWhereInput | BruteWhereInput[]
@@ -28109,9 +27821,9 @@ export namespace Prisma {
     weapons?: EnumWeaponNameNullableListFilter<"Brute">
     skills?: EnumSkillNameNullableListFilter<"Brute">
     pets?: EnumPetNameNullableListFilter<"Brute">
-    masterId?: IntNullableFilter<"Brute"> | number | null
+    masterId?: UuidNullableFilter<"Brute"> | string | null
     pupilsCount?: IntFilter<"Brute"> | number
-    clanId?: IntNullableFilter<"Brute"> | number | null
+    clanId?: UuidNullableFilter<"Brute"> | string | null
     registeredForTournament?: BoolFilter<"Brute"> | boolean
     nextTournamentDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
     currentTournamentDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
@@ -28124,7 +27836,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: DateTimeNullableFilter<"Brute"> | Date | string | null
     canRankUpSince?: DateTimeNullableFilter<"Brute"> | Date | string | null
     favorite?: BoolFilter<"Brute"> | boolean
-    wantToJoinClanId?: IntNullableFilter<"Brute"> | number | null
+    wantToJoinClanId?: UuidNullableFilter<"Brute"> | string | null
     tournamentWins?: IntFilter<"Brute"> | number
     user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
     master?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
@@ -28149,7 +27861,7 @@ export namespace Prisma {
     tournamentXps?: TournamentXpListRelationFilter
     startingStats?: XOR<BruteStartingStatsNullableRelationFilter, BruteStartingStatsWhereInput> | null
     damageOnBosses?: BossDamageListRelationFilter
-  }, "id">
+  }, "id" | "id">
 
   export type BruteOrderByWithAggregationInput = {
     id?: SortOrder
@@ -28211,7 +27923,7 @@ export namespace Prisma {
     AND?: BruteScalarWhereWithAggregatesInput | BruteScalarWhereWithAggregatesInput[]
     OR?: BruteScalarWhereWithAggregatesInput[]
     NOT?: BruteScalarWhereWithAggregatesInput | BruteScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Brute"> | number
+    id?: UuidWithAggregatesFilter<"Brute"> | string
     name?: StringWithAggregatesFilter<"Brute"> | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Brute"> | Date | string
@@ -28242,9 +27954,9 @@ export namespace Prisma {
     weapons?: EnumWeaponNameNullableListFilter<"Brute">
     skills?: EnumSkillNameNullableListFilter<"Brute">
     pets?: EnumPetNameNullableListFilter<"Brute">
-    masterId?: IntNullableWithAggregatesFilter<"Brute"> | number | null
+    masterId?: UuidNullableWithAggregatesFilter<"Brute"> | string | null
     pupilsCount?: IntWithAggregatesFilter<"Brute"> | number
-    clanId?: IntNullableWithAggregatesFilter<"Brute"> | number | null
+    clanId?: UuidNullableWithAggregatesFilter<"Brute"> | string | null
     registeredForTournament?: BoolWithAggregatesFilter<"Brute"> | boolean
     nextTournamentDate?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
     currentTournamentDate?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
@@ -28257,7 +27969,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
     canRankUpSince?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
     favorite?: BoolWithAggregatesFilter<"Brute"> | boolean
-    wantToJoinClanId?: IntNullableWithAggregatesFilter<"Brute"> | number | null
+    wantToJoinClanId?: UuidNullableWithAggregatesFilter<"Brute"> | string | null
     tournamentWins?: IntWithAggregatesFilter<"Brute"> | number
   }
 
@@ -28265,12 +27977,12 @@ export namespace Prisma {
     AND?: BruteStartingStatsWhereInput | BruteStartingStatsWhereInput[]
     OR?: BruteStartingStatsWhereInput[]
     NOT?: BruteStartingStatsWhereInput | BruteStartingStatsWhereInput[]
-    id?: IntFilter<"BruteStartingStats"> | number
+    id?: UuidFilter<"BruteStartingStats"> | string
     endurance?: IntFilter<"BruteStartingStats"> | number
     strength?: IntFilter<"BruteStartingStats"> | number
     agility?: IntFilter<"BruteStartingStats"> | number
     speed?: IntFilter<"BruteStartingStats"> | number
-    bruteId?: IntFilter<"BruteStartingStats"> | number
+    bruteId?: UuidFilter<"BruteStartingStats"> | string
     brute?: XOR<BruteRelationFilter, BruteWhereInput>
   }
 
@@ -28285,8 +27997,8 @@ export namespace Prisma {
   }
 
   export type BruteStartingStatsWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    bruteId?: number
+    id?: string
+    bruteId?: string
     AND?: BruteStartingStatsWhereInput | BruteStartingStatsWhereInput[]
     OR?: BruteStartingStatsWhereInput[]
     NOT?: BruteStartingStatsWhereInput | BruteStartingStatsWhereInput[]
@@ -28295,7 +28007,7 @@ export namespace Prisma {
     agility?: IntFilter<"BruteStartingStats"> | number
     speed?: IntFilter<"BruteStartingStats"> | number
     brute?: XOR<BruteRelationFilter, BruteWhereInput>
-  }, "id" | "bruteId">
+  }, "id" | "id" | "bruteId">
 
   export type BruteStartingStatsOrderByWithAggregationInput = {
     id?: SortOrder
@@ -28315,27 +28027,27 @@ export namespace Prisma {
     AND?: BruteStartingStatsScalarWhereWithAggregatesInput | BruteStartingStatsScalarWhereWithAggregatesInput[]
     OR?: BruteStartingStatsScalarWhereWithAggregatesInput[]
     NOT?: BruteStartingStatsScalarWhereWithAggregatesInput | BruteStartingStatsScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"BruteStartingStats"> | number
+    id?: UuidWithAggregatesFilter<"BruteStartingStats"> | string
     endurance?: IntWithAggregatesFilter<"BruteStartingStats"> | number
     strength?: IntWithAggregatesFilter<"BruteStartingStats"> | number
     agility?: IntWithAggregatesFilter<"BruteStartingStats"> | number
     speed?: IntWithAggregatesFilter<"BruteStartingStats"> | number
-    bruteId?: IntWithAggregatesFilter<"BruteStartingStats"> | number
+    bruteId?: UuidWithAggregatesFilter<"BruteStartingStats"> | string
   }
 
   export type FightWhereInput = {
     AND?: FightWhereInput | FightWhereInput[]
     OR?: FightWhereInput[]
     NOT?: FightWhereInput | FightWhereInput[]
-    id?: IntFilter<"Fight"> | number
+    id?: UuidFilter<"Fight"> | string
     date?: DateTimeFilter<"Fight"> | Date | string
-    brute1Id?: IntFilter<"Fight"> | number
-    brute2Id?: IntNullableFilter<"Fight"> | number | null
+    brute1Id?: UuidFilter<"Fight"> | string
+    brute2Id?: UuidNullableFilter<"Fight"> | string | null
     winner?: StringFilter<"Fight"> | string
     loser?: StringFilter<"Fight"> | string
     steps?: StringFilter<"Fight"> | string
     fighters?: StringFilter<"Fight"> | string
-    tournamentId?: IntNullableFilter<"Fight"> | number | null
+    tournamentId?: UuidNullableFilter<"Fight"> | string | null
     tournamentStep?: IntFilter<"Fight"> | number
     modifiers?: EnumFightModifierNullableListFilter<"Fight">
     background?: StringFilter<"Fight"> | string
@@ -28365,18 +28077,18 @@ export namespace Prisma {
   }
 
   export type FightWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: FightWhereInput | FightWhereInput[]
     OR?: FightWhereInput[]
     NOT?: FightWhereInput | FightWhereInput[]
     date?: DateTimeFilter<"Fight"> | Date | string
-    brute1Id?: IntFilter<"Fight"> | number
-    brute2Id?: IntNullableFilter<"Fight"> | number | null
+    brute1Id?: UuidFilter<"Fight"> | string
+    brute2Id?: UuidNullableFilter<"Fight"> | string | null
     winner?: StringFilter<"Fight"> | string
     loser?: StringFilter<"Fight"> | string
     steps?: StringFilter<"Fight"> | string
     fighters?: StringFilter<"Fight"> | string
-    tournamentId?: IntNullableFilter<"Fight"> | number | null
+    tournamentId?: UuidNullableFilter<"Fight"> | string | null
     tournamentStep?: IntFilter<"Fight"> | number
     modifiers?: EnumFightModifierNullableListFilter<"Fight">
     background?: StringFilter<"Fight"> | string
@@ -28384,7 +28096,7 @@ export namespace Prisma {
     brute2?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
     logs?: LogListRelationFilter
     tournament?: XOR<TournamentNullableRelationFilter, TournamentWhereInput> | null
-  }, "id">
+  }, "id" | "id">
 
   export type FightOrderByWithAggregationInput = {
     id?: SortOrder
@@ -28410,15 +28122,15 @@ export namespace Prisma {
     AND?: FightScalarWhereWithAggregatesInput | FightScalarWhereWithAggregatesInput[]
     OR?: FightScalarWhereWithAggregatesInput[]
     NOT?: FightScalarWhereWithAggregatesInput | FightScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Fight"> | number
+    id?: UuidWithAggregatesFilter<"Fight"> | string
     date?: DateTimeWithAggregatesFilter<"Fight"> | Date | string
-    brute1Id?: IntWithAggregatesFilter<"Fight"> | number
-    brute2Id?: IntNullableWithAggregatesFilter<"Fight"> | number | null
+    brute1Id?: UuidWithAggregatesFilter<"Fight"> | string
+    brute2Id?: UuidNullableWithAggregatesFilter<"Fight"> | string | null
     winner?: StringWithAggregatesFilter<"Fight"> | string
     loser?: StringWithAggregatesFilter<"Fight"> | string
     steps?: StringWithAggregatesFilter<"Fight"> | string
     fighters?: StringWithAggregatesFilter<"Fight"> | string
-    tournamentId?: IntNullableWithAggregatesFilter<"Fight"> | number | null
+    tournamentId?: UuidNullableWithAggregatesFilter<"Fight"> | string | null
     tournamentStep?: IntWithAggregatesFilter<"Fight"> | number
     modifiers?: EnumFightModifierNullableListFilter<"Fight">
     background?: StringWithAggregatesFilter<"Fight"> | string
@@ -28428,13 +28140,13 @@ export namespace Prisma {
     AND?: LogWhereInput | LogWhereInput[]
     OR?: LogWhereInput[]
     NOT?: LogWhereInput | LogWhereInput[]
-    id?: IntFilter<"Log"> | number
+    id?: UuidFilter<"Log"> | string
     date?: DateTimeFilter<"Log"> | Date | string
-    currentBruteId?: IntFilter<"Log"> | number
+    currentBruteId?: UuidFilter<"Log"> | string
     type?: EnumLogTypeFilter<"Log"> | $Enums.LogType
     level?: IntNullableFilter<"Log"> | number | null
     brute?: StringNullableFilter<"Log"> | string | null
-    fightId?: IntNullableFilter<"Log"> | number | null
+    fightId?: UuidNullableFilter<"Log"> | string | null
     xp?: IntNullableFilter<"Log"> | number | null
     gold?: IntNullableFilter<"Log"> | number | null
     currentBrute?: XOR<BruteRelationFilter, BruteWhereInput>
@@ -28456,21 +28168,21 @@ export namespace Prisma {
   }
 
   export type LogWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: LogWhereInput | LogWhereInput[]
     OR?: LogWhereInput[]
     NOT?: LogWhereInput | LogWhereInput[]
     date?: DateTimeFilter<"Log"> | Date | string
-    currentBruteId?: IntFilter<"Log"> | number
+    currentBruteId?: UuidFilter<"Log"> | string
     type?: EnumLogTypeFilter<"Log"> | $Enums.LogType
     level?: IntNullableFilter<"Log"> | number | null
     brute?: StringNullableFilter<"Log"> | string | null
-    fightId?: IntNullableFilter<"Log"> | number | null
+    fightId?: UuidNullableFilter<"Log"> | string | null
     xp?: IntNullableFilter<"Log"> | number | null
     gold?: IntNullableFilter<"Log"> | number | null
     currentBrute?: XOR<BruteRelationFilter, BruteWhereInput>
     fight?: XOR<FightNullableRelationFilter, FightWhereInput> | null
-  }, "id">
+  }, "id" | "id">
 
   export type LogOrderByWithAggregationInput = {
     id?: SortOrder
@@ -28493,13 +28205,13 @@ export namespace Prisma {
     AND?: LogScalarWhereWithAggregatesInput | LogScalarWhereWithAggregatesInput[]
     OR?: LogScalarWhereWithAggregatesInput[]
     NOT?: LogScalarWhereWithAggregatesInput | LogScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Log"> | number
+    id?: UuidWithAggregatesFilter<"Log"> | string
     date?: DateTimeWithAggregatesFilter<"Log"> | Date | string
-    currentBruteId?: IntWithAggregatesFilter<"Log"> | number
+    currentBruteId?: UuidWithAggregatesFilter<"Log"> | string
     type?: EnumLogTypeWithAggregatesFilter<"Log"> | $Enums.LogType
     level?: IntNullableWithAggregatesFilter<"Log"> | number | null
     brute?: StringNullableWithAggregatesFilter<"Log"> | string | null
-    fightId?: IntNullableWithAggregatesFilter<"Log"> | number | null
+    fightId?: UuidNullableWithAggregatesFilter<"Log"> | string | null
     xp?: IntNullableWithAggregatesFilter<"Log"> | number | null
     gold?: IntNullableWithAggregatesFilter<"Log"> | number | null
   }
@@ -28508,8 +28220,8 @@ export namespace Prisma {
     AND?: DestinyChoiceWhereInput | DestinyChoiceWhereInput[]
     OR?: DestinyChoiceWhereInput[]
     NOT?: DestinyChoiceWhereInput | DestinyChoiceWhereInput[]
-    id?: IntFilter<"DestinyChoice"> | number
-    bruteId?: IntFilter<"DestinyChoice"> | number
+    id?: UuidFilter<"DestinyChoice"> | string
+    bruteId?: UuidFilter<"DestinyChoice"> | string
     path?: EnumDestinyChoiceSideNullableListFilter<"DestinyChoice">
     type?: EnumDestinyChoiceTypeFilter<"DestinyChoice"> | $Enums.DestinyChoiceType
     skill?: EnumSkillNameNullableFilter<"DestinyChoice"> | $Enums.SkillName | null
@@ -28538,11 +28250,11 @@ export namespace Prisma {
   }
 
   export type DestinyChoiceWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: DestinyChoiceWhereInput | DestinyChoiceWhereInput[]
     OR?: DestinyChoiceWhereInput[]
     NOT?: DestinyChoiceWhereInput | DestinyChoiceWhereInput[]
-    bruteId?: IntFilter<"DestinyChoice"> | number
+    bruteId?: UuidFilter<"DestinyChoice"> | string
     path?: EnumDestinyChoiceSideNullableListFilter<"DestinyChoice">
     type?: EnumDestinyChoiceTypeFilter<"DestinyChoice"> | $Enums.DestinyChoiceType
     skill?: EnumSkillNameNullableFilter<"DestinyChoice"> | $Enums.SkillName | null
@@ -28553,7 +28265,7 @@ export namespace Prisma {
     stat2?: EnumBruteStatNullableFilter<"DestinyChoice"> | $Enums.BruteStat | null
     stat2Value?: IntNullableFilter<"DestinyChoice"> | number | null
     brute?: XOR<BruteRelationFilter, BruteWhereInput>
-  }, "id">
+  }, "id" | "id">
 
   export type DestinyChoiceOrderByWithAggregationInput = {
     id?: SortOrder
@@ -28578,8 +28290,8 @@ export namespace Prisma {
     AND?: DestinyChoiceScalarWhereWithAggregatesInput | DestinyChoiceScalarWhereWithAggregatesInput[]
     OR?: DestinyChoiceScalarWhereWithAggregatesInput[]
     NOT?: DestinyChoiceScalarWhereWithAggregatesInput | DestinyChoiceScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"DestinyChoice"> | number
-    bruteId?: IntWithAggregatesFilter<"DestinyChoice"> | number
+    id?: UuidWithAggregatesFilter<"DestinyChoice"> | string
+    bruteId?: UuidWithAggregatesFilter<"DestinyChoice"> | string
     path?: EnumDestinyChoiceSideNullableListFilter<"DestinyChoice">
     type?: EnumDestinyChoiceTypeWithAggregatesFilter<"DestinyChoice"> | $Enums.DestinyChoiceType
     skill?: EnumSkillNameNullableWithAggregatesFilter<"DestinyChoice"> | $Enums.SkillName | null
@@ -28595,7 +28307,7 @@ export namespace Prisma {
     AND?: TournamentWhereInput | TournamentWhereInput[]
     OR?: TournamentWhereInput[]
     NOT?: TournamentWhereInput | TournamentWhereInput[]
-    id?: IntFilter<"Tournament"> | number
+    id?: UuidFilter<"Tournament"> | string
     date?: DateTimeFilter<"Tournament"> | Date | string
     type?: EnumTournamentTypeFilter<"Tournament"> | $Enums.TournamentType
     rounds?: IntFilter<"Tournament"> | number
@@ -28613,7 +28325,7 @@ export namespace Prisma {
   }
 
   export type TournamentWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: TournamentWhereInput | TournamentWhereInput[]
     OR?: TournamentWhereInput[]
     NOT?: TournamentWhereInput | TournamentWhereInput[]
@@ -28622,7 +28334,7 @@ export namespace Prisma {
     rounds?: IntFilter<"Tournament"> | number
     participants?: BruteListRelationFilter
     fights?: FightListRelationFilter
-  }, "id">
+  }, "id" | "id">
 
   export type TournamentOrderByWithAggregationInput = {
     id?: SortOrder
@@ -28640,7 +28352,7 @@ export namespace Prisma {
     AND?: TournamentScalarWhereWithAggregatesInput | TournamentScalarWhereWithAggregatesInput[]
     OR?: TournamentScalarWhereWithAggregatesInput[]
     NOT?: TournamentScalarWhereWithAggregatesInput | TournamentScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Tournament"> | number
+    id?: UuidWithAggregatesFilter<"Tournament"> | string
     date?: DateTimeWithAggregatesFilter<"Tournament"> | Date | string
     type?: EnumTournamentTypeWithAggregatesFilter<"Tournament"> | $Enums.TournamentType
     rounds?: IntWithAggregatesFilter<"Tournament"> | number
@@ -28650,9 +28362,9 @@ export namespace Prisma {
     AND?: TournamentAchievementWhereInput | TournamentAchievementWhereInput[]
     OR?: TournamentAchievementWhereInput[]
     NOT?: TournamentAchievementWhereInput | TournamentAchievementWhereInput[]
-    id?: IntFilter<"TournamentAchievement"> | number
+    id?: UuidFilter<"TournamentAchievement"> | string
+    bruteId?: UuidFilter<"TournamentAchievement"> | string
     date?: DateTimeFilter<"TournamentAchievement"> | Date | string
-    bruteId?: IntFilter<"TournamentAchievement"> | number
     achievement?: EnumAchievementNameFilter<"TournamentAchievement"> | $Enums.AchievementName
     achievementCount?: IntFilter<"TournamentAchievement"> | number
     brute?: XOR<BruteRelationFilter, BruteWhereInput>
@@ -28660,29 +28372,29 @@ export namespace Prisma {
 
   export type TournamentAchievementOrderByWithRelationInput = {
     id?: SortOrder
-    date?: SortOrder
     bruteId?: SortOrder
+    date?: SortOrder
     achievement?: SortOrder
     achievementCount?: SortOrder
     brute?: BruteOrderByWithRelationInput
   }
 
   export type TournamentAchievementWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: TournamentAchievementWhereInput | TournamentAchievementWhereInput[]
     OR?: TournamentAchievementWhereInput[]
     NOT?: TournamentAchievementWhereInput | TournamentAchievementWhereInput[]
+    bruteId?: UuidFilter<"TournamentAchievement"> | string
     date?: DateTimeFilter<"TournamentAchievement"> | Date | string
-    bruteId?: IntFilter<"TournamentAchievement"> | number
     achievement?: EnumAchievementNameFilter<"TournamentAchievement"> | $Enums.AchievementName
     achievementCount?: IntFilter<"TournamentAchievement"> | number
     brute?: XOR<BruteRelationFilter, BruteWhereInput>
-  }, "id">
+  }, "id" | "id">
 
   export type TournamentAchievementOrderByWithAggregationInput = {
     id?: SortOrder
-    date?: SortOrder
     bruteId?: SortOrder
+    date?: SortOrder
     achievement?: SortOrder
     achievementCount?: SortOrder
     _count?: TournamentAchievementCountOrderByAggregateInput
@@ -28696,9 +28408,9 @@ export namespace Prisma {
     AND?: TournamentAchievementScalarWhereWithAggregatesInput | TournamentAchievementScalarWhereWithAggregatesInput[]
     OR?: TournamentAchievementScalarWhereWithAggregatesInput[]
     NOT?: TournamentAchievementScalarWhereWithAggregatesInput | TournamentAchievementScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"TournamentAchievement"> | number
+    id?: UuidWithAggregatesFilter<"TournamentAchievement"> | string
+    bruteId?: UuidWithAggregatesFilter<"TournamentAchievement"> | string
     date?: DateTimeWithAggregatesFilter<"TournamentAchievement"> | Date | string
-    bruteId?: IntWithAggregatesFilter<"TournamentAchievement"> | number
     achievement?: EnumAchievementNameWithAggregatesFilter<"TournamentAchievement"> | $Enums.AchievementName
     achievementCount?: IntWithAggregatesFilter<"TournamentAchievement"> | number
   }
@@ -28707,7 +28419,7 @@ export namespace Prisma {
     AND?: TournamentGoldWhereInput | TournamentGoldWhereInput[]
     OR?: TournamentGoldWhereInput[]
     NOT?: TournamentGoldWhereInput | TournamentGoldWhereInput[]
-    id?: IntFilter<"TournamentGold"> | number
+    id?: UuidFilter<"TournamentGold"> | string
     date?: DateTimeFilter<"TournamentGold"> | Date | string
     userId?: UuidFilter<"TournamentGold"> | string
     gold?: IntFilter<"TournamentGold"> | number
@@ -28723,7 +28435,7 @@ export namespace Prisma {
   }
 
   export type TournamentGoldWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: TournamentGoldWhereInput | TournamentGoldWhereInput[]
     OR?: TournamentGoldWhereInput[]
     NOT?: TournamentGoldWhereInput | TournamentGoldWhereInput[]
@@ -28731,7 +28443,7 @@ export namespace Prisma {
     userId?: UuidFilter<"TournamentGold"> | string
     gold?: IntFilter<"TournamentGold"> | number
     user?: XOR<UserRelationFilter, UserWhereInput>
-  }, "id">
+  }, "id" | "id">
 
   export type TournamentGoldOrderByWithAggregationInput = {
     id?: SortOrder
@@ -28749,7 +28461,7 @@ export namespace Prisma {
     AND?: TournamentGoldScalarWhereWithAggregatesInput | TournamentGoldScalarWhereWithAggregatesInput[]
     OR?: TournamentGoldScalarWhereWithAggregatesInput[]
     NOT?: TournamentGoldScalarWhereWithAggregatesInput | TournamentGoldScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"TournamentGold"> | number
+    id?: UuidWithAggregatesFilter<"TournamentGold"> | string
     date?: DateTimeWithAggregatesFilter<"TournamentGold"> | Date | string
     userId?: UuidWithAggregatesFilter<"TournamentGold"> | string
     gold?: IntWithAggregatesFilter<"TournamentGold"> | number
@@ -28759,9 +28471,9 @@ export namespace Prisma {
     AND?: TournamentXpWhereInput | TournamentXpWhereInput[]
     OR?: TournamentXpWhereInput[]
     NOT?: TournamentXpWhereInput | TournamentXpWhereInput[]
-    id?: IntFilter<"TournamentXp"> | number
+    id?: UuidFilter<"TournamentXp"> | string
     date?: DateTimeFilter<"TournamentXp"> | Date | string
-    bruteId?: IntFilter<"TournamentXp"> | number
+    bruteId?: UuidFilter<"TournamentXp"> | string
     xp?: IntFilter<"TournamentXp"> | number
     brute?: XOR<BruteRelationFilter, BruteWhereInput>
   }
@@ -28775,15 +28487,15 @@ export namespace Prisma {
   }
 
   export type TournamentXpWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: TournamentXpWhereInput | TournamentXpWhereInput[]
     OR?: TournamentXpWhereInput[]
     NOT?: TournamentXpWhereInput | TournamentXpWhereInput[]
     date?: DateTimeFilter<"TournamentXp"> | Date | string
-    bruteId?: IntFilter<"TournamentXp"> | number
+    bruteId?: UuidFilter<"TournamentXp"> | string
     xp?: IntFilter<"TournamentXp"> | number
     brute?: XOR<BruteRelationFilter, BruteWhereInput>
-  }, "id">
+  }, "id" | "id">
 
   export type TournamentXpOrderByWithAggregationInput = {
     id?: SortOrder
@@ -28801,9 +28513,9 @@ export namespace Prisma {
     AND?: TournamentXpScalarWhereWithAggregatesInput | TournamentXpScalarWhereWithAggregatesInput[]
     OR?: TournamentXpScalarWhereWithAggregatesInput[]
     NOT?: TournamentXpScalarWhereWithAggregatesInput | TournamentXpScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"TournamentXp"> | number
+    id?: UuidWithAggregatesFilter<"TournamentXp"> | string
     date?: DateTimeWithAggregatesFilter<"TournamentXp"> | Date | string
-    bruteId?: IntWithAggregatesFilter<"TournamentXp"> | number
+    bruteId?: UuidWithAggregatesFilter<"TournamentXp"> | string
     xp?: IntWithAggregatesFilter<"TournamentXp"> | number
   }
 
@@ -28811,10 +28523,10 @@ export namespace Prisma {
     AND?: AchievementWhereInput | AchievementWhereInput[]
     OR?: AchievementWhereInput[]
     NOT?: AchievementWhereInput | AchievementWhereInput[]
-    id?: IntFilter<"Achievement"> | number
+    id?: UuidFilter<"Achievement"> | string
     name?: EnumAchievementNameFilter<"Achievement"> | $Enums.AchievementName
     count?: IntFilter<"Achievement"> | number
-    bruteId?: IntNullableFilter<"Achievement"> | number | null
+    bruteId?: UuidNullableFilter<"Achievement"> | string | null
     userId?: UuidNullableFilter<"Achievement"> | string | null
     brute?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
     user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
@@ -28831,18 +28543,18 @@ export namespace Prisma {
   }
 
   export type AchievementWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     name_bruteId?: AchievementNameBruteIdCompoundUniqueInput
     AND?: AchievementWhereInput | AchievementWhereInput[]
     OR?: AchievementWhereInput[]
     NOT?: AchievementWhereInput | AchievementWhereInput[]
     name?: EnumAchievementNameFilter<"Achievement"> | $Enums.AchievementName
     count?: IntFilter<"Achievement"> | number
-    bruteId?: IntNullableFilter<"Achievement"> | number | null
+    bruteId?: UuidNullableFilter<"Achievement"> | string | null
     userId?: UuidNullableFilter<"Achievement"> | string | null
     brute?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
     user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
-  }, "id" | "name_bruteId">
+  }, "id" | "id" | "name_bruteId">
 
   export type AchievementOrderByWithAggregationInput = {
     id?: SortOrder
@@ -28861,10 +28573,10 @@ export namespace Prisma {
     AND?: AchievementScalarWhereWithAggregatesInput | AchievementScalarWhereWithAggregatesInput[]
     OR?: AchievementScalarWhereWithAggregatesInput[]
     NOT?: AchievementScalarWhereWithAggregatesInput | AchievementScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Achievement"> | number
+    id?: UuidWithAggregatesFilter<"Achievement"> | string
     name?: EnumAchievementNameWithAggregatesFilter<"Achievement"> | $Enums.AchievementName
     count?: IntWithAggregatesFilter<"Achievement"> | number
-    bruteId?: IntNullableWithAggregatesFilter<"Achievement"> | number | null
+    bruteId?: UuidNullableWithAggregatesFilter<"Achievement"> | string | null
     userId?: UuidNullableWithAggregatesFilter<"Achievement"> | string | null
   }
 
@@ -28872,7 +28584,7 @@ export namespace Prisma {
     AND?: TitleWhereInput | TitleWhereInput[]
     OR?: TitleWhereInput[]
     NOT?: TitleWhereInput | TitleWhereInput[]
-    id?: IntFilter<"Title"> | number
+    id?: UuidFilter<"Title"> | string
     name?: EnumAchievementNameFilter<"Title"> | $Enums.AchievementName
     count?: IntFilter<"Title"> | number
     brutes?: BruteListRelationFilter
@@ -28886,14 +28598,14 @@ export namespace Prisma {
   }
 
   export type TitleWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: TitleWhereInput | TitleWhereInput[]
     OR?: TitleWhereInput[]
     NOT?: TitleWhereInput | TitleWhereInput[]
     name?: EnumAchievementNameFilter<"Title"> | $Enums.AchievementName
     count?: IntFilter<"Title"> | number
     brutes?: BruteListRelationFilter
-  }, "id">
+  }, "id" | "id">
 
   export type TitleOrderByWithAggregationInput = {
     id?: SortOrder
@@ -28910,7 +28622,7 @@ export namespace Prisma {
     AND?: TitleScalarWhereWithAggregatesInput | TitleScalarWhereWithAggregatesInput[]
     OR?: TitleScalarWhereWithAggregatesInput[]
     NOT?: TitleScalarWhereWithAggregatesInput | TitleScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Title"> | number
+    id?: UuidWithAggregatesFilter<"Title"> | string
     name?: EnumAchievementNameWithAggregatesFilter<"Title"> | $Enums.AchievementName
     count?: IntWithAggregatesFilter<"Title"> | number
   }
@@ -28919,8 +28631,8 @@ export namespace Prisma {
     AND?: BruteReportWhereInput | BruteReportWhereInput[]
     OR?: BruteReportWhereInput[]
     NOT?: BruteReportWhereInput | BruteReportWhereInput[]
-    id?: IntFilter<"BruteReport"> | number
-    bruteId?: IntFilter<"BruteReport"> | number
+    id?: UuidFilter<"BruteReport"> | string
+    bruteId?: UuidFilter<"BruteReport"> | string
     reason?: EnumBruteReportReasonFilter<"BruteReport"> | $Enums.BruteReportReason
     count?: IntFilter<"BruteReport"> | number
     date?: DateTimeFilter<"BruteReport"> | Date | string
@@ -28941,18 +28653,18 @@ export namespace Prisma {
   }
 
   export type BruteReportWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: BruteReportWhereInput | BruteReportWhereInput[]
     OR?: BruteReportWhereInput[]
     NOT?: BruteReportWhereInput | BruteReportWhereInput[]
-    bruteId?: IntFilter<"BruteReport"> | number
+    bruteId?: UuidFilter<"BruteReport"> | string
     reason?: EnumBruteReportReasonFilter<"BruteReport"> | $Enums.BruteReportReason
     count?: IntFilter<"BruteReport"> | number
     date?: DateTimeFilter<"BruteReport"> | Date | string
     status?: EnumBruteReportStatusFilter<"BruteReport"> | $Enums.BruteReportStatus
     brute?: XOR<BruteRelationFilter, BruteWhereInput>
     users?: UserListRelationFilter
-  }, "id">
+  }, "id" | "id">
 
   export type BruteReportOrderByWithAggregationInput = {
     id?: SortOrder
@@ -28972,8 +28684,8 @@ export namespace Prisma {
     AND?: BruteReportScalarWhereWithAggregatesInput | BruteReportScalarWhereWithAggregatesInput[]
     OR?: BruteReportScalarWhereWithAggregatesInput[]
     NOT?: BruteReportScalarWhereWithAggregatesInput | BruteReportScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"BruteReport"> | number
-    bruteId?: IntWithAggregatesFilter<"BruteReport"> | number
+    id?: UuidWithAggregatesFilter<"BruteReport"> | string
+    bruteId?: UuidWithAggregatesFilter<"BruteReport"> | string
     reason?: EnumBruteReportReasonWithAggregatesFilter<"BruteReport"> | $Enums.BruteReportReason
     count?: IntWithAggregatesFilter<"BruteReport"> | number
     date?: DateTimeWithAggregatesFilter<"BruteReport"> | Date | string
@@ -28984,7 +28696,7 @@ export namespace Prisma {
     AND?: ServerStateWhereInput | ServerStateWhereInput[]
     OR?: ServerStateWhereInput[]
     NOT?: ServerStateWhereInput | ServerStateWhereInput[]
-    id?: IntFilter<"ServerState"> | number
+    id?: UuidFilter<"ServerState"> | string
     globalTournamentValid?: BoolFilter<"ServerState"> | boolean
     activeModifiers?: EnumFightModifierNullableListFilter<"ServerState">
     modifiersEndAt?: DateTimeNullableFilter<"ServerState"> | Date | string | null
@@ -28998,14 +28710,14 @@ export namespace Prisma {
   }
 
   export type ServerStateWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: ServerStateWhereInput | ServerStateWhereInput[]
     OR?: ServerStateWhereInput[]
     NOT?: ServerStateWhereInput | ServerStateWhereInput[]
     globalTournamentValid?: BoolFilter<"ServerState"> | boolean
     activeModifiers?: EnumFightModifierNullableListFilter<"ServerState">
     modifiersEndAt?: DateTimeNullableFilter<"ServerState"> | Date | string | null
-  }, "id">
+  }, "id" | "id">
 
   export type ServerStateOrderByWithAggregationInput = {
     id?: SortOrder
@@ -29013,17 +28725,15 @@ export namespace Prisma {
     activeModifiers?: SortOrder
     modifiersEndAt?: SortOrderInput | SortOrder
     _count?: ServerStateCountOrderByAggregateInput
-    _avg?: ServerStateAvgOrderByAggregateInput
     _max?: ServerStateMaxOrderByAggregateInput
     _min?: ServerStateMinOrderByAggregateInput
-    _sum?: ServerStateSumOrderByAggregateInput
   }
 
   export type ServerStateScalarWhereWithAggregatesInput = {
     AND?: ServerStateScalarWhereWithAggregatesInput | ServerStateScalarWhereWithAggregatesInput[]
     OR?: ServerStateScalarWhereWithAggregatesInput[]
     NOT?: ServerStateScalarWhereWithAggregatesInput | ServerStateScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"ServerState"> | number
+    id?: UuidWithAggregatesFilter<"ServerState"> | string
     globalTournamentValid?: BoolWithAggregatesFilter<"ServerState"> | boolean
     activeModifiers?: EnumFightModifierNullableListFilter<"ServerState">
     modifiersEndAt?: DateTimeNullableWithAggregatesFilter<"ServerState"> | Date | string | null
@@ -29033,7 +28743,7 @@ export namespace Prisma {
     AND?: BannedWordWhereInput | BannedWordWhereInput[]
     OR?: BannedWordWhereInput[]
     NOT?: BannedWordWhereInput | BannedWordWhereInput[]
-    id?: IntFilter<"BannedWord"> | number
+    id?: UuidFilter<"BannedWord"> | string
     word?: StringFilter<"BannedWord"> | string
   }
 
@@ -29043,28 +28753,26 @@ export namespace Prisma {
   }
 
   export type BannedWordWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: BannedWordWhereInput | BannedWordWhereInput[]
     OR?: BannedWordWhereInput[]
     NOT?: BannedWordWhereInput | BannedWordWhereInput[]
     word?: StringFilter<"BannedWord"> | string
-  }, "id">
+  }, "id" | "id">
 
   export type BannedWordOrderByWithAggregationInput = {
     id?: SortOrder
     word?: SortOrder
     _count?: BannedWordCountOrderByAggregateInput
-    _avg?: BannedWordAvgOrderByAggregateInput
     _max?: BannedWordMaxOrderByAggregateInput
     _min?: BannedWordMinOrderByAggregateInput
-    _sum?: BannedWordSumOrderByAggregateInput
   }
 
   export type BannedWordScalarWhereWithAggregatesInput = {
     AND?: BannedWordScalarWhereWithAggregatesInput | BannedWordScalarWhereWithAggregatesInput[]
     OR?: BannedWordScalarWhereWithAggregatesInput[]
     NOT?: BannedWordScalarWhereWithAggregatesInput | BannedWordScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"BannedWord"> | number
+    id?: UuidWithAggregatesFilter<"BannedWord"> | string
     word?: StringWithAggregatesFilter<"BannedWord"> | string
   }
 
@@ -29072,7 +28780,7 @@ export namespace Prisma {
     AND?: WorkerJobWhereInput | WorkerJobWhereInput[]
     OR?: WorkerJobWhereInput[]
     NOT?: WorkerJobWhereInput | WorkerJobWhereInput[]
-    id?: IntFilter<"WorkerJob"> | number
+    id?: UuidFilter<"WorkerJob"> | string
     worker?: StringFilter<"WorkerJob"> | string
     payload?: StringFilter<"WorkerJob"> | string
   }
@@ -29084,30 +28792,28 @@ export namespace Prisma {
   }
 
   export type WorkerJobWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: WorkerJobWhereInput | WorkerJobWhereInput[]
     OR?: WorkerJobWhereInput[]
     NOT?: WorkerJobWhereInput | WorkerJobWhereInput[]
     worker?: StringFilter<"WorkerJob"> | string
     payload?: StringFilter<"WorkerJob"> | string
-  }, "id">
+  }, "id" | "id">
 
   export type WorkerJobOrderByWithAggregationInput = {
     id?: SortOrder
     worker?: SortOrder
     payload?: SortOrder
     _count?: WorkerJobCountOrderByAggregateInput
-    _avg?: WorkerJobAvgOrderByAggregateInput
     _max?: WorkerJobMaxOrderByAggregateInput
     _min?: WorkerJobMinOrderByAggregateInput
-    _sum?: WorkerJobSumOrderByAggregateInput
   }
 
   export type WorkerJobScalarWhereWithAggregatesInput = {
     AND?: WorkerJobScalarWhereWithAggregatesInput | WorkerJobScalarWhereWithAggregatesInput[]
     OR?: WorkerJobScalarWhereWithAggregatesInput[]
     NOT?: WorkerJobScalarWhereWithAggregatesInput | WorkerJobScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"WorkerJob"> | number
+    id?: UuidWithAggregatesFilter<"WorkerJob"> | string
     worker?: StringWithAggregatesFilter<"WorkerJob"> | string
     payload?: StringWithAggregatesFilter<"WorkerJob"> | string
   }
@@ -29116,13 +28822,13 @@ export namespace Prisma {
     AND?: ClanWhereInput | ClanWhereInput[]
     OR?: ClanWhereInput[]
     NOT?: ClanWhereInput | ClanWhereInput[]
-    id?: IntFilter<"Clan"> | number
+    id?: UuidFilter<"Clan"> | string
     name?: StringFilter<"Clan"> | string
     limit?: IntFilter<"Clan"> | number
     points?: IntFilter<"Clan"> | number
     boss?: EnumBossNameFilter<"Clan"> | $Enums.BossName
     damageOnBoss?: IntFilter<"Clan"> | number
-    masterId?: IntFilter<"Clan"> | number
+    masterId?: UuidFilter<"Clan"> | string
     master?: XOR<BruteRelationFilter, BruteWhereInput>
     brutes?: BruteListRelationFilter
     joinRequests?: BruteListRelationFilter
@@ -29146,9 +28852,9 @@ export namespace Prisma {
   }
 
   export type ClanWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     name?: string
-    masterId?: number
+    masterId?: string
     AND?: ClanWhereInput | ClanWhereInput[]
     OR?: ClanWhereInput[]
     NOT?: ClanWhereInput | ClanWhereInput[]
@@ -29161,7 +28867,7 @@ export namespace Prisma {
     joinRequests?: BruteListRelationFilter
     threads?: ClanThreadListRelationFilter
     bossDamages?: BossDamageListRelationFilter
-  }, "id" | "name" | "masterId">
+  }, "id" | "id" | "name" | "masterId">
 
   export type ClanOrderByWithAggregationInput = {
     id?: SortOrder
@@ -29182,22 +28888,22 @@ export namespace Prisma {
     AND?: ClanScalarWhereWithAggregatesInput | ClanScalarWhereWithAggregatesInput[]
     OR?: ClanScalarWhereWithAggregatesInput[]
     NOT?: ClanScalarWhereWithAggregatesInput | ClanScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Clan"> | number
+    id?: UuidWithAggregatesFilter<"Clan"> | string
     name?: StringWithAggregatesFilter<"Clan"> | string
     limit?: IntWithAggregatesFilter<"Clan"> | number
     points?: IntWithAggregatesFilter<"Clan"> | number
     boss?: EnumBossNameWithAggregatesFilter<"Clan"> | $Enums.BossName
     damageOnBoss?: IntWithAggregatesFilter<"Clan"> | number
-    masterId?: IntWithAggregatesFilter<"Clan"> | number
+    masterId?: UuidWithAggregatesFilter<"Clan"> | string
   }
 
   export type ClanThreadWhereInput = {
     AND?: ClanThreadWhereInput | ClanThreadWhereInput[]
     OR?: ClanThreadWhereInput[]
     NOT?: ClanThreadWhereInput | ClanThreadWhereInput[]
-    id?: IntFilter<"ClanThread"> | number
-    clanId?: IntFilter<"ClanThread"> | number
-    creatorId?: IntFilter<"ClanThread"> | number
+    id?: UuidFilter<"ClanThread"> | string
+    clanId?: UuidFilter<"ClanThread"> | string
+    creatorId?: UuidFilter<"ClanThread"> | string
     title?: StringFilter<"ClanThread"> | string
     locked?: BoolFilter<"ClanThread"> | boolean
     pinned?: BoolFilter<"ClanThread"> | boolean
@@ -29225,12 +28931,12 @@ export namespace Prisma {
   }
 
   export type ClanThreadWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: ClanThreadWhereInput | ClanThreadWhereInput[]
     OR?: ClanThreadWhereInput[]
     NOT?: ClanThreadWhereInput | ClanThreadWhereInput[]
-    clanId?: IntFilter<"ClanThread"> | number
-    creatorId?: IntFilter<"ClanThread"> | number
+    clanId?: UuidFilter<"ClanThread"> | string
+    creatorId?: UuidFilter<"ClanThread"> | string
     title?: StringFilter<"ClanThread"> | string
     locked?: BoolFilter<"ClanThread"> | boolean
     pinned?: BoolFilter<"ClanThread"> | boolean
@@ -29240,7 +28946,7 @@ export namespace Prisma {
     clan?: XOR<ClanRelationFilter, ClanWhereInput>
     creator?: XOR<BruteRelationFilter, BruteWhereInput>
     posts?: ClanPostListRelationFilter
-  }, "id">
+  }, "id" | "id">
 
   export type ClanThreadOrderByWithAggregationInput = {
     id?: SortOrder
@@ -29263,9 +28969,9 @@ export namespace Prisma {
     AND?: ClanThreadScalarWhereWithAggregatesInput | ClanThreadScalarWhereWithAggregatesInput[]
     OR?: ClanThreadScalarWhereWithAggregatesInput[]
     NOT?: ClanThreadScalarWhereWithAggregatesInput | ClanThreadScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"ClanThread"> | number
-    clanId?: IntWithAggregatesFilter<"ClanThread"> | number
-    creatorId?: IntWithAggregatesFilter<"ClanThread"> | number
+    id?: UuidWithAggregatesFilter<"ClanThread"> | string
+    clanId?: UuidWithAggregatesFilter<"ClanThread"> | string
+    creatorId?: UuidWithAggregatesFilter<"ClanThread"> | string
     title?: StringWithAggregatesFilter<"ClanThread"> | string
     locked?: BoolWithAggregatesFilter<"ClanThread"> | boolean
     pinned?: BoolWithAggregatesFilter<"ClanThread"> | boolean
@@ -29278,9 +28984,9 @@ export namespace Prisma {
     AND?: ClanPostWhereInput | ClanPostWhereInput[]
     OR?: ClanPostWhereInput[]
     NOT?: ClanPostWhereInput | ClanPostWhereInput[]
-    id?: IntFilter<"ClanPost"> | number
-    threadId?: IntFilter<"ClanPost"> | number
-    authorId?: IntFilter<"ClanPost"> | number
+    id?: UuidFilter<"ClanPost"> | string
+    threadId?: UuidFilter<"ClanPost"> | string
+    authorId?: UuidFilter<"ClanPost"> | string
     date?: DateTimeFilter<"ClanPost"> | Date | string
     message?: StringFilter<"ClanPost"> | string
     thread?: XOR<ClanThreadRelationFilter, ClanThreadWhereInput>
@@ -29298,17 +29004,17 @@ export namespace Prisma {
   }
 
   export type ClanPostWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: ClanPostWhereInput | ClanPostWhereInput[]
     OR?: ClanPostWhereInput[]
     NOT?: ClanPostWhereInput | ClanPostWhereInput[]
-    threadId?: IntFilter<"ClanPost"> | number
-    authorId?: IntFilter<"ClanPost"> | number
+    threadId?: UuidFilter<"ClanPost"> | string
+    authorId?: UuidFilter<"ClanPost"> | string
     date?: DateTimeFilter<"ClanPost"> | Date | string
     message?: StringFilter<"ClanPost"> | string
     thread?: XOR<ClanThreadRelationFilter, ClanThreadWhereInput>
     author?: XOR<BruteRelationFilter, BruteWhereInput>
-  }, "id">
+  }, "id" | "id">
 
   export type ClanPostOrderByWithAggregationInput = {
     id?: SortOrder
@@ -29317,19 +29023,17 @@ export namespace Prisma {
     date?: SortOrder
     message?: SortOrder
     _count?: ClanPostCountOrderByAggregateInput
-    _avg?: ClanPostAvgOrderByAggregateInput
     _max?: ClanPostMaxOrderByAggregateInput
     _min?: ClanPostMinOrderByAggregateInput
-    _sum?: ClanPostSumOrderByAggregateInput
   }
 
   export type ClanPostScalarWhereWithAggregatesInput = {
     AND?: ClanPostScalarWhereWithAggregatesInput | ClanPostScalarWhereWithAggregatesInput[]
     OR?: ClanPostScalarWhereWithAggregatesInput[]
     NOT?: ClanPostScalarWhereWithAggregatesInput | ClanPostScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"ClanPost"> | number
-    threadId?: IntWithAggregatesFilter<"ClanPost"> | number
-    authorId?: IntWithAggregatesFilter<"ClanPost"> | number
+    id?: UuidWithAggregatesFilter<"ClanPost"> | string
+    threadId?: UuidWithAggregatesFilter<"ClanPost"> | string
+    authorId?: UuidWithAggregatesFilter<"ClanPost"> | string
     date?: DateTimeWithAggregatesFilter<"ClanPost"> | Date | string
     message?: StringWithAggregatesFilter<"ClanPost"> | string
   }
@@ -29338,9 +29042,9 @@ export namespace Prisma {
     AND?: BossDamageWhereInput | BossDamageWhereInput[]
     OR?: BossDamageWhereInput[]
     NOT?: BossDamageWhereInput | BossDamageWhereInput[]
-    id?: IntFilter<"BossDamage"> | number
-    bruteId?: IntFilter<"BossDamage"> | number
-    clanId?: IntFilter<"BossDamage"> | number
+    id?: UuidFilter<"BossDamage"> | string
+    bruteId?: UuidFilter<"BossDamage"> | string
+    clanId?: UuidFilter<"BossDamage"> | string
     damage?: IntFilter<"BossDamage"> | number
     brute?: XOR<BruteRelationFilter, BruteWhereInput>
     clan?: XOR<ClanRelationFilter, ClanWhereInput>
@@ -29356,17 +29060,17 @@ export namespace Prisma {
   }
 
   export type BossDamageWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     bruteId_clanId?: BossDamageBruteIdClanIdCompoundUniqueInput
     AND?: BossDamageWhereInput | BossDamageWhereInput[]
     OR?: BossDamageWhereInput[]
     NOT?: BossDamageWhereInput | BossDamageWhereInput[]
-    bruteId?: IntFilter<"BossDamage"> | number
-    clanId?: IntFilter<"BossDamage"> | number
+    bruteId?: UuidFilter<"BossDamage"> | string
+    clanId?: UuidFilter<"BossDamage"> | string
     damage?: IntFilter<"BossDamage"> | number
     brute?: XOR<BruteRelationFilter, BruteWhereInput>
     clan?: XOR<ClanRelationFilter, ClanWhereInput>
-  }, "id" | "bruteId_clanId">
+  }, "id" | "id" | "bruteId_clanId">
 
   export type BossDamageOrderByWithAggregationInput = {
     id?: SortOrder
@@ -29384,9 +29088,9 @@ export namespace Prisma {
     AND?: BossDamageScalarWhereWithAggregatesInput | BossDamageScalarWhereWithAggregatesInput[]
     OR?: BossDamageScalarWhereWithAggregatesInput[]
     NOT?: BossDamageScalarWhereWithAggregatesInput | BossDamageScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"BossDamage"> | number
-    bruteId?: IntWithAggregatesFilter<"BossDamage"> | number
-    clanId?: IntWithAggregatesFilter<"BossDamage"> | number
+    id?: UuidWithAggregatesFilter<"BossDamage"> | string
+    bruteId?: UuidWithAggregatesFilter<"BossDamage"> | string
+    clanId?: UuidWithAggregatesFilter<"BossDamage"> | string
     damage?: IntWithAggregatesFilter<"BossDamage"> | number
   }
 
@@ -29394,10 +29098,10 @@ export namespace Prisma {
     AND?: BruteInventoryItemWhereInput | BruteInventoryItemWhereInput[]
     OR?: BruteInventoryItemWhereInput[]
     NOT?: BruteInventoryItemWhereInput | BruteInventoryItemWhereInput[]
-    id?: IntFilter<"BruteInventoryItem"> | number
+    id?: UuidFilter<"BruteInventoryItem"> | string
     type?: EnumInventoryItemTypeFilter<"BruteInventoryItem"> | $Enums.InventoryItemType
     count?: IntFilter<"BruteInventoryItem"> | number
-    bruteId?: IntFilter<"BruteInventoryItem"> | number
+    bruteId?: UuidFilter<"BruteInventoryItem"> | string
     brute?: XOR<BruteRelationFilter, BruteWhereInput>
   }
 
@@ -29410,16 +29114,16 @@ export namespace Prisma {
   }
 
   export type BruteInventoryItemWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     type_bruteId?: BruteInventoryItemTypeBruteIdCompoundUniqueInput
     AND?: BruteInventoryItemWhereInput | BruteInventoryItemWhereInput[]
     OR?: BruteInventoryItemWhereInput[]
     NOT?: BruteInventoryItemWhereInput | BruteInventoryItemWhereInput[]
     type?: EnumInventoryItemTypeFilter<"BruteInventoryItem"> | $Enums.InventoryItemType
     count?: IntFilter<"BruteInventoryItem"> | number
-    bruteId?: IntFilter<"BruteInventoryItem"> | number
+    bruteId?: UuidFilter<"BruteInventoryItem"> | string
     brute?: XOR<BruteRelationFilter, BruteWhereInput>
-  }, "id" | "type_bruteId">
+  }, "id" | "id" | "type_bruteId">
 
   export type BruteInventoryItemOrderByWithAggregationInput = {
     id?: SortOrder
@@ -29437,10 +29141,10 @@ export namespace Prisma {
     AND?: BruteInventoryItemScalarWhereWithAggregatesInput | BruteInventoryItemScalarWhereWithAggregatesInput[]
     OR?: BruteInventoryItemScalarWhereWithAggregatesInput[]
     NOT?: BruteInventoryItemScalarWhereWithAggregatesInput | BruteInventoryItemScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"BruteInventoryItem"> | number
+    id?: UuidWithAggregatesFilter<"BruteInventoryItem"> | string
     type?: EnumInventoryItemTypeWithAggregatesFilter<"BruteInventoryItem"> | $Enums.InventoryItemType
     count?: IntWithAggregatesFilter<"BruteInventoryItem"> | number
-    bruteId?: IntWithAggregatesFilter<"BruteInventoryItem"> | number
+    bruteId?: UuidWithAggregatesFilter<"BruteInventoryItem"> | string
   }
 
   export type UserCreateInput = {
@@ -29558,6 +29262,7 @@ export namespace Prisma {
   }
 
   export type BruteCreateInput = {
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -29627,7 +29332,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedCreateInput = {
-    id?: number
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -29658,9 +29363,9 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
-    masterId?: number | null
+    masterId?: string | null
     pupilsCount?: number
-    clanId?: number | null
+    clanId?: string | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
@@ -29673,7 +29378,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinClanId?: number | null
+    wantToJoinClanId?: string | null
     tournamentWins?: number
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
@@ -29697,6 +29402,7 @@ export namespace Prisma {
   }
 
   export type BruteUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29766,7 +29472,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29797,9 +29503,9 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -29812,7 +29518,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentWins?: IntFieldUpdateOperationsInput | number
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
@@ -29836,7 +29542,7 @@ export namespace Prisma {
   }
 
   export type BruteCreateManyInput = {
-    id?: number
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -29867,9 +29573,9 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
-    masterId?: number | null
+    masterId?: string | null
     pupilsCount?: number
-    clanId?: number | null
+    clanId?: string | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
@@ -29882,11 +29588,12 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinClanId?: number | null
+    wantToJoinClanId?: string | null
     tournamentWins?: number
   }
 
   export type BruteUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29933,7 +29640,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29964,9 +29671,9 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -29979,11 +29686,12 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentWins?: IntFieldUpdateOperationsInput | number
   }
 
   export type BruteStartingStatsCreateInput = {
+    id?: string
     endurance?: number
     strength?: number
     agility?: number
@@ -29992,15 +29700,16 @@ export namespace Prisma {
   }
 
   export type BruteStartingStatsUncheckedCreateInput = {
-    id?: number
+    id?: string
     endurance?: number
     strength?: number
     agility?: number
     speed?: number
-    bruteId: number
+    bruteId: string
   }
 
   export type BruteStartingStatsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     endurance?: IntFieldUpdateOperationsInput | number
     strength?: IntFieldUpdateOperationsInput | number
     agility?: IntFieldUpdateOperationsInput | number
@@ -30009,24 +29718,25 @@ export namespace Prisma {
   }
 
   export type BruteStartingStatsUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     endurance?: IntFieldUpdateOperationsInput | number
     strength?: IntFieldUpdateOperationsInput | number
     agility?: IntFieldUpdateOperationsInput | number
     speed?: IntFieldUpdateOperationsInput | number
-    bruteId?: IntFieldUpdateOperationsInput | number
+    bruteId?: StringFieldUpdateOperationsInput | string
   }
 
   export type BruteStartingStatsCreateManyInput = {
-    id?: number
+    id?: string
     endurance?: number
     strength?: number
     agility?: number
     speed?: number
-    bruteId: number
+    bruteId: string
   }
 
   export type BruteStartingStatsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     endurance?: IntFieldUpdateOperationsInput | number
     strength?: IntFieldUpdateOperationsInput | number
     agility?: IntFieldUpdateOperationsInput | number
@@ -30034,15 +29744,16 @@ export namespace Prisma {
   }
 
   export type BruteStartingStatsUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     endurance?: IntFieldUpdateOperationsInput | number
     strength?: IntFieldUpdateOperationsInput | number
     agility?: IntFieldUpdateOperationsInput | number
     speed?: IntFieldUpdateOperationsInput | number
-    bruteId?: IntFieldUpdateOperationsInput | number
+    bruteId?: StringFieldUpdateOperationsInput | string
   }
 
   export type FightCreateInput = {
+    id?: string
     date?: Date | string
     winner: string
     loser: string
@@ -30058,15 +29769,15 @@ export namespace Prisma {
   }
 
   export type FightUncheckedCreateInput = {
-    id?: number
+    id?: string
     date?: Date | string
-    brute1Id: number
-    brute2Id?: number | null
+    brute1Id: string
+    brute2Id?: string | null
     winner: string
     loser: string
     steps: string
     fighters: string
-    tournamentId?: number | null
+    tournamentId?: string | null
     tournamentStep?: number
     modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     background?: string
@@ -30074,6 +29785,7 @@ export namespace Prisma {
   }
 
   export type FightUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
@@ -30089,15 +29801,15 @@ export namespace Prisma {
   }
 
   export type FightUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    brute1Id?: IntFieldUpdateOperationsInput | number
-    brute2Id?: NullableIntFieldUpdateOperationsInput | number | null
+    brute1Id?: StringFieldUpdateOperationsInput | string
+    brute2Id?: NullableStringFieldUpdateOperationsInput | string | null
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
     steps?: StringFieldUpdateOperationsInput | string
     fighters?: StringFieldUpdateOperationsInput | string
-    tournamentId?: NullableIntFieldUpdateOperationsInput | number | null
+    tournamentId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentStep?: IntFieldUpdateOperationsInput | number
     modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     background?: StringFieldUpdateOperationsInput | string
@@ -30105,21 +29817,22 @@ export namespace Prisma {
   }
 
   export type FightCreateManyInput = {
-    id?: number
+    id?: string
     date?: Date | string
-    brute1Id: number
-    brute2Id?: number | null
+    brute1Id: string
+    brute2Id?: string | null
     winner: string
     loser: string
     steps: string
     fighters: string
-    tournamentId?: number | null
+    tournamentId?: string | null
     tournamentStep?: number
     modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     background?: string
   }
 
   export type FightUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
@@ -30131,21 +29844,22 @@ export namespace Prisma {
   }
 
   export type FightUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    brute1Id?: IntFieldUpdateOperationsInput | number
-    brute2Id?: NullableIntFieldUpdateOperationsInput | number | null
+    brute1Id?: StringFieldUpdateOperationsInput | string
+    brute2Id?: NullableStringFieldUpdateOperationsInput | string | null
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
     steps?: StringFieldUpdateOperationsInput | string
     fighters?: StringFieldUpdateOperationsInput | string
-    tournamentId?: NullableIntFieldUpdateOperationsInput | number | null
+    tournamentId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentStep?: IntFieldUpdateOperationsInput | number
     modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     background?: StringFieldUpdateOperationsInput | string
   }
 
   export type LogCreateInput = {
+    id?: string
     date?: Date | string
     type: $Enums.LogType
     level?: number | null
@@ -30157,18 +29871,19 @@ export namespace Prisma {
   }
 
   export type LogUncheckedCreateInput = {
-    id?: number
+    id?: string
     date?: Date | string
-    currentBruteId: number
+    currentBruteId: string
     type: $Enums.LogType
     level?: number | null
     brute?: string | null
-    fightId?: number | null
+    fightId?: string | null
     xp?: number | null
     gold?: number | null
   }
 
   export type LogUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumLogTypeFieldUpdateOperationsInput | $Enums.LogType
     level?: NullableIntFieldUpdateOperationsInput | number | null
@@ -30180,30 +29895,31 @@ export namespace Prisma {
   }
 
   export type LogUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    currentBruteId?: IntFieldUpdateOperationsInput | number
+    currentBruteId?: StringFieldUpdateOperationsInput | string
     type?: EnumLogTypeFieldUpdateOperationsInput | $Enums.LogType
     level?: NullableIntFieldUpdateOperationsInput | number | null
     brute?: NullableStringFieldUpdateOperationsInput | string | null
-    fightId?: NullableIntFieldUpdateOperationsInput | number | null
+    fightId?: NullableStringFieldUpdateOperationsInput | string | null
     xp?: NullableIntFieldUpdateOperationsInput | number | null
     gold?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type LogCreateManyInput = {
-    id?: number
+    id?: string
     date?: Date | string
-    currentBruteId: number
+    currentBruteId: string
     type: $Enums.LogType
     level?: number | null
     brute?: string | null
-    fightId?: number | null
+    fightId?: string | null
     xp?: number | null
     gold?: number | null
   }
 
   export type LogUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumLogTypeFieldUpdateOperationsInput | $Enums.LogType
     level?: NullableIntFieldUpdateOperationsInput | number | null
@@ -30213,18 +29929,19 @@ export namespace Prisma {
   }
 
   export type LogUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    currentBruteId?: IntFieldUpdateOperationsInput | number
+    currentBruteId?: StringFieldUpdateOperationsInput | string
     type?: EnumLogTypeFieldUpdateOperationsInput | $Enums.LogType
     level?: NullableIntFieldUpdateOperationsInput | number | null
     brute?: NullableStringFieldUpdateOperationsInput | string | null
-    fightId?: NullableIntFieldUpdateOperationsInput | number | null
+    fightId?: NullableStringFieldUpdateOperationsInput | string | null
     xp?: NullableIntFieldUpdateOperationsInput | number | null
     gold?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type DestinyChoiceCreateInput = {
+    id?: string
     path?: DestinyChoiceCreatepathInput | $Enums.DestinyChoiceSide[]
     type: $Enums.DestinyChoiceType
     skill?: $Enums.SkillName | null
@@ -30238,8 +29955,8 @@ export namespace Prisma {
   }
 
   export type DestinyChoiceUncheckedCreateInput = {
-    id?: number
-    bruteId: number
+    id?: string
+    bruteId: string
     path?: DestinyChoiceCreatepathInput | $Enums.DestinyChoiceSide[]
     type: $Enums.DestinyChoiceType
     skill?: $Enums.SkillName | null
@@ -30252,6 +29969,7 @@ export namespace Prisma {
   }
 
   export type DestinyChoiceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     path?: DestinyChoiceUpdatepathInput | $Enums.DestinyChoiceSide[]
     type?: EnumDestinyChoiceTypeFieldUpdateOperationsInput | $Enums.DestinyChoiceType
     skill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
@@ -30265,8 +29983,8 @@ export namespace Prisma {
   }
 
   export type DestinyChoiceUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    bruteId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    bruteId?: StringFieldUpdateOperationsInput | string
     path?: DestinyChoiceUpdatepathInput | $Enums.DestinyChoiceSide[]
     type?: EnumDestinyChoiceTypeFieldUpdateOperationsInput | $Enums.DestinyChoiceType
     skill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
@@ -30279,8 +29997,8 @@ export namespace Prisma {
   }
 
   export type DestinyChoiceCreateManyInput = {
-    id?: number
-    bruteId: number
+    id?: string
+    bruteId: string
     path?: DestinyChoiceCreatepathInput | $Enums.DestinyChoiceSide[]
     type: $Enums.DestinyChoiceType
     skill?: $Enums.SkillName | null
@@ -30293,6 +30011,7 @@ export namespace Prisma {
   }
 
   export type DestinyChoiceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     path?: DestinyChoiceUpdatepathInput | $Enums.DestinyChoiceSide[]
     type?: EnumDestinyChoiceTypeFieldUpdateOperationsInput | $Enums.DestinyChoiceType
     skill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
@@ -30305,8 +30024,8 @@ export namespace Prisma {
   }
 
   export type DestinyChoiceUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    bruteId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    bruteId?: StringFieldUpdateOperationsInput | string
     path?: DestinyChoiceUpdatepathInput | $Enums.DestinyChoiceSide[]
     type?: EnumDestinyChoiceTypeFieldUpdateOperationsInput | $Enums.DestinyChoiceType
     skill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
@@ -30319,6 +30038,7 @@ export namespace Prisma {
   }
 
   export type TournamentCreateInput = {
+    id?: string
     date: Date | string
     type?: $Enums.TournamentType
     rounds: number
@@ -30327,7 +30047,7 @@ export namespace Prisma {
   }
 
   export type TournamentUncheckedCreateInput = {
-    id?: number
+    id?: string
     date: Date | string
     type?: $Enums.TournamentType
     rounds: number
@@ -30336,6 +30056,7 @@ export namespace Prisma {
   }
 
   export type TournamentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumTournamentTypeFieldUpdateOperationsInput | $Enums.TournamentType
     rounds?: IntFieldUpdateOperationsInput | number
@@ -30344,7 +30065,7 @@ export namespace Prisma {
   }
 
   export type TournamentUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumTournamentTypeFieldUpdateOperationsInput | $Enums.TournamentType
     rounds?: IntFieldUpdateOperationsInput | number
@@ -30353,26 +30074,28 @@ export namespace Prisma {
   }
 
   export type TournamentCreateManyInput = {
-    id?: number
+    id?: string
     date: Date | string
     type?: $Enums.TournamentType
     rounds: number
   }
 
   export type TournamentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumTournamentTypeFieldUpdateOperationsInput | $Enums.TournamentType
     rounds?: IntFieldUpdateOperationsInput | number
   }
 
   export type TournamentUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumTournamentTypeFieldUpdateOperationsInput | $Enums.TournamentType
     rounds?: IntFieldUpdateOperationsInput | number
   }
 
   export type TournamentAchievementCreateInput = {
+    id?: string
     date: Date | string
     achievement: $Enums.AchievementName
     achievementCount: number
@@ -30380,14 +30103,15 @@ export namespace Prisma {
   }
 
   export type TournamentAchievementUncheckedCreateInput = {
-    id?: number
+    id?: string
+    bruteId: string
     date: Date | string
-    bruteId: number
     achievement: $Enums.AchievementName
     achievementCount: number
   }
 
   export type TournamentAchievementUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     achievement?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
     achievementCount?: IntFieldUpdateOperationsInput | number
@@ -30395,126 +30119,134 @@ export namespace Prisma {
   }
 
   export type TournamentAchievementUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    bruteId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    bruteId?: IntFieldUpdateOperationsInput | number
     achievement?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
     achievementCount?: IntFieldUpdateOperationsInput | number
   }
 
   export type TournamentAchievementCreateManyInput = {
-    id?: number
+    id?: string
+    bruteId: string
     date: Date | string
-    bruteId: number
     achievement: $Enums.AchievementName
     achievementCount: number
   }
 
   export type TournamentAchievementUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     achievement?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
     achievementCount?: IntFieldUpdateOperationsInput | number
   }
 
   export type TournamentAchievementUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    bruteId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    bruteId?: IntFieldUpdateOperationsInput | number
     achievement?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
     achievementCount?: IntFieldUpdateOperationsInput | number
   }
 
   export type TournamentGoldCreateInput = {
+    id?: string
     date: Date | string
     gold: number
     user: UserCreateNestedOneWithoutTournamentGoldsInput
   }
 
   export type TournamentGoldUncheckedCreateInput = {
-    id?: number
+    id?: string
     date: Date | string
     userId: string
     gold: number
   }
 
   export type TournamentGoldUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     gold?: IntFieldUpdateOperationsInput | number
     user?: UserUpdateOneRequiredWithoutTournamentGoldsNestedInput
   }
 
   export type TournamentGoldUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
     gold?: IntFieldUpdateOperationsInput | number
   }
 
   export type TournamentGoldCreateManyInput = {
-    id?: number
+    id?: string
     date: Date | string
     userId: string
     gold: number
   }
 
   export type TournamentGoldUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     gold?: IntFieldUpdateOperationsInput | number
   }
 
   export type TournamentGoldUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
     gold?: IntFieldUpdateOperationsInput | number
   }
 
   export type TournamentXpCreateInput = {
+    id?: string
     date: Date | string
     xp: number
     brute: BruteCreateNestedOneWithoutTournamentXpsInput
   }
 
   export type TournamentXpUncheckedCreateInput = {
-    id?: number
+    id?: string
     date: Date | string
-    bruteId: number
+    bruteId: string
     xp: number
   }
 
   export type TournamentXpUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     xp?: IntFieldUpdateOperationsInput | number
     brute?: BruteUpdateOneRequiredWithoutTournamentXpsNestedInput
   }
 
   export type TournamentXpUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    bruteId?: IntFieldUpdateOperationsInput | number
+    bruteId?: StringFieldUpdateOperationsInput | string
     xp?: IntFieldUpdateOperationsInput | number
   }
 
   export type TournamentXpCreateManyInput = {
-    id?: number
+    id?: string
     date: Date | string
-    bruteId: number
+    bruteId: string
     xp: number
   }
 
   export type TournamentXpUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     xp?: IntFieldUpdateOperationsInput | number
   }
 
   export type TournamentXpUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    bruteId?: IntFieldUpdateOperationsInput | number
+    bruteId?: StringFieldUpdateOperationsInput | string
     xp?: IntFieldUpdateOperationsInput | number
   }
 
   export type AchievementCreateInput = {
+    id?: string
     name: $Enums.AchievementName
     count?: number
     brute?: BruteCreateNestedOneWithoutAchievementsInput
@@ -30522,14 +30254,15 @@ export namespace Prisma {
   }
 
   export type AchievementUncheckedCreateInput = {
-    id?: number
+    id?: string
     name: $Enums.AchievementName
     count?: number
-    bruteId?: number | null
+    bruteId?: string | null
     userId?: string | null
   }
 
   export type AchievementUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
     count?: IntFieldUpdateOperationsInput | number
     brute?: BruteUpdateOneWithoutAchievementsNestedInput
@@ -30537,78 +30270,83 @@ export namespace Prisma {
   }
 
   export type AchievementUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
     count?: IntFieldUpdateOperationsInput | number
-    bruteId?: NullableIntFieldUpdateOperationsInput | number | null
+    bruteId?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AchievementCreateManyInput = {
-    id?: number
+    id?: string
     name: $Enums.AchievementName
     count?: number
-    bruteId?: number | null
+    bruteId?: string | null
     userId?: string | null
   }
 
   export type AchievementUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
     count?: IntFieldUpdateOperationsInput | number
   }
 
   export type AchievementUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
     count?: IntFieldUpdateOperationsInput | number
-    bruteId?: NullableIntFieldUpdateOperationsInput | number | null
+    bruteId?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TitleCreateInput = {
+    id?: string
     name: $Enums.AchievementName
     count?: number
     brutes?: BruteCreateNestedManyWithoutTitlesInput
   }
 
   export type TitleUncheckedCreateInput = {
-    id?: number
+    id?: string
     name: $Enums.AchievementName
     count?: number
     brutes?: BruteUncheckedCreateNestedManyWithoutTitlesInput
   }
 
   export type TitleUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
     count?: IntFieldUpdateOperationsInput | number
     brutes?: BruteUpdateManyWithoutTitlesNestedInput
   }
 
   export type TitleUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
     count?: IntFieldUpdateOperationsInput | number
     brutes?: BruteUncheckedUpdateManyWithoutTitlesNestedInput
   }
 
   export type TitleCreateManyInput = {
-    id?: number
+    id?: string
     name: $Enums.AchievementName
     count?: number
   }
 
   export type TitleUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
     count?: IntFieldUpdateOperationsInput | number
   }
 
   export type TitleUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
     count?: IntFieldUpdateOperationsInput | number
   }
 
   export type BruteReportCreateInput = {
+    id?: string
     reason?: $Enums.BruteReportReason
     count?: number
     date?: Date | string
@@ -30618,8 +30356,8 @@ export namespace Prisma {
   }
 
   export type BruteReportUncheckedCreateInput = {
-    id?: number
-    bruteId: number
+    id?: string
+    bruteId: string
     reason?: $Enums.BruteReportReason
     count?: number
     date?: Date | string
@@ -30628,6 +30366,7 @@ export namespace Prisma {
   }
 
   export type BruteReportUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -30637,8 +30376,8 @@ export namespace Prisma {
   }
 
   export type BruteReportUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    bruteId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    bruteId?: StringFieldUpdateOperationsInput | string
     reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -30647,8 +30386,8 @@ export namespace Prisma {
   }
 
   export type BruteReportCreateManyInput = {
-    id?: number
-    bruteId: number
+    id?: string
+    bruteId: string
     reason?: $Enums.BruteReportReason
     count?: number
     date?: Date | string
@@ -30656,6 +30395,7 @@ export namespace Prisma {
   }
 
   export type BruteReportUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -30663,8 +30403,8 @@ export namespace Prisma {
   }
 
   export type BruteReportUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    bruteId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    bruteId?: StringFieldUpdateOperationsInput | string
     reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -30672,123 +30412,133 @@ export namespace Prisma {
   }
 
   export type ServerStateCreateInput = {
+    id?: string
     globalTournamentValid?: boolean
     activeModifiers?: ServerStateCreateactiveModifiersInput | $Enums.FightModifier[]
     modifiersEndAt?: Date | string | null
   }
 
   export type ServerStateUncheckedCreateInput = {
-    id?: number
+    id?: string
     globalTournamentValid?: boolean
     activeModifiers?: ServerStateCreateactiveModifiersInput | $Enums.FightModifier[]
     modifiersEndAt?: Date | string | null
   }
 
   export type ServerStateUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     globalTournamentValid?: BoolFieldUpdateOperationsInput | boolean
     activeModifiers?: ServerStateUpdateactiveModifiersInput | $Enums.FightModifier[]
     modifiersEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ServerStateUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     globalTournamentValid?: BoolFieldUpdateOperationsInput | boolean
     activeModifiers?: ServerStateUpdateactiveModifiersInput | $Enums.FightModifier[]
     modifiersEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ServerStateCreateManyInput = {
-    id?: number
+    id?: string
     globalTournamentValid?: boolean
     activeModifiers?: ServerStateCreateactiveModifiersInput | $Enums.FightModifier[]
     modifiersEndAt?: Date | string | null
   }
 
   export type ServerStateUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     globalTournamentValid?: BoolFieldUpdateOperationsInput | boolean
     activeModifiers?: ServerStateUpdateactiveModifiersInput | $Enums.FightModifier[]
     modifiersEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ServerStateUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     globalTournamentValid?: BoolFieldUpdateOperationsInput | boolean
     activeModifiers?: ServerStateUpdateactiveModifiersInput | $Enums.FightModifier[]
     modifiersEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type BannedWordCreateInput = {
+    id?: string
     word: string
   }
 
   export type BannedWordUncheckedCreateInput = {
-    id?: number
+    id?: string
     word: string
   }
 
   export type BannedWordUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     word?: StringFieldUpdateOperationsInput | string
   }
 
   export type BannedWordUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     word?: StringFieldUpdateOperationsInput | string
   }
 
   export type BannedWordCreateManyInput = {
-    id?: number
+    id?: string
     word: string
   }
 
   export type BannedWordUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     word?: StringFieldUpdateOperationsInput | string
   }
 
   export type BannedWordUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     word?: StringFieldUpdateOperationsInput | string
   }
 
   export type WorkerJobCreateInput = {
+    id?: string
     worker: string
     payload: string
   }
 
   export type WorkerJobUncheckedCreateInput = {
-    id?: number
+    id?: string
     worker: string
     payload: string
   }
 
   export type WorkerJobUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     worker?: StringFieldUpdateOperationsInput | string
     payload?: StringFieldUpdateOperationsInput | string
   }
 
   export type WorkerJobUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     worker?: StringFieldUpdateOperationsInput | string
     payload?: StringFieldUpdateOperationsInput | string
   }
 
   export type WorkerJobCreateManyInput = {
-    id?: number
+    id?: string
     worker: string
     payload: string
   }
 
   export type WorkerJobUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     worker?: StringFieldUpdateOperationsInput | string
     payload?: StringFieldUpdateOperationsInput | string
   }
 
   export type WorkerJobUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     worker?: StringFieldUpdateOperationsInput | string
     payload?: StringFieldUpdateOperationsInput | string
   }
 
   export type ClanCreateInput = {
+    id?: string
     name: string
     limit?: number
     points?: number
@@ -30802,13 +30552,13 @@ export namespace Prisma {
   }
 
   export type ClanUncheckedCreateInput = {
-    id?: number
+    id?: string
     name: string
     limit?: number
     points?: number
     boss?: $Enums.BossName
     damageOnBoss?: number
-    masterId: number
+    masterId: string
     brutes?: BruteUncheckedCreateNestedManyWithoutClanInput
     joinRequests?: BruteUncheckedCreateNestedManyWithoutWantToJoinClanInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutClanInput
@@ -30816,6 +30566,7 @@ export namespace Prisma {
   }
 
   export type ClanUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     limit?: IntFieldUpdateOperationsInput | number
     points?: IntFieldUpdateOperationsInput | number
@@ -30829,13 +30580,13 @@ export namespace Prisma {
   }
 
   export type ClanUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     limit?: IntFieldUpdateOperationsInput | number
     points?: IntFieldUpdateOperationsInput | number
     boss?: EnumBossNameFieldUpdateOperationsInput | $Enums.BossName
     damageOnBoss?: IntFieldUpdateOperationsInput | number
-    masterId?: IntFieldUpdateOperationsInput | number
+    masterId?: StringFieldUpdateOperationsInput | string
     brutes?: BruteUncheckedUpdateManyWithoutClanNestedInput
     joinRequests?: BruteUncheckedUpdateManyWithoutWantToJoinClanNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutClanNestedInput
@@ -30843,16 +30594,17 @@ export namespace Prisma {
   }
 
   export type ClanCreateManyInput = {
-    id?: number
+    id?: string
     name: string
     limit?: number
     points?: number
     boss?: $Enums.BossName
     damageOnBoss?: number
-    masterId: number
+    masterId: string
   }
 
   export type ClanUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     limit?: IntFieldUpdateOperationsInput | number
     points?: IntFieldUpdateOperationsInput | number
@@ -30861,16 +30613,17 @@ export namespace Prisma {
   }
 
   export type ClanUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     limit?: IntFieldUpdateOperationsInput | number
     points?: IntFieldUpdateOperationsInput | number
     boss?: EnumBossNameFieldUpdateOperationsInput | $Enums.BossName
     damageOnBoss?: IntFieldUpdateOperationsInput | number
-    masterId?: IntFieldUpdateOperationsInput | number
+    masterId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ClanThreadCreateInput = {
+    id?: string
     title: string
     locked?: boolean
     pinned?: boolean
@@ -30883,9 +30636,9 @@ export namespace Prisma {
   }
 
   export type ClanThreadUncheckedCreateInput = {
-    id?: number
-    clanId: number
-    creatorId: number
+    id?: string
+    clanId: string
+    creatorId: string
     title: string
     locked?: boolean
     pinned?: boolean
@@ -30896,6 +30649,7 @@ export namespace Prisma {
   }
 
   export type ClanThreadUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
     pinned?: BoolFieldUpdateOperationsInput | boolean
@@ -30908,9 +30662,9 @@ export namespace Prisma {
   }
 
   export type ClanThreadUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    clanId?: IntFieldUpdateOperationsInput | number
-    creatorId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    clanId?: StringFieldUpdateOperationsInput | string
+    creatorId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
     pinned?: BoolFieldUpdateOperationsInput | boolean
@@ -30921,9 +30675,9 @@ export namespace Prisma {
   }
 
   export type ClanThreadCreateManyInput = {
-    id?: number
-    clanId: number
-    creatorId: number
+    id?: string
+    clanId: string
+    creatorId: string
     title: string
     locked?: boolean
     pinned?: boolean
@@ -30933,6 +30687,7 @@ export namespace Prisma {
   }
 
   export type ClanThreadUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
     pinned?: BoolFieldUpdateOperationsInput | boolean
@@ -30942,9 +30697,9 @@ export namespace Prisma {
   }
 
   export type ClanThreadUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    clanId?: IntFieldUpdateOperationsInput | number
-    creatorId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    clanId?: StringFieldUpdateOperationsInput | string
+    creatorId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
     pinned?: BoolFieldUpdateOperationsInput | boolean
@@ -30954,6 +30709,7 @@ export namespace Prisma {
   }
 
   export type ClanPostCreateInput = {
+    id?: string
     date?: Date | string
     message: string
     thread: ClanThreadCreateNestedOneWithoutPostsInput
@@ -30961,14 +30717,15 @@ export namespace Prisma {
   }
 
   export type ClanPostUncheckedCreateInput = {
-    id?: number
-    threadId: number
-    authorId: number
+    id?: string
+    threadId: string
+    authorId: string
     date?: Date | string
     message: string
   }
 
   export type ClanPostUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     message?: StringFieldUpdateOperationsInput | string
     thread?: ClanThreadUpdateOneRequiredWithoutPostsNestedInput
@@ -30976,121 +30733,128 @@ export namespace Prisma {
   }
 
   export type ClanPostUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    threadId?: IntFieldUpdateOperationsInput | number
-    authorId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    threadId?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     message?: StringFieldUpdateOperationsInput | string
   }
 
   export type ClanPostCreateManyInput = {
-    id?: number
-    threadId: number
-    authorId: number
+    id?: string
+    threadId: string
+    authorId: string
     date?: Date | string
     message: string
   }
 
   export type ClanPostUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     message?: StringFieldUpdateOperationsInput | string
   }
 
   export type ClanPostUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    threadId?: IntFieldUpdateOperationsInput | number
-    authorId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    threadId?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     message?: StringFieldUpdateOperationsInput | string
   }
 
   export type BossDamageCreateInput = {
+    id?: string
     damage: number
     brute: BruteCreateNestedOneWithoutDamageOnBossesInput
     clan: ClanCreateNestedOneWithoutBossDamagesInput
   }
 
   export type BossDamageUncheckedCreateInput = {
-    id?: number
-    bruteId: number
-    clanId: number
+    id?: string
+    bruteId: string
+    clanId: string
     damage: number
   }
 
   export type BossDamageUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     damage?: IntFieldUpdateOperationsInput | number
     brute?: BruteUpdateOneRequiredWithoutDamageOnBossesNestedInput
     clan?: ClanUpdateOneRequiredWithoutBossDamagesNestedInput
   }
 
   export type BossDamageUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    bruteId?: IntFieldUpdateOperationsInput | number
-    clanId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    bruteId?: StringFieldUpdateOperationsInput | string
+    clanId?: StringFieldUpdateOperationsInput | string
     damage?: IntFieldUpdateOperationsInput | number
   }
 
   export type BossDamageCreateManyInput = {
-    id?: number
-    bruteId: number
-    clanId: number
+    id?: string
+    bruteId: string
+    clanId: string
     damage: number
   }
 
   export type BossDamageUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     damage?: IntFieldUpdateOperationsInput | number
   }
 
   export type BossDamageUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    bruteId?: IntFieldUpdateOperationsInput | number
-    clanId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    bruteId?: StringFieldUpdateOperationsInput | string
+    clanId?: StringFieldUpdateOperationsInput | string
     damage?: IntFieldUpdateOperationsInput | number
   }
 
   export type BruteInventoryItemCreateInput = {
+    id?: string
     type: $Enums.InventoryItemType
     count?: number
     brute: BruteCreateNestedOneWithoutInventoryInput
   }
 
   export type BruteInventoryItemUncheckedCreateInput = {
-    id?: number
+    id?: string
     type: $Enums.InventoryItemType
     count?: number
-    bruteId: number
+    bruteId: string
   }
 
   export type BruteInventoryItemUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     type?: EnumInventoryItemTypeFieldUpdateOperationsInput | $Enums.InventoryItemType
     count?: IntFieldUpdateOperationsInput | number
     brute?: BruteUpdateOneRequiredWithoutInventoryNestedInput
   }
 
   export type BruteInventoryItemUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     type?: EnumInventoryItemTypeFieldUpdateOperationsInput | $Enums.InventoryItemType
     count?: IntFieldUpdateOperationsInput | number
-    bruteId?: IntFieldUpdateOperationsInput | number
+    bruteId?: StringFieldUpdateOperationsInput | string
   }
 
   export type BruteInventoryItemCreateManyInput = {
-    id?: number
+    id?: string
     type: $Enums.InventoryItemType
     count?: number
-    bruteId: number
+    bruteId: string
   }
 
   export type BruteInventoryItemUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     type?: EnumInventoryItemTypeFieldUpdateOperationsInput | $Enums.InventoryItemType
     count?: IntFieldUpdateOperationsInput | number
   }
 
   export type BruteInventoryItemUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     type?: EnumInventoryItemTypeFieldUpdateOperationsInput | $Enums.InventoryItemType
     count?: IntFieldUpdateOperationsInput | number
-    bruteId?: IntFieldUpdateOperationsInput | number
+    bruteId?: StringFieldUpdateOperationsInput | string
   }
 
   export type UuidFilter<$PrismaModel = never> = {
@@ -31615,7 +31379,6 @@ export namespace Prisma {
   }
 
   export type BruteAvgOrderByAggregateInput = {
-    id?: SortOrder
     level?: SortOrder
     xp?: SortOrder
     hp?: SortOrder
@@ -31632,14 +31395,11 @@ export namespace Prisma {
     speedModifier?: SortOrder
     speedValue?: SortOrder
     ranking?: SortOrder
-    masterId?: SortOrder
     pupilsCount?: SortOrder
-    clanId?: SortOrder
     currentTournamentStepWatched?: SortOrder
     globalTournamentRoundWatched?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
-    wantToJoinClanId?: SortOrder
     tournamentWins?: SortOrder
   }
 
@@ -31736,7 +31496,6 @@ export namespace Prisma {
   }
 
   export type BruteSumOrderByAggregateInput = {
-    id?: SortOrder
     level?: SortOrder
     xp?: SortOrder
     hp?: SortOrder
@@ -31753,14 +31512,11 @@ export namespace Prisma {
     speedModifier?: SortOrder
     speedValue?: SortOrder
     ranking?: SortOrder
-    masterId?: SortOrder
     pupilsCount?: SortOrder
-    clanId?: SortOrder
     currentTournamentStepWatched?: SortOrder
     globalTournamentRoundWatched?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
-    wantToJoinClanId?: SortOrder
     tournamentWins?: SortOrder
   }
 
@@ -31868,12 +31624,10 @@ export namespace Prisma {
   }
 
   export type BruteStartingStatsAvgOrderByAggregateInput = {
-    id?: SortOrder
     endurance?: SortOrder
     strength?: SortOrder
     agility?: SortOrder
     speed?: SortOrder
-    bruteId?: SortOrder
   }
 
   export type BruteStartingStatsMaxOrderByAggregateInput = {
@@ -31895,12 +31649,10 @@ export namespace Prisma {
   }
 
   export type BruteStartingStatsSumOrderByAggregateInput = {
-    id?: SortOrder
     endurance?: SortOrder
     strength?: SortOrder
     agility?: SortOrder
     speed?: SortOrder
-    bruteId?: SortOrder
   }
 
   export type EnumFightModifierNullableListFilter<$PrismaModel = never> = {
@@ -31932,10 +31684,6 @@ export namespace Prisma {
   }
 
   export type FightAvgOrderByAggregateInput = {
-    id?: SortOrder
-    brute1Id?: SortOrder
-    brute2Id?: SortOrder
-    tournamentId?: SortOrder
     tournamentStep?: SortOrder
   }
 
@@ -31968,10 +31716,6 @@ export namespace Prisma {
   }
 
   export type FightSumOrderByAggregateInput = {
-    id?: SortOrder
-    brute1Id?: SortOrder
-    brute2Id?: SortOrder
-    tournamentId?: SortOrder
     tournamentStep?: SortOrder
   }
 
@@ -32000,10 +31744,7 @@ export namespace Prisma {
   }
 
   export type LogAvgOrderByAggregateInput = {
-    id?: SortOrder
-    currentBruteId?: SortOrder
     level?: SortOrder
-    fightId?: SortOrder
     xp?: SortOrder
     gold?: SortOrder
   }
@@ -32033,10 +31774,7 @@ export namespace Prisma {
   }
 
   export type LogSumOrderByAggregateInput = {
-    id?: SortOrder
-    currentBruteId?: SortOrder
     level?: SortOrder
-    fightId?: SortOrder
     xp?: SortOrder
     gold?: SortOrder
   }
@@ -32101,8 +31839,6 @@ export namespace Prisma {
   }
 
   export type DestinyChoiceAvgOrderByAggregateInput = {
-    id?: SortOrder
-    bruteId?: SortOrder
     stat1Value?: SortOrder
     stat2Value?: SortOrder
   }
@@ -32134,8 +31870,6 @@ export namespace Prisma {
   }
 
   export type DestinyChoiceSumOrderByAggregateInput = {
-    id?: SortOrder
-    bruteId?: SortOrder
     stat1Value?: SortOrder
     stat2Value?: SortOrder
   }
@@ -32205,7 +31939,6 @@ export namespace Prisma {
   }
 
   export type TournamentAvgOrderByAggregateInput = {
-    id?: SortOrder
     rounds?: SortOrder
   }
 
@@ -32224,7 +31957,6 @@ export namespace Prisma {
   }
 
   export type TournamentSumOrderByAggregateInput = {
-    id?: SortOrder
     rounds?: SortOrder
   }
 
@@ -32247,37 +31979,33 @@ export namespace Prisma {
 
   export type TournamentAchievementCountOrderByAggregateInput = {
     id?: SortOrder
-    date?: SortOrder
     bruteId?: SortOrder
+    date?: SortOrder
     achievement?: SortOrder
     achievementCount?: SortOrder
   }
 
   export type TournamentAchievementAvgOrderByAggregateInput = {
-    id?: SortOrder
-    bruteId?: SortOrder
     achievementCount?: SortOrder
   }
 
   export type TournamentAchievementMaxOrderByAggregateInput = {
     id?: SortOrder
-    date?: SortOrder
     bruteId?: SortOrder
+    date?: SortOrder
     achievement?: SortOrder
     achievementCount?: SortOrder
   }
 
   export type TournamentAchievementMinOrderByAggregateInput = {
     id?: SortOrder
-    date?: SortOrder
     bruteId?: SortOrder
+    date?: SortOrder
     achievement?: SortOrder
     achievementCount?: SortOrder
   }
 
   export type TournamentAchievementSumOrderByAggregateInput = {
-    id?: SortOrder
-    bruteId?: SortOrder
     achievementCount?: SortOrder
   }
 
@@ -32304,7 +32032,6 @@ export namespace Prisma {
   }
 
   export type TournamentGoldAvgOrderByAggregateInput = {
-    id?: SortOrder
     gold?: SortOrder
   }
 
@@ -32323,7 +32050,6 @@ export namespace Prisma {
   }
 
   export type TournamentGoldSumOrderByAggregateInput = {
-    id?: SortOrder
     gold?: SortOrder
   }
 
@@ -32335,8 +32061,6 @@ export namespace Prisma {
   }
 
   export type TournamentXpAvgOrderByAggregateInput = {
-    id?: SortOrder
-    bruteId?: SortOrder
     xp?: SortOrder
   }
 
@@ -32355,14 +32079,12 @@ export namespace Prisma {
   }
 
   export type TournamentXpSumOrderByAggregateInput = {
-    id?: SortOrder
-    bruteId?: SortOrder
     xp?: SortOrder
   }
 
   export type AchievementNameBruteIdCompoundUniqueInput = {
     name: $Enums.AchievementName
-    bruteId: number
+    bruteId: string
   }
 
   export type AchievementCountOrderByAggregateInput = {
@@ -32374,9 +32096,7 @@ export namespace Prisma {
   }
 
   export type AchievementAvgOrderByAggregateInput = {
-    id?: SortOrder
     count?: SortOrder
-    bruteId?: SortOrder
   }
 
   export type AchievementMaxOrderByAggregateInput = {
@@ -32396,9 +32116,7 @@ export namespace Prisma {
   }
 
   export type AchievementSumOrderByAggregateInput = {
-    id?: SortOrder
     count?: SortOrder
-    bruteId?: SortOrder
   }
 
   export type TitleCountOrderByAggregateInput = {
@@ -32408,7 +32126,6 @@ export namespace Prisma {
   }
 
   export type TitleAvgOrderByAggregateInput = {
-    id?: SortOrder
     count?: SortOrder
   }
 
@@ -32425,7 +32142,6 @@ export namespace Prisma {
   }
 
   export type TitleSumOrderByAggregateInput = {
-    id?: SortOrder
     count?: SortOrder
   }
 
@@ -32463,8 +32179,6 @@ export namespace Prisma {
   }
 
   export type BruteReportAvgOrderByAggregateInput = {
-    id?: SortOrder
-    bruteId?: SortOrder
     count?: SortOrder
   }
 
@@ -32487,8 +32201,6 @@ export namespace Prisma {
   }
 
   export type BruteReportSumOrderByAggregateInput = {
-    id?: SortOrder
-    bruteId?: SortOrder
     count?: SortOrder
   }
 
@@ -32519,10 +32231,6 @@ export namespace Prisma {
     modifiersEndAt?: SortOrder
   }
 
-  export type ServerStateAvgOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
   export type ServerStateMaxOrderByAggregateInput = {
     id?: SortOrder
     globalTournamentValid?: SortOrder
@@ -32535,17 +32243,9 @@ export namespace Prisma {
     modifiersEndAt?: SortOrder
   }
 
-  export type ServerStateSumOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
   export type BannedWordCountOrderByAggregateInput = {
     id?: SortOrder
     word?: SortOrder
-  }
-
-  export type BannedWordAvgOrderByAggregateInput = {
-    id?: SortOrder
   }
 
   export type BannedWordMaxOrderByAggregateInput = {
@@ -32558,18 +32258,10 @@ export namespace Prisma {
     word?: SortOrder
   }
 
-  export type BannedWordSumOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
   export type WorkerJobCountOrderByAggregateInput = {
     id?: SortOrder
     worker?: SortOrder
     payload?: SortOrder
-  }
-
-  export type WorkerJobAvgOrderByAggregateInput = {
-    id?: SortOrder
   }
 
   export type WorkerJobMaxOrderByAggregateInput = {
@@ -32582,10 +32274,6 @@ export namespace Prisma {
     id?: SortOrder
     worker?: SortOrder
     payload?: SortOrder
-  }
-
-  export type WorkerJobSumOrderByAggregateInput = {
-    id?: SortOrder
   }
 
   export type EnumBossNameFilter<$PrismaModel = never> = {
@@ -32606,11 +32294,9 @@ export namespace Prisma {
   }
 
   export type ClanAvgOrderByAggregateInput = {
-    id?: SortOrder
     limit?: SortOrder
     points?: SortOrder
     damageOnBoss?: SortOrder
-    masterId?: SortOrder
   }
 
   export type ClanMaxOrderByAggregateInput = {
@@ -32634,11 +32320,9 @@ export namespace Prisma {
   }
 
   export type ClanSumOrderByAggregateInput = {
-    id?: SortOrder
     limit?: SortOrder
     points?: SortOrder
     damageOnBoss?: SortOrder
-    masterId?: SortOrder
   }
 
   export type EnumBossNameWithAggregatesFilter<$PrismaModel = never> = {
@@ -32669,9 +32353,6 @@ export namespace Prisma {
   }
 
   export type ClanThreadAvgOrderByAggregateInput = {
-    id?: SortOrder
-    clanId?: SortOrder
-    creatorId?: SortOrder
     postCount?: SortOrder
   }
 
@@ -32700,9 +32381,6 @@ export namespace Prisma {
   }
 
   export type ClanThreadSumOrderByAggregateInput = {
-    id?: SortOrder
-    clanId?: SortOrder
-    creatorId?: SortOrder
     postCount?: SortOrder
   }
 
@@ -32717,12 +32395,6 @@ export namespace Prisma {
     authorId?: SortOrder
     date?: SortOrder
     message?: SortOrder
-  }
-
-  export type ClanPostAvgOrderByAggregateInput = {
-    id?: SortOrder
-    threadId?: SortOrder
-    authorId?: SortOrder
   }
 
   export type ClanPostMaxOrderByAggregateInput = {
@@ -32741,15 +32413,9 @@ export namespace Prisma {
     message?: SortOrder
   }
 
-  export type ClanPostSumOrderByAggregateInput = {
-    id?: SortOrder
-    threadId?: SortOrder
-    authorId?: SortOrder
-  }
-
   export type BossDamageBruteIdClanIdCompoundUniqueInput = {
-    bruteId: number
-    clanId: number
+    bruteId: string
+    clanId: string
   }
 
   export type BossDamageCountOrderByAggregateInput = {
@@ -32760,9 +32426,6 @@ export namespace Prisma {
   }
 
   export type BossDamageAvgOrderByAggregateInput = {
-    id?: SortOrder
-    bruteId?: SortOrder
-    clanId?: SortOrder
     damage?: SortOrder
   }
 
@@ -32781,9 +32444,6 @@ export namespace Prisma {
   }
 
   export type BossDamageSumOrderByAggregateInput = {
-    id?: SortOrder
-    bruteId?: SortOrder
-    clanId?: SortOrder
     damage?: SortOrder
   }
 
@@ -32796,7 +32456,7 @@ export namespace Prisma {
 
   export type BruteInventoryItemTypeBruteIdCompoundUniqueInput = {
     type: $Enums.InventoryItemType
-    bruteId: number
+    bruteId: string
   }
 
   export type BruteInventoryItemCountOrderByAggregateInput = {
@@ -32807,9 +32467,7 @@ export namespace Prisma {
   }
 
   export type BruteInventoryItemAvgOrderByAggregateInput = {
-    id?: SortOrder
     count?: SortOrder
-    bruteId?: SortOrder
   }
 
   export type BruteInventoryItemMaxOrderByAggregateInput = {
@@ -32827,9 +32485,7 @@ export namespace Prisma {
   }
 
   export type BruteInventoryItemSumOrderByAggregateInput = {
-    id?: SortOrder
     count?: SortOrder
-    bruteId?: SortOrder
   }
 
   export type EnumInventoryItemTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -35222,6 +34878,7 @@ export namespace Prisma {
   }
 
   export type BruteCreateWithoutUserInput = {
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -35290,7 +34947,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedCreateWithoutUserInput = {
-    id?: number
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -35320,9 +34977,9 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
-    masterId?: number | null
+    masterId?: string | null
     pupilsCount?: number
-    clanId?: number | null
+    clanId?: string | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
@@ -35335,7 +34992,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinClanId?: number | null
+    wantToJoinClanId?: string | null
     tournamentWins?: number
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
@@ -35369,16 +35026,17 @@ export namespace Prisma {
   }
 
   export type AchievementCreateWithoutUserInput = {
+    id?: string
     name: $Enums.AchievementName
     count?: number
     brute?: BruteCreateNestedOneWithoutAchievementsInput
   }
 
   export type AchievementUncheckedCreateWithoutUserInput = {
-    id?: number
+    id?: string
     name: $Enums.AchievementName
     count?: number
-    bruteId?: number | null
+    bruteId?: string | null
   }
 
   export type AchievementCreateOrConnectWithoutUserInput = {
@@ -35392,6 +35050,7 @@ export namespace Prisma {
   }
 
   export type BruteReportCreateWithoutUsersInput = {
+    id?: string
     reason?: $Enums.BruteReportReason
     count?: number
     date?: Date | string
@@ -35400,8 +35059,8 @@ export namespace Prisma {
   }
 
   export type BruteReportUncheckedCreateWithoutUsersInput = {
-    id?: number
-    bruteId: number
+    id?: string
+    bruteId: string
     reason?: $Enums.BruteReportReason
     count?: number
     date?: Date | string
@@ -35414,12 +35073,13 @@ export namespace Prisma {
   }
 
   export type TournamentGoldCreateWithoutUserInput = {
+    id?: string
     date: Date | string
     gold: number
   }
 
   export type TournamentGoldUncheckedCreateWithoutUserInput = {
-    id?: number
+    id?: string
     date: Date | string
     gold: number
   }
@@ -35454,7 +35114,7 @@ export namespace Prisma {
     AND?: BruteScalarWhereInput | BruteScalarWhereInput[]
     OR?: BruteScalarWhereInput[]
     NOT?: BruteScalarWhereInput | BruteScalarWhereInput[]
-    id?: IntFilter<"Brute"> | number
+    id?: UuidFilter<"Brute"> | string
     name?: StringFilter<"Brute"> | string
     deletedAt?: DateTimeNullableFilter<"Brute"> | Date | string | null
     createdAt?: DateTimeFilter<"Brute"> | Date | string
@@ -35485,9 +35145,9 @@ export namespace Prisma {
     weapons?: EnumWeaponNameNullableListFilter<"Brute">
     skills?: EnumSkillNameNullableListFilter<"Brute">
     pets?: EnumPetNameNullableListFilter<"Brute">
-    masterId?: IntNullableFilter<"Brute"> | number | null
+    masterId?: UuidNullableFilter<"Brute"> | string | null
     pupilsCount?: IntFilter<"Brute"> | number
-    clanId?: IntNullableFilter<"Brute"> | number | null
+    clanId?: UuidNullableFilter<"Brute"> | string | null
     registeredForTournament?: BoolFilter<"Brute"> | boolean
     nextTournamentDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
     currentTournamentDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
@@ -35500,7 +35160,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: DateTimeNullableFilter<"Brute"> | Date | string | null
     canRankUpSince?: DateTimeNullableFilter<"Brute"> | Date | string | null
     favorite?: BoolFilter<"Brute"> | boolean
-    wantToJoinClanId?: IntNullableFilter<"Brute"> | number | null
+    wantToJoinClanId?: UuidNullableFilter<"Brute"> | string | null
     tournamentWins?: IntFilter<"Brute"> | number
   }
 
@@ -35524,10 +35184,10 @@ export namespace Prisma {
     AND?: AchievementScalarWhereInput | AchievementScalarWhereInput[]
     OR?: AchievementScalarWhereInput[]
     NOT?: AchievementScalarWhereInput | AchievementScalarWhereInput[]
-    id?: IntFilter<"Achievement"> | number
+    id?: UuidFilter<"Achievement"> | string
     name?: EnumAchievementNameFilter<"Achievement"> | $Enums.AchievementName
     count?: IntFilter<"Achievement"> | number
-    bruteId?: IntNullableFilter<"Achievement"> | number | null
+    bruteId?: UuidNullableFilter<"Achievement"> | string | null
     userId?: UuidNullableFilter<"Achievement"> | string | null
   }
 
@@ -35551,8 +35211,8 @@ export namespace Prisma {
     AND?: BruteReportScalarWhereInput | BruteReportScalarWhereInput[]
     OR?: BruteReportScalarWhereInput[]
     NOT?: BruteReportScalarWhereInput | BruteReportScalarWhereInput[]
-    id?: IntFilter<"BruteReport"> | number
-    bruteId?: IntFilter<"BruteReport"> | number
+    id?: UuidFilter<"BruteReport"> | string
+    bruteId?: UuidFilter<"BruteReport"> | string
     reason?: EnumBruteReportReasonFilter<"BruteReport"> | $Enums.BruteReportReason
     count?: IntFilter<"BruteReport"> | number
     date?: DateTimeFilter<"BruteReport"> | Date | string
@@ -35579,7 +35239,7 @@ export namespace Prisma {
     AND?: TournamentGoldScalarWhereInput | TournamentGoldScalarWhereInput[]
     OR?: TournamentGoldScalarWhereInput[]
     NOT?: TournamentGoldScalarWhereInput | TournamentGoldScalarWhereInput[]
-    id?: IntFilter<"TournamentGold"> | number
+    id?: UuidFilter<"TournamentGold"> | string
     date?: DateTimeFilter<"TournamentGold"> | Date | string
     userId?: UuidFilter<"TournamentGold"> | string
     gold?: IntFilter<"TournamentGold"> | number
@@ -35625,6 +35285,7 @@ export namespace Prisma {
   }
 
   export type BruteCreateWithoutPupilsInput = {
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -35693,7 +35354,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedCreateWithoutPupilsInput = {
-    id?: number
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -35724,9 +35385,9 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
-    masterId?: number | null
+    masterId?: string | null
     pupilsCount?: number
-    clanId?: number | null
+    clanId?: string | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
@@ -35739,7 +35400,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinClanId?: number | null
+    wantToJoinClanId?: string | null
     tournamentWins?: number
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
@@ -35767,6 +35428,7 @@ export namespace Prisma {
   }
 
   export type BruteCreateWithoutMasterInput = {
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -35835,7 +35497,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedCreateWithoutMasterInput = {
-    id?: number
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -35867,7 +35529,7 @@ export namespace Prisma {
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
-    clanId?: number | null
+    clanId?: string | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
@@ -35880,7 +35542,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinClanId?: number | null
+    wantToJoinClanId?: string | null
     tournamentWins?: number
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
@@ -35914,6 +35576,7 @@ export namespace Prisma {
   }
 
   export type ClanCreateWithoutBrutesInput = {
+    id?: string
     name: string
     limit?: number
     points?: number
@@ -35926,13 +35589,13 @@ export namespace Prisma {
   }
 
   export type ClanUncheckedCreateWithoutBrutesInput = {
-    id?: number
+    id?: string
     name: string
     limit?: number
     points?: number
     boss?: $Enums.BossName
     damageOnBoss?: number
-    masterId: number
+    masterId: string
     joinRequests?: BruteUncheckedCreateNestedManyWithoutWantToJoinClanInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutClanInput
     bossDamages?: BossDamageUncheckedCreateNestedManyWithoutClanInput
@@ -35944,6 +35607,7 @@ export namespace Prisma {
   }
 
   export type FightCreateWithoutBrute1Input = {
+    id?: string
     date?: Date | string
     winner: string
     loser: string
@@ -35958,14 +35622,14 @@ export namespace Prisma {
   }
 
   export type FightUncheckedCreateWithoutBrute1Input = {
-    id?: number
+    id?: string
     date?: Date | string
-    brute2Id?: number | null
+    brute2Id?: string | null
     winner: string
     loser: string
     steps: string
     fighters: string
-    tournamentId?: number | null
+    tournamentId?: string | null
     tournamentStep?: number
     modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     background?: string
@@ -35983,6 +35647,7 @@ export namespace Prisma {
   }
 
   export type FightCreateWithoutBrute2Input = {
+    id?: string
     date?: Date | string
     winner: string
     loser: string
@@ -35997,14 +35662,14 @@ export namespace Prisma {
   }
 
   export type FightUncheckedCreateWithoutBrute2Input = {
-    id?: number
+    id?: string
     date?: Date | string
-    brute1Id: number
+    brute1Id: string
     winner: string
     loser: string
     steps: string
     fighters: string
-    tournamentId?: number | null
+    tournamentId?: string | null
     tournamentStep?: number
     modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     background?: string
@@ -36022,6 +35687,7 @@ export namespace Prisma {
   }
 
   export type LogCreateWithoutCurrentBruteInput = {
+    id?: string
     date?: Date | string
     type: $Enums.LogType
     level?: number | null
@@ -36032,12 +35698,12 @@ export namespace Prisma {
   }
 
   export type LogUncheckedCreateWithoutCurrentBruteInput = {
-    id?: number
+    id?: string
     date?: Date | string
     type: $Enums.LogType
     level?: number | null
     brute?: string | null
-    fightId?: number | null
+    fightId?: string | null
     xp?: number | null
     gold?: number | null
   }
@@ -36053,6 +35719,7 @@ export namespace Prisma {
   }
 
   export type DestinyChoiceCreateWithoutBruteInput = {
+    id?: string
     path?: DestinyChoiceCreatepathInput | $Enums.DestinyChoiceSide[]
     type: $Enums.DestinyChoiceType
     skill?: $Enums.SkillName | null
@@ -36065,7 +35732,7 @@ export namespace Prisma {
   }
 
   export type DestinyChoiceUncheckedCreateWithoutBruteInput = {
-    id?: number
+    id?: string
     path?: DestinyChoiceCreatepathInput | $Enums.DestinyChoiceSide[]
     type: $Enums.DestinyChoiceType
     skill?: $Enums.SkillName | null
@@ -36088,6 +35755,7 @@ export namespace Prisma {
   }
 
   export type TournamentCreateWithoutParticipantsInput = {
+    id?: string
     date: Date | string
     type?: $Enums.TournamentType
     rounds: number
@@ -36095,7 +35763,7 @@ export namespace Prisma {
   }
 
   export type TournamentUncheckedCreateWithoutParticipantsInput = {
-    id?: number
+    id?: string
     date: Date | string
     type?: $Enums.TournamentType
     rounds: number
@@ -36108,6 +35776,7 @@ export namespace Prisma {
   }
 
   export type BruteCreateWithoutOpponentOfInput = {
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -36176,7 +35845,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedCreateWithoutOpponentOfInput = {
-    id?: number
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -36207,9 +35876,9 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
-    masterId?: number | null
+    masterId?: string | null
     pupilsCount?: number
-    clanId?: number | null
+    clanId?: string | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
@@ -36222,7 +35891,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinClanId?: number | null
+    wantToJoinClanId?: string | null
     tournamentWins?: number
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
@@ -36250,6 +35919,7 @@ export namespace Prisma {
   }
 
   export type BruteCreateWithoutOpponentsInput = {
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -36318,7 +35988,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedCreateWithoutOpponentsInput = {
-    id?: number
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -36349,9 +36019,9 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
-    masterId?: number | null
+    masterId?: string | null
     pupilsCount?: number
-    clanId?: number | null
+    clanId?: string | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
@@ -36364,7 +36034,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinClanId?: number | null
+    wantToJoinClanId?: string | null
     tournamentWins?: number
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
@@ -36392,13 +36062,14 @@ export namespace Prisma {
   }
 
   export type AchievementCreateWithoutBruteInput = {
+    id?: string
     name: $Enums.AchievementName
     count?: number
     user?: UserCreateNestedOneWithoutAchievementsInput
   }
 
   export type AchievementUncheckedCreateWithoutBruteInput = {
-    id?: number
+    id?: string
     name: $Enums.AchievementName
     count?: number
     userId?: string | null
@@ -36415,6 +36086,7 @@ export namespace Prisma {
   }
 
   export type BruteReportCreateWithoutBruteInput = {
+    id?: string
     reason?: $Enums.BruteReportReason
     count?: number
     date?: Date | string
@@ -36423,7 +36095,7 @@ export namespace Prisma {
   }
 
   export type BruteReportUncheckedCreateWithoutBruteInput = {
-    id?: number
+    id?: string
     reason?: $Enums.BruteReportReason
     count?: number
     date?: Date | string
@@ -36442,12 +36114,13 @@ export namespace Prisma {
   }
 
   export type TitleCreateWithoutBrutesInput = {
+    id?: string
     name: $Enums.AchievementName
     count?: number
   }
 
   export type TitleUncheckedCreateWithoutBrutesInput = {
-    id?: number
+    id?: string
     name: $Enums.AchievementName
     count?: number
   }
@@ -36458,6 +36131,7 @@ export namespace Prisma {
   }
 
   export type ClanCreateWithoutMasterInput = {
+    id?: string
     name: string
     limit?: number
     points?: number
@@ -36470,7 +36144,7 @@ export namespace Prisma {
   }
 
   export type ClanUncheckedCreateWithoutMasterInput = {
-    id?: number
+    id?: string
     name: string
     limit?: number
     points?: number
@@ -36488,14 +36162,15 @@ export namespace Prisma {
   }
 
   export type ClanPostCreateWithoutAuthorInput = {
+    id?: string
     date?: Date | string
     message: string
     thread: ClanThreadCreateNestedOneWithoutPostsInput
   }
 
   export type ClanPostUncheckedCreateWithoutAuthorInput = {
-    id?: number
-    threadId: number
+    id?: string
+    threadId: string
     date?: Date | string
     message: string
   }
@@ -36511,6 +36186,7 @@ export namespace Prisma {
   }
 
   export type ClanCreateWithoutJoinRequestsInput = {
+    id?: string
     name: string
     limit?: number
     points?: number
@@ -36523,13 +36199,13 @@ export namespace Prisma {
   }
 
   export type ClanUncheckedCreateWithoutJoinRequestsInput = {
-    id?: number
+    id?: string
     name: string
     limit?: number
     points?: number
     boss?: $Enums.BossName
     damageOnBoss?: number
-    masterId: number
+    masterId: string
     brutes?: BruteUncheckedCreateNestedManyWithoutClanInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutClanInput
     bossDamages?: BossDamageUncheckedCreateNestedManyWithoutClanInput
@@ -36541,6 +36217,7 @@ export namespace Prisma {
   }
 
   export type ClanThreadCreateWithoutCreatorInput = {
+    id?: string
     title: string
     locked?: boolean
     pinned?: boolean
@@ -36552,8 +36229,8 @@ export namespace Prisma {
   }
 
   export type ClanThreadUncheckedCreateWithoutCreatorInput = {
-    id?: number
-    clanId: number
+    id?: string
+    clanId: string
     title: string
     locked?: boolean
     pinned?: boolean
@@ -36574,12 +36251,13 @@ export namespace Prisma {
   }
 
   export type BruteInventoryItemCreateWithoutBruteInput = {
+    id?: string
     type: $Enums.InventoryItemType
     count?: number
   }
 
   export type BruteInventoryItemUncheckedCreateWithoutBruteInput = {
-    id?: number
+    id?: string
     type: $Enums.InventoryItemType
     count?: number
   }
@@ -36595,13 +36273,14 @@ export namespace Prisma {
   }
 
   export type TournamentAchievementCreateWithoutBruteInput = {
+    id?: string
     date: Date | string
     achievement: $Enums.AchievementName
     achievementCount: number
   }
 
   export type TournamentAchievementUncheckedCreateWithoutBruteInput = {
-    id?: number
+    id?: string
     date: Date | string
     achievement: $Enums.AchievementName
     achievementCount: number
@@ -36618,12 +36297,13 @@ export namespace Prisma {
   }
 
   export type TournamentXpCreateWithoutBruteInput = {
+    id?: string
     date: Date | string
     xp: number
   }
 
   export type TournamentXpUncheckedCreateWithoutBruteInput = {
-    id?: number
+    id?: string
     date: Date | string
     xp: number
   }
@@ -36639,6 +36319,7 @@ export namespace Prisma {
   }
 
   export type BruteStartingStatsCreateWithoutBruteInput = {
+    id?: string
     endurance?: number
     strength?: number
     agility?: number
@@ -36646,7 +36327,7 @@ export namespace Prisma {
   }
 
   export type BruteStartingStatsUncheckedCreateWithoutBruteInput = {
-    id?: number
+    id?: string
     endurance?: number
     strength?: number
     agility?: number
@@ -36659,13 +36340,14 @@ export namespace Prisma {
   }
 
   export type BossDamageCreateWithoutBruteInput = {
+    id?: string
     damage: number
     clan: ClanCreateNestedOneWithoutBossDamagesInput
   }
 
   export type BossDamageUncheckedCreateWithoutBruteInput = {
-    id?: number
-    clanId: number
+    id?: string
+    clanId: string
     damage: number
   }
 
@@ -36736,6 +36418,7 @@ export namespace Prisma {
   }
 
   export type BruteUpdateWithoutPupilsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36804,7 +36487,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateWithoutPupilsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36835,9 +36518,9 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -36850,7 +36533,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentWins?: IntFieldUpdateOperationsInput | number
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
@@ -36900,6 +36583,7 @@ export namespace Prisma {
   }
 
   export type ClanUpdateWithoutBrutesInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     limit?: IntFieldUpdateOperationsInput | number
     points?: IntFieldUpdateOperationsInput | number
@@ -36912,13 +36596,13 @@ export namespace Prisma {
   }
 
   export type ClanUncheckedUpdateWithoutBrutesInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     limit?: IntFieldUpdateOperationsInput | number
     points?: IntFieldUpdateOperationsInput | number
     boss?: EnumBossNameFieldUpdateOperationsInput | $Enums.BossName
     damageOnBoss?: IntFieldUpdateOperationsInput | number
-    masterId?: IntFieldUpdateOperationsInput | number
+    masterId?: StringFieldUpdateOperationsInput | string
     joinRequests?: BruteUncheckedUpdateManyWithoutWantToJoinClanNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutClanNestedInput
     bossDamages?: BossDamageUncheckedUpdateManyWithoutClanNestedInput
@@ -36944,15 +36628,15 @@ export namespace Prisma {
     AND?: FightScalarWhereInput | FightScalarWhereInput[]
     OR?: FightScalarWhereInput[]
     NOT?: FightScalarWhereInput | FightScalarWhereInput[]
-    id?: IntFilter<"Fight"> | number
+    id?: UuidFilter<"Fight"> | string
     date?: DateTimeFilter<"Fight"> | Date | string
-    brute1Id?: IntFilter<"Fight"> | number
-    brute2Id?: IntNullableFilter<"Fight"> | number | null
+    brute1Id?: UuidFilter<"Fight"> | string
+    brute2Id?: UuidNullableFilter<"Fight"> | string | null
     winner?: StringFilter<"Fight"> | string
     loser?: StringFilter<"Fight"> | string
     steps?: StringFilter<"Fight"> | string
     fighters?: StringFilter<"Fight"> | string
-    tournamentId?: IntNullableFilter<"Fight"> | number | null
+    tournamentId?: UuidNullableFilter<"Fight"> | string | null
     tournamentStep?: IntFilter<"Fight"> | number
     modifiers?: EnumFightModifierNullableListFilter<"Fight">
     background?: StringFilter<"Fight"> | string
@@ -36994,13 +36678,13 @@ export namespace Prisma {
     AND?: LogScalarWhereInput | LogScalarWhereInput[]
     OR?: LogScalarWhereInput[]
     NOT?: LogScalarWhereInput | LogScalarWhereInput[]
-    id?: IntFilter<"Log"> | number
+    id?: UuidFilter<"Log"> | string
     date?: DateTimeFilter<"Log"> | Date | string
-    currentBruteId?: IntFilter<"Log"> | number
+    currentBruteId?: UuidFilter<"Log"> | string
     type?: EnumLogTypeFilter<"Log"> | $Enums.LogType
     level?: IntNullableFilter<"Log"> | number | null
     brute?: StringNullableFilter<"Log"> | string | null
-    fightId?: IntNullableFilter<"Log"> | number | null
+    fightId?: UuidNullableFilter<"Log"> | string | null
     xp?: IntNullableFilter<"Log"> | number | null
     gold?: IntNullableFilter<"Log"> | number | null
   }
@@ -37025,8 +36709,8 @@ export namespace Prisma {
     AND?: DestinyChoiceScalarWhereInput | DestinyChoiceScalarWhereInput[]
     OR?: DestinyChoiceScalarWhereInput[]
     NOT?: DestinyChoiceScalarWhereInput | DestinyChoiceScalarWhereInput[]
-    id?: IntFilter<"DestinyChoice"> | number
-    bruteId?: IntFilter<"DestinyChoice"> | number
+    id?: UuidFilter<"DestinyChoice"> | string
+    bruteId?: UuidFilter<"DestinyChoice"> | string
     path?: EnumDestinyChoiceSideNullableListFilter<"DestinyChoice">
     type?: EnumDestinyChoiceTypeFilter<"DestinyChoice"> | $Enums.DestinyChoiceType
     skill?: EnumSkillNameNullableFilter<"DestinyChoice"> | $Enums.SkillName | null
@@ -37058,7 +36742,7 @@ export namespace Prisma {
     AND?: TournamentScalarWhereInput | TournamentScalarWhereInput[]
     OR?: TournamentScalarWhereInput[]
     NOT?: TournamentScalarWhereInput | TournamentScalarWhereInput[]
-    id?: IntFilter<"Tournament"> | number
+    id?: UuidFilter<"Tournament"> | string
     date?: DateTimeFilter<"Tournament"> | Date | string
     type?: EnumTournamentTypeFilter<"Tournament"> | $Enums.TournamentType
     rounds?: IntFilter<"Tournament"> | number
@@ -37148,7 +36832,7 @@ export namespace Prisma {
     AND?: TitleScalarWhereInput | TitleScalarWhereInput[]
     OR?: TitleScalarWhereInput[]
     NOT?: TitleScalarWhereInput | TitleScalarWhereInput[]
-    id?: IntFilter<"Title"> | number
+    id?: UuidFilter<"Title"> | string
     name?: EnumAchievementNameFilter<"Title"> | $Enums.AchievementName
     count?: IntFilter<"Title"> | number
   }
@@ -37165,6 +36849,7 @@ export namespace Prisma {
   }
 
   export type ClanUpdateWithoutMasterInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     limit?: IntFieldUpdateOperationsInput | number
     points?: IntFieldUpdateOperationsInput | number
@@ -37177,7 +36862,7 @@ export namespace Prisma {
   }
 
   export type ClanUncheckedUpdateWithoutMasterInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     limit?: IntFieldUpdateOperationsInput | number
     points?: IntFieldUpdateOperationsInput | number
@@ -37209,9 +36894,9 @@ export namespace Prisma {
     AND?: ClanPostScalarWhereInput | ClanPostScalarWhereInput[]
     OR?: ClanPostScalarWhereInput[]
     NOT?: ClanPostScalarWhereInput | ClanPostScalarWhereInput[]
-    id?: IntFilter<"ClanPost"> | number
-    threadId?: IntFilter<"ClanPost"> | number
-    authorId?: IntFilter<"ClanPost"> | number
+    id?: UuidFilter<"ClanPost"> | string
+    threadId?: UuidFilter<"ClanPost"> | string
+    authorId?: UuidFilter<"ClanPost"> | string
     date?: DateTimeFilter<"ClanPost"> | Date | string
     message?: StringFilter<"ClanPost"> | string
   }
@@ -37228,6 +36913,7 @@ export namespace Prisma {
   }
 
   export type ClanUpdateWithoutJoinRequestsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     limit?: IntFieldUpdateOperationsInput | number
     points?: IntFieldUpdateOperationsInput | number
@@ -37240,13 +36926,13 @@ export namespace Prisma {
   }
 
   export type ClanUncheckedUpdateWithoutJoinRequestsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     limit?: IntFieldUpdateOperationsInput | number
     points?: IntFieldUpdateOperationsInput | number
     boss?: EnumBossNameFieldUpdateOperationsInput | $Enums.BossName
     damageOnBoss?: IntFieldUpdateOperationsInput | number
-    masterId?: IntFieldUpdateOperationsInput | number
+    masterId?: StringFieldUpdateOperationsInput | string
     brutes?: BruteUncheckedUpdateManyWithoutClanNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutClanNestedInput
     bossDamages?: BossDamageUncheckedUpdateManyWithoutClanNestedInput
@@ -37272,9 +36958,9 @@ export namespace Prisma {
     AND?: ClanThreadScalarWhereInput | ClanThreadScalarWhereInput[]
     OR?: ClanThreadScalarWhereInput[]
     NOT?: ClanThreadScalarWhereInput | ClanThreadScalarWhereInput[]
-    id?: IntFilter<"ClanThread"> | number
-    clanId?: IntFilter<"ClanThread"> | number
-    creatorId?: IntFilter<"ClanThread"> | number
+    id?: UuidFilter<"ClanThread"> | string
+    clanId?: UuidFilter<"ClanThread"> | string
+    creatorId?: UuidFilter<"ClanThread"> | string
     title?: StringFilter<"ClanThread"> | string
     locked?: BoolFilter<"ClanThread"> | boolean
     pinned?: BoolFilter<"ClanThread"> | boolean
@@ -37303,10 +36989,10 @@ export namespace Prisma {
     AND?: BruteInventoryItemScalarWhereInput | BruteInventoryItemScalarWhereInput[]
     OR?: BruteInventoryItemScalarWhereInput[]
     NOT?: BruteInventoryItemScalarWhereInput | BruteInventoryItemScalarWhereInput[]
-    id?: IntFilter<"BruteInventoryItem"> | number
+    id?: UuidFilter<"BruteInventoryItem"> | string
     type?: EnumInventoryItemTypeFilter<"BruteInventoryItem"> | $Enums.InventoryItemType
     count?: IntFilter<"BruteInventoryItem"> | number
-    bruteId?: IntFilter<"BruteInventoryItem"> | number
+    bruteId?: UuidFilter<"BruteInventoryItem"> | string
   }
 
   export type TournamentAchievementUpsertWithWhereUniqueWithoutBruteInput = {
@@ -37329,9 +37015,9 @@ export namespace Prisma {
     AND?: TournamentAchievementScalarWhereInput | TournamentAchievementScalarWhereInput[]
     OR?: TournamentAchievementScalarWhereInput[]
     NOT?: TournamentAchievementScalarWhereInput | TournamentAchievementScalarWhereInput[]
-    id?: IntFilter<"TournamentAchievement"> | number
+    id?: UuidFilter<"TournamentAchievement"> | string
+    bruteId?: UuidFilter<"TournamentAchievement"> | string
     date?: DateTimeFilter<"TournamentAchievement"> | Date | string
-    bruteId?: IntFilter<"TournamentAchievement"> | number
     achievement?: EnumAchievementNameFilter<"TournamentAchievement"> | $Enums.AchievementName
     achievementCount?: IntFilter<"TournamentAchievement"> | number
   }
@@ -37356,9 +37042,9 @@ export namespace Prisma {
     AND?: TournamentXpScalarWhereInput | TournamentXpScalarWhereInput[]
     OR?: TournamentXpScalarWhereInput[]
     NOT?: TournamentXpScalarWhereInput | TournamentXpScalarWhereInput[]
-    id?: IntFilter<"TournamentXp"> | number
+    id?: UuidFilter<"TournamentXp"> | string
     date?: DateTimeFilter<"TournamentXp"> | Date | string
-    bruteId?: IntFilter<"TournamentXp"> | number
+    bruteId?: UuidFilter<"TournamentXp"> | string
     xp?: IntFilter<"TournamentXp"> | number
   }
 
@@ -37374,6 +37060,7 @@ export namespace Prisma {
   }
 
   export type BruteStartingStatsUpdateWithoutBruteInput = {
+    id?: StringFieldUpdateOperationsInput | string
     endurance?: IntFieldUpdateOperationsInput | number
     strength?: IntFieldUpdateOperationsInput | number
     agility?: IntFieldUpdateOperationsInput | number
@@ -37381,7 +37068,7 @@ export namespace Prisma {
   }
 
   export type BruteStartingStatsUncheckedUpdateWithoutBruteInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     endurance?: IntFieldUpdateOperationsInput | number
     strength?: IntFieldUpdateOperationsInput | number
     agility?: IntFieldUpdateOperationsInput | number
@@ -37408,13 +37095,14 @@ export namespace Prisma {
     AND?: BossDamageScalarWhereInput | BossDamageScalarWhereInput[]
     OR?: BossDamageScalarWhereInput[]
     NOT?: BossDamageScalarWhereInput | BossDamageScalarWhereInput[]
-    id?: IntFilter<"BossDamage"> | number
-    bruteId?: IntFilter<"BossDamage"> | number
-    clanId?: IntFilter<"BossDamage"> | number
+    id?: UuidFilter<"BossDamage"> | string
+    bruteId?: UuidFilter<"BossDamage"> | string
+    clanId?: UuidFilter<"BossDamage"> | string
     damage?: IntFilter<"BossDamage"> | number
   }
 
   export type BruteCreateWithoutStartingStatsInput = {
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -37483,7 +37171,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedCreateWithoutStartingStatsInput = {
-    id?: number
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -37514,9 +37202,9 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
-    masterId?: number | null
+    masterId?: string | null
     pupilsCount?: number
-    clanId?: number | null
+    clanId?: string | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
@@ -37529,7 +37217,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinClanId?: number | null
+    wantToJoinClanId?: string | null
     tournamentWins?: number
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
@@ -37568,6 +37256,7 @@ export namespace Prisma {
   }
 
   export type BruteUpdateWithoutStartingStatsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -37636,7 +37325,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateWithoutStartingStatsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -37667,9 +37356,9 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -37682,7 +37371,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentWins?: IntFieldUpdateOperationsInput | number
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
@@ -37705,6 +37394,7 @@ export namespace Prisma {
   }
 
   export type BruteCreateWithoutFightsInput = {
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -37773,7 +37463,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedCreateWithoutFightsInput = {
-    id?: number
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -37804,9 +37494,9 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
-    masterId?: number | null
+    masterId?: string | null
     pupilsCount?: number
-    clanId?: number | null
+    clanId?: string | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
@@ -37819,7 +37509,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinClanId?: number | null
+    wantToJoinClanId?: string | null
     tournamentWins?: number
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
@@ -37847,6 +37537,7 @@ export namespace Prisma {
   }
 
   export type BruteCreateWithoutFightsAsAdversaryInput = {
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -37915,7 +37606,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedCreateWithoutFightsAsAdversaryInput = {
-    id?: number
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -37946,9 +37637,9 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
-    masterId?: number | null
+    masterId?: string | null
     pupilsCount?: number
-    clanId?: number | null
+    clanId?: string | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
@@ -37961,7 +37652,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinClanId?: number | null
+    wantToJoinClanId?: string | null
     tournamentWins?: number
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
@@ -37989,6 +37680,7 @@ export namespace Prisma {
   }
 
   export type LogCreateWithoutFightInput = {
+    id?: string
     date?: Date | string
     type: $Enums.LogType
     level?: number | null
@@ -37999,9 +37691,9 @@ export namespace Prisma {
   }
 
   export type LogUncheckedCreateWithoutFightInput = {
-    id?: number
+    id?: string
     date?: Date | string
-    currentBruteId: number
+    currentBruteId: string
     type: $Enums.LogType
     level?: number | null
     brute?: string | null
@@ -38020,6 +37712,7 @@ export namespace Prisma {
   }
 
   export type TournamentCreateWithoutFightsInput = {
+    id?: string
     date: Date | string
     type?: $Enums.TournamentType
     rounds: number
@@ -38027,7 +37720,7 @@ export namespace Prisma {
   }
 
   export type TournamentUncheckedCreateWithoutFightsInput = {
-    id?: number
+    id?: string
     date: Date | string
     type?: $Enums.TournamentType
     rounds: number
@@ -38051,6 +37744,7 @@ export namespace Prisma {
   }
 
   export type BruteUpdateWithoutFightsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -38119,7 +37813,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateWithoutFightsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -38150,9 +37844,9 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -38165,7 +37859,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentWins?: IntFieldUpdateOperationsInput | number
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
@@ -38199,6 +37893,7 @@ export namespace Prisma {
   }
 
   export type BruteUpdateWithoutFightsAsAdversaryInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -38267,7 +37962,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateWithoutFightsAsAdversaryInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -38298,9 +37993,9 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -38313,7 +38008,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentWins?: IntFieldUpdateOperationsInput | number
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
@@ -38363,6 +38058,7 @@ export namespace Prisma {
   }
 
   export type TournamentUpdateWithoutFightsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumTournamentTypeFieldUpdateOperationsInput | $Enums.TournamentType
     rounds?: IntFieldUpdateOperationsInput | number
@@ -38370,7 +38066,7 @@ export namespace Prisma {
   }
 
   export type TournamentUncheckedUpdateWithoutFightsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumTournamentTypeFieldUpdateOperationsInput | $Enums.TournamentType
     rounds?: IntFieldUpdateOperationsInput | number
@@ -38378,6 +38074,7 @@ export namespace Prisma {
   }
 
   export type BruteCreateWithoutLogsInput = {
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -38446,7 +38143,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedCreateWithoutLogsInput = {
-    id?: number
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -38477,9 +38174,9 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
-    masterId?: number | null
+    masterId?: string | null
     pupilsCount?: number
-    clanId?: number | null
+    clanId?: string | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
@@ -38492,7 +38189,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinClanId?: number | null
+    wantToJoinClanId?: string | null
     tournamentWins?: number
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
@@ -38520,6 +38217,7 @@ export namespace Prisma {
   }
 
   export type FightCreateWithoutLogsInput = {
+    id?: string
     date?: Date | string
     winner: string
     loser: string
@@ -38534,15 +38232,15 @@ export namespace Prisma {
   }
 
   export type FightUncheckedCreateWithoutLogsInput = {
-    id?: number
+    id?: string
     date?: Date | string
-    brute1Id: number
-    brute2Id?: number | null
+    brute1Id: string
+    brute2Id?: string | null
     winner: string
     loser: string
     steps: string
     fighters: string
-    tournamentId?: number | null
+    tournamentId?: string | null
     tournamentStep?: number
     modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     background?: string
@@ -38565,6 +38263,7 @@ export namespace Prisma {
   }
 
   export type BruteUpdateWithoutLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -38633,7 +38332,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateWithoutLogsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -38664,9 +38363,9 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -38679,7 +38378,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentWins?: IntFieldUpdateOperationsInput | number
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
@@ -38713,6 +38412,7 @@ export namespace Prisma {
   }
 
   export type FightUpdateWithoutLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
@@ -38727,21 +38427,22 @@ export namespace Prisma {
   }
 
   export type FightUncheckedUpdateWithoutLogsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    brute1Id?: IntFieldUpdateOperationsInput | number
-    brute2Id?: NullableIntFieldUpdateOperationsInput | number | null
+    brute1Id?: StringFieldUpdateOperationsInput | string
+    brute2Id?: NullableStringFieldUpdateOperationsInput | string | null
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
     steps?: StringFieldUpdateOperationsInput | string
     fighters?: StringFieldUpdateOperationsInput | string
-    tournamentId?: NullableIntFieldUpdateOperationsInput | number | null
+    tournamentId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentStep?: IntFieldUpdateOperationsInput | number
     modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     background?: StringFieldUpdateOperationsInput | string
   }
 
   export type BruteCreateWithoutDestinyChoicesInput = {
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -38810,7 +38511,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedCreateWithoutDestinyChoicesInput = {
-    id?: number
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -38841,9 +38542,9 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
-    masterId?: number | null
+    masterId?: string | null
     pupilsCount?: number
-    clanId?: number | null
+    clanId?: string | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
@@ -38856,7 +38557,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinClanId?: number | null
+    wantToJoinClanId?: string | null
     tournamentWins?: number
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
@@ -38895,6 +38596,7 @@ export namespace Prisma {
   }
 
   export type BruteUpdateWithoutDestinyChoicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -38963,7 +38665,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateWithoutDestinyChoicesInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -38994,9 +38696,9 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -39009,7 +38711,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentWins?: IntFieldUpdateOperationsInput | number
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
@@ -39032,6 +38734,7 @@ export namespace Prisma {
   }
 
   export type BruteCreateWithoutTournamentsInput = {
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -39100,7 +38803,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedCreateWithoutTournamentsInput = {
-    id?: number
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -39131,9 +38834,9 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
-    masterId?: number | null
+    masterId?: string | null
     pupilsCount?: number
-    clanId?: number | null
+    clanId?: string | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
@@ -39146,7 +38849,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinClanId?: number | null
+    wantToJoinClanId?: string | null
     tournamentWins?: number
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
@@ -39174,6 +38877,7 @@ export namespace Prisma {
   }
 
   export type FightCreateWithoutTournamentInput = {
+    id?: string
     date?: Date | string
     winner: string
     loser: string
@@ -39188,10 +38892,10 @@ export namespace Prisma {
   }
 
   export type FightUncheckedCreateWithoutTournamentInput = {
-    id?: number
+    id?: string
     date?: Date | string
-    brute1Id: number
-    brute2Id?: number | null
+    brute1Id: string
+    brute2Id?: string | null
     winner: string
     loser: string
     steps: string
@@ -39245,6 +38949,7 @@ export namespace Prisma {
   }
 
   export type BruteCreateWithoutTournamentAchievementsInput = {
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -39313,7 +39018,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedCreateWithoutTournamentAchievementsInput = {
-    id?: number
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -39344,9 +39049,9 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
-    masterId?: number | null
+    masterId?: string | null
     pupilsCount?: number
-    clanId?: number | null
+    clanId?: string | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
@@ -39359,7 +39064,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinClanId?: number | null
+    wantToJoinClanId?: string | null
     tournamentWins?: number
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
@@ -39398,6 +39103,7 @@ export namespace Prisma {
   }
 
   export type BruteUpdateWithoutTournamentAchievementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39466,7 +39172,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateWithoutTournamentAchievementsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39497,9 +39203,9 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -39512,7 +39218,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentWins?: IntFieldUpdateOperationsInput | number
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
@@ -39619,6 +39325,7 @@ export namespace Prisma {
   }
 
   export type BruteCreateWithoutTournamentXpsInput = {
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -39687,7 +39394,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedCreateWithoutTournamentXpsInput = {
-    id?: number
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -39718,9 +39425,9 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
-    masterId?: number | null
+    masterId?: string | null
     pupilsCount?: number
-    clanId?: number | null
+    clanId?: string | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
@@ -39733,7 +39440,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinClanId?: number | null
+    wantToJoinClanId?: string | null
     tournamentWins?: number
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
@@ -39772,6 +39479,7 @@ export namespace Prisma {
   }
 
   export type BruteUpdateWithoutTournamentXpsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39840,7 +39548,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateWithoutTournamentXpsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39871,9 +39579,9 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -39886,7 +39594,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentWins?: IntFieldUpdateOperationsInput | number
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
@@ -39909,6 +39617,7 @@ export namespace Prisma {
   }
 
   export type BruteCreateWithoutAchievementsInput = {
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -39977,7 +39686,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedCreateWithoutAchievementsInput = {
-    id?: number
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -40008,9 +39717,9 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
-    masterId?: number | null
+    masterId?: string | null
     pupilsCount?: number
-    clanId?: number | null
+    clanId?: string | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
@@ -40023,7 +39732,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinClanId?: number | null
+    wantToJoinClanId?: string | null
     tournamentWins?: number
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
@@ -40101,6 +39810,7 @@ export namespace Prisma {
   }
 
   export type BruteUpdateWithoutAchievementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -40169,7 +39879,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateWithoutAchievementsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -40200,9 +39910,9 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -40215,7 +39925,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentWins?: IntFieldUpdateOperationsInput | number
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
@@ -40283,6 +39993,7 @@ export namespace Prisma {
   }
 
   export type BruteCreateWithoutTitlesInput = {
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -40351,7 +40062,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedCreateWithoutTitlesInput = {
-    id?: number
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -40382,9 +40093,9 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
-    masterId?: number | null
+    masterId?: string | null
     pupilsCount?: number
-    clanId?: number | null
+    clanId?: string | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
@@ -40397,7 +40108,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinClanId?: number | null
+    wantToJoinClanId?: string | null
     tournamentWins?: number
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
@@ -40441,6 +40152,7 @@ export namespace Prisma {
   }
 
   export type BruteCreateWithoutReportsInput = {
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -40509,7 +40221,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedCreateWithoutReportsInput = {
-    id?: number
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -40540,9 +40252,9 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
-    masterId?: number | null
+    masterId?: string | null
     pupilsCount?: number
-    clanId?: number | null
+    clanId?: string | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
@@ -40555,7 +40267,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinClanId?: number | null
+    wantToJoinClanId?: string | null
     tournamentWins?: number
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
@@ -40633,6 +40345,7 @@ export namespace Prisma {
   }
 
   export type BruteUpdateWithoutReportsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -40701,7 +40414,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateWithoutReportsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -40732,9 +40445,9 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -40747,7 +40460,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentWins?: IntFieldUpdateOperationsInput | number
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
@@ -40803,6 +40516,7 @@ export namespace Prisma {
   }
 
   export type BruteCreateWithoutMasterOfClanInput = {
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -40871,7 +40585,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedCreateWithoutMasterOfClanInput = {
-    id?: number
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -40902,9 +40616,9 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
-    masterId?: number | null
+    masterId?: string | null
     pupilsCount?: number
-    clanId?: number | null
+    clanId?: string | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
@@ -40917,7 +40631,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinClanId?: number | null
+    wantToJoinClanId?: string | null
     tournamentWins?: number
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
@@ -40945,6 +40659,7 @@ export namespace Prisma {
   }
 
   export type BruteCreateWithoutClanInput = {
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -41013,7 +40728,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedCreateWithoutClanInput = {
-    id?: number
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -41044,7 +40759,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
-    masterId?: number | null
+    masterId?: string | null
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -41058,7 +40773,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinClanId?: number | null
+    wantToJoinClanId?: string | null
     tournamentWins?: number
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
@@ -41092,6 +40807,7 @@ export namespace Prisma {
   }
 
   export type BruteCreateWithoutWantToJoinClanInput = {
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -41160,7 +40876,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedCreateWithoutWantToJoinClanInput = {
-    id?: number
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -41191,9 +40907,9 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
-    masterId?: number | null
+    masterId?: string | null
     pupilsCount?: number
-    clanId?: number | null
+    clanId?: string | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
@@ -41239,6 +40955,7 @@ export namespace Prisma {
   }
 
   export type ClanThreadCreateWithoutClanInput = {
+    id?: string
     title: string
     locked?: boolean
     pinned?: boolean
@@ -41250,8 +40967,8 @@ export namespace Prisma {
   }
 
   export type ClanThreadUncheckedCreateWithoutClanInput = {
-    id?: number
-    creatorId: number
+    id?: string
+    creatorId: string
     title: string
     locked?: boolean
     pinned?: boolean
@@ -41272,13 +40989,14 @@ export namespace Prisma {
   }
 
   export type BossDamageCreateWithoutClanInput = {
+    id?: string
     damage: number
     brute: BruteCreateNestedOneWithoutDamageOnBossesInput
   }
 
   export type BossDamageUncheckedCreateWithoutClanInput = {
-    id?: number
-    bruteId: number
+    id?: string
+    bruteId: string
     damage: number
   }
 
@@ -41304,6 +41022,7 @@ export namespace Prisma {
   }
 
   export type BruteUpdateWithoutMasterOfClanInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -41372,7 +41091,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateWithoutMasterOfClanInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -41403,9 +41122,9 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -41418,7 +41137,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentWins?: IntFieldUpdateOperationsInput | number
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
@@ -41505,6 +41224,7 @@ export namespace Prisma {
   }
 
   export type ClanCreateWithoutThreadsInput = {
+    id?: string
     name: string
     limit?: number
     points?: number
@@ -41517,13 +41237,13 @@ export namespace Prisma {
   }
 
   export type ClanUncheckedCreateWithoutThreadsInput = {
-    id?: number
+    id?: string
     name: string
     limit?: number
     points?: number
     boss?: $Enums.BossName
     damageOnBoss?: number
-    masterId: number
+    masterId: string
     brutes?: BruteUncheckedCreateNestedManyWithoutClanInput
     joinRequests?: BruteUncheckedCreateNestedManyWithoutWantToJoinClanInput
     bossDamages?: BossDamageUncheckedCreateNestedManyWithoutClanInput
@@ -41535,6 +41255,7 @@ export namespace Prisma {
   }
 
   export type BruteCreateWithoutThreadsInput = {
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -41603,7 +41324,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedCreateWithoutThreadsInput = {
-    id?: number
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -41634,9 +41355,9 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
-    masterId?: number | null
+    masterId?: string | null
     pupilsCount?: number
-    clanId?: number | null
+    clanId?: string | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
@@ -41649,7 +41370,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinClanId?: number | null
+    wantToJoinClanId?: string | null
     tournamentWins?: number
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
@@ -41677,14 +41398,15 @@ export namespace Prisma {
   }
 
   export type ClanPostCreateWithoutThreadInput = {
+    id?: string
     date?: Date | string
     message: string
     author: BruteCreateNestedOneWithoutClanPostsInput
   }
 
   export type ClanPostUncheckedCreateWithoutThreadInput = {
-    id?: number
-    authorId: number
+    id?: string
+    authorId: string
     date?: Date | string
     message: string
   }
@@ -41711,6 +41433,7 @@ export namespace Prisma {
   }
 
   export type ClanUpdateWithoutThreadsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     limit?: IntFieldUpdateOperationsInput | number
     points?: IntFieldUpdateOperationsInput | number
@@ -41723,13 +41446,13 @@ export namespace Prisma {
   }
 
   export type ClanUncheckedUpdateWithoutThreadsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     limit?: IntFieldUpdateOperationsInput | number
     points?: IntFieldUpdateOperationsInput | number
     boss?: EnumBossNameFieldUpdateOperationsInput | $Enums.BossName
     damageOnBoss?: IntFieldUpdateOperationsInput | number
-    masterId?: IntFieldUpdateOperationsInput | number
+    masterId?: StringFieldUpdateOperationsInput | string
     brutes?: BruteUncheckedUpdateManyWithoutClanNestedInput
     joinRequests?: BruteUncheckedUpdateManyWithoutWantToJoinClanNestedInput
     bossDamages?: BossDamageUncheckedUpdateManyWithoutClanNestedInput
@@ -41747,6 +41470,7 @@ export namespace Prisma {
   }
 
   export type BruteUpdateWithoutThreadsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -41815,7 +41539,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateWithoutThreadsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -41846,9 +41570,9 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -41861,7 +41585,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentWins?: IntFieldUpdateOperationsInput | number
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
@@ -41900,6 +41624,7 @@ export namespace Prisma {
   }
 
   export type ClanThreadCreateWithoutPostsInput = {
+    id?: string
     title: string
     locked?: boolean
     pinned?: boolean
@@ -41911,9 +41636,9 @@ export namespace Prisma {
   }
 
   export type ClanThreadUncheckedCreateWithoutPostsInput = {
-    id?: number
-    clanId: number
-    creatorId: number
+    id?: string
+    clanId: string
+    creatorId: string
     title: string
     locked?: boolean
     pinned?: boolean
@@ -41928,6 +41653,7 @@ export namespace Prisma {
   }
 
   export type BruteCreateWithoutClanPostsInput = {
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -41996,7 +41722,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedCreateWithoutClanPostsInput = {
-    id?: number
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -42027,9 +41753,9 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
-    masterId?: number | null
+    masterId?: string | null
     pupilsCount?: number
-    clanId?: number | null
+    clanId?: string | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
@@ -42042,7 +41768,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinClanId?: number | null
+    wantToJoinClanId?: string | null
     tournamentWins?: number
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
@@ -42081,6 +41807,7 @@ export namespace Prisma {
   }
 
   export type ClanThreadUpdateWithoutPostsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
     pinned?: BoolFieldUpdateOperationsInput | boolean
@@ -42092,9 +41819,9 @@ export namespace Prisma {
   }
 
   export type ClanThreadUncheckedUpdateWithoutPostsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    clanId?: IntFieldUpdateOperationsInput | number
-    creatorId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    clanId?: StringFieldUpdateOperationsInput | string
+    creatorId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
     pinned?: BoolFieldUpdateOperationsInput | boolean
@@ -42115,6 +41842,7 @@ export namespace Prisma {
   }
 
   export type BruteUpdateWithoutClanPostsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -42183,7 +41911,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateWithoutClanPostsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -42214,9 +41942,9 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -42229,7 +41957,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentWins?: IntFieldUpdateOperationsInput | number
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
@@ -42252,6 +41980,7 @@ export namespace Prisma {
   }
 
   export type BruteCreateWithoutDamageOnBossesInput = {
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -42320,7 +42049,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedCreateWithoutDamageOnBossesInput = {
-    id?: number
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -42351,9 +42080,9 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
-    masterId?: number | null
+    masterId?: string | null
     pupilsCount?: number
-    clanId?: number | null
+    clanId?: string | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
@@ -42366,7 +42095,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinClanId?: number | null
+    wantToJoinClanId?: string | null
     tournamentWins?: number
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
@@ -42394,6 +42123,7 @@ export namespace Prisma {
   }
 
   export type ClanCreateWithoutBossDamagesInput = {
+    id?: string
     name: string
     limit?: number
     points?: number
@@ -42406,13 +42136,13 @@ export namespace Prisma {
   }
 
   export type ClanUncheckedCreateWithoutBossDamagesInput = {
-    id?: number
+    id?: string
     name: string
     limit?: number
     points?: number
     boss?: $Enums.BossName
     damageOnBoss?: number
-    masterId: number
+    masterId: string
     brutes?: BruteUncheckedCreateNestedManyWithoutClanInput
     joinRequests?: BruteUncheckedCreateNestedManyWithoutWantToJoinClanInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutClanInput
@@ -42435,6 +42165,7 @@ export namespace Prisma {
   }
 
   export type BruteUpdateWithoutDamageOnBossesInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -42503,7 +42234,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateWithoutDamageOnBossesInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -42534,9 +42265,9 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -42549,7 +42280,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentWins?: IntFieldUpdateOperationsInput | number
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
@@ -42583,6 +42314,7 @@ export namespace Prisma {
   }
 
   export type ClanUpdateWithoutBossDamagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     limit?: IntFieldUpdateOperationsInput | number
     points?: IntFieldUpdateOperationsInput | number
@@ -42595,19 +42327,20 @@ export namespace Prisma {
   }
 
   export type ClanUncheckedUpdateWithoutBossDamagesInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     limit?: IntFieldUpdateOperationsInput | number
     points?: IntFieldUpdateOperationsInput | number
     boss?: EnumBossNameFieldUpdateOperationsInput | $Enums.BossName
     damageOnBoss?: IntFieldUpdateOperationsInput | number
-    masterId?: IntFieldUpdateOperationsInput | number
+    masterId?: StringFieldUpdateOperationsInput | string
     brutes?: BruteUncheckedUpdateManyWithoutClanNestedInput
     joinRequests?: BruteUncheckedUpdateManyWithoutWantToJoinClanNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutClanNestedInput
   }
 
   export type BruteCreateWithoutInventoryInput = {
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -42676,7 +42409,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedCreateWithoutInventoryInput = {
-    id?: number
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -42707,9 +42440,9 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
-    masterId?: number | null
+    masterId?: string | null
     pupilsCount?: number
-    clanId?: number | null
+    clanId?: string | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
@@ -42722,7 +42455,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinClanId?: number | null
+    wantToJoinClanId?: string | null
     tournamentWins?: number
     pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
     fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
@@ -42761,6 +42494,7 @@ export namespace Prisma {
   }
 
   export type BruteUpdateWithoutInventoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -42829,7 +42563,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateWithoutInventoryInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -42860,9 +42594,9 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -42875,7 +42609,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentWins?: IntFieldUpdateOperationsInput | number
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
@@ -42898,7 +42632,7 @@ export namespace Prisma {
   }
 
   export type BruteCreateManyUserInput = {
-    id?: number
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -42928,9 +42662,9 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
-    masterId?: number | null
+    masterId?: string | null
     pupilsCount?: number
-    clanId?: number | null
+    clanId?: string | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
@@ -42943,24 +42677,25 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinClanId?: number | null
+    wantToJoinClanId?: string | null
     tournamentWins?: number
   }
 
   export type AchievementCreateManyUserInput = {
-    id?: number
+    id?: string
     name: $Enums.AchievementName
     count?: number
-    bruteId?: number | null
+    bruteId?: string | null
   }
 
   export type TournamentGoldCreateManyUserInput = {
-    id?: number
+    id?: string
     date: Date | string
     gold: number
   }
 
   export type BruteUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43029,7 +42764,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43059,9 +42794,9 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -43074,7 +42809,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentWins?: IntFieldUpdateOperationsInput | number
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
@@ -43098,7 +42833,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43128,9 +42863,9 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -43143,31 +42878,33 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentWins?: IntFieldUpdateOperationsInput | number
   }
 
   export type AchievementUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
     count?: IntFieldUpdateOperationsInput | number
     brute?: BruteUpdateOneWithoutAchievementsNestedInput
   }
 
   export type AchievementUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
     count?: IntFieldUpdateOperationsInput | number
-    bruteId?: NullableIntFieldUpdateOperationsInput | number | null
+    bruteId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AchievementUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
     count?: IntFieldUpdateOperationsInput | number
-    bruteId?: NullableIntFieldUpdateOperationsInput | number | null
+    bruteId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BruteReportUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
     reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43176,8 +42913,8 @@ export namespace Prisma {
   }
 
   export type BruteReportUncheckedUpdateWithoutUsersInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    bruteId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    bruteId?: StringFieldUpdateOperationsInput | string
     reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43185,8 +42922,8 @@ export namespace Prisma {
   }
 
   export type BruteReportUncheckedUpdateManyWithoutUsersInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    bruteId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    bruteId?: StringFieldUpdateOperationsInput | string
     reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43194,24 +42931,25 @@ export namespace Prisma {
   }
 
   export type TournamentGoldUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     gold?: IntFieldUpdateOperationsInput | number
   }
 
   export type TournamentGoldUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     gold?: IntFieldUpdateOperationsInput | number
   }
 
   export type TournamentGoldUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     gold?: IntFieldUpdateOperationsInput | number
   }
 
   export type BruteCreateManyMasterInput = {
-    id?: number
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -43243,7 +42981,7 @@ export namespace Prisma {
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
-    clanId?: number | null
+    clanId?: string | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
@@ -43256,51 +42994,51 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinClanId?: number | null
+    wantToJoinClanId?: string | null
     tournamentWins?: number
   }
 
   export type FightCreateManyBrute1Input = {
-    id?: number
+    id?: string
     date?: Date | string
-    brute2Id?: number | null
+    brute2Id?: string | null
     winner: string
     loser: string
     steps: string
     fighters: string
-    tournamentId?: number | null
+    tournamentId?: string | null
     tournamentStep?: number
     modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     background?: string
   }
 
   export type FightCreateManyBrute2Input = {
-    id?: number
+    id?: string
     date?: Date | string
-    brute1Id: number
+    brute1Id: string
     winner: string
     loser: string
     steps: string
     fighters: string
-    tournamentId?: number | null
+    tournamentId?: string | null
     tournamentStep?: number
     modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     background?: string
   }
 
   export type LogCreateManyCurrentBruteInput = {
-    id?: number
+    id?: string
     date?: Date | string
     type: $Enums.LogType
     level?: number | null
     brute?: string | null
-    fightId?: number | null
+    fightId?: string | null
     xp?: number | null
     gold?: number | null
   }
 
   export type DestinyChoiceCreateManyBruteInput = {
-    id?: number
+    id?: string
     path?: DestinyChoiceCreatepathInput | $Enums.DestinyChoiceSide[]
     type: $Enums.DestinyChoiceType
     skill?: $Enums.SkillName | null
@@ -43313,14 +43051,14 @@ export namespace Prisma {
   }
 
   export type AchievementCreateManyBruteInput = {
-    id?: number
+    id?: string
     name: $Enums.AchievementName
     count?: number
     userId?: string | null
   }
 
   export type BruteReportCreateManyBruteInput = {
-    id?: number
+    id?: string
     reason?: $Enums.BruteReportReason
     count?: number
     date?: Date | string
@@ -43328,15 +43066,15 @@ export namespace Prisma {
   }
 
   export type ClanPostCreateManyAuthorInput = {
-    id?: number
-    threadId: number
+    id?: string
+    threadId: string
     date?: Date | string
     message: string
   }
 
   export type ClanThreadCreateManyCreatorInput = {
-    id?: number
-    clanId: number
+    id?: string
+    clanId: string
     title: string
     locked?: boolean
     pinned?: boolean
@@ -43346,31 +43084,32 @@ export namespace Prisma {
   }
 
   export type BruteInventoryItemCreateManyBruteInput = {
-    id?: number
+    id?: string
     type: $Enums.InventoryItemType
     count?: number
   }
 
   export type TournamentAchievementCreateManyBruteInput = {
-    id?: number
+    id?: string
     date: Date | string
     achievement: $Enums.AchievementName
     achievementCount: number
   }
 
   export type TournamentXpCreateManyBruteInput = {
-    id?: number
+    id?: string
     date: Date | string
     xp: number
   }
 
   export type BossDamageCreateManyBruteInput = {
-    id?: number
-    clanId: number
+    id?: string
+    clanId: string
     damage: number
   }
 
   export type BruteUpdateWithoutMasterInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43439,7 +43178,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateWithoutMasterInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43471,7 +43210,7 @@ export namespace Prisma {
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -43484,7 +43223,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentWins?: IntFieldUpdateOperationsInput | number
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
@@ -43508,7 +43247,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateManyWithoutMasterInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43540,7 +43279,7 @@ export namespace Prisma {
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -43553,11 +43292,12 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentWins?: IntFieldUpdateOperationsInput | number
   }
 
   export type FightUpdateWithoutBrute1Input = {
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
@@ -43572,14 +43312,14 @@ export namespace Prisma {
   }
 
   export type FightUncheckedUpdateWithoutBrute1Input = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    brute2Id?: NullableIntFieldUpdateOperationsInput | number | null
+    brute2Id?: NullableStringFieldUpdateOperationsInput | string | null
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
     steps?: StringFieldUpdateOperationsInput | string
     fighters?: StringFieldUpdateOperationsInput | string
-    tournamentId?: NullableIntFieldUpdateOperationsInput | number | null
+    tournamentId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentStep?: IntFieldUpdateOperationsInput | number
     modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     background?: StringFieldUpdateOperationsInput | string
@@ -43587,20 +43327,21 @@ export namespace Prisma {
   }
 
   export type FightUncheckedUpdateManyWithoutBrute1Input = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    brute2Id?: NullableIntFieldUpdateOperationsInput | number | null
+    brute2Id?: NullableStringFieldUpdateOperationsInput | string | null
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
     steps?: StringFieldUpdateOperationsInput | string
     fighters?: StringFieldUpdateOperationsInput | string
-    tournamentId?: NullableIntFieldUpdateOperationsInput | number | null
+    tournamentId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentStep?: IntFieldUpdateOperationsInput | number
     modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     background?: StringFieldUpdateOperationsInput | string
   }
 
   export type FightUpdateWithoutBrute2Input = {
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
@@ -43615,14 +43356,14 @@ export namespace Prisma {
   }
 
   export type FightUncheckedUpdateWithoutBrute2Input = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    brute1Id?: IntFieldUpdateOperationsInput | number
+    brute1Id?: StringFieldUpdateOperationsInput | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
     steps?: StringFieldUpdateOperationsInput | string
     fighters?: StringFieldUpdateOperationsInput | string
-    tournamentId?: NullableIntFieldUpdateOperationsInput | number | null
+    tournamentId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentStep?: IntFieldUpdateOperationsInput | number
     modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     background?: StringFieldUpdateOperationsInput | string
@@ -43630,20 +43371,21 @@ export namespace Prisma {
   }
 
   export type FightUncheckedUpdateManyWithoutBrute2Input = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    brute1Id?: IntFieldUpdateOperationsInput | number
+    brute1Id?: StringFieldUpdateOperationsInput | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
     steps?: StringFieldUpdateOperationsInput | string
     fighters?: StringFieldUpdateOperationsInput | string
-    tournamentId?: NullableIntFieldUpdateOperationsInput | number | null
+    tournamentId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentStep?: IntFieldUpdateOperationsInput | number
     modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     background?: StringFieldUpdateOperationsInput | string
   }
 
   export type LogUpdateWithoutCurrentBruteInput = {
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumLogTypeFieldUpdateOperationsInput | $Enums.LogType
     level?: NullableIntFieldUpdateOperationsInput | number | null
@@ -43654,28 +43396,29 @@ export namespace Prisma {
   }
 
   export type LogUncheckedUpdateWithoutCurrentBruteInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumLogTypeFieldUpdateOperationsInput | $Enums.LogType
     level?: NullableIntFieldUpdateOperationsInput | number | null
     brute?: NullableStringFieldUpdateOperationsInput | string | null
-    fightId?: NullableIntFieldUpdateOperationsInput | number | null
+    fightId?: NullableStringFieldUpdateOperationsInput | string | null
     xp?: NullableIntFieldUpdateOperationsInput | number | null
     gold?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type LogUncheckedUpdateManyWithoutCurrentBruteInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumLogTypeFieldUpdateOperationsInput | $Enums.LogType
     level?: NullableIntFieldUpdateOperationsInput | number | null
     brute?: NullableStringFieldUpdateOperationsInput | string | null
-    fightId?: NullableIntFieldUpdateOperationsInput | number | null
+    fightId?: NullableStringFieldUpdateOperationsInput | string | null
     xp?: NullableIntFieldUpdateOperationsInput | number | null
     gold?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type DestinyChoiceUpdateWithoutBruteInput = {
+    id?: StringFieldUpdateOperationsInput | string
     path?: DestinyChoiceUpdatepathInput | $Enums.DestinyChoiceSide[]
     type?: EnumDestinyChoiceTypeFieldUpdateOperationsInput | $Enums.DestinyChoiceType
     skill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
@@ -43688,7 +43431,7 @@ export namespace Prisma {
   }
 
   export type DestinyChoiceUncheckedUpdateWithoutBruteInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     path?: DestinyChoiceUpdatepathInput | $Enums.DestinyChoiceSide[]
     type?: EnumDestinyChoiceTypeFieldUpdateOperationsInput | $Enums.DestinyChoiceType
     skill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
@@ -43701,7 +43444,7 @@ export namespace Prisma {
   }
 
   export type DestinyChoiceUncheckedUpdateManyWithoutBruteInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     path?: DestinyChoiceUpdatepathInput | $Enums.DestinyChoiceSide[]
     type?: EnumDestinyChoiceTypeFieldUpdateOperationsInput | $Enums.DestinyChoiceType
     skill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
@@ -43714,6 +43457,7 @@ export namespace Prisma {
   }
 
   export type TournamentUpdateWithoutParticipantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumTournamentTypeFieldUpdateOperationsInput | $Enums.TournamentType
     rounds?: IntFieldUpdateOperationsInput | number
@@ -43721,7 +43465,7 @@ export namespace Prisma {
   }
 
   export type TournamentUncheckedUpdateWithoutParticipantsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumTournamentTypeFieldUpdateOperationsInput | $Enums.TournamentType
     rounds?: IntFieldUpdateOperationsInput | number
@@ -43729,13 +43473,14 @@ export namespace Prisma {
   }
 
   export type TournamentUncheckedUpdateManyWithoutParticipantsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumTournamentTypeFieldUpdateOperationsInput | $Enums.TournamentType
     rounds?: IntFieldUpdateOperationsInput | number
   }
 
   export type BruteUpdateWithoutOpponentOfInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43804,7 +43549,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateWithoutOpponentOfInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43835,9 +43580,9 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -43850,7 +43595,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentWins?: IntFieldUpdateOperationsInput | number
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
@@ -43873,7 +43618,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateManyWithoutOpponentOfInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43904,9 +43649,9 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -43919,11 +43664,12 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentWins?: IntFieldUpdateOperationsInput | number
   }
 
   export type BruteUpdateWithoutOpponentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43992,7 +43738,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateWithoutOpponentsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44023,9 +43769,9 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -44038,7 +43784,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentWins?: IntFieldUpdateOperationsInput | number
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
@@ -44061,7 +43807,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateManyWithoutOpponentsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44092,9 +43838,9 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -44107,31 +43853,33 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentWins?: IntFieldUpdateOperationsInput | number
   }
 
   export type AchievementUpdateWithoutBruteInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
     count?: IntFieldUpdateOperationsInput | number
     user?: UserUpdateOneWithoutAchievementsNestedInput
   }
 
   export type AchievementUncheckedUpdateWithoutBruteInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
     count?: IntFieldUpdateOperationsInput | number
     userId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AchievementUncheckedUpdateManyWithoutBruteInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
     count?: IntFieldUpdateOperationsInput | number
     userId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BruteReportUpdateWithoutBruteInput = {
+    id?: StringFieldUpdateOperationsInput | string
     reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44140,7 +43888,7 @@ export namespace Prisma {
   }
 
   export type BruteReportUncheckedUpdateWithoutBruteInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44149,7 +43897,7 @@ export namespace Prisma {
   }
 
   export type BruteReportUncheckedUpdateManyWithoutBruteInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44157,43 +43905,46 @@ export namespace Prisma {
   }
 
   export type TitleUpdateWithoutBrutesInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
     count?: IntFieldUpdateOperationsInput | number
   }
 
   export type TitleUncheckedUpdateWithoutBrutesInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
     count?: IntFieldUpdateOperationsInput | number
   }
 
   export type TitleUncheckedUpdateManyWithoutBrutesInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
     count?: IntFieldUpdateOperationsInput | number
   }
 
   export type ClanPostUpdateWithoutAuthorInput = {
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     message?: StringFieldUpdateOperationsInput | string
     thread?: ClanThreadUpdateOneRequiredWithoutPostsNestedInput
   }
 
   export type ClanPostUncheckedUpdateWithoutAuthorInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    threadId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    threadId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     message?: StringFieldUpdateOperationsInput | string
   }
 
   export type ClanPostUncheckedUpdateManyWithoutAuthorInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    threadId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    threadId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     message?: StringFieldUpdateOperationsInput | string
   }
 
   export type ClanThreadUpdateWithoutCreatorInput = {
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
     pinned?: BoolFieldUpdateOperationsInput | boolean
@@ -44205,8 +43956,8 @@ export namespace Prisma {
   }
 
   export type ClanThreadUncheckedUpdateWithoutCreatorInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    clanId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    clanId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
     pinned?: BoolFieldUpdateOperationsInput | boolean
@@ -44217,8 +43968,8 @@ export namespace Prisma {
   }
 
   export type ClanThreadUncheckedUpdateManyWithoutCreatorInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    clanId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    clanId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
     pinned?: BoolFieldUpdateOperationsInput | boolean
@@ -44228,80 +43979,84 @@ export namespace Prisma {
   }
 
   export type BruteInventoryItemUpdateWithoutBruteInput = {
+    id?: StringFieldUpdateOperationsInput | string
     type?: EnumInventoryItemTypeFieldUpdateOperationsInput | $Enums.InventoryItemType
     count?: IntFieldUpdateOperationsInput | number
   }
 
   export type BruteInventoryItemUncheckedUpdateWithoutBruteInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     type?: EnumInventoryItemTypeFieldUpdateOperationsInput | $Enums.InventoryItemType
     count?: IntFieldUpdateOperationsInput | number
   }
 
   export type BruteInventoryItemUncheckedUpdateManyWithoutBruteInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     type?: EnumInventoryItemTypeFieldUpdateOperationsInput | $Enums.InventoryItemType
     count?: IntFieldUpdateOperationsInput | number
   }
 
   export type TournamentAchievementUpdateWithoutBruteInput = {
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     achievement?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
     achievementCount?: IntFieldUpdateOperationsInput | number
   }
 
   export type TournamentAchievementUncheckedUpdateWithoutBruteInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     achievement?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
     achievementCount?: IntFieldUpdateOperationsInput | number
   }
 
   export type TournamentAchievementUncheckedUpdateManyWithoutBruteInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     achievement?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
     achievementCount?: IntFieldUpdateOperationsInput | number
   }
 
   export type TournamentXpUpdateWithoutBruteInput = {
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     xp?: IntFieldUpdateOperationsInput | number
   }
 
   export type TournamentXpUncheckedUpdateWithoutBruteInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     xp?: IntFieldUpdateOperationsInput | number
   }
 
   export type TournamentXpUncheckedUpdateManyWithoutBruteInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     xp?: IntFieldUpdateOperationsInput | number
   }
 
   export type BossDamageUpdateWithoutBruteInput = {
+    id?: StringFieldUpdateOperationsInput | string
     damage?: IntFieldUpdateOperationsInput | number
     clan?: ClanUpdateOneRequiredWithoutBossDamagesNestedInput
   }
 
   export type BossDamageUncheckedUpdateWithoutBruteInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    clanId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    clanId?: StringFieldUpdateOperationsInput | string
     damage?: IntFieldUpdateOperationsInput | number
   }
 
   export type BossDamageUncheckedUpdateManyWithoutBruteInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    clanId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    clanId?: StringFieldUpdateOperationsInput | string
     damage?: IntFieldUpdateOperationsInput | number
   }
 
   export type LogCreateManyFightInput = {
-    id?: number
+    id?: string
     date?: Date | string
-    currentBruteId: number
+    currentBruteId: string
     type: $Enums.LogType
     level?: number | null
     brute?: string | null
@@ -44310,6 +44065,7 @@ export namespace Prisma {
   }
 
   export type LogUpdateWithoutFightInput = {
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: EnumLogTypeFieldUpdateOperationsInput | $Enums.LogType
     level?: NullableIntFieldUpdateOperationsInput | number | null
@@ -44320,9 +44076,9 @@ export namespace Prisma {
   }
 
   export type LogUncheckedUpdateWithoutFightInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    currentBruteId?: IntFieldUpdateOperationsInput | number
+    currentBruteId?: StringFieldUpdateOperationsInput | string
     type?: EnumLogTypeFieldUpdateOperationsInput | $Enums.LogType
     level?: NullableIntFieldUpdateOperationsInput | number | null
     brute?: NullableStringFieldUpdateOperationsInput | string | null
@@ -44331,9 +44087,9 @@ export namespace Prisma {
   }
 
   export type LogUncheckedUpdateManyWithoutFightInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    currentBruteId?: IntFieldUpdateOperationsInput | number
+    currentBruteId?: StringFieldUpdateOperationsInput | string
     type?: EnumLogTypeFieldUpdateOperationsInput | $Enums.LogType
     level?: NullableIntFieldUpdateOperationsInput | number | null
     brute?: NullableStringFieldUpdateOperationsInput | string | null
@@ -44342,10 +44098,10 @@ export namespace Prisma {
   }
 
   export type FightCreateManyTournamentInput = {
-    id?: number
+    id?: string
     date?: Date | string
-    brute1Id: number
-    brute2Id?: number | null
+    brute1Id: string
+    brute2Id?: string | null
     winner: string
     loser: string
     steps: string
@@ -44356,6 +44112,7 @@ export namespace Prisma {
   }
 
   export type BruteUpdateWithoutTournamentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44424,7 +44181,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateWithoutTournamentsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44455,9 +44212,9 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -44470,7 +44227,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentWins?: IntFieldUpdateOperationsInput | number
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
@@ -44493,7 +44250,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateManyWithoutTournamentsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44524,9 +44281,9 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -44539,11 +44296,12 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentWins?: IntFieldUpdateOperationsInput | number
   }
 
   export type FightUpdateWithoutTournamentInput = {
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
@@ -44558,10 +44316,10 @@ export namespace Prisma {
   }
 
   export type FightUncheckedUpdateWithoutTournamentInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    brute1Id?: IntFieldUpdateOperationsInput | number
-    brute2Id?: NullableIntFieldUpdateOperationsInput | number | null
+    brute1Id?: StringFieldUpdateOperationsInput | string
+    brute2Id?: NullableStringFieldUpdateOperationsInput | string | null
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
     steps?: StringFieldUpdateOperationsInput | string
@@ -44573,10 +44331,10 @@ export namespace Prisma {
   }
 
   export type FightUncheckedUpdateManyWithoutTournamentInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    brute1Id?: IntFieldUpdateOperationsInput | number
-    brute2Id?: NullableIntFieldUpdateOperationsInput | number | null
+    brute1Id?: StringFieldUpdateOperationsInput | string
+    brute2Id?: NullableStringFieldUpdateOperationsInput | string | null
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
     steps?: StringFieldUpdateOperationsInput | string
@@ -44587,6 +44345,7 @@ export namespace Prisma {
   }
 
   export type BruteUpdateWithoutTitlesInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44655,7 +44414,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateWithoutTitlesInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44686,9 +44445,9 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -44701,7 +44460,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentWins?: IntFieldUpdateOperationsInput | number
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
@@ -44724,7 +44483,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateManyWithoutTitlesInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44755,9 +44514,9 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -44770,7 +44529,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentWins?: IntFieldUpdateOperationsInput | number
   }
 
@@ -44823,7 +44582,7 @@ export namespace Prisma {
   }
 
   export type BruteCreateManyClanInput = {
-    id?: number
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -44854,7 +44613,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
-    masterId?: number | null
+    masterId?: string | null
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -44868,12 +44627,12 @@ export namespace Prisma {
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
-    wantToJoinClanId?: number | null
+    wantToJoinClanId?: string | null
     tournamentWins?: number
   }
 
   export type BruteCreateManyWantToJoinClanInput = {
-    id?: number
+    id?: string
     name: string
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -44904,9 +44663,9 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
-    masterId?: number | null
+    masterId?: string | null
     pupilsCount?: number
-    clanId?: number | null
+    clanId?: string | null
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
     currentTournamentDate?: Date | string | null
@@ -44923,8 +44682,8 @@ export namespace Prisma {
   }
 
   export type ClanThreadCreateManyClanInput = {
-    id?: number
-    creatorId: number
+    id?: string
+    creatorId: string
     title: string
     locked?: boolean
     pinned?: boolean
@@ -44934,12 +44693,13 @@ export namespace Prisma {
   }
 
   export type BossDamageCreateManyClanInput = {
-    id?: number
-    bruteId: number
+    id?: string
+    bruteId: string
     damage: number
   }
 
   export type BruteUpdateWithoutClanInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -45008,7 +44768,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateWithoutClanInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -45039,7 +44799,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -45053,7 +44813,7 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentWins?: IntFieldUpdateOperationsInput | number
     pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
     fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
@@ -45077,7 +44837,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateManyWithoutClanInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -45108,7 +44868,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -45122,11 +44882,12 @@ export namespace Prisma {
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableIntFieldUpdateOperationsInput | number | null
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
     tournamentWins?: IntFieldUpdateOperationsInput | number
   }
 
   export type BruteUpdateWithoutWantToJoinClanInput = {
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -45195,7 +44956,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateWithoutWantToJoinClanInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -45226,9 +44987,9 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -45264,7 +45025,7 @@ export namespace Prisma {
   }
 
   export type BruteUncheckedUpdateManyWithoutWantToJoinClanInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -45295,9 +45056,9 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    masterId?: NullableIntFieldUpdateOperationsInput | number | null
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableIntFieldUpdateOperationsInput | number | null
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -45314,6 +45075,7 @@ export namespace Prisma {
   }
 
   export type ClanThreadUpdateWithoutClanInput = {
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
     pinned?: BoolFieldUpdateOperationsInput | boolean
@@ -45325,8 +45087,8 @@ export namespace Prisma {
   }
 
   export type ClanThreadUncheckedUpdateWithoutClanInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    creatorId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    creatorId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
     pinned?: BoolFieldUpdateOperationsInput | boolean
@@ -45337,8 +45099,8 @@ export namespace Prisma {
   }
 
   export type ClanThreadUncheckedUpdateManyWithoutClanInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    creatorId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    creatorId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     locked?: BoolFieldUpdateOperationsInput | boolean
     pinned?: BoolFieldUpdateOperationsInput | boolean
@@ -45348,45 +45110,47 @@ export namespace Prisma {
   }
 
   export type BossDamageUpdateWithoutClanInput = {
+    id?: StringFieldUpdateOperationsInput | string
     damage?: IntFieldUpdateOperationsInput | number
     brute?: BruteUpdateOneRequiredWithoutDamageOnBossesNestedInput
   }
 
   export type BossDamageUncheckedUpdateWithoutClanInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    bruteId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    bruteId?: StringFieldUpdateOperationsInput | string
     damage?: IntFieldUpdateOperationsInput | number
   }
 
   export type BossDamageUncheckedUpdateManyWithoutClanInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    bruteId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    bruteId?: StringFieldUpdateOperationsInput | string
     damage?: IntFieldUpdateOperationsInput | number
   }
 
   export type ClanPostCreateManyThreadInput = {
-    id?: number
-    authorId: number
+    id?: string
+    authorId: string
     date?: Date | string
     message: string
   }
 
   export type ClanPostUpdateWithoutThreadInput = {
+    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     message?: StringFieldUpdateOperationsInput | string
     author?: BruteUpdateOneRequiredWithoutClanPostsNestedInput
   }
 
   export type ClanPostUncheckedUpdateWithoutThreadInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    authorId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     message?: StringFieldUpdateOperationsInput | string
   }
 
   export type ClanPostUncheckedUpdateManyWithoutThreadInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    authorId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     message?: StringFieldUpdateOperationsInput | string
   }

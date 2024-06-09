@@ -12,7 +12,7 @@ import {
 import { FightModifier, PetName, SkillName } from '@labrute/prisma';
 import getDamage from './getDamage.js';
 
-export type Stats = Record<number, {
+export type Stats = Record<string, {
   userId: string | null;
   skillsUsed?: number;
   weaponsStolen?: number;
@@ -75,15 +75,15 @@ const getFighterStat = (
   return total;
 };
 
-const resetOthersStats = (stats: Stats, excludedFighter: number, stat: keyof Omit<Stats[number], 'userId'>) => {
+const resetOthersStats = (stats: Stats, excludedFighter: string, stat: keyof Omit<Stats[string], 'userId'>) => {
   for (const [bruteId, bruteStats] of Object.entries(stats)) {
-    if (+bruteId !== excludedFighter) {
+    if (bruteId !== excludedFighter) {
       bruteStats[stat] = 0;
     }
   }
 };
 
-const updateStats = (stats: Stats, bruteId: number, stat: keyof Omit<Stats[number], 'userId'>, value: number, masterId?: number) => {
+const updateStats = (stats: Stats, bruteId: string, stat: keyof Omit<Stats[number], 'userId'>, value: number, masterId?: string) => {
   // Special case for hits, add to otherTeamMembersHits if not master
   if (stat === 'hits' && masterId) {
     const master = stats[masterId];
@@ -110,8 +110,7 @@ const checkAchievements = (
   stats: Stats,
   achievements: AchievementsStore,
 ) => {
-  for (const [_bruteId, stat] of Object.entries(stats)) {
-    const bruteId = +_bruteId;
+  for (const [bruteId, stat] of Object.entries(stats)) {
     const achievement = achievements[bruteId];
 
     if (!achievement) {
@@ -179,11 +178,9 @@ export const saboteur = (fightData: DetailedFight, achievements: AchievementsSto
   fightData.fighters.filter((fighter) => fighter.type === 'brute' && !fighter.master).forEach((brute) => {
     if (brute.saboteur) {
       const opponent = getMainOpponent(fightData, brute);
-
       if (opponent && opponent.weapons.length > 0) {
         const sabotagedWeapon = randomItem(opponent.weapons);
         opponent.sabotagedWeapon = sabotagedWeapon;
-
         updateAchievement(achievements, 'saboteur', 1, brute.id);
       }
     }
@@ -414,7 +411,7 @@ const registerHit = (
 
   const actualDamage: Record<number, number> = opponents.reduce((acc, opponent) => ({
     ...acc,
-    [opponent.id]: (sourceName === 'bomb' && opponent.type === 'pet')
+    [opponent.index]: (sourceName === 'bomb' && opponent.type === 'pet')
       ? Math.round(
         ((randomBetween(
           ...bombDamageRangeOnPets[opponent.name as PetName],
@@ -432,18 +429,18 @@ const registerHit = (
 
     if (opponent.skills.find((sk) => sk.name === 'resistant')) {
       // Max damage to 20% of opponent's health if `resistant`
-      actualDamage[opponent.id] = Math.min(damage, Math.floor(opponent.maxHp * 0.2));
+      actualDamage[opponent.index] = Math.min(damage, Math.floor(opponent.maxHp * 0.2));
 
-      if ((actualDamage[opponent.id] ?? damage) < damage) {
+      if ((actualDamage[opponent.index] ?? damage) < damage) {
         // Add resist step
         fightData.steps.push({
           a: StepType.Resist,
-          b: opponent.id,
+          b: opponent.index,
         });
       }
     }
 
-    const opponentDamage = actualDamage[opponent.id] ?? damage;
+    const opponentDamage = actualDamage[opponent.index] ?? damage;
 
     // Reduce backup leave time instead of reducing hp
     if (opponent.leavesAtInitiative) {
@@ -457,10 +454,10 @@ const registerHit = (
     // Add bomb step
     fightData.steps.push({
       a: StepType.Bomb,
-      f: fighter.id,
-      t: opponents.map((opponent) => opponent.id),
+      f: fighter.index,
+      t: opponents.map((opponent) => opponent.index),
       d: opponents.reduce((acc, curr) => {
-        acc[curr.id] = actualDamage[curr.id] ?? damage;
+        acc[curr.index] = actualDamage[curr.index] ?? damage;
         return acc;
       }, {} as Record<number, number>),
     });
@@ -472,15 +469,15 @@ const registerHit = (
     }
 
     // HP healed
-    const heal = Math.min(actualDamage[opponent.id] ?? damage, fighter.maxHp - fighter.hp);
+    const heal = Math.min(actualDamage[opponent.index] ?? damage, fighter.maxHp - fighter.hp);
     healFighter(stats, fighter, heal);
 
     // Add vampirism step
     fightData.steps.push({
       a: StepType.Vampirism,
-      b: fighter.id,
-      t: opponent.id,
-      d: actualDamage[opponent.id] ?? damage,
+      b: fighter.index,
+      t: opponent.index,
+      d: actualDamage[opponent.index] ?? damage,
       h: heal,
     });
   } else if (sourceName === 'haste') {
@@ -493,9 +490,9 @@ const registerHit = (
     // Add haste step
     fightData.steps.push({
       a: StepType.Haste,
-      b: fighter.id,
-      t: opponent.id,
-      d: actualDamage[opponent.id] ?? damage,
+      b: fighter.index,
+      t: opponent.index,
+      d: actualDamage[opponent.index] ?? damage,
     });
   } else {
     opponents.forEach((opponent) => {
@@ -509,27 +506,27 @@ const registerHit = (
 
       const step: HitStep = {
         a: stepType,
-        f: fighter.id,
-        t: opponent.id,
+        f: fighter.index,
+        t: opponent.index,
         w: sourceName
           ? (flashFloodWeapon
             ? WeaponByName[flashFloodWeapon.name]
             : undefined)
           : fighter.activeWeapon ? WeaponByName[fighter.activeWeapon.name] : undefined,
-        d: actualDamage[opponent.id] ?? damage,
+        d: actualDamage[opponent.index] ?? damage,
       };
 
       if (!thrown && !sourceName && !flashFloodWeapon && opponent.type === 'brute') {
         // Update consecutive hits
-        opponent.hitBy[fighter.id] = (opponent.hitBy[fighter.id] || 0) + 1;
-        fighter.hitBy[opponent.id] = 0;
+        opponent.hitBy[fighter.index] = (opponent.hitBy[fighter.index] || 0) + 1;
+        fighter.hitBy[opponent.index] = 0;
 
         // Stun opponent if 3 hits in a row
         if (fighter.skills.find((s) => s.name === SkillName.chaining)
-          && (opponent.hitBy[fighter.id] || 0) === 3) {
+          && (opponent.hitBy[fighter.index] || 0) === 3) {
           step.s = 1;
           opponent.stunned = true;
-          opponent.hitBy[fighter.id] = 0;
+          opponent.hitBy[fighter.index] = 0;
         } else if (opponent.stunned) {
           // Remove stun if hit while stunned
           opponent.stunned = false;
@@ -568,7 +565,7 @@ const registerHit = (
       // Add survival step
       fightData.steps.push({
         a: StepType.Survive,
-        b: opponent.id,
+        b: opponent.index,
       });
     }
   });
@@ -616,7 +613,7 @@ const activateSuper = (
         // Add trash step
         fightData.steps.push({
           a: StepType.Trash,
-          b: fighter.id,
+          b: fighter.index,
           w: WeaponByName[fighter.activeWeapon.name],
         });
 
@@ -626,9 +623,9 @@ const activateSuper = (
       // Add steal step
       fightData.steps.push({
         a: StepType.Steal,
-        b: fighter.id,
+        b: fighter.index,
         w: WeaponByName[opponent.activeWeapon.name],
-        t: opponent.id,
+        t: opponent.index,
       });
 
       // Set own weapon
@@ -655,7 +652,7 @@ const activateSuper = (
       // Add skill activation step
       fightData.steps.push({
         a: StepType.SkillActivate,
-        b: fighter.id,
+        b: fighter.index,
         s: SkillByName[skill.name],
       });
 
@@ -680,7 +677,7 @@ const activateSuper = (
       // Add heal step
       fightData.steps.push({
         a: StepType.Heal,
-        b: fighter.id,
+        b: fighter.index,
         h: hpHealed,
         c: poisonHeal ? 1 : 0,
       });
@@ -712,8 +709,8 @@ const activateSuper = (
       // Add trap step
       fightData.steps.push({
         a: StepType.Trap,
-        b: fighter.id,
-        t: opponent.id,
+        b: fighter.index,
+        t: opponent.index,
       });
 
       break;
@@ -740,7 +737,7 @@ const activateSuper = (
           // Add trash step
           fightData.steps.push({
             a: StepType.Trash,
-            b: fighter.id,
+            b: fighter.index,
             w: WeaponByName[fighter.activeWeapon.name],
           });
 
@@ -766,15 +763,15 @@ const activateSuper = (
       // Add skill activation step
       fightData.steps.push({
         a: StepType.SkillActivate,
-        b: fighter.id,
+        b: fighter.index,
         s: SkillByName[skill.name],
       });
 
       // Add move step
       fightData.steps.push({
         a: StepType.Move,
-        f: fighter.id,
-        t: opponent.id,
+        f: fighter.index,
+        t: opponent.index,
         s: 1,
       });
 
@@ -783,7 +780,7 @@ const activateSuper = (
       // Add move back step
       fightData.steps.push({
         a: StepType.MoveBack,
-        f: fighter.id,
+        f: fighter.index,
       });
 
       // Increase own initiative
@@ -792,7 +789,7 @@ const activateSuper = (
       // Add skill expire step
       fightData.steps.push({
         a: StepType.SkillExpire,
-        b: fighter.id,
+        b: fighter.index,
         s: SkillByName[skill.name],
       });
 
@@ -817,7 +814,7 @@ const activateSuper = (
         if (randomBetween(0, 1) === 0) {
           fearSteps.push({
             a: StepType.Leave,
-            f: pet.id,
+            f: pet.index,
           });
 
           // Remove pet from fight
@@ -837,7 +834,7 @@ const activateSuper = (
       // Add skill activation step
       fightData.steps.push({
         a: StepType.SkillActivate,
-        b: fighter.id,
+        b: fighter.index,
         s: SkillByName[skill.name],
       });
 
@@ -863,7 +860,7 @@ const activateSuper = (
       const hypnotisedPets: number[] = [];
 
       for (const pet of opponentPets) {
-        hypnotisedPets.push(pet.id);
+        hypnotisedPets.push(pet.index);
 
         // Change pet owner
         pet.master = mainFighter.id;
@@ -876,7 +873,7 @@ const activateSuper = (
       // Add hypnotise step
       fightData.steps.push({
         a: StepType.Hypnotise,
-        b: fighter.id,
+        b: fighter.index,
         p: hypnotisedPets,
       });
 
@@ -914,7 +911,7 @@ const activateSuper = (
       // Add skill activation step
       fightData.steps.push({
         a: StepType.SkillActivate,
-        b: fighter.id,
+        b: fighter.index,
         s: SkillByName[skill.name],
       });
 
@@ -930,7 +927,7 @@ const activateSuper = (
       // Add skill expire step
       fightData.steps.push({
         a: StepType.SkillExpire,
-        b: fighter.id,
+        b: fighter.index,
         s: SkillByName[skill.name],
       });
 
@@ -989,23 +986,23 @@ const activateSuper = (
       // Add move step
       fightData.steps.push({
         a: StepType.Move,
-        f: fighter.id,
-        t: pet.id,
+        f: fighter.index,
+        t: pet.index,
         s: 1,
       });
 
       // Add eat step
       fightData.steps.push({
         a: StepType.Eat,
-        b: fighter.id,
-        t: pet.id,
+        b: fighter.index,
+        t: pet.index,
         h: heal,
       });
 
       // Add moveBack step
       fightData.steps.push({
         a: StepType.MoveBack,
-        f: fighter.id,
+        f: fighter.index,
       });
 
       break;
@@ -1060,23 +1057,23 @@ const activateSuper = (
       // Add move step
       fightData.steps.push({
         a: StepType.Move,
-        f: fighter.id,
-        t: pet.id,
+        f: fighter.index,
+        t: pet.index,
         s: 1,
       });
 
       // Add treat step
       fightData.steps.push({
         a: StepType.Treat,
-        b: fighter.id,
-        t: pet.id,
+        b: fighter.index,
+        t: pet.index,
         h: heal,
       });
 
       // Add moveBack step
       fightData.steps.push({
         a: StepType.MoveBack,
-        f: fighter.id,
+        f: fighter.index,
       });
 
       // Increase own initiative
@@ -1157,7 +1154,7 @@ const drawWeapon = (fightData: DetailedFight): boolean => {
     // Add trash step
     fightData.steps.push({
       a: StepType.Trash,
-      b: fighter.id,
+      b: fighter.index,
       w: WeaponByName[fighter.activeWeapon.name],
     });
 
@@ -1177,7 +1174,7 @@ const drawWeapon = (fightData: DetailedFight): boolean => {
   // Add equip step
   fightData.steps.push({
     a: StepType.Equip,
-    b: fighter.id,
+    b: fighter.index,
     w: WeaponByName[possibleWeapon.name],
   });
 
@@ -1186,7 +1183,7 @@ const drawWeapon = (fightData: DetailedFight): boolean => {
     // Add saboteur step
     fightData.steps.push({
       a: StepType.Saboteur,
-      b: fighter.id,
+      b: fighter.index,
       w: WeaponByName[possibleWeapon.name],
     });
 
@@ -1325,8 +1322,8 @@ const attack = (
   // Prepare attempt step
   const attemptStep: AttemptHitStep = {
     a: StepType.AttemptHit,
-    f: fighter.id,
-    t: opponent.id,
+    f: fighter.index,
+    t: opponent.index,
     w: fighter.activeWeapon ? WeaponByName[fighter.activeWeapon.name] : undefined,
   };
 
@@ -1340,7 +1337,7 @@ const attack = (
     // Add evade step
     fightData.steps.push({
       a: StepType.Evade,
-      f: opponent.id,
+      f: opponent.index,
     });
 
     // Update evasion stat
@@ -1375,7 +1372,7 @@ const attack = (
       // Add block step
       fightData.steps.push({
         a: StepType.Block,
-        f: opponent.id,
+        f: opponent.index,
       });
 
       // Update block stat
@@ -1401,8 +1398,8 @@ const attack = (
       // Add sabotage step
       fightData.steps.push({
         a: StepType.Sabotage,
-        f: fighter.id,
-        t: opponent.id,
+        f: fighter.index,
+        t: opponent.index,
         w: WeaponByName[weapon.name],
       });
     }
@@ -1414,8 +1411,8 @@ const attack = (
       // Add disarm step
       fightData.steps.push({
         a: StepType.Disarm,
-        f: fighter.id,
-        t: opponent.id,
+        f: fighter.index,
+        t: opponent.index,
         w: WeaponByName[opponent.activeWeapon.name],
       });
 
@@ -1438,8 +1435,8 @@ const attack = (
       // Add disarm step
       fightData.steps.push({
         a: StepType.Disarm,
-        f: opponent.id,
-        t: fighter.id,
+        f: opponent.index,
+        t: fighter.index,
         w: WeaponByName[fighter.activeWeapon.name],
       });
 
@@ -1471,11 +1468,11 @@ export const checkDeaths = (
   for (const fighter of fightData.fighters) {
     // Only add death step if fighter is dead and hasn't died yet
     if (fighter.hp <= 0 && fightData.steps.filter((step) => step.a === StepType.Death
-      && step.f === fighter.id).length === 0) {
+      && step.f === fighter.index).length === 0) {
       // Add death step
       fightData.steps.push({
         a: StepType.Death,
-        f: fighter.id,
+        f: fighter.index,
       });
 
       // Update pet kills stat
@@ -1614,7 +1611,7 @@ export const playFighterTurn = (
     // Add backup leave step
     fightData.steps.push({
       a: StepType.Leave,
-      f: fighter.id,
+      f: fighter.index,
     });
 
     fightData.fighters.shift();
@@ -1628,7 +1625,7 @@ export const playFighterTurn = (
     // Add backup arrive step
     fightData.steps.push({
       a: StepType.Arrive,
-      f: fighter.id,
+      f: fighter.index,
     });
   }
 
@@ -1680,8 +1677,8 @@ export const playFighterTurn = (
     // Add move step
     fightData.steps.push({
       a: StepType.Move,
-      f: fighter.id,
-      t: opponent.id,
+      f: fighter.index,
+      t: opponent.index,
       c: countered ? 1 : 0,
     });
 
@@ -1696,8 +1693,8 @@ export const playFighterTurn = (
       // Add counter step
       fightData.steps.push({
         a: StepType.Counter,
-        f: opponent.id,
-        t: fighter.id,
+        f: opponent.index,
+        t: fighter.index,
       });
 
       // Opponent attacks fighter
@@ -1715,7 +1712,7 @@ export const playFighterTurn = (
       // Add moveBack step
       fightData.steps.push({
         a: StepType.MoveBack,
-        f: fighter.id,
+        f: fighter.index,
       });
     }
   } else {
@@ -1749,8 +1746,8 @@ export const playFighterTurn = (
         // Add throw step
         fightData.steps.push({
           a: StepType.Throw,
-          f: currentFighter.id,
-          t: currentOpponent.id,
+          f: currentFighter.index,
+          t: currentOpponent.index,
           w: WeaponByName[thrownWeapon.name],
           k: keepWeapon ? 1 : 0,
           r: deflected ? 1 : 0,
@@ -1775,11 +1772,10 @@ export const playFighterTurn = (
         // Check if opponent blocked (harder than melee)
         if (!deflected && block(currentFighter, currentOpponent, 2)) {
           damage = 0;
-
           // Add block step
           fightData.steps.push({
             a: StepType.Block,
-            f: currentOpponent.id,
+            f: currentOpponent.index,
           });
 
           // Update block stat
@@ -1790,7 +1786,6 @@ export const playFighterTurn = (
           // Reset block stat
           updateStats(stats, currentOpponent.id, 'consecutiveBlocks', 0);
         }
-
         // Check if opponent evaded (harder than melee)
         if (damage && evade(currentFighter, currentOpponent, 2)) {
           damage = 0;
@@ -1798,7 +1793,7 @@ export const playFighterTurn = (
           // Add evade step
           fightData.steps.push({
             a: StepType.Evade,
-            f: currentOpponent.id,
+            f: currentOpponent.index,
           });
 
           // Update evade stat
@@ -1859,7 +1854,7 @@ export const playFighterTurn = (
     // Add skill expire step
     fightData.steps.push({
       a: StepType.SkillExpire,
-      b: fighter.id,
+      b: fighter.index,
       s: SkillByName[skill.name],
     });
   });
