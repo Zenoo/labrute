@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.60.1](https://github.com/Zenoo/labrute/compare/labrute-v2.60.0...labrute-v2.60.1) (2024-06-10)
+
+
+### Bug Fixes
+
+* Adde deflect to the frying pan ([e62d2bd](https://github.com/Zenoo/labrute/commit/e62d2bd49662a6cf772a039a1634ec31c8219148))
+* Disable vampirism on bosses. Fixes [#763](https://github.com/Zenoo/labrute/issues/763) ([418f922](https://github.com/Zenoo/labrute/commit/418f922f4bdd80f86ca4eef6e2b826e9b312ea20))
+* Hard to read colors in dark mode. Fixes [#759](https://github.com/Zenoo/labrute/issues/759) ([0107bf5](https://github.com/Zenoo/labrute/commit/0107bf51159e67d144195743248717385880528f))
+* Missing piopio texture. ([8fd1991](https://github.com/Zenoo/labrute/commit/8fd19918673423815ca173e2c4148c81d6e5de6e))
+* Silence wrong user id error ([11067bb](https://github.com/Zenoo/labrute/commit/11067bb416eb8519c51d10c18d6063fe07ba060f))
+* Stop marquee on click ([bf28cbd](https://github.com/Zenoo/labrute/commit/bf28cbdc33986e715a126dcf5e358c08cbae10b6))
+* Wrong deflect animation. Fixes [#762](https://github.com/Zenoo/labrute/issues/762) ([bd359be](https://github.com/Zenoo/labrute/commit/bd359beb350255eece0e9dddf3fce88fab8a5ed4))
+
 ## [2.60.0](https://github.com/Zenoo/labrute/compare/labrute-v2.59.11...labrute-v2.60.0) (2024-06-04)
 
 
