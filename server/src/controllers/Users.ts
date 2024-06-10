@@ -326,6 +326,10 @@ const Users = {
         throw new ExpectedError('No user ID provided');
       }
 
+      if (!isUuid(req.params.userId)) {
+        throw new ExpectedError('Invalid user ID');
+      }
+
       const user = await prisma.user.findFirst({
         where: {
           id: req.params.userId,
