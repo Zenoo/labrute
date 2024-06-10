@@ -244,21 +244,29 @@ const BruteReports = {
       });
 
       // Add 1 free name change
-      await prisma.bruteInventoryItem.upsert({
-        where: {
-          id: report.brute.inventory[0]?.id || '',
-        },
-        create: {
-          type: InventoryItemType.nameChange,
-          bruteId: report.brute.id,
-        },
-        update: {
-          count: {
-            increment: 1,
+      const nameChange = report.brute.inventory[0];
+
+      if (nameChange) {
+        await prisma.bruteInventoryItem.update({
+          where: {
+            id: nameChange.id,
           },
-        },
-        select: { id: true },
-      });
+          data: {
+            count: {
+              increment: 1,
+            },
+          },
+          select: { id: true },
+        });
+      } else {
+        await prisma.bruteInventoryItem.create({
+          data: {
+            type: InventoryItemType.nameChange,
+            bruteId: report.brute.id,
+          },
+          select: { id: true },
+        });
+      }
 
       res.status(200).send({
         success: true,
