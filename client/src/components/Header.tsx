@@ -23,6 +23,7 @@ const Header = ({
   const { modifiers } = useAuth();
 
   const [time, setTime] = useState(moment.utc());
+  const [marqueePaused, setMarqueePaused] = useState(localStorage.getItem('marqueePaused') === moment.utc().format('YYYY-MM-DD'));
 
   // Randomized left art
   const leftArt = useMemo(() => Math.floor(Math.random() * (11 - 1 + 1) + 1), []);
@@ -42,6 +43,18 @@ const Header = ({
     }, 60000);
     return () => clearInterval(interval);
   }, []);
+
+  // Pause marquee
+  const pauseMarquee = () => {
+    setMarqueePaused((prev) => {
+      if (prev) {
+        localStorage.removeItem('marqueePaused');
+        return false;
+      }
+      localStorage.setItem('marqueePaused', time.format('YYYY-MM-DD'));
+      return true;
+    });
+  };
 
   return (
     <Box
@@ -87,8 +100,14 @@ const Header = ({
         {t('serverTime')}: {time.format('HH:mm')}
       </Text>
       {!!modifiers.length && (
-        <Paper sx={{ mx: 1, p: 0 }}>
-          <Marquee pauseOnHover>
+        <Paper sx={{ mx: 1, p: 0, cursor: 'pointer' }} onClick={pauseMarquee}>
+          <Marquee
+            pauseOnHover
+            play={!marqueePaused}
+            style={{
+              justifyContent: 'center',
+            }}
+          >
             <Text bold smallCaps sx={{ mr: 0.5 }}>
               {t('activeModifiers')}:
             </Text>
