@@ -713,8 +713,8 @@ const handleGlobalTournament = async (
 
 const storeGains = async (
   prisma: PrismaClient,
-  dailyGains: Record<number, [number, number]>,
-  globalGains: Record<number, [number, number]>,
+  dailyGains: Record<string, [number, number]>,
+  globalGains: Record<string, [number, number]>,
 ) => {
   if (!Object.keys(dailyGains).length && !Object.keys(globalGains).length) {
     return;
@@ -723,10 +723,9 @@ const storeGains = async (
   const now = moment.utc().valueOf();
 
   // Add gains together
-  const gains: Record<number, [number, number]> = {};
+  const gains: Record<string, [number, number]> = {};
 
-  for (const [bruteIdString, currentGains] of Object.entries(dailyGains)) {
-    const bruteId = +bruteIdString;
+  for (const [bruteId, currentGains] of Object.entries(dailyGains)) {
     const bruteGains = gains[bruteId];
     if (!bruteGains) {
       gains[bruteId] = [currentGains[0], currentGains[1]];
@@ -736,8 +735,7 @@ const storeGains = async (
     }
   }
 
-  for (const [bruteIdString, currentGains] of Object.entries(globalGains)) {
-    const bruteId = +bruteIdString;
+  for (const [bruteId, currentGains] of Object.entries(globalGains)) {
     const bruteGains = gains[bruteId];
     if (!bruteGains) {
       gains[bruteId] = [currentGains[0], currentGains[1]];
