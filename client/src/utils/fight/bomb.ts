@@ -10,11 +10,7 @@ import stagger from './stagger';
 import updateHp from './updateHp';
 
 const getBombDamage = (damage: BombStep['d'], target: AnimationFighter) => {
-  if (typeof damage === 'number') {
-    return damage;
-  }
-
-  const targetDamage = damage[target.id];
+  const targetDamage = damage[target.index];
 
   if (!targetDamage) {
     throw new Error('Target damage not found');
