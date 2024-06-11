@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.60.2](https://github.com/Zenoo/labrute/compare/labrute-v2.60.1...labrute-v2.60.2) (2024-06-11)
+
+
+### Bug Fixes
+
+* Bug when storing tournament gains ([3ed637b](https://github.com/Zenoo/labrute/commit/3ed637baff8882898142cfcd0c83845ed376c477))
+* Error on report accept ([945bbab](https://github.com/Zenoo/labrute/commit/945bbab56848e565419e8150d756aa50de1cfa34))
+* Fight crash on bombs ([6a5c80d](https://github.com/Zenoo/labrute/commit/6a5c80d9bf6953dfe5a02a98313e4ad9e91af7ee))
+* Logs not being ordered ([ae0fc03](https://github.com/Zenoo/labrute/commit/ae0fc0380da77bc6bb9f1a246e53bbb0b0553da6))
+
 ## [2.60.1](https://github.com/Zenoo/labrute/compare/labrute-v2.60.0...labrute-v2.60.1) (2024-06-10)
 
 
