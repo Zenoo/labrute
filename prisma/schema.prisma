@@ -301,7 +301,7 @@ enum LogType {
 
 model Log {
   id             String   @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  date           DateTime @default(now()) @db.Date
+  date           DateTime @default(now()) @db.Timestamp()
   currentBrute   Brute    @relation(fields: [currentBruteId], references: [id])
   currentBruteId String   @db.Uuid
   type           LogType
