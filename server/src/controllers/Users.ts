@@ -362,6 +362,12 @@ const Users = {
             ],
           },
           achievements: {
+            where: {
+              OR: [
+                { bruteId: null },
+                { brute: { deletedAt: null } },
+              ],
+            },
             select: {
               name: true,
               count: true,

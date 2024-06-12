@@ -101,7 +101,13 @@ const Achievements = {
 
       // Get achievements
       const achievements = await prisma.achievement.findMany({
-        where: { userId: req.body.userId },
+        where: {
+          userId: req.body.userId,
+          OR: [
+            { bruteId: null },
+            { brute: { deletedAt: null } },
+          ],
+        },
         select: {
           name: true,
           count: true,
