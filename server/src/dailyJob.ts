@@ -20,6 +20,8 @@ import updateClanPoints from './utils/clan/updateClanPoints.js';
 const GENERATE_TOURNAMENTS_IN_DEV = false;
 
 const grantBetaAchievement = async (prisma: PrismaClient) => {
+  if (process.env.NODE_ENV !== 'production') return;
+
   // Grant beta achievement to all brutes who don't have it yet
   const brutes = await prisma.brute.findMany({
     where: {

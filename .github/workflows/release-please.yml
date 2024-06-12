@@ -2,15 +2,18 @@ on:
   push:
     branches:
       - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
 name: release-please
 jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
-      - uses: google-github-actions/release-please-action@v3
+      - uses: googleapis/release-please-action@v4
         with:
-          release-type: node
-          package-name: labrute
-          bump-minor-pre-major: true
-          default-branch: main
-          command: manifest
+          token: ${{ secrets.PROJECT_PAT }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
