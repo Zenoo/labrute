@@ -1298,10 +1298,10 @@
   "modifier.alwaysUseSupers.desc": "Invertiste mucho tiempo mejorando tus habilidades, sería una pena no usarlas. Siempre usarás tus habilidades disponibles.",
   "modifier.drawEveryWeapon": "Suministros inagotables",
   "modifier.drawEveryWeapon.desc": "Tu desenfunde es extremadamente rápido. Siempre sacarás un arma si hay alguna disponible.",
-  "patchNotes": "Patch notes",
-  "newPatchNotesAvailable": "A new version has been released.",
-  "go": "Go",
-  "features": "Features",
-  "fixes": "Fixes",
-  "showMore": "Show more"
+  "patchNotes": "Notas de versión",
+  "newPatchNotesAvailable": "Una nueva versión ha sido publicada.",
+  "go": "Ir",
+  "features": "Funcionalidades",
+  "fixes": "Correcciones",
+  "showMore": "Mostrar más"
 }
