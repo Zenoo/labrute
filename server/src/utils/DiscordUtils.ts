@@ -241,7 +241,7 @@ ${error.stack}
   }
 
   public async sendRelease(release: Release) {
-    await this.#logClient.send({
+    await this.#releaseClient.send({
       content: `<@&1086045548177530920>
 :flag_gb: **MyBrute v${release.version}**
 ${release.features.length ? `**Features:**
