@@ -1,8 +1,6 @@
 {
-  "bump-minor-pre-major": true,
   "packages": {
     ".": {
-      "package-name": "labrute",
       "extra-files": [
         "core/src/Version.ts",
         {
