@@ -644,3 +644,11 @@ model BruteInventoryItem {
   @@unique([type, bruteId])
   @@index([bruteId])
 }
+
+// Releases
+model Release {
+  version String   @id @unique @db.VarChar(255)
+  date    DateTime @default(now()) @db.Timestamp()
+
+  @@index([date])
+}

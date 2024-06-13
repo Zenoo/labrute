@@ -353,6 +353,11 @@ exports.Prisma.BruteInventoryItemScalarFieldEnum = {
   bruteId: 'bruteId'
 };
 
+exports.Prisma.ReleaseScalarFieldEnum = {
+  version: 'version',
+  date: 'date'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -666,7 +671,8 @@ exports.Prisma.ModelName = {
   ClanThread: 'ClanThread',
   ClanPost: 'ClanPost',
   BossDamage: 'BossDamage',
-  BruteInventoryItem: 'BruteInventoryItem'
+  BruteInventoryItem: 'BruteInventoryItem',
+  Release: 'Release'
 };
 
 /**

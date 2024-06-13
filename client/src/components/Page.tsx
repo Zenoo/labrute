@@ -1,7 +1,7 @@
-import { getFightsLeft, getGoldNeededForNewBrute, Version } from '@labrute/core';
+import { getFightsLeft, getGoldNeededForNewBrute, LAST_RELEASE, Version } from '@labrute/core';
 import { Lang } from '@labrute/prisma';
 import { AccountCircle, Add, AdminPanelSettings, Brightness4, Brightness7, DoNotDisturb, Login, Logout, MilitaryTech, MoreHoriz } from '@mui/icons-material';
-import { AlertTitle, Badge, Box, BoxProps, CircularProgress, Fab, Link, Alert as MuiAlert, SpeedDial, SpeedDialAction, Tooltip, useTheme } from '@mui/material';
+import { AlertTitle, Badge, Box, BoxProps, CircularProgress, Fab, Alert as MuiAlert, SpeedDial, SpeedDialAction, Tooltip, useTheme } from '@mui/material';
 import React, { Fragment, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import { Helmet } from 'react-helmet-async';
@@ -18,6 +18,7 @@ import Server from '../utils/Server';
 import BruteRender from './Brute/Body/BruteRender';
 import Header from './Header';
 import Text from './Text';
+import Link from './Link';
 
 interface Props extends BoxProps {
   title: string,
@@ -53,6 +54,17 @@ const Page = ({
       signin();
     }
   }, [authing, signin, user]);
+
+  // Check last patch notes seen
+  useEffect(() => {
+    if (!user) return;
+
+    const lastPatchNotes = localStorage.getItem('patchNotes');
+
+    if (lastPatchNotes !== LAST_RELEASE.version) {
+      Alert.open('info', t('newPatchNotesAvailable'), '/patch-notes');
+    }
+  }, [Alert, t, user]);
 
   // Open speed dial
   const openSpeedDial = useCallback(() => {
@@ -249,7 +261,9 @@ const Page = ({
               sx={{ verticalAlign: 'middle' }}
             />
           </Link>
-          {' '}| v{Version} Remade with love at{' '}
+          {' '}| v{Version}{' '}
+          <Link to="/patch-notes" sx={{ fontStyle: 'italic' }}>({t('patchNotes')})</Link>
+          {' '}Remade with love at{' '}
           <Link href="https://eternal-twin.net/">Eternal Twin</Link>
           {/* LANGUAGE */}
           {Object.values(Lang).map((lang) => lang !== language && (
@@ -287,7 +301,7 @@ const Page = ({
       >
         <AlertTitle>{t('betaTitle')}</AlertTitle>
         {t('betaDescription')}
-        <Link underline="always" href="https://discord.gg/ERc3svy" target="_blank" sx={{ ml: 0.5 }}>
+        <Link href="https://discord.gg/ERc3svy" target="_blank" sx={{ ml: 0.5, textDecoration: 'underline' }}>
           {t('discord')}
         </Link>
         .<br />

@@ -2,7 +2,7 @@
 import { Brute, FightModifier } from '@labrute/prisma';
 import { EmbedBuilder, WebhookClient } from 'discord.js';
 import type { Response } from 'express';
-import { pad } from '@labrute/core';
+import { pad, Release } from '@labrute/core';
 import { Logger } from '../logger/index.js';
 import translate from './translate.js';
 
@@ -38,6 +38,7 @@ export interface DiscordClient {
   sendError(error: Error, res?: Response): void;
   sendRankUpNotification(brute: Pick<Brute, 'name' | 'level' | 'ranking'>): void;
   sendModifiersNotification(modifiers: FightModifier[]): void;
+  sendRelease(release: Release): Promise<void>;
   sendMessage(message: string): Promise<void>;
 }
 
@@ -53,6 +54,11 @@ export const NOOP_DISCORD_CLIENT: DiscordClient = {
     // eslint-disable-next-line no-console
     console.log(`Modifiers: ${modifiers.join(', ')}`);
   },
+  sendRelease(release) {
+    // eslint-disable-next-line no-console
+    console.log(`Release: ${release.version}`);
+    return Promise.resolve();
+  },
   sendMessage(message) {
     // eslint-disable-next-line no-console
     console.log(message);
@@ -67,6 +73,8 @@ export interface NetworkDiscordClientOptions {
   logWebhookToken: string,
   rankUpWebhookId: string,
   rankUpWebhookToken: string,
+  releaseWebhookId: string,
+  releaseWebhookToken: string,
   timeout?: number
   logger: Logger,
   server: URL,
@@ -91,6 +99,11 @@ export class NetworkDiscordClient implements DiscordClient {
    * Client used to send rank up notifications
    */
   readonly #rankUpClient: WebhookClient;
+
+  /**
+   * Client used to send release notifications
+   */
+  readonly #releaseClient: WebhookClient;
 
   /**
    * Create a new Discord client
@@ -121,6 +134,13 @@ export class NetworkDiscordClient implements DiscordClient {
       {
         id: options.rankUpWebhookId,
         token: options.rankUpWebhookToken,
+      },
+      clientOptions,
+    );
+    this.#releaseClient = new WebhookClient(
+      {
+        id: options.releaseWebhookId,
+        token: options.releaseWebhookToken,
       },
       clientOptions,
     );
@@ -217,6 +237,22 @@ ${error.stack}
 
     this.#notificationClient.send({ embeds: [embed] }).catch((err) => {
       this.#logger.error(`Error trying to send a message: ${err}`);
+    });
+  }
+
+  public async sendRelease(release: Release) {
+    await this.#logClient.send({
+      content: `<@&1086045548177530920>
+:flag_gb: **MyBrute v${release.version}**
+${release.features.length ? `**Features:**
+${release.features.map((feature) => `- ${feature}`).join('\n')}
+` : ''}
+${release.fixes.length ? `**Fixes:**
+${release.fixes.map((fix) => `- ${fix}`).join('\n')}
+` : ''}`,
+      files: release.attachments?.map((attachment) => ({
+        attachment: `${this.#server}/images/releases/${attachment}`,
+      })),
     });
   }
 

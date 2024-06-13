@@ -32,6 +32,7 @@ import UserView from './views/UserView';
 import AchievementRankingView from './views/AchievementRankingView';
 import { InventoryView } from './views/InventoryView';
 import NameChangeView from './views/NameChangeView';
+import PatchNotesView from './views/PatchNotesView';
 
 const routes: RouteObject[] = [
   {
@@ -48,6 +49,7 @@ const routes: RouteObject[] = [
       { path: 'unknown-brute', element: <BruteNotFoundView /> },
       { path: 'generating-tournaments', element: <GeneratingView /> },
       { path: 'hall', element: <HallView /> },
+      { path: 'patch-notes', element: <PatchNotesView /> },
       { path: 'user/:userId', element: <UserView /> },
       {
         path: ':bruteName',

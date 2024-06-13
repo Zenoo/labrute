@@ -25,7 +25,8 @@ export class ServerContext {
     let discord: DiscordClient;
     if (config.discordNotifications !== null
         && config.discordLogs !== null
-        && config.discordRankUps !== null) {
+        && config.discordRankUps !== null
+        && config.discordReleases !== null) {
       discord = new NetworkDiscordClient({
         notificationWebhookId: config.discordNotifications.webhookId,
         notificationWebhookToken: config.discordNotifications.webhookToken,
@@ -33,6 +34,8 @@ export class ServerContext {
         logWebhookToken: config.discordLogs.webhookToken,
         rankUpWebhookId: config.discordRankUps.webhookId,
         rankUpWebhookToken: config.discordRankUps.webhookToken,
+        releaseWebhookId: config.discordReleases.webhookId,
+        releaseWebhookToken: config.discordReleases.webhookToken,
         server: config.selfUrl,
         logger: fallbackLogger,
       });

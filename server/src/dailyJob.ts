@@ -4,6 +4,7 @@ import {
   DailyModifierRates,
   Fighter,
   getWinsNeededToRankUp,
+  LAST_RELEASE,
 } from '@labrute/core';
 import {
   FightModifier,
@@ -1015,8 +1016,44 @@ const handleModifiers = async (prisma: PrismaClient) => {
   return rolledModifiers;
 };
 
+// Handle releases
+const handleReleases = async (prisma: PrismaClient) => {
+  // Get the latest release processed
+  const latestRelease = await prisma.release.findFirst({
+    orderBy: {
+      date: 'desc',
+    },
+    take: 1,
+  });
+
+  if (latestRelease?.version === LAST_RELEASE.version) {
+    return;
+  }
+
+  // Send release notification
+  try {
+    await DISCORD.sendRelease(LAST_RELEASE);
+
+    // Store latest release
+    await prisma.release.create({
+      data: {
+        version: LAST_RELEASE.version,
+      },
+    });
+  } catch (error) {
+    if (error instanceof Error) {
+      DISCORD.sendError(error);
+    } else {
+      console.error(error);
+    }
+  }
+};
+
 const dailyJob = (prisma: PrismaClient) => async () => {
   try {
+    // Releases
+    await handleReleases(prisma);
+
     // Roll daily modifiers
     const modifiers = await handleModifiers(prisma);
 

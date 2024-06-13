@@ -100,6 +100,11 @@ export interface Config {
   readonly discordRankUps: DiscordConfig | null;
 
   /**
+   * Configuration for the Discord client used for releases (optional).
+   */
+  readonly discordReleases: DiscordConfig | null;
+
+  /**
    * Absolute URL to the DinoRPG website.
    */
   readonly dinoRpgUrl: string;
@@ -197,6 +202,16 @@ export function readConfig(env: Record<string, string | undefined>): Config {
     };
   }
 
+  const rawDiscordReleasesId = env.DISCORD_RELEASES_WEBHOOK_ID;
+  const rawDiscordReleasesToken = env.DISCORD_RELEASES_WEBHOOK_TOKEN;
+  let discordReleases: DiscordConfig | null = null;
+  if (typeof rawDiscordReleasesId === 'string' && typeof rawDiscordReleasesToken === 'string') {
+    discordReleases = {
+      webhookId: rawDiscordReleasesId,
+      webhookToken: rawDiscordReleasesToken,
+    };
+  }
+
   const dinoRpgUrl = env.DINORPG_URL ?? 'https://dinorpg.eternaltwin.org';
 
   return {
@@ -207,6 +222,7 @@ export function readConfig(env: Record<string, string | undefined>): Config {
     discordNotifications,
     discordLogs,
     discordRankUps,
+    discordReleases,
     dinoRpgUrl,
   };
 }
