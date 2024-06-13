@@ -20,69 +20,47 @@ import updateClanPoints from './utils/clan/updateClanPoints.js';
 const GENERATE_TOURNAMENTS_IN_DEV = false;
 
 const grantBetaAchievement = async (prisma: PrismaClient) => {
-  if (process.env.NODE_ENV !== 'production') return;
-
   // Grant beta achievement to all brutes who don't have it yet
-  const brutes = await prisma.brute.findMany({
-    where: {
-      userId: { not: null },
-      deletedAt: null,
-      achievements: {
-        none: {
-          name: {
-            equals: 'beta',
-          },
-        },
-      },
-    },
-    select: { id: true, userId: true },
-  });
+  const brutes = await prisma.$executeRaw`
+    SELECT 'beta', "Brute"."id", "Brute"."userId", 1
+    FROM "Brute"
+    WHERE "userId" IS NOT NULL
+      AND "deletedAt" IS NULL
+      AND NOT EXISTS (
+        SELECT 1
+        FROM "Achievement"
+        WHERE "Brute"."id" = "Achievement"."bruteId"
+          AND "Achievement"."name" = 'beta'
+      );
+  `;
 
-  if (!brutes.length) {
+  if (!brutes) {
     return;
   }
-  // Grant beta achievement
-  await prisma.achievement.createMany({
-    data: brutes.map((brute) => ({
-      name: 'beta',
-      bruteId: brute.id,
-      userId: brute.userId,
-      count: 1,
-    })),
-  });
 
-  LOGGER.log(`Gave the beta achievement to ${brutes.length} brutes`);
+  LOGGER.log(`Gave the beta achievement to ${brutes} brutes`);
 };
 
 const grantBugAchievement = async (prisma: PrismaClient) => {
   // Grant bug achievement to all admins who don't have it yet
-  const admins = await prisma.user.findMany({
-    where: {
-      admin: true,
-      achievements: {
-        none: {
-          name: {
-            equals: 'bug',
-          },
-        },
-      },
-    },
-    select: { id: true },
-  });
+  const admins = await prisma.$executeRaw`
+    INSERT INTO "Achievement" (name, "userId", count)
+    SELECT 'bug', "User"."id", 999
+    FROM "User"
+    WHERE "User"."admin" = TRUE
+      AND NOT EXISTS (
+        SELECT 1
+        FROM "Achievement"
+        WHERE "Achievement"."userId" = "User"."id"
+          AND "Achievement"."name" = 'bug'
+      );
+  `;
 
-  if (!admins.length) {
+  if (!admins) {
     return;
   }
-  // Grant bug achievement
-  await prisma.achievement.createMany({
-    data: admins.map((admin) => ({
-      name: 'bug',
-      userId: admin.id,
-      count: 999,
-    })),
-  });
 
-  LOGGER.log(`Gave the bug achievement to ${admins.length} admins`);
+  LOGGER.log(`Gave the bug achievement to ${admins} admins`);
 };
 
 const deleteMisformattedTournaments = async (prisma: PrismaClient) => {
