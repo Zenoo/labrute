@@ -1297,5 +1297,11 @@
   "modifier.alwaysUseSupers": "Unlimited power",
   "modifier.alwaysUseSupers.desc": "You spent time learning those skills, it would be a shame not to use them. You will always use your available skills.",
   "modifier.drawEveryWeapon": "Endless supplies",
-  "modifier.drawEveryWeapon.desc": "Your pullout game is extremely strong. You will always draw a weapon if one is available."
+  "modifier.drawEveryWeapon.desc": "Your pullout game is extremely strong. You will always draw a weapon if one is available.",
+  "patchNotes": "Patch notes",
+  "newPatchNotesAvailable": "A new version has been released.",
+  "go": "Go",
+  "features": "Features",
+  "fixes": "Fixes",
+  "showMore": "Show more"
 }

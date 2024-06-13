@@ -1297,5 +1297,11 @@
   "modifier.alwaysUseSupers": "Pouvoir illimité",
   "modifier.alwaysUseSupers.desc": "Vous avez passé du temps à apprendre ces compétences, il serait dommage de ne pas les utiliser. Vous utiliserez toujours vos compétences disponibles.",
   "modifier.drawEveryWeapon": "Ravitaillement infini",
-  "modifier.drawEveryWeapon.desc": "Vous êtes un maître de l'extraction. Vous sortirez toujours une arme si vous en avez de disponible."
+  "modifier.drawEveryWeapon.desc": "Vous êtes un maître de l'extraction. Vous sortirez toujours une arme si vous en avez de disponible.",
+  "patchNotes": "Notes de patch",
+  "newPatchNotesAvailable": "Une nouvelle version a été publiée.",
+  "go": "Go",
+  "features": "Fonctionnalités",
+  "fixes": "Corrections",
+  "showMore": "Afficher plus"
 }
