@@ -73,12 +73,15 @@ const PatchNotesView = () => {
             </>
           )}
           {!!release.attachments?.length && (
-            <ImageList>
+            <ImageList sx={{ p: 2 }}>
               {release.attachments.map((item) => (
                 <ImageListItem
                   key={item}
                   onClick={() => window.open(`/images/releases/${item}`)}
-                  sx={{ cursor: 'pointer' }}
+                  sx={{
+                    cursor: 'pointer',
+                    boxShadow: 3
+                  }}
                 >
                   {item.endsWith('.mp4') ? (
                     <video autoPlay loop muted>
