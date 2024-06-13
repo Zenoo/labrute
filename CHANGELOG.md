@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.61.0](https://github.com/Zenoo/labrute/compare/labrute-v2.60.2...labrute-v2.61.0) (2024-06-13)
+
+
+### Features
+
+* Patch notes. Fixes [#760](https://github.com/Zenoo/labrute/issues/760) ([10f3ef6](https://github.com/Zenoo/labrute/commit/10f3ef6d3207ef95159f80b5863eee4c2f6bcbd3))
+
+
+### Bug Fixes
+
+* Optimize beta and bug achievement queries ([9e90ef4](https://github.com/Zenoo/labrute/commit/9e90ef4d2b11eeea9d9c724968a5ff55ba8ca13f))
+* Wrong achievement counts. Fixes [#761](https://github.com/Zenoo/labrute/issues/761) ([894cb37](https://github.com/Zenoo/labrute/commit/894cb374c3aa391c2ea4339e361422f938b78126))
+
 ## [2.60.2](https://github.com/Zenoo/labrute/compare/labrute-v2.60.1...labrute-v2.60.2) (2024-06-11)
 
 
