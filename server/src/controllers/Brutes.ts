@@ -1067,7 +1067,7 @@ const Brutes = {
       });
 
       if (!userBrute) {
-        throw new Error(translate('bruteNotFound', authed));
+        throw new ExpectedError(translate('bruteNotFound', authed));
       }
 
       if (!userBrute.canRankUpSince) {
