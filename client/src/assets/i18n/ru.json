@@ -1298,10 +1298,10 @@
   "modifier.alwaysUseSupers.desc": "У вас немало времени ушло на овладение этих навыков, и было бы жаль, ими не воспользоваться. Вы всегда будете использовать доступные умения.",
   "modifier.drawEveryWeapon": "Бесконечные запасы",
   "modifier.drawEveryWeapon.desc": "Вы обожаете вечно всех доставать. Вы всегда будете доставать оружие из арсенала, если оно там есть.",
-  "patchNotes": "Patch notes",
-  "newPatchNotesAvailable": "A new version has been released.",
-  "go": "Go",
-  "features": "Features",
-  "fixes": "Fixes",
-  "showMore": "Show more"
+  "patchNotes": "Список изменений",
+  "newPatchNotesAvailable": "Вышла новая версия.",
+  "go": "Вперед",
+  "features": "Функции",
+  "fixes": "Правки",
+  "showMore": "Развернуть"
 }
