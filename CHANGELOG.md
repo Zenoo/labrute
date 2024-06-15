@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.61.2](https://github.com/Zenoo/labrute/compare/labrute-v2.61.1...labrute-v2.61.2) (2024-06-15)
+
+
+### Bug Fixes
+
+* Add shadows to patch notes attachments ([1c0f2fb](https://github.com/Zenoo/labrute/commit/1c0f2fb61880bf475f7f1a94c4f821d5cdfa7c05))
+* Beta achievement  not being added ([0bf0b0f](https://github.com/Zenoo/labrute/commit/0bf0b0f127b2f3f0f72c1b044892a5f5065d0109))
+* Silence unknown brute error ([a8600ee](https://github.com/Zenoo/labrute/commit/a8600eedd194865146f770989ab1256794be9473))
+
 ## [2.61.1](https://github.com/Zenoo/labrute/compare/labrute-v2.61.0...labrute-v2.61.1) (2024-06-13)
 
 
