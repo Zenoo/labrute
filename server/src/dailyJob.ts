@@ -23,6 +23,7 @@ const GENERATE_TOURNAMENTS_IN_DEV = false;
 const grantBetaAchievement = async (prisma: PrismaClient) => {
   // Grant beta achievement to all brutes who don't have it yet
   const brutes = await prisma.$executeRaw`
+    INSERT INTO "Achievement" (name, "bruteId", "userId", count)
     SELECT 'beta', "Brute"."id", "Brute"."userId", 1
     FROM "Brute"
     WHERE "userId" IS NOT NULL
