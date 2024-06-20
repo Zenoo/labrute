@@ -1613,7 +1613,7 @@ const Brutes = {
       });
 
       if (!brute) {
-        throw new Error(translate('bruteNotFound', authed));
+        throw new ExpectedError(translate('bruteNotFound', authed));
       }
 
       // Check if user has enough gold
