@@ -116,10 +116,6 @@ const HomeView = () => {
     }
   }, [creationStarted, fixBruteAppearance, randomizeAppearance]);
 
-  const changeFixBruteAppearance = useCallback((params : boolean) => {
-    setFixBruteAppearance(params);
-  }, [setFixBruteAppearance]);
-
   // Change appearance
   const changeAppearance = useCallback(() => {
     if (creationStarted) {
@@ -231,7 +227,7 @@ const HomeView = () => {
         createBrute={createBrute}
         character={character}
         fixBruteAppearance={fixBruteAppearance}
-        setFixBruteAppearance={changeFixBruteAppearance}
+        setFixBruteAppearance={setFixBruteAppearance}
       />
     )
     : (
