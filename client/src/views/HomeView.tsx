@@ -116,6 +116,10 @@ const HomeView = () => {
     }
   }, [creationStarted, fixBruteAppearance, randomizeAppearance]);
 
+  const changeFixBruteAppearance = useCallback((params : boolean) => {
+    setFixBruteAppearance(params);
+  }, [setFixBruteAppearance]);
+
   // Change appearance
   const changeAppearance = useCallback(() => {
     if (creationStarted) {
@@ -227,7 +231,7 @@ const HomeView = () => {
         createBrute={createBrute}
         character={character}
         fixBruteAppearance={fixBruteAppearance}
-        setFixBruteAppearance={setFixBruteAppearance}
+        setFixBruteAppearance={changeFixBruteAppearance}
       />
     )
     : (
@@ -265,8 +269,8 @@ const HomeView = () => {
                 onChange={changeName}
                 value={name}
               />
-              <Tooltip title={!fixBruteAppearance ? t('lockBruteAppearance') : t('unlockBruteAppearance')}>
-                <IconButton onClick={() => setFixBruteAppearance(!fixBruteAppearance)} size="small" sx={{ float: 'right' }}>
+              <Tooltip title={fixBruteAppearance ? t('unlockBruteAppearance') : t('lockBruteAppearance')}>
+                <IconButton onClick={() => setFixBruteAppearance((prev) => !prev)} size="small" sx={{ float: 'right' }}>
                   {fixBruteAppearance ? <Lock /> : <LockOpen />}
                 </IconButton>
               </Tooltip>

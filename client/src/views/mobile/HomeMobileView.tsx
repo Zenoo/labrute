@@ -91,7 +91,7 @@ const HomeMobileView = ({
                 value={name}
                 sx={{ mx: 'auto' }}
               />
-              <Tooltip title={!fixBruteAppearance ? t('lockBruteAppearance') : t('unlockBruteAppearance')}>
+              <Tooltip title={fixBruteAppearance ? t('unlockBruteAppearance') : t('lockBruteAppearance')}>
                 <IconButton onClick={() => setFixBruteAppearance(!fixBruteAppearance)} size="small" sx={{ float: 'right' }}>
                   {fixBruteAppearance ? <Lock /> : <LockOpen />}
                 </IconButton>
