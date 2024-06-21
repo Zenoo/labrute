@@ -18,7 +18,7 @@ export interface HomeMobileViewProps {
   createBrute: () => void;
   character: React.JSX.Element;
   fixBruteAppearance: boolean;
-  setFixBruteAppearance: (params: (prev: boolean) => boolean) => void;
+  setFixBruteAppearance: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const HomeMobileView = ({
@@ -92,7 +92,7 @@ const HomeMobileView = ({
                 sx={{ mx: 'auto' }}
               />
               <Tooltip title={fixBruteAppearance ? t('unlockBruteAppearance') : t('lockBruteAppearance')}>
-                <IconButton onClick={() => setFixBruteAppearance((prev: boolean) => !prev)} size="small" sx={{ float: 'right' }}>
+                <IconButton onClick={() => setFixBruteAppearance((prev) => !prev)} size="small" sx={{ float: 'right' }}>
                   {fixBruteAppearance ? <Lock /> : <LockOpen />}
                 </IconButton>
               </Tooltip>
