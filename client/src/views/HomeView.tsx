@@ -1,6 +1,6 @@
 import { getRandomBody, getRandomColors, isNameValid, UserWithBrutesBodyColor } from '@labrute/core';
 import { Gender } from '@labrute/prisma';
-import { Box, Link, Tooltip, useMediaQuery, useTheme } from '@mui/material';
+import { Box, IconButton, Link, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -21,6 +21,7 @@ import catchError from '../utils/catchError';
 import Fetch from '../utils/Fetch';
 import Server from '../utils/Server';
 import HomeMobileView from './mobile/HomeMobileView';
+import { Lock, LockOpen } from '@mui/icons-material';
 
 /**
  * HomeView component
@@ -84,6 +85,7 @@ const HomeView = () => {
 
   /* CHARACTER CREATOR */
   const [creationStarted, setCreationStarted] = useState(false);
+  const [fixBruteAppearance, setFixBruteAppearance] = useState(false);
   const [gender, setGender] = useState<Gender>(Gender.female);
   const [body, setBody] = useState(getRandomBody(gender));
   const [colors, setColors] = useState(getRandomColors(gender));
@@ -109,8 +111,10 @@ const HomeView = () => {
 
     // Change character
     if (!creationStarted) setCreationStarted(true);
-    randomizeAppearance();
-  }, [creationStarted, randomizeAppearance]);
+    if (!fixBruteAppearance) {
+      randomizeAppearance();
+    }
+  }, [creationStarted, fixBruteAppearance, randomizeAppearance]);
 
   // Change appearance
   const changeAppearance = useCallback(() => {
@@ -222,6 +226,8 @@ const HomeView = () => {
         rightAd={rightAd}
         createBrute={createBrute}
         character={character}
+        fixBruteAppearance={fixBruteAppearance}
+        setFixBruteAppearance={setFixBruteAppearance}
       />
     )
     : (
@@ -259,6 +265,11 @@ const HomeView = () => {
                 onChange={changeName}
                 value={name}
               />
+              <Tooltip title={!fixBruteAppearance ? t('lockBruteAppearance') : t('unlockBruteAppearance')}>
+                <IconButton onClick={() => setFixBruteAppearance(!fixBruteAppearance)} size="small" sx={{ float: 'right' }}>
+                  {fixBruteAppearance ? <Lock /> : <LockOpen />}
+                </IconButton>
+              </Tooltip>
               {/* CHARACTER */}
               {character}
               {/* CUSTOMIZATION BUTTONS */}
@@ -304,6 +315,7 @@ const HomeView = () => {
               <Box sx={{ textAlign: 'center' }}>
                 <StyledButton onClick={createBrute}>{t('validate')}</StyledButton>
               </Box>
+
               {(user || authing) ? (
                 // Visual noise
                 <Box

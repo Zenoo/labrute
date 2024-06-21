@@ -1,4 +1,4 @@
-import { Box, Grid, Link, Paper, Tooltip, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Grid, IconButton, Link, Paper, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Page from '../../components/Page';
@@ -6,6 +6,7 @@ import StyledButton from '../../components/StyledButton';
 import StyledInput from '../../components/StyledInput';
 import Text from '../../components/Text';
 import { AdResult } from '../../utils/ads';
+import { LockOpen, Lock } from '@mui/icons-material';
 
 export interface HomeMobileViewProps {
   changeName: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -16,6 +17,8 @@ export interface HomeMobileViewProps {
   rightAd: AdResult;
   createBrute: () => void;
   character: React.JSX.Element;
+  fixBruteAppearance: boolean;
+  setFixBruteAppearance: (params : boolean) => void;
 }
 
 const HomeMobileView = ({
@@ -27,6 +30,8 @@ const HomeMobileView = ({
   rightAd,
   createBrute,
   character,
+  fixBruteAppearance,
+  setFixBruteAppearance
 }: HomeMobileViewProps) => {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -86,6 +91,11 @@ const HomeMobileView = ({
                 value={name}
                 sx={{ mx: 'auto' }}
               />
+              <Tooltip title={!fixBruteAppearance ? t('lockBruteAppearance') : t('unlockBruteAppearance')}>
+                <IconButton onClick={() => setFixBruteAppearance(!fixBruteAppearance)} size="small" sx={{ float: 'right' }}>
+                  {fixBruteAppearance ? <Lock /> : <LockOpen />}
+                </IconButton>
+              </Tooltip>
               {/* CHARACTER */}
               {character}
               {/* CUSTOMIZATION BUTTONS */}
