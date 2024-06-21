@@ -1302,5 +1302,6 @@
   "newPatchNotesAvailable": "Una nueva versión ha sido publicada.",
   "go": "Ir",
   "features": "Funcionalidades",
-  "fixes": "Correcciones"
+  "fixes": "Correcciones",
+  "showMore": "Mostrar más"
 }
