@@ -1304,6 +1304,6 @@
   "features": "Fonctionnalités",
   "fixes": "Corrections",
   "showMore": "Afficher plus",
-  "lockBruteAppearance": "Lock appearance",
-  "unlockBruteAppearance": "unlock appearance"
+  "lockBruteAppearance": "Verrouiller l'apparence",
+  "unlockBruteAppearance": "Déverrouiller l'apparence"
 }
