@@ -1303,5 +1303,7 @@
   "go": "Go",
   "features": "Fonctionnalités",
   "fixes": "Corrections",
-  "showMore": "Afficher plus"
+  "showMore": "Afficher plus",
+  "lockBruteAppearance": "Verrouiller l'apparence",
+  "unlockBruteAppearance": "Déverrouiller l'apparence"
 }

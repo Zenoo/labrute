@@ -1303,5 +1303,7 @@
   "go": "Вперед",
   "features": "Функции",
   "fixes": "Правки",
-  "showMore": "Развернуть"
+  "showMore": "Развернуть",
+  "lockBruteAppearance": "Закрепить внешность",
+  "unlockBruteAppearance": "Открепить внешность"
 }
