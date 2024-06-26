@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.61.3](https://github.com/Zenoo/labrute/compare/labrute-v2.61.2...labrute-v2.61.3) (2024-06-26)
+
+
+### Bug Fixes
+
+* Silence brute not found on reset ([c1e63f5](https://github.com/Zenoo/labrute/commit/c1e63f5db15219e66f8a61c7a20231654fa897ff))
+
 ## [2.61.2](https://github.com/Zenoo/labrute/compare/labrute-v2.61.1...labrute-v2.61.2) (2024-06-15)
 
 
