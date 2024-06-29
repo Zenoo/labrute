@@ -2041,6 +2041,7 @@ const Brutes = {
         },
         select: {
           id: true,
+          name: true,
           deletionReason: true,
           inventory: {
             where: {
@@ -2074,6 +2075,7 @@ const Brutes = {
       ].includes(brute.deletionReason as BruteDeletionReason)) {
         data.deletionReason = null;
         data.willBeDeletedAt = null;
+        LOGGER.log(`Brute ${brute.name} changed name to ${newName}`);
       }
 
       // Update brute name
