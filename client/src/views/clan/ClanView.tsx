@@ -1,6 +1,6 @@
 import { BruteRanking, ClanGetResponse, bosses, getFightsLeft } from '@labrute/core';
 import { HighlightOff, PlayCircleOutline } from '@mui/icons-material';
-import { Box, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip } from '@mui/material';
+import { Box, Button, ButtonGroup, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip } from '@mui/material';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -26,10 +26,11 @@ const ClanView = () => {
   const navigate = useNavigate();
   const Confirm = useConfirm();
   const { updateBrute } = useBrute();
-
+  // eslint-disable-next-line no-shadow
+  enum sortOptions { Default = 'default', Level = 'level', Rank = 'ranking', Victories = 'victories', Damage = 'damage'}
   const [clan, setClan] = useState<ClanGetResponse | null>(null);
   const [damageDisplayed, setDamageDisplayed] = useState(false);
-
+  const [sort, setSort] = React.useState<sortOptions>(sortOptions.Default);
   const brute = useMemo(
     () => (user ? user.brutes.find((b) => b.name === bruteName) : null),
     [bruteName, user],
@@ -49,6 +50,32 @@ const ClanView = () => {
   // Go to cell page
   const goToCell = (name: string) => () => {
     navigate(`/${name}/cell`);
+  };
+  const sortBrute = (a : Brute, b : Brute) => {
+    switch (sort) {
+      case sortOptions.Default:
+        if (a.masterId) return -1;
+        if (a.ranking === b.ranking) { return (b.level - a.level); } return a.ranking - b.ranking;
+      case sortOptions.Rank:
+        return a.ranking - b.ranking;
+      case sortOptions.Victories:
+        return a.victories - b.victories;
+      case sortOptions.Level:
+        return a.level - b.level;
+      case sortOptions.Damage:
+        // eslint-disable-next-line no-case-declarations
+        const damageA = clan?.bossDamages.find(
+          (damageBrute) => damageBrute.brute.name === a.name
+        )?.damage ?? 0;
+        // eslint-disable-next-line no-case-declarations
+        const damageB = clan?.bossDamages.find(
+          (damageBrute) => damageBrute.brute.name === b.name
+        )?.damage ?? 0;
+        return damageA - damageB;
+      default:
+        return 0;
+        break;
+    }
   };
 
   // Ask to join clan
@@ -418,9 +445,22 @@ const ClanView = () => {
           display: 'flex',
           flexWrap: 'wrap',
           justifyContent: 'center',
+          marginBottom: '15px',
+          marginTop: '15px'
         }}
         >
-          {clan.brutes.map((clanBrute) => (
+          <ButtonGroup aria-label="Basic button group">
+            {Object.values(sortOptions).map((key) => <Button sx={{ color: sort === key ? 'orange' : 'black', backgroundColor: 'secondary.main', }} onClick={() => setSort(key)}>{key}</Button>)}
+          </ButtonGroup>
+        </Box>
+
+        <Box sx={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+        }}
+        >
+          {clan.brutes.sort(sortBrute).map((clanBrute) => (
             <StyledButton
               key={clanBrute.name}
               image="/images/arena/brute-bg.webp"
