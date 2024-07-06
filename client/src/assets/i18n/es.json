@@ -285,7 +285,7 @@
   "monk.effect": "",
   "vampirism": "Vampirismo",
   "vampirism.desc": "Drácula puede descansar tranquilo, porque en su ausencia, ¡eres tú quien toma el relevo!",
-  "vampirism.effect": "Acción (x{{uses}}) Roba el 20% de la salud perdida de tu oponente",
+  "vampirism.effect": "Action (x{{uses}}) Deals 50% of your missing health as damage and heals you for the same amount",
   "chaining": "Encadenamiento",
   "chaining.desc": "¿Tu pasatiempo es hacer sonar campanas? ¡Esta combinación está hecha para ti!",
   "chaining.effect": "Cada tercer golpe cuerpo a cuerpo consecutivo aturdirá a tu oponente.",
