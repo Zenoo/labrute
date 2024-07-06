@@ -1740,6 +1740,11 @@ export const playFighterTurn = (
         throw new Error('Trying to throw a weapon but no weapon is active');
       }
 
+      // Check if fighter is not dead (hit by a deflected weapond for example)
+      if (fighter.hp <= 0) {
+        break;
+      }
+
       const thrownWeapon = fighter.activeWeapon;
 
       let deflected: boolean | null = null;
