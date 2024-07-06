@@ -9,11 +9,20 @@ export type Release = {
 export const LAST_RELEASE: Release = {
   version: '2.62.0',
   date: '2024-07-06',
-  features: [],
-  fixes: [
-    'TODO',
+  features: [
+    'You can lock a brute appearance when creating a new brute',
+    'The HP calculation is now displayed when hovering over the HP in your cell',
+    '5 new modifiers have been added to the daily rotation: Low gravity, Lucky skill, Lucky weapon, Honorable Combat, and Armed and Ready',
   ],
-  attachments: ['hp-calc.png'],
+  fixes: [
+    'Every weapon now has a 1/28 chance to be thrown, instead of depending on the weapon damage',
+    '`Fierce Brute` works on thrown weapons',
+    '`Vampirism` deals 50% of your own missing HP',
+    'Brute dying due to damage from deflected weapons stop throwing when they die',
+    'The modifier `Endless supplies` had a very low chance to not work, it now works as intended',
+    'Modifiers have a 4/30 chance to spawn every day. Multiple modifiers can spawn, up to 4',
+  ],
+  attachments: ['lock-creation.png', 'hp-calc.png'],
 };
 
 export const releases: Release[] = [
