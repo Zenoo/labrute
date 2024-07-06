@@ -112,10 +112,10 @@ const Header = ({
               {t('activeModifiers')}:
             </Text>
             {modifiers.map((modifier) => (
-              <Text key={modifier}>
+              <Text key={modifier} sx={{ mr: 1 }}>
                 <Text component="span" bold color="secondary" smallCaps>
                   {t(`modifier.${modifier}`)}
-                </Text>.{' '}
+                </Text>:{' '}
                 {t(`modifier.${modifier}.desc`)}
               </Text>
             ))}

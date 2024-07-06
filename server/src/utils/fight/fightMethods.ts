@@ -1135,6 +1135,13 @@ const drawWeapon = (fightData: DetailedFight): boolean => {
     throw new Error('No fighter found');
   }
 
+  const bareHandsFirstHit = fightData.modifiers.includes(FightModifier.bareHandsFirstHit);
+
+  // Don't draw a weapon if the fighter hasn't hit yet
+  if (bareHandsFirstHit && !fighter.bareHandHit) {
+    return false;
+  }
+
   const drawEveryWeapon = fightData.modifiers.includes(FightModifier.drawEveryWeapon);
 
   // Don't always draw a weapon if the fighter is already holding a weapon
@@ -1432,6 +1439,11 @@ const attack = (
   // Register hit if damage was done
   if (damage) {
     registerHit(fightData, stats, achievements, fighter, [opponent], damage);
+
+    // Register first bare hands hit
+    if (!fighter.activeWeapon && !fighter.bareHandHit) {
+      fighter.bareHandHit = true;
+    }
   }
 
   // Check if the fighter gets disarmed

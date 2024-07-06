@@ -3,6 +3,7 @@ import {
   BruteDeletionReason,
   DailyModifierCountOdds,
   DailyModifierOdds,
+  DailyModifierSpawnChance,
   Fighter,
   getWinsNeededToRankUp,
   LAST_RELEASE,
@@ -1003,8 +1004,7 @@ const handleModifiers = async (prisma: PrismaClient) => {
 
   const rolledModifiers: FightModifier[] = [];
 
-  // 4/30 chance to get modifiers
-  if (Math.random() < (4 / 30)) {
+  if (Math.random() < DailyModifierSpawnChance) {
     const modifierCount = weightedRandom(DailyModifierCountOdds).count;
 
     const availableModifiers = [...DailyModifierOdds];

@@ -109,3 +109,5 @@ export const DailyModifierCountOdds = [
   { count: 3, odds: 15 },
   { count: 4, odds: 10 },
 ];
+
+export const DailyModifierSpawnChance = 4 / 30;
