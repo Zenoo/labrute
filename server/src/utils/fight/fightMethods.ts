@@ -326,7 +326,7 @@ const randomlyGetSuper = (fightData: DetailedFight, brute: DetailedFighter) => {
   const NO_SUPER_TOSS = fightData.modifiers.includes(FightModifier.alwaysUseSupers) ? 0 : 10;
   const randomSuper = randomBetween(
     0,
-    supers.reduce((acc, skill) => acc + (skill.toss || 0), 0) + NO_SUPER_TOSS,
+    supers.reduce((acc, skill) => acc + (skill.toss || 0), -1) + NO_SUPER_TOSS,
   );
 
   let toss = 0;
@@ -346,7 +346,7 @@ const randomlyDrawWeapon = (
 ) => {
   if (!weapons.length) return null;
 
-  let totalToss = weapons.reduce((acc, weapon) => acc + (weapon.toss || 0), 0);
+  let totalToss = weapons.reduce((acc, weapon) => acc + (weapon.toss || 0), -1);
 
   if (!fightData.modifiers.includes(FightModifier.drawEveryWeapon)) {
     totalToss += NO_WEAPON_TOSS;
