@@ -7,7 +7,7 @@ export type Release = {
 };
 
 export const LAST_RELEASE: Release = {
-  version: '2.61.3',
+  version: '2.62.0',
   date: '2024-07-06',
   features: [],
   fixes: [
