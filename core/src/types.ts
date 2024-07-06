@@ -192,6 +192,8 @@ export interface ArriveStep {
   a: StepType.Arrive;
   /** Fighter ID */
   f: number;
+  /** Current weapon ID */
+  w?: WeaponId;
 }
 
 export interface TrashStep {

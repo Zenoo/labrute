@@ -340,7 +340,7 @@ const randomlyGetSuper = (fightData: DetailedFight, brute: DetailedFighter) => {
   return null;
 };
 
-const randomlyDrawWeapon = (
+export const randomlyDrawWeapon = (
   fightData: DetailedFight,
   weapons: Weapon[],
 ) => {
