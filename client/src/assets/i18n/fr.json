@@ -285,7 +285,7 @@
   "monk.effect": "",
   "vampirism": "Vampirisme",
   "vampirism.desc": "Dracula peut se reposer paisiblement, parce qu’en son absence, c’est toi qui prends le relais !",
-  "vampirism.effect": "Action (x{{uses}}) Vole 20% des points de vie manquants de votre adversaire",
+  "vampirism.effect": "Action (x{{uses}}) Deals 50% of your missing health as damage and heals you for the same amount",
   "chaining": "Enchaînement",
   "chaining.desc": "Ton dada c’est de faire sonner les cloches ? Ce combo est fait pour toi !",
   "chaining.effect": "Chaque 3e coup consécutif de mêlée étourdira ton adversaire.",
