@@ -1660,7 +1660,8 @@ export const playFighterTurn = (
         ? randomBetween(0, 1) === 0
           ? 'thrown'
           : 'melee'
-        : randomBetween(0, fighter.activeWeapon.damage) === 0
+        // 1/28 chance to throw a weapon otherwise
+        : randomBetween(0, 27) === 0
           ? 'thrown' : 'melee'
       : 'melee';
 
