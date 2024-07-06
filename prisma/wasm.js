@@ -295,7 +295,9 @@ exports.Prisma.ServerStateScalarFieldEnum = {
   id: 'id',
   globalTournamentValid: 'globalTournamentValid',
   activeModifiers: 'activeModifiers',
-  modifiersEndAt: 'modifiersEndAt'
+  modifiersEndAt: 'modifiersEndAt',
+  randomWeapon: 'randomWeapon',
+  randomSkill: 'randomSkill'
 };
 
 exports.Prisma.BannedWordScalarFieldEnum = {

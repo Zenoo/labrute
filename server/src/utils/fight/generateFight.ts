@@ -108,11 +108,12 @@ const generateFight = async (
     : null;
 
   // Global fight data
-  const fightDataFighters = getFighters(
+  const fightDataFighters = (await getFighters(
+    prisma,
     { brute: brute1, backup: brute1Backup },
     { brute: brute2, backup: brute2Backup, boss: boss || undefined },
     modifiers,
-  )
+  ))
     // Adjust boss HP
     .map((fighter) => {
       if (fighter.type === 'boss') {
@@ -123,10 +124,12 @@ const generateFight = async (
       }
       return fighter;
     });
-  const fightDataInitialFighters = getFighters(
+  const fightDataInitialFighters = (await getFighters(
+    prisma,
     { brute: brute1, backup: brute1Backup },
     { brute: brute2, backup: brute2Backup, boss: boss || undefined },
-  )
+    modifiers,
+  ))
     // Adjust boss HP
     .map((fighter) => {
       if (fighter.type === 'boss') {

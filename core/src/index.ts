@@ -129,6 +129,8 @@ export type UsersAdminUpdateRequest = {
 export type UsersAuthenticateResponse = {
   user: UserWithBrutesBodyColor,
   modifiers: FightModifier[],
+  randomSkill: number | null,
+  randomWeapon: number | null,
 };
 
 export type BruteReportsListRequest = {

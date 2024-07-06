@@ -4,6 +4,7 @@ import { Box, BoxProps } from '@mui/material';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useBrute } from '../../hooks/useBrute';
 import WeaponTooltip from '../Brute/WeaponTooltip';
+import { useAuth } from '../../hooks/useAuth';
 
 const weaponSvgProps: Record<WeaponName, {
   id: string;
@@ -43,6 +44,7 @@ const weaponSvgProps: Record<WeaponName, {
 const CellWeapons = (props: BoxProps) => {
   const { brute } = useBrute();
   const [hoveredWeapon, setHoveredWeapon] = useState<WeaponName | 'bare-hands' | null>(null);
+  const { randomWeapon: randomWeaponIndex } = useAuth();
 
   const hoverWeapon = useCallback((weapon: WeaponName | 'bare-hands') => () => {
     setHoveredWeapon(weapon);
@@ -56,6 +58,13 @@ const CellWeapons = (props: BoxProps) => {
     const bruteWeapons = brute?.weapons || [];
     return detailedWeapons.filter((w) => !bruteWeapons.includes(w.name)).map((w) => w.name);
   }, [brute]);
+
+  const randomWeapon = useMemo(
+    () => (randomWeaponIndex === null
+      ? null
+      : unownedWeapons[randomWeaponIndex % unownedWeapons.length]),
+    [randomWeaponIndex, unownedWeapons]
+  );
 
   return brute && (
     <WeaponTooltip
@@ -110,7 +119,7 @@ const CellWeapons = (props: BoxProps) => {
               onMouseLeave={leaveWeapon}
             />
           ))}
-          {unownedWeapons.map((weapon) => (
+          {unownedWeapons.map((weapon) => (weapon === randomWeapon ? null : (
             <use
               key={weapon}
               id={weaponSvgProps[weapon].id}
@@ -122,7 +131,20 @@ const CellWeapons = (props: BoxProps) => {
               onMouseLeave={leaveWeapon}
               opacity="0.2"
             />
-          ))}
+          )))}
+          {randomWeapon && (
+            <use
+              id={weaponSvgProps[randomWeapon].id}
+              height={weaponSvgProps[randomWeapon].height}
+              transform={weaponSvgProps[randomWeapon].transform}
+              width={weaponSvgProps[randomWeapon].width}
+              xlinkHref={weaponSvgProps[randomWeapon].xlinkHref}
+              onMouseEnter={hoverWeapon(randomWeapon)}
+              onMouseLeave={leaveWeapon}
+              // Add outer glow
+              filter="drop-shadow(0 0 4px rgb(255, 255, 0))"
+            />
+          )}
         </g>
         <defs>
           <g id="sprite0" transform="matrix(1.0, 0.0, 0.0, 1.0, 155.45, 104.95)">

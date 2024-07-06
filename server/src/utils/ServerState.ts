@@ -4,6 +4,8 @@ import { LOGGER } from '../context.js';
 
 let SERVER_READY = true;
 let MODIFIERS: FightModifier[] | null = null;
+let RANDOM_SKILL: number | undefined;
+let RANDOM_WEAPON: number | undefined;
 
 const setReady = (ready: boolean) => {
   LOGGER.log(`Updating server state to ${ready ? 'release' : 'hold'} traffic`);
@@ -92,6 +94,82 @@ const areModifiersExpired = async (prisma: PrismaClient) => {
   return !serverState?.modifiersEndAt || moment.utc(serverState.modifiersEndAt).isSameOrBefore(moment.utc(), 'day');
 };
 
+const setRandomSkill = async (prisma: PrismaClient, skill: number) => {
+  const serverState = await prisma.serverState.findFirst({
+    select: { id: true },
+  });
+  if (!serverState) {
+    await prisma.serverState.create({
+      data: { randomSkill: skill },
+      select: { id: true },
+    });
+  } else {
+    await prisma.serverState.update({
+      where: { id: serverState.id },
+      data: { randomSkill: skill },
+      select: { id: true },
+    });
+  }
+
+  RANDOM_SKILL = skill;
+};
+
+const getRandomSkill = async (prisma: PrismaClient) => {
+  if (RANDOM_SKILL !== undefined) {
+    return RANDOM_SKILL;
+  }
+
+  if (!MODIFIERS?.includes(FightModifier.randomSkill)) {
+    return null;
+  }
+
+  const serverState = await prisma.serverState.findFirst({
+    select: {
+      randomSkill: true,
+    },
+  });
+
+  return serverState ? serverState.randomSkill : null;
+};
+
+const setRandomWeapon = async (prisma: PrismaClient, weapon: number) => {
+  const serverState = await prisma.serverState.findFirst({
+    select: { id: true },
+  });
+  if (!serverState) {
+    await prisma.serverState.create({
+      data: { randomWeapon: weapon },
+      select: { id: true },
+    });
+  } else {
+    await prisma.serverState.update({
+      where: { id: serverState.id },
+      data: { randomWeapon: weapon },
+      select: { id: true },
+    });
+  }
+
+  RANDOM_WEAPON = weapon;
+};
+
+const getRandomWeapon = async (prisma: PrismaClient) => {
+  if (RANDOM_WEAPON !== undefined) {
+    return RANDOM_WEAPON;
+  }
+
+  if (!MODIFIERS?.includes(FightModifier.randomWeapon)) {
+    return null;
+  }
+
+  const serverState = await prisma.serverState.findFirst({
+    select: {
+      randomWeapon: true,
+    },
+  });
+
+  return serverState ? serverState.randomWeapon : null;
+};
+
 export default {
   setReady,
   isReady,
@@ -100,4 +178,8 @@ export default {
   getModifiers,
   setModifiers,
   areModifiersExpired,
+  setRandomSkill,
+  getRandomSkill,
+  setRandomWeapon,
+  getRandomWeapon,
 };

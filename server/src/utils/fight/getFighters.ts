@@ -6,7 +6,8 @@ import {
   pets, randomBetween, SHIELD_BLOCK_ODDS, skills, weapons,
 } from '@labrute/core';
 import { Boss } from '@labrute/core/src/brute/bosses.js';
-import { Brute, FightModifier } from '@labrute/prisma';
+import { Brute, FightModifier, PrismaClient } from '@labrute/prisma';
+import ServerState from '../ServerState.js';
 
 interface Team {
   brute: Brute | null;
@@ -138,19 +139,57 @@ const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
 const handleModifiers = (
   fighter: DetailedFighter,
   modifiers: FightModifier[],
+  randomWeaponIndex: number | null,
+  randomSkillIndex: number | null,
 ) => {
   if (modifiers.includes(FightModifier.doubleAgility)) {
     fighter.agility *= 2;
+  }
+
+  if (modifiers.includes(FightModifier.randomWeapon)) {
+    if (randomWeaponIndex === null) {
+      throw new Error('Random weapon not found');
+    }
+
+    const unownedWeapons = weapons.filter((weapon) => !fighter.weapons.some(
+      (w) => w.name === weapon.name,
+    ));
+
+    const randomWeapon = unownedWeapons[randomWeaponIndex % unownedWeapons.length];
+
+    if (randomWeapon) {
+      fighter.weapons.push(randomWeapon);
+    }
+  }
+
+  if (modifiers.includes(FightModifier.randomSkill)) {
+    if (randomSkillIndex === null) {
+      throw new Error('Random skill not found');
+    }
+
+    const unownedSkills = skills.filter((skill) => !fighter.skills.some(
+      (s) => s.name === skill.name,
+    ));
+
+    const randomSkill = unownedSkills[randomSkillIndex % unownedSkills.length];
+
+    if (randomSkill) {
+      fighter.skills.push(randomSkill);
+    }
   }
 };
 
 const getTempo = (speed: number) => 0.10 + (20 / (10 + (speed * 1.5))) * 0.90;
 
-const getFighters = (
+const getFighters = async (
+  prisma: PrismaClient,
   team1: Team,
   team2: Team,
   modifiers: FightModifier[],
-): DetailedFighter[] => {
+): Promise<DetailedFighter[]> => {
+  const randomWeaponIndex = await ServerState.getRandomWeapon(prisma);
+  const randomSkillIndex = await ServerState.getRandomSkill(prisma);
+
   let spawnedPets = 0;
   const fighters: DetailedFighter[] = [];
   let positiveIndex = 0;
@@ -221,7 +260,7 @@ const getFighters = (
       };
 
       handleSkills(brute, fighter);
-      handleModifiers(fighter, modifiers);
+      handleModifiers(fighter, modifiers, randomWeaponIndex, randomSkillIndex);
 
       fighters.push(fighter);
 
@@ -356,7 +395,7 @@ const getFighters = (
         };
 
         handleSkills(backup, backupFighter);
-        handleModifiers(backupFighter, modifiers);
+        handleModifiers(backupFighter, modifiers, randomWeaponIndex, randomSkillIndex);
 
         // Reset initiative to arrive at the desired time
         backupFighter.initiative = arrivesAt;

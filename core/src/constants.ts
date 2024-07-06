@@ -96,6 +96,11 @@ export const DailyModifierOdds = [
   { modifier: FightModifier.focusOpponent, odds: 1 },
   { modifier: FightModifier.alwaysUseSupers, odds: 1 },
   { modifier: FightModifier.drawEveryWeapon, odds: 1 },
+  { modifier: FightModifier.doubleAgility, odds: 1 },
+  { modifier: FightModifier.randomSkill, odds: 1 },
+  { modifier: FightModifier.randomWeapon, odds: 1 },
+  { modifier: FightModifier.bareHandsFirstHit, odds: 1 },
+  { modifier: FightModifier.startWithWeapon, odds: 1 },
 ];
 
 export const DailyModifierCountOdds = [
