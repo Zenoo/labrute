@@ -135,7 +135,12 @@ const RankingView = () => {
                       </TableRow>
                     )}
                     {rankings.nearbyBrutes.map(
-                      (brute, index) => bruteRow(brute, rankings.position - 3 + index),
+                      (brute, index) => bruteRow(
+                        brute,
+                        [16, 17].includes(rankings.position)
+                          ? 15 + index
+                          : rankings.position - 3 + index,
+                      ),
                     )}
                   </>
                 )}

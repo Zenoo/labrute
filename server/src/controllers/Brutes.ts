@@ -866,7 +866,7 @@ const Brutes = {
             where: {
               ranking: rank,
               deletedAt: null,
-              name: { not: brute.name },
+              id: { not: brute.id },
               userId: { not: null },
               OR: [
                 { level: { gt: brute.level } },
