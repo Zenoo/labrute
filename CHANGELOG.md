@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.62.0](https://github.com/Zenoo/labrute/compare/labrute-v2.61.2...labrute-v2.62.0) (2024-07-06)
+
+
+### Features
+
+* bareHandsFirstHit modifier. [#785](https://github.com/Zenoo/labrute/issues/785) ([690b9c6](https://github.com/Zenoo/labrute/commit/690b9c6d4fc77591f845662831f748cb298eeee5))
+* Low gravity modifier. [#785](https://github.com/Zenoo/labrute/issues/785) ([48392a1](https://github.com/Zenoo/labrute/commit/48392a1e3d3174b75135b16863bdf49464ffae91))
+* Random weapon/skill modifiers. [#785](https://github.com/Zenoo/labrute/issues/785) ([ee74b33](https://github.com/Zenoo/labrute/commit/ee74b332e5c6ffd52a32e194ada81e7420a33d62))
+* startWithWeapon modifier. Fixes [#785](https://github.com/Zenoo/labrute/issues/785) ([5919dd7](https://github.com/Zenoo/labrute/commit/5919dd7786df46486620d720e4755ce9ff8a2dc2))
+
+
+### Bug Fixes
+
+* 1/28 chance to throw a weapon (not tied to damage anymore) ([203939e](https://github.com/Zenoo/labrute/commit/203939e33614dbf5d485ad2bd6f9c3725988e2c0))
+* 4/30 chances to have modifiers every day. ([b76a794](https://github.com/Zenoo/labrute/commit/b76a7948cb684e6fc5599ba2eae8629c0b4d1f8a))
+* Check brute death between each throw. Fixes [#774](https://github.com/Zenoo/labrute/issues/774) ([5822d95](https://github.com/Zenoo/labrute/commit/5822d958d052a1abc03a48fe73798bf020eecf0f))
+* Display HP calc on hover. Fixes [#773](https://github.com/Zenoo/labrute/issues/773) ([ffe6278](https://github.com/Zenoo/labrute/commit/ffe62786b4ff93dab687b8eaf034c71de95009f0))
+* drawEveryWeapon modifier not working in rare cases. Fixes [#780](https://github.com/Zenoo/labrute/issues/780) ([6a9b2b1](https://github.com/Zenoo/labrute/commit/6a9b2b1f6b955df345fbb5d6bfa876fabf1d04e0))
+* Fierce brute works on throws. Fixes [#782](https://github.com/Zenoo/labrute/issues/782) ([3d4d943](https://github.com/Zenoo/labrute/commit/3d4d943ed884f81d973b42bdadc7326c418472b3))
+* Log name changes ([eab7c0f](https://github.com/Zenoo/labrute/commit/eab7c0f588e2b549b28443a7004b2e501245d981))
+* Missing translations for modifiers ([a948073](https://github.com/Zenoo/labrute/commit/a948073b9d6907ac6d782ab33c891722183acddd))
+* Silence brute not found on reset ([c1e63f5](https://github.com/Zenoo/labrute/commit/c1e63f5db15219e66f8a61c7a20231654fa897ff))
+* Vampirism deals 50% own missing HP as damage. Fixes [#783](https://github.com/Zenoo/labrute/issues/783) ([3c4b33a](https://github.com/Zenoo/labrute/commit/3c4b33a0bb9326e63e29fb5fb3c8fb4cd1c90e8d))
+* Wrong brute ranks on 16th & 17th place. Fixes [#781](https://github.com/Zenoo/labrute/issues/781) ([1f74fbe](https://github.com/Zenoo/labrute/commit/1f74fbe4e2344d9204a949ddfed4626aec71ac79))
+
 ## [2.61.2](https://github.com/Zenoo/labrute/compare/labrute-v2.61.1...labrute-v2.61.2) (2024-06-15)
 
 
