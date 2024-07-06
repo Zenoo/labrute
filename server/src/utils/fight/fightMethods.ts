@@ -1016,8 +1016,8 @@ const activateSuper = (
       // Choose main opponent
       const opponent = getMainOpponent(fightData, fighter);
 
-      // Damage done (20% missing hp)
-      const damage = Math.floor((opponent.maxHp - opponent.hp) * 0.2);
+      // Damage done (50% own missing hp)
+      const damage = Math.floor((fighter.maxHp - fighter.hp) * 0.5);
 
       registerHit(fightData, stats, achievements, fighter, [opponent], damage, false, 'vampirism');
 
