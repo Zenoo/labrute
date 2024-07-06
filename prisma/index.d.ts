@@ -257,7 +257,12 @@ export const FightModifier: {
   noThrows: 'noThrows',
   focusOpponent: 'focusOpponent',
   alwaysUseSupers: 'alwaysUseSupers',
-  drawEveryWeapon: 'drawEveryWeapon'
+  drawEveryWeapon: 'drawEveryWeapon',
+  doubleAgility: 'doubleAgility',
+  randomSkill: 'randomSkill',
+  randomWeapon: 'randomWeapon',
+  bareHandsFirstHit: 'bareHandsFirstHit',
+  startWithWeapon: 'startWithWeapon'
 };
 
 export type FightModifier = (typeof FightModifier)[keyof typeof FightModifier]

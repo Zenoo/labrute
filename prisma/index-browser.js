@@ -483,7 +483,12 @@ exports.FightModifier = exports.$Enums.FightModifier = {
   noThrows: 'noThrows',
   focusOpponent: 'focusOpponent',
   alwaysUseSupers: 'alwaysUseSupers',
-  drawEveryWeapon: 'drawEveryWeapon'
+  drawEveryWeapon: 'drawEveryWeapon',
+  doubleAgility: 'doubleAgility',
+  randomSkill: 'randomSkill',
+  randomWeapon: 'randomWeapon',
+  bareHandsFirstHit: 'bareHandsFirstHit',
+  startWithWeapon: 'startWithWeapon'
 };
 
 exports.LogType = exports.$Enums.LogType = {

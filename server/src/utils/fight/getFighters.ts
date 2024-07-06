@@ -6,7 +6,7 @@ import {
   pets, randomBetween, SHIELD_BLOCK_ODDS, skills, weapons,
 } from '@labrute/core';
 import { Boss } from '@labrute/core/src/brute/bosses.js';
-import { Brute } from '@labrute/prisma';
+import { Brute, FightModifier } from '@labrute/prisma';
 
 interface Team {
   brute: Brute | null;
@@ -135,9 +135,22 @@ const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
   }
 };
 
+const handleModifiers = (
+  fighter: DetailedFighter,
+  modifiers: FightModifier[],
+) => {
+  if (modifiers.includes(FightModifier.doubleAgility)) {
+    fighter.agility *= 2;
+  }
+};
+
 const getTempo = (speed: number) => 0.10 + (20 / (10 + (speed * 1.5))) * 0.90;
 
-const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
+const getFighters = (
+  team1: Team,
+  team2: Team,
+  modifiers: FightModifier[],
+): DetailedFighter[] => {
   let spawnedPets = 0;
   const fighters: DetailedFighter[] = [];
   let positiveIndex = 0;
@@ -208,6 +221,7 @@ const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
       };
 
       handleSkills(brute, fighter);
+      handleModifiers(fighter, modifiers);
 
       fighters.push(fighter);
 
@@ -342,6 +356,7 @@ const getFighters = (team1: Team, team2: Team): DetailedFighter[] => {
         };
 
         handleSkills(backup, backupFighter);
+        handleModifiers(backupFighter, modifiers);
 
         // Reset initiative to arrive at the desired time
         backupFighter.initiative = arrivesAt;

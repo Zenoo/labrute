@@ -262,6 +262,11 @@ enum FightModifier {
   focusOpponent
   alwaysUseSupers
   drawEveryWeapon
+  doubleAgility
+  randomSkill
+  randomWeapon
+  bareHandsFirstHit
+  startWithWeapon
 }
 
 model Fight {

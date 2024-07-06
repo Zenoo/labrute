@@ -111,6 +111,7 @@ const generateFight = async (
   const fightDataFighters = getFighters(
     { brute: brute1, backup: brute1Backup },
     { brute: brute2, backup: brute2Backup, boss: boss || undefined },
+    modifiers,
   )
     // Adjust boss HP
     .map((fighter) => {
