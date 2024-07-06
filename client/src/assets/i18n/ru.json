@@ -285,7 +285,7 @@
   "monk.effect": "",
   "vampirism": "Вампиризм",
   "vampirism.desc": "Пускай Дракула покоится с миром, так как теперь ты за него!",
-  "vampirism.effect": "Действие (x{{uses}}): Ваш Брутал отбирает у противника 20% его отсутствующего здоровья",
+  "vampirism.effect": "Action (x{{uses}}) Deals 50% of your missing health as damage and heals you for the same amount",
   "chaining": "Оцепенение",
   "chaining.desc": "Вы любите отбивные тыквы? Это комбо вам по вкусу!",
   "chaining.effect": "Каждый 3-й последовательный удар в ближнем бою ошеломит противника",
