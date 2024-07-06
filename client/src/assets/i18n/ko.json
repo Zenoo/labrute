@@ -324,6 +324,7 @@
   "level": "Level",
   "healthPoints": "health points",
   "endurance": "Endurance",
+  "multiplier": "Multiplier",
   "strength": "Strength",
   "Str": "S",
   "agility": "Agility",
