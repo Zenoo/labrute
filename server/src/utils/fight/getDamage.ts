@@ -30,8 +30,8 @@ const getDamage = (
     skillsMultiplier -= 0.3;
   }
 
-  // x2 damage for if skill `fierceBrute` is active and not thrown
-  if (fighter.activeSkills.find((sk) => sk.name === 'fierceBrute') && !thrown) {
+  // x2 damage for if skill `fierceBrute` is active
+  if (fighter.activeSkills.find((sk) => sk.name === 'fierceBrute')) {
     skillsMultiplier *= 2;
   }
 
