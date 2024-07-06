@@ -1,13 +1,13 @@
 import { Brute, BruteStat, DestinyChoice, PetName, SkillName, WeaponName } from '@labrute/prisma';
 import applySkillModifiers from './applySkillModifiers';
-import getHP from './getHP';
+import { getHP } from './getHP';
 import { LevelUpChoice } from './getLevelUpChoices';
 import { pets, Pet } from './pets';
 
 type BruteData = Pick<Brute, 'level' | 'skills' | 'enduranceStat' | 'strengthStat'
-| 'agilityStat' | 'speedStat' | 'enduranceModifier' | 'strengthModifier'
-| 'agilityModifier' | 'speedModifier' | 'strengthValue' | 'agilityValue'
-| 'enduranceValue' | 'speedValue' | 'xp' | 'pets' | 'weapons' | 'hp'>;
+  | 'agilityStat' | 'speedStat' | 'enduranceModifier' | 'strengthModifier'
+  | 'agilityModifier' | 'speedModifier' | 'strengthValue' | 'agilityValue'
+  | 'enduranceValue' | 'speedValue' | 'xp' | 'pets' | 'weapons' | 'hp'>;
 
 const updateStat = (brute: BruteData, stat: BruteStat, value: number) => {
   switch (stat) {

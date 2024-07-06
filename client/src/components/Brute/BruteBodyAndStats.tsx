@@ -1,4 +1,4 @@
-import { Box, BoxProps, Stack } from '@mui/material';
+import { Box, BoxProps, Divider, Stack, Tooltip } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import StatColor from '../../utils/StatColor';
@@ -7,6 +7,7 @@ import Text from '../Text';
 import BruteRender from './Body/BruteRender';
 import BruteHP from './BruteHP';
 import { Brute } from '@labrute/prisma';
+import { readableHPFormula } from '@labrute/core';
 
 interface BruteBodyAndStatsProps extends BoxProps {
   brute: Brute;
@@ -36,10 +37,19 @@ const BruteBodyAndStats = ({
       </Box>
       <Stack spacing={1} sx={{ minWidth: 153 }}>
         {/* HP */}
-        <Box>
-          <BruteHP hp={brute.hp} />
-          <Text bold sx={{ display: 'inline-block', ml: 1, color: StatColor.endurance }}>{t('healthPoints')}</Text>
-        </Box>
+        <Tooltip title={(
+          <>
+            <code>{readableHPFormula(t('level'), t('endurance'))}</code>
+            <Divider />
+            <code>{readableHPFormula(brute.level, brute.enduranceValue)}</code>
+          </>
+        )}
+        >
+          <Box>
+            <BruteHP hp={brute.hp} />
+            <Text bold sx={{ display: 'inline-block', ml: 1, color: StatColor.endurance }}>{t('healthPoints')}</Text>
+          </Box>
+        </Tooltip>
         {/* STRENGTH */}
         <CellStats value={brute.strengthValue} stat="strength" />
         {/* AGILITY */}

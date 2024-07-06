@@ -7,22 +7,31 @@ export type Release = {
 };
 
 export const LAST_RELEASE: Release = {
-  version: '2.61.0',
-  date: '2024-06-14',
-  features: [
-    'Patch notes are now available in the game, check them out in the footer',
-  ],
+  version: '2.61.3',
+  date: '2024-07-06',
+  features: [],
   fixes: [
-    'Tournaments gains are correctly given every night',
-    'Logs are now correctly ordered by date',
-    'Fights don\'t crash when using a `Bomb` anymore',
-    'Achievement counts between the user page and the ranking page are now consistent',
+    'TODO',
   ],
-  attachments: ['patch-notes.png'],
+  attachments: ['hp-calc.png'],
 };
 
 export const releases: Release[] = [
   LAST_RELEASE,
+  {
+    version: '2.61.0',
+    date: '2024-06-14',
+    features: [
+      'Patch notes are now available in the game, check them out in the footer',
+    ],
+    fixes: [
+      'Tournaments gains are correctly given every night',
+      'Logs are now correctly ordered by date',
+      'Fights don\'t crash when using a `Bomb` anymore',
+      'Achievement counts between the user page and the ranking page are now consistent',
+    ],
+    attachments: ['patch-notes.png'],
+  },
   {
     version: '2.60.1',
     date: '2024-06-11',
