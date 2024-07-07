@@ -18,6 +18,8 @@ import BruteRender from '../../components/Brute/Body/BruteRender';
 import { useBrute } from '../../hooks/useBrute';
 import { Brute, InventoryItemType } from '@labrute/prisma';
 
+enum sortOptions { Default = 'default', Level = 'level', Rank = 'ranking', Victories = 'victories', Damage = 'damage'}
+
 const ClanView = () => {
   const { t } = useTranslation();
   const { bruteName, id } = useParams();
@@ -26,11 +28,9 @@ const ClanView = () => {
   const navigate = useNavigate();
   const Confirm = useConfirm();
   const { updateBrute } = useBrute();
-  // eslint-disable-next-line no-shadow
-  enum sortOptions { Default = 'default', Level = 'level', Rank = 'ranking', Victories = 'victories', Damage = 'damage'}
   const [clan, setClan] = useState<ClanGetResponse | null>(null);
   const [damageDisplayed, setDamageDisplayed] = useState(false);
-  const [sort, setSort] = React.useState<sortOptions>(sortOptions.Default);
+  const [sort, setSort] = useState<sortOptions>(sortOptions.Default);
   const brute = useMemo(
     () => (user ? user.brutes.find((b) => b.name === bruteName) : null),
     [bruteName, user],
@@ -51,32 +51,40 @@ const ClanView = () => {
   const goToCell = (name: string) => () => {
     navigate(`/${name}/cell`);
   };
-  const sortBrute = (a : Brute, b : Brute) => {
-    switch (sort) {
-      case sortOptions.Default:
-        if (a.masterId) return -1;
-        if (a.ranking === b.ranking) { return (b.level - a.level); } return a.ranking - b.ranking;
-      case sortOptions.Rank:
-        return a.ranking - b.ranking;
-      case sortOptions.Victories:
-        return a.victories - b.victories;
-      case sortOptions.Level:
-        return a.level - b.level;
-      case sortOptions.Damage:
-        // eslint-disable-next-line no-case-declarations
-        const damageA = clan?.bossDamages.find(
-          (damageBrute) => damageBrute.brute.name === a.name
+
+  useEffect(() => {
+    const sortBrute = (a : Brute, b : Brute) => {
+      switch (sort) {
+        case sortOptions.Default:
+          if (a.masterId) return -1;
+          if (a.ranking === b.ranking) { return (b.level - a.level); } return a.ranking - b.ranking;
+        case sortOptions.Rank:
+          return a.ranking - b.ranking;
+        case sortOptions.Victories:
+          return a.victories - b.victories;
+        case sortOptions.Level:
+          return a.level - b.level;
+        case sortOptions.Damage:
+        { const damageA = clan?.bossDamages.find(
+          (damageBrute) => damageBrute.brute.id === a.id
         )?.damage ?? 0;
-        // eslint-disable-next-line no-case-declarations
         const damageB = clan?.bossDamages.find(
-          (damageBrute) => damageBrute.brute.name === b.name
+          (damageBrute) => damageBrute.brute.id === b.id
         )?.damage ?? 0;
-        return damageA - damageB;
-      default:
-        return 0;
-        break;
-    }
-  };
+        return damageA - damageB; }
+        default:
+          return 0;
+      }
+    };
+    setClan((prevClan) => {
+      if (!prevClan) return prevClan;
+      const clanBrutes = prevClan.brutes.sort(sortBrute);
+      return {
+        ...prevClan,
+        brutes: clanBrutes
+      };
+    });
+  }, [clan?.bossDamages, sort]);
 
   // Ask to join clan
   const askToJoin = (e: React.MouseEvent) => {
@@ -450,7 +458,7 @@ const ClanView = () => {
         }}
         >
           <ButtonGroup aria-label="Basic button group">
-            {Object.values(sortOptions).map((key) => <Button sx={{ color: sort === key ? 'orange' : 'black', backgroundColor: 'secondary.main', }} onClick={() => setSort(key)}>{key}</Button>)}
+            {Object.values(sortOptions).map((key) => <Button key={key} sx={{ color: sort === key ? 'orange' : 'black', backgroundColor: 'secondary.main', }} onClick={() => setSort(key)}>{t(`${key}`)}</Button>)}
           </ButtonGroup>
         </Box>
 
@@ -460,7 +468,7 @@ const ClanView = () => {
           justifyContent: 'center',
         }}
         >
-          {clan.brutes.sort(sortBrute).map((clanBrute) => (
+          {clan.brutes.map((clanBrute) => (
             <StyledButton
               key={clanBrute.name}
               image="/images/arena/brute-bg.webp"

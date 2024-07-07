@@ -1305,5 +1305,6 @@
   "fixes": "Fixes",
   "showMore": "Show more",
   "lockBruteAppearance": "Lock appearance",
-  "unlockBruteAppearance": "Unlock appearance"
+  "unlockBruteAppearance": "Unlock appearance",
+  "default" :   "default"
 }
