@@ -70,10 +70,10 @@ const ClanView = () => {
           case SortOption.Level:
             return a.level - b.level;
           case SortOption.Damage:
-          { const damageA = prevClan?.bossDamages.find(
+          { const damageA = prevClan.bossDamages.find(
             (damageBrute) => damageBrute.brute.id === a.id
           )?.damage ?? 0;
-          const damageB = prevClan?.bossDamages.find(
+          const damageB = prevClan.bossDamages.find(
             (damageBrute) => damageBrute.brute.id === b.id
           )?.damage ?? 0;
           return damageA - damageB; }
@@ -459,7 +459,7 @@ const ClanView = () => {
           marginTop: '15px'
         }}
         >
-          <ButtonGroup aria-label="Basic button group">
+          <ButtonGroup>
             {Object.values(SortOption).map((key) => <Button key={key} sx={{ color: sort === key ? 'orange' : 'black', backgroundColor: 'secondary.main', }} onClick={() => setSort(key)}>{t(key)}</Button>)}
           </ButtonGroup>
         </Box>
