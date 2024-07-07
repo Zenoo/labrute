@@ -1,11 +1,12 @@
 /* eslint-disable no-void */
-import { ArriveStep } from '@labrute/core';
+import { ArriveStep, WeaponById } from '@labrute/core';
 import { Easing, Tweener } from 'pixi-tweener';
 import { AnimatedSprite, Application } from 'pixi.js';
 
 import { sound } from '@pixi/sound';
 import { getRandomPosition } from './utils/fightPositions';
 import findFighter, { AnimationFighter } from './utils/findFighter';
+import updateWeapons from './updateWeapons';
 
 const arrive = async (
   app: Application,
@@ -26,6 +27,15 @@ const arrive = async (
 
   if (!fighter) {
     throw new Error('Fighter not found');
+  }
+
+  // Equip weapon if needed
+  if (typeof step.w !== 'undefined') {
+    // Update available weapons
+    updateWeapons(app, fighter, step.w, 'remove');
+
+    // Update active weapon
+    fighter.animation.weapon = WeaponById[step.w];
   }
 
   // Get random position

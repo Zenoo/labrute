@@ -1,7 +1,7 @@
 import { DestinyChoiceType, PetName, SkillName, WeaponName } from '@labrute/prisma';
 import { BruteRankings } from '../constants';
 import applySkillModifiers from './applySkillModifiers';
-import getHP from './getHP';
+import { getHP } from './getHP';
 import getRandomBonus from './getRandomBonus';
 import { getRandomStartingStats } from './getRandomStartingStats';
 import { pets } from './pets';

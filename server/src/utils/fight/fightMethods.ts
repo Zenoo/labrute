@@ -326,7 +326,7 @@ const randomlyGetSuper = (fightData: DetailedFight, brute: DetailedFighter) => {
   const NO_SUPER_TOSS = fightData.modifiers.includes(FightModifier.alwaysUseSupers) ? 0 : 10;
   const randomSuper = randomBetween(
     0,
-    supers.reduce((acc, skill) => acc + (skill.toss || 0), 0) + NO_SUPER_TOSS,
+    supers.reduce((acc, skill) => acc + (skill.toss || 0), -1) + NO_SUPER_TOSS,
   );
 
   let toss = 0;
@@ -340,13 +340,13 @@ const randomlyGetSuper = (fightData: DetailedFight, brute: DetailedFighter) => {
   return null;
 };
 
-const randomlyDrawWeapon = (
+export const randomlyDrawWeapon = (
   fightData: DetailedFight,
   weapons: Weapon[],
 ) => {
   if (!weapons.length) return null;
 
-  let totalToss = weapons.reduce((acc, weapon) => acc + (weapon.toss || 0), 0);
+  let totalToss = weapons.reduce((acc, weapon) => acc + (weapon.toss || 0), -1);
 
   if (!fightData.modifiers.includes(FightModifier.drawEveryWeapon)) {
     totalToss += NO_WEAPON_TOSS;
@@ -1016,8 +1016,8 @@ const activateSuper = (
       // Choose main opponent
       const opponent = getMainOpponent(fightData, fighter);
 
-      // Damage done (20% missing hp)
-      const damage = Math.floor((opponent.maxHp - opponent.hp) * 0.2);
+      // Damage done (50% own missing hp)
+      const damage = Math.floor((fighter.maxHp - fighter.hp) * 0.5);
 
       registerHit(fightData, stats, achievements, fighter, [opponent], damage, false, 'vampirism');
 
@@ -1133,6 +1133,13 @@ const drawWeapon = (fightData: DetailedFight): boolean => {
 
   if (!fighter) {
     throw new Error('No fighter found');
+  }
+
+  const bareHandsFirstHit = fightData.modifiers.includes(FightModifier.bareHandsFirstHit);
+
+  // Don't draw a weapon if the fighter hasn't hit yet
+  if (bareHandsFirstHit && !fighter.bareHandHit) {
+    return false;
   }
 
   const drawEveryWeapon = fightData.modifiers.includes(FightModifier.drawEveryWeapon);
@@ -1432,6 +1439,11 @@ const attack = (
   // Register hit if damage was done
   if (damage) {
     registerHit(fightData, stats, achievements, fighter, [opponent], damage);
+
+    // Register first bare hands hit
+    if (!fighter.activeWeapon && !fighter.bareHandHit) {
+      fighter.bareHandHit = true;
+    }
   }
 
   // Check if the fighter gets disarmed
@@ -1660,7 +1672,8 @@ export const playFighterTurn = (
         ? randomBetween(0, 1) === 0
           ? 'thrown'
           : 'melee'
-        : randomBetween(0, fighter.activeWeapon.damage) === 0
+        // 1/28 chance to throw a weapon otherwise
+        : randomBetween(0, 27) === 0
           ? 'thrown' : 'melee'
       : 'melee';
 
@@ -1738,6 +1751,11 @@ export const playFighterTurn = (
     while (firstThrow || (keepWeapon && random < combo)) {
       if (!fighter.activeWeapon) {
         throw new Error('Trying to throw a weapon but no weapon is active');
+      }
+
+      // Check if fighter is not dead (hit by a deflected weapond for example)
+      if (fighter.hp <= 0) {
+        break;
       }
 
       const thrownWeapon = fighter.activeWeapon;

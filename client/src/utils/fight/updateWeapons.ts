@@ -31,7 +31,7 @@ const updateWeapons = (
 
   // Add new weapon
   if (action === 'add') {
-    if (!weapon) {
+    if (typeof weapon === 'undefined') {
       throw new Error('Weapon not found');
     }
 

@@ -117,6 +117,8 @@ const Users = {
       res.send({
         user,
         modifiers: await ServerState.getModifiers(prisma),
+        randomSkill: await ServerState.getRandomSkill(prisma),
+        randomWeapon: await ServerState.getRandomWeapon(prisma),
       });
     } catch (error) {
       sendError(res, error);

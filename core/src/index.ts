@@ -8,7 +8,6 @@ import createRandomBruteStats from './brute/createRandomBruteStats';
 import getBruteGoldValue from './brute/getBruteGoldValue';
 import getFightsLeft from './brute/getFightsLeft';
 import { getGoldNeededForNewBrute } from './brute/getGoldNeededForNewBrute';
-import getHP from './brute/getHP';
 import getLevelUpChoices from './brute/getLevelUpChoices';
 import getMaxFightsPerDay from './brute/getMaxFightsPerDay';
 import getRandomBody from './brute/getRandomBody';
@@ -29,6 +28,7 @@ import promiseBatch from './utils/promiseBatch';
 import randomBetween from './utils/randomBetween';
 import weightedRandom from './utils/weightedRandom';
 
+export * from './brute/getHP';
 export * from './Achievements';
 export * from './Titles';
 export * from './brute/pets';
@@ -48,7 +48,7 @@ export {
   Boss, ExpectedError, Version, adjustColor, applySkillModifiers,
   availableBodyParts, bosses, canLevelUp,
   createRandomBruteStats, formatLargeNumber, getBruteGoldValue,
-  getFightsLeft, getGoldNeededForNewBrute, getHP,
+  getFightsLeft, getGoldNeededForNewBrute,
   getLevelUpChoices,
   getMaxFightsPerDay,
   getRandomBody,
@@ -129,6 +129,8 @@ export type UsersAdminUpdateRequest = {
 export type UsersAuthenticateResponse = {
   user: UserWithBrutesBodyColor,
   modifiers: FightModifier[],
+  randomSkill: number | null,
+  randomWeapon: number | null,
 };
 
 export type BruteReportsListRequest = {

@@ -1,5 +1,7 @@
+/* eslint-disable no-param-reassign */
 import {
   AchievementsStore,
+  ArriveStep,
   BOSS_GOLD_REWARD,
   Boss,
   CLAN_SIZE_LIMIT,
@@ -16,7 +18,7 @@ import {
 import applySpy from './applySpy.js';
 import {
   Stats,
-  checkDeaths, getOpponents, orderFighters, playFighterTurn, saboteur,
+  checkDeaths, getOpponents, orderFighters, playFighterTurn, randomlyDrawWeapon, saboteur,
 } from './fightMethods.js';
 import getFighters from './getFighters.js';
 import handleStats from './handleStats.js';
@@ -108,10 +110,12 @@ const generateFight = async (
     : null;
 
   // Global fight data
-  const fightDataFighters = getFighters(
+  const fightDataFighters = (await getFighters(
+    prisma,
     { brute: brute1, backup: brute1Backup },
     { brute: brute2, backup: brute2Backup, boss: boss || undefined },
-  )
+    modifiers,
+  ))
     // Adjust boss HP
     .map((fighter) => {
       if (fighter.type === 'boss') {
@@ -122,10 +126,12 @@ const generateFight = async (
       }
       return fighter;
     });
-  const fightDataInitialFighters = getFighters(
+  const fightDataInitialFighters = (await getFighters(
+    prisma,
     { brute: brute1, backup: brute1Backup },
     { brute: brute2, backup: brute2Backup, boss: boss || undefined },
-  )
+    modifiers,
+  ))
     // Adjust boss HP
     .map((fighter) => {
       if (fighter.type === 'boss') {
@@ -173,12 +179,33 @@ const generateFight = async (
     throw new Error('Invalid number of fighters');
   }
 
+  const arriveWithWeapon = modifiers.includes(FightModifier.startWithWeapon);
+
   // Add arrive step for all fighters
   [...mainFighters, ...petFighters].forEach((fighter) => {
-    fightData.steps.push({
+    const step: ArriveStep = {
       a: StepType.Arrive,
       f: fighter.index,
-    });
+    };
+
+    if (arriveWithWeapon) {
+      // Randomly draw a weapon for the fighter
+      const possibleWeapon = randomlyDrawWeapon(fightData, fighter.weapons);
+
+      if (possibleWeapon) {
+        // Equip weapon
+        fighter.activeWeapon = possibleWeapon;
+
+        // Remove weapon from possible weapons
+        const weaponIndex = fighter.weapons.findIndex((w) => w.name === possibleWeapon.name);
+        fighter.weapons.splice(weaponIndex, 1);
+
+        // Add weapon to step
+        step.w = WeaponByName[possibleWeapon.name];
+      }
+    }
+
+    fightData.steps.push(step);
   });
 
   // Add spy steps

@@ -8,6 +8,8 @@ import { FightModifier } from '@labrute/prisma';
 interface AuthContextInterface {
   user: UserWithBrutesBodyColor | null,
   modifiers: FightModifier[],
+  randomSkill: number | null,
+  randomWeapon: number | null,
   authing: boolean,
   setAuthing: (authing: boolean) => void,
   signin: () => void,
@@ -18,6 +20,8 @@ interface AuthContextInterface {
 const AuthContext = React.createContext<AuthContextInterface>({
   user: null,
   modifiers: [],
+  randomSkill: null,
+  randomWeapon: null,
   authing: false,
   setAuthing: () => {
     console.error('AuthContext.setAuthing() not implemented');
@@ -43,6 +47,8 @@ interface AuthProviderProps {
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [modifiers, setModifiers] = useState<FightModifier[]>([]);
+  const [randomSkill, setRandomSkill] = useState<number | null>(null);
+  const [randomWeapon, setRandomWeapon] = useState<number | null>(null);
   const [user, setUser] = useState<UserWithBrutesBodyColor | null>(null);
   const [authing, setAuthing] = useState(false);
   const { setLanguage } = useLanguage();
@@ -59,6 +65,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         Server.User.authenticate(userId, token).then((response) => {
           setUser(response.user);
           setModifiers(response.modifiers);
+          setRandomSkill(response.randomSkill);
+          setRandomWeapon(response.randomWeapon);
           setAuthing(false);
 
           // Update language
@@ -93,12 +101,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const methods = useMemo(() => ({
     user,
     modifiers,
+    randomSkill,
+    randomWeapon,
     authing,
     setAuthing,
     signin,
     signout,
     updateData
-  }), [authing, modifiers, signin, signout, updateData, user]);
+  }), [authing, modifiers, randomSkill, randomWeapon, signin, signout, updateData, user]);
 
   return (
     <AuthContext.Provider value={methods}>

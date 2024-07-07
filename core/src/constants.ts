@@ -91,9 +91,23 @@ export enum BruteDeletionReason {
   INNAPROPRIATE_NAME = 'INNAPROPRIATE_NAME',
 }
 
-export const DailyModifierRates: Record<FightModifier, number> = {
-  [FightModifier.noThrows]: 2 / 30,
-  [FightModifier.focusOpponent]: 2 / 30,
-  [FightModifier.alwaysUseSupers]: 2 / 30,
-  [FightModifier.drawEveryWeapon]: 2 / 30,
-};
+export const DailyModifierOdds = [
+  { modifier: FightModifier.noThrows, odds: 1 },
+  { modifier: FightModifier.focusOpponent, odds: 1 },
+  { modifier: FightModifier.alwaysUseSupers, odds: 1 },
+  { modifier: FightModifier.drawEveryWeapon, odds: 1 },
+  { modifier: FightModifier.doubleAgility, odds: 1 },
+  { modifier: FightModifier.randomSkill, odds: 1 },
+  { modifier: FightModifier.randomWeapon, odds: 1 },
+  { modifier: FightModifier.bareHandsFirstHit, odds: 1 },
+  { modifier: FightModifier.startWithWeapon, odds: 1 },
+];
+
+export const DailyModifierCountOdds = [
+  { count: 1, odds: 50 },
+  { count: 2, odds: 25 },
+  { count: 3, odds: 15 },
+  { count: 4, odds: 10 },
+];
+
+export const DailyModifierSpawnChance = 4 / 30;

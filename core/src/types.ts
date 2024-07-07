@@ -109,6 +109,8 @@ export interface DetailedFighter {
   // Keep track of consecutive hits for stun status
   hitBy: Record<number, number>,
   stunned?: boolean,
+  // Bare hand hit (for the fight modifier)
+  bareHandHit?: boolean;
 }
 
 export interface Fighter {
@@ -190,6 +192,8 @@ export interface ArriveStep {
   a: StepType.Arrive;
   /** Fighter ID */
   f: number;
+  /** Current weapon ID */
+  w?: WeaponId;
 }
 
 export interface TrashStep {

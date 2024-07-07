@@ -1,10 +1,14 @@
 /* eslint-disable no-await-in-loop */
 import {
   BruteDeletionReason,
-  DailyModifierRates,
+  DailyModifierCountOdds,
+  DailyModifierOdds,
+  DailyModifierSpawnChance,
   Fighter,
   getWinsNeededToRankUp,
   LAST_RELEASE,
+  randomBetween,
+  weightedRandom,
 } from '@labrute/core';
 import {
   FightModifier,
@@ -998,19 +1002,36 @@ const handleModifiers = async (prisma: PrismaClient) => {
     return ServerState.getModifiers(prisma);
   }
 
-  // Get rolled modifiers from daily rates
-  const rolledModifiers = Object.values(FightModifier).reduce((array, modifier) => {
-    if (DailyModifierRates[modifier] > Math.random()) {
-      array.push(modifier);
-    }
+  const rolledModifiers: FightModifier[] = [];
 
-    return array;
-  }, [] as FightModifier[]);
+  if (Math.random() < DailyModifierSpawnChance) {
+    const modifierCount = weightedRandom(DailyModifierCountOdds).count;
+
+    const availableModifiers = [...DailyModifierOdds];
+
+    // Roll modifiers
+    for (let i = 0; i < modifierCount; i++) {
+      const { modifier } = weightedRandom(availableModifiers);
+
+      rolledModifiers.push(modifier);
+
+      // Remove modifier from available list
+      availableModifiers.splice(availableModifiers.findIndex((m) => m.modifier === modifier), 1);
+    }
+  }
 
   // Store rolled modifiers
   await ServerState.setModifiers(prisma, rolledModifiers);
 
   if (rolledModifiers.length) {
+    // Handle random skill/weapon modifiers
+    if (rolledModifiers.some((modifier) => modifier === FightModifier.randomSkill)) {
+      await ServerState.setRandomSkill(prisma, randomBetween(0, 99));
+    }
+    if (rolledModifiers.some((modifier) => modifier === FightModifier.randomWeapon)) {
+      await ServerState.setRandomWeapon(prisma, randomBetween(0, 99));
+    }
+
     DISCORD.sendModifiersNotification(rolledModifiers);
   }
 

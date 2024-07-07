@@ -7,22 +7,40 @@ export type Release = {
 };
 
 export const LAST_RELEASE: Release = {
-  version: '2.61.0',
-  date: '2024-06-14',
+  version: '2.62.0',
+  date: '2024-07-06',
   features: [
-    'Patch notes are now available in the game, check them out in the footer',
+    'You can lock a brute appearance when creating a new brute',
+    'The HP calculation is now displayed when hovering over the HP in your cell',
+    '5 new modifiers have been added to the daily rotation: Low gravity, Lucky skill, Lucky weapon, Honorable Combat, and Armed and Ready',
   ],
   fixes: [
-    'Tournaments gains are correctly given every night',
-    'Logs are now correctly ordered by date',
-    'Fights don\'t crash when using a `Bomb` anymore',
-    'Achievement counts between the user page and the ranking page are now consistent',
+    'Every weapon now has a 1/28 chance to be thrown, instead of depending on the weapon damage',
+    '`Fierce Brute` works on thrown weapons',
+    '`Vampirism` deals 50% of your own missing HP',
+    'Brute dying due to damage from deflected weapons stop throwing when they die',
+    'The modifier `Endless supplies` had a very low chance to not work, it now works as intended',
+    'Modifiers have a 4/30 chance to spawn every day. Multiple modifiers can spawn, up to 4',
   ],
-  attachments: ['patch-notes.png'],
+  attachments: ['lock-creation.png', 'hp-calc.png'],
 };
 
 export const releases: Release[] = [
   LAST_RELEASE,
+  {
+    version: '2.61.0',
+    date: '2024-06-14',
+    features: [
+      'Patch notes are now available in the game, check them out in the footer',
+    ],
+    fixes: [
+      'Tournaments gains are correctly given every night',
+      'Logs are now correctly ordered by date',
+      'Fights don\'t crash when using a `Bomb` anymore',
+      'Achievement counts between the user page and the ranking page are now consistent',
+    ],
+    attachments: ['patch-notes.png'],
+  },
   {
     version: '2.60.1',
     date: '2024-06-11',

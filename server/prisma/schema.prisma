@@ -262,6 +262,11 @@ enum FightModifier {
   focusOpponent
   alwaysUseSupers
   drawEveryWeapon
+  doubleAgility
+  randomSkill
+  randomWeapon
+  bareHandsFirstHit
+  startWithWeapon
 }
 
 model Fight {
@@ -553,6 +558,8 @@ model ServerState {
   globalTournamentValid Boolean         @default(true)
   activeModifiers       FightModifier[] @default([])
   modifiersEndAt        DateTime?       @db.Date
+  randomWeapon          Int?
+  randomSkill           Int?
 }
 
 model BannedWord {

@@ -81,5 +81,15 @@
   "modifier.alwaysUseSupers": "Pouvoir illimité",
   "modifier.alwaysUseSupers.desc": "Vous avez passé du temps à apprendre ces compétences, il serait dommage de ne pas les utiliser. Vous utiliserez toujours vos compétences disponibles.",
   "modifier.drawEveryWeapon": "Ravitaillement infini",
-  "modifier.drawEveryWeapon.desc": "Vous êtes un maître de l'extraction. Vous sortirez toujours une arme si vous en avez de disponible."
+  "modifier.drawEveryWeapon.desc": "Vous êtes un maître de l'extraction. Vous sortirez toujours une arme si vous en avez de disponible.",
+  "modifier.doubleAgility": "Gravité atténuée",
+  "modifier.doubleAgility.desc": "Vous vous sentez plus léger que d'habitude aujourd'hui. Votre agilité est doublée.",
+  "modifier.randomSkill": "Compétence opportune",
+  "modifier.randomSkill.desc": "Vous avez regardé tellement de combats que vous avez réussi à apprendre une nouvelle compétence. Vous gagnez une compétence aléatoire pour la journée.",
+  "modifier.randomWeapon": "Arme opportune",
+  "modifier.randomWeapon.desc": "Vous avez trouvé une arme sur le sol. Vous gagnez une arme aléatoire pour la journée.",
+  "modifier.bareHandsFirstHit": "Combat honorable",
+  "modifier.bareHandsFirstHit.desc": "Un vrai gentleman salue son ennemi avec ses poings. Vous ne tirerez pas d'arme tant que vous n'aurez pas touché votre adversaire avec vos mains nues.",
+  "modifier.startWithWeapon": "Paré au combat",
+  "modifier.startWithWeapon.desc": "Pas de temps pour les plaisanteries, il est temps de se battre ! Vous commencerez le combat avec une arme déjà tirée."
 }

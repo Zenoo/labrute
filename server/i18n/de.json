@@ -81,5 +81,15 @@
   "modifier.alwaysUseSupers": "Unbegrenzte Macht",
   "modifier.alwaysUseSupers.desc": "Die Fähigkeiten zu erlernen hat Zeit gekostet, daher wäre es schade, diese nicht auch zu verwenden. Du wirst stets verfügbare Fähigkeiten nutzen.",
   "modifier.drawEveryWeapon": "Endlose Vorräte",
-  "modifier.drawEveryWeapon.desc": "Im Rausziehen bist du ein eiskalter Profi. Du wirst stets eine Waffe ziehen, sofern verfügbar."
+  "modifier.drawEveryWeapon.desc": "Im Rausziehen bist du ein eiskalter Profi. Du wirst stets eine Waffe ziehen, sofern verfügbar.",
+  "modifier.doubleAgility": "Niedrige Schwerkraft",
+  "modifier.doubleAgility.desc": "Du fühlst dich heute leichter, als sonst. Deine Flinkheit ist verdoppelt.",
+  "modifier.randomSkill": "Glücksfähigkeit",
+  "modifier.randomSkill.desc": "Du hast dir so viele Kämpfe angeschaut, dass du eine neue Fähigkeit erlernt hast. Erhalte für den Tag eine zufällige Fähigkeit.",
+  "modifier.randomWeapon": "Glückswaffe",
+  "modifier.randomWeapon.desc": "Du hast auf dem Boden eine Waffe gefunden. Erhalte für den Tag eine zufällige Waffe.",
+  "modifier.bareHandsFirstHit": "Ehrenhafter Kampf",
+  "modifier.bareHandsFirstHit.desc": "Ein wahrer Gentleman begrüßt seine Gegner mit Fäusten. Du wirst keine Waffe ziehen, ehe du deinen Gegner mit bloßen Händen getroffen hast.",
+  "modifier.startWithWeapon": "Bewaffnet und Bereit",
+  "modifier.startWithWeapon.desc": "Keine Zeit für Höflichkeiten, es ist Zeit zu kämpfen! Du startest den Kampf mit einer bereits gezogenen Waffe."
 }
