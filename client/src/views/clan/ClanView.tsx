@@ -1,9 +1,11 @@
 import { BruteRanking, ClanGetResponse, bosses, getFightsLeft } from '@labrute/core';
+import { Brute, InventoryItemType } from '@labrute/prisma';
 import { HighlightOff, PlayCircleOutline } from '@mui/icons-material';
 import { Box, Button, ButtonGroup, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip } from '@mui/material';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
+import BruteRender from '../../components/Brute/Body/BruteRender';
 import FantasyButton from '../../components/FantasyButton';
 import Link from '../../components/Link';
 import Page from '../../components/Page';
@@ -11,12 +13,10 @@ import StyledButton from '../../components/StyledButton';
 import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
+import { useBrute } from '../../hooks/useBrute';
 import { useConfirm } from '../../hooks/useConfirm';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
-import BruteRender from '../../components/Brute/Body/BruteRender';
-import { useBrute } from '../../hooks/useBrute';
-import { Brute, InventoryItemType } from '@labrute/prisma';
 
 enum SortOption { Default = 'default', Level = 'level', Rank = 'ranking', Victories = 'victories', Damage = 'damage'}
 
@@ -53,38 +53,40 @@ const ClanView = () => {
   };
 
   useEffect(() => {
-    const sortBrute = (a : Brute, b : Brute) => {
-      switch (sort) {
-        case SortOption.Default:
-          if (a.masterId) return -1;
-          if (a.ranking === b.ranking) { return (b.level - a.level); } return a.ranking - b.ranking;
-        case SortOption.Rank:
-          return a.ranking - b.ranking;
-        case SortOption.Victories:
-          return a.victories - b.victories;
-        case SortOption.Level:
-          return a.level - b.level;
-        case SortOption.Damage:
-        { const damageA = clan?.bossDamages.find(
-          (damageBrute) => damageBrute.brute.id === a.id
-        )?.damage ?? 0;
-        const damageB = clan?.bossDamages.find(
-          (damageBrute) => damageBrute.brute.id === b.id
-        )?.damage ?? 0;
-        return damageA - damageB; }
-        default:
-          return 0;
-      }
-    };
     setClan((prevClan) => {
       if (!prevClan) return prevClan;
-      const clanBrutes = prevClan.brutes.sort(sortBrute);
+      const clanBrutes = prevClan.brutes.sort((a : Brute, b : Brute) => {
+        switch (sort) {
+          case SortOption.Default:
+            if (a.masterId) return -1;
+            if (a.ranking === b.ranking) {
+              return (b.level - a.level);
+            }
+            return a.ranking - b.ranking;
+          case SortOption.Rank:
+            return a.ranking - b.ranking;
+          case SortOption.Victories:
+            return a.victories - b.victories;
+          case SortOption.Level:
+            return a.level - b.level;
+          case SortOption.Damage:
+          { const damageA = prevClan?.bossDamages.find(
+            (damageBrute) => damageBrute.brute.id === a.id
+          )?.damage ?? 0;
+          const damageB = prevClan?.bossDamages.find(
+            (damageBrute) => damageBrute.brute.id === b.id
+          )?.damage ?? 0;
+          return damageA - damageB; }
+          default:
+            return 0;
+        }
+      });
       return {
         ...prevClan,
         brutes: clanBrutes
       };
     });
-  }, [clan?.bossDamages, sort]);
+  }, [sort]);
 
   // Ask to join clan
   const askToJoin = (e: React.MouseEvent) => {
@@ -458,7 +460,7 @@ const ClanView = () => {
         }}
         >
           <ButtonGroup aria-label="Basic button group">
-            {Object.values(SortOption).map((key) => <Button key={key} sx={{ color: sort === key ? 'orange' : 'black', backgroundColor: 'secondary.main', }} onClick={() => setSort(key)}>{t(`${key}`)}</Button>)}
+            {Object.values(SortOption).map((key) => <Button key={key} sx={{ color: sort === key ? 'orange' : 'black', backgroundColor: 'secondary.main', }} onClick={() => setSort(key)}>{t(key)}</Button>)}
           </ButtonGroup>
         </Box>
 
