@@ -1,9 +1,11 @@
 import { BruteRanking, ClanGetResponse, bosses, getFightsLeft } from '@labrute/core';
+import { Brute, InventoryItemType } from '@labrute/prisma';
 import { HighlightOff, PlayCircleOutline } from '@mui/icons-material';
-import { Box, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip } from '@mui/material';
+import { Box, Button, ButtonGroup, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip } from '@mui/material';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
+import BruteRender from '../../components/Brute/Body/BruteRender';
 import FantasyButton from '../../components/FantasyButton';
 import Link from '../../components/Link';
 import Page from '../../components/Page';
@@ -11,12 +13,12 @@ import StyledButton from '../../components/StyledButton';
 import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
+import { useBrute } from '../../hooks/useBrute';
 import { useConfirm } from '../../hooks/useConfirm';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
-import BruteRender from '../../components/Brute/Body/BruteRender';
-import { useBrute } from '../../hooks/useBrute';
-import { Brute, InventoryItemType } from '@labrute/prisma';
+
+enum SortOption { Default = 'default', Level = 'level', Rank = 'ranking', Victories = 'victories', Damage = 'damage'}
 
 const ClanView = () => {
   const { t } = useTranslation();
@@ -26,10 +28,9 @@ const ClanView = () => {
   const navigate = useNavigate();
   const Confirm = useConfirm();
   const { updateBrute } = useBrute();
-
   const [clan, setClan] = useState<ClanGetResponse | null>(null);
   const [damageDisplayed, setDamageDisplayed] = useState(false);
-
+  const [sort, setSort] = useState<SortOption>(SortOption.Default);
   const brute = useMemo(
     () => (user ? user.brutes.find((b) => b.name === bruteName) : null),
     [bruteName, user],
@@ -50,6 +51,42 @@ const ClanView = () => {
   const goToCell = (name: string) => () => {
     navigate(`/${name}/cell`);
   };
+
+  useEffect(() => {
+    setClan((prevClan) => {
+      if (!prevClan) return prevClan;
+      const clanBrutes = prevClan.brutes.sort((a : Brute, b : Brute) => {
+        switch (sort) {
+          case SortOption.Default:
+            if (a.masterId) return -1;
+            if (a.ranking === b.ranking) {
+              return (b.level - a.level);
+            }
+            return a.ranking - b.ranking;
+          case SortOption.Rank:
+            return a.ranking - b.ranking;
+          case SortOption.Victories:
+            return a.victories - b.victories;
+          case SortOption.Level:
+            return a.level - b.level;
+          case SortOption.Damage:
+          { const damageA = prevClan.bossDamages.find(
+            (damageBrute) => damageBrute.brute.id === a.id
+          )?.damage ?? 0;
+          const damageB = prevClan.bossDamages.find(
+            (damageBrute) => damageBrute.brute.id === b.id
+          )?.damage ?? 0;
+          return damageA - damageB; }
+          default:
+            return 0;
+        }
+      });
+      return {
+        ...prevClan,
+        brutes: clanBrutes
+      };
+    });
+  }, [sort]);
 
   // Ask to join clan
   const askToJoin = (e: React.MouseEvent) => {
@@ -414,6 +451,19 @@ const ClanView = () => {
         )}
         {/* MEMBERS */}
         <Text bold h4 sx={{ my: 1 }}>{clan.brutes.length}/{clan.limit} {t('brutes')}</Text>
+        <Box sx={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          marginBottom: '15px',
+          marginTop: '15px'
+        }}
+        >
+          <ButtonGroup>
+            {Object.values(SortOption).map((key) => <Button key={key} sx={{ color: sort === key ? 'orange' : 'black', backgroundColor: 'secondary.main', }} onClick={() => setSort(key)}>{t(key)}</Button>)}
+          </ButtonGroup>
+        </Box>
+
         <Box sx={{
           display: 'flex',
           flexWrap: 'wrap',

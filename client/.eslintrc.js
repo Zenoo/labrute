@@ -103,6 +103,8 @@ module.exports = {
     "@typescript-eslint/no-use-before-define": ["error"],
     'no-plusplus': 'off',
     'no-restricted-syntax': 'off',
+    "no-shadow": "off",
+  "@typescript-eslint/no-shadow": ["error"],
     'import/prefer-default-export': 'off',
   },
 };
