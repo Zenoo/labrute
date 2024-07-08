@@ -14,19 +14,19 @@ const getDamage = (
   const piledriver = fighter.activeSkills.find((sk) => sk.name === 'hammer');
 
   // +50% damage for `weaponsMaster` on sharp weapons
-  if (fighter.activeWeapon?.types.includes('sharp') && fighter.skills.find((sk) => sk.name === 'weaponsMaster')) {
+  if (fighter.activeWeapon?.types.includes('sharp') && fighter.skills.find((sk) => sk.name === 'weaponsMaster') && !thrown) {
     skillsMultiplier += 0.5;
   }
 
   if (!piledriver) {
     // +100% damage for `martialArts` without a weapon or with a mug
-    if ((!fighter.activeWeapon || fighter.activeWeapon.name === 'mug') && fighter.skills.find((sk) => sk.name === 'martialArts')) {
+    if ((!fighter.activeWeapon || fighter.activeWeapon.name === 'mug') && fighter.skills.find((sk) => sk.name === 'martialArts') && !thrown) {
       skillsMultiplier += 1;
     }
   }
 
   // -30% damage if opponent has `leadSkeleton` and weapon is blunt
-  if (opponent.skills.find((sk) => sk.name === 'leadSkeleton') && fighter.activeWeapon?.types.includes('blunt')) {
+  if (opponent.skills.find((sk) => sk.name === 'leadSkeleton') && fighter.activeWeapon?.types.includes('blunt') && !thrown) {
     skillsMultiplier -= 0.3;
   }
 
@@ -45,7 +45,7 @@ const getDamage = (
   if (thrown) {
     damage = Math.floor(
       (base + fighter.strength * 0.1 + fighter.agility * 0.15)
-      * (1 + Math.random() * 0.5),
+      * (1 + Math.random() * 0.5) * skillsMultiplier,
     );
   } else if (piledriver) {
     damage = Math.floor(
