@@ -441,6 +441,10 @@ const Users = {
         },
       });
 
+      if (!brutes.length) {
+        throw new ExpectedError('No brutes found');
+      }
+
       const isDoneForToday = brutes.every((brute) => getFightsLeft(brute) === 0);
 
       res.send(isDoneForToday);
