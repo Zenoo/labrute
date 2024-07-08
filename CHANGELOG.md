@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.62.1](https://github.com/Zenoo/labrute/compare/labrute-v2.62.0...labrute-v2.62.1) (2024-07-08)
+
+
+### Bug Fixes
+
+* Clan order responsive ([7886ebf](https://github.com/Zenoo/labrute/commit/7886ebf5d4120d88449ea639918f94f7383348de))
+* Fierce brute scaling on throws ([fc3c8b7](https://github.com/Zenoo/labrute/commit/fc3c8b7112c442ec3131f5e6d6cafbe75a5fbbfd))
+* No dinorpg reward without brutes ([8f87d1d](https://github.com/Zenoo/labrute/commit/8f87d1d7e3539524c091db0c4eacc889260fd0ea))
+
 ## [2.62.0](https://github.com/Zenoo/labrute/compare/labrute-v2.61.2...labrute-v2.62.0) (2024-07-06)
 
 
