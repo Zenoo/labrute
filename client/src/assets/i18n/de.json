@@ -1316,5 +1316,6 @@
   "fixes": "Fixes",
   "showMore": "Mehr anzeigen",
   "lockBruteAppearance": "Aussehen arretieren",
-  "unlockBruteAppearance": "Aussehen freigeben"
+  "unlockBruteAppearance": "Aussehen freigeben",
+  "default": "Standard"
 }

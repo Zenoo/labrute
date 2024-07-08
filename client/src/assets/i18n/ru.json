@@ -1316,5 +1316,6 @@
   "fixes": "Правки",
   "showMore": "Развернуть",
   "lockBruteAppearance": "Закрепить внешность",
-  "unlockBruteAppearance": "Открепить внешность"
+  "unlockBruteAppearance": "Открепить внешность",
+  "default": "По умолчанию"
 }

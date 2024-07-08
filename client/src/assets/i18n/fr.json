@@ -1316,5 +1316,6 @@
   "fixes": "Corrections",
   "showMore": "Afficher plus",
   "lockBruteAppearance": "Verrouiller l'apparence",
-  "unlockBruteAppearance": "Déverrouiller l'apparence"
+  "unlockBruteAppearance": "Déverrouiller l'apparence",
+  "default": "Default"
 }
