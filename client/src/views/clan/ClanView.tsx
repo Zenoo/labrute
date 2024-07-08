@@ -18,7 +18,7 @@ import { useConfirm } from '../../hooks/useConfirm';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
 
-enum SortOption { Default = 'default', Level = 'level', Rank = 'ranking', Victories = 'victories', Damage = 'damage'}
+enum SortOption { Default = 'default', Level = 'level', Rank = 'ranking', Victories = 'victories', Damage = 'damage' }
 
 const ClanView = () => {
   const { t } = useTranslation();
@@ -28,6 +28,7 @@ const ClanView = () => {
   const navigate = useNavigate();
   const Confirm = useConfirm();
   const { updateBrute } = useBrute();
+
   const [clan, setClan] = useState<ClanGetResponse | null>(null);
   const [damageDisplayed, setDamageDisplayed] = useState(false);
   const [sort, setSort] = useState<SortOption>(SortOption.Default);
@@ -55,10 +56,18 @@ const ClanView = () => {
   useEffect(() => {
     setClan((prevClan) => {
       if (!prevClan) return prevClan;
-      const clanBrutes = prevClan.brutes.sort((a : Brute, b : Brute) => {
+      const clanBrutes = prevClan.brutes.sort((a: Brute, b: Brute) => {
         switch (sort) {
           case SortOption.Default:
-            if (a.masterId) return -1;
+            // Master first
+            if (a.id === prevClan.masterId) {
+              return -1;
+            }
+            if (b.id === prevClan.masterId) {
+              return 1;
+            }
+
+            // Ranking first, then level
             if (a.ranking === b.ranking) {
               return (b.level - a.level);
             }
@@ -66,17 +75,18 @@ const ClanView = () => {
           case SortOption.Rank:
             return a.ranking - b.ranking;
           case SortOption.Victories:
-            return a.victories - b.victories;
+            return b.victories - a.victories;
           case SortOption.Level:
-            return a.level - b.level;
-          case SortOption.Damage:
-          { const damageA = prevClan.bossDamages.find(
-            (damageBrute) => damageBrute.brute.id === a.id
-          )?.damage ?? 0;
-          const damageB = prevClan.bossDamages.find(
-            (damageBrute) => damageBrute.brute.id === b.id
-          )?.damage ?? 0;
-          return damageA - damageB; }
+            return b.level - a.level;
+          case SortOption.Damage: {
+            const damageA = prevClan.bossDamages.find(
+              (damageBrute) => damageBrute.brute.id === a.id
+            )?.damage ?? 0;
+            const damageB = prevClan.bossDamages.find(
+              (damageBrute) => damageBrute.brute.id === b.id
+            )?.damage ?? 0;
+            return damageB - damageA;
+          }
           default:
             return 0;
         }
@@ -452,15 +462,21 @@ const ClanView = () => {
         {/* MEMBERS */}
         <Text bold h4 sx={{ my: 1 }}>{clan.brutes.length}/{clan.limit} {t('brutes')}</Text>
         <Box sx={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'center',
-          marginBottom: '15px',
-          marginTop: '15px'
+          my: 2,
+          overflowX: 'auto',
+          textAlign: 'center',
         }}
         >
-          <ButtonGroup>
-            {Object.values(SortOption).map((key) => <Button key={key} sx={{ color: sort === key ? 'orange' : 'black', backgroundColor: 'secondary.main', }} onClick={() => setSort(key)}>{t(key)}</Button>)}
+          <ButtonGroup size="small">
+            {Object.values(SortOption).map((key) => (
+              <Button
+                key={key}
+                sx={{ color: sort === key ? 'orange' : 'secondary.main' }}
+                onClick={() => setSort(key)}
+              >
+                {t(key)}
+              </Button>
+            ))}
           </ButtonGroup>
         </Box>
 
