@@ -521,10 +521,14 @@ const registerHit = (
         d: actualDamage[opponent.index] ?? damage,
       };
 
+      // Reset consecutive hits
+      if (sourceName !== 'poison') {
+        fighter.hitBy[opponent.index] = 0;
+      }
+
       if (!thrown && !sourceName && !flashFloodWeapon && opponent.type === 'brute') {
         // Update consecutive hits
         opponent.hitBy[fighter.index] = (opponent.hitBy[fighter.index] || 0) + 1;
-        fighter.hitBy[opponent.index] = 0;
 
         // Stun opponent if 3 hits in a row
         if (fighter.skills.find((s) => s.name === SkillName.chaining)
