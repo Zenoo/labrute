@@ -8,6 +8,7 @@ import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
+import Link from '../components/Link';
 
 export const MultipleAccountsView = () => {
   const { t } = useTranslation();
@@ -41,7 +42,9 @@ export const MultipleAccountsView = () => {
                 >
                   <ListItemText
                     primary={instance.ip}
-                    secondary={instance.users.map((u) => u).join(', ')}
+                    secondary={instance.users.map((u) => (
+                      <Link key={u} to={`/user/${u}`} target="_blank" sx={{ mr: 1 }}>{u}</Link>
+                    ))}
                   />
                 </ListItem>
               ))}
