@@ -3150,8 +3150,8 @@ __metadata:
     eslint-plugin-react: "npm:^7.33.2"
     eslint-plugin-react-hooks: "npm:^4.6.0"
     i18next: "npm:^21.9.0"
-    labrute-fla-parser: "npm:^1.0.11"
-    labrute-static-fla-parser: "npm:^1.0.5"
+    labrute-fla-parser: "npm:^1.0.12"
+    labrute-static-fla-parser: "npm:^1.0.6"
     moment: "npm:^2.29.4"
     pixi-tweener: "npm:^0.12.2"
     pixi.js: "npm:^6.5.9"
@@ -12442,17 +12442,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"labrute-fla-parser@npm:^1.0.11":
-  version: 1.0.11
-  resolution: "labrute-fla-parser@npm:1.0.11"
-  checksum: 97d516ee94ea3ce4a9112fede3fd90157361598646cacfa85979d999f782a0447c250ba19896df3cd4f56880714afcc25c2727dcc7945069faf8a38e299b6636
+"labrute-fla-parser@npm:^1.0.12":
+  version: 1.0.12
+  resolution: "labrute-fla-parser@npm:1.0.12"
+  checksum: b3955bbfb37fdbfc937c3445f99955c350d02f3fa09e0bb7ac9e776bdcc0a707942252bd4af924e965a68142bc0c076ca1c72f7b4fc0dc05e5beba2ad88e4a0d
   languageName: node
   linkType: hard
 
-"labrute-static-fla-parser@npm:^1.0.5":
-  version: 1.0.5
-  resolution: "labrute-static-fla-parser@npm:1.0.5"
-  checksum: 65c4f2ca63c0d00504b7c62213231b214e3f9370bfe94862281f5f492fcedc70fb73408c5dc3bcd8cc400b5db74734028bb479773bbb0284d7f4ff7959678f16
+"labrute-static-fla-parser@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "labrute-static-fla-parser@npm:1.0.6"
+  checksum: f7d56768c7ce30d5270b745834c525f2dc474c8242309212e13f3081dddb25ee03152690fa495ec9b5b97c6bd52445bd45b81f426e8a7d0ae2bbd3fc332ad688
   languageName: node
   linkType: hard
 
