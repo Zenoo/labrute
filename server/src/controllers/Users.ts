@@ -15,7 +15,7 @@ import {
 import type { Request, Response } from 'express';
 import moment from 'moment';
 import fetch from 'node-fetch';
-import { DISCORD, GLOBAL } from '../context.js';
+import { DISCORD, GLOBAL, LOGGER } from '../context.js';
 import dailyJob from '../dailyJob.js';
 import ServerState from '../utils/ServerState.js';
 import auth from '../utils/auth.js';
@@ -623,6 +623,8 @@ const Users = {
 
       // IP ban
       await ServerState.addBannedIps(prisma, user.ips);
+
+      LOGGER.log(`User ${req.params.userId} has been banned by ${authed.id}`);
 
       res.send({
         success: true,

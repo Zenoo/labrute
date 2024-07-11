@@ -7,7 +7,7 @@ export type Release = {
 };
 
 export const LAST_RELEASE: Release = {
-  version: '2.64.0',
+  version: '2.64.1',
   date: '2024-07-11',
   features: [
     'The brute creation date is now displayed on the brute cell',
