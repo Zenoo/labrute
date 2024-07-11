@@ -216,7 +216,7 @@
   "fierceBrute.effect": "Action (x{{uses}}) Ta brute double les dégâts du prochain assaut.",
   "tragicPotion": "Potion tragique",
   "tragicPotion.desc": "Boooooire un p'tit coup, c'est agréaaableuuu ! Oui, mais pas pour tout le monde…. Ce jus de pêche restaure une partie de ton énergie au cours du combat.",
-  "tragicPotion.effect": "Action (x{{uses}}) Ta brute récupère 25 à 50 % des PV perdus. Soigne aussi le poison du Cuisinier.",
+  "tragicPotion.effect": "Action (x{{uses}}) Ta brute récupère 25 à 50 % de ses PV. Soigne aussi le poison du Cuisinier.",
   "net": "Filet",
   "net.desc": "Un filet classique. Pas aussi cool que la toile de Spiderman, mais faudra faire avec… Ton adversaire sera immobilisé jusqu'à ce que tu lui portes un coup.",
   "net.effect": "Action (x{{uses}}) Le filet empêche la cible de bouger/esquiver/parer jusqu'au prochain coup reçu",
