@@ -72,6 +72,11 @@ const getFighterStat = (
     }
   }
 
+  // Special case for reversal with counterAttack and shield (+90%)
+  if (stat === 'reversal' && fighter.skills.find((sk) => sk.name === SkillName.counterAttack) && fighter.shield) {
+    total += 0.9;
+  }
+
   return total;
 };
 
@@ -1478,7 +1483,7 @@ const attack = (
 
   return {
     blocked: !evaded && blocked,
-    reversed: (!evaded && reversed) || (!evaded && blocked && opponent.autoReversalOnBlock),
+    reversed: !evaded && reversed,
   };
 };
 

@@ -41,6 +41,7 @@ const SkillTooltip = ({
               {' '}
               {t(skillModifier.stat)}
               {(skillModifier.stat && typeof skillModifier.weaponType !== 'undefined') && ` (${t('weapons')}: ${t(skillModifier.weaponType || 'none')})`}
+              {skillModifier.details ? ` ${t(skillModifier.details)}` : ''}
             </Text>
           ))}
           {t(`${skill.name}.effect`, { uses: skill.uses }) !== `${skill.name}.effect` && (

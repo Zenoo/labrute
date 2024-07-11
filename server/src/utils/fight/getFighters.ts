@@ -40,11 +40,6 @@ const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
     fighter.initiative += 2;
   }
 
-  // Automatic counter on block for `counterAttack`
-  if (brute.skills.includes('counterAttack')) {
-    fighter.autoReversalOnBlock = true;
-  }
-
   /* COMBO */
 
   // +20% combo for `fistsOfFury`
@@ -223,7 +218,6 @@ const getFighters = async (
         tempo: getTempo(brute.speedValue),
         baseDamage: BARE_HANDS_DAMAGE,
         counter: 0,
-        autoReversalOnBlock: false,
         combo: 0,
         deflect: 0,
         reversal: 0,
@@ -290,7 +284,6 @@ const getFighters = async (
           tempo: getTempo(getPetStat(brute, pet, 'speed')),
           baseDamage: pet.damage,
           counter: pet.counter,
-          autoReversalOnBlock: false,
           combo: pet.combo,
           deflect: 0,
           reversal: pet.counter,
@@ -359,7 +352,6 @@ const getFighters = async (
           tempo: getTempo(backup.speedValue),
           baseDamage: BARE_HANDS_DAMAGE,
           counter: 0,
-          autoReversalOnBlock: false,
           combo: 0,
           deflect: 0,
           reversal: 0,
@@ -425,7 +417,6 @@ const getFighters = async (
         tempo: getTempo(team.boss.speed),
         baseDamage: team.boss.damage,
         counter: team.boss.counter,
-        autoReversalOnBlock: false,
         combo: team.boss.combo,
         deflect: 0,
         reversal: team.boss.counter,

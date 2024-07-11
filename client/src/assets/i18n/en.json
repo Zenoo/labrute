@@ -252,7 +252,7 @@
   "resistant.effect": "Opponent's blows can only decrease your health bar by 20%.",
   "counterAttack": "Counter Attack",
   "counterAttack.desc": "What's the best form of attack? Defense of course! You'll immediately strike back after blocking your opponent's blow.",
-  "counterAttack.effect": "Your Brute will counter-attack after each blow successfully blocked.",
+  "counterAttack.effect": "",
   "ironHead": "Iron Head",
   "ironHead.desc": "Your opponent will be damaged by his own blows!",
   "ironHead.effect": "For each attack targeted at you, your opponent will have a 30% chance of losing their weapon.",
@@ -1326,5 +1326,6 @@
   "banSuccess": "User successfully banned.",
   "banReason.innapropriateName": "Inappropriate name",
   "banReason.innapropriateBruteName": "Inappropriate brute name",
-  "banReason.multipleAccounts": "Multiple accounts"
+  "banReason.multipleAccounts": "Multiple accounts",
+  "afterBlock": "after blocking"
 }

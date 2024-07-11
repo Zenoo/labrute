@@ -58,7 +58,6 @@ export interface DetailedFighter {
   // hit stats
   baseDamage: number,
   counter: number,
-  autoReversalOnBlock: boolean,
   reversal: number,
   combo: number,
   deflect: number,

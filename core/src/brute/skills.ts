@@ -181,6 +181,7 @@ export interface SkillModifier {
   weaponType?: WeaponType | null,
   value: number,
   percent?: boolean,
+  details?: string,
 }
 
 export interface Skill {
@@ -539,6 +540,7 @@ export const SkillModifiers: Record<SkillName, SkillModifier[]> = {
   ],
   [SkillName.counterAttack]: [
     { stat: FightStat.BLOCK, value: 10, percent: true },
+    { stat: FightStat.REVERSAL, value: 90, percent: true, details: 'afterBlock' },
   ],
   [SkillName.ironHead]: [],
   [SkillName.thief]: [],
