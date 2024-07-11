@@ -295,8 +295,8 @@
   "treat": "Golosina",
   "treat.desc": "Las peleas pasan factura. ¡Por eso siempre traigo una golosina para reanimar a mis mascotas!",
   "treat.effect": "Acción (x{{uses}}) Tu bruto curará a una de sus mascotas el 50% de su salud.",
-  "repulse": "Repulse",
-  "repulse.desc": "Got ninja stars headed your way? No problem! Channel your inner martial arts movie hero and swat away thrown weapons like they're pesky flies.",
+  "repulse": "Rechazo",
+  "repulse.desc": "¿Unas estrellas ninja se dirigen a tu cabeza? ¡No hay problema! Canaliza tu héroe de artes marciales interior y rechaza las armas arrojadas como si fueran moscas.",
   "repulse.effect": "",
   "fan": "Abanico",
   "keyboard": "Teclado",
@@ -1331,5 +1331,5 @@
   "banReason.innapropriateBruteName": "Nombre de bruto inapropiado",
   "banReason.multipleAccounts": "Múltiples cuentas",
   "afterBlock": "después de bloquear",
-  "created": "Created on {{date}}"
+  "created": "Creado el {{date}}"
 }
