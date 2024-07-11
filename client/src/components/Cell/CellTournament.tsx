@@ -59,7 +59,7 @@ const CellTournament = ({
       {!!brute.tournaments.length && (
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           <FantasyButton
-            color="warning"
+            color="secondary"
             to={`/${brute.name}/tournament/${now.format('YYYY-MM-DD')}`}
             sx={{ my: 1 }}
           >
