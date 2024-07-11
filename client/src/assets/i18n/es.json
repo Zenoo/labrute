@@ -1317,5 +1317,14 @@
   "showMore": "Mostrar más",
   "lockBruteAppearance": "Bloquear apariencia",
   "unlockBruteAppearance": "Desbloquear apariencia",
-  "default": "Por defecto"
+  "default": "Por defecto",
+  "unban": "Unban",
+  "unbanConfirm": "Are you sure you want to unban this user?",
+  "unbanSuccess": "User successfully unbanned.",
+  "ban": "Ban",
+  "banConfirm": "Are you sure you want to ban this user?",
+  "banSuccess": "User successfully banned.",
+  "banReason.innapropriateName": "Inappropriate name",
+  "banReason.innapropriateBruteName": "Inappropriate brute name",
+  "banReason.multipleAccounts": "Multiple accounts"
 }

@@ -91,5 +91,12 @@
   "modifier.bareHandsFirstHit": "Combate Honorable",
   "modifier.bareHandsFirstHit.desc": "Un verdadero caballero saluda a su enemigo con sus puños. No sacarás ningún arma hasta que golpees a tu oponente con tus manos.",
   "modifier.startWithWeapon": "Armado y Preparado",
-  "modifier.startWithWeapon.desc": "No hay tiempo para bromear, ¡es hora de luchar! Empezarás la pelea con un arma en las manos."
+  "modifier.startWithWeapon.desc": "No hay tiempo para bromear, ¡es hora de luchar! Empezarás la pelea con un arma en las manos.",
+  "bannedAccount": "Your account has been banned for the following reason: {{reason}}",
+  "userNotBanned": "User not banned",
+  "userAlreadyBanned": "User already banned",
+  "banReason.innapropriateName": "Inappropriate name",
+  "banReason.innapropriateBruteName": "Inappropriate brute name",
+  "banReason.multipleAccounts": "Multiple accounts",
+  "ipBanned": "Your IP is banned"
 }
