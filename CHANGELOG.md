@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.63.1](https://github.com/Zenoo/labrute/compare/labrute-v2.63.0...labrute-v2.63.1) (2024-07-11)
+
+
+### Bug Fixes
+
+* Tournament fighter tooltip filter by id ([9812188](https://github.com/Zenoo/labrute/commit/9812188a8cfda755e05673745ba570070236fc3d))
+* Update parser versions ([0b13090](https://github.com/Zenoo/labrute/commit/0b13090bda2b88f1a00aefb923c32b029b5203c3))
+
 ## [2.63.0](https://github.com/Zenoo/labrute/compare/labrute-v2.62.1...labrute-v2.63.0) (2024-07-11)
 
 
