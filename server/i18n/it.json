@@ -91,5 +91,12 @@
   "modifier.bareHandsFirstHit": "Honorable Combat",
   "modifier.bareHandsFirstHit.desc": "A true gentleman greets his enemy with his fists. You will not draw a weapon until you hit your opponent with your bare hands.",
   "modifier.startWithWeapon": "Armed and Ready",
-  "modifier.startWithWeapon.desc": "No time for pleasantries, it's time to fight! You will start the fight with a weapon already drawn."
+  "modifier.startWithWeapon.desc": "No time for pleasantries, it's time to fight! You will start the fight with a weapon already drawn.",
+  "bannedAccount": "Your account has been banned for the following reason: {{reason}}",
+  "userNotBanned": "User not banned",
+  "userAlreadyBanned": "User already banned",
+  "banReason.innapropriateName": "Inappropriate name",
+  "banReason.innapropriateBruteName": "Inappropriate brute name",
+  "banReason.multipleAccounts": "Multiple accounts",
+  "ipBanned": "Your IP is banned"
 }
