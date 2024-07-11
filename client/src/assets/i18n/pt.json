@@ -195,7 +195,7 @@
   "untouchable.effect": "",
   "sabotage": "Sabotagem",
   "sabotage.desc": "Alguns brutos optam por vandalizar as ruas, mas você prefere vandalizar seus oponentes! Cada golpe destruirá uma das armas do seu oponente.",
-  "sabotage.effect": "Destrua uma arma cada vez que desferir um golpe",
+  "sabotage.effect": "90% chance to destroy a weapon each time you land a blow",
   "shock": "Choque",
   "shock.desc": "Seu ataque pega seu oponente de surpresa e ele larga a arma. Agora você pode exibi-lo para seus amigos!",
   "shock.effect": "",
@@ -252,7 +252,7 @@
   "resistant.effect": "Os golpes do oponente só podem diminuir sua barra de saúde em 20%.",
   "counterAttack": "Contra-ataque",
   "counterAttack.desc": "Qual é a melhor forma de ataque? Defesa, claro! Você vai revidar imediatamente depois de bloquear o golpe do seu oponente.",
-  "counterAttack.effect": "Seu Bruto irá contra-atacar após cada golpe bloqueado com sucesso.",
+  "counterAttack.effect": "",
   "ironHead": "Cabeça de Ferro",
   "ironHead.desc": "Seu oponente será prejudicado por seus próprios golpes!",
   "ironHead.effect": "Para cada ataque direcionado a você, seu oponente terá 30% de chance de perder a arma.",
@@ -295,6 +295,9 @@
   "treat": "Treat",
   "treat.desc": "Fighting takes a toll. That's why I always bring a treat to put my pets back on their feet!",
   "treat.effect": "Action (x{{uses}}) Your brute will heal one of his pets for 50% of their health.",
+  "repulse": "Repulse",
+  "repulse.desc": "Got ninja stars headed your way? No problem! Channel your inner martial arts movie hero and swat away thrown weapons like they're pesky flies.",
+  "repulse.effect": "",
   "fan": "Fan",
   "keyboard": "Teclado",
   "knife": "Faca",
@@ -1326,5 +1329,7 @@
   "banSuccess": "User successfully banned.",
   "banReason.innapropriateName": "Inappropriate name",
   "banReason.innapropriateBruteName": "Inappropriate brute name",
-  "banReason.multipleAccounts": "Multiple accounts"
+  "banReason.multipleAccounts": "Multiple accounts",
+  "afterBlock": "after blocking",
+  "created": "Created on {{date}}"
 }
