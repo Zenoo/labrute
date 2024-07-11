@@ -195,7 +195,7 @@
   "untouchable.effect": "",
   "sabotage": "Sabotage",
   "sabotage.desc": "Manche Brutalos lieben es, in den Straßen zu randalieren, doch du randalierst lieber im Arsenal deines Gegners. Jeder Treffer erleichtert ihn um eine Waffe!",
-  "sabotage.effect": "Ein Treffer vernichtet eine Waffe",
+  "sabotage.effect": "90% chance to destroy a weapon each time you land a blow",
   "shock": "Schock",
   "shock.desc": "Deine Schläge kommen derart überraschend, dass dein Gegner vor lauter Schreck seine Waffe fallen lässt... Mach dir das zu Nutze!",
   "shock.effect": "",
@@ -252,7 +252,7 @@
   "resistant.effect": "Gegnerische Schläge können nicht mehr als 20% LP an Schaden verursachen",
   "counterAttack": "Gegenangriff",
   "counterAttack.desc": "Die beste Art anzugreifen? Durch Verteidigung natürlich! Du schlägst sofort zurück, sobald du einen Schlag deines Gegners abgeblockt hast.",
-  "counterAttack.effect": "Wenn dein Brutalo erfolgreich einen Schlag blockt, führt er sofort einen Gegenangriff aus",
+  "counterAttack.effect": "",
   "ironHead": "Eisenschädel",
   "ironHead.desc": "Während du die Prügel einsteckst, ist es dein Gegner, der jedes Mal den Aufprall überstehen muss!",
   "ironHead.effect": "Gegner, die deinen Brutalo angreifen, haben eine 30% Chance ihre Waffe fallen zu lassen",
@@ -295,6 +295,9 @@
   "treat": "Leckerli",
   "treat.desc": "Der Kampf fordert seinen Preis. Deshalb hast du immer einen Snack dabei, um deine Tierbegleiter wieder auf die Beine zu stellen!",
   "treat.effect": "Aktion (x{{uses}}): Dein Brutalo heilt einen seiner Tierbegleiter um 50% seiner Gesundheit",
+  "repulse": "Repulse",
+  "repulse.desc": "Got ninja stars headed your way? No problem! Channel your inner martial arts movie hero and swat away thrown weapons like they're pesky flies.",
+  "repulse.effect": "",
   "fan": "Fächer",
   "keyboard": "Tastatur",
   "knife": "Messer",
@@ -1326,5 +1329,7 @@
   "banSuccess": "User successfully banned.",
   "banReason.innapropriateName": "Inappropriate name",
   "banReason.innapropriateBruteName": "Inappropriate brute name",
-  "banReason.multipleAccounts": "Multiple accounts"
+  "banReason.multipleAccounts": "Multiple accounts",
+  "afterBlock": "after blocking",
+  "created": "Created on {{date}}"
 }
