@@ -21,6 +21,6 @@ const StatColor: Record<FightStat, string> = {
   [FightStat.SPEED]: speedColor,
   [FightStat.ENDURANCE]: '#17a717',
   [FightStat.DAMAGE]: 'red',
-} as const;
+};
 
 export default StatColor;

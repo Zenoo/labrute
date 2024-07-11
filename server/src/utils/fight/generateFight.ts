@@ -396,6 +396,8 @@ const generateFight = async (
           damageOnBoss: 0,
           // Increase clan limit
           limit: Math.min(CLAN_SIZE_LIMIT, clan.limit + 5),
+          // +1000 points
+          points: { increment: 1000 },
           // Reset boss damages
           bossDamages: {
             deleteMany: {},
