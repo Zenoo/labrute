@@ -12,9 +12,22 @@ export const LAST_RELEASE: Release = {
   features: [
     'The brute creation date is now displayed on the brute cell',
     'A new skill has been added: `Repulse`',
+    'Clan brutes can now be reordered',
+    'New admin panel to manage user bans and monitor multi-accounts',
+    'Defeating a clan boss increases the clan points by 1000'
   ],
-  fixes: [],
-  attachments: ['creation-date.png', 'repulse.png'],
+  fixes: [
+    'The armor stat now works as a percentage, reducing the damage taken by that percentage',
+    '`Counter attack` now gives 90% reversal chance after a block',
+    '`Sabotage` now triggers 90% of the time',
+    '`Fierce Brute` didn\'t work on throws in some edge cases, it now works as intended',
+    'DinoRPG rewards now require you to have at least one brute',
+    '`Chaining` now correctly resets the chain on throws and skill hits',
+    'The stats at the moment of the fight are now displayed when hovering on a brute in the tournament page, instead of the current stats',
+    'Some brutes were displaying the wrong clothing colors in fights, it has been fixed',
+    'Stats linked to the 3 main stats (strength, agility, and speed) are now displayed in the same color as the stat',
+  ],
+  attachments: ['creation-date.png', 'repulse.png', 'reorder-clan-brutes.png'],
 };
 
 export const releases: Release[] = [
