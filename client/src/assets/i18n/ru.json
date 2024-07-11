@@ -195,7 +195,7 @@
   "untouchable.effect": "",
   "sabotage": "Вандализм",
   "sabotage.desc": "Некоторые Бруталы любят бушевать на улицах, а вот ваш предпочитает заниматься этим в арсенале ваших противников.",
-  "sabotage.effect": "Каждое попадание ломает одно оружие",
+  "sabotage.effect": "90% chance to destroy a weapon each time you land a blow",
   "shock": "Шок",
   "shock.desc": "Ваши удары настолько неожиданны, что противники при попадании теряют своё оружие. Обязательно продемонстрируйте это остальным!",
   "shock.effect": "",
@@ -252,7 +252,7 @@
   "resistant.effect": "Удары противника не могут нанести урона, превышающего 20% ОЗ",
   "counterAttack": "Контратака",
   "counterAttack.desc": "Что является лучшим видом нападения? Защита, конечно! Вы сразу атакуете в ответ заблокированному удару.",
-  "counterAttack.effect": "Каждое успешное блокирование поспособствует контрудару вашим Бруталом",
+  "counterAttack.effect": "",
   "ironHead": "Железная Голова",
   "ironHead.desc": "В то время как вы терпите удары, это вашему противнику предстоит вытерпеть столкновение!",
   "ironHead.effect": "Ударяя, противник имеет 30% шанс уронить своё оружие",
@@ -295,6 +295,9 @@
   "treat": "Лакомство",
   "treat.desc": "Бой своё требует. Поэтому у вас всегда с собой лакомства, чтобы взбодрить ваших питомцев!",
   "treat.effect": "Действие (x{{uses}}): Ваш Брутал восстановит 50% здоровья одному из его питомцев",
+  "repulse": "Repulse",
+  "repulse.desc": "Got ninja stars headed your way? No problem! Channel your inner martial arts movie hero and swat away thrown weapons like they're pesky flies.",
+  "repulse.effect": "",
   "fan": "Веер",
   "keyboard": "Клавиатура",
   "knife": "Нож",
@@ -1326,5 +1329,7 @@
   "banSuccess": "User successfully banned.",
   "banReason.innapropriateName": "Inappropriate name",
   "banReason.innapropriateBruteName": "Inappropriate brute name",
-  "banReason.multipleAccounts": "Multiple accounts"
+  "banReason.multipleAccounts": "Multiple accounts",
+  "afterBlock": "after blocking",
+  "created": "Created on {{date}}"
 }
