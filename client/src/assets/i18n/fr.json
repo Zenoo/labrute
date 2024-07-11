@@ -195,7 +195,7 @@
   "untouchable.effect": "",
   "sabotage": "Vandalisme",
   "sabotage.desc": "Certaines brutes font du vandalisme dans la rue, mais toi tu préfères vandaliser ton adversaire. Chaque coup te permet de détruire une de ses armes.",
-  "sabotage.effect": "Détruit une arme en réserve à chaque coup qui blesse",
+  "sabotage.effect": "90% chance to destroy a weapon each time you land a blow",
   "shock": "Choc",
   "shock.desc": "Tes coups sont tellement surprenants que ton adversaire en laisse tomber son arme… Profites-en pour lui en montrer d'autres !",
   "shock.effect": "",
@@ -252,7 +252,7 @@
   "resistant.effect": "Chaque coup reçu ne peut pas te faire perdre plus de 20% de ta barre.",
   "counterAttack": "Contre",
   "counterAttack.desc": "La meilleure attaque ? C'est la défense bien entendu ! Pour chaque coup paré, tu ripostes automatiquement.",
-  "counterAttack.effect": "Chaque coup paré entraine une riposte automatique.",
+  "counterAttack.effect": "",
   "ironHead": "Tête de fer",
   "ironHead.desc": "Lorsque tu prends un coup, c'est ton adversaire qui doit résister à l'impact !",
   "ironHead.effect": "Pour chaque coup te ciblant, ton adversaire a 30% de chance de perdre son arme.",
@@ -295,6 +295,9 @@
   "treat": "Friandise",
   "treat.desc": "Se battre, ça creuse. C’est pourquoi j’emporte toujours une friandise pour remettre mes familiers d’aplomb !",
   "treat.effect": "Action (x{{uses}}) Ta brute soigne l’un de ses familiers à hauteur de 50% de leur santé.",
+  "repulse": "Repulse",
+  "repulse.desc": "Got ninja stars headed your way? No problem! Channel your inner martial arts movie hero and swat away thrown weapons like they're pesky flies.",
+  "repulse.effect": "",
   "fan": "Éventail",
   "keyboard": "Clavier",
   "knife": "Couteau",
@@ -1326,5 +1329,7 @@
   "banSuccess": "Utilisateur banni avec succès.",
   "banReason.innapropriateName": "Nom inapproprié",
   "banReason.innapropriateBruteName": "Nom de brute inapproprié",
-  "banReason.multipleAccounts": "Comptes multiples"
+  "banReason.multipleAccounts": "Comptes multiples",
+  "afterBlock": "after blocking",
+  "created": "Created on {{date}}"
 }
