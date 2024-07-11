@@ -94,9 +94,9 @@
   "modifier.startWithWeapon.desc": "No hay tiempo para bromear, ¡es hora de luchar! Empezarás la pelea con un arma en las manos.",
   "bannedAccount": "Tu cuenta ha sido baneada por el siguiente motivo: {{reason}}",
   "userNotBanned": "Usuario no baneado",
-  "userAlreadyBanned": "User already banned",
-  "banReason.innapropriateName": "Inappropriate name",
-  "banReason.innapropriateBruteName": "Inappropriate brute name",
-  "banReason.multipleAccounts": "Multiple accounts",
-  "ipBanned": "Your IP is banned"
+  "userAlreadyBanned": "El usuario ya está baneado",
+  "banReason.innapropriateName": "Nombre inapropiado",
+  "banReason.innapropriateBruteName": "Nombre de bruto inapropiado",
+  "banReason.multipleAccounts": "Múltiples cuentas",
+  "ipBanned": "Tu IP está baneada"
 }
