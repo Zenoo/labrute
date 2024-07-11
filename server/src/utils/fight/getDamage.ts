@@ -66,7 +66,7 @@ const getDamage = (
 
   // Reduce damage with opponent's armor if not thrown
   if (!thrown) {
-    damage -= opponent.armor;
+    damage = Math.ceil(damage * (1 - opponent.armor));
   }
 
   // Set minimum damage to 1

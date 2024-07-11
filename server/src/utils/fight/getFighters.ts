@@ -81,14 +81,14 @@ const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
 
   /* ARMOR */
 
-  // +5 armor for `armor`
+  // +25% armor for `armor`
   if (brute.skills.includes('armor')) {
-    fighter.armor += 5;
+    fighter.armor += 0.25;
   }
 
-  // +2 armor for `toughenedSkin`
+  // +10% armor for `toughenedSkin`
   if (brute.skills.includes('toughenedSkin')) {
-    fighter.armor += 2;
+    fighter.armor += 0.1;
   }
 
   /* DISARM */
