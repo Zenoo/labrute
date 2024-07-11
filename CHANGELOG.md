@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.64.0](https://github.com/Zenoo/labrute/compare/labrute-v2.63.1...labrute-v2.64.0) (2024-07-11)
+
+
+### Features
+
+* Display brute creation date. Fixes [#793](https://github.com/Zenoo/labrute/issues/793) ([0973ec4](https://github.com/Zenoo/labrute/commit/0973ec4035e3ae1fa05c4270754b6c8d7d7746c2))
+* New skill `Repulse`. Fixes [#792](https://github.com/Zenoo/labrute/issues/792) ([2b873fb](https://github.com/Zenoo/labrute/commit/2b873fb55a32d6e074a83b4e4a35560e367e5f86))
+
+
+### Bug Fixes
+
+* 90% chance to trigger sabotage. [#794](https://github.com/Zenoo/labrute/issues/794) ([4760861](https://github.com/Zenoo/labrute/commit/47608614a5d43b8d4ba1b4ecea036b7f5f276799))
+* Armor as %. Fixes [#798](https://github.com/Zenoo/labrute/issues/798) ([f835adb](https://github.com/Zenoo/labrute/commit/f835adb726ed4a5f72a0fb518207e592b1f6e52b))
+* counterAttack gives 90% reversal. [#794](https://github.com/Zenoo/labrute/issues/794) ([81de9d4](https://github.com/Zenoo/labrute/commit/81de9d4d1b419ec247a0741cbaac910b94a2ba03))
+* Defeating a boss grants 1000 clan points. Fixes [#795](https://github.com/Zenoo/labrute/issues/795) ([be4d7f7](https://github.com/Zenoo/labrute/commit/be4d7f79e9ce49127c815e6d27133e1b9a3dbdec))
+* Links to users in multiple account view ([78bc64f](https://github.com/Zenoo/labrute/commit/78bc64f476eebd78b9aecc9bcc277b6168699b79))
+* Unify colors to their stats ([275248a](https://github.com/Zenoo/labrute/commit/275248ae0fe28c98c56afcc97e742e1127494782))
+
 ## [2.63.1](https://github.com/Zenoo/labrute/compare/labrute-v2.63.0...labrute-v2.63.1) (2024-07-11)
 
 
