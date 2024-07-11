@@ -195,7 +195,7 @@
   "untouchable.effect": "",
   "sabotage": "Sabotage",
   "sabotage.desc": "Some Brutes choose to vandalize the streets, but you prefer to vandalize your opponents! Each blow will destroy one of your opponent's weapons.",
-  "sabotage.effect": "Destroy a weapon each time you land a blow",
+  "sabotage.effect": "90% chance to destroy a weapon each time you land a blow",
   "shock": "Shock",
   "shock.desc": "Your attack takes your opponent by surprise and he drops his weapon. Now you can show it off you your friends!",
   "shock.effect": "",
@@ -252,7 +252,7 @@
   "resistant.effect": "Opponent's blows can only decrease your health bar by 20%.",
   "counterAttack": "Counter Attack",
   "counterAttack.desc": "What's the best form of attack? Defense of course! You'll immediately strike back after blocking your opponent's blow.",
-  "counterAttack.effect": "Your Brute will counter-attack after each blow successfully blocked.",
+  "counterAttack.effect": "",
   "ironHead": "Iron Head",
   "ironHead.desc": "Your opponent will be damaged by his own blows!",
   "ironHead.effect": "For each attack targeted at you, your opponent will have a 30% chance of losing their weapon.",
@@ -295,6 +295,9 @@
   "treat": "Treat",
   "treat.desc": "Fighting takes a toll. That's why I always bring a treat to put my pets back on their feet!",
   "treat.effect": "Action (x{{uses}}) Your brute will heal one of his pets for 50% of their health.",
+  "repulse": "Repulse",
+  "repulse.desc": "Got ninja stars headed your way? No problem! Channel your inner martial arts movie hero and swat away thrown weapons like they're pesky flies.",
+  "repulse.effect": "",
   "fan": "Fan",
   "keyboard": "Keyboard",
   "knife": "Knife",
@@ -1326,5 +1329,7 @@
   "banSuccess": "User successfully banned.",
   "banReason.innapropriateName": "Inappropriate name",
   "banReason.innapropriateBruteName": "Inappropriate brute name",
-  "banReason.multipleAccounts": "Multiple accounts"
+  "banReason.multipleAccounts": "Multiple accounts",
+  "afterBlock": "after blocking",
+  "created": "Created on {{date}}"
 }
