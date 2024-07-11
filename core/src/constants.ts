@@ -89,6 +89,7 @@ export const BOSS_GOLD_REWARD = 500;
 export enum BruteDeletionReason {
   DUPLICATE_NAME = 'DUPLICATE_NAME',
   INNAPROPRIATE_NAME = 'INNAPROPRIATE_NAME',
+  BANNED_USER = 'BANNED_USER',
 }
 
 export const DailyModifierOdds = [
@@ -111,3 +112,9 @@ export const DailyModifierCountOdds = [
 ];
 
 export const DailyModifierSpawnChance = 4 / 30;
+
+export enum BanReason {
+  INNAPROPRIATE_NAME = 'innapropriateName',
+  INNAPROPRIATE_BRUTE_NAME = 'innapropriateBruteName',
+  MULTIPLE_ACCOUNTS = 'multipleAccounts',
+}

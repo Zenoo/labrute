@@ -201,6 +201,8 @@ export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang'>
   >[],
   achievements: Pick<Achievement, 'name' | 'count'>[],
 };
+export type UserBannedListResponse = Pick<User, 'id' | 'name' | 'bannedAt' | 'banReason'>[];
+export type UserMultipleAccountsListResponse = { ip: string, users: string[] }[];
 
 export type AchievementGetRankingsResponse = {
   name: AchievementName,

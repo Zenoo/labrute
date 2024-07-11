@@ -34,6 +34,9 @@ model User {
   fightSpeed      Int              @default(2)
   backgroundMusic Boolean          @default(true)
   dinorpgDone     DateTime?        @db.Date
+  ips             String[]         @default([])
+  bannedAt        DateTime?        @db.Date
+  banReason       String?
   brutes          Brute[]
   achievements    Achievement[]
   reports         BruteReport[]
@@ -567,6 +570,10 @@ model BannedWord {
   word String @db.VarChar(255)
 
   @@index([word])
+}
+
+model BannedIp {
+  id String @id @db.VarChar(255)
 }
 
 model WorkerJob {

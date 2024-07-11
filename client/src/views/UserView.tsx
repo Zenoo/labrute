@@ -1,6 +1,6 @@
-import { AchievementData, TitleRequirements, UserGetProfileResponse, formatLargeNumber, getFightsLeft } from '@labrute/core';
+import { AchievementData, BanReason, TitleRequirements, UserGetProfileResponse, formatLargeNumber, getFightsLeft } from '@labrute/core';
 import { Check, QuestionMark } from '@mui/icons-material';
-import { Box, Grid, List, ListItem, ListItemText, ListSubheader, Paper, Tooltip, useTheme } from '@mui/material';
+import { Box, Grid, List, ListItem, ListItemText, ListSubheader, MenuItem, Paper, Select, Tooltip, useTheme } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -14,6 +14,7 @@ import { useAuth } from '../hooks/useAuth';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
 import { AchievementTooltip } from '../components/AchievementTooltip';
+import { useConfirm } from '../hooks/useConfirm';
 
 const UserView = () => {
   const { t } = useTranslation();
@@ -21,8 +22,10 @@ const UserView = () => {
   const { userId } = useParams();
   const Alert = useAlert();
   const { user: authedUser, updateData } = useAuth();
+  const Confirm = useConfirm();
 
   const [user, setUser] = useState<UserGetProfileResponse | null>(null);
+  const [banReason, setBanReason] = useState('');
 
   // Fetch user profile
   useEffect(() => {
@@ -52,6 +55,17 @@ const UserView = () => {
     }).catch(catchError(Alert));
   }, [Alert, authedUser, t, updateData]);
 
+  // Ban user
+  const banUser = useCallback(() => {
+    if (!user || !banReason) return;
+
+    Confirm.open(t('ban'), t('banConfirm'), () => {
+      Server.User.ban(user.id, banReason).then(() => {
+        Alert.open('success', t('banSuccess'));
+      }).catch(catchError(Alert));
+    });
+  }, [Alert, Confirm, banReason, t, user]);
+
   return (
     <Page title={t('MyBrute')} headerUrl="/">
       {user && (
@@ -60,6 +74,27 @@ const UserView = () => {
             <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('userProfile', { user: user.name })}</Text>
           </Paper>
           <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+            {authedUser?.admin && user.id !== authedUser.id && (
+              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <Select
+                  variant="standard"
+                  value={banReason}
+                  onChange={(e) => setBanReason(e.target.value)}
+                  sx={{ m: 1 }}
+                >
+                  {Object.values(BanReason).map((reason) => (
+                    <MenuItem key={reason} value={reason}>{t(`banReason.${reason}`)}</MenuItem>
+                  ))}
+                </Select>
+                <FantasyButton
+                  onClick={banUser}
+                  color="error"
+                  sx={{ m: 1 }}
+                >
+                  {t('ban')}
+                </FantasyButton>
+              </Box>
+            )}
             {/* ACHIEVEMENTS */}
             <Grid container spacing={1}>
               <Grid item xs={12} md={6}>

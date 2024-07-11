@@ -140,6 +140,8 @@ const AdminView = () => {
               <FantasyButton color="warning" onClick={runDailyJob}>RUN DAILY JOB</FantasyButton>
               <FantasyButton color="secondary" to="/admin-panel/user">USER ADMIN</FantasyButton>
               <FantasyButton color="primary" to="/admin-panel/report">REPORTS</FantasyButton>
+              <FantasyButton color="error" to="/admin-panel/banned-users">BANLIST</FantasyButton>
+              <FantasyButton color="warning" to="/admin-panel/multiple-accounts">MULTIS</FantasyButton>
             </Stack>
             <Divider />
             <Text bold h3 smallCaps color="secondary">{t('brute')}</Text>

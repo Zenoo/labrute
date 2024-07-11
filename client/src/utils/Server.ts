@@ -1,4 +1,4 @@
-import { AchievementGetRankingsResponse, AchievementsGetResponse, AdminPanelBrute, BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetForVersusResponse, BrutesGetLevelUpChoicesResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, ClanChallengeBossResponse, ClanCreateResponse, ClanGetResponse, ClanGetThreadResponse, ClanGetThreadsResponse, ClanListResponse, FightCreateResponse, HookBrute, ServerReadyResponse, TournamentHistoryResponse, TournamentsGetDailyResponse, TournamentsGetGlobalResponse, TournamentsUpdateStepWatchedResponse, TournementsUpdateGlobalRoundWatchedResponse, UserGetAdminResponse, UserGetProfileResponse, UsersAdminUpdateRequest, UsersAuthenticateResponse } from '@labrute/core';
+import { AchievementGetRankingsResponse, AchievementsGetResponse, AdminPanelBrute, BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetForVersusResponse, BrutesGetLevelUpChoicesResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, ClanChallengeBossResponse, ClanCreateResponse, ClanGetResponse, ClanGetThreadResponse, ClanGetThreadsResponse, ClanListResponse, FightCreateResponse, HookBrute, ServerReadyResponse, TournamentHistoryResponse, TournamentsGetDailyResponse, TournamentsGetGlobalResponse, TournamentsUpdateStepWatchedResponse, TournementsUpdateGlobalRoundWatchedResponse, UserBannedListResponse, UserGetAdminResponse, UserGetProfileResponse, UserMultipleAccountsListResponse, UsersAdminUpdateRequest, UsersAuthenticateResponse } from '@labrute/core';
 import { Brute, BruteReportReason, BruteReportStatus, DestinyChoiceSide, Fight, Gender, Lang, Log, Prisma } from '@labrute/prisma';
 import Fetch from './Fetch';
 
@@ -17,6 +17,10 @@ const Server = {
     adminUpdate: (id: string, data: UsersAdminUpdateRequest) => Fetch<never>(`/api/user/${id}/admin-update`, data, 'POST'),
     getProfile: (id: string) => Fetch<UserGetProfileResponse>(`/api/user/${id}/profile`),
     getDinoRpgRewards: () => Fetch<never>('/api/user/get-dinorpg-reward'),
+    ban: (id: string, reason: string) => Fetch<never>(`/api/user/${id}/ban`, { reason }, 'POST'),
+    unban: (id: string) => Fetch<never>(`/api/user/${id}/unban`),
+    banlist: () => Fetch<UserBannedListResponse>('/api/user/banlist'),
+    multipleAccounts: () => Fetch<UserMultipleAccountsListResponse>('/api/user/multiple-accounts'),
   },
   Brute: {
     getForHook: (name: string) => Fetch<HookBrute>(`/api/brute/${name}/for-hook`),

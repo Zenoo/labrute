@@ -130,7 +130,10 @@ exports.Prisma.UserScalarFieldEnum = {
   gold: 'gold',
   fightSpeed: 'fightSpeed',
   backgroundMusic: 'backgroundMusic',
-  dinorpgDone: 'dinorpgDone'
+  dinorpgDone: 'dinorpgDone',
+  ips: 'ips',
+  bannedAt: 'bannedAt',
+  banReason: 'banReason'
 };
 
 exports.Prisma.RelationLoadStrategy = {
@@ -303,6 +306,10 @@ exports.Prisma.ServerStateScalarFieldEnum = {
 exports.Prisma.BannedWordScalarFieldEnum = {
   id: 'id',
   word: 'word'
+};
+
+exports.Prisma.BannedIpScalarFieldEnum = {
+  id: 'id'
 };
 
 exports.Prisma.WorkerJobScalarFieldEnum = {
@@ -673,6 +680,7 @@ exports.Prisma.ModelName = {
   BruteReport: 'BruteReport',
   ServerState: 'ServerState',
   BannedWord: 'BannedWord',
+  BannedIp: 'BannedIp',
   WorkerJob: 'WorkerJob',
   Clan: 'Clan',
   ClanThread: 'ClanThread',

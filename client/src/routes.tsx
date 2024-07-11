@@ -33,6 +33,8 @@ import AchievementRankingView from './views/AchievementRankingView';
 import { InventoryView } from './views/InventoryView';
 import NameChangeView from './views/NameChangeView';
 import PatchNotesView from './views/PatchNotesView';
+import { BannedUsersView } from './views/BannedUsersView';
+import { MultipleAccountsView } from './views/MultipleAccountsView';
 
 const routes: RouteObject[] = [
   {
@@ -44,6 +46,8 @@ const routes: RouteObject[] = [
       { path: 'admin-panel', element: <AdminView /> },
       { path: 'admin-panel/user', element: <UserAdminView /> },
       { path: 'admin-panel/report', element: <ReportAdminView /> },
+      { path: 'admin-panel/banned-users', element: <BannedUsersView /> },
+      { path: 'admin-panel/multiple-accounts', element: <MultipleAccountsView /> },
       { path: 'achievements', element: <AchievementsView /> },
       { path: 'achievements/rankings', element: <AchievementRankingView /> },
       { path: 'unknown-brute', element: <BruteNotFoundView /> },

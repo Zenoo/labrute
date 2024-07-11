@@ -1,13 +1,15 @@
 import {
-  AchievementData, ExpectedError, RaretyOrder,
+  AchievementData, BruteDeletionReason, ExpectedError, RaretyOrder,
+  UserBannedListResponse,
   UserGetAdminResponse, UserGetProfileResponse,
+  UserMultipleAccountsListResponse,
   UsersAdminUpdateRequest,
   UsersAuthenticateResponse,
   getFightsLeft,
   isUuid,
 } from '@labrute/core';
 import {
-  Achievement, Lang,
+  Achievement, InventoryItemType, Lang,
   PrismaClient,
 } from '@labrute/prisma';
 import type { Request, Response } from 'express';
@@ -335,6 +337,7 @@ const Users = {
       const user = await prisma.user.findFirst({
         where: {
           id: req.params.userId,
+          bannedAt: null,
         },
         select: {
           id: true,
@@ -551,6 +554,259 @@ const Users = {
       res.send({
         success: true,
       });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  ban: (prisma: PrismaClient) => async (
+    req: Request<{ userId: string }, unknown, { reason: string }>,
+    res: Response,
+  ) => {
+    try {
+      const authed = await auth(prisma, req);
+
+      const admin = await prisma.user.findFirst({
+        where: { id: authed.id },
+        select: { admin: true },
+      });
+
+      if (!admin?.admin) {
+        throw new ExpectedError(translate('unauthorized', authed));
+      }
+
+      if (!isUuid(req.params.userId) || !req.body.reason) {
+        throw new ExpectedError(translate('invalidParameters', authed));
+      }
+
+      const user = await prisma.user.findFirst({
+        where: { id: req.params.userId },
+        select: {
+          bannedAt: true,
+          ips: true,
+          brutes: {
+            where: {
+              deletedAt: null,
+            },
+            select: { id: true },
+          },
+        },
+      });
+
+      if (!user) {
+        throw new ExpectedError(translate('userNotFound', authed));
+      }
+
+      if (user.bannedAt) {
+        throw new ExpectedError(translate('userAlreadyBanned', authed));
+      }
+
+      // Delete all brutes
+      await prisma.brute.updateMany({
+        where: {
+          userId: req.params.userId,
+          deletedAt: null,
+        },
+        data: {
+          deletedAt: new Date(),
+          deletionReason: BruteDeletionReason.BANNED_USER,
+        },
+      });
+
+      // Ban user
+      await prisma.user.update({
+        where: { id: req.params.userId },
+        data: {
+          bannedAt: new Date(),
+          banReason: req.body.reason,
+        },
+      });
+
+      // IP ban
+      await ServerState.addBannedIps(prisma, user.ips);
+
+      res.send({
+        success: true,
+      });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  unban: (prisma: PrismaClient) => async (
+    req: Request<{ userId: string }>,
+    res: Response,
+  ) => {
+    try {
+      const authed = await auth(prisma, req);
+
+      const admin = await prisma.user.findFirst({
+        where: { id: authed.id },
+        select: { admin: true },
+      });
+
+      if (!admin?.admin) {
+        throw new ExpectedError(translate('unauthorized', authed));
+      }
+
+      if (!isUuid(req.params.userId)) {
+        throw new ExpectedError(translate('invalidParameters', authed));
+      }
+
+      const user = await prisma.user.findFirst({
+        where: { id: req.params.userId },
+        select: {
+          bannedAt: true,
+          ips: true,
+          brutes: {
+            where: {
+              deletedAt: { not: null },
+              deletionReason: BruteDeletionReason.BANNED_USER,
+            },
+            select: { id: true, name: true },
+          },
+        },
+      });
+
+      if (!user) {
+        throw new ExpectedError(translate('userNotFound', authed));
+      }
+
+      if (!user.bannedAt) {
+        throw new ExpectedError(translate('userNotBanned', authed));
+      }
+
+      // Unban user
+      await prisma.user.update({
+        where: { id: req.params.userId },
+        data: {
+          bannedAt: null,
+          banReason: null,
+        },
+      });
+
+      // IP unban
+      await ServerState.removeBannedIps(prisma, user.ips);
+
+      // Restore all brutes
+      for (const brute of user.brutes) {
+        /* eslint-disable no-await-in-loop */
+        // Check if the name is available
+        const existingBrute = await prisma.brute.count({
+          where: {
+            name: brute.name,
+            deletedAt: null,
+          },
+        });
+
+        if (existingBrute) {
+          // Rename brute with _unbanned suffix
+          await prisma.brute.update({
+            where: { id: brute.id },
+            data: {
+              name: `${brute.name}_unbanned`,
+            },
+          });
+
+          // Add 1x free name change
+          await prisma.bruteInventoryItem.upsert({
+            where: {
+              type_bruteId: {
+                type: InventoryItemType.nameChange,
+                bruteId: brute.id,
+              },
+            },
+            create: {
+              type: InventoryItemType.nameChange,
+              count: 1,
+              bruteId: brute.id,
+            },
+            update: {
+              count: {
+                increment: 1,
+              },
+            },
+          });
+        }
+
+        // Restore brute
+        await prisma.brute.update({
+          where: { id: brute.id },
+          data: {
+            deletedAt: null,
+            deletionReason: null,
+          },
+        });
+
+        /* eslint-enable no-await-in-loop */
+      }
+
+      res.send({
+        success: true,
+      });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  bannedList: (prisma: PrismaClient) => async (
+    req: Request,
+    res: Response<UserBannedListResponse>,
+  ) => {
+    try {
+      const authed = await auth(prisma, req);
+
+      const admin = await prisma.user.findFirst({
+        where: { id: authed.id },
+        select: { admin: true },
+      });
+
+      if (!admin?.admin) {
+        throw new ExpectedError(translate('unauthorized', authed));
+      }
+
+      const users = await prisma.user.findMany({
+        where: {
+          bannedAt: { not: null },
+        },
+        select: {
+          id: true,
+          name: true,
+          bannedAt: true,
+          banReason: true,
+        },
+      });
+
+      res.send(users);
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  multipleAccountsList: (prisma: PrismaClient) => async (
+    req: Request,
+    res: Response<UserMultipleAccountsListResponse>,
+  ) => {
+    try {
+      const authed = await auth(prisma, req);
+
+      const admin = await prisma.user.findFirst({
+        where: { id: authed.id },
+        select: { admin: true },
+      });
+
+      if (!admin?.admin) {
+        throw new ExpectedError(translate('unauthorized', authed));
+      }
+
+      const ips = await prisma.$queryRaw<UserMultipleAccountsListResponse>`
+        SELECT ip, array_agg(id) AS users
+        FROM (
+          SELECT unnest(ips) AS ip, id
+          FROM "User"
+          WHERE "bannedAt" IS NULL
+        )
+        GROUP BY ip
+        HAVING COUNT(id) > 1;
+      `;
+
+      res.send(ips);
     } catch (error) {
       sendError(res, error);
     }

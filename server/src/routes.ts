@@ -34,17 +34,23 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   app.get('/api/oauth/redirect', oauth.redirect.bind(oauth));
   app.get('/api/oauth/token', oauth.token.bind(oauth));
 
+  // Daily job
+  app.get('/api/run-daily-job', Users.runDailyJob(prisma));
+
   // User
   app.post('/api/user/authenticate', Users.authenticate(prisma));
   app.get('/api/user/get-dinorpg-reward', Users.getDinoRpgRewards(prisma));
   app.get('/api/user/:id/admin', Users.get(prisma));
-  app.get('/api/run-daily-job', Users.runDailyJob(prisma));
   app.post('/api/user/change-language', Users.changeLanguage(prisma));
   app.post('/api/user/change-fight-speed', Users.changeFightSpeed(prisma));
   app.post('/api/user/toggle-background-music', Users.toggleBackgroundMusic(prisma));
   app.post('/api/user/:id/admin-update', Users.adminUpdate(prisma));
   app.get('/api/user/:userId/profile', Users.getProfile(prisma));
   app.get('/api/user/:userId/done', Users.isDoneForToday(prisma));
+  app.post('/api/user/:userId/ban', Users.ban(prisma));
+  app.get('/api/user/:userId/unban', Users.unban(prisma));
+  app.get('/api/user/banlist', Users.bannedList(prisma));
+  app.get('/api/user/multiple-accounts', Users.multipleAccountsList(prisma));
 
   // Brute
   app.get('/api/brute/:name/for-versus', Brutes.getForVersus(prisma));

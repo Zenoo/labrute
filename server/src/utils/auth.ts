@@ -1,6 +1,8 @@
 import { ExpectedError } from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
 import type { Request } from 'express';
+import translate from './translate.js';
+import ServerState from './ServerState.js';
 
 const auth = async (prisma: PrismaClient, request: Request) => {
   const { headers: { authorization } } = request;
@@ -27,6 +29,9 @@ const auth = async (prisma: PrismaClient, request: Request) => {
     select: {
       id: true,
       lang: true,
+      bannedAt: true,
+      banReason: true,
+      ips: true,
     },
   });
 
@@ -34,7 +39,37 @@ const auth = async (prisma: PrismaClient, request: Request) => {
     throw new ExpectedError('User not found');
   }
 
-  return user;
+  if (user.bannedAt) {
+    throw new ExpectedError(translate('bannedAccount', user, { reason: translate(`banReason.${user.banReason || ''}`, user) }));
+  }
+
+  // Update user's IP
+  const ip = request.headers['x-forwarded-for']?.toString().split(', ')[0] || request.headers['x-real-ip']?.toString().split(', ')[0] || request.socket.remoteAddress;
+
+  if (ip) {
+    // Check if the IP is banned
+    const bannedIp = await ServerState.isIpBanned(prisma, ip);
+
+    if (bannedIp) {
+      throw new ExpectedError(translate('ipBanned', null));
+    }
+  }
+
+  if (ip && !user.ips.includes(ip)) {
+    await prisma.user.update({
+      where: { id },
+      data: {
+        ips: {
+          push: ip,
+        },
+      },
+    });
+  }
+
+  return {
+    id: user.id,
+    lang: user.lang,
+  };
 };
 
 export default auth;

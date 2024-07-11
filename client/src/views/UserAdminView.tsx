@@ -1,6 +1,7 @@
 import { UserGetAdminResponse } from '@labrute/core';
 import { AchievementName, Lang } from '@labrute/prisma';
-import { Checkbox, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Paper, Select, Stack } from '@mui/material';
+import { Block } from '@mui/icons-material';
+import { Checkbox, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Paper, Select, Stack, Tooltip } from '@mui/material';
 import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import FantasyButton from '../components/FantasyButton';
@@ -15,12 +16,12 @@ import catchError from '../utils/catchError';
 const UserAdminView = () => {
   const { t } = useTranslation();
   const Alert = useAlert();
+  const { user: admin } = useAuth();
 
   const [userId, setUserId] = React.useState('');
   const [user, setUser] = React.useState<Omit<UserGetAdminResponse, 'achievements'> | null>(null);
   const [achievements, setAchievements] = React.useState<UserGetAdminResponse['achievements']>([]);
   const [initialAchievements, setInitialAchievements] = React.useState<UserGetAdminResponse['achievements']>([]);
-  const { user: admin } = useAuth();
 
   // Change user id
   const changeUserId = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,6 +43,9 @@ const UserAdminView = () => {
         fightSpeed: u.fightSpeed,
         backgroundMusic: u.backgroundMusic,
         dinorpgDone: u.dinorpgDone,
+        bannedAt: u.bannedAt,
+        banReason: u.banReason,
+        ips: u.ips,
       });
       setAchievements(u.achievements);
       // Map to new array to avoid reference
@@ -100,7 +104,14 @@ const UserAdminView = () => {
             />
             {user && (
               <>
-                <Text h2 smallCaps>{user.name}</Text>
+                <Text h2 smallCaps>
+                  {user.name}
+                  {user.bannedAt && (
+                    <Tooltip title={user.banReason || ''}>
+                      <Block color="error" sx={{ ml: 1 }} />
+                    </Tooltip>
+                  )}
+                </Text>
                 <Grid container spacing={1}>
                   <Grid item xs={6} sm={3}>
                     <FormControl fullWidth>

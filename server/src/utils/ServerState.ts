@@ -6,6 +6,7 @@ let SERVER_READY = true;
 let MODIFIERS: FightModifier[] | null = null;
 let RANDOM_SKILL: number | undefined;
 let RANDOM_WEAPON: number | undefined;
+let BANNED_IPS: string[] | null = null;
 
 const setReady = (ready: boolean) => {
   LOGGER.log(`Updating server state to ${ready ? 'release' : 'hold'} traffic`);
@@ -170,6 +171,47 @@ const getRandomWeapon = async (prisma: PrismaClient) => {
   return serverState ? serverState.randomWeapon : null;
 };
 
+const getBannedIps = async (prisma: PrismaClient) => {
+  if (BANNED_IPS) {
+    return BANNED_IPS;
+  }
+
+  const bannedIps = await prisma.bannedIp.findMany({
+    select: { id: true },
+  });
+
+  BANNED_IPS = bannedIps.map((ip) => ip.id);
+
+  return BANNED_IPS;
+};
+
+const addBannedIps = async (prisma: PrismaClient, ips: string[]) => {
+  const bannedIps = await getBannedIps(prisma);
+  const newIps = ips.filter((ip) => !bannedIps.includes(ip));
+
+  await prisma.bannedIp.createMany({
+    data: newIps.map((ip) => ({ id: ip })),
+  });
+
+  if (BANNED_IPS) BANNED_IPS.push(...newIps);
+};
+
+const isIpBanned = async (prisma: PrismaClient, ip: string) => {
+  const bannedIps = await getBannedIps(prisma);
+
+  return bannedIps.includes(ip);
+};
+
+const removeBannedIps = async (prisma: PrismaClient, ips: string[]) => {
+  const bannedIps = await getBannedIps(prisma);
+
+  await prisma.bannedIp.deleteMany({
+    where: { id: { in: ips } },
+  });
+
+  if (BANNED_IPS) BANNED_IPS = bannedIps.filter((ip) => !ips.includes(ip));
+};
+
 export default {
   setReady,
   isReady,
@@ -182,4 +224,8 @@ export default {
   getRandomSkill,
   setRandomWeapon,
   getRandomWeapon,
+  getBannedIps,
+  addBannedIps,
+  isIpBanned,
+  removeBannedIps,
 };

@@ -89,6 +89,11 @@ export type ServerState = $Result.DefaultSelection<Prisma.$ServerStatePayload>
  */
 export type BannedWord = $Result.DefaultSelection<Prisma.$BannedWordPayload>
 /**
+ * Model BannedIp
+ * 
+ */
+export type BannedIp = $Result.DefaultSelection<Prisma.$BannedIpPayload>
+/**
  * Model WorkerJob
  * 
  */
@@ -797,6 +802,16 @@ export class PrismaClient<
   get bannedWord(): Prisma.BannedWordDelegate<ExtArgs>;
 
   /**
+   * `prisma.bannedIp`: Exposes CRUD operations for the **BannedIp** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BannedIps
+    * const bannedIps = await prisma.bannedIp.findMany()
+    * ```
+    */
+  get bannedIp(): Prisma.BannedIpDelegate<ExtArgs>;
+
+  /**
    * `prisma.workerJob`: Exposes CRUD operations for the **WorkerJob** model.
     * Example usage:
     * ```ts
@@ -1357,6 +1372,7 @@ export namespace Prisma {
     BruteReport: 'BruteReport',
     ServerState: 'ServerState',
     BannedWord: 'BannedWord',
+    BannedIp: 'BannedIp',
     WorkerJob: 'WorkerJob',
     Clan: 'Clan',
     ClanThread: 'ClanThread',
@@ -1380,7 +1396,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'user' | 'brute' | 'bruteStartingStats' | 'fight' | 'log' | 'destinyChoice' | 'tournament' | 'tournamentAchievement' | 'tournamentGold' | 'tournamentXp' | 'achievement' | 'title' | 'bruteReport' | 'serverState' | 'bannedWord' | 'workerJob' | 'clan' | 'clanThread' | 'clanPost' | 'bossDamage' | 'bruteInventoryItem' | 'release'
+      modelProps: 'user' | 'brute' | 'bruteStartingStats' | 'fight' | 'log' | 'destinyChoice' | 'tournament' | 'tournamentAchievement' | 'tournamentGold' | 'tournamentXp' | 'achievement' | 'title' | 'bruteReport' | 'serverState' | 'bannedWord' | 'bannedIp' | 'workerJob' | 'clan' | 'clanThread' | 'clanPost' | 'bossDamage' | 'bruteInventoryItem' | 'release'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -2431,6 +2447,76 @@ export namespace Prisma {
           count: {
             args: Prisma.BannedWordCountArgs<ExtArgs>,
             result: $Utils.Optional<BannedWordCountAggregateOutputType> | number
+          }
+        }
+      }
+      BannedIp: {
+        payload: Prisma.$BannedIpPayload<ExtArgs>
+        fields: Prisma.BannedIpFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BannedIpFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BannedIpPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BannedIpFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BannedIpPayload>
+          }
+          findFirst: {
+            args: Prisma.BannedIpFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BannedIpPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BannedIpFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BannedIpPayload>
+          }
+          findMany: {
+            args: Prisma.BannedIpFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BannedIpPayload>[]
+          }
+          create: {
+            args: Prisma.BannedIpCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BannedIpPayload>
+          }
+          createMany: {
+            args: Prisma.BannedIpCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BannedIpCreateManyAndReturnArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BannedIpPayload>[]
+          }
+          delete: {
+            args: Prisma.BannedIpDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BannedIpPayload>
+          }
+          update: {
+            args: Prisma.BannedIpUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BannedIpPayload>
+          }
+          deleteMany: {
+            args: Prisma.BannedIpDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BannedIpUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.BannedIpUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$BannedIpPayload>
+          }
+          aggregate: {
+            args: Prisma.BannedIpAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateBannedIp>
+          }
+          groupBy: {
+            args: Prisma.BannedIpGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<BannedIpGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BannedIpCountArgs<ExtArgs>,
+            result: $Utils.Optional<BannedIpCountAggregateOutputType> | number
           }
         }
       }
@@ -3574,6 +3660,8 @@ export namespace Prisma {
     fightSpeed: number | null
     backgroundMusic: boolean | null
     dinorpgDone: Date | null
+    bannedAt: Date | null
+    banReason: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -3588,6 +3676,8 @@ export namespace Prisma {
     fightSpeed: number | null
     backgroundMusic: boolean | null
     dinorpgDone: Date | null
+    bannedAt: Date | null
+    banReason: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -3602,6 +3692,9 @@ export namespace Prisma {
     fightSpeed: number
     backgroundMusic: number
     dinorpgDone: number
+    ips: number
+    bannedAt: number
+    banReason: number
     _all: number
   }
 
@@ -3630,6 +3723,8 @@ export namespace Prisma {
     fightSpeed?: true
     backgroundMusic?: true
     dinorpgDone?: true
+    bannedAt?: true
+    banReason?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -3644,6 +3739,8 @@ export namespace Prisma {
     fightSpeed?: true
     backgroundMusic?: true
     dinorpgDone?: true
+    bannedAt?: true
+    banReason?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -3658,6 +3755,9 @@ export namespace Prisma {
     fightSpeed?: true
     backgroundMusic?: true
     dinorpgDone?: true
+    ips?: true
+    bannedAt?: true
+    banReason?: true
     _all?: true
   }
 
@@ -3759,6 +3859,9 @@ export namespace Prisma {
     fightSpeed: number
     backgroundMusic: boolean
     dinorpgDone: Date | null
+    ips: string[]
+    bannedAt: Date | null
+    banReason: string | null
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -3792,6 +3895,9 @@ export namespace Prisma {
     fightSpeed?: boolean
     backgroundMusic?: boolean
     dinorpgDone?: boolean
+    ips?: boolean
+    bannedAt?: boolean
+    banReason?: boolean
     brutes?: boolean | User$brutesArgs<ExtArgs>
     achievements?: boolean | User$achievementsArgs<ExtArgs>
     reports?: boolean | User$reportsArgs<ExtArgs>
@@ -3811,9 +3917,12 @@ export namespace Prisma {
     fightSpeed?: boolean
     backgroundMusic?: boolean
     dinorpgDone?: boolean
+    ips?: boolean
+    bannedAt?: boolean
+    banReason?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "admin" | "moderator" | "connexionToken" | "bruteLimit" | "gold" | "fightSpeed" | "backgroundMusic" | "dinorpgDone", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "admin" | "moderator" | "connexionToken" | "bruteLimit" | "gold" | "fightSpeed" | "backgroundMusic" | "dinorpgDone" | "ips" | "bannedAt" | "banReason", ExtArgs["result"]["user"]>
 
 
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3845,6 +3954,9 @@ export namespace Prisma {
       fightSpeed: number
       backgroundMusic: boolean
       dinorpgDone: Date | null
+      ips: string[]
+      bannedAt: Date | null
+      banReason: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -4283,6 +4395,9 @@ export namespace Prisma {
     readonly fightSpeed: FieldRef<"User", 'Int'>
     readonly backgroundMusic: FieldRef<"User", 'Boolean'>
     readonly dinorpgDone: FieldRef<"User", 'DateTime'>
+    readonly ips: FieldRef<"User", 'String[]'>
+    readonly bannedAt: FieldRef<"User", 'DateTime'>
+    readonly banReason: FieldRef<"User", 'String'>
   }
     
 
@@ -20750,6 +20865,915 @@ export namespace Prisma {
 
 
   /**
+   * Model BannedIp
+   */
+
+  export type AggregateBannedIp = {
+    _count: BannedIpCountAggregateOutputType | null
+    _min: BannedIpMinAggregateOutputType | null
+    _max: BannedIpMaxAggregateOutputType | null
+  }
+
+  export type BannedIpMinAggregateOutputType = {
+    id: string | null
+  }
+
+  export type BannedIpMaxAggregateOutputType = {
+    id: string | null
+  }
+
+  export type BannedIpCountAggregateOutputType = {
+    id: number
+    _all: number
+  }
+
+
+  export type BannedIpMinAggregateInputType = {
+    id?: true
+  }
+
+  export type BannedIpMaxAggregateInputType = {
+    id?: true
+  }
+
+  export type BannedIpCountAggregateInputType = {
+    id?: true
+    _all?: true
+  }
+
+  export type BannedIpAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BannedIp to aggregate.
+     */
+    where?: BannedIpWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BannedIps to fetch.
+     */
+    orderBy?: BannedIpOrderByWithRelationInput | BannedIpOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BannedIpWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BannedIps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BannedIps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BannedIps
+    **/
+    _count?: true | BannedIpCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BannedIpMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BannedIpMaxAggregateInputType
+  }
+
+  export type GetBannedIpAggregateType<T extends BannedIpAggregateArgs> = {
+        [P in keyof T & keyof AggregateBannedIp]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBannedIp[P]>
+      : GetScalarType<T[P], AggregateBannedIp[P]>
+  }
+
+
+
+
+  export type BannedIpGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BannedIpWhereInput
+    orderBy?: BannedIpOrderByWithAggregationInput | BannedIpOrderByWithAggregationInput[]
+    by: BannedIpScalarFieldEnum[] | BannedIpScalarFieldEnum
+    having?: BannedIpScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BannedIpCountAggregateInputType | true
+    _min?: BannedIpMinAggregateInputType
+    _max?: BannedIpMaxAggregateInputType
+  }
+
+  export type BannedIpGroupByOutputType = {
+    id: string
+    _count: BannedIpCountAggregateOutputType | null
+    _min: BannedIpMinAggregateOutputType | null
+    _max: BannedIpMaxAggregateOutputType | null
+  }
+
+  type GetBannedIpGroupByPayload<T extends BannedIpGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BannedIpGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BannedIpGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BannedIpGroupByOutputType[P]>
+            : GetScalarType<T[P], BannedIpGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BannedIpSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+  }, ExtArgs["result"]["bannedIp"]>
+
+  export type BannedIpSelectScalar = {
+    id?: boolean
+  }
+
+  export type BannedIpOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id", ExtArgs["result"]["bannedIp"]>
+
+
+
+  export type $BannedIpPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BannedIp"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+    }, ExtArgs["result"]["bannedIp"]>
+    composites: {}
+  }
+
+
+  type BannedIpGetPayload<S extends boolean | null | undefined | BannedIpDefaultArgs> = $Result.GetResult<Prisma.$BannedIpPayload, S>
+
+  type BannedIpCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<BannedIpFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
+      select?: BannedIpCountAggregateInputType | true
+    }
+
+  export interface BannedIpDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BannedIp'], meta: { name: 'BannedIp' } }
+    /**
+     * Find zero or one BannedIp that matches the filter.
+     * @param {BannedIpFindUniqueArgs} args - Arguments to find a BannedIp
+     * @example
+     * // Get one BannedIp
+     * const bannedIp = await prisma.bannedIp.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends BannedIpFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, BannedIpFindUniqueArgs<ExtArgs>>
+    ): Prisma__BannedIpClient<$Result.GetResult<Prisma.$BannedIpPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one BannedIp that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {BannedIpFindUniqueOrThrowArgs} args - Arguments to find a BannedIp
+     * @example
+     * // Get one BannedIp
+     * const bannedIp = await prisma.bannedIp.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends BannedIpFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, BannedIpFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__BannedIpClient<$Result.GetResult<Prisma.$BannedIpPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first BannedIp that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BannedIpFindFirstArgs} args - Arguments to find a BannedIp
+     * @example
+     * // Get one BannedIp
+     * const bannedIp = await prisma.bannedIp.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends BannedIpFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, BannedIpFindFirstArgs<ExtArgs>>
+    ): Prisma__BannedIpClient<$Result.GetResult<Prisma.$BannedIpPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first BannedIp that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BannedIpFindFirstOrThrowArgs} args - Arguments to find a BannedIp
+     * @example
+     * // Get one BannedIp
+     * const bannedIp = await prisma.bannedIp.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends BannedIpFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, BannedIpFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__BannedIpClient<$Result.GetResult<Prisma.$BannedIpPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more BannedIps that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BannedIpFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BannedIps
+     * const bannedIps = await prisma.bannedIp.findMany()
+     * 
+     * // Get first 10 BannedIps
+     * const bannedIps = await prisma.bannedIp.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const bannedIpWithIdOnly = await prisma.bannedIp.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends BannedIpFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BannedIpFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BannedIpPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a BannedIp.
+     * @param {BannedIpCreateArgs} args - Arguments to create a BannedIp.
+     * @example
+     * // Create one BannedIp
+     * const BannedIp = await prisma.bannedIp.create({
+     *   data: {
+     *     // ... data to create a BannedIp
+     *   }
+     * })
+     * 
+    **/
+    create<T extends BannedIpCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, BannedIpCreateArgs<ExtArgs>>
+    ): Prisma__BannedIpClient<$Result.GetResult<Prisma.$BannedIpPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many BannedIps.
+     * @param {BannedIpCreateManyArgs} args - Arguments to create many BannedIps.
+     * @example
+     * // Create many BannedIps
+     * const bannedIp = await prisma.bannedIp.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+    **/
+    createMany<T extends BannedIpCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BannedIpCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BannedIps and returns the data saved in the database.
+     * @param {BannedIpCreateManyAndReturnArgs} args - Arguments to create many BannedIps.
+     * @example
+     * // Create many BannedIps
+     * const bannedIp = await prisma.bannedIp.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BannedIps and only return the `id`
+     * const bannedIpWithIdOnly = await prisma.bannedIp.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+    **/
+    createManyAndReturn<T extends BannedIpCreateManyAndReturnArgs<ExtArgs>>(
+      args?: SelectSubset<T, BannedIpCreateManyAndReturnArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BannedIpPayload<ExtArgs>, T, 'createManyAndReturn'>>
+
+    /**
+     * Delete a BannedIp.
+     * @param {BannedIpDeleteArgs} args - Arguments to delete one BannedIp.
+     * @example
+     * // Delete one BannedIp
+     * const BannedIp = await prisma.bannedIp.delete({
+     *   where: {
+     *     // ... filter to delete one BannedIp
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends BannedIpDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, BannedIpDeleteArgs<ExtArgs>>
+    ): Prisma__BannedIpClient<$Result.GetResult<Prisma.$BannedIpPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one BannedIp.
+     * @param {BannedIpUpdateArgs} args - Arguments to update one BannedIp.
+     * @example
+     * // Update one BannedIp
+     * const bannedIp = await prisma.bannedIp.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends BannedIpUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, BannedIpUpdateArgs<ExtArgs>>
+    ): Prisma__BannedIpClient<$Result.GetResult<Prisma.$BannedIpPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more BannedIps.
+     * @param {BannedIpDeleteManyArgs} args - Arguments to filter BannedIps to delete.
+     * @example
+     * // Delete a few BannedIps
+     * const { count } = await prisma.bannedIp.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends BannedIpDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, BannedIpDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BannedIps.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BannedIpUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BannedIps
+     * const bannedIp = await prisma.bannedIp.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends BannedIpUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, BannedIpUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one BannedIp.
+     * @param {BannedIpUpsertArgs} args - Arguments to update or create a BannedIp.
+     * @example
+     * // Update or create a BannedIp
+     * const bannedIp = await prisma.bannedIp.upsert({
+     *   create: {
+     *     // ... data to create a BannedIp
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BannedIp we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends BannedIpUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, BannedIpUpsertArgs<ExtArgs>>
+    ): Prisma__BannedIpClient<$Result.GetResult<Prisma.$BannedIpPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of BannedIps.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BannedIpCountArgs} args - Arguments to filter BannedIps to count.
+     * @example
+     * // Count the number of BannedIps
+     * const count = await prisma.bannedIp.count({
+     *   where: {
+     *     // ... the filter for the BannedIps we want to count
+     *   }
+     * })
+    **/
+    count<T extends BannedIpCountArgs>(
+      args?: Subset<T, BannedIpCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BannedIpCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BannedIp.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BannedIpAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BannedIpAggregateArgs>(args: Subset<T, BannedIpAggregateArgs>): Prisma.PrismaPromise<GetBannedIpAggregateType<T>>
+
+    /**
+     * Group by BannedIp.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BannedIpGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BannedIpGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BannedIpGroupByArgs['orderBy'] }
+        : { orderBy?: BannedIpGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BannedIpGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBannedIpGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BannedIp model
+   */
+  readonly fields: BannedIpFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BannedIp.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BannedIpClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the BannedIp model
+   */ 
+  interface BannedIpFieldRefs {
+    readonly id: FieldRef<"BannedIp", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BannedIp findUnique
+   */
+  export type BannedIpFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedIp
+     */
+    select?: BannedIpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannedIp
+     */
+    omit?: BannedIpOmit<ExtArgs> | null
+    /**
+     * Filter, which BannedIp to fetch.
+     */
+    where: BannedIpWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BannedIp findUniqueOrThrow
+   */
+  export type BannedIpFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedIp
+     */
+    select?: BannedIpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannedIp
+     */
+    omit?: BannedIpOmit<ExtArgs> | null
+    /**
+     * Filter, which BannedIp to fetch.
+     */
+    where: BannedIpWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BannedIp findFirst
+   */
+  export type BannedIpFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedIp
+     */
+    select?: BannedIpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannedIp
+     */
+    omit?: BannedIpOmit<ExtArgs> | null
+    /**
+     * Filter, which BannedIp to fetch.
+     */
+    where?: BannedIpWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BannedIps to fetch.
+     */
+    orderBy?: BannedIpOrderByWithRelationInput | BannedIpOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BannedIps.
+     */
+    cursor?: BannedIpWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BannedIps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BannedIps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BannedIps.
+     */
+    distinct?: BannedIpScalarFieldEnum | BannedIpScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BannedIp findFirstOrThrow
+   */
+  export type BannedIpFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedIp
+     */
+    select?: BannedIpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannedIp
+     */
+    omit?: BannedIpOmit<ExtArgs> | null
+    /**
+     * Filter, which BannedIp to fetch.
+     */
+    where?: BannedIpWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BannedIps to fetch.
+     */
+    orderBy?: BannedIpOrderByWithRelationInput | BannedIpOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BannedIps.
+     */
+    cursor?: BannedIpWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BannedIps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BannedIps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BannedIps.
+     */
+    distinct?: BannedIpScalarFieldEnum | BannedIpScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BannedIp findMany
+   */
+  export type BannedIpFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedIp
+     */
+    select?: BannedIpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannedIp
+     */
+    omit?: BannedIpOmit<ExtArgs> | null
+    /**
+     * Filter, which BannedIps to fetch.
+     */
+    where?: BannedIpWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BannedIps to fetch.
+     */
+    orderBy?: BannedIpOrderByWithRelationInput | BannedIpOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BannedIps.
+     */
+    cursor?: BannedIpWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BannedIps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BannedIps.
+     */
+    skip?: number
+    distinct?: BannedIpScalarFieldEnum | BannedIpScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BannedIp create
+   */
+  export type BannedIpCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedIp
+     */
+    select?: BannedIpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannedIp
+     */
+    omit?: BannedIpOmit<ExtArgs> | null
+    /**
+     * The data needed to create a BannedIp.
+     */
+    data: XOR<BannedIpCreateInput, BannedIpUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BannedIp createMany
+   */
+  export type BannedIpCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BannedIps.
+     */
+    data: BannedIpCreateManyInput | BannedIpCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BannedIp createManyAndReturn
+   */
+  export type BannedIpCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedIp
+     */
+    select?: BannedIpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannedIp
+     */
+    omit?: BannedIpOmit<ExtArgs> | null
+    /**
+     * The data used to create many BannedIps.
+     */
+    data: BannedIpCreateManyInput | BannedIpCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BannedIp update
+   */
+  export type BannedIpUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedIp
+     */
+    select?: BannedIpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannedIp
+     */
+    omit?: BannedIpOmit<ExtArgs> | null
+    /**
+     * The data needed to update a BannedIp.
+     */
+    data: XOR<BannedIpUpdateInput, BannedIpUncheckedUpdateInput>
+    /**
+     * Choose, which BannedIp to update.
+     */
+    where: BannedIpWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BannedIp updateMany
+   */
+  export type BannedIpUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BannedIps.
+     */
+    data: XOR<BannedIpUpdateManyMutationInput, BannedIpUncheckedUpdateManyInput>
+    /**
+     * Filter which BannedIps to update
+     */
+    where?: BannedIpWhereInput
+  }
+
+  /**
+   * BannedIp upsert
+   */
+  export type BannedIpUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedIp
+     */
+    select?: BannedIpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannedIp
+     */
+    omit?: BannedIpOmit<ExtArgs> | null
+    /**
+     * The filter to search for the BannedIp to update in case it exists.
+     */
+    where: BannedIpWhereUniqueInput
+    /**
+     * In case the BannedIp found by the `where` argument doesn't exist, create a new BannedIp with this data.
+     */
+    create: XOR<BannedIpCreateInput, BannedIpUncheckedCreateInput>
+    /**
+     * In case the BannedIp was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BannedIpUpdateInput, BannedIpUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BannedIp delete
+   */
+  export type BannedIpDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedIp
+     */
+    select?: BannedIpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannedIp
+     */
+    omit?: BannedIpOmit<ExtArgs> | null
+    /**
+     * Filter which BannedIp to delete.
+     */
+    where: BannedIpWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BannedIp deleteMany
+   */
+  export type BannedIpDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BannedIps to delete
+     */
+    where?: BannedIpWhereInput
+  }
+
+  /**
+   * BannedIp without action
+   */
+  export type BannedIpDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedIp
+     */
+    select?: BannedIpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannedIp
+     */
+    omit?: BannedIpOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Model WorkerJob
    */
 
@@ -28002,7 +29026,10 @@ export namespace Prisma {
     gold: 'gold',
     fightSpeed: 'fightSpeed',
     backgroundMusic: 'backgroundMusic',
-    dinorpgDone: 'dinorpgDone'
+    dinorpgDone: 'dinorpgDone',
+    ips: 'ips',
+    bannedAt: 'bannedAt',
+    banReason: 'banReason'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -28223,6 +29250,13 @@ export namespace Prisma {
   };
 
   export type BannedWordScalarFieldEnum = (typeof BannedWordScalarFieldEnum)[keyof typeof BannedWordScalarFieldEnum]
+
+
+  export const BannedIpScalarFieldEnum: {
+    id: 'id'
+  };
+
+  export type BannedIpScalarFieldEnum = (typeof BannedIpScalarFieldEnum)[keyof typeof BannedIpScalarFieldEnum]
 
 
   export const WorkerJobScalarFieldEnum: {
@@ -28635,6 +29669,9 @@ export namespace Prisma {
     fightSpeed?: IntFilter<"User"> | number
     backgroundMusic?: BoolFilter<"User"> | boolean
     dinorpgDone?: DateTimeNullableFilter<"User"> | Date | string | null
+    ips?: StringNullableListFilter<"User">
+    bannedAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    banReason?: StringNullableFilter<"User"> | string | null
     brutes?: BruteListRelationFilter
     achievements?: AchievementListRelationFilter
     reports?: BruteReportListRelationFilter
@@ -28653,6 +29690,9 @@ export namespace Prisma {
     fightSpeed?: SortOrder
     backgroundMusic?: SortOrder
     dinorpgDone?: SortOrderInput | SortOrder
+    ips?: SortOrder
+    bannedAt?: SortOrderInput | SortOrder
+    banReason?: SortOrderInput | SortOrder
     brutes?: BruteOrderByRelationAggregateInput
     achievements?: AchievementOrderByRelationAggregateInput
     reports?: BruteReportOrderByRelationAggregateInput
@@ -28674,6 +29714,9 @@ export namespace Prisma {
     fightSpeed?: IntFilter<"User"> | number
     backgroundMusic?: BoolFilter<"User"> | boolean
     dinorpgDone?: DateTimeNullableFilter<"User"> | Date | string | null
+    ips?: StringNullableListFilter<"User">
+    bannedAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    banReason?: StringNullableFilter<"User"> | string | null
     brutes?: BruteListRelationFilter
     achievements?: AchievementListRelationFilter
     reports?: BruteReportListRelationFilter
@@ -28692,6 +29735,9 @@ export namespace Prisma {
     fightSpeed?: SortOrder
     backgroundMusic?: SortOrder
     dinorpgDone?: SortOrderInput | SortOrder
+    ips?: SortOrder
+    bannedAt?: SortOrderInput | SortOrder
+    banReason?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -28714,6 +29760,9 @@ export namespace Prisma {
     fightSpeed?: IntWithAggregatesFilter<"User"> | number
     backgroundMusic?: BoolWithAggregatesFilter<"User"> | boolean
     dinorpgDone?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    ips?: StringNullableListFilter<"User">
+    bannedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    banReason?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type BruteWhereInput = {
@@ -29869,6 +30918,38 @@ export namespace Prisma {
     word?: StringWithAggregatesFilter<"BannedWord"> | string
   }
 
+  export type BannedIpWhereInput = {
+    AND?: BannedIpWhereInput | BannedIpWhereInput[]
+    OR?: BannedIpWhereInput[]
+    NOT?: BannedIpWhereInput | BannedIpWhereInput[]
+    id?: StringFilter<"BannedIp"> | string
+  }
+
+  export type BannedIpOrderByWithRelationInput = {
+    id?: SortOrder
+  }
+
+  export type BannedIpWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: BannedIpWhereInput | BannedIpWhereInput[]
+    OR?: BannedIpWhereInput[]
+    NOT?: BannedIpWhereInput | BannedIpWhereInput[]
+  }, "id">
+
+  export type BannedIpOrderByWithAggregationInput = {
+    id?: SortOrder
+    _count?: BannedIpCountOrderByAggregateInput
+    _max?: BannedIpMaxOrderByAggregateInput
+    _min?: BannedIpMinOrderByAggregateInput
+  }
+
+  export type BannedIpScalarWhereWithAggregatesInput = {
+    AND?: BannedIpScalarWhereWithAggregatesInput | BannedIpScalarWhereWithAggregatesInput[]
+    OR?: BannedIpScalarWhereWithAggregatesInput[]
+    NOT?: BannedIpScalarWhereWithAggregatesInput | BannedIpScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"BannedIp"> | string
+  }
+
   export type WorkerJobWhereInput = {
     AND?: WorkerJobWhereInput | WorkerJobWhereInput[]
     OR?: WorkerJobWhereInput[]
@@ -30289,6 +31370,9 @@ export namespace Prisma {
     fightSpeed?: number
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
+    ips?: UserCreateipsInput | string[]
+    bannedAt?: Date | string | null
+    banReason?: string | null
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -30307,6 +31391,9 @@ export namespace Prisma {
     fightSpeed?: number
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
+    ips?: UserCreateipsInput | string[]
+    bannedAt?: Date | string | null
+    banReason?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -30325,6 +31412,9 @@ export namespace Prisma {
     fightSpeed?: IntFieldUpdateOperationsInput | number
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ips?: UserUpdateipsInput | string[]
+    bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -30343,6 +31433,9 @@ export namespace Prisma {
     fightSpeed?: IntFieldUpdateOperationsInput | number
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ips?: UserUpdateipsInput | string[]
+    bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -30361,6 +31454,9 @@ export namespace Prisma {
     fightSpeed?: number
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
+    ips?: UserCreateipsInput | string[]
+    bannedAt?: Date | string | null
+    banReason?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -30375,6 +31471,9 @@ export namespace Prisma {
     fightSpeed?: IntFieldUpdateOperationsInput | number
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ips?: UserUpdateipsInput | string[]
+    bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -30389,6 +31488,9 @@ export namespace Prisma {
     fightSpeed?: IntFieldUpdateOperationsInput | number
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ips?: UserUpdateipsInput | string[]
+    bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BruteCreateInput = {
@@ -31639,6 +32741,34 @@ export namespace Prisma {
     word?: StringFieldUpdateOperationsInput | string
   }
 
+  export type BannedIpCreateInput = {
+    id: string
+  }
+
+  export type BannedIpUncheckedCreateInput = {
+    id: string
+  }
+
+  export type BannedIpUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type BannedIpUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type BannedIpCreateManyInput = {
+    id: string
+  }
+
+  export type BannedIpUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type BannedIpUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+  }
+
   export type WorkerJobCreateInput = {
     id?: string
     worker: string
@@ -32097,6 +33227,29 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type BruteListRelationFilter = {
     every?: BruteWhereInput
     some?: BruteWhereInput
@@ -32154,6 +33307,9 @@ export namespace Prisma {
     fightSpeed?: SortOrder
     backgroundMusic?: SortOrder
     dinorpgDone?: SortOrder
+    ips?: SortOrder
+    bannedAt?: SortOrder
+    banReason?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
@@ -32174,6 +33330,8 @@ export namespace Prisma {
     fightSpeed?: SortOrder
     backgroundMusic?: SortOrder
     dinorpgDone?: SortOrder
+    bannedAt?: SortOrder
+    banReason?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -32188,6 +33346,8 @@ export namespace Prisma {
     fightSpeed?: SortOrder
     backgroundMusic?: SortOrder
     dinorpgDone?: SortOrder
+    bannedAt?: SortOrder
+    banReason?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
@@ -32277,18 +33437,7 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type StringNullableFilter<$PrismaModel = never> = {
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -32300,7 +33449,21 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type EnumDestinyChoiceSideNullableListFilter<$PrismaModel = never> = {
@@ -32711,24 +33874,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type FloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -33453,6 +34598,18 @@ export namespace Prisma {
     word?: SortOrder
   }
 
+  export type BannedIpCountOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type BannedIpMaxOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type BannedIpMinOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
   export type WorkerJobCountOrderByAggregateInput = {
     id?: SortOrder
     worker?: SortOrder
@@ -33708,6 +34865,10 @@ export namespace Prisma {
     date?: SortOrder
   }
 
+  export type UserCreateipsInput = {
+    set: string[]
+  }
+
   export type BruteCreateNestedManyWithoutUserInput = {
     create?: XOR<BruteCreateWithoutUserInput, BruteUncheckedCreateWithoutUserInput> | BruteCreateWithoutUserInput[] | BruteUncheckedCreateWithoutUserInput[]
     connectOrCreate?: BruteCreateOrConnectWithoutUserInput | BruteCreateOrConnectWithoutUserInput[]
@@ -33784,6 +34945,15 @@ export namespace Prisma {
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
+  }
+
+  export type UserUpdateipsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type BruteUpdateManyWithoutUserNestedInput = {
@@ -34196,10 +35366,6 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type BruteUpdatedestinyPathInput = {
@@ -35641,6 +36807,20 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type NestedUuidWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -35742,18 +36922,7 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -35764,7 +36933,21 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type NestedEnumGenderFilter<$PrismaModel = never> = {
@@ -35797,23 +36980,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -36467,6 +37633,9 @@ export namespace Prisma {
     fightSpeed?: number
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
+    ips?: UserCreateipsInput | string[]
+    bannedAt?: Date | string | null
+    banReason?: string | null
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
     tournamentGolds?: TournamentGoldCreateNestedManyWithoutUserInput
@@ -36484,6 +37653,9 @@ export namespace Prisma {
     fightSpeed?: number
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
+    ips?: UserCreateipsInput | string[]
+    bannedAt?: Date | string | null
+    banReason?: string | null
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
     tournamentGolds?: TournamentGoldUncheckedCreateNestedManyWithoutUserInput
@@ -37594,6 +38766,9 @@ export namespace Prisma {
     fightSpeed?: IntFieldUpdateOperationsInput | number
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ips?: UserUpdateipsInput | string[]
+    bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
     tournamentGolds?: TournamentGoldUpdateManyWithoutUserNestedInput
@@ -37611,6 +38786,9 @@ export namespace Prisma {
     fightSpeed?: IntFieldUpdateOperationsInput | number
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ips?: UserUpdateipsInput | string[]
+    bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
     tournamentGolds?: TournamentGoldUncheckedUpdateManyWithoutUserNestedInput
@@ -40462,6 +41640,9 @@ export namespace Prisma {
     fightSpeed?: number
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
+    ips?: UserCreateipsInput | string[]
+    bannedAt?: Date | string | null
+    banReason?: string | null
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -40479,6 +41660,9 @@ export namespace Prisma {
     fightSpeed?: number
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
+    ips?: UserCreateipsInput | string[]
+    bannedAt?: Date | string | null
+    banReason?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -40512,6 +41696,9 @@ export namespace Prisma {
     fightSpeed?: IntFieldUpdateOperationsInput | number
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ips?: UserUpdateipsInput | string[]
+    bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -40529,6 +41716,9 @@ export namespace Prisma {
     fightSpeed?: IntFieldUpdateOperationsInput | number
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ips?: UserUpdateipsInput | string[]
+    bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -40981,6 +42171,9 @@ export namespace Prisma {
     fightSpeed?: number
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
+    ips?: UserCreateipsInput | string[]
+    bannedAt?: Date | string | null
+    banReason?: string | null
     brutes?: BruteCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
     tournamentGolds?: TournamentGoldCreateNestedManyWithoutUserInput
@@ -40998,6 +42191,9 @@ export namespace Prisma {
     fightSpeed?: number
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
+    ips?: UserCreateipsInput | string[]
+    bannedAt?: Date | string | null
+    banReason?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
     tournamentGolds?: TournamentGoldUncheckedCreateNestedManyWithoutUserInput
@@ -41180,6 +42376,9 @@ export namespace Prisma {
     fightSpeed?: IntFieldUpdateOperationsInput | number
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ips?: UserUpdateipsInput | string[]
+    bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
     tournamentGolds?: TournamentGoldUpdateManyWithoutUserNestedInput
@@ -41197,6 +42396,9 @@ export namespace Prisma {
     fightSpeed?: IntFieldUpdateOperationsInput | number
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ips?: UserUpdateipsInput | string[]
+    bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
     tournamentGolds?: TournamentGoldUncheckedUpdateManyWithoutUserNestedInput
@@ -41516,6 +42718,9 @@ export namespace Prisma {
     fightSpeed?: number
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
+    ips?: UserCreateipsInput | string[]
+    bannedAt?: Date | string | null
+    banReason?: string | null
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     tournamentGolds?: TournamentGoldCreateNestedManyWithoutUserInput
@@ -41533,6 +42738,9 @@ export namespace Prisma {
     fightSpeed?: number
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
+    ips?: UserCreateipsInput | string[]
+    bannedAt?: Date | string | null
+    banReason?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     tournamentGolds?: TournamentGoldUncheckedCreateNestedManyWithoutUserInput
@@ -41723,6 +42931,9 @@ export namespace Prisma {
     fightSpeed?: IntFilter<"User"> | number
     backgroundMusic?: BoolFilter<"User"> | boolean
     dinorpgDone?: DateTimeNullableFilter<"User"> | Date | string | null
+    ips?: StringNullableListFilter<"User">
+    bannedAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    banReason?: StringNullableFilter<"User"> | string | null
   }
 
   export type BruteCreateWithoutMasterOfClanInput = {
@@ -45755,6 +46966,9 @@ export namespace Prisma {
     fightSpeed?: IntFieldUpdateOperationsInput | number
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ips?: UserUpdateipsInput | string[]
+    bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     tournamentGolds?: TournamentGoldUpdateManyWithoutUserNestedInput
@@ -45772,6 +46986,9 @@ export namespace Prisma {
     fightSpeed?: IntFieldUpdateOperationsInput | number
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ips?: UserUpdateipsInput | string[]
+    bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     tournamentGolds?: TournamentGoldUncheckedUpdateManyWithoutUserNestedInput
@@ -45789,6 +47006,9 @@ export namespace Prisma {
     fightSpeed?: IntFieldUpdateOperationsInput | number
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ips?: UserUpdateipsInput | string[]
+    bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BruteCreateManyClanInput = {
@@ -46462,6 +47682,10 @@ export namespace Prisma {
      * @deprecated Use BannedWordDefaultArgs instead
      */
     export type BannedWordArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BannedWordDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use BannedIpDefaultArgs instead
+     */
+    export type BannedIpArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BannedIpDefaultArgs<ExtArgs>
     /**
      * @deprecated Use WorkerJobDefaultArgs instead
      */
