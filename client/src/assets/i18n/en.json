@@ -1327,5 +1327,6 @@
   "banReason.innapropriateName": "Inappropriate name",
   "banReason.innapropriateBruteName": "Inappropriate brute name",
   "banReason.multipleAccounts": "Multiple accounts",
-  "afterBlock": "after blocking"
+  "afterBlock": "after blocking",
+  "created": "Created on {{date}}"
 }

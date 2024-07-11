@@ -1,14 +1,15 @@
-import { AccountTree, MilitaryTech, Person } from '@mui/icons-material';
+import { AccountTree, MilitaryTech, Person, Today } from '@mui/icons-material';
 import { Box, Button, Grid, Paper, PaperProps, Tooltip } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link as RouterLink } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
 import useStateAsync from '../../hooks/useStateAsync';
 import Server from '../../utils/Server';
 import Link from '../Link';
 import Text from '../Text';
-import { useAuth } from '../../hooks/useAuth';
-import { Link as RouterLink } from 'react-router-dom';
+import moment from 'moment';
 
 export interface CellSocialsProps extends PaperProps {
   smallScreen?: boolean;
@@ -51,52 +52,60 @@ const CellSocials = ({
             </Tooltip>
           )}
           <Text h2 smallCaps sx={{ display: 'inline-block' }}>{brute.name}</Text>
+          <Box>
+            {brute.user && (
+              <Tooltip title={t('userProfile', { user: brute.user.name })}>
+                <Button
+                  component={RouterLink}
+                  to={`/user/${brute.user.id}`}
+                  size="small"
+                  startIcon={<Person fontSize="small" />}
+                  color="secondary"
+                >
+                  <Text smallCaps subtitle2>{brute.user.name}</Text>
+                </Button>
+              </Tooltip>
+            )}
+            {user?.moderator && brute.user && (
+              <Text smallCaps subtitle2>{brute.id} | {brute.user.name} ({brute.userId})</Text>
+            )}
+          </Box>
         </Grid>
-        <Grid item xs={smallScreen ? 6 : 3}>
+        <Grid item container xs={smallScreen ? 12 : 6}>
           {!!brute.master && (
-            <Box>
+            <Grid item xs={6}>
               <Text bold color="secondary" component="span">{t('master')}: </Text>
               <Text bold component="span"><Link to={`/${brute.master.name}/cell`}>{brute.master.name}</Link></Text>
-            </Box>
+            </Grid>
           )}
-          <Box>
+          <Grid item xs={6}>
             <Link to={`/${brute.name}/ranking`}>
               <Text bold color="secondary" component="span">{t('ranking')}: </Text>
               <Text bold component="span">
                 {getter?.ranking || 'NA'}
               </Text>
             </Link>
-          </Box>
-        </Grid>
-        <Grid item xs={smallScreen ? 6 : 3}>
-          <Box>
+          </Grid>
+          <Grid item xs={6}>
             <Text bold color="secondary" component="span">{t('victories')}: </Text>
             <Text bold component="span">{brute.victories}</Text>
-          </Box>
+          </Grid>
+          <Grid item xs={6}>
+            <Tooltip title={t('created', { date: moment.utc(brute.createdAt).format('LLL') })}>
+              <Text bold component="span">
+                <Today color="secondary" sx={{ verticalAlign: 'middle', mr: 0.5 }} />
+                {moment.utc(brute.createdAt).fromNow()}
+              </Text>
+            </Tooltip>
+          </Grid>
           {!!brute.pupilsCount && (
-            <Box>
+            <Grid item xs={6}>
               <Text bold color="secondary" component="span">{t('pupils')}: </Text>
               <Text bold component="span">{brute.pupilsCount}</Text>
-            </Box>
+            </Grid>
           )}
         </Grid>
       </Grid>
-      {brute.user && (
-        <Tooltip title={t('userProfile', { user: brute.user.name })}>
-          <Button
-            component={RouterLink}
-            to={`/user/${brute.user.id}`}
-            size="small"
-            startIcon={<Person fontSize="small" />}
-            color="secondary"
-          >
-            <Text smallCaps subtitle2>{brute.user.name}</Text>
-          </Button>
-        </Tooltip>
-      )}
-      {user?.moderator && brute.user && (
-        <Text smallCaps subtitle2>{brute.id} | {brute.user.name} ({brute.userId})</Text>
-      )}
     </Paper>
   );
 };
