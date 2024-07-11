@@ -195,7 +195,7 @@
   "untouchable.effect": "",
   "sabotage": "Vandalisme",
   "sabotage.desc": "Certaines brutes font du vandalisme dans la rue, mais toi tu préfères vandaliser ton adversaire. Chaque coup te permet de détruire une de ses armes.",
-  "sabotage.effect": "90% chance to destroy a weapon each time you land a blow",
+  "sabotage.effect": "90% de chances de détruire une arme en réserve à chaque coup qui blesse",
   "shock": "Choc",
   "shock.desc": "Tes coups sont tellement surprenants que ton adversaire en laisse tomber son arme… Profites-en pour lui en montrer d'autres !",
   "shock.effect": "",
@@ -295,8 +295,8 @@
   "treat": "Friandise",
   "treat.desc": "Se battre, ça creuse. C’est pourquoi j’emporte toujours une friandise pour remettre mes familiers d’aplomb !",
   "treat.effect": "Action (x{{uses}}) Ta brute soigne l’un de ses familiers à hauteur de 50% de leur santé.",
-  "repulse": "Repulse",
-  "repulse.desc": "Got ninja stars headed your way? No problem! Channel your inner martial arts movie hero and swat away thrown weapons like they're pesky flies.",
+  "repulse": "Repoussoir",
+  "repulse.desc": "Des étoiles ninja se dirigent vers vous ? Aucun problème ! Canalisez le héros de film d'arts martiaux qui sommeille en vous et renvoyez les armes lancées comme des mouches.",
   "repulse.effect": "",
   "fan": "Éventail",
   "keyboard": "Clavier",
@@ -1330,6 +1330,6 @@
   "banReason.innapropriateName": "Nom inapproprié",
   "banReason.innapropriateBruteName": "Nom de brute inapproprié",
   "banReason.multipleAccounts": "Comptes multiples",
-  "afterBlock": "after blocking",
-  "created": "Created on {{date}}"
+  "afterBlock": "après blocage",
+  "created": "Créée le {{date}}"
 }
