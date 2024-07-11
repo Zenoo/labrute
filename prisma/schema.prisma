@@ -131,6 +131,7 @@ enum SkillName {
   chaining
   haste
   treat
+  repulse
 }
 
 enum PetName {

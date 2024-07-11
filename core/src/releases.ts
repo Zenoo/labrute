@@ -9,9 +9,12 @@ export type Release = {
 export const LAST_RELEASE: Release = {
   version: '2.64.0',
   date: '2024-07-11',
-  features: [],
+  features: [
+    'The brute creation date is now displayed on the brute cell',
+    'A new skill has been added: `Repulse`',
+  ],
   fixes: [],
-  attachments: ['creation-date.png'],
+  attachments: ['creation-date.png', 'repulse.png'],
 };
 
 export const releases: Release[] = [

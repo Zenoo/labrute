@@ -6,7 +6,9 @@ import {
   pets, randomBetween, SHIELD_BLOCK_ODDS, skills, weapons,
 } from '@labrute/core';
 import { Boss } from '@labrute/core/src/brute/bosses.js';
-import { Brute, FightModifier, PrismaClient } from '@labrute/prisma';
+import {
+  Brute, FightModifier, PrismaClient, SkillName,
+} from '@labrute/prisma';
 import ServerState from '../ServerState.js';
 
 interface Team {
@@ -19,23 +21,23 @@ const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
   /* INITIATIVE */
 
   // -2 initiative for `firstStrike`
-  if (brute.skills.includes('firstStrike')) {
+  if (brute.skills.includes(SkillName.firstStrike)) {
     fighter.initiative -= 2;
   }
   // +2 initiative for `reconnaissance`
-  if (brute.skills.includes('reconnaissance')) {
+  if (brute.skills.includes(SkillName.reconnaissance)) {
     fighter.initiative += 2;
   }
 
   /* COUNTER */
 
   // +10% counter for `sixthSense`
-  if (brute.skills.includes('sixthSense')) {
+  if (brute.skills.includes(SkillName.sixthSense)) {
     fighter.counter += 0.1;
   }
 
   // +40% counter / +2 initiative for `monk`
-  if (brute.skills.includes('monk')) {
+  if (brute.skills.includes(SkillName.monk)) {
     fighter.counter += 0.4;
     fighter.initiative += 2;
   }
@@ -43,90 +45,97 @@ const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
   /* COMBO */
 
   // +20% combo for `fistsOfFury`
-  if (brute.skills.includes('fistsOfFury')) {
+  if (brute.skills.includes(SkillName.fistsOfFury)) {
     fighter.combo += 0.2;
   }
 
   /* REVERSAL */
 
   // +30% reversal for `hostility`
-  if (brute.skills.includes('hostility')) {
+  if (brute.skills.includes(SkillName.hostility)) {
     fighter.reversal += 0.30;
   }
 
   /* BLOCK */
 
   // +XX% block for `shield`
-  if (brute.skills.includes('shield')) {
+  if (brute.skills.includes(SkillName.shield)) {
     fighter.block += SHIELD_BLOCK_ODDS;
     fighter.shield = true;
   }
 
   // +10% block for `counterAttack`
-  if (brute.skills.includes('counterAttack')) {
+  if (brute.skills.includes(SkillName.counterAttack)) {
     fighter.block += 0.1;
   }
 
   /* ACCURACY */
 
   // +30% accuracy for `relentless`
-  if (brute.skills.includes('relentless')) {
+  if (brute.skills.includes(SkillName.relentless)) {
     fighter.accuracy += 0.3;
   }
 
   /* ARMOR */
 
   // +25% armor for `armor`
-  if (brute.skills.includes('armor')) {
+  if (brute.skills.includes(SkillName.armor)) {
     fighter.armor += 0.25;
   }
 
   // +10% armor for `toughenedSkin`
-  if (brute.skills.includes('toughenedSkin')) {
+  if (brute.skills.includes(SkillName.toughenedSkin)) {
     fighter.armor += 0.1;
   }
 
   /* DISARM */
 
   // +50% disarm for `shock`
-  if (brute.skills.includes('shock')) {
+  if (brute.skills.includes(SkillName.shock)) {
     fighter.disarm += 0.5;
   }
 
   /* EVASION */
 
   // +30% evasion for `untouchable`
-  if (brute.skills.includes('untouchable')) {
+  if (brute.skills.includes(SkillName.untouchable)) {
     fighter.evasion += 0.3;
+  }
+
+  /* DEFLECT */
+
+  // +30% deflect for `repulse`
+  if (brute.skills.includes(SkillName.repulse)) {
+    fighter.reversal += 0.30;
   }
 
   /* PASSIVES */
 
-  if (brute.skills.includes('saboteur')) {
+  if (brute.skills.includes(SkillName.saboteur)) {
     fighter.saboteur = true;
   }
-  if (brute.skills.includes('sabotage')) {
+  if (brute.skills.includes(SkillName.sabotage)) {
     fighter.sabotage = true;
   }
-  if (brute.skills.includes('bodybuilder')) {
+  if (brute.skills.includes(SkillName.bodybuilder)) {
     fighter.bodybuilder = true;
   }
-  if (brute.skills.includes('survival')) {
+  if (brute.skills.includes(SkillName.survival)) {
     fighter.survival = true;
   }
-  if (brute.skills.includes('balletShoes')) {
+  if (brute.skills.includes(SkillName.balletShoes)) {
     fighter.balletShoes = true;
   }
-  if (brute.skills.includes('determination')) {
+  if (brute.skills.includes(SkillName.determination)) {
     fighter.determination = true;
   }
-  if (brute.skills.includes('ironHead')) {
+  if (brute.skills.includes(SkillName.ironHead)) {
     fighter.ironHead = true;
   }
-  if (brute.skills.includes('resistant')) {
+  if (brute.skills.includes(SkillName.resistant)) {
     fighter.resistant = true;
   }
-  if (brute.skills.includes('monk')) {
+  if (brute.skills.includes(SkillName.monk)) {
     fighter.monk = true;
   }
 };

@@ -241,7 +241,8 @@ export const SkillName: {
   vampirism: 'vampirism',
   chaining: 'chaining',
   haste: 'haste',
-  treat: 'treat'
+  treat: 'treat',
+  repulse: 'repulse'
 };
 
 export type SkillName = (typeof SkillName)[keyof typeof SkillName]

@@ -477,7 +477,8 @@ exports.SkillName = exports.$Enums.SkillName = {
   vampirism: 'vampirism',
   chaining: 'chaining',
   haste: 'haste',
-  treat: 'treat'
+  treat: 'treat',
+  repulse: 'repulse'
 };
 
 exports.PetName = exports.$Enums.PetName = {

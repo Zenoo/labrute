@@ -50,6 +50,7 @@ export enum SkillId {
   chaining,
   haste,
   treat,
+  repulse,
 }
 
 export const SkillByName: Record<SkillName, SkillId> = {
@@ -101,6 +102,7 @@ export const SkillByName: Record<SkillName, SkillId> = {
   [SkillName.chaining]: SkillId.chaining,
   [SkillName.haste]: SkillId.haste,
   [SkillName.treat]: SkillId.treat,
+  [SkillName.repulse]: SkillId.repulse,
 };
 
 export const SkillById: Record<SkillId, SkillName> = {
@@ -152,6 +154,7 @@ export const SkillById: Record<SkillId, SkillName> = {
   [SkillId.chaining]: SkillName.chaining,
   [SkillId.haste]: SkillName.haste,
   [SkillId.treat]: SkillName.treat,
+  [SkillId.repulse]: SkillName.repulse,
 };
 
 export const FightStat = {
@@ -460,6 +463,11 @@ const skills: Skill[] = [
     uses: 4,
     toss: 5,
   },
+  {
+    name: 'repulse',
+    odds: 10,
+    type: 'passive',
+  },
 ];
 
 export const SKILLS_TOTAL_ODDS = skills.reduce((acc, skill) => acc + skill.odds, 0);
@@ -568,6 +576,9 @@ export const SkillModifiers: Record<SkillName, SkillModifier[]> = {
   [SkillName.chaining]: [],
   [SkillName.haste]: [],
   [SkillName.treat]: [],
+  [SkillName.repulse]: [
+    { stat: FightStat.DEFLECT, value: 30, percent: true },
+  ],
 };
 
 export default skills;
