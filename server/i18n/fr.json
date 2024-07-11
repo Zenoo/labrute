@@ -91,5 +91,12 @@
   "modifier.bareHandsFirstHit": "Combat honorable",
   "modifier.bareHandsFirstHit.desc": "Un vrai gentleman salue son ennemi avec ses poings. Vous ne tirerez pas d'arme tant que vous n'aurez pas touché votre adversaire avec vos mains nues.",
   "modifier.startWithWeapon": "Paré au combat",
-  "modifier.startWithWeapon.desc": "Pas de temps pour les plaisanteries, il est temps de se battre ! Vous commencerez le combat avec une arme déjà tirée."
+  "modifier.startWithWeapon.desc": "Pas de temps pour les plaisanteries, il est temps de se battre ! Vous commencerez le combat avec une arme déjà tirée.",
+  "bannedAccount": "Your account has been banned for the following reason: {{reason}}",
+  "userNotBanned": "User not banned",
+  "userAlreadyBanned": "User already banned",
+  "banReason.innapropriateName": "Inappropriate name",
+  "banReason.innapropriateBruteName": "Inappropriate brute name",
+  "banReason.multipleAccounts": "Multiple accounts",
+  "ipBanned": "Your IP is banned"
 }
