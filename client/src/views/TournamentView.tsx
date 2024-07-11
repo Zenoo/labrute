@@ -275,7 +275,7 @@ const TournamentView = () => {
                       >
                         {/* Left fighter */}
                         <BruteTooltip
-                          fighter={fighters.find((fighter) => fighter.type === 'brute' && fighter.name === fight.brute1.name)}
+                          fighter={fighters.find((fighter) => fighter.id === fight.brute1.id)}
                         >
                           <Box sx={{
                             position: 'relative',
@@ -326,7 +326,7 @@ const TournamentView = () => {
                         {/* RIGHT FIGHTER */}
                         {fight.brute2 && (
                           <BruteTooltip
-                            fighter={fighters.find((fighter) => fighter.type === 'brute' && fighter.name === fight?.brute2?.name)}
+                            fighter={fighters.find((fighter) => fighter.id === fight?.brute2?.id)}
                           >
                             <Box sx={{
                               position: 'relative',
