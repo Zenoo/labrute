@@ -295,6 +295,9 @@
   "treat": "Treat",
   "treat.desc": "Fighting takes a toll. That's why I always bring a treat to put my pets back on their feet!",
   "treat.effect": "Action (x{{uses}}) Your brute will heal one of his pets for 50% of their health.",
+  "repulse": "Repulse",
+  "repulse.desc": "Got ninja stars headed your way? No problem! Channel your inner martial arts movie hero and swat away thrown weapons like they're pesky flies.",
+  "repulse.effect": "",
   "fan": "Fan",
   "keyboard": "Keyboard",
   "knife": "Knife",
@@ -1327,5 +1330,6 @@
   "banReason.innapropriateName": "Inappropriate name",
   "banReason.innapropriateBruteName": "Inappropriate brute name",
   "banReason.multipleAccounts": "Multiple accounts",
-  "afterBlock": "after blocking"
+  "afterBlock": "after blocking",
+  "created": "Created on {{date}}"
 }
