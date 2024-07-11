@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.63.0](https://github.com/Zenoo/labrute/compare/labrute-v2.62.1...labrute-v2.63.0) (2024-07-11)
+
+
+### Features
+
+* IP bans. Fixes [#799](https://github.com/Zenoo/labrute/issues/799) ([06e244f](https://github.com/Zenoo/labrute/commit/06e244f050f8e2f00419aec4b47bfb60f0fdfbe2))
+
+
+### Bug Fixes
+
+* Display old stats in daily tournament hover ([4fe48f1](https://github.com/Zenoo/labrute/commit/4fe48f156b58b75888d7cb4fcdc6b6f20a08ca6b))
+* Reset consecutive hits on any non poison damage. Fixes [#787](https://github.com/Zenoo/labrute/issues/787) ([89fd931](https://github.com/Zenoo/labrute/commit/89fd931cf4b7dfb3d99ad37b8884cce019e34c5d))
+
 ## [2.62.1](https://github.com/Zenoo/labrute/compare/labrute-v2.62.0...labrute-v2.62.1) (2024-07-08)
 
 
