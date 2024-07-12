@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.65.4](https://github.com/Zenoo/labrute/compare/labrute-v2.65.3...labrute-v2.65.4) (2024-07-12)
+
+
+### Bug Fixes
+
+* Wrong calculation for reversal ([a8e4f0e](https://github.com/Zenoo/labrute/commit/a8e4f0e20b0ac09c1ccd3b432ed4aa483a088921))
+
 ## [2.65.3](https://github.com/Zenoo/labrute/compare/labrute-v2.65.2...labrute-v2.65.3) (2024-07-12)
 
 
