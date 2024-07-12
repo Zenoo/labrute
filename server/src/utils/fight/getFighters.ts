@@ -144,13 +144,12 @@ const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
 
 const handleModifiers = (
   brute: Brute,
-  fighter: DetailedFighter,
   modifiers: FightModifier[],
   randomWeaponIndex: number | null,
   randomSkillIndex: number | null,
 ) => {
   if (modifiers.includes(FightModifier.doubleAgility)) {
-    fighter.agility *= 2;
+    brute.agilityValue *= 2;
   }
 
   const randomWeaponName = getTempWeapon(brute, randomWeaponIndex);
@@ -163,7 +162,6 @@ const handleModifiers = (
     }
 
     brute.weapons.push(randomWeaponName);
-    fighter.weapons.push({ ...randomWeapon });
   }
 
   const randomSkillName = getTempSkill(brute, randomSkillIndex);
@@ -176,7 +174,6 @@ const handleModifiers = (
     }
 
     brute.skills.push(randomSkillName);
-    fighter.skills.push({ ...randomSkill });
   }
 };
 
@@ -204,6 +201,7 @@ const getFighters = async (
 
       const bruteHP = getFinalHP(brute, randomSkillIndex);
       const bruteSpeed = getFinalStat(brute, 'speed', randomSkillIndex);
+      handleModifiers(brute, modifiers, randomWeaponIndex, randomSkillIndex);
 
       // Brute stats
       positiveIndex++;
@@ -262,7 +260,6 @@ const getFighters = async (
         hitBy: {},
       };
 
-      handleModifiers(brute, fighter, modifiers, randomWeaponIndex, randomSkillIndex);
       handleSkills(brute, fighter);
 
       fighters.push(fighter);
@@ -339,6 +336,7 @@ const getFighters = async (
 
         const backupHP = getFinalHP(backup, randomSkillIndex);
         const backupSpeed = getFinalStat(backup, 'speed', randomSkillIndex);
+        handleModifiers(backup, modifiers, randomWeaponIndex, randomSkillIndex);
 
         spawnedPets++;
         const backupFighter: DetailedFighter = {
@@ -398,7 +396,6 @@ const getFighters = async (
           hitBy: {},
         };
 
-        handleModifiers(backup, backupFighter, modifiers, randomWeaponIndex, randomSkillIndex);
         handleSkills(backup, backupFighter);
 
         // Reset initiative to arrive at the desired time

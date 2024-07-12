@@ -5,7 +5,7 @@ import {
   BOSS_GOLD_REWARD,
   Boss,
   CLAN_SIZE_LIMIT,
-  DetailedFight, ExpectedError, Fighter, SkillByName,
+  DetailedFight, DetailedFighter, ExpectedError, Fighter, SkillByName,
   StepType, WeaponByName, bossBackground, bosses,
   fightBackgrounds,
   randomItem,
@@ -126,27 +126,11 @@ const generateFight = async (
       }
       return fighter;
     });
-  const fightDataInitialFighters = (await getFighters(
-    prisma,
-    { brute: brute1, backup: brute1Backup },
-    { brute: brute2, backup: brute2Backup, boss: boss || undefined },
-    modifiers,
-  ))
-    // Adjust boss HP
-    .map((fighter) => {
-      if (fighter.type === 'boss') {
-        return {
-          ...fighter,
-          hp: bossHP || fighter.hp,
-        };
-      }
-      return fighter;
-    });
 
   const fightData: DetailedFight = {
     modifiers,
     fighters: fightDataFighters,
-    initialFighters: fightDataInitialFighters,
+    initialFighters: JSON.parse(JSON.stringify(fightDataFighters)) as DetailedFighter[],
     steps: [],
     initiative: 0,
     winner: null,
@@ -434,7 +418,7 @@ const generateFight = async (
       };
     } else {
       // Update damage on boss + store it
-      const initialBoss = fightDataInitialFighters.find((fighter) => fighter.type === 'boss');
+      const initialBoss = fightData.initialFighters.find((fighter) => fighter.type === 'boss');
       const finalBoss = fightData.fighters.find((fighter) => fighter.type === 'boss');
       if (!initialBoss || !finalBoss) {
         throw new Error('Boss not found');
