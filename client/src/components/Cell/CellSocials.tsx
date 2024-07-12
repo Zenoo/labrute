@@ -71,39 +71,41 @@ const CellSocials = ({
             )}
           </Box>
         </Grid>
-        <Grid item container xs={smallScreen ? 12 : 6}>
-          {!!brute.master && (
+        <Grid item xs={smallScreen ? 12 : 6}>
+          <Grid container>
+            {!!brute.master && (
+              <Grid item xs={6}>
+                <Text bold color="secondary" component="span">{t('master')}: </Text>
+                <Text bold component="span"><Link to={`/${brute.master.name}/cell`}>{brute.master.name}</Link></Text>
+              </Grid>
+            )}
             <Grid item xs={6}>
-              <Text bold color="secondary" component="span">{t('master')}: </Text>
-              <Text bold component="span"><Link to={`/${brute.master.name}/cell`}>{brute.master.name}</Link></Text>
+              <Link to={`/${brute.name}/ranking`}>
+                <Text bold color="secondary" component="span">{t('ranking')}: </Text>
+                <Text bold component="span">
+                  {getter?.ranking || 'NA'}
+                </Text>
+              </Link>
             </Grid>
-          )}
-          <Grid item xs={6}>
-            <Link to={`/${brute.name}/ranking`}>
-              <Text bold color="secondary" component="span">{t('ranking')}: </Text>
-              <Text bold component="span">
-                {getter?.ranking || 'NA'}
-              </Text>
-            </Link>
-          </Grid>
-          <Grid item xs={6}>
-            <Text bold color="secondary" component="span">{t('victories')}: </Text>
-            <Text bold component="span">{brute.victories}</Text>
-          </Grid>
-          <Grid item xs={6}>
-            <Tooltip title={t('created', { date: moment.utc(brute.createdAt).format('LLL') })}>
-              <Text bold component="span">
-                <Today color="secondary" sx={{ verticalAlign: 'middle', mr: 0.5 }} />
-                {moment.utc(brute.createdAt).fromNow()}
-              </Text>
-            </Tooltip>
-          </Grid>
-          {!!brute.pupilsCount && (
             <Grid item xs={6}>
-              <Text bold color="secondary" component="span">{t('pupils')}: </Text>
-              <Text bold component="span">{brute.pupilsCount}</Text>
+              <Text bold color="secondary" component="span">{t('victories')}: </Text>
+              <Text bold component="span">{brute.victories}</Text>
             </Grid>
-          )}
+            <Grid item xs={6}>
+              <Tooltip title={t('created', { date: moment.utc(brute.createdAt).format('LLL') })}>
+                <Text bold component="span">
+                  <Today color="secondary" sx={{ verticalAlign: 'middle', mr: 0.5 }} />
+                  {moment.utc(brute.createdAt).fromNow()}
+                </Text>
+              </Tooltip>
+            </Grid>
+            {!!brute.pupilsCount && (
+              <Grid item xs={6}>
+                <Text bold color="secondary" component="span">{t('pupils')}: </Text>
+                <Text bold component="span">{brute.pupilsCount}</Text>
+              </Grid>
+            )}
+          </Grid>
         </Grid>
       </Grid>
     </Paper>
