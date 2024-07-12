@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.65.2](https://github.com/Zenoo/labrute/compare/labrute-v2.65.1...labrute-v2.65.2) (2024-07-12)
+
+
+### Bug Fixes
+
+* Disable determination retry on counters. Fixes [#809](https://github.com/Zenoo/labrute/issues/809) ([213a316](https://github.com/Zenoo/labrute/commit/213a3163588334e3d70adce3ea289ef364993776))
+* Temp skill doubled in fights. Fixes [#811](https://github.com/Zenoo/labrute/issues/811) ([9784fbf](https://github.com/Zenoo/labrute/commit/9784fbf0a55d1c027e06974eff79539366041037))
+
 ## [2.65.1](https://github.com/Zenoo/labrute/compare/labrute-v2.65.0...labrute-v2.65.1) (2024-07-12)
 
 
