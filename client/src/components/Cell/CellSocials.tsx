@@ -1,5 +1,5 @@
-import { AccountTree, MilitaryTech, Person, Today } from '@mui/icons-material';
-import { Box, Button, Grid, Paper, PaperProps, Tooltip } from '@mui/material';
+import { AccountTree, CopyAll, MilitaryTech, Person, Today } from '@mui/icons-material';
+import { Box, Button, Grid, IconButton, Paper, PaperProps, Tooltip } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
@@ -10,6 +10,7 @@ import Server from '../../utils/Server';
 import Link from '../Link';
 import Text from '../Text';
 import moment from 'moment';
+import { useAlert } from '../../hooks/useAlert';
 
 export interface CellSocialsProps extends PaperProps {
   smallScreen?: boolean;
@@ -22,8 +23,19 @@ const CellSocials = ({
   const { brute } = useBrute();
   const { user } = useAuth();
   const { t } = useTranslation();
+  const Alert = useAlert();
 
   const { data: getter } = useStateAsync(null, Server.Brute.getRanking, brute?.name || '');
+
+  const copyUserId = () => {
+    if (!brute) return;
+
+    if (brute.userId) {
+      navigator.clipboard.writeText(brute.userId).then(() => {
+        Alert.open('success', t('userIdCopied'));
+      }).catch(() => {});
+    }
+  };
 
   return brute && (
     <Paper {...rest}>
@@ -54,20 +66,26 @@ const CellSocials = ({
           <Text h2 smallCaps sx={{ display: 'inline-block' }}>{brute.name}</Text>
           <Box>
             {brute.user && (
-              <Tooltip title={t('userProfile', { user: brute.user.name })}>
-                <Button
-                  component={RouterLink}
-                  to={`/user/${brute.user.id}`}
-                  size="small"
-                  startIcon={<Person fontSize="small" />}
-                  color="secondary"
-                >
-                  <Text smallCaps subtitle2>{brute.user.name}</Text>
-                </Button>
-              </Tooltip>
-            )}
-            {user?.moderator && brute.user && (
-              <Text smallCaps subtitle2>{brute.id} | {brute.user.name} ({brute.userId})</Text>
+              <>
+                {user?.moderator && (
+                  <Tooltip title={t('copyUserId')}>
+                    <IconButton size="small" onClick={copyUserId}>
+                      <CopyAll color="primary" />
+                    </IconButton>
+                  </Tooltip>
+                )}
+                <Tooltip title={t('userProfile', { user: brute.user.name })}>
+                  <Button
+                    component={RouterLink}
+                    to={`/user/${brute.user.id}`}
+                    size="small"
+                    startIcon={<Person fontSize="small" />}
+                    color="secondary"
+                  >
+                    <Text smallCaps subtitle2>{brute.user.name}</Text>
+                  </Button>
+                </Tooltip>
+              </>
             )}
           </Box>
         </Grid>
