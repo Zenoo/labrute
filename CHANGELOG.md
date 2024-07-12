@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.65.3](https://github.com/Zenoo/labrute/compare/labrute-v2.65.2...labrute-v2.65.3) (2024-07-12)
+
+
+### Bug Fixes
+
+* User ID copy button for moderators ([235fb9e](https://github.com/Zenoo/labrute/commit/235fb9ebbd93c9bc7ac7c5d964a31a70eacea9e9))
+
 ## [2.65.2](https://github.com/Zenoo/labrute/compare/labrute-v2.65.1...labrute-v2.65.2) (2024-07-12)
 
 
