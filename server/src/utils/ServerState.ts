@@ -7,6 +7,7 @@ let MODIFIERS: FightModifier[] | null = null;
 let RANDOM_SKILL: number | undefined;
 let RANDOM_WEAPON: number | undefined;
 let BANNED_IPS: string[] | null = null;
+let NEXT_MODIFIERS: FightModifier[] | null = null;
 
 const setReady = (ready: boolean) => {
   LOGGER.log(`Updating server state to ${ready ? 'release' : 'hold'} traffic`);
@@ -212,6 +213,41 @@ const removeBannedIps = async (prisma: PrismaClient, ips: string[]) => {
   if (BANNED_IPS) BANNED_IPS = bannedIps.filter((ip) => !ips.includes(ip));
 };
 
+const setNextModifiers = async (prisma: PrismaClient, modifiers: FightModifier[]) => {
+  const serverState = await prisma.serverState.findFirst({
+    select: { id: true },
+  });
+
+  if (!serverState) {
+    await prisma.serverState.create({
+      data: { nextModifiers: modifiers },
+      select: { id: true },
+    });
+  } else {
+    await prisma.serverState.update({
+      where: { id: serverState.id },
+      data: { nextModifiers: modifiers },
+      select: { id: true },
+    });
+  }
+
+  NEXT_MODIFIERS = modifiers;
+};
+
+const getNextModifiers = async (prisma: PrismaClient) => {
+  if (NEXT_MODIFIERS) {
+    return NEXT_MODIFIERS;
+  }
+
+  const serverState = await prisma.serverState.findFirst({
+    select: {
+      nextModifiers: true,
+    },
+  });
+
+  return serverState?.nextModifiers || [];
+};
+
 export default {
   setReady,
   isReady,
@@ -228,4 +264,6 @@ export default {
   addBannedIps,
   isIpBanned,
   removeBannedIps,
+  setNextModifiers,
+  getNextModifiers,
 };

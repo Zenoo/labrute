@@ -1,5 +1,5 @@
 import { AdminPanelBrute } from '@labrute/core';
-import { DestinyChoiceSide, Gender, PetName, SkillName, WeaponName } from '@labrute/prisma';
+import { DestinyChoiceSide, FightModifier, Gender, PetName, SkillName, WeaponName } from '@labrute/prisma';
 import { Box, Checkbox, Divider, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Alert as MuiAlert, Paper, Select, Stack } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
 import moment from 'moment';
@@ -24,6 +24,7 @@ const AdminView = () => {
   const [bruteId, setBruteId] = React.useState('');
   const [brute, setBrute] = React.useState<AdminPanelBrute | null>(null);
   const [globalTournamentValid, setGlobalTournamentValid] = React.useState(true);
+  const [nextModifiers, setNextModifiers] = React.useState<FightModifier[]>([]);
 
   // Change bruteName
   const changeBruteName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,6 +81,20 @@ const AdminView = () => {
       setGlobalTournamentValid(isValid);
     }).catch(catchError(Alert));
   }, [Alert]);
+
+  // Fetch next modifiers
+  useEffect(() => {
+    Server.User.getNextModifiers().then((modifiers) => {
+      setNextModifiers(modifiers);
+    }).catch(catchError(Alert));
+  }, [Alert]);
+
+  // Save next modifiers
+  const saveNextModifiers = useCallback(() => {
+    Server.User.setNextModifiers(nextModifiers).then(() => {
+      Alert.open('success', 'Next modifiers saved');
+    }).catch(catchError(Alert));
+  }, [Alert, nextModifiers]);
 
   // Save brute
   const saveBrute = useCallback(() => {
@@ -143,6 +158,20 @@ const AdminView = () => {
               <FantasyButton color="error" to="/admin-panel/banned-users">BANLIST</FantasyButton>
               <FantasyButton color="warning" to="/admin-panel/multiple-accounts">MULTIS</FantasyButton>
             </Stack>
+            <Divider />
+            <Text bold h3 smallCaps color="secondary">Next modifiers</Text>
+            <Select
+              variant="standard"
+              multiple
+              value={nextModifiers}
+              onChange={({ target: { value } }) => setNextModifiers(typeof value === 'string' ? value.split(',') as FightModifier[] : value)}
+              sx={{ m: 1 }}
+            >
+              {Object.values(FightModifier).map((modifier) => (
+                <MenuItem key={modifier} value={modifier}>{t(`modifier.${modifier}`)}</MenuItem>
+              ))}
+            </Select>
+            <FantasyButton color="success" onClick={saveNextModifiers}>Save</FantasyButton>
             <Divider />
             <Text bold h3 smallCaps color="secondary">{t('brute')}</Text>
             <StyledInput

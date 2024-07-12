@@ -564,6 +564,7 @@ model ServerState {
   modifiersEndAt        DateTime?       @db.Date
   randomWeapon          Int?
   randomSkill           Int?
+  nextModifiers         FightModifier[] @default([])
 }
 
 model BannedWord {

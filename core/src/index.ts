@@ -253,3 +253,4 @@ export type ClanChallengeBossResponse = {
   xp?: number,
   gold?: number,
 };
+export type UserGetNextModifiersResponse = FightModifier[];

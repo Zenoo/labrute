@@ -1,7 +1,7 @@
 import {
   AchievementData, BruteDeletionReason, ExpectedError, RaretyOrder,
   UserBannedListResponse,
-  UserGetAdminResponse, UserGetProfileResponse,
+  UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse,
   UserMultipleAccountsListResponse,
   UsersAdminUpdateRequest,
   UsersAuthenticateResponse,
@@ -9,7 +9,7 @@ import {
   isUuid,
 } from '@labrute/core';
 import {
-  Achievement, InventoryItemType, Lang,
+  Achievement, FightModifier, InventoryItemType, Lang,
   PrismaClient,
 } from '@labrute/prisma';
 import type { Request, Response } from 'express';
@@ -819,6 +819,58 @@ const Users = {
       `;
 
       res.send(ips);
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  getNextModifiers: (prisma: PrismaClient) => async (
+    req: Request,
+    res: Response<UserGetNextModifiersResponse>,
+  ) => {
+    try {
+      const authed = await auth(prisma, req);
+
+      const admin = await prisma.user.findFirst({
+        where: { id: authed.id },
+        select: { admin: true },
+      });
+
+      if (!admin?.admin) {
+        throw new ExpectedError(translate('unauthorized', authed));
+      }
+
+      res.send(await ServerState.getNextModifiers(prisma));
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  setNextModifiers: (prisma: PrismaClient) => async (
+    req: Request<never, unknown, { modifiers: FightModifier[] }>,
+    res: Response,
+  ) => {
+    try {
+      const authed = await auth(prisma, req);
+
+      const admin = await prisma.user.findFirst({
+        where: { id: authed.id },
+        select: { admin: true },
+      });
+
+      if (!admin?.admin) {
+        throw new ExpectedError(translate('unauthorized', authed));
+      }
+
+      const { modifiers } = req.body;
+
+      if (!modifiers || !Array.isArray(modifiers)) {
+        throw new ExpectedError(translate('invalidParameters', authed));
+      }
+
+      await ServerState.setNextModifiers(prisma, modifiers);
+
+      res.send({
+        success: true,
+      });
     } catch (error) {
       sendError(res, error);
     }

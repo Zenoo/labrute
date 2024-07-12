@@ -18992,6 +18992,7 @@ export namespace Prisma {
     modifiersEndAt: number
     randomWeapon: number
     randomSkill: number
+    nextModifiers: number
     _all: number
   }
 
@@ -19029,6 +19030,7 @@ export namespace Prisma {
     modifiersEndAt?: true
     randomWeapon?: true
     randomSkill?: true
+    nextModifiers?: true
     _all?: true
   }
 
@@ -19125,6 +19127,7 @@ export namespace Prisma {
     modifiersEndAt: Date | null
     randomWeapon: number | null
     randomSkill: number | null
+    nextModifiers: $Enums.FightModifier[]
     _count: ServerStateCountAggregateOutputType | null
     _avg: ServerStateAvgAggregateOutputType | null
     _sum: ServerStateSumAggregateOutputType | null
@@ -19153,6 +19156,7 @@ export namespace Prisma {
     modifiersEndAt?: boolean
     randomWeapon?: boolean
     randomSkill?: boolean
+    nextModifiers?: boolean
   }, ExtArgs["result"]["serverState"]>
 
   export type ServerStateSelectScalar = {
@@ -19162,9 +19166,10 @@ export namespace Prisma {
     modifiersEndAt?: boolean
     randomWeapon?: boolean
     randomSkill?: boolean
+    nextModifiers?: boolean
   }
 
-  export type ServerStateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "globalTournamentValid" | "activeModifiers" | "modifiersEndAt" | "randomWeapon" | "randomSkill", ExtArgs["result"]["serverState"]>
+  export type ServerStateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "globalTournamentValid" | "activeModifiers" | "modifiersEndAt" | "randomWeapon" | "randomSkill" | "nextModifiers", ExtArgs["result"]["serverState"]>
 
 
 
@@ -19178,6 +19183,7 @@ export namespace Prisma {
       modifiersEndAt: Date | null
       randomWeapon: number | null
       randomSkill: number | null
+      nextModifiers: $Enums.FightModifier[]
     }, ExtArgs["result"]["serverState"]>
     composites: {}
   }
@@ -19604,6 +19610,7 @@ export namespace Prisma {
     readonly modifiersEndAt: FieldRef<"ServerState", 'DateTime'>
     readonly randomWeapon: FieldRef<"ServerState", 'Int'>
     readonly randomSkill: FieldRef<"ServerState", 'Int'>
+    readonly nextModifiers: FieldRef<"ServerState", 'FightModifier[]'>
   }
     
 
@@ -29239,7 +29246,8 @@ export namespace Prisma {
     activeModifiers: 'activeModifiers',
     modifiersEndAt: 'modifiersEndAt',
     randomWeapon: 'randomWeapon',
-    randomSkill: 'randomSkill'
+    randomSkill: 'randomSkill',
+    nextModifiers: 'nextModifiers'
   };
 
   export type ServerStateScalarFieldEnum = (typeof ServerStateScalarFieldEnum)[keyof typeof ServerStateScalarFieldEnum]
@@ -30833,6 +30841,7 @@ export namespace Prisma {
     modifiersEndAt?: DateTimeNullableFilter<"ServerState"> | Date | string | null
     randomWeapon?: IntNullableFilter<"ServerState"> | number | null
     randomSkill?: IntNullableFilter<"ServerState"> | number | null
+    nextModifiers?: EnumFightModifierNullableListFilter<"ServerState">
   }
 
   export type ServerStateOrderByWithRelationInput = {
@@ -30842,6 +30851,7 @@ export namespace Prisma {
     modifiersEndAt?: SortOrderInput | SortOrder
     randomWeapon?: SortOrderInput | SortOrder
     randomSkill?: SortOrderInput | SortOrder
+    nextModifiers?: SortOrder
   }
 
   export type ServerStateWhereUniqueInput = Prisma.AtLeast<{
@@ -30854,6 +30864,7 @@ export namespace Prisma {
     modifiersEndAt?: DateTimeNullableFilter<"ServerState"> | Date | string | null
     randomWeapon?: IntNullableFilter<"ServerState"> | number | null
     randomSkill?: IntNullableFilter<"ServerState"> | number | null
+    nextModifiers?: EnumFightModifierNullableListFilter<"ServerState">
   }, "id" | "id">
 
   export type ServerStateOrderByWithAggregationInput = {
@@ -30863,6 +30874,7 @@ export namespace Prisma {
     modifiersEndAt?: SortOrderInput | SortOrder
     randomWeapon?: SortOrderInput | SortOrder
     randomSkill?: SortOrderInput | SortOrder
+    nextModifiers?: SortOrder
     _count?: ServerStateCountOrderByAggregateInput
     _avg?: ServerStateAvgOrderByAggregateInput
     _max?: ServerStateMaxOrderByAggregateInput
@@ -30880,6 +30892,7 @@ export namespace Prisma {
     modifiersEndAt?: DateTimeNullableWithAggregatesFilter<"ServerState"> | Date | string | null
     randomWeapon?: IntNullableWithAggregatesFilter<"ServerState"> | number | null
     randomSkill?: IntNullableWithAggregatesFilter<"ServerState"> | number | null
+    nextModifiers?: EnumFightModifierNullableListFilter<"ServerState">
   }
 
   export type BannedWordWhereInput = {
@@ -32651,6 +32664,7 @@ export namespace Prisma {
     modifiersEndAt?: Date | string | null
     randomWeapon?: number | null
     randomSkill?: number | null
+    nextModifiers?: ServerStateCreatenextModifiersInput | $Enums.FightModifier[]
   }
 
   export type ServerStateUncheckedCreateInput = {
@@ -32660,6 +32674,7 @@ export namespace Prisma {
     modifiersEndAt?: Date | string | null
     randomWeapon?: number | null
     randomSkill?: number | null
+    nextModifiers?: ServerStateCreatenextModifiersInput | $Enums.FightModifier[]
   }
 
   export type ServerStateUpdateInput = {
@@ -32669,6 +32684,7 @@ export namespace Prisma {
     modifiersEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     randomWeapon?: NullableIntFieldUpdateOperationsInput | number | null
     randomSkill?: NullableIntFieldUpdateOperationsInput | number | null
+    nextModifiers?: ServerStateUpdatenextModifiersInput | $Enums.FightModifier[]
   }
 
   export type ServerStateUncheckedUpdateInput = {
@@ -32678,6 +32694,7 @@ export namespace Prisma {
     modifiersEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     randomWeapon?: NullableIntFieldUpdateOperationsInput | number | null
     randomSkill?: NullableIntFieldUpdateOperationsInput | number | null
+    nextModifiers?: ServerStateUpdatenextModifiersInput | $Enums.FightModifier[]
   }
 
   export type ServerStateCreateManyInput = {
@@ -32687,6 +32704,7 @@ export namespace Prisma {
     modifiersEndAt?: Date | string | null
     randomWeapon?: number | null
     randomSkill?: number | null
+    nextModifiers?: ServerStateCreatenextModifiersInput | $Enums.FightModifier[]
   }
 
   export type ServerStateUpdateManyMutationInput = {
@@ -32696,6 +32714,7 @@ export namespace Prisma {
     modifiersEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     randomWeapon?: NullableIntFieldUpdateOperationsInput | number | null
     randomSkill?: NullableIntFieldUpdateOperationsInput | number | null
+    nextModifiers?: ServerStateUpdatenextModifiersInput | $Enums.FightModifier[]
   }
 
   export type ServerStateUncheckedUpdateManyInput = {
@@ -32705,6 +32724,7 @@ export namespace Prisma {
     modifiersEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     randomWeapon?: NullableIntFieldUpdateOperationsInput | number | null
     randomSkill?: NullableIntFieldUpdateOperationsInput | number | null
+    nextModifiers?: ServerStateUpdatenextModifiersInput | $Enums.FightModifier[]
   }
 
   export type BannedWordCreateInput = {
@@ -34556,6 +34576,7 @@ export namespace Prisma {
     modifiersEndAt?: SortOrder
     randomWeapon?: SortOrder
     randomSkill?: SortOrder
+    nextModifiers?: SortOrder
   }
 
   export type ServerStateAvgOrderByAggregateInput = {
@@ -36414,7 +36435,16 @@ export namespace Prisma {
     set: $Enums.FightModifier[]
   }
 
+  export type ServerStateCreatenextModifiersInput = {
+    set: $Enums.FightModifier[]
+  }
+
   export type ServerStateUpdateactiveModifiersInput = {
+    set?: $Enums.FightModifier[]
+    push?: $Enums.FightModifier | $Enums.FightModifier[]
+  }
+
+  export type ServerStateUpdatenextModifiersInput = {
     set?: $Enums.FightModifier[]
     push?: $Enums.FightModifier | $Enums.FightModifier[]
   }

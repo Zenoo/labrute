@@ -51,6 +51,8 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   app.get('/api/user/:userId/unban', Users.unban(prisma));
   app.get('/api/user/banlist', Users.bannedList(prisma));
   app.get('/api/user/multiple-accounts', Users.multipleAccountsList(prisma));
+  app.get('/api/user/next-modifiers', Users.getNextModifiers(prisma));
+  app.post('/api/user/next-modifiers', Users.setNextModifiers(prisma));
 
   // Brute
   app.get('/api/brute/:name/for-versus', Brutes.getForVersus(prisma));

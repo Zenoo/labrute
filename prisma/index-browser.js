@@ -300,7 +300,8 @@ exports.Prisma.ServerStateScalarFieldEnum = {
   activeModifiers: 'activeModifiers',
   modifiersEndAt: 'modifiersEndAt',
   randomWeapon: 'randomWeapon',
-  randomSkill: 'randomSkill'
+  randomSkill: 'randomSkill',
+  nextModifiers: 'nextModifiers'
 };
 
 exports.Prisma.BannedWordScalarFieldEnum = {
