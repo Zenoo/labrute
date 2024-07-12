@@ -1,4 +1,4 @@
-import { BrutesGetLevelUpChoicesResponse, getFinalHP, getXPNeeded, skills, weapons } from '@labrute/core';
+import { BrutesGetLevelUpChoicesResponse, getFinalHP, getFinalStat, getXPNeeded, skills, weapons } from '@labrute/core';
 import { BruteStat, DestinyChoiceSide, PetName, SkillName, WeaponName } from '@labrute/prisma';
 import { Box, Alert as MuiAlert, Paper, Stack, useMediaQuery, useTheme } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -85,11 +85,11 @@ const LevelUpView = () => {
         <Text bold sx={{ display: 'inline-block', ml: 1, color: StatColor.endurance }}>{t('healthPoints')}</Text>
       </Box>
       {/* STRENGTH */}
-      <CellStats value={brute.strengthValue} stat="strength" />
+      <CellStats value={getFinalStat(brute, 'strength', randomSkill)} stat="strength" />
       {/* AGILITY */}
-      <CellStats value={brute.agilityValue} stat="agility" />
+      <CellStats value={getFinalStat(brute, 'agility', randomSkill)} stat="agility" />
       {/* SPEED */}
-      <CellStats value={brute.speedValue} stat="speed" />
+      <CellStats value={getFinalStat(brute, 'speed', randomSkill)} stat="speed" />
     </>
   );
 

@@ -1,31 +1,27 @@
-import { Brute, SkillName } from '@labrute/prisma';
+import { Brute } from '@labrute/prisma';
 import applySkillModifiers from './applySkillModifiers';
 import { getHP } from './getHP';
 import { getTempSkill } from './getTempSkill';
 
-type BruteStats = Pick<Brute, 'skills' | 'enduranceStat' | 'enduranceModifier' | 'enduranceValue' | 'strengthStat' | 'strengthModifier' | 'agilityStat' | 'agilityModifier' | 'speedStat' | 'speedModifier' | 'level'>;
+type BruteStats = Pick<Brute, 'skills' | 'enduranceStat' | 'enduranceModifier' | 'enduranceValue' | 'strengthStat' | 'strengthModifier' | 'strengthValue' | 'agilityValue' | 'agilityStat' | 'agilityModifier' | 'speedValue' | 'speedStat' | 'speedModifier' | 'level'>;
 
-export const getFinalEndurance = (
+export const getFinalStat = (
   brute: BruteStats,
+  stat: 'endurance' | 'strength' | 'agility' | 'speed',
   randomSkillIndex: number | null,
 ) => {
   const randomSkill = getTempSkill(brute, randomSkillIndex);
 
-  // No random skill, return normal endurance
+  // No random skill, return normal stat
   if (!randomSkill) {
-    return brute.enduranceValue;
-  }
-
-  // Skill does not affect endurance, return normal endurance
-  if (randomSkill !== SkillName.vitality && randomSkill !== SkillName.immortality) {
-    return brute.enduranceValue;
+    return brute[`${stat}Value`];
   }
 
   // Apply skill modifiers
   const newBrute = applySkillModifiers(brute, randomSkill);
 
-  // Return new endurance
-  return Math.floor(newBrute.enduranceStat * newBrute.enduranceModifier);
+  // Return new stat
+  return Math.floor(newBrute[`${stat}Stat`] * newBrute[`${stat}Modifier`]);
 };
 
 export const getFinalHP = (
@@ -36,11 +32,6 @@ export const getFinalHP = (
 
   // No random skill, return normal HP
   if (!randomSkill) {
-    return getHP(brute.level, brute.enduranceValue);
-  }
-
-  // Skill does not affect HP, return normal HP
-  if (randomSkill !== SkillName.vitality && randomSkill !== SkillName.immortality) {
     return getHP(brute.level, brute.enduranceValue);
   }
 

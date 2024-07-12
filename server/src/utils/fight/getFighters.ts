@@ -2,7 +2,7 @@
 import {
   BARE_HANDS_DAMAGE,
   BruteRanking,
-  DetailedFighter, getFinalHP, getPetStat,
+  DetailedFighter, getFinalHP, getFinalStat, getPetStat,
   getTempSkill,
   getTempWeapon,
   pets, randomBetween, SHIELD_BLOCK_ODDS, skills, weapons,
@@ -203,6 +203,7 @@ const getFighters = async (
       }
 
       const bruteHP = getFinalHP(brute, randomSkillIndex);
+      const bruteSpeed = getFinalStat(brute, 'speed', randomSkillIndex);
 
       // Brute stats
       positiveIndex++;
@@ -219,11 +220,11 @@ const getFighters = async (
         type: 'brute' as const,
         maxHp: bruteHP,
         hp: bruteHP,
-        strength: brute.strengthValue,
-        agility: brute.agilityValue,
-        speed: brute.speedValue,
+        strength: getFinalStat(brute, 'strength', randomSkillIndex),
+        agility: getFinalStat(brute, 'agility', randomSkillIndex),
+        speed: bruteSpeed,
         initiative: randomBetween(0, 10) / 100,
-        tempo: getTempo(brute.speedValue),
+        tempo: getTempo(bruteSpeed),
         baseDamage: BARE_HANDS_DAMAGE,
         counter: 0,
         combo: 0,
@@ -337,6 +338,7 @@ const getFighters = async (
         const arrivesAt = randomBetween(1, 500) / 100;
 
         const backupHP = getFinalHP(backup, randomSkillIndex);
+        const backupSpeed = getFinalStat(backup, 'speed', randomSkillIndex);
 
         spawnedPets++;
         const backupFighter: DetailedFighter = {
@@ -355,11 +357,11 @@ const getFighters = async (
           leavesAtInitiative: arrivesAt + 2.8,
           maxHp: backupHP,
           hp: backupHP,
-          strength: backup.strengthValue,
-          agility: backup.agilityValue,
-          speed: backup.speedValue,
+          strength: getFinalStat(backup, 'strength', randomSkillIndex),
+          agility: getFinalStat(backup, 'agility', randomSkillIndex),
+          speed: backupSpeed,
           initiative: arrivesAt,
-          tempo: getTempo(backup.speedValue),
+          tempo: getTempo(backupSpeed),
           baseDamage: BARE_HANDS_DAMAGE,
           counter: 0,
           combo: 0,

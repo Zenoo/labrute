@@ -1,4 +1,4 @@
-import { FightStat, getFinalHP } from '@labrute/core';
+import { FightStat, getFinalHP, getFinalStat } from '@labrute/core';
 import { Brute } from '@labrute/prisma';
 import { Box } from '@mui/material';
 import { BoxProps } from '@mui/system';
@@ -94,17 +94,17 @@ const BruteButton = ({
           <Box flexGrow={1} sx={{ ml: 0.5 }}>
             <ArenaStat
               stat={FightStat.STRENGTH}
-              value={brute.strengthValue}
+              value={getFinalStat(brute, 'strength', randomSkill)}
               hideSkillText
             />
             <ArenaStat
               stat={FightStat.AGILITY}
-              value={brute.agilityValue}
+              value={getFinalStat(brute, 'agility', randomSkill)}
               hideSkillText
             />
             <ArenaStat
               stat={FightStat.SPEED}
-              value={brute.speedValue}
+              value={getFinalStat(brute, 'speed', randomSkill)}
               hideSkillText
             />
           </Box>

@@ -1,4 +1,4 @@
-import { FightStat, Fighter, SkillById, getFinalHP, skills } from '@labrute/core';
+import { FightStat, Fighter, SkillById, getFinalHP, getFinalStat, skills } from '@labrute/core';
 import { Brute } from '@labrute/prisma';
 import { Box, SxProps, Tooltip, TooltipProps } from '@mui/material';
 import React from 'react';
@@ -49,6 +49,18 @@ const BruteTooltip = ({
 
   const target = fighter?.level ? fighter : brute;
   const ranking = fighter ? fighter.rank : brute?.ranking;
+  const hp = fighter
+    ? fighter.hp
+    : brute ? getFinalHP(brute, randomSkill) : 0;
+  const strength = fighter
+    ? fighter.strength
+    : brute ? getFinalStat(brute, 'strength', randomSkill) : 0;
+  const agility = fighter
+    ? fighter.agility
+    : brute ? getFinalStat(brute, 'agility', randomSkill) : 0;
+  const speed = fighter
+    ? fighter.speed
+    : brute ? getFinalStat(brute, 'speed', randomSkill) : 0;
 
   return (
     <Tooltip
@@ -78,21 +90,21 @@ const BruteTooltip = ({
             />
           </Text>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <BruteHP hp={fighter ? target.hp : brute ? getFinalHP(brute, randomSkill) : 0} />
+            <BruteHP hp={hp} />
             <Box flexGrow={1} sx={{ ml: 0.5 }}>
               <ArenaStat
                 stat={FightStat.STRENGTH}
-                value={fighter?.strength || brute?.strengthValue || 0}
+                value={strength}
                 hideSkillText={hideSkillText}
               />
               <ArenaStat
                 stat={FightStat.AGILITY}
-                value={fighter?.agility || brute?.agilityValue || 0}
+                value={agility}
                 hideSkillText={hideSkillText}
               />
               <ArenaStat
                 stat={FightStat.SPEED}
-                value={fighter?.speed || brute?.speedValue || 0}
+                value={speed}
                 hideSkillText={hideSkillText}
               />
             </Box>

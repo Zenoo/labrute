@@ -1,4 +1,4 @@
-import { FightStat, MAX_FAVORITE_BRUTES, getFightsLeft, getFinalHP } from '@labrute/core';
+import { FightStat, MAX_FAVORITE_BRUTES, getFightsLeft, getFinalHP, getFinalStat } from '@labrute/core';
 import { Brute } from '@labrute/prisma';
 import { Check, CrisisAlert, Stars } from '@mui/icons-material';
 import { Box, Paper, Tooltip, useTheme } from '@mui/material';
@@ -157,17 +157,17 @@ const HallView = () => {
                 <Box flexGrow={1} sx={{ ml: 0.5 }}>
                   <ArenaStat
                     stat={FightStat.STRENGTH}
-                    value={brute.strengthValue}
+                    value={getFinalStat(brute, 'strength', randomSkill)}
                     hideSkillText
                   />
                   <ArenaStat
                     stat={FightStat.AGILITY}
-                    value={brute.agilityValue}
+                    value={getFinalStat(brute, 'agility', randomSkill)}
                     hideSkillText
                   />
                   <ArenaStat
                     stat={FightStat.SPEED}
-                    value={brute.speedValue}
+                    value={getFinalStat(brute, 'speed', randomSkill)}
                     hideSkillText
                   />
                 </Box>

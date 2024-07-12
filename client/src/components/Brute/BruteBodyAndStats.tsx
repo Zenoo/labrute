@@ -7,7 +7,7 @@ import Text from '../Text';
 import BruteRender from './Body/BruteRender';
 import BruteHP from './BruteHP';
 import { Brute } from '@labrute/prisma';
-import { getFinalEndurance, getFinalHP, readableHPFormula } from '@labrute/core';
+import { getFinalHP, getFinalStat, readableHPFormula } from '@labrute/core';
 import { useAuth } from '../../hooks/useAuth';
 
 interface BruteBodyAndStatsProps extends BoxProps {
@@ -43,7 +43,7 @@ const BruteBodyAndStats = ({
           <>
             <code>{readableHPFormula(t('level'), t('endurance'))}</code>
             <Divider />
-            <code>{readableHPFormula(brute.level, getFinalEndurance(brute, randomSkill))}</code>
+            <code>{readableHPFormula(brute.level, getFinalStat(brute, 'endurance', randomSkill))}</code>
           </>
         )}
         >
@@ -53,11 +53,11 @@ const BruteBodyAndStats = ({
           </Box>
         </Tooltip>
         {/* STRENGTH */}
-        <CellStats value={brute.strengthValue} stat="strength" />
+        <CellStats value={getFinalStat(brute, 'strength', randomSkill)} stat="strength" />
         {/* AGILITY */}
-        <CellStats value={brute.agilityValue} stat="agility" />
+        <CellStats value={getFinalStat(brute, 'agility', randomSkill)} stat="agility" />
         {/* SPEED */}
-        <CellStats value={brute.speedValue} stat="speed" />
+        <CellStats value={getFinalStat(brute, 'speed', randomSkill)} stat="speed" />
       </Stack>
     </Box>
   );
