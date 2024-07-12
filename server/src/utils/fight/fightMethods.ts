@@ -1302,7 +1302,7 @@ const reversal = (opponent: DetailedFighter, blocked: boolean) => {
 
   let reversalStat = getFighterStat(opponent, 'reversal');
 
-  // Special case for reversal with counterAttack (+90%)
+  // Special case when blocking with counterAttack (+90%)
   if (blocked && opponent.skills.find((sk) => sk.name === SkillName.counterAttack)) {
     reversalStat += 0.9;
   }
