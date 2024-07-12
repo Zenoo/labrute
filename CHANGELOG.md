@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.65.0](https://github.com/Zenoo/labrute/compare/labrute-v2.64.1...labrute-v2.65.0) (2024-07-12)
+
+
+### Features
+
+* Admin panel to force next modifiers. Fixes [#807](https://github.com/Zenoo/labrute/issues/807) ([deb828f](https://github.com/Zenoo/labrute/commit/deb828f9b47017fd9bffa7dd39b843221a20e31b))
+
+
+### Bug Fixes
+
+* Apply hp changes from temp skill. [#806](https://github.com/Zenoo/labrute/issues/806) ([0e603d0](https://github.com/Zenoo/labrute/commit/0e603d07ebac0579b3fe8c031ea5f8687b25297a))
+* Apply temporary boosters. Fixes [#806](https://github.com/Zenoo/labrute/issues/806) ([e618428](https://github.com/Zenoo/labrute/commit/e6184282b43dca58af31ef30a6e61ec13099f4d3))
+
 ## [2.64.1](https://github.com/Zenoo/labrute/compare/labrute-v2.64.0...labrute-v2.64.1) (2024-07-11)
 
 
