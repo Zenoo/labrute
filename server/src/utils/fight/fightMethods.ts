@@ -1329,6 +1329,7 @@ const attack = (
   opponent: DetailedFighter,
   stats: Stats,
   achievements: AchievementsStore,
+  isCounter = false,
 ) => {
   // Abort if fighter is dead
   if (fighter.hp <= 0) return { blocked: false };
@@ -1476,7 +1477,7 @@ const attack = (
   }
 
   // Randomly trigger another attack if the fighter has `determination`
-  if (!damage && fighter.determination && Math.random() < 0.7) {
+  if (!isCounter && !damage && fighter.determination && Math.random() < 0.7) {
     fighter.retryAttack = true;
   }
 
@@ -1545,7 +1546,10 @@ const startAttack = (
   };
 
   // Trigger fighter attack
-  const { blocked, reversed } = attack(fightData, fighter, opponent, stats, achievements);
+  const {
+    blocked,
+    reversed,
+  } = attack(fightData, fighter, opponent, stats, achievements, isCounter);
 
   // Keep track of attack status
   if (blocked) attackResult.blocked = true;
