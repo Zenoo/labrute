@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.65.1](https://github.com/Zenoo/labrute/compare/labrute-v2.65.0...labrute-v2.65.1) (2024-07-12)
+
+
+### Bug Fixes
+
+* Brute socials display density ([2f6369d](https://github.com/Zenoo/labrute/commit/2f6369df0128b953c8dfe0370a162b8cbb798caa))
+
 ## [2.65.0](https://github.com/Zenoo/labrute/compare/labrute-v2.64.1...labrute-v2.65.0) (2024-07-12)
 
 
