@@ -72,11 +72,6 @@ const getFighterStat = (
     }
   }
 
-  // Special case for reversal with counterAttack and shield (+90%)
-  if (stat === 'reversal' && fighter.skills.find((sk) => sk.name === SkillName.counterAttack) && fighter.shield) {
-    total += 0.9;
-  }
-
   return total;
 };
 
@@ -1302,10 +1297,17 @@ const disarmAttacker = (fighter: DetailedFighter, opponent: DetailedFighter) => 
   return Math.random() < 0.3;
 };
 
-const reversal = (opponent: DetailedFighter) => {
+const reversal = (opponent: DetailedFighter, blocked: boolean) => {
   const random = Math.random();
 
-  return random < getFighterStat(opponent, 'reversal');
+  let reversalStat = getFighterStat(opponent, 'reversal');
+
+  // Special case for reversal with counterAttack (+90%)
+  if (blocked && opponent.skills.find((sk) => sk.name === SkillName.counterAttack)) {
+    reversalStat += 0.9;
+  }
+
+  return random < reversalStat;
 };
 
 const deflectProjectile = (fighter: DetailedFighter) => {
@@ -1481,7 +1483,7 @@ const attack = (
     fighter.retryAttack = true;
   }
 
-  const reversed = reversal(opponent);
+  const reversed = reversal(opponent, blocked);
 
   return {
     blocked: !evaded && blocked,
