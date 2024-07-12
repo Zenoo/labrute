@@ -1,4 +1,4 @@
-import { FightStat, Fighter, SkillById, skills } from '@labrute/core';
+import { FightStat, Fighter, SkillById, getFinalHP, skills } from '@labrute/core';
 import { Brute } from '@labrute/prisma';
 import { Box, SxProps, Tooltip, TooltipProps } from '@mui/material';
 import React from 'react';
@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import ArenaStat from '../Arena/ArenaStat';
 import Text from '../Text';
 import BruteHP from './BruteHP';
+import { useAuth } from '../../hooks/useAuth';
 
 interface BruteTooltipProps extends Omit<TooltipProps, 'title'> {
   brute?: Pick<
@@ -13,9 +14,19 @@ interface BruteTooltipProps extends Omit<TooltipProps, 'title'> {
     'name' |
     'hp' |
     'level' |
+    'enduranceStat' |
+    'enduranceModifier' |
+    'enduranceValue' |
+    'strengthStat' |
+    'strengthModifier' |
     'strengthValue' |
+    'agilityStat' |
+    'agilityModifier' |
     'agilityValue' |
+    'speedStat' |
+    'speedModifier' |
     'speedValue' |
+    'skills' |
     'ranking'
   >;
   fighter?: Fighter | null;
@@ -34,6 +45,7 @@ const BruteTooltip = ({
   ...rest
 }: BruteTooltipProps) => {
   const { t } = useTranslation();
+  const { randomSkill } = useAuth();
 
   const target = fighter?.level ? fighter : brute;
   const ranking = fighter ? fighter.rank : brute?.ranking;
@@ -66,7 +78,7 @@ const BruteTooltip = ({
             />
           </Text>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <BruteHP hp={target.hp} />
+            <BruteHP hp={fighter ? target.hp : brute ? getFinalHP(brute, randomSkill) : 0} />
             <Box flexGrow={1} sx={{ ml: 0.5 }}>
               <ArenaStat
                 stat={FightStat.STRENGTH}

@@ -1,4 +1,4 @@
-import { FightStat, MAX_FAVORITE_BRUTES, getFightsLeft } from '@labrute/core';
+import { FightStat, MAX_FAVORITE_BRUTES, getFightsLeft, getFinalHP } from '@labrute/core';
 import { Brute } from '@labrute/prisma';
 import { Check, CrisisAlert, Stars } from '@mui/icons-material';
 import { Box, Paper, Tooltip, useTheme } from '@mui/material';
@@ -19,7 +19,7 @@ import catchError from '../utils/catchError';
 const HallView = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { user, updateData } = useAuth();
+  const { user, updateData, randomSkill } = useAuth();
   const Alert = useAlert();
   const { palette: { mode } } = useTheme();
 
@@ -153,7 +153,7 @@ const HallView = () => {
                 <Text component="span" bold color="secondary"> {brute.level}</Text>
               </Text>
               <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
-                <BruteHP hp={brute.hp} />
+                <BruteHP hp={getFinalHP(brute, randomSkill)} />
                 <Box flexGrow={1} sx={{ ml: 0.5 }}>
                   <ArenaStat
                     stat={FightStat.STRENGTH}

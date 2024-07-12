@@ -1,10 +1,10 @@
-import { weapons as detailedWeapons } from '@labrute/core';
+import { weapons as detailedWeapons, getTempWeapon } from '@labrute/core';
 import { WeaponName } from '@labrute/prisma';
 import { Box, BoxProps } from '@mui/material';
 import React, { useCallback, useMemo, useState } from 'react';
+import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
 import WeaponTooltip from '../Brute/WeaponTooltip';
-import { useAuth } from '../../hooks/useAuth';
 
 const weaponSvgProps: Record<WeaponName, {
   id: string;
@@ -60,10 +60,8 @@ const CellWeapons = (props: BoxProps) => {
   }, [brute]);
 
   const randomWeapon = useMemo(
-    () => (randomWeaponIndex === null
-      ? null
-      : unownedWeapons[randomWeaponIndex % unownedWeapons.length]),
-    [randomWeaponIndex, unownedWeapons]
+    () => (brute ? getTempWeapon(brute, randomWeaponIndex) : null),
+    [brute, randomWeaponIndex]
   );
 
   return brute && (

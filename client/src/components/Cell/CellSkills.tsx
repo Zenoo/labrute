@@ -1,9 +1,9 @@
-import { skills } from '@labrute/core';
+import { getTempSkill, skills } from '@labrute/core';
 import { Box, Grid, PaperProps } from '@mui/material';
 import React, { useMemo } from 'react';
+import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
 import SkillTooltip from '../Brute/SkillTooltip';
-import { useAuth } from '../../hooks/useAuth';
 
 const CellSkills = ({
   sx,
@@ -12,16 +12,9 @@ const CellSkills = ({
   const { brute } = useBrute();
   const { randomSkill: randomSkillIndex } = useAuth();
 
-  const unownedSkills = useMemo(
-    () => skills.filter((skill) => !brute?.skills.includes(skill.name)),
-    [brute]
-  );
-
   const randomSkill = useMemo(
-    () => (randomSkillIndex === null
-      ? null
-      : unownedSkills[randomSkillIndex % unownedSkills.length]),
-    [randomSkillIndex, unownedSkills]
+    () => (brute ? getTempSkill(brute, randomSkillIndex) : null),
+    [brute, randomSkillIndex]
   );
 
   return brute && (
@@ -33,7 +26,7 @@ const CellSkills = ({
           key={skill.name}
           sx={{
             opacity: (brute.skills.includes(skill.name)
-              || randomSkill?.name === skill.name)
+              || randomSkill === skill.name)
               ? 1
               : 0.4
           }}
@@ -44,7 +37,7 @@ const CellSkills = ({
               src={`/images/skills/${skill.name}.svg`}
               sx={{
                 boxShadow: 4,
-                filter: randomSkill?.name === skill.name ? 'drop-shadow(0 0 5px #ee82ee)' : 'none',
+                filter: randomSkill === skill.name ? 'drop-shadow(0 0 5px #ee82ee)' : 'none',
               }}
             />
           </SkillTooltip>

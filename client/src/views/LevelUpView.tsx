@@ -1,4 +1,4 @@
-import { BrutesGetLevelUpChoicesResponse, getXPNeeded, skills, weapons } from '@labrute/core';
+import { BrutesGetLevelUpChoicesResponse, getFinalHP, getXPNeeded, skills, weapons } from '@labrute/core';
 import { BruteStat, DestinyChoiceSide, PetName, SkillName, WeaponName } from '@labrute/prisma';
 import { Box, Alert as MuiAlert, Paper, Stack, useMediaQuery, useTheme } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -23,7 +23,7 @@ import catchError from '../utils/catchError';
 const LevelUpView = () => {
   const { t } = useTranslation();
   const { bruteName } = useParams();
-  const { user, updateData } = useAuth();
+  const { user, updateData, randomSkill } = useAuth();
   const navigate = useNavigate();
   const Alert = useAlert();
   const smallScreen = useMediaQuery('(max-width: 638px)');
@@ -81,7 +81,7 @@ const LevelUpView = () => {
     <>
       {/* HP */}
       <Box>
-        <BruteHP hp={brute.hp} />
+        <BruteHP hp={getFinalHP(brute, randomSkill)} />
         <Text bold sx={{ display: 'inline-block', ml: 1, color: StatColor.endurance }}>{t('healthPoints')}</Text>
       </Box>
       {/* STRENGTH */}

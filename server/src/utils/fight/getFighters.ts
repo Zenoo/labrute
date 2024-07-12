@@ -2,7 +2,9 @@
 import {
   BARE_HANDS_DAMAGE,
   BruteRanking,
-  DetailedFighter, getPetStat,
+  DetailedFighter, getFinalHP, getPetStat,
+  getTempSkill,
+  getTempWeapon,
   pets, randomBetween, SHIELD_BLOCK_ODDS, skills, weapons,
 } from '@labrute/core';
 import { Boss } from '@labrute/core/src/brute/bosses.js';
@@ -141,6 +143,7 @@ const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
 };
 
 const handleModifiers = (
+  brute: Brute,
   fighter: DetailedFighter,
   modifiers: FightModifier[],
   randomWeaponIndex: number | null,
@@ -150,36 +153,30 @@ const handleModifiers = (
     fighter.agility *= 2;
   }
 
-  if (modifiers.includes(FightModifier.randomWeapon)) {
-    if (randomWeaponIndex === null) {
+  const randomWeaponName = getTempWeapon(brute, randomWeaponIndex);
+
+  if (randomWeaponName) {
+    const randomWeapon = weapons.find((weapon) => weapon.name === randomWeaponName);
+
+    if (!randomWeapon) {
       throw new Error('Random weapon not found');
     }
 
-    const unownedWeapons = weapons.filter((weapon) => !fighter.weapons.some(
-      (w) => w.name === weapon.name,
-    ));
-
-    const randomWeapon = unownedWeapons[randomWeaponIndex % unownedWeapons.length];
-
-    if (randomWeapon) {
-      fighter.weapons.push(randomWeapon);
-    }
+    brute.weapons.push(randomWeaponName);
+    fighter.weapons.push({ ...randomWeapon });
   }
 
-  if (modifiers.includes(FightModifier.randomSkill)) {
-    if (randomSkillIndex === null) {
+  const randomSkillName = getTempSkill(brute, randomSkillIndex);
+
+  if (randomSkillName) {
+    const randomSkill = skills.find((skill) => skill.name === randomSkillName);
+
+    if (!randomSkill) {
       throw new Error('Random skill not found');
     }
 
-    const unownedSkills = skills.filter((skill) => !fighter.skills.some(
-      (s) => s.name === skill.name,
-    ));
-
-    const randomSkill = unownedSkills[randomSkillIndex % unownedSkills.length];
-
-    if (randomSkill) {
-      fighter.skills.push(randomSkill);
-    }
+    brute.skills.push(randomSkillName);
+    fighter.skills.push({ ...randomSkill });
   }
 };
 
@@ -205,6 +202,8 @@ const getFighters = async (
         throw new Error('Brute body or colors are missing');
       }
 
+      const bruteHP = getFinalHP(brute, randomSkillIndex);
+
       // Brute stats
       positiveIndex++;
       const fighter: DetailedFighter = {
@@ -218,8 +217,8 @@ const getFighters = async (
         rank: brute.ranking as BruteRanking,
         level: brute.level,
         type: 'brute' as const,
-        maxHp: brute.hp,
-        hp: brute.hp,
+        maxHp: bruteHP,
+        hp: bruteHP,
         strength: brute.strengthValue,
         agility: brute.agilityValue,
         speed: brute.speedValue,
@@ -262,8 +261,8 @@ const getFighters = async (
         hitBy: {},
       };
 
+      handleModifiers(brute, fighter, modifiers, randomWeaponIndex, randomSkillIndex);
       handleSkills(brute, fighter);
-      handleModifiers(fighter, modifiers, randomWeaponIndex, randomSkillIndex);
 
       fighters.push(fighter);
 
@@ -337,6 +336,8 @@ const getFighters = async (
         // Arrives at a random time
         const arrivesAt = randomBetween(1, 500) / 100;
 
+        const backupHP = getFinalHP(backup, randomSkillIndex);
+
         spawnedPets++;
         const backupFighter: DetailedFighter = {
           id: `${-spawnedPets}`,
@@ -352,8 +353,8 @@ const getFighters = async (
           master: brute.id,
           arrivesAtInitiative: arrivesAt,
           leavesAtInitiative: arrivesAt + 2.8,
-          maxHp: backup.hp,
-          hp: backup.hp,
+          maxHp: backupHP,
+          hp: backupHP,
           strength: backup.strengthValue,
           agility: backup.agilityValue,
           speed: backup.speedValue,
@@ -395,8 +396,8 @@ const getFighters = async (
           hitBy: {},
         };
 
+        handleModifiers(backup, backupFighter, modifiers, randomWeaponIndex, randomSkillIndex);
         handleSkills(backup, backupFighter);
-        handleModifiers(backupFighter, modifiers, randomWeaponIndex, randomSkillIndex);
 
         // Reset initiative to arrive at the desired time
         backupFighter.initiative = arrivesAt;

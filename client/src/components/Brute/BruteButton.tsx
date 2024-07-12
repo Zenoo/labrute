@@ -1,18 +1,19 @@
-import { FightStat } from '@labrute/core';
+import { FightStat, getFinalHP } from '@labrute/core';
 import { Brute } from '@labrute/prisma';
 import { Box } from '@mui/material';
+import { BoxProps } from '@mui/system';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
+import { useAuth } from '../../hooks/useAuth';
 import ArenaStat from '../Arena/ArenaStat';
 import StyledButton from '../StyledButton';
 import Text from '../Text';
 import BruteRender from './Body/BruteRender';
 import BruteHP from './BruteHP';
-import { BoxProps } from '@mui/system';
 
 type BruteButtonProps = Omit<BoxProps, 'ref'> & {
-  brute: Pick<Brute, 'id' | 'gender' | 'name' | 'speedValue' | 'agilityValue' | 'strengthValue' | 'level' | 'hp' | 'ranking' | 'body' | 'colors'>;
+  brute: Pick<Brute, 'id' | 'gender' | 'name' | 'speedValue' | 'agilityValue' | 'strengthValue' | 'enduranceStat' | 'enduranceModifier' | 'enduranceValue' | 'strengthStat' | 'strengthModifier' | 'agilityStat' | 'agilityModifier' | 'speedStat' | 'speedModifier' | 'level' | 'hp' | 'ranking' | 'body' | 'colors' |'skills'>;
   link?: string;
 };
 
@@ -24,6 +25,7 @@ const BruteButton = ({
 }: BruteButtonProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { randomSkill } = useAuth();
 
   const goTo = () => {
     if (link === null) return;
@@ -88,7 +90,7 @@ const BruteButton = ({
           />
         </Text>
         <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
-          <BruteHP hp={brute.hp} />
+          <BruteHP hp={getFinalHP(brute, randomSkill)} />
           <Box flexGrow={1} sx={{ ml: 0.5 }}>
             <ArenaStat
               stat={FightStat.STRENGTH}

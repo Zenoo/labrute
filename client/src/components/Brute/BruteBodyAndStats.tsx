@@ -7,7 +7,8 @@ import Text from '../Text';
 import BruteRender from './Body/BruteRender';
 import BruteHP from './BruteHP';
 import { Brute } from '@labrute/prisma';
-import { readableHPFormula } from '@labrute/core';
+import { getFinalEndurance, getFinalHP, readableHPFormula } from '@labrute/core';
+import { useAuth } from '../../hooks/useAuth';
 
 interface BruteBodyAndStatsProps extends BoxProps {
   brute: Brute;
@@ -20,6 +21,7 @@ const BruteBodyAndStats = ({
   ...rest
 }: BruteBodyAndStatsProps) => {
   const { t } = useTranslation();
+  const { randomSkill } = useAuth();
 
   return (
     <Box
@@ -41,12 +43,12 @@ const BruteBodyAndStats = ({
           <>
             <code>{readableHPFormula(t('level'), t('endurance'))}</code>
             <Divider />
-            <code>{readableHPFormula(brute.level, brute.enduranceValue)}</code>
+            <code>{readableHPFormula(brute.level, getFinalEndurance(brute, randomSkill))}</code>
           </>
         )}
         >
           <Box>
-            <BruteHP hp={brute.hp} />
+            <BruteHP hp={getFinalHP(brute, randomSkill)} />
             <Text bold sx={{ display: 'inline-block', ml: 1, color: StatColor.endurance }}>{t('healthPoints')}</Text>
           </Box>
         </Tooltip>

@@ -1,6 +1,6 @@
 import { Brute, SkillName } from '@labrute/prisma';
 
-type BruteStats = Pick<Brute, 'enduranceStat' | 'enduranceModifier' | 'enduranceValue' | 'strengthStat' | 'strengthModifier' | 'strengthValue' | 'agilityStat' | 'agilityModifier' | 'agilityValue' | 'speedStat' | 'speedModifier' | 'speedValue'>;
+type BruteStats = Pick<Brute, 'enduranceStat' | 'enduranceModifier' | 'strengthStat' | 'strengthModifier' | 'agilityStat' | 'agilityModifier' | 'speedStat' | 'speedModifier'>;
 
 const applySkillModifiers = <T extends BruteStats>(brute: T, skill: SkillName) => {
   const updatedBrute = { ...brute };

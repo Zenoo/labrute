@@ -28,33 +28,36 @@ import promiseBatch from './utils/promiseBatch';
 import randomBetween from './utils/randomBetween';
 import weightedRandom from './utils/weightedRandom';
 
-export * from './brute/getHP';
 export * from './Achievements';
 export * from './Titles';
+export * from './brute/colors';
+export * from './brute/getFinalStats';
+export * from './brute/getHP';
+export * from './brute/getRandomStartingStats';
+export * from './brute/getTempSkill';
+export * from './brute/getTempWeapon';
+export * from './brute/getWinsNeededToRankUp';
+export * from './brute/parsers';
 export * from './brute/pets';
 export * from './brute/skills';
 export * from './brute/weapons';
 export * from './constants';
-export * from './types';
-export * from './brute/parsers';
-export * from './brute/colors';
-export * from './brute/getWinsNeededToRankUp';
-export * from './brute/getRandomStartingStats';
-export * from './utils/isUuid';
-export * from './utils/randomItem';
 export * from './fight/backgrounds';
 export * from './releases';
+export * from './types';
+export * from './utils/isUuid';
+export * from './utils/randomItem';
 export {
-  Boss, ExpectedError, Version, adjustColor, applySkillModifiers,
-  availableBodyParts, bosses, canLevelUp,
-  createRandomBruteStats, formatLargeNumber, getBruteGoldValue,
+  adjustColor, applySkillModifiers,
+  availableBodyParts, Boss, bosses, canLevelUp,
+  createRandomBruteStats, ExpectedError, formatLargeNumber, getBruteGoldValue,
   getFightsLeft, getGoldNeededForNewBrute,
   getLevelUpChoices,
   getMaxFightsPerDay,
   getRandomBody,
   getRandomBonus,
   getRandomColors, getXPNeeded, hexToRgba, isNameValid, pad, promiseBatch, randomBetween, skills,
-  updateBruteData, weapons,
+  updateBruteData, Version, weapons,
   weightedRandom
 };
 
@@ -75,7 +78,20 @@ export type BrutesGetRankingResponse = {
   ranking: number,
 };
 export type BrutesGetForVersusResponse = Pick<Brute, 'id' | 'name' | 'body' | 'colors' | 'gender' | 'level'>;
-export type BrutesGetOpponentsResponse = Pick<Brute, 'id' | 'name' | 'ranking' | 'gender' | 'level' | 'deletedAt' | 'hp' | 'strengthValue' | 'agilityValue' | 'speedValue' | 'body' | 'colors'>[];
+export type BrutesGetOpponentsResponse = Pick<Brute,
+  'id' | 'name' | 'ranking' | 'gender' | 'level' | 'deletedAt' | 'hp' |
+  'enduranceStat' |
+  'enduranceModifier' |
+  'enduranceValue' |
+  'strengthStat' |
+  'strengthModifier' |
+  'strengthValue' |
+  'agilityStat' |
+  'agilityModifier' |
+  'agilityValue' |
+  'speedStat' |
+  'speedModifier' |
+  'speedValue' | 'body' | 'colors' | 'skills'>[];
 export type BrutesExistsResponse = {
   exists: false
 } | {
@@ -191,13 +207,23 @@ export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang'>
     'name' |
     'gender' |
     'level' |
+    'enduranceStat' |
+    'enduranceModifier' |
+    'enduranceValue' |
+    'strengthStat' |
+    'strengthModifier' |
     'strengthValue' |
+    'agilityStat' |
+    'agilityModifier' |
     'agilityValue' |
+    'speedStat' |
+    'speedModifier' |
     'speedValue' |
     'hp' |
     'ranking' |
     'body' |
-    'colors'
+    'colors' |
+    'skills'
   >[],
   achievements: Pick<Achievement, 'name' | 'count'>[],
 };
