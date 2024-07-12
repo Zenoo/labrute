@@ -1331,5 +1331,7 @@
   "banReason.innapropriateBruteName": "Nombre de bruto inapropiado",
   "banReason.multipleAccounts": "Múltiples cuentas",
   "afterBlock": "después de bloquear",
-  "created": "Creado el {{date}}"
+  "created": "Creado el {{date}}",
+  "copyUserId": "Copy user ID",
+  "userIdCopied": "User ID copied to clipboard."
 }
