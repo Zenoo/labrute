@@ -1332,6 +1332,6 @@
   "banReason.multipleAccounts": "Comptes multiples",
   "afterBlock": "après blocage",
   "created": "Créée le {{date}}",
-  "copyUserId": "Copy user ID",
-  "userIdCopied": "User ID copied to clipboard."
+  "copyUserId": "Copier l'ID utilisateur",
+  "userIdCopied": "ID de l'utilisateur copié dans le presse-papiers."
 }
