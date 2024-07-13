@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.65.5](https://github.com/Zenoo/labrute/compare/labrute-v2.65.4...labrute-v2.65.5) (2024-07-13)
+
+
+### Bug Fixes
+
+* Disable backup from temp skills. Fixes [#817](https://github.com/Zenoo/labrute/issues/817) ([9611628](https://github.com/Zenoo/labrute/commit/96116288f66a1b791aff5ab97b90eafdcdf280d1))
+* Regeneration as a temp skill. Fixes [#816](https://github.com/Zenoo/labrute/issues/816) ([0ce599f](https://github.com/Zenoo/labrute/commit/0ce599f87bf73f04fa1b779448237963a3b045d2))
+* Wrong brute stats with temp booster. ([03ec45d](https://github.com/Zenoo/labrute/commit/03ec45ddc2d4446cb1b5fb7edee68850b134838a))
+
 ## [2.65.4](https://github.com/Zenoo/labrute/compare/labrute-v2.65.3...labrute-v2.65.4) (2024-07-12)
 
 
