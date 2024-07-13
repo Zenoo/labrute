@@ -199,8 +199,13 @@ const getFighters = async (
         throw new Error('Brute body or colors are missing');
       }
 
+      // Fetch brute stats before handling modifiers,
+      // as both depend on the skills, which get modified
       const bruteHP = getFinalHP(brute, randomSkillIndex);
       const bruteSpeed = getFinalStat(brute, 'speed', randomSkillIndex);
+      const bruteStrength = getFinalStat(brute, 'strength', randomSkillIndex);
+      const bruteAgility = getFinalStat(brute, 'agility', randomSkillIndex);
+
       handleModifiers(brute, modifiers, randomWeaponIndex, randomSkillIndex);
 
       // Brute stats
@@ -218,8 +223,8 @@ const getFighters = async (
         type: 'brute' as const,
         maxHp: bruteHP,
         hp: bruteHP,
-        strength: getFinalStat(brute, 'strength', randomSkillIndex),
-        agility: getFinalStat(brute, 'agility', randomSkillIndex),
+        strength: bruteStrength,
+        agility: bruteAgility,
         speed: bruteSpeed,
         initiative: randomBetween(0, 10) / 100,
         tempo: getTempo(bruteSpeed),
@@ -334,8 +339,13 @@ const getFighters = async (
         // Arrives at a random time
         const arrivesAt = randomBetween(1, 500) / 100;
 
+        // Fetch backup stats before handling modifiers,
+        // as both depend on the skills, which get modified
         const backupHP = getFinalHP(backup, randomSkillIndex);
         const backupSpeed = getFinalStat(backup, 'speed', randomSkillIndex);
+        const backupStrength = getFinalStat(backup, 'strength', randomSkillIndex);
+        const backupAgility = getFinalStat(backup, 'agility', randomSkillIndex);
+
         handleModifiers(backup, modifiers, randomWeaponIndex, randomSkillIndex);
 
         spawnedPets++;
@@ -355,8 +365,8 @@ const getFighters = async (
           leavesAtInitiative: arrivesAt + 2.8,
           maxHp: backupHP,
           hp: backupHP,
-          strength: getFinalStat(backup, 'strength', randomSkillIndex),
-          agility: getFinalStat(backup, 'agility', randomSkillIndex),
+          strength: backupStrength,
+          agility: backupAgility,
           speed: backupSpeed,
           initiative: arrivesAt,
           tempo: getTempo(backupSpeed),
