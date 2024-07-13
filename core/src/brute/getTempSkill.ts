@@ -1,5 +1,7 @@
-import { Brute } from '@labrute/prisma';
+import { Brute, SkillName } from '@labrute/prisma';
 import skills from './skills';
+
+const unavailableTemporarySkills: SkillName[] = [SkillName.backup];
 
 export const getTempSkill = (
   brute: Pick<Brute, 'skills'>,
@@ -9,7 +11,8 @@ export const getTempSkill = (
     return null;
   }
 
-  const unownedSkills = skills.filter((skill) => !brute.skills.includes(skill.name));
+  const unownedSkills = skills.filter((skill) => !brute.skills.includes(skill.name)
+    && !unavailableTemporarySkills.includes(skill.name));
 
   const tempSkill = unownedSkills[skillIndex % unownedSkills.length];
 
