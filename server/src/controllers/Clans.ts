@@ -1027,8 +1027,10 @@ const Clans = {
         throw new ExpectedError(translate('bruteNotFound', user));
       }
 
+      const randomSkill = await ServerState.getRandomSkill(prisma);
+
       // Check if the brute has fights left
-      if (getFightsLeft(brute) <= 0) {
+      if (getFightsLeft(brute, randomSkill) <= 0) {
         throw new ExpectedError(translate('noFightsLeft', user));
       }
 
@@ -1061,7 +1063,7 @@ const Clans = {
         where: { id: brute.id },
         data: {
           lastFight: new Date(),
-          fightsLeft: getFightsLeft(brute) - 1,
+          fightsLeft: getFightsLeft(brute, randomSkill) - 1,
         },
         select: { id: true },
       });

@@ -17,6 +17,7 @@ import StyledButton from '../StyledButton';
 import Text from '../Text';
 import CellGlobalTournament from './CellGlobalTournament';
 import CellTournament from './CellTournament';
+import { useAuth } from '../../hooks/useAuth';
 
 export interface CellMainProps extends BoxProps {
   language: Lang;
@@ -36,6 +37,7 @@ const CellMain = ({
   const Confirm = useConfirm();
   const Alert = useAlert();
   const { brute, owner } = useBrute();
+  const { randomSkill } = useAuth();
 
   const xpNeededForNextLevel = useMemo(
     () => (brute ? getXPNeeded(brute.level + 1) : 0),
@@ -43,8 +45,8 @@ const CellMain = ({
   );
 
   const fightsLeft = useMemo(
-    () => (brute ? getFightsLeft(brute) : 0),
-    [brute],
+    () => (brute ? getFightsLeft(brute, randomSkill) : 0),
+    [brute, randomSkill],
   );
 
   // Rank up
@@ -131,7 +133,7 @@ const CellMain = ({
       ) : (
         <Box sx={{ textAlign: 'center' }}>
           <Text bold color="error">{t('bruteIsResting', { brute: brute.name })}</Text>
-          <Text color="error">{t('newFightsTomorrow', { amount: getMaxFightsPerDay(brute) })}</Text>
+          <Text color="error">{t('newFightsTomorrow', { amount: getMaxFightsPerDay(brute, randomSkill) })}</Text>
         </Box>
       ) : (
         <FantasyButton color="success" to={`/${brute.name}/level-up`}>

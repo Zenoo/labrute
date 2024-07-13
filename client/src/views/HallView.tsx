@@ -24,7 +24,7 @@ const HallView = () => {
   const { palette: { mode } } = useTheme();
 
   const fightsLeft = useMemo(() => user && user.brutes
-    .reduce((acc, brute) => acc + getFightsLeft(brute), 0), [user]);
+    .reduce((acc, brute) => acc + getFightsLeft(brute, randomSkill), 0), [user, randomSkill]);
 
   // Go to cell page
   const goToCell = useCallback((bruteName: string) => () => {
@@ -187,7 +187,7 @@ const HallView = () => {
               </Box>
             </Box>
             {/* Fights left */}
-            <Tooltip title={t('fightsLeft', { value: getFightsLeft(brute) })}>
+            <Tooltip title={t('fightsLeft', { value: getFightsLeft(brute, randomSkill) })}>
               <Box sx={{
                 display: 'flex',
                 justifyContent: 'center',
@@ -197,7 +197,7 @@ const HallView = () => {
                 zIndex: 1,
               }}
               >
-                {new Array(getFightsLeft(brute)).fill(0).map((_, i) => (
+                {new Array(getFightsLeft(brute, randomSkill)).fill(0).map((_, i) => (
                   <CrisisAlert
                     // eslint-disable-next-line react/no-array-index-key
                     key={i}

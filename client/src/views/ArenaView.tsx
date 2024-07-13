@@ -14,6 +14,7 @@ import { useAlert } from '../hooks/useAlert';
 import { useBrute } from '../hooks/useBrute';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
+import { useAuth } from '../hooks/useAuth';
 
 const ArenaView = () => {
   const { t } = useTranslation();
@@ -23,6 +24,7 @@ const ArenaView = () => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
   const { brute } = useBrute();
+  const { randomSkill } = useAuth();
 
   const [opponents, setOpponents] = useState<BrutesGetOpponentsResponse>([]);
   const [search, setSearch] = useState('');
@@ -30,7 +32,10 @@ const ArenaView = () => {
   const xpNeededForNextLevel = useMemo(() => brute
     && getXPNeeded(brute.level + 1), [brute]);
 
-  const fightsLeft = useMemo(() => (brute && getFightsLeft(brute)) ?? 0, [brute]);
+  const fightsLeft = useMemo(
+    () => (brute && getFightsLeft(brute, randomSkill)) ?? 0,
+    [brute, randomSkill]
+  );
 
   // Fetch random opponents
   useEffect(() => {
@@ -94,7 +99,7 @@ const ArenaView = () => {
       }}
       >
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('arena')}</Text>
-        <Text bold color="secondary">{fightsLeft > 1 ? t('youHaveXFightsLeft', { value: getFightsLeft(brute) }) : t('youHaveOneFightLeft')}</Text>
+        <Text bold color="secondary">{fightsLeft > 1 ? t('youHaveXFightsLeft', { value: getFightsLeft(brute, randomSkill) }) : t('youHaveOneFightLeft')}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         <Grid container spacing={1}>

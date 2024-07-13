@@ -36,7 +36,7 @@ const Page = ({
 }: Props) => {
   const { t } = useTranslation();
   const Alert = useAlert();
-  const { authing, user, signout, signin, updateData } = useAuth();
+  const { authing, user, signout, signin, updateData, randomSkill } = useAuth();
   const navigate = useNavigate();
   const { language, setLanguage } = useLanguage();
   const theme = useTheme();
@@ -200,7 +200,7 @@ const Page = ({
             <SpeedDialAction
               key={brute.name}
               icon={(
-                <Badge badgeContent={getFightsLeft(brute)} color="secondary">
+                <Badge badgeContent={getFightsLeft(brute, randomSkill)} color="secondary">
                   <Box sx={{
                     width: 40,
                     height: 40,

@@ -4,8 +4,9 @@ import getMaxFightsPerDay from './getMaxFightsPerDay';
 
 const getFightsLeft = (
   brute: Pick<Brute, 'lastFight' | 'fightsLeft' | 'skills'>,
+  tempSkillIndex: number | null
 ) => (moment.utc(brute.lastFight).isSame(moment.utc(), 'day')
   ? brute.fightsLeft
-  : getMaxFightsPerDay(brute));
+  : getMaxFightsPerDay(brute, tempSkillIndex));
 
 export default getFightsLeft;

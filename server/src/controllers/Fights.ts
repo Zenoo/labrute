@@ -99,11 +99,13 @@ const Fights = {
         throw new ExpectedError(translate('bruteNotFound', user));
       }
 
+      const randomSkill = await ServerState.getRandomSkill(prisma);
+
       // Check if this is an arena fight
       const arenaFight = brute1.opponents.some((opponent) => opponent.name === brute2.name);
 
       // Cancel if brute1 has no fights left
-      if (arenaFight && getFightsLeft(brute1) <= 0) {
+      if (arenaFight && getFightsLeft(brute1, randomSkill) <= 0) {
         throw new ExpectedError(translate('noFightsLeft', user));
       }
 
@@ -113,7 +115,7 @@ const Fights = {
           where: { id: brute1.id },
           data: {
             lastFight: new Date(),
-            fightsLeft: getFightsLeft(brute1) - 1,
+            fightsLeft: getFightsLeft(brute1, randomSkill) - 1,
           },
           select: { id: true },
         });
@@ -235,7 +237,7 @@ const Fights = {
         });
       }
 
-      const fightsLeft = getFightsLeft(brute1);
+      const fightsLeft = getFightsLeft(brute1, randomSkill);
 
       // Send fight id to client
       res.send({

@@ -45,6 +45,7 @@ import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
 import { increaseAchievement } from './Achievements.js';
 import { ilike } from '../utils/ilike.js';
+import ServerState from '../utils/ServerState.js';
 
 const Brutes = {
   getForVersus: (prisma: PrismaClient) => async (
@@ -1134,6 +1135,8 @@ const Brutes = {
             : firstBonus.skill,
       );
 
+      const randomSkill = await ServerState.getRandomSkill(prisma);
+
       // Update the brute
       const brute = await prisma.brute.update({
         where: { id: userBrute.id },
@@ -1148,7 +1151,7 @@ const Brutes = {
           // Reset destiny
           destinyPath: [],
           // Reset fights left
-          fightsLeft: getMaxFightsPerDay(stats),
+          fightsLeft: getMaxFightsPerDay(stats, randomSkill),
         },
       });
 
@@ -1409,7 +1412,8 @@ const Brutes = {
         throw new ExpectedError('Brute not found');
       }
 
-      const fightsLeft = getFightsLeft(brute);
+      const randomSkill = await ServerState.getRandomSkill(prisma);
+      const fightsLeft = getFightsLeft(brute, randomSkill);
 
       res.send({
         fightsLeft,
@@ -1684,6 +1688,7 @@ const Brutes = {
             ? firstBonus.weapon
             : firstBonus.skill,
       );
+      const randomSkill = await ServerState.getRandomSkill(prisma);
 
       // Update the brute
       const updatedBrute: HookBrute = await prisma.brute.update({
@@ -1695,7 +1700,7 @@ const Brutes = {
           // Reset destiny
           destinyPath: [],
           // Reset fights left
-          fightsLeft: getMaxFightsPerDay(stats),
+          fightsLeft: getMaxFightsPerDay(stats, randomSkill),
           // Keep ranking
           ranking: brute.ranking,
         },

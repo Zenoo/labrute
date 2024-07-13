@@ -458,7 +458,8 @@ const Users = {
         throw new ExpectedError('No brutes found');
       }
 
-      const isDoneForToday = brutes.every((brute) => getFightsLeft(brute) === 0);
+      const randomSkill = await ServerState.getRandomSkill(prisma);
+      const isDoneForToday = brutes.every((brute) => getFightsLeft(brute, randomSkill) === 0);
 
       res.send(isDoneForToday);
     } catch (error) {
@@ -546,8 +547,10 @@ const Users = {
         },
       });
 
+      const randomSkill = await ServerState.getRandomSkill(prisma);
+
       for (const brute of brutes) {
-        const fightsLeft = getFightsLeft(brute) + 1;
+        const fightsLeft = getFightsLeft(brute, randomSkill) + 1;
 
         // eslint-disable-next-line no-await-in-loop
         await prisma.brute.update({
