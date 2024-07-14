@@ -117,12 +117,14 @@ const setRandomSkill = async (prisma: PrismaClient, skill: number) => {
 };
 
 const getRandomSkill = async (prisma: PrismaClient) => {
-  if (RANDOM_SKILL !== undefined) {
-    return RANDOM_SKILL;
+  const modifiers = await getModifiers(prisma);
+
+  if (!modifiers.includes(FightModifier.randomSkill)) {
+    return null;
   }
 
-  if (!MODIFIERS?.includes(FightModifier.randomSkill)) {
-    return null;
+  if (RANDOM_SKILL !== undefined) {
+    return RANDOM_SKILL;
   }
 
   const serverState = await prisma.serverState.findFirst({
@@ -155,12 +157,14 @@ const setRandomWeapon = async (prisma: PrismaClient, weapon: number) => {
 };
 
 const getRandomWeapon = async (prisma: PrismaClient) => {
-  if (RANDOM_WEAPON !== undefined) {
-    return RANDOM_WEAPON;
+  const modifiers = await getModifiers(prisma);
+
+  if (!modifiers.includes(FightModifier.randomWeapon)) {
+    return null;
   }
 
-  if (!MODIFIERS?.includes(FightModifier.randomWeapon)) {
-    return null;
+  if (RANDOM_WEAPON !== undefined) {
+    return RANDOM_WEAPON;
   }
 
   const serverState = await prisma.serverState.findFirst({
