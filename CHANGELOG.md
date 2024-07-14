@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.65.6](https://github.com/Zenoo/labrute/compare/labrute-v2.65.5...labrute-v2.65.6) (2024-07-14)
+
+
+### Bug Fixes
+
+* Disable random skills/weapons the next day ([d9fbf7a](https://github.com/Zenoo/labrute/commit/d9fbf7a28679683864e2d16b613c839e319eaa23))
+
 ## [2.65.5](https://github.com/Zenoo/labrute/compare/labrute-v2.65.4...labrute-v2.65.5) (2024-07-13)
 
 
