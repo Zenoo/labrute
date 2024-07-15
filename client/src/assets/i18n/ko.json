@@ -291,7 +291,7 @@
   "chaining.effect": "Every 3rd consecutive melee hit will stun your opponent.",
   "haste": "Haste",
   "haste.desc": "Have you always dreamed of moving as fast as a ninja? That's good, it's time!",
-  "haste.effect": "Action (x{{uses}}) Your brute will rush through your opponent, dealing damage that scales with your speed.",
+  "haste.effect": "Action (x{{uses}}) Your brute will rush through your opponent, dealing additional damage that scales with your speed.",
   "treat": "Treat",
   "treat.desc": "Fighting takes a toll. That's why I always bring a treat to put my pets back on their feet!",
   "treat.effect": "Action (x{{uses}}) Your brute will heal one of his pets for 50% of their health.",
