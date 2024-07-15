@@ -535,9 +535,10 @@ const Users = {
         where: {
           userId: authed.id,
           deletedAt: null,
-          lastFight: {
-            lt: new Date(),
-          },
+          OR: [
+            { lastFight: { lt: new Date() } },
+            { lastFight: null },
+          ],
         },
         select: {
           id: true,
