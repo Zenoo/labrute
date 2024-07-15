@@ -291,7 +291,7 @@
   "chaining.effect": "Cada tercer golpe cuerpo a cuerpo consecutivo aturdirá a tu oponente.",
   "haste": "Prisa",
   "haste.desc": "¿Siempre has soñado con moverte tan rápido como un ninja? ¡Es el momento!",
-  "haste.effect": "Acción (x{{uses}}) Tu Bruto arrollará a su oponente, infligiendo más daño cuanto más veloz seas.",
+  "haste.effect": "Action (x{{uses}}) Your brute will rush through your opponent, dealing additional damage that scales with your speed.",
   "treat": "Golosina",
   "treat.desc": "Las peleas pasan factura. ¡Por eso, siempre traigo una golosina para reanimar a mis mascotas!",
   "treat.effect": "Acción (x{{uses}}) Tu bruto curará a una de sus mascotas el 50% de su salud.",
