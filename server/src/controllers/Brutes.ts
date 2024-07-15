@@ -482,6 +482,8 @@ const Brutes = {
           hp: true,
           clanId: true,
           ranking: true,
+          lastFight: true,
+          fightsLeft: true,
         },
       });
 

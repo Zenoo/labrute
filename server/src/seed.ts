@@ -34,7 +34,7 @@ const generateBrute = (
     colors: getRandomColors(gender),
     victories: 0,
     pupilsCount: 0,
-    lastFight: moment.utc().toDate(),
+    lastFight: moment.utc().toDate() as Date | null,
     fightsLeft: FIGHTS_PER_DAY,
     ...createRandomBruteStats(),
   };

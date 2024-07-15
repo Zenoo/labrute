@@ -3,11 +3,12 @@ import applySkillModifiers from './applySkillModifiers';
 import { getHP } from './getHP';
 import { LevelUpChoice } from './getLevelUpChoices';
 import { pets, Pet } from './pets';
+import getFightsLeft from './getFightsLeft';
 
 type BruteData = Pick<Brute, 'level' | 'skills' | 'enduranceStat' | 'strengthStat'
   | 'agilityStat' | 'speedStat' | 'enduranceModifier' | 'strengthModifier'
   | 'agilityModifier' | 'speedModifier' | 'strengthValue' | 'agilityValue'
-  | 'enduranceValue' | 'speedValue' | 'xp' | 'pets' | 'weapons' | 'hp'>;
+  | 'enduranceValue' | 'speedValue' | 'xp' | 'pets' | 'weapons' | 'hp' | 'fightsLeft' | 'lastFight'>;
 
 const updateStat = (brute: BruteData, stat: BruteStat, value: number) => {
   switch (stat) {
@@ -51,10 +52,21 @@ const updateBruteData = (
 
   // New skill
   if (destinyChoice.type === 'skill') {
-    updatedBrute.skills.push(destinyChoice.skill as SkillName);
+    const skillName = destinyChoice.skill;
+
+    if (!skillName) {
+      throw new Error('No skill provided');
+    }
+
+    // Handle +2 fights for `regeneration`
+    if (skillName === SkillName.regeneration) {
+      updatedBrute.fightsLeft = getFightsLeft(updatedBrute, null) + 2;
+    }
+
+    updatedBrute.skills.push(skillName);
 
     // STATS MODIFIERS
-    updatedBrute = applySkillModifiers(updatedBrute, destinyChoice.skill as SkillName);
+    updatedBrute = applySkillModifiers(updatedBrute, skillName);
   } else if (destinyChoice.type === 'weapon') {
     // New weapon
     updatedBrute.weapons.push(destinyChoice.weapon as WeaponName);
