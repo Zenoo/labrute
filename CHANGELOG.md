@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.65.7](https://github.com/Zenoo/labrute/compare/labrute-v2.65.6...labrute-v2.65.7) (2024-07-15)
+
+
+### Bug Fixes
+
+* drpg rewards on brutes who never fought ([1879304](https://github.com/Zenoo/labrute/commit/1879304340752806ffe090e4750b6f2ea4179e8e))
+* Get +2 fights when unlocking regeneration. Fixes [#823](https://github.com/Zenoo/labrute/issues/823) ([ddfc857](https://github.com/Zenoo/labrute/commit/ddfc857df0486b366ebf15945997fa8d62b369e6))
+* Haste desc ([622f82a](https://github.com/Zenoo/labrute/commit/622f82aaee0278a27f6febb4d31359ff933e7220))
+* Test delete routes ([07b3961](https://github.com/Zenoo/labrute/commit/07b3961b2f848217a126b0d72ee413537c2e4816))
+
 ## [2.65.6](https://github.com/Zenoo/labrute/compare/labrute-v2.65.5...labrute-v2.65.6) (2024-07-14)
 
 
