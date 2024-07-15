@@ -13,11 +13,23 @@ import ServerState from './utils/ServerState.js';
 import BruteReports from './controllers/BruteReports.js';
 import Clans from './controllers/Clans.js';
 import { Config } from './config.js';
+import { LOGGER } from './context.js';
 
 export default function initRoutes(app: Express, config: Config, prisma: PrismaClient) {
   app.get('/api', (req: Request, res: Response) => res.status(200).send({
     message: 'server is running!',
   }));
+
+  app.delete('/api/test-delete', (
+    req: Request,
+    res: Response,
+  ) => {
+    LOGGER.log('Test delete');
+
+    res.status(200).send({
+      success: true,
+    });
+  });
 
   // Server state
   app.get('/api/is-ready', (
