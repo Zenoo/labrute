@@ -291,7 +291,7 @@
   "chaining.effect": "Каждый 3-й последовательный удар в ближнем бою ошеломит противника",
   "haste": "Ястреб",
   "haste.desc": "Вы всегда мечтали иметь скорость ниндзи? Хорошо: время настало!",
-  "haste.effect": "Action (x{{uses}}) Your brute will rush through your opponent, dealing additional damage that scales with your speed.",
+  "haste.effect": "Действие (x{{uses}}) Ваш Брутал пронзает противника, нанося ему дополнительный урон, зависящей от быстроты нападающего",
   "treat": "Лакомство",
   "treat.desc": "Бой своё требует. Поэтому у вас всегда с собой лакомства, чтобы взбодрить ваших питомцев!",
   "treat.effect": "Действие (x{{uses}}): Ваш Брутал восстановит 50% здоровья одному из его питомцев",
@@ -1332,6 +1332,6 @@
   "banReason.multipleAccounts": "Multiple accounts",
   "afterBlock": "after blocking",
   "created": "Created on {{date}}",
-  "copyUserId": "Copy user ID",
-  "userIdCopied": "User ID copied to clipboard."
+  "copyUserId": "Скопировать идентификатор пользователя",
+  "userIdCopied": "Идентификатор пользователя скопирован в буфер обмена."
 }
