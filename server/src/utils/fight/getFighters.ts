@@ -108,7 +108,7 @@ const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
 
   // +30% deflect for `repulse`
   if (brute.skills.includes(SkillName.repulse)) {
-    fighter.reversal += 0.30;
+    fighter.deflect += 0.3;
   }
 
   /* PASSIVES */
