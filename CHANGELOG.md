@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.65.8](https://github.com/Zenoo/labrute/compare/labrute-v2.65.7...labrute-v2.65.8) (2024-07-17)
+
+
+### Bug Fixes
+
+* Deflect skill not working ([063d3a6](https://github.com/Zenoo/labrute/commit/063d3a6a4a2ea9edfcf0996122d3f53ed54f09d6))
+* Rename swiftness to dexterity. Fixes [#831](https://github.com/Zenoo/labrute/issues/831) ([887f770](https://github.com/Zenoo/labrute/commit/887f770a118c06595fe28db9459912e51a61c49c))
+* Swiftness color doesn't depend on speed ([242c764](https://github.com/Zenoo/labrute/commit/242c76451566dbf255d52367775a9ef289a8376e))
+
 ## [2.65.7](https://github.com/Zenoo/labrute/compare/labrute-v2.65.6...labrute-v2.65.7) (2024-07-15)
 
 
