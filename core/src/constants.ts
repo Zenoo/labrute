@@ -67,7 +67,7 @@ export const MAX_FAVORITE_BRUTES = 3;
 export const BASE_FIGHTER_STATS = {
   reversal: 0,
   evasion: 0.1,
-  swiftness: 0.2,
+  dexterity: 0.2,
   block: -0.25,
   accuracy: 0,
   disarm: 0.05,

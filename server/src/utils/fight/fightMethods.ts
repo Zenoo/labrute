@@ -38,8 +38,8 @@ const getFighterStat = (
   stat: FighterStat,
   onlyStat?: 'fighter' | 'weapon',
 ) => {
-  // Special case for swiftness as it only exists on weapons
-  if (stat === 'swiftness') {
+  // Special case for dexterity as it only exists on weapons
+  if (stat === 'dexterity') {
     if (onlyStat === 'fighter') return 0;
 
     if (fighter.activeWeapon) {
@@ -1267,7 +1267,7 @@ const evade = (fighter: DetailedFighter, opponent: DetailedFighter, difficulty =
       (getFighterStat(opponent, 'evasion')
         + agilityDifference * 0.01
         - getFighterStat(fighter, 'accuracy', 'fighter')
-        - getFighterStat(fighter, 'swiftness')),
+        - getFighterStat(fighter, 'dexterity')),
       0.9,
     );
 };

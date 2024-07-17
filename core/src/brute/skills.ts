@@ -161,7 +161,7 @@ export const FightStat = {
   REVERSAL: 'reversal',
   COUNTER: 'counter',
   EVASION: 'evasion',
-  SWIFTNESS: 'swiftness',
+  DEXTERITY: 'dexterity',
   BLOCK: 'block',
   ACCURACY: 'accuracy',
   DISARM: 'disarm',

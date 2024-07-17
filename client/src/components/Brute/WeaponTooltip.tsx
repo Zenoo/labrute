@@ -133,12 +133,12 @@ const WeaponTooltip = ({
               % {t('evasion')}
             </Text>
           )}
-          {/* SWIFTNESS */}
-          {(!!weapon?.swiftness || (bareHands && !!BASE_FIGHTER_STATS.swiftness)) && (
-            <Text bold sx={{ color: StatColor.swiftness, textShadow }} {...textProps}>
-              {(weapon ? weapon.swiftness : BASE_FIGHTER_STATS.swiftness) > 0 && '+'}
-              {Math.round((weapon ? weapon.swiftness : BASE_FIGHTER_STATS.swiftness) * 100)}
-              % {t('swiftness')}
+          {/* DEXTERITY */}
+          {(!!weapon?.dexterity || (bareHands && !!BASE_FIGHTER_STATS.dexterity)) && (
+            <Text bold sx={{ color: StatColor.dexterity, textShadow }} {...textProps}>
+              {(weapon ? weapon.dexterity : BASE_FIGHTER_STATS.dexterity) > 0 && '+'}
+              {Math.round((weapon ? weapon.dexterity : BASE_FIGHTER_STATS.dexterity) * 100)}
+              % {t('dexterity')}
             </Text>
           )}
           {/* BLOCK */}
