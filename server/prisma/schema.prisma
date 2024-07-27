@@ -475,6 +475,13 @@ enum AchievementName {
   weaponsThrown3
   weaponsBlunt3
   thor
+  deflector
+  allFastWeapons
+  allSharpWeapons
+  allHeavyWeapons
+  allLongWeapons
+  allThrownWeapons
+  allBluntWeapons
   // Stats
   agility50
   agility100

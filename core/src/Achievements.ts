@@ -395,6 +395,34 @@ export const AchievementData: Record<
     rarety: AchievementRarety.rare,
     perBrute: 1,
   },
+  deflector: {
+    rarety: AchievementRarety.rare,
+    perBrute: 1,
+  },
+  allFastWeapons: {
+    rarety: AchievementRarety.epic,
+    perBrute: 1,
+  },
+  allSharpWeapons: {
+    rarety: AchievementRarety.epic,
+    perBrute: 1,
+  },
+  allHeavyWeapons: {
+    rarety: AchievementRarety.epic,
+    perBrute: 1,
+  },
+  allLongWeapons: {
+    rarety: AchievementRarety.epic,
+    perBrute: 1,
+  },
+  allThrownWeapons: {
+    rarety: AchievementRarety.epic,
+    perBrute: 1,
+  },
+  allBluntWeapons: {
+    rarety: AchievementRarety.epic,
+    perBrute: 1,
+  },
   agility50: {
     rarety: AchievementRarety.uncommon,
     illustration: 'agility50.svg',
