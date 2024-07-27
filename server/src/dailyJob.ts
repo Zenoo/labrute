@@ -1090,10 +1090,6 @@ const cleanup = async (prisma: PrismaClient) => {
       },
     },
   });
-
-  if (logsDeleted.count) {
-    LOGGER.log(`Deleted ${logsDeleted.count} logs older than 7 days`);
-  }
 };
 
 const dailyJob = (prisma: PrismaClient) => async () => {
