@@ -60,7 +60,7 @@ const ClanPostView = () => {
   };
 
   useEffect(() => {
-    if (mode !== 'dark') return () => {};
+    if (mode !== 'dark') return () => { };
 
     const { head } = document;
     const link = document.createElement('link');
@@ -118,6 +118,35 @@ const ClanPostView = () => {
         <CKEditor
           editor={ClassicEditor}
           onChange={changeContent}
+          config={{
+            // Doesn't work since there is a commonJS issue
+            // plugins: [Image],
+            // image: {
+            //   insert: {
+            //     integrations: ['url']
+            //   }
+            // },
+            toolbar: [
+              'undo',
+              'redo',
+              '|',
+              'heading',
+              '|',
+              'bold',
+              'italic',
+              '|',
+              'link',
+              // 'insertImage',
+              'insertTable',
+              'blockQuote',
+              'mediaEmbed',
+              '|',
+              'bulletedList',
+              'numberedList',
+              'outdent',
+              'indent',
+            ],
+          }}
         />
         <FantasyButton color="success" onClick={save} sx={{ mt: 1 }}>{t('send')}</FantasyButton>
       </Paper>
