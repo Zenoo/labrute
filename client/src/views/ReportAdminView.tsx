@@ -12,6 +12,7 @@ import Server from '../utils/Server';
 import catchError from '../utils/catchError';
 import moment from 'moment';
 import FantasyButton from '../components/FantasyButton';
+import Link from '../components/Link';
 
 const ReportAdminView = () => {
   const { t } = useTranslation();
@@ -111,7 +112,9 @@ const ReportAdminView = () => {
                   ) : null}
                 >
                   <ListItemText
-                    primary={`(${report.count}) ${report.brute.name}`}
+                    primary={(
+                      <Text body2>({report.count}) <Link to={`/${report.brute.name}`} target="_blank">{report.brute.name}</Link></Text>
+                    )}
                     secondary={`${moment.utc(report.date).format('DD/MM/YYYY')}, by ${report.users.map((user) => user.name).join(', ')}`}
                   />
                 </ListItem>
