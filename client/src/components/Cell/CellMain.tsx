@@ -18,6 +18,7 @@ import Text from '../Text';
 import CellGlobalTournament from './CellGlobalTournament';
 import CellTournament from './CellTournament';
 import { useAuth } from '../../hooks/useAuth';
+import Fetch from '../../utils/Fetch';
 
 export interface CellMainProps extends BoxProps {
   language: Lang;
@@ -37,7 +38,7 @@ const CellMain = ({
   const Confirm = useConfirm();
   const Alert = useAlert();
   const { brute, owner } = useBrute();
-  const { randomSkill } = useAuth();
+  const { randomSkill, user, authing } = useAuth();
 
   const xpNeededForNextLevel = useMemo(
     () => (brute ? getXPNeeded(brute.level + 1) : 0),
@@ -60,6 +61,13 @@ const CellMain = ({
       }).catch(catchError(Alert));
     });
   }, [Alert, Confirm, brute, t]);
+
+  // Login
+  const login = useCallback(() => {
+    Fetch<{ url: string }>('/api/oauth/redirect').then(({ url }) => {
+      window.location.href = url;
+    }).catch(catchError(Alert));
+  }, [Alert]);
 
   return brute && (
     <Box {...rest}>
@@ -111,6 +119,15 @@ const CellMain = ({
       {owner && brute.canRankUpSince && brute.ranking > 0 && (!moment.utc(brute.canRankUpSince).isSame(moment.utc(), 'day') || brute.currentTournamentStepWatched === 6) && (
         <FantasyButton color="warning" onClick={rankUp} sx={{ mb: 1 }}>
           {t('rankUp')}
+        </FantasyButton>
+      )}
+      {!authing && !user && (
+        <FantasyButton
+          color="success"
+          onClick={login}
+          sx={{ mt: 2 }}
+        >
+          {t('connect')}
         </FantasyButton>
       )}
       {owner && (brute.xp < xpNeededForNextLevel ? fightsLeft > 0 ? (
