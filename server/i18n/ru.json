@@ -92,11 +92,11 @@
   "modifier.bareHandsFirstHit.desc": "Настоящий джентльмен приветствует врага кулаками. Вам сперва придётся попасть во врага голыми руками, прежде чем вы достанете оружие.",
   "modifier.startWithWeapon": "Вооружён и Готов",
   "modifier.startWithWeapon.desc": "Некогда любезничать, — пора сражаться! Вы вступаете в битвы с оружием в руках.",
-  "bannedAccount": "Your account has been banned for the following reason: {{reason}}",
-  "userNotBanned": "User not banned",
-  "userAlreadyBanned": "User already banned",
-  "banReason.innapropriateName": "Inappropriate name",
-  "banReason.innapropriateBruteName": "Inappropriate brute name",
-  "banReason.multipleAccounts": "Multiple accounts",
-  "ipBanned": "Your IP is banned"
+  "bannedAccount": "Ваша учётная запись была забанена по следующей причине: {{reason}}",
+  "userNotBanned": "Пользователь не забанен",
+  "userAlreadyBanned": "Пользователь уже забанен",
+  "banReason.innapropriateName": "Неуместное имя",
+  "banReason.innapropriateBruteName": "Неуместное имя Брутала",
+  "banReason.multipleAccounts": "Несколько учётных записей",
+  "ipBanned": "Ваш IP-адрес забанен"
 }
