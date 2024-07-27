@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.66.0](https://github.com/Zenoo/labrute/compare/labrute-v2.65.8...labrute-v2.66.0) (2024-07-27)
+
+
+### Features
+
+* Banned word admin panel. Fixes [#842](https://github.com/Zenoo/labrute/issues/842) ([924475c](https://github.com/Zenoo/labrute/commit/924475c85b925d11dfc90a0a9d43da394404203c))
+* New achievements (thor, deflector, one for every weapon type). Fixes [#828](https://github.com/Zenoo/labrute/issues/828). Fixes [#740](https://github.com/Zenoo/labrute/issues/740) ([1daac07](https://github.com/Zenoo/labrute/commit/1daac07bcba14c7e73074f3148d85c33950e6ffc))
+
+
+### Bug Fixes
+
+* Brute names clickable in report list. Fixes [#836](https://github.com/Zenoo/labrute/issues/836) ([d03fb20](https://github.com/Zenoo/labrute/commit/d03fb20f1ecb28e909380ff9ea4728e7b1d7016f))
+* Delete logs after 30 days. FIxes [#840](https://github.com/Zenoo/labrute/issues/840) ([d9cd91c](https://github.com/Zenoo/labrute/commit/d9cd91c8f8868f70c244e58c262700e3a25e31c9))
+* Login button on cell. Fixes [#835](https://github.com/Zenoo/labrute/issues/835) ([dedd0ad](https://github.com/Zenoo/labrute/commit/dedd0ad590eb5b901fb2574715652211e74f6d07))
+* Remove image icon from ckeditor; Fixes [#833](https://github.com/Zenoo/labrute/issues/833) ([81c03a3](https://github.com/Zenoo/labrute/commit/81c03a361261e74789434608cc2b074d1bc3b82a))
+* Update OTL ([075428a](https://github.com/Zenoo/labrute/commit/075428a31589f4a704ef11ea67597ffe1fdf1e66))
+* Update prisma version ([45ed82e](https://github.com/Zenoo/labrute/commit/45ed82ef8426122d3db5fc6b80a72f323543ac8f))
+* Update Sabotage description. Fixes [#834](https://github.com/Zenoo/labrute/issues/834) ([2a175e8](https://github.com/Zenoo/labrute/commit/2a175e8fd272cfd3fd8d94f6b619f6d4a33d66a9))
+
 ## [2.65.8](https://github.com/Zenoo/labrute/compare/labrute-v2.65.7...labrute-v2.65.8) (2024-07-17)
 
 
