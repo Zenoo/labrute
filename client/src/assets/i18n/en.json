@@ -194,7 +194,7 @@
   "untouchable.desc": "You can now avoid attacks much more easily. This is really annoying..........but only for your opponents!",
   "untouchable.effect": "",
   "sabotage": "Sabotage",
-  "sabotage.desc": "Some Brutes choose to vandalize the streets, but you prefer to vandalize your opponents! Each blow will destroy one of your opponent's weapons.",
+  "sabotage.desc": "Some Brutes choose to vandalize the streets, but you prefer to vandalize your opponents! Each blow can destroy one of your opponent's weapons.",
   "sabotage.effect": "90% chance to destroy a weapon each time you land a blow",
   "shock": "Shock",
   "shock.desc": "Your attack takes your opponent by surprise and he drops his weapon. Now you can show it off you your friends!",
