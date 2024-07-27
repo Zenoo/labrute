@@ -313,12 +313,6 @@ exports.Prisma.BannedIpScalarFieldEnum = {
   id: 'id'
 };
 
-exports.Prisma.WorkerJobScalarFieldEnum = {
-  id: 'id',
-  worker: 'worker',
-  payload: 'payload'
-};
-
 exports.Prisma.ClanScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -683,7 +677,6 @@ exports.Prisma.ModelName = {
   ServerState: 'ServerState',
   BannedWord: 'BannedWord',
   BannedIp: 'BannedIp',
-  WorkerJob: 'WorkerJob',
   Clan: 'Clan',
   ClanThread: 'ClanThread',
   ClanPost: 'ClanPost',

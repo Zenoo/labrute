@@ -1081,6 +1081,21 @@ const handleReleases = async (prisma: PrismaClient) => {
   }
 };
 
+const cleanup = async (prisma: PrismaClient) => {
+  // Delete logs older than 30 days
+  const logsDeleted = await prisma.log.deleteMany({
+    where: {
+      date: {
+        lt: moment.utc().subtract(30, 'day').toDate(),
+      },
+    },
+  });
+
+  if (logsDeleted.count) {
+    LOGGER.log(`Deleted ${logsDeleted.count} logs older than 7 days`);
+  }
+};
+
 const dailyJob = (prisma: PrismaClient) => async () => {
   try {
     // Releases
@@ -1123,6 +1138,11 @@ const dailyJob = (prisma: PrismaClient) => async () => {
 
     // Delete brutes tagged for deletion
     await deleteBrutes(prisma);
+
+    // Clean up DB
+    await cleanup(prisma);
+
+    LOGGER.info('Daily job completed');
   } catch (error: unknown) {
     if (!(error instanceof Error)) {
       throw error;

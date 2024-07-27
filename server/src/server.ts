@@ -3,11 +3,10 @@ import express = require('express');
 import { Version } from '@labrute/core';
 import bodyParser from 'body-parser';
 import schedule from 'node-schedule';
+import { GLOBAL, ServerContext } from './context.js';
 import dailyJob from './dailyJob.js';
 import './i18n.js';
 import initRoutes from './routes.js';
-import startJob from './workers/startJob.js';
-import { GLOBAL, ServerContext } from './context.js';
 import lockMiddleware from './utils/middlewares/locks.js';
 import { readyCheck } from './utils/middlewares/readyCheck.js';
 
@@ -36,11 +35,6 @@ export function main(cx: ServerContext) {
 
     // Initialize daily scheduler
     schedule.scheduleJob('0 0 * * *', dailyJob(cx.prisma));
-
-    // Start worker queue
-    startJob(cx.prisma).catch((error: Error) => {
-      cx.discord.sendError(error);
-    });
   });
 
   initRoutes(app, cx.config, cx.prisma);

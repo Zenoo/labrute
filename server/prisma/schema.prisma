@@ -578,12 +578,6 @@ model BannedIp {
   id String @id @db.VarChar(255)
 }
 
-model WorkerJob {
-  id      String @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  worker  String @db.VarChar(255)
-  payload String @db.Text
-}
-
 enum BossName {
   GoldClaw
   EmberFang
