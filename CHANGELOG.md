@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.66.1](https://github.com/Zenoo/labrute/compare/labrute-v2.66.0...labrute-v2.66.1) (2024-07-27)
+
+
+### Bug Fixes
+
+* Don't use Treat on trapped pet. Fixes [#837](https://github.com/Zenoo/labrute/issues/837) ([7520d01](https://github.com/Zenoo/labrute/commit/7520d017a954c085f7f8e11ca111e041f67b8502))
+* Log ([6e40d78](https://github.com/Zenoo/labrute/commit/6e40d7824945a6d8cd78fb7be0e763ee1524eace))
+* No reversals when stunned. Fixes [#838](https://github.com/Zenoo/labrute/issues/838) ([6e9cf0b](https://github.com/Zenoo/labrute/commit/6e9cf0ba0d6a6d9772ed1e0f193692fae8bd2696))
+
 ## [2.66.0](https://github.com/Zenoo/labrute/compare/labrute-v2.65.8...labrute-v2.66.0) (2024-07-27)
 
 
