@@ -1083,7 +1083,7 @@ const handleReleases = async (prisma: PrismaClient) => {
 
 const cleanup = async (prisma: PrismaClient) => {
   // Delete logs older than 30 days
-  const logsDeleted = await prisma.log.deleteMany({
+  await prisma.log.deleteMany({
     where: {
       date: {
         lt: moment.utc().subtract(30, 'day').toDate(),

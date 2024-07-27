@@ -317,7 +317,7 @@ const randomlyGetSuper = (fightData: DetailedFight, brute: DetailedFighter) => {
   }
 
   // Filter out treat if no pets lost hp
-  if (fightData.fighters.filter((f) => f.type === 'pet' && f.master === brute.id && f.hp < f.maxHp).length === 0) {
+  if (fightData.fighters.filter((f) => f.type === 'pet' && f.master === brute.id && f.hp < f.maxHp && !f.trapped).length === 0) {
     supers = supers.filter((skill) => skill.name !== SkillName.treat);
   }
 
@@ -1050,7 +1050,7 @@ const activateSuper = (
       // Choose random ally pet
       const mainOpponent = getMainOpponent(fightData, fighter);
       const pets = getOpponents(fightData, mainOpponent, false, true);
-      const pet = pets.find((p) => p.hp < p.maxHp);
+      const pet = pets.find((p) => p.hp < p.maxHp && !p.trapped);
 
       if (!pet) {
         return false;
