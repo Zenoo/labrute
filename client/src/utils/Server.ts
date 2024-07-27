@@ -101,6 +101,7 @@ const Server = {
     send: (name: string, reason: BruteReportReason) => Fetch<never>(`/api/report/send/${name}/${reason}`),
     accept: (id: string) => Fetch<never>(`/api/report/${id}/accept`),
     reject: (id: string) => Fetch<never>(`/api/report/${id}/reject`),
+    addBannedWord: (word: string) => Fetch<never>(`/api/report/banned-word/${word}`, {}, 'PUT'),
   },
   Clan: {
     list: ({ page, search }: { page: number, search: string }) => Fetch<ClanListResponse>('/api/clan/list', { page, search }),

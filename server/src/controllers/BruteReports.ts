@@ -319,6 +319,54 @@ const BruteReports = {
       sendError(res, error);
     }
   },
+  addBannedWord: (prisma: PrismaClient) => async (
+    req: Request<{ word: string }>,
+    res: Response,
+  ) => {
+    try {
+      const authed = await auth(prisma, req);
+
+      const user = await prisma.user.findFirst({
+        where: { id: authed.id },
+        select: { admin: true },
+      });
+
+      // Admin only
+      if (!user?.admin) {
+        throw new ExpectedError(translate('unauthorized', authed));
+      }
+
+      const { word } = req.params;
+
+      if (!word) {
+        throw new ExpectedError(translate('missingParameters', authed));
+      }
+
+      // Delete banned words containing this word
+      await prisma.bannedWord.deleteMany({
+        where: {
+          word: {
+            contains: word,
+            mode: 'insensitive',
+          },
+        },
+      });
+
+      // Add banned word
+      await prisma.bannedWord.create({
+        data: {
+          word: word.toLowerCase(),
+        },
+        select: { id: true },
+      });
+
+      res.status(200).send({
+        success: true,
+      });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
 };
 
 export default BruteReports;

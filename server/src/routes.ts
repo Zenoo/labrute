@@ -122,6 +122,7 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   app.get('/api/report/send/:name/:reason', BruteReports.send(prisma));
   app.get('/api/report/:id/accept', BruteReports.accept(prisma));
   app.get('/api/report/:id/reject', BruteReports.reject(prisma));
+  app.put('/api/report/banned-word/:word', BruteReports.addBannedWord(prisma));
 
   // Clan
   app.get('/api/clan/list', Clans.list(prisma));

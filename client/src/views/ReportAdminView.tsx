@@ -1,7 +1,7 @@
 import { BruteReportWithNames } from '@labrute/core';
 import { BruteReportStatus } from '@labrute/prisma';
 import { Check, Close } from '@mui/icons-material';
-import { FormControl, FormControlLabel, FormLabel, IconButton, List, ListItem, ListItemText, Paper, Radio, RadioGroup, Stack } from '@mui/material';
+import { Box, FormControl, FormControlLabel, FormLabel, IconButton, List, ListItem, ListItemText, Paper, Radio, RadioGroup, Stack, TextField } from '@mui/material';
 import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Page from '../components/Page';
@@ -11,11 +11,13 @@ import { useAuth } from '../hooks/useAuth';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
 import moment from 'moment';
+import FantasyButton from '../components/FantasyButton';
 
 const ReportAdminView = () => {
   const { t } = useTranslation();
   const Alert = useAlert();
 
+  const [newBanndedWord, setNewBannedWord] = React.useState('');
   const [reports, setReports] = React.useState<BruteReportWithNames[]>([]);
   const [status, setStatus] = React.useState<BruteReportStatus>(BruteReportStatus.pending);
   const { user: admin } = useAuth();
@@ -52,6 +54,14 @@ const ReportAdminView = () => {
     }).catch(catchError(Alert));
   }, [Alert]);
 
+  // Add banned word
+  const addBannedWord = useCallback(() => {
+    if (!newBanndedWord) return;
+    Server.BruteReport.addBannedWord(newBanndedWord).then(() => {
+      Alert.open('success', 'Banned word added');
+    }).catch(catchError(Alert));
+  }, [Alert, newBanndedWord]);
+
   return (
     <Page title={t('MyBrute')} headerUrl="/">
       <Paper sx={{ mx: 4 }}>
@@ -60,6 +70,18 @@ const ReportAdminView = () => {
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         {admin?.admin ? (
           <Stack spacing={2}>
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <TextField
+                label="Add a banned word"
+                value={newBanndedWord}
+                onChange={(e) => setNewBannedWord(e.target.value)}
+                variant="standard"
+                fullWidth
+                size="small"
+                sx={{ mx: 2 }}
+              />
+              <FantasyButton color="success" onClick={addBannedWord}>Add</FantasyButton>
+            </Box>
             <FormControl>
               <FormLabel>Status</FormLabel>
               <RadioGroup
