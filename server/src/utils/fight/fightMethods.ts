@@ -1298,6 +1298,9 @@ const disarmAttacker = (fighter: DetailedFighter, opponent: DetailedFighter) => 
 };
 
 const reversal = (opponent: DetailedFighter, blocked: boolean) => {
+  // No reversal if stunned
+  if (opponent.stunned) return false;
+
   const random = Math.random();
 
   let reversalStat = getFighterStat(opponent, 'reversal');

@@ -215,7 +215,7 @@ const generateFight = async (
     // Set current initiative to first fighter
     fightData.initiative = firstFighter.initiative;
 
-    // Poison fighters if turn > 100
+    // Poison fighters if turn > 1000
     if (turn > 1000) {
       fightData.fighters.forEach((fighter) => {
         // eslint-disable-next-line no-param-reassign
