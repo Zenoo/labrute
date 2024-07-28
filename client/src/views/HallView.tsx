@@ -151,6 +151,15 @@ const HallView = () => {
               <Text bold smallCaps color="text.primary">
                 {t('level')}
                 <Text component="span" bold color="secondary"> {brute.level}</Text>
+                <Box
+                  component="img"
+                  src={`/images/rankings/lvl_${brute.ranking}.webp`}
+                  sx={{
+                    verticalAlign: 'middle',
+                    height: 16,
+                    ml: 0.5,
+                  }}
+                />
               </Text>
               <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
                 <BruteHP hp={getFinalHP(brute, randomSkill)} />
