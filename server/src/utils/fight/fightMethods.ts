@@ -526,6 +526,11 @@ const registerHit = (
         fighter.hitBy[opponent.index] = 0;
       }
 
+      // Remove stun if hit while stunned
+      if (opponent.stunned) {
+        opponent.stunned = false;
+      }
+
       if (!thrown && !sourceName && !flashFloodWeapon && opponent.type === 'brute') {
         // Update consecutive hits
         opponent.hitBy[fighter.index] = (opponent.hitBy[fighter.index] || 0) + 1;
@@ -536,9 +541,6 @@ const registerHit = (
           step.s = 1;
           opponent.stunned = true;
           opponent.hitBy[fighter.index] = 0;
-        } else if (opponent.stunned) {
-          // Remove stun if hit while stunned
-          opponent.stunned = false;
         }
       }
 
