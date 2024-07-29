@@ -24,7 +24,7 @@
 
 - Install dependencies: `yarn install` (This should also setup your database from the `schema.prisma` file and the migrations)
 
-- Make sure to initialize your etwin database by running `yarn eternaltwin db create`
+- Make sure to initialize your etwin database by running `yarn eternaltwin db sync`
 
 - Start the server, client and etwin local server with `yarn dev`
 
@@ -81,9 +81,9 @@ Should have a corresponding documentation.
 │		├── utils       	# Utility functions
 │		└── views       	# Views
 ├── core 					# Shared ressourcs for both front and back end
-│   ├── src              
+│   ├── src
 ├── prisma 					# Prisma types definitions for both front and back end
-│   ├── src              
+│   ├── src
 └── server 					# Back end
     ├── prisma              # DB
 	└── src
