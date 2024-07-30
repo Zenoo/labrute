@@ -508,6 +508,10 @@
   "fight.wonTheFight": "{{brute}} a gagné le match",
   "fight.play": "Jouer",
   "fight.pause": "Pause",
+  "fight.favorite": "Favorite",
+  "fight.unfavorite": "Unfavorite",
+  "fight.favoriteAdded": "Favorite added",
+  "fight.favoriteRemoved": "Favorite removed",
   "fight.toggleLogs": "Afficher/masquer les logs",
   "bruteCell": "Cellule de {{name}}",
   "experience": "Expérience",
@@ -1361,6 +1365,8 @@
   "inventory.item.visualReset": "Changement d'apparence",
   "inventory.item.bossTicket": "Ticket Boss",
   "inventory.item.nameChange": "Changement de nom",
+  "inventory.item.favoriteFight": "Favorite fight",
+  "inventory.item.favoriteFight.desc": "You can set a fight as your favorite on the fight page. It will not be deleted after 30 days.",
   "inventory.itemNotImplemented": "Cet objet n'est pas encore implémenté.",
   "taggedForDeletion": "Votre brute sera supprimée dans {{days}} jours.",
   "deletionReason.DUPLICATE_NAME": "Votre brute a le même nom qu'une autre brute. Utilisez l'objet dans votre inventaire pour le modifier et éviter la suppression.",
@@ -1406,5 +1412,8 @@
   "afterBlock": "après blocage",
   "created": "Créée le {{date}}",
   "copyUserId": "Copier l'ID utilisateur",
-  "userIdCopied": "ID de l'utilisateur copié dans le presse-papiers."
+  "userIdCopied": "ID de l'utilisateur copié dans le presse-papiers.",
+  "favoriteFights": "Favorite fights",
+  "vs": "vs",
+  "fight": "Fight"
 }
