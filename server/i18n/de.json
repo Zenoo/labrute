@@ -62,6 +62,7 @@
   "alreadyClaimed": "Du hast diese Belohnung bereits erhalten",
   "needToUseEveryAction": "Du musst alle Aktionen deiner Dinoz verbrauchen, um diese Belohnung zu erhalten",
   "noDinoRpgAccount": "Mit deinem EternalTwin-Account ist kein Dino-RPG-Account verknüpft.",
+  "dinoRpgServerDown": "The DinoRPG server is down. Please try again later.",
   "noNameChange": "Du kannst deinen Namen nicht ändern",
   "rank.0": "Brutale Legende",
   "rank.1": "Der Chaoszahnarzt",
@@ -98,5 +99,7 @@
   "banReason.innapropriateName": "Unangemessener Name",
   "banReason.innapropriateBruteName": "Unangemessener Name des Brutalos",
   "banReason.multipleAccounts": "Mehrere Accounts",
-  "ipBanned": "Deine IP ist gebannt"
+  "ipBanned": "Deine IP ist gebannt",
+  "fightNotFound": "Fight not found",
+  "favoriteLimit": "You reached your favorite fights limit"
 }

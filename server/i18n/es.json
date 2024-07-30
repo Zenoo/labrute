@@ -62,6 +62,7 @@
   "alreadyClaimed": "Ya has reclamado esta recompensa",
   "needToUseEveryAction": "Necesitas usar cada acción en tus Dinoz para poder reclamar esta recompensa",
   "noDinoRpgAccount": "No tienes una cuenta DinoRPG vinculada a tu cuenta de EternalTwin.",
+  "dinoRpgServerDown": "El servidor DinoRPG está caído. Inténtalo de nuevo más tarde.",
   "noNameChange": "No puedes cambiar tu nombre",
   "rank.0": "Leyenda Brutal",
   "rank.1": "Dentista del Caos",
@@ -98,5 +99,7 @@
   "banReason.innapropriateName": "Nombre inapropiado",
   "banReason.innapropriateBruteName": "Nombre de bruto inapropiado",
   "banReason.multipleAccounts": "Múltiples cuentas",
-  "ipBanned": "Tu IP está baneada"
+  "ipBanned": "Tu IP está baneada",
+  "fightNotFound": "Pelea no encontrada",
+  "favoriteLimit": "Has alcanzado tu límite de peleas favoritas"
 }
