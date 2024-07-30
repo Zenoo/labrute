@@ -62,6 +62,7 @@
   "alreadyClaimed": "Vous avez déjà reçu cette récompense",
   "needToUseEveryAction": "Vous devez utiliser toutes les actions sur vos Dinoz pour pouvoir recevoir cette récompense",
   "noDinoRpgAccount": "Vous n'avez pas de compte DinoRPG lié à votre compte EternalTwin.",
+  "dinoRpgServerDown": "The DinoRPG server is down. Please try again later.",
   "noNameChange": "Vous ne pouvez pas changer de nom",
   "rank.0": "Légende Brutale",
   "rank.1": "Dentiste du Chaos",
