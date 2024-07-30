@@ -76,6 +76,8 @@
   "log.lvl": "{{brute}} has reached rank {{value}}.",
   "log.tournament": "Турнир даты {{date}} был отменён. Попробуйте ещё раз!",
   "log.tournamentXp": "Вчерашние турниры",
+  "log.win": "Your Brute has crushed {{value}}.",
+  "log.lose": "{{value}} has flattened your Brute.",
   "lvl_0": "Брутальная Легенда",
   "lvl_1": "Стоматолог Хаоса",
   "lvl_2": "Бицепс Сатаны",
