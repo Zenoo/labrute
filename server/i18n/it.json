@@ -99,5 +99,7 @@
   "banReason.innapropriateName": "Inappropriate name",
   "banReason.innapropriateBruteName": "Inappropriate brute name",
   "banReason.multipleAccounts": "Multiple accounts",
-  "ipBanned": "Your IP is banned"
+  "ipBanned": "Your IP is banned",
+  "fightNotFound": "Fight not found",
+  "favoriteLimit": "You reached your favorite fights limit"
 }
