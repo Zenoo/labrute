@@ -508,6 +508,10 @@
   "fight.wonTheFight": "{{brute}} hat den Kampf gewonnen",
   "fight.play": "Abspielen",
   "fight.pause": "Pausieren",
+  "fight.favorite": "Favorite",
+  "fight.unfavorite": "Unfavorite",
+  "fight.favoriteAdded": "Favorite added",
+  "fight.favoriteRemoved": "Favorite removed",
   "fight.toggleLogs": "Logs an/aus",
   "bruteCell": "Zur Zelle von {{name}}",
   "experience": "Erfahrung",
@@ -1361,6 +1365,8 @@
   "inventory.item.visualReset": "Aussehen zurücksetzen",
   "inventory.item.bossTicket": "Boss-Gutschein",
   "inventory.item.nameChange": "Namensänderung",
+  "inventory.item.favoriteFight": "Favorite fight",
+  "inventory.item.favoriteFight.desc": "You can set a fight as your favorite on the fight page. It will not be deleted after 30 days.",
   "inventory.itemNotImplemented": "Dieser Gegenstand ist noch nicht implementiert.",
   "taggedForDeletion": "Dein Brutalo wird in {{days}} Tag(en) gelöscht.",
   "deletionReason.DUPLICATE_NAME": "Dein Brutalo hat mit einem anderen Brutalo den gleichen Namen. Nutze den Gegenstand in deinem Inventar und ändere diesen, um eine Löschung zu vermeiden.",
@@ -1406,5 +1412,8 @@
   "afterBlock": "nach dem Blocken",
   "created": "Erschaffen am {{date}}",
   "copyUserId": "Benutzer-ID kopieren",
-  "userIdCopied": "Benutzer-ID in die Zwischenablage kopiert."
+  "userIdCopied": "Benutzer-ID in die Zwischenablage kopiert.",
+  "favoriteFights": "Favorite fights",
+  "vs": "vs",
+  "fight": "Fight"
 }
