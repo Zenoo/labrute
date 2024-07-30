@@ -1,11 +1,14 @@
-import { ExpectedError } from '@labrute/core';
+import { ExpectedError, LogListResponse } from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import sendError from '../utils/sendError.js';
 import { ilike } from '../utils/ilike.js';
 
 const Logs = {
-  list: (prisma: PrismaClient) => async (req: Request, res: Response) => {
+  list: (prisma: PrismaClient) => async (
+    req: Request,
+    res: Response<LogListResponse>,
+  ) => {
     try {
       if (!req.params.name) {
         res.send([]);

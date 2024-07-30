@@ -225,7 +225,8 @@ exports.Prisma.LogScalarFieldEnum = {
   brute: 'brute',
   fightId: 'fightId',
   xp: 'xp',
-  gold: 'gold'
+  gold: 'gold',
+  template: 'template'
 };
 
 exports.Prisma.DestinyChoiceScalarFieldEnum = {
@@ -503,7 +504,6 @@ exports.LogType = exports.$Enums.LogType = {
   childup: 'childup',
   up: 'up',
   lvl: 'lvl',
-  survive: 'survive',
   tournament: 'tournament',
   tournamentXp: 'tournamentXp',
   bossDefeat: 'bossDefeat'

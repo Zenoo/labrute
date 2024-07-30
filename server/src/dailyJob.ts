@@ -219,7 +219,7 @@ const handleDailyTournaments = async (
       await prisma.log.createMany({
         data: lastTournament.map((brute) => ({
           currentBruteId: brute.id,
-          type: 'tournament',
+          type: LogType.tournament,
         })),
       });
 

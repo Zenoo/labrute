@@ -1,4 +1,4 @@
-import { Achievement, AchievementName, BossDamage, Brute, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, DestinyChoice, Fight, FightModifier, Lang, Prisma, Tournament, User } from '@labrute/prisma';
+import { Achievement, AchievementName, BossDamage, Brute, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, DestinyChoice, Fight, FightModifier, Lang, Log, Prisma, Tournament, User } from '@labrute/prisma';
 import Version from './Version';
 import applySkillModifiers from './brute/applySkillModifiers';
 import availableBodyParts from './brute/availableBodyParts';
@@ -254,3 +254,7 @@ export type ClanChallengeBossResponse = {
   gold?: number,
 };
 export type UserGetNextModifiersResponse = FightModifier[];
+
+export type LogListResponse = (Log & {
+  currentBrute: Pick<Brute, 'name'>,
+})[];

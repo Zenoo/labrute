@@ -276,7 +276,6 @@ export const LogType: {
   childup: 'childup',
   up: 'up',
   lvl: 'lvl',
-  survive: 'survive',
   tournament: 'tournament',
   tournamentXp: 'tournamentXp',
   bossDefeat: 'bossDefeat'
@@ -9301,6 +9300,7 @@ export namespace Prisma {
     fightId: string | null
     xp: number | null
     gold: number | null
+    template: string | null
   }
 
   export type LogMaxAggregateOutputType = {
@@ -9313,6 +9313,7 @@ export namespace Prisma {
     fightId: string | null
     xp: number | null
     gold: number | null
+    template: string | null
   }
 
   export type LogCountAggregateOutputType = {
@@ -9325,6 +9326,7 @@ export namespace Prisma {
     fightId: number
     xp: number
     gold: number
+    template: number
     _all: number
   }
 
@@ -9351,6 +9353,7 @@ export namespace Prisma {
     fightId?: true
     xp?: true
     gold?: true
+    template?: true
   }
 
   export type LogMaxAggregateInputType = {
@@ -9363,6 +9366,7 @@ export namespace Prisma {
     fightId?: true
     xp?: true
     gold?: true
+    template?: true
   }
 
   export type LogCountAggregateInputType = {
@@ -9375,6 +9379,7 @@ export namespace Prisma {
     fightId?: true
     xp?: true
     gold?: true
+    template?: true
     _all?: true
   }
 
@@ -9474,6 +9479,7 @@ export namespace Prisma {
     fightId: string | null
     xp: number | null
     gold: number | null
+    template: string | null
     _count: LogCountAggregateOutputType | null
     _avg: LogAvgAggregateOutputType | null
     _sum: LogSumAggregateOutputType | null
@@ -9505,6 +9511,7 @@ export namespace Prisma {
     fightId?: boolean
     xp?: boolean
     gold?: boolean
+    template?: boolean
     currentBrute?: boolean | BruteDefaultArgs<ExtArgs>
     fight?: boolean | Log$fightArgs<ExtArgs>
   }, ExtArgs["result"]["log"]>
@@ -9519,6 +9526,7 @@ export namespace Prisma {
     fightId?: boolean
     xp?: boolean
     gold?: boolean
+    template?: boolean
     currentBrute?: boolean | BruteDefaultArgs<ExtArgs>
     fight?: boolean | Log$fightArgs<ExtArgs>
   }, ExtArgs["result"]["log"]>
@@ -9533,9 +9541,10 @@ export namespace Prisma {
     fightId?: boolean
     xp?: boolean
     gold?: boolean
+    template?: boolean
   }
 
-  export type LogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "currentBruteId" | "type" | "level" | "brute" | "fightId" | "xp" | "gold", ExtArgs["result"]["log"]>
+  export type LogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "currentBruteId" | "type" | "level" | "brute" | "fightId" | "xp" | "gold" | "template", ExtArgs["result"]["log"]>
   export type LogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     currentBrute?: boolean | BruteDefaultArgs<ExtArgs>
     fight?: boolean | Log$fightArgs<ExtArgs>
@@ -9561,6 +9570,7 @@ export namespace Prisma {
       fightId: string | null
       xp: number | null
       gold: number | null
+      template: string | null
     }, ExtArgs["result"]["log"]>
     composites: {}
   }
@@ -9965,6 +9975,7 @@ export namespace Prisma {
     readonly fightId: FieldRef<"Log", 'String'>
     readonly xp: FieldRef<"Log", 'Int'>
     readonly gold: FieldRef<"Log", 'Int'>
+    readonly template: FieldRef<"Log", 'String'>
   }
     
 
@@ -27787,7 +27798,8 @@ export namespace Prisma {
     brute: 'brute',
     fightId: 'fightId',
     xp: 'xp',
-    gold: 'gold'
+    gold: 'gold',
+    template: 'template'
   };
 
   export type LogScalarFieldEnum = (typeof LogScalarFieldEnum)[keyof typeof LogScalarFieldEnum]
@@ -28922,6 +28934,7 @@ export namespace Prisma {
     fightId?: UuidNullableFilter<"Log"> | string | null
     xp?: IntNullableFilter<"Log"> | number | null
     gold?: IntNullableFilter<"Log"> | number | null
+    template?: StringNullableFilter<"Log"> | string | null
     currentBrute?: XOR<BruteRelationFilter, BruteWhereInput>
     fight?: XOR<FightNullableRelationFilter, FightWhereInput> | null
   }
@@ -28936,6 +28949,7 @@ export namespace Prisma {
     fightId?: SortOrderInput | SortOrder
     xp?: SortOrderInput | SortOrder
     gold?: SortOrderInput | SortOrder
+    template?: SortOrderInput | SortOrder
     currentBrute?: BruteOrderByWithRelationInput
     fight?: FightOrderByWithRelationInput
   }
@@ -28953,6 +28967,7 @@ export namespace Prisma {
     fightId?: UuidNullableFilter<"Log"> | string | null
     xp?: IntNullableFilter<"Log"> | number | null
     gold?: IntNullableFilter<"Log"> | number | null
+    template?: StringNullableFilter<"Log"> | string | null
     currentBrute?: XOR<BruteRelationFilter, BruteWhereInput>
     fight?: XOR<FightNullableRelationFilter, FightWhereInput> | null
   }, "id" | "id">
@@ -28967,6 +28982,7 @@ export namespace Prisma {
     fightId?: SortOrderInput | SortOrder
     xp?: SortOrderInput | SortOrder
     gold?: SortOrderInput | SortOrder
+    template?: SortOrderInput | SortOrder
     _count?: LogCountOrderByAggregateInput
     _avg?: LogAvgOrderByAggregateInput
     _max?: LogMaxOrderByAggregateInput
@@ -28987,6 +29003,7 @@ export namespace Prisma {
     fightId?: UuidNullableWithAggregatesFilter<"Log"> | string | null
     xp?: IntNullableWithAggregatesFilter<"Log"> | number | null
     gold?: IntNullableWithAggregatesFilter<"Log"> | number | null
+    template?: StringNullableWithAggregatesFilter<"Log"> | string | null
   }
 
   export type DestinyChoiceWhereInput = {
@@ -30704,6 +30721,7 @@ export namespace Prisma {
     brute?: string | null
     xp?: number | null
     gold?: number | null
+    template?: string | null
     currentBrute: BruteCreateNestedOneWithoutLogsInput
     fight?: FightCreateNestedOneWithoutLogsInput
   }
@@ -30718,6 +30736,7 @@ export namespace Prisma {
     fightId?: string | null
     xp?: number | null
     gold?: number | null
+    template?: string | null
   }
 
   export type LogUpdateInput = {
@@ -30728,6 +30747,7 @@ export namespace Prisma {
     brute?: NullableStringFieldUpdateOperationsInput | string | null
     xp?: NullableIntFieldUpdateOperationsInput | number | null
     gold?: NullableIntFieldUpdateOperationsInput | number | null
+    template?: NullableStringFieldUpdateOperationsInput | string | null
     currentBrute?: BruteUpdateOneRequiredWithoutLogsNestedInput
     fight?: FightUpdateOneWithoutLogsNestedInput
   }
@@ -30742,6 +30762,7 @@ export namespace Prisma {
     fightId?: NullableStringFieldUpdateOperationsInput | string | null
     xp?: NullableIntFieldUpdateOperationsInput | number | null
     gold?: NullableIntFieldUpdateOperationsInput | number | null
+    template?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LogCreateManyInput = {
@@ -30754,6 +30775,7 @@ export namespace Prisma {
     fightId?: string | null
     xp?: number | null
     gold?: number | null
+    template?: string | null
   }
 
   export type LogUpdateManyMutationInput = {
@@ -30764,6 +30786,7 @@ export namespace Prisma {
     brute?: NullableStringFieldUpdateOperationsInput | string | null
     xp?: NullableIntFieldUpdateOperationsInput | number | null
     gold?: NullableIntFieldUpdateOperationsInput | number | null
+    template?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LogUncheckedUpdateManyInput = {
@@ -30776,6 +30799,7 @@ export namespace Prisma {
     fightId?: NullableStringFieldUpdateOperationsInput | string | null
     xp?: NullableIntFieldUpdateOperationsInput | number | null
     gold?: NullableIntFieldUpdateOperationsInput | number | null
+    template?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type DestinyChoiceCreateInput = {
@@ -32636,6 +32660,7 @@ export namespace Prisma {
     fightId?: SortOrder
     xp?: SortOrder
     gold?: SortOrder
+    template?: SortOrder
   }
 
   export type LogAvgOrderByAggregateInput = {
@@ -32654,6 +32679,7 @@ export namespace Prisma {
     fightId?: SortOrder
     xp?: SortOrder
     gold?: SortOrder
+    template?: SortOrder
   }
 
   export type LogMinOrderByAggregateInput = {
@@ -32666,6 +32692,7 @@ export namespace Prisma {
     fightId?: SortOrder
     xp?: SortOrder
     gold?: SortOrder
+    template?: SortOrder
   }
 
   export type LogSumOrderByAggregateInput = {
@@ -36639,6 +36666,7 @@ export namespace Prisma {
     brute?: string | null
     xp?: number | null
     gold?: number | null
+    template?: string | null
     fight?: FightCreateNestedOneWithoutLogsInput
   }
 
@@ -36651,6 +36679,7 @@ export namespace Prisma {
     fightId?: string | null
     xp?: number | null
     gold?: number | null
+    template?: string | null
   }
 
   export type LogCreateOrConnectWithoutCurrentBruteInput = {
@@ -37638,6 +37667,7 @@ export namespace Prisma {
     fightId?: UuidNullableFilter<"Log"> | string | null
     xp?: IntNullableFilter<"Log"> | number | null
     gold?: IntNullableFilter<"Log"> | number | null
+    template?: StringNullableFilter<"Log"> | string | null
   }
 
   export type DestinyChoiceUpsertWithWhereUniqueWithoutBruteInput = {
@@ -38638,6 +38668,7 @@ export namespace Prisma {
     brute?: string | null
     xp?: number | null
     gold?: number | null
+    template?: string | null
     currentBrute: BruteCreateNestedOneWithoutLogsInput
   }
 
@@ -38650,6 +38681,7 @@ export namespace Prisma {
     brute?: string | null
     xp?: number | null
     gold?: number | null
+    template?: string | null
   }
 
   export type LogCreateOrConnectWithoutFightInput = {
@@ -44019,6 +44051,7 @@ export namespace Prisma {
     fightId?: string | null
     xp?: number | null
     gold?: number | null
+    template?: string | null
   }
 
   export type DestinyChoiceCreateManyBruteInput = {
@@ -44376,6 +44409,7 @@ export namespace Prisma {
     brute?: NullableStringFieldUpdateOperationsInput | string | null
     xp?: NullableIntFieldUpdateOperationsInput | number | null
     gold?: NullableIntFieldUpdateOperationsInput | number | null
+    template?: NullableStringFieldUpdateOperationsInput | string | null
     fight?: FightUpdateOneWithoutLogsNestedInput
   }
 
@@ -44388,6 +44422,7 @@ export namespace Prisma {
     fightId?: NullableStringFieldUpdateOperationsInput | string | null
     xp?: NullableIntFieldUpdateOperationsInput | number | null
     gold?: NullableIntFieldUpdateOperationsInput | number | null
+    template?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LogUncheckedUpdateManyWithoutCurrentBruteInput = {
@@ -44399,6 +44434,7 @@ export namespace Prisma {
     fightId?: NullableStringFieldUpdateOperationsInput | string | null
     xp?: NullableIntFieldUpdateOperationsInput | number | null
     gold?: NullableIntFieldUpdateOperationsInput | number | null
+    template?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type DestinyChoiceUpdateWithoutBruteInput = {
@@ -45046,6 +45082,7 @@ export namespace Prisma {
     brute?: string | null
     xp?: number | null
     gold?: number | null
+    template?: string | null
   }
 
   export type LogUpdateWithoutFightInput = {
@@ -45056,6 +45093,7 @@ export namespace Prisma {
     brute?: NullableStringFieldUpdateOperationsInput | string | null
     xp?: NullableIntFieldUpdateOperationsInput | number | null
     gold?: NullableIntFieldUpdateOperationsInput | number | null
+    template?: NullableStringFieldUpdateOperationsInput | string | null
     currentBrute?: BruteUpdateOneRequiredWithoutLogsNestedInput
   }
 
@@ -45068,6 +45106,7 @@ export namespace Prisma {
     brute?: NullableStringFieldUpdateOperationsInput | string | null
     xp?: NullableIntFieldUpdateOperationsInput | number | null
     gold?: NullableIntFieldUpdateOperationsInput | number | null
+    template?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LogUncheckedUpdateManyWithoutFightInput = {
@@ -45079,6 +45118,7 @@ export namespace Prisma {
     brute?: NullableStringFieldUpdateOperationsInput | string | null
     xp?: NullableIntFieldUpdateOperationsInput | number | null
     gold?: NullableIntFieldUpdateOperationsInput | number | null
+    template?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type FightCreateManyTournamentInput = {

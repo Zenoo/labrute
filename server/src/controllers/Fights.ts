@@ -1,18 +1,22 @@
 import {
-  ExpectedError, FightCreateResponse, GLOBAL_TOURNAMENT_START_HOUR, getFightsLeft,
+  ExpectedError, FightCreateResponse, FightLogTemplateCount,
+  GLOBAL_TOURNAMENT_START_HOUR, getFightsLeft,
+  randomBetween,
 } from '@labrute/core';
-import { Prisma, PrismaClient, TournamentType } from '@labrute/prisma';
+import {
+  LogType, Prisma, PrismaClient, TournamentType,
+} from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import moment from 'moment';
 import { DISCORD, LOGGER } from '../context.js';
 import auth from '../utils/auth.js';
 import getOpponents from '../utils/brute/getOpponents.js';
 import generateFight from '../utils/fight/generateFight.js';
-import sendError from '../utils/sendError.js';
-import translate from '../utils/translate.js';
-import ServerState from '../utils/ServerState.js';
-import isUuid from '../utils/uuid.js';
 import { ilike } from '../utils/ilike.js';
+import sendError from '../utils/sendError.js';
+import ServerState from '../utils/ServerState.js';
+import translate from '../utils/translate.js';
+import isUuid from '../utils/uuid.js';
 
 const Fights = {
   get: (prisma: PrismaClient) => async (req: Request, res: Response) => {
@@ -195,10 +199,11 @@ const Fights = {
       await prisma.log.create({
         data: {
           currentBrute: { connect: { id: brute1.id } },
-          type: generatedFight.winner === brute1.name ? 'win' : 'lose',
+          type: generatedFight.winner === brute1.name ? LogType.win : LogType.lose,
           brute: brute2.name,
           fight: { connect: { id: fightId } },
           xp: xpGained,
+          template: randomBetween(0, FightLogTemplateCount - 1).toString(),
         },
         select: { id: true },
       });
@@ -207,9 +212,10 @@ const Fights = {
       await prisma.log.create({
         data: {
           currentBrute: { connect: { id: brute2.id } },
-          type: generatedFight.winner === brute2.name ? 'survive' : 'lose',
+          type: generatedFight.winner === brute2.name ? LogType.win : LogType.lose,
           brute: brute1.name,
           fight: { connect: { id: fightId } },
+          template: randomBetween(0, FightLogTemplateCount - 1).toString(),
         },
         select: { id: true },
       });

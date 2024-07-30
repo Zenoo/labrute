@@ -52,13 +52,11 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
           component="img"
           src={`/images/${log.type === LogType.bossDefeat
             ? 'rankings/lvl_0'
-            : log.type === LogType.survive
-              ? 'log/win'
-              : log.type === LogType.lvl
-                ? `rankings/lvl_${log.level || BruteRankings[0]}`
-                : log.type === LogType.tournament
-                  ? 'log/lose'
-                  : log.type === LogType.tournamentXp ? 'log/childup' : `log/${log.type}`}.webp`}
+            : log.type === LogType.lvl
+              ? `rankings/lvl_${log.level || BruteRankings[0]}`
+              : log.type === LogType.tournament
+                ? 'log/lose'
+                : log.type === LogType.tournamentXp ? 'log/childup' : `log/${log.type}`}.webp`}
           sx={{
             filter: `drop-shadow(3px 3px ${negativeLogs.includes(log.type) ? theme.palette.error.main : theme.palette.success.main})`,
           }}
@@ -71,7 +69,7 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
           flexGrow: 1,
         }}
       >
-        {log.type === LogType.survive || log.type === LogType.win || log.type === LogType.lose
+        {log.type === LogType.win || log.type === LogType.lose
           ? (
             <Tooltip title={t('seeFight')}>
               <Link
@@ -87,8 +85,11 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
                   },
                 }}
               >
-                <Text bold color={negativeLogs.includes(log.type) ? 'error.main' : 'success.main'} sx={{ lineHeight: '13px' }}>
-                  {t(`log.${log.type}`, { value: log.brute })}
+                <Text bold color={log.type === LogType.lose ? 'error.main' : 'success.main'} sx={{ lineHeight: '13px' }}>
+                  {t(`log.fight.${log.template ?? '0'}`, {
+                    winner: log.type === LogType.lose ? log.brute : log.currentBrute.name,
+                    loser: log.type === LogType.lose ? log.currentBrute.name : log.brute,
+                  })}
                 </Text>
               </Link>
             </Tooltip>

@@ -302,7 +302,6 @@ enum LogType {
   childup
   up
   lvl
-  survive
   tournament
   tournamentXp
   bossDefeat
@@ -320,6 +319,7 @@ model Log {
   fightId        String?  @db.Uuid
   xp             Int?
   gold           Int?
+  template       String?  @db.VarChar(255)
 
   @@index([currentBruteId, date])
 }

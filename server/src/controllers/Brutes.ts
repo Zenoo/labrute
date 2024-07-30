@@ -350,7 +350,7 @@ const Brutes = {
         await prisma.log.create({
           data: {
             currentBrute: { connect: { id: master.id } },
-            type: 'child',
+            type: LogType.child,
             brute: brute.name,
           },
           select: { id: true },
@@ -578,7 +578,7 @@ const Brutes = {
       await prisma.log.create({
         data: {
           currentBrute: { connect: { id: updatedBrute.id } },
-          type: 'up',
+          type: LogType.up,
         },
         select: { id: true },
       });
@@ -588,7 +588,7 @@ const Brutes = {
         await prisma.log.create({
           data: {
             currentBrute: { connect: { id: updatedBrute.masterId } },
-            type: 'childup',
+            type: LogType.childup,
             brute: updatedBrute.name,
           },
           select: { id: true },
@@ -1166,7 +1166,6 @@ const Brutes = {
       // Add rank up log
       await prisma.log.create({
         data: {
-          date: new Date(),
           currentBruteId: brute.id,
           type: LogType.lvl,
           level: brute.ranking,
