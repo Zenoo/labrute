@@ -500,6 +500,10 @@ const Users = {
           throw new ExpectedError(translate('noDinoRpgAccount', authed));
         }
 
+        if (data.includes('404 Not Found')) {
+          throw new ExpectedError(translate('dinoRpgServerDown', authed));
+        }
+
         throw new Error(data);
       }
 
