@@ -99,5 +99,7 @@
   "banReason.innapropriateName": "Nombre inapropiado",
   "banReason.innapropriateBruteName": "Nombre de bruto inapropiado",
   "banReason.multipleAccounts": "Múltiples cuentas",
-  "ipBanned": "Tu IP está baneada"
+  "ipBanned": "Tu IP está baneada",
+  "fightNotFound": "Fight not found",
+  "favoriteLimit": "You reached your favorite fights limit"
 }
