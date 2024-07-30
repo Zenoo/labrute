@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.67.0](https://github.com/Zenoo/labrute/compare/labrute-v2.66.2...labrute-v2.67.0) (2024-07-30)
+
+
+### Features
+
+* Brute following system. Fixes [#841](https://github.com/Zenoo/labrute/issues/841) ([16b07a0](https://github.com/Zenoo/labrute/commit/16b07a0281a2a25ac1a071f0f2e2dfbaba98d1c7))
+* Favorite fights. Fixes [#839](https://github.com/Zenoo/labrute/issues/839) ([78dbca7](https://github.com/Zenoo/labrute/commit/78dbca716468b4741176a8ea03aa7dd7ab0cfebc))
+
+
+### Bug Fixes
+
+* Handle DRPG missing server ([6523270](https://github.com/Zenoo/labrute/commit/6523270a2df543e6d55dede663b54c1d93fef4ab))
+* Random log texts. Fixes [#826](https://github.com/Zenoo/labrute/issues/826) ([9c90212](https://github.com/Zenoo/labrute/commit/9c90212d65fa86b8c5583604b305d62c8d97ed9d))
+* Rework `Vampirism`. Fixes [#827](https://github.com/Zenoo/labrute/issues/827) ([1e85713](https://github.com/Zenoo/labrute/commit/1e85713b66f611e77c06f80a9e6eb942b6cf2df7))
+
 ## [2.66.2](https://github.com/Zenoo/labrute/compare/labrute-v2.66.1...labrute-v2.66.2) (2024-07-30)
 
 
