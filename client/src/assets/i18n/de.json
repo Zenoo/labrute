@@ -76,6 +76,8 @@
   "log.lvl": "{{brute}} has reached rank {{value}}.",
   "log.tournament": "Der Wettkampf am {{date}} wurde abgesagt. Probier es später noch einmal!",
   "log.tournamentXp": "Gestrige Wettkämpfe",
+  "log.win": "Your Brute has crushed {{value}}.",
+  "log.lose": "{{value}} has flattened your Brute.",
   "lvl_0": "Brutale Legende",
   "lvl_1": "Der Chaoszahnarzt",
   "lvl_2": "Satans Bizeps",
