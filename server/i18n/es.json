@@ -100,6 +100,6 @@
   "banReason.innapropriateBruteName": "Nombre de bruto inapropiado",
   "banReason.multipleAccounts": "Múltiples cuentas",
   "ipBanned": "Tu IP está baneada",
-  "fightNotFound": "Fight not found",
-  "favoriteLimit": "You reached your favorite fights limit"
+  "fightNotFound": "Pelea no encontrada",
+  "favoriteLimit": "Has alcanzado tu límite de peleas favoritas"
 }
