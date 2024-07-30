@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.67.1](https://github.com/Zenoo/labrute/compare/labrute-v2.67.0...labrute-v2.67.1) (2024-07-30)
+
+
+### Bug Fixes
+
+* Missing tournament translations ([2703226](https://github.com/Zenoo/labrute/commit/2703226ef15ef176dd2b0381a144a0ee27b4ea7a))
+
 ## [2.67.0](https://github.com/Zenoo/labrute/compare/labrute-v2.66.2...labrute-v2.67.0) (2024-07-30)
 
 
