@@ -76,6 +76,8 @@
   "log.lvl": "{{brute}} a atteint le rang {{value}}.",
   "log.tournament": "Le tournoi du {{date}} a été annulé, retente ta chance !",
   "log.tournamentXp": "Tournois d'hier",
+  "log.win": "Your Brute has crushed {{value}}.",
+  "log.lose": "{{value}} has flattened your Brute.",
   "lvl_0": "Légende Brutale",
   "lvl_1": "Dentiste du Chaos",
   "lvl_2": "Biceps de Satan",
