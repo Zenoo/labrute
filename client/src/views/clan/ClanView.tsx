@@ -1,5 +1,5 @@
 import { BruteRanking, ClanGetResponse, bosses, getFightsLeft } from '@labrute/core';
-import { Brute, InventoryItemType } from '@labrute/prisma';
+import { Brute } from '@labrute/prisma';
 import { HighlightOff, PlayCircleOutline } from '@mui/icons-material';
 import { Box, Button, ButtonGroup, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip } from '@mui/material';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -285,17 +285,6 @@ const ClanView = () => {
 
       updateBrute((b) => {
         if (!b) return null;
-
-        // Add 1x BossTicket to inventory
-        const bossTicket = b.inventory.find((i) => i.type === InventoryItemType.bossTicket);
-        if (bossTicket) {
-          bossTicket.count += 1;
-        } else {
-          b.inventory.push({
-            type: InventoryItemType.bossTicket,
-            count: 1,
-          });
-        }
 
         return {
           ...b,

@@ -1,4 +1,4 @@
-import { Achievement, Brute, BruteInventoryItem, BruteReport, Clan, DestinyChoice, DestinyChoiceSide, FightModifier, Gender, Tournament, User, WeaponName } from '@labrute/prisma';
+import { Achievement, Brute, BruteReport, Clan, DestinyChoice, DestinyChoiceSide, FightModifier, Gender, Tournament, User, WeaponName } from '@labrute/prisma';
 import { Skill, SkillId } from './brute/skills';
 import { Weapon, WeaponAnimation, WeaponId } from './brute/weapons';
 import { BruteRanking } from './constants';
@@ -530,7 +530,6 @@ export type HookBrute = Brute & {
   clan: Pick<Clan, 'id' | 'name'> | null;
   user: Pick<User, 'id' | 'name'> | null;
   tournaments: Tournament[];
-  inventory: Pick<BruteInventoryItem, 'type' | 'count'>[];
 };
 export type AdminPanelBrute = Brute & {
   user: User | null;

@@ -1,6 +1,5 @@
-import { Fighter, FightStep, StepType } from '@labrute/core';
-import { Fight } from '@labrute/prisma';
-import { FastForward, FastRewind, MusicNote, MusicOff, Pause, PlayArrow, Rtt, VolumeOff, VolumeUp } from '@mui/icons-material';
+import { Fighter, FightGetResponse, FightStep, StepType } from '@labrute/core';
+import { FastForward, FastRewind, Favorite, FavoriteBorder, MusicNote, MusicOff, Pause, PlayArrow, Rtt, VolumeOff, VolumeUp } from '@mui/icons-material';
 import { Box, IconButton, Stack, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import { sound } from '@pixi/sound';
 import { Tweener } from 'pixi-tweener';
@@ -9,6 +8,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
+import { useRenderer } from '../../hooks/useRenderer';
 import catchError from '../../utils/catchError';
 import setupFight from '../../utils/fight/setupFight';
 import Server from '../../utils/Server';
@@ -16,7 +16,6 @@ import translateFightStep from '../../utils/translateFightStep';
 import BruteTooltip from '../Brute/BruteTooltip';
 import Link from '../Link';
 import Text from '../Text';
-import { useRenderer } from '../../hooks/useRenderer';
 
 const sounds = [
   'background.mp3',
@@ -75,7 +74,7 @@ const sounds = [
 ];
 
 export interface FightComponentProps {
-  fight: Fight | null;
+  fight: FightGetResponse | null;
 }
 
 const FightComponent = ({
@@ -114,6 +113,28 @@ const FightComponent = ({
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const tooltipBruteRef = useRef<Fighter | null>(null);
   const [tooltipBrute, setTooltipBrute] = useState<Fighter | null>(null);
+
+  // Favorite
+  const [isFavorite, setFavorite] = useState(false);
+
+  useEffect(() => {
+    if (!user || !fight) return;
+    setFavorite(fight.favoritedBy.some((f) => f.id === user.id));
+  }, [fight, user]);
+
+  const toggleFavorite = useCallback(() => {
+    if (!user || !fight) return;
+
+    Server.Fight.toggleFavorite(fight.id).then(() => {
+      setFavorite((prev) => {
+        const newFav = !prev;
+
+        Alert.open('success', t(`fight.${newFav ? 'favoriteAdded' : 'favoriteRemoved'}`));
+
+        return newFav;
+      });
+    }).catch(catchError(Alert));
+  }, [Alert, fight, t, user]);
 
   // Tooltip
   const toggleTooltip = useCallback((brute: Fighter, forceValue?: boolean) => {
@@ -341,6 +362,14 @@ const FightComponent = ({
                 {backgroundMusicOn ? <MusicOff /> : <MusicNote />}
               </IconButton>
             </Tooltip>
+            {/* Favorite */}
+            {user && (
+              <Tooltip title={isFavorite ? t('fight.unfavorite') : t('fight.favorite')}>
+                <IconButton onClick={toggleFavorite} size="small">
+                  {isFavorite ? <FavoriteBorder /> : <Favorite />}
+                </IconButton>
+              </Tooltip>
+            )}
           </Stack>
           {/* LOGS TOGGLE */}
           <Stack

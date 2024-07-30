@@ -388,6 +388,18 @@ const Users = {
               count: true,
             },
           },
+          favoriteFights: {
+            select: {
+              id: true,
+              date: true,
+              brute1: {
+                select: { id: true, name: true },
+              },
+              brute2: {
+                select: { id: true, name: true },
+              },
+            },
+          },
         },
       });
 
@@ -727,7 +739,7 @@ const Users = {
           });
 
           // Add 1x free name change
-          await prisma.bruteInventoryItem.upsert({
+          await prisma.inventoryItem.upsert({
             where: {
               type_bruteId: {
                 type: InventoryItemType.nameChange,

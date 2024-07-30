@@ -90,11 +90,13 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   app.post('/api/brute/:name/reset-visuals', Brutes.resetVisuals(prisma));
   app.get('/api/brute/:name/give-free-visual-reset', Brutes.giveFreeVisualReset(prisma));
   app.get('/api/brute/:name/change-name/:newName', Brutes.changeName(prisma));
+  app.get('/api/brute/:name/inventory', Brutes.getInventory(prisma));
 
   // Log
   app.get('/api/log/list/:name', Logs.list(prisma));
 
   // Fight
+  app.get('/api/fight/:id/toggle-favorite', Fights.toggleFavorite(prisma));
   app.get('/api/fight/:name/:id', Fights.get(prisma));
   app.post('/api/fight/create', Fights.create(prisma));
 

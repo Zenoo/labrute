@@ -1,5 +1,4 @@
 import { getRandomBody, getRandomColors } from '@labrute/core';
-import { InventoryItemType } from '@labrute/prisma';
 import { Box, Paper, Tooltip } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -68,10 +67,6 @@ const ResetVisualsView = () => {
         // Update brute visuals
         updateBrute((b) => (b ? ({
           ...b,
-          inventory: b.inventory.map((i) => (i.type === InventoryItemType.visualReset ? ({
-            ...i,
-            count: i.count - 1,
-          }) : i)),
           body,
           colors,
         }) : null));

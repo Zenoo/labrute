@@ -351,11 +351,12 @@ exports.Prisma.BossDamageScalarFieldEnum = {
   damage: 'damage'
 };
 
-exports.Prisma.BruteInventoryItemScalarFieldEnum = {
+exports.Prisma.InventoryItemScalarFieldEnum = {
   id: 'id',
   type: 'type',
   count: 'count',
-  bruteId: 'bruteId'
+  bruteId: 'bruteId',
+  userId: 'userId'
 };
 
 exports.Prisma.ReleaseScalarFieldEnum = {
@@ -664,7 +665,8 @@ exports.BossName = exports.$Enums.BossName = {
 exports.InventoryItemType = exports.$Enums.InventoryItemType = {
   visualReset: 'visualReset',
   bossTicket: 'bossTicket',
-  nameChange: 'nameChange'
+  nameChange: 'nameChange',
+  favoriteFight: 'favoriteFight'
 };
 
 exports.Prisma.ModelName = {
@@ -688,7 +690,7 @@ exports.Prisma.ModelName = {
   ClanThread: 'ClanThread',
   ClanPost: 'ClanPost',
   BossDamage: 'BossDamage',
-  BruteInventoryItem: 'BruteInventoryItem',
+  InventoryItem: 'InventoryItem',
   Release: 'Release'
 };
 

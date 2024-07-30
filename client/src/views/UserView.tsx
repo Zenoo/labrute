@@ -1,6 +1,6 @@
 import { AchievementData, BanReason, TitleRequirements, UserGetProfileResponse, formatLargeNumber, getFightsLeft } from '@labrute/core';
 import { Check, QuestionMark } from '@mui/icons-material';
-import { Box, Grid, List, ListItem, ListItemText, ListSubheader, MenuItem, Paper, Select, Tooltip, useTheme } from '@mui/material';
+import { Box, Grid, List, ListItem, ListItemText, ListSubheader, MenuItem, Paper, Select, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useTheme } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -15,6 +15,7 @@ import Server from '../utils/Server';
 import catchError from '../utils/catchError';
 import { AchievementTooltip } from '../components/AchievementTooltip';
 import { useConfirm } from '../hooks/useConfirm';
+import Link from '../components/Link';
 
 const UserView = () => {
   const { t } = useTranslation();
@@ -260,6 +261,53 @@ const UserView = () => {
                 <BruteButton key={brute.id} brute={brute} />
               ))}
             </Box>
+            {/* FAVORITE FIGHTS */}
+            {user.id === authedUser?.id && !!user.favoriteFights.length && (
+              <>
+                <Text bold center smallCaps h4 sx={{ mt: 2, ml: 1 }}>{t('favoriteFights')}</Text>
+                <Table sx={{
+                  maxWidth: 1,
+                  '& th': {
+                    bgcolor: 'secondary.main',
+                    color: 'secondary.contrastText',
+                    py: 0.5,
+                    px: 1,
+                    fontWeight: 'bold',
+                    border: '1px solid',
+                    borderColor: 'background.default',
+                  },
+                  '& td': {
+                    bgcolor: 'background.paperDark',
+                    py: 0.5,
+                    px: 1,
+                    border: '1px solid',
+                    borderColor: 'background.default',
+                  },
+                }}
+                >
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>{t('fight')}</TableCell>
+                      <TableCell align="right">{t('date')}</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {user.favoriteFights.map((fight) => (
+                      <TableRow
+                        key={fight.id}
+                      >
+                        <TableCell>
+                          <Link to={`/${fight.brute1.name}/fight/${fight.id}`}>
+                            {fight.brute1.name} {t('vs')} {fight.brute2?.name}
+                          </Link>
+                        </TableCell>
+                        <TableCell align="right">{moment.utc(fight.date).format('DD/MM/YYYY')}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </>
+            )}
           </Paper>
         </>
       )}

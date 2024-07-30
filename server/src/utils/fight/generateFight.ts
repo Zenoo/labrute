@@ -337,7 +337,7 @@ const generateFight = async (
       });
 
       // Get brutes that already have a BossTicket
-      const brutesWithTicket = await prisma.bruteInventoryItem.findMany({
+      const brutesWithTicket = await prisma.inventoryItem.findMany({
         where: {
           bruteId: { in: Array.from(bruteIds) },
           type: InventoryItemType.bossTicket,
@@ -348,9 +348,9 @@ const generateFight = async (
       });
 
       // Add 1x BossTicket to those brutes
-      await prisma.bruteInventoryItem.updateMany({
+      await prisma.inventoryItem.updateMany({
         where: {
-          bruteId: { in: brutesWithTicket.map((brute) => brute.bruteId) },
+          bruteId: { in: brutesWithTicket.map((brute) => brute.bruteId ?? '') },
           type: InventoryItemType.bossTicket,
         },
         data: {
@@ -363,7 +363,7 @@ const generateFight = async (
         .filter((bruteId) => !brutesWithTicket.find((brute) => brute.bruteId === bruteId));
 
       // Add 1x BossTicket to those brutes
-      await prisma.bruteInventoryItem.createMany({
+      await prisma.inventoryItem.createMany({
         data: brutesWithoutTicket.map((bruteId) => ({
           bruteId,
           type: InventoryItemType.bossTicket,

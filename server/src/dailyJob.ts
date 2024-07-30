@@ -908,7 +908,7 @@ const checkNameDuplicates = async (prisma: PrismaClient) => {
   });
 
   // Get brutes that already have the name change item
-  const bruteIdsWithItem = await prisma.bruteInventoryItem.findMany({
+  const bruteIdsWithItem = await prisma.inventoryItem.findMany({
     where: {
       type: InventoryItemType.nameChange,
       bruteId: {
@@ -919,9 +919,9 @@ const checkNameDuplicates = async (prisma: PrismaClient) => {
   });
 
   // Add 1x name change item to those brutes
-  await prisma.bruteInventoryItem.updateMany({
+  await prisma.inventoryItem.updateMany({
     where: {
-      bruteId: { in: bruteIdsWithItem.map((item) => item.bruteId) },
+      bruteId: { in: bruteIdsWithItem.map((item) => item.bruteId ?? '') },
       type: InventoryItemType.nameChange,
     },
     data: {
@@ -935,7 +935,7 @@ const checkNameDuplicates = async (prisma: PrismaClient) => {
   );
 
   // Add 1x name change item to those brutes
-  await prisma.bruteInventoryItem.createMany({
+  await prisma.inventoryItem.createMany({
     data: bruteIdsWithoutItem.map((id) => ({
       bruteId: id,
       type: InventoryItemType.nameChange,
@@ -1087,6 +1087,19 @@ const cleanup = async (prisma: PrismaClient) => {
     where: {
       date: {
         lt: moment.utc().subtract(30, 'day').toDate(),
+      },
+    },
+  });
+
+  // Delete non tournament or favorited fights older than 30 days
+  await prisma.fight.deleteMany({
+    where: {
+      date: {
+        lt: moment.utc().subtract(30, 'day').toDate(),
+      },
+      tournamentId: null,
+      favoritedBy: {
+        none: {},
       },
     },
   });

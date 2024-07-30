@@ -1,4 +1,4 @@
-import { Fight } from '@labrute/prisma';
+import { FightGetResponse } from '@labrute/core';
 import { Box, Grid, Link, Paper, Tooltip } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -10,7 +10,7 @@ import { AdResult } from '../../utils/ads';
 export interface FightMobileViewProps {
   bruteName: string | undefined;
   ads: AdResult[];
-  fight: Fight | null;
+  fight: FightGetResponse | null;
 }
 
 const FightMobileView = ({

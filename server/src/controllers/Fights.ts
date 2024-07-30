@@ -1,9 +1,10 @@
 import {
-  ExpectedError, FightCreateResponse, FightLogTemplateCount,
+  ExpectedError, FightCreateResponse, FightGetResponse, FightLogTemplateCount,
   GLOBAL_TOURNAMENT_START_HOUR, getFightsLeft,
   randomBetween,
 } from '@labrute/core';
 import {
+  InventoryItemType,
   LogType, Prisma, PrismaClient, TournamentType,
 } from '@labrute/prisma';
 import type { Request, Response } from 'express';
@@ -19,14 +20,17 @@ import translate from '../utils/translate.js';
 import isUuid from '../utils/uuid.js';
 
 const Fights = {
-  get: (prisma: PrismaClient) => async (req: Request, res: Response) => {
+  get: (prisma: PrismaClient) => async (
+    req: Request,
+    res: Response<FightGetResponse>,
+  ) => {
     try {
       if (!req.params.name || !req.params.id) {
-        throw new ExpectedError('Missing parameters');
+        throw new ExpectedError(translate('missingParameters'));
       }
 
       if (!isUuid(req.params.id)) {
-        throw new ExpectedError('Invalid parameters');
+        throw new ExpectedError(translate('invalidParameters'));
       }
 
       // Get fight
@@ -38,10 +42,15 @@ const Fights = {
             { brute2: { name: ilike(req.params.name) } },
           ],
         },
+        include: {
+          favoritedBy: {
+            select: { id: true },
+          },
+        },
       });
 
       if (!fight) {
-        throw new ExpectedError('Fight not found');
+        throw new ExpectedError(translate('fightNotFound'));
       }
 
       // Limit viewing if the fight is from a global tournament round not yet reached
@@ -252,6 +261,115 @@ const Fights = {
         fightsLeft: arenaFight ? fightsLeft - 1 : fightsLeft,
         victories: arenaFight ? generatedFight.winner === brute1.name ? 1 : 0 : 0,
       });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  toggleFavorite: (prisma: PrismaClient) => async (
+    req: Request<{ id: string }>,
+    res: Response,
+  ) => {
+    try {
+      const user = await auth(prisma, req);
+
+      if (!req.params.id) {
+        throw new ExpectedError(translate('missingParameters', user));
+      }
+
+      // Get fight
+      const fight = await prisma.fight.findFirst({
+        where: {
+          id: req.params.id,
+        },
+        select: {
+          id: true,
+          favoritedBy: {
+            select: { id: true },
+          },
+        },
+      });
+
+      if (!fight) {
+        throw new ExpectedError(translate('fightNotFound', user));
+      }
+
+      // Toggle favorite
+      const isFavorited = fight.favoritedBy.some((f) => f.id === user.id);
+
+      if (isFavorited) {
+        // Unfavorite
+        await prisma.fight.update({
+          where: { id: fight.id },
+          data: {
+            favoritedBy: {
+              disconnect: { id: user.id },
+            },
+          },
+          select: { id: true },
+        });
+
+        // Add 1x favorite fight item
+        await prisma.inventoryItem.upsert({
+          where: {
+            type_userId: {
+              type: InventoryItemType.favoriteFight,
+              userId: user.id,
+            },
+          },
+          create: {
+            type: InventoryItemType.favoriteFight,
+            user: { connect: { id: user.id } },
+          },
+          update: {
+            count: {
+              increment: 1,
+            },
+          },
+          select: { id: true },
+        });
+      } else {
+        // Check if user has enough favorite fight items
+        const favoriteFightItem = await prisma.inventoryItem.findFirst({
+          where: {
+            type: InventoryItemType.favoriteFight,
+            userId: user.id,
+          },
+          select: { id: true, count: true },
+        });
+
+        if (!favoriteFightItem || favoriteFightItem.count <= 0) {
+          throw new ExpectedError(translate('favoriteLimit', user));
+        }
+
+        // Favorite
+        await prisma.fight.update({
+          where: { id: fight.id },
+          data: {
+            favoritedBy: {
+              connect: { id: user.id },
+            },
+          },
+          select: { id: true },
+        });
+
+        // Remove 1x favorite fight item
+        await prisma.inventoryItem.update({
+          where: {
+            type_userId: {
+              type: InventoryItemType.favoriteFight,
+              userId: user.id,
+            },
+          },
+          data: {
+            count: {
+              decrement: 1,
+            },
+          },
+          select: { id: true },
+        });
+      }
+
+      res.send({ success: true });
     } catch (error) {
       sendError(res, error);
     }

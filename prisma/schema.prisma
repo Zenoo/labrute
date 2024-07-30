@@ -41,6 +41,8 @@ model User {
   achievements    Achievement[]
   reports         BruteReport[]
   tournamentGolds TournamentGold[]
+  inventory       InventoryItem[]
+  favoriteFights  Fight[]          @relation("FavoriteFights")
 }
 
 enum DestinyChoiceSide {
@@ -237,7 +239,7 @@ model Brute {
   wantToJoinClan               Clan?                   @relation("JoinRequests", fields: [wantToJoinClanId], references: [id])
   wantToJoinClanId             String?                 @db.Uuid
   threads                      ClanThread[]
-  inventory                    BruteInventoryItem[]
+  inventory                    InventoryItem[]
   tournamentAchievements       TournamentAchievement[]
   tournamentXps                TournamentXp[]
   tournamentWins               Int                     @default(0)
@@ -290,6 +292,7 @@ model Fight {
   tournamentStep Int             @default(0)
   modifiers      FightModifier[] @default([])
   background     String          @default("1.jpg") @db.VarChar(255)
+  favoritedBy    User[]          @relation("FavoriteFights")
 
   @@index([tournamentId, winner, brute1Id, brute2Id])
 }
@@ -649,16 +652,20 @@ enum InventoryItemType {
   visualReset
   bossTicket
   nameChange
+  favoriteFight
 }
 
-model BruteInventoryItem {
+model InventoryItem {
   id      String            @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   type    InventoryItemType
   count   Int               @default(1)
-  bruteId String            @db.Uuid
-  brute   Brute             @relation(fields: [bruteId], references: [id])
+  bruteId String?           @db.Uuid
+  brute   Brute?            @relation(fields: [bruteId], references: [id])
+  userId  String?           @db.Uuid
+  user    User?             @relation(fields: [userId], references: [id])
 
   @@unique([type, bruteId])
+  @@unique([type, userId])
   @@index([bruteId])
 }
 

@@ -1,5 +1,5 @@
-import { AchievementGetRankingsResponse, AchievementsGetResponse, AdminPanelBrute, BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetForVersusResponse, BrutesGetLevelUpChoicesResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, ClanChallengeBossResponse, ClanCreateResponse, ClanGetResponse, ClanGetThreadResponse, ClanGetThreadsResponse, ClanListResponse, FightCreateResponse, HookBrute, ServerReadyResponse, TournamentHistoryResponse, TournamentsGetDailyResponse, TournamentsGetGlobalResponse, TournamentsUpdateStepWatchedResponse, TournementsUpdateGlobalRoundWatchedResponse, UserBannedListResponse, UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse, UserMultipleAccountsListResponse, UsersAdminUpdateRequest, UsersAuthenticateResponse } from '@labrute/core';
-import { Brute, BruteReportReason, BruteReportStatus, DestinyChoiceSide, Fight, FightModifier, Gender, Lang, Log, Prisma } from '@labrute/prisma';
+import { AchievementGetRankingsResponse, AchievementsGetResponse, AdminPanelBrute, BruteGetInventoryResponse, BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetForVersusResponse, BrutesGetLevelUpChoicesResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, ClanChallengeBossResponse, ClanCreateResponse, ClanGetResponse, ClanGetThreadResponse, ClanGetThreadsResponse, ClanListResponse, FightCreateResponse, FightGetResponse, HookBrute, LogListResponse, ServerReadyResponse, TournamentHistoryResponse, TournamentsGetDailyResponse, TournamentsGetGlobalResponse, TournamentsUpdateStepWatchedResponse, TournementsUpdateGlobalRoundWatchedResponse, UserBannedListResponse, UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse, UserMultipleAccountsListResponse, UsersAdminUpdateRequest, UsersAuthenticateResponse } from '@labrute/core';
+import { Brute, BruteReportReason, BruteReportStatus, DestinyChoiceSide, FightModifier, Gender, Lang, Prisma } from '@labrute/prisma';
 import Fetch from './Fetch';
 
 const Server = {
@@ -64,13 +64,15 @@ const Server = {
     resetVisuals: (name: string, body: string, colors: string) => Fetch<never>(`/api/brute/${name}/reset-visuals`, { body, colors }, 'POST'),
     giveFreeVisualReset: (name: string) => Fetch<never>(`/api/brute/${name}/give-free-visual-reset`),
     changeName: (name: string, newName: string) => Fetch<never>(`/api/brute/${name}/change-name/${newName}`),
+    getInventory: (name: string) => Fetch<BruteGetInventoryResponse>(`/api/brute/${name}/inventory`),
   },
   Log: {
-    list: (brute: string) => Fetch<(Log & { currentBrute: { name: string } })[]>(`/api/log/list/${brute}`),
+    list: (brute: string) => Fetch<LogListResponse>(`/api/log/list/${brute}`),
   },
   Fight: {
-    get: (name: string, id: string) => Fetch<Fight>(`/api/fight/${name}/${id}`),
+    get: (name: string, id: string) => Fetch<FightGetResponse>(`/api/fight/${name}/${id}`),
     create: (brute1: string, brute2: string) => Fetch<FightCreateResponse>('/api/fight/create', { brute1, brute2 }, 'POST'),
+    toggleFavorite: (id: string) => Fetch<never>(`/api/fight/${id}/toggle-favorite`),
   },
   Tournament: {
     getDaily: ({

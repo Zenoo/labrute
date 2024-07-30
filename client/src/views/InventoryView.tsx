@@ -1,7 +1,7 @@
-import { HookBrute } from '@labrute/core';
+import { BruteGetInventoryResponse } from '@labrute/core';
 import { InventoryItemType } from '@labrute/prisma';
 import { Box, Grid, Paper, useMediaQuery, useTheme } from '@mui/material';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import BruteBodyAndStats from '../components/Brute/BruteBodyAndStats';
@@ -12,11 +12,14 @@ import StyledButton from '../components/StyledButton';
 import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useBrute } from '../hooks/useBrute';
+import Server from '../utils/Server';
+import catchError from '../utils/catchError';
 
 const itemImage: Record<InventoryItemType, string> = {
   [InventoryItemType.visualReset]: '/images/inventory/color-reset.svg',
   [InventoryItemType.bossTicket]: '/images/rankings/lvl_0.webp',
   [InventoryItemType.nameChange]: '/images/weapons/keyboard.png',
+  [InventoryItemType.favoriteFight]: '/images/hp.webp',
 };
 
 export const InventoryView = () => {
@@ -27,7 +30,18 @@ export const InventoryView = () => {
   const navigate = useNavigate();
   const Alert = useAlert();
 
-  const triggerItem = useCallback((item: HookBrute['inventory'][number]) => () => {
+  const [inventory, setInventory] = useState<BruteGetInventoryResponse>([]);
+
+  // Fetch inventory
+  useEffect(() => {
+    if (!brute) return;
+
+    Server.Brute.getInventory(brute.name).then((data) => {
+      setInventory(data);
+    }).catch(catchError(Alert));
+  }, [brute, Alert]);
+
+  const triggerItem = useCallback((item: BruteGetInventoryResponse[number]) => () => {
     if (!brute) return;
 
     switch (item.type) {
@@ -39,6 +53,11 @@ export const InventoryView = () => {
       case InventoryItemType.nameChange: {
         // Change name
         navigate(`/${brute.name}/change-name`);
+        break;
+      }
+      case InventoryItemType.favoriteFight: {
+        // Favorite fight
+        Alert.open('info', t('inventory.item.favoriteFight.desc'));
         break;
       }
       default: {
@@ -82,8 +101,8 @@ export const InventoryView = () => {
             </Grid>
             <Grid item xs={12} md={5.6}>
               <Grid container spacing={1}>
-                {brute.inventory.map((item) => !!item.count && (
-                  <Grid item key={item.type} xs={12} sm={6}>
+                {inventory.map((item) => !!item.count && (
+                  <Grid item key={item.id} xs={12} sm={6}>
                     <StyledButton
                       image="/images/arena/brute-bg.webp"
                       imageHover="/images/arena/brute-bg-hover.webp"

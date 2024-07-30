@@ -1,7 +1,7 @@
 import { AuthType } from '@eternaltwin/core/auth/auth-type';
 import { EternaltwinNodeClient } from '@eternaltwin/client-node';
 import { RfcOauthClient } from '@eternaltwin/oauth-client-http/rfc-oauth-client';
-import { PrismaClient } from '@labrute/prisma';
+import { InventoryItemType, PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import { ExpectedError, UserWithBrutesBodyColor } from '@labrute/core';
 import urlJoin from 'url-join';
@@ -92,6 +92,13 @@ export default class OAuth {
             id: etwinUser.id,
             connexionToken: token.accessToken,
             name: etwinUser.displayName.current.value,
+            // 5 free favorite fights
+            inventory: {
+              create: {
+                type: InventoryItemType.favoriteFight,
+                count: 5,
+              },
+            },
           },
           select: { id: true },
         });

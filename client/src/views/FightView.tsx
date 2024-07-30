@@ -1,4 +1,4 @@
-import { Fight } from '@labrute/prisma';
+import { FightGetResponse } from '@labrute/core';
 import { Box, Link, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -24,7 +24,7 @@ const FightView = () => {
   const { palette: { mode } } = useTheme();
 
   // Fight data
-  const [fight, setFight] = useState<Fight | null>(null);
+  const [fight, setFight] = useState<FightGetResponse | null>(null);
 
   // Fetch fight and brutes
   useEffect(() => {

@@ -3,6 +3,7 @@ import {
   ARENA_OPPONENTS_MAX_GAP,
   AdminPanelBrute,
   BruteDeletionReason,
+  BruteGetInventoryResponse,
   BruteRestoreResponse,
   BrutesCreateResponse,
   BrutesExistsResponse, BrutesGetDestinyResponse,
@@ -1894,7 +1895,7 @@ const Brutes = {
       }
 
       // Check if brute can change visuals
-      const inventory = await prisma.bruteInventoryItem.findUnique({
+      const inventory = await prisma.inventoryItem.findUnique({
         where: {
           type_bruteId: {
             bruteId: brute.id,
@@ -1924,7 +1925,7 @@ const Brutes = {
 
       // Update the brute inventory
       if (inventory.count === 1) {
-        await prisma.bruteInventoryItem.delete({
+        await prisma.inventoryItem.delete({
           where: {
             type_bruteId: {
               bruteId: brute.id,
@@ -1933,7 +1934,7 @@ const Brutes = {
           },
         });
       } else {
-        await prisma.bruteInventoryItem.update({
+        await prisma.inventoryItem.update({
           where: {
             type_bruteId: {
               bruteId: brute.id,
@@ -1987,7 +1988,7 @@ const Brutes = {
       }
 
       // Give free visual reset
-      await prisma.bruteInventoryItem.upsert({
+      await prisma.inventoryItem.upsert({
         where: {
           type_bruteId: {
             bruteId: brute.id,
@@ -2102,11 +2103,11 @@ const Brutes = {
 
       // Remove name change item
       if (nameChangeItem.count === 1) {
-        await prisma.bruteInventoryItem.delete({
+        await prisma.inventoryItem.delete({
           where: { id: nameChangeItem.id },
         });
       } else {
-        await prisma.bruteInventoryItem.update({
+        await prisma.inventoryItem.update({
           where: { id: nameChangeItem.id },
           data: {
             count: {
@@ -2118,6 +2119,42 @@ const Brutes = {
       }
 
       res.send({ success: true });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  getInventory: (prisma: PrismaClient) => async (
+    req: Request<{ name: string }>,
+    res: Response<BruteGetInventoryResponse>,
+  ) => {
+    try {
+      const authed = await auth(prisma, req);
+
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name: ilike(req.params.name),
+          deletedAt: null,
+          userId: authed.id,
+        },
+        select: {
+          id: true,
+        },
+      });
+
+      if (!brute) {
+        throw new ExpectedError(translate('bruteNotFound', authed));
+      }
+
+      const inventory = await prisma.inventoryItem.findMany({
+        where: {
+          OR: [
+            { bruteId: brute.id },
+            { userId: authed.id },
+          ],
+        },
+      });
+
+      res.send(inventory);
     } catch (error) {
       sendError(res, error);
     }

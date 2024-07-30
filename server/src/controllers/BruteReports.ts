@@ -247,7 +247,7 @@ const BruteReports = {
       const nameChange = report.brute.inventory[0];
 
       if (nameChange) {
-        await prisma.bruteInventoryItem.update({
+        await prisma.inventoryItem.update({
           where: {
             id: nameChange.id,
           },
@@ -259,7 +259,7 @@ const BruteReports = {
           select: { id: true },
         });
       } else {
-        await prisma.bruteInventoryItem.create({
+        await prisma.inventoryItem.create({
           data: {
             type: InventoryItemType.nameChange,
             bruteId: report.brute.id,

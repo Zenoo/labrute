@@ -1,4 +1,4 @@
-import { Achievement, AchievementName, BossDamage, Brute, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, DestinyChoice, Fight, FightModifier, Lang, Log, Prisma, Tournament, User } from '@labrute/prisma';
+import { Achievement, AchievementName, BossDamage, Brute, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, DestinyChoice, Fight, FightModifier, InventoryItem, Lang, Log, Prisma, Tournament, User } from '@labrute/prisma';
 import Version from './Version';
 import applySkillModifiers from './brute/applySkillModifiers';
 import availableBodyParts from './brute/availableBodyParts';
@@ -158,6 +158,7 @@ export type BruteReportsSendRequest = {
   name: string,
   reason: BruteReportReason,
 };
+export type BruteGetInventoryResponse = InventoryItem[];
 
 export type TournamentHistoryResponse = (Pick<
   Tournament,
@@ -226,6 +227,10 @@ export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang'>
     'skills'
   >[],
   achievements: Pick<Achievement, 'name' | 'count'>[],
+  favoriteFights: (Pick<Fight, 'id' | 'date'> & {
+    brute1: Pick<Brute, 'id' | 'name'>,
+    brute2: Pick<Brute, 'id' | 'name'> | null,
+  })[],
 };
 export type UserBannedListResponse = Pick<User, 'id' | 'name' | 'bannedAt' | 'banReason'>[];
 export type UserMultipleAccountsListResponse = { ip: string, users: string[] }[];
@@ -247,6 +252,9 @@ export type FightCreateResponse = {
   fightsLeft: number,
   xpWon: number,
   victories: number,
+};
+export type FightGetResponse = Fight & {
+  favoritedBy: Pick<Brute, 'id'>[],
 };
 export type ClanChallengeBossResponse = {
   id: string,
