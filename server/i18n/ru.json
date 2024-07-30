@@ -99,5 +99,7 @@
   "banReason.innapropriateName": "Неуместное имя",
   "banReason.innapropriateBruteName": "Неуместное имя Брутала",
   "banReason.multipleAccounts": "Несколько учётных записей",
-  "ipBanned": "Ваш IP-адрес забанен"
+  "ipBanned": "Ваш IP-адрес забанен",
+  "fightNotFound": "Fight not found",
+  "favoriteLimit": "You reached your favorite fights limit"
 }
