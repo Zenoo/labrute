@@ -508,6 +508,10 @@
   "fight.wonTheFight": "{{brute}} выигрывает бой",
   "fight.play": "Воспроизвести",
   "fight.pause": "Приостановить",
+  "fight.favorite": "Favorite",
+  "fight.unfavorite": "Unfavorite",
+  "fight.favoriteAdded": "Favorite added",
+  "fight.favoriteRemoved": "Favorite removed",
   "fight.toggleLogs": "Вкл/выкл логи",
   "bruteCell": "Клетка {{name}}",
   "experience": "Опыт",
@@ -1361,6 +1365,8 @@
   "inventory.item.visualReset": "Сброс внешности",
   "inventory.item.bossTicket": "Боссовый билет",
   "inventory.item.nameChange": "Смена имени",
+  "inventory.item.favoriteFight": "Favorite fight",
+  "inventory.item.favoriteFight.desc": "You can set a fight as your favorite on the fight page. It will not be deleted after 30 days.",
   "inventory.itemNotImplemented": "Этот предмет ещё не встроен.",
   "taggedForDeletion": "Ваш Брутал будет удалён через {{days}} дней.",
   "deletionReason.DUPLICATE_NAME": "Имя вашего Брутала совпадает с другим Бруталом. Используйте предмет в вашем инвентаре, чтобы его сменить и избежать удаление.",
@@ -1406,5 +1412,8 @@
   "afterBlock": "после блокирования",
   "created": "Создан {{date}}",
   "copyUserId": "Скопировать идентификатор пользователя",
-  "userIdCopied": "Идентификатор пользователя скопирован в буфер обмена."
+  "userIdCopied": "Идентификатор пользователя скопирован в буфер обмена.",
+  "favoriteFights": "Favorite fights",
+  "vs": "vs",
+  "fight": "Fight"
 }
