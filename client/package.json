@@ -1,6 +1,6 @@
 {
   "name": "@labrute/client",
-  "version": "2.66.2",
+  "version": "2.67.0",
   "private": true,
   "proxy": "http://localhost:9000",
   "scripts": {
