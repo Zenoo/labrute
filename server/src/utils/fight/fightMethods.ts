@@ -473,8 +473,9 @@ const registerHit = (
       throw new Error('No opponent found');
     }
 
-    // HP healed
-    const heal = Math.min(actualDamage[opponent.index] ?? damage, fighter.maxHp - fighter.hp);
+    // HP healed (100 - 200% of damage)
+    const finalDamage = actualDamage[opponent.index] ?? damage;
+    const heal = Math.min(finalDamage * (1 + Math.random()), fighter.maxHp - fighter.hp);
     healFighter(stats, fighter, heal);
 
     // Add vampirism step
@@ -1022,8 +1023,8 @@ const activateSuper = (
       // Choose main opponent
       const opponent = getMainOpponent(fightData, fighter);
 
-      // Damage done (50% own missing hp)
-      const damage = Math.floor((fighter.maxHp - fighter.hp) * 0.5);
+      // Damage done (25% own missing hp)
+      const damage = Math.floor((fighter.maxHp - fighter.hp) * 0.25);
 
       registerHit(fightData, stats, achievements, fighter, [opponent], damage, false, 'vampirism');
 
