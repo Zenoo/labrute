@@ -285,7 +285,7 @@
   "monk.effect": "",
   "vampirism": "Vampirism",
   "vampirism.desc": "Dracula can rest peacefully, because in his absence, it's you who takes over!",
-  "vampirism.effect": "Action (x{{uses}}) Deals 50% of your missing health as damage and heals you for the same amount",
+  "vampirism.effect": "Action (x{{uses}}) Deals 25% of your missing health as damage and heals you for up to twice that amount.",
   "chaining": "Chaining",
   "chaining.desc": "Your hobby is ringing bells? This combo is made for you!",
   "chaining.effect": "Every 3rd consecutive melee hit will stun your opponent.",
