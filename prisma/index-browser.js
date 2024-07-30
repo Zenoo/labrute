@@ -226,7 +226,8 @@ exports.Prisma.LogScalarFieldEnum = {
   fightId: 'fightId',
   xp: 'xp',
   gold: 'gold',
-  template: 'template'
+  template: 'template',
+  destinyChoiceId: 'destinyChoiceId'
 };
 
 exports.Prisma.DestinyChoiceScalarFieldEnum = {

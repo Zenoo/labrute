@@ -1,10 +1,10 @@
-import { BruteRankings } from '@labrute/core';
 import { InventoryItemType, Log, LogType } from '@labrute/prisma';
 import { Box, Paper, PaperProps, Tooltip, useTheme } from '@mui/material';
 import moment from 'moment';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Link from '../Link';
+import { LogImage } from '../LogImage';
 import Text from '../Text';
 
 export interface CellLogProps extends PaperProps {
@@ -48,19 +48,7 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
           bgcolor: negativeLogs.includes(log.type) ? 'logs.error.light' : 'logs.success.light',
         }}
       >
-        <Box
-          component="img"
-          src={`/images/${log.type === LogType.bossDefeat
-            ? 'rankings/lvl_0'
-            : log.type === LogType.lvl
-              ? `rankings/lvl_${log.level || BruteRankings[0]}`
-              : log.type === LogType.tournament
-                ? 'log/lose'
-                : log.type === LogType.tournamentXp ? 'log/childup' : `log/${log.type}`}.webp`}
-          sx={{
-            filter: `drop-shadow(3px 3px ${negativeLogs.includes(log.type) ? theme.palette.error.main : theme.palette.success.main})`,
-          }}
-        />
+        <LogImage log={log} />
       </Box>
       <Box
         sx={{
@@ -97,10 +85,12 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
           : (
             <Text bold color={negativeLogs.includes(log.type) ? 'error.main' : 'success.main'} sx={{ lineHeight: '13px' }}>
               {log.type === LogType.lvl
-                ? `${t('log.lvl')} ${t(`lvl_${log.level as 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11}`)}.`
-                : log.type === LogType.tournament
-                  ? t('log.tournament', { date: moment.utc(log.date).format('DD/MM/YY') })
-                  : t(`log.${log.type}`, { value: log.brute })}
+                ? t('log.lvl', { brute: log.currentBrute.name, value: t(`lvl_${log.level}`) })
+                : log.type === LogType.up
+                  ? t('log.up', { brute: log.currentBrute.name, value: log.level ?? 0 })
+                  : log.type === LogType.tournament
+                    ? t('log.tournament', { date: moment.utc(log.date).format('DD/MM/YY') })
+                    : t(`log.${log.type}`, { value: log.brute })}
             </Text>
           )}
         {(!!log.xp || !!log.gold) && (

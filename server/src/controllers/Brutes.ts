@@ -580,6 +580,8 @@ const Brutes = {
         data: {
           currentBrute: { connect: { id: updatedBrute.id } },
           type: LogType.up,
+          destinyChoice: { connect: { id: destinyChoice.id } },
+          level: updatedBrute.level,
         },
         select: { id: true },
       });

@@ -35,6 +35,7 @@ import NameChangeView from './views/NameChangeView';
 import PatchNotesView from './views/PatchNotesView';
 import { BannedUsersView } from './views/BannedUsersView';
 import { MultipleAccountsView } from './views/MultipleAccountsView';
+import { FollowingFeedView } from './views/FollowingFeedView';
 
 const routes: RouteObject[] = [
   {
@@ -54,7 +55,13 @@ const routes: RouteObject[] = [
       { path: 'generating-tournaments', element: <GeneratingView /> },
       { path: 'hall', element: <HallView /> },
       { path: 'patch-notes', element: <PatchNotesView /> },
-      { path: 'user/:userId', element: <UserView /> },
+      {
+        path: 'user/:userId',
+        children: [
+          { path: '', element: <UserView /> },
+          { path: 'feed', element: <FollowingFeedView /> },
+        ]
+      },
       {
         path: ':bruteName',
         element: <ProvideBrute />,

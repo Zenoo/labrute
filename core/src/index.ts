@@ -266,3 +266,7 @@ export type UserGetNextModifiersResponse = FightModifier[];
 export type LogListResponse = (Log & {
   currentBrute: Pick<Brute, 'name'>,
 })[];
+export type LogGetForUserFeedResponse = (Log & {
+  currentBrute: Pick<Brute, 'name'>,
+  destinyChoice: DestinyChoice | null,
+})[];

@@ -125,6 +125,13 @@ export default class OAuth {
         include: {
           brutes: {
             where: { deletedAt: null },
+            orderBy: [
+              { favorite: 'desc' },
+              { createdAt: 'asc' },
+            ],
+          },
+          following: {
+            select: { id: true },
           },
         },
       });

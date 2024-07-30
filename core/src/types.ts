@@ -519,6 +519,7 @@ export type UserWithBrutes = User & {
 };
 export type UserWithBrutesBodyColor = User & {
   brutes: Brute[];
+  following: Pick<Brute, 'id'>[];
 };
 export type UserWithAchievements = User & {
   achievements: Achievement[];

@@ -1,4 +1,4 @@
-import { AccountTree, CopyAll, MilitaryTech, Person, Today } from '@mui/icons-material';
+import { AccountTree, BookmarkAdd, BookmarkRemove, CopyAll, MilitaryTech, Person, Today } from '@mui/icons-material';
 import { Box, Button, Grid, IconButton, Paper, PaperProps, Tooltip } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -11,6 +11,7 @@ import Link from '../Link';
 import Text from '../Text';
 import moment from 'moment';
 import { useAlert } from '../../hooks/useAlert';
+import catchError from '../../utils/catchError';
 
 export interface CellSocialsProps extends PaperProps {
   smallScreen?: boolean;
@@ -18,14 +19,17 @@ export interface CellSocialsProps extends PaperProps {
 
 const CellSocials = ({
   smallScreen,
+  sx,
   ...rest
 }: CellSocialsProps) => {
   const { brute } = useBrute();
-  const { user } = useAuth();
+  const { user, updateData } = useAuth();
   const { t } = useTranslation();
   const Alert = useAlert();
 
   const { data: getter } = useStateAsync(null, Server.Brute.getRanking, brute?.name || '');
+
+  const isFollowing = user?.following.some((following) => following.id === brute?.id);
 
   const copyUserId = () => {
     if (!brute) return;
@@ -33,12 +37,27 @@ const CellSocials = ({
     if (brute.userId) {
       navigator.clipboard.writeText(brute.userId).then(() => {
         Alert.open('success', t('userIdCopied'));
-      }).catch(() => {});
+      }).catch(() => { });
     }
   };
 
+  // Toggle follow
+  const toggleFollow = () => {
+    if (!brute) return;
+
+    Server.User.toggleFollow(brute.id).then(() => {
+      Alert.open('success', isFollowing ? t('unfollowed') : t('followed'));
+      updateData((prev) => (prev ? {
+        ...prev,
+        following: isFollowing
+          ? prev.following.filter((following) => following.id !== brute.id)
+          : prev.following.concat({ id: brute.id }),
+      } : null));
+    }).catch(catchError(Alert));
+  };
+
   return brute && (
-    <Paper {...rest}>
+    <Paper sx={{ position: 'relative', ...sx }} {...rest}>
       <Grid container spacing={1}>
         <Grid item xs={smallScreen ? 12 : 6}>
           {/* No achievements for bots */}
@@ -126,6 +145,22 @@ const CellSocials = ({
           </Grid>
         </Grid>
       </Grid>
+      {/* FOLLOW BUTTON */}
+      {user && (
+        <Tooltip title={isFollowing ? t('unfollow') : t('follow')}>
+          <IconButton
+            sx={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+            }}
+            size="small"
+            onClick={toggleFollow}
+          >
+            {isFollowing ? <BookmarkRemove color="error" /> : <BookmarkAdd color="success" />}
+          </IconButton>
+        </Tooltip>
+      )}
     </Paper>
   );
 };

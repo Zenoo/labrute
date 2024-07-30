@@ -1,5 +1,5 @@
 import { AchievementData, BanReason, TitleRequirements, UserGetProfileResponse, formatLargeNumber, getFightsLeft } from '@labrute/core';
-import { Check, QuestionMark } from '@mui/icons-material';
+import { Check, QuestionMark, RssFeed } from '@mui/icons-material';
 import { Box, Grid, List, ListItem, ListItemText, ListSubheader, MenuItem, Paper, Select, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useTheme } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -308,6 +308,17 @@ const UserView = () => {
                 </Table>
               </>
             )}
+            {/* FOLLOWING FEED */}
+            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+              <FantasyButton
+                to={`/user/${user.id}/feed`}
+                color="warning"
+                sx={{ m: 1 }}
+              >
+                <RssFeed sx={{ verticalAlign: 'middle', mr: 1 }} />
+                {t('followingFeed')}
+              </FantasyButton>
+            </Box>
           </Paper>
         </>
       )}

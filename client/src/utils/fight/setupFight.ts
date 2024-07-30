@@ -100,14 +100,14 @@ const setupFight: (
   background.width = app.screen.width;
   background.height = app.screen.height;
 
-  app.stage.addChild(background);
+  app.stage?.addChild(background);
 
   // Add 2px border
   const border = new PIXI.Graphics();
   border.lineStyle(2, PIXI.utils.string2hex(theme.palette.secondary.main));
   border.drawRect(0, 0, app.screen.width, app.screen.height);
   border.zIndex = 102;
-  app.stage.addChild(border);
+  app.stage?.addChild(border);
 
   // Add headers
 
@@ -138,7 +138,7 @@ const setupFight: (
     e.stopPropagation();
     toggleTooltip(brute1);
   });
-  app.stage.addChild(brute1Header);
+  app.stage?.addChild(brute1Header);
 
   // First brute name
   const brute1Name = new PIXI.Text(brute1.name.toLocaleUpperCase(), {
@@ -148,7 +148,7 @@ const setupFight: (
   brute1Name.x = 4;
   brute1Name.y = 0;
   brute1Name.zIndex = 102;
-  app.stage.addChild(brute1Name);
+  app.stage?.addChild(brute1Name);
 
   // First brute HP bar
   const brute1HpBar = new PIXI.Graphics();
@@ -164,7 +164,7 @@ const setupFight: (
   brute1HpBar.y = 21;
   brute1HpBar.zIndex = 103;
   brute1HpBar.name = `${brute1.name}.hp`;
-  app.stage.addChild(brute1HpBar);
+  app.stage?.addChild(brute1HpBar);
 
   // First brute phantom HP bar
   const brute1PhantomHpBar = new PIXI.Graphics();
@@ -174,11 +174,13 @@ const setupFight: (
   brute1PhantomHpBar.y = 21;
   brute1PhantomHpBar.zIndex = 102;
   brute1HpBar.name = `${brute1.name}.hp-phantom`;
-  app.stage.addChild(brute1PhantomHpBar);
+  app.stage?.addChild(brute1PhantomHpBar);
 
   // Reset tooltip on tap anywhere
-  app.stage.interactive = true;
-  app.stage.on('tap', () => {
+  if (app.stage) {
+    app.stage.interactive = true;
+  }
+  app.stage?.on('tap', () => {
     toggleTooltip(brute1, false);
   });
 
@@ -204,7 +206,7 @@ const setupFight: (
   brute1Bust.zIndex = 102;
   brute1Bust.scale.y = 0.45;
   brute1Bust.scale.x = -0.45;
-  app.stage.addChild(brute1Bust);
+  app.stage?.addChild(brute1Bust);
 
   // Clip bust to fit in the header
   const brute1BustMask = new PIXI.Graphics();
@@ -248,7 +250,7 @@ const setupFight: (
       toggleTooltip(brute2);
     });
 
-    app.stage.addChild(brute2Header);
+    app.stage?.addChild(brute2Header);
 
     // Second brute name
     const brute2Name = new PIXI.Text(brute2.name.toLocaleUpperCase(), {
@@ -259,7 +261,7 @@ const setupFight: (
     brute2Name.x = app.screen.width - 4;
     brute2Name.y = 0;
     brute2Name.zIndex = 102;
-    app.stage.addChild(brute2Name);
+    app.stage?.addChild(brute2Name);
 
     // Second brute HP bar
     brute2HpBar = new PIXI.Graphics();
@@ -276,7 +278,7 @@ const setupFight: (
     brute2HpBar.y = 21;
     brute2HpBar.zIndex = 103;
     brute2HpBar.name = `${brute2.name}.hp`;
-    app.stage.addChild(brute2HpBar);
+    app.stage?.addChild(brute2HpBar);
 
     // Second brute phantom HP bar
     brute2PhantomHpBar = new PIXI.Graphics();
@@ -287,7 +289,7 @@ const setupFight: (
     brute2PhantomHpBar.y = 21;
     brute2PhantomHpBar.zIndex = 102;
     brute2PhantomHpBar.name = `${brute2.name}.hp-phantom`;
-    app.stage.addChild(brute2PhantomHpBar);
+    app.stage?.addChild(brute2PhantomHpBar);
 
     // First brute bust
     const brute2BustImg = await new Promise<HTMLImageElement | null>((resolve) => {
@@ -311,7 +313,7 @@ const setupFight: (
     brute2Bust.zIndex = 102;
     brute2Bust.scale.y = 0.45;
     brute2Bust.scale.x = 0.45;
-    app.stage.addChild(brute2Bust);
+    app.stage?.addChild(brute2Bust);
 
     // Clip bust to fit in the header
     const brute2BustMask = new PIXI.Graphics();
@@ -334,7 +336,7 @@ const setupFight: (
     bossHeader.y = 10;
     bossHeader.zIndex = 101;
 
-    app.stage.addChild(bossHeader);
+    app.stage?.addChild(bossHeader);
 
     // Boss name
     const bossName = new PIXI.Text(boss.name.toLocaleUpperCase(), {
@@ -345,7 +347,7 @@ const setupFight: (
     bossName.x = app.screen.width - 4;
     bossName.y = 0;
     bossName.zIndex = 102;
-    app.stage.addChild(bossName);
+    app.stage?.addChild(bossName);
 
     // Boss HP bar
     bossHpBar = new PIXI.Graphics();
@@ -362,7 +364,7 @@ const setupFight: (
     bossHpBar.y = 21;
     bossHpBar.zIndex = 103;
     bossHpBar.name = `${boss.name}.hp`;
-    app.stage.addChild(bossHpBar);
+    app.stage?.addChild(bossHpBar);
 
     // Second brute phantom HP bar
     bossPhantomHpBar = new PIXI.Graphics();
@@ -373,11 +375,13 @@ const setupFight: (
     bossPhantomHpBar.y = 21;
     bossPhantomHpBar.zIndex = 102;
     bossPhantomHpBar.name = `${boss.name}.hp-phantom`;
-    app.stage.addChild(bossPhantomHpBar);
+    app.stage?.addChild(bossPhantomHpBar);
   }
 
   // Set stage as sortable
-  app.stage.sortableChildren = true;
+  if (app.stage) {
+    app.stage.sortableChildren = true;
+  }
 
   // Set background music
   await sound.play('background', { loop: true });
@@ -413,7 +417,7 @@ const setupFight: (
     animationFighter.animation.container.y = 150;
 
     // Add to stage
-    app.stage.addChild(animationFighter.animation.container);
+    app.stage?.addChild(animationFighter.animation.container);
 
     // Update brute weapons
     updateWeapons(app, animationFighter);
@@ -429,7 +433,9 @@ const setupFight: (
   }
 
   // Initialize tweener
-  Tweener.init(app.ticker);
+  if (app.stage) {
+    Tweener.init(app.ticker);
+  }
 
   // Loop on steps
   const steps = JSON.parse(fight.steps) as FightStep[];
@@ -612,7 +618,7 @@ const setupFight: (
     deadIcon.x = brute1Header.x - 32;
     deadIcon.y = brute1Header.y - 13;
   }
-  app.stage.addChild(deadIcon);
+  app.stage?.addChild(deadIcon);
   deadIcon.play();
 
   // Display win message at the bottom
@@ -628,7 +634,7 @@ const setupFight: (
   winMessage.anchor.set(0.5, 0.5);
   winMessage.height = 0;
   winMessage.zIndex = 900;
-  app.stage.addChild(winMessage);
+  app.stage?.addChild(winMessage);
 
   // Animate win message
   Tweener.add({

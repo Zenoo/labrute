@@ -43,6 +43,7 @@ model User {
   tournamentGolds TournamentGold[]
   inventory       InventoryItem[]
   favoriteFights  Fight[]          @relation("FavoriteFights")
+  following       Brute[]          @relation("Followers")
 }
 
 enum DestinyChoiceSide {
@@ -245,6 +246,7 @@ model Brute {
   tournamentWins               Int                     @default(0)
   startingStats                BruteStartingStats?
   damageOnBosses               BossDamage[]
+  followers                    User[]                  @relation("Followers")
 }
 
 model BruteStartingStats {
@@ -311,18 +313,22 @@ enum LogType {
 }
 
 model Log {
-  id             String   @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  date           DateTime @default(now()) @db.Timestamp()
-  currentBrute   Brute    @relation(fields: [currentBruteId], references: [id])
-  currentBruteId String   @db.Uuid
-  type           LogType
-  level          Int?
-  brute          String?  @db.VarChar(255)
-  fight          Fight?   @relation(fields: [fightId], references: [id])
-  fightId        String?  @db.Uuid
-  xp             Int?
-  gold           Int?
-  template       String?  @db.VarChar(255)
+  id              String         @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  date            DateTime       @default(now()) @db.Timestamp()
+  currentBrute    Brute          @relation(fields: [currentBruteId], references: [id])
+  currentBruteId  String         @db.Uuid
+  type            LogType
+  level           Int?
+  brute           String?        @db.VarChar(255)
+  fight           Fight?         @relation(fields: [fightId], references: [id])
+  fightId         String?        @db.Uuid
+  xp              Int?
+  gold            Int?
+  // Template used for lose/win logs
+  template        String?        @db.VarChar(255)
+  // Level up logs
+  destinyChoice   DestinyChoice? @relation(fields: [destinyChoiceId], references: [id])
+  destinyChoiceId String?        @db.Uuid
 
   @@index([currentBruteId, date])
 }
@@ -355,6 +361,7 @@ model DestinyChoice {
   stat1Value Int?
   stat2      BruteStat?
   stat2Value Int?
+  logs       Log[]
 }
 
 // TOURNAMENTS

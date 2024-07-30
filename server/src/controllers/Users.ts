@@ -109,6 +109,9 @@ const Users = {
               { createdAt: 'asc' },
             ],
           },
+          following: {
+            select: { id: true },
+          },
         },
       });
 
@@ -887,6 +890,59 @@ const Users = {
       }
 
       await ServerState.setNextModifiers(prisma, modifiers);
+
+      res.send({
+        success: true,
+      });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  toggleFollow: (prisma: PrismaClient) => async (
+    req: Request<{ bruteId: string }>,
+    res: Response,
+  ) => {
+    try {
+      const authed = await auth(prisma, req);
+
+      if (!isUuid(req.params.bruteId)) {
+        throw new ExpectedError(translate('invalidParameters', authed));
+      }
+
+      const user = await prisma.user.findFirst({
+        where: { id: authed.id },
+        select: { following: { select: { id: true } } },
+      });
+
+      if (!user) {
+        throw new Error(translate('userNotFound', user));
+      }
+
+      if (user.following.some((brute) => brute.id === req.params.bruteId)) {
+        // Unfollow
+        await prisma.user.update({
+          where: { id: authed.id },
+          data: {
+            following: {
+              disconnect: {
+                id: req.params.bruteId,
+              },
+            },
+          },
+        });
+      } else {
+        // Follow
+        await prisma.user.update({
+          where: { id: authed.id },
+          data: {
+            following: {
+              connect: {
+                id: req.params.bruteId,
+              },
+            },
+          },
+        });
+      }
 
       res.send({
         success: true,

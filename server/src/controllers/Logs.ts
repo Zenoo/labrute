@@ -1,8 +1,10 @@
-import { ExpectedError, LogListResponse } from '@labrute/core';
-import { PrismaClient } from '@labrute/prisma';
+import { ExpectedError, LogGetForUserFeedResponse, LogListResponse } from '@labrute/core';
+import { LogType, PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import sendError from '../utils/sendError.js';
 import { ilike } from '../utils/ilike.js';
+import auth from '../utils/auth.js';
+import translate from '../utils/translate.js';
 
 const Logs = {
   list: (prisma: PrismaClient) => async (
@@ -41,6 +43,55 @@ const Logs = {
           currentBrute: {
             select: { name: true },
           },
+        },
+      });
+
+      res.status(200).send(logs);
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  getForUserFeed: (prisma: PrismaClient) => async (
+    req: Request<{ page: string }>,
+    res: Response<LogGetForUserFeedResponse>,
+  ) => {
+    try {
+      const user = await auth(prisma, req);
+
+      if (!req.params.page) {
+        throw new ExpectedError(translate('invalidParameters', user));
+      }
+
+      const now = new Date();
+
+      // Get logs
+      const logs = await prisma.log.findMany({
+        where: {
+          date: {
+            lte: now,
+          },
+          type: {
+            in: [
+              LogType.lvl,
+              LogType.up,
+            ],
+          },
+          currentBrute: {
+            followers: {
+              some: {
+                id: user.id,
+              },
+            },
+          },
+        },
+        orderBy: { date: 'desc' },
+        take: 20,
+        skip: +req.params.page * 20,
+        include: {
+          currentBrute: {
+            select: { name: true },
+          },
+          destinyChoice: true,
         },
       });
 
