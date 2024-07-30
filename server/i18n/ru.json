@@ -62,6 +62,7 @@
   "alreadyClaimed": "Вы уже получили эту награду",
   "needToUseEveryAction": "Вам нужно использовать все действия ваших Диносов, чтобы получить эту награду",
   "noDinoRpgAccount": "К вашей учётной записи «EternalTwin» не привязана учётная запись игры «Dino-RPG».",
+  "dinoRpgServerDown": "The DinoRPG server is down. Please try again later.",
   "noNameChange": "Вы не можете сменить ваше имя",
   "rank.0": "Брутальная Легенда",
   "rank.1": "Стоматолог Хаоса",
