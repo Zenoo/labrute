@@ -72,8 +72,8 @@
   "log.fight.27": "{{winner}} has flattened {{loser}}.",
   "log.child": "New pupil : {{value}} !",
   "log.childup": "Your pupil {{value}} is now stronger than before.",
-  "log.up": "Your Brute is now stronger than before.",
-  "log.lvl": "Your Brute reached the rank",
+  "log.up": "{{brute}} has reached level {{value}}.",
+  "log.lvl": "{{brute}} has reached rank {{value}}.",
   "log.tournament": "The tournament on {{date}} was canceled, try again !",
   "log.tournamentXp": "어제 토너먼트",
   "lvl_0": "Brutal Legend",
@@ -1415,5 +1415,10 @@
   "userIdCopied": "User ID copied to clipboard.",
   "favoriteFights": "Favorite fights",
   "vs": "vs",
-  "fight": "Fight"
+  "fight": "Fight",
+  "followingFeed": "Following feed",
+  "follow": "Follow",
+  "unfollow": "Unfollow",
+  "followed": "Followed",
+  "unfollowed": "Unfollowed"
 }
