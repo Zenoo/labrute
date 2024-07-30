@@ -285,7 +285,7 @@
   "monk.effect": "",
   "vampirism": "Vampirismus",
   "vampirism.desc": "Dracula kann in Frieden ruhen, weil jetzt bist du dran!",
-  "vampirism.effect": "Aktion (x{{uses}}): Verursacht 50% deiner fehlenden Gesundheit als Schaden und heilt um dieselbe Menge",
+  "vampirism.effect": "Action (x{{uses}}) Deals 25% of your missing health as damage and heals you for up to twice that amount.",
   "chaining": "Verkettung",
   "chaining.desc": "Du haust gern auf Glocken drauf? Diese Kombo ist für dich genau das Richtige!",
   "chaining.effect": "Jeder 3te Nahkampfschlag betäubt deinen Gegner",
