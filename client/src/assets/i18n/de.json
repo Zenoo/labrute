@@ -72,8 +72,8 @@
   "log.fight.27": "{{winner}} has flattened {{loser}}.",
   "log.child": "Neuer Schüler: {{value}}!",
   "log.childup": "Dein Schüler, {{value}}, ist jetzt stärker, als zuvor!",
-  "log.up": "Dein Brutalo ist jetzt stärker denn je.",
-  "log.lvl": "Dein Brutalo hat einen neuen Rang erreicht:",
+  "log.up": "{{brute}} has reached level {{value}}.",
+  "log.lvl": "{{brute}} has reached rank {{value}}.",
   "log.tournament": "Der Wettkampf am {{date}} wurde abgesagt. Probier es später noch einmal!",
   "log.tournamentXp": "Gestrige Wettkämpfe",
   "lvl_0": "Brutale Legende",
@@ -1415,5 +1415,10 @@
   "userIdCopied": "Benutzer-ID in die Zwischenablage kopiert.",
   "favoriteFights": "Favorite fights",
   "vs": "vs",
-  "fight": "Fight"
+  "fight": "Fight",
+  "followingFeed": "Following feed",
+  "follow": "Follow",
+  "unfollow": "Unfollow",
+  "followed": "Followed",
+  "unfollowed": "Unfollowed"
 }
