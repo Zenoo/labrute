@@ -1014,7 +1014,7 @@ const handleModifiers = async (prisma: PrismaClient) => {
     await ServerState.setNextModifiers(prisma, []);
   }
 
-  if (rolledModifiers.length && Math.random() < DailyModifierSpawnChance) {
+  if (!rolledModifiers.length && Math.random() < DailyModifierSpawnChance) {
     const modifierCount = weightedRandom(DailyModifierCountOdds).count;
 
     const availableModifiers = [...DailyModifierOdds];
