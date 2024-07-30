@@ -508,6 +508,10 @@
   "fight.wonTheFight": "{{brute}} venceu a luta",
   "fight.play": "Reproduzir",
   "fight.pause": "Pausar",
+  "fight.favorite": "Favorite",
+  "fight.unfavorite": "Unfavorite",
+  "fight.favoriteAdded": "Favorite added",
+  "fight.favoriteRemoved": "Favorite removed",
   "fight.toggleLogs": "Ativar/Desativar logs",
   "bruteCell": "Célula de {{name}}",
   "experience": "Experiência",
@@ -1361,6 +1365,8 @@
   "inventory.item.visualReset": "Visual reset",
   "inventory.item.bossTicket": "Boss ticket",
   "inventory.item.nameChange": "Name change",
+  "inventory.item.favoriteFight": "Favorite fight",
+  "inventory.item.favoriteFight.desc": "You can set a fight as your favorite on the fight page. It will not be deleted after 30 days.",
   "inventory.itemNotImplemented": "This item is not implemented yet.",
   "taggedForDeletion": "Your brute will be deleted in {{days}} days.",
   "deletionReason.DUPLICATE_NAME": "Your brute has the same name as another brute. Use the item in your inventory to change it and avoid deletion.",
@@ -1406,5 +1412,8 @@
   "afterBlock": "after blocking",
   "created": "Created on {{date}}",
   "copyUserId": "Copy user ID",
-  "userIdCopied": "User ID copied to clipboard."
+  "userIdCopied": "User ID copied to clipboard.",
+  "favoriteFights": "Favorite fights",
+  "vs": "vs",
+  "fight": "Fight"
 }
