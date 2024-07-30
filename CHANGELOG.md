@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.66.2](https://github.com/Zenoo/labrute/compare/labrute-v2.66.1...labrute-v2.66.2) (2024-07-30)
+
+
+### Bug Fixes
+
+* Display brute ranks in the hall. Fixes [#848](https://github.com/Zenoo/labrute/issues/848) ([cb113c4](https://github.com/Zenoo/labrute/commit/cb113c401cf9d8f924455f2ba5a07e506d832601))
+* Eternaltwin command update ([b3fcf85](https://github.com/Zenoo/labrute/commit/b3fcf8512bc2205920df2ae3459076b3560ed474))
+* Modifiers not triggering ([b667d1b](https://github.com/Zenoo/labrute/commit/b667d1b5916f3a9d1b3fa9e9ed3f211c0843277a))
+* Remove stun when taking any kind of damage. Fixes [#847](https://github.com/Zenoo/labrute/issues/847) ([3d59534](https://github.com/Zenoo/labrute/commit/3d5953474aae84da81a033782f17f35455a8fa75))
+
 ## [2.66.1](https://github.com/Zenoo/labrute/compare/labrute-v2.66.0...labrute-v2.66.1) (2024-07-27)
 
 
