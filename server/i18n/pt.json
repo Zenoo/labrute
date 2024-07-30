@@ -62,6 +62,7 @@
   "alreadyClaimed": "You already claimed this reward",
   "needToUseEveryAction": "You need to use every action on your Dinoz to be able to claim this reward",
   "noDinoRpgAccount": "You don't have a DinoRPG account linked to your EternalTwin account.",
+  "dinoRpgServerDown": "The DinoRPG server is down. Please try again later.",
   "noNameChange": "You cannot change your name",
   "rank.0": "Brutal Legend",
   "rank.1": "The Dentist of Chaos",
