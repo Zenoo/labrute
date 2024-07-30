@@ -72,8 +72,8 @@
   "log.fight.27": "{{winner}} has flattened {{loser}}.",
   "log.child": "Новый ученик: {{value}}!",
   "log.childup": "Ваш ученик, {{value}}, теперь сильнее чем прежде.",
-  "log.up": "Ваш Брутал теперь сильнее чем когда-либо.",
-  "log.lvl": "Ваш Брутал заработал звание:",
+  "log.up": "{{brute}} has reached level {{value}}.",
+  "log.lvl": "{{brute}} has reached rank {{value}}.",
   "log.tournament": "Турнир даты {{date}} был отменён. Попробуйте ещё раз!",
   "log.tournamentXp": "Вчерашние турниры",
   "lvl_0": "Брутальная Легенда",
@@ -1415,5 +1415,10 @@
   "userIdCopied": "Идентификатор пользователя скопирован в буфер обмена.",
   "favoriteFights": "Favorite fights",
   "vs": "vs",
-  "fight": "Fight"
+  "fight": "Fight",
+  "followingFeed": "Following feed",
+  "follow": "Follow",
+  "unfollow": "Unfollow",
+  "followed": "Followed",
+  "unfollowed": "Unfollowed"
 }
