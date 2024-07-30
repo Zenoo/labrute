@@ -72,8 +72,8 @@
   "log.fight.27": "{{winner}} has flattened {{loser}}.",
   "log.child": "Novo aluno: {{value}}!",
   "log.childup": "Seu aluno {{value}} agora está mais forte do que antes.",
-  "log.up": "Seu Bruto agora está mais forte do que antes.",
-  "log.lvl": "Seu Bruto alcançou a classificação",
+  "log.up": "{{brute}} has reached level {{value}}.",
+  "log.lvl": "{{brute}} has reached rank {{value}}.",
   "log.tournament": "O torneio de {{date}} foi cancelado, tente novamente!",
   "log.tournamentXp": "Torneios de ontem",
   "lvl_0": "Lenda Brutal",
@@ -1415,5 +1415,10 @@
   "userIdCopied": "User ID copied to clipboard.",
   "favoriteFights": "Favorite fights",
   "vs": "vs",
-  "fight": "Fight"
+  "fight": "Fight",
+  "followingFeed": "Following feed",
+  "follow": "Follow",
+  "unfollow": "Unfollow",
+  "followed": "Followed",
+  "unfollowed": "Unfollowed"
 }
