@@ -1,6 +1,7 @@
-/* eslint-disable no-await-in-loop */
 import {
   BruteDeletionReason,
+  ClanWarMaxParticipants,
+  ClanWarPointReward,
   DailyModifierCountOdds,
   DailyModifierOdds,
   DailyModifierSpawnChance,
@@ -11,6 +12,7 @@ import {
   weightedRandom,
 } from '@labrute/core';
 import {
+  ClanWarStatus,
   FightModifier,
   InventoryItemType,
   LogType, Prisma, PrismaClient, TournamentType,
@@ -572,8 +574,6 @@ const handleGlobalTournament = async (
       // Skip if no adversary
       if (!brute2) {
         nextBrutes.push(brute1);
-
-        // eslint-disable-next-line no-continue
         continue;
       }
 
@@ -1095,13 +1095,14 @@ const cleanup = async (prisma: PrismaClient) => {
   if (false) {
     const now = moment.utc().valueOf();
 
-    // Delete non tournament or favorited fights older than 30 days
+    // Delete non tournament/war or favorited fights older than 30 days
     const fights = await prisma.fight.deleteMany({
       where: {
         date: {
           lt: moment.utc().subtract(30, 'day').toDate(),
         },
         tournamentId: null,
+        clanWarId: null,
         favoritedBy: {
           none: {},
         },
@@ -1109,6 +1110,257 @@ const cleanup = async (prisma: PrismaClient) => {
     });
 
     LOGGER.log(`${moment.utc().valueOf() - now}ms to delete ${fights.count} fights older than 30 days`);
+  }
+};
+
+const handleClanWars = async (
+  prisma: PrismaClient,
+  modifiers: FightModifier[],
+) => {
+  // Give rewards for finished clan wars
+  const finishedClanWars = await prisma.clanWar.findMany({
+    where: {
+      status: ClanWarStatus.waitingForRewards,
+    },
+    select: {
+      id: true,
+      winnerId: true,
+    },
+  });
+
+  for (const clanWar of finishedClanWars) {
+    if (!clanWar.winnerId) {
+      throw new Error('No winner for clan war');
+    }
+
+    // Update clan points
+    await prisma.clan.update({
+      where: { id: clanWar.winnerId },
+      data: {
+        points: {
+          increment: ClanWarPointReward,
+        },
+      },
+    });
+
+    // Update clan war status
+    await prisma.clanWar.update({
+      where: { id: clanWar.id },
+      data: {
+        status: ClanWarStatus.finished,
+      },
+    });
+  }
+
+  if (finishedClanWars.length) {
+    LOGGER.log(`${finishedClanWars.length} clan war rewards given`);
+  }
+
+  // Get accepted and ongoing clan wars
+  const clanWars = await prisma.clanWar.findMany({
+    where: {
+      status: {
+        in: [ClanWarStatus.accepted, ClanWarStatus.ongoing],
+      },
+    },
+    include: {
+      fights: {
+        select: { id: true },
+      },
+    },
+  });
+
+  for (const clanWar of clanWars) {
+    const day = clanWar.fights.length + 1;
+
+    // Get fighters planned for the day
+    const attackers = await prisma.brute.findMany({
+      where: {
+        clanId: clanWar.attackerId,
+        inClanWarAttackerFighters: {
+          some: {
+            clanWarId: clanWar.id,
+            day,
+          },
+        },
+      },
+    });
+
+    // Randomize attackers if none selected
+    if (!attackers.length) {
+      const attackerBrutes = await prisma.brute.findMany({
+        where: {
+          clanId: clanWar.attackerId,
+          deletedAt: null,
+          inClanWarAttackerFighters: {
+            none: {
+              clanWarId: clanWar.id,
+            },
+          },
+        },
+      });
+
+      // End war if no attackers left
+      if (!attackerBrutes.length) {
+        await prisma.clanWar.update({
+          where: { id: clanWar.id },
+          data: {
+            status: ClanWarStatus.finished,
+            defenderWins: clanWar.duration - clanWar.attackerWins,
+            winnerId: clanWar.defenderId,
+          },
+        });
+
+        continue;
+      }
+
+      attackers.push(...shuffle(attackerBrutes).slice(0, ClanWarMaxParticipants));
+
+      // Register attackers for the day
+      await prisma.clanWarFighters.upsert({
+        where: {
+          clanWarId_day: {
+            clanWarId: clanWar.id,
+            day,
+          },
+        },
+        create: {
+          clanWar: { connect: { id: clanWar.id } },
+          day,
+          attackers: {
+            connect: attackers.map((brute) => ({ id: brute.id })),
+          },
+        },
+        update: {
+          attackers: {
+            connect: attackers.map((brute) => ({ id: brute.id })),
+          },
+        },
+      });
+    }
+
+    const defenders = await prisma.brute.findMany({
+      where: {
+        clanId: clanWar.defenderId,
+        inClanWarDefenderFighters: {
+          some: {
+            clanWarId: clanWar.id,
+            day,
+          },
+        },
+      },
+    });
+
+    // Randomize defenders if none selected
+    if (!defenders.length) {
+      const defenderBrutes = await prisma.brute.findMany({
+        where: {
+          clanId: clanWar.defenderId,
+          deletedAt: null,
+        },
+      });
+
+      // End war if no defenders left
+      if (!defenderBrutes.length) {
+        await prisma.clanWar.update({
+          where: { id: clanWar.id },
+          data: {
+            status: ClanWarStatus.finished,
+            attackerWins: clanWar.duration - clanWar.defenderWins,
+            winnerId: clanWar.attackerId,
+          },
+        });
+
+        continue;
+      }
+
+      defenders.push(...shuffle(defenderBrutes).slice(0, ClanWarMaxParticipants));
+
+      // Register attackers for the day
+      await prisma.clanWarFighters.upsert({
+        where: {
+          clanWarId_day: {
+            clanWarId: clanWar.id,
+            day,
+          },
+        },
+        create: {
+          clanWar: { connect: { id: clanWar.id } },
+          day,
+          defenders: {
+            connect: defenders.map((brute) => ({ id: brute.id })),
+          },
+        },
+        update: {
+          defenders: {
+            connect: defenders.map((brute) => ({ id: brute.id })),
+          },
+        },
+      });
+
+      // Generate fight (retry if failed)
+      let generatedFight: Prisma.FightCreateInput | null = null;
+      let retries = 0;
+      while (!generatedFight) {
+        // Stop at 10 retries
+        if (retries > 10) {
+          throw new Error('Too many retries');
+        }
+
+        try {
+          const newGeneratedFight = await generateFight({
+            prisma,
+            team1: { brutes: attackers },
+            team2: { brutes: defenders },
+            modifiers,
+            backups: false,
+            achievements: true,
+          });
+          generatedFight = newGeneratedFight.data;
+        } catch (error: unknown) {
+          if (!(error instanceof Error)) {
+            throw error;
+          }
+          LOGGER.log(`Error while generating a clan war fight between ${clanWar.attackerId} and ${clanWar.defenderId}, retrying...`);
+          DISCORD.sendError(error);
+        }
+
+        retries++;
+      }
+
+      // Create fight
+      await prisma.fight.create({
+        data: {
+          ...generatedFight,
+          clanWar: { connect: { id: clanWar.id } },
+        },
+        select: { id: true },
+      });
+
+      const winnerId = generatedFight.winner;
+      const winner = attackers.some((brute) => brute.id === winnerId)
+        ? 'attacker'
+        : 'defender';
+
+      // Update clan war
+      if (clanWar.status === ClanWarStatus.accepted) {
+        await prisma.clanWar.update({
+          where: { id: clanWar.id },
+          data: {
+            status: day === clanWar.duration
+              ? ClanWarStatus.waitingForRewards
+              : ClanWarStatus.ongoing,
+            [`${winner}Wins`]: {
+              increment: 1,
+            },
+          },
+        });
+      }
+    }
+  }
+
+  if (clanWars.length) {
+    LOGGER.log(`${clanWars.length} clan wars handled`);
   }
 };
 
@@ -1132,10 +1384,13 @@ const dailyJob = (prisma: PrismaClient) => async () => {
 
       // Store gains
       await storeGains(prisma, dailyGains, globalGains);
-
-      // Update server state to release traffic
-      ServerState.setReady(true);
     }
+
+    // Handle clan wars
+    await handleClanWars(prisma, modifiers);
+
+    // Update server state to release traffic
+    ServerState.setReady(true);
 
     // Grant beta achievement to all brutes who don't have it yet
     await grantBetaAchievement(prisma);

@@ -1,4 +1,3 @@
-/* eslint-disable no-await-in-loop */
 import { AchievementsStore, TournamentAchievements } from '@labrute/core';
 import { AchievementName, PrismaClient } from '@labrute/prisma';
 

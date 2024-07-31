@@ -106,5 +106,7 @@ module.exports = {
     "no-shadow": "off",
   "@typescript-eslint/no-shadow": ["error"],
     'import/prefer-default-export': 'off',
+    'no-continue': 'off',
+    'no-await-in-loop': 'off',
   },
 };

@@ -247,6 +247,8 @@ model Brute {
   startingStats                BruteStartingStats?
   damageOnBosses               BossDamage[]
   followers                    User[]                  @relation("Followers")
+  inClanWarAttackerFighters    ClanWarFighters[]       @relation("ClanWarAttackerFighters")
+  inClanWarDefenderFighters    ClanWarFighters[]       @relation("ClanWarDefenderFighters")
 }
 
 model BruteStartingStats {
@@ -295,6 +297,8 @@ model Fight {
   modifiers      FightModifier[] @default([])
   background     String          @default("1.jpg") @db.VarChar(255)
   favoritedBy    User[]          @relation("FavoriteFights")
+  clanWar        ClanWar?        @relation(fields: [clanWarId], references: [id])
+  clanWarId      String?         @db.Uuid
 
   @@index([tournamentId, winner, brute1Id, brute2Id])
   @@index([date, tournamentId, id])
@@ -615,6 +619,9 @@ model Clan {
   joinRequests Brute[]      @relation("JoinRequests")
   threads      ClanThread[]
   bossDamages  BossDamage[]
+  attacks      ClanWar[]    @relation("ClanWarAttacker")
+  defenses     ClanWar[]    @relation("ClanWarDefender")
+  wins         ClanWar[]    @relation("ClanWarWinner")
 
   @@index([name, points])
 }
@@ -654,6 +661,45 @@ model BossDamage {
 
   @@unique([bruteId, clanId])
   @@index([clanId])
+}
+
+enum ClanWarStatus {
+  pending
+  accepted
+  rejected
+  ongoing
+  waitingForRewards
+  finished
+}
+
+model ClanWar {
+  id           String            @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  duration     Int               @default(7)
+  date         DateTime          @default(now()) @db.Date
+  status       ClanWarStatus     @default(pending)
+  attacker     Clan              @relation("ClanWarAttacker", fields: [attackerId], references: [id])
+  attackerId   String            @db.Uuid
+  defender     Clan              @relation("ClanWarDefender", fields: [defenderId], references: [id])
+  defenderId   String            @db.Uuid
+  attackerWins Int               @default(0)
+  defenderWins Int               @default(0)
+  winner       Clan?             @relation("ClanWarWinner", fields: [winnerId], references: [id])
+  winnerId     String?           @db.Uuid
+  fights       Fight[]
+  fighters     ClanWarFighters[]
+
+  @@index([status])
+}
+
+model ClanWarFighters {
+  id        String  @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  clanWar   ClanWar @relation(fields: [clanWarId], references: [id])
+  clanWarId String  @db.Uuid
+  day       Int
+  attackers Brute[] @relation("ClanWarAttackerFighters")
+  defenders Brute[] @relation("ClanWarDefenderFighters")
+
+  @@unique([clanWarId, day])
 }
 
 // Inventory

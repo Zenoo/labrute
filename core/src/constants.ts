@@ -120,3 +120,6 @@ export enum BanReason {
 }
 
 export const FightLogTemplateCount = 28;
+
+export const ClanWarMaxParticipants = 7;
+export const ClanWarPointReward = 1000;

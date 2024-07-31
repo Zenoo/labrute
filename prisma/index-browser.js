@@ -213,7 +213,8 @@ exports.Prisma.FightScalarFieldEnum = {
   tournamentId: 'tournamentId',
   tournamentStep: 'tournamentStep',
   modifiers: 'modifiers',
-  background: 'background'
+  background: 'background',
+  clanWarId: 'clanWarId'
 };
 
 exports.Prisma.LogScalarFieldEnum = {
@@ -350,6 +351,24 @@ exports.Prisma.BossDamageScalarFieldEnum = {
   bruteId: 'bruteId',
   clanId: 'clanId',
   damage: 'damage'
+};
+
+exports.Prisma.ClanWarScalarFieldEnum = {
+  id: 'id',
+  duration: 'duration',
+  date: 'date',
+  status: 'status',
+  attackerId: 'attackerId',
+  defenderId: 'defenderId',
+  attackerWins: 'attackerWins',
+  defenderWins: 'defenderWins',
+  winnerId: 'winnerId'
+};
+
+exports.Prisma.ClanWarFightersScalarFieldEnum = {
+  id: 'id',
+  clanWarId: 'clanWarId',
+  day: 'day'
 };
 
 exports.Prisma.InventoryItemScalarFieldEnum = {
@@ -663,6 +682,15 @@ exports.BossName = exports.$Enums.BossName = {
   EmberFang: 'EmberFang'
 };
 
+exports.ClanWarStatus = exports.$Enums.ClanWarStatus = {
+  pending: 'pending',
+  accepted: 'accepted',
+  rejected: 'rejected',
+  ongoing: 'ongoing',
+  waitingForRewards: 'waitingForRewards',
+  finished: 'finished'
+};
+
 exports.InventoryItemType = exports.$Enums.InventoryItemType = {
   visualReset: 'visualReset',
   bossTicket: 'bossTicket',
@@ -691,6 +719,8 @@ exports.Prisma.ModelName = {
   ClanThread: 'ClanThread',
   ClanPost: 'ClanPost',
   BossDamage: 'BossDamage',
+  ClanWar: 'ClanWar',
+  ClanWarFighters: 'ClanWarFighters',
   InventoryItem: 'InventoryItem',
   Release: 'Release'
 };

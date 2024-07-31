@@ -1,4 +1,3 @@
-/* eslint-disable no-continue */
 import { Animation, Fighter, bosses, readColorString, readBodyString, SkillById } from '@labrute/core';
 import { BossName, Gender, SkillName, WeaponName } from '@labrute/prisma';
 import { AdjustmentFilter } from '@pixi/filter-adjustment';

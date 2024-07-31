@@ -38,7 +38,8 @@
     "no-console": ["warn", { "allow": ["warn", "error"] }],
     "import/prefer-default-export": "off",
     "camelcase": "off",
-    "no-plusplus": "off"
+    "no-plusplus": "off",
+    "no-continue": "off"
   },
   "settings": {
     "node": {

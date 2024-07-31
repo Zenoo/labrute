@@ -1231,7 +1231,6 @@ const Brutes = {
           level: currentBrute.level,
           deletedAt: null,
         };
-        // eslint-disable-next-line no-await-in-loop
         const bruteIds = await prisma.brute.findMany({
           where: bruteSearch,
           select: { id: true },
@@ -1241,7 +1240,6 @@ const Brutes = {
 
         if (bruteIds.length === 0) {
           // Search lower levels if no same level brutes
-          // eslint-disable-next-line no-await-in-loop
           const lowerBruteIds = await prisma.brute.findMany({
             where: {
               ...bruteSearch,
@@ -1264,7 +1262,6 @@ const Brutes = {
 
         if (newOpponentId) {
           // Replace the brute with the new opponent
-          // eslint-disable-next-line no-await-in-loop
           await prisma.brute.update({
             where: { id: currentBrute.id },
             data: {
@@ -1281,7 +1278,6 @@ const Brutes = {
           });
         } else {
           // Remove the brute from the opponents if no opponent found
-          // eslint-disable-next-line no-await-in-loop
           await prisma.brute.update({
             where: { id: currentBrute.id },
             data: {
@@ -1795,7 +1791,6 @@ const Brutes = {
           level: currentBrute.level,
           deletedAt: null,
         };
-        // eslint-disable-next-line no-await-in-loop
         const bruteIds = await prisma.brute.findMany({
           where: bruteSearch,
           select: { id: true },
@@ -1805,7 +1800,6 @@ const Brutes = {
 
         if (bruteIds.length === 0) {
           // Search lower levels if no same level brutes
-          // eslint-disable-next-line no-await-in-loop
           const lowerBruteIds = await prisma.brute.findMany({
             where: {
               ...bruteSearch,
@@ -1828,7 +1822,6 @@ const Brutes = {
 
         if (newOpponentId) {
           // Replace the brute with the new opponent
-          // eslint-disable-next-line no-await-in-loop
           await prisma.brute.update({
             where: { id: currentBrute.id },
             data: {
@@ -1845,7 +1838,6 @@ const Brutes = {
           });
         } else {
           // Remove the brute from the opponents if no opponent found
-          // eslint-disable-next-line no-await-in-loop
           await prisma.brute.update({
             where: { id: currentBrute.id },
             data: {

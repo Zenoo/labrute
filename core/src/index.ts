@@ -1,4 +1,4 @@
-import { Achievement, AchievementName, BossDamage, Brute, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, DestinyChoice, Fight, FightModifier, InventoryItem, Lang, Log, Prisma, Tournament, User } from '@labrute/prisma';
+import { Achievement, AchievementName, BossDamage, Brute, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, ClanWar, DestinyChoice, Fight, FightModifier, InventoryItem, Lang, Log, Prisma, Tournament, User } from '@labrute/prisma';
 import Version from './Version';
 import applySkillModifiers from './brute/applySkillModifiers';
 import availableBodyParts from './brute/availableBodyParts';
@@ -24,7 +24,6 @@ import adjustColor from './utils/adjustColor';
 import formatLargeNumber from './utils/formatLargeNumber';
 import hexToRgba from './utils/hexToRgba';
 import pad from './utils/pad';
-import promiseBatch from './utils/promiseBatch';
 import randomBetween from './utils/randomBetween';
 import weightedRandom from './utils/weightedRandom';
 
@@ -56,7 +55,7 @@ export {
   getMaxFightsPerDay,
   getRandomBody,
   getRandomBonus,
-  getRandomColors, getXPNeeded, hexToRgba, isNameValid, pad, promiseBatch, randomBetween, skills,
+  getRandomColors, getXPNeeded, hexToRgba, isNameValid, pad, randomBetween, skills,
   updateBruteData, Version, weapons,
   weightedRandom
 };
@@ -270,3 +269,6 @@ export type LogGetForUserFeedResponse = (Log & {
   currentBrute: Pick<Brute, 'name'>,
   destinyChoice: DestinyChoice | null,
 })[];
+
+export type ClanWarCreateResponse = Pick<ClanWar, 'id'>;
+export type ClanWarUpdateFightersResponse = Pick<Brute, 'id'>[];

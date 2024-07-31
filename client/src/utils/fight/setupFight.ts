@@ -1,6 +1,5 @@
 /* eslint-disable no-void */
 /* eslint-disable no-param-reassign */
-/* eslint-disable no-await-in-loop */
 import { Fighter, FightStep, StepType } from '@labrute/core';
 import { Fight, Gender } from '@labrute/prisma';
 import { Theme } from '@mui/material';

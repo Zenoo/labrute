@@ -1,5 +1,3 @@
-/* eslint-disable no-continue */
-/* eslint-disable no-await-in-loop */
 import { GLOBAL, ServerContext } from '../context.js';
 
 async function main(cx: ServerContext) {

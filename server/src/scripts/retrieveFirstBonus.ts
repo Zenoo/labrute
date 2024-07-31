@@ -1,5 +1,3 @@
-/* eslint-disable no-continue */
-/* eslint-disable no-await-in-loop */
 import { getRandomBonus } from '@labrute/core';
 import {
   DestinyChoiceType, PetName, SkillName, WeaponName,

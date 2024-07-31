@@ -273,7 +273,6 @@ const Users = {
       // Update achievements
       for (const achievement of req.body.achievements) {
         if (achievement.count === 0) {
-          // eslint-disable-next-line no-await-in-loop
           await prisma.achievement.deleteMany({
             where: {
               userId: user.id,
@@ -281,7 +280,6 @@ const Users = {
             },
           });
         } else {
-          // eslint-disable-next-line no-await-in-loop
           const existingAchievement = await prisma.achievement.findFirst({
             where: {
               userId: user.id,
@@ -293,7 +291,6 @@ const Users = {
           });
 
           if (existingAchievement) {
-            // eslint-disable-next-line no-await-in-loop
             await prisma.achievement.update({
               where: {
                 id: existingAchievement.id,
@@ -303,7 +300,6 @@ const Users = {
               },
             });
           } else {
-            // eslint-disable-next-line no-await-in-loop
             await prisma.achievement.create({
               data: {
                 userId: user.id,
@@ -566,7 +562,6 @@ const Users = {
       for (const brute of brutes) {
         const fightsLeft = getFightsLeft(brute, randomSkill) + 1;
 
-        // eslint-disable-next-line no-await-in-loop
         await prisma.brute.update({
           where: {
             id: brute.id,
@@ -717,7 +712,6 @@ const Users = {
 
       // Restore all brutes
       for (const brute of user.brutes) {
-        /* eslint-disable no-await-in-loop */
         // Check if the name is available
         const existingBrute = await prisma.brute.count({
           where: {
@@ -764,8 +758,6 @@ const Users = {
             deletionReason: null,
           },
         });
-
-        /* eslint-enable no-await-in-loop */
       }
 
       res.send({

@@ -146,7 +146,6 @@ const Fights = {
         try {
           retry += 1;
 
-          // eslint-disable-next-line no-await-in-loop
           const newGeneratedFight = await generateFight({
             prisma,
             team1: { brutes: [brute1] },

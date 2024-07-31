@@ -22,7 +22,6 @@ const handleStats = (
     const achievement = achievements[bruteId];
 
     if (!achievement) {
-      // eslint-disable-next-line no-continue
       continue;
     }
 

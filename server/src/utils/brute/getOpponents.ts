@@ -39,7 +39,6 @@ const getOpponents = async (
 
   const opponents = [];
   for (const bruteId of randomlySelectedBruteIds) {
-    // eslint-disable-next-line no-await-in-loop
     const opponent = await prisma.brute.findFirst({
       where: {
         ...bruteSearch,
@@ -114,7 +113,6 @@ const getOpponents = async (
 
     const additionalOpponents: Brute[] = [];
     for (const bruteId of additionalRandomlySelectedBruteIds) {
-      // eslint-disable-next-line no-await-in-loop
       const opponent = await prisma.brute.findFirst({
         where: {
           ...additionalBruteSearch,

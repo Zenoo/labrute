@@ -1,4 +1,3 @@
-/* eslint-disable no-continue */
 import { BruteBodyPart, readBodyString, readColorString } from '@labrute/core';
 import { Gender } from '@labrute/prisma';
 import { FramePart, Symbol as LaBruteSymbol, Svg, Symbol460, Symbol752 } from 'labrute-static-fla-parser';
@@ -321,11 +320,7 @@ export default class BruteDisplay {
       symbolContainer.addChild(sprite);
 
       // Increment used count
-      if (this.#usedSvgs[symbol.name]) {
-        this.#usedSvgs[symbol.name]++;
-      } else {
-        this.#usedSvgs[symbol.name] = 1;
-      }
+      this.#usedSvgs[symbol.name] = (this.#usedSvgs[symbol.name] ?? 0) + 1;
     } else {
       const usedSymbols: string[] = [];
 
@@ -426,11 +421,7 @@ export default class BruteDisplay {
 
         // Apply visibility
         framePartContainer.visible = true;
-        if (usedContainers[framePart.name]) {
-          usedContainers[framePart.name]++;
-        } else {
-          usedContainers[framePart.name] = 1;
-        }
+        usedContainers[framePart.name] = (usedContainers[framePart.name] ?? 0) + 1;
 
         // Handle children
         this.#displayFrame(

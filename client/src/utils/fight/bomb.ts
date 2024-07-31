@@ -167,7 +167,6 @@ const bomb = async (
     }
 
     // Stagger
-    // eslint-disable-next-line no-await-in-loop
     staggers.push(stagger(target, speed)
       .then(() => {
         if (target.animation.animation.startsWith('hit')) {
