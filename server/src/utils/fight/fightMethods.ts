@@ -475,7 +475,9 @@ const registerHit = (
 
     // HP healed (100 - 200% of damage)
     const finalDamage = actualDamage[opponent.index] ?? damage;
-    const heal = Math.min(finalDamage * (1 + Math.random()), fighter.maxHp - fighter.hp);
+    const heal = Math.floor(
+      Math.min(finalDamage * (1 + Math.random()), fighter.maxHp - fighter.hp),
+    );
     healFighter(stats, fighter, heal);
 
     // Add vampirism step
