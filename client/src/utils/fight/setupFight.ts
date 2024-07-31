@@ -388,7 +388,10 @@ const setupFight: (
 
   // Get fighters animations
   const fighters: AnimationFighter[] = fightFighters.map((fighter) => {
-    const team = (fighter.master || fighter.id) === brute1.id ? 'left' : 'right';
+    const team = fighter.team
+      ? fighter.team === 'L' ? 'left' : 'right'
+      // Necessary since .team was added later
+      : (fighter.master || fighter.id) === brute1.id ? 'left' : 'right';
 
     const animationFighter: AnimationFighter = {
       ...fighter,

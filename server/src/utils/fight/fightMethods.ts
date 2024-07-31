@@ -150,38 +150,79 @@ const checkAchievements = (
   }
 };
 
-const getMainOpponent = (fightData: DetailedFight, fighter: DetailedFighter) => {
-  let mainOpponent;
+export const getOpponents = ({
+  fightData,
+  fighter,
+  bruteOnly,
+  petOnly,
+}: {
+  fightData: DetailedFight;
+  fighter: DetailedFighter;
+  bruteOnly?: boolean;
+  petOnly?: boolean;
+}) => {
+  let opponents = [];
 
-  if (fighter.type === 'boss') {
-    mainOpponent = fightData.fighters.find(
-      (f) => f.type === 'brute' && !f.master && f.hp > 0,
-    );
-  } else if (fighter.master) {
-    mainOpponent = fightData.fighters.find(
-      (f) => f.type === 'boss' || (f.type === 'brute' && !f.master && f.id !== fighter.master && f.hp > 0),
-    );
-  } else {
-    mainOpponent = fightData.fighters.find(
-      (f) => f.type === 'boss' || (f.type === 'brute' && !f.master && f.id !== fighter.id && f.hp > 0),
-    );
+  // Remove backups not arrived yet and dead fighters
+  opponents = fightData.fighters.filter((f) => !f.arrivesAtInitiative
+    && f.hp > 0
+    && f.team !== fighter.team);
+
+  // Allow bosses too
+  if (bruteOnly) {
+    opponents = opponents.filter((f) => f.type === 'brute' || f.type === 'boss');
   }
 
-  if (!mainOpponent) {
-    throw new Error('No main opponent found');
+  if (petOnly) {
+    opponents = opponents.filter((f) => f.type === 'pet');
   }
 
-  return mainOpponent;
+  return opponents;
+};
+
+const getRandomOpponent = ({
+  fightData,
+  fighter,
+  bruteOnly,
+  petOnly,
+  nonTrappedOnly,
+}: {
+  fightData: DetailedFight;
+  fighter: DetailedFighter;
+  bruteOnly?: boolean;
+  petOnly?: boolean;
+  nonTrappedOnly?: boolean;
+}) => {
+  let opponents = getOpponents({
+    fightData,
+    fighter,
+    bruteOnly: bruteOnly || fightData.modifiers.includes(FightModifier.focusOpponent),
+    petOnly,
+  });
+
+  // Filter out trapped pets
+  opponents = opponents.filter((f) => f.type !== 'pet' || !f.trapped);
+
+  if (nonTrappedOnly) {
+    // Filter out trapped brutes
+    opponents = opponents.filter((f) => !f.trapped);
+  }
+
+  if (!opponents.length) {
+    return null;
+  }
+
+  return randomItem(opponents);
 };
 
 export const saboteur = (fightData: DetailedFight, achievements: AchievementsStore) => {
-  fightData.fighters.filter((fighter) => fighter.type === 'brute' && !fighter.master).forEach((brute) => {
-    if (brute.saboteur) {
-      const opponent = getMainOpponent(fightData, brute);
+  fightData.fighters.filter((fighter) => fighter.type === 'brute' && !fighter.master).forEach((fighter) => {
+    if (fighter.saboteur) {
+      const opponent = getRandomOpponent({ fightData, fighter, bruteOnly: true });
       if (opponent && opponent.weapons.length > 0) {
         const sabotagedWeapon = randomItem(opponent.weapons);
         opponent.sabotagedWeapon = sabotagedWeapon;
-        updateAchievement(achievements, 'saboteur', 1, brute.id);
+        updateAchievement(achievements, 'saboteur', 1, fighter.id);
       }
     }
   });
@@ -204,120 +245,56 @@ export const orderFighters = (fightData: DetailedFight) => {
   });
 };
 
-export const getOpponents = (
-  fightData: DetailedFight,
-  fighter: DetailedFighter,
-  bruteOnly?: boolean,
-  petOnly?: boolean,
-) => {
-  let opponents = [];
-
-  // Remove backups not arrived yet and dead fighters
-  opponents = fightData.fighters.filter((f) => !f.arrivesAtInitiative && f.hp > 0);
-
-  // Fighter is a pet/backup
-  if (fighter.master) {
-    opponents = opponents.filter((f) => (f.master
-      ? f.master !== fighter.master
-      : f.id !== fighter.master));
-  } else {
-    // Fighter is a real brute
-    opponents = opponents.filter((f) => (f.master
-      ? f.master !== fighter.id
-      : f.id !== fighter.id));
-  }
-
-  // Allow bosses too
-  if (bruteOnly) {
-    opponents = opponents.filter((f) => f.type === 'brute' || f.type === 'boss');
-  }
-
-  if (petOnly) {
-    opponents = opponents.filter((f) => f.type === 'pet');
-  }
-
-  return opponents;
-};
-
-const getRandomOpponent = (
-  fightData: DetailedFight,
-  fighter: DetailedFighter,
-  bruteOnly?: boolean,
-  petOnly?: boolean,
-  nonTrappedOnly?: boolean,
-) => {
-  if (fightData.modifiers.includes(FightModifier.focusOpponent)) {
-    return getMainOpponent(fightData, fighter);
-  }
-
-  let opponents = getOpponents(fightData, fighter, bruteOnly, petOnly);
-
-  // Filter out trapped pets
-  opponents = opponents.filter((f) => f.type !== 'pet' || !f.trapped);
-
-  if (nonTrappedOnly) {
-    // Filter out trapped brutes
-    opponents = opponents.filter((f) => !f.trapped);
-  }
-
-  if (!opponents.length) {
-    return null;
-  }
-
-  return randomItem(opponents);
-};
-
-const randomlyGetSuper = (fightData: DetailedFight, brute: DetailedFighter) => {
-  let supers = brute.skills.filter((skill) => skill.uses);
+const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) => {
+  let supers = fighter.skills.filter((skill) => skill.uses);
 
   if (!supers.length) return null;
 
   // Filter out tamer if no dead pets
-  if (fightData.fighters.filter((fighter) => fighter.type === 'pet' && fighter.hp <= 0).length === 0) {
+  if (fightData.fighters.filter((f) => f.type === 'pet' && f.hp <= 0).length === 0) {
     supers = supers.filter((skill) => skill.name !== SkillName.tamer);
   }
 
   // Filter out thief if opponents have no weapons in hand
-  if (getOpponents(fightData, brute, true)
-    .filter((fighter) => fighter.activeWeapon).length === 0) {
+  if (getOpponents({ fightData, fighter, bruteOnly: true })
+    .filter((f) => f.activeWeapon).length === 0) {
     supers = supers.filter((skill) => skill.name !== SkillName.thief);
   }
 
   // Filter out tragicPotion if not poisoned or lost less than 50 HP
-  if (!brute.poisoned && brute.hp > brute.maxHp / 2) {
+  if (!fighter.poisoned && fighter.hp > fighter.maxHp / 2) {
     supers = supers.filter((skill) => skill.name !== SkillName.tragicPotion);
   }
 
   // Filter out cryOfTheDamned and hypnosis if opponent has no non-trapped pets
-  if (getOpponents(fightData, brute, false, true)
-    .filter((fighter) => !fighter.trapped).length === 0) {
+  if (getOpponents({ fightData, fighter, petOnly: true })
+    .filter((f) => !f.trapped).length === 0) {
     supers = supers.filter((skill) => skill.name !== SkillName.cryOfTheDamned
       && skill.name !== SkillName.hypnosis);
   }
 
   // Filter out flashFlood if less than 3 weapons
-  if (brute.weapons.length < 3) {
+  if (fighter.weapons.length < 3) {
     supers = supers.filter((skill) => skill.name !== SkillName.flashFlood);
   }
 
-  // Filter out net if no available pet and no non-trapped fighter
-  if (getOpponents(fightData, brute, false, true).length === 0
-    && getOpponents(fightData, brute, true).filter((b) => !b.trapped).length === 0) {
+  // Filter out net if no non-trapped fighters
+  if (getOpponents({ fightData, fighter }).filter((f) => !f.trapped).length === 0) {
     supers = supers.filter((skill) => skill.name !== SkillName.net);
   }
 
   // Filter out vampirism if more than 50% hp
-  if (brute.hp > brute.maxHp / 2) {
+  if (fighter.hp > fighter.maxHp / 2) {
     supers = supers.filter((skill) => skill.name !== SkillName.vampirism);
   }
 
   // Filter out vampirism if no brute opponent
-  if (getOpponents(fightData, brute, true).filter((f) => f.type !== 'boss').length === 0) {
+  if (getOpponents({ fightData, fighter, bruteOnly: true }).filter((f) => f.type !== 'boss').length === 0) {
     supers = supers.filter((skill) => skill.name !== SkillName.vampirism);
   }
 
-  // Filter out treat if no pets lost hp
-  if (fightData.fighters.filter((f) => f.type === 'pet' && f.master === brute.id && f.hp < f.maxHp && !f.trapped).length === 0) {
+  // Filter out treat if no pets lost hp and not trapped
+  if (fightData.fighters.filter((f) => f.type === 'pet' && f.team === fighter.team && f.hp < f.maxHp && !f.trapped).length === 0) {
     supers = supers.filter((skill) => skill.name !== SkillName.treat);
   }
 
@@ -590,6 +567,7 @@ const registerHit = (
 
 const activateSuper = (
   fightData: DetailedFight,
+  fighter: DetailedFighter,
   skill: Skill,
   stats: Stats,
   achievements: AchievementsStore,
@@ -597,18 +575,11 @@ const activateSuper = (
   // No uses left (should never happen)
   if (!skill.uses) return false;
 
-  // Get current fighter
-  const fighter = fightData.fighters[0];
-
-  if (!fighter) {
-    throw new Error('No fighter found');
-  }
-
   switch (skill.name) {
     // Steal opponent's weapon if he has one
     case SkillName.thief: {
       // Choose brute opponent
-      const opponent = getRandomOpponent(fightData, fighter, true);
+      const opponent = getRandomOpponent({ fightData, fighter, bruteOnly: true });
 
       if (!opponent) {
         return false;
@@ -700,11 +671,15 @@ const activateSuper = (
     }
     case SkillName.net: {
       // Target pet first
-      let opponent = getRandomOpponent(fightData, fighter, false, true);
+      let opponent = getRandomOpponent({
+        fightData, fighter, petOnly: true, nonTrappedOnly: true,
+      });
 
       if (!opponent) {
         // Choose brute opponent if no pet
-        opponent = getRandomOpponent(fightData, fighter, true, false, true);
+        opponent = getRandomOpponent({
+          fightData, fighter, bruteOnly: true, nonTrappedOnly: true,
+        });
 
         if (!opponent) {
           return false;
@@ -731,7 +706,7 @@ const activateSuper = (
     }
     case SkillName.bomb: {
       // Get opponents
-      const opponents = getOpponents(fightData, fighter);
+      const opponents = getOpponents({ fightData, fighter });
 
       // Set random bomb damage
       const damage = 15 + randomBetween(0, 10);
@@ -762,7 +737,7 @@ const activateSuper = (
       }
 
       // Choose opponent
-      const opponent = getRandomOpponent(fightData, fighter, true);
+      const opponent = getRandomOpponent({ fightData, fighter, bruteOnly: true });
 
       if (!opponent) {
         return false;
@@ -814,8 +789,8 @@ const activateSuper = (
     }
     case SkillName.cryOfTheDamned: {
       // Get opponent's non trapped pets
-      const opponentPets = getOpponents(fightData, fighter, false, true)
-        .filter((f) => !f.trapped && f.hp > 0);
+      const opponentPets = getOpponents({ fightData, fighter, petOnly: true })
+        .filter((f) => !f.trapped);
 
       // Abort if no pet
       if (opponentPets.length === 0) return false;
@@ -858,17 +833,9 @@ const activateSuper = (
       break;
     }
     case SkillName.hypnosis: {
-      // Get main opponent
-      const opponent = getMainOpponent(fightData, fighter);
-
-      // Get main fighter
-      const mainFighter = getMainOpponent(fightData, opponent);
-
       // Get opponent's non trapped pets
-      const opponentPets = fightData.fighters.filter((f) => f.type === 'pet'
-        && f.master === opponent.id
-        && !f.trapped
-        && f.hp > 0);
+      const opponentPets = getOpponents({ fightData, fighter, petOnly: true })
+        .filter((f) => !f.trapped);
 
       // Keep track of hypnotised pets
       const hypnotisedPets: number[] = [];
@@ -877,7 +844,7 @@ const activateSuper = (
         hypnotisedPets.push(pet.index);
 
         // Change pet owner
-        pet.master = mainFighter.id;
+        pet.master = fighter.id;
         pet.hypnotised = true;
       }
 
@@ -895,7 +862,7 @@ const activateSuper = (
     }
     case SkillName.flashFlood: {
       // Choose opponent
-      const opponent = getRandomOpponent(fightData, fighter, true);
+      const opponent = getRandomOpponent({ fightData, fighter, bruteOnly: true });
 
       if (!opponent) {
         return false;
@@ -956,8 +923,8 @@ const activateSuper = (
 
       if (deadPets.length === 0) return false;
 
-      // Abort if less than 20 HP lost or if no pet is dead
-      if (fighter.hp > fighter.maxHp - 20 || !deadPets.length) return false;
+      // Abort if less than 20 HP lost
+      if (fighter.hp > fighter.maxHp - 20) return false;
 
       // Get random dead pet
       const pet = randomItem(deadPets);
@@ -1022,8 +989,12 @@ const activateSuper = (
       break;
     }
     case SkillName.vampirism: {
-      // Choose main opponent
-      const opponent = getMainOpponent(fightData, fighter);
+      // Choose opponent
+      const opponent = getRandomOpponent({ fightData, fighter, bruteOnly: true });
+
+      if (!opponent) {
+        return false;
+      }
 
       // Damage done (25% own missing hp)
       const damage = Math.floor((fighter.maxHp - fighter.hp) * 0.25);
@@ -1036,7 +1007,7 @@ const activateSuper = (
     }
     case SkillName.haste: {
       // Choose random opponent
-      const opponent = getRandomOpponent(fightData, fighter);
+      const opponent = getRandomOpponent({ fightData, fighter });
 
       if (!opponent) {
         return false;
@@ -1053,8 +1024,7 @@ const activateSuper = (
     }
     case SkillName.treat: {
       // Choose random ally pet
-      const mainOpponent = getMainOpponent(fightData, fighter);
-      const pets = getOpponents(fightData, mainOpponent, false, true);
+      const pets = fightData.fighters.filter((f) => f.type === 'pet' && f.team === fighter.team && f.hp > 0);
       const pet = pets.find((p) => p.hp < p.maxHp && !p.trapped);
 
       if (!pet) {
@@ -1136,14 +1106,7 @@ const counterAttack = (fighter: DetailedFighter, opponent: DetailedFighter) => {
 };
 
 // Returns true if weapon was sabotaged
-const drawWeapon = (fightData: DetailedFight): boolean => {
-  // Get current fighter
-  const fighter = fightData.fighters[0];
-
-  if (!fighter) {
-    throw new Error('No fighter found');
-  }
-
+const drawWeapon = (fightData: DetailedFight, fighter: DetailedFighter): boolean => {
   const bareHandsFirstHit = fightData.modifiers.includes(FightModifier.bareHandsFirstHit);
 
   // Don't draw a weapon if the fighter hasn't hit yet
@@ -1521,15 +1484,15 @@ export const checkDeaths = (
           throw new Error('Pet without master');
         }
 
-        const opponent = fightData.fighters.find((f) => f.id !== master && !f.master);
+        const opponents = getOpponents({ fightData, fighter, bruteOnly: true });
 
-        if (opponent) {
+        opponents.forEach((opponent) => {
           updateStats(stats, opponent.id, 'petsKilled', 1);
-        }
+        });
       }
 
-      // Set loser if fighter is a main brute or a boss
-      if (fighter.type === 'boss' || (fighter.type === 'brute' && !fighter.master)) {
+      // Set loser if team has no brutes or bosses alive
+      if (fightData.fighters.filter((f) => f.team === fighter.team && (f.type === 'brute' || f.type === 'boss') && f.hp > 0).length === 0) {
         fightData.loser = fighter.id;
       }
     }
@@ -1609,6 +1572,19 @@ const startAttack = (
       updateStats(stats, opponent.id, 'consecutiveReversals', 1);
       checkAchievements(stats, achievements);
 
+      // Check if the opponent has less reach than the fighter, and move them closer
+      const opponentReach = opponent.activeWeapon?.reach ?? 0;
+      const fighterReach = fighter.activeWeapon?.reach ?? 0;
+      if (opponentReach < fighterReach) {
+        // Add move step
+        fightData.steps.push({
+          a: StepType.Move,
+          f: opponent.index,
+          t: fighter.index,
+          r: 1,
+        });
+      }
+
       // Trigger fighter attack
       attack(fightData, opponent, fighter, stats, achievements);
     } else {
@@ -1674,13 +1650,13 @@ export const playFighterTurn = (
   const possibleSuper = randomlyGetSuper(fightData, fighter);
   if (possibleSuper) {
     // End turn if super activated
-    if (activateSuper(fightData, possibleSuper, stats, achievements)) {
+    if (activateSuper(fightData, fighter, possibleSuper, stats, achievements)) {
       return;
     }
   }
 
   // Draw weapon
-  const sabotaged = drawWeapon(fightData);
+  const sabotaged = drawWeapon(fightData, fighter);
 
   // End turn if weapon was sabotaged
   if (sabotaged) {
@@ -1706,7 +1682,7 @@ export const playFighterTurn = (
   }
 
   // Get opponent
-  const opponent = getRandomOpponent(fightData, fighter);
+  const opponent = getRandomOpponent({ fightData, fighter });
 
   if (!opponent) {
     return;
@@ -1890,8 +1866,17 @@ export const playFighterTurn = (
     // Get poison damage
     const poisonDamage = Math.ceil(fighter.maxHp / 50);
 
+    // Get poisoner
+    const poisoner = getOpponents({ fightData, fighter, bruteOnly: true })
+      .find((f) => f.skills.find((s) => s.name === SkillName.chef))
+      || getRandomOpponent({ fightData, fighter, bruteOnly: true });
+
+    if (!poisoner) {
+      throw new Error('No poisoner found');
+    }
+
     // Register the hit
-    registerHit(fightData, stats, achievements, getMainOpponent(fightData, fighter), [fighter], poisonDamage, false, 'poison');
+    registerHit(fightData, stats, achievements, poisoner, [fighter], poisonDamage, false, 'poison');
   }
 
   increaseInitiative(fighter);

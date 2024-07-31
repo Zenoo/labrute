@@ -6,8 +6,7 @@ const handleStats = (
   fightData: DetailedFight,
   stats: Stats,
   achievements: AchievementsStore,
-  isTournamentFight: boolean,
-  isTournamentFinal: boolean,
+  tournament?: 'fight' | 'finals',
 ) => {
   const winner = fightData.fighters.find((f) => f.id === fightData.winner);
   if (!winner) {
@@ -110,8 +109,8 @@ const handleStats = (
     }
 
     // Tournament achievements
-    if (isTournamentFight) {
-      if (isTournamentFinal) {
+    if (tournament) {
+      if (tournament === 'finals') {
         if (bruteId === winner.id && winner.level <= 15) {
           // Win as Lv15-
           achievement.achievements.winTournamentAs15 = 1;

@@ -33,6 +33,7 @@ export interface DetailedFighter {
   // Metadata
   id: string;
   index: number;
+  team: 'L' | 'R';
   name: string;
   gender?: Gender;
   body?: string;
@@ -115,6 +116,7 @@ export interface DetailedFighter {
 export interface Fighter {
   id: string;
   index: number
+  team: 'L' | 'R';
   name: string;
   gender?: Gender;
   body?: string;
@@ -295,6 +297,8 @@ export interface MoveStep {
   s?: 1 | 0;
   /** Got countered? */
   c?: 1 | 0;
+  /** Small move after a reversal? */
+  r?: 1 | 0;
 }
 
 export interface EatStep {

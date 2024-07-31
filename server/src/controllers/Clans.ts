@@ -1083,18 +1083,15 @@ const Clans = {
           retry += 1;
 
           // eslint-disable-next-line no-await-in-loop
-          const newGeneratedFight = await generateFight(
+          const newGeneratedFight = await generateFight({
             prisma,
-            brute,
-            null,
+            team1: { brutes: [brute] },
+            team2: { bosses: [{ ...boss, startHP: boss.hp - clan.damageOnBoss }] },
             modifiers,
-            false,
-            false,
-            false,
-            boss,
-            boss.hp - clan.damageOnBoss,
-            clan.id,
-          );
+            backups: false,
+            achievements: false,
+            clanId: clan.id,
+          });
           generatedFight = newGeneratedFight.data;
           if (newGeneratedFight.boss) {
             bossXpGains = newGeneratedFight.boss.xp;

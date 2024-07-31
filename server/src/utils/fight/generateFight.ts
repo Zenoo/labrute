@@ -14,6 +14,7 @@ import {
 } from '@labrute/core';
 import {
   Brute, FightModifier, InventoryItemType, LogType, Prisma, PrismaClient,
+  SkillName,
 } from '@labrute/prisma';
 import applySpy from './applySpy.js';
 import {
@@ -32,100 +33,107 @@ type GenerateFightResult = {
   }
 };
 
-const generateFight = async (
-  prisma: PrismaClient,
-  brute1: Brute,
-  brute2: Brute | null,
-  modifiers: FightModifier[],
-  allowBackup: boolean,
-  achievementsActive: boolean,
-  isTournamentFinal: boolean,
-  boss?: Boss,
-  bossHP?: number,
-  clanId?: string,
-): Promise<GenerateFightResult> => {
-  if (brute1.id === brute2?.id) {
+type Team = {
+  brutes?: Brute[];
+  bosses?: (Boss & {
+    startHP: number;
+  })[];
+};
+
+type GenerateFightParams = {
+  prisma: PrismaClient;
+  team1: Team;
+  team2: Team;
+  modifiers: FightModifier[];
+  backups: boolean;
+  achievements: boolean;
+  tournament?: 'fight' | 'finals';
+  clanId?: string;
+};
+
+const generateFight = async ({
+  prisma,
+  team1,
+  team2,
+  modifiers,
+  backups,
+  achievements,
+  tournament,
+  clanId,
+}: GenerateFightParams): Promise<GenerateFightResult> => {
+  if (team1.brutes?.some((brute) => team2.brutes?.some((b) => b.id === brute.id))) {
     throw new ExpectedError('Attempted to created a fight between the same brutes');
   }
 
-  const isTournamentFight = !allowBackup;
-
-  const background = boss
+  const background = (team1.bosses?.length || team2.bosses?.length)
     ? bossBackground
-    : isTournamentFight
+    : tournament
       ? tournamentBackground
       : weightedRandom(fightBackgrounds);
 
   // Achievements
-  const achievements: AchievementsStore = {
-    [brute1.id]: {
-      userId: brute1.userId,
-      achievements: {},
-    },
-  };
-
-  if (brute2) {
-    achievements[brute2.id] = {
-      userId: brute2.userId,
-      achievements: {},
-    };
-  }
-
+  const achievementsStore: AchievementsStore = {};
   // Stats
-  const stats: Stats = {
-    [brute1.id]: {
-      userId: brute1.userId,
-    },
-  };
+  const stats: Stats = {};
 
-  if (brute2) {
-    stats[brute2.id] = {
-      userId: brute2.userId,
+  team1.brutes?.concat(team2.brutes ?? []).forEach((brute) => {
+    achievementsStore[brute.id] = {
+      userId: brute.userId,
+      achievements: {},
     };
-  }
+
+    stats[brute.id] = {
+      userId: brute.userId,
+    };
+  });
 
   // Get brute backups
-  const brute1Backups = allowBackup ? await prisma.brute.findMany({
-    where: {
-      skills: { has: 'backup' },
-      level: { lt: brute1.level },
-      userId: brute1.userId,
-      deletedAt: null,
-    },
-  }) : [];
-  const brute2Backups = (brute2 && allowBackup) ? await prisma.brute.findMany({
-    where: {
-      skills: { has: 'backup' },
-      level: { lt: brute2.level },
-      userId: brute2.userId,
-      deletedAt: null,
-    },
-  }) : [];
+  const team1Backups: Brute[] = [];
+  const team2Backups: Brute[] = [];
+  if (backups) {
+    const brute1 = team1.brutes?.[0];
+    const brute2 = team2.brutes?.[0];
 
-  const brute1Backup = brute1Backups.length
-    ? randomItem(brute1Backups)
-    : null;
-  const brute2Backup = brute2Backups.length
-    ? randomItem(brute2Backups)
-    : null;
+    if (!brute1) {
+      throw new Error('No brute 1');
+    }
+
+    const brute1Backups = await prisma.brute.findMany({
+      where: {
+        skills: { has: 'backup' },
+        level: { lt: brute1.level },
+        userId: brute1.userId,
+        deletedAt: null,
+      },
+    });
+
+    if (brute1Backups.length) {
+      team1Backups.push(randomItem(brute1Backups));
+    }
+
+    if (brute2) {
+      const brute2Backups = await prisma.brute.findMany({
+        where: {
+          skills: { has: 'backup' },
+          level: { lt: brute2.level },
+          userId: brute2.userId,
+          deletedAt: null,
+        },
+      });
+
+      if (brute2Backups.length) {
+        team2Backups.push(randomItem(brute2Backups));
+      }
+    }
+  }
 
   // Global fight data
-  const fightDataFighters = (await getFighters(
+  const fightDataFighters = await getFighters({
     prisma,
-    { brute: brute1, backup: brute1Backup },
-    { brute: brute2, backup: brute2Backup, boss: boss || undefined },
+    team1: { brutes: team1.brutes ?? [], backups: team1Backups, bosses: team1.bosses ?? [] },
+    team2: { brutes: team2.brutes ?? [], backups: team2Backups, bosses: team2.bosses ?? [] },
     modifiers,
-  ))
-    // Adjust boss HP
-    .map((fighter) => {
-      if (fighter.type === 'boss') {
-        return {
-          ...fighter,
-          hp: bossHP || fighter.hp,
-        };
-      }
-      return fighter;
-    });
+  });
 
   const fightData: DetailedFight = {
     modifiers,
@@ -138,35 +146,20 @@ const generateFight = async (
   };
 
   // Poison fighters (not for bosses)
-  if (brute2 && !boss) {
-    [brute1, brute2].forEach((brute) => {
-      if (brute.skills.includes('chef')) {
-        const fighter = fightData.fighters.find(({ id }) => id === brute.id);
-
-        if (!fighter) {
-          throw new Error('Fighter 1 not found');
-        }
-        getOpponents(fightData, fighter).forEach((opponent) => {
-          // eslint-disable-next-line no-param-reassign
+  fightData.fighters.forEach((fighter) => {
+    if (fighter.skills.find((skill) => skill.name === SkillName.chef)) {
+      getOpponents({ fightData, fighter }).forEach((opponent) => {
+        if (opponent.type !== 'boss') {
           opponent.poisoned = true;
-        });
-      }
-    });
-  }
-
-  const mainFighters = fightData.fighters.filter(({ master }) => !master);
-  const petFighters = fightData.fighters.filter(({ type }) => type === 'pet');
-  const firstMainFighter = mainFighters[0];
-  const secondMainFighter = mainFighters[1];
-
-  if (!firstMainFighter || !secondMainFighter) {
-    throw new Error('Invalid number of fighters');
-  }
+        }
+      });
+    }
+  });
 
   const arriveWithWeapon = modifiers.includes(FightModifier.startWithWeapon);
 
   // Add arrive step for all fighters
-  [...mainFighters, ...petFighters].forEach((fighter) => {
+  fightData.fighters.forEach((fighter) => {
     const step: ArriveStep = {
       a: StepType.Arrive,
       f: fighter.index,
@@ -192,25 +185,33 @@ const generateFight = async (
     fightData.steps.push(step);
   });
 
-  // Add spy steps
-  applySpy(fightData, firstMainFighter, secondMainFighter);
-  applySpy(fightData, secondMainFighter, firstMainFighter);
+  // Add spy steps (only 1v1)
+  if (team1.brutes?.length === 1 && team2.brutes?.length === 1) {
+    const leftFighter = fightData.fighters.find((fighter) => fighter.id === team1.brutes?.[0]?.id);
+    const rightFighter = fightData.fighters.find((fighter) => fighter.id === team2.brutes?.[0]?.id);
+
+    if (!leftFighter || !rightFighter) {
+      throw new Error('Fighter not found');
+    }
+    applySpy(fightData, leftFighter, rightFighter);
+    applySpy(fightData, rightFighter, leftFighter);
+  }
 
   // Pre-fight saboteur
-  saboteur(fightData, achievements);
+  saboteur(fightData, achievementsStore);
 
   let turn = 0;
 
   // Fight loop
   while (!fightData.loser) {
+    // Order fighters by initiative (random if equal)
+    orderFighters(fightData);
+
     const firstFighter = fightData.fighters[0];
     if (!firstFighter) {
       // No fighters left
       break;
     }
-
-    // Order fighters by initiative (random if equal)
-    orderFighters(fightData);
 
     // Set current initiative to first fighter
     fightData.initiative = firstFighter.initiative;
@@ -218,13 +219,12 @@ const generateFight = async (
     // Poison fighters if turn > 1000
     if (turn > 1000) {
       fightData.fighters.forEach((fighter) => {
-        // eslint-disable-next-line no-param-reassign
         fighter.poisoned = true;
       });
     }
 
     // Play fighter turn
-    playFighterTurn(fightData, stats, achievements);
+    playFighterTurn(fightData, stats, achievementsStore);
 
     // Check deaths
     checkDeaths(fightData, stats);
@@ -236,20 +236,20 @@ const generateFight = async (
     throw new Error('Fight not finished');
   }
 
-  // Get winner
-  const winner = fightData.fighters.find((fighter) => fighter.id !== fightData.loser
-    && (fighter.type === 'brute' || fighter.type === 'boss')
-    && !fighter.master);
-
-  if (!winner) {
-    throw new Error('No winner found');
-  }
-
   // Get loser
   const loser = fightData.fighters.find((fighter) => fighter.id === fightData.loser);
 
   if (!loser) {
     throw new Error('No loser found');
+  }
+
+  // Get winner
+  const winner = loser.team === 'L'
+    ? fightData.fighters.find((fighter) => fighter.team === 'R' && (fighter.type === 'boss' || fighter.id === team2.brutes?.[0]?.id))
+    : fightData.fighters.find((fighter) => fighter.team === 'L' && (fighter.type === 'boss' || fighter.id === team1.brutes?.[0]?.id));
+
+  if (!winner) {
+    throw new Error('No winner found');
   }
 
   // Set fight winner and loser
@@ -266,6 +266,7 @@ const generateFight = async (
   const fighters: Fighter[] = fightData.initialFighters.map((fighter) => ({
     id: fighter.id,
     index: fighter.index,
+    team: fighter.team,
     name: fighter.name,
     gender: fighter.gender,
     body: fighter.body,
@@ -284,6 +285,13 @@ const generateFight = async (
     shield: fighter.shield,
   }));
 
+  const brute1 = team1.brutes?.[0];
+  const brute2 = team2.brutes?.[0];
+
+  if (!brute1) {
+    throw new Error('No brute 1');
+  }
+
   const result: GenerateFightResult = {
     data: {
       brute1: { connect: { id: brute1.id } },
@@ -299,10 +307,10 @@ const generateFight = async (
     result.data.brute2 = { connect: { id: brute2.id } };
   }
 
-  if (boss) {
+  if (team1.bosses?.length || team2.bosses?.length) {
     // Update clan limit and boss if boss slain
     const bossFighter = fighters.find((fighter) => fighter.type === 'boss');
-    if (bossFighter && loser.id === bossFighter.id) {
+    if (bossFighter && bossFighter.hp <= 0) {
       const clan = await prisma.clan.findUnique({
         where: { id: clanId },
         select: {
@@ -454,11 +462,11 @@ const generateFight = async (
   }
 
   // Add achievements from stats
-  handleStats(fightData, stats, achievements, isTournamentFight, isTournamentFinal);
+  handleStats(fightData, stats, achievementsStore, tournament);
 
   // Update achievements
-  if (achievementsActive) {
-    await updateAchievements(prisma, achievements, isTournamentFight);
+  if (achievements) {
+    await updateAchievements(prisma, achievementsStore, !!tournament);
   }
   return result;
 };

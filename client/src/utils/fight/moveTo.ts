@@ -52,6 +52,7 @@ const moveTo = async (
     let reach = 0;
 
     // Countered, take opponent weapon reach into account
+    // TODO: Check why this isn't working
     if (step.c) {
       reach = weapons.find((w) => w.name === target.animation.weapon)?.reach || 0;
     } else {
@@ -62,10 +63,12 @@ const moveTo = async (
     modifier += reach * 16;
   }
 
+  const duration = step.r ? 0.2 : 0.5;
+
   // Move fighter to the position
   await Tweener.add({
     target: fighter.animation.container,
-    duration: 0.5 / speed.current,
+    duration: duration / speed.current,
     ease: Easing.linear
   }, {
     x: target.animation.team === 'right'

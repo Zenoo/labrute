@@ -14,9 +14,11 @@ import {
 import ServerState from '../ServerState.js';
 
 interface Team {
-  brute: Brute | null;
-  backup: Brute | null;
-  boss?: Boss
+  brutes: Brute[];
+  backups: Brute[];
+  bosses: (Boss & {
+    startHP: number;
+  })[]
 }
 
 const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
@@ -179,25 +181,30 @@ const handleModifiers = (
 
 const getTempo = (speed: number) => 0.10 + (20 / (10 + (speed * 1.5))) * 0.90;
 
-const getFighters = async (
+type GetFightersParams = {
   prisma: PrismaClient,
   team1: Team,
   team2: Team,
   modifiers: FightModifier[],
-): Promise<DetailedFighter[]> => {
+};
+
+const getFighters = async ({
+  prisma,
+  team1,
+  team2,
+  modifiers,
+}: GetFightersParams): Promise<DetailedFighter[]> => {
   const randomWeaponIndex = await ServerState.getRandomWeapon(prisma);
   const randomSkillIndex = await ServerState.getRandomSkill(prisma);
 
   let spawnedPets = 0;
   const fighters: DetailedFighter[] = [];
   let positiveIndex = 0;
-  [team1, team2].forEach((team) => {
-    const { brute } = team;
+  [team1, team2].forEach((team, teamIndex) => {
+    const { brutes } = team;
 
-    if (brute) {
-      if (!brute.body || !brute.colors) {
-        throw new Error('Brute body or colors are missing');
-      }
+    for (const brute of brutes) {
+      const teamSide = teamIndex === 0 ? 'L' : 'R';
 
       // Fetch brute stats before handling modifiers,
       // as both depend on the skills, which get modified
@@ -213,6 +220,7 @@ const getFighters = async (
       const fighter: DetailedFighter = {
         id: brute.id,
         index: positiveIndex,
+        team: teamSide,
         name: brute.name,
         // Add minimal visual data to still be able to display the fight if the brute was deleted
         gender: brute.gender,
@@ -220,7 +228,7 @@ const getFighters = async (
         body: brute.body,
         rank: brute.ranking as BruteRanking,
         level: brute.level,
-        type: 'brute' as const,
+        type: 'brute',
         maxHp: bruteHP,
         hp: bruteHP,
         strength: bruteStrength,
@@ -270,7 +278,7 @@ const getFighters = async (
       fighters.push(fighter);
 
       // Pets stats
-      brute.pets.forEach((petName) => {
+      for (const petName of brute.pets) {
         const pet = pets.find((p) => p.name === petName);
         if (!pet) {
           throw new Error(`Pet ${petName} not found`);
@@ -281,6 +289,7 @@ const getFighters = async (
         fighters.push({
           id: `${-spawnedPets}`,
           index: -spawnedPets,
+          team: teamSide,
           name: petName,
           rank: 0,
           level: 0,
@@ -326,125 +335,127 @@ const getFighters = async (
           damagedWeapons: [],
           hitBy: {},
         });
-      });
-
-      // Backup stats
-      if (team.backup) {
-        const { backup } = team;
-
-        if (!backup.body || !backup.colors) {
-          throw new Error('Backup body or colors are missing');
-        }
-
-        // Arrives at a random time
-        const arrivesAt = randomBetween(1, 500) / 100;
-
-        // Fetch backup stats before handling modifiers,
-        // as both depend on the skills, which get modified
-        const backupHP = getFinalHP(backup, randomSkillIndex);
-        const backupSpeed = getFinalStat(backup, 'speed', randomSkillIndex);
-        const backupStrength = getFinalStat(backup, 'strength', randomSkillIndex);
-        const backupAgility = getFinalStat(backup, 'agility', randomSkillIndex);
-
-        handleModifiers(backup, modifiers, randomWeaponIndex, randomSkillIndex);
-
-        spawnedPets++;
-        const backupFighter: DetailedFighter = {
-          id: `${-spawnedPets}`,
-          index: -spawnedPets,
-          name: backup.name,
-          // Add minimal visual data to still be able to display the fight if the brute was deleted
-          gender: backup.gender,
-          colors: backup.colors,
-          body: backup.body,
-          rank: backup.ranking as BruteRanking,
-          level: backup.level,
-          type: 'brute' as const,
-          master: brute.id,
-          arrivesAtInitiative: arrivesAt,
-          leavesAtInitiative: arrivesAt + 2.8,
-          maxHp: backupHP,
-          hp: backupHP,
-          strength: backupStrength,
-          agility: backupAgility,
-          speed: backupSpeed,
-          initiative: arrivesAt,
-          tempo: getTempo(backupSpeed),
-          baseDamage: BARE_HANDS_DAMAGE,
-          counter: 0,
-          combo: 0,
-          deflect: 0,
-          reversal: 0,
-          block: 0,
-          accuracy: 0,
-          armor: 0,
-          disarm: 0,
-          evasion: 0,
-          reach: 0,
-          sabotage: false,
-          bodybuilder: false,
-          survival: false,
-          balletShoes: false,
-          determination: false,
-          retryAttack: false,
-          ironHead: false,
-          resistant: false,
-          monk: false,
-          skills: skills
-            .filter((skill) => backup.skills.includes(skill.name))
-            .map((skill) => ({ ...skill })),
-          weapons: weapons.filter((weapon) => backup.weapons.includes(weapon.name)),
-          shield: false,
-          activeSkills: [],
-          activeWeapon: null,
-          keepWeaponChance: 0,
-          saboteur: false,
-          sabotagedWeapon: null,
-          poisoned: false,
-          trapped: false,
-          damagedWeapons: [],
-          hitBy: {},
-        };
-
-        handleSkills(backup, backupFighter);
-
-        // Reset initiative to arrive at the desired time
-        backupFighter.initiative = arrivesAt;
-
-        fighters.push(backupFighter);
       }
+    }
+
+    // Backup stats
+    for (const backup of team.backups) {
+      const backupMaster = team.brutes[0];
+
+      if (!backupMaster) {
+        throw new Error('Backup master not found');
+      }
+
+      // Arrives at a random time
+      const arrivesAt = randomBetween(1, 500) / 100;
+
+      // Fetch backup stats before handling modifiers,
+      // as both depend on the skills, which get modified
+      const backupHP = getFinalHP(backup, randomSkillIndex);
+      const backupSpeed = getFinalStat(backup, 'speed', randomSkillIndex);
+      const backupStrength = getFinalStat(backup, 'strength', randomSkillIndex);
+      const backupAgility = getFinalStat(backup, 'agility', randomSkillIndex);
+
+      handleModifiers(backup, modifiers, randomWeaponIndex, randomSkillIndex);
+
+      spawnedPets++;
+      const backupFighter: DetailedFighter = {
+        id: `${-spawnedPets}`,
+        index: -spawnedPets,
+        team: teamIndex === 0 ? 'L' : 'R',
+        name: backup.name,
+        // Add minimal visual data to still be able to display the fight if the brute was deleted
+        gender: backup.gender,
+        colors: backup.colors,
+        body: backup.body,
+        rank: backup.ranking as BruteRanking,
+        level: backup.level,
+        type: 'brute' as const,
+        master: backupMaster.id,
+        arrivesAtInitiative: arrivesAt,
+        leavesAtInitiative: arrivesAt + 2.8,
+        maxHp: backupHP,
+        hp: backupHP,
+        strength: backupStrength,
+        agility: backupAgility,
+        speed: backupSpeed,
+        initiative: arrivesAt,
+        tempo: getTempo(backupSpeed),
+        baseDamage: BARE_HANDS_DAMAGE,
+        counter: 0,
+        combo: 0,
+        deflect: 0,
+        reversal: 0,
+        block: 0,
+        accuracy: 0,
+        armor: 0,
+        disarm: 0,
+        evasion: 0,
+        reach: 0,
+        sabotage: false,
+        bodybuilder: false,
+        survival: false,
+        balletShoes: false,
+        determination: false,
+        retryAttack: false,
+        ironHead: false,
+        resistant: false,
+        monk: false,
+        skills: skills
+          .filter((skill) => backup.skills.includes(skill.name))
+          .map((skill) => ({ ...skill })),
+        weapons: weapons.filter((weapon) => backup.weapons.includes(weapon.name)),
+        shield: false,
+        activeSkills: [],
+        activeWeapon: null,
+        keepWeaponChance: 0,
+        saboteur: false,
+        sabotagedWeapon: null,
+        poisoned: false,
+        trapped: false,
+        damagedWeapons: [],
+        hitBy: {},
+      };
+
+      handleSkills(backup, backupFighter);
+
+      // Reset initiative to arrive at the desired time
+      backupFighter.initiative = arrivesAt;
+
+      fighters.push(backupFighter);
     }
 
     // Boss
     positiveIndex++;
-    if (team.boss) {
+    for (const boss of team.bosses) {
       spawnedPets++;
 
       fighters.push({
         id: `${-spawnedPets}`,
         index: positiveIndex,
-        name: team.boss.name,
+        team: teamIndex === 0 ? 'L' : 'R',
+        name: boss.name,
         rank: 0,
         level: 0,
         type: 'boss' as const,
-        maxHp: team.boss.hp,
-        hp: team.boss.hp,
-        strength: team.boss.strength,
-        agility: team.boss.agility,
-        speed: team.boss.speed,
-        initiative: team.boss.initiative + randomBetween(0, 10) / 100,
-        tempo: getTempo(team.boss.speed),
-        baseDamage: team.boss.damage,
-        counter: team.boss.counter,
-        combo: team.boss.combo,
+        maxHp: boss.hp,
+        hp: boss.startHP,
+        strength: boss.strength,
+        agility: boss.agility,
+        speed: boss.speed,
+        initiative: boss.initiative + randomBetween(0, 10) / 100,
+        tempo: getTempo(boss.speed),
+        baseDamage: boss.damage,
+        counter: boss.counter,
+        combo: boss.combo,
         deflect: 0,
-        reversal: team.boss.counter,
-        block: team.boss.block,
-        accuracy: team.boss.accuracy,
-        reach: team.boss.reach,
+        reversal: boss.counter,
+        block: boss.block,
+        accuracy: boss.accuracy,
+        reach: boss.reach,
         armor: 0,
-        disarm: team.boss.disarm,
-        evasion: team.boss.evasion,
+        disarm: boss.disarm,
+        evasion: boss.evasion,
         sabotage: false,
         bodybuilder: false,
         survival: false,

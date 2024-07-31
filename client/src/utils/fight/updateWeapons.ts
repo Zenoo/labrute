@@ -21,7 +21,7 @@ const updateWeapons = (
   }
 
   // Only affect the UI for main brutes
-  if (!brute.master) {
+  if (brute.bust) {
     // Empty list
     brute.weaponsIllustrations.forEach((illustration) => {
       illustration.destroy();
@@ -49,7 +49,7 @@ const updateWeapons = (
   }
 
   // Only affect the UI for main brutes
-  if (!brute.master) {
+  if (brute.bust) {
     // Generate new list
     brute.weapons.forEach((w, index) => {
       const texture = spritesheet.textures[`weapons/${WeaponById[w]}.png`];

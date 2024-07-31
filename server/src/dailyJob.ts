@@ -231,8 +231,8 @@ const handleDailyTournaments = async (
   // Remove empty tournaments and sort brutes by rank and level
   // (Split in two halves)
   tournaments = tournaments.filter(Boolean).map((tournament) => {
-    const firstHalf = [];
-    const secondHalf = [];
+    const firstHalf: typeof registeredBrutes = [];
+    const secondHalf: typeof registeredBrutes = [];
     const sortedTournament = tournament.sort((a, b) => {
       if (a.ranking === b.ranking) {
         return b.level - a.level;
@@ -307,15 +307,15 @@ const handleDailyTournaments = async (
           }
 
           try {
-            const newGeneratedFight = await generateFight(
+            const newGeneratedFight = await generateFight({
               prisma,
-              brute1,
-              brute2,
+              team1: { brutes: [brute1] },
+              team2: { brutes: [brute2] },
               modifiers,
-              false,
-              true,
-              roundBrutes.length === 2,
-            );
+              backups: false,
+              achievements: true,
+              tournament: roundBrutes.length === 2 ? 'finals' : 'fight',
+            });
             generatedFight = newGeneratedFight.data;
           } catch (error: unknown) {
             if (!(error instanceof Error)) {
@@ -588,15 +588,15 @@ const handleGlobalTournament = async (
         }
 
         try {
-          const newGeneratedFight = await generateFight(
+          const newGeneratedFight = await generateFight({
             prisma,
-            brute1,
-            brute2,
+            team1: { brutes: [brute1] },
+            team2: { brutes: [brute2] },
             modifiers,
-            false,
-            true,
-            roundBrutes.length === 2,
-          );
+            backups: false,
+            achievements: true,
+            tournament: roundBrutes.length === 2 ? 'finals' : 'fight',
+          });
           generatedFight = newGeneratedFight.data;
         } catch (error: unknown) {
           if (!(error instanceof Error)) {
