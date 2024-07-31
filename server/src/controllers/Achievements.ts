@@ -103,10 +103,6 @@ const Achievements = {
       const achievements = await prisma.achievement.findMany({
         where: {
           userId: req.body.userId,
-          OR: [
-            { bruteId: null },
-            { brute: { deletedAt: null } },
-          ],
         },
         select: {
           name: true,
@@ -230,14 +226,6 @@ const Achievements = {
                       END as count
                   FROM "Achievement"
               WHERE "userId" IS NOT NULL
-                  AND (
-                    "bruteId" IS NULL
-                    OR "bruteId" IN (
-                      SELECT id
-                      FROM "Brute"
-                      WHERE "deletedAt" IS NULL
-                    )
-                  )
                   GROUP BY name, "userId"
               )
           ) AS a

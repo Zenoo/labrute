@@ -1091,18 +1091,25 @@ const cleanup = async (prisma: PrismaClient) => {
     },
   });
 
-  // Delete non tournament or favorited fights older than 30 days
-  await prisma.fight.deleteMany({
-    where: {
-      date: {
-        lt: moment.utc().subtract(30, 'day').toDate(),
+  // Fight deletion is disabled since it times out the job
+  if (false) {
+    const now = moment.utc().valueOf();
+
+    // Delete non tournament or favorited fights older than 30 days
+    const fights = await prisma.fight.deleteMany({
+      where: {
+        date: {
+          lt: moment.utc().subtract(30, 'day').toDate(),
+        },
+        tournamentId: null,
+        favoritedBy: {
+          none: {},
+        },
       },
-      tournamentId: null,
-      favoritedBy: {
-        none: {},
-      },
-    },
-  });
+    });
+
+    LOGGER.log(`${moment.utc().valueOf() - now}ms to delete ${fights.count} fights older than 30 days`);
+  }
 };
 
 const dailyJob = (prisma: PrismaClient) => async () => {

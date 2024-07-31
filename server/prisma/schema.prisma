@@ -297,6 +297,7 @@ model Fight {
   favoritedBy    User[]          @relation("FavoriteFights")
 
   @@index([tournamentId, winner, brute1Id, brute2Id])
+  @@index([date, tournamentId, id])
 }
 
 // LOGS
@@ -331,6 +332,7 @@ model Log {
   destinyChoiceId String?        @db.Uuid
 
   @@index([currentBruteId, date])
+  @@index([date])
 }
 
 // LEVEL UP
