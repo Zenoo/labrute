@@ -101,5 +101,7 @@
   "banReason.multipleAccounts": "Comptes multiples",
   "ipBanned": "Votre adresse IP est bannie",
   "fightNotFound": "Combat introuvable",
-  "favoriteLimit": "Vous avez atteint votre limite de combats favoris"
+  "favoriteLimit": "Vous avez atteint votre limite de combats favoris",
+  "warOngoing": "A clan war is already ongoing, you cannot start a new one",
+  "warNotFound": "War not found"
 }
