@@ -42,7 +42,7 @@
   "discord": "Discord",
   "betaReset": "Denke daran, dass am Ende der Beta alles zurückgesetzt wird.",
   "shadow": "Schatten",
-  "log.fight.0": "{{winner}} has crushed {{loser}}.",
+  "log.fight.0": "{{winner}} hat {{loser}} zerschmettert.",
   "log.fight.1": "{{winner}} set {{loser}}'s clock right.",
   "log.fight.2": "{{winner}} made ratatouille out of {{loser}}.",
   "log.fight.3": "{{winner}} vitrified {{loser}}.",
