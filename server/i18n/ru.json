@@ -102,6 +102,6 @@
   "ipBanned": "Ваш IP-адрес забанен",
   "fightNotFound": "Fight not found",
   "favoriteLimit": "You reached your favorite fights limit",
-  "warOngoing": "A clan war is already ongoing, you cannot start a new one",
-  "warNotFound": "War not found"
+  "warOngoing": "Война кланов уже ведётся, и вы не можете начать новую",
+  "warNotFound": "Война не найдена"
 }
