@@ -102,6 +102,6 @@
   "ipBanned": "Tu IP está baneada",
   "fightNotFound": "Pelea no encontrada",
   "favoriteLimit": "Has alcanzado tu límite de peleas favoritas",
-  "warOngoing": "A clan war is already ongoing, you cannot start a new one",
-  "warNotFound": "War not found"
+  "warOngoing": "Ya hay una guerra de clan en curso, no puedes iniciar una nueva",
+  "warNotFound": "Guerra no encontrada"
 }
