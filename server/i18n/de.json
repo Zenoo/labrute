@@ -100,8 +100,8 @@
   "banReason.innapropriateBruteName": "Unangemessener Name des Brutalos",
   "banReason.multipleAccounts": "Mehrere Accounts",
   "ipBanned": "Deine IP ist gebannt",
-  "fightNotFound": "Fight not found",
-  "favoriteLimit": "You reached your favorite fights limit",
+  "fightNotFound": "Kampf nicht gefunden",
+  "favoriteLimit": "Du hast das Maximum an Favorit-Kämpfen erreicht",
   "warOngoing": "Ein Clan-Krieg läuft bereits, du kannst keinen neuen beginnen",
   "warNotFound": "Krieg nicht gefunden"
 }
