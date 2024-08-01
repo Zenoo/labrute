@@ -277,6 +277,11 @@ const getFighters = async ({
 
       fighters.push(fighter);
 
+      // No pets if not 1v1
+      if (team1.brutes.length > 1 || team2.brutes.length > 1) {
+        continue;
+      }
+
       // Pets stats
       for (const petName of brute.pets) {
         const pet = pets.find((p) => p.name === petName);

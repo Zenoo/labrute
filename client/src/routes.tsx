@@ -36,6 +36,8 @@ import PatchNotesView from './views/PatchNotesView';
 import { BannedUsersView } from './views/BannedUsersView';
 import { MultipleAccountsView } from './views/MultipleAccountsView';
 import { FollowingFeedView } from './views/FollowingFeedView';
+import { ClanWarView } from './views/clan/ClanWarView';
+import { ClanWarHistoryView } from './views/clan/ClanWarHistoryView';
 
 const routes: RouteObject[] = [
   {
@@ -93,6 +95,8 @@ const routes: RouteObject[] = [
                   { path: 'forum', element: <ClanForumView /> },
                   { path: 'thread/:tid', element: <ClanThreadView /> },
                   { path: 'post/:tid', element: <ClanPostView /> },
+                  { path: 'war/history', element: <ClanWarHistoryView /> },
+                  { path: 'war/:warId', element: <ClanWarView /> },
                 ],
               },
             ],

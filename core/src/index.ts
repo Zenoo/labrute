@@ -67,6 +67,7 @@ export type PrismaInclude = {
 };
 
 // Server return types
+export type BruteForRender = Pick<Brute, 'id' | 'gender' | 'name' | 'body' | 'colors'>;
 export type BrutesGetForRankResponse = {
   topBrutes: Pick<Brute, 'id' | 'name' | 'body' | 'colors' | 'gender' | 'ranking' | 'level'>[],
   nearbyBrutes: Pick<Brute, 'id' | 'name' | 'body' | 'colors' | 'gender' | 'ranking' | 'level'>[],
@@ -130,6 +131,9 @@ export type BrutesCreateResponse = {
 export type BrutesGetLevelUpChoicesResponse = {
   choices: [DestinyChoice, DestinyChoice],
 };
+export type BrutesGetClanIdAsMasterResponse = {
+  id: string | null,
+};
 
 export type ServerReadyResponse = {
   ready: boolean,
@@ -175,10 +179,21 @@ export type ClanListResponse = (Clan & {
 })[];
 export type ClanCreateResponse = Pick<Clan, 'id' | 'name'>;
 export type ClanGetResponse = Clan & {
+  master: BruteForRender,
   brutes: Brute[],
   joinRequests: Brute[],
   bossDamages: (Pick<BossDamage, 'damage'> & {
     brute: Pick<Brute, 'id' | 'name'>,
+  })[],
+  attacks: (Pick<ClanWar, 'id' | 'status'> & {
+    defender: Pick<Clan, 'id' | 'name'> & {
+      master: BruteForRender;
+    },
+  })[],
+  defenses: (Pick<ClanWar, 'id' | 'status'> & {
+    attacker: Pick<Clan, 'id' | 'name'> & {
+      master: BruteForRender;
+    },
   })[],
 };
 export type ClanGetThreadsResponse = {
@@ -272,3 +287,14 @@ export type LogGetForUserFeedResponse = (Log & {
 
 export type ClanWarCreateResponse = Pick<ClanWar, 'id'>;
 export type ClanWarUpdateFightersResponse = Pick<Brute, 'id'>[];
+export type ClanWarGetResponse = ClanWar & {
+  attacker: Pick<Clan, 'id' | 'name'>,
+  defender: Pick<Clan, 'id' | 'name'>,
+  fights: (Pick<Fight, 'id' | 'date' | 'winner'> & {
+    brute1: Pick<Brute, 'id' | 'name'>,
+  })[],
+};
+export type ClanWarGetHistoryResponse = (ClanWar & {
+  attacker: Pick<Clan, 'id' | 'name'>,
+  defender: Pick<Clan, 'id' | 'name'>,
+})[];

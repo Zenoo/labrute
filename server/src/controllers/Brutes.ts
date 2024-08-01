@@ -3,6 +3,7 @@ import {
   ARENA_OPPONENTS_MAX_GAP,
   AdminPanelBrute,
   BruteDeletionReason,
+  BrutesGetClanIdAsMasterResponse,
   BruteGetInventoryResponse,
   BruteRestoreResponse,
   BrutesCreateResponse,
@@ -2149,6 +2150,41 @@ const Brutes = {
       });
 
       res.send(inventory);
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  getClanIdAsMaster: (prisma: PrismaClient) => async (
+    req: Request<{ name: string }>,
+    res: Response<BrutesGetClanIdAsMasterResponse>,
+  ) => {
+    try {
+      const authed = await auth(prisma, req);
+
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name: ilike(req.params.name),
+          deletedAt: null,
+          userId: authed.id,
+        },
+        select: {
+          id: true,
+          clanId: true,
+          clan: {
+            select: {
+              masterId: true,
+            },
+          },
+        },
+      });
+
+      if (!brute) {
+        throw new ExpectedError(translate('bruteNotFound', authed));
+      }
+
+      const clanId = brute.clan?.masterId === brute.id ? brute.clanId : null;
+
+      res.send({ id: clanId });
     } catch (error) {
       sendError(res, error);
     }

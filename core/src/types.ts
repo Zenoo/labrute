@@ -502,7 +502,7 @@ export interface DetailedFight {
 }
 
 export type AnimationModel =
-   'bear'
+  | 'bear'
   | 'dog'
   | 'panther'
   | 'male-brute'

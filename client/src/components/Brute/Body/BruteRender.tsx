@@ -1,10 +1,11 @@
-import { Brute, Gender } from '@labrute/prisma';
+import { BruteForRender } from '@labrute/core';
+import { Gender } from '@labrute/prisma';
 import { Box, BoxProps } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useRenderer } from '../../../hooks/useRenderer';
 
 interface BruteRenderProps extends BoxProps {
-  brute: Pick<Brute, 'id' | 'gender' | 'name' | 'body' | 'colors'>;
+  brute: BruteForRender | undefined;
   looking?: 'left' | 'right';
   x?: number;
   y?: number;
@@ -23,7 +24,7 @@ const BruteRender = ({
   const [src, setSrc] = React.useState<string | undefined>(undefined);
 
   useEffect(() => {
-    if (!brute.body || !brute.colors) return;
+    if (!brute) return;
 
     renderer.onRender(brute.id, (content) => {
       setSrc(content);
@@ -32,6 +33,8 @@ const BruteRender = ({
 
     renderer.render(brute);
   }, [brute, renderer]);
+
+  if (!brute) return null;
 
   const parts = {
     p3: parseInt(brute.body[4] || '0', 16),
@@ -109,7 +112,7 @@ const BruteRender = ({
   const left = (x === 0 && shift.x === 0) ? 0 : `calc(${x}px ${shift.x > 0 ? '+' : '-'} ${Math.abs(shift.x)}%)`;
   const top = (y === 0 && shift.y === 0) ? 0 : `calc(${y}px ${shift.y > 0 ? '+' : '-'} ${Math.abs(shift.y)}%)`;
 
-  return (brute.body && brute.colors && src) && (
+  return src && (
     <Box
       component="img"
       src={src}

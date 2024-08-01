@@ -1,7 +1,7 @@
 import { BruteRanking, ClanGetResponse, bosses, getFightsLeft } from '@labrute/core';
-import { Brute } from '@labrute/prisma';
+import { Brute, ClanWarStatus } from '@labrute/prisma';
 import { HighlightOff, PlayCircleOutline } from '@mui/icons-material';
-import { Box, Button, ButtonGroup, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip } from '@mui/material';
+import { Box, Button, ButtonGroup, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useTheme } from '@mui/material';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -27,17 +27,16 @@ const ClanView = () => {
   const { user, updateData, randomSkill } = useAuth();
   const navigate = useNavigate();
   const Confirm = useConfirm();
-  const { updateBrute } = useBrute();
+  const { brute, updateBrute, owner } = useBrute();
+  const { palette: { mode } } = useTheme();
 
   const [clan, setClan] = useState<ClanGetResponse | null>(null);
   const [damageDisplayed, setDamageDisplayed] = useState(false);
   const [sort, setSort] = useState<SortOption>(SortOption.Default);
-  const brute = useMemo(
-    () => (user ? user.brutes.find((b) => b.name === bruteName) : null),
-    [bruteName, user],
-  );
 
   const boss = useMemo(() => clan && bosses.find((b) => b.name === clan.boss), [clan]);
+
+  const clanWar = clan?.attacks[0] || clan?.defenses[0];
 
   // Fetch clan
   useEffect(() => {
@@ -314,6 +313,68 @@ const ClanView = () => {
     }).catch(catchError(Alert));
   };
 
+  // Clan wars
+
+  // Go to clan war
+  const goToClanWar = (war: ClanGetResponse['attacks'][0] | ClanGetResponse['defenses'][0] | undefined) => () => {
+    if (!brute || !clan || !war) return;
+
+    navigate(`/${brute.name}/clan/${clan.id}/war/${war.id}`);
+  };
+
+  // Go to opponent clan
+  const goToOpponentClan = (opponent: ClanGetResponse['defenses'][0]['attacker'] | undefined) => () => {
+    if (!brute || !opponent) return;
+
+    navigate(`/${brute.name}/clan/${opponent.id}`);
+  };
+
+  // Accept clan war
+  const acceptClanWar = () => {
+    if (!brute || !clan || !clanWar) return;
+
+    Server.ClanWar.accept(brute.id, clan.id, clanWar.id).then(() => {
+      Alert.open('success', t('warAccepted'));
+
+      // Update war status
+      setClan((prevClan) => {
+        if (!prevClan) return null;
+
+        const newClan = { ...prevClan };
+        const attack = newClan.attacks[0];
+        const defense = newClan.defenses[0];
+
+        if (attack) {
+          attack.status = ClanWarStatus.accepted;
+        } else if (defense) {
+          defense.status = ClanWarStatus.accepted;
+        }
+
+        return newClan;
+      });
+    }).catch(catchError(Alert));
+  };
+
+  // Reject clan war
+  const rejectClanWar = () => {
+    if (!brute || !clan || !clanWar) return;
+
+    Server.ClanWar.reject(brute.id, clan.id, clanWar.id).then(() => {
+      Alert.open('success', t('warRejected'));
+
+      // Update war status
+      setClan((prevClan) => {
+        if (!prevClan) return null;
+
+        return {
+          ...prevClan,
+          attacks: [],
+          defenses: [],
+        };
+      });
+    }).catch(catchError(Alert));
+  };
+
   return clan && (
     <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/cell`}>
       <Paper sx={{ mx: 4 }}>
@@ -359,6 +420,158 @@ const ClanView = () => {
             </Link>
           )}
         </Box>
+        {/* ONGOING CLAN WAR */}
+        {clanWar && (
+          <Box>
+            <Text h4 bold color="secondary" center sx={{ my: 1 }}>
+              {t('clanWar')}{' '}
+              <Text component="span" color="primary.text">
+                ({t(`clanWar.${clanWar.status}`)})
+              </Text>
+            </Text>
+            <Box sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+            }}
+            >
+              {/* ATTACKER */}
+              <StyledButton
+                image="/images/arena/brute-bg.webp"
+                imageHover="/images/arena/brute-bg-hover.webp"
+                contrast={false}
+                shadow={false}
+                onClick={clan.attacks.length
+                  ? (owner && brute?.clanId === clan.id)
+                    ? goToClanWar(clan.attacks[0])
+                    : goToOpponentClan(clan)
+                  : goToOpponentClan(clan.defenses[0]?.attacker)}
+                sx={{
+                  width: 190,
+                  height: 102,
+                  mx: 1,
+                  my: 0.5,
+                }}
+              >
+                <Box sx={{
+                  width: 185,
+                  height: 93,
+                  pt: 0.5,
+                  display: 'inline-flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  pl: 9,
+                }}
+                >
+                  <Text bold>
+                    {clan.attacks.length ? clan.name : clan.defenses[0]?.attacker.name}
+                  </Text>
+                  <Box sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: 70,
+                    height: 1,
+                  }}
+                  >
+                    <BruteRender
+                      brute={clan.attacks.length
+                        ? clan.master
+                        : clan.defenses[0]?.attacker.master}
+                      looking="right"
+                    />
+                  </Box>
+                </Box>
+              </StyledButton>
+              {/* VS */}
+              <Box component="img" src={`/images${mode === 'dark' ? '/dark' : ''}/versus/vs.webp`} sx={{ width: 100, maxWidth: 1 }} />
+              {/* DEFENDER */}
+              <StyledButton
+                image="/images/arena/brute-bg.webp"
+                imageHover="/images/arena/brute-bg-hover.webp"
+                contrast={false}
+                shadow={false}
+                onClick={clan.defenses.length
+                  ? (owner && brute?.clanId === clan.id)
+                    ? goToClanWar(clan.defenses[0])
+                    : goToOpponentClan(clan)
+                  : goToOpponentClan(clan.attacks[0]?.defender)}
+                sx={{
+                  width: 190,
+                  height: 102,
+                  mx: 1,
+                  my: 0.5,
+                }}
+              >
+                <Box sx={{
+                  width: 185,
+                  height: 93,
+                  pl: 1,
+                  pt: 0.5,
+                  display: 'inline-flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  pr: 9,
+                }}
+                >
+                  <Text bold>
+                    {clan.defenses.length ? clan.name : clan.attacks[0]?.defender.name}
+                  </Text>
+                  <Box sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 115,
+                    width: 70,
+                    height: 1,
+                  }}
+                  >
+                    <BruteRender
+                      brute={clan.defenses.length
+                        ? clan.master
+                        : clan.attacks[0]?.defender.master}
+                      looking="left"
+                    />
+                  </Box>
+                </Box>
+              </StyledButton>
+            </Box>
+            {owner
+              && clan?.masterId === brute?.id
+              && !!clan.defenses.length
+              && clanWar.status === ClanWarStatus.pending
+              && (
+                <Box sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  mt: 1
+                }}
+                >
+                  {/* ACCEPT */}
+                  <FantasyButton
+                    color="success"
+                    onClick={acceptClanWar}
+                    sx={{ m: 1 }}
+                  >
+                    {t('accept')}
+                  </FantasyButton>
+                  {/* REJECT */}
+                  <FantasyButton
+                    color="error"
+                    onClick={rejectClanWar}
+                    sx={{ m: 1 }}
+                  >
+                    {t('reject')}
+                  </FantasyButton>
+                </Box>
+              )}
+          </Box>
+        )}
         {/* BOSS */}
         {boss && (
           <Box sx={{ textAlign: 'center' }}>

@@ -13,6 +13,7 @@ const eat = async (
   fighters: AnimationFighter[],
   step: EatStep,
   speed: React.MutableRefObject<number>,
+  isClanWar: boolean,
 ) => {
   const brute = findFighter(fighters, step.b);
   if (!brute) {
@@ -50,7 +51,7 @@ const eat = async (
   await animationEnded;
 
   // Heal brute
-  updateHp(brute, step.h, speed);
+  updateHp(fighters, brute, step.h, speed, isClanWar);
 };
 
 export default eat;

@@ -3,9 +3,11 @@ import { Application } from 'pixi.js';
 
 import findFighter, { AnimationFighter } from './utils/findFighter';
 import updateHp from './updateHp';
+import { Fight } from '@labrute/prisma';
 
 const survive = (
   app: Application,
+  fight: Fight,
   fighters: AnimationFighter[],
   step: SurviveStep,
   speed: React.MutableRefObject<number>,
@@ -15,8 +17,13 @@ const survive = (
     throw new Error('Brute not found');
   }
 
+  // Ignore if clan war fight
+  if (fight.clanWarId) {
+    return;
+  }
+
   // Set brute HP to 1
-  updateHp(brute, 1, speed, true);
+  updateHp(fighters, brute, 1, speed, true);
 };
 
 export default survive;

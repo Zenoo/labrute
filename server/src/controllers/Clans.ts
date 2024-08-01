@@ -4,17 +4,19 @@ import {
   ClanGetThreadsResponse, ClanListResponse, ExpectedError, bosses, getFightsLeft,
   randomItem,
 } from '@labrute/core';
-import { Clan, Prisma, PrismaClient } from '@labrute/prisma';
+import {
+  Clan, ClanWarStatus, Prisma, PrismaClient,
+} from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import { DISCORD, LOGGER } from '../context.js';
 import auth from '../utils/auth.js';
 import updateClanPoints from '../utils/clan/updateClanPoints.js';
 import generateFight from '../utils/fight/generateFight.js';
-import sendError from '../utils/sendError.js';
-import translate from '../utils/translate.js';
-import ServerState from '../utils/ServerState.js';
-import isUuid from '../utils/uuid.js';
 import { ilike } from '../utils/ilike.js';
+import sendError from '../utils/sendError.js';
+import ServerState from '../utils/ServerState.js';
+import translate from '../utils/translate.js';
+import isUuid from '../utils/uuid.js';
 
 const Clans = {
   list: (prisma: PrismaClient) => async (
@@ -186,6 +188,15 @@ const Clans = {
       const clan = await prisma.clan.findFirst({
         where: { id },
         include: {
+          master: {
+            select: {
+              id: true,
+              gender: true,
+              name: true,
+              body: true,
+              colors: true,
+            },
+          },
           brutes: {
             orderBy: [
               { ranking: 'asc' },
@@ -204,6 +215,58 @@ const Clans = {
               damage: true,
             },
             orderBy: { damage: 'desc' },
+          },
+          attacks: {
+            select: {
+              id: true,
+              status: true,
+              defender: {
+                select: {
+                  id: true,
+                  name: true,
+                  master: {
+                    select: {
+                      id: true,
+                      gender: true,
+                      name: true,
+                      body: true,
+                      colors: true,
+                    },
+                  },
+                },
+              },
+            },
+            where: {
+              status: {
+                notIn: [ClanWarStatus.rejected, ClanWarStatus.finished],
+              },
+            },
+          },
+          defenses: {
+            select: {
+              id: true,
+              status: true,
+              attacker: {
+                select: {
+                  id: true,
+                  name: true,
+                  master: {
+                    select: {
+                      id: true,
+                      gender: true,
+                      name: true,
+                      body: true,
+                      colors: true,
+                    },
+                  },
+                },
+              },
+            },
+            where: {
+              status: {
+                notIn: [ClanWarStatus.rejected, ClanWarStatus.finished],
+              },
+            },
           },
         },
       });

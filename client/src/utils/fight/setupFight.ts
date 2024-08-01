@@ -394,17 +394,31 @@ const setupFight: (
 
     const animationFighter: AnimationFighter = {
       ...fighter,
-      hpBar: fighter.master
+      hpBar: (fighter.master
         ? undefined
-        : fighter.id === brute1.id ? brute1HpBar : (brute2HpBar || bossHpBar || undefined),
-      hpBarPhantom: fighter.master
+        : fighter.id === brute1.id
+          ? brute1HpBar
+          : fighter.id === brute2?.id
+            ? brute2HpBar
+            : fighter.id === boss?.id
+              ? bossHpBar
+              : undefined) ?? undefined,
+      hpBarPhantom: (fighter.master
         ? undefined
         : fighter.id === brute1.id
           ? brute1PhantomHpBar
-          : (brute2PhantomHpBar || bossPhantomHpBar || undefined),
-      bust: fighter.master
+          : fighter.id === brute2?.id
+            ? brute2PhantomHpBar
+            : fighter.id === boss?.id
+              ? bossPhantomHpBar
+              : undefined) ?? undefined,
+      bust: (fighter.master
         ? undefined
-        : fighter.id === brute1.id ? brute1Bust : (brute2Bust || undefined),
+        : fighter.id === brute1.id
+          ? brute1Bust
+          : fighter.id === brute2?.id
+            ? brute2Bust
+            : undefined) ?? undefined,
       weaponsIllustrations: [],
       animation: new FighterHolder(
         app,
@@ -439,6 +453,8 @@ const setupFight: (
     Tweener.init(app.ticker);
   }
 
+  const isClanWar = !!fight.clanWarId;
+
   // Loop on steps
   const steps = JSON.parse(fight.steps) as FightStep[];
   for (let i = 0; i < steps.length; i++) {
@@ -471,15 +487,15 @@ const setupFight: (
       }
       case StepType.Hit:
       case StepType.Poison: {
-        await hit(app, fighters, step, speed);
+        await hit(app, fighters, step, speed, isClanWar);
         break;
       }
       case StepType.FlashFlood: {
-        await flashFlood(app, fighters, step, speed);
+        await flashFlood(app, fighters, step, speed, isClanWar);
         break;
       }
       case StepType.Hammer: {
-        await hammer(app, fighters, step, speed);
+        await hammer(app, fighters, step, speed, isClanWar);
         break;
       }
       case StepType.Death: {
@@ -511,15 +527,15 @@ const setupFight: (
         break;
       }
       case StepType.Eat: {
-        await eat(app, fighters, step, speed);
+        await eat(app, fighters, step, speed, isClanWar);
         break;
       }
       case StepType.Heal: {
-        await heal(app, fighters, step, speed);
+        await heal(app, fighters, step, speed, isClanWar);
         break;
       }
       case StepType.Survive: {
-        survive(app, fighters, step, speed);
+        survive(app, fight, fighters, step, speed);
         break;
       }
       case StepType.Trap: {
@@ -564,7 +580,7 @@ const setupFight: (
         break;
       }
       case StepType.Bomb: {
-        await bomb(app, fighters, step, speed);
+        await bomb(app, fighters, step, speed, isClanWar);
         break;
       }
       case StepType.Spy: {
@@ -572,11 +588,11 @@ const setupFight: (
         break;
       }
       case StepType.Vampirism: {
-        await vampirism(app, fighters, step, speed);
+        await vampirism(app, fighters, step, speed, isClanWar);
         break;
       }
       case StepType.Haste: {
-        await haste(app, fighters, step, speed);
+        await haste(app, fighters, step, speed, isClanWar);
         break;
       }
       case StepType.Treat: {

@@ -15,6 +15,7 @@ export const vampirism = async (
   fighters: AnimationFighter[],
   step: VampirismStep,
   speed: React.MutableRefObject<number>,
+  isClanWar: boolean,
 ) => {
   const brute = findFighter(fighters, step.b);
   if (!brute) {
@@ -55,12 +56,8 @@ export const vampirism = async (
   displayDamage(app, target, step.d, speed);
 
   // Update HP bar
-  if (brute.hpBar) {
-    updateHp(brute, step.h, speed);
-  }
-  if (target.hpBar) {
-    updateHp(target, -step.d, speed);
-  }
+  updateHp(fighters, brute, step.h, speed, isClanWar);
+  updateHp(fighters, target, -step.d, speed, isClanWar);
 
   // Wait for animation to finish
   await animationEnded;

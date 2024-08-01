@@ -4,10 +4,10 @@ import { Easing, Tweener } from 'pixi-tweener';
 import { AnimatedSprite, Application } from 'pixi.js';
 
 import { sound } from '@pixi/sound';
-import displayDamage from './utils/displayDamage';
-import findFighter, { AnimationFighter } from './utils/findFighter';
 import stagger from './stagger';
 import updateHp from './updateHp';
+import displayDamage from './utils/displayDamage';
+import findFighter, { AnimationFighter } from './utils/findFighter';
 
 const getBombDamage = (damage: BombStep['d'], target: AnimationFighter) => {
   const targetDamage = damage[target.index];
@@ -24,6 +24,7 @@ const bomb = async (
   fighters: AnimationFighter[],
   step: BombStep,
   speed: React.MutableRefObject<number>,
+  isClanWar: boolean,
 ) => {
   if (!app.loader) {
     return;
@@ -162,9 +163,7 @@ const bomb = async (
     displayDamage(app, target, damage, speed);
 
     // Update HP bar
-    if (target.hpBar) {
-      updateHp(target, -damage, speed);
-    }
+    updateHp(fighters, target, -damage, speed, isClanWar);
 
     // Stagger
     staggers.push(stagger(target, speed)

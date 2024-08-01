@@ -1165,13 +1165,22 @@ const handleClanWars = async (
     },
     include: {
       fights: {
-        select: { id: true },
+        select: { id: true, date: true },
       },
     },
   });
 
+  const today = moment.utc().startOf('day');
+  let skipped = 0;
+
   for (const clanWar of clanWars) {
     const day = clanWar.fights.length + 1;
+
+    // Check if a fight was already generated for the day
+    if (clanWar.fights.some((fight) => moment.utc(fight.date).isSame(today))) {
+      skipped++;
+      continue;
+    }
 
     // Get fighters planned for the day
     const attackers = await prisma.brute.findMany({
@@ -1359,8 +1368,8 @@ const handleClanWars = async (
     }
   }
 
-  if (clanWars.length) {
-    LOGGER.log(`${clanWars.length} clan wars handled`);
+  if (clanWars.length - skipped) {
+    LOGGER.log(`${clanWars.length - skipped} clan wars handled`);
   }
 };
 

@@ -17,6 +17,7 @@ const hit = async (
   fighters: AnimationFighter[],
   step: HitStep,
   speed: React.MutableRefObject<number>,
+  isClanWar: boolean,
 ) => {
   if (!app.loader) {
     return;
@@ -123,9 +124,7 @@ const hit = async (
   displayDamage(app, target, step.d, speed);
 
   // Update HP bar
-  if (target.hpBar) {
-    updateHp(target, -step.d, speed);
-  }
+  updateHp(fighters, target, -step.d, speed, isClanWar);
 
   // Stagger
   await stagger(target, speed);

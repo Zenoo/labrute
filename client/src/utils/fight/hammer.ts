@@ -14,6 +14,7 @@ const hammer = async (
   fighters: AnimationFighter[],
   step: HitStep,
   speed: React.MutableRefObject<number>,
+  isClanWar: boolean,
 ) => {
   const fighter = findFighter(fighters, step.f);
   if (!fighter) {
@@ -72,9 +73,7 @@ const hammer = async (
   displayDamage(app, target, step.d, speed);
 
   // Update HP bar
-  if (target.hpBar) {
-    updateHp(target, -step.d, speed);
-  }
+  updateHp(fighters, target, -step.d, speed, isClanWar);
 
   // Set target animation to `idle`
   target.animation.setAnimation('idle');

@@ -1,4 +1,7 @@
-import { ClanWarCreateResponse, ClanWarUpdateFightersResponse, ExpectedError } from '@labrute/core';
+import {
+  ClanWarCreateResponse, ClanWarGetHistoryResponse,
+  ClanWarGetResponse, ClanWarUpdateFightersResponse, ExpectedError,
+} from '@labrute/core';
 import { ClanWarStatus, PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import auth from '../utils/auth.js';
@@ -8,19 +11,19 @@ import isUuid from '../utils/uuid.js';
 
 const ClanWars = {
   create: (prisma: PrismaClient) => async (
-    req: Request<{ clan: string; opponent: string }>,
+    req: Request<never, unknown, { brute: string; clan: string; opponent: string }>,
     res: Response<ClanWarCreateResponse>,
   ) => {
     try {
       const user = await auth(prisma, req);
 
-      if (!req.params.clan || !req.params.opponent) {
+      if (!req.body.brute || !req.body.clan || !req.body.opponent) {
         throw new ExpectedError(translate('missingParameters', user));
       }
 
-      // Check if user is the clan master
+      // Check if brute is the clan master
       const clan = await prisma.clan.findFirst({
-        where: { id: req.params.clan, masterId: user.id },
+        where: { id: req.body.clan, masterId: req.body.brute },
         select: { id: true },
       });
 
@@ -32,10 +35,10 @@ const ClanWars = {
       const war = await prisma.clanWar.findFirst({
         where: {
           OR: [
-            { attackerId: req.params.clan },
-            { defenderId: req.params.clan },
+            { attackerId: req.body.clan },
+            { defenderId: req.body.clan },
           ],
-          status: { not: ClanWarStatus.finished },
+          status: { notIn: [ClanWarStatus.rejected, ClanWarStatus.finished] },
         },
         select: { id: true },
       });
@@ -46,7 +49,7 @@ const ClanWars = {
 
       // Check if the opponent clan exists
       const opponent = await prisma.clan.findFirst({
-        where: { id: req.params.opponent },
+        where: { id: req.body.opponent },
         select: { id: true },
       });
 
@@ -57,8 +60,8 @@ const ClanWars = {
       // Create the war
       const newWar = await prisma.clanWar.create({
         data: {
-          attackerId: req.params.clan,
-          defenderId: req.params.opponent,
+          attackerId: req.body.clan,
+          defenderId: req.body.opponent,
         },
         select: { id: true },
       });
@@ -69,22 +72,22 @@ const ClanWars = {
     }
   },
   reject: (prisma: PrismaClient) => async (
-    req: Request<{ clan: string; war: string }>,
+    req: Request<never, unknown, { brute: string; clan: string; war: string }>,
     res: Response,
   ) => {
     try {
       const user = await auth(prisma, req);
 
-      if (!req.params.clan || !req.params.war) {
+      if (!req.body.brute || !req.body.clan || !req.body.war) {
         throw new ExpectedError(translate('missingParameters', user));
       }
 
       const war = await prisma.clanWar.findFirst({
         where: {
-          id: req.params.war,
-          defenderId: req.params.clan,
+          id: req.body.war,
+          defenderId: req.body.clan,
           status: ClanWarStatus.pending,
-          defender: { masterId: user.id },
+          defender: { masterId: req.body.brute },
         },
         select: { id: true },
       });
@@ -110,22 +113,22 @@ const ClanWars = {
     }
   },
   accept: (prisma: PrismaClient) => async (
-    req: Request<{ clan: string; war: string }>,
+    req: Request<never, unknown, { brute: string; clan: string; war: string }>,
     res: Response,
   ) => {
     try {
       const user = await auth(prisma, req);
 
-      if (!req.params.clan || !req.params.war) {
+      if (!req.body.brute || !req.body.clan || !req.body.war) {
         throw new ExpectedError(translate('missingParameters', user));
       }
 
       const war = await prisma.clanWar.findFirst({
         where: {
-          id: req.params.war,
-          defenderId: req.params.clan,
+          id: req.body.war,
+          defenderId: req.body.clan,
           status: ClanWarStatus.pending,
-          defender: { masterId: user.id },
+          defender: { masterId: req.body.brute },
         },
         select: { id: true },
       });
@@ -238,6 +241,92 @@ const ClanWars = {
       });
 
       res.status(200).send(brutes);
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  get: (prisma: PrismaClient) => async (
+    req: Request<{ clan: string; war: string }>,
+    res: Response<ClanWarGetResponse>,
+  ) => {
+    try {
+      const user = await auth(prisma, req);
+
+      if (!req.params.clan || !req.params.war) {
+        throw new ExpectedError(translate('missingParameters', user));
+      }
+
+      const war = await prisma.clanWar.findFirst({
+        where: {
+          id: req.params.war,
+          OR: [
+            { attackerId: req.params.clan },
+            { defenderId: req.params.clan },
+          ],
+        },
+        include: {
+          attacker: {
+            select: { id: true, name: true },
+          },
+          defender: {
+            select: { id: true, name: true },
+          },
+          fights: {
+            select: {
+              id: true,
+              date: true,
+              winner: true,
+              brute1: {
+                select: {
+                  id: true,
+                  name: true,
+                },
+              },
+            },
+            orderBy: { date: 'asc' },
+          },
+        },
+      });
+
+      if (!war) {
+        throw new ExpectedError(translate('warNotFound', user));
+      }
+
+      res.status(200).send(war);
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  getHistory: (prisma: PrismaClient) => async (
+    req: Request<{ clan: string }>,
+    res: Response<ClanWarGetHistoryResponse>,
+  ) => {
+    try {
+      const user = await auth(prisma, req);
+
+      if (!req.params.clan) {
+        throw new ExpectedError(translate('missingParameters', user));
+      }
+
+      const wars = await prisma.clanWar.findMany({
+        where: {
+          OR: [
+            { attackerId: req.params.clan },
+            { defenderId: req.params.clan },
+          ],
+        },
+        include: {
+          attacker: {
+            select: { id: true, name: true },
+          },
+          defender: {
+            select: { id: true, name: true },
+          },
+        },
+        orderBy: { date: 'desc' },
+      });
+
+      res.status(200).send(wars);
     } catch (error) {
       sendError(res, error);
     }

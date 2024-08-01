@@ -14,6 +14,7 @@ import BruteReports from './controllers/BruteReports.js';
 import Clans from './controllers/Clans.js';
 import { Config } from './config.js';
 import { LOGGER } from './context.js';
+import ClanWars from './controllers/ClanWars.js';
 
 export default function initRoutes(app: Express, config: Config, prisma: PrismaClient) {
   app.get('/api', (req: Request, res: Response) => res.status(200).send({
@@ -92,6 +93,7 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   app.get('/api/brute/:name/give-free-visual-reset', Brutes.giveFreeVisualReset(prisma));
   app.get('/api/brute/:name/change-name/:newName', Brutes.changeName(prisma));
   app.get('/api/brute/:name/inventory', Brutes.getInventory(prisma));
+  app.get('/api/brute/:name/master-clan', Brutes.getClanIdAsMaster(prisma));
 
   // Log
   app.get('/api/log/list/:name', Logs.list(prisma));
@@ -147,4 +149,11 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   app.get('/api/brute/:brute/clan/:id/thread/:threadId/unpin', Clans.unpinThread(prisma));
   app.get('/api/brute/:brute/clan/:id/thread/:threadId', Clans.getThread(prisma));
   app.get('/api/brute/:brute/clan/:id/challenge-boss', Clans.challengeBoss(prisma));
+
+  // Clan war
+  app.put('/api/clan/war', ClanWars.create(prisma));
+  app.post('/api/clan/war/reject', ClanWars.reject(prisma));
+  app.post('/api/clan/war/accept', ClanWars.accept(prisma));
+  app.get('/api/clan/:clan/war/history', ClanWars.getHistory(prisma));
+  app.get('/api/clan/:clan/war/:war', ClanWars.get(prisma));
 }

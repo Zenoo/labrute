@@ -14,6 +14,7 @@ const heal = async (
   fighters: AnimationFighter[],
   step: HealStep,
   speed: React.MutableRefObject<number>,
+  isClanWar: boolean,
 ) => {
   if (!app.loader) {
     return;
@@ -68,7 +69,7 @@ const heal = async (
   await animationEnded;
 
   // Heal brute
-  updateHp(brute, step.h, speed);
+  updateHp(fighters, brute, step.h, speed, isClanWar);
 
   // Set animation to `idle`
   brute.animation.setAnimation('idle');
