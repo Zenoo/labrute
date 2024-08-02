@@ -1870,12 +1870,10 @@ export const playFighterTurn = (
       .find((f) => f.skills.find((s) => s.name === SkillName.chef))
       || getRandomOpponent({ fightData, fighter, bruteOnly: true });
 
-    if (!poisoner) {
-      throw new Error('No poisoner found');
+    if (poisoner) {
+      // Register the hit
+      registerHit(fightData, stats, achievements, poisoner, [fighter], poisonDamage, false, 'poison');
     }
-
-    // Register the hit
-    registerHit(fightData, stats, achievements, poisoner, [fighter], poisonDamage, false, 'poison');
   }
 
   increaseInitiative(fighter);
