@@ -102,7 +102,7 @@
   "ipBanned": "Votre adresse IP est bannie",
   "fightNotFound": "Combat introuvable",
   "favoriteLimit": "Vous avez atteint votre limite de combats favoris",
-  "warOngoing": "A clan war is already ongoing, you cannot start a new one",
-  "warNotFound": "War not found",
-  "maxFightersReached": "You reached the maximum number of fighters"
+  "warOngoing": "Une guerre de clan est déjà en cours, vous ne pouvez pas en commencer une nouvelle",
+  "warNotFound": "Guerre introuvable",
+  "maxFightersReached": "Vous avez atteint le nombre maximum de combattants"
 }
