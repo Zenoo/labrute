@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.68.2](https://github.com/Zenoo/labrute/compare/labrute-v2.68.1...labrute-v2.68.2) (2024-08-02)
+
+
+### Bug Fixes
+
+* Limit fights to 2000 turns ([32302d6](https://github.com/Zenoo/labrute/commit/32302d62cc6e38fdd476869f995a7d8374a6434e))
+
 ## [2.68.1](https://github.com/Zenoo/labrute/compare/labrute-v2.68.0...labrute-v2.68.1) (2024-08-02)
 
 
