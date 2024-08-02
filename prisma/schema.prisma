@@ -666,8 +666,6 @@ model BossDamage {
 
 enum ClanWarStatus {
   pending
-  accepted
-  rejected
   ongoing
   waitingForRewards
   finished

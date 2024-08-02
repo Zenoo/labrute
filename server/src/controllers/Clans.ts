@@ -1,6 +1,7 @@
 import {
   ClanChallengeBossResponse,
-  ClanCreateResponse, ClanGetResponse, ClanGetThreadResponse,
+  ClanCreateResponse,
+  ClanGetResponse, ClanGetThreadResponse,
   ClanGetThreadsResponse, ClanListResponse, ExpectedError, bosses, getFightsLeft,
   randomItem,
 } from '@labrute/core';
@@ -238,7 +239,7 @@ const Clans = {
             },
             where: {
               status: {
-                notIn: [ClanWarStatus.rejected, ClanWarStatus.finished],
+                not: ClanWarStatus.finished,
               },
             },
           },
@@ -264,7 +265,7 @@ const Clans = {
             },
             where: {
               status: {
-                notIn: [ClanWarStatus.rejected, ClanWarStatus.finished],
+                not: ClanWarStatus.finished,
               },
             },
           },

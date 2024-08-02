@@ -469,8 +469,6 @@ export type BossName = (typeof BossName)[keyof typeof BossName]
 
 export const ClanWarStatus: {
   pending: 'pending',
-  accepted: 'accepted',
-  rejected: 'rejected',
   ongoing: 'ongoing',
   waitingForRewards: 'waitingForRewards',
   finished: 'finished'

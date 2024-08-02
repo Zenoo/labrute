@@ -1,6 +1,6 @@
 import {
-  ClanWarCreateResponse, ClanWarGetHistoryResponse,
-  ClanWarGetResponse, ClanWarUpdateFightersResponse, ExpectedError,
+  ClanWarCreateResponse, ClanWarGetAvailableFightersResponse, ClanWarGetHistoryResponse,
+  ClanWarGetResponse, ClanWarMaxParticipants, ClanWarUpdateFightersResponse, ExpectedError,
 } from '@labrute/core';
 import { ClanWarStatus, PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
@@ -38,7 +38,7 @@ const ClanWars = {
             { attackerId: req.body.clan },
             { defenderId: req.body.clan },
           ],
-          status: { notIn: [ClanWarStatus.rejected, ClanWarStatus.finished] },
+          status: { not: ClanWarStatus.finished },
         },
         select: { id: true },
       });
@@ -96,13 +96,8 @@ const ClanWars = {
         throw new ExpectedError(translate('warNotFound', user));
       }
 
-      await prisma.clanWar.update({
-        where: {
-          id: war.id,
-        },
-        data: {
-          status: ClanWarStatus.rejected,
-        },
+      await prisma.clanWar.delete({
+        where: { id: war.id },
       });
 
       res.status(200).send({
@@ -142,7 +137,7 @@ const ClanWars = {
           id: war.id,
         },
         data: {
-          status: ClanWarStatus.accepted,
+          status: ClanWarStatus.ongoing,
         },
       });
 
@@ -171,7 +166,7 @@ const ClanWars = {
       const war = await prisma.clanWar.findFirst({
         where: {
           id: req.params.war,
-          status: { in: [ClanWarStatus.accepted, ClanWarStatus.ongoing] },
+          status: ClanWarStatus.ongoing,
           OR: [
             { attackerId: req.params.clan },
             { defenderId: req.params.clan },
@@ -285,6 +280,18 @@ const ClanWars = {
             },
             orderBy: { date: 'asc' },
           },
+          fighters: {
+            take: 1,
+            orderBy: { day: 'desc' },
+            include: {
+              attackers: {
+                select: { id: true, name: true },
+              },
+              defenders: {
+                select: { id: true, name: true },
+              },
+            },
+          },
         },
       });
 
@@ -327,6 +334,197 @@ const ClanWars = {
       });
 
       res.status(200).send(wars);
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  getAvailableFighters: (prisma: PrismaClient) => async (
+    req: Request<never, unknown, { clan: string; war: string }>,
+    res: Response<ClanWarGetAvailableFightersResponse>,
+  ) => {
+    try {
+      const user = await auth(prisma, req);
+
+      if (!req.body.clan || !req.body.war) {
+        throw new ExpectedError(translate('missingParameters', user));
+      }
+
+      const war = await prisma.clanWar.findFirst({
+        where: {
+          id: req.body.war,
+          OR: [
+            { attackerId: req.body.clan },
+            { defenderId: req.body.clan },
+          ],
+        },
+        select: {
+          id: true,
+          fights: { select: { id: true } },
+        },
+      });
+
+      if (!war) {
+        throw new ExpectedError(translate('warNotFound', user));
+      }
+
+      const brutes = await prisma.brute.findMany({
+        where: {
+          clanId: req.body.clan,
+          deletedAt: null,
+          inClanWarAttackerFighters: {
+            none: {
+              AND: [
+                { clanWarId: war.id },
+                { day: { lt: war.fights.length + 1 } },
+              ],
+            },
+          },
+          inClanWarDefenderFighters: {
+            none: {
+              AND: [
+                { clanWarId: war.id },
+                { day: { lt: war.fights.length + 1 } },
+              ],
+            },
+          },
+        },
+        select: {
+          id: true,
+          name: true,
+          level: true,
+          ranking: true,
+          gender: true,
+          body: true,
+          colors: true,
+        },
+        orderBy: [
+          { ranking: 'asc' },
+          { level: 'desc' },
+        ],
+      });
+
+      res.status(200).send(brutes);
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  toggleFighter: (prisma: PrismaClient) => async (
+    req: Request<never, unknown, { clan: string; war: string; fighter: string; add: string }>,
+    res: Response,
+  ) => {
+    try {
+      const user = await auth(prisma, req);
+
+      if (!req.body.clan || !req.body.war || !req.body.fighter || !req.body.add) {
+        throw new ExpectedError(translate('missingParameters', user));
+      }
+
+      const war = await prisma.clanWar.findFirst({
+        where: {
+          id: req.body.war,
+          OR: [
+            { attackerId: req.body.clan },
+            { defenderId: req.body.clan },
+          ],
+        },
+        select: {
+          id: true,
+          attackerId: true,
+          defenderId: true,
+          fights: { select: { id: true } },
+        },
+      });
+
+      if (!war) {
+        throw new ExpectedError(translate('warNotFound', user));
+      }
+
+      // Check if there are already max fighters
+      if (req.body.add === 'true') {
+        const fighters = await prisma.clanWarFighters.findUnique({
+          where: {
+            clanWarId_day: { clanWarId: war.id, day: war.fights.length + 1 },
+          },
+          select: {
+            id: true,
+            attackers: { select: { id: true } },
+            defenders: { select: { id: true } },
+          },
+        });
+
+        if (fighters) {
+          if (war.attackerId === req.body.clan
+            && fighters.attackers.length >= ClanWarMaxParticipants) {
+            throw new ExpectedError(translate('maxFightersReached', user));
+          }
+
+          if (war.defenderId === req.body.clan
+            && fighters.defenders.length >= ClanWarMaxParticipants) {
+            throw new ExpectedError(translate('maxFightersReached', user));
+          }
+        }
+      }
+
+      const brute = await prisma.brute.findFirst({
+        where: {
+          id: req.body.fighter,
+          clanId: req.body.clan,
+          deletedAt: null,
+          inClanWarAttackerFighters: {
+            none: {
+              AND: [
+                { clanWarId: war.id },
+                { day: { lt: war.fights.length + 1 } },
+              ],
+            },
+          },
+          inClanWarDefenderFighters: {
+            none: {
+              AND: [
+                { clanWarId: war.id },
+                { day: { lt: war.fights.length + 1 } },
+              ],
+            },
+          },
+        },
+        select: { id: true },
+      });
+
+      if (!brute) {
+        throw new ExpectedError(translate('bruteNotFound', user));
+      }
+
+      await prisma.clanWarFighters.upsert({
+        where: {
+          clanWarId_day: { clanWarId: war.id, day: war.fights.length + 1 },
+        },
+        create: {
+          clanWar: { connect: { id: war.id } },
+          day: war.fights.length + 1,
+          attackers: war.attackerId === req.body.clan && req.body.add === 'true'
+            ? { connect: { id: brute.id } }
+            : undefined,
+          defenders: war.defenderId === req.body.clan && req.body.add === 'true'
+            ? { connect: { id: brute.id } }
+            : undefined,
+        },
+        update: {
+          attackers: war.attackerId === req.body.clan
+            ? req.body.add === 'true'
+              ? { connect: { id: brute.id } }
+              : { disconnect: { id: brute.id } }
+            : undefined,
+          defenders: war.defenderId === req.body.clan
+            ? req.body.add === 'true'
+              ? { connect: { id: brute.id } }
+              : { disconnect: { id: brute.id } }
+            : undefined,
+        },
+      });
+
+      res.status(200).send({
+        success: true,
+      });
     } catch (error) {
       sendError(res, error);
     }

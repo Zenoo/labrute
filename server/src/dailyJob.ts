@@ -1156,12 +1156,10 @@ const handleClanWars = async (
     LOGGER.log(`${finishedClanWars.length} clan war rewards given`);
   }
 
-  // Get accepted and ongoing clan wars
+  // Get ongoing clan wars
   const clanWars = await prisma.clanWar.findMany({
     where: {
-      status: {
-        in: [ClanWarStatus.accepted, ClanWarStatus.ongoing],
-      },
+      status: ClanWarStatus.ongoing,
     },
     include: {
       fights: {
@@ -1214,7 +1212,7 @@ const handleClanWars = async (
         await prisma.clanWar.update({
           where: { id: clanWar.id },
           data: {
-            status: ClanWarStatus.finished,
+            status: ClanWarStatus.waitingForRewards,
             defenderWins: clanWar.duration - clanWar.attackerWins,
             winnerId: clanWar.defenderId,
           },
@@ -1274,7 +1272,7 @@ const handleClanWars = async (
         await prisma.clanWar.update({
           where: { id: clanWar.id },
           data: {
-            status: ClanWarStatus.finished,
+            status: ClanWarStatus.waitingForRewards,
             attackerWins: clanWar.duration - clanWar.defenderWins,
             winnerId: clanWar.attackerId,
           },
@@ -1352,19 +1350,17 @@ const handleClanWars = async (
         : 'defender';
 
       // Update clan war
-      if (clanWar.status === ClanWarStatus.accepted) {
-        await prisma.clanWar.update({
-          where: { id: clanWar.id },
-          data: {
-            status: day === clanWar.duration
-              ? ClanWarStatus.waitingForRewards
-              : ClanWarStatus.ongoing,
-            [`${winner}Wins`]: {
-              increment: 1,
-            },
+      await prisma.clanWar.update({
+        where: { id: clanWar.id },
+        data: {
+          status: day === clanWar.duration
+            ? ClanWarStatus.waitingForRewards
+            : ClanWarStatus.ongoing,
+          [`${winner}Wins`]: {
+            increment: 1,
           },
-        });
-      }
+        },
+      });
     }
   }
 

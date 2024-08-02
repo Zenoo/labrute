@@ -684,8 +684,6 @@ exports.BossName = exports.$Enums.BossName = {
 
 exports.ClanWarStatus = exports.$Enums.ClanWarStatus = {
   pending: 'pending',
-  accepted: 'accepted',
-  rejected: 'rejected',
   ongoing: 'ongoing',
   waitingForRewards: 'waitingForRewards',
   finished: 'finished'

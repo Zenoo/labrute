@@ -1,4 +1,4 @@
-import { Achievement, AchievementName, BossDamage, Brute, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, ClanWar, DestinyChoice, Fight, FightModifier, InventoryItem, Lang, Log, Prisma, Tournament, User } from '@labrute/prisma';
+import { Achievement, AchievementName, BossDamage, Brute, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, ClanWar, ClanWarFighters, DestinyChoice, Fight, FightModifier, InventoryItem, Lang, Log, Prisma, Tournament, User } from '@labrute/prisma';
 import Version from './Version';
 import applySkillModifiers from './brute/applySkillModifiers';
 import availableBodyParts from './brute/availableBodyParts';
@@ -293,8 +293,13 @@ export type ClanWarGetResponse = ClanWar & {
   fights: (Pick<Fight, 'id' | 'date' | 'winner'> & {
     brute1: Pick<Brute, 'id' | 'name'>,
   })[],
+  fighters: (ClanWarFighters & {
+    attackers: Pick<Brute, 'id' | 'name'>[],
+    defenders: Pick<Brute, 'id' | 'name'>[],
+  })[],
 };
 export type ClanWarGetHistoryResponse = (ClanWar & {
   attacker: Pick<Clan, 'id' | 'name'>,
   defender: Pick<Clan, 'id' | 'name'>,
 })[];
+export type ClanWarGetAvailableFightersResponse = (BruteForRender & Pick<Brute, 'ranking' | 'level'>)[];

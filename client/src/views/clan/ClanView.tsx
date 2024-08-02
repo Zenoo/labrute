@@ -1,6 +1,6 @@
 import { BruteRanking, ClanGetResponse, bosses, getFightsLeft } from '@labrute/core';
 import { Brute, ClanWarStatus } from '@labrute/prisma';
-import { HighlightOff, PlayCircleOutline } from '@mui/icons-material';
+import { HighlightOff, History, PlayCircleOutline } from '@mui/icons-material';
 import { Box, Button, ButtonGroup, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useTheme } from '@mui/material';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -345,9 +345,9 @@ const ClanView = () => {
         const defense = newClan.defenses[0];
 
         if (attack) {
-          attack.status = ClanWarStatus.accepted;
+          attack.status = ClanWarStatus.ongoing;
         } else if (defense) {
-          defense.status = ClanWarStatus.accepted;
+          defense.status = ClanWarStatus.ongoing;
         }
 
         return newClan;
@@ -845,6 +845,15 @@ const ClanView = () => {
             </Table>
           </>
         )}
+        {/* CLAN WAR HISTORY */}
+        <FantasyButton
+          color="primary"
+          to={`/${bruteName}/clan/${clan.id}/war/history`}
+          sx={{ mt: 2 }}
+        >
+          <History sx={{ verticalAlign: 'middle', mr: 1 }} />
+          {t('clanWarHistory')}
+        </FantasyButton>
       </Paper>
     </Page>
   );
