@@ -104,5 +104,5 @@
   "favoriteLimit": "Has alcanzado tu límite de peleas favoritas",
   "warOngoing": "Ya hay una guerra de clan en curso, no puedes iniciar una nueva",
   "warNotFound": "Guerra no encontrada",
-  "maxFightersReached": "You reached the maximum number of fighters"
+  "maxFightersReached": "Has alcanzado el número máximo de peleadores"
 }
