@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.68.0](https://github.com/Zenoo/labrute/compare/labrute-v2.67.2...labrute-v2.68.0) (2024-08-02)
+
+
+### Features
+
+* Clan war fight. [#796](https://github.com/Zenoo/labrute/issues/796) ([0c5af39](https://github.com/Zenoo/labrute/commit/0c5af39626b85ebe781b5401d7b38d412736b2de))
+* Clan war. Fixes [#796](https://github.com/Zenoo/labrute/issues/796) ([8e1ebda](https://github.com/Zenoo/labrute/commit/8e1ebda15629204e62015615c91e143e1a954905))
+* Clan wars backend. [#796](https://github.com/Zenoo/labrute/issues/796) ([3e94f65](https://github.com/Zenoo/labrute/commit/3e94f659c258b7016ec0366b90e88a89113baf5e))
+* XvX fights. Fixes [#850](https://github.com/Zenoo/labrute/issues/850) ([d716e78](https://github.com/Zenoo/labrute/commit/d716e78387e46d4d91d8784748a2ed53ac5267fd))
+
 ## [2.67.2](https://github.com/Zenoo/labrute/compare/labrute-v2.67.1...labrute-v2.67.2) (2024-07-31)
 
 
