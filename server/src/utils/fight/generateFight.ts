@@ -203,7 +203,7 @@ const generateFight = async ({
   let turn = 0;
 
   // Fight loop
-  while (!fightData.loser) {
+  while (!fightData.loser && turn < 2000) {
     // Order fighters by initiative (random if equal)
     orderFighters(fightData);
 
