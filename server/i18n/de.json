@@ -103,5 +103,6 @@
   "fightNotFound": "Kampf nicht gefunden",
   "favoriteLimit": "Du hast das Maximum an Favorit-Kämpfen erreicht",
   "warOngoing": "Ein Clan-Krieg läuft bereits, du kannst keinen neuen beginnen",
-  "warNotFound": "Krieg nicht gefunden"
+  "warNotFound": "Krieg nicht gefunden",
+  "maxFightersReached": "You reached the maximum number of fighters"
 }
