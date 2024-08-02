@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.68.1](https://github.com/Zenoo/labrute/compare/labrute-v2.68.0...labrute-v2.68.1) (2024-08-02)
+
+
+### Bug Fixes
+
+* Poisoner not found ([9a1460f](https://github.com/Zenoo/labrute/commit/9a1460f7b57931bc55914ed32bc8483574b10cab))
+
 ## [2.68.0](https://github.com/Zenoo/labrute/compare/labrute-v2.67.2...labrute-v2.68.0) (2024-08-02)
 
 
