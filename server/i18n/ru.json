@@ -62,7 +62,7 @@
   "alreadyClaimed": "Вы уже получили эту награду",
   "needToUseEveryAction": "Вам нужно использовать все действия ваших Диносов, чтобы получить эту награду",
   "noDinoRpgAccount": "К вашей учётной записи «EternalTwin» не привязана учётная запись игры «Dino-RPG».",
-  "dinoRpgServerDown": "The DinoRPG server is down. Please try again later.",
+  "dinoRpgServerDown": "Сервер «Dino-RPG» недоступен. Пожалуйста, повторите попытку позже.",
   "noNameChange": "Вы не можете сменить ваше имя",
   "rank.0": "Брутальная Легенда",
   "rank.1": "Стоматолог Хаоса",
@@ -100,6 +100,9 @@
   "banReason.innapropriateBruteName": "Неуместное имя Брутала",
   "banReason.multipleAccounts": "Несколько учётных записей",
   "ipBanned": "Ваш IP-адрес забанен",
-  "fightNotFound": "Fight not found",
-  "favoriteLimit": "You reached your favorite fights limit"
+  "fightNotFound": "Битва не найдена",
+  "favoriteLimit": "Вы достигли максимальное количество избранных битв",
+  "warOngoing": "Война кланов уже ведётся, и вы не можете начать новую",
+  "warNotFound": "Война не найдена",
+  "maxFightersReached": "You reached the maximum number of fighters"
 }
