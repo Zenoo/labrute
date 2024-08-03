@@ -105,6 +105,6 @@
   "warOngoing": "Ein Clan-Krieg läuft bereits, du kannst keinen neuen beginnen",
   "opponentWarOngoing": "The opponent clan is already in a war",
   "warNotFound": "Krieg nicht gefunden",
-  "maxFightersReached": "You reached the maximum number of fighters",
+  "maxFightersReached": "Du hast die maximale Anzahl an Kämpfern erreicht",
   "cantFightOwnClan": "You cannot fight your own clan"
 }
