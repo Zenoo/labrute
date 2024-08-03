@@ -103,6 +103,8 @@
   "fightNotFound": "Fight not found",
   "favoriteLimit": "You reached your favorite fights limit",
   "warOngoing": "A clan war is already ongoing, you cannot start a new one",
+  "opponentWarOngoing": "The opponent clan is already in a war",
   "warNotFound": "War not found",
-  "maxFightersReached": "You reached the maximum number of fighters"
+  "maxFightersReached": "You reached the maximum number of fighters",
+  "cantFightOwnClan": "You cannot fight your own clan"
 }

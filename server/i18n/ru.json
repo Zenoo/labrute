@@ -103,6 +103,8 @@
   "fightNotFound": "Битва не найдена",
   "favoriteLimit": "Вы достигли максимальное количество избранных битв",
   "warOngoing": "Война кланов уже ведётся, и вы не можете начать новую",
+  "opponentWarOngoing": "The opponent clan is already in a war",
   "warNotFound": "Война не найдена",
-  "maxFightersReached": "You reached the maximum number of fighters"
+  "maxFightersReached": "You reached the maximum number of fighters",
+  "cantFightOwnClan": "You cannot fight your own clan"
 }
