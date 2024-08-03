@@ -103,8 +103,8 @@
   "fightNotFound": "Combat introuvable",
   "favoriteLimit": "Vous avez atteint votre limite de combats favoris",
   "warOngoing": "Une guerre de clan est déjà en cours, vous ne pouvez pas en commencer une nouvelle",
-  "opponentWarOngoing": "The opponent clan is already in a war",
+  "opponentWarOngoing": "Le clan adverse est déjà en guerre",
   "warNotFound": "Guerre introuvable",
   "maxFightersReached": "Vous avez atteint le nombre maximum de combattants",
-  "cantFightOwnClan": "You cannot fight your own clan"
+  "cantFightOwnClan": "Vous ne pouvez pas combattre votre propre clan"
 }
