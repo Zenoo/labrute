@@ -189,6 +189,7 @@ const ClanWars = {
         },
         data: {
           status: ClanWarStatus.ongoing,
+          date: new Date(),
         },
       });
 
