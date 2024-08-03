@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.68.9](https://github.com/Zenoo/labrute/compare/labrute-v2.68.8...labrute-v2.68.9) (2024-08-03)
+
+
+### Bug Fixes
+
+* Delete clan wars between own clan ([7d67a07](https://github.com/Zenoo/labrute/commit/7d67a07a3ad3bcddcc43278f987bb70f244cf0c1))
+* hide challenge boss button for non owners ([e695298](https://github.com/Zenoo/labrute/commit/e6952983631749e841ed1b0a092cf95e4665dde4))
+* Simplify team handling in front ([7c93dad](https://github.com/Zenoo/labrute/commit/7c93dadaca47e6b122ac7b5948a0ccc584f30f7e))
+
 ## [2.68.8](https://github.com/Zenoo/labrute/compare/labrute-v2.68.7...labrute-v2.68.8) (2024-08-03)
 
 
