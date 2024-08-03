@@ -1323,64 +1323,64 @@ const handleClanWars = async (
           },
         },
       });
+    }
 
-      // Generate fight (retry if failed)
-      let generatedFight: Prisma.FightCreateInput | null = null;
-      let retries = 0;
-      while (!generatedFight) {
-        // Stop at 10 retries
-        if (retries > 10) {
-          throw new Error('Too many retries');
-        }
-
-        try {
-          const newGeneratedFight = await generateFight({
-            prisma,
-            team1: { brutes: attackers },
-            team2: { brutes: defenders },
-            modifiers,
-            backups: false,
-            achievements: true,
-          });
-          generatedFight = newGeneratedFight.data;
-        } catch (error: unknown) {
-          if (!(error instanceof Error)) {
-            throw error;
-          }
-          LOGGER.log(`Error while generating a clan war fight between ${clanWar.attackerId} and ${clanWar.defenderId}, retrying...`);
-          DISCORD.sendError(error);
-        }
-
-        retries++;
+    // Generate fight (retry if failed)
+    let generatedFight: Prisma.FightCreateInput | null = null;
+    let retries = 0;
+    while (!generatedFight) {
+      // Stop at 10 retries
+      if (retries > 10) {
+        throw new Error('Too many retries');
       }
 
-      // Create fight
-      await prisma.fight.create({
-        data: {
-          ...generatedFight,
-          clanWar: { connect: { id: clanWar.id } },
-        },
-        select: { id: true },
-      });
+      try {
+        const newGeneratedFight = await generateFight({
+          prisma,
+          team1: { brutes: attackers },
+          team2: { brutes: defenders },
+          modifiers,
+          backups: false,
+          achievements: true,
+        });
+        generatedFight = newGeneratedFight.data;
+      } catch (error: unknown) {
+        if (!(error instanceof Error)) {
+          throw error;
+        }
+        LOGGER.log(`Error while generating a clan war fight between ${clanWar.attackerId} and ${clanWar.defenderId}, retrying...`);
+        DISCORD.sendError(error);
+      }
 
-      const winnerId = generatedFight.winner;
-      const winner = attackers.some((brute) => brute.id === winnerId)
-        ? 'attacker'
-        : 'defender';
-
-      // Update clan war
-      await prisma.clanWar.update({
-        where: { id: clanWar.id },
-        data: {
-          status: day === clanWar.duration
-            ? ClanWarStatus.waitingForRewards
-            : ClanWarStatus.ongoing,
-          [`${winner}Wins`]: {
-            increment: 1,
-          },
-        },
-      });
+      retries++;
     }
+
+    // Create fight
+    await prisma.fight.create({
+      data: {
+        ...generatedFight,
+        clanWar: { connect: { id: clanWar.id } },
+      },
+      select: { id: true },
+    });
+
+    const winnerId = generatedFight.winner;
+    const winner = attackers.some((brute) => brute.id === winnerId)
+      ? 'attacker'
+      : 'defender';
+
+    // Update clan war
+    await prisma.clanWar.update({
+      where: { id: clanWar.id },
+      data: {
+        status: day === clanWar.duration
+          ? ClanWarStatus.waitingForRewards
+          : ClanWarStatus.ongoing,
+        [`${winner}Wins`]: {
+          increment: 1,
+        },
+      },
+    });
   }
 
   if (clanWars.length - skipped) {
