@@ -656,7 +656,7 @@ const ClanView = () => {
             </Box>
           </Box>
         )}
-        {user && brute?.clanId === clan.id && (
+        {user && owner && brute?.clanId === clan.id && (
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1 }}>
             <FantasyButton color="warning" onClick={challengeBoss}>{t('challengeBoss')}</FantasyButton>
           </Box>
