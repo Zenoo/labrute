@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.68.4](https://github.com/Zenoo/labrute/compare/labrute-v2.68.3...labrute-v2.68.4) (2024-08-03)
+
+
+### Bug Fixes
+
+* Backups arriving too early + Pets death ending the fight. ([62608e4](https://github.com/Zenoo/labrute/commit/62608e4af6cd86db29720054599fafb8ce6707f9))
+
 ## [2.68.3](https://github.com/Zenoo/labrute/compare/labrute-v2.68.2...labrute-v2.68.3) (2024-08-02)
 
 
