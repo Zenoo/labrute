@@ -76,6 +76,7 @@
   "log.lvl": "{{brute}} hat einen neuen Rang erreicht: {{value}}.",
   "log.tournament": "Der Wettkampf am {{date}} wurde abgesagt. Probier es später noch einmal!",
   "log.tournamentXp": "Gestrige Wettkämpfe",
+  "log.fight": "Your Brute has fought against {{value}}.",
   "log.win": "Dein Brutalo hat {{value}} zerschmettert.",
   "log.lose": "{{value}} hat deinen Brutalo geplättet.",
   "lvl_0": "Brutale Legende",

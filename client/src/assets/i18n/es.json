@@ -76,6 +76,7 @@
   "log.lvl": "{{brute}} ha alcanzado el rango {{value}}.",
   "log.tournament": "El torneo del {{date}} fue cancelado, ¡inténtalo de nuevo!",
   "log.tournamentXp": "Torneos de ayer",
+  "log.fight": "Tu Bruto ha peleado contra {{value}}.",
   "log.win": "Tu Bruto ha aplastado a {{value}}.",
   "log.lose": "{{value}} le ha dado una paliza a tu Bruto.",
   "lvl_0": "Leyenda Brutal",

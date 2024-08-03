@@ -103,8 +103,8 @@
   "fightNotFound": "Pelea no encontrada",
   "favoriteLimit": "Has alcanzado tu límite de peleas favoritas",
   "warOngoing": "Ya hay una guerra de clan en curso, no puedes iniciar una nueva",
-  "opponentWarOngoing": "The opponent clan is already in a war",
+  "opponentWarOngoing": "El clan rival ya está en una guerra",
   "warNotFound": "Guerra no encontrada",
   "maxFightersReached": "Has alcanzado el número máximo de peleadores",
-  "cantFightOwnClan": "You cannot fight your own clan"
+  "cantFightOwnClan": "No puedes enfrentarte a tu propio clan"
 }
