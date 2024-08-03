@@ -76,7 +76,7 @@
   "log.lvl": "{{brute}} получил звание «{{value}}».",
   "log.tournament": "Турнир даты {{date}} был отменён. Попробуйте ещё раз!",
   "log.tournamentXp": "Вчерашние турниры",
-  "log.fight": "Your Brute has fought against {{value}}.",
+  "log.fight": "Ваш Брутал сразился с {{value}}.",
   "log.win": "Ваш Брутал разгромил {{value}}.",
   "log.lose": "{{value}} сравнял вашего Брутала с землёй.",
   "lvl_0": "Брутальная Легенда",
