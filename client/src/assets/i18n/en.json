@@ -76,6 +76,7 @@
   "log.lvl": "{{brute}} has reached rank {{value}}.",
   "log.tournament": "The tournament on {{date}} was canceled, try again !",
   "log.tournamentXp": "Yesterday's tournaments",
+  "log.fight": "Your Brute has fought against {{value}}.",
   "log.win": "Your Brute has crushed {{value}}.",
   "log.lose": "{{value}} has flattened your Brute.",
   "lvl_0": "Brutal Legend",
