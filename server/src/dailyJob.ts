@@ -1160,6 +1160,9 @@ const handleClanWars = async (
   const clanWars = await prisma.clanWar.findMany({
     where: {
       status: ClanWarStatus.ongoing,
+      date: {
+        not: new Date(),
+      },
     },
     include: {
       fights: {
