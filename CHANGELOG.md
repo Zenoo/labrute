@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.68.5](https://github.com/Zenoo/labrute/compare/labrute-v2.68.4...labrute-v2.68.5) (2024-08-03)
+
+
+### Bug Fixes
+
+* Safeguard clan war routes against clan-external access ([2b3fa73](https://github.com/Zenoo/labrute/commit/2b3fa73018793476facd5f772c13d93cb562ea73))
+
 ## [2.68.4](https://github.com/Zenoo/labrute/compare/labrute-v2.68.3...labrute-v2.68.4) (2024-08-03)
 
 
