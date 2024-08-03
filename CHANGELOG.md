@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.68.10](https://github.com/Zenoo/labrute/compare/labrute-v2.68.9...labrute-v2.68.10) (2024-08-03)
+
+
+### Bug Fixes
+
+* Limit fighters selection to owner ([dc9cf70](https://github.com/Zenoo/labrute/commit/dc9cf70e8b0a7e7c87dd8cb144cb938feae816d3))
+
 ## [2.68.9](https://github.com/Zenoo/labrute/compare/labrute-v2.68.8...labrute-v2.68.9) (2024-08-03)
 
 
