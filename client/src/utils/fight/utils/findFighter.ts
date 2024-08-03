@@ -4,7 +4,6 @@ import FighterHolder from '../FighterHolder';
 
 export interface AnimationFighter extends Omit<Fighter, 'shield'> {
   type: 'brute' | 'pet' | 'boss';
-  hypnotised?: boolean;
   hpBar?: PIXI.Graphics;
   hpBarPhantom?: PIXI.Graphics;
   weaponsIllustrations: PIXI.Sprite[];

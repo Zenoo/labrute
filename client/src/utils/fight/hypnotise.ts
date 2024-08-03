@@ -104,8 +104,8 @@ const hypnotise = async (
       }, { x, y }).then(() => {
         // Change pet team
         pet.animation.team = brute.animation.team;
+        pet.team = brute.team;
         pet.master = brute.id;
-        pet.hypnotised = true;
         pet.animation.container.scale.x *= -1;
 
         // Set pet animation to `idle`

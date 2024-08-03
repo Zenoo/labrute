@@ -839,12 +839,7 @@ const activateSuper = (
 
           // Remove pet from fight
           fightData.fighters = fightData.fighters
-            .filter((f) => f.type === 'brute'
-              || !(f.type === 'pet'
-                && f.master === pet.master
-                && f.name === pet.name
-                && f.hypnotised === pet.hypnotised
-              ));
+            .filter((f) => f.index !== pet.index);
         }
       }
 
@@ -876,7 +871,7 @@ const activateSuper = (
 
         // Change pet owner
         pet.master = fighter.id;
-        pet.hypnotised = true;
+        pet.team = fighter.team;
       }
 
       // Abort if no pet hypnotised

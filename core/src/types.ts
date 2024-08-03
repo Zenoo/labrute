@@ -103,7 +103,6 @@ export interface DetailedFighter {
   // Status effects
   poisoned: boolean;
   trapped: boolean;
-  hypnotised?: boolean;
   // Reduce some weapons damage by 25%
   damagedWeapons: WeaponName[],
   // Keep track of consecutive hits for stun status
