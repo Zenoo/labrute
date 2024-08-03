@@ -12,11 +12,13 @@ import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import catchError from '../../utils/catchError';
 import Server from '../../utils/Server';
+import { useBrute } from '../../hooks/useBrute';
 
 export const ClanWarView = () => {
   const { t } = useTranslation();
   const { bruteName, id, warId } = useParams();
   const Alert = useAlert();
+  const { brute, owner } = useBrute();
 
   const [war, setWar] = useState<ClanWarGetResponse | null>(null);
   const [brutes, setBrutes] = useState<ClanWarGetAvailableFightersResponse>([]);
@@ -42,12 +44,13 @@ export const ClanWarView = () => {
 
   // Fetch clan brutes
   useEffect(() => {
-    if (!id || !warId) return;
+    if (!id || !warId || !brute) return;
+    if (brute.clanId !== id || !owner) return;
 
     Server.ClanWar.getAvailableFighters(id, warId)
       .then(setBrutes)
       .catch(catchError(Alert));
-  }, [Alert, id, warId]);
+  }, [Alert, brute, id, owner, warId]);
 
   // Update day watched (localStorage)
   const updateDayWatched = (day: number) => () => {
@@ -165,7 +168,7 @@ export const ClanWarView = () => {
                 </TableBody>
               </Table>
             )}
-            {war.status === ClanWarStatus.ongoing && (
+            {brute?.clanId === id && owner && war.status === ClanWarStatus.ongoing && (
               <>
                 <Text h3 center bold sx={{ my: 1 }}>{t('nextFighters')}</Text>
                 <Text>{t('nextFighters.desc')}</Text>
@@ -176,14 +179,14 @@ export const ClanWarView = () => {
                   justifyContent: 'center',
                 }}
                 >
-                  {brutes.map((brute) => (
+                  {brutes.map((b) => (
                     <StyledButton
-                      key={brute.id}
+                      key={b.id}
                       image="/images/arena/brute-bg.webp"
                       imageHover="/images/arena/brute-bg-hover.webp"
                       contrast={false}
                       shadow={false}
-                      onClick={toggleFighter(brute.id)}
+                      onClick={toggleFighter(b.id)}
                       sx={{
                         width: 190,
                         height: 102,
@@ -209,16 +212,16 @@ export const ClanWarView = () => {
                         }}
                         >
                           <Box display="flex" alignItems="center">
-                            <Text bold color="secondary" sx={{ display: 'inline' }}>{brute.name}</Text>
+                            <Text bold color="secondary" sx={{ display: 'inline' }}>{b.name}</Text>
                           </Box>
                         </Box>
                         <Text bold smallCaps color="text.primary">
                           {t('level')}
-                          <Text component="span" bold color="secondary"> {brute.level}</Text>
+                          <Text component="span" bold color="secondary"> {b.level}</Text>
                         </Text>
                         <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
-                          <Box component="img" src={`/images/rankings/lvl_${brute.ranking}.webp`} sx={{ mr: 1 }} />
-                          <Text bold color="text.primary" sx={{ lineHeight: 1 }}>{t(`lvl_${brute.ranking}`)}</Text>
+                          <Box component="img" src={`/images/rankings/lvl_${b.ranking}.webp`} sx={{ mr: 1 }} />
+                          <Text bold color="text.primary" sx={{ lineHeight: 1 }}>{t(`lvl_${b.ranking}`)}</Text>
                         </Box>
                         <Box sx={{
                           position: 'absolute',
@@ -229,10 +232,10 @@ export const ClanWarView = () => {
                         }}
                         >
                           <BruteRender
-                            brute={brute}
+                            brute={b}
                             looking="left"
                             sx={{
-                              filter: selectedFighters.includes(brute.id)
+                              filter: selectedFighters.includes(b.id)
                                 ? 'drop-shadow(0 0 10px rgb(255, 0, 255))'
                                 : undefined,
                             }}
