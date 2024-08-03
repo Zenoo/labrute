@@ -289,7 +289,7 @@ const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) =>
   }
 
   // Filter out vampirism if no brute opponent
-  if (getOpponents({ fightData, fighter, bruteOnly: true }).filter((f) => f.type !== 'boss').length === 0) {
+  if (getOpponents({ fightData, fighter, bruteOnly: true }).length === 0) {
     supers = supers.filter((skill) => skill.name !== SkillName.vampirism);
   }
 
