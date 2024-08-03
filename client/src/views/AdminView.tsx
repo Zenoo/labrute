@@ -1,9 +1,9 @@
 import { AdminPanelBrute } from '@labrute/core';
-import { DestinyChoiceSide, FightModifier, Gender, PetName, SkillName, WeaponName } from '@labrute/prisma';
+import { DestinyChoiceSide, FightModifier, Gender, InventoryItemType, PetName, SkillName, WeaponName } from '@labrute/prisma';
 import { Box, Checkbox, Divider, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Alert as MuiAlert, Paper, Select, Stack } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
 import moment from 'moment';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import BruteRender from '../components/Brute/Body/BruteRender';
 import FantasyButton from '../components/FantasyButton';
@@ -20,11 +20,12 @@ const AdminView = () => {
   const Alert = useAlert();
   const { user } = useAuth();
 
-  const [bruteName, setBruteName] = React.useState('');
-  const [bruteId, setBruteId] = React.useState('');
-  const [brute, setBrute] = React.useState<AdminPanelBrute | null>(null);
-  const [globalTournamentValid, setGlobalTournamentValid] = React.useState(true);
-  const [nextModifiers, setNextModifiers] = React.useState<FightModifier[]>([]);
+  const [bruteName, setBruteName] = useState('');
+  const [bruteId, setBruteId] = useState('');
+  const [brute, setBrute] = useState<AdminPanelBrute | null>(null);
+  const [globalTournamentValid, setGlobalTournamentValid] = useState(true);
+  const [nextModifiers, setNextModifiers] = useState<FightModifier[]>([]);
+  const [item, setItem] = useState<InventoryItemType | null>(null);
 
   // Change bruteName
   const changeBruteName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -127,14 +128,14 @@ const AdminView = () => {
     }).catch(catchError(Alert));
   }, [Alert, bruteId]);
 
-  // Give free visual reset
-  const giveFreeVisualReset = useCallback(() => {
-    if (!brute) return;
+  // Give item
+  const giveItem = useCallback(() => {
+    if (!brute || !item) return;
 
-    Server.Brute.giveFreeVisualReset(brute.name).then(() => {
-      Alert.open('success', 'Free visual reset given');
+    Server.Brute.giveItem(brute.id, item).then(() => {
+      Alert.open('success', 'Item given');
     }).catch(catchError(Alert));
-  }, [Alert, brute]);
+  }, [Alert, brute, item]);
 
   return (
     <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl="/">
@@ -184,7 +185,6 @@ const AdminView = () => {
                 <Box width={100}>
                   <BruteRender brute={brute} />
                 </Box>
-                <FantasyButton color="warning" onClick={giveFreeVisualReset}>Give free visual reset</FantasyButton>
                 <Grid container spacing={1}>
                   <Grid item xs={6} sm={3}>
                     <StyledInput
@@ -696,6 +696,17 @@ const AdminView = () => {
                   </Grid>
                 </Grid>
                 <FantasyButton color="success" onClick={saveBrute}>Save</FantasyButton>
+                <Select
+                  variant="filled"
+                  value={item}
+                  onChange={({ target: { value } }) => setItem(value as InventoryItemType)}
+                  sx={{ m: 1 }}
+                >
+                  {Object.values(InventoryItemType).map((it) => (
+                    <MenuItem key={it} value={it}>{it}</MenuItem>
+                  ))}
+                </Select>
+                <FantasyButton color="success" onClick={giveItem}>Add item</FantasyButton>
               </>
             )}
             <Divider />

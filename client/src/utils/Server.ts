@@ -1,5 +1,5 @@
 import { AchievementGetRankingsResponse, AchievementsGetResponse, AdminPanelBrute, BruteGetInventoryResponse, BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetClanIdAsMasterResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetForVersusResponse, BrutesGetLevelUpChoicesResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, ClanChallengeBossResponse, ClanCreateResponse, ClanGetResponse, ClanGetThreadResponse, ClanGetThreadsResponse, ClanListResponse, ClanWarGetAvailableFightersResponse, ClanWarGetHistoryResponse, ClanWarGetResponse, FightCreateResponse, FightGetResponse, HookBrute, LogGetForUserFeedResponse, LogListResponse, ServerReadyResponse, TournamentHistoryResponse, TournamentsGetDailyResponse, TournamentsGetGlobalResponse, TournamentsUpdateStepWatchedResponse, TournementsUpdateGlobalRoundWatchedResponse, UserBannedListResponse, UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse, UserMultipleAccountsListResponse, UsersAdminUpdateRequest, UsersAuthenticateResponse } from '@labrute/core';
-import { Brute, BruteReportReason, BruteReportStatus, DestinyChoiceSide, FightModifier, Gender, Lang, Prisma } from '@labrute/prisma';
+import { Brute, BruteReportReason, BruteReportStatus, DestinyChoiceSide, FightModifier, Gender, InventoryItemType, Lang, Prisma } from '@labrute/prisma';
 import Fetch from './Fetch';
 
 const Server = {
@@ -63,10 +63,10 @@ const Server = {
     favorite: (name: string) => Fetch<never>(`/api/brute/${name}/favorite`),
     reset: (name: string) => Fetch<HookBrute>(`/api/brute/${name}/reset`),
     resetVisuals: (name: string, body: string, colors: string) => Fetch<never>(`/api/brute/${name}/reset-visuals`, { body, colors }, 'POST'),
-    giveFreeVisualReset: (name: string) => Fetch<never>(`/api/brute/${name}/give-free-visual-reset`),
     changeName: (name: string, newName: string) => Fetch<never>(`/api/brute/${name}/change-name/${newName}`),
     getInventory: (name: string) => Fetch<BruteGetInventoryResponse>(`/api/brute/${name}/inventory`),
     getClanIdAsMaster: (name: string) => Fetch<BrutesGetClanIdAsMasterResponse>(`/api/brute/${name}/master-clan`),
+    giveItem: (id: string, item: InventoryItemType) => Fetch<never>('/api/brute/item', { id, item }, 'PUT'),
   },
   Log: {
     list: (brute: string) => Fetch<LogListResponse>(`/api/log/list/${brute}`),

@@ -1950,64 +1950,6 @@ const Brutes = {
       sendError(res, error);
     }
   },
-  giveFreeVisualReset: (prisma: PrismaClient) => async (
-    req: Request<{
-      name: string,
-    }>,
-    res: Response,
-  ) => {
-    try {
-      const authed = await auth(prisma, req);
-
-      const user = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true },
-      });
-
-      // Check is user is admin
-      if (!user?.admin) {
-        throw new Error(translate('unauthorized', authed));
-      }
-
-      // Get brute
-      const brute = await prisma.brute.findFirst({
-        where: {
-          name: ilike(req.params.name),
-          deletedAt: null,
-        },
-        select: { id: true },
-      });
-
-      if (!brute) {
-        throw new Error(translate('bruteNotFound', authed));
-      }
-
-      // Give free visual reset
-      await prisma.inventoryItem.upsert({
-        where: {
-          type_bruteId: {
-            bruteId: brute.id,
-            type: InventoryItemType.visualReset,
-          },
-        },
-        create: {
-          type: InventoryItemType.visualReset,
-          count: 1,
-          bruteId: brute.id,
-        },
-        update: {
-          count: {
-            increment: 1,
-          },
-        },
-        select: { id: true },
-      });
-
-      res.send({ success: true });
-    } catch (error) {
-      sendError(res, error);
-    }
-  },
   changeName: (prisma: PrismaClient) => async (
     req: Request<{ name: string, newName: string }>,
     res: Response,
@@ -2185,6 +2127,58 @@ const Brutes = {
       const clanId = brute.clan?.masterId === brute.id ? brute.clanId : null;
 
       res.send({ id: clanId });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  giveItem: (prisma: PrismaClient) => async (
+    req: Request<never, unknown, { id: string, item: InventoryItemType }>,
+    res: Response,
+  ) => {
+    try {
+      const authed = await auth(prisma, req);
+
+      const user = await prisma.user.findFirst({
+        where: { id: authed.id },
+        select: { admin: true },
+      });
+
+      if (!user?.admin) {
+        throw new Error(translate('unauthorized', authed));
+      }
+
+      const brute = await prisma.brute.findFirst({
+        where: {
+          id: req.body.id,
+          deletedAt: null,
+        },
+        select: { id: true },
+      });
+
+      if (!brute) {
+        throw new Error(translate('bruteNotFound', authed));
+      }
+
+      await prisma.inventoryItem.upsert({
+        where: {
+          type_bruteId: {
+            type: req.body.item,
+            bruteId: brute.id,
+          },
+        },
+        create: {
+          type: req.body.item,
+          count: 1,
+          bruteId: brute.id,
+        },
+        update: {
+          count: {
+            increment: 1,
+          },
+        },
+      });
+
+      res.send({ success: true });
     } catch (error) {
       sendError(res, error);
     }
