@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.68.8](https://github.com/Zenoo/labrute/compare/labrute-v2.68.7...labrute-v2.68.8) (2024-08-03)
+
+
+### Bug Fixes
+
+* Admin panel to give items to brutes ([7b21b69](https://github.com/Zenoo/labrute/commit/7b21b69a6a1b516cb82f2846e04e8765da661cf2))
+* Enable vampirism against bosses. Fixes [#874](https://github.com/Zenoo/labrute/issues/874) ([c7968a1](https://github.com/Zenoo/labrute/commit/c7968a1cf71ae1fad5235ab323bfd97e6128a18d))
+* Missing translation for unseen global tournament fights ([dcbc65c](https://github.com/Zenoo/labrute/commit/dcbc65ce2ee701ba2cdcdac03362b4d3273eabe9))
+* Pets attacking their owner after hypnosis ([1572556](https://github.com/Zenoo/labrute/commit/15725564a7ad40dec8e26a9c81b2c4b8ecd58122))
+
 ## [2.68.7](https://github.com/Zenoo/labrute/compare/labrute-v2.68.6...labrute-v2.68.7) (2024-08-03)
 
 
