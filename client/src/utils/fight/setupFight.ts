@@ -387,10 +387,11 @@ const setupFight: (
 
   // Get fighters animations
   const fighters: AnimationFighter[] = fightFighters.map((fighter) => {
-    const team = fighter.team
-      // Necessary since .team was added later
-      // TODO: Remove on release
-      ?? (fighter.master || fighter.id) === brute1.id ? 'L' : 'R';
+    // Necessary since .team was added later
+    // TODO: Remove on release
+    if (!fighter.team) {
+      fighter.team = (fighter.master || fighter.id) === brute1.id ? 'L' : 'R';
+    }
 
     const animationFighter: AnimationFighter = {
       ...fighter,
@@ -428,7 +429,7 @@ const setupFight: (
     };
 
     // Set position
-    animationFighter.animation.container.x = team === 'L' ? -100 : 600;
+    animationFighter.animation.container.x = fighter.team === 'L' ? -100 : 600;
     animationFighter.animation.container.y = 150;
 
     // Add to stage
