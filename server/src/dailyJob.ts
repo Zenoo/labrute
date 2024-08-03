@@ -1117,6 +1117,22 @@ const handleClanWars = async (
   prisma: PrismaClient,
   modifiers: FightModifier[],
 ) => {
+  // Temporary needed since clans were able to fight themselves
+  // TODO: Remove on release
+
+  // Delete clan wars with same attacker and defender
+  const deleted = await prisma.clanWar.deleteMany({
+    where: {
+      attackerId: {
+        equals: prisma.clanWar.fields.defenderId,
+      },
+    },
+  });
+
+  if (deleted.count) {
+    LOGGER.log(`Deleted ${deleted.count} clan wars with same attacker and defender`);
+  }
+
   // Give rewards for finished clan wars
   const finishedClanWars = await prisma.clanWar.findMany({
     where: {

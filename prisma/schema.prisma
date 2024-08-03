@@ -297,7 +297,7 @@ model Fight {
   modifiers      FightModifier[] @default([])
   background     String          @default("1.jpg") @db.VarChar(255)
   favoritedBy    User[]          @relation("FavoriteFights")
-  clanWar        ClanWar?        @relation(fields: [clanWarId], references: [id])
+  clanWar        ClanWar?        @relation(fields: [clanWarId], references: [id], onDelete: Cascade)
   clanWarId      String?         @db.Uuid
 
   @@index([tournamentId, winner, brute1Id, brute2Id])
@@ -692,7 +692,7 @@ model ClanWar {
 
 model ClanWarFighters {
   id        String  @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  clanWar   ClanWar @relation(fields: [clanWarId], references: [id])
+  clanWar   ClanWar @relation(fields: [clanWarId], references: [id], onDelete: Cascade)
   clanWarId String  @db.Uuid
   day       Int
   attackers Brute[] @relation("ClanWarAttackerFighters")
