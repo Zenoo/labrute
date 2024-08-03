@@ -98,7 +98,7 @@ const skillActivate = async (
           duration: 1 / speed.current,
           ease: Easing.linear,
         }, {
-          x: brute.animation.team === 'left' ? cry.x + 100 : cry.x - 100,
+          x: brute.team === 'L' ? cry.x + 100 : cry.x - 100,
         }).then(() => {
           // Destroy cry
           cry.destroy();
@@ -122,7 +122,7 @@ const skillActivate = async (
       ease: Easing.easeOutCubic
     }, {
       y: 100,
-      x: brute.animation.team === 'left'
+      x: brute.team === 'L'
         ? app.screen.width / 2 - FIGHTER_WIDTH.brute / 2
         : app.screen.width / 2 + FIGHTER_WIDTH.brute / 2,
     });

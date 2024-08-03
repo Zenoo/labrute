@@ -53,7 +53,7 @@ const flashFlood = async (
 
   // Get starting position
   const start = {
-    x: fighter.animation.team === 'left'
+    x: fighter.team === 'L'
       ? fighter.animation.container.x + FIGHTER_WIDTH.brute
       : fighter.animation.container.x,
     y: fighter.animation.container.y - FIGHTER_HEIGHT.brute * 0.5,
@@ -61,7 +61,7 @@ const flashFlood = async (
 
   // Get end position
   const end = {
-    x: target.animation.team === 'left'
+    x: target.team === 'L'
       ? target.animation.container.x + FIGHTER_WIDTH[getFighterType(target)]
       : target.animation.container.x,
     y: target.animation.container.y - FIGHTER_HEIGHT[getFighterType(target)] * 0.5,

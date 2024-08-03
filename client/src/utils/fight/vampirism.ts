@@ -32,7 +32,7 @@ export const vampirism = async (
     duration: 0.25 / speed.current,
     ease: Easing.linear,
   }, {
-    x: target.animation.team === 'right'
+    x: target.team === 'R'
       ? target.animation.container.x + FIGHTER_WIDTH.brute / 2
       : target.animation.container.x - FIGHTER_WIDTH.brute / 2,
     y: target.animation.container.y - 1,
@@ -68,7 +68,7 @@ export const vampirism = async (
   // Set target animation to `idle`
   target.animation.setAnimation('idle');
 
-  const { x, y } = getRandomPosition(fighters, brute.animation.team);
+  const { x, y } = getRandomPosition(fighters, brute.team);
 
   // Move brute to position
   await Tweener.add({

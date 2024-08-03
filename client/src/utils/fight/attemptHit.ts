@@ -63,14 +63,14 @@ const attemptHit = async (
 
     // Set position
     trashedShield.position.set(
-      target.animation.team === 'left'
+      target.team === 'L'
         ? target.animation.container.x + FIGHTER_WIDTH.brute / 4
         : target.animation.container.x + FIGHTER_WIDTH.brute * 0.75,
       target.animation.container.y - FIGHTER_HEIGHT.brute * 0.5,
     );
 
     // Set angle
-    trashedShield.angle = target.animation.team === 'left' ? -110 : 70;
+    trashedShield.angle = target.team === 'L' ? -110 : 70;
 
     // Add to stage
     app.stage.addChild(trashedShield);
@@ -81,11 +81,11 @@ const attemptHit = async (
       duration: 0.3 / speed.current,
       ease: Easing.linear,
     }, {
-      x: target.animation.team === 'left'
+      x: target.team === 'L'
         ? trashedShield.x - 20
         : trashedShield.x + 20,
       y: trashedShield.y + 50,
-      angle: target.animation.team === 'left' ? -180 : 0,
+      angle: target.team === 'L' ? -180 : 0,
     }).then(() => {
       // Wait a bit
       setTimeout(() => {

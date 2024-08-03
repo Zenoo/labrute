@@ -59,7 +59,7 @@ const bomb = async (
 
   // Get target position
   const targetPosition = {
-    x: fighter.animation.team === 'left' ? app.screen.width - 100 : 100,
+    x: fighter.team === 'L' ? app.screen.width - 100 : 100,
     y: app.screen.height * 0.75,
   };
 

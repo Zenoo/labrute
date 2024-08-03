@@ -449,8 +449,6 @@ export default class FighterHolder {
 
   weapon: WeaponName | null = null;
 
-  team: 'left' | 'right' = 'left';
-
   // PIXI
   readonly container: PIXI.Container;
 
@@ -482,7 +480,6 @@ export default class FighterHolder {
   constructor(
     app: PIXI.Application,
     fighter: Fighter,
-    team: 'left' | 'right',
     speed: MutableRefObject<number>,
   ) {
     this.type = fighter.type;
@@ -492,7 +489,6 @@ export default class FighterHolder {
     this.skills = fighter.skills.map((s) => SkillById[s]);
     this.#colors = readColorString(fighter.gender || Gender.male, fighter.colors || '0'.repeat(32));
     this.#parts = readBodyString(fighter.body || '0'.repeat(11));
-    this.team = team;
     this.speed = speed;
 
     // Get animation type
@@ -514,7 +510,7 @@ export default class FighterHolder {
     symbolContainer.y = 0;
 
     // Handle team side
-    symbolContainer.scale.x = this.team === 'left' ? 1 : -1;
+    symbolContainer.scale.x = fighter.team === 'L' ? 1 : -1;
 
     // Reverse X for dog
     if (this.#animationType === 'dog') {

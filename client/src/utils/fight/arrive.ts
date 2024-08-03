@@ -39,7 +39,7 @@ const arrive = async (
   }
 
   // Get random position
-  const { x, y } = getRandomPosition(fighters, fighter.animation.team);
+  const { x, y } = getRandomPosition(fighters, fighter.team);
 
   fighter.animation.once('arrive:start', () => {
     fighter.animation.pause();

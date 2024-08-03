@@ -61,7 +61,7 @@ const steal = async (
   // Set target animation to `idle`
   target.animation.setAnimation('idle');
 
-  const { x, y } = getRandomPosition(fighters, brute.animation.team);
+  const { x, y } = getRandomPosition(fighters, brute.team);
 
   // Move brute to position
   await Tweener.add({

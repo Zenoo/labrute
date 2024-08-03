@@ -92,11 +92,11 @@ const hit = async (
     hitVfx.zIndex = 1000;
     hitVfx.animationSpeed = speed.current / 4;
     hitVfx.loop = false;
-    hitVfx.scale.x = target.animation.team === 'left' ? -1 : 1;
+    hitVfx.scale.x = target.team === 'L' ? -1 : 1;
 
     // Set hit VFX position
     const fighterType = getFighterType(fighter);
-    hitVfx.x = target.animation.container.x + FIGHTER_HIT_ANCHOR[fighterType].x * (target.animation.team === 'left' ? 1 : -1);
+    hitVfx.x = target.animation.container.x + FIGHTER_HIT_ANCHOR[fighterType].x * (target.team === 'L' ? 1 : -1);
     hitVfx.y = target.animation.container.y - FIGHTER_HIT_ANCHOR[fighterType].y;
 
     // Add hit VFX to stage

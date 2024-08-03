@@ -48,7 +48,7 @@ const updateHp = (
 
   let newWidth = 0;
 
-  if (fighter.animation.team === 'left') {
+  if (fighter.team === 'L') {
     if (fix) {
       newWidth = percent;
     } else {
@@ -60,9 +60,9 @@ const updateHp = (
     newWidth = hpBar.width - percent;
   }
 
-  if (fighter.animation.team === 'left' && newWidth < 0) {
+  if (fighter.team === 'L' && newWidth < 0) {
     newWidth = 0;
-  } else if (fighter.animation.team === 'right' && newWidth > 0) {
+  } else if (fighter.team === 'R' && newWidth > 0) {
     newWidth = 0;
   }
 

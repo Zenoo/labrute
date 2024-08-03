@@ -4,44 +4,44 @@ import { AnimationFighter } from './utils/findFighter';
 
 const staggerObject = async (
   object: Container | Sprite,
-  team: 'left' | 'right',
+  team: 'L' | 'R',
   speed: React.MutableRefObject<number>,
 ) => {
   await Tweener.add({
     target: object,
     duration: 0.05 / speed.current,
     ease: Easing.linear
-  }, { x: object.x + (team === 'left' ? -8 : 8) });
+  }, { x: object.x + (team === 'L' ? -8 : 8) });
 
   await Tweener.add({
     target: object,
     duration: 0.05 / speed.current,
     ease: Easing.linear
-  }, { x: object.x + (team === 'left' ? 4 : -4) });
+  }, { x: object.x + (team === 'L' ? 4 : -4) });
 
   await Tweener.add({
     target: object,
     duration: 0.05 / speed.current,
     ease: Easing.linear
-  }, { x: object.x + (team === 'left' ? -4 : 4) });
+  }, { x: object.x + (team === 'L' ? -4 : 4) });
 
   await Tweener.add({
     target: object,
     duration: 0.05 / speed.current,
     ease: Easing.linear
-  }, { x: object.x + (team === 'left' ? 4 : -4) });
+  }, { x: object.x + (team === 'L' ? 4 : -4) });
 
   await Tweener.add({
     target: object,
     duration: 0.1 / speed.current,
     ease: Easing.linear
-  }, { x: object.x + (team === 'left' ? -4 : 4) });
+  }, { x: object.x + (team === 'L' ? -4 : 4) });
 
   await Tweener.add({
     target: object,
     duration: 0.1 / speed.current,
     ease: Easing.linear
-  }, { x: object.x + (team === 'left' ? 8 : -8) });
+  }, { x: object.x + (team === 'L' ? 8 : -8) });
 
   await Tweener.add({
     target: object,
@@ -57,11 +57,11 @@ const stagger = async (
   const staggers = [];
 
   // Stagger animation
-  staggers.push(staggerObject(fighter.animation.container, fighter.animation.team, speed));
+  staggers.push(staggerObject(fighter.animation.container, fighter.team, speed));
 
   // Stagger bust
   if (fighter.bust) {
-    staggers.push(staggerObject(fighter.bust, fighter.animation.team, speed));
+    staggers.push(staggerObject(fighter.bust, fighter.team, speed));
   }
 
   await Promise.all(staggers);

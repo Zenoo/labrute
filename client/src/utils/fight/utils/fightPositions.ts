@@ -21,15 +21,15 @@ const rightPositions = [
   { x: 440, y: 272 },
 ];
 
-const getAvailablePositions = (fighters: AnimationFighter[], team: 'left' | 'right') => {
-  const teamFighters = fighters.filter((fighter) => fighter.animation.team === team);
+const getAvailablePositions = (fighters: AnimationFighter[], team: 'L' | 'R') => {
+  const teamFighters = fighters.filter((fighter) => fighter.team === team);
 
-  return (team === 'left' ? leftPositions : rightPositions)
+  return (team === 'L' ? leftPositions : rightPositions)
     .filter((p) => !teamFighters.find((f) => f.animation.container.x === p.x
     && f.animation.container.y === p.y));
 };
 
-const getRandomPosition = (fighters: AnimationFighter[], team: 'left' | 'right') => {
+const getRandomPosition = (fighters: AnimationFighter[], team: 'L' | 'R') => {
   const availablePositions = getAvailablePositions(fighters, team);
 
   if (availablePositions.length === 0) {

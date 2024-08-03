@@ -41,14 +41,14 @@ const trash = async (
 
     // Set position
     trashedWeapon.position.set(
-      brute.animation.team === 'left'
+      brute.team === 'L'
         ? brute.animation.container.x + FIGHTER_WIDTH.brute / 4
         : brute.animation.container.x + FIGHTER_WIDTH.brute * 0.75,
       brute.animation.container.y - FIGHTER_HEIGHT.brute * 0.5,
     );
 
     // Set angle
-    trashedWeapon.angle = brute.animation.team === 'left' ? -110 : 70;
+    trashedWeapon.angle = brute.team === 'L' ? -110 : 70;
 
     // Add to stage
     app.stage.addChild(trashedWeapon);
@@ -59,11 +59,11 @@ const trash = async (
       duration: 0.3 / speed.current,
       ease: Easing.linear,
     }, {
-      x: brute.animation.team === 'left'
+      x: brute.team === 'L'
         ? trashedWeapon.x - 20
         : trashedWeapon.x + 20,
       y: trashedWeapon.y + 50,
-      angle: brute.animation.team === 'left' ? -180 : 0,
+      angle: brute.team === 'L' ? -180 : 0,
     }).then(() => {
       // Wait a bit
       setTimeout(() => {

@@ -71,7 +71,7 @@ const moveTo = async (
     duration: duration / speed.current,
     ease: Easing.linear
   }, {
-    x: target.animation.team === 'right'
+    x: target.team === 'L'
       ? targetX - modifier
       : targetX + modifier,
     y: target.animation.container.y,

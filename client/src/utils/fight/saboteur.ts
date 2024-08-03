@@ -66,7 +66,7 @@ const saboteur = async (
   );
 
   // Set angle
-  weapon.angle = brute.animation.team === 'left' ? -110 : 70;
+  weapon.angle = brute.team === 'L' ? -110 : 70;
 
   // Add to stage
   app.stage.addChild(weapon);
@@ -77,11 +77,11 @@ const saboteur = async (
     duration: 0.3 / speed.current,
     ease: Easing.linear,
   }, {
-    x: brute.animation.team === 'left'
+    x: brute.team === 'L'
       ? weapon.x - 20
       : weapon.x + 20,
     y: weapon.y + 50,
-    angle: brute.animation.team === 'left' ? -180 : 0,
+    angle: brute.team === 'L' ? -180 : 0,
   }).then(() => {
     // Wait a bit
     setTimeout(() => {

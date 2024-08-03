@@ -85,7 +85,7 @@ const hypnotise = async (
   const animationsDone = [];
   for (const stepPet of step.p) {
     // Get random position
-    const { x, y } = getRandomPosition(fighters, brute.animation.team);
+    const { x, y } = getRandomPosition(fighters, brute.team);
 
     const pet = findFighter(fighters, stepPet);
     if (!pet) {
@@ -103,7 +103,6 @@ const hypnotise = async (
         ease: Easing.linear,
       }, { x, y }).then(() => {
         // Change pet team
-        pet.animation.team = brute.animation.team;
         pet.team = brute.team;
         pet.master = brute.id;
         pet.animation.container.scale.x *= -1;

@@ -96,7 +96,7 @@ const spy = async (
 
           // Get target position
           const targetPosition = {
-            x: fighter.animation.team === 'right'
+            x: fighter.team === 'R'
               ? (i % 9) * 20 + 60
               : 480 - ((i % 9) * 20 + 60),
             y: Math.floor(i / 9) * 20 + 40,

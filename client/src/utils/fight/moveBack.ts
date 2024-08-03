@@ -24,7 +24,7 @@ const moveBack = async (
   fighter.animation.container.scale.x *= -1;
 
   // Get positions
-  const { x, y } = getRandomPosition(fighters, fighter.animation.team);
+  const { x, y } = getRandomPosition(fighters, fighter.team);
 
   // Move fighter to the position
   await Tweener.add({

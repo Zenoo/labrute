@@ -33,7 +33,7 @@ const skillExpire = async (
     brute.animation.setAnimation('arrive');
 
     // Get positions
-    const { x, y } = getRandomPosition(fighters, brute.animation.team);
+    const { x, y } = getRandomPosition(fighters, brute.team);
 
     // Move brute back
     await Tweener.add({

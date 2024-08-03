@@ -85,7 +85,7 @@ export const haste = async (
   }).catch(console.error);
 
   // Get position 200px away from target
-  const targetX = target.animation.container.x + (target.animation.team === 'left' ? -200 : 200);
+  const targetX = target.animation.container.x + (target.team === 'L' ? -200 : 200);
   const targetY = target.animation.container.y;
 
   // Move brute to target position
@@ -98,10 +98,10 @@ export const haste = async (
     y: targetY,
   });
 
-  const { x, y } = getRandomPosition(fighters, brute.animation.team);
+  const { x, y } = getRandomPosition(fighters, brute.team);
 
   // Teleport brute outside of the screen
-  brute.animation.container.x = brute.animation.team === 'left'
+  brute.animation.container.x = brute.team === 'L'
     ? -FIGHTER_WIDTH.brute * 2
     : app.screen.width + (FIGHTER_WIDTH.brute * 2);
   brute.animation.container.y = y;

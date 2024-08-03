@@ -63,7 +63,7 @@ const updateWeapons = (
       const sprite = new Sprite(texture);
       sprite.name = w.toString();
 
-      if (brute.animation.team === 'left') {
+      if (brute.team === 'L') {
         sprite.x = (index % 9) * 20 + 60;
       } else {
         sprite.x = 480 - ((index % 9) * 20 + 60);

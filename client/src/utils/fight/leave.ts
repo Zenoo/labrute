@@ -27,7 +27,7 @@ const leave = async (
     target: fighter.animation.container,
     duration: 0.5 / speed.current,
     ease: Easing.linear
-  }, { x: fighter.animation.team === 'left' ? -100 : 600 });
+  }, { x: fighter.team === 'L' ? -100 : 600 });
 
   // Remove fighter
   fighter.animation.destroy();
