@@ -1117,20 +1117,58 @@ const handleClanWars = async (
   prisma: PrismaClient,
   modifiers: FightModifier[],
 ) => {
-  // Temporary needed since clans were able to fight themselves
+  // Temporary needed since clans were able to initiate multiple wars
   // TODO: Remove on release
 
-  // Delete clan wars with same attacker and defender
-  const deleted = await prisma.clanWar.deleteMany({
+  // Get clans with multiple wars
+  const clansWithMultipleWars = await prisma.clan.findMany({
     where: {
-      attackerId: {
-        equals: prisma.clanWar.fields.defenderId,
+      defenses: {
+        some: {
+          status: { not: ClanWarStatus.finished },
+        },
+      },
+      attacks: {
+        some: {
+          status: { not: ClanWarStatus.finished },
+        },
+      },
+    },
+    select: {
+      id: true,
+      defenses: {
+        where: {
+          status: { not: ClanWarStatus.finished },
+        },
+        select: { id: true },
+      },
+      attacks: {
+        where: {
+          status: { not: ClanWarStatus.finished },
+        },
+        select: { id: true },
       },
     },
   });
 
-  if (deleted.count) {
-    LOGGER.log(`Deleted ${deleted.count} clan wars with same attacker and defender`);
+  // Delete all but the first war
+  let deleted = 0;
+  for (const clan of clansWithMultipleWars) {
+    const wars = [...clan.defenses, ...clan.attacks];
+
+    const request = await prisma.clanWar.deleteMany({
+      where: {
+        id: {
+          in: wars.slice(1).map((war) => war.id),
+        },
+      },
+    });
+
+    deleted += request.count;
+  }
+
+  if (deleted) {
+    LOGGER.log(`Deleted ${deleted} duplicate clan wars`);
   }
 
   // Give rewards for finished clan wars
