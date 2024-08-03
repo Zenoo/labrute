@@ -1,7 +1,6 @@
 /* eslint-disable no-param-reassign */
 import {
   AchievementsStore,
-  ArriveStep,
   BOSS_GOLD_REWARD,
   Boss,
   CLAN_SIZE_LIMIT,
@@ -19,7 +18,8 @@ import {
 import applySpy from './applySpy.js';
 import {
   Stats,
-  checkDeaths, getOpponents, orderFighters, playFighterTurn, randomlyDrawWeapon, saboteur,
+  checkDeaths, fighterArrives, getOpponents, orderFighters, playFighterTurn,
+  saboteur,
 } from './fightMethods.js';
 import getFighters from './getFighters.js';
 import handleStats from './handleStats.js';
@@ -156,33 +156,14 @@ const generateFight = async ({
     }
   });
 
-  const arriveWithWeapon = modifiers.includes(FightModifier.startWithWeapon);
-
   // Add arrive step for all fighters
   fightData.fighters.forEach((fighter) => {
-    const step: ArriveStep = {
-      a: StepType.Arrive,
-      f: fighter.index,
-    };
-
-    if (arriveWithWeapon) {
-      // Randomly draw a weapon for the fighter
-      const possibleWeapon = randomlyDrawWeapon(fightData, fighter.weapons);
-
-      if (possibleWeapon) {
-        // Equip weapon
-        fighter.activeWeapon = possibleWeapon;
-
-        // Remove weapon from possible weapons
-        const weaponIndex = fighter.weapons.findIndex((w) => w.name === possibleWeapon.name);
-        fighter.weapons.splice(weaponIndex, 1);
-
-        // Add weapon to step
-        step.w = WeaponByName[possibleWeapon.name];
-      }
+    // Ignore backups
+    if (fighter.type === 'brute' && fighter.master) {
+      return;
     }
 
-    fightData.steps.push(step);
+    fighterArrives(fightData, fighter);
   });
 
   // Add spy steps (only 1v1)

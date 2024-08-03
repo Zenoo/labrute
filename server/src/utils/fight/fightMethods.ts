@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 import {
   AchievementsStore,
+  ArriveStep,
   AttemptHitStep,
   BASE_FIGHTER_STATS,
   DetailedFight, DetailedFighter, FighterStat, HitStep, LeaveStep,
@@ -369,6 +370,37 @@ const increaseInitiative = (fighter: DetailedFighter) => {
   }
 
   fighter.initiative += tempo;
+};
+
+export const fighterArrives = (
+  fightData: DetailedFight,
+  fighter: DetailedFighter,
+) => {
+  const arriveWithWeapon = fightData.modifiers.includes(FightModifier.startWithWeapon);
+
+  const step: ArriveStep = {
+    a: StepType.Arrive,
+    f: fighter.index,
+  };
+
+  if (arriveWithWeapon) {
+    // Randomly draw a weapon for the fighter
+    const possibleWeapon = randomlyDrawWeapon(fightData, fighter.weapons);
+
+    if (possibleWeapon) {
+      // Equip weapon
+      fighter.activeWeapon = possibleWeapon;
+
+      // Remove weapon from possible weapons
+      const weaponIndex = fighter.weapons.findIndex((w) => w.name === possibleWeapon.name);
+      fighter.weapons.splice(weaponIndex, 1);
+
+      // Add weapon to step
+      step.w = WeaponByName[possibleWeapon.name];
+    }
+  }
+
+  fightData.steps.push(step);
 };
 
 const registerHit = (
@@ -1491,7 +1523,9 @@ export const checkDeaths = (
       }
 
       // Set loser if team has no brutes or bosses alive
-      if (fightData.fighters.filter((f) => f.team === fighter.team && !fighter.master && (f.type === 'brute' || f.type === 'boss') && f.hp > 0).length === 0) {
+      if (fightData.fighters.filter((f) => f.team === fighter.team
+        && !f.master
+        && f.hp > 0).length === 0) {
         fightData.loser = fighter.id;
       }
     }
@@ -1639,10 +1673,7 @@ export const playFighterTurn = (
     fighter.arrivesAtInitiative = undefined;
 
     // Add backup arrive step
-    fightData.steps.push({
-      a: StepType.Arrive,
-      f: fighter.index,
-    });
+    fighterArrives(fightData, fighter);
   }
 
   // Super activation
