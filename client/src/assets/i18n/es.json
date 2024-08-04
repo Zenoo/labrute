@@ -298,7 +298,7 @@
   "hypnosis.effect": "Acción (x{{uses}}) Tu Bruto toma el control de los animales de tu oponente.",
   "flashFlood": "Diluvio",
   "flashFlood.desc": "Pasearse por la calle con 100 kilos de armas es un lastre (sobre todo por la imagen pública). Has encontrado un modo eficaz para aligerar tu carga.",
-  "flashFlood.effect": "Acción (x{{uses}}) Tu Bruto ataca al oponente con la mitad de sus armas.",
+  "flashFlood.effect": "Action (x{{uses}}) Your Brute instantly deals massive damage to his opponent with 3 weapons.",
   "leadSkeleton": "Esqueleto de plomo",
   "leadSkeleton.desc": "Aunque es extremadamente pesado, es imprescindible para reducir considerablemente el daño de las armas contundentes.",
   "leadSkeleton.effect": "Tu Bruto recibe 30% menos de daño de las armas contundentes.",
