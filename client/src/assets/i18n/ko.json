@@ -298,7 +298,7 @@
   "hypnosis.effect": "Action (x{{uses}}) Your Brute takes control of your opponent's animals.",
   "flashFlood": "Flash Flood",
   "flashFlood.desc": "Walking around carrying 100 kilos of weapons is very tiring but you have found a clever way of traveling light.",
-  "flashFlood.effect": "Action (x{{uses}}) Your Brute instantly attacks his opponent with half of their weaponry.",
+  "flashFlood.effect": "Action (x{{uses}}) Your Brute instantly deals massive damage to his opponent with 3 weapons.",
   "leadSkeleton": "Lead Skeleton",
   "leadSkeleton.desc": "Although it's extremely heavy, a lead skeleton is essential as it considerably reduces blunt weapon damage.",
   "leadSkeleton.effect": "Blunt weapons inflict 30% less damage to your brute",
