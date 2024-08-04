@@ -529,6 +529,7 @@ export const SkillModifiers: Record<SkillName, SkillModifier[]> = {
   ],
   [SkillName.bodybuilder]: [
     { stat: FightStat.HIT_SPEED, weaponType: WeaponType.HEAVY, value: 25, percent: true },
+    { stat: FightStat.DEXTERITY, weaponType: WeaponType.HEAVY, value: 10, percent: true },
   ],
   [SkillName.relentless]: [
     { stat: FightStat.ACCURACY, value: 30, percent: true },

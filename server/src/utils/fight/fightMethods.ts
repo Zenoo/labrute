@@ -9,6 +9,7 @@ import {
   randomBetween, randomItem, SHIELD_BLOCK_ODDS, Skill,
   SkillByName, StepType, updateAchievement, Weapon,
   WeaponByName,
+  WeaponType,
 } from '@labrute/core';
 import { FightModifier, PetName, SkillName } from '@labrute/prisma';
 import getDamage from './getDamage.js';
@@ -44,7 +45,14 @@ const getFighterStat = (
     if (onlyStat === 'fighter') return 0;
 
     if (fighter.activeWeapon) {
-      return fighter.activeWeapon[stat];
+      const weaponStat = fighter.activeWeapon[stat];
+
+      // +10% dexterity if `bodybuilder` and using a heavy weapon
+      if (fighter.bodybuilder && fighter.activeWeapon.types.includes(WeaponType.HEAVY)) {
+        return weaponStat + 0.1;
+      }
+
+      return weaponStat;
     }
 
     return fighter.type === 'brute' ? BASE_FIGHTER_STATS[stat] : 0;
