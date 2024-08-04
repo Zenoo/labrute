@@ -14,6 +14,7 @@ import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
+import Link from '../components/Link';
 
 export const FollowingFeedView = () => {
   const { t } = useTranslation();
@@ -59,7 +60,7 @@ export const FollowingFeedView = () => {
                   </ListItemIcon>
                   <ListItemText
                     primary={(
-                      <>
+                      <Link to={`/${log.currentBrute?.name}/cell`}>
                         <Text body2>
                           {t(`log.${log.type}`, {
                             brute: log.currentBrute?.name,
@@ -107,7 +108,7 @@ export const FollowingFeedView = () => {
                             ))}
                           </Text>
                         )}
-                      </>
+                      </Link>
                     )}
                     secondary={moment.utc(log.date).fromNow()}
                   />

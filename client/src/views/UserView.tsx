@@ -229,6 +229,15 @@ const UserView = () => {
                     })}
                   </Box>
                 </Paper>
+                <FantasyButton
+                  color="secondary"
+                  to="/achievements/rankings"
+                  sx={{
+                    mt: 3,
+                  }}
+                >
+                  {t('ranking')}
+                </FantasyButton>
               </Grid>
             </Grid>
             {/* REWARDS */}
@@ -309,16 +318,18 @@ const UserView = () => {
               </>
             )}
             {/* FOLLOWING FEED */}
-            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
-              <FantasyButton
-                to={`/user/${user.id}/feed`}
-                color="warning"
-                sx={{ m: 1 }}
-              >
-                <RssFeed sx={{ verticalAlign: 'middle', mr: 1 }} />
-                {t('followingFeed')}
-              </FantasyButton>
-            </Box>
+            {user.id === authedUser?.id && (
+              <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+                <FantasyButton
+                  to={`/user/${user.id}/feed`}
+                  color="warning"
+                  sx={{ m: 1 }}
+                >
+                  <RssFeed sx={{ verticalAlign: 'middle', mr: 1 }} />
+                  {t('followingFeed')}
+                </FantasyButton>
+              </Box>
+            )}
           </Paper>
         </>
       )}

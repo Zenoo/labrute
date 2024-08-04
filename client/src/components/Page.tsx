@@ -118,11 +118,11 @@ const Page = ({
     navigate('/');
   }, [navigate]);
 
-  // Redirect to Achievements page
-  const goToAchievements = useCallback(() => {
+  // Redirect to User profile
+  const GoToUserProfile = useCallback(() => {
     setOpen(false);
-    navigate('/achievements');
-  }, [navigate]);
+    navigate(`/user/${user?.id}`);
+  }, [navigate, user]);
 
   // Redirect to Hall page
   const goToHall = useCallback(() => {
@@ -192,9 +192,10 @@ const Page = ({
           />
           <SpeedDialAction
             icon={<MilitaryTech color="warning" />}
-            tooltipTitle={t('achievements')}
+            tooltipTitle={t('userProfile', { user: user.name })}
             tooltipOpen
-            onClick={goToAchievements}
+            onClick={GoToUserProfile}
+            sx={{ textAlign: 'right', whiteSpace: 'nowrap' }}
           />
           {user.brutes.slice(0, 3).map((brute) => (
             <SpeedDialAction
