@@ -249,7 +249,7 @@ const skills: Skill[] = [
   },
   {
     name: 'shield',
-    odds: 20,
+    odds: 10,
     type: 'passive',
   },
   {
