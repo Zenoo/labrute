@@ -319,7 +319,7 @@
   "counterAttack.effect": "",
   "ironHead": "Iron Head",
   "ironHead.desc": "Your opponent will be damaged by his own blows!",
-  "ironHead.effect": "For each attack targeted at you, your opponent will have a 30% chance of losing their weapon.",
+  "ironHead.effect": "For each attack targeted at you, your opponent will have a 50% chance of losing their weapon.",
   "reconnaissance": "Reconnaissance",
   "reconnaissance.desc": "You're prepared to take your time in order to analyse your opponent's weaknesses, but once you start fighting, nothing will stop you.",
   "reconnaissance.effect": "",

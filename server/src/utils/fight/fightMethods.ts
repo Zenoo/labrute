@@ -1287,8 +1287,8 @@ const disarmAttacker = (fighter: DetailedFighter, opponent: DetailedFighter) => 
   // Only disarm if opponent has `ironHead`
   if (!opponent.ironHead) return false;
 
-  // 30% chance to disarm the attacker
-  return Math.random() < 0.3;
+  // 50% chance to disarm the attacker
+  return Math.random() < 0.5;
 };
 
 const reversal = (opponent: DetailedFighter, blocked: boolean) => {
