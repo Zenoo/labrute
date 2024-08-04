@@ -298,7 +298,7 @@
   "hypnosis.effect": "Action (x{{uses}}) Your Brute takes control of your opponent's animals.",
   "flashFlood": "Enxurrada",
   "flashFlood.desc": "Andar por aí carregando 100 quilos de armas é muito cansativo, mas você encontrou uma maneira inteligente de viajar com pouca bagagem.",
-  "flashFlood.effect": "Action (x{{uses}}) Your Brute instantly attacks his opponent with half of their weaponry.",
+  "flashFlood.effect": "Action (x{{uses}}) Your Brute instantly deals massive damage to his opponent with 3 weapons.",
   "leadSkeleton": "Esqueleto de Chumbo",
   "leadSkeleton.desc": "Embora seja extremamente pesado, um esqueleto de chumbo é essencial, pois reduz consideravelmente o dano contundente da arma.",
   "leadSkeleton.effect": "Armas contundentes causam 30% menos dano ao seu bruto",
