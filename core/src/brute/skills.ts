@@ -284,7 +284,7 @@ const skills: Skill[] = [
   },
   {
     name: 'relentless',
-    odds: 1,
+    odds: 4,
     type: 'passive',
   },
   {
