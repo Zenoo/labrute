@@ -234,7 +234,7 @@ const getFighters = async ({
         strength: bruteStrength,
         agility: bruteAgility,
         speed: bruteSpeed,
-        initiative: randomBetween(0, 10) / 100,
+        initiative: (randomBetween(0, 10) - bruteSpeed) / 100,
         tempo: getTempo(bruteSpeed),
         baseDamage: BARE_HANDS_DAMAGE,
         counter: 0,
