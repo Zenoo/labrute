@@ -298,7 +298,7 @@
   "hypnosis.effect": "Action (x{{uses}}) Ta brute prend le contrôle des animaux de ton adversaire.",
   "flashFlood": "Déluge",
   "flashFlood.desc": "Puisque se balader avec 100 kilos d'armes t'est devenu insupportable, tu as trouvé un astucieux stratagème pour voyager léger.",
-  "flashFlood.effect": "Action (x{{uses}}) Ta brute lance instantanément la moitié de ses armes sur son adversaire.",
+  "flashFlood.effect": "Action (x{{uses}}) Your Brute instantly deals massive damage to his opponent with 3 weapons.",
   "leadSkeleton": "Squelette Plomb",
   "leadSkeleton.desc": "Pas toujours pratique pour se déplacer, le plombage intégral de la cage thoracique permet néanmoins de réduire considérablement les dégâts des armes contondantes.",
   "leadSkeleton.effect": "Les armes contondantes t'infligent 30% de dégâts de moins",
