@@ -535,7 +535,9 @@ export const SkillModifiers: Record<SkillName, SkillModifier[]> = {
   ],
   [SkillName.survival]: [],
   [SkillName.leadSkeleton]: [],
-  [SkillName.balletShoes]: [],
+  [SkillName.balletShoes]: [
+    { stat: FightStat.EVASION, value: 10, percent: true },
+  ],
   [SkillName.determination]: [],
   [SkillName.firstStrike]: [
     { stat: FightStat.INITIATIVE, value: 200 },

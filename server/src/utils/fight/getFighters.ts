@@ -106,6 +106,11 @@ const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
     fighter.evasion += 0.3;
   }
 
+  // +10% evasion for `balletShoes
+  if (brute.skills.includes(SkillName.balletShoes)) {
+    fighter.evasion += 0.1;
+  }
+
   /* DEFLECT */
 
   // +30% deflect for `repulse`
