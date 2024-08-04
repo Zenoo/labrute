@@ -119,7 +119,7 @@ export enum BanReason {
   MULTIPLE_ACCOUNTS = 'multipleAccounts',
 }
 
-export const FightLogTemplateCount = 28;
+export const FightLogTemplateCount = 48;
 
 export const ClanWarMaxParticipants = 7;
 export const ClanWarPointReward = 1000;
