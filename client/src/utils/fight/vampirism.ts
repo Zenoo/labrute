@@ -41,16 +41,18 @@ export const vampirism = async (
   // Reverse brute
   brute.animation.container.scale.x *= -1;
 
+  const animationEnded = brute.animation.waitForEvent('steal:end');
+
   // Set brute animation to `steal`
   brute.animation.setAnimation('steal');
 
   // Play steal SFX
   void sound.play('skills/tragicPotion', { speed: speed.current });
 
-  const animationEnded = target.animation.waitForEvent('stolen:end');
-
   // Set target animation to `stolen`
-  target.animation.setAnimation('stolen');
+  if (target.type === 'brute') {
+    target.animation.setAnimation('stolen');
+  }
 
   displayHeal(app, brute, step.h, speed);
   displayDamage(app, target, step.d, speed);

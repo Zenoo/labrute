@@ -50,8 +50,8 @@ export const FIGHTER_HEIGHT = {
 } as const;
 export const FIGHTER_WIDTH = {
   brute: 50,
-  [PetName.bear]: 120,
-  [PetName.panther]: 90,
+  [PetName.bear]: 100,
+  [PetName.panther]: 80,
   dog: 60,
 } as const;
 
