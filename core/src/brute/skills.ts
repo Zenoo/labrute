@@ -392,8 +392,8 @@ const skills: Skill[] = [
     name: 'flashFlood',
     odds: 0.5,
     type: 'super',
-    toss: 2,
-    uses: 1,
+    toss: 5,
+    uses: 3,
   },
   {
     name: 'tamer',

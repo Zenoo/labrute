@@ -925,7 +925,7 @@ const activateSuper = (
       // Get damages for each weapon
       const damages = [];
       halfWeapons.forEach((w) => {
-        const damage = getDamage(fighter, opponent, w);
+        const damage = getDamage(fighter, opponent, w) * 2;
         damages.push(damage);
 
         registerHit(fightData, stats, achievements, fighter, [opponent], damage, true, 'flashFlood', w);
