@@ -13,12 +13,12 @@ import {
 } from '@labrute/core';
 import {
   Brute, FightModifier, InventoryItemType, LogType, Prisma, PrismaClient,
-  SkillName,
 } from '@labrute/prisma';
 import applySpy from './applySpy.js';
 import {
   Stats,
-  checkDeaths, fighterArrives, getOpponents, orderFighters, playFighterTurn,
+  checkDeaths, fighterArrives,
+  orderFighters, playFighterTurn,
   saboteur,
 } from './fightMethods.js';
 import getFighters from './getFighters.js';
@@ -144,17 +144,6 @@ const generateFight = async ({
     winner: null,
     loser: null,
   };
-
-  // Poison fighters (not for bosses)
-  fightData.fighters.forEach((fighter) => {
-    if (fighter.skills.find((skill) => skill.name === SkillName.chef)) {
-      getOpponents({ fightData, fighter }).forEach((opponent) => {
-        if (opponent.type !== 'boss') {
-          opponent.poisoned = true;
-        }
-      });
-    }
-  });
 
   // Add arrive step for all fighters
   fightData.fighters.forEach((fighter) => {
