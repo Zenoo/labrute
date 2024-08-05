@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.69.1](https://github.com/Zenoo/labrute/compare/labrute-v2.69.0...labrute-v2.69.1) (2024-08-05)
+
+
+### Bug Fixes
+
+* Clan update error ([ec690b4](https://github.com/Zenoo/labrute/commit/ec690b49dbc25206013faeaa2382d7710f87fe1a))
+* Flash flood not sending 3 weapons ([dffe947](https://github.com/Zenoo/labrute/commit/dffe94713c6069ff8d27544f2039d2ffb6a171b9))
+
 ## [2.69.0](https://github.com/Zenoo/labrute/compare/labrute-v2.68.14...labrute-v2.69.0) (2024-08-05)
 
 
