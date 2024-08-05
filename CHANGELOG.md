@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.69.0](https://github.com/Zenoo/labrute/compare/labrute-v2.68.14...labrute-v2.69.0) (2024-08-05)
+
+
+### Features
+
+* Clan war participation toggle + elo. Fixes [#868](https://github.com/Zenoo/labrute/issues/868) ([7d50bd4](https://github.com/Zenoo/labrute/commit/7d50bd4660111ecf560d0f858ef224090b86dece))
+
+
+### Bug Fixes
+
+* Boost Ballet Shoes, +10% evasion ([6742b45](https://github.com/Zenoo/labrute/commit/6742b45a9e1182edb0bb286f5b30adf29644398f))
+* Buff Bodybuilder, +10% dexterity when using a heavy weapon ([3b7e6ea](https://github.com/Zenoo/labrute/commit/3b7e6eae34036c85c402081b410c826034bafc03))
+* Buff Relentless unlock % ([b9fc821](https://github.com/Zenoo/labrute/commit/b9fc8213c7049f26c06d214ad34b8eb8057a25f7))
+* Clickable events in user feed. Fixes [#878](https://github.com/Zenoo/labrute/issues/878) ([6b97801](https://github.com/Zenoo/labrute/commit/6b978012e8aeeaf649f0bdb6e4934cbad2bba74b))
+* Force draw a weapon with daily modifier. ([e8bae1a](https://github.com/Zenoo/labrute/commit/e8bae1af1fe9d82798c749baddcb2c471b408511))
+* Lower shield odds ([4c332b1](https://github.com/Zenoo/labrute/commit/4c332b1c9d83d9e7a7c7a2bcf199aead69abd6b9))
+* Lower Shock unlock %. Buff Iron Head disarm from 30% to 50% ([f561129](https://github.com/Zenoo/labrute/commit/f561129077cae6a03934b7dc593cb5dbf76d4aac))
+* Make the hatchet a sharp weapon ([0fad4e3](https://github.com/Zenoo/labrute/commit/0fad4e3481f06f21555f083405e18e50ad061b93))
+* New combat log texts. FIxes [#862](https://github.com/Zenoo/labrute/issues/862) ([b059d4c](https://github.com/Zenoo/labrute/commit/b059d4c7c9dcc17730dc01fb68f48b80c17d4971))
+* Poison fighters on backup arrival only ([117a2fc](https://github.com/Zenoo/labrute/commit/117a2fcff9c0a821ac7b762c377e56eb7161f54c))
+* Rename axe and hatchet ([3f8727d](https://github.com/Zenoo/labrute/commit/3f8727de9f71ea163e69d59e290c49a85e7a18ec))
+* Rework Flash Flood. More damage, more uses, more use chances, triggers with 3 weapons. ([54bd105](https://github.com/Zenoo/labrute/commit/54bd105580c2c9778309645aa5dcf065c83c905c))
+* Speed affects initiative. Fixes [#886](https://github.com/Zenoo/labrute/issues/886) ([7e4bf86](https://github.com/Zenoo/labrute/commit/7e4bf8682a0bfebb1b6ef0be3b790a0bb4285a2f))
+* Update Evasion and Counter stat colors ([caaa898](https://github.com/Zenoo/labrute/commit/caaa8986c434e13c7b6ac52e62becaeb969a01e6))
+* Vampirism crash on bosses ([41c4c7b](https://github.com/Zenoo/labrute/commit/41c4c7bcab6fbc4fdbae6bb04bb2198a696438d1))
+
 ## [2.68.14](https://github.com/Zenoo/labrute/compare/labrute-v2.68.13...labrute-v2.68.14) (2024-08-03)
 
 
