@@ -16,6 +16,7 @@ import catchError from '../utils/catchError';
 import { AchievementTooltip } from '../components/AchievementTooltip';
 import { useConfirm } from '../hooks/useConfirm';
 import Link from '../components/Link';
+import { AchievementHeader } from '../components/AchievementHeader';
 
 const UserView = () => {
   const { t } = useTranslation();
@@ -107,6 +108,7 @@ const UserView = () => {
                     borderRadius: 0,
                   }}
                 >
+                  <AchievementHeader />
                   <Text bold h6>{t('achievements')}</Text>
                   <Box sx={{
                     mt: 1,
@@ -149,6 +151,11 @@ const UserView = () => {
                 </Paper>
               </Grid>
               <Grid item xs={12} md={6}>
+                <AchievementHeader sx={{
+                  mt: -0.5,
+                  mb: -1.5,
+                }}
+                />
                 <Paper
                   sx={{
                     bgcolor: 'background.paperDark',

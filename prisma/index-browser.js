@@ -319,11 +319,14 @@ exports.Prisma.BannedIpScalarFieldEnum = {
 exports.Prisma.ClanScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  deletedAt: 'deletedAt',
   limit: 'limit',
   points: 'points',
+  elo: 'elo',
   boss: 'boss',
   damageOnBoss: 'damageOnBoss',
-  masterId: 'masterId'
+  masterId: 'masterId',
+  participateInClanWar: 'participateInClanWar'
 };
 
 exports.Prisma.ClanThreadScalarFieldEnum = {

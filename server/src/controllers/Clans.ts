@@ -50,7 +50,7 @@ const Clans = {
           FROM "Clan" AS c
           LEFT JOIN "Brute" AS b ON c.id = b."clanId"
           LEFT JOIN "Brute" AS m ON c."masterId" = m.id
-          WHERE c.name ILIKE ${`%${search}%`}
+          WHERE c."deletedAt" IS NULL AND c.name ILIKE ${`%${search}%`}
           GROUP BY c.id, m.name
           ORDER BY c.points DESC, c.name ASC
           OFFSET ${(page - 1) * 15}
@@ -62,6 +62,7 @@ const Clans = {
           FROM "Clan" AS c
           LEFT JOIN "Brute" AS b ON c.id = b."clanId"
           LEFT JOIN "Brute" AS m ON c."masterId" = m.id
+          WHERE c."deletedAt" IS NULL
           GROUP BY c.id, m.name
           ORDER BY c.points DESC, c.name ASC
           OFFSET ${(page - 1) * 15}
@@ -72,9 +73,12 @@ const Clans = {
       res.status(200).send(clans.map((clan) => ({
         id: clan.id,
         name: clan.name,
+        deletedAt: clan.deletedAt,
+        elo: clan.elo,
         limit: clan.limit,
         points: clan.points,
         boss: clan.boss,
+        participateInClanWar: clan.participateInClanWar,
         damageOnBoss: clan.damageOnBoss,
         masterId: clan.masterId,
         master: {
@@ -133,7 +137,10 @@ const Clans = {
 
       // Check if clan name is available
       const clanExists = await prisma.clan.count({
-        where: { name: ilike(clanName) },
+        where: {
+          deletedAt: null,
+          name: ilike(clanName),
+        },
       });
 
       if (clanExists) {
@@ -187,7 +194,7 @@ const Clans = {
       const { id } = req.params;
 
       const clan = await prisma.clan.findFirst({
-        where: { id },
+        where: { id, deletedAt: null },
         include: {
           master: {
             select: {
@@ -305,7 +312,7 @@ const Clans = {
       const { id } = req.params;
 
       const clan = await prisma.clan.findFirst({
-        where: { id },
+        where: { id, deletedAt: null },
         select: {
           id: true,
           limit: true,
@@ -373,7 +380,7 @@ const Clans = {
       const { id } = req.params;
 
       const clan = await prisma.clan.findFirst({
-        where: { id },
+        where: { id, deletedAt: null },
         select: {
           id: true,
           limit: true,
@@ -431,7 +438,7 @@ const Clans = {
       const { id } = req.params;
 
       const clan = await prisma.clan.findFirst({
-        where: { id },
+        where: { id, deletedAt: null },
         select: {
           id: true,
           limit: true,
@@ -523,7 +530,7 @@ const Clans = {
       const { id } = req.params;
 
       const clan = await prisma.clan.findFirst({
-        where: { id },
+        where: { id, deletedAt: null },
         select: {
           id: true,
           masterId: true,
@@ -585,7 +592,7 @@ const Clans = {
       const { id } = req.params;
 
       const clan = await prisma.clan.findFirst({
-        where: { id },
+        where: { id, deletedAt: null },
         select: {
           id: true,
           masterId: true,
@@ -657,7 +664,7 @@ const Clans = {
       const { id } = req.params;
 
       const clan = await prisma.clan.findFirst({
-        where: { id },
+        where: { id, deletedAt: null },
         select: {
           id: true,
           masterId: true,
@@ -694,23 +701,11 @@ const Clans = {
           throw new ExpectedError(translate('masterCannotLeave', user));
         }
 
-        // Delete posts
-        await prisma.clanPost.deleteMany({
-          where: { thread: { clanId: clan.id } },
+        // Set clan as deleted
+        await prisma.clan.update({
+          where: { id: clan.id },
+          data: { deletedAt: new Date() },
         });
-
-        // Delete threads
-        await prisma.clanThread.deleteMany({
-          where: { clanId: clan.id },
-        });
-
-        // Delete boss damages
-        await prisma.bossDamage.deleteMany({
-          where: { clanId: clan.id },
-        });
-
-        // Delete clan
-        await prisma.clan.delete({ where: { id: clan.id } });
       } else {
         // Update clan
         await prisma.clan.update({
@@ -762,7 +757,7 @@ const Clans = {
       }
 
       const clan = await prisma.clan.findFirst({
-        where: { id },
+        where: { id, deletedAt: null },
         select: { masterId: true },
       });
 
@@ -963,7 +958,7 @@ const Clans = {
 
       const clan = await prisma.clan.findFirst({
         where: {
-          id,
+          id, deletedAt: null,
         },
         select: { id: true, masterId: true },
       });
@@ -1107,7 +1102,7 @@ const Clans = {
 
       const clan = await prisma.clan.findFirst({
         where: {
-          id,
+          id, deletedAt: null,
         },
         select: { id: true, boss: true, damageOnBoss: true },
       });
@@ -1224,7 +1219,7 @@ const Clans = {
 
       const clan = await prisma.clan.findFirst({
         where: {
-          id,
+          id, deletedAt: null,
         },
         select: { id: true, masterId: true },
       });
@@ -1292,7 +1287,7 @@ const Clans = {
 
       const clan = await prisma.clan.findFirst({
         where: {
-          id,
+          id, deletedAt: null,
         },
         select: { id: true, masterId: true },
       });
@@ -1343,7 +1338,7 @@ const Clans = {
       const { id } = req.params;
 
       const clan = await prisma.clan.findFirst({
-        where: { id },
+        where: { id, deletedAt: null },
         select: {
           id: true,
           masterId: true,
@@ -1388,6 +1383,52 @@ const Clans = {
       await prisma.clan.update({
         where: { id },
         data: { masterId: brute.id },
+        select: { id: true },
+      });
+
+      res.status(200).send({ message: 'ok' });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  toggleClanWarParticipation: (prisma: PrismaClient) => async (
+    req: Request<{ id: string }>,
+    res: Response,
+  ) => {
+    try {
+      const user = await auth(prisma, req);
+
+      if (!req.params.id || !isUuid(req.params.id)) {
+        throw new ExpectedError(translate('missingClanId', user));
+      }
+
+      const { id } = req.params;
+
+      const clan = await prisma.clan.findFirst({
+        where: { id, deletedAt: null },
+        select: { id: true, participateInClanWar: true, masterId: true },
+      });
+
+      if (!clan) {
+        throw new ExpectedError(translate('clanNotFound', user));
+      }
+
+      const userBrutes = await prisma.brute.findMany({
+        where: {
+          userId: user.id,
+          deletedAt: null,
+        },
+        select: { id: true },
+      });
+
+      // Check if one of the user brutes is the clan master
+      if (!userBrutes.some((b) => b.id === clan.masterId)) {
+        throw new ExpectedError(translate('unauthorized', user));
+      }
+
+      await prisma.clan.update({
+        where: { id },
+        data: { participateInClanWar: !clan.participateInClanWar },
         select: { id: true },
       });
 

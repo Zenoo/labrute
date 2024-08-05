@@ -92,7 +92,6 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   app.post('/api/brute/:name/reset-visuals', Brutes.resetVisuals(prisma));
   app.get('/api/brute/:name/change-name/:newName', Brutes.changeName(prisma));
   app.get('/api/brute/:name/inventory', Brutes.getInventory(prisma));
-  app.get('/api/brute/:name/master-clan', Brutes.getClanIdAsMaster(prisma));
   app.put('/api/brute/item', Brutes.giveItem(prisma));
 
   // Log
@@ -149,11 +148,10 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   app.get('/api/brute/:brute/clan/:id/thread/:threadId/unpin', Clans.unpinThread(prisma));
   app.get('/api/brute/:brute/clan/:id/thread/:threadId', Clans.getThread(prisma));
   app.get('/api/brute/:brute/clan/:id/challenge-boss', Clans.challengeBoss(prisma));
+  app.put('/api/clan/:id/toggle-war', Clans.toggleClanWarParticipation(prisma));
 
   // Clan war
   app.put('/api/clan/war', ClanWars.create(prisma));
-  app.post('/api/clan/war/reject', ClanWars.reject(prisma));
-  app.post('/api/clan/war/accept', ClanWars.accept(prisma));
   app.post('/api/clan/war/fighters', ClanWars.getAvailableFighters(prisma));
   app.post('/api/clan/war/fighters/toggle', ClanWars.toggleFighter(prisma));
   app.get('/api/clan/:clan/war/history', ClanWars.getHistory(prisma));

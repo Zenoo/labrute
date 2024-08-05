@@ -12,6 +12,7 @@ import { useAuth } from '../hooks/useAuth';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
 import { AchievementTooltip } from '../components/AchievementTooltip';
+import { AchievementHeader } from '../components/AchievementHeader';
 
 const AchievementsView = () => {
   const { t } = useTranslation();
@@ -60,6 +61,7 @@ const AchievementsView = () => {
                 borderRadius: 0,
               }}
             >
+              <AchievementHeader />
               <Text bold h6>{t('achievements')}</Text>
               <Box sx={{
                 mt: 1,
@@ -110,6 +112,7 @@ const AchievementsView = () => {
                 borderRadius: 0,
               }}
             >
+              <AchievementHeader />
               <Text bold h6>{t('titles')}</Text>
               <Box sx={{
                 mt: 1,

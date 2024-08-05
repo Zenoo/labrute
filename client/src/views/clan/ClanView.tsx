@@ -1,7 +1,7 @@
 import { BruteRanking, ClanGetResponse, bosses, getFightsLeft } from '@labrute/core';
-import { Brute, ClanWarStatus } from '@labrute/prisma';
+import { Brute } from '@labrute/prisma';
 import { HighlightOff, History, PlayCircleOutline } from '@mui/icons-material';
-import { Box, Button, ButtonGroup, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useTheme } from '@mui/material';
+import { Box, Button, ButtonGroup, Checkbox, FormControlLabel, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useTheme } from '@mui/material';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -33,6 +33,7 @@ const ClanView = () => {
   const [clan, setClan] = useState<ClanGetResponse | null>(null);
   const [damageDisplayed, setDamageDisplayed] = useState(false);
   const [sort, setSort] = useState<SortOption>(SortOption.Default);
+  const [warEnabled, setWarEnabled] = useState(false);
 
   const boss = useMemo(() => clan && bosses.find((b) => b.name === clan.boss), [clan]);
 
@@ -44,6 +45,7 @@ const ClanView = () => {
 
     Server.Clan.get(id).then((data) => {
       setClan(data);
+      setWarEnabled(data.participateInClanWar);
     }).catch(catchError(Alert));
   }, [id, Alert]);
 
@@ -329,56 +331,25 @@ const ClanView = () => {
     navigate(`/${brute.name}/clan/${opponent.id}`);
   };
 
-  // Accept clan war
-  const acceptClanWar = () => {
-    if (!brute || !clan || !clanWar) return;
+  const toggleWar = () => {
+    if (!clan) return;
 
-    Server.ClanWar.accept(brute.id, clan.id, clanWar.id).then(() => {
-      Alert.open('success', t('warAccepted'));
-
-      // Update war status
-      setClan((prevClan) => {
-        if (!prevClan) return null;
-
-        const newClan = { ...prevClan };
-        const attack = newClan.attacks[0];
-        const defense = newClan.defenses[0];
-
-        if (attack) {
-          attack.status = ClanWarStatus.ongoing;
-        } else if (defense) {
-          defense.status = ClanWarStatus.ongoing;
-        }
-
-        return newClan;
-      });
-    }).catch(catchError(Alert));
-  };
-
-  // Reject clan war
-  const rejectClanWar = () => {
-    if (!brute || !clan || !clanWar) return;
-
-    Server.ClanWar.reject(brute.id, clan.id, clanWar.id).then(() => {
-      Alert.open('success', t('warRejected'));
-
-      // Update war status
-      setClan((prevClan) => {
-        if (!prevClan) return null;
-
-        return {
-          ...prevClan,
-          attacks: [],
-          defenses: [],
-        };
-      });
+    Server.Clan.toggleWar(clan.id).then(() => {
+      setWarEnabled((prev) => !prev);
     }).catch(catchError(Alert));
   };
 
   return clan && (
     <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/cell`}>
       <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('clan')} {clan.name}</Text>
+        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>
+          {warEnabled && (
+            <Tooltip title={t('clanWarsEnabled')}>
+              <Box component="img" src="/images/clan/war.webp" sx={{ width: 20, mr: 1 }} />
+            </Tooltip>
+          )}
+          {t('clan')} {clan.name}
+        </Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         <Box sx={{
@@ -420,6 +391,15 @@ const ClanView = () => {
             </Link>
           )}
         </Box>
+        {/* WAR TOGGLE */}
+        {owner && clan.masterId === brute?.id && (
+          <FormControlLabel
+            control={(
+              <Checkbox checked={warEnabled} onChange={toggleWar} />
+            )}
+            label={t('toggleWar')}
+          />
+        )}
         {/* ONGOING CLAN WAR */}
         {clanWar && (
           <Box>
@@ -540,36 +520,6 @@ const ClanView = () => {
                 </Box>
               </StyledButton>
             </Box>
-            {owner
-              && clan?.masterId === brute?.id
-              && !!clan.defenses.length
-              && clanWar.status === ClanWarStatus.pending
-              && (
-                <Box sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  mt: 1
-                }}
-                >
-                  {/* ACCEPT */}
-                  <FantasyButton
-                    color="success"
-                    onClick={acceptClanWar}
-                    sx={{ m: 1 }}
-                  >
-                    {t('accept')}
-                  </FantasyButton>
-                  {/* REJECT */}
-                  <FantasyButton
-                    color="error"
-                    onClick={rejectClanWar}
-                    sx={{ m: 1 }}
-                  >
-                    {t('reject')}
-                  </FantasyButton>
-                </Box>
-              )}
           </Box>
         )}
         {/* BOSS */}

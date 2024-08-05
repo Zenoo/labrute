@@ -608,23 +608,26 @@ enum BossName {
 }
 
 model Clan {
-  id           String       @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  name         String       @unique @db.VarChar(255)
-  limit        Int          @default(10)
-  points       Int          @default(0)
-  boss         BossName     @default(GoldClaw)
-  damageOnBoss Int          @default(0)
-  master       Brute        @relation("MasterOfClan", fields: [masterId], references: [id])
-  masterId     String       @unique @db.Uuid
-  brutes       Brute[]
-  joinRequests Brute[]      @relation("JoinRequests")
-  threads      ClanThread[]
-  bossDamages  BossDamage[]
-  attacks      ClanWar[]    @relation("ClanWarAttacker")
-  defenses     ClanWar[]    @relation("ClanWarDefender")
-  wins         ClanWar[]    @relation("ClanWarWinner")
+  id                   String       @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name                 String       @unique @db.VarChar(255)
+  deletedAt            DateTime?    @db.Timestamptz()
+  limit                Int          @default(10)
+  points               Int          @default(0)
+  elo                  Int          @default(1000)
+  boss                 BossName     @default(GoldClaw)
+  damageOnBoss         Int          @default(0)
+  master               Brute        @relation("MasterOfClan", fields: [masterId], references: [id])
+  masterId             String       @unique @db.Uuid
+  participateInClanWar Boolean      @default(false)
+  brutes               Brute[]
+  joinRequests         Brute[]      @relation("JoinRequests")
+  threads              ClanThread[]
+  bossDamages          BossDamage[]
+  attacks              ClanWar[]    @relation("ClanWarAttacker")
+  defenses             ClanWar[]    @relation("ClanWarDefender")
+  wins                 ClanWar[]    @relation("ClanWarWinner")
 
-  @@index([name, points])
+  @@index([deletedAt, name, points])
 }
 
 model ClanThread {
@@ -675,7 +678,7 @@ model ClanWar {
   id           String            @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   duration     Int               @default(7)
   date         DateTime          @default(now()) @db.Date
-  status       ClanWarStatus     @default(pending)
+  status       ClanWarStatus     @default(ongoing)
   attacker     Clan              @relation("ClanWarAttacker", fields: [attackerId], references: [id])
   attackerId   String            @db.Uuid
   defender     Clan              @relation("ClanWarDefender", fields: [defenderId], references: [id])

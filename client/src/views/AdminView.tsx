@@ -25,7 +25,7 @@ const AdminView = () => {
   const [brute, setBrute] = useState<AdminPanelBrute | null>(null);
   const [globalTournamentValid, setGlobalTournamentValid] = useState(true);
   const [nextModifiers, setNextModifiers] = useState<FightModifier[]>([]);
-  const [item, setItem] = useState<InventoryItemType | null>(null);
+  const [item, setItem] = useState<InventoryItemType | ''>('');
 
   // Change bruteName
   const changeBruteName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {

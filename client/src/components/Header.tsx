@@ -1,5 +1,5 @@
 import { pad } from '@labrute/core';
-import { Box, BoxProps, Link, Paper, useTheme } from '@mui/material';
+import { Box, BoxProps, Link, Paper, Tooltip, useTheme } from '@mui/material';
 import moment from 'moment';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -96,9 +96,12 @@ const Header = ({
           width: '23.118279569%',
         }}
       />
-      <Text center bold color="secondary">
-        {t('serverTime')}: {time.format('HH:mm')}
-      </Text>
+      <Tooltip title={t('serverTime')}>
+        <Text center bold color="secondary">
+          <Box component="img" src="/images/time.webp" sx={{ width: 11, mr: 0.5 }} />
+          {time.format('HH:mm')}
+        </Text>
+      </Tooltip>
       {!!modifiers.length && (
         <Paper sx={{ mx: 1, p: 0, cursor: 'pointer' }} onClick={pauseMarquee}>
           <Marquee

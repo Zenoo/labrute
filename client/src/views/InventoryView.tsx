@@ -17,9 +17,9 @@ import catchError from '../utils/catchError';
 
 const itemImage: Record<InventoryItemType, string> = {
   [InventoryItemType.visualReset]: '/images/inventory/color-reset.svg',
-  [InventoryItemType.bossTicket]: '/images/rankings/lvl_0.webp',
-  [InventoryItemType.nameChange]: '/images/weapons/keyboard.png',
-  [InventoryItemType.favoriteFight]: '/images/hp.webp',
+  [InventoryItemType.bossTicket]: '/images/inventory/bossTicket.webp',
+  [InventoryItemType.nameChange]: '/images/inventory/nameChange.webp',
+  [InventoryItemType.favoriteFight]: '/images/inventory/favoriteFight.webp',
 };
 
 export const InventoryView = () => {
@@ -118,12 +118,10 @@ export const InventoryView = () => {
                       <Box sx={{
                         width: 185,
                         height: 89,
-                        pl: 1,
-                        pt: 0.5,
-                        display: 'inline-block',
-                        textAlign: 'center',
-                        position: 'relative',
-                        overflow: 'hidden',
+                        p: 0.5,
+                        pt: 1,
+                        display: 'inline-flex',
+                        flexDirection: 'column',
                       }}
                       >
                         <Text bold color="secondary">
@@ -135,11 +133,19 @@ export const InventoryView = () => {
                           )}
                         </Text>
                         {itemImage[item.type] && (
-                          <Box
-                            component="img"
-                            src={itemImage[item.type]}
-                            sx={{ maxWidth: 1 }}
-                          />
+                          <Box sx={{
+                            display: 'flex',
+                            flex: 1,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                          }}
+                          >
+                            <Box
+                              component="img"
+                              src={itemImage[item.type]}
+                              sx={{ width: 28 }}
+                            />
+                          </Box>
                         )}
                       </Box>
                     </StyledButton>

@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Clan" ADD COLUMN     "elo" INTEGER NOT NULL DEFAULT 1000,
+ADD COLUMN     "participateInClanWar" BOOLEAN NOT NULL DEFAULT false;

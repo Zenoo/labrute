@@ -38,7 +38,11 @@ const ClanWars = {
 
       // Check if brute is the clan master
       const clan = await prisma.clan.findFirst({
-        where: { id: req.body.clan, masterId: req.body.brute },
+        where: {
+          deletedAt: null,
+          id: req.body.clan,
+          masterId: req.body.brute,
+        },
         select: { id: true },
       });
 
@@ -64,7 +68,7 @@ const ClanWars = {
 
       // Check if the opponent clan exists
       const opponent = await prisma.clan.findFirst({
-        where: { id: req.body.opponent },
+        where: { id: req.body.opponent, deletedAt: null },
         select: { id: true },
       });
 
@@ -98,104 +102,6 @@ const ClanWars = {
       });
 
       res.status(200).send(newWar);
-    } catch (error) {
-      sendError(res, error);
-    }
-  },
-  reject: (prisma: PrismaClient) => async (
-    req: Request<never, unknown, { brute: string; clan: string; war: string }>,
-    res: Response,
-  ) => {
-    try {
-      const user = await auth(prisma, req);
-
-      if (!req.body.brute || !req.body.clan || !req.body.war) {
-        throw new ExpectedError(translate('missingParameters', user));
-      }
-
-      // Check if the user owns the brute
-      const brute = await prisma.brute.findFirst({
-        where: { id: req.body.brute, deletedAt: null, userId: user.id },
-        select: { id: true },
-      });
-
-      if (!brute) {
-        throw new ExpectedError(translate('bruteNotFound', user));
-      }
-
-      const war = await prisma.clanWar.findFirst({
-        where: {
-          id: req.body.war,
-          defenderId: req.body.clan,
-          status: ClanWarStatus.pending,
-          defender: { masterId: req.body.brute },
-        },
-        select: { id: true },
-      });
-
-      if (!war) {
-        throw new ExpectedError(translate('warNotFound', user));
-      }
-
-      await prisma.clanWar.delete({
-        where: { id: war.id },
-      });
-
-      res.status(200).send({
-        success: true,
-      });
-    } catch (error) {
-      sendError(res, error);
-    }
-  },
-  accept: (prisma: PrismaClient) => async (
-    req: Request<never, unknown, { brute: string; clan: string; war: string }>,
-    res: Response,
-  ) => {
-    try {
-      const user = await auth(prisma, req);
-
-      if (!req.body.brute || !req.body.clan || !req.body.war) {
-        throw new ExpectedError(translate('missingParameters', user));
-      }
-
-      // Check if the user owns the brute
-      const brute = await prisma.brute.findFirst({
-        where: { id: req.body.brute, deletedAt: null, userId: user.id },
-        select: { id: true },
-      });
-
-      if (!brute) {
-        throw new ExpectedError(translate('bruteNotFound', user));
-      }
-
-      const war = await prisma.clanWar.findFirst({
-        where: {
-          id: req.body.war,
-          defenderId: req.body.clan,
-          status: ClanWarStatus.pending,
-          defender: { masterId: req.body.brute },
-        },
-        select: { id: true },
-      });
-
-      if (!war) {
-        throw new ExpectedError(translate('warNotFound', user));
-      }
-
-      await prisma.clanWar.update({
-        where: {
-          id: war.id,
-        },
-        data: {
-          status: ClanWarStatus.ongoing,
-          date: new Date(),
-        },
-      });
-
-      res.status(200).send({
-        success: true,
-      });
     } catch (error) {
       sendError(res, error);
     }

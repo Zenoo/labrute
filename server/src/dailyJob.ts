@@ -6,6 +6,7 @@ import {
   DailyModifierOdds,
   DailyModifierSpawnChance,
   Fighter,
+  getNewElo,
   getWinsNeededToRankUp,
   LAST_RELEASE,
   randomBetween,
@@ -1117,60 +1118,6 @@ const handleClanWars = async (
   prisma: PrismaClient,
   modifiers: FightModifier[],
 ) => {
-  // Temporary needed since clans were able to initiate multiple wars
-  // TODO: Remove on release
-
-  // Get clans with multiple wars
-  const clansWithMultipleWars = await prisma.clan.findMany({
-    where: {
-      defenses: {
-        some: {
-          status: { not: ClanWarStatus.finished },
-        },
-      },
-      attacks: {
-        some: {
-          status: { not: ClanWarStatus.finished },
-        },
-      },
-    },
-    select: {
-      id: true,
-      defenses: {
-        where: {
-          status: { not: ClanWarStatus.finished },
-        },
-        select: { id: true },
-      },
-      attacks: {
-        where: {
-          status: { not: ClanWarStatus.finished },
-        },
-        select: { id: true },
-      },
-    },
-  });
-
-  // Delete all but the first war
-  let deleted = 0;
-  for (const clan of clansWithMultipleWars) {
-    const wars = [...clan.defenses, ...clan.attacks];
-
-    const request = await prisma.clanWar.deleteMany({
-      where: {
-        id: {
-          in: wars.slice(1).map((war) => war.id),
-        },
-      },
-    });
-
-    deleted += request.count;
-  }
-
-  if (deleted) {
-    LOGGER.log(`Deleted ${deleted} duplicate clan wars`);
-  }
-
   // Give rewards for finished clan wars
   const finishedClanWars = await prisma.clanWar.findMany({
     where: {
@@ -1179,6 +1126,12 @@ const handleClanWars = async (
     select: {
       id: true,
       winnerId: true,
+      attacker: {
+        select: { id: true, elo: true },
+      },
+      defender: {
+        select: { id: true, elo: true },
+      },
     },
   });
 
@@ -1187,13 +1140,36 @@ const handleClanWars = async (
       throw new Error('No winner for clan war');
     }
 
-    // Update clan points
+    const attackerElo = getNewElo(
+      clanWar.attacker.elo,
+      clanWar.defender.elo,
+      clanWar.winnerId === clanWar.attacker.id,
+    );
+    const defenderElo = getNewElo(
+      clanWar.defender.elo,
+      clanWar.attacker.elo,
+      clanWar.winnerId === clanWar.defender.id,
+    );
+
+    // Update attacker
     await prisma.clan.update({
-      where: { id: clanWar.winnerId },
+      where: { id: clanWar.attacker.id },
       data: {
         points: {
-          increment: ClanWarPointReward,
+          increment: clanWar.winnerId === clanWar.attacker.id ? ClanWarPointReward : undefined,
         },
+        elo: attackerElo,
+      },
+    });
+
+    // Update defender
+    await prisma.clan.update({
+      where: { id: clanWar.defender.id },
+      data: {
+        points: {
+          increment: clanWar.winnerId === clanWar.defender.id ? ClanWarPointReward : undefined,
+        },
+        elo: defenderElo,
       },
     });
 
@@ -1423,6 +1399,55 @@ const handleClanWars = async (
 
   if (clanWars.length - skipped) {
     LOGGER.log(`${clanWars.length - skipped} clan wars handled`);
+  }
+
+  // Get clans participating in clan wars
+  const clans = await prisma.clan.findMany({
+    where: {
+      deletedAt: null,
+      participateInClanWar: true,
+      attacks: {
+        none: {
+          status: { not: ClanWarStatus.finished },
+        },
+      },
+      defenses: {
+        none: {
+          status: { not: ClanWarStatus.finished },
+        },
+      },
+    },
+    select: {
+      id: true,
+    },
+    orderBy: {
+      elo: 'desc',
+    },
+  });
+
+  // Create new clan wars (pairing clans)
+  let created = 0;
+
+  for (let i = 0; i < clans.length; i += 2) {
+    const attackerId = clans[i]?.id;
+    const defenderId = clans[i + 1]?.id;
+
+    if (!attackerId || !defenderId) {
+      break;
+    }
+
+    await prisma.clanWar.create({
+      data: {
+        attacker: { connect: { id: attackerId } },
+        defender: { connect: { id: defenderId } },
+      },
+    });
+
+    created++;
+  }
+
+  if (created) {
+    LOGGER.log(`${created} new clan wars created`);
   }
 };
 

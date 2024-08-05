@@ -1,5 +1,5 @@
 import { Box, Grid, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useMediaQuery, useTheme } from '@mui/material';
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import FantasyButton from '../../components/FantasyButton';
@@ -8,11 +8,9 @@ import Loader from '../../components/Loader';
 import Page from '../../components/Page';
 import StyledInput from '../../components/StyledInput';
 import Text from '../../components/Text';
-import { useAlert } from '../../hooks/useAlert';
 import { useBrute } from '../../hooks/useBrute';
 import useStateAsync from '../../hooks/useStateAsync';
 import Server from '../../utils/Server';
-import catchError from '../../utils/catchError';
 
 const ClanRankingView = () => {
   const { t } = useTranslation();
@@ -20,23 +18,12 @@ const ClanRankingView = () => {
   const { brute } = useBrute();
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
-  const Alert = useAlert();
 
   const [page, setPage] = React.useState(1);
   const [search, setSearch] = React.useState('');
-  const [clanIdAsMaster, setClanIdAsMaster] = React.useState<string | null>(null);
 
   const params = useMemo(() => ({ page, search }), [page, search]);
   const { data: clans, set: setClans } = useStateAsync(null, Server.Clan.list, params);
-
-  // Fetch the clan id if the brute is the master of a clan
-  useEffect(() => {
-    if (!brute) return;
-
-    Server.Brute.getClanIdAsMaster(brute.name)
-      .then(({ id }) => setClanIdAsMaster(id))
-      .catch(catchError(Alert));
-  }, [Alert, brute]);
 
   const changeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setClans(null);
@@ -47,18 +34,6 @@ const ClanRankingView = () => {
   const changePage = (delta: number) => () => {
     setClans(null);
     setPage(page + delta);
-  };
-
-  // Declare war
-  const declareWar = (clanId: string) => () => {
-    if (!brute || !clanIdAsMaster) return;
-
-    Server.ClanWar.create(brute.id, clanIdAsMaster, clanId)
-      .then(() => {
-        setClanIdAsMaster(null);
-        Alert.open('success', t('warDeclared'));
-      })
-      .catch(catchError(Alert));
   };
 
   return (
@@ -127,9 +102,9 @@ const ClanRankingView = () => {
                     <TableRow>
                       <TableCell />
                       <TableCell>{t('clan')}</TableCell>
-                      {clanIdAsMaster && <TableCell />}
                       <TableCell>{t('master')}</TableCell>
                       <TableCell>{t('members')}</TableCell>
+                      <TableCell>{t('elo')}</TableCell>
                       <TableCell align="right">{t('points')}</TableCell>
                     </TableRow>
                   </TableHead>
@@ -140,32 +115,24 @@ const ClanRankingView = () => {
                           {(page - 1) * 15 + index + 1}
                         </TableCell>
                         <TableCell>
+                          {clan.participateInClanWar && (
+                            <Tooltip title={t('clanWarsEnabled')}>
+                              <Box component="img" src="/images/clan/war.webp" sx={{ width: 12, verticalAlign: 'text-bottom', mr: 0.5 }} />
+                            </Tooltip>
+                          )}
                           <Link to={`/${bruteName || ''}/clan/${clan.id}`}>
                             {clan.name}
                           </Link>
                         </TableCell>
-                        {clanIdAsMaster && (
-                          <TableCell>
-                            {clanIdAsMaster !== clan.id && (
-                              <Tooltip title={t('declareWar')}>
-                                <Box
-                                  component="img"
-                                  src="/images/clan/pinned.png"
-                                  onClick={declareWar(clan.id)}
-                                  sx={{ width: 16, cursor: 'pointer' }}
-                                />
-                              </Tooltip>
-                            )}
-                          </TableCell>
-                        )}
                         <TableCell>{clan.master.name}</TableCell>
                         <TableCell>{clan.brutes.length}</TableCell>
+                        <TableCell>{clan.elo}</TableCell>
                         <TableCell align="right">{clan.points}</TableCell>
                       </TableRow>
                     ))) : (
                       <TableRow>
                         <TableCell component="th" scope="row" />
-                        <TableCell colSpan={clanIdAsMaster ? 5 : 4}>
+                        <TableCell colSpan={5}>
                           <Loader size={20} />
                         </TableCell>
                       </TableRow>

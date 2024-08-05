@@ -46,6 +46,7 @@ export * from './releases';
 export * from './types';
 export * from './utils/isUuid';
 export * from './utils/randomItem';
+export * from './Elo';
 export {
   adjustColor, applySkillModifiers,
   availableBodyParts, Boss, bosses, canLevelUp,
@@ -130,9 +131,6 @@ export type BrutesCreateResponse = {
 };
 export type BrutesGetLevelUpChoicesResponse = {
   choices: [DestinyChoice, DestinyChoice],
-};
-export type BrutesGetClanIdAsMasterResponse = {
-  id: string | null,
 };
 
 export type ServerReadyResponse = {
