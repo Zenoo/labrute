@@ -5,7 +5,6 @@ import availableBodyParts from './brute/availableBodyParts';
 import bosses, { Boss } from './brute/bosses';
 import canLevelUp from './brute/canLevelUp';
 import createRandomBruteStats from './brute/createRandomBruteStats';
-import getBruteGoldValue from './brute/getBruteGoldValue';
 import getFightsLeft from './brute/getFightsLeft';
 import { getGoldNeededForNewBrute } from './brute/getGoldNeededForNewBrute';
 import getLevelUpChoices from './brute/getLevelUpChoices';
@@ -30,6 +29,7 @@ import weightedRandom from './utils/weightedRandom';
 export * from './Achievements';
 export * from './Titles';
 export * from './brute/colors';
+export * from './brute/getBruteGoldValue';
 export * from './brute/getFinalStats';
 export * from './brute/getHP';
 export * from './brute/getRandomStartingStats';
@@ -50,7 +50,7 @@ export * from './Elo';
 export {
   adjustColor, applySkillModifiers,
   availableBodyParts, Boss, bosses, canLevelUp,
-  createRandomBruteStats, ExpectedError, formatLargeNumber, getBruteGoldValue,
+  createRandomBruteStats, ExpectedError, formatLargeNumber,
   getFightsLeft, getGoldNeededForNewBrute,
   getLevelUpChoices,
   getMaxFightsPerDay,
