@@ -914,22 +914,18 @@ const activateSuper = (
 
       // Shuffle weapons
       const shuffledWeapons = [...fighter.weapons].sort(() => Math.random() - 0.5);
-      // Get half of the weapons
-      const halfWeapons = shuffledWeapons.slice(0, Math.floor(shuffledWeapons.length / 2));
-
-      // Add active weapon as first weapon if any
-      if (fighter.activeWeapon) {
-        halfWeapons.unshift(fighter.activeWeapon);
-      }
+      // Get 3 weapons
+      const weaponsToThrow = shuffledWeapons.slice(0, fighter.activeWeapon ? 2 : 3);
 
       // Remove those weapons from the fighter
-      halfWeapons.forEach((w) => {
+      weaponsToThrow.forEach((w) => {
         const weaponIndex = fighter.weapons.findIndex((weapon) => weapon.name === w.name);
         fighter.weapons.splice(weaponIndex, 1);
       });
 
-      // Remove active weapon if any
+      // Add active weapon as first weapon if any
       if (fighter.activeWeapon) {
+        weaponsToThrow.unshift(fighter.activeWeapon);
         fighter.activeWeapon = null;
       }
 
@@ -942,7 +938,7 @@ const activateSuper = (
 
       // Get damages for each weapon
       const damages = [];
-      halfWeapons.forEach((w) => {
+      weaponsToThrow.forEach((w) => {
         const damage = getDamage(fighter, opponent, w) * 2;
         damages.push(damage);
 

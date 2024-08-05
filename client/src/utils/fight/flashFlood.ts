@@ -37,13 +37,17 @@ const flashFlood = async (
     throw new Error('Target not found');
   }
 
+  const startedWithAWeapon = fighter.animation.weapon !== null;
+
   // Set animation to `throw`
   fighter.animation.setAnimation('throw');
 
   const weapon = typeof step.w !== 'undefined' ? WeaponById[step.w] : WeaponName.lance;
 
   // Update current weapon
-  fighter.animation.weapon = weapon;
+  if (!startedWithAWeapon) {
+    fighter.animation.weapon = weapon;
+  }
 
   // Create thrown weapon sprite
   const thrownWeapon = new Sprite(spritesheet.textures[`${weapon}.png`]);
@@ -80,7 +84,10 @@ const flashFlood = async (
   app.stage.addChild(thrownWeapon);
 
   // Remove weapon from arsenal
-  updateWeapons(app, fighter, step.w, 'remove');
+  fighter.animation.weapon = null;
+  if (!startedWithAWeapon) {
+    updateWeapons(app, fighter, step.w, 'remove');
+  }
 
   // Play throw SFX
   void sound.play('skills/flashFlood', {
@@ -107,7 +114,6 @@ const flashFlood = async (
     // Remove thrown weapon
     app.stage.removeChild(thrownWeapon);
     thrownWeapon.destroy();
-    fighter.animation.weapon = null;
 
     displayDamage(app, target, step.d, speed);
 
