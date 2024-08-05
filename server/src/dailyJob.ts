@@ -1118,6 +1118,21 @@ const handleClanWars = async (
   prisma: PrismaClient,
   modifiers: FightModifier[],
 ) => {
+  // Required since wars were started as pending before
+  // TODO: Remove when none are pending
+  const pendingClanWars = await prisma.clanWar.updateMany({
+    where: {
+      status: ClanWarStatus.pending,
+    },
+    data: {
+      status: ClanWarStatus.ongoing,
+    },
+  });
+
+  if (pendingClanWars.count) {
+    LOGGER.log(`${pendingClanWars.count} pending clan wars started`);
+  }
+
   // Give rewards for finished clan wars
   const finishedClanWars = await prisma.clanWar.findMany({
     where: {
