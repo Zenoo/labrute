@@ -1156,7 +1156,7 @@ const handleClanWars = async (
       where: { id: clanWar.attacker.id },
       data: {
         points: {
-          increment: clanWar.winnerId === clanWar.attacker.id ? ClanWarPointReward : undefined,
+          increment: clanWar.winnerId === clanWar.attacker.id ? ClanWarPointReward : 0,
         },
         elo: attackerElo,
       },
@@ -1167,7 +1167,7 @@ const handleClanWars = async (
       where: { id: clanWar.defender.id },
       data: {
         points: {
-          increment: clanWar.winnerId === clanWar.defender.id ? ClanWarPointReward : undefined,
+          increment: clanWar.winnerId === clanWar.defender.id ? ClanWarPointReward : 0,
         },
         elo: defenderElo,
       },
