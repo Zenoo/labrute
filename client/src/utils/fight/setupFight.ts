@@ -612,10 +612,10 @@ const setupFight: (
   void sound.play('win');
 
   // Get winner fighter
-  const winner = fighters.find((fighter) => (fighter.type === 'brute' || fighter.type === 'boss') && fighter.name === fight.winner);
+  const winner = fighters.find((fighter) => !fighter.master && fighter.name === fight.winner);
 
   // Get loser fighter
-  const loser = fighters.find((fighter) => !fighter.master && ((fighter.type === 'brute' && fighter.name !== fight.winner) || fighter.type === 'boss'));
+  const loser = fighters.find((fighter) => !fighter.master && fighter.name === fight.loser);
 
   // Display dead icon animation on the UI
   const deadIcon = new AnimatedSprite(miscSheet.animations.dead || []);
