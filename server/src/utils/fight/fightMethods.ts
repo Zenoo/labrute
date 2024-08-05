@@ -399,6 +399,7 @@ export const fighterArrives = (
     if (possibleWeapon) {
       // Equip weapon
       fighter.activeWeapon = possibleWeapon;
+      fighter.keepWeaponChance = 0.5;
 
       // Remove weapon from possible weapons
       const weaponIndex = fighter.weapons.findIndex((w) => w.name === possibleWeapon.name);
