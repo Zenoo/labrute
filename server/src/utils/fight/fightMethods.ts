@@ -328,12 +328,13 @@ const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) =>
 export const randomlyDrawWeapon = (
   fightData: DetailedFight,
   weapons: Weapon[],
+  forceDraw?: boolean,
 ) => {
   if (!weapons.length) return null;
 
   let totalToss = weapons.reduce((acc, weapon) => acc + (weapon.toss || 0), -1);
 
-  if (!fightData.modifiers.includes(FightModifier.drawEveryWeapon)) {
+  if (!forceDraw && !fightData.modifiers.includes(FightModifier.drawEveryWeapon)) {
     totalToss += NO_WEAPON_TOSS;
   }
 
@@ -393,7 +394,7 @@ export const fighterArrives = (
 
   if (arriveWithWeapon) {
     // Randomly draw a weapon for the fighter
-    const possibleWeapon = randomlyDrawWeapon(fightData, fighter.weapons);
+    const possibleWeapon = randomlyDrawWeapon(fightData, fighter.weapons, true);
 
     if (possibleWeapon) {
       // Equip weapon
