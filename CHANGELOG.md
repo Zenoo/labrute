@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.69.2](https://github.com/Zenoo/labrute/compare/labrute-v2.69.1...labrute-v2.69.2) (2024-08-05)
+
+
+### Bug Fixes
+
+* Increase brute rank impact on clan points ([702c7c3](https://github.com/Zenoo/labrute/commit/702c7c33923a069ee71ec447ad9d0ca88b2d2a15))
+* Set % to keep weapon when arriving with a weapon ([ca1e0d4](https://github.com/Zenoo/labrute/commit/ca1e0d4292e98c2fb7678edd973e4c7e4b11b383))
+
 ## [2.69.1](https://github.com/Zenoo/labrute/compare/labrute-v2.69.0...labrute-v2.69.1) (2024-08-05)
 
 
