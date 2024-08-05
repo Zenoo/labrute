@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.69.3](https://github.com/Zenoo/labrute/compare/labrute-v2.69.2...labrute-v2.69.3) (2024-08-05)
+
+
+### Bug Fixes
+
+* Start pending clan wars ([a8722e0](https://github.com/Zenoo/labrute/commit/a8722e0749c404db7ed33784e392b273bb2969ba))
+
 ## [2.69.2](https://github.com/Zenoo/labrute/compare/labrute-v2.69.1...labrute-v2.69.2) (2024-08-05)
 
 
