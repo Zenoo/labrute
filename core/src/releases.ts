@@ -7,20 +7,47 @@ export type Release = {
 };
 
 export const LAST_RELEASE: Release = {
-  version: '2.68.0',
-  date: '2024-08-02',
+  version: '2.69.0',
+  date: '2024-08-05',
   features: [
-    'Clan wars are here! Declare war on another clan and fight for the top spot. Clan master can declare war from the clan ranking page. Once the war is accepted, both clans will have to select 7 fighters to participate each day. Once a brute participates, it is unavailable for selection for the remainder of the war. The war will last 7 day, and the clan with the most fight wins will be the winner. The reward for now is 1000 clan points, but more rewards will be added in the future.',
+    'Clan wars are now enableable by the clan master, and clans are matched based on their current elo',
   ],
   fixes: [
-    'User achievements now include achievements from deleted brutes',
-    '`Vampirism` got tired of listing the decimals of PI, and is now rounded'
+    '`Shock` unlock percentage lowered',
+    '`Iron Head` disarm buffed from 30% to 50%',
+    '`Relentless` unlock percentage increased',
+    '`Flash flood` was reworked. It deals more damage, has more uses, more chances to trigger, and throws 3 weapons',
+    '`Shield` unlock percentage lowered',
+    '10% Evasion added to `Ballet Shoes`',
+    'Speed now affects the initiative (more chances to start the fight first the more speed you have)',
+    'The weapon `Axe` was renamed to `Hammer`, and `Hatchet` to `Axe`',
+    'The weapon `Axe` (previously `Hatchet`) is now considered a sharp weapon',
+    'Some new combat log texts',
+    'Maaaaany fixes for the previous server issues',
+    '`Vampirism` works against bosses',
+    'Pets don\'t attack their teammates after hypnosis anymore',
+    'Logs in the user feed are now clickable and redirect to the brute cell',
+    'The daily modifier `Armed and Ready` now correctly forces brutes to start with a weapon, even if the roll would have failed',
+    'A backup brute with `Chef` now only poisons the ennemies upon arrival',
+    'Updated Evasion and Counter stat colors',
   ],
-  attachments: ['clan-declare-war.png', 'clan-war-preview.png', 'clan-war-page.png'],
+  attachments: [],
 };
 
 export const releases: Release[] = [
   LAST_RELEASE,
+  {
+    version: '2.68.0',
+    date: '2024-08-02',
+    features: [
+      'Clan wars are here! Declare war on another clan and fight for the top spot. Clan master can declare war from the clan ranking page. Once the war is accepted, both clans will have to select 7 fighters to participate each day. Once a brute participates, it is unavailable for selection for the remainder of the war. The war will last 7 day, and the clan with the most fight wins will be the winner. The reward for now is 1000 clan points, but more rewards will be added in the future.',
+    ],
+    fixes: [
+      'User achievements now include achievements from deleted brutes',
+      '`Vampirism` got tired of listing the decimals of PI, and is now rounded'
+    ],
+    attachments: ['clan-declare-war.png', 'clan-war-preview.png', 'clan-war-page.png'],
+  },
   {
     version: '2.67.0',
     date: '2024-07-30',
