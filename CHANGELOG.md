@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.69.4](https://github.com/Zenoo/labrute/compare/labrute-v2.69.3...labrute-v2.69.4) (2024-08-06)
+
+
+### Bug Fixes
+
+* Loser dead icon on clan wars ([c9bd543](https://github.com/Zenoo/labrute/commit/c9bd543ff26a364202987b673b8e1cc4e61a95fe))
+* Reduce Flash flood use rate + damage ([0de0472](https://github.com/Zenoo/labrute/commit/0de0472f3b5c3bc6ca714e020655e7060f7c97c3))
+
 ## [2.69.3](https://github.com/Zenoo/labrute/compare/labrute-v2.69.2...labrute-v2.69.3) (2024-08-05)
 
 
