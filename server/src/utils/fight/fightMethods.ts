@@ -940,7 +940,7 @@ const activateSuper = (
       // Get damages for each weapon
       const damages = [];
       weaponsToThrow.forEach((w) => {
-        const damage = getDamage(fighter, opponent, w) * 2;
+        const damage = Math.floor(getDamage(fighter, opponent, w) * 1.5);
         damages.push(damage);
 
         registerHit(fightData, stats, achievements, fighter, [opponent], damage, true, 'flashFlood', w);
