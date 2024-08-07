@@ -200,6 +200,7 @@
   "clanWar.earlyEnd": "Эта война закончилась рано, так как у одного из кланов закончились бойцы.",
   "nextFighters": "Следующие бойцы",
   "nextFighters.desc": "Вы можете выбрать до семи бойцов для предстоящей битвы. Если это не будет сделано, они будут выбраны случайным образом. Выбранные бойцы будут недоступны до окончания войны.",
+  "nextFighters.noFighters": "Your clan doesn't have any fighters available for the next fight. Recruit some before the next fight or you will loose the war!",
   "day": "День {{day}}",
   "fights": "Битвы",
   "pinThread": "Закрепить тему",
