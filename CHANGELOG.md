@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.70.0](https://github.com/Zenoo/labrute/compare/labrute-v2.69.4...labrute-v2.70.0) (2024-08-07)
+
+
+### Features
+
+* Friendly clan wars. Fixes [#896](https://github.com/Zenoo/labrute/issues/896) ([e606b54](https://github.com/Zenoo/labrute/commit/e606b5413c93b53ccb23b7f4aaff3747e04dcb28))
+
+
+### Bug Fixes
+
+* Clan war reusing defender brutes ([b7e1d86](https://github.com/Zenoo/labrute/commit/b7e1d862206f9847ac24d61bc034552bdf567df6))
+* Duplicate translation keys ([f63f672](https://github.com/Zenoo/labrute/commit/f63f672783af64d23f66607997c179170e0b828b))
+* Remove follow button on own brutes. Fixes [#890](https://github.com/Zenoo/labrute/issues/890) ([e28fa62](https://github.com/Zenoo/labrute/commit/e28fa621fb035199340958dffc140f6a88eb4863))
+
 ## [2.69.4](https://github.com/Zenoo/labrute/compare/labrute-v2.69.3...labrute-v2.69.4) (2024-08-06)
 
 
