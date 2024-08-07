@@ -1,5 +1,5 @@
-import { BruteRanking, ClanGetResponse, bosses, getFightsLeft } from '@labrute/core';
-import { Brute } from '@labrute/prisma';
+import { BruteRanking, BrutesGetClanIdAsMasterResponse, ClanGetResponse, bosses, getFightsLeft } from '@labrute/core';
+import { Brute, ClanWarStatus, ClanWarType } from '@labrute/prisma';
 import { HighlightOff, History, PlayCircleOutline } from '@mui/icons-material';
 import { Box, Button, ButtonGroup, Checkbox, FormControlLabel, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useTheme } from '@mui/material';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -34,6 +34,7 @@ const ClanView = () => {
   const [damageDisplayed, setDamageDisplayed] = useState(false);
   const [sort, setSort] = useState<SortOption>(SortOption.Default);
   const [warEnabled, setWarEnabled] = useState(false);
+  const [masterOfClan, setMasterOfClan] = useState<BrutesGetClanIdAsMasterResponse['id']>(null);
 
   const boss = useMemo(() => clan && bosses.find((b) => b.name === clan.boss), [clan]);
 
@@ -48,6 +49,20 @@ const ClanView = () => {
       setWarEnabled(data.participateInClanWar);
     }).catch(catchError(Alert));
   }, [id, Alert]);
+
+  // Fetch brute master of clan id
+  useEffect(() => {
+    if (!brute || !clan) return;
+
+    if (clan.masterId === brute.id) {
+      setMasterOfClan(clan.id);
+      return;
+    }
+
+    Server.Brute.getClanIdAsMaster(brute.name).then((data) => {
+      setMasterOfClan(data.id);
+    }).catch(catchError(Alert));
+  }, [brute, Alert, clan]);
 
   // Go to cell page
   const goToCell = (name: string) => () => {
@@ -339,6 +354,63 @@ const ClanView = () => {
     }).catch(catchError(Alert));
   };
 
+  // Declare friendly war
+  const declareFriendlyWar = () => {
+    if (!brute || !clan || !masterOfClan) return;
+
+    Confirm.open(t('friendlyWar'), t('confirmFriendlyWar'), () => {
+      Server.ClanWar.declareFriendlyWar(brute.id, masterOfClan, clan.id).then(() => {
+        Alert.open('success', t('friendlyWarDeclared'));
+      }).catch(catchError(Alert));
+    });
+  };
+
+  // Cancel clan war
+  const cancelClanWar = () => {
+    if (!brute || !clan || !clanWar) return;
+
+    Server.ClanWar.cancel(brute.id, clan.id, clanWar.id).then(() => {
+      Alert.open('success', t('warCanceled'));
+
+      // Update war status
+      setClan((prevClan) => {
+        if (!prevClan) return null;
+
+        return {
+          ...prevClan,
+          attacks: [],
+          defenses: [],
+        };
+      });
+    }).catch(catchError(Alert));
+  };
+
+  // Accept clan war
+  const acceptClanWar = () => {
+    if (!brute || !clan || !clanWar) return;
+
+    Server.ClanWar.accept(brute.id, clan.id, clanWar.id).then(() => {
+      Alert.open('success', t('warAccepted'));
+
+      // Update war status
+      setClan((prevClan) => {
+        if (!prevClan) return null;
+
+        const newClan = { ...prevClan };
+        const attack = newClan.attacks[0];
+        const defense = newClan.defenses[0];
+
+        if (attack) {
+          attack.status = ClanWarStatus.ongoing;
+        } else if (defense) {
+          defense.status = ClanWarStatus.ongoing;
+        }
+
+        return newClan;
+      });
+    }).catch(catchError(Alert));
+  };
+
   return clan && (
     <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/cell`}>
       <Paper sx={{ mx: 4 }}>
@@ -358,15 +430,24 @@ const ClanView = () => {
           justifyContent: 'space-between',
         }}
         >
+          {/* CURRENT BRUTE CELL */}
           <Link to={`/${bruteName || ''}/cell`}>
             <Text bold smallCaps>{t('goBackToYourCell')}</Text>
           </Link>
+          {/* CLAN RANKING PAGE */}
           <Link to={`/${bruteName || ''}/clan/ranking`}>
             <Text bold smallCaps>{t('ranking')}</Text>
           </Link>
+          {/* FORUM */}
           {user && brute?.clanId === clan.id && (
             <Link to={`/${bruteName || ''}/clan/${clan.id}/forum`}>
               <Text bold smallCaps>{t('forum')}</Text>
+            </Link>
+          )}
+          {/* DECLARE FRIENDLY WAR */}
+          {user && masterOfClan && masterOfClan !== clan.id && !clanWar && (
+            <Link href="#" onClick={declareFriendlyWar}>
+              <Text bold smallCaps>{t('friendlyWar')}</Text>
             </Link>
           )}
           {user
@@ -404,7 +485,13 @@ const ClanView = () => {
         {clanWar && (
           <Box>
             <Text h4 bold color="secondary" center sx={{ my: 1 }}>
-              {t('clanWar')}{' '}
+              {t('clanWar')}
+              {clanWar.type === ClanWarType.friendly && (
+                <Tooltip title={t('clanWar.friendly')}>
+                  <Box component="img" src="/images/clan/friendly.webp" sx={{ width: 8, ml: 0.5 }} />
+                </Tooltip>
+              )}
+              {' '}
               <Text component="span" color="primary.text">
                 ({t(`clanWar.${clanWar.status}`)})
               </Text>
@@ -520,6 +607,58 @@ const ClanView = () => {
                 </Box>
               </StyledButton>
             </Box>
+            {owner
+              && clan?.masterId === brute?.id
+              && !!clan.attacks.length
+              && clanWar.status === ClanWarStatus.pending
+              && (
+                <Box sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  mt: 1
+                }}
+                >
+                  {/* CANCEL */}
+                  <FantasyButton
+                    color="error"
+                    onClick={cancelClanWar}
+                    sx={{ m: 1 }}
+                  >
+                    {t('cancel')}
+                  </FantasyButton>
+                </Box>
+              )}
+            {owner
+              && clan?.masterId === brute?.id
+              && !!clan.defenses.length
+              && clanWar.status === ClanWarStatus.pending
+              && (
+                <Box sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  mt: 1
+                }}
+                >
+                  {/* ACCEPT */}
+                  <FantasyButton
+                    color="success"
+                    onClick={acceptClanWar}
+                    sx={{ m: 1 }}
+                  >
+                    {t('accept')}
+                  </FantasyButton>
+                  {/* REJECT */}
+                  <FantasyButton
+                    color="error"
+                    onClick={cancelClanWar}
+                    sx={{ m: 1 }}
+                  >
+                    {t('reject')}
+                  </FantasyButton>
+                </Box>
+              )}
           </Box>
         )}
         {/* BOSS */}

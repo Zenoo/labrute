@@ -16,12 +16,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 5.17.0
- * Query Engine version: 393aa359c9ad4a4bb28630fb5613f9c281cde053
+ * Prisma Client JS version: 5.18.0
+ * Query Engine version: 4c784e32044a8a016d99474bd02a3b6123742169
  */
 Prisma.prismaVersion = {
-  client: "5.17.0",
-  engine: "393aa359c9ad4a4bb28630fb5613f9c281cde053"
+  client: "5.18.0",
+  engine: "4c784e32044a8a016d99474bd02a3b6123742169"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -359,6 +359,7 @@ exports.Prisma.BossDamageScalarFieldEnum = {
 exports.Prisma.ClanWarScalarFieldEnum = {
   id: 'id',
   duration: 'duration',
+  type: 'type',
   date: 'date',
   status: 'status',
   attackerId: 'attackerId',
@@ -683,6 +684,11 @@ exports.BruteReportStatus = exports.$Enums.BruteReportStatus = {
 exports.BossName = exports.$Enums.BossName = {
   GoldClaw: 'GoldClaw',
   EmberFang: 'EmberFang'
+};
+
+exports.ClanWarType = exports.$Enums.ClanWarType = {
+  friendly: 'friendly',
+  official: 'official'
 };
 
 exports.ClanWarStatus = exports.$Enums.ClanWarStatus = {

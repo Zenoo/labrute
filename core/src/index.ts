@@ -99,6 +99,9 @@ export type BrutesExistsResponse = {
   exists: true,
   name: string,
 };
+export type BrutesGetClanIdAsMasterResponse = {
+  id: string | null,
+};
 
 export type TournamentsGetDailyResponse = Tournament & {
   fights: (Pick<Fight, 'id' | 'winner' | 'loser' | 'tournamentStep' | 'fighters'> & {
@@ -183,12 +186,12 @@ export type ClanGetResponse = Clan & {
   bossDamages: (Pick<BossDamage, 'damage'> & {
     brute: Pick<Brute, 'id' | 'name'>,
   })[],
-  attacks: (Pick<ClanWar, 'id' | 'status'> & {
+  attacks: (Pick<ClanWar, 'id' | 'status' | 'type'> & {
     defender: Pick<Clan, 'id' | 'name'> & {
       master: BruteForRender;
     },
   })[],
-  defenses: (Pick<ClanWar, 'id' | 'status'> & {
+  defenses: (Pick<ClanWar, 'id' | 'status' | 'type'> & {
     attacker: Pick<Clan, 'id' | 'name'> & {
       master: BruteForRender;
     },

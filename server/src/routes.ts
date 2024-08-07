@@ -93,6 +93,7 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   app.get('/api/brute/:name/change-name/:newName', Brutes.changeName(prisma));
   app.get('/api/brute/:name/inventory', Brutes.getInventory(prisma));
   app.put('/api/brute/item', Brutes.giveItem(prisma));
+  app.get('/api/brute/:name/master-clan-id', Brutes.getClanIdAsMaster(prisma));
 
   // Log
   app.get('/api/log/list/:name', Logs.list(prisma));
@@ -151,9 +152,11 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   app.put('/api/clan/:id/toggle-war', Clans.toggleClanWarParticipation(prisma));
 
   // Clan war
-  app.put('/api/clan/war', ClanWars.create(prisma));
+  app.post('/api/clan/war/friendly', ClanWars.declareFriendlyWar(prisma));
   app.post('/api/clan/war/fighters', ClanWars.getAvailableFighters(prisma));
   app.post('/api/clan/war/fighters/toggle', ClanWars.toggleFighter(prisma));
   app.get('/api/clan/:clan/war/history', ClanWars.getHistory(prisma));
   app.get('/api/clan/:clan/war/:war', ClanWars.get(prisma));
+  app.delete('/api/clan/war', ClanWars.cancel(prisma));
+  app.post('/api/clan/war/accept', ClanWars.accept(prisma));
 }

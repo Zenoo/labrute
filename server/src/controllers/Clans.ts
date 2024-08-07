@@ -228,6 +228,7 @@ const Clans = {
             select: {
               id: true,
               status: true,
+              type: true,
               defender: {
                 select: {
                   id: true,
@@ -254,6 +255,7 @@ const Clans = {
             select: {
               id: true,
               status: true,
+              type: true,
               attacker: {
                 select: {
                   id: true,

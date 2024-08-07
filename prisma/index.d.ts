@@ -467,6 +467,14 @@ export const BossName: {
 export type BossName = (typeof BossName)[keyof typeof BossName]
 
 
+export const ClanWarType: {
+  friendly: 'friendly',
+  official: 'official'
+};
+
+export type ClanWarType = (typeof ClanWarType)[keyof typeof ClanWarType]
+
+
 export const ClanWarStatus: {
   pending: 'pending',
   ongoing: 'ongoing',
@@ -547,6 +555,10 @@ export const BruteReportStatus: typeof $Enums.BruteReportStatus
 export type BossName = $Enums.BossName
 
 export const BossName: typeof $Enums.BossName
+
+export type ClanWarType = $Enums.ClanWarType
+
+export const ClanWarType: typeof $Enums.ClanWarType
 
 export type ClanWarStatus = $Enums.ClanWarStatus
 
@@ -976,8 +988,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 5.17.0
-   * Query Engine version: 393aa359c9ad4a4bb28630fb5613f9c281cde053
+   * Prisma Client JS version: 5.18.0
+   * Query Engine version: 4c784e32044a8a016d99474bd02a3b6123742169
    */
   export type PrismaVersion = {
     client: string
@@ -26599,6 +26611,7 @@ export namespace Prisma {
   export type ClanWarMinAggregateOutputType = {
     id: string | null
     duration: number | null
+    type: $Enums.ClanWarType | null
     date: Date | null
     status: $Enums.ClanWarStatus | null
     attackerId: string | null
@@ -26611,6 +26624,7 @@ export namespace Prisma {
   export type ClanWarMaxAggregateOutputType = {
     id: string | null
     duration: number | null
+    type: $Enums.ClanWarType | null
     date: Date | null
     status: $Enums.ClanWarStatus | null
     attackerId: string | null
@@ -26623,6 +26637,7 @@ export namespace Prisma {
   export type ClanWarCountAggregateOutputType = {
     id: number
     duration: number
+    type: number
     date: number
     status: number
     attackerId: number
@@ -26649,6 +26664,7 @@ export namespace Prisma {
   export type ClanWarMinAggregateInputType = {
     id?: true
     duration?: true
+    type?: true
     date?: true
     status?: true
     attackerId?: true
@@ -26661,6 +26677,7 @@ export namespace Prisma {
   export type ClanWarMaxAggregateInputType = {
     id?: true
     duration?: true
+    type?: true
     date?: true
     status?: true
     attackerId?: true
@@ -26673,6 +26690,7 @@ export namespace Prisma {
   export type ClanWarCountAggregateInputType = {
     id?: true
     duration?: true
+    type?: true
     date?: true
     status?: true
     attackerId?: true
@@ -26772,6 +26790,7 @@ export namespace Prisma {
   export type ClanWarGroupByOutputType = {
     id: string
     duration: number
+    type: $Enums.ClanWarType
     date: Date
     status: $Enums.ClanWarStatus
     attackerId: string
@@ -26803,6 +26822,7 @@ export namespace Prisma {
   export type ClanWarSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     duration?: boolean
+    type?: boolean
     date?: boolean
     status?: boolean
     attackerId?: boolean
@@ -26821,6 +26841,7 @@ export namespace Prisma {
   export type ClanWarSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     duration?: boolean
+    type?: boolean
     date?: boolean
     status?: boolean
     attackerId?: boolean
@@ -26836,6 +26857,7 @@ export namespace Prisma {
   export type ClanWarSelectScalar = {
     id?: boolean
     duration?: boolean
+    type?: boolean
     date?: boolean
     status?: boolean
     attackerId?: boolean
@@ -26845,7 +26867,7 @@ export namespace Prisma {
     winnerId?: boolean
   }
 
-  export type ClanWarOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "duration" | "date" | "status" | "attackerId" | "defenderId" | "attackerWins" | "defenderWins" | "winnerId", ExtArgs["result"]["clanWar"]>
+  export type ClanWarOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "duration" | "type" | "date" | "status" | "attackerId" | "defenderId" | "attackerWins" | "defenderWins" | "winnerId", ExtArgs["result"]["clanWar"]>
   export type ClanWarInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     attacker?: boolean | ClanDefaultArgs<ExtArgs>
     defender?: boolean | ClanDefaultArgs<ExtArgs>
@@ -26872,6 +26894,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       duration: number
+      type: $Enums.ClanWarType
       date: Date
       status: $Enums.ClanWarStatus
       attackerId: string
@@ -27279,6 +27302,7 @@ export namespace Prisma {
   interface ClanWarFieldRefs {
     readonly id: FieldRef<"ClanWar", 'String'>
     readonly duration: FieldRef<"ClanWar", 'Int'>
+    readonly type: FieldRef<"ClanWar", 'ClanWarType'>
     readonly date: FieldRef<"ClanWar", 'DateTime'>
     readonly status: FieldRef<"ClanWar", 'ClanWarStatus'>
     readonly attackerId: FieldRef<"ClanWar", 'String'>
@@ -31071,6 +31095,7 @@ export namespace Prisma {
   export const ClanWarScalarFieldEnum: {
     id: 'id',
     duration: 'duration',
+    type: 'type',
     date: 'date',
     status: 'status',
     attackerId: 'attackerId',
@@ -31410,6 +31435,20 @@ export namespace Prisma {
    * Reference to a field of type 'BossName[]'
    */
   export type ListEnumBossNameFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BossName[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ClanWarType'
+   */
+  export type EnumClanWarTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClanWarType'>
+    
+
+
+  /**
+   * Reference to a field of type 'ClanWarType[]'
+   */
+  export type ListEnumClanWarTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClanWarType[]'>
     
 
 
@@ -33096,6 +33135,7 @@ export namespace Prisma {
     NOT?: ClanWarWhereInput | ClanWarWhereInput[]
     id?: UuidFilter<"ClanWar"> | string
     duration?: IntFilter<"ClanWar"> | number
+    type?: EnumClanWarTypeFilter<"ClanWar"> | $Enums.ClanWarType
     date?: DateTimeFilter<"ClanWar"> | Date | string
     status?: EnumClanWarStatusFilter<"ClanWar"> | $Enums.ClanWarStatus
     attackerId?: UuidFilter<"ClanWar"> | string
@@ -33113,6 +33153,7 @@ export namespace Prisma {
   export type ClanWarOrderByWithRelationInput = {
     id?: SortOrder
     duration?: SortOrder
+    type?: SortOrder
     date?: SortOrder
     status?: SortOrder
     attackerId?: SortOrder
@@ -33133,6 +33174,7 @@ export namespace Prisma {
     OR?: ClanWarWhereInput[]
     NOT?: ClanWarWhereInput | ClanWarWhereInput[]
     duration?: IntFilter<"ClanWar"> | number
+    type?: EnumClanWarTypeFilter<"ClanWar"> | $Enums.ClanWarType
     date?: DateTimeFilter<"ClanWar"> | Date | string
     status?: EnumClanWarStatusFilter<"ClanWar"> | $Enums.ClanWarStatus
     attackerId?: UuidFilter<"ClanWar"> | string
@@ -33150,6 +33192,7 @@ export namespace Prisma {
   export type ClanWarOrderByWithAggregationInput = {
     id?: SortOrder
     duration?: SortOrder
+    type?: SortOrder
     date?: SortOrder
     status?: SortOrder
     attackerId?: SortOrder
@@ -33170,6 +33213,7 @@ export namespace Prisma {
     NOT?: ClanWarScalarWhereWithAggregatesInput | ClanWarScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"ClanWar"> | string
     duration?: IntWithAggregatesFilter<"ClanWar"> | number
+    type?: EnumClanWarTypeWithAggregatesFilter<"ClanWar"> | $Enums.ClanWarType
     date?: DateTimeWithAggregatesFilter<"ClanWar"> | Date | string
     status?: EnumClanWarStatusWithAggregatesFilter<"ClanWar"> | $Enums.ClanWarStatus
     attackerId?: UuidWithAggregatesFilter<"ClanWar"> | string
@@ -35109,6 +35153,7 @@ export namespace Prisma {
   export type ClanWarCreateInput = {
     id?: string
     duration?: number
+    type?: $Enums.ClanWarType
     date?: Date | string
     status?: $Enums.ClanWarStatus
     attackerWins?: number
@@ -35123,6 +35168,7 @@ export namespace Prisma {
   export type ClanWarUncheckedCreateInput = {
     id?: string
     duration?: number
+    type?: $Enums.ClanWarType
     date?: Date | string
     status?: $Enums.ClanWarStatus
     attackerId: string
@@ -35137,6 +35183,7 @@ export namespace Prisma {
   export type ClanWarUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus
     attackerWins?: IntFieldUpdateOperationsInput | number
@@ -35151,6 +35198,7 @@ export namespace Prisma {
   export type ClanWarUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus
     attackerId?: StringFieldUpdateOperationsInput | string
@@ -35165,6 +35213,7 @@ export namespace Prisma {
   export type ClanWarCreateManyInput = {
     id?: string
     duration?: number
+    type?: $Enums.ClanWarType
     date?: Date | string
     status?: $Enums.ClanWarStatus
     attackerId: string
@@ -35177,6 +35226,7 @@ export namespace Prisma {
   export type ClanWarUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus
     attackerWins?: IntFieldUpdateOperationsInput | number
@@ -35186,6 +35236,7 @@ export namespace Prisma {
   export type ClanWarUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus
     attackerId?: StringFieldUpdateOperationsInput | string
@@ -36999,6 +37050,13 @@ export namespace Prisma {
     damage?: SortOrder
   }
 
+  export type EnumClanWarTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ClanWarType | EnumClanWarTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ClanWarType[] | ListEnumClanWarTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ClanWarType[] | ListEnumClanWarTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumClanWarTypeFilter<$PrismaModel> | $Enums.ClanWarType
+  }
+
   export type EnumClanWarStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.ClanWarStatus | EnumClanWarStatusFieldRefInput<$PrismaModel>
     in?: $Enums.ClanWarStatus[] | ListEnumClanWarStatusFieldRefInput<$PrismaModel>
@@ -37009,6 +37067,7 @@ export namespace Prisma {
   export type ClanWarCountOrderByAggregateInput = {
     id?: SortOrder
     duration?: SortOrder
+    type?: SortOrder
     date?: SortOrder
     status?: SortOrder
     attackerId?: SortOrder
@@ -37027,6 +37086,7 @@ export namespace Prisma {
   export type ClanWarMaxOrderByAggregateInput = {
     id?: SortOrder
     duration?: SortOrder
+    type?: SortOrder
     date?: SortOrder
     status?: SortOrder
     attackerId?: SortOrder
@@ -37039,6 +37099,7 @@ export namespace Prisma {
   export type ClanWarMinOrderByAggregateInput = {
     id?: SortOrder
     duration?: SortOrder
+    type?: SortOrder
     date?: SortOrder
     status?: SortOrder
     attackerId?: SortOrder
@@ -37052,6 +37113,16 @@ export namespace Prisma {
     duration?: SortOrder
     attackerWins?: SortOrder
     defenderWins?: SortOrder
+  }
+
+  export type EnumClanWarTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ClanWarType | EnumClanWarTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ClanWarType[] | ListEnumClanWarTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ClanWarType[] | ListEnumClanWarTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumClanWarTypeWithAggregatesFilter<$PrismaModel> | $Enums.ClanWarType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumClanWarTypeFilter<$PrismaModel>
+    _max?: NestedEnumClanWarTypeFilter<$PrismaModel>
   }
 
   export type EnumClanWarStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -39564,6 +39635,10 @@ export namespace Prisma {
     connect?: ClanWarFightersWhereUniqueInput | ClanWarFightersWhereUniqueInput[]
   }
 
+  export type EnumClanWarTypeFieldUpdateOperationsInput = {
+    set?: $Enums.ClanWarType
+  }
+
   export type EnumClanWarStatusFieldUpdateOperationsInput = {
     set?: $Enums.ClanWarStatus
   }
@@ -40264,11 +40339,28 @@ export namespace Prisma {
     _max?: NestedEnumBossNameFilter<$PrismaModel>
   }
 
+  export type NestedEnumClanWarTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ClanWarType | EnumClanWarTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ClanWarType[] | ListEnumClanWarTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ClanWarType[] | ListEnumClanWarTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumClanWarTypeFilter<$PrismaModel> | $Enums.ClanWarType
+  }
+
   export type NestedEnumClanWarStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.ClanWarStatus | EnumClanWarStatusFieldRefInput<$PrismaModel>
     in?: $Enums.ClanWarStatus[] | ListEnumClanWarStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.ClanWarStatus[] | ListEnumClanWarStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumClanWarStatusFilter<$PrismaModel> | $Enums.ClanWarStatus
+  }
+
+  export type NestedEnumClanWarTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ClanWarType | EnumClanWarTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ClanWarType[] | ListEnumClanWarTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ClanWarType[] | ListEnumClanWarTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumClanWarTypeWithAggregatesFilter<$PrismaModel> | $Enums.ClanWarType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumClanWarTypeFilter<$PrismaModel>
+    _max?: NestedEnumClanWarTypeFilter<$PrismaModel>
   }
 
   export type NestedEnumClanWarStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -43813,6 +43905,7 @@ export namespace Prisma {
   export type ClanWarCreateWithoutFightsInput = {
     id?: string
     duration?: number
+    type?: $Enums.ClanWarType
     date?: Date | string
     status?: $Enums.ClanWarStatus
     attackerWins?: number
@@ -43826,6 +43919,7 @@ export namespace Prisma {
   export type ClanWarUncheckedCreateWithoutFightsInput = {
     id?: string
     duration?: number
+    type?: $Enums.ClanWarType
     date?: Date | string
     status?: $Enums.ClanWarStatus
     attackerId: string
@@ -44224,6 +44318,7 @@ export namespace Prisma {
   export type ClanWarUpdateWithoutFightsInput = {
     id?: StringFieldUpdateOperationsInput | string
     duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus
     attackerWins?: IntFieldUpdateOperationsInput | number
@@ -44237,6 +44332,7 @@ export namespace Prisma {
   export type ClanWarUncheckedUpdateWithoutFightsInput = {
     id?: StringFieldUpdateOperationsInput | string
     duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus
     attackerId?: StringFieldUpdateOperationsInput | string
@@ -47468,6 +47564,7 @@ export namespace Prisma {
   export type ClanWarCreateWithoutAttackerInput = {
     id?: string
     duration?: number
+    type?: $Enums.ClanWarType
     date?: Date | string
     status?: $Enums.ClanWarStatus
     attackerWins?: number
@@ -47481,6 +47578,7 @@ export namespace Prisma {
   export type ClanWarUncheckedCreateWithoutAttackerInput = {
     id?: string
     duration?: number
+    type?: $Enums.ClanWarType
     date?: Date | string
     status?: $Enums.ClanWarStatus
     defenderId: string
@@ -47504,6 +47602,7 @@ export namespace Prisma {
   export type ClanWarCreateWithoutDefenderInput = {
     id?: string
     duration?: number
+    type?: $Enums.ClanWarType
     date?: Date | string
     status?: $Enums.ClanWarStatus
     attackerWins?: number
@@ -47517,6 +47616,7 @@ export namespace Prisma {
   export type ClanWarUncheckedCreateWithoutDefenderInput = {
     id?: string
     duration?: number
+    type?: $Enums.ClanWarType
     date?: Date | string
     status?: $Enums.ClanWarStatus
     attackerId: string
@@ -47540,6 +47640,7 @@ export namespace Prisma {
   export type ClanWarCreateWithoutWinnerInput = {
     id?: string
     duration?: number
+    type?: $Enums.ClanWarType
     date?: Date | string
     status?: $Enums.ClanWarStatus
     attackerWins?: number
@@ -47553,6 +47654,7 @@ export namespace Prisma {
   export type ClanWarUncheckedCreateWithoutWinnerInput = {
     id?: string
     duration?: number
+    type?: $Enums.ClanWarType
     date?: Date | string
     status?: $Enums.ClanWarStatus
     attackerId: string
@@ -47814,6 +47916,7 @@ export namespace Prisma {
     NOT?: ClanWarScalarWhereInput | ClanWarScalarWhereInput[]
     id?: UuidFilter<"ClanWar"> | string
     duration?: IntFilter<"ClanWar"> | number
+    type?: EnumClanWarTypeFilter<"ClanWar"> | $Enums.ClanWarType
     date?: DateTimeFilter<"ClanWar"> | Date | string
     status?: EnumClanWarStatusFilter<"ClanWar"> | $Enums.ClanWarStatus
     attackerId?: UuidFilter<"ClanWar"> | string
@@ -49434,6 +49537,7 @@ export namespace Prisma {
   export type ClanWarCreateWithoutFightersInput = {
     id?: string
     duration?: number
+    type?: $Enums.ClanWarType
     date?: Date | string
     status?: $Enums.ClanWarStatus
     attackerWins?: number
@@ -49447,6 +49551,7 @@ export namespace Prisma {
   export type ClanWarUncheckedCreateWithoutFightersInput = {
     id?: string
     duration?: number
+    type?: $Enums.ClanWarType
     date?: Date | string
     status?: $Enums.ClanWarStatus
     attackerId: string
@@ -49774,6 +49879,7 @@ export namespace Prisma {
   export type ClanWarUpdateWithoutFightersInput = {
     id?: StringFieldUpdateOperationsInput | string
     duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus
     attackerWins?: IntFieldUpdateOperationsInput | number
@@ -49787,6 +49893,7 @@ export namespace Prisma {
   export type ClanWarUncheckedUpdateWithoutFightersInput = {
     id?: StringFieldUpdateOperationsInput | string
     duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus
     attackerId?: StringFieldUpdateOperationsInput | string
@@ -52893,6 +53000,7 @@ export namespace Prisma {
   export type ClanWarCreateManyAttackerInput = {
     id?: string
     duration?: number
+    type?: $Enums.ClanWarType
     date?: Date | string
     status?: $Enums.ClanWarStatus
     defenderId: string
@@ -52904,6 +53012,7 @@ export namespace Prisma {
   export type ClanWarCreateManyDefenderInput = {
     id?: string
     duration?: number
+    type?: $Enums.ClanWarType
     date?: Date | string
     status?: $Enums.ClanWarStatus
     attackerId: string
@@ -52915,6 +53024,7 @@ export namespace Prisma {
   export type ClanWarCreateManyWinnerInput = {
     id?: string
     duration?: number
+    type?: $Enums.ClanWarType
     date?: Date | string
     status?: $Enums.ClanWarStatus
     attackerId: string
@@ -53367,6 +53477,7 @@ export namespace Prisma {
   export type ClanWarUpdateWithoutAttackerInput = {
     id?: StringFieldUpdateOperationsInput | string
     duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus
     attackerWins?: IntFieldUpdateOperationsInput | number
@@ -53380,6 +53491,7 @@ export namespace Prisma {
   export type ClanWarUncheckedUpdateWithoutAttackerInput = {
     id?: StringFieldUpdateOperationsInput | string
     duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus
     defenderId?: StringFieldUpdateOperationsInput | string
@@ -53393,6 +53505,7 @@ export namespace Prisma {
   export type ClanWarUncheckedUpdateManyWithoutAttackerInput = {
     id?: StringFieldUpdateOperationsInput | string
     duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus
     defenderId?: StringFieldUpdateOperationsInput | string
@@ -53404,6 +53517,7 @@ export namespace Prisma {
   export type ClanWarUpdateWithoutDefenderInput = {
     id?: StringFieldUpdateOperationsInput | string
     duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus
     attackerWins?: IntFieldUpdateOperationsInput | number
@@ -53417,6 +53531,7 @@ export namespace Prisma {
   export type ClanWarUncheckedUpdateWithoutDefenderInput = {
     id?: StringFieldUpdateOperationsInput | string
     duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus
     attackerId?: StringFieldUpdateOperationsInput | string
@@ -53430,6 +53545,7 @@ export namespace Prisma {
   export type ClanWarUncheckedUpdateManyWithoutDefenderInput = {
     id?: StringFieldUpdateOperationsInput | string
     duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus
     attackerId?: StringFieldUpdateOperationsInput | string
@@ -53441,6 +53557,7 @@ export namespace Prisma {
   export type ClanWarUpdateWithoutWinnerInput = {
     id?: StringFieldUpdateOperationsInput | string
     duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus
     attackerWins?: IntFieldUpdateOperationsInput | number
@@ -53454,6 +53571,7 @@ export namespace Prisma {
   export type ClanWarUncheckedUpdateWithoutWinnerInput = {
     id?: StringFieldUpdateOperationsInput | string
     duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus
     attackerId?: StringFieldUpdateOperationsInput | string
@@ -53467,6 +53585,7 @@ export namespace Prisma {
   export type ClanWarUncheckedUpdateManyWithoutWinnerInput = {
     id?: StringFieldUpdateOperationsInput | string
     duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus
     attackerId?: StringFieldUpdateOperationsInput | string

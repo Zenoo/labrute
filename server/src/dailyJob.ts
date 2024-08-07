@@ -14,6 +14,7 @@ import {
 } from '@labrute/core';
 import {
   ClanWarStatus,
+  ClanWarType,
   FightModifier,
   InventoryItemType,
   LogType, Prisma, PrismaClient, TournamentType,
@@ -1147,6 +1148,7 @@ const handleClanWars = async (
     },
     select: {
       id: true,
+      type: true,
       winnerId: true,
       attacker: {
         select: { id: true, elo: true },
@@ -1162,38 +1164,41 @@ const handleClanWars = async (
       throw new Error('No winner for clan war');
     }
 
-    const attackerElo = getNewElo(
-      clanWar.attacker.elo,
-      clanWar.defender.elo,
-      clanWar.winnerId === clanWar.attacker.id,
-    );
-    const defenderElo = getNewElo(
-      clanWar.defender.elo,
-      clanWar.attacker.elo,
-      clanWar.winnerId === clanWar.defender.id,
-    );
+    // No elo for friendly wars
+    if (clanWar.type === ClanWarType.official) {
+      const attackerElo = getNewElo(
+        clanWar.attacker.elo,
+        clanWar.defender.elo,
+        clanWar.winnerId === clanWar.attacker.id,
+      );
+      const defenderElo = getNewElo(
+        clanWar.defender.elo,
+        clanWar.attacker.elo,
+        clanWar.winnerId === clanWar.defender.id,
+      );
 
-    // Update attacker
-    await prisma.clan.update({
-      where: { id: clanWar.attacker.id },
-      data: {
-        points: {
-          increment: clanWar.winnerId === clanWar.attacker.id ? ClanWarPointReward : 0,
+      // Update attacker
+      await prisma.clan.update({
+        where: { id: clanWar.attacker.id },
+        data: {
+          points: {
+            increment: clanWar.winnerId === clanWar.attacker.id ? ClanWarPointReward : 0,
+          },
+          elo: attackerElo,
         },
-        elo: attackerElo,
-      },
-    });
+      });
 
-    // Update defender
-    await prisma.clan.update({
-      where: { id: clanWar.defender.id },
-      data: {
-        points: {
-          increment: clanWar.winnerId === clanWar.defender.id ? ClanWarPointReward : 0,
+      // Update defender
+      await prisma.clan.update({
+        where: { id: clanWar.defender.id },
+        data: {
+          points: {
+            increment: clanWar.winnerId === clanWar.defender.id ? ClanWarPointReward : 0,
+          },
+          elo: defenderElo,
         },
-        elo: defenderElo,
-      },
-    });
+      });
+    }
 
     // Update clan war status
     await prisma.clanWar.update({
