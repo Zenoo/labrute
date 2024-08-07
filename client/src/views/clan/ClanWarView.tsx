@@ -86,7 +86,15 @@ export const ClanWarView = () => {
   return (
     <Page title={`${t('clanWar')} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/clan/${id}`}>
       <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{war?.attacker.name} {t('vs')} {war?.defender.name}</Text>
+        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>
+          <Link to={`/${bruteName || ''}/clan/${war?.attacker.id}`} sx={{ display: 'inline' }}>
+            {war?.attacker.name}
+          </Link>
+          {' '}{t('vs')}{' '}
+          <Link to={`/${bruteName || ''}/clan/${war?.defender.id}`} sx={{ display: 'inline' }}>
+            {war?.defender.name}
+          </Link>
+        </Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         {war && (
