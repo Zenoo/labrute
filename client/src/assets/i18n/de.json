@@ -200,6 +200,7 @@
   "clanWar.earlyEnd": "Dieser Krieg endete vorzeitig, weil einem Klan die Kämpfer ausgegangen sind.",
   "nextFighters": "Nächste Kämpfer",
   "nextFighters.desc": "Du kannst für den bevorstehenden Kampf bis zu 7 Kämpfer auswählen. Wenn keine bestimmt werden, werden sie zufällig gewählt. Sobald ein Kämpfer ausgewählt ist, steht er bis zum Ende des Krieges nicht zur Verfügung.",
+  "nextFighters.noFighters": "Your clan doesn't have any fighters available for the next fight. Recruit some before the next fight or you will loose the war!",
   "day": "Tag {{day}}",
   "fights": "Kämpfe",
   "pinThread": "Thema anheften",
