@@ -119,7 +119,7 @@ export const ClanWarHistoryView = () => {
                         color: eloChange < 0 ? 'error.main' : 'success.main'
                       }}
                     >
-                      {eloChange < 0 ? '-' : eloChange > 0 ? '+' : ''}{eloChange}
+                      {eloChange > 0 ? '+' : ''}{eloChange}
                     </Text>
                   </TableCell>
                 </TableRow>
