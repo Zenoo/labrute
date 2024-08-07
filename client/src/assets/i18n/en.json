@@ -205,7 +205,7 @@
   "warAccepted": "The war has been accepted.",
   "nextFighters": "Next fighters",
   "nextFighters.desc": "You can select up to 7 fighters for the next fight. If none are selected, they will be chosen randomly. Once a fighter is selected, they will be unavailable for the remainder of the war.",
-  "nextFighters.noFighters": "Your clan doesn't have any fighters available for the next fight. Recruit some before the next fight or you will lose the war!",
+  "nextFighters.noFighters": "Your clan doesn't have any fighters available for the next fight. Recruit some before the next fight or you will loose the war!",
   "day": "Day {{day}}",
   "fights": "Fights",
   "pinThread": "Pin thread",
