@@ -358,7 +358,7 @@ const ClanView = () => {
   const declareFriendlyWar = () => {
     if (!brute || !clan || !masterOfClan) return;
 
-    Confirm.open(t('friendlyWar'), t('confirmFriendlyWar'), () => {
+    Confirm.open(t('clanWar.friendly'), t('confirmFriendlyWar'), () => {
       Server.ClanWar.declareFriendlyWar(brute.id, masterOfClan, clan.id).then(() => {
         Alert.open('success', t('friendlyWarDeclared'));
       }).catch(catchError(Alert));
@@ -447,7 +447,7 @@ const ClanView = () => {
           {/* DECLARE FRIENDLY WAR */}
           {user && masterOfClan && masterOfClan !== clan.id && !clanWar && (
             <Link href="#" onClick={declareFriendlyWar}>
-              <Text bold smallCaps>{t('friendlyWar')}</Text>
+              <Text bold smallCaps>{t('clanWar.friendly')}</Text>
             </Link>
           )}
           {user
