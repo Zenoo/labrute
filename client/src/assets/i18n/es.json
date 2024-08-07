@@ -200,6 +200,7 @@
   "clanWar.earlyEnd": "Esta guerra terminó antes de tiempo por falta de peleadores en uno de los clanes.",
   "nextFighters": "Siguientes peleadores",
   "nextFighters.desc": "Puedes seleccionar hasta 7 peleadores para la siguiente batalla. Si no seleccionas ninguno, serán escogidos aleatoriamente. Una vez que un combatiente es seleccionado, no estará disponibles durante el trascurso de la guerra.",
+  "nextFighters.noFighters": "Your clan doesn't have any fighters available for the next fight. Recruit some before the next fight or you will loose the war!",
   "day": "Día {{day}}",
   "fights": "Peleas",
   "pinThread": "Fijar hilo",
