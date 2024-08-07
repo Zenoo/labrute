@@ -199,7 +199,6 @@
   "clanWar.finished": "Beendet",
   "clanWar.friendly": "Friendly war",
   "clanWar.earlyEnd": "Dieser Krieg endete vorzeitig, weil einem Klan die Kämpfer ausgegangen sind.",
-  "friendlyWar": "Friendly war",
   "confirmFriendlyWar": "Do you really want to start a friendly war with this clan ? This will prevent you from participating in any official war for the duration of the friendly war.",
   "friendlyWarDeclared": "A friendly war has been declared.",
   "warCanceled": "The war has been canceled.",
