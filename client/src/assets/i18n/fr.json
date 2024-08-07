@@ -199,7 +199,6 @@
   "clanWar.finished": "Terminée",
   "clanWar.friendly": "Friendly war",
   "clanWar.earlyEnd": "Cette guerre a pris fin plus tôt parce que l'un des clans est à court de combattants.",
-  "friendlyWar": "Friendly war",
   "confirmFriendlyWar": "Do you really want to start a friendly war with this clan ? This will prevent you from participating in any official war for the duration of the friendly war.",
   "friendlyWarDeclared": "A friendly war has been declared.",
   "warCanceled": "The war has been canceled.",
