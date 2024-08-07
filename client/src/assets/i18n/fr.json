@@ -205,7 +205,7 @@
   "warAccepted": "La guerre a été acceptée.",
   "nextFighters": "Prochains combattants",
   "nextFighters.desc": "Vous pouvez sélectionner jusqu'à 7 combattants pour le prochain combat. Si aucun n'est sélectionné, ils seront choisis au hasard. Une fois qu'un combattant est sélectionné, il ne sera pas disponible pour le reste de la guerre.",
-  "nextFighters.noFighters": "Votre clan n'a aucun combattant disponible pour le prochain combat. Recrutez-en avant le prochain combat ou vous perdrez la guerre !",
+  "nextFighters.noFighters": "Your clan doesn't have any fighters available for the next fight. Recruit some before the next fight or you will loose the war!",
   "day": "Jour {{day}}",
   "fights": "Combats",
   "pinThread": "Épingler le sujet",
