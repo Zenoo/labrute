@@ -261,7 +261,7 @@ const TournamentView = () => {
                         onClick={goToFight(fight, index < 6 ? index + 1 : 10 - index + 1)}
                         shadowColor={(bruteName === fight.brute1.name
                           || bruteName === fight.brute2?.name)
-                          ? 'rgba(255, 0, 0, 0.6)'
+                          ? '#006CD1'
                           : undefined}
                         sx={{
                           flexDirection: 'row',
