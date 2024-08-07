@@ -1164,6 +1164,9 @@ const handleClanWars = async (
       throw new Error('No winner for clan war');
     }
 
+    let attackerEloChange = 0;
+    let defenderEloChange = 0;
+
     // No elo for friendly wars
     if (clanWar.type === ClanWarType.official) {
       const attackerElo = getNewElo(
@@ -1176,6 +1179,9 @@ const handleClanWars = async (
         clanWar.attacker.elo,
         clanWar.winnerId === clanWar.defender.id,
       );
+
+      attackerEloChange = attackerElo - clanWar.attacker.elo;
+      defenderEloChange = defenderElo - clanWar.defender.elo;
 
       // Update attacker
       await prisma.clan.update({
@@ -1205,6 +1211,8 @@ const handleClanWars = async (
       where: { id: clanWar.id },
       data: {
         status: ClanWarStatus.finished,
+        attackerEloChange,
+        defenderEloChange,
       },
     });
   }
@@ -1272,7 +1280,6 @@ const handleClanWars = async (
           where: { id: clanWar.id },
           data: {
             status: ClanWarStatus.waitingForRewards,
-            defenderWins: clanWar.duration - clanWar.attackerWins,
             winnerId: clanWar.defenderId,
           },
         });
@@ -1337,7 +1344,6 @@ const handleClanWars = async (
           where: { id: clanWar.id },
           data: {
             status: ClanWarStatus.waitingForRewards,
-            attackerWins: clanWar.duration - clanWar.defenderWins,
             winnerId: clanWar.attackerId,
           },
         });
@@ -1421,9 +1427,11 @@ const handleClanWars = async (
         status: day === clanWar.duration
           ? ClanWarStatus.waitingForRewards
           : ClanWarStatus.ongoing,
-        [`${winner}Wins`]: {
-          increment: 1,
-        },
+        winnerId: day === clanWar.duration
+          ? winner === 'attacker'
+            ? clanWar.attackerId
+            : clanWar.defenderId
+          : null,
       },
     });
   }

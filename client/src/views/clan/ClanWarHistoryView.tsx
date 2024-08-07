@@ -59,58 +59,74 @@ export const ClanWarHistoryView = () => {
               <TableCell>{t('date')}</TableCell>
               <TableCell align="right">{t('attacker')}</TableCell>
               <TableCell align="right">{t('defender')}</TableCell>
+              <TableCell align="right">{t('elo')}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {wars ? wars.map((war) => (
-              <TableRow
-                key={war.id}
-              >
-                <TableCell component="th" scope="row">
-                  {moment.utc(war.date).format('DD/MM/YYYY')}
-                  {war.type === ClanWarType.friendly && (
-                    <Tooltip title={t('clanWar.friendly')}>
-                      <Box component="img" src="/images/clan/friendly.webp" sx={{ width: 8, ml: 0.5 }} />
-                    </Tooltip>
-                  )}
-                </TableCell>
-                <TableCell align="right">
-                  <Link to={`/${bruteName}/clan/${id}/war/${war.id}`}>
+            {wars ? wars.map((war) => {
+              const eloChange = war.attackerId === id
+                ? war.attackerEloChange
+                : war.defenderEloChange;
+
+              return (
+                <TableRow
+                  key={war.id}
+                >
+                  <TableCell component="th" scope="row">
+                    {moment.utc(war.date).format('DD/MM/YYYY')}
+                    {war.type === ClanWarType.friendly && (
+                      <Tooltip title={t('clanWar.friendly')}>
+                        <Box component="img" src="/images/clan/friendly.webp" sx={{ width: 8, ml: 0.5 }} />
+                      </Tooltip>
+                    )}
+                  </TableCell>
+                  <TableCell align="right">
+                    <Link to={`/${bruteName}/clan/${id}/war/${war.id}`}>
+                      <Text
+                        bold
+                        sx={{
+                          color: war.winnerId
+                            ? war.winnerId === war.attackerId
+                              ? 'success.main'
+                              : 'error.main'
+                            : undefined,
+                        }}
+                      >
+                        {war.attacker.name}
+                      </Text>
+                    </Link>
+                  </TableCell>
+                  <TableCell align="right">
+                    <Link to={`/${bruteName}/clan/${id}/war/${war.id}`}>
+                      <Text
+                        bold
+                        sx={{
+                          color: war.winnerId
+                            ? war.winnerId === war.defenderId
+                              ? 'success.main'
+                              : 'error.main'
+                            : undefined,
+                        }}
+                      >
+                        {war.defender.name}
+                      </Text>
+                    </Link>
+                  </TableCell>
+                  <TableCell align="right">
                     <Text
                       bold
                       sx={{
-                        color: war.winnerId
-                          ? war.winnerId === war.attackerId
-                            ? 'success.main'
-                            : 'error.main'
-                          : undefined,
+                        color: eloChange < 0 ? 'error.main' : 'success.main'
                       }}
                     >
-                      {war.attacker.name}
+                      {eloChange < 0 ? '-' : eloChange > 0 ? '+' : ''}{eloChange}
                     </Text>
-                  </Link>
-                </TableCell>
-                <TableCell align="right">
-                  <Link to={`/${bruteName}/clan/${id}/war/${war.id}`}>
-                    <Text
-                      bold
-                      sx={{
-                        color: war.winnerId
-                          ? war.winnerId === war.defenderId
-                            ? 'success.main'
-                            : 'error.main'
-                          : undefined,
-                      }}
-                    >
-                      {war.defender.name}
-                    </Text>
-                  </Link>
-                </TableCell>
-              </TableRow>
-            )) : (
+                  </TableCell>
+                </TableRow>
+              );
+            }) : (
               <TableRow>
-                <TableCell component="th" scope="row" />
-                <TableCell>
+                <TableCell colSpan={4}>
                   <Loader size={20} />
                 </TableCell>
                 <TableCell />

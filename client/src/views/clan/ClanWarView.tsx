@@ -155,7 +155,7 @@ export const ClanWarView = () => {
                     </TableRow>
                   ))}
                   {/* EARLY END */}
-                  {war.fights.length < (war.defenderWins + war.attackerWins)
+                  {(war.fights.length < war.duration)
                     && (war.status === ClanWarStatus.waitingForRewards
                       || war.status === ClanWarStatus.finished)
                     && (

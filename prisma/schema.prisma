@@ -680,21 +680,21 @@ enum ClanWarType {
 }
 
 model ClanWar {
-  id           String            @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  duration     Int               @default(7)
-  type         ClanWarType       @default(official)
-  date         DateTime          @default(now()) @db.Date
-  status       ClanWarStatus     @default(ongoing)
-  attacker     Clan              @relation("ClanWarAttacker", fields: [attackerId], references: [id])
-  attackerId   String            @db.Uuid
-  defender     Clan              @relation("ClanWarDefender", fields: [defenderId], references: [id])
-  defenderId   String            @db.Uuid
-  attackerWins Int               @default(0)
-  defenderWins Int               @default(0)
-  winner       Clan?             @relation("ClanWarWinner", fields: [winnerId], references: [id])
-  winnerId     String?           @db.Uuid
-  fights       Fight[]
-  fighters     ClanWarFighters[]
+  id                String            @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  duration          Int               @default(7)
+  type              ClanWarType       @default(official)
+  date              DateTime          @default(now()) @db.Date
+  status            ClanWarStatus     @default(ongoing)
+  attacker          Clan              @relation("ClanWarAttacker", fields: [attackerId], references: [id])
+  attackerId        String            @db.Uuid
+  defender          Clan              @relation("ClanWarDefender", fields: [defenderId], references: [id])
+  defenderId        String            @db.Uuid
+  attackerEloChange Int               @default(0)
+  defenderEloChange Int               @default(0)
+  winner            Clan?             @relation("ClanWarWinner", fields: [winnerId], references: [id])
+  winnerId          String?           @db.Uuid
+  fights            Fight[]
+  fighters          ClanWarFighters[]
 
   @@index([status])
 }
