@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.71.0](https://github.com/Zenoo/labrute/compare/labrute-v2.70.1...labrute-v2.71.0) (2024-08-07)
+
+
+### Features
+
+* Display clan war used fighters. Fixes [#902](https://github.com/Zenoo/labrute/issues/902) ([81ef8ae](https://github.com/Zenoo/labrute/commit/81ef8ae74ab2cd9b49a98c4c6202af085e71d8c8))
+
+
+### Bug Fixes
+
+* Clickable clan links on clan war view ([d48c349](https://github.com/Zenoo/labrute/commit/d48c3492fd1718cd36c597be81dbc8409db43e09))
+
 ## [2.70.1](https://github.com/Zenoo/labrute/compare/labrute-v2.70.0...labrute-v2.70.1) (2024-08-07)
 
 
