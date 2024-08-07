@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.70.1](https://github.com/Zenoo/labrute/compare/labrute-v2.70.0...labrute-v2.70.1) (2024-08-07)
+
+
+### Bug Fixes
+
+* Clan boss not resetting after first death ([92f84cc](https://github.com/Zenoo/labrute/commit/92f84cca1eb69abab4e85ec2e6401a64a5ccc259))
+* Daily tournament own brute highlight for color blindness ([1dd1602](https://github.com/Zenoo/labrute/commit/1dd160232866712c0e56fe45c44e715602481818))
+* Double minus in elo changes ([e55d58d](https://github.com/Zenoo/labrute/commit/e55d58d5faebd69be20be39d31796b286d846c36))
+* Points not added on clan join ([1ac8ef2](https://github.com/Zenoo/labrute/commit/1ac8ef25a76293893e0fa801c3899fe00912be6b))
+* Store and display clan elo change in wars ([3662c82](https://github.com/Zenoo/labrute/commit/3662c82c99dd6efc7bf1627368de98cc5f8cdd67))
+
 ## [2.70.0](https://github.com/Zenoo/labrute/compare/labrute-v2.69.4...labrute-v2.70.0) (2024-08-07)
 
 
