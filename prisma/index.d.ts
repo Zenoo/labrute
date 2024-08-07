@@ -32876,11 +32876,12 @@ export namespace Prisma {
 
   export type ClanWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    name?: string
     masterId?: string
+    name_deletedAt?: ClanNameDeletedAtCompoundUniqueInput
     AND?: ClanWhereInput | ClanWhereInput[]
     OR?: ClanWhereInput[]
     NOT?: ClanWhereInput | ClanWhereInput[]
+    name?: StringFilter<"Clan"> | string
     deletedAt?: DateTimeNullableFilter<"Clan"> | Date | string | null
     limit?: IntFilter<"Clan"> | number
     points?: IntFilter<"Clan"> | number
@@ -32896,7 +32897,7 @@ export namespace Prisma {
     attacks?: ClanWarListRelationFilter
     defenses?: ClanWarListRelationFilter
     wins?: ClanWarListRelationFilter
-  }, "id" | "id" | "name" | "masterId">
+  }, "id" | "id" | "masterId" | "name_deletedAt">
 
   export type ClanOrderByWithAggregationInput = {
     id?: SortOrder
@@ -36873,6 +36874,11 @@ export namespace Prisma {
 
   export type ClanWarOrderByRelationAggregateInput = {
     _count?: SortOrder
+  }
+
+  export type ClanNameDeletedAtCompoundUniqueInput = {
+    name: string
+    deletedAt: Date | string
   }
 
   export type ClanCountOrderByAggregateInput = {

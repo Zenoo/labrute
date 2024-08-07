@@ -609,7 +609,7 @@ enum BossName {
 
 model Clan {
   id                   String       @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  name                 String       @unique @db.VarChar(255)
+  name                 String       @db.VarChar(255)
   deletedAt            DateTime?    @db.Timestamptz()
   limit                Int          @default(10)
   points               Int          @default(0)
@@ -628,6 +628,7 @@ model Clan {
   wins                 ClanWar[]    @relation("ClanWarWinner")
 
   @@index([deletedAt, name, points])
+  @@unique([name, deletedAt])
 }
 
 model ClanThread {
