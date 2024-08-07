@@ -146,7 +146,7 @@ const CellSocials = ({
         </Grid>
       </Grid>
       {/* FOLLOW BUTTON */}
-      {user && (
+      {user && brute.userId !== user.id && (
         <Tooltip title={isFollowing ? t('unfollow') : t('follow')}>
           <IconButton
             sx={{
