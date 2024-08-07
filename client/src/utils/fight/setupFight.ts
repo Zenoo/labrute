@@ -499,7 +499,7 @@ const setupFight: (
         break;
       }
       case StepType.Death: {
-        death(fighters, step);
+        death(fighters, step, speed, isClanWar);
         break;
       }
       case StepType.Evade: {

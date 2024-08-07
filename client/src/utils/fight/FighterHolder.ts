@@ -645,6 +645,11 @@ export default class FighterHolder {
           this.#triggerEvents(`${this.animation}:hit`);
         }
 
+        // :drop event
+        if (this.animation === 'death' && this.#frame === LOOP_START[this.#animationType].death) {
+          this.#triggerEvents(`${this.animation}:drop`);
+        }
+
         this.#frame++;
 
         // :end event

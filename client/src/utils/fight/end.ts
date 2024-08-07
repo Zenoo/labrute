@@ -11,8 +11,13 @@ const end = (
     throw new Error('Fighter not found');
   }
 
+  // Get team
+  const team = fighters.filter((fighter) => fighter.team === winner.team);
+
   // Set animation to `win`
-  winner.animation.setAnimation('win');
+  team.forEach((fighter) => {
+    fighter.animation.setAnimation('win');
+  });
 };
 
 export default end;
