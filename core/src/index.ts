@@ -304,3 +304,4 @@ export type ClanWarGetHistoryResponse = (ClanWar & {
   defender: Pick<Clan, 'id' | 'name'>,
 })[];
 export type ClanWarGetAvailableFightersResponse = (BruteForRender & Pick<Brute, 'ranking' | 'level'>)[];
+export type ClanWarGetUsedFightersResponse = (BruteForRender & Pick<Brute, 'ranking' | 'level'>)[];

@@ -1,6 +1,7 @@
 import {
   ClanWarCreateResponse, ClanWarGetAvailableFightersResponse, ClanWarGetHistoryResponse,
-  ClanWarGetResponse, ClanWarMaxParticipants, ClanWarUpdateFightersResponse, ExpectedError,
+  ClanWarGetResponse, ClanWarGetUsedFightersResponse, ClanWarMaxParticipants,
+  ClanWarUpdateFightersResponse, ExpectedError,
 } from '@labrute/core';
 import { ClanWarStatus, ClanWarType, PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
@@ -107,12 +108,6 @@ const ClanWars = {
     res: Response<ClanWarGetResponse>,
   ) => {
     try {
-      const user = await auth(prisma, req);
-
-      if (!req.params.clan || !req.params.war) {
-        throw new ExpectedError(translate('missingParameters', user));
-      }
-
       const war = await prisma.clanWar.findFirst({
         where: {
           id: req.params.war,
@@ -158,7 +153,7 @@ const ClanWars = {
       });
 
       if (!war) {
-        throw new ExpectedError(translate('warNotFound', user));
+        throw new ExpectedError(translate('warNotFound'));
       }
 
       res.status(200).send(war);
@@ -171,10 +166,8 @@ const ClanWars = {
     res: Response<ClanWarGetHistoryResponse>,
   ) => {
     try {
-      const user = await auth(prisma, req);
-
       if (!req.params.clan) {
-        throw new ExpectedError(translate('missingParameters', user));
+        throw new ExpectedError(translate('missingParameters'));
       }
 
       const wars = await prisma.clanWar.findMany({
@@ -259,6 +252,76 @@ const ClanWars = {
               ],
             },
           },
+        },
+        select: {
+          id: true,
+          name: true,
+          level: true,
+          ranking: true,
+          gender: true,
+          body: true,
+          colors: true,
+        },
+        orderBy: [
+          { ranking: 'asc' },
+          { level: 'desc' },
+        ],
+      });
+
+      res.status(200).send(brutes);
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  getUsedFighters: (prisma: PrismaClient) => async (
+    req: Request<never, unknown, { clan: string; war: string }>,
+    res: Response<ClanWarGetUsedFightersResponse>,
+  ) => {
+    try {
+      const war = await prisma.clanWar.findFirst({
+        where: {
+          id: req.body.war,
+          OR: [
+            { attackerId: req.body.clan },
+            { defenderId: req.body.clan },
+          ],
+        },
+        select: {
+          id: true,
+          fights: { select: { id: true } },
+        },
+      });
+
+      if (!war) {
+        throw new ExpectedError(translate('warNotFound'));
+      }
+
+      const brutes = await prisma.brute.findMany({
+        where: {
+          clanId: req.body.clan,
+          deletedAt: null,
+          OR: [
+            {
+              inClanWarAttackerFighters: {
+                some: {
+                  AND: [
+                    { clanWarId: war.id },
+                    { day: { lt: war.fights.length + 1 } },
+                  ],
+                },
+              },
+            },
+            {
+              inClanWarDefenderFighters: {
+                some: {
+                  AND: [
+                    { clanWarId: war.id },
+                    { day: { lt: war.fights.length + 1 } },
+                  ],
+                },
+              },
+            },
+          ],
         },
         select: {
           id: true,

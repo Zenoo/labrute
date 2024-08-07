@@ -24,6 +24,7 @@ export const ClanWarView = () => {
   const [brutes, setBrutes] = useState<ClanWarGetAvailableFightersResponse>([]);
   const [dayWatched, setDayWatched] = useState(+(localStorage.getItem(`clanWar-${warId}`) ?? ''));
   const [selectedFighters, setSelectedFighters] = useState<string[]>([]);
+  const [usedBrutes, setUsedBrutes] = useState<ClanWarGetAvailableFightersResponse>([]);
 
   // Fetch clan war
   useEffect(() => {
@@ -51,6 +52,15 @@ export const ClanWarView = () => {
       .then(setBrutes)
       .catch(catchError(Alert));
   }, [Alert, brute, id, owner, warId]);
+
+  // Fetch used brutes
+  useEffect(() => {
+    if (!id || !warId) return;
+
+    Server.ClanWar.getUsedFighters(id, warId)
+      .then(setUsedBrutes)
+      .catch(catchError(Alert));
+  }, [Alert, id, warId]);
 
   // Update day watched (localStorage)
   const updateDayWatched = (day: number) => () => {
@@ -171,7 +181,7 @@ export const ClanWarView = () => {
             {brute?.clanId === id && owner && war.status === ClanWarStatus.ongoing && (
               <>
                 <Text h3 center bold sx={{ my: 1 }}>{t('nextFighters')}</Text>
-                <Text>{t('nextFighters.desc')}</Text>
+                <Text sx={{ mb: 1 }}>{t('nextFighters.desc')}</Text>
 
                 <Box sx={{
                   display: 'flex',
@@ -248,6 +258,79 @@ export const ClanWarView = () => {
                 {brutes.length === 0 && (
                   <MuiAlert variant="filled" severity="warning">{t('nextFighters.noFighters')}</MuiAlert>
                 )}
+              </>
+            )}
+            {war.status === ClanWarStatus.ongoing && usedBrutes.length !== 0 && (
+              <>
+                <Text h3 center bold sx={{ my: 1 }}>{t('breakRoom')}</Text>
+                <Text sx={{ mb: 1 }}>{t('breakRoom.desc')}</Text>
+
+                <Box sx={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  justifyContent: 'center',
+                }}
+                >
+                  {usedBrutes.map((b) => (
+                    <StyledButton
+                      key={b.id}
+                      image="/images/arena/brute-bg.webp"
+                      imageHover="/images/arena/brute-bg-hover.webp"
+                      contrast={false}
+                      shadow={false}
+                      sx={{
+                        width: 190,
+                        height: 102,
+                        mx: 1,
+                        my: 0.5,
+                      }}
+                    >
+                      <Box sx={{
+                        width: 185,
+                        height: 93,
+                        pl: 1,
+                        pt: 0.5,
+                        display: 'inline-block',
+                        textAlign: 'left',
+                        position: 'relative',
+                        overflow: 'hidden',
+                      }}
+                      >
+                        <Box sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                        }}
+                        >
+                          <Box display="flex" alignItems="center">
+                            <Text bold color="secondary" sx={{ display: 'inline' }}>{b.name}</Text>
+                          </Box>
+                        </Box>
+                        <Text bold smallCaps color="text.primary">
+                          {t('level')}
+                          <Text component="span" bold color="secondary"> {b.level}</Text>
+                        </Text>
+                        <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
+                          <Box component="img" src={`/images/rankings/lvl_${b.ranking}.webp`} sx={{ mr: 1 }} />
+                          <Text bold color="text.primary" sx={{ lineHeight: 1 }}>{t(`lvl_${b.ranking}`)}</Text>
+                        </Box>
+                        <Box sx={{
+                          position: 'absolute',
+                          top: 0,
+                          left: 115,
+                          width: 70,
+                          height: 1,
+                        }}
+                        >
+                          <BruteRender
+                            brute={b}
+                            looking="left"
+                          />
+                        </Box>
+                      </Box>
+                    </StyledButton>
+                  ))}
+                </Box>
               </>
             )}
           </>

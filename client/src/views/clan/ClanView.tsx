@@ -333,17 +333,10 @@ const ClanView = () => {
   // Clan wars
 
   // Go to clan war
-  const goToClanWar = (war: ClanGetResponse['attacks'][0] | ClanGetResponse['defenses'][0] | undefined) => () => {
-    if (!brute || !clan || !war) return;
+  const goToClanWar = (clanId: string | undefined, warId: string) => () => {
+    if (!brute || !clanId) return;
 
-    navigate(`/${brute.name}/clan/${clan.id}/war/${war.id}`);
-  };
-
-  // Go to opponent clan
-  const goToOpponentClan = (opponent: ClanGetResponse['defenses'][0]['attacker'] | undefined) => () => {
-    if (!brute || !opponent) return;
-
-    navigate(`/${brute.name}/clan/${opponent.id}`);
+    navigate(`/${brute.name}/clan/${clanId}/war/${warId}`);
   };
 
   const toggleWar = () => {
@@ -509,11 +502,10 @@ const ClanView = () => {
                 imageHover="/images/arena/brute-bg-hover.webp"
                 contrast={false}
                 shadow={false}
-                onClick={clan.attacks.length
-                  ? (owner && brute?.clanId === clan.id)
-                    ? goToClanWar(clan.attacks[0])
-                    : goToOpponentClan(clan)
-                  : goToOpponentClan(clan.defenses[0]?.attacker)}
+                onClick={goToClanWar(
+                  clan.attacks.length ? clan.id : clan.defenses[0]?.attacker.id,
+                  clanWar.id,
+                )}
                 sx={{
                   width: 190,
                   height: 102,
@@ -561,11 +553,10 @@ const ClanView = () => {
                 imageHover="/images/arena/brute-bg-hover.webp"
                 contrast={false}
                 shadow={false}
-                onClick={clan.defenses.length
-                  ? (owner && brute?.clanId === clan.id)
-                    ? goToClanWar(clan.defenses[0])
-                    : goToOpponentClan(clan)
-                  : goToOpponentClan(clan.attacks[0]?.defender)}
+                onClick={goToClanWar(
+                  clan.defenses.length ? clan.id : clan.attacks[0]?.defender.id,
+                  clanWar.id,
+                )}
                 sx={{
                   width: 190,
                   height: 102,
