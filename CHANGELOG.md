@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.71.2](https://github.com/Zenoo/labrute/compare/labrute-v2.71.1...labrute-v2.71.2) (2024-08-07)
+
+
+### Bug Fixes
+
+* Clan creation error ([16590b1](https://github.com/Zenoo/labrute/commit/16590b12b7650c91779dceba16b0753045ff00a3))
+
 ## [2.71.1](https://github.com/Zenoo/labrute/compare/labrute-v2.71.0...labrute-v2.71.1) (2024-08-07)
 
 
