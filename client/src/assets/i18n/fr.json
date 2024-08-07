@@ -206,6 +206,8 @@
   "nextFighters": "Prochains combattants",
   "nextFighters.desc": "Vous pouvez sélectionner jusqu'à 7 combattants pour le prochain combat. Si aucun n'est sélectionné, ils seront choisis au hasard. Une fois qu'un combattant est sélectionné, il ne sera pas disponible pour le reste de la guerre.",
   "nextFighters.noFighters": "Votre clan n'a aucun combattant disponible pour le prochain combat. Recrutez-en avant le prochain combat ou vous perdrez la guerre !",
+  "breakRoom": "Salle de repos",
+  "breakRoom.desc": "Ces combattants se sont déjà battus et sont en train de se reposer. Ils ne seront pas disponibles pour le reste de la guerre.",
   "day": "Jour {{day}}",
   "fights": "Combats",
   "pinThread": "Épingler le sujet",
