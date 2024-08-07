@@ -1133,10 +1133,17 @@ const handleClanWars = async (
     LOGGER.log(`${pendingClanWars.count} pending clan wars started`);
   }
 
+  const today = moment.utc().startOf('day');
+
   // Give rewards for finished clan wars
   const finishedClanWars = await prisma.clanWar.findMany({
     where: {
       status: ClanWarStatus.waitingForRewards,
+      fights: {
+        none: {
+          date: today.toDate(),
+        },
+      },
     },
     select: {
       id: true,
@@ -1216,7 +1223,6 @@ const handleClanWars = async (
     },
   });
 
-  const today = moment.utc().startOf('day');
   let skipped = 0;
 
   for (const clanWar of clanWars) {
@@ -1312,6 +1318,11 @@ const handleClanWars = async (
         where: {
           clanId: clanWar.defenderId,
           deletedAt: null,
+          inClanWarDefenderFighters: {
+            none: {
+              clanWarId: clanWar.id,
+            },
+          },
         },
       });
 

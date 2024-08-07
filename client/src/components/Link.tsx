@@ -10,6 +10,7 @@ export interface LinkProps extends LinkBaseProps {
   onClick?: (e: React.MouseEvent) => void;
   href?: string;
   target?: string;
+  title?: string;
 }
 
 const Link = forwardRef<HTMLAnchorElement, PropsWithChildren<LinkProps>>(({

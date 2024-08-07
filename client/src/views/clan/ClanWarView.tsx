@@ -1,6 +1,6 @@
 import { ClanWarGetAvailableFightersResponse, ClanWarGetResponse } from '@labrute/core';
 import { ClanWarStatus } from '@labrute/prisma';
-import { Box, Paper, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import { Alert as MuiAlert, Box, Paper, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
@@ -245,6 +245,9 @@ export const ClanWarView = () => {
                     </StyledButton>
                   ))}
                 </Box>
+                {brutes.length === 0 && (
+                  <MuiAlert variant="filled" severity="warning">{t('nextFighters.noFighters')}</MuiAlert>
+                )}
               </>
             )}
           </>

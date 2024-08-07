@@ -120,8 +120,8 @@ const ClanRankingView = () => {
                               <Box component="img" src="/images/clan/war.webp" sx={{ width: 12, verticalAlign: 'text-bottom', mr: 0.5 }} />
                             </Tooltip>
                           )}
-                          <Link to={`/${bruteName || ''}/clan/${clan.id}`}>
-                            {clan.name}
+                          <Link to={`/${bruteName || ''}/clan/${clan.id}`} title={clan.name}>
+                            {clan.name.length > 19 ? `${clan.name.slice(0, 19)}...` : clan.name}
                           </Link>
                         </TableCell>
                         <TableCell>{clan.master.name}</TableCell>
