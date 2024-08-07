@@ -11,7 +11,8 @@ const updateClanPoints = async (
   if (operation === 'add') {
     const previousPoints = (previousBrute
       ? getBruteGoldValueFromLevel(previousBrute.level)
-      : 0) + getBruteGoldValueFromRanking(brute.ranking) * 2;
+      + getBruteGoldValueFromRanking(previousBrute.ranking) * 2
+      : 0);
     const newPoints = getBruteGoldValueFromLevel(brute.level)
       + getBruteGoldValueFromRanking(brute.ranking) * 2;
 

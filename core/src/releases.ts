@@ -18,7 +18,7 @@ export const LAST_RELEASE: Release = {
     'When arriving in a fight with a weapon equipped, you now have less chances to throw it away immediately',
     'Brute ranks now have double the impact on clan points',
     'Defender clans who don\'t select their fighters can\'t select them on a later fight anymore',
-    'Removed the follow button on you own brutes cell',
+    'Removed the follow button on your own brutes cell',
   ],
   attachments: [],
 };
