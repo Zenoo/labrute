@@ -279,7 +279,7 @@ const generateFight = async ({
 
   if (team1.bosses?.length || team2.bosses?.length) {
     // Update clan limit and boss if boss slain
-    const bossFighter = fighters.find((fighter) => fighter.type === 'boss');
+    const bossFighter = fightData.fighters.find((fighter) => fighter.type === 'boss');
     if (bossFighter && bossFighter.hp <= 0) {
       const clan = await prisma.clan.findUnique({
         where: { id: clanId },
