@@ -206,6 +206,8 @@
   "nextFighters": "Siguientes peleadores",
   "nextFighters.desc": "Puedes seleccionar hasta 7 peleadores para la siguiente batalla. Si no seleccionas ninguno, serán escogidos aleatoriamente. Una vez que un combatiente es seleccionado, no estará disponibles durante el trascurso de la guerra.",
   "nextFighters.noFighters": "Your clan doesn't have any fighters available for the next fight. Recruit some before the next fight or you will loose the war!",
+  "breakRoom": "Break room",
+  "breakRoom.desc": "Those fighters already fought and are currently resting. They will be unavailable for the remainder of the war.",
   "day": "Día {{day}}",
   "fights": "Peleas",
   "pinThread": "Fijar hilo",
