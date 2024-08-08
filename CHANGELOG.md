@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.71.3](https://github.com/Zenoo/labrute/compare/labrute-v2.71.2...labrute-v2.71.3) (2024-08-08)
+
+
+### Bug Fixes
+
+* Cleanup clan members on deletion ([ece2f51](https://github.com/Zenoo/labrute/commit/ece2f51eaea01dfd92c77535ae807b3fa879ee33))
+* Ignore errors when loading clan page ([c5ac404](https://github.com/Zenoo/labrute/commit/c5ac4046bf391e40d8f193b91a53086ae7bcb404))
+
 ## [2.71.2](https://github.com/Zenoo/labrute/compare/labrute-v2.71.1...labrute-v2.71.2) (2024-08-07)
 
 
