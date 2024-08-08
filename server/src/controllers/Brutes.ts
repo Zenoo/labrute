@@ -2172,7 +2172,8 @@ const Brutes = {
       });
 
       if (!brute) {
-        throw new ExpectedError(translate('bruteNotFound', authed));
+        res.send({ id: null });
+        return;
       }
 
       const clanId = brute.clan?.masterId === brute.id ? brute.clanId : null;
