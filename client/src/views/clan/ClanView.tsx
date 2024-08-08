@@ -52,7 +52,7 @@ const ClanView = () => {
 
   // Fetch brute master of clan id
   useEffect(() => {
-    if (!brute || !clan) return;
+    if (!brute || !clan || !owner) return;
 
     if (clan.masterId === brute.id) {
       setMasterOfClan(clan.id);
@@ -62,7 +62,7 @@ const ClanView = () => {
     Server.Brute.getClanIdAsMaster(brute.name).then((data) => {
       setMasterOfClan(data.id);
     }).catch(catchError(Alert));
-  }, [brute, Alert, clan]);
+  }, [brute, Alert, clan, owner]);
 
   // Go to cell page
   const goToCell = (name: string) => () => {
@@ -537,9 +537,9 @@ const ClanView = () => {
                   }}
                   >
                     <BruteRender
-                      brute={clan.attacks.length
+                      brute={(clan.attacks.length
                         ? clan.master
-                        : clan.defenses[0]?.attacker.master}
+                        : clan.defenses[0]?.attacker.master) ?? undefined}
                       looking="right"
                     />
                   </Box>
@@ -589,9 +589,9 @@ const ClanView = () => {
                   }}
                   >
                     <BruteRender
-                      brute={clan.defenses.length
+                      brute={(clan.defenses.length
                         ? clan.master
-                        : clan.attacks[0]?.defender.master}
+                        : clan.attacks[0]?.defender.master) ?? undefined}
                       looking="left"
                     />
                   </Box>

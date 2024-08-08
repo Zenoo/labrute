@@ -22396,7 +22396,7 @@ export namespace Prisma {
     elo: number
     boss: $Enums.BossName
     damageOnBoss: number
-    masterId: string
+    masterId: string | null
     participateInClanWar: boolean
     _count: ClanCountAggregateOutputType | null
     _avg: ClanAvgAggregateOutputType | null
@@ -22430,7 +22430,7 @@ export namespace Prisma {
     damageOnBoss?: boolean
     masterId?: boolean
     participateInClanWar?: boolean
-    master?: boolean | BruteDefaultArgs<ExtArgs>
+    master?: boolean | Clan$masterArgs<ExtArgs>
     brutes?: boolean | Clan$brutesArgs<ExtArgs>
     joinRequests?: boolean | Clan$joinRequestsArgs<ExtArgs>
     threads?: boolean | Clan$threadsArgs<ExtArgs>
@@ -22452,7 +22452,7 @@ export namespace Prisma {
     damageOnBoss?: boolean
     masterId?: boolean
     participateInClanWar?: boolean
-    master?: boolean | BruteDefaultArgs<ExtArgs>
+    master?: boolean | Clan$masterArgs<ExtArgs>
   }, ExtArgs["result"]["clan"]>
 
   export type ClanSelectScalar = {
@@ -22470,7 +22470,7 @@ export namespace Prisma {
 
   export type ClanOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "deletedAt" | "limit" | "points" | "elo" | "boss" | "damageOnBoss" | "masterId" | "participateInClanWar", ExtArgs["result"]["clan"]>
   export type ClanInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    master?: boolean | BruteDefaultArgs<ExtArgs>
+    master?: boolean | Clan$masterArgs<ExtArgs>
     brutes?: boolean | Clan$brutesArgs<ExtArgs>
     joinRequests?: boolean | Clan$joinRequestsArgs<ExtArgs>
     threads?: boolean | Clan$threadsArgs<ExtArgs>
@@ -22481,13 +22481,13 @@ export namespace Prisma {
     _count?: boolean | ClanCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ClanIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    master?: boolean | BruteDefaultArgs<ExtArgs>
+    master?: boolean | Clan$masterArgs<ExtArgs>
   }
 
   export type $ClanPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Clan"
     objects: {
-      master: Prisma.$BrutePayload<ExtArgs>
+      master: Prisma.$BrutePayload<ExtArgs> | null
       brutes: Prisma.$BrutePayload<ExtArgs>[]
       joinRequests: Prisma.$BrutePayload<ExtArgs>[]
       threads: Prisma.$ClanThreadPayload<ExtArgs>[]
@@ -22505,7 +22505,7 @@ export namespace Prisma {
       elo: number
       boss: $Enums.BossName
       damageOnBoss: number
-      masterId: string
+      masterId: string | null
       participateInClanWar: boolean
     }, ExtArgs["result"]["clan"]>
     composites: {}
@@ -22871,7 +22871,7 @@ export namespace Prisma {
    */
   export interface Prisma__ClanClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    master<T extends BruteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BruteDefaultArgs<ExtArgs>>): Prisma__BruteClient<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    master<T extends Clan$masterArgs<ExtArgs> = {}>(args?: Subset<T, Clan$masterArgs<ExtArgs>>): Prisma__BruteClient<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
     brutes<T extends Clan$brutesArgs<ExtArgs> = {}>(args?: Subset<T, Clan$brutesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     joinRequests<T extends Clan$joinRequestsArgs<ExtArgs> = {}>(args?: Subset<T, Clan$joinRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     threads<T extends Clan$threadsArgs<ExtArgs> = {}>(args?: Subset<T, Clan$threadsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClanThreadPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
@@ -23282,6 +23282,25 @@ export namespace Prisma {
      * Filter which Clans to delete
      */
     where?: ClanWhereInput
+  }
+
+  /**
+   * Clan.master
+   */
+  export type Clan$masterArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Brute
+     */
+    select?: BruteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Brute
+     */
+    omit?: BruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteInclude<ExtArgs> | null
+    where?: BruteWhereInput
   }
 
   /**
@@ -32841,9 +32860,9 @@ export namespace Prisma {
     elo?: IntFilter<"Clan"> | number
     boss?: EnumBossNameFilter<"Clan"> | $Enums.BossName
     damageOnBoss?: IntFilter<"Clan"> | number
-    masterId?: UuidFilter<"Clan"> | string
+    masterId?: UuidNullableFilter<"Clan"> | string | null
     participateInClanWar?: BoolFilter<"Clan"> | boolean
-    master?: XOR<BruteRelationFilter, BruteWhereInput>
+    master?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
     brutes?: BruteListRelationFilter
     joinRequests?: BruteListRelationFilter
     threads?: ClanThreadListRelationFilter
@@ -32862,7 +32881,7 @@ export namespace Prisma {
     elo?: SortOrder
     boss?: SortOrder
     damageOnBoss?: SortOrder
-    masterId?: SortOrder
+    masterId?: SortOrderInput | SortOrder
     participateInClanWar?: SortOrder
     master?: BruteOrderByWithRelationInput
     brutes?: BruteOrderByRelationAggregateInput
@@ -32889,7 +32908,7 @@ export namespace Prisma {
     boss?: EnumBossNameFilter<"Clan"> | $Enums.BossName
     damageOnBoss?: IntFilter<"Clan"> | number
     participateInClanWar?: BoolFilter<"Clan"> | boolean
-    master?: XOR<BruteRelationFilter, BruteWhereInput>
+    master?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
     brutes?: BruteListRelationFilter
     joinRequests?: BruteListRelationFilter
     threads?: ClanThreadListRelationFilter
@@ -32908,7 +32927,7 @@ export namespace Prisma {
     elo?: SortOrder
     boss?: SortOrder
     damageOnBoss?: SortOrder
-    masterId?: SortOrder
+    masterId?: SortOrderInput | SortOrder
     participateInClanWar?: SortOrder
     _count?: ClanCountOrderByAggregateInput
     _avg?: ClanAvgOrderByAggregateInput
@@ -32929,7 +32948,7 @@ export namespace Prisma {
     elo?: IntWithAggregatesFilter<"Clan"> | number
     boss?: EnumBossNameWithAggregatesFilter<"Clan"> | $Enums.BossName
     damageOnBoss?: IntWithAggregatesFilter<"Clan"> | number
-    masterId?: UuidWithAggregatesFilter<"Clan"> | string
+    masterId?: UuidNullableWithAggregatesFilter<"Clan"> | string | null
     participateInClanWar?: BoolWithAggregatesFilter<"Clan"> | boolean
   }
 
@@ -34856,7 +34875,7 @@ export namespace Prisma {
     boss?: $Enums.BossName
     damageOnBoss?: number
     participateInClanWar?: boolean
-    master: BruteCreateNestedOneWithoutMasterOfClanInput
+    master?: BruteCreateNestedOneWithoutMasterOfClanInput
     brutes?: BruteCreateNestedManyWithoutClanInput
     joinRequests?: BruteCreateNestedManyWithoutWantToJoinClanInput
     threads?: ClanThreadCreateNestedManyWithoutClanInput
@@ -34875,7 +34894,7 @@ export namespace Prisma {
     elo?: number
     boss?: $Enums.BossName
     damageOnBoss?: number
-    masterId: string
+    masterId?: string | null
     participateInClanWar?: boolean
     brutes?: BruteUncheckedCreateNestedManyWithoutClanInput
     joinRequests?: BruteUncheckedCreateNestedManyWithoutWantToJoinClanInput
@@ -34896,7 +34915,7 @@ export namespace Prisma {
     boss?: EnumBossNameFieldUpdateOperationsInput | $Enums.BossName
     damageOnBoss?: IntFieldUpdateOperationsInput | number
     participateInClanWar?: BoolFieldUpdateOperationsInput | boolean
-    master?: BruteUpdateOneRequiredWithoutMasterOfClanNestedInput
+    master?: BruteUpdateOneWithoutMasterOfClanNestedInput
     brutes?: BruteUpdateManyWithoutClanNestedInput
     joinRequests?: BruteUpdateManyWithoutWantToJoinClanNestedInput
     threads?: ClanThreadUpdateManyWithoutClanNestedInput
@@ -34915,7 +34934,7 @@ export namespace Prisma {
     elo?: IntFieldUpdateOperationsInput | number
     boss?: EnumBossNameFieldUpdateOperationsInput | $Enums.BossName
     damageOnBoss?: IntFieldUpdateOperationsInput | number
-    masterId?: StringFieldUpdateOperationsInput | string
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     participateInClanWar?: BoolFieldUpdateOperationsInput | boolean
     brutes?: BruteUncheckedUpdateManyWithoutClanNestedInput
     joinRequests?: BruteUncheckedUpdateManyWithoutWantToJoinClanNestedInput
@@ -34935,7 +34954,7 @@ export namespace Prisma {
     elo?: number
     boss?: $Enums.BossName
     damageOnBoss?: number
-    masterId: string
+    masterId?: string | null
     participateInClanWar?: boolean
   }
 
@@ -34960,7 +34979,7 @@ export namespace Prisma {
     elo?: IntFieldUpdateOperationsInput | number
     boss?: EnumBossNameFieldUpdateOperationsInput | $Enums.BossName
     damageOnBoss?: IntFieldUpdateOperationsInput | number
-    masterId?: StringFieldUpdateOperationsInput | string
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     participateInClanWar?: BoolFieldUpdateOperationsInput | boolean
   }
 
@@ -39265,10 +39284,12 @@ export namespace Prisma {
     set?: $Enums.BossName
   }
 
-  export type BruteUpdateOneRequiredWithoutMasterOfClanNestedInput = {
+  export type BruteUpdateOneWithoutMasterOfClanNestedInput = {
     create?: XOR<BruteCreateWithoutMasterOfClanInput, BruteUncheckedCreateWithoutMasterOfClanInput>
     connectOrCreate?: BruteCreateOrConnectWithoutMasterOfClanInput
     upsert?: BruteUpsertWithoutMasterOfClanInput
+    disconnect?: BruteWhereInput | boolean
+    delete?: BruteWhereInput | boolean
     connect?: BruteWhereUniqueInput
     update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutMasterOfClanInput, BruteUpdateWithoutMasterOfClanInput>, BruteUncheckedUpdateWithoutMasterOfClanInput>
   }
@@ -41424,7 +41445,7 @@ export namespace Prisma {
     boss?: $Enums.BossName
     damageOnBoss?: number
     participateInClanWar?: boolean
-    master: BruteCreateNestedOneWithoutMasterOfClanInput
+    master?: BruteCreateNestedOneWithoutMasterOfClanInput
     joinRequests?: BruteCreateNestedManyWithoutWantToJoinClanInput
     threads?: ClanThreadCreateNestedManyWithoutClanInput
     bossDamages?: BossDamageCreateNestedManyWithoutClanInput
@@ -41442,7 +41463,7 @@ export namespace Prisma {
     elo?: number
     boss?: $Enums.BossName
     damageOnBoss?: number
-    masterId: string
+    masterId?: string | null
     participateInClanWar?: boolean
     joinRequests?: BruteUncheckedCreateNestedManyWithoutWantToJoinClanInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutClanInput
@@ -42084,7 +42105,7 @@ export namespace Prisma {
     boss?: $Enums.BossName
     damageOnBoss?: number
     participateInClanWar?: boolean
-    master: BruteCreateNestedOneWithoutMasterOfClanInput
+    master?: BruteCreateNestedOneWithoutMasterOfClanInput
     brutes?: BruteCreateNestedManyWithoutClanInput
     threads?: ClanThreadCreateNestedManyWithoutClanInput
     bossDamages?: BossDamageCreateNestedManyWithoutClanInput
@@ -42102,7 +42123,7 @@ export namespace Prisma {
     elo?: number
     boss?: $Enums.BossName
     damageOnBoss?: number
-    masterId: string
+    masterId?: string | null
     participateInClanWar?: boolean
     brutes?: BruteUncheckedCreateNestedManyWithoutClanInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutClanInput
@@ -42602,7 +42623,7 @@ export namespace Prisma {
     boss?: EnumBossNameFieldUpdateOperationsInput | $Enums.BossName
     damageOnBoss?: IntFieldUpdateOperationsInput | number
     participateInClanWar?: BoolFieldUpdateOperationsInput | boolean
-    master?: BruteUpdateOneRequiredWithoutMasterOfClanNestedInput
+    master?: BruteUpdateOneWithoutMasterOfClanNestedInput
     joinRequests?: BruteUpdateManyWithoutWantToJoinClanNestedInput
     threads?: ClanThreadUpdateManyWithoutClanNestedInput
     bossDamages?: BossDamageUpdateManyWithoutClanNestedInput
@@ -42620,7 +42641,7 @@ export namespace Prisma {
     elo?: IntFieldUpdateOperationsInput | number
     boss?: EnumBossNameFieldUpdateOperationsInput | $Enums.BossName
     damageOnBoss?: IntFieldUpdateOperationsInput | number
-    masterId?: StringFieldUpdateOperationsInput | string
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     participateInClanWar?: BoolFieldUpdateOperationsInput | boolean
     joinRequests?: BruteUncheckedUpdateManyWithoutWantToJoinClanNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutClanNestedInput
@@ -42940,7 +42961,7 @@ export namespace Prisma {
     boss?: EnumBossNameFieldUpdateOperationsInput | $Enums.BossName
     damageOnBoss?: IntFieldUpdateOperationsInput | number
     participateInClanWar?: BoolFieldUpdateOperationsInput | boolean
-    master?: BruteUpdateOneRequiredWithoutMasterOfClanNestedInput
+    master?: BruteUpdateOneWithoutMasterOfClanNestedInput
     brutes?: BruteUpdateManyWithoutClanNestedInput
     threads?: ClanThreadUpdateManyWithoutClanNestedInput
     bossDamages?: BossDamageUpdateManyWithoutClanNestedInput
@@ -42958,7 +42979,7 @@ export namespace Prisma {
     elo?: IntFieldUpdateOperationsInput | number
     boss?: EnumBossNameFieldUpdateOperationsInput | $Enums.BossName
     damageOnBoss?: IntFieldUpdateOperationsInput | number
-    masterId?: StringFieldUpdateOperationsInput | string
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     participateInClanWar?: BoolFieldUpdateOperationsInput | boolean
     brutes?: BruteUncheckedUpdateManyWithoutClanNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutClanNestedInput
@@ -47974,7 +47995,7 @@ export namespace Prisma {
     boss?: $Enums.BossName
     damageOnBoss?: number
     participateInClanWar?: boolean
-    master: BruteCreateNestedOneWithoutMasterOfClanInput
+    master?: BruteCreateNestedOneWithoutMasterOfClanInput
     brutes?: BruteCreateNestedManyWithoutClanInput
     joinRequests?: BruteCreateNestedManyWithoutWantToJoinClanInput
     bossDamages?: BossDamageCreateNestedManyWithoutClanInput
@@ -47992,7 +48013,7 @@ export namespace Prisma {
     elo?: number
     boss?: $Enums.BossName
     damageOnBoss?: number
-    masterId: string
+    masterId?: string | null
     participateInClanWar?: boolean
     brutes?: BruteUncheckedCreateNestedManyWithoutClanInput
     joinRequests?: BruteUncheckedCreateNestedManyWithoutWantToJoinClanInput
@@ -48201,7 +48222,7 @@ export namespace Prisma {
     boss?: EnumBossNameFieldUpdateOperationsInput | $Enums.BossName
     damageOnBoss?: IntFieldUpdateOperationsInput | number
     participateInClanWar?: BoolFieldUpdateOperationsInput | boolean
-    master?: BruteUpdateOneRequiredWithoutMasterOfClanNestedInput
+    master?: BruteUpdateOneWithoutMasterOfClanNestedInput
     brutes?: BruteUpdateManyWithoutClanNestedInput
     joinRequests?: BruteUpdateManyWithoutWantToJoinClanNestedInput
     bossDamages?: BossDamageUpdateManyWithoutClanNestedInput
@@ -48219,7 +48240,7 @@ export namespace Prisma {
     elo?: IntFieldUpdateOperationsInput | number
     boss?: EnumBossNameFieldUpdateOperationsInput | $Enums.BossName
     damageOnBoss?: IntFieldUpdateOperationsInput | number
-    masterId?: StringFieldUpdateOperationsInput | string
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     participateInClanWar?: BoolFieldUpdateOperationsInput | boolean
     brutes?: BruteUncheckedUpdateManyWithoutClanNestedInput
     joinRequests?: BruteUncheckedUpdateManyWithoutWantToJoinClanNestedInput
@@ -48927,7 +48948,7 @@ export namespace Prisma {
     boss?: $Enums.BossName
     damageOnBoss?: number
     participateInClanWar?: boolean
-    master: BruteCreateNestedOneWithoutMasterOfClanInput
+    master?: BruteCreateNestedOneWithoutMasterOfClanInput
     brutes?: BruteCreateNestedManyWithoutClanInput
     joinRequests?: BruteCreateNestedManyWithoutWantToJoinClanInput
     threads?: ClanThreadCreateNestedManyWithoutClanInput
@@ -48945,7 +48966,7 @@ export namespace Prisma {
     elo?: number
     boss?: $Enums.BossName
     damageOnBoss?: number
-    masterId: string
+    masterId?: string | null
     participateInClanWar?: boolean
     brutes?: BruteUncheckedCreateNestedManyWithoutClanInput
     joinRequests?: BruteUncheckedCreateNestedManyWithoutWantToJoinClanInput
@@ -49136,7 +49157,7 @@ export namespace Prisma {
     boss?: EnumBossNameFieldUpdateOperationsInput | $Enums.BossName
     damageOnBoss?: IntFieldUpdateOperationsInput | number
     participateInClanWar?: BoolFieldUpdateOperationsInput | boolean
-    master?: BruteUpdateOneRequiredWithoutMasterOfClanNestedInput
+    master?: BruteUpdateOneWithoutMasterOfClanNestedInput
     brutes?: BruteUpdateManyWithoutClanNestedInput
     joinRequests?: BruteUpdateManyWithoutWantToJoinClanNestedInput
     threads?: ClanThreadUpdateManyWithoutClanNestedInput
@@ -49154,7 +49175,7 @@ export namespace Prisma {
     elo?: IntFieldUpdateOperationsInput | number
     boss?: EnumBossNameFieldUpdateOperationsInput | $Enums.BossName
     damageOnBoss?: IntFieldUpdateOperationsInput | number
-    masterId?: StringFieldUpdateOperationsInput | string
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     participateInClanWar?: BoolFieldUpdateOperationsInput | boolean
     brutes?: BruteUncheckedUpdateManyWithoutClanNestedInput
     joinRequests?: BruteUncheckedUpdateManyWithoutWantToJoinClanNestedInput
@@ -49174,7 +49195,7 @@ export namespace Prisma {
     boss?: $Enums.BossName
     damageOnBoss?: number
     participateInClanWar?: boolean
-    master: BruteCreateNestedOneWithoutMasterOfClanInput
+    master?: BruteCreateNestedOneWithoutMasterOfClanInput
     brutes?: BruteCreateNestedManyWithoutClanInput
     joinRequests?: BruteCreateNestedManyWithoutWantToJoinClanInput
     threads?: ClanThreadCreateNestedManyWithoutClanInput
@@ -49192,7 +49213,7 @@ export namespace Prisma {
     elo?: number
     boss?: $Enums.BossName
     damageOnBoss?: number
-    masterId: string
+    masterId?: string | null
     participateInClanWar?: boolean
     brutes?: BruteUncheckedCreateNestedManyWithoutClanInput
     joinRequests?: BruteUncheckedCreateNestedManyWithoutWantToJoinClanInput
@@ -49217,7 +49238,7 @@ export namespace Prisma {
     boss?: $Enums.BossName
     damageOnBoss?: number
     participateInClanWar?: boolean
-    master: BruteCreateNestedOneWithoutMasterOfClanInput
+    master?: BruteCreateNestedOneWithoutMasterOfClanInput
     brutes?: BruteCreateNestedManyWithoutClanInput
     joinRequests?: BruteCreateNestedManyWithoutWantToJoinClanInput
     threads?: ClanThreadCreateNestedManyWithoutClanInput
@@ -49235,7 +49256,7 @@ export namespace Prisma {
     elo?: number
     boss?: $Enums.BossName
     damageOnBoss?: number
-    masterId: string
+    masterId?: string | null
     participateInClanWar?: boolean
     brutes?: BruteUncheckedCreateNestedManyWithoutClanInput
     joinRequests?: BruteUncheckedCreateNestedManyWithoutWantToJoinClanInput
@@ -49260,7 +49281,7 @@ export namespace Prisma {
     boss?: $Enums.BossName
     damageOnBoss?: number
     participateInClanWar?: boolean
-    master: BruteCreateNestedOneWithoutMasterOfClanInput
+    master?: BruteCreateNestedOneWithoutMasterOfClanInput
     brutes?: BruteCreateNestedManyWithoutClanInput
     joinRequests?: BruteCreateNestedManyWithoutWantToJoinClanInput
     threads?: ClanThreadCreateNestedManyWithoutClanInput
@@ -49278,7 +49299,7 @@ export namespace Prisma {
     elo?: number
     boss?: $Enums.BossName
     damageOnBoss?: number
-    masterId: string
+    masterId?: string | null
     participateInClanWar?: boolean
     brutes?: BruteUncheckedCreateNestedManyWithoutClanInput
     joinRequests?: BruteUncheckedCreateNestedManyWithoutWantToJoinClanInput
@@ -49382,7 +49403,7 @@ export namespace Prisma {
     boss?: EnumBossNameFieldUpdateOperationsInput | $Enums.BossName
     damageOnBoss?: IntFieldUpdateOperationsInput | number
     participateInClanWar?: BoolFieldUpdateOperationsInput | boolean
-    master?: BruteUpdateOneRequiredWithoutMasterOfClanNestedInput
+    master?: BruteUpdateOneWithoutMasterOfClanNestedInput
     brutes?: BruteUpdateManyWithoutClanNestedInput
     joinRequests?: BruteUpdateManyWithoutWantToJoinClanNestedInput
     threads?: ClanThreadUpdateManyWithoutClanNestedInput
@@ -49400,7 +49421,7 @@ export namespace Prisma {
     elo?: IntFieldUpdateOperationsInput | number
     boss?: EnumBossNameFieldUpdateOperationsInput | $Enums.BossName
     damageOnBoss?: IntFieldUpdateOperationsInput | number
-    masterId?: StringFieldUpdateOperationsInput | string
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     participateInClanWar?: BoolFieldUpdateOperationsInput | boolean
     brutes?: BruteUncheckedUpdateManyWithoutClanNestedInput
     joinRequests?: BruteUncheckedUpdateManyWithoutWantToJoinClanNestedInput
@@ -49431,7 +49452,7 @@ export namespace Prisma {
     boss?: EnumBossNameFieldUpdateOperationsInput | $Enums.BossName
     damageOnBoss?: IntFieldUpdateOperationsInput | number
     participateInClanWar?: BoolFieldUpdateOperationsInput | boolean
-    master?: BruteUpdateOneRequiredWithoutMasterOfClanNestedInput
+    master?: BruteUpdateOneWithoutMasterOfClanNestedInput
     brutes?: BruteUpdateManyWithoutClanNestedInput
     joinRequests?: BruteUpdateManyWithoutWantToJoinClanNestedInput
     threads?: ClanThreadUpdateManyWithoutClanNestedInput
@@ -49449,7 +49470,7 @@ export namespace Prisma {
     elo?: IntFieldUpdateOperationsInput | number
     boss?: EnumBossNameFieldUpdateOperationsInput | $Enums.BossName
     damageOnBoss?: IntFieldUpdateOperationsInput | number
-    masterId?: StringFieldUpdateOperationsInput | string
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     participateInClanWar?: BoolFieldUpdateOperationsInput | boolean
     brutes?: BruteUncheckedUpdateManyWithoutClanNestedInput
     joinRequests?: BruteUncheckedUpdateManyWithoutWantToJoinClanNestedInput
@@ -49480,7 +49501,7 @@ export namespace Prisma {
     boss?: EnumBossNameFieldUpdateOperationsInput | $Enums.BossName
     damageOnBoss?: IntFieldUpdateOperationsInput | number
     participateInClanWar?: BoolFieldUpdateOperationsInput | boolean
-    master?: BruteUpdateOneRequiredWithoutMasterOfClanNestedInput
+    master?: BruteUpdateOneWithoutMasterOfClanNestedInput
     brutes?: BruteUpdateManyWithoutClanNestedInput
     joinRequests?: BruteUpdateManyWithoutWantToJoinClanNestedInput
     threads?: ClanThreadUpdateManyWithoutClanNestedInput
@@ -49498,7 +49519,7 @@ export namespace Prisma {
     elo?: IntFieldUpdateOperationsInput | number
     boss?: EnumBossNameFieldUpdateOperationsInput | $Enums.BossName
     damageOnBoss?: IntFieldUpdateOperationsInput | number
-    masterId?: StringFieldUpdateOperationsInput | string
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
     participateInClanWar?: BoolFieldUpdateOperationsInput | boolean
     brutes?: BruteUncheckedUpdateManyWithoutClanNestedInput
     joinRequests?: BruteUncheckedUpdateManyWithoutWantToJoinClanNestedInput

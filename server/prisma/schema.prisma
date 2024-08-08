@@ -616,8 +616,8 @@ model Clan {
   elo                  Int          @default(1000)
   boss                 BossName     @default(GoldClaw)
   damageOnBoss         Int          @default(0)
-  master               Brute        @relation("MasterOfClan", fields: [masterId], references: [id])
-  masterId             String       @unique @db.Uuid
+  master               Brute?       @relation("MasterOfClan", fields: [masterId], references: [id])
+  masterId             String?      @unique @db.Uuid
   participateInClanWar Boolean      @default(false)
   brutes               Brute[]
   joinRequests         Brute[]      @relation("JoinRequests")
@@ -627,8 +627,8 @@ model Clan {
   defenses             ClanWar[]    @relation("ClanWarDefender")
   wins                 ClanWar[]    @relation("ClanWarWinner")
 
-  @@index([deletedAt, name, points])
   @@unique([name, deletedAt])
+  @@index([deletedAt, name, points])
 }
 
 model ClanThread {

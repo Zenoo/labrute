@@ -180,7 +180,7 @@ export type ClanListResponse = (Clan & {
 })[];
 export type ClanCreateResponse = Pick<Clan, 'id' | 'name'>;
 export type ClanGetResponse = Clan & {
-  master: BruteForRender,
+  master: BruteForRender | null,
   brutes: Brute[],
   joinRequests: Brute[],
   bossDamages: (Pick<BossDamage, 'damage'> & {
@@ -188,17 +188,17 @@ export type ClanGetResponse = Clan & {
   })[],
   attacks: (Pick<ClanWar, 'id' | 'status' | 'type'> & {
     defender: Pick<Clan, 'id' | 'name'> & {
-      master: BruteForRender;
+      master: BruteForRender | null;
     },
   })[],
   defenses: (Pick<ClanWar, 'id' | 'status' | 'type'> & {
     attacker: Pick<Clan, 'id' | 'name'> & {
-      master: BruteForRender;
+      master: BruteForRender | null;
     },
   })[],
 };
 export type ClanGetThreadsResponse = {
-  masterId: string,
+  masterId: string | null,
   threads: (ClanThread & {
     creator: Pick<Brute, 'id' | 'name'>,
     posts: (Pick<ClanPost, 'date'> & {

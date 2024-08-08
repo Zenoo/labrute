@@ -706,7 +706,11 @@ const Clans = {
         // Set clan as deleted
         await prisma.clan.update({
           where: { id: clan.id },
-          data: { deletedAt: new Date() },
+          data: {
+            deletedAt: new Date(),
+            master: { disconnect: true },
+            brutes: { disconnect: { id: brute.id } },
+          },
         });
       } else {
         // Update clan
