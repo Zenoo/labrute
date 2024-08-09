@@ -369,6 +369,8 @@ model DestinyChoice {
   stat2      BruteStat?
   stat2Value Int?
   logs       Log[]
+
+  @@index([bruteId, path])
 }
 
 // TOURNAMENTS
