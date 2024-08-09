@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.71.4](https://github.com/Zenoo/labrute/compare/labrute-v2.71.3...labrute-v2.71.4) (2024-08-09)
+
+
+### Bug Fixes
+
+* Clan ranking overlap ([4867123](https://github.com/Zenoo/labrute/commit/486712307464309b326bf92dd09a97bae0f5842d))
+* Disable pets in clan fights ([a4ddb05](https://github.com/Zenoo/labrute/commit/a4ddb0536603412ad73fe442a0d8de37f598e670))
+* Optimize level up choices queries ([b706899](https://github.com/Zenoo/labrute/commit/b706899cd7a594a86c4fe03921d0e3a2f1d5d4aa))
+
 ## [2.71.3](https://github.com/Zenoo/labrute/compare/labrute-v2.71.2...labrute-v2.71.3) (2024-08-08)
 
 
