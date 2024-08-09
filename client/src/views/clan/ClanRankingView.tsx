@@ -70,7 +70,7 @@ const ClanRankingView = () => {
             </Box>
             <Grid container spacing={1} sx={{ mt: 2 }}>
               <Grid item xs={12} md={3} />
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} md={6} zIndex={1}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', my: 1 }}>
                   <Text bold color="text.primary" smallCaps>{t('searchByName')}</Text>
                   <StyledInput
