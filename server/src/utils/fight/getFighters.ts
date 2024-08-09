@@ -191,6 +191,7 @@ type GetFightersParams = {
   team1: Team,
   team2: Team,
   modifiers: FightModifier[],
+  clanFight?: boolean,
 };
 
 const getFighters = async ({
@@ -198,6 +199,7 @@ const getFighters = async ({
   team1,
   team2,
   modifiers,
+  clanFight,
 }: GetFightersParams): Promise<DetailedFighter[]> => {
   const randomWeaponIndex = await ServerState.getRandomWeapon(prisma);
   const randomSkillIndex = await ServerState.getRandomSkill(prisma);
@@ -282,8 +284,8 @@ const getFighters = async ({
 
       fighters.push(fighter);
 
-      // No pets if not 1v1
-      if (team1.brutes.length > 1 || team2.brutes.length > 1) {
+      // No pets in clan fights
+      if (clanFight) {
         continue;
       }
 
