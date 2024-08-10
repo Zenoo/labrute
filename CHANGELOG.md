@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.71.5](https://github.com/Zenoo/labrute/compare/labrute-v2.71.4...labrute-v2.71.5) (2024-08-10)
+
+
+### Bug Fixes
+
+* Don't spawn pets in clan wars ([140ee84](https://github.com/Zenoo/labrute/commit/140ee84d0b23483b0d43ee972559d7c51c850454))
+
 ## [2.71.4](https://github.com/Zenoo/labrute/compare/labrute-v2.71.3...labrute-v2.71.4) (2024-08-09)
 
 
