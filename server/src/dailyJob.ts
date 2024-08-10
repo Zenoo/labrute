@@ -1393,6 +1393,7 @@ const handleClanWars = async (
           modifiers,
           backups: false,
           achievements: true,
+          clanWar: true,
         });
         generatedFight = newGeneratedFight.data;
       } catch (error: unknown) {

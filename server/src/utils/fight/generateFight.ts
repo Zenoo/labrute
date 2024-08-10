@@ -49,6 +49,7 @@ type GenerateFightParams = {
   achievements: boolean;
   tournament?: 'fight' | 'finals';
   clanId?: string;
+  clanWar?: boolean;
 };
 
 const generateFight = async ({
@@ -60,6 +61,7 @@ const generateFight = async ({
   achievements,
   tournament,
   clanId,
+  clanWar,
 }: GenerateFightParams): Promise<GenerateFightResult> => {
   if (team1.brutes?.some((brute) => team2.brutes?.some((b) => b.id === brute.id))) {
     throw new ExpectedError('Attempted to created a fight between the same brutes');
@@ -133,7 +135,7 @@ const generateFight = async ({
     team1: { brutes: team1.brutes ?? [], backups: team1Backups, bosses: team1.bosses ?? [] },
     team2: { brutes: team2.brutes ?? [], backups: team2Backups, bosses: team2.bosses ?? [] },
     modifiers,
-    clanFight: !!clanId,
+    clanFight: clanWar,
   });
 
   const fightData: DetailedFight = {
