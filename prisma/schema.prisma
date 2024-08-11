@@ -398,6 +398,8 @@ model TournamentAchievement {
   date             DateTime        @db.Date
   achievement      AchievementName
   achievementCount Int
+
+  @@unique([achievement, bruteId])
 }
 
 model TournamentGold {
