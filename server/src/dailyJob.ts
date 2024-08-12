@@ -1239,6 +1239,7 @@ const handleClanWars = async (
   let skipped = 0;
 
   for (const clanWar of clanWars) {
+    // TODO: get day from wins, not fights
     const day = clanWar.fights.length + 1;
 
     // Check if a fight was already generated for the day
