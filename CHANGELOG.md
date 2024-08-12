@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.71.7](https://github.com/Zenoo/labrute/compare/labrute-v2.71.6...labrute-v2.71.7) (2024-08-12)
+
+
+### Bug Fixes
+
+* Error when leaving a clan. Fixes [#925](https://github.com/Zenoo/labrute/issues/925) ([d4efbea](https://github.com/Zenoo/labrute/commit/d4efbea2b859c4f16e3203c57e656ced094a5535))
+
 ## [2.71.6](https://github.com/Zenoo/labrute/compare/labrute-v2.71.5...labrute-v2.71.6) (2024-08-12)
 
 
