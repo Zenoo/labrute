@@ -136,7 +136,7 @@ export const ClanWarView = () => {
                     >
                       <TableCell>
                         <Link
-                          to={`/${fight.brute1.name}/fight/${fight.id}`}
+                          to={`fight/${fight.id}`}
                           onClick={updateDayWatched(index + 1)}
                         >
                           {t('day', { day: index + 1 })}
@@ -144,7 +144,7 @@ export const ClanWarView = () => {
                       </TableCell>
                       <TableCell align="right">
                         <Link
-                          to={`/${fight.brute1.name}/fight/${fight.id}`}
+                          to={`fight/${fight.id}`}
                           onClick={updateDayWatched(index + 1)}
                           sx={{
                             fontWeight: 'bold',
@@ -158,7 +158,7 @@ export const ClanWarView = () => {
                       </TableCell>
                       <TableCell align="right">
                         <Link
-                          to={`/${fight.brute1.name}/fight/${fight.id}`}
+                          to={`fight/${fight.id}`}
                           onClick={updateDayWatched(index + 1)}
                           sx={{
                             fontWeight: 'bold',

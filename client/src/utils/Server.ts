@@ -161,6 +161,7 @@ const Server = {
     }, 'POST'),
     cancel: (brute: string, clan: string, war: string) => Fetch<never>('/api/clan/war', { brute, clan, war }, 'DELETE'),
     accept: (brute: string, clan: string, war: string) => Fetch<never>('/api/clan/war/accept', { brute, clan, war }, 'POST'),
+    getFight: (warId: string, fightId: string) => Fetch<FightGetResponse>(`/api/clan/war/${warId}/fight/${fightId}`),
   }
 };
 

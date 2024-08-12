@@ -8,13 +8,15 @@ import Text from '../../components/Text';
 import { AdResult } from '../../utils/ads';
 
 export interface FightMobileViewProps {
-  bruteName: string | undefined;
+  pageTitle?: string;
+  headerUrl?: string;
   ads: AdResult[];
   fight: FightGetResponse | null;
 }
 
 const FightMobileView = ({
-  bruteName,
+  pageTitle,
+  headerUrl,
   ads,
   fight,
 }: FightMobileViewProps) => {
@@ -22,8 +24,8 @@ const FightMobileView = ({
 
   return (
     <Page
-      title={`${bruteName || ''} ${t('MyBrute')}`}
-      headerUrl={`/${bruteName || ''}/cell`}
+      title={`${pageTitle ?? ''} ${t('MyBrute')}`}
+      headerUrl={headerUrl}
     >
       <Paper sx={{ textAlign: 'center' }}>
         {/* FIGHT */}
