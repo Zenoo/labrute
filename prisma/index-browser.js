@@ -363,9 +363,11 @@ exports.Prisma.ClanWarScalarFieldEnum = {
   date: 'date',
   status: 'status',
   attackerId: 'attackerId',
-  defenderId: 'defenderId',
   attackerEloChange: 'attackerEloChange',
+  attackerWins: 'attackerWins',
+  defenderId: 'defenderId',
   defenderEloChange: 'defenderEloChange',
+  defenderWins: 'defenderWins',
   winnerId: 'winnerId'
 };
 

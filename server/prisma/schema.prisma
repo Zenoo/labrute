@@ -689,10 +689,12 @@ model ClanWar {
   status            ClanWarStatus     @default(ongoing)
   attacker          Clan              @relation("ClanWarAttacker", fields: [attackerId], references: [id])
   attackerId        String            @db.Uuid
+  attackerEloChange Int               @default(0)
+  attackerWins      Int               @default(0)
   defender          Clan              @relation("ClanWarDefender", fields: [defenderId], references: [id])
   defenderId        String            @db.Uuid
-  attackerEloChange Int               @default(0)
   defenderEloChange Int               @default(0)
+  defenderWins      Int               @default(0)
   winner            Clan?             @relation("ClanWarWinner", fields: [winnerId], references: [id])
   winnerId          String?           @db.Uuid
   fights            Fight[]

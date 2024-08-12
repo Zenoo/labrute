@@ -1421,15 +1421,23 @@ const handleClanWars = async (
       ? 'attacker'
       : 'defender';
 
+    if (winner === 'attacker') {
+      clanWar.attackerWins++;
+    } else {
+      clanWar.defenderWins++;
+    }
+
     // Update clan war
     await prisma.clanWar.update({
       where: { id: clanWar.id },
       data: {
-        status: day === clanWar.duration
+        status: day >= clanWar.duration
           ? ClanWarStatus.waitingForRewards
           : ClanWarStatus.ongoing,
-        winnerId: day === clanWar.duration
-          ? winner === 'attacker'
+        attackerWins: clanWar.attackerWins,
+        defenderWins: clanWar.defenderWins,
+        winnerId: day >= clanWar.duration
+          ? clanWar.attackerWins > clanWar.defenderWins
             ? clanWar.attackerId
             : clanWar.defenderId
           : null,
