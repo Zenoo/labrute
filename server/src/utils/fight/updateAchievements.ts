@@ -1,4 +1,3 @@
-/* eslint-disable no-await-in-loop */
 import { AchievementsStore, TournamentAchievements } from '@labrute/core';
 import { AchievementName, PrismaClient } from '@labrute/prisma';
 
@@ -7,25 +6,24 @@ const updateAchievements = async (
   store: AchievementsStore,
   isTournamentFight: boolean,
 ) => {
-  const bruteAcheivments = [];
-  const bruteAcheivmentsTournamentRelated = [];
+  const bruteAchievments = [];
+  const bruteAchievmentsTournamentRelated = [];
   for (const [bruteId, bruteStore] of Object.entries(store)) {
     for (const [_name, count] of Object.entries(bruteStore.achievements)) {
-      const name = _name as AchievementName;
       const achievementName = _name as AchievementName;
-      if (isTournamentFight && TournamentAchievements.includes(name)) {
-        bruteAcheivmentsTournamentRelated.push([bruteId, achievementName, count]);
+      if (isTournamentFight && TournamentAchievements.includes(achievementName)) {
+        bruteAchievmentsTournamentRelated.push([bruteId, achievementName, count]);
       } else {
-        bruteAcheivments.push([bruteId, achievementName, count]);
+        bruteAchievments.push([bruteId, achievementName, count]);
       }
     }
   }
 
   try {
-    if (bruteAcheivmentsTournamentRelated.length > 0) {
+    if (bruteAchievmentsTournamentRelated.length > 0) {
       await prisma.$executeRawUnsafe(`
     INSERT INTO "TournamentAchievement"("bruteId", achievement, "achievementCount" , date) VALUES
-    ${bruteAcheivmentsTournamentRelated.map(([bruteId, name, count]) => `('${bruteId}', '${name}', '${count}' , NOW())`).join(', ')}
+    ${bruteAchievmentsTournamentRelated.map(([bruteId, name, count]) => `('${bruteId}', '${name}', '${count}' , NOW())`).join(', ')}
     ON CONFLICT(achievement, "bruteId") DO UPDATE SET "achievementCount" = "TournamentAchievement"."achievementCount" + excluded."achievementCount";
   `);
     }
@@ -34,10 +32,10 @@ const updateAchievements = async (
   }
 
   try {
-    if (bruteAcheivments.length > 0) {
+    if (bruteAchievments.length > 0) {
       await prisma.$executeRawUnsafe(`
     INSERT INTO "Achievement"("bruteId", name, count) VALUES
-    ${bruteAcheivments.map(([bruteId, name, count]) => `('${bruteId}', '${name}', ${count})`).join(', ')}
+    ${bruteAchievments.map(([bruteId, name, count]) => `('${bruteId}', '${name}', ${count})`).join(', ')}
     ON CONFLICT(name, "bruteId") DO UPDATE SET count = CASE WHEN excluded.name =  '${AchievementName.maxDamage}' THEN
                       GREATEST("Achievement".count, excluded.count)
                     ELSE
