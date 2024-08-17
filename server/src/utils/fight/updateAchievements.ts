@@ -21,11 +21,11 @@ const updateAchievements = async (
 
   try {
     if (bruteAchievmentsTournamentRelated.length > 0) {
-      await prisma.$executeRaw`
+      await prisma.$executeRawUnsafe(`
     INSERT INTO "TournamentAchievement"("bruteId", achievement, "achievementCount" , date) VALUES
     ${bruteAchievmentsTournamentRelated.map(([bruteId, name, count]) => `('${bruteId}', '${name}', '${count}' , NOW())`).join(', ')}
     ON CONFLICT(achievement, "bruteId") DO UPDATE SET "achievementCount" = "TournamentAchievement"."achievementCount" + excluded."achievementCount";
-`;
+  `);
     }
   } catch (error) {
     console.error(error);
@@ -33,7 +33,7 @@ const updateAchievements = async (
 
   try {
     if (bruteAchievments.length > 0) {
-      await prisma.$executeRaw`
+      await prisma.$executeRawUnsafe(`
     INSERT INTO "Achievement"("bruteId", name, count) VALUES
     ${bruteAchievments.map(([bruteId, name, count]) => `('${bruteId}', '${name}', ${count})`).join(', ')}
     ON CONFLICT(name, "bruteId") DO UPDATE SET count = CASE WHEN excluded.name =  '${AchievementName.maxDamage}' THEN
@@ -41,7 +41,7 @@ const updateAchievements = async (
                     ELSE
                       "Achievement".count + excluded.count
                     END;
-  `;
+  `);
     }
   } catch (error) {
     console.error(error);
