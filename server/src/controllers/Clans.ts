@@ -647,6 +647,68 @@ const Clans = {
       // Update clan points
       await updateClanPoints(prisma, clan.id, 'remove', brute);
 
+      // Get current clan war
+      const currentWar = await prisma.clanWar.findFirst({
+        where: {
+          OR: [
+            { attackerId: id },
+            { defenderId: id },
+          ],
+          status: ClanWarStatus.ongoing,
+        },
+        select: { id: true, fights: { select: { id: true } } },
+      });
+
+      if (currentWar) {
+        const day = currentWar.fights.length + 1;
+
+        // Get fighters for the current day
+        const fighters = await prisma.clanWarFighters.findFirst({
+          where: {
+            clanWarId: currentWar.id,
+            day,
+            OR: [
+              { attackers: { some: { id: brute.id } } },
+              { defenders: { some: { id: brute.id } } },
+            ],
+          },
+          select: {
+            attackers: { select: { id: true } },
+            defenders: { select: { id: true } },
+          },
+        });
+
+        if (fighters) {
+          // Remove brute from war current fighters
+
+          if (fighters.attackers.some((b) => b.id === brute.id)) {
+            await prisma.clanWarFighters.update({
+              where: {
+                clanWarId_day: {
+                  clanWarId: currentWar.id,
+                  day,
+                },
+              },
+              data: {
+                attackers: { disconnect: { id: brute.id } },
+              },
+            });
+          } else {
+            await prisma.clanWarFighters.update({
+              where: {
+                clanWarId_day: {
+                  clanWarId: currentWar.id,
+                  day,
+                },
+              },
+              data: {
+                defenders: { disconnect: { id: brute.id } },
+              },
+            });
+          }
+        }
+      }
+
       res.status(200).send({ message: 'ok' });
     } catch (error) {
       sendError(res, error);
@@ -724,6 +786,68 @@ const Clans = {
 
         // Update clan points
         await updateClanPoints(prisma, clan.id, 'remove', brute);
+      }
+
+      // Get current clan war
+      const currentWar = await prisma.clanWar.findFirst({
+        where: {
+          OR: [
+            { attackerId: id },
+            { defenderId: id },
+          ],
+          status: ClanWarStatus.ongoing,
+        },
+        select: { id: true, fights: { select: { id: true } } },
+      });
+
+      if (currentWar) {
+        const day = currentWar.fights.length + 1;
+
+        // Get fighters for the current day
+        const fighters = await prisma.clanWarFighters.findFirst({
+          where: {
+            clanWarId: currentWar.id,
+            day,
+            OR: [
+              { attackers: { some: { id: brute.id } } },
+              { defenders: { some: { id: brute.id } } },
+            ],
+          },
+          select: {
+            attackers: { select: { id: true } },
+            defenders: { select: { id: true } },
+          },
+        });
+
+        if (fighters) {
+          // Remove brute from war current fighters
+
+          if (fighters.attackers.some((b) => b.id === brute.id)) {
+            await prisma.clanWarFighters.update({
+              where: {
+                clanWarId_day: {
+                  clanWarId: currentWar.id,
+                  day,
+                },
+              },
+              data: {
+                attackers: { disconnect: { id: brute.id } },
+              },
+            });
+          } else {
+            await prisma.clanWarFighters.update({
+              where: {
+                clanWarId_day: {
+                  clanWarId: currentWar.id,
+                  day,
+                },
+              },
+              data: {
+                defenders: { disconnect: { id: brute.id } },
+              },
+            });
+          }
+        }
       }
 
       res.status(200).send({ message: 'ok' });

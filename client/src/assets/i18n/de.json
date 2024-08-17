@@ -193,6 +193,7 @@
   "clanWarHistory": "Historie der Klankriege",
   "attacker": "Angreifer",
   "defender": "Verteidiger",
+  "W/L": "S/N",
   "clanWar.pending": "Ausstehend",
   "clanWar.ongoing": "Im Gange",
   "clanWar.waitingForRewards": "Belohnungen ausstehend",

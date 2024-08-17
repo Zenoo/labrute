@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.71.7](https://github.com/Zenoo/labrute/compare/labrute-v2.71.6...labrute-v2.71.7) (2024-08-12)
+
+
+### Bug Fixes
+
+* Error when leaving a clan. Fixes [#925](https://github.com/Zenoo/labrute/issues/925) ([d4efbea](https://github.com/Zenoo/labrute/commit/d4efbea2b859c4f16e3203c57e656ced094a5535))
+
+## [2.71.6](https://github.com/Zenoo/labrute/compare/labrute-v2.71.5...labrute-v2.71.6) (2024-08-12)
+
+
+### Bug Fixes
+
+* Display win/loses in clan war history ([65d2353](https://github.com/Zenoo/labrute/commit/65d23536052ae59288f75c69fccc7bda3f770cc6))
+* End clan wars with enough wins. FIxes [#914](https://github.com/Zenoo/labrute/issues/914) ([61a5895](https://github.com/Zenoo/labrute/commit/61a5895b6229a45f0e5c036a2821103bfa3e38b6))
+* New link for clan war fights. FIxes [#918](https://github.com/Zenoo/labrute/issues/918) ([6c2a353](https://github.com/Zenoo/labrute/commit/6c2a3539ae6c5cf082c290f879264d1b103ff871))
+* Remove brute from war fighters on leave/eject. Fixes [#916](https://github.com/Zenoo/labrute/issues/916) ([2178d84](https://github.com/Zenoo/labrute/commit/2178d848f6babc40fd9a9d63cf7c2acc92928f19))
+* Restore brute HP lost from pets in clan wars. Fixes [#915](https://github.com/Zenoo/labrute/issues/915) ([e349120](https://github.com/Zenoo/labrute/commit/e349120786e2ad2cb27286fcd665ffdb4cf9c9d8))
+* Wrong clan war winner. Fixes [#920](https://github.com/Zenoo/labrute/issues/920) ([dc8b763](https://github.com/Zenoo/labrute/commit/dc8b76381aef8de7bf6d7966f79e20c190794c61))
+
 ## [2.71.5](https://github.com/Zenoo/labrute/compare/labrute-v2.71.4...labrute-v2.71.5) (2024-08-10)
 
 

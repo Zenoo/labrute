@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "ClanWar" ADD COLUMN     "attackerWins" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "defenderWins" INTEGER NOT NULL DEFAULT 0;

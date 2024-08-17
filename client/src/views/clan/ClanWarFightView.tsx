@@ -3,20 +3,20 @@ import { Box, Link, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
-import FightComponent from '../components/Arena/FightComponent';
-import BoxBg from '../components/BoxBg';
-import Page from '../components/Page';
-import Text from '../components/Text';
-import { useAlert } from '../hooks/useAlert';
-import { useLanguage } from '../hooks/useLanguage';
-import { getRandomAd } from '../utils/ads';
-import catchError from '../utils/catchError';
-import Server from '../utils/Server';
-import FightMobileView from './mobile/FightMobileView';
+import Server from '../../utils/Server';
+import { useAlert } from '../../hooks/useAlert';
+import { useLanguage } from '../../hooks/useLanguage';
+import { getRandomAd } from '../../utils/ads';
+import FightMobileView from '../mobile/FightMobileView';
+import Page from '../../components/Page';
+import BoxBg from '../../components/BoxBg';
+import Text from '../../components/Text';
+import FightComponent from '../../components/Arena/FightComponent';
+import catchError from '../../utils/catchError';
 
-const FightView = () => {
+const ClanWarFightView = () => {
   const { t } = useTranslation();
-  const { bruteName, fightId } = useParams();
+  const { id, warId, fightId } = useParams();
   const Alert = useAlert();
   const navigate = useNavigate();
   const smallScreen = useMediaQuery('(max-width: 935px)');
@@ -26,24 +26,24 @@ const FightView = () => {
   // Fight data
   const [fight, setFight] = useState<FightGetResponse | null>(null);
 
-  // Fetch fight and brutes
+  // Fetch fight
   useEffect(() => {
     let isSubscribed = true;
     const cleanup = () => { isSubscribed = false; };
 
-    if (!bruteName || !fightId) {
+    if (!id || !warId || !fightId) {
       navigate('/');
       return cleanup;
     }
 
-    Server.Fight.get(bruteName, fightId).then((result) => {
+    Server.ClanWar.getFight(warId, fightId).then((result) => {
       if (isSubscribed) {
         setFight(result);
       }
     }).catch(catchError(Alert));
 
     return cleanup;
-  }, [Alert, bruteName, fightId, navigate]);
+  }, [Alert, fightId, id, navigate, warId]);
 
   // Randomized adverts (must be different)
   const ads = useMemo(() => {
@@ -55,16 +55,15 @@ const FightView = () => {
   if (smallScreen) {
     return (
       <FightMobileView
-        pageTitle={bruteName}
-        headerUrl={`/${bruteName}/cell`}
+        headerUrl=".."
         ads={ads}
         fight={fight}
       />
     );
   }
 
-  return (bruteName && fightId) ? (
-    <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl={`/${bruteName}/cell`}>
+  return (id && fightId) ? (
+    <Page title={t('MyBrute')} headerUrl="..">
       <BoxBg
         src={`/images${mode === 'dark' ? '/dark' : ''}/fight/background.webp`}
         sx={{
@@ -98,4 +97,4 @@ const FightView = () => {
   ) : null;
 };
 
-export default FightView;
+export default ClanWarFightView;

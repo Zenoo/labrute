@@ -213,6 +213,19 @@ const getFighters = async ({
     for (const brute of brutes) {
       const teamSide = teamIndex === 0 ? 'L' : 'R';
 
+      // Restore endurance lost by pets for clan fights, which do not have pets
+      if (clanFight) {
+        for (const petName of brute.pets) {
+          const pet = pets.find((p) => p.name === petName);
+          if (!pet) {
+            throw new Error(`Pet ${petName} not found`);
+          }
+
+          brute.enduranceStat += pet.enduranceMalus;
+          brute.enduranceValue = Math.floor(brute.enduranceStat * brute.enduranceModifier);
+        }
+      }
+
       // Fetch brute stats before handling modifiers,
       // as both depend on the skills, which get modified
       const bruteHP = getFinalHP(brute, randomSkillIndex);

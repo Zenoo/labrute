@@ -1239,6 +1239,7 @@ const handleClanWars = async (
   let skipped = 0;
 
   for (const clanWar of clanWars) {
+    // TODO: get day from wins, not fights
     const day = clanWar.fights.length + 1;
 
     // Check if a fight was already generated for the day
@@ -1421,15 +1422,27 @@ const handleClanWars = async (
       ? 'attacker'
       : 'defender';
 
+    if (winner === 'attacker') {
+      clanWar.attackerWins++;
+    } else {
+      clanWar.defenderWins++;
+    }
+
+    const shouldEnd = (clanWar.defenderWins > (clanWar.duration / 2))
+      || (clanWar.attackerWins > (clanWar.duration / 2))
+      || day >= clanWar.duration;
+
     // Update clan war
     await prisma.clanWar.update({
       where: { id: clanWar.id },
       data: {
-        status: day === clanWar.duration
+        status: shouldEnd
           ? ClanWarStatus.waitingForRewards
           : ClanWarStatus.ongoing,
-        winnerId: day === clanWar.duration
-          ? winner === 'attacker'
+        attackerWins: clanWar.attackerWins,
+        defenderWins: clanWar.defenderWins,
+        winnerId: shouldEnd
+          ? clanWar.attackerWins > clanWar.defenderWins
             ? clanWar.attackerId
             : clanWar.defenderId
           : null,

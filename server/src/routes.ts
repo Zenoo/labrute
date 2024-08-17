@@ -160,4 +160,5 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   app.get('/api/clan/:clan/war/:war', ClanWars.get(prisma));
   app.delete('/api/clan/war', ClanWars.cancel(prisma));
   app.post('/api/clan/war/accept', ClanWars.accept(prisma));
+  app.get('/api/clan/war/:warId/fight/:fightId', ClanWars.getFight(prisma));
 }

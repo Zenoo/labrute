@@ -59,6 +59,7 @@ export const ClanWarHistoryView = () => {
               <TableCell>{t('date')}</TableCell>
               <TableCell align="right">{t('attacker')}</TableCell>
               <TableCell align="right">{t('defender')}</TableCell>
+              <TableCell align="right">{t('W/L')}</TableCell>
               <TableCell align="right">{t('elo')}</TableCell>
             </TableRow>
           </TableHead>
@@ -111,6 +112,13 @@ export const ClanWarHistoryView = () => {
                         {war.defender.name}
                       </Text>
                     </Link>
+                  </TableCell>
+                  <TableCell align="right">
+                    <Text bold>
+                      <Text component="span" bold sx={{ color: 'success.main' }}>{war.defenderId === id ? war.defenderWins : war.attackerWins}</Text>
+                      /
+                      <Text component="span" bold sx={{ color: 'error.main' }}>{war.defenderId === id ? war.attackerWins : war.defenderWins}</Text>
+                    </Text>
                   </TableCell>
                   <TableCell align="right">
                     <Text

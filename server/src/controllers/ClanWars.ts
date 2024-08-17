@@ -2,6 +2,7 @@ import {
   ClanWarCreateResponse, ClanWarGetAvailableFightersResponse, ClanWarGetHistoryResponse,
   ClanWarGetResponse, ClanWarGetUsedFightersResponse, ClanWarMaxParticipants,
   ClanWarUpdateFightersResponse, ExpectedError,
+  FightGetResponse,
 } from '@labrute/core';
 import { ClanWarStatus, ClanWarType, PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
@@ -672,6 +673,41 @@ const ClanWars = {
       res.status(200).send({
         success: true,
       });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  getFight: (prisma: PrismaClient) => async (
+    req: Request<{ warId: string, fightId: string }>,
+    res: Response<FightGetResponse>,
+  ) => {
+    try {
+      if (!req.params.warId || !req.params.fightId) {
+        throw new ExpectedError(translate('missingParameters'));
+      }
+
+      if (!isUuid(req.params.warId) || !isUuid(req.params.fightId)) {
+        throw new ExpectedError(translate('invalidParameters'));
+      }
+
+      // Get fight
+      const fight = await prisma.fight.findFirst({
+        where: {
+          id: req.params.fightId,
+          clanWarId: req.params.warId,
+        },
+        include: {
+          favoritedBy: {
+            select: { id: true },
+          },
+        },
+      });
+
+      if (!fight) {
+        throw new ExpectedError(translate('fightNotFound'));
+      }
+
+      res.send(fight);
     } catch (error) {
       sendError(res, error);
     }

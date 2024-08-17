@@ -193,6 +193,7 @@
   "clanWarHistory": "Historial de guerras de clan",
   "attacker": "Atacante",
   "defender": "Defensor",
+  "W/L": "W/L",
   "clanWar.pending": "Pendiente",
   "clanWar.ongoing": "En curso",
   "clanWar.waitingForRewards": "Esperando las recompensas",

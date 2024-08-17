@@ -36,6 +36,7 @@ import ClanPostView from './views/clan/ClanPostView';
 import ClanRankingView from './views/clan/ClanRankingView';
 import ClanThreadView from './views/clan/ClanThreadView';
 import ClanView from './views/clan/ClanView';
+import ClanWarFightView from './views/clan/ClanWarFightView';
 import { ClanWarHistoryView } from './views/clan/ClanWarHistoryView';
 import { ClanWarView } from './views/clan/ClanWarView';
 
@@ -94,8 +95,19 @@ const routes: RouteObject[] = [
                   { path: 'forum', element: <ClanForumView /> },
                   { path: 'thread/:tid', element: <ClanThreadView /> },
                   { path: 'post/:tid', element: <ClanPostView /> },
-                  { path: 'war/history', element: <ClanWarHistoryView /> },
-                  { path: 'war/:warId', element: <ClanWarView /> },
+                  {
+                    path: 'war',
+                    children: [
+                      { path: 'history', element: <ClanWarHistoryView /> },
+                      {
+                        path: ':warId',
+                        children: [
+                          { path: '', element: <ClanWarView /> },
+                          { path: 'fight/:fightId', element: <ClanWarFightView /> },
+                        ],
+                      },
+                    ],
+                  }
                 ],
               },
             ],
