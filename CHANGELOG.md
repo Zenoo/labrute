@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.71.8](https://github.com/Zenoo/labrute/compare/labrute-v2.71.7...labrute-v2.71.8) (2024-08-18)
+
+
+### Bug Fixes
+
+* Debounce clan search. FIxes [#923](https://github.com/Zenoo/labrute/issues/923) ([76c15d4](https://github.com/Zenoo/labrute/commit/76c15d4bb543159421e244854a70a563d8e9a692))
+* Update own tournament fights color on mobile. Fixes [#929](https://github.com/Zenoo/labrute/issues/929) ([e52a450](https://github.com/Zenoo/labrute/commit/e52a4508691dd8630a482be22dbfa3a1ef771792))
+
 ## [2.71.7](https://github.com/Zenoo/labrute/compare/labrute-v2.71.6...labrute-v2.71.7) (2024-08-12)
 
 
