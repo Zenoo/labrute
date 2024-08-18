@@ -1,5 +1,6 @@
+import { ClanListResponse } from '@labrute/core';
 import { Box, Grid, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useMediaQuery, useTheme } from '@mui/material';
-import React, { useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import FantasyButton from '../../components/FantasyButton';
@@ -9,8 +10,10 @@ import Page from '../../components/Page';
 import StyledInput from '../../components/StyledInput';
 import Text from '../../components/Text';
 import { useBrute } from '../../hooks/useBrute';
-import useStateAsync from '../../hooks/useStateAsync';
+import catchError from '../../utils/catchError';
 import Server from '../../utils/Server';
+import { useAlert } from '../../hooks/useAlert';
+import { ErrorType } from '../../utils/Fetch';
 
 const ClanRankingView = () => {
   const { t } = useTranslation();
@@ -18,12 +21,36 @@ const ClanRankingView = () => {
   const { brute } = useBrute();
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
+  const Alert = useAlert();
 
   const [page, setPage] = React.useState(1);
   const [search, setSearch] = React.useState('');
+  const [clans, setClans] = React.useState<ClanListResponse | null>(null);
 
-  const params = useMemo(() => ({ page, search }), [page, search]);
-  const { data: clans, set: setClans } = useStateAsync(null, Server.Clan.list, params);
+  // Fetch clans (debounce if search not empty)
+  useEffect(() => {
+    const fetchClans = () => {
+      Server.Clan.list({
+        page,
+        search,
+      }).then((response) => {
+        setClans(response);
+      }).catch((error: ErrorType) => {
+        catchError(Alert)(error);
+        setClans([]);
+      });
+    };
+
+    setClans(null);
+
+    if (search) {
+      const debounceTimeout = setTimeout(fetchClans, 1000);
+      return () => clearTimeout(debounceTimeout);
+    }
+
+    fetchClans();
+    return () => { };
+  }, [Alert, page, search]);
 
   const changeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setClans(null);

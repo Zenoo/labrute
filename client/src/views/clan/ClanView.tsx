@@ -855,7 +855,7 @@ const ClanView = () => {
           ))}
         </Box>
         {/* JOIN REQUESTS */}
-        {clan.masterId === brute?.id && !!clan.joinRequests.length && (
+        {owner && clan.masterId === brute?.id && !!clan.joinRequests.length && (
           <>
             <Text bold h4 sx={{ my: 1 }}>{t('joinRequests')}</Text>
             <Table sx={{
