@@ -104,7 +104,7 @@ const TournamentMobileView = ({
                       onClick={goToFight(fight, index + 1)}
                       shadowColor={(bruteName === fight.brute1.name
                         || bruteName === fight.brute2?.name)
-                        ? 'rgba(255, 0, 0, 0.6)'
+                        ? '#006CD1'
                         : undefined}
                       sx={{
                         flexDirection: 'row',
