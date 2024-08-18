@@ -6,101 +6,46 @@ const updateAchievements = async (
   store: AchievementsStore,
   isTournamentFight: boolean,
 ) => {
+  const bruteAchievements = [];
+  const bruteAchievementsTournamentRelated = [];
   for (const [bruteId, bruteStore] of Object.entries(store)) {
     for (const [_name, count] of Object.entries(bruteStore.achievements)) {
-      const name = _name as AchievementName;
-      const isTournamentRelated = TournamentAchievements.includes(name);
-
-      // Tournament fight, delay if achievement is tournament related
-      if (isTournamentFight && isTournamentRelated) {
-        // Get existing delayed achievement
-        const existingAchievement = await prisma.tournamentAchievement.findFirst({
-          where: {
-            achievement: name,
-            bruteId,
-          },
-          select: { id: true, achievementCount: true },
-        });
-
-        if (existingAchievement) {
-          // Update existing delayed achievement
-          await prisma.tournamentAchievement.update({
-            where: {
-              id: existingAchievement.id,
-            },
-            data: {
-              achievementCount: {
-                increment: count,
-              },
-            },
-            select: { id: true },
-          });
-        } else {
-          // Create new delayed achievement
-          await prisma.tournamentAchievement.create({
-            data: {
-              achievement: name,
-              achievementCount: count,
-              bruteId,
-              date: new Date(),
-            },
-            select: { id: true },
-          });
-        }
+      const achievementName = _name as AchievementName;
+      if (isTournamentFight && TournamentAchievements.includes(achievementName)) {
+        bruteAchievementsTournamentRelated.push([bruteId, achievementName, count]);
       } else {
-        // Normal fight or non tournament related achievement, update immediately
-
-        // Get existing achievement
-        const existingAchievement = await prisma.achievement.findFirst({
-          where: {
-            name,
-            bruteId,
-          },
-          select: { id: true, count: true },
-        });
-
-        if (existingAchievement) {
-          // Only update max damage if it's higher
-          if (name === AchievementName.maxDamage) {
-            if ((existingAchievement.count || 0) < count) {
-              await prisma.achievement.update({
-                where: {
-                  id: existingAchievement.id,
-                },
-                data: {
-                  count,
-                },
-                select: { id: true },
-              });
-            }
-          } else {
-            // Update existing achievement
-            await prisma.achievement.update({
-              where: {
-                id: existingAchievement.id,
-              },
-              data: {
-                count: {
-                  increment: count,
-                },
-              },
-              select: { id: true },
-            });
-          }
-        } else {
-          // Create new achievement
-          await prisma.achievement.create({
-            data: {
-              name,
-              count,
-              userId: bruteStore.userId,
-              bruteId,
-            },
-            select: { id: true },
-          });
-        }
+        bruteAchievements.push([bruteId, achievementName, count]);
       }
     }
+  }
+
+  try {
+    if (bruteAchievementsTournamentRelated.length > 0) {
+      await prisma.$executeRawUnsafe(/* sql */`
+        INSERT INTO "TournamentAchievement"("bruteId", achievement, "achievementCount" , date) VALUES
+        ${bruteAchievementsTournamentRelated.map(([bruteId, name, count]) => `('${bruteId}', '${name}', '${count}' , NOW())`).join(', ')}
+        ON CONFLICT(achievement, "bruteId") DO UPDATE SET "achievementCount" = "TournamentAchievement"."achievementCount" + excluded."achievementCount";
+      `);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+
+  try {
+    if (bruteAchievements.length > 0) {
+      await prisma.$executeRawUnsafe(/* sql */`
+        INSERT INTO "Achievement"("bruteId", name, count) VALUES
+        ${bruteAchievements.map(([bruteId, name, count]) => `('${bruteId}', '${name}', ${count})`).join(', ')}
+        ON CONFLICT(name, "bruteId") DO UPDATE SET count = CASE
+        WHEN excluded.name = '${AchievementName.maxDamage}' THEN
+          GREATEST("Achievement".count, excluded.count)
+        ELSE
+          "Achievement".count + excluded.count
+        END;
+      `);
+    }
+  } catch (error) {
+    console.error(error);
   }
 };
 
