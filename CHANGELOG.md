@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.71.9](https://github.com/Zenoo/labrute/compare/labrute-v2.71.8...labrute-v2.71.9) (2024-08-19)
+
+
+### Bug Fixes
+
+* Improve modifier randomness further ([f3fb5fa](https://github.com/Zenoo/labrute/commit/f3fb5faa241cc24192b52915eb2d8b09afac1042))
+* Increase weapon and skill randomness in modifiers ([6e6850e](https://github.com/Zenoo/labrute/commit/6e6850ee0fb445320453ac53ca577e706f8b2ed9))
+
 ## [2.71.8](https://github.com/Zenoo/labrute/compare/labrute-v2.71.7...labrute-v2.71.8) (2024-08-18)
 
 
