@@ -75,53 +75,24 @@ export default class OAuth {
       // Update or store user
       const { user: etwinUser } = self;
 
-      const existingUser = await this.#prisma.user.findFirst({
+      const user = await this.#prisma.user.upsert({
         where: { id: etwinUser.id },
-        select: {
-          id: true,
-          lang: true,
-          bannedAt: true,
-          banReason: true,
+        update: {
+          connexionToken: token.accessToken,
+          name: etwinUser.displayName.current.value,
         },
-      });
-
-      // If user does not exist, create it
-      if (!existingUser) {
-        await this.#prisma.user.create({
-          data: {
-            id: etwinUser.id,
-            connexionToken: token.accessToken,
-            name: etwinUser.displayName.current.value,
-            // 5 free favorite fights
-            inventory: {
-              create: {
-                type: InventoryItemType.favoriteFight,
-                count: 5,
-              },
+        create: {
+          id: etwinUser.id,
+          connexionToken: token.accessToken,
+          name: etwinUser.displayName.current.value,
+          // 5 free favorite fights
+          inventory: {
+            create: {
+              type: InventoryItemType.favoriteFight,
+              count: 5,
             },
           },
-          select: { id: true },
-        });
-      } else {
-        // Check if user is banned
-        if (existingUser.bannedAt) {
-          throw new ExpectedError(translate('bannedAccount', existingUser, { reason: translate(`banReason.${existingUser.banReason || ''}`, existingUser) }));
-        }
-
-        // If user exists, update it
-        await this.#prisma.user.update({
-          where: { id: etwinUser.id },
-          data: {
-            name: etwinUser.displayName.current.value,
-            connexionToken: token.accessToken,
-          },
-          select: { id: true },
-        });
-      }
-
-      // Fetch user data
-      const user = await this.#prisma.user.findFirst({
-        where: { id: etwinUser.id, connexionToken: token.accessToken },
+        },
         include: {
           brutes: {
             where: { deletedAt: null },
@@ -136,7 +107,12 @@ export default class OAuth {
         },
       });
 
-      res.send(user ?? undefined);
+      // Check if user is banned
+      if (user.bannedAt) {
+        throw new ExpectedError(translate('bannedAccount', user, { reason: translate(`banReason.${user.banReason || ''}`, user) }));
+      }
+
+      res.send(user);
     } catch (error) {
       sendError(res, error);
     }
