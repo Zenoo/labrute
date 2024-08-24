@@ -1146,6 +1146,10 @@ const Clans = {
         throw new ExpectedError(translate('missingId', user));
       }
 
+      if (!req.query.page || +req.query.page < 1) {
+        throw new ExpectedError(translate('invalidParameters', user));
+      }
+
       const { id, threadId } = req.params;
 
       const brute = await prisma.brute.findFirst({

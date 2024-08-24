@@ -211,6 +211,10 @@ const Brutes = {
         throw new ExpectedError('Invalid body or colors');
       }
 
+      if (req.body.gender !== Gender.male && req.body.gender !== Gender.female) {
+        throw new ExpectedError(translate('invalidParameters', authed));
+      }
+
       // Check colors validity
       checkColors(authed, req.body.gender, req.body.colors);
 
