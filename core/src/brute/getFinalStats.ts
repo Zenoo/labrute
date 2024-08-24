@@ -1,4 +1,4 @@
-import { Brute } from '@labrute/prisma';
+import { Brute, FightModifier } from '@labrute/prisma';
 import applySkillModifiers from './applySkillModifiers';
 import { getHP } from './getHP';
 import { getTempSkill } from './getTempSkill';
@@ -8,20 +8,22 @@ type BruteStats = Pick<Brute, 'skills' | 'enduranceStat' | 'enduranceModifier' |
 export const getFinalStat = (
   brute: BruteStats,
   stat: 'endurance' | 'strength' | 'agility' | 'speed',
+  modifiers: FightModifier[],
   randomSkillIndex: number | null,
 ) => {
+  const multiplier = stat === 'agility' ? modifiers.includes(FightModifier.doubleAgility) ? 2 : 1 : 1;
   const randomSkill = getTempSkill(brute, randomSkillIndex);
 
   // No random skill, return normal stat
   if (!randomSkill) {
-    return brute[`${stat}Value`];
+    return brute[`${stat}Value`] * multiplier;
   }
 
   // Apply skill modifiers
   const newBrute = applySkillModifiers(brute, randomSkill);
 
   // Return new stat
-  return Math.floor(newBrute[`${stat}Stat`] * newBrute[`${stat}Modifier`]);
+  return Math.floor(newBrute[`${stat}Stat`] * newBrute[`${stat}Modifier`]) * multiplier;
 };
 
 export const getFinalHP = (

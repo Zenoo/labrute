@@ -23,7 +23,7 @@ import catchError from '../utils/catchError';
 const LevelUpView = () => {
   const { t } = useTranslation();
   const { bruteName } = useParams();
-  const { user, updateData, randomSkill } = useAuth();
+  const { user, updateData, randomSkill, modifiers } = useAuth();
   const navigate = useNavigate();
   const Alert = useAlert();
   const smallScreen = useMediaQuery('(max-width: 638px)');
@@ -85,11 +85,11 @@ const LevelUpView = () => {
         <Text bold sx={{ display: 'inline-block', ml: 1, color: StatColor.endurance }}>{t('healthPoints')}</Text>
       </Box>
       {/* STRENGTH */}
-      <CellStats value={getFinalStat(brute, 'strength', randomSkill)} stat="strength" />
+      <CellStats value={getFinalStat(brute, 'strength', modifiers, randomSkill)} stat="strength" />
       {/* AGILITY */}
-      <CellStats value={getFinalStat(brute, 'agility', randomSkill)} stat="agility" />
+      <CellStats value={getFinalStat(brute, 'agility', modifiers, randomSkill)} stat="agility" />
       {/* SPEED */}
-      <CellStats value={getFinalStat(brute, 'speed', randomSkill)} stat="speed" />
+      <CellStats value={getFinalStat(brute, 'speed', modifiers, randomSkill)} stat="speed" />
     </>
   );
 

@@ -45,7 +45,7 @@ const BruteTooltip = ({
   ...rest
 }: BruteTooltipProps) => {
   const { t } = useTranslation();
-  const { randomSkill } = useAuth();
+  const { randomSkill, modifiers } = useAuth();
 
   const target = fighter?.level ? fighter : brute;
   const ranking = fighter ? fighter.rank : brute?.ranking;
@@ -54,13 +54,13 @@ const BruteTooltip = ({
     : brute ? getFinalHP(brute, randomSkill) : 0;
   const strength = fighter
     ? fighter.strength
-    : brute ? getFinalStat(brute, 'strength', randomSkill) : 0;
+    : brute ? getFinalStat(brute, 'strength', modifiers, randomSkill) : 0;
   const agility = fighter
     ? fighter.agility
-    : brute ? getFinalStat(brute, 'agility', randomSkill) : 0;
+    : brute ? getFinalStat(brute, 'agility', modifiers, randomSkill) : 0;
   const speed = fighter
     ? fighter.speed
-    : brute ? getFinalStat(brute, 'speed', randomSkill) : 0;
+    : brute ? getFinalStat(brute, 'speed', modifiers, randomSkill) : 0;
 
   return (
     <Tooltip

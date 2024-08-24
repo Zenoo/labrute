@@ -151,14 +151,9 @@ const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
 
 const handleModifiers = (
   brute: Brute,
-  modifiers: FightModifier[],
   randomWeaponIndex: number | null,
   randomSkillIndex: number | null,
 ) => {
-  if (modifiers.includes(FightModifier.doubleAgility)) {
-    brute.agilityValue *= 2;
-  }
-
   const randomWeaponName = getTempWeapon(brute, randomWeaponIndex);
 
   if (randomWeaponName) {
@@ -229,11 +224,11 @@ const getFighters = async ({
       // Fetch brute stats before handling modifiers,
       // as both depend on the skills, which get modified
       const bruteHP = getFinalHP(brute, randomSkillIndex);
-      const bruteSpeed = getFinalStat(brute, 'speed', randomSkillIndex);
-      const bruteStrength = getFinalStat(brute, 'strength', randomSkillIndex);
-      const bruteAgility = getFinalStat(brute, 'agility', randomSkillIndex);
+      const bruteSpeed = getFinalStat(brute, 'speed', modifiers, randomSkillIndex);
+      const bruteStrength = getFinalStat(brute, 'strength', modifiers, randomSkillIndex);
+      const bruteAgility = getFinalStat(brute, 'agility', modifiers, randomSkillIndex);
 
-      handleModifiers(brute, modifiers, randomWeaponIndex, randomSkillIndex);
+      handleModifiers(brute, randomWeaponIndex, randomSkillIndex);
 
       // Brute stats
       positiveIndex++;
@@ -377,11 +372,11 @@ const getFighters = async ({
       // Fetch backup stats before handling modifiers,
       // as both depend on the skills, which get modified
       const backupHP = getFinalHP(backup, randomSkillIndex);
-      const backupSpeed = getFinalStat(backup, 'speed', randomSkillIndex);
-      const backupStrength = getFinalStat(backup, 'strength', randomSkillIndex);
-      const backupAgility = getFinalStat(backup, 'agility', randomSkillIndex);
+      const backupSpeed = getFinalStat(backup, 'speed', modifiers, randomSkillIndex);
+      const backupStrength = getFinalStat(backup, 'strength', modifiers, randomSkillIndex);
+      const backupAgility = getFinalStat(backup, 'agility', modifiers, randomSkillIndex);
 
-      handleModifiers(backup, modifiers, randomWeaponIndex, randomSkillIndex);
+      handleModifiers(backup, randomWeaponIndex, randomSkillIndex);
 
       spawnedPets++;
       const backupFighter: DetailedFighter = {

@@ -25,7 +25,7 @@ const BruteButton = ({
 }: BruteButtonProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { randomSkill } = useAuth();
+  const { randomSkill, modifiers } = useAuth();
 
   const goTo = () => {
     if (link === null) return;
@@ -94,17 +94,17 @@ const BruteButton = ({
           <Box flexGrow={1} sx={{ ml: 0.5 }}>
             <ArenaStat
               stat={FightStat.STRENGTH}
-              value={getFinalStat(brute, 'strength', randomSkill)}
+              value={getFinalStat(brute, 'strength', modifiers, randomSkill)}
               hideSkillText
             />
             <ArenaStat
               stat={FightStat.AGILITY}
-              value={getFinalStat(brute, 'agility', randomSkill)}
+              value={getFinalStat(brute, 'agility', modifiers, randomSkill)}
               hideSkillText
             />
             <ArenaStat
               stat={FightStat.SPEED}
-              value={getFinalStat(brute, 'speed', randomSkill)}
+              value={getFinalStat(brute, 'speed', modifiers, randomSkill)}
               hideSkillText
             />
           </Box>
