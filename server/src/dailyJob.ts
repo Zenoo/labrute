@@ -1419,8 +1419,8 @@ const handleClanWars = async (
       select: { id: true },
     });
 
-    const winnerId = generatedFight.winner;
-    const winner = attackers.some((brute) => brute.id === winnerId)
+    const winnerName = generatedFight.winner;
+    const winner = attackers.some((brute) => brute.name === winnerName)
       ? 'attacker'
       : 'defender';
 
