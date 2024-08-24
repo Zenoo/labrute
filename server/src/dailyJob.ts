@@ -26,12 +26,12 @@ import {
 } from '@labrute/prisma';
 import moment from 'moment';
 import { DISCORD, LOGGER } from './context.js';
+import { increaseAchievement } from './controllers/Achievements.js';
 import ServerState from './utils/ServerState.js';
+import { resetBrute } from './utils/brute/resetBrute.js';
+import updateClanPoints from './utils/clan/updateClanPoints.js';
 import generateFight from './utils/fight/generateFight.js';
 import shuffle from './utils/shuffle.js';
-import updateClanPoints from './utils/clan/updateClanPoints.js';
-import { resetBrute } from './utils/brute/resetBrute.js';
-import { increaseAchievement } from './controllers/Achievements.js';
 
 const GENERATE_TOURNAMENTS_IN_DEV = false;
 
@@ -1782,6 +1782,7 @@ const handleEventTournament = async (
         level: true,
         ranking: true,
         eventId: true,
+        xp: true,
       },
     });
 

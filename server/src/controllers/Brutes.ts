@@ -1083,6 +1083,7 @@ const Brutes = {
           clanId: true,
           level: true,
           eventId: true,
+          xp: true,
         },
       });
 

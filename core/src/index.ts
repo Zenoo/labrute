@@ -12,7 +12,6 @@ import getMaxFightsPerDay from './brute/getMaxFightsPerDay';
 import getRandomBody from './brute/getRandomBody';
 import getRandomBonus from './brute/getRandomBonus';
 import getRandomColors from './brute/getRandomColors';
-import getXPNeeded from './brute/getXPNeeded';
 import { isNameValid } from './brute/isNameValid';
 import skills from './brute/skills';
 import updateBruteData from './brute/updateBruteData';
@@ -35,6 +34,7 @@ export * from './brute/getHP';
 export * from './brute/getRandomStartingStats';
 export * from './brute/getTempSkill';
 export * from './brute/getTempWeapon';
+export * from './brute/getXPNeeded';
 export * from './brute/getWinsNeededToRankUp';
 export * from './brute/parsers';
 export * from './brute/pets';
@@ -56,7 +56,7 @@ export {
   getMaxFightsPerDay,
   getRandomBody,
   getRandomBonus,
-  getRandomColors, getXPNeeded, hexToRgba, isNameValid, pad, randomBetween, skills,
+  getRandomColors, hexToRgba, isNameValid, pad, randomBetween, skills,
   updateBruteData, Version, weapons,
   weightedRandom
 };

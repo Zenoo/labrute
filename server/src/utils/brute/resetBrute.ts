@@ -5,6 +5,7 @@ import {
   createRandomBruteStats,
   getMaxFightsPerDay,
   getRandomStartingStats,
+  getTotalXP,
   randomItem,
 } from '@labrute/core';
 import {
@@ -22,7 +23,7 @@ import getOpponents from './getOpponents.js';
 type Props = {
   prisma: PrismaClient,
   user?: Pick<User, 'id' | 'lang'>
-  brute: Pick<Brute, 'id' | 'destinyPath' | 'ranking' | 'level' | 'eventId'>,
+  brute: Pick<Brute, 'id' | 'destinyPath' | 'ranking' | 'level' | 'eventId' | 'xp'>,
   free: boolean,
   rankUp?: boolean,
 };
@@ -106,6 +107,8 @@ export const resetBrute = async ({
       ranking: rankUp ? brute.ranking - 1 : brute.ranking,
       canRankUpSince: rankUp ? null : undefined,
       tournamentWins: rankUp ? 0 : undefined,
+      // Restore XP for event brutes
+      xp: brute.eventId ? getTotalXP(brute) : stats.xp,
     },
     include: {
       master: {
