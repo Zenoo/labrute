@@ -1288,11 +1288,15 @@ const breakShield = (fighter: DetailedFighter, opponent: DetailedFighter) => {
   return getFighterStat(fighter, 'disarm') * 100 >= randomBetween(1, 300);
 };
 
-const disarm = (fighter: DetailedFighter, opponent: DetailedFighter) => {
+const disarm = (
+  fighter: DetailedFighter,
+  opponent: DetailedFighter,
+  thrown?: boolean,
+) => {
   // Can't disarm someone if they are not holding a weapon >.>
   if (!opponent.activeWeapon) return false;
 
-  return getFighterStat(fighter, 'disarm') * 100 >= randomBetween(1, 100);
+  return getFighterStat(fighter, 'disarm', thrown ? 'weapon' : undefined) * 100 >= randomBetween(1, 100);
 };
 
 const disarmAttacker = (fighter: DetailedFighter, opponent: DetailedFighter) => {
@@ -1878,6 +1882,25 @@ export const playFighterTurn = (
             damage,
             true,
           );
+
+          // Disarm
+          if (disarm(currentFighter, currentOpponent, true)) {
+            if (currentOpponent.activeWeapon) {
+              // Add disarm step
+              fightData.steps.push({
+                a: StepType.Disarm,
+                f: currentFighter.index,
+                t: currentOpponent.index,
+                w: WeaponByName[currentOpponent.activeWeapon.name],
+              });
+
+              // Remove weapon from opponent
+              currentOpponent.activeWeapon = null;
+
+              // Update disarm stat
+              updateStats(stats, currentFighter.id, 'disarms', 1);
+            }
+          }
         }
 
         // Swap fighters if the weapon was returned
